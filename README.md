@@ -1,5 +1,9 @@
 # Wmoge: Game Engine Tutorial <img align="right" width="10%" src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&sanitize=true">
 
+[![build](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml)
+[![clang format](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml)
+[![docs c/c++](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml)
+
 *Write a game engine, and a game from scratch!*
 
 **"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine.

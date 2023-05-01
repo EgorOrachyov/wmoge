@@ -34,6 +34,13 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
+      - name: install Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        with:
+          vulkan-query-version: 1.3.204.0
+          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-use-cache: true
+
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
@@ -54,6 +61,13 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
+      - name: install Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        with:
+          vulkan-query-version: 1.3.204.0
+          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-use-cache: true
+
       - name: Configure CMake
         run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }}
         env:
@@ -72,6 +86,13 @@ jobs:
           fetch-depth: 0
 
       - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: install Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        with:
+          vulkan-query-version: 1.3.204.0
+          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-use-cache: true
 
       - name: Configure CMake x64
         run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }} -DCMAKE_OSX_ARCHITECTURES=x86_64
