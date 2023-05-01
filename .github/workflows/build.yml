@@ -61,6 +61,18 @@ jobs:
 
       - uses: seanmiddleditch/gha-setup-ninja@master
 
+      - name: install glfw dependencies
+        shell: bash
+        run: |
+          sudo apt-get install -y libxrandr-dev libxinerama-dev xorg-dev
+
+      - name: install glew dependencies
+        shell: bash
+        run: |
+          sudo apt-get install -y libgl1-mesa-dri libgl1-mesa-glx libgl1-mesa-dev
+          sudo apt-get install -y libxmu-dev libxi-dev libgl-dev libglx-dev
+          sudo apt-get install -y libx11-dev
+
       - name: install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
