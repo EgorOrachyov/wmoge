@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<text_file>
+    <section name="first section">
+        <line>Some text in the 1 section</line>
+    </section>
+    <section name="second section">
+        <line>Some text in the 2 section</line>
+    </section>
+</text_file>

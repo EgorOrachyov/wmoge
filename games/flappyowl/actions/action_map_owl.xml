@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<action_map name="owl">
+    <actions>
+        <action name="jump" display_name="owl jump in the air">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>Press</action>
+                    <key>Space</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <action>Press</action>
+                    <joystick>0</joystick>
+                    <joystick_button>ps4:cross</joystick_button>
+                </activation>
+            </activations>
+        </action>
+        <action name="restart" display_name="restart game action">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>Press</action>
+                    <key>Space</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <action>Press</action>
+                    <joystick>0</joystick>
+                    <joystick_button>ps4:cross</joystick_button>
+                </activation>
+            </activations>
+        </action>
+    </actions>
+</action_map>

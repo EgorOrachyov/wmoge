@@ -1,0 +1,17 @@
+# IDE files
+/.idea
+
+# build files
+/cmake-build-debug
+/cmake-build-release
+/cmake-build-relwithdebinfo
+
+# logs, caches and debug data
+template/game/logs
+template/game/debug
+template/game/cache
+
+# logs, caches and debug data
+games/flappyowl/logs
+games/flappyowl/debug
+games/flappyowl/cache

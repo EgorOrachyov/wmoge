@@ -1,0 +1,7 @@
+set(FLAPPYOWL_APP_ICON_RESOURCE)
+
+if (TARGET_WINDOWS)
+    set(FLAPPYOWL_APP_ICON_RESOURCE "${CMAKE_CURRENT_SOURCE_DIR}/owl.rc")
+endif ()
+
+wmoge_game(flappyowl main.cpp ${FLAPPYOWL_APP_ICON_RESOURCE})

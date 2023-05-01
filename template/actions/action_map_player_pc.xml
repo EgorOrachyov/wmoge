@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<action_map name="player (pc)">
+    <actions>
+        <action name="shoot" display_name="player shoot">
+            <activations>
+                <activation>
+                    <device_type>Mouse</device_type>
+                    <action>PressHeld</action>
+                    <mouse_button>Left</mouse_button>
+                </activation>
+            </activations>
+        </action>
+        <action name="jump" display_name="player jump">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>Space</key>
+                </activation>
+            </activations>
+        </action>
+        <action name="left" display_name="player move left">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>A</key>
+                </activation>
+            </activations>
+        </action>
+        <action name="right" display_name="player move right">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>D</key>
+                </activation>
+            </activations>
+        </action>
+        <action name="forward" display_name="player move forward">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>W</key>
+                </activation>
+            </activations>
+        </action>
+        <action name="backward" display_name="player move backward">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>S</key>
+                </activation>
+            </activations>
+        </action>
+    </actions>
+</action_map>

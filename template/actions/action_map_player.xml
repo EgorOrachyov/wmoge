@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<action_map name="player (default)">
+    <actions>
+        <action name="shoot" display_name="player shoot">
+            <activations>
+                <activation>
+                    <device_type>Mouse</device_type>
+                    <action>PressHeld</action>
+                    <mouse_button>Left</mouse_button>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <action>PressHeld</action>
+                    <joystick>0</joystick>
+                    <joystick_button>ps4:r1</joystick_button>
+                </activation>
+            </activations>
+        </action>
+        <action name="jump" display_name="player jump">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>Space</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <action>PressHeld</action>
+                    <joystick>0</joystick>
+                    <joystick_button>ps4:cross</joystick_button>
+                </activation>
+            </activations>
+        </action>
+        <action name="left" display_name="player move left">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>A</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <joystick>0</joystick>
+                    <axis>ps4:axis:l3:h</axis>
+                    <direction>-1.0</direction>
+                    <threshold>0.1</threshold>
+                </activation>
+            </activations>
+        </action>
+        <action name="right" display_name="player move right">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>D</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <joystick>0</joystick>
+                    <axis>ps4:axis:l3:h</axis>
+                    <direction>1.0</direction>
+                    <threshold>0.1</threshold>
+                </activation>
+            </activations>
+        </action>
+        <action name="forward" display_name="player move forward">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>W</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <joystick>0</joystick>
+                    <axis>ps4:axis:l3:v</axis>
+                    <direction>-1.0</direction>
+                    <threshold>0.1</threshold>
+                </activation>
+            </activations>
+        </action>
+        <action name="backward" display_name="player move backward">
+            <activations>
+                <activation>
+                    <device_type>Keyboard</device_type>
+                    <action>PressHeld</action>
+                    <key>S</key>
+                </activation>
+                <activation>
+                    <device_type>Joystick</device_type>
+                    <joystick>0</joystick>
+                    <axis>ps4:axis:l3:v</axis>
+                    <direction>1.0</direction>
+                    <threshold>0.1</threshold>
+                </activation>
+            </activations>
+        </action>
+    </actions>
+</action_map>

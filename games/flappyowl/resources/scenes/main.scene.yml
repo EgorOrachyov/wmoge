@@ -1,0 +1,251 @@
+deps:
+  - "res://sprites/owl"
+  - "res://sprites/background"
+  - "res://fonts/tiltwrap"
+  - "res://effects/sparks"
+  - "res://effects/feathers"
+  - "res://sprites/coin"
+  - "res://sprites/column"
+  - "res://scripts/background"
+  - "res://scripts/ui"
+  - "res://scripts/obstacles"
+  - "res://scripts/owl"
+  - "res://scripts/game"
+  - "res://audio/ambient"
+  - "res://audio/collect"
+  - "res://audio/flap"
+  - "res://audio/gameover"
+  - "res://shaders/font.shader"
+  - "res://shaders/sprite.shader"
+tree:
+  object: "root"
+  components:
+    - component: Spatial2d
+  children:
+    - object: "game"
+      components:
+        - component: Spatial2d
+        - component: ScriptComponent
+          script: "res://scripts/game"
+    - object: "camera"
+      components:
+        - component: Spatial2d
+          pos: "64 36"
+        - component: Camera2d
+          background: "0 0 0 1"
+          screen_space: "128 72"
+          viewport_rect: "0 0 1 1"
+          window: "primary"
+    - object: "ui"
+      components:
+        - component: Spatial2d
+        - component: CanvasLayer
+          layer_id: 0
+        - component: ScriptComponent
+          script: "res://scripts/ui"
+        - component: AudioSource2d
+          stream: "res://audio/gameover"
+          bus: "master"
+          gain: 1.0
+          pitch_scale: 1.0
+      children:
+        - object: "dead"
+          components:
+            - component: Spatial2d
+              pos: "64 41"
+            - component: CanvasText
+              shader: "res://shaders/font.shader"
+              text: "YOU ARE DEAD"
+              font: "res://fonts/tiltwrap"
+              font_size: 15.0
+              tint: "1 0 0 1"
+              alignment: Center
+              is_visible: false
+        - object: "restart"
+          components:
+            - component: Spatial2d
+              pos: "64 31"
+            - component: CanvasText
+              shader: "res://shaders/font.shader"
+              text: "press <space> to restart"
+              font: "res://fonts/tiltwrap"
+              font_size: 6.0
+              tint: "0 0 0 1"
+              alignment: Center
+              is_visible: false
+        - object: "score"
+          components:
+            - component: Spatial2d
+              pos: "1 67"
+            - component: CanvasText
+              shader: "res://shaders/font.shader"
+              text: "score: 0"
+              font: "res://fonts/tiltwrap"
+              font_size: 6.0
+              tint: "1 1 1 1"
+    - object: "background"
+      components:
+        - component: Spatial2d
+        - component: CanvasLayer
+          layer_id: 3
+        - component: SpriteInstance
+          shader: "res://shaders/sprite.shader"
+          sprite: "res://sprites/background"
+        - component: ScriptComponent
+          script: "res://scripts/background"
+        - component: AudioSource2d
+          stream: "res://audio/ambient"
+          bus: "master"
+          gain: 0.1
+          pitch_scale: 0.9
+          loop: true
+          autoplay: true
+    - object: "obstacles"
+      components:
+        - component: Spatial2d
+        - component: CanvasLayer
+          layer_id: 2
+        - component: ScriptComponent
+          script: "res://scripts/obstacles"
+        - component: Particles2d
+          effect: "res://effects/sparks"
+        - component: AudioSource2d
+          stream: "res://audio/collect"
+          bus: "master"
+          gain: 1.0
+          pitch_scale: 2.0
+      children:
+        - object: "obstacle-0"
+          components:
+            - component: Spatial2d
+              pos: "80 36"
+          children:
+            - object: "coin"
+              components:
+                - component: Spatial2d
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/coin"
+                  playing: true
+            - object: "lower"
+              components:
+                - component: Spatial2d
+                  pos: "0 -10"
+                  scale: "1 1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+            - object: "upper"
+              components:
+                - component: Spatial2d
+                  pos: "0 10"
+                  scale: "1 -1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+        - object: "obstacle-1"
+          components:
+            - component: Spatial2d
+              pos: "150 36"
+          children:
+            - object: "coin"
+              components:
+                - component: Spatial2d
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/coin"
+                  playing: true
+            - object: "lower"
+              components:
+                - component: Spatial2d
+                  pos: "0 -10"
+                  scale: "1 1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+            - object: "upper"
+              components:
+                - component: Spatial2d
+                  pos: "0 10"
+                  scale: "1 -1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+        - object: "obstacle-2"
+          components:
+            - component: Spatial2d
+              pos: "220 36"
+          children:
+            - object: "coin"
+              components:
+                - component: Spatial2d
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/coin"
+                  playing: true
+            - object: "lower"
+              components:
+                - component: Spatial2d
+                  pos: "0 -10"
+                  scale: "1 1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+            - object: "upper"
+              components:
+                - component: Spatial2d
+                  pos: "0 10"
+                  scale: "1 -1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+        - object: "obstacle-3"
+          components:
+            - component: Spatial2d
+              pos: "290 36"
+          children:
+            - object: "coin"
+              components:
+                - component: Spatial2d
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/coin"
+                  playing: true
+            - object: "lower"
+              components:
+                - component: Spatial2d
+                  pos: "0 -10"
+                  scale: "1 1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+            - object: "upper"
+              components:
+                - component: Spatial2d
+                  pos: "0 10"
+                  scale: "1 -1.5"
+                - component: SpriteInstance
+                  shader: "res://shaders/sprite.shader"
+                  sprite: "res://sprites/column"
+    - object: "foreground"
+      components:
+        - component: Spatial2d
+        - component: CanvasLayer
+          layer_id: 1
+      children:
+        - object: "owl"
+          components:
+            - component: Spatial2d
+              pos: "20 36"
+            - component: SpriteInstance
+              shader: "res://shaders/sprite.shader"
+              sprite: "res://sprites/owl"
+            - component: ScriptComponent
+              script: "res://scripts/owl"
+            - component: Particles2d
+              effect: "res://effects/feathers"
+            - component: AudioSource2d
+              stream: "res://audio/flap"
+              bus: "master"
+              gain: 0.8
+              pitch_scale: 1.4

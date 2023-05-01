@@ -1,0 +1,53 @@
+/**********************************************************************************/
+/* Wmoge game engine                                                              */
+/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/**********************************************************************************/
+/* MIT License                                                                    */
+/*                                                                                */
+/* Copyright (c) 2023 Egor Orachyov                                               */
+/*                                                                                */
+/* Permission is hereby granted, free of charge, to any person obtaining a copy   */
+/* of this software and associated documentation files (the "Software"), to deal  */
+/* in the Software without restriction, including without limitation the rights   */
+/* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell      */
+/* copies of the Software, and to permit persons to whom the Software is          */
+/* furnished to do so, subject to the following conditions:                       */
+/*                                                                                */
+/* The above copyright notice and this permission notice shall be included in all */
+/* copies or substantial portions of the Software.                                */
+/*                                                                                */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR     */
+/* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,       */
+/* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE    */
+/* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER         */
+/* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  */
+/* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  */
+/* SOFTWARE.                                                                      */
+/**********************************************************************************/
+
+#include "render_camera_2d.hpp"
+
+namespace wmoge {
+
+    void RenderCamera2d::on_view_setup(RenderView* view) {
+        view->set_color_view(true);
+        view->set_overlay_view(true);
+        view->set_depth_view(false);
+        view->set_screen_size(m_screen_space);
+        view->set_screen_camera_mat_inv(m_model_inv);
+        view->set_screen_camera_mat_inv_prev(m_model_inv_prev);
+        view->set_clear_color(m_background);
+        view->set_display(m_window);
+        view->set_viewport_rect(m_viewport_rect);
+    }
+    bool RenderCamera2d::need_update() const {
+        return false;
+    }
+    bool RenderCamera2d::need_render_dynamic() const {
+        return false;
+    }
+    bool RenderCamera2d::need_view() const {
+        return m_is_active;
+    }
+
+}// namespace wmoge

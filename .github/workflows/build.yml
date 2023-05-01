@@ -1,0 +1,80 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+      - release
+      - pre-release
+    paths:
+      - '.github/**'
+      - 'deps/**'
+      - 'engine/**'
+      - 'games/**'
+      - 'template/**'
+      - '.gitignore'
+      - 'CMakeLists.txt'
+  pull_request:
+    branches: [ main ]
+
+env:
+  build_dir: "build"
+  config: "Release"
+  nt: "4"
+
+jobs:
+
+  windows:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - name: Configure CMake
+        run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }}
+
+      - name: Build library sources
+        run: cmake --build ${{ env.build_dir }}
+
+  ubuntu:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Configure CMake
+        run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }}
+        env:
+          CC: gcc-9
+          CXX: g++-9
+
+      - name: Build library sources
+        run: cmake --build ${{ env.build_dir }}
+
+  macos:
+    runs-on: macos-11
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Configure CMake x64
+        run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }} -DCMAKE_OSX_ARCHITECTURES=x86_64
+
+      - name: Build library sources x64
+        run: cmake --build ${{ env.build_dir }}

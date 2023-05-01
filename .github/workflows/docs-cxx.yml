@@ -1,0 +1,28 @@
+name: docs c/c++
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/**'
+      - 'engine/**'
+      - 'Doxyfile'
+      - 'README.md'
+
+jobs:
+  build:
+    # Do not attempt to deploy documentation on forks
+    if: github.repository_owner == 'EgorOrachyov'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Generate documentation
+        uses: mattnotmitt/doxygen-action@v1.3.1
+
+#      - name: Publish to Github Pages
+#        uses: peaceiris/actions-gh-pages@v3
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./html/
