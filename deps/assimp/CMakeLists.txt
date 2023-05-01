@@ -1,6 +1,6 @@
 # Open Asset Import Library (assimp)
 # ----------------------------------------------------------------------
-# Copyright (c) 2006-2022, assimp team
+# Copyright (c) 2006-2023, assimp team
 #
 # All rights reserved.
 #
@@ -56,7 +56,7 @@ IF(ASSIMP_HUNTER_ENABLED)
   add_definitions(-DASSIMP_USE_HUNTER)
 ENDIF()
 
-PROJECT(Assimp VERSION 5.2.4)
+PROJECT(Assimp VERSION 5.2.5)
 
 # All supported options ###############################################
 
@@ -82,10 +82,6 @@ OPTION( ASSIMP_ANDROID_JNIIOSYSTEM
 )
 OPTION( ASSIMP_NO_EXPORT
   "Disable Assimp's export functionality."
-  OFF
-)
-OPTION( ASSIMP_BUILD_ZLIB
-  "Build your own zlib"
   OFF
 )
 OPTION( ASSIMP_BUILD_ASSIMP_TOOLS
@@ -133,6 +129,18 @@ OPTION ( ASSIMP_IGNORE_GIT_HASH
    "Don't call git to get the hash."
    OFF
 )
+
+IF (WIN32)
+  OPTION( ASSIMP_BUILD_ZLIB
+    "Build your own zlib"
+    ON
+  )
+ELSE()
+  OPTION( ASSIMP_BUILD_ZLIB
+    "Build your own zlib"
+    ON
+  )
+ENDIF()
 
 IF (WIN32)
   # Use subset of Windows.h
@@ -262,13 +270,13 @@ IF ((CMAKE_C_COMPILER_ID MATCHES "GNU") AND NOT MINGW)
   ENDIF()
   # hide all not-exported symbols
   IF(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "mips64" )
-	SET(CMAKE_CXX_FLAGS "-mxgot -fvisibility=hidden -fno-strict-aliasing -Wall ${CMAKE_CXX_FLAGS}")
-	SET(CMAKE_C_FLAGS "-fno-strict-aliasing ${CMAKE_C_FLAGS}")
-	SET(LIBSTDC++_LIBRARIES -lstdc++)
+    SET(CMAKE_CXX_FLAGS "-mxgot -fvisibility=hidden -fno-strict-aliasing -Wall ${CMAKE_CXX_FLAGS}")
+    SET(CMAKE_C_FLAGS "-fno-strict-aliasing ${CMAKE_C_FLAGS}")
+    SET(LIBSTDC++_LIBRARIES -lstdc++)
   ELSE()
-	SET(CMAKE_CXX_FLAGS "-fvisibility=hidden -fno-strict-aliasing -Wall ${CMAKE_CXX_FLAGS}")
-	SET(CMAKE_C_FLAGS "-fno-strict-aliasing ${CMAKE_C_FLAGS}")
-	SET(LIBSTDC++_LIBRARIES -lstdc++)
+    SET(CMAKE_CXX_FLAGS "-fvisibility=hidden -fno-strict-aliasing -Wall ${CMAKE_CXX_FLAGS}")
+    SET(CMAKE_C_FLAGS "-fno-strict-aliasing ${CMAKE_C_FLAGS}")
+    SET(LIBSTDC++_LIBRARIES -lstdc++)
   ENDIF()
 ELSEIF(MSVC)
   # enable multi-core compilation with MSVC
@@ -277,13 +285,15 @@ ELSEIF(MSVC)
   ELSE() # msvc
     ADD_COMPILE_OPTIONS(/MP /bigobj /W3 /WX)
   ENDIF()
+  
   # disable "elements of array '' will be default initialized" warning on MSVC2013
   IF(MSVC12)
     ADD_COMPILE_OPTIONS(/wd4351)	
   ENDIF()
-  ADD_COMPILE_OPTIONS(/wd4244) #supress warning for double to float conversion if Double precission is activated
+  # supress warning for double to float conversion if Double precission is activated
+  ADD_COMPILE_OPTIONS(/wd4244) 
   SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_DEBUG /Zi /Od")
-  SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
+  SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
   SET(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG:FULL /PDBALTPATH:%_PDB% /OPT:REF /OPT:ICF")
 ELSEIF (CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
   IF(NOT ASSIMP_HUNTER_ENABLED)
@@ -388,13 +398,6 @@ IF (NOT TARGET uninstall AND ASSIMP_INSTALL)
   ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 ENDIF()
 
-# cmake configuration files
-if(${BUILD_SHARED_LIBS})
-  set(BUILD_LIB_TYPE SHARED)
-else()
-  set(BUILD_LIB_TYPE STATIC)
-endif()
-
 IF( UNIX )
   # Use GNUInstallDirs for Unix predefined directories
   INCLUDE(GNUInstallDirs)
@@ -487,7 +490,11 @@ ELSE()
     FIND_PACKAGE(ZLIB)
   ENDIF()
 
-  IF( NOT ZLIB_FOUND )
+  IF ( NOT ZLIB_FOUND AND NOT ASSIMP_BUILD_ZLIB )
+    message( FATAL_ERROR
+      "Build configured with -DASSIMP_BUILD_ZLIB=OFF but unable to find zlib"
+    )
+  ELSEIF( NOT ZLIB_FOUND )
     MESSAGE(STATUS "compiling zlib from sources")
     INCLUDE(CheckIncludeFile)
     INCLUDE(CheckTypeSize)
@@ -560,7 +567,11 @@ IF (ASSIMP_BUILD_NONFREE_C4D_IMPORTER)
     SET(C4D_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/contrib/Cineware/includes")
 
     # pick the correct prebuilt library
-    IF(MSVC15)
+    IF(MSVC143)
+      SET(C4D_LIB_POSTFIX "_2022")
+    ELSEIF(MSV142)
+      SET(C4D_LIB_POSTFIX "_2019")
+    ELSEIF(MSVC15)
       SET(C4D_LIB_POSTFIX "_2017")
     ELSEIF(MSVC14)
       SET(C4D_LIB_POSTFIX "_2015")
@@ -572,7 +583,7 @@ IF (ASSIMP_BUILD_NONFREE_C4D_IMPORTER)
       SET(C4D_LIB_POSTFIX "_2010")
     ELSE()
       MESSAGE( FATAL_ERROR
-        "C4D is currently only supported with MSVC 10, 11, 12, 14"
+        "C4D is currently only supported with MSVC 10, 11, 12, 14, 14.2, 14.3"
       )
     ENDIF()
 
@@ -804,6 +815,10 @@ if(WIN32)
       SET(ASSIMP_MSVC_VERSION "vc140")
     ELSEIF(MSVC15)
       SET(ASSIMP_MSVC_VERSION "vc141")
+    ELSEIF(MSV142)
+      SET(ASSIMP_MSVC_VERSION "vc142")
+    ELSEIF(MSVC143)
+      SET(ASSIMP_MSVC_VERSION "vc143")
     ENDIF()
   ENDIF()
 

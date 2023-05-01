@@ -28,6 +28,7 @@
 #ifndef WMOGE_COMPRESSION_HPP
 #define WMOGE_COMPRESSION_HPP
 
+#include <cinttypes>
 #include <vector>
 
 namespace wmoge {

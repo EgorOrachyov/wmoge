@@ -32,7 +32,6 @@
 #include "core/string_id.hpp"
 #include "render/shader_variant.hpp"
 #include "resource/mesh.hpp"
-#include "resource/shader.hpp"
 
 #include <sstream>
 #include <string>
@@ -46,7 +45,7 @@ namespace wmoge {
      */
     class ShaderBuilder {
     public:
-        ShaderBuilder& set_shader(Shader* shader);
+        ShaderBuilder& set_shader(class Shader* shader);
         ShaderBuilder& set_key(StringId key);
         ShaderBuilder& set_attribs(MeshAttribs mesh_attribs);
         ShaderBuilder& set_material_bindings(int first_buffer, int first_texture);
@@ -63,7 +62,7 @@ namespace wmoge {
         MeshAttribs    get_mesh_attribs();
 
     private:
-        Shader*           m_shader;
+        class Shader*     m_shader;
         StringId          m_key;
         std::stringstream m_vertex;
         std::stringstream m_fragment;

@@ -40,7 +40,6 @@
 
 #include <cassert>
 #include <vector>
-#include <xutility>
 
 namespace wmoge {
 

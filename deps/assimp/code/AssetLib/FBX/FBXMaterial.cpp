@@ -138,20 +138,6 @@ Material::Material(uint64_t id, const Element& element, const Document& doc, con
 // ------------------------------------------------------------------------------------------------
 Material::~Material() = default;
 
-    aiVector2D uvTrans;
-    aiVector2D uvScaling;
-    ai_real    uvRotation;
-
-    std::string type;
-    std::string relativeFileName;
-    std::string fileName;
-    std::string alphaSource;
-    std::shared_ptr<const PropertyTable> props;
-
-    unsigned int crop[4]{};
-
-    const Video* media;
-
 // ------------------------------------------------------------------------------------------------
 Texture::Texture(uint64_t id, const Element& element, const Document& doc, const std::string& name) :
         Object(id,element,name),
@@ -292,10 +278,10 @@ void LayeredTexture::fillTexture(const Document& doc) {
 }
 
 // ------------------------------------------------------------------------------------------------
-Video::Video(uint64_t id, const Element& element, const Document& doc, const std::string& name) :
-        Object(id,element,name),
+Video::Video(uint64_t id, const Element &element, const Document &doc, const std::string &name) :
+        Object(id, element, name),
         contentLength(0),
-        content(0) {
+        content(nullptr) {
     const Scope& sc = GetRequiredScope(element);
 
     const Element* const Type = sc["Type"];
@@ -379,7 +365,6 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
 
     props = GetPropertyTable(doc,"Video.FbxVideo",element,sc);
 }
-
 
 Video::~Video() {
     delete[] content;

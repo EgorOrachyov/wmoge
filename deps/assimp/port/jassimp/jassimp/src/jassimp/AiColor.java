@@ -58,7 +58,7 @@ public final class AiColor {
     /**
      * Offset into m_buffer. 
      */
-    private final int m_translation;
+    private final int m_offset;
 
     /**
      * Constructor.
@@ -68,7 +68,7 @@ public final class AiColor {
      */
     public AiColor(ByteBuffer buffer, int offset) {
         m_buffer = buffer;
-        m_translation = offset;
+        m_offset = offset;
     }
     
     
@@ -78,7 +78,7 @@ public final class AiColor {
      * @return the red component
      */
     public float getRed() {
-        return m_buffer.getFloat(m_translation);
+        return m_buffer.getFloat(m_offset);
     }
     
     
@@ -88,7 +88,7 @@ public final class AiColor {
      * @return the green component
      */
     public float getGreen() {
-        return m_buffer.getFloat(m_translation + 4);
+        return m_buffer.getFloat(m_offset + 4);
     }
     
     
@@ -98,7 +98,7 @@ public final class AiColor {
      * @return the blue component
      */
     public float getBlue() {
-        return m_buffer.getFloat(m_translation + 8);
+        return m_buffer.getFloat(m_offset + 8);
     }
     
     
@@ -108,7 +108,7 @@ public final class AiColor {
      * @return the alpha component
      */
     public float getAlpha() {
-        return m_buffer.getFloat(m_translation + 12);
+        return m_buffer.getFloat(m_offset + 12);
     }
     
     
@@ -118,7 +118,7 @@ public final class AiColor {
      * @param red the new value
      */
     public void setRed(float red) {
-        m_buffer.putFloat(m_translation, red);
+        m_buffer.putFloat(m_offset, red);
     }
     
     
@@ -128,7 +128,7 @@ public final class AiColor {
      * @param green the new value
      */
     public void setGreen(float green) {
-        m_buffer.putFloat(m_translation + 4, green);
+        m_buffer.putFloat(m_offset + 4, green);
     }
     
     
@@ -138,7 +138,7 @@ public final class AiColor {
      * @param blue the new value
      */
     public void setBlue(float blue) {
-        m_buffer.putFloat(m_translation + 8, blue);
+        m_buffer.putFloat(m_offset + 8, blue);
     }
     
     
@@ -148,7 +148,7 @@ public final class AiColor {
      * @param alpha the new value
      */
     public void setAlpha(float alpha) {
-        m_buffer.putFloat(m_translation + 12, alpha);
+        m_buffer.putFloat(m_offset + 12, alpha);
     }
     
 

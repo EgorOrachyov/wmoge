@@ -67,7 +67,7 @@ public final class AiVector {
         }
         
         m_buffer = buffer;
-        m_translation = offset;
+        m_offset = offset;
         m_numComponents = numComponents;
     }
     
@@ -78,7 +78,7 @@ public final class AiVector {
      * @return the x value
      */
     public float getX() {
-        return m_buffer.getFloat(m_translation);
+        return m_buffer.getFloat(m_offset);
     }
     
     
@@ -95,7 +95,7 @@ public final class AiVector {
                     "vector has only 1 component");
         }
         
-        return m_buffer.getFloat(m_translation + 4);
+        return m_buffer.getFloat(m_offset + 4);
     }
     
     
@@ -112,7 +112,7 @@ public final class AiVector {
                     "vector has only 2 components");
         }
         
-        return m_buffer.getFloat(m_translation + 8);
+        return m_buffer.getFloat(m_offset + 8);
     }
     
     
@@ -122,7 +122,7 @@ public final class AiVector {
      * @param x the new value
      */
     public void setX(float x) {
-        m_buffer.putFloat(m_translation, x);
+        m_buffer.putFloat(m_offset, x);
     }
     
     
@@ -139,7 +139,7 @@ public final class AiVector {
                     "vector has only 1 component");
         }
         
-        m_buffer.putFloat(m_translation + 4, y);
+        m_buffer.putFloat(m_offset + 4, y);
     }
     
     
@@ -156,7 +156,7 @@ public final class AiVector {
                     "vector has only 2 components");
         }
         
-        m_buffer.putFloat(m_translation + 8, z);
+        m_buffer.putFloat(m_offset + 8, z);
     }
     
     
@@ -185,7 +185,7 @@ public final class AiVector {
     /**
      * Offset into m_buffer.
      */
-    private final int m_translation;
+    private final int m_offset;
     
     
     /**

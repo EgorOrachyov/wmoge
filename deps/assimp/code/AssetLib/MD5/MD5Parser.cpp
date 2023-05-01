@@ -5,8 +5,6 @@ Open Asset Import Library (assimp)
 
 Copyright (c) 2006-2022, assimp team
 
-
-
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -60,14 +58,11 @@ using namespace Assimp::MD5;
 
 // ------------------------------------------------------------------------------------------------
 // Parse the segment structure for an MD5 file
-MD5Parser::MD5Parser(char *_buffer, unsigned int _fileSize) {
+MD5Parser::MD5Parser(char *_buffer, unsigned int _fileSize) : buffer(_buffer), bufferEnd(nullptr), fileSize(_fileSize), lineNumber(0) {
     ai_assert(nullptr != _buffer);
     ai_assert(0 != _fileSize);
 
-    buffer = _buffer;
-    fileSize = _fileSize;
-    lineNumber = 0;
-
+    bufferEnd = buffer + fileSize;
     ASSIMP_LOG_DEBUG("MD5Parser begin");
 
     // parse the file header
@@ -102,7 +97,7 @@ MD5Parser::MD5Parser(char *_buffer, unsigned int _fileSize) {
 // Report warning to the log stream
 /*static*/ void MD5Parser::ReportWarning(const char *warn, unsigned int line) {
     char szBuffer[1024];
-    ::sprintf(szBuffer, "[MD5] Line %u: %s", line, warn);
+    ::snprintf(szBuffer, sizeof(szBuffer), "[MD5] Line %u: %s", line, warn);
     ASSIMP_LOG_WARN(szBuffer);
 }
 
@@ -120,6 +115,9 @@ void MD5Parser::ParseHeader() {
         ReportError("MD5 version tag is unknown (10 is expected)");
     }
     SkipLine();
+    if (buffer == bufferEnd) {
+        return;
+    }
 
     // print the command line options to the console
     // FIX: can break the log length limit, so we need to be careful
@@ -138,8 +136,9 @@ bool MD5Parser::ParseSection(Section &out) {
 
     // first parse the name of the section
     char *sz = buffer;
-    while (!IsSpaceOrNewLine(*buffer))
-        buffer++;
+    while (!IsSpaceOrNewLine(*buffer)) {
+        ++buffer;
+    }
     out.mName = std::string(sz, (uintptr_t)(buffer - sz));
     SkipSpaces();
 
@@ -147,14 +146,14 @@ bool MD5Parser::ParseSection(Section &out) {
     while (running) {
         if ('{' == *buffer) {
             // it is a normal section so read all lines
-            buffer++;
+            ++buffer;
             bool run = true;
             while (run) {
                 if (!SkipSpacesAndLineEnd()) {
                     return false; // seems this was the last section
                 }
                 if ('}' == *buffer) {
-                    buffer++;
+                    ++buffer;
                     break;
                 }
 
@@ -166,7 +165,7 @@ bool MD5Parser::ParseSection(Section &out) {
 
                 // terminate the line with zero
                 while (!IsLineEnd(*buffer))
-                    buffer++;
+                    ++buffer;
                 if (*buffer) {
                     ++lineNumber;
                     *buffer++ = '\0';

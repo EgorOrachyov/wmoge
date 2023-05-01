@@ -29,6 +29,7 @@
 #define WMOGE_ARRAY_VIEW_HPP
 
 #include <cassert>
+#include <cstddef>
 
 namespace wmoge {
 

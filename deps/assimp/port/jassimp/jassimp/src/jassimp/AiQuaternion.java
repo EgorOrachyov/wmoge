@@ -59,7 +59,7 @@ public final class AiQuaternion {
     /**
      * Offset into m_buffer.
      */
-    private final int m_translation;
+    private final int m_offset;
 
     /**
      * Constructor.
@@ -73,7 +73,7 @@ public final class AiQuaternion {
         }
         
         m_buffer = buffer;
-        m_translation = offset;
+        m_offset = offset;
     }
     
     
@@ -83,7 +83,7 @@ public final class AiQuaternion {
      * @return the x value
      */
     public float getX() {
-        return m_buffer.getFloat(m_translation + 4);
+        return m_buffer.getFloat(m_offset + 4);
     }
     
     
@@ -93,7 +93,7 @@ public final class AiQuaternion {
      * @return the y value
      */
     public float getY() {
-        return m_buffer.getFloat(m_translation + 8);
+        return m_buffer.getFloat(m_offset + 8);
     }
     
     
@@ -103,7 +103,7 @@ public final class AiQuaternion {
      * @return the z value
      */
     public float getZ() {
-        return m_buffer.getFloat(m_translation + 12);
+        return m_buffer.getFloat(m_offset + 12);
     }
     
     
@@ -113,7 +113,7 @@ public final class AiQuaternion {
      * @return the w value
      */
     public float getW() {
-        return m_buffer.getFloat(m_translation);
+        return m_buffer.getFloat(m_offset);
     }
     
     
@@ -123,7 +123,7 @@ public final class AiQuaternion {
      * @param x the new value
      */
     public void setX(float x) {
-        m_buffer.putFloat(m_translation + 4, x);
+        m_buffer.putFloat(m_offset + 4, x);
     }
     
     
@@ -133,7 +133,7 @@ public final class AiQuaternion {
      * @param y the new value
      */
     public void setY(float y) {
-        m_buffer.putFloat(m_translation + 8, y);
+        m_buffer.putFloat(m_offset + 8, y);
     }
     
     
@@ -143,7 +143,7 @@ public final class AiQuaternion {
      * @param z the new value
      */
     public void setZ(float z) {
-        m_buffer.putFloat(m_translation + 12, z);
+        m_buffer.putFloat(m_offset + 12, z);
     }
     
     
@@ -153,7 +153,7 @@ public final class AiQuaternion {
      * @param w the new value
      */
     public void setW(float w) {
-        m_buffer.putFloat(m_translation, w);
+        m_buffer.putFloat(m_offset, w);
     }
     
     

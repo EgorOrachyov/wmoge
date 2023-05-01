@@ -32,6 +32,7 @@
 #include "core/ref.hpp"
 
 #include <cassert>
+#include <condition_variable>
 #include <functional>
 #include <mutex>
 #include <optional>

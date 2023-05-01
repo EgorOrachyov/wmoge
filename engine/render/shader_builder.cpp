@@ -30,11 +30,11 @@
 #include "core/engine.hpp"
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"
-#include "gfx/gfx_driver.hpp"
 #include "platform/file_system.hpp"
 #include "render/render_engine.hpp"
 #include "render/shader_cache.hpp"
 #include "render/shader_manager.hpp"
+#include "resource/shader.hpp"
 
 namespace wmoge {
 
@@ -43,7 +43,7 @@ namespace wmoge {
         return *this;
     }
     ShaderBuilder& ShaderBuilder::set_key(StringId key) {
-        m_key = std::move(key);
+        m_key = key;
         return *this;
     }
     ShaderBuilder& ShaderBuilder::set_attribs(MeshAttribs mesh_attribs) {
