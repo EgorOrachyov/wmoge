@@ -25,7 +25,7 @@ env:
 jobs:
 
   windows:
-    runs-on: windows-2019
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -52,7 +52,7 @@ jobs:
         run: cmake --build ${{ env.build_dir }}
 
   ubuntu:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
@@ -60,6 +60,11 @@ jobs:
           fetch-depth: 0
 
       - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: update apt
+        shell: bash
+        run: |
+          sudo apt update
 
       - name: install glfw dependencies
         shell: bash
@@ -72,6 +77,11 @@ jobs:
           sudo apt-get install -y libgl1-mesa-dri libgl1-mesa-glx libgl1-mesa-dev
           sudo apt-get install -y libxmu-dev libxi-dev libgl-dev libglx-dev
           sudo apt-get install -y libx11-dev
+
+      - name: install openal dependencies
+        shell: bash
+        run: |
+          sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev libpipewire-0.3-dev qtbase5-dev libdbus-1-dev
 
       - name: install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
@@ -90,7 +100,7 @@ jobs:
         run: cmake --build ${{ env.build_dir }}
 
   macos:
-    runs-on: macos-11
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
         with:
