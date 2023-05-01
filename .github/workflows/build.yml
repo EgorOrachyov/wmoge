@@ -32,7 +32,13 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: install msvc for build
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+
+      - name: install ninja for build
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
@@ -40,10 +46,6 @@ jobs:
           vulkan-query-version: 1.3.204.0
           vulkan-components: Vulkan-Headers, Vulkan-Loader
           vulkan-use-cache: true
-
-      - uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: amd64
 
       - name: Configure CMake
         run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }}
@@ -59,7 +61,8 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: install ninja for build
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: update apt
         shell: bash
@@ -107,7 +110,8 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - uses: seanmiddleditch/gha-setup-ninja@master
+      - name: install ninja for build
+        uses: seanmiddleditch/gha-setup-ninja@master
 
       - name: install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
