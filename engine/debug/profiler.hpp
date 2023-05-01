@@ -31,6 +31,7 @@
 #include "core/string_id.hpp"
 #include "core/timer.hpp"
 
+#include <atomic>
 #include <chrono>
 #include <memory>
 #include <mutex>

@@ -122,6 +122,9 @@ jobs:
 
       - name: Configure CMake x64
         run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }} -DCMAKE_OSX_ARCHITECTURES=x86_64
+        env:
+          CXX: clang++
+          CC: clang
 
       - name: Build library sources x64
         run: cmake --build ${{ env.build_dir }}

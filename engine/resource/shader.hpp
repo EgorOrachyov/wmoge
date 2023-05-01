@@ -31,6 +31,7 @@
 #include "core/fast_map.hpp"
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
+#include "render/shader_builder.hpp"
 #include "render/shader_variant.hpp"
 #include "resource/mesh.hpp"
 #include "resource/resource.hpp"
