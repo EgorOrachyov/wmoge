@@ -127,7 +127,7 @@ namespace wmoge {
     }
 
     Profiler::Profiler() {
-        add_tid(std::this_thread::get_id(), SID("main"));
+        add_tid(std::this_thread::get_id(), SID("main-thread"));
     }
     void Profiler::set_enabled(bool value) {
         m_is_enabled.store(value);

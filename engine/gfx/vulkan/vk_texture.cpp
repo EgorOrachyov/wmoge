@@ -356,16 +356,13 @@ namespace wmoge {
     void VKTexture::init_layout() {
         WG_AUTO_PROFILE_VULKAN();
 
-        if (m_driver.on_gfx_thread() && m_driver.cmd()) {
-            transition_layout(m_driver.cmd(), m_primary_layout);
-        } else {
-            m_driver.queue()->push([self = ref_ptr<VKTexture>(this)]() {
-                self->transition_layout(self->m_driver.cmd(), self->m_primary_layout);
-            });
-        }
+        assert(m_driver.on_gfx_thread());
+        assert(m_driver.cmd());
+
+        transition_layout(m_driver.cmd(), m_primary_layout);
     }
 
-    void VKTexture::update(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const ref_ptr<Data>& data) {
+    void VKTexture::update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const ref_ptr<Data>& data) {
         WG_AUTO_PROFILE_VULKAN();
 
         assert(data);

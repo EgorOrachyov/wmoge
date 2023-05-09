@@ -1,6 +1,6 @@
 /**********************************************************************************/
-/* Wmoge game engine                                                              */
-/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/* Game engine tutorial                                                           */
+/* Available at github https://github.com/EgorOrachyov/game-engine-tutorial       */
 /**********************************************************************************/
 /* MIT License                                                                    */
 /*                                                                                */
@@ -66,25 +66,22 @@ namespace wmoge {
         mem_man->staging_allocate(m_size, m_staging_buffer, m_staging_allocation);
         return mem_man->staging_map(m_staging_allocation);
     }
-    void VKBuffer::unmap() {
+    void VKBuffer::unmap(VkCommandBuffer cmd) {
         assert(m_staging_buffer != VK_NULL_HANDLE);
 
         auto mem_man = driver().mem_manager();
         mem_man->staging_unmap(m_staging_allocation);
 
-        m_staging_buffer     = VK_NULL_HANDLE;
-        m_staging_allocation = VK_NULL_HANDLE;
-    }
-    void VKBuffer::update(VkCommandBuffer cmd, VkBuffer buffer) {
-        assert(buffer != VK_NULL_HANDLE);
-
-        // copy buffer into our buffer
+        // copy staging mapped buffer into our buffer
         VkBufferCopy copy_region{};
         copy_region.srcOffset = 0;
         copy_region.dstOffset = 0;
         copy_region.size      = m_size;
 
-        vkCmdCopyBuffer(cmd, buffer, m_buffer, 1, &copy_region);
+        vkCmdCopyBuffer(cmd, m_staging_buffer, m_buffer, 1, &copy_region);
+
+        m_staging_buffer     = VK_NULL_HANDLE;
+        m_staging_allocation = VK_NULL_HANDLE;
     }
     void VKBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
         assert(mem);
@@ -138,12 +135,13 @@ namespace wmoge {
         VKBuffer::init(size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, usage);
         WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "vert@" + name.str());
     }
+    void VKVertBuffer::unmap(VkCommandBuffer cmd) {
+        VKBuffer::unmap(cmd);
+        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
+    }
     void VKVertBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
-    }
-    void VKVertBuffer::barrier(VkCommandBuffer cmd) {
-        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
     }
 
     VKIndexBuffer::VKIndexBuffer(VKDriver& driver) : VKResource<GfxIndexBuffer>(driver) {
@@ -158,12 +156,13 @@ namespace wmoge {
         VKBuffer::init(size, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, usage);
         WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "index@" + name.str());
     }
+    void VKIndexBuffer::unmap(VkCommandBuffer cmd) {
+        VKBuffer::unmap(cmd);
+        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_INDEX_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
+    }
     void VKIndexBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_INDEX_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
-    }
-    void VKIndexBuffer::barrier(VkCommandBuffer cmd) {
-        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_INDEX_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
     }
 
     VKUniformBuffer::VKUniformBuffer(VKDriver& driver) : VKResource<GfxUniformBuffer>(driver) {
@@ -178,12 +177,13 @@ namespace wmoge {
         VKBuffer::init(size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, usage);
         WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "uniform@" + name.str());
     }
+    void VKUniformBuffer::unmap(VkCommandBuffer cmd) {
+        VKBuffer::unmap(cmd);
+        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_UNIFORM_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
+    }
     void VKUniformBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_UNIFORM_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
-    }
-    void VKUniformBuffer::barrier(VkCommandBuffer cmd) {
-        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_UNIFORM_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
     }
 
     VKStorageBuffer::VKStorageBuffer(VKDriver& driver) : VKResource<GfxStorageBuffer>(driver) {
@@ -198,12 +198,13 @@ namespace wmoge {
         VKBuffer::init(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, usage);
         WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "storage@" + name.str());
     }
+    void VKStorageBuffer::unmap(VkCommandBuffer cmd) {
+        VKBuffer::unmap(cmd);
+        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_SHADER_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
+    }
     void VKStorageBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_SHADER_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
-    }
-    void VKStorageBuffer::barrier(VkCommandBuffer cmd) {
-        VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_SHADER_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
     }
 
 }// namespace wmoge

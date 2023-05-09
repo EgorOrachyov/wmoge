@@ -106,7 +106,7 @@ namespace wmoge {
         // Note: resources creation/release is allowed only on gfx thread
         // Since it was last reference, we can schedule callback to gfx
         // thread and safely destroy resource calling standard deletion
-        driver.push_deferred_release([resource]() { delete resource; });
+        driver.release_queue()->push([resource]() { delete resource; });
     }
 
 }// namespace wmoge

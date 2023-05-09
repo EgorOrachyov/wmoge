@@ -266,9 +266,9 @@ namespace wmoge {
 
         timer.stop();
         WG_LOG_INFO("compiled (source): " << name() << ", code " << m_byte_code->size_as_kib() << " KiB, time: " << timer.get_elapsed_sec() << " sec");
-
         ref_ptr<VKShader> this_shader(this);
-        m_driver.queue()->push([v = std::move(spirv[0]), f = std::move(spirv[1]), this_shader]() { this_shader->init(v, f); });
+
+        init(spirv[0], spirv[1]);
     }
     void VKShader::compile_from_byte_code() {
         WG_AUTO_PROFILE_VULKAN();
@@ -299,8 +299,7 @@ namespace wmoge {
         timer.stop();
         WG_LOG_INFO("compiled (byte code): " << name() << " time: " << timer.get_elapsed_sec() << " sec");
 
-        ref_ptr<VKShader> this_shader(this);
-        m_driver.queue()->push([v = std::move(vertex), f = std::move(fragment), this_shader]() { this_shader->init(v, f); });
+        init(vertex, fragment);
     }
     void VKShader::reflect(glslang::TProgram& program) {
         WG_AUTO_PROFILE_VULKAN();

@@ -233,7 +233,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN();
 
         if (m_pipeline) {
-            m_driver.push_deferred_release([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });
+            m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });
             m_pipeline = VK_NULL_HANDLE;
         }
     }

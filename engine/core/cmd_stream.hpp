@@ -25,76 +25,75 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "task_manager.hpp"
-#include "core/engine.hpp"
-#include "core/log.hpp"
-#include "debug/profiler.hpp"
+#ifndef WMOGE_CMD_STREAM_HPP
+#define WMOGE_CMD_STREAM_HPP
+
+#include <atomic>
+#include <condition_variable>
+#include <functional>
+#include <mutex>
+#include <queue>
 
 namespace wmoge {
 
-    TaskManager::TaskManager(int workers_count) {
-        assert(workers_count > 0);
+    /**
+     * @class CmdStream
+     * @brief Thread-safe unbound multiple-producers single consumer cmd stream
+     */
+    class CmdStream {
+    public:
+        CmdStream()            = default;
+        CmdStream(CmdStream&)  = delete;
+        CmdStream(CmdStream&&) = delete;
+        ~CmdStream()           = default;
 
-        Profiler* profiler = Engine::instance()->profiler();
+        /** @brief Consumes a single command and returns true on success */
+        bool consume();
 
-        for (int i = 0; i < workers_count; i++) {
-            std::thread worker([this, i]() {
-                TaskContext context;
-                context.m_thread_name = SID("worker-thread-" + std::to_string(i));
-                context.m_thread_id   = i;
+        /** @brief Blocks execution until all submitted commands at this moment are processed */
+        void wait();
 
-                while (!m_finished.load()) {
-                    if (auto task = next_to_exec()) {
-                        context.m_task = task.get();
-                        task->execute(context);
-                    }
-                }
-            });
-            profiler->add_tid(worker.get_id(), SID("worker-thread-" + std::to_string(i)));
-            m_workers.push_back(std::move(worker));
-        }
-    }
+        /** @brief Push close for a consumer thread */
+        void push_close();
 
-    TaskManager::~TaskManager() {
-        shutdown();
-    }
+        /**
+         * @brief Push callback to be consumed
+         *
+         * @tparam Callable Type of object which can be called without arguments
+         * @param callable Object to be called on consume
+         */
+        template<typename Callable>
+        void push(Callable&& callable);
 
-    void TaskManager::submit(ref_ptr<Task> task) {
-        assert(task);
+        /**
+         * @brief Push callback to be consumed and wait until consumed
+         *
+         * @tparam Callable Type of object which can be called without arguments
+         * @param callable Object to be called on consume
+         */
+        template<typename Callable>
+        void push_and_wait(Callable&& callable);
 
-        if (m_finished.load()) return;
+    private:
+        std::queue<std::function<void()>> m_queue;
+        std::mutex                        m_mutex;
+        std::condition_variable           m_cv;
+        std::atomic_bool                  m_is_closed{false};
+    };
 
+    template<typename Callable>
+    void CmdStream::push(Callable&& callable) {
         std::lock_guard guard(m_mutex);
-        task->set_in_progress();
-        TaskAsync hnd(task);
-        m_background_queue.push_back(std::move(task));
-        m_cv.notify_one();
-    }
-
-    void TaskManager::shutdown() {
-        WG_LOG_INFO("shutdown and join already started tasks");
-
-        m_finished.store(true);
+        m_queue.emplace(std::forward<Callable>(callable));
         m_cv.notify_all();
-
-        for (auto& worker : m_workers) {
-            worker.join();
-        }
-
-        m_workers.clear();
-        m_background_queue.clear();
     }
 
-    ref_ptr<Task> TaskManager::next_to_exec() {
-        std::unique_lock guard(m_mutex);
-        m_cv.wait(guard, [this]() { return !m_background_queue.empty() || m_finished.load(); });
-
-        if (m_background_queue.empty() || m_finished.load())
-            return nullptr;
-
-        auto task = m_background_queue.front();
-        m_background_queue.pop_front();
-        return task;
+    template<typename Callable>
+    void CmdStream::push_and_wait(Callable&& callable) {
+        push(std::forward<Callable>(callable));
+        wait();
     }
 
 }// namespace wmoge
+
+#endif//WMOGE_CMD_STREAM_HPP

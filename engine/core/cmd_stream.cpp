@@ -25,76 +25,49 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "task_manager.hpp"
-#include "core/engine.hpp"
-#include "core/log.hpp"
-#include "debug/profiler.hpp"
+#include "cmd_stream.hpp"
+
+#include <cassert>
 
 namespace wmoge {
 
-    TaskManager::TaskManager(int workers_count) {
-        assert(workers_count > 0);
+    bool CmdStream::consume() {
+        std::function<void()> cmd;
+        {
+            std::unique_lock lock(m_mutex);
+            m_cv.wait(lock, [&]() { return !m_queue.empty() || m_is_closed.load(); });
 
-        Profiler* profiler = Engine::instance()->profiler();
+            if (m_queue.empty() || m_is_closed.load()) {
+                return false;
+            }
 
-        for (int i = 0; i < workers_count; i++) {
-            std::thread worker([this, i]() {
-                TaskContext context;
-                context.m_thread_name = SID("worker-thread-" + std::to_string(i));
-                context.m_thread_id   = i;
-
-                while (!m_finished.load()) {
-                    if (auto task = next_to_exec()) {
-                        context.m_task = task.get();
-                        task->execute(context);
-                    }
-                }
-            });
-            profiler->add_tid(worker.get_id(), SID("worker-thread-" + std::to_string(i)));
-            m_workers.push_back(std::move(worker));
+            cmd = std::move(m_queue.front());
+            m_queue.pop();
         }
+
+        assert(cmd);
+
+        cmd();
+        return true;
     }
 
-    TaskManager::~TaskManager() {
-        shutdown();
+    void CmdStream::wait() {
+        std::atomic_bool marker{false};
+
+        push([&]() {
+            std::lock_guard guard(m_mutex);
+            marker.store(true);
+            m_cv.notify_all();
+        });
+
+        std::unique_lock lock(m_mutex);
+        m_cv.wait(lock, [&]() { return marker.load(); });
     }
 
-    void TaskManager::submit(ref_ptr<Task> task) {
-        assert(task);
-
-        if (m_finished.load()) return;
-
+    void CmdStream::push_close() {
         std::lock_guard guard(m_mutex);
-        task->set_in_progress();
-        TaskAsync hnd(task);
-        m_background_queue.push_back(std::move(task));
-        m_cv.notify_one();
-    }
-
-    void TaskManager::shutdown() {
-        WG_LOG_INFO("shutdown and join already started tasks");
-
-        m_finished.store(true);
+        m_is_closed.store(true);
         m_cv.notify_all();
-
-        for (auto& worker : m_workers) {
-            worker.join();
-        }
-
-        m_workers.clear();
-        m_background_queue.clear();
-    }
-
-    ref_ptr<Task> TaskManager::next_to_exec() {
-        std::unique_lock guard(m_mutex);
-        m_cv.wait(guard, [this]() { return !m_background_queue.empty() || m_finished.load(); });
-
-        if (m_background_queue.empty() || m_finished.load())
-            return nullptr;
-
-        auto task = m_background_queue.front();
-        m_background_queue.pop_front();
-        return task;
     }
 
 }// namespace wmoge

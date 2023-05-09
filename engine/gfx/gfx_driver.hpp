@@ -55,18 +55,11 @@ namespace wmoge {
      * @brief Gfx driver interface
      *
      * Driver exposes gfx device object creation and rendering API.
-     *
-     * Device provided objects can be safely created from any thread.
-     * Created objects references are immediately returned from `make_*` functions.
-     * Actual object creation will be deferred and executed on a gfx thread only.
-     *
-     * From user side, created objects can be safely and immediately used in the drawing and update API.
      */
     class GfxDriver {
     public:
         virtual ~GfxDriver() = default;
 
-        // Create object API (thread-safe)
         virtual ref_ptr<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const StringId& name = StringId())                                                                                = 0;
         virtual ref_ptr<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                    = 0;
         virtual ref_ptr<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                   = 0;
@@ -81,7 +74,6 @@ namespace wmoge {
         virtual ref_ptr<GfxRenderPass>    make_render_pass(GfxRenderPassType pass_type, const StringId& name = StringId())                                                                                    = 0;
         virtual ref_ptr<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name = StringId())                                                                                     = 0;
 
-        // Update API (thread-safe)
         virtual void update_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data)                = 0;
         virtual void update_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data)              = 0;
         virtual void update_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data)          = 0;
@@ -90,7 +82,6 @@ namespace wmoge {
         virtual void update_texture_2d_array(const ref_ptr<GfxTexture>& texture, int mip, int slice, Rect2i region, const ref_ptr<Data>& data) = 0;
         virtual void update_texture_cube(const ref_ptr<GfxTexture>& texture, int mip, int face, Rect2i region, const ref_ptr<Data>& data)      = 0;
 
-        // Mapping write-only API (gfx-thread-only)
         virtual void* map_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer)         = 0;
         virtual void* map_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer)       = 0;
         virtual void* map_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer)   = 0;
@@ -100,7 +91,6 @@ namespace wmoge {
         virtual void  unmap_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) = 0;
         virtual void  unmap_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) = 0;
 
-        // Drawing API (gfx-thread-only)
         virtual void begin_render_pass(const ref_ptr<GfxRenderPass>& pass)                                                                                = 0;
         virtual void bind_target(const ref_ptr<Window>& window)                                                                                           = 0;
         virtual void bind_color_target(const ref_ptr<GfxTexture>& texture, int target, int mip, int slice)                                                = 0;
@@ -121,34 +111,21 @@ namespace wmoge {
         virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                                                                   = 0;
         virtual void end_render_pass()                                                                                                                    = 0;
 
-        // Driver misc API (thread-safe)
-        CallbackQueue*         queue() { return &m_callback_queue; }
-        const GfxDeviceCaps&   device_caps() const { return m_device_caps; }
-        const StringId&        driver_name() const { return m_driver_name; }
-        const std::string&     shader_cache_path() const { return m_shader_cache_path; }
-        const std::string&     pipeline_cache_path() const { return m_pipeline_cache_path; }
-        const std::thread::id& thread_id() const { return m_thread_id; }
-        const Mat4x4f&         clip_matrix() const { return m_clip_matrix; }
-        std::size_t            frame_number() const { return m_frame_number.load(); }
-        bool                   on_gfx_thread() const { return m_thread_id == std::this_thread::get_id(); }
-
-        // System level API (gfx-thread-only)
         virtual void shutdown()                                    = 0;
         virtual void begin_frame()                                 = 0;
-        virtual void flush()                                       = 0;
         virtual void end_frame()                                   = 0;
         virtual void prepare_window(const ref_ptr<Window>& window) = 0;
         virtual void swap_buffers(const ref_ptr<Window>& window)   = 0;
+        virtual void flush()                                       = 0;
 
-    protected:
-        CallbackQueue      m_callback_queue;
-        GfxDeviceCaps      m_device_caps;
-        StringId           m_driver_name = SID("unknown");
-        std::thread::id    m_thread_id   = std::this_thread::get_id();
-        Mat4x4f            m_clip_matrix;
-        std::atomic_size_t m_frame_number{0};
-        std::string        m_shader_cache_path;
-        std::string        m_pipeline_cache_path;
+        [[nodiscard]] virtual const GfxDeviceCaps&   device_caps() const         = 0;
+        [[nodiscard]] virtual const StringId&        driver_name() const         = 0;
+        [[nodiscard]] virtual const std::string&     shader_cache_path() const   = 0;
+        [[nodiscard]] virtual const std::string&     pipeline_cache_path() const = 0;
+        [[nodiscard]] virtual const std::thread::id& thread_id() const           = 0;
+        [[nodiscard]] virtual const Mat4x4f&         clip_matrix() const         = 0;
+        [[nodiscard]] virtual std::size_t            frame_number() const        = 0;
+        [[nodiscard]] virtual bool                   on_gfx_thread() const       = 0;
     };
 
 }// namespace wmoge

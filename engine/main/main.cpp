@@ -166,7 +166,7 @@ namespace wmoge {
         init_info.factory      = m_glfw_window_manager->factory();
 
         m_vk_driver          = std::make_unique<VKDriver>(std::move(init_info));
-        engine->m_gfx_driver = m_vk_driver.get();
+        engine->m_gfx_driver = m_vk_driver->driver_wrapper();
         WG_LOG_INFO("init video driver");
 
         m_al_engine            = std::make_unique<ALAudioEngine>();
@@ -260,14 +260,8 @@ namespace wmoge {
 
         // Begin new GPU frame only here, since it has costly command buffer
         // allocation, acquiring new window image for presentation, etc.
-        m_vk_driver->begin_frame();
-        m_vk_driver->prepare_window(m_glfw_window_manager->primary_window());
-
-        // Flush all rendering commands, queued from prev frame and from other
-        // threads before actual flush. This is the actual point, where GPU
-        // rendering is done, since here all render passes and all draw commands
-        // submission will occur
-        m_vk_driver->flush();
+        engine->m_gfx_driver->begin_frame();
+        engine->m_gfx_driver->prepare_window(m_glfw_window_manager->primary_window());
 
         m_scene_manager->on_update();
 
@@ -284,13 +278,15 @@ namespace wmoge {
 
         // Finish frame, submitting commands
         // after this point no rendering on GPU is allowed
-        m_vk_driver->end_frame();
+        engine->m_gfx_driver->end_frame();
 
         // Obtain new events from the operating system
         m_glfw_window_manager->poll_events();
 
         // Wait for vsync and swap buffers, so main sleep the rest of the frame
-        m_vk_driver->swap_buffers(m_glfw_window_manager->primary_window());
+        engine->m_gfx_driver->swap_buffers(m_glfw_window_manager->primary_window());
+
+        engine->m_gfx_driver->flush();
 
         // Frame end
         for (auto it = layers.rbegin(); it != layers.rend(); ++it)

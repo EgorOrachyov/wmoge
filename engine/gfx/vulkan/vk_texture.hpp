@@ -67,7 +67,7 @@ namespace wmoge {
         void init_view();
         void init_rt_views();
         void init_layout();
-        void update(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const ref_ptr<Data>& data);
+        void update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const ref_ptr<Data>& data);
 
     private:
         VkImage                  m_image          = VK_NULL_HANDLE;

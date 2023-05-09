@@ -25,76 +25,38 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "task_manager.hpp"
-#include "core/engine.hpp"
-#include "core/log.hpp"
-#include "debug/profiler.hpp"
+#ifndef WMOGE_GFX_WORKER_HPP
+#define WMOGE_GFX_WORKER_HPP
+
+#include "core/cmd_stream.hpp"
+#include "core/string_id.hpp"
+#include "gfx/threaded/gfx_driver_threaded.hpp"
+#include "gfx/threaded/gfx_driver_wrapper.hpp"
+
+#include <atomic>
+#include <thread>
 
 namespace wmoge {
 
-    TaskManager::TaskManager(int workers_count) {
-        assert(workers_count > 0);
+    /**
+     * @class GfxWorker
+     * @brief Manages gfx thread processing gfx driver calls
+     */
+    class GfxWorker {
+    public:
+        explicit GfxWorker(GfxDriverThreaded* driver);
 
-        Profiler* profiler = Engine::instance()->profiler();
+        void            terminate();
+        std::thread::id get_worker_id();
 
-        for (int i = 0; i < workers_count; i++) {
-            std::thread worker([this, i]() {
-                TaskContext context;
-                context.m_thread_name = SID("worker-thread-" + std::to_string(i));
-                context.m_thread_id   = i;
-
-                while (!m_finished.load()) {
-                    if (auto task = next_to_exec()) {
-                        context.m_task = task.get();
-                        task->execute(context);
-                    }
-                }
-            });
-            profiler->add_tid(worker.get_id(), SID("worker-thread-" + std::to_string(i)));
-            m_workers.push_back(std::move(worker));
-        }
-    }
-
-    TaskManager::~TaskManager() {
-        shutdown();
-    }
-
-    void TaskManager::submit(ref_ptr<Task> task) {
-        assert(task);
-
-        if (m_finished.load()) return;
-
-        std::lock_guard guard(m_mutex);
-        task->set_in_progress();
-        TaskAsync hnd(task);
-        m_background_queue.push_back(std::move(task));
-        m_cv.notify_one();
-    }
-
-    void TaskManager::shutdown() {
-        WG_LOG_INFO("shutdown and join already started tasks");
-
-        m_finished.store(true);
-        m_cv.notify_all();
-
-        for (auto& worker : m_workers) {
-            worker.join();
-        }
-
-        m_workers.clear();
-        m_background_queue.clear();
-    }
-
-    ref_ptr<Task> TaskManager::next_to_exec() {
-        std::unique_lock guard(m_mutex);
-        m_cv.wait(guard, [this]() { return !m_background_queue.empty() || m_finished.load(); });
-
-        if (m_background_queue.empty() || m_finished.load())
-            return nullptr;
-
-        auto task = m_background_queue.front();
-        m_background_queue.pop_front();
-        return task;
-    }
+    private:
+        GfxDriverThreaded* m_driver = nullptr;
+        CmdStream*         m_stream = nullptr;
+        std::thread        m_worker_thread;
+        std::atomic_bool   m_finished{false};
+        StringId           m_name = SID("gfx-thread");
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_GFX_WORKER_HPP

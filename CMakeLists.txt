@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(wmoge-game-engine)
+project(wmoge)
 
 ###########################################################
 # global cxx setup

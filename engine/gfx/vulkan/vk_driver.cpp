@@ -102,6 +102,16 @@ namespace wmoge {
         // init desc manager
         m_desc_manager = std::make_unique<VKDescManager>(*this);
 
+        // cmd stream of driver thread
+        m_driver_cmd_stream = std::make_unique<CmdStream>();
+        // and kick off worker in a separate thread
+        m_driver_worker = std::make_unique<GfxWorker>(this);
+
+        m_thread_id = m_driver_worker->get_worker_id();
+
+        // finally init wrapper
+        m_driver_wrapper = std::make_unique<GfxDriverWrapper>(this);
+
         WG_LOG_INFO("init vulkan gfx driver");
     }
     VKDriver::~VKDriver() {
@@ -113,7 +123,9 @@ namespace wmoge {
     }
 
     ref_ptr<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const StringId& name) {
-        std::lock_guard lock(m_cached_mutex);
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
 
         auto& format = m_formats[elements];
         if (!format) {
@@ -124,26 +136,46 @@ namespace wmoge {
         return format;
     }
     ref_ptr<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto buffer = make_ref<VKVertBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     ref_ptr<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto buffer = make_ref<VKIndexBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     ref_ptr<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto buffer = make_ref<VKUniformBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     ref_ptr<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto buffer = make_ref<VKStorageBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     ref_ptr<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto shader = make_ref<VKShader>(*this);
         shader->setup(std::move(vertex), std::move(fragment), name);
 
@@ -156,6 +188,10 @@ namespace wmoge {
         return shader;
     }
     ref_ptr<GfxShader> VKDriver::make_shader(ref_ptr<Data> code, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto shader = make_ref<VKShader>(*this);
         shader->setup(std::move(code), name);
 
@@ -168,22 +204,36 @@ namespace wmoge {
         return shader;
     }
     ref_ptr<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto texture = make_ref<VKTexture>(*this);
         texture->create_2d(width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
     ref_ptr<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto texture = make_ref<VKTexture>(*this);
         texture->create_2d_array(width, height, mips, slices, format, usages, mem_usage, name);
         return texture;
     }
     ref_ptr<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         auto texture = make_ref<VKTexture>(*this);
         texture->create_cube(width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
     ref_ptr<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const StringId& name) {
-        std::lock_guard lock(m_cached_mutex);
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
 
         auto& sampler = m_samplers[desc];
         if (!sampler) {
@@ -196,10 +246,16 @@ namespace wmoge {
         return sampler;
     }
     ref_ptr<GfxRenderPass> VKDriver::make_render_pass(GfxRenderPassType pass_type, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
         return make_ref<VKRenderPass>(pass_type, name, *this);
     }
     ref_ptr<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const StringId& name) {
-        std::lock_guard lock(m_cached_mutex);
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
 
         auto& pipeline = m_pipelines[state];
         if (!pipeline) {
@@ -210,190 +266,198 @@ namespace wmoge {
         return pipeline;
     }
     void VKDriver::update_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKVertBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-        else
-            queue()->push([=]() { static_cast<VKVertBuffer*>(buffer.get())->update(m_cmd, offset, range, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKVertBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
     void VKDriver::update_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-        else
-            queue()->push([=]() { static_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd, offset, range, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
     void VKDriver::update_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-        else
-            queue()->push([=]() { static_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd, offset, range, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
     void VKDriver::update_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-        else
-            queue()->push([=]() { static_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd, offset, range, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
     void VKDriver::update_texture_2d(const ref_ptr<GfxTexture>& texture, int mip, Rect2i region, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKTexture*>(texture.get())->update_2d(m_cmd, mip, region, data);
-        else
-            queue()->push([=]() { static_cast<VKTexture*>(texture.get())->update_2d(m_cmd, mip, region, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKTexture*>(texture.get())->update_2d(m_cmd, mip, region, data);
     }
     void VKDriver::update_texture_2d_array(const ref_ptr<GfxTexture>& texture, int mip, int slice, Rect2i region, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd, mip, slice, region, data);
-        else
-            queue()->push([=]() { static_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd, mip, slice, region, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd, mip, slice, region, data);
     }
     void VKDriver::update_texture_cube(const ref_ptr<GfxTexture>& texture, int mip, int face, Rect2i region, const ref_ptr<Data>& data) {
-        if (use_direct_update())
-            static_cast<VKTexture*>(texture.get())->update_cube(m_cmd, mip, face, region, data);
-        else
-            queue()->push([=]() { static_cast<VKTexture*>(texture.get())->update_cube(m_cmd, mip, face, region, data); });
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
+
+        dynamic_cast<VKTexture*>(texture.get())->update_cube(m_cmd, mip, face, region, data);
     }
 
     void* VKDriver::map_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
-        return (static_cast<VKVertBuffer*>(buffer.get()))->map();
+
+        return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
     }
     void* VKDriver::map_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
-        return (static_cast<VKIndexBuffer*>(buffer.get()))->map();
+
+        return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
     }
     void* VKDriver::map_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
-        return (static_cast<VKUniformBuffer*>(buffer.get()))->map();
+
+        return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
     }
     void* VKDriver::map_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
-        return (static_cast<VKStorageBuffer*>(buffer.get()))->map();
+
+        return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
     }
     void VKDriver::unmap_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
+        assert(cmd());
 
-        auto vk_buffer         = static_cast<VKVertBuffer*>(buffer.get());
-        auto vk_staging_buffer = vk_buffer->staging_buffer();
-
-        assert(vk_staging_buffer);
-
-        vk_buffer->unmap();
-
-        if (on_gfx_thread() && cmd()) {
-            vk_buffer->VKBuffer::update(m_cmd, vk_staging_buffer);
-            vk_buffer->barrier(m_cmd);
-        } else {
-            queue()->push([buff = ref_ptr<VKVertBuffer>(vk_buffer), vk_staging_buffer, this]() {
-                buff->VKBuffer::update(cmd(), vk_staging_buffer);
-                buff->barrier(cmd());
-            });
-        }
+        dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(cmd());
     }
     void VKDriver::unmap_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
+        assert(cmd());
 
-        auto vk_buffer         = static_cast<VKIndexBuffer*>(buffer.get());
-        auto vk_staging_buffer = vk_buffer->staging_buffer();
-
-        assert(vk_staging_buffer);
-
-        vk_buffer->unmap();
-
-        if (on_gfx_thread() && cmd()) {
-            vk_buffer->VKBuffer::update(m_cmd, vk_staging_buffer);
-            vk_buffer->barrier(m_cmd);
-        } else {
-            queue()->push([buff = ref_ptr<VKIndexBuffer>(vk_buffer), vk_staging_buffer, this]() {
-                buff->VKBuffer::update(cmd(), vk_staging_buffer);
-                buff->barrier(cmd());
-            });
-        }
+        dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(cmd());
     }
     void VKDriver::unmap_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
+        assert(cmd());
 
-        auto vk_buffer         = static_cast<VKUniformBuffer*>(buffer.get());
-        auto vk_staging_buffer = vk_buffer->staging_buffer();
-
-        assert(vk_staging_buffer);
-
-        vk_buffer->unmap();
-
-        if (on_gfx_thread() && cmd()) {
-            vk_buffer->VKBuffer::update(m_cmd, vk_staging_buffer);
-            vk_buffer->barrier(m_cmd);
-        } else {
-            queue()->push([buff = ref_ptr<VKUniformBuffer>(vk_buffer), vk_staging_buffer, this]() {
-                buff->VKBuffer::update(cmd(), vk_staging_buffer);
-                buff->barrier(cmd());
-            });
-        }
+        dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(cmd());
     }
     void VKDriver::unmap_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(buffer);
+        assert(cmd());
 
-        auto vk_buffer         = static_cast<VKStorageBuffer*>(buffer.get());
-        auto vk_staging_buffer = vk_buffer->staging_buffer();
-
-        assert(vk_staging_buffer);
-
-        vk_buffer->unmap();
-
-        if (on_gfx_thread() && cmd()) {
-            vk_buffer->VKBuffer::update(m_cmd, vk_staging_buffer);
-            vk_buffer->barrier(m_cmd);
-        } else {
-            queue()->push([buff = ref_ptr<VKStorageBuffer>(vk_buffer), vk_staging_buffer, this]() {
-                buff->VKBuffer::update(cmd(), vk_staging_buffer);
-                buff->barrier(cmd());
-            });
-        }
+        dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(cmd());
     }
 
     void VKDriver::begin_render_pass(const ref_ptr<GfxRenderPass>& pass) {
         WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(!m_in_render_pass);
         assert(pass);
+
         m_current_pass   = pass.cast<VKRenderPass>();
         m_in_render_pass = true;
     }
     void VKDriver::bind_target(const ref_ptr<Window>& window) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(window);
+
         m_current_pass->bind_target(m_window_manager->get_or_create(window));
         m_target_bound = true;
     }
     void VKDriver::bind_color_target(const ref_ptr<GfxTexture>& texture, int target, int mip, int slice) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(texture);
+
         m_current_pass->bind_color_target(texture.cast<VKTexture>(), target, mip, slice);
         m_target_bound = true;
     }
     void VKDriver::bind_depth_target(const ref_ptr<GfxTexture>& texture, int mip, int slice) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(texture);
+
         m_current_pass->bind_depth_target(texture.cast<VKTexture>(), mip, slice);
         m_target_bound = true;
     }
     void VKDriver::viewport(const Rect2i& viewport) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(m_target_bound);
+
         m_viewport = viewport;
     }
     void VKDriver::clear(int target, const Vec4f& color) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(m_target_bound);
+
         m_clear_color[target] = color;
         m_current_pass->clear_color(target);
     }
     void VKDriver::clear(float depth, int stencil) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(m_target_bound);
+
         m_clear_depth   = depth;
         m_clear_stencil = stencil;
         m_current_pass->clear_depth_stencil();
     }
     bool VKDriver::bind_pipeline(const ref_ptr<GfxPipeline>& pipeline) {
         WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
         assert(m_target_bound);
         assert(pipeline);
@@ -420,73 +484,115 @@ namespace wmoge {
         return true;
     }
     void VKDriver::bind_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int index, int offset) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(buffer);
+
         m_current_vert_buffers[index]         = buffer.cast<VKVertBuffer>();
         m_current_vert_buffers_offsets[index] = offset;
     }
     void VKDriver::bind_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(buffer);
+
         m_current_index_buffer = buffer.cast<VKIndexBuffer>();
         vkCmdBindIndexBuffer(m_cmd, m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
     }
     void VKDriver::bind_texture(const StringId& name, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(texture);
         assert(sampler);
+
         texture.cast<VKTexture>()->transition_layout(m_cmd, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         m_desc_manager->bind_texture(name, array_element, texture, sampler);
     }
     void VKDriver::bind_texture(const GfxLocation& location, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(texture);
         assert(sampler);
+
         texture.cast<VKTexture>()->transition_layout(m_cmd, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         m_desc_manager->bind_texture(location, array_element, texture, sampler);
     }
     void VKDriver::bind_uniform_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(buffer);
+
         m_desc_manager->bind_uniform_buffer(name, offset, range, buffer);
     }
     void VKDriver::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(buffer);
+
         m_desc_manager->bind_uniform_buffer(location, offset, range, buffer);
     }
     void VKDriver::bind_storage_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(buffer);
+
         m_desc_manager->bind_storage_buffer(name, offset, range, buffer);
     }
     void VKDriver::bind_storage_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
         assert(buffer);
+
         m_desc_manager->bind_storage_buffer(location, offset, range, buffer);
     }
     void VKDriver::draw(int vertex_count, int base_vertex, int instance_count) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
+
         prepare_draw();
         vkCmdDraw(m_cmd, vertex_count, instance_count, base_vertex, 0);
     }
     void VKDriver::draw_indexed(int index_count, int base_vertex, int instance_count) {
+        WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_pipeline_bound);
         assert(m_target_bound);
+
         prepare_draw();
         vkCmdDrawIndexed(m_cmd, index_count, instance_count, 0, base_vertex, 0);
     }
     void VKDriver::end_render_pass() {
         WG_AUTO_PROFILE_VULKAN();
+
+        assert(on_gfx_thread());
         assert(m_in_render_pass);
 
         if (m_render_pass_started) {
@@ -515,24 +621,53 @@ namespace wmoge {
     void VKDriver::shutdown() {
         WG_AUTO_PROFILE_VULKAN();
 
-        m_shutdown = true;
+        auto flush_release = [&]() {
+            auto to_flush = m_index;
+            m_index       = (m_index + 1) % GfxLimits::FRAMES_IN_FLIGHT;
+            release_resources(to_flush);
+        };
 
         if (m_instance) {
+            m_driver_worker->terminate();
+
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
-            m_callback_queue.clear();
+
             m_pipelines.clear();
+            flush_release();
+
             m_samplers.clear();
+            flush_release();
+
             m_formats.clear();
+            flush_release();
+
             m_desc_manager.reset();
+            flush_release();
+
             m_window_manager.reset();
+            flush_release();
+
+            flush_release();
             release_context();
             release_pipeline_cache();
+
             glslang::FinalizeProcess();
+
             m_mem_manager.reset();
             m_queues.reset();
-            if (m_device) vkDestroyDevice(m_device, nullptr);
-            if (m_debug_messenger) VKDebug::vkDestroyDebugUtilsMessengerEXT(m_instance, m_debug_messenger, nullptr);
+            m_driver_worker.reset();
+            m_driver_wrapper.reset();
+
+            if (m_device) {
+                vkDestroyDevice(m_device, nullptr);
+            }
+
+            if (m_debug_messenger) {
+                VKDebug::vkDestroyDebugUtilsMessengerEXT(m_instance, m_debug_messenger, nullptr);
+            }
+
             vkDestroyInstance(m_instance, nullptr);
+
             m_device      = VK_NULL_HANDLE;
             m_phys_device = VK_NULL_HANDLE;
             m_instance    = VK_NULL_HANDLE;
@@ -541,31 +676,6 @@ namespace wmoge {
 
     void VKDriver::begin_frame() {
         WG_AUTO_PROFILE_VULKAN();
-
-        m_frame_number.fetch_add(1);
-        m_index = m_frame_number.load() % GfxLimits::FRAMES_IN_FLIGHT;
-
-        WG_VK_CHECK(vkWaitForFences(m_device, 1, &m_fences[m_index], VK_TRUE, std::numeric_limits<uint64_t>::max()));
-        WG_VK_CHECK(vkResetFences(m_device, 1, &m_fences[m_index]));
-
-        m_mem_manager->update();
-        m_desc_manager->update();
-
-        release_resources(m_index);
-
-        m_cmd = m_cmds[m_index];
-        WG_VK_CHECK(vkResetCommandPool(m_device, m_cmds_pools[m_index], 0));
-
-        VkCommandBufferBeginInfo begin_info{};
-        begin_info.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-        begin_info.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-        begin_info.pInheritanceInfo = nullptr;
-        WG_VK_CHECK(vkBeginCommandBuffer(m_cmd, &begin_info));
-    }
-    void VKDriver::flush() {
-        WG_AUTO_PROFILE_VULKAN();
-
-        m_callback_queue.flush();
     }
     void VKDriver::end_frame() {
         WG_AUTO_PROFILE_VULKAN();
@@ -624,8 +734,33 @@ namespace wmoge {
 
         vkQueuePresentKHR(m_queues->prs_queue(), &present_info);
     }
+    void VKDriver::flush() {
+        WG_AUTO_PROFILE_VULKAN();
+
+        m_frame_number.fetch_add(1);
+        m_index = m_frame_number.load() % GfxLimits::FRAMES_IN_FLIGHT;
+
+        WG_VK_CHECK(vkWaitForFences(m_device, 1, &m_fences[m_index], VK_TRUE, std::numeric_limits<uint64_t>::max()));
+        WG_VK_CHECK(vkResetFences(m_device, 1, &m_fences[m_index]));
+
+        release_resources(m_index);
+
+        m_mem_manager->update();
+        m_desc_manager->update();
+
+        m_cmd = m_cmds[m_index];
+        WG_VK_CHECK(vkResetCommandPool(m_device, m_cmds_pools[m_index], 0));
+
+        VkCommandBufferBeginInfo begin_info{};
+        begin_info.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+        begin_info.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+        begin_info.pInheritanceInfo = nullptr;
+        WG_VK_CHECK(vkBeginCommandBuffer(m_cmd, &begin_info));
+    }
 
     void VKDriver::init_functions() {
+        WG_AUTO_PROFILE_VULKAN();
+
         auto res = volkInitialize();
         if (res != VK_SUCCESS) {
             WG_LOG_ERROR("failed to initialize volk");
@@ -934,6 +1069,16 @@ namespace wmoge {
             WG_VK_CHECK(vkCreateFence(m_device, &fence_info, nullptr, &m_fences[i]));
             WG_VK_NAME(m_device, m_fences[i], VK_OBJECT_TYPE_FENCE, "fence@" + std::to_string(i));
         }
+
+        assert(m_index == 0);
+        m_cmd = m_cmds[m_index];
+
+        VkCommandBufferBeginInfo begin_info{};
+        begin_info.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+        begin_info.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+        begin_info.pInheritanceInfo = nullptr;
+        WG_VK_CHECK(vkBeginCommandBuffer(m_cmd, &begin_info));
+        WG_VK_CHECK(vkResetFences(m_device, 1, &m_fences[m_index]));
     }
     void VKDriver::release_context() {
         WG_AUTO_PROFILE_VULKAN();
@@ -1045,6 +1190,7 @@ namespace wmoge {
     }
     void VKDriver::release_resources(uint64_t index) {
         WG_AUTO_PROFILE_VULKAN();
+
         m_deferred_release[index].flush();
     }
 

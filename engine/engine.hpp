@@ -37,6 +37,7 @@
 #include "core/async.hpp"
 #include "core/class.hpp"
 #include "core/cmd_line.hpp"
+#include "core/cmd_stream.hpp"
 #include "core/crc32.hpp"
 #include "core/data.hpp"
 #include "core/engine.hpp"

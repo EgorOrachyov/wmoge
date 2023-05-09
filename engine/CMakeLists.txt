@@ -21,6 +21,8 @@ add_library(wmoge STATIC
         core/class.hpp
         core/cmd_line.cpp
         core/cmd_line.hpp
+        core/cmd_stream.cpp
+        core/cmd_stream.hpp
         core/crc32.cpp
         core/crc32.hpp
         core/data.cpp
@@ -94,6 +96,11 @@ add_library(wmoge STATIC
         gfx/gfx_texture.hpp
         gfx/gfx_vert_format.cpp
         gfx/gfx_vert_format.hpp
+        gfx/threaded/gfx_driver_threaded.hpp
+        gfx/threaded/gfx_driver_wrapper.cpp
+        gfx/threaded/gfx_driver_wrapper.hpp
+        gfx/threaded/gfx_worker.cpp
+        gfx/threaded/gfx_worker.hpp
         gfx/vulkan/vk_buffers.cpp
         gfx/vulkan/vk_buffers.hpp
         gfx/vulkan/vk_defs.cpp
