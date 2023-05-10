@@ -39,7 +39,7 @@ namespace wmoge {
         m_depth_stencil_op = VK_ATTACHMENT_LOAD_OP_LOAD;
     }
     VKRenderPass::~VKRenderPass() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKRenderPass::~VKRenderPass");
 
         release_framebuffer();
         release_render_pass();
@@ -86,7 +86,7 @@ namespace wmoge {
         m_depth_stencil_op = VK_ATTACHMENT_LOAD_OP_CLEAR;
     }
     void VKRenderPass::validate() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKRenderPass::validate");
 
         if (m_is_pass_dirty) {
             release_framebuffer();
@@ -99,10 +99,11 @@ namespace wmoge {
         }
     }
     void VKRenderPass::init_render_pass() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKRenderPass::init_render_pass");
 
-        int                                                                   attachments_count      = 0;
-        int                                                                   color_references_count = 0;
+        int attachments_count      = 0;
+        int color_references_count = 0;
+
         std::array<VkAttachmentDescription, GfxLimits::MAX_COLOR_TARGETS + 1> attachments{};
         std::array<VkAttachmentReference, GfxLimits::MAX_COLOR_TARGETS>       color_references{};
         VkAttachmentReference                                                 depth_stencil_reference{};
@@ -173,7 +174,7 @@ namespace wmoge {
         m_is_fb_dirty   = true;
     }
     void VKRenderPass::init_framebuffer() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKRenderPass::init_framebuffer");
 
         VkFramebufferCreateInfo create_info{};
         create_info.sType      = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;

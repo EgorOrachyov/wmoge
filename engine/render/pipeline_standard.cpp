@@ -54,7 +54,7 @@ namespace wmoge {
     PipelineStandard::~PipelineStandard() = default;
 
     void PipelineStandard::execute() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStandard::execute");
 
         allocate_views();
         collect_objects();
@@ -63,7 +63,7 @@ namespace wmoge {
     }
 
     void PipelineStandard::allocate_views() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStandard::allocate_views");
 
         m_views.clear();
 
@@ -78,7 +78,7 @@ namespace wmoge {
     }
 
     void PipelineStandard::collect_objects() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStandard::collect_objects");
 
         RenderViewList views;
         views.reserve(m_views.size());
@@ -100,7 +100,7 @@ namespace wmoge {
     }
 
     void PipelineStandard::sort_queues() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStandard::sort_queues");
 
         for (int i = 0; i < int(m_views.size()); i++) {
             for (auto& queue : m_views[i]->m_draw_cmds) {
@@ -110,7 +110,7 @@ namespace wmoge {
     }
 
     void PipelineStandard::render() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStandard::render");
 
         for (int i = 0; i < int(m_views.size()); i++) {
             for (auto stage : m_stages) {

@@ -38,7 +38,7 @@
 namespace wmoge {
 
     GlfwWindowManager::GlfwWindowManager(bool vsync, bool client_api) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::GlfwWindowManager");
 
         m_vsync      = vsync;
         m_client_api = client_api;
@@ -77,7 +77,7 @@ namespace wmoge {
     }
 
     GlfwWindowManager::~GlfwWindowManager() {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::~GlfwWindowManager");
 
         m_primary.reset();
         m_windows_by_hnd.clear();
@@ -94,7 +94,7 @@ namespace wmoge {
     }
 
     ref_ptr<Window> GlfwWindowManager::create(const WindowInfo& window_info) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::create");
 
         std::lock_guard guard(m_mutex);
 
@@ -162,7 +162,7 @@ namespace wmoge {
     }
 
     std::vector<std::string> GlfwWindowManager::extensions() {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::extensions");
 
         std::lock_guard guard(m_mutex);
 
@@ -177,6 +177,8 @@ namespace wmoge {
 
     std::function<VkResult(VkInstance, ref_ptr<Window>, VkSurfaceKHR&)> GlfwWindowManager::factory() {
         auto func = [this](VkInstance instance, ref_ptr<Window> window, VkSurfaceKHR& surface_khr) {
+            WG_AUTO_PROFILE_GLFW("GlfwWindowManager::glfwCreateWindowSurface");
+
             std::lock_guard guard(m_mutex);
 
             assert(instance);
@@ -188,7 +190,7 @@ namespace wmoge {
     }
 
     void GlfwWindowManager::poll_events() {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::poll_events");
 
         std::lock_guard guard(m_mutex);
 

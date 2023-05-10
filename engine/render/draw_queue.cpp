@@ -55,20 +55,20 @@ namespace wmoge {
         m_cmds.emplace_back(key, cmd);
     }
     void DrawCmdQueue::reserve(std::size_t size) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("DrawCmdQueue::reserve");
 
         std::lock_guard guard(m_mutex);
         m_cmds.reserve(size);
     }
     void DrawCmdQueue::clear() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("DrawCmdQueue::clear");
 
         std::lock_guard guard(m_mutex);
         m_cmds.clear();
     }
 
     void DrawCmdQueue::sort() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("DrawCmdQueue::sort");
 
         std::lock_guard guard(m_mutex);
 
@@ -78,7 +78,7 @@ namespace wmoge {
     }
 
     void DrawCmdQueue::execute(GfxDriver* driver, DrawUniformBuffer* pass_buffers, int pass_buffers_count) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("DrawCmdQueue::execute");
 
         std::lock_guard guard(m_mutex);
 

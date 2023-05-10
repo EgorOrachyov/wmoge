@@ -41,12 +41,12 @@ namespace wmoge {
         m_render_pass = state.pass.cast<VKRenderPass>();
     }
     VKPipeline::~VKPipeline() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKPipeline::~VKPipeline");
 
         release();
     }
     bool VKPipeline::validate() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKPipeline::validate");
 
         GfxPipelineStatus status = m_status.load();
 
@@ -81,7 +81,7 @@ namespace wmoge {
         return true;
     }
     void VKPipeline::compile(const ref_ptr<VKRenderPassHnd>& render_pass) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKPipeline::compile");
 
         Timer timer;
         timer.start();
@@ -230,7 +230,7 @@ namespace wmoge {
         m_status.store(GfxPipelineStatus::Created);
     }
     void VKPipeline::release() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKPipeline::release");
 
         if (m_pipeline) {
             m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });

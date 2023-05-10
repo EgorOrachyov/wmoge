@@ -213,7 +213,7 @@ namespace wmoge {
         m_console_font.reset();
     }
     void Console::update() {
-        WG_AUTO_PROFILE_DEBUG();
+        WG_AUTO_PROFILE_DEBUG("Console::update");
 
         std::lock_guard lock(m_mutex);
 
@@ -237,7 +237,7 @@ namespace wmoge {
         }
     }
     void Console::render() {
-        WG_AUTO_PROFILE_DEBUG();
+        WG_AUTO_PROFILE_DEBUG("Console::render");
 
         std::lock_guard lock(m_mutex);
 
@@ -384,7 +384,7 @@ namespace wmoge {
         });
     }
     void Console::load_settings() {
-        WG_AUTO_PROFILE_DEBUG();
+        WG_AUTO_PROFILE_DEBUG("Console::load_settings");
 
         auto engine  = Engine::instance();
         auto res_man = engine->resource_manager();

@@ -100,7 +100,7 @@ namespace wmoge {
         m_dirty_params = true;
     }
     void RenderCanvasItem::compile_draw_cmds(int index_count) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderCanvasItem::compile_draw_cmds");
 
         assert(m_vert_format);
         assert(m_vert_buffer);

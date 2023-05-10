@@ -57,7 +57,7 @@ namespace wmoge {
     };
 
     bool ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, ref_ptr<Resource>& res) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::load");
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("no import options file for " << name);
@@ -169,7 +169,7 @@ namespace wmoge {
         return SID("assimp");
     }
     bool ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_node");
 
         Mat4x4f local_transform;
         Mat4x4f inv_local_transform;
@@ -196,7 +196,7 @@ namespace wmoge {
         return true;
     }
     bool ResourceLoaderAssimp::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_mesh");
 
         std::size_t buffers_sizes[Mesh::MAX_BUFFER];
         int         buffers_strides[Mesh::MAX_BUFFER];

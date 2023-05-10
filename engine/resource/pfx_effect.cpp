@@ -33,7 +33,7 @@
 namespace wmoge {
 
     bool PfxEffect::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("PfxEffect::load_from_import_options");
 
         if (!Resource::load_from_import_options(tree)) {
             return false;

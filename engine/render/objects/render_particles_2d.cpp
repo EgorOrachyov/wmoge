@@ -39,7 +39,7 @@ namespace wmoge {
     }
 
     void RenderParticles2d::on_render_dynamic(RenderViewList& views, const RenderViewMask& mask) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderParticles2d::on_render_dynamic");
 
         if (m_dirty_params) {
             auto* ptr           = reinterpret_cast<Shader2d::DrawParams*>(m_driver->map_uniform_buffer(m_draw_params_no_transform));
@@ -57,7 +57,7 @@ namespace wmoge {
         m_emitter->render(views, mask, this);
     }
     void RenderParticles2d::on_scene_enter() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderParticles2d::on_scene_enter");
 
         create_draw_params();
         create_vert_format();

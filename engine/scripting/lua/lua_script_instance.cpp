@@ -73,50 +73,51 @@ namespace wmoge {
         return m_object;
     }
     void LuaScriptInstance::on_create() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_create");
         WG_SAFE_CALL(ScriptFunction::OnCreate, "on_create", m_script_object);
     }
     void LuaScriptInstance::on_scene_enter() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_scene_enter");
         WG_SAFE_CALL(ScriptFunction::OnSceneEnter, "on_scene_enter", m_script_object);
     }
     void LuaScriptInstance::on_scene_exit() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_scene_exit");
         WG_SAFE_CALL(ScriptFunction::OnSceneExit, "on_scene_exit", m_script_object);
     }
     void LuaScriptInstance::on_transform_updated() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_transform_updated");
         WG_SAFE_CALL(ScriptFunction::OnTransformUpdated, "on_transform_updated", m_script_object);
     }
     void LuaScriptInstance::on_update(float delta_time) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_update");
         WG_SAFE_CALL(ScriptFunction::OnUpdate, "on_update", m_script_object, delta_time);
     }
     void LuaScriptInstance::on_signal(const StringId& signal) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_signal");
         WG_SAFE_CALL(ScriptFunction::OnSignal, "on_signal", m_script_object, luabridge::LuaRef(m_state, signal));
     }
     void LuaScriptInstance::on_input_mouse(const ref_ptr<EventMouse>& event) {
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_mouse");
         WG_SAFE_CALL(ScriptFunction::OnInputMouse, "on_input_mouse", m_script_object, luabridge::LuaRef(m_state, LuaEventMouse{ref_ptr<RefCnt>(event.get())}));
     }
     void LuaScriptInstance::on_input_keyboard(const ref_ptr<EventKeyboard>& event) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_keyboard");
         WG_SAFE_CALL(ScriptFunction::OnInputKeyboard, "on_input_keyboard", m_script_object, luabridge::LuaRef(m_state, LuaEventKeyboard{ref_ptr<RefCnt>(event.get())}));
     }
     void LuaScriptInstance::on_input_joystick(const ref_ptr<EventJoystick>& event) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_joystick");
         WG_SAFE_CALL(ScriptFunction::OnInputJoystick, "on_input_joystick", m_script_object, luabridge::LuaRef(m_state, LuaEventJoystick{ref_ptr<RefCnt>(event.get())}));
     }
     void LuaScriptInstance::on_input_drop(const ref_ptr<EventDrop>& event) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_drop");
         WG_SAFE_CALL(ScriptFunction::OnInputDrop, "on_input_drop", m_script_object, luabridge::LuaRef(m_state, LuaEventDrop{ref_ptr<RefCnt>(event.get())}));
     }
     void LuaScriptInstance::on_action(const ref_ptr<EventAction>& action) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_action");
         WG_SAFE_CALL(ScriptFunction::OnAction, "on_action", m_script_object, luabridge::LuaRef(m_state, LuaEventAction{ref_ptr<RefCnt>(action.get())}));
     }
     void LuaScriptInstance::on_token(const ref_ptr<EventToken>& token) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_token");
         WG_SAFE_CALL(ScriptFunction::OnToken, "on_token", m_script_object, luabridge::LuaRef(m_state, LuaEventToken{ref_ptr<RefCnt>(token.get())}));
     }
     int LuaScriptInstance::set(const StringId& property, const Var& value) {

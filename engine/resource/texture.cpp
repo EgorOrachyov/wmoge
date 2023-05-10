@@ -125,7 +125,7 @@ namespace wmoge {
         m_mem_usage    = m_texture->mem_usage();
     }
     bool Texture2d::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Texture2d::load_from_import_options");
 
         load_sampler_from_import_options(tree);
 
@@ -178,7 +178,7 @@ namespace wmoge {
     }
 
     bool TextureCube::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("TextureCube::load_from_import_options");
 
         load_sampler_from_import_options(tree);
 

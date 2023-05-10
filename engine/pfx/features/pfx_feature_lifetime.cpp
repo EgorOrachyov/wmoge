@@ -57,7 +57,7 @@ namespace wmoge {
         attributes.set(PfxAttribute::TimeToLive);
     }
     void PfxFeatureLifetime::on_spawn(class PfxComponentRuntime& runtime, const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureLifetime::on_spawn");
 
         const float time_to_set = m_infinite ? std::numeric_limits<float>::max() : m_lifetime;
 
@@ -74,7 +74,7 @@ namespace wmoge {
     }
 
     void PfxFeatureLifetime::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureLifetime::on_update");
 
         auto* storage  = runtime.get_storage();
         auto  view_t   = storage->get_time();

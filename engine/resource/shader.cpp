@@ -36,7 +36,7 @@
 namespace wmoge {
 
     bool Shader::create_from_source(const std::string& vertex, const std::string& fragment) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Shader::create_from_source");
 
         assert(!vertex.empty());
         assert(!fragment.empty());
@@ -47,7 +47,7 @@ namespace wmoge {
     }
 
     bool Shader::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Shader::load_from_import_options");
 
         auto        params = tree["params"];
         std::string vertex_code_path;
@@ -97,7 +97,7 @@ namespace wmoge {
         return Shader::create_variant({}, defines);
     }
     ShaderVariant* Shader::create_variant(MeshAttribs mesh_attribs, fast_vector<std::string> defines) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Shader::create_variant");
 
         if (mesh_attribs.get(MeshAttrib::Position))
             defines.push_back("MESH_POSITION");

@@ -41,7 +41,7 @@
 namespace wmoge {
 
     bool Font::load(const std::string& path, int height, int glyphs_in_row) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Font::load");
 
         static const int GLYPHS_SIZE_SHIFT    = 6;
         static const int GLYPHS_BITMAP_OFFSET = 2;
@@ -201,7 +201,7 @@ namespace wmoge {
     }
 
     bool Font::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Font::load_from_import_options");
 
         std::string source_file;
         int         height        = 20;

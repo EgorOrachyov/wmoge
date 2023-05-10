@@ -48,7 +48,7 @@
 namespace wmoge {
 
     void Scene::init() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("Scene::init");
 
         m_root                  = Engine::instance()->scene_manager()->make_object(SID("root"));
         m_root->m_scene         = this;
@@ -78,7 +78,7 @@ namespace wmoge {
     }
 
     void Scene::shutdown() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("Scene::shutdown");
 
         m_root->shutdown();
     }
@@ -90,7 +90,7 @@ namespace wmoge {
         return m_root->get_child(idx);
     }
     SceneObject* Scene::find_child(const StringId& name) {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("Scene::find_child");
 
         if (m_root->get_name() == name) {
             return m_root.get();

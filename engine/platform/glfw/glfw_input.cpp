@@ -39,7 +39,7 @@
 namespace wmoge {
 
     GlfwInput::GlfwInput(class GlfwWindowManager& manager) : m_manager(manager) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::GlfwInput");
 
         m_mouse    = make_ref<GlfwMouse>();
         m_keyboard = make_ref<GlfwKeyboard>();
@@ -97,7 +97,7 @@ namespace wmoge {
     }
 
     void GlfwInput::subscribe_window(GLFWwindow* window) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::subscribe_window");
 
         std::lock_guard guard(m_manager.mutex());
 
@@ -110,7 +110,7 @@ namespace wmoge {
     }
 
     void GlfwInput::update() {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::update");
 
         std::lock_guard guard(m_manager.mutex());
 
@@ -170,7 +170,7 @@ namespace wmoge {
     }
 
     void GlfwInput::drop_callback(GLFWwindow*, int count, const char** paths) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::drop_callback");
 
         if (count > 0) {
             std::vector<std::string> paths_vector;
@@ -189,7 +189,7 @@ namespace wmoge {
     }
 
     void GlfwInput::mouse_position_callback(GLFWwindow*, double x, double y) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::mouse_position_callback");
 
         auto engine        = Engine::instance();
         auto event_manager = engine->event_manager();
@@ -207,7 +207,7 @@ namespace wmoge {
     }
 
     void GlfwInput::mouse_buttons_callback(GLFWwindow*, int button, int action, int mods) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::mouse_buttons_callback");
 
         auto engine        = Engine::instance();
         auto event_manager = engine->event_manager();
@@ -230,7 +230,7 @@ namespace wmoge {
     }
 
     void GlfwInput::keyboard_keys_callback(GLFWwindow*, int key, int scancode, int action, int mods) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::keyboard_keys_callback");
 
         auto engine        = Engine::instance();
         auto event_manager = engine->event_manager();
@@ -253,7 +253,7 @@ namespace wmoge {
     }
 
     void GlfwInput::keyboard_text_callback(GLFWwindow*, unsigned int code_point) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::keyboard_text_callback");
 
         auto engine        = Engine::instance();
         auto event_manager = engine->event_manager();
@@ -272,7 +272,7 @@ namespace wmoge {
     }
 
     void GlfwInput::joystick_callback(int jid, int state) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwInput::joystick_callback");
 
         auto engine        = Engine::instance();
         auto event_manager = engine->event_manager();

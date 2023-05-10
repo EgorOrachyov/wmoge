@@ -47,7 +47,7 @@ namespace wmoge {
     static_assert(sizeof(AuxDrawConstants) == (2 * 4 * 4) * sizeof(float), "unexpected size");
 
     AuxDrawManager::AuxDrawManager() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::AuxDrawManager");
 
         auto engine           = Engine::instance();
         auto gfx_driver       = engine->gfx_driver();
@@ -146,7 +146,7 @@ namespace wmoge {
         }
     }
     void AuxDrawManager::draw_sphere(const Vec3f& pos, float radius, const Color3f& color, bool solid) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_sphere");
 
         const int steps_v = MAX_SPLIT_STEP_SPHERE;
         const int steps_h = MAX_SPLIT_STEP_SPHERE;
@@ -182,7 +182,7 @@ namespace wmoge {
         }
     }
     void AuxDrawManager::draw_cylinder(const Vec3f& pos, float radius, float height, const Color3f& color, const Quatf& rot, bool solid) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_cylinder");
 
         const int nv            = MAX_SPLIT_STEP_CYLINDER * 2 + 2;
         const int v_center_down = MAX_SPLIT_STEP_CYLINDER * 2 + 0;
@@ -218,7 +218,7 @@ namespace wmoge {
         }
     }
     void AuxDrawManager::draw_cone(const Vec3f& pos, float radius, float height, const Color3f& color, const Quatf& rot, bool solid) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_cone");
 
         const int nv       = MAX_SPLIT_STEP_CONE + 2;
         const int v_center = MAX_SPLIT_STEP_CONE + 0;
@@ -249,7 +249,7 @@ namespace wmoge {
         }
     }
     void AuxDrawManager::draw_box(const Vec3f& pos, const Vec3f& size, const Color3f& color, const Quatf& rot, bool solid) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_box");
 
         const int nv = 8;
 
@@ -287,7 +287,7 @@ namespace wmoge {
         draw_triangle(vertices[2], vertices[5], vertices[6], color, solid);
     }
     void AuxDrawManager::draw_text_3d(const std::string& text, const Vec3f& pos, float size, const Color3f& color) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_text_3d");
 
         auto world_pos  = m_proj * m_view * Vec4f(pos, 1.0f);
         auto ndc_pos    = world_pos / world_pos.w();
@@ -296,7 +296,7 @@ namespace wmoge {
         draw_text_2d(text, screen_pos, size, color);
     }
     void AuxDrawManager::draw_text_2d(const std::string& text, const Vec2f& pos, float size, const Color3f& color) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_text_2d");
 
         const int n = int(text.size());
 
@@ -360,7 +360,7 @@ namespace wmoge {
     }
 
     void AuxDrawManager::render() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::render");
 
         auto gfx = Engine::instance()->gfx_driver();
 

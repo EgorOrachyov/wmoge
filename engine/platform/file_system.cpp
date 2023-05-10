@@ -93,7 +93,7 @@ namespace wmoge {
         return !resolved.empty() && std::filesystem::exists(resolved);
     }
     bool FileSystem::read_file(const std::string& path, std::string& data) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
         std::fstream            file;
@@ -107,7 +107,7 @@ namespace wmoge {
         return true;
     }
     bool FileSystem::read_file(const std::string& path, ref_ptr<Data>& data) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
         std::fstream            file;
@@ -121,7 +121,7 @@ namespace wmoge {
         return true;
     }
     bool FileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
         std::fstream            file;
@@ -135,7 +135,7 @@ namespace wmoge {
         return true;
     }
     bool FileSystem::open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file");
 
         std::filesystem::path resolved = resolve(path);
         std::fstream          file(resolved, mode);
@@ -148,7 +148,7 @@ namespace wmoge {
         return true;
     }
     bool FileSystem::save_file(const std::string& path, const std::string& data) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
         std::ios_base::openmode mode = std::ios::out | std::ios::binary;
         std::fstream            file;
@@ -159,7 +159,7 @@ namespace wmoge {
         return true;
     }
     bool FileSystem::save_file(const std::string& path, const std::vector<std::uint8_t>& data) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
         std::ios_base::openmode mode = std::ios::out | std::ios::binary;
         std::fstream            file;

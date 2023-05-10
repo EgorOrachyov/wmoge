@@ -39,7 +39,7 @@
 namespace wmoge {
 
     PfxSpriteRenderer::PfxSpriteRenderer(ref_ptr<Material> material, int vert_buffer_size, int index_buffer_size, const StringId& name) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxSpriteRenderer::PfxSpriteRenderer");
 
         assert(material);
 
@@ -55,7 +55,7 @@ namespace wmoge {
         m_data = data;
     }
     void PfxSpriteRenderer::on_render_dynamic(RenderViewList& views, const RenderViewMask& mask, RenderObject* object) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxSpriteRenderer::on_render_dynamic");
 
         if (m_data.n_indices <= 0) {
             return;

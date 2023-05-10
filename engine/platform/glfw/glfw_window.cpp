@@ -34,7 +34,7 @@
 namespace wmoge {
 
     GlfwWindow::GlfwWindow(const WindowInfo& window_info, class GlfwWindowManager& manager) : m_manager(manager) {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindow::GlfwWindow");
 
         m_id  = window_info.id;
         m_hnd = glfwCreateWindow(window_info.width, window_info.height, window_info.title.c_str(), nullptr, nullptr);
@@ -59,7 +59,7 @@ namespace wmoge {
     }
 
     GlfwWindow::~GlfwWindow() {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindow::~GlfwWindow");
 
         std::lock_guard guard(m_manager.mutex());
 
@@ -69,7 +69,7 @@ namespace wmoge {
     }
 
     void GlfwWindow::close() {
-        WG_AUTO_PROFILE_GLFW();
+        WG_AUTO_PROFILE_GLFW("GlfwWindow::close");
 
         std::lock_guard guard(m_manager.mutex());
 

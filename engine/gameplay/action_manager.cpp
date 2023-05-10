@@ -35,7 +35,7 @@
 namespace wmoge {
 
     ActionManager::ActionManager() {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::ActionManager");
 
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
@@ -49,7 +49,7 @@ namespace wmoge {
         event_manager->subscribe(m_listener_joystick);
     }
     ActionManager::~ActionManager() {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::~ActionManager");
 
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
@@ -60,7 +60,7 @@ namespace wmoge {
     }
 
     void ActionManager::update() {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::update");
 
         auto*       engine        = Engine::instance();
         auto*       input         = engine->input();
@@ -102,7 +102,7 @@ namespace wmoge {
     }
 
     bool ActionManager::add_action_map(ref_ptr<ActionMap> action_map) {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::add_action_map");
 
         if (!action_map) {
             WG_LOG_ERROR("passed null action map");
@@ -117,7 +117,7 @@ namespace wmoge {
         return true;
     }
     bool ActionManager::load_action_map(const std::string& filepath) {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load_action_map");
 
         ref_ptr<ActionMap> action_map = make_ref<ActionMap>();
 
@@ -153,7 +153,7 @@ namespace wmoge {
     }
 
     bool ActionManager::on_input_mouse(const EventMouse& event) {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::on_input_mouse");
 
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
@@ -185,7 +185,7 @@ namespace wmoge {
         return false;
     }
     bool ActionManager::on_input_keyboard(const EventKeyboard& event) {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::on_input_keyboard");
 
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
@@ -217,7 +217,7 @@ namespace wmoge {
         return false;
     }
     bool ActionManager::on_input_joystick(const EventJoystick& event) {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::on_input_joystick");
 
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();

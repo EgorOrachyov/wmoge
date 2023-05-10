@@ -38,7 +38,7 @@ namespace wmoge {
         clear();
     }
     void CallbackQueue::flush() {
-        WG_AUTO_PROFILE_CORE();
+        WG_AUTO_PROFILE_CORE("CallbackQueue::flush");
 
         std::lock_guard guard(m_mutex);
         std::size_t     offset = 0;
@@ -53,7 +53,7 @@ namespace wmoge {
         m_allocated_bytes = 0;
     }
     void CallbackQueue::clear() {
-        WG_AUTO_PROFILE_CORE();
+        WG_AUTO_PROFILE_CORE("CallbackQueue::clear");
 
         std::lock_guard guard(m_mutex);
         std::size_t     offset = 0;

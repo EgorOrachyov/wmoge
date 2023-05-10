@@ -61,7 +61,7 @@ namespace wmoge {
     }
 
     void RenderCanvasText::on_scene_enter() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderCanvasText::on_scene_enter");
 
         RenderObject::on_scene_enter();
 
@@ -73,7 +73,7 @@ namespace wmoge {
         m_dirty_geom = false;
     }
     void RenderCanvasText::on_render_dynamic(RenderViewList& views, const RenderViewMask& mask) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderCanvasText::on_render_dynamic");
 
         RenderCanvasItem::on_render_dynamic(views, mask);
 
@@ -108,7 +108,7 @@ namespace wmoge {
     }
 
     void RenderCanvasText::rebuild_geom() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderCanvasText::rebuild_geom");
 
         const int n = int(m_text.size());
 

@@ -45,7 +45,7 @@ namespace wmoge {
         return 0;
     }
     void SceneObject::shutdown() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneObject::shutdown");
 
         for (auto& c : m_children) {
             c->shutdown();
@@ -137,7 +137,7 @@ namespace wmoge {
     }
 
     bool SceneObject::on_load_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneObject::on_load_from_yaml");
 
         assert(node.valid());
 
@@ -186,7 +186,7 @@ namespace wmoge {
         return true;
     }
     void SceneObject::on_scene_enter() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneObject::on_scene_enter");
 
         get_scene()->get_registry()->add<SceneObject>(this);
 
@@ -202,7 +202,7 @@ namespace wmoge {
         m_is_in_scene = true;
     }
     void SceneObject::on_scene_exit() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneObject::on_scene_exit");
 
         get_scene()->get_registry()->remove<SceneObject>(this);
 
@@ -217,7 +217,7 @@ namespace wmoge {
         m_scene       = nullptr;
     }
     void SceneObject::on_transform_updated() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneObject::on_transform_updated");
 
         for (const auto& c : m_components) {
             c->on_transform_updated();
@@ -252,7 +252,7 @@ namespace wmoge {
         return nullptr;
     }
     class SceneObject* SceneObject::find_child(const StringId& name) {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneObject::find_child");
 
         for (const auto& c : m_children) {
             if (c->get_name() == name) {
@@ -297,9 +297,9 @@ namespace wmoge {
             }
 
             m_components.push_back(cls->instantiate().cast<SceneComponent>());
+
             component                 = m_components.back().get();
             component->m_scene_object = this;
-
             component->on_create();
 
             if (is_in_scene()) {

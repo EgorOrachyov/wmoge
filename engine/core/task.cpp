@@ -74,7 +74,7 @@ namespace wmoge {
     }
 
     void Task::execute(TaskContext& context) {
-        WG_AUTO_PROFILE_TASK(m_name.str());
+        WG_AUTO_PROFILE_TASK("Task::execute", m_name.str());
 
         auto ret = m_runnable(context);
 
@@ -117,7 +117,7 @@ namespace wmoge {
         }
     }
     void Task::wait_completed() {
-        WG_AUTO_PROFILE_TASK(m_name.str());
+        WG_AUTO_PROFILE_TASK("Task::wait_completed", m_name.str());
         AsyncState::wait_completed();
     }
 

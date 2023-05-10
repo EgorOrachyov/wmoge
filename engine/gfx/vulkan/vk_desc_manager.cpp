@@ -49,7 +49,7 @@ namespace wmoge {
         }
     }
     void VKDescManager::update() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKDescManager::update");
 
         m_frame_index = (m_frame_index + 1) % GfxLimits::FRAMES_IN_FLIGHT;
         auto device   = m_driver.device();
@@ -180,7 +180,7 @@ namespace wmoge {
         return m_sets;
     }
     void VKDescManager::allocate_set(int idx) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKDescManager::allocate_set");
 
         VKPoolKey pool_key{};
         pool_key.textures_count   = m_reflection->textures_per_desc[idx];

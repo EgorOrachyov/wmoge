@@ -111,7 +111,7 @@ namespace wmoge {
         entry.name   = shader->name();
     }
     void ShaderCache::clear() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("ShaderCache::clear");
 
         std::lock_guard lock(m_mutex);
         m_entries.clear();
@@ -119,7 +119,7 @@ namespace wmoge {
         WG_LOG_INFO("clear shader cache");
     }
     void ShaderCache::save(const std::string& path) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("ShaderCache::save");
 
         std::lock_guard lock(m_mutex);
 
@@ -149,7 +149,7 @@ namespace wmoge {
         WG_LOG_INFO("save shader cache: " << path << " " << StringUtils::from_mem_size(archive.get_size()));
     }
     void ShaderCache::load(const std::string& path) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("ShaderCache::load");
 
         std::lock_guard lock(m_mutex);
 

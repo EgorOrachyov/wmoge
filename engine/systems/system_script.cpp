@@ -72,7 +72,7 @@ namespace wmoge {
     }
 
     void SystemScript::process() {
-        WG_AUTO_PROFILE_SCRIPTING();
+        WG_AUTO_PROFILE_SCRIPTING("SystemScript::process");
 
         auto* registry = m_scene->get_registry();
         auto* scripts  = registry->get_container<ScriptComponent>();

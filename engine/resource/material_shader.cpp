@@ -38,7 +38,7 @@
 namespace wmoge {
 
     bool MaterialShader::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("MaterialShader::load_from_import_options");
 
         if (!Shader::load_from_import_options(tree)) {
             return false;

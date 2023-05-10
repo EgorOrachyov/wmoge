@@ -53,7 +53,7 @@ namespace wmoge {
     }
 
     void RenderSpriteInstance::on_scene_enter() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderSpriteInstance::on_scene_enter");
 
         m_vert_buffer  = m_driver->make_vert_buffer(sizeof(GfxVF_Pos2Uv2Col4[N_VERTICES]), GfxMemUsage::GpuLocal, m_name);
         m_index_buffer = m_driver->make_index_buffer(sizeof(std::uint16_t[N_INDICES]), GfxMemUsage::GpuLocal, m_name);
@@ -74,7 +74,7 @@ namespace wmoge {
     }
 
     void RenderSpriteInstance::on_update(float dt) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderSpriteInstance::on_update");
 
         RenderObject::on_update(dt);
 
@@ -107,7 +107,7 @@ namespace wmoge {
     }
 
     void RenderSpriteInstance::on_render_dynamic(RenderViewList& views, const RenderViewMask& mask) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderSpriteInstance::on_render_dynamic");
 
         if (m_animation == -1) return;
 
@@ -146,7 +146,7 @@ namespace wmoge {
     }
 
     void RenderSpriteInstance::rebuild_geom() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("RenderSpriteInstance::rebuild_geom");
 
         const auto frame   = m_sprite->get_animation_frame(m_animation, m_frame);
         const auto size    = m_sprite->get_size();

@@ -33,24 +33,30 @@
 
 namespace wmoge {
 
-    ProfilerMark::ProfilerMark(StringId    in_function,
+    ProfilerMark::ProfilerMark(StringId    label,
+                               StringId    in_function,
                                StringId    in_function_sig,
                                StringId    in_file,
                                StringId    in_category,
                                std::size_t in_line)
-        : function(std::move(in_function)),
-          function_sig(std::move(in_function_sig)),
-          file(std::move(in_file)),
-          category(std::move(in_category)),
+        : label(label),
+          function(in_function),
+          function_sig(in_function_sig),
+          file(in_file),
+          category(in_category),
           line(in_line),
           profiler(Engine::instance()->profiler()) {
 
-        std::string to_replace = "__cdecl ";
+        pretty_name = label.str();
 
-        pretty_name = function_sig.str();
-        auto pos    = pretty_name.find(to_replace);
-        if (pos != std::string::npos) {
-            pretty_name.replace(pos, to_replace.length(), "");
+        if (pretty_name.empty()) {
+            std::string to_replace = "__cdecl ";
+
+            pretty_name = function_sig.str();
+            auto pos    = pretty_name.find(to_replace);
+            if (pos != std::string::npos) {
+                pretty_name.replace(pos, to_replace.length(), "");
+            }
         }
     }
 
@@ -73,7 +79,7 @@ namespace wmoge {
     }
 
     void ProfilerCapture::set_name(StringId name) {
-        m_name = std::move(name);
+        m_name = name;
     }
     void ProfilerCapture::set_file(std::string file) {
         m_file = std::move(file);
@@ -98,7 +104,7 @@ namespace wmoge {
         auto start     = engine->get_start();
         auto tid_names = profiler->get_tid_names();
 
-        file_stream << "{\"otherData\":{}, \"traceEvents\":[";
+        file_stream << R"({"otherData":{}, "traceEvents":[)";
 
         bool first = true;
         for (const auto& entry : m_entries) {
@@ -109,14 +115,18 @@ namespace wmoge {
 
             file_stream << "{";
             file_stream << "\"pid\":0,";
-            file_stream << "\"tid\":\"" << tid_names[entry.tid] << "\",";
-            file_stream << "\"cat\":\"" << entry.mark->category.str() << "\",";
-            file_stream << "\"name\":\"" << entry.mark->pretty_name << "\",";
-            file_stream << "\"ph\":\"X\",";
+            file_stream << R"("tid":")" << tid_names[entry.tid] << "\",";
+            file_stream << R"("cat":")" << entry.mark->category.str() << "\",";
+            file_stream << R"("name":")" << entry.mark->pretty_name << "\",";
+            file_stream << R"("ph":"X",)";
             file_stream << "\"ts\":" << entry_start << ",";
             file_stream << "\"dur\":" << entry_dur << ",";
             file_stream << "\"args\":";
-            file_stream << "{\"description\":\"" << entry.desc << "\"}";
+            file_stream << "{";
+            file_stream << R"("description":")" << entry.desc << "\",";
+            file_stream << R"("fun":")" << entry.mark->function.str() << "\",";
+            file_stream << R"("fun-sig":")" << entry.mark->function_sig.str() << "\"";
+            file_stream << "}";
             file_stream << "}";
 
             first = false;

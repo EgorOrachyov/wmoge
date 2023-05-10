@@ -38,7 +38,7 @@ namespace wmoge {
         m_file_system = Engine::instance()->file_system();
     }
     bool ResourcePakFileSystem::meta(const StringId& name, ResourceMeta& meta) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourcePakFileSystem::meta");
 
         std::string               meta_file_path = name.str() + ".res";
         std::vector<std::uint8_t> meta_file;

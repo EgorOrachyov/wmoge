@@ -36,7 +36,8 @@ namespace wmoge {
 
     ALAudioPlayback::ALAudioPlayback(ref_ptr<AudioStream> stream, StringId bus, const StringId& name, class ALAudioEngine& engine)
         : m_engine(engine) {
-        WG_AUTO_PROFILE_OPENAL();
+
+        WG_AUTO_PROFILE_OPENAL("ALAudioPlayback::ALAudioPlayback");
 
         assert(stream);
         assert(!bus.empty());

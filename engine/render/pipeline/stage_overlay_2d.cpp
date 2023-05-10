@@ -46,7 +46,7 @@ namespace wmoge {
     }
 
     void PipelineStageOverlay2d::on_register() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStageOverlay2d::on_register");
 
         GfxDriver* driver = get_gfx_driver();
 
@@ -55,7 +55,7 @@ namespace wmoge {
     }
 
     void PipelineStageOverlay2d::on_execute(int view_index) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("PipelineStageOverlay2d::on_execute");
 
         GfxDriver*    driver = get_gfx_driver();
         RenderView*   view   = get_view(view_index);

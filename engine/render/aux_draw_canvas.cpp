@@ -46,7 +46,7 @@ namespace wmoge {
     };
 
     AuxDrawCanvas::AuxDrawCanvas() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::AuxDrawCanvas");
 
         auto engine = Engine::instance();
         auto gfx    = engine->gfx_driver();
@@ -129,7 +129,7 @@ namespace wmoge {
     }
 
     void AuxDrawCanvas::draw_line(const Vec2f& from, const Vec2f& to, float width) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_line");
 
         float x = to.x() - from.x();
         float y = to.y() - from.y();
@@ -142,14 +142,14 @@ namespace wmoge {
         pop();
     }
     void AuxDrawCanvas::draw_triangle(const Vec2f& p0, const Vec2f& p1, const Vec2f& p2, float border) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_triangle");
 
         draw_line(p0, p1, border);
         draw_line(p1, p2, border);
         draw_line(p2, p0, border);
     }
     void AuxDrawCanvas::draw_rect(const Vec2f& pos, const Vec2f& size, float border) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_rect");
 
         const Vec2f p0(pos.x(), pos.y() + size.y());
         const Vec2f p1(pos.x(), pos.y());
@@ -162,12 +162,12 @@ namespace wmoge {
         draw_line(p3, p0, border);
     }
     void AuxDrawCanvas::draw_filled_triangle(const Vec2f& p0, const Vec2f& p1, const Vec2f& p2) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_filled_triangle");
 
         add_triangle(p0, p1, p2, m_color_fill);
     }
     void AuxDrawCanvas::draw_filled_rect(const Vec2f& pos, const Vec2f& size) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_filled_rect");
 
         const Vec2f p0(pos.x(), pos.y() + size.y());
         const Vec2f p1(pos.x(), pos.y());
@@ -178,7 +178,7 @@ namespace wmoge {
         draw_filled_triangle(p2, p3, p0);
     }
     void AuxDrawCanvas::draw_texture(const ref_ptr<Texture2d>& texture, const Vec2f& pos, const Vec2f& size, const Vec2f& uv_base, const Vec2f& uv_size) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_texture");
 
         assert(texture);
 
@@ -224,7 +224,7 @@ namespace wmoge {
         t2.is_text = false;
     }
     void AuxDrawCanvas::draw_text(const std::string& text, const Vec2f& pos, float size) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_text");
 
         const int n = int(text.size());
 
@@ -296,7 +296,7 @@ namespace wmoge {
     }
 
     void AuxDrawCanvas::add_triangle(const Vec2f& p0, const Vec2f& p1, const Vec2f& p2, const Color4f& color) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::add_triangle");
 
         const auto& mat      = m_transform_stack.back();
         auto&       triangle = m_triangles.emplace_back();
@@ -311,7 +311,7 @@ namespace wmoge {
         triangle.sampler     = m_default_sampler;
     }
     void AuxDrawCanvas::add_rect(const Vec2f& pos, const Vec2f& size, const Color4f& color) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::add_rect");
 
         const Vec2f p0(pos.x(), pos.y() + size.y());
         const Vec2f p1(pos.x(), pos.y());
@@ -333,7 +333,7 @@ namespace wmoge {
     }
 
     void AuxDrawCanvas::render() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::render");
 
         auto gfx = Engine::instance()->gfx_driver();
 

@@ -54,7 +54,7 @@ namespace wmoge {
         attributes.set(PfxAttribute::Angle);
     }
     void PfxFeatureMovement2d::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureMovement2d::on_update");
 
         auto* storage = runtime.get_storage();
         auto  view_p  = storage->get_pos2d();

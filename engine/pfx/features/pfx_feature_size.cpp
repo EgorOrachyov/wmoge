@@ -53,7 +53,7 @@ namespace wmoge {
         attributes.set(PfxAttribute::TimeNorm);
     }
     void PfxFeatureSize::on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureSize::on_spawn");
 
         auto* storage = runtime.get_storage();
         auto  view_s  = storage->get_size();
@@ -63,7 +63,7 @@ namespace wmoge {
         }
     }
     void PfxFeatureSize::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureSize::on_update");
 
         auto* storage = runtime.get_storage();
         auto  view_s  = storage->get_size();

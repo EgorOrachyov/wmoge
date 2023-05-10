@@ -38,7 +38,7 @@
 namespace wmoge {
 
     void DebugLayer::on_start_frame() {
-        WG_AUTO_PROFILE_DEBUG();
+        WG_AUTO_PROFILE_DEBUG("DebugLayer::on_start_frame");
 
         auto engine           = Engine::instance();
         auto window           = engine->window_manager()->primary_window();
@@ -52,7 +52,7 @@ namespace wmoge {
         aux_draw_manager->set_window(window);
     }
     void DebugLayer::on_debug_draw() {
-        WG_AUTO_PROFILE_DEBUG();
+        WG_AUTO_PROFILE_DEBUG("DebugLayer::on_debug_draw");
 
         auto engine           = Engine::instance();
         auto canvas_debug     = engine->canvas_2d_debug();

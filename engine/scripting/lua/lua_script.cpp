@@ -37,7 +37,7 @@
 namespace wmoge {
 
     bool LuaScript::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScript::load_from_import_options");
 
         if (!Script::load_from_import_options(tree)) {
             return false;
@@ -101,7 +101,7 @@ namespace wmoge {
     }
 
     ref_ptr<ScriptInstance> LuaScript::attach_to(Object* object) {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScript::attach_to");
 
         if (!object) {
             WG_LOG_ERROR("passed null object to attach to");

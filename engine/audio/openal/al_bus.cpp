@@ -60,7 +60,7 @@ namespace wmoge {
         m_playbacks.erase(playback);
     }
     void ALAudioBus::make_active() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioBus::make_active");
 
         std::lock_guard guard(m_engine.get_mutex());
 
@@ -72,7 +72,7 @@ namespace wmoge {
         }
     }
     void ALAudioBus::make_inactive() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioBus::make_inactive");
 
         std::lock_guard guard(m_engine.get_mutex());
 
@@ -98,7 +98,7 @@ namespace wmoge {
         }
     }
     void ALAudioBus::get_playbacks(std::vector<ref_ptr<AudioPlayback>>& playbacks) {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioBus::get_playbacks");
 
         std::lock_guard guard(m_engine.get_mutex());
 
@@ -106,7 +106,7 @@ namespace wmoge {
         playbacks.reserve(m_playbacks.size());
 
         for (auto playback : m_playbacks) {
-            playbacks.push_back(ref_ptr<AudioPlayback>(playback));
+            playbacks.emplace_back(playback);
         }
     }
 

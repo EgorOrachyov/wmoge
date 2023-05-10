@@ -85,7 +85,7 @@ namespace wmoge {
     Main::~Main() = default;
 
     bool Main::load_config(const std::string& config_path) {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("Main::load_config");
 
         if (!m_config_engine->load(config_path)) {
             std::cerr << "failed to load default engine config file";
@@ -117,7 +117,7 @@ namespace wmoge {
     }
 
     bool Main::initialize() {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("Main::initialize");
 
         auto* engine        = Engine::instance();
         auto* config_engine = engine->config_engine();
@@ -226,7 +226,7 @@ namespace wmoge {
         return true;
     }
     bool Main::iteration() {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("Main::iteration");
 
         m_num_iterations += 1;
 
@@ -295,7 +295,7 @@ namespace wmoge {
         return true;
     }
     bool Main::shutdown() {
-        WG_AUTO_PROFILE_PLATFORM();
+        WG_AUTO_PROFILE_PLATFORM("Main::shutdown");
 
         auto* engine = Engine::instance();
 

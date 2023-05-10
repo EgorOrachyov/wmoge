@@ -54,7 +54,7 @@ namespace wmoge {
         attributes.set(PfxAttribute::Color);
     }
     void PfxFeatureColor::on_spawn(class PfxComponentRuntime& runtime, const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureColor::on_spawn");
 
         auto* storage    = runtime.get_storage();
         auto  view_color = storage->get_color();
@@ -64,7 +64,7 @@ namespace wmoge {
         }
     }
     void PfxFeatureColor::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureColor::on_update");
 
         auto* storage    = runtime.get_storage();
         auto  view_color = storage->get_color();

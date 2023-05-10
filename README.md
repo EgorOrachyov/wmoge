@@ -4,7 +4,8 @@
 [![clang format](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml)
 [![docs c/c++](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml)
 
-**"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and OpenGL backends.
+**"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and
+OpenGL backends.
 
 > Work in progress, new features coming soon!
 
@@ -12,13 +13,13 @@
 
 ### Features
 
-* Moder C++17 based code-base
+* Moder C++17 based engine with clear architecture
 * Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS
-* Abstract Gfx device interface for GPU driver communication
-* Gfx Vulkan low-level rendering support
-* Gfx OpenGL low-level rendering support
-* Lua scripting for game logic programming
+* Abstract graphics (gfx) device interface for GPU driver communication
+* Vulkan-based gfx device backend
+* OpenGL-based gfx device backend
 * OpenAL audio renderer for playing game sounds
+* Lua scripting for game logic programming
 
 ### Platforms
 

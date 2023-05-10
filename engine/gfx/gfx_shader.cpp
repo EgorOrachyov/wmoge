@@ -32,6 +32,8 @@
 namespace wmoge {
 
     Archive& operator<<(Archive& archive, const GfxShaderReflection::Texture& texture) {
+        WG_AUTO_PROFILE_GFX("GfxShaderReflection::Texture::Archive<<");
+
         archive << texture.name;
         archive << texture.set;
         archive << texture.binding;
@@ -40,6 +42,8 @@ namespace wmoge {
         return archive;
     }
     Archive& operator>>(Archive& archive, GfxShaderReflection::Texture& texture) {
+        WG_AUTO_PROFILE_GFX("GfxShaderReflection::Texture::Archive>>");
+
         archive >> texture.name;
         archive >> texture.set;
         archive >> texture.binding;
@@ -50,6 +54,8 @@ namespace wmoge {
         return archive;
     }
     Archive& operator<<(Archive& archive, const GfxShaderReflection::Buffer& buffer) {
+        WG_AUTO_PROFILE_GFX("GfxShaderReflection::Buffer::Archive<<");
+
         archive << buffer.name;
         archive << buffer.set;
         archive << buffer.binding;
@@ -57,6 +63,8 @@ namespace wmoge {
         return archive;
     }
     Archive& operator>>(Archive& archive, GfxShaderReflection::Buffer& buffer) {
+        WG_AUTO_PROFILE_GFX("GfxShaderReflection::Buffer::Archive>>");
+
         archive >> buffer.name;
         archive >> buffer.set;
         archive >> buffer.binding;
@@ -64,7 +72,7 @@ namespace wmoge {
         return archive;
     }
     Archive& operator<<(Archive& archive, const GfxShaderReflection& reflection) {
-        WG_AUTO_PROFILE_GFX();
+        WG_AUTO_PROFILE_GFX("GfxShaderReflection::Archive<<");
 
         archive << reflection.textures;
         archive << reflection.ub_buffers;
@@ -75,7 +83,7 @@ namespace wmoge {
         return archive;
     }
     Archive& operator>>(Archive& archive, GfxShaderReflection& reflection) {
-        WG_AUTO_PROFILE_GFX();
+        WG_AUTO_PROFILE_GFX("GfxShaderReflection::Archive>>");
 
         archive >> reflection.textures;
         archive >> reflection.ub_buffers;

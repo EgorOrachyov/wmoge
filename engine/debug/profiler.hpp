@@ -47,10 +47,11 @@ namespace wmoge {
      */
     struct ProfilerMark {
     public:
-        ProfilerMark(StringId in_function, StringId in_function_sig,
+        ProfilerMark(StringId label, StringId in_function, StringId in_function_sig,
                      StringId in_file, StringId in_category,
                      std::size_t in_line);
 
+        StringId        label;
         StringId        function;
         StringId        function_sig;
         StringId        file;
@@ -141,33 +142,33 @@ namespace wmoge {
     #define SIGNATURE __FUNCSIG__
 #endif
 
-#define WG_PROFILE_MARK(name, system) \
-    static ProfilerMark name(SID(__FUNCTION__), SID(SIGNATURE), SID(__FILE__), SID(#system), std::size_t{__LINE__})
+#define WG_PROFILE_MARK(name, system, label) \
+    static ProfilerMark name(SID(label), SID(__FUNCTION__), SID(SIGNATURE), SID(__FILE__), SID(#system), std::size_t{__LINE__})
 
-#define WG_PROFILE_DESC(system, desc)        \
-    WG_PROFILE_MARK(__wg_auto_mark, system); \
+#define WG_PROFILE_DESC(system, label, desc)        \
+    WG_PROFILE_MARK(__wg_auto_mark, system, label); \
     ProfilerTimeEvent __wg_auto_scope(&__wg_auto_mark, desc)
 
-#define WG_AUTO_PROFILE_DESC(system, desc) WG_PROFILE_DESC(system, desc)
-#define WG_AUTO_PROFILE(system)            WG_AUTO_PROFILE_DESC(system, "wmoge auto profile of " #system)
+#define WG_AUTO_PROFILE_DESC(system, label, desc) WG_PROFILE_DESC(system, label, desc)
+#define WG_AUTO_PROFILE(system, label)            WG_AUTO_PROFILE_DESC(system, label, "wmoge auto profile of " #system)
 
-#define WG_AUTO_PROFILE_TASK(name)  WG_AUTO_PROFILE_DESC(core, name)
-#define WG_AUTO_PROFILE_CORE()      WG_AUTO_PROFILE(core)
-#define WG_AUTO_PROFILE_PLATFORM()  WG_AUTO_PROFILE(platform)
-#define WG_AUTO_PROFILE_GLFW()      WG_AUTO_PROFILE(glfw)
-#define WG_AUTO_PROFILE_GFX()       WG_AUTO_PROFILE(gfx)
-#define WG_AUTO_PROFILE_VULKAN()    WG_AUTO_PROFILE(vulkan)
-#define WG_AUTO_PROFILE_IO()        WG_AUTO_PROFILE(io)
-#define WG_AUTO_PROFILE_RESOURCE()  WG_AUTO_PROFILE(resource)
-#define WG_AUTO_PROFILE_RENDER()    WG_AUTO_PROFILE(render)
-#define WG_AUTO_PROFILE_GAMEPLAY()  WG_AUTO_PROFILE(gameplay)
-#define WG_AUTO_PROFILE_DEBUG()     WG_AUTO_PROFILE(debug)
-#define WG_AUTO_PROFILE_SCENE()     WG_AUTO_PROFILE(scene)
-#define WG_AUTO_PROFILE_SCRIPTING() WG_AUTO_PROFILE(scripting)
-#define WG_AUTO_PROFILE_LUA()       WG_AUTO_PROFILE(lua)
-#define WG_AUTO_PROFILE_PFX()       WG_AUTO_PROFILE(pfx)
-#define WG_AUTO_PROFILE_AUDIO()     WG_AUTO_PROFILE(audio)
-#define WG_AUTO_PROFILE_OPENAL()    WG_AUTO_PROFILE(openal)
+#define WG_AUTO_PROFILE_TASK(label, name) WG_AUTO_PROFILE_DESC(core, label, name)
+#define WG_AUTO_PROFILE_CORE(label)       WG_AUTO_PROFILE(core, label)
+#define WG_AUTO_PROFILE_PLATFORM(label)   WG_AUTO_PROFILE(platform, label)
+#define WG_AUTO_PROFILE_GLFW(label)       WG_AUTO_PROFILE(glfw, label)
+#define WG_AUTO_PROFILE_GFX(label)        WG_AUTO_PROFILE(gfx, label)
+#define WG_AUTO_PROFILE_VULKAN(label)     WG_AUTO_PROFILE(vulkan, label)
+#define WG_AUTO_PROFILE_IO(label)         WG_AUTO_PROFILE(io, label)
+#define WG_AUTO_PROFILE_RESOURCE(label)   WG_AUTO_PROFILE(resource, label)
+#define WG_AUTO_PROFILE_RENDER(label)     WG_AUTO_PROFILE(render, label)
+#define WG_AUTO_PROFILE_GAMEPLAY(label)   WG_AUTO_PROFILE(gameplay, label)
+#define WG_AUTO_PROFILE_DEBUG(label)      WG_AUTO_PROFILE(debug, label)
+#define WG_AUTO_PROFILE_SCENE(label)      WG_AUTO_PROFILE(scene, label)
+#define WG_AUTO_PROFILE_SCRIPTING(label)  WG_AUTO_PROFILE(scripting, label)
+#define WG_AUTO_PROFILE_LUA(label)        WG_AUTO_PROFILE(lua, label)
+#define WG_AUTO_PROFILE_PFX(label)        WG_AUTO_PROFILE(pfx, label)
+#define WG_AUTO_PROFILE_AUDIO(label)      WG_AUTO_PROFILE(audio, label)
+#define WG_AUTO_PROFILE_OPENAL(label)     WG_AUTO_PROFILE(openal, label)
 
 #define WG_PROFILE_CAPTURE_START(session, file_path)                                            \
     std::shared_ptr<ProfilerCapture> __capture_##session = std::make_shared<ProfilerCapture>(); \

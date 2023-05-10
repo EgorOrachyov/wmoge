@@ -67,7 +67,7 @@ namespace wmoge {
     }
 
     void SceneManager::shutdown() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneManager::shutdown");
 
         m_running.reset();
         m_next_running.reset();
@@ -131,10 +131,10 @@ namespace wmoge {
         return query != m_containers.end() ? query->second.get() : nullptr;
     }
     void SceneManager::on_start_frame() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneManager::on_start_frame");
     }
     void SceneManager::on_update() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneManager::on_update");
 
         std::lock_guard guard(m_mutex);
 
@@ -166,10 +166,10 @@ namespace wmoge {
         system_script->process();
     }
     void SceneManager::on_debug_draw() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneManager::on_debug_draw");
     }
     void SceneManager::on_end_frame() {
-        WG_AUTO_PROFILE_SCENE();
+        WG_AUTO_PROFILE_SCENE("SceneManager::on_end_frame");
 
         std::lock_guard guard(m_mutex);
 

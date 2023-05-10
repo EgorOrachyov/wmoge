@@ -38,7 +38,7 @@
 namespace wmoge {
 
     void Image::create(int width, int height, int channels, int pixel_size) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Image::create");
 
         if (!width || !height || !pixel_size || !channels) {
             WG_LOG_ERROR("an attempt to make empty image");
@@ -52,7 +52,7 @@ namespace wmoge {
         m_pixel_data = make_ref<Data>(width * height * pixel_size);
     }
     bool Image::load(const std::string& path, int channels) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Image::load");
 
         std::vector<std::uint8_t> pixel_data;
         if (!Engine::instance()->file_system()->read_file(path, pixel_data)) {
@@ -80,7 +80,7 @@ namespace wmoge {
         return true;
     }
     bool Image::save(std::filesystem::path filepath) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Image::save");
 
         if (!m_width || !m_height) {
             WG_LOG_ERROR("cannot save empty image");
@@ -91,7 +91,7 @@ namespace wmoge {
         return stbi_write_png(filepath_str.c_str(), m_width, m_height, m_channels, m_pixel_data->buffer(), m_width * m_pixel_size);
     }
     bool Image::resize(int new_width, int new_height) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Image::resize");
 
         if (!new_width || !new_height) {
             WG_LOG_ERROR("cannot resize image " << get_name() << " to " << new_width << "x" << new_height);
@@ -117,7 +117,7 @@ namespace wmoge {
     }
 
     bool Image::generate_mip_chain(std::vector<ref_ptr<Image>>& mips) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Image::generate_mip_chain");
 
         mips.push_back(duplicate().cast<Image>());
         int mips_count = max_mips_count(m_width, m_height, 1);
@@ -136,7 +136,7 @@ namespace wmoge {
         return ss.str();
     }
     bool Image::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Image::load_from_import_options");
 
         int         channels = 4;
         std::string source_file;

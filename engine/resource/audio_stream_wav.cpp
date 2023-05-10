@@ -44,7 +44,7 @@ namespace wmoge {
     }
 
     bool AudioStreamWav::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("AudioStreamWav::load_from_import_options");
 
         if (!AudioStream::load_from_import_options(tree)) {
             return false;

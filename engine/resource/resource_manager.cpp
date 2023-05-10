@@ -47,7 +47,7 @@ namespace wmoge {
     }
 
     Async<ref_ptr<Resource>> ResourceManager::load_async(const StringId& name, ResourceCallback callback) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_async");
 
         std::lock_guard guard(m_mutex);
 
@@ -87,7 +87,7 @@ namespace wmoge {
     }
 
     ref_ptr<Resource> ResourceManager::load(const StringId& name) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load");
 
         Async<ref_ptr<Resource>> async = load_async(name);
         async.wait_completed();
@@ -95,7 +95,7 @@ namespace wmoge {
     }
 
     ref_ptr<Resource> ResourceManager::find(const StringId& name) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::");
 
         std::lock_guard guard(m_mutex);
 
@@ -116,7 +116,7 @@ namespace wmoge {
         m_paks.push_back(std::move(pak));
     }
     void ResourceManager::gc() {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::gc");
 
         std::lock_guard guard(m_mutex);
         int             evicted = 0;
@@ -129,13 +129,14 @@ namespace wmoge {
         WG_LOG_INFO("gc " << evicted << " unreferenced resources");
     }
     void ResourceManager::clear() {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::clear");
+
         std::lock_guard guard(m_mutex);
         m_resources.clear();
     }
 
     bool ResourceManager::load_meta(const StringId& name, ResourceMeta& resource_meta, std::shared_ptr<ResourceLoader>& loader) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_meta");
 
         // look for a resource info about resource in paks
         for (auto& pak : m_paks) {
@@ -162,7 +163,7 @@ namespace wmoge {
     }
 
     ResourceManager::LoadState* ResourceManager::load_internal(const StringId& name, ResourceMeta& resource_meta, const std::shared_ptr<ResourceLoader>& loader) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_internal");
 
         // get dependencies which still loading or already loaded
         fast_vector<ref_ptr<Resource>>          deps_res;

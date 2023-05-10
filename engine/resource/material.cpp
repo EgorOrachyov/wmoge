@@ -70,7 +70,7 @@ namespace wmoge {
     }
 
     bool Material::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("Material::load_from_import_options");
 
         if (!Resource::load_from_import_options(tree)) return false;
 

@@ -38,7 +38,7 @@ namespace wmoge {
     VKShader::VKShader(class VKDriver& driver) : VKResource<GfxShader>(driver) {
     }
     VKShader::~VKShader() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::~VKShader");
 
         for (auto& module : m_modules) {
             vkDestroyShaderModule(m_driver.device(), module, nullptr);
@@ -53,14 +53,14 @@ namespace wmoge {
         }
     }
     void VKShader::setup(std::string vertex, std::string fragment, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::setup");
 
         m_name = name;
         m_sources.push_back(std::move(vertex));
         m_sources.push_back(std::move(fragment));
     }
     void VKShader::setup(ref_ptr<Data> byte_code, const wmoge::StringId& name) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::setup");
 
         m_name      = name;
         m_byte_code = std::move(byte_code);
@@ -78,7 +78,7 @@ namespace wmoge {
         return status() == GfxShaderStatus::Compiled ? m_byte_code : ref_ptr<Data>();
     }
     void VKShader::compile_from_source() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::compile_from_source");
 
         Timer timer;
         timer.start();
@@ -271,7 +271,7 @@ namespace wmoge {
         init(spirv[0], spirv[1]);
     }
     void VKShader::compile_from_byte_code() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::compile_from_byte_code");
 
         Timer timer;
         timer.start();
@@ -302,7 +302,7 @@ namespace wmoge {
         init(vertex, fragment);
     }
     void VKShader::reflect(glslang::TProgram& program) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::reflect");
 
         m_reflection.ub_buffers_per_desc.fill(0);
         m_reflection.sb_buffers_per_desc.fill(0);
@@ -372,7 +372,7 @@ namespace wmoge {
         }
     }
     void VKShader::gen_byte_code(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::gen_byte_code");
 
         bool has_shader_vertex   = true;
         bool has_shader_fragment = true;
@@ -391,7 +391,7 @@ namespace wmoge {
         m_byte_code = make_ref<Data>(archive.get_data().data(), archive.get_data().size());
     }
     void VKShader::init(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKShader::init");
 
         const std::vector<uint32_t>* binaries[2] = {&vertex, &fragment};
 

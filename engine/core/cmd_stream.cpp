@@ -27,6 +27,8 @@
 
 #include "cmd_stream.hpp"
 
+#include "debug/profiler.hpp"
+
 #include <cassert>
 
 namespace wmoge {
@@ -34,6 +36,8 @@ namespace wmoge {
     bool CmdStream::consume() {
         std::function<void()> cmd;
         {
+            WG_AUTO_PROFILE_CORE("CmdStream::wait_for_cmd");
+
             std::unique_lock lock(m_mutex);
             m_cv.wait(lock, [&]() { return !m_queue.empty() || m_is_closed.load(); });
 
@@ -52,6 +56,8 @@ namespace wmoge {
     }
 
     void CmdStream::wait() {
+        WG_AUTO_PROFILE_CORE("CmdStream::wait");
+
         std::atomic_bool marker{false};
 
         push([&]() {
@@ -65,6 +71,8 @@ namespace wmoge {
     }
 
     void CmdStream::push_close() {
+        WG_AUTO_PROFILE_CORE("CmdStream::push_close");
+
         std::lock_guard guard(m_mutex);
         m_is_closed.store(true);
         m_cv.notify_all();

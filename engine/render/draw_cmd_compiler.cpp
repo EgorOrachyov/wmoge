@@ -43,7 +43,7 @@ namespace wmoge {
     }
 
     bool DrawCmdCompiler::compile(const DrawPrimitive& primitive, ArrayView<DrawCmd*> cmds) {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("DrawCmdCompiler::compile");
 
         assert(primitive.draw_pass.get(DrawPass::Overlay2dPass));
         assert(!cmds.empty());

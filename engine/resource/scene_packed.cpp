@@ -39,7 +39,7 @@
 namespace wmoge {
 
     bool ScenePacked::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ScenePacked::load_from_import_options");
 
         if (!Resource::load_from_import_options(tree)) {
             return false;
@@ -81,7 +81,7 @@ namespace wmoge {
     }
 
     Async<ref_ptr<Scene>> ScenePacked::instantiate_async() {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate_async");
 
         assert(m_scene_data_yaml.has_value());
 
@@ -111,7 +111,7 @@ namespace wmoge {
         }
 
         auto scene_task = make_ref<Task>(get_name(), [scene_async, scene_packed](auto&) {
-            WG_AUTO_PROFILE_RESOURCE();
+            WG_AUTO_PROFILE_RESOURCE("ScenePacked::construct_scene");
 
             Timer timer;
 
@@ -150,7 +150,7 @@ namespace wmoge {
         return Async<ref_ptr<Scene>>(scene_async);
     }
     ref_ptr<Scene> ScenePacked::instantiate() {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate");
 
         auto async = instantiate_async();
         async.wait_completed();

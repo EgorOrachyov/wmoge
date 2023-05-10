@@ -32,7 +32,7 @@
 namespace wmoge {
 
     ALAudioEngine::ALAudioEngine() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::ALAudioEngine");
 
         init_device();
         init_context();
@@ -53,10 +53,10 @@ namespace wmoge {
     }
 
     void ALAudioEngine::update() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::update");
     }
     void ALAudioEngine::shutdown() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::shutdown");
 
         if (m_device) {
             m_bus.clear();
@@ -73,6 +73,8 @@ namespace wmoge {
     }
 
     ref_ptr<AudioPlayback> ALAudioEngine::make_playback(ref_ptr<AudioStream> stream, const StringId& bus, const StringId& name) {
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_playback");
+
         std::lock_guard guard(m_mutex);
 
         assert(stream);
@@ -91,6 +93,8 @@ namespace wmoge {
         return make_ref<ALAudioPlayback>(std::move(stream), bus, name, *this);
     }
     ref_ptr<AudioBus> ALAudioEngine::make_bus(const StringId& name) {
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_bus");
+
         std::lock_guard guard(m_mutex);
 
         assert(!name.empty());
@@ -133,7 +137,7 @@ namespace wmoge {
     }
 
     bool ALAudioEngine::init_device() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_device");
 
         m_device = alcOpenDevice(nullptr);
         if (!m_device) {
@@ -146,7 +150,7 @@ namespace wmoge {
         return true;
     }
     bool ALAudioEngine::init_context() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_context");
 
         WG_ALC_CHECK(m_context = alcCreateContext(m_device, nullptr));
         if (!m_context) {
@@ -165,7 +169,7 @@ namespace wmoge {
         return true;
     }
     bool ALAudioEngine::init_caps() {
-        WG_AUTO_PROFILE_OPENAL();
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_caps");
 
         auto str_or_null = [](const ALCchar* str) { return str ? str : "<none>"; };
 

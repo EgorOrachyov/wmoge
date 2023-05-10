@@ -38,7 +38,7 @@
 namespace wmoge {
 
     bool ConfigFile::load(const std::string& path) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ConfigFile::load");
 
         std::fstream file;
         FileSystem*  file_system = Engine::instance()->file_system();
@@ -134,7 +134,7 @@ namespace wmoge {
     }
 
     bool ConfigFile::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE();
+        WG_AUTO_PROFILE_RESOURCE("ConfigFile::load_from_import_options");
 
         std::string source_file;
 

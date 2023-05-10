@@ -40,7 +40,7 @@
 namespace wmoge {
 
     LuaScriptSystem::LuaScriptSystem() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptSystem::LuaScriptSystem");
 
         LuaScript::register_class();
         LuaEventScript::register_class();
@@ -98,7 +98,7 @@ namespace wmoge {
     }
 
     void LuaScriptSystem::gc() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptSystem::gc");
 
         std::lock_guard guard(m_mutex);
 
@@ -108,7 +108,7 @@ namespace wmoge {
         m_gc_frames_from_last = 0;
     }
     void LuaScriptSystem::update() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptSystem::update");
 
         std::lock_guard guard(m_mutex);
 
@@ -120,7 +120,7 @@ namespace wmoge {
         }
     }
     void LuaScriptSystem::shutdown() {
-        WG_AUTO_PROFILE_LUA();
+        WG_AUTO_PROFILE_LUA("LuaScriptSystem::shutdown");
 
         if (m_global_state) {
             m_new_inst_func_lua.reset();

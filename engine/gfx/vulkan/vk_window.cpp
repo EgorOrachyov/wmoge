@@ -45,7 +45,8 @@ namespace wmoge {
         Engine::instance()->config_engine()->get(SID("window.vsync"), m_use_vsync);
     }
     VKWindow::~VKWindow() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::~VKWindow");
+
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
 
         if (m_window_event && Engine::instance()->event_manager())
@@ -61,7 +62,7 @@ namespace wmoge {
         vkDestroySurfaceKHR(m_driver.instance(), m_surface, nullptr);
     }
     void VKWindow::init() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::init");
 
         create_image_semaphores();
         subscribe();
@@ -69,7 +70,7 @@ namespace wmoge {
         create_swapchain();
     }
     void VKWindow::get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::get_support_info");
 
         WG_VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, m_surface, &info.capabilities));
 
@@ -89,7 +90,7 @@ namespace wmoge {
     }
 
     void VKWindow::create_image_semaphores() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::create_image_semaphores");
 
         VkSemaphoreCreateInfo semaphore_info{};
         semaphore_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -100,7 +101,7 @@ namespace wmoge {
         }
     }
     void VKWindow::subscribe() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::subscribe");
 
         m_window_event = make_listener<EventWindow>([=](const EventWindow& event) {
             if (event.window == m_window && event.notification == WindowNotification::FramebufferResized) {
@@ -109,10 +110,11 @@ namespace wmoge {
             }
             return false;
         });
+
         Engine::instance()->event_manager()->subscribe(m_window_event);
     }
     void VKWindow::select_properties() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::select_properties");
 
         VKSwapChainSupportInfo support_info{};
         get_support_info(m_driver.phys_device(), m_driver.queues()->prs_queue_family(), support_info);
@@ -142,7 +144,8 @@ namespace wmoge {
         m_vsync       = VK_PRESENT_MODE_FIFO_KHR;
     }
     void VKWindow::create_swapchain() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::create_swapchain");
+
         WG_VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_driver.phys_device(), m_surface, &m_capabilities))
 
         static const uint32_t MAX = std::numeric_limits<uint32_t>::max();
@@ -214,7 +217,7 @@ namespace wmoge {
         m_version += 1;
     }
     void VKWindow::release_swapchain() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::release_swapchain");
 
         if (m_swapchain) {
             m_color_targets.clear();
@@ -225,14 +228,15 @@ namespace wmoge {
         }
     }
     void VKWindow::recreate_swapchain() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::recreate_swapchain");
+
         // ensure that window resources are no more used
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
         // recreate (release called internally)
         create_swapchain();
     }
     void VKWindow::acquire_next() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindow::acquire_next");
 
         if (m_requested_extent.width != m_extent.width ||
             m_requested_extent.height != m_extent.height) {
@@ -262,7 +266,7 @@ namespace wmoge {
         m_factory = init_info.factory;
     }
     ref_ptr<VKWindow> VKWindowManager::get_or_create(const ref_ptr<Window>& window) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKWindowManager::get_or_create");
 
         auto query = m_windows.find(window->id());
         if (query != m_windows.end()) {

@@ -35,7 +35,7 @@ namespace wmoge {
     VKTexture::VKTexture(class VKDriver& driver) : VKResource<GfxTexture>(driver) {
     }
     VKTexture::~VKTexture() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::~VKTexture");
 
         for (auto view : m_rt_views)
             vkDestroyImageView(m_driver.device(), view, nullptr);
@@ -45,7 +45,7 @@ namespace wmoge {
             m_driver.mem_manager()->deallocate(m_image, m_allocation);
     }
     void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_tex_type     = GfxTex::Tex2d;
         m_width        = width;
@@ -77,7 +77,7 @@ namespace wmoge {
         init_layout();
     }
     void VKTexture::create_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_tex_type     = GfxTex::Tex2d;
         m_width        = width;
@@ -96,7 +96,7 @@ namespace wmoge {
         init_layout();
     }
     void VKTexture::create_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d_array");
 
         m_tex_type     = GfxTex::Tex2dArray;
         m_width        = width;
@@ -115,7 +115,7 @@ namespace wmoge {
         init_layout();
     }
     void VKTexture::create_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::create_cube");
 
         m_tex_type     = GfxTex::TexCube;
         m_width        = width;
@@ -134,22 +134,22 @@ namespace wmoge {
         init_layout();
     }
     void VKTexture::update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const ref_ptr<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d");
 
         update(cmd, mip, 0, region, data);
     }
     void VKTexture::update_2d_array(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const ref_ptr<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d_array");
 
         update(cmd, mip, slice, region, data);
     }
     void VKTexture::update_cube(VkCommandBuffer cmd, int mip, int face, Rect2i region, const ref_ptr<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::update_cube");
 
         update(cmd, mip, face, region, data);
     }
     void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::transition_layout");
 
         VkImageSubresourceRange subresource{};
         subresource.aspectMask     = VKDefs::get_aspect_flags(m_format);
@@ -160,7 +160,7 @@ namespace wmoge {
         transition_layout(cmd, destination, subresource);
     }
     void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::transition_layout");
 
         if (destination == m_current_layout)
             return;
@@ -245,7 +245,7 @@ namespace wmoge {
                              0, nullptr, 0, nullptr, 1, &barrier);
     }
     void VKTexture::init_image() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::init_image");
 
         m_usage_flags = VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 
@@ -298,7 +298,7 @@ namespace wmoge {
         WG_VK_NAME(m_driver.device(), m_image, VK_OBJECT_TYPE_IMAGE, "image@" + name().str());
     }
     void VKTexture::init_view() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::init_view");
 
         VkImageViewCreateInfo view_info{};
         view_info.sType                           = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -319,7 +319,7 @@ namespace wmoge {
         WG_VK_NAME(m_driver.device(), m_view, VK_OBJECT_TYPE_IMAGE_VIEW, "view@ " + name().str());
     }
     void VKTexture::init_rt_views() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::init_rt_views");
 
         if (!m_usages.get(GfxTexUsageFlag::ColorTarget) &&
             !m_usages.get(GfxTexUsageFlag::DepthTarget) &&
@@ -354,7 +354,7 @@ namespace wmoge {
         }
     }
     void VKTexture::init_layout() {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::init_layout");
 
         assert(m_driver.on_gfx_thread());
         assert(m_driver.cmd());
@@ -363,7 +363,7 @@ namespace wmoge {
     }
 
     void VKTexture::update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const ref_ptr<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN();
+        WG_AUTO_PROFILE_VULKAN("VKTexture::update");
 
         assert(data);
         assert(mip < m_mips_count);

@@ -95,7 +95,7 @@ namespace wmoge {
         attributes.set(PfxAttribute::Color);
     }
     void PfxFeatureSprite::on_provided_render(class PfxComponentRuntime& runtime, std::unique_ptr<class PfxRenderer>& renderer) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureSprite::on_provided_render");
 
         ref_ptr<Material> material = make_ref<Material>();
         material->create(m_shader.as<MaterialShader>());
@@ -111,7 +111,7 @@ namespace wmoge {
         renderer = std::make_unique<PfxSpriteRenderer>(material, n_vertices, n_indices, runtime.get_component()->get_name());
     }
     void PfxFeatureSprite::on_prepare_render(PfxComponentRuntime& runtime) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureSprite::on_prepare_render");
 
         auto  emitter  = ref_ptr<PfxEmitter>(runtime.get_emitter());
         auto* renderer = runtime.get_renderer();

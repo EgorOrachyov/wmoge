@@ -81,7 +81,7 @@ namespace wmoge {
         return *this;
     }
     bool ShaderBuilder::compile() {
-        WG_AUTO_PROFILE_RENDER();
+        WG_AUTO_PROFILE_RENDER("ShaderBuilder::compile");
 
         Engine*        engine         = Engine::instance();
         RenderEngine*  render_engine  = engine->render_engine();

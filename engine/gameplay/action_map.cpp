@@ -50,7 +50,7 @@ namespace wmoge {
     }
 
     bool ActionMap::load(const std::string& filepath) {
-        WG_AUTO_PROFILE_GAMEPLAY();
+        WG_AUTO_PROFILE_GAMEPLAY("ActionMap::load");
 
         std::vector<std::uint8_t> file_content;
         FileSystem*               file_system = Engine::instance()->file_system();

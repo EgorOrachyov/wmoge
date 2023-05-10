@@ -52,7 +52,7 @@ namespace wmoge {
         attributes.set(PfxAttribute::Vel2d);
     }
     void PfxFeatureVelocity2d::on_spawn(class PfxComponentRuntime& runtime, const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxFeatureVelocity2d::on_spawn");
 
         auto* storage = runtime.get_storage();
         auto  view_v  = storage->get_vel2d();
