@@ -47,12 +47,12 @@ namespace wmoge {
         ALAudioEngine();
         ~ALAudioEngine() override;
 
-        void                   update() override;
-        void                   shutdown() override;
-        ref_ptr<AudioPlayback> make_playback(ref_ptr<AudioStream> stream, const StringId& bus, const StringId& name) override;
-        ref_ptr<AudioBus>      make_bus(const StringId& name) override;
-        ref_ptr<AudioBus>      find_bus(const StringId& name) override;
-        bool                   has_bus(const StringId& name) override;
+        void               update() override;
+        void               shutdown() override;
+        Ref<AudioPlayback> make_playback(Ref<AudioStream> stream, const StringId& bus, const StringId& name) override;
+        Ref<AudioBus>      make_bus(const StringId& name) override;
+        Ref<AudioBus>      find_bus(const StringId& name) override;
+        bool               has_bus(const StringId& name) override;
 
         ALAudioBus*           get_bus(const StringId& name);
         ALCdevice*            get_device();
@@ -65,10 +65,10 @@ namespace wmoge {
         bool init_caps();
 
     private:
-        fast_map<StringId, ref_ptr<ALAudioBus>> m_bus;
-        ALCdevice*                              m_device  = nullptr;
-        ALCcontext*                             m_context = nullptr;
-        std::recursive_mutex                    m_mutex;
+        fast_map<StringId, Ref<ALAudioBus>> m_bus;
+        ALCdevice*                          m_device  = nullptr;
+        ALCcontext*                         m_context = nullptr;
+        std::recursive_mutex                m_mutex;
     };
 
 }// namespace wmoge

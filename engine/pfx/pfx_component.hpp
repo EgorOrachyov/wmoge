@@ -57,23 +57,23 @@ namespace wmoge {
         ~PfxComponent() override = default;
 
         bool load_from_options(const YamlConstNodeRef& node);
-        void add_feature(ref_ptr<PfxFeature> feature);
+        void add_feature(Ref<PfxFeature> feature);
         void set_amount(int amount);
         void set_active(bool active);
 
-        const ref_ptr<PfxFeature>& get_feature(int id) const;
-        PfxAttributes              get_attributes() const;
-        const StringId&            get_name() const;
-        int                        get_features_count() const;
-        int                        get_amount() const;
-        bool                       is_active() const;
+        const Ref<PfxFeature>& get_feature(int id) const;
+        PfxAttributes          get_attributes() const;
+        const StringId&        get_name() const;
+        int                    get_features_count() const;
+        int                    get_amount() const;
+        bool                   is_active() const;
 
     private:
-        fast_vector<ref_ptr<PfxFeature>> m_features;
-        PfxAttributes                    m_attributes;
-        StringId                         m_name;
-        int                              m_amount = 0;
-        bool                             m_active = false;
+        fast_vector<Ref<PfxFeature>> m_features;
+        PfxAttributes                m_attributes;
+        StringId                     m_name;
+        int                          m_amount = 0;
+        bool                         m_active = false;
     };
 
 }// namespace wmoge

@@ -69,7 +69,7 @@ namespace wmoge {
 
         return true;
     }
-    bool ResourcePakFileSystem::read_file(const std::string& path, ref_ptr<Data>& data) {
+    bool ResourcePakFileSystem::read_file(const std::string& path, Ref<Data>& data) {
         return m_file_system->read_file(path, data);
     }
     bool ResourcePakFileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {

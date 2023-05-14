@@ -31,8 +31,8 @@
 
 namespace wmoge {
 
-    ref_ptr<Shader> ShaderVariant::get_owner() {
-        return ref_ptr<Shader>(m_owner);
+    Ref<Shader> ShaderVariant::get_owner() {
+        return Ref<Shader>(m_owner);
     }
     const StringId& ShaderVariant::get_key() {
         return m_key;
@@ -40,7 +40,7 @@ namespace wmoge {
     const std::size_t& ShaderVariant::get_hash() {
         return m_hash;
     }
-    const ref_ptr<GfxShader>& ShaderVariant::get_gfx_shader() {
+    const Ref<GfxShader>& ShaderVariant::get_gfx_shader() {
         return m_gfx_shader;
     }
     int ShaderVariant::get_material_first_buffer() {

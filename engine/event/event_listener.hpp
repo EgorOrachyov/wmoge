@@ -39,7 +39,7 @@ namespace wmoge {
      * @class EventCallback
      * @brief Listener function called on event
      */
-    using EventCallback = std::function<bool(const ref_ptr<Event>& event)>;
+    using EventCallback = std::function<bool(const Ref<Event>& event)>;
 
     /**
      * @class EventListener
@@ -50,7 +50,7 @@ namespace wmoge {
         EventListener(EventType event_type, EventCallback callback, class Object* target = nullptr);
         ~EventListener() override = default;
 
-        virtual bool on_event(const ref_ptr<Event>& event);
+        virtual bool on_event(const Ref<Event>& event);
 
         void unsubscribe();
         void pause();
@@ -83,8 +83,8 @@ namespace wmoge {
      * @return New listener
      */
     template<typename E, typename C>
-    inline ref_ptr<EventListener> make_listener(C callable) {
-        EventCallback callback = [c = std::move(callable)](const ref_ptr<Event>& event) {
+    inline Ref<EventListener> make_listener(C callable) {
+        EventCallback callback = [c = std::move(callable)](const Ref<Event>& event) {
             const E* casted_event = dynamic_cast<const E*>(event.get());
             if (!casted_event) {
                 WG_LOG_ERROR("failed to cast event to expected type");
@@ -107,8 +107,8 @@ namespace wmoge {
      * @return New listener
      */
     template<typename T, typename E>
-    inline ref_ptr<EventListener> make_listener(T* target, bool (T::*method_pointer)(const E&)) {
-        EventCallback callback = [target, method_pointer](const ref_ptr<Event>& event) {
+    inline Ref<EventListener> make_listener(T* target, bool (T::*method_pointer)(const E&)) {
+        EventCallback callback = [target, method_pointer](const Ref<Event>& event) {
             const E* casted_event = dynamic_cast<const E*>(event.get());
             if (!casted_event) {
                 WG_LOG_ERROR("failed to cast event to expected type");

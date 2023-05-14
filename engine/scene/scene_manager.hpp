@@ -53,12 +53,12 @@ namespace wmoge {
 
         void shutdown();
 
-        void                     next_running(ref_ptr<Scene> scene);
-        void                     shutdown_scene(ref_ptr<Scene> scene);
+        void                     next_running(Ref<Scene> scene);
+        void                     shutdown_scene(Ref<Scene> scene);
         void                     register_container(std::unique_ptr<class SceneContainerMem> mem);
-        ref_ptr<Scene>           get_running_scene();
-        ref_ptr<Scene>           make_scene(const StringId& name);
-        ref_ptr<SceneObject>     make_object(StringId name);
+        Ref<Scene>               get_running_scene();
+        Ref<Scene>               make_scene(const StringId& name);
+        Ref<SceneObject>         make_object(StringId name);
         class SceneContainerMem* get_container(const Class* cls);
 
         void on_start_frame() override;
@@ -68,10 +68,10 @@ namespace wmoge {
 
     private:
         fast_map<const Class*, std::unique_ptr<class SceneContainerMem>> m_containers;  // allocator for objects
-        fast_set<ref_ptr<Scene>>                                         m_scenes;      // allocated scenes in the engine
-        fast_set<ref_ptr<Scene>>                                         m_to_shutdown; // scheduled to shut down
-        ref_ptr<Scene>                                                   m_running;     // active scene
-        ref_ptr<Scene>                                                   m_next_running;// scene to become active on next frame
+        fast_set<Ref<Scene>>                                             m_scenes;      // allocated scenes in the engine
+        fast_set<Ref<Scene>>                                             m_to_shutdown; // scheduled to shut down
+        Ref<Scene>                                                       m_running;     // active scene
+        Ref<Scene>                                                       m_next_running;// scene to become active on next frame
 
         std::recursive_mutex m_mutex;
     };

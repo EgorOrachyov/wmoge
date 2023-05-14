@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    void RenderParticles2d::initialize(const ref_ptr<PfxEmitter>& emitter) {
+    void RenderParticles2d::initialize(const Ref<PfxEmitter>& emitter) {
         assert(emitter);
 
         m_emitter = emitter;

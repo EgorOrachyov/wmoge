@@ -41,7 +41,7 @@ namespace wmoge {
     public:
         WG_OBJECT(AudioStream, Resource)
 
-        virtual ref_ptr<Data> get_channel_data(int channel) { return ref_ptr<Data>{}; }
+        virtual Ref<Data> get_channel_data(int channel) { return Ref<Data>{}; }
 
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;

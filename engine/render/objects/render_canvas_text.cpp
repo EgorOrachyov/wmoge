@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    void RenderCanvasText::initialize(std::string text, ref_ptr<Font> font, float font_size, FontTextAlignment alignment) {
+    void RenderCanvasText::initialize(std::string text, Ref<Font> font, float font_size, FontTextAlignment alignment) {
         set_text(std::move(text));
         set_font(font);
         set_font_size(font_size);
@@ -44,7 +44,7 @@ namespace wmoge {
         m_text = std::move(text);
         mark_dirty_geom();
     }
-    void RenderCanvasText::set_font(ref_ptr<Font> font) {
+    void RenderCanvasText::set_font(Ref<Font> font) {
         m_font = std::move(font);
         mark_dirty_geom();
 

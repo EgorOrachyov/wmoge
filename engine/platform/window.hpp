@@ -39,11 +39,11 @@ namespace wmoge {
      * @brief Struct holding window creation info
      */
     struct WindowInfo {
-        int            width  = 1280;
-        int            height = 720;
-        StringId       id     = SID("primary");
-        std::string    title  = "Window";
-        ref_ptr<Image> icons[2];
+        int         width  = 1280;
+        int         height = 720;
+        StringId    id     = SID("primary");
+        std::string title  = "Window";
+        Ref<Image>  icons[2];
     };
 
     /**

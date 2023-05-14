@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    PfxEmitter::PfxEmitter(ref_ptr<class PfxEffect> effect, class RenderScene* scene) {
+    PfxEmitter::PfxEmitter(Ref<class PfxEffect> effect, class RenderScene* scene) {
         assert(effect);
         assert(scene);
 
@@ -58,7 +58,7 @@ namespace wmoge {
         m_time += delta_time;
     }
     void PfxEmitter::update() {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxEmitter::update");
 
         fast_vector<PfxSpawnParams> emit_queue;
         {
@@ -76,7 +76,7 @@ namespace wmoge {
         }
     }
     void PfxEmitter::render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxEmitter::render");
 
         for (auto& runtime : m_runtime) {
             runtime.render(views, mask, object);
@@ -86,11 +86,11 @@ namespace wmoge {
         assert(id < m_runtime.size());
         return m_runtime[id];
     }
-    const ref_ptr<PfxComponent>& PfxEmitter::get_component(int id) const {
+    const Ref<PfxComponent>& PfxEmitter::get_component(int id) const {
         assert(m_effect);
         return m_effect->get_component(id);
     }
-    const ref_ptr<PfxEffect>& PfxEmitter::get_effect() const {
+    const Ref<PfxEffect>& PfxEmitter::get_effect() const {
         return m_effect;
     }
     class RenderScene* PfxEmitter::get_scene() const {

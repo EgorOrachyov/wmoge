@@ -57,7 +57,7 @@ namespace wmoge {
         }
         m_components.clear();
     }
-    void SceneObject::add_child(ref_ptr<SceneObject> child) {
+    void SceneObject::add_child(Ref<SceneObject> child) {
         assert(child);
         assert(!child->m_parent);
 
@@ -82,7 +82,7 @@ namespace wmoge {
             }
         }
     }
-    void SceneObject::add_sibling(ref_ptr<SceneObject> sibling) {
+    void SceneObject::add_sibling(Ref<SceneObject> sibling) {
         assert(sibling);
         assert(!sibling->m_parent);
         assert(m_parent);
@@ -102,7 +102,7 @@ namespace wmoge {
 
         m_parent->add_child(sibling);
     }
-    void SceneObject::remove_child(ref_ptr<SceneObject> child) {
+    void SceneObject::remove_child(Ref<SceneObject> child) {
         assert(child);
         assert(child->m_parent == this);
 

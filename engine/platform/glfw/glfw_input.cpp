@@ -47,17 +47,17 @@ namespace wmoge {
         check_connected_joysticks();
     }
 
-    ref_ptr<Mouse> GlfwInput::mouse() {
+    Ref<Mouse> GlfwInput::mouse() {
         std::lock_guard guard(m_manager.mutex());
 
         return m_mouse;
     }
-    ref_ptr<Keyboard> GlfwInput::keyboard() {
+    Ref<Keyboard> GlfwInput::keyboard() {
         std::lock_guard guard(m_manager.mutex());
 
         return m_keyboard;
     }
-    ref_ptr<Joystick> GlfwInput::joystick(int id) {
+    Ref<Joystick> GlfwInput::joystick(int id) {
         std::lock_guard guard(m_manager.mutex());
 
         return id < m_joysticks.size() ? m_joysticks[id] : nullptr;
@@ -159,14 +159,14 @@ namespace wmoge {
         }
     }
 
-    ref_ptr<GlfwJoystick> GlfwInput::get_joystick(int jid) {
+    Ref<GlfwJoystick> GlfwInput::get_joystick(int jid) {
         std::lock_guard guard(m_manager.mutex());
 
-        auto query = std::find_if(m_joysticks.begin(), m_joysticks.end(), [=](ref_ptr<GlfwJoystick>& joystick) {
+        auto query = std::find_if(m_joysticks.begin(), m_joysticks.end(), [=](Ref<GlfwJoystick>& joystick) {
             return joystick->hnd() == jid;
         });
 
-        return query == m_joysticks.end() ? ref_ptr<GlfwJoystick>() : *query;
+        return query == m_joysticks.end() ? Ref<GlfwJoystick>() : *query;
     }
 
     void GlfwInput::drop_callback(GLFWwindow*, int count, const char** paths) {

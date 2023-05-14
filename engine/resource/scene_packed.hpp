@@ -59,8 +59,8 @@ namespace wmoge {
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        Async<ref_ptr<Scene>> instantiate_async();
-        ref_ptr<Scene>        instantiate();
+        AsyncResult<Ref<Scene>> instantiate_async();
+        Ref<Scene>              instantiate();
 
     private:
         std::optional<YamlTree> m_scene_data_yaml;

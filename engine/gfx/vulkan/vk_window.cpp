@@ -38,7 +38,7 @@
 
 namespace wmoge {
 
-    VKWindow::VKWindow(ref_ptr<Window> window, VkSurfaceKHR surface, class VKDriver& driver) : m_driver(driver) {
+    VKWindow::VKWindow(Ref<Window> window, VkSurfaceKHR surface, class VKDriver& driver) : m_driver(driver) {
         m_window  = window;
         m_surface = surface;
 
@@ -265,7 +265,7 @@ namespace wmoge {
     VKWindowManager::VKWindowManager(const VKInitInfo& init_info, class VKDriver& driver) : m_driver(driver) {
         m_factory = init_info.factory;
     }
-    ref_ptr<VKWindow> VKWindowManager::get_or_create(const ref_ptr<Window>& window) {
+    Ref<VKWindow> VKWindowManager::get_or_create(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKWindowManager::get_or_create");
 
         auto query = m_windows.find(window->id());

@@ -41,13 +41,13 @@ namespace wmoge {
      */
     class PfxScene {
     public:
-        void add_emitter(const ref_ptr<PfxEmitter>& emitter);
-        void remove_emitter(const ref_ptr<PfxEmitter>& emitter);
+        void add_emitter(const Ref<PfxEmitter>& emitter);
+        void remove_emitter(const Ref<PfxEmitter>& emitter);
         void update(float dt);
 
     private:
-        fast_set<ref_ptr<PfxEmitter>> m_emitters;
-        std::mutex                    m_mutex;
+        fast_set<Ref<PfxEmitter>> m_emitters;
+        std::mutex                m_mutex;
     };
 
 }// namespace wmoge

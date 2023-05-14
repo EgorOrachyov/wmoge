@@ -43,13 +43,13 @@ namespace wmoge {
     public:
         WG_OBJECT(AudioStreamWav, AudioStream)
 
-        ref_ptr<Data> get_channel_data(int channel) override;
+        Ref<Data> get_channel_data(int channel) override;
 
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
     private:
-        fast_vector<ref_ptr<Data>, 2> m_data;
+        fast_vector<Ref<Data>, 2> m_data;
     };
 
 }// namespace wmoge

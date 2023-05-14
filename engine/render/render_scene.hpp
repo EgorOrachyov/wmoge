@@ -45,15 +45,15 @@ namespace wmoge {
 
         void flush_queue();
 
-        void add_object(ref_ptr<RenderObject> object);
-        void remove_object(ref_ptr<RenderObject> object);
-        void add_camera(ref_ptr<RenderCamera2d> camera);
-        void remove_camera(ref_ptr<RenderCamera2d> camera);
+        void add_object(Ref<RenderObject> object);
+        void remove_object(Ref<RenderObject> object);
+        void add_camera(Ref<RenderCamera2d> camera);
+        void remove_camera(Ref<RenderCamera2d> camera);
 
         void set_pipeline(class RenderPipeline* pipeline);
         void set_time(float time, float time_dt);
 
-        const fast_set<ref_ptr<RenderObject>>& get_objects() { return m_objects; }
+        const fast_set<Ref<RenderObject>>&     get_objects() { return m_objects; }
         const fast_vector<RenderObject*>&      get_objects_to_update() { return m_objects_to_update; }
         const fast_vector<RenderObject*>&      get_objects_dynamic() { return m_objects_dynamic; }
         const fast_set<class RenderCamera2d*>& get_cameras_2d() { return m_cameras_2d; }
@@ -64,7 +64,7 @@ namespace wmoge {
         class RenderPipeline*                  get_pipeline() { return m_pipeline; }
 
     private:
-        fast_set<ref_ptr<RenderObject>> m_objects;           /** Set of all object stored in the scene to be rendered */
+        fast_set<Ref<RenderObject>>     m_objects;           /** Set of all object stored in the scene to be rendered */
         fast_vector<RenderObject*>      m_objects_to_update; /** Subset of objects, which require update */
         fast_vector<RenderObject*>      m_objects_dynamic;   /** Objects requiring dynamic rendering path (collect cmds each frame) */
         fast_set<class RenderCamera2d*> m_cameras_2d;        /** 2d cameras for overlay view */

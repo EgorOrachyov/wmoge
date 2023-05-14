@@ -211,7 +211,7 @@ namespace wmoge {
             if (auto instance = component->get_script().cast<LuaScriptInstance>()) {
                 return instance->get_script_object();
             }
-            return luabridge::LuaRef(state, LuaScriptComponent{ref_ptr<RefCnt>(object)});
+            return luabridge::LuaRef(state, LuaScriptComponent{Ref<RefCnt>(object)});
         }
     };
 

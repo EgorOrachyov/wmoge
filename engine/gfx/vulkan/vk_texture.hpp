@@ -49,9 +49,9 @@ namespace wmoge {
         void create_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
         void create_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
 
-        void update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const ref_ptr<Data>& data);
-        void update_2d_array(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const ref_ptr<Data>& data);
-        void update_cube(VkCommandBuffer cmd, int mip, int face, Rect2i region, const ref_ptr<Data>& data);
+        void update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const Ref<Data>& data);
+        void update_2d_array(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const Ref<Data>& data);
+        void update_cube(VkCommandBuffer cmd, int mip, int face, Rect2i region, const Ref<Data>& data);
 
         void transition_layout(VkCommandBuffer cmd, VkImageLayout destination);
         void transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range);
@@ -67,7 +67,7 @@ namespace wmoge {
         void init_view();
         void init_rt_views();
         void init_layout();
-        void update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const ref_ptr<Data>& data);
+        void update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data);
 
     private:
         VkImage                  m_image          = VK_NULL_HANDLE;

@@ -38,7 +38,7 @@
 
 namespace wmoge {
 
-    ref_ptr<Data> AudioStreamWav::get_channel_data(int channel) {
+    Ref<Data> AudioStreamWav::get_channel_data(int channel) {
         assert(channel < m_num_channels);
         return m_data[channel];
     }

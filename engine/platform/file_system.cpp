@@ -106,7 +106,7 @@ namespace wmoge {
         file.read(reinterpret_cast<char*>(data.data()), size);
         return true;
     }
-    bool FileSystem::read_file(const std::string& path, ref_ptr<Data>& data) {
+    bool FileSystem::read_file(const std::string& path, Ref<Data>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;

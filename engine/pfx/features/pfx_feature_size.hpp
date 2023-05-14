@@ -40,9 +40,9 @@ namespace wmoge {
     public:
         WG_OBJECT(PfxFeatureSize, PfxFeature)
 
-        ref_ptr<PfxFeature> create() const override;
-        StringId            get_feature_name() const override;
-        StringId            get_feature_family() const override;
+        Ref<PfxFeature> create() const override;
+        StringId        get_feature_name() const override;
+        StringId        get_feature_family() const override;
 
         bool load_from_options(const YamlConstNodeRef& node) override;
 

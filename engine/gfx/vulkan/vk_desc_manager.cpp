@@ -64,11 +64,11 @@ namespace wmoge {
             }
         }
     }
-    void VKDescManager::bind_shader(const ref_ptr<VKShader>& shader) {
+    void VKDescManager::bind_shader(const Ref<VKShader>& shader) {
         m_shader     = shader;
         m_reflection = shader->reflection();
     }
-    void VKDescManager::bind_texture(const StringId& name, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+    void VKDescManager::bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
         auto query = m_reflection->textures.find(name);
         if (query == m_reflection->textures.end()) {
             WG_LOG_ERROR("no such texture " << name << " in shader " << m_shader->name());
@@ -77,7 +77,7 @@ namespace wmoge {
         auto& info = query->second;
         bind_texture({info.set, info.binding}, array_element, texture, sampler);
     }
-    void VKDescManager::bind_texture(const GfxLocation& location, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+    void VKDescManager::bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
         prepare_set(location.set);
 
         auto& image_info       = m_image_infos[m_image_info_count];
@@ -98,7 +98,7 @@ namespace wmoge {
         m_write_info_count += 1;
         m_image_info_count += 1;
     }
-    void VKDescManager::bind_uniform_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) {
+    void VKDescManager::bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
         auto query = m_reflection->ub_buffers.find(name);
         if (query == m_reflection->ub_buffers.end()) {
             WG_LOG_ERROR("no such buffer " << name << " in shader " << m_shader->name());
@@ -107,7 +107,7 @@ namespace wmoge {
         auto& info = query->second;
         bind_uniform_buffer({info.set, info.binding}, offset, range, buffer);
     }
-    void VKDescManager::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) {
+    void VKDescManager::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
         prepare_set(location.set);
 
         auto& buffer_info  = m_buffer_infos[m_buffer_info_count];
@@ -128,7 +128,7 @@ namespace wmoge {
         m_write_info_count += 1;
         m_buffer_info_count += 1;
     }
-    void VKDescManager::bind_storage_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) {
+    void VKDescManager::bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
         auto query = m_reflection->sb_buffers.find(name);
         if (query == m_reflection->sb_buffers.end()) {
             WG_LOG_ERROR("no such buffer " << name << " in shader " << m_shader->name());
@@ -137,7 +137,7 @@ namespace wmoge {
         auto& info = query->second;
         bind_storage_buffer({info.set, info.binding}, offset, range, buffer);
     }
-    void VKDescManager::bind_storage_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) {
+    void VKDescManager::bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
         prepare_set(location.set);
 
         auto& buffer_info  = m_buffer_infos[m_buffer_info_count];

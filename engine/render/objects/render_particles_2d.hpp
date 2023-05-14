@@ -41,18 +41,18 @@ namespace wmoge {
     public:
         ~RenderParticles2d() override = default;
 
-        void initialize(const ref_ptr<PfxEmitter>& emitter);
+        void initialize(const Ref<PfxEmitter>& emitter);
 
         void on_render_dynamic(RenderViewList& views, const RenderViewMask& mask) override;
         void on_scene_enter() override;
         bool need_update() const override;
         bool need_render_dynamic() const override;
 
-        const ref_ptr<GfxUniformBuffer>& get_draw_params_no_transform() const { return m_draw_params_no_transform; }
+        const Ref<GfxUniformBuffer>& get_draw_params_no_transform() const { return m_draw_params_no_transform; }
 
     private:
-        ref_ptr<PfxEmitter>       m_emitter;
-        ref_ptr<GfxUniformBuffer> m_draw_params_no_transform;
+        Ref<PfxEmitter>       m_emitter;
+        Ref<GfxUniformBuffer> m_draw_params_no_transform;
     };
 
 }// namespace wmoge

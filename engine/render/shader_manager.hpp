@@ -40,16 +40,16 @@ namespace wmoge {
     public:
         ShaderManager();
 
-        const ref_ptr<Shader> get_shader_aux_geom() { return m_shader_aux_geom; }
-        const ref_ptr<Shader> get_shader_aux_text() { return m_shader_aux_text; }
-        const ref_ptr<Shader> get_shader_canvas() { return m_shader_canvas; }
+        const Ref<Shader> get_shader_aux_geom() { return m_shader_aux_geom; }
+        const Ref<Shader> get_shader_aux_text() { return m_shader_aux_text; }
+        const Ref<Shader> get_shader_canvas() { return m_shader_canvas; }
 
         class ConsoleVar* get_var_shader_compiler_dump() { return m_var_shader_compiler_dump; }
 
     private:
-        ref_ptr<Shader> m_shader_aux_geom;
-        ref_ptr<Shader> m_shader_aux_text;
-        ref_ptr<Shader> m_shader_canvas;
+        Ref<Shader> m_shader_aux_geom;
+        Ref<Shader> m_shader_aux_text;
+        Ref<Shader> m_shader_canvas;
 
         class ConsoleVar* m_var_shader_compiler_dump = nullptr;
     };

@@ -73,7 +73,7 @@ namespace wmoge {
         Var(StringId value);
         Var(Array value);
         Var(Map value);
-        Var(const ref_ptr<Object>& value);
+        Var(const Ref<Object>& value);
         Var(std::size_t value);
         Var(std::vector<Var> value);
         Var(std::map<Var, Var> value);
@@ -99,7 +99,7 @@ namespace wmoge {
         operator StringId() const;
         operator Array() const;
         operator Map() const;
-        operator ref_ptr<Object>() const;
+        operator Ref<Object>() const;
 
         VarType type() const { return m_type; }
 

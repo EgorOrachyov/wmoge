@@ -95,24 +95,24 @@ namespace wmoge {
         const std::string&              get_family_name() { return m_family_name; }
         const std::string&              get_style_name() { return m_style_name; }
         const fast_map<int, FontGlyph>& get_glyphs() { return m_glyphs; }
-        const ref_ptr<Texture2d>&       get_texture() { return m_texture; }
-        const ref_ptr<GfxTexture>&      get_bitmap() { return m_texture->get_texture(); }
-        const ref_ptr<GfxSampler>&      get_sampler() { return m_texture->get_sampler(); }
+        const Ref<Texture2d>&           get_texture() { return m_texture; }
+        const Ref<GfxTexture>&          get_bitmap() { return m_texture->get_texture(); }
+        const Ref<GfxSampler>&          get_sampler() { return m_texture->get_sampler(); }
         int                             get_height() { return m_height; }
         int                             get_glyphs_in_row() { return m_glyphs_in_row; }
         int                             get_max_width() { return m_max_width; }
         int                             get_max_height() { return m_max_height; }
 
     private:
-        fast_map<int, FontGlyph>    m_glyphs;
-        std::vector<ref_ptr<Image>> m_cached_bitmap;
-        std::string                 m_family_name;
-        std::string                 m_style_name;
-        ref_ptr<Texture2d>          m_texture;
-        int                         m_height        = -1;
-        int                         m_glyphs_in_row = -1;
-        int                         m_max_height    = -1;
-        int                         m_max_width     = -1;
+        fast_map<int, FontGlyph> m_glyphs;
+        std::vector<Ref<Image>>  m_cached_bitmap;
+        std::string              m_family_name;
+        std::string              m_style_name;
+        Ref<Texture2d>           m_texture;
+        int                      m_height        = -1;
+        int                      m_glyphs_in_row = -1;
+        int                      m_max_height    = -1;
+        int                      m_max_width     = -1;
     };
 
 }// namespace wmoge

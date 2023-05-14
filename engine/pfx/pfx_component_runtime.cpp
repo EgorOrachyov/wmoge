@@ -54,7 +54,7 @@ namespace wmoge {
     }
 
     void PfxComponentRuntime::emit(const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxComponentRuntime::emit");
 
         const auto& attributes = m_storage->get_attributes();
 
@@ -113,7 +113,7 @@ namespace wmoge {
         m_is_active      = m_active_amount > 0;
     }
     void PfxComponentRuntime::update(float dt) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxComponentRuntime::update");
 
         for (int i = 0; i < m_component->get_features_count(); i++) {
             m_component->get_feature(i)->on_update(*this, dt);
@@ -137,7 +137,7 @@ namespace wmoge {
         }
     }
     void PfxComponentRuntime::render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object) {
-        WG_AUTO_PROFILE_PFX();
+        WG_AUTO_PROFILE_PFX("PfxComponentRuntime::render");
 
         if (m_renderer.get()) {
             m_renderer->on_render_dynamic(views, mask, object);

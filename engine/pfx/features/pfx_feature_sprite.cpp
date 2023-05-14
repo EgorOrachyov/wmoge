@@ -42,7 +42,7 @@
 
 namespace wmoge {
 
-    ref_ptr<PfxFeature> PfxFeatureSprite::create() const {
+    Ref<PfxFeature> PfxFeatureSprite::create() const {
         return make_ref<PfxFeatureSprite>();
     }
     StringId PfxFeatureSprite::get_feature_name() const {
@@ -97,11 +97,11 @@ namespace wmoge {
     void PfxFeatureSprite::on_provided_render(class PfxComponentRuntime& runtime, std::unique_ptr<class PfxRenderer>& renderer) {
         WG_AUTO_PROFILE_PFX("PfxFeatureSprite::on_provided_render");
 
-        ref_ptr<Material> material = make_ref<Material>();
+        Ref<Material> material = make_ref<Material>();
         material->create(m_shader.as<MaterialShader>());
 
         if (m_animation != -1) {
-            ref_ptr<Texture2d> texture = m_sprite->get_animation_texture(m_animation);
+            Ref<Texture2d> texture = m_sprite->get_animation_texture(m_animation);
             material->set_texture(SID("sprite"), texture);
         }
 
@@ -113,7 +113,7 @@ namespace wmoge {
     void PfxFeatureSprite::on_prepare_render(PfxComponentRuntime& runtime) {
         WG_AUTO_PROFILE_PFX("PfxFeatureSprite::on_prepare_render");
 
-        auto  emitter  = ref_ptr<PfxEmitter>(runtime.get_emitter());
+        auto  emitter  = Ref<PfxEmitter>(runtime.get_emitter());
         auto* renderer = runtime.get_renderer();
 
         if ((m_animation == -1) || (runtime.get_active_amount() == 0)) {

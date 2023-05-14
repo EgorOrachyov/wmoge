@@ -44,23 +44,23 @@ namespace wmoge {
      */
     class ShaderVariant final {
     public:
-        ref_ptr<class Shader>     get_owner();
-        const StringId&           get_key();
-        const std::size_t&        get_hash();
-        const ref_ptr<GfxShader>& get_gfx_shader();
-        int                       get_material_first_texture();
-        int                       get_material_first_buffer();
+        Ref<class Shader>     get_owner();
+        const StringId&       get_key();
+        const std::size_t&    get_hash();
+        const Ref<GfxShader>& get_gfx_shader();
+        int                   get_material_first_texture();
+        int                   get_material_first_buffer();
 
     private:
         friend class Shader;
         friend class ShaderBuilder;
 
-        ref_ptr<GfxShader> m_gfx_shader;
-        class Shader*      m_owner = nullptr;
-        StringId           m_key;
-        std::size_t        m_hash;
-        int                m_material_first_texture = -1;
-        int                m_material_first_buffer  = -1;
+        Ref<GfxShader> m_gfx_shader;
+        class Shader*  m_owner = nullptr;
+        StringId       m_key;
+        std::size_t    m_hash;
+        int            m_material_first_texture = -1;
+        int            m_material_first_buffer  = -1;
     };
 
 }// namespace wmoge

@@ -28,6 +28,7 @@
 #ifndef WMOGE_ASYNC_HPP
 #define WMOGE_ASYNC_HPP
 
+#include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "core/ref.hpp"
 
@@ -44,7 +45,6 @@ namespace wmoge {
      * @brief Status of an async operation
      */
     enum class AsyncStatus {
-        Default,
         InProcess,
         Ok,
         Failed,
@@ -66,7 +66,13 @@ namespace wmoge {
     class AsyncStateBase : public RefCnt {
     public:
         ~AsyncStateBase() override = default;
-        virtual void notify(AsyncStatus status, AsyncStateBase* invoker) {}
+        virtual void        notify(AsyncStatus status, AsyncStateBase* invoker) {}
+        virtual void        add_dependency(const Ref<AsyncStateBase>& dependency) = 0;
+        virtual void        wait_completed()                                      = 0;
+        virtual bool        is_completed()                                        = 0;
+        virtual bool        is_failed()                                           = 0;
+        virtual bool        is_ok()                                               = 0;
+        virtual AsyncStatus status()                                              = 0;
     };
 
     /**
@@ -80,10 +86,6 @@ namespace wmoge {
     public:
         ~AsyncState() override = default;
 
-        virtual void set_in_progress() {
-            assert(m_status.load() == AsyncStatus::Default);
-            m_status.store(AsyncStatus::InProcess);
-        }
         virtual void add_on_completion(AsyncCallback<T> callback) {
             if (!callback) return;
             std::lock_guard<std::mutex> lock(m_mutex);
@@ -100,7 +102,7 @@ namespace wmoge {
 
             fast_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
             for (auto& c : callbacks) c(AsyncStatus::Failed, m_result);
-            fast_vector<ref_ptr<AsyncStateBase>> deps = std::move(m_children);
+            fast_vector<Ref<AsyncStateBase>> deps = std::move(m_children);
             for (auto& d : deps) d->notify(AsyncStatus::Failed, this);
         }
         virtual void set_result(T&& result) {
@@ -111,26 +113,37 @@ namespace wmoge {
 
             fast_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
             for (auto& c : callbacks) c(AsyncStatus::Ok, m_result);
-            fast_vector<ref_ptr<AsyncStateBase>> deps = std::move(m_children);
+            fast_vector<Ref<AsyncStateBase>> deps = std::move(m_children);
             for (auto& d : deps) d->notify(AsyncStatus::Ok, this);
         }
-        virtual void add_dependency(ref_ptr<AsyncStateBase> dep) {
-            assert(dep);
+
+        void add_dependency(const Ref<AsyncStateBase>& dependency) override {
+            assert(dependency);
             std::lock_guard<std::mutex> lock(m_mutex);
             if (is_completed()) {
-                dep->notify(status(), this);
+                dependency->notify(status(), this);
                 return;
             }
-            m_children.push_back(dep);
+            m_children.push_back(dependency);
         }
 
-        virtual void wait_completed() {
+        void wait_completed() override {
             if (is_completed()) return;
             std::unique_lock<std::mutex> lock(m_mutex);
             m_cv.wait(lock, [&]() { return is_completed(); });
         }
 
-        AsyncStatus status() {
+        bool is_completed() override {
+            return status() != AsyncStatus::InProcess;
+        }
+        bool is_failed() override {
+            return status() == AsyncStatus::Failed;
+        }
+        bool is_ok() override {
+            return status() == AsyncStatus::Ok;
+        }
+
+        AsyncStatus status() override {
             return m_status.load();
         }
 
@@ -140,24 +153,13 @@ namespace wmoge {
             return m_result.value();
         }
 
-        bool is_completed() {
-            auto s = status();
-            return s != AsyncStatus::InProcess && s != AsyncStatus::Default;
-        }
-        bool is_failed() {
-            return status() == AsyncStatus::Failed;
-        }
-        bool is_ok() {
-            return status() == AsyncStatus::Ok;
-        }
-
     protected:
-        fast_vector<AsyncCallback<T>>        m_callbacks;
-        fast_vector<ref_ptr<AsyncStateBase>> m_children;
-        std::optional<T>                     m_result;
-        std::atomic<AsyncStatus>             m_status{AsyncStatus::Default};
-        std::mutex                           m_mutex;
-        std::condition_variable              m_cv;
+        fast_vector<AsyncCallback<T>>    m_callbacks;
+        fast_vector<Ref<AsyncStateBase>> m_children;
+        std::optional<T>                 m_result;
+        std::atomic<AsyncStatus>         m_status{AsyncStatus::InProcess};
+        std::mutex                       m_mutex;
+        std::condition_variable          m_cv;
     };
 
     /**
@@ -167,7 +169,7 @@ namespace wmoge {
      * @tparam T Type of the operation result
      */
     template<typename T>
-    using AsyncOp = ref_ptr<AsyncState<T>>;
+    using AsyncOp = Ref<AsyncState<T>>;
 
     /**
      * @brief Makes new async operation control state
@@ -179,61 +181,102 @@ namespace wmoge {
     template<typename T>
     AsyncOp<T> make_async_op() { return make_ref<AsyncState<T>>(); }
 
+    template<typename State>
+    class AsyncBase {
+    public:
+        AsyncBase() = default;
+        explicit AsyncBase(Ref<State> state) : m_state(std::move(state)) {}
+
+        AsyncStatus status() {
+            assert(m_state);
+            return m_state->status();
+        }
+        void wait_completed() {
+            assert(m_state);
+            m_state->wait_completed();
+        }
+
+        void reset() {
+            m_state.reset();
+        }
+
+        bool is_null() {
+            return !m_state.get();
+        }
+        bool is_not_null() {
+            return m_state.get();
+        }
+        bool is_completed() {
+            assert(m_state);
+            return m_state->is_completed();
+        }
+        bool is_failed() {
+            assert(m_state);
+            return m_state->is_failed();
+        }
+        bool is_ok() {
+            assert(m_state);
+            return m_state->is_ok();
+        }
+
+        void add_dependency(const Ref<AsyncStateBase>& dependency) {
+            assert(m_state);
+            m_state->add_dependency(dependency);
+        }
+
+    protected:
+        Ref<State> m_state;
+    };
+
     /**
      * @class Async
-     * @brief Handle to an asynchronous operation
+     * @brief Handle to an asynchronous operation (may have result or may not)
+     *
+     * @tparam T Type of the operation result
+     */
+    class Async final : public AsyncBase<AsyncStateBase> {
+    public:
+        Async() = default;
+        explicit Async(Ref<AsyncStateBase> state) : AsyncBase<AsyncStateBase>(std::move(state)) {}
+
+        /**
+         * @brief Make compound async to join all other async operations
+         *
+         * @param dependencies List of async operations to join making new async
+         *
+         * @return New async signaled when all deps finished or failed if one failed
+         */
+        static Async join(ArrayView<Async> dependencies);
+    };
+
+    /**
+     * @class AsyncResult
+     * @brief Handle to an asynchronous operation with a result to get
      *
      * @tparam T Type of the operation result
      */
     template<typename T>
-    class Async final {
+    class AsyncResult final : public AsyncBase<AsyncState<T>> {
     public:
-        Async() = default;
-        Async(ref_ptr<AsyncState<T>> op) : m_op(std::move(op)) {}
+        using AsyncBase<AsyncState<T>>::m_state;
 
-        AsyncStatus status() {
-            assert(m_op);
-            return m_op->status();
+        AsyncResult() = default;
+        explicit AsyncResult(Ref<AsyncState<T>> state) : AsyncBase<AsyncState<T>>(std::move(state)) {}
+
+        void add_on_completion(AsyncCallback<T> callback) {
+            assert(m_state);
+            m_state->add_on_completion(std::move(callback));
         }
+
         T& result() {
-            assert(m_op);
-            return m_op->result();
-        }
-        void wait_completed() {
-            assert(m_op);
-            m_op->wait_completed();
+            assert(m_state);
+            return m_state->result();
         }
 
-        void reset() {
-            m_op.reset();
+        Async as_async() {
+            assert(m_state);
+            return Async(m_state.template as<AsyncStateBase>());
         }
-
-        bool is_null() {
-            return !m_op.get();
-        }
-        bool is_not_null() {
-            return m_op.get();
-        }
-        bool is_completed() {
-            assert(m_op);
-            return m_op->is_completed();
-        }
-        bool is_failed() {
-            assert(m_op);
-            return m_op->is_failed();
-        }
-        bool is_ok() {
-            assert(m_op);
-            return m_op->is_ok();
-        }
-
-        void add_dependency(ref_ptr<AsyncStateBase> dep) {
-            assert(m_op);
-            m_op->add_dependency(std::move(dep));
-        }
-
-    private:
-        ref_ptr<AsyncState<T>> m_op;
     };
 
 }// namespace wmoge

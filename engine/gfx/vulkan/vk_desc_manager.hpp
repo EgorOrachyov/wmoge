@@ -106,13 +106,13 @@ namespace wmoge {
 
         void update();
 
-        void bind_shader(const ref_ptr<VKShader>& shader);
-        void bind_texture(const StringId& name, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler);
-        void bind_texture(const GfxLocation& location, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler);
-        void bind_uniform_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer);
-        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer);
-        void bind_storage_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer);
-        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer);
+        void bind_shader(const Ref<VKShader>& shader);
+        void bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
+        void bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
+        void bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer);
+        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer);
+        void bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer);
+        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer);
         void reset();
 
         std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS>& sets(int& to_bind);
@@ -129,7 +129,7 @@ namespace wmoge {
         std::vector<VkDescriptorImageInfo>                    m_image_infos{};
         std::vector<VkDescriptorBufferInfo>                   m_buffer_infos{};
         const GfxShaderReflection*                            m_reflection;
-        ref_ptr<VKShader>                                     m_shader;
+        Ref<VKShader>                                         m_shader;
 
         int m_frame_index       = 0;
         int m_write_info_count  = 0;

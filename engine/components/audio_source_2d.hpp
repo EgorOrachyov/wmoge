@@ -41,7 +41,7 @@ namespace wmoge {
     public:
         WG_OBJECT(AudioSource2d, CanvasItem)
 
-        void create(ref_ptr<AudioStream> stream, StringId bus = StringId());
+        void create(Ref<AudioStream> stream, StringId bus = StringId());
         void play();
         void stop();
         bool has_playback();
@@ -69,17 +69,17 @@ namespace wmoge {
         void on_scene_enter() override;
 
     private:
-        ref_ptr<AudioPlayback> m_playback;
-        Vec2f                  m_position;
-        Vec2f                  m_velocity;
-        Vec2f                  m_direction;
-        float                  m_pitch_scale  = 1.0f;
-        float                  m_gain         = 1.0;
-        float                  m_min_gain     = 0;
-        float                  m_max_gain     = 1.0;
-        float                  m_max_distance = 20000.0;
-        bool                   m_loop         = false;
-        bool                   m_autoplay     = false;
+        Ref<AudioPlayback> m_playback;
+        Vec2f              m_position;
+        Vec2f              m_velocity;
+        Vec2f              m_direction;
+        float              m_pitch_scale  = 1.0f;
+        float              m_gain         = 1.0;
+        float              m_min_gain     = 0;
+        float              m_max_gain     = 1.0;
+        float              m_max_distance = 20000.0;
+        bool               m_loop         = false;
+        bool               m_autoplay     = false;
     };
 
 }// namespace wmoge

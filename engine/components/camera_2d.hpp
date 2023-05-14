@@ -47,22 +47,22 @@ namespace wmoge {
         void set_background(const Color4f& background);
         void set_screen_space(const Vec2f& screen_space);
         void set_viewport_rect(const Vec4f& viewport_rect);
-        void set_window(const ref_ptr<Window>& window);
+        void set_window(const Ref<Window>& window);
 
-        const Color4f&         get_background() const;
-        const Vec2f&           get_screen_space() const;
-        const Vec4f&           get_viewport_rect() const;
-        const ref_ptr<Window>& get_window() const;
+        const Color4f&     get_background() const;
+        const Vec2f&       get_screen_space() const;
+        const Vec4f&       get_viewport_rect() const;
+        const Ref<Window>& get_window() const;
 
         bool on_load_from_yaml(const YamlConstNodeRef& node) override;
         void on_scene_enter() override;
         void on_scene_exit() override;
 
     private:
-        Color4f         m_background    = Color::BLACK4f;
-        Vec2f           m_screen_space  = Vec2f(1280, 720);
-        Vec4f           m_viewport_rect = Vec4f(0, 0, 1, 1);
-        ref_ptr<Window> m_window;
+        Color4f     m_background    = Color::BLACK4f;
+        Vec2f       m_screen_space  = Vec2f(1280, 720);
+        Vec4f       m_viewport_rect = Vec4f(0, 0, 1, 1);
+        Ref<Window> m_window;
     };
 
 }// namespace wmoge

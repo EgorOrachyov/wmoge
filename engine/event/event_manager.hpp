@@ -52,17 +52,17 @@ namespace wmoge {
         void update();
         void shutdown();
 
-        void subscribe(const ref_ptr<EventListener>& listener);
-        void unsubscribe(const ref_ptr<EventListener>& listener);
-        void dispatch(const ref_ptr<Event>& event);
+        void subscribe(const Ref<EventListener>& listener);
+        void unsubscribe(const Ref<EventListener>& listener);
+        void dispatch(const Ref<Event>& event);
 
     private:
-        using ListenersList = std::list<ref_ptr<EventListener>>;
+        using ListenersList = std::list<Ref<EventListener>>;
 
-        fast_map<EventType, ListenersList>  m_listeners;
-        fast_vector<ref_ptr<EventListener>> m_pending_add;
-        fast_vector<ref_ptr<EventListener>> m_pending_remove;
-        fast_vector<ref_ptr<Event>>         m_events;
+        fast_map<EventType, ListenersList> m_listeners;
+        fast_vector<Ref<EventListener>>    m_pending_add;
+        fast_vector<Ref<EventListener>>    m_pending_remove;
+        fast_vector<Ref<Event>>            m_events;
 
         mutable std::mutex m_mutex;
     };

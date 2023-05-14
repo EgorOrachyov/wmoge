@@ -122,7 +122,7 @@ namespace wmoge {
         WG_LOG_INFO("shutdown vulkan gfx driver");
     }
 
-    ref_ptr<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const StringId& name) {
+    Ref<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_format");
 
         assert(on_gfx_thread());
@@ -135,7 +135,7 @@ namespace wmoge {
 
         return format;
     }
-    ref_ptr<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_buffer");
 
         assert(on_gfx_thread());
@@ -144,7 +144,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    ref_ptr<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_index_buffer");
 
         assert(on_gfx_thread());
@@ -153,7 +153,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    ref_ptr<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_uniform_buffer");
 
         assert(on_gfx_thread());
@@ -162,7 +162,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    ref_ptr<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_storage_buffer");
 
         assert(on_gfx_thread());
@@ -171,7 +171,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    ref_ptr<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const StringId& name) {
+    Ref<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
@@ -179,15 +179,16 @@ namespace wmoge {
         auto shader = make_ref<VKShader>(*this);
         shader->setup(std::move(vertex), std::move(fragment), name);
 
-        auto compile_shader = make_ref<Task>(name, [shader](TaskContext&) {
+        Task compile_shader(name, [shader](TaskContext&) {
             shader->compile_from_source();
             return 0;
         });
-        compile_shader->run();
+
+        compile_shader.schedule();
 
         return shader;
     }
-    ref_ptr<GfxShader> VKDriver::make_shader(ref_ptr<Data> code, const StringId& name) {
+    Ref<GfxShader> VKDriver::make_shader(Ref<Data> code, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
@@ -195,15 +196,16 @@ namespace wmoge {
         auto shader = make_ref<VKShader>(*this);
         shader->setup(std::move(code), name);
 
-        auto compile_shader = make_ref<Task>(SID("vk:compile:shader:" + name.str()), [shader](TaskContext&) {
+        Task compile_shader(SID("vk:compile:shader:" + name.str()), [shader](TaskContext&) {
             shader->compile_from_byte_code();
             return 0;
         });
-        compile_shader->run();
+
+        compile_shader.schedule();
 
         return shader;
     }
-    ref_ptr<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d");
 
         assert(on_gfx_thread());
@@ -212,7 +214,7 @@ namespace wmoge {
         texture->create_2d(width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
-    ref_ptr<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d_array");
 
         assert(on_gfx_thread());
@@ -221,7 +223,7 @@ namespace wmoge {
         texture->create_2d_array(width, height, mips, slices, format, usages, mem_usage, name);
         return texture;
     }
-    ref_ptr<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_cube");
 
         assert(on_gfx_thread());
@@ -230,7 +232,7 @@ namespace wmoge {
         texture->create_cube(width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
-    ref_ptr<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const StringId& name) {
+    Ref<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_sampler");
 
         assert(on_gfx_thread());
@@ -245,14 +247,14 @@ namespace wmoge {
 
         return sampler;
     }
-    ref_ptr<GfxRenderPass> VKDriver::make_render_pass(GfxRenderPassType pass_type, const StringId& name) {
+    Ref<GfxRenderPass> VKDriver::make_render_pass(GfxRenderPassType pass_type, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
 
         assert(on_gfx_thread());
 
         return make_ref<VKRenderPass>(pass_type, name, *this);
     }
-    ref_ptr<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const StringId& name) {
+    Ref<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_pipeline");
 
         assert(on_gfx_thread());
@@ -265,49 +267,49 @@ namespace wmoge {
 
         return pipeline;
     }
-    void VKDriver::update_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
+    void VKDriver::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_vert_buffer");
 
         assert(on_gfx_thread());
 
         dynamic_cast<VKVertBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
-    void VKDriver::update_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
+    void VKDriver::update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_index_buffer");
 
         assert(on_gfx_thread());
 
         dynamic_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
-    void VKDriver::update_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
+    void VKDriver::update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_uniform_buffer");
 
         assert(on_gfx_thread());
 
         dynamic_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
-    void VKDriver::update_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) {
+    void VKDriver::update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_storage_buffer");
 
         assert(on_gfx_thread());
 
         dynamic_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
     }
-    void VKDriver::update_texture_2d(const ref_ptr<GfxTexture>& texture, int mip, Rect2i region, const ref_ptr<Data>& data) {
+    void VKDriver::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_texture_2d");
 
         assert(on_gfx_thread());
 
         dynamic_cast<VKTexture*>(texture.get())->update_2d(m_cmd, mip, region, data);
     }
-    void VKDriver::update_texture_2d_array(const ref_ptr<GfxTexture>& texture, int mip, int slice, Rect2i region, const ref_ptr<Data>& data) {
+    void VKDriver::update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_texture_2d_array");
 
         assert(on_gfx_thread());
 
         dynamic_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd, mip, slice, region, data);
     }
-    void VKDriver::update_texture_cube(const ref_ptr<GfxTexture>& texture, int mip, int face, Rect2i region, const ref_ptr<Data>& data) {
+    void VKDriver::update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_texture_cube");
 
         assert(on_gfx_thread());
@@ -315,7 +317,7 @@ namespace wmoge {
         dynamic_cast<VKTexture*>(texture.get())->update_cube(m_cmd, mip, face, region, data);
     }
 
-    void* VKDriver::map_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer) {
+    void* VKDriver::map_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::map_vert_buffer");
 
         assert(on_gfx_thread());
@@ -323,7 +325,7 @@ namespace wmoge {
 
         return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
     }
-    void* VKDriver::map_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer) {
+    void* VKDriver::map_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::map_index_buffer");
 
         assert(on_gfx_thread());
@@ -331,7 +333,7 @@ namespace wmoge {
 
         return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
     }
-    void* VKDriver::map_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) {
+    void* VKDriver::map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::map_uniform_buffer");
 
         assert(on_gfx_thread());
@@ -339,7 +341,7 @@ namespace wmoge {
 
         return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
     }
-    void* VKDriver::map_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) {
+    void* VKDriver::map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::map_storage_buffer");
 
         assert(on_gfx_thread());
@@ -347,7 +349,7 @@ namespace wmoge {
 
         return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
     }
-    void VKDriver::unmap_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer) {
+    void VKDriver::unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_vert_buffer");
 
         assert(on_gfx_thread());
@@ -356,7 +358,7 @@ namespace wmoge {
 
         dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(cmd());
     }
-    void VKDriver::unmap_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer) {
+    void VKDriver::unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_index_buffer");
 
         assert(on_gfx_thread());
@@ -365,7 +367,7 @@ namespace wmoge {
 
         dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(cmd());
     }
-    void VKDriver::unmap_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) {
+    void VKDriver::unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_uniform_buffer");
 
         assert(on_gfx_thread());
@@ -374,7 +376,7 @@ namespace wmoge {
 
         dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(cmd());
     }
-    void VKDriver::unmap_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) {
+    void VKDriver::unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_storage_buffer");
 
         assert(on_gfx_thread());
@@ -384,7 +386,7 @@ namespace wmoge {
         dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(cmd());
     }
 
-    void VKDriver::begin_render_pass(const ref_ptr<GfxRenderPass>& pass) {
+    void VKDriver::begin_render_pass(const Ref<GfxRenderPass>& pass) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::begin_render_pass");
 
         assert(on_gfx_thread());
@@ -394,7 +396,7 @@ namespace wmoge {
         m_current_pass   = pass.cast<VKRenderPass>();
         m_in_render_pass = true;
     }
-    void VKDriver::bind_target(const ref_ptr<Window>& window) {
+    void VKDriver::bind_target(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_target");
 
         assert(on_gfx_thread());
@@ -404,7 +406,7 @@ namespace wmoge {
         m_current_pass->bind_target(m_window_manager->get_or_create(window));
         m_target_bound = true;
     }
-    void VKDriver::bind_color_target(const ref_ptr<GfxTexture>& texture, int target, int mip, int slice) {
+    void VKDriver::bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_color_target");
 
         assert(on_gfx_thread());
@@ -414,7 +416,7 @@ namespace wmoge {
         m_current_pass->bind_color_target(texture.cast<VKTexture>(), target, mip, slice);
         m_target_bound = true;
     }
-    void VKDriver::bind_depth_target(const ref_ptr<GfxTexture>& texture, int mip, int slice) {
+    void VKDriver::bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_depth_target");
 
         assert(on_gfx_thread());
@@ -454,7 +456,7 @@ namespace wmoge {
         m_clear_stencil = stencil;
         m_current_pass->clear_depth_stencil();
     }
-    bool VKDriver::bind_pipeline(const ref_ptr<GfxPipeline>& pipeline) {
+    bool VKDriver::bind_pipeline(const Ref<GfxPipeline>& pipeline) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_pipeline");
 
         assert(on_gfx_thread());
@@ -483,7 +485,7 @@ namespace wmoge {
         m_pipeline_bound = true;
         return true;
     }
-    void VKDriver::bind_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int index, int offset) {
+    void VKDriver::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_vert_buffer");
 
         assert(on_gfx_thread());
@@ -494,7 +496,7 @@ namespace wmoge {
         m_current_vert_buffers[index]         = buffer.cast<VKVertBuffer>();
         m_current_vert_buffers_offsets[index] = offset;
     }
-    void VKDriver::bind_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
+    void VKDriver::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_index_buffer");
 
         assert(on_gfx_thread());
@@ -505,7 +507,7 @@ namespace wmoge {
         m_current_index_buffer = buffer.cast<VKIndexBuffer>();
         vkCmdBindIndexBuffer(m_cmd, m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
     }
-    void VKDriver::bind_texture(const StringId& name, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+    void VKDriver::bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_texture");
 
         assert(on_gfx_thread());
@@ -517,7 +519,7 @@ namespace wmoge {
         texture.cast<VKTexture>()->transition_layout(m_cmd, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         m_desc_manager->bind_texture(name, array_element, texture, sampler);
     }
-    void VKDriver::bind_texture(const GfxLocation& location, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+    void VKDriver::bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_texture");
 
         assert(on_gfx_thread());
@@ -529,7 +531,7 @@ namespace wmoge {
         texture.cast<VKTexture>()->transition_layout(m_cmd, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
         m_desc_manager->bind_texture(location, array_element, texture, sampler);
     }
-    void VKDriver::bind_uniform_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) {
+    void VKDriver::bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_uniform_buffer");
 
         assert(on_gfx_thread());
@@ -539,7 +541,7 @@ namespace wmoge {
 
         m_desc_manager->bind_uniform_buffer(name, offset, range, buffer);
     }
-    void VKDriver::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) {
+    void VKDriver::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_uniform_buffer");
 
         assert(on_gfx_thread());
@@ -549,7 +551,7 @@ namespace wmoge {
 
         m_desc_manager->bind_uniform_buffer(location, offset, range, buffer);
     }
-    void VKDriver::bind_storage_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) {
+    void VKDriver::bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_storage_buffer");
 
         assert(on_gfx_thread());
@@ -559,7 +561,7 @@ namespace wmoge {
 
         m_desc_manager->bind_storage_buffer(name, offset, range, buffer);
     }
-    void VKDriver::bind_storage_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) {
+    void VKDriver::bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_storage_buffer");
 
         assert(on_gfx_thread());
@@ -708,7 +710,7 @@ namespace wmoge {
 
         WG_VK_CHECK(vkQueueSubmit(m_queues->gfx_queue(), 1, &submit_info, m_fences[m_index]));
     }
-    void VKDriver::prepare_window(const ref_ptr<Window>& window) {
+    void VKDriver::prepare_window(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::prepare_window");
 
         auto vk_window = m_window_manager->get_or_create(window);
@@ -716,7 +718,7 @@ namespace wmoge {
         vk_window->color()[vk_window->current()]->transition_layout(m_cmd, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
         m_to_present.insert(vk_window);
     }
-    void VKDriver::swap_buffers(const ref_ptr<Window>& window) {
+    void VKDriver::swap_buffers(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::swap_buffers");
 
         auto vk_window   = m_window_manager->get_or_create(window);

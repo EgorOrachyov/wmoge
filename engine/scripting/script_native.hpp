@@ -42,7 +42,7 @@ namespace wmoge {
      */
     class ScriptNativeInstance : public ScriptInstance {
     public:
-        ScriptNativeInstance(ref_ptr<Script> script, Object* object, ScriptFunctionsMask mask);
+        ScriptNativeInstance(Ref<Script> script, Object* object, ScriptFunctionsMask mask);
 
         ScriptFunctionsMask get_mask() override;
         Script*             get_script() override;
@@ -50,7 +50,7 @@ namespace wmoge {
         SceneObject*        get_scene_object();
 
     private:
-        ref_ptr<Script>     m_script;
+        Ref<Script>         m_script;
         Object*             m_object;
         SceneObject*        m_scene_object;
         ScriptFunctionsMask m_mask;

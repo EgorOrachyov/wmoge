@@ -101,7 +101,7 @@ namespace wmoge {
             // Something changed, dispatch event
             if (m_buttons[i] != action) {
                 auto button_update      = make_event<EventJoystick>();
-                button_update->joystick = ref_ptr<Joystick>(this);
+                button_update->joystick = Ref<Joystick>(this);
                 button_update->action   = action;
                 button_update->button   = i;
                 event_manager->dispatch(button_update);
@@ -111,7 +111,7 @@ namespace wmoge {
             // Handle press and held case
             if (action == InputAction::Press || action == InputAction::Repeat) {
                 auto button_held      = make_event<EventJoystick>();
-                button_held->joystick = ref_ptr<Joystick>(this);
+                button_held->joystick = Ref<Joystick>(this);
                 button_held->action   = InputAction::PressHeld;
                 button_held->button   = i;
                 event_manager->dispatch(button_held);

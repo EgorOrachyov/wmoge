@@ -61,53 +61,53 @@ namespace wmoge {
         VKDriver(VKInitInfo info);
         ~VKDriver() override;
 
-        ref_ptr<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const StringId& name) override;
-        ref_ptr<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        ref_ptr<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        ref_ptr<GfxUniformBuffer> make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        ref_ptr<GfxStorageBuffer> make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        ref_ptr<GfxShader>        make_shader(std::string vertex, std::string fragment, const StringId& name) override;
-        ref_ptr<GfxShader>        make_shader(ref_ptr<Data> code, const StringId& name) override;
-        ref_ptr<GfxTexture>       make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        ref_ptr<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        ref_ptr<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        ref_ptr<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
-        ref_ptr<GfxRenderPass>    make_render_pass(GfxRenderPassType pass_type, const StringId& name) override;
-        ref_ptr<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
+        Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const StringId& name) override;
+        Ref<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxUniformBuffer> make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxStorageBuffer> make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxShader>        make_shader(std::string vertex, std::string fragment, const StringId& name) override;
+        Ref<GfxShader>        make_shader(Ref<Data> code, const StringId& name) override;
+        Ref<GfxTexture>       make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
+        Ref<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
+        Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
+        Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
+        Ref<GfxRenderPass>    make_render_pass(GfxRenderPassType pass_type, const StringId& name) override;
+        Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
 
-        void update_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) override;
-        void update_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) override;
-        void update_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) override;
-        void update_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer, int offset, int range, const ref_ptr<Data>& data) override;
-        void update_texture_2d(const ref_ptr<GfxTexture>& texture, int mip, Rect2i region, const ref_ptr<Data>& data) override;
-        void update_texture_2d_array(const ref_ptr<GfxTexture>& texture, int mip, int slice, Rect2i region, const ref_ptr<Data>& data) override;
-        void update_texture_cube(const ref_ptr<GfxTexture>& texture, int mip, int face, Rect2i region, const ref_ptr<Data>& data) override;
+        void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
+        void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
+        void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
+        void update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
+        void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data) override;
+        void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) override;
+        void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data) override;
 
-        void* map_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer) override;
-        void* map_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer) override;
-        void* map_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) override;
-        void* map_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) override;
-        void  unmap_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer) override;
-        void  unmap_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer) override;
-        void  unmap_uniform_buffer(const ref_ptr<GfxUniformBuffer>& buffer) override;
-        void  unmap_storage_buffer(const ref_ptr<GfxStorageBuffer>& buffer) override;
+        void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer) override;
+        void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer) override;
+        void* map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
+        void* map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
+        void  unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) override;
+        void  unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) override;
+        void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
+        void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
 
-        void begin_render_pass(const ref_ptr<GfxRenderPass>& pass) override;
-        void bind_target(const ref_ptr<Window>& window) override;
-        void bind_color_target(const ref_ptr<GfxTexture>& texture, int target, int mip, int slice) override;
-        void bind_depth_target(const ref_ptr<GfxTexture>& texture, int mip, int slice) override;
+        void begin_render_pass(const Ref<GfxRenderPass>& pass) override;
+        void bind_target(const Ref<Window>& window) override;
+        void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
+        void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) override;
         void viewport(const Rect2i& viewport) override;
         void clear(int target, const Vec4f& color) override;
         void clear(float depth, int stencil) override;
-        bool bind_pipeline(const ref_ptr<GfxPipeline>& pipeline) override;
-        void bind_vert_buffer(const ref_ptr<GfxVertBuffer>& buffer, int index, int offset) override;
-        void bind_index_buffer(const ref_ptr<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
-        void bind_texture(const StringId& name, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) override;
-        void bind_texture(const GfxLocation& location, int array_element, const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) override;
-        void bind_uniform_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) override;
-        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxUniformBuffer>& buffer) override;
-        void bind_storage_buffer(const StringId& name, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) override;
-        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const ref_ptr<GfxStorageBuffer>& buffer) override;
+        bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
+        void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
+        void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
+        void bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
+        void bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
+        void bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
+        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
+        void bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
+        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
         void end_render_pass() override;
@@ -116,8 +116,8 @@ namespace wmoge {
         void begin_frame() override;
         void flush() override;
         void end_frame() override;
-        void prepare_window(const ref_ptr<Window>& window) override;
-        void swap_buffers(const ref_ptr<Window>& window) override;
+        void prepare_window(const Ref<Window>& window) override;
+        void swap_buffers(const Ref<Window>& window) override;
 
         const GfxDeviceCaps&   device_caps() const override { return m_device_caps; }
         const StringId&        driver_name() const override { return m_driver_name; }
@@ -171,21 +171,21 @@ namespace wmoge {
 
         VkCommandBuffer m_cmd = VK_NULL_HANDLE;
 
-        fast_map<GfxVertElements, ref_ptr<VKVertFormat>> m_formats;
-        fast_map<GfxSamplerDesc, ref_ptr<VKSampler>>     m_samplers;
-        fast_map<GfxPipelineState, ref_ptr<VKPipeline>>  m_pipelines;
+        fast_map<GfxVertElements, Ref<VKVertFormat>> m_formats;
+        fast_map<GfxSamplerDesc, Ref<VKSampler>>     m_samplers;
+        fast_map<GfxPipelineState, Ref<VKPipeline>>  m_pipelines;
 
-        ref_ptr<VKRenderPass>                                          m_current_pass;
-        ref_ptr<VKPipeline>                                            m_current_pipeline;
-        ref_ptr<VKShader>                                              m_current_shader;
-        ref_ptr<VKIndexBuffer>                                         m_current_index_buffer;
-        std::array<ref_ptr<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
-        std::array<int, GfxLimits::MAX_VERT_BUFFERS>                   m_current_vert_buffers_offsets{};
-        std::unordered_set<ref_ptr<VKWindow>>                          m_to_present;
-        std::array<Vec4f, GfxLimits::MAX_COLOR_TARGETS>                m_clear_color;
-        float                                                          m_clear_depth   = 1.0f;
-        int                                                            m_clear_stencil = 0;
-        Rect2i                                                         m_viewport;
+        Ref<VKRenderPass>                                          m_current_pass;
+        Ref<VKPipeline>                                            m_current_pipeline;
+        Ref<VKShader>                                              m_current_shader;
+        Ref<VKIndexBuffer>                                         m_current_index_buffer;
+        std::array<Ref<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
+        std::array<int, GfxLimits::MAX_VERT_BUFFERS>               m_current_vert_buffers_offsets{};
+        std::unordered_set<Ref<VKWindow>>                          m_to_present;
+        std::array<Vec4f, GfxLimits::MAX_COLOR_TARGETS>            m_clear_color;
+        float                                                      m_clear_depth   = 1.0f;
+        int                                                        m_clear_stencil = 0;
+        Rect2i                                                     m_viewport;
 
         bool m_in_render_pass      = false;
         bool m_render_pass_started = false;

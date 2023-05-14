@@ -80,23 +80,23 @@ namespace wmoge {
         scene_packed->m_scene_data_yaml = m_scene_data_yaml;
     }
 
-    Async<ref_ptr<Scene>> ScenePacked::instantiate_async() {
+    AsyncResult<Ref<Scene>> ScenePacked::instantiate_async() {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate_async");
 
         assert(m_scene_data_yaml.has_value());
 
         if (!m_scene_data_yaml.has_value()) {
             WG_LOG_ERROR("cannot instantiate scene from no data");
-            return Async<ref_ptr<Scene>>{};
+            return AsyncResult<Ref<Scene>>{};
         }
 
         auto* resource_manager = Engine::instance()->resource_manager();
         auto& file             = m_scene_data_yaml.value();
-        auto  scene_async      = make_async_op<ref_ptr<Scene>>();
+        auto  scene_async      = make_async_op<Ref<Scene>>();
         auto  deps             = file["deps"];
-        auto  scene_packed     = ref_ptr<ScenePacked>(this);
+        auto  scene_packed     = Ref<ScenePacked>(this);
 
-        std::vector<Async<ref_ptr<Resource>>> deps_loading;
+        std::vector<Async> deps_loading;
 
         for (auto it = deps.first_child(); it.valid(); it = it.next_sibling()) {
             auto res       = Yaml::read_sid(it);
@@ -104,13 +104,13 @@ namespace wmoge {
 
             if (res_async.is_null()) {
                 WG_LOG_ERROR("failed to obtain async load for dep " << res);
-                return Async<ref_ptr<Scene>>{};
+                return AsyncResult<Ref<Scene>>{};
             }
 
-            deps_loading.push_back(std::move(res_async));
+            deps_loading.push_back(res_async.as_async());
         }
 
-        auto scene_task = make_ref<Task>(get_name(), [scene_async, scene_packed](auto&) {
+        Task scene_task(get_name(), [scene_async, scene_packed](auto&) {
             WG_AUTO_PROFILE_RESOURCE("ScenePacked::construct_scene");
 
             Timer timer;
@@ -133,28 +133,24 @@ namespace wmoge {
             return 0;
         });
 
-        scene_task->add_on_completion([scene_async](AsyncStatus status, std::optional<int>&) {
+        WG_LOG_INFO("total deps to pre-load " << deps_loading.size() << " for " << get_name());
+
+        auto scene_task_hnd = scene_task.schedule(Async::join(ArrayView(deps_loading)));
+
+        scene_task_hnd.add_on_completion([scene_async](AsyncStatus status, std::optional<int>&) {
             if (status == AsyncStatus::Failed) {
                 scene_async->set_failed();
             }
         });
 
-        WG_LOG_INFO("total deps to pre-load " << deps_loading.size() << " for " << get_name());
-
-        for (auto& dep : deps_loading) {
-            scene_task->add_to_wait(dep);
-        }
-
-        scene_task->run();
-
-        return Async<ref_ptr<Scene>>(scene_async);
+        return AsyncResult<Ref<Scene>>(scene_async);
     }
-    ref_ptr<Scene> ScenePacked::instantiate() {
+    Ref<Scene> ScenePacked::instantiate() {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate");
 
         auto async = instantiate_async();
         async.wait_completed();
-        return async.is_failed() ? ref_ptr<Scene>{} : async.result();
+        return async.is_failed() ? Ref<Scene>{} : async.result();
     }
 
     void ScenePacked::register_class() {

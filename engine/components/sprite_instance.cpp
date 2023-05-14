@@ -67,7 +67,7 @@ namespace wmoge {
         });
     }
 
-    const ref_ptr<Sprite>& SpriteInstance::get_sprite() {
+    const Ref<Sprite>& SpriteInstance::get_sprite() {
         return m_sprite;
     }
 
@@ -109,7 +109,7 @@ namespace wmoge {
     void SpriteInstance::on_scene_exit() {
         CanvasItem::on_scene_exit();
 
-        get_queue()->push([scene = get_render_scene(), proxy = ref_ptr<RenderCanvasItem>(get_proxy())]() {
+        get_queue()->push([scene = get_render_scene(), proxy = Ref<RenderCanvasItem>(get_proxy())]() {
             scene->remove_object(proxy);
         });
 

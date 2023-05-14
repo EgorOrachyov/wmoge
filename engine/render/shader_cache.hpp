@@ -52,20 +52,20 @@ namespace wmoge {
         ShaderCache();
         ~ShaderCache();
 
-        ref_ptr<GfxShader> find(const std::string& key);
-        void               cache(const std::string& key, ref_ptr<GfxShader> shader);
-        void               clear();
-        void               save(const std::string& path);
-        void               load(const std::string& path);
+        Ref<GfxShader> find(const std::string& key);
+        void           cache(const std::string& key, Ref<GfxShader> shader);
+        void           clear();
+        void           save(const std::string& path);
+        void           load(const std::string& path);
 
         /**
          * @class ShaderData
          * @brief Entry holding data of a particular shader
          */
         struct ShaderData {
-            StringId           name;
-            ref_ptr<GfxShader> shader;
-            ref_ptr<Data>      bytecode;
+            StringId       name;
+            Ref<GfxShader> shader;
+            Ref<Data>      bytecode;
 
             friend Archive& operator<<(Archive& archive, const ShaderData& shader_data);
             friend Archive& operator>>(Archive& archive, ShaderData& shader_data);

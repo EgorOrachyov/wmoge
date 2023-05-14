@@ -96,49 +96,49 @@ namespace wmoge {
 
         void add_chunk(const MeshChunk& mesh_chunk);
         void set_vertex_params(int num_vertices, GfxPrimType prim_type);
-        void set_vertex_buffer(int index, ref_ptr<Data> buffer);
+        void set_vertex_buffer(int index, Ref<Data> buffer);
         void set_index_params(int num_indices, GfxIndexType index_type);
-        void set_index_buffer(ref_ptr<Data> buffer);
+        void set_index_buffer(Ref<Data> buffer);
         void set_attribs(MeshAttribs attribs);
 
         void update_aabb();
         void update_gfx_buffers();
 
-        const std::vector<MeshChunk>&  get_chunks();
-        const MeshChunk&               get_chunk(int i);
-        const ref_ptr<Data>&           get_vertex_buffer(int i);
-        const ref_ptr<Data>&           get_index_buffer();
-        const ref_ptr<GfxVertBuffer>&  get_gfx_vertex_buffer(int i);
-        const ref_ptr<GfxIndexBuffer>& get_gfx_index_buffer();
-        int                            get_buffer_stride(int buffer);
-        int                            get_attrib_offset(MeshAttrib attrib);
-        GfxIndexType                   get_index_type();
-        GfxPrimType                    get_prim_type();
-        MeshAttribs                    get_attribs();
-        int                            get_num_vertices();
-        int                            get_num_indices();
-        Aabbf                          get_aabb();
+        const std::vector<MeshChunk>& get_chunks();
+        const MeshChunk&              get_chunk(int i);
+        const Ref<Data>&              get_vertex_buffer(int i);
+        const Ref<Data>&              get_index_buffer();
+        const Ref<GfxVertBuffer>&     get_gfx_vertex_buffer(int i);
+        const Ref<GfxIndexBuffer>&    get_gfx_index_buffer();
+        int                           get_buffer_stride(int buffer);
+        int                           get_attrib_offset(MeshAttrib attrib);
+        GfxIndexType                  get_index_type();
+        GfxPrimType                   get_prim_type();
+        MeshAttribs                   get_attribs();
+        int                           get_num_vertices();
+        int                           get_num_indices();
+        Aabbf                         get_aabb();
 
-        static void          get_buffer_attribs(int buffer, int& start, int& stop);
-        static int           get_attrib_size(MeshAttrib attrib);
-        static int           get_attrib_buffer(MeshAttrib attrib);
-        static ref_ptr<Mesh> create_cube(const Vec3f& size);
-        static ref_ptr<Mesh> create_sphere(const Vec3f& size);
+        static void      get_buffer_attribs(int buffer, int& start, int& stop);
+        static int       get_attrib_size(MeshAttrib attrib);
+        static int       get_attrib_buffer(MeshAttrib attrib);
+        static Ref<Mesh> create_cube(const Vec3f& size);
+        static Ref<Mesh> create_sphere(const Vec3f& size);
 
     private:
-        std::vector<MeshChunk>  m_chunks;
-        int                     m_attributes_offsets[MAX_ATTRIB];
-        int                     m_buffers_strides[MAX_BUFFER];
-        ref_ptr<GfxVertBuffer>  m_gfx_vertex_buffers[MAX_BUFFER];
-        ref_ptr<Data>           m_vertex_buffers[MAX_BUFFER];
-        ref_ptr<GfxIndexBuffer> m_gfx_index_buffer;
-        ref_ptr<Data>           m_index_buffer;
-        GfxIndexType            m_index_type;
-        GfxPrimType             m_prim_type;
-        MeshAttribs             m_attribs;
-        int                     m_num_vertices = 0;
-        int                     m_num_indices  = 0;
-        Aabbf                   m_aabb;
+        std::vector<MeshChunk> m_chunks;
+        int                    m_attributes_offsets[MAX_ATTRIB];
+        int                    m_buffers_strides[MAX_BUFFER];
+        Ref<GfxVertBuffer>     m_gfx_vertex_buffers[MAX_BUFFER];
+        Ref<Data>              m_vertex_buffers[MAX_BUFFER];
+        Ref<GfxIndexBuffer>    m_gfx_index_buffer;
+        Ref<Data>              m_index_buffer;
+        GfxIndexType           m_index_type;
+        GfxPrimType            m_prim_type;
+        MeshAttribs            m_attribs;
+        int                    m_num_vertices = 0;
+        int                    m_num_indices  = 0;
+        Aabbf                  m_aabb;
     };
 
 }// namespace wmoge

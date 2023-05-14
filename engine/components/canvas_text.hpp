@@ -45,13 +45,13 @@ namespace wmoge {
     public:
         WG_OBJECT(CanvasText, CanvasItem)
 
-        void                 set_text(std::string text);
-        void                 set_font(ref_ptr<Font> font);
-        void                 set_font_size(float font_size);
-        void                 set_centered();
-        const std::string&   get_text();
-        const ref_ptr<Font>& get_font();
-        float                get_font_size();
+        void               set_text(std::string text);
+        void               set_font(Ref<Font> font);
+        void               set_font_size(float font_size);
+        void               set_centered();
+        const std::string& get_text();
+        const Ref<Font>&   get_font();
+        float              get_font_size();
 
         bool on_load_from_yaml(const YamlConstNodeRef& node) override;
         void on_scene_enter() override;
@@ -59,7 +59,7 @@ namespace wmoge {
 
     private:
         std::string       m_text;
-        ref_ptr<Font>     m_font;
+        Ref<Font>         m_font;
         float             m_font_size = 1.0f;
         FontTextAlignment m_alignment = FontTextAlignment::Left;
     };

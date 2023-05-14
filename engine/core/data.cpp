@@ -56,12 +56,12 @@ namespace wmoge {
         return "data 0x" + StringUtils::from_ptr(m_buffer) + " " + StringUtils::from_mem_size(m_size);
     }
 
-    Archive& operator<<(Archive& archive, const ref_ptr<Data>& data) {
+    Archive& operator<<(Archive& archive, const Ref<Data>& data) {
         archive << data->m_size;
         archive.nwrite(static_cast<int>(data->m_size), data->m_buffer);
         return archive;
     }
-    Archive& operator>>(Archive& archive, ref_ptr<Data>& data) {
+    Archive& operator>>(Archive& archive, Ref<Data>& data) {
         std::size_t size;
         archive >> size;
         data = make_ref<Data>(size);

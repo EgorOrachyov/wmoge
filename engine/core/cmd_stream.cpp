@@ -61,7 +61,6 @@ namespace wmoge {
         std::atomic_bool marker{false};
 
         push([&]() {
-            std::lock_guard guard(m_mutex);
             marker.store(true);
             m_cv.notify_all();
         });

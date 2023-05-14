@@ -14,6 +14,7 @@ add_library(wmoge STATIC
         audio/openal/al_playback.cpp
         audio/openal/al_playback.hpp
         core/array_view.hpp
+        core/async.cpp
         core/async.hpp
         core/callback_queue.cpp
         core/callback_queue.hpp
@@ -50,8 +51,14 @@ add_library(wmoge STATIC
         core/string_utils.hpp
         core/task.cpp
         core/task.hpp
+        core/task_hnd.cpp
+        core/task_hnd.hpp
         core/task_manager.cpp
         core/task_manager.hpp
+        core/task_parallel_for.cpp
+        core/task_parallel_for.hpp
+        core/task_runtime.cpp
+        core/task_runtime.hpp
         core/timer.cpp
         core/timer.hpp
         core/var.cpp

@@ -48,7 +48,7 @@ namespace wmoge {
         m_cached_cmds.clear();
     }
 
-    void RenderCanvasItem::set_material(const ref_ptr<Material>& material) {
+    void RenderCanvasItem::set_material(const Ref<Material>& material) {
         m_material = material;
     }
     void RenderCanvasItem::set_layer_id(int layer_id) {

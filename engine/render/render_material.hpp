@@ -58,25 +58,25 @@ namespace wmoge {
         void ensure_version();
         bool is_actual_version(std::size_t ref_version);
 
-        fast_vector<ref_ptr<GfxTexture>>& get_textures() { return m_textures; }
-        fast_vector<ref_ptr<GfxSampler>>& get_samplers() { return m_samplers; }
-        ref_ptr<GfxUniformBuffer>&        get_parameters() { return m_parameters; }
+        fast_vector<Ref<GfxTexture>>& get_textures() { return m_textures; }
+        fast_vector<Ref<GfxSampler>>& get_samplers() { return m_samplers; }
+        Ref<GfxUniformBuffer>&        get_parameters() { return m_parameters; }
 
-        const fast_vector<ref_ptr<GfxTexture>>& get_textures() const { return m_textures; }
-        const fast_vector<ref_ptr<GfxSampler>>& get_samplers() const { return m_samplers; }
-        const ref_ptr<GfxUniformBuffer>&        get_parameters() const { return m_parameters; }
+        const fast_vector<Ref<GfxTexture>>& get_textures() const { return m_textures; }
+        const fast_vector<Ref<GfxSampler>>& get_samplers() const { return m_samplers; }
+        const Ref<GfxUniformBuffer>&        get_parameters() const { return m_parameters; }
 
         std::size_t        get_version() const { return m_version.load(); }
         class Material*    get_material() const { return m_material; }
         RenderMaterialHash get_hash() const { return m_hash; }
 
     private:
-        fast_vector<ref_ptr<GfxTexture>> m_textures;
-        fast_vector<ref_ptr<GfxSampler>> m_samplers;
-        ref_ptr<GfxUniformBuffer>        m_parameters;
-        std::atomic_size_t               m_version{0};
-        class Material*                  m_material = nullptr;
-        RenderMaterialHash               m_hash{};
+        fast_vector<Ref<GfxTexture>> m_textures;
+        fast_vector<Ref<GfxSampler>> m_samplers;
+        Ref<GfxUniformBuffer>        m_parameters;
+        std::atomic_size_t           m_version{0};
+        class Material*              m_material = nullptr;
+        RenderMaterialHash           m_hash{};
     };
 
 }// namespace wmoge

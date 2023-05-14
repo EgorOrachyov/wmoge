@@ -46,20 +46,20 @@ namespace wmoge {
     public:
         WG_OBJECT(SpriteInstance, CanvasItem);
 
-        void                   play_animation(const StringId& animation);
-        void                   play_animation(int animation_id);
-        void                   stop_animation();
-        const ref_ptr<Sprite>& get_sprite();
+        void               play_animation(const StringId& animation);
+        void               play_animation(int animation_id);
+        void               stop_animation();
+        const Ref<Sprite>& get_sprite();
 
         void on_scene_enter() override;
         void on_scene_exit() override;
         bool on_load_from_yaml(const YamlConstNodeRef& node) override;
 
     private:
-        ref_ptr<Sprite> m_sprite;
-        int             m_animation   = -1;
-        float           m_speed_scale = 1.0f;
-        bool            m_playing     = false;
+        Ref<Sprite> m_sprite;
+        int         m_animation   = -1;
+        float       m_speed_scale = 1.0f;
+        bool        m_playing     = false;
     };
 
 }// namespace wmoge

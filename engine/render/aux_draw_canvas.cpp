@@ -63,7 +63,7 @@ namespace wmoge {
         unsigned char white[] = {0xff, 0xff, 0xff, 0xff};
         gfx->update_texture_2d(m_default_texture, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(white, sizeof(white)));
 
-        ref_ptr<GfxVertFormat> b0_Pos2Uv2Col4;
+        Ref<GfxVertFormat> b0_Pos2Uv2Col4;
         {
             GfxVertElements elements;
             elements.add_element(SID("pos"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, pos), sizeof(GfxVF_Pos2Uv2Col4));
@@ -124,7 +124,7 @@ namespace wmoge {
     void AuxDrawCanvas::set_tint_color(const Color4f& color) {
         m_color_tint = color;
     }
-    void AuxDrawCanvas::set_font(ref_ptr<Font> font) {
+    void AuxDrawCanvas::set_font(Ref<Font> font) {
         m_font = std::move(font);
     }
 
@@ -177,7 +177,7 @@ namespace wmoge {
         draw_filled_triangle(p0, p1, p2);
         draw_filled_triangle(p2, p3, p0);
     }
-    void AuxDrawCanvas::draw_texture(const ref_ptr<Texture2d>& texture, const Vec2f& pos, const Vec2f& size, const Vec2f& uv_base, const Vec2f& uv_size) {
+    void AuxDrawCanvas::draw_texture(const Ref<Texture2d>& texture, const Vec2f& pos, const Vec2f& size, const Vec2f& uv_base, const Vec2f& uv_size) {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::draw_texture");
 
         assert(texture);
@@ -322,7 +322,7 @@ namespace wmoge {
         add_triangle(p2, p3, p0, color);
     }
 
-    void AuxDrawCanvas::set_window(const ref_ptr<Window>& window) {
+    void AuxDrawCanvas::set_window(const Ref<Window>& window) {
         m_window = window;
     }
     void AuxDrawCanvas::set_viewport(const Rect2i& viewport) {
@@ -400,8 +400,8 @@ namespace wmoge {
                 int start_vertex = 3 * current_triangle_id;
                 int vertex_count = batch_size * 3;
 
-                bool                  is_text = current_triangle.is_text;
-                ref_ptr<GfxPipeline>& to_bind = is_text ? m_pipeline_text : m_pipeline_triangle;
+                bool              is_text = current_triangle.is_text;
+                Ref<GfxPipeline>& to_bind = is_text ? m_pipeline_text : m_pipeline_triangle;
 
                 if (to_bind.get() == prev_bound || gfx->bind_pipeline(to_bind)) {
                     gfx->bind_vert_buffer(m_gfx_triangles, 0);

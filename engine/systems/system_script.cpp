@@ -41,7 +41,7 @@
 namespace wmoge {
 
     SystemScript::SystemScript(class Scene* scene) : SceneSystem(scene) {
-        EventCallback sniffer = [this](const ref_ptr<Event>& event) {
+        EventCallback sniffer = [this](const Ref<Event>& event) {
             m_events.push_back(event);
             return false;
         };

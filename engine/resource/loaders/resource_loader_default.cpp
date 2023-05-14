@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    bool ResourceLoaderDefault::load(const StringId& name, const ResourceMeta& meta, ref_ptr<Resource>& res) {
+    bool ResourceLoaderDefault::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderDefault::load");
 
         res = meta.resource_class->instantiate().cast<Resource>();

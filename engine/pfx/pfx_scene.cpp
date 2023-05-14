@@ -33,13 +33,13 @@
 
 namespace wmoge {
 
-    void PfxScene::add_emitter(const ref_ptr<PfxEmitter>& emitter) {
+    void PfxScene::add_emitter(const Ref<PfxEmitter>& emitter) {
         std::lock_guard guard(m_mutex);
 
         assert(m_emitters.find(emitter) == m_emitters.end());
         m_emitters.emplace(emitter);
     }
-    void PfxScene::remove_emitter(const ref_ptr<PfxEmitter>& emitter) {
+    void PfxScene::remove_emitter(const Ref<PfxEmitter>& emitter) {
         std::lock_guard guard(m_mutex);
 
         assert(m_emitters.find(emitter) != m_emitters.end());

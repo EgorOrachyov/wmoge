@@ -49,14 +49,14 @@ namespace wmoge {
         const aiScene*             scene   = nullptr;
         unsigned int               options = 0;
         MeshAttribs                attribs;
-        ref_ptr<Mesh>              mesh;
+        Ref<Mesh>                  mesh;
         std::vector<std::uint8_t>  buffers[Mesh::MAX_BUFFER];
         std::vector<std::uint32_t> indices;
         int                        total_vertices = 0;
         int                        total_indices  = 0;
     };
 
-    bool ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, ref_ptr<Resource>& res) {
+    bool ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::load");
 
         if (!meta.import_options.has_value()) {

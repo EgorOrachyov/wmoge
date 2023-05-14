@@ -74,9 +74,9 @@ namespace wmoge {
 
         int signal(const StringId& signal) override;
 
-        void               add_child(ref_ptr<SceneObject> child);
-        void               add_sibling(ref_ptr<SceneObject> sibling);
-        void               remove_child(ref_ptr<SceneObject> child);
+        void               add_child(Ref<SceneObject> child);
+        void               add_sibling(Ref<SceneObject> sibling);
+        void               remove_child(Ref<SceneObject> child);
         void               remove_children();
         class Scene*       get_scene();
         class SceneObject* get_parent();
@@ -112,8 +112,8 @@ namespace wmoge {
         void destroy() override;
 
     private:
-        using StorageComponents = fast_vector<ref_ptr<class SceneComponent>, 4>;
-        using StorageChildren   = fast_vector<ref_ptr<class SceneObject>, 2>;
+        using StorageComponents = fast_vector<Ref<class SceneComponent>, 4>;
+        using StorageChildren   = fast_vector<Ref<class SceneObject>, 2>;
 
         StorageComponents  m_components;
         StorageChildren    m_children;

@@ -57,14 +57,14 @@ namespace wmoge {
         virtual void set_max_distance(float value) = 0;
         virtual void set_loop(bool value)          = 0;
 
-        const ref_ptr<AudioStream>& get_stream() const { return m_stream; }
-        const StringId&             get_name() const { return m_name; }
-        const StringId&             get_bus_name() const { return m_bus_name; }
+        const Ref<AudioStream>& get_stream() const { return m_stream; }
+        const StringId&         get_name() const { return m_name; }
+        const StringId&         get_bus_name() const { return m_bus_name; }
 
     protected:
-        ref_ptr<AudioStream> m_stream;
-        StringId             m_name;
-        StringId             m_bus_name;
+        Ref<AudioStream> m_stream;
+        StringId         m_name;
+        StringId         m_bus_name;
     };
 
 }// namespace wmoge

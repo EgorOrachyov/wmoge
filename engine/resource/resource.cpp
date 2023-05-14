@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    ref_ptr<Resource> Resource::duplicate() {
+    Ref<Resource> Resource::duplicate() {
         auto copy = class_ptr()->instantiate().cast<Resource>();
         copy_to(*copy);
         return copy;

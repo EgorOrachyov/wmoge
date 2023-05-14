@@ -52,7 +52,7 @@ namespace wmoge {
         void make_inactive() override;
         void set_gain_scale(float value) override;
         void set_pitch_scale(float value) override;
-        void get_playbacks(std::vector<ref_ptr<AudioPlayback>>& playbacks) override;
+        void get_playbacks(std::vector<Ref<AudioPlayback>>& playbacks) override;
 
         fast_set<ALAudioPlayback*>& get_playbacks() { return m_playbacks; }
         AudioBusState               get_state() { return m_state; }

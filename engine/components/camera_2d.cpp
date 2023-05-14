@@ -57,7 +57,7 @@ namespace wmoge {
             proxy->set_viewport_rect(viewport_rect);
         });
     }
-    void Camera2d::set_window(const ref_ptr<Window>& window) {
+    void Camera2d::set_window(const Ref<Window>& window) {
         m_window = window;
 
         get_queue()->push([proxy = dynamic_cast<RenderCamera2d*>(get_proxy()), window]() {
@@ -74,7 +74,7 @@ namespace wmoge {
     const Vec4f& Camera2d::get_viewport_rect() const {
         return m_viewport_rect;
     }
-    const ref_ptr<Window>& Camera2d::get_window() const {
+    const Ref<Window>& Camera2d::get_window() const {
         return m_window;
     }
 
@@ -117,7 +117,7 @@ namespace wmoge {
     void Camera2d::on_scene_exit() {
         CanvasItem::on_scene_exit();
 
-        get_queue()->push([scene = get_render_scene(), proxy = ref_ptr<RenderCanvasItem>(get_proxy()).cast<RenderCamera2d>()]() {
+        get_queue()->push([scene = get_render_scene(), proxy = Ref<RenderCanvasItem>(get_proxy()).cast<RenderCamera2d>()]() {
             scene->remove_camera(proxy);
         });
 

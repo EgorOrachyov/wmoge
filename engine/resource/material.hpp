@@ -69,7 +69,7 @@ namespace wmoge {
          *
          * @param shader Valid shader to use for this material
          */
-        void create(ref_ptr<MaterialShader> shader);
+        void create(Ref<MaterialShader> shader);
 
         /** @brief Set material int parameter value by name */
         void set_int(const StringId& name, int value);
@@ -82,30 +82,30 @@ namespace wmoge {
         /** @brief Set material vec4 parameter value by name */
         void set_vec4(const StringId& name, const Vec4f& value);
         /** @brief Set material texture parameter value by name */
-        void set_texture(const StringId& name, const ref_ptr<Texture>& texture);
+        void set_texture(const StringId& name, const Ref<Texture>& texture);
 
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        const ref_ptr<MaterialShader>&       get_shader();
-        const ref_ptr<RenderMaterial>&       get_render_material();
-        const fast_vector<std::uint8_t>&     get_parameters();
-        const fast_vector<ref_ptr<Texture>>& get_textures();
+        const Ref<MaterialShader>&       get_shader();
+        const Ref<RenderMaterial>&       get_render_material();
+        const fast_vector<std::uint8_t>& get_parameters();
+        const fast_vector<Ref<Texture>>& get_textures();
 
     private:
-        bool copy_state(std::size_t& version, ref_ptr<GfxTexture>* textures, ref_ptr<GfxSampler>* samplers, ref_ptr<Data>& data);
+        bool copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data);
         void set_parameter_from_string(ShaderParamType type, const std::string& value, void* mem);
         void request_update();
 
     private:
         friend class RenderMaterial;
 
-        ref_ptr<MaterialShader>       m_shader;
-        ref_ptr<RenderMaterial>       m_render_material;
-        fast_vector<std::uint8_t>     m_parameters;
-        fast_vector<ref_ptr<Texture>> m_textures;
-        std::size_t                   m_version = 0;
-        mutable std::mutex            m_mutex;
+        Ref<MaterialShader>       m_shader;
+        Ref<RenderMaterial>       m_render_material;
+        fast_vector<std::uint8_t> m_parameters;
+        fast_vector<Ref<Texture>> m_textures;
+        std::size_t               m_version = 0;
+        mutable std::mutex        m_mutex;
     };
 
 }// namespace wmoge

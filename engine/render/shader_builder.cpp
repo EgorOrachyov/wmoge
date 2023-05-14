@@ -88,8 +88,8 @@ namespace wmoge {
         ShaderCache*   shader_cache   = render_engine->get_shader_cache();
         ShaderManager* shader_manager = render_engine->get_shader_manager();
 
-        std::string        source = m_vertex.str() + m_fragment.str();
-        ref_ptr<GfxShader> shader = shader_cache->find(source);
+        std::string    source = m_vertex.str() + m_fragment.str();
+        Ref<GfxShader> shader = shader_cache->find(source);
 
         if (!shader) {
             StringId gfx_name(m_shader->get_name().str() + "_" + m_key.str());

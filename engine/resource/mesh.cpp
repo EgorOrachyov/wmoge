@@ -39,7 +39,7 @@ namespace wmoge {
         m_num_vertices = num_vertices;
         m_prim_type    = prim_type;
     }
-    void Mesh::set_vertex_buffer(int index, ref_ptr<Data> buffer) {
+    void Mesh::set_vertex_buffer(int index, Ref<Data> buffer) {
         assert(index < GfxLimits::MAX_VERT_BUFFERS);
         m_vertex_buffers[index] = std::move(buffer);
     }
@@ -47,7 +47,7 @@ namespace wmoge {
         m_num_indices = num_indices;
         m_index_type  = index_type;
     }
-    void Mesh::set_index_buffer(ref_ptr<Data> buffer) {
+    void Mesh::set_index_buffer(Ref<Data> buffer) {
         m_index_buffer = std::move(buffer);
     }
     void Mesh::set_attribs(MeshAttribs attribs) {
@@ -128,18 +128,18 @@ namespace wmoge {
         assert(i < m_chunks.size());
         return m_chunks[i];
     }
-    const ref_ptr<Data>& Mesh::get_vertex_buffer(int i) {
+    const Ref<Data>& Mesh::get_vertex_buffer(int i) {
         assert(i < MAX_BUFFER);
         return m_vertex_buffers[i];
     }
-    const ref_ptr<Data>& Mesh::get_index_buffer() {
+    const Ref<Data>& Mesh::get_index_buffer() {
         return m_index_buffer;
     }
-    const ref_ptr<GfxVertBuffer>& Mesh::get_gfx_vertex_buffer(int i) {
+    const Ref<GfxVertBuffer>& Mesh::get_gfx_vertex_buffer(int i) {
         assert(i < MAX_BUFFER);
         return m_gfx_vertex_buffers[i];
     }
-    const ref_ptr<GfxIndexBuffer>& Mesh::get_gfx_index_buffer() {
+    const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffer() {
         return m_gfx_index_buffer;
     }
     int Mesh::get_buffer_stride(int buffer) {
@@ -233,7 +233,7 @@ namespace wmoge {
         }
     }
 
-    ref_ptr<Mesh> Mesh::create_cube(const Vec3f& size) {
+    Ref<Mesh> Mesh::create_cube(const Vec3f& size) {
         Vec3f size_fact = size * 0.25f;
 
         Vec3f pos[] = {
@@ -288,7 +288,7 @@ namespace wmoge {
         chunk.index_count  = index;
         chunk.index_offset = 0;
 
-        ref_ptr<Mesh> mesh = make_ref<Mesh>();
+        Ref<Mesh> mesh = make_ref<Mesh>();
         mesh->add_chunk(chunk);
         mesh->set_name(SID("cube"));
         //mesh->set_vertex_buffer(0, Data::make(vertex_data.data(), vertex_data.size() * sizeof(Vec3f)));
@@ -298,7 +298,7 @@ namespace wmoge {
 
         return mesh;
     }
-    ref_ptr<Mesh> Mesh::create_sphere(const Vec3f& size) {
+    Ref<Mesh> Mesh::create_sphere(const Vec3f& size) {
 
         std::vector<Vec3f>         vertex_data;
         std::vector<std::uint16_t> index_data;
@@ -309,7 +309,7 @@ namespace wmoge {
         chunk.index_count  = index;
         chunk.index_offset = 0;
 
-        ref_ptr<Mesh> mesh = make_ref<Mesh>();
+        Ref<Mesh> mesh = make_ref<Mesh>();
         mesh->add_chunk(chunk);
         mesh->set_name(SID("sphere"));
         //mesh->set_vertex_buffer(0, Data::make(vertex_data.data(), vertex_data.size() * sizeof(Vec3f)));

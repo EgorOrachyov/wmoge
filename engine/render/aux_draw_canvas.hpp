@@ -87,17 +87,17 @@ namespace wmoge {
         void set_fill_color(const Color4f& color);
         void set_font_color(const Color4f& color);
         void set_tint_color(const Color4f& color);
-        void set_font(ref_ptr<Font> font);
+        void set_font(Ref<Font> font);
 
         void draw_line(const Vec2f& from, const Vec2f& to, float width);
         void draw_triangle(const Vec2f& p0, const Vec2f& p1, const Vec2f& p2, float border);
         void draw_rect(const Vec2f& pos, const Vec2f& size, float border);
         void draw_filled_triangle(const Vec2f& p0, const Vec2f& p1, const Vec2f& p2);
         void draw_filled_rect(const Vec2f& pos, const Vec2f& size);
-        void draw_texture(const ref_ptr<Texture2d>& texture, const Vec2f& pos, const Vec2f& size, const Vec2f& uv_base, const Vec2f& uv_size);
+        void draw_texture(const Ref<Texture2d>& texture, const Vec2f& pos, const Vec2f& size, const Vec2f& uv_base, const Vec2f& uv_size);
         void draw_text(const std::string& text, const Vec2f& pos, float size);
 
-        void set_window(const ref_ptr<Window>& window);
+        void set_window(const Ref<Window>& window);
         void set_viewport(const Rect2i& viewport);
         void set_screen_size(const Vec2f& size);
 
@@ -108,12 +108,12 @@ namespace wmoge {
 
     private:
         struct CanvasTriangle {
-            Vec2f               p[3];
-            Vec2f               t[3];
-            Color4f             color;
-            ref_ptr<GfxTexture> texture;
-            ref_ptr<GfxSampler> sampler;
-            bool                is_text = false;
+            Vec2f           p[3];
+            Vec2f           t[3];
+            Color4f         color;
+            Ref<GfxTexture> texture;
+            Ref<GfxSampler> sampler;
+            bool            is_text = false;
         };
 
         void add_triangle(const Vec2f& p0, const Vec2f& p1, const Vec2f& p2, const Color4f& color);
@@ -125,22 +125,22 @@ namespace wmoge {
         Color4f              m_color_fill;
         Color4f              m_color_font;
         Color4f              m_color_tint;
-        ref_ptr<Font>        m_font;
+        Ref<Font>            m_font;
 
-        ref_ptr<GfxVertBuffer>      m_gfx_triangles;
+        Ref<GfxVertBuffer>          m_gfx_triangles;
         std::vector<CanvasTriangle> m_triangles;
 
-        ref_ptr<Shader>           m_shader;
-        ref_ptr<GfxRenderPass>    m_render_pass;
-        ref_ptr<GfxPipeline>      m_pipeline_triangle;
-        ref_ptr<GfxPipeline>      m_pipeline_text;
-        ref_ptr<GfxUniformBuffer> m_constants;
-        ref_ptr<GfxTexture>       m_default_texture;
-        ref_ptr<GfxSampler>       m_default_sampler;
+        Ref<Shader>           m_shader;
+        Ref<GfxRenderPass>    m_render_pass;
+        Ref<GfxPipeline>      m_pipeline_triangle;
+        Ref<GfxPipeline>      m_pipeline_text;
+        Ref<GfxUniformBuffer> m_constants;
+        Ref<GfxTexture>       m_default_texture;
+        Ref<GfxSampler>       m_default_sampler;
 
-        ref_ptr<Window> m_window;
-        Rect2i          m_viewport;
-        Vec2f           m_screen_size;
+        Ref<Window> m_window;
+        Rect2i      m_viewport;
+        Vec2f       m_screen_size;
 
         int m_gfx_capacity_triangles = 0;
     };

@@ -49,7 +49,7 @@ namespace wmoge {
     public:
         WG_EVENT(EventWindow, Event)
 
-        ref_ptr<Window>    window;
+        Ref<Window>        window;
         WindowNotification notification;
     };
 

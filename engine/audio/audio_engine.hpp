@@ -53,12 +53,12 @@ namespace wmoge {
     public:
         virtual ~AudioEngine() = default;
 
-        virtual void                   update()                                                                              = 0;
-        virtual void                   shutdown()                                                                            = 0;
-        virtual ref_ptr<AudioPlayback> make_playback(ref_ptr<AudioStream> stream, const StringId& bus, const StringId& name) = 0;
-        virtual ref_ptr<AudioBus>      make_bus(const StringId& name)                                                        = 0;
-        virtual ref_ptr<AudioBus>      find_bus(const StringId& name)                                                        = 0;
-        virtual bool                   has_bus(const StringId& name)                                                         = 0;
+        virtual void               update()                                                                          = 0;
+        virtual void               shutdown()                                                                        = 0;
+        virtual Ref<AudioPlayback> make_playback(Ref<AudioStream> stream, const StringId& bus, const StringId& name) = 0;
+        virtual Ref<AudioBus>      make_bus(const StringId& name)                                                    = 0;
+        virtual Ref<AudioBus>      find_bus(const StringId& name)                                                    = 0;
+        virtual bool               has_bus(const StringId& name)                                                     = 0;
 
         const AudioDriverCaps& get_caps() const { return m_caps; }
         const StringId&        get_engine_name() const { return m_engine_name; }

@@ -83,7 +83,7 @@ namespace wmoge {
         m_staging_buffer     = VK_NULL_HANDLE;
         m_staging_allocation = VK_NULL_HANDLE;
     }
-    void VKBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
+    void VKBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) {
         assert(mem);
         assert(size > 0);
         assert(size <= mem->size());
@@ -139,7 +139,7 @@ namespace wmoge {
         VKBuffer::unmap(cmd);
         VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
     }
-    void VKVertBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
+    void VKVertBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
     }
@@ -160,7 +160,7 @@ namespace wmoge {
         VKBuffer::unmap(cmd);
         VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_INDEX_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
     }
-    void VKIndexBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
+    void VKIndexBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_INDEX_READ_BIT, VK_PIPELINE_STAGE_VERTEX_INPUT_BIT);
     }
@@ -181,7 +181,7 @@ namespace wmoge {
         VKBuffer::unmap(cmd);
         VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_UNIFORM_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
     }
-    void VKUniformBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
+    void VKUniformBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_UNIFORM_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
     }
@@ -202,7 +202,7 @@ namespace wmoge {
         VKBuffer::unmap(cmd);
         VKBuffer::barrier(cmd, 0, VKBuffer::m_size, VK_ACCESS_SHADER_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
     }
-    void VKStorageBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const ref_ptr<Data>& mem) {
+    void VKStorageBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
         VKBuffer::barrier(cmd, offset, size, VK_ACCESS_SHADER_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
     }

@@ -47,9 +47,9 @@ namespace wmoge {
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        ref_ptr<ScriptInstance> attach_to(Object* object) override;
-        bool                    has_property(const StringId& property) override;
-        bool                    has_method(const StringId& method) override;
+        Ref<ScriptInstance> attach_to(Object* object) override;
+        bool                has_property(const StringId& property) override;
+        bool                has_method(const StringId& method) override;
 
         const fast_map<StringId, luabridge::LuaRef>& get_lua_properties();
         const fast_map<StringId, luabridge::LuaRef>& get_lua_methods();

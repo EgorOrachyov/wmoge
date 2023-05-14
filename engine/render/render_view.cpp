@@ -47,7 +47,7 @@ namespace wmoge {
         get_draw_cmds(pass).push(key, cmd);
     }
 
-    void RenderView::set_display(const ref_ptr<Window>& window) {
+    void RenderView::set_display(const Ref<Window>& window) {
         m_display = window;
     }
     void RenderView::set_viewport_rect(const Vec4f& rect) {

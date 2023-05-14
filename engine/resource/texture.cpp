@@ -109,7 +109,7 @@ namespace wmoge {
         cls->add_method(Method(VarType::Int, SID("get_compression"), {}), &Texture::get_compression, {});
     }
 
-    void Texture2d::create(const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler) {
+    void Texture2d::create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
         assert(texture);
         assert(sampler);
 

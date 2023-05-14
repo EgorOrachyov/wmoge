@@ -83,7 +83,7 @@ namespace wmoge {
         m_root->shutdown();
     }
 
-    void Scene::add_child(ref_ptr<SceneObject> object) {
+    void Scene::add_child(Ref<SceneObject> object) {
         m_root->add_child(object);
     }
     SceneObject* Scene::get_child(int idx) {

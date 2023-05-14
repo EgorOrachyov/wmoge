@@ -51,7 +51,7 @@ namespace wmoge {
         auto* script_system = dynamic_cast<LuaScriptSystem*>(engine->script_system());
 
         auto event_type = LuaTypeTraits::to_sid(arg_type);
-        auto listener   = make_ref<EventListener>(event_type, [script_system, arg_function](const ref_ptr<Event>& event) {
+        auto listener   = make_ref<EventListener>(event_type, [script_system, arg_function](const Ref<Event>& event) {
             std::lock_guard guard(script_system->get_mutex());
 
             if (LuaEventScript* lua_event = dynamic_cast<LuaEventScript*>(event.get())) {

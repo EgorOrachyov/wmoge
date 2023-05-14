@@ -56,7 +56,7 @@ namespace wmoge {
     public:
         virtual ~ResourcePak()                                                           = default;
         virtual bool meta(const StringId& name, ResourceMeta& meta)                      = 0;
-        virtual bool read_file(const std::string& path, ref_ptr<Data>& data)             = 0;
+        virtual bool read_file(const std::string& path, Ref<Data>& data)                 = 0;
         virtual bool read_file(const std::string& path, std::vector<std::uint8_t>& data) = 0;
     };
 

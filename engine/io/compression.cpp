@@ -34,7 +34,7 @@
 namespace wmoge {
 
     bool Compression::compress_lz4(const void* in, int size, std::vector<std::uint8_t>& out) {
-        WG_AUTO_PROFILE_IO();
+        WG_AUTO_PROFILE_IO("Compression::compress_lz4");
 
         const int max_compressed_size = LZ4_compressBound(size);
         out.resize(max_compressed_size);
@@ -49,7 +49,7 @@ namespace wmoge {
     }
 
     bool Compression::decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out) {
-        WG_AUTO_PROFILE_IO();
+        WG_AUTO_PROFILE_IO("Compression::decompress_lz4");
 
         return LZ4_decompress_safe(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), compressed_size, decompressed_size) > 0;
     }

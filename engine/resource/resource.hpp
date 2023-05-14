@@ -48,9 +48,9 @@ namespace wmoge {
     public:
         WG_OBJECT(Resource, Object);
 
-        virtual bool              load_from_import_options(const YamlTree& tree) { return true; };
-        virtual void              copy_to(Resource& copy) {}
-        virtual ref_ptr<Resource> duplicate();
+        virtual bool          load_from_import_options(const YamlTree& tree) { return true; };
+        virtual void          copy_to(Resource& copy) {}
+        virtual Ref<Resource> duplicate();
 
         void            set_name(StringId name) { m_name = std::move(name); }
         const StringId& get_name() { return m_name; }

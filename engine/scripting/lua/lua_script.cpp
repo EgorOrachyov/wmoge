@@ -100,7 +100,7 @@ namespace wmoge {
         script->m_lua_properties = m_lua_properties;
     }
 
-    ref_ptr<ScriptInstance> LuaScript::attach_to(Object* object) {
+    Ref<ScriptInstance> LuaScript::attach_to(Object* object) {
         WG_AUTO_PROFILE_LUA("LuaScript::attach_to");
 
         if (!object) {
@@ -126,10 +126,10 @@ namespace wmoge {
             return {};
         }
 
-        parent_object.cast<LuaObject&>().ptr = std::move(ref_ptr(object));
+        parent_object.cast<LuaObject&>().ptr = std::move(Ref(object));
         assert(parent_object.cast<LuaObject&>().ptr.get() == object);
 
-        return make_ref<LuaScriptInstance>(std::move(user_object), ref_ptr<LuaScript>(this), object, m_state);
+        return make_ref<LuaScriptInstance>(std::move(user_object), Ref<LuaScript>(this), object, m_state);
     }
     bool LuaScript::has_property(const StringId& property) {
         return m_lua_properties.find(property) != m_lua_properties.end();

@@ -47,7 +47,7 @@ namespace wmoge {
             proxy->set_text(text);
         });
     }
-    void CanvasText::set_font(ref_ptr<Font> font) {
+    void CanvasText::set_font(Ref<Font> font) {
         assert(get_proxy());
 
         m_font = std::move(font);
@@ -77,7 +77,7 @@ namespace wmoge {
     const std::string& CanvasText::get_text() {
         return m_text;
     }
-    const ref_ptr<Font>& CanvasText::get_font() {
+    const Ref<Font>& CanvasText::get_font() {
         return m_font;
     }
     float CanvasText::get_font_size() {
@@ -120,7 +120,7 @@ namespace wmoge {
     void CanvasText::on_scene_exit() {
         CanvasItem::on_scene_exit();
 
-        get_queue()->push([scene = get_render_scene(), proxy = ref_ptr<RenderCanvasItem>(get_proxy())]() {
+        get_queue()->push([scene = get_render_scene(), proxy = Ref<RenderCanvasItem>(get_proxy())]() {
             scene->remove_object(proxy);
         });
 

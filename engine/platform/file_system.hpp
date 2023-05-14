@@ -61,7 +61,7 @@ namespace wmoge {
         std::filesystem::path resolve(const std::string& path);
         bool                  exists(const std::string& path);
         bool                  read_file(const std::string& path, std::string& data);
-        bool                  read_file(const std::string& path, ref_ptr<Data>& data);
+        bool                  read_file(const std::string& path, Ref<Data>& data);
         bool                  read_file(const std::string& path, std::vector<std::uint8_t>& data);
         bool                  open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
         bool                  save_file(const std::string& path, const std::string& data);

@@ -29,7 +29,7 @@
 
 namespace wmoge {
 
-    ScriptNativeInstance::ScriptNativeInstance(ref_ptr<Script> script, Object* object, ScriptFunctionsMask mask) {
+    ScriptNativeInstance::ScriptNativeInstance(Ref<Script> script, Object* object, ScriptFunctionsMask mask) {
         m_script       = std::move(script);
         m_object       = object;
         m_scene_object = dynamic_cast<SceneObject*>(object);

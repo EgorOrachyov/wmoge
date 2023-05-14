@@ -62,7 +62,7 @@ namespace wmoge {
 
             for (const auto& entry : m_entries) {
                 const ShaderData& data     = entry.second;
-                ref_ptr<Data>     bytecode = data.bytecode ? data.bytecode : (data.shader ? data.shader->byte_code() : nullptr);
+                Ref<Data>         bytecode = data.bytecode ? data.bytecode : (data.shader ? data.shader->byte_code() : nullptr);
 
                 if (bytecode) {
                     total_size += bytecode->size();
@@ -76,7 +76,7 @@ namespace wmoge {
     ShaderCache::~ShaderCache() {
         save(Engine::instance()->gfx_driver()->shader_cache_path());
     }
-    ref_ptr<GfxShader> ShaderCache::find(const std::string& key) {
+    Ref<GfxShader> ShaderCache::find(const std::string& key) {
         std::lock_guard lock(m_mutex);
 
         auto query = m_entries.find(key);
@@ -98,7 +98,7 @@ namespace wmoge {
         assert(false);
         return nullptr;
     }
-    void ShaderCache::cache(const std::string& key, ref_ptr<wmoge::GfxShader> shader) {
+    void ShaderCache::cache(const std::string& key, Ref<wmoge::GfxShader> shader) {
         std::lock_guard lock(m_mutex);
 
         auto& entry = m_entries[key];
@@ -134,7 +134,7 @@ namespace wmoge {
 
         for (auto it = m_entries.begin(); it != m_entries.end(); ++it) {
             if (!it->second.bytecode) {
-                ref_ptr<Data> bytecode = it->second.shader->byte_code();
+                Ref<Data> bytecode = it->second.shader->byte_code();
                 if (!bytecode) {
                     it = m_entries.erase(it);
                     continue;

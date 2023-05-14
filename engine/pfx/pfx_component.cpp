@@ -51,7 +51,7 @@ namespace wmoge {
                 return false;
             }
 
-            ref_ptr<PfxFeature> feature = feature_class->instantiate().cast<PfxFeature>();
+            Ref<PfxFeature> feature = feature_class->instantiate().cast<PfxFeature>();
 
             if (!feature) {
                 WG_LOG_ERROR("failed to instantiate feature from cls " << feature_class->name());
@@ -68,7 +68,7 @@ namespace wmoge {
 
         return true;
     }
-    void PfxComponent::add_feature(ref_ptr<PfxFeature> feature) {
+    void PfxComponent::add_feature(Ref<PfxFeature> feature) {
         assert(feature);
         m_features.push_back(feature);
         feature->on_added(m_attributes);
@@ -80,7 +80,7 @@ namespace wmoge {
     void PfxComponent::set_active(bool active) {
         m_active = active;
     }
-    const ref_ptr<PfxFeature>& PfxComponent::get_feature(int id) const {
+    const Ref<PfxFeature>& PfxComponent::get_feature(int id) const {
         assert(id < m_features.size());
         return m_features[id];
     }

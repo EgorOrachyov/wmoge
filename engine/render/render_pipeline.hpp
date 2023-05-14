@@ -52,10 +52,10 @@ namespace wmoge {
     public:
         virtual ~RenderPipelineStage() = default;
 
-        virtual const ref_ptr<GfxRenderPass>& get_gfx_pass()             = 0;
-        virtual const StringId&               get_name() const           = 0;
-        virtual void                          on_register()              = 0;
-        virtual void                          on_execute(int view_index) = 0;
+        virtual const Ref<GfxRenderPass>& get_gfx_pass()             = 0;
+        virtual const StringId&           get_name() const           = 0;
+        virtual void                      on_register()              = 0;
+        virtual void                      on_execute(int view_index) = 0;
 
         class RenderPipeline* get_pipeline();
         class RenderScene*    get_render_scene();
@@ -85,7 +85,7 @@ namespace wmoge {
 
         void set_scene(RenderScene* render_scene);
 
-        const fast_vector<ref_ptr<RenderView>>&                    get_views();
+        const fast_vector<Ref<RenderView>>&                        get_views();
         const fast_vector<RenderPipelineStage*>&                   get_stages();
         const std::array<RenderPipelineStage*, int(DrawPass::Max)> get_passes();
         RenderView*                                                get_view(int view_index);
@@ -95,7 +95,7 @@ namespace wmoge {
 
     protected:
         /** list of views allocated each frame to rendered */
-        fast_vector<ref_ptr<RenderView>> m_views;
+        fast_vector<Ref<RenderView>> m_views;
         /** list with all stages for rendering */
         fast_vector<RenderPipelineStage*> m_stages;
         /** list with stages processing specific passes */

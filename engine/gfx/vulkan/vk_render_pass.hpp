@@ -45,9 +45,9 @@ namespace wmoge {
      * @brief Info to bind texture as a render target
      */
     struct VKTargetInfo {
-        ref_ptr<VKTexture> texture;
-        int                slice = -1;
-        int                mip   = -1;
+        Ref<VKTexture> texture;
+        int            slice = -1;
+        int            mip   = -1;
     };
 
     /**
@@ -93,20 +93,20 @@ namespace wmoge {
         VKRenderPass(GfxRenderPassType pass, const StringId& name, class VKDriver& driver);
         ~VKRenderPass() override;
 
-        void bind_target(const ref_ptr<VKWindow>& window);
-        void bind_color_target(const ref_ptr<VKTexture>& texture, int target, int mip, int slice);
-        void bind_depth_target(const ref_ptr<VKTexture>& texture, int mip, int slice);
+        void bind_target(const Ref<VKWindow>& window);
+        void bind_color_target(const Ref<VKTexture>& texture, int target, int mip, int slice);
+        void bind_depth_target(const Ref<VKTexture>& texture, int mip, int slice);
         void clear_color(int target);
         void clear_depth_stencil();
         void validate();
 
-        ref_ptr<VKRenderPassHnd>  render_pass() const { return m_render_pass; }
-        ref_ptr<VKFramebufferHnd> framebuffer() const { return m_window ? m_window_framebuffers[m_window->current()] : m_framebuffer; }
-        int                       width() const { return m_size.width; }
-        int                       height() const { return m_size.height; }
-        int                       version() const { return m_version; }
-        int                       color_targets_count() const { return m_render_pass ? m_render_pass->color_targets_count() : 0; }
-        bool                      has_depth_stencil() const { return m_render_pass && m_render_pass->has_depth_stencil(); }
+        Ref<VKRenderPassHnd>  render_pass() const { return m_render_pass; }
+        Ref<VKFramebufferHnd> framebuffer() const { return m_window ? m_window_framebuffers[m_window->current()] : m_framebuffer; }
+        int                   width() const { return m_size.width; }
+        int                   height() const { return m_size.height; }
+        int                   version() const { return m_version; }
+        int                   color_targets_count() const { return m_render_pass ? m_render_pass->color_targets_count() : 0; }
+        bool                  has_depth_stencil() const { return m_render_pass && m_render_pass->has_depth_stencil(); }
 
     private:
         void init_render_pass();
@@ -121,12 +121,12 @@ namespace wmoge {
         VKTargetInfo                                                 m_depth_stencil_target{};
         VkFormat                                                     m_depth_stencil_format{};
         VkAttachmentLoadOp                                           m_depth_stencil_op{};
-        ref_ptr<VKWindow>                                            m_window;
+        Ref<VKWindow>                                                m_window;
 
-        VkExtent2D                             m_size{};
-        ref_ptr<VKRenderPassHnd>               m_render_pass;
-        ref_ptr<VKFramebufferHnd>              m_framebuffer;
-        fast_vector<ref_ptr<VKFramebufferHnd>> m_window_framebuffers;
+        VkExtent2D                         m_size{};
+        Ref<VKRenderPassHnd>               m_render_pass;
+        Ref<VKFramebufferHnd>              m_framebuffer;
+        fast_vector<Ref<VKFramebufferHnd>> m_window_framebuffers;
 
         bool m_is_pass_dirty = true;
         bool m_is_fb_dirty   = true;

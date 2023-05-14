@@ -62,55 +62,55 @@ namespace wmoge {
     }
 
     template<typename T>
-    class ref_ptr {
+    class Ref {
     public:
-        ref_ptr() = default;
+        Ref() = default;
 
-        ref_ptr(std::nullptr_t){};
+        Ref(std::nullptr_t){};
 
-        explicit ref_ptr(T* object) {
+        explicit Ref(T* object) {
             m_ptr = ref(object);
         }
 
-        ref_ptr(const ref_ptr& p) {
+        Ref(const Ref& p) {
             m_ptr = ref(p.m_ptr);
         }
 
         template<typename G>
-        ref_ptr(const ref_ptr<G>& p) {
+        Ref(const Ref<G>& p) {
             m_ptr = ref(p.get());
         }
 
-        ref_ptr(ref_ptr&& p) noexcept {
+        Ref(Ref&& p) noexcept {
             m_ptr = p.release();
         }
 
         template<typename G>
-        ref_ptr(ref_ptr<G>&& p) noexcept {
+        Ref(Ref<G>&& p) noexcept {
             m_ptr = p.release();
         }
 
-        ~ref_ptr() {
+        ~Ref() {
             unref(m_ptr);
         }
 
-        ref_ptr& operator=(const ref_ptr& p) {
+        Ref& operator=(const Ref& p) {
             if (this != &p)
                 reset(ref(p.m_ptr));
             return *this;
         }
 
-        ref_ptr& operator=(ref_ptr&& p) noexcept {
+        Ref& operator=(Ref&& p) noexcept {
             if (this != &p)
                 reset(p.release());
             return *this;
         }
 
-        bool operator==(const ref_ptr& p) const {
+        bool operator==(const Ref& p) const {
             return m_ptr == p.m_ptr;
         }
 
-        bool operator!=(const ref_ptr& p) const {
+        bool operator!=(const Ref& p) const {
             return m_ptr != p.m_ptr;
         }
 
@@ -144,13 +144,13 @@ namespace wmoge {
         }
 
         template<class G>
-        ref_ptr<G> as() const {
-            return ref_ptr<G>(m_ptr);
+        Ref<G> as() const {
+            return Ref<G>(m_ptr);
         }
 
         template<typename G>
-        ref_ptr<G> cast() const {
-            return ref_ptr<G>(dynamic_cast<G*>(m_ptr));
+        Ref<G> cast() const {
+            return Ref<G>(dynamic_cast<G*>(m_ptr));
         }
 
     private:
@@ -158,8 +158,8 @@ namespace wmoge {
     };
 
     template<typename T, typename... TArgs>
-    ref_ptr<T> make_ref(TArgs&&... args) {
-        return ref_ptr<T>(new T(std::forward<TArgs>(args)...));
+    Ref<T> make_ref(TArgs&&... args) {
+        return Ref<T>(new T(std::forward<TArgs>(args)...));
     }
 
 }// namespace wmoge
@@ -167,9 +167,9 @@ namespace wmoge {
 namespace std {
 
     template<typename T>
-    struct hash<wmoge::ref_ptr<T>> {
+    struct hash<wmoge::Ref<T>> {
     public:
-        std::size_t operator()(const wmoge::ref_ptr<T>& ref) const {
+        std::size_t operator()(const wmoge::Ref<T>& ref) const {
             return std::hash<T*>()(ref.get());
         }
     };

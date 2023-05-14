@@ -65,14 +65,14 @@ namespace wmoge {
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        void                         add_component(ref_ptr<PfxComponent> component);
-        const ref_ptr<PfxComponent>& get_component(int id) const;
-        int                          get_components_count() const;
-        PfxEffectType                get_type() const;
+        void                     add_component(Ref<PfxComponent> component);
+        const Ref<PfxComponent>& get_component(int id) const;
+        int                      get_components_count() const;
+        PfxEffectType            get_type() const;
 
     private:
-        fast_vector<ref_ptr<PfxComponent>> m_components;
-        PfxEffectType                      m_type = PfxEffectType::None;
+        fast_vector<Ref<PfxComponent>> m_components;
+        PfxEffectType                  m_type = PfxEffectType::None;
     };
 
 }// namespace wmoge

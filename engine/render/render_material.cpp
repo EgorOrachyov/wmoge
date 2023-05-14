@@ -49,9 +49,9 @@ namespace wmoge {
     void RenderMaterial::ensure_version() {
         assert(m_material);
 
-        GfxDriver*    gfx_driver = Engine::instance()->gfx_driver();
-        ref_ptr<Data> data;
-        std::size_t   new_version = m_version.load();
+        GfxDriver*  gfx_driver = Engine::instance()->gfx_driver();
+        Ref<Data>   data;
+        std::size_t new_version = m_version.load();
 
         if (m_material->copy_state(new_version, m_textures.data(), m_samplers.data(), data)) {
             m_version.store(new_version);

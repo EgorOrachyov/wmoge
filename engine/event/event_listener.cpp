@@ -37,12 +37,12 @@ namespace wmoge {
         : m_callback(std::move(callback)), m_event_type(event_type), m_target(target) {
     }
 
-    bool EventListener::on_event(const ref_ptr<Event>& event) {
+    bool EventListener::on_event(const Ref<Event>& event) {
         return m_callback(event);
     }
 
     void EventListener::unsubscribe() {
-        Engine::instance()->event_manager()->unsubscribe(ref_ptr<EventListener>(this));
+        Engine::instance()->event_manager()->unsubscribe(Ref<EventListener>(this));
     }
     void EventListener::pause() {
         m_paused = true;

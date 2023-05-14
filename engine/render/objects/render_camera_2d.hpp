@@ -41,7 +41,7 @@ namespace wmoge {
         void set_background(const Color4f& background) { m_background = background; }
         void set_screen_space(const Vec2f& screen_space) { m_screen_space = screen_space; }
         void set_viewport_rect(const Vec4f& viewport_rect) { m_viewport_rect = viewport_rect; }
-        void set_window(const ref_ptr<Window>& window) { m_window = window; }
+        void set_window(const Ref<Window>& window) { m_window = window; }
 
         void on_view_setup(RenderView* view) override;
         bool need_update() const override;
@@ -49,11 +49,11 @@ namespace wmoge {
         bool need_view() const override;
 
     private:
-        Color4f         m_background    = Color::BLACK4f;
-        Vec2f           m_screen_space  = Vec2f(1280, 720);
-        Vec4f           m_viewport_rect = Vec4f(0, 0, 1, 1);
-        ref_ptr<Window> m_window;
-        bool            m_is_active = true;
+        Color4f     m_background    = Color::BLACK4f;
+        Vec2f       m_screen_space  = Vec2f(1280, 720);
+        Vec4f       m_viewport_rect = Vec4f(0, 0, 1, 1);
+        Ref<Window> m_window;
+        bool        m_is_active = true;
     };
 
 }// namespace wmoge

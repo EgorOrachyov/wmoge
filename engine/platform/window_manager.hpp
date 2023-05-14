@@ -38,10 +38,10 @@ namespace wmoge {
      */
     class WindowManager {
     public:
-        virtual ~WindowManager()                                      = default;
-        virtual ref_ptr<Window> primary_window()                      = 0;
-        virtual ref_ptr<Window> create(const WindowInfo& window_info) = 0;
-        virtual ref_ptr<Window> get(const StringId& window_id)        = 0;
+        virtual ~WindowManager()                                  = default;
+        virtual Ref<Window> primary_window()                      = 0;
+        virtual Ref<Window> create(const WindowInfo& window_info) = 0;
+        virtual Ref<Window> get(const StringId& window_id)        = 0;
     };
 
 }// namespace wmoge

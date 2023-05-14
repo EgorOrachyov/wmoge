@@ -47,16 +47,16 @@ namespace wmoge {
         m_queue.flush();
     }
 
-    ref_ptr<RenderCamera2d> RenderEngine::make_camera_2d() {
+    Ref<RenderCamera2d> RenderEngine::make_camera_2d() {
         return make_ref<RenderCamera2d>();
     }
-    ref_ptr<RenderCanvasText> RenderEngine::make_canvas_text() {
+    Ref<RenderCanvasText> RenderEngine::make_canvas_text() {
         return make_ref<RenderCanvasText>();
     }
-    ref_ptr<RenderSpriteInstance> RenderEngine::make_sprite_instance() {
+    Ref<RenderSpriteInstance> RenderEngine::make_sprite_instance() {
         return make_ref<RenderSpriteInstance>();
     }
-    ref_ptr<RenderParticles2d> RenderEngine::make_particles_2d() {
+    Ref<RenderParticles2d> RenderEngine::make_particles_2d() {
         return make_ref<RenderParticles2d>();
     }
 

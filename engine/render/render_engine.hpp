@@ -54,10 +54,10 @@ namespace wmoge {
         void update();
 
         /** Object creation api */
-        ref_ptr<RenderCamera2d>       make_camera_2d();
-        ref_ptr<RenderCanvasText>     make_canvas_text();
-        ref_ptr<RenderSpriteInstance> make_sprite_instance();
-        ref_ptr<RenderParticles2d>    make_particles_2d();
+        Ref<RenderCamera2d>       make_camera_2d();
+        Ref<RenderCanvasText>     make_canvas_text();
+        Ref<RenderSpriteInstance> make_sprite_instance();
+        Ref<RenderParticles2d>    make_particles_2d();
 
         /** Mem management for persistent draw cmds (must be deleted manually) */
         struct DrawCmd* allocate_draw_cmd();

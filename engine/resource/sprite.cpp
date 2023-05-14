@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    void Sprite::add_animation(StringId animation, ref_ptr<Texture2d> texture) {
+    void Sprite::add_animation(StringId animation, Ref<Texture2d> texture) {
         assert(get_animation_id(animation) == -1);
         assert(!animation.empty());
         assert(texture);
@@ -53,7 +53,7 @@ namespace wmoge {
     const fast_vector<Vec4f>& Sprite::get_animation_frames(int animation) {
         return m_animations[animation].frames;
     }
-    const ref_ptr<Texture2d>& Sprite::get_animation_texture(int animation) {
+    const Ref<Texture2d>& Sprite::get_animation_texture(int animation) {
         return m_animations[animation].texture;
     }
     const Vec4f& Sprite::get_animation_frame(int animation, int frame) {

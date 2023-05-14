@@ -87,7 +87,7 @@ namespace wmoge {
         m_type = VarType::Map;
         new (m_data.m_mem) Map(std::move(value));
     }
-    Var::Var(const ref_ptr<Object>& value) {
+    Var::Var(const Ref<Object>& value) {
         m_type          = VarType::Object;
         m_data.m_object = ref(value.get());
     }
@@ -394,10 +394,10 @@ namespace wmoge {
             return *as_map();
         return Map();
     }
-    Var::operator ref_ptr<Object>() const {
+    Var::operator Ref<Object>() const {
         if (type() == VarType::Object)
-            return ref_ptr<Object>(m_data.m_object);
-        return ref_ptr<Object>();
+            return Ref<Object>(m_data.m_object);
+        return Ref<Object>();
     }
 
     void Var::release() {

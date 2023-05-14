@@ -45,9 +45,9 @@ namespace wmoge {
 
         WG_OBJECT(PfxFeatureSprite, PfxFeature)
 
-        ref_ptr<PfxFeature> create() const override;
-        StringId            get_feature_name() const override;
-        StringId            get_feature_family() const override;
+        Ref<PfxFeature> create() const override;
+        StringId        get_feature_name() const override;
+        StringId        get_feature_family() const override;
 
         bool load_from_options(const YamlConstNodeRef& node) override;
 
@@ -58,9 +58,9 @@ namespace wmoge {
         void on_prepare_render(class PfxComponentRuntime& runtime) override;
 
     private:
-        ref_ptr<Shader2d> m_shader;
-        ref_ptr<Sprite>   m_sprite;
-        int               m_animation = -1;
+        Ref<Shader2d> m_shader;
+        Ref<Sprite>   m_sprite;
+        int           m_animation = -1;
     };
 
 }// namespace wmoge

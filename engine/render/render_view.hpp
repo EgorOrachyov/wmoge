@@ -69,7 +69,7 @@ namespace wmoge {
         void add_primitive(DrawPrimitive* primitive);
         void add_cmd(DrawCmdSortingKey key, DrawCmd* cmd, DrawPass pass);
 
-        void set_display(const ref_ptr<Window>& window);
+        void set_display(const Ref<Window>& window);
         void set_viewport_rect(const Vec4f& rect);
         void set_screen_size(const Vec2f& get_screen_size);
         void set_screen_camera_mat_inv(const Mat3x3f& get_screen_camera_mat_inv);
@@ -81,19 +81,19 @@ namespace wmoge {
         void set_overlay_view(bool is_overlay_view);
         void set_depth_view(bool is_depth_view);
 
-        DrawCmdQueue&          get_draw_cmds(int pass_idx);
-        DrawCmdQueue&          get_draw_cmds(DrawPass pass);
-        const ref_ptr<Window>& get_display() const { return m_display; }
-        const Vec4f&           get_viewport_rect() const { return m_viewport_rect; }
-        const Vec2f&           get_screen_size() const { return m_screen_size; }
-        const Mat3x3f&         get_screen_camera_mat_inv() const { return m_screen_camera_mat_inv; }
-        const Mat3x3f&         get_screen_camera_mat_inv_prev() const { return m_screen_camera_mat_inv_prev; }
-        Color4f                get_clear_color() const { return m_clear_color; }
-        float                  get_clear_depth() const { return m_clear_depth; }
-        int                    get_clear_stencil() const { return m_clear_stencil; }
-        bool                   is_color_view() const { return m_is_color_view; }
-        bool                   is_overlay_view() const { return m_is_overlay_view; }
-        bool                   is_depth_view() const { return m_is_depth_view; }
+        DrawCmdQueue&      get_draw_cmds(int pass_idx);
+        DrawCmdQueue&      get_draw_cmds(DrawPass pass);
+        const Ref<Window>& get_display() const { return m_display; }
+        const Vec4f&       get_viewport_rect() const { return m_viewport_rect; }
+        const Vec2f&       get_screen_size() const { return m_screen_size; }
+        const Mat3x3f&     get_screen_camera_mat_inv() const { return m_screen_camera_mat_inv; }
+        const Mat3x3f&     get_screen_camera_mat_inv_prev() const { return m_screen_camera_mat_inv_prev; }
+        Color4f            get_clear_color() const { return m_clear_color; }
+        float              get_clear_depth() const { return m_clear_depth; }
+        int                get_clear_stencil() const { return m_clear_stencil; }
+        bool               is_color_view() const { return m_is_color_view; }
+        bool               is_overlay_view() const { return m_is_overlay_view; }
+        bool               is_depth_view() const { return m_is_depth_view; }
 
     private:
         friend class PipelineStandard;
@@ -102,8 +102,8 @@ namespace wmoge {
         DrawCmdQueue           m_draw_cmds[int(DrawPass::Max)]; /* Queues with commands to draw per pass */
 
         /* General setup */
-        ref_ptr<Window> m_display;
-        Vec4f           m_viewport_rect{0, 0, 1, 1};
+        Ref<Window> m_display;
+        Vec4f       m_viewport_rect{0, 0, 1, 1};
 
         /* Setup for cameras which allows 2d rendering too in overlay */
         Vec2f   m_screen_size{};

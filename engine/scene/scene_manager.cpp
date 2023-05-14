@@ -81,7 +81,7 @@ namespace wmoge {
 
         WG_LOG_INFO("shutdown scene manager");
     }
-    void SceneManager::next_running(ref_ptr<Scene> scene) {
+    void SceneManager::next_running(Ref<Scene> scene) {
         std::lock_guard guard(m_mutex);
 
         assert(scene);
@@ -89,7 +89,7 @@ namespace wmoge {
 
         m_next_running = scene;
     }
-    void SceneManager::shutdown_scene(ref_ptr<Scene> scene) {
+    void SceneManager::shutdown_scene(Ref<Scene> scene) {
         std::lock_guard guard(m_mutex);
 
         assert(scene);
@@ -103,10 +103,10 @@ namespace wmoge {
         auto* cls         = mem->get_class();
         m_containers[cls] = std::move(mem);
     }
-    ref_ptr<Scene> SceneManager::get_running_scene() {
+    Ref<Scene> SceneManager::get_running_scene() {
         return m_running;
     }
-    ref_ptr<Scene> SceneManager::make_scene(const StringId& name) {
+    Ref<Scene> SceneManager::make_scene(const StringId& name) {
         auto scene    = make_ref<Scene>();
         scene->m_name = name;
         scene->init();
@@ -116,11 +116,11 @@ namespace wmoge {
 
         return scene;
     }
-    ref_ptr<SceneObject> SceneManager::make_object(StringId name) {
+    Ref<SceneObject> SceneManager::make_object(StringId name) {
         auto* cls       = SceneObject::class_ptr_static();
         auto* container = get_container(cls);
 
-        ref_ptr<SceneObject> object(reinterpret_cast<SceneObject*>(container->create()));
+        Ref<SceneObject> object(reinterpret_cast<SceneObject*>(container->create()));
         object->m_name = name;
         return object;
     }

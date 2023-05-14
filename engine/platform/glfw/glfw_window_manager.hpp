@@ -56,17 +56,17 @@ namespace wmoge {
         explicit GlfwWindowManager(bool vsync, bool client_api);
         ~GlfwWindowManager() override;
 
-        ref_ptr<Window> primary_window() override;
-        ref_ptr<Window> create(const WindowInfo& window_info) override;
-        ref_ptr<Window> get(const StringId& window_id) override;
+        Ref<Window> primary_window() override;
+        Ref<Window> create(const WindowInfo& window_info) override;
+        Ref<Window> get(const StringId& window_id) override;
 
         void                       poll_events();
         std::shared_ptr<GlfwInput> input();
         std::recursive_mutex&      mutex();
 
-        ref_ptr<GlfwWindow>                                                 get(GLFWwindow* hnd);
-        std::vector<std::string>                                            extensions();
-        std::function<VkResult(VkInstance, ref_ptr<Window>, VkSurfaceKHR&)> factory();
+        Ref<GlfwWindow>                                                 get(GLFWwindow* hnd);
+        std::vector<std::string>                                        extensions();
+        std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> factory();
 
     private:
         // Glfw Specifics
@@ -81,12 +81,12 @@ namespace wmoge {
         static void dispatch(GLFWwindow* hnd, WindowNotification notification);
 
     private:
-        fast_map<StringId, ref_ptr<GlfwWindow>>    m_windows;
-        fast_map<GLFWwindow*, ref_ptr<GlfwWindow>> m_windows_by_hnd;
-        std::shared_ptr<GlfwInput>                 m_input;
-        ref_ptr<GlfwWindow>                        m_primary;
-        bool                                       m_vsync;
-        bool                                       m_client_api;
+        fast_map<StringId, Ref<GlfwWindow>>    m_windows;
+        fast_map<GLFWwindow*, Ref<GlfwWindow>> m_windows_by_hnd;
+        std::shared_ptr<GlfwInput>             m_input;
+        Ref<GlfwWindow>                        m_primary;
+        bool                                   m_vsync;
+        bool                                   m_client_api;
 
         mutable std::recursive_mutex m_mutex;
     };

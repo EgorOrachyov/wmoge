@@ -46,9 +46,9 @@ namespace wmoge {
 
         ~RenderCanvasText() override = default;
 
-        void initialize(std::string text, ref_ptr<Font> font, float font_size, FontTextAlignment alignment);
+        void initialize(std::string text, Ref<Font> font, float font_size, FontTextAlignment alignment);
         void set_text(std::string text);
-        void set_font(ref_ptr<Font> font);
+        void set_font(Ref<Font> font);
         void set_font_size(float font_size);
         void set_alignment(FontTextAlignment alignment);
 
@@ -63,7 +63,7 @@ namespace wmoge {
 
     private:
         std::string       m_text;
-        ref_ptr<Font>     m_font;
+        Ref<Font>         m_font;
         float             m_font_size  = 1.0f;
         FontTextAlignment m_alignment  = FontTextAlignment::Center;
         bool              m_dirty_geom = true;

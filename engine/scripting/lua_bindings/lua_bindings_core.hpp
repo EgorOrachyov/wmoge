@@ -57,10 +57,10 @@ namespace wmoge {
             return ptr->refs_count();
         }
 
-        void set(ref_ptr<RefCnt> new_ptr) {
+        void set(Ref<RefCnt> new_ptr) {
             ptr = std::move(new_ptr);
         }
-        ref_ptr<RefCnt> get() const {
+        Ref<RefCnt> get() const {
             return ptr;
         };
 
@@ -74,7 +74,7 @@ namespace wmoge {
             return reinterpret_cast<T*>(ptr.get());
         };
 
-        ref_ptr<RefCnt> ptr;
+        Ref<RefCnt> ptr;
     };
 
     struct LuaData : public LuaRefCnt {

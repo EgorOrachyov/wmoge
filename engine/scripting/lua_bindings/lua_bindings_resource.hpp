@@ -195,7 +195,7 @@ namespace wmoge {
         void set_vec4(const StringId& name, const Vec4f& value) {
             cast_unsafe<Material>()->set_vec4(name, value);
         }
-        void set_texture(const StringId& name, const ref_ptr<Texture>& texture) {
+        void set_texture(const StringId& name, const Ref<Texture>& texture) {
             cast_unsafe<Material>()->set_texture(name, texture);
         }
     };

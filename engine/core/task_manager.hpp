@@ -28,15 +28,33 @@
 #ifndef WMOGE_TASK_MANAGER_HPP
 #define WMOGE_TASK_MANAGER_HPP
 
+#include "core/ref.hpp"
+#include "core/string_id.hpp"
+
 #include <condition_variable>
+#include <functional>
 #include <list>
 #include <mutex>
 #include <thread>
 #include <vector>
 
-#include "task.hpp"
-
 namespace wmoge {
+
+    /**
+     * @class TaskContext
+     * @brief Context passed in a time of task execution
+     */
+    class TaskContext {
+    public:
+        [[nodiscard]] const StringId& thread_name() const { return m_thread_name; }
+        [[nodiscard]] int             thread_id() const { return m_thread_id; }
+
+    private:
+        friend class TaskManager;
+
+        StringId m_thread_name;
+        int      m_thread_id = -1;
+    };
 
     /**
      * @class TaskManager
@@ -47,18 +65,18 @@ namespace wmoge {
         explicit TaskManager(int workers_count);
         ~TaskManager();
 
-        void submit(ref_ptr<Task> task);
+        void submit(Ref<class TaskRuntime> task);
         void shutdown();
 
     private:
-        ref_ptr<Task> next_to_exec();
+        bool next_to_exec(Ref<class TaskRuntime>& task);
 
     private:
-        std::vector<std::thread> m_workers;
-        std::list<ref_ptr<Task>> m_background_queue;
-        std::atomic_bool         m_finished{false};
-        std::mutex               m_mutex;
-        std::condition_variable  m_cv;
+        std::vector<std::thread>          m_workers;
+        std::list<Ref<class TaskRuntime>> m_background_queue;
+        std::atomic_bool                  m_finished{false};
+        std::mutex                        m_mutex;
+        std::condition_variable           m_cv;
     };
 
 }// namespace wmoge

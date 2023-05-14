@@ -38,10 +38,10 @@ namespace wmoge {
      * @brief Data supplied to rendered to draw cpu particles
      */
     struct PfxComponentRenderData {
-        ref_ptr<Data> vertices;
-        ref_ptr<Data> indices;
-        int           n_vertices = 0;
-        int           n_indices  = 0;
+        Ref<Data> vertices;
+        Ref<Data> indices;
+        int       n_vertices = 0;
+        int       n_indices  = 0;
     };
 
     /**

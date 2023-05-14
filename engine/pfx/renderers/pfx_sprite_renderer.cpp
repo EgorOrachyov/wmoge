@@ -38,7 +38,7 @@
 
 namespace wmoge {
 
-    PfxSpriteRenderer::PfxSpriteRenderer(ref_ptr<Material> material, int vert_buffer_size, int index_buffer_size, const StringId& name) {
+    PfxSpriteRenderer::PfxSpriteRenderer(Ref<Material> material, int vert_buffer_size, int index_buffer_size, const StringId& name) {
         WG_AUTO_PROFILE_PFX("PfxSpriteRenderer::PfxSpriteRenderer");
 
         assert(material);

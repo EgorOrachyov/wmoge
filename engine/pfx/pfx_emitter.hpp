@@ -60,7 +60,7 @@ namespace wmoge {
      */
     class PfxEmitter final : public RefCnt {
     public:
-        explicit PfxEmitter(ref_ptr<class PfxEffect> effect, class RenderScene* scene);
+        explicit PfxEmitter(Ref<class PfxEffect> effect, class RenderScene* scene);
         ~PfxEmitter() override = default;
 
         void emit(const PfxSpawnParams& params);
@@ -68,19 +68,19 @@ namespace wmoge {
         void update();
         void render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object);
 
-        const PfxComponentRuntime&   get_runtime(int id) const;
-        const ref_ptr<PfxComponent>& get_component(int id) const;
-        const ref_ptr<PfxEffect>&    get_effect() const;
-        class RenderScene*           get_scene() const;
-        float                        get_time() const;
-        float                        get_delta_time() const;
-        int                          get_num_components() const;
-        bool                         is_active() const;
+        const PfxComponentRuntime& get_runtime(int id) const;
+        const Ref<PfxComponent>&   get_component(int id) const;
+        const Ref<PfxEffect>&      get_effect() const;
+        class RenderScene*         get_scene() const;
+        float                      get_time() const;
+        float                      get_delta_time() const;
+        int                        get_num_components() const;
+        bool                       is_active() const;
 
     private:
         fast_vector<PfxComponentRuntime> m_runtime;
         fast_vector<PfxSpawnParams>      m_emit_queue;
-        ref_ptr<class PfxEffect>         m_effect;
+        Ref<class PfxEffect>             m_effect;
         class RenderScene*               m_scene;
         float                            m_time       = 0.0f;
         float                            m_delta_time = 0.0f;

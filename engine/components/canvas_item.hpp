@@ -50,13 +50,13 @@ namespace wmoge {
         void set_layer_id(int id);
         void set_tint(const Color4f& tint);
 
-        const ref_ptr<Material>& get_material() const;
-        Vec2f                    get_pos_global() const;
-        const Mat3x3f&           get_matr_global() const;
-        const Mat3x3f&           get_matr_global_inv() const;
-        const Color4f&           get_tint() const;
-        int                      get_layer_id() const;
-        bool                     is_visible() const;
+        const Ref<Material>& get_material() const;
+        Vec2f                get_pos_global() const;
+        const Mat3x3f&       get_matr_global() const;
+        const Mat3x3f&       get_matr_global_inv() const;
+        const Color4f&       get_tint() const;
+        int                  get_layer_id() const;
+        bool                 is_visible() const;
 
         bool on_load_from_yaml(const YamlConstNodeRef& node) override;
         void on_scene_enter() override;
@@ -70,13 +70,13 @@ namespace wmoge {
         void                    release_proxy();
 
     private:
-        ref_ptr<RenderCanvasItem> m_render_proxy;
-        ref_ptr<Material>         m_material;
-        Mat3x3f                   m_matr_global;
-        Mat3x3f                   m_matr_global_inv;
-        Color4f                   m_tint       = Color::WHITE4f;
-        int                       m_layer_id   = 0;
-        bool                      m_is_visible = true;
+        Ref<RenderCanvasItem> m_render_proxy;
+        Ref<Material>         m_material;
+        Mat3x3f               m_matr_global;
+        Mat3x3f               m_matr_global_inv;
+        Color4f               m_tint       = Color::WHITE4f;
+        int                   m_layer_id   = 0;
+        bool                  m_is_visible = true;
     };
 
 }// namespace wmoge

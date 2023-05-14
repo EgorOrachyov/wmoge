@@ -49,18 +49,18 @@ namespace wmoge {
     public:
         virtual ~RenderCanvasItem();
 
-        void set_material(const ref_ptr<Material>& material);
+        void set_material(const Ref<Material>& material);
         void set_layer_id(int layer_id);
         void set_transform(const Mat3x3f& new_model, const Mat3x3f& new_model_inv);
         void set_tint(const Color4f& tint);
 
         void on_render_dynamic(RenderViewList& views, const RenderViewMask& mask) override;
 
-        const ref_ptr<Material>&                 get_material() { return m_material; }
-        const ref_ptr<GfxUniformBuffer>&         get_draw_params() { return m_draw_params; }
-        const ref_ptr<GfxIndexBuffer>&           get_index_buffer() { return m_index_buffer; }
-        const ref_ptr<GfxVertBuffer>&            get_vert_buffer() { return m_vert_buffer; }
-        const ref_ptr<GfxVertFormat>&            get_vert_format() { return m_vert_format; }
+        const Ref<Material>&                     get_material() { return m_material; }
+        const Ref<GfxUniformBuffer>&             get_draw_params() { return m_draw_params; }
+        const Ref<GfxIndexBuffer>&               get_index_buffer() { return m_index_buffer; }
+        const Ref<GfxVertBuffer>&                get_vert_buffer() { return m_vert_buffer; }
+        const Ref<GfxVertFormat>&                get_vert_format() { return m_vert_format; }
         const fast_vector<DrawCmd*, 1>&          get_cached_cmds() { return m_cached_cmds; }
         const fast_vector<DrawCmdSortingKey, 1>& get_cached_keys() { return m_cached_keys; }
 
@@ -79,11 +79,11 @@ namespace wmoge {
         void compile_draw_cmds(int index_count);
 
     protected:
-        ref_ptr<Material>                 m_material;
-        ref_ptr<GfxUniformBuffer>         m_draw_params;
-        ref_ptr<GfxIndexBuffer>           m_index_buffer;
-        ref_ptr<GfxVertBuffer>            m_vert_buffer;
-        ref_ptr<GfxVertFormat>            m_vert_format;
+        Ref<Material>                     m_material;
+        Ref<GfxUniformBuffer>             m_draw_params;
+        Ref<GfxIndexBuffer>               m_index_buffer;
+        Ref<GfxVertBuffer>                m_vert_buffer;
+        Ref<GfxVertFormat>                m_vert_format;
         fast_vector<DrawCmd*, 1>          m_cached_cmds;
         fast_vector<DrawCmdSortingKey, 1> m_cached_keys;
 

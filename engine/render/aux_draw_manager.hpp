@@ -66,8 +66,8 @@ namespace wmoge {
         void draw_text_3d(const std::string& text, const Vec3f& pos, float size, const Color3f& color);
         void draw_text_2d(const std::string& text, const Vec2f& pos, float size, const Color3f& color);
 
-        void set_window(const ref_ptr<Window>& window);
-        void set_font(const ref_ptr<Font>& font);
+        void set_window(const Ref<Window>& window);
+        void set_font(const Ref<Font>& font);
         void set_projection(const Mat4x4f& projection);
         void set_view(const Mat4x4f& view);
         void set_viewport(const Rect2i& viewport);
@@ -96,30 +96,30 @@ namespace wmoge {
         };
 
     private:
-        ref_ptr<GfxVertBuffer>       m_gfx_triangles_solid;
-        ref_ptr<GfxVertBuffer>       m_gfx_triangles_wire;
-        ref_ptr<GfxVertBuffer>       m_gfx_lines;
-        ref_ptr<GfxVertBuffer>       m_gfx_glyphs;
+        Ref<GfxVertBuffer>           m_gfx_triangles_solid;
+        Ref<GfxVertBuffer>           m_gfx_triangles_wire;
+        Ref<GfxVertBuffer>           m_gfx_lines;
+        Ref<GfxVertBuffer>           m_gfx_glyphs;
         std::vector<AuxDrawLine>     m_lines;
         std::vector<AuxDrawTriangle> m_triangles_solid;
         std::vector<AuxDrawTriangle> m_triangles_wire;
         std::vector<AuxDrawGlyph>    m_glyphs;
 
-        ref_ptr<Shader>           m_shader_geom;
-        ref_ptr<Shader>           m_shader_text;
-        ref_ptr<GfxRenderPass>    m_render_pass;
-        ref_ptr<GfxPipeline>      m_pipeline_glyphs;
-        ref_ptr<GfxPipeline>      m_pipeline_line;
-        ref_ptr<GfxPipeline>      m_pipeline_solid;
-        ref_ptr<GfxPipeline>      m_pipeline_wireframe;
-        ref_ptr<GfxUniformBuffer> m_constants;
+        Ref<Shader>           m_shader_geom;
+        Ref<Shader>           m_shader_text;
+        Ref<GfxRenderPass>    m_render_pass;
+        Ref<GfxPipeline>      m_pipeline_glyphs;
+        Ref<GfxPipeline>      m_pipeline_line;
+        Ref<GfxPipeline>      m_pipeline_solid;
+        Ref<GfxPipeline>      m_pipeline_wireframe;
+        Ref<GfxUniformBuffer> m_constants;
 
-        ref_ptr<Window> m_window;
-        ref_ptr<Font>   m_debug_font;
-        Mat4x4f         m_proj;
-        Mat4x4f         m_view;
-        Rect2i          m_viewport;
-        Vec2f           m_screen_size;
+        Ref<Window> m_window;
+        Ref<Font>   m_debug_font;
+        Mat4x4f     m_proj;
+        Mat4x4f     m_view;
+        Rect2i      m_viewport;
+        Vec2f       m_screen_size;
 
         int m_gfx_capacity_triangles_solid = 0;
         int m_gfx_capacity_triangles_wire  = 0;

@@ -54,14 +54,14 @@ namespace wmoge {
         ~VKShader() override;
 
         void setup(std::string vertex, std::string fragment, const StringId& name);
-        void setup(ref_ptr<Data> byte_code, const StringId& name);
+        void setup(Ref<Data> byte_code, const StringId& name);
         void compile_from_source();
         void compile_from_byte_code();
 
         GfxShaderStatus                                                    status() const override;
         std::string                                                        message() const override;
         const GfxShaderReflection*                                         reflection() const override;
-        ref_ptr<Data>                                                      byte_code() const override;
+        Ref<Data>                                                          byte_code() const override;
         const fast_vector<VkShaderModule>&                                 modules() const { return m_modules; }
         const std::array<VkDescriptorSetLayout, GfxLimits::MAX_DESC_SETS>& set_layouts() const { return m_set_layouts; }
         VkPipelineLayout                                                   layout() const { return m_layout; }
@@ -78,7 +78,7 @@ namespace wmoge {
         std::string                                                 m_message;
         GfxShaderReflection                                         m_reflection;
         std::array<VkDescriptorSetLayout, GfxLimits::MAX_DESC_SETS> m_set_layouts{};
-        ref_ptr<Data>                                               m_byte_code;
+        Ref<Data>                                                   m_byte_code;
         VkPipelineLayout                                            m_layout = VK_NULL_HANDLE;
     };
 

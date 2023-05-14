@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    void RenderSpriteInstance::initialize(ref_ptr<Sprite> sprite, int animation, float speed_scale, bool playing) {
+    void RenderSpriteInstance::initialize(Ref<Sprite> sprite, int animation, float speed_scale, bool playing) {
         m_sprite      = std::move(sprite);
         m_speed_scale = speed_scale;
         m_playing     = playing;

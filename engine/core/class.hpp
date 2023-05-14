@@ -114,7 +114,7 @@ namespace wmoge {
         const Class*    super() const;
         const Property* property(const StringId& name) const;
         const Method*   method(const StringId& name) const;
-        ref_ptr<Object> instantiate() const;
+        Ref<Object>     instantiate() const;
         bool            is_inherited_from(const StringId& name) const;
 
         static Class*   class_ptr(StringId name);

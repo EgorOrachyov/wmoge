@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    void EventManager::subscribe(const ref_ptr<EventListener>& listener) {
+    void EventManager::subscribe(const Ref<EventListener>& listener) {
         assert(listener);
         assert(!listener->connected());
 
@@ -52,7 +52,7 @@ namespace wmoge {
         m_pending_add.push_back(listener);
     }
 
-    void EventManager::unsubscribe(const ref_ptr<EventListener>& listener) {
+    void EventManager::unsubscribe(const Ref<EventListener>& listener) {
         assert(listener);
         assert(listener->connected());
 
@@ -71,7 +71,7 @@ namespace wmoge {
         m_pending_remove.push_back(listener);
     }
 
-    void EventManager::dispatch(const ref_ptr<Event>& event) {
+    void EventManager::dispatch(const Ref<Event>& event) {
         assert(event);
 
         if (!event) {
@@ -84,11 +84,11 @@ namespace wmoge {
     }
 
     void EventManager::update() {
-        WG_AUTO_PROFILE_CORE();
+        WG_AUTO_PROFILE_CORE("EventManager::update");
 
-        fast_vector<ref_ptr<EventListener>> to_add;
-        fast_vector<ref_ptr<EventListener>> to_remove;
-        fast_vector<ref_ptr<Event>>         to_dispatch;
+        fast_vector<Ref<EventListener>> to_add;
+        fast_vector<Ref<EventListener>> to_remove;
+        fast_vector<Ref<Event>>         to_dispatch;
         {
             std::lock_guard guard(m_mutex);
             std::swap(to_add, m_pending_add);
@@ -121,7 +121,7 @@ namespace wmoge {
         }
     }
     void EventManager::shutdown() {
-        WG_AUTO_PROFILE_CORE();
+        WG_AUTO_PROFILE_CORE("EventManager::shutdown");
 
         m_listeners.clear();
         m_pending_add.clear();

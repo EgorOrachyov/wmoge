@@ -80,16 +80,16 @@ namespace wmoge {
                         activation.axis >= 0 &&
                         activation.joystick >= 0) {
 
-                        ref_ptr<Joystick> joystick = input->joystick(activation.joystick);
+                        Ref<Joystick> joystick = input->joystick(activation.joystick);
                         if (joystick && joystick->state() == InputDeviceState::Connected) {
                             const auto& axes_states = joystick->axes_states();
 
                             if (activation.axis < axes_states.size() &&
                                 (activation.direction * axes_states[activation.axis]) >= activation.threshold) {
 
-                                ref_ptr<EventAction> event_action = make_event<EventAction>();
-                                event_action->name                = action_name;
-                                event_action->strength            = Math::clamp(Math::abs(axes_states[activation.axis]), 0.0f, 1.0f);
+                                Ref<EventAction> event_action = make_event<EventAction>();
+                                event_action->name            = action_name;
+                                event_action->strength        = Math::clamp(Math::abs(axes_states[activation.axis]), 0.0f, 1.0f);
 
                                 event_manager->dispatch(event_action.as<Event>());
                                 break;
@@ -101,7 +101,7 @@ namespace wmoge {
         }
     }
 
-    bool ActionManager::add_action_map(ref_ptr<ActionMap> action_map) {
+    bool ActionManager::add_action_map(Ref<ActionMap> action_map) {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::add_action_map");
 
         if (!action_map) {
@@ -119,7 +119,7 @@ namespace wmoge {
     bool ActionManager::load_action_map(const std::string& filepath) {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load_action_map");
 
-        ref_ptr<ActionMap> action_map = make_ref<ActionMap>();
+        Ref<ActionMap> action_map = make_ref<ActionMap>();
 
         if (!action_map->load(filepath)) {
             WG_LOG_ERROR("failed to load action map " << filepath);
@@ -171,9 +171,9 @@ namespace wmoge {
                         activation.mouse_button == event.button &&
                         activation.action == event.action) {
 
-                        ref_ptr<EventAction> event_action = make_event<EventAction>();
-                        event_action->name                = action_name;
-                        event_action->strength            = 1.0f;
+                        Ref<EventAction> event_action = make_event<EventAction>();
+                        event_action->name            = action_name;
+                        event_action->strength        = 1.0f;
 
                         event_manager->dispatch(event_action.as<Event>());
                         break;
@@ -203,9 +203,9 @@ namespace wmoge {
                         activation.key == event.key &&
                         activation.action == event.action) {
 
-                        ref_ptr<EventAction> event_action = make_event<EventAction>();
-                        event_action->name                = action_name;
-                        event_action->strength            = 1.0f;
+                        Ref<EventAction> event_action = make_event<EventAction>();
+                        event_action->name            = action_name;
+                        event_action->strength        = 1.0f;
 
                         event_manager->dispatch(event_action.as<Event>());
                         break;
@@ -236,9 +236,9 @@ namespace wmoge {
                         activation.joystick_button == event.button &&
                         activation.action == event.action) {
 
-                        ref_ptr<EventAction> event_action = make_event<EventAction>();
-                        event_action->name                = action_name;
-                        event_action->strength            = 1.0f;
+                        Ref<EventAction> event_action = make_event<EventAction>();
+                        event_action->name            = action_name;
+                        event_action->strength        = 1.0f;
 
                         event_manager->dispatch(event_action.as<Event>());
                         break;

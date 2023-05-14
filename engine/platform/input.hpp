@@ -42,11 +42,11 @@ namespace wmoge {
      */
     class Input {
     public:
-        virtual ~Input()                                                    = default;
-        virtual ref_ptr<Mouse>    mouse()                                   = 0;
-        virtual ref_ptr<Keyboard> keyboard()                                = 0;
-        virtual ref_ptr<Joystick> joystick(int id)                          = 0;
-        virtual int               joystick_mapping(const StringId& mapping) = 0;
+        virtual ~Input()                                                = default;
+        virtual Ref<Mouse>    mouse()                                   = 0;
+        virtual Ref<Keyboard> keyboard()                                = 0;
+        virtual Ref<Joystick> joystick(int id)                          = 0;
+        virtual int           joystick_mapping(const StringId& mapping) = 0;
     };
 
 }// namespace wmoge

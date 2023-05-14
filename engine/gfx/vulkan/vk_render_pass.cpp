@@ -44,14 +44,14 @@ namespace wmoge {
         release_framebuffer();
         release_render_pass();
     }
-    void VKRenderPass::bind_target(const ref_ptr<VKWindow>& window) {
+    void VKRenderPass::bind_target(const Ref<VKWindow>& window) {
         m_is_fb_dirty = m_window != window || m_fb_version < window->version();
         m_window      = window;
         // bind to get properties for render pass creation
         bind_color_target(m_window->color()[0], 0, 0, 0);
         bind_depth_target(m_window->depth_stencil(), 0, 0);
     }
-    void VKRenderPass::bind_color_target(const ref_ptr<VKTexture>& texture, int target, int mip, int slice) {
+    void VKRenderPass::bind_color_target(const Ref<VKTexture>& texture, int target, int mip, int slice) {
         auto& info    = m_color_targets[target];
         auto& format  = m_color_formats[target];
         m_is_fb_dirty = m_is_fb_dirty ||
@@ -65,7 +65,7 @@ namespace wmoge {
         info.slice   = slice;
         format       = VKDefs::get_format(texture->format());
     }
-    void VKRenderPass::bind_depth_target(const ref_ptr<VKTexture>& texture, int mip, int slice) {
+    void VKRenderPass::bind_depth_target(const Ref<VKTexture>& texture, int mip, int slice) {
         m_is_fb_dirty = m_is_fb_dirty ||
                         m_depth_stencil_target.texture != texture ||
                         m_depth_stencil_target.mip != mip ||
@@ -194,9 +194,9 @@ namespace wmoge {
                 views[views_count++] = m_depth_stencil_target.texture->rt_view(m_depth_stencil_target.slice, m_depth_stencil_target.mip);
             }
 
-            ref_ptr<VKTexture> ref = m_depth_stencil_target.texture ? m_depth_stencil_target.texture : m_color_targets[0].texture;
-            m_size.width           = ref->width();
-            m_size.height          = ref->height();
+            Ref<VKTexture> ref = m_depth_stencil_target.texture ? m_depth_stencil_target.texture : m_color_targets[0].texture;
+            m_size.width       = ref->width();
+            m_size.height      = ref->height();
 
             create_info.attachmentCount = views_count;
             create_info.pAttachments    = views.data();

@@ -26,99 +26,38 @@
 /**********************************************************************************/
 
 #include "core/task.hpp"
+
 #include "core/engine.hpp"
-#include "core/log.hpp"
-#include "core/task_manager.hpp"
+#include "core/task_runtime.hpp"
 #include "debug/profiler.hpp"
 
 namespace wmoge {
 
-    Task::Task(StringId name) : m_name(name) {
-        m_runnable = [](TaskContext&) { return 0; };
-    }
-    Task::Task(TaskRunnable runnable) : Task(StringId(), std::move(runnable)) {
-    }
-    Task::Task(StringId name, TaskRunnable runnable) : m_runnable(std::move(runnable)), m_name(name) {
+    Task::Task(StringId name, TaskRunnable runnable)
+        : m_runnable(std::move(runnable)),
+          m_task_manager(Engine::instance()->task_manager()),
+          m_name(name) {
     }
 
-    void Task::set_task_manager(class TaskManager* task_manager) {
-        assert(!m_run_called.load());
-        m_task_manager = task_manager;
+    TaskHnd Task::schedule() {
+        return schedule(Async{});
     }
 
-    void Task::add_to_wait(const ref_ptr<class Task>& task) {
-        assert(task);
-        assert(!m_run_called.load());
-        {
-            std::lock_guard guard(m_mutex);
-            m_to_wait_total += 1;
-        }
-        task->add_dependency(ref_ptr<AsyncStateBase>(this));
-    }
+    TaskHnd Task::schedule(Async depends_on) {
+        WG_AUTO_PROFILE_CORE("Task::schedule");
 
-    void Task::add_to_notify(const ref_ptr<class Task>& task) {
-        assert(task);
-        task->add_to_wait(ref_ptr<Task>(this));
-    }
+        assert(m_runnable);
+        assert(m_task_manager);
 
-    TaskAsync Task::run() {
-        std::lock_guard guard(m_mutex);
+        auto runtime = make_ref<TaskRuntime>(m_name, m_runnable, m_task_manager);
 
-        m_run_called.store(true);
-
-        if (m_to_wait_total == 0 || m_to_wait_total == m_ok) {
-            submit();
-        }
-
-        return TaskAsync(ref_ptr<Task>(this));
-    }
-
-    void Task::execute(TaskContext& context) {
-        WG_AUTO_PROFILE_TASK("Task::execute", m_name.str());
-
-        auto ret = m_runnable(context);
-
-        if (ret) {
-            set_failed();
-            WG_LOG_ERROR("failed: " << m_name << " worker: " << context.thread_name());
+        if (depends_on.is_not_null()) {
+            depends_on.add_dependency(runtime.as<AsyncStateBase>());
         } else {
-            set_result(0);
-        }
-    }
-    void Task::submit() {
-        TaskManager* task_manager = m_task_manager ? m_task_manager : Engine::instance()->task_manager();
-        task_manager->submit(ref_ptr<Task>(this));
-    }
-
-    void Task::notify(AsyncStatus status, AsyncStateBase* invoker) {
-        bool can_run  = false;
-        bool can_fail = false;
-        {
-            std::lock_guard guard(m_mutex);
-            assert(m_to_wait_total > 0);
-
-            if (status == AsyncStatus::Ok) {
-                m_ok += 1;
-                can_run = (m_ok == m_to_wait_total) && m_run_called.load();
-            }
-            if (status == AsyncStatus::Failed) {
-                m_failed += 1;
-                can_fail = (m_failed == 1);
-            }
+            runtime->submit();
         }
 
-        if (can_run) {
-            submit();
-        }
-
-        if (can_fail) {
-            set_failed();
-            WG_LOG_ERROR("failed: " << m_name << " dep failed");
-        }
-    }
-    void Task::wait_completed() {
-        WG_AUTO_PROFILE_TASK("Task::wait_completed", m_name.str());
-        AsyncState::wait_completed();
+        return TaskHnd(runtime);
     }
 
 }// namespace wmoge

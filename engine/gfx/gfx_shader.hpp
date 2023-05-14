@@ -93,7 +93,7 @@ namespace wmoge {
         virtual GfxShaderStatus            status() const     = 0;
         virtual std::string                message() const    = 0;
         virtual const GfxShaderReflection* reflection() const = 0;
-        virtual ref_ptr<Data>              byte_code() const  = 0;
+        virtual Ref<Data>                  byte_code() const  = 0;
     };
 
 }// namespace wmoge

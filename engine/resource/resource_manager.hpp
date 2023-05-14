@@ -55,7 +55,7 @@ namespace wmoge {
      * As argument function accepts resource being loaded.
      * Function called when either resource successfully loaded or failed to load.
      */
-    using ResourceCallback = AsyncCallback<ref_ptr<Resource>>;
+    using ResourceCallback = AsyncCallback<Ref<Resource>>;
 
     /**
      * @class ResourceManager
@@ -97,7 +97,7 @@ namespace wmoge {
          *
          * @return Resource reference
          */
-        Async<ref_ptr<Resource>> load_async(const StringId& name, ResourceCallback callback = ResourceCallback());
+        AsyncResult<Ref<Resource>> load_async(const StringId& name, ResourceCallback callback = ResourceCallback());
 
         /**
          * @brief Sync load of the engine resource using provided resource name
@@ -119,10 +119,10 @@ namespace wmoge {
          *
          * @return Resource reference
          */
-        ref_ptr<Resource> load(const StringId& name);
+        Ref<Resource> load(const StringId& name);
 
         /** @brief Find a resource by name if it is already cached */
-        ref_ptr<Resource> find(const StringId& name);
+        Ref<Resource> find(const StringId& name);
 
         /** @brief Add specific format resource loader */
         void add_loader(std::shared_ptr<ResourceLoader> loader);
@@ -164,10 +164,10 @@ namespace wmoge {
          */
         class LoadState {
         public:
-            fast_vector<ref_ptr<Resource>>          deps_res;
-            fast_vector<AsyncOp<ref_ptr<Resource>>> deps_ops;
-            AsyncOp<ref_ptr<Resource>>              async_op;
-            ref_ptr<Task>                           task;
+            fast_vector<Ref<Resource>>          deps_res;
+            fast_vector<AsyncOp<Ref<Resource>>> deps_ops;
+            AsyncOp<Ref<Resource>>              async_op;
+            TaskHnd                             task_hnd;
         };
 
         bool       load_meta(const StringId& name, ResourceMeta& resource_meta, std::shared_ptr<ResourceLoader>& loader);
@@ -175,7 +175,7 @@ namespace wmoge {
 
     private:
         fast_vector<std::shared_ptr<ResourcePak>>           m_paks;
-        fast_map<StringId, ref_ptr<Resource>>               m_resources;
+        fast_map<StringId, Ref<Resource>>                   m_resources;
         fast_map<StringId, LoadState>                       m_loading;
         fast_map<StringId, std::shared_ptr<ResourceLoader>> m_loaders;
 

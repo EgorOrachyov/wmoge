@@ -54,12 +54,12 @@ namespace wmoge {
         VkPipelineLayout        layout() const { return m_layout; }
 
     private:
-        void compile(const ref_ptr<VKRenderPassHnd>& render_pass);
+        void compile(const Ref<VKRenderPassHnd>& render_pass);
         void release();
 
     private:
         GfxPipelineState               m_state;
-        ref_ptr<VKRenderPass>          m_render_pass;
+        Ref<VKRenderPass>              m_render_pass;
         std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
         std::string                    m_message;
         VkPipeline                     m_pipeline = VK_NULL_HANDLE;

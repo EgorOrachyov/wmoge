@@ -59,7 +59,7 @@ namespace wmoge {
         m_render_scene = render_scene;
     }
 
-    const fast_vector<ref_ptr<RenderView>>& RenderPipeline::get_views() {
+    const fast_vector<Ref<RenderView>>& RenderPipeline::get_views() {
         return m_views;
     }
     const fast_vector<RenderPipelineStage*>& RenderPipeline::get_stages() {

@@ -42,14 +42,14 @@ namespace wmoge {
     public:
         ~PipelineStageOverlay2d() override = default;
 
-        const ref_ptr<GfxRenderPass>& get_gfx_pass() override;
-        const StringId&               get_name() const override;
-        void                          on_register() override;
-        void                          on_execute(int view_index) override;
+        const Ref<GfxRenderPass>& get_gfx_pass() override;
+        const StringId&           get_name() const override;
+        void                      on_register() override;
+        void                      on_execute(int view_index) override;
 
     private:
-        ref_ptr<GfxRenderPass>    m_render_pass;
-        ref_ptr<GfxUniformBuffer> m_pass_params;
+        Ref<GfxRenderPass>    m_render_pass;
+        Ref<GfxUniformBuffer> m_pass_params;
     };
 
 }// namespace wmoge

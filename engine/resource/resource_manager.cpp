@@ -46,7 +46,7 @@ namespace wmoge {
         add_loader(std::make_shared<ResourceLoaderAssimp>());
     }
 
-    Async<ref_ptr<Resource>> ResourceManager::load_async(const StringId& name, ResourceCallback callback) {
+    AsyncResult<Ref<Resource>> ResourceManager::load_async(const StringId& name, ResourceCallback callback) {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_async");
 
         std::lock_guard guard(m_mutex);
@@ -54,12 +54,12 @@ namespace wmoge {
         // already loaded and cached
         auto cached = m_resources.find(name);
         if (cached != m_resources.end()) {
-            ref_ptr<Resource>                res(cached->second);
-            std::optional<ref_ptr<Resource>> res_opt(res);
-            auto                             async_op = make_async_op<ref_ptr<Resource>>();
+            Ref<Resource>                res(cached->second);
+            std::optional<Ref<Resource>> res_opt(res);
+            auto                         async_op = make_async_op<Ref<Resource>>();
             async_op->set_result(std::move(res));
             async_op->add_on_completion(std::move(callback));
-            return {async_op};
+            return AsyncResult<Ref<Resource>>(async_op);
         }
 
         // not yet cached, but is loading
@@ -67,7 +67,7 @@ namespace wmoge {
         if (loading != m_loading.end()) {
             auto& async_op = loading->second.async_op;
             async_op->add_on_completion(std::move(callback));
-            return {async_op};
+            return AsyncResult<Ref<Resource>>(async_op);
         }
 
         ResourceMeta                    resource_meta;
@@ -76,25 +76,25 @@ namespace wmoge {
         if (load_meta(name, resource_meta, resource_loader)) {
             if (LoadState* loading_task = load_internal(name, resource_meta, resource_loader)) {
                 loading_task->async_op->add_on_completion(std::move(callback));
-                return {loading_task->async_op};
+                return AsyncResult<Ref<Resource>>(loading_task->async_op);
             }
         }
 
-        auto async_op = make_async_op<ref_ptr<Resource>>();
+        auto async_op = make_async_op<Ref<Resource>>();
         async_op->set_failed();
         async_op->add_on_completion(std::move(callback));
-        return {async_op};
+        return AsyncResult<Ref<Resource>>(async_op);
     }
 
-    ref_ptr<Resource> ResourceManager::load(const StringId& name) {
+    Ref<Resource> ResourceManager::load(const StringId& name) {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::load");
 
-        Async<ref_ptr<Resource>> async = load_async(name);
+        AsyncResult<Ref<Resource>> async = load_async(name);
         async.wait_completed();
         return async.is_ok() ? async.result() : nullptr;
     }
 
-    ref_ptr<Resource> ResourceManager::find(const StringId& name) {
+    Ref<Resource> ResourceManager::find(const StringId& name) {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::");
 
         std::lock_guard guard(m_mutex);
@@ -166,37 +166,40 @@ namespace wmoge {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_internal");
 
         // get dependencies which still loading or already loaded
-        fast_vector<ref_ptr<Resource>>          deps_res;
-        fast_vector<AsyncOp<ref_ptr<Resource>>> deps_ops;
-        fast_vector<ref_ptr<Task>>              deps_tasks;
+        fast_vector<Ref<Resource>>          deps_res;
+        fast_vector<AsyncOp<Ref<Resource>>> deps_ops;
+        fast_vector<Async>                  deps_tasks;
 
         if (!resource_meta.deps.empty()) {
             for (const StringId& dep : resource_meta.deps) {
-                if (ref_ptr<Resource> found = find(dep)) {
+                if (Ref<Resource> found = find(dep)) {
                     deps_res.push_back(std::move(found));
                     continue;
                 }
+
                 ResourceMeta                    dep_meta;
                 std::shared_ptr<ResourceLoader> dep_loader;
+
                 if (load_meta(dep, dep_meta, dep_loader)) {
                     if (LoadState* state = load_internal(dep, dep_meta, dep_loader)) {
                         deps_ops.push_back(state->async_op);
-                        deps_tasks.push_back(state->task);
+                        deps_tasks.push_back(Async(state->task_hnd.as_async()));
                         continue;
                     }
                 }
+
                 return nullptr;
             }
         }
 
         // create loading task
-        AsyncOp<ref_ptr<Resource>> async_op = make_async_op<ref_ptr<Resource>>();
+        AsyncOp<Ref<Resource>> async_op = make_async_op<Ref<Resource>>();
 
-        ref_ptr<Task> task = make_ref<Task>(name, [=, meta = std::move(resource_meta)](TaskContext&) {
+        Task task(name, [=, meta = std::move(resource_meta)](TaskContext&) {
             Timer timer;
             timer.start();
 
-            ref_ptr<Resource> resource;
+            Ref<Resource> resource;
             if (loader->load(name, meta, resource)) {
                 timer.stop();
                 WG_LOG_INFO("load resource " << name << ", time: " << timer.get_elapsed_sec() << " sec");
@@ -215,7 +218,9 @@ namespace wmoge {
             return 1;
         });
 
-        task->add_on_completion([this, name, async_op](AsyncStatus status, std::optional<int>&) {
+        auto task_hnd = task.schedule(Async::join(ArrayView(deps_tasks)));
+
+        task_hnd.add_on_completion([this, name, async_op](AsyncStatus status, std::optional<int>&) {
             std::lock_guard guard(m_mutex);
             if (status == AsyncStatus::Failed) {
                 auto event          = make_event<EventResource>();
@@ -229,16 +234,10 @@ namespace wmoge {
             m_loading.erase(name);
         });
 
-        for (auto& t : deps_tasks) {
-            t->add_to_notify(task);
-        }
-
-        task->run();
-
         auto& state    = m_loading[name];
         state.deps_res = std::move(deps_res);
         state.deps_ops = std::move(deps_ops);
-        state.task     = std::move(task);
+        state.task_hnd = std::move(task_hnd);
         state.async_op = std::move(async_op);
 
         return &state;

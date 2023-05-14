@@ -26,8 +26,10 @@
 /**********************************************************************************/
 
 #include "task_manager.hpp"
+
 #include "core/engine.hpp"
 #include "core/log.hpp"
+#include "core/task_runtime.hpp"
 #include "debug/profiler.hpp"
 
 namespace wmoge {
@@ -40,17 +42,18 @@ namespace wmoge {
         for (int i = 0; i < workers_count; i++) {
             std::thread worker([this, i]() {
                 TaskContext context;
-                context.m_thread_name = SID("worker-thread-" + std::to_string(i));
+                context.m_thread_name = SID("worker-" + std::to_string(i));
                 context.m_thread_id   = i;
 
                 while (!m_finished.load()) {
-                    if (auto task = next_to_exec()) {
-                        context.m_task = task.get();
+                    Ref<TaskRuntime> task;
+
+                    if (next_to_exec(task)) {
                         task->execute(context);
                     }
                 }
             });
-            profiler->add_tid(worker.get_id(), SID("worker-thread-" + std::to_string(i)));
+            profiler->add_tid(worker.get_id(), SID("worker-" + std::to_string(i)));
             m_workers.push_back(std::move(worker));
         }
     }
@@ -59,19 +62,21 @@ namespace wmoge {
         shutdown();
     }
 
-    void TaskManager::submit(ref_ptr<Task> task) {
+    void TaskManager::submit(Ref<class TaskRuntime> task) {
+        WG_AUTO_PROFILE_CORE("TaskManager::submit");
+
         assert(task);
 
         if (m_finished.load()) return;
 
         std::lock_guard guard(m_mutex);
-        task->set_in_progress();
-        TaskAsync hnd(task);
         m_background_queue.push_back(std::move(task));
         m_cv.notify_one();
     }
 
     void TaskManager::shutdown() {
+        WG_AUTO_PROFILE_CORE("TaskManager::shutdown");
+
         WG_LOG_INFO("shutdown and join already started tasks");
 
         m_finished.store(true);
@@ -85,16 +90,16 @@ namespace wmoge {
         m_background_queue.clear();
     }
 
-    ref_ptr<Task> TaskManager::next_to_exec() {
+    bool TaskManager::next_to_exec(Ref<class TaskRuntime>& task) {
         std::unique_lock guard(m_mutex);
         m_cv.wait(guard, [this]() { return !m_background_queue.empty() || m_finished.load(); });
 
         if (m_background_queue.empty() || m_finished.load())
-            return nullptr;
+            return false;
 
-        auto task = m_background_queue.front();
+        task = std::move(m_background_queue.front());
         m_background_queue.pop_front();
-        return task;
+        return true;
     }
 
 }// namespace wmoge

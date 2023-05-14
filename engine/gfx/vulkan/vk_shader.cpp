@@ -59,7 +59,7 @@ namespace wmoge {
         m_sources.push_back(std::move(vertex));
         m_sources.push_back(std::move(fragment));
     }
-    void VKShader::setup(ref_ptr<Data> byte_code, const wmoge::StringId& name) {
+    void VKShader::setup(Ref<Data> byte_code, const wmoge::StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKShader::setup");
 
         m_name      = name;
@@ -74,8 +74,8 @@ namespace wmoge {
     const GfxShaderReflection* VKShader::reflection() const {
         return status() == GfxShaderStatus::Compiled ? &m_reflection : nullptr;
     }
-    ref_ptr<Data> VKShader::byte_code() const {
-        return status() == GfxShaderStatus::Compiled ? m_byte_code : ref_ptr<Data>();
+    Ref<Data> VKShader::byte_code() const {
+        return status() == GfxShaderStatus::Compiled ? m_byte_code : Ref<Data>();
     }
     void VKShader::compile_from_source() {
         WG_AUTO_PROFILE_VULKAN("VKShader::compile_from_source");
@@ -266,7 +266,7 @@ namespace wmoge {
 
         timer.stop();
         WG_LOG_INFO("compiled (source): " << name() << ", code " << m_byte_code->size_as_kib() << " KiB, time: " << timer.get_elapsed_sec() << " sec");
-        ref_ptr<VKShader> this_shader(this);
+        Ref<VKShader> this_shader(this);
 
         init(spirv[0], spirv[1]);
     }

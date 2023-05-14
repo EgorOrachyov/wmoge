@@ -48,7 +48,7 @@ namespace wmoge {
     public:
         WG_EVENT(EventResource, Event)
 
-        ref_ptr<Resource>    resource_ref;
+        Ref<Resource>        resource_ref;
         StringId             resource_id;
         ResourceNotification notification = ResourceNotification::None;
     };

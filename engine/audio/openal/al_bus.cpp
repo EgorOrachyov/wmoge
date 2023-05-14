@@ -97,7 +97,7 @@ namespace wmoge {
             playback->bus_set_pitch_scale();
         }
     }
-    void ALAudioBus::get_playbacks(std::vector<ref_ptr<AudioPlayback>>& playbacks) {
+    void ALAudioBus::get_playbacks(std::vector<Ref<AudioPlayback>>& playbacks) {
         WG_AUTO_PROFILE_OPENAL("ALAudioBus::get_playbacks");
 
         std::lock_guard guard(m_engine.get_mutex());

@@ -59,6 +59,10 @@ namespace wmoge {
         static const float SQRT2f;
         static const float Ef;
 
+        static int div_up(int count, int step) {
+            return (count + step - 1) / step;
+        }
+
         static std::size_t align(std::size_t size, std::size_t alignment) {
             return alignment * ((size + alignment - 1) / alignment);
         }

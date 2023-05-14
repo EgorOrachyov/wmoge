@@ -68,11 +68,12 @@ namespace wmoge {
             m_version = m_render_pass->version();
             m_status.store(GfxPipelineStatus::Creating);
 
-            auto compilation_task = make_ref<Task>(m_name, [self = ref_ptr<VKPipeline>(this), rp = m_render_pass->render_pass()](auto&) {
+            Task compilation_task(m_name, [self = Ref<VKPipeline>(this), rp = m_render_pass->render_pass()](auto&) {
                 self->compile(rp);
                 return 0;
             });
-            compilation_task->run();
+
+            compilation_task.schedule();
 
             return false;
         }
@@ -80,7 +81,7 @@ namespace wmoge {
         // so everything is ok, can draw
         return true;
     }
-    void VKPipeline::compile(const ref_ptr<VKRenderPassHnd>& render_pass) {
+    void VKPipeline::compile(const Ref<VKRenderPassHnd>& render_pass) {
         WG_AUTO_PROFILE_VULKAN("VKPipeline::compile");
 
         Timer timer;

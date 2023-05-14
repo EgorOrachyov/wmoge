@@ -76,7 +76,7 @@ namespace wmoge {
         if (m_script) m_script->on_transform_updated();
     }
 
-    void ScriptComponent::attach(ref_ptr<Script> script) {
+    void ScriptComponent::attach(Ref<Script> script) {
         assert(script);
         assert(!m_script);
 
@@ -96,7 +96,7 @@ namespace wmoge {
             on_scene_enter();
         }
     }
-    const ref_ptr<class ScriptInstance>& ScriptComponent::get_script() const {
+    const Ref<class ScriptInstance>& ScriptComponent::get_script() const {
         return m_script;
     }
 

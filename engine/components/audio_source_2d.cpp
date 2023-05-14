@@ -36,7 +36,7 @@
 
 namespace wmoge {
 
-    void AudioSource2d::create(ref_ptr<AudioStream> stream, StringId bus) {
+    void AudioSource2d::create(Ref<AudioStream> stream, StringId bus) {
         assert(stream);
 
         auto* engine       = Engine::instance();

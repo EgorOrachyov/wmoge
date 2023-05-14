@@ -37,7 +37,7 @@
 
 namespace wmoge {
 
-    const ref_ptr<GfxRenderPass>& PipelineStageOverlay2d::get_gfx_pass() {
+    const Ref<GfxRenderPass>& PipelineStageOverlay2d::get_gfx_pass() {
         return m_render_pass;
     }
     const StringId& PipelineStageOverlay2d::get_name() const {

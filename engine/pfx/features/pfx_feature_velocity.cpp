@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    ref_ptr<PfxFeature> PfxFeatureVelocity2d::create() const {
+    Ref<PfxFeature> PfxFeatureVelocity2d::create() const {
         return make_ref<PfxFeatureVelocity2d>();
     }
     StringId PfxFeatureVelocity2d::get_feature_name() const {

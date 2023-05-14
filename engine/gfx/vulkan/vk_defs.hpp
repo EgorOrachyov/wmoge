@@ -83,11 +83,11 @@ namespace wmoge {
      * @brief Info used to init vk driver
      */
     struct VKInitInfo {
-        ref_ptr<Window>                                                     window;
-        std::string                                                         app_name;
-        std::string                                                         engine_name;
-        std::vector<std::string>                                            required_ext;
-        std::function<VkResult(VkInstance, ref_ptr<Window>, VkSurfaceKHR&)> factory;
+        Ref<Window>                                                     window;
+        std::string                                                     app_name;
+        std::string                                                     engine_name;
+        std::vector<std::string>                                        required_ext;
+        std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> factory;
     };
 
     /**

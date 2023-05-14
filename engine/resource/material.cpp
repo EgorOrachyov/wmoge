@@ -39,7 +39,7 @@
 
 namespace wmoge {
 
-    void Material::create(ref_ptr<MaterialShader> shader) {
+    void Material::create(Ref<MaterialShader> shader) {
         assert(shader);
 
         m_shader = std::move(shader);
@@ -138,16 +138,16 @@ namespace wmoge {
         material->m_textures   = m_textures;
     }
 
-    const ref_ptr<MaterialShader>& Material::get_shader() {
+    const Ref<MaterialShader>& Material::get_shader() {
         return m_shader;
     }
-    const ref_ptr<RenderMaterial>& Material::get_render_material() {
+    const Ref<RenderMaterial>& Material::get_render_material() {
         return m_render_material;
     }
     const fast_vector<std::uint8_t>& Material::get_parameters() {
         return m_parameters;
     }
-    const fast_vector<ref_ptr<Texture>>& Material::get_textures() {
+    const fast_vector<Ref<Texture>>& Material::get_textures() {
         return m_textures;
     }
 
@@ -246,7 +246,7 @@ namespace wmoge {
 
         request_update();
     }
-    void Material::set_texture(const StringId& name, const ref_ptr<Texture>& texture) {
+    void Material::set_texture(const StringId& name, const Ref<Texture>& texture) {
         std::lock_guard guard(m_mutex);
 
         assert(m_shader);
@@ -270,7 +270,7 @@ namespace wmoge {
         request_update();
     }
 
-    bool Material::copy_state(std::size_t& version, ref_ptr<GfxTexture>* textures, ref_ptr<GfxSampler>* samplers, ref_ptr<Data>& data) {
+    bool Material::copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data) {
         std::lock_guard guard(m_mutex);
 
         if (version != m_version) {

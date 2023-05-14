@@ -46,7 +46,7 @@ namespace wmoge {
         }
     }
 
-    void RenderScene::add_object(ref_ptr<RenderObject> object) {
+    void RenderScene::add_object(Ref<RenderObject> object) {
         assert(object);
         assert(m_objects.find(object) == m_objects.end());
 
@@ -65,7 +65,7 @@ namespace wmoge {
         object->on_scene_enter();
     }
 
-    void RenderScene::remove_object(ref_ptr<RenderObject> object) {
+    void RenderScene::remove_object(Ref<RenderObject> object) {
         assert(object);
         assert(m_objects.find(object) != m_objects.end());
 
@@ -78,12 +78,12 @@ namespace wmoge {
         m_objects_dynamic.erase(std::find(m_objects_dynamic.begin(), m_objects_dynamic.end(), object.get()));
     }
 
-    void RenderScene::add_camera(ref_ptr<RenderCamera2d> camera) {
+    void RenderScene::add_camera(Ref<RenderCamera2d> camera) {
         add_object(camera.as<RenderObject>());
         m_cameras_2d.emplace(camera.get());
     }
 
-    void RenderScene::remove_camera(ref_ptr<RenderCamera2d> camera) {
+    void RenderScene::remove_camera(Ref<RenderCamera2d> camera) {
         remove_object(camera.as<RenderObject>());
         m_cameras_2d.erase(camera.get());
     }

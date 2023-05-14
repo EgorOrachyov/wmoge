@@ -87,13 +87,13 @@ namespace wmoge {
         WG_LOG_INFO("terminate glfw manager");
     }
 
-    ref_ptr<Window> GlfwWindowManager::primary_window() {
+    Ref<Window> GlfwWindowManager::primary_window() {
         std::lock_guard guard(m_mutex);
 
         return m_primary;
     }
 
-    ref_ptr<Window> GlfwWindowManager::create(const WindowInfo& window_info) {
+    Ref<Window> GlfwWindowManager::create(const WindowInfo& window_info) {
         WG_AUTO_PROFILE_GLFW("GlfwWindowManager::create");
 
         std::lock_guard guard(m_mutex);
@@ -144,7 +144,7 @@ namespace wmoge {
         return window;
     }
 
-    ref_ptr<Window> GlfwWindowManager::get(const StringId& window_id) {
+    Ref<Window> GlfwWindowManager::get(const StringId& window_id) {
         std::lock_guard guard(m_mutex);
 
         auto query = m_windows.find(window_id);
@@ -175,8 +175,8 @@ namespace wmoge {
         return ext;
     }
 
-    std::function<VkResult(VkInstance, ref_ptr<Window>, VkSurfaceKHR&)> GlfwWindowManager::factory() {
-        auto func = [this](VkInstance instance, ref_ptr<Window> window, VkSurfaceKHR& surface_khr) {
+    std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> GlfwWindowManager::factory() {
+        auto func = [this](VkInstance instance, Ref<Window> window, VkSurfaceKHR& surface_khr) {
             WG_AUTO_PROFILE_GLFW("GlfwWindowManager::glfwCreateWindowSurface");
 
             std::lock_guard guard(m_mutex);
@@ -198,7 +198,7 @@ namespace wmoge {
         m_input->update();
     }
 
-    ref_ptr<GlfwWindow> GlfwWindowManager::get(GLFWwindow* hnd) {
+    Ref<GlfwWindow> GlfwWindowManager::get(GLFWwindow* hnd) {
         std::lock_guard guard(m_mutex);
 
         auto query = m_windows_by_hnd.find(hnd);

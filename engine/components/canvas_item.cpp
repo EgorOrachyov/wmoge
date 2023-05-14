@@ -75,7 +75,7 @@ namespace wmoge {
         });
     }
 
-    const ref_ptr<Material>& CanvasItem::get_material() const {
+    const Ref<Material>& CanvasItem::get_material() const {
         return m_material;
     }
     Vec2f CanvasItem::get_pos_global() const {
@@ -164,7 +164,7 @@ namespace wmoge {
     void CanvasItem::configure_proxy(RenderCanvasItem* proxy) {
         assert(proxy);
         assert(!m_render_proxy.get());
-        m_render_proxy = ref_ptr<RenderCanvasItem>(proxy);
+        m_render_proxy = Ref<RenderCanvasItem>(proxy);
         m_render_proxy->set_tint(m_tint);
         m_render_proxy->set_visible(m_is_visible);
         m_render_proxy->set_material(m_material);

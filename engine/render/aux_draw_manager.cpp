@@ -67,7 +67,7 @@ namespace wmoge {
         m_constants   = gfx_driver->make_uniform_buffer(sizeof(AuxDrawConstants), GfxMemUsage::GpuLocal, SID("aux_constants"));
         m_render_pass = gfx_driver->make_render_pass(GfxRenderPassType::AuxDraw, SID("aux_draw"));
 
-        ref_ptr<GfxVertFormat> b0_Pos3Col3;
+        Ref<GfxVertFormat> b0_Pos3Col3;
         {
             GfxVertElements elements;
             elements.add_element(SID("pos"), GfxFormat::RGB32F, 0, offsetof(GfxVF_Pos3Col3, pos), sizeof(GfxVF_Pos3Col3));
@@ -75,7 +75,7 @@ namespace wmoge {
             b0_Pos3Col3 = gfx_driver->make_vert_format(elements, SID("b0_Pos3Col3"));
         }
 
-        ref_ptr<GfxVertFormat> b0_Pos2Uv2Col3;
+        Ref<GfxVertFormat> b0_Pos2Uv2Col3;
         {
             GfxVertElements elements;
             elements.add_element(SID("pos"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col3, pos), sizeof(GfxVF_Pos2Uv2Col3));
@@ -340,10 +340,10 @@ namespace wmoge {
         }
     }
 
-    void AuxDrawManager::set_window(const ref_ptr<Window>& window) {
+    void AuxDrawManager::set_window(const Ref<Window>& window) {
         m_window = window;
     }
-    void AuxDrawManager::set_font(const ref_ptr<Font>& font) {
+    void AuxDrawManager::set_font(const Ref<Font>& font) {
         m_debug_font = font;
     }
     void AuxDrawManager::set_projection(const Mat4x4f& projection) {

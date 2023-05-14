@@ -59,8 +59,8 @@ namespace wmoge {
         void on_scene_exit() override;
 
     private:
-        ref_ptr<PfxEffect>  m_effect;
-        ref_ptr<PfxEmitter> m_emitter;
+        Ref<PfxEffect>  m_effect;
+        Ref<PfxEmitter> m_emitter;
     };
 
 }// namespace wmoge

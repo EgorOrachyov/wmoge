@@ -96,20 +96,20 @@ namespace wmoge {
          *
          * @return True if generated all mips
          */
-        bool generate_mip_chain(std::vector<ref_ptr<Image>>& mips);
+        bool generate_mip_chain(std::vector<Ref<Image>>& mips);
 
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
         std::string to_string() override;
 
-        const ref_ptr<Data>& get_pixel_data() { return m_pixel_data; }
-        int                  get_width() { return m_width; }
-        int                  get_height() { return m_height; }
-        int                  get_channels() { return m_channels; }
-        int                  get_pixel_size() { return m_pixel_size; }
-        bool                 is_empty() { return !(m_width * m_height); }
-        bool                 is_not_empty() { return m_width * m_height; }
+        const Ref<Data>& get_pixel_data() { return m_pixel_data; }
+        int              get_width() { return m_width; }
+        int              get_height() { return m_height; }
+        int              get_channels() { return m_channels; }
+        int              get_pixel_size() { return m_pixel_size; }
+        bool             is_empty() { return !(m_width * m_height); }
+        bool             is_not_empty() { return m_width * m_height; }
 
         /**
          * @brief Returns max levels (mips including 0) count for specified image
@@ -134,11 +134,11 @@ namespace wmoge {
         static Size2i mip_size(int mip, int width, int height);
 
     private:
-        ref_ptr<Data> m_pixel_data;
-        int           m_width      = 0;
-        int           m_height     = 0;
-        int           m_channels   = 0;
-        int           m_pixel_size = 0;
+        Ref<Data> m_pixel_data;
+        int       m_width      = 0;
+        int       m_height     = 0;
+        int       m_channels   = 0;
+        int       m_pixel_size = 0;
     };
 
 }// namespace wmoge

@@ -59,11 +59,11 @@ namespace wmoge {
         Resource::copy_to(copy);
     }
 
-    void PfxEffect::add_component(ref_ptr<PfxComponent> component) {
+    void PfxEffect::add_component(Ref<PfxComponent> component) {
         assert(component);
         m_components.push_back(std::move(component));
     }
-    const ref_ptr<PfxComponent>& PfxEffect::get_component(int id) const {
+    const Ref<PfxComponent>& PfxEffect::get_component(int id) const {
         assert(id < m_components.size());
         return m_components[id];
     }

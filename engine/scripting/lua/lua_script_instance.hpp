@@ -40,7 +40,7 @@ namespace wmoge {
      */
     class LuaScriptInstance final : public ScriptInstance {
     public:
-        LuaScriptInstance(luabridge::LuaRef script_object, ref_ptr<class LuaScript> script, Object* object, lua_State* state);
+        LuaScriptInstance(luabridge::LuaRef script_object, Ref<class LuaScript> script, Object* object, lua_State* state);
         ~LuaScriptInstance() override;
 
         ScriptFunctionsMask get_mask() override;
@@ -53,12 +53,12 @@ namespace wmoge {
         void on_transform_updated() override;
         void on_update(float delta_time) override;
         void on_signal(const StringId& signal) override;
-        void on_input_mouse(const ref_ptr<EventMouse>& event) override;
-        void on_input_keyboard(const ref_ptr<EventKeyboard>& event) override;
-        void on_input_joystick(const ref_ptr<EventJoystick>& event) override;
-        void on_input_drop(const ref_ptr<EventDrop>& event) override;
-        void on_action(const ref_ptr<EventAction>& action) override;
-        void on_token(const ref_ptr<EventToken>& token) override;
+        void on_input_mouse(const Ref<EventMouse>& event) override;
+        void on_input_keyboard(const Ref<EventKeyboard>& event) override;
+        void on_input_joystick(const Ref<EventJoystick>& event) override;
+        void on_input_drop(const Ref<EventDrop>& event) override;
+        void on_action(const Ref<EventAction>& action) override;
+        void on_token(const Ref<EventToken>& token) override;
 
         int set(const StringId& property, const Var& value) override;
         int get(const StringId& property, Var& value) override;
@@ -67,13 +67,13 @@ namespace wmoge {
         luabridge::LuaRef& get_script_object() { return m_script_object; }
 
     private:
-        luabridge::LuaRef        m_script_object;
-        ref_ptr<class LuaScript> m_script;
-        Object*                  m_object = nullptr;
-        LuaScriptSystem*         m_system = nullptr;
-        lua_State*               m_state  = nullptr;
-        ScriptFunctionsMask      m_mask;
-        ScriptFunctionsMask      m_mask_failed;
+        luabridge::LuaRef    m_script_object;
+        Ref<class LuaScript> m_script;
+        Object*              m_object = nullptr;
+        LuaScriptSystem*     m_system = nullptr;
+        lua_State*           m_state  = nullptr;
+        ScriptFunctionsMask  m_mask;
+        ScriptFunctionsMask  m_mask_failed;
     };
 
 }// namespace wmoge

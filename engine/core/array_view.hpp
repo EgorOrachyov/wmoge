@@ -28,8 +28,11 @@
 #ifndef WMOGE_ARRAY_VIEW_HPP
 #define WMOGE_ARRAY_VIEW_HPP
 
+#include "svector.hpp"
+
 #include <cassert>
 #include <cstddef>
+#include <vector>
 
 namespace wmoge {
 
@@ -43,7 +46,10 @@ namespace wmoge {
     class ArrayView {
     public:
         ArrayView() = default;
-        ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}
+        explicit ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}
+        explicit ArrayView(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        template<std::size_t MinCapacity>
+        explicit ArrayView(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
 
         T& operator[](const int i) {
             assert(i < size());
@@ -56,10 +62,10 @@ namespace wmoge {
             return m_data[i];
         }
 
-        std::size_t size() const { return m_size; }
-        T*          data() { return m_data; }
-        const T*    data() const { return m_data; }
-        bool        empty() const { return !m_size; }
+        [[nodiscard]] std::size_t size() const { return m_size; }
+        [[nodiscard]] T*          data() { return m_data; }
+        [[nodiscard]] const T*    data() const { return m_data; }
+        [[nodiscard]] bool        empty() const { return !m_size; }
 
         const T* begin() const { return m_data; }
         const T* end() const { return m_data + m_size; }

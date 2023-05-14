@@ -44,7 +44,7 @@ namespace wmoge {
 
         ~RenderSpriteInstance() override = default;
 
-        void initialize(ref_ptr<Sprite> sprite, int animation, float speed_scale, bool playing);
+        void initialize(Ref<Sprite> sprite, int animation, float speed_scale, bool playing);
         void set_animation(int animation);
         void set_playing(bool playing);
 
@@ -59,13 +59,13 @@ namespace wmoge {
         void mark_dirty_geom();
 
     private:
-        ref_ptr<Sprite> m_sprite;
-        int             m_animation       = -1;
-        int             m_frame           = -1;
-        float           m_speed_scale     = 1.0f;
-        float           m_frame_accum     = 0.0f;
-        bool            m_playing         = false;
-        bool            m_dirty_geom_data = true;
+        Ref<Sprite> m_sprite;
+        int         m_animation       = -1;
+        int         m_frame           = -1;
+        float       m_speed_scale     = 1.0f;
+        float       m_frame_accum     = 0.0f;
+        bool        m_playing         = false;
+        bool        m_dirty_geom_data = true;
     };
 
 }// namespace wmoge

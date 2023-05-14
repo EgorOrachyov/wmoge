@@ -75,7 +75,7 @@ namespace wmoge {
 
 #define WG_LUA_MAP_CLASS(mapping, EngineClass)                                        \
     mapping[EngineClass::class_ptr_static()] = [](lua_State* state, Object* object) { \
-        return luabridge::LuaRef(state, Lua##EngineClass{ref_ptr<Object>(object)});   \
+        return luabridge::LuaRef(state, Lua##EngineClass{Ref<Object>(object)});       \
     }
 
 #define WG_LUA_CHECK_MSG(condition, message) \

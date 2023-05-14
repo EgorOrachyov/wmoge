@@ -42,7 +42,7 @@ namespace wmoge {
      */
     class PfxSpriteRenderer : public PfxRenderer {
     public:
-        PfxSpriteRenderer(ref_ptr<Material> material, int vert_buffer_size, int index_buffer_size, const StringId& name);
+        PfxSpriteRenderer(Ref<Material> material, int vert_buffer_size, int index_buffer_size, const StringId& name);
         ~PfxSpriteRenderer() override = default;
 
         void on_update_data(const PfxComponentRenderData& data) override;
@@ -50,14 +50,14 @@ namespace wmoge {
         bool need_render_dynamic() const override;
 
     private:
-        PfxComponentRenderData  m_data{};
-        ref_ptr<Material>       m_material;
-        ref_ptr<GfxVertBuffer>  m_vert_buffer;
-        ref_ptr<GfxIndexBuffer> m_index_buffer;
-        StringId                m_name;
-        DrawCmd                 m_draw_cmd;
-        DrawCmdSortingKey       m_cmd_key;
-        bool                    m_cmd_compiled = false;
+        PfxComponentRenderData m_data{};
+        Ref<Material>          m_material;
+        Ref<GfxVertBuffer>     m_vert_buffer;
+        Ref<GfxIndexBuffer>    m_index_buffer;
+        StringId               m_name;
+        DrawCmd                m_draw_cmd;
+        DrawCmdSortingKey      m_cmd_key;
+        bool                   m_cmd_compiled = false;
     };
 
 }// namespace wmoge

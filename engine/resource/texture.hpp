@@ -43,20 +43,20 @@ namespace wmoge {
     public:
         WG_OBJECT(Texture, Resource);
 
-        const std::vector<ref_ptr<Image>>& get_images() { return m_images; }
-        const ref_ptr<GfxTexture>&         get_texture() { return m_texture; }
-        const ref_ptr<GfxSampler>&         get_sampler() { return m_sampler; }
-        int                                get_width() { return m_width; }
-        int                                get_height() { return m_height; }
-        int                                get_depth() { return m_depth; }
-        int                                get_array_slices() { return m_array_slices; }
-        int                                get_mips() { return m_mips; }
-        GfxTex                             get_tex_type() { return m_tex_type; }
-        GfxFormat                          get_format() { return m_format; }
-        GfxMemUsage                        get_mem_usage() { return m_mem_usage; }
-        GfxTexUsages                       get_usages() { return m_usages; }
-        bool                               get_srgb() { return m_srgb; }
-        bool                               get_compression() { return m_compression; }
+        const std::vector<Ref<Image>>& get_images() { return m_images; }
+        const Ref<GfxTexture>&         get_texture() { return m_texture; }
+        const Ref<GfxSampler>&         get_sampler() { return m_sampler; }
+        int                            get_width() { return m_width; }
+        int                            get_height() { return m_height; }
+        int                            get_depth() { return m_depth; }
+        int                            get_array_slices() { return m_array_slices; }
+        int                            get_mips() { return m_mips; }
+        GfxTex                         get_tex_type() { return m_tex_type; }
+        GfxFormat                      get_format() { return m_format; }
+        GfxMemUsage                    get_mem_usage() { return m_mem_usage; }
+        GfxTexUsages                   get_usages() { return m_usages; }
+        bool                           get_srgb() { return m_srgb; }
+        bool                           get_compression() { return m_compression; }
 
         void copy_to(Resource& copy) override;
 
@@ -64,20 +64,20 @@ namespace wmoge {
         void load_sampler_from_import_options(const YamlTree& tree);
 
     protected:
-        std::vector<ref_ptr<Image>> m_images;
-        ref_ptr<GfxTexture>         m_texture;
-        ref_ptr<GfxSampler>         m_sampler;
-        int                         m_width        = 0;
-        int                         m_height       = 0;
-        int                         m_depth        = 0;
-        int                         m_array_slices = 0;
-        int                         m_mips         = 0;
-        GfxTex                      m_tex_type;
-        GfxFormat                   m_format;
-        GfxMemUsage                 m_mem_usage;
-        GfxTexUsages                m_usages;
-        bool                        m_srgb        = false;
-        bool                        m_compression = false;
+        std::vector<Ref<Image>> m_images;
+        Ref<GfxTexture>         m_texture;
+        Ref<GfxSampler>         m_sampler;
+        int                     m_width        = 0;
+        int                     m_height       = 0;
+        int                     m_depth        = 0;
+        int                     m_array_slices = 0;
+        int                     m_mips         = 0;
+        GfxTex                  m_tex_type;
+        GfxFormat               m_format;
+        GfxMemUsage             m_mem_usage;
+        GfxTexUsages            m_usages;
+        bool                    m_srgb        = false;
+        bool                    m_compression = false;
     };
 
     /**
@@ -88,7 +88,7 @@ namespace wmoge {
     public:
         WG_OBJECT(Texture2d, Texture);
 
-        void create(const ref_ptr<GfxTexture>& texture, const ref_ptr<GfxSampler>& sampler);
+        void create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
 
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;

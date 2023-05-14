@@ -116,7 +116,7 @@ namespace wmoge {
         return true;
     }
 
-    bool Image::generate_mip_chain(std::vector<ref_ptr<Image>>& mips) {
+    bool Image::generate_mip_chain(std::vector<Ref<Image>>& mips) {
         WG_AUTO_PROFILE_RESOURCE("Image::generate_mip_chain");
 
         mips.push_back(duplicate().cast<Image>());

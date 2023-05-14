@@ -54,7 +54,9 @@
 #include "core/string_utf.hpp"
 #include "core/string_utils.hpp"
 #include "core/task.hpp"
+#include "core/task_hnd.hpp"
 #include "core/task_manager.hpp"
+#include "core/task_parallel_for.hpp"
 #include "core/timer.hpp"
 #include "core/var.hpp"
 

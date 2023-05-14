@@ -82,12 +82,12 @@ namespace wmoge {
         virtual void on_transform_updated() {}
         virtual void on_update(float delta_time){};
         virtual void on_signal(const StringId& signal) {}
-        virtual void on_input_mouse(const ref_ptr<EventMouse>& event) {}
-        virtual void on_input_keyboard(const ref_ptr<EventKeyboard>& event) {}
-        virtual void on_input_joystick(const ref_ptr<EventJoystick>& event) {}
-        virtual void on_input_drop(const ref_ptr<EventDrop>& event) {}
-        virtual void on_action(const ref_ptr<EventAction>& action) {}
-        virtual void on_token(const ref_ptr<EventToken>& token) {}
+        virtual void on_input_mouse(const Ref<EventMouse>& event) {}
+        virtual void on_input_keyboard(const Ref<EventKeyboard>& event) {}
+        virtual void on_input_joystick(const Ref<EventJoystick>& event) {}
+        virtual void on_input_drop(const Ref<EventDrop>& event) {}
+        virtual void on_action(const Ref<EventAction>& action) {}
+        virtual void on_token(const Ref<EventToken>& token) {}
 
         virtual int set(const StringId& property, const Var& value) { return -2; }
         virtual int get(const StringId& property, Var& value) { return -2; }

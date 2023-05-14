@@ -60,12 +60,12 @@ namespace wmoge {
         return query != m_methods.end() ? &query->second : nullptr;
     }
 
-    ref_ptr<Object> Class::instantiate() const {
+    Ref<Object> Class::instantiate() const {
         if (!m_instantiate) {
             WG_LOG_ERROR("no function to instantiate " << name());
-            return ref_ptr<Object>();
+            return Ref<Object>();
         }
-        return ref_ptr<Object>(m_instantiate());
+        return Ref<Object>(m_instantiate());
     }
 
     bool Class::is_inherited_from(const StringId& name) const {

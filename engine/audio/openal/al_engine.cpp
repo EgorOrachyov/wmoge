@@ -72,7 +72,7 @@ namespace wmoge {
         WG_LOG_INFO("shutdown openal audio engine");
     }
 
-    ref_ptr<AudioPlayback> ALAudioEngine::make_playback(ref_ptr<AudioStream> stream, const StringId& bus, const StringId& name) {
+    Ref<AudioPlayback> ALAudioEngine::make_playback(Ref<AudioStream> stream, const StringId& bus, const StringId& name) {
         WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_playback");
 
         std::lock_guard guard(m_mutex);
@@ -83,16 +83,16 @@ namespace wmoge {
 
         if (!stream) {
             WG_LOG_ERROR("passed null stream to create playback " << name);
-            return ref_ptr<AudioPlayback>{};
+            return Ref<AudioPlayback>{};
         }
         if (m_bus.find(bus) == m_bus.end()) {
             WG_LOG_ERROR("no such bus to create playback " << bus);
-            return ref_ptr<AudioPlayback>{};
+            return Ref<AudioPlayback>{};
         }
 
         return make_ref<ALAudioPlayback>(std::move(stream), bus, name, *this);
     }
-    ref_ptr<AudioBus> ALAudioEngine::make_bus(const StringId& name) {
+    Ref<AudioBus> ALAudioEngine::make_bus(const StringId& name) {
         WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_bus");
 
         std::lock_guard guard(m_mutex);
@@ -102,19 +102,19 @@ namespace wmoge {
 
         if (name.empty()) {
             WG_LOG_ERROR("empty bus name is not allowed");
-            return ref_ptr<ALAudioBus>{};
+            return Ref<ALAudioBus>{};
         }
         if (m_bus.find(name) != m_bus.end()) {
             WG_LOG_ERROR("already have created bus with name " << name);
-            return ref_ptr<ALAudioBus>{};
+            return Ref<ALAudioBus>{};
         }
 
         return (m_bus[name] = make_ref<ALAudioBus>(name, *this)).as<AudioBus>();
     }
-    ref_ptr<AudioBus> ALAudioEngine::find_bus(const StringId& name) {
+    Ref<AudioBus> ALAudioEngine::find_bus(const StringId& name) {
         std::lock_guard guard(m_mutex);
         auto            query = m_bus.find(name);
-        return query != m_bus.end() ? query->second.as<AudioBus>() : ref_ptr<AudioBus>{};
+        return query != m_bus.end() ? query->second.as<AudioBus>() : Ref<AudioBus>{};
     }
     bool ALAudioEngine::has_bus(const StringId& name) {
         std::lock_guard guard(m_mutex);

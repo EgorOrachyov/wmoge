@@ -47,7 +47,7 @@ namespace wmoge {
     public:
         WG_EVENT(EventMouse, EventInput)
 
-        ref_ptr<Mouse>   mouse;
+        Ref<Mouse>       mouse;
         Point2f          position;
         Size2f           delta;
         InputModifiers   modifiers;
@@ -59,20 +59,20 @@ namespace wmoge {
     public:
         WG_EVENT(EventKeyboard, EventInput)
 
-        ref_ptr<Keyboard> keyboard;
-        InputModifiers    modifiers;
-        InputAction       action;
-        InputKeyboardKey  key;
-        std::string       text;
+        Ref<Keyboard>    keyboard;
+        InputModifiers   modifiers;
+        InputAction      action;
+        InputKeyboardKey key;
+        std::string      text;
     };
 
     class EventJoystick final : public EventInput {
     public:
         WG_EVENT(EventJoystick, EventInput)
 
-        ref_ptr<Joystick> joystick;
-        InputAction       action;
-        int               button;
+        Ref<Joystick> joystick;
+        InputAction   action;
+        int           button;
     };
 
     class EventDrop final : public EventInput {

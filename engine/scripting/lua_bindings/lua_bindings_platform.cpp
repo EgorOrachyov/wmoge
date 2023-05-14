@@ -57,8 +57,8 @@ namespace wmoge {
         auto* file_system = Engine::instance()->file_system();
 
         if (data.isInstance<LuaData>()) {
-            ref_ptr<Data> ret;
-            bool          status        = file_system->read_file(path.cast<std::string>(), ret);
+            Ref<Data> ret;
+            bool      status            = file_system->read_file(path.cast<std::string>(), ret);
             data.cast<LuaObject&>().ptr = ret;
             luabridge::LuaRef(state, file_system->exists(path.cast<std::string>())).push();
             return 1;

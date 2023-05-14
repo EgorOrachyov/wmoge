@@ -53,7 +53,7 @@ namespace wmoge {
         void init();
         void shutdown();
 
-        void               add_child(ref_ptr<SceneObject> object);
+        void               add_child(Ref<SceneObject> object);
         class SceneObject* get_child(int idx);
         class SceneObject* find_child(const StringId& name);
         const StringId&    get_name();
@@ -73,10 +73,10 @@ namespace wmoge {
         std::unique_ptr<PfxScene>       m_pfx_scene;
         std::unique_ptr<SystemScript>   m_system_script;
 
-        ref_ptr<SceneObject> m_root;
-        StringId             m_name;
-        float                m_time    = 0.0f;
-        float                m_time_dt = 0.0f;
+        Ref<SceneObject> m_root;
+        StringId         m_name;
+        float            m_time    = 0.0f;
+        float            m_time_dt = 0.0f;
     };
 
 }// namespace wmoge

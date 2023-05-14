@@ -58,7 +58,7 @@ namespace wmoge {
     };
 
     template<typename T, typename... TArgs>
-    ref_ptr<T> make_event(TArgs&&... args) {
+    Ref<T> make_event(TArgs&&... args) {
         return make_ref<T>(std::forward<TArgs>(args)...);
     }
 

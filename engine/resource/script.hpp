@@ -60,9 +60,9 @@ namespace wmoge {
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        virtual ref_ptr<ScriptInstance> attach_to(Object* object);
-        virtual bool                    has_property(const StringId& property);
-        virtual bool                    has_method(const StringId& method);
+        virtual Ref<ScriptInstance> attach_to(Object* object);
+        virtual bool                has_property(const StringId& property);
+        virtual bool                has_method(const StringId& method);
 
         ScriptFunctionsMask get_mask();
         const StringId&     get_language();

@@ -47,7 +47,7 @@ namespace wmoge {
     class ResourceLoaderAssimp final : public ResourceLoader {
     public:
         ~ResourceLoaderAssimp() override = default;
-        bool     load(const StringId& name, const ResourceMeta& meta, ref_ptr<Resource>& res) override;
+        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
         bool     can_load(const StringId& resource_type) override;
         StringId get_name() override;
 

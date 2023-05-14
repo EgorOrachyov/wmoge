@@ -57,13 +57,13 @@ namespace wmoge {
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        void add_animation(StringId animation, ref_ptr<Texture2d> texture);
+        void add_animation(StringId animation, Ref<Texture2d> texture);
         void add_animation_frame(int animation, const Vec4f& frame);
         void set_animation_speed(int animation, float speed);
         void set_animation_loop(int animation, bool loop);
 
         const fast_vector<Vec4f>& get_animation_frames(int animation);
-        const ref_ptr<Texture2d>& get_animation_texture(int animation);
+        const Ref<Texture2d>&     get_animation_texture(int animation);
         const Vec4f&              get_animation_frame(int animation, int frame);
         int                       get_animation_n_frames(int animation);
         float                     get_animation_speed(int animation);
@@ -77,7 +77,7 @@ namespace wmoge {
         struct Animation {
             StringId           name;
             fast_vector<Vec4f> frames;
-            ref_ptr<Texture2d> texture;
+            Ref<Texture2d>     texture;
             float              speed = 0.0f;
             bool               loop  = true;
         };

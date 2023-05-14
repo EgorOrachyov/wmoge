@@ -72,8 +72,8 @@ namespace wmoge {
         script->m_language = m_language;
     }
 
-    ref_ptr<ScriptInstance> Script::attach_to(Object* object) {
-        return ref_ptr<ScriptInstance>{};
+    Ref<ScriptInstance> Script::attach_to(Object* object) {
+        return Ref<ScriptInstance>{};
     }
     bool Script::has_property(const StringId& property) {
         return false;

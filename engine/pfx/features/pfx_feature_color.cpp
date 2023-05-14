@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    ref_ptr<PfxFeature> PfxFeatureColor::create() const {
+    Ref<PfxFeature> PfxFeatureColor::create() const {
         return make_ref<PfxFeatureColor>();
     }
     StringId PfxFeatureColor::get_feature_name() const {

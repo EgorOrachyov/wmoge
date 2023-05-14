@@ -35,7 +35,7 @@
 
 namespace wmoge {
 
-    ref_ptr<PfxFeature> PfxFeatureLifetime::create() const {
+    Ref<PfxFeature> PfxFeatureLifetime::create() const {
         return make_ref<PfxFeatureLifetime>();
     }
     StringId PfxFeatureLifetime::get_feature_name() const {

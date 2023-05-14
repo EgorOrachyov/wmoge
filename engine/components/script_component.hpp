@@ -42,8 +42,8 @@ namespace wmoge {
         WG_OBJECT(ScriptComponent, SceneComponent)
 
         /** @brief Attach script to this component making new script instance */
-        void                           attach(ref_ptr<class Script> script);
-        const ref_ptr<ScriptInstance>& get_script() const;
+        void                       attach(Ref<class Script> script);
+        const Ref<ScriptInstance>& get_script() const;
 
         bool on_load_from_yaml(const YamlConstNodeRef& node) override;
         void on_signal(const StringId& signal);
@@ -52,7 +52,7 @@ namespace wmoge {
         void on_transform_updated() override;
 
     private:
-        ref_ptr<ScriptInstance> m_script;
+        Ref<ScriptInstance> m_script;
     };
 
 }// namespace wmoge

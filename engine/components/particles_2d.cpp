@@ -87,7 +87,7 @@ namespace wmoge {
 
         get_scene()->get_pfx_scene()->remove_emitter(m_emitter);
 
-        get_queue()->push([scene = get_render_scene(), proxy = ref_ptr<RenderCanvasItem>(get_proxy())]() {
+        get_queue()->push([scene = get_render_scene(), proxy = Ref<RenderCanvasItem>(get_proxy())]() {
             scene->remove_object(proxy);
         });
 

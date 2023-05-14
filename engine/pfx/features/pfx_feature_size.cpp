@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    ref_ptr<PfxFeature> PfxFeatureSize::create() const {
+    Ref<PfxFeature> PfxFeatureSize::create() const {
         return make_ref<PfxFeatureSize>();
     }
     StringId PfxFeatureSize::get_feature_name() const {

@@ -44,11 +44,11 @@ namespace wmoge {
     public:
         ~AudioBus() override = default;
 
-        virtual void make_active()                                                 = 0;
-        virtual void make_inactive()                                               = 0;
-        virtual void set_gain_scale(float value)                                   = 0;
-        virtual void set_pitch_scale(float value)                                  = 0;
-        virtual void get_playbacks(std::vector<ref_ptr<AudioPlayback>>& playbacks) = 0;
+        virtual void make_active()                                             = 0;
+        virtual void make_inactive()                                           = 0;
+        virtual void set_gain_scale(float value)                               = 0;
+        virtual void set_pitch_scale(float value)                              = 0;
+        virtual void get_playbacks(std::vector<Ref<AudioPlayback>>& playbacks) = 0;
 
         const StringId& get_name() const { return m_name; }
 

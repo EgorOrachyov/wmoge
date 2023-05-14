@@ -47,13 +47,13 @@ namespace wmoge {
         void process() override;
 
     private:
-        fast_vector<ref_ptr<Event>> m_events;
-        ref_ptr<EventListener>      m_on_action;
-        ref_ptr<EventListener>      m_on_input_mouse;
-        ref_ptr<EventListener>      m_on_input_keyboard;
-        ref_ptr<EventListener>      m_on_input_joystick;
-        ref_ptr<EventListener>      m_on_input_drop;
-        ref_ptr<EventListener>      m_on_token;
+        fast_vector<Ref<Event>> m_events;
+        Ref<EventListener>      m_on_action;
+        Ref<EventListener>      m_on_input_mouse;
+        Ref<EventListener>      m_on_input_keyboard;
+        Ref<EventListener>      m_on_input_joystick;
+        Ref<EventListener>      m_on_input_drop;
+        Ref<EventListener>      m_on_token;
     };
 
 }// namespace wmoge

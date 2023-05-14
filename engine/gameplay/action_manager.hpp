@@ -54,7 +54,7 @@ namespace wmoge {
 
         void update();
 
-        bool add_action_map(ref_ptr<ActionMap> action_map);
+        bool add_action_map(Ref<ActionMap> action_map);
         bool load_action_map(const std::string& filepath);
         bool has_action_map(const StringId& name);
         void enable_action_map(const StringId& name);
@@ -68,11 +68,11 @@ namespace wmoge {
         ActionMap* get_action_map(const StringId& name);
 
     private:
-        std::vector<ref_ptr<ActionMap>> m_maps;
+        std::vector<Ref<ActionMap>> m_maps;
 
-        ref_ptr<EventListener> m_listener_mouse;
-        ref_ptr<EventListener> m_listener_keyboard;
-        ref_ptr<EventListener> m_listener_joystick;
+        Ref<EventListener> m_listener_mouse;
+        Ref<EventListener> m_listener_keyboard;
+        Ref<EventListener> m_listener_joystick;
     };
 
 }// namespace wmoge
