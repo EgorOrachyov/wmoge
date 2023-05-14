@@ -76,6 +76,7 @@ namespace wmoge {
         StringId        m_name;
         int             m_num_elements;
         int             m_batch_size;
+        int             m_num_tasks;
         std::atomic_int m_item_allocator{0};
         std::atomic_int m_tasks_finished{0};
         std::atomic_int m_tasks_failed{0};

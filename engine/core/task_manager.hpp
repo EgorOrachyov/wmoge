@@ -67,6 +67,8 @@ namespace wmoge {
 
         void submit(Ref<class TaskRuntime> task);
         void shutdown();
+        int  get_num_workers();
+        int  get_num_tasks();
 
     private:
         bool next_to_exec(Ref<class TaskRuntime>& task);

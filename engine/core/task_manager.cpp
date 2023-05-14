@@ -90,6 +90,15 @@ namespace wmoge {
         m_background_queue.clear();
     }
 
+    int TaskManager::get_num_workers() {
+        return int(m_workers.size());
+    }
+
+    int TaskManager::get_num_tasks() {
+        std::lock_guard guard(m_mutex);
+        return int(m_background_queue.size());
+    }
+
     bool TaskManager::next_to_exec(Ref<class TaskRuntime>& task) {
         std::unique_lock guard(m_mutex);
         m_cv.wait(guard, [this]() { return !m_background_queue.empty() || m_finished.load(); });

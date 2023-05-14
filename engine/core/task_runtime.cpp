@@ -90,6 +90,9 @@ namespace wmoge {
         m_task_manager = task_manager;
         m_num_elements = num_elements;
         m_batch_size   = batch_size;
+
+        int num_batches = Math::div_up(m_num_elements, m_batch_size);
+        m_num_tasks     = Math::min(num_batches, m_task_manager->get_num_workers());
     }
 
     void TaskRuntimeParallelFor::notify(AsyncStatus status, AsyncStateBase* invoker) {
@@ -119,15 +122,18 @@ namespace wmoge {
             int batch_size   = shared_state->m_batch_size;
             int num_elements = shared_state->m_num_elements;
 
-            int  item_id         = shared_state->m_item_allocator.fetch_add(1);
-            int  items_processed = 0;
-            bool has_error       = false;
+            int item_start = shared_state->m_item_allocator.fetch_add(batch_size);
+            int item_end   = item_start + batch_size;
 
-            while (item_id < num_elements && items_processed < batch_size) {
-                has_error = has_error || shared_state->m_runnable(context, item_id, num_elements) != 0;
+            bool has_error = false;
 
-                item_id = shared_state->m_item_allocator.fetch_add(1);
-                items_processed += 1;
+            while (item_start < num_elements) {
+                for (int item_id = item_start; item_id < num_elements && item_id < item_end; item_id += 1) {
+                    has_error = has_error || shared_state->m_runnable(context, item_id, num_elements) != 0;
+                }
+
+                item_start = shared_state->m_item_allocator.fetch_add(batch_size);
+                item_end   = item_start + batch_size;
             }
 
             if (has_error) {
@@ -136,17 +142,14 @@ namespace wmoge {
             }
 
             if (!has_error) {
-                int num_tasks      = Math::div_up(num_elements, batch_size);
                 int tasks_finished = shared_state->m_tasks_finished.fetch_add(1);
-                if (tasks_finished + 1 == num_tasks) shared_state->set_result(0);
+                if (tasks_finished + 1 == shared_state->m_num_tasks) shared_state->set_result(0);
             }
 
             return 0;
         };
 
-        int num_tasks = Math::div_up(m_num_elements, m_batch_size);
-
-        for (int i = 0; i < num_tasks; i++) {
+        for (int i = 0; i < m_num_tasks; i++) {
             auto job_name = SID(m_name.str() + "-" + StringUtils::from_int(i));
             auto job      = make_ref<TaskRuntime>(job_name, runnable_function, m_task_manager);
             job->submit();

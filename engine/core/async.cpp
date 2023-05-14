@@ -49,36 +49,32 @@ namespace wmoge {
             void notify(AsyncStatus status, AsyncStateBase* invoker) override {
                 WG_AUTO_PROFILE_CORE("AsyncStateJoin::notify");
 
-                bool do_ok   = false;
-                bool do_fail = false;
-                {
-                    std::lock_guard guard(m_mutex);
-                    assert(m_deps_to_wait > 0);
+                assert(m_deps_to_wait > 0);
 
-                    if (status == AsyncStatus::Ok) {
-                        assert(m_deps_ok < m_deps_to_wait);
-                        m_deps_ok += 1;
-                        do_ok = (m_deps_ok == m_deps_to_wait);
-                    }
-                    if (status == AsyncStatus::Failed) {
-                        assert(m_deps_failed < m_deps_to_wait);
-                        m_deps_failed += 1;
-                        do_fail = (m_deps_failed == 1);
+                if (status == AsyncStatus::Ok) {
+                    assert(m_deps_ok.load() < m_deps_to_wait);
+                    bool do_ok = (m_deps_ok.fetch_add(1) == m_deps_to_wait - 1);
+
+                    if (do_ok) {
+                        set_result(0);
                     }
                 }
 
-                if (do_ok) {
-                    set_result(0);
-                }
-                if (do_fail) {
-                    set_failed();
+                if (status == AsyncStatus::Failed) {
+                    assert(m_deps_failed.load() < m_deps_to_wait);
+                    m_deps_failed += 1;
+                    bool do_fail = (m_deps_failed.fetch_add(1) == 0);
+
+                    if (do_fail) {
+                        set_failed();
+                    }
                 }
             }
 
         private:
-            int m_deps_to_wait = 0;
-            int m_deps_ok      = 0;
-            int m_deps_failed  = 0;
+            int             m_deps_to_wait = 0;
+            std::atomic_int m_deps_ok{0};
+            std::atomic_int m_deps_failed{0};
         };
 
         auto state      = make_ref<AsyncStateJoin>(int(dependencies.size()));
