@@ -41,6 +41,7 @@
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "io/enum.hpp"
 #include "platform/application.hpp"
 #include "platform/file_system.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
@@ -92,20 +93,27 @@ namespace wmoge {
             return false;
         }
 
-        bool     log_to_out        = m_config_engine->get_bool(SID("engine.log_to_out"), true);
-        bool     log_to_file       = m_config_engine->get_bool(SID("engine.log_to_file"), true);
-        LogLevel log_to_out_level  = magic_enum::enum_cast<LogLevel>(m_config_engine->get_string(SID("engine.log_to_out_level"), "Info")).value();
-        LogLevel log_to_file_level = magic_enum::enum_cast<LogLevel>(m_config_engine->get_string(SID("engine.log_to_file_level"), "Info")).value();
+        const bool log_to_out     = m_config_engine->get_bool(SID("engine.log_to_out"), true);
+        const bool log_to_file    = m_config_engine->get_bool(SID("engine.log_to_file"), true);
+        const bool log_to_console = m_config_engine->get_bool(SID("engine.log_to_console"), true);
+
+        const auto log_to_out_level     = Enum::parse<LogLevel>(m_config_engine->get_string(SID("engine.log_to_out_level"), "Info"));
+        const auto log_to_file_level    = Enum::parse<LogLevel>(m_config_engine->get_string(SID("engine.log_to_file_level"), "Info"));
+        const auto log_to_console_level = Enum::parse<LogLevel>(m_config_engine->get_string(SID("engine.log_to_console_level"), "Info"));
 
         if (log_to_file) {
-            Log::instance()->listen(std::make_shared<LogListenerStream>("file", log_to_file_level));
+            m_log_listener_stream = std::make_shared<LogListenerStream>("file", log_to_file_level);
+            Log::instance()->listen(m_log_listener_stream);
             WG_LOG_INFO("attach file log listener");
         }
-
         if (log_to_out) {
-            Log::instance()->listen(std::make_shared<LogListenerStdout>("out", log_to_out_level));
+            m_log_listener_stdout = std::make_shared<LogListenerStdout>("out", log_to_out_level);
+            Log::instance()->listen(m_log_listener_stdout);
             WG_LOG_INFO("attach stdout log listener");
-            m_console->setup_log(log_to_out_level);
+        }
+        if (log_to_console) {
+            m_log_listener_console = std::make_shared<LogListenerConsole>(m_console.get(), log_to_console_level);
+            Log::instance()->listen(m_log_listener_console);
             WG_LOG_INFO("attach console log listener");
         }
 
@@ -322,7 +330,6 @@ namespace wmoge {
         m_task_manager.reset();
         m_event_manager.reset();
         m_resource_manager.reset();
-        m_console.reset();
 
         WG_LOG_INFO("shutdown engine systems");
 

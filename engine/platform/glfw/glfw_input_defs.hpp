@@ -36,6 +36,14 @@ namespace wmoge {
 
     class GlfwInputDefs {
     public:
+        static int gamepad_axes_count() {
+            return 6;
+        }
+
+        static int gamepad_buttons_count() {
+            return 15;
+        }
+
         static InputModifiers mods_mask(int mods) {
             InputModifiers mask;
 

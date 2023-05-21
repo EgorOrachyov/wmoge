@@ -31,9 +31,10 @@
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "io/enum.hpp"
+#include "io/yaml.hpp"
 #include "resource/resource_manager.hpp"
 
-#include <magic_enum.hpp>
 #include <sstream>
 
 namespace wmoge {
@@ -65,12 +66,12 @@ namespace wmoge {
         desc.min_lod        = min_lod;
         desc.max_lod        = max_lod;
         desc.max_anisotropy = max_anisotropy;
-        desc.min_flt        = magic_enum::enum_cast<GfxSampFlt>(min_flt).value();
-        desc.mag_flt        = magic_enum::enum_cast<GfxSampFlt>(mag_flt).value();
-        desc.u              = magic_enum::enum_cast<GfxSampAddress>(u).value();
-        desc.v              = magic_enum::enum_cast<GfxSampAddress>(v).value();
-        desc.w              = magic_enum::enum_cast<GfxSampAddress>(w).value();
-        desc.brd_clr        = magic_enum::enum_cast<GfxSampBrdClr>(brd_clr).value();
+        desc.min_flt        = Enum::parse<GfxSampFlt>(min_flt);
+        desc.mag_flt        = Enum::parse<GfxSampFlt>(mag_flt);
+        desc.u              = Enum::parse<GfxSampAddress>(u);
+        desc.v              = Enum::parse<GfxSampAddress>(v);
+        desc.w              = Enum::parse<GfxSampAddress>(w);
+        desc.brd_clr        = Enum::parse<GfxSampBrdClr>(brd_clr);
 
         std::stringstream sampler_name;
         sampler_name << min_flt << ":" << mag_flt << ","
@@ -132,12 +133,10 @@ namespace wmoge {
         bool        mipmaps  = false;
         int         channels = 4;
         std::string source_file;
-        std::string format;
 
         auto params = tree["params"];
         params["channels"] >> channels;
         params["source_file"] >> source_file;
-        params["format"] >> format;
         params["mipmaps"] >> mipmaps;
         params["compression"] >> m_compression;
         params["srgb"] >> m_srgb;
@@ -159,7 +158,7 @@ namespace wmoge {
         m_tex_type     = GfxTex::Tex2d;
         m_mem_usage    = GfxMemUsage::GpuLocal;
         m_usages.set(GfxTexUsageFlag::Sampling);
-        m_format = magic_enum::enum_cast<GfxFormat>(format).value();
+        m_format = Enum::parse<GfxFormat>(params["format"]);
 
         auto* gfx = Engine::instance()->gfx_driver();
         m_texture = gfx->make_texture_2d(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());

@@ -1,0 +1,32 @@
+name: console
+actions:
+  - action: cn_trigger
+    display_name: "open/close in-game debug console"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: F1
+  - action: cn_scroll_up
+    display_name: "scroll up"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: Up
+  - action: cn_scroll_down
+    display_name: "scroll down"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: Down
+  - action: cn_submit
+    display_name: "submit command"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: Enter
+  - action: cn_delete
+    display_name: "delete symbol"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: Backspace

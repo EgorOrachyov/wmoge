@@ -124,8 +124,7 @@ namespace wmoge {
             file_stream << "\"args\":";
             file_stream << "{";
             file_stream << R"("description":")" << entry.desc << "\",";
-            file_stream << R"("fun":")" << entry.mark->function.str() << "\",";
-            file_stream << R"("fun-sig":")" << entry.mark->function_sig.str() << "\"";
+            file_stream << R"("fun":")" << entry.mark->function.str() << "\"";
             file_stream << "}";
             file_stream << "}";
 
@@ -134,6 +133,8 @@ namespace wmoge {
 
         file_stream << "]}";
         file_stream.close();
+
+        WG_LOG_INFO("saved capture to " << m_file);
     }
 
     Profiler::Profiler() {
@@ -141,7 +142,7 @@ namespace wmoge {
     }
     void Profiler::set_enabled(bool value) {
         m_is_enabled.store(value);
-        WG_LOG_INFO("time profiler active is " << value);
+        WG_LOG_INFO("time profiler status is " << value);
     }
     void Profiler::start_capture(std::shared_ptr<ProfilerCapture> capture) {
         if (!is_enabled()) return;
@@ -158,7 +159,7 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
         if (m_capture) m_capture->add_entry(std::move(entry));
     }
-    void Profiler::add_tid(std::thread::id id, wmoge::StringId name) {
+    void Profiler::add_tid(std::thread::id id, StringId name) {
         std::lock_guard guard(m_mutex);
         m_tid_names[id] = std::move(name);
     }

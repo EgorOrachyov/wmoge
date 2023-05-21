@@ -29,7 +29,6 @@
 #define WMOGE_CONSOLE_HPP
 
 #include "core/fast_map.hpp"
-#include "core/log.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 #include "event/event_listener.hpp"
@@ -51,11 +50,11 @@ namespace wmoge {
     public:
         virtual ~ConsoleObject() = default;
 
-        const StringId&    get_name() const { return m_name; }
-        const std::string& get_help() const { return m_help; }
+        [[nodiscard]] const StringId&    get_name() const { return m_name; }
+        [[nodiscard]] const std::string& get_help() const { return m_help; }
 
-        virtual bool is_cmd() const { return false; }
-        virtual bool is_var() const { return false; }
+        [[nodiscard]] virtual bool is_cmd() const { return false; }
+        [[nodiscard]] virtual bool is_var() const { return false; }
 
     protected:
         friend class Console;
@@ -71,16 +70,16 @@ namespace wmoge {
     public:
         ~ConsoleVar() override = default;
 
-        const Var&                                         get_value() const { return m_value; }
-        const Var&                                         get_default() const { return m_default; }
-        const std::function<void(const Var&, const Var&)>& get_on_changed() const { return m_on_changed; }
-        bool                                               is_var() const override { return true; }
+        [[nodiscard]] const Var&                                         get_value() const { return m_value; }
+        [[nodiscard]] const Var&                                         get_default() const { return m_default; }
+        [[nodiscard]] const std::function<void(const Var&, const Var&)>& get_on_changed() const { return m_on_changed; }
+        [[nodiscard]] bool                                               is_var() const override { return true; }
 
         void change(Var new_value);
 
-        int         as_int() const;
-        float       as_float() const;
-        std::string as_string() const;
+        [[nodiscard]] int         as_int() const;
+        [[nodiscard]] float       as_float() const;
+        [[nodiscard]] std::string as_string() const;
 
     private:
         friend class Console;
@@ -97,8 +96,8 @@ namespace wmoge {
     public:
         ~ConsoleCmd() override = default;
 
-        const std::function<int(const std::vector<std::string>& args)>& get_func() const { return m_func; }
-        bool                                                            is_cmd() const override { return true; }
+        [[nodiscard]] const std::function<int(const std::vector<std::string>& args)>& get_func() const { return m_func; }
+        [[nodiscard]] bool                                                            is_cmd() const override { return true; }
 
     private:
         friend class Console;
@@ -154,7 +153,6 @@ namespace wmoge {
         void shutdown();
         void update();
         void render();
-        void setup_log(LogLevel level);
 
     private:
         void register_commands();
@@ -180,8 +178,8 @@ namespace wmoge {
         std::vector<std::string>       m_to_process;
         std::recursive_mutex           m_mutex;
 
-        std::shared_ptr<class LogListenerConsole> m_log_listener;
-        Ref<EventListener>                        m_listener_keyboard;
+        Ref<EventListener> m_actions_listener;
+        Ref<EventListener> m_keyboard_listener;
 
         Ref<Font> m_console_font;
         Color4f   m_color_back       = Color::from_hex4(0x000000ee);

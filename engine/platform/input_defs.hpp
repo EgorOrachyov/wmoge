@@ -32,6 +32,7 @@
 
 namespace wmoge {
 
+    /** @brief Supported device types */
     enum class InputDeviceType {
         Any      = 0,
         Mouse    = 1,
@@ -39,11 +40,13 @@ namespace wmoge {
         Joystick = 3
     };
 
+    /** @brief Device state (for joysticks,gamepads) */
     enum class InputDeviceState {
         Connected,
         Disconnected
     };
 
+    /** @brief Type of input actions */
     enum class InputAction : int {
         /** No or unknown input action */
         Unknown = 0,
@@ -63,6 +66,7 @@ namespace wmoge {
         State = 7
     };
 
+    /** @brief Input modifiers */
     enum class InputModifier : int {
         Shift    = 0,
         Alt      = 1,
@@ -73,12 +77,14 @@ namespace wmoge {
 
     using InputModifiers = Mask<InputModifier, 8>;
 
+    /** @brief Named mouse buttons */
     enum class InputMouseButton : int {
         Left    = 0,
         Right   = 1,
         Unknown = 0xffffff
     };
 
+    /** @brief Keyboard keys */
     enum class InputKeyboardKey : int {
         Space        = 0,
         Apostrophe   = 1,  /* ' */
@@ -167,6 +173,37 @@ namespace wmoge {
         F10          = 80,
         F11          = 91,
         F12          = 92,
+        Unknown      = 0xffffff
+    };
+
+    /** @brief Named gamepad buttons mappings (mostly glfw based) */
+    enum class InputGamepadButton : int {
+        A           = 0, /* cross */
+        B           = 1, /* sircle */
+        X           = 2, /* square */
+        Y           = 3, /* triangle */
+        LeftBumper  = 4,
+        RightBumper = 5,
+        Back        = 6,
+        Start       = 7,
+        Guide       = 8,
+        LeftThumb   = 9,
+        RightThumb  = 10,
+        DpadUp      = 11,
+        DpadRight   = 12,
+        DpadDown    = 13,
+        DpadLeft    = 14,
+        Unknown     = 0xffffff
+    };
+
+    /** @brief Named gamepad axis mappings (mostly glfw based) */
+    enum class InputGamepadAxis : int {
+        LeftX        = 0,
+        LeftY        = 1,
+        RightX       = 2,
+        RightY       = 3,
+        LeftTrigger  = 4,
+        RightTrigger = 5,
         Unknown      = 0xffffff
     };
 

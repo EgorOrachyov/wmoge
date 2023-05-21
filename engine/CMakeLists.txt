@@ -143,6 +143,7 @@ add_library(wmoge STATIC
         io/archive_memory.hpp
         io/compression.cpp
         io/compression.hpp
+        io/enum.hpp
         io/yaml.cpp
         io/yaml.hpp
         math/aabb.hpp

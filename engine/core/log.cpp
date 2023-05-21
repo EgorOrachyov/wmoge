@@ -74,7 +74,7 @@ namespace wmoge {
 
         std::stringstream output;
         output << "[" << m_name << "] "
-               << "[" << std::setw(7) << magic_enum::enum_name(entry.level) << "] "
+               << "[" << std::setw(8) << magic_enum::enum_name(entry.level) << "] "
                << "[" << std::setw(30) << std::filesystem::path(entry.file).filename().string() + ":" + std::to_string(entry.line) << "] "
                << entry.message << "\n";
 
@@ -104,7 +104,7 @@ namespace wmoge {
             return;
 
         m_stream << "[" << m_name << "] "
-                 << "[" << std::setw(7) << magic_enum::enum_name(entry.level) << "] "
+                 << "[" << std::setw(8) << magic_enum::enum_name(entry.level) << "] "
                  << "[" << std::setw(30) << std::filesystem::path(entry.file).filename().string() + ":" + std::to_string(entry.line) << "] "
                  << entry.message << "\n";
     }
@@ -117,7 +117,7 @@ namespace wmoge {
             return;
 
         std::stringstream output;
-        output << "[" << std::setw(7) << magic_enum::enum_name(entry.level) << "] "
+        output << "[" << std::setw(8) << magic_enum::enum_name(entry.level) << "] "
                << "[" << std::setw(30) << std::filesystem::path(entry.file).filename().string() + ":" + std::to_string(entry.line) << "] "
                << entry.message << "\n";
 

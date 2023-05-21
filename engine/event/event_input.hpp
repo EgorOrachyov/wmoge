@@ -75,6 +75,15 @@ namespace wmoge {
         int           button;
     };
 
+    class EventGamepad final : public EventInput {
+    public:
+        WG_EVENT(EventGamepad, EventInput)
+
+        Ref<Joystick> joystick;
+        InputAction   action;
+        int           button;
+    };
+
     class EventDrop final : public EventInput {
     public:
         WG_EVENT(EventDrop, EventInput);

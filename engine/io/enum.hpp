@@ -25,54 +25,46 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "resource_pak_fs.hpp"
+#ifndef WMOGE_ENUM_HPP
+#define WMOGE_ENUM_HPP
 
-#include "core/class.hpp"
-#include "core/engine.hpp"
-#include "debug/profiler.hpp"
 #include "io/yaml.hpp"
-#include "platform/file_system.hpp"
+
+#include <magic_enum.hpp>
 
 namespace wmoge {
 
-    ResourcePakFileSystem::ResourcePakFileSystem() {
-        m_file_system = Engine::instance()->file_system();
-    }
-    bool ResourcePakFileSystem::meta(const StringId& name, ResourceMeta& meta) {
-        WG_AUTO_PROFILE_RESOURCE("ResourcePakFileSystem::meta");
-
-        std::string               meta_file_path = name.str() + ".res";
-        std::vector<std::uint8_t> meta_file;
-
-        if (!m_file_system->read_file(meta_file_path, meta_file)) return false;
-
-        auto ryml_tree = Yaml::parse(meta_file);
-        auto deps      = ryml_tree["deps"];
-
-        meta.deps.reserve(deps.num_children());
-
-        for (auto entry = deps.first_child(); entry.valid(); entry = entry.next_sibling()) {
-            meta.deps.push_back(Yaml::read_sid(entry));
+    /**
+     * @class Enum
+     * @brief Utility-class to work with enums
+     */
+    class Enum {
+    public:
+        template<class T>
+        static T parse(const char* what) {
+            return magic_enum::enum_cast<T>(what).value();
         }
 
-        std::string class_name;
-        std::string loader_name;
-        ryml_tree["class"] >> class_name;
-        ryml_tree["loader"] >> loader_name;
+        template<class T>
+        static T parse(const std::string& what) {
+            return magic_enum::enum_cast<T>(what).value();
+        }
 
-        meta.resource_class = Class::class_ptr(SID(class_name));
-        meta.pak            = this;
-        meta.loader         = SID(loader_name);
-        meta.path_on_disk   = m_file_system->resolve(meta_file_path);
-        meta.import_options.emplace(std::move(ryml_tree));
+        template<class T>
+        static T parse(const YamlNodeRef& node) {
+            std::string value;
+            node >> value;
+            return magic_enum::enum_cast<T>(value.c_str()).value();
+        }
 
-        return true;
-    }
-    bool ResourcePakFileSystem::read_file(const std::string& path, Ref<Data>& data) {
-        return m_file_system->read_file(path, data);
-    }
-    bool ResourcePakFileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
-        return m_file_system->read_file(path, data);
-    }
+        template<class T>
+        static T parse(const YamlConstNodeRef& node) {
+            std::string value;
+            node >> value;
+            return magic_enum::enum_cast<T>(value.c_str()).value();
+        }
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_ENUM_HPP

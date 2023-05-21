@@ -136,6 +136,10 @@ namespace wmoge {
         ns = ns.deriveClass<LuaEventJoystick, LuaEventInput>("EventJoystick")
                      .endClass();
 
+        WG_LUA_MAP_CLASS(mapping, EventGamepad);
+        ns = ns.deriveClass<LuaEventGamepad, LuaEventInput>("EventGamepad")
+                     .endClass();
+
         WG_LUA_MAP_CLASS(mapping, EventDrop);
         ns = ns.deriveClass<LuaEventDrop, LuaEventInput>("EventDrop")
                      .endClass();

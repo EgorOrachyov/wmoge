@@ -43,7 +43,7 @@ namespace wmoge {
 
         m_mouse    = make_ref<GlfwMouse>();
         m_keyboard = make_ref<GlfwKeyboard>();
-        init_mappings();
+
         check_connected_joysticks();
     }
 
@@ -61,39 +61,6 @@ namespace wmoge {
         std::lock_guard guard(m_manager.mutex());
 
         return id < m_joysticks.size() ? m_joysticks[id] : nullptr;
-    }
-    int GlfwInput::joystick_mapping(const StringId& mapping) {
-        std::lock_guard guard(m_manager.mutex());
-
-        auto query = m_joystick_mappings.find(mapping);
-        return query != m_joystick_mappings.end() ? query->second : -1;
-    }
-
-    void GlfwInput::init_mappings() {
-        m_joystick_mappings[SID("ps4:square")]    = 0;
-        m_joystick_mappings[SID("ps4:cross")]     = 1;
-        m_joystick_mappings[SID("ps4:circle")]    = 2;
-        m_joystick_mappings[SID("ps4:triangle")]  = 3;
-        m_joystick_mappings[SID("ps4:l1")]        = 4;
-        m_joystick_mappings[SID("ps4:r1")]        = 5;
-        m_joystick_mappings[SID("ps4:l2")]        = 6;
-        m_joystick_mappings[SID("ps4:r2")]        = 7;
-        m_joystick_mappings[SID("ps4:share")]     = 8;
-        m_joystick_mappings[SID("ps4:options")]   = 9;
-        m_joystick_mappings[SID("ps4:l3")]        = 10;
-        m_joystick_mappings[SID("ps4:r3")]        = 11;
-        m_joystick_mappings[SID("ps4:ps")]        = 12;
-        m_joystick_mappings[SID("ps4:touchpad")]  = 13;
-        m_joystick_mappings[SID("ps4:up")]        = 14;
-        m_joystick_mappings[SID("ps4:right")]     = 15;
-        m_joystick_mappings[SID("ps4:down")]      = 16;
-        m_joystick_mappings[SID("ps4:left")]      = 17;
-        m_joystick_mappings[SID("ps4:axis:l3:h")] = 0;
-        m_joystick_mappings[SID("ps4:axis:l3:v")] = 1;
-        m_joystick_mappings[SID("ps4:axis:r3:h")] = 2;
-        m_joystick_mappings[SID("ps4:axis:r3:v")] = 3;
-        m_joystick_mappings[SID("ps4:axis:l2")]   = 4;
-        m_joystick_mappings[SID("ps4:axis:r2")]   = 5;
     }
 
     void GlfwInput::subscribe_window(GLFWwindow* window) {

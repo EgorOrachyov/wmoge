@@ -81,6 +81,18 @@ namespace wmoge {
         auto* cls = Class::register_class<EventJoystick>();
     }
 
+    std::string EventGamepad::to_string() {
+        std::stringstream ss;
+        ss << type_static()
+           << " : joystick=" << joystick->name()
+           << " action=" << static_cast<int>(action)
+           << " button=" << button;
+        return ss.str();
+    }
+    void EventGamepad::register_class() {
+        auto* cls = Class::register_class<EventGamepad>();
+    }
+
     std::string EventDrop::to_string() {
         std::stringstream ss;
         ss << type_static()

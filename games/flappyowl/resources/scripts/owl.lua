@@ -25,8 +25,10 @@ function Owl:on_scene_enter()
     self.feathers = self.parent:get("Particles2d")
 
     -- load and enable game action map for controls
-    wmoge.ActionManager.load_action_map("root://actions/action_map_owl.xml")
-    wmoge.ActionManager.enable_action_map(wmoge.StringId.new("owl"))
+    wmoge.ActionManager.load_action_map("root://actions/actionmap_console.yml")
+    wmoge.ActionManager.load_action_map("root://actions/actionmap_game.yml")
+    wmoge.ActionManager.enable_action_map(wmoge.StringId.new("console"))
+    wmoge.ActionManager.enable_action_map(wmoge.StringId.new("game"))
 end
 
 --[[ Go to dead state --]]
@@ -153,7 +155,7 @@ end
 
 --[[ On action jump or restart do something if can --]]
 function Owl:on_action(action)
-    if not self.is_dead and action.name.str == "jump" then
+    if not self.is_dead and action.name.str == "gm_jump" then
         self.speed = math.max(self.speed, 0)
         self.speed = self.speed + self.speed_initial
 
@@ -170,7 +172,7 @@ function Owl:on_action(action)
         self.parent:get("AudioSource2d"):play()
     end
 
-    if self.is_dead and action.name.str == "restart" then
+    if self.is_dead and action.name.str == "gm_restart" then
         local spatial = self.parent:get("Spatial2d")
         local transform = spatial:get_transform()
         local pos = transform.translation

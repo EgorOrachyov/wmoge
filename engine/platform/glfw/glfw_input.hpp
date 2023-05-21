@@ -28,8 +28,6 @@
 #ifndef WMOGE_GLFW_INPUT_HPP
 #define WMOGE_GLFW_INPUT_HPP
 
-#include <vector>
-
 #include "core/fast_map.hpp"
 #include "core/fast_vector.hpp"
 #include "platform/input.hpp"
@@ -39,6 +37,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include <vector>
+
 namespace wmoge {
 
     /**
@@ -47,18 +47,16 @@ namespace wmoge {
      */
     class GlfwInput final : public Input {
     public:
-        GlfwInput(class GlfwWindowManager& manager);
+        explicit GlfwInput(class GlfwWindowManager& manager);
         ~GlfwInput() override = default;
 
         Ref<Mouse>    mouse() override;
         Ref<Keyboard> keyboard() override;
         Ref<Joystick> joystick(int id) override;
-        int           joystick_mapping(const StringId& mapping) override;
 
     private:
         friend class GlfwWindowManager;
 
-        void              init_mappings();
         void              subscribe_window(GLFWwindow* window);
         void              update();
         void              check_connected_joysticks();
@@ -74,7 +72,6 @@ namespace wmoge {
         static void joystick_callback(int jid, int state);
 
     private:
-        fast_map<StringId, int>        m_joystick_mappings;
         fast_vector<Ref<GlfwJoystick>> m_joysticks;
         Ref<GlfwMouse>                 m_mouse;
         Ref<GlfwKeyboard>              m_keyboard;

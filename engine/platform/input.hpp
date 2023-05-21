@@ -28,11 +28,8 @@
 #ifndef WMOGE_INPUT_HPP
 #define WMOGE_INPUT_HPP
 
-#include "core/string_id.hpp"
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
-
-#include <unordered_map>
 
 namespace wmoge {
 
@@ -42,11 +39,10 @@ namespace wmoge {
      */
     class Input {
     public:
-        virtual ~Input()                                                = default;
-        virtual Ref<Mouse>    mouse()                                   = 0;
-        virtual Ref<Keyboard> keyboard()                                = 0;
-        virtual Ref<Joystick> joystick(int id)                          = 0;
-        virtual int           joystick_mapping(const StringId& mapping) = 0;
+        virtual ~Input()                       = default;
+        virtual Ref<Mouse>    mouse()          = 0;
+        virtual Ref<Keyboard> keyboard()       = 0;
+        virtual Ref<Joystick> joystick(int id) = 0;
     };
 
 }// namespace wmoge

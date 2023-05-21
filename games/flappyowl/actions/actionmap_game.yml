@@ -1,0 +1,22 @@
+name: game
+actions:
+  - action: gm_jump
+    display_name: "owl jump"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: Space
+      - device_type: Joystick
+        action: Press
+        joystick: 0
+        gamepad_button: A
+  - action: gm_restart
+    display_name: "restart game"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: Space
+      - device_type: Joystick
+        action: Press
+        joystick: 0
+        gamepad_button: A

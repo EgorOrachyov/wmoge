@@ -28,13 +28,13 @@
 #include "canvas_text.hpp"
 
 #include "core/engine.hpp"
+#include "io/enum.hpp"
+#include "io/yaml.hpp"
 #include "render/aux_draw_canvas.hpp"
 #include "render/objects/render_canvas_text.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
 #include "resource/resource_manager.hpp"
-
-#include <magic_enum.hpp>
 
 namespace wmoge {
 
@@ -101,7 +101,7 @@ namespace wmoge {
         }
 
         if (node.has_child("alignment")) {
-            m_alignment = magic_enum::enum_cast<FontTextAlignment>(Yaml::read_str(node["alignment"])).value();
+            m_alignment = Enum::parse<FontTextAlignment>(node["alignment"]);
         }
 
         return true;

@@ -53,6 +53,8 @@ namespace wmoge {
         int              joystick        = -1;
         int              joystick_button = -1;
         int              axis            = -1;
+        int              gamepad_button  = -1;
+        int              gamepad_axis    = -1;
         float            threshold       = 0.1f;
         float            direction       = 0.0f;
     };
@@ -63,9 +65,9 @@ namespace wmoge {
      */
     class ActionMapAction {
     public:
-        const StringId&                      get_name() const;
-        const StringId&                      get_display_name() const;
-        const fast_vector<ActionActivation>& get_activations() const;
+        [[nodiscard]] const StringId&                      get_name() const;
+        [[nodiscard]] const StringId&                      get_display_name() const;
+        [[nodiscard]] const fast_vector<ActionActivation>& get_activations() const;
 
     private:
         friend class ActionMap;
@@ -92,16 +94,17 @@ namespace wmoge {
          */
         bool load(const std::string& filepath);
         void rename(StringId new_name);
+        void enable();
+        void disable();
+        void add_action(const StringId& action_name, const StringId& display_name);
+        void add_action_activation(const StringId& action_name, const ActionActivation& activation);
+        void remove_action(const StringId& action_name);
 
-        const StringId&    get_name();
-        const std::string& get_path();
-        bool               is_active();
-
-        bool                   has_action(const StringId& action_name);
-        void                   add_action(const StringId& action_name, const StringId& display_name);
-        void                   add_action_activation(const StringId& action_name, const ActionActivation& activation);
-        void                   remove_action(const StringId& action_name);
-        const ActionMapAction* get_action(const StringId& action_name);
+        [[nodiscard]] const StringId&        get_name();
+        [[nodiscard]] const std::string&     get_path();
+        [[nodiscard]] bool                   is_active() const;
+        [[nodiscard]] bool                   has_action(const StringId& action_name);
+        [[nodiscard]] const ActionMapAction* get_action(const StringId& action_name);
 
     private:
         friend class ActionManager;

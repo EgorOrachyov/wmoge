@@ -26,11 +26,11 @@
 /**********************************************************************************/
 
 #include "glfw_input_devices.hpp"
-#include "glfw_input_defs.hpp"
 
 #include "core/engine.hpp"
 #include "event/event_input.hpp"
 #include "event/event_manager.hpp"
+#include "platform/glfw/glfw_input_defs.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -77,6 +77,15 @@ namespace wmoge {
 
         m_axes.resize(axes_count, 0.0f);
         m_buttons.resize(buttons_count, InputAction::Release);
+
+        if (glfwJoystickIsGamepad(HND)) {
+            m_is_gamepad   = true;
+            m_gamepad_name = SID(glfwGetGamepadName(HND));
+            m_gamepad_axes.resize(GlfwInputDefs::gamepad_axes_count(), 0.0f);
+            m_gamepad_buttons.resize(GlfwInputDefs::gamepad_buttons_count(), InputAction::Release);
+
+            WG_LOG_INFO("connected gamepad " << m_gamepad_name);
+        }
     }
 
     void GlfwJoystick::update() {
@@ -115,6 +124,44 @@ namespace wmoge {
                 button_held->action   = InputAction::PressHeld;
                 button_held->button   = i;
                 event_manager->dispatch(button_held);
+            }
+        }
+
+        if (m_is_gamepad) {
+            assert(glfwJoystickIsGamepad(m_hnd));
+
+            GLFWgamepadstate state;
+
+            if (glfwGetGamepadState(m_hnd, &state) != GLFW_TRUE) {
+                WG_LOG_ERROR("failed to get gamepad state " << m_gamepad_name);
+                return;
+            }
+
+            std::copy(state.axes, state.axes + GlfwInputDefs::gamepad_axes_count(), m_gamepad_axes.begin());
+
+            int gamepad_buttons_count = GlfwInputDefs::gamepad_buttons_count();
+
+            for (int i = 0; i < gamepad_buttons_count; i++) {
+                auto action = GlfwInputDefs::action(state.buttons[i]);
+
+                // Something changed, dispatch event
+                if (m_gamepad_buttons[i] != action) {
+                    auto button_update      = make_event<EventGamepad>();
+                    button_update->joystick = Ref<Joystick>(this);
+                    button_update->action   = action;
+                    button_update->button   = i;
+                    event_manager->dispatch(button_update);
+                    m_gamepad_buttons[i] = action;
+                }
+
+                // Handle press and held case
+                if (action == InputAction::Press || action == InputAction::Repeat) {
+                    auto button_held      = make_event<EventGamepad>();
+                    button_held->joystick = Ref<Joystick>(this);
+                    button_held->action   = InputAction::PressHeld;
+                    button_held->button   = i;
+                    event_manager->dispatch(button_held);
+                }
             }
         }
     }

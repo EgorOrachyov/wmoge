@@ -89,6 +89,7 @@
 #include "io/archive_file.hpp"
 #include "io/archive_memory.hpp"
 #include "io/compression.hpp"
+#include "io/enum.hpp"
 #include "io/yaml.hpp"
 
 #include "math/color.hpp"

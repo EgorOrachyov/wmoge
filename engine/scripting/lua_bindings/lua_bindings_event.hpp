@@ -88,6 +88,9 @@ namespace wmoge {
     struct LuaEventJoystick : public LuaEventInput {
     };
 
+    struct LuaEventGamepad : public LuaEventInput {
+    };
+
     struct LuaEventDrop : public LuaEventInput {
     };
 

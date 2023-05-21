@@ -32,6 +32,7 @@
 #include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
 #include "event/event.hpp"
+#include "event/event_action.hpp"
 #include "event/event_input.hpp"
 #include "event/event_manager.hpp"
 #include "math/math_utils.hpp"
@@ -139,20 +140,16 @@ namespace wmoge {
         }
     }
 
-    void Console::setup_log(LogLevel level) {
-        m_log_listener = std::make_shared<LogListenerConsole>(this, LogLevel::Info);
-        Log::instance()->listen(m_log_listener);
-    }
     void Console::init() {
         register_commands();
         load_settings();
 
-        m_listener_keyboard = make_listener<EventKeyboard>([this](const EventKeyboard& event) {
+        m_actions_listener = make_listener<EventAction>([this](const EventAction& event) {
             // Opening closing
             {
                 std::lock_guard guard(m_mutex);
 
-                if (event.action == InputAction::Press && event.key == InputKeyboardKey::F1) {
+                if (event.name == SID("cn_trigger")) {
                     if (m_state == ConsoleState::Closed || m_state == ConsoleState::Closing) {
                         m_current_speed = m_speed_open;
                         m_state         = ConsoleState::Opening;
@@ -172,22 +169,18 @@ namespace wmoge {
                 std::lock_guard guard(m_mutex);
 
                 if (m_state == ConsoleState::Open) {
-                    if (event.action == InputAction::Press && event.key == InputKeyboardKey::Backspace && !m_line.empty()) {
+                    if (event.name == SID("cn_delete") && !m_line.empty()) {
                         m_line.pop_back();
                         m_cursor_offset = m_console_font->get_string_size(m_line, m_text_size).x();
                         return true;
-                    } else if (event.action == InputAction::Text && !event.text.empty()) {
-                        m_line += event.text;
-                        m_cursor_offset = m_console_font->get_string_size(m_line, m_text_size).x();
-                        return true;
-                    } else if (event.action == InputAction::Press && event.key == InputKeyboardKey::Enter && !m_line.empty()) {
+                    } else if (event.name == SID("cn_submit") && !m_line.empty()) {
                         m_cursor_offset   = 0;
                         m_scroll_messages = 0;
                         std::swap(line_to_process, m_line);
-                    } else if (event.action == InputAction::Press && event.key == InputKeyboardKey::Up) {
+                    } else if (event.name == SID("cn_scroll_up")) {
                         m_scroll_messages = Math::max(0, Math::min(m_scroll_messages + 1, static_cast<int>(m_messages.size()) - m_max_to_display));
                         return true;
-                    } else if (event.action == InputAction::Press && event.key == InputKeyboardKey::Down) {
+                    } else if (event.name == SID("cn_scroll_down")) {
                         m_scroll_messages = Math::max(m_scroll_messages - 1, 0);
                         return true;
                     }
@@ -202,14 +195,30 @@ namespace wmoge {
             return false;
         });
 
-        Engine::instance()->event_manager()->subscribe(m_listener_keyboard);
+        m_keyboard_listener = make_listener<EventKeyboard>([this](const EventKeyboard& event) {
+            // Input
+            {
+                std::lock_guard guard(m_mutex);
+
+                if (m_state == ConsoleState::Open) {
+                    if (event.action == InputAction::Text && !event.text.empty()) {
+                        m_line += event.text;
+                        m_cursor_offset = m_console_font->get_string_size(m_line, m_text_size).x();
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        });
+
+        auto* event_manager = Engine::instance()->event_manager();
+        event_manager->subscribe(m_actions_listener);
+        event_manager->subscribe(m_keyboard_listener);
     }
     void Console::shutdown() {
-        if (m_log_listener) {
-            Log::instance()->remove(m_log_listener);
-            m_log_listener.reset();
-        }
-        m_listener_keyboard.reset();
+        m_actions_listener.reset();
+        m_keyboard_listener.reset();
         m_console_font.reset();
     }
     void Console::update() {

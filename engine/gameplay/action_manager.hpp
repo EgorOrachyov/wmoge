@@ -28,14 +28,12 @@
 #ifndef WMOGE_ACTION_MANAGER_HPP
 #define WMOGE_ACTION_MANAGER_HPP
 
+#include "core/fast_vector.hpp"
 #include "event/event.hpp"
-#include "event/event_listener.hpp"
-
 #include "event/event_action.hpp"
 #include "event/event_input.hpp"
-
+#include "event/event_listener.hpp"
 #include "gameplay/action_map.hpp"
-
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
 
@@ -54,25 +52,26 @@ namespace wmoge {
 
         void update();
 
-        bool add_action_map(Ref<ActionMap> action_map);
         bool load_action_map(const std::string& filepath);
+        bool add_action_map(Ref<ActionMap> action_map);
+        bool remove_action_map(const StringId& name);
         bool has_action_map(const StringId& name);
         void enable_action_map(const StringId& name);
         void disable_action_map(const StringId& name);
 
     private:
-        bool on_input_mouse(const EventMouse& event);
-        bool on_input_keyboard(const EventKeyboard& event);
-        bool on_input_joystick(const EventJoystick& event);
-
+        bool       on_input_mouse(const EventMouse& event);
+        bool       on_input_keyboard(const EventKeyboard& event);
+        bool       on_input_joystick(const EventJoystick& event);
+        bool       on_input_gamepad(const EventGamepad& event);
         ActionMap* get_action_map(const StringId& name);
 
     private:
-        std::vector<Ref<ActionMap>> m_maps;
-
-        Ref<EventListener> m_listener_mouse;
-        Ref<EventListener> m_listener_keyboard;
-        Ref<EventListener> m_listener_joystick;
+        fast_vector<Ref<ActionMap>> m_maps;
+        Ref<EventListener>          m_listener_mouse;
+        Ref<EventListener>          m_listener_keyboard;
+        Ref<EventListener>          m_listener_joystick;
+        Ref<EventListener>          m_listener_gamepad;
     };
 
 }// namespace wmoge

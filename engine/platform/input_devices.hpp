@@ -80,17 +80,25 @@ namespace wmoge {
     class Joystick : public InputDevice {
     public:
         ~Joystick() override = default;
-        const StringId&                 guid() const { return m_guid; }
         const std::vector<float>&       axes_states() const { return m_axes; }
         const std::vector<InputAction>& buttons_states() const { return m_buttons; }
+        const std::vector<float>&       gamepad_axes_states() const { return m_gamepad_axes; }
+        const std::vector<InputAction>& gamepad_buttons_states() const { return m_gamepad_buttons; }
+        const StringId&                 gamepad_name() const { return m_gamepad_name; }
+        const StringId&                 guid() const { return m_guid; }
         int                             id() const { return m_id; }
+        bool                            is_gamepad() const { return m_is_gamepad; }
         InputDeviceType                 device_type() const override { return InputDeviceType::Joystick; }
 
     protected:
         std::vector<InputAction> m_buttons;
         std::vector<float>       m_axes;
+        std::vector<InputAction> m_gamepad_buttons;
+        std::vector<float>       m_gamepad_axes;
+        StringId                 m_gamepad_name;
         StringId                 m_guid;
-        int                      m_id = -1;
+        int                      m_id         = -1;
+        bool                     m_is_gamepad = false;
     };
 
 }// namespace wmoge

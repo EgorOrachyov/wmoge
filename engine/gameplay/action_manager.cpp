@@ -43,10 +43,12 @@ namespace wmoge {
         m_listener_mouse    = make_listener<EventMouse>([this](const EventMouse& event) { return on_input_mouse(event); });
         m_listener_keyboard = make_listener<EventKeyboard>([this](const EventKeyboard& event) { return on_input_keyboard(event); });
         m_listener_joystick = make_listener<EventJoystick>([this](const EventJoystick& event) { return on_input_joystick(event); });
+        m_listener_gamepad  = make_listener<EventGamepad>([this](const EventGamepad& event) { return on_input_gamepad(event); });
 
         event_manager->subscribe(m_listener_mouse);
         event_manager->subscribe(m_listener_keyboard);
         event_manager->subscribe(m_listener_joystick);
+        event_manager->subscribe(m_listener_gamepad);
     }
     ActionManager::~ActionManager() {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::~ActionManager");
@@ -57,6 +59,7 @@ namespace wmoge {
         event_manager->unsubscribe(m_listener_mouse);
         event_manager->unsubscribe(m_listener_keyboard);
         event_manager->unsubscribe(m_listener_joystick);
+        event_manager->unsubscribe(m_listener_gamepad);
     }
 
     void ActionManager::update() {
@@ -76,24 +79,29 @@ namespace wmoge {
                 const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
 
                 for (const ActionActivation& activation : action_activations) {
-                    if (activation.device_type == InputDeviceType::Joystick &&
-                        activation.axis >= 0 &&
-                        activation.joystick >= 0) {
+                    if (activation.device_type != InputDeviceType::Joystick) {
+                        continue;
+                    }
+                    if (activation.joystick <= 0) {
+                        continue;
+                    }
+                    if (activation.axis < 0 && activation.gamepad_axis < 0) {
+                        continue;
+                    }
 
-                        Ref<Joystick> joystick = input->joystick(activation.joystick);
-                        if (joystick && joystick->state() == InputDeviceState::Connected) {
-                            const auto& axes_states = joystick->axes_states();
+                    const Ref<Joystick> joystick = input->joystick(activation.joystick);
 
-                            if (activation.axis < axes_states.size() &&
-                                (activation.direction * axes_states[activation.axis]) >= activation.threshold) {
+                    if (joystick && joystick->state() == InputDeviceState::Connected) {
+                        const bool  gamepad_axis = activation.gamepad_axis >= 0;
+                        const int   axis_id      = gamepad_axis ? activation.gamepad_axis : activation.axis;
+                        const auto& axis_states  = gamepad_axis ? joystick->gamepad_axes_states() : joystick->axes_states();
 
-                                Ref<EventAction> event_action = make_event<EventAction>();
-                                event_action->name            = action_name;
-                                event_action->strength        = Math::clamp(Math::abs(axes_states[activation.axis]), 0.0f, 1.0f);
-
-                                event_manager->dispatch(event_action.as<Event>());
-                                break;
-                            }
+                        if (axis_id < axis_states.size() && (activation.direction * axis_states[axis_id]) >= activation.threshold) {
+                            Ref<EventAction> event_action = make_event<EventAction>();
+                            event_action->name            = action_name;
+                            event_action->strength        = Math::clamp(Math::abs(axis_states[axis_id]), 0.0f, 1.0f);
+                            event_manager->dispatch(event_action.as<Event>());
+                            break;
                         }
                     }
                 }
@@ -101,6 +109,22 @@ namespace wmoge {
         }
     }
 
+    bool ActionManager::load_action_map(const std::string& filepath) {
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load_action_map");
+
+        Ref<ActionMap> action_map = make_ref<ActionMap>();
+
+        if (!action_map->load(filepath)) {
+            WG_LOG_ERROR("failed to load action map " << filepath);
+            return false;
+        }
+
+        if (has_action_map(action_map->get_name())) {
+            remove_action_map(action_map->get_name());
+        }
+
+        return add_action_map(std::move(action_map));
+    }
     bool ActionManager::add_action_map(Ref<ActionMap> action_map) {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::add_action_map");
 
@@ -116,17 +140,11 @@ namespace wmoge {
         m_maps.push_back(std::move(action_map));
         return true;
     }
-    bool ActionManager::load_action_map(const std::string& filepath) {
-        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load_action_map");
-
-        Ref<ActionMap> action_map = make_ref<ActionMap>();
-
-        if (!action_map->load(filepath)) {
-            WG_LOG_ERROR("failed to load action map " << filepath);
-            return false;
-        }
-
-        return add_action_map(std::move(action_map));
+    bool ActionManager::remove_action_map(const StringId& name) {
+        auto query = std::find_if(m_maps.begin(), m_maps.end(), [&](auto& map) { return map->get_name() == name; });
+        auto found = query != m_maps.end();
+        m_maps.erase(query);
+        return found;
     }
     bool ActionManager::has_action_map(const StringId& name) {
         return get_action_map(name) != nullptr;
@@ -139,7 +157,7 @@ namespace wmoge {
             return;
         }
 
-        map->m_is_active = true;
+        map->enable();
     }
     void ActionManager::disable_action_map(const StringId& name) {
         ActionMap* map = get_action_map(name);
@@ -149,7 +167,7 @@ namespace wmoge {
             return;
         }
 
-        map->m_is_active = false;
+        map->disable();
     }
 
     bool ActionManager::on_input_mouse(const EventMouse& event) {
@@ -234,6 +252,39 @@ namespace wmoge {
                     if (activation.device_type == InputDeviceType::Joystick &&
                         activation.joystick == event.joystick->id() &&
                         activation.joystick_button == event.button &&
+                        activation.action == event.action) {
+
+                        Ref<EventAction> event_action = make_event<EventAction>();
+                        event_action->name            = action_name;
+                        event_action->strength        = 1.0f;
+
+                        event_manager->dispatch(event_action.as<Event>());
+                        break;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    bool ActionManager::on_input_gamepad(const EventGamepad& event) {
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::on_input_gamepad");
+
+        auto* engine        = Engine::instance();
+        auto* event_manager = engine->event_manager();
+
+        for (const auto& action_map : m_maps) {
+            if (!action_map->is_active()) continue;
+
+            for (const auto& entry : action_map->m_actions) {
+                const ActionMapAction&               action_map_action  = entry.second;
+                const StringId&                      action_name        = action_map_action.get_name();
+                const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
+
+                for (const ActionActivation& activation : action_activations) {
+                    if (activation.device_type == InputDeviceType::Joystick &&
+                        activation.joystick == event.joystick->id() &&
+                        activation.gamepad_button == event.button &&
                         activation.action == event.action) {
 
                         Ref<EventAction> event_action = make_event<EventAction>();
