@@ -61,6 +61,7 @@ namespace wmoge {
         VkImageView   rt_view(int slice, int mip) const { return m_rt_views[slice * m_mips_count + mip]; }
         VkImageLayout primary_layout() const { return m_primary_layout; }
         VkImageLayout current_layout() const { return m_current_layout; }
+        bool          has_rt_views() const { return !m_rt_views.empty(); }
 
     private:
         void init_image();

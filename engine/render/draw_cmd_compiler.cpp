@@ -65,7 +65,6 @@ namespace wmoge {
 
         GfxPipelineState pipeline_state{};
         pipeline_state.shader      = variant->get_gfx_shader();
-        pipeline_state.pass        = m_render_scene->get_pipeline()->get_pass(DrawPass::Overlay2dPass)->get_gfx_pass();
         pipeline_state.vert_format = Ref<GfxVertFormat>(primitive.vert_format);
         pipeline_state.prim_type   = primitive.prim_type;
         pipeline_state.poly_mode   = shader->get_poly_mode();

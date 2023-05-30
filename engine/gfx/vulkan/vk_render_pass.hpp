@@ -51,17 +51,17 @@ namespace wmoge {
     };
 
     /**
-     * @class VKRenderPassHnd
-     * @brief Raii wrapper for VkRenderPass object
+     * @class VKRenderPass
+     * @brief Vulkan single render pass implementation required for PSO and drawing
      */
-    class VKRenderPassHnd : public VKResource<GfxResource> {
+    class VKRenderPass : public VKResource<GfxResource> {
     public:
-        VKRenderPassHnd(VkRenderPass render_pass, int color_targets, bool has_depth_stencil, class VKDriver& driver);
-        ~VKRenderPassHnd() override;
+        VKRenderPass(VkRenderPass render_pass, int color_targets, bool has_depth_stencil, const StringId& name, class VKDriver& driver);
+        ~VKRenderPass() override;
 
         VkRenderPass render_pass() const { return m_render_pass; }
-        bool         has_depth_stencil() const { return m_has_depth_stencil; }
         int          color_targets_count() const { return m_color_targets_count; }
+        bool         has_depth_stencil() const { return m_has_depth_stencil; }
 
     private:
         VkRenderPass m_render_pass         = VK_NULL_HANDLE;
@@ -73,10 +73,10 @@ namespace wmoge {
      * @class VKFramebufferHnd
      * @brief Raii wrapper for VkFramebuffer object
      */
-    class VKFramebufferHnd : public VKResource<GfxResource> {
+    class VKFramebufferObject : public VKResource<GfxResource> {
     public:
-        VKFramebufferHnd(VkFramebuffer framebuffer, class VKDriver& driver);
-        ~VKFramebufferHnd() override;
+        VKFramebufferObject(VkFramebuffer framebuffer, class VKDriver& driver);
+        ~VKFramebufferObject() override;
 
         VkFramebuffer framebuffer() const { return m_framebuffer; }
 
@@ -85,53 +85,46 @@ namespace wmoge {
     };
 
     /**
-     * @class VKRenderPass
-     * @brief Vulkan single render pass implementation required for PSO and drawing
+     * @class VKRenderPassBinder
+     * @brief Binds color targets to prepare render pass and frame buffer
      */
-    class VKRenderPass : public VKResource<GfxRenderPass> {
+    class VKRenderPassBinder {
     public:
-        VKRenderPass(GfxRenderPassType pass, const StringId& name, class VKDriver& driver);
-        ~VKRenderPass() override;
+        explicit VKRenderPassBinder(class VKDriver& driver);
+        ~VKRenderPassBinder() = default;
 
         void bind_target(const Ref<VKWindow>& window);
         void bind_color_target(const Ref<VKTexture>& texture, int target, int mip, int slice);
         void bind_depth_target(const Ref<VKTexture>& texture, int mip, int slice);
         void clear_color(int target);
-        void clear_depth_stencil();
+        void clear_depth();
+        void clear_stencil();
+
+        void start(const StringId& name);
         void validate();
+        void finish();
 
-        Ref<VKRenderPassHnd>  render_pass() const { return m_render_pass; }
-        Ref<VKFramebufferHnd> framebuffer() const { return m_window ? m_window_framebuffers[m_window->current()] : m_framebuffer; }
-        int                   width() const { return m_size.width; }
-        int                   height() const { return m_size.height; }
-        int                   version() const { return m_version; }
-        int                   color_targets_count() const { return m_render_pass ? m_render_pass->color_targets_count() : 0; }
-        bool                  has_depth_stencil() const { return m_render_pass && m_render_pass->has_depth_stencil(); }
+        [[nodiscard]] const Ref<VKRenderPass>&        render_pass() const { return m_current_render_pass; }
+        [[nodiscard]] const Ref<VKFramebufferObject>& framebuffer() const { return m_current_framebuffer; }
+        [[nodiscard]] int                             width() const { return m_current_size[0]; }
+        [[nodiscard]] int                             height() const { return m_current_size[1]; }
 
     private:
-        void init_render_pass();
-        void init_framebuffer();
-        void release_render_pass();
-        void release_framebuffer();
+        void prepare_render_pass();
+        void prepare_framebuffer();
 
     private:
-        std::array<VKTargetInfo, GfxLimits::MAX_COLOR_TARGETS>       m_color_targets{};
-        std::array<VkFormat, GfxLimits::MAX_COLOR_TARGETS>           m_color_formats{};
-        std::array<VkAttachmentLoadOp, GfxLimits::MAX_COLOR_TARGETS> m_color_op{};
-        VKTargetInfo                                                 m_depth_stencil_target{};
-        VkFormat                                                     m_depth_stencil_format{};
-        VkAttachmentLoadOp                                           m_depth_stencil_op{};
-        Ref<VKWindow>                                                m_window;
+        std::array<VKTargetInfo, GfxLimits::MAX_COLOR_TARGETS> m_color_targets{};
+        VKTargetInfo                                           m_depth_stencil_target{};
+        Ref<VKWindow>                                          m_window;
 
-        VkExtent2D                         m_size{};
-        Ref<VKRenderPassHnd>               m_render_pass;
-        Ref<VKFramebufferHnd>              m_framebuffer;
-        fast_vector<Ref<VKFramebufferHnd>> m_window_framebuffers;
+        GfxRenderPassDesc        m_current_pass_desc{};
+        Ref<VKRenderPass>        m_current_render_pass{};
+        Ref<VKFramebufferObject> m_current_framebuffer{};
+        Size2i                   m_current_size{};
+        StringId                 m_current_name{};
 
-        bool m_is_pass_dirty = true;
-        bool m_is_fb_dirty   = true;
-        int  m_version       = -1;
-        int  m_fb_version    = -1;
+        class VKDriver& m_driver;
     };
 
 }// namespace wmoge

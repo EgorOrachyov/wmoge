@@ -36,14 +36,14 @@
 namespace wmoge {
 
     /** @brief Status of the shader */
-    enum class GfxShaderStatus {
+    enum class GfxShaderStatus : int {
         Compiling,
         Compiled,
         Failed
     };
 
     /** @brief Status of the gfx pipeline */
-    enum class GfxPipelineStatus {
+    enum class GfxPipelineStatus : int {
         Default,
         Creating,
         Created,
@@ -51,13 +51,13 @@ namespace wmoge {
     };
 
     /** @brief Type of elements in index buffer */
-    enum class GfxIndexType {
+    enum class GfxIndexType : int {
         Uint32,
         Uint16
     };
 
     /** @brief Gfx memory usage */
-    enum class GfxMemUsage {
+    enum class GfxMemUsage : int {
         /** Cpu resident buffer (slow), which can be used on GPU as well */
         CpuVisibleGpu,
         /** Gpu resident buffer (good), which can be mapped on CPU for frequent updates */
@@ -69,14 +69,14 @@ namespace wmoge {
     };
 
     /** @brief Texture type */
-    enum class GfxTex {
+    enum class GfxTex : int {
         Tex2d,
         Tex2dArray,
         TexCube
     };
 
     /** @brief Texture usage */
-    enum class GfxTexUsageFlag {
+    enum class GfxTexUsageFlag : int {
         /** Texture can be used as render target depth-stencil attachment */
         DepthStencilTarget = 1,
         /** Texture can be used as render target depth attachment */
@@ -91,7 +91,7 @@ namespace wmoge {
     using GfxTexUsages = Mask<GfxTexUsageFlag, 8>;
 
     /** @brief Face id in cube map texture */
-    enum class GfxTexCubeFace {
+    enum class GfxTexCubeFace : int {
         PositiveX = 0,
         NegativeX = 1,
         PositiveY = 2,
@@ -101,7 +101,7 @@ namespace wmoge {
     };
 
     /** @brief Formats used to specify internal storage format */
-    enum class GfxFormat {
+    enum class GfxFormat : int {
         R8,
         R8_SNORM,
         R16,
@@ -137,21 +137,21 @@ namespace wmoge {
     };
 
     /** @brief Types of the geometry formed by input vertex data */
-    enum class GfxPrimType {
+    enum class GfxPrimType : int {
         Triangles,
         Lines,
         Points
     };
 
     /** @brief How primitives rasterized */
-    enum class GfxPolyMode {
+    enum class GfxPolyMode : int {
         Fill,
         Line,
         Point
     };
 
     /** @brief Which sides of polygons are culled */
-    enum class GfxPolyCullMode {
+    enum class GfxPolyCullMode : int {
         Disabled,
         Front,
         Back,
@@ -159,13 +159,13 @@ namespace wmoge {
     };
 
     /** @brief How front of the primitive is defined */
-    enum class GfxPolyFrontFace {
+    enum class GfxPolyFrontFace : int {
         Clockwise,
         CounterClockwise
     };
 
     /** @brief Compare function */
-    enum class GfxCompFunc {
+    enum class GfxCompFunc : int {
         Never,
         Less,
         Equal,
@@ -177,7 +177,7 @@ namespace wmoge {
     };
 
     /** @brief Operation */
-    enum class GfxOp {
+    enum class GfxOp : int {
         Keep,
         Zero,
         Replace,
@@ -187,7 +187,7 @@ namespace wmoge {
     };
 
     /** @brief Blend factor */
-    enum class GfxBlendFac {
+    enum class GfxBlendFac : int {
         /** = 0 */
         Zero,
         /** = 1 */
@@ -211,7 +211,7 @@ namespace wmoge {
     };
 
     /** @brief Blend operation */
-    enum class GfxBlendOp {
+    enum class GfxBlendOp : int {
         /** Fragment color added to the color buffer */
         Add,
         /** Fragment color subtracted from the color buffer */
@@ -224,7 +224,7 @@ namespace wmoge {
         Max
     };
 
-    enum class GfxSampFlt {
+    enum class GfxSampFlt : int {
         /** @brief Returns the value of the texture element that is nearest */
         Nearest,
         /** @brief Returns the weighted average of the four texture elements
@@ -245,7 +245,7 @@ namespace wmoge {
     };
 
     /** @brief Sampler address mode */
-    enum class GfxSampAddress {
+    enum class GfxSampAddress : int {
         Repeat,
         MirroredRepeat,
         ClampToEdge,
@@ -254,16 +254,15 @@ namespace wmoge {
     };
 
     /** @brief Sampler border color */
-    enum class GfxSampBrdClr {
+    enum class GfxSampBrdClr : int {
         Black,
         White
     };
 
-    /** @brief Enumerates all possible gfx render passes */
-    enum class GfxRenderPassType {
-        Default,
-        DebugDraw,
-        AuxDraw
+    /** @brief Option on render target in render pass */
+    enum class GfxRtOp : int {
+        LoadStore,
+        ClearStore
     };
 
     /** @brief How to bind resource to gfx pipeline */
@@ -274,8 +273,6 @@ namespace wmoge {
 
     /** @brief Gfx common device limits */
     struct GfxLimits {
-        /** Total number of render passes in gfx driver */
-        static const int MAX_RENDER_PASSES = 1;
         /** Vertex shader max input elements */
         static const int MAX_VERT_ATTRIBUTES = 8;
         /** Vertex shader max input vertex buffers */

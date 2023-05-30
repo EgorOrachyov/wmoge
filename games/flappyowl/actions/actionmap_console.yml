@@ -10,7 +10,7 @@ actions:
     display_name: "scroll up"
     activations:
       - device_type: Keyboard
-        action: Press
+        action: PressHeld
         key: Up
   - action: cn_scroll_down
     display_name: "scroll down"

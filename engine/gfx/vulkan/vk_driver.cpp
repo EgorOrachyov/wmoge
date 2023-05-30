@@ -101,6 +101,8 @@ namespace wmoge {
         init_context();
         // init desc manager
         m_desc_manager = std::make_unique<VKDescManager>(*this);
+        // init binder for render passes
+        m_render_pass_binder = std::make_unique<VKRenderPassBinder>(*this);
 
         // cmd stream of driver thread
         m_driver_cmd_stream = std::make_unique<CmdStream>();
@@ -247,13 +249,6 @@ namespace wmoge {
 
         return sampler;
     }
-    Ref<GfxRenderPass> VKDriver::make_render_pass(GfxRenderPassType pass_type, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
-
-        assert(on_gfx_thread());
-
-        return make_ref<VKRenderPass>(pass_type, name, *this);
-    }
     Ref<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_pipeline");
 
@@ -386,14 +381,14 @@ namespace wmoge {
         dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(cmd());
     }
 
-    void VKDriver::begin_render_pass(const Ref<GfxRenderPass>& pass) {
+    void VKDriver::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::begin_render_pass");
 
         assert(on_gfx_thread());
         assert(!m_in_render_pass);
-        assert(pass);
+        assert(pass_desc == GfxRenderPassDesc{});// not supported pass desc yet
 
-        m_current_pass   = pass.cast<VKRenderPass>();
+        m_render_pass_binder->start(name);
         m_in_render_pass = true;
     }
     void VKDriver::bind_target(const Ref<Window>& window) {
@@ -403,7 +398,7 @@ namespace wmoge {
         assert(m_in_render_pass);
         assert(window);
 
-        m_current_pass->bind_target(m_window_manager->get_or_create(window));
+        m_render_pass_binder->bind_target(m_window_manager->get_or_create(window));
         m_target_bound = true;
     }
     void VKDriver::bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) {
@@ -413,7 +408,7 @@ namespace wmoge {
         assert(m_in_render_pass);
         assert(texture);
 
-        m_current_pass->bind_color_target(texture.cast<VKTexture>(), target, mip, slice);
+        m_render_pass_binder->bind_color_target(texture.cast<VKTexture>(), target, mip, slice);
         m_target_bound = true;
     }
     void VKDriver::bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) {
@@ -423,7 +418,7 @@ namespace wmoge {
         assert(m_in_render_pass);
         assert(texture);
 
-        m_current_pass->bind_depth_target(texture.cast<VKTexture>(), mip, slice);
+        m_render_pass_binder->bind_depth_target(texture.cast<VKTexture>(), mip, slice);
         m_target_bound = true;
     }
     void VKDriver::viewport(const Rect2i& viewport) {
@@ -443,7 +438,7 @@ namespace wmoge {
         assert(m_target_bound);
 
         m_clear_color[target] = color;
-        m_current_pass->clear_color(target);
+        m_render_pass_binder->clear_color(target);
     }
     void VKDriver::clear(float depth, int stencil) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::clear");
@@ -454,7 +449,8 @@ namespace wmoge {
 
         m_clear_depth   = depth;
         m_clear_stencil = stencil;
-        m_current_pass->clear_depth_stencil();
+        m_render_pass_binder->clear_depth();
+        m_render_pass_binder->clear_stencil();
     }
     bool VKDriver::bind_pipeline(const Ref<GfxPipeline>& pipeline) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::bind_pipeline");
@@ -466,14 +462,14 @@ namespace wmoge {
 
         // Check equal
         if (pipeline.get() == m_current_pipeline.get()) {
-            return m_current_pipeline->validate();
+            return m_current_pipeline->validate(m_current_pass);
         }
 
         prepare_render_pass();
 
         // Check compiled
         m_current_pipeline = pipeline.cast<VKPipeline>();
-        if (!m_current_pipeline->validate()) {
+        if (!m_current_pipeline->validate(m_current_pass)) {
             return false;
         }
 
@@ -602,6 +598,7 @@ namespace wmoge {
             vkCmdEndRenderPass(m_cmd);
         }
 
+        m_render_pass_binder->finish();
         m_current_pass.reset();
         m_current_pipeline.reset();
         m_current_shader.reset();
@@ -633,6 +630,12 @@ namespace wmoge {
             m_driver_worker->terminate();
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
+
+            m_render_pass_binder.reset();
+            flush_release();
+
+            m_render_passes.clear();
+            flush_release();
 
             m_pipelines.clear();
             flush_release();
@@ -1133,8 +1136,9 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKDriver::prepare_render_pass");
 
         if (!m_render_pass_started) {
-            // Potentially recreate make pass or framebuffer
-            m_current_pass->validate();
+            // Potentially recreate make pass and framebuffer
+            m_render_pass_binder->validate();
+            m_current_pass = m_render_pass_binder->render_pass();
 
             std::array<VkClearValue, GfxLimits::MAX_COLOR_TARGETS + 1> clear_values{};
             int                                                        clear_value_count = 0;
@@ -1157,13 +1161,13 @@ namespace wmoge {
             VkRect2D render_area{};
             render_area.offset.x      = 0;
             render_area.offset.y      = 0;
-            render_area.extent.width  = m_current_pass->width();
-            render_area.extent.height = m_current_pass->height();
+            render_area.extent.width  = m_render_pass_binder->width();
+            render_area.extent.height = m_render_pass_binder->height();
 
             VkRenderPassBeginInfo render_pass_info{};
             render_pass_info.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-            render_pass_info.renderPass      = m_current_pass->render_pass()->render_pass();
-            render_pass_info.framebuffer     = m_current_pass->framebuffer()->framebuffer();
+            render_pass_info.renderPass      = m_render_pass_binder->render_pass()->render_pass();
+            render_pass_info.framebuffer     = m_render_pass_binder->framebuffer()->framebuffer();
             render_pass_info.renderArea      = render_area;
             render_pass_info.clearValueCount = clear_value_count;
             render_pass_info.pClearValues    = clear_values.data();

@@ -25,46 +25,29 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_RENDER_PASS_HPP
-#define WMOGE_GFX_RENDER_PASS_HPP
+#include "gfx_render_pass.hpp"
 
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_resource.hpp"
+#include "core/crc32.hpp"
 
-#include <array>
-#include <utility>
+#include <cstring>
 
 namespace wmoge {
 
-    /**
-     * @class GfxRenderPassDesc
-     * @brief Gfx rendering pass descriptor
-     */
-    struct GfxRenderPassDesc {
-        GfxRenderPassDesc();
-        bool        operator==(const GfxRenderPassDesc& other) const;
-        std::size_t hash() const;
-
-        std::array<GfxFormat, GfxLimits::MAX_COLOR_TARGETS> m_color_target_fmts;
-        std::array<GfxRtOp, GfxLimits::MAX_COLOR_TARGETS>   m_color_target_ops;
-        std::array<int, GfxLimits::MAX_COLOR_TARGETS>       m_color_target_used;
-        GfxFormat                                           m_depth_stencil_fmt; // = GfxFormat::DEPTH24_STENCIL8;
-        GfxRtOp                                             m_depth_op;          // = GfxRtOp::LoadStore;
-        GfxRtOp                                             m_stencil_op;        // = GfxRtOp::LoadStore;
-        int                                                 m_depth_stencil_used;// = 0;
-    };
+    GfxRenderPassDesc::GfxRenderPassDesc() {
+        std::memset(this, 0, sizeof(GfxRenderPassDesc));
+        std::fill(m_color_target_fmts.begin(), m_color_target_fmts.end(), GfxFormat::R8);
+        std::fill(m_color_target_ops.begin(), m_color_target_ops.end(), GfxRtOp::LoadStore);
+        std::fill(m_color_target_used.begin(), m_color_target_used.end(), 0);
+        m_depth_stencil_fmt  = GfxFormat::DEPTH24_STENCIL8;
+        m_depth_op           = GfxRtOp::LoadStore;
+        m_stencil_op         = GfxRtOp::LoadStore;
+        m_depth_stencil_used = 0;
+    }
+    bool GfxRenderPassDesc::operator==(const GfxRenderPassDesc& other) const {
+        return std::memcmp(this, &other, sizeof(GfxRenderPassDesc)) == 0;
+    }
+    std::size_t GfxRenderPassDesc::hash() const {
+        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxRenderPassDesc)));
+    }
 
 }// namespace wmoge
-
-namespace std {
-
-    template<>
-    struct hash<wmoge::GfxRenderPassDesc> {
-        std::size_t operator()(const wmoge::GfxRenderPassDesc& desc) const {
-            return desc.hash();
-        }
-    };
-
-}// namespace std
-
-#endif//WMOGE_GFX_RENDER_PASS_HPP

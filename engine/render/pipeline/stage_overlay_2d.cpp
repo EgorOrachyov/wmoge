@@ -37,9 +37,6 @@
 
 namespace wmoge {
 
-    const Ref<GfxRenderPass>& PipelineStageOverlay2d::get_gfx_pass() {
-        return m_render_pass;
-    }
     const StringId& PipelineStageOverlay2d::get_name() const {
         static StringId name("stage-overlay-2d");
         return name;
@@ -50,7 +47,6 @@ namespace wmoge {
 
         GfxDriver* driver = get_gfx_driver();
 
-        m_render_pass = driver->make_render_pass(GfxRenderPassType::Default, SID("overlay-2d"));
         m_pass_params = driver->make_uniform_buffer(int(sizeof(Shader2d::PassParams)), GfxMemUsage::GpuLocal, SID("overlay-2d-params"));
     }
 
@@ -84,7 +80,7 @@ namespace wmoge {
                                  int(viewport_rect.z() * window->fbo_width()),
                                  int(viewport_rect.w() * window->fbo_height())};
 
-        driver->begin_render_pass(m_render_pass);
+        driver->begin_render_pass(GfxRenderPassDesc{}, SID("overlay-pass"));
         driver->bind_target(window);
         driver->viewport(viewport);
 

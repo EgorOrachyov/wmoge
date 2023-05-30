@@ -35,8 +35,8 @@ namespace wmoge {
 
     GfxPipelineState::GfxPipelineState() {
         std::memset(this, 0, sizeof(GfxPipelineState));
+        pass_desc         = GfxRenderPassDesc{};
         shader            = nullptr;
-        pass              = nullptr;
         vert_format       = nullptr;
         prim_type         = GfxPrimType::Triangles;
         poly_mode         = GfxPolyMode::Fill;

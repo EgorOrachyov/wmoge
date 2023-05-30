@@ -47,8 +47,8 @@ namespace wmoge {
         bool        operator==(const GfxPipelineState& other) const;
         std::size_t hash() const;
 
+        GfxRenderPassDesc  pass_desc;        // = GfxRenderPassDesc{}
         Ref<GfxShader>     shader;           // = nullptr;
-        Ref<GfxRenderPass> pass;             // = nullptr;
         Ref<GfxVertFormat> vert_format;      // = nullptr;
         GfxPrimType        prim_type;        // = GfxPrimType::Triangles;
         GfxPolyMode        poly_mode;        // = GfxPolyMode::Fill;

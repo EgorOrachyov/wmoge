@@ -125,13 +125,6 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { sampler = m_driver->make_sampler(desc, name); });
         return sampler;
     }
-    Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(GfxRenderPassType pass_type, const StringId& name) {
-        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_render_pass");
-
-        Ref<GfxRenderPass> render_pass;
-        m_stream->push_and_wait([&]() { render_pass = m_driver->make_render_pass(pass_type, name); });
-        return render_pass;
-    }
     Ref<GfxPipeline> GfxDriverWrapper::make_pipeline(const GfxPipelineState& state, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_pipeline");
 
@@ -225,10 +218,10 @@ namespace wmoge {
         m_stream->push([=]() { m_driver->unmap_storage_buffer(buffer); });
     }
 
-    void GfxDriverWrapper::begin_render_pass(const Ref<GfxRenderPass>& pass) {
+    void GfxDriverWrapper::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::begin_render_pass");
 
-        m_stream->push([=]() { m_driver->begin_render_pass(pass); });
+        m_stream->push([=]() { m_driver->begin_render_pass(pass_desc, name); });
     }
     void GfxDriverWrapper::bind_target(const Ref<Window>& window) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::bind_target");

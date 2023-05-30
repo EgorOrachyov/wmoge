@@ -54,8 +54,7 @@ namespace wmoge {
         m_transform_stack.push_back(Math2d::translate_rotate_z(Vec2f(), 0.0f));
         m_shader = engine->render_engine()->get_shader_manager()->get_shader_canvas();
 
-        m_constants   = gfx->make_uniform_buffer(sizeof(CanvasConstants), GfxMemUsage::GpuLocal, SID("canvas_constants"));
-        m_render_pass = gfx->make_render_pass(GfxRenderPassType::Default, SID("canvas"));
+        m_constants = gfx->make_uniform_buffer(sizeof(CanvasConstants), GfxMemUsage::GpuLocal, SID("canvas_constants"));
 
         m_default_sampler = gfx->make_sampler(GfxSamplerDesc{}, SID("default"));
         m_default_texture = gfx->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID("default_white"));
@@ -73,7 +72,6 @@ namespace wmoge {
         }
 
         GfxPipelineState pipeline_state;
-        pipeline_state.pass         = m_render_pass;
         pipeline_state.cull_mode    = GfxPolyCullMode::Disabled;
         pipeline_state.front_face   = GfxPolyFrontFace::CounterClockwise;
         pipeline_state.poly_mode    = GfxPolyMode::Fill;
@@ -372,7 +370,7 @@ namespace wmoge {
         static const StringId PARAM_CONSTANTS = SID("Constants");
         static const StringId PARAM_TEXTURE   = SID("Texture");
 
-        gfx->begin_render_pass(m_render_pass);
+        gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux-draw"));
         gfx->bind_target(m_window);
         gfx->viewport(m_viewport);
 

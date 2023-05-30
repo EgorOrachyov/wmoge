@@ -58,7 +58,7 @@ namespace wmoge {
      */
     class VKDriver final : public GfxDriverThreaded {
     public:
-        VKDriver(VKInitInfo info);
+        explicit VKDriver(VKInitInfo info);
         ~VKDriver() override;
 
         Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const StringId& name) override;
@@ -72,7 +72,6 @@ namespace wmoge {
         Ref<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
-        Ref<GfxRenderPass>    make_render_pass(GfxRenderPassType pass_type, const StringId& name) override;
         Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
 
         void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
@@ -92,7 +91,7 @@ namespace wmoge {
         void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
         void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
 
-        void begin_render_pass(const Ref<GfxRenderPass>& pass) override;
+        void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
         void bind_target(const Ref<Window>& window) override;
         void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
         void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) override;
@@ -131,6 +130,21 @@ namespace wmoge {
         GfxDriverWrapper*      driver_wrapper() { return m_driver_wrapper.get(); }
         CallbackQueue*         release_queue() { return &m_deferred_release[m_index]; }
 
+    public:
+        VkInstance       instance() { return m_instance; }
+        VkPhysicalDevice phys_device() { return m_phys_device; }
+        VkDevice         device() { return m_device; }
+        VkPipelineCache  pipeline_cache() { return m_pipeline_cache; }
+        VkCommandBuffer  cmd() { return m_cmd; }
+        VKWindowManager* window_manager() { return m_window_manager.get(); }
+        VKQueues*        queues() { return m_queues.get(); }
+        VKMemManager*    mem_manager() { return m_mem_manager.get(); }
+
+        fast_map<GfxVertElements, Ref<VKVertFormat>>&   cached_formats() { return m_formats; }
+        fast_map<GfxSamplerDesc, Ref<VKSampler>>&       cached_samplers() { return m_samplers; }
+        fast_map<GfxPipelineState, Ref<VKPipeline>>&    cached_pipelines() { return m_pipelines; }
+        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>>& cached_render_passes() { return m_render_passes; }
+
     private:
         void init_functions();
         void init_instance();
@@ -152,16 +166,6 @@ namespace wmoge {
                                                              const VkDebugUtilsMessengerCallbackDataEXT* p_callback_data,
                                                              void*                                       p_user_data);
 
-    public:
-        VkInstance       instance() { return m_instance; }
-        VkPhysicalDevice phys_device() { return m_phys_device; }
-        VkDevice         device() { return m_device; }
-        VkPipelineCache  pipeline_cache() { return m_pipeline_cache; }
-        VkCommandBuffer  cmd() { return m_cmd; }
-        VKWindowManager* window_manager() { return m_window_manager.get(); }
-        VKQueues*        queues() { return m_queues.get(); }
-        VKMemManager*    mem_manager() { return m_mem_manager.get(); }
-
     private:
         VkInstance               m_instance        = VK_NULL_HANDLE;
         VkPhysicalDevice         m_phys_device     = VK_NULL_HANDLE;
@@ -171,10 +175,12 @@ namespace wmoge {
 
         VkCommandBuffer m_cmd = VK_NULL_HANDLE;
 
-        fast_map<GfxVertElements, Ref<VKVertFormat>> m_formats;
-        fast_map<GfxSamplerDesc, Ref<VKSampler>>     m_samplers;
-        fast_map<GfxPipelineState, Ref<VKPipeline>>  m_pipelines;
+        fast_map<GfxVertElements, Ref<VKVertFormat>>   m_formats;
+        fast_map<GfxSamplerDesc, Ref<VKSampler>>       m_samplers;
+        fast_map<GfxPipelineState, Ref<VKPipeline>>    m_pipelines;
+        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>> m_render_passes;
 
+        std::unique_ptr<VKRenderPassBinder>                        m_render_pass_binder;
         Ref<VKRenderPass>                                          m_current_pass;
         Ref<VKPipeline>                                            m_current_pipeline;
         Ref<VKShader>                                              m_current_shader;

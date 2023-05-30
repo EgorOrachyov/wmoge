@@ -36,16 +36,15 @@
 namespace wmoge {
 
     VKPipeline::VKPipeline(const GfxPipelineState& state, const StringId& name, VKDriver& driver) : VKResource<GfxPipeline>(driver) {
-        m_name        = name;
-        m_state       = state;
-        m_render_pass = state.pass.cast<VKRenderPass>();
+        m_name  = name;
+        m_state = state;
     }
     VKPipeline::~VKPipeline() {
         WG_AUTO_PROFILE_VULKAN("VKPipeline::~VKPipeline");
 
         release();
     }
-    bool VKPipeline::validate() {
+    bool VKPipeline::validate(const Ref<VKRenderPass>& render_pass) {
         WG_AUTO_PROFILE_VULKAN("VKPipeline::validate");
 
         GfxPipelineStatus status = m_status.load();
@@ -59,17 +58,17 @@ namespace wmoge {
             return false;
         }
         // pipeline is not yet created or version out of date, have to create new pipeline
-        if (status != GfxPipelineStatus::Created || m_version < m_render_pass->version()) {
+        if (status != GfxPipelineStatus::Created || m_render_pass != render_pass) {
             auto shader = m_state.shader.cast<VKShader>();
             if (shader->status() != GfxShaderStatus::Compiled) {
                 return false;
             }
 
-            m_version = m_render_pass->version();
+            m_render_pass = render_pass;
             m_status.store(GfxPipelineStatus::Creating);
 
-            Task compilation_task(m_name, [self = Ref<VKPipeline>(this), rp = m_render_pass->render_pass()](auto&) {
-                self->compile(rp);
+            Task compilation_task(m_name, [self = Ref<VKPipeline>(this)](auto&) {
+                self->compile();
                 return 0;
             });
 
@@ -81,7 +80,7 @@ namespace wmoge {
         // so everything is ok, can draw
         return true;
     }
-    void VKPipeline::compile(const Ref<VKRenderPassHnd>& render_pass) {
+    void VKPipeline::compile() {
         WG_AUTO_PROFILE_VULKAN("VKPipeline::compile");
 
         Timer timer;
@@ -182,7 +181,7 @@ namespace wmoge {
         color_blending.sType             = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
         color_blending.logicOpEnable     = VK_FALSE;
         color_blending.logicOp           = VK_LOGIC_OP_COPY;
-        color_blending.attachmentCount   = render_pass->color_targets_count();
+        color_blending.attachmentCount   = m_render_pass->color_targets_count();
         color_blending.pAttachments      = blend_attachments.data();
         color_blending.blendConstants[0] = 0.0f;
         color_blending.blendConstants[1] = 0.0f;
@@ -212,7 +211,7 @@ namespace wmoge {
         pipeline_info.pColorBlendState    = &color_blending;
         pipeline_info.pDynamicState       = &dynamic_state;
         pipeline_info.layout              = shader->layout();
-        pipeline_info.renderPass          = render_pass->render_pass();
+        pipeline_info.renderPass          = m_render_pass->render_pass();
         pipeline_info.subpass             = 0;
         pipeline_info.basePipelineHandle  = m_pipeline;
         pipeline_info.basePipelineIndex   = -1;

@@ -131,7 +131,6 @@ namespace wmoge {
         std::vector<CanvasTriangle> m_triangles;
 
         Ref<Shader>           m_shader;
-        Ref<GfxRenderPass>    m_render_pass;
         Ref<GfxPipeline>      m_pipeline_triangle;
         Ref<GfxPipeline>      m_pipeline_text;
         Ref<GfxUniformBuffer> m_constants;

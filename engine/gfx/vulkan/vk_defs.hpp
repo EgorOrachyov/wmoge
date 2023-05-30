@@ -120,6 +120,28 @@ namespace wmoge {
     public:
         static void schedule_delete(class VKDriver& driver, class GfxResource* resource);
 
+        static VkAttachmentLoadOp load_op(GfxRtOp op) {
+            switch (op) {
+                case GfxRtOp::LoadStore:
+                    return VK_ATTACHMENT_LOAD_OP_LOAD;
+                case GfxRtOp::ClearStore:
+                    return VK_ATTACHMENT_LOAD_OP_CLEAR;
+                default:
+                    return VK_ATTACHMENT_LOAD_OP_LOAD;
+            }
+        }
+
+        static VkAttachmentStoreOp store_op(GfxRtOp op) {
+            switch (op) {
+                case GfxRtOp::LoadStore:
+                    return VK_ATTACHMENT_STORE_OP_STORE;
+                case GfxRtOp::ClearStore:
+                    return VK_ATTACHMENT_STORE_OP_STORE;
+                default:
+                    return VK_ATTACHMENT_STORE_OP_STORE;
+            }
+        }
+
         static bool can_memory_map(GfxMemUsage usage) {
             switch (usage) {
                 case GfxMemUsage::CpuVisibleGpu:

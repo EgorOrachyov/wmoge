@@ -107,7 +107,6 @@ namespace wmoge {
 
         Ref<Shader>           m_shader_geom;
         Ref<Shader>           m_shader_text;
-        Ref<GfxRenderPass>    m_render_pass;
         Ref<GfxPipeline>      m_pipeline_glyphs;
         Ref<GfxPipeline>      m_pipeline_line;
         Ref<GfxPipeline>      m_pipeline_solid;

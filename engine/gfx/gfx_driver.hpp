@@ -28,16 +28,8 @@
 #ifndef WMOGE_GFX_DRIVER_HPP
 #define WMOGE_GFX_DRIVER_HPP
 
-#include <array>
-#include <string>
-#include <thread>
-
 #include "core/callback_queue.hpp"
 #include "core/data.hpp"
-#include "math/mat.hpp"
-#include "math/vec.hpp"
-#include "platform/window.hpp"
-
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_pipeline.hpp"
@@ -47,6 +39,13 @@
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "gfx/gfx_vert_format.hpp"
+#include "math/mat.hpp"
+#include "math/vec.hpp"
+#include "platform/window.hpp"
+
+#include <array>
+#include <string>
+#include <thread>
 
 namespace wmoge {
 
@@ -71,7 +70,6 @@ namespace wmoge {
         virtual Ref<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId()) = 0;
         virtual Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId())                 = 0;
         virtual Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name = StringId())                                                                                         = 0;
-        virtual Ref<GfxRenderPass>    make_render_pass(GfxRenderPassType pass_type, const StringId& name = StringId())                                                                                    = 0;
         virtual Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name = StringId())                                                                                     = 0;
 
         virtual void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data)                = 0;
@@ -91,7 +89,7 @@ namespace wmoge {
         virtual void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
         virtual void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
 
-        virtual void begin_render_pass(const Ref<GfxRenderPass>& pass)                                                                            = 0;
+        virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())                                     = 0;
         virtual void bind_target(const Ref<Window>& window)                                                                                       = 0;
         virtual void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice)                                            = 0;
         virtual void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice)                                                        = 0;

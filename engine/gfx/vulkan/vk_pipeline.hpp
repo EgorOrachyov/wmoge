@@ -45,7 +45,7 @@ namespace wmoge {
         VKPipeline(const GfxPipelineState& state, const StringId& name, class VKDriver& driver);
         ~VKPipeline() override;
 
-        bool validate();
+        bool validate(const Ref<VKRenderPass>& render_pass);
 
         GfxPipelineStatus       status() const override;
         std::string             message() const override;
@@ -54,7 +54,7 @@ namespace wmoge {
         VkPipelineLayout        layout() const { return m_layout; }
 
     private:
-        void compile(const Ref<VKRenderPassHnd>& render_pass);
+        void compile();
         void release();
 
     private:
@@ -64,7 +64,6 @@ namespace wmoge {
         std::string                    m_message;
         VkPipeline                     m_pipeline = VK_NULL_HANDLE;
         VkPipelineLayout               m_layout   = VK_NULL_HANDLE;
-        int                            m_version  = -1;
     };
 
 }// namespace wmoge

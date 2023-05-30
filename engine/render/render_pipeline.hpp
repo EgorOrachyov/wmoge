@@ -52,10 +52,9 @@ namespace wmoge {
     public:
         virtual ~RenderPipelineStage() = default;
 
-        virtual const Ref<GfxRenderPass>& get_gfx_pass()             = 0;
-        virtual const StringId&           get_name() const           = 0;
-        virtual void                      on_register()              = 0;
-        virtual void                      on_execute(int view_index) = 0;
+        virtual const StringId& get_name() const           = 0;
+        virtual void            on_register()              = 0;
+        virtual void            on_execute(int view_index) = 0;
 
         class RenderPipeline* get_pipeline();
         class RenderScene*    get_render_scene();

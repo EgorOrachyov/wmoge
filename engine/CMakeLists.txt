@@ -94,6 +94,7 @@ add_library(wmoge STATIC
         gfx/gfx_driver.hpp
         gfx/gfx_pipeline.cpp
         gfx/gfx_pipeline.hpp
+        gfx/gfx_render_pass.cpp
         gfx/gfx_render_pass.hpp
         gfx/gfx_resource.hpp
         gfx/gfx_sampler.cpp

@@ -63,7 +63,6 @@ namespace wmoge {
         Ref<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
-        Ref<GfxRenderPass>    make_render_pass(GfxRenderPassType pass_type, const StringId& name) override;
         Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
 
         void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
@@ -84,7 +83,7 @@ namespace wmoge {
         void unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
         void unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
 
-        void begin_render_pass(const Ref<GfxRenderPass>& pass) override;
+        void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
         void bind_target(const Ref<Window>& window) override;
         void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
         void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) override;

@@ -63,9 +63,8 @@ namespace wmoge {
 
         std::string font_name = config_engine->get_string(SID("render.aux.font"), "res://fonts/consolas");
 
-        m_debug_font  = resource_manager->load(SID(font_name)).cast<Font>();
-        m_constants   = gfx_driver->make_uniform_buffer(sizeof(AuxDrawConstants), GfxMemUsage::GpuLocal, SID("aux_constants"));
-        m_render_pass = gfx_driver->make_render_pass(GfxRenderPassType::AuxDraw, SID("aux_draw"));
+        m_debug_font = resource_manager->load(SID(font_name)).cast<Font>();
+        m_constants  = gfx_driver->make_uniform_buffer(sizeof(AuxDrawConstants), GfxMemUsage::GpuLocal, SID("aux_constants"));
 
         Ref<GfxVertFormat> b0_Pos3Col3;
         {
@@ -85,7 +84,6 @@ namespace wmoge {
         }
 
         GfxPipelineState pipeline_state;
-        pipeline_state.pass = m_render_pass;
 
         pipeline_state.shader       = m_variant_geom->get_gfx_shader();
         pipeline_state.depth_enable = true;
@@ -472,7 +470,7 @@ namespace wmoge {
         static const StringId PARAM_CONSTANTS   = SID("Constants");
         static const StringId PARAM_FONT_BITMAP = SID("FontBitmap");
 
-        gfx->begin_render_pass(m_render_pass);
+        gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw"));
         gfx->bind_target(m_window);
         gfx->viewport(m_viewport);
         gfx->clear(1.0f, 0);// todo: clear in scene rendering
