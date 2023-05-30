@@ -32,12 +32,78 @@
 
 namespace wmoge {
 
-    VKRenderPass::VKRenderPass(VkRenderPass render_pass, int color_targets, bool has_depth_stencil, const StringId& name, class VKDriver& driver)
-        : VKResource<GfxResource>(driver),
-          m_render_pass(render_pass),
-          m_color_targets_count(color_targets),
-          m_has_depth_stencil(has_depth_stencil) {
+    VKRenderPass::VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver) : VKResource<GfxResource>(driver), m_pass_desc(pass_desc) {
         m_name = name;
+
+        int  attachments_count      = 0;
+        int  color_references_count = 0;
+        bool has_depth_stencil      = false;
+
+        std::array<VkAttachmentDescription, GfxLimits::MAX_COLOR_TARGETS + 1> attachments{};
+        std::array<VkAttachmentReference, GfxLimits::MAX_COLOR_TARGETS>       color_references{};
+        VkAttachmentReference                                                 depth_stencil_reference{};
+
+        for (int i = 0; i < GfxLimits::MAX_COLOR_TARGETS; i++) {
+            if (!m_pass_desc.color_target_used[i])
+                break;
+
+            attachments[attachments_count].format        = VKDefs::get_format(m_pass_desc.color_target_fmts[i]);
+            attachments[attachments_count].samples       = VK_SAMPLE_COUNT_1_BIT;
+            attachments[attachments_count].loadOp        = VKDefs::load_op(m_pass_desc.color_target_ops[i]);
+            attachments[attachments_count].storeOp       = VKDefs::store_op(m_pass_desc.color_target_ops[i]);
+            attachments[attachments_count].initialLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+            attachments[attachments_count].finalLayout   = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+            color_references[color_references_count].attachment = attachments_count;
+            color_references[color_references_count].layout     = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+            attachments_count += 1;
+            color_references_count += 1;
+        }
+        if (m_pass_desc.depth_stencil_used) {
+            auto layout = VKDefs::rt_layout_from_fmt(m_pass_desc.depth_stencil_fmt);
+
+            attachments[attachments_count].format         = VKDefs::get_format(m_pass_desc.depth_stencil_fmt);
+            attachments[attachments_count].samples        = VK_SAMPLE_COUNT_1_BIT;
+            attachments[attachments_count].loadOp         = VKDefs::load_op(m_pass_desc.depth_op);
+            attachments[attachments_count].storeOp        = VKDefs::store_op(m_pass_desc.depth_op);
+            attachments[attachments_count].stencilLoadOp  = VKDefs::load_op(m_pass_desc.stencil_op);
+            attachments[attachments_count].stencilStoreOp = VKDefs::store_op(m_pass_desc.stencil_op);
+            attachments[attachments_count].initialLayout  = layout;
+            attachments[attachments_count].finalLayout    = layout;
+
+            depth_stencil_reference.attachment = attachments_count;
+            depth_stencil_reference.layout     = layout;
+
+            attachments_count += 1;
+            has_depth_stencil = true;
+        }
+
+        VkSubpassDescription sub_pass{};
+        sub_pass.pipelineBindPoint       = VK_PIPELINE_BIND_POINT_GRAPHICS;
+        sub_pass.inputAttachmentCount    = 0;
+        sub_pass.pInputAttachments       = nullptr;
+        sub_pass.colorAttachmentCount    = color_references_count;
+        sub_pass.pColorAttachments       = color_references.data();
+        sub_pass.pResolveAttachments     = nullptr;
+        sub_pass.pDepthStencilAttachment = has_depth_stencil ? &depth_stencil_reference : nullptr;
+        sub_pass.preserveAttachmentCount = 0;
+        sub_pass.pPreserveAttachments    = nullptr;
+
+        VkRenderPassCreateInfo create_info{};
+        create_info.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+        create_info.pAttachments    = attachments.data();
+        create_info.attachmentCount = attachments_count;
+        create_info.subpassCount    = 1;
+        create_info.pSubpasses      = &sub_pass;
+        create_info.dependencyCount = 0;
+        create_info.pDependencies   = nullptr;
+
+        WG_VK_CHECK(vkCreateRenderPass(m_driver.device(), &create_info, nullptr, &m_render_pass));
+        WG_VK_NAME(m_driver.device(), m_render_pass, VK_OBJECT_TYPE_RENDER_PASS, "rp@" + m_name.str());
+
+        m_color_targets_count = color_references_count;
+        m_has_depth_stencil   = has_depth_stencil;
     }
     VKRenderPass::~VKRenderPass() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPass::~VKRenderPass");
@@ -67,31 +133,31 @@ namespace wmoge {
         bind_depth_target(m_window->depth_stencil(), 0, 0);
     }
     void VKRenderPassBinder::bind_color_target(const Ref<VKTexture>& texture, int target, int mip, int slice) {
-        m_current_pass_desc.m_color_target_used[target] = 1;
-        m_current_pass_desc.m_color_target_fmts[target] = texture->format();
-        VKTargetInfo& info                              = m_color_targets[target];
-        info.texture                                    = texture;
-        info.mip                                        = mip;
-        info.slice                                      = slice;
+        m_current_pass_desc.color_target_used[target] = 1;
+        m_current_pass_desc.color_target_fmts[target] = texture->format();
+        VKTargetInfo& info                            = m_color_targets[target];
+        info.texture                                  = texture;
+        info.mip                                      = mip;
+        info.slice                                    = slice;
     }
     void VKRenderPassBinder::bind_depth_target(const Ref<VKTexture>& texture, int mip, int slice) {
-        m_current_pass_desc.m_depth_stencil_used = 1;
-        m_current_pass_desc.m_depth_stencil_fmt  = texture->format();
-        m_depth_stencil_target.texture           = texture;
-        m_depth_stencil_target.mip               = mip;
-        m_depth_stencil_target.slice             = slice;
+        m_current_pass_desc.depth_stencil_used = 1;
+        m_current_pass_desc.depth_stencil_fmt  = texture->format();
+        m_depth_stencil_target.texture         = texture;
+        m_depth_stencil_target.mip             = mip;
+        m_depth_stencil_target.slice           = slice;
     }
     void VKRenderPassBinder::clear_color(int target) {
-        m_current_pass_desc.m_color_target_used[target] = 1;
-        m_current_pass_desc.m_color_target_ops[target]  = GfxRtOp::ClearStore;
+        m_current_pass_desc.color_target_used[target] = 1;
+        m_current_pass_desc.color_target_ops[target]  = GfxRtOp::ClearStore;
     }
     void VKRenderPassBinder::clear_depth() {
-        m_current_pass_desc.m_depth_stencil_used = 1;
-        m_current_pass_desc.m_depth_op           = GfxRtOp::ClearStore;
+        m_current_pass_desc.depth_stencil_used = 1;
+        m_current_pass_desc.depth_op           = GfxRtOp::ClearStore;
     }
     void VKRenderPassBinder::clear_stencil() {
-        m_current_pass_desc.m_depth_stencil_used = 1;
-        m_current_pass_desc.m_stencil_op         = GfxRtOp::ClearStore;
+        m_current_pass_desc.depth_stencil_used = 1;
+        m_current_pass_desc.stencil_op         = GfxRtOp::ClearStore;
     }
 
     void VKRenderPassBinder::start(const StringId& name) {
@@ -118,86 +184,7 @@ namespace wmoge {
     void VKRenderPassBinder::prepare_render_pass() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::prepare_render_pass");
 
-        auto& cached_render_passes = m_driver.cached_render_passes();
-
-        auto query = cached_render_passes.find(m_current_pass_desc);
-        if (query != cached_render_passes.end()) {
-            m_current_render_pass = query->second;
-            return;
-        }
-
-        int  attachments_count      = 0;
-        int  color_references_count = 0;
-        bool has_depth_stencil      = false;
-
-        std::array<VkAttachmentDescription, GfxLimits::MAX_COLOR_TARGETS + 1> attachments{};
-        std::array<VkAttachmentReference, GfxLimits::MAX_COLOR_TARGETS>       color_references{};
-        VkAttachmentReference                                                 depth_stencil_reference{};
-
-        for (int i = 0; i < GfxLimits::MAX_COLOR_TARGETS; i++) {
-            if (!m_color_targets[i].texture)
-                break;
-
-            attachments[attachments_count].format        = VKDefs::get_format(m_current_pass_desc.m_color_target_fmts[i]);
-            attachments[attachments_count].samples       = VK_SAMPLE_COUNT_1_BIT;
-            attachments[attachments_count].loadOp        = VKDefs::load_op(m_current_pass_desc.m_color_target_ops[i]);
-            attachments[attachments_count].storeOp       = VKDefs::store_op(m_current_pass_desc.m_color_target_ops[i]);
-            attachments[attachments_count].initialLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-            attachments[attachments_count].finalLayout   = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
-            color_references[color_references_count].attachment = attachments_count;
-            color_references[color_references_count].layout     = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-
-            attachments_count += 1;
-            color_references_count += 1;
-        }
-        if (m_depth_stencil_target.texture) {
-            auto layout = m_depth_stencil_target.texture->usages().get(GfxTexUsageFlag::DepthStencilTarget) ? VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL : VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
-
-            attachments[attachments_count].format         = VKDefs::get_format(m_depth_stencil_target.texture->format());
-            attachments[attachments_count].samples        = VK_SAMPLE_COUNT_1_BIT;
-            attachments[attachments_count].loadOp         = VKDefs::load_op(m_current_pass_desc.m_depth_op);
-            attachments[attachments_count].storeOp        = VKDefs::store_op(m_current_pass_desc.m_depth_op);
-            attachments[attachments_count].stencilLoadOp  = VKDefs::load_op(m_current_pass_desc.m_stencil_op);
-            attachments[attachments_count].stencilStoreOp = VKDefs::store_op(m_current_pass_desc.m_stencil_op);
-            attachments[attachments_count].initialLayout  = layout;
-            attachments[attachments_count].finalLayout    = layout;
-
-            depth_stencil_reference.attachment = attachments_count;
-            depth_stencil_reference.layout     = layout;
-
-            attachments_count += 1;
-            has_depth_stencil = true;
-        }
-
-        VkSubpassDescription sub_pass{};
-        sub_pass.pipelineBindPoint       = VK_PIPELINE_BIND_POINT_GRAPHICS;
-        sub_pass.inputAttachmentCount    = 0;
-        sub_pass.pInputAttachments       = nullptr;
-        sub_pass.colorAttachmentCount    = color_references_count;
-        sub_pass.pColorAttachments       = color_references.data();
-        sub_pass.pResolveAttachments     = nullptr;
-        sub_pass.pDepthStencilAttachment = m_depth_stencil_target.texture ? &depth_stencil_reference : nullptr;
-        sub_pass.preserveAttachmentCount = 0;
-        sub_pass.pPreserveAttachments    = nullptr;
-
-        VkRenderPassCreateInfo create_info{};
-        create_info.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-        create_info.pAttachments    = attachments.data();
-        create_info.attachmentCount = attachments_count;
-        create_info.subpassCount    = 1;
-        create_info.pSubpasses      = &sub_pass;
-        create_info.dependencyCount = 0;
-        create_info.pDependencies   = nullptr;
-
-        VkRenderPass render_pass;
-
-        WG_VK_CHECK(vkCreateRenderPass(m_driver.device(), &create_info, nullptr, &render_pass));
-        WG_VK_NAME(m_driver.device(), render_pass, VK_OBJECT_TYPE_RENDER_PASS, "rp@" + m_current_name.str());
-        m_current_render_pass = make_ref<VKRenderPass>(render_pass, color_references_count, has_depth_stencil, m_current_name, m_driver);
-
-        cached_render_passes[m_current_pass_desc] = m_current_render_pass;
-        WG_LOG_INFO("cache new render pass " << m_current_name);
+        m_current_render_pass = m_driver.make_render_pass(m_current_pass_desc, m_current_name);
     }
     void VKRenderPassBinder::prepare_framebuffer() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::prepare_framebuffer");

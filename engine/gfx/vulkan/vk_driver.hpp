@@ -73,6 +73,7 @@ namespace wmoge {
         Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
         Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
+        Ref<VKRenderPass>     make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name);
 
         void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
         void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;

@@ -64,6 +64,8 @@ namespace wmoge {
                 return false;
             }
 
+            assert(m_state.pass_desc == GfxRenderPassDesc{} || m_state.pass_desc == render_pass->pass_desc());
+
             m_render_pass = render_pass;
             m_status.store(GfxPipelineStatus::Creating);
 

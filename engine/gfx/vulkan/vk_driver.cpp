@@ -262,6 +262,18 @@ namespace wmoge {
 
         return pipeline;
     }
+    Ref<VKRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
+
+        auto& render_pass = m_render_passes[pass_desc];
+        if (!render_pass) {
+            render_pass = make_ref<VKRenderPass>(pass_desc, name, *this);
+            WG_LOG_INFO("cache new render pass " << name);
+        }
+
+        return render_pass;
+    }
+
     void VKDriver::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::update_vert_buffer");
 

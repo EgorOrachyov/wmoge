@@ -56,21 +56,23 @@ namespace wmoge {
      */
     class VKRenderPass : public VKResource<GfxResource> {
     public:
-        VKRenderPass(VkRenderPass render_pass, int color_targets, bool has_depth_stencil, const StringId& name, class VKDriver& driver);
+        VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver);
         ~VKRenderPass() override;
 
-        VkRenderPass render_pass() const { return m_render_pass; }
-        int          color_targets_count() const { return m_color_targets_count; }
-        bool         has_depth_stencil() const { return m_has_depth_stencil; }
+        [[nodiscard]] const GfxRenderPassDesc& pass_desc() const { return m_pass_desc; }
+        [[nodiscard]] VkRenderPass             render_pass() const { return m_render_pass; }
+        [[nodiscard]] int                      color_targets_count() const { return m_color_targets_count; }
+        [[nodiscard]] bool                     has_depth_stencil() const { return m_has_depth_stencil; }
 
     private:
-        VkRenderPass m_render_pass         = VK_NULL_HANDLE;
-        bool         m_has_depth_stencil   = false;
-        int          m_color_targets_count = 0;
+        GfxRenderPassDesc m_pass_desc{};
+        VkRenderPass      m_render_pass         = VK_NULL_HANDLE;
+        bool              m_has_depth_stencil   = false;
+        int               m_color_targets_count = 0;
     };
 
     /**
-     * @class VKFramebufferHnd
+     * @class VKFramebufferObject
      * @brief Raii wrapper for VkFramebuffer object
      */
     class VKFramebufferObject : public VKResource<GfxResource> {

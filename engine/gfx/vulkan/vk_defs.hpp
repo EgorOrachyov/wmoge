@@ -120,6 +120,18 @@ namespace wmoge {
     public:
         static void schedule_delete(class VKDriver& driver, class GfxResource* resource);
 
+        static VkImageLayout rt_layout_from_fmt(GfxFormat fmt) {
+            switch (fmt) {
+                case GfxFormat::DEPTH32F:
+                    return VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
+                case GfxFormat::DEPTH24_STENCIL8:
+                case GfxFormat::DEPTH32F_STENCIL8:
+                    return VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+                default:
+                    return VK_IMAGE_LAYOUT_UNDEFINED;
+            }
+        }
+
         static VkAttachmentLoadOp load_op(GfxRtOp op) {
             switch (op) {
                 case GfxRtOp::LoadStore:

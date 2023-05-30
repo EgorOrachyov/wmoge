@@ -45,13 +45,13 @@ namespace wmoge {
         bool        operator==(const GfxRenderPassDesc& other) const;
         std::size_t hash() const;
 
-        std::array<GfxFormat, GfxLimits::MAX_COLOR_TARGETS> m_color_target_fmts;
-        std::array<GfxRtOp, GfxLimits::MAX_COLOR_TARGETS>   m_color_target_ops;
-        std::array<int, GfxLimits::MAX_COLOR_TARGETS>       m_color_target_used;
-        GfxFormat                                           m_depth_stencil_fmt; // = GfxFormat::DEPTH24_STENCIL8;
-        GfxRtOp                                             m_depth_op;          // = GfxRtOp::LoadStore;
-        GfxRtOp                                             m_stencil_op;        // = GfxRtOp::LoadStore;
-        int                                                 m_depth_stencil_used;// = 0;
+        std::array<GfxFormat, GfxLimits::MAX_COLOR_TARGETS> color_target_fmts;
+        std::array<GfxRtOp, GfxLimits::MAX_COLOR_TARGETS>   color_target_ops;
+        std::array<int, GfxLimits::MAX_COLOR_TARGETS>       color_target_used;
+        GfxFormat                                           depth_stencil_fmt; // = GfxFormat::DEPTH24_STENCIL8;
+        GfxRtOp                                             depth_op;          // = GfxRtOp::LoadStore;
+        GfxRtOp                                             stencil_op;        // = GfxRtOp::LoadStore;
+        int                                                 depth_stencil_used;// = 0;
     };
 
 }// namespace wmoge
