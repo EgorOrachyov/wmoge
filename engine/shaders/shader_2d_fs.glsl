@@ -1,4 +1,4 @@
-layout (location = 0) out vec4 out_color;
+layout(location = 0) out vec4 out_color;
 
 #define GAMMA_CORRECTION
 
@@ -10,13 +10,13 @@ vec4 srgb_to_linear(vec4 color) {
 void main() {
     ShaderParamsFs params;
 
-    params.uv = fs_uv;
-    params.color = fs_color;
+    params.uv           = fs_uv;
+    params.color        = fs_color;
     params.result_color = fs_color;
 
     fragment(params);
 
-    #ifdef GAMMA_CORRECTION
+#ifdef GAMMA_CORRECTION
     out_color = srgb_to_linear(params.result_color);
-    #endif
+#endif
 }

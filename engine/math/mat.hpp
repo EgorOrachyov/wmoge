@@ -377,6 +377,8 @@ namespace wmoge {
 
     using Mat2x2f = TMatMxN<float, 2, 2>;
     using Mat3x3f = TMatMxN<float, 3, 3>;
+    using Mat2x4f = TMatMxN<float, 2, 4>;
+    using Mat3x4f = TMatMxN<float, 3, 4>;
     using Mat4x4f = TMatMxN<float, 4, 4>;
 
     /**

@@ -25,39 +25,34 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "shader_manager.hpp"
+#include "common_funcs.glsl"
 
-#include "core/engine.hpp"
-#include "debug/console.hpp"
-#include "shaders/generated/auto_aux_canvas_fs.hpp"
-#include "shaders/generated/auto_aux_canvas_vs.hpp"
-#include "shaders/generated/auto_aux_geom_fs.hpp"
-#include "shaders/generated/auto_aux_geom_vs.hpp"
-#include "shaders/generated/auto_aux_text_fs.hpp"
-#include "shaders/generated/auto_aux_text_vs.hpp"
+#ifdef AUX_DRAW_GEOM
+layout(location = 0) in vec3 in_pos;
+layout(location = 1) in vec3 in_col;
+#endif
+#ifdef AUX_DRAW_TEXT
+layout(location = 0) in vec2 in_pos;
+layout(location = 1) in vec2 in_uv;
+layout(location = 2) in vec3 in_col;
+#endif
 
-#include "shaders/generated/auto_aux_draw_manager_gl410_frag.hpp"
-#include "shaders/generated/auto_aux_draw_manager_gl410_vert.hpp"
-#include "shaders/generated/auto_aux_draw_manager_reflection.hpp"
-#include "shaders/generated/auto_aux_draw_manager_vk450_frag.hpp"
-#include "shaders/generated/auto_aux_draw_manager_vk450_vert.hpp"
+LAYOUT_LOCATION(0)
+out vec3 out_color;
+#ifdef AUX_DRAW_TEXT
+LAYOUT_LOCATION(1)
+out vec2 out_uv;
+#endif
 
-namespace wmoge {
+void main() {
+    out_color = in_col;
 
-    ShaderManager::ShaderManager() {
-        m_shader_aux_geom = make_ref<Shader>();
-        m_shader_aux_geom->set_name(SID("aux-geom"));
-        m_shader_aux_geom->create_from_source(source_aux_geom_vs, source_aux_geom_fs);
+#ifdef AUX_DRAW_GEOM
+    gl_Position = clip_proj_view * vec4(in_pos, 1.0f);
+#endif
 
-        m_shader_aux_text = make_ref<Shader>();
-        m_shader_aux_text->set_name(SID("aux-text"));
-        m_shader_aux_text->create_from_source(source_aux_text_vs, source_aux_text_fs);
-
-        m_shader_canvas = make_ref<Shader>();
-        m_shader_canvas->set_name(SID("canvas"));
-        m_shader_canvas->create_from_source(source_aux_canvas_vs, source_aux_canvas_fs);
-
-        m_var_shader_compiler_dump = Engine::instance()->console()->register_var(SID("shader.compiler.dump"), 1, "dump compiled shaders text after per-processing to debug directory");
-    }
-
-}// namespace wmoge
+#ifdef AUX_DRAW_TEXT
+    out_uv      = unpack_uv(in_uv);
+    gl_Position = clip_proj_screen * vec4(in_pos, 0.0f, 1.0f);
+#endif
+}

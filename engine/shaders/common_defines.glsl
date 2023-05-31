@@ -25,39 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "shader_manager.hpp"
-
-#include "core/engine.hpp"
-#include "debug/console.hpp"
-#include "shaders/generated/auto_aux_canvas_fs.hpp"
-#include "shaders/generated/auto_aux_canvas_vs.hpp"
-#include "shaders/generated/auto_aux_geom_fs.hpp"
-#include "shaders/generated/auto_aux_geom_vs.hpp"
-#include "shaders/generated/auto_aux_text_fs.hpp"
-#include "shaders/generated/auto_aux_text_vs.hpp"
-
-#include "shaders/generated/auto_aux_draw_manager_gl410_frag.hpp"
-#include "shaders/generated/auto_aux_draw_manager_gl410_vert.hpp"
-#include "shaders/generated/auto_aux_draw_manager_reflection.hpp"
-#include "shaders/generated/auto_aux_draw_manager_vk450_frag.hpp"
-#include "shaders/generated/auto_aux_draw_manager_vk450_vert.hpp"
-
-namespace wmoge {
-
-    ShaderManager::ShaderManager() {
-        m_shader_aux_geom = make_ref<Shader>();
-        m_shader_aux_geom->set_name(SID("aux-geom"));
-        m_shader_aux_geom->create_from_source(source_aux_geom_vs, source_aux_geom_fs);
-
-        m_shader_aux_text = make_ref<Shader>();
-        m_shader_aux_text->set_name(SID("aux-text"));
-        m_shader_aux_text->create_from_source(source_aux_text_vs, source_aux_text_fs);
-
-        m_shader_canvas = make_ref<Shader>();
-        m_shader_canvas->set_name(SID("canvas"));
-        m_shader_canvas->create_from_source(source_aux_canvas_vs, source_aux_canvas_fs);
-
-        m_var_shader_compiler_dump = Engine::instance()->console()->register_var(SID("shader.compiler.dump"), 1, "dump compiled shaders text after per-processing to debug directory");
-    }
-
-}// namespace wmoge
+#if defined(VULKAN)
+    #define LAYOUT_LOCATION(idx) layout(location = idx)
+#else
+    #define LAYOUT_LOCATION(idx)
+#endif

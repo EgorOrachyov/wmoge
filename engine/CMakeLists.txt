@@ -51,7 +51,6 @@ add_library(wmoge STATIC
         core/string_utils.hpp
         core/task.cpp
         core/task.hpp
-        core/task_hnd.cpp
         core/task_hnd.hpp
         core/task_manager.cpp
         core/task_manager.hpp

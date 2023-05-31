@@ -589,9 +589,6 @@ namespace wmoge {
     using Vec3f = TVecN<float, 3>;
     using Vec4f = TVecN<float, 4>;
 
-    using Color3f = Vec3f;
-    using Color4f = Vec4f;
-
     using Vec2i = TVecN<int, 2>;
     using Vec3i = TVecN<int, 3>;
     using Vec4i = TVecN<int, 4>;
@@ -603,6 +600,9 @@ namespace wmoge {
     using Vec2b = TVecN<bool, 2>;
     using Vec3b = TVecN<bool, 3>;
     using Vec4b = TVecN<bool, 4>;
+
+    using Color3f = Vec3f;
+    using Color4f = Vec4f;
 
     using Point2i = TVecN<int, 2>;
     using Point2f = TVecN<float, 2>;

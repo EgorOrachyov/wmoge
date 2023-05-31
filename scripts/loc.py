@@ -11,12 +11,12 @@ def visit(directory):
     loc = 0
 
     for entry in os.listdir(directory):
-        if os.path.isfile(directory / entry):
+        if os.path.isfile(directory / entry) and '.py' not in entry:
             with open(directory / entry, "r") as file:
                 file_loc = sum(1 for _ in file)
             loc += file_loc
             FILE_STATS[str(entry)] = file_loc
-        else:
+        if os.path.isdir(directory / entry):
             loc += visit(directory / entry)
 
     DIR_STATS[str(directory.name)] = loc
