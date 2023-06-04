@@ -105,7 +105,7 @@ namespace wmoge {
         if (node.has_child("shader")) {
             ResourceManager* res_manager = Engine::instance()->resource_manager();
             const StringId   shader_name = Yaml::read_sid(node["shader"]);
-            const auto       shader      = res_manager->load(shader_name).cast<MaterialShader>();
+            const auto       shader      = res_manager->load(shader_name).cast<Shader>();
 
             if (!shader) {
                 WG_LOG_ERROR("failed to load shader " << shader << " for " << get_scene_object()->get_name());

@@ -79,6 +79,7 @@ namespace wmoge {
         std::unique_ptr<class Profiler>           m_profiler;
         std::unique_ptr<class Console>            m_console;
         std::unique_ptr<class AuxDrawCanvas>      m_canvas_2d_debug;
+        std::unique_ptr<class ShaderManager>      m_shader_manager;
         std::unique_ptr<class RenderEngine>       m_render_engine;
         std::unique_ptr<class GlfwWindowManager>  m_glfw_window_manager;
         std::unique_ptr<class VKDriver>           m_vk_driver;

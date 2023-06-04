@@ -40,6 +40,7 @@ namespace wmoge {
 
         m_driver              = driver;
         m_stream              = driver->cmd_stream();
+        m_shader_lang         = driver->shader_lang();
         m_device_caps         = driver->device_caps();
         m_driver_name         = driver->driver_name();
         m_thread_id           = driver->thread_id();
@@ -349,6 +350,9 @@ namespace wmoge {
 
     const GfxDeviceCaps& GfxDriverWrapper::device_caps() const {
         return m_device_caps;
+    }
+    const GfxShaderLang GfxDriverWrapper::shader_lang() const {
+        return m_shader_lang;
     }
     const StringId& GfxDriverWrapper::driver_name() const {
         return m_driver_name;

@@ -37,9 +37,9 @@
 #include "resource/font.hpp"
 #include "resource/image.hpp"
 #include "resource/material.hpp"
-#include "resource/material_shader.hpp"
 #include "resource/pfx_effect.hpp"
 #include "resource/resource_manager.hpp"
+#include "resource/shader.hpp"
 #include "resource/sprite.hpp"
 #include "resource/texture.hpp"
 

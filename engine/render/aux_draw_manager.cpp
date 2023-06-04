@@ -36,15 +36,9 @@
 #include "render/shader_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
+#include "shaders/generated/auto_aux_draw_manager_reflection.hpp"
 
 namespace wmoge {
-
-    struct AuxDrawConstants {
-        Mat4x4f clip_proj_view;
-        Mat4x4f clip_proj_screen;
-    };
-
-    static_assert(sizeof(AuxDrawConstants) == (2 * 4 * 4) * sizeof(float), "unexpected size");
 
     AuxDrawManager::AuxDrawManager() {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::AuxDrawManager");
@@ -53,73 +47,28 @@ namespace wmoge {
         auto gfx_driver       = engine->gfx_driver();
         auto resource_manager = engine->resource_manager();
         auto config_engine    = engine->config_engine();
-        auto shader_manager   = engine->render_engine()->get_shader_manager();
-
-        m_shader_geom                 = shader_manager->get_shader_aux_geom();
-        ShaderVariant* m_variant_geom = m_shader_geom->create_variant({});
-
-        m_shader_text                 = shader_manager->get_shader_aux_text();
-        ShaderVariant* m_variant_text = m_shader_text->create_variant({});
 
         std::string font_name = config_engine->get_string(SID("render.aux.font"), "res://fonts/consolas");
 
         m_debug_font = resource_manager->load(SID(font_name)).cast<Font>();
-        m_constants  = gfx_driver->make_uniform_buffer(sizeof(AuxDrawConstants), GfxMemUsage::GpuLocal, SID("aux_constants"));
+        m_constants  = gfx_driver->make_uniform_buffer(sizeof(ShaderAuxDrawManager::Params), GfxMemUsage::GpuLocal, SID("params_aux_draw"));
 
-        Ref<GfxVertFormat> b0_Pos3Col3;
+        // b0_Pos3Col3;
         {
             GfxVertElements elements;
             elements.add_element(SID("pos"), GfxFormat::RGB32F, 0, offsetof(GfxVF_Pos3Col3, pos), sizeof(GfxVF_Pos3Col3));
             elements.add_element(SID("col"), GfxFormat::RGB32F, 0, offsetof(GfxVF_Pos3Col3, col), sizeof(GfxVF_Pos3Col3));
-            b0_Pos3Col3 = gfx_driver->make_vert_format(elements, SID("b0_Pos3Col3"));
+            m_b0_Pos3Col3 = gfx_driver->make_vert_format(elements, SID("b0_Pos3Col3"));
         }
 
-        Ref<GfxVertFormat> b0_Pos2Uv2Col3;
+        // b0_Pos2Uv2Col3;
         {
             GfxVertElements elements;
             elements.add_element(SID("pos"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col3, pos), sizeof(GfxVF_Pos2Uv2Col3));
             elements.add_element(SID("uv"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col3, uv), sizeof(GfxVF_Pos2Uv2Col3));
             elements.add_element(SID("col"), GfxFormat::RGB32F, 0, offsetof(GfxVF_Pos2Uv2Col3, col), sizeof(GfxVF_Pos2Uv2Col3));
-            b0_Pos2Uv2Col3 = gfx_driver->make_vert_format(elements, SID("b0_Pos2Uv2Col3"));
+            m_b0_Pos2Uv2Col3 = gfx_driver->make_vert_format(elements, SID("b0_Pos2Uv2Col3"));
         }
-
-        GfxPipelineState pipeline_state;
-
-        pipeline_state.shader       = m_variant_geom->get_gfx_shader();
-        pipeline_state.depth_enable = true;
-        pipeline_state.depth_write  = true;
-        pipeline_state.vert_format  = b0_Pos3Col3;
-        pipeline_state.blending     = false;
-
-        pipeline_state.cull_mode  = GfxPolyCullMode::Disabled;
-        pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
-        pipeline_state.prim_type  = GfxPrimType::Lines;
-        pipeline_state.poly_mode  = GfxPolyMode::Fill;
-        m_pipeline_line           = gfx_driver->make_pipeline(pipeline_state, SID("aux_line"));
-
-        pipeline_state.cull_mode  = GfxPolyCullMode::Back;
-        pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
-        pipeline_state.prim_type  = GfxPrimType::Triangles;
-        pipeline_state.poly_mode  = GfxPolyMode::Fill;
-        m_pipeline_solid          = gfx_driver->make_pipeline(pipeline_state, SID("aux_solid"));
-
-        pipeline_state.cull_mode  = GfxPolyCullMode::Disabled;
-        pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
-        pipeline_state.prim_type  = GfxPrimType::Triangles;
-        pipeline_state.poly_mode  = GfxPolyMode::Line;
-        m_pipeline_wireframe      = gfx_driver->make_pipeline(pipeline_state, SID("aux_wireframe"));
-
-        pipeline_state.depth_enable = false;
-        pipeline_state.depth_write  = false;
-        pipeline_state.cull_mode    = GfxPolyCullMode::Disabled;
-        pipeline_state.front_face   = GfxPolyFrontFace::CounterClockwise;
-        pipeline_state.prim_type    = GfxPrimType::Triangles;
-        pipeline_state.poly_mode    = GfxPolyMode::Fill;
-
-        pipeline_state.shader      = m_variant_text->get_gfx_shader();
-        pipeline_state.vert_format = b0_Pos2Uv2Col3;
-        pipeline_state.blending    = true;
-        m_pipeline_glyphs          = gfx_driver->make_pipeline(pipeline_state, SID("aux_text"));
     }
 
     void AuxDrawManager::draw_line(const Vec3f& from, const Vec3f& to, const Color3f& color) {
@@ -360,7 +309,9 @@ namespace wmoge {
     void AuxDrawManager::render() {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::render");
 
-        auto gfx = Engine::instance()->gfx_driver();
+        auto engine         = Engine::instance();
+        auto gfx            = engine->gfx_driver();
+        auto shader_manager = engine->shader_manager();
 
         int num_of_verts_lines           = 2 * static_cast<int>(m_lines.size());
         int num_of_verts_triangles_solid = 3 * static_cast<int>(m_triangles_solid.size());
@@ -462,13 +413,48 @@ namespace wmoge {
         m_triangles_wire.clear();
         m_glyphs.clear();
 
-        auto ptr              = reinterpret_cast<AuxDrawConstants*>(gfx->map_uniform_buffer(m_constants));
+        auto ptr              = reinterpret_cast<ShaderAuxDrawManager::Params*>(gfx->map_uniform_buffer(m_constants));
         ptr->clip_proj_view   = (gfx->clip_matrix() * m_proj * m_view).transpose();
         ptr->clip_proj_screen = (gfx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
         gfx->unmap_uniform_buffer(m_constants);
 
-        static const StringId PARAM_CONSTANTS   = SID("Constants");
-        static const StringId PARAM_FONT_BITMAP = SID("FontBitmap");
+        GfxPipelineState pipeline_state;
+
+        pipeline_state.shader       = shader_manager->get_shader(SID("aux_draw_manager"), {"AUX_DRAW_GEOM"});
+        pipeline_state.depth_enable = true;
+        pipeline_state.depth_write  = true;
+        pipeline_state.vert_format  = m_b0_Pos3Col3;
+        pipeline_state.blending     = false;
+
+        pipeline_state.cull_mode  = GfxPolyCullMode::Disabled;
+        pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
+        pipeline_state.prim_type  = GfxPrimType::Lines;
+        pipeline_state.poly_mode  = GfxPolyMode::Fill;
+        auto pipeline_line        = gfx->make_pipeline(pipeline_state, SID("aux_line"));
+
+        pipeline_state.cull_mode  = GfxPolyCullMode::Back;
+        pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
+        pipeline_state.prim_type  = GfxPrimType::Triangles;
+        pipeline_state.poly_mode  = GfxPolyMode::Fill;
+        auto pipeline_solid       = gfx->make_pipeline(pipeline_state, SID("aux_solid"));
+
+        pipeline_state.cull_mode  = GfxPolyCullMode::Disabled;
+        pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
+        pipeline_state.prim_type  = GfxPrimType::Triangles;
+        pipeline_state.poly_mode  = GfxPolyMode::Line;
+        auto pipeline_wireframe   = gfx->make_pipeline(pipeline_state, SID("aux_wireframe"));
+
+        pipeline_state.depth_enable = false;
+        pipeline_state.depth_write  = false;
+        pipeline_state.cull_mode    = GfxPolyCullMode::Disabled;
+        pipeline_state.front_face   = GfxPolyFrontFace::CounterClockwise;
+        pipeline_state.prim_type    = GfxPrimType::Triangles;
+        pipeline_state.poly_mode    = GfxPolyMode::Fill;
+
+        pipeline_state.shader      = shader_manager->get_shader(SID("aux_draw_manager"), {"AUX_DRAW_TEXT"});
+        pipeline_state.vert_format = m_b0_Pos2Uv2Col3;
+        pipeline_state.blending    = true;
+        auto pipeline_glyphs       = gfx->make_pipeline(pipeline_state, SID("aux_text"));
 
         gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw"));
         gfx->bind_target(m_window);
@@ -476,25 +462,25 @@ namespace wmoge {
         gfx->clear(1.0f, 0);// todo: clear in scene rendering
         gfx->clear(0, Vec4f(0, 0, 0, 1));
 
-        if (num_of_verts_lines > 0 && gfx->bind_pipeline(m_pipeline_line)) {
+        if (num_of_verts_lines > 0 && gfx->bind_pipeline(pipeline_line)) {
             gfx->bind_vert_buffer(m_gfx_lines, 0);
-            gfx->bind_uniform_buffer(PARAM_CONSTANTS, 0, sizeof(AuxDrawConstants), m_constants);
+            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
             gfx->draw(num_of_verts_lines, 0, 1);
         }
-        if (num_of_verts_triangles_solid > 0 && gfx->bind_pipeline(m_pipeline_solid)) {
+        if (num_of_verts_triangles_solid > 0 && gfx->bind_pipeline(pipeline_solid)) {
             gfx->bind_vert_buffer(m_gfx_triangles_solid, 0);
-            gfx->bind_uniform_buffer(PARAM_CONSTANTS, 0, sizeof(AuxDrawConstants), m_constants);
+            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
             gfx->draw(num_of_verts_triangles_solid, 0, 1);
         }
-        if (num_of_verts_triangles_wire > 0 && gfx->bind_pipeline(m_pipeline_wireframe)) {
+        if (num_of_verts_triangles_wire > 0 && gfx->bind_pipeline(pipeline_wireframe)) {
             gfx->bind_vert_buffer(m_gfx_triangles_wire, 0);
-            gfx->bind_uniform_buffer(PARAM_CONSTANTS, 0, sizeof(AuxDrawConstants), m_constants);
+            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
             gfx->draw(num_of_verts_triangles_wire, 0, 1);
         }
-        if (num_of_verts_glyphs > 0 && gfx->bind_pipeline(m_pipeline_glyphs)) {
+        if (num_of_verts_glyphs > 0 && gfx->bind_pipeline(pipeline_glyphs)) {
             gfx->bind_vert_buffer(m_gfx_glyphs, 0);
-            gfx->bind_uniform_buffer(PARAM_CONSTANTS, 0, sizeof(AuxDrawConstants), m_constants);
-            gfx->bind_texture(PARAM_FONT_BITMAP, 0, m_debug_font->get_bitmap(), m_debug_font->get_sampler());
+            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
+            gfx->bind_texture(ShaderAuxDrawManager::FONTBITMAP_LOC, 0, m_debug_font->get_bitmap(), m_debug_font->get_sampler());
             gfx->draw(num_of_verts_glyphs, 0, 1);
         }
 

@@ -33,7 +33,7 @@
 #include "gfx/gfx_buffers.hpp"
 #include "math/vec.hpp"
 #include "render/render_material.hpp"
-#include "resource/material_shader.hpp"
+#include "resource/shader.hpp"
 #include "resource/texture.hpp"
 
 #include <mutex>
@@ -69,7 +69,7 @@ namespace wmoge {
          *
          * @param shader Valid shader to use for this material
          */
-        void create(Ref<MaterialShader> shader);
+        void create(Ref<Shader> shader);
 
         /** @brief Set material int parameter value by name */
         void set_int(const StringId& name, int value);
@@ -87,20 +87,20 @@ namespace wmoge {
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        const Ref<MaterialShader>&       get_shader();
+        const Ref<Shader>&               get_shader();
         const Ref<RenderMaterial>&       get_render_material();
         const fast_vector<std::uint8_t>& get_parameters();
         const fast_vector<Ref<Texture>>& get_textures();
 
     private:
         bool copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data);
-        void set_parameter_from_string(ShaderParamType type, const std::string& value, void* mem);
+        void set_parameter_from_string(GfxShaderParam type, const std::string& value, void* mem);
         void request_update();
 
     private:
         friend class RenderMaterial;
 
-        Ref<MaterialShader>       m_shader;
+        Ref<Shader>               m_shader;
         Ref<RenderMaterial>       m_render_material;
         fast_vector<std::uint8_t> m_parameters;
         fast_vector<Ref<Texture>> m_textures;

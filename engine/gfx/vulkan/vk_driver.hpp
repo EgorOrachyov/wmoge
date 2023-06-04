@@ -120,6 +120,7 @@ namespace wmoge {
         void swap_buffers(const Ref<Window>& window) override;
 
         const GfxDeviceCaps&   device_caps() const override { return m_device_caps; }
+        const GfxShaderLang    shader_lang() const override { return GfxShaderLang::GlslVk450; }
         const StringId&        driver_name() const override { return m_driver_name; }
         const std::string&     shader_cache_path() const override { return m_shader_cache_path; }
         const std::string&     pipeline_cache_path() const override { return m_pipeline_cache_path; }

@@ -63,16 +63,12 @@ namespace wmoge {
         struct DrawCmd* allocate_draw_cmd();
         void            free_draw_cmd(struct DrawCmd* cmd);
 
-        class ShaderManager* get_shader_manager();
-        class ShaderCache*   get_shader_cache();
-        CallbackQueue*       get_queue();
+        CallbackQueue* get_queue();
 
     private:
         CallbackQueue m_queue;
 
-        std::unique_ptr<class ShaderManager> m_shader_manager;
-        std::unique_ptr<class ShaderCache>   m_shader_cache;
-        std::unique_ptr<class MemPool>       m_pool_draw_cmd;
+        std::unique_ptr<class MemPool> m_pool_draw_cmd;
 
         std::mutex m_mutex;
     };

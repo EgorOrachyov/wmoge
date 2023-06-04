@@ -62,6 +62,7 @@ namespace wmoge {
         class WindowManager*    window_manager();
         class Input*            input();
         class GfxDriver*        gfx_driver();
+        class ShaderManager*    shader_manager();
         class AuxDrawManager*   aux_draw_manager();
         class SceneManager*     scene_manager();
         class ActionManager*    action_manager();
@@ -105,6 +106,7 @@ namespace wmoge {
         class WindowManager*      m_window_manager     = nullptr;
         class Input*              m_input              = nullptr;
         class GfxDriver*          m_gfx_driver         = nullptr;
+        class ShaderManager*      m_shader_manager     = nullptr;
         class AuxDrawManager*     m_aux_draw_manager   = nullptr;
         class SceneManager*       m_scene_manager      = nullptr;
         class ActionManager*      m_action_manager     = nullptr;

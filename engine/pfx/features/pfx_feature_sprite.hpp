@@ -29,7 +29,7 @@
 #define WMOGE_PFX_FEATURE_SPRITE_HPP
 
 #include "pfx/pfx_feature.hpp"
-#include "resource/shader_2d.hpp"
+#include "resource/shader.hpp"
 #include "resource/sprite.hpp"
 
 namespace wmoge {
@@ -58,9 +58,9 @@ namespace wmoge {
         void on_prepare_render(class PfxComponentRuntime& runtime) override;
 
     private:
-        Ref<Shader2d> m_shader;
-        Ref<Sprite>   m_sprite;
-        int           m_animation = -1;
+        Ref<Shader> m_shader;
+        Ref<Sprite> m_sprite;
+        int         m_animation = -1;
     };
 
 }// namespace wmoge

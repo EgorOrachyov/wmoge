@@ -52,7 +52,7 @@ namespace wmoge {
         DrawCmd* cmd = cmds[0];
 
         const auto&    shader  = primitive.material->get_material()->get_shader();
-        ShaderVariant* variant = shader->create_variant(primitive.attribs, m_defines);
+        Ref<GfxShader> variant = shader->create_variant({primitive.attribs}, m_defines);
 
         if (!variant) {
             WG_LOG_ERROR("failed to compile primitive " << primitive.name);
@@ -60,16 +60,16 @@ namespace wmoge {
         }
 
         DrawMaterialBindings bindings;
-        bindings.first_texture = variant->get_material_first_texture();
-        bindings.first_buffer  = variant->get_material_first_buffer();
+        bindings.first_texture = 0;
+        bindings.first_buffer  = 0;
 
         GfxPipelineState pipeline_state{};
-        pipeline_state.shader      = variant->get_gfx_shader();
+        pipeline_state.shader      = variant;
         pipeline_state.vert_format = Ref<GfxVertFormat>(primitive.vert_format);
         pipeline_state.prim_type   = primitive.prim_type;
-        pipeline_state.poly_mode   = shader->get_poly_mode();
-        pipeline_state.cull_mode   = shader->get_cull_mode();
-        pipeline_state.front_face  = shader->get_front_face();
+        pipeline_state.poly_mode   = shader->get_pipeline_state().poly_mode;
+        pipeline_state.cull_mode   = shader->get_pipeline_state().cull_mode;
+        pipeline_state.front_face  = shader->get_pipeline_state().front_face;
         pipeline_state.blending    = true;
 
         const auto pipeline = m_gfx_driver->make_pipeline(pipeline_state, shader->get_name());

@@ -117,6 +117,7 @@ namespace wmoge {
         virtual void flush()                                   = 0;
 
         [[nodiscard]] virtual const GfxDeviceCaps&   device_caps() const         = 0;
+        [[nodiscard]] virtual const GfxShaderLang    shader_lang() const         = 0;
         [[nodiscard]] virtual const StringId&        driver_name() const         = 0;
         [[nodiscard]] virtual const std::string&     shader_cache_path() const   = 0;
         [[nodiscard]] virtual const std::string&     pipeline_cache_path() const = 0;

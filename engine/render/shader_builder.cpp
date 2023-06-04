@@ -28,106 +28,75 @@
 #include "shader_builder.hpp"
 
 #include "core/engine.hpp"
-#include "debug/console.hpp"
 #include "debug/profiler.hpp"
-#include "platform/file_system.hpp"
-#include "render/render_engine.hpp"
-#include "render/shader_cache.hpp"
-#include "render/shader_manager.hpp"
-#include "resource/shader.hpp"
+#include "gfx/gfx_driver.hpp"
 
 namespace wmoge {
 
-    ShaderBuilder& ShaderBuilder::set_shader(Shader* shader) {
-        m_shader = shader;
-        return *this;
+    void ShaderBuilder::configure_vs() {
+        vertex = std::make_optional(std::stringstream{});
     }
-    ShaderBuilder& ShaderBuilder::set_key(StringId key) {
-        m_key = key;
-        return *this;
+    void ShaderBuilder::configure_fs() {
+        fragment = std::make_optional(std::stringstream{});
     }
-    ShaderBuilder& ShaderBuilder::set_attribs(MeshAttribs mesh_attribs) {
-        m_mesh_attribs = mesh_attribs;
-        return *this;
+    void ShaderBuilder::configure_cs() {
+        compute = std::make_optional(std::stringstream{});
     }
-    ShaderBuilder& ShaderBuilder::set_material_bindings(int first_buffer, int first_texture) {
-        m_mat_first_buffer  = first_buffer;
-        m_mat_first_texture = first_texture;
-        return *this;
-    }
-    ShaderBuilder& ShaderBuilder::add_define(const std::string& define) {
+    void ShaderBuilder::add_define(const std::string& define) {
         add_define_vs(define);
         add_define_fs(define);
-        return *this;
+        add_define_cs(define);
     }
-    ShaderBuilder& ShaderBuilder::add_defines(const fast_vector<std::string>& defines) {
-        for (const auto& d : defines) add_define(d);
-        return *this;
+    void ShaderBuilder::add_defines(const fast_vector<std::string>& defines) {
+        for (const auto& d : defines) {
+            add_define(d);
+        }
     }
-    ShaderBuilder& ShaderBuilder::add_define_vs(const std::string& define) {
-        m_vertex << "#define " << define << "\n";
-        return *this;
+    void ShaderBuilder::add_define_vs(const std::string& define) {
+        if (vertex.has_value()) {
+            vertex.value() << "#define " << define << "\n";
+        }
     }
-    ShaderBuilder& ShaderBuilder::add_define_fs(const std::string& define) {
-        m_fragment << "#define " << define << "\n";
-        return *this;
+    void ShaderBuilder::add_define_fs(const std::string& define) {
+        if (fragment.has_value()) {
+            fragment.value() << "#define " << define << "\n";
+        }
     }
-    ShaderBuilder& ShaderBuilder::add_vertex_module(const std::string& code) {
-        m_vertex << code;
-        return *this;
+    void ShaderBuilder::add_define_cs(const std::string& define) {
+        if (compute.has_value()) {
+            compute.value() << "#define " << define << "\n";
+        }
     }
-    ShaderBuilder& ShaderBuilder::add_fragment_module(const std::string& code) {
-        m_fragment << code;
-        return *this;
+    void ShaderBuilder::add_vs_module(const std::string& code) {
+        if (vertex.has_value()) {
+            vertex.value() << code;
+        }
     }
+    void ShaderBuilder::add_fs_module(const std::string& code) {
+        if (fragment.has_value()) {
+            fragment.value() << code;
+        }
+    }
+    void ShaderBuilder::add_cs_module(const std::string& code) {
+        if (compute.has_value()) {
+            compute.value() << code;
+        }
+    }
+
     bool ShaderBuilder::compile() {
         WG_AUTO_PROFILE_RENDER("ShaderBuilder::compile");
 
-        Engine*        engine         = Engine::instance();
-        RenderEngine*  render_engine  = engine->render_engine();
-        ShaderCache*   shader_cache   = render_engine->get_shader_cache();
-        ShaderManager* shader_manager = render_engine->get_shader_manager();
+        Engine*    engine     = Engine::instance();
+        GfxDriver* gfx_driver = engine->gfx_driver();
 
-        std::string    source = m_vertex.str() + m_fragment.str();
-        Ref<GfxShader> shader = shader_cache->find(source);
-
-        if (!shader) {
-            StringId gfx_name(m_shader->get_name().str() + "_" + m_key.str());
-            shader = Engine::instance()->gfx_driver()->make_shader(m_vertex.str(), m_fragment.str(), gfx_name);
-            shader_cache->cache(source, shader);
-
-            if (shader_manager->get_var_shader_compiler_dump()->as_int()) {
-                FileSystem* file_system = engine->file_system();
-
-                const std::string file_common  = "debug://shader_" + m_shader->get_name().str() + "_" + m_key.str();
-                const std::string file_path_vs = file_common + "_vs.glsl";
-                const std::string file_path_fs = file_common + "_fs.glsl";
-
-                WG_LOG_INFO("try to dump shader " << file_path_vs);
-                WG_LOG_INFO("try to dump shader " << file_path_fs);
-
-                if (!file_system->save_file(file_path_vs, m_vertex.str())) {
-                    WG_LOG_WARNING("failed to save file " << file_path_vs);
-                }
-                if (!file_system->save_file(file_path_fs, m_fragment.str())) {
-                    WG_LOG_WARNING("failed to save file " << file_path_fs);
-                }
-            }
+        if (vertex.has_value() && fragment.has_value()) {
+            gfx_shader = gfx_driver->make_shader(vertex->str(), fragment->str(), key);
+            return true;
         }
 
-        m_variant.m_material_first_buffer  = m_mat_first_buffer;
-        m_variant.m_material_first_texture = m_mat_first_texture;
-        m_variant.m_owner                  = m_shader;
-        m_variant.m_key                    = m_key;
-        m_variant.m_hash                   = std::hash<std::string>()(source);
-        m_variant.m_gfx_shader             = shader;
-        return true;
-    }
-    ShaderVariant& ShaderBuilder::get_variant() {
-        return m_variant;
-    }
-    MeshAttribs ShaderBuilder::get_mesh_attribs() {
-        return m_mesh_attribs;
+        WG_LOG_ERROR("unknown shader modules combination");
+
+        return false;
     }
 
 }// namespace wmoge

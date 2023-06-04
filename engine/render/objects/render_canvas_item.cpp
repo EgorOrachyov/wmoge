@@ -34,7 +34,6 @@
 #include "render/draw_cmd_compiler.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
-#include "resource/shader_2d.hpp"
 
 namespace wmoge {
 
@@ -77,7 +76,7 @@ namespace wmoge {
     }
 
     void RenderCanvasItem::create_draw_params() {
-        m_draw_params = m_driver->make_uniform_buffer(sizeof(Shader2d::DrawParams), GfxMemUsage::GpuLocal, get_name());
+        //        m_draw_params = m_driver->make_uniform_buffer(sizeof(Shader2d::DrawParams), GfxMemUsage::GpuLocal, get_name());
     }
     void RenderCanvasItem::create_vert_format() {
         GfxVertElements elements;
@@ -87,13 +86,13 @@ namespace wmoge {
         m_vert_format = m_driver->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
     }
     void RenderCanvasItem::update_draw_params() {
-        auto* ptr           = reinterpret_cast<Shader2d::DrawParams*>(m_driver->map_uniform_buffer(m_draw_params));
-        ptr->model          = Math2d::from3x3to4x4(m_model).transpose();
-        ptr->model_prev     = Math2d::from3x3to4x4(m_model_prev).transpose();
-        ptr->model_inv      = Math2d::from3x3to4x4(m_model_inv).transpose();
-        ptr->model_inv_prev = Math2d::from3x3to4x4(m_model_inv_prev).transpose();
-        ptr->tint           = m_tint;
-        ptr->layer_id       = m_layer_id;
+        //        auto* ptr           = reinterpret_cast<Shader2d::DrawParams*>(m_driver->map_uniform_buffer(m_draw_params));
+        //        ptr->model          = Math2d::from3x3to4x4(m_model).transpose();
+        //        ptr->model_prev     = Math2d::from3x3to4x4(m_model_prev).transpose();
+        //        ptr->model_inv      = Math2d::from3x3to4x4(m_model_inv).transpose();
+        //        ptr->model_inv_prev = Math2d::from3x3to4x4(m_model_inv_prev).transpose();
+        //        ptr->tint           = m_tint;
+        //        ptr->layer_id       = m_layer_id;
         m_driver->unmap_uniform_buffer(m_draw_params);
     }
     void RenderCanvasItem::mark_dirty_params() {
@@ -131,7 +130,7 @@ namespace wmoge {
         primitive.vert_format                = m_vert_format.get();
         primitive.material                   = material;
         primitive.draw_pass.set(DrawPass::Overlay2dPass);
-        primitive.attribs   = MeshAttribs{};
+        primitive.attribs   = {};
         primitive.prim_type = GfxPrimType::Triangles;
         primitive.name      = get_name();
 

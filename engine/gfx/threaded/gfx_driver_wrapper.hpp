@@ -111,6 +111,7 @@ namespace wmoge {
         void flush() override;
 
         [[nodiscard]] const GfxDeviceCaps&   device_caps() const override;
+        [[nodiscard]] const GfxShaderLang    shader_lang() const override;
         [[nodiscard]] const StringId&        driver_name() const override;
         [[nodiscard]] const std::string&     shader_cache_path() const override;
         [[nodiscard]] const std::string&     pipeline_cache_path() const override;
@@ -121,6 +122,7 @@ namespace wmoge {
 
     private:
         GfxDriverThreaded* m_driver = nullptr;
+        GfxShaderLang      m_shader_lang;
         CmdStream*         m_stream = nullptr;
         GfxDeviceCaps      m_device_caps;
         StringId           m_driver_name;

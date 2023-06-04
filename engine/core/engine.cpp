@@ -75,6 +75,9 @@ namespace wmoge {
     GfxDriver* Engine::gfx_driver() {
         return m_gfx_driver;
     }
+    ShaderManager* Engine::shader_manager() {
+        return m_shader_manager;
+    }
     AuxDrawManager* Engine::aux_draw_manager() {
         return m_aux_draw_manager;
     }

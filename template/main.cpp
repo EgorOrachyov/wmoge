@@ -40,6 +40,10 @@ public:
 
     void on_init() override {
         Application::on_init();
+
+        Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
+        Engine::instance()->action_manager()->enable_action_map(SID("console"));
+
         WG_LOG_INFO("init");
     }
 

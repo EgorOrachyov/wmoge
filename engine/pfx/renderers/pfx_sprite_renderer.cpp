@@ -88,7 +88,7 @@ namespace wmoge {
             primitive.vert_format                = vert_format;
             primitive.material                   = material;
             primitive.draw_pass.set(DrawPass::Overlay2dPass);
-            primitive.attribs   = MeshAttribs{};
+            primitive.attribs   = {};
             primitive.prim_type = GfxPrimType::Triangles;
             primitive.name      = m_name;
 

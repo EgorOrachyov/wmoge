@@ -33,14 +33,12 @@
 #include "resource/font.hpp"
 #include "resource/image.hpp"
 #include "resource/material.hpp"
-#include "resource/material_shader.hpp"
 #include "resource/mesh.hpp"
 #include "resource/pfx_effect.hpp"
 #include "resource/resource.hpp"
 #include "resource/scene_packed.hpp"
 #include "resource/script.hpp"
 #include "resource/shader.hpp"
-#include "resource/shader_2d.hpp"
 #include "resource/sprite.hpp"
 #include "resource/text_file.hpp"
 #include "resource/texture.hpp"
@@ -60,9 +58,7 @@ namespace wmoge {
         Texture::register_class();
         Texture2d::register_class();
         TextureCube::register_class();
-        MaterialShader::register_class();
         Material::register_class();
-        Shader2d::register_class();
         Sprite::register_class();
         Script::register_class();
         PfxEffect::register_class();

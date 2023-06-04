@@ -25,57 +25,43 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SHADER_CACHE_HPP
-#define WMOGE_SHADER_CACHE_HPP
+#ifndef WMOGE_MESH_BUILDER_HPP
+#define WMOGE_MESH_BUILDER_HPP
 
-#include "core/fast_map.hpp"
-#include "core/string_id.hpp"
-#include "gfx/gfx_shader.hpp"
-#include "io/archive.hpp"
+#include "gfx/gfx_defs.hpp"
+#include "math/vec.hpp"
+#include "resource/mesh.hpp"
 
-#include <mutex>
-#include <string>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class ShaderCache
-     * @brief Runtime and offline cache of compiled gfx shaders
-     *
-     * Shader cache allows to reuse created shaders at runtime. Also it allows
-     * to speed up shader creation significantly (from 0.5-1.0 sec to 10ms) by
-     * caching the shader byte code and saving it on a disk for a reuse on
-     * a next game run.
+     * @class MeshBuilder
+     * @brief Utility class to build a mesh from arrays
      */
-    class ShaderCache {
-    public:
-        ShaderCache();
-        ~ShaderCache();
+    struct MeshBuilder {
+        void add_index(std::uint32_t i);
 
-        Ref<GfxShader> find(const std::string& key);
-        void           cache(const std::string& key, Ref<GfxShader> shader);
-        void           clear();
-        void           save(const std::string& path);
-        void           load(const std::string& path);
+        bool build();
 
-        /**
-         * @class ShaderData
-         * @brief Entry holding data of a particular shader
-         */
-        struct ShaderData {
-            StringId       name;
-            Ref<GfxShader> shader;
-            Ref<Data>      bytecode;
+        Ref<Mesh> mesh;
 
-            friend Archive& operator<<(Archive& archive, const ShaderData& shader_data);
-            friend Archive& operator>>(Archive& archive, ShaderData& shader_data);
-        };
+        std::vector<MeshChunk>     chunks;
+        std::vector<std::uint32_t> indices;
+        std::vector<Vec3f>         pos3;
+        std::vector<Vec2f>         pos2;
+        std::vector<Vec3f>         norm;
+        std::vector<Vec3f>         tang;
+        std::vector<Vec4i>         bone_ids;
+        std::vector<Vec4f>         bone_weights;
+        std::vector<Vec4f>         col[4];
+        std::vector<Vec2f>         uv[4];
 
-    private:
-        fast_map<std::string, ShaderData> m_entries;
-        std::mutex                        m_mutex;
+        int num_vertices = 0;
+        int num_indices  = 0;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SHADER_CACHE_HPP
+#endif//WMOGE_MESH_BUILDER_HPP

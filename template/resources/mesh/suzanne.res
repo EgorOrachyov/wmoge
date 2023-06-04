@@ -7,7 +7,7 @@ deps: [ ]
 description: "suzanne test mesh"
 params:
   source_file: "res://mesh/suzanne.obj"
-  attributes: [ "Position", "Normal" ]
+  attributes: [ "Pos3f", "Norm3f" ]
   process:
     triangulate: true
     tangent_space: true

@@ -154,7 +154,8 @@ namespace wmoge {
                         m_current_speed = m_speed_open;
                         m_state         = ConsoleState::Opening;
                         return true;
-                    } else if (m_state == ConsoleState::Open || m_state == ConsoleState::Opening) {
+                    }
+                    if (m_state == ConsoleState::Open || m_state == ConsoleState::Opening) {
                         m_current_speed = -m_speed_open;
                         m_state         = ConsoleState::Closing;
                         return true;

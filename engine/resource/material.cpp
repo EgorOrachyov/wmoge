@@ -39,7 +39,7 @@
 
 namespace wmoge {
 
-    void Material::create(Ref<MaterialShader> shader) {
+    void Material::create(Ref<Shader> shader) {
         assert(shader);
 
         m_shader = std::move(shader);
@@ -84,7 +84,7 @@ namespace wmoge {
             return false;
         }
 
-        auto material_shader = res_man->load(SID(shader)).cast<MaterialShader>();
+        auto material_shader = res_man->load(SID(shader)).cast<Shader>();
         if (!material_shader) {
             WG_LOG_ERROR("not loaded shader " << shader << ". shader must be loaded");
             return false;
@@ -138,7 +138,7 @@ namespace wmoge {
         material->m_textures   = m_textures;
     }
 
-    const Ref<MaterialShader>& Material::get_shader() {
+    const Ref<Shader>& Material::get_shader() {
         return m_shader;
     }
     const Ref<RenderMaterial>& Material::get_render_material() {
@@ -156,7 +156,7 @@ namespace wmoge {
 
         assert(m_shader);
 
-        const auto  type   = ShaderParamType::Int;
+        const auto  type   = GfxShaderParam::Int;
         const auto& params = m_shader->get_parameters();
         const auto  param  = params.find(name);
 
@@ -175,7 +175,7 @@ namespace wmoge {
 
         assert(m_shader);
 
-        const auto  type   = ShaderParamType::Float;
+        const auto  type   = GfxShaderParam::Float;
         const auto& params = m_shader->get_parameters();
         const auto  param  = params.find(name);
 
@@ -194,7 +194,7 @@ namespace wmoge {
 
         assert(m_shader);
 
-        const auto  type   = ShaderParamType::Vec2;
+        const auto  type   = GfxShaderParam::Vec2;
         const auto& params = m_shader->get_parameters();
         const auto  param  = params.find(name);
 
@@ -213,7 +213,7 @@ namespace wmoge {
 
         assert(m_shader);
 
-        const auto  type   = ShaderParamType::Vec3;
+        const auto  type   = GfxShaderParam::Vec3;
         const auto& params = m_shader->get_parameters();
         const auto  param  = params.find(name);
 
@@ -232,7 +232,7 @@ namespace wmoge {
 
         assert(m_shader);
 
-        const auto  type   = ShaderParamType::Vec4;
+        const auto  type   = GfxShaderParam::Vec4;
         const auto& params = m_shader->get_parameters();
         const auto  param  = params.find(name);
 
@@ -294,26 +294,26 @@ namespace wmoge {
 
         return false;
     }
-    void Material::set_parameter_from_string(ShaderParamType type, const std::string& str_value, void* mem) {
+    void Material::set_parameter_from_string(GfxShaderParam type, const std::string& str_value, void* mem) {
         std::stringstream value(str_value);
 
         switch (type) {
-            case ShaderParamType::Int:
+            case GfxShaderParam::Int:
                 value >> *(reinterpret_cast<int*>(mem));
                 break;
-            case ShaderParamType::Float:
+            case GfxShaderParam::Float:
                 value >> *(reinterpret_cast<float*>(mem));
                 break;
-            case ShaderParamType::Vec2:
+            case GfxShaderParam::Vec2:
                 value >> *(reinterpret_cast<float*>(mem) + 0);
                 value >> *(reinterpret_cast<float*>(mem) + 1);
                 break;
-            case ShaderParamType::Vec3:
+            case GfxShaderParam::Vec3:
                 value >> *(reinterpret_cast<float*>(mem) + 0);
                 value >> *(reinterpret_cast<float*>(mem) + 1);
                 value >> *(reinterpret_cast<float*>(mem) + 2);
                 break;
-            case ShaderParamType::Vec4:
+            case GfxShaderParam::Vec4:
                 value >> *(reinterpret_cast<float*>(mem) + 0);
                 value >> *(reinterpret_cast<float*>(mem) + 1);
                 value >> *(reinterpret_cast<float*>(mem) + 2);

@@ -33,7 +33,7 @@
 #include "math/math_utils3d.hpp"
 #include "render/draw_cmd.hpp"
 #include "render/render_view.hpp"
-#include "resource/shader_2d.hpp"
+#include "resource/shader.hpp"
 
 namespace wmoge {
 
@@ -47,7 +47,7 @@ namespace wmoge {
 
         GfxDriver* driver = get_gfx_driver();
 
-        m_pass_params = driver->make_uniform_buffer(int(sizeof(Shader2d::PassParams)), GfxMemUsage::GpuLocal, SID("overlay-2d-params"));
+        //        m_pass_params = driver->make_uniform_buffer(int(sizeof(Shader2d::PassParams)), GfxMemUsage::GpuLocal, SID("overlay-2d-params"));
     }
 
     void PipelineStageOverlay2d::on_execute(int view_index) {
@@ -65,13 +65,13 @@ namespace wmoge {
         const Mat4x4f mat_camera      = Math2d::from3x3to4x4(view->get_screen_camera_mat_inv());
         const Mat4x4f mat_camera_prev = Math2d::from3x3to4x4(view->get_screen_camera_mat_inv_prev());
 
-        auto* pass_params                = reinterpret_cast<Shader2d::PassParams*>(driver->map_uniform_buffer(m_pass_params));
-        pass_params->clip_proj_view      = (mat_clip * mat_view * mat_camera).transpose();
-        pass_params->clip_proj_view_prev = (mat_clip * mat_view * mat_camera_prev).transpose();
-        pass_params->view_size           = view->get_screen_size();
-        pass_params->time                = scene->get_time();
-        pass_params->time_dt             = scene->get_time_dt();
-        driver->unmap_uniform_buffer(m_pass_params);
+        //        auto* pass_params                = reinterpret_cast<Shader2d::PassParams*>(driver->map_uniform_buffer(m_pass_params));
+        //        pass_params->clip_proj_view      = (mat_clip * mat_view * mat_camera).transpose();
+        //        pass_params->clip_proj_view_prev = (mat_clip * mat_view * mat_camera_prev).transpose();
+        //        pass_params->view_size           = view->get_screen_size();
+        //        pass_params->time                = scene->get_time();
+        //        pass_params->time_dt             = scene->get_time_dt();
+        //        driver->unmap_uniform_buffer(m_pass_params);
 
         auto&  window        = view->get_display();
         auto&  viewport_rect = view->get_viewport_rect();

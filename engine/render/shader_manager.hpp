@@ -28,7 +28,15 @@
 #ifndef WMOGE_SHADER_MANAGER_HPP
 #define WMOGE_SHADER_MANAGER_HPP
 
-#include "resource/shader.hpp"
+#include "core/fast_map.hpp"
+#include "core/fast_vector.hpp"
+#include "core/string_id.hpp"
+#include "gfx/gfx_shader.hpp"
+#include "io/archive.hpp"
+
+#include <filesystem>
+#include <mutex>
+#include <string>
 
 namespace wmoge {
 
@@ -39,19 +47,61 @@ namespace wmoge {
     class ShaderManager {
     public:
         ShaderManager();
+        ShaderManager(const ShaderManager&) = delete;
+        ShaderManager(ShaderManager&&)      = delete;
+        ~ShaderManager();
 
-        const Ref<Shader> get_shader_aux_geom() { return m_shader_aux_geom; }
-        const Ref<Shader> get_shader_aux_text() { return m_shader_aux_text; }
-        const Ref<Shader> get_shader_canvas() { return m_shader_canvas; }
+        StringId       make_shader_key(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader);
+        Ref<GfxShader> get_shader(const StringId& shader_name);
+        Ref<GfxShader> get_shader(const StringId& shader_name, const fast_vector<std::string>& defines);
+        Ref<GfxShader> get_shader(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader);
+        Ref<GfxShader> find(const StringId& shader_key);
+        void           cache(const StringId& shader_key, const Ref<GfxShader>& shader, bool allow_overwrite = false);
+        void           dump_stats();
+        void           reload_shaders();
+        void           clear_cache();
+        void           save_cache(const std::string& path_on_disk);
+        void           load_cache(const std::string& path_on_disk);
 
-        class ConsoleVar* get_var_shader_compiler_dump() { return m_var_shader_compiler_dump; }
+        /**
+         * @class ShaderData
+         * @brief Entry holding data of a particular shader
+         */
+        struct ShaderData {
+            StringId       name;
+            Ref<GfxShader> shader;
+            Ref<Data>      bytecode;
+
+            friend Archive& operator<<(Archive& archive, const ShaderData& shader_data);
+            friend Archive& operator>>(Archive& archive, ShaderData& shader_data);
+        };
+
+        /**
+         * @class ShaderSources
+         * @brief Shaders sources for compilation
+         */
+        struct ShaderSources {
+            std::string modules[3];
+        };
 
     private:
-        Ref<Shader> m_shader_aux_geom;
-        Ref<Shader> m_shader_aux_text;
-        Ref<Shader> m_shader_canvas;
+        void load_sources_from_build();
+        void load_sources_from_disk();
 
-        class ConsoleVar* m_var_shader_compiler_dump = nullptr;
+    private:
+        fast_map<StringId, ShaderData>    m_cache;
+        fast_map<StringId, ShaderSources> m_sources;
+        std::string                       m_shaders_directory;
+
+        class ConsoleVar* m_var_allow_dump   = nullptr;
+        class ConsoleVar* m_var_allow_reload = nullptr;
+        class ConsoleCmd* m_cmd_clear        = nullptr;
+        class ConsoleCmd* m_cmd_save         = nullptr;
+        class ConsoleCmd* m_cmd_info         = nullptr;
+        class ConsoleCmd* m_cmd_dump         = nullptr;
+        class ConsoleCmd* m_cmd_reload       = nullptr;
+
+        mutable std::recursive_mutex m_mutex;
     };
 
 }// namespace wmoge

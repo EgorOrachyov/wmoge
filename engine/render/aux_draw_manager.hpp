@@ -105,13 +105,9 @@ namespace wmoge {
         std::vector<AuxDrawTriangle> m_triangles_wire;
         std::vector<AuxDrawGlyph>    m_glyphs;
 
-        Ref<Shader>           m_shader_geom;
-        Ref<Shader>           m_shader_text;
-        Ref<GfxPipeline>      m_pipeline_glyphs;
-        Ref<GfxPipeline>      m_pipeline_line;
-        Ref<GfxPipeline>      m_pipeline_solid;
-        Ref<GfxPipeline>      m_pipeline_wireframe;
         Ref<GfxUniformBuffer> m_constants;
+        Ref<GfxVertFormat>    m_b0_Pos2Uv2Col3;
+        Ref<GfxVertFormat>    m_b0_Pos3Col3;
 
         Ref<Window> m_window;
         Ref<Font>   m_debug_font;

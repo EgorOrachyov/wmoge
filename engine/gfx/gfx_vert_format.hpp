@@ -59,10 +59,12 @@ namespace wmoge {
         std::size_t hash() const;
 
         void add_element(StringId name, GfxFormat format, int buffer, int offset, int stride, bool instanced = false);
+        void add_vert_attribs(GfxVertAttribs attribs, GfxVertAttribs layout, int buffer, bool instanced);
+        void add_vert_attribs(GfxVertAttribs attribs, int buffer, bool instanced);
 
-        const std::array<GfxVertElement, GfxLimits::MAX_VERT_ATTRIBUTES>& elements() const { return m_elements; }
-        const std::array<StringId, GfxLimits::MAX_VERT_ATTRIBUTES>&       elements_names() const { return m_elements_names; }
-        int                                                               elements_count() const { return m_elements_count; }
+        [[nodiscard]] const std::array<GfxVertElement, GfxLimits::MAX_VERT_ATTRIBUTES>& elements() const { return m_elements; }
+        [[nodiscard]] const std::array<StringId, GfxLimits::MAX_VERT_ATTRIBUTES>&       elements_names() const { return m_elements_names; }
+        [[nodiscard]] int                                                               elements_count() const { return m_elements_count; }
 
     private:
         std::array<GfxVertElement, GfxLimits::MAX_VERT_ATTRIBUTES> m_elements;

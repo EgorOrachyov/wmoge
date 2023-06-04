@@ -7,20 +7,19 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#include "common_defines.glsl"
+#include "common_funcs.glsl"
 
-vec3 srgb_to_linear(in vec3 color, in float gamma) {
-    return pow(color, vec3(gamma));
-}
+layout(location = 0) in vec2 in_pos;
+layout(location = 1) in vec2 in_uv;
+layout(location = 2) in vec4 in_col;
 
-vec3 linear_to_srgb(in vec3 color, in float inverse_gamma) {
-    return pow(color, vec3(inverse_gamma));
-}
+LAYOUT_LOCATION(0)
+out vec4 out_color;
+LAYOUT_LOCATION(1)
+out vec2 out_uv;
 
-vec2 unpack_uv(in vec2 uv) {
-#ifdef TARGET_VULKAN
-    return vec2(uv.x, 1.0f - uv.y);
-#else
-    return uv;
-#endif
+void main() {
+    out_color   = in_col;
+    out_uv      = unpack_uv(in_uv);
+    gl_Position = clip_proj_screen * vec4(in_pos, 0.0f, 1.0f);
 }

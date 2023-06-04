@@ -28,7 +28,6 @@
 #include "render_particles_2d.hpp"
 
 #include "debug/profiler.hpp"
-#include "resource/shader_2d.hpp"
 
 namespace wmoge {
 
@@ -42,14 +41,14 @@ namespace wmoge {
         WG_AUTO_PROFILE_RENDER("RenderParticles2d::on_render_dynamic");
 
         if (m_dirty_params) {
-            auto* ptr           = reinterpret_cast<Shader2d::DrawParams*>(m_driver->map_uniform_buffer(m_draw_params_no_transform));
-            ptr->model          = Math2d::identity3x3();
-            ptr->model_prev     = Math2d::identity3x3();
-            ptr->model_inv      = Math2d::identity3x3();
-            ptr->model_inv_prev = Math2d::identity3x3();
-            ptr->tint           = m_tint;
-            ptr->layer_id       = m_layer_id;
-            m_driver->unmap_uniform_buffer(m_draw_params_no_transform);
+            //            auto* ptr           = reinterpret_cast<Shader2d::DrawParams*>(m_driver->map_uniform_buffer(m_draw_params_no_transform));
+            //            ptr->model          = Math2d::identity3x3();
+            //            ptr->model_prev     = Math2d::identity3x3();
+            //            ptr->model_inv      = Math2d::identity3x3();
+            //            ptr->model_inv_prev = Math2d::identity3x3();
+            //            ptr->tint           = m_tint;
+            //            ptr->layer_id       = m_layer_id;
+            //            m_driver->unmap_uniform_buffer(m_draw_params_no_transform);
         }
 
         RenderCanvasItem::on_render_dynamic(views, mask);
@@ -62,7 +61,7 @@ namespace wmoge {
         create_draw_params();
         create_vert_format();
 
-        m_draw_params_no_transform = m_driver->make_uniform_buffer(sizeof(Shader2d::DrawParams), GfxMemUsage::GpuLocal, get_name());
+        //        m_draw_params_no_transform = m_driver->make_uniform_buffer(sizeof(Shader2d::DrawParams), GfxMemUsage::GpuLocal, get_name());
     }
     bool RenderParticles2d::need_update() const {
         return false;

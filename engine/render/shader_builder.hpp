@@ -30,9 +30,9 @@
 
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
-#include "render/shader_variant.hpp"
-#include "resource/mesh.hpp"
+#include "gfx/gfx_shader.hpp"
 
+#include <optional>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -41,35 +41,29 @@ namespace wmoge {
 
     /**
      * @class ShaderBuilder
-     * @brief Builder of a particular shader variation
+     * @brief Builder of a particular gfx shader variation
      */
-    class ShaderBuilder {
+    struct ShaderBuilder {
     public:
-        ShaderBuilder& set_shader(class Shader* shader);
-        ShaderBuilder& set_key(StringId key);
-        ShaderBuilder& set_attribs(MeshAttribs mesh_attribs);
-        ShaderBuilder& set_material_bindings(int first_buffer, int first_texture);
-        ShaderBuilder& add_define(const std::string& define);
-        ShaderBuilder& add_defines(const fast_vector<std::string>& defines);
-        ShaderBuilder& add_define_vs(const std::string& define);
-        ShaderBuilder& add_define_fs(const std::string& define);
-        ShaderBuilder& add_vertex_module(const std::string& code);
-        ShaderBuilder& add_fragment_module(const std::string& code);
+        void configure_vs();
+        void configure_fs();
+        void configure_cs();
+        void add_define(const std::string& define);
+        void add_defines(const fast_vector<std::string>& defines);
+        void add_define_vs(const std::string& define);
+        void add_define_fs(const std::string& define);
+        void add_define_cs(const std::string& define);
+        void add_vs_module(const std::string& code);
+        void add_fs_module(const std::string& code);
+        void add_cs_module(const std::string& code);
 
         bool compile();
 
-        ShaderVariant& get_variant();
-        MeshAttribs    get_mesh_attribs();
-
-    private:
-        class Shader*     m_shader;
-        StringId          m_key;
-        std::stringstream m_vertex;
-        std::stringstream m_fragment;
-        ShaderVariant     m_variant;
-        MeshAttribs       m_mesh_attribs;
-        int               m_mat_first_buffer  = -1;
-        int               m_mat_first_texture = -1;
+        StringId                         key;
+        std::optional<std::stringstream> vertex;
+        std::optional<std::stringstream> fragment;
+        std::optional<std::stringstream> compute;
+        Ref<GfxShader>                   gfx_shader;
     };
 
 }// namespace wmoge

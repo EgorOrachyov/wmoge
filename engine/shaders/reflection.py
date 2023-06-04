@@ -59,6 +59,9 @@ class Binding:
         self.set_num = set_num
         self.slot_num = slot_num
 
+    def to_gfx_loc(self):
+        return "GfxLocation{" + str(self.set_num) + "," + str(self.slot_num) + "}"
+
 
 class BindingAllocator:
     def __init__(self, max_sets=3):

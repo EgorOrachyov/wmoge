@@ -29,28 +29,62 @@
 #define WMOGE_SHADER_HPP
 
 #include "core/fast_map.hpp"
+#include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
-#include "render/shader_builder.hpp"
-#include "render/shader_variant.hpp"
-#include "resource/mesh.hpp"
+#include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_shader.hpp"
+#include "gfx/gfx_vert_format.hpp"
 #include "resource/resource.hpp"
 
 #include <mutex>
 
 namespace wmoge {
 
+    /** @brief Shader parameter info */
+    struct ShaderParameter {
+        StringId       name;
+        GfxShaderParam type;
+        int            offset = -1;
+        int            size   = -1;
+        std::string    value;
+    };
+
+    /** @brief Shader texture info */
+    struct ShaderTexture {
+        StringId    name;
+        GfxTex      type;
+        int         id = -1;
+        std::string value;
+    };
+
+    /** @brief Shader pipeline settings */
+    struct ShaderPipelineState {
+        GfxPolyMode      poly_mode    = GfxPolyMode::Fill;
+        GfxPolyCullMode  cull_mode    = GfxPolyCullMode::Disabled;
+        GfxPolyFrontFace front_face   = GfxPolyFrontFace::CounterClockwise;
+        bool             depth_enable = false;
+        bool             depth_write  = true;
+        GfxCompFunc      depth_func   = GfxCompFunc::Less;
+    };
+
     /**
      * @class Shader
-     * @brief Shader program for a rendering
+     * @brief Base class for any shader which can be used with material
      *
-     * Shader is special resource which consists of a vertex and fragment
-     * code written using glsl language. This code if followed by a special
+     * Shader allows user to write custom shaders to draw mesh
+     * geometry to the screen. Material shader has a number of built-in
+     * features. It automates hardware shader creation, allows to select
+     * queue and domain for rendering, provides mechanism to simplify user
+     * params exposure in a form of data and texture values.
+     *
+     * Shader is special resource which consists of optionally a vertex, fragment
+     * compute code written using glsl language. This code if followed by a special
      * declaration, which defines the shader domain, render queue type and
      * set of data and texture parameters, which are exposed by this shader
      * to the end (material) user.
      *
-     * @note For actual rendering shader can produce one or more shader variants.
+     * @note For actual rendering shader can produce one or more gfx shader variants.
      *       Single variant is an actual gfx shader item, key and hash. Variants
      *       share common behaviour, but differ in a set of defines. Variants
      *       created on demand, when they are requested.
@@ -58,43 +92,58 @@ namespace wmoge {
      * @note Variants creation is optimized by usage of the shader cache. If
      *       an item was compiled once and its byte code for current platform
      *       was cached, then its byte code reused.
-     *
-     * @see ShaderVariant
      */
     class Shader : public Resource {
     public:
         WG_OBJECT(Shader, Resource);
 
-        /**
-         * @brief Make shader from glsl sources of vertex and fragment code
-         * Used primary for internal usage and loading of engine shaders.
-         *
-         * @param vertex Vertex shader source code
-         * @param fragment Fragment shader source code
-         *
-         * @return True on success
-         */
-        bool create_from_source(const std::string& vertex, const std::string& fragment);
-
         bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
-        bool           has_variant(const StringId& key);
-        ShaderVariant* find_variant(const StringId& key);
-        ShaderVariant* create_variant(const fast_vector<std::string>& defines);
-        ShaderVariant* create_variant(MeshAttribs mesh_attribs, fast_vector<std::string> defines);
+        bool           has_variant(const StringId& shader_key);
+        Ref<GfxShader> find_variant(const StringId& shader_key);
+        Ref<GfxShader> create_variant(const fast_vector<std::string>& defines);
+        Ref<GfxShader> create_variant(const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines);
 
-        const std::string& get_vertex();
-        const std::string& get_fragment();
+        const std::string&                         get_vertex() const;
+        const std::string&                         get_fragment() const;
+        const std::string&                         get_compute() const;
+        const StringId&                            get_domain() const;
+        int                                        get_render_queue() const;
+        const fast_set<StringId>&                  get_keywords() const;
+        const fast_map<StringId, ShaderParameter>& get_parameters() const;
+        const fast_map<StringId, ShaderTexture>&   get_textures() const;
+        const ShaderPipelineState&                 get_pipeline_state() const;
+        int                                        get_parameters_size() const;
+        int                                        get_parameters_count() const;
+        int                                        get_textures_count() const;
+        std::string                                get_include_textures() const;
+        std::string                                get_include_parameters() const;
 
     protected:
-        virtual void on_build(ShaderBuilder& builder);
+        bool generate_params_layout();
+        bool generate_textures_layout();
 
-    protected:
-        fast_map<StringId, ShaderVariant> m_variants;// Compiled and cached variants of the shader
-        std::string                       m_vertex;
-        std::string                       m_fragment;
-        std::mutex                        m_mutex;
+    private:
+        // Compiled and cached variants of the shader
+        // This is stored here also to reduce look-ups count into global manager when doing material rendering
+        fast_map<StringId, Ref<GfxShader>> m_variants;
+
+        std::string m_vertex;
+        std::string m_fragment;
+        std::string m_compute;
+        std::string m_include_textures;
+        std::string m_include_parameters;
+        int         m_parameters_size = -1;
+
+        fast_map<StringId, ShaderParameter> m_parameters;
+        fast_map<StringId, ShaderTexture>   m_textures;
+        fast_set<StringId>                  m_keywords;
+        ShaderPipelineState                 m_pipeline_state{};
+        StringId                            m_domain;
+        int                                 m_render_queue;
+
+        std::mutex m_mutex;
     };
 
 }// namespace wmoge

@@ -36,14 +36,11 @@
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
 #include "resource/config_file.hpp"
+#include "shaders/generated/auto_aux_draw_canvas_reflection.hpp"
 
 #include <cassert>
 
 namespace wmoge {
-
-    struct CanvasConstants {
-        Mat4x4f clip_proj_screen;
-    };
 
     AuxDrawCanvas::AuxDrawCanvas() {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::AuxDrawCanvas");
@@ -52,9 +49,8 @@ namespace wmoge {
         auto gfx    = engine->gfx_driver();
 
         m_transform_stack.push_back(Math2d::translate_rotate_z(Vec2f(), 0.0f));
-        m_shader = engine->render_engine()->get_shader_manager()->get_shader_canvas();
 
-        m_constants = gfx->make_uniform_buffer(sizeof(CanvasConstants), GfxMemUsage::GpuLocal, SID("canvas_constants"));
+        m_constants = gfx->make_uniform_buffer(sizeof(ShaderAuxDrawCanvas::Params), GfxMemUsage::GpuLocal, SID("canvas_params"));
 
         m_default_sampler = gfx->make_sampler(GfxSamplerDesc{}, SID("default"));
         m_default_texture = gfx->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID("default_white"));
@@ -62,30 +58,14 @@ namespace wmoge {
         unsigned char white[] = {0xff, 0xff, 0xff, 0xff};
         gfx->update_texture_2d(m_default_texture, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(white, sizeof(white)));
 
-        Ref<GfxVertFormat> b0_Pos2Uv2Col4;
+        // b0_Pos2Uv2Col4;
         {
             GfxVertElements elements;
             elements.add_element(SID("pos"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, pos), sizeof(GfxVF_Pos2Uv2Col4));
             elements.add_element(SID("uv"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, uv), sizeof(GfxVF_Pos2Uv2Col4));
             elements.add_element(SID("col"), GfxFormat::RGBA32F, 0, offsetof(GfxVF_Pos2Uv2Col4, col), sizeof(GfxVF_Pos2Uv2Col4));
-            b0_Pos2Uv2Col4 = gfx->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
+            m_b0_Pos2Uv2Col4 = gfx->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
         }
-
-        GfxPipelineState pipeline_state;
-        pipeline_state.cull_mode    = GfxPolyCullMode::Disabled;
-        pipeline_state.front_face   = GfxPolyFrontFace::CounterClockwise;
-        pipeline_state.poly_mode    = GfxPolyMode::Fill;
-        pipeline_state.depth_enable = false;
-        pipeline_state.depth_write  = false;
-        pipeline_state.prim_type    = GfxPrimType::Triangles;
-        pipeline_state.vert_format  = b0_Pos2Uv2Col4;
-        pipeline_state.blending     = true;
-
-        pipeline_state.shader = m_shader->create_variant({})->get_gfx_shader();
-        m_pipeline_triangle   = gfx->make_pipeline(pipeline_state, SID("canvas_triangle"));
-
-        pipeline_state.shader = m_shader->create_variant({"CANVAS_FONT_BITMAP"})->get_gfx_shader();
-        m_pipeline_text       = gfx->make_pipeline(pipeline_state, SID("canvas_text"));
     }
 
     void AuxDrawCanvas::push(const Vec2f& translate, float rotate_rad, const Vec2f& scale) {
@@ -333,7 +313,9 @@ namespace wmoge {
     void AuxDrawCanvas::render() {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::render");
 
-        auto gfx = Engine::instance()->gfx_driver();
+        auto engine         = Engine::instance();
+        auto gfx            = engine->gfx_driver();
+        auto shader_manager = engine->shader_manager();
 
         int num_of_verts_triangles = 3 * static_cast<int>(m_triangles.size());
 
@@ -363,18 +345,33 @@ namespace wmoge {
             gfx->unmap_vert_buffer(m_gfx_triangles);
         }
 
-        auto ptr              = reinterpret_cast<CanvasConstants*>(gfx->map_uniform_buffer(m_constants));
+        auto ptr              = reinterpret_cast<ShaderAuxDrawCanvas::Params*>(gfx->map_uniform_buffer(m_constants));
         ptr->clip_proj_screen = (gfx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
+        ptr->gamma            = 2.2f;
+        ptr->inverse_gamma    = 1.0f / 2.2f;
         gfx->unmap_uniform_buffer(m_constants);
 
-        static const StringId PARAM_CONSTANTS = SID("Constants");
-        static const StringId PARAM_TEXTURE   = SID("Texture");
-
-        gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux-draw"));
+        gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw_canvas"));
         gfx->bind_target(m_window);
         gfx->viewport(m_viewport);
 
         GfxPipeline* prev_bound = nullptr;
+
+        GfxPipelineState pipeline_state;
+        pipeline_state.cull_mode    = GfxPolyCullMode::Disabled;
+        pipeline_state.front_face   = GfxPolyFrontFace::CounterClockwise;
+        pipeline_state.poly_mode    = GfxPolyMode::Fill;
+        pipeline_state.depth_enable = false;
+        pipeline_state.depth_write  = false;
+        pipeline_state.prim_type    = GfxPrimType::Triangles;
+        pipeline_state.vert_format  = m_b0_Pos2Uv2Col4;
+        pipeline_state.blending     = true;
+
+        pipeline_state.shader  = shader_manager->get_shader(SID("aux_draw_canvas"));
+        auto pipeline_triangle = gfx->make_pipeline(pipeline_state, SID("canvas_triangle"));
+
+        pipeline_state.shader = shader_manager->get_shader(SID("aux_draw_canvas"), {"CANVAS_FONT_BITMAP"});
+        auto pipeline_text    = gfx->make_pipeline(pipeline_state, SID("canvas_text"));
 
         if (num_of_verts_triangles > 0) {
             int current_triangle_id = 0;
@@ -399,12 +396,12 @@ namespace wmoge {
                 int vertex_count = batch_size * 3;
 
                 bool              is_text = current_triangle.is_text;
-                Ref<GfxPipeline>& to_bind = is_text ? m_pipeline_text : m_pipeline_triangle;
+                Ref<GfxPipeline>& to_bind = is_text ? pipeline_text : pipeline_triangle;
 
                 if (to_bind.get() == prev_bound || gfx->bind_pipeline(to_bind)) {
                     gfx->bind_vert_buffer(m_gfx_triangles, 0);
-                    gfx->bind_uniform_buffer(PARAM_CONSTANTS, 0, sizeof(CanvasConstants), m_constants);
-                    gfx->bind_texture(PARAM_TEXTURE, 0, current_triangle.texture, current_triangle.sampler);
+                    gfx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, 0, sizeof(ShaderAuxDrawCanvas::Params), m_constants);
+                    gfx->bind_texture(ShaderAuxDrawCanvas::TEXTURE_LOC, 0, current_triangle.texture, current_triangle.sampler);
                     gfx->draw(vertex_count, start_vertex, 1);
                     prev_bound = to_bind.get();
                 }

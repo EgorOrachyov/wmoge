@@ -33,6 +33,8 @@
 #include "core/string_id.hpp"
 #include "math/vec.hpp"
 
+#include <array>
+
 namespace wmoge {
 
     /** @brief Status of the shader */
@@ -264,6 +266,104 @@ namespace wmoge {
         LoadStore,
         ClearStore
     };
+
+    /** @brief Expected language of shaders */
+    enum class GfxShaderLang : int {
+        GlslVk450,
+        GlslGl410
+    };
+
+    /** @brief Shader modules types */
+    enum class GfxShaderModule : int {
+        Vertex,
+        Fragment,
+        Compute
+    };
+
+    /** @brief Data parameters which can be exposed by a shader */
+    enum class GfxShaderParam : int {
+        Int,
+        Float,
+        Vec2,
+        Vec3,
+        Vec4
+    };
+
+    /** @brief Named vertex attributes */
+    enum class GfxVertAttrib : int {
+        Pos3f,
+        Pos2f,
+        Norm3f,
+        Tang3f,
+        BoneIds4i,
+        BoneWeights4f,
+        Col04f,
+        Col14f,
+        Col24f,
+        Col34f,
+        Uv02f,
+        Uv12f,
+        Uv22f,
+        Uv32f,
+        None
+    };
+
+    /** @brief Vert attribute formats */
+    static constexpr const GfxFormat GfxVertAttribFormats[] = {
+            GfxFormat::RGB32F,
+            GfxFormat::RG32F,
+            GfxFormat::RGB32F,
+            GfxFormat::RGB32F,
+            GfxFormat::RGBA32I,
+            GfxFormat::RGBA32F,
+            GfxFormat::RGBA32F,
+            GfxFormat::RGBA32F,
+            GfxFormat::RGBA32F,
+            GfxFormat::RGBA32F,
+            GfxFormat::RG32F,
+            GfxFormat::RG32F,
+            GfxFormat::RG32F,
+            GfxFormat::RG32F};
+
+    /** @brief Vert attribute sizes */
+    static constexpr const int GfxVertAttribSizes[] = {
+            12,
+            8,
+            12,
+            12,
+            16,
+            16,
+            16,
+            16,
+            16,
+            16,
+            8,
+            8,
+            8,
+            8};
+
+    /** @brief Vert attribute glsl type */
+    static constexpr const char* GfxVertAttribGlslTypes[] = {
+            "vec3",
+            "vec2",
+            "vec3",
+            "vec3",
+            "ivec4",
+            "vec4",
+            "vec4",
+            "vec4",
+            "vec4",
+            "vec4",
+            "vec2",
+            "vec2",
+            "vec2",
+            "vec2"};
+
+    /** @brief Mask of vertex attributes */
+    using GfxVertAttribs = Mask<GfxVertAttrib>;
+
+    /** @brief Decl of vertex attributes streams */
+    using GfxVertAttribsStreams = std::array<GfxVertAttribs, 3>;
 
     /** @brief How to bind resource to gfx pipeline */
     struct GfxLocation {

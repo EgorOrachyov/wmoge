@@ -69,7 +69,7 @@ public:
         auto* console = Engine::instance()->console();
 
         // Allow game reload from a console
-        console->register_cmd(SID("reload"), "reload game scene", [this](auto&) {
+        console->register_cmd(SID("reload_shaders"), "reload_shaders game scene", [this](auto&) {
             reload();
             return 0;
         });

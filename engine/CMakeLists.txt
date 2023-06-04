@@ -221,6 +221,8 @@ add_library(wmoge STATIC
         render/draw_primitive.hpp
         render/draw_queue.cpp
         render/draw_queue.hpp
+        render/mesh_builder.cpp
+        render/mesh_builder.hpp
         render/pipeline_standard.cpp
         render/pipeline_standard.hpp
         render/render_camera.cpp
@@ -239,12 +241,8 @@ add_library(wmoge STATIC
         render/render_view.hpp
         render/shader_builder.cpp
         render/shader_builder.hpp
-        render/shader_cache.cpp
-        render/shader_cache.hpp
         render/shader_manager.cpp
         render/shader_manager.hpp
-        render/shader_variant.cpp
-        render/shader_variant.hpp
         render/objects/render_camera_2d.cpp
         render/objects/render_camera_2d.hpp
         render/objects/render_canvas_item.cpp
@@ -269,8 +267,6 @@ add_library(wmoge STATIC
         resource/image.hpp
         resource/material.cpp
         resource/material.hpp
-        resource/material_shader.cpp
-        resource/material_shader.hpp
         resource/mesh.cpp
         resource/mesh.hpp
         resource/pfx_effect.cpp
@@ -288,8 +284,6 @@ add_library(wmoge STATIC
         resource/script.hpp
         resource/shader.cpp
         resource/shader.hpp
-        resource/shader_2d.cpp
-        resource/shader_2d.hpp
         resource/sprite.cpp
         resource/sprite.hpp
         resource/text_file.cpp

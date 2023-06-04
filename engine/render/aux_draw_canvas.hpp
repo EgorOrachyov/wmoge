@@ -130,10 +130,8 @@ namespace wmoge {
         Ref<GfxVertBuffer>          m_gfx_triangles;
         std::vector<CanvasTriangle> m_triangles;
 
-        Ref<Shader>           m_shader;
-        Ref<GfxPipeline>      m_pipeline_triangle;
-        Ref<GfxPipeline>      m_pipeline_text;
         Ref<GfxUniformBuffer> m_constants;
+        Ref<GfxVertFormat>    m_b0_Pos2Uv2Col4;
         Ref<GfxTexture>       m_default_texture;
         Ref<GfxSampler>       m_default_sampler;
 

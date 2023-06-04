@@ -7,7 +7,7 @@ deps: [ ]
 description: "sphere test mesh"
 params:
   source_file: "res://mesh/sphere.obj"
-  attributes: [ "Position", "Normal", "Tangent", "Uv0" ]
+  attributes: [ "Pos3f", "Norm3f", "Tang3f", "Uv02f" ]
   process:
     triangulate: true
     tangent_space: true

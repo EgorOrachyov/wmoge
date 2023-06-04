@@ -63,6 +63,16 @@ namespace wmoge {
             node >> value;
             return magic_enum::enum_cast<T>(value.c_str()).value();
         }
+
+        template<class T>
+        static StringId to_sid(T value) {
+            return SID(to_str<T>(value));
+        }
+
+        template<class T>
+        static std::string to_str(T value) {
+            return std::string(magic_enum::enum_name(value));
+        }
     };
 
 }// namespace wmoge

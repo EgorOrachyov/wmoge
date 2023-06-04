@@ -34,7 +34,7 @@
 #include "render/draw_cmd.hpp"
 #include "render/draw_queue.hpp"
 #include "resource/material.hpp"
-#include "resource/material_shader.hpp"
+#include "resource/shader.hpp"
 
 #include <mutex>
 #include <type_traits>
@@ -84,7 +84,7 @@ namespace wmoge {
         /** @brief passes to be drawn in */
         DrawPassMask draw_pass;
         /** @brief attributes of a mesh to use in shader */
-        MeshAttribs attribs;
+        GfxVertAttribs attribs;
         /** @brief type of primitives to draw */
         GfxPrimType prim_type = GfxPrimType::Triangles;
         /** @brief name for debug purposes */

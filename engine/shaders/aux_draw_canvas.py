@@ -2,8 +2,8 @@ from reflection import *
 
 BINDINGS = BindingAllocator()
 
-SHADER = Shader(name='aux_draw_manager',
-                cls='AuxDrawManager',
+SHADER = Shader(name='aux_draw_canvas',
+                cls='AuxDrawCanvas',
                 constants=
                 [
 
@@ -11,7 +11,6 @@ SHADER = Shader(name='aux_draw_manager',
                 buffers=
                 [
                     UniformBuffer('Params', 'std140', BINDINGS.next(), [
-                        StructField(TYPE_MAT4, 'clip_proj_view'),
                         StructField(TYPE_MAT4, 'clip_proj_screen'),
                         StructField(TYPE_FLOAT, 'gamma'),
                         StructField(TYPE_FLOAT, 'inverse_gamma')
@@ -19,11 +18,11 @@ SHADER = Shader(name='aux_draw_manager',
                 ],
                 samplers=
                 [
-                    Sampler2d('FontBitmap', BINDINGS.next())
+                    Sampler2d('Texture', BINDINGS.next())
                 ],
                 files=
                 [
-                    'aux_draw_manager.vert',
-                    'aux_draw_manager.frag'
+                    'aux_draw_canvas.vert',
+                    'aux_draw_canvas.frag'
                 ]
                 )

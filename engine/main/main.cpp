@@ -50,6 +50,7 @@
 #include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
 #include "render/render_engine.hpp"
+#include "render/shader_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
 #include "scene/scene_manager.hpp"
@@ -184,6 +185,10 @@ namespace wmoge {
         m_lua_script_system     = std::make_unique<LuaScriptSystem>();
         engine->m_script_system = m_lua_script_system.get();
         WG_LOG_INFO("init script system");
+
+        m_shader_manager         = std::make_unique<ShaderManager>();
+        engine->m_shader_manager = m_shader_manager.get();
+        WG_LOG_INFO("init shader manager");
 
         m_render_engine         = std::make_unique<RenderEngine>();
         engine->m_render_engine = m_render_engine.get();
@@ -323,6 +328,7 @@ namespace wmoge {
         m_aux_draw_manager.reset();
         m_canvas_2d_debug.reset();
         m_render_engine.reset();
+        m_shader_manager.reset();
         m_al_engine.reset();
         m_vk_driver.reset();
         m_glfw_window_manager.reset();

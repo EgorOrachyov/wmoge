@@ -28,7 +28,6 @@
 #include "render_sprite_instance.hpp"
 
 #include "debug/profiler.hpp"
-#include "resource/shader_2d.hpp"
 
 namespace wmoge {
 

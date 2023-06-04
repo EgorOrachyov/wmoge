@@ -30,15 +30,11 @@
 #include "memory/mem_pool.hpp"
 #include "render/draw_cmd.hpp"
 #include "render/draw_primitive.hpp"
-#include "render/shader_cache.hpp"
-#include "render/shader_manager.hpp"
 
 namespace wmoge {
 
     RenderEngine::RenderEngine() {
-        m_shader_manager = std::make_unique<ShaderManager>();
-        m_shader_cache   = std::make_unique<ShaderCache>();
-        m_pool_draw_cmd  = std::make_unique<MemPool>(sizeof(DrawCmd), MemPool::EXPAND_SIZE);
+        m_pool_draw_cmd = std::make_unique<MemPool>(sizeof(DrawCmd), MemPool::EXPAND_SIZE);
     }
 
     RenderEngine::~RenderEngine() = default;
@@ -70,12 +66,6 @@ namespace wmoge {
         m_pool_draw_cmd->free(cmd);
     }
 
-    class ShaderManager* RenderEngine::get_shader_manager() {
-        return m_shader_manager.get();
-    }
-    class ShaderCache* RenderEngine::get_shader_cache() {
-        return m_shader_cache.get();
-    }
     CallbackQueue* RenderEngine::get_queue() {
         return &m_queue;
     }

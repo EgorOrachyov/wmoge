@@ -77,7 +77,7 @@ namespace wmoge {
             return false;
         }
 
-        m_shader = resource_manager->load(shader).cast<Shader2d>();
+        m_shader = resource_manager->load(shader).cast<Shader>();
         if (!m_shader) {
             WG_LOG_ERROR("failed to load shader " << shader);
             return false;
@@ -98,7 +98,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_PFX("PfxFeatureSprite::on_provided_render");
 
         Ref<Material> material = make_ref<Material>();
-        material->create(m_shader.as<MaterialShader>());
+        material->create(m_shader.as<Shader>());
 
         if (m_animation != -1) {
             Ref<Texture2d> texture = m_sprite->get_animation_texture(m_animation);
