@@ -150,7 +150,7 @@ namespace wmoge {
         return true;
     }
     bool ALAudioEngine::init_context() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_context");
+        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_sync_fences");
 
         WG_ALC_CHECK(m_context = alcCreateContext(m_device, nullptr));
         if (!m_context) {

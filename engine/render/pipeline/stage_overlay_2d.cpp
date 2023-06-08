@@ -27,8 +27,10 @@
 
 #include "stage_overlay_2d.hpp"
 
+#include "core/engine.hpp"
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"
+#include "gfx/gfx_ctx.hpp"
 #include "math/math_utils2d.hpp"
 #include "math/math_utils3d.hpp"
 #include "render/draw_cmd.hpp"
@@ -53,14 +55,14 @@ namespace wmoge {
     void PipelineStageOverlay2d::on_execute(int view_index) {
         WG_AUTO_PROFILE_RENDER("PipelineStageOverlay2d::on_execute");
 
-        GfxDriver*    driver = get_gfx_driver();
-        RenderView*   view   = get_view(view_index);
-        RenderScene*  scene  = get_render_scene();
-        DrawCmdQueue& queue  = view->get_draw_cmds(DrawPass::Overlay2dPass);
+        GfxCtx*       ctx   = Engine::instance()->gfx_ctx();
+        RenderView*   view  = get_view(view_index);
+        RenderScene*  scene = get_render_scene();
+        DrawCmdQueue& queue = view->get_draw_cmds(DrawPass::Overlay2dPass);
 
         const Vec2f half_screen = view->get_screen_size() * 0.5f;
 
-        const Mat4x4f mat_clip        = driver->clip_matrix();
+        const Mat4x4f mat_clip        = ctx->clip_matrix();
         const Mat4x4f mat_view        = Math3d::orthographic(-half_screen.x(), half_screen.x(), -half_screen.y(), half_screen.y(), -1000.0f, 1000.0f);
         const Mat4x4f mat_camera      = Math2d::from3x3to4x4(view->get_screen_camera_mat_inv());
         const Mat4x4f mat_camera_prev = Math2d::from3x3to4x4(view->get_screen_camera_mat_inv_prev());
@@ -80,9 +82,9 @@ namespace wmoge {
                                  int(viewport_rect.z() * window->fbo_width()),
                                  int(viewport_rect.w() * window->fbo_height())};
 
-        driver->begin_render_pass(GfxRenderPassDesc{}, SID("overlay-pass"));
-        driver->bind_target(window);
-        driver->viewport(viewport);
+        ctx->begin_render_pass(GfxRenderPassDesc{}, SID("overlay-pass"));
+        ctx->bind_target(window);
+        ctx->viewport(viewport);
 
         DrawUniformBuffer pass_buffer;
         pass_buffer.location = 0;
@@ -90,9 +92,9 @@ namespace wmoge {
         pass_buffer.range    = m_pass_params->size();
         pass_buffer.buffer   = m_pass_params.get();
 
-        queue.execute(driver, &pass_buffer, 1);
+        queue.execute(ctx, &pass_buffer, 1);
 
-        driver->end_render_pass();
+        ctx->end_render_pass();
     }
 
 }// namespace wmoge

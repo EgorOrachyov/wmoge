@@ -90,6 +90,7 @@ add_library(wmoge STATIC
         gameplay/game_token_manager.hpp
         gfx/gfx_buffers.hpp
         gfx/gfx_defs.hpp
+        gfx/gfx_ctx.hpp
         gfx/gfx_driver.hpp
         gfx/gfx_pipeline.cpp
         gfx/gfx_pipeline.hpp
@@ -103,6 +104,9 @@ add_library(wmoge STATIC
         gfx/gfx_texture.hpp
         gfx/gfx_vert_format.cpp
         gfx/gfx_vert_format.hpp
+        gfx/threaded/gfx_ctx_threaded.hpp
+        gfx/threaded/gfx_ctx_wrapper.cpp
+        gfx/threaded/gfx_ctx_wrapper.hpp
         gfx/threaded/gfx_driver_threaded.hpp
         gfx/threaded/gfx_driver_wrapper.cpp
         gfx/threaded/gfx_driver_wrapper.hpp
@@ -110,6 +114,10 @@ add_library(wmoge STATIC
         gfx/threaded/gfx_worker.hpp
         gfx/vulkan/vk_buffers.cpp
         gfx/vulkan/vk_buffers.hpp
+        gfx/vulkan/vk_cmd_manager.cpp
+        gfx/vulkan/vk_cmd_manager.hpp
+        gfx/vulkan/vk_ctx.cpp
+        gfx/vulkan/vk_ctx.hpp
         gfx/vulkan/vk_defs.cpp
         gfx/vulkan/vk_defs.hpp
         gfx/vulkan/vk_desc_manager.cpp

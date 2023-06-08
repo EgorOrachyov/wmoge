@@ -1,0 +1,527 @@
+/**********************************************************************************/
+/* Wmoge game engine                                                              */
+/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/**********************************************************************************/
+/* MIT License                                                                    */
+/*                                                                                */
+/* Copyright (c) 2023 Egor Orachyov                                               */
+/*                                                                                */
+/* Permission is hereby granted, free of charge, to any person obtaining a copy   */
+/* of this software and associated documentation files (the "Software"), to deal  */
+/* in the Software without restriction, including without limitation the rights   */
+/* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell      */
+/* copies of the Software, and to permit persons to whom the Software is          */
+/* furnished to do so, subject to the following conditions:                       */
+/*                                                                                */
+/* The above copyright notice and this permission notice shall be included in all */
+/* copies or substantial portions of the Software.                                */
+/*                                                                                */
+/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR     */
+/* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,       */
+/* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE    */
+/* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER         */
+/* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  */
+/* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  */
+/* SOFTWARE.                                                                      */
+/**********************************************************************************/
+
+#include "vk_ctx.hpp"
+
+#include "debug/profiler.hpp"
+#include "gfx/vulkan/vk_defs.hpp"
+#include "gfx/vulkan/vk_driver.hpp"
+
+namespace wmoge {
+
+    VKCtx::VKCtx(class VKDriver& driver) : m_driver(driver) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::VKCtx");
+
+        m_cmd_manager        = std::make_unique<VKCmdManager>(driver);
+        m_desc_manager       = std::make_unique<VKDescManager>(driver);
+        m_render_pass_binder = std::make_unique<VKRenderPassBinder>(driver);
+
+        m_clip_matrix = driver.clip_matrix();
+
+        cmd_begin();
+    }
+
+    VKCtx::~VKCtx() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::~VKCtx");
+
+        shutdown();
+
+        WG_LOG_INFO("shutdown vulkan gfx context");
+    }
+
+    void VKCtx::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_vert_buffer");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKVertBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
+    }
+    void VKCtx::update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_index_buffer");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKIndexBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
+    }
+    void VKCtx::update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_uniform_buffer");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKUniformBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
+    }
+    void VKCtx::update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_storage_buffer");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKStorageBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
+    }
+    void VKCtx::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_texture_2d");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKTexture*>(texture.get())->update_2d(cmd_current(), mip, region, data);
+    }
+    void VKCtx::update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_texture_2d_array");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKTexture*>(texture.get())->update_2d_array(cmd_current(), mip, slice, region, data);
+    }
+    void VKCtx::update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_texture_cube");
+
+        assert(check_thread_valid());
+
+        dynamic_cast<VKTexture*>(texture.get())->update_cube(cmd_current(), mip, face, region, data);
+    }
+
+    void* VKCtx::map_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::map_vert_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
+    }
+    void* VKCtx::map_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::map_index_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
+    }
+    void* VKCtx::map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::map_uniform_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
+    }
+    void* VKCtx::map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::map_storage_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
+    }
+    void VKCtx::unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::unmap_vert_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(cmd_current());
+    }
+    void VKCtx::unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::unmap_index_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(cmd_current());
+    }
+    void VKCtx::unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::unmap_uniform_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(cmd_current());
+    }
+    void VKCtx::unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::unmap_storage_buffer");
+
+        assert(check_thread_valid());
+        assert(buffer);
+
+        dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(cmd_current());
+    }
+
+    void VKCtx::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::begin_render_pass");
+
+        assert(check_thread_valid());
+        assert(!m_in_render_pass);
+        assert(pass_desc == GfxRenderPassDesc{});// not supported pass desc yet
+
+        m_render_pass_binder->start(name);
+        m_in_render_pass = true;
+    }
+    void VKCtx::bind_target(const Ref<Window>& window) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_target");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(window);
+
+        m_render_pass_binder->bind_target(m_driver.window_manager()->get_or_create(window));
+        m_target_bound = true;
+    }
+    void VKCtx::bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_color_target");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(texture);
+
+        m_render_pass_binder->bind_color_target(texture.cast<VKTexture>(), target, mip, slice);
+        m_target_bound = true;
+    }
+    void VKCtx::bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_depth_target");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(texture);
+
+        m_render_pass_binder->bind_depth_target(texture.cast<VKTexture>(), mip, slice);
+        m_target_bound = true;
+    }
+    void VKCtx::viewport(const Rect2i& viewport) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::viewport");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(m_target_bound);
+
+        m_viewport = viewport;
+    }
+    void VKCtx::clear(int target, const Vec4f& color) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::clear");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(m_target_bound);
+
+        m_clear_color[target] = color;
+        m_render_pass_binder->clear_color(target);
+    }
+    void VKCtx::clear(float depth, int stencil) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::clear");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(m_target_bound);
+
+        m_clear_depth   = depth;
+        m_clear_stencil = stencil;
+        m_render_pass_binder->clear_depth();
+        m_render_pass_binder->clear_stencil();
+    }
+    bool VKCtx::bind_pipeline(const Ref<GfxPipeline>& pipeline) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pipeline");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(m_target_bound);
+        assert(pipeline);
+
+        // Check equal
+        if (pipeline.get() == m_current_pipeline.get()) {
+            return m_current_pipeline->validate(m_current_pass);
+        }
+
+        prepare_render_pass();
+
+        // Check compiled
+        m_current_pipeline = pipeline.cast<VKPipeline>();
+        if (!m_current_pipeline->validate(m_current_pass)) {
+            return false;
+        }
+
+        // Bind shader for descriptor manager
+        m_current_shader = m_current_pipeline->state().shader.cast<VKShader>();
+        m_desc_manager->bind_shader(m_current_shader);
+
+        vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_pipeline->pipeline());
+        m_pipeline_bound = true;
+        return true;
+    }
+    void VKCtx::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_vert_buffer");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(buffer);
+
+        m_current_vert_buffers[index]         = buffer.cast<VKVertBuffer>();
+        m_current_vert_buffers_offsets[index] = offset;
+    }
+    void VKCtx::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_index_buffer");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(buffer);
+
+        m_current_index_buffer = buffer.cast<VKIndexBuffer>();
+        vkCmdBindIndexBuffer(cmd_current(), m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
+    }
+    void VKCtx::bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_texture");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(texture);
+        assert(sampler);
+
+        texture.cast<VKTexture>()->transition_layout(cmd_current(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+        m_desc_manager->bind_texture(name, array_element, texture, sampler);
+    }
+    void VKCtx::bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_texture");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(texture);
+        assert(sampler);
+
+        texture.cast<VKTexture>()->transition_layout(cmd_current(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+        m_desc_manager->bind_texture(location, array_element, texture, sampler);
+    }
+    void VKCtx::bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_uniform_buffer");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(buffer);
+
+        m_desc_manager->bind_uniform_buffer(name, offset, range, buffer);
+    }
+    void VKCtx::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_uniform_buffer");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(buffer);
+
+        m_desc_manager->bind_uniform_buffer(location, offset, range, buffer);
+    }
+    void VKCtx::bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_storage_buffer");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(buffer);
+
+        m_desc_manager->bind_storage_buffer(name, offset, range, buffer);
+    }
+    void VKCtx::bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_storage_buffer");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+        assert(buffer);
+
+        m_desc_manager->bind_storage_buffer(location, offset, range, buffer);
+    }
+    void VKCtx::draw(int vertex_count, int base_vertex, int instance_count) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::draw");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+
+        prepare_draw();
+
+        vkCmdDraw(cmd_current(), vertex_count, instance_count, base_vertex, 0);
+    }
+    void VKCtx::draw_indexed(int index_count, int base_vertex, int instance_count) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::draw_indexed");
+
+        assert(check_thread_valid());
+        assert(m_pipeline_bound);
+        assert(m_target_bound);
+
+        prepare_draw();
+
+        vkCmdDrawIndexed(cmd_current(), index_count, instance_count, 0, base_vertex, 0);
+    }
+    void VKCtx::end_render_pass() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::end_render_pass");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+
+        if (m_render_pass_started) {
+            WG_VK_END_LABEL(cmd_current());
+            vkCmdEndRenderPass(cmd_current());
+        }
+
+        m_render_pass_binder->finish();
+        m_current_pass.reset();
+        m_current_pipeline.reset();
+        m_current_shader.reset();
+        m_current_index_buffer.reset();
+        m_current_vert_buffers.fill(nullptr);
+        m_current_vert_buffers_offsets.fill(0);
+        m_clear_color.fill(Vec4f());
+        m_clear_depth   = 1.0f;
+        m_clear_stencil = 0;
+        m_viewport      = Rect2i(0, 0, 0, 0);
+        m_desc_manager->reset();
+
+        m_in_render_pass      = false;
+        m_render_pass_started = false;
+        m_pipeline_bound      = false;
+        m_target_bound        = false;
+    }
+
+    void VKCtx::shutdown() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::shutdown");
+
+        m_render_pass_binder.reset();
+        m_desc_manager.reset();
+        m_cmd_manager.reset();
+    }
+
+    void VKCtx::begin_frame() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::begin_frame");
+    }
+    void VKCtx::end_frame() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::end_frame");
+
+        m_desc_manager->update();
+        m_cmd_manager->update();
+    }
+
+    const Mat4x4f& VKCtx::clip_matrix() const {
+        return m_clip_matrix;
+    }
+    GfxCtxType VKCtx::ctx_type() const {
+        return m_ctx_type;
+    }
+    CmdStream* VKCtx::cmd_stream() {
+        return m_driver.cmd_stream();
+    }
+    bool VKCtx::check_thread_valid() {
+        return m_ctx_type != GfxCtxType::Immediate || m_driver.on_gfx_thread();
+    }
+
+    void VKCtx::prepare_draw() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::prepare_draw");
+
+        std::array<VkBuffer, GfxLimits::MAX_VERT_BUFFERS>     vk_vert_buffers{};
+        std::array<VkDeviceSize, GfxLimits::MAX_VERT_BUFFERS> vk_vert_buffers_offsets{};
+
+        int count = 0;
+
+        while (count < GfxLimits::MAX_VERT_BUFFERS) {
+            if (!m_current_vert_buffers[count]) break;
+            vk_vert_buffers[count]         = m_current_vert_buffers[count]->buffer();
+            vk_vert_buffers_offsets[count] = m_current_vert_buffers_offsets[count];
+            count += 1;
+        }
+
+        vkCmdBindVertexBuffers(cmd_current(), 0, count, vk_vert_buffers.data(), vk_vert_buffers_offsets.data());
+
+        int                                                   to_bind_count;
+        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS> sets = m_desc_manager->sets(to_bind_count);
+
+        if (to_bind_count > 0) {
+            vkCmdBindDescriptorSets(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_shader->layout(), 0, to_bind_count, sets.data(), 0, nullptr);
+        }
+    }
+    void VKCtx::prepare_render_pass() {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::prepare_render_pass");
+
+        if (!m_render_pass_started) {
+            // Potentially recreate make pass and framebuffer
+            m_render_pass_binder->validate();
+            m_current_pass = m_render_pass_binder->render_pass();
+
+            std::array<VkClearValue, GfxLimits::MAX_COLOR_TARGETS + 1> clear_values{};
+            int                                                        clear_value_count = 0;
+
+            for (int i = 0; i < m_current_pass->color_targets_count(); i++) {
+                VkClearColorValue value;
+                value.float32[0]                        = m_clear_color[i].x();
+                value.float32[1]                        = m_clear_color[i].y();
+                value.float32[2]                        = m_clear_color[i].z();
+                value.float32[3]                        = m_clear_color[i].w();
+                clear_values[clear_value_count++].color = value;
+            }
+            if (m_current_pass->has_depth_stencil()) {
+                VkClearDepthStencilValue value;
+                value.depth                                    = m_clear_depth;
+                value.stencil                                  = m_clear_stencil;
+                clear_values[clear_value_count++].depthStencil = value;
+            }
+
+            VkRect2D render_area{};
+            render_area.offset.x      = 0;
+            render_area.offset.y      = 0;
+            render_area.extent.width  = m_render_pass_binder->width();
+            render_area.extent.height = m_render_pass_binder->height();
+
+            VkRenderPassBeginInfo render_pass_info{};
+            render_pass_info.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+            render_pass_info.renderPass      = m_render_pass_binder->render_pass()->render_pass();
+            render_pass_info.framebuffer     = m_render_pass_binder->framebuffer()->framebuffer();
+            render_pass_info.renderArea      = render_area;
+            render_pass_info.clearValueCount = clear_value_count;
+            render_pass_info.pClearValues    = clear_values.data();
+
+            vkCmdBeginRenderPass(cmd_current(), &render_pass_info, VK_SUBPASS_CONTENTS_INLINE);
+            WG_VK_BEGIN_LABEL(cmd_current(), m_current_pass->name());
+
+            VkViewport viewport;
+            viewport.x        = static_cast<float>(m_viewport.x());
+            viewport.y        = static_cast<float>(m_viewport.y());
+            viewport.width    = static_cast<float>(m_viewport.z());
+            viewport.height   = static_cast<float>(m_viewport.w());
+            viewport.minDepth = 0.0f;
+            viewport.maxDepth = 1.0f;
+            vkCmdSetViewport(cmd_current(), 0, 1, &viewport);
+
+            VkRect2D scissor;
+            scissor.offset.x      = m_viewport.x();
+            scissor.offset.y      = m_viewport.y();
+            scissor.extent.width  = m_viewport.z();
+            scissor.extent.height = m_viewport.w();
+            vkCmdSetScissor(cmd_current(), 0, 1, &scissor);
+
+            m_render_pass_started = true;
+        }
+    }
+
+}// namespace wmoge

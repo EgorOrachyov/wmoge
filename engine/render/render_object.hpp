@@ -62,7 +62,8 @@ namespace wmoge {
         const StringId&    get_name() { return m_name; }
         class SceneObject* get_object() { return m_object; }
         class RenderScene* get_render_scene() { return m_render_scene; }
-        class GfxDriver*   get_driver() { return m_driver; }
+        class GfxDriver*   get_driver() { return m_gfx_driver; }
+        class GfxCtx*      get_ctx() { return m_gfx_ctx; }
         bool               is_visible() const { return m_is_visible; }
 
     protected:
@@ -70,7 +71,8 @@ namespace wmoge {
 
         class SceneObject* m_object       = nullptr;
         class RenderScene* m_render_scene = nullptr;
-        class GfxDriver*   m_driver       = nullptr;
+        class GfxDriver*   m_gfx_driver   = nullptr;
+        class GfxCtx*      m_gfx_ctx      = nullptr;
         StringId           m_name         = SID("render-object");
         bool               m_is_visible   = true;
     };

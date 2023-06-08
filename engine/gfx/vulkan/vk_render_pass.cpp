@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    VKRenderPass::VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver) : VKResource<GfxResource>(driver), m_pass_desc(pass_desc) {
+    VKRenderPass::VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver) : VKResource<GfxRenderPass>(driver), m_pass_desc(pass_desc) {
         m_name = name;
 
         int  attachments_count      = 0;
@@ -184,7 +184,7 @@ namespace wmoge {
     void VKRenderPassBinder::prepare_render_pass() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::prepare_render_pass");
 
-        m_current_render_pass = m_driver.make_render_pass(m_current_pass_desc, m_current_name);
+        m_current_render_pass = m_driver.make_render_pass(m_current_pass_desc, m_current_name).cast<VKRenderPass>();
     }
     void VKRenderPassBinder::prepare_framebuffer() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::prepare_framebuffer");

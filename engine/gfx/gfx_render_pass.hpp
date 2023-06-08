@@ -54,6 +54,16 @@ namespace wmoge {
         int                                                 depth_stencil_used;// = 0;
     };
 
+    /**
+     * @class GfxRenderPassDesc
+     * @brief Gfx rendering pass object (for internal usage primary)
+     */
+    class GfxRenderPass : public GfxResource {
+    public:
+        ~GfxRenderPass() override                          = default;
+        virtual const GfxRenderPassDesc& pass_desc() const = 0;
+    };
+
 }// namespace wmoge
 
 namespace std {

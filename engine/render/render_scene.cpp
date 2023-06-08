@@ -51,7 +51,8 @@ namespace wmoge {
         assert(m_objects.find(object) == m_objects.end());
 
         object->m_render_scene = this;
-        object->m_driver       = m_driver;
+        object->m_gfx_driver   = m_driver;
+        object->m_gfx_ctx      = Engine::instance()->gfx_ctx();
 
         m_objects.emplace(object);
 
@@ -71,7 +72,8 @@ namespace wmoge {
 
         object->on_scene_exit();
         object->m_render_scene = nullptr;
-        object->m_driver       = nullptr;
+        object->m_gfx_driver   = nullptr;
+        object->m_gfx_ctx      = nullptr;
 
         m_objects.erase(object);
         m_objects_to_update.erase(std::find(m_objects_to_update.begin(), m_objects_to_update.end(), object.get()));

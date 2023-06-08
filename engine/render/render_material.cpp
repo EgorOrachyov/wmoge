@@ -49,13 +49,13 @@ namespace wmoge {
     void RenderMaterial::ensure_version() {
         assert(m_material);
 
-        GfxDriver*  gfx_driver = Engine::instance()->gfx_driver();
+        GfxCtx*     gfx_ctx = Engine::instance()->gfx_ctx();
         Ref<Data>   data;
         std::size_t new_version = m_version.load();
 
         if (m_material->copy_state(new_version, m_textures.data(), m_samplers.data(), data)) {
             m_version.store(new_version);
-            gfx_driver->update_uniform_buffer(m_parameters, 0, int(data->size()), data);
+            gfx_ctx->update_uniform_buffer(m_parameters, 0, int(data->size()), data);
         }
     }
 

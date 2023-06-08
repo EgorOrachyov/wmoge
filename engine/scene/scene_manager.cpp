@@ -132,6 +132,12 @@ namespace wmoge {
     }
     void SceneManager::on_start_frame() {
         WG_AUTO_PROFILE_SCENE("SceneManager::on_start_frame");
+
+        std::lock_guard guard(m_mutex);
+
+        if (m_next_running) {
+            m_running = std::move(m_next_running);
+        }
     }
     void SceneManager::on_update() {
         WG_AUTO_PROFILE_SCENE("SceneManager::on_update");
@@ -139,7 +145,7 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
 
         if (!m_running && !m_next_running) {
-            WG_LOG_ERROR("no active scene to process");
+            // No active scene to process
             return;
         }
         if (!m_running) {
@@ -172,13 +178,6 @@ namespace wmoge {
         WG_AUTO_PROFILE_SCENE("SceneManager::on_end_frame");
 
         std::lock_guard guard(m_mutex);
-
-        // do switch at the end of the frame in case if
-        // scene has some resources which are still not loaded
-
-        if (m_next_running) {
-            m_running = std::move(m_next_running);
-        }
 
         if (m_to_shutdown.find(m_running) != m_to_shutdown.end()) {
             m_running.reset();

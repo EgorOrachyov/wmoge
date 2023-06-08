@@ -25,65 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_DRAW_QUEUE_HPP
-#define WMOGE_DRAW_QUEUE_HPP
+#ifndef WMOGE_VK_CMD_POOL_HPP
+#define WMOGE_VK_CMD_POOL_HPP
 
-#include "render/draw_cmd.hpp"
+#include "core/fast_vector.hpp"
+#include "gfx/vulkan/vk_defs.hpp"
 
-#include <mutex>
+#include <array>
 #include <vector>
 
 namespace wmoge {
 
     /**
-     * @class DrawCmdSortingKey
-     * @brief Small sorting key used to order all cmds before rendering
+     * @class VKCmdManager
+     * @brief Manages creation and recycling of vulkan cmd buffers
      */
-    struct DrawCmdSortingKey {
-        std::uint64_t value = 0;
-
-        static DrawCmdSortingKey make_overlay(RenderMaterial* material, int layer_id);
-    };
-
-    static_assert(sizeof(DrawCmdSortingKey) == 8, "key must fit 8 bytes");
-
-    /**
-     * @class DrawCmdQueue
-     * @brief Thread-safe queue to submit and sort draw commands for rendering
-     *
-     * Thread-safe queue to push commands of render scene objects for rendering.
-     * Queue per `DrawPass` is stored inside each rendered view. Queue is used
-     * to push compiled commands with their sorting keys for drawing. When all
-     * commands collected, the queue is sorted depending on pass type and executed.
-     *
-     * Queue collects all commands to be drawn in advance, what allows system
-     * parallel processing of commands, sorting for better GPU draw efficiency,
-     * and efficient thread-safe parallel Gfx command list generation.
-     *
-     * @note Queue stores only pointers for commands. The lifetime of commands must
-     *       be controlled externally by those who generate and submit commands.
-     */
-    class DrawCmdQueue {
+    class VKCmdManager {
     public:
-        void push(DrawCmdSortingKey key, DrawCmd* cmd);
-        void reserve(std::size_t size);
-        void clear();
-        void sort();
-        void execute(class GfxCtx* gfx_ctx, DrawUniformBuffer* pass_buffers, int pass_buffers_count);
+        explicit VKCmdManager(class VKDriver& driver);
+        ~VKCmdManager();
 
-        std::vector<std::pair<DrawCmdSortingKey, DrawCmd*>>&       get_cmds();
-        const std::vector<std::pair<DrawCmdSortingKey, DrawCmd*>>& get_cmds() const;
+        void update();
+
+        VkCommandBuffer begin_buffer();
+        VkCommandBuffer end_buffer();
+        VkCommandBuffer current_buffer() const;
 
     private:
-        using SortEntry = std::pair<DrawCmdSortingKey, DrawCmd*>;
-        using SortList  = std::vector<SortEntry>;
+        struct Allocation {
+            VkCommandPool   pool   = VK_NULL_HANDLE;
+            VkCommandBuffer buffer = VK_NULL_HANDLE;
+        };
 
-        SortList   m_cmds;
-        std::mutex m_mutex;
+        std::array<fast_vector<Allocation>, GfxLimits::FRAMES_IN_FLIGHT> m_used_allocations{};
+        fast_vector<Allocation>                                          m_free_allocations{};
+
+        Allocation  m_allocation{};
+        std::size_t m_index   = 0 % GfxLimits::FRAMES_IN_FLIGHT;
+        int         m_next_id = 0;
+
+        class VKDriver& m_driver;
     };
-
-    static_assert(sizeof(DrawCmdQueue) >= 64, "queue size must be large enough to better fit memory cache");
 
 }// namespace wmoge
 
-#endif//WMOGE_DRAW_QUEUE_HPP
+#endif//WMOGE_VK_CMD_POOL_HPP

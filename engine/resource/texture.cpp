@@ -160,11 +160,13 @@ namespace wmoge {
         m_usages.set(GfxTexUsageFlag::Sampling);
         m_format = Enum::parse<GfxFormat>(params["format"]);
 
-        auto* gfx = Engine::instance()->gfx_driver();
-        m_texture = gfx->make_texture_2d(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());
+        auto* gfx_driver = Engine::instance()->gfx_driver();
+        auto* gfx_ctx    = Engine::instance()->gfx_ctx();
+
+        m_texture = gfx_driver->make_texture_2d(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());
         for (int i = 0; i < m_mips; i++) {
             auto& mip = m_images[i];
-            gfx->update_texture_2d(m_texture, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
+            gfx_ctx->update_texture_2d(m_texture, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
         }
 
         return true;
@@ -221,13 +223,15 @@ namespace wmoge {
         m_usages.set(GfxTexUsageFlag::Sampling);
         m_format = magic_enum::enum_cast<GfxFormat>(format).value();
 
-        auto* gfx = Engine::instance()->gfx_driver();
-        m_texture = gfx->make_texture_cube(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());
+        auto* gfx_driver = Engine::instance()->gfx_driver();
+        auto* gfx_ctx    = Engine::instance()->gfx_ctx();
+
+        m_texture = gfx_driver->make_texture_cube(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());
 
         for (int f = 0; f < 6; f++) {
             for (int i = 0; i < m_mips; i++) {
                 auto& mip = m_images[f * m_mips + i];
-                gfx->update_texture_cube(m_texture, i, f, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
+                gfx_ctx->update_texture_cube(m_texture, i, f, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
             }
         }
 

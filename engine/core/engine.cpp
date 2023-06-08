@@ -75,6 +75,9 @@ namespace wmoge {
     GfxDriver* Engine::gfx_driver() {
         return m_gfx_driver;
     }
+    GfxCtx* Engine::gfx_ctx() {
+        return m_gfx_ctx;
+    }
     ShaderManager* Engine::shader_manager() {
         return m_shader_manager;
     }

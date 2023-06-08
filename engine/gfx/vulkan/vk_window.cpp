@@ -53,8 +53,12 @@ namespace wmoge {
             Engine::instance()->event_manager()->unsubscribe(m_window_event);
 
         for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            if (m_image_available[i])
-                vkDestroySemaphore(m_driver.device(), m_image_available[i], nullptr);
+            if (m_acquire_semaphore[i]) {
+                vkDestroySemaphore(m_driver.device(), m_acquire_semaphore[i], nullptr);
+            }
+            if (m_present_semaphore[i]) {
+                vkDestroySemaphore(m_driver.device(), m_present_semaphore[i], nullptr);
+            }
         }
 
         release_swapchain();
@@ -96,8 +100,11 @@ namespace wmoge {
         semaphore_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
         for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            WG_VK_CHECK(vkCreateSemaphore(m_driver.device(), &semaphore_info, nullptr, &m_image_available[i]));
-            WG_VK_NAME(m_driver.device(), m_image_available[i], VK_OBJECT_TYPE_SEMAPHORE, "image_available@" + m_window->id().str() + std::to_string(i));
+            WG_VK_CHECK(vkCreateSemaphore(m_driver.device(), &semaphore_info, nullptr, &m_acquire_semaphore[i]));
+            WG_VK_NAME(m_driver.device(), m_acquire_semaphore[i], VK_OBJECT_TYPE_SEMAPHORE, "acquire@" + m_window->id().str() + std::to_string(i));
+
+            WG_VK_CHECK(vkCreateSemaphore(m_driver.device(), &semaphore_info, nullptr, &m_present_semaphore[i]));
+            WG_VK_NAME(m_driver.device(), m_acquire_semaphore[i], VK_OBJECT_TYPE_SEMAPHORE, "present@" + m_window->id().str() + std::to_string(i));
         }
     }
     void VKWindow::subscribe() {
@@ -205,13 +212,13 @@ namespace wmoge {
 
         for (uint32_t i = 0; i < color_image_count; i++) {
             m_color_targets[i] = make_ref<VKTexture>(m_driver);
-            m_color_targets[i]->create_2d(m_driver.cmd(), width(), height(), color_images[i], m_surface_format.format, m_window->id());
+            m_color_targets[i]->create_2d(m_driver.vk_ctx()->cmd_current(), width(), height(), color_images[i], m_surface_format.format, m_window->id());
         }
 
         GfxTexUsages depth_stencil_usages;
         depth_stencil_usages.set(GfxTexUsageFlag::DepthStencilTarget);
         m_depth_stencil_target = make_ref<VKTexture>(m_driver);
-        m_depth_stencil_target->create_2d(width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, m_window->id());
+        m_depth_stencil_target->create_2d(m_driver.vk_ctx()->cmd_current(), width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, m_window->id());
 
         m_requested_extent = m_extent;
         m_version += 1;
@@ -243,8 +250,8 @@ namespace wmoge {
             recreate_swapchain();
         }
 
-        m_image_available_semaphore = (m_image_available_semaphore + 1) % GfxLimits::FRAMES_IN_FLIGHT;
-        auto semaphore              = m_image_available[m_image_available_semaphore];
+        m_semaphore_index = (m_semaphore_index + 1) % GfxLimits::FRAMES_IN_FLIGHT;
+        auto semaphore    = m_acquire_semaphore[m_semaphore_index];
 
         while (true) {
             auto timeout   = std::numeric_limits<uint64_t>::max();

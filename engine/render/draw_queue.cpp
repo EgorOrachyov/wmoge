@@ -28,6 +28,7 @@
 #include "draw_queue.hpp"
 
 #include "debug/profiler.hpp"
+#include "gfx/gfx_ctx.hpp"
 #include "render/draw_cmd.hpp"
 
 #include <algorithm>
@@ -77,7 +78,7 @@ namespace wmoge {
         });
     }
 
-    void DrawCmdQueue::execute(GfxDriver* driver, DrawUniformBuffer* pass_buffers, int pass_buffers_count) {
+    void DrawCmdQueue::execute(GfxCtx* gfx_ctx, DrawUniformBuffer* pass_buffers, int pass_buffers_count) {
         WG_AUTO_PROFILE_RENDER("DrawCmdQueue::execute");
 
         std::lock_guard guard(m_mutex);
@@ -98,7 +99,7 @@ namespace wmoge {
 
             // bind pipeline (check equality inside, but also do here for sure)
             if (prev_pipeline != pipeline) {
-                if (!driver->bind_pipeline(Ref<GfxPipeline>(cmd->pipeline))) {
+                if (!gfx_ctx->bind_pipeline(Ref<GfxPipeline>(cmd->pipeline))) {
                     // if failed to bind pipeline here we cannot do draw due to
                     // - pipeline may be not compiled yet, waiting for shader, etc.
                     // - here may be some errors in construction, so must skip
@@ -108,12 +109,12 @@ namespace wmoge {
 
             // bind vertex streams (from 0 to MAX_VERTEX_BUFFERS)
             for (int i = 0; i < DrawVertexBuffers::MAX_VERTEX_BUFFERS && vertices.buffers[i]; i++) {
-                driver->bind_vert_buffer(Ref<GfxVertBuffer>(vertices.buffers[i]), i, vertices.offsets[i]);
+                gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(vertices.buffers[i]), i, vertices.offsets[i]);
             }
 
             // optional indices stream
             if (indices.buffer) {
-                driver->bind_index_buffer(Ref<GfxIndexBuffer>(indices.buffer), indices.index_type, indices.offset);
+                gfx_ctx->bind_index_buffer(Ref<GfxIndexBuffer>(indices.buffer), indices.index_type, indices.offset);
             }
 
             // if first time here, bind only once per pass data
@@ -121,7 +122,7 @@ namespace wmoge {
                 for (int i = 0; i < pass_buffers_count; i++) {
                     DrawUniformBuffer& buffer   = pass_buffers[i];
                     GfxLocation        location = {DrawPassConsts::DRAW_SET_PER_PASS, buffer.location};
-                    driver->bind_uniform_buffer(location, buffer.offset, buffer.range, Ref<GfxUniformBuffer>(buffer.buffer));
+                    gfx_ctx->bind_uniform_buffer(location, buffer.offset, buffer.range, Ref<GfxUniformBuffer>(buffer.buffer));
                 }
 
                 pass_buffers_bound = true;
@@ -139,17 +140,17 @@ namespace wmoge {
                 for (int i = 0; i < textures_count; i++) {
                     GfxLocation location{DrawPassConsts::DRAW_SET_PER_MATERIAL, bindings.first_texture + i};
                     int         array_element = 0;
-                    driver->bind_texture(location, array_element, textures[i], samples[i]);
+                    gfx_ctx->bind_texture(location, array_element, textures[i], samples[i]);
                 }
 
                 GfxLocation location{DrawPassConsts::DRAW_SET_PER_MATERIAL, bindings.first_buffer};
-                driver->bind_uniform_buffer(location, 0, parameters_range, parameters);
+                gfx_ctx->bind_uniform_buffer(location, 0, parameters_range, parameters);
             }
 
             // bind draw constants
             if (constants.buffer) {
                 GfxLocation location = {DrawPassConsts::DRAW_SET_PER_DRAW, constants.location};
-                driver->bind_uniform_buffer(location, constants.offset, constants.range, Ref<GfxUniformBuffer>(constants.buffer));
+                gfx_ctx->bind_uniform_buffer(location, constants.offset, constants.range, Ref<GfxUniformBuffer>(constants.buffer));
             }
 
             // do draw call
@@ -158,13 +159,13 @@ namespace wmoge {
                 assert(draw_params.base_vertex >= 0);
                 assert(draw_params.instance_count >= 1);
 
-                driver->draw_indexed(draw_params.index_count, draw_params.base_vertex, draw_params.instance_count);
+                gfx_ctx->draw_indexed(draw_params.index_count, draw_params.base_vertex, draw_params.instance_count);
             } else {
                 assert(draw_params.vertex_count >= 1);
                 assert(draw_params.base_vertex >= 0);
                 assert(draw_params.instance_count >= 1);
 
-                driver->draw(draw_params.vertex_count, draw_params.base_vertex, draw_params.instance_count);
+                gfx_ctx->draw(draw_params.vertex_count, draw_params.base_vertex, draw_params.instance_count);
             }
 
             prev_pipeline = pipeline;

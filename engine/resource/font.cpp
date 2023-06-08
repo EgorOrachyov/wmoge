@@ -152,22 +152,23 @@ namespace wmoge {
             return false;
         }
 
-        auto gfx = Engine::instance()->gfx_driver();
+        auto gfx_driver = Engine::instance()->gfx_driver();
+        auto gfx_ctx    = Engine::instance()->gfx_ctx();
 
-        auto gfx_bitmap = gfx->make_texture_2d(bitmap_width, bitmap_height, static_cast<int>(m_cached_bitmap.size()), GfxFormat::R8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID(m_family_name + std::to_string(height)));
+        auto gfx_bitmap = gfx_driver->make_texture_2d(bitmap_width, bitmap_height, static_cast<int>(m_cached_bitmap.size()), GfxFormat::R8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID(m_family_name + std::to_string(height)));
         for (int i = 0; i < static_cast<int>(m_cached_bitmap.size()); i++) {
             auto& mip = m_cached_bitmap[i];
-            gfx->update_texture_2d(gfx_bitmap, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
+            gfx_ctx->update_texture_2d(gfx_bitmap, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
         }
 
         GfxSamplerDesc sampler_desc;
         sampler_desc.brd_clr        = GfxSampBrdClr::Black;
         sampler_desc.mag_flt        = GfxSampFlt::Linear;
         sampler_desc.min_flt        = GfxSampFlt::LinearMipmapLinear;
-        sampler_desc.max_anisotropy = gfx->device_caps().max_anisotropy;
+        sampler_desc.max_anisotropy = gfx_driver->device_caps().max_anisotropy;
         sampler_desc.u              = GfxSampAddress::ClampToBorder;
         sampler_desc.v              = GfxSampAddress::ClampToBorder;
-        auto gfx_sampler            = gfx->make_sampler(sampler_desc, SID("clamp edge & mips & black"));
+        auto gfx_sampler            = gfx_driver->make_sampler(sampler_desc, SID("clamp edge & mips & black"));
 
         m_texture = make_ref<Texture2d>();
         m_texture->set_name(SID(get_name().str() + "@auto"));

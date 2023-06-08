@@ -36,6 +36,7 @@
 #include "gfx/threaded/gfx_driver_wrapper.hpp"
 #include "gfx/threaded/gfx_worker.hpp"
 #include "gfx/vulkan/vk_buffers.hpp"
+#include "gfx/vulkan/vk_ctx.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_desc_manager.hpp"
 #include "gfx/vulkan/vk_mem_manager.hpp"
@@ -58,7 +59,7 @@ namespace wmoge {
      */
     class VKDriver final : public GfxDriverThreaded {
     public:
-        explicit VKDriver(VKInitInfo info);
+        explicit VKDriver(const VKInitInfo& info);
         ~VKDriver() override;
 
         Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const StringId& name) override;
@@ -73,54 +74,19 @@ namespace wmoge {
         Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
         Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
-        Ref<VKRenderPass>     make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name);
-
-        void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
-        void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
-        void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
-        void update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
-        void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data) override;
-        void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) override;
-        void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data) override;
-
-        void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer) override;
-        void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer) override;
-        void* map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
-        void* map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
-        void  unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) override;
-        void  unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) override;
-        void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
-        void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
-
-        void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
-        void bind_target(const Ref<Window>& window) override;
-        void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
-        void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) override;
-        void viewport(const Rect2i& viewport) override;
-        void clear(int target, const Vec4f& color) override;
-        void clear(float depth, int stencil) override;
-        bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
-        void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
-        void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
-        void bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
-        void bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
-        void bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
-        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
-        void bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
-        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
-        void draw(int vertex_count, int base_vertex, int instance_count) override;
-        void draw_indexed(int index_count, int base_vertex, int instance_count) override;
-        void end_render_pass() override;
+        Ref<GfxRenderPass>    make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
 
         void shutdown() override;
+
         void begin_frame() override;
-        void flush() override;
         void end_frame() override;
         void prepare_window(const Ref<Window>& window) override;
         void swap_buffers(const Ref<Window>& window) override;
 
+        class GfxCtx* ctx_immediate() override { return m_ctx_immediate.get(); }
+        class GfxCtx* ctx_async() override { return m_ctx_async.get(); }
+
         const GfxDeviceCaps&   device_caps() const override { return m_device_caps; }
-        const GfxShaderLang    shader_lang() const override { return GfxShaderLang::GlslVk450; }
         const StringId&        driver_name() const override { return m_driver_name; }
         const std::string&     shader_cache_path() const override { return m_shader_cache_path; }
         const std::string&     pipeline_cache_path() const override { return m_pipeline_cache_path; }
@@ -128,8 +94,10 @@ namespace wmoge {
         const Mat4x4f&         clip_matrix() const override { return m_clip_matrix; }
         std::size_t            frame_number() const override { return m_frame_number.load(); }
         bool                   on_gfx_thread() const override { return m_thread_id == std::this_thread::get_id(); }
+        GfxShaderLang          shader_lang() const override { return GfxShaderLang::GlslVk450; }
         CmdStream*             cmd_stream() override { return m_driver_cmd_stream.get(); }
         GfxDriverWrapper*      driver_wrapper() { return m_driver_wrapper.get(); }
+        GfxCtxWrapper*         ctx_immediate_wrapper() { return m_ctx_immediate_wrapper.get(); }
         CallbackQueue*         release_queue() { return &m_deferred_release[m_index]; }
 
     public:
@@ -137,15 +105,10 @@ namespace wmoge {
         VkPhysicalDevice phys_device() { return m_phys_device; }
         VkDevice         device() { return m_device; }
         VkPipelineCache  pipeline_cache() { return m_pipeline_cache; }
-        VkCommandBuffer  cmd() { return m_cmd; }
         VKWindowManager* window_manager() { return m_window_manager.get(); }
         VKQueues*        queues() { return m_queues.get(); }
         VKMemManager*    mem_manager() { return m_mem_manager.get(); }
-
-        fast_map<GfxVertElements, Ref<VKVertFormat>>&   cached_formats() { return m_formats; }
-        fast_map<GfxSamplerDesc, Ref<VKSampler>>&       cached_samplers() { return m_samplers; }
-        fast_map<GfxPipelineState, Ref<VKPipeline>>&    cached_pipelines() { return m_pipelines; }
-        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>>& cached_render_passes() { return m_render_passes; }
+        VKCtx*           vk_ctx() { return m_ctx_immediate.get(); }
 
     private:
         void init_functions();
@@ -155,12 +118,9 @@ namespace wmoge {
         void init_glslang();
         void init_pipeline_cache();
         void release_pipeline_cache();
-        void init_context();
-        void release_context();
+        void init_sync_fences();
+        void release_sync_fences();
         bool supports(const std::string& extension);
-
-        void prepare_draw();
-        void prepare_render_pass();
         void release_resources(uint64_t index);
 
         static VKAPI_ATTR VkBool32 VKAPI_CALL debug_callback(VkDebugUtilsMessageSeverityFlagBitsEXT      message_severity,
@@ -175,38 +135,18 @@ namespace wmoge {
         VkDebugUtilsMessengerEXT m_debug_messenger = VK_NULL_HANDLE;
         VkPipelineCache          m_pipeline_cache  = VK_NULL_HANDLE;
 
-        VkCommandBuffer m_cmd = VK_NULL_HANDLE;
+        std::size_t m_index = 0 % GfxLimits::FRAMES_IN_FLIGHT;
+
+        std::array<CallbackQueue, GfxLimits::FRAMES_IN_FLIGHT> m_deferred_release;
+        std::vector<Ref<VKWindow>>                             m_to_present;
+        std::vector<VkSemaphore>                               m_queue_wait;
+        std::vector<VkSemaphore>                               m_queue_signal;
+        VkFence                                                m_sync_fence = VK_NULL_HANDLE;
 
         fast_map<GfxVertElements, Ref<VKVertFormat>>   m_formats;
         fast_map<GfxSamplerDesc, Ref<VKSampler>>       m_samplers;
         fast_map<GfxPipelineState, Ref<VKPipeline>>    m_pipelines;
         fast_map<GfxRenderPassDesc, Ref<VKRenderPass>> m_render_passes;
-
-        std::unique_ptr<VKRenderPassBinder>                        m_render_pass_binder;
-        Ref<VKRenderPass>                                          m_current_pass;
-        Ref<VKPipeline>                                            m_current_pipeline;
-        Ref<VKShader>                                              m_current_shader;
-        Ref<VKIndexBuffer>                                         m_current_index_buffer;
-        std::array<Ref<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
-        std::array<int, GfxLimits::MAX_VERT_BUFFERS>               m_current_vert_buffers_offsets{};
-        std::unordered_set<Ref<VKWindow>>                          m_to_present;
-        std::array<Vec4f, GfxLimits::MAX_COLOR_TARGETS>            m_clear_color;
-        float                                                      m_clear_depth   = 1.0f;
-        int                                                        m_clear_stencil = 0;
-        Rect2i                                                     m_viewport;
-
-        bool m_in_render_pass      = false;
-        bool m_render_pass_started = false;
-        bool m_pipeline_bound      = false;
-        bool m_target_bound        = false;
-
-        std::array<VkCommandBuffer, GfxLimits::FRAMES_IN_FLIGHT> m_cmds{};
-        std::array<VkCommandPool, GfxLimits::FRAMES_IN_FLIGHT>   m_cmds_pools{};
-        std::array<VkFence, GfxLimits::FRAMES_IN_FLIGHT>         m_fences{};
-        std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT>     m_rendering_finished{};
-        std::array<CallbackQueue, GfxLimits::FRAMES_IN_FLIGHT>   m_deferred_release;
-
-        std::size_t m_index = 0 % GfxLimits::FRAMES_IN_FLIGHT;
 
         GfxDeviceCaps      m_device_caps;
         StringId           m_driver_name = SID("unknown");
@@ -224,12 +164,14 @@ namespace wmoge {
         bool                     m_use_validation = true;
 
         std::unique_ptr<GfxDriverWrapper>  m_driver_wrapper;
+        std::unique_ptr<GfxCtxWrapper>     m_ctx_immediate_wrapper;
         std::unique_ptr<GfxWorker>         m_driver_worker;
         std::unique_ptr<CmdStream>         m_driver_cmd_stream;
         std::unique_ptr<VKWindowManager>   m_window_manager;
         std::unique_ptr<VKQueues>          m_queues;
         std::unique_ptr<VKMemManager>      m_mem_manager;
-        std::unique_ptr<VKDescManager>     m_desc_manager;
+        std::unique_ptr<VKCtx>             m_ctx_immediate;
+        std::unique_ptr<VKCtx>             m_ctx_async;
         std::vector<VkExtensionProperties> m_device_extensions;
     };
 

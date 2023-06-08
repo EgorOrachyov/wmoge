@@ -191,14 +191,14 @@ namespace wmoge {
         const int vert_buffer_size  = int(sizeof(GfxVF_Pos2Uv2Col4) * n_vertices);
         const int index_buffer_size = int(sizeof(std::uint16_t) * n_indices);
 
-        m_vert_buffer  = m_driver->make_vert_buffer(vert_buffer_size, GfxMemUsage::GpuLocal, m_name);
-        m_index_buffer = m_driver->make_index_buffer(index_buffer_size, GfxMemUsage::GpuLocal, m_name);
+        m_vert_buffer  = m_gfx_driver->make_vert_buffer(vert_buffer_size, GfxMemUsage::GpuLocal, m_name);
+        m_index_buffer = m_gfx_driver->make_index_buffer(index_buffer_size, GfxMemUsage::GpuLocal, m_name);
 
-        std::memcpy(m_driver->map_vert_buffer(m_vert_buffer), vertices.data(), vert_buffer_size);
-        m_driver->unmap_vert_buffer(m_vert_buffer);
+        std::memcpy(m_gfx_ctx->map_vert_buffer(m_vert_buffer), vertices.data(), vert_buffer_size);
+        m_gfx_ctx->unmap_vert_buffer(m_vert_buffer);
 
-        std::memcpy(m_driver->map_index_buffer(m_index_buffer), indices.data(), index_buffer_size);
-        m_driver->unmap_index_buffer(m_index_buffer);
+        std::memcpy(m_gfx_ctx->map_index_buffer(m_index_buffer), indices.data(), index_buffer_size);
+        m_gfx_ctx->unmap_index_buffer(m_index_buffer);
 
         m_n_indices = n_indices;
     }

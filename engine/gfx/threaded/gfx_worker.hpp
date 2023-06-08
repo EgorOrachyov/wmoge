@@ -30,8 +30,6 @@
 
 #include "core/cmd_stream.hpp"
 #include "core/string_id.hpp"
-#include "gfx/threaded/gfx_driver_threaded.hpp"
-#include "gfx/threaded/gfx_driver_wrapper.hpp"
 
 #include <atomic>
 #include <thread>
@@ -40,21 +38,20 @@ namespace wmoge {
 
     /**
      * @class GfxWorker
-     * @brief Manages gfx thread processing gfx driver calls
+     * @brief Manages gfx thread processing gfx API calls
      */
     class GfxWorker {
     public:
-        explicit GfxWorker(GfxDriverThreaded* driver);
+        explicit GfxWorker(CmdStream* cmd_stream);
 
         void            terminate();
         std::thread::id get_worker_id();
 
     private:
-        GfxDriverThreaded* m_driver = nullptr;
-        CmdStream*         m_stream = nullptr;
-        std::thread        m_worker_thread;
-        std::atomic_bool   m_finished{false};
-        StringId           m_name = SID("gfx-thread");
+        CmdStream*       m_stream = nullptr;
+        std::thread      m_worker_thread;
+        std::atomic_bool m_finished{false};
+        StringId         m_name = SID("gfx-thread");
     };
 
 }// namespace wmoge

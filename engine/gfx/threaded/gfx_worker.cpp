@@ -30,13 +30,14 @@
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 
+#include <cassert>
+
 namespace wmoge {
 
-    GfxWorker::GfxWorker(GfxDriverThreaded* driver) {
-        assert(driver);
+    GfxWorker::GfxWorker(CmdStream* cmd_stream) {
+        assert(cmd_stream);
 
-        m_driver = driver;
-        m_stream = driver->cmd_stream();
+        m_stream = cmd_stream;
 
         m_worker_thread = std::thread([&]() {
             while (!m_finished.load()) {

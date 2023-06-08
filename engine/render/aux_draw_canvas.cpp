@@ -45,18 +45,19 @@ namespace wmoge {
     AuxDrawCanvas::AuxDrawCanvas() {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::AuxDrawCanvas");
 
-        auto engine = Engine::instance();
-        auto gfx    = engine->gfx_driver();
+        auto engine     = Engine::instance();
+        auto gfx_driver = engine->gfx_driver();
+        auto gfx_ctx    = engine->gfx_ctx();
 
         m_transform_stack.push_back(Math2d::translate_rotate_z(Vec2f(), 0.0f));
 
-        m_constants = gfx->make_uniform_buffer(sizeof(ShaderAuxDrawCanvas::Params), GfxMemUsage::GpuLocal, SID("canvas_params"));
+        m_constants = gfx_driver->make_uniform_buffer(sizeof(ShaderAuxDrawCanvas::Params), GfxMemUsage::GpuLocal, SID("canvas_params"));
 
-        m_default_sampler = gfx->make_sampler(GfxSamplerDesc{}, SID("default"));
-        m_default_texture = gfx->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID("default_white"));
+        m_default_sampler = gfx_driver->make_sampler(GfxSamplerDesc{}, SID("default"));
+        m_default_texture = gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID("default_white"));
 
         unsigned char white[] = {0xff, 0xff, 0xff, 0xff};
-        gfx->update_texture_2d(m_default_texture, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(white, sizeof(white)));
+        gfx_ctx->update_texture_2d(m_default_texture, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(white, sizeof(white)));
 
         // b0_Pos2Uv2Col4;
         {
@@ -64,7 +65,7 @@ namespace wmoge {
             elements.add_element(SID("pos"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, pos), sizeof(GfxVF_Pos2Uv2Col4));
             elements.add_element(SID("uv"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, uv), sizeof(GfxVF_Pos2Uv2Col4));
             elements.add_element(SID("col"), GfxFormat::RGBA32F, 0, offsetof(GfxVF_Pos2Uv2Col4, col), sizeof(GfxVF_Pos2Uv2Col4));
-            m_b0_Pos2Uv2Col4 = gfx->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
+            m_b0_Pos2Uv2Col4 = gfx_driver->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
         }
     }
 
@@ -314,7 +315,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::render");
 
         auto engine         = Engine::instance();
-        auto gfx            = engine->gfx_driver();
+        auto gfx_driver     = engine->gfx_driver();
+        auto gfx_ctx        = engine->gfx_ctx();
         auto shader_manager = engine->shader_manager();
 
         int num_of_verts_triangles = 3 * static_cast<int>(m_triangles.size());
@@ -322,12 +324,12 @@ namespace wmoge {
         if (!num_of_verts_triangles) return;
 
         if (m_gfx_capacity_triangles < num_of_verts_triangles) {
-            m_gfx_triangles          = gfx->make_vert_buffer(num_of_verts_triangles * sizeof(GfxVF_Pos2Uv2Col4), GfxMemUsage::GpuLocal, SID("canvas_triangles"));
+            m_gfx_triangles          = gfx_driver->make_vert_buffer(num_of_verts_triangles * sizeof(GfxVF_Pos2Uv2Col4), GfxMemUsage::GpuLocal, SID("canvas_triangles"));
             m_gfx_capacity_triangles = num_of_verts_triangles;
         }
 
         if (num_of_verts_triangles > 0) {
-            auto* p_triangles = reinterpret_cast<GfxVF_Pos2Uv2Col4*>(gfx->map_vert_buffer(m_gfx_triangles));
+            auto* p_triangles = reinterpret_cast<GfxVF_Pos2Uv2Col4*>(gfx_ctx->map_vert_buffer(m_gfx_triangles));
             for (const auto& entry : m_triangles) {
                 p_triangles->pos = entry.p[0];
                 p_triangles->uv  = entry.t[0];
@@ -342,18 +344,18 @@ namespace wmoge {
                 p_triangles->col = entry.color;
                 p_triangles++;
             }
-            gfx->unmap_vert_buffer(m_gfx_triangles);
+            gfx_ctx->unmap_vert_buffer(m_gfx_triangles);
         }
 
-        auto ptr              = reinterpret_cast<ShaderAuxDrawCanvas::Params*>(gfx->map_uniform_buffer(m_constants));
-        ptr->clip_proj_screen = (gfx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
+        auto ptr              = reinterpret_cast<ShaderAuxDrawCanvas::Params*>(gfx_ctx->map_uniform_buffer(m_constants));
+        ptr->clip_proj_screen = (gfx_ctx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
         ptr->gamma            = 2.2f;
         ptr->inverse_gamma    = 1.0f / 2.2f;
-        gfx->unmap_uniform_buffer(m_constants);
+        gfx_ctx->unmap_uniform_buffer(m_constants);
 
-        gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw_canvas"));
-        gfx->bind_target(m_window);
-        gfx->viewport(m_viewport);
+        gfx_ctx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw_canvas"));
+        gfx_ctx->bind_target(m_window);
+        gfx_ctx->viewport(m_viewport);
 
         GfxPipeline* prev_bound = nullptr;
 
@@ -368,10 +370,10 @@ namespace wmoge {
         pipeline_state.blending     = true;
 
         pipeline_state.shader  = shader_manager->get_shader(SID("aux_draw_canvas"));
-        auto pipeline_triangle = gfx->make_pipeline(pipeline_state, SID("canvas_triangle"));
+        auto pipeline_triangle = gfx_driver->make_pipeline(pipeline_state, SID("canvas_triangle"));
 
         pipeline_state.shader = shader_manager->get_shader(SID("aux_draw_canvas"), {"CANVAS_FONT_BITMAP"});
-        auto pipeline_text    = gfx->make_pipeline(pipeline_state, SID("canvas_text"));
+        auto pipeline_text    = gfx_driver->make_pipeline(pipeline_state, SID("canvas_text"));
 
         if (num_of_verts_triangles > 0) {
             int current_triangle_id = 0;
@@ -398,11 +400,11 @@ namespace wmoge {
                 bool              is_text = current_triangle.is_text;
                 Ref<GfxPipeline>& to_bind = is_text ? pipeline_text : pipeline_triangle;
 
-                if (to_bind.get() == prev_bound || gfx->bind_pipeline(to_bind)) {
-                    gfx->bind_vert_buffer(m_gfx_triangles, 0);
-                    gfx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, 0, sizeof(ShaderAuxDrawCanvas::Params), m_constants);
-                    gfx->bind_texture(ShaderAuxDrawCanvas::TEXTURE_LOC, 0, current_triangle.texture, current_triangle.sampler);
-                    gfx->draw(vertex_count, start_vertex, 1);
+                if (to_bind.get() == prev_bound || gfx_ctx->bind_pipeline(to_bind)) {
+                    gfx_ctx->bind_vert_buffer(m_gfx_triangles, 0);
+                    gfx_ctx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, 0, sizeof(ShaderAuxDrawCanvas::Params), m_constants);
+                    gfx_ctx->bind_texture(ShaderAuxDrawCanvas::TEXTURE_LOC, 0, current_triangle.texture, current_triangle.sampler);
+                    gfx_ctx->draw(vertex_count, start_vertex, 1);
                     prev_bound = to_bind.get();
                 }
 
@@ -410,7 +412,7 @@ namespace wmoge {
             }
         }
 
-        gfx->end_render_pass();
+        gfx_ctx->end_render_pass();
 
         m_triangles.clear();
     }

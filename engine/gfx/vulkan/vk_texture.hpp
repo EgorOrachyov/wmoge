@@ -41,13 +41,13 @@ namespace wmoge {
      */
     class VKTexture final : public VKResource<GfxTexture> {
     public:
-        VKTexture(class VKDriver& driver);
+        explicit VKTexture(class VKDriver& driver);
         ~VKTexture() override;
 
         void create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const StringId& name);
-        void create_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
-        void create_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
-        void create_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
+        void create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
+        void create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
+        void create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
 
         void update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const Ref<Data>& data);
         void update_2d_array(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const Ref<Data>& data);
@@ -67,7 +67,7 @@ namespace wmoge {
         void init_image();
         void init_view();
         void init_rt_views();
-        void init_layout();
+        void init_layout(VkCommandBuffer cmd);
         void update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data);
 
     private:

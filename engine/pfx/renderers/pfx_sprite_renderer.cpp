@@ -61,7 +61,7 @@ namespace wmoge {
             return;
         }
 
-        auto* gfx_driver = Engine::instance()->gfx_driver();
+        auto* gfx_driver = Engine::instance()->gfx_ctx();
         auto* proxy      = dynamic_cast<RenderParticles2d*>(object);
 
         assert(proxy);

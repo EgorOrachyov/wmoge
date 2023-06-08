@@ -50,7 +50,7 @@ namespace wmoge {
         return names_p;
     };
 
-    VKDriver::VKDriver(VKInitInfo info) {
+    VKDriver::VKDriver(const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
         m_driver_name = SID("vulkan");
@@ -64,10 +64,10 @@ namespace wmoge {
         m_required_extensions = info.required_ext;
 
         if (m_use_validation) {
-            m_required_layers.push_back("VK_LAYER_KHRONOS_validation");
-            m_required_extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+            m_required_layers.emplace_back("VK_LAYER_KHRONOS_validation");
+            m_required_extensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
         }
-        m_required_device_extensions.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+        m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
         m_shader_cache_path   = "cache://vk_shader_cache.wgsc";
         m_pipeline_cache_path = "cache://vk_pipeline_cache.wgpc";
@@ -97,22 +97,22 @@ namespace wmoge {
         init_glslang();
         // init pipeline cache
         init_pipeline_cache();
+        // sync primitives
+        init_sync_fences();
         // init context required for rendering and commands submission
-        init_context();
-        // init desc manager
-        m_desc_manager = std::make_unique<VKDescManager>(*this);
-        // init binder for render passes
-        m_render_pass_binder = std::make_unique<VKRenderPassBinder>(*this);
+        m_ctx_immediate = std::make_unique<VKCtx>(*this);
 
         // cmd stream of driver thread
         m_driver_cmd_stream = std::make_unique<CmdStream>();
         // and kick off worker in a separate thread
-        m_driver_worker = std::make_unique<GfxWorker>(this);
+        m_driver_worker = std::make_unique<GfxWorker>(m_driver_cmd_stream.get());
 
         m_thread_id = m_driver_worker->get_worker_id();
 
-        // finally init wrapper
+        // finally init wrapper for driver
         m_driver_wrapper = std::make_unique<GfxDriverWrapper>(this);
+        // finally init wrapper for ctx immediate
+        m_ctx_immediate_wrapper = std::make_unique<GfxCtxWrapper>(m_ctx_immediate.get());
 
         WG_LOG_INFO("init vulkan gfx driver");
     }
@@ -213,7 +213,7 @@ namespace wmoge {
         assert(on_gfx_thread());
 
         auto texture = make_ref<VKTexture>(*this);
-        texture->create_2d(width, height, mips, format, usages, mem_usage, name);
+        texture->create_2d(m_ctx_immediate->cmd_current(), width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
     Ref<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
@@ -222,7 +222,7 @@ namespace wmoge {
         assert(on_gfx_thread());
 
         auto texture = make_ref<VKTexture>(*this);
-        texture->create_2d_array(width, height, mips, slices, format, usages, mem_usage, name);
+        texture->create_2d_array(m_ctx_immediate->cmd_current(), width, height, mips, slices, format, usages, mem_usage, name);
         return texture;
     }
     Ref<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
@@ -231,7 +231,7 @@ namespace wmoge {
         assert(on_gfx_thread());
 
         auto texture = make_ref<VKTexture>(*this);
-        texture->create_cube(width, height, mips, format, usages, mem_usage, name);
+        texture->create_cube(m_ctx_immediate->cmd_current(), width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
     Ref<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const StringId& name) {
@@ -262,7 +262,7 @@ namespace wmoge {
 
         return pipeline;
     }
-    Ref<VKRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+    Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
 
         auto& render_pass = m_render_passes[pass_desc];
@@ -272,361 +272,6 @@ namespace wmoge {
         }
 
         return render_pass;
-    }
-
-    void VKDriver::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_vert_buffer");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKVertBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-    }
-    void VKDriver::update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_index_buffer");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-    }
-    void VKDriver::update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_uniform_buffer");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-    }
-    void VKDriver::update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_storage_buffer");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd, offset, range, data);
-    }
-    void VKDriver::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_texture_2d");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKTexture*>(texture.get())->update_2d(m_cmd, mip, region, data);
-    }
-    void VKDriver::update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_texture_2d_array");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd, mip, slice, region, data);
-    }
-    void VKDriver::update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::update_texture_cube");
-
-        assert(on_gfx_thread());
-
-        dynamic_cast<VKTexture*>(texture.get())->update_cube(m_cmd, mip, face, region, data);
-    }
-
-    void* VKDriver::map_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::map_vert_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-
-        return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
-    }
-    void* VKDriver::map_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::map_index_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-
-        return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
-    }
-    void* VKDriver::map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::map_uniform_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-
-        return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
-    }
-    void* VKDriver::map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::map_storage_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-
-        return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
-    }
-    void VKDriver::unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_vert_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-        assert(cmd());
-
-        dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(cmd());
-    }
-    void VKDriver::unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_index_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-        assert(cmd());
-
-        dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(cmd());
-    }
-    void VKDriver::unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_uniform_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-        assert(cmd());
-
-        dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(cmd());
-    }
-    void VKDriver::unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::unmap_storage_buffer");
-
-        assert(on_gfx_thread());
-        assert(buffer);
-        assert(cmd());
-
-        dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(cmd());
-    }
-
-    void VKDriver::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::begin_render_pass");
-
-        assert(on_gfx_thread());
-        assert(!m_in_render_pass);
-        assert(pass_desc == GfxRenderPassDesc{});// not supported pass desc yet
-
-        m_render_pass_binder->start(name);
-        m_in_render_pass = true;
-    }
-    void VKDriver::bind_target(const Ref<Window>& window) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_target");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(window);
-
-        m_render_pass_binder->bind_target(m_window_manager->get_or_create(window));
-        m_target_bound = true;
-    }
-    void VKDriver::bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_color_target");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(texture);
-
-        m_render_pass_binder->bind_color_target(texture.cast<VKTexture>(), target, mip, slice);
-        m_target_bound = true;
-    }
-    void VKDriver::bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_depth_target");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(texture);
-
-        m_render_pass_binder->bind_depth_target(texture.cast<VKTexture>(), mip, slice);
-        m_target_bound = true;
-    }
-    void VKDriver::viewport(const Rect2i& viewport) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::viewport");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(m_target_bound);
-
-        m_viewport = viewport;
-    }
-    void VKDriver::clear(int target, const Vec4f& color) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::clear");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(m_target_bound);
-
-        m_clear_color[target] = color;
-        m_render_pass_binder->clear_color(target);
-    }
-    void VKDriver::clear(float depth, int stencil) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::clear");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(m_target_bound);
-
-        m_clear_depth   = depth;
-        m_clear_stencil = stencil;
-        m_render_pass_binder->clear_depth();
-        m_render_pass_binder->clear_stencil();
-    }
-    bool VKDriver::bind_pipeline(const Ref<GfxPipeline>& pipeline) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_pipeline");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-        assert(m_target_bound);
-        assert(pipeline);
-
-        // Check equal
-        if (pipeline.get() == m_current_pipeline.get()) {
-            return m_current_pipeline->validate(m_current_pass);
-        }
-
-        prepare_render_pass();
-
-        // Check compiled
-        m_current_pipeline = pipeline.cast<VKPipeline>();
-        if (!m_current_pipeline->validate(m_current_pass)) {
-            return false;
-        }
-
-        // Bind shader for descriptor manager
-        m_current_shader = m_current_pipeline->state().shader.cast<VKShader>();
-        m_desc_manager->bind_shader(m_current_shader);
-
-        vkCmdBindPipeline(m_cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_pipeline->pipeline());
-        m_pipeline_bound = true;
-        return true;
-    }
-    void VKDriver::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_vert_buffer");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_current_vert_buffers[index]         = buffer.cast<VKVertBuffer>();
-        m_current_vert_buffers_offsets[index] = offset;
-    }
-    void VKDriver::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_index_buffer");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_current_index_buffer = buffer.cast<VKIndexBuffer>();
-        vkCmdBindIndexBuffer(m_cmd, m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
-    }
-    void VKDriver::bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_texture");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(texture);
-        assert(sampler);
-
-        texture.cast<VKTexture>()->transition_layout(m_cmd, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-        m_desc_manager->bind_texture(name, array_element, texture, sampler);
-    }
-    void VKDriver::bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_texture");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(texture);
-        assert(sampler);
-
-        texture.cast<VKTexture>()->transition_layout(m_cmd, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-        m_desc_manager->bind_texture(location, array_element, texture, sampler);
-    }
-    void VKDriver::bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_uniform_buffer");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_uniform_buffer(name, offset, range, buffer);
-    }
-    void VKDriver::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_uniform_buffer");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_uniform_buffer(location, offset, range, buffer);
-    }
-    void VKDriver::bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_storage_buffer");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_storage_buffer(name, offset, range, buffer);
-    }
-    void VKDriver::bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::bind_storage_buffer");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_storage_buffer(location, offset, range, buffer);
-    }
-    void VKDriver::draw(int vertex_count, int base_vertex, int instance_count) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::draw");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-
-        prepare_draw();
-        vkCmdDraw(m_cmd, vertex_count, instance_count, base_vertex, 0);
-    }
-    void VKDriver::draw_indexed(int index_count, int base_vertex, int instance_count) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::draw_indexed");
-
-        assert(on_gfx_thread());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-
-        prepare_draw();
-        vkCmdDrawIndexed(m_cmd, index_count, instance_count, 0, base_vertex, 0);
-    }
-    void VKDriver::end_render_pass() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::end_render_pass");
-
-        assert(on_gfx_thread());
-        assert(m_in_render_pass);
-
-        if (m_render_pass_started) {
-            WG_VK_END_LABEL(m_cmd);
-            vkCmdEndRenderPass(m_cmd);
-        }
-
-        m_render_pass_binder->finish();
-        m_current_pass.reset();
-        m_current_pipeline.reset();
-        m_current_shader.reset();
-        m_current_index_buffer.reset();
-        m_current_vert_buffers.fill(nullptr);
-        m_current_vert_buffers_offsets.fill(0);
-        m_clear_color.fill(Vec4f());
-        m_clear_depth   = 1.0f;
-        m_clear_stencil = 0;
-        m_viewport      = Rect2i(0, 0, 0, 0);
-        m_desc_manager->reset();
-
-        m_in_render_pass      = false;
-        m_render_pass_started = false;
-        m_pipeline_bound      = false;
-        m_target_bound        = false;
     }
 
     void VKDriver::shutdown() {
@@ -643,7 +288,10 @@ namespace wmoge {
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
 
-            m_render_pass_binder.reset();
+            m_ctx_immediate.reset();
+            flush_release();
+
+            m_ctx_async.reset();
             flush_release();
 
             m_render_passes.clear();
@@ -658,14 +306,11 @@ namespace wmoge {
             m_formats.clear();
             flush_release();
 
-            m_desc_manager.reset();
-            flush_release();
-
             m_window_manager.reset();
             flush_release();
 
             flush_release();
-            release_context();
+            release_sync_fences();
             release_pipeline_cache();
 
             glslang::FinalizeProcess();
@@ -693,57 +338,87 @@ namespace wmoge {
 
     void VKDriver::begin_frame() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::begin_frame");
+
+        assert(m_queue_wait.empty());
+        assert(m_queue_signal.empty());
+
+        m_ctx_immediate->begin_frame();
+
+        if (m_ctx_async) {
+            m_ctx_async->begin_frame();
+        }
     }
     void VKDriver::end_frame() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");
 
-        int                               wait_count = static_cast<int>(m_to_present.size());
-        std::vector<VkSemaphore>          wait_semaphores;
-        std::vector<VkPipelineStageFlags> wait_stages(wait_count, VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
-
-        wait_semaphores.reserve(wait_count);
+        VkCommandBuffer cmd_buffer = m_ctx_immediate->cmd_current();
 
         for (auto& window : m_to_present) {
-            window->color()[window->current()]->transition_layout(m_cmd, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
-            wait_semaphores.push_back(window->semaphore());
+            window->color()[window->current()]->transition_layout(cmd_buffer, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
         }
+
         m_to_present.clear();
+        m_ctx_immediate->cmd_end();
+        m_ctx_immediate->cmd_begin();
 
-        WG_VK_CHECK(vkEndCommandBuffer(m_cmd));
-
-        VkSemaphore signal_semaphores[] = {m_rendering_finished[m_index]};
+        std::vector<VkPipelineStageFlags> wait_stages(m_queue_wait.size(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
 
         VkSubmitInfo submit_info{};
         submit_info.sType                = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-        submit_info.waitSemaphoreCount   = wait_count;
-        submit_info.pWaitSemaphores      = wait_semaphores.data();
+        submit_info.waitSemaphoreCount   = int(m_queue_wait.size());
+        submit_info.pWaitSemaphores      = m_queue_wait.data();
         submit_info.pWaitDstStageMask    = wait_stages.data();
         submit_info.commandBufferCount   = 1;
-        submit_info.pCommandBuffers      = &m_cmd;
-        submit_info.signalSemaphoreCount = 1;
-        submit_info.pSignalSemaphores    = signal_semaphores;
+        submit_info.pCommandBuffers      = &cmd_buffer;
+        submit_info.signalSemaphoreCount = int(m_queue_signal.size());
+        submit_info.pSignalSemaphores    = m_queue_signal.data();
 
-        WG_VK_CHECK(vkQueueSubmit(m_queues->gfx_queue(), 1, &submit_info, m_fences[m_index]));
+        WG_VK_CHECK(vkWaitForFences(m_device, 1, &m_sync_fence, VK_TRUE, std::numeric_limits<uint64_t>::max()));
+        WG_VK_CHECK(vkResetFences(m_device, 1, &m_sync_fence));
+        WG_VK_CHECK(vkQueueSubmit(m_queues->gfx_queue(), 1, &submit_info, m_sync_fence));
+
+        m_queue_wait.clear();
+        m_queue_signal.clear();
+
+        m_frame_number.fetch_add(1);
+        m_index = m_frame_number.load() % GfxLimits::FRAMES_IN_FLIGHT;
+
+        release_resources(m_index);
+
+        m_mem_manager->update();
+
+        m_ctx_immediate->end_frame();
+
+        if (m_ctx_async) {
+            m_ctx_async->end_frame();
+        }
     }
     void VKDriver::prepare_window(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::prepare_window");
 
         auto vk_window = m_window_manager->get_or_create(window);
+
+        assert(std::find(m_to_present.begin(), m_to_present.end(), vk_window) == m_to_present.end());
+
         vk_window->acquire_next();
-        vk_window->color()[vk_window->current()]->transition_layout(m_cmd, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-        m_to_present.insert(vk_window);
+        vk_window->color()[vk_window->current()]->transition_layout(m_ctx_immediate->cmd_current(), VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+
+        m_to_present.push_back(vk_window);
+        m_queue_wait.push_back(vk_window->acquire_semaphore());
+        m_queue_signal.push_back(vk_window->present_semaphore());
     }
     void VKDriver::swap_buffers(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::swap_buffers");
 
-        auto vk_window   = m_window_manager->get_or_create(window);
-        auto swapchain   = vk_window->swapchain();
-        auto image_index = vk_window->current();
+        auto vk_window      = m_window_manager->get_or_create(window);
+        auto swapchain      = vk_window->swapchain();
+        auto image_index    = vk_window->current();
+        auto wait_semaphore = vk_window->present_semaphore();
 
         VkPresentInfoKHR present_info{};
         present_info.sType              = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
         present_info.waitSemaphoreCount = 1;
-        present_info.pWaitSemaphores    = &m_rendering_finished[m_index];
+        present_info.pWaitSemaphores    = &wait_semaphore;
         present_info.pSwapchains        = &swapchain;
         present_info.swapchainCount     = 1;
         present_info.pImageIndices      = &image_index;
@@ -751,34 +426,12 @@ namespace wmoge {
 
         vkQueuePresentKHR(m_queues->prs_queue(), &present_info);
     }
-    void VKDriver::flush() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::flush");
-
-        m_frame_number.fetch_add(1);
-        m_index = m_frame_number.load() % GfxLimits::FRAMES_IN_FLIGHT;
-
-        WG_VK_CHECK(vkWaitForFences(m_device, 1, &m_fences[m_index], VK_TRUE, std::numeric_limits<uint64_t>::max()));
-        WG_VK_CHECK(vkResetFences(m_device, 1, &m_fences[m_index]));
-
-        release_resources(m_index);
-
-        m_mem_manager->update();
-        m_desc_manager->update();
-
-        m_cmd = m_cmds[m_index];
-        WG_VK_CHECK(vkResetCommandPool(m_device, m_cmds_pools[m_index], 0));
-
-        VkCommandBufferBeginInfo begin_info{};
-        begin_info.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-        begin_info.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-        begin_info.pInheritanceInfo = nullptr;
-        WG_VK_CHECK(vkBeginCommandBuffer(m_cmd, &begin_info));
-    }
 
     void VKDriver::init_functions() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::init_functions");
 
         auto res = volkInitialize();
+
         if (res != VK_SUCCESS) {
             WG_LOG_ERROR("failed to initialize volk");
             return;
@@ -931,15 +584,15 @@ namespace wmoge {
         vkGetPhysicalDeviceFeatures(m_phys_device, &device_features);
 
         auto& limits                                 = device_properties.limits;
-        m_device_caps.max_vertex_attributes          = limits.maxVertexInputAttributes;
-        m_device_caps.max_combined_uniform_blocks    = limits.maxDescriptorSetUniformBuffers;
-        m_device_caps.max_texture_array_layers       = limits.maxImageArrayLayers;
-        m_device_caps.max_texture_3d_size            = limits.maxImageDimension3D;
-        m_device_caps.max_texture_size               = limits.maxImageDimension2D;
-        m_device_caps.max_texture_units              = limits.maxDescriptorSetSampledImages;
-        m_device_caps.max_color_attachments          = limits.maxColorAttachments;
-        m_device_caps.max_framebuffer_width          = limits.maxFramebufferWidth;
-        m_device_caps.max_framebuffer_height         = limits.maxFramebufferHeight;
+        m_device_caps.max_vertex_attributes          = int(limits.maxVertexInputAttributes);
+        m_device_caps.max_combined_uniform_blocks    = int(limits.maxDescriptorSetUniformBuffers);
+        m_device_caps.max_texture_array_layers       = int(limits.maxImageArrayLayers);
+        m_device_caps.max_texture_3d_size            = int(limits.maxImageDimension3D);
+        m_device_caps.max_texture_size               = int(limits.maxImageDimension2D);
+        m_device_caps.max_texture_units              = int(limits.maxDescriptorSetSampledImages);
+        m_device_caps.max_color_attachments          = int(limits.maxColorAttachments);
+        m_device_caps.max_framebuffer_width          = int(limits.maxFramebufferWidth);
+        m_device_caps.max_framebuffer_height         = int(limits.maxFramebufferHeight);
         m_device_caps.uniform_block_offset_alignment = static_cast<int>(limits.minUniformBufferOffsetAlignment);
         m_device_caps.max_anisotropy                 = limits.maxSamplerAnisotropy;
         m_device_caps.support_anisotropy             = device_features.samplerAnisotropy;
@@ -1049,66 +702,21 @@ namespace wmoge {
             WG_LOG_INFO("save pipeline cache: " << m_pipeline_cache_path << " " << StringUtils::from_mem_size(cache_data.size()));
         }
     }
-    void VKDriver::init_context() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_context");
-
-        VkCommandPoolCreateInfo poolInfo{};
-        poolInfo.sType            = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-        poolInfo.flags            = VK_COMMAND_POOL_CREATE_TRANSIENT_BIT;
-        poolInfo.queueFamilyIndex = m_queues->gfx_queue_family();
-
-        for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            WG_VK_CHECK(vkCreateCommandPool(m_device, &poolInfo, nullptr, &m_cmds_pools[i]));
-            WG_VK_NAME(m_device, m_cmds_pools[i], VK_OBJECT_TYPE_COMMAND_POOL, "pool@" + std::to_string(i));
-        }
-
-        VkCommandBufferAllocateInfo info{};
-        info.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-        info.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-        info.commandBufferCount = 1;
-
-        for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            info.commandPool = m_cmds_pools[i];
-            WG_VK_CHECK(vkAllocateCommandBuffers(m_device, &info, &m_cmds[i]));
-            WG_VK_NAME(m_device, m_cmds[i], VK_OBJECT_TYPE_COMMAND_BUFFER, "cmd@" + std::to_string(i));
-        }
-
-        VkSemaphoreCreateInfo semaphore_info{};
-        semaphore_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+    void VKDriver::init_sync_fences() {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::init_sync_fences");
 
         VkFenceCreateInfo fence_info{};
         fence_info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
         fence_info.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
-        for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            WG_VK_CHECK(vkCreateSemaphore(m_device, &semaphore_info, nullptr, &m_rendering_finished[i]));
-            WG_VK_NAME(m_device, m_rendering_finished[i], VK_OBJECT_TYPE_SEMAPHORE, "rendering_finished@" + std::to_string(i));
-            WG_VK_CHECK(vkCreateFence(m_device, &fence_info, nullptr, &m_fences[i]));
-            WG_VK_NAME(m_device, m_fences[i], VK_OBJECT_TYPE_FENCE, "fence@" + std::to_string(i));
-        }
-
-        assert(m_index == 0);
-        m_cmd = m_cmds[m_index];
-
-        VkCommandBufferBeginInfo begin_info{};
-        begin_info.sType            = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-        begin_info.flags            = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
-        begin_info.pInheritanceInfo = nullptr;
-        WG_VK_CHECK(vkBeginCommandBuffer(m_cmd, &begin_info));
-        WG_VK_CHECK(vkResetFences(m_device, 1, &m_fences[m_index]));
+        WG_VK_CHECK(vkCreateFence(m_device, &fence_info, nullptr, &m_sync_fence));
+        WG_VK_NAME(m_device, m_sync_fence, VK_OBJECT_TYPE_FENCE, "sync_fence@");
     }
-    void VKDriver::release_context() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::release_context");
+    void VKDriver::release_sync_fences() {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::release_sync_fences");
 
-        for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            release_resources(i);
-
-            if (m_cmds_pools[i])
-                vkDestroyCommandPool(m_device, m_cmds_pools[i], nullptr);
-            if (m_rendering_finished[i])
-                vkDestroySemaphore(m_device, m_rendering_finished[i], nullptr);
-            if (m_fences[i])
-                vkDestroyFence(m_device, m_fences[i], nullptr);
+        if (m_sync_fence) {
+            vkDestroyFence(m_device, m_sync_fence, nullptr);
         }
     }
 
@@ -1116,96 +724,14 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKDriver::supports");
 
         for (auto& ext : m_device_extensions) {
-            if (extension == ext.extensionName)
+            if (extension == ext.extensionName) {
                 return true;
+            }
         }
+
         return false;
     }
-    void VKDriver::prepare_draw() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::prepare_draw");
 
-        std::array<VkBuffer, GfxLimits::MAX_VERT_BUFFERS>     vk_vert_buffers{};
-        std::array<VkDeviceSize, GfxLimits::MAX_VERT_BUFFERS> vk_vert_buffers_offsets{};
-
-        int count = 0;
-
-        while (count < GfxLimits::MAX_VERT_BUFFERS) {
-            if (!m_current_vert_buffers[count]) break;
-            vk_vert_buffers[count]         = m_current_vert_buffers[count]->buffer();
-            vk_vert_buffers_offsets[count] = m_current_vert_buffers_offsets[count];
-            count += 1;
-        }
-
-        vkCmdBindVertexBuffers(m_cmd, 0, count, vk_vert_buffers.data(), vk_vert_buffers_offsets.data());
-
-        int                                                   to_bind_count;
-        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS> sets = m_desc_manager->sets(to_bind_count);
-        if (to_bind_count > 0) {
-            vkCmdBindDescriptorSets(m_cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_shader->layout(), 0, to_bind_count, sets.data(), 0, nullptr);
-        }
-    }
-    void VKDriver::prepare_render_pass() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::prepare_render_pass");
-
-        if (!m_render_pass_started) {
-            // Potentially recreate make pass and framebuffer
-            m_render_pass_binder->validate();
-            m_current_pass = m_render_pass_binder->render_pass();
-
-            std::array<VkClearValue, GfxLimits::MAX_COLOR_TARGETS + 1> clear_values{};
-            int                                                        clear_value_count = 0;
-
-            for (int i = 0; i < m_current_pass->color_targets_count(); i++) {
-                VkClearColorValue value;
-                value.float32[0]                        = m_clear_color[i].x();
-                value.float32[1]                        = m_clear_color[i].y();
-                value.float32[2]                        = m_clear_color[i].z();
-                value.float32[3]                        = m_clear_color[i].w();
-                clear_values[clear_value_count++].color = value;
-            }
-            if (m_current_pass->has_depth_stencil()) {
-                VkClearDepthStencilValue value;
-                value.depth                                    = m_clear_depth;
-                value.stencil                                  = m_clear_stencil;
-                clear_values[clear_value_count++].depthStencil = value;
-            }
-
-            VkRect2D render_area{};
-            render_area.offset.x      = 0;
-            render_area.offset.y      = 0;
-            render_area.extent.width  = m_render_pass_binder->width();
-            render_area.extent.height = m_render_pass_binder->height();
-
-            VkRenderPassBeginInfo render_pass_info{};
-            render_pass_info.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-            render_pass_info.renderPass      = m_render_pass_binder->render_pass()->render_pass();
-            render_pass_info.framebuffer     = m_render_pass_binder->framebuffer()->framebuffer();
-            render_pass_info.renderArea      = render_area;
-            render_pass_info.clearValueCount = clear_value_count;
-            render_pass_info.pClearValues    = clear_values.data();
-
-            vkCmdBeginRenderPass(m_cmd, &render_pass_info, VK_SUBPASS_CONTENTS_INLINE);
-            WG_VK_BEGIN_LABEL(m_cmd, m_current_pass->name());
-
-            VkViewport viewport;
-            viewport.x        = static_cast<float>(m_viewport.x());
-            viewport.y        = static_cast<float>(m_viewport.y());
-            viewport.width    = static_cast<float>(m_viewport.z());
-            viewport.height   = static_cast<float>(m_viewport.w());
-            viewport.minDepth = 0.0f;
-            viewport.maxDepth = 1.0f;
-            vkCmdSetViewport(m_cmd, 0, 1, &viewport);
-
-            VkRect2D scissor;
-            scissor.offset.x      = m_viewport.x();
-            scissor.offset.y      = m_viewport.y();
-            scissor.extent.width  = m_viewport.z();
-            scissor.extent.height = m_viewport.w();
-            vkCmdSetScissor(m_cmd, 0, 1, &scissor);
-
-            m_render_pass_started = true;
-        }
-    }
     void VKDriver::release_resources(uint64_t index) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::release_resources");
 

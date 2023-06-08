@@ -176,6 +176,7 @@ namespace wmoge {
 
         m_vk_driver          = std::make_unique<VKDriver>(std::move(init_info));
         engine->m_gfx_driver = m_vk_driver->driver_wrapper();
+        engine->m_gfx_ctx    = m_vk_driver->ctx_immediate_wrapper();
         WG_LOG_INFO("init video driver");
 
         m_al_engine            = std::make_unique<ALAudioEngine>();
@@ -243,8 +244,9 @@ namespace wmoge {
 
         m_num_iterations += 1;
 
-        auto* engine = Engine::instance();
-        auto& layers = engine->m_layers;
+        auto* engine     = Engine::instance();
+        auto* gfx_driver = engine->gfx_driver();
+        auto& layers     = engine->m_layers;
 
         auto new_point = clock::now();
         auto t         = float(double(std::chrono::duration_cast<ns>(new_point - m_runtime_time).count()) * 1e-9);
@@ -260,6 +262,11 @@ namespace wmoge {
         for (auto it = layers.begin(); it != layers.end(); ++it)
             (*it)->on_start_frame();
 
+        // Begin new GPU frame only here, since it has costly command buffer
+        // allocation, acquiring new window image for presentation, etc.
+        gfx_driver->begin_frame();
+        gfx_driver->prepare_window(m_glfw_window_manager->primary_window());
+
         // Flush commands to be executed on main
         m_main_queue->flush();
 
@@ -267,14 +274,6 @@ namespace wmoge {
         m_event_manager->update();
         m_action_manager->update();
         m_event_manager->update();
-
-        // Kick off tasks to process active scene
-        // todo
-
-        // Begin new GPU frame only here, since it has costly command buffer
-        // allocation, acquiring new window image for presentation, etc.
-        engine->m_gfx_driver->begin_frame();
-        engine->m_gfx_driver->prepare_window(m_glfw_window_manager->primary_window());
 
         m_scene_manager->on_update();
 
@@ -291,19 +290,17 @@ namespace wmoge {
 
         // Finish frame, submitting commands
         // after this point no rendering on GPU is allowed
-        engine->m_gfx_driver->end_frame();
-
-        // Obtain new events from the operating system
-        m_glfw_window_manager->poll_events();
-
-        // Wait for vsync and swap buffers, so main sleep the rest of the frame
-        engine->m_gfx_driver->swap_buffers(m_glfw_window_manager->primary_window());
-
-        engine->m_gfx_driver->flush();
+        gfx_driver->end_frame();
 
         // Frame end
         for (auto it = layers.rbegin(); it != layers.rend(); ++it)
             (*it)->on_end_frame();
+
+        // Wait for vsync and swap buffers, so main sleep the rest of the frame
+        gfx_driver->swap_buffers(m_glfw_window_manager->primary_window());
+
+        // Obtain new events from the operating system
+        m_glfw_window_manager->poll_events();
 
         return true;
     }

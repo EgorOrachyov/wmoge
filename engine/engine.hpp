@@ -75,6 +75,7 @@
 #include "gameplay/game_token_manager.hpp"
 
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_pipeline.hpp"

@@ -74,9 +74,9 @@ namespace wmoge {
         }
 
         init_view();
-        init_layout();
+        init_layout(cmd);
     }
-    void VKTexture::create_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_tex_type     = GfxTex::Tex2d;
@@ -93,9 +93,9 @@ namespace wmoge {
         init_image();
         init_view();
         init_rt_views();
-        init_layout();
+        init_layout(cmd);
     }
-    void VKTexture::create_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    void VKTexture::create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d_array");
 
         m_tex_type     = GfxTex::Tex2dArray;
@@ -112,9 +112,9 @@ namespace wmoge {
         init_image();
         init_view();
         init_rt_views();
-        init_layout();
+        init_layout(cmd);
     }
-    void VKTexture::create_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    void VKTexture::create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_cube");
 
         m_tex_type     = GfxTex::TexCube;
@@ -131,7 +131,7 @@ namespace wmoge {
         init_image();
         init_view();
         init_rt_views();
-        init_layout();
+        init_layout(cmd);
     }
     void VKTexture::update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d");
@@ -353,13 +353,13 @@ namespace wmoge {
             }
         }
     }
-    void VKTexture::init_layout() {
+    void VKTexture::init_layout(VkCommandBuffer cmd) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::init_layout");
 
         assert(m_driver.on_gfx_thread());
-        assert(m_driver.cmd());
+        assert(cmd != VK_NULL_HANDLE);
 
-        transition_layout(m_driver.cmd(), m_primary_layout);
+        transition_layout(cmd, m_primary_layout);
     }
 
     void VKTexture::update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data) {

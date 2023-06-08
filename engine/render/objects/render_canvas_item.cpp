@@ -83,7 +83,7 @@ namespace wmoge {
         elements.add_element(SID("pos"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, pos), sizeof(GfxVF_Pos2Uv2Col4));
         elements.add_element(SID("uv"), GfxFormat::RG32F, 0, offsetof(GfxVF_Pos2Uv2Col4, uv), sizeof(GfxVF_Pos2Uv2Col4));
         elements.add_element(SID("col"), GfxFormat::RGBA32F, 0, offsetof(GfxVF_Pos2Uv2Col4, col), sizeof(GfxVF_Pos2Uv2Col4));
-        m_vert_format = m_driver->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
+        m_vert_format = m_gfx_driver->make_vert_format(elements, SID("b0_Pos2Uv2Col4"));
     }
     void RenderCanvasItem::update_draw_params() {
         //        auto* ptr           = reinterpret_cast<Shader2d::DrawParams*>(m_driver->map_uniform_buffer(m_draw_params));
@@ -93,7 +93,7 @@ namespace wmoge {
         //        ptr->model_inv_prev = Math2d::from3x3to4x4(m_model_inv_prev).transpose();
         //        ptr->tint           = m_tint;
         //        ptr->layer_id       = m_layer_id;
-        m_driver->unmap_uniform_buffer(m_draw_params);
+        //        m_gfx_ctx->unmap_uniform_buffer(m_draw_params);
     }
     void RenderCanvasItem::mark_dirty_params() {
         m_dirty_params = true;

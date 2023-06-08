@@ -65,16 +65,17 @@ namespace wmoge {
         void acquire_next();
         void get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
 
-        const fast_vector<Ref<VKTexture>>& color() const { return m_color_targets; }
-        const Ref<VKTexture>&              depth_stencil() const { return m_depth_stencil_target; }
-        VkSurfaceKHR                       surface_khr() const { return m_surface; }
-        VkSwapchainKHR                     swapchain() const { return m_swapchain; }
-        VkSemaphore                        semaphore() const { return m_image_available[m_image_available_semaphore]; }
+        [[nodiscard]] const fast_vector<Ref<VKTexture>>& color() const { return m_color_targets; }
+        [[nodiscard]] const Ref<VKTexture>&              depth_stencil() const { return m_depth_stencil_target; }
+        [[nodiscard]] VkSurfaceKHR                       surface_khr() const { return m_surface; }
+        [[nodiscard]] VkSwapchainKHR                     swapchain() const { return m_swapchain; }
+        [[nodiscard]] VkSemaphore                        acquire_semaphore() const { return m_acquire_semaphore[m_semaphore_index]; }
+        [[nodiscard]] VkSemaphore                        present_semaphore() const { return m_present_semaphore[m_semaphore_index]; }
 
-        int      version() const { return m_version; }
-        int      width() const { return m_extent.width; }
-        int      height() const { return m_extent.height; }
-        uint32_t current() const { return m_current; }
+        [[nodiscard]] int      version() const { return m_version; }
+        [[nodiscard]] int      width() const { return int(m_extent.width); }
+        [[nodiscard]] int      height() const { return int(m_extent.height); }
+        [[nodiscard]] uint32_t current() const { return m_current; }
 
     private:
         void create_image_semaphores();
@@ -99,12 +100,13 @@ namespace wmoge {
         Ref<Window>        m_window;
         Ref<EventListener> m_window_event;
 
-        std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_image_available{};
+        std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_acquire_semaphore{};
+        std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_present_semaphore{};
 
-        uint32_t m_current                   = 0;
-        int      m_version                   = -1;
-        int      m_image_available_semaphore = 0;
-        bool     m_use_vsync                 = true;
+        uint32_t m_current         = 0;
+        int      m_version         = -1;
+        int      m_semaphore_index = 0;
+        bool     m_use_vsync       = true;
 
         class VKDriver& m_driver;
     };

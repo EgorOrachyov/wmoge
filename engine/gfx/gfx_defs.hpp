@@ -37,6 +37,13 @@
 
 namespace wmoge {
 
+    /** @brief Type of gfx context behaviour */
+    enum class GfxCtxType : int {
+        Immediate,
+        Deferred,
+        Async
+    };
+
     /** @brief Status of the shader */
     enum class GfxShaderStatus : int {
         Compiling,

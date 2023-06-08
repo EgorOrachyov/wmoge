@@ -310,7 +310,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::render");
 
         auto engine         = Engine::instance();
-        auto gfx            = engine->gfx_driver();
+        auto gfx_driver     = engine->gfx_driver();
+        auto gfx_ctx        = engine->gfx_ctx();
         auto shader_manager = engine->shader_manager();
 
         int num_of_verts_lines           = 2 * static_cast<int>(m_lines.size());
@@ -319,24 +320,24 @@ namespace wmoge {
         int num_of_verts_glyphs          = 6 * static_cast<int>(m_glyphs.size());
 
         if (m_gfx_capacity_lines < num_of_verts_lines) {
-            m_gfx_lines          = gfx->make_vert_buffer(num_of_verts_lines * sizeof(GfxVF_Pos3Col3), GfxMemUsage::GpuLocal, SID("aux_lines"));
+            m_gfx_lines          = gfx_driver->make_vert_buffer(num_of_verts_lines * sizeof(GfxVF_Pos3Col3), GfxMemUsage::GpuLocal, SID("aux_lines"));
             m_gfx_capacity_lines = num_of_verts_lines;
         }
         if (m_gfx_capacity_triangles_solid < num_of_verts_triangles_solid) {
-            m_gfx_triangles_solid          = gfx->make_vert_buffer(num_of_verts_triangles_solid * sizeof(GfxVF_Pos3Col3), GfxMemUsage::GpuLocal, SID("aux_tria_solid"));
+            m_gfx_triangles_solid          = gfx_driver->make_vert_buffer(num_of_verts_triangles_solid * sizeof(GfxVF_Pos3Col3), GfxMemUsage::GpuLocal, SID("aux_tria_solid"));
             m_gfx_capacity_triangles_solid = num_of_verts_triangles_solid;
         }
         if (m_gfx_capacity_triangles_wire < num_of_verts_triangles_wire) {
-            m_gfx_triangles_wire          = gfx->make_vert_buffer(num_of_verts_triangles_wire * sizeof(GfxVF_Pos3Col3), GfxMemUsage::GpuLocal, SID("aux_tria_wire"));
+            m_gfx_triangles_wire          = gfx_driver->make_vert_buffer(num_of_verts_triangles_wire * sizeof(GfxVF_Pos3Col3), GfxMemUsage::GpuLocal, SID("aux_tria_wire"));
             m_gfx_capacity_triangles_wire = num_of_verts_triangles_wire;
         }
         if (m_gfx_capacity_text < num_of_verts_glyphs) {
-            m_gfx_glyphs        = gfx->make_vert_buffer(num_of_verts_glyphs * sizeof(GfxVF_Pos2Uv2Col3), GfxMemUsage::GpuLocal, SID("aux_text"));
+            m_gfx_glyphs        = gfx_driver->make_vert_buffer(num_of_verts_glyphs * sizeof(GfxVF_Pos2Uv2Col3), GfxMemUsage::GpuLocal, SID("aux_text"));
             m_gfx_capacity_text = num_of_verts_glyphs;
         }
 
         if (num_of_verts_lines > 0) {
-            auto* p_lines = reinterpret_cast<GfxVF_Pos3Col3*>(gfx->map_vert_buffer(m_gfx_lines));
+            auto* p_lines = reinterpret_cast<GfxVF_Pos3Col3*>(gfx_ctx->map_vert_buffer(m_gfx_lines));
             for (const auto& entry : m_lines) {
                 p_lines->pos = entry.from;
                 p_lines->col = entry.color;
@@ -345,10 +346,10 @@ namespace wmoge {
                 p_lines->col = entry.color;
                 p_lines++;
             }
-            gfx->unmap_vert_buffer(m_gfx_lines);
+            gfx_ctx->unmap_vert_buffer(m_gfx_lines);
         }
         if (num_of_verts_triangles_solid > 0) {
-            auto* p_tria_solid = reinterpret_cast<GfxVF_Pos3Col3*>(gfx->map_vert_buffer(m_gfx_triangles_solid));
+            auto* p_tria_solid = reinterpret_cast<GfxVF_Pos3Col3*>(gfx_ctx->map_vert_buffer(m_gfx_triangles_solid));
             for (const auto& entry : m_triangles_solid) {
                 p_tria_solid->pos = entry.p[0];
                 p_tria_solid->col = entry.color;
@@ -360,10 +361,10 @@ namespace wmoge {
                 p_tria_solid->col = entry.color;
                 p_tria_solid++;
             }
-            gfx->unmap_vert_buffer(m_gfx_triangles_solid);
+            gfx_ctx->unmap_vert_buffer(m_gfx_triangles_solid);
         }
         if (num_of_verts_triangles_wire > 0) {
-            auto* p_tria_wire = reinterpret_cast<GfxVF_Pos3Col3*>(gfx->map_vert_buffer(m_gfx_triangles_wire));
+            auto* p_tria_wire = reinterpret_cast<GfxVF_Pos3Col3*>(gfx_ctx->map_vert_buffer(m_gfx_triangles_wire));
             for (const auto& entry : m_triangles_wire) {
                 p_tria_wire->pos = entry.p[0];
                 p_tria_wire->col = entry.color;
@@ -375,10 +376,10 @@ namespace wmoge {
                 p_tria_wire->col = entry.color;
                 p_tria_wire++;
             }
-            gfx->unmap_vert_buffer(m_gfx_triangles_wire);
+            gfx_ctx->unmap_vert_buffer(m_gfx_triangles_wire);
         }
         if (num_of_verts_glyphs > 0) {
-            auto* p_glyphs = reinterpret_cast<GfxVF_Pos2Uv2Col3*>(gfx->map_vert_buffer(m_gfx_glyphs));
+            auto* p_glyphs = reinterpret_cast<GfxVF_Pos2Uv2Col3*>(gfx_ctx->map_vert_buffer(m_gfx_glyphs));
             for (const auto& entry : m_glyphs) {
                 p_glyphs->pos = entry.p[0];
                 p_glyphs->uv  = entry.t[0];
@@ -405,7 +406,7 @@ namespace wmoge {
                 p_glyphs->col = entry.color;
                 p_glyphs++;
             }
-            gfx->unmap_vert_buffer(m_gfx_glyphs);
+            gfx_ctx->unmap_vert_buffer(m_gfx_glyphs);
         }
 
         m_lines.clear();
@@ -413,10 +414,10 @@ namespace wmoge {
         m_triangles_wire.clear();
         m_glyphs.clear();
 
-        auto ptr              = reinterpret_cast<ShaderAuxDrawManager::Params*>(gfx->map_uniform_buffer(m_constants));
-        ptr->clip_proj_view   = (gfx->clip_matrix() * m_proj * m_view).transpose();
-        ptr->clip_proj_screen = (gfx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
-        gfx->unmap_uniform_buffer(m_constants);
+        auto ptr              = reinterpret_cast<ShaderAuxDrawManager::Params*>(gfx_ctx->map_uniform_buffer(m_constants));
+        ptr->clip_proj_view   = (gfx_driver->clip_matrix() * m_proj * m_view).transpose();
+        ptr->clip_proj_screen = (gfx_driver->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
+        gfx_ctx->unmap_uniform_buffer(m_constants);
 
         GfxPipelineState pipeline_state;
 
@@ -430,19 +431,19 @@ namespace wmoge {
         pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
         pipeline_state.prim_type  = GfxPrimType::Lines;
         pipeline_state.poly_mode  = GfxPolyMode::Fill;
-        auto pipeline_line        = gfx->make_pipeline(pipeline_state, SID("aux_line"));
+        auto pipeline_line        = gfx_driver->make_pipeline(pipeline_state, SID("aux_line"));
 
         pipeline_state.cull_mode  = GfxPolyCullMode::Back;
         pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
         pipeline_state.prim_type  = GfxPrimType::Triangles;
         pipeline_state.poly_mode  = GfxPolyMode::Fill;
-        auto pipeline_solid       = gfx->make_pipeline(pipeline_state, SID("aux_solid"));
+        auto pipeline_solid       = gfx_driver->make_pipeline(pipeline_state, SID("aux_solid"));
 
         pipeline_state.cull_mode  = GfxPolyCullMode::Disabled;
         pipeline_state.front_face = GfxPolyFrontFace::CounterClockwise;
         pipeline_state.prim_type  = GfxPrimType::Triangles;
         pipeline_state.poly_mode  = GfxPolyMode::Line;
-        auto pipeline_wireframe   = gfx->make_pipeline(pipeline_state, SID("aux_wireframe"));
+        auto pipeline_wireframe   = gfx_driver->make_pipeline(pipeline_state, SID("aux_wireframe"));
 
         pipeline_state.depth_enable = false;
         pipeline_state.depth_write  = false;
@@ -454,37 +455,37 @@ namespace wmoge {
         pipeline_state.shader      = shader_manager->get_shader(SID("aux_draw_manager"), {"AUX_DRAW_TEXT"});
         pipeline_state.vert_format = m_b0_Pos2Uv2Col3;
         pipeline_state.blending    = true;
-        auto pipeline_glyphs       = gfx->make_pipeline(pipeline_state, SID("aux_text"));
+        auto pipeline_glyphs       = gfx_driver->make_pipeline(pipeline_state, SID("aux_text"));
 
-        gfx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw"));
-        gfx->bind_target(m_window);
-        gfx->viewport(m_viewport);
-        gfx->clear(1.0f, 0);// todo: clear in scene rendering
-        gfx->clear(0, Vec4f(0, 0, 0, 1));
+        gfx_ctx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw"));
+        gfx_ctx->bind_target(m_window);
+        gfx_ctx->viewport(m_viewport);
+        gfx_ctx->clear(1.0f, 0);// todo: clear in scene rendering
+        gfx_ctx->clear(0, Vec4f(0, 0, 0, 1));
 
-        if (num_of_verts_lines > 0 && gfx->bind_pipeline(pipeline_line)) {
-            gfx->bind_vert_buffer(m_gfx_lines, 0);
-            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
-            gfx->draw(num_of_verts_lines, 0, 1);
+        if (num_of_verts_lines > 0 && gfx_ctx->bind_pipeline(pipeline_line)) {
+            gfx_ctx->bind_vert_buffer(m_gfx_lines, 0);
+            gfx_ctx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
+            gfx_ctx->draw(num_of_verts_lines, 0, 1);
         }
-        if (num_of_verts_triangles_solid > 0 && gfx->bind_pipeline(pipeline_solid)) {
-            gfx->bind_vert_buffer(m_gfx_triangles_solid, 0);
-            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
-            gfx->draw(num_of_verts_triangles_solid, 0, 1);
+        if (num_of_verts_triangles_solid > 0 && gfx_ctx->bind_pipeline(pipeline_solid)) {
+            gfx_ctx->bind_vert_buffer(m_gfx_triangles_solid, 0);
+            gfx_ctx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
+            gfx_ctx->draw(num_of_verts_triangles_solid, 0, 1);
         }
-        if (num_of_verts_triangles_wire > 0 && gfx->bind_pipeline(pipeline_wireframe)) {
-            gfx->bind_vert_buffer(m_gfx_triangles_wire, 0);
-            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
-            gfx->draw(num_of_verts_triangles_wire, 0, 1);
+        if (num_of_verts_triangles_wire > 0 && gfx_ctx->bind_pipeline(pipeline_wireframe)) {
+            gfx_ctx->bind_vert_buffer(m_gfx_triangles_wire, 0);
+            gfx_ctx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
+            gfx_ctx->draw(num_of_verts_triangles_wire, 0, 1);
         }
-        if (num_of_verts_glyphs > 0 && gfx->bind_pipeline(pipeline_glyphs)) {
-            gfx->bind_vert_buffer(m_gfx_glyphs, 0);
-            gfx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
-            gfx->bind_texture(ShaderAuxDrawManager::FONTBITMAP_LOC, 0, m_debug_font->get_bitmap(), m_debug_font->get_sampler());
-            gfx->draw(num_of_verts_glyphs, 0, 1);
+        if (num_of_verts_glyphs > 0 && gfx_ctx->bind_pipeline(pipeline_glyphs)) {
+            gfx_ctx->bind_vert_buffer(m_gfx_glyphs, 0);
+            gfx_ctx->bind_uniform_buffer(ShaderAuxDrawManager::PARAMS_LOC, 0, sizeof(ShaderAuxDrawManager::Params), m_constants);
+            gfx_ctx->bind_texture(ShaderAuxDrawManager::FONTBITMAP_LOC, 0, m_debug_font->get_bitmap(), m_debug_font->get_sampler());
+            gfx_ctx->draw(num_of_verts_glyphs, 0, 1);
         }
 
-        gfx->end_render_pass();
+        gfx_ctx->end_render_pass();
     }
 
 }// namespace wmoge

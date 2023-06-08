@@ -54,8 +54,8 @@ namespace wmoge {
     void RenderSpriteInstance::on_scene_enter() {
         WG_AUTO_PROFILE_RENDER("RenderSpriteInstance::on_scene_enter");
 
-        m_vert_buffer  = m_driver->make_vert_buffer(sizeof(GfxVF_Pos2Uv2Col4[N_VERTICES]), GfxMemUsage::GpuLocal, m_name);
-        m_index_buffer = m_driver->make_index_buffer(sizeof(std::uint16_t[N_INDICES]), GfxMemUsage::GpuLocal, m_name);
+        m_vert_buffer  = m_gfx_driver->make_vert_buffer(sizeof(GfxVF_Pos2Uv2Col4[N_VERTICES]), GfxMemUsage::GpuLocal, m_name);
+        m_index_buffer = m_gfx_driver->make_index_buffer(sizeof(std::uint16_t[N_INDICES]), GfxMemUsage::GpuLocal, m_name);
 
         create_draw_params();
         create_vert_format();
@@ -69,7 +69,7 @@ namespace wmoge {
         indices[3]         = 2;
         indices[4]         = 3;
         indices[5]         = 0;
-        m_driver->update_index_buffer(m_index_buffer, 0, m_index_buffer->size(), indices_data);
+        m_gfx_ctx->update_index_buffer(m_index_buffer, 0, m_index_buffer->size(), indices_data);
     }
 
     void RenderSpriteInstance::on_update(float dt) {
@@ -153,7 +153,7 @@ namespace wmoge {
         const auto uv_base = Vec2f(frame.x(), frame.y());
         const auto uv_size = Vec2f(frame.z(), frame.w());
 
-        auto* vertices = reinterpret_cast<GfxVF_Pos2Uv2Col4*>(m_driver->map_vert_buffer(m_vert_buffer));
+        auto* vertices = reinterpret_cast<GfxVF_Pos2Uv2Col4*>(m_gfx_ctx->map_vert_buffer(m_vert_buffer));
 
         vertices[0].pos = Vec2f(-pivot.x(), -pivot.y() + size.y());
         vertices[1].pos = Vec2f(-pivot.x(), -pivot.y());
@@ -170,7 +170,7 @@ namespace wmoge {
         vertices[2].col = Color::WHITE4f;
         vertices[3].col = Color::WHITE4f;
 
-        m_driver->unmap_vert_buffer(m_vert_buffer);
+        m_gfx_ctx->unmap_vert_buffer(m_vert_buffer);
     }
     void RenderSpriteInstance::mark_dirty_geom() {
         m_dirty_geom_data = true;

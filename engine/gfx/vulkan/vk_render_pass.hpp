@@ -54,12 +54,12 @@ namespace wmoge {
      * @class VKRenderPass
      * @brief Vulkan single render pass implementation required for PSO and drawing
      */
-    class VKRenderPass : public VKResource<GfxResource> {
+    class VKRenderPass : public VKResource<GfxRenderPass> {
     public:
         VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver);
         ~VKRenderPass() override;
 
-        [[nodiscard]] const GfxRenderPassDesc& pass_desc() const { return m_pass_desc; }
+        [[nodiscard]] const GfxRenderPassDesc& pass_desc() const override { return m_pass_desc; }
         [[nodiscard]] VkRenderPass             render_pass() const { return m_render_pass; }
         [[nodiscard]] int                      color_targets_count() const { return m_color_targets_count; }
         [[nodiscard]] bool                     has_depth_stencil() const { return m_has_depth_stencil; }
