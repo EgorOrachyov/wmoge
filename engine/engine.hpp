@@ -78,6 +78,7 @@
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"

@@ -59,6 +59,12 @@ namespace wmoge {
         static const float SQRT2f;
         static const float Ef;
 
+        static std::size_t round_to_pow2(std::size_t x) {
+            std::size_t r = 1u;
+            while (x > r) r *= 2u;
+            return r;
+        }
+
         static int div_up(int count, int step) {
             return (count + step - 1) / step;
         }

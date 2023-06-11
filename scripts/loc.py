@@ -19,7 +19,7 @@ def visit(directory):
         if os.path.isdir(directory / entry):
             loc += visit(directory / entry)
 
-    DIR_STATS[str(directory.name)] = loc
+    DIR_STATS[str(directory.relative_to(ROOT))] = loc
     return loc
 
 

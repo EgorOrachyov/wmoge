@@ -62,19 +62,22 @@ namespace wmoge {
         explicit VKDriver(const VKInitInfo& info);
         ~VKDriver() override;
 
-        Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const StringId& name) override;
-        Ref<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxUniformBuffer> make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxStorageBuffer> make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxShader>        make_shader(std::string vertex, std::string fragment, const StringId& name) override;
-        Ref<GfxShader>        make_shader(Ref<Data> code, const StringId& name) override;
-        Ref<GfxTexture>       make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        Ref<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
-        Ref<GfxPipeline>      make_pipeline(const GfxPipelineState& state, const StringId& name) override;
-        Ref<GfxRenderPass>    make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
+        Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const StringId& name) override;
+        Ref<GfxVertBuffer>       make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
+        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const StringId& name) override;
+        Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name) override;
+        Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
+        Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
+        Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
+        Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
+        Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name) override;
+        Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
+        Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
+        Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name) override;
+        Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name) override;
 
         void shutdown() override;
 
@@ -85,6 +88,10 @@ namespace wmoge {
 
         class GfxCtx* ctx_immediate() override { return m_ctx_immediate.get(); }
         class GfxCtx* ctx_async() override { return m_ctx_async.get(); }
+
+        GfxDynVertBuffer*    dyn_vert_buffer() override { return m_dyn_vert_buffer.get(); }
+        GfxDynIndexBuffer*   dyn_index_buffer() override { return m_dyn_index_buffer.get(); }
+        GfxDynUniformBuffer* dyn_uniform_buffer() override { return m_dyn_uniform_buffer.get(); }
 
         const GfxDeviceCaps&   device_caps() const override { return m_device_caps; }
         const StringId&        driver_name() const override { return m_driver_name; }
@@ -142,6 +149,10 @@ namespace wmoge {
         std::vector<VkSemaphore>                               m_queue_wait;
         std::vector<VkSemaphore>                               m_queue_signal;
         VkFence                                                m_sync_fence = VK_NULL_HANDLE;
+
+        Ref<GfxDynVertBuffer>    m_dyn_vert_buffer;
+        Ref<GfxDynIndexBuffer>   m_dyn_index_buffer;
+        Ref<GfxDynUniformBuffer> m_dyn_uniform_buffer;
 
         fast_map<GfxVertElements, Ref<VKVertFormat>>   m_formats;
         fast_map<GfxSamplerDesc, Ref<VKSampler>>       m_samplers;

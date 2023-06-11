@@ -127,19 +127,15 @@ namespace wmoge {
         Color4f              m_color_tint;
         Ref<Font>            m_font;
 
-        Ref<GfxVertBuffer>          m_gfx_triangles;
         std::vector<CanvasTriangle> m_triangles;
 
-        Ref<GfxUniformBuffer> m_constants;
-        Ref<GfxVertFormat>    m_b0_Pos2Uv2Col4;
-        Ref<GfxTexture>       m_default_texture;
-        Ref<GfxSampler>       m_default_sampler;
+        Ref<GfxVertFormat> m_b0_Pos2Uv2Col4;
+        Ref<GfxTexture>    m_default_texture;
+        Ref<GfxSampler>    m_default_sampler;
 
         Ref<Window> m_window;
         Rect2i      m_viewport;
         Vec2f       m_screen_size;
-
-        int m_gfx_capacity_triangles = 0;
     };
 
 }// namespace wmoge

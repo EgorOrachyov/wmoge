@@ -62,6 +62,8 @@ namespace wmoge {
         console->update();
 
         aux_draw_manager->render();
+        canvas_debug->set_fill_color(Color::BLACK4f);
+        canvas_debug->draw_filled_rect({0, 0}, {1280, 720});
         console->render();
     }
 

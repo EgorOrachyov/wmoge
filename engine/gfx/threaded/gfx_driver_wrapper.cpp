@@ -39,6 +39,9 @@ namespace wmoge {
         assert(driver);
 
         m_driver              = driver;
+        m_dyn_vert_buffer     = driver->dyn_vert_buffer();
+        m_dyn_index_buffer    = driver->dyn_index_buffer();
+        m_dyn_uniform_buffer  = driver->dyn_uniform_buffer();
         m_stream              = driver->cmd_stream();
         m_shader_lang         = driver->shader_lang();
         m_device_caps         = driver->device_caps();
@@ -135,12 +138,33 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { pipeline = m_driver->make_pipeline(state, name); });
         return pipeline;
     }
-    Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const wmoge::GfxRenderPassDesc& pass_desc, const wmoge::StringId& name) {
+    Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_render_pass");
 
         Ref<GfxRenderPass> render_pass;
         m_stream->push_and_wait([&]() { render_pass = m_driver->make_render_pass(pass_desc, name); });
         return render_pass;
+    }
+    Ref<GfxDynVertBuffer> GfxDriverWrapper::make_dyn_vert_buffer(int chunk_size, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_dyn_vert_buffer");
+
+        Ref<GfxDynVertBuffer> dyn_buffer;
+        m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_vert_buffer(chunk_size, name); });
+        return dyn_buffer;
+    }
+    Ref<GfxDynIndexBuffer> GfxDriverWrapper::make_dyn_index_buffer(int chunk_size, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_dyn_index_buffer");
+
+        Ref<GfxDynIndexBuffer> dyn_buffer;
+        m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_index_buffer(chunk_size, name); });
+        return dyn_buffer;
+    }
+    Ref<GfxDynUniformBuffer> GfxDriverWrapper::make_dyn_uniform_buffer(int chunk_size, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_dyn_uniform_buffer");
+
+        Ref<GfxDynUniformBuffer> dyn_buffer;
+        m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_uniform_buffer(chunk_size, name); });
+        return dyn_buffer;
     }
 
     void GfxDriverWrapper::shutdown() {
@@ -167,7 +191,7 @@ namespace wmoge {
     void GfxDriverWrapper::swap_buffers(const Ref<Window>& window) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::swap_buffers");
 
-        m_stream->push([=]() { m_driver->swap_buffers(window); });
+        m_stream->push_and_wait([=]() { m_driver->swap_buffers(window); });
     }
 
     class GfxCtx* GfxDriverWrapper::ctx_immediate() {
@@ -175,6 +199,16 @@ namespace wmoge {
     }
     class GfxCtx* GfxDriverWrapper::ctx_async() {
         return m_ctx_async;
+    }
+
+    GfxDynVertBuffer* GfxDriverWrapper::dyn_vert_buffer() {
+        return m_dyn_vert_buffer;
+    }
+    GfxDynIndexBuffer* GfxDriverWrapper::dyn_index_buffer() {
+        return m_dyn_index_buffer;
+    }
+    GfxDynUniformBuffer* GfxDriverWrapper::dyn_uniform_buffer() {
+        return m_dyn_uniform_buffer;
     }
 
     const GfxDeviceCaps& GfxDriverWrapper::device_caps() const {

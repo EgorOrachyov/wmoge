@@ -397,17 +397,19 @@ namespace wmoge {
     /** @brief Gfx device capabilities */
     struct GfxDeviceCaps {
         int   max_vertex_attributes          = -1;
-        int   max_combined_uniform_blocks    = -1;
         int   max_texture_array_layers       = -1;
         int   max_texture_3d_size            = -1;
-        int   max_texture_size               = -1;
-        int   max_texture_units              = -1;
+        int   max_texture_2d_size            = -1;
+        int   max_texture_1d_size            = -1;
+        int   max_shader_uniform_buffers     = -1;
+        int   max_shader_storage_buffers     = -1;
+        int   max_shader_sampled_textures    = -1;
         int   max_color_attachments          = -1;
         int   max_framebuffer_width          = -1;
         int   max_framebuffer_height         = -1;
-        int   uniform_block_offset_alignment = -1;
         float max_anisotropy                 = 0.0f;
         bool  support_anisotropy             = false;
+        int   uniform_block_offset_alignment = -1;
     };
 
 }// namespace wmoge

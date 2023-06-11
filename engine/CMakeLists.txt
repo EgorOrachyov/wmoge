@@ -92,6 +92,8 @@ add_library(wmoge STATIC
         gfx/gfx_defs.hpp
         gfx/gfx_ctx.hpp
         gfx/gfx_driver.hpp
+        gfx/gfx_dynamic_buffers.cpp
+        gfx/gfx_dynamic_buffers.hpp
         gfx/gfx_pipeline.cpp
         gfx/gfx_pipeline.hpp
         gfx/gfx_render_pass.cpp

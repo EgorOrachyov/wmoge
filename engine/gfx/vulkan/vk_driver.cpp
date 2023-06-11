@@ -53,6 +53,8 @@ namespace wmoge {
     VKDriver::VKDriver(const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
+        auto* config = Engine::instance()->config_engine();
+
         m_driver_name = SID("vulkan");
         m_clip_matrix = Mat4x4f(1.0f, 0.0f, 0.0f, 0.0f,
                                 0.0f, -1.0f, 0.0f, 0.0f,
@@ -69,48 +71,64 @@ namespace wmoge {
         }
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
-        m_shader_cache_path   = "cache://vk_shader_cache.wgsc";
-        m_pipeline_cache_path = "cache://vk_pipeline_cache.wgpc";
-        auto* config          = Engine::instance()->config_engine();
-        config->get(SID("gfx.vulkan.shader_cache"), m_shader_cache_path);
-        config->get(SID("gfx.vulkan.pipeline_cache"), m_pipeline_cache_path);
+        m_shader_cache_path   = config->get_string(SID("gfx.vulkan.shader_cache"), "cache://shaders_vk.cache");
+        m_pipeline_cache_path = config->get_string(SID("gfx.vulkan.pipeline_cache"), "cache://pipelines_vk.cache");
 
         // load vulkan functions from volk
         init_functions();
+
         // instance, validation layers and debug callbacks setup
         init_instance();
+
         // create tmp surface for physical device selection
         VkSurfaceKHR surface;
         WG_VK_CHECK(info.factory(m_instance, info.window, surface));
         VKWindow window(info.window, surface, *this);
+
         // select physical device and find queues
         init_physical_device_and_queues(window);
+
         // create logical device with all required features
         init_device();
+
         // init queues after device creation
         m_queues->init_queues(m_device);
+
         // create surface manager for swap chains
         m_window_manager = std::make_unique<VKWindowManager>(info, *this);
+
         // init mem manager for allocations
         m_mem_manager = std::make_unique<VKMemManager>(*this);
+
         // init glslang for shader compilation
         init_glslang();
+
         // init pipeline cache
         init_pipeline_cache();
+
         // sync primitives
         init_sync_fences();
+
         // init context required for rendering and commands submission
         m_ctx_immediate = std::make_unique<VKCtx>(*this);
 
+        // setup dynamic buffers
+        m_dyn_vert_buffer    = make_dyn_vert_buffer(config->get_int(SID("dyn_vert_chunk_size"), DEFAULT_DYN_VERT_CHUNK_SIZE), SID("vk_dyn_vert_buffer"));
+        m_dyn_index_buffer   = make_dyn_index_buffer(config->get_int(SID("dyn_index_chunk_size"), DEFAULT_DYN_INDEX_CHUNK_SIZE), SID("vk_dyn_index_buffer"));
+        m_dyn_uniform_buffer = make_dyn_uniform_buffer(config->get_int(SID("dyn_uniform_chunk_size"), DEFAULT_DYN_UNIFORM_CHUNK_SIZE), SID("vk_dyn_uniform_buffer"));
+
         // cmd stream of driver thread
         m_driver_cmd_stream = std::make_unique<CmdStream>();
+
         // and kick off worker in a separate thread
         m_driver_worker = std::make_unique<GfxWorker>(m_driver_cmd_stream.get());
 
+        // thread, owning gfx processing
         m_thread_id = m_driver_worker->get_worker_id();
 
         // finally init wrapper for driver
         m_driver_wrapper = std::make_unique<GfxDriverWrapper>(this);
+
         // finally init wrapper for ctx immediate
         m_ctx_immediate_wrapper = std::make_unique<GfxCtxWrapper>(m_ctx_immediate.get());
 
@@ -273,6 +291,21 @@ namespace wmoge {
 
         return render_pass;
     }
+    Ref<GfxDynVertBuffer> VKDriver::make_dyn_vert_buffer(int chunk_size, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_vert_buffer");
+
+        return make_ref<GfxDynVertBuffer>(chunk_size, 64, name);
+    }
+    Ref<GfxDynIndexBuffer> VKDriver::make_dyn_index_buffer(int chunk_size, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_index_buffer");
+
+        return make_ref<GfxDynIndexBuffer>(chunk_size, 64, name);
+    }
+    Ref<GfxDynUniformBuffer> VKDriver::make_dyn_uniform_buffer(int chunk_size, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_uniform_buffer");
+
+        return make_ref<GfxDynUniformBuffer>(chunk_size, m_device_caps.uniform_block_offset_alignment, name);
+    }
 
     void VKDriver::shutdown() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::shutdown");
@@ -287,6 +320,11 @@ namespace wmoge {
             m_driver_worker->terminate();
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
+
+            m_dyn_vert_buffer.reset();
+            m_dyn_index_buffer.reset();
+            m_dyn_uniform_buffer.reset();
+            flush_release();
 
             m_ctx_immediate.reset();
             flush_release();
@@ -585,17 +623,19 @@ namespace wmoge {
 
         auto& limits                                 = device_properties.limits;
         m_device_caps.max_vertex_attributes          = int(limits.maxVertexInputAttributes);
-        m_device_caps.max_combined_uniform_blocks    = int(limits.maxDescriptorSetUniformBuffers);
         m_device_caps.max_texture_array_layers       = int(limits.maxImageArrayLayers);
         m_device_caps.max_texture_3d_size            = int(limits.maxImageDimension3D);
-        m_device_caps.max_texture_size               = int(limits.maxImageDimension2D);
-        m_device_caps.max_texture_units              = int(limits.maxDescriptorSetSampledImages);
+        m_device_caps.max_texture_2d_size            = int(limits.maxImageDimension2D);
+        m_device_caps.max_texture_1d_size            = int(limits.maxImageDimension1D);
+        m_device_caps.max_shader_uniform_buffers     = int(limits.maxPerStageDescriptorUniformBuffers);
+        m_device_caps.max_shader_storage_buffers     = int(limits.maxPerStageDescriptorStorageBuffers);
+        m_device_caps.max_shader_sampled_textures    = int(limits.maxPerStageDescriptorSamplers);
         m_device_caps.max_color_attachments          = int(limits.maxColorAttachments);
         m_device_caps.max_framebuffer_width          = int(limits.maxFramebufferWidth);
         m_device_caps.max_framebuffer_height         = int(limits.maxFramebufferHeight);
-        m_device_caps.uniform_block_offset_alignment = static_cast<int>(limits.minUniformBufferOffsetAlignment);
         m_device_caps.max_anisotropy                 = limits.maxSamplerAnisotropy;
         m_device_caps.support_anisotropy             = device_features.samplerAnisotropy;
+        m_device_caps.uniform_block_offset_alignment = static_cast<int>(limits.minUniformBufferOffsetAlignment);
 
 #ifdef WG_DEBUG
         VkPhysicalDeviceProperties device_props;

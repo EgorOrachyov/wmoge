@@ -57,6 +57,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_vert_buffer");
 
         assert(check_thread_valid());
+        assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKVertBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
     }
@@ -64,6 +66,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_index_buffer");
 
         assert(check_thread_valid());
+        assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKIndexBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
     }
@@ -71,6 +75,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_uniform_buffer");
 
         assert(check_thread_valid());
+        assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKUniformBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
     }
@@ -78,6 +84,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_storage_buffer");
 
         assert(check_thread_valid());
+        assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKStorageBuffer*>(buffer.get())->update(cmd_current(), offset, range, data);
     }
@@ -85,6 +93,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_texture_2d");
 
         assert(check_thread_valid());
+        assert(texture);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKTexture*>(texture.get())->update_2d(cmd_current(), mip, region, data);
     }
@@ -92,6 +102,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_texture_2d_array");
 
         assert(check_thread_valid());
+        assert(texture);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKTexture*>(texture.get())->update_2d_array(cmd_current(), mip, slice, region, data);
     }
@@ -99,6 +111,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_texture_cube");
 
         assert(check_thread_valid());
+        assert(texture);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKTexture*>(texture.get())->update_cube(cmd_current(), mip, face, region, data);
     }
@@ -108,6 +122,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
     }
@@ -116,6 +131,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
     }
@@ -124,6 +140,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
     }
@@ -132,6 +149,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
     }
@@ -140,6 +158,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(cmd_current());
     }
@@ -148,6 +167,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(cmd_current());
     }
@@ -156,6 +176,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(cmd_current());
     }
@@ -164,6 +185,7 @@ namespace wmoge {
 
         assert(check_thread_valid());
         assert(buffer);
+        assert(!m_in_render_pass);
 
         dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(cmd_current());
     }
