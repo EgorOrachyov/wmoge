@@ -112,7 +112,8 @@ namespace wmoge {
         // init context required for rendering and commands submission
         m_ctx_immediate = std::make_unique<VKCtx>(*this);
 
-        // setup dynamic buffers
+        // setup pool and dynamic buffers
+        m_uniform_pool       = make_ref<GfxUniformPool>(SID("uniform_pool"));
         m_dyn_vert_buffer    = make_dyn_vert_buffer(config->get_int(SID("dyn_vert_chunk_size"), DEFAULT_DYN_VERT_CHUNK_SIZE), SID("vk_dyn_vert_buffer"));
         m_dyn_index_buffer   = make_dyn_index_buffer(config->get_int(SID("dyn_index_chunk_size"), DEFAULT_DYN_INDEX_CHUNK_SIZE), SID("vk_dyn_index_buffer"));
         m_dyn_uniform_buffer = make_dyn_uniform_buffer(config->get_int(SID("dyn_uniform_chunk_size"), DEFAULT_DYN_UNIFORM_CHUNK_SIZE), SID("vk_dyn_uniform_buffer"));
@@ -321,6 +322,7 @@ namespace wmoge {
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
 
+            m_uniform_pool.reset();
             m_dyn_vert_buffer.reset();
             m_dyn_index_buffer.reset();
             m_dyn_uniform_buffer.reset();
@@ -385,6 +387,8 @@ namespace wmoge {
         if (m_ctx_async) {
             m_ctx_async->begin_frame();
         }
+
+        m_uniform_pool->recycle();
     }
     void VKDriver::end_frame() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");

@@ -92,6 +92,7 @@ namespace wmoge {
         [[nodiscard]] virtual class GfxCtx* ctx_immediate() = 0;
         [[nodiscard]] virtual class GfxCtx* ctx_async()     = 0;
 
+        [[nodiscard]] virtual GfxUniformPool*      uniform_pool()       = 0;
         [[nodiscard]] virtual GfxDynVertBuffer*    dyn_vert_buffer()    = 0;
         [[nodiscard]] virtual GfxDynIndexBuffer*   dyn_index_buffer()   = 0;
         [[nodiscard]] virtual GfxDynUniformBuffer* dyn_uniform_buffer() = 0;

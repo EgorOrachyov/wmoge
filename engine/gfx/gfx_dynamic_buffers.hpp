@@ -39,6 +39,34 @@
 namespace wmoge {
 
     /**
+     * @class GfxUniformPool
+     * @brief Pool for per-frame small const buffer allocations to configure render passes
+     */
+    class GfxUniformPool : public GfxResource {
+    public:
+        GfxUniformPool(const StringId& name);
+        ~GfxUniformPool() override = default;
+
+        virtual GfxUniformBufferSetup allocate(int constants_size, const void* mem);
+        virtual void                  recycle();
+
+        template<typename ConstantsStructure>
+        GfxUniformBufferSetup allocate(const ConstantsStructure& constants) {
+            return allocate(int(sizeof(ConstantsStructure)), &constants);
+        }
+
+    private:
+        struct Bucket {
+            std::vector<Ref<GfxUniformBuffer>> buffers;
+            int                                next = 0;
+        };
+
+        fast_vector<Bucket> m_buckets;
+
+        mutable std::mutex m_mutex;
+    };
+
+    /**
      * @class GfxDynAllocation
      * @brief Allocation of dynamic buffer
      */

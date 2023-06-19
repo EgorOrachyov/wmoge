@@ -39,6 +39,7 @@ namespace wmoge {
         assert(driver);
 
         m_driver              = driver;
+        m_uniform_pool        = driver->uniform_pool();
         m_dyn_vert_buffer     = driver->dyn_vert_buffer();
         m_dyn_index_buffer    = driver->dyn_index_buffer();
         m_dyn_uniform_buffer  = driver->dyn_uniform_buffer();
@@ -201,6 +202,9 @@ namespace wmoge {
         return m_ctx_async;
     }
 
+    GfxUniformPool* GfxDriverWrapper::uniform_pool() {
+        return m_uniform_pool;
+    }
     GfxDynVertBuffer* GfxDriverWrapper::dyn_vert_buffer() {
         return m_dyn_vert_buffer;
     }

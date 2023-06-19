@@ -79,6 +79,7 @@ namespace wmoge {
         [[nodiscard]] class GfxCtx* ctx_immediate() override;
         [[nodiscard]] class GfxCtx* ctx_async() override;
 
+        [[nodiscard]] GfxUniformPool*      uniform_pool() override;
         [[nodiscard]] GfxDynVertBuffer*    dyn_vert_buffer() override;
         [[nodiscard]] GfxDynIndexBuffer*   dyn_index_buffer() override;
         [[nodiscard]] GfxDynUniformBuffer* dyn_uniform_buffer() override;
@@ -95,6 +96,7 @@ namespace wmoge {
 
     private:
         GfxDriverThreaded*   m_driver             = nullptr;
+        GfxUniformPool*      m_uniform_pool       = nullptr;
         GfxDynVertBuffer*    m_dyn_vert_buffer    = nullptr;
         GfxDynIndexBuffer*   m_dyn_index_buffer   = nullptr;
         GfxDynUniformBuffer* m_dyn_uniform_buffer = nullptr;

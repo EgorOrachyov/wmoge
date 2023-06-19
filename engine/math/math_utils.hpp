@@ -29,6 +29,7 @@
 #define WMOGE_MATH_UTILS_HPP
 
 #include <cmath>
+#include <utility>
 
 namespace wmoge {
 
@@ -59,10 +60,22 @@ namespace wmoge {
         static const float SQRT2f;
         static const float Ef;
 
-        static std::size_t round_to_pow2(std::size_t x) {
+        static std::pair<std::size_t, std::size_t> ge_pow2(std::size_t x) {
             std::size_t r = 1u;
-            while (x > r) r *= 2u;
-            return r;
+            std::size_t e = 0u;
+            while (x > r) {
+                r *= 2u;
+                e += 1;
+            }
+            return {r, e};
+        }
+
+        static std::size_t ge_pow2_val(std::size_t x) {
+            return ge_pow2(x).first;
+        }
+
+        static std::size_t ge_pow2_exp(std::size_t x) {
+            return ge_pow2(x).second;
         }
 
         static int div_up(int count, int step) {

@@ -312,12 +312,11 @@ namespace wmoge {
     void AuxDrawCanvas::render() {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::render");
 
-        auto engine          = Engine::instance();
-        auto gfx_driver      = engine->gfx_driver();
-        auto gfx_ctx         = engine->gfx_ctx();
-        auto shader_manager  = engine->shader_manager();
-        auto gfx_dyn_vert    = gfx_driver->dyn_vert_buffer();
-        auto gfx_dyn_uniform = gfx_driver->dyn_uniform_buffer();
+        auto engine         = Engine::instance();
+        auto gfx_driver     = engine->gfx_driver();
+        auto gfx_ctx        = engine->gfx_ctx();
+        auto shader_manager = engine->shader_manager();
+        auto gfx_dyn_vert   = gfx_driver->dyn_vert_buffer();
 
         int num_of_verts_triangles = 3 * static_cast<int>(m_triangles.size());
 
@@ -344,12 +343,11 @@ namespace wmoge {
 
         gfx_dyn_vert->flush();
 
-        auto constants                  = gfx_dyn_uniform->allocate<ShaderAuxDrawCanvas::Params>();
-        constants.ptr->clip_proj_screen = (gfx_ctx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
-        constants.ptr->gamma            = 2.2f;
-        constants.ptr->inverse_gamma    = 1.0f / 2.2f;
-
-        gfx_dyn_uniform->flush();
+        ShaderAuxDrawCanvas::Params params;
+        params.clip_proj_screen = (gfx_ctx->clip_matrix() * Math3d::orthographic(0.0f, m_screen_size.x(), 0, m_screen_size.y(), -1000.0f, 1000.0f)).transpose();
+        params.gamma            = 2.2f;
+        params.inverse_gamma    = 1.0f / 2.2f;
+        auto params_setup       = gfx_driver->uniform_pool()->allocate(params);
 
         gfx_ctx->begin_render_pass(GfxRenderPassDesc{}, SID("aux_draw_canvas"));
         gfx_ctx->bind_target(m_window);
@@ -400,7 +398,7 @@ namespace wmoge {
 
                 if (to_bind.get() == prev_bound || gfx_ctx->bind_pipeline(to_bind)) {
                     gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(triangles.buffer), 0, triangles.offset);
-                    gfx_ctx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, constants.offset, sizeof(ShaderAuxDrawCanvas::Params), Ref<GfxUniformBuffer>(constants.buffer));
+                    gfx_ctx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, params_setup.offset, params_setup.range, Ref<GfxUniformBuffer>(params_setup.buffer));
                     gfx_ctx->bind_texture(ShaderAuxDrawCanvas::TEXTURE_LOC, 0, current_triangle.texture, current_triangle.sampler);
                     gfx_ctx->draw(vertex_count, start_vertex, 1);
                     prev_bound = to_bind.get();
@@ -415,7 +413,6 @@ namespace wmoge {
         m_triangles.clear();
 
         gfx_dyn_vert->recycle();
-        gfx_dyn_uniform->recycle();
     }
 
 }// namespace wmoge

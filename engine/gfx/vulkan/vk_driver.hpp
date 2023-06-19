@@ -89,6 +89,7 @@ namespace wmoge {
         class GfxCtx* ctx_immediate() override { return m_ctx_immediate.get(); }
         class GfxCtx* ctx_async() override { return m_ctx_async.get(); }
 
+        GfxUniformPool*      uniform_pool() override { return m_uniform_pool.get(); }
         GfxDynVertBuffer*    dyn_vert_buffer() override { return m_dyn_vert_buffer.get(); }
         GfxDynIndexBuffer*   dyn_index_buffer() override { return m_dyn_index_buffer.get(); }
         GfxDynUniformBuffer* dyn_uniform_buffer() override { return m_dyn_uniform_buffer.get(); }
@@ -150,6 +151,7 @@ namespace wmoge {
         std::vector<VkSemaphore>                               m_queue_signal;
         VkFence                                                m_sync_fence = VK_NULL_HANDLE;
 
+        Ref<GfxUniformPool>      m_uniform_pool;
         Ref<GfxDynVertBuffer>    m_dyn_vert_buffer;
         Ref<GfxDynIndexBuffer>   m_dyn_index_buffer;
         Ref<GfxDynUniformBuffer> m_dyn_uniform_buffer;

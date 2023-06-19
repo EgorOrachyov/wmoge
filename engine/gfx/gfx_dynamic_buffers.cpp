@@ -28,6 +28,7 @@
 #include "gfx/gfx_dynamic_buffers.hpp"
 
 #include "core/engine.hpp"
+#include "core/log.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "gfx/gfx_ctx.hpp"
@@ -35,8 +36,58 @@
 #include "math/math_utils.hpp"
 
 #include <cassert>
+#include <cstring>
 
 namespace wmoge {
+
+    GfxUniformPool::GfxUniformPool(const StringId& name) {
+        m_name = name;
+    }
+    GfxUniformBufferSetup GfxUniformPool::allocate(int constants_size, const void* mem) {
+        assert(constants_size > 0);
+        assert(mem);
+
+        std::lock_guard guard(m_mutex);
+
+        auto* engine     = Engine::instance();
+        auto* gfx_driver = engine->gfx_driver();
+        auto* gfx_ctx    = engine->gfx_ctx();
+
+        const auto size_exp = Math::ge_pow2(constants_size);
+
+        if (size_exp.second >= m_buckets.size()) {
+            m_buckets.resize(size_exp.second + 1);
+            WG_LOG_INFO("pool new bucket" << size_exp.first << " id=" << size_exp.second);
+        }
+
+        Bucket& bucket = m_buckets[size_exp.second];
+
+        if (bucket.next >= bucket.buffers.size()) {
+            bucket.buffers.push_back(gfx_driver->make_uniform_buffer(int(size_exp.first), GfxMemUsage::GpuLocal, SID(m_name.str() + "@" + std::to_string(size_exp.first))));
+            WG_LOG_INFO("pool new chunk size=" << size_exp.first << " id=" << size_exp.second);
+        }
+
+        auto& buffer   = bucket.buffers[bucket.next];
+        void* host_ptr = gfx_ctx->map_uniform_buffer(buffer);
+        std::memcpy(host_ptr, mem, constants_size);
+        gfx_ctx->unmap_uniform_buffer(buffer);
+
+        GfxUniformBufferSetup setup{};
+        setup.buffer = buffer.get();
+        setup.offset = 0;
+        setup.range  = constants_size;
+
+        bucket.next += 1;
+
+        return setup;
+    }
+    void GfxUniformPool::recycle() {
+        std::lock_guard guard(m_mutex);
+
+        for (Bucket& bucket : m_buckets) {
+            bucket.next = 0;
+        }
+    }
 
     GfxDynBuffer::GfxDynBuffer(int size, int alignment, const StringId& name) {
         m_default_chunk_size = size;
@@ -51,7 +102,7 @@ namespace wmoge {
             if (m_current_chunk >= m_chunks.size()) {
                 auto& chunk = m_chunks.emplace_back();
 
-                int size = int(Math::round_to_pow2(Math::max(m_default_chunk_size, required_size)));
+                int size = int(Math::ge_pow2_val(Math::max(m_default_chunk_size, required_size)));
 
                 chunk.buffer = make_buffer(size, SID(m_name.str() + "-" + StringUtils::from_int(m_current_chunk)));
                 chunk.offset = 0;
@@ -103,7 +154,7 @@ namespace wmoge {
             pool_size += chunk.buffer->size();
         }
 
-        const int recycle_size = int(Math::round_to_pow2(pool_size));
+        const int recycle_size = int(Math::ge_pow2_val(pool_size));
         if (pool_size > 0 && recycle_size > pool_size) {
             m_chunks.clear();
 

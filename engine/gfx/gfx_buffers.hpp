@@ -84,6 +84,16 @@ namespace wmoge {
         ~GfxStorageBuffer() override = default;
     };
 
+    template<typename Buffer>
+    struct GfxBufferSetup {
+        Buffer* buffer = nullptr;
+        int     offset = 0;
+        int     range  = 0;
+    };
+
+    using GfxUniformBufferSetup = GfxBufferSetup<GfxUniformBuffer>;
+    using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
+
 }// namespace wmoge
 
 #endif//WMOGE_GFX_BUFFERS_HPP
