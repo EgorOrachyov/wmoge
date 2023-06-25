@@ -25,12 +25,12 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
+#include "core/string_id.hpp"
+#include "core/fast_map.hpp"
+
 #include <cassert>
 #include <memory>
 #include <mutex>
-
-#include "core/fast_map.hpp"
-#include "core/string_id.hpp"
 
 namespace wmoge {
 

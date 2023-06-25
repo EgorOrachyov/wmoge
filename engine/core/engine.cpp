@@ -111,6 +111,9 @@ namespace wmoge {
     class RenderEngine* Engine::render_engine() {
         return m_render_engine;
     }
+    class EcsRegistry* Engine::ecs_registry() {
+        return m_ecs_registry;
+    }
 
     Engine* Engine::instance() {
         static auto g_engine = std::make_unique<Engine>();

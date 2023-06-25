@@ -60,6 +60,14 @@
 #include "core/timer.hpp"
 #include "core/var.hpp"
 
+#include "ecs/ecs_component.hpp"
+#include "ecs/ecs_core.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "ecs/ecs_memory.hpp"
+#include "ecs/ecs_registry.hpp"
+#include "ecs/ecs_system.hpp"
+#include "ecs/ecs_world.hpp"
+
 #include "event/event.hpp"
 #include "event/event_action.hpp"
 #include "event/event_input.hpp"

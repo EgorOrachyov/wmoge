@@ -25,67 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mem_pool.hpp"
-
-#include <cassert>
-#include <cstdlib>
-#include <memory>
+#include "ecs_world.hpp"
 
 namespace wmoge {
 
-    MemPool::MemPool(std::size_t chunk_size, std::size_t expand_size) {
-        assert(chunk_size);
-        assert(expand_size);
+    EcsEntity EcsWorld::make_entity(const EcsArch& arch) {
+        assert(arch.any());
 
-        m_chunk_size  = chunk_size;
-        m_expand_size = expand_size;
-    }
-
-    MemPool::~MemPool() {
-        assert(m_allocated == 0);
-
-        for (auto mem : m_buffers) {
-            std::free(mem);
-        }
-    }
-
-    void* MemPool::allocate() {
-        std::lock_guard guard(m_mutex);
-
-        if (m_free.empty()) {
-            m_buffers.push_back(std::malloc(m_chunk_size * m_expand_size));
-            auto* buffer = reinterpret_cast<std::uint8_t*>(m_buffers.back());
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
+        if (m_storage_idx.find(arch) == m_storage_idx.end()) {
+            const int arch_idx  = int(m_storage.size());
+            m_storage_idx[arch] = arch_idx;
+            m_storage.push_back(std::make_unique<EcsArchStorage>(arch, arch_idx));
         }
 
-        void* mem = m_free.back();
-        m_free.pop_back();
-        m_allocated += 1;
-        return mem;
+        assert(m_storage_idx.find(arch) != m_storage_idx.end());
+
+        const int arch_idx = m_storage_idx[arch];
+        return m_storage[arch_idx]->make_entity();
     }
 
-    void MemPool::free(void* mem) {
-        std::lock_guard guard(m_mutex);
-        assert(m_allocated > 0);
+    void EcsWorld::destroy_entity(const EcsEntity& entity) {
+        assert(entity.is_valid());
+        assert(entity.arch < m_storage.size());
 
-        m_allocated -= 1;
-        m_free.push_back(mem);
+        m_storage[entity.arch]->destroy_entity(entity);
     }
 
-    void MemPool::reset() {
-        std::lock_guard guard(m_mutex);
-        m_allocated = 0;
-        m_free.clear();
-        for (auto mem : m_buffers) {
-            auto* buffer = reinterpret_cast<std::uint8_t*>(mem);
+    bool EcsWorld::is_alive(const EcsEntity& entity) const {
+        assert(entity.is_valid());
+        assert(entity.arch < m_storage.size());
 
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
+        return m_storage[entity.arch]->is_alive(entity);
+    }
+
+    EcsArch EcsWorld::get_arch(const EcsEntity& entity) const {
+        assert(entity.is_valid());
+        assert(entity.arch < m_storage.size());
+
+        return m_storage[entity.arch]->get_arch();
+    }
+
+    void EcsWorld::sync() {
+        m_queue.flush();
     }
 
 }// namespace wmoge

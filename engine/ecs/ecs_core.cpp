@@ -25,67 +25,65 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mem_pool.hpp"
+#include "ecs_core.hpp"
 
-#include <cassert>
-#include <cstdlib>
-#include <memory>
+#include "core/engine.hpp"
+#include "ecs/ecs_registry.hpp"
+
+#include <sstream>
+#include <string>
 
 namespace wmoge {
 
-    MemPool::MemPool(std::size_t chunk_size, std::size_t expand_size) {
-        assert(chunk_size);
-        assert(expand_size);
-
-        m_chunk_size  = chunk_size;
-        m_expand_size = expand_size;
-    }
-
-    MemPool::~MemPool() {
-        assert(m_allocated == 0);
-
-        for (auto mem : m_buffers) {
-            std::free(mem);
+    std::string EcsArch::to_string() const {
+        if (!any()) {
+            return "'empty'";
         }
-    }
 
-    void* MemPool::allocate() {
-        std::lock_guard guard(m_mutex);
+        EcsRegistry* registry = Engine::instance()->ecs_registry();
 
-        if (m_free.empty()) {
-            m_buffers.push_back(std::malloc(m_chunk_size * m_expand_size));
-            auto* buffer = reinterpret_cast<std::uint8_t*>(m_buffers.back());
+        std::stringstream stream;
 
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
+        const int total_components = int(count());
+
+        stream << "(";
+        stream << "count=" << total_components << ":";
+
+        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
+            if (test(i)) {
+                const StringId& name = registry->get_component_info(i).name;
+                stream << name << ",";
             }
         }
 
-        void* mem = m_free.back();
-        m_free.pop_back();
-        m_allocated += 1;
-        return mem;
+        stream << ")";
+        return stream.str();
     }
 
-    void MemPool::free(void* mem) {
-        std::lock_guard guard(m_mutex);
-        assert(m_allocated > 0);
+    std::string EcsQuery::to_string() const {
+        EcsRegistry* registry = Engine::instance()->ecs_registry();
 
-        m_allocated -= 1;
-        m_free.push_back(mem);
-    }
+        if (!read.any() && !write.any()) {
+            return "'empty'";
+        }
 
-    void MemPool::reset() {
-        std::lock_guard guard(m_mutex);
-        m_allocated = 0;
-        m_free.clear();
-        for (auto mem : m_buffers) {
-            auto* buffer = reinterpret_cast<std::uint8_t*>(mem);
+        std::stringstream stream;
 
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
+        const auto affected       = read | write;
+        const int  total_affected = int(affected.count());
+
+        stream << "<";
+        stream << "count=" << total_affected << ":";
+
+        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
+            if (affected.test(i)) {
+                const StringId& name = registry->get_component_info(i).name;
+                stream << (write.test(i) ? "rw-" : "r-") << name << ",";
             }
         }
+
+        stream << ">";
+        return stream.str();
     }
 
 }// namespace wmoge

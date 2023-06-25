@@ -49,7 +49,7 @@ namespace wmoge {
         bool operator!=(const StringId& other) const;
         bool operator<(const StringId& other) const;
 
-        bool empty() const { return m_string->empty(); }
+        [[nodiscard]] bool empty() const { return m_string->empty(); }
 
         [[nodiscard]] std::size_t        id() const;
         [[nodiscard]] std::size_t        hash() const;
@@ -61,7 +61,7 @@ namespace wmoge {
 
     static_assert(std::is_trivially_destructible_v<StringId>, "string must be trivial as ptr on int");
 
-    inline std::ostream& operator<<(std::ostream& stream, const wmoge::StringId& id) {
+    inline std::ostream& operator<<(std::ostream& stream, const StringId& id) {
         stream << '\'' << id.str() << '\'';
         return stream;
     }

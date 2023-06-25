@@ -25,67 +25,42 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mem_pool.hpp"
+#ifndef WMOGE_ECS_COMPONENT_HPP
+#define WMOGE_ECS_COMPONENT_HPP
 
-#include <cassert>
-#include <cstdlib>
-#include <memory>
+#include "core/string_id.hpp"
+#include "core/string_utils.hpp"
+#include "ecs/ecs_core.hpp"
+#include "math/mat.hpp"
+
+#include <functional>
+#include <string>
 
 namespace wmoge {
 
-    MemPool::MemPool(std::size_t chunk_size, std::size_t expand_size) {
-        assert(chunk_size);
-        assert(expand_size);
+    /**
+     * @class EcsComponent
+     * @brief Base class for any engine ecs component
+     */
+    struct EcsComponent {};
 
-        m_chunk_size  = chunk_size;
-        m_expand_size = expand_size;
-    }
+    /**
+     * @class EcsComponentInfo
+     * @brief Holds information required to work with components
+     */
+    struct EcsComponentInfo {
+        StringId                           name;
+        int                                idx  = -1;
+        int                                size = -1;
+        std::function<void(EcsComponent*)> create;
+        std::function<void(EcsComponent*)> destroy;
+    };
 
-    MemPool::~MemPool() {
-        assert(m_allocated == 0);
-
-        for (auto mem : m_buffers) {
-            std::free(mem);
-        }
-    }
-
-    void* MemPool::allocate() {
-        std::lock_guard guard(m_mutex);
-
-        if (m_free.empty()) {
-            m_buffers.push_back(std::malloc(m_chunk_size * m_expand_size));
-            auto* buffer = reinterpret_cast<std::uint8_t*>(m_buffers.back());
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
-
-        void* mem = m_free.back();
-        m_free.pop_back();
-        m_allocated += 1;
-        return mem;
-    }
-
-    void MemPool::free(void* mem) {
-        std::lock_guard guard(m_mutex);
-        assert(m_allocated > 0);
-
-        m_allocated -= 1;
-        m_free.push_back(mem);
-    }
-
-    void MemPool::reset() {
-        std::lock_guard guard(m_mutex);
-        m_allocated = 0;
-        m_free.clear();
-        for (auto mem : m_buffers) {
-            auto* buffer = reinterpret_cast<std::uint8_t*>(mem);
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
-    }
+#define WG_ECS_COMPONENT(ecs_component_class, ecs_idx)                                                         \
+    static_assert(ecs_idx < EcsLimits::MAX_COMPONENTS, "Index for " #ecs_component_class " is out of limits"); \
+    static constexpr int         IDX  = ecs_idx;                                                               \
+    static constexpr const char* NAME = #ecs_component_class;
 
 }// namespace wmoge
+
+#endif//WMOGE_ECS_COMPONENT_HPP

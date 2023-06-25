@@ -25,67 +25,84 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mem_pool.hpp"
+#ifndef WMOGE_ECS_ENTITY_HPP
+#define WMOGE_ECS_ENTITY_HPP
 
-#include <cassert>
-#include <cstdlib>
-#include <memory>
+#include "ecs/ecs_core.hpp"
+
+#include <cinttypes>
+#include <functional>
+#include <limits>
+#include <ostream>
+#include <sstream>
+#include <string>
 
 namespace wmoge {
 
-    MemPool::MemPool(std::size_t chunk_size, std::size_t expand_size) {
-        assert(chunk_size);
-        assert(expand_size);
+    /**
+     * @class EcsEntity
+     * @brief Handle for a ecs entity
+     */
+    struct EcsEntity {
+        union {
+            struct {
+                std::uint16_t arch;
+                std::uint16_t idx;
+                std::uint32_t gen;
+            };
+            std::uint64_t value = std::numeric_limits<std::uint64_t>::max();
+        };
 
-        m_chunk_size  = chunk_size;
-        m_expand_size = expand_size;
-    }
+        EcsEntity() = default;
 
-    MemPool::~MemPool() {
-        assert(m_allocated == 0);
+        explicit EcsEntity(std::uint64_t value)
+            : value(value) {}
 
-        for (auto mem : m_buffers) {
-            std::free(mem);
-        }
-    }
+        EcsEntity(std::uint16_t arch, std::uint16_t idx, std::uint32_t gen)
+            : arch(arch), idx(idx), gen(gen) {}
 
-    void* MemPool::allocate() {
-        std::lock_guard guard(m_mutex);
+        bool operator==(const EcsEntity& other) const { return value == other.value; }
+        bool operator!=(const EcsEntity& other) const { return value != other.value; }
 
-        if (m_free.empty()) {
-            m_buffers.push_back(std::malloc(m_chunk_size * m_expand_size));
-            auto* buffer = reinterpret_cast<std::uint8_t*>(m_buffers.back());
+        [[nodiscard]] bool is_valid() const { return value != std::numeric_limits<std::uint64_t>::max(); }
+        [[nodiscard]] bool is_invalid() const { return !is_valid(); }
 
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
+        [[nodiscard]] std::string to_string() const {
+            if (is_invalid()) {
+                return "'null'";
             }
+
+            std::stringstream stream;
+
+            stream << "\'"
+                   << "arch=" << arch
+                   << ",idx=" << idx
+                   << ",gen=" << gen << "\'";
+
+            return stream.str();
         }
+    };
 
-        void* mem = m_free.back();
-        m_free.pop_back();
-        m_allocated += 1;
-        return mem;
-    }
+    static_assert(sizeof(EcsEntity) == sizeof(std::uint64_t), "Entity handle must fit 1-word exactly");
+    static_assert(std::is_trivially_destructible_v<EcsEntity>, "Entity handle must be trivial as ptr on int");
 
-    void MemPool::free(void* mem) {
-        std::lock_guard guard(m_mutex);
-        assert(m_allocated > 0);
-
-        m_allocated -= 1;
-        m_free.push_back(mem);
-    }
-
-    void MemPool::reset() {
-        std::lock_guard guard(m_mutex);
-        m_allocated = 0;
-        m_free.clear();
-        for (auto mem : m_buffers) {
-            auto* buffer = reinterpret_cast<std::uint8_t*>(mem);
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
+    inline std::ostream& operator<<(std::ostream& stream, const EcsEntity& entity) {
+        stream << entity.to_string();
+        return stream;
     }
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::EcsEntity> {
+    public:
+        std::size_t operator()(const wmoge::EcsEntity& entity) const {
+            return std::hash<std::uint64_t>()(entity.value);
+        }
+    };
+
+}// namespace std
+
+#endif//WMOGE_ECS_ENTITY_HPP

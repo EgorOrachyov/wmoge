@@ -74,6 +74,7 @@ namespace wmoge {
         class ScriptSystem*     script_system();
         class AudioEngine*      audio_engine();
         class RenderEngine*     render_engine();
+        class EcsRegistry*      ecs_registry();
 
         std::chrono::steady_clock::time_point get_start();
         std::time_t                           get_time();
@@ -96,29 +97,31 @@ namespace wmoge {
         float                                 m_current_delta      = 0;
         float                                 m_current_delta_game = 0;
 
-        class Application*        m_application        = nullptr;
-        class CmdLine*            m_cmd_line           = nullptr;
-        class ConfigFile*         m_config_engine      = nullptr;
-        class CallbackQueue*      m_main_queue         = nullptr;
-        class FileSystem*         m_file_system        = nullptr;
-        class TaskManager*        m_task_manager       = nullptr;
-        class EventManager*       m_event_manager      = nullptr;
-        class ResourceManager*    m_resource_manager   = nullptr;
-        class WindowManager*      m_window_manager     = nullptr;
-        class Input*              m_input              = nullptr;
-        class GfxDriver*          m_gfx_driver         = nullptr;
-        class GfxCtx*             m_gfx_ctx            = nullptr;
-        class ShaderManager*      m_shader_manager     = nullptr;
-        class AuxDrawManager*     m_aux_draw_manager   = nullptr;
-        class SceneManager*       m_scene_manager      = nullptr;
-        class ActionManager*      m_action_manager     = nullptr;
-        class GameTokenManager*   m_game_token_manager = nullptr;
-        class Profiler*           m_profiler           = nullptr;
-        class Console*            m_console            = nullptr;
-        class AuxDrawCanvas*      m_canvas_2d_debug    = nullptr;
-        class ScriptSystem*       m_script_system      = nullptr;
-        class AudioEngine*        m_audio_engine       = nullptr;
-        class RenderEngine*       m_render_engine      = nullptr;
+        class Application*      m_application        = nullptr;
+        class CmdLine*          m_cmd_line           = nullptr;
+        class ConfigFile*       m_config_engine      = nullptr;
+        class CallbackQueue*    m_main_queue         = nullptr;
+        class FileSystem*       m_file_system        = nullptr;
+        class TaskManager*      m_task_manager       = nullptr;
+        class EventManager*     m_event_manager      = nullptr;
+        class ResourceManager*  m_resource_manager   = nullptr;
+        class WindowManager*    m_window_manager     = nullptr;
+        class Input*            m_input              = nullptr;
+        class GfxDriver*        m_gfx_driver         = nullptr;
+        class GfxCtx*           m_gfx_ctx            = nullptr;
+        class ShaderManager*    m_shader_manager     = nullptr;
+        class AuxDrawManager*   m_aux_draw_manager   = nullptr;
+        class SceneManager*     m_scene_manager      = nullptr;
+        class ActionManager*    m_action_manager     = nullptr;
+        class GameTokenManager* m_game_token_manager = nullptr;
+        class Profiler*         m_profiler           = nullptr;
+        class Console*          m_console            = nullptr;
+        class AuxDrawCanvas*    m_canvas_2d_debug    = nullptr;
+        class ScriptSystem*     m_script_system      = nullptr;
+        class AudioEngine*      m_audio_engine       = nullptr;
+        class RenderEngine*     m_render_engine      = nullptr;
+        class EcsRegistry*      m_ecs_registry       = nullptr;
+
         std::vector<class Layer*> m_layers;
     };
 

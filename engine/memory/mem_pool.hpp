@@ -54,7 +54,8 @@ namespace wmoge {
         std::size_t        m_allocated = 0;
         std::size_t        m_chunk_size;
         std::size_t        m_expand_size;
-        std::mutex         m_mutex;
+
+        std::mutex m_mutex;
     };
 
 }// namespace wmoge

@@ -381,17 +381,17 @@ namespace wmoge {
     /** @brief Gfx common device limits */
     struct GfxLimits {
         /** Vertex shader max input elements */
-        static const int MAX_VERT_ATTRIBUTES = 8;
+        static constexpr int MAX_VERT_ATTRIBUTES = 8;
         /** Vertex shader max input vertex buffers */
-        static const int MAX_VERT_BUFFERS = 4;
+        static constexpr int MAX_VERT_BUFFERS = 4;
         /** Limit color attachment count */
-        static const int MAX_COLOR_TARGETS = 8;
+        static constexpr int MAX_COLOR_TARGETS = 8;
         /** Max number of cube texture faces (it is cube, lol) */
-        static const int MAX_CUBE_FACES = 6;
+        static constexpr int MAX_CUBE_FACES = 6;
         /** Max number of simultaneously drawn frames (1 - draw frame and wait, 2 - draw and present one frame, prepare other, ...)*/
-        static const int FRAMES_IN_FLIGHT = 2;
+        static constexpr int FRAMES_IN_FLIGHT = 2;
         /** Max resources sets count */
-        static const int MAX_DESC_SETS = 3;
+        static constexpr int MAX_DESC_SETS = 3;
     };
 
     /** @brief Gfx device capabilities */

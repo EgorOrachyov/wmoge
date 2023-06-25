@@ -37,6 +37,7 @@
 #include "debug/console.hpp"
 #include "debug/debug_layer.hpp"
 #include "debug/profiler.hpp"
+#include "ecs/ecs_registry.hpp"
 #include "event/event_manager.hpp"
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
@@ -197,6 +198,9 @@ namespace wmoge {
         m_resource_manager         = std::make_unique<ResourceManager>();
         engine->m_resource_manager = m_resource_manager.get();
 
+        m_ecs_registry         = std::make_unique<EcsRegistry>();
+        engine->m_ecs_registry = m_ecs_registry.get();
+
         m_aux_draw_manager         = std::make_unique<AuxDrawManager>();
         engine->m_aux_draw_manager = m_aux_draw_manager.get();
 
@@ -324,6 +328,7 @@ namespace wmoge {
         m_action_manager.reset();
         m_aux_draw_manager.reset();
         m_canvas_2d_debug.reset();
+        m_ecs_registry.reset();
         m_render_engine.reset();
         m_shader_manager.reset();
         m_al_engine.reset();

@@ -25,67 +25,11 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mem_pool.hpp"
-
-#include <cassert>
-#include <cstdlib>
-#include <memory>
+#ifndef WMOGE_ECS_SYSTEM_HPP
+#define WMOGE_ECS_SYSTEM_HPP
 
 namespace wmoge {
 
-    MemPool::MemPool(std::size_t chunk_size, std::size_t expand_size) {
-        assert(chunk_size);
-        assert(expand_size);
+}
 
-        m_chunk_size  = chunk_size;
-        m_expand_size = expand_size;
-    }
-
-    MemPool::~MemPool() {
-        assert(m_allocated == 0);
-
-        for (auto mem : m_buffers) {
-            std::free(mem);
-        }
-    }
-
-    void* MemPool::allocate() {
-        std::lock_guard guard(m_mutex);
-
-        if (m_free.empty()) {
-            m_buffers.push_back(std::malloc(m_chunk_size * m_expand_size));
-            auto* buffer = reinterpret_cast<std::uint8_t*>(m_buffers.back());
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
-
-        void* mem = m_free.back();
-        m_free.pop_back();
-        m_allocated += 1;
-        return mem;
-    }
-
-    void MemPool::free(void* mem) {
-        std::lock_guard guard(m_mutex);
-        assert(m_allocated > 0);
-
-        m_allocated -= 1;
-        m_free.push_back(mem);
-    }
-
-    void MemPool::reset() {
-        std::lock_guard guard(m_mutex);
-        m_allocated = 0;
-        m_free.clear();
-        for (auto mem : m_buffers) {
-            auto* buffer = reinterpret_cast<std::uint8_t*>(mem);
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
-    }
-
-}// namespace wmoge
+#endif//WMOGE_ECS_SYSTEM_HPP

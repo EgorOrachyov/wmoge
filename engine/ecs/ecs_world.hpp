@@ -25,67 +25,80 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mem_pool.hpp"
+#ifndef WMOGE_ECS_WORLD_HPP
+#define WMOGE_ECS_WORLD_HPP
+
+#include "core/callback_queue.hpp"
+#include "core/fast_map.hpp"
+#include "ecs/ecs_component.hpp"
+#include "ecs/ecs_core.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "ecs/ecs_memory.hpp"
 
 #include <cassert>
-#include <cstdlib>
-#include <memory>
+#include <mutex>
 
 namespace wmoge {
 
-    MemPool::MemPool(std::size_t chunk_size, std::size_t expand_size) {
-        assert(chunk_size);
-        assert(expand_size);
+    /**
+     * @class EcsWorld
+     * @brief Container which manages created entities and components
+     */
+    class EcsWorld {
+    public:
+        /** @brief Create new entity within work with requested archetype */
+        EcsEntity make_entity(const EcsArch& arch);
 
-        m_chunk_size  = chunk_size;
-        m_expand_size = expand_size;
+        /** @brief Destroys entity by a handle */
+        void destroy_entity(const EcsEntity& entity);
+
+        /** @brief Checks whenever entity with given handle is alive in still the world */
+        bool is_alive(const EcsEntity& entity) const;
+
+        /** @brief Return archetype of given entity by its handle */
+        EcsArch get_arch(const EcsEntity& entity) const;
+
+        template<class Component>
+        const Component& get_component(const EcsEntity& entity) const;
+
+        template<class Component>
+        Component& get_component_rw(const EcsEntity& entity) const;
+
+        template<class Component>
+        bool has_component(const EcsEntity& entity) const;
+
+        void sync();
+
+    private:
+        std::vector<std::unique_ptr<EcsArchStorage>> m_storage;
+        fast_map<EcsArch, int>                       m_storage_idx;
+        CallbackQueue                                m_queue;
+    };
+
+    template<class Component>
+    const Component& EcsWorld::get_component(const EcsEntity& entity) const {
+        assert(entity.is_invalid());
+        assert(entity.arch < m_storage.size());
+
+        return *m_storage[entity.arch]->get_component<Component>(entity);
     }
 
-    MemPool::~MemPool() {
-        assert(m_allocated == 0);
+    template<class Component>
+    Component& EcsWorld::get_component_rw(const EcsEntity& entity) const {
+        assert(entity.is_invalid());
+        assert(entity.arch < m_storage.size());
 
-        for (auto mem : m_buffers) {
-            std::free(mem);
-        }
+        return *m_storage[entity.arch]->get_component<Component>(entity);
     }
 
-    void* MemPool::allocate() {
-        std::lock_guard guard(m_mutex);
+    template<class Component>
+    bool EcsWorld::has_component(const EcsEntity& entity) const {
+        assert(entity.is_invalid());
+        assert(entity.arch < m_storage.size());
 
-        if (m_free.empty()) {
-            m_buffers.push_back(std::malloc(m_chunk_size * m_expand_size));
-            auto* buffer = reinterpret_cast<std::uint8_t*>(m_buffers.back());
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
-
-        void* mem = m_free.back();
-        m_free.pop_back();
-        m_allocated += 1;
-        return mem;
-    }
-
-    void MemPool::free(void* mem) {
-        std::lock_guard guard(m_mutex);
-        assert(m_allocated > 0);
-
-        m_allocated -= 1;
-        m_free.push_back(mem);
-    }
-
-    void MemPool::reset() {
-        std::lock_guard guard(m_mutex);
-        m_allocated = 0;
-        m_free.clear();
-        for (auto mem : m_buffers) {
-            auto* buffer = reinterpret_cast<std::uint8_t*>(mem);
-
-            for (std::size_t i = 0; i < m_expand_size; i++) {
-                m_free.push_back(buffer + i * m_chunk_size);
-            }
-        }
+        return get_arch(entity).template has_component<Component>();
     }
 
 }// namespace wmoge
+
+#endif//WMOGE_ECS_WORLD_HPP

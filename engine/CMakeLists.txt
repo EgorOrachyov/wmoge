@@ -62,6 +62,17 @@ add_library(wmoge STATIC
         core/timer.hpp
         core/var.cpp
         core/var.hpp
+        ecs/ecs_component.hpp
+        ecs/ecs_core.cpp
+        ecs/ecs_core.hpp
+        ecs/ecs_entity.hpp
+        ecs/ecs_memory.cpp
+        ecs/ecs_memory.hpp
+        ecs/ecs_registry.cpp
+        ecs/ecs_registry.hpp
+        ecs/ecs_system.hpp
+        ecs/ecs_world.cpp
+        ecs/ecs_world.hpp
         event/event.cpp
         event/event.hpp
         event/event_listener.cpp
