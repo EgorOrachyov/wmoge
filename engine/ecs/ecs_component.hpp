@@ -49,17 +49,18 @@ namespace wmoge {
      * @brief Holds information required to work with components
      */
     struct EcsComponentInfo {
-        StringId                           name;
-        int                                idx  = -1;
-        int                                size = -1;
-        std::function<void(EcsComponent*)> create;
-        std::function<void(EcsComponent*)> destroy;
+        StringId                                                name;
+        int                                                     idx  = -1;
+        int                                                     size = -1;
+        std::function<void(EcsComponent*)>                      create;
+        std::function<void(EcsComponent*)>                      destroy;
+        std::function<void(EcsComponent*, const EcsComponent*)> copy;
     };
 
 #define WG_ECS_COMPONENT(ecs_component_class, ecs_idx)                                                         \
     static_assert(ecs_idx < EcsLimits::MAX_COMPONENTS, "Index for " #ecs_component_class " is out of limits"); \
-    static constexpr int         IDX  = ecs_idx;                                                               \
-    static constexpr const char* NAME = #ecs_component_class;
+    static constexpr int        IDX    = ecs_idx;                                                              \
+    static constexpr const char NAME[] = #ecs_component_class;
 
 }// namespace wmoge
 

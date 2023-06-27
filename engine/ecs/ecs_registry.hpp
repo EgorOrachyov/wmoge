@@ -75,11 +75,28 @@ namespace wmoge {
     void EcsRegistry::register_component() {
         EcsComponentInfo& component_info = m_components_info[Component::IDX];
 
-        component_info.name    = SID(Component::NAME);
-        component_info.idx     = Component::IDX;
-        component_info.size    = sizeof(Component);
-        component_info.create  = [](EcsComponent* mem) { new (mem) Component(); };
-        component_info.destroy = [](EcsComponent* mem) { static_cast<Component*>(mem)->~Component(); };
+        assert(component_info.name == StringId());
+        assert(component_info.idx == -1);
+        assert(component_info.size == -1);
+
+        component_info.name = SID(Component::NAME);
+        component_info.idx  = Component::IDX;
+        component_info.size = sizeof(Component);
+
+        component_info.create = [](EcsComponent* mem) -> void {
+            new (mem) Component();
+        };
+
+        component_info.destroy = [](EcsComponent* mem) -> void {
+            static_cast<Component*>(mem)->~Component();
+        };
+
+        component_info.copy = [](EcsComponent* mem, const EcsComponent* src_mem) -> void {
+            Component&       dst = *(static_cast<Component*>(mem));
+            const Component& src = *(static_cast<const Component*>(src_mem));
+
+            dst = src;
+        };
 
         m_components_name_to_idx[component_info.name] = component_info.idx;
         m_components_pool[component_info.idx]         = std::make_unique<MemPool>(component_info.size * m_chunk_size, m_expand_size);

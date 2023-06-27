@@ -29,6 +29,18 @@
 
 using namespace wmoge;
 
+struct EcsLtW : EcsComponent {
+    WG_ECS_COMPONENT(EcsLtW, 0);
+
+    Mat4x4f matrix = Math3d::identity();
+};
+
+struct EcsWtL : EcsComponent {
+    WG_ECS_COMPONENT(EcsWtL, 1);
+
+    Mat4x4f matrix = Math3d::identity();
+};
+
 class GameApplication : public Application {
 public:
     ~GameApplication() override = default;
@@ -43,6 +55,26 @@ public:
 
         Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
         Engine::instance()->action_manager()->enable_action_map(SID("console"));
+
+        EcsRegistry* registry = Engine::instance()->ecs_registry();
+        registry->register_component<EcsLtW>();
+        registry->register_component<EcsWtL>();
+
+        EcsWorld  world;
+        EcsEntity entity = world.allocate_entity();
+        EcsArch   arch;
+        arch.set_component<EcsLtW>();
+        arch.set_component<EcsWtL>();
+
+        world.make_entity(entity, arch);
+
+        auto& ltw = world.get_component_rw<EcsLtW>(entity);
+        auto& wtl = world.get_component_rw<EcsWtL>(entity);
+
+        WG_LOG_INFO(entity);
+        WG_LOG_INFO(arch);
+
+        world.destroy_entity(entity);
 
         WG_LOG_INFO("init");
     }

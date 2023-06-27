@@ -44,7 +44,7 @@ namespace wmoge {
         /** @brief Max num of unique archetypes */
         static constexpr int MAX_ARCHS = 60000;
         /** @brief Max num of unique entities per giver archetype */
-        static constexpr int MAX_ENTITIES_PER_ARCH = 60000;
+        static constexpr int MAX_ENTITIES_PER_ARCH = 2000000000;
         /** @brief Max num of generations all entities can live */
         static constexpr int MAX_GENERATIONS_PER_ARC = 2000000000;
     };

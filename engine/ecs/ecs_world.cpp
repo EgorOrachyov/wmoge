@@ -29,40 +29,73 @@
 
 namespace wmoge {
 
-    EcsEntity EcsWorld::make_entity(const EcsArch& arch) {
-        assert(arch.any());
+    EcsEntity EcsWorld::allocate_entity() {
+        std::lock_guard guard(m_mutex);
 
-        if (m_storage_idx.find(arch) == m_storage_idx.end()) {
-            const int arch_idx  = int(m_storage.size());
-            m_storage_idx[arch] = arch_idx;
-            m_storage.push_back(std::make_unique<EcsArchStorage>(arch, arch_idx));
+        if (m_entity_pool.empty()) {
+            m_entity_pool.emplace_back(std::uint32_t(m_entity_counter++), 0);
         }
 
-        assert(m_storage_idx.find(arch) != m_storage_idx.end());
+        assert(!m_entity_pool.empty());
 
-        const int arch_idx = m_storage_idx[arch];
-        return m_storage[arch_idx]->make_entity();
+        const EcsEntity entity = m_entity_pool.front();
+        m_entity_pool.pop_front();
+
+        return entity;
+    }
+
+    void EcsWorld::make_entity(const EcsEntity& entity, const EcsArch& arch) {
+        assert(arch.any());
+
+        m_entity_info.resize(m_entity_counter);
+
+        if (m_arch_to_idx.find(arch) == m_arch_to_idx.end()) {
+            const int arch_idx  = int(m_arch_storage.size());
+            m_arch_to_idx[arch] = arch_idx;
+            m_arch_by_idx.emplace_back(arch);
+            m_arch_storage.emplace_back(arch);
+        }
+
+        assert(m_arch_to_idx.find(arch) != m_arch_to_idx.end());
+
+        const int arch_idx = m_arch_to_idx[arch];
+
+        EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        entity_info.arch           = arch_idx;
+        entity_info.gen            = entity.gen;
+        entity_info.state          = EcsEntityState::Alive;
+
+        m_arch_storage[arch_idx].make_entity(entity, entity_info.storage);
     }
 
     void EcsWorld::destroy_entity(const EcsEntity& entity) {
         assert(entity.is_valid());
-        assert(entity.arch < m_storage.size());
+        assert(entity.idx < m_entity_info.size());
 
-        m_storage[entity.arch]->destroy_entity(entity);
+        EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+
+        m_arch_storage[entity_info.arch].destroy_entity(entity, entity_info.storage);
+        m_entity_pool.emplace_back(entity.idx, (entity.gen + 1) % EcsLimits::MAX_GENERATIONS_PER_ARC);
+
+        entity_info = EcsEntityInfo{};
     }
 
     bool EcsWorld::is_alive(const EcsEntity& entity) const {
         assert(entity.is_valid());
-        assert(entity.arch < m_storage.size());
+        assert(entity.idx < m_entity_info.size());
 
-        return m_storage[entity.arch]->is_alive(entity);
+        return m_entity_info[entity.idx].gen <= entity.gen;
     }
 
     EcsArch EcsWorld::get_arch(const EcsEntity& entity) const {
         assert(entity.is_valid());
-        assert(entity.arch < m_storage.size());
+        assert(entity.idx < m_entity_info.size());
 
-        return m_storage[entity.arch]->get_arch();
+        return m_arch_by_idx[m_entity_info[entity.idx].arch];
+    }
+
+    CallbackQueue* EcsWorld::queue() {
+        return &m_queue;
     }
 
     void EcsWorld::sync() {

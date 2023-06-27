@@ -32,15 +32,8 @@
 
 namespace wmoge {
 
-    struct EcsChunk {
-        std::array<std::uint8_t*, EcsLimits::MAX_COMPONENTS> components{};
-        std::unique_ptr<std::atomic_uint32_t[]>              generations;
-        std::unique_ptr<std::atomic_bool[]>                  used;
-    };
-
-    EcsArchStorage::EcsArchStorage(EcsArch arch, int arch_idx)
+    EcsArchStorage::EcsArchStorage(EcsArch arch)
         : m_arch(arch),
-          m_arch_idx(arch_idx),
           m_registry(Engine::instance()->ecs_registry()) {
 
         m_chunk_size = m_registry->get_chunk_size();
@@ -60,7 +53,9 @@ namespace wmoge {
         }
     }
 
-    EcsEntity EcsArchStorage::make_entity() {
+    void EcsArchStorage::make_entity(const EcsEntity& entity, std::uint32_t& storage_idx) {
+        assert(entity.is_valid());
+
         if (m_free_entity_ids.empty()) {
             const int start_id = int(m_chunks.size()) * m_chunk_size;
             const int end_id   = start_id + m_chunk_size;
@@ -79,59 +74,29 @@ namespace wmoge {
         const auto [chunk_idx, entity_idx] = get_entity_creds(idx);
         EcsChunk& chunk                    = m_chunks[chunk_idx];
 
-        assert(!chunk.used[entity_idx].load());
-
-        create_components(chunk, entity_idx);
-        mark_used(chunk, entity_idx, true);
-
-        EcsEntity entity;
-        entity.arch = m_arch_idx;
-        entity.idx  = idx;
-        entity.gen  = chunk.generations[entity_idx].load();
-
-        assert(entity.is_valid());
+        place(chunk, entity_idx, entity);
 
         m_free_entity_ids.pop_back();
-
-        return entity;
+        storage_idx = entity_idx;
     }
-    void EcsArchStorage::destroy_entity(const EcsEntity& entity) {
+    void EcsArchStorage::destroy_entity(const EcsEntity& entity, const std::uint32_t& storage_idx) {
         assert(entity.is_valid());
-        assert(is_alive(entity));
 
-        const int idx                      = entity.idx;
+        const int idx                      = int(storage_idx);
         const auto [chunk_idx, entity_idx] = get_entity_creds(idx);
         EcsChunk& chunk                    = m_chunks[chunk_idx];
 
-        destroy_components(chunk, entity_idx);
-        mark_used(chunk, entity_idx, false);
-        update_generation(chunk, entity_idx, entity.gen);
+        destroy(chunk, entity_idx, entity);
 
         m_free_entity_ids.push_back(idx);
     }
-    bool EcsArchStorage::is_alive(const EcsEntity& entity) const {
-        assert(entity.is_valid());
 
-        const auto [chunk_idx, entity_idx] = get_entity_creds(entity.idx);
-
-        assert(chunk_idx < m_chunks.size());
-        assert(entity_idx < m_chunk_size);
-
-        const EcsChunk& chunk = m_chunks[chunk_idx];
-
-        assert(chunk.used[entity_idx].load());
-
-        return chunk.generations[entity_idx].load() <= entity.gen;
-    }
-
-    void* EcsArchStorage::get_component(const EcsEntity& entity, int idx) {
-        assert(entity.is_valid());
-        assert(is_alive(entity));
-
-        const auto [chunk_idx, entity_idx] = get_entity_creds(entity.idx);
+    void* EcsArchStorage::get_component(int storage_idx, int idx) const {
+        const auto [chunk_idx, entity_idx] = get_entity_creds(storage_idx);
 
         assert(chunk_idx < m_chunks.size());
         assert(entity_idx < m_chunk_size);
+        assert(m_chunks[chunk_idx].entity[entity_idx].is_valid());
 
         return m_chunks[chunk_idx].components[idx] + get_component_byte_offset(entity_idx, idx);
     }
@@ -144,13 +109,7 @@ namespace wmoge {
     }
     void EcsArchStorage::allocate_chunk(EcsChunk& chunk) {
         chunk.components.fill(nullptr);
-        chunk.generations = std::unique_ptr<std::atomic_uint32_t[]>(new std::atomic_uint32_t[m_chunk_size]);
-        chunk.used        = std::unique_ptr<std::atomic_bool[]>(new std::atomic_bool[m_chunk_size]);
-
-        for (int i = 0; i < m_chunk_size; i++) {
-            chunk.generations[i].store(0);
-            chunk.used[i].store(false);
-        }
+        chunk.entity.resize(m_chunk_size, EcsEntity{});
 
         m_arch.for_each_component([&](int idx) {
             chunk.components[idx] = static_cast<std::uint8_t*>(m_registry->get_component_pool(idx).allocate());
@@ -159,7 +118,7 @@ namespace wmoge {
     void EcsArchStorage::release_chunk(EcsChunk& chunk) {
         auto all_not_used = [&]() {
             for (int i = 0; i < m_chunk_size; i++) {
-                if (chunk.used[i].load()) return false;
+                if (chunk.entity[i].is_valid()) return false;
             }
 
             return true;
@@ -167,31 +126,31 @@ namespace wmoge {
 
         assert(all_not_used());
 
-        chunk.generations.reset();
-        chunk.used.reset();
-
         m_arch.for_each_component([&](int idx) {
             m_registry->get_component_pool(idx).free(chunk.components[idx]);
         });
     }
-    void EcsArchStorage::create_components(EcsChunk& chunk, int entity_idx) {
+
+    void EcsArchStorage::place(struct EcsChunk& chunk, int entity_idx, const EcsEntity& entity) {
+        assert(chunk.entity[entity_idx].is_invalid());
+
+        chunk.entity[entity_idx] = entity;
+
         m_arch.for_each_component([&](int idx) {
             void* component_raw = chunk.components[idx] + get_component_byte_offset(entity_idx, idx);
             m_components_info[idx]->create(static_cast<EcsComponent*>(component_raw));
         });
     }
-    void EcsArchStorage::destroy_components(EcsChunk& chunk, int entity_idx) {
+    void EcsArchStorage::destroy(struct EcsChunk& chunk, int entity_idx, const EcsEntity& entity) {
+        assert(chunk.entity[entity_idx].is_valid());
+        assert(chunk.entity[entity_idx] == entity);
+
+        chunk.entity[entity_idx] = EcsEntity{};
+
         m_arch.for_each_component([&](int idx) {
             void* component_raw = chunk.components[idx] + get_component_byte_offset(entity_idx, idx);
             m_components_info[idx]->destroy(static_cast<EcsComponent*>(component_raw));
         });
-    }
-    void EcsArchStorage::mark_used(EcsChunk& chunk, int entity_idx, bool used) {
-        chunk.used[entity_idx].store(used);
-    }
-    void EcsArchStorage::update_generation(EcsChunk& chunk, int entity_idx, std::uint32_t generation) {
-        std::uint32_t prev = chunk.generations[entity_idx].fetch_add((generation + 1) % EcsLimits::MAX_GENERATIONS_PER_ARC);
-        assert(prev == generation);
     }
 
 }// namespace wmoge

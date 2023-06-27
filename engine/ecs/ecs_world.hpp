@@ -36,6 +36,7 @@
 #include "ecs/ecs_memory.hpp"
 
 #include <cassert>
+#include <deque>
 #include <mutex>
 
 namespace wmoge {
@@ -43,60 +44,90 @@ namespace wmoge {
     /**
      * @class EcsWorld
      * @brief Container which manages created entities and components
+     *
+     * Typical usage of a system:
+     *
+     *  1. Allocate an entity using allocate method, save id
+     *  2. Call make to construct an entity
+     *  3. Process entity in updates
+     *  4. Call destroy on entity
+     *
+     *  If you run in jobs or in systems update, for steps 2) and 4) use queue
+     *  to schedule commands, which will be executed on `sync` step.
      */
     class EcsWorld {
     public:
+        /** @brief Allocates new entity for later creation */
+        [[nodiscard]] EcsEntity allocate_entity();
+
         /** @brief Create new entity within work with requested archetype */
-        EcsEntity make_entity(const EcsArch& arch);
+        void make_entity(const EcsEntity& entity, const EcsArch& arch);
 
         /** @brief Destroys entity by a handle */
         void destroy_entity(const EcsEntity& entity);
 
         /** @brief Checks whenever entity with given handle is alive in still the world */
-        bool is_alive(const EcsEntity& entity) const;
+        [[nodiscard]] bool is_alive(const EcsEntity& entity) const;
 
         /** @brief Return archetype of given entity by its handle */
-        EcsArch get_arch(const EcsEntity& entity) const;
+        [[nodiscard]] EcsArch get_arch(const EcsEntity& entity) const;
 
+        /** @brief Returns component for read-only operations */
         template<class Component>
         const Component& get_component(const EcsEntity& entity) const;
 
+        /** @brief Returns component for read-write operations */
         template<class Component>
         Component& get_component_rw(const EcsEntity& entity) const;
 
+        /** @brief Query if entity has given component */
         template<class Component>
         bool has_component(const EcsEntity& entity) const;
+
+        /** @brief Return queue to schedule async commands to execute on next sync */
+        [[nodiscard]] CallbackQueue* queue();
 
         void sync();
 
     private:
-        std::vector<std::unique_ptr<EcsArchStorage>> m_storage;
-        fast_map<EcsArch, int>                       m_storage_idx;
-        CallbackQueue                                m_queue;
+        std::vector<EcsEntityInfo> m_entity_info;       // entity info, accessed by entity idx
+        std::deque<EcsEntity>      m_entity_pool;       // pool with free entities handles
+        int                        m_entity_counter = 0;// total count of created entities
+
+        fast_map<EcsArch, int>      m_arch_to_idx; // arch to unique index
+        std::vector<EcsArchStorage> m_arch_storage;// storage per arch, indexed by arch idx
+        std::vector<EcsArch>        m_arch_by_idx; // arch mask, indexed by arch idx
+
+        CallbackQueue m_queue;// queue for async world operations, flushed on sync
+
+        mutable std::mutex m_mutex;
     };
 
     template<class Component>
     const Component& EcsWorld::get_component(const EcsEntity& entity) const {
-        assert(entity.is_invalid());
-        assert(entity.arch < m_storage.size());
+        assert(entity.is_valid());
+        assert(is_alive(entity));
 
-        return *m_storage[entity.arch]->get_component<Component>(entity);
+        const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        return *(m_arch_storage[entity_info.arch].template get_component<Component>(entity_info.storage));
     }
 
     template<class Component>
     Component& EcsWorld::get_component_rw(const EcsEntity& entity) const {
-        assert(entity.is_invalid());
-        assert(entity.arch < m_storage.size());
+        assert(entity.is_valid());
+        assert(is_alive(entity));
 
-        return *m_storage[entity.arch]->get_component<Component>(entity);
+        const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        return *(m_arch_storage[entity_info.arch].template get_component<Component>(entity_info.storage));
     }
 
     template<class Component>
     bool EcsWorld::has_component(const EcsEntity& entity) const {
-        assert(entity.is_invalid());
-        assert(entity.arch < m_storage.size());
+        assert(entity.is_valid());
+        assert(is_alive(entity));
 
-        return get_arch(entity).template has_component<Component>();
+        const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        return m_arch_by_idx[entity_info.arch].template has_component<Component>();
     }
 
 }// namespace wmoge
