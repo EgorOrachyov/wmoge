@@ -37,6 +37,8 @@ namespace wmoge {
 
         config->get(SID("ecs.chunk_size"), m_chunk_size);
         config->get(SID("ecs.expand_size"), m_expand_size);
+
+        m_entity_pool = std::make_unique<MemPool>(m_chunk_size * sizeof(EcsEntity), m_expand_size);
     }
 
     int EcsRegistry::get_component_idx(const StringId& name) {
@@ -48,7 +50,6 @@ namespace wmoge {
         assert(m_components_name_to_idx.find(name) != m_components_name_to_idx.end());
         return m_components_info[m_components_name_to_idx[name]];
     }
-
     const EcsComponentInfo& EcsRegistry::get_component_info(int idx) {
         assert(idx < EcsLimits::MAX_COMPONENTS);
         return m_components_info[idx];
@@ -58,6 +59,9 @@ namespace wmoge {
         assert(idx < EcsLimits::MAX_COMPONENTS);
         assert(m_components_pool[idx].get());
         return *(m_components_pool[idx]);
+    }
+    MemPool& EcsRegistry::get_entity_pool() {
+        return *m_entity_pool;
     }
 
 }// namespace wmoge

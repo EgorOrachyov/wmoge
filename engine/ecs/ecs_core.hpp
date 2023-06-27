@@ -40,13 +40,13 @@ namespace wmoge {
     /** @brief Ecs limits */
     struct EcsLimits {
         /** @brief Max num of unique components in ecs system */
-        static constexpr int MAX_COMPONENTS = 128;
+        static constexpr int MAX_COMPONENTS = 64;
         /** @brief Max num of unique archetypes */
-        static constexpr int MAX_ARCHS = 60000;
+        static constexpr int MAX_ARCHS = 2000;
         /** @brief Max num of unique entities per giver archetype */
-        static constexpr int MAX_ENTITIES_PER_ARCH = 2000000000;
+        static constexpr int MAX_ENTITIES_PER_ARCH = 1u << 24u;
         /** @brief Max num of generations all entities can live */
-        static constexpr int MAX_GENERATIONS_PER_ARC = 2000000000;
+        static constexpr int MAX_GENERATIONS_PER_ARC = 1u << 24u;
     };
 
     /**
@@ -104,6 +104,10 @@ namespace wmoge {
         template<typename Component>
         [[nodiscard]] bool has_write() const {
             return write.test(Component::IDX);
+        }
+
+        [[nodiscard]] std::bitset<EcsLimits::MAX_COMPONENTS> affected() const {
+            return read | write;
         }
 
         [[nodiscard]] std::string to_string() const;

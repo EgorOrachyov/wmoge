@@ -30,10 +30,12 @@
 
 #include "core/callback_queue.hpp"
 #include "core/fast_map.hpp"
+#include "core/task_manager.hpp"
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "ecs/ecs_memory.hpp"
+#include "ecs/ecs_system.hpp"
 
 #include <cassert>
 #include <deque>
@@ -57,6 +59,8 @@ namespace wmoge {
      */
     class EcsWorld {
     public:
+        EcsWorld();
+
         /** @brief Allocates new entity for later creation */
         [[nodiscard]] EcsEntity allocate_entity();
 
@@ -74,19 +78,29 @@ namespace wmoge {
 
         /** @brief Returns component for read-only operations */
         template<class Component>
-        const Component& get_component(const EcsEntity& entity) const;
+        [[nodiscard]] const Component& get_component(const EcsEntity& entity) const;
 
         /** @brief Returns component for read-write operations */
         template<class Component>
-        Component& get_component_rw(const EcsEntity& entity) const;
+        [[nodiscard]] Component& get_component_rw(const EcsEntity& entity) const;
 
         /** @brief Query if entity has given component */
         template<class Component>
-        bool has_component(const EcsEntity& entity) const;
+        [[nodiscard]] bool has_component(const EcsEntity& entity) const;
 
         /** @brief Return queue to schedule async commands to execute on next sync */
         [[nodiscard]] CallbackQueue* queue();
 
+        /** @brief Registers system within a world */
+        void register_system(const std::shared_ptr<EcsSystem>& system);
+
+        /** @brief Manual trigger of system execution */
+        void execute_system(const std::shared_ptr<EcsSystem>& system);
+
+        /** @brief Clear world destroying all entities */
+        void clear();
+
+        /** @brief Sync world, flushing all scheduled operations on it */
         void sync();
 
     private:
@@ -94,11 +108,15 @@ namespace wmoge {
         std::deque<EcsEntity>      m_entity_pool;       // pool with free entities handles
         int                        m_entity_counter = 0;// total count of created entities
 
+        fast_map<StringId, int>    m_system_to_idx;// map unique system name to idx
+        std::vector<EcsSystemInfo> m_systems;      // registered systems info
+
         fast_map<EcsArch, int>      m_arch_to_idx; // arch to unique index
         std::vector<EcsArchStorage> m_arch_storage;// storage per arch, indexed by arch idx
         std::vector<EcsArch>        m_arch_by_idx; // arch mask, indexed by arch idx
 
-        CallbackQueue m_queue;// queue for async world operations, flushed on sync
+        CallbackQueue m_queue;       // queue for async world operations, flushed on sync
+        TaskManager*  m_task_manager;// manager for parallel system update
 
         mutable std::mutex m_mutex;
     };

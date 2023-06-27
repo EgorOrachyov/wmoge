@@ -28,129 +28,134 @@
 #include "ecs_memory.hpp"
 
 #include "core/engine.hpp"
+#include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
 
 namespace wmoge {
 
-    EcsArchStorage::EcsArchStorage(EcsArch arch)
-        : m_arch(arch),
-          m_registry(Engine::instance()->ecs_registry()) {
+    EcsPool::EcsPool(int element_size, int chunk_size, MemPool* pool) {
+        m_element_size = element_size;
+        m_chunk_size   = chunk_size;
+        m_pool         = pool;
+    }
+    EcsPool::~EcsPool() {
+        if (m_pool) {
+            for (auto chunk : m_chunks) {
+                m_pool->free(chunk);
+            }
+        }
+    }
+    void EcsPool::acquire_chunk() {
+        WG_AUTO_PROFILE_ECS("EcsPool::acquire_chunk");
 
-        m_chunk_size = m_registry->get_chunk_size();
+        m_chunks.push_back(m_pool->allocate());
+    }
+    void* EcsPool::get_element_raw(int idx) const {
+        return (std::uint8_t*) m_chunks[idx / m_chunk_size] + m_element_size * (idx % m_chunk_size);
+    }
+
+    EcsArchStorage::EcsArchStorage(EcsArch arch) : m_arch(arch) {
+        WG_AUTO_PROFILE_ECS("EcsArchStorage::EcsArchStorage");
+
+        EcsRegistry* registry = Engine::instance()->ecs_registry();
+
+        m_chunk_size  = registry->get_chunk_size();
+        m_pool.back() = EcsPool(sizeof(EcsEntity), m_chunk_size, &registry->get_entity_pool());
 
         m_components_info.fill(nullptr);
-        m_components_size.fill(-1);
-
         m_arch.for_each_component([&](int idx) {
-            m_components_info[idx] = &m_registry->get_component_info(idx);
-            m_components_size[idx] = m_components_info[idx]->size;
+            m_components_info[idx] = &registry->get_component_info(idx);
+            m_pool[idx]            = EcsPool(m_components_info[idx]->size, m_chunk_size, &registry->get_component_pool(idx));
         });
     }
 
     EcsArchStorage::~EcsArchStorage() {
-        for (auto& chunk : m_chunks) {
-            release_chunk(chunk);
-        }
+        WG_AUTO_PROFILE_ECS("EcsArchStorage::~EcsArchStorage");
+
+        clear();
     }
 
-    void EcsArchStorage::make_entity(const EcsEntity& entity, std::uint32_t& storage_idx) {
+    void EcsArchStorage::make_entity(const EcsEntity& entity, std::uint32_t& out_entity_idx) {
+        WG_AUTO_PROFILE_ECS("EcsArchStorage::make_entity");
+
         assert(entity.is_valid());
 
-        if (m_free_entity_ids.empty()) {
-            const int start_id = int(m_chunks.size()) * m_chunk_size;
-            const int end_id   = start_id + m_chunk_size;
-
-            for (int i = end_id - 1; i >= start_id; i--) {
-                m_free_entity_ids.push_back(i);
-            }
-
-            m_chunks.emplace_back();
-            allocate_chunk(m_chunks.back());
+        if (m_size == m_capacity) {
+            m_capacity += m_chunk_size;
+            m_pool.back().acquire_chunk();
+            m_arch.for_each_component([&](int component_idx) {
+                m_pool[component_idx].acquire_chunk();
+            });
         }
 
-        assert(!m_free_entity_ids.empty());
+        const int entity_idx = m_size;
 
-        const int idx                      = m_free_entity_ids.back();
-        const auto [chunk_idx, entity_idx] = get_entity_creds(idx);
-        EcsChunk& chunk                    = m_chunks[chunk_idx];
+        assert(m_size < m_capacity);
 
-        place(chunk, entity_idx, entity);
-
-        m_free_entity_ids.pop_back();
-        storage_idx = entity_idx;
-    }
-    void EcsArchStorage::destroy_entity(const EcsEntity& entity, const std::uint32_t& storage_idx) {
-        assert(entity.is_valid());
-
-        const int idx                      = int(storage_idx);
-        const auto [chunk_idx, entity_idx] = get_entity_creds(idx);
-        EcsChunk& chunk                    = m_chunks[chunk_idx];
-
-        destroy(chunk, entity_idx, entity);
-
-        m_free_entity_ids.push_back(idx);
-    }
-
-    void* EcsArchStorage::get_component(int storage_idx, int idx) const {
-        const auto [chunk_idx, entity_idx] = get_entity_creds(storage_idx);
-
-        assert(chunk_idx < m_chunks.size());
-        assert(entity_idx < m_chunk_size);
-        assert(m_chunks[chunk_idx].entity[entity_idx].is_valid());
-
-        return m_chunks[chunk_idx].components[idx] + get_component_byte_offset(entity_idx, idx);
-    }
-
-    std::pair<int, int> EcsArchStorage::get_entity_creds(int idx) const {
-        return {idx / m_chunk_size, idx % m_chunk_size};
-    }
-    int EcsArchStorage::get_component_byte_offset(int entity_idx, int component_idx) const {
-        return entity_idx * m_components_size[component_idx];
-    }
-    void EcsArchStorage::allocate_chunk(EcsChunk& chunk) {
-        chunk.components.fill(nullptr);
-        chunk.entity.resize(m_chunk_size, EcsEntity{});
-
-        m_arch.for_each_component([&](int idx) {
-            chunk.components[idx] = static_cast<std::uint8_t*>(m_registry->get_component_pool(idx).allocate());
+        *m_pool.back().get_element<EcsEntity>(entity_idx) = entity;
+        m_arch.for_each_component([&](int component_idx) {
+            m_components_info[component_idx]->create(m_pool[component_idx].get_element_raw(entity_idx));
         });
+
+        out_entity_idx = entity_idx;
+        m_size += 1;
     }
-    void EcsArchStorage::release_chunk(EcsChunk& chunk) {
-        auto all_not_used = [&]() {
-            for (int i = 0; i < m_chunk_size; i++) {
-                if (chunk.entity[i].is_valid()) return false;
-            }
+    void EcsArchStorage::destroy_entity(const std::uint32_t& in_entity_idx) {
+        WG_AUTO_PROFILE_ECS("EcsArchStorage::destroy_entity");
 
-            return true;
-        };
+        assert(int(in_entity_idx) < m_size);
+        assert(m_size > 0);
 
-        assert(all_not_used());
+        const int entity_idx = int(in_entity_idx);
 
-        m_arch.for_each_component([&](int idx) {
-            m_registry->get_component_pool(idx).free(chunk.components[idx]);
+        assert(m_pool.back().get_element<EcsEntity>(entity_idx)->is_valid());
+
+        const int last_entity = m_size - 1;
+
+        if (m_size > 1 && entity_idx != last_entity) {
+            auto& entity_pool = m_pool.back();
+            std::swap(*entity_pool.get_element<EcsEntity>(entity_idx),
+                      *entity_pool.get_element<EcsEntity>(last_entity));
+
+            m_arch.for_each_component([&](int component_idx) {
+                auto& component_pool = m_pool[component_idx];
+                m_components_info[component_idx]->swap(component_pool.get_element_raw(entity_idx),
+                                                       component_pool.get_element_raw(last_entity));
+            });
+        }
+
+        m_arch.for_each_component([&](int component_idx) {
+            m_components_info[component_idx]->destroy(m_pool[component_idx].get_element_raw(last_entity));
         });
+
+        m_size -= 1;
     }
 
-    void EcsArchStorage::place(struct EcsChunk& chunk, int entity_idx, const EcsEntity& entity) {
-        assert(chunk.entity[entity_idx].is_invalid());
+    void EcsArchStorage::clear() {
+        WG_AUTO_PROFILE_ECS("EcsArchStorage::clear");
 
-        chunk.entity[entity_idx] = entity;
+        for (int entity_idx = 0; entity_idx < m_size; entity_idx++) {
+            *m_pool.back().get_element<EcsEntity>(entity_idx) = EcsEntity();
+            m_arch.for_each_component([&](int component_idx) {
+                m_components_info[component_idx]->destroy(m_pool[component_idx].get_element_raw(entity_idx));
+            });
+        }
 
-        m_arch.for_each_component([&](int idx) {
-            void* component_raw = chunk.components[idx] + get_component_byte_offset(entity_idx, idx);
-            m_components_info[idx]->create(static_cast<EcsComponent*>(component_raw));
-        });
+        m_size = 0;
     }
-    void EcsArchStorage::destroy(struct EcsChunk& chunk, int entity_idx, const EcsEntity& entity) {
-        assert(chunk.entity[entity_idx].is_valid());
-        assert(chunk.entity[entity_idx] == entity);
 
-        chunk.entity[entity_idx] = EcsEntity{};
+    void* EcsArchStorage::get_component(int entity_idx, int component_idx) const {
+        assert(entity_idx < m_size);
+        assert(component_idx < EcsLimits::MAX_COMPONENTS);
+        assert(m_pool.back().get_element<EcsEntity>(entity_idx)->is_valid());
 
-        m_arch.for_each_component([&](int idx) {
-            void* component_raw = chunk.components[idx] + get_component_byte_offset(entity_idx, idx);
-            m_components_info[idx]->destroy(static_cast<EcsComponent*>(component_raw));
-        });
+        return m_pool[component_idx].get_element_raw(entity_idx);
+    }
+    EcsEntity EcsArchStorage::get_entity(int entity_idx) const {
+        assert(entity_idx < m_size);
+        assert(m_pool.back().get_element<EcsEntity>(entity_idx)->is_valid());
+
+        return *m_pool.back().get_element<EcsEntity>(entity_idx);
     }
 
 }// namespace wmoge

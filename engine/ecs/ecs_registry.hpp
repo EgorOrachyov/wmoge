@@ -57,6 +57,7 @@ namespace wmoge {
         [[nodiscard]] const EcsComponentInfo& get_component_info(const StringId& name);
         [[nodiscard]] const EcsComponentInfo& get_component_info(int idx);
         [[nodiscard]] MemPool&                get_component_pool(int idx);
+        [[nodiscard]] MemPool&                get_entity_pool();
         [[nodiscard]] int                     get_chunk_size() const { return m_chunk_size; }
         [[nodiscard]] int                     get_expand_size() const { return m_expand_size; }
 
@@ -64,11 +65,13 @@ namespace wmoge {
         void register_component();
 
     private:
-        std::array<EcsComponentInfo, EcsLimits::MAX_COMPONENTS>         m_components_info;
-        std::array<std::unique_ptr<MemPool>, EcsLimits::MAX_COMPONENTS> m_components_pool;
-        fast_map<StringId, int>                                         m_components_name_to_idx;
-        int                                                             m_chunk_size  = 16;
-        int                                                             m_expand_size = 2;
+        std::array<EcsComponentInfo, EcsLimits::MAX_COMPONENTS>         m_components_info;       // type info of component, indexed by component id
+        std::array<std::unique_ptr<MemPool>, EcsLimits::MAX_COMPONENTS> m_components_pool;       // pools to allocate components chunks
+        fast_map<StringId, int>                                         m_components_name_to_idx;// resolve component name to its idx
+        std::unique_ptr<MemPool>                                        m_entity_pool;           // pool to allocate entities chunks
+
+        int m_chunk_size  = 16;// num of components of a single type sequentially allocate in one chunk
+        int m_expand_size = 2; // num of chunks in a single pooled allocation in head
     };
 
     template<typename Component>
@@ -83,19 +86,24 @@ namespace wmoge {
         component_info.idx  = Component::IDX;
         component_info.size = sizeof(Component);
 
-        component_info.create = [](EcsComponent* mem) -> void {
+        component_info.create = [](void* mem) -> void {
             new (mem) Component();
         };
 
-        component_info.destroy = [](EcsComponent* mem) -> void {
+        component_info.destroy = [](void* mem) -> void {
             static_cast<Component*>(mem)->~Component();
         };
 
-        component_info.copy = [](EcsComponent* mem, const EcsComponent* src_mem) -> void {
+        component_info.copy = [](void* mem, const void* src_mem) -> void {
             Component&       dst = *(static_cast<Component*>(mem));
             const Component& src = *(static_cast<const Component*>(src_mem));
+            dst                  = src;
+        };
 
-            dst = src;
+        component_info.swap = [](void* mem1, void* mem2) -> void {
+            Component& cmp1 = *(static_cast<Component*>(mem1));
+            Component& cmp2 = *(static_cast<Component*>(mem2));
+            std::swap(cmp1, cmp2);
         };
 
         m_components_name_to_idx[component_info.name] = component_info.idx;

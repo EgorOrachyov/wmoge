@@ -28,8 +28,166 @@
 #ifndef WMOGE_ECS_SYSTEM_HPP
 #define WMOGE_ECS_SYSTEM_HPP
 
+#include "debug/profiler.hpp"
+#include "ecs/ecs_core.hpp"
+#include "ecs/ecs_memory.hpp"
+
+#include <functional>
+#include <memory>
+#include <tuple>
+#include <type_traits>
+#include <vector>
+
 namespace wmoge {
 
-}
+    /**
+     * @class EcsSystemType
+     * @brief Type of a system
+     */
+    enum class EcsSystemType {
+        Default
+    };
+
+    /**
+     * @class EcsSystemExecMode
+     * @brief How system must be executed
+     */
+    enum class EcsSystemExecMode {
+        OnMain,
+        OnWorkers
+    };
+
+    /**
+     * @class EcsSystemNativeFunc
+     * @brief Static function which can be used to implement a system interface
+     */
+    template<typename T, typename... TArgs>
+    using EcsSystemNativeFunc = void (T::*)(class EcsWorld& world, const EcsEntity& entity, TArgs... args);
+
+    /**
+     * @class EcsSystem
+     * @brief Base class for any system, which can be register within a world
+     */
+    class EcsSystem {
+    public:
+        virtual ~EcsSystem() = default;
+
+        [[nodiscard]] virtual EcsSystemType     get_type() const      = 0;
+        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const = 0;
+        [[nodiscard]] virtual StringId          get_name() const      = 0;
+        [[nodiscard]] virtual EcsQuery          get_query() const     = 0;
+
+        [[nodiscard]] virtual std::unique_ptr<class EcsSystemExecutor> get_executor() = 0;
+    };
+
+    /**
+     * @class EcsSystemExecutor
+     * @brief Executor responsible for invocation of a particular system on set of entities
+     */
+    class EcsSystemExecutor {
+    public:
+        virtual ~EcsSystemExecutor() = default;
+
+        /**
+         * @brief Called on system to process a batch of entities having the same archetype
+         *
+         * @param world World of entities
+         * @param storage Archetype storage
+         * @param start_entity Start entity to process in batch
+         * @param count Total entities count within batch
+         */
+        virtual void execute(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) = 0;
+    };
+
+    /**
+     * @class EcsSystemInfo
+     * @brief Holds system information for execution within a world
+     */
+    struct EcsSystemInfo {
+        EcsQuery                           query;        // system query, which archetypes its affects
+        EcsSystemExecMode                  exec_mode;    // execution mode
+        std::shared_ptr<EcsSystem>         system;       // cached system ptr
+        std::unique_ptr<EcsSystemExecutor> executor;     // executor instance to process batch of entities
+        std::vector<int>                   filtered_arch;// pre-filtered arch idx to execute using this system
+    };
+
+#define WG_ECS_BIND_SYSTEM_EXECUTOR(System) std::unique_ptr<EcsSystemExecutor>(new EcsSystemExecutorT(this, &System::process))
+
+    /**
+     * @class EcsSystemExecutorT
+     * @brief Executor implementation for binding C++ systems
+     *
+     * @tparam T System type
+     * @tparam TArgs Type of system args for processing
+     */
+    template<typename T, typename... TArgs>
+    class EcsSystemExecutorT final : public EcsSystemExecutor {
+    public:
+        static_assert(sizeof...(TArgs) <= 5, "supported auto binding is limited by num of components");
+
+        EcsSystemExecutorT(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr);
+        ~EcsSystemExecutorT() override = default;
+
+        void execute(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override;
+
+    private:
+        T*                               m_system_ptr   = nullptr;
+        EcsSystemNativeFunc<T, TArgs...> m_function_ptr = nullptr;
+    };
+
+    template<typename T, typename... TArgs>
+    EcsSystemExecutorT<T, TArgs...>::EcsSystemExecutorT(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr) {
+        m_system_ptr   = system_ptr;
+        m_function_ptr = function_ptr;
+    }
+
+    template<typename T, typename... TArgs>
+    void EcsSystemExecutorT<T, TArgs...>::execute(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) {
+        WG_AUTO_PROFILE_ECS_DECS("EcsSystemExecutorT::execute", m_system_ptr->get_name().str());
+
+        static const auto num_args = sizeof...(TArgs);
+
+        for (int i = 0; i < count; i++) {
+            const int       entity_idx = start_entity + i;
+            const EcsEntity entity     = storage.get_entity(entity_idx);
+
+#define WG_ECS_ACCESS_COMPONENT(at)                                                                                                 \
+    using TypeComponent##at    = typename std::remove_reference<typename std::tuple_element<at, std::tuple<TArgs...>>::type>::type; \
+    TypeComponent##at* ptr##at = storage.template get_component<TypeComponent##at>(entity_idx);
+
+            if constexpr (num_args == 0) {
+                (*m_system_ptr.*m_function_ptr)(world, entity);
+            } else if constexpr (num_args == 1) {
+                WG_ECS_ACCESS_COMPONENT(0);
+                (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0);
+            } else if constexpr (num_args == 2) {
+                WG_ECS_ACCESS_COMPONENT(0);
+                WG_ECS_ACCESS_COMPONENT(1);
+                (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0, *ptr1);
+            } else if constexpr (num_args == 3) {
+                WG_ECS_ACCESS_COMPONENT(0);
+                WG_ECS_ACCESS_COMPONENT(1);
+                WG_ECS_ACCESS_COMPONENT(2);
+                (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0, *ptr1, *ptr2);
+            } else if constexpr (num_args == 4) {
+                WG_ECS_ACCESS_COMPONENT(0);
+                WG_ECS_ACCESS_COMPONENT(1);
+                WG_ECS_ACCESS_COMPONENT(2);
+                WG_ECS_ACCESS_COMPONENT(3);
+                (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0, *ptr1, *ptr2, *ptr3);
+            } else if constexpr (num_args == 5) {
+                WG_ECS_ACCESS_COMPONENT(0);
+                WG_ECS_ACCESS_COMPONENT(1);
+                WG_ECS_ACCESS_COMPONENT(2);
+                WG_ECS_ACCESS_COMPONENT(3);
+                WG_ECS_ACCESS_COMPONENT(4);
+                (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0, *ptr1, *ptr2, *ptr3, *ptr4);
+            }
+
+#undef WG_ECS_ACCESS_COMPONENT
+        }
+    }
+
+}// namespace wmoge
 
 #endif//WMOGE_ECS_SYSTEM_HPP

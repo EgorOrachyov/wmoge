@@ -41,6 +41,31 @@ struct EcsWtL : EcsComponent {
     Mat4x4f matrix = Math3d::identity();
 };
 
+class EcsSystemMultMatr : public EcsSystem {
+public:
+    ~EcsSystemMultMatr() override = default;
+
+    [[nodiscard]] EcsSystemType     get_type() const override { return EcsSystemType::Default; }
+    [[nodiscard]] EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
+    [[nodiscard]] StringId          get_name() const override { return SID("EcsSystemMultMart"); }
+    [[nodiscard]] EcsQuery          get_query() const override {
+        EcsQuery query;
+        query.set_read<EcsLtW>();
+        query.set_write<EcsWtL>();
+        return query;
+    }
+    std::unique_ptr<EcsSystemExecutor> get_executor() override { return WG_ECS_BIND_SYSTEM_EXECUTOR(EcsSystemMultMatr); }
+
+private:
+    void process(EcsWorld& world, const EcsEntity& entity, const EcsLtW& ltw, EcsWtL& wtl) {
+        WG_AUTO_PROFILE_SCENE("EcsSystemMultMatr::process");
+
+        Mat4x4f t = Math3d::rotate(Vec3f::axis_y(), Random::next_float());
+
+        wtl.matrix = ltw.matrix * t;
+    }
+};
+
 class GameApplication : public Application {
 public:
     ~GameApplication() override = default;
@@ -56,30 +81,34 @@ public:
         Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
         Engine::instance()->action_manager()->enable_action_map(SID("console"));
 
-        EcsRegistry* registry = Engine::instance()->ecs_registry();
-        registry->register_component<EcsLtW>();
-        registry->register_component<EcsWtL>();
-
-        EcsWorld  world;
-        EcsEntity entity = world.allocate_entity();
-        EcsArch   arch;
-        arch.set_component<EcsLtW>();
-        arch.set_component<EcsWtL>();
-
-        world.make_entity(entity, arch);
-
-        auto& ltw = world.get_component_rw<EcsLtW>(entity);
-        auto& wtl = world.get_component_rw<EcsWtL>(entity);
-
-        WG_LOG_INFO(entity);
-        WG_LOG_INFO(arch);
-
-        world.destroy_entity(entity);
-
         WG_LOG_INFO("init");
     }
 
     void on_shutdown() override {
+        {
+            EcsRegistry* registry = Engine::instance()->ecs_registry();
+            registry->register_component<EcsLtW>();
+            registry->register_component<EcsWtL>();
+
+            EcsArch arch;
+            arch.set_component<EcsLtW>();
+            arch.set_component<EcsWtL>();
+
+            std::shared_ptr<EcsSystem> system = std::make_shared<EcsSystemMultMatr>();
+
+            EcsWorld world;
+            world.register_system(system);
+
+            const int N = 1000;
+
+            for (int i = 0; i < N; i++) {
+                EcsEntity entity = world.allocate_entity();
+                world.make_entity(entity, arch);
+            }
+
+            world.execute_system(system);
+        }
+
         Application::on_shutdown();
         WG_LOG_INFO("shutdown");
     }

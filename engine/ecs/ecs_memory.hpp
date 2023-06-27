@@ -31,19 +31,38 @@
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
+#include "memory/mem_pool.hpp"
 
 #include <memory>
 #include <utility>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class EcsChunk
-     * @brief Single chunk storing multiple entities tightly (cache-friendly in memory)
+     * @class EcsPool
+     * @brief Pool for chunks of ecs data
      */
-    struct EcsChunk {
-        std::array<std::uint8_t*, EcsLimits::MAX_COMPONENTS> components{};
-        std::vector<EcsEntity>                               entity;
+    class EcsPool {
+    public:
+        EcsPool() = default;
+        EcsPool(int element_size, int chunk_size, MemPool* pool);
+        ~EcsPool();
+
+        void  acquire_chunk();
+        void* get_element_raw(int idx) const;
+
+        template<typename T>
+        T* get_element(int idx) const {
+            assert(sizeof(T) == m_element_size);
+            return (T*) get_element_raw(idx);
+        }
+
+    private:
+        std::vector<void*> m_chunks;
+        MemPool*           m_pool         = nullptr;
+        int                m_element_size = 0;
+        int                m_chunk_size   = 0;
     };
 
     /**
@@ -55,36 +74,32 @@ namespace wmoge {
         explicit EcsArchStorage(EcsArch arch);
         ~EcsArchStorage();
 
-        void make_entity(const EcsEntity& entity, std::uint32_t& storage_idx);
-        void destroy_entity(const EcsEntity& entity, const std::uint32_t& storage_idx);
+        void make_entity(const EcsEntity& entity, std::uint32_t& entity_idx);
+        void destroy_entity(const std::uint32_t& entity_idx);
+        void clear();
 
         template<typename Component>
-        [[nodiscard]] Component* get_component(int storage_idx) const;
-        [[nodiscard]] void*      get_component(int storage_idx, int idx) const;
+        [[nodiscard]] Component* get_component(int entity_idx) const;
+        [[nodiscard]] void*      get_component(int entity_idx, int component_idx) const;
+        [[nodiscard]] EcsEntity  get_entity(int entity_idx) const;
+
+        [[nodiscard]] int get_size() const { return m_size; }
+        [[nodiscard]] int get_capacity() const { return m_capacity; }
 
     private:
-        [[nodiscard]] std::pair<int, int> get_entity_creds(int idx) const;
-        [[nodiscard]] int                 get_component_byte_offset(int entity_idx, int component_idx) const;
-
-        void allocate_chunk(EcsChunk& chunk);
-        void release_chunk(EcsChunk& chunk);
-        void place(EcsChunk& chunk, int entity_idx, const EcsEntity& entity);
-        void destroy(EcsChunk& chunk, int entity_idx, const EcsEntity& entity);
-
-    private:
-        std::vector<EcsChunk> m_chunks;         // storage with tightly packed entities data
-        std::vector<int>      m_free_entity_ids;// pool with storage idx for new entities
-
+        std::array<EcsPool, EcsLimits::MAX_COMPONENTS + 1>             m_pool{};
         std::array<const EcsComponentInfo*, EcsLimits::MAX_COMPONENTS> m_components_info{};
-        std::array<int, EcsLimits::MAX_COMPONENTS>                     m_components_size{};
-        const EcsArch                                                  m_arch;
-        class EcsRegistry*                                             m_registry;
-        int                                                            m_chunk_size;
+
+        const EcsArch m_arch;
+
+        int m_chunk_size = 0;// num entities data within single chunk
+        int m_size       = 0;// count of allocated entities
+        int m_capacity   = 0;// capacity of allocated chunks
     };
 
     template<typename Component>
-    Component* EcsArchStorage::get_component(int storage_idx) const {
-        void* component_raw = get_component(storage_idx, Component::IDX);
+    Component* EcsArchStorage::get_component(int entity_idx) const {
+        void* component_raw = get_component(entity_idx, Component::IDX);
         return static_cast<Component*>(component_raw);
     }
 

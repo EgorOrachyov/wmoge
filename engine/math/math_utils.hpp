@@ -82,6 +82,13 @@ namespace wmoge {
             return (count + step - 1) / step;
         }
 
+        static std::pair<int, int> batch_start_count(int total_items, int batch_idx, int batch_count) {
+            const int batch_size  = total_items / batch_count;
+            const int batch_start = batch_idx * batch_size;
+
+            return {batch_start, batch_idx + 1 == batch_count ? total_items - (batch_count - 1) * batch_size : batch_size};
+        }
+
         static std::size_t align(std::size_t size, std::size_t alignment) {
             return alignment * ((size + alignment - 1) / alignment);
         }
