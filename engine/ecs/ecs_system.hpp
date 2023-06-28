@@ -72,31 +72,22 @@ namespace wmoge {
     public:
         virtual ~EcsSystem() = default;
 
-        [[nodiscard]] virtual EcsSystemType     get_type() const      = 0;
-        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const = 0;
-        [[nodiscard]] virtual StringId          get_name() const      = 0;
-        [[nodiscard]] virtual EcsQuery          get_query() const     = 0;
-
-        [[nodiscard]] virtual std::unique_ptr<class EcsSystemExecutor> get_executor() = 0;
-    };
-
-    /**
-     * @class EcsSystemExecutor
-     * @brief Executor responsible for invocation of a particular system on set of entities
-     */
-    class EcsSystemExecutor {
-    public:
-        virtual ~EcsSystemExecutor() = default;
-
         /**
          * @brief Called on system to process a batch of entities having the same archetype
+         *
+         * @note Use an optional `WG_ECS_SYSTEM_BIND` helper macro to implement this method.
          *
          * @param world World of entities
          * @param storage Archetype storage
          * @param start_entity Start entity to process in batch
          * @param count Total entities count within batch
          */
-        virtual void execute(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) = 0;
+        virtual void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) = 0;
+
+        [[nodiscard]] virtual EcsSystemType     get_type() const      = 0;
+        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const = 0;
+        [[nodiscard]] virtual StringId          get_name() const      = 0;
+        [[nodiscard]] virtual EcsQuery          get_query() const     = 0;
     };
 
     /**
@@ -104,14 +95,13 @@ namespace wmoge {
      * @brief Holds system information for execution within a world
      */
     struct EcsSystemInfo {
-        EcsQuery                           query;        // system query, which archetypes its affects
-        EcsSystemExecMode                  exec_mode;    // execution mode
-        std::shared_ptr<EcsSystem>         system;       // cached system ptr
-        std::unique_ptr<EcsSystemExecutor> executor;     // executor instance to process batch of entities
-        std::vector<int>                   filtered_arch;// pre-filtered arch idx to execute using this system
+        EcsQuery                   query;        // system query, which archetypes its affects
+        EcsSystemExecMode          exec_mode;    // execution mode
+        std::shared_ptr<EcsSystem> system;       // cached system ptr
+        std::vector<int>           filtered_arch;// pre-filtered arch idx to execute using this system
     };
 
-#define WG_ECS_BIND_SYSTEM_EXECUTOR(System) std::unique_ptr<EcsSystemExecutor>(new EcsSystemExecutorT(this, &System::process))
+#define WG_ECS_SYSTEM_BIND(System) EcsSystemBindHelper(this, &System::process).process_batch(world, storage, start_entity, count)
 
     /**
      * @class EcsSystemExecutorT
@@ -121,14 +111,13 @@ namespace wmoge {
      * @tparam TArgs Type of system args for processing
      */
     template<typename T, typename... TArgs>
-    class EcsSystemExecutorT final : public EcsSystemExecutor {
+    class EcsSystemBindHelper {
     public:
         static_assert(sizeof...(TArgs) <= 5, "supported auto binding is limited by num of components");
 
-        EcsSystemExecutorT(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr);
-        ~EcsSystemExecutorT() override = default;
+        EcsSystemBindHelper(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr);
 
-        void execute(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override;
+        void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count);
 
     private:
         T*                               m_system_ptr   = nullptr;
@@ -136,14 +125,14 @@ namespace wmoge {
     };
 
     template<typename T, typename... TArgs>
-    EcsSystemExecutorT<T, TArgs...>::EcsSystemExecutorT(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr) {
+    EcsSystemBindHelper<T, TArgs...>::EcsSystemBindHelper(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr) {
         m_system_ptr   = system_ptr;
         m_function_ptr = function_ptr;
     }
 
     template<typename T, typename... TArgs>
-    void EcsSystemExecutorT<T, TArgs...>::execute(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) {
-        WG_AUTO_PROFILE_ECS_DECS("EcsSystemExecutorT::execute", m_system_ptr->get_name().str());
+    void EcsSystemBindHelper<T, TArgs...>::process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) {
+        WG_AUTO_PROFILE_ECS_DECS("EcsSystemBindHelper::process_batch", m_system_ptr->get_name().str());
 
         static const auto num_args = sizeof...(TArgs);
 

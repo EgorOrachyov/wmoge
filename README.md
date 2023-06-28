@@ -17,9 +17,13 @@ OpenGL backends.
 * Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS
 * Abstract graphics (gfx) device interface for GPU driver communication
 * Vulkan-based gfx device backend
-* OpenGL-based gfx device backend
+* OpenGL-based gfx device backend (in progress)
+* Lightweight runtime and offline shader cache system to speed-up shaders compilation
+* Async resource-loading system with runtime cache
+* Custom math library with 2d and 3d-space primitives
+* Ecs-based scene model with fast, parallel and memory-friendly update
 * OpenAL audio renderer for playing game sounds
-* Lua scripting for game logic programming
+* Modern Lua scripting backend for game logic programming
 
 ### Platforms
 

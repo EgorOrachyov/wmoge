@@ -31,39 +31,23 @@
 
 namespace wmoge {
 
-    CallbackQueue::CallbackQueue(std::size_t buffer_size) {
-        m_memory_buffer.resize(buffer_size);
-    }
-    CallbackQueue::~CallbackQueue() {
-        clear();
-    }
     void CallbackQueue::flush() {
         WG_AUTO_PROFILE_CORE("CallbackQueue::flush");
 
         std::lock_guard guard(m_mutex);
-        std::size_t     offset = 0;
-        while (m_allocated_callbacks > 0) {
-            Callback* callback = reinterpret_cast<Callback*>(m_memory_buffer.data() + offset);
-            offset += callback->size();
-            callback->execute();
-            callback->~Callback();
-            m_allocated_callbacks -= 1;
+
+        for (auto& callback : m_queue) {
+            callback();
         }
 
-        m_allocated_bytes = 0;
+        m_queue.clear();
     }
+
     void CallbackQueue::clear() {
         WG_AUTO_PROFILE_CORE("CallbackQueue::clear");
 
         std::lock_guard guard(m_mutex);
-        std::size_t     offset = 0;
-        while (m_allocated_callbacks > 0) {
-            Callback* callback = reinterpret_cast<Callback*>(m_memory_buffer.data() + offset);
-            offset += callback->size();
-            callback->~Callback();
-            m_allocated_callbacks -= 1;
-        }
-        m_allocated_bytes = 0;
+        m_queue.clear();
     }
 
 }// namespace wmoge

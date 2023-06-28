@@ -33,8 +33,6 @@
 #include <mutex>
 #include <vector>
 
-#include "core/log.hpp"
-
 namespace wmoge {
 
     /**
@@ -43,11 +41,10 @@ namespace wmoge {
      */
     class CallbackQueue {
     public:
-        /** Default buffer for commands allocation (1 MB) can increase later */
-        static const std::size_t DEFAULT_BUFFER_SIZE = 1024 * 1024;
-
-        explicit CallbackQueue(std::size_t buffer_size = DEFAULT_BUFFER_SIZE);
-        ~CallbackQueue();
+        CallbackQueue()                = default;
+        CallbackQueue(CallbackQueue&)  = delete;
+        CallbackQueue(CallbackQueue&&) = delete;
+        ~CallbackQueue()               = default;
 
         /**
          * @brief Push callback to call later in a queue
@@ -66,40 +63,14 @@ namespace wmoge {
         void clear();
 
     private:
-        struct Callback {
-            virtual ~Callback()           = default;
-            virtual void        execute() = 0;
-            virtual std::size_t size()    = 0;
-        };
-
-        std::vector<std::uint8_t> m_memory_buffer;
-        std::size_t               m_allocated_callbacks = 0;
-        std::size_t               m_allocated_bytes     = 0;
-
-        mutable std::mutex m_mutex;
+        std::vector<std::function<void()>> m_queue;
+        std::mutex                         m_mutex;
     };
 
     template<class Callable>
-    void CallbackQueue::push(Callable&& call) {
-        struct CallbackWrapper final : public Callback {
-            Callable c;
-            explicit CallbackWrapper(Callable&& call) : c(std::forward<Callable>(call)) {}
-            ~CallbackWrapper() override = default;
-            void        execute() override { c(); }
-            std::size_t size() override { return sizeof(CallbackWrapper); }
-        };
-
+    void CallbackQueue::push(Callable&& callback) {
         std::lock_guard guard(m_mutex);
-        std::size_t     wrapper_size = sizeof(CallbackWrapper);
-
-        if (wrapper_size + m_allocated_bytes <= m_memory_buffer.size()) {
-            new (m_memory_buffer.data() + m_allocated_bytes) CallbackWrapper(std::forward<Callable>(call));
-            m_allocated_callbacks += 1;
-            m_allocated_bytes += wrapper_size;
-            return;
-        }
-
-        WG_LOG_ERROR("not enough space to allocate command");
+        m_queue.emplace_back(std::forward<Callable>(callback));
     }
 
 }// namespace wmoge

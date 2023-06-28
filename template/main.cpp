@@ -45,6 +45,8 @@ class EcsSystemMultMatr : public EcsSystem {
 public:
     ~EcsSystemMultMatr() override = default;
 
+    void process_batch(EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override { WG_ECS_SYSTEM_BIND(EcsSystemMultMatr); }
+
     [[nodiscard]] EcsSystemType     get_type() const override { return EcsSystemType::Default; }
     [[nodiscard]] EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
     [[nodiscard]] StringId          get_name() const override { return SID("EcsSystemMultMart"); }
@@ -54,7 +56,6 @@ public:
         query.set_write<EcsWtL>();
         return query;
     }
-    std::unique_ptr<EcsSystemExecutor> get_executor() override { return WG_ECS_BIND_SYSTEM_EXECUTOR(EcsSystemMultMatr); }
 
 private:
     void process(EcsWorld& world, const EcsEntity& entity, const EcsLtW& ltw, EcsWtL& wtl) {
@@ -99,7 +100,7 @@ public:
             EcsWorld world;
             world.register_system(system);
 
-            const int N = 1000;
+            const int N = 200;
 
             for (int i = 0; i < N; i++) {
                 EcsEntity entity = world.allocate_entity();

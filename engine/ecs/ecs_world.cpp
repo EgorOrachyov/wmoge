@@ -28,6 +28,7 @@
 #include "ecs_world.hpp"
 
 #include "core/engine.hpp"
+#include "core/log.hpp"
 #include "core/task.hpp"
 #include "core/task_parallel_for.hpp"
 #include "debug/profiler.hpp"
@@ -133,7 +134,6 @@ namespace wmoge {
 
         system_info.query     = system->get_query();
         system_info.system    = system;
-        system_info.executor  = system->get_executor();
         system_info.exec_mode = system->get_exec_mode();
 
         auto filter = system_info.query.affected();
@@ -160,7 +160,7 @@ namespace wmoge {
                     const int       start_entity = 0;
                     const int       count        = size;
 
-                    system_info.executor->execute(*this, storage, start_entity, count);
+                    system_info.system->process_batch(*this, storage, start_entity, count);
                 }
 
                 break;
@@ -173,7 +173,9 @@ namespace wmoge {
                         const int       size             = storage.get_size();
                         const auto [start_entity, count] = Math::batch_start_count(size, batch_id, batch_count);
 
-                        system_info.executor->execute(*this, storage, start_entity, count);
+                        WG_LOG_INFO("process from=" << start_entity << " count=" << count);
+
+                        system_info.system->process_batch(*this, storage, start_entity, count);
                     }
 
                     return 0;
