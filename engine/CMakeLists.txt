@@ -81,6 +81,8 @@ add_library(wmoge STATIC
         event/event_manager.hpp
         event/event_action.cpp
         event/event_action.hpp
+        event/event_filesystem.cpp
+        event/event_filesystem.hpp
         event/event_input.cpp
         event/event_input.hpp
         event/event_script.cpp
@@ -415,6 +417,7 @@ target_link_libraries(wmoge PRIVATE glfw)
 target_link_libraries(wmoge PRIVATE whereami)
 target_link_libraries(wmoge PRIVATE stbimage)
 target_link_libraries(wmoge PRIVATE freetype)
+target_link_libraries(wmoge PRIVATE filewatch)
 target_link_libraries(wmoge PRIVATE lz4)
 target_link_libraries(wmoge PRIVATE assimp)
 target_link_libraries(wmoge PRIVATE compressonator)

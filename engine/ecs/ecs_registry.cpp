@@ -33,7 +33,7 @@
 namespace wmoge {
 
     EcsRegistry::EcsRegistry() {
-        ConfigFile* config = Engine::instance()->config_engine();
+        ConfigFile* config = Engine::instance()->config();
 
         config->get(SID("ecs.chunk_size"), m_chunk_size);
         config->get(SID("ecs.expand_size"), m_expand_size);

@@ -48,7 +48,7 @@ namespace wmoge {
         explicit Main(class Application* application);
         ~Main();
 
-        bool load_config(const std::string& config_path);
+        bool prepare();
         bool initialize();
         bool iteration();
         bool shutdown();
@@ -66,7 +66,7 @@ namespace wmoge {
         std::shared_ptr<class LogListenerStdout>  m_log_listener_stdout;
         std::shared_ptr<class LogListenerConsole> m_log_listener_console;
         std::unique_ptr<class CmdLine>            m_cmd_line;
-        std::unique_ptr<class ConfigFile>         m_config_engine;
+        std::unique_ptr<class ConfigFile>         m_config;
         std::unique_ptr<class CallbackQueue>      m_main_queue;
         std::unique_ptr<class FileSystem>         m_file_system;
         std::unique_ptr<class TaskManager>        m_task_manager;

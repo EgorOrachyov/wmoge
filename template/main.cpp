@@ -82,6 +82,14 @@ public:
         Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
         Engine::instance()->action_manager()->enable_action_map(SID("console"));
 
+        Engine::instance()->file_system()->watch("root://shaders");
+        Engine::instance()->event_manager()->subscribe(make_listener<EventFileSystem>([](const EventFileSystem& event) {
+            WG_LOG_INFO("fs " << Enum::to_str(event.action) << " "
+                              << " " << event.path
+                              << " " << event.entry);
+            return false;
+        }));
+
         WG_LOG_INFO("init");
     }
 

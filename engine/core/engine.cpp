@@ -48,8 +48,8 @@ namespace wmoge {
     CmdLine* Engine::cmd_line() {
         return m_cmd_line;
     }
-    ConfigFile* Engine::config_engine() {
-        return m_config_engine;
+    ConfigFile* Engine::config() {
+        return m_config;
     }
     CallbackQueue* Engine::main_queue() {
         return m_main_queue;

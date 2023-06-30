@@ -39,6 +39,15 @@
 namespace wmoge {
 
     /**
+     * @class ConfigStackMode
+     * @brief How to stack configs
+     */
+    enum class ConfigStackMode {
+        Overwrite,
+        Keep
+    };
+
+    /**
      * @class ConfigFile
      * @brief Ini-file based simple config file
      */
@@ -54,6 +63,25 @@ namespace wmoge {
          * @return True if successfully loaded and parsed
          */
         bool load(const std::string& path);
+
+        /**
+         * @brief Stack other config on top of this
+         *
+         * @param other Config to stack
+         * @param mode Mode to handle intersecting entries
+         */
+        void stack(const ConfigFile& other, ConfigStackMode mode = ConfigStackMode::Overwrite);
+
+        /** @brief Clears config */
+        void clear();
+
+        /** @brief Check if config has no entries */
+        bool is_empty();
+
+        bool set(const StringId& key, const bool& value, bool overwrite = true);
+        bool set(const StringId& key, const int& value, bool overwrite = true);
+        bool set(const StringId& key, const float& value, bool overwrite = true);
+        bool set(const StringId& key, const std::string& value, bool overwrite = true);
 
         bool get(const StringId& key, bool& value);
         bool get(const StringId& key, int& value);

@@ -70,8 +70,8 @@ namespace wmoge {
         m_cmd_line         = std::make_unique<CmdLine>();
         engine->m_cmd_line = m_cmd_line.get();
 
-        m_config_engine         = std::make_unique<ConfigFile>();
-        engine->m_config_engine = m_config_engine.get();
+        m_config         = std::make_unique<ConfigFile>();
+        engine->m_config = m_config.get();
 
         m_file_system         = std::make_unique<FileSystem>();
         engine->m_file_system = m_file_system.get();
@@ -87,21 +87,16 @@ namespace wmoge {
 
     Main::~Main() = default;
 
-    bool Main::load_config(const std::string& config_path) {
+    bool Main::prepare() {
         WG_AUTO_PROFILE_PLATFORM("Main::load_config");
 
-        if (!m_config_engine->load(config_path)) {
-            std::cerr << "failed to load default engine config file";
-            return false;
-        }
+        const bool log_to_out     = m_config->get_bool(SID("engine.log_to_out"), true);
+        const bool log_to_file    = m_config->get_bool(SID("engine.log_to_file"), true);
+        const bool log_to_console = m_config->get_bool(SID("engine.log_to_console"), true);
 
-        const bool log_to_out     = m_config_engine->get_bool(SID("engine.log_to_out"), true);
-        const bool log_to_file    = m_config_engine->get_bool(SID("engine.log_to_file"), true);
-        const bool log_to_console = m_config_engine->get_bool(SID("engine.log_to_console"), true);
-
-        const auto log_to_out_level     = Enum::parse<LogLevel>(m_config_engine->get_string(SID("engine.log_to_out_level"), "Info"));
-        const auto log_to_file_level    = Enum::parse<LogLevel>(m_config_engine->get_string(SID("engine.log_to_file_level"), "Info"));
-        const auto log_to_console_level = Enum::parse<LogLevel>(m_config_engine->get_string(SID("engine.log_to_console_level"), "Info"));
+        const auto log_to_out_level     = Enum::parse<LogLevel>(m_config->get_string(SID("engine.log_to_out_level"), "Info"));
+        const auto log_to_file_level    = Enum::parse<LogLevel>(m_config->get_string(SID("engine.log_to_file_level"), "Info"));
+        const auto log_to_console_level = Enum::parse<LogLevel>(m_config->get_string(SID("engine.log_to_console_level"), "Info"));
 
         if (log_to_file) {
             m_log_listener_stream = std::make_shared<LogListenerStream>("file", log_to_file_level);
@@ -119,9 +114,7 @@ namespace wmoge {
             WG_LOG_INFO("attach console log listener");
         }
 
-        m_profiler->set_enabled(m_config_engine->get_bool(SID("debug.profiler"), false));
-
-        WG_LOG_INFO("init config " << config_path);
+        m_profiler->set_enabled(m_config->get_bool(SID("debug.profiler"), false));
 
         return true;
     }
@@ -129,8 +122,8 @@ namespace wmoge {
     bool Main::initialize() {
         WG_AUTO_PROFILE_PLATFORM("Main::initialize");
 
-        auto* engine        = Engine::instance();
-        auto* config_engine = engine->config_engine();
+        auto* engine = Engine::instance();
+        auto* config = engine->config();
 
         Class::register_types();
         WG_LOG_INFO("init core classes reflection");
@@ -138,7 +131,7 @@ namespace wmoge {
         m_event_manager         = std::make_unique<EventManager>();
         engine->m_event_manager = m_event_manager.get();
 
-        m_task_manager         = std::make_unique<TaskManager>(config_engine->get_int(SID("task_manager.workers"), 4));
+        m_task_manager         = std::make_unique<TaskManager>(config->get_int(SID("task_manager.workers"), 4));
         engine->m_task_manager = m_task_manager.get();
 
         m_main_queue         = std::make_unique<CallbackQueue>();
@@ -149,16 +142,16 @@ namespace wmoge {
         engine->application()->on_register();
 
         WindowInfo window_info;
-        window_info.width    = config_engine->get_int(SID("window.width"), 1280);
-        window_info.height   = config_engine->get_int(SID("window.height"), 720);
-        window_info.title    = config_engine->get_string(SID("window.title"), "wmoge");
+        window_info.width    = config->get_int(SID("window.width"), 1280);
+        window_info.height   = config->get_int(SID("window.height"), 720);
+        window_info.title    = config->get_string(SID("window.title"), "wmoge");
         window_info.icons[0] = make_ref<Image>();
-        window_info.icons[0]->load(config_engine->get_string(SID("window.icon_default")), 4);
+        window_info.icons[0]->load(config->get_string(SID("window.icon_default")), 4);
         window_info.icons[1] = make_ref<Image>();
-        window_info.icons[1]->load(config_engine->get_string(SID("window.icon_small")), 4);
+        window_info.icons[1]->load(config->get_string(SID("window.icon_small")), 4);
 
-        bool vsync = config_engine->get_bool(SID("window.vsync"), true);
-        bool exit  = config_engine->get_bool(SID("window.exit"), true);
+        bool vsync = config->get_bool(SID("window.vsync"), true);
+        bool exit  = config->get_bool(SID("window.exit"), true);
 
         m_glfw_window_manager    = std::make_unique<GlfwWindowManager>(vsync, false);
         engine->m_window_manager = m_glfw_window_manager.get();

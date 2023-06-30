@@ -37,6 +37,7 @@ OpenGL backends.
 * [audio file](https://github.com/adamstark/AudioFile) for simple audio loading from wav files.
 * [compressonator](https://github.com/GPUOpen-Tools/compressonator) texture compression library.
 * [cxxopts](https://github.com/jarro2783/cxxopts) for command-line options processing.
+* [filewatch](https://github.com/ThomasMonkman/filewatch) for OS file system events tracking.
 * [freetype](https://github.com/freetype/freetype) for true-type fonts loading and rendering.
 * [glfw](https://github.com/glfw/glfw) for cross-platform window and input management.
 * [glslang](https://github.com/KhronosGroup/glslang) for runtime glsl to spir-v shaders compilation.

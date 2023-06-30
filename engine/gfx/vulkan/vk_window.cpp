@@ -42,7 +42,7 @@ namespace wmoge {
         m_window  = window;
         m_surface = surface;
 
-        Engine::instance()->config_engine()->get(SID("window.vsync"), m_use_vsync);
+        Engine::instance()->config()->get(SID("window.vsync"), m_use_vsync);
     }
     VKWindow::~VKWindow() {
         WG_AUTO_PROFILE_VULKAN("VKWindow::~VKWindow");

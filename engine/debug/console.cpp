@@ -398,7 +398,7 @@ namespace wmoge {
 
         auto engine  = Engine::instance();
         auto res_man = engine->resource_manager();
-        auto config  = engine->config_engine();
+        auto config  = engine->config();
 
         m_canvas       = engine->canvas_2d_debug();
         m_console_font = res_man->load(SID(config->get_string(SID("debug.console.font"), "res://fonts/anonymous_pro"))).cast<Font>();

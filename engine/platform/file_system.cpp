@@ -28,12 +28,30 @@
 #include "file_system.hpp"
 
 #include "core/data.hpp"
+#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
+#include "event/event_filesystem.hpp"
+#include "event/event_manager.hpp"
 
+#include <filesystem>
+#include <functional>
+
+#include <FileWatch.hpp>
 #include <whereami.h>
 
 namespace wmoge {
+
+    /**
+     * @class FileSystemWatcher
+     * @brief Wrapper for filewatch specifics
+     */
+    struct FileSystemWatcher {
+        filewatch::FileWatch<std::string> watch;
+
+        FileSystemWatcher(std::string path, std::function<void(const std::string&, const filewatch::Event)> callback)
+            : watch(std::move(path), std::move(callback)) {}
+    };
 
     FileSystem::FileSystem() {
         int         path_length = wai_getExecutablePath(nullptr, 0, nullptr);
@@ -42,9 +60,6 @@ namespace wmoge {
 
         m_executable_path = path_exe;
         m_executable_dir  = m_executable_path.parent_path();
-
-        // do temporary remap
-        //        m_executable_dir = m_executable_dir.parent_path().parent_path() / "games" / "flappyowl";//todo
 
         m_resources_path = m_executable_dir / "resources";
         m_cache_path     = m_executable_dir / "cache";
@@ -65,6 +80,8 @@ namespace wmoge {
         if (!std::filesystem::exists(log_path))
             std::filesystem::create_directories(log_path);
     }
+
+    FileSystem::~FileSystem() = default;
 
     std::filesystem::path FileSystem::resolve(const std::string& path) {
         static const std::string PREFIX_RES   = "res://";
@@ -168,6 +185,41 @@ namespace wmoge {
 
         file.write(reinterpret_cast<const char*>(data.data()), std::streamsize(data.size()));
         return true;
+    }
+
+    void FileSystem::watch(const std::string& path) {
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::watch");
+
+        auto resolved_path = resolve(path);
+
+        if (!resolved_path.empty()) {
+            m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [path](const std::string& dropped, const filewatch::Event change_type) {
+                auto* engine        = Engine::instance();
+                auto* event_manager = engine->event_manager();
+
+                auto event    = make_event<EventFileSystem>();
+                event->path   = path;
+                event->entry  = dropped;
+                event->action = FileSystemAction::Unknown;
+
+                switch (change_type) {
+                    case filewatch::Event::added:
+                        event->action = FileSystemAction::Added;
+                        break;
+                    case filewatch::Event::modified:
+                        event->action = FileSystemAction::Modified;
+                        break;
+                    case filewatch::Event::removed:
+                        event->action = FileSystemAction::Removed;
+                        break;
+                    default:
+                        WG_LOG_ERROR("unknown event type on file path=" << event->path << " entry=" << dropped);
+                        break;
+                }
+
+                event_manager->dispatch(event);
+            }));
+        }
     }
 
     const std::filesystem::path& FileSystem::executable_path() const {

@@ -53,7 +53,7 @@ namespace wmoge {
     VKDriver::VKDriver(const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
-        auto* config = Engine::instance()->config_engine();
+        auto* config = Engine::instance()->config();
 
         m_driver_name = SID("vulkan");
         m_clip_matrix = Mat4x4f(1.0f, 0.0f, 0.0f, 0.0f,

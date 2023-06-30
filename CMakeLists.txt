@@ -87,6 +87,9 @@ add_subdirectory(deps/whereami)
 # Image manipulations
 add_subdirectory(deps/stbimage)
 
+# File system events tracking
+add_subdirectory(deps/filewatch)
+
 # Add zlib as auxiliary (for freetype and assimp usage)
 add_subdirectory(deps/zlib)
 set(ZLIB_FOUND TRUE)

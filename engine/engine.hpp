@@ -70,6 +70,7 @@
 
 #include "event/event.hpp"
 #include "event/event_action.hpp"
+#include "event/event_filesystem.hpp"
 #include "event/event_input.hpp"
 #include "event/event_listener.hpp"
 #include "event/event_manager.hpp"

@@ -25,32 +25,23 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "register_classes_event.hpp"
+#include "event_filesystem.hpp"
 
-#include "event/event.hpp"
-#include "event/event_action.hpp"
-#include "event/event_filesystem.hpp"
-#include "event/event_input.hpp"
-#include "event/event_resource.hpp"
-#include "event/event_script.hpp"
-#include "event/event_token.hpp"
-#include "event/event_window.hpp"
+#include "core/class.hpp"
+#include "io/enum.hpp"
+
+#include <sstream>
 
 namespace wmoge {
 
-    void register_classes_event() {
-        Event::register_class();
-        EventInput::register_class();
-        EventMouse::register_class();
-        EventKeyboard::register_class();
-        EventJoystick::register_class();
-        EventDrop::register_class();
-        EventWindow::register_class();
-        EventAction::register_class();
-        EventResource::register_class();
-        EventToken::register_class();
-        EventScript::register_class();
-        EventFileSystem::register_class();
+    std::string EventFileSystem::to_string() {
+        std::stringstream ss;
+        ss << type_static() << " action=" << Enum::to_str(action) << " path=" << path << " entry=" << entry;
+        return ss.str();
+    }
+
+    void EventFileSystem::register_class() {
+        auto* cls = Class::register_class<EventFileSystem>();
     }
 
 }// namespace wmoge

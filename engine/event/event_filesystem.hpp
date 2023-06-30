@@ -25,32 +25,39 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "register_classes_event.hpp"
+#ifndef WMOGE_EVENT_FILESYSTEM_HPP
+#define WMOGE_EVENT_FILESYSTEM_HPP
 
 #include "event/event.hpp"
-#include "event/event_action.hpp"
-#include "event/event_filesystem.hpp"
-#include "event/event_input.hpp"
-#include "event/event_resource.hpp"
-#include "event/event_script.hpp"
-#include "event/event_token.hpp"
-#include "event/event_window.hpp"
+
+#include <string>
 
 namespace wmoge {
 
-    void register_classes_event() {
-        Event::register_class();
-        EventInput::register_class();
-        EventMouse::register_class();
-        EventKeyboard::register_class();
-        EventJoystick::register_class();
-        EventDrop::register_class();
-        EventWindow::register_class();
-        EventAction::register_class();
-        EventResource::register_class();
-        EventToken::register_class();
-        EventScript::register_class();
-        EventFileSystem::register_class();
-    }
+    /**
+     * @class FileSystemAction
+     * @brief Type of file system file actions
+     */
+    enum class FileSystemAction {
+        Unknown,
+        Added,
+        Modified,
+        Removed
+    };
+
+    /**
+     * @class EventFileSystem
+     * @brief Action event dispatch from raw input and active mapping
+     */
+    class EventFileSystem final : public Event {
+    public:
+        WG_EVENT(EventFileSystem, Event)
+
+        FileSystemAction action;
+        std::string      path;
+        std::string      entry;
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_EVENT_FILESYSTEM_HPP

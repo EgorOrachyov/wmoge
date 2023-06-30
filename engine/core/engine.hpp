@@ -53,7 +53,7 @@ namespace wmoge {
 
         class Application*      application();
         class CmdLine*          cmd_line();
-        class ConfigFile*       config_engine();
+        class ConfigFile*       config();
         class CallbackQueue*    main_queue();
         class FileSystem*       file_system();
         class TaskManager*      task_manager();
@@ -99,7 +99,7 @@ namespace wmoge {
 
         class Application*      m_application        = nullptr;
         class CmdLine*          m_cmd_line           = nullptr;
-        class ConfigFile*       m_config_engine      = nullptr;
+        class ConfigFile*       m_config             = nullptr;
         class CallbackQueue*    m_main_queue         = nullptr;
         class FileSystem*       m_file_system        = nullptr;
         class TaskManager*      m_task_manager       = nullptr;

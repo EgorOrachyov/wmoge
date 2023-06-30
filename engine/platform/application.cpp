@@ -31,6 +31,7 @@
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "main/main.hpp"
+#include "resource/config_file.hpp"
 
 namespace wmoge {
 
@@ -39,9 +40,11 @@ namespace wmoge {
 
         auto* engine   = Engine::instance();
         auto* cmd_line = engine->cmd_line();
+        auto* config   = engine->config();
 
         cmd_line->add_bool("h,help", "display help message", "false");
-        cmd_line->add_string("config", "path to engine config", "root://config/engine.cfg");
+        cmd_line->add_string("config_engine", "path to engine config", "root://config/engine.cfg");
+        cmd_line->add_string("config_game", "path to game config", "root://config/game.cfg");
 
         if (!cmd_line->parse(argc, argv)) {
             return 1;
@@ -51,7 +54,23 @@ namespace wmoge {
             return 0;
         }
 
-        if (!main.load_config(cmd_line->get_string("config"))) {
+        ConfigFile config_engine;
+        if (!config_engine.load(cmd_line->get_string("config_engine"))) {
+            std::cerr << "failed to load config engine file, check your setup";
+        }
+
+        config->stack(config_engine);
+        config_engine.clear();
+
+        ConfigFile config_game;
+        if (!config_game.load(cmd_line->get_string("config_game"))) {
+            std::cerr << "failed to load config game file, check your setup";
+        }
+
+        config->stack(config_game);
+        config_game.clear();
+
+        if (!main.prepare()) {
             return 1;
         }
 

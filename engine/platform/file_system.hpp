@@ -34,6 +34,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -57,6 +58,7 @@ namespace wmoge {
     class FileSystem {
     public:
         FileSystem();
+        ~FileSystem();
 
         std::filesystem::path resolve(const std::string& path);
         bool                  exists(const std::string& path);
@@ -66,6 +68,7 @@ namespace wmoge {
         bool                  open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
         bool                  save_file(const std::string& path, const std::string& data);
         bool                  save_file(const std::string& path, const std::vector<std::uint8_t>& data);
+        void                  watch(const std::string& path);
 
         [[nodiscard]] const std::filesystem::path& executable_path() const;
         [[nodiscard]] const std::filesystem::path& executable_dir() const;
@@ -79,6 +82,8 @@ namespace wmoge {
         std::filesystem::path m_resources_path;
         std::filesystem::path m_cache_path;
         std::filesystem::path m_debug_path;
+
+        std::vector<std::unique_ptr<struct FileSystemWatcher>> m_watchers;
     };
 
 }// namespace wmoge

@@ -81,6 +81,56 @@ namespace wmoge {
         return true;
     }
 
+    void ConfigFile::stack(const ConfigFile& other, ConfigStackMode mode) {
+        WG_AUTO_PROFILE_RESOURCE("ConfigFile::stack");
+
+        for (const auto& other_entry : other.m_entries) {
+            const StringId& key = other_entry.first;
+
+            if (m_entries.find(key) == m_entries.end() ||
+                mode == ConfigStackMode::Overwrite) {
+                m_entries[key] = other_entry.second;
+            }
+        }
+    }
+
+    void ConfigFile::clear() {
+        m_entries.clear();
+    }
+
+    bool ConfigFile::is_empty() {
+        return m_entries.empty();
+    }
+
+    bool ConfigFile::set(const StringId& key, const bool& value, bool overwrite) {
+        if (m_entries.find(key) == m_entries.end() || overwrite) {
+            m_entries[key] = value;
+            return true;
+        }
+        return false;
+    }
+    bool ConfigFile::set(const StringId& key, const int& value, bool overwrite) {
+        if (m_entries.find(key) == m_entries.end() || overwrite) {
+            m_entries[key] = value;
+            return true;
+        }
+        return false;
+    }
+    bool ConfigFile::set(const StringId& key, const float& value, bool overwrite) {
+        if (m_entries.find(key) == m_entries.end() || overwrite) {
+            m_entries[key] = value;
+            return true;
+        }
+        return false;
+    }
+    bool ConfigFile::set(const StringId& key, const std::string& value, bool overwrite) {
+        if (m_entries.find(key) == m_entries.end() || overwrite) {
+            m_entries[key] = value;
+            return true;
+        }
+        return false;
+    }
+
     bool ConfigFile::get(const StringId& key, bool& value) {
         Var* p_var;
         if (!get_element(key, p_var)) return false;

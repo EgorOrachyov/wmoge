@@ -46,9 +46,9 @@ namespace wmoge {
         auto engine           = Engine::instance();
         auto gfx_driver       = engine->gfx_driver();
         auto resource_manager = engine->resource_manager();
-        auto config_engine    = engine->config_engine();
+        auto config           = engine->config();
 
-        std::string font_name = config_engine->get_string(SID("render.aux.font"), "res://fonts/consolas");
+        std::string font_name = config->get_string(SID("render.aux.font"), "res://fonts/consolas");
 
         m_debug_font = resource_manager->load(SID(font_name)).cast<Font>();
         m_constants  = gfx_driver->make_uniform_buffer(sizeof(ShaderAuxDrawManager::Params), GfxMemUsage::GpuLocal, SID("params_aux_draw"));
