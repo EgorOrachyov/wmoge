@@ -120,7 +120,6 @@
 #include "pfx/pfx_component.hpp"
 #include "pfx/pfx_emitter.hpp"
 #include "pfx/pfx_feature.hpp"
-#include "pfx/pfx_renderer.hpp"
 
 #include "platform/application.hpp"
 #include "platform/file_system.hpp"
@@ -132,16 +131,9 @@
 
 #include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
-#include "render/draw_cmd.hpp"
-#include "render/draw_cmd_compiler.hpp"
-#include "render/draw_primitive.hpp"
-#include "render/draw_queue.hpp"
 #include "render/mesh_builder.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
-#include "render/render_pipeline.hpp"
-#include "render/render_scene.hpp"
-#include "render/render_view.hpp"
 #include "render/shader_manager.hpp"
 
 #include "resource/audio_stream.hpp"
@@ -171,18 +163,6 @@
 #include "scripting/script_instance.hpp"
 #include "scripting/script_native.hpp"
 #include "scripting/script_system.hpp"
-
-#include "components/audio_listener_2d.hpp"
-#include "components/audio_source_2d.hpp"
-#include "components/camera_2d.hpp"
-#include "components/canvas_item.hpp"
-#include "components/canvas_layer.hpp"
-#include "components/canvas_text.hpp"
-#include "components/particles_2d.hpp"
-#include "components/script_component.hpp"
-#include "components/spatial_2d.hpp"
-#include "components/sprite_instance.hpp"
-#include "components/tag.hpp"
 
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"

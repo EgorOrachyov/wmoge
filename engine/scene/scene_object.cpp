@@ -27,7 +27,6 @@
 
 #include "scene_object.hpp"
 
-#include "components/script_component.hpp"
 #include "core/class.hpp"
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
@@ -40,8 +39,6 @@
 namespace wmoge {
 
     int SceneObject::signal(const StringId& signal) {
-        // todo: better solution?
-        if (auto* script = get<ScriptComponent>()) script->on_signal(signal);
         return 0;
     }
     void SceneObject::shutdown() {

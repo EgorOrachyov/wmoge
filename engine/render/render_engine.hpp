@@ -28,18 +28,6 @@
 #ifndef WMOGE_RENDER_ENGINE_HPP
 #define WMOGE_RENDER_ENGINE_HPP
 
-#include "core/callback_queue.hpp"
-#include "render/objects/render_camera_2d.hpp"
-#include "render/objects/render_canvas_item.hpp"
-#include "render/objects/render_canvas_text.hpp"
-#include "render/objects/render_particles_2d.hpp"
-#include "render/objects/render_sprite_instance.hpp"
-
-#include <memory>
-#include <mutex>
-#include <unordered_map>
-#include <vector>
-
 namespace wmoge {
 
     /**
@@ -48,29 +36,6 @@ namespace wmoge {
      */
     class RenderEngine {
     public:
-        RenderEngine();
-        ~RenderEngine();
-
-        void update();
-
-        /** Object creation api */
-        Ref<RenderCamera2d>       make_camera_2d();
-        Ref<RenderCanvasText>     make_canvas_text();
-        Ref<RenderSpriteInstance> make_sprite_instance();
-        Ref<RenderParticles2d>    make_particles_2d();
-
-        /** Mem management for persistent draw cmds (must be deleted manually) */
-        struct DrawCmd* allocate_draw_cmd();
-        void            free_draw_cmd(struct DrawCmd* cmd);
-
-        CallbackQueue* get_queue();
-
-    private:
-        CallbackQueue m_queue;
-
-        std::unique_ptr<class MemPool> m_pool_draw_cmd;
-
-        std::mutex m_mutex;
     };
 
 }// namespace wmoge

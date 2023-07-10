@@ -75,13 +75,6 @@ namespace wmoge {
             runtime.update(m_delta_time);
         }
     }
-    void PfxEmitter::render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object) {
-        WG_AUTO_PROFILE_PFX("PfxEmitter::render");
-
-        for (auto& runtime : m_runtime) {
-            runtime.render(views, mask, object);
-        }
-    }
     const PfxComponentRuntime& PfxEmitter::get_runtime(int id) const {
         assert(id < m_runtime.size());
         return m_runtime[id];

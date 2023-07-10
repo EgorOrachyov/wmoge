@@ -33,8 +33,6 @@
 #include "pfx/pfx_scene.hpp"
 #include "platform/window.hpp"
 #include "render/render_engine.hpp"
-#include "render/render_pipeline.hpp"
-#include "render/render_scene.hpp"
 #include "scene/scene_component.hpp"
 #include "scene/scene_object.hpp"
 #include "scene/scene_registry.hpp"
@@ -58,8 +56,6 @@ namespace wmoge {
         class SceneObject* find_child(const StringId& name);
         const StringId&    get_name();
         SceneRegistry*     get_registry();
-        RenderScene*       get_render_scene();
-        RenderPipeline*    get_render_pipeline();
         PfxScene*          get_pfx_scene();
         SystemScript*      get_system_script();
 
@@ -67,11 +63,9 @@ namespace wmoge {
         friend class ScenePacked;
         friend class SceneManager;
 
-        std::unique_ptr<SceneRegistry>  m_registry;
-        std::unique_ptr<RenderScene>    m_render_scene;
-        std::unique_ptr<RenderPipeline> m_render_pipeline;
-        std::unique_ptr<PfxScene>       m_pfx_scene;
-        std::unique_ptr<SystemScript>   m_system_script;
+        std::unique_ptr<SceneRegistry> m_registry;
+        std::unique_ptr<PfxScene>      m_pfx_scene;
+        std::unique_ptr<SystemScript>  m_system_script;
 
         Ref<SceneObject> m_root;
         StringId         m_name;

@@ -30,20 +30,7 @@
 #include "core/class.hpp"
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
-#include "render/pipeline_standard.hpp"
 #include "scene/scene_manager.hpp"
-
-#include "components/audio_listener_2d.hpp"
-#include "components/audio_source_2d.hpp"
-#include "components/camera_2d.hpp"
-#include "components/canvas_item.hpp"
-#include "components/canvas_layer.hpp"
-#include "components/canvas_text.hpp"
-#include "components/particles_2d.hpp"
-#include "components/script_component.hpp"
-#include "components/spatial_2d.hpp"
-#include "components/sprite_instance.hpp"
-#include "components/tag.hpp"
 
 namespace wmoge {
 
@@ -58,21 +45,7 @@ namespace wmoge {
         m_registry = std::make_unique<SceneRegistry>();
         m_registry->register_type<SceneObject>();
         m_registry->register_type<SceneComponent>();
-        m_registry->register_type<Spatial2d>();
-        m_registry->register_type<Camera2d>();
-        m_registry->register_type<CanvasItem>();
-        m_registry->register_type<CanvasLayer>();
-        m_registry->register_type<CanvasText>();
-        m_registry->register_type<ScriptComponent>();
-        m_registry->register_type<SpriteInstance>();
-        m_registry->register_type<Particles2d>();
-        m_registry->register_type<AudioSource2d>();
-        m_registry->register_type<AudioListener2d>();
 
-        m_render_scene    = std::make_unique<RenderScene>();
-        m_render_pipeline = std::make_unique<PipelineStandard>();
-        m_render_scene->set_pipeline(m_render_pipeline.get());
-        m_render_pipeline->set_scene(m_render_scene.get());
         m_pfx_scene     = std::make_unique<PfxScene>();
         m_system_script = std::make_unique<SystemScript>(this);
     }
@@ -104,12 +77,6 @@ namespace wmoge {
     }
     SceneRegistry* Scene::get_registry() {
         return m_registry.get();
-    }
-    RenderScene* Scene::get_render_scene() {
-        return m_render_scene.get();
-    }
-    RenderPipeline* Scene::get_render_pipeline() {
-        return m_render_pipeline.get();
     }
     PfxScene* Scene::get_pfx_scene() {
         return m_pfx_scene.get();

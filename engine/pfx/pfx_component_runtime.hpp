@@ -31,7 +31,6 @@
 #include "core/data.hpp"
 #include "math/aabb.hpp"
 #include "pfx/pfx_component.hpp"
-#include "pfx/pfx_renderer.hpp"
 #include "pfx/pfx_storage.hpp"
 
 #include <mutex>
@@ -48,13 +47,11 @@ namespace wmoge {
 
         void emit(const PfxSpawnParams& params);
         void update(float dt);
-        void render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object);
 
         PfxRange            get_update_range();
         PfxRange            get_spawn_range();
         PfxRange            get_full_range();
         PfxStorage*         get_storage();
-        PfxRenderer*        get_renderer();
         Aabbf&              get_bounds();
         class PfxEmitter*   get_emitter();
         class PfxComponent* get_component();
@@ -63,16 +60,15 @@ namespace wmoge {
         int                 get_spawned_amount() const;
 
     private:
-        std::unique_ptr<PfxStorage>  m_storage;
-        std::unique_ptr<PfxRenderer> m_renderer;
-        class PfxEmitter*            m_emitter;
-        class PfxComponent*          m_component;
-        Aabbf                        m_bounds;
-        int                          m_active_amount  = 0;
-        int                          m_active_from    = 0;
-        int                          m_spawned_amount = 0;
-        int                          m_spawned_from   = 0;
-        bool                         m_is_active      = false;
+        std::unique_ptr<PfxStorage> m_storage;
+        class PfxEmitter*           m_emitter;
+        class PfxComponent*         m_component;
+        Aabbf                       m_bounds;
+        int                         m_active_amount  = 0;
+        int                         m_active_from    = 0;
+        int                         m_spawned_amount = 0;
+        int                         m_spawned_from   = 0;
+        bool                        m_is_active      = false;
     };
 
 }// namespace wmoge

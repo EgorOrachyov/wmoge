@@ -48,7 +48,6 @@ namespace wmoge {
         static void bind_resource(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping);
         static void bind_gameplay(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping);
         static void bind_scene(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping);
-        static void bind_components(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping);
 
         template<typename Enum>
         static void bind_enum(luabridge::Namespace& ns, const char* name) {

@@ -27,47 +27,6 @@
 
 #include "render_engine.hpp"
 
-#include "memory/mem_pool.hpp"
-#include "render/draw_cmd.hpp"
-#include "render/draw_primitive.hpp"
-
 namespace wmoge {
-
-    RenderEngine::RenderEngine() {
-        m_pool_draw_cmd = std::make_unique<MemPool>(sizeof(DrawCmd), MemPool::EXPAND_SIZE);
-    }
-
-    RenderEngine::~RenderEngine() = default;
-
-    void RenderEngine::update() {
-        m_queue.flush();
-    }
-
-    Ref<RenderCamera2d> RenderEngine::make_camera_2d() {
-        return make_ref<RenderCamera2d>();
-    }
-    Ref<RenderCanvasText> RenderEngine::make_canvas_text() {
-        return make_ref<RenderCanvasText>();
-    }
-    Ref<RenderSpriteInstance> RenderEngine::make_sprite_instance() {
-        return make_ref<RenderSpriteInstance>();
-    }
-    Ref<RenderParticles2d> RenderEngine::make_particles_2d() {
-        return make_ref<RenderParticles2d>();
-    }
-
-    DrawCmd* RenderEngine::allocate_draw_cmd() {
-        std::lock_guard guard(m_mutex);
-        return new (m_pool_draw_cmd->allocate()) DrawCmd();
-    }
-    void RenderEngine::free_draw_cmd(DrawCmd* cmd) {
-        std::lock_guard guard(m_mutex);
-        cmd->~DrawCmd();
-        m_pool_draw_cmd->free(cmd);
-    }
-
-    CallbackQueue* RenderEngine::get_queue() {
-        return &m_queue;
-    }
 
 }// namespace wmoge

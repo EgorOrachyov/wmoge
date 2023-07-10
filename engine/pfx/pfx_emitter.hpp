@@ -66,7 +66,6 @@ namespace wmoge {
         void emit(const PfxSpawnParams& params);
         void advance_time(float delta_time);
         void update();
-        void render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object);
 
         const PfxComponentRuntime& get_runtime(int id) const;
         const Ref<PfxComponent>&   get_component(int id) const;

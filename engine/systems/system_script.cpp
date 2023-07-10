@@ -27,7 +27,6 @@
 
 #include "system_script.hpp"
 
-#include "components/script_component.hpp"
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_action.hpp"
@@ -73,52 +72,6 @@ namespace wmoge {
 
     void SystemScript::process() {
         WG_AUTO_PROFILE_SCRIPTING("SystemScript::process");
-
-        auto* registry = m_scene->get_registry();
-        auto* scripts  = registry->get_container<ScriptComponent>();
-
-        // regular engine update with delta time
-        {
-            auto dt = float(Engine::instance()->get_delta_time_game());
-            scripts->for_each([dt](ScriptComponent& c) { c.get_script()->on_update(dt); });
-        }
-
-        // process incoming events
-        for (const auto& event_ref : m_events) {
-            if (event_ref->type() == EventAction::type_static()) {
-                const auto event = event_ref.cast<EventAction>();
-                scripts->for_each([&](ScriptComponent& c) {
-                    c.get_script()->on_action(event);
-                });
-            } else if (event_ref->type() == EventMouse::type_static()) {
-                const auto event = event_ref.cast<EventMouse>();
-                scripts->for_each([&](ScriptComponent& c) {
-                    c.get_script()->on_input_mouse(event);
-                });
-            } else if (event_ref->type() == EventKeyboard::type_static()) {
-                const auto event = event_ref.cast<EventKeyboard>();
-                scripts->for_each([&](ScriptComponent& c) {
-                    c.get_script()->on_input_keyboard(event);
-                });
-            } else if (event_ref->type() == EventJoystick::type_static()) {
-                const auto event = event_ref.cast<EventJoystick>();
-                scripts->for_each([&](ScriptComponent& c) {
-                    c.get_script()->on_input_joystick(event);
-                });
-            } else if (event_ref->type() == EventDrop::type_static()) {
-                const auto event = event_ref.cast<EventDrop>();
-                scripts->for_each([&](ScriptComponent& c) {
-                    c.get_script()->on_input_drop(event);
-                });
-            } else if (event_ref->type() == EventToken::type_static()) {
-                const auto event = event_ref.cast<EventToken>();
-                scripts->for_each([&](ScriptComponent& c) {
-                    c.get_script()->on_token(event);
-                });
-            }
-        }
-
-        m_events.clear();
     }
 
 }// namespace wmoge

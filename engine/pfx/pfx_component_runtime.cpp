@@ -47,10 +47,6 @@ namespace wmoge {
         assert(attributes.bits.any());
 
         m_storage = std::make_unique<PfxStorage>(attributes, component->get_amount());
-
-        for (int i = 0; i < m_component->get_features_count(); i++) {
-            m_component->get_feature(i)->on_provided_render(*this, m_renderer);
-        }
     }
 
     void PfxComponentRuntime::emit(const PfxSpawnParams& params) {
@@ -136,13 +132,6 @@ namespace wmoge {
             m_is_active = m_active_amount > 0;
         }
     }
-    void PfxComponentRuntime::render(RenderViewList& views, const RenderViewMask& mask, RenderObject* object) {
-        WG_AUTO_PROFILE_PFX("PfxComponentRuntime::render");
-
-        if (m_renderer.get()) {
-            m_renderer->on_render_dynamic(views, mask, object);
-        }
-    }
 
     PfxRange PfxComponentRuntime::get_update_range() {
         return PfxRange(m_active_from, m_active_amount, m_storage->get_capacity());
@@ -156,9 +145,6 @@ namespace wmoge {
 
     PfxStorage* PfxComponentRuntime::get_storage() {
         return m_storage.get();
-    }
-    PfxRenderer* PfxComponentRuntime::get_renderer() {
-        return m_renderer.get();
     }
     Aabbf& PfxComponentRuntime::get_bounds() {
         return m_bounds;

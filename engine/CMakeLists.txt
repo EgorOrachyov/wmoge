@@ -194,7 +194,6 @@ add_library(wmoge STATIC
         pfx/pfx_emitter.hpp
         pfx/pfx_feature.cpp
         pfx/pfx_feature.hpp
-        pfx/pfx_renderer.hpp
         pfx/pfx_scene.cpp
         pfx/pfx_scene.hpp
         pfx/pfx_storage.cpp
@@ -211,8 +210,6 @@ add_library(wmoge STATIC
         pfx/features/pfx_feature_sprite.hpp
         pfx/features/pfx_feature_velocity.cpp
         pfx/features/pfx_feature_velocity.hpp
-        pfx/renderers/pfx_sprite_renderer.cpp
-        pfx/renderers/pfx_sprite_renderer.hpp
         pfx/register_classes_pfx.cpp
         pfx/register_classes_pfx.hpp
         platform/application.cpp
@@ -237,47 +234,16 @@ add_library(wmoge STATIC
         render/aux_draw_manager.hpp
         render/aux_draw_canvas.cpp
         render/aux_draw_canvas.hpp
-        render/draw_cmd.hpp
-        render/draw_cmd_compiler.cpp
-        render/draw_cmd_compiler.hpp
-        render/draw_primitive.cpp
-        render/draw_primitive.hpp
-        render/draw_queue.cpp
-        render/draw_queue.hpp
         render/mesh_builder.cpp
         render/mesh_builder.hpp
-        render/pipeline_standard.cpp
-        render/pipeline_standard.hpp
         render/render_camera.cpp
         render/render_camera.hpp
         render/render_engine.cpp
         render/render_engine.hpp
-        render/render_material.cpp
-        render/render_material.hpp
-        render/render_object.cpp
-        render/render_object.hpp
-        render/render_pipeline.cpp
-        render/render_pipeline.hpp
-        render/render_scene.cpp
-        render/render_scene.hpp
-        render/render_view.cpp
-        render/render_view.hpp
         render/shader_builder.cpp
         render/shader_builder.hpp
         render/shader_manager.cpp
         render/shader_manager.hpp
-        render/objects/render_camera_2d.cpp
-        render/objects/render_camera_2d.hpp
-        render/objects/render_canvas_item.cpp
-        render/objects/render_canvas_item.hpp
-        render/objects/render_canvas_text.cpp
-        render/objects/render_canvas_text.hpp
-        render/objects/render_sprite_instance.cpp
-        render/objects/render_sprite_instance.hpp
-        render/objects/render_particles_2d.cpp
-        render/objects/render_particles_2d.hpp
-        render/pipeline/stage_overlay_2d.cpp
-        render/pipeline/stage_overlay_2d.hpp
         resource/audio_stream.cpp
         resource/audio_stream.hpp
         resource/audio_stream_wav.cpp
@@ -352,8 +318,6 @@ add_library(wmoge STATIC
         scripting/lua/lua_type_traits.cpp
         scripting/lua/lua_type_traits.hpp
         scripting/lua_bindings/lua_bindings.hpp
-        scripting/lua_bindings/lua_bindings_components.cpp
-        scripting/lua_bindings/lua_bindings_components.hpp
         scripting/lua_bindings/lua_bindings_core.cpp
         scripting/lua_bindings/lua_bindings_core.hpp
         scripting/lua_bindings/lua_bindings_event.cpp
@@ -368,30 +332,6 @@ add_library(wmoge STATIC
         scripting/lua_bindings/lua_bindings_resource.hpp
         scripting/lua_bindings/lua_bindings_scene.cpp
         scripting/lua_bindings/lua_bindings_scene.hpp
-        components/audio_listener_2d.cpp
-        components/audio_listener_2d.hpp
-        components/audio_source_2d.cpp
-        components/audio_source_2d.hpp
-        components/camera_2d.cpp
-        components/camera_2d.hpp
-        components/canvas_item.cpp
-        components/canvas_item.hpp
-        components/canvas_layer.cpp
-        components/canvas_layer.hpp
-        components/canvas_text.cpp
-        components/canvas_text.hpp
-        components/particles_2d.cpp
-        components/particles_2d.hpp
-        components/script_component.cpp
-        components/script_component.hpp
-        components/spatial_2d.cpp
-        components/spatial_2d.hpp
-        components/sprite_instance.cpp
-        components/sprite_instance.hpp
-        components/tag.cpp
-        components/tag.hpp
-        components/register_classes_components.cpp
-        components/register_classes_components.hpp
         debug/console.cpp
         debug/console.hpp
         debug/profiler.cpp

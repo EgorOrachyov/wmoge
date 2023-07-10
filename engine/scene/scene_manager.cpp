@@ -32,33 +32,11 @@
 #include "scene/scene_container.hpp"
 #include "scene/scene_object.hpp"
 
-#include "components/audio_listener_2d.hpp"
-#include "components/audio_source_2d.hpp"
-#include "components/camera_2d.hpp"
-#include "components/canvas_item.hpp"
-#include "components/canvas_layer.hpp"
-#include "components/canvas_text.hpp"
-#include "components/particles_2d.hpp"
-#include "components/script_component.hpp"
-#include "components/spatial_2d.hpp"
-#include "components/sprite_instance.hpp"
-#include "components/tag.hpp"
-
 namespace wmoge {
 
     SceneManager::SceneManager() {
         register_container(std::make_unique<TSceneContainerMem<SceneObject>>());
         register_container(std::make_unique<TSceneContainerMem<SceneComponent>>());
-        register_container(std::make_unique<TSceneContainerMem<Spatial2d>>());
-        register_container(std::make_unique<TSceneContainerMem<Camera2d>>());
-        register_container(std::make_unique<TSceneContainerMem<CanvasItem>>());
-        register_container(std::make_unique<TSceneContainerMem<CanvasLayer>>());
-        register_container(std::make_unique<TSceneContainerMem<CanvasText>>());
-        register_container(std::make_unique<TSceneContainerMem<ScriptComponent>>());
-        register_container(std::make_unique<TSceneContainerMem<SpriteInstance>>());
-        register_container(std::make_unique<TSceneContainerMem<Particles2d>>());
-        register_container(std::make_unique<TSceneContainerMem<AudioSource2d>>());
-        register_container(std::make_unique<TSceneContainerMem<AudioListener2d>>());
 
         WG_LOG_INFO("init scene manager");
     }
@@ -156,17 +134,8 @@ namespace wmoge {
         m_running->m_time_dt = Engine::instance()->get_delta_time_game();
         m_running->m_time += m_running->m_time;
 
-        Engine::instance()->render_engine()->update();
-
         auto* pfx = m_running->get_pfx_scene();
         pfx->update(m_running->m_time_dt);
-
-        auto* render_scene = m_running->get_render_scene();
-        render_scene->set_time(m_running->m_time, m_running->m_time_dt);
-        render_scene->flush_queue();
-
-        auto* render_pipeline = m_running->get_render_pipeline();
-        render_pipeline->execute();
 
         auto* system_script = m_running->get_system_script();
         system_script->process();

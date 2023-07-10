@@ -32,7 +32,6 @@
 #include "core/fast_vector.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "math/vec.hpp"
-#include "render/render_material.hpp"
 #include "resource/shader.hpp"
 #include "resource/texture.hpp"
 
@@ -88,20 +87,17 @@ namespace wmoge {
         void copy_to(Resource& copy) override;
 
         const Ref<Shader>&               get_shader();
-        const Ref<RenderMaterial>&       get_render_material();
         const fast_vector<std::uint8_t>& get_parameters();
         const fast_vector<Ref<Texture>>& get_textures();
 
     private:
         bool copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data);
         void set_parameter_from_string(GfxShaderParam type, const std::string& value, void* mem);
-        void request_update();
 
     private:
         friend class RenderMaterial;
 
         Ref<Shader>               m_shader;
-        Ref<RenderMaterial>       m_render_material;
         fast_vector<std::uint8_t> m_parameters;
         fast_vector<Ref<Texture>> m_textures;
         std::size_t               m_version = 0;

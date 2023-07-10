@@ -64,7 +64,6 @@ namespace wmoge {
         LuaBindings::bind_resource(ns, m_object_to_lua);
         LuaBindings::bind_gameplay(ns, m_object_to_lua);
         LuaBindings::bind_scene(ns, m_object_to_lua);
-        LuaBindings::bind_components(ns, m_object_to_lua);
         ns = ns.endNamespace();
 
         luaL_dostring(m_global_state, "function new(target, base)\n"

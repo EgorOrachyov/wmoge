@@ -64,9 +64,7 @@ namespace wmoge {
             m_textures[entry.second.id] = texture;
         }
 
-        m_version         = 1;
-        m_render_material = make_ref<RenderMaterial>(this, m_textures.size(), m_parameters.size());
-        m_render_material->ensure_version();
+        m_version = 1;
     }
 
     bool Material::load_from_import_options(const YamlTree& tree) {
@@ -126,8 +124,6 @@ namespace wmoge {
             set_texture(SID(name), texture);
         }
 
-        m_render_material->ensure_version();
-
         return true;
     }
     void Material::copy_to(Resource& copy) {
@@ -140,9 +136,6 @@ namespace wmoge {
 
     const Ref<Shader>& Material::get_shader() {
         return m_shader;
-    }
-    const Ref<RenderMaterial>& Material::get_render_material() {
-        return m_render_material;
     }
     const fast_vector<std::uint8_t>& Material::get_parameters() {
         return m_parameters;
@@ -167,8 +160,6 @@ namespace wmoge {
 
         std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
         m_version += 1;
-
-        request_update();
     }
     void Material::set_float(const StringId& name, float value) {
         std::lock_guard guard(m_mutex);
@@ -186,8 +177,6 @@ namespace wmoge {
 
         std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
         m_version += 1;
-
-        request_update();
     }
     void Material::set_vec2(const StringId& name, const Vec2f& value) {
         std::lock_guard guard(m_mutex);
@@ -205,8 +194,6 @@ namespace wmoge {
 
         std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
         m_version += 1;
-
-        request_update();
     }
     void Material::set_vec3(const StringId& name, const Vec3f& value) {
         std::lock_guard guard(m_mutex);
@@ -224,8 +211,6 @@ namespace wmoge {
 
         std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
         m_version += 1;
-
-        request_update();
     }
     void Material::set_vec4(const StringId& name, const Vec4f& value) {
         std::lock_guard guard(m_mutex);
@@ -243,8 +228,6 @@ namespace wmoge {
 
         std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
         m_version += 1;
-
-        request_update();
     }
     void Material::set_texture(const StringId& name, const Ref<Texture>& texture) {
         std::lock_guard guard(m_mutex);
@@ -266,8 +249,6 @@ namespace wmoge {
 
         m_textures[texture_param->second.id] = texture;
         m_version += 1;
-
-        request_update();
     }
 
     bool Material::copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data) {
@@ -323,13 +304,6 @@ namespace wmoge {
                 WG_LOG_ERROR("invalid shader parameter type");
                 return;
         }
-    }
-    void Material::request_update() {
-        assert(m_render_material);
-
-        Engine::instance()->render_engine()->get_queue()->push([mat = m_render_material]() {
-            mat->ensure_version();
-        });
     }
 
     void Material::register_class() {

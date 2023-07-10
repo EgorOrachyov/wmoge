@@ -29,7 +29,6 @@
 
 #include "core/object.hpp"
 
-#include "components/register_classes_components.hpp"
 #include "event/register_classes_event.hpp"
 #include "pfx/register_classes_pfx.hpp"
 #include "resource/register_classes_resource.hpp"
@@ -126,7 +125,6 @@ namespace wmoge {
         register_classes_resource();
         register_classes_pfx();
         register_classes_scene();
-        register_classes_components();
     }
 
 }// namespace wmoge
