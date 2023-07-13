@@ -53,14 +53,14 @@ namespace wmoge {
         }
     }
     void VKShader::setup(std::string vertex, std::string fragment, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN("VKShader::setup");
+        WG_AUTO_PROFILE_VULKAN("VKShader::configure");
 
         m_name = name;
         m_sources.push_back(std::move(vertex));
         m_sources.push_back(std::move(fragment));
     }
     void VKShader::setup(Ref<Data> byte_code, const wmoge::StringId& name) {
-        WG_AUTO_PROFILE_VULKAN("VKShader::setup");
+        WG_AUTO_PROFILE_VULKAN("VKShader::configure");
 
         m_name      = name;
         m_byte_code = std::move(byte_code);

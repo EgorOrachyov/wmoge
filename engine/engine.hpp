@@ -96,6 +96,9 @@
 #include "gfx/gfx_texture.hpp"
 #include "gfx/gfx_vert_format.hpp"
 
+#include "hgfx/hgfx_pass.hpp"
+#include "hgfx/hgfx_pass_base.hpp"
+
 #include "io/archive.hpp"
 #include "io/archive_file.hpp"
 #include "io/archive_memory.hpp"

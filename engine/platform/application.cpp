@@ -56,7 +56,7 @@ namespace wmoge {
 
         ConfigFile config_engine;
         if (!config_engine.load(cmd_line->get_string("config_engine"))) {
-            std::cerr << "failed to load config engine file, check your setup";
+            std::cerr << "failed to load config engine file, check your configure";
         }
 
         config->stack(config_engine);
@@ -64,7 +64,7 @@ namespace wmoge {
 
         ConfigFile config_game;
         if (!config_game.load(cmd_line->get_string("config_game"))) {
-            std::cerr << "failed to load config game file, check your setup";
+            std::cerr << "failed to load config game file, check your configure";
         }
 
         config->stack(config_game);

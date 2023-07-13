@@ -38,29 +38,81 @@
 
 namespace wmoge {
 
-    struct ShaderAuxDrawCanvas {
-        static constexpr const char NAME[]       = "aux_draw_canvas";
-        static constexpr const char CLS[]        = "AuxDrawCanvas";
-        static constexpr int        NUM_FILES    = 2;
-        static constexpr int        NUM_CONSTS   = 0;
-        static constexpr int        NUM_SAMPLERS = 1;
-        static constexpr int        NUM_BUFFERS  = 1;
+    static const char source_base_vk450_frag[] = R"(
+layout (set = 0, binding = 0, std140) uniform Params {
+mat4 mat_clip_proj_view;
+float inverse_gamma;
+float mix_weight_1;
+float mix_weight_2;
+float mix_weight_3;
+};
 
-        static constexpr const int  TEXTURE_SET    = 0;
-        static constexpr const int  TEXTURE_SLOT   = 1;
-        static constexpr const auto TEXTURE_LOC    = GfxLocation{0, 1};
-        static constexpr const char TEXTURE_NAME[] = "Texture";
 
-        struct Params {
-            Mat4x4f clip_proj_screen;
-            float   gamma;
-            float   inverse_gamma;
-        };
+#define TARGET_VULKAN
+#if defined(TARGET_VULKAN)
+#define LAYOUT_LOCATION(idx) layout(location = idx)
+#else
+#define LAYOUT_LOCATION(idx)
+#endif
+#if defined(TARGET_VULKAN)
+#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(set = set_idx, binding = binding_idx, fields_layout)
+#else
+#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(fields_layout)
+#endif
+#if defined(TARGET_VULKAN)
+#define LAYOUT_SAMPLER(set_idx, binding_idx) layout(set = set_idx, binding = binding_idx)
+#else
+#define LAYOUT_SAMPLER(set_idx, binding_idx)
+#endif
+vec3 srgb_to_linear(in vec3 color, in float gamma) {
+    return pow(color, vec3(gamma));
+}
+vec3 linear_to_srgb(in vec3 color, in float inverse_gamma) {
+    return pow(color, vec3(inverse_gamma));
+}
+vec2 unpack_uv(in vec2 uv) {
+    #ifdef TARGET_VULKAN
+    return vec2(uv.x, 1.0f - uv.y);
+    #else
+    return uv;
+    #endif
+}
+layout (location = 0) out vec4 out_color;
+#ifdef ATTRIB_Col04f
+LAYOUT_LOCATION(0) in vec4 fsCol04f;
+#endif
+#ifdef ATTRIB_Col14f
+LAYOUT_LOCATION(1) in vec4 fsCol14f;
+#endif
+#ifdef ATTRIB_Col24f
+LAYOUT_LOCATION(2) in vec4 fsCol24f;
+#endif
+#ifdef ATTRIB_Col34f
+LAYOUT_LOCATION(3) in vec4 fsCol34f;
+#endif
+void main() {
+    vec4 result_color = vec4(0, 0, 0, 1);
+    #ifdef ATTRIB_Col04f
+    result_color = fsCol04f;
+    #endif
+    #ifdef ATTRIB_Col14f
+    result_color = mix(result_color, fsCol14f, mix_weight_1);
+    #endif
+    #ifdef ATTRIB_Col24f
+    result_color = mix(result_color, fsCol24f, mix_weight_2);
+    #endif
+    #ifdef ATTRIB_Col34f
+    result_color = mix(result_color, fsCol34f, mix_weight_3);
+    #endif
+    #ifdef OUT_SRGB
+    result_color.rgb = linear_to_srgb(result_color.rgb, inverse_gamma);
+    #endif
+    #ifdef NO_ALPHA
+    result_color.a = 1.0f;
+    #endif
+    out_color = result_color;
+}
 
-        static constexpr const int  PARAMS_SET    = 0;
-        static constexpr const int  PARAMS_SLOT   = 0;
-        static constexpr const auto PARAMS_LOC    = GfxLocation{0, 0};
-        static constexpr const char PARAMS_NAME[] = "Params";
-    };
 
-}// namespace wmoge
+)";
+}

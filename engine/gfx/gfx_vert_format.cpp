@@ -71,8 +71,6 @@ namespace wmoge {
         int offset = 0;
 
         layout.for_each([&](int i, GfxVertAttrib attrib) {
-            offset += GfxVertAttribSizes[i];
-
             if (attribs.get(attrib)) {
                 assert(m_elements_count < GfxLimits::MAX_VERT_ATTRIBUTES);
 
@@ -84,6 +82,8 @@ namespace wmoge {
                 m_elements[m_elements_count].instanced = instanced;
                 m_elements_count += 1;
             }
+
+            offset += GfxVertAttribSizes[i];
         });
     }
     void GfxVertElements::add_vert_attribs(wmoge::GfxVertAttribs attribs, int buffer, bool instanced) {

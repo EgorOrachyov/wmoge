@@ -7,34 +7,48 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#include "common_funcs.glsl"
+#version 450 core
 
-#ifdef AUX_DRAW_GEOM
-layout(location = 0) in vec3 in_pos;
-layout(location = 1) in vec3 in_col;
-#endif
-#ifdef AUX_DRAW_TEXT
-layout(location = 0) in vec2 in_pos;
-layout(location = 1) in vec2 in_uv;
-layout(location = 2) in vec3 in_col;
+#include "common_defines.glsl"
+
+//@ in vec3 inPos3f;
+//@ in vec3 inCol04f;
+//@ in vec3 inCol14f;
+//@ in vec3 inCol24f;
+//@ in vec3 inCol34f;
+
+#ifdef ATTRIB_Col04f
+LAYOUT_LOCATION(0) out vec4 fsCol04f;
 #endif
 
-LAYOUT_LOCATION(0)
-out vec3 out_color;
-#ifdef AUX_DRAW_TEXT
-LAYOUT_LOCATION(1)
-out vec2 out_uv;
+#ifdef ATTRIB_Col14f
+LAYOUT_LOCATION(1) out vec4 fsCol14f;
+#endif
+
+#ifdef ATTRIB_Col24f
+LAYOUT_LOCATION(2) out vec4 fsCol24f;
+#endif
+
+#ifdef ATTRIB_Col34f
+LAYOUT_LOCATION(3) out vec4 fsCol34f;
 #endif
 
 void main() {
-    out_color = in_col;
-
-    #ifdef AUX_DRAW_GEOM
-    gl_Position = clip_proj_view * vec4(in_pos, 1.0f);
+    #ifdef ATTRIB_Col04f
+    fsCol04f = inCol04f;
     #endif
 
-    #ifdef AUX_DRAW_TEXT
-    out_uv      = unpack_uv(in_uv);
-    gl_Position = clip_proj_screen * vec4(in_pos, 0.0f, 1.0f);
+    #ifdef ATTRIB_Col14f
+    fsCol14f = inCol14f;
     #endif
+
+    #ifdef ATTRIB_Col24f
+    fsCol24f = inCol24f;
+    #endif
+
+    #ifdef ATTRIB_Col34f
+    fsCol34f = inCol34f;
+    #endif
+
+    gl_Position = mat_clip_proj_view * vec4(inPos3f, 1.0f);
 }

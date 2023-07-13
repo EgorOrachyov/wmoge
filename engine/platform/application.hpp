@@ -40,6 +40,7 @@ namespace wmoge {
 
         virtual void on_register(){};
         virtual void on_init(){};
+        virtual void on_update() {}
         virtual void on_shutdown() {}
 
         int run(int argc, const char* const* argv);

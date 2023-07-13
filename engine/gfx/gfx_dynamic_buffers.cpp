@@ -92,6 +92,7 @@ namespace wmoge {
     GfxDynBuffer::GfxDynBuffer(int size, int alignment, const StringId& name) {
         m_default_chunk_size = size;
         m_alignment          = alignment;
+        m_name               = name;
     }
     GfxDynAllocation<GfxBuffer, void> GfxDynBuffer::allocate_base(int bytes_to_allocate) {
         std::lock_guard guard(m_mutex);
@@ -115,6 +116,7 @@ namespace wmoge {
             }
             if (m_chunks[m_current_chunk].offset + required_size <= m_chunks[m_current_chunk].buffer->size()) {
                 auto& chunk = m_chunks[m_current_chunk];
+                assert(chunk.mapping);
 
                 GfxDynAllocation<GfxBuffer, void> allocation{};
                 allocation.buffer = chunk.buffer.get();
@@ -134,9 +136,10 @@ namespace wmoge {
         if (m_current_chunk < m_chunks.size()) {
             for (int i = 0; i <= m_current_chunk; i++) {
                 auto& chunk = m_chunks[i];
-
-                unmap_buffer(chunk.buffer);
-                chunk.mapping = nullptr;
+                if (chunk.mapping) {
+                    unmap_buffer(chunk.buffer);
+                    chunk.mapping = nullptr;
+                }
             }
 
             m_current_chunk += 1;
@@ -179,7 +182,7 @@ namespace wmoge {
     GfxDynIndexBuffer::GfxDynIndexBuffer(int size, int alignment, const StringId& name) : GfxDynBuffer(size, alignment, name) {
     }
     Ref<GfxBuffer> GfxDynIndexBuffer::make_buffer(int size, const StringId& name) {
-        return Engine::instance()->gfx_driver()->make_vert_buffer(size, GfxMemUsage::GpuLocal, name);
+        return Engine::instance()->gfx_driver()->make_index_buffer(size, GfxMemUsage::GpuLocal, name);
     }
     void* GfxDynIndexBuffer::map_buffer(const Ref<GfxBuffer>& buffer) {
         return Engine::instance()->gfx_ctx()->map_index_buffer(buffer.cast<GfxIndexBuffer>());

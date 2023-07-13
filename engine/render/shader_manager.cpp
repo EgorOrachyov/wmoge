@@ -48,12 +48,16 @@
 #include "shaders/generated/auto_aux_draw_canvas_gl410_vert.hpp"
 #include "shaders/generated/auto_aux_draw_manager_gl410_frag.hpp"
 #include "shaders/generated/auto_aux_draw_manager_gl410_vert.hpp"
+#include "shaders/generated/auto_base_gl410_frag.hpp"
+#include "shaders/generated/auto_base_gl410_vert.hpp"
 
 // built-in vulkan shaders
 #include "shaders/generated/auto_aux_draw_canvas_vk450_frag.hpp"
 #include "shaders/generated/auto_aux_draw_canvas_vk450_vert.hpp"
 #include "shaders/generated/auto_aux_draw_manager_vk450_frag.hpp"
 #include "shaders/generated/auto_aux_draw_manager_vk450_vert.hpp"
+#include "shaders/generated/auto_base_vk450_frag.hpp"
+#include "shaders/generated/auto_base_vk450_vert.hpp"
 
 namespace wmoge {
 
@@ -172,6 +176,9 @@ namespace wmoge {
     Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const fast_vector<std::string>& defines) {
         return get_shader(shader_name, {}, defines, nullptr);
     }
+    Ref<GfxShader> ShaderManager::get_shader(const wmoge::StringId& shader_name, const wmoge::GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines) {
+        return get_shader(shader_name, streams, defines, nullptr);
+    }
     Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader) {
         const StringId shader_key = make_shader_key(shader_name, streams, defines, shader);
         Ref<GfxShader> gfx_shader = find(shader_key);
@@ -210,7 +217,10 @@ namespace wmoge {
         for (const GfxVertAttribs& attribs : streams) {
             attribs.for_each([&](int i, GfxVertAttrib attrib) {
                 builder.add_define("ATTRIB_" + Enum::to_str(attrib));
-                builder.vertex.value() << "layout (location = " << location_index << ") in " << GfxVertAttribGlslTypes[i] << ";\n";
+                builder.vertex.value() << "layout(location = " << location_index << ") in "
+                                       << GfxVertAttribGlslTypes[i] << " "
+                                       << "in" << Enum::to_str(attrib)
+                                       << ";\n";
                 location_index += 1;
             });
         }
@@ -391,15 +401,18 @@ namespace wmoge {
 
         const std::pair<const char*, const char*> sources_vk[] = {
                 {source_aux_draw_manager_vk450_vert, source_aux_draw_manager_vk450_frag},
-                {source_aux_draw_canvas_vk450_vert, source_aux_draw_canvas_vk450_frag}};
+                {source_aux_draw_canvas_vk450_vert, source_aux_draw_canvas_vk450_frag},
+                {source_base_vk450_vert, source_base_vk450_frag}};
 
         const std::pair<const char*, const char*> sources_gl[] = {
                 {source_aux_draw_manager_gl410_vert, source_aux_draw_manager_gl410_frag},
-                {source_aux_draw_canvas_gl410_vert, source_aux_draw_canvas_gl410_frag}};
+                {source_aux_draw_canvas_gl410_vert, source_aux_draw_canvas_gl410_frag},
+                {source_base_gl410_vert, source_base_gl410_frag}};
 
         const StringId names[] = {
                 SID("aux_draw_manager"),
-                SID("aux_draw_canvas")};
+                SID("aux_draw_canvas"),
+                SID("base")};
 
         const int num_shaders = int(std::size(names));
 

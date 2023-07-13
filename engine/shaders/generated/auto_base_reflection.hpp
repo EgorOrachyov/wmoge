@@ -38,23 +38,20 @@
 
 namespace wmoge {
 
-    struct ShaderAuxDrawCanvas {
-        static constexpr const char NAME[]       = "aux_draw_canvas";
-        static constexpr const char CLS[]        = "AuxDrawCanvas";
+    struct ShaderBase {
+        static constexpr const char NAME[]       = "base";
+        static constexpr const char CLS[]        = "Base";
         static constexpr int        NUM_FILES    = 2;
         static constexpr int        NUM_CONSTS   = 0;
-        static constexpr int        NUM_SAMPLERS = 1;
+        static constexpr int        NUM_SAMPLERS = 0;
         static constexpr int        NUM_BUFFERS  = 1;
 
-        static constexpr const int  TEXTURE_SET    = 0;
-        static constexpr const int  TEXTURE_SLOT   = 1;
-        static constexpr const auto TEXTURE_LOC    = GfxLocation{0, 1};
-        static constexpr const char TEXTURE_NAME[] = "Texture";
-
         struct Params {
-            Mat4x4f clip_proj_screen;
-            float   gamma;
+            Mat4x4f mat_clip_proj_view;
             float   inverse_gamma;
+            float   mix_weight_1;
+            float   mix_weight_2;
+            float   mix_weight_3;
         };
 
         static constexpr const int  PARAMS_SET    = 0;

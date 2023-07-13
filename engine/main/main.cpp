@@ -229,7 +229,7 @@ namespace wmoge {
                 return false;
             }));
 
-            WG_LOG_INFO("setup exit on primary window close");
+            WG_LOG_INFO("configure exit on primary window close");
         }
 
         m_time_point = clock::now();
@@ -284,6 +284,8 @@ namespace wmoge {
 
         // Render debug canvas
         m_canvas_2d_debug->render();
+
+        engine->application()->on_update();
 
         // Finish frame, submitting commands
         // after this point no rendering on GPU is allowed

@@ -39,7 +39,7 @@ namespace wmoge {
      * @brief Single component of a pfx effect with particles
      *
      * Component represent a single distinct collection of particles with
-     * the same attributes setup controlled by fixed features set, stored
+     * the same attributes configure controlled by fixed features set, stored
      * inside this component.
      *
      * Each component inside running pfx effect gets its own pfx storage.

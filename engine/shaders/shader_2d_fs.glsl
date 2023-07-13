@@ -16,7 +16,7 @@ void main() {
 
     fragment(params);
 
-#ifdef GAMMA_CORRECTION
+    #ifdef GAMMA_CORRECTION
     out_color = srgb_to_linear(params.result_color);
-#endif
+    #endif
 }

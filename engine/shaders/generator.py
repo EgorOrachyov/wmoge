@@ -309,6 +309,8 @@ def process_file(file_path, included):
             continue
         if line.startswith('/*'):
             continue
+        if line.startswith('#version'):
+            continue
         if line.startswith('#include '):
             include_file = line.replace('#include ', '').replace('"', '').replace('\n', '')
             if include_file not in included:

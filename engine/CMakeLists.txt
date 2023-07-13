@@ -158,6 +158,10 @@ add_library(wmoge STATIC
         gfx/vulkan/vk_vert_format.hpp
         gfx/vulkan/vk_window.cpp
         gfx/vulkan/vk_window.hpp
+        hgfx/hgfx_pass.cpp
+        hgfx/hgfx_pass.hpp
+        hgfx/hgfx_pass_base.cpp
+        hgfx/hgfx_pass_base.hpp
         io/archive.cpp
         io/archive.hpp
         io/archive_file.cpp

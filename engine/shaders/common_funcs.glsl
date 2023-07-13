@@ -18,9 +18,9 @@ vec3 linear_to_srgb(in vec3 color, in float inverse_gamma) {
 }
 
 vec2 unpack_uv(in vec2 uv) {
-#ifdef TARGET_VULKAN
+    #ifdef TARGET_VULKAN
     return vec2(uv.x, 1.0f - uv.y);
-#else
+    #else
     return uv;
-#endif
+    #endif
 }

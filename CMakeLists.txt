@@ -199,4 +199,4 @@ add_subdirectory(template)
 ###########################################################
 # Engine example game projects
 
-add_subdirectory(games)
+# add_subdirectory(games)

@@ -157,6 +157,7 @@ namespace wmoge {
 #define WG_AUTO_PROFILE_PLATFORM(label)       WG_AUTO_PROFILE(platform, label)
 #define WG_AUTO_PROFILE_GLFW(label)           WG_AUTO_PROFILE(glfw, label)
 #define WG_AUTO_PROFILE_GFX(label)            WG_AUTO_PROFILE(gfx, label)
+#define WG_AUTO_PROFILE_HGFX(label)           WG_AUTO_PROFILE(hgfx, label)
 #define WG_AUTO_PROFILE_VULKAN(label)         WG_AUTO_PROFILE(vulkan, label)
 #define WG_AUTO_PROFILE_IO(label)             WG_AUTO_PROFILE(io, label)
 #define WG_AUTO_PROFILE_RESOURCE(label)       WG_AUTO_PROFILE(resource, label)

@@ -19,10 +19,10 @@ in vec2 in_uv;
 #endif
 
 void main() {
-#ifdef AUX_DRAW_GEOM
+    #ifdef AUX_DRAW_GEOM
     fs_color = vec4(linear_to_srgb(in_color, inverse_gamma), 1.0f);
-#endif
-#ifdef AUX_DRAW_TEXT
+    #endif
+    #ifdef AUX_DRAW_TEXT
     fs_color = vec4(linear_to_srgb(in_color, inverse_gamma), texture(FontBitmap, in_uv).r);
-#endif
+    #endif
 }

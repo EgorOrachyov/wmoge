@@ -78,6 +78,9 @@ namespace wmoge {
         Var(std::vector<Var> value);
         Var(std::map<Var, Var> value);
 
+        template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
+        Var(T enum_value) : Var(static_cast<int>(enum_value)) {}
+
         Var(const Var& var);
         Var(Var&& var) noexcept;
         ~Var();

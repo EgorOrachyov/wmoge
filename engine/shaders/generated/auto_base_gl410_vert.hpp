@@ -38,29 +38,64 @@
 
 namespace wmoge {
 
-    struct ShaderAuxDrawCanvas {
-        static constexpr const char NAME[]       = "aux_draw_canvas";
-        static constexpr const char CLS[]        = "AuxDrawCanvas";
-        static constexpr int        NUM_FILES    = 2;
-        static constexpr int        NUM_CONSTS   = 0;
-        static constexpr int        NUM_SAMPLERS = 1;
-        static constexpr int        NUM_BUFFERS  = 1;
+    static const char source_base_gl410_vert[] = R"(
+layout (std140) uniform Params {
+mat4 mat_clip_proj_view;
+float inverse_gamma;
+float mix_weight_1;
+float mix_weight_2;
+float mix_weight_3;
+};
 
-        static constexpr const int  TEXTURE_SET    = 0;
-        static constexpr const int  TEXTURE_SLOT   = 1;
-        static constexpr const auto TEXTURE_LOC    = GfxLocation{0, 1};
-        static constexpr const char TEXTURE_NAME[] = "Texture";
 
-        struct Params {
-            Mat4x4f clip_proj_screen;
-            float   gamma;
-            float   inverse_gamma;
-        };
+#define TARGET_VULKAN
+#if defined(TARGET_VULKAN)
+#define LAYOUT_LOCATION(idx) layout(location = idx)
+#else
+#define LAYOUT_LOCATION(idx)
+#endif
+#if defined(TARGET_VULKAN)
+#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(set = set_idx, binding = binding_idx, fields_layout)
+#else
+#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(fields_layout)
+#endif
+#if defined(TARGET_VULKAN)
+#define LAYOUT_SAMPLER(set_idx, binding_idx) layout(set = set_idx, binding = binding_idx)
+#else
+#define LAYOUT_SAMPLER(set_idx, binding_idx)
+#endif
+//@ in vec3 inPos3f;
+//@ in vec3 inCol04f;
+//@ in vec3 inCol14f;
+//@ in vec3 inCol24f;
+//@ in vec3 inCol34f;
+#ifdef ATTRIB_Col04f
+LAYOUT_LOCATION(0) out vec4 fsCol04f;
+#endif
+#ifdef ATTRIB_Col14f
+LAYOUT_LOCATION(1) out vec4 fsCol14f;
+#endif
+#ifdef ATTRIB_Col24f
+LAYOUT_LOCATION(2) out vec4 fsCol24f;
+#endif
+#ifdef ATTRIB_Col34f
+LAYOUT_LOCATION(3) out vec4 fsCol34f;
+#endif
+void main() {
+    #ifdef ATTRIB_Col04f
+    fsCol04f = inCol04f;
+    #endif
+    #ifdef ATTRIB_Col14f
+    fsCol14f = inCol14f;
+    #endif
+    #ifdef ATTRIB_Col24f
+    fsCol24f = inCol24f;
+    #endif
+    #ifdef ATTRIB_Col34f
+    fsCol34f = inCol34f;
+    #endif
+    gl_Position = mat_clip_proj_view * vec4(inPos3f, 1.0f);
+}
 
-        static constexpr const int  PARAMS_SET    = 0;
-        static constexpr const int  PARAMS_SLOT   = 0;
-        static constexpr const auto PARAMS_LOC    = GfxLocation{0, 0};
-        static constexpr const char PARAMS_NAME[] = "Params";
-    };
-
-}// namespace wmoge
+)";
+}
