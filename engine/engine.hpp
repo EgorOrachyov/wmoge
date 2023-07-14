@@ -98,6 +98,7 @@
 
 #include "hgfx/hgfx_pass.hpp"
 #include "hgfx/hgfx_pass_base.hpp"
+#include "hgfx/hgfx_pass_text.hpp"
 
 #include "io/archive.hpp"
 #include "io/archive_file.hpp"

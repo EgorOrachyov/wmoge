@@ -90,85 +90,84 @@ public:
             return false;
         }));
 
+        mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
+
         WG_LOG_INFO("init");
     }
 
     void on_update() override {
         WG_AUTO_PROFILE(app, "GameApplication::on_update");
 
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_driver = engine->gfx_driver();
-        GfxCtx*    gfx_ctx    = engine->gfx_ctx();
+        Engine*         engine           = Engine::instance();
+        GfxCtx*         gfx_ctx          = engine->gfx_ctx();
+        AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();
+        WindowManager*  window_manager   = engine->window_manager();
 
         static float angle = 0.0f;
 
-        angle += 0.01f;
+        angle += 0.007f;
 
-        auto proj  = Math3d::perspective(Math::deg_to_rad(90.0f), 1280.0f / 720.0f, 0.1f, 10000.0f);
-        auto view  = Math3d::look_at({0, 0, 3}, {0, 0, -1}, {0, 1, 0});
-        auto model = Math3d::rotate_y(angle);
+        auto viewport = Rect2i{0, 0, window_manager->primary_window()->fbo_width(), window_manager->primary_window()->fbo_height()};
+        auto proj     = Math3d::perspective(Math::deg_to_rad(90.0f), 1280.0f / 720.0f, 0.1f, 10000.0f);
+        auto view     = Math3d::look_at({0, 0, 10}, {0, 0, -1}, {0, 1, 0});
+        auto model    = Math3d::rotate_y(angle) * Math3d::scale(Vec3f(0.5, 0.5, 0.5));
 
-        struct Element {
-            Vec3f pos;
-            Vec4f col0;
-            Vec4f col1;
-        };
+        if (Random::next_float() < engine->get_delta_time()) {
+            Vec3f   pos      = {Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5)};
+            Color4f color    = {Random::next_float_in_range(0.2f, 1), Random::next_float_in_range(0.2f, 1), Random::next_float_in_range(0.2f, 1), 1};
+            Quatf   rot      = {Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5)};
+            bool    solid    = Random::next_float() < 0.5f;
+            float   lifetime = Random::next_float_in_range(5, 10);
 
-        auto verts   = gfx_driver->dyn_vert_buffer()->allocate_n<Element>(3);
-        verts.ptr[0] = {{-1, 1, 0}, {1, 1, 1, 1}, {1, 0, 0, 1}};
-        verts.ptr[1] = {{-1, -1, 0}, {1, 1, 1, 1}, {1, 0, 0, 1}};
-        verts.ptr[2] = {{1, -1, 0}, {1, 1, 1, 1}, {1, 0, 0, 1}};
-        verts.ptr[3] = {{1, 1, 0}, {1, 1, 1, 1}, {1, 0, 0, 1}};
-        gfx_driver->dyn_vert_buffer()->flush();
+            aux_draw_manager->draw_box(pos, {1, 1, 1}, color, rot, solid, lifetime);
+            aux_draw_manager->draw_line(pos, pos + Vec3f(0, 1.8f, 0), Color::WHITE4f, lifetime);
+            aux_draw_manager->draw_text_3d("box", pos + Vec3f(0, 2, 0), 10.0f, Color::RED4f, lifetime);
+        }
 
-        auto indices   = gfx_driver->dyn_index_buffer()->allocate_n<std::uint16_t>(6);
-        indices.ptr[0] = 0;
-        indices.ptr[1] = 1;
-        indices.ptr[2] = 2;
-        indices.ptr[3] = 2;
-        indices.ptr[4] = 3;
-        indices.ptr[5] = 0;
-        gfx_driver->dyn_index_buffer()->flush();
+        aux_draw_manager->draw_text_2d("wmoge engine v0.0", {10, 10}, 15.0f, Color::YELLOW4f);
+
+        aux_draw_manager->render(engine->window_manager()->primary_window(), viewport, proj * view, {1280, 720});
+        aux_draw_manager->flush(engine->get_delta_time());
 
         HgfxPassBase pass_solid;
-        pass_solid.name           = SID("quad-solid");
-        pass_solid.mix_weights[0] = 0.0f;
-        pass_solid.poly_mode      = GfxPolyMode::Fill;
-        pass_solid.out_srgb       = true;
-        pass_solid.gamma          = 2.2f;
-        pass_solid.mat_proj_view  = proj * view * model;
-        pass_solid.attribs        = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        pass_solid.depth_enable   = false;
+        pass_solid.name          = SID("mesh-solid");
+        pass_solid.base_color    = Color::WHITE4f;
+        pass_solid.poly_mode     = GfxPolyMode::Fill;
+        pass_solid.out_srgb      = true;
+        pass_solid.mat_proj_view = proj * view * model;
+        pass_solid.attribs_req   = {GfxVertAttrib::Pos3f};
+        pass_solid.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Norm3f};
         pass_solid.compile(gfx_ctx);
 
         HgfxPassBase pass_border;
-        pass_border.name           = SID("quad-border");
-        pass_border.mix_weights[0] = 1.0f;
-        pass_border.poly_mode      = GfxPolyMode::Line;
-        pass_border.out_srgb       = true;
-        pass_border.gamma          = 2.2f;
-        pass_border.mat_proj_view  = proj * view * model;
-        pass_border.attribs        = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        pass_border.depth_enable   = false;
+        pass_border.name          = SID("mesh-border");
+        pass_border.base_color    = Color::RED4f;
+        pass_border.poly_mode     = GfxPolyMode::Line;
+        pass_border.out_srgb      = true;
+        pass_border.mat_proj_view = proj * view * model;
+        pass_border.attribs_req   = {GfxVertAttrib::Pos3f};
+        pass_border.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Norm3f};
         pass_border.compile(gfx_ctx);
 
         gfx_ctx->begin_render_pass({}, SID("quad"));
         {
             gfx_ctx->bind_target(engine->window_manager()->primary_window());
-            gfx_ctx->clear(0, Color::BLACK4f);
-            gfx_ctx->clear(1.0f, 0);
-            gfx_ctx->viewport(Rect2i{0, 0, 1280, 720});
+            gfx_ctx->viewport(viewport);
+
+            auto draw_mesh = [&]() {
+                gfx_ctx->bind_vert_buffer(mesh->get_gfx_vertex_buffer(0), 0, 0);
+
+                for (auto& chunk : mesh->get_chunks()) {
+                    gfx_ctx->bind_index_buffer(mesh->get_gfx_index_buffer(), wmoge::GfxIndexType::Uint32, chunk.index_offset);
+                    gfx_ctx->draw_indexed(chunk.index_count, 0, 1);
+                }
+            };
 
             if (pass_solid.configure(gfx_ctx)) {
-                gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(verts.buffer), 0, verts.offset);
-                gfx_ctx->bind_index_buffer(Ref<GfxIndexBuffer>(indices.buffer), GfxIndexType::Uint16, indices.offset);
-                gfx_ctx->draw_indexed(6, 0, 1);
+                draw_mesh();
             }
-
             if (pass_border.configure(gfx_ctx)) {
-                gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(verts.buffer), 0, verts.offset);
-                gfx_ctx->bind_index_buffer(Ref<GfxIndexBuffer>(indices.buffer), GfxIndexType::Uint16, indices.offset);
-                gfx_ctx->draw_indexed(6, 0, 1);
+                draw_mesh();
             }
         }
         gfx_ctx->end_render_pass();
@@ -199,9 +198,13 @@ public:
             world.execute_system(system);
         }
 
+        mesh.reset();
+
         Application::on_shutdown();
         WG_LOG_INFO("shutdown");
     }
+
+    Ref<Mesh> mesh;
 };
 
 int main(int argc, const char* const* argv) {

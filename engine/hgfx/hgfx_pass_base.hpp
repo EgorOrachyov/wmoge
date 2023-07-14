@@ -32,6 +32,8 @@
 
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "math/color.hpp"
+#include "math/math_utils3d.hpp"
 
 namespace wmoge {
 
@@ -44,18 +46,20 @@ namespace wmoge {
         WG_OBJECT(HgfxPassBase, HgfxPass);
 
         StringId         name;
-        GfxVertAttribs   attribs      = {GfxVertAttrib::Pos3f};
-        GfxPrimType      prim_type    = GfxPrimType::Triangles;
-        GfxPolyMode      poly_mode    = GfxPolyMode::Fill;
-        GfxPolyCullMode  cull_mode    = GfxPolyCullMode::Disabled;
-        GfxPolyFrontFace front_face   = GfxPolyFrontFace::CounterClockwise;
-        int              depth_enable = true;
-        int              depth_write  = true;
-        GfxCompFunc      depth_func   = GfxCompFunc::Less;
-        bool             out_srgb     = false;
-        bool             no_alpha     = true;
-        Mat4x4f          mat_proj_view;
-        float            gamma;
+        GfxVertAttribs   attribs_req    = {GfxVertAttrib::Pos3f};
+        GfxVertAttribs   attribs_full   = {GfxVertAttrib::Pos3f};
+        GfxPrimType      prim_type      = GfxPrimType::Triangles;
+        GfxPolyMode      poly_mode      = GfxPolyMode::Fill;
+        GfxPolyCullMode  cull_mode      = GfxPolyCullMode::Disabled;
+        GfxPolyFrontFace front_face     = GfxPolyFrontFace::CounterClockwise;
+        int              depth_enable   = true;
+        int              depth_write    = true;
+        GfxCompFunc      depth_func     = GfxCompFunc::Less;
+        bool             out_srgb       = false;
+        bool             no_alpha       = true;
+        Mat4x4f          mat_proj_view  = Math3d::identity();
+        Vec4f            base_color     = Color::WHITE4f;
+        float            gamma          = 2.2f;
         float            mix_weights[3] = {0, 0, 0};
 
         bool compile(GfxCtx* gfx_ctx) override;

@@ -162,6 +162,8 @@ add_library(wmoge STATIC
         hgfx/hgfx_pass.hpp
         hgfx/hgfx_pass_base.cpp
         hgfx/hgfx_pass_base.hpp
+        hgfx/hgfx_pass_text.cpp
+        hgfx/hgfx_pass_text.hpp
         io/archive.cpp
         io/archive.hpp
         io/archive_file.cpp

@@ -38,14 +38,15 @@
 
 namespace wmoge {
 
-    static const char source_base_vk450_frag[] = R"(
-layout (set = 0, binding = 0, std140) uniform Params {
-mat4 mat_clip_proj_view;
-vec4 base_color;
+    static const char source_text_gl410_vert[] = R"(
+uniform sampler2D FontTexture;
+
+layout (std140) uniform Params {
+mat4 mat_clip_proj_screen;
 float inverse_gamma;
-float mix_weight_1;
-float mix_weight_2;
-float mix_weight_3;
+float __pad_1;
+float __pad_2;
+float __pad_3;
 };
 
 
@@ -78,42 +79,25 @@ vec2 unpack_uv(in vec2 uv) {
     return uv;
     #endif
 }
-layout (location = 0) out vec4 out_color;
-#ifdef ATTRIB_Col04f
-LAYOUT_LOCATION(0) in vec4 fsCol04f;
+//@ in vec3 inPos3f;
+//@ in vec4 inCol04f;
+//@ in vec2 inUv02f;
+#ifndef ATTRIB_Pos3f
+#error "Pos attribute must be defined"
 #endif
-#ifdef ATTRIB_Col14f
-LAYOUT_LOCATION(1) in vec4 fsCol14f;
+#ifndef ATTRIB_Col04f
+#error "Col attribute must be defined"
 #endif
-#ifdef ATTRIB_Col24f
-LAYOUT_LOCATION(2) in vec4 fsCol24f;
+#ifndef ATTRIB_Uv02f
+#error "Uv attribute must be defined"
 #endif
-#ifdef ATTRIB_Col34f
-LAYOUT_LOCATION(3) in vec4 fsCol34f;
-#endif
+LAYOUT_LOCATION(0) out vec4 fsCol04f;
+LAYOUT_LOCATION(1) out vec2 fsUv02f;
 void main() {
-    vec4 result_color = base_color;
-    #ifdef ATTRIB_Col04f
-    result_color = fsCol04f;
-    #endif
-    #ifdef ATTRIB_Col14f
-    result_color = mix(result_color, fsCol14f, mix_weight_1);
-    #endif
-    #ifdef ATTRIB_Col24f
-    result_color = mix(result_color, fsCol24f, mix_weight_2);
-    #endif
-    #ifdef ATTRIB_Col34f
-    result_color = mix(result_color, fsCol34f, mix_weight_3);
-    #endif
-    #ifdef OUT_SRGB
-    result_color.rgb = linear_to_srgb(result_color.rgb, inverse_gamma);
-    #endif
-    #ifdef NO_ALPHA
-    result_color.a = 1.0f;
-    #endif
-    out_color = result_color;
+    fsCol04f = inCol04f;
+    fsUv02f = unpack_uv(inUv02f);
+    gl_Position = mat_clip_proj_screen * vec4(inPos3f, 1.0f);
 }
-
 
 )";
 }

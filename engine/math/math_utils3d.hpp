@@ -202,6 +202,12 @@ namespace wmoge {
                            0.0f, 0.0f, 2.0f / (far - near), (far + near) / (near - far),
                            0.0f, 0.0f, 0.0f, 1.0f);
         }
+
+        static Vec2f project_to_screen(const Mat4x4f& mat, const Vec2f& area, const Vec3f& point) {
+            const Vec4f world_space = mat * Vec4f(point, 1.0f);
+            const Vec4f ndc         = world_space / world_space.w();
+            return area * (Vec2f(ndc.x(), ndc.y()) * 0.5f + Vec2f(0.5f, 0.5f));
+        }
     };
 
 }// namespace wmoge

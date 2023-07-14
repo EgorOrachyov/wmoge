@@ -46,18 +46,18 @@
 // built-in opengl shaders
 #include "shaders/generated/auto_aux_draw_canvas_gl410_frag.hpp"
 #include "shaders/generated/auto_aux_draw_canvas_gl410_vert.hpp"
-#include "shaders/generated/auto_aux_draw_manager_gl410_frag.hpp"
-#include "shaders/generated/auto_aux_draw_manager_gl410_vert.hpp"
 #include "shaders/generated/auto_base_gl410_frag.hpp"
 #include "shaders/generated/auto_base_gl410_vert.hpp"
+#include "shaders/generated/auto_text_gl410_frag.hpp"
+#include "shaders/generated/auto_text_gl410_vert.hpp"
 
 // built-in vulkan shaders
 #include "shaders/generated/auto_aux_draw_canvas_vk450_frag.hpp"
 #include "shaders/generated/auto_aux_draw_canvas_vk450_vert.hpp"
-#include "shaders/generated/auto_aux_draw_manager_vk450_frag.hpp"
-#include "shaders/generated/auto_aux_draw_manager_vk450_vert.hpp"
 #include "shaders/generated/auto_base_vk450_frag.hpp"
 #include "shaders/generated/auto_base_vk450_vert.hpp"
+#include "shaders/generated/auto_text_vk450_frag.hpp"
+#include "shaders/generated/auto_text_vk450_vert.hpp"
 
 namespace wmoge {
 
@@ -400,19 +400,19 @@ namespace wmoge {
         GfxShaderLang gfx_lang   = gfx_driver->shader_lang();
 
         const std::pair<const char*, const char*> sources_vk[] = {
-                {source_aux_draw_manager_vk450_vert, source_aux_draw_manager_vk450_frag},
                 {source_aux_draw_canvas_vk450_vert, source_aux_draw_canvas_vk450_frag},
-                {source_base_vk450_vert, source_base_vk450_frag}};
+                {source_base_vk450_vert, source_base_vk450_frag},
+                {source_text_vk450_vert, source_text_vk450_frag}};
 
         const std::pair<const char*, const char*> sources_gl[] = {
-                {source_aux_draw_manager_gl410_vert, source_aux_draw_manager_gl410_frag},
                 {source_aux_draw_canvas_gl410_vert, source_aux_draw_canvas_gl410_frag},
-                {source_base_gl410_vert, source_base_gl410_frag}};
+                {source_base_gl410_vert, source_base_gl410_frag},
+                {source_text_gl410_vert, source_text_gl410_frag}};
 
         const StringId names[] = {
-                SID("aux_draw_manager"),
                 SID("aux_draw_canvas"),
-                SID("base")};
+                SID("base"),
+                SID("text")};
 
         const int num_shaders = int(std::size(names));
 

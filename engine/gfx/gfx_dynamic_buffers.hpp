@@ -137,6 +137,11 @@ namespace wmoge {
         GfxDynVertBuffer(int size, int alignment, const StringId& name);
         ~GfxDynVertBuffer() override = default;
 
+        GfxDynAllocation<GfxVertBuffer, void> allocate(int bytes_to_allocate) {
+            auto allocation = allocate_base(bytes_to_allocate);
+            return {(GfxVertBuffer*) allocation.buffer, allocation.ptr, allocation.offset};
+        }
+
         template<typename BufferStructure>
         GfxDynAllocation<GfxVertBuffer, BufferStructure> allocate() {
             return allocate_base<GfxVertBuffer, BufferStructure>();

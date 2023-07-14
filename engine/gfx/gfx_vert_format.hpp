@@ -100,11 +100,22 @@ namespace wmoge {
         Vec2f pos;
         Vec3f col;
     };
+    struct GfxVF_Pos3Col4 {
+        Vec3f pos;
+        Vec4f col;
+    };
+    struct GfxVF_Pos3Col4Uv2 {
+        Vec3f pos;
+        Vec4f col;
+        Vec2f uv;
+    };
 
     static_assert(sizeof(GfxVF_Pos2Uv2Col3) == 7 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos3Col3) == 6 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos2Uv2Col4) == 8 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos2Col3) == 5 * sizeof(float), "unexpected size");
+    static_assert(sizeof(GfxVF_Pos3Col4) == 7 * sizeof(float), "unexpected size");
+    static_assert(sizeof(GfxVF_Pos3Col4Uv2) == 9 * sizeof(float), "unexpected size");
 
 }// namespace wmoge
 

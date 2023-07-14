@@ -7,34 +7,21 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
+#version 450 core
+
 #include "common_funcs.glsl"
 
-#ifdef AUX_DRAW_GEOM
-layout(location = 0) in vec3 in_pos;
-layout(location = 1) in vec3 in_col;
-#endif
-#ifdef AUX_DRAW_TEXT
-layout(location = 0) in vec2 in_pos;
-layout(location = 1) in vec2 in_uv;
-layout(location = 2) in vec3 in_col;
-#endif
+layout (location = 0) out vec4 out_color;
 
-LAYOUT_LOCATION(0)
-out vec3 out_color;
-#ifdef AUX_DRAW_TEXT
-LAYOUT_LOCATION(1)
-out vec2 out_uv;
-#endif
+LAYOUT_LOCATION(0) in vec4 fsCol04f;
+LAYOUT_LOCATION(1) in vec2 fsUv02f;
 
 void main() {
-    out_color = in_col;
+    vec4 result_color = vec4(fsCol04f.rgb, fsCol04f.a * texture(FontTexture, fsUv02f).r);
 
-    #ifdef AUX_DRAW_GEOM
-    gl_Position = clip_proj_view * vec4(in_pos, 1.0f);
+    #ifdef OUT_SRGB
+    result_color.rgb = linear_to_srgb(result_color.rgb, inverse_gamma);
     #endif
 
-    #ifdef AUX_DRAW_TEXT
-    out_uv      = unpack_uv(in_uv);
-    gl_Position = clip_proj_screen * vec4(in_pos, 0.0f, 1.0f);
-    #endif
+    out_color = result_color;
 }

@@ -25,43 +25,70 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "debug_layer.hpp"
+#include "hgfx_pass_text.hpp"
 
+#include "core/class.hpp"
 #include "core/engine.hpp"
-#include "debug/console.hpp"
 #include "debug/profiler.hpp"
-#include "platform/window.hpp"
-#include "platform/window_manager.hpp"
-#include "render/aux_draw_canvas.hpp"
-#include "render/aux_draw_manager.hpp"
+#include "math/math_utils3d.hpp"
+#include "render/shader_manager.hpp"
+#include "shaders/generated/auto_text_reflection.hpp"
 
 namespace wmoge {
 
-    void DebugLayer::on_start_frame() {
-        WG_AUTO_PROFILE_DEBUG("DebugLayer::on_start_frame");
+    bool HgfxPassText::compile(GfxCtx* gfx_ctx) {
+        WG_AUTO_PROFILE_HGFX("HgfxPassText::compile");
 
-        auto engine           = Engine::instance();
-        auto window           = engine->window_manager()->primary_window();
-        auto canvas_debug     = engine->canvas_2d_debug();
-        auto aux_draw_manager = engine->aux_draw_manager();
+        Engine*        engine         = Engine::instance();
+        ShaderManager* shader_manager = engine->shader_manager();
+        GfxDriver*     gfx_driver     = engine->gfx_driver();
 
-        canvas_debug->set_window(window);
-        canvas_debug->set_viewport(Rect2i{0, 0, window->fbo_width(), window->fbo_height()});
-        canvas_debug->set_screen_size(Vec2f(1280, 720));
+        fast_vector<std::string> defines;
+        if (out_srgb) defines.push_back("OUT_SRGB");
+
+        GfxVertAttribs        attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
+        GfxVertAttribsStreams streams = {attribs};
+
+        GfxVertElements elements;
+        elements.add_vert_attribs(attribs, attribs, 0, false);
+
+        GfxPipelineState pipeline_state{};
+        pipeline_state.shader      = shader_manager->get_shader(SID("text"), streams, defines);
+        pipeline_state.vert_format = gfx_driver->make_vert_format(elements, name);
+        pipeline_state.blending    = true;
+
+        m_pipeline = gfx_driver->make_pipeline(pipeline_state, name);
+
+        ShaderText::Params params;
+        params.mat_clip_proj_screen = (gfx_driver->clip_matrix() * Math3d::orthographic(0.0f, screen_size.x(), 0, screen_size.y(), -1000.0f, 1000.0f)).transpose();
+        params.inverse_gamma        = 1.0f / gamma;
+
+        m_buffer_setup = gfx_driver->uniform_pool()->allocate(params);
+
+        return true;
     }
-    void DebugLayer::on_debug_draw() {
-        WG_AUTO_PROFILE_DEBUG("DebugLayer::on_debug_draw");
 
-        auto engine           = Engine::instance();
-        auto canvas_debug     = engine->canvas_2d_debug();
-        auto aux_draw_manager = engine->aux_draw_manager();
-        auto console          = engine->console();
+    bool HgfxPassText::configure(GfxCtx* gfx_ctx) {
+        WG_AUTO_PROFILE_HGFX("HgfxPassText::configure");
 
-        console->update();
+        if (gfx_ctx->bind_pipeline(m_pipeline)) {
+            gfx_ctx->bind_uniform_buffer(ShaderText::PARAMS_LOC, m_buffer_setup.offset, m_buffer_setup.range, Ref<GfxUniformBuffer>(m_buffer_setup.buffer));
+            gfx_ctx->bind_texture(ShaderText::FONTTEXTURE_LOC, 0, font_texture, font_sampler);
+            return true;
+        }
 
-        canvas_debug->set_fill_color(Color::BLACK4f);
-        canvas_debug->draw_filled_rect({0, 0}, {1280, 720});
-        console->render();
+        return false;
+    }
+
+    StringId HgfxPassText::get_pass_name() {
+        return name;
+    }
+    HgfxPassType HgfxPassText::get_pass_type() {
+        return HgfxPassType::Default;
+    }
+
+    void HgfxPassText::register_class() {
+        auto* cls = Class::register_class<HgfxPassText>();
     }
 
 }// namespace wmoge

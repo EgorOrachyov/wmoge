@@ -7,22 +7,31 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
+#version 450 core
+
 #include "common_funcs.glsl"
 
-layout(location = 0) out vec4 fs_color;
+//@ in vec3 inPos3f;
+//@ in vec4 inCol04f;
+//@ in vec2 inUv02f;
 
-LAYOUT_LOCATION(0)
-in vec3 in_color;
-#ifdef AUX_DRAW_TEXT
-LAYOUT_LOCATION(1)
-in vec2 in_uv;
+#ifndef ATTRIB_Pos3f
+#error "Pos attribute must be defined"
 #endif
 
+#ifndef ATTRIB_Col04f
+#error "Col attribute must be defined"
+#endif
+
+#ifndef ATTRIB_Uv02f
+#error "Uv attribute must be defined"
+#endif
+
+LAYOUT_LOCATION(0) out vec4 fsCol04f;
+LAYOUT_LOCATION(1) out vec2 fsUv02f;
+
 void main() {
-    #ifdef AUX_DRAW_GEOM
-    fs_color = vec4(linear_to_srgb(in_color, inverse_gamma), 1.0f);
-    #endif
-    #ifdef AUX_DRAW_TEXT
-    fs_color = vec4(linear_to_srgb(in_color, inverse_gamma), texture(FontBitmap, in_uv).r);
-    #endif
+    fsCol04f = inCol04f;
+    fsUv02f = unpack_uv(inUv02f);
+    gl_Position = mat_clip_proj_screen * vec4(inPos3f, 1.0f);
 }

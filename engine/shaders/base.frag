@@ -30,7 +30,7 @@ LAYOUT_LOCATION(3) in vec4 fsCol34f;
 #endif
 
 void main() {
-    vec4 result_color = vec4(0, 0, 0, 1);
+    vec4 result_color = base_color;
 
     #ifdef ATTRIB_Col04f
     result_color = fsCol04f;

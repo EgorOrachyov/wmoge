@@ -28,20 +28,15 @@
 #ifndef WMOGE_AUX_DRAW_MANAGER_HPP
 #define WMOGE_AUX_DRAW_MANAGER_HPP
 
-#include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_pipeline.hpp"
-#include "gfx/gfx_render_pass.hpp"
-#include "gfx/gfx_shader.hpp"
-#include "gfx/gfx_texture.hpp"
-
-#include "platform/window.hpp"
-#include "resource/font.hpp"
-#include "resource/shader.hpp"
-
 #include "math/mat.hpp"
 #include "math/quat.hpp"
 #include "math/vec.hpp"
+#include "platform/window.hpp"
+#include "resource/font.hpp"
 
+#include <deque>
+#include <memory>
+#include <mutex>
 #include <vector>
 
 namespace wmoge {
@@ -50,76 +45,43 @@ namespace wmoge {
      * @class AuxDrawManager
      * @brief Utility-class for rendering debug geometry and text
      *
-     * Aux draw manager provides a lwo-level possibility to draw basic primitives, shapes,
-     * screen and world text for debug purposes onto final rendered image.
+     * Aux draw manager provides a low-level possibility to draw basic primitives, shapes,
+     * screen and world text for debug purposes onto final rendered image. Also supports
+     * persistent primitives with desired life-time.
+     *
+     * @note thread-safe
      */
     class AuxDrawManager final {
     public:
+        static constexpr float LIFETIME_ONE_FRAME = 0.0f;
+        static constexpr float LIFETIME_SMALL     = 10.0f;
+        static constexpr float LIFETIME_INFINITY  = 2000000.0f;
+
         AuxDrawManager();
+        ~AuxDrawManager();
 
-        void draw_line(const Vec3f& from, const Vec3f& to, const Color3f& color);
-        void draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color3f& color, bool solid);
-        void draw_sphere(const Vec3f& pos, float radius, const Color3f& color, bool solid = true);
-        void draw_cylinder(const Vec3f& pos, float radius, float height, const Color3f& color, const Quatf& rot, bool solid = true);
-        void draw_cone(const Vec3f& pos, float radius, float height, const Color3f& color, const Quatf& rot, bool solid = true);
-        void draw_box(const Vec3f& pos, const Vec3f& size, const Color3f& color, const Quatf& rot, bool solid = true);
-        void draw_text_3d(const std::string& text, const Vec3f& pos, float size, const Color3f& color);
-        void draw_text_2d(const std::string& text, const Vec2f& pos, float size, const Color3f& color);
+        void draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_sphere(const Vec3f& pos, float radius, const Color4f& color, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_cylinder(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_cone(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_box(const Vec3f& pos, const Vec3f& size, const Color4f& color, const Quatf& rot, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_text_3d(std::string text, const Vec3f& pos, float size, const Color4f& color, float lifetime = LIFETIME_ONE_FRAME);
+        void draw_text_2d(std::string text, const Vec2f& pos, float size, const Color4f& color, float lifetime = LIFETIME_ONE_FRAME);
 
-        void set_window(const Ref<Window>& window);
-        void set_font(const Ref<Font>& font);
-        void set_projection(const Mat4x4f& projection);
-        void set_view(const Mat4x4f& view);
-        void set_viewport(const Rect2i& viewport);
-        void set_screen_size(const Vec2f& size);
+        void render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view, const Vec2f& screen_size);
+        void flush(float delta_time);
 
-        void render();
+        [[nodiscard]] bool is_empty() const;
+        [[nodiscard]] int  get_size() const;
 
     private:
-        static const int MAX_SPLIT_STEP_SPHERE   = 6;
-        static const int MAX_SPLIT_STEP_CONE     = 8;
-        static const int MAX_SPLIT_STEP_CYLINDER = 8;
+        std::vector<std::unique_ptr<struct AuxDrawPrimitive>> m_added;
+        std::deque<std::unique_ptr<struct AuxDrawPrimitive>>  m_storage;
 
-        struct AuxDrawLine {
-            Vec3f   from;
-            Vec3f   to;
-            Color3f color;
-        };
-        struct AuxDrawTriangle {
-            Vec3f   p[3];
-            Color3f color;
-        };
-        struct AuxDrawGlyph {
-            Vec2f   p[4];
-            Vec2f   t[4];
-            Color3f color;
-        };
+        Ref<Font> m_font;
 
-    private:
-        Ref<GfxVertBuffer>           m_gfx_triangles_solid;
-        Ref<GfxVertBuffer>           m_gfx_triangles_wire;
-        Ref<GfxVertBuffer>           m_gfx_lines;
-        Ref<GfxVertBuffer>           m_gfx_glyphs;
-        std::vector<AuxDrawLine>     m_lines;
-        std::vector<AuxDrawTriangle> m_triangles_solid;
-        std::vector<AuxDrawTriangle> m_triangles_wire;
-        std::vector<AuxDrawGlyph>    m_glyphs;
-
-        Ref<GfxUniformBuffer> m_constants;
-        Ref<GfxVertFormat>    m_b0_Pos2Uv2Col3;
-        Ref<GfxVertFormat>    m_b0_Pos3Col3;
-
-        Ref<Window> m_window;
-        Ref<Font>   m_debug_font;
-        Mat4x4f     m_proj;
-        Mat4x4f     m_view;
-        Rect2i      m_viewport;
-        Vec2f       m_screen_size;
-
-        int m_gfx_capacity_triangles_solid = 0;
-        int m_gfx_capacity_triangles_wire  = 0;
-        int m_gfx_capacity_lines           = 0;
-        int m_gfx_capacity_text            = 0;
+        mutable std::mutex m_mutex;
     };
 
 }// namespace wmoge

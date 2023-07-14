@@ -46,11 +46,12 @@ namespace wmoge {
         if (out_srgb) defines.push_back("OUT_SRGB");
         if (no_alpha) defines.push_back("NO_ALPHA");
 
-        assert(attribs.get(GfxVertAttrib::Pos3f));
-        GfxVertAttribsStreams streams = {attribs};
+        assert(attribs_req.get(GfxVertAttrib::Pos3f));
+        assert(attribs_full.get(GfxVertAttrib::Pos3f));
+        GfxVertAttribsStreams streams = {attribs_req};
 
         GfxVertElements elements;
-        elements.add_vert_attribs(attribs, 0, false);
+        elements.add_vert_attribs(attribs_req, attribs_full, 0, false);
 
         GfxPipelineState pipeline_state{};
         pipeline_state.shader       = shader_manager->get_shader(SID("base"), streams, defines);
@@ -68,6 +69,7 @@ namespace wmoge {
 
         ShaderBase::Params params;
         params.mat_clip_proj_view = (gfx_driver->clip_matrix() * mat_proj_view).transpose();
+        params.base_color         = base_color;
         params.inverse_gamma      = 1.0f / gamma;
         params.mix_weight_1       = mix_weights[0];
         params.mix_weight_2       = mix_weights[1];

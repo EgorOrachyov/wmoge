@@ -128,11 +128,11 @@ class CodeGeneratorGlsl(CodeGenerator):
         if element == reflection.TYPE_UINT:
             return "uint"
         if element == reflection.TYPE_VEC2:
-            return "vec2f"
+            return "vec2"
         if element == reflection.TYPE_VEC3:
-            return "vec3f"
+            return "vec3"
         if element == reflection.TYPE_VEC4:
-            return "vec4f"
+            return "vec4"
         if element == reflection.TYPE_IVEC2:
             return "vec2i"
         if element == reflection.TYPE_IVEC3:

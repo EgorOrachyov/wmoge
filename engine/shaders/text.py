@@ -2,8 +2,8 @@ from reflection import *
 
 BINDINGS = BindingAllocator()
 
-SHADER = Shader(name='base',
-                cls='Base',
+SHADER = Shader(name='text',
+                cls='Text',
                 constants=
                 [
 
@@ -11,21 +11,20 @@ SHADER = Shader(name='base',
                 buffers=
                 [
                     UniformBuffer('Params', 'std140', BINDINGS.next(), [
-                        StructField(TYPE_MAT4, 'mat_clip_proj_view'),
-                        StructField(TYPE_VEC4, 'base_color'),
+                        StructField(TYPE_MAT4, 'mat_clip_proj_screen'),
                         StructField(TYPE_FLOAT, 'inverse_gamma'),
-                        StructField(TYPE_FLOAT, 'mix_weight_1'),
-                        StructField(TYPE_FLOAT, 'mix_weight_2'),
-                        StructField(TYPE_FLOAT, 'mix_weight_3')
+                        StructField(TYPE_FLOAT, '__pad_1'),
+                        StructField(TYPE_FLOAT, '__pad_2'),
+                        StructField(TYPE_FLOAT, '__pad_3')
                     ])
                 ],
                 samplers=
                 [
-
+                    Sampler2d('FontTexture', BINDINGS.next())
                 ],
                 files=
                 [
-                    'base.vert',
-                    'base.frag'
+                    'text.vert',
+                    'text.frag'
                 ]
                 )

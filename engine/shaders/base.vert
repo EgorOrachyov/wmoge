@@ -12,10 +12,14 @@
 #include "common_defines.glsl"
 
 //@ in vec3 inPos3f;
-//@ in vec3 inCol04f;
-//@ in vec3 inCol14f;
-//@ in vec3 inCol24f;
-//@ in vec3 inCol34f;
+//@ in vec4 inCol04f;
+//@ in vec4 inCol14f;
+//@ in vec4 inCol24f;
+//@ in vec4 inCol34f;
+
+#ifndef ATTRIB_Pos3f
+#error "Pos attribute must be defined"
+#endif
 
 #ifdef ATTRIB_Col04f
 LAYOUT_LOCATION(0) out vec4 fsCol04f;
