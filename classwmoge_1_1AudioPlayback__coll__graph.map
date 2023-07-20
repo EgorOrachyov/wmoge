@@ -1,0 +1,6 @@
+<map id="wmoge::AudioPlayback" name="wmoge::AudioPlayback">
+<area shape="rect" id="node1" title="An instance of audio stream for playing sound." alt="" coords="137,124,293,151"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,13,116,39"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="141,5,290,47"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="314,13,429,39"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="wmoge::ResourcePak" name="wmoge::ResourcePak">
+<area shape="rect" id="node1" title="Interface for the package of the resources on disc." alt="" coords="38,5,186,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourcePakFileSystem.html" title="Resources pak based on the filesystem resource directory access." alt="" coords="5,80,219,107"/>
+</map>

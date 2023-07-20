@@ -1,0 +1,4 @@
+<map id="wmoge::AudioEngine" name="wmoge::AudioEngine">
+<area shape="rect" id="node1" title="Audio engine interface." alt="" coords="13,5,156,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ALAudioEngine.html" title="OpenAL implementation of audio engine." alt="" coords="5,80,164,107"/>
+</map>

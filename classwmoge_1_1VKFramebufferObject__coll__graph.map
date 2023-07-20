@@ -1,0 +1,7 @@
+<map id="wmoge::VKFramebufferObject" name="wmoge::VKFramebufferObject">
+<area shape="rect" id="node1" title="Raii wrapper for VkFramebuffer object." alt="" coords="31,261,226,288"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="53,171,204,212"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="56,95,201,121"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
+</map>

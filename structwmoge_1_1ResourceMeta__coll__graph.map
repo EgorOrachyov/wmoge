@@ -1,0 +1,6 @@
+<map id="wmoge::ResourceMeta" name="wmoge::ResourceMeta">
+<area shape="rect" id="node1" title="Meta information of a particular resource." alt="" coords="151,95,306,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourcePak.html" title="Interface for the package of the resources on disc." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="177,5,280,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="305,5,419,32"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="wmoge::ScriptSystem" name="wmoge::ScriptSystem">
+<area shape="rect" id="node1" title="Engine script system responsible for scripting features for a game." alt="" coords="5,109,153,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="22,5,137,32"/>
+</map>

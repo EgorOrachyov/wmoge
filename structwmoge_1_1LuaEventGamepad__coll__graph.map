@@ -1,0 +1,8 @@
+<map id="wmoge::LuaEventGamepad" name="wmoge::LuaEventGamepad">
+<area shape="rect" id="node1" title=" " alt="" coords="5,413,187,440"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1LuaEventInput.html" title=" " alt="" coords="19,337,173,364"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1LuaEvent.html" title=" " alt="" coords="33,261,159,288"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="31,185,161,212"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="30,109,162,136"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="21,5,171,47"/>
+</map>

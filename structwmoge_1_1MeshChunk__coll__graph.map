@@ -1,0 +1,5 @@
+<map id="wmoge::MeshChunk" name="wmoge::MeshChunk">
+<area shape="rect" id="node1" title="Represents single mesh chunk in a mesh which can be rendered individually." alt="" coords="92,95,231,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="184,5,299,32"/>
+</map>

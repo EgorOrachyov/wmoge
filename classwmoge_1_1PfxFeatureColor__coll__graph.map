@@ -1,0 +1,6 @@
+<map id="wmoge::PfxFeatureColor" name="wmoge::PfxFeatureColor">
+<area shape="rect" id="node1" title="Controls particles color evolution using some law." alt="" coords="5,229,168,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="20,155,153,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="33,80,141,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="31,5,142,32"/>
+</map>

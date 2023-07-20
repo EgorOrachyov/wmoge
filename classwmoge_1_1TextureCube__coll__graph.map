@@ -1,0 +1,10 @@
+<map id="wmoge::TextureCube" name="wmoge::TextureCube">
+<area shape="rect" id="node1" title="Cube&#45;map gpu texture resource." alt="" coords="793,97,936,124"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="631,97,744,124"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="356,5,481,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="165,5,273,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="344,57,493,98"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="323,122,515,163"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="344,187,493,229"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="wmoge::LuaInputDevice" name="wmoge::LuaInputDevice">
+<area shape="rect" id="node1" title=" " alt="" coords="163,80,324,107"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1LuaJoystick.html" title=" " alt="" coords="5,155,145,181"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1LuaKeyboard.html" title=" " alt="" coords="170,155,317,181"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1LuaMouse.html" title=" " alt="" coords="341,155,471,181"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="177,5,309,32"/>
+</map>

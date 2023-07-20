@@ -1,0 +1,5 @@
+<map id="wmoge::ConsoleCmd" name="wmoge::ConsoleCmd">
+<area shape="rect" id="node1" title="An external command which can be executed from the console." alt="" coords="11,171,155,197"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ConsoleObject.html" title="Base class for any console object." alt="" coords="5,95,160,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="25,5,140,32"/>
+</map>

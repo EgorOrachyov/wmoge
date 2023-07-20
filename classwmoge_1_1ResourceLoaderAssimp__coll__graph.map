@@ -1,0 +1,4 @@
+<map id="wmoge::ResourceLoaderAssimp" name="wmoge::ResourceLoaderAssimp">
+<area shape="rect" id="node1" title="Loader for a mesh an animation data based on assimp library." alt="" coords="5,80,215,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="27,5,193,32"/>
+</map>

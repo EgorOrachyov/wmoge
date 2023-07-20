@@ -1,0 +1,47 @@
+<map id="engine/core/async.hpp" name="engine/core/async.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2839,5,2990,32"/>
+<area shape="rect" id="node2" href="$async_8cpp.html" title=" " alt="" coords="622,80,773,107"/>
+<area shape="rect" id="node3" href="$task_8hpp.html" title=" " alt="" coords="2706,162,2849,189"/>
+<area shape="rect" id="node5" href="$task__runtime_8hpp.html" title=" " alt="" coords="3239,251,3431,278"/>
+<area shape="rect" id="node10" href="$engine_8hpp.html" title=" " alt="" coords="2361,645,2487,672"/>
+<area shape="rect" id="node20" href="$scene__packed_8hpp.html" title=" " alt="" coords="977,534,1130,575"/>
+<area shape="rect" id="node37" href="$resource__manager_8hpp.html" title=" " alt="" coords="2212,333,2380,375"/>
+<area shape="rect" id="node44" href="$task__hnd_8hpp.html" title=" " alt="" coords="2941,80,3112,107"/>
+<area shape="rect" id="node45" href="$task__parallel__for_8hpp.html" title=" " alt="" coords="3130,155,3297,196"/>
+<area shape="rect" id="node4" href="$task_8cpp.html" title=" " alt="" coords="3210,341,3353,367"/>
+<area shape="rect" id="node9" href="$ecs__world_8cpp.html" title=" " alt="" coords="2911,251,3083,278"/>
+<area shape="rect" id="node11" href="$vk__driver_8cpp.html" title=" " alt="" coords="2695,244,2836,285"/>
+<area shape="rect" id="node12" href="$vk__pipeline_8cpp.html" title=" " alt="" coords="2428,244,2569,285"/>
+<area shape="rect" id="node13" href="$pfx__emitter_8hpp.html" title=" " alt="" coords="1288,251,1461,278"/>
+<area shape="rect" id="node6" href="$task__manager_8cpp.html" title=" " alt="" coords="3594,341,3793,367"/>
+<area shape="rect" id="node7" href="$task__parallel__for_8cpp.html" title=" " alt="" coords="3817,333,3983,375"/>
+<area shape="rect" id="node8" href="$task__runtime_8cpp.html" title=" " alt="" coords="3377,341,3569,367"/>
+<area shape="rect" id="node14" href="$pfx__feature__sprite_8cpp.html" title=" " alt="" coords="1537,430,1690,471"/>
+<area shape="rect" id="node15" href="$pfx__component__runtime_8cpp.html" title=" " alt="" coords="1288,333,1461,375"/>
+<area shape="rect" id="node16" href="$pfx__emitter_8cpp.html" title=" " alt="" coords="848,437,1021,464"/>
+<area shape="rect" id="node17" href="$pfx__scene_8hpp.html" title=" " alt="" coords="605,341,773,367"/>
+<area shape="rect" id="node33" href="$pfx__effect_8hpp.html" title=" " alt="" coords="1129,333,1263,375"/>
+<area shape="rect" id="node18" href="$pfx__scene_8cpp.html" title=" " alt="" coords="605,437,773,464"/>
+<area shape="rect" id="node19" href="$scene_8hpp.html" title=" " alt="" coords="419,437,581,464"/>
+<area shape="rect" id="node23" href="$register__classes__scene_8cpp.html" title=" " alt="" coords="805,534,952,575"/>
+<area shape="rect" id="node24" href="$scene_8cpp.html" title=" " alt="" coords="5,645,168,672"/>
+<area shape="rect" id="node25" href="$scene__component_8cpp.html" title=" " alt="" coords="192,638,331,679"/>
+<area shape="rect" id="node26" href="$scene__manager_8hpp.html" title=" " alt="" coords="408,534,547,575"/>
+<area shape="rect" id="node29" href="$scene__object_8cpp.html" title=" " alt="" coords="355,638,493,679"/>
+<area shape="rect" id="node30" href="$lua__bindings__scene_8hpp.html" title=" " alt="" coords="681,631,834,687"/>
+<area shape="rect" id="node32" href="$system__script_8cpp.html" title=" " alt="" coords="622,534,781,575"/>
+<area shape="rect" id="node21" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="1207,638,1369,679"/>
+<area shape="rect" id="node22" href="$scene__packed_8cpp.html" title=" " alt="" coords="858,638,1011,679"/>
+<area shape="rect" id="node27" href="$main_8cpp.html" title=" " alt="" coords="1035,645,1183,672"/>
+<area shape="rect" id="node28" href="$scene__manager_8cpp.html" title=" " alt="" coords="517,638,656,679"/>
+<area shape="rect" id="node31" href="$lua__bindings__scene_8cpp.html" title=" " alt="" coords="681,735,834,791"/>
+<area shape="rect" id="node34" href="$pfx__effect_8cpp.html" title=" " alt="" coords="1046,430,1181,471"/>
+<area shape="rect" id="node35" href="$lua__bindings__resource_8hpp.html" title=" " alt="" coords="1307,423,1461,479"/>
+<area shape="rect" id="node36" href="$lua__bindings__resource_8cpp.html" title=" " alt="" coords="1307,527,1461,583"/>
+<area shape="rect" id="node38" href="$console_8cpp.html" title=" " alt="" coords="2810,437,2982,464"/>
+<area shape="rect" id="node39" href="$aux__draw__manager_8cpp.html" title=" " alt="" coords="1817,430,1975,471"/>
+<area shape="rect" id="node40" href="$material_8cpp.html" title=" " alt="" coords="1999,437,2187,464"/>
+<area shape="rect" id="node41" href="$resource__manager_8cpp.html" title=" " alt="" coords="2212,430,2380,471"/>
+<area shape="rect" id="node42" href="$sprite_8cpp.html" title=" " alt="" coords="2405,437,2579,464"/>
+<area shape="rect" id="node43" href="$texture_8cpp.html" title=" " alt="" coords="2604,437,2785,464"/>
+</map>

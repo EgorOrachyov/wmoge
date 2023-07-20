@@ -1,0 +1,4 @@
+<map id="wmoge::LogEntry" name="wmoge::LogEntry">
+<area shape="rect" id="node1" title="Structure holding info about a single logged message." alt="" coords="5,95,127,121"/>
+<area shape="rect" id="node2" href="$classLogLevel.html" title="Level of a logged message." alt="" coords="28,5,104,32"/>
+</map>

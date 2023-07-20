@@ -1,0 +1,4 @@
+<map id="wmoge::SceneContainerPtr" name="wmoge::SceneContainerPtr">
+<area shape="rect" id="node1" title="Interface to container with weak refs of objects and components." alt="" coords="25,5,203,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TSceneContainerPtr.html" title="Container to store weak references for objects and components." alt="" coords="5,80,223,107"/>
+</map>

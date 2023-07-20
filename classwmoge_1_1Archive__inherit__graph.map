@@ -1,0 +1,8 @@
+<map id="wmoge::Archive" name="wmoge::Archive">
+<area shape="rect" id="node1" title="Serialization and de&#45;serialization archive." alt="" coords="164,81,279,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ArchiveReaderFile.html" title=" " alt="" coords="339,5,515,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ArchiveReaderMemory.html" title="An archive for binary deserialization from a memory buffer." alt="" coords="327,56,528,83"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ArchiveWriterFile.html" title=" " alt="" coords="343,107,512,133"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1ArchiveWriterMemory.html" title="An archive for binary serialization into a memory buffer." alt="" coords="330,157,525,184"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,81,116,108"/>
+</map>

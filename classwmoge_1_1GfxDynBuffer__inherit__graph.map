@@ -1,0 +1,8 @@
+<map id="wmoge::GfxDynBuffer" name="wmoge::GfxDynBuffer">
+<area shape="rect" id="node1" title="Dynamic buffer for frequently changed data." alt="" coords="230,155,377,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxDynIndexBuffer.html" title="Dynamic index buffer for immediate and frequently changed geometry." alt="" coords="5,229,183,256"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1GfxDynUniformBuffer.html" title="Dynamic uniform buffer for constants allocation for rendering." alt="" coords="207,229,399,256"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1GfxDynVertBuffer.html" title="Dynamic vertex buffer for immediate and frequently changed geometry." alt="" coords="423,229,594,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="231,80,376,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="248,5,359,32"/>
+</map>

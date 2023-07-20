@@ -1,0 +1,5 @@
+<map id="wmoge::LuaScriptSystem" name="wmoge::LuaScriptSystem">
+<area shape="rect" id="node1" title="Lua language based script system of the engine." alt="" coords="5,185,176,212"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ScriptSystem.html" title="Engine script system responsible for scripting features for a game." alt="" coords="17,109,165,136"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="33,5,148,32"/>
+</map>

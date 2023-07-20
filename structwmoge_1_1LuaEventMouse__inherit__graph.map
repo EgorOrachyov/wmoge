@@ -1,0 +1,7 @@
+<map id="wmoge::LuaEventMouse" name="wmoge::LuaEventMouse">
+<area shape="rect" id="node1" title=" " alt="" coords="5,304,169,331"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1LuaEventInput.html" title=" " alt="" coords="10,229,165,256"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1LuaEvent.html" title=" " alt="" coords="25,155,150,181"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="22,80,153,107"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="21,5,153,32"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="wmoge::ShaderManager::ShaderData" name="wmoge::ShaderManager::ShaderData">
+<area shape="rect" id="node1" title="Entry holding data of a particular shader." alt="" coords="173,109,334,151"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="179,5,328,47"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="352,13,467,39"/>
+</map>

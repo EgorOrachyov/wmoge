@@ -1,0 +1,11 @@
+<map id="engine/resource/sprite.hpp" name="engine/resource/sprite.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="288,5,463,32"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,95,132,121"/>
+<area shape="rect" id="node3" href="$pfx__feature__sprite_8cpp.html" title=" " alt="" coords="93,191,247,233"/>
+<area shape="rect" id="node4" href="$pfx__feature__sprite_8hpp.html" title=" " alt="" coords="208,87,361,129"/>
+<area shape="rect" id="node6" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="385,87,547,129"/>
+<area shape="rect" id="node7" href="$sprite_8cpp.html" title=" " alt="" coords="571,95,745,121"/>
+<area shape="rect" id="node8" href="$lua__bindings__resource_8hpp.html" title=" " alt="" coords="769,80,923,136"/>
+<area shape="rect" id="node5" href="$register__classes__pfx_8cpp.html" title=" " alt="" coords="271,191,399,233"/>
+<area shape="rect" id="node9" href="$lua__bindings__resource_8cpp.html" title=" " alt="" coords="769,184,923,240"/>
+</map>

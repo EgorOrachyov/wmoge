@@ -1,0 +1,9 @@
+<map id="wmoge::VKIndexBuffer" name="wmoge::VKIndexBuffer">
+<area shape="rect" id="node1" title="Gfx vulkan index buffer implementation." alt="" coords="86,393,239,420"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="7,304,158,345"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="5,229,160,256"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="21,155,145,181"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="10,80,155,107"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="27,5,138,32"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1VKBuffer.html" title="Base class for vulkan buffers." alt="" coords="183,311,305,338"/>
+</map>
