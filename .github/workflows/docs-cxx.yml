@@ -14,7 +14,8 @@ jobs:
     # Do not attempt to deploy documentation on forks
     if: github.repository_owner == 'EgorOrachyov'
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v2
 
