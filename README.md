@@ -1,11 +1,20 @@
-# Wmoge: Game Engine <img align="right" width="10%" src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&sanitize=true">
+# Wmoge Engine <img align="right" width="10%" src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&sanitize=true">
 
+![license](https://img.shields.io/badge/license-MIT-blue)
 [![build](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml)
 [![clang format](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml)
 [![docs c/c++](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml)
 
 **"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and
-OpenGL backends.
+OpenGL backends. The idea of the project is to implement a self-sufficient, small, but featured engine and a number of
+2d and 3d games using it. Primary focus is the core architecture of the engine, reliability, clean and performant code.
+Currently, the work is focused on a minor refactoring, new runtime scene representation, building a high-level rendering
+system, refactoring audio, scripting systems, and bringing physics support. The engine is a personal learning/hobby
+project for educational purposes only.
+
+Current progress can be tracked at GitHub [tasks page](https://github.com/EgorOrachyov/wmoge/issues).
+
+![gif](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&sanitize=true)
 
 > Work in progress, new features coming soon!
 
@@ -13,17 +22,24 @@ OpenGL backends.
 
 ### Features
 
-* Moder C++17 based engine with clear architecture
-* Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS
-* Abstract graphics (gfx) device interface for GPU driver communication
-* Vulkan-based gfx device backend
-* OpenGL-based gfx device backend (in progress)
-* Lightweight runtime and offline shader cache system to speed-up shaders compilation
-* Async resource-loading system with runtime cache
-* Custom math library with 2d and 3d-space primitives
-* Ecs-based scene model with fast, parallel and memory-friendly update
-* OpenAL audio renderer for playing game sounds
-* Modern Lua scripting backend for game logic programming
+* 🔨 Moder C++17 based engine with clear architecture.
+* 🔨 Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.
+* 🔨 Runtime reflection system with class, method and property information.
+* ⚙ Simple stack-based config system.
+* 🎥 Abstract graphics (gfx) device interface for GPU driver communication.
+* 🎥 Vulkan-based gfx device backend.
+* 🎥 (in progress) OpenGL-based gfx device backend.
+* 🎨 Lightweight runtime and offline shader cache system to speed-up shaders compilation.
+* 🎨 High-level shaders and render-passes with generated static reflection from a python script.
+* 📁 Async resource-loading system with runtime cache.
+* 📁 Unified resources handling, meta-information, support for external formats through custom loaders.
+* 🅰️ Custom math library with 2d and 3d-space primitives.
+* 🧱 Ecs-based scene model with fast, parallel and memory-friendly update.
+* 🎧 (in progress) OpenAL audio renderer for playing game sounds.
+* 📜 (in progress) Modern Lua scripting backend for game logic programming.
+* 🐞 Built-in CPU performance and tasking profiling with support to google trace exporting.
+* 🐞 In-game dev console with support for console commands and console variables.
+* 🐞 Debug labels objects and events for RenderDoc captures.
 
 ### Platforms
 
@@ -44,10 +60,10 @@ OpenGL backends.
 * [lua](https://github.com/walterschell/Lua) project C source with cmake script for scripting.
 * [lua bridge](https://github.com/vinniefalco/LuaBridge) to simplify lua and C++ bindings.
 * [lz4](https://github.com/lz4/lz4) for fast compression and decompression at runtime.
-* [magic_enum](https://github.com/Neargye/magic_enum) for static enum reflection.
+* [magic enum](https://github.com/Neargye/magic_enum) for static enum reflection.
 * [openal soft](https://github.com/kcat/openal-soft) as a software audio renderer.
 * [rapidyaml](https://github.com/biojppm/rapidyaml) for fast yaml files parsing and serialization.
-* [robin-hood hashing](https://github.com/martinus/robin-hood-hashing) for fast & memory efficient hashtable.
+* [robin hood hashing](https://github.com/martinus/robin-hood-hashing) for fast & memory efficient hashtable.
 * [stbimage](https://github.com/nothings/stb) image utilities for images loading, writing and resizing.
 * [svector](https://github.com/martinus/svector) compact SVO optimized vector for C++17 or higher.
 * [tinyxml2](https://github.com/leethomason/tinyxml2) for utf-8 xml files processing.
@@ -103,6 +119,10 @@ folder.
 ```shell
 $ python ./build.py --build-dir=build --build-type=Release --nt=4 --arch=<arch>
 ```
+
+In order to run a template project demo, you need to manually copy `template` folder content into the
+`build/template` directory and run template.exe. The template project will start up and enter main loop. Alternatively,
+the executable can be stated from the IDE by running `template/main.cpp` entry point.
 
 ## Contributing
 
