@@ -50,7 +50,7 @@ namespace wmoge {
             std::string value;
 
             friend bool yaml_read(const YamlConstNodeRef& node, Entry& entry);
-            friend bool yaml_write(YamlNodeRef& node, const Entry& entry);
+            friend bool yaml_write(YamlNodeRef node, const Entry& entry);
         };
 
         std::vector<Entry>    parameters;
@@ -59,7 +59,7 @@ namespace wmoge {
         StringId              shader;
 
         friend bool yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
-        friend bool yaml_write(YamlNodeRef& node, const MaterialFile& file);
+        friend bool yaml_write(YamlNodeRef node, const MaterialFile& file);
     };
 
     /**

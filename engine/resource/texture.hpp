@@ -48,7 +48,7 @@ namespace wmoge {
         GfxSamplerDesc sampling{};
 
         friend bool yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const TextureImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const TextureImportOptions& options);
     };
 
     /**
@@ -59,7 +59,7 @@ namespace wmoge {
         std::string source_file;
 
         friend bool yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const Texture2dImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const Texture2dImportOptions& options);
     };
 
     /**
@@ -80,13 +80,13 @@ namespace wmoge {
             std::string front;
 
             friend bool yaml_read(const YamlConstNodeRef& node, SourceFiles& source_files);
-            friend bool yaml_write(YamlNodeRef& node, const SourceFiles& source_files);
+            friend bool yaml_write(YamlNodeRef node, const SourceFiles& source_files);
         };
 
         SourceFiles source_files;
 
         friend bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const TextureCubeImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options);
     };
 
     /**

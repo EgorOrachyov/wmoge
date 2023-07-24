@@ -88,11 +88,11 @@ namespace wmoge {
     bool yaml_read(const YamlConstNodeRef& node, StringId& value);
     bool yaml_read(const YamlConstNodeRef& node, std::string& value);
 
-    bool yaml_write(YamlNodeRef& node, const bool& value);
-    bool yaml_write(YamlNodeRef& node, const int& value);
-    bool yaml_write(YamlNodeRef& node, const float& value);
-    bool yaml_write(YamlNodeRef& node, const StringId& value);
-    bool yaml_write(YamlNodeRef& node, const std::string& value);
+    bool yaml_write(YamlNodeRef node, const bool& value);
+    bool yaml_write(YamlNodeRef node, const int& value);
+    bool yaml_write(YamlNodeRef node, const float& value);
+    bool yaml_write(YamlNodeRef node, const StringId& value);
+    bool yaml_write(YamlNodeRef node, const std::string& value);
 
 #define WG_YAML_READ(node, what)                                     \
     do {                                                             \
@@ -209,7 +209,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t S>
-    bool yaml_write(YamlNodeRef& node, const std::array<T, S>& array) {
+    bool yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
         for (std::size_t i = 0; i < S; i++) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, array[i]);
@@ -217,7 +217,7 @@ namespace wmoge {
         return true;
     }
     template<typename T>
-    bool yaml_write(YamlNodeRef& node, const std::vector<T>& vector) {
+    bool yaml_write(YamlNodeRef node, const std::vector<T>& vector) {
         for (const T& value : vector) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, value);
@@ -225,7 +225,7 @@ namespace wmoge {
         return true;
     }
     template<typename K, typename V>
-    bool yaml_write(YamlNodeRef& node, const std::unordered_map<K, V>& map) {
+    bool yaml_write(YamlNodeRef node, const std::unordered_map<K, V>& map) {
         for (const auto& entry : map) {
             YamlNodeRef child = node.append_child();
 
@@ -240,12 +240,12 @@ namespace wmoge {
         return true;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    bool yaml_write(YamlNodeRef& node, const T& enum_value) {
+    bool yaml_write(YamlNodeRef node, const T& enum_value) {
         node << std::string(magic_enum::enum_name(enum_value));
         return true;
     }
     template<typename T>
-    bool yaml_write(YamlNodeRef& node, const std::optional<T>& wrapper) {
+    bool yaml_write(YamlNodeRef node, const std::optional<T>& wrapper) {
         assert(wrapper.has_value());
         WG_YAML_WRITE(node, wrapper.value());
         return true;

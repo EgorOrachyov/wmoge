@@ -46,7 +46,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const MeshImportOptions::Process& process) {
+    bool yaml_write(YamlNodeRef node, const MeshImportOptions::Process& process) {
         WG_YAML_WRITE_AS(node, "triangulate", process.triangulate);
         WG_YAML_WRITE_AS(node, "tangent_space", process.tangent_space);
         WG_YAML_WRITE_AS(node, "flip_uv", process.flip_uv);
@@ -68,7 +68,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const MeshImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const MeshImportOptions& options) {
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "attributes", options.attributes);
         WG_YAML_WRITE_AS(node, "process", options.process);

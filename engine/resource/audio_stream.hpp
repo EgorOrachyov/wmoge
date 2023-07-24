@@ -41,7 +41,7 @@ namespace wmoge {
         std::string source_file;
 
         friend bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const AudioImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const AudioImportOptions& options);
     };
 
     /**

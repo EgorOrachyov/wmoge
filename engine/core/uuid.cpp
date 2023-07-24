@@ -47,7 +47,7 @@ namespace wmoge {
         node >> id.m_value;
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const UUID& id) {
+    bool yaml_write(YamlNodeRef node, const UUID& id) {
         node << id.m_value;
         return true;
     }

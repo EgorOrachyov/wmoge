@@ -45,7 +45,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const MaterialFile::Entry& entry) {
+    bool yaml_write(YamlNodeRef node, const MaterialFile::Entry& entry) {
         WG_YAML_WRITE_AS(node, "name", entry.name);
         WG_YAML_WRITE_AS(node, "value", entry.value);
 
@@ -60,7 +60,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const MaterialFile& file) {
+    bool yaml_write(YamlNodeRef node, const MaterialFile& file) {
         WG_YAML_WRITE_AS(node, "shader", file.shader);
         WG_YAML_WRITE_AS(node, "keywords", file.keywords);
         WG_YAML_WRITE_AS(node, "parameters", file.parameters);

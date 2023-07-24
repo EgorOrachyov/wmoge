@@ -47,7 +47,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const TextureImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const TextureImportOptions& options) {
         WG_YAML_WRITE_AS(node, "channels", options.channels);
         WG_YAML_WRITE_AS(node, "format", options.format);
         WG_YAML_WRITE_AS(node, "mipmaps", options.mipmaps);
@@ -64,7 +64,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const Texture2dImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const Texture2dImportOptions& options) {
         WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
 
@@ -80,7 +80,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const TextureCubeImportOptions::SourceFiles& source_files) {
+    bool yaml_write(YamlNodeRef node, const TextureCubeImportOptions::SourceFiles& source_files) {
         WG_YAML_WRITE_AS(node, "right", source_files.right);
         WG_YAML_WRITE_AS(node, "left", source_files.left);
         WG_YAML_WRITE_AS(node, "top", source_files.top);
@@ -96,7 +96,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const TextureCubeImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options) {
         WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
         WG_YAML_WRITE_AS(node, "source_files", options.source_files);
 

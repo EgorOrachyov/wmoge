@@ -1,4 +1,6 @@
-# Wmoge Engine <img align="right" width="10%" src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&sanitize=true">
+![logo](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/wmoge-banner-trsp-x2.png?raw=true&sanitize=true)
+
+# Wmoge Engine
 
 [![build](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml)
 [![clang format](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml)

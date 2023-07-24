@@ -46,7 +46,7 @@ namespace wmoge {
         int         channels = 4;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const ImageImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const ImageImportOptions& options);
     };
 
     /**

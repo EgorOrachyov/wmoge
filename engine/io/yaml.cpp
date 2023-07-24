@@ -75,23 +75,23 @@ namespace wmoge {
         return true;
     }
 
-    bool yaml_write(YamlNodeRef& node, const bool& value) {
+    bool yaml_write(YamlNodeRef node, const bool& value) {
         node << value;
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const int& value) {
+    bool yaml_write(YamlNodeRef node, const int& value) {
         node << value;
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const float& value) {
+    bool yaml_write(YamlNodeRef node, const float& value) {
         node << value;
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const StringId& value) {
+    bool yaml_write(YamlNodeRef node, const StringId& value) {
         node << value.str();
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const std::string& value) {
+    bool yaml_write(YamlNodeRef node, const std::string& value) {
         node << value;
         return true;
     }

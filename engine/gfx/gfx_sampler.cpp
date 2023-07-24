@@ -76,7 +76,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const GfxSamplerDesc& desc) {
+    bool yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc) {
         WG_YAML_WRITE_AS(node, "min_lod", desc.min_lod);
         WG_YAML_WRITE_AS(node, "max_lod", desc.max_lod);
         WG_YAML_WRITE_AS(node, "max_anisotropy", desc.max_anisotropy);

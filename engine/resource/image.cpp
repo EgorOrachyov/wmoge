@@ -43,7 +43,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ImageImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const ImageImportOptions& options) {
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "channels", options.channels);
 

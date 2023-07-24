@@ -54,7 +54,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ActionActivation& activation) {
+    bool yaml_write(YamlNodeRef node, const ActionActivation& activation) {
         WG_YAML_WRITE_AS(node, "device_name", activation.device_name);
         WG_YAML_WRITE_AS(node, "device_type", activation.device_type);
         WG_YAML_WRITE_AS(node, "action", activation.action);
@@ -78,7 +78,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ActionMapAction& action) {
+    bool yaml_write(YamlNodeRef node, const ActionMapAction& action) {
         WG_YAML_WRITE_AS(node, "action", action.name);
         WG_YAML_WRITE_AS(node, "display_name", action.display_name);
         WG_YAML_WRITE_AS(node, "activations", action.activations);
@@ -153,7 +153,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ActionMap& action_map) {
+    bool yaml_write(YamlNodeRef node, const ActionMap& action_map) {
         WG_YAML_WRITE_AS(node, "name", action_map.m_name);
         WG_YAML_WRITE_AS(node, "priority", action_map.m_priority);
         WG_YAML_WRITE_AS(node, "actions", action_map.get_actions());

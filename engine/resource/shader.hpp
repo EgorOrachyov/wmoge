@@ -54,7 +54,7 @@ namespace wmoge {
         std::string    value;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter);
-        friend bool yaml_write(YamlNodeRef& node, const ShaderParameter& parameter);
+        friend bool yaml_write(YamlNodeRef node, const ShaderParameter& parameter);
     };
 
     /**
@@ -68,7 +68,7 @@ namespace wmoge {
         std::string value;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
-        friend bool yaml_write(YamlNodeRef& node, const ShaderTexture& texture);
+        friend bool yaml_write(YamlNodeRef node, const ShaderTexture& texture);
     };
 
     /**
@@ -84,7 +84,7 @@ namespace wmoge {
         GfxCompFunc      depth_func   = GfxCompFunc::Less;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state);
-        friend bool yaml_write(YamlNodeRef& node, const ShaderPipelineState& state);
+        friend bool yaml_write(YamlNodeRef node, const ShaderPipelineState& state);
     };
 
     /**
@@ -103,7 +103,7 @@ namespace wmoge {
         ShaderPipelineState          state{};
 
         friend bool yaml_read(const YamlConstNodeRef& node, ShaderFile& file);
-        friend bool yaml_write(YamlNodeRef& node, const ShaderFile& file);
+        friend bool yaml_write(YamlNodeRef node, const ShaderFile& file);
     };
 
     /**

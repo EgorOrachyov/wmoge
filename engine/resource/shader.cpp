@@ -46,7 +46,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ShaderParameter& parameter) {
+    bool yaml_write(YamlNodeRef node, const ShaderParameter& parameter) {
         WG_YAML_WRITE_AS(node, "name", parameter.name);
         WG_YAML_WRITE_AS(node, "type", parameter.type);
         WG_YAML_WRITE_AS(node, "offset", parameter.offset);
@@ -64,7 +64,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ShaderTexture& texture) {
+    bool yaml_write(YamlNodeRef node, const ShaderTexture& texture) {
         WG_YAML_WRITE_AS(node, "name", texture.name);
         WG_YAML_WRITE_AS(node, "type", texture.type);
         WG_YAML_WRITE_AS(node, "id", texture.id);
@@ -83,7 +83,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ShaderPipelineState& state) {
+    bool yaml_write(YamlNodeRef node, const ShaderPipelineState& state) {
         WG_YAML_WRITE_AS(node, "poly_mode", state.poly_mode);
         WG_YAML_WRITE_AS(node, "cull_mode", state.cull_mode);
         WG_YAML_WRITE_AS(node, "front_face", state.front_face);
@@ -107,7 +107,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const ShaderFile& file) {
+    bool yaml_write(YamlNodeRef node, const ShaderFile& file) {
         WG_YAML_WRITE_AS(node, "parameters", file.parameters);
         WG_YAML_WRITE_AS(node, "textures", file.textures);
         WG_YAML_WRITE_AS(node, "keywords", file.keywords);

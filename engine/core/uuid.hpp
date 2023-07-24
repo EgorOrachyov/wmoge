@@ -57,7 +57,7 @@ namespace wmoge {
         static UUID generate();
 
         friend bool yaml_read(const YamlConstNodeRef& node, UUID& id);
-        friend bool yaml_write(YamlNodeRef& node, const UUID& id);
+        friend bool yaml_write(YamlNodeRef node, const UUID& id);
 
         friend bool archive_read(Archive& archive, UUID& id);
         friend bool archive_write(Archive& archive, const UUID& id);

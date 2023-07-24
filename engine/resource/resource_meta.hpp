@@ -69,7 +69,7 @@ namespace wmoge {
         std::optional<std::string> path_on_disk;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ResourceResFile& file);
-        friend bool yaml_write(YamlNodeRef& node, const ResourceResFile& file);
+        friend bool yaml_write(YamlNodeRef node, const ResourceResFile& file);
     };
 
 }// namespace wmoge

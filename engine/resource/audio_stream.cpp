@@ -36,7 +36,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const AudioImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const AudioImportOptions& options) {
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
 
         return true;

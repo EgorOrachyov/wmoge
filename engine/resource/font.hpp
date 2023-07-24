@@ -51,7 +51,7 @@ namespace wmoge {
         int         glyphs_in_row = 16;
 
         friend bool yaml_read(const YamlConstNodeRef& node, FontImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const FontImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const FontImportOptions& options);
     };
 
     /**

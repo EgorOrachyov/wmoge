@@ -63,7 +63,7 @@ namespace wmoge {
             bool gen_uv                  = false;
 
             friend bool yaml_read(const YamlConstNodeRef& node, Process& process);
-            friend bool yaml_write(YamlNodeRef& node, const Process& process);
+            friend bool yaml_write(YamlNodeRef node, const Process& process);
         };
 
         std::string                source_file;
@@ -71,7 +71,7 @@ namespace wmoge {
         Process                    process{};
 
         friend bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options);
-        friend bool yaml_write(YamlNodeRef& node, const MeshImportOptions& options);
+        friend bool yaml_write(YamlNodeRef node, const MeshImportOptions& options);
     };
 
     /**

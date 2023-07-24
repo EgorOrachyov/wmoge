@@ -56,7 +56,7 @@ namespace wmoge {
         GfxSampBrdClr  brd_clr;       // = GfxSampBrdClr::Black;
 
         friend bool yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc);
-        friend bool yaml_write(YamlNodeRef& node, const GfxSamplerDesc& desc);
+        friend bool yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc);
     };
 
     /**

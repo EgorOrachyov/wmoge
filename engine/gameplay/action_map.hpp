@@ -60,7 +60,7 @@ namespace wmoge {
         float            direction       = 0.0f;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ActionActivation& activation);
-        friend bool yaml_write(YamlNodeRef& node, const ActionActivation& activation);
+        friend bool yaml_write(YamlNodeRef node, const ActionActivation& activation);
     };
 
     /**
@@ -73,7 +73,7 @@ namespace wmoge {
         fast_vector<ActionActivation> activations;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ActionMapAction& action);
-        friend bool yaml_write(YamlNodeRef& node, const ActionMapAction& action);
+        friend bool yaml_write(YamlNodeRef node, const ActionMapAction& action);
     };
 
     /**
@@ -96,7 +96,7 @@ namespace wmoge {
         [[nodiscard]] std::vector<ActionMapAction> get_actions() const;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ActionMap& action_map);
-        friend bool yaml_write(YamlNodeRef& node, const ActionMap& action_map);
+        friend bool yaml_write(YamlNodeRef node, const ActionMap& action_map);
 
     private:
         friend class ActionManager;

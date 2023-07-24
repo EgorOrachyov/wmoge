@@ -47,7 +47,7 @@ namespace wmoge {
 
         return true;
     }
-    bool yaml_write(YamlNodeRef& node, const FontImportOptions& options) {
+    bool yaml_write(YamlNodeRef node, const FontImportOptions& options) {
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "height", options.height);
         WG_YAML_WRITE_AS(node, "glyphs_in_row", options.glyphs_in_row);
