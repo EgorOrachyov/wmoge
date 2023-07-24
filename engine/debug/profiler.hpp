@@ -99,8 +99,8 @@ namespace wmoge {
         void add_entry(ProfilerEntry&& entry);
         void save_to_json();
 
-        const StringId                   get_name() const { return m_name; }
-        const std::vector<ProfilerEntry> get_entries() const { return m_entries; }
+        [[nodiscard]] const StringId&                   get_name() const { return m_name; }
+        [[nodiscard]] const std::vector<ProfilerEntry>& get_entries() const { return m_entries; }
 
     private:
         StringId                   m_name;
@@ -150,7 +150,7 @@ namespace wmoge {
     ProfilerTimeEvent __wg_auto_scope(&__wg_auto_mark, desc)
 
 #define WG_AUTO_PROFILE_DESC(system, label, desc) WG_PROFILE_DESC(system, label, desc)
-#define WG_AUTO_PROFILE(system, label)            WG_AUTO_PROFILE_DESC(system, label, "wmoge auto profile of " #system)
+#define WG_AUTO_PROFILE(system, label)            WG_AUTO_PROFILE_DESC(system, label, "")
 
 #define WG_AUTO_PROFILE_TASK(label, name)     WG_AUTO_PROFILE_DESC(core, label, name)
 #define WG_AUTO_PROFILE_CORE(label)           WG_AUTO_PROFILE(core, label)

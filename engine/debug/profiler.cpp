@@ -120,14 +120,16 @@ namespace wmoge {
             file_stream << R"("name":")" << entry.mark->pretty_name << "\",";
             file_stream << R"("ph":"X",)";
             file_stream << "\"ts\":" << entry_start << ",";
-            file_stream << "\"dur\":" << entry_dur << ",";
-            file_stream << "\"args\":";
-            file_stream << "{";
-            file_stream << R"("description":")" << entry.desc << "\",";
-            file_stream << R"("fun":")" << entry.mark->function.str() << "\"";
-            file_stream << "}";
-            file_stream << "}";
+            file_stream << "\"dur\":" << entry_dur << "";
 
+            if (!entry.desc.empty()) {
+                file_stream << ",\"args\":";
+                file_stream << "{";
+                file_stream << R"("description":")" << entry.desc << "\"";
+                file_stream << "}";
+            }
+
+            file_stream << "}";
             first = false;
         }
 

@@ -25,58 +25,38 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "pfx_feature_color.hpp"
+#include "uuid.hpp"
 
-#include "debug/profiler.hpp"
-#include "math/math_utils.hpp"
-#include "pfx/pfx_component_runtime.hpp"
+#include "core/random.hpp"
+#include "core/string_utils.hpp"
 
 namespace wmoge {
 
-    Ref<PfxFeature> PfxFeatureColor::create() const {
-        return make_ref<PfxFeatureColor>();
+    UUID::UUID(std::uint64_t value) : m_value(value) {
     }
-    StringId PfxFeatureColor::get_feature_name() const {
-        static StringId name("Color");
-        return name;
+
+    std::string UUID::to_str() const {
+        return StringUtils::from_uint64(m_value);
     }
-    StringId PfxFeatureColor::get_feature_family() const {
-        static StringId family("Visual");
-        return family;
+
+    UUID UUID::generate() {
+        return {Random::next_uint64()};
     }
-    bool PfxFeatureColor::load_from_options(const YamlConstNodeRef& node) {
-        Yaml::read(node["start_color"], m_start_color);
-        Yaml::read(node["end_color"], m_end_color);
+
+    bool yaml_read(const YamlConstNodeRef& node, UUID& id) {
+        node >> id.m_value;
         return true;
     }
-    void PfxFeatureColor::on_added(PfxAttributes& attributes) {
-        attributes.set(PfxAttribute::TimeNorm);
-        attributes.set(PfxAttribute::Color);
-    }
-    void PfxFeatureColor::on_spawn(class PfxComponentRuntime& runtime, const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX("PfxFeatureColor::on_spawn");
-
-        auto* storage    = runtime.get_storage();
-        auto  view_color = storage->get_color();
-
-        for (auto particle_id : runtime.get_spawn_range()) {
-            view_color[particle_id] = m_start_color;
-        }
-    }
-    void PfxFeatureColor::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX("PfxFeatureColor::on_update");
-
-        auto* storage    = runtime.get_storage();
-        auto  view_color = storage->get_color();
-        auto  view_tn    = storage->get_time_norm();
-
-        for (auto particle_id : runtime.get_update_range()) {
-            view_color[particle_id] = Vec4f::lerp(view_tn[particle_id], m_start_color, m_end_color);
-        }
+    bool yaml_write(YamlNodeRef& node, const UUID& id) {
+        node << id.m_value;
+        return true;
     }
 
-    void PfxFeatureColor::register_class() {
-        auto* cls = Class::register_class<PfxFeatureColor>();
+    bool archive_read(Archive& archive, UUID& id) {
+        return archive.nread(sizeof(id.m_value), &id.m_value);
+    }
+    bool archive_write(Archive& archive, const UUID& id) {
+        return archive.nwrite(sizeof(id.m_value), &id.m_value);
     }
 
 }// namespace wmoge

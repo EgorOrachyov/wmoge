@@ -1,9 +1,10 @@
 # Wmoge Engine <img align="right" width="10%" src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&sanitize=true">
 
-![license](https://img.shields.io/badge/license-MIT-blue)
 [![build](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml)
 [![clang format](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml)
 [![docs c/c++](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg)](https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml)
+![language](https://img.shields.io/badge/language-C++17-_)
+![license](https://img.shields.io/badge/license-MIT-_)
 
 **"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and
 OpenGL backends. The idea of the project is to implement a self-sufficient, small, but featured engine and a number of

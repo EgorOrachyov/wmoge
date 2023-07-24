@@ -1,7 +1,7 @@
 # Wmoge resource meta file
 version: 1
 uuid: 0
-loader: default
+loader: image
 class: Image
 deps: [ ]
 description: "test image file for tutorial"

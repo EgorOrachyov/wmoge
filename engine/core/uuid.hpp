@@ -25,36 +25,54 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_FEATURE_COLOR_HPP
-#define WMOGE_PFX_FEATURE_COLOR_HPP
+#ifndef WMOGE_UUID_HPP
+#define WMOGE_UUID_HPP
 
-#include "pfx/pfx_feature.hpp"
+#include "io/archive.hpp"
+#include "io/yaml.hpp"
+
+#include <cinttypes>
+#include <cstddef>
+#include <functional>
+#include <ostream>
+#include <string>
+#include <type_traits>
 
 namespace wmoge {
 
     /**
-     * @class PfxFeatureColor
-     * @brief Controls particles color evolution using some law
+     * @class UUID
+     * @brief Unique 8-byte long identifier for in-game objects and resources
      */
-    class PfxFeatureColor final : public PfxFeature {
+    class UUID {
     public:
-        WG_OBJECT(PfxFeatureColor, PfxFeature)
+        UUID() = default;
+        UUID(std::uint64_t value);
 
-        Ref<PfxFeature> create() const override;
-        StringId        get_feature_name() const override;
-        StringId        get_feature_family() const override;
+        [[nodiscard]] std::string to_str() const;
 
-        bool load_from_options(const YamlConstNodeRef& node) override;
+        [[nodiscard]] std::uint64_t&       value() { return m_value; }
+        [[nodiscard]] const std::uint64_t& value() const { return m_value; }
 
-        void on_added(PfxAttributes& attributes) override;
-        void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) override;
-        void on_update(class PfxComponentRuntime& runtime, float dt) override;
+        static UUID generate();
+
+        friend bool yaml_read(const YamlConstNodeRef& node, UUID& id);
+        friend bool yaml_write(YamlNodeRef& node, const UUID& id);
+
+        friend bool archive_read(Archive& archive, UUID& id);
+        friend bool archive_write(Archive& archive, const UUID& id);
 
     private:
-        Color4f m_start_color;
-        Color4f m_end_color;
+        std::uint64_t m_value = 0;
     };
+
+    static_assert(std::is_trivially_destructible_v<UUID>, "uuid must be trivial as ptr on int");
+
+    inline std::ostream& operator<<(std::ostream& stream, const UUID& uuid) {
+        stream << '\'' << uuid.to_str() << '\'';
+        return stream;
+    }
 
 }// namespace wmoge
 
-#endif//WMOGE_PFX_FEATURE_COLOR_HPP
+#endif//WMOGE_UUID_HPP

@@ -62,7 +62,6 @@ namespace wmoge {
     public:
         WG_OBJECT(PfxEffect, Resource)
 
-        bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
         void                     add_component(Ref<PfxComponent> component);

@@ -57,7 +57,7 @@ namespace wmoge {
     public:
         WG_OBJECT(Script, Resource)
 
-        bool load_from_import_options(const YamlTree& tree) override;
+        bool load_from_yaml(const YamlConstNodeRef& node) override;
         void copy_to(Resource& copy) override;
 
         virtual Ref<ScriptInstance> attach_to(Object* object);

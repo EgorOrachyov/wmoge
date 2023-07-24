@@ -60,6 +60,8 @@ add_library(wmoge STATIC
         core/task_runtime.hpp
         core/timer.cpp
         core/timer.hpp
+        core/uuid.cpp
+        core/uuid.hpp
         core/var.cpp
         core/var.hpp
         ecs/ecs_component.hpp
@@ -204,18 +206,6 @@ add_library(wmoge STATIC
         pfx/pfx_scene.hpp
         pfx/pfx_storage.cpp
         pfx/pfx_storage.hpp
-        pfx/features/pfx_feature_color.cpp
-        pfx/features/pfx_feature_color.hpp
-        pfx/features/pfx_feature_lifetime.cpp
-        pfx/features/pfx_feature_lifetime.hpp
-        pfx/features/pfx_feature_movement.cpp
-        pfx/features/pfx_feature_movement.hpp
-        pfx/features/pfx_feature_size.cpp
-        pfx/features/pfx_feature_size.hpp
-        pfx/features/pfx_feature_sprite.cpp
-        pfx/features/pfx_feature_sprite.hpp
-        pfx/features/pfx_feature_velocity.cpp
-        pfx/features/pfx_feature_velocity.hpp
         pfx/register_classes_pfx.cpp
         pfx/register_classes_pfx.hpp
         platform/application.cpp
@@ -271,6 +261,7 @@ add_library(wmoge STATIC
         resource/resource_loader.hpp
         resource/resource_manager.cpp
         resource/resource_manager.hpp
+        resource/resource_meta.cpp
         resource/resource_meta.hpp
         resource/resource_pak.hpp
         resource/scene_packed.cpp
@@ -279,10 +270,6 @@ add_library(wmoge STATIC
         resource/script.hpp
         resource/shader.cpp
         resource/shader.hpp
-        resource/sprite.cpp
-        resource/sprite.hpp
-        resource/text_file.cpp
-        resource/text_file.hpp
         resource/texture.cpp
         resource/texture.hpp
         resource/register_classes_resource.cpp
@@ -291,6 +278,14 @@ add_library(wmoge STATIC
         resource/loaders/resource_loader_assimp.hpp
         resource/loaders/resource_loader_default.cpp
         resource/loaders/resource_loader_default.hpp
+        resource/loaders/resource_loader_freetype.cpp
+        resource/loaders/resource_loader_freetype.hpp
+        resource/loaders/resource_loader_image.cpp
+        resource/loaders/resource_loader_image.hpp
+        resource/loaders/resource_loader_texture.cpp
+        resource/loaders/resource_loader_texture.hpp
+        resource/loaders/resource_loader_wav.cpp
+        resource/loaders/resource_loader_wav.hpp
         resource/paks/resource_pak_fs.cpp
         resource/paks/resource_pak_fs.hpp
         scene/scene.cpp

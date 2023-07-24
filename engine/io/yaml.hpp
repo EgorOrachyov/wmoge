@@ -28,6 +28,7 @@
 #ifndef WMOGE_YAML_HPP
 #define WMOGE_YAML_HPP
 
+#include "core/log.hpp"
 #include "core/string_id.hpp"
 #include "math/vec.hpp"
 
@@ -35,7 +36,12 @@
 #include <ryml.hpp>
 #include <ryml_std.hpp>
 
+#include <array>
+#include <cassert>
 #include <cinttypes>
+#include <optional>
+#include <stack>
+#include <unordered_map>
 #include <vector>
 
 namespace wmoge {
@@ -59,38 +65,191 @@ namespace wmoge {
     using YamlConstNodeRef = ryml::ConstNodeRef;
 
     /**
-     * @class Yaml
-     * @brief Auxiliary class for yaml reading/writing
+     * @brief Parse binary data into a tree
+     *
+     * @param data Data to parse, will not be modified
+     *
+     * @return Tree containing the data
      */
-    class Yaml {
-    public:
-        static YamlTree parse(const std::vector<std::uint8_t>& data);
-        static bool     read(const YamlConstNodeRef& node, std::string& str);
-        static bool     read(const YamlConstNodeRef& node, StringId& sid);
-        static bool     read(const YamlConstNodeRef& node, Vec2f& v);
-        static bool     read(const YamlConstNodeRef& node, Vec3f& v);
-        static bool     read(const YamlConstNodeRef& node, Vec4f& v);
+    YamlTree yaml_parse(const std::vector<std::uint8_t>& data);
 
-        static std::string read_str(const YamlConstNodeRef& node);
-        static StringId    read_sid(const YamlConstNodeRef& node);
-        static bool        read_bool(const YamlConstNodeRef& node);
-        static int         read_int(const YamlConstNodeRef& node);
-        static float       read_float(const YamlConstNodeRef& node);
-        static Vec2f       read_vec2f(const YamlConstNodeRef& node);
-        static Vec3f       read_vec3f(const YamlConstNodeRef& node);
-        static Vec4f       read_vec4f(const YamlConstNodeRef& node);
+    /**
+     * @brief Opens and parses file
+     *
+     * @param file_path Path to the file
+     *
+     * @return Parse tree or empty tree
+     */
+    YamlTree yaml_parse_file(const std::string& file_path);
 
-        template<typename T>
-        static bool read_enum(const YamlConstNodeRef& node, T& value) {
-            std::string s;
-            node >> s;
-            auto parsed = magic_enum::enum_cast<T>(s);
-            if (parsed.has_value()) {
-                value = parsed.value();
-            }
+    bool yaml_read(const YamlConstNodeRef& node, bool& value);
+    bool yaml_read(const YamlConstNodeRef& node, int& value);
+    bool yaml_read(const YamlConstNodeRef& node, float& value);
+    bool yaml_read(const YamlConstNodeRef& node, StringId& value);
+    bool yaml_read(const YamlConstNodeRef& node, std::string& value);
+
+    bool yaml_write(YamlNodeRef& node, const bool& value);
+    bool yaml_write(YamlNodeRef& node, const int& value);
+    bool yaml_write(YamlNodeRef& node, const float& value);
+    bool yaml_write(YamlNodeRef& node, const StringId& value);
+    bool yaml_write(YamlNodeRef& node, const std::string& value);
+
+#define WG_YAML_READ(node, what)                                     \
+    do {                                                             \
+        if (!yaml_read(node, what)) {                                \
+            WG_LOG_ERROR("failed to read yaml \"" << #what << "\""); \
+            return false;                                            \
+        }                                                            \
+    } while (false)
+
+#define WG_YAML_READ_AS(node, node_name, what)                                 \
+    do {                                                                       \
+        if (!node.has_child(node_name) || !yaml_read(node[node_name], what)) { \
+            WG_LOG_ERROR("failed to read yaml \"" << #what << "\"");           \
+            return false;                                                      \
+        }                                                                      \
+    } while (false)
+
+#define WG_YAML_READ_AS_OPT(node, node_name, what)                       \
+    do {                                                                 \
+        if (node.has_child(node_name)) {                                 \
+            if (!yaml_read(node[node_name], what)) {                     \
+                WG_LOG_ERROR("failed to read yaml \"" << #what << "\""); \
+                return false;                                            \
+            }                                                            \
+        }                                                                \
+    } while (false)
+
+#define WG_YAML_READ_SUPER(node, super, what)    \
+    do {                                         \
+        WG_YAML_READ(node, *((super*) (&what))); \
+    } while (false)
+
+#define WG_YAML_WRITE(node, what)                                     \
+    do {                                                              \
+        if (!yaml_write(node, what)) {                                \
+            WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
+            return false;                                             \
+        }                                                             \
+    } while (false)
+
+#define WG_YAML_WRITE_AS(node, node_name, what)                       \
+    do {                                                              \
+        auto child = node.append_child();                             \
+        child.set_key(node_name);                                     \
+        if (!yaml_write(child, what)) {                               \
+            WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
+            return false;                                             \
+        }                                                             \
+    } while (false)
+
+#define WG_YAML_WRITE_AS_OPT(node, node_name, condition, what)            \
+    do {                                                                  \
+        if (condition) {                                                  \
+            auto child = node.append_child();                             \
+            child.set_key(node_name);                                     \
+            if (!yaml_write(child, what)) {                               \
+                WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
+                return false;                                             \
+            }                                                             \
+        }                                                                 \
+    } while (false)
+
+#define WG_YAML_WRITE_SUPER(node, super, what)          \
+    do {                                                \
+        WG_YAML_WRITE(node, *((const super*) (&what))); \
+    } while (false)
+
+    template<typename T, std::size_t S>
+    bool yaml_read(const YamlConstNodeRef& node, std::array<T, S>& array) {
+        int element_id = 0;
+        for (auto child = node.first_child(); child.valid() && element_id < S; child = child.next_sibling()) {
+            WG_YAML_READ(node, array[element_id++]);
+        }
+        return true;
+    }
+    template<typename T>
+    bool yaml_read(const YamlConstNodeRef& node, std::vector<T>& vector) {
+        assert(vector.empty());
+        vector.resize(node.num_children());
+        std::size_t element_id = 0;
+        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
+            WG_YAML_READ(child, vector[element_id++]);
+        }
+        return true;
+    }
+    template<typename K, typename V>
+    bool yaml_read(const YamlConstNodeRef& node, std::unordered_map<K, V>& map) {
+        assert(map.empty());
+        map.reserve(node.num_children());
+        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
+            std::pair<K, V> entry;
+            WG_YAML_READ(child["key"], entry.first);
+            WG_YAML_READ(child["value"], entry.second);
+            map.insert(std::move(entry));
+        }
+        return true;
+    }
+    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
+    bool yaml_read(const YamlConstNodeRef& node, T& enum_value) {
+        std::string s;
+        WG_YAML_READ(node, s);
+        auto parsed = magic_enum::enum_cast<T>(s);
+        if (!parsed.has_value()) {
             return false;
         }
-    };
+        enum_value = parsed.value();
+        return true;
+    }
+    template<typename T>
+    bool yaml_read(const YamlConstNodeRef& node, std::optional<T>& wrapper) {
+        wrapper.emplace();
+        WG_YAML_READ(node, wrapper.value());
+        return true;
+    }
+
+    template<typename T, std::size_t S>
+    bool yaml_write(YamlNodeRef& node, const std::array<T, S>& array) {
+        for (std::size_t i = 0; i < S; i++) {
+            YamlNodeRef child = node.append_child();
+            WG_YAML_WRITE(child, array[i]);
+        }
+        return true;
+    }
+    template<typename T>
+    bool yaml_write(YamlNodeRef& node, const std::vector<T>& vector) {
+        for (const T& value : vector) {
+            YamlNodeRef child = node.append_child();
+            WG_YAML_WRITE(child, value);
+        }
+        return true;
+    }
+    template<typename K, typename V>
+    bool yaml_write(YamlNodeRef& node, const std::unordered_map<K, V>& map) {
+        for (const auto& entry : map) {
+            YamlNodeRef child = node.append_child();
+
+            YamlNodeRef key = child.append_child();
+            key.set_key("key");
+            WG_YAML_WRITE(key, entry.first);
+
+            YamlNodeRef value = child.append_child();
+            value.set_key("value");
+            WG_YAML_WRITE(value, entry.second);
+        }
+        return true;
+    }
+    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
+    bool yaml_write(YamlNodeRef& node, const T& enum_value) {
+        node << std::string(magic_enum::enum_name(enum_value));
+        return true;
+    }
+    template<typename T>
+    bool yaml_write(YamlNodeRef& node, const std::optional<T>& wrapper) {
+        assert(wrapper.has_value());
+        WG_YAML_WRITE(node, wrapper.value());
+        return true;
+    }
 
 }// namespace wmoge
 

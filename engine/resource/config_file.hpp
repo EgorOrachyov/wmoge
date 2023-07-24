@@ -95,11 +95,10 @@ namespace wmoge {
         std::string get_string(const StringId& key, std::string def_value = "");
         Color4f     get_color4f(const StringId& key, Color4f value = {});
 
-        bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
     private:
-        /** @brief Single section in a config file */
+        /** @brief Single element in a config file */
         bool get_element(const StringId& key, Var*& element);
 
     private:

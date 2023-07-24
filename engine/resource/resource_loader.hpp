@@ -42,7 +42,6 @@ namespace wmoge {
     public:
         virtual ~ResourceLoader()                                                                 = default;
         virtual bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) = 0;
-        virtual bool     can_load(const StringId& resource_type)                                  = 0;
         virtual StringId get_name()                                                               = 0;
     };
 

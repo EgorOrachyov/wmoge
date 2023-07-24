@@ -56,17 +56,16 @@ namespace wmoge {
         return "data 0x" + StringUtils::from_ptr(m_buffer) + " " + StringUtils::from_mem_size(m_size);
     }
 
-    Archive& operator<<(Archive& archive, const Ref<Data>& data) {
-        archive << data->m_size;
-        archive.nwrite(static_cast<int>(data->m_size), data->m_buffer);
-        return archive;
+    bool archive_write(Archive& archive, const Ref<Data>& data) {
+        assert(data);
+        WG_ARCHIVE_WRITE(archive, data->m_size);
+        return archive.nwrite(static_cast<int>(data->m_size), data->m_buffer);
     }
-    Archive& operator>>(Archive& archive, Ref<Data>& data) {
+    bool archive_read(Archive& archive, Ref<Data>& data) {
         std::size_t size;
-        archive >> size;
+        WG_ARCHIVE_READ(archive, size);
         data = make_ref<Data>(size);
-        archive.nread(static_cast<int>(size), data->buffer());
-        return archive;
+        return archive.nread(static_cast<int>(size), data->buffer());
     }
 
 }// namespace wmoge

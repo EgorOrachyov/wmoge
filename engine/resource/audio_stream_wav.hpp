@@ -43,9 +43,17 @@ namespace wmoge {
     public:
         WG_OBJECT(AudioStreamWav, AudioStream)
 
+        /**
+         * @brief Loads an audio from a wav file using audio file library
+         *
+         * @param file_path Path to audio file in wav format in resource directory
+         *
+         * @return True if loaded
+         */
+        bool load(const std::string& file_path);
+
         Ref<Data> get_channel_data(int channel) override;
 
-        bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
 
     private:

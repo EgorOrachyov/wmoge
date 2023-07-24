@@ -51,8 +51,8 @@ namespace wmoge {
             int      array_size = -1;
             GfxTex   tex;
 
-            friend Archive& operator<<(Archive& archive, const Texture& texture);
-            friend Archive& operator>>(Archive& archive, Texture& texture);
+            friend bool archive_write(Archive& archive, const Texture& texture);
+            friend bool archive_read(Archive& archive, Texture& texture);
         };
         struct Buffer {
             StringId name;
@@ -60,8 +60,8 @@ namespace wmoge {
             int      binding = -1;
             int      size    = -1;
 
-            friend Archive& operator<<(Archive& archive, const Buffer& buffer);
-            friend Archive& operator>>(Archive& archive, Buffer& buffer);
+            friend bool archive_write(Archive& archive, const Buffer& buffer);
+            friend bool archive_read(Archive& archive, Buffer& buffer);
         };
         fast_map<StringId, Texture>               textures;
         fast_map<StringId, Buffer>                ub_buffers;
@@ -70,8 +70,8 @@ namespace wmoge {
         std::array<int, GfxLimits::MAX_DESC_SETS> ub_buffers_per_desc{};
         std::array<int, GfxLimits::MAX_DESC_SETS> sb_buffers_per_desc{};
 
-        friend Archive& operator<<(Archive& archive, const GfxShaderReflection& reflection);
-        friend Archive& operator>>(Archive& archive, GfxShaderReflection& reflection);
+        friend bool archive_write(Archive& archive, const GfxShaderReflection& reflection);
+        friend bool archive_read(Archive& archive, GfxShaderReflection& reflection);
     };
 
     /**

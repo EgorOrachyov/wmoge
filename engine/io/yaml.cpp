@@ -27,86 +27,73 @@
 
 #include "yaml.hpp"
 
+#include "core/engine.hpp"
+#include "platform/file_system.hpp"
+
 #include <cassert>
 #include <sstream>
 #include <string>
 
 namespace wmoge {
 
-    YamlTree Yaml::parse(const std::vector<std::uint8_t>& data) {
+    YamlTree yaml_parse(const std::vector<std::uint8_t>& data) {
         auto str_view = ryml::csubstr(reinterpret_cast<const char*>(data.data()), data.size());
         return ryml::parse_in_arena(str_view);
     }
-    bool Yaml::read(const YamlConstNodeRef& node, std::string& str) {
-        node >> str;
-        return true;
+
+    YamlTree yaml_parse_file(const std::string& file_path) {
+        std::vector<std::uint8_t> file;
+
+        if (!Engine::instance()->file_system()->read_file(file_path, file)) {
+            WG_LOG_ERROR("failed to read content of file " << file_path);
+            return {};
+        }
+
+        return yaml_parse(file);
     }
-    bool Yaml::read(const YamlConstNodeRef& node, StringId& sid) {
-        std::string string;
-        node >> string;
-        sid = SID(string);
-        return true;
-    }
-    bool Yaml::read(const YamlConstNodeRef& node, Vec2f& v) {
-        std::string string;
-        node >> string;
-        std::stringstream stream(string);
-        stream >> v[0] >> v[1];
-        return true;
-    }
-    bool Yaml::read(const YamlConstNodeRef& node, Vec3f& v) {
-        std::string string;
-        node >> string;
-        std::stringstream stream(string);
-        stream >> v[0] >> v[1] >> v[2];
-        return true;
-    }
-    bool Yaml::read(const YamlConstNodeRef& node, Vec4f& v) {
-        std::string string;
-        node >> string;
-        std::stringstream stream(string);
-        stream >> v[0] >> v[1] >> v[2] >> v[3];
-        return true;
-    }
-    std::string Yaml::read_str(const YamlConstNodeRef& node) {
-        std::string value;
-        Yaml::read(node, value);
-        return value;
-    }
-    StringId Yaml::read_sid(const YamlConstNodeRef& node) {
-        StringId value;
-        Yaml::read(node, value);
-        return value;
-    }
-    bool Yaml::read_bool(const wmoge::YamlConstNodeRef& node) {
-        bool value = false;
+
+    bool yaml_read(const YamlConstNodeRef& node, bool& value) {
         node >> value;
-        return value;
+        return true;
     }
-    int Yaml::read_int(const YamlConstNodeRef& node) {
-        int value = 0;
+    bool yaml_read(const YamlConstNodeRef& node, int& value) {
         node >> value;
-        return value;
+        return true;
     }
-    float Yaml::read_float(const YamlConstNodeRef& node) {
-        float value = 0;
+    bool yaml_read(const YamlConstNodeRef& node, float& value) {
         node >> value;
-        return value;
+        return true;
     }
-    Vec2f Yaml::read_vec2f(const YamlConstNodeRef& node) {
-        Vec2f value;
-        Yaml::read(node, value);
-        return value;
+    bool yaml_read(const YamlConstNodeRef& node, StringId& value) {
+        std::string string;
+        node >> string;
+        value = SID(string);
+        return true;
     }
-    Vec3f Yaml::read_vec3f(const YamlConstNodeRef& node) {
-        Vec3f value;
-        Yaml::read(node, value);
-        return value;
+    bool yaml_read(const YamlConstNodeRef& node, std::string& value) {
+        node >> value;
+        return true;
     }
-    Vec4f Yaml::read_vec4f(const YamlConstNodeRef& node) {
-        Vec4f value;
-        Yaml::read(node, value);
-        return value;
+
+    bool yaml_write(YamlNodeRef& node, const bool& value) {
+        node << value;
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const int& value) {
+        node << value;
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const float& value) {
+        node << value;
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const StringId& value) {
+        node << value.str();
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const std::string& value) {
+        node << value;
+        return true;
     }
 
 }// namespace wmoge

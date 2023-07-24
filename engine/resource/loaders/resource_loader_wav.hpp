@@ -25,57 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "pfx_feature_size.hpp"
+#ifndef WMOGE_RESOURCE_LOADER_WAV_HPP
+#define WMOGE_RESOURCE_LOADER_WAV_HPP
 
-#include "debug/profiler.hpp"
-#include "pfx/pfx_component_runtime.hpp"
+#include "resource/resource_loader.hpp"
 
 namespace wmoge {
 
-    Ref<PfxFeature> PfxFeatureSize::create() const {
-        return make_ref<PfxFeatureSize>();
-    }
-    StringId PfxFeatureSize::get_feature_name() const {
-        static StringId name("Size");
-        return name;
-    }
-    StringId PfxFeatureSize::get_feature_family() const {
-        static StringId family("Visual");
-        return family;
-    }
-    bool PfxFeatureSize::load_from_options(const YamlConstNodeRef& node) {
-        node["start_size"] >> m_start_size;
-        node["end_size"] >> m_end_size;
-        return true;
-    }
-    void PfxFeatureSize::on_added(PfxAttributes& attributes) {
-        attributes.set(PfxAttribute::Size);
-        attributes.set(PfxAttribute::TimeNorm);
-    }
-    void PfxFeatureSize::on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX("PfxFeatureSize::on_spawn");
-
-        auto* storage = runtime.get_storage();
-        auto  view_s  = storage->get_size();
-
-        for (auto particle_id : runtime.get_spawn_range()) {
-            view_s[particle_id] = m_start_size;
-        }
-    }
-    void PfxFeatureSize::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX("PfxFeatureSize::on_update");
-
-        auto* storage = runtime.get_storage();
-        auto  view_s  = storage->get_size();
-        auto  view_t  = storage->get_time_norm();
-
-        for (auto particle_id : runtime.get_update_range()) {
-            view_s[particle_id] = Math::lerp(view_t[particle_id], m_start_size, m_end_size);
-        }
-    }
-
-    void PfxFeatureSize::register_class() {
-        auto* cls = Class::register_class<PfxFeatureSize>();
-    }
+    /**
+     * @class ResourceLoaderWav
+     * @brief Loader for wav audio sources using audio file library
+     */
+    class ResourceLoaderWav final : public ResourceLoader {
+    public:
+        ~ResourceLoaderWav() override = default;
+        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        StringId get_name() override;
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_RESOURCE_LOADER_WAV_HPP

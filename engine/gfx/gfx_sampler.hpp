@@ -29,6 +29,7 @@
 #define WMOGE_GFX_SAMPLER_HPP
 
 #include "gfx/gfx_resource.hpp"
+#include "io/yaml.hpp"
 
 #include <utility>
 
@@ -42,6 +43,7 @@ namespace wmoge {
         GfxSamplerDesc();
         bool        operator==(const GfxSamplerDesc& other) const;
         std::size_t hash() const;
+        std::string to_str() const;
 
         float          min_lod;       // = 0;
         float          max_lod;       // = 32.0f;
@@ -52,6 +54,9 @@ namespace wmoge {
         GfxSampAddress v;             // = GfxSampAddress::Repeat;
         GfxSampAddress w;             // = GfxSampAddress::Repeat;
         GfxSampBrdClr  brd_clr;       // = GfxSampBrdClr::Black;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc);
+        friend bool yaml_write(YamlNodeRef& node, const GfxSamplerDesc& desc);
     };
 
     /**

@@ -1,7 +1,7 @@
 # Wmoge resource meta file
 version: 1
 uuid: 0
-loader: default
+loader: texture_2d
 class: Texture2d
 deps: [ ]
 description: "background texture"

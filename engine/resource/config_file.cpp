@@ -183,16 +183,6 @@ namespace wmoge {
         return value;
     }
 
-    bool ConfigFile::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("ConfigFile::load_from_import_options");
-
-        std::string source_file;
-
-        auto params = tree["params"];
-        params["source_file"] >> source_file;
-
-        return load(source_file);
-    }
     void ConfigFile::copy_to(Resource& copy) {
         Resource::copy_to(copy);
         auto config       = dynamic_cast<ConfigFile*>(&copy);

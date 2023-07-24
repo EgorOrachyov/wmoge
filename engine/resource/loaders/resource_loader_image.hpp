@@ -25,51 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "pfx_feature_movement.hpp"
+#ifndef WMOGE_RESOURCE_LOADER_IMAGE_HPP
+#define WMOGE_RESOURCE_LOADER_IMAGE_HPP
 
-#include "debug/profiler.hpp"
-#include "pfx/pfx_component_runtime.hpp"
+#include "resource/resource_loader.hpp"
 
 namespace wmoge {
 
-    Ref<PfxFeature> PfxFeatureMovement2d::create() const {
-        return make_ref<PfxFeatureMovement2d>();
-    }
-    StringId PfxFeatureMovement2d::get_feature_name() const {
-        static StringId name("Movement2d");
-        return name;
-    }
-    StringId PfxFeatureMovement2d::get_feature_family() const {
-        static StringId family("2d");
-        return family;
-    }
-    bool PfxFeatureMovement2d::load_from_options(const YamlConstNodeRef& node) {
-        Yaml::read(node["speed_acceleration"], m_speed_acceleration);
-        node["angle_acceleration"] >> m_angle_acceleration;
-        return true;
-    }
-    void PfxFeatureMovement2d::on_added(PfxAttributes& attributes) {
-        attributes.set(PfxAttribute::Pos2d);
-        attributes.set(PfxAttribute::Vel2d);
-        attributes.set(PfxAttribute::Angle);
-    }
-    void PfxFeatureMovement2d::on_update(class PfxComponentRuntime& runtime, float dt) {
-        WG_AUTO_PROFILE_PFX("PfxFeatureMovement2d::on_update");
-
-        auto* storage = runtime.get_storage();
-        auto  view_p  = storage->get_pos2d();
-        auto  view_v  = storage->get_vel2d();
-        auto  view_a  = storage->get_angle();
-
-        for (auto particle_id : runtime.get_update_range()) {
-            view_p[particle_id] += view_v[particle_id] * dt;
-            view_v[particle_id] += m_speed_acceleration * dt;
-            view_a[particle_id] += m_angle_acceleration * dt;
-        }
-    }
-
-    void PfxFeatureMovement2d::register_class() {
-        auto* cls = Class::register_class<PfxFeatureMovement2d>();
-    }
+    /**
+     * @class ResourceLoaderImage
+     * @brief Loader for images through stb image library
+     */
+    class ResourceLoaderImage final : public ResourceLoader {
+    public:
+        ~ResourceLoaderImage() override = default;
+        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        StringId get_name() override;
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_RESOURCE_LOADER_IMAGE_HPP

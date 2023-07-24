@@ -25,36 +25,40 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_FEATURE_MOVEMENT_HPP
-#define WMOGE_PFX_FEATURE_MOVEMENT_HPP
+#ifndef WMOGE_RESOURCE_LOADER_TEXTURE_HPP
+#define WMOGE_RESOURCE_LOADER_TEXTURE_HPP
 
-#include "pfx/pfx_feature.hpp"
+#include "resource/resource_loader.hpp"
+
+#include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_sampler.hpp"
+#include "gfx/gfx_texture.hpp"
+#include "resource/texture.hpp"
 
 namespace wmoge {
 
     /**
-     * @class PfxFeatureMovement2d
-     * @brief Moves particles in a 2d space
+     * @class ResourceLoaderTexture2d
+     * @brief Loader for 2d textures through stb image library
      */
-    class PfxFeatureMovement2d final : public PfxFeature {
+    class ResourceLoaderTexture2d final : public ResourceLoader {
     public:
-        WG_OBJECT(PfxFeatureMovement2d, PfxFeature)
+        ~ResourceLoaderTexture2d() override = default;
+        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        StringId get_name() override;
+    };
 
-        Ref<PfxFeature> create() const override;
-        StringId        get_feature_name() const override;
-        StringId        get_feature_family() const override;
-
-        bool load_from_options(const YamlConstNodeRef& node) override;
-
-        void on_added(PfxAttributes& attributes) override;
-        void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) override {}
-        void on_update(class PfxComponentRuntime& runtime, float dt) override;
-
-    private:
-        Vec2f m_speed_acceleration;
-        float m_angle_acceleration = 0.0f;
+    /**
+     * @class ResourceLoaderTextureCube
+     * @brief Loader for cube-map textures through stb image library
+     */
+    class ResourceLoaderTextureCube final : public ResourceLoader {
+    public:
+        ~ResourceLoaderTextureCube() override = default;
+        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        StringId get_name() override;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_PFX_FEATURE_MOVEMENT_HPP
+#endif//WMOGE_RESOURCE_LOADER_TEXTURE_HPP

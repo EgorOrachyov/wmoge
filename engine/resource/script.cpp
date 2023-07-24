@@ -34,31 +34,8 @@
 
 namespace wmoge {
 
-    bool Script::load_from_import_options(const YamlTree& tree) {
-        if (!Resource::load_from_import_options(tree)) {
-            return false;
-        }
-
-        auto        params = tree["params"];
-        std::string file;
-        std::string language;
-
-        params["file"] >> file;
-        if (file.empty()) {
-            WG_LOG_ERROR("no file provided in " << get_name());
-            return false;
-        }
-
-        params["language"] >> language;
-        if (language.empty()) {
-            WG_LOG_ERROR("no language provided in " << get_name());
-            return false;
-        }
-
-        m_language = SID(language);
-
-        if (!Engine::instance()->file_system()->read_file(file, m_code)) {
-            WG_LOG_ERROR("failed to read script code from file " << file);
+    bool Script::load_from_yaml(const YamlConstNodeRef& node) {
+        if (!Resource::load_from_yaml(node)) {
             return false;
         }
 

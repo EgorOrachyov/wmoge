@@ -28,6 +28,7 @@
 #ifndef WMOGE_STRING_UTILS_HPP
 #define WMOGE_STRING_UTILS_HPP
 
+#include <cinttypes>
 #include <string>
 #include <vector>
 
@@ -56,6 +57,9 @@ namespace wmoge {
 
         /** @return Converted uint value to string */
         static std::string from_uint(unsigned int value);
+
+        /** @return Converted uint64 value to string */
+        static std::string from_uint64(std::uint64_t value);
 
         /** @return Converted float value to string */
         static std::string from_float(float value, int precision = 5);

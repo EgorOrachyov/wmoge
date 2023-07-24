@@ -33,6 +33,7 @@
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "event/event_listener.hpp"
+#include "io/yaml.hpp"
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
 
@@ -57,24 +58,22 @@ namespace wmoge {
         int              gamepad_axis    = -1;
         float            threshold       = 0.1f;
         float            direction       = 0.0f;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ActionActivation& activation);
+        friend bool yaml_write(YamlNodeRef& node, const ActionActivation& activation);
     };
 
     /**
      * @class ActionMapAction
      * @brief Single action which can be stored inside an action map and triggered by an activation info
      */
-    class ActionMapAction {
-    public:
-        [[nodiscard]] const StringId&                      get_name() const;
-        [[nodiscard]] const StringId&                      get_display_name() const;
-        [[nodiscard]] const fast_vector<ActionActivation>& get_activations() const;
+    struct ActionMapAction {
+        StringId                      name         = SID("<unknown>");
+        StringId                      display_name = SID("<empty action>");
+        fast_vector<ActionActivation> activations;
 
-    private:
-        friend class ActionMap;
-
-        StringId                      m_name         = SID("<unknown>");
-        StringId                      m_display_name = SID("<empty action>");
-        fast_vector<ActionActivation> m_activations;
+        friend bool yaml_read(const YamlConstNodeRef& node, ActionMapAction& action);
+        friend bool yaml_write(YamlNodeRef& node, const ActionMapAction& action);
     };
 
     /**
@@ -85,34 +84,26 @@ namespace wmoge {
     public:
         ~ActionMap() override = default;
 
-        /**
-         * @brief Loads action map from a disk
-         *
-         * @param filepath Path to action to load
-         *
-         * @return True if loaded
-         */
-        bool load(const std::string& filepath);
         void rename(StringId new_name);
-        void enable();
-        void disable();
         void add_action(const StringId& action_name, const StringId& display_name);
         void add_action_activation(const StringId& action_name, const ActionActivation& activation);
         void remove_action(const StringId& action_name);
 
-        [[nodiscard]] const StringId&        get_name();
-        [[nodiscard]] const std::string&     get_path();
-        [[nodiscard]] bool                   is_active() const;
-        [[nodiscard]] bool                   has_action(const StringId& action_name);
-        [[nodiscard]] const ActionMapAction* get_action(const StringId& action_name);
+        [[nodiscard]] const StringId&              get_name();
+        [[nodiscard]] int                          get_priority();
+        [[nodiscard]] bool                         has_action(const StringId& action_name);
+        [[nodiscard]] const ActionMapAction*       get_action(const StringId& action_name);
+        [[nodiscard]] std::vector<ActionMapAction> get_actions() const;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ActionMap& action_map);
+        friend bool yaml_write(YamlNodeRef& node, const ActionMap& action_map);
 
     private:
         friend class ActionManager;
 
         fast_map<StringId, ActionMapAction> m_actions;
         StringId                            m_name;
-        std::string                         m_path;
-        bool                                m_is_active = false;
+        int                                 m_priority = 0;
     };
 
 }// namespace wmoge

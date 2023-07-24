@@ -31,67 +31,71 @@
 
 namespace wmoge {
 
-    Archive& operator<<(Archive& archive, const GfxShaderReflection::Texture& texture) {
+    bool archive_write(Archive& archive, const GfxShaderReflection::Texture& texture) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Texture::Archive<<");
 
-        archive << texture.name;
-        archive << texture.set;
-        archive << texture.binding;
-        archive << texture.array_size;
-        archive << static_cast<int>(texture.tex);
-        return archive;
+        WG_ARCHIVE_WRITE(archive, texture.name);
+        WG_ARCHIVE_WRITE(archive, texture.set);
+        WG_ARCHIVE_WRITE(archive, texture.binding);
+        WG_ARCHIVE_WRITE(archive, texture.array_size);
+        WG_ARCHIVE_WRITE(archive, texture.tex);
+
+        return true;
     }
-    Archive& operator>>(Archive& archive, GfxShaderReflection::Texture& texture) {
+    bool archive_read(Archive& archive, GfxShaderReflection::Texture& texture) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Texture::Archive>>");
 
-        archive >> texture.name;
-        archive >> texture.set;
-        archive >> texture.binding;
-        archive >> texture.array_size;
-        int tex;
-        archive >> tex;
-        texture.tex = static_cast<GfxTex>(tex);
-        return archive;
+        WG_ARCHIVE_READ(archive, texture.name);
+        WG_ARCHIVE_READ(archive, texture.set);
+        WG_ARCHIVE_READ(archive, texture.binding);
+        WG_ARCHIVE_READ(archive, texture.array_size);
+        WG_ARCHIVE_READ(archive, texture.tex);
+
+        return true;
     }
-    Archive& operator<<(Archive& archive, const GfxShaderReflection::Buffer& buffer) {
+    bool archive_write(Archive& archive, const GfxShaderReflection::Buffer& buffer) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Buffer::Archive<<");
 
-        archive << buffer.name;
-        archive << buffer.set;
-        archive << buffer.binding;
-        archive << buffer.size;
-        return archive;
+        WG_ARCHIVE_WRITE(archive, buffer.name);
+        WG_ARCHIVE_WRITE(archive, buffer.set);
+        WG_ARCHIVE_WRITE(archive, buffer.binding);
+        WG_ARCHIVE_WRITE(archive, buffer.size);
+
+        return true;
     }
-    Archive& operator>>(Archive& archive, GfxShaderReflection::Buffer& buffer) {
+    bool archive_read(Archive& archive, GfxShaderReflection::Buffer& buffer) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Buffer::Archive>>");
 
-        archive >> buffer.name;
-        archive >> buffer.set;
-        archive >> buffer.binding;
-        archive >> buffer.size;
-        return archive;
+        WG_ARCHIVE_READ(archive, buffer.name);
+        WG_ARCHIVE_READ(archive, buffer.set);
+        WG_ARCHIVE_READ(archive, buffer.binding);
+        WG_ARCHIVE_READ(archive, buffer.size);
+
+        return true;
     }
-    Archive& operator<<(Archive& archive, const GfxShaderReflection& reflection) {
+    bool archive_write(Archive& archive, const GfxShaderReflection& reflection) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Archive<<");
 
-        archive << reflection.textures;
-        archive << reflection.ub_buffers;
-        archive << reflection.sb_buffers;
-        archive << reflection.textures_per_desc;
-        archive << reflection.ub_buffers_per_desc;
-        archive << reflection.sb_buffers_per_desc;
-        return archive;
+        WG_ARCHIVE_WRITE(archive, reflection.textures);
+        WG_ARCHIVE_WRITE(archive, reflection.ub_buffers);
+        WG_ARCHIVE_WRITE(archive, reflection.sb_buffers);
+        WG_ARCHIVE_WRITE(archive, reflection.textures_per_desc);
+        WG_ARCHIVE_WRITE(archive, reflection.ub_buffers_per_desc);
+        WG_ARCHIVE_WRITE(archive, reflection.sb_buffers_per_desc);
+
+        return true;
     }
-    Archive& operator>>(Archive& archive, GfxShaderReflection& reflection) {
+    bool archive_read(Archive& archive, GfxShaderReflection& reflection) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Archive>>");
 
-        archive >> reflection.textures;
-        archive >> reflection.ub_buffers;
-        archive >> reflection.sb_buffers;
-        archive >> reflection.textures_per_desc;
-        archive >> reflection.ub_buffers_per_desc;
-        archive >> reflection.sb_buffers_per_desc;
-        return archive;
+        WG_ARCHIVE_READ(archive, reflection.textures);
+        WG_ARCHIVE_READ(archive, reflection.ub_buffers);
+        WG_ARCHIVE_READ(archive, reflection.sb_buffers);
+        WG_ARCHIVE_READ(archive, reflection.textures_per_desc);
+        WG_ARCHIVE_READ(archive, reflection.ub_buffers_per_desc);
+        WG_ARCHIVE_READ(archive, reflection.sb_buffers_per_desc);
+
+        return true;
     }
 
 }// namespace wmoge

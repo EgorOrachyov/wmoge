@@ -37,6 +37,19 @@
 
 namespace wmoge {
 
+    bool yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options) {
+        WG_YAML_READ_AS(node, "source_file", options.source_file);
+        WG_YAML_READ_AS_OPT(node, "channels", options.channels);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const ImageImportOptions& options) {
+        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
+        WG_YAML_WRITE_AS(node, "channels", options.channels);
+
+        return true;
+    }
+
     void Image::create(int width, int height, int channels, int pixel_size) {
         WG_AUTO_PROFILE_RESOURCE("Image::create");
 
@@ -119,6 +132,8 @@ namespace wmoge {
     bool Image::generate_mip_chain(std::vector<Ref<Image>>& mips) {
         WG_AUTO_PROFILE_RESOURCE("Image::generate_mip_chain");
 
+        assert(mips.empty());
+
         mips.push_back(duplicate().cast<Image>());
         int mips_count = max_mips_count(m_width, m_height, 1);
         for (int i = 1; i < mips_count; i++) {
@@ -127,26 +142,10 @@ namespace wmoge {
             if (!mips.back()->resize(mip_size[0], mip_size[1]))
                 return false;
         }
+
         return true;
     }
 
-    std::string Image::to_string() {
-        std::stringstream ss;
-        ss << "{Image: w=" << m_width << ",h=" << m_height << ",ch=" << m_channels << ",ps=" << m_pixel_size << ",path=" << get_name() << "}";
-        return ss.str();
-    }
-    bool Image::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("Image::load_from_import_options");
-
-        int         channels = 4;
-        std::string source_file;
-
-        auto params = tree["params"];
-        params["channels"] >> channels;
-        params["source_file"] >> source_file;
-
-        return load(source_file, channels);
-    }
     void Image::copy_to(Resource& copy) {
         auto image          = dynamic_cast<Image*>(&copy);
         image->m_width      = m_width;
@@ -154,6 +153,12 @@ namespace wmoge {
         image->m_pixel_size = m_pixel_size;
         image->m_channels   = m_channels;
         image->m_pixel_data = m_pixel_data;
+    }
+
+    std::string Image::to_string() {
+        std::stringstream ss;
+        ss << "{Image: w=" << m_width << ",h=" << m_height << ",ch=" << m_channels << ",ps=" << m_pixel_size << ",path=" << get_name() << "}";
+        return ss.str();
     }
 
     void Image::register_class() {

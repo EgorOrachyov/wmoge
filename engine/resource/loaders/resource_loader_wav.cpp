@@ -25,36 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_FEATURE_LIFETIME_HPP
-#define WMOGE_PFX_FEATURE_LIFETIME_HPP
+#include "resource_loader_wav.hpp"
 
-#include "pfx/pfx_feature.hpp"
+#include "debug/profiler.hpp"
+#include "resource/audio_stream_wav.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class PfxFeatureLifetime
-     * @brief Control life-time change of particles
-     */
-    class PfxFeatureLifetime final : public PfxFeature {
-    public:
-        WG_OBJECT(PfxFeatureLifetime, PfxFeature)
+    bool ResourceLoaderWav::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderWav::load");
 
-        Ref<PfxFeature> create() const override;
-        StringId        get_feature_name() const override;
-        StringId        get_feature_family() const override;
+        Ref<AudioStreamWav> audio = meta.cls->instantiate().cast<AudioStreamWav>();
 
-        bool load_from_options(const YamlConstNodeRef& node) override;
+        if (!audio) {
+            WG_LOG_ERROR("failed to instantiate audio " << name);
+            return false;
+        }
 
-        void on_added(PfxAttributes& attributes) override;
-        void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) override;
-        void on_update(class PfxComponentRuntime& runtime, float dt) override;
+        res = audio;
 
-    private:
-        float m_lifetime = 0.0f;
-        bool  m_infinite = 0.0f;
-    };
+        if (!meta.import_options.has_value()) {
+            WG_LOG_ERROR("No import options to load audio " << name);
+            return false;
+        }
+
+        AudioImportOptions options;
+        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
+
+        return audio->load(options.source_file);
+    }
+    StringId ResourceLoaderWav::get_name() {
+        return SID("wav");
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_PFX_FEATURE_LIFETIME_HPP

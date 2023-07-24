@@ -34,6 +34,17 @@
 namespace wmoge {
 
     /**
+     * @class AudioImportOptions
+     * @brief Options to import audio data from an external format
+     */
+    struct AudioImportOptions {
+        std::string source_file;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const AudioImportOptions& options);
+    };
+
+    /**
      * @class AudioStream
      * @brief Base class for audio files which can be loaded and played
      */
@@ -43,7 +54,7 @@ namespace wmoge {
 
         virtual Ref<Data> get_channel_data(int channel) { return Ref<Data>{}; }
 
-        bool load_from_import_options(const YamlTree& tree) override;
+        bool load_from_yaml(const YamlConstNodeRef& node) override;
         void copy_to(Resource& copy) override;
 
         float get_length() const;

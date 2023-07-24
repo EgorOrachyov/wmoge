@@ -32,29 +32,6 @@
 
 namespace wmoge {
 
-    bool PfxEffect::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("PfxEffect::load_from_import_options");
-
-        if (!Resource::load_from_import_options(tree)) {
-            return false;
-        }
-
-        auto params = tree["params"];
-        Yaml::read_enum(params["type"], m_type);
-
-        for (auto it = params["components"].first_child(); it.valid(); it = it.next_sibling()) {
-            auto component = make_ref<PfxComponent>();
-
-            if (!component->load_from_options(it)) {
-                WG_LOG_ERROR("failed to load component in " << get_name());
-                return false;
-            }
-
-            m_components.push_back(std::move(component));
-        }
-
-        return true;
-    }
     void PfxEffect::copy_to(Resource& copy) {
         Resource::copy_to(copy);
     }

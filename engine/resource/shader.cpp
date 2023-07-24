@@ -37,79 +37,111 @@
 
 namespace wmoge {
 
-    bool Shader::load_from_import_options(const YamlTree& tree) {
+    bool yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter) {
+        WG_YAML_READ_AS(node, "name", parameter.name);
+        WG_YAML_READ_AS(node, "type", parameter.type);
+        WG_YAML_READ_AS_OPT(node, "offset", parameter.offset);
+        WG_YAML_READ_AS_OPT(node, "size", parameter.size);
+        WG_YAML_READ_AS_OPT(node, "value", parameter.value);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const ShaderParameter& parameter) {
+        WG_YAML_WRITE_AS(node, "name", parameter.name);
+        WG_YAML_WRITE_AS(node, "type", parameter.type);
+        WG_YAML_WRITE_AS(node, "offset", parameter.offset);
+        WG_YAML_WRITE_AS(node, "size", parameter.size);
+        WG_YAML_WRITE_AS(node, "value", parameter.value);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture) {
+        WG_YAML_READ_AS(node, "name", texture.name);
+        WG_YAML_READ_AS(node, "type", texture.type);
+        WG_YAML_READ_AS_OPT(node, "id", texture.id);
+        WG_YAML_READ_AS_OPT(node, "value", texture.value);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const ShaderTexture& texture) {
+        WG_YAML_WRITE_AS(node, "name", texture.name);
+        WG_YAML_WRITE_AS(node, "type", texture.type);
+        WG_YAML_WRITE_AS(node, "id", texture.id);
+        WG_YAML_WRITE_AS(node, "value", texture.value);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state) {
+        WG_YAML_READ_AS_OPT(node, "poly_mode", state.poly_mode);
+        WG_YAML_READ_AS_OPT(node, "cull_mode", state.cull_mode);
+        WG_YAML_READ_AS_OPT(node, "front_face", state.front_face);
+        WG_YAML_READ_AS_OPT(node, "depth_enable", state.depth_enable);
+        WG_YAML_READ_AS_OPT(node, "depth_write", state.depth_write);
+        WG_YAML_READ_AS_OPT(node, "depth_func", state.depth_func);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const ShaderPipelineState& state) {
+        WG_YAML_WRITE_AS(node, "poly_mode", state.poly_mode);
+        WG_YAML_WRITE_AS(node, "cull_mode", state.cull_mode);
+        WG_YAML_WRITE_AS(node, "front_face", state.front_face);
+        WG_YAML_WRITE_AS(node, "depth_enable", state.depth_enable);
+        WG_YAML_WRITE_AS(node, "depth_write", state.depth_write);
+        WG_YAML_WRITE_AS(node, "depth_func", state.depth_func);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, ShaderFile& file) {
+        WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
+        WG_YAML_READ_AS_OPT(node, "textures", file.textures);
+        WG_YAML_READ_AS_OPT(node, "keywords", file.keywords);
+        WG_YAML_READ_AS_OPT(node, "vertex", file.vertex);
+        WG_YAML_READ_AS_OPT(node, "fragment", file.fragment);
+        WG_YAML_READ_AS_OPT(node, "compute", file.compute);
+        WG_YAML_READ_AS(node, "domain", file.domain);
+        WG_YAML_READ_AS_OPT(node, "render_queue", file.render_queue);
+        WG_YAML_READ_AS_OPT(node, "state", file.state);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const ShaderFile& file) {
+        WG_YAML_WRITE_AS(node, "parameters", file.parameters);
+        WG_YAML_WRITE_AS(node, "textures", file.textures);
+        WG_YAML_WRITE_AS(node, "keywords", file.keywords);
+        WG_YAML_WRITE_AS(node, "vertex", file.vertex);
+        WG_YAML_WRITE_AS(node, "fragment", file.fragment);
+        WG_YAML_WRITE_AS(node, "compute", file.compute);
+        WG_YAML_WRITE_AS(node, "domain", file.domain);
+        WG_YAML_WRITE_AS(node, "render_queue", file.render_queue);
+        WG_YAML_WRITE_AS(node, "state", file.state);
+
+        return true;
+    }
+
+    bool Shader::load_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Shader::load_from_import_options");
 
-        auto        params = tree["params"];
-        std::string vertex_code_path;
-        std::string fragment_code_path;
-        std::string compute_code_path;
+        ShaderFile shader_file;
+        WG_YAML_READ(node, shader_file);
 
-        if (params.has_child("vertex_path")) params["vertex_path"] >> vertex_code_path;
-        if (params.has_child("fragment_path")) params["fragment_path"] >> fragment_code_path;
-        if (params.has_child("compute_path")) params["compute_path"] >> compute_code_path;
+        m_domain         = shader_file.domain;
+        m_render_queue   = shader_file.render_queue;
+        m_vertex         = shader_file.vertex;
+        m_fragment       = shader_file.fragment;
+        m_compute        = shader_file.compute;
+        m_pipeline_state = shader_file.state;
 
-        FileSystem* file_system = Engine::instance()->file_system();
-
-        if (!vertex_code_path.empty() && !file_system->read_file(vertex_code_path, m_vertex)) {
-            WG_LOG_ERROR("failed to read shader " << vertex_code_path);
-            return false;
+        for (auto& keyword : shader_file.keywords) {
+            m_keywords.insert(std::move(keyword));
         }
-        if (!fragment_code_path.empty() && !file_system->read_file(fragment_code_path, m_fragment)) {
-            WG_LOG_ERROR("failed to read shader " << fragment_code_path);
-            return false;
+        for (auto& parameter : shader_file.parameters) {
+            m_parameters[parameter.name] = std::move(parameter);
         }
-        if (!compute_code_path.empty() && !file_system->read_file(compute_code_path, m_compute)) {
-            WG_LOG_ERROR("failed to read shader " << compute_code_path);
-            return false;
-        }
-
-        if (m_vertex.empty()) {
-            params["vertex"] >> m_vertex;
-        }
-        if (m_fragment.empty()) {
-            params["fragment"] >> m_fragment;
-        }
-        if (m_compute.empty()) {
-            params["compute"] >> m_compute;
-        }
-
-        m_domain       = Yaml::read_sid(params["domain"]);
-        m_render_queue = Yaml::read_int(params["render_queue"]);
-
-        auto pipeline_state           = params["pipeline_state"];
-        m_pipeline_state.depth_enable = Yaml::read_bool(pipeline_state["depth_enable"]);
-        m_pipeline_state.depth_write  = Yaml::read_bool(pipeline_state["depth_write"]);
-        m_pipeline_state.poly_mode    = Enum::parse<GfxPolyMode>(pipeline_state["poly_mode"]);
-        m_pipeline_state.cull_mode    = Enum::parse<GfxPolyCullMode>(pipeline_state["cull_mode"]);
-        m_pipeline_state.front_face   = Enum::parse<GfxPolyFrontFace>(pipeline_state["front_face"]);
-        m_pipeline_state.depth_func   = Enum::parse<GfxCompFunc>(pipeline_state["depth_func"]);
-
-        auto keywords = params["keywords"];
-        for (auto entry = keywords.first_child(); entry.valid(); entry = entry.next_sibling()) {
-            std::string keyword;
-            entry >> keyword;
-            m_keywords.emplace(SID(keyword));
-        }
-
-        auto parameters = params["parameters"];
-        for (auto entry = parameters.first_child(); entry.valid(); entry = entry.next_sibling()) {
-            const auto name = Yaml::read_sid(entry["entry"]);
-
-            auto& shader_parameter = m_parameters[name];
-            shader_parameter.name  = name;
-            shader_parameter.type  = Enum::parse<GfxShaderParam>(entry["type"]);
-            shader_parameter.value = Yaml::read_str(entry["value"]);
-        }
-
-        auto textures = params["textures"];
-        for (auto entry = textures.first_child(); entry.valid(); entry = entry.next_sibling()) {
-            const auto name = Yaml::read_sid(entry["entry"]);
-
-            auto& shader_texture = m_textures[name];
-            shader_texture.name  = name;
-            shader_texture.type  = Enum::parse<GfxTex>(entry["type"]);
-            shader_texture.value = Yaml::read_str(entry["value"]);
+        for (auto& texture : shader_file.textures) {
+            m_textures[texture.name] = std::move(texture);
         }
 
         if (!generate_params_layout()) return false;
@@ -117,6 +149,7 @@ namespace wmoge {
 
         return true;
     }
+
     void Shader::copy_to(Resource& copy) {
         Resource::copy_to(copy);
         auto shader                  = dynamic_cast<Shader*>(&copy);
@@ -206,10 +239,10 @@ namespace wmoge {
     int Shader::get_textures_count() const {
         return int(m_textures.size());
     }
-    std::string Shader::get_include_parameters() const {
+    const std::string& Shader::get_include_parameters() const {
         return m_include_parameters;
     }
-    std::string Shader::get_include_textures() const {
+    const std::string& Shader::get_include_textures() const {
         return m_include_textures;
     }
 

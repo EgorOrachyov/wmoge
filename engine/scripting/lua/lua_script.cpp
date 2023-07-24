@@ -36,10 +36,10 @@
 
 namespace wmoge {
 
-    bool LuaScript::load_from_import_options(const YamlTree& tree) {
+    bool LuaScript::load_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_LUA("LuaScript::load_from_import_options");
 
-        if (!Script::load_from_import_options(tree)) {
+        if (!Script::load_from_yaml(node)) {
             return false;
         }
 

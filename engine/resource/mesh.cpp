@@ -32,6 +32,50 @@
 
 namespace wmoge {
 
+    bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions::Process& process) {
+        WG_YAML_READ_AS_OPT(node, "triangulate", process.triangulate);
+        WG_YAML_READ_AS_OPT(node, "tangent_space", process.tangent_space);
+        WG_YAML_READ_AS_OPT(node, "flip_uv", process.flip_uv);
+        WG_YAML_READ_AS_OPT(node, "gen_normals", process.gen_normals);
+        WG_YAML_READ_AS_OPT(node, "gen_smooth_normals", process.gen_smooth_normals);
+        WG_YAML_READ_AS_OPT(node, "join_identical_vertices", process.join_identical_vertices);
+        WG_YAML_READ_AS_OPT(node, "limit_bone_weights", process.limit_bone_weights);
+        WG_YAML_READ_AS_OPT(node, "improve_cache_locality", process.improve_cache_locality);
+        WG_YAML_READ_AS_OPT(node, "sort_by_ptype", process.sort_by_ptype);
+        WG_YAML_READ_AS_OPT(node, "gen_uv", process.gen_uv);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const MeshImportOptions::Process& process) {
+        WG_YAML_WRITE_AS(node, "triangulate", process.triangulate);
+        WG_YAML_WRITE_AS(node, "tangent_space", process.tangent_space);
+        WG_YAML_WRITE_AS(node, "flip_uv", process.flip_uv);
+        WG_YAML_WRITE_AS(node, "gen_normals", process.gen_normals);
+        WG_YAML_WRITE_AS(node, "gen_smooth_normals", process.gen_smooth_normals);
+        WG_YAML_WRITE_AS(node, "join_identical_vertices", process.join_identical_vertices);
+        WG_YAML_WRITE_AS(node, "limit_bone_weights", process.limit_bone_weights);
+        WG_YAML_WRITE_AS(node, "improve_cache_locality", process.improve_cache_locality);
+        WG_YAML_WRITE_AS(node, "sort_by_ptype", process.sort_by_ptype);
+        WG_YAML_WRITE_AS(node, "gen_uv", process.gen_uv);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options) {
+        WG_YAML_READ_AS(node, "source_file", options.source_file);
+        WG_YAML_READ_AS(node, "attributes", options.attributes);
+        WG_YAML_READ_AS_OPT(node, "process", options.process);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const MeshImportOptions& options) {
+        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
+        WG_YAML_WRITE_AS(node, "attributes", options.attributes);
+        WG_YAML_WRITE_AS(node, "process", options.process);
+
+        return true;
+    }
+
     void Mesh::add_chunk(const MeshChunk& mesh_chunk) {
         m_chunks.push_back(mesh_chunk);
     }

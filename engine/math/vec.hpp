@@ -28,14 +28,14 @@
 #ifndef WMOGE_VEC_HPP
 #define WMOGE_VEC_HPP
 
+#include "math_utils.hpp"
+
 #include <cassert>
 #include <cstddef>
 #include <functional>
 #include <initializer_list>
 #include <ostream>
 #include <sstream>
-
-#include "math_utils.hpp"
 
 namespace wmoge {
 

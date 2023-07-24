@@ -62,59 +62,41 @@ namespace wmoge {
             return false;
         }
 
-        auto params     = meta.import_options.value()["params"];
-        auto process    = params["process"];
-        auto attributes = params["attributes"];
+        MeshImportOptions options;
+        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
 
         AssimpImportContext import_ctx;
 
-        auto process_option = [&](const char* option_name, bool def_value, int assimp_flag) {
-            bool option = def_value;
-
-            ryml::csubstr option_name_str(option_name, std::strlen(option_name));
-
-            if (process.has_child(option_name_str)) {
-                process[option_name_str] >> option;
-            }
-            if (option) {
-                import_ctx.options |= assimp_flag;
-            }
-        };
-
-        process_option("triangulate", true, aiProcess_Triangulate);
-        process_option("tangent_space", false, aiProcess_CalcTangentSpace);
-        process_option("flip_uv", true, aiProcess_FlipUVs);
-        process_option("gen_normals", true, aiProcess_GenNormals);
-        process_option("gen_smooth_normals", false, aiProcess_GenSmoothNormals);
-        process_option("join_identical_vertices", true, aiProcess_JoinIdenticalVertices);
-        process_option("limit_bone_weights", true, aiProcess_LimitBoneWeights);
-        process_option("improve_cache_locality", false, aiProcess_ImproveCacheLocality);
-        process_option("sort_by_ptype", true, aiProcess_SortByPType);
-        process_option("gen_uv", false, aiProcess_GenUVCoords);
+        if (options.process.triangulate) import_ctx.options |= aiProcess_Triangulate;
+        if (options.process.tangent_space) import_ctx.options |= aiProcess_CalcTangentSpace;
+        if (options.process.flip_uv) import_ctx.options |= aiProcess_FlipUVs;
+        if (options.process.gen_normals) import_ctx.options |= aiProcess_GenNormals;
+        if (options.process.gen_smooth_normals) import_ctx.options |= aiProcess_GenSmoothNormals;
+        if (options.process.join_identical_vertices) import_ctx.options |= aiProcess_JoinIdenticalVertices;
+        if (options.process.limit_bone_weights) import_ctx.options |= aiProcess_LimitBoneWeights;
+        if (options.process.improve_cache_locality) import_ctx.options |= aiProcess_ImproveCacheLocality;
+        if (options.process.sort_by_ptype) import_ctx.options |= aiProcess_SortByPType;
+        if (options.process.gen_uv) import_ctx.options |= aiProcess_GenUVCoords;
 
         import_ctx.options |= aiProcess_GenBoundingBoxes;
 
-        for (auto attrib = attributes.first_child(); attrib.valid(); attrib = attrib.next_sibling()) {
-            std::string attrib_name;
-            attrib >> attrib_name;
-            import_ctx.attribs.set(magic_enum::enum_cast<GfxVertAttrib>(attrib_name).value());
+        for (auto attrib : options.attributes) {
+            import_ctx.attribs.set(attrib);
         }
-
-        std::string source_file;
-        params["source_file"] >> source_file;
 
         FileSystem* file_system = Engine::instance()->file_system();
 
         std::vector<std::uint8_t> file_data;
-        if (!file_system->read_file(source_file, file_data)) {
-            WG_LOG_ERROR("failed to load file " << source_file);
+        if (!file_system->read_file(options.source_file, file_data)) {
+            WG_LOG_ERROR("failed to load file " << options.source_file);
             return false;
         }
 
         Assimp::Importer importer;
+
         import_ctx.scene = importer.ReadFileFromMemory(file_data.data(), file_data.size(), import_ctx.options);
         if (!import_ctx.scene || !import_ctx.scene->mRootNode || import_ctx.scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
-            WG_LOG_ERROR("failed load " << source_file << " log: " << importer.GetErrorString());
+            WG_LOG_ERROR("failed load " << options.source_file << " log: " << importer.GetErrorString());
             return false;
         }
 
@@ -122,7 +104,7 @@ namespace wmoge {
         import_ctx.name = &name;
 
         if (!process_node(import_ctx, import_ctx.scene->mRootNode, Math3d::identity(), Math3d::identity())) {
-            WG_LOG_ERROR("failed to process scene of " << source_file);
+            WG_LOG_ERROR("failed to process scene of " << options.source_file);
             return false;
         }
 
@@ -135,9 +117,6 @@ namespace wmoge {
         res->set_name(name);
 
         return true;
-    }
-    bool ResourceLoaderAssimp::can_load(const StringId& resource_type) {
-        return resource_type == SID("Mesh");
     }
     StringId ResourceLoaderAssimp::get_name() {
         return SID("assimp");

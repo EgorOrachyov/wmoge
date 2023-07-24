@@ -37,13 +37,12 @@ namespace wmoge {
 
     /**
      * @class ResourceLoaderDefault
-     * @brief Default-loader for resources from import options
+     * @brief Loader for default single-file resources stored in yaml format
      */
     class ResourceLoaderDefault final : public ResourceLoader {
     public:
         ~ResourceLoaderDefault() override = default;
         bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
-        bool     can_load(const StringId& resource_type) override;
         StringId get_name() override;
     };
 

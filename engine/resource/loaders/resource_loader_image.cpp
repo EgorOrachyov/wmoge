@@ -25,51 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TEXT_FILE_HPP
-#define WMOGE_TEXT_FILE_HPP
+#include "resource_loader_image.hpp"
 
-#include "core/string_id.hpp"
-#include "resource/resource.hpp"
-
-#include <filesystem>
-#include <string>
-#include <vector>
+#include "debug/profiler.hpp"
+#include "resource/image.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class TextFile
-     * @brief Simple text file resource
-     */
-    class TextFile final : public Resource {
-    public:
-        WG_OBJECT(TextFile, Resource);
+    bool ResourceLoaderImage::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderImage::load");
 
-        /**
-         * @brief Load text file resource using provided path
-         *
-         * @param path Path to file in file system
-         * @param new_line Add new line on section line loadings
-         * @param last_line Add new line after last section line
-         *
-         * @return True if successfully loaded
-         */
-        bool load(const std::string& path, bool new_line = false, bool last_line = false);
+        Ref<Image> image = meta.cls->instantiate().cast<Image>();
 
-        const std::vector<std::string>& get_text_sections();
-        const std::string&              get_text_section(int num);
-        int                             get_text_sections_count();
+        if (!image) {
+            WG_LOG_ERROR("Failed to instantiate image " << name);
+            return false;
+        }
 
-        bool        load_from_import_options(const YamlTree& tree) override;
-        void        copy_to(Resource& copy) override;
-        std::string to_string() override;
+        res = image;
 
-    private:
-        std::vector<std::string> m_text_sections;
-        bool                     m_new_line  = false;
-        bool                     m_last_line = false;
-    };
+        if (!meta.import_options.has_value()) {
+            WG_LOG_ERROR("No import options to load image " << name);
+            return false;
+        }
+
+        ImageImportOptions options;
+        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
+
+        return image->load(options.source_file, options.channels);
+    }
+    StringId ResourceLoaderImage::get_name() {
+        return SID("image");
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_TEXT_FILE_HPP

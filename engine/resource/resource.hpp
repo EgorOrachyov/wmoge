@@ -32,6 +32,7 @@
 #include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "event/event.hpp"
+#include "io/archive.hpp"
 #include "io/yaml.hpp"
 
 #include <atomic>
@@ -48,7 +49,8 @@ namespace wmoge {
     public:
         WG_OBJECT(Resource, Object);
 
-        virtual bool          load_from_import_options(const YamlTree& tree) { return true; };
+        virtual bool          load_from_yaml(const YamlConstNodeRef& node) { return true; }
+        virtual bool          load_from_archive(const Archive& archive) { return true; }
         virtual void          copy_to(Resource& copy) {}
         virtual Ref<Resource> duplicate();
 

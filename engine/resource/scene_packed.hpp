@@ -56,7 +56,7 @@ namespace wmoge {
     public:
         WG_OBJECT(ScenePacked, Resource)
 
-        bool load_from_import_options(const YamlTree& tree) override;
+        bool load_from_yaml(const YamlConstNodeRef& node) override;
         void copy_to(Resource& copy) override;
 
         AsyncResult<Ref<Scene>> instantiate_async();

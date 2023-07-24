@@ -34,23 +34,32 @@ namespace wmoge {
     bool ResourceLoaderDefault::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderDefault::load");
 
-        res = meta.resource_class->instantiate().cast<Resource>();
+        res = meta.cls->instantiate().cast<Resource>();
+
         if (!res) {
             WG_LOG_ERROR("failed to instantiate resource " << name);
             return false;
         }
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("no import options file for " << name);
+
+        if (meta.path_on_disk->empty()) {
+            WG_LOG_ERROR("no path on disk to load resource file " << name);
             return false;
         }
+
+        auto resource_tree = yaml_parse_file(meta.path_on_disk.value());
+
+        if (resource_tree.empty()) {
+            WG_LOG_ERROR("failed to read parse file " << meta.path_on_disk.value());
+            return false;
+        }
+
         res->set_name(name);
-        if (!res->load_from_import_options(meta.import_options.value())) {
-            WG_LOG_ERROR("failed to load resource from import options");
+
+        if (!res->load_from_yaml(resource_tree.crootref())) {
+            WG_LOG_ERROR("failed to load resource from file " << meta.path_on_disk.value());
             return false;
         }
-        return true;
-    }
-    bool ResourceLoaderDefault::can_load(const StringId& resource_type) {
+
         return true;
     }
     StringId ResourceLoaderDefault::get_name() {

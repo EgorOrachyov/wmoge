@@ -25,35 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_FEATURE_VELOCITY_HPP
-#define WMOGE_PFX_FEATURE_VELOCITY_HPP
+#include "resource_loader_freetype.hpp"
 
-#include "pfx/pfx_feature.hpp"
+#include "debug/profiler.hpp"
+#include "resource/font.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class PfxFeatureVelocity2d
-     * @brief Controls initial velocity of particles and velocity changes
-     */
-    class PfxFeatureVelocity2d final : public PfxFeature {
-    public:
-        WG_OBJECT(PfxFeatureVelocity2d, PfxFeature)
+    bool ResourceLoaderFreeType::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderFreeType::load");
 
-        Ref<PfxFeature> create() const override;
-        StringId        get_feature_name() const override;
-        StringId        get_feature_family() const override;
+        Ref<Font> font = meta.cls->instantiate().cast<Font>();
 
-        bool load_from_options(const YamlConstNodeRef& node) override;
+        if (!font) {
+            WG_LOG_ERROR("failed to instantiate font " << name);
+            return false;
+        }
 
-        void on_added(PfxAttributes& attributes) override;
-        void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) override;
-        void on_update(class PfxComponentRuntime& runtime, float dt) override {}
+        res = font;
 
-    private:
-        float m_radius = 1.0f;
-    };
+        if (!meta.import_options.has_value()) {
+            WG_LOG_ERROR("no import options to load font " << name);
+            return false;
+        }
+
+        FontImportOptions options;
+        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
+
+        return font->load(options.source_file, options.height, options.glyphs_in_row);
+    }
+    StringId ResourceLoaderFreeType::get_name() {
+        return SID("freetype");
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_PFX_FEATURE_VELOCITY_HPP

@@ -25,36 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_FEATURE_SIZE_HPP
-#define WMOGE_PFX_FEATURE_SIZE_HPP
+#ifndef WMOGE_RESOURCE_LOADER_FREETYPE_HPP
+#define WMOGE_RESOURCE_LOADER_FREETYPE_HPP
 
-#include "pfx/pfx_feature.hpp"
+#include "resource/resource_loader.hpp"
 
 namespace wmoge {
 
     /**
-     * @class PfxFeatureSize
-     * @brief Controls size of particles used to be rendered by sprites, etc.
+     * @class ResourceLoaderFreeType
+     * @brief Loader for ttf fonts through freetype2 library
      */
-    class PfxFeatureSize final : public PfxFeature {
+    class ResourceLoaderFreeType final : public ResourceLoader {
     public:
-        WG_OBJECT(PfxFeatureSize, PfxFeature)
-
-        Ref<PfxFeature> create() const override;
-        StringId        get_feature_name() const override;
-        StringId        get_feature_family() const override;
-
-        bool load_from_options(const YamlConstNodeRef& node) override;
-
-        void on_added(PfxAttributes& attributes) override;
-        void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) override;
-        void on_update(class PfxComponentRuntime& runtime, float dt) override;
-
-    private:
-        float m_start_size = 1.0f;
-        float m_end_size   = 1.0f;
+        ~ResourceLoaderFreeType() override = default;
+        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        StringId get_name() override;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_PFX_FEATURE_SIZE_HPP
+#endif//WMOGE_RESOURCE_LOADER_FREETYPE_HPP

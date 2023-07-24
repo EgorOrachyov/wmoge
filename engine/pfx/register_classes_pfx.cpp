@@ -27,24 +27,12 @@
 
 #include "register_classes_pfx.hpp"
 
-#include "pfx/features/pfx_feature_color.hpp"
-#include "pfx/features/pfx_feature_lifetime.hpp"
-#include "pfx/features/pfx_feature_movement.hpp"
-#include "pfx/features/pfx_feature_size.hpp"
-#include "pfx/features/pfx_feature_sprite.hpp"
-#include "pfx/features/pfx_feature_velocity.hpp"
 #include "pfx/pfx_feature.hpp"
 
 namespace wmoge {
 
     void register_classes_pfx() {
         PfxFeature::register_class();
-        PfxFeatureColor::register_class();
-        PfxFeatureLifetime::register_class();
-        PfxFeatureMovement2d::register_class();
-        PfxFeatureSize::register_class();
-        PfxFeatureSprite::register_class();
-        PfxFeatureVelocity2d::register_class();
     }
 
 }// namespace wmoge

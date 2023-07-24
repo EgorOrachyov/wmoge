@@ -101,7 +101,7 @@ namespace wmoge {
 
         WG_LUA_CHECK_MSG(left.isNumber(), "left must be number");
         WG_LUA_CHECK_MSG(right.isNumber(), "right must be number");
-        luabridge::LuaRef(state, Random::next_float_in_range(left.cast<float>(), right.cast<float>())).push();
+        luabridge::LuaRef(state, Random::next_float(left.cast<float>(), right.cast<float>())).push();
         return 1;
     }
 
@@ -156,7 +156,7 @@ namespace wmoge {
 
         ns = ns.beginNamespace("Random")
                      .addCFunction("next_float", lua_Random_next_float)
-                     .addCFunction("next_float_in_range", lua_Random_next_float_in_range)
+                     .addCFunction("next_float", lua_Random_next_float_in_range)
                      .endNamespace();
     }
 

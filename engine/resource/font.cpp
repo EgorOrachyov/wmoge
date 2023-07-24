@@ -40,6 +40,21 @@
 
 namespace wmoge {
 
+    bool yaml_read(const YamlConstNodeRef& node, FontImportOptions& options) {
+        WG_YAML_READ_AS(node, "source_file", options.source_file);
+        WG_YAML_READ_AS_OPT(node, "height", options.height);
+        WG_YAML_READ_AS_OPT(node, "glyphs_in_row", options.glyphs_in_row);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const FontImportOptions& options) {
+        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
+        WG_YAML_WRITE_AS(node, "height", options.height);
+        WG_YAML_WRITE_AS(node, "glyphs_in_row", options.glyphs_in_row);
+
+        return true;
+    }
+
     bool Font::load(const std::string& path, int height, int glyphs_in_row) {
         WG_AUTO_PROFILE_RESOURCE("Font::load");
 
@@ -168,10 +183,10 @@ namespace wmoge {
         sampler_desc.max_anisotropy = gfx_driver->device_caps().max_anisotropy;
         sampler_desc.u              = GfxSampAddress::ClampToBorder;
         sampler_desc.v              = GfxSampAddress::ClampToBorder;
-        auto gfx_sampler            = gfx_driver->make_sampler(sampler_desc, SID("clamp edge & mips & black"));
+        auto gfx_sampler            = gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_str()));
 
         m_texture = make_ref<Texture2d>();
-        m_texture->set_name(SID(get_name().str() + "@auto"));
+        m_texture->set_name(SID(get_name().str() + "_bitmap"));
         m_texture->create(gfx_bitmap, gfx_sampler);
 
         return true;
@@ -201,20 +216,6 @@ namespace wmoge {
         return Vec2f(advance_x, height);
     }
 
-    bool Font::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("Font::load_from_import_options");
-
-        std::string source_file;
-        int         height        = 20;
-        int         glyphs_in_row = 16;
-
-        auto params = tree["params"];
-        params["source_file"] >> source_file;
-        params["height"] >> height;
-        params["glyphs_in_row"] >> glyphs_in_row;
-
-        return load(source_file, height, glyphs_in_row);
-    }
     void Font::copy_to(Resource& copy) {
         Resource::copy_to(copy);
         auto font             = dynamic_cast<Font*>(&copy);
@@ -226,6 +227,7 @@ namespace wmoge {
         font->m_height        = m_height;
         font->m_glyphs_in_row = m_glyphs_in_row;
     }
+
     std::string Font::to_string() {
         std::stringstream ss;
         ss << "{Font: family=" << m_family_name << ",style=" << m_style_name << ",h=" << m_height << ",path=" << get_name() << "}";

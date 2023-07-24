@@ -28,13 +28,14 @@
 #ifndef WMOGE_ARCHIVE_HPP
 #define WMOGE_ARCHIVE_HPP
 
+#include "core/log.hpp"
+#include "core/ref.hpp"
+#include "core/string_id.hpp"
+
 #include <array>
 #include <cinttypes>
 #include <unordered_map>
 #include <vector>
-
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
 
 namespace wmoge {
 
@@ -67,41 +68,13 @@ namespace wmoge {
         virtual bool read(StringId& value);
         virtual bool read(std::string& value);
 
-        virtual bool        is_memory()   = 0;
-        virtual bool        is_physical() = 0;
-        virtual std::size_t get_size()    = 0;
+        [[nodiscard]] virtual bool        is_memory()   = 0;
+        [[nodiscard]] virtual bool        is_physical() = 0;
+        [[nodiscard]] virtual std::size_t get_size()    = 0;
 
-        bool            can_read() const { return m_can_read; }
-        bool            can_write() const { return m_can_write; }
-        const StringId& get_name() const { return m_name; }
-
-        friend Archive& operator<<(Archive& archive, const bool& value);
-        friend Archive& operator<<(Archive& archive, const int& value);
-        friend Archive& operator<<(Archive& archive, const float& value);
-        friend Archive& operator<<(Archive& archive, const std::size_t& value);
-        friend Archive& operator<<(Archive& archive, const StringId& value);
-        friend Archive& operator<<(Archive& archive, const std::string& value);
-
-        friend Archive& operator>>(Archive& archive, bool& value);
-        friend Archive& operator>>(Archive& archive, int& value);
-        friend Archive& operator>>(Archive& archive, float& value);
-        friend Archive& operator>>(Archive& archive, std::size_t& value);
-        friend Archive& operator>>(Archive& archive, StringId& value);
-        friend Archive& operator>>(Archive& archive, std::string& value);
-
-        template<typename T, std::size_t S>
-        friend Archive& operator<<(Archive& archive, const std::array<T, S>& array);
-        template<typename T>
-        friend Archive& operator<<(Archive& archive, const std::vector<T>& vector);
-        template<typename K, typename V>
-        friend Archive& operator<<(Archive& archive, const std::unordered_map<K, V>& map);
-
-        template<typename T, std::size_t S>
-        friend Archive& operator>>(Archive& archive, std::array<T, S>& array);
-        template<typename T>
-        friend Archive& operator>>(Archive& archive, std::vector<T>& vector);
-        template<typename K, typename V>
-        friend Archive& operator>>(Archive& archive, std::unordered_map<K, V>& map);
+        [[nodiscard]] bool            can_read() const { return m_can_read; }
+        [[nodiscard]] bool            can_write() const { return m_can_write; }
+        [[nodiscard]] const StringId& get_name() const { return m_name; }
 
     protected:
         StringId m_name;
@@ -109,58 +82,119 @@ namespace wmoge {
         bool     m_can_write = false;
     };
 
+    bool archive_write(Archive& archive, const bool& value);
+    bool archive_write(Archive& archive, const int& value);
+    bool archive_write(Archive& archive, const float& value);
+    bool archive_write(Archive& archive, const std::size_t& value);
+    bool archive_write(Archive& archive, const StringId& value);
+    bool archive_write(Archive& archive, const std::string& value);
+
+    bool archive_read(Archive& archive, bool& value);
+    bool archive_read(Archive& archive, int& value);
+    bool archive_read(Archive& archive, float& value);
+    bool archive_read(Archive& archive, std::size_t& value);
+    bool archive_read(Archive& archive, StringId& value);
+    bool archive_read(Archive& archive, std::string& value);
+
+#define WG_ARCHIVE_READ(archive, what)      \
+    do {                                    \
+        if (!archive_read(archive, what)) { \
+            return false;                   \
+        }                                   \
+    } while (false)
+
+#define WG_ARCHIVE_WRITE(archive, what)      \
+    do {                                     \
+        if (!archive_write(archive, what)) { \
+            return false;                    \
+        }                                    \
+    } while (false)
+
     template<typename T, std::size_t S>
-    Archive& operator<<(Archive& archive, const std::array<T, S>& array) {
+    bool archive_write(Archive& archive, const std::array<T, S>& array) {
         for (std::size_t i = 0; i < S; i++) {
-            archive << array[i];
+            WG_ARCHIVE_WRITE(archive, array[i]);
         }
-        return archive;
+        return true;
     }
     template<typename T>
-    Archive& operator<<(Archive& archive, const std::vector<T>& vector) {
-        archive << static_cast<int>(vector.size());
+    bool archive_write(Archive& archive, const std::vector<T>& vector) {
+        WG_ARCHIVE_WRITE(archive, vector.size());
         for (const auto& entry : vector) {
-            archive << entry;
+            WG_ARCHIVE_WRITE(archive, entry);
         }
-        return archive;
+        return true;
     }
     template<typename K, typename V>
-    Archive& operator<<(Archive& archive, const std::unordered_map<K, V>& map) {
-        archive << static_cast<int>(map.size());
+    bool archive_write(Archive& archive, const std::unordered_map<K, V>& map) {
+        WG_ARCHIVE_WRITE(archive, map.size());
         for (const auto& entry : map) {
-            archive << entry.first;
-            archive << entry.second;
+            WG_ARCHIVE_WRITE(archive, entry.first);
+            WG_ARCHIVE_WRITE(archive, entry.second);
         }
-        return archive;
+        return true;
     }
+    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
+    bool archive_write(Archive& archive, const T& enum_value) {
+        int value = static_cast<int>(enum_value);
+        WG_ARCHIVE_WRITE(archive, value);
+        return true;
+    }
+
     template<typename T, std::size_t S>
-    Archive& operator>>(Archive& archive, std::array<T, S>& array) {
+    bool archive_read(Archive& archive, std::array<T, S>& array) {
         for (std::size_t i = 0; i < S; i++) {
-            archive >> array[i];
+            WG_ARCHIVE_READ(archive, array[i]);
         }
-        return archive;
+        return true;
     }
     template<typename T>
-    Archive& operator>>(Archive& archive, std::vector<T>& vector) {
+    bool archive_read(Archive& archive, std::vector<T>& vector) {
         assert(vector.empty());
-        int size;
-        archive >> size;
+        std::size_t size;
+        WG_ARCHIVE_READ(archive, size);
         vector.resize(size);
         for (int i = 0; i < size; i++) {
-            archive >> vector[i];
+            WG_ARCHIVE_READ(archive, vector[i]);
+        }
+        return true;
+    }
+    template<typename K, typename V>
+    bool archive_read(Archive& archive, std::unordered_map<K, V>& map) {
+        assert(map.empty());
+        std::size_t size;
+        WG_ARCHIVE_READ(archive, size);
+        for (int i = 0; i < size; i++) {
+            std::pair<K, V> entry;
+            WG_ARCHIVE_READ(archive, entry.first);
+            WG_ARCHIVE_READ(archive, entry.second);
+            map.insert(std::move(entry));
+        }
+        return true;
+    }
+    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
+    bool archive_read(Archive& archive, T& enum_value) {
+        int value;
+        WG_ARCHIVE_READ(archive, value);
+        enum_value = static_cast<T>(value);
+        return true;
+    }
+
+    template<typename T>
+    Archive& operator<<(Archive& archive, const T& value) {
+        const bool status = archive_write(archive, value);
+        if (!status) {
+            assert(status);
+            WG_LOG_ERROR("failed to write value to archive " << archive.get_name());
         }
         return archive;
     }
-    template<typename K, typename V>
-    Archive& operator>>(Archive& archive, std::unordered_map<K, V>& map) {
-        assert(map.empty());
-        int size;
-        archive >> size;
-        for (int i = 0; i < size; i++) {
-            std::pair<K, V> entry;
-            archive >> entry.first;
-            archive >> entry.second;
-            map.insert(std::move(entry));
+    template<typename T>
+    Archive& operator>>(Archive& archive, T& value) {
+        const bool status = archive_read(archive, value);
+        if (!status) {
+            assert(status);
+            WG_LOG_ERROR("failed to write value to archive " << archive.get_name());
         }
         return archive;
     }

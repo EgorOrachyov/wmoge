@@ -39,11 +39,11 @@ namespace wmoge {
         node["active"] >> m_active;
 
         if (node.has_child("name")) {
-            m_name = Yaml::read_sid(node["name"]);
+            //            m_name = Yaml::read_sid(node["name"]);
         }
 
         for (auto it = node["features"].first_child(); it.valid(); it = it.next_sibling()) {
-            StringId feature_name  = Yaml::read_sid(it["feature"]);
+            StringId feature_name;//  = Yaml::read_sid(it["feature"]);
             Class*   feature_class = Class::class_ptr(feature_name);
 
             if (!feature_class) {

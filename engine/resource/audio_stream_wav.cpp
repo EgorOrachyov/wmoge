@@ -38,24 +38,12 @@
 
 namespace wmoge {
 
-    Ref<Data> AudioStreamWav::get_channel_data(int channel) {
-        assert(channel < m_num_channels);
-        return m_data[channel];
-    }
+    bool AudioStreamWav::load(const std::string& file_path) {
+        WG_AUTO_PROFILE_RESOURCE("AudioStreamWav::load");
 
-    bool AudioStreamWav::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("AudioStreamWav::load_from_import_options");
-
-        if (!AudioStream::load_from_import_options(tree)) {
-            return false;
-        }
-
-        auto                      params      = tree["params"];
-        auto                      file_path   = Yaml::read_str(params["file"]);
-        auto*                     file_system = Engine::instance()->file_system();
         std::vector<std::uint8_t> file_data;
 
-        if (!file_system->read_file(file_path, file_data)) {
+        if (!Engine::instance()->file_system()->read_file(file_path, file_data)) {
             WG_LOG_ERROR("field to read wav file " << file_path);
             return false;
         }
@@ -73,7 +61,7 @@ namespace wmoge {
         }
 
         m_length          = float(file.getLengthInSeconds());
-        m_samples_rate    = file.getSampleRate();
+        m_samples_rate    = int(file.getSampleRate());
         m_bits_per_sample = file.getBitDepth();
         m_num_samples     = file.getNumSamplesPerChannel();
         m_num_channels    = file.getNumChannels();
@@ -88,6 +76,12 @@ namespace wmoge {
 
         return true;
     }
+
+    Ref<Data> AudioStreamWav::get_channel_data(int channel) {
+        assert(channel < m_num_channels);
+        return m_data[channel];
+    }
+
     void AudioStreamWav::copy_to(Resource& copy) {
         AudioStream::copy_to(copy);
         auto* audio_stream_wav   = dynamic_cast<AudioStreamWav*>(&copy);

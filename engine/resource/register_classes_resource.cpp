@@ -39,8 +39,6 @@
 #include "resource/scene_packed.hpp"
 #include "resource/script.hpp"
 #include "resource/shader.hpp"
-#include "resource/sprite.hpp"
-#include "resource/text_file.hpp"
 #include "resource/texture.hpp"
 
 namespace wmoge {
@@ -51,7 +49,6 @@ namespace wmoge {
         AudioStreamWav::register_class();
         Image::register_class();
         Font::register_class();
-        TextFile::register_class();
         ConfigFile::register_class();
         Mesh::register_class();
         Shader::register_class();
@@ -59,7 +56,6 @@ namespace wmoge {
         Texture2d::register_class();
         TextureCube::register_class();
         Material::register_class();
-        Sprite::register_class();
         Script::register_class();
         PfxEffect::register_class();
         ScenePacked::register_class();

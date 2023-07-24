@@ -27,19 +27,29 @@
 
 #include "random.hpp"
 
+#include <ctime>
+
 namespace wmoge {
 
     static std::default_random_engine& get_rnd_engine() {
-        thread_local std::default_random_engine engine;
+        thread_local std::default_random_engine engine(std::time(nullptr));
         return engine;
+    }
+
+    std::uint64_t Random::next_uint64() {
+        std::uniform_int_distribution<std::uint64_t> dist;
+        return dist(get_rnd_engine());
+    }
+    std::uint64_t Random::next_uint64(std::uint64_t left, std::uint64_t right) {
+        std::uniform_int_distribution<std::uint64_t> dist(left, right);
+        return dist(get_rnd_engine());
     }
 
     float Random::next_float() {
         std::uniform_real_distribution<float> dist;
         return dist(get_rnd_engine());
     }
-
-    float Random::next_float_in_range(float left, float right) {
+    float Random::next_float(float left, float right) {
         std::uniform_real_distribution<float> dist(left, right);
         return dist(get_rnd_engine());
     }

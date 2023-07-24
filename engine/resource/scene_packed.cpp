@@ -38,14 +38,14 @@
 
 namespace wmoge {
 
-    bool ScenePacked::load_from_import_options(const YamlTree& tree) {
+    bool ScenePacked::load_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::load_from_import_options");
 
-        if (!Resource::load_from_import_options(tree)) {
+        if (!Resource::load_from_yaml(node)) {
             return false;
         }
 
-        auto params = tree["params"];
+        auto params = node;
 
         std::string format;
         params["format"] >> format;
@@ -62,7 +62,7 @@ namespace wmoge {
                 return false;
             }
 
-            m_scene_data_yaml.emplace(Yaml::parse(data));
+            m_scene_data_yaml.emplace(yaml_parse(data));
             if (m_scene_data_yaml.value().empty()) {
                 WG_LOG_ERROR("failed to parse file " << file);
                 return false;
@@ -99,7 +99,7 @@ namespace wmoge {
         std::vector<Async> deps_loading;
 
         for (auto it = deps.first_child(); it.valid(); it = it.next_sibling()) {
-            auto res       = Yaml::read_sid(it);
+            auto res       = SID("");//Yaml::read_sid(it);
             auto res_async = resource_manager->load_async(res);
 
             if (res_async.is_null()) {

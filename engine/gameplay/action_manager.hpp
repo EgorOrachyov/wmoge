@@ -53,25 +53,30 @@ namespace wmoge {
         void update();
 
         bool load_action_map(const std::string& filepath);
-        bool add_action_map(Ref<ActionMap> action_map);
+        bool add_action_map(const Ref<ActionMap>& action_map);
         bool remove_action_map(const StringId& name);
         bool has_action_map(const StringId& name);
-        void enable_action_map(const StringId& name);
-        void disable_action_map(const StringId& name);
+        void activate_action_map(const StringId& name, bool active = true);
 
     private:
-        bool       on_input_mouse(const EventMouse& event);
-        bool       on_input_keyboard(const EventKeyboard& event);
-        bool       on_input_joystick(const EventJoystick& event);
-        bool       on_input_gamepad(const EventGamepad& event);
-        ActionMap* get_action_map(const StringId& name);
+        struct ActionMapInfo {
+            Ref<ActionMap> action_map;
+            bool           active   = false;
+            int            priority = 0;
+        };
+
+        bool           on_input_mouse(const EventMouse& event);
+        bool           on_input_keyboard(const EventKeyboard& event);
+        bool           on_input_joystick(const EventJoystick& event);
+        bool           on_input_gamepad(const EventGamepad& event);
+        ActionMapInfo* get_action_map_info(const StringId& name);
 
     private:
-        fast_vector<Ref<ActionMap>> m_maps;
-        Ref<EventListener>          m_listener_mouse;
-        Ref<EventListener>          m_listener_keyboard;
-        Ref<EventListener>          m_listener_joystick;
-        Ref<EventListener>          m_listener_gamepad;
+        fast_vector<ActionMapInfo> m_maps;
+        Ref<EventListener>         m_listener_mouse;
+        Ref<EventListener>         m_listener_keyboard;
+        Ref<EventListener>         m_listener_joystick;
+        Ref<EventListener>         m_listener_gamepad;
     };
 
 }// namespace wmoge

@@ -1,4 +1,5 @@
 name: console
+priority: 0
 actions:
   - action: cn_trigger
     display_name: "open/close in-game debug console"

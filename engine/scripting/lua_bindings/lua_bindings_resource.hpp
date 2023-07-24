@@ -40,7 +40,6 @@
 #include "resource/pfx_effect.hpp"
 #include "resource/resource_manager.hpp"
 #include "resource/shader.hpp"
-#include "resource/sprite.hpp"
 #include "resource/texture.hpp"
 
 namespace wmoge {
@@ -135,38 +134,6 @@ namespace wmoge {
         }
         bool get_compression() const {
             return cast_unsafe<Texture>()->get_compression();
-        }
-    };
-
-    struct LuaSprite : public LuaResource {
-        int _c_get_animation_texture(lua_State* state) {
-            auto animation = WG_LUA_ARG(state, 1).cast<int>();
-            LuaTypeTraits::from_object(state, cast_unsafe<Sprite>()->get_animation_texture(animation).get()).push();
-            return 1;
-        }
-        const Vec4f& get_animation_frame(int animation, int frame) const {
-            return cast_unsafe<Sprite>()->get_animation_frame(animation, frame);
-        }
-        int get_animation_n_frames(int animation) const {
-            return cast_unsafe<Sprite>()->get_animation_n_frames(animation);
-        }
-        float get_animation_speed(int animation) const {
-            return cast_unsafe<Sprite>()->get_animation_speed(animation);
-        }
-        bool get_animation_loop(int animation) const {
-            return cast_unsafe<Sprite>()->get_animation_loop(animation);
-        }
-        int get_animation_id(const StringId& animation) const {
-            return cast_unsafe<Sprite>()->get_animation_id(animation);
-        }
-        int get_n_animations() const {
-            return cast_unsafe<Sprite>()->get_n_animations();
-        }
-        const Vec2f& get_size() const {
-            return cast_unsafe<Sprite>()->get_size();
-        }
-        const Vec2f& get_pivot() const {
-            return cast_unsafe<Sprite>()->get_pivot();
         }
     };
 

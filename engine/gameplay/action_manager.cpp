@@ -70,13 +70,13 @@ namespace wmoge {
         auto*       event_manager = engine->event_manager();
         const auto& keys          = input->keyboard()->keys_states();
 
-        for (const auto& action_map : m_maps) {
-            if (!action_map->is_active()) continue;
+        for (const auto& info : m_maps) {
+            if (!info.active) continue;
 
-            for (const auto& entry : action_map->m_actions) {
+            for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.get_name();
-                const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
+                const StringId&                      action_name        = action_map_action.name;
+                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type != InputDeviceType::Joystick) {
@@ -112,10 +112,16 @@ namespace wmoge {
     bool ActionManager::load_action_map(const std::string& filepath) {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load_action_map");
 
-        Ref<ActionMap> action_map = make_ref<ActionMap>();
+        Ref<ActionMap> action_map      = make_ref<ActionMap>();
+        YamlTree       action_map_tree = yaml_parse_file(filepath);
 
-        if (!action_map->load(filepath)) {
-            WG_LOG_ERROR("failed to load action map " << filepath);
+        if (action_map_tree.empty()) {
+            WG_LOG_ERROR("failed to open and parse file with action map " << filepath);
+            return false;
+        }
+
+        if (!yaml_read(action_map_tree.crootref(), *action_map)) {
+            WG_LOG_ERROR("failed to parse action map " << filepath);
             return false;
         }
 
@@ -123,9 +129,9 @@ namespace wmoge {
             remove_action_map(action_map->get_name());
         }
 
-        return add_action_map(std::move(action_map));
+        return add_action_map(action_map);
     }
-    bool ActionManager::add_action_map(Ref<ActionMap> action_map) {
+    bool ActionManager::add_action_map(const Ref<ActionMap>& action_map) {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::add_action_map");
 
         if (!action_map) {
@@ -137,37 +143,40 @@ namespace wmoge {
             return false;
         }
 
-        m_maps.push_back(std::move(action_map));
+        ActionMapInfo& info = m_maps.emplace_back();
+        info.active         = false;
+        info.priority       = action_map->get_priority();
+        info.action_map     = action_map;
+
+        WG_LOG_INFO("add action map " << info.action_map->get_name());
+
         return true;
     }
+
     bool ActionManager::remove_action_map(const StringId& name) {
-        auto query = std::find_if(m_maps.begin(), m_maps.end(), [&](auto& map) { return map->get_name() == name; });
-        auto found = query != m_maps.end();
+        const auto query = std::find_if(m_maps.begin(), m_maps.end(), [&](auto& info) { return info.action_map->get_name() == name; });
+        const bool found = query != m_maps.end();
+
         m_maps.erase(query);
+
         return found;
     }
+
     bool ActionManager::has_action_map(const StringId& name) {
-        return get_action_map(name) != nullptr;
+        return get_action_map_info(name) != nullptr;
     }
-    void ActionManager::enable_action_map(const StringId& name) {
-        ActionMap* map = get_action_map(name);
 
-        if (!map) {
+    void ActionManager::activate_action_map(const StringId& name, bool active) {
+        ActionMapInfo* info = get_action_map_info(name);
+
+        if (!info) {
             WG_LOG_ERROR("no such action map loaded " << name);
             return;
         }
 
-        map->enable();
-    }
-    void ActionManager::disable_action_map(const StringId& name) {
-        ActionMap* map = get_action_map(name);
+        info->active = active;
 
-        if (!map) {
-            WG_LOG_ERROR("no such action map loaded " << name);
-            return;
-        }
-
-        map->disable();
+        WG_LOG_INFO("action map " << info->action_map->get_name() << " active=" << active);
     }
 
     bool ActionManager::on_input_mouse(const EventMouse& event) {
@@ -176,13 +185,13 @@ namespace wmoge {
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
 
-        for (const auto& action_map : m_maps) {
-            if (!action_map->is_active()) continue;
+        for (const auto& info : m_maps) {
+            if (!info.active) continue;
 
-            for (const auto& entry : action_map->m_actions) {
+            for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.get_name();
-                const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
+                const StringId&                      action_name        = action_map_action.name;
+                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Mouse &&
@@ -208,13 +217,13 @@ namespace wmoge {
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
 
-        for (const auto& action_map : m_maps) {
-            if (!action_map->is_active()) continue;
+        for (const auto& info : m_maps) {
+            if (!info.active) continue;
 
-            for (const auto& entry : action_map->m_actions) {
+            for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.get_name();
-                const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
+                const StringId&                      action_name        = action_map_action.name;
+                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Keyboard &&
@@ -240,13 +249,13 @@ namespace wmoge {
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
 
-        for (const auto& action_map : m_maps) {
-            if (!action_map->is_active()) continue;
+        for (const auto& info : m_maps) {
+            if (!info.active) continue;
 
-            for (const auto& entry : action_map->m_actions) {
+            for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.get_name();
-                const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
+                const StringId&                      action_name        = action_map_action.name;
+                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Joystick &&
@@ -273,13 +282,13 @@ namespace wmoge {
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
 
-        for (const auto& action_map : m_maps) {
-            if (!action_map->is_active()) continue;
+        for (const auto& info : m_maps) {
+            if (!info.active) continue;
 
-            for (const auto& entry : action_map->m_actions) {
+            for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.get_name();
-                const fast_vector<ActionActivation>& action_activations = action_map_action.get_activations();
+                const StringId&                      action_name        = action_map_action.name;
+                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Joystick &&
@@ -301,10 +310,10 @@ namespace wmoge {
         return false;
     }
 
-    ActionMap* ActionManager::get_action_map(const StringId& name) {
-        for (const auto& map : m_maps) {
-            if (map->get_name() == name) {
-                return map.get();
+    ActionManager::ActionMapInfo* ActionManager::get_action_map_info(const StringId& name) {
+        for (auto& info : m_maps) {
+            if (info.action_map->get_name() == name) {
+                return &info;
             }
         };
         return nullptr;

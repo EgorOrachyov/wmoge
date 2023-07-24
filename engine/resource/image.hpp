@@ -38,6 +38,18 @@
 namespace wmoge {
 
     /**
+     * @class
+     * @brief
+     */
+    struct ImageImportOptions {
+        std::string source_file;
+        int         channels = 4;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const ImageImportOptions& options);
+    };
+
+    /**
      * @class Image
      * @brief Hardware-independent image representation.
      *
@@ -98,18 +110,16 @@ namespace wmoge {
          */
         bool generate_mip_chain(std::vector<Ref<Image>>& mips);
 
-        bool load_from_import_options(const YamlTree& tree) override;
-        void copy_to(Resource& copy) override;
-
+        void        copy_to(Resource& copy) override;
         std::string to_string() override;
 
-        const Ref<Data>& get_pixel_data() { return m_pixel_data; }
-        int              get_width() { return m_width; }
-        int              get_height() { return m_height; }
-        int              get_channels() { return m_channels; }
-        int              get_pixel_size() { return m_pixel_size; }
-        bool             is_empty() { return !(m_width * m_height); }
-        bool             is_not_empty() { return m_width * m_height; }
+        [[nodiscard]] const Ref<Data>& get_pixel_data() { return m_pixel_data; }
+        [[nodiscard]] int              get_width() { return m_width; }
+        [[nodiscard]] int              get_height() { return m_height; }
+        [[nodiscard]] int              get_channels() { return m_channels; }
+        [[nodiscard]] int              get_pixel_size() { return m_pixel_size; }
+        [[nodiscard]] bool             is_empty() { return !(m_width * m_height); }
+        [[nodiscard]] bool             is_not_empty() { return m_width * m_height; }
 
         /**
          * @brief Returns max levels (mips including 0) count for specified image

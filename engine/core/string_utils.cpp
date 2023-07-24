@@ -53,6 +53,11 @@ namespace wmoge {
         snprintf(buffer, 64, "%u", value);
         return buffer;
     }
+    std::string StringUtils::from_uint64(std::uint64_t value) {
+        char buffer[64];
+        snprintf(buffer, 64, "%llu", static_cast<unsigned long long>(value));
+        return buffer;
+    }
     std::string StringUtils::from_float(float value, int precision) {
         char buffer[64];
         snprintf(buffer, 64, "%.*f", precision, value);

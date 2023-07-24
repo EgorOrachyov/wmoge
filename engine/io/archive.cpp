@@ -90,53 +90,53 @@ namespace wmoge {
         return nread(len, value.data());
     }
 
-    Archive& operator<<(Archive& archive, const bool& value) {
+    bool archive_write(Archive& archive, const bool& value) {
         archive.write(value);
-        return archive;
+        return true;
     }
-    Archive& operator<<(Archive& archive, const int& value) {
+    bool archive_write(Archive& archive, const int& value) {
         archive.write(value);
-        return archive;
+        return true;
     }
-    Archive& operator<<(Archive& archive, const float& value) {
+    bool archive_write(Archive& archive, const float& value) {
         archive.write(value);
-        return archive;
+        return true;
     }
-    Archive& operator<<(Archive& archive, const std::size_t& value) {
+    bool archive_write(Archive& archive, const std::size_t& value) {
         archive.write(value);
-        return archive;
+        return true;
     }
-    Archive& operator<<(Archive& archive, const StringId& value) {
+    bool archive_write(Archive& archive, const StringId& value) {
         archive.write(value);
-        return archive;
+        return true;
     }
-    Archive& operator<<(Archive& archive, const std::string& value) {
+    bool archive_write(Archive& archive, const std::string& value) {
         archive.write(value);
-        return archive;
+        return true;
     }
-    Archive& operator>>(Archive& archive, bool& value) {
+    bool archive_read(Archive& archive, bool& value) {
         archive.read(value);
-        return archive;
+        return true;
     }
-    Archive& operator>>(Archive& archive, int& value) {
+    bool archive_read(Archive& archive, int& value) {
         archive.read(value);
-        return archive;
+        return true;
     }
-    Archive& operator>>(Archive& archive, float& value) {
+    bool archive_read(Archive& archive, float& value) {
         archive.read(value);
-        return archive;
+        return true;
     }
-    Archive& operator>>(Archive& archive, std::size_t& value) {
+    bool archive_read(Archive& archive, std::size_t& value) {
         archive.read(value);
-        return archive;
+        return true;
     }
-    Archive& operator>>(Archive& archive, StringId& value) {
+    bool archive_read(Archive& archive, StringId& value) {
         archive.read(value);
-        return archive;
+        return true;
     }
-    Archive& operator>>(Archive& archive, std::string& value) {
+    bool archive_read(Archive& archive, std::string& value) {
         archive.read(value);
-        return archive;
+        return true;
     }
 
 }// namespace wmoge

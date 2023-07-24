@@ -35,52 +35,74 @@
 #include "io/yaml.hpp"
 #include "resource/resource_manager.hpp"
 
-#include <sstream>
-
 namespace wmoge {
 
-    void Texture::load_sampler_from_import_options(const YamlTree& tree) {
-        auto sampler = tree["params"]["sampling"];
+    bool yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options) {
+        WG_YAML_READ_AS_OPT(node, "channels", options.channels);
+        WG_YAML_READ_AS_OPT(node, "format", options.format);
+        WG_YAML_READ_AS_OPT(node, "mipmaps", options.mipmaps);
+        WG_YAML_READ_AS_OPT(node, "srgb", options.srgb);
+        WG_YAML_READ_AS_OPT(node, "compression", options.compression);
+        WG_YAML_READ_AS_OPT(node, "sampling", options.sampling);
 
-        float       min_lod;
-        float       max_lod;
-        float       max_anisotropy;
-        std::string min_flt;
-        std::string mag_flt;
-        std::string u;
-        std::string v;
-        std::string w;
-        std::string brd_clr;
-
-        sampler["min_lod"] >> min_lod;
-        sampler["max_lod"] >> max_lod;
-        sampler["max_anisotropy"] >> max_anisotropy;
-        sampler["min_flt"] >> min_flt;
-        sampler["mag_flt"] >> mag_flt;
-        sampler["u"] >> u;
-        sampler["v"] >> v;
-        sampler["w"] >> w;
-        sampler["brd_clr"] >> brd_clr;
-
-        GfxSamplerDesc desc;
-        desc.min_lod        = min_lod;
-        desc.max_lod        = max_lod;
-        desc.max_anisotropy = max_anisotropy;
-        desc.min_flt        = Enum::parse<GfxSampFlt>(min_flt);
-        desc.mag_flt        = Enum::parse<GfxSampFlt>(mag_flt);
-        desc.u              = Enum::parse<GfxSampAddress>(u);
-        desc.v              = Enum::parse<GfxSampAddress>(v);
-        desc.w              = Enum::parse<GfxSampAddress>(w);
-        desc.brd_clr        = Enum::parse<GfxSampBrdClr>(brd_clr);
-
-        std::stringstream sampler_name;
-        sampler_name << min_flt << ":" << mag_flt << ","
-                     << u << ":" << v << ":" << w << ","
-                     << min_lod << ":" << max_lod << ","
-                     << max_anisotropy;
-
-        m_sampler = Engine::instance()->gfx_driver()->make_sampler(desc, SID(sampler_name.str()));
+        return true;
     }
+    bool yaml_write(YamlNodeRef& node, const TextureImportOptions& options) {
+        WG_YAML_WRITE_AS(node, "channels", options.channels);
+        WG_YAML_WRITE_AS(node, "format", options.format);
+        WG_YAML_WRITE_AS(node, "mipmaps", options.mipmaps);
+        WG_YAML_WRITE_AS(node, "srgb", options.srgb);
+        WG_YAML_WRITE_AS(node, "compression", options.compression);
+        WG_YAML_WRITE_AS(node, "sampling", options.sampling);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options) {
+        WG_YAML_READ_SUPER(node, TextureImportOptions, options);
+        WG_YAML_READ_AS(node, "source_file", options.source_file);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const Texture2dImportOptions& options) {
+        WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
+        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
+
+        return true;
+    }
+    bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions::SourceFiles& source_files) {
+        WG_YAML_READ_AS(node, "right", source_files.right);
+        WG_YAML_READ_AS(node, "left", source_files.left);
+        WG_YAML_READ_AS(node, "top", source_files.top);
+        WG_YAML_READ_AS(node, "bottom", source_files.bottom);
+        WG_YAML_READ_AS(node, "back", source_files.back);
+        WG_YAML_READ_AS(node, "front", source_files.front);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const TextureCubeImportOptions::SourceFiles& source_files) {
+        WG_YAML_WRITE_AS(node, "right", source_files.right);
+        WG_YAML_WRITE_AS(node, "left", source_files.left);
+        WG_YAML_WRITE_AS(node, "top", source_files.top);
+        WG_YAML_WRITE_AS(node, "bottom", source_files.bottom);
+        WG_YAML_WRITE_AS(node, "back", source_files.back);
+        WG_YAML_WRITE_AS(node, "front", source_files.front);
+
+        return true;
+    }
+    bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options) {
+        WG_YAML_READ_SUPER(node, TextureImportOptions, options);
+        WG_YAML_READ_AS(node, "source_files", options.source_files);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const TextureCubeImportOptions& options) {
+        WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
+        WG_YAML_WRITE_AS(node, "source_files", options.source_files);
+
+        return true;
+    }
+
     void Texture::copy_to(Resource& copy) {
         Resource::copy_to(copy);
         auto texture            = dynamic_cast<Texture*>(&copy);
@@ -125,52 +147,6 @@ namespace wmoge {
         m_format       = m_texture->format();
         m_mem_usage    = m_texture->mem_usage();
     }
-    bool Texture2d::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("Texture2d::load_from_import_options");
-
-        load_sampler_from_import_options(tree);
-
-        bool        mipmaps  = false;
-        int         channels = 4;
-        std::string source_file;
-
-        auto params = tree["params"];
-        params["channels"] >> channels;
-        params["source_file"] >> source_file;
-        params["mipmaps"] >> mipmaps;
-        params["compression"] >> m_compression;
-        params["srgb"] >> m_srgb;
-
-        Image source;
-        if (!source.load(source_file, channels)) return false;
-
-        if (mipmaps) {
-            if (!source.generate_mip_chain(m_images)) return false;
-        } else {
-            m_images.push_back(source.duplicate().cast<Image>());
-        }
-
-        m_width        = source.get_width();
-        m_height       = source.get_height();
-        m_depth        = 1;
-        m_array_slices = 1;
-        m_mips         = static_cast<int>(m_images.size());
-        m_tex_type     = GfxTex::Tex2d;
-        m_mem_usage    = GfxMemUsage::GpuLocal;
-        m_usages.set(GfxTexUsageFlag::Sampling);
-        m_format = Enum::parse<GfxFormat>(params["format"]);
-
-        auto* gfx_driver = Engine::instance()->gfx_driver();
-        auto* gfx_ctx    = Engine::instance()->gfx_ctx();
-
-        m_texture = gfx_driver->make_texture_2d(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());
-        for (int i = 0; i < m_mips; i++) {
-            auto& mip = m_images[i];
-            gfx_ctx->update_texture_2d(m_texture, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
-        }
-
-        return true;
-    }
     void Texture2d::copy_to(Resource& copy) {
         Texture::copy_to(copy);
     }
@@ -178,64 +154,20 @@ namespace wmoge {
         auto* cls = Class::register_class<Texture2d>();
     }
 
-    bool TextureCube::load_from_import_options(const YamlTree& tree) {
-        WG_AUTO_PROFILE_RESOURCE("TextureCube::load_from_import_options");
+    void TextureCube::create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
+        assert(texture);
+        assert(sampler);
 
-        load_sampler_from_import_options(tree);
-
-        bool        mipmaps  = false;
-        int         channels = 4;
-        std::string sides[6];
-        std::string format;
-
-        auto params = tree["params"];
-        params["channels"] >> channels;
-        params["format"] >> format;
-        params["mipmaps"] >> mipmaps;
-        params["compression"] >> m_compression;
-        params["srgb"] >> m_srgb;
-
-        auto source_files = params["source_files"];
-        source_files["right"] >> sides[0];
-        source_files["left"] >> sides[1];
-        source_files["top"] >> sides[2];
-        source_files["bottom"] >> sides[3];
-        source_files["back"] >> sides[4];
-        source_files["front"] >> sides[5];
-
-        for (int i = 0; i < 6; i++) {
-            Image side;
-            if (!side.load(sides[i], channels)) return false;
-            if (mipmaps) {
-                if (!side.generate_mip_chain(m_images)) return false;
-            } else {
-                m_images.push_back(side.duplicate().cast<Image>());
-            }
-            m_width  = side.get_width();
-            m_height = side.get_height();
-        }
-
-        m_depth        = 1;
-        m_array_slices = 6;
-        m_mips         = static_cast<int>(m_images.size()) / m_array_slices;
+        m_texture      = texture;
+        m_sampler      = sampler;
+        m_width        = m_texture->width();
+        m_height       = m_texture->height();
+        m_depth        = m_texture->depth();
+        m_array_slices = m_texture->array_slices();
+        m_mips         = m_texture->mips_count();
         m_tex_type     = GfxTex::TexCube;
-        m_mem_usage    = GfxMemUsage::GpuLocal;
-        m_usages.set(GfxTexUsageFlag::Sampling);
-        m_format = magic_enum::enum_cast<GfxFormat>(format).value();
-
-        auto* gfx_driver = Engine::instance()->gfx_driver();
-        auto* gfx_ctx    = Engine::instance()->gfx_ctx();
-
-        m_texture = gfx_driver->make_texture_cube(m_width, m_height, m_mips, m_format, m_usages, m_mem_usage, get_name());
-
-        for (int f = 0; f < 6; f++) {
-            for (int i = 0; i < m_mips; i++) {
-                auto& mip = m_images[f * m_mips + i];
-                gfx_ctx->update_texture_cube(m_texture, i, f, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
-            }
-        }
-
-        return true;
+        m_format       = m_texture->format();
+        m_mem_usage    = m_texture->mem_usage();
     }
     void TextureCube::copy_to(Resource& copy) {
         Texture::copy_to(copy);

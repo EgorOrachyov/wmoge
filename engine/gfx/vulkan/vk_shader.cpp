@@ -374,10 +374,10 @@ namespace wmoge {
     void VKShader::gen_byte_code(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment) {
         WG_AUTO_PROFILE_VULKAN("VKShader::gen_byte_code");
 
-        bool has_shader_vertex   = true;
-        bool has_shader_fragment = true;
-        int  size_vertex         = static_cast<int>(vertex.size());
-        int  size_fragment       = static_cast<int>(fragment.size());
+        const bool has_shader_vertex   = true;
+        const bool has_shader_fragment = true;
+        const int  size_vertex         = static_cast<int>(vertex.size());
+        const int  size_fragment       = static_cast<int>(fragment.size());
 
         ArchiveWriterMemory archive;
         archive << has_shader_vertex;

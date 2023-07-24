@@ -42,6 +42,19 @@
 namespace wmoge {
 
     /**
+     * @class FontImportOptions
+     * @brief Options to import a font resource
+     */
+    struct FontImportOptions {
+        std::string source_file;
+        int         height        = 32;
+        int         glyphs_in_row = 16;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, FontImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const FontImportOptions& options);
+    };
+
+    /**
      * @class FontTextAlignment
      * @brief Alignment of text for layout
      */
@@ -79,29 +92,39 @@ namespace wmoge {
         /**
          * @brief Loads font from a .ttf file from file system using specified height in pixels
          *
+         * @note Uses FreeType2 library for .ttf file loading
+         *
          * @param filepath Path to the font .ttf file in a file system
          * @param height Font height in pixels
-         * @param glyphs_in_row Num of gliphs in a row of a bitmap
+         * @param glyphs_in_row Num of glyphs in a row of a bitmap
          *
          * @return True if font loaded
          */
-        bool  load(const std::string& path, int height = 40, int glyphs_in_row = 16);
+        bool load(const std::string& path, int height = 40, int glyphs_in_row = 16);
+
+        /**
+         * @brief Returns the size in pixels of a text in given font
+         *
+         * @param text Text which size is to calculate
+         * @param size Scale of font size
+         *
+         * @return Width and height in pixels of a text
+         */
         Vec2f get_string_size(const std::string& text, float size);
 
-        bool        load_from_import_options(const YamlTree& tree) override;
         void        copy_to(Resource& copy) override;
         std::string to_string() override;
 
-        const std::string&              get_family_name() { return m_family_name; }
-        const std::string&              get_style_name() { return m_style_name; }
-        const fast_map<int, FontGlyph>& get_glyphs() { return m_glyphs; }
-        const Ref<Texture2d>&           get_texture() { return m_texture; }
-        const Ref<GfxTexture>&          get_bitmap() { return m_texture->get_texture(); }
-        const Ref<GfxSampler>&          get_sampler() { return m_texture->get_sampler(); }
-        int                             get_height() { return m_height; }
-        int                             get_glyphs_in_row() { return m_glyphs_in_row; }
-        int                             get_max_width() { return m_max_width; }
-        int                             get_max_height() { return m_max_height; }
+        [[nodiscard]] const std::string&              get_family_name() { return m_family_name; }
+        [[nodiscard]] const std::string&              get_style_name() { return m_style_name; }
+        [[nodiscard]] const fast_map<int, FontGlyph>& get_glyphs() { return m_glyphs; }
+        [[nodiscard]] const Ref<Texture2d>&           get_texture() { return m_texture; }
+        [[nodiscard]] const Ref<GfxTexture>&          get_bitmap() { return m_texture->get_texture(); }
+        [[nodiscard]] const Ref<GfxSampler>&          get_sampler() { return m_texture->get_sampler(); }
+        [[nodiscard]] int                             get_height() { return m_height; }
+        [[nodiscard]] int                             get_glyphs_in_row() { return m_glyphs_in_row; }
+        [[nodiscard]] int                             get_max_width() { return m_max_width; }
+        [[nodiscard]] int                             get_max_height() { return m_max_height; }
 
     private:
         fast_map<int, FontGlyph> m_glyphs;

@@ -42,6 +42,39 @@
 namespace wmoge {
 
     /**
+     * @class MeshImportOptions
+     * @brief Options to import mesh resource from external resource format
+     */
+    struct MeshImportOptions {
+        /**
+         * @class Process
+         * @brief Controls post-process of imported mesh
+         */
+        struct Process {
+            bool triangulate             = true;
+            bool tangent_space           = false;
+            bool flip_uv                 = true;
+            bool gen_normals             = false;
+            bool gen_smooth_normals      = false;
+            bool join_identical_vertices = true;
+            bool limit_bone_weights      = true;
+            bool improve_cache_locality  = false;
+            bool sort_by_ptype           = true;
+            bool gen_uv                  = false;
+
+            friend bool yaml_read(const YamlConstNodeRef& node, Process& process);
+            friend bool yaml_write(YamlNodeRef& node, const Process& process);
+        };
+
+        std::string                source_file;
+        std::vector<GfxVertAttrib> attributes;
+        Process                    process{};
+
+        friend bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const MeshImportOptions& options);
+    };
+
+    /**
      * @class MeshChunk
      * @brief Represents single mesh chunk in a mesh which can be rendered individually
      */

@@ -62,7 +62,6 @@ namespace wmoge {
 
                 if (status == AsyncStatus::Failed) {
                     assert(m_deps_failed.load() < m_deps_to_wait);
-                    m_deps_failed += 1;
                     bool do_fail = (m_deps_failed.fetch_add(1) == 0);
 
                     if (do_fail) {

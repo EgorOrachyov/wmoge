@@ -31,9 +31,21 @@
 
 namespace wmoge {
 
-    bool AudioStream::load_from_import_options(const YamlTree& tree) {
-        return Resource::load_from_import_options(tree);
+    bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options) {
+        WG_YAML_READ_AS(node, "source_file", options.source_file);
+
+        return true;
     }
+    bool yaml_write(YamlNodeRef& node, const AudioImportOptions& options) {
+        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
+
+        return true;
+    }
+
+    bool AudioStream::load_from_yaml(const YamlConstNodeRef& node) {
+        return Resource::load_from_yaml(node);
+    }
+
     void AudioStream::copy_to(Resource& copy) {
         Resource::copy_to(copy);
         auto* audio_stream              = dynamic_cast<AudioStream*>(&copy);

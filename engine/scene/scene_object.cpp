@@ -149,7 +149,7 @@ namespace wmoge {
             auto components = node["components"];
 
             for (auto it = components.first_child(); it.valid(); it = it.next_sibling()) {
-                StringId component_type = Yaml::read_sid(it["component"]);
+                StringId component_type;// Yaml::read_sid(it["component"]);
 
                 auto* component = get_or_create_component_base(component_type);
                 if (!component) {
@@ -168,8 +168,8 @@ namespace wmoge {
             auto children = node["children"];
 
             for (auto it = children.first_child(); it.valid(); it = it.next_sibling()) {
-                StringId child_name = Yaml::read_sid(it["object"]);
-                auto     child      = scene_manager->make_object(child_name);
+                StringId child_name;// Yaml::read_sid(it["object"]);
+                auto     child = scene_manager->make_object(child_name);
 
                 if (!child->on_load_from_yaml(it)) {
                     WG_LOG_ERROR("failed to load child " << child_name << " of " << get_name());

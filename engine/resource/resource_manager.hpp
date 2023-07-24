@@ -130,6 +130,12 @@ namespace wmoge {
         /** @brief Add additional pak for resources loading */
         void add_pak(std::shared_ptr<ResourcePak> pak);
 
+        /** @brief Find resource loader by loader name */
+        std::optional<ResourceLoader*> find_loader(const StringId& loader);
+
+        /** @brief Find resource meta by resource name */
+        std::optional<ResourceMeta> find_meta(const StringId& resource);
+
         /**
          * @brief Clear from a cache only unused resource
          *
@@ -164,14 +170,10 @@ namespace wmoge {
          */
         class LoadState {
         public:
-            fast_vector<Ref<Resource>>          deps_res;
-            fast_vector<AsyncOp<Ref<Resource>>> deps_ops;
-            AsyncOp<Ref<Resource>>              async_op;
-            TaskHnd                             task_hnd;
+            fast_vector<Async>     deps;
+            AsyncOp<Ref<Resource>> async_op;
+            TaskHnd                task_hnd;
         };
-
-        bool       load_meta(const StringId& name, ResourceMeta& resource_meta, std::shared_ptr<ResourceLoader>& loader);
-        LoadState* load_internal(const StringId& name, ResourceMeta& resource_meta, const std::shared_ptr<ResourceLoader>& loader);
 
     private:
         fast_vector<std::shared_ptr<ResourcePak>>           m_paks;

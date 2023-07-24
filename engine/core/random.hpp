@@ -28,6 +28,8 @@
 #ifndef WMOGE_RANDOM_HPP
 #define WMOGE_RANDOM_HPP
 
+#include <cinttypes>
+#include <cstddef>
 #include <random>
 
 namespace wmoge {
@@ -38,8 +40,10 @@ namespace wmoge {
      */
     class Random {
     public:
-        static float next_float();
-        static float next_float_in_range(float left, float right);
+        static std::uint64_t next_uint64();
+        static std::uint64_t next_uint64(std::uint64_t left, std::uint64_t right);
+        static float         next_float();
+        static float         next_float(float left, float right);
     };
 
 }// namespace wmoge

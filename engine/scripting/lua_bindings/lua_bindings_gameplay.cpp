@@ -48,14 +48,14 @@ namespace wmoge {
     static int lua_ActionManager_enable_action_map(lua_State* state) {
         auto  name           = WG_LUA_ARG(state, 0);
         auto* action_manager = Engine::instance()->action_manager();
-        action_manager->enable_action_map(LuaTypeTraits::to_sid(name));
+        action_manager->activate_action_map(LuaTypeTraits::to_sid(name), true);
         return 0;
     }
 
     static int lua_ActionManager_disable_action_map(lua_State* state) {
         auto  name           = WG_LUA_ARG(state, 0);
         auto* action_manager = Engine::instance()->action_manager();
-        action_manager->disable_action_map(LuaTypeTraits::to_sid(name));
+        action_manager->activate_action_map(LuaTypeTraits::to_sid(name), false);
         return 0;
     }
 

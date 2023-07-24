@@ -29,6 +29,7 @@
 #define WMOGE_MATERIAL_HPP
 
 #include "core/fast_map.hpp"
+#include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "math/vec.hpp"
@@ -38,6 +39,28 @@
 #include <mutex>
 
 namespace wmoge {
+
+    /**
+     * @class MaterialFile
+     * @brief Represents material file stored in resources folder
+     */
+    struct MaterialFile {
+        struct Entry {
+            StringId    name;
+            std::string value;
+
+            friend bool yaml_read(const YamlConstNodeRef& node, Entry& entry);
+            friend bool yaml_write(YamlNodeRef& node, const Entry& entry);
+        };
+
+        std::vector<Entry>    parameters;
+        std::vector<Entry>    textures;
+        std::vector<StringId> keywords;
+        StringId              shader;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
+        friend bool yaml_write(YamlNodeRef& node, const MaterialFile& file);
+    };
 
     /**
      * @class Material
@@ -70,6 +93,8 @@ namespace wmoge {
          */
         void create(Ref<Shader> shader);
 
+        /** @brief Set material parameter by name from string value */
+        void set_param(const StringId& name, const std::string& value);
         /** @brief Set material int parameter value by name */
         void set_int(const StringId& name, int value);
         /** @brief Set material float parameter value by name */
@@ -83,23 +108,19 @@ namespace wmoge {
         /** @brief Set material texture parameter value by name */
         void set_texture(const StringId& name, const Ref<Texture>& texture);
 
-        bool load_from_import_options(const YamlTree& tree) override;
+        bool load_from_yaml(const YamlConstNodeRef& node) override;
         void copy_to(Resource& copy) override;
 
-        const Ref<Shader>&               get_shader();
-        const fast_vector<std::uint8_t>& get_parameters();
-        const fast_vector<Ref<Texture>>& get_textures();
+        [[nodiscard]] const Ref<Shader>&               get_shader();
+        [[nodiscard]] const fast_vector<std::uint8_t>& get_parameters();
+        [[nodiscard]] const fast_vector<Ref<Texture>>& get_textures();
+        [[nodiscard]] const fast_set<StringId>&        get_keywords();
 
     private:
-        bool copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data);
-        void set_parameter_from_string(GfxShaderParam type, const std::string& value, void* mem);
-
-    private:
-        friend class RenderMaterial;
-
         Ref<Shader>               m_shader;
         fast_vector<std::uint8_t> m_parameters;
         fast_vector<Ref<Texture>> m_textures;
+        fast_set<StringId>        m_keywords;
         std::size_t               m_version = 0;
         mutable std::mutex        m_mutex;
     };

@@ -28,15 +28,16 @@
 #ifndef WMOGE_VAR_HPP
 #define WMOGE_VAR_HPP
 
+#include "core/ref.hpp"
+#include "core/string_id.hpp"
+#include "math/math_utils.hpp"
+
 #include <map>
 #include <memory>
 #include <sstream>
 #include <string>
+#include <type_traits>
 #include <vector>
-
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "math/math_utils.hpp"
 
 namespace wmoge {
 

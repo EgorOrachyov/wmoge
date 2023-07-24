@@ -32,9 +32,15 @@
 #include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
 #include "event/event_resource.hpp"
+
+#include "resource/paks/resource_pak_fs.hpp"
+
 #include "resource/loaders/resource_loader_assimp.hpp"
 #include "resource/loaders/resource_loader_default.hpp"
-#include "resource/paks/resource_pak_fs.hpp"
+#include "resource/loaders/resource_loader_freetype.hpp"
+#include "resource/loaders/resource_loader_image.hpp"
+#include "resource/loaders/resource_loader_texture.hpp"
+#include "resource/loaders/resource_loader_wav.hpp"
 
 #include <chrono>
 
@@ -44,6 +50,11 @@ namespace wmoge {
         add_pak(std::make_shared<ResourcePakFileSystem>());
         add_loader(std::make_shared<ResourceLoaderDefault>());
         add_loader(std::make_shared<ResourceLoaderAssimp>());
+        add_loader(std::make_shared<ResourceLoaderFreeType>());
+        add_loader(std::make_shared<ResourceLoaderImage>());
+        add_loader(std::make_shared<ResourceLoaderTexture2d>());
+        add_loader(std::make_shared<ResourceLoaderTextureCube>());
+        add_loader(std::make_shared<ResourceLoaderWav>());
     }
 
     AsyncResult<Ref<Resource>> ResourceManager::load_async(const StringId& name, ResourceCallback callback) {
@@ -70,137 +81,35 @@ namespace wmoge {
             return AsyncResult<Ref<Resource>>(async_op);
         }
 
-        ResourceMeta                    resource_meta;
-        std::shared_ptr<ResourceLoader> resource_loader;
+        // try to find meta info, to load from pak
+        std::optional<ResourceMeta> resource_meta = find_meta(name);
 
-        if (load_meta(name, resource_meta, resource_loader)) {
-            if (LoadState* loading_task = load_internal(name, resource_meta, resource_loader)) {
-                loading_task->async_op->add_on_completion(std::move(callback));
-                return AsyncResult<Ref<Resource>>(loading_task->async_op);
-            }
+        if (!resource_meta.has_value()) {
+            // failed to load, return dummy async in error state
+            auto async_op = make_async_op<Ref<Resource>>();
+            async_op->set_failed();
+            async_op->add_on_completion(std::move(callback));
+
+            return AsyncResult<Ref<Resource>>(async_op);
         }
-
-        auto async_op = make_async_op<Ref<Resource>>();
-        async_op->set_failed();
-        async_op->add_on_completion(std::move(callback));
-        return AsyncResult<Ref<Resource>>(async_op);
-    }
-
-    Ref<Resource> ResourceManager::load(const StringId& name) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load");
-
-        AsyncResult<Ref<Resource>> async = load_async(name);
-        async.wait_completed();
-        return async.is_ok() ? async.result() : nullptr;
-    }
-
-    Ref<Resource> ResourceManager::find(const StringId& name) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceManager::");
-
-        std::lock_guard guard(m_mutex);
-
-        auto cached = m_resources.find(name);
-        if (cached != m_resources.end()) {
-            return cached->second;
-        }
-
-        return {};
-    }
-
-    void ResourceManager::add_loader(std::shared_ptr<ResourceLoader> loader) {
-        std::lock_guard guard(m_mutex);
-        m_loaders[loader->get_name()] = std::move(loader);
-    }
-    void ResourceManager::add_pak(std::shared_ptr<ResourcePak> pak) {
-        std::lock_guard guard(m_mutex);
-        m_paks.push_back(std::move(pak));
-    }
-    void ResourceManager::gc() {
-        WG_AUTO_PROFILE_RESOURCE("ResourceManager::gc");
-
-        std::lock_guard guard(m_mutex);
-        int             evicted = 0;
-        for (auto iter = m_resources.begin(); iter != m_resources.end(); ++iter) {
-            if (iter->second->refs_count() == 1) {
-                iter = m_resources.erase(iter);
-                evicted += 1;
-            }
-        }
-        WG_LOG_INFO("gc " << evicted << " unreferenced resources");
-    }
-    void ResourceManager::clear() {
-        WG_AUTO_PROFILE_RESOURCE("ResourceManager::clear");
-
-        std::lock_guard guard(m_mutex);
-        m_resources.clear();
-    }
-
-    bool ResourceManager::load_meta(const StringId& name, ResourceMeta& resource_meta, std::shared_ptr<ResourceLoader>& loader) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_meta");
-
-        // look for a resource info about resource in paks
-        for (auto& pak : m_paks) {
-            if (pak->meta(name, resource_meta)) {
-                break;
-            }
-        }
-
-        // no info about resource, cannot load
-        if (!resource_meta.resource_class) {
-            WG_LOG_ERROR("failed to find resource in paks: " << name);
-            return false;
-        }
-
-        // find loader
-        auto loader_iter = m_loaders.find(resource_meta.loader);
-        if (loader_iter == m_loaders.end()) {
-            WG_LOG_ERROR("failed to find loader for " << name);
-            return false;
-        }
-
-        loader = loader_iter->second;
-        return true;
-    }
-
-    ResourceManager::LoadState* ResourceManager::load_internal(const StringId& name, ResourceMeta& resource_meta, const std::shared_ptr<ResourceLoader>& loader) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_internal");
 
         // get dependencies which still loading or already loaded
-        fast_vector<Ref<Resource>>          deps_res;
-        fast_vector<AsyncOp<Ref<Resource>>> deps_ops;
-        fast_vector<Async>                  deps_tasks;
+        fast_vector<Async> deps;
 
-        if (!resource_meta.deps.empty()) {
-            for (const StringId& dep : resource_meta.deps) {
-                if (Ref<Resource> found = find(dep)) {
-                    deps_res.push_back(std::move(found));
-                    continue;
-                }
-
-                ResourceMeta                    dep_meta;
-                std::shared_ptr<ResourceLoader> dep_loader;
-
-                if (load_meta(dep, dep_meta, dep_loader)) {
-                    if (LoadState* state = load_internal(dep, dep_meta, dep_loader)) {
-                        deps_ops.push_back(state->async_op);
-                        deps_tasks.push_back(Async(state->task_hnd.as_async()));
-                        continue;
-                    }
-                }
-
-                return nullptr;
-            }
+        for (const StringId& dep : resource_meta.value().deps) {
+            deps.push_back(load_async(dep).as_async());
         }
 
-        // create loading task
+        // create loading state to track result
         AsyncOp<Ref<Resource>> async_op = make_async_op<Ref<Resource>>();
 
-        Task task(name, [=, meta = std::move(resource_meta)](TaskContext&) {
+        // create task to load
+        Task task(name, [=, meta = std::move(resource_meta.value())](TaskContext&) {
             Timer timer;
             timer.start();
 
             Ref<Resource> resource;
-            if (loader->load(name, meta, resource)) {
+            if (meta.loader->load(name, meta, resource)) {
                 timer.stop();
                 WG_LOG_INFO("load resource " << name << ", time: " << timer.get_elapsed_sec() << " sec");
 
@@ -218,10 +127,13 @@ namespace wmoge {
             return 1;
         });
 
-        auto task_hnd = task.schedule(Async::join(ArrayView(deps_tasks)));
+        // schedule to run only if all deps are loaded
+        auto task_hnd = task.schedule(Async::join(ArrayView(deps)));
 
+        // add erase of loading state here, since it is possible, that task can be aborted
         task_hnd.add_on_completion([this, name, async_op](AsyncStatus status, std::optional<int>&) {
             std::lock_guard guard(m_mutex);
+
             if (status == AsyncStatus::Failed) {
                 auto event          = make_event<EventResource>();
                 event->resource_id  = name;
@@ -231,16 +143,95 @@ namespace wmoge {
                 async_op->set_failed();
                 WG_LOG_ERROR("failed load resource " << name);
             }
+
             m_loading.erase(name);
         });
 
         auto& state    = m_loading[name];
-        state.deps_res = std::move(deps_res);
-        state.deps_ops = std::move(deps_ops);
+        state.deps     = std::move(deps);
         state.task_hnd = std::move(task_hnd);
         state.async_op = std::move(async_op);
 
-        return &state;
+        state.async_op->add_on_completion(std::move(callback));
+        return AsyncResult<Ref<Resource>>(state.async_op);
+    }
+
+    Ref<Resource> ResourceManager::load(const StringId& name) {
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::load");
+
+        Ref<Resource> fast_look_up = find(name);
+        if (fast_look_up) {
+            return fast_look_up;
+        }
+
+        AsyncResult<Ref<Resource>> async = load_async(name);
+        async.wait_completed();
+        return async.is_ok() ? async.result() : nullptr;
+    }
+
+    Ref<Resource> ResourceManager::find(const StringId& name) {
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::find");
+
+        std::lock_guard guard(m_mutex);
+
+        auto cached = m_resources.find(name);
+        if (cached != m_resources.end()) {
+            return cached->second;
+        }
+
+        return {};
+    }
+
+    void ResourceManager::add_loader(std::shared_ptr<ResourceLoader> loader) {
+        std::lock_guard guard(m_mutex);
+        m_loaders[loader->get_name()] = std::move(loader);
+    }
+
+    void ResourceManager::add_pak(std::shared_ptr<ResourcePak> pak) {
+        std::lock_guard guard(m_mutex);
+        m_paks.push_back(std::move(pak));
+    }
+
+    std::optional<ResourceLoader*> ResourceManager::find_loader(const StringId& loader) {
+        std::lock_guard guard(m_mutex);
+        auto            query = m_loaders.find(loader);
+        return query != m_loaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
+    }
+
+    std::optional<ResourceMeta> ResourceManager::find_meta(const StringId& resource) {
+        std::lock_guard guard(m_mutex);
+
+        ResourceMeta resource_meta;
+        for (auto& pak : m_paks) {
+            if (pak->meta(resource, resource_meta)) {
+                if (resource_meta.cls && resource_meta.loader && resource_meta.pak) {
+                    return std::make_optional(std::move(resource_meta));
+                }
+            }
+        }
+
+        return std::nullopt;
+    }
+
+    void ResourceManager::gc() {
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::gc");
+
+        std::lock_guard guard(m_mutex);
+        int             evicted = 0;
+        for (auto iter = m_resources.begin(); iter != m_resources.end(); ++iter) {
+            if (iter->second->refs_count() == 1) {
+                iter = m_resources.erase(iter);
+                evicted += 1;
+            }
+        }
+        WG_LOG_INFO("gc " << evicted << " unreferenced resources");
+    }
+
+    void ResourceManager::clear() {
+        WG_AUTO_PROFILE_RESOURCE("ResourceManager::clear");
+
+        std::lock_guard guard(m_mutex);
+        m_resources.clear();
     }
 
 }// namespace wmoge

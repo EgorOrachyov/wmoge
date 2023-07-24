@@ -25,47 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "pfx_feature_velocity.hpp"
-
-#include "core/random.hpp"
-#include "debug/profiler.hpp"
-#include "pfx/pfx_component_runtime.hpp"
+#include "resource_meta.hpp"
 
 namespace wmoge {
 
-    Ref<PfxFeature> PfxFeatureVelocity2d::create() const {
-        return make_ref<PfxFeatureVelocity2d>();
-    }
-    StringId PfxFeatureVelocity2d::get_feature_name() const {
-        static StringId name("Velocity2d");
-        return name;
-    }
-    StringId PfxFeatureVelocity2d::get_feature_family() const {
-        static StringId family("2d");
-        return family;
-    }
-    bool PfxFeatureVelocity2d::load_from_options(const YamlConstNodeRef& node) {
-        node["radius"] >> m_radius;
+    bool yaml_read(const YamlConstNodeRef& node, ResourceResFile& file) {
+        WG_YAML_READ_AS(node, "version", file.version);
+        WG_YAML_READ_AS(node, "uuid", file.uuid);
+        WG_YAML_READ_AS(node, "class", file.cls);
+        WG_YAML_READ_AS(node, "loader", file.loader);
+        WG_YAML_READ_AS(node, "deps", file.deps);
+        WG_YAML_READ_AS(node, "description", file.description);
+        WG_YAML_READ_AS_OPT(node, "path_on_disk", file.path_on_disk);
+
         return true;
     }
-    void PfxFeatureVelocity2d::on_added(PfxAttributes& attributes) {
-        attributes.set(PfxAttribute::Vel2d);
-    }
-    void PfxFeatureVelocity2d::on_spawn(class PfxComponentRuntime& runtime, const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX("PfxFeatureVelocity2d::on_spawn");
 
-        auto* storage = runtime.get_storage();
-        auto  view_v  = storage->get_vel2d();
+    bool yaml_write(YamlNodeRef& node, const ResourceResFile& file) {
+        WG_YAML_WRITE_AS(node, "version", file.version);
+        WG_YAML_WRITE_AS(node, "uuid", file.uuid);
+        WG_YAML_WRITE_AS(node, "class", file.cls);
+        WG_YAML_WRITE_AS(node, "loader", file.loader);
+        WG_YAML_WRITE_AS(node, "deps", file.deps);
+        WG_YAML_WRITE_AS(node, "description", file.description);
+        WG_YAML_WRITE_AS_OPT(node, "path_on_disk", file.path_on_disk.has_value(), file.path_on_disk);
 
-        for (auto particle_id : runtime.get_spawn_range()) {
-            float rnd_x = Random::next_float_in_range(-1.0f, 1.0f);
-            float rnd_y = Random::next_float_in_range(-1.0f, 1.0f);
-            view_v[particle_id] += Vec2f(rnd_x, rnd_y).normalized() * m_radius;
-        }
-    }
-
-    void PfxFeatureVelocity2d::register_class() {
-        auto* cls = Class::register_class<PfxFeatureVelocity2d>();
+        return true;
     }
 
 }// namespace wmoge

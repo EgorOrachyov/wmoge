@@ -31,10 +31,10 @@
 #include "core/class.hpp"
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
+#include "core/uuid.hpp"
 #include "io/yaml.hpp"
 #include "resource/resource.hpp"
 
-#include <filesystem>
 #include <optional>
 #include <vector>
 
@@ -45,12 +45,31 @@ namespace wmoge {
      * @brief Meta information of a particular resource
      */
     struct ResourceMeta {
-        class Class*            resource_class = nullptr;
-        class ResourcePak*      pak            = nullptr;
-        StringId                loader;
-        fast_vector<StringId>   deps;
-        std::filesystem::path   path_on_disk;
-        std::optional<YamlTree> import_options;
+        int                        version = 0;
+        UUID                       uuid    = UUID();
+        class Class*               cls     = nullptr;
+        class ResourcePak*         pak     = nullptr;
+        class ResourceLoader*      loader  = nullptr;
+        fast_vector<StringId>      deps;
+        std::optional<std::string> path_on_disk;
+        std::optional<YamlTree>    import_options;
+    };
+
+    /**
+     * @class ResourceResFile
+     * @brief Structure for ResourceMeta info stored as `.res` file in file system
+     */
+    struct ResourceResFile {
+        int                        version;
+        UUID                       uuid;
+        StringId                   cls;
+        StringId                   loader;
+        fast_vector<StringId>      deps;
+        std::string                description;
+        std::optional<std::string> path_on_disk;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ResourceResFile& file);
+        friend bool yaml_write(YamlNodeRef& node, const ResourceResFile& file);
     };
 
 }// namespace wmoge

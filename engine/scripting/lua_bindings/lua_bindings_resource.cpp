@@ -88,19 +88,6 @@ namespace wmoge {
                      .addFunction("get_compression", &LuaTexture::get_compression)
                      .endClass();
 
-        WG_LUA_MAP_CLASS(mapping, Sprite);
-        ns = ns.deriveClass<LuaSprite, LuaResource>("Sprite")
-                     .addFunction("get_animation_texture", &LuaSprite::_c_get_animation_texture)
-                     .addFunction("get_animation_frame", &LuaSprite::get_animation_frame)
-                     .addFunction("get_animation_n_frames", &LuaSprite::get_animation_n_frames)
-                     .addFunction("get_animation_speed", &LuaSprite::get_animation_speed)
-                     .addFunction("get_animation_loop", &LuaSprite::get_animation_loop)
-                     .addFunction("get_animation_id", &LuaSprite::get_animation_id)
-                     .addFunction("get_n_animations", &LuaSprite::get_n_animations)
-                     .addFunction("get_size", &LuaSprite::get_size)
-                     .addFunction("get_pivot", &LuaSprite::get_pivot)
-                     .endClass();
-
         WG_LUA_MAP_CLASS(mapping, PfxEffect);
         ns = ns.deriveClass<LuaPfxEffect, LuaResource>("PfxEffect")
                      .addFunction("get_components_count", &LuaPfxEffect::get_components_count)

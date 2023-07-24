@@ -28,8 +28,10 @@
 #include "gfx_sampler.hpp"
 
 #include "core/crc32.hpp"
+#include "io/yaml.hpp"
 
 #include <cstring>
+#include <sstream>
 
 namespace wmoge {
 
@@ -50,6 +52,42 @@ namespace wmoge {
     }
     std::size_t GfxSamplerDesc::hash() const {
         return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxSamplerDesc)));
+    }
+    std::string GfxSamplerDesc::to_str() const {
+        std::stringstream sampler_name;
+        sampler_name << magic_enum::enum_name(min_flt) << ":" << magic_enum::enum_name(mag_flt) << ","
+                     << magic_enum::enum_name(u) << ":" << magic_enum::enum_name(v) << ":" << magic_enum::enum_name(w) << ","
+                     << min_lod << ":" << max_lod << ","
+                     << max_anisotropy;
+
+        return sampler_name.str();
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc) {
+        WG_YAML_READ_AS_OPT(node, "min_lod", desc.min_lod);
+        WG_YAML_READ_AS_OPT(node, "max_lod", desc.max_lod);
+        WG_YAML_READ_AS_OPT(node, "max_anisotropy", desc.max_anisotropy);
+        WG_YAML_READ_AS_OPT(node, "min_flt", desc.min_flt);
+        WG_YAML_READ_AS_OPT(node, "mag_flt", desc.mag_flt);
+        WG_YAML_READ_AS_OPT(node, "u", desc.u);
+        WG_YAML_READ_AS_OPT(node, "v", desc.v);
+        WG_YAML_READ_AS_OPT(node, "w", desc.w);
+        WG_YAML_READ_AS_OPT(node, "brd_clr", desc.brd_clr);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const GfxSamplerDesc& desc) {
+        WG_YAML_WRITE_AS(node, "min_lod", desc.min_lod);
+        WG_YAML_WRITE_AS(node, "max_lod", desc.max_lod);
+        WG_YAML_WRITE_AS(node, "max_anisotropy", desc.max_anisotropy);
+        WG_YAML_WRITE_AS(node, "min_flt", desc.min_flt);
+        WG_YAML_WRITE_AS(node, "mag_flt", desc.mag_flt);
+        WG_YAML_WRITE_AS(node, "u", desc.u);
+        WG_YAML_WRITE_AS(node, "v", desc.v);
+        WG_YAML_WRITE_AS(node, "w", desc.w);
+        WG_YAML_WRITE_AS(node, "brd_clr", desc.brd_clr);
+
+        return true;
     }
 
 }// namespace wmoge

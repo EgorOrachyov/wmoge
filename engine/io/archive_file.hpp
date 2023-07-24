@@ -34,26 +34,38 @@
 
 namespace wmoge {
 
+    /**
+     * @class ArchiveWriterFile
+     * @brief An archive to write data to a platform file
+     */
     class ArchiveWriterFile final : public Archive {
     public:
         ArchiveWriterFile(std::fstream& stream);
-        bool   nwrite(int num_bytes, const void* bytes) override;
-        bool   is_memory() override;
-        bool   is_physical() override;
-        size_t get_size() override;
+
+        bool nwrite(int num_bytes, const void* bytes) override;
+
+        [[nodiscard]] bool   is_memory() override;
+        [[nodiscard]] bool   is_physical() override;
+        [[nodiscard]] size_t get_size() override;
 
     private:
         std::fstream& m_stream;
     };
 
+    /**
+     * @class ArchiveReaderFile
+     * @brief An archive to read data from a platform file
+     */
     class ArchiveReaderFile final : public Archive {
     public:
         ArchiveReaderFile(std::fstream& stream);
         ~ArchiveReaderFile() override = default;
-        bool        nread(int num_bytes, void* bytes) override;
-        bool        is_memory() override;
-        bool        is_physical() override;
-        std::size_t get_size() override;
+
+        bool nread(int num_bytes, void* bytes) override;
+
+        [[nodiscard]] bool        is_memory() override;
+        [[nodiscard]] bool        is_physical() override;
+        [[nodiscard]] std::size_t get_size() override;
 
     private:
         std::fstream& m_stream;

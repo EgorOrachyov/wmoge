@@ -32,6 +32,7 @@
 #include "debug/profiler.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
+#include "resource/resource_manager.hpp"
 
 namespace wmoge {
 
@@ -41,30 +42,31 @@ namespace wmoge {
     bool ResourcePakFileSystem::meta(const StringId& name, ResourceMeta& meta) {
         WG_AUTO_PROFILE_RESOURCE("ResourcePakFileSystem::meta");
 
-        std::string               meta_file_path = name.str() + ".res";
-        std::vector<std::uint8_t> meta_file;
+        std::string meta_file_path = name.str() + ".res";
 
-        if (!m_file_system->read_file(meta_file_path, meta_file)) return false;
+        auto res_tree = yaml_parse_file(meta_file_path);
 
-        auto ryml_tree = Yaml::parse(meta_file);
-        auto deps      = ryml_tree["deps"];
-
-        meta.deps.reserve(deps.num_children());
-
-        for (auto entry = deps.first_child(); entry.valid(); entry = entry.next_sibling()) {
-            meta.deps.push_back(Yaml::read_sid(entry));
+        if (res_tree.empty()) {
+            WG_LOG_ERROR("failed to parse tree file " << meta_file_path);
+            return false;
         }
 
-        std::string class_name;
-        std::string loader_name;
-        ryml_tree["class"] >> class_name;
-        ryml_tree["loader"] >> loader_name;
+        ResourceResFile res_file;
 
-        meta.resource_class = Class::class_ptr(SID(class_name));
-        meta.pak            = this;
-        meta.loader         = SID(loader_name);
-        meta.path_on_disk   = m_file_system->resolve(meta_file_path);
-        meta.import_options.emplace(std::move(ryml_tree));
+        if (!yaml_read(res_tree.crootref(), res_file)) {
+            WG_LOG_ERROR("failed to parse .res file " << meta_file_path);
+            return false;
+        }
+
+        auto loader = Engine::instance()->resource_manager()->find_loader(res_file.loader);
+
+        meta.version      = res_file.version;
+        meta.uuid         = res_file.uuid;
+        meta.cls          = Class::class_ptr(res_file.cls);
+        meta.pak          = this;
+        meta.loader       = loader ? loader.value() : nullptr;
+        meta.path_on_disk = res_file.path_on_disk;
+        meta.import_options.emplace(std::move(res_tree));
 
         return true;
     }

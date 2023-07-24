@@ -50,8 +50,8 @@ namespace wmoge {
         bool        is_physical() override;
         std::size_t get_size() override;
 
-        std::vector<std::uint8_t>& get_data() { return m_data; }
-        std::size_t                get_pos() { return m_pos; }
+        [[nodiscard]] std::vector<std::uint8_t>& get_data() { return m_data; }
+        [[nodiscard]] std::size_t                get_pos() { return m_pos; }
 
     private:
         std::vector<std::uint8_t> m_data;
@@ -69,11 +69,10 @@ namespace wmoge {
 
         bool nread(int num_bytes, void* bytes) override;
 
-        bool        is_memory() override;
-        bool        is_physical() override;
-        std::size_t get_size() override;
-
-        std::size_t get_pos() { return m_pos; }
+        [[nodiscard]] bool        is_memory() override;
+        [[nodiscard]] bool        is_physical() override;
+        [[nodiscard]] std::size_t get_size() override;
+        [[nodiscard]] std::size_t get_pos() { return m_pos; }
 
     private:
         const std::uint8_t* m_data;

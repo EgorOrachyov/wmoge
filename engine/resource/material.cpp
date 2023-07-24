@@ -39,6 +39,36 @@
 
 namespace wmoge {
 
+    bool yaml_read(const YamlConstNodeRef& node, MaterialFile::Entry& entry) {
+        WG_YAML_READ_AS(node, "name", entry.name);
+        WG_YAML_READ_AS(node, "value", entry.value);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const MaterialFile::Entry& entry) {
+        WG_YAML_WRITE_AS(node, "name", entry.name);
+        WG_YAML_WRITE_AS(node, "value", entry.value);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, MaterialFile& file) {
+        WG_YAML_READ_AS(node, "shader", file.shader);
+        WG_YAML_READ_AS_OPT(node, "keywords", file.keywords);
+        WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
+        WG_YAML_READ_AS_OPT(node, "textures", file.textures);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef& node, const MaterialFile& file) {
+        WG_YAML_WRITE_AS(node, "shader", file.shader);
+        WG_YAML_WRITE_AS(node, "keywords", file.keywords);
+        WG_YAML_WRITE_AS(node, "parameters", file.parameters);
+        WG_YAML_WRITE_AS(node, "textures", file.textures);
+
+        return true;
+    }
+
     void Material::create(Ref<Shader> shader) {
         assert(shader);
 
@@ -47,15 +77,15 @@ namespace wmoge {
         m_parameters.resize(m_shader->get_parameters_size());
 
         for (const auto& entry : m_shader->get_parameters()) {
-            auto&         param = entry.second;
-            std::uint8_t* mem   = m_parameters.data() + param.offset;
-            set_parameter_from_string(param.type, param.value, mem);
+            auto& param = entry.second;
+            set_param(param.name, param.value);
         }
 
         auto res_man = Engine::instance()->resource_manager();
 
         for (const auto& entry : m_shader->get_textures()) {
             auto texture = res_man->load(SID(entry.second.value)).cast<Texture>();
+
             if (!texture) {
                 WG_LOG_ERROR("no loaded texture " << entry.second.value);
                 continue;
@@ -67,61 +97,38 @@ namespace wmoge {
         m_version = 1;
     }
 
-    bool Material::load_from_import_options(const YamlTree& tree) {
+    bool Material::load_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Material::load_from_import_options");
 
-        if (!Resource::load_from_import_options(tree)) return false;
+        MaterialFile material_file;
+        WG_YAML_READ(node, material_file);
 
-        auto params  = tree["params"];
         auto res_man = Engine::instance()->resource_manager();
 
-        std::string shader;
-        params["shader"] >> shader;
-        if (shader.empty()) {
-            WG_LOG_ERROR("passed empty shader for " << get_name());
-            return false;
-        }
-
-        auto material_shader = res_man->load(SID(shader)).cast<Shader>();
+        auto material_shader = res_man->load(SID(material_file.shader)).cast<Shader>();
         if (!material_shader) {
-            WG_LOG_ERROR("not loaded shader " << shader << ". shader must be loaded");
+            WG_LOG_ERROR("not found shader " << material_file.shader << " for " << get_name());
             return false;
         }
 
         create(material_shader);
 
-        auto parameters = params["parameters"];
-        for (auto it = parameters.first_child(); it.valid(); it = it.next_sibling()) {
-            std::string name;
-            std::string value;
-
-            it["name"] >> name;
-            it["value"] >> value;
-
-            auto param = m_shader->get_parameters().find(SID(name));
-            if (param == m_shader->get_parameters().end()) {
-                WG_LOG_ERROR("no such param in shader " << name);
-                continue;
-            }
-
-            set_parameter_from_string(param->second.type, value, m_parameters.data() + param->second.offset);
+        for (const auto& param : material_file.parameters) {
+            set_param(param.name, param.value);
         }
 
-        auto textures = params["textures"];
-        for (auto it = textures.first_child(); it.valid(); it = it.next_sibling()) {
-            std::string name;
-            std::string value;
-
-            it["name"] >> name;
-            it["value"] >> value;
-
-            auto texture = res_man->load(SID(value)).cast<Texture>();
-            if (!texture) {
-                WG_LOG_ERROR("no loaded texture " << value);
+        for (const auto& texture : material_file.textures) {
+            auto texture_res = res_man->load(SID(texture.value)).cast<Texture>();
+            if (!texture_res) {
+                WG_LOG_ERROR("not found texture " << texture.value << " for " << get_name());
                 continue;
             }
 
-            set_texture(SID(name), texture);
+            set_texture(texture.name, texture_res);
+        }
+
+        for (auto& keyword : material_file.keywords) {
+            m_keywords.insert(std::move(keyword));
         }
 
         return true;
@@ -143,7 +150,53 @@ namespace wmoge {
     const fast_vector<Ref<Texture>>& Material::get_textures() {
         return m_textures;
     }
+    const fast_set<StringId>& Material::get_keywords() {
+        return m_keywords;
+    }
 
+    void Material::set_param(const StringId& name, const std::string& string_value) {
+        std::lock_guard guard(m_mutex);
+
+        assert(m_shader);
+
+        const auto& params = m_shader->get_parameters();
+        const auto  param  = params.find(name);
+
+        if (param == params.end()) {
+            WG_LOG_ERROR("no such param " << name);
+            return;
+        }
+
+        std::stringstream value(string_value);
+        auto*             mem = m_parameters.data() + param->second.offset;
+
+        switch (param->second.type) {
+            case GfxShaderParam::Int:
+                value >> *(reinterpret_cast<int*>(mem));
+                break;
+            case GfxShaderParam::Float:
+                value >> *(reinterpret_cast<float*>(mem));
+                break;
+            case GfxShaderParam::Vec2:
+                value >> *(reinterpret_cast<float*>(mem) + 0);
+                value >> *(reinterpret_cast<float*>(mem) + 1);
+                break;
+            case GfxShaderParam::Vec3:
+                value >> *(reinterpret_cast<float*>(mem) + 0);
+                value >> *(reinterpret_cast<float*>(mem) + 1);
+                value >> *(reinterpret_cast<float*>(mem) + 2);
+                break;
+            case GfxShaderParam::Vec4:
+                value >> *(reinterpret_cast<float*>(mem) + 0);
+                value >> *(reinterpret_cast<float*>(mem) + 1);
+                value >> *(reinterpret_cast<float*>(mem) + 2);
+                value >> *(reinterpret_cast<float*>(mem) + 3);
+                break;
+            default:
+                WG_LOG_ERROR("invalid shader parameter type");
+                return;
+        }
+    }
     void Material::set_int(const StringId& name, int value) {
         std::lock_guard guard(m_mutex);
 
@@ -249,61 +302,6 @@ namespace wmoge {
 
         m_textures[texture_param->second.id] = texture;
         m_version += 1;
-    }
-
-    bool Material::copy_state(std::size_t& version, Ref<GfxTexture>* textures, Ref<GfxSampler>* samplers, Ref<Data>& data) {
-        std::lock_guard guard(m_mutex);
-
-        if (version != m_version) {
-            version = m_version;
-
-            for (int i = 0; i < int(m_textures.size()); i++) {
-                assert(m_textures[i]);
-                assert(m_textures[i]->get_texture());
-                assert(m_textures[i]->get_sampler());
-
-                textures[i] = m_textures[i]->get_texture();
-                samplers[i] = m_textures[i]->get_sampler();
-            }
-
-            assert(m_parameters.size() > 0);
-            data = make_ref<Data>(m_parameters.size());
-            std::memcpy(data->buffer(), m_parameters.data(), m_parameters.size());
-
-            return true;
-        }
-
-        return false;
-    }
-    void Material::set_parameter_from_string(GfxShaderParam type, const std::string& str_value, void* mem) {
-        std::stringstream value(str_value);
-
-        switch (type) {
-            case GfxShaderParam::Int:
-                value >> *(reinterpret_cast<int*>(mem));
-                break;
-            case GfxShaderParam::Float:
-                value >> *(reinterpret_cast<float*>(mem));
-                break;
-            case GfxShaderParam::Vec2:
-                value >> *(reinterpret_cast<float*>(mem) + 0);
-                value >> *(reinterpret_cast<float*>(mem) + 1);
-                break;
-            case GfxShaderParam::Vec3:
-                value >> *(reinterpret_cast<float*>(mem) + 0);
-                value >> *(reinterpret_cast<float*>(mem) + 1);
-                value >> *(reinterpret_cast<float*>(mem) + 2);
-                break;
-            case GfxShaderParam::Vec4:
-                value >> *(reinterpret_cast<float*>(mem) + 0);
-                value >> *(reinterpret_cast<float*>(mem) + 1);
-                value >> *(reinterpret_cast<float*>(mem) + 2);
-                value >> *(reinterpret_cast<float*>(mem) + 3);
-                break;
-            default:
-                WG_LOG_ERROR("invalid shader parameter type");
-                return;
-        }
     }
 
     void Material::register_class() {

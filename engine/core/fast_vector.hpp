@@ -29,6 +29,7 @@
 #define WMOGE_FAST_VECTOR_HPP
 
 #include "io/archive.hpp"
+#include "io/yaml.hpp"
 
 #include <svector.hpp>
 #include <vector>
@@ -47,24 +48,55 @@ namespace wmoge {
     using fast_vector = ankerl::svector<T, MinCapacity>;
 
     template<typename T, std::size_t MinCapacity>
-    Archive& operator<<(Archive& archive, const fast_vector<T, MinCapacity>& vector) {
-        archive << static_cast<int>(vector.size());
-        for (const auto& entry : vector) {
-            archive << entry;
+    bool archive_write(Archive& archive, const fast_vector<T, MinCapacity>& vector) {
+        if (!archive_write(archive, vector.size())) {
+            return false;
         }
-        return archive;
+        for (const auto& entry : vector) {
+            if (!archive_write(archive, entry)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     template<typename T, std::size_t MinCapacity>
-    Archive& operator>>(Archive& archive, fast_vector<T, MinCapacity>& vector) {
+    bool archive_read(Archive& archive, fast_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
-        int size;
-        archive >> size;
-        vector.resize(size);
-        for (int i = 0; i < size; i++) {
-            archive >> vector[i];
+        std::size_t size;
+        if (!archive_read(archive, size)) {
+            return false;
         }
-        return archive;
+        vector.resize(size);
+        for (std::size_t i = 0; i < size; i++) {
+            if (!archive_read(archive, vector[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    template<typename T, std::size_t MinCapacity>
+    bool yaml_write(YamlNodeRef& node, const fast_vector<T, MinCapacity>& vector) {
+        for (const auto& value : vector) {
+            if (!yaml_write(node.append_child(), value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    template<typename T, std::size_t MinCapacity>
+    bool yaml_read(const YamlConstNodeRef& node, fast_vector<T, MinCapacity>& vector) {
+        assert(vector.empty());
+        vector.resize(node.num_children());
+        std::size_t element_id = 0;
+        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
+            if (!yaml_read(node, vector[element_id++])) {
+                return false;
+            }
+        }
+        return true;
     }
 #endif
 

@@ -58,6 +58,7 @@
 #include "core/task_manager.hpp"
 #include "core/task_parallel_for.hpp"
 #include "core/timer.hpp"
+#include "core/uuid.hpp"
 #include "core/var.hpp"
 
 #include "ecs/ecs_component.hpp"
@@ -155,8 +156,6 @@
 #include "resource/scene_packed.hpp"
 #include "resource/script.hpp"
 #include "resource/shader.hpp"
-#include "resource/sprite.hpp"
-#include "resource/text_file.hpp"
 #include "resource/texture.hpp"
 
 #include "scene/scene.hpp"

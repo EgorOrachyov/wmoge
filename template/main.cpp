@@ -80,7 +80,7 @@ public:
         Application::on_init();
 
         Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
-        Engine::instance()->action_manager()->enable_action_map(SID("console"));
+        Engine::instance()->action_manager()->activate_action_map(SID("console"));
 
         Engine::instance()->file_system()->watch("root://shaders");
         Engine::instance()->event_manager()->subscribe(make_listener<EventFileSystem>([](const EventFileSystem& event) {
@@ -113,11 +113,11 @@ public:
         auto model    = Math3d::rotate_y(angle) * Math3d::scale(Vec3f(0.5, 0.5, 0.5));
 
         if (Random::next_float() < engine->get_delta_time()) {
-            Vec3f   pos      = {Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5)};
-            Color4f color    = {Random::next_float_in_range(0.2f, 1), Random::next_float_in_range(0.2f, 1), Random::next_float_in_range(0.2f, 1), 1};
-            Quatf   rot      = {Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5), Random::next_float_in_range(-5, 5)};
+            Vec3f   pos      = {Random::next_float(-5, 5), Random::next_float(-5, 5), Random::next_float(-5, 5)};
+            Color4f color    = {Random::next_float(0.2f, 1), Random::next_float(0.2f, 1), Random::next_float(0.2f, 1), 1};
+            Quatf   rot      = {Random::next_float(-5, 5), Random::next_float(-5, 5), Random::next_float(-5, 5)};
             bool    solid    = Random::next_float() < 0.5f;
-            float   lifetime = Random::next_float_in_range(5, 10);
+            float   lifetime = Random::next_float(5, 10);
 
             aux_draw_manager->draw_box(pos, {1, 1, 1}, color, rot, solid, lifetime);
             aux_draw_manager->draw_line(pos, pos + Vec3f(0, 1.8f, 0), Color::WHITE4f, lifetime);

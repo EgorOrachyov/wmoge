@@ -35,30 +35,46 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_vert_format.hpp"
+#include "io/yaml.hpp"
 #include "resource/resource.hpp"
 
 #include <mutex>
 
 namespace wmoge {
 
-    /** @brief Shader parameter info */
+    /**
+     * @class ShaderParameter
+     * @brief Shader parameter info
+     */
     struct ShaderParameter {
         StringId       name;
         GfxShaderParam type;
         int            offset = -1;
         int            size   = -1;
         std::string    value;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter);
+        friend bool yaml_write(YamlNodeRef& node, const ShaderParameter& parameter);
     };
 
-    /** @brief Shader texture info */
+    /**
+     * @class ShaderTexture
+     * @brief Shader texture info
+     */
     struct ShaderTexture {
         StringId    name;
         GfxTex      type;
         int         id = -1;
         std::string value;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
+        friend bool yaml_write(YamlNodeRef& node, const ShaderTexture& texture);
     };
 
-    /** @brief Shader pipeline settings */
+    /**
+     * @class ShaderPipelineState
+     * @brief Shader pipeline settings
+     */
     struct ShaderPipelineState {
         GfxPolyMode      poly_mode    = GfxPolyMode::Fill;
         GfxPolyCullMode  cull_mode    = GfxPolyCullMode::Disabled;
@@ -66,6 +82,28 @@ namespace wmoge {
         bool             depth_enable = false;
         bool             depth_write  = true;
         GfxCompFunc      depth_func   = GfxCompFunc::Less;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state);
+        friend bool yaml_write(YamlNodeRef& node, const ShaderPipelineState& state);
+    };
+
+    /**
+     * @class ShaderFile
+     * @brief Shader file to describe a shader and store as a resource
+     */
+    struct ShaderFile {
+        std::vector<ShaderParameter> parameters;
+        std::vector<ShaderTexture>   textures;
+        std::vector<StringId>        keywords;
+        std::string                  vertex;
+        std::string                  fragment;
+        std::string                  compute;
+        StringId                     domain;
+        int                          render_queue = 0;
+        ShaderPipelineState          state{};
+
+        friend bool yaml_read(const YamlConstNodeRef& node, ShaderFile& file);
+        friend bool yaml_write(YamlNodeRef& node, const ShaderFile& file);
     };
 
     /**
@@ -85,9 +123,8 @@ namespace wmoge {
      * to the end (material) user.
      *
      * @note For actual rendering shader can produce one or more gfx shader variants.
-     *       Single variant is an actual gfx shader item, key and hash. Variants
-     *       share common behaviour, but differ in a set of defines. Variants
-     *       created on demand, when they are requested.
+     *       Single variant is an actual gfx shader item. Variants share common behaviour,
+     *       but differ in a set of defines. Variants  created on demand, when they are requested.
      *
      * @note Variants creation is optimized by usage of the shader cache. If
      *       an item was compiled once and its byte code for current platform
@@ -97,28 +134,28 @@ namespace wmoge {
     public:
         WG_OBJECT(Shader, Resource);
 
-        bool load_from_import_options(const YamlTree& tree) override;
+        bool load_from_yaml(const YamlConstNodeRef& node) override;
         void copy_to(Resource& copy) override;
 
-        bool           has_variant(const StringId& shader_key);
-        Ref<GfxShader> find_variant(const StringId& shader_key);
-        Ref<GfxShader> create_variant(const fast_vector<std::string>& defines);
-        Ref<GfxShader> create_variant(const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines);
+        [[nodiscard]] bool           has_variant(const StringId& shader_key);
+        [[nodiscard]] Ref<GfxShader> find_variant(const StringId& shader_key);
+        [[nodiscard]] Ref<GfxShader> create_variant(const fast_vector<std::string>& defines);
+        [[nodiscard]] Ref<GfxShader> create_variant(const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines);
 
-        const std::string&                         get_vertex() const;
-        const std::string&                         get_fragment() const;
-        const std::string&                         get_compute() const;
-        const StringId&                            get_domain() const;
-        int                                        get_render_queue() const;
-        const fast_set<StringId>&                  get_keywords() const;
-        const fast_map<StringId, ShaderParameter>& get_parameters() const;
-        const fast_map<StringId, ShaderTexture>&   get_textures() const;
-        const ShaderPipelineState&                 get_pipeline_state() const;
-        int                                        get_parameters_size() const;
-        int                                        get_parameters_count() const;
-        int                                        get_textures_count() const;
-        std::string                                get_include_textures() const;
-        std::string                                get_include_parameters() const;
+        [[nodiscard]] const std::string&                         get_vertex() const;
+        [[nodiscard]] const std::string&                         get_fragment() const;
+        [[nodiscard]] const std::string&                         get_compute() const;
+        [[nodiscard]] const StringId&                            get_domain() const;
+        [[nodiscard]] int                                        get_render_queue() const;
+        [[nodiscard]] const fast_set<StringId>&                  get_keywords() const;
+        [[nodiscard]] const fast_map<StringId, ShaderParameter>& get_parameters() const;
+        [[nodiscard]] const fast_map<StringId, ShaderTexture>&   get_textures() const;
+        [[nodiscard]] const ShaderPipelineState&                 get_pipeline_state() const;
+        [[nodiscard]] int                                        get_parameters_size() const;
+        [[nodiscard]] int                                        get_parameters_count() const;
+        [[nodiscard]] int                                        get_textures_count() const;
+        [[nodiscard]] const std::string&                         get_include_textures() const;
+        [[nodiscard]] const std::string&                         get_include_parameters() const;
 
     protected:
         bool generate_params_layout();

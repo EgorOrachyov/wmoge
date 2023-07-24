@@ -36,6 +36,60 @@
 namespace wmoge {
 
     /**
+     * @class TextureImportOptions
+     * @brief Options (base) to import texture
+     */
+    struct TextureImportOptions {
+        int            channels    = 4;
+        GfxFormat      format      = GfxFormat::RGBA8;
+        bool           mipmaps     = true;
+        bool           srgb        = true;
+        bool           compression = false;
+        GfxSamplerDesc sampling{};
+
+        friend bool yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const TextureImportOptions& options);
+    };
+
+    /**
+     * @class Texture2dImportOptions
+     * @brief Options to import 2d-texture from a source file
+     */
+    struct Texture2dImportOptions : public TextureImportOptions {
+        std::string source_file;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const Texture2dImportOptions& options);
+    };
+
+    /**
+     * @class TextureCubeImportOptions
+     * @brief Options to import a cube-map texture from source files
+     */
+    struct TextureCubeImportOptions : public TextureImportOptions {
+        /**
+         * @class SourceFiles
+         * @brief Files fro each cube-map face
+         */
+        struct SourceFiles {
+            std::string right;
+            std::string left;
+            std::string top;
+            std::string bottom;
+            std::string back;
+            std::string front;
+
+            friend bool yaml_read(const YamlConstNodeRef& node, SourceFiles& source_files);
+            friend bool yaml_write(YamlNodeRef& node, const SourceFiles& source_files);
+        };
+
+        SourceFiles source_files;
+
+        friend bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options);
+        friend bool yaml_write(YamlNodeRef& node, const TextureCubeImportOptions& options);
+    };
+
+    /**
      * @class Texture
      * @brief Base-class for any engine gpu texture resource which can be used for rendering
      */
@@ -59,9 +113,6 @@ namespace wmoge {
         bool                           get_compression() { return m_compression; }
 
         void copy_to(Resource& copy) override;
-
-    protected:
-        void load_sampler_from_import_options(const YamlTree& tree);
 
     protected:
         std::vector<Ref<Image>> m_images;
@@ -90,7 +141,6 @@ namespace wmoge {
 
         void create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
 
-        bool load_from_import_options(const YamlTree& tree) override;
         void copy_to(Resource& copy) override;
     };
 
@@ -102,7 +152,8 @@ namespace wmoge {
     public:
         WG_OBJECT(TextureCube, Texture);
 
-        bool load_from_import_options(const YamlTree& tree) override;
+        void create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
+
         void copy_to(Resource& copy) override;
     };
 

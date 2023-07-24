@@ -73,8 +73,8 @@ namespace wmoge {
             Ref<GfxShader> shader;
             Ref<Data>      bytecode;
 
-            friend Archive& operator<<(Archive& archive, const ShaderData& shader_data);
-            friend Archive& operator>>(Archive& archive, ShaderData& shader_data);
+            friend bool archive_write(Archive& archive, const ShaderData& shader_data);
+            friend bool archive_read(Archive& archive, ShaderData& shader_data);
         };
 
         /**
