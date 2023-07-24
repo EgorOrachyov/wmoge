@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: Wmoge Engine &lt;img align=&quot;right&quot; width=&quot;10%&quot; src=&quot;https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&amp;sanitize=true&quot;&gt;</title>
+<title>wmoge: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,18 +62,20 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">Wmoge Engine <img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/icons/box.png?raw=true&amp;sanitize=true" alt="" align="right" width="10%" class="inline"/> </div>  </div>
+<div class="title">wmoge Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg" alt="build" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg" alt="clang format" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg" alt="docs c/c++" style="pointer-events: none;" class="inline"/></a> <img src="https://img.shields.io/badge/language-C++17-_" alt="language" class="inline"/> <img src="https://img.shields.io/badge/license-MIT-_" alt="license" class="inline"/></p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/wmoge-banner-trsp-x2.png?raw=true&amp;sanitize=true" alt="logo" class="inline"/></p>
+<h1>Wmoge Engine</h1>
+<p><a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg" alt="build" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg" alt="clang format" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg" alt="docs c/c++" style="pointer-events: none;" class="inline"/></a> <img src="https://img.shields.io/badge/language-C++17-_" alt="language" class="inline"/> <img src="https://img.shields.io/badge/license-MIT-_" alt="license" class="inline"/></p>
 <p>**"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and OpenGL backends. The idea of the project is to implement a self-sufficient, small, but featured engine and a number of 2d and 3d games using it. Primary focus is the core architecture of the engine, reliability, clean and performant code. Currently, the work is focused on a minor refactoring, new runtime scene representation, building a high-level rendering system, refactoring audio, scripting systems, and bringing physics support. The engine is a personal learning/hobby project for educational purposes only.</p>
 <p>Current progress can be tracked at GitHub <a href="https://github.com/EgorOrachyov/wmoge/issues">tasks page</a>.</p>
 <p><img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&amp;sanitize=true" alt="gif" class="inline"/></p>
 <blockquote class="doxtable">
 <p>Work in progress, new features coming soon! </p>
 </blockquote>
-<h1>About the engine</h1>
-<h2>Features</h2>
+<h2>About the engine</h2>
+<h3>Features</h3>
 <ul>
 <li>🔨 Moder C++17 based engine with clear architecture.</li>
 <li>🔨 Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.</li>
@@ -94,13 +96,13 @@ $(function() {
 <li>🐞 In-game dev console with support for console commands and console variables.</li>
 <li>🐞 Debug labels objects and events for RenderDoc captures.</li>
 </ul>
-<h2>Platforms</h2>
+<h3>Platforms</h3>
 <ul>
 <li>Windows 10 (tested on Windows 10).</li>
 <li>Linux-based OS (tested on Ubuntu 20.04).</li>
 <li>macOS (tested on 10.14 Mojave).</li>
 </ul>
-<h2>Dependencies</h2>
+<h3>Dependencies</h3>
 <ul>
 <li><a href="https://github.com/assimp/assimp">assimp</a> for geometry, material and scene assets importing into engine.</li>
 <li><a href="https://github.com/adamstark/AudioFile">audio file</a> for simple audio loading from wav files.</li>
@@ -125,8 +127,8 @@ $(function() {
 <li><a href="https://github.com/gpakosz/whereami">whereami</a> for executable location extracting.</li>
 <li><a href="https://github.com/madler/zlib">zlib</a> for files compression (required for assimp and freetype).</li>
 </ul>
-<h1>Building from sources</h1>
-<h2>Prerequisites</h2>
+<h2>Building from sources</h2>
+<h3>Prerequisites</h3>
 <ul>
 <li><b>Common</b>:<ul>
 <li>Git (to get source code)</li>
@@ -149,11 +151,11 @@ $(function() {
 </ul>
 </li>
 </ul>
-<h2>Get source code</h2>
+<h3>Get source code</h3>
 <p>The following code snippet downloads project source code repository, and enters project root folder. Must be executed from the folder where you want to locate project.</p>
 <div class="fragment"><div class="line">$ git clone https://github.com/EgorOrachyov/wmoge.git</div>
 <div class="line">$ cd wmoge</div>
-</div><!-- fragment --><h2>Configure and run build</h2>
+</div><!-- fragment --><h3>Configure and run build</h3>
 <blockquote class="doxtable">
 <p><b>Attention!</b> On Windows platform building commands must be executed in <code>x64 Native Tools Command Prompt for VS</code>. </p>
 </blockquote>
@@ -162,17 +164,17 @@ $(function() {
 </div><!-- fragment --><p>On macOS, you can optionally specify target binaries architecture to build. Pass option <code>--arch</code> with <code>x86_64</code> or <code>arm64</code> respectively. By default, build falls back to <code>CMAKE_SYSTEM_PROCESSOR</code> specified architecture. See example bellow, replace <code>&lt;arch&gt;</code> with desired architecture for your build. Must be executed from project root folder.</p>
 <div class="fragment"><div class="line">$ python ./build.py --build-dir=build --build-type=Release --nt=4 --arch=&lt;arch&gt;</div>
 </div><!-- fragment --><p>In order to run a template project demo, you need to manually copy <code>template</code> folder content into the <code>build/template</code> directory and run template.exe. The template project will start up and enter main loop. Alternatively, the executable can be stated from the IDE by running <code>template/main.cpp</code> entry point.</p>
-<h1>Contributing</h1>
+<h2>Contributing</h2>
 <p>If you want to fix code or tutorial text issue, add new functionality, or even new tutorial step, feel free to contribute to the project following contributing guide and code of conduct.</p>
-<h1>Disclaimer</h1>
+<h2>Disclaimer</h2>
 <p>This is a personal learning project. It does not claim to be the ultimate guide to building real AAA game engines. However, it can be useful for those who, like me at the time, want to learn something more than the basics and do something on their own. This project accumulates ideas and knowledge from several books and can be a good starting point for learning!</p>
-<h1>Also</h1>
+<h2>Also</h2>
 <p>If you have any questions, feel free to contact me at <code>egororachyov@gmail.com</code>. If you have any ideas, questions, how to make or improve something, please, do not hesitate to open new issue or pull-request inside this project. I will try to respond as soon as possible to them.</p>
-<h1>Contributors</h1>
+<h2>Contributors</h2>
 <ul>
 <li>Egor Orachyov (Github: <a href="https://github.com/EgorOrachyov">@EgorOrachyov</a>)</li>
 </ul>
-<h1>Citation</h1>
+<h2>Citation</h2>
 <div class="fragment"><div class="line">@online{wmoge,</div>
 <div class="line">  author = {Orachyov, Egor},</div>
 <div class="line">  title = {Wmoge: High-performance 2d and 3d game engine with Vulkan and OpenGL backends},</div>
@@ -180,7 +182,7 @@ $(function() {
 <div class="line">  url = {https://github.com/EgorOrachyov/wmoge},</div>
 <div class="line">  note = {Version 1.0.0}</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1>Project structure</h1>
+</div><!-- fragment --><h2>Project structure</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadLeft">Entry   </th><th class="markdownTableHeadLeft">Description    </th></tr>
@@ -201,7 +203,7 @@ $(function() {
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyLeft"><code>📄 build.py</code>   </td><td class="markdownTableBodyLeft">Script to build project sources and examples   </td></tr>
 </table>
-<h1>License</h1>
+<h2>License</h2>
 <div class="fragment"><div class="line">MIT License</div>
 <div class="line"> </div>
 <div class="line">Copyright (c) 2023 Egor Orachyov</div>
