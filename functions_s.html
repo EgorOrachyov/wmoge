@@ -78,6 +78,9 @@ $(function() {
 <li>samplers
 : <a class="el" href="classreflection_1_1Shader.html#a1fb7dbbcd8f3a0347df85f90f3312749">reflection.Shader</a>
 </li>
+<li>sampling
+: <a class="el" href="structwmoge_1_1TextureImportOptions.html#a5a32b3a20dc2e3f548440d351b743f63">wmoge::TextureImportOptions</a>
+</li>
 <li>save()
 : <a class="el" href="classwmoge_1_1Image.html#a5b6de39c20b081a4167292f772ec20d6">wmoge::Image</a>
 </li>
@@ -160,7 +163,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ScriptNativeInstance.html#a579be82cfd05a07c752cf8e3d78ec069">wmoge::ScriptNativeInstance</a>
 </li>
 <li>set()
-: <a class="el" href="classwmoge_1_1ConfigFile.html#adcc47221725be84ff20b6c50831183d0">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1ConfigFile.html#a2c1d100c097cf9ac1f7da6afd52d5e50">wmoge::ConfigFile</a>
 , <a class="el" href="classwmoge_1_1GameTokenManager.html#a0714f0757fd4e2091f172e42d164db2d">wmoge::GameTokenManager</a>
 , <a class="el" href="structwmoge_1_1GfxLocation.html#a01bc7e33efa5cde3bf2df0bb20d1f039">wmoge::GfxLocation</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#aed937d07639a808ededaf079dde45208">wmoge::GfxShaderReflection::Buffer</a>
@@ -176,12 +179,6 @@ $(function() {
 </li>
 <li>set_amount()
 : <a class="el" href="classwmoge_1_1PfxComponent.html#a0b9f6c722e8bfac3853db399af92e21c">wmoge::PfxComponent</a>
-</li>
-<li>set_animation_loop()
-: <a class="el" href="classwmoge_1_1Sprite.html#a952a1e49fc07f1754a72ea9e0fc7c3e5">wmoge::Sprite</a>
-</li>
-<li>set_animation_speed()
-: <a class="el" href="classwmoge_1_1Sprite.html#ad754433a8e4f01ac180b7a6226ab607e">wmoge::Sprite</a>
 </li>
 <li>set_component()
 : <a class="el" href="structwmoge_1_1EcsArch.html#aefbf3a806dde5181fca1e2fbad4e87fa">wmoge::EcsArch</a>
@@ -258,6 +255,9 @@ $(function() {
 </li>
 <li>set_num
 : <a class="el" href="classreflection_1_1Binding.html#ac7c88d4b4199010e8b2327febdcefcaf">reflection.Binding</a>
+</li>
+<li>set_param()
+: <a class="el" href="classwmoge_1_1Material.html#a2e41704ce997bb37b745af0917400073">wmoge::Material</a>
 </li>
 <li>set_perspective()
 : <a class="el" href="classwmoge_1_1RenderCamera.html#ac717f91f09b97491602123b332ade3ea">wmoge::RenderCamera</a>
@@ -360,6 +360,7 @@ $(function() {
 <li>shader
 : <a class="el" href="classgenerator_1_1CodeGenerator.html#aa9677d9c9ed3703aa946a0eb972cf841">generator.CodeGenerator</a>
 , <a class="el" href="structwmoge_1_1GfxPipelineState.html#aed4e6084f304fe0aec0e5aab5eceb0ea">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1MaterialFile.html#abb2b59630c5f00e8d388e37061b32a88">wmoge::MaterialFile</a>
 , <a class="el" href="structwmoge_1_1ShaderManager_1_1ShaderData.html#a268fbc9662908bc530f1b8485ffa5324">wmoge::ShaderManager::ShaderData</a>
 </li>
 <li>shader_cache_path()
@@ -406,7 +407,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneObject.html#a51ce26cb24cdaeaeace076f29e80ed3e">wmoge::SceneObject</a>
 </li>
 <li>sin()
-: <a class="el" href="classwmoge_1_1Math.html#a2f6253613ec3278a8c539d61afaf0652">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a202e69a0f23c301b9b8f16162de58d39">wmoge::Math</a>
 </li>
 <li>size
 : <a class="el" href="classreflection_1_1TypeScalar.html#aae88eb0475ae6286cfd2a75e32c8065b">reflection.TypeScalar</a>
@@ -435,7 +436,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1TAabb.html#ab63b96cf493479d336cba1c9fe82f9d5">wmoge::TAabb&lt; T &gt;</a>
 </li>
 <li>slerp()
-: <a class="el" href="classwmoge_1_1TQuat.html#aa614e3997c29a2d20f4ebc349bfa4653">wmoge::TQuat&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1TQuat.html#a62e2c20ee7a52c80d475b954ab582023">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a07d344ff1a3affa26d8e6dfb89372693">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>slice
@@ -453,6 +454,19 @@ $(function() {
 <li>smoother_step()
 : <a class="el" href="classwmoge_1_1Math.html#a7497bd950c8aba43be857d2de86d3382">wmoge::Math</a>
 </li>
+<li>sort_by_ptype
+: <a class="el" href="structwmoge_1_1MeshImportOptions_1_1Process.html#ab0b64ed2eb37be901f8aa6d3935d777d">wmoge::MeshImportOptions::Process</a>
+</li>
+<li>source_file
+: <a class="el" href="structwmoge_1_1AudioImportOptions.html#a378951d1987512480a98416f72ed6f55">wmoge::AudioImportOptions</a>
+, <a class="el" href="structwmoge_1_1FontImportOptions.html#a029256fdaaaba9eb0074e1210c177728">wmoge::FontImportOptions</a>
+, <a class="el" href="structwmoge_1_1ImageImportOptions.html#a993718967d18f0885cbe1ee7bfb18315">wmoge::ImageImportOptions</a>
+, <a class="el" href="structwmoge_1_1MeshImportOptions.html#ae0a8e619d304266e8071353d21287e63">wmoge::MeshImportOptions</a>
+, <a class="el" href="structwmoge_1_1Texture2dImportOptions.html#ad25f023c1118c92c3eab55ec1c36bd37">wmoge::Texture2dImportOptions</a>
+</li>
+<li>source_files
+: <a class="el" href="structwmoge_1_1TextureCubeImportOptions.html#a28f2a09930382a93b0f529cfcdc417cc">wmoge::TextureCubeImportOptions</a>
+</li>
 <li>Spatial2d
 : <a class="el" href="classwmoge_1_1SceneObject.html#ac3e7582ab0bb22c3c495454d8df89c77">wmoge::SceneObject</a>
 </li>
@@ -468,6 +482,9 @@ $(function() {
 </li>
 <li>SQRT2f
 : <a class="el" href="classwmoge_1_1Math.html#ab7ac364dda02261ccdfb6d74117f0fa4">wmoge::Math</a>
+</li>
+<li>srgb
+: <a class="el" href="structwmoge_1_1TextureImportOptions.html#a4b0a4ed80f31de035e8cb9418e852350">wmoge::TextureImportOptions</a>
 </li>
 <li>stack()
 : <a class="el" href="classwmoge_1_1ConfigFile.html#a5bc24f7b9c32edfd039272ce47120c0d">wmoge::ConfigFile</a>
@@ -493,6 +510,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1EcsEntityInfo.html#a6cce5df6ec1eb763162d8607acdc4fd4">wmoge::EcsEntityInfo</a>
 , <a class="el" href="classwmoge_1_1GfxPipeline.html#aba6a87ba3c7460b0e38db2156a94a5c4">wmoge::GfxPipeline</a>
 , <a class="el" href="classwmoge_1_1InputDevice.html#a3c896aa43870f1fd956b303f563a1168">wmoge::InputDevice</a>
+, <a class="el" href="structwmoge_1_1ShaderFile.html#a484a32af07823305aebc4e0cd5c779b2">wmoge::ShaderFile</a>
 , <a class="el" href="classwmoge_1_1VKPipeline.html#adfb13b5c3de53e56b0942946f5d6d1ed">wmoge::VKPipeline</a>
 </li>
 <li>status()

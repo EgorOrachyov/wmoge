@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ShaderBuilder.html" title="Builder of a particular gfx shader variation." alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1SceneContainerPtr.html" title="Interface to container with weak refs of objects and components." alt="" coords="5,5,184,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TSceneContainerPtr.html" title="Container to store weak references for objects and components." alt="" coords="232,5,449,32"/>
 </map>

@@ -108,9 +108,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7f88f989ba7130a0479ceaf6dc9b9030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads font from a .ttf file from file system using specified height in pixels.  <a href="classwmoge_1_1Font.html#a7f88f989ba7130a0479ceaf6dc9b9030">More...</a><br /></td></tr>
 <tr class="separator:a7f88f989ba7130a0479ceaf6dc9b9030"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af25e341a8a87a1a50ca39d4a16a0c9ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#af25e341a8a87a1a50ca39d4a16a0c9ed">get_string_size</a> (const std::string &amp;text, float size)</td></tr>
+<tr class="memdesc:af25e341a8a87a1a50ca39d4a16a0c9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size in pixels of a text in given font.  <a href="classwmoge_1_1Font.html#af25e341a8a87a1a50ca39d4a16a0c9ed">More...</a><br /></td></tr>
 <tr class="separator:af25e341a8a87a1a50ca39d4a16a0c9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e465a5230899f900a4613d065c889a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#a8e465a5230899f900a4613d065c889a6">load_from_import_options</a> (const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;tree) override</td></tr>
-<tr class="separator:a8e465a5230899f900a4613d065c889a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fe9aac9bdbafe9b998946c405b19f21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#a5fe9aac9bdbafe9b998946c405b19f21">copy_to</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;copy) override</td></tr>
 <tr class="separator:a5fe9aac9bdbafe9b998946c405b19f21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b1053ff758715eff10a080ebdb9942b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#a0b1053ff758715eff10a080ebdb9942b">to_string</a> () override</td></tr>
@@ -138,6 +137,10 @@ Public Member Functions</h2></td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Resource.html">wmoge::Resource</a></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f099d197a7dde45194a291594bc7ec6 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a0f099d197a7dde45194a291594bc7ec6">load_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node)</td></tr>
+<tr class="separator:a0f099d197a7dde45194a291594bc7ec6 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a07990d76aa75ad9fd2e2b3694249f227">load_from_archive</a> (const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
+<tr class="separator:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94fcebb4bc59cd403a5b46d58884f79e">duplicate</a> ()</td></tr>
 <tr class="separator:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
@@ -444,6 +447,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Returns the size in pixels of a text in given font. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">text</td><td>Text which size is to calculate </td></tr>
+    <tr><td class="paramname">size</td><td>Scale of font size</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Width and height in pixels of a text </dd></dl>
+
 </div>
 </div>
 <a id="a80e2c0e1f388e03bdb8e02ea5614d71b"></a>
@@ -529,43 +542,16 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Loads font from a .ttf file from file system using specified height in pixels. </p>
+<dl class="section note"><dt>Note</dt><dd>Uses FreeType2 library for .ttf file loading</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">filepath</td><td>Path to the font .ttf file in a file system </td></tr>
     <tr><td class="paramname">height</td><td><a class="el" href="classwmoge_1_1Font.html" title="Font resource for rendering texts from true type fonts.">Font</a> height in pixels </td></tr>
-    <tr><td class="paramname">glyphs_in_row</td><td>Num of gliphs in a row of a bitmap</td></tr>
+    <tr><td class="paramname">glyphs_in_row</td><td>Num of glyphs in a row of a bitmap</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if font loaded </dd></dl>
-
-</div>
-</div>
-<a id="a8e465a5230899f900a4613d065c889a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e465a5230899f900a4613d065c889a6">&#9670;&nbsp;</a></span>load_from_import_options()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool wmoge::Font::load_from_import_options </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classwmoge_1_1Resource.html#a922511d7b5c688b182a7bdee78cd767a">wmoge::Resource</a>.</p>
 
 </div>
 </div>

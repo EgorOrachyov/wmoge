@@ -68,37 +68,44 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">archive.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;array&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="log_8hpp_source.html">core/log.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cinttypes&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for archive.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="archive_8hpp__incl.png" border="0" usemap="#aengine_2io_2archive_8hpp" alt=""/></div>
 <map name="aengine_2io_2archive_8hpp" id="aengine_2io_2archive_8hpp">
-<area shape="rect" title=" " alt="" coords="217,5,361,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,56,107"/>
-<area shape="rect" title=" " alt="" coords="80,80,155,107"/>
-<area shape="rect" title=" " alt="" coords="179,80,290,107"/>
-<area shape="rect" title=" " alt="" coords="315,80,373,107"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="397,80,488,107"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="613,80,737,107"/>
-<area shape="rect" title=" " alt="" coords="241,155,303,181"/>
-<area shape="rect" title=" " alt="" coords="327,155,393,181"/>
-<area shape="rect" title=" " alt="" coords="493,155,571,181"/>
-<area shape="rect" title=" " alt="" coords="417,155,469,181"/>
-<area shape="rect" title=" " alt="" coords="595,155,661,181"/>
-<area shape="rect" title=" " alt="" coords="685,155,755,181"/>
-<area shape="rect" title=" " alt="" coords="779,155,834,181"/>
-<area shape="rect" title=" " alt="" coords="859,155,941,181"/>
+<area shape="rect" title=" " alt="" coords="821,5,965,32"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="763,80,855,107"/>
+<area shape="rect" title=" " alt="" coords="1088,155,1147,181"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="551,80,641,107"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="231,80,355,107"/>
+<area shape="rect" title=" " alt="" coords="931,80,981,107"/>
+<area shape="rect" title=" " alt="" coords="1005,80,1080,107"/>
+<area shape="rect" title=" " alt="" coords="1105,80,1215,107"/>
+<area shape="rect" title=" " alt="" coords="309,155,374,181"/>
+<area shape="rect" title=" " alt="" coords="823,155,889,181"/>
+<area shape="rect" title=" " alt="" coords="914,155,982,181"/>
+<area shape="rect" title=" " alt="" coords="1006,155,1063,181"/>
+<area shape="rect" title=" " alt="" coords="729,155,799,181"/>
+<area shape="rect" title=" " alt="" coords="398,155,453,181"/>
+<area shape="rect" title=" " alt="" coords="477,155,539,181"/>
+<area shape="rect" title=" " alt="" coords="563,155,629,181"/>
+<area shape="rect" title=" " alt="" coords="206,155,285,181"/>
+<area shape="rect" title=" " alt="" coords="653,155,705,181"/>
+<area shape="rect" title=" " alt="" coords="112,155,181,181"/>
+<area shape="rect" title=" " alt="" coords="5,155,88,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -106,56 +113,56 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="archive_8hpp__dep__incl.png" border="0" usemap="#aengine_2io_2archive_8hppdep" alt=""/></div>
 <map name="aengine_2io_2archive_8hppdep" id="aengine_2io_2archive_8hppdep">
-<area shape="rect" title=" " alt="" coords="3816,5,3960,32"/>
-<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1097,80,1239,107"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="3073,445,3199,471"/>
-<area shape="rect" href="vk__shader_8cpp.html" title=" " alt="" coords="127,527,268,568"/>
-<area shape="rect" href="gfx__shader_8hpp.html" title=" " alt="" coords="3802,169,3974,196"/>
-<area shape="rect" href="shader__manager_8hpp.html" title=" " alt="" coords="4417,259,4559,300"/>
-<area shape="rect" href="archive__memory_8hpp.html" title=" " alt="" coords="99,355,296,382"/>
-<area shape="rect" href="fast__map_8hpp.html" title=" " alt="" coords="3579,80,3749,107"/>
-<area shape="rect" href="fast__set_8hpp.html" title=" " alt="" coords="4737,169,4901,196"/>
-<area shape="rect" href="fast__vector_8hpp.html" title=" " alt="" coords="3079,169,3262,196"/>
-<area shape="rect" href="archive_8cpp.html" title=" " alt="" coords="4868,80,5012,107"/>
-<area shape="rect" href="archive__file_8hpp.html" title=" " alt="" coords="4677,80,4843,107"/>
-<area shape="rect" href="data_8cpp.html" title=" " alt="" coords="882,169,1025,196"/>
-<area shape="rect" href="action__map_8cpp.html" title=" " alt="" coords="917,348,1075,389"/>
-<area shape="rect" href="gfx__ctx_8hpp.html" title=" " alt="" coords="2394,266,2545,293"/>
-<area shape="rect" href="gfx__driver_8hpp.html" title=" " alt="" coords="2329,355,2495,382"/>
-<area shape="rect" href="vk__buffers_8hpp.html" title=" " alt="" coords="1151,162,1292,203"/>
-<area shape="rect" href="vk__texture_8hpp.html" title=" " alt="" coords="1367,162,1508,203"/>
-<area shape="rect" href="pfx__component__runtime_8hpp.html" title=" " alt="" coords="144,162,317,203"/>
-<area shape="rect" href="file__system_8cpp.html" title=" " alt="" coords="320,348,451,389"/>
-<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="492,259,623,300"/>
-<area shape="rect" href="config__file_8cpp.html" title=" " alt="" coords="475,348,627,389"/>
-<area shape="rect" href="resource__loader__assimp_8cpp.html" title=" " alt="" coords="702,348,893,389"/>
-<area shape="rect" href="mesh__builder_8cpp.html" title=" " alt="" coords="443,162,579,203"/>
-<area shape="rect" href="audio__stream_8hpp.html" title=" " alt="" coords="1633,162,1783,203"/>
-<area shape="rect" href="audio__stream__wav_8hpp.html" title=" " alt="" coords="1633,259,1783,300"/>
-<area shape="rect" href="image_8hpp.html" title=" " alt="" coords="2775,169,2953,196"/>
-<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="951,266,1126,293"/>
-<area shape="rect" href="resource__pak_8hpp.html" title=" " alt="" coords="2583,162,2751,203"/>
-<area shape="rect" href="lua__bindings__core_8hpp.html" title=" " alt="" coords="705,155,858,211"/>
-<area shape="rect" href="vk__ctx_8hpp.html" title=" " alt="" coords="1525,348,1667,389"/>
-<area shape="rect" href="vk__driver_8hpp.html" title=" " alt="" coords="1471,437,1612,479"/>
-<area shape="rect" href="shader_8hpp.html" title=" " alt="" coords="4211,266,4392,293"/>
-<area shape="rect" href="material_8hpp.html" title=" " alt="" coords="4106,355,4294,382"/>
-<area shape="rect" href="vk__desc__manager_8hpp.html" title=" " alt="" coords="1252,259,1393,300"/>
-<area shape="rect" href="vk__window_8hpp.html" title=" " alt="" coords="1417,259,1559,300"/>
-<area shape="rect" href="font_8hpp.html" title=" " alt="" coords="3149,266,3313,293"/>
-<area shape="rect" href="console_8hpp.html" title=" " alt="" coords="3199,355,3371,382"/>
-<area shape="rect" href="resource__manager_8hpp.html" title=" " alt="" coords="2721,259,2889,300"/>
-<area shape="rect" href="al__engine_8hpp.html" title=" " alt="" coords="3389,162,3526,203"/>
-<area shape="rect" href="string__id_8cpp.html" title=" " alt="" coords="3551,162,3676,203"/>
-<area shape="rect" href="ecs__registry_8hpp.html" title=" " alt="" coords="3389,266,3571,293"/>
-<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="4471,355,4643,382"/>
-<area shape="rect" href="event__manager_8hpp.html" title=" " alt="" coords="1959,259,2091,300"/>
-<area shape="rect" href="action__map_8hpp.html" title=" " alt="" coords="2914,259,3073,300"/>
-<area shape="rect" href="game__token__manager_8hpp.html" title=" " alt="" coords="4668,348,4823,389"/>
-<area shape="rect" href="glfw__input_8hpp.html" title=" " alt="" coords="3947,259,4085,300"/>
-<area shape="rect" href="glfw__window__manager_8hpp.html" title=" " alt="" coords="3899,348,4082,389"/>
-<area shape="rect" href="config__file_8hpp.html" title=" " alt="" coords="2116,259,2268,300"/>
-<area shape="rect" href="sprite_8hpp.html" title=" " alt="" coords="3595,266,3770,293"/>
+<area shape="rect" title=" " alt="" coords="3037,5,3181,32"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="3038,80,3181,107"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="2521,445,2647,471"/>
+<area shape="rect" href="vk__shader_8cpp.html" title=" " alt="" coords="360,527,501,568"/>
+<area shape="rect" href="gfx__shader_8hpp.html" title=" " alt="" coords="627,169,799,196"/>
+<area shape="rect" href="shader__manager_8hpp.html" title=" " alt="" coords="1275,259,1418,300"/>
+<area shape="rect" href="archive__memory_8hpp.html" title=" " alt="" coords="4803,355,5000,382"/>
+<area shape="rect" href="fast__map_8hpp.html" title=" " alt="" coords="1088,80,1259,107"/>
+<area shape="rect" href="fast__set_8hpp.html" title=" " alt="" coords="2054,169,2218,196"/>
+<area shape="rect" href="fast__vector_8hpp.html" title=" " alt="" coords="1643,169,1826,196"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="4027,80,4168,107"/>
+<area shape="rect" href="archive_8cpp.html" title=" " alt="" coords="4853,80,4997,107"/>
+<area shape="rect" href="archive__file_8hpp.html" title=" " alt="" coords="4438,80,4605,107"/>
+<area shape="rect" href="resource_8hpp.html" title=" " alt="" coords="3503,80,3695,107"/>
+<area shape="rect" href="data_8cpp.html" title=" " alt="" coords="2630,169,2773,196"/>
+<area shape="rect" href="action__map_8cpp.html" title=" " alt="" coords="3374,348,3533,389"/>
+<area shape="rect" href="gfx__ctx_8hpp.html" title=" " alt="" coords="678,266,829,293"/>
+<area shape="rect" href="gfx__driver_8hpp.html" title=" " alt="" coords="627,355,792,382"/>
+<area shape="rect" href="vk__buffers_8hpp.html" title=" " alt="" coords="411,162,552,203"/>
+<area shape="rect" href="vk__texture_8hpp.html" title=" " alt="" coords="195,162,336,203"/>
+<area shape="rect" href="pfx__component__runtime_8hpp.html" title=" " alt="" coords="2848,162,3021,203"/>
+<area shape="rect" href="file__system_8cpp.html" title=" " alt="" coords="3044,348,3175,389"/>
+<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="3451,162,3581,203"/>
+<area shape="rect" href="config__file_8cpp.html" title=" " alt="" coords="3491,259,3643,300"/>
+<area shape="rect" href="resource__loader__assimp_8cpp.html" title=" " alt="" coords="3667,259,3858,300"/>
+<area shape="rect" href="mesh__builder_8cpp.html" title=" " alt="" coords="2293,162,2429,203"/>
+<area shape="rect" href="audio__stream_8hpp.html" title=" " alt="" coords="3933,162,4083,203"/>
+<area shape="rect" href="audio__stream__wav_8hpp.html" title=" " alt="" coords="2731,259,2880,300"/>
+<area shape="rect" href="image_8hpp.html" title=" " alt="" coords="3147,169,3325,196"/>
+<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="4350,169,4525,196"/>
+<area shape="rect" href="resource__pak_8hpp.html" title=" " alt="" coords="4107,162,4275,203"/>
+<area shape="rect" href="lua__bindings__core_8hpp.html" title=" " alt="" coords="2453,155,2606,211"/>
+<area shape="rect" href="vk__ctx_8hpp.html" title=" " alt="" coords="360,348,501,389"/>
+<area shape="rect" href="vk__driver_8hpp.html" title=" " alt="" coords="360,437,501,479"/>
+<area shape="rect" href="vk__desc__manager_8hpp.html" title=" " alt="" coords="309,259,451,300"/>
+<area shape="rect" href="vk__window_8hpp.html" title=" " alt="" coords="144,259,285,300"/>
+<area shape="rect" href="font_8hpp.html" title=" " alt="" coords="2407,266,2571,293"/>
+<area shape="rect" href="console_8hpp.html" title=" " alt="" coords="2349,355,2521,382"/>
+<area shape="rect" href="resource__manager_8hpp.html" title=" " alt="" coords="2904,259,3072,300"/>
+<area shape="rect" href="al__engine_8hpp.html" title=" " alt="" coords="1027,162,1165,203"/>
+<area shape="rect" href="string__id_8cpp.html" title=" " alt="" coords="1189,162,1315,203"/>
+<area shape="rect" href="ecs__registry_8hpp.html" title=" " alt="" coords="1494,266,1677,293"/>
+<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="1173,355,1345,382"/>
+<area shape="rect" href="event__manager_8hpp.html" title=" " alt="" coords="2017,259,2149,300"/>
+<area shape="rect" href="action__map_8hpp.html" title=" " alt="" coords="2173,259,2331,300"/>
+<area shape="rect" href="game__token__manager_8hpp.html" title=" " alt="" coords="1428,348,1583,389"/>
+<area shape="rect" href="glfw__input_8hpp.html" title=" " alt="" coords="1005,259,1144,300"/>
+<area shape="rect" href="glfw__window__manager_8hpp.html" title=" " alt="" coords="951,348,1134,389"/>
+<area shape="rect" href="config__file_8hpp.html" title=" " alt="" coords="3707,162,3859,203"/>
+<area shape="rect" href="material_8hpp.html" title=" " alt="" coords="1753,266,1941,293"/>
 </map>
 </div>
 </div>
@@ -172,27 +179,139 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:acfd58faaa2ecc4ba6ff1d7e5dbc70f13"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive,  what)</td></tr>
+<tr class="separator:acfd58faaa2ecc4ba6ff1d7e5dbc70f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12fb0c2596662580e85cce45498f2cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive,  what)</td></tr>
+<tr class="separator:af12fb0c2596662580e85cce45498f2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac78c445c0e350ef39baef025f1a337c6"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t S&gt; </td></tr>
-<tr class="memitem:ac78c445c0e350ef39baef025f1a337c6"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac78c445c0e350ef39baef025f1a337c6">wmoge::operator&lt;&lt;</a> (Archive &amp;archive, const std::array&lt; T, S &gt; &amp;array)</td></tr>
-<tr class="separator:ac78c445c0e350ef39baef025f1a337c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91b89778b5007fec6a930a77addee38"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab91b89778b5007fec6a930a77addee38"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab91b89778b5007fec6a930a77addee38">wmoge::operator&lt;&lt;</a> (Archive &amp;archive, const std::vector&lt; T &gt; &amp;vector)</td></tr>
-<tr class="separator:ab91b89778b5007fec6a930a77addee38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9809386e9cd12b79644e4592e028fe71"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
-<tr class="memitem:a9809386e9cd12b79644e4592e028fe71"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9809386e9cd12b79644e4592e028fe71">wmoge::operator&lt;&lt;</a> (Archive &amp;archive, const std::unordered_map&lt; K, V &gt; &amp;map)</td></tr>
-<tr class="separator:a9809386e9cd12b79644e4592e028fe71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab45d8de57f0eda65f67f3558a5350f77"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t S&gt; </td></tr>
-<tr class="memitem:ab45d8de57f0eda65f67f3558a5350f77"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab45d8de57f0eda65f67f3558a5350f77">wmoge::operator&gt;&gt;</a> (Archive &amp;archive, std::array&lt; T, S &gt; &amp;array)</td></tr>
-<tr class="separator:ab45d8de57f0eda65f67f3558a5350f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f450141dd64144925afc6130d32bb95"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a1f450141dd64144925afc6130d32bb95"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1f450141dd64144925afc6130d32bb95">wmoge::operator&gt;&gt;</a> (Archive &amp;archive, std::vector&lt; T &gt; &amp;vector)</td></tr>
-<tr class="separator:a1f450141dd64144925afc6130d32bb95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c744c5a28e7b77361bd6e1fda845676"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
-<tr class="memitem:a3c744c5a28e7b77361bd6e1fda845676"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a3c744c5a28e7b77361bd6e1fda845676">wmoge::operator&gt;&gt;</a> (Archive &amp;archive, std::unordered_map&lt; K, V &gt; &amp;map)</td></tr>
-<tr class="separator:a3c744c5a28e7b77361bd6e1fda845676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f2f4dd4db292d995512404a17e251ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2f2f4dd4db292d995512404a17e251ae">wmoge::archive_write</a> (Archive &amp;archive, const bool &amp;value)</td></tr>
+<tr class="separator:a2f2f4dd4db292d995512404a17e251ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa084096fe7633ed6bd9ce042b732ee19"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa084096fe7633ed6bd9ce042b732ee19">wmoge::archive_write</a> (Archive &amp;archive, const int &amp;value)</td></tr>
+<tr class="separator:aa084096fe7633ed6bd9ce042b732ee19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a807a142bc6d6eb275703c2c1d2f23a80"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a807a142bc6d6eb275703c2c1d2f23a80">wmoge::archive_write</a> (Archive &amp;archive, const float &amp;value)</td></tr>
+<tr class="separator:a807a142bc6d6eb275703c2c1d2f23a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a922acd5d5e0e255f521cbe96cae03131"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a922acd5d5e0e255f521cbe96cae03131">wmoge::archive_write</a> (Archive &amp;archive, const std::size_t &amp;value)</td></tr>
+<tr class="separator:a922acd5d5e0e255f521cbe96cae03131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa72fc58457b8997b112f4cc08d26bef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aaa72fc58457b8997b112f4cc08d26bef">wmoge::archive_write</a> (Archive &amp;archive, const StringId &amp;value)</td></tr>
+<tr class="separator:aaa72fc58457b8997b112f4cc08d26bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a320f6961706cf398a6cea9ac70961e0d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a320f6961706cf398a6cea9ac70961e0d">wmoge::archive_write</a> (Archive &amp;archive, const std::string &amp;value)</td></tr>
+<tr class="separator:a320f6961706cf398a6cea9ac70961e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4e4d2bb1f1c48d4d1a42aea30d09769"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae4e4d2bb1f1c48d4d1a42aea30d09769">wmoge::archive_read</a> (Archive &amp;archive, bool &amp;value)</td></tr>
+<tr class="separator:ae4e4d2bb1f1c48d4d1a42aea30d09769"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77595ffeeddb2e4a6b7aa84659ee575d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a77595ffeeddb2e4a6b7aa84659ee575d">wmoge::archive_read</a> (Archive &amp;archive, int &amp;value)</td></tr>
+<tr class="separator:a77595ffeeddb2e4a6b7aa84659ee575d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0659019d2152c0c5608c58b1a46cb06b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a0659019d2152c0c5608c58b1a46cb06b">wmoge::archive_read</a> (Archive &amp;archive, float &amp;value)</td></tr>
+<tr class="separator:a0659019d2152c0c5608c58b1a46cb06b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7a758292e59a7c1a85b36980c23348f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab7a758292e59a7c1a85b36980c23348f">wmoge::archive_read</a> (Archive &amp;archive, std::size_t &amp;value)</td></tr>
+<tr class="separator:ab7a758292e59a7c1a85b36980c23348f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2371758e3849a15f36d0e13628415290"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2371758e3849a15f36d0e13628415290">wmoge::archive_read</a> (Archive &amp;archive, StringId &amp;value)</td></tr>
+<tr class="separator:a2371758e3849a15f36d0e13628415290"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af23f0a0ff588f46dded0eff8eb86acb8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#af23f0a0ff588f46dded0eff8eb86acb8">wmoge::archive_read</a> (Archive &amp;archive, std::string &amp;value)</td></tr>
+<tr class="separator:af23f0a0ff588f46dded0eff8eb86acb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac305e98c92b757bfcd64f48af6acdc31"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t S&gt; </td></tr>
+<tr class="memitem:ac305e98c92b757bfcd64f48af6acdc31"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac305e98c92b757bfcd64f48af6acdc31">wmoge::archive_write</a> (Archive &amp;archive, const std::array&lt; T, S &gt; &amp;array)</td></tr>
+<tr class="separator:ac305e98c92b757bfcd64f48af6acdc31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae06199bcc98b6c7b589f239b40eff14c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae06199bcc98b6c7b589f239b40eff14c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae06199bcc98b6c7b589f239b40eff14c">wmoge::archive_write</a> (Archive &amp;archive, const std::vector&lt; T &gt; &amp;vector)</td></tr>
+<tr class="separator:ae06199bcc98b6c7b589f239b40eff14c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa4a786d766dfff26b3e6759e623152"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
+<tr class="memitem:afaa4a786d766dfff26b3e6759e623152"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afaa4a786d766dfff26b3e6759e623152">wmoge::archive_write</a> (Archive &amp;archive, const std::unordered_map&lt; K, V &gt; &amp;map)</td></tr>
+<tr class="separator:afaa4a786d766dfff26b3e6759e623152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa618627b604721fc95bb33c18f19919"><td class="memTemplParams" colspan="2">template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;::value&gt;::type&gt; </td></tr>
+<tr class="memitem:afa618627b604721fc95bb33c18f19919"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afa618627b604721fc95bb33c18f19919">wmoge::archive_write</a> (Archive &amp;archive, const T &amp;enum_value)</td></tr>
+<tr class="separator:afa618627b604721fc95bb33c18f19919"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef8adaa96ab4c7b8777b8ee04c37e1e"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t S&gt; </td></tr>
+<tr class="memitem:a4ef8adaa96ab4c7b8777b8ee04c37e1e"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4ef8adaa96ab4c7b8777b8ee04c37e1e">wmoge::archive_read</a> (Archive &amp;archive, std::array&lt; T, S &gt; &amp;array)</td></tr>
+<tr class="separator:a4ef8adaa96ab4c7b8777b8ee04c37e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c4094c1ae872d6a40a360c936cefe0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a02c4094c1ae872d6a40a360c936cefe0"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a02c4094c1ae872d6a40a360c936cefe0">wmoge::archive_read</a> (Archive &amp;archive, std::vector&lt; T &gt; &amp;vector)</td></tr>
+<tr class="separator:a02c4094c1ae872d6a40a360c936cefe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6594faa77d641897a0b3e9721df9d264"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
+<tr class="memitem:a6594faa77d641897a0b3e9721df9d264"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6594faa77d641897a0b3e9721df9d264">wmoge::archive_read</a> (Archive &amp;archive, std::unordered_map&lt; K, V &gt; &amp;map)</td></tr>
+<tr class="separator:a6594faa77d641897a0b3e9721df9d264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a405365ac9669756530533e20745ffe71"><td class="memTemplParams" colspan="2">template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;::value&gt;::type&gt; </td></tr>
+<tr class="memitem:a405365ac9669756530533e20745ffe71"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a405365ac9669756530533e20745ffe71">wmoge::archive_read</a> (Archive &amp;archive, T &amp;enum_value)</td></tr>
+<tr class="separator:a405365ac9669756530533e20745ffe71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33d7bc1d8e0a9482f83eaeee6df880ad"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a33d7bc1d8e0a9482f83eaeee6df880ad"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a33d7bc1d8e0a9482f83eaeee6df880ad">wmoge::operator&lt;&lt;</a> (Archive &amp;archive, const T &amp;value)</td></tr>
+<tr class="separator:a33d7bc1d8e0a9482f83eaeee6df880ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0961c1f306e4270f00b1e2c30593f843"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0961c1f306e4270f00b1e2c30593f843"><td class="memTemplItemLeft" align="right" valign="top">Archive &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a0961c1f306e4270f00b1e2c30593f843">wmoge::operator&gt;&gt;</a> (Archive &amp;archive, T &amp;value)</td></tr>
+<tr class="separator:a0961c1f306e4270f00b1e2c30593f843"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="acfd58faaa2ecc4ba6ff1d7e5dbc70f13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">&#9670;&nbsp;</a></span>WG_ARCHIVE_READ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_ARCHIVE_READ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">archive, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                    \</div>
+<div class="line">        if (!<a class="code" href="namespacewmoge.html#a405365ac9669756530533e20745ffe71">archive_read</a>(archive, what)) { \</div>
+<div class="line">            return <span class="keyword">false</span>;                   \</div>
+<div class="line">        }                                   \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+<div class="ttc" id="anamespacewmoge_html_a405365ac9669756530533e20745ffe71"><div class="ttname"><a href="namespacewmoge.html#a405365ac9669756530533e20745ffe71">wmoge::archive_read</a></div><div class="ttdeci">bool archive_read(Archive &amp;archive, T &amp;enum_value)</div><div class="ttdef"><b>Definition:</b> archive.hpp:176</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af12fb0c2596662580e85cce45498f2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af12fb0c2596662580e85cce45498f2cd">&#9670;&nbsp;</a></span>WG_ARCHIVE_WRITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_ARCHIVE_WRITE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">archive, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                     \</div>
+<div class="line">        if (!<a class="code" href="namespacewmoge.html#afa618627b604721fc95bb33c18f19919">archive_write</a>(archive, what)) { \</div>
+<div class="line">            return <span class="keyword">false</span>;                    \</div>
+<div class="line">        }                                    \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+<div class="ttc" id="anamespacewmoge_html_afa618627b604721fc95bb33c18f19919"><div class="ttname"><a href="namespacewmoge.html#afa618627b604721fc95bb33c18f19919">wmoge::archive_write</a></div><div class="ttdeci">bool archive_write(Archive &amp;archive, const T &amp;enum_value)</div><div class="ttdef"><b>Definition:</b> archive.hpp:138</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

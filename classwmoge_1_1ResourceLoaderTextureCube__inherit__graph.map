@@ -1,0 +1,4 @@
+<map id="wmoge::ResourceLoaderTextureCube" name="wmoge::ResourceLoaderTextureCube">
+<area shape="rect" id="node1" title="Loader for cube&#45;map textures through stb image library." alt="" coords="5,80,244,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="42,5,207,32"/>
+</map>

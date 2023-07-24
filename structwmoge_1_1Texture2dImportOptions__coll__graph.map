@@ -1,0 +1,5 @@
+<map id="wmoge::Texture2dImportOptions" name="wmoge::Texture2dImportOptions">
+<area shape="rect" id="node1" title="Options to import 2d&#45;texture from a source file." alt="" coords="5,171,215,197"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1TextureImportOptions.html" title="Options (base) to import texture." alt="" coords="13,95,207,121"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GfxSamplerDesc.html" title="Gfx sampler descriptor." alt="" coords="26,5,194,32"/>
+</map>

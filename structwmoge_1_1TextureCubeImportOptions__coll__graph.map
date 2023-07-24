@@ -1,0 +1,6 @@
+<map id="wmoge::TextureCubeImportOptions" name="wmoge::TextureCubeImportOptions">
+<area shape="rect" id="node1" title="Options to import a cube&#45;map texture from source files." alt="" coords="118,199,298,240"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1TextureImportOptions.html" title="Options (base) to import texture." alt="" coords="5,102,200,129"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GfxSamplerDesc.html" title="Gfx sampler descriptor." alt="" coords="19,5,187,32"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1TextureCubeImportOptions_1_1SourceFiles.html" title="Files fro each cube&#45;map face." alt="" coords="225,95,405,136"/>
+</map>

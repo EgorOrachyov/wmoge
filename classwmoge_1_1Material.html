@@ -67,7 +67,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classwmoge_1_1Material-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::Material Class Reference</div>  </div>
@@ -108,6 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aeea76987e2b8d4a4ff43a9436fed11e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#aeea76987e2b8d4a4ff43a9436fed11e7">create</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; shader)</td></tr>
 <tr class="memdesc:aeea76987e2b8d4a4ff43a9436fed11e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create material using specified shader.  <a href="classwmoge_1_1Material.html#aeea76987e2b8d4a4ff43a9436fed11e7">More...</a><br /></td></tr>
 <tr class="separator:aeea76987e2b8d4a4ff43a9436fed11e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e41704ce997bb37b745af0917400073"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a2e41704ce997bb37b745af0917400073">set_param</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, const std::string &amp;value)</td></tr>
+<tr class="memdesc:a2e41704ce997bb37b745af0917400073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set material parameter by name from string value.  <a href="classwmoge_1_1Material.html#a2e41704ce997bb37b745af0917400073">More...</a><br /></td></tr>
+<tr class="separator:a2e41704ce997bb37b745af0917400073"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa44df3a1fe95b45c0c403afb846b5b92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#aa44df3a1fe95b45c0c403afb846b5b92">set_int</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, int value)</td></tr>
 <tr class="memdesc:aa44df3a1fe95b45c0c403afb846b5b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set material int parameter value by name.  <a href="classwmoge_1_1Material.html#aa44df3a1fe95b45c0c403afb846b5b92">More...</a><br /></td></tr>
 <tr class="separator:aa44df3a1fe95b45c0c403afb846b5b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,8 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8f9875c2e1ece0c6d9af7309374fcd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#ae8f9875c2e1ece0c6d9af7309374fcd3">set_texture</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Texture.html">Texture</a> &gt; &amp;texture)</td></tr>
 <tr class="memdesc:ae8f9875c2e1ece0c6d9af7309374fcd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set material texture parameter value by name.  <a href="classwmoge_1_1Material.html#ae8f9875c2e1ece0c6d9af7309374fcd3">More...</a><br /></td></tr>
 <tr class="separator:ae8f9875c2e1ece0c6d9af7309374fcd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea71717d387a3ba010e21bb63de57a5f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#aea71717d387a3ba010e21bb63de57a5f">load_from_import_options</a> (const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;tree) override</td></tr>
-<tr class="separator:aea71717d387a3ba010e21bb63de57a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbee95f730d4587f91b6466b2373eecf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#adbee95f730d4587f91b6466b2373eecf">load_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
+<tr class="separator:adbee95f730d4587f91b6466b2373eecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f5b1a359d6b7d2f154b9c07c42c6e64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a8f5b1a359d6b7d2f154b9c07c42c6e64">copy_to</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;copy) override</td></tr>
 <tr class="separator:a8f5b1a359d6b7d2f154b9c07c42c6e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c9dc943a1620ca903352e2f126d0fc2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a6c9dc943a1620ca903352e2f126d0fc2">get_shader</a> ()</td></tr>
@@ -136,9 +138,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a31e4004c9e928dc066fbe0ac10156684"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ca1aeb22e365a60dc7e172d86554b16"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Texture.html">Texture</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a7ca1aeb22e365a60dc7e172d86554b16">get_textures</a> ()</td></tr>
 <tr class="separator:a7ca1aeb22e365a60dc7e172d86554b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65a357a8d2cf1c4671317adab5dba260"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a>&lt; <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a65a357a8d2cf1c4671317adab5dba260">get_keywords</a> ()</td></tr>
+<tr class="separator:a65a357a8d2cf1c4671317adab5dba260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Resource.html">wmoge::Resource</a></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a07990d76aa75ad9fd2e2b3694249f227">load_from_archive</a> (const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
+<tr class="separator:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94fcebb4bc59cd403a5b46d58884f79e">duplicate</a> ()</td></tr>
 <tr class="separator:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
@@ -175,11 +181,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8cba5a36fdcba326be2592de7cffb146 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#afb7916425067c1d775930cf5e3f98ed7">refs_count</a> ()</td></tr>
 <tr class="separator:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:af9d89b30ba49c7d6ec315cd0bfb4caeb"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#af9d89b30ba49c7d6ec315cd0bfb4caeb">RenderMaterial</a></td></tr>
-<tr class="separator:af9d89b30ba49c7d6ec315cd0bfb4caeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -255,6 +256,23 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a65a357a8d2cf1c4671317adab5dba260"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65a357a8d2cf1c4671317adab5dba260">&#9670;&nbsp;</a></span>get_keywords()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a>&lt; <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt; &amp; wmoge::Material::get_keywords </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a31e4004c9e928dc066fbe0ac10156684"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31e4004c9e928dc066fbe0ac10156684">&#9670;&nbsp;</a></span>get_parameters()</h2>
 
@@ -306,8 +324,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aea71717d387a3ba010e21bb63de57a5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea71717d387a3ba010e21bb63de57a5f">&#9670;&nbsp;</a></span>load_from_import_options()</h2>
+<a id="adbee95f730d4587f91b6466b2373eecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbee95f730d4587f91b6466b2373eecf">&#9670;&nbsp;</a></span>load_from_yaml()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,10 +334,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::Material::load_from_import_options </td>
+          <td class="memname">bool wmoge::Material::load_from_yaml </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -330,7 +348,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classwmoge_1_1Resource.html#a922511d7b5c688b182a7bdee78cd767a">wmoge::Resource</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Resource.html#a0f099d197a7dde45194a291594bc7ec6">wmoge::Resource</a>.</p>
 
 </div>
 </div>
@@ -391,6 +409,36 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set material int parameter value by name. </p>
+
+</div>
+</div>
+<a id="a2e41704ce997bb37b745af0917400073"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e41704ce997bb37b745af0917400073">&#9670;&nbsp;</a></span>set_param()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::Material::set_param </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set material parameter by name from string value. </p>
 
 </div>
 </div>
@@ -538,29 +586,6 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="af9d89b30ba49c7d6ec315cd0bfb4caeb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9d89b30ba49c7d6ec315cd0bfb4caeb">&#9670;&nbsp;</a></span>RenderMaterial</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class RenderMaterial</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

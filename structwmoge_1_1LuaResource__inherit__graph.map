@@ -1,12 +1,11 @@
 <map id="wmoge::LuaResource" name="wmoge::LuaResource">
-<area shape="rect" id="node1" title=" " alt="" coords="364,157,511,184"/>
+<area shape="rect" id="node1" title=" " alt="" coords="364,132,511,159"/>
 <area shape="rect" id="node4" href="$structwmoge_1_1LuaAudioStream.html" title=" " alt="" coords="559,5,725,32"/>
 <area shape="rect" id="node5" href="$structwmoge_1_1LuaConfigFile.html" title=" " alt="" coords="567,56,717,83"/>
 <area shape="rect" id="node6" href="$structwmoge_1_1LuaFont.html" title=" " alt="" coords="583,107,701,133"/>
 <area shape="rect" id="node7" href="$structwmoge_1_1LuaMaterial.html" title=" " alt="" coords="573,157,711,184"/>
 <area shape="rect" id="node8" href="$structwmoge_1_1LuaPfxEffect.html" title=" " alt="" coords="570,208,714,235"/>
-<area shape="rect" id="node9" href="$structwmoge_1_1LuaSprite.html" title=" " alt="" coords="579,259,705,285"/>
-<area shape="rect" id="node10" href="$structwmoge_1_1LuaTexture.html" title=" " alt="" coords="575,309,709,336"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="185,157,316,184"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="5,157,137,184"/>
+<area shape="rect" id="node9" href="$structwmoge_1_1LuaTexture.html" title=" " alt="" coords="575,259,709,285"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="185,132,316,159"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="5,132,137,159"/>
 </map>

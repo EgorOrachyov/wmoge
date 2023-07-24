@@ -1,0 +1,4 @@
+<map id="wmoge::ResourceLoaderFreeType" name="wmoge::ResourceLoaderFreeType">
+<area shape="rect" id="node1" title="Loader for ttf fonts through freetype2 library." alt="" coords="5,80,224,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="32,5,197,32"/>
+</map>

@@ -1,0 +1,52 @@
+<map id="engine/resource/loaders/resource_loader_texture.cpp" name="engine/resource/loaders/resource_loader_texture.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="937,5,1125,47"/>
+<area shape="rect" id="node2" href="$resource__loader__texture_8hpp.html" title=" " alt="" coords="1196,95,1380,121"/>
+<area shape="rect" id="node30" href="$texture_8hpp.html" title=" " alt="" coords="962,169,1100,196"/>
+<area shape="rect" id="node31" href="$image_8hpp.html" title=" " alt="" coords="740,319,874,345"/>
+<area shape="rect" id="node32" href="$core_2engine_8hpp.html" title=" " alt="" coords="92,393,205,420"/>
+<area shape="rect" id="node35" href="$profiler_8hpp.html" title=" " alt="" coords="390,393,512,420"/>
+<area shape="rect" id="node40" href="$gfx__ctx_8hpp.html" title=" " alt="" coords="2186,169,2294,196"/>
+<area shape="rect" id="node49" href="$gfx__driver_8hpp.html" title=" " alt="" coords="2255,95,2378,121"/>
+<area shape="rect" id="node3" href="$resource__loader_8hpp.html" title=" " alt="" coords="1124,169,1316,196"/>
+<area shape="rect" id="node25" href="$gfx__defs_8hpp.html" title=" " alt="" coords="2521,468,2637,495"/>
+<area shape="rect" id="node27" href="$gfx__sampler_8hpp.html" title=" " alt="" coords="1289,244,1426,271"/>
+<area shape="rect" id="node29" href="$gfx__texture_8hpp.html" title=" " alt="" coords="1870,244,2000,271"/>
+<area shape="rect" id="node4" href="$resource_8hpp.html" title=" " alt="" coords="938,393,1089,420"/>
+<area shape="rect" id="node22" href="$resource__meta_8hpp.html" title=" " alt="" coords="1102,319,1288,345"/>
+<area shape="rect" id="node23" href="$resource__pak_8hpp.html" title=" " alt="" coords="1004,244,1183,271"/>
+<area shape="rect" id="node5" href="$string__id_8hpp.html" title=" " alt="" coords="1546,543,1670,569"/>
+<area shape="rect" id="node11" href="$archive_8hpp.html" title=" " alt="" coords="1646,468,1749,495"/>
+<area shape="rect" id="node13" title=" " alt="" coords="379,617,440,644"/>
+<area shape="rect" id="node17" title=" " alt="" coords="1030,543,1088,569"/>
+<area shape="rect" id="node18" href="$yaml_8hpp.html" title=" " alt="" coords="1300,468,1386,495"/>
+<area shape="rect" id="node21" title=" " alt="" coords="891,468,971,495"/>
+<area shape="rect" id="node6" title=" " alt="" coords="1758,617,1824,644"/>
+<area shape="rect" id="node7" title=" " alt="" coords="2044,617,2122,644"/>
+<area shape="rect" id="node8" title=" " alt="" coords="1879,617,1948,644"/>
+<area shape="rect" id="node9" title=" " alt="" coords="853,617,908,644"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1567,617,1650,644"/>
+<area shape="rect" id="node12" href="$ref_8hpp.html" title=" " alt="" coords="1862,543,1952,569"/>
+<area shape="rect" id="node15" title=" " alt="" coords="2775,543,2826,569"/>
+<area shape="rect" id="node16" title=" " alt="" coords="1288,543,1398,569"/>
+<area shape="rect" id="node14" title=" " alt="" coords="3092,692,3144,719"/>
+<area shape="rect" id="node19" href="$vec_8hpp.html" title=" " alt="" coords="2200,543,2300,569"/>
+<area shape="rect" id="node20" href="$math__utils_8hpp.html" title=" " alt="" coords="2399,617,2538,644"/>
+<area shape="rect" id="node24" href="$data_8hpp.html" title=" " alt="" coords="1700,393,1800,420"/>
+<area shape="rect" id="node26" href="$mask_8hpp.html" title=" " alt="" coords="2518,543,2624,569"/>
+<area shape="rect" id="node28" href="$gfx__resource_8hpp.html" title=" " alt="" coords="2520,393,2662,420"/>
+<area shape="rect" id="node33" title=" " alt="" coords="33,468,88,495"/>
+<area shape="rect" id="node34" title=" " alt="" coords="164,468,232,495"/>
+<area shape="rect" id="node36" href="$timer_8hpp.html" title=" " alt="" coords="358,468,462,495"/>
+<area shape="rect" id="node37" title=" " alt="" coords="390,543,451,569"/>
+<area shape="rect" id="node38" title=" " alt="" coords="2129,468,2186,495"/>
+<area shape="rect" id="node39" title=" " alt="" coords="1462,468,1520,495"/>
+<area shape="rect" id="node41" href="$callback__queue_8hpp.html" title=" " alt="" coords="1976,393,2142,420"/>
+<area shape="rect" id="node42" href="$gfx__buffers_8hpp.html" title=" " alt="" coords="2430,319,2560,345"/>
+<area shape="rect" id="node43" href="$gfx__pipeline_8hpp.html" title=" " alt="" coords="2844,244,2978,271"/>
+<area shape="rect" id="node44" href="$gfx__render__pass_8hpp.html" title=" " alt="" coords="3120,319,3283,345"/>
+<area shape="rect" id="node45" href="$gfx__shader_8hpp.html" title=" " alt="" coords="1971,319,2102,345"/>
+<area shape="rect" id="node46" href="$gfx__vert__format_8hpp.html" title=" " alt="" coords="2888,319,3046,345"/>
+<area shape="rect" id="node47" href="$mat_8hpp.html" title=" " alt="" coords="2662,468,2763,495"/>
+<area shape="rect" id="node48" href="$window_8hpp.html" title=" " alt="" coords="1502,244,1643,271"/>
+<area shape="rect" id="node50" href="$gfx__dynamic__buffers_8hpp.html" title=" " alt="" coords="2532,244,2717,271"/>
+</map>

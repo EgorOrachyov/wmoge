@@ -105,8 +105,8 @@ Collaboration diagram for wmoge::Shader:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5815c4b382fee117d5fb05644536a64a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a5815c4b382fee117d5fb05644536a64a">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a>, <a class="el" href="classwmoge_1_1Resource.html">Resource</a>)</td></tr>
 <tr class="separator:a5815c4b382fee117d5fb05644536a64a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7607d1e3567d8a3be82d6c8413533329"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a7607d1e3567d8a3be82d6c8413533329">load_from_import_options</a> (const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;tree) override</td></tr>
-<tr class="separator:a7607d1e3567d8a3be82d6c8413533329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5ae25cda7044abfe13371cdec1b2c7b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#ab5ae25cda7044abfe13371cdec1b2c7b">load_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
+<tr class="separator:ab5ae25cda7044abfe13371cdec1b2c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a893a4ecadae50362cceeddfb55f05ea4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a893a4ecadae50362cceeddfb55f05ea4">copy_to</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;copy) override</td></tr>
 <tr class="separator:a893a4ecadae50362cceeddfb55f05ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24f9580e6527221a0a412e74624eea9a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a24f9580e6527221a0a412e74624eea9a">has_variant</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;shader_key)</td></tr>
@@ -141,13 +141,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7ee69ca70f711fed1931f4a8523d529b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11038a86ce679f5c12cb54e16268bcf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#ad11038a86ce679f5c12cb54e16268bcf">get_textures_count</a> () const</td></tr>
 <tr class="separator:ad11038a86ce679f5c12cb54e16268bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f176153b5f69bc27b50410fb8782dfb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a0f176153b5f69bc27b50410fb8782dfb">get_include_textures</a> () const</td></tr>
-<tr class="separator:a0f176153b5f69bc27b50410fb8782dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab039eefefc863420d574415bae6d08f1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#ab039eefefc863420d574415bae6d08f1">get_include_parameters</a> () const</td></tr>
-<tr class="separator:ab039eefefc863420d574415bae6d08f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f9637eaa223116e4955fec7ad918c3b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a4f9637eaa223116e4955fec7ad918c3b">get_include_textures</a> () const</td></tr>
+<tr class="separator:a4f9637eaa223116e4955fec7ad918c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd134e7dc4994d1be34506dfa5af3361"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#afd134e7dc4994d1be34506dfa5af3361">get_include_parameters</a> () const</td></tr>
+<tr class="separator:afd134e7dc4994d1be34506dfa5af3361"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Resource.html">wmoge::Resource</a></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a07990d76aa75ad9fd2e2b3694249f227">load_from_archive</a> (const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
+<tr class="separator:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94fcebb4bc59cd403a5b46d58884f79e">duplicate</a> ()</td></tr>
 <tr class="separator:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
@@ -209,7 +211,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>Base class for any shader which can be used with material. </p>
 <p><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> allows user to write custom shaders to draw mesh geometry to the screen. <a class="el" href="classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry.">Material</a> shader has a number of built-in features. It automates hardware shader creation, allows to select queue and domain for rendering, provides mechanism to simplify user params exposure in a form of data and texture values.</p>
 <p><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> is special resource which consists of optionally a vertex, fragment compute code written using glsl language. This code if followed by a special declaration, which defines the shader domain, render queue type and set of data and texture parameters, which are exposed by this shader to the end (material) user.</p>
-<dl class="section note"><dt>Note</dt><dd>For actual rendering shader can produce one or more gfx shader variants. Single variant is an actual gfx shader item, key and hash. Variants share common behaviour, but differ in a set of defines. Variants created on demand, when they are requested.</dd>
+<dl class="section note"><dt>Note</dt><dd>For actual rendering shader can produce one or more gfx shader variants. Single variant is an actual gfx shader item. Variants share common behaviour, but differ in a set of defines. Variants created on demand, when they are requested.</dd>
 <dd>
 Variants creation is optimized by usage of the shader cache. If an item was compiled once and its byte code for current platform was cached, then its byte code reused. </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -406,14 +408,14 @@ Variants creation is optimized by usage of the shader cache. If an item was comp
 
 </div>
 </div>
-<a id="ab039eefefc863420d574415bae6d08f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab039eefefc863420d574415bae6d08f1">&#9670;&nbsp;</a></span>get_include_parameters()</h2>
+<a id="afd134e7dc4994d1be34506dfa5af3361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd134e7dc4994d1be34506dfa5af3361">&#9670;&nbsp;</a></span>get_include_parameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string wmoge::Shader::get_include_parameters </td>
+          <td class="memname">const std::string &amp; wmoge::Shader::get_include_parameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -423,14 +425,14 @@ Variants creation is optimized by usage of the shader cache. If an item was comp
 
 </div>
 </div>
-<a id="a0f176153b5f69bc27b50410fb8782dfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f176153b5f69bc27b50410fb8782dfb">&#9670;&nbsp;</a></span>get_include_textures()</h2>
+<a id="a4f9637eaa223116e4955fec7ad918c3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f9637eaa223116e4955fec7ad918c3b">&#9670;&nbsp;</a></span>get_include_textures()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string wmoge::Shader::get_include_textures </td>
+          <td class="memname">const std::string &amp; wmoge::Shader::get_include_textures </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -611,8 +613,8 @@ Variants creation is optimized by usage of the shader cache. If an item was comp
 
 </div>
 </div>
-<a id="a7607d1e3567d8a3be82d6c8413533329"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7607d1e3567d8a3be82d6c8413533329">&#9670;&nbsp;</a></span>load_from_import_options()</h2>
+<a id="ab5ae25cda7044abfe13371cdec1b2c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ae25cda7044abfe13371cdec1b2c7b">&#9670;&nbsp;</a></span>load_from_yaml()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,10 +623,10 @@ Variants creation is optimized by usage of the shader cache. If an item was comp
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::Shader::load_from_import_options </td>
+          <td class="memname">bool wmoge::Shader::load_from_yaml </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -635,7 +637,7 @@ Variants creation is optimized by usage of the shader cache. If an item was comp
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classwmoge_1_1Resource.html#a922511d7b5c688b182a7bdee78cd767a">wmoge::Resource</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Resource.html#a0f099d197a7dde45194a291594bc7ec6">wmoge::Resource</a>.</p>
 
 </div>
 </div>

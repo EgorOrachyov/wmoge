@@ -3,16 +3,16 @@
 <area shape="rect" id="node2" href="$structwmoge_1_1LuaData.html" title=" " alt="" coords="212,56,331,83"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1LuaEventListener.html" title=" " alt="" coords="185,107,357,133"/>
 <area shape="rect" id="node4" href="$structwmoge_1_1LuaInputDevice.html" title=" " alt="" coords="191,157,352,184"/>
-<area shape="rect" id="node8" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="206,335,337,361"/>
-<area shape="rect" id="node30" href="$structwmoge_1_1LuaWindow.html" title=" " alt="" coords="202,385,341,412"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="206,309,337,336"/>
+<area shape="rect" id="node29" href="$structwmoge_1_1LuaWindow.html" title=" " alt="" coords="202,360,341,387"/>
 <area shape="rect" id="node5" href="$structwmoge_1_1LuaJoystick.html" title=" " alt="" coords="433,56,573,83"/>
 <area shape="rect" id="node6" href="$structwmoge_1_1LuaKeyboard.html" title=" " alt="" coords="429,107,576,133"/>
 <area shape="rect" id="node7" href="$structwmoge_1_1LuaMouse.html" title=" " alt="" coords="437,157,568,184"/>
 <area shape="rect" id="node9" href="$structwmoge_1_1LuaEvent.html" title=" " alt="" coords="440,208,565,235"/>
-<area shape="rect" id="node19" href="$structwmoge_1_1LuaResource.html" title=" " alt="" coords="429,335,576,361"/>
-<area shape="rect" id="node27" href="$structwmoge_1_1LuaScene.html" title=" " alt="" coords="438,385,567,412"/>
-<area shape="rect" id="node28" href="$structwmoge_1_1LuaSceneComponent.html" title=" " alt="" coords="405,436,600,463"/>
-<area shape="rect" id="node29" href="$structwmoge_1_1LuaSceneObject.html" title=" " alt="" coords="419,487,586,513"/>
+<area shape="rect" id="node19" href="$structwmoge_1_1LuaResource.html" title=" " alt="" coords="429,309,576,336"/>
+<area shape="rect" id="node26" href="$structwmoge_1_1LuaScene.html" title=" " alt="" coords="438,360,567,387"/>
+<area shape="rect" id="node27" href="$structwmoge_1_1LuaSceneComponent.html" title=" " alt="" coords="405,411,600,437"/>
+<area shape="rect" id="node28" href="$structwmoge_1_1LuaSceneObject.html" title=" " alt="" coords="419,461,586,488"/>
 <area shape="rect" id="node10" href="$structwmoge_1_1LuaEventAction.html" title=" " alt="" coords="652,56,815,83"/>
 <area shape="rect" id="node11" href="$structwmoge_1_1LuaEventInput.html" title=" " alt="" coords="656,107,811,133"/>
 <area shape="rect" id="node17" href="$structwmoge_1_1LuaEventToken.html" title=" " alt="" coords="653,157,814,184"/>
@@ -27,6 +27,5 @@
 <area shape="rect" id="node22" href="$structwmoge_1_1LuaFont.html" title=" " alt="" coords="674,360,793,387"/>
 <area shape="rect" id="node23" href="$structwmoge_1_1LuaMaterial.html" title=" " alt="" coords="664,411,803,437"/>
 <area shape="rect" id="node24" href="$structwmoge_1_1LuaPfxEffect.html" title=" " alt="" coords="661,461,805,488"/>
-<area shape="rect" id="node25" href="$structwmoge_1_1LuaSprite.html" title=" " alt="" coords="670,512,797,539"/>
-<area shape="rect" id="node26" href="$structwmoge_1_1LuaTexture.html" title=" " alt="" coords="666,563,801,589"/>
+<area shape="rect" id="node25" href="$structwmoge_1_1LuaTexture.html" title=" " alt="" coords="666,512,801,539"/>
 </map>

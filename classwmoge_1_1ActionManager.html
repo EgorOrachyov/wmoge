@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classwmoge_1_1ActionManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -88,16 +89,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a743b7980dc3da53c98e362a42a619d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd1a4091cb184d5c20ca362addc1a5d0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#abd1a4091cb184d5c20ca362addc1a5d0">load_action_map</a> (const std::string &amp;filepath)</td></tr>
 <tr class="separator:abd1a4091cb184d5c20ca362addc1a5d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af653c7faf3c07fe617cd487765df5695"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#af653c7faf3c07fe617cd487765df5695">add_action_map</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1ActionMap.html">ActionMap</a> &gt; action_map)</td></tr>
-<tr class="separator:af653c7faf3c07fe617cd487765df5695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db1346e706aa6d5edfbf6e55d837311"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#a8db1346e706aa6d5edfbf6e55d837311">add_action_map</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1ActionMap.html">ActionMap</a> &gt; &amp;action_map)</td></tr>
+<tr class="separator:a8db1346e706aa6d5edfbf6e55d837311"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53550cab99923476723c483cff9e222e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#a53550cab99923476723c483cff9e222e">remove_action_map</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
 <tr class="separator:a53550cab99923476723c483cff9e222e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35d72a0eb003910787fb6b21a74bee7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#a35d72a0eb003910787fb6b21a74bee7e">has_action_map</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
 <tr class="separator:a35d72a0eb003910787fb6b21a74bee7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ff55387177bd421b1d8cac698e6fadb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#a3ff55387177bd421b1d8cac698e6fadb">enable_action_map</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
-<tr class="separator:a3ff55387177bd421b1d8cac698e6fadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b6b88414bcbb0ec9b0dd271a5755a41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#a2b6b88414bcbb0ec9b0dd271a5755a41">disable_action_map</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
-<tr class="separator:a2b6b88414bcbb0ec9b0dd271a5755a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a655b818d9e8c01c73eee04e8e5448364"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html#a655b818d9e8c01c73eee04e8e5448364">activate_action_map</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, bool active=true)</td></tr>
+<tr class="separator:a655b818d9e8c01c73eee04e8e5448364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manager for translation raw input into game action events. </p>
@@ -137,8 +136,36 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af653c7faf3c07fe617cd487765df5695"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af653c7faf3c07fe617cd487765df5695">&#9670;&nbsp;</a></span>add_action_map()</h2>
+<a id="a655b818d9e8c01c73eee04e8e5448364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a655b818d9e8c01c73eee04e8e5448364">&#9670;&nbsp;</a></span>activate_action_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ActionManager::activate_action_map </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>active</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8db1346e706aa6d5edfbf6e55d837311"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db1346e706aa6d5edfbf6e55d837311">&#9670;&nbsp;</a></span>add_action_map()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,44 +173,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">bool wmoge::ActionManager::add_action_map </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1ActionMap.html">ActionMap</a> &gt;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1ActionMap.html">ActionMap</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>action_map</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2b6b88414bcbb0ec9b0dd271a5755a41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b6b88414bcbb0ec9b0dd271a5755a41">&#9670;&nbsp;</a></span>disable_action_map()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ActionManager::disable_action_map </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3ff55387177bd421b1d8cac698e6fadb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ff55387177bd421b1d8cac698e6fadb">&#9670;&nbsp;</a></span>enable_action_map()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ActionManager::enable_action_map </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

@@ -99,14 +99,14 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_VEC_HPP</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_VEC_HPP</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;cassert&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils_8hpp.html">math_utils.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils_8hpp.html">math_utils.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;cassert&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
@@ -670,7 +670,7 @@ $(function() {
 <div class="line"><a name="l00614"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">  614</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classwmoge_1_1TVecN.html">Rect2i</a> = <a class="code" href="namespacewmoge.html#a949390db7db498fd643959e1b9af61f6">Vec4i</a>;</div>
 <div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
 <div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> N&gt;</div>
-<div class="line"><a name="l00617"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a72d656b3f938792951837b469fcb2725">  617</a></span>&#160;    <span class="keyword">inline</span> std::ostream&amp; <a class="code" href="namespacewmoge.html#ab86ab717196c47e1f195c2c782347843">operator&lt;&lt;</a>(std::ostream&amp; ostream, <span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">TVecN&lt;T, N&gt;</a>&amp; vec) {</div>
+<div class="line"><a name="l00617"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a72d656b3f938792951837b469fcb2725">  617</a></span>&#160;    <span class="keyword">inline</span> std::ostream&amp; <a class="code" href="namespacewmoge.html#a3340dbe5d22d1e3f82af71467d889fa7">operator&lt;&lt;</a>(std::ostream&amp; ostream, <span class="keyword">const</span> <a class="code" href="classwmoge_1_1TVecN.html">TVecN&lt;T, N&gt;</a>&amp; vec) {</div>
 <div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;        ostream &lt;&lt; <span class="stringliteral">&quot;(&quot;</span>;</div>
 <div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;        ostream &lt;&lt; vec[0];</div>
 <div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa">N</a>; i++) {</div>
@@ -779,12 +779,12 @@ $(function() {
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> ref.hpp:167</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_a108c0a2427fee7637b1edc62eec2d81a"><div class="ttname"><a href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">wmoge::Vec3f</a></div><div class="ttdeci">TVecN&lt; float, 3 &gt; Vec3f</div><div class="ttdef"><b>Definition:</b> vec.hpp:589</div></div>
+<div class="ttc" id="anamespacewmoge_html_a3340dbe5d22d1e3f82af71467d889fa7"><div class="ttname"><a href="namespacewmoge.html#a3340dbe5d22d1e3f82af71467d889fa7">wmoge::operator&lt;&lt;</a></div><div class="ttdeci">Stream &amp; operator&lt;&lt;(Stream &amp;stream, const Mask&lt; T, size &gt; &amp;mask)</div><div class="ttdef"><b>Definition:</b> mask.hpp:68</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886a69691c7bdcc3ce6d5d8a1361f22d04ac"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a69691c7bdcc3ce6d5d8a1361f22d04ac">wmoge::InputKeyboardKey::M</a></div><div class="ttdeci">@ M</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa">wmoge::InputKeyboardKey::N</a></div><div class="ttdeci">@ N</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">wmoge::InputKeyboardKey::T</a></div><div class="ttdeci">@ T</div></div>
 <div class="ttc" id="anamespacewmoge_html_a949390db7db498fd643959e1b9af61f6"><div class="ttname"><a href="namespacewmoge.html#a949390db7db498fd643959e1b9af61f6">wmoge::Vec4i</a></div><div class="ttdeci">TVecN&lt; int, 4 &gt; Vec4i</div><div class="ttdef"><b>Definition:</b> vec.hpp:594</div></div>
 <div class="ttc" id="anamespacewmoge_html_a94d9c5c30bae9baf72194d8e20452f0e"><div class="ttname"><a href="namespacewmoge.html#a94d9c5c30bae9baf72194d8e20452f0e">wmoge::Vec4f</a></div><div class="ttdeci">TVecN&lt; float, 4 &gt; Vec4f</div><div class="ttdef"><b>Definition:</b> vec.hpp:590</div></div>
-<div class="ttc" id="anamespacewmoge_html_ab86ab717196c47e1f195c2c782347843"><div class="ttname"><a href="namespacewmoge.html#ab86ab717196c47e1f195c2c782347843">wmoge::operator&lt;&lt;</a></div><div class="ttdeci">Archive &amp; operator&lt;&lt;(Archive &amp;archive, const Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:59</div></div>
 <div class="ttc" id="astructstd_1_1hash_3_01wmoge_1_1TVecN_3_01T_00_01N_01_4_01_4_html_addcadda0e5d7d2a59266d0411e964bc7"><div class="ttname"><a href="structstd_1_1hash_3_01wmoge_1_1TVecN_3_01T_00_01N_01_4_01_4.html#addcadda0e5d7d2a59266d0411e964bc7">std::hash&lt; wmoge::TVecN&lt; T, N &gt; &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const wmoge::TVecN&lt; T, N &gt; &amp;vec) const</div><div class="ttdef"><b>Definition:</b> vec.hpp:634</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

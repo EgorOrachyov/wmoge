@@ -1,5 +1,5 @@
 <map id="wmoge::ArchiveReaderFile" name="wmoge::ArchiveReaderFile">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,181,181"/>
+<area shape="rect" id="node1" title="An archive to read data from a platform file." alt="" coords="5,155,181,181"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1Archive.html" title="Serialization and de&#45;serialization archive." alt="" coords="36,80,151,107"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="38,5,149,32"/>
 </map>

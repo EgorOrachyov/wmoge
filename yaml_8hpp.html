@@ -66,44 +66,59 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">yaml.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="log_8hpp_source.html">core/log.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vec_8hpp_source.html">math/vec.hpp</a>&quot;</code><br />
 <code>#include &lt;magic_enum.hpp&gt;</code><br />
 <code>#include &lt;ryml.hpp&gt;</code><br />
 <code>#include &lt;ryml_std.hpp&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cassert&gt;</code><br />
 <code>#include &lt;cinttypes&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;stack&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for yaml.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="yaml_8hpp__incl.png" border="0" usemap="#aengine_2io_2yaml_8hpp" alt=""/></div>
 <map name="aengine_2io_2yaml_8hpp" id="aengine_2io_2yaml_8hpp">
-<area shape="rect" title=" " alt="" coords="819,5,949,32"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="555,80,679,107"/>
-<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="406,80,506,107"/>
-<area shape="rect" title=" " alt="" coords="704,80,824,107"/>
-<area shape="rect" title=" " alt="" coords="849,80,919,107"/>
-<area shape="rect" title=" " alt="" coords="943,80,1038,107"/>
-<area shape="rect" title=" " alt="" coords="1063,80,1137,107"/>
-<area shape="rect" title=" " alt="" coords="1161,80,1220,107"/>
-<area shape="rect" title=" " alt="" coords="457,155,522,181"/>
-<area shape="rect" title=" " alt="" coords="546,155,625,181"/>
-<area shape="rect" title=" " alt="" coords="649,155,719,181"/>
-<area shape="rect" title=" " alt="" coords="850,155,905,181"/>
-<area shape="rect" title=" " alt="" coords="743,155,825,181"/>
-<area shape="rect" title=" " alt="" coords="153,155,218,181"/>
-<area shape="rect" title=" " alt="" coords="243,155,339,181"/>
-<area shape="rect" title=" " alt="" coords="363,155,432,181"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="21,155,128,181"/>
-<area shape="rect" title=" " alt="" coords="5,229,64,256"/>
-<area shape="rect" title=" " alt="" coords="89,229,141,256"/>
+<area shape="rect" title=" " alt="" coords="1033,5,1162,32"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="294,80,386,107"/>
+<area shape="rect" title=" " alt="" coords="5,155,64,181"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="594,80,718,107"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="742,80,842,107"/>
+<area shape="rect" title=" " alt="" coords="1170,155,1235,181"/>
+<area shape="rect" title=" " alt="" coords="917,80,1037,107"/>
+<area shape="rect" title=" " alt="" coords="1062,80,1133,107"/>
+<area shape="rect" title=" " alt="" coords="1157,80,1251,107"/>
+<area shape="rect" title=" " alt="" coords="1276,80,1327,107"/>
+<area shape="rect" title=" " alt="" coords="1351,80,1425,107"/>
+<area shape="rect" title=" " alt="" coords="1449,80,1516,107"/>
+<area shape="rect" title=" " alt="" coords="1541,80,1595,107"/>
+<area shape="rect" title=" " alt="" coords="1619,80,1730,107"/>
+<area shape="rect" title=" " alt="" coords="431,155,497,181"/>
+<area shape="rect" title=" " alt="" coords="88,155,155,181"/>
+<area shape="rect" title=" " alt="" coords="179,155,247,181"/>
+<area shape="rect" title=" " alt="" coords="271,155,329,181"/>
+<area shape="rect" title=" " alt="" coords="521,155,591,181"/>
+<area shape="rect" title=" " alt="" coords="353,155,407,181"/>
+<area shape="rect" title=" " alt="" coords="815,155,894,181"/>
+<area shape="rect" title=" " alt="" coords="721,155,791,181"/>
+<area shape="rect" title=" " alt="" coords="615,155,697,181"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="1039,155,1145,181"/>
+<area shape="rect" title=" " alt="" coords="919,155,1015,181"/>
+<area shape="rect" title=" " alt="" coords="1023,229,1081,256"/>
+<area shape="rect" title=" " alt="" coords="1106,229,1158,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -111,71 +126,84 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="yaml_8hpp__dep__incl.png" border="0" usemap="#aengine_2io_2yaml_8hppdep" alt=""/></div>
 <map name="aengine_2io_2yaml_8hppdep" id="aengine_2io_2yaml_8hppdep">
-<area shape="rect" title=" " alt="" coords="3136,5,3265,32"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="3272,534,3398,561"/>
-<area shape="rect" href="action__map_8cpp.html" title=" " alt="" coords="37,437,196,479"/>
-<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="580,355,714,382"/>
-<area shape="rect" href="shader_8cpp.html" title=" " alt="" coords="735,445,916,471"/>
-<area shape="rect" href="texture_8cpp.html" title=" " alt="" coords="1412,534,1594,561"/>
-<area shape="rect" href="yaml_8cpp.html" title=" " alt="" coords="2856,87,2985,114"/>
-<area shape="rect" href="pfx__feature_8hpp.html" title=" " alt="" coords="1256,177,1430,203"/>
-<area shape="rect" href="resource__pak__fs_8cpp.html" title=" " alt="" coords="4398,437,4544,479"/>
-<area shape="rect" href="resource_8hpp.html" title=" " alt="" coords="3010,87,3202,114"/>
-<area shape="rect" href="resource__meta_8hpp.html" title=" " alt="" coords="3871,169,4039,211"/>
-<area shape="rect" href="resource__pak_8hpp.html" title=" " alt="" coords="4215,259,4383,300"/>
-<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="4569,437,4722,479"/>
-<area shape="rect" href="scene__component_8hpp.html" title=" " alt="" coords="4798,80,4936,121"/>
-<area shape="rect" href="scene__object_8hpp.html" title=" " alt="" coords="3394,80,3532,121"/>
-<area shape="rect" href="event__filesystem_8cpp.html" title=" " alt="" coords="477,437,609,479"/>
-<area shape="rect" href="gfx__vert__format_8cpp.html" title=" " alt="" coords="322,437,452,479"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="1694,534,1842,561"/>
-<area shape="rect" href="shader__manager_8cpp.html" title=" " alt="" coords="1042,437,1185,479"/>
-<area shape="rect" href="pfx__feature__color_8hpp.html" title=" " alt="" coords="846,259,995,300"/>
-<area shape="rect" href="register__classes__pfx_8cpp.html" title=" " alt="" coords="890,527,1018,568"/>
-<area shape="rect" href="pfx__feature__lifetime_8hpp.html" title=" " alt="" coords="1070,259,1232,300"/>
-<area shape="rect" href="pfx__feature__movement_8hpp.html" title=" " alt="" coords="240,259,422,300"/>
-<area shape="rect" href="pfx__feature__size_8hpp.html" title=" " alt="" coords="576,259,720,300"/>
-<area shape="rect" href="pfx__feature__sprite_8hpp.html" title=" " alt="" coords="1261,437,1414,479"/>
-<area shape="rect" href="pfx__feature__velocity_8hpp.html" title=" " alt="" coords="331,348,496,389"/>
-<area shape="rect" href="pfx__component_8hpp.html" title=" " alt="" coords="2807,266,3004,293"/>
-<area shape="rect" href="pfx__emitter_8hpp.html" title=" " alt="" coords="2844,355,3018,382"/>
-<area shape="rect" href="pfx__effect_8hpp.html" title=" " alt="" coords="2749,437,2884,479"/>
-<area shape="rect" href="pfx__feature_8cpp.html" title=" " alt="" coords="1256,266,1430,293"/>
-<area shape="rect" href="register__classes__resource_8cpp.html" title=" " alt="" coords="2202,527,2364,568"/>
-<area shape="rect" href="event__resource_8hpp.html" title=" " alt="" coords="3461,169,3593,211"/>
-<area shape="rect" href="audio__stream_8hpp.html" title=" " alt="" coords="2142,348,2291,389"/>
-<area shape="rect" href="audio__stream__wav_8hpp.html" title=" " alt="" coords="2071,437,2220,479"/>
-<area shape="rect" href="config__file_8hpp.html" title=" " alt="" coords="1692,437,1844,479"/>
-<area shape="rect" href="font_8hpp.html" title=" " alt="" coords="2468,355,2632,382"/>
-<area shape="rect" href="image_8hpp.html" title=" " alt="" coords="2440,177,2617,203"/>
-<area shape="rect" href="texture_8hpp.html" title=" " alt="" coords="1731,266,1912,293"/>
-<area shape="rect" href="sprite_8hpp.html" title=" " alt="" coords="1568,355,1742,382"/>
-<area shape="rect" href="resource__loader__assimp_8hpp.html" title=" " alt="" coords="3920,437,4110,479"/>
-<area shape="rect" href="resource__loader__default_8hpp.html" title=" " alt="" coords="4134,437,4322,479"/>
-<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="3072,445,3246,471"/>
-<area shape="rect" href="resource_8cpp.html" title=" " alt="" coords="3143,177,3335,203"/>
-<area shape="rect" href="resource__loader_8hpp.html" title=" " alt="" coords="3871,348,4039,389"/>
-<area shape="rect" href="resource__manager_8hpp.html" title=" " alt="" coords="3626,437,3794,479"/>
-<area shape="rect" href="script_8hpp.html" title=" " alt="" coords="2498,445,2673,471"/>
-<area shape="rect" href="shader_8hpp.html" title=" " alt="" coords="1311,355,1492,382"/>
-<area shape="rect" href="text__file_8hpp.html" title=" " alt="" coords="2908,437,3047,479"/>
-<area shape="rect" href="scene__packed_8cpp.html" title=" " alt="" coords="4101,527,4254,568"/>
-<area shape="rect" href="resource__pak__fs_8hpp.html" title=" " alt="" coords="4367,348,4514,389"/>
+<area shape="rect" title=" " alt="" coords="3881,5,4010,32"/>
+<area shape="rect" href="fast__vector_8hpp.html" title=" " alt="" coords="2048,87,2230,114"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="2761,445,2888,471"/>
+<area shape="rect" href="resource__pak__fs_8cpp.html" title=" " alt="" coords="5014,437,5160,479"/>
+<area shape="rect" href="texture_8cpp.html" title=" " alt="" coords="4766,445,4947,471"/>
+<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="1889,348,2042,389"/>
+<area shape="rect" href="action__map_8hpp.html" title=" " alt="" coords="897,169,1056,211"/>
+<area shape="rect" href="action__map_8cpp.html" title=" " alt="" coords="4234,259,4393,300"/>
+<area shape="rect" href="shader_8cpp.html" title=" " alt="" coords="3314,266,3495,293"/>
+<area shape="rect" href="resource__meta_8hpp.html" title=" " alt="" coords="4772,169,4940,211"/>
+<area shape="rect" href="resource__pak_8hpp.html" title=" " alt="" coords="4772,259,4940,300"/>
+<area shape="rect" href="shader_8hpp.html" title=" " alt="" coords="2988,177,3170,203"/>
+<area shape="rect" href="scene__object_8hpp.html" title=" " alt="" coords="734,169,872,211"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="4522,87,4663,114"/>
+<area shape="rect" href="gfx__sampler_8cpp.html" title=" " alt="" coords="3730,177,3908,203"/>
+<area shape="rect" href="gfx__sampler_8hpp.html" title=" " alt="" coords="3407,87,3586,114"/>
+<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="4360,177,4494,203"/>
+<area shape="rect" href="yaml_8cpp.html" title=" " alt="" coords="4738,87,4868,114"/>
+<area shape="rect" href="pfx__feature_8hpp.html" title=" " alt="" coords="3922,87,4095,114"/>
+<area shape="rect" href="resource_8hpp.html" title=" " alt="" coords="4119,87,4311,114"/>
+<area shape="rect" href="scene__component_8hpp.html" title=" " alt="" coords="3244,80,3383,121"/>
+<area shape="rect" href="al__playback_8hpp.html" title=" " alt="" coords="1582,169,1720,211"/>
+<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="2346,266,2497,293"/>
+<area shape="rect" href="resource__manager_8hpp.html" title=" " alt="" coords="4772,348,4940,389"/>
+<area shape="rect" href="aux__draw__manager_8cpp.html" title=" " alt="" coords="4517,437,4676,479"/>
+<area shape="rect" href="ecs__registry_8hpp.html" title=" " alt="" coords="1682,355,1865,382"/>
+<area shape="rect" href="event__manager_8hpp.html" title=" " alt="" coords="2066,348,2198,389"/>
+<area shape="rect" href="action__manager_8hpp.html" title=" " alt="" coords="981,259,1140,300"/>
+<area shape="rect" href="gfx__dynamic__buffers_8hpp.html" title=" " alt="" coords="2223,348,2380,389"/>
+<area shape="rect" href="vk__cmd__manager_8hpp.html" title=" " alt="" coords="28,259,170,300"/>
+<area shape="rect" href="vk__ctx_8hpp.html" title=" " alt="" coords="79,348,220,389"/>
+<area shape="rect" href="vk__driver_8hpp.html" title=" " alt="" coords="295,437,436,479"/>
+<area shape="rect" href="vk__queues_8hpp.html" title=" " alt="" coords="460,259,602,300"/>
+<area shape="rect" href="vk__render__pass_8hpp.html" title=" " alt="" coords="295,259,436,300"/>
+<area shape="rect" href="vk__shader_8hpp.html" title=" " alt="" coords="1416,169,1558,211"/>
+<area shape="rect" href="vk__window_8hpp.html" title=" " alt="" coords="187,169,328,211"/>
+<area shape="rect" href="mem__linear_8hpp.html" title=" " alt="" coords="2404,355,2610,382"/>
+<area shape="rect" href="pfx__component_8hpp.html" title=" " alt="" coords="3458,177,3655,203"/>
+<area shape="rect" href="pfx__effect_8hpp.html" title=" " alt="" coords="3520,259,3654,300"/>
+<area shape="rect" href="glfw__input_8hpp.html" title=" " alt="" coords="1744,169,1883,211"/>
+<area shape="rect" href="aux__draw__canvas_8hpp.html" title=" " alt="" coords="2602,259,2761,300"/>
+<area shape="rect" href="shader__builder_8hpp.html" title=" " alt="" coords="1958,169,2101,211"/>
+<area shape="rect" href="shader__manager_8hpp.html" title=" " alt="" coords="2821,169,2964,211"/>
+<area shape="rect" href="audio__stream__wav_8hpp.html" title=" " alt="" coords="3932,169,4082,211"/>
+<area shape="rect" href="font_8hpp.html" title=" " alt="" coords="2633,177,2797,203"/>
+<area shape="rect" href="material_8hpp.html" title=" " alt="" coords="2888,266,3076,293"/>
+<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="1362,266,1524,293"/>
+<area shape="rect" href="scene__container_8hpp.html" title=" " alt="" coords="3244,169,3383,211"/>
+<area shape="rect" href="lua__script__system_8hpp.html" title=" " alt="" coords="504,169,659,211"/>
+<area shape="rect" href="system__script_8hpp.html" title=" " alt="" coords="1182,169,1341,211"/>
 </map>
 </div>
 </div>
 <p><a href="yaml_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Yaml.html">wmoge::Yaml</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary class for yaml reading/writing.  <a href="classwmoge_1_1Yaml.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a79835036680ccadf873ffde9bad312a8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#a79835036680ccadf873ffde9bad312a8">WG_YAML_READ</a>(node,  what)</td></tr>
+<tr class="separator:a79835036680ccadf873ffde9bad312a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1858cfbf845839d2a6fa842a1ec0502b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#a1858cfbf845839d2a6fa842a1ec0502b">WG_YAML_READ_AS</a>(node,  node_name,  what)</td></tr>
+<tr class="separator:a1858cfbf845839d2a6fa842a1ec0502b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77da3f4c3d8ad478ce77009cfd890478"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#a77da3f4c3d8ad478ce77009cfd890478">WG_YAML_READ_AS_OPT</a>(node,  node_name,  what)</td></tr>
+<tr class="separator:a77da3f4c3d8ad478ce77009cfd890478"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6d872b916c29cfee80fb591f5e04577"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#ac6d872b916c29cfee80fb591f5e04577">WG_YAML_READ_SUPER</a>(node,  super,  what)</td></tr>
+<tr class="separator:ac6d872b916c29cfee80fb591f5e04577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a036a02c988f3847c7ebf95e64eed2a47"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#a036a02c988f3847c7ebf95e64eed2a47">WG_YAML_WRITE</a>(node,  what)</td></tr>
+<tr class="separator:a036a02c988f3847c7ebf95e64eed2a47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf7c1d6b5c64a384cd4d7b9a94239f65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#adf7c1d6b5c64a384cd4d7b9a94239f65">WG_YAML_WRITE_AS</a>(node,  node_name,  what)</td></tr>
+<tr class="separator:adf7c1d6b5c64a384cd4d7b9a94239f65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f24230e86092545b5092487c3b1a9e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#ad6f24230e86092545b5092487c3b1a9e">WG_YAML_WRITE_AS_OPT</a>(node,  node_name,  condition,  what)</td></tr>
+<tr class="separator:ad6f24230e86092545b5092487c3b1a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95d16675808059328b3919b7e6271bdb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="yaml_8hpp.html#a95d16675808059328b3919b7e6271bdb">WG_YAML_WRITE_SUPER</a>(node,  super,  what)</td></tr>
+<tr class="separator:a95d16675808059328b3919b7e6271bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -185,7 +213,385 @@ Typedefs</h2></td></tr>
 <tr class="separator:a72974351f7c8daa1bbabcc2f35e1e91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a936fad1881d807f1e080d012bb1977c3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">wmoge::YamlConstNodeRef</a> = ryml::ConstNodeRef</td></tr>
 <tr class="separator:a936fad1881d807f1e080d012bb1977c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac2803ada63276bce3e407e12ecffad47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classYamlTree.html">YamlTree</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac2803ada63276bce3e407e12ecffad47">wmoge::yaml_parse</a> (const std::vector&lt; std::uint8_t &gt; &amp;data)</td></tr>
+<tr class="memdesc:ac2803ada63276bce3e407e12ecffad47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse binary data into a tree.  <a href="namespacewmoge.html#ac2803ada63276bce3e407e12ecffad47">More...</a><br /></td></tr>
+<tr class="separator:ac2803ada63276bce3e407e12ecffad47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26e28c37824090f77f768d84cda4a3cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classYamlTree.html">YamlTree</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a26e28c37824090f77f768d84cda4a3cf">wmoge::yaml_parse_file</a> (const std::string &amp;file_path)</td></tr>
+<tr class="memdesc:a26e28c37824090f77f768d84cda4a3cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens and parses file.  <a href="namespacewmoge.html#a26e28c37824090f77f768d84cda4a3cf">More...</a><br /></td></tr>
+<tr class="separator:a26e28c37824090f77f768d84cda4a3cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a385ef5cc641a94ec20ccc5d3113d5831"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a385ef5cc641a94ec20ccc5d3113d5831">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, bool &amp;value)</td></tr>
+<tr class="separator:a385ef5cc641a94ec20ccc5d3113d5831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96096adfe8461534f5d7b63eb7e3ed24"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a96096adfe8461534f5d7b63eb7e3ed24">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, int &amp;value)</td></tr>
+<tr class="separator:a96096adfe8461534f5d7b63eb7e3ed24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae582516fdcdedcc122050d1a46d0a180"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae582516fdcdedcc122050d1a46d0a180">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, float &amp;value)</td></tr>
+<tr class="separator:ae582516fdcdedcc122050d1a46d0a180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a40c2f126ba92e890651db49dccc5e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5a40c2f126ba92e890651db49dccc5e2">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, StringId &amp;value)</td></tr>
+<tr class="separator:a5a40c2f126ba92e890651db49dccc5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36bd44ea61d3623d17dddbd1a97258c5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a36bd44ea61d3623d17dddbd1a97258c5">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, std::string &amp;value)</td></tr>
+<tr class="separator:a36bd44ea61d3623d17dddbd1a97258c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a069ca1a71e358ad0fa24347ebae57dcb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a069ca1a71e358ad0fa24347ebae57dcb">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const bool &amp;value)</td></tr>
+<tr class="separator:a069ca1a71e358ad0fa24347ebae57dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a471b92c26fa52eb75f154d8ad6748ecf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a471b92c26fa52eb75f154d8ad6748ecf">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const int &amp;value)</td></tr>
+<tr class="separator:a471b92c26fa52eb75f154d8ad6748ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf27264f698da1d6095041e40fb63501"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#acf27264f698da1d6095041e40fb63501">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const float &amp;value)</td></tr>
+<tr class="separator:acf27264f698da1d6095041e40fb63501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a521694c02fabd45cdd13d406a7201e0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a521694c02fabd45cdd13d406a7201e0c">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const StringId &amp;value)</td></tr>
+<tr class="separator:a521694c02fabd45cdd13d406a7201e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2ad1b5f2f62caac9b7d4e9dddf1779b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa2ad1b5f2f62caac9b7d4e9dddf1779b">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const std::string &amp;value)</td></tr>
+<tr class="separator:aa2ad1b5f2f62caac9b7d4e9dddf1779b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c1afc201fb0427ff185add43fdd0aaa"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t S&gt; </td></tr>
+<tr class="memitem:a1c1afc201fb0427ff185add43fdd0aaa"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1c1afc201fb0427ff185add43fdd0aaa">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, std::array&lt; T, S &gt; &amp;array)</td></tr>
+<tr class="separator:a1c1afc201fb0427ff185add43fdd0aaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2cfe9c414b75cd413cffdf3ba2e6af7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac2cfe9c414b75cd413cffdf3ba2e6af7"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac2cfe9c414b75cd413cffdf3ba2e6af7">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, std::vector&lt; T &gt; &amp;vector)</td></tr>
+<tr class="separator:ac2cfe9c414b75cd413cffdf3ba2e6af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51986aee0749c5c9516948bbf7157483"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
+<tr class="memitem:a51986aee0749c5c9516948bbf7157483"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a51986aee0749c5c9516948bbf7157483">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, std::unordered_map&lt; K, V &gt; &amp;map)</td></tr>
+<tr class="separator:a51986aee0749c5c9516948bbf7157483"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7e6ff5417d12de184df7eb13ae61771"><td class="memTemplParams" colspan="2">template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;::value&gt;::type&gt; </td></tr>
+<tr class="memitem:ae7e6ff5417d12de184df7eb13ae61771"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae7e6ff5417d12de184df7eb13ae61771">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, T &amp;enum_value)</td></tr>
+<tr class="separator:ae7e6ff5417d12de184df7eb13ae61771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc49c2b09bc947e0c984656a14ffb0f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aacc49c2b09bc947e0c984656a14ffb0f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aacc49c2b09bc947e0c984656a14ffb0f">wmoge::yaml_read</a> (const <a class="el" href="classYamlConstNodeRef.html">YamlConstNodeRef</a> &amp;node, std::optional&lt; T &gt; &amp;wrapper)</td></tr>
+<tr class="separator:aacc49c2b09bc947e0c984656a14ffb0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86eeae81becca14985a495d3427e43f6"><td class="memTemplParams" colspan="2">template&lt;typename T , std::size_t S&gt; </td></tr>
+<tr class="memitem:a86eeae81becca14985a495d3427e43f6"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a86eeae81becca14985a495d3427e43f6">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const std::array&lt; T, S &gt; &amp;array)</td></tr>
+<tr class="separator:a86eeae81becca14985a495d3427e43f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f86be9d0db83a97c8652b90a2f8853d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6f86be9d0db83a97c8652b90a2f8853d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6f86be9d0db83a97c8652b90a2f8853d">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const std::vector&lt; T &gt; &amp;vector)</td></tr>
+<tr class="separator:a6f86be9d0db83a97c8652b90a2f8853d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76559bbece206ca2e69c2048fb5d1af2"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
+<tr class="memitem:a76559bbece206ca2e69c2048fb5d1af2"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a76559bbece206ca2e69c2048fb5d1af2">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const std::unordered_map&lt; K, V &gt; &amp;map)</td></tr>
+<tr class="separator:a76559bbece206ca2e69c2048fb5d1af2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408d14b3649e3acd5cb190544c622669"><td class="memTemplParams" colspan="2">template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;::value&gt;::type&gt; </td></tr>
+<tr class="memitem:a408d14b3649e3acd5cb190544c622669"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a408d14b3649e3acd5cb190544c622669">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const T &amp;enum_value)</td></tr>
+<tr class="separator:a408d14b3649e3acd5cb190544c622669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ac51ce29f90799afe29b718cb581e24"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5ac51ce29f90799afe29b718cb581e24"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5ac51ce29f90799afe29b718cb581e24">wmoge::yaml_write</a> (<a class="el" href="classYamlNodeRef.html">YamlNodeRef</a> &amp;node, const std::optional&lt; T &gt; &amp;wrapper)</td></tr>
+<tr class="separator:a5ac51ce29f90799afe29b718cb581e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a79835036680ccadf873ffde9bad312a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79835036680ccadf873ffde9bad312a8">&#9670;&nbsp;</a></span>WG_YAML_READ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_READ</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                             \</div>
+<div class="line">        if (!<a class="code" href="namespacewmoge.html#aacc49c2b09bc947e0c984656a14ffb0f">yaml_read</a>(node, what)) {                                \</div>
+<div class="line">            WG_LOG_ERROR(<span class="stringliteral">&quot;failed to read yaml \&quot;&quot;</span> &lt;&lt; #what &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>); \</div>
+<div class="line">            return <span class="keyword">false</span>;                                            \</div>
+<div class="line">        }                                                            \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+<div class="ttc" id="anamespacewmoge_html_aacc49c2b09bc947e0c984656a14ffb0f"><div class="ttname"><a href="namespacewmoge.html#aacc49c2b09bc947e0c984656a14ffb0f">wmoge::yaml_read</a></div><div class="ttdeci">bool yaml_read(const YamlConstNodeRef &amp;node, std::optional&lt; T &gt; &amp;wrapper)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:205</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1858cfbf845839d2a6fa842a1ec0502b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1858cfbf845839d2a6fa842a1ec0502b">&#9670;&nbsp;</a></span>WG_YAML_READ_AS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_READ_AS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node_name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                                       \</div>
+<div class="line">        if (!node.has_child(node_name) || !<a class="code" href="namespacewmoge.html#aacc49c2b09bc947e0c984656a14ffb0f">yaml_read</a>(node[node_name], what)) { \</div>
+<div class="line">            WG_LOG_ERROR(<span class="stringliteral">&quot;failed to read yaml \&quot;&quot;</span> &lt;&lt; #what &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>);           \</div>
+<div class="line">            return <span class="keyword">false</span>;                                                      \</div>
+<div class="line">        }                                                                      \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a77da3f4c3d8ad478ce77009cfd890478"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77da3f4c3d8ad478ce77009cfd890478">&#9670;&nbsp;</a></span>WG_YAML_READ_AS_OPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_READ_AS_OPT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node_name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                                 \</div>
+<div class="line">        if (node.has_child(node_name)) {                                 \</div>
+<div class="line">            if (!<a class="code" href="namespacewmoge.html#aacc49c2b09bc947e0c984656a14ffb0f">yaml_read</a>(node[node_name], what)) {                     \</div>
+<div class="line">                WG_LOG_ERROR(<span class="stringliteral">&quot;failed to read yaml \&quot;&quot;</span> &lt;&lt; #what &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>); \</div>
+<div class="line">                return <span class="keyword">false</span>;                                            \</div>
+<div class="line">            }                                                            \</div>
+<div class="line">        }                                                                \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac6d872b916c29cfee80fb591f5e04577"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6d872b916c29cfee80fb591f5e04577">&#9670;&nbsp;</a></span>WG_YAML_READ_SUPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_READ_SUPER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">super, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                         \</div>
+<div class="line">        WG_YAML_READ(node, *((super*) (&amp;what))); \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a036a02c988f3847c7ebf95e64eed2a47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a036a02c988f3847c7ebf95e64eed2a47">&#9670;&nbsp;</a></span>WG_YAML_WRITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_WRITE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                              \</div>
+<div class="line">        if (!<a class="code" href="namespacewmoge.html#a5ac51ce29f90799afe29b718cb581e24">yaml_write</a>(node, what)) {                                \</div>
+<div class="line">            WG_LOG_ERROR(<span class="stringliteral">&quot;failed to write yaml \&quot;&quot;</span> &lt;&lt; #what &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>); \</div>
+<div class="line">            return <span class="keyword">false</span>;                                             \</div>
+<div class="line">        }                                                             \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+<div class="ttc" id="anamespacewmoge_html_a5ac51ce29f90799afe29b718cb581e24"><div class="ttname"><a href="namespacewmoge.html#a5ac51ce29f90799afe29b718cb581e24">wmoge::yaml_write</a></div><div class="ttdeci">bool yaml_write(YamlNodeRef &amp;node, const std::optional&lt; T &gt; &amp;wrapper)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:248</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="adf7c1d6b5c64a384cd4d7b9a94239f65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf7c1d6b5c64a384cd4d7b9a94239f65">&#9670;&nbsp;</a></span>WG_YAML_WRITE_AS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_WRITE_AS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node_name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                              \</div>
+<div class="line">        auto child = node.append_child();                             \</div>
+<div class="line">        child.set_key(node_name);                                     \</div>
+<div class="line">        if (!<a class="code" href="namespacewmoge.html#a5ac51ce29f90799afe29b718cb581e24">yaml_write</a>(child, what)) {                               \</div>
+<div class="line">            WG_LOG_ERROR(<span class="stringliteral">&quot;failed to write yaml \&quot;&quot;</span> &lt;&lt; #what &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>); \</div>
+<div class="line">            return <span class="keyword">false</span>;                                             \</div>
+<div class="line">        }                                                             \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad6f24230e86092545b5092487c3b1a9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6f24230e86092545b5092487c3b1a9e">&#9670;&nbsp;</a></span>WG_YAML_WRITE_AS_OPT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_WRITE_AS_OPT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node_name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">condition, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                                  \</div>
+<div class="line">        if (condition) {                                                  \</div>
+<div class="line">            auto child = node.append_child();                             \</div>
+<div class="line">            child.set_key(node_name);                                     \</div>
+<div class="line">            if (!<a class="code" href="namespacewmoge.html#a5ac51ce29f90799afe29b718cb581e24">yaml_write</a>(child, what)) {                               \</div>
+<div class="line">                WG_LOG_ERROR(<span class="stringliteral">&quot;failed to write yaml \&quot;&quot;</span> &lt;&lt; #what &lt;&lt; <span class="stringliteral">&quot;\&quot;&quot;</span>); \</div>
+<div class="line">                return <span class="keyword">false</span>;                                             \</div>
+<div class="line">            }                                                             \</div>
+<div class="line">        }                                                                 \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a95d16675808059328b3919b7e6271bdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95d16675808059328b3919b7e6271bdb">&#9670;&nbsp;</a></span>WG_YAML_WRITE_SUPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_YAML_WRITE_SUPER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">node, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">super, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">what&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">do</span> {                                                \</div>
+<div class="line">        WG_YAML_WRITE(node, *((<span class="keyword">const</span> super*) (&amp;what))); \</div>
+<div class="line">    } <span class="keywordflow">while</span> (<span class="keyword">false</span>)</div>
+</div><!-- fragment -->
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

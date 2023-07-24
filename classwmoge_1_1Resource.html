@@ -82,7 +82,7 @@ Inheritance diagram for wmoge::Resource:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1Resource__inherit__graph.png" border="0" usemap="#awmoge_1_1Resource_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1Resource_inherit__map" id="awmoge_1_1Resource_inherit__map">
-<area shape="rect" title="Base class for any engine resource." alt="" coords="320,309,445,336"/>
+<area shape="rect" title="Base class for any engine resource." alt="" coords="320,259,445,285"/>
 <area shape="rect" href="classwmoge_1_1AudioStream.html" title="Base class for audio files which can be loaded and played." alt="" coords="496,5,641,32"/>
 <area shape="rect" href="classwmoge_1_1ConfigFile.html" title="Ini&#45;file based simple config file." alt="" coords="505,56,632,83"/>
 <area shape="rect" href="classwmoge_1_1Font.html" title="Font resource for rendering texts from true type fonts." alt="" coords="521,107,617,133"/>
@@ -93,15 +93,13 @@ Inheritance diagram for wmoge::Resource:</div>
 <area shape="rect" href="classwmoge_1_1ScenePacked.html" title="Represents packed scene resource which can be used to load scenes." alt="" coords="493,360,644,387"/>
 <area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="517,411,621,437"/>
 <area shape="rect" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material." alt="" coords="513,461,624,488"/>
-<area shape="rect" href="classwmoge_1_1Sprite.html" title="Sprite is a sequence of images in a texture which can be animated." alt="" coords="517,512,621,539"/>
-<area shape="rect" href="classwmoge_1_1TextFile.html" title="Simple text file resource." alt="" coords="511,563,627,589"/>
-<area shape="rect" href="classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="512,613,625,640"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="164,309,272,336"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,309,116,336"/>
+<area shape="rect" href="classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="512,512,625,539"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="164,259,272,285"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,259,116,285"/>
 <area shape="rect" href="classwmoge_1_1AudioStreamWav.html" title="Simple audio resource loaded from .wav file format." alt="" coords="692,5,863,32"/>
 <area shape="rect" href="classwmoge_1_1LuaScript.html" title="Holds info about a lua declared class in a user script." alt="" coords="714,411,841,437"/>
-<area shape="rect" href="classwmoge_1_1Texture2d.html" title="2d gpu texture resource" alt="" coords="714,588,841,615"/>
-<area shape="rect" href="classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture resource." alt="" coords="706,639,849,665"/>
+<area shape="rect" href="classwmoge_1_1Texture2d.html" title="2d gpu texture resource" alt="" coords="714,487,841,513"/>
+<area shape="rect" href="classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture resource." alt="" coords="706,537,849,564"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -119,8 +117,10 @@ Collaboration diagram for wmoge::Resource:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a922511d7b5c688b182a7bdee78cd767a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a922511d7b5c688b182a7bdee78cd767a">load_from_import_options</a> (const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;tree)</td></tr>
-<tr class="separator:a922511d7b5c688b182a7bdee78cd767a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f099d197a7dde45194a291594bc7ec6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a0f099d197a7dde45194a291594bc7ec6">load_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node)</td></tr>
+<tr class="separator:a0f099d197a7dde45194a291594bc7ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07990d76aa75ad9fd2e2b3694249f227"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a07990d76aa75ad9fd2e2b3694249f227">load_from_archive</a> (const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
+<tr class="separator:a07990d76aa75ad9fd2e2b3694249f227"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a907fa683f3494b3efd0f375988ee37be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a907fa683f3494b3efd0f375988ee37be">copy_to</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;copy)</td></tr>
 <tr class="separator:a907fa683f3494b3efd0f375988ee37be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94fcebb4bc59cd403a5b46d58884f79e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94fcebb4bc59cd403a5b46d58884f79e">duplicate</a> ()</td></tr>
@@ -200,7 +200,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#adf7bfbfbcde26ee5e46d9ed72d212e1b">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1TextureCube.html#a5d05ade6400073f1a7a6cee7bc66acbe">wmoge::TextureCube</a>, <a class="el" href="classwmoge_1_1Texture2d.html#af8e2e6d5067698004cf5d40f0a37086b">wmoge::Texture2d</a>, <a class="el" href="classwmoge_1_1Texture.html#adbecbfe80e12f579dbf1fbf2ee0b2dc4">wmoge::Texture</a>, <a class="el" href="classwmoge_1_1TextFile.html#a15e2bbb9f6e11a4df0896dadf3bbb141">wmoge::TextFile</a>, <a class="el" href="classwmoge_1_1Sprite.html#a6ae23a34dab4296817d679da8a449baf">wmoge::Sprite</a>, <a class="el" href="classwmoge_1_1Shader.html#a893a4ecadae50362cceeddfb55f05ea4">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#ad6453cefb31589067b2017b11d5427c6">wmoge::Script</a>, <a class="el" href="classwmoge_1_1ScenePacked.html#a9144718e5fefd83cefe230c9d353acf1">wmoge::ScenePacked</a>, <a class="el" href="classwmoge_1_1PfxEffect.html#a04fcbd65a02cf7a341850e7d62063720">wmoge::PfxEffect</a>, <a class="el" href="classwmoge_1_1Material.html#a8f5b1a359d6b7d2f154b9c07c42c6e64">wmoge::Material</a>, <a class="el" href="classwmoge_1_1Image.html#a1e3d9c12e28df226400651beafae86e0">wmoge::Image</a>, <a class="el" href="classwmoge_1_1Font.html#a5fe9aac9bdbafe9b998946c405b19f21">wmoge::Font</a>, <a class="el" href="classwmoge_1_1ConfigFile.html#a7678124c69f56e93a47ecc85e4bc656d">wmoge::ConfigFile</a>, <a class="el" href="classwmoge_1_1AudioStreamWav.html#a1457ec8d5b6d61996a3848a3dbbdd101">wmoge::AudioStreamWav</a>, and <a class="el" href="classwmoge_1_1AudioStream.html#a3ea27774041b2a33ddbb04f73eb352dc">wmoge::AudioStream</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#adf7bfbfbcde26ee5e46d9ed72d212e1b">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1TextureCube.html#a5d05ade6400073f1a7a6cee7bc66acbe">wmoge::TextureCube</a>, <a class="el" href="classwmoge_1_1Texture2d.html#af8e2e6d5067698004cf5d40f0a37086b">wmoge::Texture2d</a>, <a class="el" href="classwmoge_1_1Texture.html#adbecbfe80e12f579dbf1fbf2ee0b2dc4">wmoge::Texture</a>, <a class="el" href="classwmoge_1_1Shader.html#a893a4ecadae50362cceeddfb55f05ea4">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#ad6453cefb31589067b2017b11d5427c6">wmoge::Script</a>, <a class="el" href="classwmoge_1_1ScenePacked.html#a9144718e5fefd83cefe230c9d353acf1">wmoge::ScenePacked</a>, <a class="el" href="classwmoge_1_1PfxEffect.html#a04fcbd65a02cf7a341850e7d62063720">wmoge::PfxEffect</a>, <a class="el" href="classwmoge_1_1Material.html#a8f5b1a359d6b7d2f154b9c07c42c6e64">wmoge::Material</a>, <a class="el" href="classwmoge_1_1Image.html#a1e3d9c12e28df226400651beafae86e0">wmoge::Image</a>, <a class="el" href="classwmoge_1_1Font.html#a5fe9aac9bdbafe9b998946c405b19f21">wmoge::Font</a>, <a class="el" href="classwmoge_1_1ConfigFile.html#a7678124c69f56e93a47ecc85e4bc656d">wmoge::ConfigFile</a>, <a class="el" href="classwmoge_1_1AudioStreamWav.html#a1457ec8d5b6d61996a3848a3dbbdd101">wmoge::AudioStreamWav</a>, and <a class="el" href="classwmoge_1_1AudioStream.html#a3ea27774041b2a33ddbb04f73eb352dc">wmoge::AudioStream</a>.</p>
 
 </div>
 </div>
@@ -254,8 +254,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a922511d7b5c688b182a7bdee78cd767a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a922511d7b5c688b182a7bdee78cd767a">&#9670;&nbsp;</a></span>load_from_import_options()</h2>
+<a id="a07990d76aa75ad9fd2e2b3694249f227"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07990d76aa75ad9fd2e2b3694249f227">&#9670;&nbsp;</a></span>load_from_archive()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,10 +264,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool wmoge::Resource::load_from_import_options </td>
+          <td class="memname">virtual bool wmoge::Resource::load_from_archive </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;&#160;</td>
+          <td class="paramname"><em>archive</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -278,7 +278,33 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#a720ef6e1935dd73da643bf03fe02ff53">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1TextureCube.html#abd64f31f5a63ca860e233d83458ae2cd">wmoge::TextureCube</a>, <a class="el" href="classwmoge_1_1Texture2d.html#aa7c7f1ec27e5e7d5394efb5b046b5024">wmoge::Texture2d</a>, <a class="el" href="classwmoge_1_1TextFile.html#aba1ad7ea8d4c40c613d8ac8bf14a952d">wmoge::TextFile</a>, <a class="el" href="classwmoge_1_1Sprite.html#a5699ba7f6d3565811c7ff550935aef08">wmoge::Sprite</a>, <a class="el" href="classwmoge_1_1Shader.html#a7607d1e3567d8a3be82d6c8413533329">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#ad65793f91a6293def434ca8e18dd881c">wmoge::Script</a>, <a class="el" href="classwmoge_1_1ScenePacked.html#a6bac83702ebec7b827f411e3a9f5a2e6">wmoge::ScenePacked</a>, <a class="el" href="classwmoge_1_1PfxEffect.html#ab1c37dcdf6a20f310f5ef85ab8372e78">wmoge::PfxEffect</a>, <a class="el" href="classwmoge_1_1Material.html#aea71717d387a3ba010e21bb63de57a5f">wmoge::Material</a>, <a class="el" href="classwmoge_1_1Image.html#ac55182ee348fcdded89aa1b6edf12976">wmoge::Image</a>, <a class="el" href="classwmoge_1_1Font.html#a8e465a5230899f900a4613d065c889a6">wmoge::Font</a>, <a class="el" href="classwmoge_1_1ConfigFile.html#a7419fb9e4932e1462602e11975054d0e">wmoge::ConfigFile</a>, <a class="el" href="classwmoge_1_1AudioStreamWav.html#a924f3963734a4b524d43941d7ea6370a">wmoge::AudioStreamWav</a>, and <a class="el" href="classwmoge_1_1AudioStream.html#a9896f4ce7e9e41bc7d70f0dbde8433be">wmoge::AudioStream</a>.</p>
+</div>
+</div>
+<a id="a0f099d197a7dde45194a291594bc7ec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f099d197a7dde45194a291594bc7ec6">&#9670;&nbsp;</a></span>load_from_yaml()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::Resource::load_from_yaml </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#a335f755fe0ae60125556462c369154c0">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1Shader.html#ab5ae25cda7044abfe13371cdec1b2c7b">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#a55f426217d6c8fcdc60386e2a4303e05">wmoge::Script</a>, <a class="el" href="classwmoge_1_1ScenePacked.html#a3d6eace43891509af1444a5883855212">wmoge::ScenePacked</a>, <a class="el" href="classwmoge_1_1Material.html#adbee95f730d4587f91b6466b2373eecf">wmoge::Material</a>, and <a class="el" href="classwmoge_1_1AudioStream.html#a07cbd72484c061f9c8dff43d061a5c95">wmoge::AudioStream</a>.</p>
 
 </div>
 </div>

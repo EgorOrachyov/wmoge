@@ -1,6 +1,7 @@
 <map id="wmoge::ResourceMeta" name="wmoge::ResourceMeta">
-<area shape="rect" id="node1" title="Meta information of a particular resource." alt="" coords="151,95,306,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourcePak.html" title="Interface for the package of the resources on disc." alt="" coords="5,5,153,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="177,5,280,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="305,5,419,32"/>
+<area shape="rect" id="node1" title="Meta information of a particular resource." alt="" coords="203,95,358,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and resources." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ResourcePak.html" title="Interface for the package of the resources on disc." alt="" coords="132,5,280,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="304,5,407,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="431,5,597,32"/>
 </map>

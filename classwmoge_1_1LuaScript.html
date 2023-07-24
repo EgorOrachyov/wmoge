@@ -106,8 +106,8 @@ Collaboration diagram for wmoge::LuaScript:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a720ef6e1935dd73da643bf03fe02ff53"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1LuaScript.html#a720ef6e1935dd73da643bf03fe02ff53">load_from_import_options</a> (const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;tree) override</td></tr>
-<tr class="separator:a720ef6e1935dd73da643bf03fe02ff53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a335f755fe0ae60125556462c369154c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1LuaScript.html#a335f755fe0ae60125556462c369154c0">load_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
+<tr class="separator:a335f755fe0ae60125556462c369154c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf7bfbfbcde26ee5e46d9ed72d212e1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1LuaScript.html#adf7bfbfbcde26ee5e46d9ed72d212e1b">copy_to</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;copy) override</td></tr>
 <tr class="separator:adf7bfbfbcde26ee5e46d9ed72d212e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0e040ddc1b5ffefdabab7f81be6da26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1ScriptInstance.html">ScriptInstance</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1LuaScript.html#aa0e040ddc1b5ffefdabab7f81be6da26">attach_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> *object) override</td></tr>
@@ -136,6 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Resource.html">wmoge::Resource</a></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a07990d76aa75ad9fd2e2b3694249f227">load_from_archive</a> (const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
+<tr class="separator:a07990d76aa75ad9fd2e2b3694249f227 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94fcebb4bc59cd403a5b46d58884f79e">duplicate</a> ()</td></tr>
 <tr class="separator:a94fcebb4bc59cd403a5b46d58884f79e inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
@@ -393,8 +395,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a720ef6e1935dd73da643bf03fe02ff53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a720ef6e1935dd73da643bf03fe02ff53">&#9670;&nbsp;</a></span>load_from_import_options()</h2>
+<a id="a335f755fe0ae60125556462c369154c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a335f755fe0ae60125556462c369154c0">&#9670;&nbsp;</a></span>load_from_yaml()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -403,10 +405,10 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::LuaScript::load_from_import_options </td>
+          <td class="memname">bool wmoge::LuaScript::load_from_yaml </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &amp;&#160;</td>
-          <td class="paramname"><em>tree</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -417,7 +419,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classwmoge_1_1Script.html#ad65793f91a6293def434ca8e18dd881c">wmoge::Script</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Script.html#a55f426217d6c8fcdc60386e2a4303e05">wmoge::Script</a>.</p>
 
 </div>
 </div>
