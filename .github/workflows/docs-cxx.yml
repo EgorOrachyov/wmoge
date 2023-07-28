@@ -1,4 +1,4 @@
-name: docs c/c++
+name: 📚 docs c/c++ & python
 
 on:
   push:

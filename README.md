@@ -1,4 +1,4 @@
-![logo](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/wmoge-banner-trsp-x2.png?raw=true&sanitize=true)
+![logo](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/wmoge-banner-trsp.png?raw=true&sanitize=true)
 
 # Wmoge Engine
 
@@ -15,19 +15,24 @@ Currently, the work is focused on a minor refactoring, new runtime scene represe
 system, refactoring audio, scripting systems, and bringing physics support. The engine is a personal learning/hobby
 project for educational purposes only.
 
-Current progress can be tracked at GitHub [tasks page](https://github.com/EgorOrachyov/wmoge/issues).
+> Work in progress, new features coming soon!
+
+* **Project C/C++ and Python documentation:** [egororachyov.github.io/wmoge](https://egororachyov.github.io/wmoge)
+* **Current progress and task page:** [github.com/EgorOrachyov/wmoge/issues](https://github.com/EgorOrachyov/wmoge/issues).
+* **Contributing guide:** [github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md](https://github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md)
+* **Source code:** [github.com/EgorOrachyov/wmoge](https://github.com/EgorOrachyov/wmoge)
 
 ![gif](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&sanitize=true)
-
-> Work in progress, new features coming soon!
 
 ## About the engine
 
 ### Features
 
+* 🖥️ Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.
 * 🔨 Moder C++17 based engine with clear architecture.
-* 🔨 Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.
 * 🔨 Runtime reflection system with class, method and property information.
+* 🏎️ Task manager and task graph support for concurrent execution.
+* 🏎️ Custom async (future & promise) implementation with join, notify and continuation. 
 * ⚙ Simple stack-based config system.
 * 🎥 Abstract graphics (gfx) device interface for GPU driver communication.
 * 🎥 Vulkan-based gfx device backend.
