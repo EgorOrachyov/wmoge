@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Log.html" title="Engine global logger." alt="" coords="5,5,97,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1Layer.html" title="Interface for a general engine layer for execution." alt="" coords="5,31,108,57"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1DebugLayer.html" title="Debug engine layer attached for dev runtime." alt="" coords="165,5,304,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1SceneManager.html" title="Manager for game loaded and active scenes." alt="" coords="156,56,313,83"/>
 </map>

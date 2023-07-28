@@ -1,16 +1,31 @@
 <map id="engine/math/math_utils3d.hpp" name="engine/math/math_utils3d.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="247,5,441,32"/>
-<area shape="rect" id="node2" href="$mat_8hpp.html" title=" " alt="" coords="225,80,293,107"/>
-<area shape="rect" id="node7" href="$math__utils_8hpp.html" title=" " alt="" coords="596,229,703,256"/>
-<area shape="rect" id="node10" href="$vec_8hpp.html" title=" " alt="" coords="311,155,377,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="105,155,156,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="99,229,165,256"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,229,75,256"/>
-<area shape="rect" id="node6" title=" " alt="" coords="231,155,286,181"/>
-<area shape="rect" id="node8" title=" " alt="" coords="580,304,639,331"/>
-<area shape="rect" id="node9" title=" " alt="" coords="663,304,715,331"/>
-<area shape="rect" id="node11" title=" " alt="" coords="403,229,469,256"/>
-<area shape="rect" id="node12" title=" " alt="" coords="493,229,571,256"/>
-<area shape="rect" id="node13" title=" " alt="" coords="189,229,285,256"/>
-<area shape="rect" id="node14" title=" " alt="" coords="309,229,379,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="200,5,395,32"/>
+<area shape="rect" id="node2" href="$mat_8hpp.html" title=" " alt="" coords="129,80,197,107"/>
+<area shape="rect" id="node7" href="$math__utils_8hpp.html" title=" " alt="" coords="244,229,351,256"/>
+<area shape="rect" id="node10" href="$vec_8hpp.html" title=" " alt="" coords="636,155,703,181"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,304,56,331"/>
+<area shape="rect" id="node4" title=" " alt="" coords="359,304,425,331"/>
+<area shape="rect" id="node5" title=" " alt="" coords="176,379,245,405"/>
+<area shape="rect" id="node6" title=" " alt="" coords="270,379,325,405"/>
+<area shape="rect" id="node8" title=" " alt="" coords="200,304,259,331"/>
+<area shape="rect" id="node9" title=" " alt="" coords="283,304,335,331"/>
+<area shape="rect" id="node11" href="$yaml_8hpp.html" title=" " alt="" coords="834,229,921,256"/>
+<area shape="rect" id="node13" title=" " alt="" coords="698,379,763,405"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1226,379,1305,405"/>
+<area shape="rect" id="node20" title=" " alt="" coords="1495,379,1564,405"/>
+<area shape="rect" id="node29" title=" " alt="" coords="1732,229,1828,256"/>
+<area shape="rect" id="node12" href="$log_8hpp.html" title=" " alt="" coords="501,304,593,331"/>
+<area shape="rect" id="node17" title=" " alt="" coords="615,379,673,405"/>
+<area shape="rect" id="node18" href="$string__id_8hpp.html" title=" " alt="" coords="669,304,793,331"/>
+<area shape="rect" id="node22" title=" " alt="" coords="817,304,937,331"/>
+<area shape="rect" id="node23" title=" " alt="" coords="962,304,1033,331"/>
+<area shape="rect" id="node24" title=" " alt="" coords="1057,304,1151,331"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1176,304,1251,331"/>
+<area shape="rect" id="node26" title=" " alt="" coords="1275,304,1341,331"/>
+<area shape="rect" id="node27" title=" " alt="" coords="1366,304,1421,331"/>
+<area shape="rect" id="node28" title=" " alt="" coords="1445,304,1555,331"/>
+<area shape="rect" id="node14" title=" " alt="" coords="349,379,416,405"/>
+<area shape="rect" id="node15" title=" " alt="" coords="441,379,509,405"/>
+<area shape="rect" id="node16" title=" " alt="" coords="533,379,590,405"/>
+<area shape="rect" id="node21" title=" " alt="" coords="788,379,871,405"/>
 </map>
