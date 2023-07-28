@@ -32,7 +32,7 @@
 namespace wmoge {
 
     static std::default_random_engine& get_rnd_engine() {
-        thread_local std::default_random_engine engine(std::time(nullptr));
+        thread_local std::default_random_engine engine(static_cast<unsigned int>(std::time(nullptr)));
         return engine;
     }
 

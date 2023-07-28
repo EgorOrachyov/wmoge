@@ -28,8 +28,11 @@
 #ifndef WMOGE_MASK_HPP
 #define WMOGE_MASK_HPP
 
+#include "io/yaml.hpp"
+
 #include <bitset>
 #include <initializer_list>
+#include <vector>
 
 namespace wmoge {
 
@@ -68,6 +71,30 @@ namespace wmoge {
     Stream& operator<<(Stream& stream, const Mask<T, size>& mask) {
         stream << mask.bits;
         return stream;
+    }
+
+    template<typename T, int size>
+    bool yaml_read(const YamlConstNodeRef& node, Mask<T, size>& mask) {
+        std::vector<T> flags;
+        WG_YAML_READ(node, flags);
+
+        for (auto flag : flags) {
+            mask.set(flag);
+        }
+
+        return true;
+    }
+
+    template<typename T, int size>
+    bool yaml_write(YamlNodeRef node, const Mask<T, size>& mask) {
+        std::vector<T> flags;
+
+        mask.for_each([&](int, T flag) {
+            flags.push_back(flag);
+        });
+
+        WG_YAML_WRITE(node, flags);
+        return true;
     }
 
 }// namespace wmoge

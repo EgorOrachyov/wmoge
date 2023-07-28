@@ -30,6 +30,8 @@
 
 #include "math_utils.hpp"
 
+#include "io/yaml.hpp"
+
 #include <cassert>
 #include <cstddef>
 #include <functional>
@@ -622,6 +624,32 @@ namespace wmoge {
         }
         ostream << ")";
         return ostream;
+    }
+
+    template<typename T, int N>
+    bool yaml_read(const YamlConstNodeRef& node, TVecN<T, N>& v) {
+        std::string str;
+        WG_YAML_READ(node, str);
+
+        std::stringstream stream(str);
+
+        for (int i = 0; i < N; i++) {
+            stream >> v[i];
+        }
+
+        return true;
+    }
+
+    template<typename T, int N>
+    bool yaml_write(YamlNodeRef node, const TVecN<T, N>& v) {
+        std::stringstream stream;
+
+        for (int i = 0; i < N; i++) {
+            stream << v[i];
+            if (i + 1 < N) stream << " ";
+        }
+
+        return yaml_write(node, stream.str());
     }
 
 }// namespace wmoge

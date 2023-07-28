@@ -172,6 +172,8 @@ add_library(wmoge STATIC
         io/archive_file.hpp
         io/archive_memory.cpp
         io/archive_memory.hpp
+        io/base64.cpp
+        io/base64.hpp
         io/compression.cpp
         io/compression.hpp
         io/enum.hpp
@@ -362,6 +364,7 @@ target_link_libraries(wmoge PRIVATE filewatch)
 target_link_libraries(wmoge PRIVATE lz4)
 target_link_libraries(wmoge PRIVATE assimp)
 target_link_libraries(wmoge PRIVATE compressonator)
+target_link_libraries(wmoge PRIVATE base64)
 
 # audio dependencies, private
 target_link_libraries(wmoge PRIVATE OpenAL)

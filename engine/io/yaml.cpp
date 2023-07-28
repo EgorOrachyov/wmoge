@@ -71,7 +71,9 @@ namespace wmoge {
         return true;
     }
     bool yaml_read(const YamlConstNodeRef& node, std::string& value) {
-        node >> value;
+        if (node.has_val()) {
+            node >> value;
+        }
         return true;
     }
 

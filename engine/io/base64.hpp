@@ -25,62 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "audio_stream.hpp"
+#ifndef WMOGE_BASE64_HPP
+#define WMOGE_BASE64_HPP
 
-#include "core/class.hpp"
+#include "core/data.hpp"
+
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options) {
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
+    /**
+     * @class Base64
+     * @brief Provides utility to encode and decode data from base64
+     */
+    class Base64 {
+    public:
+        static bool encode(const std::uint8_t* data, int bytesCount, std::string& result);
+        static bool encode(const std::vector<std::uint8_t>& data, std::string& result);
+        static bool encode(const Ref<Data>& data, std::string& result);
 
-        return true;
-    }
-    bool yaml_write(YamlNodeRef node, const AudioImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
-
-        return true;
-    }
-
-    bool AudioStream::load_from_yaml(const YamlConstNodeRef& node) {
-        return Resource::load_from_yaml(node);
-    }
-
-    void AudioStream::copy_to(Resource& copy) {
-        Resource::copy_to(copy);
-        auto* audio_stream              = dynamic_cast<AudioStream*>(&copy);
-        audio_stream->m_length          = m_length;
-        audio_stream->m_samples_rate    = m_samples_rate;
-        audio_stream->m_bits_per_sample = m_bits_per_sample;
-        audio_stream->m_num_samples     = m_num_samples;
-        audio_stream->m_num_channels    = m_num_channels;
-    }
-
-    float AudioStream::get_length() const {
-        return m_length;
-    }
-    int AudioStream::get_samples_rate() const {
-        return m_samples_rate;
-    }
-    int AudioStream::get_bits_per_sample() const {
-        return m_bits_per_sample;
-    }
-    int AudioStream::get_num_samples() const {
-        return m_num_samples;
-    }
-    int AudioStream::get_num_channels() const {
-        return m_num_channels;
-    }
-    bool AudioStream::is_stereo() const {
-        return m_num_channels == 2;
-    }
-    bool AudioStream::is_mono() const {
-        return m_num_channels == 1;
-    }
-
-    void AudioStream::register_class() {
-        auto* cls = Class::register_class<AudioStream>();
-    }
+        static bool decode(const std::string_view& data, std::vector<std::uint8_t>& result);
+        static bool decode(const std::string_view& data, Ref<Data>& result);
+        static bool decode(const std::string_view& data, std::string& result);
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_BASE64_HPP

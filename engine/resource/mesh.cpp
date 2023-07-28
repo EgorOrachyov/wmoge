@@ -28,6 +28,7 @@
 #include "mesh.hpp"
 
 #include "core/engine.hpp"
+#include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 
 namespace wmoge {
@@ -47,6 +48,7 @@ namespace wmoge {
         return true;
     }
     bool yaml_write(YamlNodeRef node, const MeshImportOptions::Process& process) {
+        WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "triangulate", process.triangulate);
         WG_YAML_WRITE_AS(node, "tangent_space", process.tangent_space);
         WG_YAML_WRITE_AS(node, "flip_uv", process.flip_uv);
@@ -69,9 +71,30 @@ namespace wmoge {
         return true;
     }
     bool yaml_write(YamlNodeRef node, const MeshImportOptions& options) {
+        WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "attributes", options.attributes);
         WG_YAML_WRITE_AS(node, "process", options.process);
+
+        return true;
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk) {
+        WG_YAML_READ_AS(node, "aabb", chunk.aabb);
+        WG_YAML_READ_AS(node, "name", chunk.name);
+        WG_YAML_READ_AS(node, "vertex_offset", chunk.vertex_offset);
+        WG_YAML_READ_AS(node, "index_offset", chunk.index_offset);
+        WG_YAML_READ_AS(node, "index_count", chunk.index_count);
+
+        return true;
+    }
+    bool yaml_write(YamlNodeRef node, const MeshChunk& chunk) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "aabb", chunk.aabb);
+        WG_YAML_WRITE_AS(node, "name", chunk.name);
+        WG_YAML_WRITE_AS(node, "vertex_offset", chunk.vertex_offset);
+        WG_YAML_WRITE_AS(node, "index_offset", chunk.index_offset);
+        WG_YAML_WRITE_AS(node, "index_count", chunk.index_count);
 
         return true;
     }
@@ -173,11 +196,35 @@ namespace wmoge {
         return m_aabb;
     }
 
-    Ref<Mesh> Mesh::create_cube(const Vec3f& size) {
-        return Ref<Mesh>{};
+    bool yaml_read(const YamlConstNodeRef& node, Mesh& mesh) {
+        WG_YAML_READ_AS(node, "chunks", mesh.m_chunks);
+        WG_YAML_READ_AS(node, "index_type", mesh.m_index_type);
+        WG_YAML_READ_AS(node, "prim_type", mesh.m_prim_type);
+        WG_YAML_READ_AS(node, "attribs", mesh.m_attribs);
+        WG_YAML_READ_AS(node, "num_vertices", mesh.m_num_vertices);
+        WG_YAML_READ_AS(node, "num_indices", mesh.m_num_indices);
+        WG_YAML_READ_AS(node, "aabb", mesh.m_aabb);
+        WG_YAML_READ_AS(node, "vertex_buffers", mesh.m_vertex_buffers);
+        WG_YAML_READ_AS(node, "index_buffer", mesh.m_index_buffer);
+
+        mesh.update_aabb();
+        mesh.update_gfx_buffers();
+
+        return true;
     }
-    Ref<Mesh> Mesh::create_sphere(const Vec3f& size) {
-        return Ref<Mesh>{};
+    bool yaml_write(YamlNodeRef node, const Mesh& mesh) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "chunks", mesh.m_chunks);
+        WG_YAML_WRITE_AS(node, "index_type", mesh.m_index_type);
+        WG_YAML_WRITE_AS(node, "prim_type", mesh.m_prim_type);
+        WG_YAML_WRITE_AS(node, "attribs", mesh.m_attribs);
+        WG_YAML_WRITE_AS(node, "num_vertices", mesh.m_num_vertices);
+        WG_YAML_WRITE_AS(node, "num_indices", mesh.m_num_indices);
+        WG_YAML_WRITE_AS(node, "aabb", mesh.m_aabb);
+        WG_YAML_WRITE_AS(node, "vertex_buffers", mesh.m_vertex_buffers);
+        WG_YAML_WRITE_AS(node, "index_buffer", mesh.m_index_buffer);
+
+        return true;
     }
 
     void Mesh::register_class() {

@@ -28,6 +28,7 @@
 #ifndef WMOGE_AABB_HPP
 #define WMOGE_AABB_HPP
 
+#include "io/yaml.hpp"
 #include "math/vec.hpp"
 
 namespace wmoge {
@@ -65,6 +66,20 @@ namespace wmoge {
     };
 
     using Aabbf = TAabb<float>;
+
+    template<typename T>
+    bool yaml_read(const YamlConstNodeRef& node, TAabb<T>& aabb) {
+        WG_YAML_READ_AS(node, "pos", aabb.pos);
+        WG_YAML_READ_AS(node, "size_half", aabb.size_half);
+        return true;
+    }
+    template<typename T>
+    bool yaml_write(YamlNodeRef node, const TAabb<T>& aabb) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "pos", aabb.pos);
+        WG_YAML_WRITE_AS(node, "size_half", aabb.size_half);
+        return true;
+    }
 
 }// namespace wmoge
 

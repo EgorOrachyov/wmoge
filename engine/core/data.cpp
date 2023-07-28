@@ -29,6 +29,7 @@
 
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
+#include "io/base64.hpp"
 
 #include <cstring>
 #include <fstream>
@@ -66,6 +67,26 @@ namespace wmoge {
         WG_ARCHIVE_READ(archive, size);
         data = make_ref<Data>(size);
         return archive.nread(static_cast<int>(size), data->buffer());
+    }
+
+    bool yaml_write(YamlNodeRef node, const Ref<Data>& data) {
+        if (!data) {
+            node << "";
+            return true;
+        }
+
+        std::string encoded;
+        if (Base64::encode(data, encoded)) {
+            return yaml_write(node, encoded);
+        }
+        return false;
+    }
+    bool yaml_read(const YamlConstNodeRef& node, Ref<Data>& data) {
+        std::string encoded;
+        if (yaml_read(node, encoded)) {
+            return Base64::decode(encoded, data);
+        }
+        return false;
     }
 
 }// namespace wmoge

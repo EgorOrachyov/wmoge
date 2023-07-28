@@ -18,8 +18,10 @@ project for educational purposes only.
 > Work in progress, new features coming soon!
 
 * **Project C/C++ and Python documentation:** [egororachyov.github.io/wmoge](https://egororachyov.github.io/wmoge)
-* **Current progress and task page:** [github.com/EgorOrachyov/wmoge/issues](https://github.com/EgorOrachyov/wmoge/issues).
-* **Contributing guide:** [github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md](https://github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md)
+* **Current progress and task
+  page:** [github.com/EgorOrachyov/wmoge/issues](https://github.com/EgorOrachyov/wmoge/issues).
+* **Contributing
+  guide:** [github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md](https://github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md)
 * **Source code:** [github.com/EgorOrachyov/wmoge](https://github.com/EgorOrachyov/wmoge)
 
 ![gif](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&sanitize=true)
@@ -32,7 +34,7 @@ project for educational purposes only.
 * 🔨 Moder C++17 based engine with clear architecture.
 * 🔨 Runtime reflection system with class, method and property information.
 * 🏎️ Task manager and task graph support for concurrent execution.
-* 🏎️ Custom async (future & promise) implementation with join, notify and continuation. 
+* 🏎️ Custom async (future & promise) implementation with join, notify and continuation.
 * ⚙ Simple stack-based config system.
 * 🎥 Abstract graphics (gfx) device interface for GPU driver communication.
 * 🎥 Vulkan-based gfx device backend.
@@ -59,6 +61,7 @@ project for educational purposes only.
 
 * [assimp](https://github.com/assimp/assimp) for geometry, material and scene assets importing into engine.
 * [audio file](https://github.com/adamstark/AudioFile) for simple audio loading from wav files.
+* [base64](https://github.com/ReneNyffenegger/cpp-base64) for base64 encoding/decoding in text serialization.
 * [compressonator](https://github.com/GPUOpen-Tools/compressonator) texture compression library.
 * [cxxopts](https://github.com/jarro2783/cxxopts) for command-line options processing.
 * [filewatch](https://github.com/ThomasMonkman/filewatch) for OS file system events tracking.

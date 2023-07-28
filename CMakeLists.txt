@@ -78,6 +78,9 @@ add_subdirectory(deps/svector)
 # Command-line options parses
 add_subdirectory(deps/cxxopts)
 
+# Base64 encoding/decoding library
+add_subdirectory(deps/base64)
+
 # Static enum reflection
 add_subdirectory(deps/magic_enum)
 

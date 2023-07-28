@@ -92,6 +92,26 @@ public:
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 
+        YamlTree tree;
+        {
+            WG_AUTO_PROFILE_IO("Mesh::write");
+            yaml_write(tree.rootref(), *mesh);
+
+            std::stringstream ss;
+            ss << tree;
+
+            Engine::instance()->file_system()->save_file("root://suzanne.mesh", ss.str());
+        }
+
+        mesh = make_ref<Mesh>();
+        mesh->set_name(SID("suzanne"));
+        {
+            WG_AUTO_PROFILE_IO("Mesh::read");
+
+            tree = yaml_parse_file("root://suzanne.mesh");
+            yaml_read(tree.crootref(), *mesh);
+        }
+
         WG_LOG_INFO("init");
     }
 

@@ -25,62 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "audio_stream.hpp"
+#include "base64.hpp"
 
-#include "core/class.hpp"
+#include <base64.h>
+#include <cassert>
+#include <cstring>
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options) {
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
+    bool Base64::encode(const std::uint8_t* data, int bytesCount, std::string& result) {
+        result = base64_encode(static_cast<const unsigned char*>(data), bytesCount);
+        return true;
+    }
+    bool Base64::encode(const std::vector<std::uint8_t>& data, std::string& result) {
+        return encode(data.data(), int(data.size()), result);
+    }
+    bool Base64::encode(const Ref<Data>& data, std::string& result) {
+        assert(data);
+        return encode(data->buffer(), int(data->size()), result);
+    }
+
+    bool Base64::decode(const std::string_view& data, std::vector<std::uint8_t>& result) {
+        std::string decoded = base64_decode(data);
+
+        if (!decoded.empty()) {
+            result.resize(decoded.length() * sizeof(char));
+            std::memcpy(result.data(), decoded.c_str(), decoded.length() * sizeof(char));
+        }
 
         return true;
     }
-    bool yaml_write(YamlNodeRef node, const AudioImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
+    bool Base64::decode(const std::string_view& data, Ref<Data>& result) {
+        std::string decoded = base64_decode(data);
+
+        if (!decoded.empty()) {
+            result = make_ref<Data>(decoded.c_str(), decoded.length() * sizeof(char));
+        }
 
         return true;
     }
-
-    bool AudioStream::load_from_yaml(const YamlConstNodeRef& node) {
-        return Resource::load_from_yaml(node);
-    }
-
-    void AudioStream::copy_to(Resource& copy) {
-        Resource::copy_to(copy);
-        auto* audio_stream              = dynamic_cast<AudioStream*>(&copy);
-        audio_stream->m_length          = m_length;
-        audio_stream->m_samples_rate    = m_samples_rate;
-        audio_stream->m_bits_per_sample = m_bits_per_sample;
-        audio_stream->m_num_samples     = m_num_samples;
-        audio_stream->m_num_channels    = m_num_channels;
-    }
-
-    float AudioStream::get_length() const {
-        return m_length;
-    }
-    int AudioStream::get_samples_rate() const {
-        return m_samples_rate;
-    }
-    int AudioStream::get_bits_per_sample() const {
-        return m_bits_per_sample;
-    }
-    int AudioStream::get_num_samples() const {
-        return m_num_samples;
-    }
-    int AudioStream::get_num_channels() const {
-        return m_num_channels;
-    }
-    bool AudioStream::is_stereo() const {
-        return m_num_channels == 2;
-    }
-    bool AudioStream::is_mono() const {
-        return m_num_channels == 1;
-    }
-
-    void AudioStream::register_class() {
-        auto* cls = Class::register_class<AudioStream>();
+    bool Base64::decode(const std::string_view& data, std::string& result) {
+        result = base64_decode(data);
+        return true;
     }
 
 }// namespace wmoge

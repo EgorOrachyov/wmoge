@@ -30,7 +30,6 @@
 
 #include "core/log.hpp"
 #include "core/string_id.hpp"
-#include "math/vec.hpp"
 
 #include <magic_enum.hpp>
 #include <ryml.hpp>
@@ -136,7 +135,7 @@ namespace wmoge {
 #define WG_YAML_WRITE_AS(node, node_name, what)                       \
     do {                                                              \
         auto child = node.append_child();                             \
-        child.set_key(node_name);                                     \
+        child << ryml::key(node_name);                                \
         if (!yaml_write(child, what)) {                               \
             WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
             return false;                                             \
@@ -147,7 +146,7 @@ namespace wmoge {
     do {                                                                  \
         if (condition) {                                                  \
             auto child = node.append_child();                             \
-            child.set_key(node_name);                                     \
+            child << ryml::key(node_name);                                \
             if (!yaml_write(child, what)) {                               \
                 WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
                 return false;                                             \
@@ -160,11 +159,15 @@ namespace wmoge {
         WG_YAML_WRITE(node, *((const super*) (&what))); \
     } while (false)
 
+#define WG_YAML_MAP(node) node |= ryml::MAP
+#define WG_YAML_SEQ(node) node |= ryml::SEQ
+
     template<typename T, std::size_t S>
     bool yaml_read(const YamlConstNodeRef& node, std::array<T, S>& array) {
-        int element_id = 0;
+        std::size_t element_id = 0;
+        assert(node.num_children() <= S);
         for (auto child = node.first_child(); child.valid() && element_id < S; child = child.next_sibling()) {
-            WG_YAML_READ(node, array[element_id++]);
+            WG_YAML_READ(child, array[element_id++]);
         }
         return true;
     }
@@ -184,8 +187,8 @@ namespace wmoge {
         map.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
             std::pair<K, V> entry;
-            WG_YAML_READ(child["key"], entry.first);
-            WG_YAML_READ(child["value"], entry.second);
+            WG_YAML_READ_AS(child, "key", entry.first);
+            WG_YAML_READ_AS(child, "value", entry.second);
             map.insert(std::move(entry));
         }
         return true;
@@ -210,6 +213,7 @@ namespace wmoge {
 
     template<typename T, std::size_t S>
     bool yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
+        WG_YAML_SEQ(node);
         for (std::size_t i = 0; i < S; i++) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, array[i]);
@@ -218,6 +222,7 @@ namespace wmoge {
     }
     template<typename T>
     bool yaml_write(YamlNodeRef node, const std::vector<T>& vector) {
+        WG_YAML_SEQ(node);
         for (const T& value : vector) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, value);
@@ -226,16 +231,16 @@ namespace wmoge {
     }
     template<typename K, typename V>
     bool yaml_write(YamlNodeRef node, const std::unordered_map<K, V>& map) {
+        WG_YAML_SEQ(node);
         for (const auto& entry : map) {
-            YamlNodeRef child = node.append_child();
+            YamlNodeRef entry_child = node.append_child();
+            WG_YAML_MAP(entry_child);
 
-            YamlNodeRef key = child.append_child();
-            key.set_key("key");
-            WG_YAML_WRITE(key, entry.first);
+            YamlNodeRef key = entry_child.append_child();
+            WG_YAML_WRITE_AS(key, "key", entry.first);
 
-            YamlNodeRef value = child.append_child();
-            value.set_key("value");
-            WG_YAML_WRITE(value, entry.second);
+            YamlNodeRef value = entry_child.append_child();
+            WG_YAML_WRITE_AS(value, "value", entry.second);
         }
         return true;
     }

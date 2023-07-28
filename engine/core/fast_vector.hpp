@@ -78,6 +78,7 @@ namespace wmoge {
 
     template<typename T, std::size_t MinCapacity>
     bool yaml_write(YamlNodeRef node, const fast_vector<T, MinCapacity>& vector) {
+        WG_YAML_SEQ(node);
         for (const auto& value : vector) {
             if (!yaml_write(node.append_child(), value)) {
                 return false;

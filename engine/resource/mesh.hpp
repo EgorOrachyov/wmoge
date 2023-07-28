@@ -32,6 +32,7 @@
 #include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "io/yaml.hpp"
 #include "math/aabb.hpp"
 #include "math/vec.hpp"
 #include "resource/resource.hpp"
@@ -84,6 +85,9 @@ namespace wmoge {
         int      vertex_offset{};
         int      index_offset{};
         int      index_count{};
+
+        friend bool yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk);
+        friend bool yaml_write(YamlNodeRef node, const MeshChunk& chunk);
     };
 
     /**
@@ -117,21 +121,21 @@ namespace wmoge {
         int                           get_num_indices() const;
         Aabbf                         get_aabb();
 
-        static Ref<Mesh> create_cube(const Vec3f& size);
-        static Ref<Mesh> create_sphere(const Vec3f& size);
+        friend bool yaml_read(const YamlConstNodeRef& node, Mesh& mesh);
+        friend bool yaml_write(YamlNodeRef node, const Mesh& mesh);
 
     private:
-        std::vector<MeshChunk> m_chunks;
-        Ref<GfxVertBuffer>     m_gfx_vertex_buffers[MAX_BUFFER];
-        Ref<Data>              m_vertex_buffers[MAX_BUFFER];
-        Ref<GfxIndexBuffer>    m_gfx_index_buffer;
-        Ref<Data>              m_index_buffer;
-        GfxIndexType           m_index_type;
-        GfxPrimType            m_prim_type;
-        GfxVertAttribsStreams  m_attribs;
-        int                    m_num_vertices = 0;
-        int                    m_num_indices  = 0;
-        Aabbf                  m_aabb;
+        std::vector<MeshChunk>                     m_chunks;
+        std::array<Ref<GfxVertBuffer>, MAX_BUFFER> m_gfx_vertex_buffers;
+        std::array<Ref<Data>, MAX_BUFFER>          m_vertex_buffers;
+        Ref<GfxIndexBuffer>                        m_gfx_index_buffer;
+        Ref<Data>                                  m_index_buffer;
+        GfxIndexType                               m_index_type;
+        GfxPrimType                                m_prim_type;
+        GfxVertAttribsStreams                      m_attribs;
+        int                                        m_num_vertices = 0;
+        int                                        m_num_indices  = 0;
+        Aabbf                                      m_aabb;
     };
 
 }// namespace wmoge

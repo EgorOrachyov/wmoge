@@ -42,6 +42,7 @@ namespace wmoge {
     }
 
     bool yaml_write(YamlNodeRef node, const ResourceResFile& file) {
+        WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "version", file.version);
         WG_YAML_WRITE_AS(node, "uuid", file.uuid);
         WG_YAML_WRITE_AS(node, "class", file.cls);

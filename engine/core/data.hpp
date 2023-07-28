@@ -33,6 +33,7 @@
 
 #include "core/ref.hpp"
 #include "io/archive.hpp"
+#include "io/yaml.hpp"
 #include "math/math_utils.hpp"
 
 namespace wmoge {
@@ -69,6 +70,9 @@ namespace wmoge {
 
         friend bool archive_write(Archive& archive, const Ref<Data>& data);
         friend bool archive_read(Archive& archive, Ref<Data>& data);
+
+        friend bool yaml_write(YamlNodeRef node, const Ref<Data>& data);
+        friend bool yaml_read(const YamlConstNodeRef& node, Ref<Data>& data);
 
     private:
         std::size_t   m_size   = 0;
