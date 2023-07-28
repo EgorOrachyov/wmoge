@@ -65,21 +65,28 @@ $(function() {
 <div class="title">wmoge Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/wmoge-banner-trsp-x2.png?raw=true&amp;sanitize=true" alt="logo" class="inline"/></p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/wmoge-banner-trsp.png?raw=true&amp;sanitize=true" alt="logo" class="inline"/></p>
 <h1>Wmoge Engine</h1>
 <p><a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/build.yml/badge.svg" alt="build" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/clang-format.yml/badge.svg" alt="clang format" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml"><img src="https://github.com/EgorOrachyov/wmoge/actions/workflows/docs-cxx.yml/badge.svg" alt="docs c/c++" style="pointer-events: none;" class="inline"/></a> <img src="https://img.shields.io/badge/language-C++17-_" alt="language" class="inline"/> <img src="https://img.shields.io/badge/license-MIT-_" alt="license" class="inline"/></p>
 <p>**"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and OpenGL backends. The idea of the project is to implement a self-sufficient, small, but featured engine and a number of 2d and 3d games using it. Primary focus is the core architecture of the engine, reliability, clean and performant code. Currently, the work is focused on a minor refactoring, new runtime scene representation, building a high-level rendering system, refactoring audio, scripting systems, and bringing physics support. The engine is a personal learning/hobby project for educational purposes only.</p>
-<p>Current progress can be tracked at GitHub <a href="https://github.com/EgorOrachyov/wmoge/issues">tasks page</a>.</p>
-<p><img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&amp;sanitize=true" alt="gif" class="inline"/></p>
 <blockquote class="doxtable">
 <p>Work in progress, new features coming soon! </p>
 </blockquote>
+<ul>
+<li><b>Project C/C++ and Python documentation:</b> <a href="https://egororachyov.github.io/wmoge">egororachyov.github.io/wmoge</a></li>
+<li><b>Current progress and task page:</b> <a href="https://github.com/EgorOrachyov/wmoge/issues">github.com/EgorOrachyov/wmoge/issues</a>.</li>
+<li><b>Contributing guide:</b> <a href="https://github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md">github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md</a></li>
+<li><b>Source code:</b> <a href="https://github.com/EgorOrachyov/wmoge">github.com/EgorOrachyov/wmoge</a></li>
+</ul>
+<p><img src="https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&amp;sanitize=true" alt="gif" class="inline"/></p>
 <h2>About the engine</h2>
 <h3>Features</h3>
 <ul>
+<li>🖥️ Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.</li>
 <li>🔨 Moder C++17 based engine with clear architecture.</li>
-<li>🔨 Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.</li>
 <li>🔨 Runtime reflection system with class, method and property information.</li>
+<li>🏎️ Task manager and task graph support for concurrent execution.</li>
+<li>🏎️ Custom async (future &amp; promise) implementation with join, notify and continuation.</li>
 <li>⚙ Simple stack-based config system.</li>
 <li>🎥 Abstract graphics (gfx) device interface for GPU driver communication.</li>
 <li>🎥 Vulkan-based gfx device backend.</li>
