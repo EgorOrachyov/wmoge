@@ -25,18 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_LUA_BINDINGS_SCENE_HPP
-#define WMOGE_LUA_BINDINGS_SCENE_HPP
+#ifndef WMOGE_SCENE_TREE_HPP
+#define WMOGE_SCENE_TREE_HPP
 
-#include "scripting/lua_bindings/lua_bindings.hpp"
-#include "scripting/lua_bindings/lua_bindings_core.hpp"
-
-#include "core/engine.hpp"
-#include "scene/scene.hpp"
-#include "scene/scene_manager.hpp"
+#include "core/object.hpp"
+#include "scene/scene_node.hpp"
 
 namespace wmoge {
 
+    /**
+     * @class SceneTree
+     * @brief Editable tree representing static version of all scene game objects
+     */
+    class SceneTree final {
+    public:
+    private:
+        Ref<SceneNode> m_root;
+    };
+
 }// namespace wmoge
 
-#endif//WMOGE_LUA_BINDINGS_SCENE_HPP
+#endif//WMOGE_SCENE_TREE_HPP

@@ -32,8 +32,6 @@
 #include "core/fast_set.hpp"
 #include "core/layer.hpp"
 #include "scene/scene.hpp"
-#include "scene/scene_component.hpp"
-#include "scene/scene_object.hpp"
 
 #include <mutex>
 #include <stack>
@@ -53,13 +51,10 @@ namespace wmoge {
 
         void shutdown();
 
-        void                     next_running(Ref<Scene> scene);
-        void                     shutdown_scene(Ref<Scene> scene);
-        void                     register_container(std::unique_ptr<class SceneContainerMem> mem);
-        Ref<Scene>               get_running_scene();
-        Ref<Scene>               make_scene(const StringId& name);
-        Ref<SceneObject>         make_object(StringId name);
-        class SceneContainerMem* get_container(const Class* cls);
+        void       next_running(Ref<Scene> scene);
+        void       shutdown_scene(Ref<Scene> scene);
+        Ref<Scene> get_running_scene();
+        Ref<Scene> make_scene(const StringId& name);
 
         void on_start_frame() override;
         void on_update();
@@ -67,11 +62,10 @@ namespace wmoge {
         void on_end_frame() override;
 
     private:
-        fast_map<const Class*, std::unique_ptr<class SceneContainerMem>> m_containers;  // allocator for objects
-        fast_set<Ref<Scene>>                                             m_scenes;      // allocated scenes in the engine
-        fast_set<Ref<Scene>>                                             m_to_shutdown; // scheduled to shut down
-        Ref<Scene>                                                       m_running;     // active scene
-        Ref<Scene>                                                       m_next_running;// scene to become active on next frame
+        fast_set<Ref<Scene>> m_scenes;      // allocated scenes in the engine
+        fast_set<Ref<Scene>> m_to_shutdown; // scheduled to shut down
+        Ref<Scene>           m_running;     // active scene
+        Ref<Scene>           m_next_running;// scene to become active on next frame
 
         std::recursive_mutex m_mutex;
     };

@@ -30,47 +30,32 @@
 
 #include "core/class.hpp"
 #include "core/fast_vector.hpp"
-#include "pfx/pfx_scene.hpp"
+#include "core/ref.hpp"
+#include "ecs/ecs_world.hpp"
 #include "platform/window.hpp"
-#include "render/render_engine.hpp"
-#include "scene/scene_component.hpp"
-#include "scene/scene_object.hpp"
-#include "scene/scene_registry.hpp"
-#include "systems/system_script.hpp"
+#include "scene/scene_tree.hpp"
+
+#include <memory>
 
 namespace wmoge {
 
     /**
      * @class Scene
-     * @brief Scene objects container representing virtual logical game scene
+     * @brief Scene objects container representing running game state
      */
-    class Scene final : public Object {
+    class Scene final : public RefCnt {
     public:
-        WG_OBJECT(Scene, Object);
+        Scene(StringId name = StringId());
+        ~Scene() override = default;
 
-        void init();
-        void shutdown();
-
-        void               add_child(Ref<SceneObject> object);
-        class SceneObject* get_child(int idx);
-        class SceneObject* find_child(const StringId& name);
-        const StringId&    get_name();
-        SceneRegistry*     get_registry();
-        PfxScene*          get_pfx_scene();
-        SystemScript*      get_system_script();
+        [[nodiscard]] const StringId& get_name();
+        [[nodiscard]] SceneTree*      get_tree();
+        [[nodiscard]] EcsWorld*       get_ecs_world();
 
     private:
-        friend class ScenePacked;
-        friend class SceneManager;
-
-        std::unique_ptr<SceneRegistry> m_registry;
-        std::unique_ptr<PfxScene>      m_pfx_scene;
-        std::unique_ptr<SystemScript>  m_system_script;
-
-        Ref<SceneObject> m_root;
-        StringId         m_name;
-        float            m_time    = 0.0f;
-        float            m_time_dt = 0.0f;
+        StringId                   m_name;
+        std::unique_ptr<SceneTree> m_tree;
+        std::unique_ptr<EcsWorld>  m_ecs_world;
     };
 
 }// namespace wmoge

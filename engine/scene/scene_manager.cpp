@@ -29,15 +29,10 @@
 
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
-#include "scene/scene_container.hpp"
-#include "scene/scene_object.hpp"
 
 namespace wmoge {
 
     SceneManager::SceneManager() {
-        register_container(std::make_unique<TSceneContainerMem<SceneObject>>());
-        register_container(std::make_unique<TSceneContainerMem<SceneComponent>>());
-
         WG_LOG_INFO("init scene manager");
     }
     SceneManager::~SceneManager() {
@@ -49,10 +44,6 @@ namespace wmoge {
 
         m_running.reset();
         m_next_running.reset();
-
-        for (auto& scene : m_scenes) {
-            scene->shutdown();
-        }
 
         m_scenes.clear();
         m_to_shutdown.clear();
@@ -75,38 +66,16 @@ namespace wmoge {
 
         m_to_shutdown.insert(scene);
     }
-    void SceneManager::register_container(std::unique_ptr<SceneContainerMem> mem) {
-        std::lock_guard guard(m_mutex);
-
-        auto* cls         = mem->get_class();
-        m_containers[cls] = std::move(mem);
-    }
     Ref<Scene> SceneManager::get_running_scene() {
         return m_running;
     }
     Ref<Scene> SceneManager::make_scene(const StringId& name) {
-        auto scene    = make_ref<Scene>();
-        scene->m_name = name;
-        scene->init();
+        auto scene = make_ref<Scene>();
 
         std::lock_guard guard(m_mutex);
         m_scenes.insert(scene);
 
         return scene;
-    }
-    Ref<SceneObject> SceneManager::make_object(StringId name) {
-        auto* cls       = SceneObject::class_ptr_static();
-        auto* container = get_container(cls);
-
-        Ref<SceneObject> object(reinterpret_cast<SceneObject*>(container->create()));
-        object->m_name = name;
-        return object;
-    }
-    SceneContainerMem* SceneManager::get_container(const Class* cls) {
-        std::lock_guard guard(m_mutex);
-
-        auto query = m_containers.find(cls);
-        return query != m_containers.end() ? query->second.get() : nullptr;
     }
     void SceneManager::on_start_frame() {
         WG_AUTO_PROFILE_SCENE("SceneManager::on_start_frame");
@@ -130,15 +99,6 @@ namespace wmoge {
             // Ok, since have next to run in the next frame
             return;
         }
-
-        m_running->m_time_dt = Engine::instance()->get_delta_time_game();
-        m_running->m_time += m_running->m_time;
-
-        auto* pfx = m_running->get_pfx_scene();
-        pfx->update(m_running->m_time_dt);
-
-        auto* system_script = m_running->get_system_script();
-        system_script->process();
     }
     void SceneManager::on_debug_draw() {
         WG_AUTO_PROFILE_SCENE("SceneManager::on_debug_draw");
@@ -153,7 +113,6 @@ namespace wmoge {
         }
 
         for (auto& scene : m_to_shutdown) {
-            scene->shutdown();
             m_scenes.erase(scene);
         }
 

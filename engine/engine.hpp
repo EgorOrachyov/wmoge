@@ -160,9 +160,11 @@
 #include "resource/texture.hpp"
 
 #include "scene/scene.hpp"
-#include "scene/scene_component.hpp"
+#include "scene/scene_components.hpp"
 #include "scene/scene_manager.hpp"
-#include "scene/scene_object.hpp"
+#include "scene/scene_node.hpp"
+#include "scene/scene_transform.hpp"
+#include "scene/scene_tree.hpp"
 
 #include "scripting/script_instance.hpp"
 #include "scripting/script_native.hpp"

@@ -164,14 +164,10 @@ namespace wmoge {
 
     void Image::register_class() {
         auto cls = Class::register_class<Image>();
-        cls->add_property(Property(VarType::Int, SID("width"), SID("get_width")));
-        cls->add_method(Method(VarType::Int, SID("get_width"), {}), &Image::get_width, {});
-        cls->add_property(Property(VarType::Int, SID("height"), SID("get_height")));
-        cls->add_method(Method(VarType::Int, SID("get_height"), {}), &Image::get_height, {});
-        cls->add_property(Property(VarType::Int, SID("channels"), SID("get_channels")));
-        cls->add_method(Method(VarType::Int, SID("get_channels"), {}), &Image::get_channels, {});
-        cls->add_property(Property(VarType::Int, SID("pixel_size"), SID("get_pixel_size")));
-        cls->add_method(Method(VarType::Int, SID("get_pixel_size"), {}), &Image::get_pixel_size, {});
+        cls->add_field(ClassField(VarType::Int, SID("width")), &Image::m_width);
+        cls->add_field(ClassField(VarType::Int, SID("height")), &Image::m_height);
+        cls->add_field(ClassField(VarType::Int, SID("channels")), &Image::m_channels);
+        cls->add_field(ClassField(VarType::Int, SID("pixel_size")), &Image::m_pixel_size);
     }
 
     int Image::max_mips_count(int width, int height, int depth) {

@@ -25,48 +25,13 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_COMPONENT_HPP
-#define WMOGE_SCENE_COMPONENT_HPP
-
-#include "core/class.hpp"
-#include "core/object.hpp"
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "io/yaml.hpp"
-
-#include <array>
+#include "scene_node.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class SceneComponent
-     * @brief Is a base class for any component which can be attached to the scene object
-     */
-    class SceneComponent : public Object {
-    public:
-        WG_OBJECT(SceneComponent, Object)
-
-        /** @return Scene this component belongs to */
-        class Scene* get_scene();
-        /** @return Scene object this component belongs to */
-        class SceneObject* get_scene_object();
-        /** @return True if object in a scene */
-        bool is_in_scene() const;
-
-        virtual bool on_load_from_yaml(const YamlConstNodeRef& node) { return true; }
-        virtual void on_create() {}
-        virtual void on_scene_enter();
-        virtual void on_scene_exit();
-        virtual void on_transform_updated() {}
-
-    protected:
-        void destroy() override;
-
-    private:
-        friend class SceneObject;
-        class SceneObject* m_scene_object;
-    };
+    void SceneNode::register_class() {
+        auto* cls = Class::register_class<SceneNode>();
+        cls->add_field(ClassField(VarType::StringId, SID("name")), &SceneNode::m_name);
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_COMPONENT_HPP

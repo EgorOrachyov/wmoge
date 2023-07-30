@@ -25,25 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_SYSTEM_HPP
-#define WMOGE_SCENE_SYSTEM_HPP
+#include "scene_transform.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class SceneSystem
-     * @brief Base class for any engine system which can process objects and components
-     */
-    class SceneSystem {
-    public:
-        SceneSystem(class Scene* scene) : m_scene(scene) {}
-        virtual ~SceneSystem() = default;
-        virtual void process() = 0;
-
-    protected:
-        class Scene* m_scene;
-    };
-
-}// namespace wmoge
-
-#endif//WMOGE_SCENE_SYSTEM_HPP
+}

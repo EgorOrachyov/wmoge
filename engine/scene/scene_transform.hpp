@@ -25,18 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_LUA_BINDINGS_SCENE_HPP
-#define WMOGE_LUA_BINDINGS_SCENE_HPP
+#ifndef WMOGE_SCENE_TRANSFORM_HPP
+#define WMOGE_SCENE_TRANSFORM_HPP
 
-#include "scripting/lua_bindings/lua_bindings.hpp"
-#include "scripting/lua_bindings/lua_bindings_core.hpp"
-
-#include "core/engine.hpp"
-#include "scene/scene.hpp"
-#include "scene/scene_manager.hpp"
+#include "core/fast_vector.hpp"
+#include "core/ref.hpp"
+#include "math/mat.hpp"
+#include "math/math_utils3d.hpp"
+#include "math/transform.hpp"
 
 namespace wmoge {
 
+    /**
+     * @class SceneTransform
+     * @brief Single node in a hierarchy of a transformation
+     */
+    class SceneTransform : public RefCnt {
+    public:
+    private:
+        fast_vector<Ref<SceneTransform>> m_children;
+        SceneTransform*                  m_parent = nullptr;
+        Transform3d                      m_transform;
+        Mat4x4f                          m_l2w_cached = Math3d::identity();
+        Mat4x4f                          m_w2l_cached = Math3d::identity();
+        int                              m_layer      = -1;
+    };
+
 }// namespace wmoge
 
-#endif//WMOGE_LUA_BINDINGS_SCENE_HPP
+#endif//WMOGE_SCENE_TRANSFORM_HPP

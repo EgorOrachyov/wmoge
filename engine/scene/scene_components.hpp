@@ -25,50 +25,79 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_component.hpp"
+#ifndef WMOGE_SCENE_COMPONENTS_HPP
+#define WMOGE_SCENE_COMPONENTS_HPP
 
-#include "core/class.hpp"
-#include "core/engine.hpp"
-#include "scene/scene.hpp"
-#include "scene/scene_manager.hpp"
-#include "scene/scene_object.hpp"
+#include "core/fast_vector.hpp"
+#include "ecs/ecs_component.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "math/aabb.hpp"
+#include "math/color.hpp"
+#include "math/mat.hpp"
+#include "math/vec.hpp"
+#include "scene/scene_node.hpp"
+#include "scene/scene_transform.hpp"
 
 namespace wmoge {
 
-    void SceneComponent::on_scene_enter() {
-        const Class*   object   = Object::class_ptr_static();
-        Scene*         scene    = get_scene();
-        SceneRegistry* registry = scene->get_registry();
+    /**
+     * @class EcsComponentChildren
+     * @brief List of entity children, for complex objects
+     */
+    struct EcsComponentChildren {
+        WG_ECS_COMPONENT(EcsComponentChildren, 0);
 
-        for (const Class* it = class_ptr(); it != object; it = it->super()) {
-            registry->get_container(it)->add(this);
-        }
-    }
-    void SceneComponent::on_scene_exit() {
-        const Class*   object   = Object::class_ptr_static();
-        Scene*         scene    = get_scene();
-        SceneRegistry* registry = scene->get_registry();
+        fast_vector<EcsEntity> children;
+    };
 
-        for (const Class* it = class_ptr(); it != object; it = it->super()) {
-            registry->get_container(it)->remove(this);
-        }
-    }
+    /**
+     * @class EcsComponentSceneTransform
+     * @brief Node in a relative transform hierarchy of objects
+     */
+    struct EcsComponentSceneTransform {
+        WG_ECS_COMPONENT(EcsComponentSceneTransform, 1);
 
-    class Scene* SceneComponent::get_scene() {
-        return get_scene_object()->get_scene();
-    }
-    class SceneObject* SceneComponent::get_scene_object() {
-        return m_scene_object;
-    }
-    bool SceneComponent::is_in_scene() const {
-        return m_scene_object->is_in_scene();
-    }
+        Ref<SceneTransform> transform;
+    };
 
-    void SceneComponent::register_class() {
-        auto* cls = Class::register_class<SceneComponent>();
-    }
-    void SceneComponent::destroy() {
-        Engine::instance()->scene_manager()->get_container(class_ptr())->destroy(this);
-    }
+    /**
+     * @class EcsComponentLocalToWorld
+     * @brief Matrix to convert local to world coordinates of an object
+     */
+    struct EcsComponentLocalToWorld {
+        WG_ECS_COMPONENT(EcsComponentLocalToWorld, 2);
+
+        Mat4x4f matrix;
+    };
+
+    /**
+     * @class EcsComponentBox
+     * @brief Bounding volume of an object which can be used for culling
+     */
+    struct EcsComponentBox {
+        WG_ECS_COMPONENT(EcsComponentBox, 3);
+
+        Aabbf box;
+    };
+
+    /**
+     * @class EcsComponentSceneNode
+     * @brief Node for bidirectional mapping of runtime and static game object representation
+     */
+    struct EcsComponentSceneNode {
+        WG_ECS_COMPONENT(EcsComponentSceneNode, 4);
+
+        Ref<SceneNode> node;
+    };
+
+    /**
+     * @class
+     * @brief
+     */
+    struct EcsComponentMeshSimple {
+        WG_ECS_COMPONENT(EcsComponentMeshSimple, 5);
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_SCENE_COMPONENTS_HPP

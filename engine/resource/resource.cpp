@@ -40,8 +40,8 @@ namespace wmoge {
 
     void Resource::register_class() {
         auto cls = Class::register_class<Resource>();
-        cls->add_property(Property(VarType::StringId, SID("name"), SID("get_name")));
-        cls->add_method(Method(VarType::StringId, SID("get_name"), {}), &Resource::get_name, {});
+        cls->add_property(ClassProperty(VarType::StringId, SID("name"), SID("get_name")));
+        cls->add_method(ClassMethod(VarType::StringId, SID("get_name"), {}), &Resource::get_name, {});
     }
 
 }// namespace wmoge

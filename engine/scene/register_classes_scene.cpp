@@ -27,16 +27,12 @@
 
 #include "register_classes_scene.hpp"
 
-#include "scene.hpp"
-#include "scene_component.hpp"
-#include "scene_object.hpp"
+#include "scene_node.hpp"
 
 namespace wmoge {
 
     void register_classes_scene() {
-        Scene::register_class();
-        SceneComponent::register_class();
-        SceneObject::register_class();
+        SceneNode::register_class();
     }
 
 }// namespace wmoge

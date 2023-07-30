@@ -30,10 +30,9 @@
 namespace wmoge {
 
     ScriptNativeInstance::ScriptNativeInstance(Ref<Script> script, Object* object, ScriptFunctionsMask mask) {
-        m_script       = std::move(script);
-        m_object       = object;
-        m_scene_object = dynamic_cast<SceneObject*>(object);
-        m_mask         = mask;
+        m_script = std::move(script);
+        m_object = object;
+        m_mask   = mask;
     }
 
     ScriptFunctionsMask ScriptNativeInstance::get_mask() {
@@ -44,9 +43,6 @@ namespace wmoge {
     }
     Object* ScriptNativeInstance::get_owner() {
         return m_object;
-    }
-    SceneObject* ScriptNativeInstance::get_scene_object() {
-        return m_scene_object;
     }
 
 }// namespace wmoge

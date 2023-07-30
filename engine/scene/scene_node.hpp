@@ -25,37 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SYSTEM_SCRIPT_HPP
-#define WMOGE_SYSTEM_SCRIPT_HPP
+#ifndef WMOGE_SCENE_NODE_HPP
+#define WMOGE_SCENE_NODE_HPP
 
-#include "core/fast_set.hpp"
-#include "core/fast_vector.hpp"
-#include "event/event_listener.hpp"
-#include "scene/scene_system.hpp"
+#include "core/class.hpp"
+#include "core/object.hpp"
+#include "math/transform.hpp"
+
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class SystemScript
-     * @brief Process scene scripts
+     * @class SceneNode
+     * @brief Represents single node (object) in an editable tree hierarchy of scene objects
      */
-    class SystemScript final : public SceneSystem {
+    class SceneNode : public Object {
     public:
-        SystemScript(class Scene* scene);
-        ~SystemScript() override;
-
-        void process() override;
+        WG_OBJECT(SceneNode, Object)
 
     private:
-        fast_vector<Ref<Event>> m_events;
-        Ref<EventListener>      m_on_action;
-        Ref<EventListener>      m_on_input_mouse;
-        Ref<EventListener>      m_on_input_keyboard;
-        Ref<EventListener>      m_on_input_joystick;
-        Ref<EventListener>      m_on_input_drop;
-        Ref<EventListener>      m_on_token;
+        friend class Scene;
+        friend class SceneTree;
+        friend class SceneManager;
+
+        std::vector<Ref<SceneNode>> m_children;
+        class SceneNode*            m_parent;
+        class SceneTree*            m_tree;
+        Transform3d                 m_transform;
+        StringId                    m_name;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SYSTEM_SCRIPT_HPP
+#endif//WMOGE_SCENE_NODE_HPP

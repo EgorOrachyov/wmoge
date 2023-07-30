@@ -37,13 +37,13 @@ namespace wmoge {
         const Class* cls = class_ptr();
         assert(cls);
 
-        const Property* prop = cls->property(property);
+        const ClassProperty* prop = cls->property(property);
         if (!prop || !prop->has_setter()) {
             WG_LOG_ERROR("no property with setter: " << property);
             return 1;
         }
 
-        const Method* setter = cls->method(prop->setter());
+        const ClassMethod* setter = cls->method(prop->setter());
         if (!setter || setter->args_count() < 1) {
             WG_LOG_ERROR("no setter method to invoke: " << prop->setter());
             return 1;
@@ -56,13 +56,13 @@ namespace wmoge {
         const Class* cls = class_ptr();
         assert(cls);
 
-        const Property* prop = cls->property(property);
+        const ClassProperty* prop = cls->property(property);
         if (!prop || !prop->has_getter()) {
             WG_LOG_ERROR("no property with getter: " << property);
             return 1;
         }
 
-        const Method* getter = cls->method(prop->getter());
+        const ClassMethod* getter = cls->method(prop->getter());
         if (!getter || !getter->has_ret()) {
             WG_LOG_ERROR("no getter method to invoke: " << prop->setter());
             return 1;
@@ -74,7 +74,7 @@ namespace wmoge {
         const Class* cls = class_ptr();
         assert(cls);
 
-        const Method* callable = cls->method(method);
+        const ClassMethod* callable = cls->method(method);
         if (!callable) {
             WG_LOG_ERROR("no method to call: " << method);
             return 1;

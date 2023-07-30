@@ -48,8 +48,8 @@ namespace wmoge {
 
     void HgfxPass::register_class() {
         auto* cls = Class::register_class<HgfxPass>();
-        cls->add_method(Method(VarType::StringId, SID("get_pass_name"), {}), &HgfxPass::get_pass_name, {});
-        cls->add_method(Method(VarType::Int, SID("get_pass_type"), {}), &HgfxPass::get_pass_type, {});
+        cls->add_method(ClassMethod(VarType::StringId, SID("get_pass_name"), {}), &HgfxPass::get_pass_name, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_pass_type"), {}), &HgfxPass::get_pass_type, {});
     }
 
 }// namespace wmoge

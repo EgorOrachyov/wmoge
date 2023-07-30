@@ -38,8 +38,8 @@
 namespace wmoge {
 
     /**
-     * @class
-     * @brief
+     * @class ImageImportOptions
+     * @brief Options to import an image from an external format, such as `png`, `jpeg`, `bmp`, etc.
      */
     struct ImageImportOptions {
         std::string source_file;

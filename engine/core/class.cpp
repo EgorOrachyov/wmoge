@@ -36,33 +36,56 @@
 
 namespace wmoge {
 
-    Property::Property(VarType type, StringId name, StringId getter, StringId setter)
-        : m_name(name), m_getter(getter), m_setter(setter), m_type(type) {
+    ClassMember::ClassMember(StringId name)
+        : m_name(name) {
     }
 
-    Method::Method(VarType ret, StringId name, std::vector<StringId> args)
-        : m_args_names(std::move(args)), m_name(name), m_ret(ret) {
+    ClassProperty::ClassProperty(VarType type, StringId name, StringId getter, StringId setter)
+        : ClassMember(name), m_getter(getter), m_setter(setter), m_type(type) {
     }
-    int Method::call(Object* object, int argc, const Var* argv, Var& ret) const {
+
+    ClassField::ClassField(VarType type, StringId name)
+        : ClassProperty(type, name) {
+    }
+
+    ClassMethod::ClassMethod(VarType ret, StringId name, std::vector<StringId> args)
+        : ClassMember(name), m_args_names(std::move(args)), m_ret(ret) {
+    }
+    int ClassMethod::call(Object* object, int argc, const Var* argv, Var& ret) const {
         return m_callable(*this, object, argc, argv, ret);
     }
 
     const Class* Class::super() const {
         return class_ptr(super_name());
     }
-    const Property* Class::property(const StringId& name) const {
+    const ClassProperty* Class::property(const StringId& name) const {
         auto query = m_properties.find(name);
-        return query != m_properties.end() ? &query->second : nullptr;
+        return query != m_properties.end() ? query->second : nullptr;
     }
-    const Method* Class::method(const StringId& name) const {
+    const ClassField* Class::field(const StringId& name) const {
+        auto query = m_fields.find(name);
+        return query != m_fields.end() ? query->second : nullptr;
+    }
+    const ClassMethod* Class::method(const StringId& name) const {
         auto query = m_methods.find(name);
-        return query != m_methods.end() ? &query->second : nullptr;
+        return query != m_methods.end() ? query->second : nullptr;
+    }
+
+    std::vector<ClassMember*> Class::members() const {
+        std::vector<ClassMember*> vec;
+        vec.reserve(m_members.size());
+
+        for (const auto& member : m_members) {
+            vec.push_back(member.get());
+        }
+
+        return vec;
     }
 
     Ref<Object> Class::instantiate() const {
         if (!m_instantiate) {
             WG_LOG_ERROR("no function to instantiate " << name());
-            return Ref<Object>();
+            return {};
         }
         return Ref<Object>(m_instantiate());
     }
@@ -94,8 +117,10 @@ namespace wmoge {
         cls->m_size        = size;
         cls->m_instantiate = std::move(instantiate);
         cls->m_properties  = super_cls->m_properties;
+        cls->m_fields      = super_cls->m_fields;
         cls->m_methods     = super_cls->m_methods;
         cls->m_supers      = super_cls->m_supers;
+        cls->m_members     = super_cls->m_members;
         cls->m_supers.emplace(name);
         return cls;
     }
@@ -104,8 +129,10 @@ namespace wmoge {
         return &classDb;
     }
 
-    Class* Class::add_property(Property property) {
-        m_properties.emplace(property.name(), std::move(property));
+    Class* Class::add_property(ClassProperty property) {
+        auto ptr_prop = std::make_shared<ClassProperty>(property);
+        m_members.push_back(ptr_prop);
+        m_properties.emplace(ptr_prop->name(), ptr_prop.get());
         return this;
     }
 
@@ -118,8 +145,8 @@ namespace wmoge {
         cls->m_size        = sizeof(Object);
         cls->m_instantiate = []() { return new Object(); };
         cls->m_supers.emplace(Object::class_name_static());
-        cls->add_method(Method(VarType::Int, SID("hash"), {}), &Object::hash, {});
-        cls->add_method(Method(VarType::String, SID("to_string"), {}), &Object::to_string, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("hash"), {}), &Object::hash, {});
+        cls->add_method(ClassMethod(VarType::String, SID("to_string"), {}), &Object::to_string, {});
 
         register_classes_event();
         register_classes_resource();

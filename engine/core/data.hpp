@@ -28,13 +28,13 @@
 #ifndef WMOGE_DATA_HPP
 #define WMOGE_DATA_HPP
 
-#include <cstddef>
-#include <filesystem>
-
 #include "core/ref.hpp"
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
 #include "math/math_utils.hpp"
+
+#include <cstddef>
+#include <filesystem>
 
 namespace wmoge {
 

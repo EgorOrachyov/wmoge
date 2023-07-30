@@ -33,7 +33,9 @@
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 
+#include <cinttypes>
 #include <functional>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -42,47 +44,94 @@
 namespace wmoge {
 
     /**
-     * @class Property
-     * @brief Accessible object class property
+     * @class ClassMember
+     * @brief Base class for any class member (field, property, method, etc.)
      */
-    class Property final {
+    class ClassMember {
     public:
-        Property(VarType type, StringId name, StringId getter = StringId(), StringId setter = StringId());
+        ClassMember(StringId name);
 
-        const StringId& name() const { return m_name; };
-        const StringId& getter() const { return m_getter; };
-        const StringId& setter() const { return m_setter; };
-        VarType         type() const { return m_type; };
-
-        bool has_setter() const { return !m_setter.empty(); }
-        bool has_getter() const { return !m_getter.empty(); }
+        [[nodiscard]] const StringId& name() const { return m_name; };
 
     private:
+        friend class Class;
+
         StringId m_name;
+    };
+
+    /**
+     * @class ClassProperty
+     * @brief Accessible object class property
+     */
+    class ClassProperty : public ClassMember {
+    public:
+        ClassProperty(VarType type, StringId name, StringId getter = StringId(), StringId setter = StringId());
+
+        [[nodiscard]] const StringId& getter() const { return m_getter; };
+        [[nodiscard]] const StringId& setter() const { return m_setter; };
+        [[nodiscard]] VarType         type() const { return m_type; };
+
+        [[nodiscard]] bool has_setter() const { return !m_setter.empty(); }
+        [[nodiscard]] bool has_getter() const { return !m_getter.empty(); }
+
+    private:
+        friend class Class;
+
         StringId m_getter;
         StringId m_setter;
         VarType  m_type;
     };
 
     /**
+     * @class ClassField
+     * @brief Native object class filed type and access info
+     */
+    class ClassField final : public ClassProperty {
+    public:
+        ClassField(VarType type, StringId name);
+
+        [[nodiscard]] int native_size() const { return m_native_size; }
+        [[nodiscard]] int native_offset() const { return m_native_offset; }
+
+    private:
+        friend class Class;
+
+        int m_native_size   = -1;
+        int m_native_offset = -1;
+    };
+
+    /**
      * @class Method
      * @brief Callable object class public member method
      */
-    class Method final {
+    class ClassMethod final : public ClassMember {
     public:
-        using Call = std::function<int(const Method&, Object*, int, const Var*, Var&)>;
+        /**
+         * @class Call
+         * @brief Function type used to execute method on an class instance
+         */
+        using Call = std::function<int(const ClassMethod&, Object*, int, const Var*, Var&)>;
 
-        Method(VarType ret, StringId name, std::vector<StringId> args);
+        ClassMethod(VarType ret, StringId name, std::vector<StringId> args);
 
+        /**
+         * @brief Call this method on object instance
+         *
+         * @param object Object instance to call method on
+         * @param argc Number of arguments passed
+         * @param argv Array of arguments
+         * @param ret Reference to value to return result if has
+         *
+         * @return Zero-status on successful call
+         */
         int call(Object* object, int argc, const Var* argv, Var& ret) const;
 
-        const std::vector<StringId>& args_names() const { return m_args_names; }
-        const std::vector<Var>&      args_values() const { return m_args_values; }
-        const std::size_t            args_count() const { return m_args_names.size(); }
-        const StringId&              name() const { return m_name; }
-        VarType                      ret() const { return m_ret; }
+        [[nodiscard]] const std::vector<StringId>& args_names() const { return m_args_names; }
+        [[nodiscard]] const std::vector<Var>&      args_values() const { return m_args_values; }
+        [[nodiscard]] std::size_t                  args_count() const { return m_args_names.size(); }
+        [[nodiscard]] VarType                      ret() const { return m_ret; }
 
-        bool has_ret() const { return m_ret != VarType::Nil; }
+        [[nodiscard]] bool has_ret() const { return m_ret != VarType::Nil; }
 
     private:
         friend class Class;
@@ -90,7 +139,6 @@ namespace wmoge {
         Call                  m_callable;
         std::vector<StringId> m_args_names;
         std::vector<Var>      m_args_values;
-        StringId              m_name;
         VarType               m_ret;
     };
 
@@ -106,16 +154,19 @@ namespace wmoge {
      */
     class Class final {
     public:
-        bool has_super() const { return !m_super_name.empty(); }
+        [[nodiscard]] const StringId&           name() const { return m_name; }
+        [[nodiscard]] const StringId&           super_name() const { return m_super_name; }
+        [[nodiscard]] std::size_t               size() const { return m_size; }
+        [[nodiscard]] const Class*              super() const;
+        [[nodiscard]] const ClassProperty*      property(const StringId& name) const;
+        [[nodiscard]] const ClassField*         field(const StringId& name) const;
+        [[nodiscard]] const ClassMethod*        method(const StringId& name) const;
+        [[nodiscard]] std::vector<ClassMember*> members() const;
 
-        const StringId& name() const { return m_name; }
-        const StringId& super_name() const { return m_super_name; }
-        std::size_t     size() const { return m_size; }
-        const Class*    super() const;
-        const Property* property(const StringId& name) const;
-        const Method*   method(const StringId& name) const;
-        Ref<Object>     instantiate() const;
-        bool            is_inherited_from(const StringId& name) const;
+        [[nodiscard]] bool has_super() const { return !m_super_name.empty(); }
+        [[nodiscard]] bool is_inherited_from(const StringId& name) const;
+
+        [[nodiscard]] Ref<Object> instantiate() const;
 
         static Class*   class_ptr(StringId name);
         static Class*   register_class(const StringId& name, const StringId& super, std::size_t size, std::function<Object*()> instantiate);
@@ -128,25 +179,30 @@ namespace wmoge {
         Class* set_instantiate(Callable&& instantiate);
 
         template<typename T, typename... Args>
-        Class* add_method(Method method, void (T::*p_method)(Args...), const std::vector<Var>& defaults);
+        Class* add_method(ClassMethod method, void (T::*p_method)(Args...), const std::vector<Var>& defaults);
 
         template<typename T, typename R, typename... Args>
-        Class* add_method(Method method, R (T::*p_method)(Args...), const std::vector<Var>& defaults);
+        Class* add_method(ClassMethod method, R (T::*p_method)(Args...), const std::vector<Var>& defaults);
 
-        Class* add_property(Property property);
+        template<typename T, typename F>
+        Class* add_field(ClassField field, F T::*p_field, Var default_value = Var());
+
+        Class* add_property(ClassProperty property);
 
     private:
         friend class Main;
         static void register_types();
 
     private:
-        StringId                               m_name;
-        StringId                               m_super_name;
-        std::size_t                            m_size;
-        std::function<Object*()>               m_instantiate;
-        std::unordered_map<StringId, Property> m_properties;
-        std::unordered_map<StringId, Method>   m_methods;
-        std::unordered_set<StringId>           m_supers;
+        std::function<Object*()>                     m_instantiate;
+        std::unordered_map<StringId, ClassProperty*> m_properties;
+        std::unordered_map<StringId, ClassField*>    m_fields;
+        std::unordered_map<StringId, ClassMethod*>   m_methods;
+        std::unordered_set<StringId>                 m_supers;
+        std::vector<std::shared_ptr<ClassMember>>    m_members;
+        std::size_t                                  m_size;
+        StringId                                     m_name;
+        StringId                                     m_super_name;
     };
 
     template<class T>
@@ -161,11 +217,12 @@ namespace wmoge {
     }
 
     template<typename T, typename... Args>
-    Class* Class::add_method(wmoge::Method method, void (T::*p_method)(Args...), const std::vector<Var>& defaults) {
+    Class* Class::add_method(wmoge::ClassMethod method, void (T::*p_method)(Args...), const std::vector<Var>& defaults) {
         std::vector<Var> args_values(method.args_count());
-        std::copy(defaults.begin(), defaults.end(), args_values.begin() + (method.args_count() - defaults.size()));
+        std::copy(defaults.begin(), defaults.end(), args_values.begin() + int(method.args_count() - defaults.size()));
+
         method.m_args_values = std::move(args_values);
-        method.m_callable    = [=](const Method& m, Object* obj, int argc, const Var* argv, Var&) -> int {
+        method.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var&) -> int {
             assert(obj);
             static_assert(sizeof...(Args) <= 4, "methods args count support is limited");
 
@@ -199,16 +256,21 @@ namespace wmoge {
 
             return 0;
         };
-        m_methods.emplace(method.name(), std::move(method));
+
+        auto ptr_method = std::make_shared<ClassMethod>(std::move(method));
+        m_members.push_back(ptr_method);
+        m_methods.emplace(ptr_method->name(), ptr_method.get());
+
         return this;
     }
 
     template<typename T, typename R, typename... Args>
-    Class* Class::add_method(Method method, R (T::*p_method)(Args...), const std::vector<Var>& defaults) {
+    Class* Class::add_method(ClassMethod method, R (T::*p_method)(Args...), const std::vector<Var>& defaults) {
         std::vector<Var> args_values(method.args_count());
-        std::copy(defaults.begin(), defaults.end(), args_values.begin() + (method.args_count() - defaults.size()));
+        std::copy(defaults.begin(), defaults.end(), args_values.begin() + int(method.args_count() - defaults.size()));
+
         method.m_args_values = std::move(args_values);
-        method.m_callable    = [=](const Method& m, Object* obj, int argc, const Var* argv, Var& res) -> int {
+        method.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var& res) -> int {
             assert(obj);
             static_assert(sizeof...(Args) <= 4, "methods args count support is limited");
 
@@ -242,7 +304,66 @@ namespace wmoge {
 
             return 0;
         };
-        m_methods.emplace(method.name(), std::move(method));
+
+        auto ptr_method = std::make_shared<ClassMethod>(std::move(method));
+        m_members.push_back(ptr_method);
+        m_methods.emplace(ptr_method->name(), ptr_method.get());
+
+        return this;
+    }
+
+    template<typename T, typename F>
+    Class* Class::add_field(ClassField field, F T::*p_field, Var default_value) {
+        union {
+            F T::*        val_ptr;
+            std::uint64_t val_uint;
+        } field_offset;
+
+        field_offset.val_ptr = p_field;
+
+        field.m_native_size   = sizeof(F);
+        field.m_native_offset = int(field_offset.val_uint);
+        field.m_getter        = SID("__" + field.name().str() + "_getter");
+        field.m_setter        = SID("__" + field.name().str() + "_setter");
+
+        ClassMethod getter(field.type(), field.m_getter, {});
+        ClassMethod setter(field.type(), field.m_setter, {SID("value")});
+
+        getter.m_callable = [=](const ClassMethod&, Object* obj, int, const Var*, Var& res) -> int {
+            assert(obj);
+
+            T* target = (T*) obj;
+            res       = (*target.*p_field);
+
+            return 0;
+        };
+
+        setter.m_args_values = {std::move(default_value)};
+        setter.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var& res) -> int {
+            assert(obj);
+
+            const std::vector<Var>& defaults = m.args_values();
+            const Var*              argvp[1] = {argc > 0 ? &argv[0] : &defaults[0]};
+
+            T* target          = (T*) obj;
+            (*target.*p_field) = *argvp[0];
+
+            return 0;
+        };
+
+        auto ptr_getter = std::make_shared<ClassMethod>(std::move(getter));
+        auto ptr_setter = std::make_shared<ClassMethod>(std::move(setter));
+        auto ptr_field  = std::make_shared<ClassField>(field);
+
+        m_members.push_back(ptr_getter);
+        m_members.push_back(ptr_setter);
+        m_members.push_back(ptr_field);
+
+        m_methods.emplace(ptr_getter->name(), ptr_getter.get());
+        m_methods.emplace(ptr_setter->name(), ptr_setter.get());
+        m_properties.emplace(ptr_field->name(), ptr_field.get());
+        m_fields.emplace(ptr_field->name(), ptr_field.get());
+
         return this;
     }
 

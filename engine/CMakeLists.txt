@@ -292,18 +292,18 @@ add_library(wmoge STATIC
         resource/paks/resource_pak_fs.hpp
         scene/scene.cpp
         scene/scene.hpp
-        scene/scene_container.hpp
-        scene/scene_component.cpp
-        scene/scene_component.hpp
+        scene/scene_components.cpp
+        scene/scene_components.hpp
         scene/scene_manager.cpp
         scene/scene_manager.hpp
-        scene/scene_object.cpp
-        scene/scene_object.hpp
-        scene/scene_system.hpp
+        scene/scene_node.cpp
+        scene/scene_node.hpp
+        scene/scene_transform.cpp
+        scene/scene_transform.hpp
+        scene/scene_tree.cpp
+        scene/scene_tree.hpp
         scene/register_classes_scene.cpp
         scene/register_classes_scene.hpp
-        systems/system_script.cpp
-        systems/system_script.hpp
         scripting/script_instance.hpp
         scripting/script_native.cpp
         scripting/script_native.hpp

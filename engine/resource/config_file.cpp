@@ -199,10 +199,10 @@ namespace wmoge {
 
     void ConfigFile::register_class() {
         auto cls = Class::register_class<ConfigFile>();
-        cls->add_method(Method(VarType::Int, SID("get_bool"), {SID("key")}), &ConfigFile::get_bool, {});
-        cls->add_method(Method(VarType::Int, SID("get_int"), {SID("key")}), &ConfigFile::get_int, {});
-        cls->add_method(Method(VarType::Float, SID("get_float"), {SID("key")}), &ConfigFile::get_float, {});
-        cls->add_method(Method(VarType::String, SID("get_string"), {SID("key")}), &ConfigFile::get_string, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_bool"), {SID("key")}), &ConfigFile::get_bool, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_int"), {SID("key")}), &ConfigFile::get_int, {});
+        cls->add_method(ClassMethod(VarType::Float, SID("get_float"), {SID("key")}), &ConfigFile::get_float, {});
+        cls->add_method(ClassMethod(VarType::String, SID("get_string"), {SID("key")}), &ConfigFile::get_string, {});
     }
 
 }// namespace wmoge

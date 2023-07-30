@@ -237,18 +237,18 @@ namespace wmoge {
 
     void Font::register_class() {
         auto cls = Class::register_class<Font>();
-        cls->add_property(Property(VarType::String, SID("family_name"), SID("get_family_name")));
-        cls->add_method(Method(VarType::String, SID("get_family_name"), {}), &Font::get_family_name, {});
-        cls->add_property(Property(VarType::String, SID("style_name"), SID("get_style_name")));
-        cls->add_method(Method(VarType::String, SID("get_style_name"), {}), &Font::get_style_name, {});
-        cls->add_property(Property(VarType::Int, SID("height"), SID("get_height")));
-        cls->add_method(Method(VarType::Int, SID("get_height"), {}), &Font::get_height, {});
-        cls->add_property(Property(VarType::Int, SID("glyphs_in_row"), SID("get_glyphs_in_row")));
-        cls->add_method(Method(VarType::Int, SID("get_glyphs_in_row"), {}), &Font::get_glyphs_in_row, {});
-        cls->add_property(Property(VarType::Int, SID("max_width"), SID("get_max_width")));
-        cls->add_method(Method(VarType::Int, SID("get_max_width"), {}), &Font::get_max_width, {});
-        cls->add_property(Property(VarType::Int, SID("max_height"), SID("get_max_height")));
-        cls->add_method(Method(VarType::Int, SID("get_max_height"), {}), &Font::get_max_height, {});
+        cls->add_property(ClassProperty(VarType::String, SID("family_name"), SID("get_family_name")));
+        cls->add_method(ClassMethod(VarType::String, SID("get_family_name"), {}), &Font::get_family_name, {});
+        cls->add_property(ClassProperty(VarType::String, SID("style_name"), SID("get_style_name")));
+        cls->add_method(ClassMethod(VarType::String, SID("get_style_name"), {}), &Font::get_style_name, {});
+        cls->add_property(ClassProperty(VarType::Int, SID("height"), SID("get_height")));
+        cls->add_method(ClassMethod(VarType::Int, SID("get_height"), {}), &Font::get_height, {});
+        cls->add_property(ClassProperty(VarType::Int, SID("glyphs_in_row"), SID("get_glyphs_in_row")));
+        cls->add_method(ClassMethod(VarType::Int, SID("get_glyphs_in_row"), {}), &Font::get_glyphs_in_row, {});
+        cls->add_property(ClassProperty(VarType::Int, SID("max_width"), SID("get_max_width")));
+        cls->add_method(ClassMethod(VarType::Int, SID("get_max_width"), {}), &Font::get_max_width, {});
+        cls->add_property(ClassProperty(VarType::Int, SID("max_height"), SID("get_max_height")));
+        cls->add_method(ClassMethod(VarType::Int, SID("get_max_height"), {}), &Font::get_max_height, {});
     }
 
 }// namespace wmoge

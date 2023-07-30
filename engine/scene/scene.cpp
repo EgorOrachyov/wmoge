@@ -27,68 +27,25 @@
 
 #include "scene.hpp"
 
-#include "core/class.hpp"
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "scene/scene_manager.hpp"
 
 namespace wmoge {
 
-    void Scene::init() {
-        WG_AUTO_PROFILE_SCENE("Scene::init");
-
-        m_root                  = Engine::instance()->scene_manager()->make_object(SID("root"));
-        m_root->m_scene         = this;
-        m_root->m_is_in_scene   = true;
-        m_root->m_name_absolute = m_root->m_name;
-
-        m_registry = std::make_unique<SceneRegistry>();
-        m_registry->register_type<SceneObject>();
-        m_registry->register_type<SceneComponent>();
-
-        m_pfx_scene     = std::make_unique<PfxScene>();
-        m_system_script = std::make_unique<SystemScript>(this);
-    }
-
-    void Scene::shutdown() {
-        WG_AUTO_PROFILE_SCENE("Scene::shutdown");
-
-        m_root->shutdown();
-    }
-
-    void Scene::add_child(Ref<SceneObject> object) {
-        m_root->add_child(object);
-    }
-    SceneObject* Scene::get_child(int idx) {
-        return m_root->get_child(idx);
-    }
-    SceneObject* Scene::find_child(const StringId& name) {
-        WG_AUTO_PROFILE_SCENE("Scene::find_child");
-
-        if (m_root->get_name() == name) {
-            return m_root.get();
-        }
-
-        return m_root->find_child(name);
+    Scene::Scene(StringId name) {
+        m_name      = name;
+        m_tree      = std::make_unique<SceneTree>();
+        m_ecs_world = std::make_unique<EcsWorld>();
     }
 
     const StringId& Scene::get_name() {
         return m_name;
     }
-    SceneRegistry* Scene::get_registry() {
-        return m_registry.get();
+    SceneTree* Scene::get_tree() {
+        return m_tree.get();
     }
-    PfxScene* Scene::get_pfx_scene() {
-        return m_pfx_scene.get();
-    }
-    SystemScript* Scene::get_system_script() {
-        return m_system_script.get();
-    }
-
-    void Scene::register_class() {
-        auto* cls = Class::register_class<Scene>();
-        cls->add_property(Property(VarType::StringId, SID("name"), SID("get_name")));
-        cls->add_method(Method(VarType::StringId, SID("get_name"), {}), &Scene::get_name, {});
+    EcsWorld* Scene::get_ecs_world() {
+        return m_ecs_world.get();
     }
 
 }// namespace wmoge

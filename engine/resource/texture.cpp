@@ -127,13 +127,13 @@ namespace wmoge {
     }
     void Texture::register_class() {
         auto* cls = Class::register_class<Texture>();
-        cls->add_method(Method(VarType::Int, SID("get_width"), {}), &Texture::get_width, {});
-        cls->add_method(Method(VarType::Int, SID("get_height"), {}), &Texture::get_height, {});
-        cls->add_method(Method(VarType::Int, SID("get_depth"), {}), &Texture::get_depth, {});
-        cls->add_method(Method(VarType::Int, SID("get_array_slices"), {}), &Texture::get_array_slices, {});
-        cls->add_method(Method(VarType::Int, SID("get_mips"), {}), &Texture::get_mips, {});
-        cls->add_method(Method(VarType::Int, SID("get_srgb"), {}), &Texture::get_srgb, {});
-        cls->add_method(Method(VarType::Int, SID("get_compression"), {}), &Texture::get_compression, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_width"), {}), &Texture::get_width, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_height"), {}), &Texture::get_height, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_depth"), {}), &Texture::get_depth, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_array_slices"), {}), &Texture::get_array_slices, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_mips"), {}), &Texture::get_mips, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_srgb"), {}), &Texture::get_srgb, {});
+        cls->add_method(ClassMethod(VarType::Int, SID("get_compression"), {}), &Texture::get_compression, {});
     }
 
     void Texture2d::create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {

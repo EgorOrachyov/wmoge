@@ -120,12 +120,6 @@ namespace wmoge {
             auto* scene_manager = Engine::instance()->scene_manager();
             auto  scene         = scene_manager->make_scene(scene_packed->get_name());
 
-            if (!scene->m_root->on_load_from_yaml(scene_packed->m_scene_data_yaml.value()["tree"])) {
-                WG_LOG_ERROR("failed to instantiate scene " << scene_packed->get_name() << " from text (yaml) file");
-                scene_async->set_failed();
-                return 0;
-            }
-
             timer.stop();
 
             WG_LOG_INFO("instantiate scene " << scene_packed->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");

@@ -31,7 +31,6 @@
 #include "core/class.hpp"
 #include "core/object.hpp"
 #include "resource/script.hpp"
-#include "scene/scene_object.hpp"
 #include "scripting/script_instance.hpp"
 
 namespace wmoge {
@@ -47,12 +46,10 @@ namespace wmoge {
         ScriptFunctionsMask get_mask() override;
         Script*             get_script() override;
         Object*             get_owner() override;
-        SceneObject*        get_scene_object();
 
     private:
         Ref<Script>         m_script;
         Object*             m_object;
-        SceneObject*        m_scene_object;
         ScriptFunctionsMask m_mask;
     };
 
