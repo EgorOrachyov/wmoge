@@ -1,0 +1,6 @@
+<map id="wmoge::ClassMember" name="wmoge::ClassMember">
+<area shape="rect" id="node1" title="Base class for any class member (field, property, method, etc.)" alt="" coords="90,5,241,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ClassMethod.html" title=" " alt="" coords="5,80,152,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ClassProperty.html" title="Accessible object class property." alt="" coords="177,80,327,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ClassField.html" title="Native object class filed type and access info." alt="" coords="187,155,317,181"/>
+</map>

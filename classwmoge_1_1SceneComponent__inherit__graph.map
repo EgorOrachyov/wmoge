@@ -1,5 +1,0 @@
-<map id="wmoge::SceneComponent" name="wmoge::SceneComponent">
-<area shape="rect" id="node1" title="Is a base class for any component which can be attached to the scene object." alt="" coords="5,155,179,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="38,80,146,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="37,5,147,32"/>
-</map>

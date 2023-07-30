@@ -1,4 +1,0 @@
-<map id="wmoge::SceneSystem" name="wmoge::SceneSystem">
-<area shape="rect" id="node1" title="Base class for any engine system which can process objects and components." alt="" coords="5,5,156,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1SystemScript.html" title="Process scene scripts." alt="" coords="7,80,155,107"/>
-</map>

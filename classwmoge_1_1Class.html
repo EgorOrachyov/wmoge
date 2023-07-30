@@ -82,8 +82,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a98533b03a945441e777feb90d2eaecbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a98533b03a945441e777feb90d2eaecbe">has_super</a> () const</td></tr>
-<tr class="separator:a98533b03a945441e777feb90d2eaecbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b37b06870881f260106267317a878c2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a> () const</td></tr>
 <tr class="separator:a3b37b06870881f260106267317a878c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3288c6b1cdddebf5762005a0e66edeb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#ac3288c6b1cdddebf5762005a0e66edeb">super_name</a> () const</td></tr>
@@ -92,25 +90,34 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac768254b5ee96b2b1741399e55826fa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b02b29c7a4bb706657984365b46ec22"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a3b02b29c7a4bb706657984365b46ec22">super</a> () const</td></tr>
 <tr class="separator:a3b02b29c7a4bb706657984365b46ec22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eb0c99c1e26a4ef8be99bbf32cccd9a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Property.html">Property</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a4eb0c99c1e26a4ef8be99bbf32cccd9a">property</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>) const</td></tr>
-<tr class="separator:a4eb0c99c1e26a4ef8be99bbf32cccd9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa73b78dd085e979994e6c22a76865048"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Method.html">Method</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#aa73b78dd085e979994e6c22a76865048">method</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>) const</td></tr>
-<tr class="separator:aa73b78dd085e979994e6c22a76865048"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe831919b01400993752d5de852ec0a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#afe831919b01400993752d5de852ec0a3">instantiate</a> () const</td></tr>
-<tr class="separator:afe831919b01400993752d5de852ec0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4855e216cebb885c12c3d16150690f18"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1ClassProperty.html">ClassProperty</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a4855e216cebb885c12c3d16150690f18">property</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>) const</td></tr>
+<tr class="separator:a4855e216cebb885c12c3d16150690f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a297720563a1c832978a1d138fcaa15cc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1ClassField.html">ClassField</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a297720563a1c832978a1d138fcaa15cc">field</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>) const</td></tr>
+<tr class="separator:a297720563a1c832978a1d138fcaa15cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5e262e1f457d17f22305a9d7f6dc47"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1ClassMethod.html">ClassMethod</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a6e5e262e1f457d17f22305a9d7f6dc47">method</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>) const</td></tr>
+<tr class="separator:a6e5e262e1f457d17f22305a9d7f6dc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a7f5fb454dae49f73fd855ba55af18e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1ClassMember.html">ClassMember</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a6a7f5fb454dae49f73fd855ba55af18e">members</a> () const</td></tr>
+<tr class="separator:a6a7f5fb454dae49f73fd855ba55af18e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98533b03a945441e777feb90d2eaecbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a98533b03a945441e777feb90d2eaecbe">has_super</a> () const</td></tr>
+<tr class="separator:a98533b03a945441e777feb90d2eaecbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a768418c2914d088828ac57f7abb1cdfe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a768418c2914d088828ac57f7abb1cdfe">is_inherited_from</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>) const</td></tr>
 <tr class="separator:a768418c2914d088828ac57f7abb1cdfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe831919b01400993752d5de852ec0a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#afe831919b01400993752d5de852ec0a3">instantiate</a> () const</td></tr>
+<tr class="separator:afe831919b01400993752d5de852ec0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b85d628efdab8296027e5a1407accfe"><td class="memTemplParams" colspan="2">template&lt;typename Callable &gt; </td></tr>
 <tr class="memitem:a6b85d628efdab8296027e5a1407accfe"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a6b85d628efdab8296027e5a1407accfe">set_instantiate</a> (Callable &amp;&amp;<a class="el" href="classwmoge_1_1Class.html#afe831919b01400993752d5de852ec0a3">instantiate</a>)</td></tr>
 <tr class="separator:a6b85d628efdab8296027e5a1407accfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade919473e771a58e3810f678499fb580"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Args&gt; </td></tr>
-<tr class="memitem:ade919473e771a58e3810f678499fb580"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#ade919473e771a58e3810f678499fb580">add_method</a> (<a class="el" href="classwmoge_1_1Method.html">Method</a> <a class="el" href="classwmoge_1_1Class.html#aa73b78dd085e979994e6c22a76865048">method</a>, void(T::*p_method)(Args...), const std::vector&lt; <a class="el" href="classwmoge_1_1Var.html">Var</a> &gt; &amp;defaults)</td></tr>
-<tr class="separator:ade919473e771a58e3810f678499fb580"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f50e18e46e4fdd10f21f20a57dc4b9f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename R , typename... Args&gt; </td></tr>
-<tr class="memitem:a7f50e18e46e4fdd10f21f20a57dc4b9f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a7f50e18e46e4fdd10f21f20a57dc4b9f">add_method</a> (<a class="el" href="classwmoge_1_1Method.html">Method</a> <a class="el" href="classwmoge_1_1Class.html#aa73b78dd085e979994e6c22a76865048">method</a>, R(T::*p_method)(Args...), const std::vector&lt; <a class="el" href="classwmoge_1_1Var.html">Var</a> &gt; &amp;defaults)</td></tr>
-<tr class="separator:a7f50e18e46e4fdd10f21f20a57dc4b9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c8b419c38909278feaf71c412368f9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a8c8b419c38909278feaf71c412368f9f">add_property</a> (<a class="el" href="classwmoge_1_1Property.html">Property</a> <a class="el" href="classwmoge_1_1Class.html#a4eb0c99c1e26a4ef8be99bbf32cccd9a">property</a>)</td></tr>
-<tr class="separator:a8c8b419c38909278feaf71c412368f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1c32293678d6b8a80ba3afa5177b77d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Args&gt; </td></tr>
+<tr class="memitem:ae1c32293678d6b8a80ba3afa5177b77d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#ae1c32293678d6b8a80ba3afa5177b77d">add_method</a> (<a class="el" href="classwmoge_1_1ClassMethod.html">ClassMethod</a> <a class="el" href="classwmoge_1_1Class.html#a6e5e262e1f457d17f22305a9d7f6dc47">method</a>, void(T::*p_method)(Args...), const std::vector&lt; <a class="el" href="classwmoge_1_1Var.html">Var</a> &gt; &amp;defaults)</td></tr>
+<tr class="separator:ae1c32293678d6b8a80ba3afa5177b77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c3b17a889ce8f081511d28f895307d9"><td class="memTemplParams" colspan="2">template&lt;typename T , typename R , typename... Args&gt; </td></tr>
+<tr class="memitem:a0c3b17a889ce8f081511d28f895307d9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a0c3b17a889ce8f081511d28f895307d9">add_method</a> (<a class="el" href="classwmoge_1_1ClassMethod.html">ClassMethod</a> <a class="el" href="classwmoge_1_1Class.html#a6e5e262e1f457d17f22305a9d7f6dc47">method</a>, R(T::*p_method)(Args...), const std::vector&lt; <a class="el" href="classwmoge_1_1Var.html">Var</a> &gt; &amp;defaults)</td></tr>
+<tr class="separator:a0c3b17a889ce8f081511d28f895307d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af218a5a15887e43f7adaeb432c4b4025"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:af218a5a15887e43f7adaeb432c4b4025"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#af218a5a15887e43f7adaeb432c4b4025">add_field</a> (<a class="el" href="classwmoge_1_1ClassField.html">ClassField</a> <a class="el" href="classwmoge_1_1Class.html#a297720563a1c832978a1d138fcaa15cc">field</a>, F T::*p_field, <a class="el" href="classwmoge_1_1Var.html">Var</a> default_value=<a class="el" href="classwmoge_1_1Var.html">Var</a>())</td></tr>
+<tr class="separator:af218a5a15887e43f7adaeb432c4b4025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd16aa683aacb425bb401a19a6883415"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#abd16aa683aacb425bb401a19a6883415">add_property</a> (<a class="el" href="classwmoge_1_1ClassProperty.html">ClassProperty</a> <a class="el" href="classwmoge_1_1Class.html#a4855e216cebb885c12c3d16150690f18">property</a>)</td></tr>
+<tr class="separator:abd16aa683aacb425bb401a19a6883415"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -132,8 +139,44 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Storage for reflection information of particular object-hierarchy class. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7f50e18e46e4fdd10f21f20a57dc4b9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f50e18e46e4fdd10f21f20a57dc4b9f">&#9670;&nbsp;</a></span>add_method() <span class="overload">[1/2]</span></h2>
+<a id="af218a5a15887e43f7adaeb432c4b4025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af218a5a15887e43f7adaeb432c4b4025">&#9670;&nbsp;</a></span>add_field()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename F &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Class.html">Class</a> * wmoge::Class::add_field </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ClassField.html">ClassField</a>&#160;</td>
+          <td class="paramname"><em>field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">F T::*&#160;</td>
+          <td class="paramname"><em>p_field</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Var.html">Var</a>&#160;</td>
+          <td class="paramname"><em>default_value</em> = <code><a class="el" href="classwmoge_1_1Var.html">Var</a>()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c3b17a889ce8f081511d28f895307d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c3b17a889ce8f081511d28f895307d9">&#9670;&nbsp;</a></span>add_method() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +186,7 @@ template&lt;typename T , typename R , typename... Args&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Class.html">Class</a> * wmoge::Class::add_method </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Method.html">Method</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ClassMethod.html">ClassMethod</a>&#160;</td>
           <td class="paramname"><em>method</em>, </td>
         </tr>
         <tr>
@@ -168,8 +211,8 @@ template&lt;typename T , typename R , typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="ade919473e771a58e3810f678499fb580"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade919473e771a58e3810f678499fb580">&#9670;&nbsp;</a></span>add_method() <span class="overload">[2/2]</span></h2>
+<a id="ae1c32293678d6b8a80ba3afa5177b77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1c32293678d6b8a80ba3afa5177b77d">&#9670;&nbsp;</a></span>add_method() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -179,7 +222,7 @@ template&lt;typename T , typename... Args&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Class.html">Class</a> * wmoge::Class::add_method </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Method.html">wmoge::Method</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ClassMethod.html">wmoge::ClassMethod</a>&#160;</td>
           <td class="paramname"><em>method</em>, </td>
         </tr>
         <tr>
@@ -204,8 +247,8 @@ template&lt;typename T , typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a8c8b419c38909278feaf71c412368f9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c8b419c38909278feaf71c412368f9f">&#9670;&nbsp;</a></span>add_property()</h2>
+<a id="abd16aa683aacb425bb401a19a6883415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd16aa683aacb425bb401a19a6883415">&#9670;&nbsp;</a></span>add_property()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,7 +256,7 @@ template&lt;typename T , typename... Args&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Class.html">Class</a> * wmoge::Class::add_property </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Property.html">Property</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ClassProperty.html">ClassProperty</a>&#160;</td>
           <td class="paramname"><em>property</em></td><td>)</td>
           <td></td>
         </tr>
@@ -269,6 +312,24 @@ template&lt;typename T , typename... Args&gt; </div>
 <span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a297720563a1c832978a1d138fcaa15cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a297720563a1c832978a1d138fcaa15cc">&#9670;&nbsp;</a></span>field()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmoge_1_1ClassField.html">ClassField</a> * wmoge::Class::field </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -333,14 +394,31 @@ template&lt;typename T , typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="aa73b78dd085e979994e6c22a76865048"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa73b78dd085e979994e6c22a76865048">&#9670;&nbsp;</a></span>method()</h2>
+<a id="a6a7f5fb454dae49f73fd855ba55af18e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a7f5fb454dae49f73fd855ba55af18e">&#9670;&nbsp;</a></span>members()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classwmoge_1_1Method.html">Method</a> * wmoge::Class::method </td>
+          <td class="memname">std::vector&lt; <a class="el" href="classwmoge_1_1ClassMember.html">ClassMember</a> * &gt; wmoge::Class::members </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e5e262e1f457d17f22305a9d7f6dc47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5e262e1f457d17f22305a9d7f6dc47">&#9670;&nbsp;</a></span>method()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmoge_1_1ClassMethod.html">ClassMethod</a> * wmoge::Class::method </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -376,14 +454,14 @@ template&lt;typename T , typename... Args&gt; </div>
 
 </div>
 </div>
-<a id="a4eb0c99c1e26a4ef8be99bbf32cccd9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4eb0c99c1e26a4ef8be99bbf32cccd9a">&#9670;&nbsp;</a></span>property()</h2>
+<a id="a4855e216cebb885c12c3d16150690f18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4855e216cebb885c12c3d16150690f18">&#9670;&nbsp;</a></span>property()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classwmoge_1_1Property.html">Property</a> * wmoge::Class::property </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1ClassProperty.html">ClassProperty</a> * wmoge::Class::property </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>

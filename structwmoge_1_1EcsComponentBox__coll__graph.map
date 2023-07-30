@@ -1,0 +1,4 @@
+<map id="wmoge::EcsComponentBox" name="wmoge::EcsComponentBox">
+<area shape="rect" id="node1" title="Bounding volume of an object which can be used for culling." alt="" coords="5,95,185,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="18,5,173,32"/>
+</map>
