@@ -163,6 +163,7 @@
 #include "scene/scene_components.hpp"
 #include "scene/scene_manager.hpp"
 #include "scene/scene_node.hpp"
+#include "scene/scene_nodes.hpp"
 #include "scene/scene_transform.hpp"
 #include "scene/scene_tree.hpp"
 

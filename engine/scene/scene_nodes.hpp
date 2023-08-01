@@ -25,42 +25,59 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_HPP
-#define WMOGE_SCENE_HPP
+#ifndef WMOGE_SCENE_NODES_HPP
+#define WMOGE_SCENE_NODES_HPP
 
 #include "core/class.hpp"
-#include "core/fast_vector.hpp"
-#include "core/ref.hpp"
-#include "ecs/ecs_world.hpp"
-#include "platform/window.hpp"
-#include "scene/scene_transform.hpp"
-#include "scene/scene_tree.hpp"
-
-#include <memory>
+#include "scene/scene_node.hpp"
 
 namespace wmoge {
 
     /**
-     * @class Scene
-     * @brief Scene objects container representing running game state
+     * @class SceneNodeFolder
+     * @brief Scene node which exists only in editable scene to group objects together
      */
-    class Scene final : public RefCnt {
+    class SceneNodeFolder : public SceneNode {
     public:
-        Scene(StringId name = StringId());
-        ~Scene() override = default;
+        WG_OBJECT(SceneNodeFolder, SceneNode);
+    };
 
-        [[nodiscard]] const StringId&        get_name();
-        [[nodiscard]] SceneTree*             get_tree();
-        [[nodiscard]] SceneTransformManager* get_transforms();
-        [[nodiscard]] EcsWorld*              get_ecs_world();
+    /**
+     * @class SceneNodeTransform
+     * @brief Scene node representing runtime transform node in transform hierarchy
+     */
+    class SceneNodeTransform : public SceneNode {
+    public:
+        WG_OBJECT(SceneNodeTransform, SceneNode);
+    };
 
-    private:
-        StringId                               m_name;
-        std::unique_ptr<SceneTree>             m_tree;
-        std::unique_ptr<SceneTransformManager> m_transforms;
-        std::unique_ptr<EcsWorld>              m_ecs_world;
+    /**
+     * @class SceneNodePrefab
+     * @brief Scene node for an instanced sub-tree from a prefab resource
+     */
+    class SceneNodePrefab : public SceneNode {
+    public:
+        WG_OBJECT(SceneNodePrefab, SceneNode);
+    };
+
+    /**
+     * @class SceneNodeEntity
+     * @brief Scene node base for any entity object in a runtime scene
+     */
+    class SceneNodeEntity : public SceneNode {
+    public:
+        WG_OBJECT(SceneNodeEntity, SceneNode);
+    };
+
+    /**
+     * @class SceneNodeCamera
+     * @brief Scene node representing game camera for rendering
+     */
+    class SceneNodeCamera : public SceneNodeEntity {
+    public:
+        WG_OBJECT(SceneNodeCamera, SceneNodeEntity);
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_HPP
+#endif//WMOGE_SCENE_NODES_HPP

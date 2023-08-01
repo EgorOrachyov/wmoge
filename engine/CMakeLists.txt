@@ -298,6 +298,8 @@ add_library(wmoge STATIC
         scene/scene_manager.hpp
         scene/scene_node.cpp
         scene/scene_node.hpp
+        scene/scene_nodes.cpp
+        scene/scene_nodes.hpp
         scene/scene_transform.cpp
         scene/scene_transform.hpp
         scene/scene_tree.cpp

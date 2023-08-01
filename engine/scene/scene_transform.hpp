@@ -28,11 +28,10 @@
 #ifndef WMOGE_SCENE_TRANSFORM_HPP
 #define WMOGE_SCENE_TRANSFORM_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/array_view.hpp"
 #include "core/ref.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils3d.hpp"
-#include "math/transform.hpp"
 
 namespace wmoge {
 
@@ -40,15 +39,57 @@ namespace wmoge {
      * @class SceneTransform
      * @brief Single node in a hierarchy of a transformation
      */
-    class SceneTransform : public RefCnt {
+    class SceneTransform final : public RefCnt {
     public:
+        SceneTransform(class SceneTransformManager* manager);
+        SceneTransform(const Ref<SceneTransform>& parent);
+        ~SceneTransform() override;
+
+        void set_layer(int layer);
+        void set_transform(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted);
+        void add_child(const Ref<SceneTransform>& child);
+        void remove_child(const Ref<SceneTransform>& child);
+
+        void update(bool recursive = false);
+
+        [[nodiscard]] ArrayView<const Ref<SceneTransform>> get_children() const { return m_children; }
+        [[nodiscard]] SceneTransform*                      get_parent() const { return m_parent; }
+        [[nodiscard]] const Mat4x4f&                       get_lt() const { return m_lt; }
+        [[nodiscard]] const Mat4x4f&                       get_lt_inverted() const { return m_lt_inverted; }
+        [[nodiscard]] const Mat4x4f&                       get_l2w_cached() const { return m_l2w_cached; }
+        [[nodiscard]] const Mat4x4f&                       get_w2l_cached() const { return m_w2l_cached; }
+        [[nodiscard]] int                                  get_layer() const { return m_layer; }
+        [[nodiscard]] bool                                 is_dirty() const { return m_dirty; }
+        [[nodiscard]] bool                                 is_linked() const { return m_layer != -1; }
+
     private:
-        fast_vector<Ref<SceneTransform>> m_children;
-        SceneTransform*                  m_parent = nullptr;
-        Transform3d                      m_transform;
-        Mat4x4f                          m_l2w_cached = Math3d::identity();
-        Mat4x4f                          m_w2l_cached = Math3d::identity();
-        int                              m_layer      = -1;
+        std::vector<Ref<SceneTransform>> m_children;
+        class SceneTransform*            m_parent      = nullptr;
+        class SceneTransformManager*     m_manager     = nullptr;
+        Mat4x4f                          m_lt          = Math3d::identity();
+        Mat4x4f                          m_lt_inverted = Math3d::identity();
+        Mat4x4f                          m_l2w_cached  = Math3d::identity();
+        Mat4x4f                          m_w2l_cached  = Math3d::identity();
+        int                              m_layer       = -1;
+        bool                             m_dirty       = false;
+    };
+
+    /**
+     * @class SceneTransformManager
+     * @brief Manages layers of scene transforms for fast update
+     */
+    class SceneTransformManager final {
+    public:
+        ~SceneTransformManager();
+
+        using Layer = std::vector<SceneTransform*>;
+
+        void add(int layer, SceneTransform* transform);
+        void remove(int layer, SceneTransform* transform);
+
+    private:
+        std::vector<Layer> m_layers;
+        std::mutex         m_mutex;
     };
 
 }// namespace wmoge

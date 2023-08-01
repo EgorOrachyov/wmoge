@@ -51,11 +51,21 @@ namespace wmoge {
     };
 
     /**
+     * @class EcsComponentParent
+     * @brief Parent entity, for complex objects
+     */
+    struct EcsComponentParent {
+        WG_ECS_COMPONENT(EcsComponentParent, 1);
+
+        EcsEntity parent;
+    };
+
+    /**
      * @class EcsComponentSceneTransform
      * @brief Node in a relative transform hierarchy of objects
      */
     struct EcsComponentSceneTransform {
-        WG_ECS_COMPONENT(EcsComponentSceneTransform, 1);
+        WG_ECS_COMPONENT(EcsComponentSceneTransform, 2);
 
         Ref<SceneTransform> transform;
     };
@@ -65,19 +75,9 @@ namespace wmoge {
      * @brief Matrix to convert local to world coordinates of an object
      */
     struct EcsComponentLocalToWorld {
-        WG_ECS_COMPONENT(EcsComponentLocalToWorld, 2);
+        WG_ECS_COMPONENT(EcsComponentLocalToWorld, 3);
 
         Mat4x4f matrix;
-    };
-
-    /**
-     * @class EcsComponentBox
-     * @brief Bounding volume of an object which can be used for culling
-     */
-    struct EcsComponentBox {
-        WG_ECS_COMPONENT(EcsComponentBox, 3);
-
-        Aabbf box;
     };
 
     /**

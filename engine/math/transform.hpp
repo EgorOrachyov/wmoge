@@ -28,6 +28,7 @@
 #ifndef WMOGE_TRANSFORM_HPP
 #define WMOGE_TRANSFORM_HPP
 
+#include "io/yaml.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils2d.hpp"
 #include "math/math_utils3d.hpp"
@@ -71,6 +72,20 @@ namespace wmoge {
                    Math2d::translate(-m_translation);
         }
 
+        friend bool yaml_read(const YamlConstNodeRef& node, Transform2d& transform) {
+            WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
+            WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
+            WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+            return true;
+        }
+        friend bool yaml_write(YamlNodeRef node, const Transform2d& transform) {
+            WG_YAML_MAP(node);
+            WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
+            WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
+            WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+            return true;
+        }
+
     private:
         Vec2f m_translation;
         Vec2f m_scale;
@@ -96,24 +111,88 @@ namespace wmoge {
         void rotate_z(float rad) { m_rotation = Quatf(Vec3f::axis_z(), rad) * m_rotation; }
         void scale(const Vec3f& scale) { m_scale *= scale; }
 
-        Mat4x4f get_transform() {
+        [[nodiscard]] Mat4x4f get_transform() const {
             return Math3d::translate(m_translation) *
                    m_rotation.as_matrix() *
                    Math3d::scale(m_scale);
         }
 
-        Mat4x4f get_inverse_transform() {
+        [[nodiscard]] Mat4x4f get_inverse_transform() const {
             return Math3d::scale(Vec3f(1.0f, 1.0f, 1.0f) / m_scale) *
                    m_rotation.inverse().as_matrix() *
                    Math3d::translate(-m_translation);
         }
 
-        const Quatf& get_rotation() const { return m_rotation; }
-        const Vec3f& get_translation() const { return m_translation; }
-        const Vec3f& get_scale() const { return m_scale; }
+        [[nodiscard]] const Quatf& get_rotation() const { return m_rotation; }
+        [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
+        [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
+
+        friend bool yaml_read(const YamlConstNodeRef& node, Transform3d& transform) {
+            WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
+            WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
+            WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+            return true;
+        }
+        friend bool yaml_write(YamlNodeRef node, const Transform3d& transform) {
+            WG_YAML_MAP(node);
+            WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
+            WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
+            WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+            return true;
+        }
 
     private:
         Quatf m_rotation;
+        Vec3f m_translation;
+        Vec3f m_scale;
+    };
+
+    /**
+     * @class TransformEdt
+     * @brief Utility to manage 3d space transformations with euler angles
+     */
+    class TransformEdt {
+    public:
+        TransformEdt() {
+            m_scale = Vec3f(1, 1, 1);
+        }
+
+        void translate(const Vec3f& offset) { m_translation += offset; }
+        void rotate(const Vec3f& angles) { m_rotation += angles; }
+        void scale(const Vec3f& scale) { m_scale *= scale; }
+
+        [[nodiscard]] Mat4x4f get_transform() const {
+            return Math3d::translate(m_translation) *
+                   Quatf(m_rotation[0], m_rotation[1], m_rotation[2]).as_matrix() *
+                   Math3d::scale(m_scale);
+        }
+
+        [[nodiscard]] Mat4x4f get_inverse_transform() const {
+            return Math3d::scale(Vec3f(1.0f, 1.0f, 1.0f) / m_scale) *
+                   Quatf(m_rotation[0], m_rotation[1], m_rotation[2]).inverse().as_matrix() *
+                   Math3d::translate(-m_translation);
+        }
+
+        [[nodiscard]] const Vec3f& get_rotation() const { return m_rotation; }
+        [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
+        [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
+
+        friend bool yaml_read(const YamlConstNodeRef& node, TransformEdt& transform) {
+            WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
+            WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
+            WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+            return true;
+        }
+        friend bool yaml_write(YamlNodeRef node, const TransformEdt& transform) {
+            WG_YAML_MAP(node);
+            WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
+            WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
+            WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+            return true;
+        }
+
+    private:
+        Vec3f m_rotation;
         Vec3f m_translation;
         Vec3f m_scale;
     };

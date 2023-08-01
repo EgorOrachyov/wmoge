@@ -28,8 +28,9 @@
 #ifndef WMOGE_QUAT_HPP
 #define WMOGE_QUAT_HPP
 
-#include <math/mat.hpp>
-#include <math/vec.hpp>
+#include "io/yaml.hpp"
+#include "math/mat.hpp"
+#include "math/vec.hpp"
 
 namespace wmoge {
 
@@ -260,6 +261,27 @@ namespace wmoge {
             return r;
         }
 
+        Vec as_euler() const {
+            Vec angles;
+
+            // roll (x-axis rotation)
+            const T sinr_cosp = T(2) * (scalar * vec.x() + vec.y() * vec.z());
+            const T cosr_cosp = T(1) - T(2) * (vec.x() * vec.x() + vec.y() * vec.y());
+            angles[0]         = Math::atan2(sinr_cosp, cosr_cosp);
+
+            // yaw (y-axis rotation)
+            const T sinp = Math::sqrt(T(1) + T(2) * (scalar * vec.y() - vec.x() * vec.z()));
+            const T cosp = Math::sqrt(T(1) - T(2) * (scalar * vec.y() - vec.x() * vec.z()));
+            angles[1]    = T(2) * Math::atan2(sinp, cosp) - T(Math::HALF_PI) / T(2);
+
+            // pitch (z-axis rotation)
+            const T siny_cosp = T(2) * (scalar * vec.z() + vec.x() * vec.y());
+            const T cosy_cosp = T(1) - T(2) * (vec.y() * vec.y() + vec.z() * vec.z());
+            angles[2]         = Math::atan2(siny_cosp, cosy_cosp);
+
+            return angles;
+        }
+
         void axis_angle(Vec& axis, T& angle) const {
             angle = (T) 2 * Math::acos(scalar);
             T s   = Math::max((T) (1.0 - scalar * scalar), (T) 0.0);
@@ -414,6 +436,20 @@ namespace wmoge {
     inline std::ostream& operator<<(std::ostream& ostream, const TQuat<T>& quat) {
         ostream << "(" << quat.scalar << "," << quat.vec[0] << "," << quat.vec[1] << "," << quat.vec[2] << ")";
         return ostream;
+    }
+
+    template<typename T>
+    bool yaml_read(const YamlConstNodeRef& node, TQuat<T>& quat) {
+        WG_YAML_READ_AS(node, "scalar", quat.scalar);
+        WG_YAML_READ_AS(node, "vec", quat.vec);
+        return true;
+    }
+    template<typename T>
+    bool yaml_write(YamlNodeRef node, const TQuat<T>& quat) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "scalar", quat.scalar);
+        WG_YAML_WRITE_AS(node, "vec", quat.vec);
+        return true;
     }
 
 }// namespace wmoge

@@ -27,7 +27,72 @@
 
 #include "scene_node.hpp"
 
+#include "scene/scene_tree.hpp"
+
+#include <cassert>
+
 namespace wmoge {
+
+    SceneNode::SceneNode(SceneTree* tree) : m_tree(tree), m_uuid(UUID::generate()) {
+        assert(tree);
+    }
+
+    bool SceneNode::on_yaml_read(const YamlConstNodeRef& node) {
+        WG_YAML_READ_AS(node, "uuid", m_uuid);
+        WG_YAML_READ_AS(node, "name", m_name);
+        WG_YAML_READ_AS(node, "transform", m_transform);
+
+        return true;
+    }
+    bool SceneNode::on_yaml_write(YamlNodeRef node) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "uuid", m_uuid);
+        WG_YAML_WRITE_AS(node, "name", m_name);
+        WG_YAML_WRITE_AS(node, "transform", m_transform);
+
+        return true;
+    }
+
+    void SceneNode::set_transform(const TransformEdt& transform) {
+        m_transform = transform;
+        on_transformed();
+    }
+    void SceneNode::set_name(const StringId& name) {
+        m_name = name;
+        on_renamed();
+    }
+
+    void SceneNode::add_child(const Ref<SceneNode>& child) {
+        assert(child);
+        assert(child->m_parent == nullptr);
+
+        m_children.push_back(child);
+        child->m_parent = this;
+        child->on_parented();
+    }
+    void SceneNode::remove_child(const Ref<SceneNode>& child) {
+        assert(child);
+        assert(child->m_parent == this);
+
+        child->on_unparented();
+        child->m_parent = nullptr;
+        m_children.erase(std::find(m_children.begin(), m_children.end(), child));
+    }
+
+    Mat4x4f SceneNode::get_lt() const {
+        return m_transform.get_transform();
+    }
+    Mat4x4f SceneNode::get_lt_inverse() const {
+        return m_transform.get_inverse_transform();
+    }
+    Mat4x4f SceneNode::get_l2w() const {
+        const Mat4x4f matrix = get_lt();
+        return m_parent ? m_parent->get_l2w() * matrix : matrix;
+    }
+    Mat4x4f SceneNode::get_w2l() const {
+        const Mat4x4f matrix = get_lt_inverse();
+        return m_parent ? matrix * m_parent->get_w2l() : matrix;
+    }
 
     void SceneNode::register_class() {
         auto* cls = Class::register_class<SceneNode>();

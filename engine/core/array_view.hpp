@@ -46,10 +46,14 @@ namespace wmoge {
     class ArrayView {
     public:
         ArrayView() = default;
-        explicit ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}
-        explicit ArrayView(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}
+        ArrayView(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        template<typename M>
+        ArrayView(const std::vector<M>& vector) : m_data(vector.data()), m_size(vector.size()) {}
         template<std::size_t MinCapacity>
-        explicit ArrayView(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        ArrayView(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        template<typename M, std::size_t MinCapacity>
+        ArrayView(const ankerl::svector<M, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
 
         T& operator[](const int i) {
             assert(i < size());

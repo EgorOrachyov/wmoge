@@ -25,42 +25,28 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_HPP
-#define WMOGE_SCENE_HPP
-
-#include "core/class.hpp"
-#include "core/fast_vector.hpp"
-#include "core/ref.hpp"
-#include "ecs/ecs_world.hpp"
-#include "platform/window.hpp"
-#include "scene/scene_transform.hpp"
-#include "scene/scene_tree.hpp"
-
-#include <memory>
+#include "scene_nodes.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class Scene
-     * @brief Scene objects container representing running game state
-     */
-    class Scene final : public RefCnt {
-    public:
-        Scene(StringId name = StringId());
-        ~Scene() override = default;
+    void SceneNodeFolder::register_class() {
+        auto* cls = Class::register_class<SceneNodeFolder>();
+    }
 
-        [[nodiscard]] const StringId&        get_name();
-        [[nodiscard]] SceneTree*             get_tree();
-        [[nodiscard]] SceneTransformManager* get_transforms();
-        [[nodiscard]] EcsWorld*              get_ecs_world();
+    void SceneNodeTransform::register_class() {
+        auto* cls = Class::register_class<SceneNodeTransform>();
+    }
 
-    private:
-        StringId                               m_name;
-        std::unique_ptr<SceneTree>             m_tree;
-        std::unique_ptr<SceneTransformManager> m_transforms;
-        std::unique_ptr<EcsWorld>              m_ecs_world;
-    };
+    void SceneNodePrefab::register_class() {
+        auto* cls = Class::register_class<SceneNodePrefab>();
+    }
+
+    void SceneNodeEntity::register_class() {
+        auto* cls = Class::register_class<SceneNodeEntity>();
+    }
+
+    void SceneNodeCamera::register_class() {
+        auto* cls = Class::register_class<SceneNodeCamera>();
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_HPP

@@ -66,6 +66,7 @@ namespace wmoge {
 #define WG_OBJECT(name, super)                                                                        \
 public:                                                                                               \
     friend class Class;                                                                               \
+    name()           = default;                                                                       \
     ~name() override = default;                                                                       \
     static void               register_class();                                                       \
     const class Class*        class_ptr() const override { return class_ptr_static(); }               \

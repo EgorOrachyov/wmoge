@@ -27,15 +27,13 @@
 
 #include "scene.hpp"
 
-#include "debug/profiler.hpp"
-#include "scene/scene_manager.hpp"
-
 namespace wmoge {
 
     Scene::Scene(StringId name) {
-        m_name      = name;
-        m_tree      = std::make_unique<SceneTree>();
-        m_ecs_world = std::make_unique<EcsWorld>();
+        m_name       = name;
+        m_tree       = std::make_unique<SceneTree>();
+        m_transforms = std::make_unique<SceneTransformManager>();
+        m_ecs_world  = std::make_unique<EcsWorld>();
     }
 
     const StringId& Scene::get_name() {
@@ -43,6 +41,9 @@ namespace wmoge {
     }
     SceneTree* Scene::get_tree() {
         return m_tree.get();
+    }
+    SceneTransformManager* Scene::get_transforms() {
+        return m_transforms.get();
     }
     EcsWorld* Scene::get_ecs_world() {
         return m_ecs_world.get();
