@@ -193,7 +193,6 @@ var menudata={children:[
 {text:"g",url:"functions_rela.html#index_g"},
 {text:"m",url:"functions_rela.html#index_m"},
 {text:"o",url:"functions_rela.html#index_o"},
-{text:"s",url:"functions_rela.html#index_s"},
 {text:"t",url:"functions_rela.html#index_t"},
 {text:"y",url:"functions_rela.html#index_y"}]}]}]},
 {text:"Files",url:"files.html",children:[

@@ -1,0 +1,4 @@
+<map id="wmoge::EcsComponentParent" name="wmoge::EcsComponentParent">
+<area shape="rect" id="node1" title="Parent entity, for complex objects." alt="" coords="5,95,201,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1EcsEntity.html" title="Handle for a ecs entity." alt="" coords="41,5,165,32"/>
+</map>

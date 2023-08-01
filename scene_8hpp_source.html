@@ -104,45 +104,51 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ref_8hpp.html">core/ref.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ecs__world_8hpp.html">ecs/ecs_world.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="window_8hpp.html">platform/window.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__tree_8hpp.html">scene/scene_tree.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classwmoge_1_1Scene.html">   46</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Scene.html">Scene</a> final : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1RefCnt.html">RefCnt</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classwmoge_1_1Scene.html#af8e7c8e04de0ce62c78cd951a9c5c3ed">Scene</a>(<a class="code" href="classwmoge_1_1StringId.html">StringId</a> name = <a class="code" href="classwmoge_1_1StringId.html">StringId</a>());</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1Scene.html#a62e7e25b0c78d245e9d7b1201cdf699f">   49</a></span>&#160;        <a class="code" href="classwmoge_1_1Scene.html#a62e7e25b0c78d245e9d7b1201cdf699f">~Scene</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a>&amp; <a class="code" href="classwmoge_1_1Scene.html#aacdffbf8aa43451036095978ac19854b">get_name</a>();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1SceneTree.html">SceneTree</a>*      <a class="code" href="classwmoge_1_1Scene.html#a736c22788608f281bd3b9d428d2bebdb">get_tree</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1EcsWorld.html">EcsWorld</a>*       <a class="code" href="classwmoge_1_1Scene.html#a53da6dd463450a9efa03f0a8d965de1a">get_ecs_world</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="classwmoge_1_1StringId.html">StringId</a>                   m_name;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::unique_ptr&lt;SceneTree&gt; m_tree;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::unique_ptr&lt;EcsWorld&gt;  m_ecs_world;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_SCENE_HPP</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__transform_8hpp.html">scene/scene_transform.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__tree_8hpp.html">scene/scene_tree.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1Scene.html">   47</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Scene.html">Scene</a> final : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1RefCnt.html">RefCnt</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="classwmoge_1_1Scene.html#af8e7c8e04de0ce62c78cd951a9c5c3ed">Scene</a>(<a class="code" href="classwmoge_1_1StringId.html">StringId</a> name = <a class="code" href="classwmoge_1_1StringId.html">StringId</a>());</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classwmoge_1_1Scene.html#a62e7e25b0c78d245e9d7b1201cdf699f">   50</a></span>&#160;        <a class="code" href="classwmoge_1_1Scene.html#a62e7e25b0c78d245e9d7b1201cdf699f">~Scene</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a>&amp;        <a class="code" href="classwmoge_1_1Scene.html#aacdffbf8aa43451036095978ac19854b">get_name</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1SceneTree.html">SceneTree</a>*             <a class="code" href="classwmoge_1_1Scene.html#a736c22788608f281bd3b9d428d2bebdb">get_tree</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1SceneTransformManager.html">SceneTransformManager</a>* <a class="code" href="classwmoge_1_1Scene.html#af02f165e88e7f4b111883d6b706a97c1">get_transforms</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        [[nodiscard]] <a class="code" href="classwmoge_1_1EcsWorld.html">EcsWorld</a>*              <a class="code" href="classwmoge_1_1Scene.html#a53da6dd463450a9efa03f0a8d965de1a">get_ecs_world</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="classwmoge_1_1StringId.html">StringId</a>                               m_name;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        std::unique_ptr&lt;SceneTree&gt;             m_tree;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::unique_ptr&lt;SceneTransformManager&gt; m_transforms;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        std::unique_ptr&lt;EcsWorld&gt;              m_ecs_world;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    };</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_SCENE_HPP</span></div>
 <div class="ttc" id="aclass_8hpp_html"><div class="ttname"><a href="class_8hpp.html">class.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1EcsWorld_html"><div class="ttname"><a href="classwmoge_1_1EcsWorld.html">wmoge::EcsWorld</a></div><div class="ttdoc">Container which manages created entities and components.</div><div class="ttdef"><b>Definition:</b> ecs_world.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1RefCnt_html"><div class="ttname"><a href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></div><div class="ttdef"><b>Definition:</b> ref.hpp:38</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneTransformManager_html"><div class="ttname"><a href="classwmoge_1_1SceneTransformManager.html">wmoge::SceneTransformManager</a></div><div class="ttdoc">Manages layers of scene transforms for fast update.</div><div class="ttdef"><b>Definition:</b> scene_transform.hpp:81</div></div>
 <div class="ttc" id="aclasswmoge_1_1SceneTree_html"><div class="ttname"><a href="classwmoge_1_1SceneTree.html">wmoge::SceneTree</a></div><div class="ttdoc">Editable tree representing static version of all scene game objects.</div><div class="ttdef"><b>Definition:</b> scene_tree.hpp:40</div></div>
-<div class="ttc" id="aclasswmoge_1_1Scene_html"><div class="ttname"><a href="classwmoge_1_1Scene.html">wmoge::Scene</a></div><div class="ttdoc">Scene objects container representing running game state.</div><div class="ttdef"><b>Definition:</b> scene.hpp:46</div></div>
-<div class="ttc" id="aclasswmoge_1_1Scene_html_a53da6dd463450a9efa03f0a8d965de1a"><div class="ttname"><a href="classwmoge_1_1Scene.html#a53da6dd463450a9efa03f0a8d965de1a">wmoge::Scene::get_ecs_world</a></div><div class="ttdeci">EcsWorld * get_ecs_world()</div><div class="ttdef"><b>Definition:</b> scene.cpp:47</div></div>
+<div class="ttc" id="aclasswmoge_1_1Scene_html"><div class="ttname"><a href="classwmoge_1_1Scene.html">wmoge::Scene</a></div><div class="ttdoc">Scene objects container representing running game state.</div><div class="ttdef"><b>Definition:</b> scene.hpp:47</div></div>
+<div class="ttc" id="aclasswmoge_1_1Scene_html_a53da6dd463450a9efa03f0a8d965de1a"><div class="ttname"><a href="classwmoge_1_1Scene.html#a53da6dd463450a9efa03f0a8d965de1a">wmoge::Scene::get_ecs_world</a></div><div class="ttdeci">EcsWorld * get_ecs_world()</div><div class="ttdef"><b>Definition:</b> scene.cpp:48</div></div>
 <div class="ttc" id="aclasswmoge_1_1Scene_html_a62e7e25b0c78d245e9d7b1201cdf699f"><div class="ttname"><a href="classwmoge_1_1Scene.html#a62e7e25b0c78d245e9d7b1201cdf699f">wmoge::Scene::~Scene</a></div><div class="ttdeci">~Scene() override=default</div></div>
-<div class="ttc" id="aclasswmoge_1_1Scene_html_a736c22788608f281bd3b9d428d2bebdb"><div class="ttname"><a href="classwmoge_1_1Scene.html#a736c22788608f281bd3b9d428d2bebdb">wmoge::Scene::get_tree</a></div><div class="ttdeci">SceneTree * get_tree()</div><div class="ttdef"><b>Definition:</b> scene.cpp:44</div></div>
-<div class="ttc" id="aclasswmoge_1_1Scene_html_aacdffbf8aa43451036095978ac19854b"><div class="ttname"><a href="classwmoge_1_1Scene.html#aacdffbf8aa43451036095978ac19854b">wmoge::Scene::get_name</a></div><div class="ttdeci">const StringId &amp; get_name()</div><div class="ttdef"><b>Definition:</b> scene.cpp:41</div></div>
-<div class="ttc" id="aclasswmoge_1_1Scene_html_af8e7c8e04de0ce62c78cd951a9c5c3ed"><div class="ttname"><a href="classwmoge_1_1Scene.html#af8e7c8e04de0ce62c78cd951a9c5c3ed">wmoge::Scene::Scene</a></div><div class="ttdeci">Scene(StringId name=StringId())</div><div class="ttdef"><b>Definition:</b> scene.cpp:35</div></div>
+<div class="ttc" id="aclasswmoge_1_1Scene_html_a736c22788608f281bd3b9d428d2bebdb"><div class="ttname"><a href="classwmoge_1_1Scene.html#a736c22788608f281bd3b9d428d2bebdb">wmoge::Scene::get_tree</a></div><div class="ttdeci">SceneTree * get_tree()</div><div class="ttdef"><b>Definition:</b> scene.cpp:42</div></div>
+<div class="ttc" id="aclasswmoge_1_1Scene_html_aacdffbf8aa43451036095978ac19854b"><div class="ttname"><a href="classwmoge_1_1Scene.html#aacdffbf8aa43451036095978ac19854b">wmoge::Scene::get_name</a></div><div class="ttdeci">const StringId &amp; get_name()</div><div class="ttdef"><b>Definition:</b> scene.cpp:39</div></div>
+<div class="ttc" id="aclasswmoge_1_1Scene_html_af02f165e88e7f4b111883d6b706a97c1"><div class="ttname"><a href="classwmoge_1_1Scene.html#af02f165e88e7f4b111883d6b706a97c1">wmoge::Scene::get_transforms</a></div><div class="ttdeci">SceneTransformManager * get_transforms()</div><div class="ttdef"><b>Definition:</b> scene.cpp:45</div></div>
+<div class="ttc" id="aclasswmoge_1_1Scene_html_af8e7c8e04de0ce62c78cd951a9c5c3ed"><div class="ttname"><a href="classwmoge_1_1Scene.html#af8e7c8e04de0ce62c78cd951a9c5c3ed">wmoge::Scene::Scene</a></div><div class="ttdeci">Scene(StringId name=StringId())</div><div class="ttdef"><b>Definition:</b> scene.cpp:32</div></div>
 <div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:43</div></div>
 <div class="ttc" id="aecs__world_8hpp_html"><div class="ttname"><a href="ecs__world_8hpp.html">ecs_world.hpp</a></div></div>
 <div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 <div class="ttc" id="aref_8hpp_html"><div class="ttname"><a href="ref_8hpp.html">ref.hpp</a></div></div>
+<div class="ttc" id="ascene__transform_8hpp_html"><div class="ttname"><a href="scene__transform_8hpp.html">scene_transform.hpp</a></div></div>
 <div class="ttc" id="ascene__tree_8hpp_html"><div class="ttname"><a href="scene__tree_8hpp.html">scene_tree.hpp</a></div></div>
 <div class="ttc" id="awindow_8hpp_html"><div class="ttname"><a href="window_8hpp.html">window.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

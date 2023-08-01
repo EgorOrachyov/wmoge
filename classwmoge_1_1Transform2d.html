@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classwmoge_1_1Transform2d-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::Transform2d Class Reference</div>  </div>
@@ -104,6 +105,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3c3ef028feccf050e8281810ca08f026"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97be2ae4ff0340f394b1431bebc1793e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a4b09e8859cd0a654c39347f4b8f80c95">Mat3x3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Transform2d.html#a97be2ae4ff0340f394b1431bebc1793e">get_inverse_transform</a> () const</td></tr>
 <tr class="separator:a97be2ae4ff0340f394b1431bebc1793e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aed8b205cac3b36141bfcd0d2c8382d97"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Transform2d.html#aed8b205cac3b36141bfcd0d2c8382d97">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="classwmoge_1_1Transform2d.html">Transform2d</a> &amp;transform)</td></tr>
+<tr class="separator:aed8b205cac3b36141bfcd0d2c8382d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1636a93bb3929ee3ebd61ed0f2811764"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Transform2d.html#a1636a93bb3929ee3ebd61ed0f2811764">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="classwmoge_1_1Transform2d.html">Transform2d</a> &amp;transform)</td></tr>
+<tr class="separator:a1636a93bb3929ee3ebd61ed0f2811764"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility to manage 2d space transformations. </p>
@@ -409,6 +417,79 @@ Public Member Functions</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="aed8b205cac3b36141bfcd0d2c8382d97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8b205cac3b36141bfcd0d2c8382d97">&#9670;&nbsp;</a></span>yaml_read</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool yaml_read </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Transform2d.html">Transform2d</a> &amp;&#160;</td>
+          <td class="paramname"><em>transform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1636a93bb3929ee3ebd61ed0f2811764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1636a93bb3929ee3ebd61ed0f2811764">&#9670;&nbsp;</a></span>yaml_write</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool yaml_write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Transform2d.html">Transform2d</a> &amp;&#160;</td>
+          <td class="paramname"><em>transform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
