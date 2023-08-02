@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "cmd_stream.hpp"
+#include "callback_stream.hpp"
 
 #include "debug/profiler.hpp"
 
@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    bool CmdStream::consume() {
+    bool CallbackStream::consume() {
         std::function<void()> cmd;
         {
             WG_AUTO_PROFILE_CORE("CmdStream::wait_for_cmd");
@@ -55,7 +55,7 @@ namespace wmoge {
         return true;
     }
 
-    void CmdStream::wait() {
+    void CallbackStream::wait() {
         WG_AUTO_PROFILE_CORE("CmdStream::wait");
 
         std::atomic_bool marker{false};
@@ -69,7 +69,7 @@ namespace wmoge {
         m_cv.wait(lock, [&]() { return marker.load(); });
     }
 
-    void CmdStream::push_close() {
+    void CallbackStream::push_close() {
         WG_AUTO_PROFILE_CORE("CmdStream::push_close");
 
         std::lock_guard guard(m_mutex);

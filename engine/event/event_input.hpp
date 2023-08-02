@@ -38,11 +38,19 @@
 
 namespace wmoge {
 
+    /**
+     * @class EventInput
+     * @brief Base class for input events
+     */
     class EventInput : public Event {
     public:
         WG_EVENT(EventInput, Event)
     };
 
+    /**
+     * @class EventMouse
+     * @brief Mouse input
+     */
     class EventMouse final : public EventInput {
     public:
         WG_EVENT(EventMouse, EventInput)
@@ -55,6 +63,10 @@ namespace wmoge {
         InputMouseButton button;
     };
 
+    /**
+     * @class EventKeyboard
+     * @brief Keyboard input
+     */
     class EventKeyboard final : public EventInput {
     public:
         WG_EVENT(EventKeyboard, EventInput)
@@ -66,6 +78,10 @@ namespace wmoge {
         std::string      text;
     };
 
+    /**
+     * @class EventJoystick
+     * @brief Joystick input
+     */
     class EventJoystick final : public EventInput {
     public:
         WG_EVENT(EventJoystick, EventInput)
@@ -75,6 +91,10 @@ namespace wmoge {
         int           button;
     };
 
+    /**
+     * @class EventGamepad
+     * @brief Gamepad mapped input
+     */
     class EventGamepad final : public EventInput {
     public:
         WG_EVENT(EventGamepad, EventInput)
@@ -84,6 +104,10 @@ namespace wmoge {
         int           button;
     };
 
+    /**
+     * @class EventDrop
+     * @brief Drop input for desktop
+     */
     class EventDrop final : public EventInput {
     public:
         WG_EVENT(EventDrop, EventInput);

@@ -221,13 +221,13 @@ namespace wmoge {
         engine->application()->on_init();
 
         if (exit) {
-            engine->event_manager()->subscribe(make_listener<EventWindow>([](const EventWindow& event) {
+            engine->event_manager()->subscribe<EventWindow>([](const EventWindow& event) {
                 auto engine = Engine::instance();
                 if (event.window == engine->window_manager()->primary_window() &&
                     event.notification == WindowNotification::CloseRequested)
                     engine->request_close();
                 return false;
-            }));
+            });
 
             WG_LOG_INFO("configure exit on primary window close");
         }
@@ -267,11 +267,13 @@ namespace wmoge {
         // Flush commands to be executed on main
         m_main_queue->flush();
 
-        // Process events, do it twice since action manager can push new
-        m_event_manager->update();
-        m_action_manager->update();
-        m_event_manager->update();
+        // Flush pending events from last frame
+        m_event_manager->flush();
 
+        // Dispatch action manager events
+        m_action_manager->update();
+
+        // Process scene
         m_scene_manager->on_update();
 
         // After flush and before swap we have a lot of time, which will be used
@@ -315,7 +317,7 @@ namespace wmoge {
         m_main_queue->flush();
         m_console->shutdown();
         m_scene_manager->shutdown();
-        m_event_manager->shutdown();
+        m_event_manager->flush();
 
         m_lua_script_system.reset();
         m_scene_manager.reset();

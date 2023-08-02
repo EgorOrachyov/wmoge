@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    GfxWorker::GfxWorker(CmdStream* cmd_stream) {
+    GfxWorker::GfxWorker(CallbackStream* cmd_stream) {
         assert(cmd_stream);
 
         m_stream = cmd_stream;

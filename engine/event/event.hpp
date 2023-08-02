@@ -38,7 +38,6 @@
 namespace wmoge {
 
     /**
-     * @class EventType
      * @brief Type to identify different events
      */
     using EventType = StringId;

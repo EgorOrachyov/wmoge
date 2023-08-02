@@ -28,7 +28,7 @@
 #ifndef WMOGE_GFX_CTX_WRAPPER_HPP
 #define WMOGE_GFX_CTX_WRAPPER_HPP
 
-#include "core/cmd_stream.hpp"
+#include "core/callback_stream.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/threaded/gfx_ctx_threaded.hpp"
 
@@ -100,7 +100,7 @@ namespace wmoge {
 
     private:
         GfxCtxThreaded* m_ctx    = nullptr;
-        CmdStream*      m_stream = nullptr;
+        CallbackStream* m_stream = nullptr;
         Mat4x4f         m_clip_matrix;
         GfxCtxType      m_ctx_type;
     };

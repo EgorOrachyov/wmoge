@@ -117,7 +117,7 @@ namespace wmoge {
                 event->resource_id  = name;
                 event->resource_ref = resource;
                 event->notification = ResourceNotification::Loaded;
-                Engine::instance()->event_manager()->dispatch(event);
+                Engine::instance()->event_manager()->dispatch_deferred(event);
 
                 std::lock_guard guard(m_mutex);
                 m_resources[name] = resource;
@@ -138,7 +138,7 @@ namespace wmoge {
                 auto event          = make_event<EventResource>();
                 event->resource_id  = name;
                 event->notification = ResourceNotification::FailedLoad;
-                Engine::instance()->event_manager()->dispatch(event);
+                Engine::instance()->event_manager()->dispatch_deferred(event);
 
                 async_op->set_failed();
                 WG_LOG_ERROR("failed load resource " << name);

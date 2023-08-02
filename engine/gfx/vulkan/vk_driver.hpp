@@ -103,7 +103,7 @@ namespace wmoge {
         std::size_t            frame_number() const override { return m_frame_number.load(); }
         bool                   on_gfx_thread() const override { return m_thread_id == std::this_thread::get_id(); }
         GfxShaderLang          shader_lang() const override { return GfxShaderLang::GlslVk450; }
-        CmdStream*             cmd_stream() override { return m_driver_cmd_stream.get(); }
+        CallbackStream*        cmd_stream() override { return m_driver_cmd_stream.get(); }
         GfxDriverWrapper*      driver_wrapper() { return m_driver_wrapper.get(); }
         GfxCtxWrapper*         ctx_immediate_wrapper() { return m_ctx_immediate_wrapper.get(); }
         CallbackQueue*         release_queue() { return &m_deferred_release[m_index]; }
@@ -179,7 +179,7 @@ namespace wmoge {
         std::unique_ptr<GfxDriverWrapper>  m_driver_wrapper;
         std::unique_ptr<GfxCtxWrapper>     m_ctx_immediate_wrapper;
         std::unique_ptr<GfxWorker>         m_driver_worker;
-        std::unique_ptr<CmdStream>         m_driver_cmd_stream;
+        std::unique_ptr<CallbackStream>    m_driver_cmd_stream;
         std::unique_ptr<VKWindowManager>   m_window_manager;
         std::unique_ptr<VKQueues>          m_queues;
         std::unique_ptr<VKMemManager>      m_mem_manager;

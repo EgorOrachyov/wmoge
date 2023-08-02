@@ -49,8 +49,9 @@ namespace wmoge {
 
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
 
-        if (m_window_event && Engine::instance()->event_manager())
+        if (m_window_event.is_valid() && Engine::instance()->event_manager()) {
             Engine::instance()->event_manager()->unsubscribe(m_window_event);
+        }
 
         for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
             if (m_acquire_semaphore[i]) {
@@ -110,15 +111,13 @@ namespace wmoge {
     void VKWindow::subscribe() {
         WG_AUTO_PROFILE_VULKAN("VKWindow::subscribe");
 
-        m_window_event = make_listener<EventWindow>([=](const EventWindow& event) {
+        m_window_event = Engine::instance()->event_manager()->subscribe<EventWindow>([=](const EventWindow& event) {
             if (event.window == m_window && event.notification == WindowNotification::FramebufferResized) {
                 m_requested_extent.width  = m_window->fbo_width();
                 m_requested_extent.height = m_window->fbo_height();
             }
             return false;
         });
-
-        Engine::instance()->event_manager()->subscribe(m_window_event);
     }
     void VKWindow::select_properties() {
         WG_AUTO_PROFILE_VULKAN("VKWindow::select_properties");

@@ -104,10 +104,10 @@ namespace wmoge {
         void begin_frame() override;
         void end_frame() override;
 
-        [[nodiscard]] const Mat4x4f& clip_matrix() const override;
-        [[nodiscard]] GfxCtxType     ctx_type() const override;
-        [[nodiscard]] CmdStream*     cmd_stream() override;
-        [[nodiscard]] bool           check_thread_valid();
+        [[nodiscard]] const Mat4x4f&  clip_matrix() const override;
+        [[nodiscard]] GfxCtxType      ctx_type() const override;
+        [[nodiscard]] CallbackStream* cmd_stream() override;
+        [[nodiscard]] bool            check_thread_valid();
 
     public:
         VkCommandBuffer cmd_begin() { return m_cmd_manager->begin_buffer(); }

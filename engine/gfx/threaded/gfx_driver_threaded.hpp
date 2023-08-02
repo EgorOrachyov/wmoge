@@ -28,7 +28,7 @@
 #ifndef WMOGE_GFX_DRIVER_THREADED_HPP
 #define WMOGE_GFX_DRIVER_THREADED_HPP
 
-#include "core/cmd_stream.hpp"
+#include "core/callback_stream.hpp"
 #include "gfx/gfx_driver.hpp"
 
 namespace wmoge {
@@ -47,7 +47,7 @@ namespace wmoge {
     public:
         ~GfxDriverThreaded() override = default;
 
-        virtual CmdStream* cmd_stream() = 0;
+        virtual CallbackStream* cmd_stream() = 0;
     };
 
 }// namespace wmoge

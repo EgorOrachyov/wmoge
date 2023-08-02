@@ -25,30 +25,75 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "event_listener.hpp"
+#ifndef WMOGE_CALLBACK_STREAM_HPP
+#define WMOGE_CALLBACK_STREAM_HPP
 
-#include "core/engine.hpp"
-#include "core/log.hpp"
-#include "event/event_manager.hpp"
+#include <atomic>
+#include <condition_variable>
+#include <functional>
+#include <mutex>
+#include <queue>
 
 namespace wmoge {
 
-    EventListener::EventListener(EventType event_type, EventCallback callback, class Object* target)
-        : m_callback(std::move(callback)), m_event_type(event_type), m_target(target) {
+    /**
+     * @class CallbackStream
+     * @brief Thread-safe unbound multiple-producers single consumer callback stream
+     */
+    class CallbackStream {
+    public:
+        CallbackStream()                 = default;
+        CallbackStream(CallbackStream&)  = delete;
+        CallbackStream(CallbackStream&&) = delete;
+        ~CallbackStream()                = default;
+
+        /** @brief Consumes a single command and returns true on success */
+        bool consume();
+
+        /** @brief Blocks execution until all submitted commands at this moment are processed */
+        void wait();
+
+        /** @brief Push close for a consumer thread */
+        void push_close();
+
+        /**
+         * @brief Push callback to be consumed
+         *
+         * @tparam Callable Type of object which can be called without arguments
+         * @param callable Object to be called on consume
+         */
+        template<typename Callable>
+        void push(Callable&& callable);
+
+        /**
+         * @brief Push callback to be consumed and wait until consumed
+         *
+         * @tparam Callable Type of object which can be called without arguments
+         * @param callable Object to be called on consume
+         */
+        template<typename Callable>
+        void push_and_wait(Callable&& callable);
+
+    private:
+        std::queue<std::function<void()>> m_queue;
+        std::mutex                        m_mutex;
+        std::condition_variable           m_cv;
+        std::atomic_bool                  m_is_closed{false};
+    };
+
+    template<typename Callable>
+    void CallbackStream::push(Callable&& callable) {
+        std::lock_guard guard(m_mutex);
+        m_queue.emplace(std::forward<Callable>(callable));
+        m_cv.notify_all();
     }
 
-    bool EventListener::on_event(const Ref<Event>& event) {
-        return m_callback(event);
-    }
-
-    void EventListener::unsubscribe() {
-        Engine::instance()->event_manager()->unsubscribe(Ref<EventListener>(this));
-    }
-    void EventListener::pause() {
-        m_paused = true;
-    }
-    void EventListener::resume() {
-        m_paused = false;
+    template<typename Callable>
+    void CallbackStream::push_and_wait(Callable&& callable) {
+        push(std::forward<Callable>(callable));
+        wait();
     }
 
 }// namespace wmoge
+
+#endif//WMOGE_CALLBACK_STREAM_HPP

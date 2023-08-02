@@ -29,96 +29,60 @@
 #define WMOGE_EVENT_LISTENER_HPP
 
 #include "core/log.hpp"
+#include "core/string_utils.hpp"
 #include "event/event.hpp"
 
+#include <cinttypes>
 #include <functional>
 
 namespace wmoge {
 
     /**
-     * @class EventCallback
      * @brief Listener function called on event
      */
     using EventCallback = std::function<bool(const Ref<Event>& event)>;
 
     /**
-     * @class EventListener
-     * @brief Particular event listener with action to perform on event
+     * @class EventListenerHnd
+     * @brief Handle to track event listener
      */
-    class EventListener : public RefCnt {
-    public:
-        EventListener(EventType event_type, EventCallback callback, class Object* target = nullptr);
-        ~EventListener() override = default;
+    struct EventListenerHnd {
+        std::int32_t value = -1;
 
-        virtual bool on_event(const Ref<Event>& event);
+        bool operator==(const EventListenerHnd& other) const { return value == other.value; }
+        bool operator!=(const EventListenerHnd& other) const { return value != other.value; }
 
-        void unsubscribe();
-        void pause();
-        void resume();
+        [[nodiscard]] bool is_valid() const { return value != -1; }
+        [[nodiscard]] bool is_invalid() const { return value == -1; }
 
-        [[nodiscard]] const EventType& type() const { return m_event_type; }
-        [[nodiscard]] class Object*    target() const { return m_target; }
-        [[nodiscard]] bool             paused() const { return m_paused; }
-        [[nodiscard]] bool             connected() const { return m_connected; }
-
-    private:
-        friend class EventManager;
-        friend class Object;
-
-        EventCallback m_callback;
-        EventType     m_event_type;
-        class Object* m_target;
-        bool          m_paused    = false;
-        bool          m_connected = false;
+        [[nodiscard]] std::string to_string() const { return StringUtils::from_int(value); }
     };
 
-    /**
-     * @brief Makes new event listener from method bind
-     *
-     * @tparam E Type of event
-     * @tparam C Type of object to call
-     *
-     * @param callable Callable object to process event
-     *
-     * @return New listener
-     */
-    template<typename E, typename C>
-    inline Ref<EventListener> make_listener(C callable) {
-        EventCallback callback = [c = std::move(callable)](const Ref<Event>& event) {
-            const E* casted_event = dynamic_cast<const E*>(event.get());
-            if (!casted_event) {
-                WG_LOG_ERROR("failed to cast event to expected type");
-                return false;
-            }
-            return c(*casted_event);
-        };
-        return make_ref<EventListener>(E::type_static(), std::move(callback));
-    }
+    static_assert(sizeof(EventListenerHnd) == sizeof(std::int32_t), "Must fit 32bit word");
 
     /**
-     * @brief Makes new event listener from object method bind
-     *
-     * @tparam T Type of object to bind
-     * @tparam E Type of event
-     *
-     * @param target Object instance to bind
-     * @param method_pointer Object method
-     *
-     * @return New listener
+     * @class EventListener
+     * @brief Struct holding info about a particular listener
      */
-    template<typename T, typename E>
-    inline Ref<EventListener> make_listener(T* target, bool (T::*method_pointer)(const E&)) {
-        EventCallback callback = [target, method_pointer](const Ref<Event>& event) {
-            const E* casted_event = dynamic_cast<const E*>(event.get());
-            if (!casted_event) {
-                WG_LOG_ERROR("failed to cast event to expected type");
-                return false;
-            }
-            return (*target.*method_pointer)(*casted_event);
-        };
-        return make_ref<EventListener>(E::type_static(), std::move(callback), target);
-    }
+    struct EventListener {
+        EventCallback    callback;
+        EventType        type;
+        EventListenerHnd hnd;
+        bool             paused = false;
+    };
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::EventListenerHnd> {
+    public:
+        std::size_t operator()(const wmoge::EventListenerHnd& hnd) const {
+            return std::hash<int>()(hnd.value);
+        }
+    };
+
+}// namespace std
 
 #endif//WMOGE_EVENT_LISTENER_HPP

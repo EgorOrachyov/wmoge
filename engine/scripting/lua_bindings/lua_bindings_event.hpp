@@ -49,16 +49,17 @@ namespace wmoge {
         }
     };
 
-    struct LuaEventListener : public LuaRefCnt {
+    struct LuaEventListenerHnd {
         void unsubscribe() {
-            cast_unsafe<EventListener>()->unsubscribe();
+            Engine::instance()->event_manager()->unsubscribe(hnd);
+            hnd = EventListenerHnd();
         }
         void pause() {
-            cast_unsafe<EventListener>()->pause();
         }
         void resume() {
-            cast_unsafe<EventListener>()->resume();
         }
+
+        EventListenerHnd hnd;
     };
 
     struct LuaEventWindow : public LuaEvent {

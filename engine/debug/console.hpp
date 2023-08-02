@@ -178,8 +178,8 @@ namespace wmoge {
         std::vector<std::string>       m_to_process;
         std::recursive_mutex           m_mutex;
 
-        Ref<EventListener> m_actions_listener;
-        Ref<EventListener> m_keyboard_listener;
+        EventListenerHnd m_actions_listener;
+        EventListenerHnd m_keyboard_listener;
 
         Ref<Font> m_console_font;
         Color4f   m_color_back       = Color::from_hex4(0x000000ee);

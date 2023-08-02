@@ -26,6 +26,7 @@
 /**********************************************************************************/
 
 #include "event_manager.hpp"
+
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 
@@ -33,100 +34,125 @@
 
 namespace wmoge {
 
-    void EventManager::subscribe(const Ref<EventListener>& listener) {
-        assert(listener);
-        assert(!listener->connected());
-
-        if (!listener) {
-            WG_LOG_ERROR("passed null listener");
-            return;
-        }
-
-        if (listener->connected()) {
-            WG_LOG_ERROR("passed listener already connected");
-            return;
-        }
-
-        std::lock_guard guard(m_mutex);
-        listener->m_connected = true;
-        m_pending_add.push_back(listener);
+    EventManager::EventManager() : m_listeners_pool(sizeof(EventListener)) {
     }
 
-    void EventManager::unsubscribe(const Ref<EventListener>& listener) {
-        assert(listener);
-        assert(listener->connected());
+    EventManager::~EventManager() {
+#ifdef WG_DEBUG
+        if (!m_hnd_to_listener.empty()) {
+            WG_LOG_INFO("not explicitly unsubscribed count=" << m_hnd_to_listener.size());
+        }
+#endif
 
-        if (!listener) {
-            WG_LOG_ERROR("passed null listener");
-            return;
+        for (auto [hnd, listener] : m_hnd_to_listener) {
+            listener->~EventListener();
+            m_listeners_pool.free(listener);
         }
 
-        if (!listener->connected()) {
-            WG_LOG_ERROR("attempt to unsubscribe unconnected listener");
-            return;
-        }
+        m_event_to_listener.clear();
+        m_hnd_to_listener.clear();
+    }
 
+    EventListenerHnd EventManager::subscribe(const EventType& event_type, EventCallback callback) {
         std::lock_guard guard(m_mutex);
-        listener->m_connected = false;
-        m_pending_remove.push_back(listener);
+
+        assert(callback);
+        assert(!event_type.empty());
+
+        if (m_dispatching) {
+            WG_LOG_ERROR("cannot do operations within call chain");
+            return {};
+        }
+
+        auto* listener     = new (m_listeners_pool.allocate()) EventListener;
+        listener->callback = std::move(callback);
+        listener->type     = event_type;
+        listener->hnd      = m_next_hnd;
+        listener->paused   = false;
+
+        m_next_hnd.value += 1;
+
+        m_event_to_listener[listener->type].push_back(listener);
+        m_hnd_to_listener[listener->hnd] = listener;
+
+        return listener->hnd;
+    }
+
+    void EventManager::unsubscribe(EventListenerHnd hnd) {
+        std::lock_guard guard(m_mutex);
+
+        assert(hnd.is_valid());
+        assert(m_hnd_to_listener.find(hnd) != m_hnd_to_listener.end());
+
+        if (m_dispatching) {
+            WG_LOG_ERROR("cannot do operations within call chain");
+            return;
+        }
+
+        auto query = m_hnd_to_listener.find(hnd);
+        if (query != m_hnd_to_listener.end()) {
+            auto* listener = query->second;
+            m_event_to_listener.erase(listener->type);
+            m_hnd_to_listener.erase(query);
+            listener->~EventListener();
+            m_listeners_pool.free(listener);
+        }
     }
 
     void EventManager::dispatch(const Ref<Event>& event) {
-        assert(event);
+        std::lock_guard guard(m_mutex);
 
-        if (!event) {
-            WG_LOG_ERROR("passed null event");
+        assert(event);
+        assert(!event->type().empty());
+
+        if (m_dispatching) {
+            WG_LOG_ERROR("cannot do operations within call chain");
             return;
         }
 
-        std::lock_guard guard(m_mutex);
-        m_events.push_back(event);
+        m_dispatching = true;
+
+        auto listeners_list = m_event_to_listener.find(event->type());
+        if (listeners_list != m_event_to_listener.end()) {
+            for (auto& listener : listeners_list->second) {
+                if (listener->callback(event)) {
+                    break;
+                }
+            }
+        }
+
+        m_dispatching = false;
     }
 
-    void EventManager::update() {
-        WG_AUTO_PROFILE_CORE("EventManager::update");
+    void EventManager::dispatch_deferred(const Ref<Event>& event) {
+        std::lock_guard guard(m_mutex);
 
-        fast_vector<Ref<EventListener>> to_add;
-        fast_vector<Ref<EventListener>> to_remove;
-        fast_vector<Ref<Event>>         to_dispatch;
-        {
-            std::lock_guard guard(m_mutex);
-            std::swap(to_add, m_pending_add);
-            std::swap(to_remove, m_pending_remove);
-            std::swap(to_dispatch, m_events);
-        }
+        assert(event);
+        assert(!event->type().empty());
 
-        for (auto& listener : to_add)
-            m_listeners[listener->type()].push_back(listener);
+        m_events_deferred.push_back(event);
+    }
 
-        for (auto& listener : to_remove) {
-            auto& list      = m_listeners[listener->type()];
-            auto  remove_it = std::find(list.begin(), list.end(), listener);
-            assert(remove_it != list.end());
-            list.erase(remove_it);
-        }
+    void EventManager::flush() {
+        std::lock_guard guard(m_mutex);
 
-        for (auto& event : to_dispatch) {
-            auto query = m_listeners.find(event->type());
-            if (query != m_listeners.end()) {
-                for (auto& listener : query->second) {
-                    assert(listener->connected());
-                    if (!listener->paused()) {
-                        // Returns true, we must stop propagation
-                        if (listener->on_event(event))
-                            break;
+        m_dispatching = true;
+
+        fast_vector<Ref<Event>> events;
+        std::swap(events, m_events_deferred);
+
+        for (auto& event : events) {
+            auto listeners_list = m_event_to_listener.find(event->type());
+            if (listeners_list != m_event_to_listener.end()) {
+                for (auto& listener : listeners_list->second) {
+                    if (listener->callback(event)) {
+                        break;
                     }
                 }
             }
         }
-    }
-    void EventManager::shutdown() {
-        WG_AUTO_PROFILE_CORE("EventManager::shutdown");
 
-        m_listeners.clear();
-        m_pending_add.clear();
-        m_pending_remove.clear();
-        m_events.clear();
+        m_dispatching = false;
     }
 
 }// namespace wmoge

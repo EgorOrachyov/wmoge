@@ -83,12 +83,12 @@ public:
         Engine::instance()->action_manager()->activate_action_map(SID("console"));
 
         Engine::instance()->file_system()->watch("root://shaders");
-        Engine::instance()->event_manager()->subscribe(make_listener<EventFileSystem>([](const EventFileSystem& event) {
+        Engine::instance()->event_manager()->subscribe<EventFileSystem>([](const EventFileSystem& event) {
             WG_LOG_INFO("fs " << Enum::to_str(event.action) << " "
                               << " " << event.path
                               << " " << event.entry);
             return false;
-        }));
+        });
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 

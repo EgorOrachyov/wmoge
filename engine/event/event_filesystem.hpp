@@ -35,7 +35,6 @@
 namespace wmoge {
 
     /**
-     * @class FileSystemAction
      * @brief Type of file system file actions
      */
     enum class FileSystemAction {

@@ -33,8 +33,7 @@
 namespace wmoge {
 
     /**
-     * @brief TaskHnd
-     * @class Handle to a running task
+     * @brief Handle to a running task
      */
     using TaskHnd = AsyncResult<int>;
 

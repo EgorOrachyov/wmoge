@@ -97,8 +97,8 @@ namespace wmoge {
         fast_vector<Ref<VKTexture>> m_color_targets;
         Ref<VKTexture>              m_depth_stencil_target;
 
-        Ref<Window>        m_window;
-        Ref<EventListener> m_window_event;
+        Ref<Window>      m_window;
+        EventListenerHnd m_window_event;
 
         std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_acquire_semaphore{};
         std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_present_semaphore{};

@@ -40,7 +40,6 @@
 namespace wmoge {
 
     /**
-     * @class EcsEntityState
      * @brief State on an entity, tracked by a ecs world
      */
     enum class EcsEntityState : std::uint8_t {

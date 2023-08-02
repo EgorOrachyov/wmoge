@@ -40,15 +40,10 @@ namespace wmoge {
         auto* engine        = Engine::instance();
         auto* event_manager = engine->event_manager();
 
-        m_listener_mouse    = make_listener<EventMouse>([this](const EventMouse& event) { return on_input_mouse(event); });
-        m_listener_keyboard = make_listener<EventKeyboard>([this](const EventKeyboard& event) { return on_input_keyboard(event); });
-        m_listener_joystick = make_listener<EventJoystick>([this](const EventJoystick& event) { return on_input_joystick(event); });
-        m_listener_gamepad  = make_listener<EventGamepad>([this](const EventGamepad& event) { return on_input_gamepad(event); });
-
-        event_manager->subscribe(m_listener_mouse);
-        event_manager->subscribe(m_listener_keyboard);
-        event_manager->subscribe(m_listener_joystick);
-        event_manager->subscribe(m_listener_gamepad);
+        m_listener_mouse    = event_manager->subscribe<EventMouse>([this](const EventMouse& event) { return on_input_mouse(event); });
+        m_listener_keyboard = event_manager->subscribe<EventKeyboard>([this](const EventKeyboard& event) { return on_input_keyboard(event); });
+        m_listener_joystick = event_manager->subscribe<EventJoystick>([this](const EventJoystick& event) { return on_input_joystick(event); });
+        m_listener_gamepad  = event_manager->subscribe<EventGamepad>([this](const EventGamepad& event) { return on_input_gamepad(event); });
     }
     ActionManager::~ActionManager() {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::~ActionManager");

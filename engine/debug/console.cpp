@@ -144,7 +144,9 @@ namespace wmoge {
         register_commands();
         load_settings();
 
-        m_actions_listener = make_listener<EventAction>([this](const EventAction& event) {
+        auto* event_manager = Engine::instance()->event_manager();
+
+        m_actions_listener = event_manager->subscribe<EventAction>([this](const EventAction& event) {
             // Opening closing
             {
                 std::lock_guard guard(m_mutex);
@@ -196,7 +198,7 @@ namespace wmoge {
             return false;
         });
 
-        m_keyboard_listener = make_listener<EventKeyboard>([this](const EventKeyboard& event) {
+        m_keyboard_listener = event_manager->subscribe<EventKeyboard>([this](const EventKeyboard& event) {
             // Input
             {
                 std::lock_guard guard(m_mutex);
@@ -212,14 +214,13 @@ namespace wmoge {
 
             return false;
         });
-
-        auto* event_manager = Engine::instance()->event_manager();
-        event_manager->subscribe(m_actions_listener);
-        event_manager->subscribe(m_keyboard_listener);
     }
     void Console::shutdown() {
-        m_actions_listener.reset();
-        m_keyboard_listener.reset();
+        auto* event_manager = Engine::instance()->event_manager();
+
+        event_manager->unsubscribe(m_actions_listener);
+        event_manager->unsubscribe(m_keyboard_listener);
+
         m_console_font.reset();
     }
     void Console::update() {

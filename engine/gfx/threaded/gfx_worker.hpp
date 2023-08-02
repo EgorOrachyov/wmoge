@@ -28,7 +28,7 @@
 #ifndef WMOGE_GFX_WORKER_HPP
 #define WMOGE_GFX_WORKER_HPP
 
-#include "core/cmd_stream.hpp"
+#include "core/callback_stream.hpp"
 #include "core/string_id.hpp"
 
 #include <atomic>
@@ -42,13 +42,13 @@ namespace wmoge {
      */
     class GfxWorker {
     public:
-        explicit GfxWorker(CmdStream* cmd_stream);
+        explicit GfxWorker(CallbackStream* cmd_stream);
 
         void            terminate();
         std::thread::id get_worker_id();
 
     private:
-        CmdStream*       m_stream = nullptr;
+        CallbackStream*  m_stream = nullptr;
         std::thread      m_worker_thread;
         std::atomic_bool m_finished{false};
         StringId         m_name = SID("gfx-thread");

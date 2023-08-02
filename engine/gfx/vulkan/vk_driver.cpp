@@ -119,7 +119,7 @@ namespace wmoge {
         m_dyn_uniform_buffer = make_dyn_uniform_buffer(config->get_int(SID("dyn_uniform_chunk_size"), DEFAULT_DYN_UNIFORM_CHUNK_SIZE), SID("vk_dyn_uniform_buffer"));
 
         // cmd stream of driver thread
-        m_driver_cmd_stream = std::make_unique<CmdStream>();
+        m_driver_cmd_stream = std::make_unique<CallbackStream>();
 
         // and kick off worker in a separate thread
         m_driver_worker = std::make_unique<GfxWorker>(m_driver_cmd_stream.get());

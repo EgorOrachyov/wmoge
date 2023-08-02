@@ -452,7 +452,7 @@ namespace wmoge {
     GfxCtxType VKCtx::ctx_type() const {
         return m_ctx_type;
     }
-    CmdStream* VKCtx::cmd_stream() {
+    CallbackStream* VKCtx::cmd_stream() {
         return m_driver.cmd_stream();
     }
     bool VKCtx::check_thread_valid() {

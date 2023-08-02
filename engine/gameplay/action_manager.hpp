@@ -73,10 +73,10 @@ namespace wmoge {
 
     private:
         fast_vector<ActionMapInfo> m_maps;
-        Ref<EventListener>         m_listener_mouse;
-        Ref<EventListener>         m_listener_keyboard;
-        Ref<EventListener>         m_listener_joystick;
-        Ref<EventListener>         m_listener_gamepad;
+        EventListenerHnd           m_listener_mouse;
+        EventListenerHnd           m_listener_keyboard;
+        EventListenerHnd           m_listener_joystick;
+        EventListenerHnd           m_listener_gamepad;
     };
 
 }// namespace wmoge

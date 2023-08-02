@@ -28,7 +28,7 @@
 #ifndef WMOGE_GFX_CTX_THREADED_HPP
 #define WMOGE_GFX_CTX_THREADED_HPP
 
-#include "core/cmd_stream.hpp"
+#include "core/callback_stream.hpp"
 #include "gfx/gfx_ctx.hpp"
 
 namespace wmoge {
@@ -48,7 +48,7 @@ namespace wmoge {
     public:
         ~GfxCtxThreaded() override = default;
 
-        virtual CmdStream* cmd_stream() = 0;
+        virtual CallbackStream* cmd_stream() = 0;
     };
 
 }// namespace wmoge

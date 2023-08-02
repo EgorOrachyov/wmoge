@@ -32,6 +32,7 @@
 #include "core/fast_vector.hpp"
 #include "event/event.hpp"
 #include "event/event_listener.hpp"
+#include "memory/mem_pool.hpp"
 
 #include <functional>
 #include <list>
@@ -49,23 +50,83 @@ namespace wmoge {
      */
     class EventManager {
     public:
-        void update();
-        void shutdown();
+        EventManager();
+        ~EventManager();
 
-        void subscribe(const Ref<EventListener>& listener);
-        void unsubscribe(const Ref<EventListener>& listener);
+        /**
+         * @brief Subscribes custom listener with specific event type
+         *
+         * @tparam E Type of event to listen to
+         * @tparam C Type of function to bind
+         *
+         * @param callable Function to subscribe
+         *
+         * @return Handle to a listener
+         */
+        template<typename E, typename C>
+        EventListenerHnd subscribe(C&& callable);
+
+        /**
+         * @brief Subscribes listener to an event
+         *
+         * @param event_type Name of type of event to listen to
+         * @param callback Function to subscribe
+         *
+         * @return Handle to a listener
+         */
+        EventListenerHnd subscribe(const EventType& event_type, EventCallback callback);
+
+        /**
+         * @brief Unsubscribes listener
+         *
+         * @param hnd Handle to listener
+         */
+        void unsubscribe(EventListenerHnd hnd);
+
+        /**
+         * @brief Dispatch immediately event
+         *
+         * @param event Event to dispatch
+         */
         void dispatch(const Ref<Event>& event);
 
+        /**
+         * @brief Queue event to dispatch
+         *
+         * @param event Event to dispatch later
+         */
+        void dispatch_deferred(const Ref<Event>& event);
+
+        /**
+         * @brief Dispatch queued events
+         */
+        void flush();
+
     private:
-        using ListenersList = std::list<Ref<EventListener>>;
+        fast_map<EventType, fast_vector<EventListener*>> m_event_to_listener;
+        fast_map<EventListenerHnd, EventListener*>       m_hnd_to_listener;
+        fast_vector<Ref<Event>>                          m_events;
+        fast_vector<Ref<Event>>                          m_events_deferred;
 
-        fast_map<EventType, ListenersList> m_listeners;
-        fast_vector<Ref<EventListener>>    m_pending_add;
-        fast_vector<Ref<EventListener>>    m_pending_remove;
-        fast_vector<Ref<Event>>            m_events;
+        MemPool          m_listeners_pool;
+        EventListenerHnd m_next_hnd{0};
+        bool             m_dispatching = false;
 
-        mutable std::mutex m_mutex;
+        mutable std::recursive_mutex m_mutex;
     };
+
+    template<typename E, typename C>
+    EventListenerHnd EventManager::subscribe(C&& callable) {
+        EventCallback callback = [c = std::forward<C>(callable)](const Ref<Event>& event) {
+            const E* casted_event = dynamic_cast<const E*>(event.get());
+            if (!casted_event) {
+                WG_LOG_ERROR("failed to cast event to expected type");
+                return false;
+            }
+            return c(*casted_event);
+        };
+        return subscribe(E::type_static(), std::move(callback));
+    }
 
 }// namespace wmoge
 

@@ -28,7 +28,7 @@
 #ifndef WMOGE_GFX_DRIVER_WRAPPER_HPP
 #define WMOGE_GFX_DRIVER_WRAPPER_HPP
 
-#include "core/cmd_stream.hpp"
+#include "core/callback_stream.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/threaded/gfx_driver_threaded.hpp"
 
@@ -101,7 +101,7 @@ namespace wmoge {
         GfxDynIndexBuffer*   m_dyn_index_buffer   = nullptr;
         GfxDynUniformBuffer* m_dyn_uniform_buffer = nullptr;
         GfxShaderLang        m_shader_lang;
-        CmdStream*           m_stream = nullptr;
+        CallbackStream*      m_stream = nullptr;
         GfxDeviceCaps        m_device_caps;
         StringId             m_driver_name;
         std::thread::id      m_thread_id;

@@ -41,7 +41,6 @@
 namespace wmoge {
 
     /**
-     * @class AsyncStatus
      * @brief Status of an async operation
      */
     enum class AsyncStatus {
@@ -51,7 +50,6 @@ namespace wmoge {
     };
 
     /**
-     * @class AsyncCallback
      * @brief Callback function which optionally may be called on async op completion
      *
      * @tparam T Type of the result
@@ -163,7 +161,6 @@ namespace wmoge {
     };
 
     /**
-     * @class AsyncOp
      * @brief Handle to control state of async operation
      *
      * @tparam T Type of the operation result
@@ -181,6 +178,12 @@ namespace wmoge {
     template<typename T>
     AsyncOp<T> make_async_op() { return make_ref<AsyncState<T>>(); }
 
+    /**
+     * @class AsyncBase
+     * @brief Base class for tracker for an async operation
+     *
+     * @tparam State Type of the internal state to track
+     */
     template<typename State>
     class AsyncBase {
     public:

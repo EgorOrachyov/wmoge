@@ -51,7 +51,7 @@ namespace wmoge {
         auto* script_system = dynamic_cast<LuaScriptSystem*>(engine->script_system());
 
         auto event_type = LuaTypeTraits::to_sid(arg_type);
-        auto listener   = make_ref<EventListener>(event_type, [script_system, arg_function](const Ref<Event>& event) {
+        auto listener   = event_manager->subscribe(event_type, [script_system, arg_function](const Ref<Event>& event) {
             std::lock_guard guard(script_system->get_mutex());
 
             if (LuaEventScript* lua_event = dynamic_cast<LuaEventScript*>(event.get())) {
@@ -65,9 +65,7 @@ namespace wmoge {
             return false;
         });
 
-        event_manager->subscribe(listener);
-
-        luabridge::LuaRef(state, LuaEventListener{listener}).push();
+        luabridge::LuaRef(state, LuaEventListenerHnd{listener}).push();
         return 1;
     }
 
@@ -101,10 +99,10 @@ namespace wmoge {
                      .addFunction("dispatch", lua_EventManager_dispatch)
                      .endNamespace();
 
-        ns = ns.deriveClass<LuaEventListener, LuaRefCnt>("EventListener")
-                     .addFunction("unsubscribe", &LuaEventListener::unsubscribe)
-                     .addFunction("pause", &LuaEventListener::pause)
-                     .addFunction("resume", &LuaEventListener::resume)
+        ns = ns.beginClass<LuaEventListenerHnd>("EventListenerHnd")
+                     .addFunction("unsubscribe", &LuaEventListenerHnd::unsubscribe)
+                     .addFunction("pause", &LuaEventListenerHnd::pause)
+                     .addFunction("resume", &LuaEventListenerHnd::resume)
                      .endClass();
 
         WG_LUA_MAP_CLASS(mapping, Event);

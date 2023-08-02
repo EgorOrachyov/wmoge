@@ -22,8 +22,8 @@ add_library(wmoge STATIC
         core/class.hpp
         core/cmd_line.cpp
         core/cmd_line.hpp
-        core/cmd_stream.cpp
-        core/cmd_stream.hpp
+        core/callback_stream.cpp
+        core/callback_stream.hpp
         core/crc32.cpp
         core/crc32.hpp
         core/data.cpp
@@ -77,7 +77,6 @@ add_library(wmoge STATIC
         ecs/ecs_world.hpp
         event/event.cpp
         event/event.hpp
-        event/event_listener.cpp
         event/event_listener.hpp
         event/event_manager.cpp
         event/event_manager.hpp
