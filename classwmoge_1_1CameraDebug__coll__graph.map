@@ -1,0 +1,13 @@
+<map id="wmoge::CameraDebug" name="wmoge::CameraDebug">
+<area shape="rect" id="node1" title="Special debug camera for free&#45;fly navigation in&#45;game." alt="" coords="772,331,924,357"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Camera.html" title="In&#45;game camera for rendering the scene." alt="" coords="608,331,723,357"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="311,5,422,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="12,72,171,99"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RenderCamera.html" title="Camera data used for scene objects rendering." alt="" coords="289,212,445,239"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="8,205,175,246"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="6,308,177,335"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1TFrustum.html" title=" " alt="" coords="5,137,177,164"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1CameraManager.html" title="Manages all cameras on the scene." alt="" coords="284,392,449,419"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="281,443,452,469"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="309,500,424,527"/>
+</map>

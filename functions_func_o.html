@@ -78,14 +78,9 @@ $(function() {
 <li>on_debug_draw()
 : <a class="el" href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">wmoge::DebugLayer</a>
 , <a class="el" href="classwmoge_1_1Layer.html#a713d1d9b973a4829fbcb3298a9cd8791">wmoge::Layer</a>
-, <a class="el" href="classwmoge_1_1SceneManager.html#a8454beb751a8ac55109580ec0d0a709d">wmoge::SceneManager</a>
 </li>
 <li>on_end_frame()
 : <a class="el" href="classwmoge_1_1Layer.html#a15860a4a86f6c517f66762c7594b2da2">wmoge::Layer</a>
-, <a class="el" href="classwmoge_1_1SceneManager.html#a2d238f4ffda436b9f24afd8f0dcc48ca">wmoge::SceneManager</a>
-</li>
-<li>on_event()
-: <a class="el" href="classwmoge_1_1EventListener.html#a789b790d1c147d438a249b66303e0572">wmoge::EventListener</a>
 </li>
 <li>on_gfx_thread()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#ac78cf83c844970ce759a3edaa1c53cd8">wmoge::GfxDriver</a>
@@ -153,7 +148,6 @@ $(function() {
 <li>on_start_frame()
 : <a class="el" href="classwmoge_1_1DebugLayer.html#aad71e5a2a4ed7928645a711e370930c1">wmoge::DebugLayer</a>
 , <a class="el" href="classwmoge_1_1Layer.html#adf9080c9c6d6d53d9a8277d2ee42c269">wmoge::Layer</a>
-, <a class="el" href="classwmoge_1_1SceneManager.html#ad8b4307cc5f73350b5ef2b949b099862">wmoge::SceneManager</a>
 </li>
 <li>on_token()
 : <a class="el" href="classwmoge_1_1LuaScriptInstance.html#af89f030278231218c9f80cf5ffdec162">wmoge::LuaScriptInstance</a>
@@ -173,7 +167,6 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Application.html#a79dddc5b6aa11e4573bc8c75b8916ab4">wmoge::Application</a>
 , <a class="el" href="classwmoge_1_1LuaScriptInstance.html#aca5ef979f8855797c2060902b73f7f24">wmoge::LuaScriptInstance</a>
 , <a class="el" href="classwmoge_1_1PfxFeature.html#a5d8365466e498bca24f0c107175e4414">wmoge::PfxFeature</a>
-, <a class="el" href="classwmoge_1_1SceneManager.html#aaa5ac26312814599b83484cf59aa3ef9">wmoge::SceneManager</a>
 , <a class="el" href="classwmoge_1_1ScriptInstance.html#ac1f79aeaaa87f4b07478f53a33e9c69f">wmoge::ScriptInstance</a>
 </li>
 <li>on_yaml_read()
@@ -221,6 +214,7 @@ $(function() {
 </li>
 <li>operator!=()
 : <a class="el" href="structwmoge_1_1EcsEntity.html#a89564c320b2a502ce4fa77edb70aa3c5">wmoge::EcsEntity</a>
+, <a class="el" href="structwmoge_1_1EventListenerHnd.html#a033e8a185de3c6951dc11d4a0d8647c0">wmoge::EventListenerHnd</a>
 , <a class="el" href="structwmoge_1_1PfxRange_1_1Iterator.html#abd939029346e4618332e8f05022c819a">wmoge::PfxRange::Iterator</a>
 , <a class="el" href="classwmoge_1_1Range_1_1Iterator.html#aeee09689d368c6d4022a1368f585192b">wmoge::Range::Iterator</a>
 , <a class="el" href="classwmoge_1_1Ref.html#aebe6633e0e0b6bf0e4739cc33ce2fc9a">wmoge::Ref&lt; T &gt;</a>
@@ -232,6 +226,7 @@ $(function() {
 <li>operator()()
 : <a class="el" href="structstd_1_1hash_3_01wmoge_1_1EcsArch_01_4.html#a48f0780cb03e90ec9a8e48771ec93542">std::hash&lt; wmoge::EcsArch &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1EcsEntity_01_4.html#a505ece3b82bd458c91a20a23d39b8e74">std::hash&lt; wmoge::EcsEntity &gt;</a>
+, <a class="el" href="structstd_1_1hash_3_01wmoge_1_1EventListenerHnd_01_4.html#ad9668208954eac77f88927b6a02c12ff">std::hash&lt; wmoge::EventListenerHnd &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1GfxPipelineState_01_4.html#ac2124ec38a00bbe0db51a4cdbfa17760">std::hash&lt; wmoge::GfxPipelineState &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1GfxRenderPassDesc_01_4.html#a23b7569a306b452540b6de5a0c1c704d">std::hash&lt; wmoge::GfxRenderPassDesc &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1GfxSamplerDesc_01_4.html#a106745f31c3481b1bfe838fd1146c99f">std::hash&lt; wmoge::GfxSamplerDesc &gt;</a>
@@ -284,7 +279,7 @@ $(function() {
 </li>
 <li>operator/()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a54696ff924d4981df49df8ddfec768eb">wmoge::TMatMxN&lt; T, M, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#a489e589d8e395c9023512aa2c4ceb26e">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#a47b7e3b12c96c21105a55c5cc958fe65">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator/=()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a6487950e71577d2c396d74b54a76a5e3">wmoge::TMatMxN&lt; T, M, N &gt;</a>
@@ -303,11 +298,12 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Ref.html#a62a8b163eed86a33ebba33a3dc65a228">wmoge::Ref&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a5a219631d3af9809f8642824fdf7774c">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#a41b0f3ec20658ff3a078af60ee4f861b">wmoge::TQuat&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#af7b1c22bd13913d27805e575604c8717">wmoge::TVecN&lt; T, N &gt;</a>
-, <a class="el" href="classwmoge_1_1Var.html#a385b0a3a2e73707a21780a4b3574894d">wmoge::Var</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#a122158f51a738be3cfb7b6adf86113d0">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1Var.html#af9d444c7c97df04bbf0095de35bea3b6">wmoge::Var</a>
 </li>
 <li>operator==()
 : <a class="el" href="structwmoge_1_1EcsEntity.html#a2f4f1c7e761cf6498ddc320af7fe895c">wmoge::EcsEntity</a>
+, <a class="el" href="structwmoge_1_1EventListenerHnd.html#a8b9496d50d530222cd20c77e77f94b23">wmoge::EventListenerHnd</a>
 , <a class="el" href="structwmoge_1_1GfxPipelineState.html#abab81508f66fdf1fc4bb7b098e986081">wmoge::GfxPipelineState</a>
 , <a class="el" href="structwmoge_1_1GfxRenderPassDesc.html#af40a778aa6e2c34a147d6f37d2db081e">wmoge::GfxRenderPassDesc</a>
 , <a class="el" href="structwmoge_1_1GfxSamplerDesc.html#aa6fc0d8f92101bba98aca86a86ab8296">wmoge::GfxSamplerDesc</a>

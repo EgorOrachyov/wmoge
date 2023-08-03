@@ -142,7 +142,7 @@ $(function() {
 </li>
 <li>schedule()
 : <a class="el" href="classwmoge_1_1Task.html#aeffc64a00820d85c5e808a7267cabcd8">wmoge::Task</a>
-, <a class="el" href="classwmoge_1_1TaskParallelFor.html#aea21f4d72bd02b28b2b9a325bb0a0c6f">wmoge::TaskParallelFor</a>
+, <a class="el" href="classwmoge_1_1TaskParallelFor.html#a7f28c5776aa7a31083d03fa4c99844ca">wmoge::TaskParallelFor</a>
 </li>
 <li>schedule_delete()
 : <a class="el" href="classwmoge_1_1VKDefs.html#af1a6e00fa1be2b504c861557dd52de03">wmoge::VKDefs</a>
@@ -175,6 +175,9 @@ $(function() {
 <li>set_amount()
 : <a class="el" href="classwmoge_1_1PfxComponent.html#a0b9f6c722e8bfac3853db399af92e21c">wmoge::PfxComponent</a>
 </li>
+<li>set_color()
+: <a class="el" href="classwmoge_1_1Camera.html#a9ab7692daaf8f9b0bbb17145ec18318c">wmoge::Camera</a>
+</li>
 <li>set_component()
 : <a class="el" href="structwmoge_1_1EcsArch.html#aefbf3a806dde5181fca1e2fbad4e87fa">wmoge::EcsArch</a>
 </li>
@@ -203,6 +206,9 @@ $(function() {
 </li>
 <li>set_font_color()
 : <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a13c6a3c4a9dfd8a57eb7cbb4ba70f86c">wmoge::AuxDrawCanvas</a>
+</li>
+<li>set_fov()
+: <a class="el" href="classwmoge_1_1Camera.html#ac92db7703bc234f1494cbe20862e1089">wmoge::Camera</a>
 </li>
 <li>set_gain()
 : <a class="el" href="classwmoge_1_1ALAudioPlayback.html#ad7dcbf8d67c8e05f494f2f4cbe2bc0a9">wmoge::ALAudioPlayback</a>
@@ -248,7 +254,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1AudioPlayback.html#ab464621b41384c4556c56156989c1978">wmoge::AudioPlayback</a>
 </li>
 <li>set_name()
-: <a class="el" href="classwmoge_1_1ProfilerCapture.html#a59a22e40033d1793e9c1c645299a42f0">wmoge::ProfilerCapture</a>
+: <a class="el" href="classwmoge_1_1Camera.html#a72d8b3bc03d33886fbf64d05a63de93f">wmoge::Camera</a>
+, <a class="el" href="classwmoge_1_1ProfilerCapture.html#a59a22e40033d1793e9c1c645299a42f0">wmoge::ProfilerCapture</a>
 , <a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">wmoge::Resource</a>
 , <a class="el" href="classwmoge_1_1SceneNode.html#a36377a707d7ed562c320bdf9fef954d9">wmoge::SceneNode</a>
 </li>
@@ -257,9 +264,6 @@ $(function() {
 </li>
 <li>set_param()
 : <a class="el" href="classwmoge_1_1Material.html#a2e41704ce997bb37b745af0917400073">wmoge::Material</a>
-</li>
-<li>set_perspective()
-: <a class="el" href="classwmoge_1_1RenderCamera.html#ac717f91f09b97491602123b332ade3ea">wmoge::RenderCamera</a>
 </li>
 <li>set_pitch_scale()
 : <a class="el" href="classwmoge_1_1ALAudioBus.html#ad01b25cdbfded12585d12dd2213771f0">wmoge::ALAudioBus</a>
@@ -294,8 +298,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a19f384fe4b0e6a588d5cab69b48244da">wmoge::AuxDrawCanvas</a>
 </li>
 <li>set_transform()
-: <a class="el" href="classwmoge_1_1RenderCamera.html#aa90a2305c09379154d21f20cb40a92c3">wmoge::RenderCamera</a>
-, <a class="el" href="classwmoge_1_1SceneNode.html#a68e8d391bd58d66eb0e7708d41034fcd">wmoge::SceneNode</a>
+: <a class="el" href="classwmoge_1_1SceneNode.html#a68e8d391bd58d66eb0e7708d41034fcd">wmoge::SceneNode</a>
 , <a class="el" href="classwmoge_1_1SceneTransform.html#a02d4d68a1780bbd73033234a621e0cb2">wmoge::SceneTransform</a>
 </li>
 <li>set_translation()
@@ -329,7 +332,6 @@ $(function() {
 </li>
 <li>set_viewport()
 : <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#ae765ef47d58396f3f281310e2f3022f3">wmoge::AuxDrawCanvas</a>
-, <a class="el" href="classwmoge_1_1RenderCamera.html#a0b71b1ba71fa5560e720e39ab77415fd">wmoge::RenderCamera</a>
 </li>
 <li>set_w()
 : <a class="el" href="classwmoge_1_1TVecN.html#a9cf823bb2c2e83a68cdaddbca20e637f">wmoge::TVecN&lt; T, N &gt;</a>
@@ -384,21 +386,16 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ALAudioEngine.html#a4990939775432b0074fee2d94038cf97">wmoge::ALAudioEngine</a>
 , <a class="el" href="classwmoge_1_1AudioEngine.html#a322c8cb4a8bd7ac27f8630b3c3393604">wmoge::AudioEngine</a>
 , <a class="el" href="classwmoge_1_1Console.html#ae58a8d4b1144894404c5f9fd5b979afc">wmoge::Console</a>
-, <a class="el" href="classwmoge_1_1EventManager.html#aafc87c068eba4a858735c02055da663a">wmoge::EventManager</a>
 , <a class="el" href="classwmoge_1_1GfxCtx.html#afa4a9417b52b292ff06ac332cedf0d0d">wmoge::GfxCtx</a>
 , <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a43bcf70879cfc2e96a024a197e96ec95">wmoge::GfxCtxWrapper</a>
 , <a class="el" href="classwmoge_1_1GfxDriver.html#afba6c95ec1950d4a1ea25610c9724263">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#ad2a22ac5d1bcc306b580097f97763e32">wmoge::GfxDriverWrapper</a>
 , <a class="el" href="classwmoge_1_1LuaScriptSystem.html#acc20993c3bbb7ae7c678837ab6bfaa0e">wmoge::LuaScriptSystem</a>
 , <a class="el" href="classwmoge_1_1Main.html#af5fd9fdc5e0c3ba8434ce0517559cc21">wmoge::Main</a>
-, <a class="el" href="classwmoge_1_1SceneManager.html#a36aacf44e9cc86a87bf321080d034ae6">wmoge::SceneManager</a>
 , <a class="el" href="classwmoge_1_1ScriptSystem.html#a916d314194a0d8624066333254eee6fb">wmoge::ScriptSystem</a>
 , <a class="el" href="classwmoge_1_1TaskManager.html#a1d3d2583fbfb71c259b78b9613df0b79">wmoge::TaskManager</a>
 , <a class="el" href="classwmoge_1_1VKCtx.html#ac746ee4ed76acc2b5d388430bed56daf">wmoge::VKCtx</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#af2b3fdd33917c20660ec5d648e34a180">wmoge::VKDriver</a>
-</li>
-<li>shutdown_scene()
-: <a class="el" href="classwmoge_1_1SceneManager.html#a2c4ec221a8ecb196fcefd6828e459a21">wmoge::SceneManager</a>
 </li>
 <li>signal()
 : <a class="el" href="structwmoge_1_1LuaObject.html#a860752ce62853507d29cd246aec8546c">wmoge::LuaObject</a>
@@ -466,11 +463,11 @@ $(function() {
 : <a class="el" href="structwmoge_1_1TextureCubeImportOptions.html#a28f2a09930382a93b0f529cfcdc417cc">wmoge::TextureCubeImportOptions</a>
 </li>
 <li>split()
-: <a class="el" href="classwmoge_1_1Math.html#a97caeb3600c9bf0794c921c3328fb995">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a918651ddac1a9e07c82ffd633dc638a7">wmoge::Math</a>
 , <a class="el" href="classwmoge_1_1StringUtils.html#aeefd8c286a8833edc0e774e972e2f70b">wmoge::StringUtils</a>
 </li>
 <li>sqrt()
-: <a class="el" href="classwmoge_1_1Math.html#a4327b3c96b595abca6f89d84c2d8eaeb">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a48cdc7af0e3d1fc0ce93f0f4b0850cf3">wmoge::Math</a>
 </li>
 <li>SQRT2
 : <a class="el" href="classwmoge_1_1Math.html#a4099eac68d023bf1dc0f4c32584bd7b2">wmoge::Math</a>
@@ -579,7 +576,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TaskRuntimeParallelFor.html#a5daeaf7c731c593d7248ee85653cab05">wmoge::TaskRuntimeParallelFor</a>
 </li>
 <li>subscribe()
-: <a class="el" href="classwmoge_1_1EventManager.html#adf5fdb531c6511f97edc0a79ac54b9e1">wmoge::EventManager</a>
+: <a class="el" href="classwmoge_1_1EventManager.html#a7e5b765f4287c47d1841cb2b96041eb5">wmoge::EventManager</a>
 </li>
 <li>sum_matrix()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#aa142a6b92947bb56a338c2098c93f290">wmoge::TMatMxN&lt; T, M, N &gt;</a>

@@ -108,42 +108,42 @@ $(function() {
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#ifdef WG_DEBUG</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">using</span> <a class="code" href="classfast__set.html">fast_set</a> = std::unordered_set&lt;K&gt;;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a> = std::unordered_set&lt;K&gt;;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">   47</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classfast__set.html">fast_set</a> = robin_hood::unordered_flat_set&lt;K&gt;;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a680a886a91499f33694bc179377ee085">   50</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacewmoge.html#ad39f70c0dd447882b2c23aba97e4b327">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> <a class="code" href="classfast__set.html">fast_set&lt;K&gt;</a>&amp; map) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        archive &lt;&lt; static_cast&lt;int&gt;(map.size());</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : map) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            archive &lt;&lt; entry;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a53246b65c28f0cfb306d56150f5b416c">   59</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacewmoge.html#ae863c767e9f4d8fbbe1b98423fb86822">archive_read</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <a class="code" href="classfast__set.html">fast_set&lt;K&gt;</a>&amp; map) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        assert(map.empty());</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">int</span> size;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        archive &gt;&gt; size;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188">K</a> entry;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            archive &gt;&gt; entry;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            map.insert(std::move(entry));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_FAST_SET_HPP</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">   46</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a> = robin_hood::unordered_flat_set&lt;K&gt;;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a680a886a91499f33694bc179377ee085">   49</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacewmoge.html#ad39f70c0dd447882b2c23aba97e4b327">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set&lt;K&gt;</a>&amp; map) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        archive &lt;&lt; static_cast&lt;int&gt;(map.size());</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : map) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            archive &lt;&lt; entry;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a53246b65c28f0cfb306d56150f5b416c">   58</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacewmoge.html#ae863c767e9f4d8fbbe1b98423fb86822">archive_read</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <a class="code" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set&lt;K&gt;</a>&amp; map) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        assert(map.empty());</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">int</span> size;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        archive &gt;&gt; size;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188">K</a> entry;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            archive &gt;&gt; entry;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            map.insert(std::move(entry));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_FAST_SET_HPP</span></div>
 <div class="ttc" id="aarchive_8hpp_html"><div class="ttname"><a href="archive_8hpp.html">archive.hpp</a></div></div>
-<div class="ttc" id="aclassfast__set_html"><div class="ttname"><a href="classfast__set.html">fast_set</a></div><div class="ttdoc">wrapper for fast robin_hood unordered set</div></div>
 <div class="ttc" id="aclasswmoge_1_1Archive_html"><div class="ttname"><a href="classwmoge_1_1Archive.html">wmoge::Archive</a></div><div class="ttdoc">Serialization and de-serialization archive.</div><div class="ttdef"><b>Definition:</b> archive.hpp:50</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188">wmoge::InputKeyboardKey::K</a></div><div class="ttdeci">@ K</div></div>
+<div class="ttc" id="anamespacewmoge_html_a8ee454bf2410ccc9478115eff9b5436d"><div class="ttname"><a href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">wmoge::fast_set</a></div><div class="ttdeci">robin_hood::unordered_flat_set&lt; K &gt; fast_set</div><div class="ttdoc">wrapper for fast robin_hood unordered set</div><div class="ttdef"><b>Definition:</b> fast_set.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html_ad39f70c0dd447882b2c23aba97e4b327"><div class="ttname"><a href="namespacewmoge.html#ad39f70c0dd447882b2c23aba97e4b327">wmoge::archive_write</a></div><div class="ttdeci">bool archive_write(Archive &amp;archive, const Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:60</div></div>
 <div class="ttc" id="anamespacewmoge_html_ae863c767e9f4d8fbbe1b98423fb86822"><div class="ttname"><a href="namespacewmoge.html#ae863c767e9f4d8fbbe1b98423fb86822">wmoge::archive_read</a></div><div class="ttdeci">bool archive_read(Archive &amp;archive, Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:65</div></div>
 </div><!-- fragment --></div><!-- contents -->

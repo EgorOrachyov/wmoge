@@ -174,12 +174,13 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An async operation shared data state.  <a href="classwmoge_1_1AsyncState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncBase.html">wmoge::AsyncBase&lt; State &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for tracker for an async operation.  <a href="classwmoge_1_1AsyncBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Async.html">wmoge::Async</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classHandle.html" title="TaskHnd running task.">Handle</a> to an asynchronous operation (may have result or may not)  <a href="classwmoge_1_1Async.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to an asynchronous operation (may have result or may not)  <a href="classwmoge_1_1Async.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncResult.html">wmoge::AsyncResult&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classHandle.html" title="TaskHnd running task.">Handle</a> to an asynchronous operation with a result to get.  <a href="classwmoge_1_1AsyncResult.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to an asynchronous operation with a result to get.  <a href="classwmoge_1_1AsyncResult.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -190,10 +191,12 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:a3bac69a211f7ac3f56a54f02d0865e38"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a3bac69a211f7ac3f56a54f02d0865e38"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">wmoge::AsyncCallback</a> = std::function&lt; void(<a class="el" href="classAsyncStatus.html">AsyncStatus</a>, std::optional&lt; T &gt; &amp;)&gt;</td></tr>
+<tr class="memitem:a3bac69a211f7ac3f56a54f02d0865e38"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">wmoge::AsyncCallback</a> = std::function&lt; void(AsyncStatus, std::optional&lt; T &gt; &amp;)&gt;</td></tr>
+<tr class="memdesc:a3bac69a211f7ac3f56a54f02d0865e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function which optionally may be called on async op completion.  <a href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">More...</a><br /></td></tr>
 <tr class="separator:a3bac69a211f7ac3f56a54f02d0865e38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87b9eabb65438cf3937dc4971a03d38f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a87b9eabb65438cf3937dc4971a03d38f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a87b9eabb65438cf3937dc4971a03d38f">wmoge::AsyncOp</a> = Ref&lt; AsyncState&lt; T &gt; &gt;</td></tr>
+<tr class="memdesc:a87b9eabb65438cf3937dc4971a03d38f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to control state of async operation.  <a href="namespacewmoge.html#a87b9eabb65438cf3937dc4971a03d38f">More...</a><br /></td></tr>
 <tr class="separator:a87b9eabb65438cf3937dc4971a03d38f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -202,12 +205,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacewmoge.html#a45b83d888066bb3e4aff04d7e36efd47aa60852f204ed8028c1c58808b746d115">wmoge::Ok</a>
 , <a class="el" href="namespacewmoge.html#a45b83d888066bb3e4aff04d7e36efd47ad7c8c85bf79bbe1b7188497c32c3b0ca">wmoge::Failed</a>
  }</td></tr>
+<tr class="memdesc:a45b83d888066bb3e4aff04d7e36efd47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of an async operation.  <a href="namespacewmoge.html#a45b83d888066bb3e4aff04d7e36efd47">More...</a><br /></td></tr>
 <tr class="separator:a45b83d888066bb3e4aff04d7e36efd47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aab270abf385a2b8ad7bf7e8a0e280425"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aab270abf385a2b8ad7bf7e8a0e280425"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classAsyncOp.html">AsyncOp</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aab270abf385a2b8ad7bf7e8a0e280425">wmoge::make_async_op</a> ()</td></tr>
+<tr class="memitem:aab270abf385a2b8ad7bf7e8a0e280425"><td class="memTemplItemLeft" align="right" valign="top">AsyncOp&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aab270abf385a2b8ad7bf7e8a0e280425">wmoge::make_async_op</a> ()</td></tr>
 <tr class="memdesc:aab270abf385a2b8ad7bf7e8a0e280425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes new async operation control state.  <a href="namespacewmoge.html#aab270abf385a2b8ad7bf7e8a0e280425">More...</a><br /></td></tr>
 <tr class="separator:aab270abf385a2b8ad7bf7e8a0e280425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>

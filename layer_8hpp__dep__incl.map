@@ -1,12 +1,7 @@
 <map id="engine/core/layer.hpp" name="engine/core/layer.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="332,5,476,32"/>
-<area shape="rect" id="node2" href="$debug__layer_8hpp.html" title=" " alt="" coords="173,80,312,121"/>
-<area shape="rect" id="node5" href="$engine_8hpp.html" title=" " alt="" coords="341,184,467,211"/>
-<area shape="rect" id="node6" href="$scene__manager_8hpp.html" title=" " alt="" coords="469,80,608,121"/>
-<area shape="rect" id="node3" href="$debug__layer_8cpp.html" title=" " alt="" coords="5,177,144,218"/>
-<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="169,184,317,211"/>
-<area shape="rect" id="node7" href="$scene__packed_8cpp.html" title=" " alt="" coords="491,177,645,218"/>
-<area shape="rect" id="node8" href="$scene__manager_8cpp.html" title=" " alt="" coords="669,177,808,218"/>
-<area shape="rect" id="node9" href="$lua__bindings__scene_8hpp.html" title=" " alt="" coords="833,169,986,225"/>
-<area shape="rect" id="node10" href="$lua__bindings__scene_8cpp.html" title=" " alt="" coords="833,273,986,329"/>
+<area shape="rect" id="node1" title=" " alt="" coords="165,5,309,32"/>
+<area shape="rect" id="node2" href="$debug__layer_8hpp.html" title=" " alt="" coords="89,80,228,121"/>
+<area shape="rect" id="node5" href="$engine_8hpp.html" title=" " alt="" coords="253,87,379,114"/>
+<area shape="rect" id="node3" href="$debug__layer_8cpp.html" title=" " alt="" coords="5,169,144,211"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title=" " alt="" coords="169,177,317,203"/>
 </map>

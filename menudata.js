@@ -189,10 +189,8 @@ var menudata={children:[
 {text:"Related Functions",url:"functions_rela.html",children:[
 {text:"a",url:"functions_rela.html#index_a"},
 {text:"c",url:"functions_rela.html#index_c"},
-{text:"e",url:"functions_rela.html#index_e"},
 {text:"g",url:"functions_rela.html#index_g"},
 {text:"m",url:"functions_rela.html#index_m"},
-{text:"o",url:"functions_rela.html#index_o"},
 {text:"t",url:"functions_rela.html#index_t"},
 {text:"y",url:"functions_rela.html#index_y"}]}]}]},
 {text:"Files",url:"files.html",children:[

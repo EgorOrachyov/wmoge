@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventmanager_6079',['EventManager',['../classwmoge_1_1EventListener.html#aba45a46c615e2683daffdae82e2d3b8f',1,'wmoge::EventListener']]]
+  ['glfwwindowmanager_6169',['GlfwWindowManager',['../classwmoge_1_1GlfwInput.html#ac8b36831a6ff0c3385a5576a178fc505',1,'wmoge::GlfwInput::GlfwWindowManager()'],['../classwmoge_1_1GlfwWindow.html#ac8b36831a6ff0c3385a5576a178fc505',1,'wmoge::GlfwWindow::GlfwWindowManager()']]]
 ];

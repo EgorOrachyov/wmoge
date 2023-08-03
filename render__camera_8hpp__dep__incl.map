@@ -1,5 +1,17 @@
 <map id="engine/render/render_camera.hpp" name="engine/render/render_camera.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="77,5,217,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,102,132,129"/>
-<area shape="rect" id="node3" href="$render__camera_8cpp.html" title=" " alt="" coords="156,95,296,136"/>
+<area shape="rect" id="node1" title=" " alt="" coords="83,5,223,47"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,377,132,404"/>
+<area shape="rect" id="node3" href="$render__camera_8cpp.html" title=" " alt="" coords="247,95,387,136"/>
+<area shape="rect" id="node4" href="$scene__camera_8hpp.html" title=" " alt="" coords="83,95,222,136"/>
+<area shape="rect" id="node5" href="$scene_8hpp.html" title=" " alt="" coords="305,191,467,218"/>
+<area shape="rect" id="node15" href="$scene__camera_8cpp.html" title=" " alt="" coords="109,184,247,225"/>
+<area shape="rect" id="node6" href="$scene__packed_8hpp.html" title=" " alt="" coords="160,273,313,315"/>
+<area shape="rect" id="node9" href="$scene_8cpp.html" title=" " alt="" coords="338,281,501,307"/>
+<area shape="rect" id="node10" href="$scene__manager_8hpp.html" title=" " alt="" coords="525,273,663,315"/>
+<area shape="rect" id="node13" href="$lua__bindings__scene_8hpp.html" title=" " alt="" coords="855,363,1008,419"/>
+<area shape="rect" id="node7" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="156,370,317,411"/>
+<area shape="rect" id="node8" href="$scene__packed_8cpp.html" title=" " alt="" coords="341,370,495,411"/>
+<area shape="rect" id="node11" href="$main_8cpp.html" title=" " alt="" coords="519,377,667,404"/>
+<area shape="rect" id="node12" href="$scene__manager_8cpp.html" title=" " alt="" coords="691,370,830,411"/>
+<area shape="rect" id="node14" href="$lua__bindings__scene_8cpp.html" title=" " alt="" coords="855,467,1008,523"/>
 </map>

@@ -67,475 +67,91 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classwmoge_1_1RenderCamera-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::RenderCamera Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Camera class to encapsulate display parameters for rendering.  
+<p><a class="el" href="classwmoge_1_1Camera.html" title="In-game camera for rendering the scene.">Camera</a> data used for scene objects rendering.  
  <a href="classwmoge_1_1RenderCamera.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="render__camera_8hpp_source.html">render_camera.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for wmoge::RenderCamera:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1RenderCamera__coll__graph.png" border="0" usemap="#awmoge_1_1RenderCamera_coll__map" alt="Collaboration graph"/></div>
+<map name="awmoge_1_1RenderCamera_coll__map" id="awmoge_1_1RenderCamera_coll__map">
+<area shape="rect" title="Camera data used for scene objects rendering." alt="" coords="281,117,437,144"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="12,5,171,32"/>
+<area shape="rect" href="classwmoge_1_1TMatMxN.html" title=" " alt="" coords="8,73,175,114"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="6,155,177,181"/>
+<area shape="rect" href="classwmoge_1_1TFrustum.html" title=" " alt="" coords="5,205,177,232"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa90a2305c09379154d21f20cb40a92c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#aa90a2305c09379154d21f20cb40a92c3">set_transform</a> (const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;position, const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;direction, const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;up)</td></tr>
-<tr class="separator:aa90a2305c09379154d21f20cb40a92c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b71b1ba71fa5560e720e39ab77415fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a0b71b1ba71fa5560e720e39ab77415fd">set_viewport</a> (int width, int height)</td></tr>
-<tr class="separator:a0b71b1ba71fa5560e720e39ab77415fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac717f91f09b97491602123b332ade3ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ac717f91f09b97491602123b332ade3ea">set_perspective</a> (float fov, float near, float far)</td></tr>
-<tr class="separator:ac717f91f09b97491602123b332ade3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90975d79a4c6485bb919cbab4bac21af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a90975d79a4c6485bb919cbab4bac21af">build_perspective</a> ()</td></tr>
-<tr class="separator:a90975d79a4c6485bb919cbab4bac21af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4adaa3bf78250c656d18e67e4fe05361"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a4adaa3bf78250c656d18e67e4fe05361">update_matrices</a> ()</td></tr>
+<tr class="separator:a4adaa3bf78250c656d18e67e4fe05361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89a6393298af959697208a938b74bfc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a89a6393298af959697208a938b74bfc0">update_frustum</a> ()</td></tr>
+<tr class="separator:a89a6393298af959697208a938b74bfc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d1e1e243d5d7d860290786db245895f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a9d1e1e243d5d7d860290786db245895f">is_inside_or_intersects</a> (const <a class="el" href="namespacewmoge.html#a80373c9834c1d91495fe5180718e49fb">Aabbf</a> &amp;box) const</td></tr>
 <tr class="separator:a9d1e1e243d5d7d860290786db245895f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af50c116e22a133f449f69cf049f97980"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#af50c116e22a133f449f69cf049f97980">calc_distance</a> (const <a class="el" href="namespacewmoge.html#a80373c9834c1d91495fe5180718e49fb">Aabbf</a> &amp;box) const</td></tr>
-<tr class="separator:af50c116e22a133f449f69cf049f97980"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a479c2d3cbb1754d8c3a408f0f9e8abba"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a42f1122b398215259745c2403d3e2176">Planef</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a479c2d3cbb1754d8c3a408f0f9e8abba">get_planes</a> () const</td></tr>
-<tr class="separator:a479c2d3cbb1754d8c3a408f0f9e8abba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a776e8d800984db2eea9d7af195947618"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a776e8d800984db2eea9d7af195947618">get_proj</a> () const</td></tr>
-<tr class="separator:a776e8d800984db2eea9d7af195947618"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affb1188caa359dd182d4a5b562c911c8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#affb1188caa359dd182d4a5b562c911c8">get_view</a> () const</td></tr>
-<tr class="separator:affb1188caa359dd182d4a5b562c911c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa763244a1d2428b355e9c0e52262d94a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#aa763244a1d2428b355e9c0e52262d94a">get_proj_view</a> () const</td></tr>
-<tr class="separator:aa763244a1d2428b355e9c0e52262d94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacdeed930b982e026478b1f85572c83e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#aacdeed930b982e026478b1f85572c83e">get_viewport</a> () const</td></tr>
-<tr class="separator:aacdeed930b982e026478b1f85572c83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b324c6eccb2ccfb1a9c7054be6aa134"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a0b324c6eccb2ccfb1a9c7054be6aa134">get_fov</a> () const</td></tr>
-<tr class="separator:a0b324c6eccb2ccfb1a9c7054be6aa134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96026a471a33f40cc3682a76fb9c3d21"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a96026a471a33f40cc3682a76fb9c3d21">get_width</a> () const</td></tr>
-<tr class="separator:a96026a471a33f40cc3682a76fb9c3d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ef4c1b97ae2faec0fe53ff891363dd5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a1ef4c1b97ae2faec0fe53ff891363dd5">get_height</a> () const</td></tr>
-<tr class="separator:a1ef4c1b97ae2faec0fe53ff891363dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1fc1331d08b5164f5fc656b610a9bd0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ad1fc1331d08b5164f5fc656b610a9bd0">get_aspect</a> () const</td></tr>
-<tr class="separator:ad1fc1331d08b5164f5fc656b610a9bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba886994a538f436ec75545707f19294"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#aba886994a538f436ec75545707f19294">get_near</a> () const</td></tr>
-<tr class="separator:aba886994a538f436ec75545707f19294"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9447e7d27bd039e68152d69023b9960"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ac9447e7d27bd039e68152d69023b9960">get_far</a> () const</td></tr>
-<tr class="separator:ac9447e7d27bd039e68152d69023b9960"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f7be0985d8a4b894520cf86584704a6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a9f7be0985d8a4b894520cf86584704a6">get_position</a> () const</td></tr>
-<tr class="separator:a9f7be0985d8a4b894520cf86584704a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7b7fbd84a985f19695ffd9819493844"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ad7b7fbd84a985f19695ffd9819493844">get_direction</a> () const</td></tr>
-<tr class="separator:ad7b7fbd84a985f19695ffd9819493844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac83df70689ac2f7bfaf672e0518c91ac"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ac83df70689ac2f7bfaf672e0518c91ac">get_up</a> () const</td></tr>
-<tr class="separator:ac83df70689ac2f7bfaf672e0518c91ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a123046b0dfb33c3a9b5f42ea784afa22"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a123046b0dfb33c3a9b5f42ea784afa22">get_right</a> () const</td></tr>
-<tr class="separator:a123046b0dfb33c3a9b5f42ea784afa22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3a9d13f152115c2ca40a459efe20aab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ab3a9d13f152115c2ca40a459efe20aab">is_perspective</a> ()</td></tr>
-<tr class="separator:ab3a9d13f152115c2ca40a459efe20aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad88d5f23d006e426e868f7bbd34199fc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ad88d5f23d006e426e868f7bbd34199fc">is_orthographic</a> ()</td></tr>
-<tr class="separator:ad88d5f23d006e426e868f7bbd34199fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296b05072d0b02492532faf84ea43836"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a296b05072d0b02492532faf84ea43836">distance</a> (const <a class="el" href="namespacewmoge.html#a80373c9834c1d91495fe5180718e49fb">Aabbf</a> &amp;box) const</td></tr>
+<tr class="separator:a296b05072d0b02492532faf84ea43836"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:af34b6929e065ba6fe8a430b69b6655f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a691062e7ac5dcc15c17916bf76d505e7">Frustumf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#af34b6929e065ba6fe8a430b69b6655f7">frustum</a></td></tr>
+<tr class="separator:af34b6929e065ba6fe8a430b69b6655f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dbe682ed9266170b773e434858c43de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a5dbe682ed9266170b773e434858c43de">proj</a></td></tr>
+<tr class="separator:a5dbe682ed9266170b773e434858c43de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab3c3211a4de4e145dae82815f85994e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#aab3c3211a4de4e145dae82815f85994e">view</a></td></tr>
+<tr class="separator:aab3c3211a4de4e145dae82815f85994e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68e23f84e041b8574114e3aef4246a44"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a68e23f84e041b8574114e3aef4246a44">proj_view</a></td></tr>
+<tr class="separator:a68e23f84e041b8574114e3aef4246a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c3936d9cfb59ca765ac21eb1fc5243c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a6c3936d9cfb59ca765ac21eb1fc5243c">viewport</a></td></tr>
+<tr class="separator:a6c3936d9cfb59ca765ac21eb1fc5243c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12d0b50e3112f377c936d9c28ccbeb5e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a12d0b50e3112f377c936d9c28ccbeb5e">fov</a> = <a class="el" href="classwmoge_1_1Math.html#a7289014cdf49b3717238134e0d1a0153">Math::deg_to_rad</a>(45.0f)</td></tr>
+<tr class="separator:a12d0b50e3112f377c936d9c28ccbeb5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a811690cbc4e9bb8b6051d4d907db5e91"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a811690cbc4e9bb8b6051d4d907db5e91">width</a> = 1280.0f</td></tr>
+<tr class="separator:a811690cbc4e9bb8b6051d4d907db5e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d8ec5fdff9355c3336be6e6a853f434"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a9d8ec5fdff9355c3336be6e6a853f434">height</a> = 720.0f</td></tr>
+<tr class="separator:a9d8ec5fdff9355c3336be6e6a853f434"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a620e24026afc89b49af4d6109df9cc8a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a620e24026afc89b49af4d6109df9cc8a">aspect</a> = 16.0f / 9.0f</td></tr>
+<tr class="separator:a620e24026afc89b49af4d6109df9cc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a302ec60f086a384ecd1c711b71fa5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#af2a302ec60f086a384ecd1c711b71fa5">near</a> = 0.1f</td></tr>
+<tr class="separator:af2a302ec60f086a384ecd1c711b71fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f1899896279e2155a62026e8ca85c7b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a7f1899896279e2155a62026e8ca85c7b">far</a> = 1000.0f</td></tr>
+<tr class="separator:a7f1899896279e2155a62026e8ca85c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf80ac1ba2fa28533d4ae6d76a6b6dc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#abf80ac1ba2fa28533d4ae6d76a6b6dc7">position</a></td></tr>
+<tr class="separator:abf80ac1ba2fa28533d4ae6d76a6b6dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a307238ee6fb111f365f291d790d93eb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a307238ee6fb111f365f291d790d93eb0">direction</a> = <a class="el" href="classwmoge_1_1TVecN.html#a1332d5344942013851e5d5cd1b9ec51b">Vec3f::axis_z</a>()</td></tr>
+<tr class="separator:a307238ee6fb111f365f291d790d93eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac04129c3619eed123bc6da3b3b7fcf16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#ac04129c3619eed123bc6da3b3b7fcf16">up</a> = <a class="el" href="classwmoge_1_1TVecN.html#aaa832592f8b04105cb8de1c57182eedd">Vec3f::axis_y</a>()</td></tr>
+<tr class="separator:ac04129c3619eed123bc6da3b3b7fcf16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c2eaae70046bedb67d8b6c5f393cd4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40e">CameraProjection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html#a4c2eaae70046bedb67d8b6c5f393cd4b">projection</a> = <a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40eaa80420eef88d11f77532f1b9cb467fa3">CameraProjection::Perspective</a></td></tr>
+<tr class="separator:a4c2eaae70046bedb67d8b6c5f393cd4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Camera class to encapsulate display parameters for rendering. </p>
+<div class="textblock"><p><a class="el" href="classwmoge_1_1Camera.html" title="In-game camera for rendering the scene.">Camera</a> data used for scene objects rendering. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a90975d79a4c6485bb919cbab4bac21af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90975d79a4c6485bb919cbab4bac21af">&#9670;&nbsp;</a></span>build_perspective()</h2>
+<a id="a296b05072d0b02492532faf84ea43836"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296b05072d0b02492532faf84ea43836">&#9670;&nbsp;</a></span>distance()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::RenderCamera::build_perspective </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af50c116e22a133f449f69cf049f97980"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af50c116e22a133f449f69cf049f97980">&#9670;&nbsp;</a></span>calc_distance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::calc_distance </td>
+          <td class="memname">float wmoge::RenderCamera::distance </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a80373c9834c1d91495fe5180718e49fb">Aabbf</a> &amp;&#160;</td>
           <td class="paramname"><em>box</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad1fc1331d08b5164f5fc656b610a9bd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1fc1331d08b5164f5fc656b610a9bd0">&#9670;&nbsp;</a></span>get_aspect()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::get_aspect </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad7b7fbd84a985f19695ffd9819493844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7b7fbd84a985f19695ffd9819493844">&#9670;&nbsp;</a></span>get_direction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&amp; wmoge::RenderCamera::get_direction </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac9447e7d27bd039e68152d69023b9960"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9447e7d27bd039e68152d69023b9960">&#9670;&nbsp;</a></span>get_far()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::get_far </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0b324c6eccb2ccfb1a9c7054be6aa134"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b324c6eccb2ccfb1a9c7054be6aa134">&#9670;&nbsp;</a></span>get_fov()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::get_fov </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1ef4c1b97ae2faec0fe53ff891363dd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ef4c1b97ae2faec0fe53ff891363dd5">&#9670;&nbsp;</a></span>get_height()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::get_height </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aba886994a538f436ec75545707f19294"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba886994a538f436ec75545707f19294">&#9670;&nbsp;</a></span>get_near()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::get_near </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a479c2d3cbb1754d8c3a408f0f9e8abba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a479c2d3cbb1754d8c3a408f0f9e8abba">&#9670;&nbsp;</a></span>get_planes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a42f1122b398215259745c2403d3e2176">Planef</a>* wmoge::RenderCamera::get_planes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9f7be0985d8a4b894520cf86584704a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f7be0985d8a4b894520cf86584704a6">&#9670;&nbsp;</a></span>get_position()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&amp; wmoge::RenderCamera::get_position </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a776e8d800984db2eea9d7af195947618"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a776e8d800984db2eea9d7af195947618">&#9670;&nbsp;</a></span>get_proj()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&amp; wmoge::RenderCamera::get_proj </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa763244a1d2428b355e9c0e52262d94a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa763244a1d2428b355e9c0e52262d94a">&#9670;&nbsp;</a></span>get_proj_view()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&amp; wmoge::RenderCamera::get_proj_view </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a123046b0dfb33c3a9b5f42ea784afa22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a123046b0dfb33c3a9b5f42ea784afa22">&#9670;&nbsp;</a></span>get_right()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&amp; wmoge::RenderCamera::get_right </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac83df70689ac2f7bfaf672e0518c91ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac83df70689ac2f7bfaf672e0518c91ac">&#9670;&nbsp;</a></span>get_up()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&amp; wmoge::RenderCamera::get_up </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="affb1188caa359dd182d4a5b562c911c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affb1188caa359dd182d4a5b562c911c8">&#9670;&nbsp;</a></span>get_view()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&amp; wmoge::RenderCamera::get_view </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aacdeed930b982e026478b1f85572c83e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacdeed930b982e026478b1f85572c83e">&#9670;&nbsp;</a></span>get_viewport()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a>&amp; wmoge::RenderCamera::get_viewport </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a96026a471a33f40cc3682a76fb9c3d21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96026a471a33f40cc3682a76fb9c3d21">&#9670;&nbsp;</a></span>get_width()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float wmoge::RenderCamera::get_width </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -558,146 +174,245 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad88d5f23d006e426e868f7bbd34199fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad88d5f23d006e426e868f7bbd34199fc">&#9670;&nbsp;</a></span>is_orthographic()</h2>
+<a id="a89a6393298af959697208a938b74bfc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89a6393298af959697208a938b74bfc0">&#9670;&nbsp;</a></span>update_frustum()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::RenderCamera::is_orthographic </td>
+          <td class="memname">void wmoge::RenderCamera::update_frustum </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab3a9d13f152115c2ca40a459efe20aab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3a9d13f152115c2ca40a459efe20aab">&#9670;&nbsp;</a></span>is_perspective()</h2>
+<a id="a4adaa3bf78250c656d18e67e4fe05361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4adaa3bf78250c656d18e67e4fe05361">&#9670;&nbsp;</a></span>update_matrices()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::RenderCamera::is_perspective </td>
+          <td class="memname">void wmoge::RenderCamera::update_matrices </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ac717f91f09b97491602123b332ade3ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac717f91f09b97491602123b332ade3ea">&#9670;&nbsp;</a></span>set_perspective()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a620e24026afc89b49af4d6109df9cc8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620e24026afc89b49af4d6109df9cc8a">&#9670;&nbsp;</a></span>aspect</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::RenderCamera::set_perspective </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>fov</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>near</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>far</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">float wmoge::RenderCamera::aspect = 16.0f / 9.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa90a2305c09379154d21f20cb40a92c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa90a2305c09379154d21f20cb40a92c3">&#9670;&nbsp;</a></span>set_transform()</h2>
+<a id="a307238ee6fb111f365f291d790d93eb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a307238ee6fb111f365f291d790d93eb0">&#9670;&nbsp;</a></span>direction</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::RenderCamera::set_transform </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>direction</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>up</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> wmoge::RenderCamera::direction = <a class="el" href="classwmoge_1_1TVecN.html#a1332d5344942013851e5d5cd1b9ec51b">Vec3f::axis_z</a>()</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0b71b1ba71fa5560e720e39ab77415fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b71b1ba71fa5560e720e39ab77415fd">&#9670;&nbsp;</a></span>set_viewport()</h2>
+<a id="a7f1899896279e2155a62026e8ca85c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f1899896279e2155a62026e8ca85c7b">&#9670;&nbsp;</a></span>far</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::RenderCamera::set_viewport </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
+          <td class="memname">float wmoge::RenderCamera::far = 1000.0f</td>
         </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a12d0b50e3112f377c936d9c28ccbeb5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12d0b50e3112f377c936d9c28ccbeb5e">&#9670;&nbsp;</a></span>fov</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
+          <td class="memname">float wmoge::RenderCamera::fov = <a class="el" href="classwmoge_1_1Math.html#a7289014cdf49b3717238134e0d1a0153">Math::deg_to_rad</a>(45.0f)</td>
         </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af34b6929e065ba6fe8a430b69b6655f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af34b6929e065ba6fe8a430b69b6655f7">&#9670;&nbsp;</a></span>frustum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a691062e7ac5dcc15c17916bf76d505e7">Frustumf</a> wmoge::RenderCamera::frustum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d8ec5fdff9355c3336be6e6a853f434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d8ec5fdff9355c3336be6e6a853f434">&#9670;&nbsp;</a></span>height</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float wmoge::RenderCamera::height = 720.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2a302ec60f086a384ecd1c711b71fa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2a302ec60f086a384ecd1c711b71fa5">&#9670;&nbsp;</a></span>near</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float wmoge::RenderCamera::near = 0.1f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf80ac1ba2fa28533d4ae6d76a6b6dc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf80ac1ba2fa28533d4ae6d76a6b6dc7">&#9670;&nbsp;</a></span>position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> wmoge::RenderCamera::position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5dbe682ed9266170b773e434858c43de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dbe682ed9266170b773e434858c43de">&#9670;&nbsp;</a></span>proj</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::RenderCamera::proj</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68e23f84e041b8574114e3aef4246a44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68e23f84e041b8574114e3aef4246a44">&#9670;&nbsp;</a></span>proj_view</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::RenderCamera::proj_view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c2eaae70046bedb67d8b6c5f393cd4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2eaae70046bedb67d8b6c5f393cd4b">&#9670;&nbsp;</a></span>projection</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40e">CameraProjection</a> wmoge::RenderCamera::projection = <a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40eaa80420eef88d11f77532f1b9cb467fa3">CameraProjection::Perspective</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac04129c3619eed123bc6da3b3b7fcf16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac04129c3619eed123bc6da3b3b7fcf16">&#9670;&nbsp;</a></span>up</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> wmoge::RenderCamera::up = <a class="el" href="classwmoge_1_1TVecN.html#aaa832592f8b04105cb8de1c57182eedd">Vec3f::axis_y</a>()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab3c3211a4de4e145dae82815f85994e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab3c3211a4de4e145dae82815f85994e">&#9670;&nbsp;</a></span>view</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::RenderCamera::view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c3936d9cfb59ca765ac21eb1fc5243c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c3936d9cfb59ca765ac21eb1fc5243c">&#9670;&nbsp;</a></span>viewport</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> wmoge::RenderCamera::viewport</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a811690cbc4e9bb8b6051d4d907db5e91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a811690cbc4e9bb8b6051d4d907db5e91">&#9670;&nbsp;</a></span>width</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float wmoge::RenderCamera::width = 1280.0f</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -1,4 +1,0 @@
-<map id="wmoge::EcsEntityInfo" name="wmoge::EcsEntityInfo">
-<area shape="rect" id="node1" title="Associated entity info stored in a world." alt="" coords="5,95,152,121"/>
-<area shape="rect" id="node2" href="$classEcsEntityState.html" title="State on an entity, tracked by a ecs world." alt="" coords="25,5,132,32"/>
-</map>

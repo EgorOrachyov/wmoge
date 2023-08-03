@@ -1,3 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classEventType.html" title="Type to identify different events." alt="" coords="5,5,88,32"/>
+<area shape="rect" id="node1" href="$classreflection_1_1Type.html" title=" " alt="" coords="5,81,111,108"/>
+<area shape="rect" id="node2" href="$classreflection_1_1Struct.html" title=" " alt="" coords="186,5,298,32"/>
+<area shape="rect" id="node3" href="$classreflection_1_1TypeComposite.html" title=" " alt="" coords="159,56,325,83"/>
+<area shape="rect" id="node6" href="$classreflection_1_1TypeSampler.html" title=" " alt="" coords="165,107,319,133"/>
+<area shape="rect" id="node7" href="$classreflection_1_1TypeScalar.html" title=" " alt="" coords="171,157,313,184"/>
+<area shape="rect" id="node4" href="$classreflection_1_1TypeMatrix.html" title=" " alt="" coords="375,31,515,57"/>
+<area shape="rect" id="node5" href="$classreflection_1_1TypeVector.html" title=" " alt="" coords="373,81,516,108"/>
 </map>

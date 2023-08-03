@@ -99,7 +99,7 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_GFX_DRIVER_WRAPPER_HPP</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_GFX_DRIVER_WRAPPER_HPP</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="cmd__stream_8hpp.html">core/cmd_stream.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="callback__stream_8hpp.html">core/callback_stream.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__driver_8hpp.html">gfx/gfx_driver.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__driver__threaded_8hpp.html">gfx/threaded/gfx_driver_threaded.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -160,7 +160,7 @@ $(function() {
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <a class="code" href="classwmoge_1_1GfxDynIndexBuffer.html">GfxDynIndexBuffer</a>*   m_dyn_index_buffer   = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="classwmoge_1_1GfxDynUniformBuffer.html">GfxDynUniformBuffer</a>* m_dyn_uniform_buffer = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a>        m_shader_lang;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="classwmoge_1_1CmdStream.html">CmdStream</a>*           m_stream = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>*      m_stream = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="structwmoge_1_1GfxDeviceCaps.html">GfxDeviceCaps</a>        m_device_caps;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="classwmoge_1_1StringId.html">StringId</a>             m_driver_name;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        std::thread::id      m_thread_id;</div>
@@ -174,7 +174,8 @@ $(function() {
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_GFX_DRIVER_WRAPPER_HPP</span></div>
-<div class="ttc" id="aclasswmoge_1_1CmdStream_html"><div class="ttname"><a href="classwmoge_1_1CmdStream.html">wmoge::CmdStream</a></div><div class="ttdoc">Thread-safe unbound multiple-producers single consumer cmd stream.</div><div class="ttdef"><b>Definition:</b> cmd_stream.hpp:43</div></div>
+<div class="ttc" id="acallback__stream_8hpp_html"><div class="ttname"><a href="callback__stream_8hpp.html">callback_stream.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1CallbackStream_html"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html">wmoge::CallbackStream</a></div><div class="ttdoc">Thread-safe unbound multiple-producers single consumer callback stream.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:43</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxCtx_html"><div class="ttname"><a href="classwmoge_1_1GfxCtx.html">wmoge::GfxCtx</a></div><div class="ttdoc">Gfx context interface.</div><div class="ttdef"><b>Definition:</b> gfx_ctx.hpp:58</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriverThreaded_html"><div class="ttname"><a href="classwmoge_1_1GfxDriverThreaded.html">wmoge::GfxDriverThreaded</a></div><div class="ttdoc">An extension for a gfx driver for threaded communication support.</div><div class="ttdef"><b>Definition:</b> gfx_driver_threaded.hpp:46</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriverWrapper_html"><div class="ttname"><a href="classwmoge_1_1GfxDriverWrapper.html">wmoge::GfxDriverWrapper</a></div><div class="ttdoc">Thread-safe wrapper for gfx device to used from any thread.</div><div class="ttdef"><b>Definition:</b> gfx_driver_wrapper.hpp:49</div></div>
@@ -224,7 +225,6 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdef"><b>Definition:</b> ref.hpp:65</div></div>
 <div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:43</div></div>
 <div class="ttc" id="aclasswmoge_1_1TMatMxN_html"><div class="ttname"><a href="classwmoge_1_1TMatMxN.html">wmoge::TMatMxN&lt; float, 4, 4 &gt;</a></div></div>
-<div class="ttc" id="acmd__stream_8hpp_html"><div class="ttname"><a href="cmd__stream_8hpp.html">cmd_stream.hpp</a></div></div>
 <div class="ttc" id="agfx__driver_8hpp_html"><div class="ttname"><a href="gfx__driver_8hpp.html">gfx_driver.hpp</a></div></div>
 <div class="ttc" id="agfx__driver__threaded_8hpp_html"><div class="ttname"><a href="gfx__driver__threaded_8hpp.html">gfx_driver_threaded.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
