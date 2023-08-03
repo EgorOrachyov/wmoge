@@ -40,7 +40,6 @@ namespace wmoge {
     using fast_set = std::unordered_set<K>;
 #else
     /**
-     * @class fast_set
      * @brief wrapper for fast robin_hood unordered set
      */
     template<typename K>

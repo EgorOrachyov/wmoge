@@ -80,7 +80,9 @@ public:
         Application::on_init();
 
         Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
+        Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_camera_debug.yml");
         Engine::instance()->action_manager()->activate_action_map(SID("console"));
+        Engine::instance()->action_manager()->activate_action_map(SID("camera_debug"));
 
         Engine::instance()->file_system()->watch("root://shaders");
         Engine::instance()->event_manager()->subscribe<EventFileSystem>([](const EventFileSystem& event) {
@@ -112,6 +114,8 @@ public:
             yaml_read(tree.crootref(), *mesh);
         }
 
+        scene = Engine::instance()->scene_manager()->make_scene(SID("test"));
+
         WG_LOG_INFO("init");
     }
 
@@ -127,9 +131,11 @@ public:
 
         angle += 0.007f;
 
+        auto cam = scene->get_cameras()->get_active_camera();
+
         auto viewport = Rect2i{0, 0, window_manager->primary_window()->fbo_width(), window_manager->primary_window()->fbo_height()};
-        auto proj     = Math3d::perspective(Math::deg_to_rad(90.0f), 1280.0f / 720.0f, 0.1f, 10000.0f);
-        auto view     = Math3d::look_at({0, 0, 10}, {0, 0, -1}, {0, 1, 0});
+        auto proj     = Math3d::perspective(cam->get_fov(), 1280.0f / 720.0f, 0.1f, 10000.0f);
+        auto view     = Math3d::look_at(cam->get_position(), cam->get_direction(), cam->get_up());
         auto model    = Math3d::rotate_y(angle) * Math3d::scale(Vec3f(0.5, 0.5, 0.5));
 
         if (Random::next_float() < engine->get_delta_time()) {
@@ -219,10 +225,13 @@ public:
         }
 
         mesh.reset();
+        scene.reset();
 
         Application::on_shutdown();
         WG_LOG_INFO("shutdown");
     }
+
+    Ref<Scene> scene;
 
     Ref<Mesh> mesh;
 };

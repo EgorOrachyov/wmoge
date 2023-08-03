@@ -358,6 +358,10 @@ namespace wmoge {
             return Math::acos(dot(a.normalized(), b.normalized()));
         }
 
+        static TVecN project(const TVecN& axis, const TVecN& v) {
+            return axis * dot(axis, v);
+        }
+
         /**
          * Vector cross product
          * @warning Defined only fir 3-dim vectors

@@ -38,7 +38,6 @@
 namespace wmoge {
 
     /**
-     * @class TaskRunnableFor
      * @brief Task runnable used to make task for
      *
      * Accepts context of execution, item id and total items count.

@@ -166,19 +166,19 @@ namespace wmoge {
         // This is stored here also to reduce look-ups count into global manager when doing material rendering
         fast_map<StringId, Ref<GfxShader>> m_variants;
 
-        std::string m_vertex;
-        std::string m_fragment;
-        std::string m_compute;
-        std::string m_include_textures;
-        std::string m_include_parameters;
-        int         m_parameters_size = -1;
-
         fast_map<StringId, ShaderParameter> m_parameters;
         fast_map<StringId, ShaderTexture>   m_textures;
         fast_set<StringId>                  m_keywords;
         ShaderPipelineState                 m_pipeline_state{};
         StringId                            m_domain;
-        int                                 m_render_queue;
+        int                                 m_render_queue = 0;
+
+        std::string m_vertex;
+        std::string m_fragment;
+        std::string m_compute;
+        std::string m_include_textures;
+        std::string m_include_parameters;
+        int         m_parameters_size = 0;
 
         std::mutex m_mutex;
     };

@@ -39,7 +39,6 @@
 namespace wmoge {
 
     /**
-     * @class LogLevel
      * @brief Level of a logged message
      */
     enum class LogLevel {

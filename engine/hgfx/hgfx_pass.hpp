@@ -35,7 +35,6 @@
 namespace wmoge {
 
     /**
-     * @class HgfxPassType
      * @brief List of hgfx pass types
      */
     enum class HgfxPassType {

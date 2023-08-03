@@ -41,7 +41,6 @@
 namespace wmoge {
 
     /**
-     * @class EcsSystemType
      * @brief Type of a system
      */
     enum class EcsSystemType {
@@ -49,7 +48,6 @@ namespace wmoge {
     };
 
     /**
-     * @class EcsSystemExecMode
      * @brief How system must be executed
      */
     enum class EcsSystemExecMode {
@@ -58,7 +56,6 @@ namespace wmoge {
     };
 
     /**
-     * @class EcsSystemNativeFunc
      * @brief Static function which can be used to implement a system interface
      */
     template<typename T, typename... TArgs>

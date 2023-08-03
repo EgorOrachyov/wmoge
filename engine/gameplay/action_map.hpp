@@ -46,18 +46,18 @@ namespace wmoge {
      * @brief Single activation info which can be used to trigger an action
      */
     struct ActionActivation {
-        StringId         device_name     = SID("unknown");
-        InputDeviceType  device_type     = InputDeviceType::Any;
-        InputAction      action          = InputAction::Unknown;
-        InputKeyboardKey key             = InputKeyboardKey::Unknown;
-        InputMouseButton mouse_button    = InputMouseButton::Unknown;
-        int              joystick        = -1;
-        int              joystick_button = -1;
-        int              axis            = -1;
-        int              gamepad_button  = -1;
-        int              gamepad_axis    = -1;
-        float            threshold       = 0.1f;
-        float            direction       = 0.0f;
+        StringId           device_name     = SID("unknown");
+        InputDeviceType    device_type     = InputDeviceType::Any;
+        InputAction        action          = InputAction::Unknown;
+        InputKeyboardKey   key             = InputKeyboardKey::Unknown;
+        InputMouseButton   mouse_button    = InputMouseButton::Unknown;
+        int                joystick        = -1;
+        int                joystick_button = -1;
+        int                axis            = -1;
+        InputGamepadButton gamepad_button  = InputGamepadButton::Unknown;
+        InputGamepadAxis   gamepad_axis    = InputGamepadAxis::Unknown;
+        float              threshold       = 0.1f;
+        float              direction       = 0.0f;
 
         friend bool yaml_read(const YamlConstNodeRef& node, ActionActivation& activation);
         friend bool yaml_write(YamlNodeRef node, const ActionActivation& activation);

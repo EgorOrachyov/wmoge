@@ -46,19 +46,16 @@
 namespace wmoge {
 
     /**
-     * @class YamlTree
      * @brief Represents parsed tree of yaml document
      */
     using YamlTree = ryml::Tree;
 
     /**
-     * @class YamlNodeRef
      * @brief Reference to a node in yaml tree
      */
     using YamlNodeRef = ryml::NodeRef;
 
     /**
-     * @class YamlConstNodeRef
      * @brief Constant reference to a node in yaml tree
      */
     using YamlConstNodeRef = ryml::ConstNodeRef;

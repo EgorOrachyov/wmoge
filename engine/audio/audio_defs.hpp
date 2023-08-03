@@ -33,7 +33,6 @@
 namespace wmoge {
 
     /**
-     * @class AudioPlaybackState
      * @brief State of audio stream playback
      */
     enum class AudioPlaybackState : int {
@@ -44,7 +43,6 @@ namespace wmoge {
     };
 
     /**
-     * @class AudioBusState
      * @brief State of bus for playing sounds
      */
     enum class AudioBusState : int {

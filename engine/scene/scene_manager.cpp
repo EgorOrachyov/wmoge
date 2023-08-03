@@ -27,6 +27,8 @@
 
 #include "scene_manager.hpp"
 
+#include <utility>
+
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 
@@ -35,88 +37,44 @@ namespace wmoge {
     SceneManager::SceneManager() {
         WG_LOG_INFO("init scene manager");
     }
-    SceneManager::~SceneManager() {
-        shutdown();
+
+    void SceneManager::next(Ref<Scene> scene) {
+        std::lock_guard guard(m_mutex);
+
+        m_next = std::move(scene);
     }
+    void SceneManager::unload(const Ref<Scene>& scene) {
+        std::lock_guard guard(m_mutex);
 
-    void SceneManager::shutdown() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::shutdown");
+        m_to_unload.erase(scene);
+        m_scenes.erase(scene);
+    }
+    void SceneManager::unload_deferred(const Ref<Scene>& scene) {
+        std::lock_guard guard(m_mutex);
 
-        m_running.reset();
-        m_next_running.reset();
+        m_to_unload.insert(scene);
+    }
+    void SceneManager::unload_all() {
+        std::lock_guard guard(m_mutex);
 
         m_scenes.clear();
-        m_to_shutdown.clear();
-
-        WG_LOG_INFO("shutdown scene manager");
     }
-    void SceneManager::next_running(Ref<Scene> scene) {
-        std::lock_guard guard(m_mutex);
 
-        assert(scene);
-        assert(m_scenes.find(scene) != m_scenes.end());
-
-        m_next_running = scene;
-    }
-    void SceneManager::shutdown_scene(Ref<Scene> scene) {
-        std::lock_guard guard(m_mutex);
-
-        assert(scene);
-        assert(m_scenes.find(scene) != m_scenes.end());
-
-        m_to_shutdown.insert(scene);
-    }
     Ref<Scene> SceneManager::get_running_scene() {
+        std::lock_guard guard(m_mutex);
         return m_running;
     }
-    Ref<Scene> SceneManager::make_scene(const StringId& name) {
-        auto scene = make_ref<Scene>();
-
+    Ref<Scene> SceneManager::get_next_scene() {
         std::lock_guard guard(m_mutex);
+        return m_next;
+    }
+    Ref<Scene> SceneManager::make_scene(const StringId& name) {
+        std::lock_guard guard(m_mutex);
+
+        auto scene = make_ref<Scene>();
         m_scenes.insert(scene);
 
         return scene;
-    }
-    void SceneManager::on_start_frame() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::on_start_frame");
-
-        std::lock_guard guard(m_mutex);
-
-        if (m_next_running) {
-            m_running = std::move(m_next_running);
-        }
-    }
-    void SceneManager::on_update() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::on_update");
-
-        std::lock_guard guard(m_mutex);
-
-        if (!m_running && !m_next_running) {
-            // No active scene to process
-            return;
-        }
-        if (!m_running) {
-            // Ok, since have next to run in the next frame
-            return;
-        }
-    }
-    void SceneManager::on_debug_draw() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::on_debug_draw");
-    }
-    void SceneManager::on_end_frame() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::on_end_frame");
-
-        std::lock_guard guard(m_mutex);
-
-        if (m_to_shutdown.find(m_running) != m_to_shutdown.end()) {
-            m_running.reset();
-        }
-
-        for (auto& scene : m_to_shutdown) {
-            m_scenes.erase(scene);
-        }
-
-        m_to_shutdown.clear();
     }
 
 }// namespace wmoge

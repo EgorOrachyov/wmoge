@@ -48,7 +48,6 @@
 namespace wmoge {
 
     /**
-     * @class ResourceCallback
      * @brief Callback function called when resource loading request is finished
      *
      * Use this callback function in async resource loading request.

@@ -110,6 +110,7 @@
 #include "io/yaml.hpp"
 
 #include "math/color.hpp"
+#include "math/frustum.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils.hpp"
 #include "math/math_utils2d.hpp"
@@ -160,6 +161,7 @@
 #include "resource/texture.hpp"
 
 #include "scene/scene.hpp"
+#include "scene/scene_camera.hpp"
 #include "scene/scene_components.hpp"
 #include "scene/scene_manager.hpp"
 #include "scene/scene_node.hpp"

@@ -30,7 +30,6 @@
 
 #include "core/fast_map.hpp"
 #include "core/fast_set.hpp"
-#include "core/layer.hpp"
 #include "scene/scene.hpp"
 
 #include <mutex>
@@ -44,28 +43,25 @@ namespace wmoge {
      * @class SceneManager
      * @brief Manager for game loaded and active scenes
      */
-    class SceneManager final : public Layer {
+    class SceneManager final {
     public:
         SceneManager();
-        ~SceneManager() override;
 
-        void shutdown();
+        void next(Ref<Scene> scene);
+        void unload(const Ref<Scene>& scene);
+        void unload_deferred(const Ref<Scene>& scene);
+        void unload_all();
 
-        void       next_running(Ref<Scene> scene);
-        void       shutdown_scene(Ref<Scene> scene);
         Ref<Scene> get_running_scene();
+        Ref<Scene> get_next_scene();
         Ref<Scene> make_scene(const StringId& name);
 
-        void on_start_frame() override;
-        void on_update();
-        void on_debug_draw() override;
-        void on_end_frame() override;
-
     private:
-        fast_set<Ref<Scene>> m_scenes;      // allocated scenes in the engine
-        fast_set<Ref<Scene>> m_to_shutdown; // scheduled to shut down
-        Ref<Scene>           m_running;     // active scene
-        Ref<Scene>           m_next_running;// scene to become active on next frame
+        fast_set<Ref<Scene>> m_scenes;   // allocated scenes in the engine
+        fast_set<Ref<Scene>> m_to_unload;// scheduled to be unloaded
+
+        Ref<Scene> m_running;// active scene
+        Ref<Scene> m_next;   // scene to become active on next frame
 
         std::recursive_mutex m_mutex;
     };

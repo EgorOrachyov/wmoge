@@ -210,8 +210,6 @@ namespace wmoge {
         engine->m_canvas_2d_debug = m_canvas_2d_debug.get();
 
         m_console->init();
-
-        engine->push_layer(m_scene_manager.get());
         WG_LOG_INFO("init high level systems");
 
         m_dbg_layer = std::make_unique<DebugLayer>();
@@ -274,7 +272,7 @@ namespace wmoge {
         m_action_manager->update();
 
         // Process scene
-        m_scene_manager->on_update();
+        // todo
 
         // After flush and before swap we have a lot of time, which will be used
         // for main to sleep. It can be used to do some useful work, such as GC
@@ -316,7 +314,7 @@ namespace wmoge {
         m_task_manager->shutdown();
         m_main_queue->flush();
         m_console->shutdown();
-        m_scene_manager->shutdown();
+        m_scene_manager->unload_all();
         m_event_manager->flush();
 
         m_lua_script_system.reset();

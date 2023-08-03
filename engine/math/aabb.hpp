@@ -49,10 +49,14 @@ namespace wmoge {
             size_half = in_size_half;
         }
 
-        TAabb join(const TAabb& other) {
+        [[nodiscard]] TAabb join(const TAabb& other) {
             auto join_min = Vec3f::min(min(), other.min());
             auto join_max = Vec3f::max(max(), other.max());
             return TAabb<T>((join_max + join_min) * static_cast<T>(0.5), (join_max - join_min) * static_cast<T>(0.5));
+        }
+
+        [[nodiscard]] float distance(const TVecN<T, 3>& point) const {
+            return (center() - point).length();
         }
 
         TVecN<T, 3> center() const { return pos; }

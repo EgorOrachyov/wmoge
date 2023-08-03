@@ -41,6 +41,9 @@
 
 namespace wmoge {
 
+    /**
+     * @brief Types supported for storing inside a variant
+     */
     enum class VarType : int {
         Nil      = 0,
         Int      = 1,

@@ -40,7 +40,6 @@ namespace wmoge {
     using fast_map = std::unordered_map<K, V>;
 #else
     /**
-     * @class fast_map
      * @brief wrapper for fast robin_hood unordered map
      */
     template<typename K, typename V>

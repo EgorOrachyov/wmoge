@@ -72,11 +72,12 @@ namespace wmoge {
         ActionMapInfo* get_action_map_info(const StringId& name);
 
     private:
-        fast_vector<ActionMapInfo> m_maps;
-        EventListenerHnd           m_listener_mouse;
-        EventListenerHnd           m_listener_keyboard;
-        EventListenerHnd           m_listener_joystick;
-        EventListenerHnd           m_listener_gamepad;
+        fast_vector<ActionMapInfo>    m_maps;
+        fast_vector<Ref<EventAction>> m_events;
+        EventListenerHnd              m_listener_mouse;
+        EventListenerHnd              m_listener_keyboard;
+        EventListenerHnd              m_listener_joystick;
+        EventListenerHnd              m_listener_gamepad;
     };
 
 }// namespace wmoge

@@ -1,0 +1,90 @@
+name: camera_debug
+priority: 0
+actions:
+  - action: cd_toggle
+    display_name: "activate/deactivate debug camera"
+    activations:
+      - device_type: Keyboard
+        action: Press
+        key: F2
+  - action: cd_move_up
+    display_name: "up"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: Q
+  - action: cd_move_down
+    display_name: "down"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: E
+  - action: cd_move_left
+    display_name: "left"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: A
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: RightX
+        direction: -1.0f
+  - action: cd_move_right
+    display_name: "right"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: D
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: RightX
+        direction: 1.0f
+  - action: cd_move_fwd
+    display_name: "forward"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: W
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: RightY
+        direction: -1.0f
+  - action: cd_move_bwd
+    display_name: "backward"
+    activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: S
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: RightY
+        direction: 1.0f
+  - action: cd_rotate_left
+    display_name: "mouse rotation"
+    activations:
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: LeftX
+        direction: -1.0f
+  - action: cd_rotate_right
+    display_name: "mouse rotation"
+    activations:
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: LeftX
+        direction: 1.0f
+  - action: cd_rotate_down
+    display_name: "mouse rotation"
+    activations:
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: LeftY
+        direction: 1.0f
+  - action: cd_rotate_up
+    display_name: "mouse rotation"
+    activations:
+      - device_type: Joystick
+        joystick: 0
+        gamepad_axis: LeftY
+        direction: -1.0f
+

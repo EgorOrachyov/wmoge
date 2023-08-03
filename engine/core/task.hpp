@@ -39,7 +39,6 @@
 namespace wmoge {
 
     /**
-     * @class TaskRunnable
      * @brief Function which used to make task
      *
      * Accepts context of execution.

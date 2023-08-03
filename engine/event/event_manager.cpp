@@ -40,7 +40,7 @@ namespace wmoge {
     EventManager::~EventManager() {
 #ifdef WG_DEBUG
         if (!m_hnd_to_listener.empty()) {
-            WG_LOG_INFO("not explicitly unsubscribed count=" << m_hnd_to_listener.size());
+            WG_LOG_INFO("explicitly unsubscribed count=" << m_hnd_to_listener.size());
         }
 #endif
 
@@ -54,6 +54,8 @@ namespace wmoge {
     }
 
     EventListenerHnd EventManager::subscribe(const EventType& event_type, EventCallback callback) {
+        WG_AUTO_PROFILE_CORE("EventManager::subscribe");
+
         std::lock_guard guard(m_mutex);
 
         assert(callback);
@@ -79,6 +81,8 @@ namespace wmoge {
     }
 
     void EventManager::unsubscribe(EventListenerHnd hnd) {
+        WG_AUTO_PROFILE_CORE("EventManager::unsubscribe");
+
         std::lock_guard guard(m_mutex);
 
         assert(hnd.is_valid());
@@ -100,6 +104,8 @@ namespace wmoge {
     }
 
     void EventManager::dispatch(const Ref<Event>& event) {
+        WG_AUTO_PROFILE_CORE("EventManager::dispatch");
+
         std::lock_guard guard(m_mutex);
 
         assert(event);
@@ -125,6 +131,8 @@ namespace wmoge {
     }
 
     void EventManager::dispatch_deferred(const Ref<Event>& event) {
+        WG_AUTO_PROFILE_CORE("EventManager::dispatch_deferred");
+
         std::lock_guard guard(m_mutex);
 
         assert(event);
@@ -134,6 +142,8 @@ namespace wmoge {
     }
 
     void EventManager::flush() {
+        WG_AUTO_PROFILE_CORE("EventManager::flush");
+
         std::lock_guard guard(m_mutex);
 
         m_dispatching = true;

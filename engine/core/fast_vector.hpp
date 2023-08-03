@@ -41,7 +41,6 @@ namespace wmoge {
     using fast_vector = std::vector<T>;
 #else
     /**
-     * @class fast_vector
      * @brief Wrapper for ankerl vector with small vector optimization
      */
     template<typename T, std::size_t MinCapacity = 4>

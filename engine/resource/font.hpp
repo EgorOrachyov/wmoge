@@ -55,7 +55,6 @@ namespace wmoge {
     };
 
     /**
-     * @class FontTextAlignment
      * @brief Alignment of text for layout
      */
     enum class FontTextAlignment {

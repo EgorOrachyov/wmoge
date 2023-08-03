@@ -101,13 +101,12 @@ namespace wmoge {
     };
 
     /**
-     * @class Method
+     * @class ClassMethod
      * @brief Callable object class public member method
      */
     class ClassMethod final : public ClassMember {
     public:
         /**
-         * @class Call
          * @brief Function type used to execute method on an class instance
          */
         using Call = std::function<int(const ClassMethod&, Object*, int, const Var*, Var&)>;
@@ -143,7 +142,6 @@ namespace wmoge {
     };
 
     /**
-     * @class ClassDB
      * @brief Stores information about all registered engine object classes
      */
     using ClassDB = std::unordered_map<StringId, std::unique_ptr<class Class>>;

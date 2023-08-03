@@ -181,6 +181,7 @@ add_library(wmoge STATIC
         math/aabb.hpp
         math/color.cpp
         math/color.hpp
+        math/frustum.hpp
         math/mat.hpp
         math/math_utils.cpp
         math/math_utils.hpp
@@ -291,6 +292,8 @@ add_library(wmoge STATIC
         resource/paks/resource_pak_fs.hpp
         scene/scene.cpp
         scene/scene.hpp
+        scene/scene_camera.cpp
+        scene/scene_camera.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
         scene/scene_manager.cpp

@@ -33,6 +33,9 @@
 
 namespace wmoge {
 
+    /**
+     * @brief Resource system event types
+     */
     enum class ResourceNotification {
         None,
         Loaded,

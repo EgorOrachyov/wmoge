@@ -197,13 +197,24 @@ namespace wmoge {
             return shader_variant;
         }
 
+        shader_variant = shader_manager->find(shader_key);
+        if (shader_variant) {
+            std::lock_guard lock(m_mutex);
+            m_variants[shader_key] = shader_variant;
+
+            return shader_variant;
+        }
+
         shader_variant = shader_manager->get_shader(m_domain, streams, defines, this);
         if (shader_variant) {
             std::lock_guard lock(m_mutex);
             m_variants[shader_key] = shader_variant;
+
+            return shader_variant;
         }
 
-        return shader_variant;
+        WG_LOG_ERROR("failed to create shader variant " << shader_key);
+        return Ref<GfxShader>();
     }
 
     const std::string& Shader::get_vertex() const {
@@ -251,6 +262,10 @@ namespace wmoge {
     }
 
     bool Shader::generate_params_layout() {
+        if (m_parameters.empty()) {
+            return true;
+        }
+
         int               total_size = 0;
         int               pad_count  = 0;
         std::stringstream params_declaration;
@@ -308,6 +323,10 @@ namespace wmoge {
         return true;
     }
     bool Shader::generate_textures_layout() {
+        if (m_textures.empty()) {
+            return true;
+        }
+
         int               total_count = 0;
         std::stringstream tex_declaration;
 

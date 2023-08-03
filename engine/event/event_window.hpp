@@ -33,6 +33,9 @@
 
 namespace wmoge {
 
+    /**
+     * @brief Type of window changes
+     */
     enum class WindowNotification {
         Minimized,
         Maximized,

@@ -33,7 +33,6 @@
 namespace wmoge {
 
     /**
-     * @class TokenNotification
      * @brief Types of token events
      */
     enum class TokenNotification : int {
