@@ -60,29 +60,41 @@ actions:
         gamepad_axis: RightY
         direction: 1.0f
   - action: cd_rotate_left
-    display_name: "mouse rotation"
+    display_name: "dir rotation"
     activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: Left
       - device_type: Joystick
         joystick: 0
         gamepad_axis: LeftX
         direction: -1.0f
   - action: cd_rotate_right
-    display_name: "mouse rotation"
+    display_name: "dir rotation"
     activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: Right
       - device_type: Joystick
         joystick: 0
         gamepad_axis: LeftX
         direction: 1.0f
   - action: cd_rotate_down
-    display_name: "mouse rotation"
+    display_name: "dir rotation"
     activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: Down
       - device_type: Joystick
         joystick: 0
         gamepad_axis: LeftY
         direction: 1.0f
   - action: cd_rotate_up
-    display_name: "mouse rotation"
+    display_name: "dir rotation"
     activations:
+      - device_type: Keyboard
+        action: PressHeld
+        key: Up
       - device_type: Joystick
         joystick: 0
         gamepad_axis: LeftY

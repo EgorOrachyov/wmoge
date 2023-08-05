@@ -11,7 +11,6 @@ params:
   format: RGBA8
   mipmaps: true
   srgb: true
-  compression: false
   sampling:
     min_lod: 0.0
     max_lod: 32.0
@@ -22,3 +21,14 @@ params:
     v: Repeat
     w: Repeat
     brd_clr: Black
+  compression:
+    format: BC7
+    use_channel_weighting: false
+    weight_red: 0.3
+    weight_green: 0.4
+    weight_blue: 0.3
+    use_adaptive_weighting: false
+    use_alpha: false
+    alpha_threshold: 128
+    fquality: 0.05
+    num_threads: 4

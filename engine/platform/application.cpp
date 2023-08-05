@@ -31,6 +31,7 @@
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "main/main.hpp"
+#include "platform/file_system.hpp"
 #include "resource/config_file.hpp"
 
 namespace wmoge {
@@ -38,13 +39,15 @@ namespace wmoge {
     int Application::run(int argc, const char* const* argv) {
         Main main(this);
 
-        auto* engine   = Engine::instance();
-        auto* cmd_line = engine->cmd_line();
-        auto* config   = engine->config();
+        auto* engine      = Engine::instance();
+        auto* cmd_line    = engine->cmd_line();
+        auto* config      = engine->config();
+        auto* file_system = engine->file_system();
 
         cmd_line->add_bool("h,help", "display help message", "false");
         cmd_line->add_string("config_engine", "path to engine config", "root://config/engine.cfg");
         cmd_line->add_string("config_game", "path to game config", "root://config/game.cfg");
+        cmd_line->add_string("root_remap", "remap path to engine root folder", "");
 
         if (!cmd_line->parse(argc, argv)) {
             return 1;
@@ -54,21 +57,16 @@ namespace wmoge {
             return 0;
         }
 
-        ConfigFile config_engine;
-        if (!config_engine.load(cmd_line->get_string("config_engine"))) {
+        if (!cmd_line->get_string("root_remap").empty()) {
+            file_system->root(cmd_line->get_string("root_remap"));
+        }
+
+        if (!config->load_and_stack(cmd_line->get_string("config_engine"))) {
             std::cerr << "failed to load config engine file, check your configure";
         }
-
-        config->stack(config_engine);
-        config_engine.clear();
-
-        ConfigFile config_game;
-        if (!config_game.load(cmd_line->get_string("config_game"))) {
+        if (!config->load_and_stack(cmd_line->get_string("config_game"))) {
             std::cerr << "failed to load config game file, check your configure";
         }
-
-        config->stack(config_game);
-        config_game.clear();
 
         if (!main.prepare()) {
             return 1;

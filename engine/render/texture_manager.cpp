@@ -25,38 +25,4 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "resource_loader_freetype.hpp"
-
-#include "debug/profiler.hpp"
-#include "resource/font.hpp"
-
-namespace wmoge {
-
-    bool ResourceLoaderFreeType::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderFreeType::load");
-
-        Ref<Font> font = meta.cls->instantiate().cast<Font>();
-
-        if (!font) {
-            WG_LOG_ERROR("failed to instantiate font " << name);
-            return false;
-        }
-
-        res = font;
-        res->set_name(name);
-
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("no import options to load font " << name);
-            return false;
-        }
-
-        FontImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
-
-        return font->load(options.source_file, options.height, options.glyphs_in_row);
-    }
-    StringId ResourceLoaderFreeType::get_name() {
-        return SID("freetype");
-    }
-
-}// namespace wmoge
+#include "texture_manager.hpp"

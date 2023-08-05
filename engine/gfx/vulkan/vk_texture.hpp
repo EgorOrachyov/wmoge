@@ -49,9 +49,9 @@ namespace wmoge {
         void create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
         void create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name);
 
-        void update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const Ref<Data>& data);
-        void update_2d_array(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const Ref<Data>& data);
-        void update_cube(VkCommandBuffer cmd, int mip, int face, Rect2i region, const Ref<Data>& data);
+        void update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, const Ref<Data>& data);
+        void update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data);
+        void update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, const Ref<Data>& data);
 
         void transition_layout(VkCommandBuffer cmd, VkImageLayout destination);
         void transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range);

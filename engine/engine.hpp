@@ -142,6 +142,8 @@
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
+#include "render/texture_compression.hpp"
+#include "render/texture_manager.hpp"
 
 #include "resource/audio_stream.hpp"
 #include "resource/config_file.hpp"

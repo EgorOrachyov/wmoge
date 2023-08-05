@@ -113,6 +113,10 @@ namespace wmoge {
                 timer.stop();
                 WG_LOG_INFO("load resource " << name << ", time: " << timer.get_elapsed_sec() << " sec");
 
+                if (resource->get_name().empty()) {
+                    resource->set_name(name);
+                }
+
                 auto event          = make_event<EventResource>();
                 event->resource_id  = name;
                 event->resource_ref = resource;

@@ -242,6 +242,10 @@ add_library(wmoge STATIC
         render/shader_builder.hpp
         render/shader_manager.cpp
         render/shader_manager.hpp
+        render/texture_compression.cpp
+        render/texture_compression.hpp
+        render/texture_manager.cpp
+        render/texture_manager.hpp
         resource/audio_stream.cpp
         resource/audio_stream.hpp
         resource/audio_stream_wav.cpp

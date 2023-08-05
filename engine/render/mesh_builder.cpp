@@ -138,7 +138,7 @@ namespace wmoge {
             offset += GfxVertAttribSizes[i];
         });
 
-        mesh = Class::class_ptr(SID("Mesh"))->instantiate().cast<Mesh>();
+        assert(mesh);
 
         for (const MeshChunk& chunk : chunks) {
             mesh->add_chunk(chunk);

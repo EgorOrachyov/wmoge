@@ -108,13 +108,15 @@ namespace wmoge {
             return false;
         }
 
+        import_ctx.builder.mesh = make_ref<Mesh>();
+
+        res = import_ctx.builder.mesh;
+        res->set_name(name);
+
         if (!import_ctx.builder.build()) {
             WG_LOG_ERROR("failed to build mesh " << name);
             return false;
         }
-
-        res = import_ctx.builder.mesh;
-        res->set_name(name);
 
         return true;
     }

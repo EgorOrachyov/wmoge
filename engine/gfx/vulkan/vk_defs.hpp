@@ -404,6 +404,22 @@ namespace wmoge {
                 case GfxFormat::RG32F:
                 case GfxFormat::RGB32F:
                 case GfxFormat::RGBA32F:
+                case GfxFormat::BC1_RGB:
+                case GfxFormat::BC1_RGB_SRGB:
+                case GfxFormat::BC1_RGBA:
+                case GfxFormat::BC1_RGBA_SRGB:
+                case GfxFormat::BC2:
+                case GfxFormat::BC2_SRGB:
+                case GfxFormat::BC3:
+                case GfxFormat::BC3_SRGB:
+                case GfxFormat::BC4:
+                case GfxFormat::BC4_SNORM:
+                case GfxFormat::BC5:
+                case GfxFormat::BC5_SNORM:
+                case GfxFormat::BC6H_UFLOAT:
+                case GfxFormat::BC6H_SFLOAT:
+                case GfxFormat::BC7:
+                case GfxFormat::BC7_SRGB:
                     return VK_IMAGE_ASPECT_COLOR_BIT;
                 case GfxFormat::DEPTH32F:
                     return VK_IMAGE_ASPECT_DEPTH_BIT;
@@ -452,6 +468,7 @@ namespace wmoge {
                     return VK_FORMAT_R8G8B8A8_SRGB;
                 case GfxFormat::SBGR8_ALPHA8:
                     return VK_FORMAT_B8G8R8A8_SRGB;
+
                 case GfxFormat::R32I:
                     return VK_FORMAT_R32_SINT;
                 case GfxFormat::RG32I:
@@ -460,6 +477,7 @@ namespace wmoge {
                     return VK_FORMAT_R32G32B32_SINT;
                 case GfxFormat::RGBA32I:
                     return VK_FORMAT_R32G32B32A32_SINT;
+
                 case GfxFormat::R16F:
                     return VK_FORMAT_R16_SFLOAT;
                 case GfxFormat::RG16F:
@@ -476,6 +494,40 @@ namespace wmoge {
                     return VK_FORMAT_R32G32B32_SFLOAT;
                 case GfxFormat::RGBA32F:
                     return VK_FORMAT_R32G32B32A32_SFLOAT;
+
+                case GfxFormat::BC1_RGB:
+                    return VK_FORMAT_BC1_RGB_UNORM_BLOCK;
+                case GfxFormat::BC1_RGB_SRGB:
+                    return VK_FORMAT_BC1_RGB_SRGB_BLOCK;
+                case GfxFormat::BC1_RGBA:
+                    return VK_FORMAT_BC1_RGBA_UNORM_BLOCK;
+                case GfxFormat::BC1_RGBA_SRGB:
+                    return VK_FORMAT_BC1_RGBA_SRGB_BLOCK;
+                case GfxFormat::BC2:
+                    return VK_FORMAT_BC2_UNORM_BLOCK;
+                case GfxFormat::BC2_SRGB:
+                    return VK_FORMAT_BC2_SRGB_BLOCK;
+                case GfxFormat::BC3:
+                    return VK_FORMAT_BC3_UNORM_BLOCK;
+                case GfxFormat::BC3_SRGB:
+                    return VK_FORMAT_BC3_SRGB_BLOCK;
+                case GfxFormat::BC4:
+                    return VK_FORMAT_BC4_UNORM_BLOCK;
+                case GfxFormat::BC4_SNORM:
+                    return VK_FORMAT_BC4_SNORM_BLOCK;
+                case GfxFormat::BC5:
+                    return VK_FORMAT_BC5_UNORM_BLOCK;
+                case GfxFormat::BC5_SNORM:
+                    return VK_FORMAT_BC5_SNORM_BLOCK;
+                case GfxFormat::BC6H_UFLOAT:
+                    return VK_FORMAT_BC6H_UFLOAT_BLOCK;
+                case GfxFormat::BC6H_SFLOAT:
+                    return VK_FORMAT_BC6H_SFLOAT_BLOCK;
+                case GfxFormat::BC7:
+                    return VK_FORMAT_BC7_UNORM_BLOCK;
+                case GfxFormat::BC7_SRGB:
+                    return VK_FORMAT_BC7_SRGB_BLOCK;
+
                 case GfxFormat::DEPTH32F:
                     return VK_FORMAT_D32_SFLOAT;
                 case GfxFormat::DEPTH32F_STENCIL8:

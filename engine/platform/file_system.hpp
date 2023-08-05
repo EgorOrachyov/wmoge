@@ -70,15 +70,17 @@ namespace wmoge {
         bool                  save_file(const std::string& path, const std::vector<std::uint8_t>& data);
         void                  watch(const std::string& path);
 
+        void root(const std::filesystem::path& path);
+
         [[nodiscard]] const std::filesystem::path& executable_path() const;
-        [[nodiscard]] const std::filesystem::path& executable_dir() const;
+        [[nodiscard]] const std::filesystem::path& root_path() const;
         [[nodiscard]] const std::filesystem::path& resources_path() const;
         [[nodiscard]] const std::filesystem::path& cache_path() const;
         [[nodiscard]] const std::filesystem::path& debug_path() const;
 
     private:
         std::filesystem::path m_executable_path;
-        std::filesystem::path m_executable_dir;
+        std::filesystem::path m_root_path;
         std::filesystem::path m_resources_path;
         std::filesystem::path m_cache_path;
         std::filesystem::path m_debug_path;

@@ -94,6 +94,17 @@ namespace wmoge {
         }
     }
 
+    bool ConfigFile::load_and_stack(const std::string& path, ConfigStackMode mode) {
+        ConfigFile config_file;
+
+        if (!config_file.load(path)) {
+            return false;
+        }
+
+        stack(config_file, mode);
+        return true;
+    }
+
     void ConfigFile::clear() {
         m_entries.clear();
     }

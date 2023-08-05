@@ -168,7 +168,11 @@ add_subdirectory(deps/freetype)
 
 # Compression tool (for texture compression primary)
 set(OPTION_ENABLE_ALL_APPS OFF CACHE BOOL "" FORCE)
-add_subdirectory(deps/compressonator/library)
+set(OPTION_BUILD_CMP_SDK ON CACHE BOOL "" FORCE)
+add_subdirectory(deps/compressonator)
+add_library(compressonator INTERFACE)
+target_include_directories(compressonator INTERFACE deps/compressonator/cmp_compressonatorlib)
+target_link_libraries(compressonator INTERFACE CMP_Compressonator)
 
 # Lua deps for scripting
 add_subdirectory(deps/lua)

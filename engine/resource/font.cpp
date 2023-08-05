@@ -126,9 +126,10 @@ namespace wmoge {
         int bitmap_height = bitmap_rows * max_height + Math::max(0, bitmap_rows - 1) * GLYPHS_BITMAP_OFFSET;
         int bitmap_size   = bitmap_width * bitmap_height;
 
-        Image bitmap;
-        bitmap.create(bitmap_width, bitmap_height, 1, 1);
-        auto* dst_ptr     = bitmap.get_pixel_data()->buffer();
+        Ref<Image> bitmap = make_ref<Image>();
+        bitmap->set_name(SID(get_name().str() + "_bitmap"));
+        bitmap->create(bitmap_width, bitmap_height, 1, 1);
+        auto* dst_ptr     = bitmap->get_pixel_data()->buffer();
         auto* src_ptr     = glyphs_rendered.data();
         int   read_offset = 0;
         int   count       = 0;
@@ -163,32 +164,35 @@ namespace wmoge {
         m_max_width     = max_width;
         m_max_height    = max_height;
 
-        if (!bitmap.generate_mip_chain(m_cached_bitmap)) {
-            WG_LOG_ERROR("failed to generate mip chain for bitmap " << path);
-            return false;
-        }
-
-        auto gfx_driver = Engine::instance()->gfx_driver();
-        auto gfx_ctx    = Engine::instance()->gfx_ctx();
-
-        auto gfx_bitmap = gfx_driver->make_texture_2d(bitmap_width, bitmap_height, static_cast<int>(m_cached_bitmap.size()), GfxFormat::R8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, SID(m_family_name + std::to_string(height)));
-        for (int i = 0; i < static_cast<int>(m_cached_bitmap.size()); i++) {
-            auto& mip = m_cached_bitmap[i];
-            gfx_ctx->update_texture_2d(gfx_bitmap, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
-        }
-
         GfxSamplerDesc sampler_desc;
         sampler_desc.brd_clr        = GfxSampBrdClr::Black;
         sampler_desc.mag_flt        = GfxSampFlt::Linear;
         sampler_desc.min_flt        = GfxSampFlt::LinearMipmapLinear;
-        sampler_desc.max_anisotropy = gfx_driver->device_caps().max_anisotropy;
+        sampler_desc.max_anisotropy = Engine::instance()->gfx_driver()->device_caps().max_anisotropy;
         sampler_desc.u              = GfxSampAddress::ClampToBorder;
         sampler_desc.v              = GfxSampAddress::ClampToBorder;
-        auto gfx_sampler            = gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_str()));
 
-        m_texture = make_ref<Texture2d>();
-        m_texture->set_name(SID(get_name().str() + "_bitmap"));
-        m_texture->create(gfx_bitmap, gfx_sampler);
+        TexCompressionParams compression_params{};
+        compression_params.format = TexCompressionFormat::BC4;
+
+        m_texture = make_ref<Texture2d>(GfxFormat::R8, bitmap_width, bitmap_height);
+        m_texture->set_name(SID(get_name().str() + "_texture"));
+        m_texture->set_sampler_from_desc(sampler_desc);
+        m_texture->set_compression(compression_params);
+        m_texture->set_source_images({bitmap});
+
+        if (!m_texture->generate_mips()) {
+            WG_LOG_ERROR("failed to gen font mips " << get_name());
+            return false;
+        }
+        if (!m_texture->generate_compressed_data()) {
+            WG_LOG_ERROR("failed to compress font texture " << get_name());
+            return false;
+        }
+        if (!m_texture->generate_gfx_resource()) {
+            WG_LOG_ERROR("failed to create gfx font texture " << get_name());
+            return false;
+        }
 
         return true;
     }
@@ -221,7 +225,6 @@ namespace wmoge {
         Resource::copy_to(copy);
         auto font             = dynamic_cast<Font*>(&copy);
         font->m_glyphs        = m_glyphs;
-        font->m_cached_bitmap = m_cached_bitmap;
         font->m_family_name   = m_family_name;
         font->m_style_name    = m_style_name;
         font->m_texture       = m_texture;

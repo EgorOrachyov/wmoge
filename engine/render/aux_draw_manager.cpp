@@ -598,7 +598,7 @@ namespace wmoge {
         auto gfx_ctx    = engine->gfx_ctx();
 
         HgfxPassBase pass_lines;
-        pass_lines.name          = SID("aux_draw_lines");
+        pass_lines.name          = SID("AuxDrawLines");
         pass_lines.out_srgb      = true;
         pass_lines.mat_proj_view = mat_proj_view;
         pass_lines.prim_type     = GfxPrimType::Lines;
@@ -607,7 +607,7 @@ namespace wmoge {
         pass_lines.compile(gfx_ctx);
 
         HgfxPassBase pass_triangles_solid;
-        pass_triangles_solid.name          = SID("aux_draw_triangles_solid");
+        pass_triangles_solid.name          = SID("AuxDrawTrianglesSolid");
         pass_triangles_solid.out_srgb      = true;
         pass_triangles_solid.mat_proj_view = mat_proj_view;
         pass_triangles_solid.prim_type     = GfxPrimType::Triangles;
@@ -617,7 +617,7 @@ namespace wmoge {
         pass_triangles_solid.compile(gfx_ctx);
 
         HgfxPassBase pass_triangles_wire;
-        pass_triangles_wire.name          = SID("aux_draw_triangles_wire");
+        pass_triangles_wire.name          = SID("AuxDrawTrianglesWire");
         pass_triangles_wire.out_srgb      = true;
         pass_triangles_wire.mat_proj_view = mat_proj_view;
         pass_triangles_wire.prim_type     = GfxPrimType::Triangles;
@@ -627,7 +627,7 @@ namespace wmoge {
         pass_triangles_wire.compile(gfx_ctx);
 
         HgfxPassText pass_text;
-        pass_text.name         = SID("aux_draw_text");
+        pass_text.name         = SID("AuxDrawText");
         pass_text.out_srgb     = true;
         pass_text.screen_size  = screen_size;
         pass_text.font_texture = m_font->get_bitmap();

@@ -10,9 +10,9 @@
 /cmake-build-relwithdebinfo
 
 # logs, caches and debug data
-template/game/logs
-template/game/debug
-template/game/cache
+template/logs
+template/debug
+template/cache
 
 # logs, caches and debug data
 games/flappyowl/logs

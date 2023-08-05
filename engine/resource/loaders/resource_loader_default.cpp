@@ -35,6 +35,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderDefault::load");
 
         res = meta.cls->instantiate().cast<Resource>();
+        res->set_name(name);
 
         if (!res) {
             WG_LOG_ERROR("failed to instantiate resource " << name);

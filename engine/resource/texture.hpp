@@ -28,8 +28,10 @@
 #ifndef WMOGE_TEXTURE_HPP
 #define WMOGE_TEXTURE_HPP
 
+#include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "render/texture_compression.hpp"
 #include "resource/image.hpp"
 #include "resource/resource.hpp"
 
@@ -40,12 +42,12 @@ namespace wmoge {
      * @brief Options (base) to import texture
      */
     struct TextureImportOptions {
-        int            channels    = 4;
-        GfxFormat      format      = GfxFormat::RGBA8;
-        bool           mipmaps     = true;
-        bool           srgb        = true;
-        bool           compression = false;
-        GfxSamplerDesc sampling{};
+        int                  channels = 4;
+        GfxFormat            format   = GfxFormat::RGBA8;
+        bool                 mipmaps  = true;
+        bool                 srgb     = true;
+        GfxSamplerDesc       sampling{};
+        TexCompressionParams compression{};
 
         friend bool yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options);
         friend bool yaml_write(YamlNodeRef node, const TextureImportOptions& options);
@@ -97,38 +99,65 @@ namespace wmoge {
     public:
         WG_OBJECT(Texture, Resource);
 
-        const std::vector<Ref<Image>>& get_images() { return m_images; }
-        const Ref<GfxTexture>&         get_texture() { return m_texture; }
-        const Ref<GfxSampler>&         get_sampler() { return m_sampler; }
-        int                            get_width() { return m_width; }
-        int                            get_height() { return m_height; }
-        int                            get_depth() { return m_depth; }
-        int                            get_array_slices() { return m_array_slices; }
-        int                            get_mips() { return m_mips; }
-        GfxTex                         get_tex_type() { return m_tex_type; }
-        GfxFormat                      get_format() { return m_format; }
-        GfxMemUsage                    get_mem_usage() { return m_mem_usage; }
-        GfxTexUsages                   get_usages() { return m_usages; }
-        bool                           get_srgb() { return m_srgb; }
-        bool                           get_compression() { return m_compression; }
+        /**
+         * @brief Create new texture of desired format and size
+         *
+         * @param format Base (uncompressed) texture format
+         * @param width Width of the texture in pixels
+         * @param height Height of the texture in pixels
+         * @param depth Depth of the texture in pixels (in most cases 1)
+         * @param array_slices Number of slices for array or cube texture (in most cases 1)
+         */
+        Texture(GfxFormat format, int width, int height, int depth = 1, int array_slices = 1);
+
+        virtual void set_source_images(std::vector<Ref<Image>> images);
+        virtual void set_sampler(const Ref<GfxSampler>& sampler);
+        virtual void set_sampler_from_desc(const GfxSamplerDesc& desc);
+        virtual void set_compression(const TexCompressionParams& params);
+
+        /** @brief Generate mip-chain for the image using source 0-mip faces data */
+        virtual bool generate_mips();
+        /** @brief Generate compressed texture data based on compression settings */
+        virtual bool generate_compressed_data();
+        /** @brief Create default gfx texture resource and sampler */
+        virtual bool generate_gfx_resource();
+
+        [[nodiscard]] const std::vector<Ref<Image>>&   get_images() const { return m_images; }
+        [[nodiscard]] const std::vector<GfxImageData>& get_compressed() const { return m_compressed; }
+        [[nodiscard]] const Ref<GfxTexture>&           get_texture() const { return m_texture; }
+        [[nodiscard]] const Ref<GfxSampler>&           get_sampler() const { return m_sampler; }
+        [[nodiscard]] int                              get_width() const { return m_width; }
+        [[nodiscard]] int                              get_height() const { return m_height; }
+        [[nodiscard]] int                              get_depth() const { return m_depth; }
+        [[nodiscard]] int                              get_array_slices() const { return m_array_slices; }
+        [[nodiscard]] int                              get_mips() const { return m_mips; }
+        [[nodiscard]] GfxFormat                        get_format() const { return m_format; }
+        [[nodiscard]] GfxFormat                        get_format_compressed() const { return m_format_compressed; }
+        [[nodiscard]] GfxTex                           get_tex_type() const { return m_tex_type; }
+        [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_mem_usage; }
+        [[nodiscard]] GfxTexUsages                     get_usages() const { return m_usages; }
+        [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
+        [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_compression; }
 
         void copy_to(Resource& copy) override;
 
     protected:
-        std::vector<Ref<Image>> m_images;
-        Ref<GfxTexture>         m_texture;
-        Ref<GfxSampler>         m_sampler;
-        int                     m_width        = 0;
-        int                     m_height       = 0;
-        int                     m_depth        = 0;
-        int                     m_array_slices = 0;
-        int                     m_mips         = 0;
-        GfxTex                  m_tex_type;
-        GfxFormat               m_format;
-        GfxMemUsage             m_mem_usage;
-        GfxTexUsages            m_usages;
-        bool                    m_srgb        = false;
-        bool                    m_compression = false;
+        std::vector<Ref<Image>>   m_images;
+        std::vector<GfxImageData> m_compressed;
+        Ref<GfxTexture>           m_texture;
+        Ref<GfxSampler>           m_sampler;
+        int                       m_width             = 0;
+        int                       m_height            = 0;
+        int                       m_depth             = 0;
+        int                       m_array_slices      = 0;
+        int                       m_mips              = 0;
+        GfxFormat                 m_format            = GfxFormat::Unknown;
+        GfxFormat                 m_format_compressed = GfxFormat::Unknown;
+        GfxTex                    m_tex_type          = GfxTex::Tex2d;
+        GfxMemUsage               m_mem_usage         = GfxMemUsage::GpuLocal;
+        GfxTexUsages              m_usages            = {GfxTexUsageFlag::Sampling};
+        bool                      m_srgb              = false;
+        TexCompressionParams      m_compression{};
     };
 
     /**
@@ -139,7 +168,7 @@ namespace wmoge {
     public:
         WG_OBJECT(Texture2d, Texture);
 
-        void create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
+        Texture2d(GfxFormat format, int width, int height);
 
         void copy_to(Resource& copy) override;
     };
@@ -152,7 +181,7 @@ namespace wmoge {
     public:
         WG_OBJECT(TextureCube, Texture);
 
-        void create(const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler);
+        TextureCube(GfxFormat format, int width, int height);
 
         void copy_to(Resource& copy) override;
     };

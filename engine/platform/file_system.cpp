@@ -59,26 +59,8 @@ namespace wmoge {
         wai_getExecutablePath(path_exe.data(), path_length, nullptr);
 
         m_executable_path = path_exe;
-        m_executable_dir  = m_executable_path.parent_path();
 
-        m_resources_path = m_executable_dir / "resources";
-        m_cache_path     = m_executable_dir / "cache";
-        m_debug_path     = m_executable_dir / "debug";
-
-        if (!std::filesystem::exists(m_resources_path))
-            std::filesystem::create_directories(m_resources_path);
-        if (!std::filesystem::exists(m_cache_path))
-            std::filesystem::create_directories(m_cache_path);
-        if (!std::filesystem::exists(m_debug_path))
-            std::filesystem::create_directories(m_debug_path);
-
-        auto config_path = m_executable_dir / "config";
-        auto log_path    = m_executable_dir / "logs";
-
-        if (!std::filesystem::exists(config_path))
-            std::filesystem::create_directories(config_path);
-        if (!std::filesystem::exists(log_path))
-            std::filesystem::create_directories(log_path);
+        root(m_executable_path.parent_path());
     }
 
     FileSystem::~FileSystem() = default;
@@ -93,7 +75,7 @@ namespace wmoge {
             return m_resources_path / path.substr(PREFIX_RES.length());
         }
         if (path.find(PREFIX_ROOT) == 0) {
-            return m_executable_dir / path.substr(PREFIX_ROOT.length());
+            return m_root_path / path.substr(PREFIX_ROOT.length());
         }
         if (path.find(PREFIX_CACHE) == 0) {
             return m_cache_path / path.substr(PREFIX_CACHE.length());
@@ -222,11 +204,34 @@ namespace wmoge {
         }
     }
 
+    void FileSystem::root(const std::filesystem::path& path) {
+        m_root_path = path;
+
+        m_resources_path = m_root_path / "resources";
+        m_cache_path     = m_root_path / "cache";
+        m_debug_path     = m_root_path / "debug";
+
+        if (!std::filesystem::exists(m_resources_path))
+            std::filesystem::create_directories(m_resources_path);
+        if (!std::filesystem::exists(m_cache_path))
+            std::filesystem::create_directories(m_cache_path);
+        if (!std::filesystem::exists(m_debug_path))
+            std::filesystem::create_directories(m_debug_path);
+
+        auto config_path = m_root_path / "config";
+        auto log_path    = m_root_path / "logs";
+
+        if (!std::filesystem::exists(config_path))
+            std::filesystem::create_directories(config_path);
+        if (!std::filesystem::exists(log_path))
+            std::filesystem::create_directories(log_path);
+    }
+
     const std::filesystem::path& FileSystem::executable_path() const {
         return m_executable_path;
     }
-    const std::filesystem::path& FileSystem::executable_dir() const {
-        return m_executable_dir;
+    const std::filesystem::path& FileSystem::root_path() const {
+        return m_root_path;
     }
     const std::filesystem::path& FileSystem::resources_path() const {
         return m_resources_path;

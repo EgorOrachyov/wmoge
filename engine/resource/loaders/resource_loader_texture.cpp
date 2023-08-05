@@ -39,15 +39,6 @@ namespace wmoge {
     bool ResourceLoaderTexture2d::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderTexture2d::load");
 
-        Ref<Texture2d> texture = meta.cls->instantiate().cast<Texture2d>();
-
-        if (!texture) {
-            WG_LOG_ERROR("Failed to instantiate texture " << name);
-            return false;
-        }
-
-        res = texture;
-
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load texture " << name);
             return false;
@@ -63,30 +54,39 @@ namespace wmoge {
             return false;
         }
 
-        std::vector<Ref<Image>> mips;
+        Ref<Texture2d> texture = make_ref<Texture2d>(
+                options.format,
+                source_image->get_width(),
+                source_image->get_height());
+
+        if (!texture) {
+            WG_LOG_ERROR("Failed to instantiate texture " << name);
+            return false;
+        }
+
+        res = texture;
+        res->set_name(name);
+
+        texture->set_source_images({source_image});
+        texture->set_sampler_from_desc(options.sampling);
+        texture->set_compression(options.compression);
 
         if (options.mipmaps) {
-            if (!source_image->generate_mip_chain(mips)) {
+            if (!texture->generate_mips()) {
                 WG_LOG_ERROR("failed to gen mip chain for " << name);
                 return false;
             }
-        } else {
-            mips.push_back(source_image);
         }
-
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_driver = engine->gfx_driver();
-        GfxCtx*    gfx_ctx    = engine->gfx_ctx();
-
-        Ref<GfxTexture> gfx_texture = gfx_driver->make_texture_2d(source_image->get_width(), source_image->get_height(), int(mips.size()), options.format, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, name);
-        Ref<GfxSampler> gfx_sampler = gfx_driver->make_sampler(options.sampling, SID(options.sampling.to_str()));
-
-        for (int i = 0; i < int(mips.size()); i++) {
-            auto& mip = mips[i];
-            gfx_ctx->update_texture_2d(gfx_texture, i, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
+        if (options.compression.format != TexCompressionFormat::Unknown) {
+            if (!texture->generate_compressed_data()) {
+                WG_LOG_ERROR("failed to compress data for " << name);
+                return false;
+            }
         }
-
-        texture->create(gfx_texture, gfx_sampler);
+        if (!texture->generate_gfx_resource()) {
+            WG_LOG_ERROR("failed create gfx resource for " << name);
+            return false;
+        }
 
         return true;
     }
@@ -96,15 +96,6 @@ namespace wmoge {
 
     bool ResourceLoaderTextureCube::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderTextureCube::load");
-
-        Ref<TextureCube> texture = meta.cls->instantiate().cast<TextureCube>();
-
-        if (!texture) {
-            WG_LOG_ERROR("Failed to instantiate texture " << name);
-            return false;
-        }
-
-        res = texture;
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load texture " << name);
@@ -134,40 +125,39 @@ namespace wmoge {
             return false;
         }
 
-        std::vector<Ref<Image>> mips;
+        Ref<TextureCube> texture = make_ref<TextureCube>(
+                options.format,
+                source_images.front()->get_width(),
+                source_images.front()->get_height());
 
-        for (auto& source_image : source_images) {
-            if (options.mipmaps) {
-                std::vector<Ref<Image>> face_mips;
-
-                if (!source_image->generate_mip_chain(face_mips)) {
-                    WG_LOG_ERROR("failed to gen mip chain for " << name);
-                    return false;
-                }
-
-                for (auto& face_mip : face_mips) {
-                    mips.push_back(std::move(face_mip));
-                }
-            } else {
-                mips.push_back(source_image);
-            }
+        if (!texture) {
+            WG_LOG_ERROR("Failed to instantiate texture " << name);
+            return false;
         }
 
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_driver = engine->gfx_driver();
-        GfxCtx*    gfx_ctx    = engine->gfx_ctx();
+        res = texture;
+        res->set_name(name);
 
-        Ref<GfxTexture> gfx_texture = gfx_driver->make_texture_cube(source_images[0]->get_width(), source_images[0]->get_height(), int(mips.size()) / 6, options.format, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, name);
-        Ref<GfxSampler> gfx_sampler = gfx_driver->make_sampler(options.sampling, SID(options.sampling.to_str()));
+        texture->set_source_images(source_images);
+        texture->set_sampler_from_desc(options.sampling);
+        texture->set_compression(options.compression);
 
-        for (int face = 0; face < 6; face++) {
-            for (int i = 0; i < int(mips.size()); i++) {
-                auto& mip = mips[face * gfx_texture->mips_count() + i];
-                gfx_ctx->update_texture_cube(gfx_texture, i, face, Rect2i(0, 0, mip->get_width(), mip->get_height()), mip->get_pixel_data());
+        if (options.mipmaps) {
+            if (!texture->generate_mips()) {
+                WG_LOG_ERROR("failed to gen mip chain for " << name);
+                return false;
             }
         }
-
-        texture->create(gfx_texture, gfx_sampler);
+        if (options.compression.format != TexCompressionFormat::Unknown) {
+            if (!texture->generate_compressed_data()) {
+                WG_LOG_ERROR("failed to compress data for " << name);
+                return false;
+            }
+        }
+        if (!texture->generate_gfx_resource()) {
+            WG_LOG_ERROR("failed create gfx resource for " << name);
+            return false;
+        }
 
         return true;
     }

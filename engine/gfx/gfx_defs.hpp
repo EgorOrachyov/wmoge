@@ -28,6 +28,7 @@
 #ifndef WMOGE_GFX_DEFS_HPP
 #define WMOGE_GFX_DEFS_HPP
 
+#include "core/data.hpp"
 #include "core/mask.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
@@ -111,6 +112,8 @@ namespace wmoge {
 
     /** @brief Formats used to specify internal storage format */
     enum class GfxFormat : int {
+        Unknown,
+
         R8,
         R8_SNORM,
         R16,
@@ -128,10 +131,12 @@ namespace wmoge {
         SRGB8,
         SRGB8_ALPHA8,
         SBGR8_ALPHA8,
+
         R32I,
         RG32I,
         RGB32I,
         RGBA32I,
+
         R16F,
         RG16F,
         RGB16F,
@@ -140,6 +145,24 @@ namespace wmoge {
         RG32F,
         RGB32F,
         RGBA32F,
+
+        BC1_RGB,
+        BC1_RGB_SRGB,
+        BC1_RGBA,
+        BC1_RGBA_SRGB,
+        BC2,
+        BC2_SRGB,
+        BC3,
+        BC3_SRGB,
+        BC4,
+        BC4_SNORM,
+        BC5,
+        BC5_SNORM,
+        BC6H_UFLOAT,
+        BC6H_SFLOAT,
+        BC7,
+        BC7_SRGB,
+
         DEPTH32F,
         DEPTH32F_STENCIL8,
         DEPTH24_STENCIL8
@@ -376,6 +399,15 @@ namespace wmoge {
     struct GfxLocation {
         int set;
         int binding;
+    };
+
+    /** @brief Holds data of an image in binary format */
+    struct GfxImageData {
+        Ref<Data> data;
+        int       width  = 0;
+        int       height = 0;
+        int       depth  = 0;
+        GfxFormat format = GfxFormat::RGBA8;
     };
 
     /** @brief Gfx common device limits */

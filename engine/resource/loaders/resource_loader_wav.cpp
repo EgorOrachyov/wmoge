@@ -43,6 +43,7 @@ namespace wmoge {
         }
 
         res = audio;
+        res->set_name(name);
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load audio " << name);

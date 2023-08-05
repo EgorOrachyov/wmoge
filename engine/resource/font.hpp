@@ -127,10 +127,9 @@ namespace wmoge {
 
     private:
         fast_map<int, FontGlyph> m_glyphs;
-        std::vector<Ref<Image>>  m_cached_bitmap;
+        Ref<Texture2d>           m_texture;
         std::string              m_family_name;
         std::string              m_style_name;
-        Ref<Texture2d>           m_texture;
         int                      m_height        = -1;
         int                      m_glyphs_in_row = -1;
         int                      m_max_height    = -1;

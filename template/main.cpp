@@ -84,35 +84,7 @@ public:
         Engine::instance()->action_manager()->activate_action_map(SID("console"));
         Engine::instance()->action_manager()->activate_action_map(SID("camera_debug"));
 
-        Engine::instance()->file_system()->watch("root://shaders");
-        Engine::instance()->event_manager()->subscribe<EventFileSystem>([](const EventFileSystem& event) {
-            WG_LOG_INFO("fs " << Enum::to_str(event.action) << " "
-                              << " " << event.path
-                              << " " << event.entry);
-            return false;
-        });
-
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
-
-        YamlTree tree;
-        {
-            WG_AUTO_PROFILE_IO("Mesh::write");
-            yaml_write(tree.rootref(), *mesh);
-
-            std::stringstream ss;
-            ss << tree;
-
-            Engine::instance()->file_system()->save_file("root://suzanne.mesh", ss.str());
-        }
-
-        mesh = make_ref<Mesh>();
-        mesh->set_name(SID("suzanne"));
-        {
-            WG_AUTO_PROFILE_IO("Mesh::read");
-
-            tree = yaml_parse_file("root://suzanne.mesh");
-            yaml_read(tree.crootref(), *mesh);
-        }
 
         scene = Engine::instance()->scene_manager()->make_scene(SID("test"));
 

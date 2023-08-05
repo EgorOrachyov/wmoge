@@ -132,9 +132,6 @@ namespace wmoge {
         bool get_srgb() const {
             return cast_unsafe<Texture>()->get_srgb();
         }
-        bool get_compression() const {
-            return cast_unsafe<Texture>()->get_compression();
-        }
     };
 
     struct LuaPfxEffect : public LuaResource {

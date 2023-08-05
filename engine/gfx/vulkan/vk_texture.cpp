@@ -133,17 +133,17 @@ namespace wmoge {
         init_rt_views();
         init_layout(cmd);
     }
-    void VKTexture::update_2d(VkCommandBuffer cmd, int mip, Rect2i region, const Ref<Data>& data) {
+    void VKTexture::update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d");
 
         update(cmd, mip, 0, region, data);
     }
-    void VKTexture::update_2d_array(VkCommandBuffer cmd, int mip, int slice, Rect2i region, const Ref<Data>& data) {
+    void VKTexture::update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d_array");
 
         update(cmd, mip, slice, region, data);
     }
-    void VKTexture::update_cube(VkCommandBuffer cmd, int mip, int face, Rect2i region, const Ref<Data>& data) {
+    void VKTexture::update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_cube");
 
         update(cmd, mip, face, region, data);

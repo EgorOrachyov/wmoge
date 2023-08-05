@@ -72,6 +72,16 @@ namespace wmoge {
          */
         void stack(const ConfigFile& other, ConfigStackMode mode = ConfigStackMode::Overwrite);
 
+        /**
+         * @brief Loads config by path and stacks into this
+         *
+         * @param path Path to config to load and stack
+         * @param mode Stacking mode
+         *
+         * @return True if loaded and stacked
+         */
+        bool load_and_stack(const std::string& path, ConfigStackMode mode = ConfigStackMode::Overwrite);
+
         /** @brief Clears config */
         void clear();
 

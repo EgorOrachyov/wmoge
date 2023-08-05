@@ -85,7 +85,6 @@ namespace wmoge {
                      .addFunction("get_array_slices", &LuaTexture::get_array_slices)
                      .addFunction("get_mips", &LuaTexture::get_mips)
                      .addFunction("get_srgb", &LuaTexture::get_srgb)
-                     .addFunction("get_compression", &LuaTexture::get_compression)
                      .endClass();
 
         WG_LUA_MAP_CLASS(mapping, PfxEffect);
