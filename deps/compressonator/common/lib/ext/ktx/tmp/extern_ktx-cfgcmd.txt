@@ -1,1 +1,0 @@
-cmd='C:/Users/egoro/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/bin/cmake/win/bin/cmake.exe;-DCMAKE_INSTALL_PREFIX:PATH=C:/Users/egoro/Documents/GitHub/wmoge/deps/compressonator/../common/lib/ext/ktx;-G;NMake Makefiles;-GCodeBlocks - NMake Makefiles;<SOURCE_DIR><SOURCE_SUBDIR>'
