@@ -102,10 +102,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa48f5c4237519d5bc108cd8c8734ef8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cba15c9f5baac8c89fcfb8d42f02786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a0cba15c9f5baac8c89fcfb8d42f02786">watch</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:a0cba15c9f5baac8c89fcfb8d42f02786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a985ec8e8b05961d9d09a9f5345dae8b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a985ec8e8b05961d9d09a9f5345dae8b5">root</a> (const std::filesystem::path &amp;path)</td></tr>
+<tr class="separator:a985ec8e8b05961d9d09a9f5345dae8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0671de0fd9ba79ace785a1cdac585f0"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#ad0671de0fd9ba79ace785a1cdac585f0">executable_path</a> () const</td></tr>
 <tr class="separator:ad0671de0fd9ba79ace785a1cdac585f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad371974e2b82c25a8c1a425c4512f89e"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#ad371974e2b82c25a8c1a425c4512f89e">executable_dir</a> () const</td></tr>
-<tr class="separator:ad371974e2b82c25a8c1a425c4512f89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e3feba65f1b22959a7ded60d6df0813"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a0e3feba65f1b22959a7ded60d6df0813">root_path</a> () const</td></tr>
+<tr class="separator:a0e3feba65f1b22959a7ded60d6df0813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad43c9815a9d55f2dc45a4b5084613ffe"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#ad43c9815a9d55f2dc45a4b5084613ffe">resources_path</a> () const</td></tr>
 <tr class="separator:ad43c9815a9d55f2dc45a4b5084613ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a718485a07014d3f0af1840f6af3dc958"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a718485a07014d3f0af1840f6af3dc958">cache_path</a> () const</td></tr>
@@ -190,23 +192,6 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const std::filesystem::path &amp; wmoge::FileSystem::debug_path </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad371974e2b82c25a8c1a425c4512f89e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad371974e2b82c25a8c1a425c4512f89e">&#9670;&nbsp;</a></span>executable_dir()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::filesystem::path &amp; wmoge::FileSystem::executable_dir </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -395,6 +380,41 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const std::filesystem::path &amp; wmoge::FileSystem::resources_path </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a985ec8e8b05961d9d09a9f5345dae8b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a985ec8e8b05961d9d09a9f5345dae8b5">&#9670;&nbsp;</a></span>root()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::FileSystem::root </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e3feba65f1b22959a7ded60d6df0813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e3feba65f1b22959a7ded60d6df0813">&#9670;&nbsp;</a></span>root_path()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::filesystem::path &amp; wmoge::FileSystem::root_path </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

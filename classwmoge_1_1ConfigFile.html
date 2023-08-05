@@ -110,6 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5bc24f7b9c32edfd039272ce47120c0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConfigFile.html#a5bc24f7b9c32edfd039272ce47120c0d">stack</a> (const <a class="el" href="classwmoge_1_1ConfigFile.html">ConfigFile</a> &amp;other, <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a> mode=<a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">ConfigStackMode::Overwrite</a>)</td></tr>
 <tr class="memdesc:a5bc24f7b9c32edfd039272ce47120c0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack other config on top of this.  <a href="classwmoge_1_1ConfigFile.html#a5bc24f7b9c32edfd039272ce47120c0d">More...</a><br /></td></tr>
 <tr class="separator:a5bc24f7b9c32edfd039272ce47120c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a822246af83914416c55e3dd4f8e61c16"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConfigFile.html#a822246af83914416c55e3dd4f8e61c16">load_and_stack</a> (const std::string &amp;path, <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a> mode=<a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">ConfigStackMode::Overwrite</a>)</td></tr>
+<tr class="memdesc:a822246af83914416c55e3dd4f8e61c16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads config by path and stacks into this.  <a href="classwmoge_1_1ConfigFile.html#a822246af83914416c55e3dd4f8e61c16">More...</a><br /></td></tr>
+<tr class="separator:a822246af83914416c55e3dd4f8e61c16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d5172998506cd70dc6ce705ac95ec55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConfigFile.html#a0d5172998506cd70dc6ce705ac95ec55">clear</a> ()</td></tr>
 <tr class="memdesc:a0d5172998506cd70dc6ce705ac95ec55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears config.  <a href="classwmoge_1_1ConfigFile.html#a0d5172998506cd70dc6ce705ac95ec55">More...</a><br /></td></tr>
 <tr class="separator:a0d5172998506cd70dc6ce705ac95ec55"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -576,6 +579,44 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if successfully loaded and parsed </dd></dl>
+
+</div>
+</div>
+<a id="a822246af83914416c55e3dd4f8e61c16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a822246af83914416c55e3dd4f8e61c16">&#9670;&nbsp;</a></span>load_and_stack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::ConfigFile::load_and_stack </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em> = <code><a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">ConfigStackMode::Overwrite</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads config by path and stacks into this. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Path to config to load and stack </td></tr>
+    <tr><td class="paramname">mode</td><td>Stacking mode</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if loaded and stacked </dd></dl>
 
 </div>
 </div>
