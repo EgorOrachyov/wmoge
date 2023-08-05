@@ -51,7 +51,7 @@ jobs:
         run: cmake . -G Ninja -B ${{ env.build_dir }} -DCMAKE_BUILD_TYPE=${{ env.config }}
 
       - name: Build library sources
-        run: cmake --build ${{ env.build_dir }}
+        run: cmake --build ${{ env.build_dir }} --target=template
 
   ubuntu:
     runs-on: ubuntu-latest
@@ -100,7 +100,7 @@ jobs:
           CXX: g++-9
 
       - name: Build library sources
-        run: cmake --build ${{ env.build_dir }}
+        run: cmake --build ${{ env.build_dir }} --target=template
 
   macos:
     runs-on: macos-latest
@@ -127,4 +127,4 @@ jobs:
           CC: clang
 
       - name: Build library sources x64
-        run: cmake --build ${{ env.build_dir }}
+        run: cmake --build ${{ env.build_dir }} --target=template
