@@ -1,0 +1,4 @@
+<map id="wmoge::SceneTreeVisitorSplit" name="wmoge::SceneTreeVisitorSplit">
+<area shape="rect" id="node1" title="Interface to a visitor with a begin and end sequence." alt="" coords="5,80,201,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1SceneTreeVisitor.html" title="Interface to a visitor class to process scene tree recursively in depth&#45;first order." alt="" coords="18,5,189,32"/>
+</map>

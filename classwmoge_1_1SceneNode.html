@@ -82,14 +82,15 @@ Inheritance diagram for wmoge::SceneNode:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1SceneNode__inherit__graph.png" border="0" usemap="#awmoge_1_1SceneNode_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1SceneNode_inherit__map" id="awmoge_1_1SceneNode_inherit__map">
-<area shape="rect" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="320,81,459,108"/>
-<area shape="rect" href="classwmoge_1_1SceneNodeEntity.html" title="Scene node base for any entity object in a runtime scene." alt="" coords="520,5,691,32"/>
-<area shape="rect" href="classwmoge_1_1SceneNodeFolder.html" title="Scene node which exists only in editable scene to group objects together." alt="" coords="518,56,693,83"/>
-<area shape="rect" href="classwmoge_1_1SceneNodePrefab.html" title="Scene node for an instanced sub&#45;tree from a prefab resource." alt="" coords="517,107,693,133"/>
-<area shape="rect" href="classwmoge_1_1SceneNodeTransform.html" title="Scene node representing runtime transform node in transform hierarchy." alt="" coords="507,157,704,184"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="164,81,272,108"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,81,116,108"/>
-<area shape="rect" href="classwmoge_1_1SceneNodeCamera.html" title="Scene node representing game camera for rendering." alt="" coords="752,5,935,32"/>
+<area shape="rect" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="320,107,459,133"/>
+<area shape="rect" href="classwmoge_1_1SceneNodeComponent.html" title="Scene node base for any component attached to a parent entity object in a runtime scene." alt="" coords="507,5,711,32"/>
+<area shape="rect" href="classwmoge_1_1SceneNodeEntity.html" title="Scene node base for any entity object in a runtime scene." alt="" coords="523,56,694,83"/>
+<area shape="rect" href="classwmoge_1_1SceneNodeFolder.html" title="Scene node which exists only in editable scene to group objects together." alt="" coords="521,107,696,133"/>
+<area shape="rect" href="classwmoge_1_1SceneNodePrefab.html" title="Scene node for an instanced sub&#45;tree from a prefab resource." alt="" coords="521,157,697,184"/>
+<area shape="rect" href="classwmoge_1_1SceneNodeTransform.html" title="Scene node representing runtime transform node in transform hierarchy." alt="" coords="510,208,707,235"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="164,107,272,133"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,107,116,133"/>
+<area shape="rect" href="classwmoge_1_1SceneNodeCamera.html" title="Scene node representing game camera for rendering." alt="" coords="759,5,941,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -107,6 +108,18 @@ Collaboration diagram for wmoge::SceneNode:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:add0b7c935bc005ea01a928d24b2ed4c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#add0b7c935bc005ea01a928d24b2ed4c7">SceneNode</a> (class <a class="el" href="classwmoge_1_1SceneTree.html">SceneTree</a> *tree)</td></tr>
 <tr class="separator:add0b7c935bc005ea01a928d24b2ed4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0fad98bf746fa532cfa800ed6d992ac"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ac0fad98bf746fa532cfa800ed6d992ac">visit</a> (class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;visitor)</td></tr>
+<tr class="separator:ac0fad98bf746fa532cfa800ed6d992ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad308ed7f9bd0d3edf3136226a6af935e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ad308ed7f9bd0d3edf3136226a6af935e">get_arch</a> ()</td></tr>
+<tr class="separator:ad308ed7f9bd0d3edf3136226a6af935e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68e8d391bd58d66eb0e7708d41034fcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a68e8d391bd58d66eb0e7708d41034fcd">set_transform</a> (const <a class="el" href="classwmoge_1_1TransformEdt.html">TransformEdt</a> &amp;transform)</td></tr>
+<tr class="separator:a68e8d391bd58d66eb0e7708d41034fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36377a707d7ed562c320bdf9fef954d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a36377a707d7ed562c320bdf9fef954d9">set_name</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
+<tr class="separator:a36377a707d7ed562c320bdf9fef954d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae60922959bfe6b00251d075a21424d72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ae60922959bfe6b00251d075a21424d72">add_child</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;child)</td></tr>
+<tr class="separator:ae60922959bfe6b00251d075a21424d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa32c183b01041945332756a730ba76e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#aa32c183b01041945332756a730ba76e6">remove_child</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;child)</td></tr>
+<tr class="separator:aa32c183b01041945332756a730ba76e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a2c1c0190a5f246b6a7e3fb1055453e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a0a2c1c0190a5f246b6a7e3fb1055453e">on_parented</a> ()</td></tr>
 <tr class="separator:a0a2c1c0190a5f246b6a7e3fb1055453e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8aef2b7c3103d2978c5d5a1afd0e4616"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a8aef2b7c3103d2978c5d5a1afd0e4616">on_unparented</a> ()</td></tr>
@@ -119,14 +132,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0b60857907c394809dbdd85abe7d8bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49e533207b6e5b05b74877a492e0f16c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a49e533207b6e5b05b74877a492e0f16c">on_yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node)</td></tr>
 <tr class="separator:a49e533207b6e5b05b74877a492e0f16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68e8d391bd58d66eb0e7708d41034fcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a68e8d391bd58d66eb0e7708d41034fcd">set_transform</a> (const <a class="el" href="classwmoge_1_1TransformEdt.html">TransformEdt</a> &amp;transform)</td></tr>
-<tr class="separator:a68e8d391bd58d66eb0e7708d41034fcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36377a707d7ed562c320bdf9fef954d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#a36377a707d7ed562c320bdf9fef954d9">set_name</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
-<tr class="separator:a36377a707d7ed562c320bdf9fef954d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae60922959bfe6b00251d075a21424d72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ae60922959bfe6b00251d075a21424d72">add_child</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;child)</td></tr>
-<tr class="separator:ae60922959bfe6b00251d075a21424d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa32c183b01041945332756a730ba76e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#aa32c183b01041945332756a730ba76e6">remove_child</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;child)</td></tr>
-<tr class="separator:aa32c183b01041945332756a730ba76e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae52b06c2e9cc21e74c8b961a7b7a7cec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ae52b06c2e9cc21e74c8b961a7b7a7cec">get_lt</a> () const</td></tr>
 <tr class="separator:ae52b06c2e9cc21e74c8b961a7b7a7cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aada9239f6aeffe4df7d9947ecb89cb9e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#aada9239f6aeffe4df7d9947ecb89cb9e">get_lt_inverse</a> () const</td></tr>
@@ -227,6 +232,31 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad308ed7f9bd0d3edf3136226a6af935e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad308ed7f9bd0d3edf3136226a6af935e">&#9670;&nbsp;</a></span>get_arch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> wmoge::SceneNode::get_arch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -652,6 +682,34 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0fad98bf746fa532cfa800ed6d992ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0fad98bf746fa532cfa800ed6d992ac">&#9670;&nbsp;</a></span>visit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::SceneNode::visit </td>
+          <td>(</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1SceneNodeCamera.html#a263f3e8bb7b7a9870c683bf1e9315858">wmoge::SceneNodeCamera</a>, <a class="el" href="classwmoge_1_1SceneNodeComponent.html#acac2a510b723f3b4dbe53157782d38ed">wmoge::SceneNodeComponent</a>, <a class="el" href="classwmoge_1_1SceneNodeEntity.html#a7494ea4976ccae6d81a6b8310e6f26e3">wmoge::SceneNodeEntity</a>, <a class="el" href="classwmoge_1_1SceneNodePrefab.html#a74d7920c128fc535fd2e2c51fd7b93c7">wmoge::SceneNodePrefab</a>, <a class="el" href="classwmoge_1_1SceneNodeTransform.html#ad14a61705a1acd23e9e461574ac3bc11">wmoge::SceneNodeTransform</a>, and <a class="el" href="classwmoge_1_1SceneNodeFolder.html#a0488d5d59891b790e80614f71837db04">wmoge::SceneNodeFolder</a>.</p>
 
 </div>
 </div>

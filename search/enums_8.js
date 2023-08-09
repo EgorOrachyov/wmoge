@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['pfxattribute_5917',['PfxAttribute',['../namespacewmoge.html#aab3417795946a8295bbe33d012a01230',1,'wmoge']]],
-  ['pfxeffecttype_5918',['PfxEffectType',['../namespacewmoge.html#ab57be49f2b2b2896bfefc5db77931aeb',1,'wmoge']]]
+  ['pfxattribute_5970',['PfxAttribute',['../namespacewmoge.html#aab3417795946a8295bbe33d012a01230',1,'wmoge']]],
+  ['pfxeffecttype_5971',['PfxEffectType',['../namespacewmoge.html#ab57be49f2b2b2896bfefc5db77931aeb',1,'wmoge']]]
 ];

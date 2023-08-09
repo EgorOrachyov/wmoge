@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['object_3340',['Object',['../classwmoge_1_1Object.html',1,'wmoge']]]
+  ['nameinfo_3371',['NameInfo',['../structwmoge_1_1SceneTreeVisitorEmitScene_1_1NameInfo.html',1,'wmoge::SceneTreeVisitorEmitScene']]]
 ];

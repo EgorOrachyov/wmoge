@@ -1,23 +1,4 @@
 var searchData=
 [
-  ['params_3341',['Params',['../structwmoge_1_1ShaderAuxDrawCanvas_1_1Params.html',1,'wmoge::ShaderAuxDrawCanvas::Params'],['../structwmoge_1_1ShaderBase_1_1Params.html',1,'wmoge::ShaderBase::Params'],['../structwmoge_1_1ShaderText_1_1Params.html',1,'wmoge::ShaderText::Params']]],
-  ['pfxattribute_3342',['PfxAttribute',['../classPfxAttribute.html',1,'']]],
-  ['pfxattributes_3343',['PfxAttributes',['../classPfxAttributes.html',1,'']]],
-  ['pfxcomponent_3344',['PfxComponent',['../classwmoge_1_1PfxComponent.html',1,'wmoge']]],
-  ['pfxcomponentruntime_3345',['PfxComponentRuntime',['../classwmoge_1_1PfxComponentRuntime.html',1,'wmoge']]],
-  ['pfxeffect_3346',['PfxEffect',['../classwmoge_1_1PfxEffect.html',1,'wmoge']]],
-  ['pfxeffecttype_3347',['PfxEffectType',['../classPfxEffectType.html',1,'']]],
-  ['pfxemitter_3348',['PfxEmitter',['../classwmoge_1_1PfxEmitter.html',1,'wmoge']]],
-  ['pfxfeature_3349',['PfxFeature',['../classwmoge_1_1PfxFeature.html',1,'wmoge']]],
-  ['pfxrange_3350',['PfxRange',['../classwmoge_1_1PfxRange.html',1,'wmoge']]],
-  ['pfxscene_3351',['PfxScene',['../classwmoge_1_1PfxScene.html',1,'wmoge']]],
-  ['pfxspawnparams_3352',['PfxSpawnParams',['../structwmoge_1_1PfxSpawnParams.html',1,'wmoge']]],
-  ['pfxstorage_3353',['PfxStorage',['../classwmoge_1_1PfxStorage.html',1,'wmoge']]],
-  ['pfxview_3354',['PfxView',['../classwmoge_1_1PfxView.html',1,'wmoge']]],
-  ['process_3355',['Process',['../structwmoge_1_1MeshImportOptions_1_1Process.html',1,'wmoge::MeshImportOptions']]],
-  ['profiler_3356',['Profiler',['../classwmoge_1_1Profiler.html',1,'wmoge']]],
-  ['profilercapture_3357',['ProfilerCapture',['../classwmoge_1_1ProfilerCapture.html',1,'wmoge']]],
-  ['profilerentry_3358',['ProfilerEntry',['../structwmoge_1_1ProfilerEntry.html',1,'wmoge']]],
-  ['profilermark_3359',['ProfilerMark',['../structwmoge_1_1ProfilerMark.html',1,'wmoge']]],
-  ['profilertimeevent_3360',['ProfilerTimeEvent',['../classwmoge_1_1ProfilerTimeEvent.html',1,'wmoge']]]
+  ['object_3372',['Object',['../classwmoge_1_1Object.html',1,'wmoge']]]
 ];
