@@ -51,18 +51,21 @@ namespace wmoge {
 
         SceneNode(class SceneTree* tree);
 
-        virtual void on_parented() {}
-        virtual void on_unparented() {}
-        virtual void on_transformed() {}
-        virtual void on_renamed() {}
-        virtual bool on_yaml_read(const YamlConstNodeRef& node);
-        virtual bool on_yaml_write(YamlNodeRef node);
+        virtual bool    visit(class SceneTreeVisitor& visitor);
+        virtual EcsArch get_arch();
 
         void set_transform(const TransformEdt& transform);
         void set_name(const StringId& name);
 
         void add_child(const Ref<SceneNode>& child);
         void remove_child(const Ref<SceneNode>& child);
+
+        virtual void on_parented() {}
+        virtual void on_unparented() {}
+        virtual void on_transformed() {}
+        virtual void on_renamed() {}
+        virtual bool on_yaml_read(const YamlConstNodeRef& node);
+        virtual bool on_yaml_write(YamlNodeRef node);
 
         [[nodiscard]] Mat4x4f get_lt() const;
         [[nodiscard]] Mat4x4f get_lt_inverse() const;

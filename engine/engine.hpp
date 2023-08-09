@@ -170,6 +170,7 @@
 #include "scene/scene_nodes.hpp"
 #include "scene/scene_transform.hpp"
 #include "scene/scene_tree.hpp"
+#include "scene/scene_tree_visitor.hpp"
 
 #include "scripting/script_instance.hpp"
 #include "scripting/script_native.hpp"

@@ -34,28 +34,28 @@ namespace wmoge {
         WG_LUA_CHECK_MSG(path.isString(), "path must be string");
 
         auto* action_manager = Engine::instance()->action_manager();
-        luabridge::LuaRef(state, action_manager->load_action_map(path.cast<std::string>())).push();
+        luabridge::LuaRef(state, action_manager->load(path.cast<std::string>())).push();
         return 1;
     }
 
     static int lua_ActionManager_has_action_map(lua_State* state) {
         auto  name           = WG_LUA_ARG(state, 0);
         auto* action_manager = Engine::instance()->action_manager();
-        luabridge::LuaRef(state, action_manager->has_action_map(LuaTypeTraits::to_sid(name))).push();
+        luabridge::LuaRef(state, action_manager->has(LuaTypeTraits::to_sid(name))).push();
         return 1;
     }
 
     static int lua_ActionManager_enable_action_map(lua_State* state) {
         auto  name           = WG_LUA_ARG(state, 0);
         auto* action_manager = Engine::instance()->action_manager();
-        action_manager->activate_action_map(LuaTypeTraits::to_sid(name), true);
+        action_manager->activate(LuaTypeTraits::to_sid(name), true);
         return 0;
     }
 
     static int lua_ActionManager_disable_action_map(lua_State* state) {
         auto  name           = WG_LUA_ARG(state, 0);
         auto* action_manager = Engine::instance()->action_manager();
-        action_manager->activate_action_map(LuaTypeTraits::to_sid(name), false);
+        action_manager->activate(LuaTypeTraits::to_sid(name), false);
         return 0;
     }
 
@@ -82,8 +82,8 @@ namespace wmoge {
 
     void LuaBindings::bind_gameplay(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping) {
         ns = ns.beginNamespace("ActionManager")
-                     .addFunction("load_action_map", lua_ActionManager_load_action_map)
-                     .addFunction("has_action_map", lua_ActionManager_has_action_map)
+                     .addFunction("load", lua_ActionManager_load_action_map)
+                     .addFunction("has", lua_ActionManager_has_action_map)
                      .addFunction("enable_action_map", lua_ActionManager_enable_action_map)
                      .addFunction("disable_action_map", lua_ActionManager_disable_action_map)
                      .endNamespace();

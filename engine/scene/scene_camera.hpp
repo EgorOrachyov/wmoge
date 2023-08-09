@@ -52,6 +52,8 @@ namespace wmoge {
         void set_name(const StringId& name);
         void set_fov(float fov);
         void set_color(const Color4f& color);
+        void set_near_far(float near, float far);
+        void set_projection(CameraProjection projection);
 
         [[nodiscard]] bool is_active() const;
         [[nodiscard]] bool is_default() const;

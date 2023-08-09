@@ -46,6 +46,13 @@ namespace wmoge {
     void Camera::set_color(const Color4f& color) {
         m_color = color;
     }
+    void Camera::set_near_far(float near, float far) {
+        m_near = near;
+        m_far  = far;
+    }
+    void Camera::set_projection(CameraProjection projection) {
+        m_projection = projection;
+    }
 
     bool Camera::is_active() const {
         return m_manager->is_active(this);

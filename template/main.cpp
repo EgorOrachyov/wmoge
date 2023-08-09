@@ -79,10 +79,10 @@ public:
     void on_init() override {
         Application::on_init();
 
-        Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_console.yml");
-        Engine::instance()->action_manager()->load_action_map("root://actions/actionmap_camera_debug.yml");
-        Engine::instance()->action_manager()->activate_action_map(SID("console"));
-        Engine::instance()->action_manager()->activate_action_map(SID("camera_debug"));
+        Engine::instance()->action_manager()->load("root://actions/actionmap_console.yml");
+        Engine::instance()->action_manager()->load("root://actions/actionmap_camera_debug.yml");
+        Engine::instance()->action_manager()->activate(SID("console"));
+        Engine::instance()->action_manager()->activate(SID("camera_debug"));
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 

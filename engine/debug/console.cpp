@@ -35,6 +35,7 @@
 #include "event/event_action.hpp"
 #include "event/event_input.hpp"
 #include "event/event_manager.hpp"
+#include "gameplay/action_manager.hpp"
 #include "math/math_utils.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
@@ -144,9 +145,10 @@ namespace wmoge {
         register_commands();
         load_settings();
 
-        auto* event_manager = Engine::instance()->event_manager();
+        auto* event_manager  = Engine::instance()->event_manager();
+        auto* action_manager = Engine::instance()->action_manager();
 
-        m_actions_listener = event_manager->subscribe<EventAction>([this](const EventAction& event) {
+        m_actions_listener = event_manager->subscribe<EventAction>([this, action_manager](const EventAction& event) {
             // Opening closing
             {
                 std::lock_guard guard(m_mutex);
@@ -155,11 +157,17 @@ namespace wmoge {
                     if (m_state == ConsoleState::Closed || m_state == ConsoleState::Closing) {
                         m_current_speed = m_speed_open;
                         m_state         = ConsoleState::Opening;
+
+                        action_manager->activate_all_except(SID("console"), false);
+
                         return true;
                     }
                     if (m_state == ConsoleState::Open || m_state == ConsoleState::Opening) {
                         m_current_speed = -m_speed_open;
                         m_state         = ConsoleState::Closing;
+
+                        action_manager->activate_all(true);
+
                         return true;
                     }
                 }

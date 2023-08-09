@@ -110,8 +110,8 @@ namespace wmoge {
         }
     }
 
-    bool ActionManager::load_action_map(const std::string& filepath) {
-        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load_action_map");
+    bool ActionManager::load(const std::string& filepath) {
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load");
 
         Ref<ActionMap> action_map      = make_ref<ActionMap>();
         YamlTree       action_map_tree = yaml_parse_file(filepath);
@@ -126,20 +126,20 @@ namespace wmoge {
             return false;
         }
 
-        if (has_action_map(action_map->get_name())) {
-            remove_action_map(action_map->get_name());
+        if (has(action_map->get_name())) {
+            remove(action_map->get_name());
         }
 
-        return add_action_map(action_map);
+        return add(action_map);
     }
-    bool ActionManager::add_action_map(const Ref<ActionMap>& action_map) {
-        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::add_action_map");
+    bool ActionManager::add(const Ref<ActionMap>& action_map) {
+        WG_AUTO_PROFILE_GAMEPLAY("ActionManager::add");
 
         if (!action_map) {
             WG_LOG_ERROR("passed null action map");
             return false;
         }
-        if (has_action_map(action_map->get_name())) {
+        if (has(action_map->get_name())) {
             WG_LOG_ERROR("already have action map with the same name " << action_map->get_name());
             return false;
         }
@@ -154,8 +154,8 @@ namespace wmoge {
         return true;
     }
 
-    bool ActionManager::remove_action_map(const StringId& name) {
-        const auto query = std::find_if(m_maps.begin(), m_maps.end(), [&](auto& info) { return info.action_map->get_name() == name; });
+    bool ActionManager::remove(const StringId& action_map) {
+        const auto query = std::find_if(m_maps.begin(), m_maps.end(), [&](auto& info) { return info.action_map->get_name() == action_map; });
         const bool found = query != m_maps.end();
 
         m_maps.erase(query);
@@ -163,21 +163,37 @@ namespace wmoge {
         return found;
     }
 
-    bool ActionManager::has_action_map(const StringId& name) {
-        return get_action_map_info(name) != nullptr;
+    bool ActionManager::has(const StringId& action_map) {
+        return get_action_map_info(action_map) != nullptr;
     }
 
-    void ActionManager::activate_action_map(const StringId& name, bool active) {
-        ActionMapInfo* info = get_action_map_info(name);
+    void ActionManager::activate(const StringId& action_map, bool active) {
+        ActionMapInfo* info = get_action_map_info(action_map);
 
         if (!info) {
-            WG_LOG_ERROR("no such action map loaded " << name);
+            WG_LOG_ERROR("no such action map loaded " << action_map);
             return;
         }
 
         info->active = active;
 
-        WG_LOG_INFO("action map " << info->action_map->get_name() << " active=" << active);
+        WG_LOG_INFO("[one] action map " << info->action_map->get_name() << " active=" << active);
+    }
+    void ActionManager::activate_all(bool active) {
+        for (auto& info : m_maps) {
+            info.active = active;
+
+            WG_LOG_INFO("[all] action map " << info.action_map->get_name() << " active=" << active);
+        }
+    }
+    void ActionManager::activate_all_except(const StringId& action_map, bool active) {
+        for (auto& info : m_maps) {
+            if (info.action_map->get_name() != action_map) {
+                info.active = active;
+
+                WG_LOG_INFO("[exp] action map " << info.action_map->get_name() << " active=" << active);
+            }
+        }
     }
 
     bool ActionManager::on_input_mouse(const EventMouse& event) {

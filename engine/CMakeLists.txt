@@ -310,6 +310,10 @@ add_library(wmoge STATIC
         scene/scene_transform.hpp
         scene/scene_tree.cpp
         scene/scene_tree.hpp
+        scene/scene_tree_visitor.cpp
+        scene/scene_tree_visitor.hpp
+        scene/scene_tree_visitors.cpp
+        scene/scene_tree_visitors.hpp
         scene/register_classes_scene.cpp
         scene/register_classes_scene.hpp
         scripting/script_instance.hpp

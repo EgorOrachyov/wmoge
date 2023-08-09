@@ -50,13 +50,17 @@ namespace wmoge {
         ActionManager();
         ~ActionManager();
 
-        void update();
+        bool load(const std::string& filepath);
+        bool add(const Ref<ActionMap>& action_map);
+        bool remove(const StringId& action_map);
 
-        bool load_action_map(const std::string& filepath);
-        bool add_action_map(const Ref<ActionMap>& action_map);
-        bool remove_action_map(const StringId& name);
-        bool has_action_map(const StringId& name);
-        void activate_action_map(const StringId& name, bool active = true);
+        bool has(const StringId& action_map);
+
+        void activate(const StringId& action_map, bool active = true);
+        void activate_all(bool active = true);
+        void activate_all_except(const StringId& action_map, bool active = true);
+
+        void update();
 
     private:
         struct ActionMapInfo {

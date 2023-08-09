@@ -1,5 +1,5 @@
 name: camera_debug
-priority: 0
+priority: 1
 actions:
   - action: cd_toggle
     display_name: "activate/deactivate debug camera"

@@ -25,52 +25,40 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_nodes.hpp"
-
-#include "scene/scene_tree_visitor.hpp"
+#include "scene_tree_visitor.hpp"
 
 namespace wmoge {
 
-    void SceneNodeFolder::register_class() {
-        auto* cls = Class::register_class<SceneNodeFolder>();
-    }
-    bool SceneNodeFolder::visit(class SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
+    bool SceneTreeVisitorSplit::visit_children(SceneNode& node) {
+        for (const auto& child : node.get_children()) {
+            if (!child->visit(*this)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    void SceneNodeTransform::register_class() {
-        auto* cls = Class::register_class<SceneNodeTransform>();
+    bool SceneTreeVisitorSplit::visit(SceneNode& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-    bool SceneNodeTransform::visit(SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
+    bool SceneTreeVisitorSplit::visit(SceneNodeFolder& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-
-    void SceneNodePrefab::register_class() {
-        auto* cls = Class::register_class<SceneNodePrefab>();
+    bool SceneTreeVisitorSplit::visit(SceneNodeTransform& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-    bool SceneNodePrefab::visit(SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
+    bool SceneTreeVisitorSplit::visit(SceneNodePrefab& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-
-    void SceneNodeEntity::register_class() {
-        auto* cls = Class::register_class<SceneNodeEntity>();
+    bool SceneTreeVisitorSplit::visit(SceneNodeEntity& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-    bool SceneNodeEntity::visit(SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
+    bool SceneTreeVisitorSplit::visit(SceneNodeComponent& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-
-    void SceneNodeComponent::register_class() {
-        auto* cls = Class::register_class<SceneNodeComponent>();
-    }
-    bool SceneNodeComponent::visit(SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
-    }
-
-    void SceneNodeCamera::register_class() {
-        auto* cls = Class::register_class<SceneNodeCamera>();
-    }
-    bool SceneNodeCamera::visit(SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
+    bool SceneTreeVisitorSplit::visit(SceneNodeCamera& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
     }
 
 }// namespace wmoge

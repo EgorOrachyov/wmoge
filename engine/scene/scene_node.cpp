@@ -28,6 +28,7 @@
 #include "scene_node.hpp"
 
 #include "scene/scene_tree.hpp"
+#include "scene/scene_tree_visitor.hpp"
 
 #include <cassert>
 
@@ -37,20 +38,11 @@ namespace wmoge {
         assert(tree);
     }
 
-    bool SceneNode::on_yaml_read(const YamlConstNodeRef& node) {
-        WG_YAML_READ_AS(node, "uuid", m_uuid);
-        WG_YAML_READ_AS(node, "name", m_name);
-        WG_YAML_READ_AS(node, "transform", m_transform);
-
-        return true;
+    bool SceneNode::visit(class SceneTreeVisitor& visitor) {
+        return visitor.visit(*this);
     }
-    bool SceneNode::on_yaml_write(YamlNodeRef node) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "uuid", m_uuid);
-        WG_YAML_WRITE_AS(node, "name", m_name);
-        WG_YAML_WRITE_AS(node, "transform", m_transform);
-
-        return true;
+    EcsArch SceneNode::get_arch() {
+        return EcsArch{};
     }
 
     void SceneNode::set_transform(const TransformEdt& transform) {
@@ -77,6 +69,22 @@ namespace wmoge {
         child->on_unparented();
         child->m_parent = nullptr;
         m_children.erase(std::find(m_children.begin(), m_children.end(), child));
+    }
+
+    bool SceneNode::on_yaml_read(const YamlConstNodeRef& node) {
+        WG_YAML_READ_AS(node, "uuid", m_uuid);
+        WG_YAML_READ_AS(node, "name", m_name);
+        WG_YAML_READ_AS(node, "transform", m_transform);
+
+        return true;
+    }
+    bool SceneNode::on_yaml_write(YamlNodeRef node) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "uuid", m_uuid);
+        WG_YAML_WRITE_AS(node, "name", m_name);
+        WG_YAML_WRITE_AS(node, "transform", m_transform);
+
+        return true;
     }
 
     Mat4x4f SceneNode::get_lt() const {

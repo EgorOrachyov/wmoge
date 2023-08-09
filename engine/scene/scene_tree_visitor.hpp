@@ -25,92 +25,66 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_COMPONENTS_HPP
-#define WMOGE_SCENE_COMPONENTS_HPP
+#ifndef WMOGE_SCENE_TREE_VISITOR_HPP
+#define WMOGE_SCENE_TREE_VISITOR_HPP
 
-#include "core/fast_vector.hpp"
-#include "ecs/ecs_component.hpp"
-#include "ecs/ecs_entity.hpp"
-#include "math/aabb.hpp"
-#include "math/color.hpp"
-#include "math/mat.hpp"
-#include "math/vec.hpp"
-#include "scene/scene_camera.hpp"
 #include "scene/scene_node.hpp"
-#include "scene/scene_transform.hpp"
+#include "scene/scene_nodes.hpp"
 
 namespace wmoge {
 
     /**
-     * @class EcsComponentChildren
-     * @brief List of entity children, for complex objects
+     * @class SceneTreeVisitor
+     * @brief Interface to a visitor class to process scene tree recursively in depth-first order
      */
-    struct EcsComponentChildren {
-        WG_ECS_COMPONENT(EcsComponentChildren, 0);
+    class SceneTreeVisitor {
+    public:
+        virtual ~SceneTreeVisitor() = default;
 
-        fast_vector<EcsEntity> children;
+        virtual bool visit(SceneNode& node)          = 0;
+        virtual bool visit(SceneNodeFolder& node)    = 0;
+        virtual bool visit(SceneNodeTransform& node) = 0;
+        virtual bool visit(SceneNodePrefab& node)    = 0;
+        virtual bool visit(SceneNodeEntity& node)    = 0;
+        virtual bool visit(SceneNodeComponent& node) = 0;
+        virtual bool visit(SceneNodeCamera& node)    = 0;
     };
 
     /**
-     * @class EcsComponentParent
-     * @brief Parent entity, for complex objects
+     * @class SceneTreeVisitorSplit
+     * @brief Interface to a visitor with a begin and end sequence
      */
-    struct EcsComponentParent {
-        WG_ECS_COMPONENT(EcsComponentParent, 1);
+    class SceneTreeVisitorSplit : public SceneTreeVisitor {
+    public:
+        ~SceneTreeVisitorSplit() override = default;
 
-        EcsEntity parent;
-    };
+        bool visit_children(SceneNode& node);
 
-    /**
-     * @class EcsComponentSceneTransform
-     * @brief Node in a relative transform hierarchy of objects
-     */
-    struct EcsComponentSceneTransform {
-        WG_ECS_COMPONENT(EcsComponentSceneTransform, 2);
+        bool visit(SceneNode& node) final;
+        bool visit(SceneNodeFolder& node) final;
+        bool visit(SceneNodeTransform& node) final;
+        bool visit(SceneNodePrefab& node) final;
+        bool visit(SceneNodeEntity& node) final;
+        bool visit(SceneNodeComponent& node) final;
+        bool visit(SceneNodeCamera& node) final;
 
-        Ref<SceneTransform> transform;
-    };
+        virtual bool visit_begin(SceneNode& node)          = 0;
+        virtual bool visit_begin(SceneNodeFolder& node)    = 0;
+        virtual bool visit_begin(SceneNodeTransform& node) = 0;
+        virtual bool visit_begin(SceneNodePrefab& node)    = 0;
+        virtual bool visit_begin(SceneNodeEntity& node)    = 0;
+        virtual bool visit_begin(SceneNodeComponent& node) = 0;
+        virtual bool visit_begin(SceneNodeCamera& node)    = 0;
 
-    /**
-     * @class EcsComponentLocalToWorld
-     * @brief Matrix to convert local to world coordinates of an object
-     */
-    struct EcsComponentLocalToWorld {
-        WG_ECS_COMPONENT(EcsComponentLocalToWorld, 3);
-
-        Mat4x4f matrix;
-    };
-
-    /**
-     * @class EcsComponentSceneNode
-     * @brief Node for bidirectional mapping of runtime and static game object representation
-     */
-    struct EcsComponentSceneNode {
-        WG_ECS_COMPONENT(EcsComponentSceneNode, 4);
-
-        Ref<SceneNode> node;
-    };
-
-    /**
-     * @class EcsComponentName
-     * @brief Unique full name of entity on a scene
-     */
-    struct EcsComponentName {
-        WG_ECS_COMPONENT(EcsComponentMeshSimple, 5);
-
-        std::string name;
-    };
-
-    /**
-     * @class EcsComponentCamera
-     * @brief Game camera component
-     */
-    struct EcsComponentCamera {
-        WG_ECS_COMPONENT(EcsComponentCamera, 6);
-
-        Ref<Camera> camera;
+        virtual bool visit_end(SceneNode& node)          = 0;
+        virtual bool visit_end(SceneNodeFolder& node)    = 0;
+        virtual bool visit_end(SceneNodeTransform& node) = 0;
+        virtual bool visit_end(SceneNodePrefab& node)    = 0;
+        virtual bool visit_end(SceneNodeEntity& node)    = 0;
+        virtual bool visit_end(SceneNodeComponent& node) = 0;
+        virtual bool visit_end(SceneNodeCamera& node)    = 0;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_COMPONENTS_HPP
+#endif//WMOGE_SCENE_TREE_VISITOR_HPP

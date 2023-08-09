@@ -29,7 +29,9 @@
 #define WMOGE_SCENE_NODES_HPP
 
 #include "core/class.hpp"
+#include "scene/scene_camera.hpp"
 #include "scene/scene_node.hpp"
+#include "scene/scene_transform.hpp"
 
 namespace wmoge {
 
@@ -40,6 +42,8 @@ namespace wmoge {
     class SceneNodeFolder : public SceneNode {
     public:
         WG_OBJECT(SceneNodeFolder, SceneNode);
+
+        bool visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -49,6 +53,8 @@ namespace wmoge {
     class SceneNodeTransform : public SceneNode {
     public:
         WG_OBJECT(SceneNodeTransform, SceneNode);
+
+        bool visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -58,6 +64,8 @@ namespace wmoge {
     class SceneNodePrefab : public SceneNode {
     public:
         WG_OBJECT(SceneNodePrefab, SceneNode);
+
+        bool visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -67,15 +75,38 @@ namespace wmoge {
     class SceneNodeEntity : public SceneNode {
     public:
         WG_OBJECT(SceneNodeEntity, SceneNode);
+
+        bool visit(class SceneTreeVisitor& visitor) override;
+    };
+
+    /**
+     * @class SceneNodeComponent
+     * @brief Scene node base for any component attached to a parent entity object in a runtime scene
+     */
+    class SceneNodeComponent : public SceneNode {
+    public:
+        WG_OBJECT(SceneNodeComponent, SceneNode);
+
+        bool visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
      * @class SceneNodeCamera
      * @brief Scene node representing game camera for rendering
      */
-    class SceneNodeCamera : public SceneNodeEntity {
+    class SceneNodeCamera : public SceneNodeComponent {
     public:
-        WG_OBJECT(SceneNodeCamera, SceneNodeEntity);
+        WG_OBJECT(SceneNodeCamera, SceneNodeComponent);
+
+        bool visit(class SceneTreeVisitor& visitor) override;
+
+        Color4f          color      = Color::BLACK4f;
+        Vec4f            viewport   = Vec4f(0, 0, 1, 1);
+        float            fov        = Math::deg_to_rad(45.0f);
+        float            near       = 0.1f;
+        float            far        = 10000.0f;
+        StringId         target     = SID("primary");
+        CameraProjection projection = CameraProjection::Perspective;
     };
 
 }// namespace wmoge
