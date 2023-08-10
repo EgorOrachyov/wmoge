@@ -86,6 +86,11 @@ $(function() {
 : <a class="el" href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">wmoge::DebugLayer</a>
 , <a class="el" href="classwmoge_1_1Layer.html#a713d1d9b973a4829fbcb3298a9cd8791">wmoge::Layer</a>
 </li>
+<li>on_ecs_arch_collect()
+: <a class="el" href="classwmoge_1_1SceneNode.html#a9618e7b4911d1b709adc91d0d89d2229">wmoge::SceneNode</a>
+, <a class="el" href="classwmoge_1_1SceneNodeCamera.html#a687f1809f5e1754aa6a545e6bee2b18e">wmoge::SceneNodeCamera</a>
+, <a class="el" href="classwmoge_1_1SceneNodeTransform.html#aaf55e310887b370ec270f25bc4cad14f">wmoge::SceneNodeTransform</a>
+</li>
 <li>on_end_frame()
 : <a class="el" href="classwmoge_1_1Layer.html#a15860a4a86f6c517f66762c7594b2da2">wmoge::Layer</a>
 </li>
@@ -176,11 +181,22 @@ $(function() {
 , <a class="el" href="classwmoge_1_1PfxFeature.html#a5d8365466e498bca24f0c107175e4414">wmoge::PfxFeature</a>
 , <a class="el" href="classwmoge_1_1ScriptInstance.html#ac1f79aeaaa87f4b07478f53a33e9c69f">wmoge::ScriptInstance</a>
 </li>
+<li>on_visit()
+: <a class="el" href="classwmoge_1_1SceneNode.html#aedae2f91e2396c6f1ed7cc1161a93d42">wmoge::SceneNode</a>
+, <a class="el" href="classwmoge_1_1SceneNodeCamera.html#a5d09059572d4ecceddd83c22561e6cc0">wmoge::SceneNodeCamera</a>
+, <a class="el" href="classwmoge_1_1SceneNodeComponent.html#a8fc1183bf4ece0a3a8dfdb9b4fede9d9">wmoge::SceneNodeComponent</a>
+, <a class="el" href="classwmoge_1_1SceneNodeEntity.html#aaa5378e1b5c27e1da92ca534a84f4ed8">wmoge::SceneNodeEntity</a>
+, <a class="el" href="classwmoge_1_1SceneNodeFolder.html#aa4dca871c295e3aaf17ef923167e6f65">wmoge::SceneNodeFolder</a>
+, <a class="el" href="classwmoge_1_1SceneNodePrefab.html#ae4d5eeebfb1e07ce8e63805ded6c086a">wmoge::SceneNodePrefab</a>
+, <a class="el" href="classwmoge_1_1SceneNodeTransform.html#a468a4b983c17e264a6a584dee4e516a0">wmoge::SceneNodeTransform</a>
+</li>
 <li>on_yaml_read()
 : <a class="el" href="classwmoge_1_1SceneNode.html#a0b60857907c394809dbdd85abe7d8bff">wmoge::SceneNode</a>
+, <a class="el" href="classwmoge_1_1SceneNodeCamera.html#ab564c7fe5a27cf62e2b67e3a28e7fe5c">wmoge::SceneNodeCamera</a>
 </li>
 <li>on_yaml_write()
-: <a class="el" href="classwmoge_1_1SceneNode.html#a49e533207b6e5b05b74877a492e0f16c">wmoge::SceneNode</a>
+: <a class="el" href="classwmoge_1_1SceneNode.html#a14c90106685a3d6fb5ad7e937fb8aebc">wmoge::SceneNode</a>
+, <a class="el" href="classwmoge_1_1SceneNodeCamera.html#a041559e0ec2225ace059ef359e3165a5">wmoge::SceneNodeCamera</a>
 </li>
 <li>open_file()
 : <a class="el" href="classwmoge_1_1FileSystem.html#a993683d2505230fc2b0a800665002739">wmoge::FileSystem</a>
@@ -190,6 +206,7 @@ $(function() {
 </li>
 <li>operator bool()
 : <a class="el" href="classwmoge_1_1Ref.html#a9efb20fbdc75784e04fd76e98fcdd47d">wmoge::Ref&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1UUID.html#aa34d042ee4c732c59cdcfe3dbaaedb4f">wmoge::UUID</a>
 , <a class="el" href="classwmoge_1_1Var.html#a0248da582928d0177fedb01b503aa9be">wmoge::Var</a>
 </li>
 <li>operator double()
@@ -262,8 +279,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TVecN.html#af8875869512d9b6913eaa3b595d22ea6">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator+()
-: <a class="el" href="classwmoge_1_1TMatMxN.html#a0758f6164396dfcbb8ec3adf738d713b">wmoge::TMatMxN&lt; T, M, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#af15526cd91c7e120315fd4aa22f09f29">wmoge::TVecN&lt; T, N &gt;</a>
+: <a class="el" href="classwmoge_1_1TMatMxN.html#afdbd5cba2b52164ee0b7140629363571">wmoge::TMatMxN&lt; T, M, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#ae69423e3194982150d5c1c78da7f3b96">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator++()
 : <a class="el" href="structwmoge_1_1PfxRange_1_1Iterator.html#a9c309d05a4a35386ba9b7e7c807abb88">wmoge::PfxRange::Iterator</a>
@@ -274,7 +291,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TVecN.html#a9741212000820f67d8b6ed96c4dc6058">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator-()
-: <a class="el" href="classwmoge_1_1TMatMxN.html#a4e071c640a04461808eceeb8867dfe45">wmoge::TMatMxN&lt; T, M, N &gt;</a>
+: <a class="el" href="classwmoge_1_1TMatMxN.html#aecf3950e5dbdc0fc9fefe1a513f86302">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#aeb74cdc6f2bde058b9069a85b40bbce4">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator-=()
@@ -286,7 +303,7 @@ $(function() {
 </li>
 <li>operator/()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a54696ff924d4981df49df8ddfec768eb">wmoge::TMatMxN&lt; T, M, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#a489e589d8e395c9023512aa2c4ceb26e">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#a47b7e3b12c96c21105a55c5cc958fe65">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator/=()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a6487950e71577d2c396d74b54a76a5e3">wmoge::TMatMxN&lt; T, M, N &gt;</a>

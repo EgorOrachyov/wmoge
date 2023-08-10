@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['z_5184',['z',['../classwmoge_1_1TVecN.html#ab48deaa22df2250d63ede571558d4ca7',1,'wmoge::TVecN']]],
-  ['zero_5185',['zero',['../classwmoge_1_1TQuat.html#a2b5611675a3cdd15d3a44f17b19dbe79',1,'wmoge::TQuat']]]
+  ['z_5190',['z',['../classwmoge_1_1TVecN.html#ab48deaa22df2250d63ede571558d4ca7',1,'wmoge::TVecN']]],
+  ['zero_5191',['zero',['../classwmoge_1_1TQuat.html#a2b5611675a3cdd15d3a44f17b19dbe79',1,'wmoge::TQuat']]]
 ];
