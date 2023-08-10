@@ -43,10 +43,10 @@ namespace wmoge {
 
         virtual bool visit(SceneNode& node)          = 0;
         virtual bool visit(SceneNodeFolder& node)    = 0;
-        virtual bool visit(SceneNodeTransform& node) = 0;
         virtual bool visit(SceneNodePrefab& node)    = 0;
         virtual bool visit(SceneNodeEntity& node)    = 0;
         virtual bool visit(SceneNodeComponent& node) = 0;
+        virtual bool visit(SceneNodeTransform& node) = 0;
         virtual bool visit(SceneNodeCamera& node)    = 0;
     };
 
@@ -62,26 +62,26 @@ namespace wmoge {
 
         bool visit(SceneNode& node) final;
         bool visit(SceneNodeFolder& node) final;
-        bool visit(SceneNodeTransform& node) final;
         bool visit(SceneNodePrefab& node) final;
         bool visit(SceneNodeEntity& node) final;
         bool visit(SceneNodeComponent& node) final;
+        bool visit(SceneNodeTransform& node) final;
         bool visit(SceneNodeCamera& node) final;
 
         virtual bool visit_begin(SceneNode& node)          = 0;
         virtual bool visit_begin(SceneNodeFolder& node)    = 0;
-        virtual bool visit_begin(SceneNodeTransform& node) = 0;
         virtual bool visit_begin(SceneNodePrefab& node)    = 0;
         virtual bool visit_begin(SceneNodeEntity& node)    = 0;
         virtual bool visit_begin(SceneNodeComponent& node) = 0;
+        virtual bool visit_begin(SceneNodeTransform& node) = 0;
         virtual bool visit_begin(SceneNodeCamera& node)    = 0;
 
         virtual bool visit_end(SceneNode& node)          = 0;
         virtual bool visit_end(SceneNodeFolder& node)    = 0;
-        virtual bool visit_end(SceneNodeTransform& node) = 0;
         virtual bool visit_end(SceneNodePrefab& node)    = 0;
         virtual bool visit_end(SceneNodeEntity& node)    = 0;
         virtual bool visit_end(SceneNodeComponent& node) = 0;
+        virtual bool visit_end(SceneNodeTransform& node) = 0;
         virtual bool visit_end(SceneNodeCamera& node)    = 0;
     };
 

@@ -29,44 +29,6 @@
 
 using namespace wmoge;
 
-struct EcsLtW : EcsComponent {
-    WG_ECS_COMPONENT(EcsLtW, 0);
-
-    Mat4x4f matrix = Math3d::identity();
-};
-
-struct EcsWtL : EcsComponent {
-    WG_ECS_COMPONENT(EcsWtL, 1);
-
-    Mat4x4f matrix = Math3d::identity();
-};
-
-class EcsSystemMultMatr : public EcsSystem {
-public:
-    ~EcsSystemMultMatr() override = default;
-
-    void process_batch(EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override { WG_ECS_SYSTEM_BIND(EcsSystemMultMatr); }
-
-    [[nodiscard]] EcsSystemType     get_type() const override { return EcsSystemType::Default; }
-    [[nodiscard]] EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
-    [[nodiscard]] StringId          get_name() const override { return SID("EcsSystemMultMart"); }
-    [[nodiscard]] EcsQuery          get_query() const override {
-        EcsQuery query;
-        query.set_read<EcsLtW>();
-        query.set_write<EcsWtL>();
-        return query;
-    }
-
-private:
-    void process(EcsWorld& world, const EcsEntity& entity, const EcsLtW& ltw, EcsWtL& wtl) {
-        WG_AUTO_PROFILE_SCENE("EcsSystemMultMatr::process");
-
-        Mat4x4f t = Math3d::rotate(Vec3f::axis_y(), Random::next_float());
-
-        wtl.matrix = ltw.matrix * t;
-    }
-};
-
 class GameApplication : public Application {
 public:
     ~GameApplication() override = default;
@@ -86,7 +48,7 @@ public:
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 
-        scene = Engine::instance()->scene_manager()->make_scene(SID("test"));
+        scene = Engine::instance()->resource_manager()->load(SID("res://scenes/test_scene")).cast<ScenePacked>()->instantiate();
 
         WG_LOG_INFO("init");
     }
@@ -172,30 +134,6 @@ public:
     }
 
     void on_shutdown() override {
-        {
-            EcsRegistry* registry = Engine::instance()->ecs_registry();
-            registry->register_component<EcsLtW>();
-            registry->register_component<EcsWtL>();
-
-            EcsArch arch;
-            arch.set_component<EcsLtW>();
-            arch.set_component<EcsWtL>();
-
-            std::shared_ptr<EcsSystem> system = std::make_shared<EcsSystemMultMatr>();
-
-            EcsWorld world;
-            world.register_system(system);
-
-            const int N = 200;
-
-            for (int i = 0; i < N; i++) {
-                EcsEntity entity = world.allocate_entity();
-                world.make_entity(entity, arch);
-            }
-
-            world.execute_system(system);
-        }
-
         mesh.reset();
         scene.reset();
 

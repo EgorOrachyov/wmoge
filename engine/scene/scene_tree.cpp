@@ -26,3 +26,31 @@
 /**********************************************************************************/
 
 #include "scene_tree.hpp"
+
+namespace wmoge {
+
+    SceneTree::SceneTree() {
+        m_root         = make_ref<SceneNode>();
+        m_root->m_tree = this;
+    }
+
+    bool SceneTree::visit(wmoge::SceneTreeVisitor& visitor) {
+        assert(m_root);
+
+        return m_root->on_visit(visitor);
+    }
+
+    bool yaml_read(const YamlConstNodeRef& node, SceneTree& tree) {
+        WG_YAML_READ(node, tree.m_root);
+
+        return true;
+    }
+
+    bool yaml_write(YamlNodeRef node, const SceneTree& tree) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE(node, tree.m_root);
+
+        return true;
+    }
+
+}// namespace wmoge

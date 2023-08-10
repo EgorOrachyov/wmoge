@@ -31,7 +31,7 @@ namespace wmoge {
 
     bool SceneTreeVisitorSplit::visit_children(SceneNode& node) {
         for (const auto& child : node.get_children()) {
-            if (!child->visit(*this)) {
+            if (!child->on_visit(*this)) {
                 return false;
             }
         }
@@ -45,9 +45,6 @@ namespace wmoge {
     bool SceneTreeVisitorSplit::visit(SceneNodeFolder& node) {
         return visit_begin(node) && visit_children(node) && visit_end(node);
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodeTransform& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
-    }
     bool SceneTreeVisitorSplit::visit(SceneNodePrefab& node) {
         return visit_begin(node) && visit_children(node) && visit_end(node);
     }
@@ -55,6 +52,9 @@ namespace wmoge {
         return visit_begin(node) && visit_children(node) && visit_end(node);
     }
     bool SceneTreeVisitorSplit::visit(SceneNodeComponent& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node);
+    }
+    bool SceneTreeVisitorSplit::visit(SceneNodeTransform& node) {
         return visit_begin(node) && visit_children(node) && visit_end(node);
     }
     bool SceneTreeVisitorSplit::visit(SceneNodeCamera& node) {

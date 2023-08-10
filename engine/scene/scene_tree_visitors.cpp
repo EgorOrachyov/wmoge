@@ -31,14 +31,13 @@ namespace wmoge {
 
     SceneTreeVisitorEmitScene::SceneTreeVisitorEmitScene(const Ref<Scene>& scene) : m_scene(scene) {
         m_names.push(NameInfo{});
-        m_entities.push(EntityInfo{});
         m_local_to_world.push(LocalToWorldInfo{});
     }
     SceneTreeVisitorEmitScene::~SceneTreeVisitorEmitScene() {
         assert(m_names.size() == 1);
-        assert(m_entities.size() == 1);
         assert(m_local_to_world.size() == 1);
         assert(m_transforms.empty());
+        assert(m_entities.empty());
     }
 
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNode& node) {
@@ -58,21 +57,6 @@ namespace wmoge {
     }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeFolder& node) {
         return visit_begin((SceneNode&) node);
-    }
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeTransform& node) {
-        if (!visit_begin((SceneNode&) node)) { return false; }
-
-        TransformInfo info;
-        info.transform = make_ref<SceneTransform>(m_scene->get_transforms());
-        info.transform->set_transform(node.get_transform().get_transform(), node.get_transform().get_inverse_transform());
-
-        if (!m_transforms.empty()) {
-            m_transforms.top().transform->add_child(info.transform);
-        }
-
-        m_transforms.push(info);
-
-        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodePrefab& node) {
         return false;
@@ -94,7 +78,7 @@ namespace wmoge {
         }
 
         for (const auto& child : node.get_children()) {
-            info.entity_arch |= child->get_arch();
+            child->on_ecs_arch_collect(info.entity_arch);
         }
 
         ecs_world->make_entity(info.entity_id, info.entity_arch);
@@ -136,6 +120,30 @@ namespace wmoge {
 
         return visit_begin((SceneNode&) node);
     }
+    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeTransform& node) {
+        if (!visit_begin((SceneNodeComponent&) node)) { return false; }
+
+        // Push transform
+        {
+            TransformInfo info;
+            info.transform = make_ref<SceneTransform>(m_scene->get_transforms());
+            info.transform->set_transform(node.get_transform().get_transform(), node.get_transform().get_inverse_transform());
+
+            if (!m_transforms.empty()) {
+                m_transforms.top().transform->add_child(info.transform);
+            }
+
+            m_transforms.push(info);
+        }
+
+        EntityInfo& info = m_entities.top();
+        assert(info.entity_id.is_valid());
+        assert(info.entity_arch.has_component<EcsComponentSceneTransform>());
+
+        m_scene->get_ecs_world()->get_component_rw<EcsComponentSceneTransform>(info.entity_id).transform = m_transforms.top().transform;
+
+        return true;
+    }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeCamera& node) {
         if (!visit_begin((SceneNodeComponent&) node)) { return false; }
 
@@ -145,7 +153,7 @@ namespace wmoge {
 
         Ref<Camera> camera = make_ref<Camera>(m_scene->get_cameras());
         camera->set_name(SID(get_name_full()));
-        camera->set_fov(node.fov);
+        camera->set_fov(Math::deg_to_rad(node.fov));
         camera->set_near_far(node.near, node.far);
         camera->set_projection(node.projection);
         camera->set_color(node.color);
@@ -169,12 +177,6 @@ namespace wmoge {
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodeFolder& node) {
         return visit_end((SceneNode&) node);
     }
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNodeTransform& node) {
-        assert(!m_transforms.empty());
-        m_transforms.pop();
-
-        return visit_end((SceneNode&) node);
-    }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodePrefab& node) {
         return visit_end((SceneNode&) node);
     }
@@ -186,6 +188,12 @@ namespace wmoge {
     }
     bool SceneTreeVisitorEmitScene::visit_end(wmoge::SceneNodeComponent& node) {
         return visit_end((SceneNode&) node);
+    }
+    bool SceneTreeVisitorEmitScene::visit_end(SceneNodeTransform& node) {
+        assert(!m_transforms.empty());
+        m_transforms.pop();
+
+        return visit_end((SceneNodeComponent&) node);
     }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodeCamera& node) {
         return visit_end((SceneNodeComponent&) node);

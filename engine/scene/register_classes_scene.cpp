@@ -35,9 +35,10 @@ namespace wmoge {
     void register_classes_scene() {
         SceneNode::register_class();
         SceneNodeFolder::register_class();
-        SceneNodeTransform::register_class();
         SceneNodePrefab::register_class();
         SceneNodeEntity::register_class();
+        SceneNodeComponent::register_class();
+        SceneNodeTransform::register_class();
         SceneNodeCamera::register_class();
     }
 

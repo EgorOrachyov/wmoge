@@ -49,6 +49,11 @@ namespace wmoge {
         UUID() = default;
         UUID(std::uint64_t value);
 
+        [[nodiscard]] bool is_null() const { return m_value == 0; }
+        [[nodiscard]] bool is_not_null() const { return m_value != 0; }
+
+        operator bool() const { return is_not_null(); }
+
         [[nodiscard]] std::string to_str() const;
 
         [[nodiscard]] std::uint64_t&       value() { return m_value; }

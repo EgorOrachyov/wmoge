@@ -51,21 +51,10 @@ namespace wmoge {
 
         SceneNode(class SceneTree* tree);
 
-        virtual bool    visit(class SceneTreeVisitor& visitor);
-        virtual EcsArch get_arch();
-
         void set_transform(const TransformEdt& transform);
         void set_name(const StringId& name);
-
         void add_child(const Ref<SceneNode>& child);
         void remove_child(const Ref<SceneNode>& child);
-
-        virtual void on_parented() {}
-        virtual void on_unparented() {}
-        virtual void on_transformed() {}
-        virtual void on_renamed() {}
-        virtual bool on_yaml_read(const YamlConstNodeRef& node);
-        virtual bool on_yaml_write(YamlNodeRef node);
 
         [[nodiscard]] Mat4x4f get_lt() const;
         [[nodiscard]] Mat4x4f get_lt_inverse() const;
@@ -79,13 +68,27 @@ namespace wmoge {
         [[nodiscard]] const StringId&                 get_name() const { return m_name; }
         [[nodiscard]] const UUID&                     get_uuid() const { return m_uuid; };
 
+        virtual void on_parented() {}
+        virtual void on_unparented() {}
+        virtual void on_transformed() {}
+        virtual void on_renamed() {}
+        virtual bool on_yaml_read(const YamlConstNodeRef& node);
+        virtual bool on_yaml_write(YamlNodeRef node) const;
+        virtual bool on_visit(class SceneTreeVisitor& visitor);
+        virtual void on_ecs_arch_collect(EcsArch& arch);
+
+        friend bool yaml_read(const YamlConstNodeRef& node, SceneNode& scene_node);
+        friend bool yaml_write(YamlNodeRef node, const SceneNode& scene_node);
+
     private:
+        friend class SceneTree;
+
         std::vector<Ref<SceneNode>> m_children;
         class SceneNode*            m_parent = nullptr;
         class SceneTree*            m_tree   = nullptr;
         TransformEdt                m_transform;
         StringId                    m_name;
-        UUID                        m_uuid;
+        UUID                        m_uuid = UUID::generate();
     };
 
 }// namespace wmoge

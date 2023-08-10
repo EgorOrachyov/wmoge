@@ -27,6 +27,7 @@
 
 #include "scene_nodes.hpp"
 
+#include "scene/scene_components.hpp"
 #include "scene/scene_tree_visitor.hpp"
 
 namespace wmoge {
@@ -34,43 +35,75 @@ namespace wmoge {
     void SceneNodeFolder::register_class() {
         auto* cls = Class::register_class<SceneNodeFolder>();
     }
-    bool SceneNodeFolder::visit(class SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
-    }
-
-    void SceneNodeTransform::register_class() {
-        auto* cls = Class::register_class<SceneNodeTransform>();
-    }
-    bool SceneNodeTransform::visit(SceneTreeVisitor& visitor) {
+    bool SceneNodeFolder::on_visit(class SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
 
     void SceneNodePrefab::register_class() {
         auto* cls = Class::register_class<SceneNodePrefab>();
     }
-    bool SceneNodePrefab::visit(SceneTreeVisitor& visitor) {
+    bool SceneNodePrefab::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
 
     void SceneNodeEntity::register_class() {
         auto* cls = Class::register_class<SceneNodeEntity>();
     }
-    bool SceneNodeEntity::visit(SceneTreeVisitor& visitor) {
+    bool SceneNodeEntity::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
 
     void SceneNodeComponent::register_class() {
         auto* cls = Class::register_class<SceneNodeComponent>();
     }
-    bool SceneNodeComponent::visit(SceneTreeVisitor& visitor) {
+    bool SceneNodeComponent::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
+    }
+
+    void SceneNodeTransform::register_class() {
+        auto* cls = Class::register_class<SceneNodeTransform>();
+    }
+    bool SceneNodeTransform::on_visit(SceneTreeVisitor& visitor) {
+        return visitor.visit(*this);
+    }
+    void SceneNodeTransform::on_ecs_arch_collect(EcsArch& arch) {
+        arch.set_component<EcsComponentSceneTransform>();
     }
 
     void SceneNodeCamera::register_class() {
         auto* cls = Class::register_class<SceneNodeCamera>();
     }
-    bool SceneNodeCamera::visit(SceneTreeVisitor& visitor) {
+    bool SceneNodeCamera::on_yaml_read(const YamlConstNodeRef& node) {
+        if (!SceneNode::on_yaml_read(node)) return false;
+
+        WG_YAML_READ_AS_OPT(node, "color", color);
+        WG_YAML_READ_AS_OPT(node, "viewport", viewport);
+        WG_YAML_READ_AS_OPT(node, "fov", fov);
+        WG_YAML_READ_AS_OPT(node, "near", near);
+        WG_YAML_READ_AS_OPT(node, "far", far);
+        WG_YAML_READ_AS_OPT(node, "target", target);
+        WG_YAML_READ_AS_OPT(node, "projection", projection);
+
+        return true;
+    }
+    bool SceneNodeCamera::on_yaml_write(YamlNodeRef node) const {
+        if (!SceneNode::on_yaml_write(node)) return false;
+
+        WG_YAML_WRITE_AS(node, "color", color);
+        WG_YAML_WRITE_AS(node, "viewport", viewport);
+        WG_YAML_WRITE_AS(node, "fov", fov);
+        WG_YAML_WRITE_AS(node, "near", near);
+        WG_YAML_WRITE_AS(node, "far", far);
+        WG_YAML_WRITE_AS(node, "target", target);
+        WG_YAML_WRITE_AS(node, "projection", projection);
+
+        return true;
+    }
+    bool SceneNodeCamera::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
+    }
+    void SceneNodeCamera::on_ecs_arch_collect(EcsArch& arch) {
+        arch.set_component<EcsComponentCamera>();
     }
 
 }// namespace wmoge

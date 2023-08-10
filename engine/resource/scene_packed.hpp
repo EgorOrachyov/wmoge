@@ -32,6 +32,7 @@
 #include "io/yaml.hpp"
 #include "resource/resource.hpp"
 #include "scene/scene.hpp"
+#include "scene/scene_tree.hpp"
 
 #include <optional>
 
@@ -63,7 +64,7 @@ namespace wmoge {
         Ref<Scene>              instantiate();
 
     private:
-        std::optional<YamlTree> m_scene_data_yaml;
+        std::optional<SceneTree> m_scene_tree;
     };
 
 }// namespace wmoge

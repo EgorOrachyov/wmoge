@@ -54,18 +54,18 @@ namespace wmoge {
 
         bool visit_begin(SceneNode& node) override;
         bool visit_begin(SceneNodeFolder& node) override;
-        bool visit_begin(SceneNodeTransform& node) override;
         bool visit_begin(SceneNodePrefab& node) override;
         bool visit_begin(SceneNodeEntity& node) override;
         bool visit_begin(SceneNodeComponent& node) override;
+        bool visit_begin(SceneNodeTransform& node) override;
         bool visit_begin(SceneNodeCamera& node) override;
 
         bool visit_end(SceneNode& node) override;
         bool visit_end(SceneNodeFolder& node) override;
-        bool visit_end(SceneNodeTransform& node) override;
         bool visit_end(SceneNodePrefab& node) override;
         bool visit_end(SceneNodeEntity& node) override;
         bool visit_end(SceneNodeComponent& node) override;
+        bool visit_end(SceneNodeTransform& node) override;
         bool visit_end(SceneNodeCamera& node) override;
 
         /** @brief Currently processed entity object on scene */

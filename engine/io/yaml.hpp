@@ -29,6 +29,7 @@
 #define WMOGE_YAML_HPP
 
 #include "core/log.hpp"
+#include "core/ref.hpp"
 #include "core/string_id.hpp"
 
 #include <magic_enum.hpp>
@@ -207,6 +208,12 @@ namespace wmoge {
         WG_YAML_READ(node, wrapper.value());
         return true;
     }
+    template<typename T>
+    bool yaml_read(const YamlConstNodeRef& node, Ref<T>& ref) {
+        assert(ref);
+        WG_YAML_READ(node, *ref);
+        return true;
+    }
 
     template<typename T, std::size_t S>
     bool yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
@@ -250,6 +257,12 @@ namespace wmoge {
     bool yaml_write(YamlNodeRef node, const std::optional<T>& wrapper) {
         assert(wrapper.has_value());
         WG_YAML_WRITE(node, wrapper.value());
+        return true;
+    }
+    template<typename T>
+    bool yaml_write(YamlNodeRef node, const Ref<T>& ref) {
+        assert(ref);
+        WG_YAML_WRITE(node, *ref);
         return true;
     }
 

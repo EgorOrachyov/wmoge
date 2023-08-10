@@ -29,7 +29,11 @@
 #define WMOGE_SCENE_TREE_HPP
 
 #include "core/object.hpp"
+#include "io/yaml.hpp"
 #include "scene/scene_node.hpp"
+#include "scene/scene_tree_visitor.hpp"
+
+#include <string>
 
 namespace wmoge {
 
@@ -39,6 +43,25 @@ namespace wmoge {
      */
     class SceneTree final {
     public:
+        SceneTree();
+
+        // add node
+        // find node
+
+        /**
+         * @brief Visit tree with specified visitor
+         *
+         * @param visitor Visitor to pass to tree nodes
+         *
+         * @return True on success
+         */
+        bool visit(SceneTreeVisitor& visitor);
+
+        [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
+
+        friend bool yaml_read(const YamlConstNodeRef& node, SceneTree& tree);
+        friend bool yaml_write(YamlNodeRef node, const SceneTree& tree);
+
     private:
         Ref<SceneNode> m_root;
     };

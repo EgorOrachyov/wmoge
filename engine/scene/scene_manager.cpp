@@ -31,11 +31,23 @@
 
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
+#include "ecs/ecs_registry.hpp"
+#include "scene/scene_components.hpp"
 
 namespace wmoge {
 
     SceneManager::SceneManager() {
         WG_LOG_INFO("init scene manager");
+
+        auto* ecs_registry = Engine::instance()->ecs_registry();
+
+        ecs_registry->register_component<EcsComponentChildren>();
+        ecs_registry->register_component<EcsComponentParent>();
+        ecs_registry->register_component<EcsComponentSceneTransform>();
+        ecs_registry->register_component<EcsComponentLocalToWorld>();
+        ecs_registry->register_component<EcsComponentSceneNode>();
+        ecs_registry->register_component<EcsComponentName>();
+        ecs_registry->register_component<EcsComponentCamera>();
     }
 
     void SceneManager::next(Ref<Scene> scene) {

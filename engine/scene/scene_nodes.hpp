@@ -43,18 +43,7 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeFolder, SceneNode);
 
-        bool visit(class SceneTreeVisitor& visitor) override;
-    };
-
-    /**
-     * @class SceneNodeTransform
-     * @brief Scene node representing runtime transform node in transform hierarchy
-     */
-    class SceneNodeTransform : public SceneNode {
-    public:
-        WG_OBJECT(SceneNodeTransform, SceneNode);
-
-        bool visit(class SceneTreeVisitor& visitor) override;
+        bool on_visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -65,7 +54,7 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodePrefab, SceneNode);
 
-        bool visit(class SceneTreeVisitor& visitor) override;
+        bool on_visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -76,7 +65,7 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeEntity, SceneNode);
 
-        bool visit(class SceneTreeVisitor& visitor) override;
+        bool on_visit(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -87,7 +76,19 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeComponent, SceneNode);
 
-        bool visit(class SceneTreeVisitor& visitor) override;
+        bool on_visit(class SceneTreeVisitor& visitor) override;
+    };
+
+    /**
+     * @class SceneNodeTransform
+     * @brief Scene node representing runtime transform node in transform hierarchy
+     */
+    class SceneNodeTransform : public SceneNodeComponent {
+    public:
+        WG_OBJECT(SceneNodeTransform, SceneNodeComponent);
+
+        bool on_visit(class SceneTreeVisitor& visitor) override;
+        void on_ecs_arch_collect(EcsArch& arch) override;
     };
 
     /**
@@ -98,11 +99,14 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeCamera, SceneNodeComponent);
 
-        bool visit(class SceneTreeVisitor& visitor) override;
+        bool on_visit(class SceneTreeVisitor& visitor) override;
+        bool on_yaml_read(const YamlConstNodeRef& node) override;
+        bool on_yaml_write(YamlNodeRef node) const override;
+        void on_ecs_arch_collect(EcsArch& arch) override;
 
         Color4f          color      = Color::BLACK4f;
         Vec4f            viewport   = Vec4f(0, 0, 1, 1);
-        float            fov        = Math::deg_to_rad(45.0f);
+        float            fov        = 45.0f;
         float            near       = 0.1f;
         float            far        = 10000.0f;
         StringId         target     = SID("primary");
