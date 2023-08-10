@@ -25,23 +25,16 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_packed.hpp"
+#include "prefab.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "core/log.hpp"
-#include "core/task.hpp"
-#include "core/timer.hpp"
 #include "debug/profiler.hpp"
-#include "platform/file_system.hpp"
-#include "scene/scene.hpp"
-#include "scene/scene_manager.hpp"
-#include "scene/scene_tree_visitors.hpp"
 
 namespace wmoge {
 
-    bool ScenePacked::load_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_RESOURCE("ScenePacked::load_from_yaml");
+    bool Prefab::load_from_yaml(const YamlConstNodeRef& node) {
+        WG_AUTO_PROFILE_RESOURCE("Prefab::load_from_yaml");
 
         if (!Resource::load_from_yaml(node)) {
             return false;
@@ -52,61 +45,30 @@ namespace wmoge {
 
         return true;
     }
-    void ScenePacked::copy_to(Resource& copy) {
+
+    void Prefab::copy_to(Resource& copy) {
         Resource::copy_to(copy);
-        auto* scene_packed         = dynamic_cast<ScenePacked*>(&copy);
-        scene_packed->m_scene_tree = m_scene_tree;
+        auto* prefab         = dynamic_cast<Prefab*>(&copy);
+        prefab->m_scene_tree = m_scene_tree;
     }
 
-    AsyncResult<Ref<Scene>> ScenePacked::instantiate_async() {
-        WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate_async");
+    bool Prefab::instantiate(SceneNode& parent) {
+        WG_AUTO_PROFILE_RESOURCE("Prefab::instantiate");
 
         assert(m_scene_tree.has_value());
 
         if (!m_scene_tree.has_value()) {
-            WG_LOG_ERROR("cannot instantiate scene from no data");
-            return AsyncResult<Ref<Scene>>{};
+            WG_LOG_ERROR("no tree to instantiate prefab " << get_name());
+            return false;
         }
 
-        AsyncOp<Ref<Scene>> scene_async = make_async_op<Ref<Scene>>();
+        m_scene_tree.value().add_as_subtree(parent);
 
-        Task scene_task(get_name(), [self = Ref<ScenePacked>(this), scene_async](TaskContext&) {
-            Ref<Scene> scene = Engine::instance()->scene_manager()->make_scene(self->get_name());
-
-            SceneTreeVisitorEmitScene visitor(scene);
-
-            Timer timer;
-            timer.start();
-
-            if (!self->m_scene_tree.value().visit(visitor)) {
-                WG_LOG_ERROR("failed to emit ecs scene from scene tree " << self->get_name());
-                return 1;
-            }
-
-            self->m_scene_tree.value().copy_to(*scene->get_tree());
-
-            timer.stop();
-            WG_LOG_INFO("instantiate ecs scene " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");
-
-            scene_async->set_result(std::move(scene));
-
-            return 0;
-        });
-
-        scene_task.schedule();
-
-        return AsyncResult<Ref<Scene>>(scene_async);
-    }
-    Ref<Scene> ScenePacked::instantiate() {
-        WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate");
-
-        auto async = instantiate_async();
-        async.wait_completed();
-        return async.is_failed() ? Ref<Scene>{} : async.result();
+        return true;
     }
 
-    void ScenePacked::register_class() {
-        auto* cls = Class::register_class<ScenePacked>();
+    void Prefab::register_class() {
+        auto* cls = Class::register_class<Prefab>();
     }
 
 }// namespace wmoge

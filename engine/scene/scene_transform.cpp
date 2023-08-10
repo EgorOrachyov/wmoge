@@ -69,10 +69,23 @@ namespace wmoge {
         }
     }
 
-    void SceneTransform::set_transform(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted) {
+    void SceneTransform::set_lt(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted) {
         m_lt          = matrix;
         m_lt_inverted = matrix_inverted;
         m_dirty       = true;
+    }
+    void SceneTransform::set_wt(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted) {
+        m_lt          = matrix;
+        m_lt_inverted = matrix_inverted;
+        m_dirty       = true;
+
+        if (m_parent) {
+            // matrix          ~ l2w =   parent->l2w_cached  * lt
+            // matrix_inverted ~ w2l =   lt_inverted         * parent->w2l_cached
+
+            m_lt          = m_parent->m_w2l_cached * matrix;
+            m_lt_inverted = matrix * m_parent->m_l2w_cached;
+        }
     }
 
     void SceneTransform::add_child(const Ref<SceneTransform>& child) {

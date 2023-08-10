@@ -152,6 +152,7 @@
 #include "resource/material.hpp"
 #include "resource/mesh.hpp"
 #include "resource/pfx_effect.hpp"
+#include "resource/prefab.hpp"
 #include "resource/resource.hpp"
 #include "resource/resource_loader.hpp"
 #include "resource/resource_manager.hpp"

@@ -92,6 +92,11 @@ namespace wmoge {
         };
 
     private:
+        void push_node(const SceneNode& node);
+        void pop_node(const SceneNode& node);
+        void push_local_to_world(const TransformEdt& transform);
+        void pop_local_to_world();
+
         [[nodiscard]] const std::string& get_name_full() const;
         [[nodiscard]] bool               has_name_full() const;
         [[nodiscard]] Mat4x4f            get_l2w() const;

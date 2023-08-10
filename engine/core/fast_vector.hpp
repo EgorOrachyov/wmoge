@@ -92,9 +92,10 @@ namespace wmoge {
         vector.resize(node.num_children());
         std::size_t element_id = 0;
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            if (!yaml_read(node, vector[element_id++])) {
+            if (!yaml_read(child, vector[element_id])) {
                 return false;
             }
+            element_id += 1;
         }
         return true;
     }

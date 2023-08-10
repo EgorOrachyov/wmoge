@@ -25,58 +25,39 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_NODE_HPP
-#define WMOGE_SCENE_NODE_HPP
+#ifndef WMOGE_PREFAB_HPP
+#define WMOGE_PREFAB_HPP
 
-#include "core/array_view.hpp"
-#include "core/class.hpp"
-#include "core/object.hpp"
-#include "core/uuid.hpp"
-#include "ecs/ecs_core.hpp"
-#include "ecs/ecs_entity.hpp"
+#include "core/async.hpp"
 #include "io/yaml.hpp"
+#include "resource/resource.hpp"
+#include "scene/scene_tree.hpp"
 
-#include <vector>
+#include <optional>
 
 namespace wmoge {
 
     /**
-     * @class SceneNode
-     * @brief Represents single node (object) in an editable tree hierarchy of scene objects
+     * @class Prefab
+     * @brief A prefab resource which can be instantiated into a set of objects
+     *
+     * Prefab stores a sub-tree of scene nodes, which can be instantiated and added
+     * to a scene at once. Prefab allows to make a composite object once, and then
+     * use this to instantiate this object multiple times in different parts of scene.
      */
-    class SceneNode : public Object {
+    class Prefab : public Resource {
     public:
-        WG_OBJECT(SceneNode, Object)
+        WG_OBJECT(Prefab, Resource)
 
-        SceneNode(class SceneTree* tree);
+        bool load_from_yaml(const YamlConstNodeRef& node) override;
+        void copy_to(Resource& copy) override;
 
-        void set_name(const StringId& name);
-        void add_child(const Ref<SceneNode>& child);
-        void remove_child(const Ref<SceneNode>& child);
-
-        [[nodiscard]] ArrayView<const Ref<SceneNode>> get_children() const { return m_children; }
-        [[nodiscard]] class SceneNode*                get_parent() const { return m_parent; }
-        [[nodiscard]] const StringId&                 get_name() const { return m_name; }
-        [[nodiscard]] const UUID&                     get_uuid() const { return m_uuid; };
-
-        virtual bool on_yaml_read(const YamlConstNodeRef& node);
-        virtual bool on_yaml_write(YamlNodeRef node) const;
-        virtual bool on_visit(class SceneTreeVisitor& visitor);
-        virtual void on_ecs_arch_collect(EcsArch& arch) const {};
-        virtual void copy_to(SceneNode& other) const;
-
-        friend bool yaml_read(const YamlConstNodeRef& node, SceneNode& scene_node);
-        friend bool yaml_write(YamlNodeRef node, const SceneNode& scene_node);
+        bool instantiate(SceneNode& parent);
 
     private:
-        friend class SceneTree;
-
-        std::vector<Ref<SceneNode>> m_children;
-        class SceneNode*            m_parent = nullptr;
-        StringId                    m_name;
-        UUID                        m_uuid;
+        std::optional<SceneTree> m_scene_tree;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_NODE_HPP
+#endif//WMOGE_PREFAB_HPP

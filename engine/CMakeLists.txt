@@ -262,6 +262,8 @@ add_library(wmoge STATIC
         resource/mesh.hpp
         resource/pfx_effect.cpp
         resource/pfx_effect.hpp
+        resource/prefab.cpp
+        resource/prefab.hpp
         resource/resource.cpp
         resource/resource.hpp
         resource/resource_loader.hpp

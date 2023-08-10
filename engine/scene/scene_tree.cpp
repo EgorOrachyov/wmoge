@@ -27,14 +27,36 @@
 
 #include "scene_tree.hpp"
 
+#include "debug/profiler.hpp"
+#include "scene/scene_tree_visitor.hpp"
+
 namespace wmoge {
 
     SceneTree::SceneTree() {
-        m_root         = make_ref<SceneNode>();
-        m_root->m_tree = this;
+        m_root = make_ref<SceneNode>();
     }
 
-    bool SceneTree::visit(wmoge::SceneTreeVisitor& visitor) {
+    void SceneTree::add_as_subtree(SceneNode& parent) {
+        Ref<SceneNode> sub_tree = make_ref<SceneNode>();
+
+        m_root->copy_to(*sub_tree);
+        std::vector<Ref<SceneNode>> sub_tree_nodes = m_root->m_children;
+
+        for (auto& child : sub_tree_nodes) {
+            m_root->remove_child(child);
+            parent.add_child(child);
+        }
+    }
+
+    void SceneTree::copy_to(SceneTree& other) {
+        WG_AUTO_PROFILE_SCENE("SceneTree::copy_to");
+
+        m_root->copy_to(*other.m_root);
+    }
+
+    bool SceneTree::visit(SceneTreeVisitor& visitor) {
+        WG_AUTO_PROFILE_SCENE("SceneTree::visit");
+
         assert(m_root);
 
         return m_root->on_visit(visitor);

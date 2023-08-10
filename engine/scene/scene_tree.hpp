@@ -31,7 +31,6 @@
 #include "core/object.hpp"
 #include "io/yaml.hpp"
 #include "scene/scene_node.hpp"
-#include "scene/scene_tree_visitor.hpp"
 
 #include <string>
 
@@ -45,8 +44,19 @@ namespace wmoge {
     public:
         SceneTree();
 
-        // add node
-        // find node
+        /**
+         * @brief Adds this tree nodes as subtree to specified parent
+         *
+         * @param parent Node to be parent of added subtree
+         */
+        void add_as_subtree(SceneNode& parent);
+
+        /**
+         * @brief Copy entire tree recursively to other three
+         *
+         * @param other Target tree to copy to
+         */
+        void copy_to(SceneTree& other);
 
         /**
          * @brief Visit tree with specified visitor
@@ -55,7 +65,7 @@ namespace wmoge {
          *
          * @return True on success
          */
-        bool visit(SceneTreeVisitor& visitor);
+        bool visit(class SceneTreeVisitor& visitor);
 
         [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
 

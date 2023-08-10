@@ -83,7 +83,7 @@ namespace wmoge {
     Ref<Scene> SceneManager::make_scene(const StringId& name) {
         std::lock_guard guard(m_mutex);
 
-        auto scene = make_ref<Scene>();
+        auto scene = make_ref<Scene>(name);
         m_scenes.insert(scene);
 
         return scene;

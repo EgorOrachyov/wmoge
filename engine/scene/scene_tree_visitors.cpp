@@ -41,28 +41,25 @@ namespace wmoge {
     }
 
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNode& node) {
-        if (!node.get_name().empty()) {
-            NameInfo info{};
-            info.name      = node.get_name();
-            info.name_full = get_name_full() + "/" + info.name.str();
-            m_names.push(info);
-        }
-
-        LocalToWorldInfo info{};
-        info.l2w = get_l2w() * node.get_transform().get_transform();
-        info.w2l = node.get_transform().get_inverse_transform() * get_w2l();
-        m_local_to_world.push(info);
+        push_node(node);
 
         return true;
     }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeFolder& node) {
-        return visit_begin((SceneNode&) node);
+        push_node(node);
+        push_local_to_world(node.transform);
+
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodePrefab& node) {
-        return false;
+        push_node(node);
+        push_local_to_world(node.transform);
+
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeEntity& node) {
-        if (!visit_begin((SceneNode&) node)) { return false; }
+        push_node(node);
+        push_local_to_world(node.transform);
 
         auto* ecs_world = m_scene->get_ecs_world();
 
@@ -72,10 +69,6 @@ namespace wmoge {
         info.entity_arch.set_component<EcsComponentParent>();
         info.entity_arch.set_component<EcsComponentChildren>();
         info.entity_arch.set_component<EcsComponentName>();
-
-        if (!m_transforms.empty()) {
-            info.entity_arch.set_component<EcsComponentSceneTransform>();
-        }
 
         for (const auto& child : node.get_children()) {
             child->on_ecs_arch_collect(info.entity_arch);
@@ -116,22 +109,27 @@ namespace wmoge {
         return true;
     }
     bool SceneTreeVisitorEmitScene::visit_begin(wmoge::SceneNodeComponent& node) {
-        assert(!m_entities.empty());
+        push_node(node);
 
-        return visit_begin((SceneNode&) node);
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeTransform& node) {
-        if (!visit_begin((SceneNodeComponent&) node)) { return false; }
+        push_node(node);
 
         // Push transform
         {
             TransformInfo info;
             info.transform = make_ref<SceneTransform>(m_scene->get_transforms());
-            info.transform->set_transform(node.get_transform().get_transform(), node.get_transform().get_inverse_transform());
 
             if (!m_transforms.empty()) {
                 m_transforms.top().transform->add_child(info.transform);
             }
+            if (!info.transform->is_linked()) {
+                info.transform->set_layer(0);
+            }
+
+            info.transform->set_wt(get_l2w(), get_w2l());
+            info.transform->update();
 
             m_transforms.push(info);
         }
@@ -151,7 +149,7 @@ namespace wmoge {
         assert(info.entity_id.is_valid());
         assert(info.entity_arch.has_component<EcsComponentCamera>());
 
-        Ref<Camera> camera = make_ref<Camera>(m_scene->get_cameras());
+        Ref<Camera> camera = m_scene->get_cameras()->make_camera(SID(get_name_full()));
         camera->set_name(SID(get_name_full()));
         camera->set_fov(Math::deg_to_rad(node.fov));
         camera->set_near_far(node.near, node.far);
@@ -164,30 +162,35 @@ namespace wmoge {
     }
 
     bool SceneTreeVisitorEmitScene::visit_end(SceneNode& node) {
-        if (!node.get_name().empty()) {
-            assert(m_names.size() > 1);
-            m_names.pop();
-        }
-
-        assert(m_local_to_world.size() > 1);
-        m_local_to_world.pop();
+        pop_node(node);
 
         return true;
     }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodeFolder& node) {
-        return visit_end((SceneNode&) node);
+        pop_node(node);
+        pop_local_to_world();
+
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodePrefab& node) {
-        return visit_end((SceneNode&) node);
+        pop_node(node);
+        pop_local_to_world();
+
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodeEntity& node) {
         assert(!m_entities.empty());
         m_entities.pop();
 
-        return visit_end((SceneNode&) node);
+        pop_node(node);
+        pop_local_to_world();
+
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_end(wmoge::SceneNodeComponent& node) {
-        return visit_end((SceneNode&) node);
+        pop_node(node);
+
+        return true;
     }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodeTransform& node) {
         assert(!m_transforms.empty());
@@ -197,6 +200,32 @@ namespace wmoge {
     }
     bool SceneTreeVisitorEmitScene::visit_end(SceneNodeCamera& node) {
         return visit_end((SceneNodeComponent&) node);
+    }
+
+    void SceneTreeVisitorEmitScene::push_node(const SceneNode& node) {
+        if (!node.get_name().empty()) {
+            NameInfo info{};
+            info.name      = node.get_name();
+            info.name_full = get_name_full() + "/" + info.name.str();
+            m_names.push(info);
+        }
+    }
+    void SceneTreeVisitorEmitScene::pop_node(const SceneNode& node) {
+        if (!node.get_name().empty()) {
+            assert(m_names.size() > 1);
+            m_names.pop();
+        }
+    }
+
+    void SceneTreeVisitorEmitScene::push_local_to_world(const TransformEdt& transform) {
+        LocalToWorldInfo info{};
+        info.l2w = get_l2w() * transform.get_transform();
+        info.w2l = transform.get_inverse_transform() * get_w2l();
+        m_local_to_world.push(info);
+    }
+    void SceneTreeVisitorEmitScene::pop_local_to_world() {
+        assert(m_local_to_world.size() > 1);
+        m_local_to_world.pop();
     }
 
     const std::string& SceneTreeVisitorEmitScene::get_name_full() const {

@@ -35,6 +35,7 @@
 #include "resource/material.hpp"
 #include "resource/mesh.hpp"
 #include "resource/pfx_effect.hpp"
+#include "resource/prefab.hpp"
 #include "resource/resource.hpp"
 #include "resource/scene_packed.hpp"
 #include "resource/script.hpp"
@@ -58,6 +59,7 @@ namespace wmoge {
         Material::register_class();
         Script::register_class();
         PfxEffect::register_class();
+        Prefab::register_class();
         ScenePacked::register_class();
     }
 

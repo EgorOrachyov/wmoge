@@ -329,7 +329,7 @@ namespace wmoge {
             cmp_source_texture.dwHeight   = entry.height;
             cmp_source_texture.dwPitch    = entry.width * get_source_px_size(entry.format);
             cmp_source_texture.format     = get_source_format(entry.format);
-            cmp_source_texture.dwDataSize = entry.data->size();
+            cmp_source_texture.dwDataSize = CMP_DWORD(entry.data->size());
             cmp_source_texture.pData      = entry.data->buffer();
 
             CMP_Texture cmd_dest_texture{};

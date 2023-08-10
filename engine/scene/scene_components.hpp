@@ -96,7 +96,7 @@ namespace wmoge {
      * @brief Unique full name of entity on a scene
      */
     struct EcsComponentName {
-        WG_ECS_COMPONENT(EcsComponentMeshSimple, 5);
+        WG_ECS_COMPONENT(EcsComponentName, 5);
 
         std::string name;
     };

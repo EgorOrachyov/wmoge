@@ -27,6 +27,9 @@
 
 #include "scene_nodes.hpp"
 
+#include "core/engine.hpp"
+#include "io/yaml.hpp"
+#include "resource/resource_manager.hpp"
 #include "scene/scene_components.hpp"
 #include "scene/scene_tree_visitor.hpp"
 
@@ -38,6 +41,25 @@ namespace wmoge {
     bool SceneNodeFolder::on_visit(class SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
+    bool SceneNodeFolder::on_yaml_read(const YamlConstNodeRef& node) {
+        if (!SceneNode::on_yaml_read(node)) return false;
+
+        WG_YAML_READ_AS_OPT(node, "transform", transform);
+
+        return true;
+    }
+    bool SceneNodeFolder::on_yaml_write(YamlNodeRef node) const {
+        if (!SceneNode::on_yaml_write(node)) return false;
+
+        WG_YAML_WRITE_AS(node, "transform", transform);
+
+        return true;
+    }
+    void SceneNodeFolder::copy_to(SceneNode& other) const {
+        SceneNode::copy_to(other);
+        auto* ptr      = dynamic_cast<SceneNodeFolder*>(&other);
+        ptr->transform = transform;
+    }
 
     void SceneNodePrefab::register_class() {
         auto* cls = Class::register_class<SceneNodePrefab>();
@@ -45,12 +67,61 @@ namespace wmoge {
     bool SceneNodePrefab::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
+    bool SceneNodePrefab::on_yaml_read(const YamlConstNodeRef& node) {
+        if (!SceneNode::on_yaml_read(node)) return false;
+
+        StringId prefab_resource;
+
+        WG_YAML_READ_AS_OPT(node, "transform", transform);
+        WG_YAML_READ_AS(node, "prefab", prefab_resource);
+
+        prefab = Engine::instance()->resource_manager()->load(prefab_resource).cast<Prefab>();
+        if (!prefab) {
+            WG_LOG_ERROR("failed to load prefab " << prefab_resource);
+            return false;
+        }
+
+        return true;
+    }
+    bool SceneNodePrefab::on_yaml_write(YamlNodeRef node) const {
+        if (!SceneNode::on_yaml_write(node)) return false;
+
+        WG_YAML_WRITE_AS(node, "transform", transform);
+        WG_YAML_WRITE_AS(node, "prefab", prefab->get_name());
+
+        return true;
+    }
+    void SceneNodePrefab::copy_to(SceneNode& other) const {
+        SceneNode::copy_to(other);
+        auto* ptr      = dynamic_cast<SceneNodePrefab*>(&other);
+        ptr->transform = transform;
+        ptr->prefab    = prefab;
+    }
 
     void SceneNodeEntity::register_class() {
         auto* cls = Class::register_class<SceneNodeEntity>();
     }
     bool SceneNodeEntity::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
+    }
+    bool SceneNodeEntity::on_yaml_read(const YamlConstNodeRef& node) {
+        if (!SceneNode::on_yaml_read(node)) return false;
+
+        WG_YAML_READ_AS_OPT(node, "transform", transform);
+
+        return true;
+    }
+    bool SceneNodeEntity::on_yaml_write(YamlNodeRef node) const {
+        if (!SceneNode::on_yaml_write(node)) return false;
+
+        WG_YAML_WRITE_AS(node, "transform", transform);
+
+        return true;
+    }
+    void SceneNodeEntity::copy_to(SceneNode& other) const {
+        SceneNode::copy_to(other);
+        auto* ptr      = dynamic_cast<SceneNodeEntity*>(&other);
+        ptr->transform = transform;
     }
 
     void SceneNodeComponent::register_class() {
@@ -66,7 +137,7 @@ namespace wmoge {
     bool SceneNodeTransform::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    void SceneNodeTransform::on_ecs_arch_collect(EcsArch& arch) {
+    void SceneNodeTransform::on_ecs_arch_collect(EcsArch& arch) const {
         arch.set_component<EcsComponentSceneTransform>();
     }
 
@@ -102,8 +173,19 @@ namespace wmoge {
     bool SceneNodeCamera::on_visit(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    void SceneNodeCamera::on_ecs_arch_collect(EcsArch& arch) {
+    void SceneNodeCamera::on_ecs_arch_collect(EcsArch& arch) const {
         arch.set_component<EcsComponentCamera>();
+    }
+    void SceneNodeCamera::copy_to(SceneNode& other) const {
+        SceneNode::copy_to(other);
+        auto* camera       = dynamic_cast<SceneNodeCamera*>(&other);
+        camera->color      = color;
+        camera->viewport   = viewport;
+        camera->fov        = fov;
+        camera->near       = near;
+        camera->far        = far;
+        camera->target     = target;
+        camera->projection = projection;
     }
 
 }// namespace wmoge

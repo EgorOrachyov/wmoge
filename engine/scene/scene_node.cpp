@@ -34,17 +34,12 @@
 
 namespace wmoge {
 
-    SceneNode::SceneNode(SceneTree* tree) : m_tree(tree), m_uuid(UUID::generate()) {
+    SceneNode::SceneNode(SceneTree* tree) : m_uuid(UUID::generate()) {
         assert(tree);
     }
 
-    void SceneNode::set_transform(const TransformEdt& transform) {
-        m_transform = transform;
-        on_transformed();
-    }
     void SceneNode::set_name(const StringId& name) {
         m_name = name;
-        on_renamed();
     }
 
     void SceneNode::add_child(const Ref<SceneNode>& child) {
@@ -53,36 +48,18 @@ namespace wmoge {
 
         m_children.push_back(child);
         child->m_parent = this;
-        child->on_parented();
     }
     void SceneNode::remove_child(const Ref<SceneNode>& child) {
         assert(child);
         assert(child->m_parent == this);
 
-        child->on_unparented();
         child->m_parent = nullptr;
         m_children.erase(std::find(m_children.begin(), m_children.end(), child));
-    }
-
-    Mat4x4f SceneNode::get_lt() const {
-        return m_transform.get_transform();
-    }
-    Mat4x4f SceneNode::get_lt_inverse() const {
-        return m_transform.get_inverse_transform();
-    }
-    Mat4x4f SceneNode::get_l2w() const {
-        const Mat4x4f matrix = get_lt();
-        return m_parent ? m_parent->get_l2w() * matrix : matrix;
-    }
-    Mat4x4f SceneNode::get_w2l() const {
-        const Mat4x4f matrix = get_lt_inverse();
-        return m_parent ? matrix * m_parent->get_w2l() : matrix;
     }
 
     bool SceneNode::on_yaml_read(const YamlConstNodeRef& node) {
         WG_YAML_READ_AS_OPT(node, "uuid", m_uuid);
         WG_YAML_READ_AS_OPT(node, "name", m_name);
-        WG_YAML_READ_AS_OPT(node, "transform", m_transform);
 
         if (!m_uuid) {
             m_uuid = UUID::generate();
@@ -112,9 +89,6 @@ namespace wmoge {
                     return false;
                 }
 
-                assert(m_tree);
-                child->m_tree = m_tree;
-
                 if (!child->on_yaml_read(child_itr)) {
                     WG_LOG_ERROR("failed to parse child of " << m_name);
                     return false;
@@ -131,7 +105,6 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "class", class_ptr()->name());
         WG_YAML_WRITE_AS(node, "uuid", m_uuid);
         WG_YAML_WRITE_AS(node, "name", m_name);
-        WG_YAML_WRITE_AS(node, "transform", m_transform);
         WG_YAML_WRITE_AS_OPT(node, "children", !m_children.empty(), m_children);
 
         return true;
@@ -139,7 +112,17 @@ namespace wmoge {
     bool SceneNode::on_visit(class SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    void SceneNode::on_ecs_arch_collect(EcsArch&) {
+    void SceneNode::copy_to(SceneNode& other) const {
+        other.m_name = m_name;
+        other.m_uuid = m_uuid;
+
+        for (auto& child : m_children) {
+            Ref<SceneNode> child_copy = child->class_ptr()->instantiate().cast<SceneNode>();
+            other.m_children.push_back(child_copy);
+
+            child_copy->m_parent = &other;
+            child->copy_to(*child_copy);
+        }
     }
 
     bool yaml_read(const YamlConstNodeRef& node, SceneNode& scene_node) {

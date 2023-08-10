@@ -33,6 +33,9 @@
 #include "math/mat.hpp"
 #include "math/math_utils3d.hpp"
 
+#include <optional>
+#include <vector>
+
 namespace wmoge {
 
     /**
@@ -46,7 +49,8 @@ namespace wmoge {
         ~SceneTransform() override;
 
         void set_layer(int layer);
-        void set_transform(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted);
+        void set_lt(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted);
+        void set_wt(const Mat4x4f& matrix, const Mat4x4f& matrix_inverted);
         void add_child(const Ref<SceneTransform>& child);
         void remove_child(const Ref<SceneTransform>& child);
 
@@ -58,7 +62,7 @@ namespace wmoge {
         [[nodiscard]] const Mat4x4f&                       get_lt_inverted() const { return m_lt_inverted; }
         [[nodiscard]] const Mat4x4f&                       get_l2w_cached() const { return m_l2w_cached; }
         [[nodiscard]] const Mat4x4f&                       get_w2l_cached() const { return m_w2l_cached; }
-        [[nodiscard]] int                                  get_layer() const { return m_layer; }
+        [[nodiscard]] std::optional<int>                   get_layer() const { return is_linked() ? std::optional{m_layer} : std::nullopt; }
         [[nodiscard]] bool                                 is_dirty() const { return m_dirty; }
         [[nodiscard]] bool                                 is_linked() const { return m_layer != -1; }
 

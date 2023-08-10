@@ -175,7 +175,8 @@ namespace wmoge {
         vector.resize(node.num_children());
         std::size_t element_id = 0;
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            WG_YAML_READ(child, vector[element_id++]);
+            WG_YAML_READ(child, vector[element_id]);
+            element_id += 1;
         }
         return true;
     }

@@ -29,6 +29,8 @@
 #define WMOGE_SCENE_NODES_HPP
 
 #include "core/class.hpp"
+#include "math/transform.hpp"
+#include "resource/prefab.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_node.hpp"
 #include "scene/scene_transform.hpp"
@@ -44,6 +46,11 @@ namespace wmoge {
         WG_OBJECT(SceneNodeFolder, SceneNode);
 
         bool on_visit(class SceneTreeVisitor& visitor) override;
+        bool on_yaml_read(const YamlConstNodeRef& node) override;
+        bool on_yaml_write(YamlNodeRef node) const override;
+        void copy_to(SceneNode& other) const override;
+
+        TransformEdt transform;
     };
 
     /**
@@ -55,17 +62,12 @@ namespace wmoge {
         WG_OBJECT(SceneNodePrefab, SceneNode);
 
         bool on_visit(class SceneTreeVisitor& visitor) override;
-    };
+        bool on_yaml_read(const YamlConstNodeRef& node) override;
+        bool on_yaml_write(YamlNodeRef node) const override;
+        void copy_to(SceneNode& other) const override;
 
-    /**
-     * @class SceneNodeEntity
-     * @brief Scene node base for any entity object in a runtime scene
-     */
-    class SceneNodeEntity : public SceneNode {
-    public:
-        WG_OBJECT(SceneNodeEntity, SceneNode);
-
-        bool on_visit(class SceneTreeVisitor& visitor) override;
+        TransformEdt transform;
+        Ref<Prefab>  prefab;
     };
 
     /**
@@ -80,6 +82,22 @@ namespace wmoge {
     };
 
     /**
+     * @class SceneNodeEntity
+     * @brief Scene node base for any entity object in a runtime scene
+     */
+    class SceneNodeEntity : public SceneNode {
+    public:
+        WG_OBJECT(SceneNodeEntity, SceneNode);
+
+        bool on_visit(class SceneTreeVisitor& visitor) override;
+        bool on_yaml_read(const YamlConstNodeRef& node) override;
+        bool on_yaml_write(YamlNodeRef node) const override;
+        void copy_to(SceneNode& other) const override;
+
+        TransformEdt transform;
+    };
+
+    /**
      * @class SceneNodeTransform
      * @brief Scene node representing runtime transform node in transform hierarchy
      */
@@ -88,7 +106,7 @@ namespace wmoge {
         WG_OBJECT(SceneNodeTransform, SceneNodeComponent);
 
         bool on_visit(class SceneTreeVisitor& visitor) override;
-        void on_ecs_arch_collect(EcsArch& arch) override;
+        void on_ecs_arch_collect(EcsArch& arch) const override;
     };
 
     /**
@@ -102,7 +120,8 @@ namespace wmoge {
         bool on_visit(class SceneTreeVisitor& visitor) override;
         bool on_yaml_read(const YamlConstNodeRef& node) override;
         bool on_yaml_write(YamlNodeRef node) const override;
-        void on_ecs_arch_collect(EcsArch& arch) override;
+        void on_ecs_arch_collect(EcsArch& arch) const override;
+        void copy_to(SceneNode& other) const override;
 
         Color4f          color      = Color::BLACK4f;
         Vec4f            viewport   = Vec4f(0, 0, 1, 1);
