@@ -160,17 +160,18 @@ $(function() {
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        vector.resize(node.num_children());</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        std::size_t element_id = 0;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> child = node.first_child(); child.valid(); child = child.next_sibling()) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="namespacewmoge.html#a114e7b81882203e359695135a4e49ef8">yaml_read</a>(node, vector[element_id++])) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="namespacewmoge.html#a114e7b81882203e359695135a4e49ef8">yaml_read</a>(child, vector[element_id])) {</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_FAST_VECTOR_HPP</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            element_id += 1;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_FAST_VECTOR_HPP</span></div>
 <div class="ttc" id="aarchive_8hpp_html"><div class="ttname"><a href="archive_8hpp.html">archive.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1Archive_html"><div class="ttname"><a href="classwmoge_1_1Archive.html">wmoge::Archive</a></div><div class="ttdoc">Serialization and de-serialization archive.</div><div class="ttdef"><b>Definition:</b> archive.hpp:50</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>

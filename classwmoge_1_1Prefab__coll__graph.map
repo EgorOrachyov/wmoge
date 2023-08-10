@@ -1,0 +1,6 @@
+<map id="wmoge::Prefab" name="wmoge::Prefab">
+<area shape="rect" id="node1" title="A prefab resource which can be instantiated into a set of objects." alt="" coords="14,229,122,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="5,155,131,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="14,80,122,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="13,5,123,32"/>
+</map>

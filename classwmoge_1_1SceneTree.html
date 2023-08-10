@@ -83,9 +83,15 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae7208ac092c8c87d71c1786d44e8501c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#ae7208ac092c8c87d71c1786d44e8501c">SceneTree</a> ()</td></tr>
 <tr class="separator:ae7208ac092c8c87d71c1786d44e8501c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c39728320cbaf041de3b0dfaf3e4667"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a1c39728320cbaf041de3b0dfaf3e4667">visit</a> (<a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;visitor)</td></tr>
-<tr class="memdesc:a1c39728320cbaf041de3b0dfaf3e4667"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit tree with specified visitor.  <a href="classwmoge_1_1SceneTree.html#a1c39728320cbaf041de3b0dfaf3e4667">More...</a><br /></td></tr>
-<tr class="separator:a1c39728320cbaf041de3b0dfaf3e4667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2562804d7380d148274f48b213f19e6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a2562804d7380d148274f48b213f19e6a">add_as_subtree</a> (<a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;parent)</td></tr>
+<tr class="memdesc:a2562804d7380d148274f48b213f19e6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds this tree nodes as subtree to specified parent.  <a href="classwmoge_1_1SceneTree.html#a2562804d7380d148274f48b213f19e6a">More...</a><br /></td></tr>
+<tr class="separator:a2562804d7380d148274f48b213f19e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a591240a553c8866f43988a08bd39bfa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a591240a553c8866f43988a08bd39bfa2">copy_to</a> (<a class="el" href="classwmoge_1_1SceneTree.html">SceneTree</a> &amp;other)</td></tr>
+<tr class="memdesc:a591240a553c8866f43988a08bd39bfa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy entire tree recursively to other three.  <a href="classwmoge_1_1SceneTree.html#a591240a553c8866f43988a08bd39bfa2">More...</a><br /></td></tr>
+<tr class="separator:a591240a553c8866f43988a08bd39bfa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5dec1854b0d67d14b88b579e6512622"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#ae5dec1854b0d67d14b88b579e6512622">visit</a> (class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;visitor)</td></tr>
+<tr class="memdesc:ae5dec1854b0d67d14b88b579e6512622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit tree with specified visitor.  <a href="classwmoge_1_1SceneTree.html#ae5dec1854b0d67d14b88b579e6512622">More...</a><br /></td></tr>
+<tr class="separator:ae5dec1854b0d67d14b88b579e6512622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e405f893be50a97919dd062a334ca37"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a9e405f893be50a97919dd062a334ca37">get_root</a> () const</td></tr>
 <tr class="separator:a9e405f893be50a97919dd062a334ca37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -117,6 +123,58 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2562804d7380d148274f48b213f19e6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2562804d7380d148274f48b213f19e6a">&#9670;&nbsp;</a></span>add_as_subtree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::SceneTree::add_as_subtree </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds this tree nodes as subtree to specified parent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>Node to be parent of added subtree </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a591240a553c8866f43988a08bd39bfa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a591240a553c8866f43988a08bd39bfa2">&#9670;&nbsp;</a></span>copy_to()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::SceneTree::copy_to </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1SceneTree.html">SceneTree</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy entire tree recursively to other three. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Target tree to copy to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a9e405f893be50a97919dd062a334ca37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e405f893be50a97919dd062a334ca37">&#9670;&nbsp;</a></span>get_root()</h2>
 
@@ -142,8 +200,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a1c39728320cbaf041de3b0dfaf3e4667"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c39728320cbaf041de3b0dfaf3e4667">&#9670;&nbsp;</a></span>visit()</h2>
+<a id="ae5dec1854b0d67d14b88b579e6512622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5dec1854b0d67d14b88b579e6512622">&#9670;&nbsp;</a></span>visit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +209,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">bool wmoge::SceneTree::visit </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1SceneTreeVisitor.html">wmoge::SceneTreeVisitor</a> &amp;&#160;</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;&#160;</td>
           <td class="paramname"><em>visitor</em></td><td>)</td>
           <td></td>
         </tr>

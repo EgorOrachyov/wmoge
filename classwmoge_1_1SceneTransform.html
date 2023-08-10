@@ -106,8 +106,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8b76b5001cccb00bd006422853d6239f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0898cf2c7c8570fd392fb6ce55f59cfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a0898cf2c7c8570fd392fb6ce55f59cfd">set_layer</a> (int layer)</td></tr>
 <tr class="separator:a0898cf2c7c8570fd392fb6ce55f59cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02d4d68a1780bbd73033234a621e0cb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a02d4d68a1780bbd73033234a621e0cb2">set_transform</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;matrix, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;matrix_inverted)</td></tr>
-<tr class="separator:a02d4d68a1780bbd73033234a621e0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe5488f66117e2251a660579e01ea9b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#abe5488f66117e2251a660579e01ea9b7">set_lt</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;matrix, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;matrix_inverted)</td></tr>
+<tr class="separator:abe5488f66117e2251a660579e01ea9b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9276fa3277fb73112b2667081e4099b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#ae9276fa3277fb73112b2667081e4099b">set_wt</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;matrix, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;matrix_inverted)</td></tr>
+<tr class="separator:ae9276fa3277fb73112b2667081e4099b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c95366e4f2b74efe5800fd03a728560"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a0c95366e4f2b74efe5800fd03a728560">add_child</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneTransform.html">SceneTransform</a> &gt; &amp;child)</td></tr>
 <tr class="separator:a0c95366e4f2b74efe5800fd03a728560"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93ba3465b91718e55ddf3f40d4f2c7fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a93ba3465b91718e55ddf3f40d4f2c7fe">remove_child</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneTransform.html">SceneTransform</a> &gt; &amp;child)</td></tr>
@@ -126,8 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a21d9a1db2815d3fa30d8ea0f2ff5c693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0a5b756d0915909a3f634ec36047a78"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#ab0a5b756d0915909a3f634ec36047a78">get_w2l_cached</a> () const</td></tr>
 <tr class="separator:ab0a5b756d0915909a3f634ec36047a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a133ed6537d705d8a4e85097caf7416d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a133ed6537d705d8a4e85097caf7416d0">get_layer</a> () const</td></tr>
-<tr class="separator:a133ed6537d705d8a4e85097caf7416d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9799f38fa6d0575916a3da57d276bf3d"><td class="memItemLeft" align="right" valign="top">std::optional&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a9799f38fa6d0575916a3da57d276bf3d">get_layer</a> () const</td></tr>
+<tr class="separator:a9799f38fa6d0575916a3da57d276bf3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca6570bb891729dd04b0be50a221a89f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#aca6570bb891729dd04b0be50a221a89f">is_dirty</a> () const</td></tr>
 <tr class="separator:aca6570bb891729dd04b0be50a221a89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a091e34247ff725c4e2cdea268f501e7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransform.html#a091e34247ff725c4e2cdea268f501e7a">is_linked</a> () const</td></tr>
@@ -281,8 +283,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a133ed6537d705d8a4e85097caf7416d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a133ed6537d705d8a4e85097caf7416d0">&#9670;&nbsp;</a></span>get_layer()</h2>
+<a id="a9799f38fa6d0575916a3da57d276bf3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9799f38fa6d0575916a3da57d276bf3d">&#9670;&nbsp;</a></span>get_layer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -291,7 +293,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::SceneTransform::get_layer </td>
+          <td class="memname">std::optional&lt;int&gt; wmoge::SceneTransform::get_layer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -492,14 +494,42 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a02d4d68a1780bbd73033234a621e0cb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02d4d68a1780bbd73033234a621e0cb2">&#9670;&nbsp;</a></span>set_transform()</h2>
+<a id="abe5488f66117e2251a660579e01ea9b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe5488f66117e2251a660579e01ea9b7">&#9670;&nbsp;</a></span>set_lt()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::SceneTransform::set_transform </td>
+          <td class="memname">void wmoge::SceneTransform::set_lt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>matrix_inverted</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9276fa3277fb73112b2667081e4099b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9276fa3277fb73112b2667081e4099b">&#9670;&nbsp;</a></span>set_wt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::SceneTransform::set_wt </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
           <td class="paramname"><em>matrix</em>, </td>
