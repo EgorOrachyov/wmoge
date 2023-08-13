@@ -44,7 +44,7 @@ namespace wmoge {
     class ResourceLoaderTexture2d final : public ResourceLoader {
     public:
         ~ResourceLoaderTexture2d() override = default;
-        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
         StringId get_name() override;
     };
 
@@ -55,7 +55,7 @@ namespace wmoge {
     class ResourceLoaderTextureCube final : public ResourceLoader {
     public:
         ~ResourceLoaderTextureCube() override = default;
-        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
         StringId get_name() override;
     };
 

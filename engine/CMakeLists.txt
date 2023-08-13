@@ -43,6 +43,7 @@ add_library(wmoge STATIC
         core/random.hpp
         core/ref.cpp
         core/ref.hpp
+        core/status.hpp
         core/string_id.cpp
         core/string_id.hpp
         core/string_utf.cpp

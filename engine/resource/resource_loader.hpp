@@ -41,7 +41,7 @@ namespace wmoge {
     class ResourceLoader {
     public:
         virtual ~ResourceLoader()                                                                 = default;
-        virtual bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) = 0;
+        virtual Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) = 0;
         virtual StringId get_name()                                                               = 0;
     };
 

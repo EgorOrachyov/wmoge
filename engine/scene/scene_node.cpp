@@ -57,9 +57,10 @@ namespace wmoge {
         m_children.erase(std::find(m_children.begin(), m_children.end(), child));
     }
 
-    bool SceneNode::on_yaml_read(const YamlConstNodeRef& node) {
+    Status SceneNode::read_from_yaml(const YamlConstNodeRef& node) {
         WG_YAML_READ_AS_OPT(node, "uuid", m_uuid);
         WG_YAML_READ_AS_OPT(node, "name", m_name);
+        WG_YAML_READ_AS_OPT(node, "children", m_children);
 
         if (!m_uuid) {
             m_uuid = UUID::generate();
@@ -69,67 +70,48 @@ namespace wmoge {
             m_name = SID(class_ptr()->name().str() + "_" + m_uuid.to_str());
         }
 
-        if (node.has_child("children")) {
-            for (auto child_itr = node["children"].first_child(); child_itr.valid(); child_itr = child_itr.next_sibling()) {
-                StringId class_name;
-
-                WG_YAML_READ_AS(child_itr, "class", class_name);
-
-                Class* class_ptr = Class::class_ptr(class_name);
-
-                if (!class_ptr) {
-                    WG_LOG_ERROR("no such class " << class_name << " to instantiate child of node " << m_name);
-                    return false;
-                }
-
-                Ref<SceneNode> child = class_ptr->instantiate().cast<SceneNode>();
-
-                if (!child) {
-                    WG_LOG_ERROR("failed to instantiate child of " << m_name);
-                    return false;
-                }
-
-                if (!child->on_yaml_read(child_itr)) {
-                    WG_LOG_ERROR("failed to parse child of " << m_name);
-                    return false;
-                }
-
-                m_children.push_back(child);
-            }
+        for (auto& child : m_children) {
+            child->m_parent = this;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNode::on_yaml_write(YamlNodeRef node) const {
+    Status SceneNode::write_to_yaml(YamlNodeRef node) const {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "class", class_ptr()->name());
         WG_YAML_WRITE_AS(node, "uuid", m_uuid);
         WG_YAML_WRITE_AS(node, "name", m_name);
         WG_YAML_WRITE_AS_OPT(node, "children", !m_children.empty(), m_children);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNode::on_visit(class SceneTreeVisitor& visitor) {
+    Status SceneNode::accept_visitor(class SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    void SceneNode::copy_to(SceneNode& other) const {
-        other.m_name = m_name;
-        other.m_uuid = m_uuid;
+    Status SceneNode::copy_to(Object& other) const {
+        auto* ptr = dynamic_cast<SceneNode*>(&other);
+
+        ptr->m_name = m_name;
+        ptr->m_uuid = m_uuid;
+
+        ptr->m_children.reserve(m_children.size());
 
         for (auto& child : m_children) {
-            Ref<SceneNode> child_copy = child->class_ptr()->instantiate().cast<SceneNode>();
-            other.m_children.push_back(child_copy);
+            Ref<Object> child_copy;
 
-            child_copy->m_parent = &other;
-            child->copy_to(*child_copy);
+            if (!child->clone(child_copy)) {
+                WG_LOG_ERROR("failed to clone node child " << child->get_name());
+                return StatusCode::Error;
+            }
+
+            auto as_node = child_copy.cast<SceneNode>();
+            assert(as_node);
+
+            as_node->m_parent = ptr;
+            ptr->m_children.push_back(as_node);
         }
-    }
 
-    bool yaml_read(const YamlConstNodeRef& node, SceneNode& scene_node) {
-        return scene_node.on_yaml_read(node);
-    }
-    bool yaml_write(YamlNodeRef node, const SceneNode& scene_node) {
-        return scene_node.on_yaml_write(node);
+        return StatusCode::Ok;
     }
 
     void SceneNode::register_class() {

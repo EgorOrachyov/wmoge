@@ -36,12 +36,12 @@
 
 namespace wmoge {
 
-    bool ResourceLoaderTexture2d::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderTexture2d::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderTexture2d::load");
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load texture " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         Texture2dImportOptions options;
@@ -51,7 +51,7 @@ namespace wmoge {
 
         if (!source_image->load(options.source_file, options.channels)) {
             WG_LOG_ERROR("failed to load source image " << options.source_file);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         Ref<Texture2d> texture = make_ref<Texture2d>(
@@ -61,7 +61,7 @@ namespace wmoge {
 
         if (!texture) {
             WG_LOG_ERROR("Failed to instantiate texture " << name);
-            return false;
+            return StatusCode::FailedInstantiate;
         }
 
         res = texture;
@@ -74,32 +74,32 @@ namespace wmoge {
         if (options.mipmaps) {
             if (!texture->generate_mips()) {
                 WG_LOG_ERROR("failed to gen mip chain for " << name);
-                return false;
+                return StatusCode::Error;
             }
         }
         if (options.compression.format != TexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
-                return false;
+                return StatusCode::Error;
             }
         }
         if (!texture->generate_gfx_resource()) {
             WG_LOG_ERROR("failed create gfx resource for " << name);
-            return false;
+            return StatusCode::Error;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
     StringId ResourceLoaderTexture2d::get_name() {
         return SID("texture_2d");
     }
 
-    bool ResourceLoaderTextureCube::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderTextureCube::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderTextureCube::load");
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load texture " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         TextureCubeImportOptions options;
@@ -122,7 +122,7 @@ namespace wmoge {
             !load_source(options.source_files.bottom) ||
             !load_source(options.source_files.front) ||
             !load_source(options.source_files.back)) {
-            return false;
+            return StatusCode::FailedRead;
         }
 
         Ref<TextureCube> texture = make_ref<TextureCube>(
@@ -132,7 +132,7 @@ namespace wmoge {
 
         if (!texture) {
             WG_LOG_ERROR("Failed to instantiate texture " << name);
-            return false;
+            return StatusCode::Error;
         }
 
         res = texture;
@@ -145,21 +145,21 @@ namespace wmoge {
         if (options.mipmaps) {
             if (!texture->generate_mips()) {
                 WG_LOG_ERROR("failed to gen mip chain for " << name);
-                return false;
+                return StatusCode::Error;
             }
         }
         if (options.compression.format != TexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
-                return false;
+                return StatusCode::Error;
             }
         }
         if (!texture->generate_gfx_resource()) {
             WG_LOG_ERROR("failed create gfx resource for " << name);
-            return false;
+            return StatusCode::Error;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
     StringId ResourceLoaderTextureCube::get_name() {
         return SID("texture_cube");

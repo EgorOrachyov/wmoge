@@ -38,26 +38,26 @@
 
 namespace wmoge {
 
-    bool AudioStreamWav::load(const std::string& file_path) {
+    Status AudioStreamWav::load(const std::string& file_path) {
         WG_AUTO_PROFILE_RESOURCE("AudioStreamWav::load");
 
         std::vector<std::uint8_t> file_data;
 
         if (!Engine::instance()->file_system()->read_file(file_path, file_data)) {
             WG_LOG_ERROR("field to read wav file " << file_path);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         AudioFile<float> file;
 
         if (!file.loadFromMemory(file_data)) {
             WG_LOG_ERROR("failed to load from memory wav file " << file_path);
-            return false;
+            return StatusCode::Error;
         }
 
         if (file.getNumChannels() <= 0) {
             WG_LOG_ERROR("no channels in loaded wav file " << file_path);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         m_length          = float(file.getLengthInSeconds());
@@ -74,7 +74,7 @@ namespace wmoge {
             m_data.push_back(buffer);
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
     Ref<Data> AudioStreamWav::get_channel_data(int channel) {
@@ -82,10 +82,11 @@ namespace wmoge {
         return m_data[channel];
     }
 
-    void AudioStreamWav::copy_to(Resource& copy) {
+    Status AudioStreamWav::copy_to(Object& copy) const {
         AudioStream::copy_to(copy);
         auto* audio_stream_wav   = dynamic_cast<AudioStreamWav*>(&copy);
         audio_stream_wav->m_data = m_data;
+        return StatusCode::Ok;
     }
 
     void AudioStreamWav::register_class() {

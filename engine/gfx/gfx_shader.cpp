@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    bool archive_write(Archive& archive, const GfxShaderReflection::Texture& texture) {
+    Status archive_write(Archive& archive, const GfxShaderReflection::Texture& texture) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Texture::Archive<<");
 
         WG_ARCHIVE_WRITE(archive, texture.name);
@@ -40,9 +40,9 @@ namespace wmoge {
         WG_ARCHIVE_WRITE(archive, texture.array_size);
         WG_ARCHIVE_WRITE(archive, texture.tex);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, GfxShaderReflection::Texture& texture) {
+    Status archive_read(Archive& archive, GfxShaderReflection::Texture& texture) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Texture::Archive>>");
 
         WG_ARCHIVE_READ(archive, texture.name);
@@ -51,9 +51,9 @@ namespace wmoge {
         WG_ARCHIVE_READ(archive, texture.array_size);
         WG_ARCHIVE_READ(archive, texture.tex);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const GfxShaderReflection::Buffer& buffer) {
+    Status archive_write(Archive& archive, const GfxShaderReflection::Buffer& buffer) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Buffer::Archive<<");
 
         WG_ARCHIVE_WRITE(archive, buffer.name);
@@ -61,9 +61,9 @@ namespace wmoge {
         WG_ARCHIVE_WRITE(archive, buffer.binding);
         WG_ARCHIVE_WRITE(archive, buffer.size);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, GfxShaderReflection::Buffer& buffer) {
+    Status archive_read(Archive& archive, GfxShaderReflection::Buffer& buffer) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Buffer::Archive>>");
 
         WG_ARCHIVE_READ(archive, buffer.name);
@@ -71,9 +71,9 @@ namespace wmoge {
         WG_ARCHIVE_READ(archive, buffer.binding);
         WG_ARCHIVE_READ(archive, buffer.size);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const GfxShaderReflection& reflection) {
+    Status archive_write(Archive& archive, const GfxShaderReflection& reflection) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Archive<<");
 
         WG_ARCHIVE_WRITE(archive, reflection.textures);
@@ -83,9 +83,9 @@ namespace wmoge {
         WG_ARCHIVE_WRITE(archive, reflection.ub_buffers_per_desc);
         WG_ARCHIVE_WRITE(archive, reflection.sb_buffers_per_desc);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, GfxShaderReflection& reflection) {
+    Status archive_read(Archive& archive, GfxShaderReflection& reflection) {
         WG_AUTO_PROFILE_GFX("GfxShaderReflection::Archive>>");
 
         WG_ARCHIVE_READ(archive, reflection.textures);
@@ -95,7 +95,7 @@ namespace wmoge {
         WG_ARCHIVE_READ(archive, reflection.ub_buffers_per_desc);
         WG_ARCHIVE_READ(archive, reflection.sb_buffers_per_desc);
 
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

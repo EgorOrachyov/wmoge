@@ -32,14 +32,14 @@
 
 namespace wmoge {
 
-    bool ResourceLoaderWav::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderWav::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderWav::load");
 
         Ref<AudioStreamWav> audio = meta.cls->instantiate().cast<AudioStreamWav>();
 
         if (!audio) {
             WG_LOG_ERROR("failed to instantiate audio " << name);
-            return false;
+            return StatusCode::FailedInstantiate;
         }
 
         res = audio;
@@ -47,7 +47,7 @@ namespace wmoge {
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load audio " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         AudioImportOptions options;

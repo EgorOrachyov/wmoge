@@ -61,11 +61,11 @@ namespace wmoge {
 
         static UUID generate();
 
-        friend bool yaml_read(const YamlConstNodeRef& node, UUID& id);
-        friend bool yaml_write(YamlNodeRef node, const UUID& id);
+        friend Status yaml_read(const YamlConstNodeRef& node, UUID& id);
+        friend Status yaml_write(YamlNodeRef node, const UUID& id);
 
-        friend bool archive_read(Archive& archive, UUID& id);
-        friend bool archive_write(Archive& archive, const UUID& id);
+        friend Status archive_read(Archive& archive, UUID& id);
+        friend Status archive_write(Archive& archive, const UUID& id);
 
     private:
         std::uint64_t m_value = 0;

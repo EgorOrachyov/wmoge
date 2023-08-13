@@ -29,6 +29,7 @@
 #define WMOGE_RESOURCE_PAK_HPP
 
 #include "core/data.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "io/yaml.hpp"
 #include "resource/resource.hpp"
@@ -54,10 +55,10 @@ namespace wmoge {
      */
     class ResourcePak {
     public:
-        virtual ~ResourcePak()                                                           = default;
-        virtual bool meta(const StringId& name, ResourceMeta& meta)                      = 0;
-        virtual bool read_file(const std::string& path, Ref<Data>& data)                 = 0;
-        virtual bool read_file(const std::string& path, std::vector<std::uint8_t>& data) = 0;
+        virtual ~ResourcePak()                                                             = default;
+        virtual Status get_meta(const StringId& name, ResourceMeta& meta)                  = 0;
+        virtual Status read_file(const std::string& path, Ref<Data>& data)                 = 0;
+        virtual Status read_file(const std::string& path, std::vector<std::uint8_t>& data) = 0;
     };
 
 }// namespace wmoge

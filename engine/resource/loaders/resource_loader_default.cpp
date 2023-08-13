@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    bool ResourceLoaderDefault::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderDefault::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderDefault::load");
 
         res = meta.cls->instantiate().cast<Resource>();
@@ -39,29 +39,29 @@ namespace wmoge {
 
         if (!res) {
             WG_LOG_ERROR("failed to instantiate resource " << name);
-            return false;
+            return StatusCode::FailedInstantiate;
         }
 
         if (meta.path_on_disk->empty()) {
             WG_LOG_ERROR("no path on disk to load resource file " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         auto resource_tree = yaml_parse_file(meta.path_on_disk.value());
 
         if (resource_tree.empty()) {
             WG_LOG_ERROR("failed to read parse file " << meta.path_on_disk.value());
-            return false;
+            return StatusCode::FailedParse;
         }
 
         res->set_name(name);
 
-        if (!res->load_from_yaml(resource_tree.crootref())) {
+        if (!res->read_from_yaml(resource_tree.crootref())) {
             WG_LOG_ERROR("failed to load resource from file " << meta.path_on_disk.value());
-            return false;
+            return StatusCode::FailedRead;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
     StringId ResourceLoaderDefault::get_name() {
         return SID("default");

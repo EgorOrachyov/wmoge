@@ -28,6 +28,7 @@
 #ifndef WMOGE_SCENE_TREE_VISITOR_HPP
 #define WMOGE_SCENE_TREE_VISITOR_HPP
 
+#include "core/status.hpp"
 #include "scene/scene_node.hpp"
 #include "scene/scene_nodes.hpp"
 
@@ -41,13 +42,13 @@ namespace wmoge {
     public:
         virtual ~SceneTreeVisitor() = default;
 
-        virtual bool visit(SceneNode& node)          = 0;
-        virtual bool visit(SceneNodeFolder& node)    = 0;
-        virtual bool visit(SceneNodePrefab& node)    = 0;
-        virtual bool visit(SceneNodeEntity& node)    = 0;
-        virtual bool visit(SceneNodeComponent& node) = 0;
-        virtual bool visit(SceneNodeTransform& node) = 0;
-        virtual bool visit(SceneNodeCamera& node)    = 0;
+        virtual Status visit(SceneNode& node)          = 0;
+        virtual Status visit(SceneNodeFolder& node)    = 0;
+        virtual Status visit(SceneNodePrefab& node)    = 0;
+        virtual Status visit(SceneNodeEntity& node)    = 0;
+        virtual Status visit(SceneNodeComponent& node) = 0;
+        virtual Status visit(SceneNodeTransform& node) = 0;
+        virtual Status visit(SceneNodeCamera& node)    = 0;
     };
 
     /**
@@ -58,31 +59,31 @@ namespace wmoge {
     public:
         ~SceneTreeVisitorSplit() override = default;
 
-        bool visit_children(SceneNode& node);
+        Status visit_children(SceneNode& node);
 
-        bool visit(SceneNode& node) final;
-        bool visit(SceneNodeFolder& node) final;
-        bool visit(SceneNodePrefab& node) final;
-        bool visit(SceneNodeEntity& node) final;
-        bool visit(SceneNodeComponent& node) final;
-        bool visit(SceneNodeTransform& node) final;
-        bool visit(SceneNodeCamera& node) final;
+        Status visit(SceneNode& node) final;
+        Status visit(SceneNodeFolder& node) final;
+        Status visit(SceneNodePrefab& node) final;
+        Status visit(SceneNodeEntity& node) final;
+        Status visit(SceneNodeComponent& node) final;
+        Status visit(SceneNodeTransform& node) final;
+        Status visit(SceneNodeCamera& node) final;
 
-        virtual bool visit_begin(SceneNode& node)          = 0;
-        virtual bool visit_begin(SceneNodeFolder& node)    = 0;
-        virtual bool visit_begin(SceneNodePrefab& node)    = 0;
-        virtual bool visit_begin(SceneNodeEntity& node)    = 0;
-        virtual bool visit_begin(SceneNodeComponent& node) = 0;
-        virtual bool visit_begin(SceneNodeTransform& node) = 0;
-        virtual bool visit_begin(SceneNodeCamera& node)    = 0;
+        virtual Status visit_begin(SceneNode& node)          = 0;
+        virtual Status visit_begin(SceneNodeFolder& node)    = 0;
+        virtual Status visit_begin(SceneNodePrefab& node)    = 0;
+        virtual Status visit_begin(SceneNodeEntity& node)    = 0;
+        virtual Status visit_begin(SceneNodeComponent& node) = 0;
+        virtual Status visit_begin(SceneNodeTransform& node) = 0;
+        virtual Status visit_begin(SceneNodeCamera& node)    = 0;
 
-        virtual bool visit_end(SceneNode& node)          = 0;
-        virtual bool visit_end(SceneNodeFolder& node)    = 0;
-        virtual bool visit_end(SceneNodePrefab& node)    = 0;
-        virtual bool visit_end(SceneNodeEntity& node)    = 0;
-        virtual bool visit_end(SceneNodeComponent& node) = 0;
-        virtual bool visit_end(SceneNodeTransform& node) = 0;
-        virtual bool visit_end(SceneNodeCamera& node)    = 0;
+        virtual Status visit_end(SceneNode& node)          = 0;
+        virtual Status visit_end(SceneNodeFolder& node)    = 0;
+        virtual Status visit_end(SceneNodePrefab& node)    = 0;
+        virtual Status visit_end(SceneNodeEntity& node)    = 0;
+        virtual Status visit_end(SceneNodeComponent& node) = 0;
+        virtual Status visit_end(SceneNodeTransform& node) = 0;
+        virtual Status visit_end(SceneNodeCamera& node)    = 0;
     };
 
 }// namespace wmoge

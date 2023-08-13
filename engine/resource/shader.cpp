@@ -37,16 +37,16 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter) {
+    Status yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter) {
         WG_YAML_READ_AS(node, "name", parameter.name);
         WG_YAML_READ_AS(node, "type", parameter.type);
         WG_YAML_READ_AS_OPT(node, "offset", parameter.offset);
         WG_YAML_READ_AS_OPT(node, "size", parameter.size);
         WG_YAML_READ_AS_OPT(node, "value", parameter.value);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ShaderParameter& parameter) {
+    Status yaml_write(YamlNodeRef node, const ShaderParameter& parameter) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "name", parameter.name);
         WG_YAML_WRITE_AS(node, "type", parameter.type);
@@ -54,28 +54,28 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "size", parameter.size);
         WG_YAML_WRITE_AS(node, "value", parameter.value);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture) {
+    Status yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture) {
         WG_YAML_READ_AS(node, "name", texture.name);
         WG_YAML_READ_AS(node, "type", texture.type);
         WG_YAML_READ_AS_OPT(node, "id", texture.id);
         WG_YAML_READ_AS_OPT(node, "value", texture.value);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ShaderTexture& texture) {
+    Status yaml_write(YamlNodeRef node, const ShaderTexture& texture) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "name", texture.name);
         WG_YAML_WRITE_AS(node, "type", texture.type);
         WG_YAML_WRITE_AS(node, "id", texture.id);
         WG_YAML_WRITE_AS(node, "value", texture.value);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state) {
+    Status yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state) {
         WG_YAML_READ_AS_OPT(node, "poly_mode", state.poly_mode);
         WG_YAML_READ_AS_OPT(node, "cull_mode", state.cull_mode);
         WG_YAML_READ_AS_OPT(node, "front_face", state.front_face);
@@ -83,9 +83,9 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "depth_write", state.depth_write);
         WG_YAML_READ_AS_OPT(node, "depth_func", state.depth_func);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ShaderPipelineState& state) {
+    Status yaml_write(YamlNodeRef node, const ShaderPipelineState& state) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "poly_mode", state.poly_mode);
         WG_YAML_WRITE_AS(node, "cull_mode", state.cull_mode);
@@ -94,10 +94,10 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "depth_write", state.depth_write);
         WG_YAML_WRITE_AS(node, "depth_func", state.depth_func);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, ShaderFile& file) {
+    Status yaml_read(const YamlConstNodeRef& node, ShaderFile& file) {
         WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
         WG_YAML_READ_AS_OPT(node, "textures", file.textures);
         WG_YAML_READ_AS_OPT(node, "keywords", file.keywords);
@@ -108,9 +108,9 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "render_queue", file.render_queue);
         WG_YAML_READ_AS_OPT(node, "state", file.state);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ShaderFile& file) {
+    Status yaml_write(YamlNodeRef node, const ShaderFile& file) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "parameters", file.parameters);
         WG_YAML_WRITE_AS(node, "textures", file.textures);
@@ -122,10 +122,10 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "render_queue", file.render_queue);
         WG_YAML_WRITE_AS(node, "state", file.state);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool Shader::load_from_yaml(const YamlConstNodeRef& node) {
+    Status Shader::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Shader::load_from_import_options");
 
         ShaderFile shader_file;
@@ -148,13 +148,13 @@ namespace wmoge {
             m_textures[texture.name] = std::move(texture);
         }
 
-        if (!generate_params_layout()) return false;
-        if (!generate_textures_layout()) return false;
+        if (!generate_params_layout()) return StatusCode::Error;
+        if (!generate_textures_layout()) return StatusCode::Error;
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    void Shader::copy_to(Resource& copy) {
+    Status Shader::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto shader                  = dynamic_cast<Shader*>(&copy);
         shader->m_vertex             = m_vertex;
@@ -169,6 +169,7 @@ namespace wmoge {
         shader->m_render_queue       = m_render_queue;
         shader->m_pipeline_state     = m_pipeline_state;
         shader->m_keywords           = m_keywords;
+        return StatusCode::Ok;
     }
 
     bool Shader::has_variant(const StringId& key) {
@@ -261,9 +262,9 @@ namespace wmoge {
         return m_include_textures;
     }
 
-    bool Shader::generate_params_layout() {
+    Status Shader::generate_params_layout() {
         if (m_parameters.empty()) {
-            return true;
+            return StatusCode::Ok;
         }
 
         int               total_size = 0;
@@ -313,18 +314,18 @@ namespace wmoge {
                     break;
                 default:
                     WG_LOG_ERROR("unknown type of parameter");
-                    return false;
+                    return StatusCode::InvalidParameter;
             }
         }
         params_declaration << "};\n\n";
 
         m_include_parameters = params_declaration.str();
         m_parameters_size    = total_size;
-        return true;
+        return StatusCode::Ok;
     }
-    bool Shader::generate_textures_layout() {
+    Status Shader::generate_textures_layout() {
         if (m_textures.empty()) {
-            return true;
+            return StatusCode::Ok;
         }
 
         int               total_count = 0;
@@ -347,7 +348,7 @@ namespace wmoge {
                     break;
                 default:
                     WG_LOG_ERROR("unknown texture type");
-                    return false;
+                    return StatusCode::InvalidParameter;
             }
 
             tex_declaration << ";\n";
@@ -358,7 +359,7 @@ namespace wmoge {
         tex_declaration << "\n";
 
         m_include_textures = tex_declaration.str();
-        return true;
+        return StatusCode::Ok;
     }
 
     void Shader::register_class() {

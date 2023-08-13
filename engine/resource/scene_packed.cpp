@@ -40,22 +40,19 @@
 
 namespace wmoge {
 
-    bool ScenePacked::load_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_RESOURCE("ScenePacked::load_from_yaml");
-
-        if (!Resource::load_from_yaml(node)) {
-            return false;
-        }
+    Status ScenePacked::read_from_yaml(const YamlConstNodeRef& node) {
+        WG_AUTO_PROFILE_RESOURCE("ScenePacked::read_from_yaml");
 
         SceneTree& tree = m_scene_tree.emplace();
         WG_YAML_READ(node, tree);
 
-        return true;
+        return StatusCode::Ok;
     }
-    void ScenePacked::copy_to(Resource& copy) {
+    Status ScenePacked::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto* scene_packed         = dynamic_cast<ScenePacked*>(&copy);
         scene_packed->m_scene_tree = m_scene_tree;
+        return StatusCode::Ok;
     }
 
     AsyncResult<Ref<Scene>> ScenePacked::instantiate_async() {

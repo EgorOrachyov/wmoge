@@ -34,12 +34,12 @@ namespace wmoge {
     ArchiveWriterMemory::ArchiveWriterMemory() {
         m_can_write = true;
     }
-    bool ArchiveWriterMemory::nwrite(int num_bytes, const void* bytes) {
+    Status ArchiveWriterMemory::nwrite(int num_bytes, const void* bytes) {
         auto pos = m_data.size();
         m_data.resize(pos + num_bytes);
         m_pos += num_bytes;
         std::memcpy(m_data.data() + pos, bytes, num_bytes);
-        return true;
+        return StatusCode::Ok;
     }
     bool ArchiveWriterMemory::is_memory() {
         return true;
@@ -56,11 +56,11 @@ namespace wmoge {
         m_size     = size;
         m_can_read = true;
     }
-    bool ArchiveReaderMemory::nread(int num_bytes, void* bytes) {
+    Status ArchiveReaderMemory::nread(int num_bytes, void* bytes) {
         assert(m_pos + num_bytes <= get_size());
         std::memcpy(bytes, m_data + m_pos, num_bytes);
         m_pos += num_bytes;
-        return true;
+        return StatusCode::Ok;
     }
     bool ArchiveReaderMemory::is_memory() {
         return true;

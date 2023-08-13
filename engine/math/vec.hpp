@@ -631,7 +631,7 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    bool yaml_read(const YamlConstNodeRef& node, TVecN<T, N>& v) {
+    Status yaml_read(const YamlConstNodeRef& node, TVecN<T, N>& v) {
         std::string str;
         WG_YAML_READ(node, str);
 
@@ -641,11 +641,11 @@ namespace wmoge {
             stream >> v[i];
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, int N>
-    bool yaml_write(YamlNodeRef node, const TVecN<T, N>& v) {
+    Status yaml_write(YamlNodeRef node, const TVecN<T, N>& v) {
         std::stringstream stream;
 
         for (int i = 0; i < N; i++) {

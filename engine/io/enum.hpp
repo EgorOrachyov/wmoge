@@ -28,8 +28,6 @@
 #ifndef WMOGE_ENUM_HPP
 #define WMOGE_ENUM_HPP
 
-#include "io/yaml.hpp"
-
 #include <magic_enum.hpp>
 
 namespace wmoge {
@@ -48,20 +46,6 @@ namespace wmoge {
         template<class T>
         static T parse(const std::string& what) {
             return magic_enum::enum_cast<T>(what).value();
-        }
-
-        template<class T>
-        static T parse(const YamlNodeRef& node) {
-            std::string value;
-            node >> value;
-            return magic_enum::enum_cast<T>(value.c_str()).value();
-        }
-
-        template<class T>
-        static T parse(const YamlConstNodeRef& node) {
-            std::string value;
-            node >> value;
-            return magic_enum::enum_cast<T>(value.c_str()).value();
         }
 
         template<class T>

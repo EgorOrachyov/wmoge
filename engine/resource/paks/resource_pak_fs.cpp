@@ -39,7 +39,7 @@ namespace wmoge {
     ResourcePakFileSystem::ResourcePakFileSystem() {
         m_file_system = Engine::instance()->file_system();
     }
-    bool ResourcePakFileSystem::meta(const StringId& name, ResourceMeta& meta) {
+    Status ResourcePakFileSystem::get_meta(const StringId& name, ResourceMeta& meta) {
         WG_AUTO_PROFILE_RESOURCE("ResourcePakFileSystem::meta");
 
         std::string meta_file_path = name.str() + ".res";
@@ -48,14 +48,14 @@ namespace wmoge {
 
         if (res_tree.empty()) {
             WG_LOG_ERROR("failed to parse tree file " << meta_file_path);
-            return false;
+            return StatusCode::FailedParse;
         }
 
         ResourceResFile res_file;
 
         if (!yaml_read(res_tree.crootref(), res_file)) {
             WG_LOG_ERROR("failed to parse .res file " << meta_file_path);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         auto loader = Engine::instance()->resource_manager()->find_loader(res_file.loader);
@@ -68,12 +68,12 @@ namespace wmoge {
         meta.path_on_disk = res_file.path_on_disk;
         meta.import_options.emplace(std::move(res_tree));
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool ResourcePakFileSystem::read_file(const std::string& path, Ref<Data>& data) {
+    Status ResourcePakFileSystem::read_file(const std::string& path, Ref<Data>& data) {
         return m_file_system->read_file(path, data);
     }
-    bool ResourcePakFileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
+    Status ResourcePakFileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
         return m_file_system->read_file(path, data);
     }
 

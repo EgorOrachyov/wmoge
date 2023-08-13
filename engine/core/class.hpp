@@ -30,6 +30,7 @@
 
 #include "core/log.hpp"
 #include "core/ref.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 
@@ -109,7 +110,7 @@ namespace wmoge {
         /**
          * @brief Function type used to execute method on an class instance
          */
-        using Call = std::function<int(const ClassMethod&, Object*, int, const Var*, Var&)>;
+        using Call = std::function<Status(const ClassMethod&, Object*, int, const Var*, Var&)>;
 
         ClassMethod(VarType ret, StringId name, std::vector<StringId> args);
 
@@ -123,7 +124,7 @@ namespace wmoge {
          *
          * @return Zero-status on successful call
          */
-        int call(Object* object, int argc, const Var* argv, Var& ret) const;
+        Status call(Object* object, int argc, const Var* argv, Var& ret) const;
 
         [[nodiscard]] const std::vector<StringId>& args_names() const { return m_args_names; }
         [[nodiscard]] const std::vector<Var>&      args_values() const { return m_args_values; }
@@ -220,7 +221,7 @@ namespace wmoge {
         std::copy(defaults.begin(), defaults.end(), args_values.begin() + int(method.args_count() - defaults.size()));
 
         method.m_args_values = std::move(args_values);
-        method.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var&) -> int {
+        method.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var&) -> Status {
             assert(obj);
             static_assert(sizeof...(Args) <= 4, "methods args count support is limited");
 
@@ -252,7 +253,7 @@ namespace wmoge {
             else if constexpr (sizeof...(Args) == 4)
                 (*target.*p_method)(*argvp[0], *argvp[1], *argvp[2], *argvp[3]);
 
-            return 0;
+            return StatusCode::Ok;
         };
 
         auto ptr_method = std::make_shared<ClassMethod>(std::move(method));
@@ -268,7 +269,7 @@ namespace wmoge {
         std::copy(defaults.begin(), defaults.end(), args_values.begin() + int(method.args_count() - defaults.size()));
 
         method.m_args_values = std::move(args_values);
-        method.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var& res) -> int {
+        method.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var& res) -> Status {
             assert(obj);
             static_assert(sizeof...(Args) <= 4, "methods args count support is limited");
 
@@ -300,7 +301,7 @@ namespace wmoge {
             else if constexpr (sizeof...(Args) == 4)
                 res = (*target.*p_method)(*argvp[0], *argvp[1], *argvp[2], *argvp[3]);
 
-            return 0;
+            return StatusCode::Ok;
         };
 
         auto ptr_method = std::make_shared<ClassMethod>(std::move(method));
@@ -327,17 +328,17 @@ namespace wmoge {
         ClassMethod getter(field.type(), field.m_getter, {});
         ClassMethod setter(field.type(), field.m_setter, {SID("value")});
 
-        getter.m_callable = [=](const ClassMethod&, Object* obj, int, const Var*, Var& res) -> int {
+        getter.m_callable = [=](const ClassMethod&, Object* obj, int, const Var*, Var& res) -> Status {
             assert(obj);
 
             T* target = (T*) obj;
             res       = (*target.*p_field);
 
-            return 0;
+            return StatusCode::Ok;
         };
 
         setter.m_args_values = {std::move(default_value)};
-        setter.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var& res) -> int {
+        setter.m_callable    = [=](const ClassMethod& m, Object* obj, int argc, const Var* argv, Var& res) -> Status {
             assert(obj);
 
             const std::vector<Var>& defaults = m.args_values();
@@ -346,7 +347,7 @@ namespace wmoge {
             T* target          = (T*) obj;
             (*target.*p_field) = *argvp[0];
 
-            return 0;
+            return StatusCode::Ok;
         };
 
         auto ptr_getter = std::make_shared<ClassMethod>(std::move(getter));

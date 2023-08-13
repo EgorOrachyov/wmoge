@@ -63,7 +63,7 @@ namespace wmoge {
         return sampler_name.str();
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc) {
+    Status yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc) {
         WG_YAML_READ_AS_OPT(node, "min_lod", desc.min_lod);
         WG_YAML_READ_AS_OPT(node, "max_lod", desc.max_lod);
         WG_YAML_READ_AS_OPT(node, "max_anisotropy", desc.max_anisotropy);
@@ -74,9 +74,9 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "w", desc.w);
         WG_YAML_READ_AS_OPT(node, "brd_clr", desc.brd_clr);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc) {
+    Status yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "min_lod", desc.min_lod);
         WG_YAML_WRITE_AS(node, "max_lod", desc.max_lod);
@@ -88,7 +88,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "w", desc.w);
         WG_YAML_WRITE_AS(node, "brd_clr", desc.brd_clr);
 
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

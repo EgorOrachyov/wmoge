@@ -439,17 +439,17 @@ namespace wmoge {
     }
 
     template<typename T>
-    bool yaml_read(const YamlConstNodeRef& node, TQuat<T>& quat) {
+    Status yaml_read(const YamlConstNodeRef& node, TQuat<T>& quat) {
         WG_YAML_READ_AS(node, "scalar", quat.scalar);
         WG_YAML_READ_AS(node, "vec", quat.vec);
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool yaml_write(YamlNodeRef node, const TQuat<T>& quat) {
+    Status yaml_write(YamlNodeRef node, const TQuat<T>& quat) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "scalar", quat.scalar);
         WG_YAML_WRITE_AS(node, "vec", quat.vec);
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

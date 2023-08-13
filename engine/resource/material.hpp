@@ -49,8 +49,8 @@ namespace wmoge {
             StringId    name;
             std::string value;
 
-            friend bool yaml_read(const YamlConstNodeRef& node, Entry& entry);
-            friend bool yaml_write(YamlNodeRef node, const Entry& entry);
+            friend Status yaml_read(const YamlConstNodeRef& node, Entry& entry);
+            friend Status yaml_write(YamlNodeRef node, const Entry& entry);
         };
 
         std::vector<Entry>    parameters;
@@ -58,8 +58,8 @@ namespace wmoge {
         std::vector<StringId> keywords;
         StringId              shader;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
-        friend bool yaml_write(YamlNodeRef node, const MaterialFile& file);
+        friend Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
+        friend Status yaml_write(YamlNodeRef node, const MaterialFile& file);
     };
 
     /**
@@ -108,8 +108,8 @@ namespace wmoge {
         /** @brief Set material texture parameter value by name */
         void set_texture(const StringId& name, const Ref<Texture>& texture);
 
-        bool load_from_yaml(const YamlConstNodeRef& node) override;
-        void copy_to(Resource& copy) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status copy_to(Object& other) const override;
 
         [[nodiscard]] const Ref<Shader>&               get_shader();
         [[nodiscard]] const fast_vector<std::uint8_t>& get_parameters();

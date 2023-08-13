@@ -40,8 +40,8 @@ namespace wmoge {
     struct AudioImportOptions {
         std::string source_file;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const AudioImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const AudioImportOptions& options);
     };
 
     /**
@@ -54,8 +54,8 @@ namespace wmoge {
 
         virtual Ref<Data> get_channel_data(int channel) { return Ref<Data>{}; }
 
-        bool load_from_yaml(const YamlConstNodeRef& node) override;
-        void copy_to(Resource& copy) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status copy_to(Object& other) const override;
 
         float get_length() const;
         int   get_samples_rate() const;

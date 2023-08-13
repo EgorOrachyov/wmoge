@@ -49,10 +49,9 @@ namespace wmoge {
     public:
         WG_OBJECT(Resource, Object);
 
-        virtual bool          load_from_yaml(const YamlConstNodeRef& node) { return true; }
-        virtual bool          load_from_archive(const Archive& archive) { return true; }
-        virtual void          copy_to(Resource& copy) {}
-        virtual Ref<Resource> duplicate();
+        Status copy_to(Object& other) const override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
 
         void            set_name(StringId name) { m_name = std::move(name); }
         const StringId& get_name() { return m_name; }

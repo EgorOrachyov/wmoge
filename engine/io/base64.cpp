@@ -33,19 +33,19 @@
 
 namespace wmoge {
 
-    bool Base64::encode(const std::uint8_t* data, int bytesCount, std::string& result) {
+    Status Base64::encode(const std::uint8_t* data, int bytesCount, std::string& result) {
         result = base64_encode(static_cast<const unsigned char*>(data), bytesCount);
-        return true;
+        return StatusCode::Ok;
     }
-    bool Base64::encode(const std::vector<std::uint8_t>& data, std::string& result) {
+    Status Base64::encode(const std::vector<std::uint8_t>& data, std::string& result) {
         return encode(data.data(), int(data.size()), result);
     }
-    bool Base64::encode(const Ref<Data>& data, std::string& result) {
+    Status Base64::encode(const Ref<Data>& data, std::string& result) {
         assert(data);
         return encode(data->buffer(), int(data->size()), result);
     }
 
-    bool Base64::decode(const std::string_view& data, std::vector<std::uint8_t>& result) {
+    Status Base64::decode(const std::string_view& data, std::vector<std::uint8_t>& result) {
         std::string decoded = base64_decode(data);
 
         if (!decoded.empty()) {
@@ -53,20 +53,20 @@ namespace wmoge {
             std::memcpy(result.data(), decoded.c_str(), decoded.length() * sizeof(char));
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool Base64::decode(const std::string_view& data, Ref<Data>& result) {
+    Status Base64::decode(const std::string_view& data, Ref<Data>& result) {
         std::string decoded = base64_decode(data);
 
         if (!decoded.empty()) {
             result = make_ref<Data>(decoded.c_str(), decoded.length() * sizeof(char));
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool Base64::decode(const std::string_view& data, std::string& result) {
+    Status Base64::decode(const std::string_view& data, std::string& result) {
         result = base64_decode(data);
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

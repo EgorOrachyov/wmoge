@@ -28,6 +28,8 @@
 #ifndef WMOGE_COMPRESSION_HPP
 #define WMOGE_COMPRESSION_HPP
 
+#include "core/status.hpp"
+
 #include <cinttypes>
 #include <vector>
 
@@ -46,9 +48,9 @@ namespace wmoge {
          * @param size buffer size
          * @param out output buffer
          *
-         * @return true on success
+         * @return Ok on success
          */
-        static bool compress_lz4(const void* in, int size, std::vector<std::uint8_t>& out);
+        static Status compress_lz4(const void* in, int size, std::vector<std::uint8_t>& out);
 
         /**
          * @brief Decompress provided buffer
@@ -58,9 +60,9 @@ namespace wmoge {
          * @param decompressed_size decompressed data size
          * @param out buffer for decompressed data
          *
-         * @return true in success
+         * @return Ok in success
          */
-        static bool decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out);
+        static Status decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out);
     };
 
 }// namespace wmoge

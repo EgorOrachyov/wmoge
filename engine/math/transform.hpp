@@ -72,18 +72,18 @@ namespace wmoge {
                    Math2d::translate(-m_translation);
         }
 
-        friend bool yaml_read(const YamlConstNodeRef& node, Transform2d& transform) {
+        friend Status yaml_read(const YamlConstNodeRef& node, Transform2d& transform) {
             WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
             WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
             WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
-            return true;
+            return StatusCode::Ok;
         }
-        friend bool yaml_write(YamlNodeRef node, const Transform2d& transform) {
+        friend Status yaml_write(YamlNodeRef node, const Transform2d& transform) {
             WG_YAML_MAP(node);
             WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
             WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
             WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
-            return true;
+            return StatusCode::Ok;
         }
 
     private:
@@ -127,18 +127,18 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend bool yaml_read(const YamlConstNodeRef& node, Transform3d& transform) {
+        friend Status yaml_read(const YamlConstNodeRef& node, Transform3d& transform) {
             WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
             WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
             WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
-            return true;
+            return StatusCode::Ok;
         }
-        friend bool yaml_write(YamlNodeRef node, const Transform3d& transform) {
+        friend Status yaml_write(YamlNodeRef node, const Transform3d& transform) {
             WG_YAML_MAP(node);
             WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
             WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
             WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
-            return true;
+            return StatusCode::Ok;
         }
 
     private:
@@ -177,18 +177,18 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend bool yaml_read(const YamlConstNodeRef& node, TransformEdt& transform) {
+        friend Status yaml_read(const YamlConstNodeRef& node, TransformEdt& transform) {
             WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
             WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
             WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
-            return true;
+            return StatusCode::Ok;
         }
-        friend bool yaml_write(YamlNodeRef node, const TransformEdt& transform) {
+        friend Status yaml_write(YamlNodeRef node, const TransformEdt& transform) {
             WG_YAML_MAP(node);
             WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
             WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
             WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
-            return true;
+            return StatusCode::Ok;
         }
 
     private:

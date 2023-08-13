@@ -31,6 +31,7 @@
 #include <atomic>
 #include <cassert>
 #include <functional>
+#include <type_traits>
 #include <utility>
 
 namespace wmoge {
@@ -141,6 +142,11 @@ namespace wmoge {
 
         T* get() const {
             return m_ptr;
+        }
+
+        template<typename G, typename std::enable_if_t<std::is_convertible_v<T*, G*>> = true>
+        operator Ref<G>() const {
+            return Ref<G>(m_ptr);
         }
 
         template<class G>

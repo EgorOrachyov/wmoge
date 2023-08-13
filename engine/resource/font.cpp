@@ -40,23 +40,23 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, FontImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, FontImportOptions& options) {
         WG_YAML_READ_AS(node, "source_file", options.source_file);
         WG_YAML_READ_AS_OPT(node, "height", options.height);
         WG_YAML_READ_AS_OPT(node, "glyphs_in_row", options.glyphs_in_row);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const FontImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const FontImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "height", options.height);
         WG_YAML_WRITE_AS(node, "glyphs_in_row", options.glyphs_in_row);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool Font::load(const std::string& path, int height, int glyphs_in_row) {
+    Status Font::load(const std::string& path, int height, int glyphs_in_row) {
         WG_AUTO_PROFILE_RESOURCE("Font::load");
 
         static const int GLYPHS_SIZE_SHIFT    = 6;
@@ -65,20 +65,20 @@ namespace wmoge {
         std::vector<std::uint8_t> ttf_data;
         if (!Engine::instance()->file_system()->read_file(path, ttf_data)) {
             WG_LOG_ERROR("failed to load font data from resource pak " << path);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         FT_Library ft_library;
         if (FT_Init_FreeType(&ft_library)) {
             WG_LOG_ERROR("failed to init free type library");
-            return false;
+            return StatusCode::Error;
         }
 
         FT_Face ft_face;
         if (FT_New_Memory_Face(ft_library, ttf_data.data(), static_cast<FT_Long>(ttf_data.size()), 0, &ft_face)) {
             WG_LOG_ERROR("failed to parse font data for " << path);
             FT_Done_FreeType(ft_library);
-            return false;
+            return StatusCode::FailedParse;
         }
 
         m_family_name = ft_face->family_name;
@@ -183,18 +183,18 @@ namespace wmoge {
 
         if (!m_texture->generate_mips()) {
             WG_LOG_ERROR("failed to gen font mips " << get_name());
-            return false;
+            return StatusCode::Error;
         }
         if (!m_texture->generate_compressed_data()) {
             WG_LOG_ERROR("failed to compress font texture " << get_name());
-            return false;
+            return StatusCode::Error;
         }
         if (!m_texture->generate_gfx_resource()) {
             WG_LOG_ERROR("failed to create gfx font texture " << get_name());
-            return false;
+            return StatusCode::Error;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
     Vec2f Font::get_string_size(const std::string& text, float size) {
         const int   n          = int(text.size());
@@ -221,7 +221,7 @@ namespace wmoge {
         return Vec2f(advance_x, height);
     }
 
-    void Font::copy_to(Resource& copy) {
+    Status Font::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto font             = dynamic_cast<Font*>(&copy);
         font->m_glyphs        = m_glyphs;
@@ -230,6 +230,7 @@ namespace wmoge {
         font->m_texture       = m_texture;
         font->m_height        = m_height;
         font->m_glyphs_in_row = m_glyphs_in_row;
+        return StatusCode::Ok;
     }
 
     std::string Font::to_string() {

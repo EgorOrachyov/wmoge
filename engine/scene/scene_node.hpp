@@ -59,14 +59,12 @@ namespace wmoge {
         [[nodiscard]] const StringId&                 get_name() const { return m_name; }
         [[nodiscard]] const UUID&                     get_uuid() const { return m_uuid; };
 
-        virtual bool on_yaml_read(const YamlConstNodeRef& node);
-        virtual bool on_yaml_write(YamlNodeRef node) const;
-        virtual bool on_visit(class SceneTreeVisitor& visitor);
-        virtual void on_ecs_arch_collect(EcsArch& arch) const {};
-        virtual void copy_to(SceneNode& other) const;
+        virtual Status accept_visitor(class SceneTreeVisitor& visitor);
+        virtual void   collect_arch(EcsArch& arch) const {};
 
-        friend bool yaml_read(const YamlConstNodeRef& node, SceneNode& scene_node);
-        friend bool yaml_write(YamlNodeRef node, const SceneNode& scene_node);
+        Status copy_to(Object& other) const override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
 
     private:
         friend class SceneTree;

@@ -47,57 +47,46 @@ namespace wmoge {
     using fast_vector = ankerl::svector<T, MinCapacity>;
 
     template<typename T, std::size_t MinCapacity>
-    bool archive_write(Archive& archive, const fast_vector<T, MinCapacity>& vector) {
-        if (!archive_write(archive, vector.size())) {
-            return false;
-        }
+    Status archive_write(Archive& archive, const fast_vector<T, MinCapacity>& vector) {
+        WG_ARCHIVE_WRITE(archive, vector.size());
         for (const auto& entry : vector) {
-            if (!archive_write(archive, entry)) {
-                return false;
-            }
+            WG_ARCHIVE_WRITE(archive, entry);
         }
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, std::size_t MinCapacity>
-    bool archive_read(Archive& archive, fast_vector<T, MinCapacity>& vector) {
+    Status archive_read(Archive& archive, fast_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         std::size_t size;
-        if (!archive_read(archive, size)) {
-            return false;
-        }
+        WG_ARCHIVE_READ(archive, size);
         vector.resize(size);
-        for (std::size_t i = 0; i < size; i++) {
-            if (!archive_read(archive, vector[i])) {
-                return false;
-            }
+        for (int i = 0; i < size; i++) {
+            WG_ARCHIVE_READ(archive, vector[i]);
         }
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, std::size_t MinCapacity>
-    bool yaml_write(YamlNodeRef node, const fast_vector<T, MinCapacity>& vector) {
+    Status yaml_write(YamlNodeRef node, const fast_vector<T, MinCapacity>& vector) {
         WG_YAML_SEQ(node);
-        for (const auto& value : vector) {
-            if (!yaml_write(node.append_child(), value)) {
-                return false;
-            }
+        for (const T& value : vector) {
+            YamlNodeRef child = node.append_child();
+            WG_YAML_WRITE(child, value);
         }
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, std::size_t MinCapacity>
-    bool yaml_read(const YamlConstNodeRef& node, fast_vector<T, MinCapacity>& vector) {
+    Status yaml_read(const YamlConstNodeRef& node, fast_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         vector.resize(node.num_children());
         std::size_t element_id = 0;
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            if (!yaml_read(child, vector[element_id])) {
-                return false;
-            }
+            WG_YAML_READ(child, vector[element_id]);
             element_id += 1;
         }
-        return true;
+        return StatusCode::Ok;
     }
 #endif
 

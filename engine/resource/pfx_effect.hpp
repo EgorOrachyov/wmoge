@@ -62,7 +62,7 @@ namespace wmoge {
     public:
         WG_OBJECT(PfxEffect, Resource)
 
-        void copy_to(Resource& copy) override;
+        Status copy_to(Object& other) const override;
 
         void                     add_component(Ref<PfxComponent> component);
         const Ref<PfxComponent>& get_component(int id) const;

@@ -39,7 +39,7 @@ namespace wmoge {
     class ResourceLoaderWav final : public ResourceLoader {
     public:
         ~ResourceLoaderWav() override = default;
-        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
         StringId get_name() override;
     };
 

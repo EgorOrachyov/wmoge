@@ -52,50 +52,50 @@ namespace wmoge {
         return yaml_parse(file);
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, bool& value) {
+    Status yaml_read(const YamlConstNodeRef& node, bool& value) {
         node >> value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_read(const YamlConstNodeRef& node, int& value) {
+    Status yaml_read(const YamlConstNodeRef& node, int& value) {
         node >> value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_read(const YamlConstNodeRef& node, float& value) {
+    Status yaml_read(const YamlConstNodeRef& node, float& value) {
         node >> value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_read(const YamlConstNodeRef& node, StringId& value) {
+    Status yaml_read(const YamlConstNodeRef& node, StringId& value) {
         std::string string;
         node >> string;
         value = SID(string);
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_read(const YamlConstNodeRef& node, std::string& value) {
+    Status yaml_read(const YamlConstNodeRef& node, std::string& value) {
         if (node.has_val()) {
             node >> value;
         }
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_write(YamlNodeRef node, const bool& value) {
+    Status yaml_write(YamlNodeRef node, const bool& value) {
         node << value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const int& value) {
+    Status yaml_write(YamlNodeRef node, const int& value) {
         node << value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const float& value) {
+    Status yaml_write(YamlNodeRef node, const float& value) {
         node << value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const StringId& value) {
+    Status yaml_write(YamlNodeRef node, const StringId& value) {
         node << value.str();
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const std::string& value) {
+    Status yaml_write(YamlNodeRef node, const std::string& value) {
         node << value;
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

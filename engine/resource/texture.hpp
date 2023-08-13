@@ -49,8 +49,8 @@ namespace wmoge {
         GfxSamplerDesc       sampling{};
         TexCompressionParams compression{};
 
-        friend bool yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const TextureImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const TextureImportOptions& options);
     };
 
     /**
@@ -60,8 +60,8 @@ namespace wmoge {
     struct Texture2dImportOptions : public TextureImportOptions {
         std::string source_file;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const Texture2dImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const Texture2dImportOptions& options);
     };
 
     /**
@@ -81,14 +81,14 @@ namespace wmoge {
             std::string back;
             std::string front;
 
-            friend bool yaml_read(const YamlConstNodeRef& node, SourceFiles& source_files);
-            friend bool yaml_write(YamlNodeRef node, const SourceFiles& source_files);
+            friend Status yaml_read(const YamlConstNodeRef& node, SourceFiles& source_files);
+            friend Status yaml_write(YamlNodeRef node, const SourceFiles& source_files);
         };
 
         SourceFiles source_files;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options);
     };
 
     /**
@@ -116,11 +116,11 @@ namespace wmoge {
         virtual void set_compression(const TexCompressionParams& params);
 
         /** @brief Generate mip-chain for the image using source 0-mip faces data */
-        virtual bool generate_mips();
+        virtual Status generate_mips();
         /** @brief Generate compressed texture data based on compression settings */
-        virtual bool generate_compressed_data();
+        virtual Status generate_compressed_data();
         /** @brief Create default gfx texture resource and sampler */
-        virtual bool generate_gfx_resource();
+        virtual Status generate_gfx_resource();
 
         [[nodiscard]] const std::vector<Ref<Image>>&   get_images() const { return m_images; }
         [[nodiscard]] const std::vector<GfxImageData>& get_compressed() const { return m_compressed; }
@@ -139,7 +139,7 @@ namespace wmoge {
         [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
         [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_compression; }
 
-        void copy_to(Resource& copy) override;
+        Status copy_to(Object& other) const override;
 
     protected:
         std::vector<Ref<Image>>   m_images;
@@ -170,7 +170,7 @@ namespace wmoge {
 
         Texture2d(GfxFormat format, int width, int height);
 
-        void copy_to(Resource& copy) override;
+        Status copy_to(Object& other) const override;
     };
 
     /**
@@ -183,7 +183,7 @@ namespace wmoge {
 
         TextureCube(GfxFormat format, int width, int height);
 
-        void copy_to(Resource& copy) override;
+        Status copy_to(Object& other) const override;
     };
 
 }// namespace wmoge

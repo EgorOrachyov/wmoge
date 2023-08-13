@@ -45,10 +45,10 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeFolder, SceneNode);
 
-        bool on_visit(class SceneTreeVisitor& visitor) override;
-        bool on_yaml_read(const YamlConstNodeRef& node) override;
-        bool on_yaml_write(YamlNodeRef node) const override;
-        void copy_to(SceneNode& other) const override;
+        Status accept_visitor(class SceneTreeVisitor& visitor) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
+        Status copy_to(Object& other) const override;
 
         TransformEdt transform;
     };
@@ -61,10 +61,10 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodePrefab, SceneNode);
 
-        bool on_visit(class SceneTreeVisitor& visitor) override;
-        bool on_yaml_read(const YamlConstNodeRef& node) override;
-        bool on_yaml_write(YamlNodeRef node) const override;
-        void copy_to(SceneNode& other) const override;
+        Status accept_visitor(class SceneTreeVisitor& visitor) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
+        Status copy_to(Object& other) const override;
 
         TransformEdt transform;
         Ref<Prefab>  prefab;
@@ -78,7 +78,7 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeComponent, SceneNode);
 
-        bool on_visit(class SceneTreeVisitor& visitor) override;
+        Status accept_visitor(class SceneTreeVisitor& visitor) override;
     };
 
     /**
@@ -89,10 +89,10 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeEntity, SceneNode);
 
-        bool on_visit(class SceneTreeVisitor& visitor) override;
-        bool on_yaml_read(const YamlConstNodeRef& node) override;
-        bool on_yaml_write(YamlNodeRef node) const override;
-        void copy_to(SceneNode& other) const override;
+        Status accept_visitor(class SceneTreeVisitor& visitor) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
+        Status copy_to(Object& other) const override;
 
         TransformEdt transform;
     };
@@ -105,8 +105,8 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeTransform, SceneNodeComponent);
 
-        bool on_visit(class SceneTreeVisitor& visitor) override;
-        void on_ecs_arch_collect(EcsArch& arch) const override;
+        Status accept_visitor(class SceneTreeVisitor& visitor) override;
+        void   collect_arch(EcsArch& arch) const override;
     };
 
     /**
@@ -117,11 +117,11 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNodeCamera, SceneNodeComponent);
 
-        bool on_visit(class SceneTreeVisitor& visitor) override;
-        bool on_yaml_read(const YamlConstNodeRef& node) override;
-        bool on_yaml_write(YamlNodeRef node) const override;
-        void on_ecs_arch_collect(EcsArch& arch) const override;
-        void copy_to(SceneNode& other) const override;
+        Status accept_visitor(class SceneTreeVisitor& visitor) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
+        Status copy_to(Object& other) const override;
+        void   collect_arch(EcsArch& arch) const override;
 
         Color4f          color      = Color::BLACK4f;
         Vec4f            viewport   = Vec4f(0, 0, 1, 1);

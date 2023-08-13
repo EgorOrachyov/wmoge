@@ -45,8 +45,8 @@ namespace wmoge {
         std::string source_file;
         int         channels = 4;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const ImageImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const ImageImportOptions& options);
     };
 
     /**
@@ -80,7 +80,7 @@ namespace wmoge {
          *
          * @return True if image successfully loaded
          */
-        bool load(const std::string& path, int channels = 0);
+        Status load(const std::string& path, int channels = 0);
 
         /**
          * @brief Save image to file in file system using specified filepath
@@ -89,7 +89,7 @@ namespace wmoge {
          *
          * @return True if image successfully saved
          */
-        bool save(std::filesystem::path filepath);
+        Status save(std::filesystem::path filepath);
 
         /**
          * @brief Resizes image to new dimensions preserving content
@@ -99,7 +99,7 @@ namespace wmoge {
          *
          * @return True if successfully resized
          */
-        bool resize(int new_width, int new_height);
+        Status resize(int new_width, int new_height);
 
         /**
          * @brief Generates mips for this image starting form mip 0 to max mip
@@ -108,9 +108,9 @@ namespace wmoge {
          *
          * @return True if generated all mips
          */
-        bool generate_mip_chain(std::vector<Ref<Image>>& mips);
+        Status generate_mip_chain(std::vector<Ref<Image>>& mips);
 
-        void        copy_to(Resource& copy) override;
+        Status      copy_to(Object& copy) const override;
         std::string to_string() override;
 
         [[nodiscard]] const Ref<Data>& get_pixel_data() { return m_pixel_data; }

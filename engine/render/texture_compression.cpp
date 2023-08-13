@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, TexCompressionParams& params) {
+    Status yaml_read(const YamlConstNodeRef& node, TexCompressionParams& params) {
         WG_YAML_READ_AS_OPT(node, "format", params.format);
         WG_YAML_READ_AS_OPT(node, "use_channel_weighting", params.use_channel_weighting);
         WG_YAML_READ_AS_OPT(node, "weight_red", params.weight_red);
@@ -43,10 +43,10 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "fquality", params.fquality);
         WG_YAML_READ_AS_OPT(node, "num_threads", params.num_threads);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_write(YamlNodeRef node, const TexCompressionParams& params) {
+    Status yaml_write(YamlNodeRef node, const TexCompressionParams& params) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "format", params.format);
         WG_YAML_WRITE_AS(node, "use_channel_weighting", params.use_channel_weighting);
@@ -59,7 +59,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "fquality", params.fquality);
         WG_YAML_WRITE_AS(node, "num_threads", params.num_threads);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     static CMP_FORMAT get_source_format(GfxFormat format) {
@@ -311,12 +311,12 @@ namespace wmoge {
         }
     }
 
-    bool TexCompression::compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed) {
+    Status TexCompression::compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed) {
         if (params.format == TexCompressionFormat::Unknown) {
-            return false;
+            return StatusCode::InvalidParameter;
         }
         if (source.empty()) {
-            return true;
+            return StatusCode::Ok;
         }
 
         compressed.clear();
@@ -362,7 +362,7 @@ namespace wmoge {
 
             if (cmp_status != CMP_OK) {
                 WG_LOG_ERROR("failed to compress texture with error: " << get_error(cmp_status));
-                return false;
+                return StatusCode::Error;
             }
 
             GfxImageData compressed_image;
@@ -375,7 +375,7 @@ namespace wmoge {
             compressed.push_back(compressed_image);
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

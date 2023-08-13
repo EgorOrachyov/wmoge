@@ -30,6 +30,7 @@
 
 #include "core/log.hpp"
 #include "core/ref.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 
 #include <magic_enum.hpp>
@@ -41,6 +42,7 @@
 #include <cinttypes>
 #include <optional>
 #include <stack>
+#include <type_traits>
 #include <unordered_map>
 #include <vector>
 
@@ -79,23 +81,23 @@ namespace wmoge {
      */
     YamlTree yaml_parse_file(const std::string& file_path);
 
-    bool yaml_read(const YamlConstNodeRef& node, bool& value);
-    bool yaml_read(const YamlConstNodeRef& node, int& value);
-    bool yaml_read(const YamlConstNodeRef& node, float& value);
-    bool yaml_read(const YamlConstNodeRef& node, StringId& value);
-    bool yaml_read(const YamlConstNodeRef& node, std::string& value);
+    Status yaml_read(const YamlConstNodeRef& node, bool& value);
+    Status yaml_read(const YamlConstNodeRef& node, int& value);
+    Status yaml_read(const YamlConstNodeRef& node, float& value);
+    Status yaml_read(const YamlConstNodeRef& node, StringId& value);
+    Status yaml_read(const YamlConstNodeRef& node, std::string& value);
 
-    bool yaml_write(YamlNodeRef node, const bool& value);
-    bool yaml_write(YamlNodeRef node, const int& value);
-    bool yaml_write(YamlNodeRef node, const float& value);
-    bool yaml_write(YamlNodeRef node, const StringId& value);
-    bool yaml_write(YamlNodeRef node, const std::string& value);
+    Status yaml_write(YamlNodeRef node, const bool& value);
+    Status yaml_write(YamlNodeRef node, const int& value);
+    Status yaml_write(YamlNodeRef node, const float& value);
+    Status yaml_write(YamlNodeRef node, const StringId& value);
+    Status yaml_write(YamlNodeRef node, const std::string& value);
 
 #define WG_YAML_READ(node, what)                                     \
     do {                                                             \
         if (!yaml_read(node, what)) {                                \
             WG_LOG_ERROR("failed to read yaml \"" << #what << "\""); \
-            return false;                                            \
+            return StatusCode::FailedRead;                           \
         }                                                            \
     } while (false)
 
@@ -103,7 +105,7 @@ namespace wmoge {
     do {                                                                       \
         if (!node.has_child(node_name) || !yaml_read(node[node_name], what)) { \
             WG_LOG_ERROR("failed to read yaml \"" << #what << "\"");           \
-            return false;                                                      \
+            return StatusCode::FailedRead;                                     \
         }                                                                      \
     } while (false)
 
@@ -112,7 +114,7 @@ namespace wmoge {
         if (node.has_child(node_name)) {                                 \
             if (!yaml_read(node[node_name], what)) {                     \
                 WG_LOG_ERROR("failed to read yaml \"" << #what << "\""); \
-                return false;                                            \
+                return StatusCode::FailedRead;                           \
             }                                                            \
         }                                                                \
     } while (false)
@@ -126,7 +128,7 @@ namespace wmoge {
     do {                                                              \
         if (!yaml_write(node, what)) {                                \
             WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
-            return false;                                             \
+            return StatusCode::FailedWrite;                           \
         }                                                             \
     } while (false)
 
@@ -136,7 +138,7 @@ namespace wmoge {
         child << ryml::key(node_name);                                \
         if (!yaml_write(child, what)) {                               \
             WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
-            return false;                                             \
+            return StatusCode::FailedWrite;                           \
         }                                                             \
     } while (false)
 
@@ -147,7 +149,7 @@ namespace wmoge {
             child << ryml::key(node_name);                                \
             if (!yaml_write(child, what)) {                               \
                 WG_LOG_ERROR("failed to write yaml \"" << #what << "\""); \
-                return false;                                             \
+                return StatusCode::FailedWrite;                           \
             }                                                             \
         }                                                                 \
     } while (false)
@@ -161,16 +163,16 @@ namespace wmoge {
 #define WG_YAML_SEQ(node) node |= ryml::SEQ
 
     template<typename T, std::size_t S>
-    bool yaml_read(const YamlConstNodeRef& node, std::array<T, S>& array) {
+    Status yaml_read(const YamlConstNodeRef& node, std::array<T, S>& array) {
         std::size_t element_id = 0;
         assert(node.num_children() <= S);
         for (auto child = node.first_child(); child.valid() && element_id < S; child = child.next_sibling()) {
             WG_YAML_READ(child, array[element_id++]);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool yaml_read(const YamlConstNodeRef& node, std::vector<T>& vector) {
+    Status yaml_read(const YamlConstNodeRef& node, std::vector<T>& vector) {
         assert(vector.empty());
         vector.resize(node.num_children());
         std::size_t element_id = 0;
@@ -178,10 +180,10 @@ namespace wmoge {
             WG_YAML_READ(child, vector[element_id]);
             element_id += 1;
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename K, typename V>
-    bool yaml_read(const YamlConstNodeRef& node, std::unordered_map<K, V>& map) {
+    Status yaml_read(const YamlConstNodeRef& node, std::unordered_map<K, V>& map) {
         assert(map.empty());
         map.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
@@ -190,52 +192,46 @@ namespace wmoge {
             WG_YAML_READ_AS(child, "value", entry.second);
             map.insert(std::move(entry));
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    bool yaml_read(const YamlConstNodeRef& node, T& enum_value) {
+    Status yaml_read(const YamlConstNodeRef& node, T& enum_value) {
         std::string s;
         WG_YAML_READ(node, s);
         auto parsed = magic_enum::enum_cast<T>(s);
         if (!parsed.has_value()) {
-            return false;
+            return StatusCode::FailedRead;
         }
         enum_value = parsed.value();
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool yaml_read(const YamlConstNodeRef& node, std::optional<T>& wrapper) {
+    Status yaml_read(const YamlConstNodeRef& node, std::optional<T>& wrapper) {
         wrapper.emplace();
         WG_YAML_READ(node, wrapper.value());
-        return true;
-    }
-    template<typename T>
-    bool yaml_read(const YamlConstNodeRef& node, Ref<T>& ref) {
-        assert(ref);
-        WG_YAML_READ(node, *ref);
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, std::size_t S>
-    bool yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
+    Status yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
         WG_YAML_SEQ(node);
         for (std::size_t i = 0; i < S; i++) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, array[i]);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool yaml_write(YamlNodeRef node, const std::vector<T>& vector) {
+    Status yaml_write(YamlNodeRef node, const std::vector<T>& vector) {
         WG_YAML_SEQ(node);
         for (const T& value : vector) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, value);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename K, typename V>
-    bool yaml_write(YamlNodeRef node, const std::unordered_map<K, V>& map) {
+    Status yaml_write(YamlNodeRef node, const std::unordered_map<K, V>& map) {
         WG_YAML_SEQ(node);
         for (const auto& entry : map) {
             YamlNodeRef entry_child = node.append_child();
@@ -247,24 +243,18 @@ namespace wmoge {
             YamlNodeRef value = entry_child.append_child();
             WG_YAML_WRITE_AS(value, "value", entry.second);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    bool yaml_write(YamlNodeRef node, const T& enum_value) {
+    Status yaml_write(YamlNodeRef node, const T& enum_value) {
         node << std::string(magic_enum::enum_name(enum_value));
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool yaml_write(YamlNodeRef node, const std::optional<T>& wrapper) {
+    Status yaml_write(YamlNodeRef node, const std::optional<T>& wrapper) {
         assert(wrapper.has_value());
         WG_YAML_WRITE(node, wrapper.value());
-        return true;
-    }
-    template<typename T>
-    bool yaml_write(YamlNodeRef node, const Ref<T>& ref) {
-        assert(ref);
-        WG_YAML_WRITE(node, *ref);
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

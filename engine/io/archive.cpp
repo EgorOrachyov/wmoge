@@ -29,60 +29,60 @@
 
 namespace wmoge {
 
-    bool Archive::write(bool value) {
+    Status Archive::write(bool value) {
         assert(can_write());
         return write(int(value));
     }
-    bool Archive::write(int value) {
+    Status Archive::write(int value) {
         assert(can_write());
         return nwrite(sizeof(value), &value);
     }
-    bool Archive::write(float value) {
+    Status Archive::write(float value) {
         assert(can_write());
         return nwrite(sizeof(value), &value);
     }
-    bool Archive::write(std::size_t value) {
+    Status Archive::write(std::size_t value) {
         assert(can_write());
         return nwrite(sizeof(value), &value);
     }
-    bool Archive::write(const StringId& value) {
+    Status Archive::write(const StringId& value) {
         assert(can_write());
         return write(value.str());
     }
-    bool Archive::write(const std::string& value) {
+    Status Archive::write(const std::string& value) {
         assert(can_write());
         int len = static_cast<int>(value.size());
         write(len);
         nwrite(len, value.data());
-        return true;
+        return StatusCode::Ok;
     }
-    bool Archive::read(bool& value) {
+    Status Archive::read(bool& value) {
         assert(can_read());
         int v;
         read(v);
         value = v;
-        return true;
+        return StatusCode::Ok;
     }
-    bool Archive::read(int& value) {
+    Status Archive::read(int& value) {
         assert(can_read());
         return nread(sizeof(value), &value);
     }
-    bool Archive::read(float& value) {
+    Status Archive::read(float& value) {
         assert(can_read());
         return nread(sizeof(value), &value);
     }
-    bool Archive::read(std::size_t& value) {
+    Status Archive::read(std::size_t& value) {
         assert(can_read());
         return nread(sizeof(value), &value);
     }
-    bool Archive::read(StringId& value) {
+    Status Archive::read(StringId& value) {
         assert(can_read());
         std::string s;
         read(s);
         value = StringId(s);
-        return true;
+        return StatusCode::Ok;
     }
-    bool Archive::read(std::string& value) {
+    Status Archive::read(std::string& value) {
         assert(can_read());
         int len;
         read(len);
@@ -90,53 +90,53 @@ namespace wmoge {
         return nread(len, value.data());
     }
 
-    bool archive_write(Archive& archive, const bool& value) {
+    Status archive_write(Archive& archive, const bool& value) {
         archive.write(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const int& value) {
+    Status archive_write(Archive& archive, const int& value) {
         archive.write(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const float& value) {
+    Status archive_write(Archive& archive, const float& value) {
         archive.write(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const std::size_t& value) {
+    Status archive_write(Archive& archive, const std::size_t& value) {
         archive.write(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const StringId& value) {
+    Status archive_write(Archive& archive, const StringId& value) {
         archive.write(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_write(Archive& archive, const std::string& value) {
+    Status archive_write(Archive& archive, const std::string& value) {
         archive.write(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, bool& value) {
+    Status archive_read(Archive& archive, bool& value) {
         archive.read(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, int& value) {
+    Status archive_read(Archive& archive, int& value) {
         archive.read(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, float& value) {
+    Status archive_read(Archive& archive, float& value) {
         archive.read(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, std::size_t& value) {
+    Status archive_read(Archive& archive, std::size_t& value) {
         archive.read(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, StringId& value) {
+    Status archive_read(Archive& archive, StringId& value) {
         archive.read(value);
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, std::string& value) {
+    Status archive_read(Archive& archive, std::string& value) {
         archive.read(value);
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

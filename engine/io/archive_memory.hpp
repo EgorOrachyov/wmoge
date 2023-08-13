@@ -44,7 +44,7 @@ namespace wmoge {
         ArchiveWriterMemory();
         ~ArchiveWriterMemory() override = default;
 
-        bool nwrite(int num_bytes, const void* bytes) override;
+        Status nwrite(int num_bytes, const void* bytes) override;
 
         bool        is_memory() override;
         bool        is_physical() override;
@@ -67,7 +67,7 @@ namespace wmoge {
         ArchiveReaderMemory(const std::uint8_t* data, std::size_t size);
         ~ArchiveReaderMemory() override = default;
 
-        bool nread(int num_bytes, void* bytes) override;
+        Status nread(int num_bytes, void* bytes) override;
 
         [[nodiscard]] bool        is_memory() override;
         [[nodiscard]] bool        is_physical() override;

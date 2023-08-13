@@ -52,21 +52,21 @@ namespace wmoge {
 
         ~SceneTreeVisitorEmitScene() override;
 
-        bool visit_begin(SceneNode& node) override;
-        bool visit_begin(SceneNodeFolder& node) override;
-        bool visit_begin(SceneNodePrefab& node) override;
-        bool visit_begin(SceneNodeEntity& node) override;
-        bool visit_begin(SceneNodeComponent& node) override;
-        bool visit_begin(SceneNodeTransform& node) override;
-        bool visit_begin(SceneNodeCamera& node) override;
+        Status visit_begin(SceneNode& node) override;
+        Status visit_begin(SceneNodeFolder& node) override;
+        Status visit_begin(SceneNodePrefab& node) override;
+        Status visit_begin(SceneNodeEntity& node) override;
+        Status visit_begin(SceneNodeComponent& node) override;
+        Status visit_begin(SceneNodeTransform& node) override;
+        Status visit_begin(SceneNodeCamera& node) override;
 
-        bool visit_end(SceneNode& node) override;
-        bool visit_end(SceneNodeFolder& node) override;
-        bool visit_end(SceneNodePrefab& node) override;
-        bool visit_end(SceneNodeEntity& node) override;
-        bool visit_end(SceneNodeComponent& node) override;
-        bool visit_end(SceneNodeTransform& node) override;
-        bool visit_end(SceneNodeCamera& node) override;
+        Status visit_end(SceneNode& node) override;
+        Status visit_end(SceneNodeFolder& node) override;
+        Status visit_end(SceneNodePrefab& node) override;
+        Status visit_end(SceneNodeEntity& node) override;
+        Status visit_end(SceneNodeComponent& node) override;
+        Status visit_end(SceneNodeTransform& node) override;
+        Status visit_end(SceneNodeCamera& node) override;
 
         /** @brief Currently processed entity object on scene */
         struct EntityInfo {

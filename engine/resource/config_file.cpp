@@ -37,7 +37,7 @@
 
 namespace wmoge {
 
-    bool ConfigFile::load(const std::string& path) {
+    Status ConfigFile::load(const std::string& path) {
         WG_AUTO_PROFILE_RESOURCE("ConfigFile::load");
 
         std::fstream file;
@@ -45,7 +45,7 @@ namespace wmoge {
 
         if (!file_system->open_file(path, file, std::ios_base::in | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to read config file from " << path);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         StringId    section;
@@ -78,10 +78,10 @@ namespace wmoge {
             }
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    void ConfigFile::stack(const ConfigFile& other, ConfigStackMode mode) {
+    Status ConfigFile::stack(const ConfigFile& other, ConfigStackMode mode) {
         WG_AUTO_PROFILE_RESOURCE("ConfigFile::stack");
 
         for (const auto& other_entry : other.m_entries) {
@@ -92,17 +92,19 @@ namespace wmoge {
                 m_entries[key] = other_entry.second;
             }
         }
+
+        return StatusCode::Ok;
     }
 
-    bool ConfigFile::load_and_stack(const std::string& path, ConfigStackMode mode) {
+    Status ConfigFile::load_and_stack(const std::string& path, ConfigStackMode mode) {
         ConfigFile config_file;
 
         if (!config_file.load(path)) {
-            return false;
+            return StatusCode::FailedRead;
         }
 
         stack(config_file, mode);
-        return true;
+        return StatusCode::Ok;
     }
 
     void ConfigFile::clear() {
@@ -113,64 +115,64 @@ namespace wmoge {
         return m_entries.empty();
     }
 
-    bool ConfigFile::set(const StringId& key, const bool& value, bool overwrite) {
+    Status ConfigFile::set(const StringId& key, const bool& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
-            return true;
+            return StatusCode::Ok;
         }
-        return false;
+        return StatusCode::NoValue;
     }
-    bool ConfigFile::set(const StringId& key, const int& value, bool overwrite) {
+    Status ConfigFile::set(const StringId& key, const int& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
-            return true;
+            return StatusCode::Ok;
         }
-        return false;
+        return StatusCode::NoValue;
     }
-    bool ConfigFile::set(const StringId& key, const float& value, bool overwrite) {
+    Status ConfigFile::set(const StringId& key, const float& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
-            return true;
+            return StatusCode::Ok;
         }
-        return false;
+        return StatusCode::NoValue;
     }
-    bool ConfigFile::set(const StringId& key, const std::string& value, bool overwrite) {
+    Status ConfigFile::set(const StringId& key, const std::string& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
-            return true;
+            return StatusCode::Ok;
         }
-        return false;
+        return StatusCode::NoValue;
     }
 
-    bool ConfigFile::get(const StringId& key, bool& value) {
+    Status ConfigFile::get(const StringId& key, bool& value) {
         Var* p_var;
-        if (!get_element(key, p_var)) return false;
+        if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = (*p_var).operator int();
-        return true;
+        return StatusCode::Ok;
     }
-    bool ConfigFile::get(const StringId& key, int& value) {
+    Status ConfigFile::get(const StringId& key, int& value) {
         Var* p_var;
-        if (!get_element(key, p_var)) return false;
+        if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = *p_var;
-        return true;
+        return StatusCode::Ok;
     }
-    bool ConfigFile::get(const StringId& key, float& value) {
+    Status ConfigFile::get(const StringId& key, float& value) {
         Var* p_var;
-        if (!get_element(key, p_var)) return false;
+        if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = *p_var;
-        return true;
+        return StatusCode::Ok;
     }
-    bool ConfigFile::get(const StringId& key, std::string& value) {
+    Status ConfigFile::get(const StringId& key, std::string& value) {
         Var* p_var;
-        if (!get_element(key, p_var)) return false;
+        if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = p_var->operator String();
-        return true;
+        return StatusCode::Ok;
     }
-    bool ConfigFile::get(const StringId& key, Color4f& value) {
+    Status ConfigFile::get(const StringId& key, Color4f& value) {
         Var* p_var;
-        if (!get_element(key, p_var)) return false;
+        if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = Color::from_hex4(static_cast<unsigned int>(StringUtils::to_ulong(p_var->operator String(), 16)));
-        return true;
+        return StatusCode::Ok;
     }
 
     bool ConfigFile::get_bool(const StringId& key, bool value) {
@@ -194,10 +196,11 @@ namespace wmoge {
         return value;
     }
 
-    void ConfigFile::copy_to(Resource& copy) {
+    Status ConfigFile::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto config       = dynamic_cast<ConfigFile*>(&copy);
         config->m_entries = m_entries;
+        return StatusCode::Ok;
     }
 
     bool ConfigFile::get_element(const StringId& key, Var*& element) {

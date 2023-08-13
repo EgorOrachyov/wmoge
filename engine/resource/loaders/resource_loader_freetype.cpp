@@ -32,14 +32,14 @@
 
 namespace wmoge {
 
-    bool ResourceLoaderFreeType::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderFreeType::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderFreeType::load");
 
         Ref<Font> font = meta.cls->instantiate().cast<Font>();
 
         if (!font) {
             WG_LOG_ERROR("failed to instantiate font " << name);
-            return false;
+            return StatusCode::FailedInstantiate;
         }
 
         res = font;
@@ -47,7 +47,7 @@ namespace wmoge {
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("no import options to load font " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         FontImportOptions options;

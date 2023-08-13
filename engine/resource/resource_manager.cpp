@@ -207,7 +207,7 @@ namespace wmoge {
 
         ResourceMeta resource_meta;
         for (auto& pak : m_paks) {
-            if (pak->meta(resource, resource_meta)) {
+            if (pak->get_meta(resource, resource_meta)) {
                 if (resource_meta.cls && resource_meta.loader && resource_meta.pak) {
                     return std::make_optional(std::move(resource_meta));
                 }

@@ -29,6 +29,7 @@
 #define WMOGE_TEXTURE_COMPRESSION_HPP
 
 #include "core/data.hpp"
+#include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "io/yaml.hpp"
 
@@ -152,8 +153,8 @@ namespace wmoge {
         float                fquality               = 0.05f;
         int                  num_threads            = 4;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, TexCompressionParams& params);
-        friend bool yaml_write(YamlNodeRef node, const TexCompressionParams& params);
+        friend Status yaml_read(const YamlConstNodeRef& node, TexCompressionParams& params);
+        friend Status yaml_write(YamlNodeRef node, const TexCompressionParams& params);
     };
 
     /**
@@ -169,9 +170,9 @@ namespace wmoge {
          * @param source Vector with source data to compress
          * @param compressed Vector with a compressed daa
          *
-         * @return True on success
+         * @return Ok on success
          */
-        static bool compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed);
+        static Status compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed);
     };
 
 }// namespace wmoge

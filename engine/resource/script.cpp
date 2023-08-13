@@ -34,19 +34,16 @@
 
 namespace wmoge {
 
-    bool Script::load_from_yaml(const YamlConstNodeRef& node) {
-        if (!Resource::load_from_yaml(node)) {
-            return false;
-        }
-
-        return true;
+    Status Script::read_from_yaml(const YamlConstNodeRef& node) {
+        return StatusCode::Ok;
     }
-    void Script::copy_to(Resource& copy) {
+    Status Script::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto* script       = dynamic_cast<Script*>(&copy);
         script->m_mask     = m_mask;
         script->m_code     = m_code;
         script->m_language = m_language;
+        return StatusCode::Ok;
     }
 
     Ref<ScriptInstance> Script::attach_to(Object* object) {

@@ -47,12 +47,12 @@ namespace wmoge {
     class ResourceLoaderAssimp final : public ResourceLoader {
     public:
         ~ResourceLoaderAssimp() override = default;
-        bool     load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
         StringId get_name() override;
 
     private:
-        bool process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform);
-        bool process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform);
+        Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform);
+        Status process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform);
     };
 
 }// namespace wmoge

@@ -43,19 +43,19 @@ namespace wmoge {
         return {Random::next_uint64()};
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, UUID& id) {
+    Status yaml_read(const YamlConstNodeRef& node, UUID& id) {
         node >> id.m_value;
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const UUID& id) {
+    Status yaml_write(YamlNodeRef node, const UUID& id) {
         node << id.m_value;
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool archive_read(Archive& archive, UUID& id) {
+    Status archive_read(Archive& archive, UUID& id) {
         return archive.nread(sizeof(id.m_value), &id.m_value);
     }
-    bool archive_write(Archive& archive, const UUID& id) {
+    Status archive_write(Archive& archive, const UUID& id) {
         return archive.nwrite(sizeof(id.m_value), &id.m_value);
     }
 

@@ -29,7 +29,7 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, ResourceResFile& file) {
+    Status yaml_read(const YamlConstNodeRef& node, ResourceResFile& file) {
         WG_YAML_READ_AS(node, "version", file.version);
         WG_YAML_READ_AS(node, "uuid", file.uuid);
         WG_YAML_READ_AS(node, "class", file.cls);
@@ -38,10 +38,10 @@ namespace wmoge {
         WG_YAML_READ_AS(node, "description", file.description);
         WG_YAML_READ_AS_OPT(node, "path_on_disk", file.path_on_disk);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_write(YamlNodeRef node, const ResourceResFile& file) {
+    Status yaml_write(YamlNodeRef node, const ResourceResFile& file) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "version", file.version);
         WG_YAML_WRITE_AS(node, "uuid", file.uuid);
@@ -51,7 +51,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "description", file.description);
         WG_YAML_WRITE_AS_OPT(node, "path_on_disk", file.path_on_disk.has_value(), file.path_on_disk);
 
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

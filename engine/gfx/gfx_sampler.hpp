@@ -55,8 +55,8 @@ namespace wmoge {
         GfxSampAddress w;             // = GfxSampAddress::Repeat;
         GfxSampBrdClr  brd_clr;       // = GfxSampBrdClr::Black;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc);
-        friend bool yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc);
+        friend Status yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc);
+        friend Status yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc);
     };
 
     /**

@@ -33,9 +33,9 @@ namespace wmoge {
         m_can_read  = false;
         m_can_write = true;
     }
-    bool ArchiveWriterFile::nwrite(int num_bytes, const void* bytes) {
+    Status ArchiveWriterFile::nwrite(int num_bytes, const void* bytes) {
         m_stream.write(reinterpret_cast<const char*>(bytes), num_bytes);
-        return true;
+        return StatusCode::Ok;
     }
     bool ArchiveWriterFile::is_memory() {
         return false;
@@ -51,9 +51,9 @@ namespace wmoge {
         m_can_read  = true;
         m_can_write = false;
     }
-    bool ArchiveReaderFile::nread(int num_bytes, void* bytes) {
+    Status ArchiveReaderFile::nread(int num_bytes, void* bytes) {
         m_stream.read(reinterpret_cast<char*>(bytes), num_bytes);
-        return true;
+        return StatusCode::Ok;
     }
     bool ArchiveReaderFile::is_memory() {
         return false;

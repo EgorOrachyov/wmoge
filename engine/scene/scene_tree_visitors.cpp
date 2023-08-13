@@ -40,24 +40,24 @@ namespace wmoge {
         assert(m_entities.empty());
     }
 
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNode& node) {
+    Status SceneTreeVisitorEmitScene::visit_begin(SceneNode& node) {
         push_node(node);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeFolder& node) {
-        push_node(node);
-        push_local_to_world(node.transform);
-
-        return true;
-    }
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodePrefab& node) {
+    Status SceneTreeVisitorEmitScene::visit_begin(SceneNodeFolder& node) {
         push_node(node);
         push_local_to_world(node.transform);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeEntity& node) {
+    Status SceneTreeVisitorEmitScene::visit_begin(SceneNodePrefab& node) {
+        push_node(node);
+        push_local_to_world(node.transform);
+
+        return StatusCode::Ok;
+    }
+    Status SceneTreeVisitorEmitScene::visit_begin(SceneNodeEntity& node) {
         push_node(node);
         push_local_to_world(node.transform);
 
@@ -71,7 +71,7 @@ namespace wmoge {
         info.entity_arch.set_component<EcsComponentName>();
 
         for (const auto& child : node.get_children()) {
-            child->on_ecs_arch_collect(info.entity_arch);
+            child->collect_arch(info.entity_arch);
         }
 
         ecs_world->make_entity(info.entity_id, info.entity_arch);
@@ -106,14 +106,14 @@ namespace wmoge {
 
         m_entities.push(info);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_begin(wmoge::SceneNodeComponent& node) {
+    Status SceneTreeVisitorEmitScene::visit_begin(wmoge::SceneNodeComponent& node) {
         push_node(node);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeTransform& node) {
+    Status SceneTreeVisitorEmitScene::visit_begin(SceneNodeTransform& node) {
         push_node(node);
 
         // Push transform
@@ -140,10 +140,10 @@ namespace wmoge {
 
         m_scene->get_ecs_world()->get_component_rw<EcsComponentSceneTransform>(info.entity_id).transform = m_transforms.top().transform;
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_begin(SceneNodeCamera& node) {
-        if (!visit_begin((SceneNodeComponent&) node)) { return false; }
+    Status SceneTreeVisitorEmitScene::visit_begin(SceneNodeCamera& node) {
+        if (!visit_begin((SceneNodeComponent&) node)) { return StatusCode::Error; }
 
         EntityInfo& info = m_entities.top();
         assert(info.entity_id.is_valid());
@@ -158,47 +158,47 @@ namespace wmoge {
 
         m_scene->get_ecs_world()->get_component_rw<EcsComponentCamera>(info.entity_id).camera = camera;
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNode& node) {
+    Status SceneTreeVisitorEmitScene::visit_end(SceneNode& node) {
         pop_node(node);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNodeFolder& node) {
-        pop_node(node);
-        pop_local_to_world();
-
-        return true;
-    }
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNodePrefab& node) {
+    Status SceneTreeVisitorEmitScene::visit_end(SceneNodeFolder& node) {
         pop_node(node);
         pop_local_to_world();
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNodeEntity& node) {
+    Status SceneTreeVisitorEmitScene::visit_end(SceneNodePrefab& node) {
+        pop_node(node);
+        pop_local_to_world();
+
+        return StatusCode::Ok;
+    }
+    Status SceneTreeVisitorEmitScene::visit_end(SceneNodeEntity& node) {
         assert(!m_entities.empty());
         m_entities.pop();
 
         pop_node(node);
         pop_local_to_world();
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_end(wmoge::SceneNodeComponent& node) {
+    Status SceneTreeVisitorEmitScene::visit_end(wmoge::SceneNodeComponent& node) {
         pop_node(node);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNodeTransform& node) {
+    Status SceneTreeVisitorEmitScene::visit_end(SceneNodeTransform& node) {
         assert(!m_transforms.empty());
         m_transforms.pop();
 
         return visit_end((SceneNodeComponent&) node);
     }
-    bool SceneTreeVisitorEmitScene::visit_end(SceneNodeCamera& node) {
+    Status SceneTreeVisitorEmitScene::visit_end(SceneNodeCamera& node) {
         return visit_end((SceneNodeComponent&) node);
     }
 

@@ -63,16 +63,16 @@ namespace wmoge {
             bool sort_by_ptype           = true;
             bool gen_uv                  = false;
 
-            friend bool yaml_read(const YamlConstNodeRef& node, Process& process);
-            friend bool yaml_write(YamlNodeRef node, const Process& process);
+            friend Status yaml_read(const YamlConstNodeRef& node, Process& process);
+            friend Status yaml_write(YamlNodeRef node, const Process& process);
         };
 
         std::string                source_file;
         std::vector<GfxVertAttrib> attributes;
         Process                    process{};
 
-        friend bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const MeshImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const MeshImportOptions& options);
     };
 
     /**
@@ -86,8 +86,8 @@ namespace wmoge {
         int      index_offset{};
         int      index_count{};
 
-        friend bool yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk);
-        friend bool yaml_write(YamlNodeRef node, const MeshChunk& chunk);
+        friend Status yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk);
+        friend Status yaml_write(YamlNodeRef node, const MeshChunk& chunk);
     };
 
     /**
@@ -121,8 +121,8 @@ namespace wmoge {
         int                           get_num_indices() const;
         Aabbf                         get_aabb();
 
-        friend bool yaml_read(const YamlConstNodeRef& node, Mesh& mesh);
-        friend bool yaml_write(YamlNodeRef node, const Mesh& mesh);
+        friend Status yaml_read(const YamlConstNodeRef& node, Mesh& mesh);
+        friend Status yaml_write(YamlNodeRef node, const Mesh& mesh);
 
     private:
         std::vector<MeshChunk>                     m_chunks;

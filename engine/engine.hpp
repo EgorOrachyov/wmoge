@@ -50,6 +50,7 @@
 #include "core/object.hpp"
 #include "core/random.hpp"
 #include "core/ref.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
 #include "core/string_utils.hpp"

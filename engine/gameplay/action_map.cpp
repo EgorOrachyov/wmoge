@@ -38,7 +38,7 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, ActionActivation& activation) {
+    Status yaml_read(const YamlConstNodeRef& node, ActionActivation& activation) {
         WG_YAML_READ_AS_OPT(node, "device_name", activation.device_name);
         WG_YAML_READ_AS_OPT(node, "device_type", activation.device_type);
         WG_YAML_READ_AS_OPT(node, "action", activation.action);
@@ -52,9 +52,9 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "threshold", activation.threshold);
         WG_YAML_READ_AS_OPT(node, "direction", activation.direction);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ActionActivation& activation) {
+    Status yaml_write(YamlNodeRef node, const ActionActivation& activation) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "device_name", activation.device_name);
         WG_YAML_WRITE_AS(node, "device_type", activation.device_type);
@@ -69,23 +69,23 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "threshold", activation.threshold);
         WG_YAML_WRITE_AS(node, "direction", activation.direction);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, ActionMapAction& action) {
+    Status yaml_read(const YamlConstNodeRef& node, ActionMapAction& action) {
         WG_YAML_READ_AS(node, "action", action.name);
         WG_YAML_READ_AS(node, "display_name", action.display_name);
         WG_YAML_READ_AS(node, "activations", action.activations);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ActionMapAction& action) {
+    Status yaml_write(YamlNodeRef node, const ActionMapAction& action) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "action", action.name);
         WG_YAML_WRITE_AS(node, "display_name", action.display_name);
         WG_YAML_WRITE_AS(node, "activations", action.activations);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     void ActionMap::rename(StringId new_name) {
@@ -142,7 +142,7 @@ namespace wmoge {
         return actions;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, ActionMap& action_map) {
+    Status yaml_read(const YamlConstNodeRef& node, ActionMap& action_map) {
         std::vector<ActionMapAction> actions;
 
         WG_YAML_READ_AS(node, "name", action_map.m_name);
@@ -153,15 +153,15 @@ namespace wmoge {
             action_map.m_actions[action.name] = std::move(action);
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ActionMap& action_map) {
+    Status yaml_write(YamlNodeRef node, const ActionMap& action_map) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "name", action_map.m_name);
         WG_YAML_WRITE_AS(node, "priority", action_map.m_priority);
         WG_YAML_WRITE_AS(node, "actions", action_map.get_actions());
 
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

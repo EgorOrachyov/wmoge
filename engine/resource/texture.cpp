@@ -40,7 +40,7 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options) {
         WG_YAML_READ_AS_OPT(node, "channels", options.channels);
         WG_YAML_READ_AS_OPT(node, "format", options.format);
         WG_YAML_READ_AS_OPT(node, "mipmaps", options.mipmaps);
@@ -49,9 +49,9 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "sampling", options.sampling);
         WG_YAML_READ_AS_OPT(node, "compression", options.compression);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const TextureImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const TextureImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "channels", options.channels);
         WG_YAML_WRITE_AS(node, "format", options.format);
@@ -61,23 +61,23 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "sampling", options.sampling);
         WG_YAML_WRITE_AS(node, "compression", options.compression);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options) {
         WG_YAML_READ_SUPER(node, TextureImportOptions, options);
         WG_YAML_READ_AS(node, "source_file", options.source_file);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const Texture2dImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const Texture2dImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions::SourceFiles& source_files) {
+    Status yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions::SourceFiles& source_files) {
         WG_YAML_READ_AS(node, "right", source_files.right);
         WG_YAML_READ_AS(node, "left", source_files.left);
         WG_YAML_READ_AS(node, "top", source_files.top);
@@ -85,9 +85,9 @@ namespace wmoge {
         WG_YAML_READ_AS(node, "back", source_files.back);
         WG_YAML_READ_AS(node, "front", source_files.front);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const TextureCubeImportOptions::SourceFiles& source_files) {
+    Status yaml_write(YamlNodeRef node, const TextureCubeImportOptions::SourceFiles& source_files) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "right", source_files.right);
         WG_YAML_WRITE_AS(node, "left", source_files.left);
@@ -96,20 +96,20 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "back", source_files.back);
         WG_YAML_WRITE_AS(node, "front", source_files.front);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options) {
         WG_YAML_READ_SUPER(node, TextureImportOptions, options);
         WG_YAML_READ_AS(node, "source_files", options.source_files);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
         WG_YAML_WRITE_AS(node, "source_files", options.source_files);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     Texture::Texture(GfxFormat format, int width, int height, int depth, int array_slices) {
@@ -134,7 +134,7 @@ namespace wmoge {
         m_compression = params;
     }
 
-    bool Texture::generate_mips() {
+    Status Texture::generate_mips() {
         WG_AUTO_PROFILE_RESOURCE("Texture::generate_mips");
 
         std::vector<Ref<Image>> mips;
@@ -144,7 +144,7 @@ namespace wmoge {
 
             if (!image->generate_mip_chain(face_mips)) {
                 WG_LOG_ERROR("failed to gen mip chain for texture " << get_name());
-                return false;
+                return StatusCode::Error;
             }
 
             for (auto& mip : face_mips) {
@@ -156,18 +156,18 @@ namespace wmoge {
         }
 
         m_images = std::move(mips);
-        return true;
+        return StatusCode::Ok;
     }
-    bool Texture::generate_compressed_data() {
+    Status Texture::generate_compressed_data() {
         WG_AUTO_PROFILE_RESOURCE("Texture::generate_compressed_data");
 
         if (m_compression.format == TexCompressionFormat::Unknown) {
             WG_LOG_INFO("no compression setup for texture " << get_name());
-            return true;
+            return StatusCode::Ok;
         }
         if (m_images.empty()) {
             WG_LOG_INFO("no source to compress " << get_name());
-            return true;
+            return StatusCode::Ok;
         }
 
         std::vector<GfxImageData> source_data;
@@ -187,7 +187,7 @@ namespace wmoge {
 
         if (!TexCompression::compress(m_compression, source_data, dest_data)) {
             WG_LOG_ERROR("failed to compress texture " << get_name());
-            return false;
+            return StatusCode::Error;
         }
 
         assert(source_data.size() == dest_data.size());
@@ -215,9 +215,9 @@ namespace wmoge {
         m_format_compressed = dest_data.front().format;
         m_compressed        = std::move(dest_data);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool Texture::generate_gfx_resource() {
+    Status Texture::generate_gfx_resource() {
         WG_AUTO_PROFILE_RESOURCE("Texture::generate_gfx_resource");
 
         if (!m_sampler) {
@@ -249,7 +249,7 @@ namespace wmoge {
                 break;
             default:
                 WG_LOG_ERROR("unknown texture gfx type " << get_name());
-                return false;
+                return StatusCode::InvalidParameter;
         }
 
         assert(m_depth == 1);
@@ -284,10 +284,10 @@ namespace wmoge {
             }
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    void Texture::copy_to(Resource& copy) {
+    Status Texture::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto texture            = dynamic_cast<Texture*>(&copy);
         texture->m_images       = m_images;
@@ -304,6 +304,7 @@ namespace wmoge {
         texture->m_usages       = m_usages;
         texture->m_srgb         = m_srgb;
         texture->m_compression  = m_compression;
+        return StatusCode::Ok;
     }
     void Texture::register_class() {
         auto* cls = Class::register_class<Texture>();
@@ -318,8 +319,8 @@ namespace wmoge {
     Texture2d::Texture2d(GfxFormat format, int width, int height) : Texture(format, width, height) {
         m_tex_type = GfxTex::Tex2d;
     }
-    void Texture2d::copy_to(Resource& copy) {
-        Texture::copy_to(copy);
+    Status Texture2d::copy_to(Object& copy) const {
+        return Texture::copy_to(copy);
     }
     void Texture2d::register_class() {
         auto* cls = Class::register_class<Texture2d>();
@@ -328,8 +329,8 @@ namespace wmoge {
     TextureCube::TextureCube(GfxFormat format, int width, int height) : Texture(format, width, height, 1, 6) {
         m_tex_type = GfxTex::TexCube;
     }
-    void TextureCube::copy_to(Resource& copy) {
-        Texture::copy_to(copy);
+    Status TextureCube::copy_to(Object& copy) const {
+        return Texture::copy_to(copy);
     }
     void TextureCube::register_class() {
         auto* cls = Class::register_class<TextureCube>();

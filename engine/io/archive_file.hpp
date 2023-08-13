@@ -42,7 +42,7 @@ namespace wmoge {
     public:
         ArchiveWriterFile(std::fstream& stream);
 
-        bool nwrite(int num_bytes, const void* bytes) override;
+        Status nwrite(int num_bytes, const void* bytes) override;
 
         [[nodiscard]] bool   is_memory() override;
         [[nodiscard]] bool   is_physical() override;
@@ -61,7 +61,7 @@ namespace wmoge {
         ArchiveReaderFile(std::fstream& stream);
         ~ArchiveReaderFile() override = default;
 
-        bool nread(int num_bytes, void* bytes) override;
+        Status nread(int num_bytes, void* bytes) override;
 
         [[nodiscard]] bool        is_memory() override;
         [[nodiscard]] bool        is_physical() override;

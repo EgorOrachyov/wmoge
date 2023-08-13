@@ -29,6 +29,7 @@
 #define WMOGE_BASE64_HPP
 
 #include "core/data.hpp"
+#include "core/status.hpp"
 
 #include <string>
 #include <string_view>
@@ -42,13 +43,13 @@ namespace wmoge {
      */
     class Base64 {
     public:
-        static bool encode(const std::uint8_t* data, int bytesCount, std::string& result);
-        static bool encode(const std::vector<std::uint8_t>& data, std::string& result);
-        static bool encode(const Ref<Data>& data, std::string& result);
+        static Status encode(const std::uint8_t* data, int bytesCount, std::string& result);
+        static Status encode(const std::vector<std::uint8_t>& data, std::string& result);
+        static Status encode(const Ref<Data>& data, std::string& result);
 
-        static bool decode(const std::string_view& data, std::vector<std::uint8_t>& result);
-        static bool decode(const std::string_view& data, Ref<Data>& result);
-        static bool decode(const std::string_view& data, std::string& result);
+        static Status decode(const std::string_view& data, std::vector<std::uint8_t>& result);
+        static Status decode(const std::string_view& data, Ref<Data>& result);
+        static Status decode(const std::string_view& data, std::string& result);
     };
 
 }// namespace wmoge

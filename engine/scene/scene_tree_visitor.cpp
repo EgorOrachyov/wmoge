@@ -29,36 +29,36 @@
 
 namespace wmoge {
 
-    bool SceneTreeVisitorSplit::visit_children(SceneNode& node) {
+    Status SceneTreeVisitorSplit::visit_children(SceneNode& node) {
         for (const auto& child : node.get_children()) {
-            if (!child->on_visit(*this)) {
-                return false;
+            if (!child->accept_visitor(*this)) {
+                return StatusCode::Error;
             }
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool SceneTreeVisitorSplit::visit(SceneNode& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNode& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodeFolder& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNodeFolder& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodePrefab& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNodePrefab& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodeEntity& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNodeEntity& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodeComponent& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNodeComponent& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodeTransform& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNodeTransform& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool SceneTreeVisitorSplit::visit(SceneNodeCamera& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node);
+    Status SceneTreeVisitorSplit::visit(SceneNodeCamera& node) {
+        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
     }
 
 }// namespace wmoge

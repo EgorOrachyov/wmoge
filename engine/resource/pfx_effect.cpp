@@ -32,8 +32,9 @@
 
 namespace wmoge {
 
-    void PfxEffect::copy_to(Resource& copy) {
+    Status PfxEffect::copy_to(Object& copy) const {
         Resource::copy_to(copy);
+        return StatusCode::Ok;
     }
 
     void PfxEffect::add_component(Ref<PfxComponent> component) {

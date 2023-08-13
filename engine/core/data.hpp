@@ -68,11 +68,11 @@ namespace wmoge {
         [[nodiscard]] std::size_t   size_as_kib() const { return Math::max(m_size / 1024, std::size_t{1}); }
         [[nodiscard]] std::string   to_string() const;
 
-        friend bool archive_write(Archive& archive, const Ref<Data>& data);
-        friend bool archive_read(Archive& archive, Ref<Data>& data);
+        friend Status archive_write(Archive& archive, const Ref<Data>& data);
+        friend Status archive_read(Archive& archive, Ref<Data>& data);
 
-        friend bool yaml_write(YamlNodeRef node, const Ref<Data>& data);
-        friend bool yaml_read(const YamlConstNodeRef& node, Ref<Data>& data);
+        friend Status yaml_write(YamlNodeRef node, const Ref<Data>& data);
+        friend Status yaml_read(const YamlConstNodeRef& node, Ref<Data>& data);
 
     private:
         std::size_t   m_size   = 0;

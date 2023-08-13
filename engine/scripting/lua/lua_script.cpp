@@ -36,11 +36,11 @@
 
 namespace wmoge {
 
-    bool LuaScript::load_from_yaml(const YamlConstNodeRef& node) {
+    Status LuaScript::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_LUA("LuaScript::load_from_import_options");
 
-        if (!Script::load_from_yaml(node)) {
-            return false;
+        if (!Script::read_from_yaml(node)) {
+            return StatusCode::FailedRead;
         }
 
         auto* engine        = Engine::instance();
@@ -50,12 +50,12 @@ namespace wmoge {
 
         if (!m_system) {
             WG_LOG_ERROR("engine script system not lua");
-            return false;
+            return StatusCode::Error;
         }
 
         if (m_system->get_language() != get_language()) {
             WG_LOG_ERROR("cannot load script of language " << get_language() << " for system " << m_system->get_name());
-            return false;
+            return StatusCode::Error;
         }
 
         std::lock_guard guard(m_system->get_mutex());
@@ -69,12 +69,12 @@ namespace wmoge {
             user_object.print(out_error);
             WG_LOG_ERROR("expecting created instance to be an object (lua table)");
             WG_LOG_ERROR("luabridge log: " << out_error.str());
-            return false;
+            return StatusCode::Error;
         }
 
         if (!user_object[m_system->get_object_class()].isTable()) {
             WG_LOG_ERROR("expecting user class to be a table");
-            return false;
+            return StatusCode::Error;
         }
 
         auto user_class = user_object[m_system->get_object_class()];
@@ -88,9 +88,9 @@ namespace wmoge {
 
         m_mask = user_mask;
 
-        return true;
+        return StatusCode::Ok;
     }
-    void LuaScript::copy_to(Resource& copy) {
+    Status LuaScript::copy_to(Object& copy) const {
         Script::copy_to(copy);
         auto* script             = dynamic_cast<LuaScript*>(&copy);
         script->m_state          = m_state;
@@ -98,6 +98,7 @@ namespace wmoge {
         script->m_lua_class      = m_lua_class;
         script->m_lua_methods    = m_lua_methods;
         script->m_lua_properties = m_lua_properties;
+        return StatusCode::Ok;
     }
 
     Ref<ScriptInstance> LuaScript::attach_to(Object* object) {

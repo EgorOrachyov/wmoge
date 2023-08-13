@@ -53,8 +53,8 @@ namespace wmoge {
         int            size   = -1;
         std::string    value;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter);
-        friend bool yaml_write(YamlNodeRef node, const ShaderParameter& parameter);
+        friend Status yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter);
+        friend Status yaml_write(YamlNodeRef node, const ShaderParameter& parameter);
     };
 
     /**
@@ -67,8 +67,8 @@ namespace wmoge {
         int         id = -1;
         std::string value;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
-        friend bool yaml_write(YamlNodeRef node, const ShaderTexture& texture);
+        friend Status yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
+        friend Status yaml_write(YamlNodeRef node, const ShaderTexture& texture);
     };
 
     /**
@@ -83,8 +83,8 @@ namespace wmoge {
         bool             depth_write  = true;
         GfxCompFunc      depth_func   = GfxCompFunc::Less;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state);
-        friend bool yaml_write(YamlNodeRef node, const ShaderPipelineState& state);
+        friend Status yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state);
+        friend Status yaml_write(YamlNodeRef node, const ShaderPipelineState& state);
     };
 
     /**
@@ -102,8 +102,8 @@ namespace wmoge {
         int                          render_queue = 0;
         ShaderPipelineState          state{};
 
-        friend bool yaml_read(const YamlConstNodeRef& node, ShaderFile& file);
-        friend bool yaml_write(YamlNodeRef node, const ShaderFile& file);
+        friend Status yaml_read(const YamlConstNodeRef& node, ShaderFile& file);
+        friend Status yaml_write(YamlNodeRef node, const ShaderFile& file);
     };
 
     /**
@@ -134,8 +134,8 @@ namespace wmoge {
     public:
         WG_OBJECT(Shader, Resource);
 
-        bool load_from_yaml(const YamlConstNodeRef& node) override;
-        void copy_to(Resource& copy) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status copy_to(Object& other) const override;
 
         [[nodiscard]] bool           has_variant(const StringId& shader_key);
         [[nodiscard]] Ref<GfxShader> find_variant(const StringId& shader_key);
@@ -158,8 +158,8 @@ namespace wmoge {
         [[nodiscard]] const std::string&                         get_include_parameters() const;
 
     protected:
-        bool generate_params_layout();
-        bool generate_textures_layout();
+        Status generate_params_layout();
+        Status generate_textures_layout();
 
     private:
         // Compiled and cached variants of the shader

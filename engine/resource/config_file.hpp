@@ -62,7 +62,7 @@ namespace wmoge {
          *
          * @return True if successfully loaded and parsed
          */
-        bool load(const std::string& path);
+        Status load(const std::string& path);
 
         /**
          * @brief Stack other config on top of this
@@ -70,7 +70,7 @@ namespace wmoge {
          * @param other Config to stack
          * @param mode Mode to handle intersecting entries
          */
-        void stack(const ConfigFile& other, ConfigStackMode mode = ConfigStackMode::Overwrite);
+        Status stack(const ConfigFile& other, ConfigStackMode mode = ConfigStackMode::Overwrite);
 
         /**
          * @brief Loads config by path and stacks into this
@@ -80,7 +80,7 @@ namespace wmoge {
          *
          * @return True if loaded and stacked
          */
-        bool load_and_stack(const std::string& path, ConfigStackMode mode = ConfigStackMode::Overwrite);
+        Status load_and_stack(const std::string& path, ConfigStackMode mode = ConfigStackMode::Overwrite);
 
         /** @brief Clears config */
         void clear();
@@ -88,16 +88,16 @@ namespace wmoge {
         /** @brief Check if config has no entries */
         bool is_empty();
 
-        bool set(const StringId& key, const bool& value, bool overwrite = true);
-        bool set(const StringId& key, const int& value, bool overwrite = true);
-        bool set(const StringId& key, const float& value, bool overwrite = true);
-        bool set(const StringId& key, const std::string& value, bool overwrite = true);
+        Status set(const StringId& key, const bool& value, bool overwrite = true);
+        Status set(const StringId& key, const int& value, bool overwrite = true);
+        Status set(const StringId& key, const float& value, bool overwrite = true);
+        Status set(const StringId& key, const std::string& value, bool overwrite = true);
 
-        bool get(const StringId& key, bool& value);
-        bool get(const StringId& key, int& value);
-        bool get(const StringId& key, float& value);
-        bool get(const StringId& key, std::string& value);
-        bool get(const StringId& key, Color4f& value);
+        Status get(const StringId& key, bool& value);
+        Status get(const StringId& key, int& value);
+        Status get(const StringId& key, float& value);
+        Status get(const StringId& key, std::string& value);
+        Status get(const StringId& key, Color4f& value);
 
         bool        get_bool(const StringId& key, bool def_value = false);
         int         get_int(const StringId& key, int def_value = 0);
@@ -105,7 +105,7 @@ namespace wmoge {
         std::string get_string(const StringId& key, std::string def_value = "");
         Color4f     get_color4f(const StringId& key, Color4f value = {});
 
-        void copy_to(Resource& copy) override;
+        Status copy_to(Object& other) const override;
 
     private:
         /** @brief Single element in a config file */

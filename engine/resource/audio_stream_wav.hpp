@@ -50,11 +50,11 @@ namespace wmoge {
          *
          * @return True if loaded
          */
-        bool load(const std::string& file_path);
+        Status load(const std::string& file_path);
 
         Ref<Data> get_channel_data(int channel) override;
 
-        void copy_to(Resource& copy) override;
+        Status copy_to(Object& other) const override;
 
     private:
         fast_vector<Ref<Data>, 2> m_data;

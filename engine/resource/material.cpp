@@ -39,36 +39,36 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, MaterialFile::Entry& entry) {
+    Status yaml_read(const YamlConstNodeRef& node, MaterialFile::Entry& entry) {
         WG_YAML_READ_AS(node, "name", entry.name);
         WG_YAML_READ_AS(node, "value", entry.value);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const MaterialFile::Entry& entry) {
+    Status yaml_write(YamlNodeRef node, const MaterialFile::Entry& entry) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "name", entry.name);
         WG_YAML_WRITE_AS(node, "value", entry.value);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, MaterialFile& file) {
+    Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file) {
         WG_YAML_READ_AS(node, "shader", file.shader);
         WG_YAML_READ_AS_OPT(node, "keywords", file.keywords);
         WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
         WG_YAML_READ_AS_OPT(node, "textures", file.textures);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const MaterialFile& file) {
+    Status yaml_write(YamlNodeRef node, const MaterialFile& file) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "shader", file.shader);
         WG_YAML_WRITE_AS(node, "keywords", file.keywords);
         WG_YAML_WRITE_AS(node, "parameters", file.parameters);
         WG_YAML_WRITE_AS(node, "textures", file.textures);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     void Material::create(Ref<Shader> shader) {
@@ -99,7 +99,7 @@ namespace wmoge {
         m_version = 1;
     }
 
-    bool Material::load_from_yaml(const YamlConstNodeRef& node) {
+    Status Material::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Material::load_from_import_options");
 
         MaterialFile material_file;
@@ -110,7 +110,7 @@ namespace wmoge {
         auto material_shader = res_man->load(SID(material_file.shader)).cast<Shader>();
         if (!material_shader) {
             WG_LOG_ERROR("not found shader " << material_file.shader << " for " << get_name());
-            return false;
+            return StatusCode::NoResource;
         }
 
         create(material_shader);
@@ -133,14 +133,15 @@ namespace wmoge {
             m_keywords.insert(std::move(keyword));
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    void Material::copy_to(Resource& copy) {
+    Status Material::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto material          = dynamic_cast<Material*>(&copy);
         material->m_shader     = m_shader;
         material->m_parameters = m_parameters;
         material->m_textures   = m_textures;
+        return StatusCode::Ok;
     }
 
     const Ref<Shader>& Material::get_shader() {

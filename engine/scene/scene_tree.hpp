@@ -69,8 +69,8 @@ namespace wmoge {
 
         [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
 
-        friend bool yaml_read(const YamlConstNodeRef& node, SceneTree& tree);
-        friend bool yaml_write(YamlNodeRef node, const SceneTree& tree);
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneTree& tree);
+        friend Status yaml_write(YamlNodeRef node, const SceneTree& tree);
 
     private:
         Ref<SceneNode> m_root;

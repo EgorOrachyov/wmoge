@@ -37,18 +37,18 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options) {
         WG_YAML_READ_AS(node, "source_file", options.source_file);
         WG_YAML_READ_AS_OPT(node, "channels", options.channels);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const ImageImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const ImageImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "channels", options.channels);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     void Image::create(int width, int height, int channels, int pixel_size) {
@@ -65,13 +65,13 @@ namespace wmoge {
         m_pixel_size = pixel_size;
         m_pixel_data = make_ref<Data>(width * height * pixel_size);
     }
-    bool Image::load(const std::string& path, int channels) {
+    Status Image::load(const std::string& path, int channels) {
         WG_AUTO_PROFILE_RESOURCE("Image::load");
 
         std::vector<std::uint8_t> pixel_data;
         if (!Engine::instance()->file_system()->read_file(path, pixel_data)) {
             WG_LOG_ERROR("failed to load image file from fs " << path);
-            return false;
+            return StatusCode::Error;
         }
 
         int w, h, n;
@@ -80,36 +80,36 @@ namespace wmoge {
         stbi_uc* data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(pixel_data.data()), static_cast<int>(pixel_data.size()), &w, &h, &n, channels);
         if (!data) {
             WG_LOG_ERROR("failed to read image data " << path);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         m_width      = w;
         m_height     = h;
         m_channels   = channels ? channels : n;
-        m_pixel_size = m_channels * sizeof(stbi_uc);
+        m_pixel_size = int(m_channels * sizeof(stbi_uc));
         m_pixel_data = make_ref<Data>(data, w * h * m_pixel_size);
 
         stbi_image_free(data);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool Image::save(std::filesystem::path filepath) {
+    Status Image::save(std::filesystem::path filepath) {
         WG_AUTO_PROFILE_RESOURCE("Image::save");
 
         if (!m_width || !m_height) {
             WG_LOG_ERROR("cannot save empty image");
-            return false;
+            return StatusCode::InvalidData;
         }
 
         auto filepath_str = filepath.replace_extension("png").string();
-        return stbi_write_png(filepath_str.c_str(), m_width, m_height, m_channels, m_pixel_data->buffer(), m_width * m_pixel_size);
+        return stbi_write_png(filepath_str.c_str(), m_width, m_height, m_channels, m_pixel_data->buffer(), m_width * m_pixel_size) ? StatusCode::Ok : StatusCode::Error;
     }
-    bool Image::resize(int new_width, int new_height) {
+    Status Image::resize(int new_width, int new_height) {
         WG_AUTO_PROFILE_RESOURCE("Image::resize");
 
         if (!new_width || !new_height) {
             WG_LOG_ERROR("cannot resize image " << get_name() << " to " << new_width << "x" << new_height);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         auto new_size       = new_width * new_height * m_pixel_size;
@@ -120,17 +120,17 @@ namespace wmoge {
 
         if (!ok) {
             WG_LOG_ERROR("failed to resize image " << get_name() << " to " << new_width << "x" << new_height);
-            return false;
+            return StatusCode::Error;
         }
 
         m_width      = new_width;
         m_height     = new_height;
         m_pixel_data = new_pixel_data;
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool Image::generate_mip_chain(std::vector<Ref<Image>>& mips) {
+    Status Image::generate_mip_chain(std::vector<Ref<Image>>& mips) {
         WG_AUTO_PROFILE_RESOURCE("Image::generate_mip_chain");
 
         assert(mips.empty());
@@ -141,19 +141,20 @@ namespace wmoge {
             mips.push_back(mips[i - 1]->duplicate().cast<Image>());
             Size2i mip_size = Image::mip_size(i, m_width, m_height);
             if (!mips.back()->resize(mip_size[0], mip_size[1]))
-                return false;
+                return StatusCode::Error;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    void Image::copy_to(Resource& copy) {
+    Status Image::copy_to(Object& copy) const {
         auto image          = dynamic_cast<Image*>(&copy);
         image->m_width      = m_width;
         image->m_height     = m_height;
         image->m_pixel_size = m_pixel_size;
         image->m_channels   = m_channels;
         image->m_pixel_data = m_pixel_data;
+        return StatusCode::Ok;
     }
 
     std::string Image::to_string() {

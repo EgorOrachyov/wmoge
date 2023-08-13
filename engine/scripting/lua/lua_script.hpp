@@ -44,8 +44,8 @@ namespace wmoge {
     public:
         WG_OBJECT(LuaScript, Script)
 
-        bool load_from_yaml(const YamlConstNodeRef& node) override;
-        void copy_to(Resource& copy) override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status copy_to(Object& other) const override;
 
         Ref<ScriptInstance> attach_to(Object* object) override;
         bool                has_property(const StringId& property) override;

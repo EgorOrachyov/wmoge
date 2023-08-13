@@ -382,15 +382,15 @@ namespace wmoge {
         WG_LOG_INFO("load shader cache: " << path_on_disk << " " << StringUtils::from_mem_size(archive.get_size()));
     }
 
-    bool archive_write(Archive& archive, const ShaderManager::ShaderData& shader_data) {
+    Status archive_write(Archive& archive, const ShaderManager::ShaderData& shader_data) {
         archive << shader_data.name;
         archive << shader_data.bytecode;
-        return true;
+        return StatusCode::Ok;
     }
-    bool archive_read(Archive& archive, ShaderManager::ShaderData& shader_data) {
+    Status archive_read(Archive& archive, ShaderManager::ShaderData& shader_data) {
         archive >> shader_data.name;
         archive >> shader_data.bytecode;
-        return true;
+        return StatusCode::Ok;
     }
 
     void ShaderManager::load_sources_from_build() {

@@ -31,23 +31,23 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options) {
         WG_YAML_READ_AS(node, "source_file", options.source_file);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const AudioImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const AudioImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool AudioStream::load_from_yaml(const YamlConstNodeRef& node) {
-        return Resource::load_from_yaml(node);
+    Status AudioStream::read_from_yaml(const YamlConstNodeRef& node) {
+        return Resource::read_from_yaml(node);
     }
 
-    void AudioStream::copy_to(Resource& copy) {
+    Status AudioStream::copy_to(Object& copy) const {
         Resource::copy_to(copy);
         auto* audio_stream              = dynamic_cast<AudioStream*>(&copy);
         audio_stream->m_length          = m_length;
@@ -55,6 +55,7 @@ namespace wmoge {
         audio_stream->m_bits_per_sample = m_bits_per_sample;
         audio_stream->m_num_samples     = m_num_samples;
         audio_stream->m_num_channels    = m_num_channels;
+        return StatusCode::Ok;
     }
 
     float AudioStream::get_length() const {

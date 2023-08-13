@@ -46,16 +46,16 @@ namespace wmoge {
     using fast_set = robin_hood::unordered_flat_set<K>;
 
     template<typename K>
-    bool archive_write(Archive& archive, const fast_set<K>& map) {
+    Status archive_write(Archive& archive, const fast_set<K>& map) {
         archive << static_cast<int>(map.size());
         for (const auto& entry : map) {
             archive << entry;
         }
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename K>
-    bool archive_read(Archive& archive, fast_set<K>& map) {
+    Status archive_read(Archive& archive, fast_set<K>& map) {
         assert(map.empty());
         int size;
         archive >> size;
@@ -64,7 +64,7 @@ namespace wmoge {
             archive >> entry;
             map.insert(std::move(entry));
         }
-        return true;
+        return StatusCode::Ok;
     }
 #endif
 

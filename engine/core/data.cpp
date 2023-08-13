@@ -57,36 +57,36 @@ namespace wmoge {
         return "data 0x" + StringUtils::from_ptr(m_buffer) + " " + StringUtils::from_mem_size(m_size);
     }
 
-    bool archive_write(Archive& archive, const Ref<Data>& data) {
+    Status archive_write(Archive& archive, const Ref<Data>& data) {
         assert(data);
         WG_ARCHIVE_WRITE(archive, data->m_size);
         return archive.nwrite(static_cast<int>(data->m_size), data->m_buffer);
     }
-    bool archive_read(Archive& archive, Ref<Data>& data) {
+    Status archive_read(Archive& archive, Ref<Data>& data) {
         std::size_t size;
         WG_ARCHIVE_READ(archive, size);
         data = make_ref<Data>(size);
         return archive.nread(static_cast<int>(size), data->buffer());
     }
 
-    bool yaml_write(YamlNodeRef node, const Ref<Data>& data) {
+    Status yaml_write(YamlNodeRef node, const Ref<Data>& data) {
         if (!data) {
             node << "";
-            return true;
+            return StatusCode::Ok;
         }
 
         std::string encoded;
         if (Base64::encode(data, encoded)) {
             return yaml_write(node, encoded);
         }
-        return false;
+        return StatusCode::FailedWrite;
     }
-    bool yaml_read(const YamlConstNodeRef& node, Ref<Data>& data) {
+    Status yaml_read(const YamlConstNodeRef& node, Ref<Data>& data) {
         std::string encoded;
         if (yaml_read(node, encoded)) {
             return Base64::decode(encoded, data);
         }
-        return false;
+        return StatusCode::FailedRead;
     }
 
 }// namespace wmoge

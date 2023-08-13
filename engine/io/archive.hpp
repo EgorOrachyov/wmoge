@@ -30,6 +30,7 @@
 
 #include "core/log.hpp"
 #include "core/ref.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 
 #include <array>
@@ -51,22 +52,22 @@ namespace wmoge {
     public:
         ~Archive() override = default;
 
-        virtual bool nwrite(int num_bytes, const void* bytes) { return false; };
-        virtual bool nread(int num_bytes, void* bytes) { return false; };
+        virtual Status nwrite(int num_bytes, const void* bytes) { return StatusCode::NotImplemented; };
+        virtual Status nread(int num_bytes, void* bytes) { return StatusCode::NotImplemented; };
 
-        virtual bool write(bool value);
-        virtual bool write(int value);
-        virtual bool write(float value);
-        virtual bool write(std::size_t value);
-        virtual bool write(const StringId& value);
-        virtual bool write(const std::string& value);
+        virtual Status write(bool value);
+        virtual Status write(int value);
+        virtual Status write(float value);
+        virtual Status write(std::size_t value);
+        virtual Status write(const StringId& value);
+        virtual Status write(const std::string& value);
 
-        virtual bool read(bool& value);
-        virtual bool read(int& value);
-        virtual bool read(float& value);
-        virtual bool read(std::size_t& value);
-        virtual bool read(StringId& value);
-        virtual bool read(std::string& value);
+        virtual Status read(bool& value);
+        virtual Status read(int& value);
+        virtual Status read(float& value);
+        virtual Status read(std::size_t& value);
+        virtual Status read(StringId& value);
+        virtual Status read(std::string& value);
 
         [[nodiscard]] virtual bool        is_memory()   = 0;
         [[nodiscard]] virtual bool        is_physical() = 0;
@@ -82,74 +83,74 @@ namespace wmoge {
         bool     m_can_write = false;
     };
 
-    bool archive_write(Archive& archive, const bool& value);
-    bool archive_write(Archive& archive, const int& value);
-    bool archive_write(Archive& archive, const float& value);
-    bool archive_write(Archive& archive, const std::size_t& value);
-    bool archive_write(Archive& archive, const StringId& value);
-    bool archive_write(Archive& archive, const std::string& value);
+    Status archive_write(Archive& archive, const bool& value);
+    Status archive_write(Archive& archive, const int& value);
+    Status archive_write(Archive& archive, const float& value);
+    Status archive_write(Archive& archive, const std::size_t& value);
+    Status archive_write(Archive& archive, const StringId& value);
+    Status archive_write(Archive& archive, const std::string& value);
 
-    bool archive_read(Archive& archive, bool& value);
-    bool archive_read(Archive& archive, int& value);
-    bool archive_read(Archive& archive, float& value);
-    bool archive_read(Archive& archive, std::size_t& value);
-    bool archive_read(Archive& archive, StringId& value);
-    bool archive_read(Archive& archive, std::string& value);
+    Status archive_read(Archive& archive, bool& value);
+    Status archive_read(Archive& archive, int& value);
+    Status archive_read(Archive& archive, float& value);
+    Status archive_read(Archive& archive, std::size_t& value);
+    Status archive_read(Archive& archive, StringId& value);
+    Status archive_read(Archive& archive, std::string& value);
 
 #define WG_ARCHIVE_READ(archive, what)      \
     do {                                    \
         if (!archive_read(archive, what)) { \
-            return false;                   \
+            return StatusCode::FailedRead;  \
         }                                   \
     } while (false)
 
 #define WG_ARCHIVE_WRITE(archive, what)      \
     do {                                     \
         if (!archive_write(archive, what)) { \
-            return false;                    \
+            return StatusCode::FailedWrite;  \
         }                                    \
     } while (false)
 
     template<typename T, std::size_t S>
-    bool archive_write(Archive& archive, const std::array<T, S>& array) {
+    Status archive_write(Archive& archive, const std::array<T, S>& array) {
         for (std::size_t i = 0; i < S; i++) {
             WG_ARCHIVE_WRITE(archive, array[i]);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool archive_write(Archive& archive, const std::vector<T>& vector) {
+    Status archive_write(Archive& archive, const std::vector<T>& vector) {
         WG_ARCHIVE_WRITE(archive, vector.size());
         for (const auto& entry : vector) {
             WG_ARCHIVE_WRITE(archive, entry);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename K, typename V>
-    bool archive_write(Archive& archive, const std::unordered_map<K, V>& map) {
+    Status archive_write(Archive& archive, const std::unordered_map<K, V>& map) {
         WG_ARCHIVE_WRITE(archive, map.size());
         for (const auto& entry : map) {
             WG_ARCHIVE_WRITE(archive, entry.first);
             WG_ARCHIVE_WRITE(archive, entry.second);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    bool archive_write(Archive& archive, const T& enum_value) {
+    Status archive_write(Archive& archive, const T& enum_value) {
         int value = static_cast<int>(enum_value);
         WG_ARCHIVE_WRITE(archive, value);
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, std::size_t S>
-    bool archive_read(Archive& archive, std::array<T, S>& array) {
+    Status archive_read(Archive& archive, std::array<T, S>& array) {
         for (std::size_t i = 0; i < S; i++) {
             WG_ARCHIVE_READ(archive, array[i]);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename T>
-    bool archive_read(Archive& archive, std::vector<T>& vector) {
+    Status archive_read(Archive& archive, std::vector<T>& vector) {
         assert(vector.empty());
         std::size_t size;
         WG_ARCHIVE_READ(archive, size);
@@ -157,10 +158,10 @@ namespace wmoge {
         for (int i = 0; i < size; i++) {
             WG_ARCHIVE_READ(archive, vector[i]);
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<typename K, typename V>
-    bool archive_read(Archive& archive, std::unordered_map<K, V>& map) {
+    Status archive_read(Archive& archive, std::unordered_map<K, V>& map) {
         assert(map.empty());
         std::size_t size;
         WG_ARCHIVE_READ(archive, size);
@@ -170,14 +171,14 @@ namespace wmoge {
             WG_ARCHIVE_READ(archive, entry.second);
             map.insert(std::move(entry));
         }
-        return true;
+        return StatusCode::Ok;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    bool archive_read(Archive& archive, T& enum_value) {
+    Status archive_read(Archive& archive, T& enum_value) {
         int value;
         WG_ARCHIVE_READ(archive, value);
         enum_value = static_cast<T>(value);
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T>

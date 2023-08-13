@@ -59,20 +59,15 @@ namespace wmoge {
 
         assert(m_root);
 
-        return m_root->on_visit(visitor);
+        return m_root->accept_visitor(visitor);
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, SceneTree& tree) {
-        WG_YAML_READ(node, tree.m_root);
-
-        return true;
+    Status yaml_read(const YamlConstNodeRef& node, SceneTree& tree) {
+        return tree.m_root->read_from_yaml(node);
     }
 
-    bool yaml_write(YamlNodeRef node, const SceneTree& tree) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE(node, tree.m_root);
-
-        return true;
+    Status yaml_write(YamlNodeRef node, const SceneTree& tree) {
+        return tree.m_root->write_to_yaml(node);
     }
 
 }// namespace wmoge

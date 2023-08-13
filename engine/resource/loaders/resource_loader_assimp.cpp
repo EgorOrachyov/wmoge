@@ -54,12 +54,12 @@ namespace wmoge {
         MeshBuilder         builder;
     };
 
-    bool ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::load");
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("no import options file for " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         MeshImportOptions options;
@@ -89,7 +89,7 @@ namespace wmoge {
         std::vector<std::uint8_t> file_data;
         if (!file_system->read_file(options.source_file, file_data)) {
             WG_LOG_ERROR("failed to load file " << options.source_file);
-            return false;
+            return StatusCode::FailedRead;
         }
 
         Assimp::Importer importer;
@@ -97,7 +97,7 @@ namespace wmoge {
         import_ctx.scene = importer.ReadFileFromMemory(file_data.data(), file_data.size(), import_ctx.options);
         if (!import_ctx.scene || !import_ctx.scene->mRootNode || import_ctx.scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) {
             WG_LOG_ERROR("failed load " << options.source_file << " log: " << importer.GetErrorString());
-            return false;
+            return StatusCode::FailedParse;
         }
 
         import_ctx.meta = &meta;
@@ -105,7 +105,7 @@ namespace wmoge {
 
         if (!process_node(import_ctx, import_ctx.scene->mRootNode, Math3d::identity(), Math3d::identity())) {
             WG_LOG_ERROR("failed to process scene of " << options.source_file);
-            return false;
+            return StatusCode::Error;
         }
 
         import_ctx.builder.mesh = make_ref<Mesh>();
@@ -115,15 +115,15 @@ namespace wmoge {
 
         if (!import_ctx.builder.build()) {
             WG_LOG_ERROR("failed to build mesh " << name);
-            return false;
+            return StatusCode::Error;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
     StringId ResourceLoaderAssimp::get_name() {
         return SID("assimp");
     }
-    bool ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform) {
+    Status ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_node");
 
         Mat4x4f local_transform;
@@ -144,13 +144,13 @@ namespace wmoge {
 
         for (unsigned int i = 0; i < node->mNumChildren; i++) {
             if (!process_node(context, node->mChildren[i], global_transform, inv_global_transform)) {
-                return false;
+                return StatusCode::Error;
             }
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool ResourceLoaderAssimp::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform) {
+    Status ResourceLoaderAssimp::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_mesh");
 
         const Vec3f aabb_min     = Vec3f(mesh->mAABB.mMin.x, mesh->mAABB.mMin.y, mesh->mAABB.mMin.z);
@@ -214,7 +214,7 @@ namespace wmoge {
             }
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

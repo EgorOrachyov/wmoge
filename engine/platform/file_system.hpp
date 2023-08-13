@@ -29,6 +29,7 @@
 #define WMOGE_FILE_SYSTEM_HPP
 
 #include "core/data.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
 
@@ -62,14 +63,15 @@ namespace wmoge {
 
         std::filesystem::path resolve(const std::string& path);
         bool                  exists(const std::string& path);
-        bool                  read_file(const std::string& path, std::string& data);
-        bool                  read_file(const std::string& path, Ref<Data>& data);
-        bool                  read_file(const std::string& path, std::vector<std::uint8_t>& data);
-        bool                  open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
-        bool                  save_file(const std::string& path, const std::string& data);
-        bool                  save_file(const std::string& path, const std::vector<std::uint8_t>& data);
+        Status                read_file(const std::string& path, std::string& data);
+        Status                read_file(const std::string& path, Ref<Data>& data);
+        Status                read_file(const std::string& path, std::vector<std::uint8_t>& data);
+        Status                open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
+        Status                save_file(const std::string& path, const std::string& data);
+        Status                save_file(const std::string& path, const std::vector<std::uint8_t>& data);
         void                  watch(const std::string& path);
 
+        /** @brief Re-root engine fs directory to new path */
         void root(const std::filesystem::path& path);
 
         [[nodiscard]] const std::filesystem::path& executable_path() const;
@@ -79,11 +81,11 @@ namespace wmoge {
         [[nodiscard]] const std::filesystem::path& debug_path() const;
 
     private:
-        std::filesystem::path m_executable_path;
-        std::filesystem::path m_root_path;
-        std::filesystem::path m_resources_path;
-        std::filesystem::path m_cache_path;
-        std::filesystem::path m_debug_path;
+        std::filesystem::path m_executable_path;// absolute exe path
+        std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)
+        std::filesystem::path m_resources_path; // path to resources inside root
+        std::filesystem::path m_cache_path;     // path to cache inside root
+        std::filesystem::path m_debug_path;     // path to debug data inside root
 
         std::vector<std::unique_ptr<struct FileSystemWatcher>> m_watchers;
     };

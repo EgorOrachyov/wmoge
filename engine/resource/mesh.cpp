@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions::Process& process) {
+    Status yaml_read(const YamlConstNodeRef& node, MeshImportOptions::Process& process) {
         WG_YAML_READ_AS_OPT(node, "triangulate", process.triangulate);
         WG_YAML_READ_AS_OPT(node, "tangent_space", process.tangent_space);
         WG_YAML_READ_AS_OPT(node, "flip_uv", process.flip_uv);
@@ -45,9 +45,9 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "sort_by_ptype", process.sort_by_ptype);
         WG_YAML_READ_AS_OPT(node, "gen_uv", process.gen_uv);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const MeshImportOptions::Process& process) {
+    Status yaml_write(YamlNodeRef node, const MeshImportOptions::Process& process) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "triangulate", process.triangulate);
         WG_YAML_WRITE_AS(node, "tangent_space", process.tangent_space);
@@ -60,35 +60,35 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "sort_by_ptype", process.sort_by_ptype);
         WG_YAML_WRITE_AS(node, "gen_uv", process.gen_uv);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options) {
+    Status yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options) {
         WG_YAML_READ_AS(node, "source_file", options.source_file);
         WG_YAML_READ_AS(node, "attributes", options.attributes);
         WG_YAML_READ_AS_OPT(node, "process", options.process);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const MeshImportOptions& options) {
+    Status yaml_write(YamlNodeRef node, const MeshImportOptions& options) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "source_file", options.source_file);
         WG_YAML_WRITE_AS(node, "attributes", options.attributes);
         WG_YAML_WRITE_AS(node, "process", options.process);
 
-        return true;
+        return StatusCode::Ok;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk) {
+    Status yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk) {
         WG_YAML_READ_AS(node, "aabb", chunk.aabb);
         WG_YAML_READ_AS(node, "name", chunk.name);
         WG_YAML_READ_AS(node, "vertex_offset", chunk.vertex_offset);
         WG_YAML_READ_AS(node, "index_offset", chunk.index_offset);
         WG_YAML_READ_AS(node, "index_count", chunk.index_count);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const MeshChunk& chunk) {
+    Status yaml_write(YamlNodeRef node, const MeshChunk& chunk) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "aabb", chunk.aabb);
         WG_YAML_WRITE_AS(node, "name", chunk.name);
@@ -96,7 +96,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "index_offset", chunk.index_offset);
         WG_YAML_WRITE_AS(node, "index_count", chunk.index_count);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     void Mesh::add_chunk(const MeshChunk& mesh_chunk) {
@@ -196,7 +196,7 @@ namespace wmoge {
         return m_aabb;
     }
 
-    bool yaml_read(const YamlConstNodeRef& node, Mesh& mesh) {
+    Status yaml_read(const YamlConstNodeRef& node, Mesh& mesh) {
         WG_YAML_READ_AS(node, "chunks", mesh.m_chunks);
         WG_YAML_READ_AS(node, "index_type", mesh.m_index_type);
         WG_YAML_READ_AS(node, "prim_type", mesh.m_prim_type);
@@ -210,9 +210,9 @@ namespace wmoge {
         mesh.update_aabb();
         mesh.update_gfx_buffers();
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool yaml_write(YamlNodeRef node, const Mesh& mesh) {
+    Status yaml_write(YamlNodeRef node, const Mesh& mesh) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "chunks", mesh.m_chunks);
         WG_YAML_WRITE_AS(node, "index_type", mesh.m_index_type);
@@ -224,7 +224,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "vertex_buffers", mesh.m_vertex_buffers);
         WG_YAML_WRITE_AS(node, "index_buffer", mesh.m_index_buffer);
 
-        return true;
+        return StatusCode::Ok;
     }
 
     void Mesh::register_class() {

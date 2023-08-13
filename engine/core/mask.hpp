@@ -74,7 +74,7 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    bool yaml_read(const YamlConstNodeRef& node, Mask<T, size>& mask) {
+    Status yaml_read(const YamlConstNodeRef& node, Mask<T, size>& mask) {
         std::vector<T> flags;
         WG_YAML_READ(node, flags);
 
@@ -82,11 +82,11 @@ namespace wmoge {
             mask.set(flag);
         }
 
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename T, int size>
-    bool yaml_write(YamlNodeRef node, const Mask<T, size>& mask) {
+    Status yaml_write(YamlNodeRef node, const Mask<T, size>& mask) {
         std::vector<T> flags;
 
         mask.for_each([&](int, T flag) {
@@ -94,7 +94,7 @@ namespace wmoge {
         });
 
         WG_YAML_WRITE(node, flags);
-        return true;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

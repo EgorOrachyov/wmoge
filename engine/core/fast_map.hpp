@@ -46,27 +46,27 @@ namespace wmoge {
     using fast_map = robin_hood::unordered_flat_map<K, V>;
 
     template<typename K, typename V>
-    bool archive_write(Archive& archive, const fast_map<K, V>& map) {
-        archive << static_cast<int>(map.size());
+    Status archive_write(Archive& archive, const fast_map<K, V>& map) {
+        WG_ARCHIVE_WRITE(archive, map.size());
         for (const auto& entry : map) {
-            archive << entry.first;
-            archive << entry.second;
+            WG_ARCHIVE_WRITE(archive, entry.first);
+            WG_ARCHIVE_WRITE(archive, entry.second);
         }
-        return true;
+        return StatusCode::Ok;
     }
 
     template<typename K, typename V>
-    bool archive_read(Archive& archive, fast_map<K, V>& map) {
+    Status archive_read(Archive& archive, fast_map<K, V>& map) {
         assert(map.empty());
-        int size;
-        archive >> size;
+        std::size_t size;
+        WG_ARCHIVE_READ(archive, size);
         for (int i = 0; i < size; i++) {
             robin_hood::pair<K, V> entry;
-            archive >> entry.first;
-            archive >> entry.second;
+            WG_ARCHIVE_READ(archive, entry.first);
+            WG_ARCHIVE_READ(archive, entry.second);
             map.insert(std::move(entry));
         }
-        return true;
+        return StatusCode::Ok;
     }
 #endif
 

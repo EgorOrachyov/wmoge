@@ -32,14 +32,14 @@
 
 namespace wmoge {
 
-    bool ResourceLoaderImage::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderImage::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderImage::load");
 
         Ref<Image> image = meta.cls->instantiate().cast<Image>();
 
         if (!image) {
             WG_LOG_ERROR("Failed to instantiate image " << name);
-            return false;
+            return StatusCode::FailedInstantiate;
         }
 
         res = image;
@@ -47,7 +47,7 @@ namespace wmoge {
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load image " << name);
-            return false;
+            return StatusCode::InvalidData;
         }
 
         ImageImportOptions options;

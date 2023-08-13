@@ -38,37 +38,38 @@ namespace wmoge {
     void SceneNodeFolder::register_class() {
         auto* cls = Class::register_class<SceneNodeFolder>();
     }
-    bool SceneNodeFolder::on_visit(class SceneTreeVisitor& visitor) {
+    Status SceneNodeFolder::accept_visitor(class SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    bool SceneNodeFolder::on_yaml_read(const YamlConstNodeRef& node) {
-        if (!SceneNode::on_yaml_read(node)) return false;
+    Status SceneNodeFolder::read_from_yaml(const YamlConstNodeRef& node) {
+        if (!SceneNode::read_from_yaml(node)) return StatusCode::Error;
 
         WG_YAML_READ_AS_OPT(node, "transform", transform);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNodeFolder::on_yaml_write(YamlNodeRef node) const {
-        if (!SceneNode::on_yaml_write(node)) return false;
+    Status SceneNodeFolder::write_to_yaml(YamlNodeRef node) const {
+        if (!SceneNode::write_to_yaml(node)) return StatusCode::Error;
 
         WG_YAML_WRITE_AS(node, "transform", transform);
 
-        return true;
+        return StatusCode::Ok;
     }
-    void SceneNodeFolder::copy_to(SceneNode& other) const {
+    Status SceneNodeFolder::copy_to(Object& other) const {
         SceneNode::copy_to(other);
         auto* ptr      = dynamic_cast<SceneNodeFolder*>(&other);
         ptr->transform = transform;
+        return StatusCode::Ok;
     }
 
     void SceneNodePrefab::register_class() {
         auto* cls = Class::register_class<SceneNodePrefab>();
     }
-    bool SceneNodePrefab::on_visit(SceneTreeVisitor& visitor) {
+    Status SceneNodePrefab::accept_visitor(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    bool SceneNodePrefab::on_yaml_read(const YamlConstNodeRef& node) {
-        if (!SceneNode::on_yaml_read(node)) return false;
+    Status SceneNodePrefab::read_from_yaml(const YamlConstNodeRef& node) {
+        if (!SceneNode::read_from_yaml(node)) return StatusCode::Error;
 
         StringId prefab_resource;
 
@@ -78,74 +79,76 @@ namespace wmoge {
         prefab = Engine::instance()->resource_manager()->load(prefab_resource).cast<Prefab>();
         if (!prefab) {
             WG_LOG_ERROR("failed to load prefab " << prefab_resource);
-            return false;
+            return StatusCode::Error;
         }
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNodePrefab::on_yaml_write(YamlNodeRef node) const {
-        if (!SceneNode::on_yaml_write(node)) return false;
+    Status SceneNodePrefab::write_to_yaml(YamlNodeRef node) const {
+        if (!SceneNode::write_to_yaml(node)) return StatusCode::Error;
 
         WG_YAML_WRITE_AS(node, "transform", transform);
         WG_YAML_WRITE_AS(node, "prefab", prefab->get_name());
 
-        return true;
+        return StatusCode::Ok;
     }
-    void SceneNodePrefab::copy_to(SceneNode& other) const {
+    Status SceneNodePrefab::copy_to(Object& other) const {
         SceneNode::copy_to(other);
         auto* ptr      = dynamic_cast<SceneNodePrefab*>(&other);
         ptr->transform = transform;
         ptr->prefab    = prefab;
+        return StatusCode::Ok;
     }
 
     void SceneNodeEntity::register_class() {
         auto* cls = Class::register_class<SceneNodeEntity>();
     }
-    bool SceneNodeEntity::on_visit(SceneTreeVisitor& visitor) {
+    Status SceneNodeEntity::accept_visitor(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    bool SceneNodeEntity::on_yaml_read(const YamlConstNodeRef& node) {
-        if (!SceneNode::on_yaml_read(node)) return false;
+    Status SceneNodeEntity::read_from_yaml(const YamlConstNodeRef& node) {
+        if (!SceneNode::read_from_yaml(node)) return StatusCode::Error;
 
         WG_YAML_READ_AS_OPT(node, "transform", transform);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNodeEntity::on_yaml_write(YamlNodeRef node) const {
-        if (!SceneNode::on_yaml_write(node)) return false;
+    Status SceneNodeEntity::write_to_yaml(YamlNodeRef node) const {
+        if (!SceneNode::write_to_yaml(node)) return StatusCode::Error;
 
         WG_YAML_WRITE_AS(node, "transform", transform);
 
-        return true;
+        return StatusCode::Ok;
     }
-    void SceneNodeEntity::copy_to(SceneNode& other) const {
+    Status SceneNodeEntity::copy_to(Object& other) const {
         SceneNode::copy_to(other);
         auto* ptr      = dynamic_cast<SceneNodeEntity*>(&other);
         ptr->transform = transform;
+        return StatusCode::Ok;
     }
 
     void SceneNodeComponent::register_class() {
         auto* cls = Class::register_class<SceneNodeComponent>();
     }
-    bool SceneNodeComponent::on_visit(SceneTreeVisitor& visitor) {
+    Status SceneNodeComponent::accept_visitor(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
 
     void SceneNodeTransform::register_class() {
         auto* cls = Class::register_class<SceneNodeTransform>();
     }
-    bool SceneNodeTransform::on_visit(SceneTreeVisitor& visitor) {
+    Status SceneNodeTransform::accept_visitor(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    void SceneNodeTransform::on_ecs_arch_collect(EcsArch& arch) const {
+    void SceneNodeTransform::collect_arch(EcsArch& arch) const {
         arch.set_component<EcsComponentSceneTransform>();
     }
 
     void SceneNodeCamera::register_class() {
         auto* cls = Class::register_class<SceneNodeCamera>();
     }
-    bool SceneNodeCamera::on_yaml_read(const YamlConstNodeRef& node) {
-        if (!SceneNode::on_yaml_read(node)) return false;
+    Status SceneNodeCamera::read_from_yaml(const YamlConstNodeRef& node) {
+        if (!SceneNode::read_from_yaml(node)) return StatusCode::Error;
 
         WG_YAML_READ_AS_OPT(node, "color", color);
         WG_YAML_READ_AS_OPT(node, "viewport", viewport);
@@ -155,10 +158,10 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "target", target);
         WG_YAML_READ_AS_OPT(node, "projection", projection);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNodeCamera::on_yaml_write(YamlNodeRef node) const {
-        if (!SceneNode::on_yaml_write(node)) return false;
+    Status SceneNodeCamera::write_to_yaml(YamlNodeRef node) const {
+        if (!SceneNode::write_to_yaml(node)) return StatusCode::Error;
 
         WG_YAML_WRITE_AS(node, "color", color);
         WG_YAML_WRITE_AS(node, "viewport", viewport);
@@ -168,15 +171,15 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "target", target);
         WG_YAML_WRITE_AS(node, "projection", projection);
 
-        return true;
+        return StatusCode::Ok;
     }
-    bool SceneNodeCamera::on_visit(SceneTreeVisitor& visitor) {
+    Status SceneNodeCamera::accept_visitor(SceneTreeVisitor& visitor) {
         return visitor.visit(*this);
     }
-    void SceneNodeCamera::on_ecs_arch_collect(EcsArch& arch) const {
+    void SceneNodeCamera::collect_arch(EcsArch& arch) const {
         arch.set_component<EcsComponentCamera>();
     }
-    void SceneNodeCamera::copy_to(SceneNode& other) const {
+    Status SceneNodeCamera::copy_to(Object& other) const {
         SceneNode::copy_to(other);
         auto* camera       = dynamic_cast<SceneNodeCamera*>(&other);
         camera->color      = color;
@@ -186,6 +189,7 @@ namespace wmoge {
         camera->far        = far;
         camera->target     = target;
         camera->projection = projection;
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

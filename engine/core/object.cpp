@@ -33,54 +33,73 @@
 
 namespace wmoge {
 
-    int Object::set(const StringId& property, const Var& value) {
+    Status Object::set(const StringId& property, const Var& value) {
         const Class* cls = class_ptr();
         assert(cls);
 
         const ClassProperty* prop = cls->property(property);
         if (!prop || !prop->has_setter()) {
             WG_LOG_ERROR("no property with setter: " << property);
-            return 1;
+            return StatusCode::NoProperty;
         }
 
         const ClassMethod* setter = cls->method(prop->setter());
         if (!setter || setter->args_count() < 1) {
             WG_LOG_ERROR("no setter method to invoke: " << prop->setter());
-            return 1;
+            return StatusCode::NoMethod;
         }
 
         Var dummy;
         return setter->call(this, 1, &value, dummy);
     }
-    int Object::get(const StringId& property, Var& value) {
+    Status Object::get(const StringId& property, Var& value) {
         const Class* cls = class_ptr();
         assert(cls);
 
         const ClassProperty* prop = cls->property(property);
         if (!prop || !prop->has_getter()) {
             WG_LOG_ERROR("no property with getter: " << property);
-            return 1;
+            return StatusCode::NoProperty;
         }
 
         const ClassMethod* getter = cls->method(prop->getter());
         if (!getter || !getter->has_ret()) {
             WG_LOG_ERROR("no getter method to invoke: " << prop->setter());
-            return 1;
+            return StatusCode::NoMethod;
         }
 
         return getter->call(this, 0, nullptr, value);
     }
-    int Object::call(const StringId& method, int argc, const Var* argv, Var& ret) {
+    Status Object::call(const StringId& method, int argc, const Var* argv, Var& ret) {
         const Class* cls = class_ptr();
         assert(cls);
 
         const ClassMethod* callable = cls->method(method);
         if (!callable) {
             WG_LOG_ERROR("no method to call: " << method);
-            return 1;
+            return StatusCode::NoMethod;
         }
 
         return callable->call(this, argc, argv, ret);
+    }
+    Status Object::clone(Ref<Object>& object) const {
+        const Class* cls = class_ptr();
+
+        object = cls->instantiate();
+
+        if (!object) {
+            WG_LOG_ERROR("failed to instantiate class " << cls->name());
+            return StatusCode::Error;
+        }
+
+        return copy_to(*object);
+    }
+    Ref<Object> Object::duplicate() const {
+        Ref<Object> result;
+
+        clone(result);
+
+        return result;
     }
 
     const Class* Object::class_ptr() const {
@@ -102,6 +121,37 @@ namespace wmoge {
     const StringId& Object::super_class_name_static() {
         static StringId name = SID("");
         return name;
+    }
+
+    Status yaml_read_object(const YamlConstNodeRef& node, Ref<Object>& object) {
+        assert(!object);
+
+        StringId class_name;
+        WG_YAML_READ_AS(node, "class", class_name);
+
+        auto* cls = Class::class_ptr(class_name);
+
+        if (!cls) {
+            WG_LOG_ERROR("no such class to read from yaml " << class_name);
+            return StatusCode::NoClass;
+        }
+
+        object = cls->instantiate();
+
+        if (!object) {
+            WG_LOG_ERROR("failed to instantiate class " << class_name);
+            return StatusCode::FailedInstantiate;
+        }
+
+        return object->read_from_yaml(node);
+    }
+    Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object) {
+        assert(object);
+
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "class", object->class_name());
+
+        return object->write_to_yaml(node);
     }
 
 }// namespace wmoge

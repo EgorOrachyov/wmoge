@@ -32,10 +32,16 @@
 
 namespace wmoge {
 
-    Ref<Resource> Resource::duplicate() {
-        auto copy = class_ptr()->instantiate().cast<Resource>();
-        copy_to(*copy);
-        return copy;
+    Status Resource::copy_to(Object& other) const {
+        auto* ptr   = dynamic_cast<Resource*>(&other);
+        ptr->m_name = SID(m_name.str() + "_copy");
+        return StatusCode::Ok;
+    }
+    Status Resource::read_from_yaml(const YamlConstNodeRef& node) {
+        return StatusCode::Ok;
+    }
+    Status Resource::write_to_yaml(YamlNodeRef node) const {
+        return StatusCode::Ok;
     }
 
     void Resource::register_class() {

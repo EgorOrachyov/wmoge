@@ -91,82 +91,82 @@ namespace wmoge {
         std::filesystem::path resolved = resolve(path);
         return !resolved.empty() && std::filesystem::exists(resolved);
     }
-    bool FileSystem::read_file(const std::string& path, std::string& data) {
+    Status FileSystem::read_file(const std::string& path, std::string& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
         std::fstream            file;
 
-        if (!open_file(path, file, mode)) return false;
+        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
 
         auto size = file.tellg();
         data.resize(size);
         file.seekg(0, std::ios::beg);
         file.read(reinterpret_cast<char*>(data.data()), size);
-        return true;
+        return StatusCode::Ok;
     }
-    bool FileSystem::read_file(const std::string& path, Ref<Data>& data) {
+    Status FileSystem::read_file(const std::string& path, Ref<Data>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
         std::fstream            file;
 
-        if (!open_file(path, file, mode)) return false;
+        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
 
         auto size = file.tellg();
         data      = make_ref<Data>(size);
         file.seekg(0, std::ios::beg);
         file.read(reinterpret_cast<char*>(data->buffer()), size);
-        return true;
+        return StatusCode::Ok;
     }
-    bool FileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
+    Status FileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
         std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
         std::fstream            file;
 
-        if (!open_file(path, file, mode)) return false;
+        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
 
         auto size = file.tellg();
         data.resize(size);
         file.seekg(0, std::ios::beg);
         file.read(reinterpret_cast<char*>(data.data()), size);
-        return true;
+        return StatusCode::Ok;
     }
-    bool FileSystem::open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
+    Status FileSystem::open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file");
 
         std::filesystem::path resolved = resolve(path);
         std::fstream          file(resolved, mode);
 
         if (!file.is_open()) {
-            return false;
+            return StatusCode::FailedOpenFile;
         }
 
         fstream = std::move(file);
-        return true;
+        return StatusCode::Ok;
     }
-    bool FileSystem::save_file(const std::string& path, const std::string& data) {
+    Status FileSystem::save_file(const std::string& path, const std::string& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
         std::ios_base::openmode mode = std::ios::out | std::ios::binary;
         std::fstream            file;
 
-        if (!open_file(path, file, mode)) return false;
+        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
 
         file.write(data.data(), std::streamsize(data.size()));
-        return true;
+        return StatusCode::Ok;
     }
-    bool FileSystem::save_file(const std::string& path, const std::vector<std::uint8_t>& data) {
+    Status FileSystem::save_file(const std::string& path, const std::vector<std::uint8_t>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
         std::ios_base::openmode mode = std::ios::out | std::ios::binary;
         std::fstream            file;
 
-        if (!open_file(path, file, mode)) return false;
+        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
 
         file.write(reinterpret_cast<const char*>(data.data()), std::streamsize(data.size()));
-        return true;
+        return StatusCode::Ok;
     }
 
     void FileSystem::watch(const std::string& path) {

@@ -50,8 +50,8 @@ namespace wmoge {
         int         height        = 32;
         int         glyphs_in_row = 16;
 
-        friend bool yaml_read(const YamlConstNodeRef& node, FontImportOptions& options);
-        friend bool yaml_write(YamlNodeRef node, const FontImportOptions& options);
+        friend Status yaml_read(const YamlConstNodeRef& node, FontImportOptions& options);
+        friend Status yaml_write(YamlNodeRef node, const FontImportOptions& options);
     };
 
     /**
@@ -99,7 +99,7 @@ namespace wmoge {
          *
          * @return True if font loaded
          */
-        bool load(const std::string& path, int height = 40, int glyphs_in_row = 16);
+        Status load(const std::string& path, int height = 40, int glyphs_in_row = 16);
 
         /**
          * @brief Returns the size in pixels of a text in given font
@@ -111,7 +111,7 @@ namespace wmoge {
          */
         Vec2f get_string_size(const std::string& text, float size);
 
-        void        copy_to(Resource& copy) override;
+        Status      copy_to(Object& copy) const override;
         std::string to_string() override;
 
         [[nodiscard]] const std::string&              get_family_name() { return m_family_name; }

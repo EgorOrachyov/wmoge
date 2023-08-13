@@ -51,7 +51,7 @@ namespace wmoge {
     ClassMethod::ClassMethod(VarType ret, StringId name, std::vector<StringId> args)
         : ClassMember(name), m_args_names(std::move(args)), m_ret(ret) {
     }
-    int ClassMethod::call(Object* object, int argc, const Var* argv, Var& ret) const {
+    Status ClassMethod::call(Object* object, int argc, const Var* argv, Var& ret) const {
         return m_callable(*this, object, argc, argv, ret);
     }
 
