@@ -91,12 +91,12 @@ Inheritance diagram for wmoge::ResourcePak:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adf9d3a8fd78227b69fe394f3083f55e6"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#adf9d3a8fd78227b69fe394f3083f55e6">~ResourcePak</a> ()=default</td></tr>
 <tr class="separator:adf9d3a8fd78227b69fe394f3083f55e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ccd32704de8164cb01d3b0aaec6d365"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#a6ccd32704de8164cb01d3b0aaec6d365">meta</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, <a class="el" href="structwmoge_1_1ResourceMeta.html">ResourceMeta</a> &amp;meta)=0</td></tr>
-<tr class="separator:a6ccd32704de8164cb01d3b0aaec6d365"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cc2b177a89f2bfb97bc31925b369e0c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#a6cc2b177a89f2bfb97bc31925b369e0c">read_file</a> (const std::string &amp;path, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;data)=0</td></tr>
-<tr class="separator:a6cc2b177a89f2bfb97bc31925b369e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a029a88cad31d1ae7fafacf8603215f41"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#a029a88cad31d1ae7fafacf8603215f41">read_file</a> (const std::string &amp;path, std::vector&lt; std::uint8_t &gt; &amp;data)=0</td></tr>
-<tr class="separator:a029a88cad31d1ae7fafacf8603215f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a622ff9d28c2fe0253b5ebe588a51ecd7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#a622ff9d28c2fe0253b5ebe588a51ecd7">get_meta</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, <a class="el" href="structwmoge_1_1ResourceMeta.html">ResourceMeta</a> &amp;meta)=0</td></tr>
+<tr class="separator:a622ff9d28c2fe0253b5ebe588a51ecd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8615d4c9e8b69bbacab25a38643cb1c6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#a8615d4c9e8b69bbacab25a38643cb1c6">read_file</a> (const std::string &amp;path, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;data)=0</td></tr>
+<tr class="separator:a8615d4c9e8b69bbacab25a38643cb1c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae71dcefcf2686dbd897f84943b50a4ee"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourcePak.html#ae71dcefcf2686dbd897f84943b50a4ee">read_file</a> (const std::string &amp;path, std::vector&lt; std::uint8_t &gt; &amp;data)=0</td></tr>
+<tr class="separator:ae71dcefcf2686dbd897f84943b50a4ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for the package of the resources on disc. </p>
@@ -129,8 +129,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6ccd32704de8164cb01d3b0aaec6d365"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ccd32704de8164cb01d3b0aaec6d365">&#9670;&nbsp;</a></span>meta()</h2>
+<a id="a622ff9d28c2fe0253b5ebe588a51ecd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a622ff9d28c2fe0253b5ebe588a51ecd7">&#9670;&nbsp;</a></span>get_meta()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,7 +139,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool wmoge::ResourcePak::meta </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ResourcePak::get_meta </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -163,12 +163,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#a6778de34d54b50be3e2da38f3c571510">wmoge::ResourcePakFileSystem</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#a69e3200b5f8fe1e37133056c22354801">wmoge::ResourcePakFileSystem</a>.</p>
 
 </div>
 </div>
-<a id="a6cc2b177a89f2bfb97bc31925b369e0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cc2b177a89f2bfb97bc31925b369e0c">&#9670;&nbsp;</a></span>read_file() <span class="overload">[1/2]</span></h2>
+<a id="a8615d4c9e8b69bbacab25a38643cb1c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8615d4c9e8b69bbacab25a38643cb1c6">&#9670;&nbsp;</a></span>read_file() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +177,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool wmoge::ResourcePak::read_file </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ResourcePak::read_file </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>path</em>, </td>
@@ -201,12 +201,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#addaab630219203c2f2698e910c98d902">wmoge::ResourcePakFileSystem</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#a0446df48aabd0ab16eb9706b6b95b249">wmoge::ResourcePakFileSystem</a>.</p>
 
 </div>
 </div>
-<a id="a029a88cad31d1ae7fafacf8603215f41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a029a88cad31d1ae7fafacf8603215f41">&#9670;&nbsp;</a></span>read_file() <span class="overload">[2/2]</span></h2>
+<a id="ae71dcefcf2686dbd897f84943b50a4ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae71dcefcf2686dbd897f84943b50a4ee">&#9670;&nbsp;</a></span>read_file() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +215,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool wmoge::ResourcePak::read_file </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ResourcePak::read_file </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>path</em>, </td>
@@ -239,7 +239,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#a471c61e587bc6eda9ceda7b7025bfde4">wmoge::ResourcePakFileSystem</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#a579c9c3101fcc309f8f985b685686b27">wmoge::ResourcePakFileSystem</a>.</p>
 
 </div>
 </div>

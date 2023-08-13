@@ -99,66 +99,45 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_ENUM_HPP</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_ENUM_HPP</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="yaml_8hpp.html">io/yaml.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;magic_enum.hpp&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;magic_enum.hpp&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html">   41</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Enum.html">Enum</a> {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">   44</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> <a class="code" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">parse</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* what) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">return</span> magic_enum::enum_cast&lt;T&gt;(what).value();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">   49</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> <a class="code" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">parse</a>(<span class="keyword">const</span> std::string&amp; what) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keywordflow">return</span> magic_enum::enum_cast&lt;T&gt;(what).value();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#a48eeaa457c85f6ee0223379052a0e2e1">   54</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> <a class="code" href="classwmoge_1_1Enum.html#a48eeaa457c85f6ee0223379052a0e2e1">parse</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&amp; node) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            std::string value;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            node &gt;&gt; value;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">return</span> magic_enum::enum_cast&lt;T&gt;(value.c_str()).value();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#a2e0572e647ac28d75047c06b19834193">   61</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> <a class="code" href="classwmoge_1_1Enum.html#a2e0572e647ac28d75047c06b19834193">parse</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            std::string value;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            node &gt;&gt; value;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">return</span> magic_enum::enum_cast&lt;T&gt;(value.c_str()).value();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#ab3acaca0fd55090fe468126193d7d4fa">   68</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a> <a class="code" href="classwmoge_1_1Enum.html#ab3acaca0fd55090fe468126193d7d4fa">to_sid</a>(T value) {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a>(to_str&lt;T&gt;(value));</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">   73</a></span>&#160;        <span class="keyword">static</span> std::string <a class="code" href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">to_str</a>(T value) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">return</span> std::string(magic_enum::enum_name(value));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    };</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_ENUM_HPP</span></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html"><div class="ttname"><a href="classwmoge_1_1Enum.html">wmoge::Enum</a></div><div class="ttdoc">Utility-class to work with enums.</div><div class="ttdef"><b>Definition:</b> enum.hpp:41</div></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html_a28cbc51b08ec2b02f7452b6a11fe13bc"><div class="ttname"><a href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">wmoge::Enum::parse</a></div><div class="ttdeci">static T parse(const std::string &amp;what)</div><div class="ttdef"><b>Definition:</b> enum.hpp:49</div></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html_a2e0572e647ac28d75047c06b19834193"><div class="ttname"><a href="classwmoge_1_1Enum.html#a2e0572e647ac28d75047c06b19834193">wmoge::Enum::parse</a></div><div class="ttdeci">static T parse(const YamlConstNodeRef &amp;node)</div><div class="ttdef"><b>Definition:</b> enum.hpp:61</div></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html_a48eeaa457c85f6ee0223379052a0e2e1"><div class="ttname"><a href="classwmoge_1_1Enum.html#a48eeaa457c85f6ee0223379052a0e2e1">wmoge::Enum::parse</a></div><div class="ttdeci">static T parse(const YamlNodeRef &amp;node)</div><div class="ttdef"><b>Definition:</b> enum.hpp:54</div></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html_a50e3bc546733c26864c03694986b893b"><div class="ttname"><a href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">wmoge::Enum::to_str</a></div><div class="ttdeci">static std::string to_str(T value)</div><div class="ttdef"><b>Definition:</b> enum.hpp:73</div></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html_ab3acaca0fd55090fe468126193d7d4fa"><div class="ttname"><a href="classwmoge_1_1Enum.html#ab3acaca0fd55090fe468126193d7d4fa">wmoge::Enum::to_sid</a></div><div class="ttdeci">static StringId to_sid(T value)</div><div class="ttdef"><b>Definition:</b> enum.hpp:68</div></div>
-<div class="ttc" id="aclasswmoge_1_1Enum_html_afd9c19743ef51e8ba7662824eca1c487"><div class="ttname"><a href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">wmoge::Enum::parse</a></div><div class="ttdeci">static T parse(const char *what)</div><div class="ttdef"><b>Definition:</b> enum.hpp:44</div></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html">   39</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Enum.html">Enum</a> {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">   42</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> <a class="code" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">parse</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* what) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">return</span> magic_enum::enum_cast&lt;T&gt;(what).value();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">   47</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> <a class="code" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">parse</a>(<span class="keyword">const</span> std::string&amp; what) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">return</span> magic_enum::enum_cast&lt;T&gt;(what).value();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#ab3acaca0fd55090fe468126193d7d4fa">   52</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a> <a class="code" href="classwmoge_1_1Enum.html#ab3acaca0fd55090fe468126193d7d4fa">to_sid</a>(T value) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a>(to_str&lt;T&gt;(value));</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">   57</a></span>&#160;        <span class="keyword">static</span> std::string <a class="code" href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">to_str</a>(T value) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">return</span> std::string(magic_enum::enum_name(value));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_ENUM_HPP</span></div>
+<div class="ttc" id="aclasswmoge_1_1Enum_html"><div class="ttname"><a href="classwmoge_1_1Enum.html">wmoge::Enum</a></div><div class="ttdoc">Utility-class to work with enums.</div><div class="ttdef"><b>Definition:</b> enum.hpp:39</div></div>
+<div class="ttc" id="aclasswmoge_1_1Enum_html_a28cbc51b08ec2b02f7452b6a11fe13bc"><div class="ttname"><a href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">wmoge::Enum::parse</a></div><div class="ttdeci">static T parse(const std::string &amp;what)</div><div class="ttdef"><b>Definition:</b> enum.hpp:47</div></div>
+<div class="ttc" id="aclasswmoge_1_1Enum_html_a50e3bc546733c26864c03694986b893b"><div class="ttname"><a href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">wmoge::Enum::to_str</a></div><div class="ttdeci">static std::string to_str(T value)</div><div class="ttdef"><b>Definition:</b> enum.hpp:57</div></div>
+<div class="ttc" id="aclasswmoge_1_1Enum_html_ab3acaca0fd55090fe468126193d7d4fa"><div class="ttname"><a href="classwmoge_1_1Enum.html#ab3acaca0fd55090fe468126193d7d4fa">wmoge::Enum::to_sid</a></div><div class="ttdeci">static StringId to_sid(T value)</div><div class="ttdef"><b>Definition:</b> enum.hpp:52</div></div>
+<div class="ttc" id="aclasswmoge_1_1Enum_html_afd9c19743ef51e8ba7662824eca1c487"><div class="ttname"><a href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">wmoge::Enum::parse</a></div><div class="ttdeci">static T parse(const char *what)</div><div class="ttdef"><b>Definition:</b> enum.hpp:42</div></div>
 <div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:43</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_a72974351f7c8daa1bbabcc2f35e1e91f"><div class="ttname"><a href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">wmoge::YamlNodeRef</a></div><div class="ttdeci">ryml::NodeRef YamlNodeRef</div><div class="ttdoc">Reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:57</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">wmoge::InputKeyboardKey::T</a></div><div class="ttdeci">@ T</div></div>
-<div class="ttc" id="anamespacewmoge_html_a936fad1881d807f1e080d012bb1977c3"><div class="ttname"><a href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">wmoge::YamlConstNodeRef</a></div><div class="ttdeci">ryml::ConstNodeRef YamlConstNodeRef</div><div class="ttdoc">Constant reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:62</div></div>
 <div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:83</div></div>
-<div class="ttc" id="ayaml_8hpp_html"><div class="ttname"><a href="yaml_8hpp.html">yaml.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title="Scene node representing game camera for rendering." alt="" coords="16,304,199,331"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1SceneNodeComponent.html" title="Scene node base for any component attached to a parent entity object in a runtime scene." alt="" coords="5,229,209,256"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="38,155,177,181"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="53,80,161,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="53,80,161,107"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="52,5,163,32"/>
 </map>

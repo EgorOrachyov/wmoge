@@ -85,7 +85,7 @@ Inheritance diagram for wmoge::SceneNodePrefab:</div>
 <map name="awmoge_1_1SceneNodePrefab_inherit__map" id="awmoge_1_1SceneNodePrefab_inherit__map">
 <area shape="rect" title="Scene node for an instanced sub&#45;tree from a prefab resource." alt="" coords="5,229,181,256"/>
 <area shape="rect" href="classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="24,155,163,181"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="39,80,147,107"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="39,80,147,107"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="38,5,149,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -96,7 +96,7 @@ Collaboration diagram for wmoge::SceneNodePrefab:</div>
 <map name="awmoge_1_1SceneNodePrefab_coll__map" id="awmoge_1_1SceneNodePrefab_coll__map">
 <area shape="rect" title="Scene node for an instanced sub&#45;tree from a prefab resource." alt="" coords="155,261,331,288"/>
 <area shape="rect" href="classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="5,165,144,191"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="21,81,129,108"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="21,81,129,108"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="19,5,130,32"/>
 <area shape="rect" href="classwmoge_1_1TransformEdt.html" title="Utility to manage 3d space transformations with euler angles." alt="" coords="169,165,317,191"/>
 <area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="341,157,491,199"/>
@@ -107,14 +107,14 @@ Collaboration diagram for wmoge::SceneNodePrefab:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af4b63eec1ad7ca435fa8a8686254db78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#af4b63eec1ad7ca435fa8a8686254db78">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1SceneNodePrefab.html">SceneNodePrefab</a>, <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a>)</td></tr>
 <tr class="separator:af4b63eec1ad7ca435fa8a8686254db78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4d5eeebfb1e07ce8e63805ded6c086a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#ae4d5eeebfb1e07ce8e63805ded6c086a">on_visit</a> (class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;visitor) override</td></tr>
-<tr class="separator:ae4d5eeebfb1e07ce8e63805ded6c086a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d8d44d48cd7edc2c2270093d3b5993e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#a9d8d44d48cd7edc2c2270093d3b5993e">on_yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
-<tr class="separator:a9d8d44d48cd7edc2c2270093d3b5993e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab023bec548eec0c1a97a46c553413415"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#ab023bec548eec0c1a97a46c553413415">on_yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node) const override</td></tr>
-<tr class="separator:ab023bec548eec0c1a97a46c553413415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d2d2fb4c13ccefad8162bd6bf06e12a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#a2d2d2fb4c13ccefad8162bd6bf06e12a">copy_to</a> (<a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;other) const override</td></tr>
-<tr class="separator:a2d2d2fb4c13ccefad8162bd6bf06e12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80bb88ae6e05aff3074962b1f5c88000"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#a80bb88ae6e05aff3074962b1f5c88000">accept_visitor</a> (class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;visitor) override</td></tr>
+<tr class="separator:a80bb88ae6e05aff3074962b1f5c88000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5483b7ca33888da888216161406a6f19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#a5483b7ca33888da888216161406a6f19">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
+<tr class="separator:a5483b7ca33888da888216161406a6f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7165f5cba47c4ec0a2b5d343fae16aa2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#a7165f5cba47c4ec0a2b5d343fae16aa2">write_to_yaml</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node) const override</td></tr>
+<tr class="separator:a7165f5cba47c4ec0a2b5d343fae16aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6578d6943cc6736b23ad7ec1b2b3ac28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodePrefab.html#a6578d6943cc6736b23ad7ec1b2b3ac28">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const override</td></tr>
+<tr class="separator:a6578d6943cc6736b23ad7ec1b2b3ac28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1SceneNode"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1SceneNode')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1SceneNode.html">wmoge::SceneNode</a></td></tr>
 <tr class="memitem:add0b7c935bc005ea01a928d24b2ed4c7 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#add0b7c935bc005ea01a928d24b2ed4c7">SceneNode</a> (class <a class="el" href="classwmoge_1_1SceneTree.html">SceneTree</a> *tree)</td></tr>
 <tr class="separator:add0b7c935bc005ea01a928d24b2ed4c7 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,8 +132,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a21595ee3e98d973b8dfdc1eace9c8198 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab53edbb4e30327314889200afabd4c2f inherit pub_methods_classwmoge_1_1SceneNode"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ab53edbb4e30327314889200afabd4c2f">get_uuid</a> () const</td></tr>
 <tr class="separator:ab53edbb4e30327314889200afabd4c2f inherit pub_methods_classwmoge_1_1SceneNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae80ad56b3e0711493cc50218bea6d3c8 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ae80ad56b3e0711493cc50218bea6d3c8">on_ecs_arch_collect</a> (<a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;arch) const</td></tr>
-<tr class="separator:ae80ad56b3e0711493cc50218bea6d3c8 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac94b92cdc5718b07bd0c24d439f19ba8 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNode.html#ac94b92cdc5718b07bd0c24d439f19ba8">collect_arch</a> (<a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;arch) const</td></tr>
+<tr class="separator:ac94b92cdc5718b07bd0c24d439f19ba8 inherit pub_methods_classwmoge_1_1SceneNode"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Object.html">wmoge::Object</a></td></tr>
 <tr class="memitem:af0c6c7469aacde5603240b23d2fe4be5 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#af0c6c7469aacde5603240b23d2fe4be5">~Object</a> () override=default</td></tr>
 <tr class="separator:af0c6c7469aacde5603240b23d2fe4be5 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,14 +141,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a582bd069cfa160c3d73e01b4f0fae2db inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab72c071085c653b1ba8f9621746666fc inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#ab72c071085c653b1ba8f9621746666fc">hash</a> ()</td></tr>
 <tr class="separator:ab72c071085c653b1ba8f9621746666fc inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb39ce791f5df4de80c7d11c693763bc inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#acb39ce791f5df4de80c7d11c693763bc">set</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, const <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
-<tr class="separator:acb39ce791f5df4de80c7d11c693763bc inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8de8975b0b54dacf3dcf067b7f269b5d inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a8de8975b0b54dacf3dcf067b7f269b5d">get</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
-<tr class="separator:a8de8975b0b54dacf3dcf067b7f269b5d inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afade9da36f3028873d9b6f7a3e16e8be inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#afade9da36f3028873d9b6f7a3e16e8be">call</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;method, int argc, const <a class="el" href="classwmoge_1_1Var.html">Var</a> *argv, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;ret)</td></tr>
-<tr class="separator:afade9da36f3028873d9b6f7a3e16e8be inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d5ac47cd6e78b195346ebbd680da35a inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a1d5ac47cd6e78b195346ebbd680da35a">signal</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;signal)</td></tr>
-<tr class="separator:a1d5ac47cd6e78b195346ebbd680da35a inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff773d022b9facd8a86aa1163d4b6ba inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a9ff773d022b9facd8a86aa1163d4b6ba">set</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, const <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
+<tr class="separator:a9ff773d022b9facd8a86aa1163d4b6ba inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9878d7ce37a6829a03d99e8c2a62f2b inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#aa9878d7ce37a6829a03d99e8c2a62f2b">get</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
+<tr class="separator:aa9878d7ce37a6829a03d99e8c2a62f2b inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ee9de985588d6072d785fd51a99561 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a63ee9de985588d6072d785fd51a99561">call</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;method, int argc, const <a class="el" href="classwmoge_1_1Var.html">Var</a> *argv, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;ret)</td></tr>
+<tr class="separator:a63ee9de985588d6072d785fd51a99561 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e935f40e44fa6b3986cb7f28728614f inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a8e935f40e44fa6b3986cb7f28728614f">signal</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;signal)</td></tr>
+<tr class="separator:a8e935f40e44fa6b3986cb7f28728614f inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a898060ea83bbf3cf8a5bb3263eadbd57 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a898060ea83bbf3cf8a5bb3263eadbd57">clone</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt; &amp;object) const</td></tr>
+<tr class="separator:a898060ea83bbf3cf8a5bb3263eadbd57 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a504fe31a47db8e5c6599263c198beffb inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a504fe31a47db8e5c6599263c198beffb">duplicate</a> () const</td></tr>
+<tr class="separator:a504fe31a47db8e5c6599263c198beffb inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7384ed8b9648b2c02c1a6967413ebdd inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual const class <a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#ab7384ed8b9648b2c02c1a6967413ebdd">class_ptr</a> () const</td></tr>
 <tr class="separator:ab7384ed8b9648b2c02c1a6967413ebdd inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa73f58e5eda28ab836398b3264cf4cd8 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#aa73f58e5eda28ab836398b3264cf4cd8">class_name</a> () const</td></tr>
@@ -188,8 +192,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> node for an instanced sub-tree from a prefab resource. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2d2d2fb4c13ccefad8162bd6bf06e12a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d2d2fb4c13ccefad8162bd6bf06e12a">&#9670;&nbsp;</a></span>copy_to()</h2>
+<a id="a80bb88ae6e05aff3074962b1f5c88000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80bb88ae6e05aff3074962b1f5c88000">&#9670;&nbsp;</a></span>accept_visitor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,35 +202,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::SceneNodePrefab::copy_to </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#a43dab0c6e137e3deb637d9191ee8c9bd">wmoge::SceneNode</a>.</p>
-
-</div>
-</div>
-<a id="ae4d5eeebfb1e07ce8e63805ded6c086a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4d5eeebfb1e07ce8e63805ded6c086a">&#9670;&nbsp;</a></span>on_visit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool wmoge::SceneNodePrefab::on_visit </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::SceneNodePrefab::accept_visitor </td>
           <td>(</td>
           <td class="paramtype">class <a class="el" href="classwmoge_1_1SceneTreeVisitor.html">SceneTreeVisitor</a> &amp;&#160;</td>
           <td class="paramname"><em>visitor</em></td><td>)</td>
@@ -240,12 +216,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#aedae2f91e2396c6f1ed7cc1161a93d42">wmoge::SceneNode</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#a1861516eaabcae5234874134d0c90ece">wmoge::SceneNode</a>.</p>
 
 </div>
 </div>
-<a id="a9d8d44d48cd7edc2c2270093d3b5993e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d8d44d48cd7edc2c2270093d3b5993e">&#9670;&nbsp;</a></span>on_yaml_read()</h2>
+<a id="a6578d6943cc6736b23ad7ec1b2b3ac28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6578d6943cc6736b23ad7ec1b2b3ac28">&#9670;&nbsp;</a></span>copy_to()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +230,35 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::SceneNodePrefab::on_yaml_read </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::SceneNodePrefab::copy_to </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#a227467114021d16e1e294f0c4cafa5fc">wmoge::SceneNode</a>.</p>
+
+</div>
+</div>
+<a id="a5483b7ca33888da888216161406a6f19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5483b7ca33888da888216161406a6f19">&#9670;&nbsp;</a></span>read_from_yaml()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::SceneNodePrefab::read_from_yaml </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
@@ -268,35 +272,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#a0b60857907c394809dbdd85abe7d8bff">wmoge::SceneNode</a>.</p>
-
-</div>
-</div>
-<a id="ab023bec548eec0c1a97a46c553413415"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab023bec548eec0c1a97a46c553413415">&#9670;&nbsp;</a></span>on_yaml_write()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool wmoge::SceneNodePrefab::on_yaml_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#a14c90106685a3d6fb5ad7e937fb8aebc">wmoge::SceneNode</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#ab31cd6777c6c03056b68d531e6b68952">wmoge::SceneNode</a>.</p>
 
 </div>
 </div>
@@ -325,6 +301,34 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7165f5cba47c4ec0a2b5d343fae16aa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7165f5cba47c4ec0a2b5d343fae16aa2">&#9670;&nbsp;</a></span>write_to_yaml()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::SceneNodePrefab::write_to_yaml </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNode.html#a97514bd9e50737eebd4e67064c032cfd">wmoge::SceneNode</a>.</p>
 
 </div>
 </div>

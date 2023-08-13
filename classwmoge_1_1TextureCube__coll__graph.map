@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Cube&#45;map gpu texture resource." alt="" coords="841,129,984,156"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="679,129,792,156"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="366,5,491,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="165,5,273,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="165,5,273,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="354,57,503,98"/>
 <area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="333,122,525,163"/>

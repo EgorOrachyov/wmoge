@@ -68,42 +68,61 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">object.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="status_8hpp_source.html">core/status.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="var_8hpp_source.html">core/var.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="archive_8hpp_source.html">io/archive.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="yaml_8hpp_source.html">io/yaml.hpp</a>&quot;</code><br />
 <code>#include &lt;list&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for object.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="object_8hpp__incl.png" border="0" usemap="#aengine_2core_2object_8hpp" alt=""/></div>
 <map name="aengine_2core_2object_8hpp" id="aengine_2core_2object_8hpp">
-<area shape="rect" title=" " alt="" coords="418,5,570,32"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="175,155,266,181"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="291,155,415,181"/>
-<area shape="rect" title=" " alt="" coords="652,229,707,256"/>
-<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="503,80,597,107"/>
-<area shape="rect" title=" " alt="" coords="621,80,660,107"/>
-<area shape="rect" title=" " alt="" coords="684,80,795,107"/>
-<area shape="rect" title=" " alt="" coords="95,229,157,256"/>
-<area shape="rect" title=" " alt="" coords="5,229,71,256"/>
-<area shape="rect" title=" " alt="" coords="181,229,260,256"/>
-<area shape="rect" title=" " alt="" coords="468,229,520,256"/>
-<area shape="rect" title=" " alt="" coords="379,229,444,256"/>
-<area shape="rect" title=" " alt="" coords="285,229,354,256"/>
-<area shape="rect" title=" " alt="" coords="545,229,627,256"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="881,155,1019,181"/>
-<area shape="rect" title=" " alt="" coords="541,155,588,181"/>
-<area shape="rect" title=" " alt="" coords="612,155,680,181"/>
-<area shape="rect" title=" " alt="" coords="705,155,774,181"/>
-<area shape="rect" title=" " alt="" coords="798,155,857,181"/>
-<area shape="rect" title=" " alt="" coords="921,229,979,256"/>
+<area shape="rect" title=" " alt="" coords="641,5,793,32"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="235,229,325,256"/>
+<area shape="rect" title=" " alt="" coords="557,304,640,331"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1483,155,1594,181"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1219,229,1343,256"/>
+<area shape="rect" title=" " alt="" coords="829,304,883,331"/>
+<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="371,155,464,181"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="711,80,814,107"/>
+<area shape="rect" title=" " alt="" coords="590,155,701,181"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1203,80,1290,107"/>
+<area shape="rect" title=" " alt="" coords="1366,80,1405,107"/>
+<area shape="rect" title=" " alt="" coords="249,304,311,331"/>
+<area shape="rect" title=" " alt="" coords="1369,304,1434,331"/>
+<area shape="rect" title=" " alt="" coords="1153,304,1231,331"/>
+<area shape="rect" title=" " alt="" coords="151,304,203,331"/>
+<area shape="rect" title=" " alt="" coords="1255,304,1321,331"/>
+<area shape="rect" title=" " alt="" coords="1487,304,1556,331"/>
+<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="1593,229,1685,256"/>
+<area shape="rect" title=" " alt="" coords="1595,304,1715,331"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="5,229,144,256"/>
+<area shape="rect" title=" " alt="" coords="350,229,397,256"/>
+<area shape="rect" title=" " alt="" coords="523,229,591,256"/>
+<area shape="rect" title=" " alt="" coords="667,229,736,256"/>
+<area shape="rect" title=" " alt="" coords="760,229,819,256"/>
+<area shape="rect" title=" " alt="" coords="45,304,104,331"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="950,155,1042,181"/>
+<area shape="rect" title=" " alt="" coords="824,155,875,181"/>
+<area shape="rect" title=" " alt="" coords="725,155,800,181"/>
+<area shape="rect" title=" " alt="" coords="893,229,960,256"/>
+<area shape="rect" title=" " alt="" coords="985,229,1042,256"/>
+<area shape="rect" title=" " alt="" coords="1270,155,1341,181"/>
+<area shape="rect" title=" " alt="" coords="1365,155,1459,181"/>
+<area shape="rect" title=" " alt="" coords="1619,155,1685,181"/>
+<area shape="rect" title=" " alt="" coords="1710,155,1765,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -169,7 +188,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html">wmoge::Object</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any scene object or resource with reflection support.  <a href="classwmoge_1_1Object.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any scene tree object or resource with reflection support.  <a href="classwmoge_1_1Object.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -181,6 +200,21 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a8465b8d0410dfbfdcab8d129d92b69c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a>(name,  super)</td></tr>
 <tr class="separator:a8465b8d0410dfbfdcab8d129d92b69c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aa5e68febfba81ba1c668860ab38db2e7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa5e68febfba81ba1c668860ab38db2e7"><td class="memTemplItemLeft" align="right" valign="top">Status&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa5e68febfba81ba1c668860ab38db2e7">wmoge::yaml_read</a> (const YamlConstNodeRef &amp;node, Ref&lt; T &gt; &amp;ref, typename std::enable_if_t&lt; std::is_convertible_v&lt; T *, Object * &gt;&gt; *=0)</td></tr>
+<tr class="separator:aa5e68febfba81ba1c668860ab38db2e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe8ae5cb31d606c4f6c540fde9866ac9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:abe8ae5cb31d606c4f6c540fde9866ac9"><td class="memTemplItemLeft" align="right" valign="top">Status&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#abe8ae5cb31d606c4f6c540fde9866ac9">wmoge::yaml_read</a> (const YamlConstNodeRef &amp;node, Ref&lt; T &gt; &amp;ref, typename std::enable_if_t&lt;!std::is_convertible_v&lt; T *, Object * &gt;&gt; *=0)</td></tr>
+<tr class="separator:abe8ae5cb31d606c4f6c540fde9866ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d57b7a8a0322da353f42e28b1d1800e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a3d57b7a8a0322da353f42e28b1d1800e"><td class="memTemplItemLeft" align="right" valign="top">Status&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a3d57b7a8a0322da353f42e28b1d1800e">wmoge::yaml_write</a> (YamlNodeRef node, const Ref&lt; T &gt; &amp;ref, typename std::enable_if_t&lt; std::is_convertible_v&lt; T *, Object * &gt;&gt; *=0)</td></tr>
+<tr class="separator:a3d57b7a8a0322da353f42e28b1d1800e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57618745b4662f2bc2d0ee89cd3dd5bc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a57618745b4662f2bc2d0ee89cd3dd5bc"><td class="memTemplItemLeft" align="right" valign="top">Status&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a57618745b4662f2bc2d0ee89cd3dd5bc">wmoge::yaml_write</a> (YamlNodeRef node, const Ref&lt; T &gt; &amp;ref, typename std::enable_if_t&lt;!std::is_convertible_v&lt; T *, Object * &gt;&gt; *=0)</td></tr>
+<tr class="separator:a57618745b4662f2bc2d0ee89cd3dd5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a8465b8d0410dfbfdcab8d129d92b69c9"></a>

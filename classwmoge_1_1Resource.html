@@ -95,7 +95,7 @@ Inheritance diagram for wmoge::Resource:</div>
 <area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="517,461,621,488"/>
 <area shape="rect" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material." alt="" coords="513,512,624,539"/>
 <area shape="rect" href="classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="512,563,625,589"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="164,284,272,311"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="164,284,272,311"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,284,116,311"/>
 <area shape="rect" href="classwmoge_1_1AudioStreamWav.html" title="Simple audio resource loaded from .wav file format." alt="" coords="692,5,863,32"/>
 <area shape="rect" href="classwmoge_1_1LuaScript.html" title="Holds info about a lua declared class in a user script." alt="" coords="714,461,841,488"/>
@@ -109,7 +109,7 @@ Collaboration diagram for wmoge::Resource:</div>
 <div class="center"><img src="classwmoge_1_1Resource__coll__graph.png" border="0" usemap="#awmoge_1_1Resource_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1Resource_coll__map" id="awmoge_1_1Resource_coll__map">
 <area shape="rect" title="Base class for any engine resource." alt="" coords="5,155,131,181"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene object or resource with reflection support." alt="" coords="14,80,122,107"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="14,80,122,107"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="13,5,123,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -118,14 +118,12 @@ Collaboration diagram for wmoge::Resource:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f099d197a7dde45194a291594bc7ec6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a0f099d197a7dde45194a291594bc7ec6">load_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node)</td></tr>
-<tr class="separator:a0f099d197a7dde45194a291594bc7ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07990d76aa75ad9fd2e2b3694249f227"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a07990d76aa75ad9fd2e2b3694249f227">load_from_archive</a> (const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
-<tr class="separator:a07990d76aa75ad9fd2e2b3694249f227"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a907fa683f3494b3efd0f375988ee37be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a907fa683f3494b3efd0f375988ee37be">copy_to</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;copy)</td></tr>
-<tr class="separator:a907fa683f3494b3efd0f375988ee37be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94fcebb4bc59cd403a5b46d58884f79e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94fcebb4bc59cd403a5b46d58884f79e">duplicate</a> ()</td></tr>
-<tr class="separator:a94fcebb4bc59cd403a5b46d58884f79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af322c46f1e180c2a655c7c83f5fc089e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#af322c46f1e180c2a655c7c83f5fc089e">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const override</td></tr>
+<tr class="separator:af322c46f1e180c2a655c7c83f5fc089e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab84697930f7a1605d23483fa02f28d23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ab84697930f7a1605d23483fa02f28d23">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
+<tr class="separator:ab84697930f7a1605d23483fa02f28d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc5ca3cbe177a344d53d48f0f6d22650"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#abc5ca3cbe177a344d53d48f0f6d22650">write_to_yaml</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node) const override</td></tr>
+<tr class="separator:abc5ca3cbe177a344d53d48f0f6d22650"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95f90ecb01695089b7867eb57e678e8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
 <tr class="separator:a95f90ecb01695089b7867eb57e678e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d91eac0d560d470dedbeea48a2dc8e9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a6d91eac0d560d470dedbeea48a2dc8e9">get_name</a> ()</td></tr>
@@ -137,14 +135,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a582bd069cfa160c3d73e01b4f0fae2db inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab72c071085c653b1ba8f9621746666fc inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#ab72c071085c653b1ba8f9621746666fc">hash</a> ()</td></tr>
 <tr class="separator:ab72c071085c653b1ba8f9621746666fc inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb39ce791f5df4de80c7d11c693763bc inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#acb39ce791f5df4de80c7d11c693763bc">set</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, const <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
-<tr class="separator:acb39ce791f5df4de80c7d11c693763bc inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8de8975b0b54dacf3dcf067b7f269b5d inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a8de8975b0b54dacf3dcf067b7f269b5d">get</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
-<tr class="separator:a8de8975b0b54dacf3dcf067b7f269b5d inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afade9da36f3028873d9b6f7a3e16e8be inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#afade9da36f3028873d9b6f7a3e16e8be">call</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;method, int argc, const <a class="el" href="classwmoge_1_1Var.html">Var</a> *argv, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;ret)</td></tr>
-<tr class="separator:afade9da36f3028873d9b6f7a3e16e8be inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d5ac47cd6e78b195346ebbd680da35a inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a1d5ac47cd6e78b195346ebbd680da35a">signal</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;signal)</td></tr>
-<tr class="separator:a1d5ac47cd6e78b195346ebbd680da35a inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff773d022b9facd8a86aa1163d4b6ba inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a9ff773d022b9facd8a86aa1163d4b6ba">set</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, const <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
+<tr class="separator:a9ff773d022b9facd8a86aa1163d4b6ba inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9878d7ce37a6829a03d99e8c2a62f2b inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#aa9878d7ce37a6829a03d99e8c2a62f2b">get</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;property, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;value)</td></tr>
+<tr class="separator:aa9878d7ce37a6829a03d99e8c2a62f2b inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63ee9de985588d6072d785fd51a99561 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a63ee9de985588d6072d785fd51a99561">call</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;method, int argc, const <a class="el" href="classwmoge_1_1Var.html">Var</a> *argv, <a class="el" href="classwmoge_1_1Var.html">Var</a> &amp;ret)</td></tr>
+<tr class="separator:a63ee9de985588d6072d785fd51a99561 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e935f40e44fa6b3986cb7f28728614f inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a8e935f40e44fa6b3986cb7f28728614f">signal</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;signal)</td></tr>
+<tr class="separator:a8e935f40e44fa6b3986cb7f28728614f inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a898060ea83bbf3cf8a5bb3263eadbd57 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a898060ea83bbf3cf8a5bb3263eadbd57">clone</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt; &amp;object) const</td></tr>
+<tr class="separator:a898060ea83bbf3cf8a5bb3263eadbd57 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a504fe31a47db8e5c6599263c198beffb inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a504fe31a47db8e5c6599263c198beffb">duplicate</a> () const</td></tr>
+<tr class="separator:a504fe31a47db8e5c6599263c198beffb inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7384ed8b9648b2c02c1a6967413ebdd inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual const class <a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#ab7384ed8b9648b2c02c1a6967413ebdd">class_ptr</a> () const</td></tr>
 <tr class="separator:ab7384ed8b9648b2c02c1a6967413ebdd inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa73f58e5eda28ab836398b3264cf4cd8 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#aa73f58e5eda28ab836398b3264cf4cd8">class_name</a> () const</td></tr>
@@ -177,8 +179,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for any engine resource. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a907fa683f3494b3efd0f375988ee37be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a907fa683f3494b3efd0f375988ee37be">&#9670;&nbsp;</a></span>copy_to()</h2>
+<a id="af322c46f1e180c2a655c7c83f5fc089e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af322c46f1e180c2a655c7c83f5fc089e">&#9670;&nbsp;</a></span>copy_to()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,46 +189,23 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void wmoge::Resource::copy_to </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Resource::copy_to </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Resource.html">Resource</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#adf7bfbfbcde26ee5e46d9ed72d212e1b">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1TextureCube.html#a5d05ade6400073f1a7a6cee7bc66acbe">wmoge::TextureCube</a>, <a class="el" href="classwmoge_1_1Texture2d.html#af8e2e6d5067698004cf5d40f0a37086b">wmoge::Texture2d</a>, <a class="el" href="classwmoge_1_1Texture.html#adbecbfe80e12f579dbf1fbf2ee0b2dc4">wmoge::Texture</a>, <a class="el" href="classwmoge_1_1Shader.html#a893a4ecadae50362cceeddfb55f05ea4">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#ad6453cefb31589067b2017b11d5427c6">wmoge::Script</a>, <a class="el" href="classwmoge_1_1ScenePacked.html#a9144718e5fefd83cefe230c9d353acf1">wmoge::ScenePacked</a>, <a class="el" href="classwmoge_1_1Prefab.html#a98fccb5fd2482a0f23f38647b1453776">wmoge::Prefab</a>, <a class="el" href="classwmoge_1_1PfxEffect.html#a04fcbd65a02cf7a341850e7d62063720">wmoge::PfxEffect</a>, <a class="el" href="classwmoge_1_1Material.html#a8f5b1a359d6b7d2f154b9c07c42c6e64">wmoge::Material</a>, <a class="el" href="classwmoge_1_1Image.html#a1e3d9c12e28df226400651beafae86e0">wmoge::Image</a>, <a class="el" href="classwmoge_1_1Font.html#a5fe9aac9bdbafe9b998946c405b19f21">wmoge::Font</a>, <a class="el" href="classwmoge_1_1ConfigFile.html#a7678124c69f56e93a47ecc85e4bc656d">wmoge::ConfigFile</a>, <a class="el" href="classwmoge_1_1AudioStreamWav.html#a1457ec8d5b6d61996a3848a3dbbdd101">wmoge::AudioStreamWav</a>, and <a class="el" href="classwmoge_1_1AudioStream.html#a3ea27774041b2a33ddbb04f73eb352dc">wmoge::AudioStream</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Object.html#a4f5046efc308880c57c27ed7ef725138">wmoge::Object</a>.</p>
 
-</div>
-</div>
-<a id="a94fcebb4bc59cd403a5b46d58884f79e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94fcebb4bc59cd403a5b46d58884f79e">&#9670;&nbsp;</a></span>duplicate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt; wmoge::Resource::duplicate </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#ab4f801dbdde8409d19dd88f7f2426ee8">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1TextureCube.html#a11d82b5c39970b0a8a468e82ed6853f2">wmoge::TextureCube</a>, <a class="el" href="classwmoge_1_1Texture2d.html#ac30eefd3dcf451b3c21ceaefa54a604e">wmoge::Texture2d</a>, <a class="el" href="classwmoge_1_1Texture.html#addc7457113b4ef959d34df26dc48c036">wmoge::Texture</a>, <a class="el" href="classwmoge_1_1Shader.html#a8366d063d23f7e4217e80693b0b7c0ff">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#a2808eba6061131b859c69660031c6ef6">wmoge::Script</a>, and <a class="el" href="classwmoge_1_1ScenePacked.html#addfe22dcf4113df58a0adc3584f2f779">wmoge::ScenePacked</a>.</p>
 
 </div>
 </div>
@@ -255,8 +234,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a07990d76aa75ad9fd2e2b3694249f227"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07990d76aa75ad9fd2e2b3694249f227">&#9670;&nbsp;</a></span>load_from_archive()</h2>
+<a id="ab84697930f7a1605d23483fa02f28d23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab84697930f7a1605d23483fa02f28d23">&#9670;&nbsp;</a></span>read_from_yaml()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,33 +244,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool wmoge::Resource::load_from_archive </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;&#160;</td>
-          <td class="paramname"><em>archive</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0f099d197a7dde45194a291594bc7ec6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f099d197a7dde45194a291594bc7ec6">&#9670;&nbsp;</a></span>load_from_yaml()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool wmoge::Resource::load_from_yaml </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Resource::read_from_yaml </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
@@ -300,12 +253,14 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#a335f755fe0ae60125556462c369154c0">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1Shader.html#ab5ae25cda7044abfe13371cdec1b2c7b">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#a55f426217d6c8fcdc60386e2a4303e05">wmoge::Script</a>, <a class="el" href="classwmoge_1_1ScenePacked.html#a3d6eace43891509af1444a5883855212">wmoge::ScenePacked</a>, <a class="el" href="classwmoge_1_1Prefab.html#a90080fa8c0157994482dc3625f0a64fb">wmoge::Prefab</a>, <a class="el" href="classwmoge_1_1Material.html#adbee95f730d4587f91b6466b2373eecf">wmoge::Material</a>, and <a class="el" href="classwmoge_1_1AudioStream.html#a07cbd72484c061f9c8dff43d061a5c95">wmoge::AudioStream</a>.</p>
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Object.html#a61cacbf997be8f3ef4b2f4586715bc67">wmoge::Object</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1LuaScript.html#a61c5a59ddd1fda1d3d26982d5cdbf340">wmoge::LuaScript</a>, <a class="el" href="classwmoge_1_1Shader.html#ac1fae9fa3b35db4e2c60916892c52223">wmoge::Shader</a>, <a class="el" href="classwmoge_1_1Script.html#a3dd6f21046b69bb533b3ad23fffc0f04">wmoge::Script</a>, and <a class="el" href="classwmoge_1_1ScenePacked.html#a51fb57999f76c6b639f55db82ece1d91">wmoge::ScenePacked</a>.</p>
 
 </div>
 </div>
@@ -360,6 +315,34 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc5ca3cbe177a344d53d48f0f6d22650"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc5ca3cbe177a344d53d48f0f6d22650">&#9670;&nbsp;</a></span>write_to_yaml()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Resource::write_to_yaml </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Object.html#ad1c773718dd0de216bff33d8c93ec9c5">wmoge::Object</a>.</p>
 
 </div>
 </div>

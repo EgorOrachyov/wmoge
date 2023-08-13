@@ -1,5 +1,5 @@
 <map id="wmoge::Object" name="wmoge::Object">
-<area shape="rect" id="node1" title="Base class for any scene object or resource with reflection support." alt="" coords="164,588,272,615"/>
+<area shape="rect" id="node1" title="Base class for any scene tree object or resource with reflection support." alt="" coords="164,588,272,615"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1Event.html" title="Event holding some data which can be processed by listeners." alt="" coords="338,208,441,235"/>
 <area shape="rect" id="node17" href="$classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="326,436,453,463"/>
 <area shape="rect" id="node20" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="323,588,456,615"/>
