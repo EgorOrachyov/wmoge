@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ActionMapAction.html" title="Single action which can be stored inside an action map and triggered by an activation info." alt="" coords="5,5,175,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1AsyncBase.html" title=" " alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AsyncResult.html" title="Handle to an asynchronous operation with a result to get." alt="" coords="268,13,441,39"/>
 </map>

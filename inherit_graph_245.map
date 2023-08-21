@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ShaderBuilder.html" title="Builder of a particular gfx shader variation." alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1ShaderPass.html" title="Base class for any engine shading pass." alt="" coords="5,71,147,98"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ShaderPassAuxDrawCanvas.html" title="Auto generated pass for &#39;aux_draw_canvas&#39; shader." alt="" coords="195,5,388,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ShaderPassBase.html" title="Auto generated pass for &#39;base&#39; shader." alt="" coords="206,71,377,98"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ShaderPassText.html" title="Auto generated pass for &#39;text&#39; shader." alt="" coords="208,122,375,149"/>
 </map>

@@ -73,6 +73,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Executor implementation for binding C++ systems.  
+ <a href="classwmoge_1_1EcsSystemBindHelper.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="ecs__system_8hpp_source.html">ecs_system.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -82,7 +85,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1035693cab893bdf1a02cae15865f4dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystemBindHelper.html#a1035693cab893bdf1a02cae15865f4dd">process_batch</a> (class <a class="el" href="classwmoge_1_1EcsWorld.html">EcsWorld</a> &amp;world, <a class="el" href="classwmoge_1_1EcsArchStorage.html">EcsArchStorage</a> &amp;storage, int start_entity, int count)</td></tr>
 <tr class="separator:a1035693cab893bdf1a02cae15865f4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T, typename... TArgs&gt;<br />
+class wmoge::EcsSystemBindHelper&lt; T, TArgs &gt;</h3>
+
+<p>Executor implementation for binding C++ systems. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>System type </td></tr>
+    <tr><td class="paramname">TArgs</td><td>Type of system args for processing </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3b21bd8ee98b54a42ddec7ddfe22a95b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b21bd8ee98b54a42ddec7ddfe22a95b">&#9670;&nbsp;</a></span>EcsSystemBindHelper()</h2>
 

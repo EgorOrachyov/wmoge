@@ -27,7 +27,7 @@
 <area shape="rect" id="node16" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="840,215,991,257"/>
 <area shape="rect" id="node17" href="$classwmoge_1_1VKVertBuffer.html" title="Gfx vulkan vertex buffer implementation." alt="" coords="1063,223,1209,249"/>
 <area shape="rect" id="node19" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="606,259,757,301"/>
-<area shape="rect" id="node20" href="$classwmoge_1_1VKDescSet.html" title=" " alt="" coords="846,281,985,308"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1VKDescSet.html" title="Vulkan descriptor set implementation." alt="" coords="846,281,985,308"/>
 <area shape="rect" id="node22" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="606,325,757,366"/>
 <area shape="rect" id="node23" href="$classwmoge_1_1VKDescSetLayout.html" title="Vulkan descriptor set layout implementation." alt="" coords="827,332,1004,359"/>
 <area shape="rect" id="node25" href="$classwmoge_1_1GfxDynIndexBuffer.html" title="Dynamic index buffer for immediate and frequently changed geometry." alt="" coords="593,391,770,417"/>

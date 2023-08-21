@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Base64.html" title="Provides utility to encode and decode data from base64." alt="" coords="5,5,120,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1ClassMember.html" title="Base class for any class member (field, property, method, etc.)" alt="" coords="5,31,156,57"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ClassMethod.html" title="Callable object class public member method." alt="" coords="206,5,353,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ClassProperty.html" title="Accessible object class property." alt="" coords="204,56,355,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ClassField.html" title="Native object class filed type and access info." alt="" coords="403,56,533,83"/>
 </map>
