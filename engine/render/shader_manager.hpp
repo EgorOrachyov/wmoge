@@ -33,8 +33,10 @@
 #include "core/string_id.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "io/archive.hpp"
+#include "render/shader_pass.hpp"
 
 #include <filesystem>
+#include <memory>
 #include <mutex>
 #include <string>
 
@@ -63,11 +65,9 @@ namespace wmoge {
         void           clear_cache();
         void           save_cache(const std::string& path_on_disk);
         void           load_cache(const std::string& path_on_disk);
+        void           register_pass(std::unique_ptr<ShaderPass> pass);
 
-        /**
-         * @class ShaderData
-         * @brief Entry holding data of a particular shader
-         */
+        /** @brief Entry holding data of a particular shader */
         struct ShaderData {
             StringId       name;
             Ref<GfxShader> shader;
@@ -77,22 +77,17 @@ namespace wmoge {
             friend Status archive_read(Archive& archive, ShaderData& shader_data);
         };
 
-        /**
-         * @class ShaderSources
-         * @brief Shaders sources for compilation
-         */
-        struct ShaderSources {
-            std::string modules[3];
-        };
-
     private:
         void load_sources_from_build();
         void load_sources_from_disk();
 
     private:
-        fast_map<StringId, ShaderData>    m_cache;
-        fast_map<StringId, ShaderSources> m_sources;
-        std::string                       m_shaders_directory;
+        fast_map<StringId, ShaderData>                  m_cache;
+        fast_map<StringId, std::unique_ptr<ShaderPass>> m_passes;
+        std::string                                     m_shaders_directory;
+
+        class FileSystem* m_file_system = nullptr;
+        class GfxDriver*  m_driver      = nullptr;
 
         class ConsoleVar* m_var_allow_dump   = nullptr;
         class ConsoleVar* m_var_allow_reload = nullptr;

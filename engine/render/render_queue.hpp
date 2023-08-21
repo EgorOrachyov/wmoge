@@ -25,88 +25,69 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_BUFFERS_HPP
-#define WMOGE_GFX_BUFFERS_HPP
+#ifndef WMOGE_RENDER_QUEUE_HPP
+#define WMOGE_RENDER_QUEUE_HPP
 
-#include "gfx/gfx_resource.hpp"
+#include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_desc_set.hpp"
+#include "gfx/gfx_pipeline.hpp"
 
-#include <array>
+#include <cinttypes>
+#include <mutex>
+#include <utility>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class GfxBuffer
-     * @brief Base class for gfx buffer
+     * @class RenderCmdKey
+     * @brief Key to sort commands for efficient execution
      */
-    class GfxBuffer : public GfxResource {
-    public:
-        ~GfxBuffer() override = default;
-
-        [[nodiscard]] int         size() const { return m_size; }
-        [[nodiscard]] GfxMemUsage buffer_usage() const { return m_usage; }
-
-    protected:
-        int         m_size;
-        GfxMemUsage m_usage;
+    struct RenderCmdKey {
+        std::uint64_t value;
     };
+
+    static_assert(std::is_trivially_destructible_v<RenderCmdKey>, "render cmd key must be trivial as possible");
+    static_assert(sizeof(RenderCmdKey) == sizeof(std::uint64_t), "render cmd key must fit 8 bytes");
 
     /**
-     * @class GfxVertBuffer
-     * @brief Gfx vertex buffer
+     * @class RenderCmd
+     * @brief POD-Command representing single draw call
      */
-    class GfxVertBuffer : public GfxBuffer {
-    public:
-        ~GfxVertBuffer() override = default;
+    struct RenderCmd {
+        GfxVertBuffersSetup vert_buffers;
+        GfxIndexBufferSetup index_setup;
+        GfxDescSet*         desc_sets[3]{};
+        GfxPipeline*        pipeline = nullptr;
+        GfxDrawCall         call_params;
     };
+
+    static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
+    static_assert(sizeof(RenderCmd) == 128, "render cmd key must fit 128 bytes");
 
     /**
-     * @class GfxIndexBuffer
-     * @brief Gfx index buffer
+     * @class RenderQueue
+     * @brief Thread-safe queue to collect and sort draw commands for gfx submission
      */
-    class GfxIndexBuffer : public GfxBuffer {
+    struct RenderQueue {
     public:
-        ~GfxIndexBuffer() override = default;
+        void push(RenderCmdKey key, const RenderCmd& cmd);
+        void clear();
+        void free();
+        void sort();
+
+        [[nodiscard]] std::size_t      size() const;
+        [[nodiscard]] const RenderCmd& cmd(std::size_t index) const;
+
+    private:
+        std::vector<std::pair<RenderCmdKey, int>> m_queue;
+        std::vector<RenderCmd>                    m_buffer;
+        int                                       m_next_index = 0;
+
+        std::mutex m_mutex;
     };
-
-    /**
-     * @class GfxUniformBuffer
-     * @brief Gfx uniform buffer
-     */
-    class GfxUniformBuffer : public GfxBuffer {
-    public:
-        ~GfxUniformBuffer() override = default;
-    };
-
-    /**
-     * @class GfxStorageBuffer
-     * @brief Gfx storage buffer
-     */
-    class GfxStorageBuffer : public GfxBuffer {
-    public:
-        ~GfxStorageBuffer() override = default;
-    };
-
-    /**
-     * @brief Setup to bind a particular buffer range
-     * @tparam Buffer
-     */
-    template<typename Buffer>
-    struct GfxBufferSetup {
-        Buffer* buffer = nullptr;
-        int     offset = 0;
-        int     range  = 0;
-    };
-
-    using GfxVertBufferSetup = GfxBufferSetup<GfxVertBuffer>;
-
-    using GfxIndexBufferSetup = GfxBufferSetup<GfxIndexBuffer>;
-
-    using GfxUniformBufferSetup = GfxBufferSetup<GfxUniformBuffer>;
-
-    using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
-
-    using GfxVertBuffersSetup = std::array<GfxVertBufferSetup, GfxLimits::MAX_VERT_BUFFERS>;
 
 }// namespace wmoge
 
-#endif//WMOGE_GFX_BUFFERS_HPP
+#endif//WMOGE_RENDER_QUEUE_HPP

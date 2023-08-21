@@ -35,8 +35,36 @@
 
 namespace wmoge {
 
-    VKShader::VKShader(class VKDriver& driver) : VKResource<GfxShader>(driver) {
+    Status archive_read(Archive& archive, VKShaderBinary& binary) {
+        WG_ARCHIVE_READ(archive, binary.spirvs);
+        WG_ARCHIVE_READ(archive, binary.layouts);
+        WG_ARCHIVE_READ(archive, binary.reflection);
+
+        return StatusCode::Ok;
     }
+    Status archive_write(Archive& archive, const VKShaderBinary& binary) {
+        WG_ARCHIVE_WRITE(archive, binary.spirvs);
+        WG_ARCHIVE_WRITE(archive, binary.layouts);
+        WG_ARCHIVE_WRITE(archive, binary.reflection);
+
+        return StatusCode::Ok;
+    }
+
+    VKShader::VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver)
+        : VKResource<GfxShader>(driver) {
+
+        m_name = name;
+        m_sources.push_back(std::move(vertex));
+        m_sources.push_back(std::move(fragment));
+        m_set_layouts = layouts;
+    }
+    VKShader::VKShader(Ref<Data> byte_code, const StringId& name, class VKDriver& driver)
+        : VKResource<GfxShader>(driver) {
+
+        m_name      = name;
+        m_byte_code = std::move(byte_code);
+    }
+
     VKShader::~VKShader() {
         WG_AUTO_PROFILE_VULKAN("VKShader::~VKShader");
 
@@ -46,25 +74,8 @@ namespace wmoge {
         if (m_layout) {
             vkDestroyPipelineLayout(m_driver.device(), m_layout, nullptr);
         }
-        for (auto set_layout : m_set_layouts) {
-            if (set_layout) {
-                vkDestroyDescriptorSetLayout(m_driver.device(), set_layout, nullptr);
-            }
-        }
     }
-    void VKShader::setup(std::string vertex, std::string fragment, const StringId& name) {
-        WG_AUTO_PROFILE_VULKAN("VKShader::configure");
 
-        m_name = name;
-        m_sources.push_back(std::move(vertex));
-        m_sources.push_back(std::move(fragment));
-    }
-    void VKShader::setup(Ref<Data> byte_code, const wmoge::StringId& name) {
-        WG_AUTO_PROFILE_VULKAN("VKShader::configure");
-
-        m_name      = name;
-        m_byte_code = std::move(byte_code);
-    }
     GfxShaderStatus VKShader::status() const {
         return m_status.load();
     }
@@ -90,7 +101,7 @@ namespace wmoge {
         const char* sources[2] = {m_sources[0].c_str(), m_sources[1].c_str()};
         const int   lengths[2] = {static_cast<int>(m_sources[0].size()), static_cast<int>(m_sources[1].size())};
 
-        EShMessages messages = static_cast<EShMessages>(EShMsgSpvRules | EShMsgVulkanRules);
+        const auto messages = static_cast<EShMessages>(EShMsgSpvRules | EShMsgVulkanRules);
 
         for (int i = 0; i < 2; i++) {
             auto  language = types[i];
@@ -236,6 +247,7 @@ namespace wmoge {
         }
 
         std::vector<uint32_t> spirv[2];
+        Ref<Data>             spirv_datas[2];
 
         for (int i = 0; i < 2; i++) {
             glslang::TIntermediate* intermediate = program.getIntermediate(types[i]);
@@ -252,6 +264,8 @@ namespace wmoge {
                 m_status.store(GfxShaderStatus::Failed);
                 return;
             }
+
+            spirv_datas[i] = make_ref<Data>(spirv[i].data(), sizeof(uint32_t) * spirv[i].size());
         }
 
         if (!program.buildReflection()) {
@@ -262,13 +276,12 @@ namespace wmoge {
         }
 
         reflect(program);
-        gen_byte_code(spirv[0], spirv[1]);
+        gen_byte_code(spirv_datas[0], spirv_datas[1]);
 
         timer.stop();
         WG_LOG_INFO("compiled (source): " << name() << ", code " << m_byte_code->size_as_kib() << " KiB, time: " << timer.get_elapsed_sec() << " sec");
-        Ref<VKShader> this_shader(this);
 
-        init(spirv[0], spirv[1]);
+        init(spirv_datas[0], spirv_datas[1]);
     }
     void VKShader::compile_from_byte_code() {
         WG_AUTO_PROFILE_VULKAN("VKShader::compile_from_byte_code");
@@ -278,28 +291,22 @@ namespace wmoge {
 
         ArchiveReaderMemory archive(m_byte_code->buffer(), m_byte_code->size());
 
-        bool has_shader_vertex;
-        bool has_shader_fragment;
-        int  size_vertex;
-        int  size_fragment;
+        VKShaderBinary binary;
+        if (!archive_read(archive, binary)) {
+            WG_LOG_ERROR("failed to read shader binary " << name());
+            return;
+        }
 
-        archive >> has_shader_vertex;
-        archive >> has_shader_fragment;
-        archive >> size_vertex;
-        archive >> size_fragment;
+        for (const auto& layout : binary.layouts) {
+            m_set_layouts.push_back(m_driver.make_desc_layout(layout, StringId()));
+        }
 
-        std::vector<uint32_t> vertex(size_vertex);
-        std::vector<uint32_t> fragment(size_fragment);
-
-        archive.nread(size_vertex * sizeof(uint32_t), vertex.data());
-        archive.nread(size_fragment * sizeof(uint32_t), fragment.data());
-
-        archive >> m_reflection;
+        m_reflection = std::move(binary.reflection);
 
         timer.stop();
         WG_LOG_INFO("compiled (byte code): " << name() << " time: " << timer.get_elapsed_sec() << " sec");
 
-        init(vertex, fragment);
+        init(binary.spirvs[0], binary.spirvs[1]);
     }
     void VKShader::reflect(glslang::TProgram& program) {
         WG_AUTO_PROFILE_VULKAN("VKShader::reflect");
@@ -371,35 +378,37 @@ namespace wmoge {
             }
         }
     }
-    void VKShader::gen_byte_code(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment) {
+    void VKShader::gen_byte_code(const Ref<Data>& vertex, const Ref<Data>& fragment) {
         WG_AUTO_PROFILE_VULKAN("VKShader::gen_byte_code");
 
-        const bool has_shader_vertex   = true;
-        const bool has_shader_fragment = true;
-        const int  size_vertex         = static_cast<int>(vertex.size());
-        const int  size_fragment       = static_cast<int>(fragment.size());
+        VKShaderBinary binary;
+        binary.spirvs.push_back(vertex);
+        binary.spirvs.push_back(fragment);
+        binary.reflection = m_reflection;
+
+        for (auto& layout : m_set_layouts) {
+            binary.layouts.push_back(layout->desc());
+        }
 
         ArchiveWriterMemory archive;
-        archive << has_shader_vertex;
-        archive << has_shader_fragment;
-        archive << size_vertex;
-        archive << size_fragment;
-        archive.nwrite(size_vertex * sizeof(uint32_t), vertex.data());
-        archive.nwrite(size_fragment * sizeof(uint32_t), fragment.data());
-        archive << m_reflection;
+
+        if (!archive_write(archive, binary)) {
+            WG_LOG_ERROR("failed to create shader binary " << name());
+            return;
+        }
 
         m_byte_code = make_ref<Data>(archive.get_data().data(), archive.get_data().size());
     }
-    void VKShader::init(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment) {
+    void VKShader::init(const Ref<Data>& vertex, const Ref<Data>& fragment) {
         WG_AUTO_PROFILE_VULKAN("VKShader::init");
 
-        const std::vector<uint32_t>* binaries[2] = {&vertex, &fragment};
+        const Data* binaries[2] = {vertex.get(), fragment.get()};
 
         for (auto binary : binaries) {
             VkShaderModuleCreateInfo create_info{};
             create_info.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-            create_info.codeSize = static_cast<uint32_t>(binary->size() * sizeof(uint32_t));
-            create_info.pCode    = binary->data();
+            create_info.codeSize = static_cast<uint32_t>(binary->size());
+            create_info.pCode    = reinterpret_cast<std::uint32_t*>(binary->buffer());
 
             VkShaderModule module;
             WG_VK_CHECK(vkCreateShaderModule(m_driver.device(), &create_info, nullptr, &module));
@@ -407,49 +416,18 @@ namespace wmoge {
             m_modules.push_back(module);
         }
 
-        std::array<std::vector<VkDescriptorSetLayoutBinding>, GfxLimits::MAX_DESC_SETS> bindings{};
+        VkDescriptorSetLayout layouts[GfxLimits::MAX_DESC_SETS];
+        std::uint32_t         layouts_count = 0;
 
-        for (auto& texture : m_reflection.textures) {
-            auto& info                 = texture.second;
-            auto& binding              = bindings[info.set].emplace_back();
-            binding.binding            = info.binding;
-            binding.descriptorCount    = info.array_size;
-            binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-            binding.stageFlags         = VK_SHADER_STAGE_ALL;
-            binding.pImmutableSamplers = nullptr;
-        }
-        for (auto& buffer : m_reflection.ub_buffers) {
-            auto& info                 = buffer.second;
-            auto& binding              = bindings[info.set].emplace_back();
-            binding.binding            = info.binding;
-            binding.descriptorCount    = 1;
-            binding.descriptorType     = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-            binding.stageFlags         = VK_SHADER_STAGE_ALL;
-            binding.pImmutableSamplers = nullptr;
-        }
-        for (auto& buffer : m_reflection.sb_buffers) {
-            auto& info                 = buffer.second;
-            auto& binding              = bindings[info.set].emplace_back();
-            binding.binding            = info.binding;
-            binding.descriptorCount    = 1;
-            binding.descriptorType     = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-            binding.stageFlags         = VK_SHADER_STAGE_ALL;
-            binding.pImmutableSamplers = nullptr;
-        }
-
-        for (int i = 0; i < GfxLimits::MAX_DESC_SETS; i++) {
-            VkDescriptorSetLayoutCreateInfo desc_set_layout_info{};
-            desc_set_layout_info.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-            desc_set_layout_info.bindingCount = static_cast<uint32_t>(bindings[i].size());
-            desc_set_layout_info.pBindings    = bindings[i].data();
-            WG_VK_CHECK(vkCreateDescriptorSetLayout(m_driver.device(), &desc_set_layout_info, nullptr, &m_set_layouts[i]));
-            WG_VK_NAME(m_driver.device(), m_set_layouts[i], VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT, "layout_" + std::to_string(i) + "@" + name().str());
+        for (const auto& layout : m_set_layouts) {
+            assert(layouts_count < GfxLimits::MAX_DESC_SETS);
+            layouts[layouts_count++] = layout.cast<VKDescSetLayout>()->layout();
         }
 
         VkPipelineLayoutCreateInfo layout_create_info{};
         layout_create_info.sType                  = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-        layout_create_info.setLayoutCount         = static_cast<uint32_t>(m_set_layouts.size());
-        layout_create_info.pSetLayouts            = m_set_layouts.data();
+        layout_create_info.setLayoutCount         = layouts_count;
+        layout_create_info.pSetLayouts            = layouts;
         layout_create_info.pushConstantRangeCount = 0;
         layout_create_info.pPushConstantRanges    = nullptr;
         WG_VK_CHECK(vkCreatePipelineLayout(m_driver.device(), &layout_create_info, nullptr, &m_layout));

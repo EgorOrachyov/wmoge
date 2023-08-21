@@ -38,10 +38,7 @@
 
 namespace wmoge {
 
-    /**
-     * @class ConfigStackMode
-     * @brief How to stack configs
-     */
+    /** @brief How to stack configs */
     enum class ConfigStackMode {
         Overwrite,
         Keep

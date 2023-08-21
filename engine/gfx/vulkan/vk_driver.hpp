@@ -39,10 +39,12 @@
 #include "gfx/vulkan/vk_ctx.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_desc_manager.hpp"
+#include "gfx/vulkan/vk_desc_set.hpp"
 #include "gfx/vulkan/vk_mem_manager.hpp"
 #include "gfx/vulkan/vk_pipeline.hpp"
 #include "gfx/vulkan/vk_queues.hpp"
 #include "gfx/vulkan/vk_render_pass.hpp"
+#include "gfx/vulkan/vk_sampler.hpp"
 #include "gfx/vulkan/vk_vert_format.hpp"
 #include "gfx/vulkan/vk_window.hpp"
 
@@ -67,7 +69,7 @@ namespace wmoge {
         Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const StringId& name) override;
+        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) override;
         Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
@@ -78,6 +80,8 @@ namespace wmoge {
         Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name) override;
+        Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) override;
+        Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const StringId& name) override;
 
         void shutdown() override;
 
@@ -116,6 +120,7 @@ namespace wmoge {
         VKWindowManager* window_manager() { return m_window_manager.get(); }
         VKQueues*        queues() { return m_queues.get(); }
         VKMemManager*    mem_manager() { return m_mem_manager.get(); }
+        VKDescManager*   desc_manager() { return m_desc_manager.get(); }
         VKCtx*           vk_ctx() { return m_ctx_immediate.get(); }
 
     private:
@@ -156,10 +161,11 @@ namespace wmoge {
         Ref<GfxDynIndexBuffer>   m_dyn_index_buffer;
         Ref<GfxDynUniformBuffer> m_dyn_uniform_buffer;
 
-        fast_map<GfxVertElements, Ref<VKVertFormat>>   m_formats;
-        fast_map<GfxSamplerDesc, Ref<VKSampler>>       m_samplers;
-        fast_map<GfxPipelineState, Ref<VKPipeline>>    m_pipelines;
-        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>> m_render_passes;
+        fast_map<GfxVertElements, Ref<VKVertFormat>>         m_formats;
+        fast_map<GfxSamplerDesc, Ref<VKSampler>>             m_samplers;
+        fast_map<GfxPipelineState, Ref<VKPipeline>>          m_pipelines;
+        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>>       m_render_passes;
+        fast_map<GfxDescSetLayoutDesc, Ref<VKDescSetLayout>> m_layouts;
 
         GfxDeviceCaps      m_device_caps;
         StringId           m_driver_name = SID("unknown");
@@ -183,6 +189,7 @@ namespace wmoge {
         std::unique_ptr<VKWindowManager>   m_window_manager;
         std::unique_ptr<VKQueues>          m_queues;
         std::unique_ptr<VKMemManager>      m_mem_manager;
+        std::unique_ptr<VKDescManager>     m_desc_manager;
         std::unique_ptr<VKCtx>             m_ctx_immediate;
         std::unique_ptr<VKCtx>             m_ctx_async;
         std::vector<VkExtensionProperties> m_device_extensions;

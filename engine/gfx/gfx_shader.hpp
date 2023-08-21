@@ -35,6 +35,7 @@
 #include "io/archive.hpp"
 
 #include <array>
+#include <cinttypes>
 
 namespace wmoge {
 
@@ -45,20 +46,20 @@ namespace wmoge {
     class GfxShaderReflection {
     public:
         struct Texture {
-            StringId name;
-            int      set        = -1;
-            int      binding    = -1;
-            int      array_size = -1;
-            GfxTex   tex;
+            StringId     name;
+            std::int16_t set        = -1;
+            std::int16_t binding    = -1;
+            std::int16_t array_size = -1;
+            GfxTex       tex        = GfxTex::Unknown;
 
             friend Status archive_write(Archive& archive, const Texture& texture);
             friend Status archive_read(Archive& archive, Texture& texture);
         };
         struct Buffer {
-            StringId name;
-            int      set     = -1;
-            int      binding = -1;
-            int      size    = -1;
+            StringId     name;
+            std::int16_t set     = -1;
+            std::int16_t binding = -1;
+            int          size    = -1;
 
             friend Status archive_write(Archive& archive, const Buffer& buffer);
             friend Status archive_read(Archive& archive, Buffer& buffer);

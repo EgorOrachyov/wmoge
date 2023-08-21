@@ -35,6 +35,7 @@
 #include "math/vec.hpp"
 
 #include <array>
+#include <cinttypes>
 
 namespace wmoge {
 
@@ -80,6 +81,7 @@ namespace wmoge {
 
     /** @brief Texture type */
     enum class GfxTex : int {
+        Unknown = 0,
         Tex2d,
         Tex2dArray,
         TexCube
@@ -395,10 +397,18 @@ namespace wmoge {
     /** @brief Decl of vertex attributes streams */
     using GfxVertAttribsStreams = std::array<GfxVertAttribs, 3>;
 
+    /** @brief Type of bindings to a pipeline */
+    enum class GfxBindingType : std::uint8_t {
+        Unknown = 0,
+        SampledTexture,
+        UniformBuffer,
+        StorageBuffer
+    };
+
     /** @brief How to bind resource to gfx pipeline */
     struct GfxLocation {
-        int set;
-        int binding;
+        std::int16_t set;
+        std::int16_t binding;
     };
 
     /** @brief Holds data of an image in binary format */
@@ -408,6 +418,13 @@ namespace wmoge {
         int       height = 0;
         int       depth  = 0;
         GfxFormat format = GfxFormat::RGBA8;
+    };
+
+    /** @brief Config to dispatch a draw */
+    struct GfxDrawCall {
+        int count     = 0;
+        int base      = 0;
+        int instances = 0;
     };
 
     /** @brief Gfx common device limits */
@@ -424,6 +441,8 @@ namespace wmoge {
         static constexpr int FRAMES_IN_FLIGHT = 2;
         /** Max resources sets count */
         static constexpr int MAX_DESC_SETS = 3;
+        /** Max size of a single desc set */
+        static constexpr int MAX_DESC_SET_SIZE = 128;
     };
 
     /** @brief Gfx device capabilities */

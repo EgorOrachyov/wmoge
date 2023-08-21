@@ -38,7 +38,6 @@
 #include "gfx/vulkan/vk_buffers.hpp"
 #include "gfx/vulkan/vk_cmd_manager.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
-#include "gfx/vulkan/vk_desc_manager.hpp"
 #include "gfx/vulkan/vk_mem_manager.hpp"
 #include "gfx/vulkan/vk_pipeline.hpp"
 #include "gfx/vulkan/vk_queues.hpp"
@@ -89,16 +88,13 @@ namespace wmoge {
         bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
-        void bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
-        void bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
-        void bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
-        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
-        void bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
-        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
+        void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
+        void bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
         void end_render_pass() override;
 
+        void execute(const std::function<void()>& functor) override;
         void shutdown() override;
 
         void begin_frame() override;
@@ -115,12 +111,10 @@ namespace wmoge {
         VkCommandBuffer cmd_current() { return m_cmd_manager->current_buffer(); }
 
     private:
-        void prepare_draw();
         void prepare_render_pass();
 
     private:
-        std::unique_ptr<VKCmdManager>  m_cmd_manager;
-        std::unique_ptr<VKDescManager> m_desc_manager;
+        std::unique_ptr<VKCmdManager> m_cmd_manager;
 
         std::unique_ptr<VKRenderPassBinder>                        m_render_pass_binder;
         Ref<VKRenderPass>                                          m_current_pass;
@@ -129,6 +123,7 @@ namespace wmoge {
         Ref<VKIndexBuffer>                                         m_current_index_buffer;
         std::array<Ref<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
         std::array<int, GfxLimits::MAX_VERT_BUFFERS>               m_current_vert_buffers_offsets{};
+        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS>      m_desc_sets{};
         std::array<Vec4f, GfxLimits::MAX_COLOR_TARGETS>            m_clear_color;
         float                                                      m_clear_depth   = 1.0f;
         int                                                        m_clear_stencil = 0;

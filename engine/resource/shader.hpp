@@ -42,6 +42,10 @@
 
 namespace wmoge {
 
+    enum class ShaderQueue {
+
+    };
+
     /**
      * @class ShaderParameter
      * @brief Shader parameter info

@@ -55,6 +55,7 @@ namespace wmoge {
         FailedDecode,     // Failed to decode binary data
         FailedCompress,   // Compression bc, lz, zip error
         FailedDecompress, // Decompression bc, lz, zip error
+        FailedCompile,    // Shader compilation
         InvalidData,      // Passed invalid data to process
         InvalidParameter, // Function invalid parameter
         InvalidState,     // State of object is invalid for call

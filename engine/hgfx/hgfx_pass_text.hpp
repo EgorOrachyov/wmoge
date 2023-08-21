@@ -31,6 +31,7 @@
 #include "hgfx/hgfx_pass.hpp"
 
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "math/color.hpp"
@@ -61,6 +62,7 @@ namespace wmoge {
 
     private:
         Ref<GfxPipeline>      m_pipeline;
+        Ref<GfxDescSet>       m_desc_set;
         GfxUniformBufferSetup m_buffer_setup;
     };
 

@@ -80,16 +80,13 @@ namespace wmoge {
         bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
-        void bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
-        void bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) override;
-        void bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
-        void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) override;
-        void bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
-        void bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) override;
+        void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
+        void bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
         void end_render_pass() override;
 
+        void execute(const std::function<void()>& functor) override;
         void shutdown() override;
 
         void begin_frame() override;

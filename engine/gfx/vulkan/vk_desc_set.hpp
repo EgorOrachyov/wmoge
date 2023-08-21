@@ -25,88 +25,52 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_BUFFERS_HPP
-#define WMOGE_GFX_BUFFERS_HPP
+#ifndef WMOGE_VK_DESC_SET_HPP
+#define WMOGE_VK_DESC_SET_HPP
 
-#include "gfx/gfx_resource.hpp"
-
-#include <array>
+#include "core/array_view.hpp"
+#include "gfx/gfx_desc_set.hpp"
+#include "gfx/vulkan/vk_defs.hpp"
+#include "gfx/vulkan/vk_resource.hpp"
 
 namespace wmoge {
 
     /**
-     * @class GfxBuffer
-     * @brief Base class for gfx buffer
+     * @class VKDescSetLayout
+     * @brief Vulkan descriptor set layout implementation
      */
-    class GfxBuffer : public GfxResource {
+    class VKDescSetLayout final : public VKResource<GfxDescSetLayout> {
     public:
-        ~GfxBuffer() override = default;
+        VKDescSetLayout(const GfxDescSetLayoutDesc& desc, const StringId& name, class VKDriver& driver);
+        ~VKDescSetLayout() override;
 
-        [[nodiscard]] int         size() const { return m_size; }
-        [[nodiscard]] GfxMemUsage buffer_usage() const { return m_usage; }
+        [[nodiscard]] VkDescriptorSetLayout layout() const { return m_layout; }
 
-    protected:
-        int         m_size;
-        GfxMemUsage m_usage;
+    private:
+        VkDescriptorSetLayout m_layout = VK_NULL_HANDLE;
+        VkDescriptorPoolSize  m_sizes[3]{};
     };
 
     /**
-     * @class GfxVertBuffer
-     * @brief Gfx vertex buffer
+     * @class VKDescSet
+     * @brief Vulkan descriptor set implementation
      */
-    class GfxVertBuffer : public GfxBuffer {
+    class VKDescSet final : public VKResource<GfxDescSet> {
     public:
-        ~GfxVertBuffer() override = default;
+        VKDescSet(const GfxDescSetResources& resources, const Ref<VKDescSetLayout>& layout, const StringId& name, class VKDriver& driver);
+        ~VKDescSet() override;
+
+        void merge(const GfxDescSetResources& resources);
+        void update(const GfxDescSetResources& resources);
+
+        [[nodiscard]] VkDescriptorSet             set() const { return m_set; }
+        [[nodiscard]] const Ref<VKDescSetLayout>& layout() const { return m_layout; }
+
+    private:
+        VkDescriptorSet      m_set = VK_NULL_HANDLE;
+        Ref<VKDescSetLayout> m_layout;
     };
-
-    /**
-     * @class GfxIndexBuffer
-     * @brief Gfx index buffer
-     */
-    class GfxIndexBuffer : public GfxBuffer {
-    public:
-        ~GfxIndexBuffer() override = default;
-    };
-
-    /**
-     * @class GfxUniformBuffer
-     * @brief Gfx uniform buffer
-     */
-    class GfxUniformBuffer : public GfxBuffer {
-    public:
-        ~GfxUniformBuffer() override = default;
-    };
-
-    /**
-     * @class GfxStorageBuffer
-     * @brief Gfx storage buffer
-     */
-    class GfxStorageBuffer : public GfxBuffer {
-    public:
-        ~GfxStorageBuffer() override = default;
-    };
-
-    /**
-     * @brief Setup to bind a particular buffer range
-     * @tparam Buffer
-     */
-    template<typename Buffer>
-    struct GfxBufferSetup {
-        Buffer* buffer = nullptr;
-        int     offset = 0;
-        int     range  = 0;
-    };
-
-    using GfxVertBufferSetup = GfxBufferSetup<GfxVertBuffer>;
-
-    using GfxIndexBufferSetup = GfxBufferSetup<GfxIndexBuffer>;
-
-    using GfxUniformBufferSetup = GfxBufferSetup<GfxUniformBuffer>;
-
-    using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
-
-    using GfxVertBuffersSetup = std::array<GfxVertBufferSetup, GfxLimits::MAX_VERT_BUFFERS>;
 
 }// namespace wmoge
 
-#endif//WMOGE_GFX_BUFFERS_HPP
+#endif//WMOGE_VK_DESC_SET_HPP

@@ -37,7 +37,6 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::VKCtx");
 
         m_cmd_manager        = std::make_unique<VKCmdManager>(driver);
-        m_desc_manager       = std::make_unique<VKDescManager>(driver);
         m_render_pass_binder = std::make_unique<VKRenderPassBinder>(driver);
 
         m_clip_matrix = driver.clip_matrix();
@@ -284,7 +283,6 @@ namespace wmoge {
 
         // Bind shader for descriptor manager
         m_current_shader = m_current_pipeline->state().shader.cast<VKShader>();
-        m_desc_manager->bind_shader(m_current_shader);
 
         vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_pipeline->pipeline());
         m_pipeline_bound = true;
@@ -300,6 +298,11 @@ namespace wmoge {
 
         m_current_vert_buffers[index]         = buffer.cast<VKVertBuffer>();
         m_current_vert_buffers_offsets[index] = offset;
+
+        VkBuffer     vk_vert_buffer        = m_current_vert_buffers[index]->buffer();
+        VkDeviceSize vk_vert_buffer_offset = offset;
+
+        vkCmdBindVertexBuffers(cmd_current(), index, 1, &vk_vert_buffer, &vk_vert_buffer_offset);
     }
     void VKCtx::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_index_buffer");
@@ -312,69 +315,33 @@ namespace wmoge {
         m_current_index_buffer = buffer.cast<VKIndexBuffer>();
         vkCmdBindIndexBuffer(cmd_current(), m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
     }
-    void VKCtx::bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_texture");
+    void VKCtx::bind_desc_set(const Ref<GfxDescSet>& set, int index) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_desc_set");
 
         assert(check_thread_valid());
         assert(m_pipeline_bound);
         assert(m_target_bound);
-        assert(texture);
-        assert(sampler);
+        assert(set);
 
-        texture.cast<VKTexture>()->transition_layout(cmd_current(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-        m_desc_manager->bind_texture(name, array_element, texture, sampler);
+        m_desc_sets[index] = set.cast<VKDescSet>()->set();
+        vkCmdBindDescriptorSets(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_shader->layout(), index, 1, &m_desc_sets[index], 0, nullptr);
     }
-    void VKCtx::bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_texture");
+    void VKCtx::bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_desc_sets");
 
         assert(check_thread_valid());
         assert(m_pipeline_bound);
         assert(m_target_bound);
-        assert(texture);
-        assert(sampler);
+        assert(!sets.empty());
 
-        texture.cast<VKTexture>()->transition_layout(cmd_current(), VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
-        m_desc_manager->bind_texture(location, array_element, texture, sampler);
-    }
-    void VKCtx::bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_uniform_buffer");
+        const int count = int(sets.size());
 
-        assert(check_thread_valid());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
+        for (int i = 0; i < count; i++) {
+            assert(i + offset < GfxLimits::MAX_DESC_SETS);
+            m_desc_sets[i + offset] = dynamic_cast<VKDescSet*>(sets[i])->set();
+        }
 
-        m_desc_manager->bind_uniform_buffer(name, offset, range, buffer);
-    }
-    void VKCtx::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_uniform_buffer");
-
-        assert(check_thread_valid());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_uniform_buffer(location, offset, range, buffer);
-    }
-    void VKCtx::bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_storage_buffer");
-
-        assert(check_thread_valid());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_storage_buffer(name, offset, range, buffer);
-    }
-    void VKCtx::bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_storage_buffer");
-
-        assert(check_thread_valid());
-        assert(m_pipeline_bound);
-        assert(m_target_bound);
-        assert(buffer);
-
-        m_desc_manager->bind_storage_buffer(location, offset, range, buffer);
+        vkCmdBindDescriptorSets(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_shader->layout(), offset, count, &m_desc_sets[offset], 0, nullptr);
     }
     void VKCtx::draw(int vertex_count, int base_vertex, int instance_count) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::draw");
@@ -382,8 +349,6 @@ namespace wmoge {
         assert(check_thread_valid());
         assert(m_pipeline_bound);
         assert(m_target_bound);
-
-        prepare_draw();
 
         vkCmdDraw(cmd_current(), vertex_count, instance_count, base_vertex, 0);
     }
@@ -393,8 +358,6 @@ namespace wmoge {
         assert(check_thread_valid());
         assert(m_pipeline_bound);
         assert(m_target_bound);
-
-        prepare_draw();
 
         vkCmdDrawIndexed(cmd_current(), index_count, instance_count, 0, base_vertex, 0);
     }
@@ -420,7 +383,6 @@ namespace wmoge {
         m_clear_depth   = 1.0f;
         m_clear_stencil = 0;
         m_viewport      = Rect2i(0, 0, 0, 0);
-        m_desc_manager->reset();
 
         m_in_render_pass      = false;
         m_render_pass_started = false;
@@ -428,11 +390,15 @@ namespace wmoge {
         m_target_bound        = false;
     }
 
+    void VKCtx::execute(const std::function<void()>& functor) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::execute");
+
+        functor();
+    }
     void VKCtx::shutdown() {
         WG_AUTO_PROFILE_VULKAN("VKCtx::shutdown");
 
         m_render_pass_binder.reset();
-        m_desc_manager.reset();
         m_cmd_manager.reset();
     }
 
@@ -442,7 +408,6 @@ namespace wmoge {
     void VKCtx::end_frame() {
         WG_AUTO_PROFILE_VULKAN("VKCtx::end_frame");
 
-        m_desc_manager->update();
         m_cmd_manager->update();
     }
 
@@ -459,30 +424,6 @@ namespace wmoge {
         return m_ctx_type != GfxCtxType::Immediate || m_driver.on_gfx_thread();
     }
 
-    void VKCtx::prepare_draw() {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::prepare_draw");
-
-        std::array<VkBuffer, GfxLimits::MAX_VERT_BUFFERS>     vk_vert_buffers{};
-        std::array<VkDeviceSize, GfxLimits::MAX_VERT_BUFFERS> vk_vert_buffers_offsets{};
-
-        int count = 0;
-
-        while (count < GfxLimits::MAX_VERT_BUFFERS) {
-            if (!m_current_vert_buffers[count]) break;
-            vk_vert_buffers[count]         = m_current_vert_buffers[count]->buffer();
-            vk_vert_buffers_offsets[count] = m_current_vert_buffers_offsets[count];
-            count += 1;
-        }
-
-        vkCmdBindVertexBuffers(cmd_current(), 0, count, vk_vert_buffers.data(), vk_vert_buffers_offsets.data());
-
-        int                                                   to_bind_count;
-        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS> sets = m_desc_manager->sets(to_bind_count);
-
-        if (to_bind_count > 0) {
-            vkCmdBindDescriptorSets(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_shader->layout(), 0, to_bind_count, sets.data(), 0, nullptr);
-        }
-    }
     void VKCtx::prepare_render_pass() {
         WG_AUTO_PROFILE_VULKAN("VKCtx::prepare_render_pass");
 

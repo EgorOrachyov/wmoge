@@ -32,6 +32,7 @@
 #include "core/task.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/vulkan/vk_buffers.hpp"
+#include "gfx/vulkan/vk_desc_set.hpp"
 #include "gfx/vulkan/vk_pipeline.hpp"
 #include "gfx/vulkan/vk_sampler.hpp"
 #include "gfx/vulkan/vk_shader.hpp"
@@ -100,6 +101,14 @@ namespace wmoge {
         // init mem manager for allocations
         m_mem_manager = std::make_unique<VKMemManager>(*this);
 
+        // init manager for desc sets allocation
+        VKDescPoolConfig pool_config{};
+        config->get(SID("gfx.vulkan.desc_pool_max_images"), pool_config.max_images);
+        config->get(SID("gfx.vulkan.desc_pool_max_ub"), pool_config.max_ub);
+        config->get(SID("gfx.vulkan.desc_pool_max_sb"), pool_config.max_sb);
+        config->get(SID("gfx.vulkan.desc_pool_max_sets"), pool_config.max_sets);
+        m_desc_manager = std::make_unique<VKDescManager>(pool_config, *this);
+
         // init glslang for shader compilation
         init_glslang();
 
@@ -114,9 +123,9 @@ namespace wmoge {
 
         // setup pool and dynamic buffers
         m_uniform_pool       = make_ref<GfxUniformPool>(SID("uniform_pool"));
-        m_dyn_vert_buffer    = make_dyn_vert_buffer(config->get_int(SID("dyn_vert_chunk_size"), DEFAULT_DYN_VERT_CHUNK_SIZE), SID("vk_dyn_vert_buffer"));
-        m_dyn_index_buffer   = make_dyn_index_buffer(config->get_int(SID("dyn_index_chunk_size"), DEFAULT_DYN_INDEX_CHUNK_SIZE), SID("vk_dyn_index_buffer"));
-        m_dyn_uniform_buffer = make_dyn_uniform_buffer(config->get_int(SID("dyn_uniform_chunk_size"), DEFAULT_DYN_UNIFORM_CHUNK_SIZE), SID("vk_dyn_uniform_buffer"));
+        m_dyn_vert_buffer    = make_dyn_vert_buffer(config->get_int(SID("gfx.dyn_vert_chunk_size"), DEFAULT_DYN_VERT_CHUNK_SIZE), SID("vk_dyn_vert_buffer"));
+        m_dyn_index_buffer   = make_dyn_index_buffer(config->get_int(SID("gfx.dyn_index_chunk_size"), DEFAULT_DYN_INDEX_CHUNK_SIZE), SID("vk_dyn_index_buffer"));
+        m_dyn_uniform_buffer = make_dyn_uniform_buffer(config->get_int(SID("gfx.dyn_uniform_chunk_size"), DEFAULT_DYN_UNIFORM_CHUNK_SIZE), SID("vk_dyn_uniform_buffer"));
 
         // cmd stream of driver thread
         m_driver_cmd_stream = std::make_unique<CallbackStream>();
@@ -192,15 +201,14 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const StringId& name) {
+    Ref<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
 
-        auto shader = make_ref<VKShader>(*this);
-        shader->setup(std::move(vertex), std::move(fragment), name);
+        auto shader = make_ref<VKShader>(std::move(vertex), std::move(fragment), layouts, name, *this);
 
-        Task compile_shader(name, [shader](TaskContext&) {
+        Task compile_shader(SID("vk_compile_shader_" + name.str()), [shader](TaskContext&) {
             shader->compile_from_source();
             return 0;
         });
@@ -214,10 +222,9 @@ namespace wmoge {
 
         assert(on_gfx_thread());
 
-        auto shader = make_ref<VKShader>(*this);
-        shader->setup(std::move(code), name);
+        auto shader = make_ref<VKShader>(std::move(code), name, *this);
 
-        Task compile_shader(SID("vk:compile:shader:" + name.str()), [shader](TaskContext&) {
+        Task compile_shader(SID("vk_deserialize_shader_" + name.str()), [shader](TaskContext&) {
             shader->compile_from_byte_code();
             return 0;
         });
@@ -307,6 +314,25 @@ namespace wmoge {
 
         return make_ref<GfxDynUniformBuffer>(chunk_size, m_device_caps.uniform_block_offset_alignment, name);
     }
+    Ref<GfxDescSetLayout> VKDriver::make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_layout");
+
+        auto& desc_layout = m_layouts[desc];
+        if (!desc_layout) {
+            desc_layout = make_ref<VKDescSetLayout>(desc, name, *this);
+            WG_LOG_INFO("cache new desc layout " << name);
+        }
+
+        return desc_layout;
+    }
+    Ref<GfxDescSet> VKDriver::make_desc_set(const GfxDescSetResources& resources, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_set");
+
+        GfxDescSetLayoutDesc layout_desc;
+        GfxDescSet::fill_required_layout(resources, layout_desc);
+
+        return make_ref<VKDescSet>(resources, make_desc_layout(layout_desc, name).cast<VKDescSetLayout>(), name, *this);
+    }
 
     void VKDriver::shutdown() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::shutdown");
@@ -340,6 +366,9 @@ namespace wmoge {
             m_pipelines.clear();
             flush_release();
 
+            m_layouts.clear();
+            flush_release();
+
             m_samplers.clear();
             flush_release();
 
@@ -355,6 +384,7 @@ namespace wmoge {
 
             glslang::FinalizeProcess();
 
+            m_desc_manager.reset();
             m_mem_manager.reset();
             m_queues.reset();
             m_driver_worker.reset();

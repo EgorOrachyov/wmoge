@@ -154,3 +154,11 @@ class Shader:
         self.buffers = buffers
         self.samplers = samplers
         self.files = files
+
+    def filter_files(self, filter_string):
+        return [file for file in self.files if filter_string in file]
+
+    def set_resources(self, set_num):
+        return \
+            [buffer for buffer in self.buffers if buffer.binding.set_num == set_num] + \
+            [sampler for sampler in self.samplers if sampler.binding.set_num == set_num]

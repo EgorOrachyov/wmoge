@@ -28,10 +28,12 @@
 #ifndef WMOGE_GFX_CTX_H
 #define WMOGE_GFX_CTX_H
 
+#include "core/array_view.hpp"
 #include "core/callback_queue.hpp"
 #include "core/data.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
@@ -44,6 +46,7 @@
 #include "platform/window.hpp"
 
 #include <array>
+#include <functional>
 #include <string>
 #include <thread>
 
@@ -76,27 +79,24 @@ namespace wmoge {
         virtual void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
         virtual void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
 
-        virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())                                     = 0;
-        virtual void bind_target(const Ref<Window>& window)                                                                                       = 0;
-        virtual void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice)                                            = 0;
-        virtual void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice)                                                        = 0;
-        virtual void viewport(const Rect2i& viewport)                                                                                             = 0;
-        virtual void clear(int target, const Vec4f& color)                                                                                        = 0;
-        virtual void clear(float depth, int stencil)                                                                                              = 0;
-        virtual bool bind_pipeline(const Ref<GfxPipeline>& pipeline)                                                                              = 0;
-        virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                                                = 0;
-        virtual void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0)                                = 0;
-        virtual void bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler)        = 0;
-        virtual void bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) = 0;
-        virtual void bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer)                        = 0;
-        virtual void bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer)                 = 0;
-        virtual void bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer)                        = 0;
-        virtual void bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer)                 = 0;
-        virtual void draw(int vertex_count, int base_vertex, int instance_count)                                                                  = 0;
-        virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                                                           = 0;
-        virtual void end_render_pass()                                                                                                            = 0;
+        virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())      = 0;
+        virtual void bind_target(const Ref<Window>& window)                                                        = 0;
+        virtual void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice)             = 0;
+        virtual void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice)                         = 0;
+        virtual void viewport(const Rect2i& viewport)                                                              = 0;
+        virtual void clear(int target, const Vec4f& color)                                                         = 0;
+        virtual void clear(float depth, int stencil)                                                               = 0;
+        virtual bool bind_pipeline(const Ref<GfxPipeline>& pipeline)                                               = 0;
+        virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                 = 0;
+        virtual void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) = 0;
+        virtual void bind_desc_set(const Ref<GfxDescSet>& set, int index)                                          = 0;
+        virtual void bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset = 0)                            = 0;
+        virtual void draw(int vertex_count, int base_vertex, int instance_count)                                   = 0;
+        virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                            = 0;
+        virtual void end_render_pass()                                                                             = 0;
 
-        virtual void shutdown() = 0;
+        virtual void execute(const std::function<void()>& functor) = 0;
+        virtual void shutdown()                                    = 0;
 
         virtual void begin_frame() = 0;
         virtual void end_frame()   = 0;

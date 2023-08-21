@@ -88,7 +88,6 @@ namespace wmoge {
     };
 
     /**
-     * @class EcsSystemInfo
      * @brief Holds system information for execution within a world
      */
     struct EcsSystemInfo {
@@ -101,7 +100,7 @@ namespace wmoge {
 #define WG_ECS_SYSTEM_BIND(System) EcsSystemBindHelper(this, &System::process).process_batch(world, storage, start_entity, count)
 
     /**
-     * @class EcsSystemExecutorT
+     * @class EcsSystemBindHelper
      * @brief Executor implementation for binding C++ systems
      *
      * @tparam T System type

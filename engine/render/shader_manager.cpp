@@ -39,32 +39,23 @@
 #include "render/shader_builder.hpp"
 #include "resource/shader.hpp"
 
+// built-in passes
+#include "shaders/generated/auto_aux_draw_canvas_pass.hpp"
+#include "shaders/generated/auto_base_pass.hpp"
+#include "shaders/generated/auto_text_pass.hpp"
+
 #include <array>
 #include <sstream>
 #include <string>
 
-// built-in opengl shaders
-#include "shaders/generated/auto_aux_draw_canvas_gl410_frag.hpp"
-#include "shaders/generated/auto_aux_draw_canvas_gl410_vert.hpp"
-#include "shaders/generated/auto_base_gl410_frag.hpp"
-#include "shaders/generated/auto_base_gl410_vert.hpp"
-#include "shaders/generated/auto_text_gl410_frag.hpp"
-#include "shaders/generated/auto_text_gl410_vert.hpp"
-
-// built-in vulkan shaders
-#include "shaders/generated/auto_aux_draw_canvas_vk450_frag.hpp"
-#include "shaders/generated/auto_aux_draw_canvas_vk450_vert.hpp"
-#include "shaders/generated/auto_base_vk450_frag.hpp"
-#include "shaders/generated/auto_base_vk450_vert.hpp"
-#include "shaders/generated/auto_text_vk450_frag.hpp"
-#include "shaders/generated/auto_text_vk450_vert.hpp"
-
 namespace wmoge {
 
     ShaderManager::ShaderManager() {
-        auto* engine     = Engine::instance();
-        auto* console    = engine->console();
-        auto* gfx_driver = engine->gfx_driver();
+        auto* engine  = Engine::instance();
+        auto* console = engine->console();
+
+        m_file_system = engine->file_system();
+        m_driver      = engine->gfx_driver();
 
         m_shaders_directory = "root://shaders";
 
@@ -125,13 +116,10 @@ namespace wmoge {
         load_sources_from_build();
         load_sources_from_disk();
 
-        load_cache(gfx_driver->shader_cache_path());
+        load_cache(m_driver->shader_cache_path());
     }
     ShaderManager::~ShaderManager() {
-        auto* engine     = Engine::instance();
-        auto* gfx_driver = engine->gfx_driver();
-
-        save_cache(gfx_driver->shader_cache_path());
+        save_cache(m_driver->shader_cache_path());
     }
 
     StringId ShaderManager::make_shader_key(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader) {
@@ -186,65 +174,23 @@ namespace wmoge {
         if (gfx_shader) {
             return gfx_shader;
         }
-        if (m_sources.find(shader_name) == m_sources.end()) {
-            WG_LOG_ERROR("no such shader type to build " << shader_name);
+
+        ShaderPass* pass;
+        {
+            std::lock_guard lock(m_mutex);
+
+            auto iter = m_passes.find(shader_name);
+            if (iter == m_passes.end()) {
+                WG_LOG_ERROR("no such shader type to build " << shader_name);
+                return gfx_shader;
+            }
+            pass = iter->second.get();
+        }
+
+        if (!pass->compile(shader_key, m_driver, streams, defines, shader, gfx_shader)) {
+            WG_LOG_ERROR("failed compilation of pass " << pass->get_name());
             return gfx_shader;
         }
-
-        Engine*       engine     = Engine::instance();
-        GfxDriver*    gfx_driver = engine->gfx_driver();
-        GfxShaderLang gfx_lang   = gfx_driver->shader_lang();
-
-        ShaderBuilder builder;
-        builder.configure_vs();
-        builder.configure_fs();
-
-        if (gfx_lang == GfxShaderLang::GlslVk450) {
-            builder.add_vs_module("#version 450 core\n");
-            builder.add_fs_module("#version 450 core\n");
-            builder.add_cs_module("#version 450 core\n");
-        }
-        if (gfx_lang == GfxShaderLang::GlslGl410) {
-            builder.add_vs_module("#version 410 core\n");
-            builder.add_fs_module("#version 410 core\n");
-            builder.add_cs_module("#version 410 core\n");
-        }
-
-        builder.add_defines(defines);
-
-        int location_index = 0;
-
-        for (const GfxVertAttribs& attribs : streams) {
-            attribs.for_each([&](int i, GfxVertAttrib attrib) {
-                builder.add_define("ATTRIB_" + Enum::to_str(attrib));
-                builder.vertex.value() << "layout(location = " << location_index << ") in "
-                                       << GfxVertAttribGlslTypes[i] << " "
-                                       << "in" << Enum::to_str(attrib)
-                                       << ";\n";
-                location_index += 1;
-            });
-        }
-
-        if (shader) {
-            builder.add_vs_module(shader->get_include_parameters());
-            builder.add_fs_module(shader->get_include_parameters());
-            builder.add_fs_module(shader->get_include_textures());
-            builder.add_vs_module(shader->get_vertex());
-            builder.add_fs_module(shader->get_fragment());
-            builder.add_cs_module(shader->get_compute());
-        }
-
-        const ShaderSources& sources = m_sources[shader_name];
-        builder.add_vs_module(sources.modules[int(GfxShaderModule::Vertex)]);
-        builder.add_fs_module(sources.modules[int(GfxShaderModule::Fragment)]);
-        builder.add_fs_module(sources.modules[int(GfxShaderModule::Compute)]);
-
-        if (!builder.compile()) {
-            WG_LOG_ERROR("failed to build shader with key " << shader_key);
-            return gfx_shader;
-        }
-
-        gfx_shader = std::move(builder.gfx_shader);
 
         cache(shader_key, gfx_shader, true);
 
@@ -265,8 +211,7 @@ namespace wmoge {
             return entry.shader;
         }
         if (entry.bytecode) {
-            GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
-            entry.shader          = gfx_driver->make_shader(entry.bytecode, entry.name);
+            entry.shader = m_driver->make_shader(entry.bytecode, entry.name);
             return entry.shader;
         }
 
@@ -332,11 +277,8 @@ namespace wmoge {
 
         std::lock_guard lock(m_mutex);
 
-        Engine*     engine      = Engine::instance();
-        FileSystem* file_system = engine->file_system();
-
         std::fstream file;
-        if (!file_system->open_file(path_on_disk, file, std::ios_base::out | std::ios_base::binary)) {
+        if (!m_file_system->open_file(path_on_disk, file, std::ios_base::out | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to open shader cache file to save " << path_on_disk);
             return;
         }
@@ -362,16 +304,8 @@ namespace wmoge {
 
         std::lock_guard lock(m_mutex);
 
-        Engine*     engine      = Engine::instance();
-        FileSystem* file_system = engine->file_system();
-
-        if (!file_system->exists(path_on_disk)) {
-            WG_LOG_INFO("no cache to load");
-            return;
-        }
-
         std::fstream file;
-        if (!file_system->open_file(path_on_disk, file, std::ios_base::in | std::ios_base::binary)) {
+        if (!m_file_system->open_file(path_on_disk, file, std::ios_base::in | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to open shader cache file to load " << path_on_disk);
             return;
         }
@@ -380,6 +314,13 @@ namespace wmoge {
         archive >> m_cache;
 
         WG_LOG_INFO("load shader cache: " << path_on_disk << " " << StringUtils::from_mem_size(archive.get_size()));
+    }
+    void ShaderManager::register_pass(std::unique_ptr<ShaderPass> pass) {
+        WG_AUTO_PROFILE_RENDER("ShaderManager::register_pass");
+
+        std::lock_guard lock(m_mutex);
+
+        m_passes[pass->get_name()] = std::move(pass);
     }
 
     Status archive_write(Archive& archive, const ShaderManager::ShaderData& shader_data) {
@@ -396,78 +337,20 @@ namespace wmoge {
     void ShaderManager::load_sources_from_build() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_build");
 
-        GfxDriver*    gfx_driver = Engine::instance()->gfx_driver();
-        GfxShaderLang gfx_lang   = gfx_driver->shader_lang();
-
-        const std::pair<const char*, const char*> sources_vk[] = {
-                {source_aux_draw_canvas_vk450_vert, source_aux_draw_canvas_vk450_frag},
-                {source_base_vk450_vert, source_base_vk450_frag},
-                {source_text_vk450_vert, source_text_vk450_frag}};
-
-        const std::pair<const char*, const char*> sources_gl[] = {
-                {source_aux_draw_canvas_gl410_vert, source_aux_draw_canvas_gl410_frag},
-                {source_base_gl410_vert, source_base_gl410_frag},
-                {source_text_gl410_vert, source_text_gl410_frag}};
-
-        const StringId names[] = {
-                SID("aux_draw_canvas"),
-                SID("base"),
-                SID("text")};
-
-        const int num_shaders = int(std::size(names));
-
-        auto fill_sources = [&](const std::pair<const char*, const char*> sources[]) {
-            for (int i = 0; i < num_shaders; i++) {
-                auto& shader_sources      = m_sources[names[i]];
-                shader_sources.modules[0] = sources[i].first;
-                shader_sources.modules[1] = sources[i].second;
-            }
-        };
-
-        if (gfx_lang == GfxShaderLang::GlslVk450) {
-            fill_sources(sources_vk);
-            WG_LOG_INFO("load built-in sources GlslVk450");
-        }
-        if (gfx_lang == GfxShaderLang::GlslGl410) {
-            fill_sources(sources_gl);
-            WG_LOG_INFO("load built-in sources GlslGl410");
-        }
+        // register engine shader passes here
+        register_pass(std::make_unique<ShaderPassBase>());
+        register_pass(std::make_unique<ShaderPassText>());
+        register_pass(std::make_unique<ShaderPassAuxDrawCanvas>());
     }
     void ShaderManager::load_sources_from_disk() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_disk");
 
-        Engine*       engine      = Engine::instance();
-        FileSystem*   file_system = engine->file_system();
-        GfxDriver*    gfx_driver  = engine->gfx_driver();
-        GfxShaderLang gfx_lang    = gfx_driver->shader_lang();
+        std::lock_guard lock(m_mutex);
 
-        std::string s_lang;
-
-        if (gfx_lang == GfxShaderLang::GlslVk450) {
-            s_lang = "vk450";
-        }
-        if (gfx_lang == GfxShaderLang::GlslGl410) {
-            s_lang = "gl410";
-        }
-
-        auto make_module_path = [&](const StringId& name, const char* module) {
-            std::stringstream key;
-            key << "root://shaders/auto_" << name.str() << "_" << s_lang << "_" << module << ".glsl";
-            return key.str();
-        };
-
-        for (auto& entry : m_sources) {
-            const StringId& shader_name = entry.first;
-            ShaderSources&  sources     = entry.second;
-
-            std::string vertex_module_path = make_module_path(shader_name, "vert");
-            if (file_system->read_file(vertex_module_path, sources.modules[0])) {
-                WG_LOG_INFO("re-load from disk " << vertex_module_path);
-            }
-
-            std::string fragment_module_path = make_module_path(shader_name, "frag");
-            if (file_system->read_file(fragment_module_path, sources.modules[1])) {
-                WG_LOG_INFO("re-load from disk " << fragment_module_path);
+        for (auto& entry : m_passes) {
+            if (!entry.second->reload_sources(m_shaders_directory, m_file_system)) {
+                WG_LOG_ERROR("failed to reload sources for a pass " << entry.first);
+                continue;
             }
         }
     }

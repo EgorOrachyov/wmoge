@@ -312,6 +312,8 @@ namespace wmoge {
     void AuxDrawCanvas::render() {
         WG_AUTO_PROFILE_RENDER("AuxDrawCanvas::render");
 
+        return;
+
         auto engine         = Engine::instance();
         auto gfx_driver     = engine->gfx_driver();
         auto gfx_ctx        = engine->gfx_ctx();
@@ -398,8 +400,8 @@ namespace wmoge {
 
                 if (to_bind.get() == prev_bound || gfx_ctx->bind_pipeline(to_bind)) {
                     gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(triangles.buffer), 0, triangles.offset);
-                    gfx_ctx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, params_setup.offset, params_setup.range, Ref<GfxUniformBuffer>(params_setup.buffer));
-                    gfx_ctx->bind_texture(ShaderAuxDrawCanvas::TEXTURE_LOC, 0, current_triangle.texture, current_triangle.sampler);
+                    //                    gfx_ctx->bind_uniform_buffer(ShaderAuxDrawCanvas::PARAMS_LOC, params_setup.offset, params_setup.range, Ref<GfxUniformBuffer>(params_setup.buffer));
+                    //                    gfx_ctx->bind_texture(ShaderAuxDrawCanvas::TEXTURE_LOC, 0, current_triangle.texture, current_triangle.sampler);
                     gfx_ctx->draw(vertex_count, start_vertex, 1);
                     prev_bound = to_bind.get();
                 }

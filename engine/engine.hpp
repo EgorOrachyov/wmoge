@@ -88,6 +88,7 @@
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
@@ -142,7 +143,9 @@
 #include "render/mesh_builder.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
+#include "render/render_queue.hpp"
 #include "render/shader_manager.hpp"
+#include "render/shader_pass.hpp"
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
 

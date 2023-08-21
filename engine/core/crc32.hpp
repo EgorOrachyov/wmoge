@@ -32,10 +32,7 @@
 
 namespace wmoge {
 
-    /**
-     * @class Crc32Hash
-     * @brief Crc hash type
-     */
+    /** @brief Crc hash type */
     using Crc32Hash = unsigned int;
 
     /**

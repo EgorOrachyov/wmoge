@@ -25,88 +25,46 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_BUFFERS_HPP
-#define WMOGE_GFX_BUFFERS_HPP
+#include "render_queue.hpp"
 
-#include "gfx/gfx_resource.hpp"
-
-#include <array>
+#include <algorithm>
 
 namespace wmoge {
 
-    /**
-     * @class GfxBuffer
-     * @brief Base class for gfx buffer
-     */
-    class GfxBuffer : public GfxResource {
-    public:
-        ~GfxBuffer() override = default;
+    void RenderQueue::push(RenderCmdKey key, const RenderCmd& cmd) {
+        std::lock_guard guard(m_mutex);
 
-        [[nodiscard]] int         size() const { return m_size; }
-        [[nodiscard]] GfxMemUsage buffer_usage() const { return m_usage; }
+        const int index = m_next_index++;
+        m_buffer[index] = cmd;
+        m_queue.emplace_back(key, index);
+    }
+    void RenderQueue::clear() {
+        std::lock_guard guard(m_mutex);
 
-    protected:
-        int         m_size;
-        GfxMemUsage m_usage;
-    };
+        m_next_index = 0;
+        m_queue.clear();
+    }
+    void RenderQueue::free() {
+        std::lock_guard guard(m_mutex);
 
-    /**
-     * @class GfxVertBuffer
-     * @brief Gfx vertex buffer
-     */
-    class GfxVertBuffer : public GfxBuffer {
-    public:
-        ~GfxVertBuffer() override = default;
-    };
+        m_next_index = 0;
+        m_buffer.clear();
+        m_queue.clear();
+    }
+    void RenderQueue::sort() {
+        std::lock_guard guard(m_mutex);
 
-    /**
-     * @class GfxIndexBuffer
-     * @brief Gfx index buffer
-     */
-    class GfxIndexBuffer : public GfxBuffer {
-    public:
-        ~GfxIndexBuffer() override = default;
-    };
+        std::sort(m_queue.begin(), m_queue.end(), [](const auto& p1, const auto& p2) -> bool {
+            return p1.first.value < p2.first.value;
+        });
+    }
 
-    /**
-     * @class GfxUniformBuffer
-     * @brief Gfx uniform buffer
-     */
-    class GfxUniformBuffer : public GfxBuffer {
-    public:
-        ~GfxUniformBuffer() override = default;
-    };
-
-    /**
-     * @class GfxStorageBuffer
-     * @brief Gfx storage buffer
-     */
-    class GfxStorageBuffer : public GfxBuffer {
-    public:
-        ~GfxStorageBuffer() override = default;
-    };
-
-    /**
-     * @brief Setup to bind a particular buffer range
-     * @tparam Buffer
-     */
-    template<typename Buffer>
-    struct GfxBufferSetup {
-        Buffer* buffer = nullptr;
-        int     offset = 0;
-        int     range  = 0;
-    };
-
-    using GfxVertBufferSetup = GfxBufferSetup<GfxVertBuffer>;
-
-    using GfxIndexBufferSetup = GfxBufferSetup<GfxIndexBuffer>;
-
-    using GfxUniformBufferSetup = GfxBufferSetup<GfxUniformBuffer>;
-
-    using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
-
-    using GfxVertBuffersSetup = std::array<GfxVertBufferSetup, GfxLimits::MAX_VERT_BUFFERS>;
+    std::size_t RenderQueue::size() const {
+        return m_next_index;
+    }
+    const RenderCmd& RenderQueue::cmd(std::size_t index) const {
+        assert(index < m_next_index);
+        return m_buffer[m_queue[index].second];
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_BUFFERS_HPP

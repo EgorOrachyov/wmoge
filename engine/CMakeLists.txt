@@ -105,6 +105,8 @@ add_library(wmoge STATIC
         gameplay/game_token_manager.hpp
         gfx/gfx_buffers.hpp
         gfx/gfx_defs.hpp
+        gfx/gfx_desc_set.cpp
+        gfx/gfx_desc_set.hpp
         gfx/gfx_ctx.hpp
         gfx/gfx_driver.hpp
         gfx/gfx_dynamic_buffers.cpp
@@ -139,6 +141,8 @@ add_library(wmoge STATIC
         gfx/vulkan/vk_defs.hpp
         gfx/vulkan/vk_desc_manager.cpp
         gfx/vulkan/vk_desc_manager.hpp
+        gfx/vulkan/vk_desc_set.cpp
+        gfx/vulkan/vk_desc_set.hpp
         gfx/vulkan/vk_driver.cpp
         gfx/vulkan/vk_driver.hpp
         gfx/vulkan/vk_mem_manager.cpp
@@ -239,10 +243,14 @@ add_library(wmoge STATIC
         render/render_camera.hpp
         render/render_engine.cpp
         render/render_engine.hpp
+        render/render_queue.cpp
+        render/render_queue.hpp
         render/shader_builder.cpp
         render/shader_builder.hpp
         render/shader_manager.cpp
         render/shader_manager.hpp
+        render/shader_pass.cpp
+        render/shader_pass.hpp
         render/texture_compression.cpp
         render/texture_compression.hpp
         render/texture_manager.cpp

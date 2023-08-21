@@ -55,20 +55,6 @@ namespace wmoge {
         virtual Status nwrite(int num_bytes, const void* bytes) { return StatusCode::NotImplemented; };
         virtual Status nread(int num_bytes, void* bytes) { return StatusCode::NotImplemented; };
 
-        virtual Status write(bool value);
-        virtual Status write(int value);
-        virtual Status write(float value);
-        virtual Status write(std::size_t value);
-        virtual Status write(const StringId& value);
-        virtual Status write(const std::string& value);
-
-        virtual Status read(bool& value);
-        virtual Status read(int& value);
-        virtual Status read(float& value);
-        virtual Status read(std::size_t& value);
-        virtual Status read(StringId& value);
-        virtual Status read(std::string& value);
-
         [[nodiscard]] virtual bool        is_memory()   = 0;
         [[nodiscard]] virtual bool        is_physical() = 0;
         [[nodiscard]] virtual std::size_t get_size()    = 0;
@@ -83,17 +69,34 @@ namespace wmoge {
         bool     m_can_write = false;
     };
 
+    Status archive_read(Archive& archive, bool& value);
     Status archive_write(Archive& archive, const bool& value);
-    Status archive_write(Archive& archive, const int& value);
-    Status archive_write(Archive& archive, const float& value);
-    Status archive_write(Archive& archive, const std::size_t& value);
+
+    template<typename T>
+    Status archive_read(Archive& archive, T& value, typename std::enable_if_t<std::is_integral_v<T>>* = nullptr) {
+        assert(archive.can_read());
+        return archive.nread(sizeof(T), &value);
+    }
+    template<typename T>
+    Status archive_write(Archive& archive, const T& value, typename std::enable_if_t<std::is_integral_v<T>>* = nullptr) {
+        assert(archive.can_write());
+        return archive.nwrite(sizeof(T), &value);
+    }
+
+    template<typename T>
+    Status archive_read(Archive& archive, T& value, typename std::enable_if_t<std::is_floating_point_v<T>>* = nullptr) {
+        assert(archive.can_read());
+        return archive.nread(sizeof(T), &value);
+    }
+    template<typename T>
+    Status archive_write(Archive& archive, const T& value, typename std::enable_if_t<std::is_floating_point_v<T>>* = nullptr) {
+        assert(archive.can_write());
+        return archive.nwrite(sizeof(T), &value);
+    }
+
     Status archive_write(Archive& archive, const StringId& value);
     Status archive_write(Archive& archive, const std::string& value);
 
-    Status archive_read(Archive& archive, bool& value);
-    Status archive_read(Archive& archive, int& value);
-    Status archive_read(Archive& archive, float& value);
-    Status archive_read(Archive& archive, std::size_t& value);
     Status archive_read(Archive& archive, StringId& value);
     Status archive_read(Archive& archive, std::string& value);
 
@@ -135,8 +138,8 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
-    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    Status archive_write(Archive& archive, const T& enum_value) {
+    template<class T>
+    Status archive_write(Archive& archive, const T& enum_value, typename std::enable_if_t<std::is_enum_v<T>>* = nullptr) {
         int value = static_cast<int>(enum_value);
         WG_ARCHIVE_WRITE(archive, value);
         return StatusCode::Ok;
@@ -173,8 +176,8 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
-    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    Status archive_read(Archive& archive, T& enum_value) {
+    template<class T>
+    Status archive_read(Archive& archive, T& enum_value, typename std::enable_if_t<std::is_enum_v<T>>* = nullptr) {
         int value;
         WG_ARCHIVE_READ(archive, value);
         enum_value = static_cast<T>(value);

@@ -120,6 +120,19 @@ namespace wmoge {
     public:
         static void schedule_delete(class VKDriver& driver, class GfxResource* resource);
 
+        static VkDescriptorType get_desc_type(GfxBindingType type) {
+            switch (type) {
+                case GfxBindingType::SampledTexture:
+                    return VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+                case GfxBindingType::UniformBuffer:
+                    return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+                case GfxBindingType::StorageBuffer:
+                    return VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+                default:
+                    return VK_DESCRIPTOR_TYPE_MAX_ENUM;
+            }
+        }
+
         static VkImageLayout rt_layout_from_fmt(GfxFormat fmt) {
             switch (fmt) {
                 case GfxFormat::DEPTH32F:

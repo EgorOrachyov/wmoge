@@ -15,8 +15,6 @@ Currently, the work is focused on a minor refactoring, new runtime scene represe
 system, refactoring audio, scripting systems, and bringing physics support. The engine is a personal learning/hobby
 project for educational purposes only.
 
-> Work in progress, new features coming soon!
-
 * **Project C/C++ and Python documentation:** [egororachyov.github.io/wmoge](https://egororachyov.github.io/wmoge)
 * **Current progress and task
   page:** [github.com/EgorOrachyov/wmoge/issues](https://github.com/EgorOrachyov/wmoge/issues).
@@ -25,6 +23,7 @@ project for educational purposes only.
 * **Source code:** [github.com/EgorOrachyov/wmoge](https://github.com/EgorOrachyov/wmoge)
 
 ![gif](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&sanitize=true)
+> Work in progress, new features coming soon! This 2d demo is an old build!
 
 ## About the engine
 
@@ -39,12 +38,17 @@ project for educational purposes only.
 * 🎥 Abstract graphics (gfx) device interface for GPU driver communication.
 * 🎥 Vulkan-based gfx device backend.
 * 🎥 (in progress) OpenGL-based gfx device backend.
+* 🎨 Automated generation of shader passes with automated layout creation, compilation and reloading.
+* 🎨 Gpu pipelines runtime and offline cache to speed-up rendering.
 * 🎨 Lightweight runtime and offline shader cache system to speed-up shaders compilation.
 * 🎨 High-level shaders and render-passes with generated static reflection from a python script.
-* 📁 Async resource-loading system with runtime cache.
-* 📁 Unified resources handling, meta-information, support for external formats through custom loaders.
+* 📦 Async resource-loading system with runtime cache.
+* 📦 Unified resources handling, meta-information, support for external formats through custom loaders.
+* 📦 Yaml and binary serialization support.
+* 📦 Gpu texture compression into BCn (1-7) format for faster loading, rendering and lower memory usage.
 * 🅰️ Custom math library with 2d and 3d-space primitives.
 * 🧱 Ecs-based scene model with fast, parallel and memory-friendly update.
+* 🧱 Tree-based object model for editor (offline) scene description.
 * 🎧 (in progress) OpenAL audio renderer for playing game sounds.
 * 📜 (in progress) Modern Lua scripting backend for game logic programming.
 * 🐞 Built-in CPU performance and tasking profiling with support to google trace exporting.
@@ -131,9 +135,13 @@ folder.
 $ python ./build.py --build-dir=build --build-type=Release --nt=4 --arch=<arch>
 ```
 
-In order to run a template project demo, you need to manually copy `template` folder content into the
-`build/template` directory and run template.exe. The template project will start up and enter main loop. Alternatively,
-the executable can be stated from the IDE by running `template/main.cpp` entry point.
+In order to run a template project demo, execute following command to start demo game executable. The
+optional `root_remap` argument tells engine where its root directory with all config files and resources is located. In
+our case the template directory will be used as a root.
+
+```shell
+$ build/template/template.exe --root_remap="template/"
+```
 
 ## Contributing
 

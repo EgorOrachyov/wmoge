@@ -28,14 +28,22 @@
 #ifndef WMOGE_RENDER_ENGINE_HPP
 #define WMOGE_RENDER_ENGINE_HPP
 
+#include "core/status.hpp"
+#include "core/string_id.hpp"
+#include "render/render_camera.hpp"
+#include "resource/mesh.hpp"
+#include "resource/shader.hpp"
+
 namespace wmoge {
 
     /**
      * @class RenderEngine
-     * @brief Engine is responsible for high-level rendering management
+     * @brief Responsible for a single scene rendering for each frame
      */
     class RenderEngine {
     public:
+    private:
+        RenderCameras m_cameras;
     };
 
 }// namespace wmoge

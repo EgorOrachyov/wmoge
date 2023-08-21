@@ -57,7 +57,7 @@ namespace wmoge {
         Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const StringId& name) override;
+        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) override;
         Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
@@ -68,6 +68,8 @@ namespace wmoge {
         Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name) override;
+        Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) override;
+        Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const StringId& name) override;
 
         void shutdown() override;
 

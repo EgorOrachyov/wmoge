@@ -29,6 +29,7 @@
 #define WMOGE_VK_SHADER_HPP
 
 #include "core/fast_vector.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_resource.hpp"
@@ -45,41 +46,52 @@
 namespace wmoge {
 
     /**
+     * @class VKShaderBinary
+     * @brief Struct used for serialization of vulkan shader into binary format
+     */
+    struct VKShaderBinary {
+        fast_vector<Ref<Data>> spirvs;
+        GfxDescSetLayoutDescs  layouts;
+        GfxShaderReflection    reflection;
+
+        friend Status archive_read(Archive& archive, VKShaderBinary& binary);
+        friend Status archive_write(Archive& archive, const VKShaderBinary& binary);
+    };
+
+    /**
      * @class VKShader
      * @brief Vulkan implementation of gfx shader program resource
      */
     class VKShader final : public VKResource<GfxShader> {
     public:
-        VKShader(class VKDriver& driver);
+        VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver);
+        VKShader(Ref<Data> byte_code, const StringId& name, class VKDriver& driver);
         ~VKShader() override;
 
-        void setup(std::string vertex, std::string fragment, const StringId& name);
-        void setup(Ref<Data> byte_code, const StringId& name);
         void compile_from_source();
         void compile_from_byte_code();
 
-        GfxShaderStatus                                                    status() const override;
-        std::string                                                        message() const override;
-        const GfxShaderReflection*                                         reflection() const override;
-        Ref<Data>                                                          byte_code() const override;
-        const fast_vector<VkShaderModule>&                                 modules() const { return m_modules; }
-        const std::array<VkDescriptorSetLayout, GfxLimits::MAX_DESC_SETS>& set_layouts() const { return m_set_layouts; }
-        VkPipelineLayout                                                   layout() const { return m_layout; }
+        [[nodiscard]] GfxShaderStatus                    status() const override;
+        [[nodiscard]] std::string                        message() const override;
+        [[nodiscard]] const GfxShaderReflection*         reflection() const override;
+        [[nodiscard]] Ref<Data>                          byte_code() const override;
+        [[nodiscard]] const fast_vector<VkShaderModule>& modules() const { return m_modules; }
+        [[nodiscard]] VkPipelineLayout                   layout() const { return m_layout; }
 
     private:
         void reflect(glslang::TProgram& program);
-        void gen_byte_code(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment);
-        void init(const std::vector<uint32_t>& vertex, const std::vector<uint32_t>& fragment);
+        void gen_byte_code(const Ref<Data>& vertex, const Ref<Data>& fragment);
+        void init(const Ref<Data>& vertex, const Ref<Data>& fragment);
 
     private:
-        fast_vector<std::string>                                    m_sources;
-        fast_vector<VkShaderModule>                                 m_modules;
-        std::atomic<GfxShaderStatus>                                m_status{GfxShaderStatus::Compiling};
-        std::string                                                 m_message;
-        GfxShaderReflection                                         m_reflection;
-        std::array<VkDescriptorSetLayout, GfxLimits::MAX_DESC_SETS> m_set_layouts{};
-        Ref<Data>                                                   m_byte_code;
-        VkPipelineLayout                                            m_layout = VK_NULL_HANDLE;
+        fast_vector<std::string>     m_sources;
+        fast_vector<VkShaderModule>  m_modules;
+        std::atomic<GfxShaderStatus> m_status{GfxShaderStatus::Compiling};
+        std::string                  m_message;
+        GfxShaderReflection          m_reflection;
+        GfxDescSetLayouts            m_set_layouts{};
+        Ref<Data>                    m_byte_code;
+        VkPipelineLayout             m_layout = VK_NULL_HANDLE;
     };
 
 }// namespace wmoge

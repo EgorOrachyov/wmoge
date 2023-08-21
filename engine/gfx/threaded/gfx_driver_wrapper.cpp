@@ -90,11 +90,11 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { buffer = m_driver->make_storage_buffer(size, usage, name); });
         return buffer;
     }
-    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string vertex, std::string fragment, const StringId& name) {
+    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
 
         Ref<GfxShader> shader;
-        m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(vertex), std::move(fragment), name); });
+        m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(vertex), std::move(fragment), layouts, name); });
         return shader;
     }
     Ref<GfxShader> GfxDriverWrapper::make_shader(Ref<Data> code, const StringId& name) {
@@ -166,6 +166,20 @@ namespace wmoge {
         Ref<GfxDynUniformBuffer> dyn_buffer;
         m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_uniform_buffer(chunk_size, name); });
         return dyn_buffer;
+    }
+    Ref<GfxDescSetLayout> GfxDriverWrapper::make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_desc_layout");
+
+        Ref<GfxDescSetLayout> desc_layout;
+        m_stream->push_and_wait([&]() { desc_layout = m_driver->make_desc_layout(desc, name); });
+        return desc_layout;
+    }
+    Ref<GfxDescSet> GfxDriverWrapper::make_desc_set(const GfxDescSetResources& resources, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_desc_set");
+
+        Ref<GfxDescSet> desc_set;
+        m_stream->push_and_wait([&]() { desc_set = m_driver->make_desc_set(resources, name); });
+        return desc_set;
     }
 
     void GfxDriverWrapper::shutdown() {

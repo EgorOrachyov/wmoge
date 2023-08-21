@@ -181,35 +181,15 @@ namespace wmoge {
 
         m_stream->push([=]() { m_ctx->bind_index_buffer(buffer, index_type, offset); });
     }
-    void GfxCtxWrapper::bind_texture(const StringId& name, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
-        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_texture");
+    void GfxCtxWrapper::bind_desc_set(const Ref<GfxDescSet>& set, int index) {
+        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_desc_set");
 
-        m_stream->push([=]() { m_ctx->bind_texture(name, array_element, texture, sampler); });
+        m_stream->push([=]() { m_ctx->bind_desc_set(set, index); });
     }
-    void GfxCtxWrapper::bind_texture(const GfxLocation& location, int array_element, const Ref<GfxTexture>& texture, const Ref<GfxSampler>& sampler) {
-        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_texture");
+    void GfxCtxWrapper::bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) {
+        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_desc_sets");
 
-        m_stream->push([=]() { m_ctx->bind_texture(location, array_element, texture, sampler); });
-    }
-    void GfxCtxWrapper::bind_uniform_buffer(const StringId& name, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_uniform_buffer");
-
-        m_stream->push([=]() { m_ctx->bind_uniform_buffer(name, offset, range, buffer); });
-    }
-    void GfxCtxWrapper::bind_uniform_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_uniform_buffer");
-
-        m_stream->push([=]() { m_ctx->bind_uniform_buffer(location, offset, range, buffer); });
-    }
-    void GfxCtxWrapper::bind_storage_buffer(const StringId& name, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_storage_buffer");
-
-        m_stream->push([=]() { m_ctx->bind_storage_buffer(name, offset, range, buffer); });
-    }
-    void GfxCtxWrapper::bind_storage_buffer(const GfxLocation& location, int offset, int range, const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::bind_storage_buffer");
-
-        m_stream->push([=]() { m_ctx->bind_storage_buffer(location, offset, range, buffer); });
+        m_stream->push([=]() { m_ctx->bind_desc_sets(sets, offset); });
     }
     void GfxCtxWrapper::draw(int vertex_count, int base_vertex, int instance_count) {
         WG_AUTO_PROFILE_GFX("GfxCtxWrapper::draw");
@@ -227,6 +207,11 @@ namespace wmoge {
         m_stream->push([=]() { m_ctx->end_render_pass(); });
     }
 
+    void GfxCtxWrapper::execute(const std::function<void()>& functor) {
+        WG_AUTO_PROFILE_GFX("GfxCtxWrapper::execute");
+
+        m_stream->push_and_wait([&]() { m_ctx->execute(functor); });
+    }
     void GfxCtxWrapper::shutdown() {
         WG_AUTO_PROFILE_GFX("GfxCtxWrapper::shutdown");
 

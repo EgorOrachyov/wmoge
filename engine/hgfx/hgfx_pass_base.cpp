@@ -77,6 +77,17 @@ namespace wmoge {
 
         m_buffer_setup = gfx_driver->uniform_pool()->allocate(params);
 
+        GfxDescSetResources resources;
+        auto& [point, value] = resources.emplace_back();
+        point.type           = GfxBindingType::UniformBuffer;
+        point.binding        = ShaderBase::PARAMS_SLOT;
+        point.array_element  = 0;
+        value.resource       = Ref<GfxResource>(m_buffer_setup.buffer);
+        value.offset         = m_buffer_setup.offset;
+        value.range          = m_buffer_setup.range;
+
+        m_desc_set = gfx_driver->make_desc_set(resources, name);
+
         return true;
     }
 
@@ -84,7 +95,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_HGFX("HgfxPassBase::configure");
 
         if (gfx_ctx->bind_pipeline(m_pipeline)) {
-            gfx_ctx->bind_uniform_buffer(ShaderBase::PARAMS_LOC, m_buffer_setup.offset, m_buffer_setup.range, Ref<GfxUniformBuffer>(m_buffer_setup.buffer));
+            gfx_ctx->bind_desc_set(m_desc_set, 0);
             return true;
         }
 

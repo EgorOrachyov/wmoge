@@ -28,7 +28,15 @@
 #ifndef WMOGE_TEXTURE_MANAGER_HPP
 #define WMOGE_TEXTURE_MANAGER_HPP
 
-class texture_manager {
-};
+namespace wmoge {
+
+    /**
+     * @class TextureManager
+     * @brief Manages allocation and streaming of all engine textures
+     */
+    class TextureManager {
+    };
+
+}// namespace wmoge
 
 #endif//WMOGE_TEXTURE_MANAGER_HPP

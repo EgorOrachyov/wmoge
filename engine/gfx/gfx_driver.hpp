@@ -28,11 +28,13 @@
 #ifndef WMOGE_GFX_DRIVER_HPP
 #define WMOGE_GFX_DRIVER_HPP
 
+#include "core/array_view.hpp"
 #include "core/callback_queue.hpp"
 #include "core/data.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_render_pass.hpp"
@@ -70,7 +72,7 @@ namespace wmoge {
         virtual Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                   = 0;
         virtual Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                 = 0;
         virtual Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                 = 0;
-        virtual Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const StringId& name = StringId())                                                                            = 0;
+        virtual Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name = StringId())                                          = 0;
         virtual Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name = StringId())                                                                                                      = 0;
         virtual Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId())                   = 0;
         virtual Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId()) = 0;
@@ -81,6 +83,8 @@ namespace wmoge {
         virtual Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name = StringId())                                                                                             = 0;
         virtual Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name = StringId())                                                                                            = 0;
         virtual Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name = StringId())                                                                                          = 0;
+        virtual Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name = StringId())                                                                               = 0;
+        virtual Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const StringId& name = StringId())                                                                              = 0;
 
         virtual void shutdown() = 0;
 

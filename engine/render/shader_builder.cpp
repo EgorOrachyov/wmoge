@@ -90,12 +90,11 @@ namespace wmoge {
         GfxDriver* gfx_driver = engine->gfx_driver();
 
         if (vertex.has_value() && fragment.has_value()) {
-            gfx_shader = gfx_driver->make_shader(vertex->str(), fragment->str(), key);
+            gfx_shader = gfx_driver->make_shader(vertex->str(), fragment->str(), layouts, key);
             return true;
         }
 
         WG_LOG_ERROR("unknown shader modules combination");
-
         return false;
     }
 

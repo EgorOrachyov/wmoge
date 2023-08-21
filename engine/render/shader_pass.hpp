@@ -25,49 +25,69 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SHADER_BUILDER_HPP
-#define WMOGE_SHADER_BUILDER_HPP
+#ifndef WMOGE_SHADER_PASS_HPP
+#define WMOGE_SHADER_PASS_HPP
 
-#include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
+#include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
+#include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_shader.hpp"
-
-#include <optional>
-#include <sstream>
-#include <string>
-#include <vector>
+#include "platform/file_system.hpp"
+#include "resource/shader.hpp"
 
 namespace wmoge {
 
     /**
-     * @class ShaderBuilder
-     * @brief Builder of a particular gfx shader variation
+     * @class ShaderPass
+     * @brief Base class for any engine shading pass
+     *
+     * Shader pass is a high level shading program representation. It provides connection
+     * between a shader, written using glsl in engine source code, optional user defined
+     * material and a low-level engine gfx api.
+     *
+     * Shader pass provides info about required pipeline layout, allows to obtain final
+     * shader source code, provides defines info and etc.
      */
-    struct ShaderBuilder {
+    class ShaderPass {
     public:
-        void configure_vs();
-        void configure_fs();
-        void configure_cs();
-        void add_define(const std::string& define);
-        void add_defines(const fast_vector<std::string>& defines);
-        void add_define_vs(const std::string& define);
-        void add_define_fs(const std::string& define);
-        void add_define_cs(const std::string& define);
-        void add_vs_module(const std::string& code);
-        void add_fs_module(const std::string& code);
-        void add_cs_module(const std::string& code);
+        virtual ~ShaderPass() = default;
 
-        bool compile();
+        /**
+         * @brief Compile a gfx shader for this specific shader pass
+         *
+         * @param name Shader unique name
+         * @param driver Gfx driver for resources creation
+         * @param streams Vertex attributes streams
+         * @param defines Additional defines for compilation
+         * @param shader Optional material user shader
+         * @param out_shader Out gfx shader for actual rendering
+         *
+         * @return Ok on success
+         */
+        virtual Status compile(const StringId& name, GfxDriver* driver, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
 
-        StringId                         key;
-        std::optional<std::stringstream> vertex;
-        std::optional<std::stringstream> fragment;
-        std::optional<std::stringstream> compute;
-        GfxDescSetLayouts                layouts;
-        Ref<GfxShader>                   gfx_shader;
+        /**
+         * @brief Reloads shader pass sources from a disc
+         *
+         * @param folder Folder directory where shaders are
+         * @param file_system File system adapter to use for loading
+         *
+         * @return Ok on success
+         */
+        virtual Status reload_sources(const std::string& folder, FileSystem* file_system) = 0;
+
+        /** @brief fills pipeline required layout with optional shader passed for material resources */
+        virtual void fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader){};
+
+        virtual const std::string& get_vertex(GfxShaderLang lang)   = 0;
+        virtual const std::string& get_fragment(GfxShaderLang lang) = 0;
+        virtual const std::string& get_compute(GfxShaderLang lang)  = 0;
+
+        /** @brief unique lower-case pass name */
+        virtual StringId get_name() = 0;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SHADER_BUILDER_HPP
+#endif//WMOGE_SHADER_PASS_HPP
