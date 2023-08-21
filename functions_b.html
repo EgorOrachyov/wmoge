@@ -70,6 +70,9 @@ $(function() {
 <li>barrier()
 : <a class="el" href="classwmoge_1_1VKBuffer.html#a8bc51eeae5f1119a4f498b12054bafbf">wmoge::VKBuffer</a>
 </li>
+<li>base
+: <a class="el" href="structwmoge_1_1GfxDrawCall.html#a7501ae5e0c7e7bb3d46c7b12d2926bc6">wmoge::GfxDrawCall</a>
+</li>
 <li>base_color
 : <a class="el" href="classwmoge_1_1HgfxPassBase.html#ab7a0389c7798cef47a5ea1133f2a3563">wmoge::HgfxPassBase</a>
 , <a class="el" href="structwmoge_1_1ShaderBase_1_1Params.html#ac2bfcee241a7b7dc6a0e2e038b64e944">wmoge::ShaderBase::Params</a>
@@ -128,6 +131,16 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKCtx.html#a989181e0b92d111bcb2aea31b3156220">wmoge::VKCtx</a>
 , <a class="el" href="classwmoge_1_1VKRenderPassBinder.html#aa7ad3a15ce3716426cf23fac8e1113da">wmoge::VKRenderPassBinder</a>
 </li>
+<li>bind_desc_set()
+: <a class="el" href="classwmoge_1_1GfxCtx.html#a20947441e24a8c75e8dd70e9837b60b8">wmoge::GfxCtx</a>
+, <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a2dd1320884052c407d3c88cd8802ac2b">wmoge::GfxCtxWrapper</a>
+, <a class="el" href="classwmoge_1_1VKCtx.html#a07c9405d94c596cd17d3cfd9ea0abf8c">wmoge::VKCtx</a>
+</li>
+<li>bind_desc_sets()
+: <a class="el" href="classwmoge_1_1GfxCtx.html#ac7e7d471a66e1cefcc012c7e1e0336e8">wmoge::GfxCtx</a>
+, <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a720b6b76f929d7f0dab7e8e410284e8c">wmoge::GfxCtxWrapper</a>
+, <a class="el" href="classwmoge_1_1VKCtx.html#a8fb1b99caf97d4eb76e6dbdf3d7caca9">wmoge::VKCtx</a>
+</li>
 <li>bind_enum()
 : <a class="el" href="classwmoge_1_1LuaBindings.html#ad32edb489c647d6fcb01b5788aa1cc3e">wmoge::LuaBindings</a>
 </li>
@@ -159,32 +172,11 @@ $(function() {
 <li>bind_scene()
 : <a class="el" href="classwmoge_1_1LuaBindings.html#aa60ad869e9bf5e118a253b1197827b1f">wmoge::LuaBindings</a>
 </li>
-<li>bind_shader()
-: <a class="el" href="classwmoge_1_1VKDescManager.html#a1d6d29bf77b48002d38d4173bd9e14ce">wmoge::VKDescManager</a>
-</li>
-<li>bind_storage_buffer()
-: <a class="el" href="classwmoge_1_1GfxCtx.html#a3283176a26a6c02eea07722a942fd317">wmoge::GfxCtx</a>
-, <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a005b30a3034dd4ac53730172e1df299d">wmoge::GfxCtxWrapper</a>
-, <a class="el" href="classwmoge_1_1VKCtx.html#aea9611ba3202fc44f6d79d00a8cfd72c">wmoge::VKCtx</a>
-, <a class="el" href="classwmoge_1_1VKDescManager.html#afe8ac8cd6e484747cf2ab6e4b5b2a6db">wmoge::VKDescManager</a>
-</li>
 <li>bind_target()
 : <a class="el" href="classwmoge_1_1GfxCtx.html#a16f533a2e3a0a510194fdd9aeebd1d5d">wmoge::GfxCtx</a>
 , <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#ab86a3ab6eb2a0d2f58905060add7fa60">wmoge::GfxCtxWrapper</a>
 , <a class="el" href="classwmoge_1_1VKCtx.html#af07a072b605439cd448ad1de25c5b876">wmoge::VKCtx</a>
 , <a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a963f1e2dc4d48f1d17292c1812efb91a">wmoge::VKRenderPassBinder</a>
-</li>
-<li>bind_texture()
-: <a class="el" href="classwmoge_1_1GfxCtx.html#a2e94c5b5d4e55315755cdbcba5f87b03">wmoge::GfxCtx</a>
-, <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#ad420d6885f1cb22be1ed5959badce5d1">wmoge::GfxCtxWrapper</a>
-, <a class="el" href="classwmoge_1_1VKCtx.html#a4770cebe85c5cd2aa922a1675def18fa">wmoge::VKCtx</a>
-, <a class="el" href="classwmoge_1_1VKDescManager.html#a80a9f4494807e15cbc04a750538ba4ea">wmoge::VKDescManager</a>
-</li>
-<li>bind_uniform_buffer()
-: <a class="el" href="classwmoge_1_1GfxCtx.html#a5c24353df66cd30f660e9c3298583adb">wmoge::GfxCtx</a>
-, <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a8536efe9fceea06e34549061a3631d3d">wmoge::GfxCtxWrapper</a>
-, <a class="el" href="classwmoge_1_1VKCtx.html#aff83ebb24aa0d43618b4f86f3902c4ee">wmoge::VKCtx</a>
-, <a class="el" href="classwmoge_1_1VKDescManager.html#a9f239fc4e633992f4ee68e4673826fe2">wmoge::VKDescManager</a>
 </li>
 <li>bind_vert_buffer()
 : <a class="el" href="classwmoge_1_1GfxCtx.html#a8a412aa40e02efd3218a538691d1e9d2">wmoge::GfxCtx</a>
@@ -194,9 +186,12 @@ $(function() {
 <li>binding
 : <a class="el" href="classreflection_1_1Buffer.html#adfdb6ce9fc524bfa5837c90d9d9219af">reflection.Buffer</a>
 , <a class="el" href="classreflection_1_1Sampler.html#a299b507f120e70a55ca3f12b0d4d3d40">reflection.Sampler</a>
-, <a class="el" href="structwmoge_1_1GfxLocation.html#a2ba524a912e75a79a770c8e0c7ecbdf0">wmoge::GfxLocation</a>
-, <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#ac3277da22af9c7031c8ced06980c0fb4">wmoge::GfxShaderReflection::Buffer</a>
-, <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#ada3d0273be6f443954c360f6562ca73c">wmoge::GfxShaderReflection::Texture</a>
+, <a class="el" href="structwmoge_1_1GfxDescBindPoint.html#a83e4a56d5345dba2e538dc5986490656">wmoge::GfxDescBindPoint</a>
+, <a class="el" href="structwmoge_1_1GfxDescBinging.html#adf8a7006f21d1b7303473577e28f8068">wmoge::GfxDescBinging</a>
+, <a class="el" href="classwmoge_1_1GfxDescSetLayout.html#a99008e23a2165939ea0a7952db699a2c">wmoge::GfxDescSetLayout</a>
+, <a class="el" href="structwmoge_1_1GfxLocation.html#aaeb554b66881d826b0a7d515cd62038b">wmoge::GfxLocation</a>
+, <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#aab3640b571b1dc3e7fffcfb1d772ba23">wmoge::GfxShaderReflection::Buffer</a>
+, <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#a636514385faadb7a8503ea61edddc8fa">wmoge::GfxShaderReflection::Texture</a>
 </li>
 <li>bitmap_uv0
 : <a class="el" href="structwmoge_1_1FontGlyph.html#acb46d7375f8ab6e9afd49ad1f4de811e">wmoge::FontGlyph</a>

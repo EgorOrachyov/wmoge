@@ -67,63 +67,33 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classwmoge_1_1VKDescManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::VKDescManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Manager for binding and per-frame allocation of descriptor sets.  
+<p>Manager allocation of descriptor sets.  
  <a href="classwmoge_1_1VKDescManager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="vk__desc__manager_8hpp_source.html">vk_desc_manager.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5b2a82ea946285e6baad4553dc45b124"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a5b2a82ea946285e6baad4553dc45b124">VKDescManager</a> (class <a class="el" href="classwmoge_1_1VKDriver.html">VKDriver</a> &amp;driver)</td></tr>
-<tr class="separator:a5b2a82ea946285e6baad4553dc45b124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396982379d0af1720929bd13710dbdb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a396982379d0af1720929bd13710dbdb0">VKDescManager</a> (const <a class="el" href="structwmoge_1_1VKDescPoolConfig.html">VKDescPoolConfig</a> &amp;config, class <a class="el" href="classwmoge_1_1VKDriver.html">VKDriver</a> &amp;driver)</td></tr>
+<tr class="separator:a396982379d0af1720929bd13710dbdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a938fda0e046a589db2127c151692dec4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a938fda0e046a589db2127c151692dec4">~VKDescManager</a> ()</td></tr>
 <tr class="separator:a938fda0e046a589db2127c151692dec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20e92cd687a45a1fa7a3134b6b97a35b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a20e92cd687a45a1fa7a3134b6b97a35b">update</a> ()</td></tr>
-<tr class="separator:a20e92cd687a45a1fa7a3134b6b97a35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d6d29bf77b48002d38d4173bd9e14ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a1d6d29bf77b48002d38d4173bd9e14ce">bind_shader</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKShader.html">VKShader</a> &gt; &amp;shader)</td></tr>
-<tr class="separator:a1d6d29bf77b48002d38d4173bd9e14ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80a9f4494807e15cbc04a750538ba4ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a80a9f4494807e15cbc04a750538ba4ea">bind_texture</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, int array_element, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt; &amp;texture, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a> &gt; &amp;sampler)</td></tr>
-<tr class="separator:a80a9f4494807e15cbc04a750538ba4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71465176f08c1501769c106dc38c608f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a71465176f08c1501769c106dc38c608f">bind_texture</a> (const <a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a> &amp;location, int array_element, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt; &amp;texture, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a> &gt; &amp;sampler)</td></tr>
-<tr class="separator:a71465176f08c1501769c106dc38c608f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f239fc4e633992f4ee68e4673826fe2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a9f239fc4e633992f4ee68e4673826fe2">bind_uniform_buffer</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, int offset, int range, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt; &amp;buffer)</td></tr>
-<tr class="separator:a9f239fc4e633992f4ee68e4673826fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1236f032de3ce34caa5ceda9c5c2c5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#ad1236f032de3ce34caa5ceda9c5c2c5e">bind_uniform_buffer</a> (const <a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a> &amp;location, int offset, int range, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt; &amp;buffer)</td></tr>
-<tr class="separator:ad1236f032de3ce34caa5ceda9c5c2c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe8ac8cd6e484747cf2ab6e4b5b2a6db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#afe8ac8cd6e484747cf2ab6e4b5b2a6db">bind_storage_buffer</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, int offset, int range, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> &gt; &amp;buffer)</td></tr>
-<tr class="separator:afe8ac8cd6e484747cf2ab6e4b5b2a6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2878454eb29168546552dea2f4931c97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a2878454eb29168546552dea2f4931c97">bind_storage_buffer</a> (const <a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a> &amp;location, int offset, int range, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> &gt; &amp;buffer)</td></tr>
-<tr class="separator:a2878454eb29168546552dea2f4931c97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0ee8238089fa5c1ddd3469dfeaa6d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#ac0ee8238089fa5c1ddd3469dfeaa6d3f">reset</a> ()</td></tr>
-<tr class="separator:ac0ee8238089fa5c1ddd3469dfeaa6d3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab32fed2caf459d66b952499e5486d1e8"><td class="memItemLeft" align="right" valign="top">std::array&lt; VkDescriptorSet, <a class="el" href="structwmoge_1_1GfxLimits.html#a4de7b591097552f80b060925adbc1b31">GfxLimits::MAX_DESC_SETS</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#ab32fed2caf459d66b952499e5486d1e8">sets</a> (int &amp;to_bind)</td></tr>
-<tr class="separator:ab32fed2caf459d66b952499e5486d1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:afed354e05ee386a0521d8cc51abe4201"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#afed354e05ee386a0521d8cc51abe4201">MAX_RESOURCES_BINDINGS</a> = 3 * 128</td></tr>
-<tr class="separator:afed354e05ee386a0521d8cc51abe4201"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88e97d8728381eadb0775edf8581b9b1"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a88e97d8728381eadb0775edf8581b9b1">MAX_TEXTURES_BINDINGS</a> = 128</td></tr>
-<tr class="separator:a88e97d8728381eadb0775edf8581b9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79b5a84d6ec66fde1185630ccd6d7857"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a79b5a84d6ec66fde1185630ccd6d7857">MAX_BUFFERS_BINDINGS</a> = 2 * 128</td></tr>
-<tr class="separator:a79b5a84d6ec66fde1185630ccd6d7857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d324957f19c8e948ae29b3f57465c53"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a8d324957f19c8e948ae29b3f57465c53">POOL_SIZE_BASE</a> = 4</td></tr>
-<tr class="separator:a8d324957f19c8e948ae29b3f57465c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4865ca00de7ef2f65c0d4e8bb346dd8"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#ae4865ca00de7ef2f65c0d4e8bb346dd8">POOL_SIZE_FACTOR</a> = 2</td></tr>
-<tr class="separator:ae4865ca00de7ef2f65c0d4e8bb346dd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f29f837570f0be021ce365e74973531"><td class="memItemLeft" align="right" valign="top">VkDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a4f29f837570f0be021ce365e74973531">allocate</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKDescSetLayout.html">VKDescSetLayout</a> &gt; &amp;layout)</td></tr>
+<tr class="separator:a4f29f837570f0be021ce365e74973531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbe66e5dfa268b3891a208b09e930933"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#afbe66e5dfa268b3891a208b09e930933">free</a> (VkDescriptorSet set)</td></tr>
+<tr class="separator:afbe66e5dfa268b3891a208b09e930933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Manager for binding and per-frame allocation of descriptor sets. </p>
+<div class="textblock"><p>Manager allocation of descriptor sets. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5b2a82ea946285e6baad4553dc45b124"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b2a82ea946285e6baad4553dc45b124">&#9670;&nbsp;</a></span>VKDescManager()</h2>
+<a id="a396982379d0af1720929bd13710dbdb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a396982379d0af1720929bd13710dbdb0">&#9670;&nbsp;</a></span>VKDescManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,9 +101,19 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">wmoge::VKDescManager::VKDescManager </td>
           <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1VKDriver.html">VKDriver</a> &amp;&#160;</td>
-          <td class="paramname"><em>driver</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1VKDescPoolConfig.html">VKDescPoolConfig</a> &amp;&#160;</td>
+          <td class="paramname"><em>config</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1VKDriver.html">VKDriver</a> &amp;&#160;</td>
+          <td class="paramname"><em>driver</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -158,17 +138,17 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1d6d29bf77b48002d38d4173bd9e14ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d6d29bf77b48002d38d4173bd9e14ce">&#9670;&nbsp;</a></span>bind_shader()</h2>
+<a id="a4f29f837570f0be021ce365e74973531"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f29f837570f0be021ce365e74973531">&#9670;&nbsp;</a></span>allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_shader </td>
+          <td class="memname">VkDescriptorSet wmoge::VKDescManager::allocate </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKShader.html">VKShader</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shader</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKDescSetLayout.html">VKDescSetLayout</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>layout</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -176,405 +156,20 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a2878454eb29168546552dea2f4931c97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2878454eb29168546552dea2f4931c97">&#9670;&nbsp;</a></span>bind_storage_buffer() <span class="overload">[1/2]</span></h2>
+<a id="afbe66e5dfa268b3891a208b09e930933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbe66e5dfa268b3891a208b09e930933">&#9670;&nbsp;</a></span>free()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_storage_buffer </td>
+          <td class="memname">void wmoge::VKDescManager::free </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a> &amp;&#160;</td>
-          <td class="paramname"><em>location</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>offset</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>range</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afe8ac8cd6e484747cf2ab6e4b5b2a6db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe8ac8cd6e484747cf2ab6e4b5b2a6db">&#9670;&nbsp;</a></span>bind_storage_buffer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_storage_buffer </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>offset</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>range</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a71465176f08c1501769c106dc38c608f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71465176f08c1501769c106dc38c608f">&#9670;&nbsp;</a></span>bind_texture() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_texture </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a> &amp;&#160;</td>
-          <td class="paramname"><em>location</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>array_element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>texture</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>sampler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a80a9f4494807e15cbc04a750538ba4ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80a9f4494807e15cbc04a750538ba4ea">&#9670;&nbsp;</a></span>bind_texture() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_texture </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>array_element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>texture</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>sampler</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad1236f032de3ce34caa5ceda9c5c2c5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1236f032de3ce34caa5ceda9c5c2c5e">&#9670;&nbsp;</a></span>bind_uniform_buffer() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_uniform_buffer </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a> &amp;&#160;</td>
-          <td class="paramname"><em>location</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>offset</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>range</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9f239fc4e633992f4ee68e4673826fe2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f239fc4e633992f4ee68e4673826fe2">&#9670;&nbsp;</a></span>bind_uniform_buffer() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::bind_uniform_buffer </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>offset</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>range</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac0ee8238089fa5c1ddd3469dfeaa6d3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0ee8238089fa5c1ddd3469dfeaa6d3f">&#9670;&nbsp;</a></span>reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::reset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">VkDescriptorSet&#160;</td>
+          <td class="paramname"><em>set</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab32fed2caf459d66b952499e5486d1e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab32fed2caf459d66b952499e5486d1e8">&#9670;&nbsp;</a></span>sets()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::array&lt; VkDescriptorSet, <a class="el" href="structwmoge_1_1GfxLimits.html#a4de7b591097552f80b060925adbc1b31">GfxLimits::MAX_DESC_SETS</a> &gt; &amp; wmoge::VKDescManager::sets </td>
-          <td>(</td>
-          <td class="paramtype">int &amp;&#160;</td>
-          <td class="paramname"><em>to_bind</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a20e92cd687a45a1fa7a3134b6b97a35b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20e92cd687a45a1fa7a3134b6b97a35b">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::VKDescManager::update </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a79b5a84d6ec66fde1185630ccd6d7857"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79b5a84d6ec66fde1185630ccd6d7857">&#9670;&nbsp;</a></span>MAX_BUFFERS_BINDINGS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int wmoge::VKDescManager::MAX_BUFFERS_BINDINGS = 2 * 128</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afed354e05ee386a0521d8cc51abe4201"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afed354e05ee386a0521d8cc51abe4201">&#9670;&nbsp;</a></span>MAX_RESOURCES_BINDINGS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int wmoge::VKDescManager::MAX_RESOURCES_BINDINGS = 3 * 128</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a88e97d8728381eadb0775edf8581b9b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88e97d8728381eadb0775edf8581b9b1">&#9670;&nbsp;</a></span>MAX_TEXTURES_BINDINGS</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int wmoge::VKDescManager::MAX_TEXTURES_BINDINGS = 128</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8d324957f19c8e948ae29b3f57465c53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d324957f19c8e948ae29b3f57465c53">&#9670;&nbsp;</a></span>POOL_SIZE_BASE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int wmoge::VKDescManager::POOL_SIZE_BASE = 4</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae4865ca00de7ef2f65c0d4e8bb346dd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4865ca00de7ef2f65c0d4e8bb346dd8">&#9670;&nbsp;</a></span>POOL_SIZE_FACTOR</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int wmoge::VKDescManager::POOL_SIZE_FACTOR = 2</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

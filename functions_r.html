@@ -74,16 +74,16 @@ $(function() {
 </li>
 <li>range
 : <a class="el" href="structwmoge_1_1GfxBufferSetup.html#a0c255adf6c25137450bcb6f062603662">wmoge::GfxBufferSetup&lt; Buffer &gt;</a>
+, <a class="el" href="structwmoge_1_1GfxDescBindValue.html#afadd4e3766125819a19795e01c555e91">wmoge::GfxDescBindValue</a>
 </li>
 <li>Range()
-: <a class="el" href="classwmoge_1_1Range.html#aedf35e557854eda4b10aef8a85f1900d">wmoge::Range</a>
+: <a class="el" href="classwmoge_1_1Range.html#a7d51ab71e9f2905990551be66b7bae27">wmoge::Range</a>
 </li>
-<li>read()
-: <a class="el" href="classwmoge_1_1Archive.html#ac5ffeb6a1685a79e3dbe2a1b909cc268">wmoge::Archive</a>
-, <a class="el" href="structwmoge_1_1EcsQuery.html#a93610b02d166b09cd18b78b7885a4ec3">wmoge::EcsQuery</a>
+<li>read
+: <a class="el" href="structwmoge_1_1EcsQuery.html#a93610b02d166b09cd18b78b7885a4ec3">wmoge::EcsQuery</a>
 </li>
 <li>read_file()
-: <a class="el" href="classwmoge_1_1FileSystem.html#a6b071c61ba41688e6342f06cb8f10845">wmoge::FileSystem</a>
+: <a class="el" href="classwmoge_1_1FileSystem.html#acd57efc0486bee2b2397441d4e3bcefb">wmoge::FileSystem</a>
 , <a class="el" href="classwmoge_1_1ResourcePak.html#a8615d4c9e8b69bbacab25a38643cb1c6">wmoge::ResourcePak</a>
 , <a class="el" href="classwmoge_1_1ResourcePakFileSystem.html#a0446df48aabd0ab16eb9706b6b95b249">wmoge::ResourcePakFileSystem</a>
 </li>
@@ -117,7 +117,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1LuaRefCnt.html#aa9821e35100dff9d6e21a9833a5966fc">wmoge::LuaRefCnt</a>
 </li>
 <li>Ref()
-: <a class="el" href="classwmoge_1_1Ref.html#a7014c978d7a393d293557171297b3286">wmoge::Ref&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1Ref.html#a7c22d65c4b990d9866567750b8408002">wmoge::Ref&lt; T &gt;</a>
 </li>
 <li>ref()
 : <a class="el" href="classwmoge_1_1RefCnt.html#a8ce80fe96ff694a060f318521d1d529a">wmoge::RefCnt</a>
@@ -125,6 +125,7 @@ $(function() {
 <li>reflection()
 : <a class="el" href="classwmoge_1_1GfxShader.html#af9bc9862cf2e37195f757e3a23241b03">wmoge::GfxShader</a>
 , <a class="el" href="classwmoge_1_1VKShader.html#a6d5120e2cc62c255ed5aa3c2036b0a59">wmoge::VKShader</a>
+, <a class="el" href="structwmoge_1_1VKShaderBinary.html#aac9c0ce8358a8bb20e8312763a051157">wmoge::VKShaderBinary</a>
 </li>
 <li>refs_count()
 : <a class="el" href="structwmoge_1_1LuaRefCnt.html#ac51bf7d1e2b0446de96d3ae758831b38">wmoge::LuaRefCnt</a>
@@ -138,6 +139,9 @@ $(function() {
 </li>
 <li>register_component()
 : <a class="el" href="classwmoge_1_1EcsRegistry.html#a4598c6c1941d5bc3bdef2441d29add2e">wmoge::EcsRegistry</a>
+</li>
+<li>register_pass()
+: <a class="el" href="classwmoge_1_1ShaderManager.html#af3b14a225671bd3d97b8713482346761">wmoge::ShaderManager</a>
 </li>
 <li>register_system()
 : <a class="el" href="classwmoge_1_1EcsWorld.html#a534942fd1c007cb2d6a4bc22342b7c36">wmoge::EcsWorld</a>
@@ -154,6 +158,12 @@ $(function() {
 </li>
 <li>reload_shaders()
 : <a class="el" href="classwmoge_1_1ShaderManager.html#aceed69f62982da4018d15b3dace22221">wmoge::ShaderManager</a>
+</li>
+<li>reload_sources()
+: <a class="el" href="classwmoge_1_1ShaderPass.html#a892515849821660f768c445802cb5187">wmoge::ShaderPass</a>
+, <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a716f98a887ed6c5fd43de95fcaf4fe62">wmoge::ShaderPassAuxDrawCanvas</a>
+, <a class="el" href="classwmoge_1_1ShaderPassBase.html#a42a879d62f094706729fc76ca7753e49">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassText.html#a1c8599866f9a0882729546b5d7bfbf5f">wmoge::ShaderPassText</a>
 </li>
 <li>remove()
 : <a class="el" href="classwmoge_1_1ActionManager.html#a6e3de4c63d5dedd06c4ebbdf6bbf008d">wmoge::ActionManager</a>
@@ -202,13 +212,15 @@ $(function() {
 , <a class="el" href="classwmoge_1_1MemLinear.html#a75c24d8688b80be6741c7269f3a7aadd">wmoge::MemLinear</a>
 , <a class="el" href="classwmoge_1_1MemPool.html#a0dc21a67432b37ad46c77f861a97c46f">wmoge::MemPool</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a9516eb7490b513919fa019cee5b33045">wmoge::Ref&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1VKDescManager.html#ac0ee8238089fa5c1ddd3469dfeaa6d3f">wmoge::VKDescManager</a>
 </li>
 <li>resize()
 : <a class="el" href="classwmoge_1_1Image.html#a68b3a458ce28c9b964c952a587febd0b">wmoge::Image</a>
 </li>
 <li>resolve()
 : <a class="el" href="classwmoge_1_1FileSystem.html#adc8b4d65f8ea33a40eb90d23fb6ceddf">wmoge::FileSystem</a>
+</li>
+<li>resource
+: <a class="el" href="structwmoge_1_1GfxDescBindValue.html#abecdbd7d3726eb75f36778912ef27890">wmoge::GfxDescBindValue</a>
 </li>
 <li>resource_id
 : <a class="el" href="classwmoge_1_1EventResource.html#a9311fafcf536802dce2bcee18c559445">wmoge::EventResource</a>

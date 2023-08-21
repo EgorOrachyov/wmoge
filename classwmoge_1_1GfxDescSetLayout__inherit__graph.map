@@ -1,0 +1,7 @@
+<map id="wmoge::GfxDescSetLayout" name="wmoge::GfxDescSetLayout">
+<area shape="rect" id="node1" title="Layout of a single resources set for pipeline creation." alt="" coords="5,155,184,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="19,229,170,271"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="22,80,167,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="39,5,150,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1VKDescSetLayout.html" title="Vulkan descriptor set layout implementation." alt="" coords="6,319,183,345"/>
+</map>

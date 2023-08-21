@@ -1,0 +1,4 @@
+<map id="wmoge::VKShaderBinary" name="wmoge::VKShaderBinary">
+<area shape="rect" id="node1" title="Struct used for serialization of vulkan shader into binary format." alt="" coords="17,95,182,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GfxShaderReflection.html" title="Reflection data of the shader." alt="" coords="5,5,193,32"/>
+</map>

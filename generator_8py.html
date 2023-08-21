@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/shaders/generator.py File Reference</title>
+<title>wmoge: engine/shaders/scripts/generator.py File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_c7f56ea2d71089c57ae90fe9aa303a82.html">shaders</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_c7f56ea2d71089c57ae90fe9aa303a82.html">shaders</a></li><li class="navelem"><a class="el" href="dir_822706ae07315174fed12db6c6315962.html">scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -87,6 +87,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenerator_1_1CodeGeneratorCxx.html">generator.CodeGeneratorCxx</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenerator_1_1CodeGeneratorPass.html">generator.CodeGeneratorPass</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -97,6 +99,10 @@ Namespaces</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:acaf36a14741e5d91cc34c17493a7eb24"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#acaf36a14741e5d91cc34c17493a7eb24">generator.make_shader_name</a> (shader_file, lang)</td></tr>
 <tr class="separator:acaf36a14741e5d91cc34c17493a7eb24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d5ea32760a61ca4adf6d730808df3da"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a1d5ea32760a61ca4adf6d730808df3da">generator.make_shader_source_name</a> (shader_file, lang)</td></tr>
+<tr class="separator:a1d5ea32760a61ca4adf6d730808df3da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e0db2b953c856a85a1e22240eea710"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a13e0db2b953c856a85a1e22240eea710">generator.make_file_name_only</a> (shader_file, lang, extension)</td></tr>
+<tr class="separator:a13e0db2b953c856a85a1e22240eea710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c749e3f5143af4e13d994149cf9b980"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a2c749e3f5143af4e13d994149cf9b980">generator.make_file_name</a> (shader_file, lang, directory, extension)</td></tr>
 <tr class="separator:a2c749e3f5143af4e13d994149cf9b980"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0af8f9a6d7e45b08a1585627d841eaac"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a0af8f9a6d7e45b08a1585627d841eaac">generator.read_file</a> (file_path)</td></tr>
@@ -109,6 +115,10 @@ Functions</h2></td></tr>
 <tr class="separator:af8913766a530e0797ee4e26254b2a7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a917581c1ef1a65a0e4369221fb7c4643"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a917581c1ef1a65a0e4369221fb7c4643">generator.process_gl</a> (shader, dir_build)</td></tr>
 <tr class="separator:a917581c1ef1a65a0e4369221fb7c4643"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a594d2813784b8d354742baa0682f1746"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a594d2813784b8d354742baa0682f1746">generator.process_cxx_reflection</a> (shader)</td></tr>
+<tr class="separator:a594d2813784b8d354742baa0682f1746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecfc59e171305a3210bc12f5a8846d93"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#aecfc59e171305a3210bc12f5a8846d93">generator.process_cxx_pass</a> (shader)</td></tr>
+<tr class="separator:aecfc59e171305a3210bc12f5a8846d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f93f87233eaf7b89446c93783403773"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a1f93f87233eaf7b89446c93783403773">generator.process_cxx</a> (shader)</td></tr>
 <tr class="separator:a1f93f87233eaf7b89446c93783403773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7ef883fb6ed3b3c4557d94fa1993fab"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#aa7ef883fb6ed3b3c4557d94fa1993fab">generator.main</a> ()</td></tr>
@@ -116,13 +126,21 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a413972a487e77fa1883434f3be2ae8b0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a413972a487e77fa1883434f3be2ae8b0">generator.MAX_SETS</a> = 4</td></tr>
+<tr class="separator:a413972a487e77fa1883434f3be2ae8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc5fbff886edf26902a22677695167c"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#acfc5fbff886edf26902a22677695167c">generator.LANG_VK</a> = 'vk450'</td></tr>
+<tr class="separator:acfc5fbff886edf26902a22677695167c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa256c23fb79ccd1e432e980b874fde04"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#aa256c23fb79ccd1e432e980b874fde04">generator.LANG_GL</a> = 'gl410'</td></tr>
+<tr class="separator:aa256c23fb79ccd1e432e980b874fde04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83380e5b8e276c3bfd419a1d3bced317"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a83380e5b8e276c3bfd419a1d3bced317">generator.LANGS</a> = [LANG_VK, LANG_GL]</td></tr>
+<tr class="separator:a83380e5b8e276c3bfd419a1d3bced317"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18d1de6cfd06e76ec8d3162865173dff"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a18d1de6cfd06e76ec8d3162865173dff">generator.PREFIX</a> = 'auto_'</td></tr>
 <tr class="separator:a18d1de6cfd06e76ec8d3162865173dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab411aa1e60fddb0d928ec2e10a021588"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#ab411aa1e60fddb0d928ec2e10a021588">generator.DATETIME</a> = datetime.datetime.now()</td></tr>
 <tr class="separator:ab411aa1e60fddb0d928ec2e10a021588"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39da171550f524bfb2c7e757c55d45d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a39da171550f524bfb2c7e757c55d45d8">generator.DIR_ROOT</a> = pathlib.Path(__file__).parent.parent.parent</td></tr>
+<tr class="memitem:a39da171550f524bfb2c7e757c55d45d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a39da171550f524bfb2c7e757c55d45d8">generator.DIR_ROOT</a> = pathlib.Path(__file__).parent.parent.parent.parent</td></tr>
 <tr class="separator:a39da171550f524bfb2c7e757c55d45d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70d18f501d14d3ec2c28980fbbc26dcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a70d18f501d14d3ec2c28980fbbc26dcb">generator.DIR_SHADERS</a> = pathlib.Path(__file__).parent</td></tr>
+<tr class="memitem:a70d18f501d14d3ec2c28980fbbc26dcb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#a70d18f501d14d3ec2c28980fbbc26dcb">generator.DIR_SHADERS</a> = pathlib.Path(__file__).parent.parent</td></tr>
 <tr class="separator:a70d18f501d14d3ec2c28980fbbc26dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf38fac9f82b50de86afa6d71000e364"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegenerator.html#abf38fac9f82b50de86afa6d71000e364">generator.DIR_GENERATED</a> = DIR_SHADERS / 'generated'</td></tr>
 <tr class="separator:abf38fac9f82b50de86afa6d71000e364"><td class="memSeparator" colspan="2">&#160;</td></tr>

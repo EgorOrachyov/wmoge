@@ -81,11 +81,8 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderManager_1_1ShaderData.html">ShaderData</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderManager_1_1ShaderData.html">ShaderData</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Entry holding data of a particular shader.  <a href="structwmoge_1_1ShaderManager_1_1ShaderData.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderManager_1_1ShaderSources.html">ShaderSources</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shaders sources for compilation.  <a href="structwmoge_1_1ShaderManager_1_1ShaderSources.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -122,6 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a828a526f348714e89991bc44f907f794"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a878cb83d322c3051a3b4f34d7e900935"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a878cb83d322c3051a3b4f34d7e900935">load_cache</a> (const std::string &amp;path_on_disk)</td></tr>
 <tr class="separator:a878cb83d322c3051a3b4f34d7e900935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b14a225671bd3d97b8713482346761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#af3b14a225671bd3d97b8713482346761">register_pass</a> (std::unique_ptr&lt; <a class="el" href="classwmoge_1_1ShaderPass.html">ShaderPass</a> &gt; pass)</td></tr>
+<tr class="separator:af3b14a225671bd3d97b8713482346761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Render module access to engine shaders. </p>
@@ -471,6 +470,24 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af3b14a225671bd3d97b8713482346761"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3b14a225671bd3d97b8713482346761">&#9670;&nbsp;</a></span>register_pass()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ShaderManager::register_pass </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classwmoge_1_1ShaderPass.html">ShaderPass</a> &gt;&#160;</td>
+          <td class="paramname"><em>pass</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
