@@ -32,19 +32,19 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - name: install msvc for build
+      - name: Install msvc for build
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: amd64
 
-      - name: install ninja for build
+      - name: Install ninja for build
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: install Vulkan SDK
+      - name: Install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
           vulkan-query-version: 1.3.204.0
-          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-components: Vulkan-Headers
           vulkan-use-cache: true
 
       - name: Configure CMake
@@ -61,36 +61,36 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - name: install ninja for build
+      - name: Install ninja for build
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: update apt
+      - name: Update apt
         shell: bash
         run: |
           sudo apt update
 
-      - name: install glfw dependencies
+      - name: Install glfw dependencies
         shell: bash
         run: |
           sudo apt-get install -y libxrandr-dev libxinerama-dev xorg-dev
 
-      - name: install glew dependencies
+      - name: Install glew dependencies
         shell: bash
         run: |
           sudo apt-get install -y libgl1-mesa-dri libgl1-mesa-glx libgl1-mesa-dev
           sudo apt-get install -y libxmu-dev libxi-dev libgl-dev libglx-dev
           sudo apt-get install -y libx11-dev
 
-      - name: install openal dependencies
+      - name: Install openal dependencies
         shell: bash
         run: |
           sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev libpipewire-0.3-dev qtbase5-dev libdbus-1-dev
 
-      - name: install Vulkan SDK
+      - name: Install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
           vulkan-query-version: 1.3.204.0
-          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-components: Vulkan-Headers
           vulkan-use-cache: true
 
       - name: Configure CMake
@@ -110,14 +110,14 @@ jobs:
           submodules: true
           fetch-depth: 0
 
-      - name: install ninja for build
+      - name: Install ninja for build
         uses: seanmiddleditch/gha-setup-ninja@master
 
-      - name: install Vulkan SDK
+      - name: Install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
         with:
           vulkan-query-version: 1.3.204.0
-          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-components: Vulkan-Headers
           vulkan-use-cache: true
 
       - name: Configure CMake x64
