@@ -25,69 +25,12 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_manager.hpp"
-
-#include <utility>
-
-#include "core/engine.hpp"
-#include "debug/profiler.hpp"
-#include "ecs/ecs_registry.hpp"
-#include "scene/scene_components.hpp"
+#include "scene_property.hpp"
 
 namespace wmoge {
 
-    SceneManager::SceneManager() {
-        WG_LOG_INFO("init scene manager");
-
-        auto* ecs_registry = Engine::instance()->ecs_registry();
-
-        ecs_registry->register_component<EcsComponentChildren>();
-        ecs_registry->register_component<EcsComponentParent>();
-        ecs_registry->register_component<EcsComponentSceneTransform>();
-        ecs_registry->register_component<EcsComponentLocalToWorld>();
-        ecs_registry->register_component<EcsComponentLocalToParent>();
-        ecs_registry->register_component<EcsComponentName>();
-        ecs_registry->register_component<EcsComponentTag>();
-        ecs_registry->register_component<EcsComponentCamera>();
-    }
-
-    void SceneManager::next(Ref<Scene> scene) {
-        std::lock_guard guard(m_mutex);
-
-        m_next = std::move(scene);
-    }
-    void SceneManager::unload(const Ref<Scene>& scene) {
-        std::lock_guard guard(m_mutex);
-
-        m_to_unload.erase(scene);
-        m_scenes.erase(scene);
-    }
-    void SceneManager::unload_deferred(const Ref<Scene>& scene) {
-        std::lock_guard guard(m_mutex);
-
-        m_to_unload.insert(scene);
-    }
-    void SceneManager::unload_all() {
-        std::lock_guard guard(m_mutex);
-
-        m_scenes.clear();
-    }
-
-    Ref<Scene> SceneManager::get_running_scene() {
-        std::lock_guard guard(m_mutex);
-        return m_running;
-    }
-    Ref<Scene> SceneManager::get_next_scene() {
-        std::lock_guard guard(m_mutex);
-        return m_next;
-    }
-    Ref<Scene> SceneManager::make_scene(const StringId& name) {
-        std::lock_guard guard(m_mutex);
-
-        auto scene = make_ref<Scene>(name);
-        m_scenes.insert(scene);
-
-        return scene;
+    void SceneProperty::register_class() {
+        auto* cls = Class::register_class<SceneProperty>();
     }
 
 }// namespace wmoge

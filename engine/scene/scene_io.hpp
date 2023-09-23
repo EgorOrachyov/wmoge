@@ -25,102 +25,100 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_COMPONENTS_HPP
-#define WMOGE_SCENE_COMPONENTS_HPP
+#ifndef WMOGE_SCENE_IO_HPP
+#define WMOGE_SCENE_IO_HPP
 
-#include "core/fast_vector.hpp"
-#include "ecs/ecs_component.hpp"
-#include "ecs/ecs_entity.hpp"
-#include "math/aabb.hpp"
+#include "core/string_id.hpp"
+#include "ecs/ecs_core.hpp"
+#include "io/archive.hpp"
+#include "io/yaml.hpp"
 #include "math/color.hpp"
-#include "math/mat.hpp"
-#include "math/vec.hpp"
-#include "scene/scene_camera.hpp"
-#include "scene/scene_node.hpp"
-#include "scene/scene_transform.hpp"
+#include "math/math_utils.hpp"
+#include "math/math_utils3d.hpp"
+#include "render/render_camera.hpp"
+
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class EcsComponentChildren
-     * @brief List of entity children, for complex objects
+     * @class SceneDataCamera
+     * @brief Serializable struct with camera data for a scene object
      */
-    struct EcsComponentChildren {
-        WG_ECS_COMPONENT(EcsComponentChildren, 0);
+    struct SceneDataCamera {
+        Color4f          color      = Color::BLACK4f;
+        Vec4f            viewport   = Vec4f(0, 0, 1, 1);
+        float            fov        = 45.0f;
+        float            near       = 0.1f;
+        float            far        = 10000.0f;
+        StringId         target     = SID("primary");
+        CameraProjection projection = CameraProjection::Perspective;
 
-        fast_vector<EcsEntity> children;
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneDataCamera& data);
     };
 
     /**
-     * @class EcsComponentParent
-     * @brief Parent entity, for complex objects
+     * @class SceneDataTransform
+     * @brief
      */
-    struct EcsComponentParent {
-        WG_ECS_COMPONENT(EcsComponentParent, 1);
-
-        EcsEntity parent;
+    struct SceneDataTransform {
     };
 
     /**
-     * @class EcsComponentSceneTransform
-     * @brief Node in a relative transform hierarchy of objects
+     * @class SceneDataMeshStatic
+     * @brief
      */
-    struct EcsComponentSceneTransform {
-        WG_ECS_COMPONENT(EcsComponentSceneTransform, 2);
-
-        Ref<SceneTransform> transform;
+    struct SceneDataMeshStatic {
     };
 
     /**
-     * @class EcsComponentLocalToWorld
-     * @brief Matrix to convert local to world coordinates of an object
+     * @class SceneDataAudioSource
+     * @brief
      */
-    struct EcsComponentLocalToWorld {
-        WG_ECS_COMPONENT(EcsComponentLocalToWorld, 3);
-
-        Mat4x4f matrix;
+    struct SceneDataAudioSource {
     };
 
     /**
-     * @class EcsComponentLocalToParent
-     * @brief Matrix to convert local to parent coordinates of an object
+     * @class SceneDataAudioListener
+     * @brief
      */
-    struct EcsComponentLocalToParent {
-        WG_ECS_COMPONENT(EcsComponentLocalToParent, 4);
-
-        Mat4x4f matrix;
+    struct SceneDataAudioListener {
     };
 
     /**
-     * @class EcsComponentTag
-     * @brief Unique tag for fast search of an entity
+     * @class SceneDataAudioLuaScript
+     * @brief
      */
-    struct EcsComponentTag {
-        WG_ECS_COMPONENT(EcsComponentName, 5);
-
-        StringId tag;
+    struct SceneDataAudioLuaScript {
     };
 
     /**
-     * @class EcsComponentName
-     * @brief Unique full name of entity on a scene
+     * @class SceneData
+     * @brief Serializable struct with a scene data for a runtime scene
      */
-    struct EcsComponentName {
-        WG_ECS_COMPONENT(EcsComponentName, 6);
+    struct SceneData {
+        // used to reference entities in this struct
+        using EntityIndex = int;
 
-        std::string name;
-    };
+        // vector with data mapped to entity by index
+        template<typename T>
+        using EntityVector = std::vector<std::pair<EntityIndex, T>>;
 
-    /**
-     * @class EcsComponentCamera
-     * @brief Game camera component
-     */
-    struct EcsComponentCamera {
-        WG_ECS_COMPONENT(EcsComponentCamera, 7);
+        std::string              scene_name;
+        std::vector<EcsArch>     entities;
+        std::vector<std::string> entities_names;
 
-        Ref<Camera> camera;
+        EntityVector<SceneDataCamera>         cameras;
+        EntityVector<SceneDataTransform>      transforms;
+        EntityVector<SceneDataMeshStatic>     meshes_static;
+        EntityVector<SceneDataAudioSource>    audio_sources;
+        EntityVector<SceneDataAudioListener>  autio_listeners;
+        EntityVector<SceneDataAudioLuaScript> lua_scripts;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_COMPONENTS_HPP
+#endif//WMOGE_SCENE_IO_HPP

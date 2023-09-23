@@ -31,7 +31,6 @@ namespace wmoge {
 
     Scene::Scene(StringId name) {
         m_name       = name;
-        m_tree       = std::make_unique<SceneTree>();
         m_transforms = std::make_unique<SceneTransformManager>();
         m_ecs_world  = std::make_unique<EcsWorld>();
         m_cameras    = std::make_unique<CameraManager>();
@@ -40,14 +39,11 @@ namespace wmoge {
     const StringId& Scene::get_name() {
         return m_name;
     }
-    SceneTree* Scene::get_tree() {
-        return m_tree.get();
+    EcsWorld* Scene::get_ecs_world() {
+        return m_ecs_world.get();
     }
     SceneTransformManager* Scene::get_transforms() {
         return m_transforms.get();
-    }
-    EcsWorld* Scene::get_ecs_world() {
-        return m_ecs_world.get();
     }
     CameraManager* Scene::get_cameras() {
         return m_cameras.get();

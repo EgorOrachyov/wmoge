@@ -30,6 +30,7 @@
 
 #include "core/object.hpp"
 #include "io/yaml.hpp"
+#include "scene/scene.hpp"
 #include "scene/scene_node.hpp"
 
 #include <string>
@@ -38,42 +39,33 @@ namespace wmoge {
 
     /**
      * @class SceneTree
-     * @brief Editable tree representing static version of all scene game objects
+     * @brief Editable tree of a scene objects
+     *
+     * Scene tree represents a hierarchy of a scene nodes or a game objects.
+     * It allows to add, remove, rename, copy, paste, move nodes, edit their
+     * properties, instantiate prefabs and so on. Each scene node stores additional
+     * meta information, which is used only for editing. Internally, all the data
+     * for a runtime is stored in a Scene.
+     *
+     * When the game is started, scene tree emits a scene object, which is a high-performance
+     * and low overhead container with entities for a runtime. Meta information, nodes,
+     * hierarchy, etc. is not presented in a final game for a speed and memory reasons.
+     *
+     * @see Scene
+     * @see SceneNode
      */
-    class SceneTree final {
+    class SceneTree : public SceneNode {
     public:
-        SceneTree();
+        WG_OBJECT(SceneTree, SceneNode)
 
-        /**
-         * @brief Adds this tree nodes as subtree to specified parent
-         *
-         * @param parent Node to be parent of added subtree
-         */
-        void add_as_subtree(SceneNode& parent);
+        [[nodiscard]] const Ref<Scene>& get_scene() const { return m_scene; }
 
-        /**
-         * @brief Copy entire tree recursively to other three
-         *
-         * @param other Target tree to copy to
-         */
-        void copy_to(SceneTree& other);
-
-        /**
-         * @brief Visit tree with specified visitor
-         *
-         * @param visitor Visitor to pass to tree nodes
-         *
-         * @return True on success
-         */
-        bool visit(class SceneTreeVisitor& visitor);
-
-        [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
-
-        friend Status yaml_read(const YamlConstNodeRef& node, SceneTree& tree);
-        friend Status yaml_write(YamlNodeRef node, const SceneTree& tree);
+        Status copy_to(Object& other) const override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
 
     private:
-        Ref<SceneNode> m_root;
+        Ref<Scene> m_scene;
     };
 
 }// namespace wmoge

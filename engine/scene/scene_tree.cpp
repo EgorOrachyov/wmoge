@@ -27,47 +27,23 @@
 
 #include "scene_tree.hpp"
 
+#include "core/class.hpp"
 #include "debug/profiler.hpp"
-#include "scene/scene_tree_visitor.hpp"
 
 namespace wmoge {
 
-    SceneTree::SceneTree() {
-        m_root = make_ref<SceneNode>();
+    Status SceneTree::copy_to(Object& other) const {
+        return SceneNode::copy_to(other);
+    }
+    Status SceneTree::read_from_yaml(const YamlConstNodeRef& node) {
+        return SceneNode::read_from_yaml(node);
+    }
+    Status SceneTree::write_to_yaml(YamlNodeRef node) const {
+        return SceneNode::write_to_yaml(node);
     }
 
-    void SceneTree::add_as_subtree(SceneNode& parent) {
-        Ref<SceneNode> sub_tree = make_ref<SceneNode>();
-
-        m_root->copy_to(*sub_tree);
-        std::vector<Ref<SceneNode>> sub_tree_nodes = m_root->m_children;
-
-        for (auto& child : sub_tree_nodes) {
-            m_root->remove_child(child);
-            parent.add_child(child);
-        }
-    }
-
-    void SceneTree::copy_to(SceneTree& other) {
-        WG_AUTO_PROFILE_SCENE("SceneTree::copy_to");
-
-        m_root->copy_to(*other.m_root);
-    }
-
-    bool SceneTree::visit(SceneTreeVisitor& visitor) {
-        WG_AUTO_PROFILE_SCENE("SceneTree::visit");
-
-        assert(m_root);
-
-        return m_root->accept_visitor(visitor);
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, SceneTree& tree) {
-        return tree.m_root->read_from_yaml(node);
-    }
-
-    Status yaml_write(YamlNodeRef node, const SceneTree& tree) {
-        return tree.m_root->write_to_yaml(node);
+    void SceneTree::register_class() {
+        auto* cls = Class::register_class<SceneTree>();
     }
 
 }// namespace wmoge

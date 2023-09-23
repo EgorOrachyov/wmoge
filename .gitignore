@@ -1,10 +1,14 @@
 # IDE files
 /.idea
+/.vscode
 
 # python cache files
 /**/__pycache__
 
 # build files
+/build-Debug
+/build-Release
+/build-RelWitdDebInfo
 /cmake-build-debug
 /cmake-build-release
 /cmake-build-relwithdebinfo

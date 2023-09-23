@@ -35,10 +35,12 @@
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
 
+#include <cassert>
 #include <list>
 #include <string>
 #include <type_traits>
 #include <unordered_map>
+#include <vector>
 
 namespace wmoge {
 
@@ -87,6 +89,29 @@ namespace wmoge {
     };
 
     template<typename T>
+    Status copy_objects(const std::vector<Ref<T>>& objects, std::vector<Ref<T>>& copied) {
+        static_assert(std::is_base_of_v<Object, T>, "T must be sub-class of object");
+
+        copied.reserve(objects.size());
+
+        for (auto& object : objects) {
+            Ref<Object> copy;
+
+            if (!object->clone(copy)) {
+                WG_LOG_ERROR("failed to clone object " << object->class_name());
+                return StatusCode::Error;
+            }
+
+            auto as_t = copy.cast<T>();
+            assert(as_t);
+
+            copied.push_back(as_t);
+        }
+
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
     Status yaml_read(const YamlConstNodeRef& node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object;
         auto        status = yaml_read_object(node, object);
@@ -129,13 +154,15 @@ public:                                                                         
     const StringId&           class_name() const override { return class_name_static(); }             \
     const StringId&           super_class_name() const override { return super_class_name_static(); } \
     static const class Class* class_ptr_static() {                                                    \
-        return Class::class_ptr(class_name_static());                                                 \
+        thread_local Class* cls = Class::class_ptr(class_name_static());                              \
+        return cls;                                                                                   \
     }                                                                                                 \
     static const StringId& class_name_static() {                                                      \
-        static StringId sid = SID(#name);                                                             \
+        thread_local StringId sid = SID(#name);                                                       \
         return sid;                                                                                   \
     }                                                                                                 \
     static const StringId& super_class_name_static() {                                                \
         return super::class_name_static();                                                            \
     }
+
 #endif//WMOGE_OBJECT_HPP

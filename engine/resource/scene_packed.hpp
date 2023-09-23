@@ -64,7 +64,7 @@ namespace wmoge {
         Ref<Scene>              instantiate();
 
     private:
-        std::optional<SceneTree> m_scene_tree;
+        Ref<SceneTree> m_scene_tree;
     };
 
 }// namespace wmoge

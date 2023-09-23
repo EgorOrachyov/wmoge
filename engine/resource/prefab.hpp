@@ -52,8 +52,6 @@ namespace wmoge {
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
-        Status instantiate(SceneNode& parent);
-
     private:
         std::optional<SceneTree> m_scene_tree;
     };

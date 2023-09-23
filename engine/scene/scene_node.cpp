@@ -27,19 +27,21 @@
 
 #include "scene_node.hpp"
 
-#include "scene/scene_tree.hpp"
-#include "scene/scene_tree_visitor.hpp"
-
 #include <cassert>
+#include <filesystem>
 
 namespace wmoge {
 
-    SceneNode::SceneNode(SceneTree* tree) : m_uuid(UUID::generate()) {
-        assert(tree);
+    SceneNode::SceneNode(const StringId& name, wmoge::SceneNodeType type) {
+        m_name = name;
+        m_type = type;
     }
 
     void SceneNode::set_name(const StringId& name) {
         m_name = name;
+    }
+    void SceneNode::set_transform(const TransformEdt& transform) {
+        m_transform = transform;
     }
 
     void SceneNode::add_child(const Ref<SceneNode>& child) {
@@ -57,10 +59,39 @@ namespace wmoge {
         m_children.erase(std::find(m_children.begin(), m_children.end(), child));
     }
 
+    std::optional<Ref<SceneNode>> SceneNode::find_child(const std::string& name) {
+        for (const auto& child : m_children) {
+            if (child->get_name().str() == name) {
+                return child;
+            }
+        }
+
+        return std::nullopt;
+    }
+    std::optional<Ref<SceneNode>> SceneNode::find_child_recursive(const std::string& path) {
+        std::filesystem::path parsed_path(path);
+
+        SceneNode*                    current = this;
+        std::optional<Ref<SceneNode>> found;
+
+        for (const auto& sub_element : parsed_path) {
+            found = current->find_child(sub_element.string());
+
+            if (!found) {
+                return std::nullopt;
+            }
+        }
+
+        return found;
+    }
+
     Status SceneNode::read_from_yaml(const YamlConstNodeRef& node) {
         WG_YAML_READ_AS_OPT(node, "uuid", m_uuid);
         WG_YAML_READ_AS_OPT(node, "name", m_name);
+        WG_YAML_READ_AS_OPT(node, "type", m_type);
+        WG_YAML_READ_AS_OPT(node, "transform", m_transform);
         WG_YAML_READ_AS_OPT(node, "children", m_children);
+        WG_YAML_READ_AS_OPT(node, "properties", m_properties);
 
         if (!m_uuid) {
             m_uuid = UUID::generate();
@@ -78,37 +109,35 @@ namespace wmoge {
     }
     Status SceneNode::write_to_yaml(YamlNodeRef node) const {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "class", class_ptr()->name());
         WG_YAML_WRITE_AS(node, "uuid", m_uuid);
         WG_YAML_WRITE_AS(node, "name", m_name);
+        WG_YAML_WRITE_AS(node, "type", m_type);
+        WG_YAML_WRITE_AS(node, "transform", m_transform);
         WG_YAML_WRITE_AS_OPT(node, "children", !m_children.empty(), m_children);
+        WG_YAML_WRITE_AS_OPT(node, "properties", !m_properties.empty(), m_properties);
 
         return StatusCode::Ok;
-    }
-    Status SceneNode::accept_visitor(class SceneTreeVisitor& visitor) {
-        return visitor.visit(*this);
     }
     Status SceneNode::copy_to(Object& other) const {
         auto* ptr = dynamic_cast<SceneNode*>(&other);
 
-        ptr->m_name = m_name;
-        ptr->m_uuid = m_uuid;
+        ptr->m_name      = m_name;
+        ptr->m_uuid      = m_uuid;
+        ptr->m_type      = m_type;
+        ptr->m_transform = m_transform;
 
-        ptr->m_children.reserve(m_children.size());
+        if (!copy_objects(m_properties, ptr->m_properties)) {
+            WG_LOG_ERROR("failed to clone node properties " << get_name());
+            return StatusCode::Error;
+        }
 
-        for (auto& child : m_children) {
-            Ref<Object> child_copy;
+        if (!copy_objects(m_children, ptr->m_children)) {
+            WG_LOG_ERROR("failed to clone node children " << get_name());
+            return StatusCode::Error;
+        }
 
-            if (!child->clone(child_copy)) {
-                WG_LOG_ERROR("failed to clone node child " << child->get_name());
-                return StatusCode::Error;
-            }
-
-            auto as_node = child_copy.cast<SceneNode>();
-            assert(as_node);
-
-            as_node->m_parent = ptr;
-            ptr->m_children.push_back(as_node);
+        for (auto& child : ptr->m_children) {
+            child->m_parent = ptr;
         }
 
         return StatusCode::Ok;

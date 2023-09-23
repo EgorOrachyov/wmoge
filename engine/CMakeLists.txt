@@ -311,20 +311,20 @@ add_library(wmoge STATIC
         scene/scene_camera.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
+        scene/scene_io.cpp
+        scene/scene_io.hpp
         scene/scene_manager.cpp
         scene/scene_manager.hpp
         scene/scene_node.cpp
         scene/scene_node.hpp
-        scene/scene_nodes.cpp
-        scene/scene_nodes.hpp
+        scene/scene_properties.cpp
+        scene/scene_properties.hpp
+        scene/scene_property.cpp
+        scene/scene_property.hpp
         scene/scene_transform.cpp
         scene/scene_transform.hpp
         scene/scene_tree.cpp
         scene/scene_tree.hpp
-        scene/scene_tree_visitor.cpp
-        scene/scene_tree_visitor.hpp
-        scene/scene_tree_visitors.cpp
-        scene/scene_tree_visitors.hpp
         scene/register_classes_scene.cpp
         scene/register_classes_scene.hpp
         scripting/script_instance.hpp

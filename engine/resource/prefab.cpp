@@ -36,31 +36,12 @@ namespace wmoge {
     Status Prefab::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Prefab::read_from_yaml");
 
-        SceneTree& tree = m_scene_tree.emplace();
-        WG_YAML_READ(node, tree);
-
         return StatusCode::Ok;
     }
 
     Status Prefab::copy_to(Object& copy) const {
         Resource::copy_to(copy);
-        auto* prefab         = dynamic_cast<Prefab*>(&copy);
-        prefab->m_scene_tree = m_scene_tree;
-        return StatusCode::Ok;
-    }
-
-    Status Prefab::instantiate(SceneNode& parent) {
-        WG_AUTO_PROFILE_RESOURCE("Prefab::instantiate");
-
-        assert(m_scene_tree.has_value());
-
-        if (!m_scene_tree.has_value()) {
-            WG_LOG_ERROR("no tree to instantiate prefab " << get_name());
-            return StatusCode::InvalidState;
-        }
-
-        m_scene_tree.value().add_as_subtree(parent);
-
+        auto* prefab = dynamic_cast<Prefab*>(&copy);
         return StatusCode::Ok;
     }
 

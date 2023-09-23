@@ -35,7 +35,6 @@
 #include "platform/window.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_transform.hpp"
-#include "scene/scene_tree.hpp"
 
 #include <memory>
 
@@ -51,17 +50,16 @@ namespace wmoge {
         ~Scene() override = default;
 
         [[nodiscard]] const StringId&        get_name();
-        [[nodiscard]] SceneTree*             get_tree();
-        [[nodiscard]] SceneTransformManager* get_transforms();
         [[nodiscard]] EcsWorld*              get_ecs_world();
+        [[nodiscard]] SceneTransformManager* get_transforms();
         [[nodiscard]] CameraManager*         get_cameras();
 
     private:
-        StringId                               m_name;
-        std::unique_ptr<SceneTree>             m_tree;
-        std::unique_ptr<SceneTransformManager> m_transforms;
         std::unique_ptr<EcsWorld>              m_ecs_world;
+        std::unique_ptr<SceneTransformManager> m_transforms;
         std::unique_ptr<CameraManager>         m_cameras;
+
+        StringId m_name;
     };
 
 }// namespace wmoge

@@ -35,10 +35,22 @@
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "io/yaml.hpp"
+#include "math/transform.hpp"
+#include "scene/scene_property.hpp"
 
+#include <optional>
 #include <vector>
 
 namespace wmoge {
+
+    /**
+     * @brief Type of node in the tree
+     */
+    enum class SceneNodeType {
+        Object = 0,
+        Folder,
+        Layer
+    };
 
     /**
      * @class SceneNode
@@ -48,31 +60,40 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNode, Object)
 
-        SceneNode(class SceneTree* tree);
+        SceneNode(const StringId& name, SceneNodeType type);
 
         void set_name(const StringId& name);
+        void set_transform(const TransformEdt& transform);
         void add_child(const Ref<SceneNode>& child);
         void remove_child(const Ref<SceneNode>& child);
 
-        [[nodiscard]] ArrayView<const Ref<SceneNode>> get_children() const { return m_children; }
-        [[nodiscard]] class SceneNode*                get_parent() const { return m_parent; }
-        [[nodiscard]] const StringId&                 get_name() const { return m_name; }
-        [[nodiscard]] const UUID&                     get_uuid() const { return m_uuid; };
+        std::optional<Ref<SceneNode>> find_child(const std::string& name);
+        std::optional<Ref<SceneNode>> find_child_recursive(const std::string& path);
 
-        virtual Status accept_visitor(class SceneTreeVisitor& visitor);
-        virtual void   collect_arch(EcsArch& arch) const {};
+        [[nodiscard]] ArrayView<const Ref<SceneNode>>     get_children() const { return m_children; }
+        [[nodiscard]] ArrayView<const Ref<SceneProperty>> get_properties() const { return m_properties; }
+        [[nodiscard]] class SceneNode*                    get_parent() const { return m_parent; }
+        [[nodiscard]] const StringId&                     get_name() const { return m_name; }
+        [[nodiscard]] const UUID&                         get_uuid() const { return m_uuid; };
+        [[nodiscard]] const SceneNodeType                 get_type() const { return m_type; };
+        [[nodiscard]] const TransformEdt&                 get_transform() const { return m_transform; };
+        [[nodiscard]] const EcsEntity&                    get_entity() const { return m_entity; };
 
         Status copy_to(Object& other) const override;
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status write_to_yaml(YamlNodeRef node) const override;
 
     private:
-        friend class SceneTree;
+        std::vector<Ref<SceneNode>>     m_children;
+        std::vector<Ref<SceneProperty>> m_properties;
 
-        std::vector<Ref<SceneNode>> m_children;
-        class SceneNode*            m_parent = nullptr;
-        StringId                    m_name;
-        UUID                        m_uuid;
+        SceneNode*    m_parent = nullptr;
+        StringId      m_name   = SID("");
+        UUID          m_uuid   = UUID::generate();
+        SceneNodeType m_type   = SceneNodeType::Object;
+
+        TransformEdt m_transform;
+        EcsEntity    m_entity;
     };
 
 }// namespace wmoge

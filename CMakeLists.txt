@@ -3,6 +3,7 @@ project(wmoge)
 
 ###########################################################
 # global cxx setup
+
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
@@ -80,8 +81,3 @@ add_subdirectory(engine)
 # Game template for test purposes and to kick-off new projects
 
 add_subdirectory(template)
-
-###########################################################
-# Engine example game projects
-
-# add_subdirectory(games)

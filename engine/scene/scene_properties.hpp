@@ -25,40 +25,65 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_tree_visitor.hpp"
+#ifndef WMOGE_SCENE_PROPERTIES_HPP
+#define WMOGE_SCENE_PROPERTIES_HPP
+
+#include "scene/scene_io.hpp"
+#include "scene/scene_property.hpp"
 
 namespace wmoge {
 
-    Status SceneTreeVisitorSplit::visit_children(SceneNode& node) {
-        for (const auto& child : node.get_children()) {
-            if (!child->accept_visitor(*this)) {
-                return StatusCode::Error;
-            }
-        }
+    /**
+     * @class ScenePropCamera
+     * @brief Node property
+     */
+    class ScenePropCamera : public SceneProperty {
+    public:
+        WG_OBJECT(ScenePropCamera, SceneProperty);
 
-        return StatusCode::Ok;
-    }
+        Status copy_to(Object& other) const override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
 
-    Status SceneTreeVisitorSplit::visit(SceneNode& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
-    Status SceneTreeVisitorSplit::visit(SceneNodeFolder& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
-    Status SceneTreeVisitorSplit::visit(SceneNodePrefab& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
-    Status SceneTreeVisitorSplit::visit(SceneNodeEntity& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
-    Status SceneTreeVisitorSplit::visit(SceneNodeComponent& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
-    Status SceneTreeVisitorSplit::visit(SceneNodeTransform& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
-    Status SceneTreeVisitorSplit::visit(SceneNodeCamera& node) {
-        return visit_begin(node) && visit_children(node) && visit_end(node) ? StatusCode::Ok : StatusCode::Error;
-    }
+        SceneDataCamera settings;
+    };
+
+    /**
+     * @class ScenePropMeshStatic
+     * @brief Node property
+     */
+    class ScenePropMeshStatic : public SceneProperty {
+    public:
+        WG_OBJECT(ScenePropMeshStatic, SceneProperty);
+    };
+
+    /**
+     * @class ScenePropAudioSource
+     * @brief Node property
+     */
+    class ScenePropAudioSource : public SceneProperty {
+    public:
+        WG_OBJECT(ScenePropAudioSource, SceneProperty);
+    };
+
+    /**
+     * @class ScenePropAudioListener
+     * @brief Node property
+     */
+    class ScenePropAudioListener : public SceneProperty {
+    public:
+        WG_OBJECT(ScenePropAudioListener, SceneProperty);
+    };
+
+    /**
+     * @class ScenePropLuaScript
+     * @brief Node property
+     */
+    class ScenePropLuaScript : public SceneProperty {
+    public:
+        WG_OBJECT(ScenePropLuaScript, SceneProperty);
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_SCENE_PROPERTIES_HPP

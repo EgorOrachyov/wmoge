@@ -28,6 +28,7 @@
 #ifndef WMOGE_ECS_COMPONENT_HPP
 #define WMOGE_ECS_COMPONENT_HPP
 
+#include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "ecs/ecs_core.hpp"
@@ -61,7 +62,10 @@ namespace wmoge {
 #define WG_ECS_COMPONENT(ecs_component_class, ecs_idx)                                                         \
     static_assert(ecs_idx < EcsLimits::MAX_COMPONENTS, "Index for " #ecs_component_class " is out of limits"); \
     static constexpr int        IDX    = ecs_idx;                                                              \
-    static constexpr const char NAME[] = #ecs_component_class;
+    static constexpr const char NAME[] = #ecs_component_class;                                                 \
+    static bool                 is(int id) { return id == IDX; }                                               \
+    static bool                 is(const std::string& name) { return name == NAME; }                           \
+    static bool                 is(const StringId& name) { return name.str() == NAME; }
 
 }// namespace wmoge
 

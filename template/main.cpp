@@ -48,7 +48,7 @@ public:
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 
-        scene = Engine::instance()->resource_manager()->load(SID("res://scenes/test_scene")).cast<ScenePacked>()->instantiate();
+        scene = Engine::instance()->scene_manager()->make_scene(SID("test_scene"));
 
         WG_LOG_INFO("init");
     }

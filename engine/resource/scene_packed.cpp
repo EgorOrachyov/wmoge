@@ -36,51 +36,35 @@
 #include "platform/file_system.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_manager.hpp"
-#include "scene/scene_tree_visitors.hpp"
 
 namespace wmoge {
 
     Status ScenePacked::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::read_from_yaml");
 
-        SceneTree& tree = m_scene_tree.emplace();
-        WG_YAML_READ(node, tree);
-
         return StatusCode::Ok;
     }
     Status ScenePacked::copy_to(Object& copy) const {
         Resource::copy_to(copy);
-        auto* scene_packed         = dynamic_cast<ScenePacked*>(&copy);
-        scene_packed->m_scene_tree = m_scene_tree;
+        auto* scene_packed = dynamic_cast<ScenePacked*>(&copy);
         return StatusCode::Ok;
     }
 
     AsyncResult<Ref<Scene>> ScenePacked::instantiate_async() {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate_async");
 
-        assert(m_scene_tree.has_value());
-
-        if (!m_scene_tree.has_value()) {
-            WG_LOG_ERROR("cannot instantiate scene from no data");
-            return AsyncResult<Ref<Scene>>{};
-        }
+        //        if (!m_scene_tree.has_value()) {
+        //            WG_LOG_ERROR("cannot instantiate scene from no data");
+        //            return AsyncResult<Ref<Scene>>{};
+        //        }
 
         AsyncOp<Ref<Scene>> scene_async = make_async_op<Ref<Scene>>();
 
         Task scene_task(get_name(), [self = Ref<ScenePacked>(this), scene_async](TaskContext&) {
             Ref<Scene> scene = Engine::instance()->scene_manager()->make_scene(self->get_name());
 
-            SceneTreeVisitorEmitScene visitor(scene);
-
             Timer timer;
             timer.start();
-
-            if (!self->m_scene_tree.value().visit(visitor)) {
-                WG_LOG_ERROR("failed to emit ecs scene from scene tree " << self->get_name());
-                return 1;
-            }
-
-            self->m_scene_tree.value().copy_to(*scene->get_tree());
 
             timer.stop();
             WG_LOG_INFO("instantiate ecs scene " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");
