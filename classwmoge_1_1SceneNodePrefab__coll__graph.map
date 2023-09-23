@@ -1,8 +1,0 @@
-<map id="wmoge::SceneNodePrefab" name="wmoge::SceneNodePrefab">
-<area shape="rect" id="node1" title="Scene node for an instanced sub&#45;tree from a prefab resource." alt="" coords="155,261,331,288"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="5,165,144,191"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="21,81,129,108"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="19,5,130,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1TransformEdt.html" title="Utility to manage 3d space transformations with euler angles." alt="" coords="169,165,317,191"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="341,157,491,199"/>
-</map>

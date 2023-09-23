@@ -1,6 +1,0 @@
-<map id="wmoge::SceneTreeVisitorEmitScene::EntityInfo" name="wmoge::SceneTreeVisitorEmitScene::EntityInfo">
-<area shape="rect" id="node1" title="Currently processed entity object on scene." alt="" coords="64,185,260,227"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EcsArch.html" title="An entity archetype defining its component structure." alt="" coords="31,96,149,123"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,175,47"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1EcsEntity.html" title="Handle for a ecs entity." alt="" coords="173,96,297,123"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="wmoge::SceneTreeVisitorEmitScene::NameInfo" name="wmoge::SceneTreeVisitorEmitScene::NameInfo">
-<area shape="rect" id="node1" title="Chunk of name to append to get full objects names." alt="" coords="5,95,201,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="46,5,161,32"/>
-</map>

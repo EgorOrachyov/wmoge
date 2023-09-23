@@ -1,10 +1,6 @@
 <map id="engine/scene/scene_components.hpp" name="engine/scene/scene_components.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="319,5,458,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="157,5,295,47"/>
 <area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,102,132,129"/>
 <area shape="rect" id="node3" href="$scene__components_8cpp.html" title=" " alt="" coords="157,95,295,136"/>
 <area shape="rect" id="node4" href="$scene__manager_8cpp.html" title=" " alt="" coords="319,95,458,136"/>
-<area shape="rect" id="node5" href="$scene__nodes_8cpp.html" title=" " alt="" coords="482,95,621,136"/>
-<area shape="rect" id="node6" href="$scene__tree__visitors_8hpp.html" title=" " alt="" coords="645,95,783,136"/>
-<area shape="rect" id="node7" href="$scene__packed_8cpp.html" title=" " alt="" coords="552,184,705,225"/>
-<area shape="rect" id="node8" href="$scene__tree__visitors_8cpp.html" title=" " alt="" coords="730,184,869,225"/>
 </map>
