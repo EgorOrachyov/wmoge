@@ -42,21 +42,19 @@ namespace wmoge {
     Status ScenePacked::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::read_from_yaml");
 
+        WG_YAML_READ(node, m_data);
+
         return StatusCode::Ok;
     }
     Status ScenePacked::copy_to(Object& copy) const {
         Resource::copy_to(copy);
-        auto* scene_packed = dynamic_cast<ScenePacked*>(&copy);
+        auto* scene_packed   = dynamic_cast<ScenePacked*>(&copy);
+        scene_packed->m_data = m_data;
         return StatusCode::Ok;
     }
 
     AsyncResult<Ref<Scene>> ScenePacked::instantiate_async() {
         WG_AUTO_PROFILE_RESOURCE("ScenePacked::instantiate_async");
-
-        //        if (!m_scene_tree.has_value()) {
-        //            WG_LOG_ERROR("cannot instantiate scene from no data");
-        //            return AsyncResult<Ref<Scene>>{};
-        //        }
 
         AsyncOp<Ref<Scene>> scene_async = make_async_op<Ref<Scene>>();
 
@@ -67,7 +65,7 @@ namespace wmoge {
             timer.start();
 
             timer.stop();
-            WG_LOG_INFO("instantiate ecs scene " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");
+            WG_LOG_INFO("instantiate scene " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");
 
             scene_async->set_result(std::move(scene));
 

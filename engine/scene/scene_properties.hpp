@@ -28,7 +28,7 @@
 #ifndef WMOGE_SCENE_PROPERTIES_HPP
 #define WMOGE_SCENE_PROPERTIES_HPP
 
-#include "scene/scene_io.hpp"
+#include "scene/scene.hpp"
 #include "scene/scene_property.hpp"
 
 namespace wmoge {

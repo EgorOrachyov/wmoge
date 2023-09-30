@@ -30,8 +30,13 @@
 
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
+#include "core/typed_array.hpp"
+#include "core/typed_map.hpp"
 #include "math/math_utils.hpp"
+#include "math/vec.hpp"
 
+#include <cinttypes>
+#include <functional>
 #include <map>
 #include <memory>
 #include <sstream>
@@ -45,23 +50,37 @@ namespace wmoge {
      * @brief Types supported for storing inside a variant
      */
     enum class VarType : int {
-        Nil      = 0,
-        Int      = 1,
-        Float    = 2,
-        String   = 3,
-        StringId = 4,
-        Array    = 5,
-        Map      = 6,
-        Object   = 7
+        Nil         = 0,
+        Int         = 1,
+        Float       = 2,
+        String      = 3,
+        StringId    = 4,
+        Array       = 5,
+        Map         = 6,
+        Object      = 7,
+        ArrayInt    = 8,
+        ArrayFloat  = 9,
+        ArrayByte   = 10,
+        ArrayString = 11,
+        ArrayVec2f  = 12,
+        ArrayVec3f  = 13
+    };
+
+    struct VarHash final {
+        std::size_t operator()(const class Var&) const;
     };
 
     class Var;
     class Object;
-    using vvector = std::vector<Var>;
-    using vmap    = std::map<Var, Var>;
-    using String  = std::string;
-    using Array   = std::shared_ptr<vvector>;// wrap to avoid unnecessary copy
-    using Map     = std::shared_ptr<vmap>;   // wrap to avoid unnecessary copy
+    using String      = std::string;
+    using Array       = TypedArray<Var>;            // wrap to avoid unnecessary copy
+    using ArrayInt    = TypedArray<int>;            // wrap to avoid unnecessary copy
+    using ArrayFloat  = TypedArray<float>;          // wrap to avoid unnecessary copy
+    using ArrayByte   = TypedArray<std::uint8_t>;   // wrap to avoid unnecessary copy
+    using ArrayString = TypedArray<String>;         // wrap to avoid unnecessary copy
+    using ArrayVec2f  = TypedArray<Vec2f>;          // wrap to avoid unnecessary copy
+    using ArrayVec3f  = TypedArray<Vec3f>;          // wrap to avoid unnecessary copy
+    using Map         = TypedMap<Var, Var, VarHash>;// wrap to avoid unnecessary copy
 
     /**
      * @class Var
@@ -80,7 +99,13 @@ namespace wmoge {
         Var(const Ref<Object>& value);
         Var(std::size_t value);
         Var(std::vector<Var> value);
-        Var(std::map<Var, Var> value);
+        Var(std::unordered_map<Var, Var, VarHash> value);
+        Var(ArrayByte value);
+        Var(ArrayInt value);
+        Var(ArrayFloat value);
+        Var(ArrayString value);
+        Var(ArrayVec2f value);
+        Var(ArrayVec3f value);
 
         template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
         Var(T enum_value) : Var(static_cast<int>(enum_value)) {}
@@ -107,6 +132,12 @@ namespace wmoge {
         operator Array() const;
         operator Map() const;
         operator Ref<Object>() const;
+        operator ArrayByte() const;
+        operator ArrayInt() const;
+        operator ArrayFloat() const;
+        operator ArrayString() const;
+        operator ArrayVec2f() const;
+        operator ArrayVec3f() const;
 
         VarType type() const { return m_type; }
 
@@ -114,15 +145,10 @@ namespace wmoge {
         std::size_t hash() const;
 
     private:
-        const String*   as_string() const;
-        const StringId* as_string_id() const;
-        const Array*    as_array() const;
-        const Map*      as_map() const;
-
-        String*   as_string();
-        StringId* as_string_id();
-        Array*    as_array();
-        Map*      as_map();
+        template<typename T>
+        const T& as() const { return *reinterpret_cast<const T*>(m_data.m_mem); }
+        template<typename T>
+        T& as() { return *reinterpret_cast<T*>(m_data.m_mem); }
 
         void release();
         void build_string(std::stringstream& stream) const;
@@ -131,8 +157,7 @@ namespace wmoge {
     private:
         static constexpr std::size_t MEM_SIZE =
                 Math::const_max<size_t,
-                                sizeof(Array),
-                                sizeof(Map),
+                                sizeof(void*),
                                 sizeof(StringId),
                                 sizeof(String)>();
 
@@ -152,5 +177,17 @@ namespace wmoge {
     }
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::Var> {
+    public:
+        std::size_t operator()(const wmoge::Var& var) const {
+            return var.hash();
+        }
+    };
+
+}// namespace std
 
 #endif//WMOGE_VAR_HPP

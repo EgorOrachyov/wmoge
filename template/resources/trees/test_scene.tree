@@ -1,0 +1,19 @@
+# Serialized scene tree of scene node into a yaml readable file
+nodes:
+ - name: "cameras"
+   uuid: 0
+   type: Folder
+ - name: "camera"
+   uuid: 0
+   type: Object
+   parent: 0
+   properties:
+     - class: ScenePropCamera
+       color: "0 0 0 0"
+       viewport: "0 0 1 1"
+       fov: 45.0
+       near: 0.1
+       far: 1000.0
+       target: "primary"
+       projection: Perspective
+       

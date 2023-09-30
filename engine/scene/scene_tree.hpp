@@ -29,13 +29,45 @@
 #define WMOGE_SCENE_TREE_HPP
 
 #include "core/object.hpp"
+#include "core/string_id.hpp"
 #include "io/yaml.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_node.hpp"
+#include "scene/scene_properties.hpp"
+#include "scene/scene_property.hpp"
 
+#include <functional>
+#include <optional>
 #include <string>
 
 namespace wmoge {
+
+    /**
+     * @class SceneNodeData
+     * @brief Serializable struct with scene tree single node data
+     */
+    struct SceneNodeData {
+        StringId                        name;
+        UUID                            uuid;
+        SceneNodeType                   type;
+        TransformEdt                    transform;
+        std::vector<Ref<SceneProperty>> properties;
+        std::optional<int>              parent;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneNodeData& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneNodeData& data);
+    };
+
+    /**
+     * @class SceneTreeData
+     * @brief Serializable struct with an editable scene tree data
+     */
+    struct SceneTreeData {
+        std::vector<SceneNodeData> nodes;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneTreeData& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneTreeData& data);
+    };
 
     /**
      * @class SceneTree
@@ -54,18 +86,30 @@ namespace wmoge {
      * @see Scene
      * @see SceneNode
      */
-    class SceneTree : public SceneNode {
+    class SceneTree : public Object {
     public:
-        WG_OBJECT(SceneTree, SceneNode)
+        WG_OBJECT(SceneTree, Object)
 
-        [[nodiscard]] const Ref<Scene>& get_scene() const { return m_scene; }
+        /**
+         * @brief Creates new editable scene
+         * 
+         * @param name Scene name to unique identify it at runtime
+         */
+        SceneTree(const StringId& name);
 
-        Status copy_to(Object& other) const override;
-        Status read_from_yaml(const YamlConstNodeRef& node) override;
-        Status write_to_yaml(YamlNodeRef node) const override;
+        void                          visit(const std::function<void(const Ref<SceneNode>& node)>& visitor);
+        std::optional<Ref<SceneNode>> find_node(const std::string& path);
+        std::vector<Ref<SceneNode>>   get_nodes();
+        std::vector<Ref<SceneNode>>   filter_nodes(const std::function<bool(const Ref<SceneNode>& node)>& predicate);
+        Status                        build(const SceneTreeData& data);
+        Status                        dump(SceneTreeData& data);
+
+        [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
+        [[nodiscard]] const Ref<Scene>&     get_scene() const { return m_scene; }
 
     private:
-        Ref<Scene> m_scene;
+        Ref<SceneNode> m_root;
+        Ref<Scene>     m_scene;
     };
 
 }// namespace wmoge

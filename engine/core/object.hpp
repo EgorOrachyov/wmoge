@@ -112,6 +112,18 @@ namespace wmoge {
     }
 
     template<typename T>
+    std::vector<Ref<T>> copy_objects(const std::vector<Ref<T>>& objects) {
+        std::vector<Ref<T>> result;
+
+        if (!copy_objects(objects, result)) {
+            WG_LOG_ERROR("failed to copy objects vector type: " << T::class_name_static() << " count: " << objects.size());
+            return {};
+        }
+
+        return result;
+    }
+
+    template<typename T>
     Status yaml_read(const YamlConstNodeRef& node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object;
         auto        status = yaml_read_object(node, object);

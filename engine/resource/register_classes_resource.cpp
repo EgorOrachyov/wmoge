@@ -38,6 +38,7 @@
 #include "resource/prefab.hpp"
 #include "resource/resource.hpp"
 #include "resource/scene_packed.hpp"
+#include "resource/scene_tree_packed.hpp"
 #include "resource/script.hpp"
 #include "resource/shader.hpp"
 #include "resource/texture.hpp"
@@ -61,6 +62,7 @@ namespace wmoge {
         PfxEffect::register_class();
         Prefab::register_class();
         ScenePacked::register_class();
+        SceneTreePacked::register_class();
     }
 
 }// namespace wmoge

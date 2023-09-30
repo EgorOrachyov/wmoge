@@ -90,6 +90,7 @@ namespace wmoge {
             async_op->set_failed();
             async_op->add_on_completion(std::move(callback));
 
+            WG_LOG_ERROR("failed to find meta info for " << name);
             return AsyncResult<Ref<Resource>>(async_op);
         }
 
@@ -210,6 +211,15 @@ namespace wmoge {
             if (pak->get_meta(resource, resource_meta)) {
                 if (resource_meta.cls && resource_meta.loader && resource_meta.pak) {
                     return std::make_optional(std::move(resource_meta));
+                }
+                if (!resource_meta.cls) {
+                    WG_LOG_ERROR("no class found in runtime for " << resource << " in " << pak->get_name());
+                }
+                if (!resource_meta.loader) {
+                    WG_LOG_ERROR("no loader found in runtime for " << resource << " in " << pak->get_name());
+                }
+                if (!resource_meta.pak) {
+                    WG_LOG_ERROR("no pak found in runtime for " << resource << " in " << pak->get_name());
                 }
             }
         }

@@ -41,9 +41,10 @@ namespace wmoge {
         ResourcePakFileSystem();
         ~ResourcePakFileSystem() override = default;
 
-        Status get_meta(const StringId& name, ResourceMeta& meta) override;
-        Status read_file(const std::string& path, Ref<Data>& data) override;
-        Status read_file(const std::string& path, std::vector<std::uint8_t>& data) override;
+        std::string get_name() const override;
+        Status      get_meta(const StringId& name, ResourceMeta& meta) override;
+        Status      read_file(const std::string& path, Ref<Data>& data) override;
+        Status      read_file(const std::string& path, std::vector<std::uint8_t>& data) override;
 
     private:
         class FileSystem* m_file_system;

@@ -29,13 +29,52 @@
 
 namespace wmoge {
 
+    Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data) {
+        WG_YAML_READ_AS_OPT(node, "color", data.color);
+        WG_YAML_READ_AS_OPT(node, "viewport", data.viewport);
+        WG_YAML_READ_AS_OPT(node, "fov", data.fov);
+        WG_YAML_READ_AS_OPT(node, "near", data.near);
+        WG_YAML_READ_AS_OPT(node, "far", data.far);
+        WG_YAML_READ_AS_OPT(node, "target", data.target);
+        WG_YAML_READ_AS_OPT(node, "projection", data.projection);
+
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const SceneDataCamera& data) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "color", data.color);
+        WG_YAML_WRITE_AS(node, "viewport", data.viewport);
+        WG_YAML_WRITE_AS(node, "fov", data.fov);
+        WG_YAML_WRITE_AS(node, "near", data.near);
+        WG_YAML_WRITE_AS(node, "far", data.far);
+        WG_YAML_WRITE_AS(node, "target", data.target);
+        WG_YAML_WRITE_AS(node, "projection", data.projection);
+
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(const YamlConstNodeRef& node, SceneData& data) {
+        WG_YAML_READ_AS(node, "name", data.name);
+        WG_YAML_READ_AS(node, "entities_names", data.entities_names);
+        WG_YAML_READ_AS(node, "cameras", data.cameras);
+
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const SceneData& data) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "name", data.name);
+        WG_YAML_WRITE_AS(node, "entities_names", data.entities_names);
+        WG_YAML_WRITE_AS(node, "cameras", data.cameras);
+
+        return StatusCode::Ok;
+    }
+
     Scene::Scene(StringId name) {
         m_name       = name;
         m_transforms = std::make_unique<SceneTransformManager>();
         m_ecs_world  = std::make_unique<EcsWorld>();
         m_cameras    = std::make_unique<CameraManager>();
     }
-
     const StringId& Scene::get_name() {
         return m_name;
     }

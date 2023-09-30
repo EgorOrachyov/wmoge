@@ -26,37 +26,17 @@
 /**********************************************************************************/
 
 #include "var.hpp"
-#include "object.hpp"
+
+#include "core/crc32.hpp"
+#include "core/object.hpp"
 
 #include <algorithm>
 #include <utility>
 
 namespace wmoge {
 
-    const String* Var::as_string() const {
-        return reinterpret_cast<const String*>(m_data.m_mem);
-    }
-    const StringId* Var::as_string_id() const {
-        return reinterpret_cast<const StringId*>(m_data.m_mem);
-    }
-    const Array* Var::as_array() const {
-        return reinterpret_cast<const Array*>(m_data.m_mem);
-    }
-    const Map* Var::as_map() const {
-        return reinterpret_cast<const Map*>(m_data.m_mem);
-    }
-
-    String* Var::as_string() {
-        return reinterpret_cast<String*>(m_data.m_mem);
-    }
-    StringId* Var::as_string_id() {
-        return reinterpret_cast<StringId*>(m_data.m_mem);
-    }
-    Array* Var::as_array() {
-        return reinterpret_cast<Array*>(m_data.m_mem);
-    }
-    Map* Var::as_map() {
-        return reinterpret_cast<Map*>(m_data.m_mem);
+    std::size_t VarHash::operator()(const class Var& v) const {
+        return v.hash();
     }
 
     Var::Var(long long value) {
@@ -93,9 +73,33 @@ namespace wmoge {
     }
     Var::Var(std::size_t value) : Var(static_cast<long long>(value)) {
     }
-    Var::Var(std::vector<Var> value) : Var(std::make_shared<std::vector<Var>>(std::move(value))) {
+    Var::Var(std::vector<Var> value) : Var(Array(std::move(value))) {
     }
-    Var::Var(std::map<Var, Var> value) : Var(std::make_shared<std::map<Var, Var>>(std::move(value))) {
+    Var::Var(std::unordered_map<Var, Var, VarHash> value) : Var(Map(std::move(value))) {
+    }
+    Var::Var(ArrayByte value) {
+        m_type = VarType::ArrayByte;
+        new (m_data.m_mem) ArrayByte(std::move(value));
+    }
+    Var::Var(ArrayInt value) {
+        m_type = VarType::ArrayInt;
+        new (m_data.m_mem) ArrayInt(std::move(value));
+    }
+    Var::Var(ArrayFloat value) {
+        m_type = VarType::ArrayFloat;
+        new (m_data.m_mem) ArrayFloat(std::move(value));
+    }
+    Var::Var(ArrayString value) {
+        m_type = VarType::ArrayString;
+        new (m_data.m_mem) ArrayString(std::move(value));
+    }
+    Var::Var(ArrayVec2f value) {
+        m_type = VarType::ArrayVec2f;
+        new (m_data.m_mem) ArrayVec2f(std::move(value));
+    }
+    Var::Var(ArrayVec3f value) {
+        m_type = VarType::ArrayVec3f;
+        new (m_data.m_mem) ArrayVec3f(std::move(value));
     }
 
     Var::Var(const Var& var) {
@@ -107,19 +111,37 @@ namespace wmoge {
                 m_data.m_float = var.m_data.m_float;
                 break;
             case VarType::String:
-                new (m_data.m_mem) String(*var.as_string());
+                new (m_data.m_mem) String(var.as<String>());
                 break;
             case VarType::StringId:
-                new (m_data.m_mem) StringId(*var.as_string_id());
+                new (m_data.m_mem) StringId(var.as<StringId>());
                 break;
             case VarType::Array:
-                new (m_data.m_mem) Array(*var.as_array());
+                new (m_data.m_mem) Array(var.as<Array>());
                 break;
             case VarType::Map:
-                new (m_data.m_mem) Map(*var.as_map());
+                new (m_data.m_mem) Map(var.as<Map>());
                 break;
             case VarType::Object:
                 m_data.m_object = ref(var.m_data.m_object);
+                break;
+            case VarType::ArrayByte:
+                new (m_data.m_mem) ArrayByte(var.as<ArrayByte>());
+                break;
+            case VarType::ArrayInt:
+                new (m_data.m_mem) ArrayInt(var.as<ArrayInt>());
+                break;
+            case VarType::ArrayFloat:
+                new (m_data.m_mem) ArrayFloat(var.as<ArrayFloat>());
+                break;
+            case VarType::ArrayString:
+                new (m_data.m_mem) ArrayString(var.as<ArrayString>());
+                break;
+            case VarType::ArrayVec2f:
+                new (m_data.m_mem) ArrayVec2f(var.as<ArrayVec2f>());
+                break;
+            case VarType::ArrayVec3f:
+                new (m_data.m_mem) ArrayVec3f(var.as<ArrayVec3f>());
                 break;
             default:
                 break;
@@ -137,19 +159,37 @@ namespace wmoge {
                 m_data.m_float = var.m_data.m_float;
                 break;
             case VarType::String:
-                new (m_data.m_mem) String(std::move(*var.as_string()));
+                new (m_data.m_mem) String(std::move(var.as<String>()));
                 break;
             case VarType::StringId:
-                new (m_data.m_mem) StringId(std::move(*var.as_string_id()));
+                new (m_data.m_mem) StringId(std::move(var.as<StringId>()));
                 break;
             case VarType::Array:
-                new (m_data.m_mem) Array(std::move(*var.as_array()));
+                new (m_data.m_mem) Array(std::move(var.as<Array>()));
                 break;
             case VarType::Map:
-                new (m_data.m_mem) Map(std::move(*var.as_map()));
+                new (m_data.m_mem) Map(std::move(var.as<Map>()));
                 break;
             case VarType::Object:
                 m_data.m_object = ref(var.m_data.m_object);
+                break;
+            case VarType::ArrayByte:
+                new (m_data.m_mem) ArrayByte(std::move(var.as<ArrayByte>()));
+                break;
+            case VarType::ArrayInt:
+                new (m_data.m_mem) ArrayInt(std::move(var.as<ArrayInt>()));
+                break;
+            case VarType::ArrayFloat:
+                new (m_data.m_mem) ArrayFloat(std::move(var.as<ArrayFloat>()));
+                break;
+            case VarType::ArrayString:
+                new (m_data.m_mem) ArrayString(std::move(var.as<ArrayString>()));
+                break;
+            case VarType::ArrayVec2f:
+                new (m_data.m_mem) ArrayVec2f(std::move(var.as<ArrayVec2f>()));
+                break;
+            case VarType::ArrayVec3f:
+                new (m_data.m_mem) ArrayVec3f(std::move(var.as<ArrayVec3f>()));
                 break;
             default:
                 break;
@@ -193,17 +233,17 @@ namespace wmoge {
             case VarType::Float:
                 return Math::abs(m_data.m_float - var.m_data.m_float) <= Math::THRESH_COMPARE_FLOAT32;
             case VarType::String:
-                return *as_string() == *var.as_string();
+                return as<String>() == var.as<String>();
             case VarType::StringId:
-                return *as_string_id() == *var.as_string_id();
+                return as<StringId>() == var.as<StringId>();
             case VarType::Array: {
-                const auto& ar1 = *as_array()->get();
-                const auto& ar2 = *var.as_array()->get();
+                const auto& ar1 = as<Array>();
+                const auto& ar2 = var.as<Array>();
                 return (ar1.size() == ar2.size()) && std::equal(ar1.begin(), ar1.end(), ar2.begin());
             }
             case VarType::Map: {
-                const auto& mp1 = *as_map()->get();
-                const auto& mp2 = *var.as_map()->get();
+                const auto& mp1 = as<Map>();
+                const auto& mp2 = var.as<Map>();
                 return (mp1.size() == mp2.size()) && std::equal(mp1.begin(), mp1.end(), mp2.begin());
             }
             case VarType::Object:
@@ -226,17 +266,17 @@ namespace wmoge {
             case VarType::Float:
                 return Math::abs(m_data.m_float - var.m_data.m_float) > Math::THRESH_COMPARE_FLOAT32;
             case VarType::String:
-                return *as_string() != *var.as_string();
+                return as<String>() != var.as<String>();
             case VarType::StringId:
-                return *as_string_id() != *var.as_string_id();
+                return as<StringId>() != var.as<StringId>();
             case VarType::Array: {
-                const auto& ar1 = *as_array()->get();
-                const auto& ar2 = *var.as_array()->get();
+                const auto& ar1 = as<Array>();
+                const auto& ar2 = var.as<Array>();
                 return (ar1.size() != ar2.size()) || !std::equal(ar1.begin(), ar1.end(), ar2.begin());
             }
             case VarType::Map: {
-                const auto& mp1 = *as_map()->get();
-                const auto& mp2 = *var.as_map()->get();
+                const auto& mp1 = as<Map>();
+                const auto& mp2 = var.as<Map>();
                 return (mp1.size() != mp2.size()) || !std::equal(mp1.begin(), mp1.end(), mp2.begin());
             }
             case VarType::Object:
@@ -259,12 +299,12 @@ namespace wmoge {
             case VarType::Float:
                 return m_data.m_float < var.m_data.m_float;
             case VarType::String:
-                return *as_string() < *var.as_string();
+                return as<String>() < var.as<String>();
             case VarType::StringId:
-                return *as_string_id() < *var.as_string_id();
+                return as<StringId>() < var.as<StringId>();
             case VarType::Array: {
-                const auto& ar1 = *as_array()->get();
-                const auto& ar2 = *var.as_array()->get();
+                const auto& ar1 = as<Array>();
+                const auto& ar2 = var.as<Array>();
                 if (ar1.size() != ar2.size()) {
                     return ar1.size() < ar2.size();
                 }
@@ -283,8 +323,8 @@ namespace wmoge {
                 return false;
             }
             case VarType::Map: {
-                const auto& mp1 = *as_map()->get();
-                const auto& mp2 = *var.as_map()->get();
+                const auto& mp1 = as<Map>();
+                const auto& mp2 = var.as<Map>();
                 if (mp1.size() != mp2.size()) {
                     return mp1.size() < mp2.size();
                 }
@@ -320,7 +360,7 @@ namespace wmoge {
             case VarType::Object:
                 return m_data.m_object;
             default:
-                return true;
+                return false;
         }
     }
     Var::operator long long() const {
@@ -332,9 +372,9 @@ namespace wmoge {
             case VarType::Float:
                 return static_cast<long long>(m_data.m_float);
             case VarType::String:
-                return std::stoll(*as_string());
+                return std::stoll(as<String>());
             case VarType::StringId:
-                return std::stoll(as_string_id()->str());
+                return std::stoll(as<StringId>().str());
             default:
                 return 0;
         }
@@ -354,9 +394,9 @@ namespace wmoge {
             case VarType::Float:
                 return m_data.m_float;
             case VarType::String:
-                return std::stod(*as_string());
+                return std::stod(as<String>());
             case VarType::StringId:
-                return std::stod(as_string_id()->str());
+                return std::stod(as<StringId>().str());
             default:
                 return 0;
         }
@@ -367,9 +407,9 @@ namespace wmoge {
     Var::operator String() const {
         switch (type()) {
             case VarType::String:
-                return *as_string();
+                return as<String>();
             case VarType::StringId:
-                return as_string_id()->str();
+                return as<StringId>().str();
             default:
                 return String();
         }
@@ -377,21 +417,21 @@ namespace wmoge {
     Var::operator StringId() const {
         switch (type()) {
             case VarType::StringId:
-                return *as_string_id();
+                return as<StringId>();
             case VarType::String:
-                return StringId(*as_string());
+                return StringId(as<String>());
             default:
                 return StringId();
         }
     }
     Var::operator Array() const {
         if (type() == VarType::Array)
-            return *as_array();
+            return as<Array>();
         return Array();
     }
     Var::operator Map() const {
         if (type() == VarType::Map)
-            return *as_map();
+            return as<Map>();
         return Map();
     }
     Var::operator Ref<Object>() const {
@@ -399,24 +439,72 @@ namespace wmoge {
             return Ref<Object>(m_data.m_object);
         return Ref<Object>();
     }
+    Var::operator ArrayByte() const {
+        if (type() == VarType::ArrayByte)
+            return as<ArrayByte>();
+        return ArrayByte();
+    }
+    Var::operator ArrayInt() const {
+        if (type() == VarType::ArrayInt)
+            return as<ArrayInt>();
+        return ArrayInt();
+    }
+    Var::operator ArrayFloat() const {
+        if (type() == VarType::ArrayFloat)
+            return as<ArrayFloat>();
+        return ArrayFloat();
+    }
+    Var::operator ArrayString() const {
+        if (type() == VarType::ArrayString)
+            return as<ArrayString>();
+        return ArrayString();
+    }
+    Var::operator ArrayVec2f() const {
+        if (type() == VarType::ArrayVec2f)
+            return as<ArrayVec2f>();
+        return ArrayVec2f();
+    }
+    Var::operator ArrayVec3f() const {
+        if (type() == VarType::ArrayVec3f)
+            return as<ArrayVec3f>();
+        return ArrayVec3f();
+    }
 
     void Var::release() {
         if (m_type != VarType::Nil) {
             switch (m_type) {
                 case VarType::String:
-                    as_string()->~String();
+                    as<String>().~String();
                     break;
                 case VarType::StringId:
-                    as_string_id()->~StringId();
+                    as<StringId>().~StringId();
                     break;
                 case VarType::Array:
-                    as_array()->~Array();
+                    as<Array>().~Array();
                     break;
                 case VarType::Map:
-                    as_map()->~Map();
+                    as<Map>().~Map();
                     break;
                 case VarType::Object:
                     unref(m_data.m_object);
+                    break;
+                case VarType::ArrayByte:
+                    as<ArrayByte>().~ArrayByte();
+                    break;
+                case VarType::ArrayInt:
+                    as<ArrayInt>().~ArrayInt();
+                    break;
+                case VarType::ArrayFloat:
+                    as<ArrayFloat>().~ArrayFloat();
+                    break;
+                case VarType::ArrayString:
+                    as<ArrayString>().~ArrayString();
+                    break;
+                case VarType::ArrayVec2f:
+                    as<ArrayVec2f>().~ArrayVec2f();
+                    break;
+                case VarType::ArrayVec3f:
+                    as<ArrayVec3f>().~ArrayVec3f();
                     break;
                 default:
                     break;
@@ -449,14 +537,14 @@ namespace wmoge {
                 stream << m_data.m_float;
                 break;
             case VarType::String:
-                stream << '"' << *as_string() << '"';
+                stream << '"' << as<String>() << '"';
                 break;
             case VarType::StringId:
-                stream << *as_string_id();
+                stream << as<StringId>();
                 break;
             case VarType::Array:
                 stream << '[';
-                for (const auto& v : *as_array()->get()) {
+                for (const auto& v : as<Array>()) {
                     v.build_string(stream);
                     stream << ", ";
                 }
@@ -464,7 +552,7 @@ namespace wmoge {
                 break;
             case VarType::Map:
                 stream << '{';
-                for (const auto& kv : *as_map()->get()) {
+                for (const auto& kv : as<Map>()) {
                     kv.first.build_string(stream);
                     stream << ": ";
                     kv.second.build_string(stream);
@@ -474,6 +562,54 @@ namespace wmoge {
                 break;
             case VarType::Object:
                 stream << m_data.m_object->to_string();
+                break;
+            case VarType::ArrayByte:
+                stream << '[';
+                for (const auto& v : as<ArrayByte>()) {
+                    stream << v;
+                    stream << ", ";
+                }
+                stream << ']';
+                break;
+            case VarType::ArrayInt:
+                stream << '[';
+                for (const auto& v : as<ArrayInt>()) {
+                    stream << v;
+                    stream << ", ";
+                }
+                stream << ']';
+                break;
+            case VarType::ArrayFloat:
+                stream << '[';
+                for (const auto& v : as<ArrayFloat>()) {
+                    stream << v;
+                    stream << ", ";
+                }
+                stream << ']';
+                break;
+            case VarType::ArrayString:
+                stream << '[';
+                for (const auto& v : as<ArrayString>()) {
+                    stream << '\"' << v << '\"';
+                    stream << ", ";
+                }
+                stream << ']';
+                break;
+            case VarType::ArrayVec2f:
+                stream << '[';
+                for (const auto& v : as<ArrayVec2f>()) {
+                    stream << v;
+                    stream << ", ";
+                }
+                stream << ']';
+                break;
+            case VarType::ArrayVec3f:
+                stream << '[';
+                for (const auto& v : as<ArrayVec3f>()) {
+                    stream << v;
+                    stream << ", ";
+                }
+                stream << ']';
                 break;
             default:
                 break;
@@ -488,23 +624,43 @@ namespace wmoge {
                 accum ^= std::hash<double>()(m_data.m_float);
                 break;
             case VarType::String:
-                accum ^= std::hash<String>()(*as_string());
+                accum ^= std::hash<String>()(as<String>());
                 break;
             case VarType::StringId:
-                accum ^= std::hash<StringId>()(*as_string_id());
+                accum ^= std::hash<StringId>()(as<StringId>());
                 break;
             case VarType::Array:
-                for (const auto& v : *as_array()->get()) {
+                for (const auto& v : as<Array>()) {
                     v.build_hash(accum);
                 }
                 break;
             case VarType::Map:
-                for (const auto& kv : *as_map()->get()) {
+                for (const auto& kv : as<Map>()) {
                     kv.first.build_hash(accum);
                     kv.second.build_hash(accum);
                 }
             case VarType::Object:
                 accum ^= m_data.m_object->hash();
+                break;
+            case VarType::ArrayByte:
+                accum ^= Crc32::hash(as<ArrayByte>().data(), as<ArrayByte>().size());
+                break;
+            case VarType::ArrayInt:
+                accum ^= Crc32::hash(as<ArrayInt>().data(), as<ArrayInt>().size());
+                break;
+            case VarType::ArrayFloat:
+                accum ^= Crc32::hash(as<ArrayFloat>().data(), as<ArrayFloat>().size());
+                break;
+            case VarType::ArrayString:
+                for (const auto& v : as<ArrayString>()) {
+                    accum ^= std::hash<String>()(v);
+                }
+                break;
+            case VarType::ArrayVec2f:
+                accum ^= Crc32::hash(as<ArrayVec2f>().data(), as<ArrayVec2f>().size() * sizeof(Vec2f));
+                break;
+            case VarType::ArrayVec3f:
+                accum ^= Crc32::hash(as<ArrayVec3f>().data(), as<ArrayVec3f>().size() * sizeof(Vec3f));
                 break;
             default:
                 break;

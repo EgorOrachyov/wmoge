@@ -25,32 +25,44 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_io.hpp"
+#ifndef WMOGE_SCENE_TREE_PACKED_HPP
+#define WMOGE_SCENE_TREE_PACKED_HPP
+
+#include "core/async.hpp"
+#include "io/yaml.hpp"
+#include "resource/resource.hpp"
+#include "scene/scene_tree.hpp"
+
+#include <optional>
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data) {
-        WG_YAML_READ_AS_OPT(node, "color", data.color);
-        WG_YAML_READ_AS_OPT(node, "viewport", data.viewport);
-        WG_YAML_READ_AS_OPT(node, "fov", data.fov);
-        WG_YAML_READ_AS_OPT(node, "near", data.near);
-        WG_YAML_READ_AS_OPT(node, "far", data.far);
-        WG_YAML_READ_AS_OPT(node, "target", data.target);
-        WG_YAML_READ_AS_OPT(node, "projection", data.projection);
+    /**
+     * @class SceneTreePacked
+     * @brief Represents packed scene trre resource which can be used to load editable scene
+     *
+     * Packed scene tree stores serialized scene tree description. The description is a list
+     * of scene nodes data and information about their hirerachy. This description can be
+     * used to instantiate a scene tree, which can be used for scene editing or for
+     * emitting of a runtime scene version. Scene tree used only for editing, 
+     * runtime scene can be loaded used ScenePacked resource. 
+     * 
+     * @see SceneTree
+     */
+    class SceneTreePacked final : public Resource {
+    public:
+        WG_OBJECT(SceneTreePacked, Resource)
 
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const SceneDataCamera& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "color", data.color);
-        WG_YAML_WRITE_AS(node, "viewport", data.viewport);
-        WG_YAML_WRITE_AS(node, "fov", data.fov);
-        WG_YAML_WRITE_AS(node, "near", data.near);
-        WG_YAML_WRITE_AS(node, "far", data.far);
-        WG_YAML_WRITE_AS(node, "target", data.target);
-        WG_YAML_WRITE_AS(node, "projection", data.projection);
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status copy_to(Object& other) const override;
 
-        return StatusCode::Ok;
-    }
+        AsyncResult<Ref<SceneTree>> instantiate_async();
+        Ref<SceneTree>              instantiate();
+
+    private:
+        SceneTreeData m_data;
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_SCENE_TREE_PACKED_HPP

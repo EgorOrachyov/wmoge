@@ -61,6 +61,8 @@ add_library(wmoge STATIC
         core/task_runtime.hpp
         core/timer.cpp
         core/timer.hpp
+        core/typed_array.hpp
+        core/typed_map.hpp
         core/uuid.cpp
         core/uuid.hpp
         core/var.cpp
@@ -283,6 +285,8 @@ add_library(wmoge STATIC
         resource/resource_pak.hpp
         resource/scene_packed.cpp
         resource/scene_packed.hpp
+        resource/scene_tree_packed.cpp
+        resource/scene_tree_packed.hpp
         resource/script.cpp
         resource/script.hpp
         resource/shader.cpp
@@ -311,8 +315,6 @@ add_library(wmoge STATIC
         scene/scene_camera.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
-        scene/scene_io.cpp
-        scene/scene_io.hpp
         scene/scene_manager.cpp
         scene/scene_manager.hpp
         scene/scene_node.cpp

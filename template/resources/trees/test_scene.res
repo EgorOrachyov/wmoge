@@ -1,0 +1,8 @@
+# Wmoge resource meta file
+version: 1
+uuid: 0
+loader: default
+class: SceneTreePacked
+description: "test scene tree"
+path_on_disk: "res://trees/test_scene.tree"
+deps: [ ]

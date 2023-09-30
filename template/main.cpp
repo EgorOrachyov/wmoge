@@ -50,6 +50,9 @@ public:
 
         scene = Engine::instance()->scene_manager()->make_scene(SID("test_scene"));
 
+        Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
+        scene_tree                             = scene_tree_packed->instantiate();
+
         WG_LOG_INFO("init");
     }
 
@@ -136,12 +139,14 @@ public:
     void on_shutdown() override {
         mesh.reset();
         scene.reset();
+        scene_tree.reset();
 
         Application::on_shutdown();
         WG_LOG_INFO("shutdown");
     }
 
-    Ref<Scene> scene;
+    Ref<Scene>     scene;
+    Ref<SceneTree> scene_tree;
 
     Ref<Mesh> mesh;
 };

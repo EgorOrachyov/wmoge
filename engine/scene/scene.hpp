@@ -31,14 +31,96 @@
 #include "core/class.hpp"
 #include "core/fast_vector.hpp"
 #include "core/ref.hpp"
+#include "ecs/ecs_core.hpp"
 #include "ecs/ecs_world.hpp"
 #include "platform/window.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_transform.hpp"
 
 #include <memory>
+#include <string>
+#include <utility>
+#include <vector>
 
 namespace wmoge {
+
+    /**
+     * @class SceneDataCamera
+     * @brief Serializable struct with camera data for a scene object
+     */
+    struct SceneDataCamera {
+        Color4f          color      = Color::BLACK4f;
+        Vec4f            viewport   = Vec4f(0, 0, 1, 1);
+        float            fov        = 45.0f;
+        float            near       = 0.1f;
+        float            far        = 10000.0f;
+        StringId         target     = SID("primary");
+        CameraProjection projection = CameraProjection::Perspective;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneDataCamera& data);
+    };
+
+    /**
+     * @class SceneDataTransform
+     * @brief
+     */
+    struct SceneDataTransform {
+    };
+
+    /**
+     * @class SceneDataMeshStatic
+     * @brief
+     */
+    struct SceneDataMeshStatic {
+    };
+
+    /**
+     * @class SceneDataAudioSource
+     * @brief
+     */
+    struct SceneDataAudioSource {
+    };
+
+    /**
+     * @class SceneDataAudioListener
+     * @brief
+     */
+    struct SceneDataAudioListener {
+    };
+
+    /**
+     * @class SceneDataAudioLuaScript
+     * @brief
+     */
+    struct SceneDataAudioLuaScript {
+    };
+
+    /** @brief Index used to reference entities in this struct */
+    using SceneEntityIndex = int;
+
+    /** @brief Vector with data mapped to entity by index */
+    template<typename T>
+    using SceneEntityVector = std::vector<std::pair<SceneEntityIndex, T>>;
+
+    /**
+     * @class SceneData
+     * @brief Serializable struct with a scene data for a runtime scene
+     */
+    struct SceneData final {
+        StringId                                   name;
+        std::vector<EcsArch>                       entities;
+        std::vector<std::string>                   entities_names;
+        SceneEntityVector<SceneDataCamera>         cameras;
+        SceneEntityVector<SceneDataTransform>      transforms;
+        SceneEntityVector<SceneDataMeshStatic>     meshes_static;
+        SceneEntityVector<SceneDataAudioSource>    audio_sources;
+        SceneEntityVector<SceneDataAudioListener>  autio_listeners;
+        SceneEntityVector<SceneDataAudioLuaScript> lua_scripts;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneData& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneData& data);
+    };
 
     /**
      * @class Scene
@@ -55,11 +137,10 @@ namespace wmoge {
         [[nodiscard]] CameraManager*         get_cameras();
 
     private:
+        StringId                               m_name;
         std::unique_ptr<EcsWorld>              m_ecs_world;
         std::unique_ptr<SceneTransformManager> m_transforms;
         std::unique_ptr<CameraManager>         m_cameras;
-
-        StringId m_name;
     };
 
 }// namespace wmoge

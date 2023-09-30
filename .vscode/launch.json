@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "template-debug (run)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build-Debug/template/template.exe",
+            "args": ["--root_remap=${workspaceRoot}/template"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "template-release (run)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/build-Release/template/template.exe",
+            "args": ["--root_remap=${workspaceRoot}/template"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "integratedTerminal"
+        }
+    ]
+}

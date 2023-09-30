@@ -40,8 +40,14 @@ namespace wmoge {
     void SceneNode::set_name(const StringId& name) {
         m_name = name;
     }
+    void SceneNode::set_uuid(const UUID& uuid) {
+        m_uuid = uuid;
+    }
     void SceneNode::set_transform(const TransformEdt& transform) {
         m_transform = transform;
+    }
+    void SceneNode::set_properties(std::vector<Ref<SceneProperty>> props) {
+        m_properties = std::move(props);
     }
 
     void SceneNode::add_child(const Ref<SceneNode>& child) {
@@ -57,6 +63,12 @@ namespace wmoge {
 
         child->m_parent = nullptr;
         m_children.erase(std::find(m_children.begin(), m_children.end(), child));
+    }
+    void SceneNode::visit(const std::function<void(const Ref<SceneNode>& node)>& visitor) {
+        for (const Ref<SceneNode>& child : m_children) {
+            visitor(child);
+            child->visit(visitor);
+        }
     }
 
     std::optional<Ref<SceneNode>> SceneNode::find_child(const std::string& name) {
@@ -85,39 +97,24 @@ namespace wmoge {
         return found;
     }
 
-    Status SceneNode::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_YAML_READ_AS_OPT(node, "uuid", m_uuid);
-        WG_YAML_READ_AS_OPT(node, "name", m_name);
-        WG_YAML_READ_AS_OPT(node, "type", m_type);
-        WG_YAML_READ_AS_OPT(node, "transform", m_transform);
-        WG_YAML_READ_AS_OPT(node, "children", m_children);
-        WG_YAML_READ_AS_OPT(node, "properties", m_properties);
+    std::vector<Ref<SceneProperty>> SceneNode::copy_properties() const {
+        std::vector<Ref<SceneProperty>> properties;
 
-        if (!m_uuid) {
-            m_uuid = UUID::generate();
+        if (!copy_objects(m_properties, properties)) {
+            WG_LOG_ERROR("failed to copy node properties " << get_name());
+            return {};
         }
 
-        if (m_name.empty()) {
-            m_name = SID(class_ptr()->name().str() + "_" + m_uuid.to_str());
-        }
-
-        for (auto& child : m_children) {
-            child->m_parent = this;
-        }
-
-        return StatusCode::Ok;
+        return properties;
     }
-    Status SceneNode::write_to_yaml(YamlNodeRef node) const {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "uuid", m_uuid);
-        WG_YAML_WRITE_AS(node, "name", m_name);
-        WG_YAML_WRITE_AS(node, "type", m_type);
-        WG_YAML_WRITE_AS(node, "transform", m_transform);
-        WG_YAML_WRITE_AS_OPT(node, "children", !m_children.empty(), m_children);
-        WG_YAML_WRITE_AS_OPT(node, "properties", !m_properties.empty(), m_properties);
 
-        return StatusCode::Ok;
+    std::string SceneNode::get_path() const {
+        return m_parent ? m_parent->get_path() + '/' + m_name.str() : m_name.str();
     }
+    bool SceneNode::has_parent() const {
+        return m_parent;
+    }
+
     Status SceneNode::copy_to(Object& other) const {
         auto* ptr = dynamic_cast<SceneNode*>(&other);
 

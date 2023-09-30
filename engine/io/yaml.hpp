@@ -44,6 +44,7 @@
 #include <stack>
 #include <type_traits>
 #include <unordered_map>
+#include <utility>
 #include <vector>
 
 namespace wmoge {
@@ -162,6 +163,12 @@ namespace wmoge {
 #define WG_YAML_MAP(node) node |= ryml::MAP
 #define WG_YAML_SEQ(node) node |= ryml::SEQ
 
+    template<typename K, typename V>
+    Status yaml_read(const YamlConstNodeRef& node, std::pair<K, V>& pair) {
+        WG_YAML_READ_AS(node, "key", pair.first);
+        WG_YAML_READ_AS(node, "value", pair.second);
+        return StatusCode::Ok;
+    }
     template<typename T, std::size_t S>
     Status yaml_read(const YamlConstNodeRef& node, std::array<T, S>& array) {
         std::size_t element_id = 0;
@@ -188,8 +195,7 @@ namespace wmoge {
         map.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
             std::pair<K, V> entry;
-            WG_YAML_READ_AS(child, "key", entry.first);
-            WG_YAML_READ_AS(child, "value", entry.second);
+            WG_YAML_READ(child, entry);
             map.insert(std::move(entry));
         }
         return StatusCode::Ok;
@@ -212,6 +218,18 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
+    template<typename K, typename V>
+    Status yaml_write(YamlNodeRef node, const std::pair<K, V>& pair) {
+        WG_YAML_MAP(node);
+
+        YamlNodeRef key = node.append_child();
+        WG_YAML_WRITE_AS(key, "key", pair.first);
+
+        YamlNodeRef value = node.append_child();
+        WG_YAML_WRITE_AS(value, "value", pair.second);
+
+        return StatusCode::Ok;
+    }
     template<typename T, std::size_t S>
     Status yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
         WG_YAML_SEQ(node);
@@ -235,13 +253,7 @@ namespace wmoge {
         WG_YAML_SEQ(node);
         for (const auto& entry : map) {
             YamlNodeRef entry_child = node.append_child();
-            WG_YAML_MAP(entry_child);
-
-            YamlNodeRef key = entry_child.append_child();
-            WG_YAML_WRITE_AS(key, "key", entry.first);
-
-            YamlNodeRef value = entry_child.append_child();
-            WG_YAML_WRITE_AS(value, "value", entry.second);
+            WG_YAML_WRITE(entry_child, entry);
         }
         return StatusCode::Ok;
     }

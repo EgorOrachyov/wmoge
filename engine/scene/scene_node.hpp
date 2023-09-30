@@ -38,6 +38,7 @@
 #include "math/transform.hpp"
 #include "scene/scene_property.hpp"
 
+#include <functional>
 #include <optional>
 #include <vector>
 
@@ -60,15 +61,26 @@ namespace wmoge {
     public:
         WG_OBJECT(SceneNode, Object)
 
+        /**
+         * @brief Creates new scene node with desired name and type (hint)
+         * 
+         * @param name Node name to show in editor
+         * @param type Node type to hint in editor 
+         */
         SceneNode(const StringId& name, SceneNodeType type);
 
-        void set_name(const StringId& name);
-        void set_transform(const TransformEdt& transform);
-        void add_child(const Ref<SceneNode>& child);
-        void remove_child(const Ref<SceneNode>& child);
-
-        std::optional<Ref<SceneNode>> find_child(const std::string& name);
-        std::optional<Ref<SceneNode>> find_child_recursive(const std::string& path);
+        void                            set_name(const StringId& name);
+        void                            set_uuid(const UUID& uuid);
+        void                            set_transform(const TransformEdt& transform);
+        void                            set_properties(std::vector<Ref<SceneProperty>> props);
+        void                            add_child(const Ref<SceneNode>& child);
+        void                            remove_child(const Ref<SceneNode>& child);
+        void                            visit(const std::function<void(const Ref<SceneNode>& node)>& visitor);
+        std::optional<Ref<SceneNode>>   find_child(const std::string& name);
+        std::optional<Ref<SceneNode>>   find_child_recursive(const std::string& path);
+        std::vector<Ref<SceneProperty>> copy_properties() const;
+        std::string                     get_path() const;
+        bool                            has_parent() const;
 
         [[nodiscard]] ArrayView<const Ref<SceneNode>>     get_children() const { return m_children; }
         [[nodiscard]] ArrayView<const Ref<SceneProperty>> get_properties() const { return m_properties; }
@@ -80,8 +92,6 @@ namespace wmoge {
         [[nodiscard]] const EcsEntity&                    get_entity() const { return m_entity; };
 
         Status copy_to(Object& other) const override;
-        Status read_from_yaml(const YamlConstNodeRef& node) override;
-        Status write_to_yaml(YamlNodeRef node) const override;
 
     private:
         std::vector<Ref<SceneNode>>     m_children;

@@ -39,6 +39,9 @@ namespace wmoge {
     ResourcePakFileSystem::ResourcePakFileSystem() {
         m_file_system = Engine::instance()->file_system();
     }
+    std::string ResourcePakFileSystem::get_name() const {
+        return "pak_fs";
+    }
     Status ResourcePakFileSystem::get_meta(const StringId& name, ResourceMeta& meta) {
         WG_AUTO_PROFILE_RESOURCE("ResourcePakFileSystem::meta");
 
