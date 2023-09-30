@@ -10,11 +10,11 @@
 <area shape="rect" id="node18" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="175,828,320,855"/>
 <area shape="rect" id="node31" href="$classwmoge_1_1InputDevice.html" title=" " alt="" coords="178,1127,317,1153"/>
 <area shape="rect" id="node35" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="193,1177,301,1204"/>
-<area shape="rect" id="node42" href="$classwmoge_1_1PfxComponent.html" title="Single component of a pfx effect with particles." alt="" coords="170,1228,325,1255"/>
-<area shape="rect" id="node43" href="$classwmoge_1_1PfxEmitter.html" title="Runtime representation of a spawned active pfx effect." alt="" coords="182,1279,313,1305"/>
-<area shape="rect" id="node44" href="$classwmoge_1_1Scene.html" title="Scene objects container representing running game state." alt="" coords="194,1329,301,1356"/>
-<area shape="rect" id="node45" href="$classwmoge_1_1SceneTransform.html" title="Single node in a hierarchy of a transformation." alt="" coords="164,1380,331,1407"/>
-<area shape="rect" id="node46" href="$classwmoge_1_1ScriptInstance.html" title="An instance of the script which can control an object logic." alt="" coords="170,1431,325,1457"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1PfxComponent.html" title="Single component of a pfx effect with particles." alt="" coords="170,1228,325,1255"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1PfxEmitter.html" title="Runtime representation of a spawned active pfx effect." alt="" coords="182,1279,313,1305"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1Scene.html" title="Scene objects container representing running game state." alt="" coords="194,1329,301,1356"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1SceneTransform.html" title="Single node in a hierarchy of a transformation." alt="" coords="164,1380,331,1407"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1ScriptInstance.html" title="An instance of the script which can control an object logic." alt="" coords="170,1431,325,1457"/>
 <area shape="rect" id="node48" href="$classwmoge_1_1VKWindow.html" title="Wrapper for a vulkan surface and platform window presentation." alt="" coords="180,1481,315,1508"/>
 <area shape="rect" id="node49" href="$classwmoge_1_1Window.html" title="Interface for OS&#45;specific window for displaying graphics." alt="" coords="189,1532,305,1559"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1ArchiveReaderFile.html" title="An archive to read data from a platform file." alt="" coords="391,5,567,32"/>
@@ -47,5 +47,5 @@
 <area shape="rect" id="node39" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="417,1405,542,1432"/>
 <area shape="rect" id="node40" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="410,1456,549,1483"/>
 <area shape="rect" id="node41" href="$classwmoge_1_1SceneProperty.html" title="Serializable property assigned to a scene node." alt="" coords="402,1507,557,1533"/>
-<area shape="rect" id="node47" href="$classwmoge_1_1LuaScriptInstance.html" title="Lua script instance holding attached to an object script." alt="" coords="391,1557,567,1584"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects." alt="" coords="413,1557,546,1584"/>
 </map>

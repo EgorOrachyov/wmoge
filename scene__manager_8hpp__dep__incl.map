@@ -1,9 +1,10 @@
 <map id="engine/scene/scene_manager.hpp" name="engine/scene/scene_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="335,5,474,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="423,5,562,47"/>
 <area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,109,132,136"/>
 <area shape="rect" id="node3" href="$main_8cpp.html" title=" " alt="" coords="156,109,304,136"/>
 <area shape="rect" id="node4" href="$scene__packed_8cpp.html" title=" " alt="" coords="328,102,481,143"/>
-<area shape="rect" id="node5" href="$scene__manager_8cpp.html" title=" " alt="" coords="506,102,645,143"/>
-<area shape="rect" id="node6" href="$lua__bindings__scene_8hpp.html" title=" " alt="" coords="669,95,823,151"/>
-<area shape="rect" id="node7" href="$lua__bindings__scene_8cpp.html" title=" " alt="" coords="669,199,823,255"/>
+<area shape="rect" id="node5" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="505,102,659,143"/>
+<area shape="rect" id="node6" href="$scene__manager_8cpp.html" title=" " alt="" coords="683,102,822,143"/>
+<area shape="rect" id="node7" href="$lua__bindings__scene_8hpp.html" title=" " alt="" coords="847,95,1000,151"/>
+<area shape="rect" id="node8" href="$lua__bindings__scene_8cpp.html" title=" " alt="" coords="847,199,1000,255"/>
 </map>

@@ -1,11 +1,4 @@
 var searchData=
 [
-  ['call_6051',['Call',['../classwmoge_1_1ClassMethod.html#ae451c1432999271162c5e38251604ff3',1,'wmoge::ClassMethod']]],
-  ['char16u_6052',['Char16u',['../classwmoge_1_1StringUtf.html#a6bbc600bc5174bf67ee06e647786adc5',1,'wmoge::StringUtf']]],
-  ['char32u_6053',['Char32u',['../classwmoge_1_1StringUtf.html#a49e41ecafc7ef24e66c9e064757e8da4',1,'wmoge::StringUtf']]],
-  ['char8u_6054',['Char8u',['../classwmoge_1_1StringUtf.html#aced1438ba17c976f89ec644096e18654',1,'wmoge::StringUtf']]],
-  ['classdb_6055',['ClassDB',['../namespacewmoge.html#ab7488473608761636f3b9967482f32d6',1,'wmoge']]],
-  ['color3f_6056',['Color3f',['../namespacewmoge.html#a2f7239936283cda1eab3dbd21ac6c7d4',1,'wmoge']]],
-  ['color4f_6057',['Color4f',['../namespacewmoge.html#a9b40ad659b284af204946d16f8b41010',1,'wmoge']]],
-  ['crc32hash_6058',['Crc32Hash',['../namespacewmoge.html#a010d3914097dc823652422e49a146d2f',1,'wmoge']]]
+  ['buffer_5ftype_6146',['buffer_type',['../classwmoge_1_1TypedArray.html#ad6ad81b71a4e8d30e678c0f68db18a40',1,'wmoge::TypedArray::buffer_type()'],['../classwmoge_1_1TypedMap.html#a9c1c31f77e8effb59f0f1e8789d2b8ba',1,'wmoge::TypedMap::buffer_type()']]]
 ];

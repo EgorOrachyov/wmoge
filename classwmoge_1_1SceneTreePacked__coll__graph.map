@@ -1,0 +1,6 @@
+<map id="wmoge::SceneTreePacked" name="wmoge::SceneTreePacked">
+<area shape="rect" id="node1" title="Represents packed scene trre resource which can be used to load editable scene." alt="" coords="5,229,183,256"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="31,155,157,181"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="40,80,148,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="39,5,149,32"/>
+</map>
