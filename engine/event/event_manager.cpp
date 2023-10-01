@@ -111,12 +111,8 @@ namespace wmoge {
         assert(event);
         assert(!event->type().empty());
 
-        if (m_dispatching) {
-            WG_LOG_ERROR("cannot do operations within call chain");
-            return;
-        }
-
-        m_dispatching = true;
+        const bool dispatching = m_dispatching;
+        m_dispatching          = true;
 
         auto listeners_list = m_event_to_listener.find(event->type());
         if (listeners_list != m_event_to_listener.end()) {
@@ -127,7 +123,7 @@ namespace wmoge {
             }
         }
 
-        m_dispatching = false;
+        m_dispatching = dispatching;
     }
 
     void EventManager::dispatch_deferred(const Ref<Event>& event) {

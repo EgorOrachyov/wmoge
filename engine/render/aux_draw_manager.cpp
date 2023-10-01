@@ -72,6 +72,7 @@ namespace wmoge {
     static const int MAX_SPLIT_STEP_CONE     = 8;
     static const int MAX_SPLIT_STEP_CYLINDER = 8;
 
+    /** @brief Pipeline type to draw primitive */
     enum class AuxDrawPrimitiveType {
         Line           = 0,
         TrianglesSolid = 1,
@@ -79,6 +80,7 @@ namespace wmoge {
         Text           = 3
     };
 
+    /** @brief Base class for an aux primitive to store and draw */
     struct AuxDrawPrimitive {
         virtual ~AuxDrawPrimitive() = default;
 
@@ -95,6 +97,7 @@ namespace wmoge {
         float lifetime = 0.0f;
     };
 
+    /** @brief Stores info to draw set of lines */
     struct AuxDrawLines final : public AuxDrawPrimitive {
         struct Line {
             Vec3f   from;
@@ -130,6 +133,7 @@ namespace wmoge {
         }
     };
 
+    /** @brief Stores info to draw set of triangles */
     struct AuxDrawTriangles final : public AuxDrawPrimitive {
         struct Triangle {
             Vec3f   pos[3];
@@ -160,6 +164,7 @@ namespace wmoge {
         }
     };
 
+    /** @brief Stores info to draw a sphere */
     struct AuxDrawSphere final : public AuxDrawPrimitive {
         Vec3f                pos;
         Color4f              color;
@@ -217,6 +222,7 @@ namespace wmoge {
         }
     };
 
+    /** @brief Stores info to draw a cylinder */
     struct AuxDrawCylinder final : public AuxDrawPrimitive {
         Vec3f                pos;
         Color4f              color;
@@ -275,6 +281,7 @@ namespace wmoge {
         }
     };
 
+    /** @brief Stores info to draw a cone */
     struct AuxDrawCone final : public AuxDrawPrimitive {
         Vec3f                pos;
         Color4f              color;
@@ -328,6 +335,7 @@ namespace wmoge {
         }
     };
 
+    /** @brief Stores info to draw an oriented box */
     struct AuxDrawBox final : public AuxDrawPrimitive {
         Vec3f                pos;
         Vec3f                size;
@@ -387,6 +395,7 @@ namespace wmoge {
         }
     };
 
+    /** @brief Stores infor to draw 2d or 3d text */
     struct AuxDrawText final : public AuxDrawPrimitive {
         std::string text;
         Vec3f       pos;

@@ -30,6 +30,8 @@
 
 #include "core/class.hpp"
 #include "core/object.hpp"
+#include "ecs/ecs_core.hpp"
+#include "ecs/ecs_entity.hpp"
 #include "io/yaml.hpp"
 
 #include <optional>
@@ -44,6 +46,10 @@ namespace wmoge {
     class SceneProperty : public Object {
     public:
         WG_OBJECT(SceneProperty, Object);
+
+        virtual void collect_arch(EcsArch& arch, class SceneNode& owner) {}
+        virtual void on_make_entity(EcsEntity entity, class SceneNode& owner) {}
+        virtual void on_delete_entity(EcsEntity entity, class SceneNode& owner) {}
     };
 
 }// namespace wmoge

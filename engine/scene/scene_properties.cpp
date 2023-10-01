@@ -29,21 +29,35 @@
 
 namespace wmoge {
 
+    void ScenePropCamera::collect_arch(EcsArch& arch, SceneNode& owner) {
+        arch.set_component<EcsComponentCamera>();
+    }
+    void ScenePropCamera::on_make_entity(EcsEntity entity, SceneNode& owner) {
+        Scene*              scene      = owner.get_scene();
+        EcsWorld*           world      = scene->get_ecs_world();
+        EcsComponentCamera& ecs_camera = world->get_component_rw<EcsComponentCamera>(entity);
+
+        ecs_camera.camera = scene->get_cameras()->make_camera(owner.get_name());
+        ecs_camera.camera->set_color(settings.color);
+        ecs_camera.camera->set_fov(settings.fov);
+        ecs_camera.camera->set_near_far(settings.near, settings.far);
+        ecs_camera.camera->set_projection(settings.projection);
+    }
+    void ScenePropCamera::on_delete_entity(EcsEntity entity, SceneNode& owner) {
+        // no special action
+    }
     Status ScenePropCamera::copy_to(Object& other) const {
         auto* ptr     = dynamic_cast<ScenePropCamera*>(&other);
         ptr->settings = settings;
-
         return StatusCode::Ok;
     }
     Status ScenePropCamera::read_from_yaml(const YamlConstNodeRef& node) {
         WG_YAML_READ(node, settings);
-
         return StatusCode::Ok;
     }
     Status ScenePropCamera::write_to_yaml(YamlNodeRef node) const {
         WG_YAML_MAP(node);
         WG_YAML_WRITE(node, settings);
-
         return StatusCode::Ok;
     }
     void ScenePropCamera::register_class() {

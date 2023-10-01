@@ -97,15 +97,30 @@ namespace wmoge {
         int     range  = 0;
     };
 
-    using GfxVertBufferSetup = GfxBufferSetup<GfxVertBuffer>;
+    /**
+     * @class GfxVertBuffersSetup
+     * @brief Setup to bind an vertex buffers
+     */
+    struct GfxVertBuffersSetup {
+        GfxVertBuffer* buffers[GfxLimits::MAX_VERT_BUFFERS] = {0};
+        int            offsets[GfxLimits::MAX_VERT_BUFFERS] = {0};
+    };
 
-    using GfxIndexBufferSetup = GfxBufferSetup<GfxIndexBuffer>;
+    /**
+     * @class GfxIndexBufferSetup
+     * @brief Setup to bind an index buffer
+     */
+    struct GfxIndexBufferSetup {
+        GfxIndexBuffer* buffer     = nullptr;
+        int             offset     = 0;
+        GfxIndexType    index_type = GfxIndexType::Uint32;
+    };
 
+    /** @brief Setup to bind uniform buffer */
     using GfxUniformBufferSetup = GfxBufferSetup<GfxUniformBuffer>;
 
+    /** @brief Setup to bind storage buffer */
     using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
-
-    using GfxVertBuffersSetup = std::array<GfxVertBufferSetup, GfxLimits::MAX_VERT_BUFFERS>;
 
 }// namespace wmoge
 

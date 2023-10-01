@@ -27,6 +27,15 @@
 
 #include "render_engine.hpp"
 
+#include "core/log.hpp"
+#include "render/shader_manager.hpp"
+
+#include <cassert>
+
 namespace wmoge {
+
+    RenderEngine::RenderEngine() {
+        WG_LOG_INFO("init render engine");
+    }
 
 }// namespace wmoge

@@ -51,26 +51,21 @@ namespace wmoge {
         ecs_registry->register_component<EcsComponentCamera>();
     }
 
+    void SceneManager::clear() {
+        for (auto& scene : m_scenes) {
+            scene->clear();
+        }
+
+        m_scenes.clear();
+        m_to_clear.clear();
+        m_next.reset();
+        m_running.reset();
+    }
+
     void SceneManager::next(Ref<Scene> scene) {
         std::lock_guard guard(m_mutex);
 
         m_next = std::move(scene);
-    }
-    void SceneManager::unload(const Ref<Scene>& scene) {
-        std::lock_guard guard(m_mutex);
-
-        m_to_unload.erase(scene);
-        m_scenes.erase(scene);
-    }
-    void SceneManager::unload_deferred(const Ref<Scene>& scene) {
-        std::lock_guard guard(m_mutex);
-
-        m_to_unload.insert(scene);
-    }
-    void SceneManager::unload_all() {
-        std::lock_guard guard(m_mutex);
-
-        m_scenes.clear();
     }
 
     Ref<Scene> SceneManager::get_running_scene() {
@@ -85,9 +80,19 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
 
         auto scene = make_ref<Scene>(name);
-        m_scenes.insert(scene);
+        m_scenes.push_back(scene);
 
         return scene;
+    }
+
+    std::optional<Ref<Scene>> SceneManager::find_by_name(const StringId& name) {
+        for (Ref<Scene>& scene : m_scenes) {
+            if (scene->get_name() == name) {
+                return scene;
+            }
+        }
+
+        return std::nullopt;
     }
 
 }// namespace wmoge

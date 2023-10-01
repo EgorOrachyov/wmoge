@@ -245,6 +245,8 @@ add_library(wmoge STATIC
         render/render_camera.hpp
         render/render_engine.cpp
         render/render_engine.hpp
+        render/render_object.cpp
+        render/render_object.hpp
         render/render_queue.cpp
         render/render_queue.hpp
         render/shader_builder.cpp

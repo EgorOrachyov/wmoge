@@ -92,6 +92,7 @@ namespace wmoge {
         assert(child);
         assert(child->m_parent == nullptr);
         assert(child->m_manager == m_manager);
+        assert(child.get() != this);
 
         m_children.push_back(child);
         child->m_parent = this;

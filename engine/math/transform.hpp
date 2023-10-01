@@ -178,16 +178,30 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
         friend Status yaml_read(const YamlConstNodeRef& node, TransformEdt& transform) {
-            WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
+            Vec3f rotation_deg;
+
+            WG_YAML_READ_AS_OPT(node, "rotation", rotation_deg);
             WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
             WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+
+            transform.m_rotation.values[0] = Math::deg_to_rad(rotation_deg[0]);
+            transform.m_rotation.values[1] = Math::deg_to_rad(rotation_deg[1]);
+            transform.m_rotation.values[2] = Math::deg_to_rad(rotation_deg[2]);
+
             return StatusCode::Ok;
         }
         friend Status yaml_write(YamlNodeRef node, const TransformEdt& transform) {
+            Vec3f rotation_deg;
+
+            rotation_deg[0] = Math::rad_to_deg(transform.m_rotation.values[0]);
+            rotation_deg[1] = Math::rad_to_deg(transform.m_rotation.values[1]);
+            rotation_deg[2] = Math::rad_to_deg(transform.m_rotation.values[2]);
+
             WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
+            WG_YAML_WRITE_AS(node, "rotation", rotation_deg);
             WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
             WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+
             return StatusCode::Ok;
         }
 

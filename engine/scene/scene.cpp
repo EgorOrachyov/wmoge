@@ -75,6 +75,9 @@ namespace wmoge {
         m_ecs_world  = std::make_unique<EcsWorld>();
         m_cameras    = std::make_unique<CameraManager>();
     }
+    void Scene::clear() {
+        m_ecs_world->clear();
+    }
     const StringId& Scene::get_name() {
         return m_name;
     }

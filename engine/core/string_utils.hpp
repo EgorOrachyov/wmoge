@@ -52,6 +52,9 @@ namespace wmoge {
         /** @return Convert string content to value */
         static unsigned long to_ulong(const std::string& str, int base = 10);
 
+        /** @return Convert string content to value */
+        static std::uint64_t to_uint64(const std::string& str, int base = 10);
+
         /** @return Converted int value to string */
         static std::string from_int(int value);
 

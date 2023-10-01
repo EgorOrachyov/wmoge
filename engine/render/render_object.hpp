@@ -25,31 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_ENGINE_HPP
-#define WMOGE_RENDER_ENGINE_HPP
+#ifndef WMOGE_RENDER_OBJECT_HPP
+#define WMOGE_RENDER_OBJECT_HPP
 
-#include "core/status.hpp"
-#include "core/string_id.hpp"
 #include "render/render_camera.hpp"
-#include "resource/mesh.hpp"
-#include "resource/shader.hpp"
 
 namespace wmoge {
 
     /**
-     * @class RenderEngine
-     * @brief Responsible for a single scene rendering for each frame
+     * @class RednerObject 
+     * @brief Base class for any scene object which can be rendered
      */
-    class RenderEngine {
+    class RednerObject {
     public:
-        RenderEngine();
-
-        [[nodiscard]] RenderCameras& get_cameras() { return m_cameras; }
+        virtual void render() = 0;
 
     private:
-        RenderCameras m_cameras;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_ENGINE_HPP
+#endif//WMOGE_RENDER_OBJECT_HPP

@@ -37,9 +37,33 @@
 
 #include <atomic>
 #include <filesystem>
+#include <string>
 #include <vector>
 
 namespace wmoge {
+
+    /**
+     * @class ResourceId 
+     * @brief Class to track and access resource by its id
+     */
+    class ResourceId {
+    public:
+        ResourceId() = default;
+        ResourceId(const std::string& id);
+        ResourceId(const StringId& id);
+
+        operator bool() const { return is_empty(); }
+        operator StringId() const { return sid(); }
+
+        [[nodiscard]] const StringId& sid() const { return m_name; }
+        [[nodiscard]] bool            is_empty() const { return m_name.empty(); }
+
+        friend Status yaml_read(const YamlConstNodeRef& node, ResourceId& id);
+        friend Status yaml_write(YamlNodeRef node, const ResourceId& id);
+
+    private:
+        StringId m_name;
+    };
 
     /**
      * @class Resource

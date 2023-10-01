@@ -1,19 +1,50 @@
 # Serialized scene tree of scene node into a yaml readable file
 nodes:
  - name: "cameras"
-   uuid: 0
+   uuid: "9468856891681035089"
    type: Folder
- - name: "camera"
-   uuid: 0
+ - name: "camera_0"
+   uuid: "10463498962251759332"
    type: Object
-   parent: 0
+   transform:
+    translation: 0 0 -10
+    rotation: 0 0 0
+   parent: "9468856891681035089"
    properties:
      - class: ScenePropCamera
-       color: "0 0 0 0"
-       viewport: "0 0 1 1"
        fov: 45.0
-       near: 0.1
-       far: 1000.0
-       target: "primary"
+       projection: Perspective
+ - name: "camera_1"
+   uuid: "14122657702121638152"
+   type: Object
+   transform:
+    translation: 0 0 10
+    rotation: 0 180 0
+   parent: "9468856891681035089"
+   properties:
+     - class: ScenePropCamera
+       fov: 45.0
+       projection: Perspective
+ - name: "camera_2"
+   uuid: "8120079257729132446"
+   type: Object
+   transform:
+    translation: 10 0 0
+    rotation: 0 -90 0
+   parent: "9468856891681035089"
+   properties:
+     - class: ScenePropCamera
+       fov: 45.0
+       projection: Perspective
+ - name: "camera_3"
+   uuid: "9748030122664252639"
+   type: Object
+   transform:
+    translation: -10 0 0
+    rotation: 0 90 0
+   parent: "9468856891681035089"
+   properties:
+     - class: ScenePropCamera
+       fov: 45.0
        projection: Perspective
        

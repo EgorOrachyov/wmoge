@@ -34,6 +34,9 @@ namespace wmoge {
 
     UUID::UUID(std::uint64_t value) : m_value(value) {
     }
+    UUID::UUID(const std::string& value, int base) {
+        m_value = StringUtils::to_uint64(value, base);
+    }
 
     std::string UUID::to_str() const {
         return StringUtils::from_uint64(m_value);
@@ -44,11 +47,13 @@ namespace wmoge {
     }
 
     Status yaml_read(const YamlConstNodeRef& node, UUID& id) {
-        node >> id.m_value;
+        std::string value;
+        node >> value;
+        id = UUID(value);
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const UUID& id) {
-        node << id.m_value;
+        node << StringUtils::from_uint64(id.m_value);
         return StatusCode::Ok;
     }
 

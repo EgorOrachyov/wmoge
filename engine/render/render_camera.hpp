@@ -28,6 +28,7 @@
 #ifndef WMOGE_RENDER_CAMERA_HPP
 #define WMOGE_RENDER_CAMERA_HPP
 
+#include "core/array_view.hpp"
 #include "math/aabb.hpp"
 #include "math/frustum.hpp"
 #include "math/mat.hpp"
@@ -82,9 +83,22 @@ namespace wmoge {
     };
 
     /**
+     * @class RenderCameras
      * @brief Cameras list for rendering
      */
-    using RenderCameras = std::vector<RenderCamera>;
+    class RenderCameras final {
+    public:
+        int                 add_camera(const RenderCamera& camera);
+        const RenderCamera& at(int index);
+        void                clear();
+
+        [[nodiscard]] ArrayView<const RenderCamera> get_cameras() const { return m_cameras; }
+        [[nodiscard]] std::size_t                   get_size() const { return m_cameras.size(); }
+        [[nodiscard]] bool                          is_empty() const { return m_cameras.empty(); }
+
+    private:
+        std::vector<RenderCamera> m_cameras;
+    };
 
 }// namespace wmoge
 

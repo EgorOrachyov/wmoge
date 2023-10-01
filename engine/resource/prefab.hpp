@@ -42,8 +42,8 @@ namespace wmoge {
      * @brief A prefab resource which can be instantiated into a set of objects
      *
      * Prefab stores a sub-tree of scene nodes, which can be instantiated and added
-     * to a scene at once. Prefab allows to make a composite object once, and then
-     * use this to instantiate this object multiple times in different parts of scene.
+     * to a scene tree at once. Prefab allows to make a complex object composed from
+     * nodes and use it instantiate multiple times and keep all instances in sync.
      */
     class Prefab : public Resource {
     public:
@@ -52,8 +52,10 @@ namespace wmoge {
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
+        [[nodiscard]] const SceneTreeData& get_data() const { return m_data; }
+
     private:
-        std::optional<SceneTree> m_scene_tree;
+        SceneTreeData m_data;
     };
 
 }// namespace wmoge

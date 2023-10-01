@@ -33,6 +33,7 @@
 #include "core/ref.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_world.hpp"
+#include "math/transform.hpp"
 #include "platform/window.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_transform.hpp"
@@ -66,6 +67,10 @@ namespace wmoge {
      * @brief
      */
     struct SceneDataTransform {
+        TransformEdt transform;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneDataTransform& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneDataTransform& data);
     };
 
     /**
@@ -73,6 +78,13 @@ namespace wmoge {
      * @brief
      */
     struct SceneDataMeshStatic {
+    };
+
+    /**
+     * @class SceneDataMeshAnimated
+     * @brief
+     */
+    struct SceneDataMeshAnimated {
     };
 
     /**
@@ -130,6 +142,8 @@ namespace wmoge {
     public:
         Scene(StringId name = StringId());
         ~Scene() override = default;
+
+        void clear();
 
         [[nodiscard]] const StringId&        get_name();
         [[nodiscard]] EcsWorld*              get_ecs_world();

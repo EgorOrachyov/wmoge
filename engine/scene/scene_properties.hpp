@@ -29,6 +29,9 @@
 #define WMOGE_SCENE_PROPERTIES_HPP
 
 #include "scene/scene.hpp"
+#include "scene/scene_camera.hpp"
+#include "scene/scene_components.hpp"
+#include "scene/scene_node.hpp"
 #include "scene/scene_property.hpp"
 
 namespace wmoge {
@@ -40,6 +43,10 @@ namespace wmoge {
     class ScenePropCamera : public SceneProperty {
     public:
         WG_OBJECT(ScenePropCamera, SceneProperty);
+
+        void collect_arch(EcsArch& arch, class SceneNode& owner) override;
+        void on_make_entity(EcsEntity entity, class SceneNode& owner) override;
+        void on_delete_entity(EcsEntity entity, class SceneNode& owner) override;
 
         Status copy_to(Object& other) const override;
         Status read_from_yaml(const YamlConstNodeRef& node) override;

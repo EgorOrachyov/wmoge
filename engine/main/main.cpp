@@ -171,19 +171,15 @@ namespace wmoge {
         m_vk_driver          = std::make_unique<VKDriver>(std::move(init_info));
         engine->m_gfx_driver = m_vk_driver->driver_wrapper();
         engine->m_gfx_ctx    = m_vk_driver->ctx_immediate_wrapper();
-        WG_LOG_INFO("init video driver");
 
         m_al_engine            = std::make_unique<ALAudioEngine>();
         engine->m_audio_engine = m_al_engine.get();
-        WG_LOG_INFO("init audio engine");
 
         m_lua_script_system     = std::make_unique<LuaScriptSystem>();
         engine->m_script_system = m_lua_script_system.get();
-        WG_LOG_INFO("init script system");
 
         m_shader_manager         = std::make_unique<ShaderManager>();
         engine->m_shader_manager = m_shader_manager.get();
-        WG_LOG_INFO("init shader manager");
 
         m_render_engine         = std::make_unique<RenderEngine>();
         engine->m_render_engine = m_render_engine.get();
@@ -314,7 +310,7 @@ namespace wmoge {
         m_task_manager->shutdown();
         m_main_queue->flush();
         m_console->shutdown();
-        m_scene_manager->unload_all();
+        m_scene_manager->clear();
         m_event_manager->flush();
 
         m_lua_script_system.reset();

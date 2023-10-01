@@ -48,4 +48,16 @@ namespace wmoge {
         return box.distance(position);
     }
 
+    int RenderCameras::add_camera(const RenderCamera& camera) {
+        const int index = int(m_cameras.size());
+        m_cameras.push_back(camera);
+        return index;
+    }
+    const RenderCamera& RenderCameras::at(int index) {
+        return m_cameras[index];
+    }
+    void RenderCameras::clear() {
+        m_cameras.clear();
+    }
+
 }// namespace wmoge

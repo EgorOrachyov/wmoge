@@ -51,8 +51,9 @@ namespace wmoge {
         UUID                            uuid;
         SceneNodeType                   type;
         TransformEdt                    transform;
+        ResourceId                      prefab;
         std::vector<Ref<SceneProperty>> properties;
-        std::optional<int>              parent;
+        std::optional<UUID>             parent;
 
         friend Status yaml_read(const YamlConstNodeRef& node, SceneNodeData& data);
         friend Status yaml_write(YamlNodeRef node, const SceneNodeData& data);
@@ -85,6 +86,7 @@ namespace wmoge {
      *
      * @see Scene
      * @see SceneNode
+     * @see SceneTreePacked
      */
     class SceneTree : public Object {
     public:
@@ -93,21 +95,29 @@ namespace wmoge {
         /**
          * @brief Creates new editable scene
          * 
-         * @param name Scene name to unique identify it at runtime
+         * Constructor creates an empty tree with a hidden root inside.
+         * Also a runtime representation of a tree is allocated for 
+         * tree interactive editing and dispaly at editor. 
+         * 
+         * @param name Scene name to unique identify it at editor and runtime
          */
         SceneTree(const StringId& name);
 
-        void                          visit(const std::function<void(const Ref<SceneNode>& node)>& visitor);
+        void                          sync();
+        void                          each(const std::function<void(const Ref<SceneNode>&)>& visitor);
+        bool                          contains(const Ref<SceneNode>& node) const;
         std::optional<Ref<SceneNode>> find_node(const std::string& path);
         std::vector<Ref<SceneNode>>   get_nodes();
-        std::vector<Ref<SceneNode>>   filter_nodes(const std::function<bool(const Ref<SceneNode>& node)>& predicate);
+        std::vector<Ref<SceneNode>>   filter_nodes(const std::function<bool(const Ref<SceneNode>&)>& predicate);
         Status                        build(const SceneTreeData& data);
         Status                        dump(SceneTreeData& data);
 
+        [[nodiscard]] const StringId&       get_name() const { return m_name; }
         [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
         [[nodiscard]] const Ref<Scene>&     get_scene() const { return m_scene; }
 
     private:
+        StringId       m_name;
         Ref<SceneNode> m_root;
         Ref<Scene>     m_scene;
     };

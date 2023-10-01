@@ -43,6 +43,10 @@ namespace wmoge {
     unsigned long StringUtils::to_ulong(const std::string& str, int base) {
         return std::stoul(str, nullptr, base);
     }
+    std::uint64_t StringUtils::to_uint64(const std::string& str, int base) {
+        static_assert(sizeof(std::uint64_t) == sizeof(unsigned long long), "type size mismatched");
+        return std::uint64_t(std::stoull(str, nullptr, base));
+    }
     std::string StringUtils::from_int(int value) {
         char buffer[64];
         snprintf(buffer, 64, "%i", value);

@@ -48,13 +48,17 @@ namespace wmoge {
     public:
         UUID() = default;
         UUID(std::uint64_t value);
+        UUID(const std::string& value, int base = 10);
 
-        [[nodiscard]] bool is_null() const { return m_value == 0; }
-        [[nodiscard]] bool is_not_null() const { return m_value != 0; }
+        bool operator==(const UUID& other) const { return m_value == other.m_value; }
+        bool operator!=(const UUID& other) const { return m_value != other.m_value; }
 
         operator bool() const { return is_not_null(); }
 
+        [[nodiscard]] bool        is_null() const { return m_value == 0; }
+        [[nodiscard]] bool        is_not_null() const { return m_value != 0; }
         [[nodiscard]] std::string to_str() const;
+        [[nodiscard]] std::size_t hash() const { return std::hash<std::uint64_t>()(m_value); }
 
         [[nodiscard]] std::uint64_t&       value() { return m_value; }
         [[nodiscard]] const std::uint64_t& value() const { return m_value; }
@@ -79,5 +83,16 @@ namespace wmoge {
     }
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::UUID> {
+        std::size_t operator()(const wmoge::UUID& uuid) const {
+            return uuid.hash();
+        }
+    };
+
+}// namespace std
 
 #endif//WMOGE_UUID_HPP

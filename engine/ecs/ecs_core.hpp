@@ -31,6 +31,7 @@
 #include <bitset>
 #include <cinttypes>
 #include <functional>
+#include <initializer_list>
 #include <limits>
 #include <ostream>
 #include <string>
@@ -84,6 +85,8 @@ namespace wmoge {
     struct EcsQuery {
         std::bitset<EcsLimits::MAX_COMPONENTS> read;
         std::bitset<EcsLimits::MAX_COMPONENTS> write;
+
+        EcsQuery() = default;
 
         template<typename Component>
         void set_read() {

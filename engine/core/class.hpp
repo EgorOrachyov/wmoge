@@ -332,7 +332,7 @@ namespace wmoge {
             assert(obj);
 
             T* target = (T*) obj;
-            res       = (*target.*p_field);
+            res       = Var(*target.*p_field);
 
             return StatusCode::Ok;
         };
@@ -345,7 +345,7 @@ namespace wmoge {
             const Var*              argvp[1] = {argc > 0 ? &argv[0] : &defaults[0]};
 
             T* target          = (T*) obj;
-            (*target.*p_field) = *argvp[0];
+            (*target.*p_field) = std::move((F) (*argvp[0]));
 
             return StatusCode::Ok;
         };

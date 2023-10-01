@@ -48,10 +48,9 @@ public:
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 
-        scene = Engine::instance()->scene_manager()->make_scene(SID("test_scene"));
-
         Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
         scene_tree                             = scene_tree_packed->instantiate();
+        scene                                  = scene_tree->get_scene();
 
         WG_LOG_INFO("init");
     }
@@ -63,17 +62,36 @@ public:
         GfxCtx*         gfx_ctx          = engine->gfx_ctx();
         AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();
         WindowManager*  window_manager   = engine->window_manager();
+        EcsWorld*       world            = scene->get_ecs_world();
 
-        static float angle = 0.0f;
+        static float angle       = 0.0f;
+        static int   frame_count = 0;
 
         angle += 0.007f;
+        frame_count += 1;
 
-        auto cam = scene->get_cameras()->get_active_camera();
+        std::vector<Ref<Camera>> cameras;
+        std::vector<Mat4x4f>     transforms;
+
+        EcsQuery query;
+        query.set_read<EcsComponentCamera>();
+        query.set_read<EcsComponentLocalToWorld>();
+
+        world->each(query, [&](EcsEntity entity) {
+            cameras.push_back(world->get_component<EcsComponentCamera>(entity).camera);
+            transforms.push_back(world->get_component<EcsComponentLocalToWorld>(entity).matrix);
+        });
+
+        int  cam_idx = (frame_count / (60 * 5)) % int(cameras.size());
+        auto cam     = cameras[cam_idx];
+        auto cam_pos = Math3d::transform(transforms[cam_idx], cam->get_position());
+        auto cam_dir = Math3d::transform_w0(transforms[cam_idx], cam->get_direction());
+        auto cam_up  = Math3d::transform_w0(transforms[cam_idx], cam->get_up());
 
         auto viewport = Rect2i{0, 0, window_manager->primary_window()->fbo_width(), window_manager->primary_window()->fbo_height()};
         auto proj     = Math3d::perspective(cam->get_fov(), 1280.0f / 720.0f, 0.1f, 10000.0f);
-        auto view     = Math3d::look_at(cam->get_position(), cam->get_direction(), cam->get_up());
-        auto model    = Math3d::rotate_y(angle) * Math3d::scale(Vec3f(0.5, 0.5, 0.5));
+        auto view     = Math3d::look_at(cam_pos, cam_dir, cam_up);
+        auto model    = Math3d::rotate_y(angle) * Math3d::scale(Vec3f(0.25, 0.25, 0.25));
 
         if (Random::next_float() < engine->get_delta_time()) {
             Vec3f   pos      = {Random::next_float(-5, 5), Random::next_float(-5, 5), Random::next_float(-5, 5)};
@@ -93,7 +111,7 @@ public:
         aux_draw_manager->flush(engine->get_delta_time());
 
         HgfxPassBase pass_solid;
-        pass_solid.name          = SID("mesh-solid");
+        pass_solid.name          = SID("mesh_solid");
         pass_solid.base_color    = Color::WHITE4f;
         pass_solid.poly_mode     = GfxPolyMode::Fill;
         pass_solid.out_srgb      = true;
@@ -103,7 +121,7 @@ public:
         pass_solid.compile(gfx_ctx);
 
         HgfxPassBase pass_border;
-        pass_border.name          = SID("mesh-border");
+        pass_border.name          = SID("mesh_border");
         pass_border.base_color    = Color::RED4f;
         pass_border.poly_mode     = GfxPolyMode::Line;
         pass_border.out_srgb      = true;
@@ -147,8 +165,7 @@ public:
 
     Ref<Scene>     scene;
     Ref<SceneTree> scene_tree;
-
-    Ref<Mesh> mesh;
+    Ref<Mesh>      mesh;
 };
 
 int main(int argc, const char* const* argv) {

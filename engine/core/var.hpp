@@ -66,6 +66,10 @@ namespace wmoge {
         ArrayVec3f  = 13
     };
 
+    /** 
+     * @class VarHash
+     * @brief Variant hasher for unordered maps
+     */
     struct VarHash final {
         std::size_t operator()(const class Var&) const;
     };

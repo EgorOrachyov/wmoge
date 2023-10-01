@@ -47,11 +47,10 @@ namespace wmoge {
     }
     void EcsPool::acquire_chunk() {
         WG_AUTO_PROFILE_ECS("EcsPool::acquire_chunk");
-
         m_chunks.push_back(m_pool->allocate());
     }
     void* EcsPool::get_element_raw(int idx) const {
-        return (std::uint8_t*) m_chunks[idx / m_chunk_size] + m_element_size * (idx % m_chunk_size);
+        return ((std::uint8_t*) m_chunks[idx / m_chunk_size]) + m_element_size * (idx % m_chunk_size);
     }
 
     EcsArchStorage::EcsArchStorage(EcsArch arch) : m_arch(arch) {
@@ -71,7 +70,6 @@ namespace wmoge {
 
     EcsArchStorage::~EcsArchStorage() {
         WG_AUTO_PROFILE_ECS("EcsArchStorage::~EcsArchStorage");
-
         clear();
     }
 

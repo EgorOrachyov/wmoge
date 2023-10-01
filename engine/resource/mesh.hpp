@@ -90,6 +90,27 @@ namespace wmoge {
         friend Status yaml_write(YamlNodeRef node, const MeshChunk& chunk);
     };
 
+    /** 
+     * @class MeshFile
+     * @brief Struct used to serialize mesh resource data
+     */
+    struct MeshFile {
+        static const int MAX_BUFFER = 3;
+
+        std::vector<MeshChunk>            chunks;
+        std::array<Ref<Data>, MAX_BUFFER> vertex_buffers;
+        Ref<Data>                         index_buffer;
+        GfxIndexType                      index_type;
+        GfxPrimType                       prim_type;
+        GfxVertAttribsStreams             attribs;
+        int                               num_vertices = 0;
+        int                               num_indices  = 0;
+        Aabbf                             aabb;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, MeshFile& file);
+        friend Status yaml_write(YamlNodeRef node, const MeshFile& file);
+    };
+
     /**
      * @class Mesh
      * @brief Vertex and index data structured as chunks which can be rendered
@@ -108,21 +129,18 @@ namespace wmoge {
         void update_aabb();
         void update_gfx_buffers();
 
-        const std::vector<MeshChunk>& get_chunks();
-        const MeshChunk&              get_chunk(int i);
-        const Ref<Data>&              get_vertex_buffer(int i);
-        const Ref<Data>&              get_index_buffer();
-        const Ref<GfxVertBuffer>&     get_gfx_vertex_buffer(int i);
-        const Ref<GfxIndexBuffer>&    get_gfx_index_buffer();
-        GfxIndexType                  get_index_type();
-        GfxPrimType                   get_prim_type();
-        GfxVertAttribsStreams         get_attribs();
-        int                           get_num_vertices() const;
-        int                           get_num_indices() const;
-        Aabbf                         get_aabb();
-
-        friend Status yaml_read(const YamlConstNodeRef& node, Mesh& mesh);
-        friend Status yaml_write(YamlNodeRef node, const Mesh& mesh);
+        [[nodiscard]] const std::vector<MeshChunk>& get_chunks();
+        [[nodiscard]] const MeshChunk&              get_chunk(int i);
+        [[nodiscard]] const Ref<Data>&              get_vertex_buffer(int i);
+        [[nodiscard]] const Ref<Data>&              get_index_buffer();
+        [[nodiscard]] const Ref<GfxVertBuffer>&     get_gfx_vertex_buffer(int i);
+        [[nodiscard]] const Ref<GfxIndexBuffer>&    get_gfx_index_buffer();
+        [[nodiscard]] GfxIndexType                  get_index_type();
+        [[nodiscard]] GfxPrimType                   get_prim_type();
+        [[nodiscard]] GfxVertAttribsStreams         get_attribs();
+        [[nodiscard]] int                           get_num_vertices() const;
+        [[nodiscard]] int                           get_num_indices() const;
+        [[nodiscard]] Aabbf                         get_aabb();
 
     private:
         std::vector<MeshChunk>                     m_chunks;

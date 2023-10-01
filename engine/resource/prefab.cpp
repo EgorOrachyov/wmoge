@@ -35,13 +35,14 @@ namespace wmoge {
 
     Status Prefab::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Prefab::read_from_yaml");
-
+        WG_YAML_READ(node, m_data);
         return StatusCode::Ok;
     }
 
     Status Prefab::copy_to(Object& copy) const {
         Resource::copy_to(copy);
-        auto* prefab = dynamic_cast<Prefab*>(&copy);
+        auto* prefab   = dynamic_cast<Prefab*>(&copy);
+        prefab->m_data = m_data;
         return StatusCode::Ok;
     }
 

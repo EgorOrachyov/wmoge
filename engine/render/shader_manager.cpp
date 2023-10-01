@@ -117,6 +117,8 @@ namespace wmoge {
         load_sources_from_disk();
 
         load_cache(m_driver->shader_cache_path());
+
+        WG_LOG_INFO("init shader manager");
     }
     ShaderManager::~ShaderManager() {
         save_cache(m_driver->shader_cache_path());

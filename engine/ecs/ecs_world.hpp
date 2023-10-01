@@ -39,6 +39,7 @@
 
 #include <cassert>
 #include <deque>
+#include <functional>
 #include <mutex>
 
 namespace wmoge {
@@ -47,11 +48,11 @@ namespace wmoge {
      * @class EcsWorld
      * @brief Container which manages created entities and components
      *
-     * Typical usage of a system:
+     * Typical usage of a world:
      *
-     *  1. Allocate an entity using allocate method, save id
+     *  1. Allocate an entity using allocate method, save entity id
      *  2. Call make to construct an entity
-     *  3. Process entity in updates
+     *  3. Process entity in updates, systems, queries
      *  4. Call destroy on entity
      *
      *  If you run in jobs or in systems update, for steps 2) and 4) use queue
@@ -64,13 +65,13 @@ namespace wmoge {
         /** @brief Allocates new entity for later creation */
         [[nodiscard]] EcsEntity allocate_entity();
 
-        /** @brief Create new entity within work with requested archetype */
+        /** @brief Create new entity within world with requested archetype */
         void make_entity(const EcsEntity& entity, const EcsArch& arch);
 
         /** @brief Destroys entity by a handle */
         void destroy_entity(const EcsEntity& entity);
 
-        /** @brief Checks whenever entity with given handle is alive in still the world */
+        /** @brief Checks whenever entity with given handle is still alive in the world */
         [[nodiscard]] bool is_alive(const EcsEntity& entity) const;
 
         /** @brief Return archetype of given entity by its handle */
@@ -97,6 +98,9 @@ namespace wmoge {
         /** @brief Manual trigger of system execution */
         void execute_system(const std::shared_ptr<EcsSystem>& system);
 
+        /** @brief Exec function for each entity matching query*/
+        void each(const EcsQuery& query, const std::function<void(EcsEntity)>& func);
+
         /** @brief Clear world destroying all entities */
         void clear();
 
@@ -111,9 +115,9 @@ namespace wmoge {
         fast_map<StringId, int>    m_system_to_idx;// map unique system name to idx
         std::vector<EcsSystemInfo> m_systems;      // registered systems info
 
-        fast_map<EcsArch, int>      m_arch_to_idx; // arch to unique index
-        std::vector<EcsArchStorage> m_arch_storage;// storage per arch, indexed by arch idx
-        std::vector<EcsArch>        m_arch_by_idx; // arch mask, indexed by arch idx
+        fast_map<EcsArch, int>                       m_arch_to_idx; // arch to unique index
+        std::vector<std::unique_ptr<EcsArchStorage>> m_arch_storage;// storage per arch, indexed by arch idx
+        std::vector<EcsArch>                         m_arch_by_idx; // arch mask, indexed by arch idx
 
         CallbackQueue m_queue;       // queue for async world operations, flushed on sync
         TaskManager*  m_task_manager;// manager for parallel system update
@@ -127,7 +131,7 @@ namespace wmoge {
         assert(is_alive(entity));
 
         const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
-        return *(m_arch_storage[entity_info.arch].template get_component<Component>(entity_info.storage));
+        return *(m_arch_storage[entity_info.arch]->template get_component<Component>(entity_info.storage));
     }
 
     template<class Component>
@@ -136,7 +140,7 @@ namespace wmoge {
         assert(is_alive(entity));
 
         const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
-        return *(m_arch_storage[entity_info.arch].template get_component<Component>(entity_info.storage));
+        return *(m_arch_storage[entity_info.arch]->template get_component<Component>(entity_info.storage));
     }
 
     template<class Component>

@@ -64,6 +64,7 @@ namespace wmoge {
             timer.start();
 
             scene_tree->build(self->m_data);
+            scene_tree->sync();
 
             timer.stop();
             WG_LOG_INFO("instantiate scene tree " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");

@@ -48,6 +48,10 @@ namespace wmoge {
         CloseRequested
     };
 
+    /**
+     * @class EventWindow
+     * @brief Platform window event
+     */
     class EventWindow : public Event {
     public:
         WG_EVENT(EventWindow, Event)

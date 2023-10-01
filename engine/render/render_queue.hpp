@@ -29,6 +29,7 @@
 #define WMOGE_RENDER_QUEUE_HPP
 
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
@@ -58,13 +59,13 @@ namespace wmoge {
     struct RenderCmd {
         GfxVertBuffersSetup vert_buffers;
         GfxIndexBufferSetup index_setup;
-        GfxDescSet*         desc_sets[3]{};
+        GfxDescSet*         desc_sets[GfxLimits::MAX_DESC_SETS]{};
         GfxPipeline*        pipeline = nullptr;
         GfxDrawCall         call_params;
     };
 
     static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
-    static_assert(sizeof(RenderCmd) == 128, "render cmd key must fit 128 bytes");
+    static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
 
     /**
      * @class RenderQueue
@@ -74,8 +75,8 @@ namespace wmoge {
     public:
         void push(RenderCmdKey key, const RenderCmd& cmd);
         void clear();
-        void free();
         void sort();
+        int  execute(GfxCtx* gfx_ctx);
 
         [[nodiscard]] std::size_t      size() const;
         [[nodiscard]] const RenderCmd& cmd(std::size_t index) const;
@@ -83,9 +84,7 @@ namespace wmoge {
     private:
         std::vector<std::pair<RenderCmdKey, int>> m_queue;
         std::vector<RenderCmd>                    m_buffer;
-        int                                       m_next_index = 0;
-
-        std::mutex m_mutex;
+        std::mutex                                m_mutex;
     };
 
 }// namespace wmoge

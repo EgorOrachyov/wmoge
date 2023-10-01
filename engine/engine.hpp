@@ -145,6 +145,7 @@
 #include "render/mesh_builder.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
+#include "render/render_object.hpp"
 #include "render/render_queue.hpp"
 #include "render/shader_manager.hpp"
 #include "render/shader_pass.hpp"

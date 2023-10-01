@@ -99,6 +99,34 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
+    Status yaml_read(const YamlConstNodeRef& node, MeshFile& file) {
+        WG_YAML_READ_AS(node, "chunks", file.chunks);
+        WG_YAML_READ_AS(node, "index_type", file.index_type);
+        WG_YAML_READ_AS(node, "prim_type", file.prim_type);
+        WG_YAML_READ_AS(node, "attribs", file.attribs);
+        WG_YAML_READ_AS(node, "num_vertices", file.num_vertices);
+        WG_YAML_READ_AS(node, "num_indices", file.num_indices);
+        WG_YAML_READ_AS(node, "aabb", file.aabb);
+        WG_YAML_READ_AS(node, "vertex_buffers", file.vertex_buffers);
+        WG_YAML_READ_AS(node, "index_buffer", file.index_buffer);
+
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const MeshFile& file) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "chunks", file.chunks);
+        WG_YAML_WRITE_AS(node, "index_type", file.index_type);
+        WG_YAML_WRITE_AS(node, "prim_type", file.prim_type);
+        WG_YAML_WRITE_AS(node, "attribs", file.attribs);
+        WG_YAML_WRITE_AS(node, "num_vertices", file.num_vertices);
+        WG_YAML_WRITE_AS(node, "num_indices", file.num_indices);
+        WG_YAML_WRITE_AS(node, "aabb", file.aabb);
+        WG_YAML_WRITE_AS(node, "vertex_buffers", file.vertex_buffers);
+        WG_YAML_WRITE_AS(node, "index_buffer", file.index_buffer);
+
+        return StatusCode::Ok;
+    }
+
     void Mesh::add_chunk(const MeshChunk& mesh_chunk) {
         m_chunks.push_back(mesh_chunk);
     }
@@ -194,37 +222,6 @@ namespace wmoge {
     }
     Aabbf Mesh::get_aabb() {
         return m_aabb;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, Mesh& mesh) {
-        WG_YAML_READ_AS(node, "chunks", mesh.m_chunks);
-        WG_YAML_READ_AS(node, "index_type", mesh.m_index_type);
-        WG_YAML_READ_AS(node, "prim_type", mesh.m_prim_type);
-        WG_YAML_READ_AS(node, "attribs", mesh.m_attribs);
-        WG_YAML_READ_AS(node, "num_vertices", mesh.m_num_vertices);
-        WG_YAML_READ_AS(node, "num_indices", mesh.m_num_indices);
-        WG_YAML_READ_AS(node, "aabb", mesh.m_aabb);
-        WG_YAML_READ_AS(node, "vertex_buffers", mesh.m_vertex_buffers);
-        WG_YAML_READ_AS(node, "index_buffer", mesh.m_index_buffer);
-
-        mesh.update_aabb();
-        mesh.update_gfx_buffers();
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const Mesh& mesh) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "chunks", mesh.m_chunks);
-        WG_YAML_WRITE_AS(node, "index_type", mesh.m_index_type);
-        WG_YAML_WRITE_AS(node, "prim_type", mesh.m_prim_type);
-        WG_YAML_WRITE_AS(node, "attribs", mesh.m_attribs);
-        WG_YAML_WRITE_AS(node, "num_vertices", mesh.m_num_vertices);
-        WG_YAML_WRITE_AS(node, "num_indices", mesh.m_num_indices);
-        WG_YAML_WRITE_AS(node, "aabb", mesh.m_aabb);
-        WG_YAML_WRITE_AS(node, "vertex_buffers", mesh.m_vertex_buffers);
-        WG_YAML_WRITE_AS(node, "index_buffer", mesh.m_index_buffer);
-
-        return StatusCode::Ok;
     }
 
     void Mesh::register_class() {

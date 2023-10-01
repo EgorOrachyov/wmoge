@@ -72,6 +72,8 @@ namespace wmoge {
     class EcsArchStorage {
     public:
         explicit EcsArchStorage(EcsArch arch);
+        EcsArchStorage(const EcsArchStorage&) = delete;
+        EcsArchStorage(EcsArchStorage&&)      = delete;
         ~EcsArchStorage();
 
         void make_entity(const EcsEntity& entity, std::uint32_t& entity_idx);

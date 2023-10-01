@@ -68,7 +68,7 @@ namespace wmoge {
             const int arch_idx  = int(m_arch_storage.size());
             m_arch_to_idx[arch] = arch_idx;
             m_arch_by_idx.emplace_back(arch);
-            m_arch_storage.emplace_back(arch);
+            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch);
 
             for (EcsSystemInfo& system_info : m_systems) {
                 auto filter = system_info.query.affected();
@@ -88,7 +88,7 @@ namespace wmoge {
         entity_info.gen            = entity.gen;
         entity_info.state          = EcsEntityState::Alive;
 
-        m_arch_storage[arch_idx].make_entity(entity, entity_info.storage);
+        m_arch_storage[arch_idx]->make_entity(entity, entity_info.storage);
     }
 
     void EcsWorld::destroy_entity(const EcsEntity& entity) {
@@ -99,7 +99,7 @@ namespace wmoge {
 
         EcsEntityInfo& entity_info = m_entity_info[entity.idx];
 
-        m_arch_storage[entity_info.arch].destroy_entity(entity_info.storage);
+        m_arch_storage[entity_info.arch]->destroy_entity(entity_info.storage);
         m_entity_pool.emplace_back(entity.idx, (entity.gen + 1) % EcsLimits::MAX_GENERATIONS_PER_ARC);
 
         entity_info = EcsEntityInfo{};
@@ -155,7 +155,7 @@ namespace wmoge {
         switch (system_info.exec_mode) {
             case EcsSystemExecMode::OnMain: {
                 for (const int arch_idx : system_info.filtered_arch) {
-                    EcsArchStorage& storage      = m_arch_storage[arch_idx];
+                    EcsArchStorage& storage      = *m_arch_storage[arch_idx];
                     const int       size         = storage.get_size();
                     const int       start_entity = 0;
                     const int       count        = size;
@@ -169,15 +169,12 @@ namespace wmoge {
             case EcsSystemExecMode::OnWorkers: {
                 TaskParallelFor task(system->get_name(), [&](TaskContext&, int batch_id, int batch_count) {
                     for (const int arch_idx : system_info.filtered_arch) {
-                        EcsArchStorage& storage          = m_arch_storage[arch_idx];
+                        EcsArchStorage& storage          = *m_arch_storage[arch_idx];
                         const int       size             = storage.get_size();
                         const auto [start_entity, count] = Math::batch_start_count(size, batch_id, batch_count);
 
-                        WG_LOG_INFO("process from=" << start_entity << " count=" << count);
-
                         system_info.system->process_batch(*this, storage, start_entity, count);
                     }
-
                     return 0;
                 });
 
@@ -191,13 +188,30 @@ namespace wmoge {
         }
     }
 
+    void EcsWorld::each(const EcsQuery& query, const std::function<void(EcsEntity)>& func) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::each");
+
+        const auto filter = query.affected();
+
+        for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
+            if ((filter & m_arch_by_idx[arch_idx]) == filter) {
+                EcsArchStorage& storage      = *m_arch_storage[arch_idx];
+                const int       storage_size = storage.get_size();
+
+                for (int i = 0; i < storage_size; i++) {
+                    func(storage.get_entity(i));
+                }
+            }
+        }
+    }
+
     void EcsWorld::clear() {
         WG_AUTO_PROFILE_ECS("EcsWorld::clear");
 
         m_queue.clear();
 
-        for (EcsArchStorage& storage : m_arch_storage) {
-            storage.clear();
+        for (std::unique_ptr<EcsArchStorage>& storage : m_arch_storage) {
+            storage->clear();
         }
 
         m_entity_info.clear();

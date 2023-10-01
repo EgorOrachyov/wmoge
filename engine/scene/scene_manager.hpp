@@ -28,13 +28,12 @@
 #ifndef WMOGE_SCENE_MANAGER_HPP
 #define WMOGE_SCENE_MANAGER_HPP
 
-#include "core/fast_map.hpp"
-#include "core/fast_set.hpp"
 #include "scene/scene.hpp"
 
+#include <deque>
 #include <mutex>
+#include <optional>
 #include <stack>
-#include <unordered_map>
 #include <vector>
 
 namespace wmoge {
@@ -47,21 +46,18 @@ namespace wmoge {
     public:
         SceneManager();
 
-        void next(Ref<Scene> scene);
-        void unload(const Ref<Scene>& scene);
-        void unload_deferred(const Ref<Scene>& scene);
-        void unload_all();
-
-        Ref<Scene> get_running_scene();
-        Ref<Scene> get_next_scene();
-        Ref<Scene> make_scene(const StringId& name);
+        void                      clear();
+        void                      next(Ref<Scene> scene);
+        Ref<Scene>                get_running_scene();
+        Ref<Scene>                get_next_scene();
+        Ref<Scene>                make_scene(const StringId& name);
+        std::optional<Ref<Scene>> find_by_name(const StringId& name);
 
     private:
-        fast_set<Ref<Scene>> m_scenes;   // allocated scenes in the engine
-        fast_set<Ref<Scene>> m_to_unload;// scheduled to be unloaded
-
-        Ref<Scene> m_running;// active scene
-        Ref<Scene> m_next;   // scene to become active on next frame
+        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
+        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
+        Ref<Scene>              m_running; // active scene
+        Ref<Scene>              m_next;    // scene to become active on next frame
 
         std::recursive_mutex m_mutex;
     };

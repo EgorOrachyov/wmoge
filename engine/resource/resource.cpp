@@ -32,6 +32,21 @@
 
 namespace wmoge {
 
+    ResourceId::ResourceId(const std::string& id) {
+        m_name = SID(id);
+    }
+    ResourceId::ResourceId(const StringId& id) {
+        m_name = id;
+    }
+    Status yaml_read(const YamlConstNodeRef& node, ResourceId& id) {
+        WG_YAML_READ(node, id.m_name);
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const ResourceId& id) {
+        WG_YAML_WRITE(node, id.m_name);
+        return StatusCode::Ok;
+    }
+
     Status Resource::copy_to(Object& other) const {
         auto* ptr   = dynamic_cast<Resource*>(&other);
         ptr->m_name = SID(m_name.str() + "_copy");
