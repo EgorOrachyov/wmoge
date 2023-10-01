@@ -65,7 +65,8 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge Namespace Reference</div>  </div>
 </div><!--header-->
@@ -225,7 +226,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UUID.html">UUID</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique 8-byte long identifier for in-game objects and resources.  <a href="classwmoge_1_1UUID.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1VarHash.html">VarHash</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1VarHash.html">VarHash</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Variant hasher for unordered maps.  <a href="structwmoge_1_1VarHash.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Var.html">Var</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal resalable variant value with support for common engine types and containers.  <a href="classwmoge_1_1Var.html#details">More...</a><br /></td></tr>
@@ -348,6 +350,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Event.html" title="Event holding some data which can be processed by listeners.">Event</a> sent on token manager updates/events.  <a href="classwmoge_1_1EventToken.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EventWindow.html">EventWindow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Platform window event.  <a href="classwmoge_1_1EventWindow.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ActionManager.html">ActionManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for translation raw input into game action events.  <a href="classwmoge_1_1ActionManager.html#details">More...</a><br /></td></tr>
@@ -381,6 +384,12 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup to bind a particular buffer range.  <a href="structwmoge_1_1GfxBufferSetup.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxVertBuffersSetup.html">GfxVertBuffersSetup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup to bind an vertex buffers.  <a href="structwmoge_1_1GfxVertBuffersSetup.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxIndexBufferSetup.html">GfxIndexBufferSetup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup to bind an index buffer.  <a href="structwmoge_1_1GfxIndexBufferSetup.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx context interface.  <a href="classwmoge_1_1GfxCtx.html#details">More...</a><br /></td></tr>
@@ -755,20 +764,28 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2d drawing canvas for a vector graphics, text and image rendering  <a href="classwmoge_1_1AuxDrawCanvas.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawPrimitive.html">AuxDrawPrimitive</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for an aux primitive to store and draw.  <a href="structwmoge_1_1AuxDrawPrimitive.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawLines.html">AuxDrawLines</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores info to draw set of lines.  <a href="structwmoge_1_1AuxDrawLines.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawTriangles.html">AuxDrawTriangles</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores info to draw set of triangles.  <a href="structwmoge_1_1AuxDrawTriangles.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawSphere.html">AuxDrawSphere</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores info to draw a sphere.  <a href="structwmoge_1_1AuxDrawSphere.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawCylinder.html">AuxDrawCylinder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores info to draw a cylinder.  <a href="structwmoge_1_1AuxDrawCylinder.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawCone.html">AuxDrawCone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores info to draw a cone.  <a href="structwmoge_1_1AuxDrawCone.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawBox.html">AuxDrawBox</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores info to draw an oriented box.  <a href="structwmoge_1_1AuxDrawBox.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AuxDrawText.html">AuxDrawText</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores infor to draw 2d or 3d text.  <a href="structwmoge_1_1AuxDrawText.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility-class for rendering debug geometry and text.  <a href="classwmoge_1_1AuxDrawManager.html#details">More...</a><br /></td></tr>
@@ -779,8 +796,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html">RenderCamera</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Camera.html" title="In-game camera for rendering the scene.">Camera</a> data used for scene objects rendering.  <a href="classwmoge_1_1RenderCamera.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cameras list for rendering.  <a href="classwmoge_1_1RenderCameras.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html">RenderEngine</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Responsible for a single scene rendering for each frame.  <a href="classwmoge_1_1RenderEngine.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RednerObject.html">RednerObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any scene object which can be rendered.  <a href="classwmoge_1_1RednerObject.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmdKey.html">RenderCmdKey</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key to sort commands for efficient execution.  <a href="structwmoge_1_1RenderCmdKey.html#details">More...</a><br /></td></tr>
@@ -871,6 +894,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents single mesh chunk in a mesh which can be rendered individually.  <a href="structwmoge_1_1MeshChunk.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct used to serialize mesh resource data.  <a href="structwmoge_1_1MeshFile.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Mesh.html">Mesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex and index data structured as chunks which can be rendered.  <a href="classwmoge_1_1Mesh.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -882,6 +908,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Prefab.html">Prefab</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A prefab resource which can be instantiated into a set of objects.  <a href="classwmoge_1_1Prefab.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Class.html" title="Storage for reflection information of particular object-hierarchy class.">Class</a> to track and access resource by its id.  <a href="classwmoge_1_1ResourceId.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html">Resource</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any engine resource.  <a href="classwmoge_1_1Resource.html#details">More...</a><br /></td></tr>
@@ -949,6 +978,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneDataTransform.html">SceneDataTransform</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneDataMeshStatic.html">SceneDataMeshStatic</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneDataMeshAnimated.html">SceneDataMeshAnimated</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneDataAudioSource.html">SceneDataAudioSource</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1193,16 +1224,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:adacaf99a3614067441ec1d74329a461c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#adacaf99a3614067441ec1d74329a461c">EventCallback</a> = std::function&lt; bool(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Event.html">Event</a> &gt; &amp;event)&gt;</td></tr>
 <tr class="memdesc:adacaf99a3614067441ec1d74329a461c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Listener function called on event.  <a href="namespacewmoge.html#adacaf99a3614067441ec1d74329a461c">More...</a><br /></td></tr>
 <tr class="separator:adacaf99a3614067441ec1d74329a461c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6e15629549f5a3bc324341cfd5dd4ac"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#af6e15629549f5a3bc324341cfd5dd4ac">GfxVertBufferSetup</a> = <a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a>&lt; <a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> &gt;</td></tr>
-<tr class="separator:af6e15629549f5a3bc324341cfd5dd4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60b4d58019b04c497522f1eeabfc3d04"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a60b4d58019b04c497522f1eeabfc3d04">GfxIndexBufferSetup</a> = <a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a>&lt; <a class="el" href="classwmoge_1_1GfxIndexBuffer.html">GfxIndexBuffer</a> &gt;</td></tr>
-<tr class="separator:a60b4d58019b04c497522f1eeabfc3d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8292b9046298d1aab56453bd31990fdf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a8292b9046298d1aab56453bd31990fdf">GfxUniformBufferSetup</a> = <a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt;</td></tr>
+<tr class="memdesc:a8292b9046298d1aab56453bd31990fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup to bind uniform buffer.  <a href="namespacewmoge.html#a8292b9046298d1aab56453bd31990fdf">More...</a><br /></td></tr>
 <tr class="separator:a8292b9046298d1aab56453bd31990fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a713ffe854cb861885b2b7f6198e80c63"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a713ffe854cb861885b2b7f6198e80c63">GfxStorageBufferSetup</a> = <a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a>&lt; <a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> &gt;</td></tr>
+<tr class="memdesc:a713ffe854cb861885b2b7f6198e80c63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setup to bind storage buffer.  <a href="namespacewmoge.html#a713ffe854cb861885b2b7f6198e80c63">More...</a><br /></td></tr>
 <tr class="separator:a713ffe854cb861885b2b7f6198e80c63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af939e001236c51567d1abb6c46a679ba"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#af939e001236c51567d1abb6c46a679ba">GfxVertBuffersSetup</a> = std::array&lt; <a class="el" href="namespacewmoge.html#af6e15629549f5a3bc324341cfd5dd4ac">GfxVertBufferSetup</a>, <a class="el" href="structwmoge_1_1GfxLimits.html#a56be14d409a9b933b897b964a626465b">GfxLimits::MAX_VERT_BUFFERS</a> &gt;</td></tr>
-<tr class="separator:af939e001236c51567d1abb6c46a679ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafac141dc8a9250490d194fb3bbacdd5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aafac141dc8a9250490d194fb3bbacdd5">GfxTexUsages</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">GfxTexUsageFlag</a>, 8 &gt;</td></tr>
 <tr class="memdesc:aafac141dc8a9250490d194fb3bbacdd5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> usage mask.  <a href="namespacewmoge.html#aafac141dc8a9250490d194fb3bbacdd5">More...</a><br /></td></tr>
 <tr class="separator:aafac141dc8a9250490d194fb3bbacdd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1300,9 +1327,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:ab43860f6aea79611cd870a62926080ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fbbdaf7158eee8430c7b41a447bc9eb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6fbbdaf7158eee8430c7b41a447bc9eb">InputModifiers</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#af6c029d922697c858683d0b33390faad">InputModifier</a>, 8 &gt;</td></tr>
 <tr class="separator:a6fbbdaf7158eee8430c7b41a447bc9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20382e0374aa8fb389a56ffde8edb638"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a20382e0374aa8fb389a56ffde8edb638">RenderCameras</a> = std::vector&lt; <a class="el" href="classwmoge_1_1RenderCamera.html">RenderCamera</a> &gt;</td></tr>
-<tr class="memdesc:a20382e0374aa8fb389a56ffde8edb638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cameras list for rendering.  <a href="namespacewmoge.html#a20382e0374aa8fb389a56ffde8edb638">More...</a><br /></td></tr>
-<tr class="separator:a20382e0374aa8fb389a56ffde8edb638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba7a1a56d34d9dc3f4481d4cf54eeeea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a> = <a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt; &gt;</td></tr>
 <tr class="memdesc:aba7a1a56d34d9dc3f4481d4cf54eeeea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called when resource loading request is finished.  <a href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">More...</a><br /></td></tr>
 <tr class="separator:aba7a1a56d34d9dc3f4481d4cf54eeeea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1982,6 +2006,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacewmoge.html#afdc8dfc5858af93dedca502b2986906aa456cacc048322d94919aecdf1e8382c3">TrianglesWired</a> = 2
 , <a class="el" href="namespacewmoge.html#afdc8dfc5858af93dedca502b2986906aa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a> = 3
  }</td></tr>
+<tr class="memdesc:afdc8dfc5858af93dedca502b2986906a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pipeline type to draw primitive.  <a href="namespacewmoge.html#afdc8dfc5858af93dedca502b2986906a">More...</a><br /></td></tr>
 <tr class="separator:afdc8dfc5858af93dedca502b2986906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d1e702adb4e0c16dcfa2a32a9c4d40e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40e">CameraProjection</a> { <a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40eaa80420eef88d11f77532f1b9cb467fa3">Perspective</a> = 0
 , <a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40ea03424250432f2aa71de95579d2c0eaeb">Orthographic</a>
@@ -2047,8 +2072,9 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a2b23192f3977eaabcfb3e68f66402df5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5">SceneNodeType</a> { <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5a497031794414a552435f90151ac3b54b">Object</a> = 0
 , <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5ab0f2b97dc5d2b76b26e040408bb1d8af">Folder</a>
 , <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5a359b71e88f40029251366609358a302f">Layer</a>
+, <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5a3ff36c343bbf89fca402e0880e438744">Prefabed</a>
  }</td></tr>
-<tr class="memdesc:a2b23192f3977eaabcfb3e68f66402df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of node in the tree.  <a href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5">More...</a><br /></td></tr>
+<tr class="memdesc:a2b23192f3977eaabcfb3e68f66402df5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of node in the tree (hint for editor in most cases)  <a href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5">More...</a><br /></td></tr>
 <tr class="separator:a2b23192f3977eaabcfb3e68f66402df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37dcaea766c660c40504ff7de2d4db59"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a37dcaea766c660c40504ff7de2d4db59">ScriptFunction</a> { <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#a37dcaea766c660c40504ff7de2d4db59a076b9c5b655fdc3350a7c269fb84294a">OnCreate</a>
@@ -2414,12 +2440,16 @@ Functions</h2></td></tr>
 <tr class="separator:af95eff045115299fff8c9da263e0760c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a231b9a659f3989ffa1efcf2fd7ee31fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a231b9a659f3989ffa1efcf2fd7ee31fc">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a> &amp;chunk)</td></tr>
 <tr class="separator:a231b9a659f3989ffa1efcf2fd7ee31fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad08fd195fa7aaf16b09b1a7ec4aa3f1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad08fd195fa7aaf16b09b1a7ec4aa3f1b">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="classwmoge_1_1Mesh.html">Mesh</a> &amp;mesh)</td></tr>
-<tr class="separator:ad08fd195fa7aaf16b09b1a7ec4aa3f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec05b2396d5e1e4b38fc0f3aea586a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4ec05b2396d5e1e4b38fc0f3aea586a4">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="classwmoge_1_1Mesh.html">Mesh</a> &amp;mesh)</td></tr>
-<tr class="separator:a4ec05b2396d5e1e4b38fc0f3aea586a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33d751a1b1b69eee72404cdfc4c11306"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a33d751a1b1b69eee72404cdfc4c11306">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;file)</td></tr>
+<tr class="separator:a33d751a1b1b69eee72404cdfc4c11306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c71dd06a66b6a170614cc7110f6fc8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4c71dd06a66b6a170614cc7110f6fc8e">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;file)</td></tr>
+<tr class="separator:a4c71dd06a66b6a170614cc7110f6fc8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1288f6e72b1f5cd1d138a6926de7825"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa1288f6e72b1f5cd1d138a6926de7825">register_classes_resource</a> ()</td></tr>
 <tr class="separator:aa1288f6e72b1f5cd1d138a6926de7825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b8f418d0864d8e30e4de8bb4424306b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9b8f418d0864d8e30e4de8bb4424306b">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a> &amp;id)</td></tr>
+<tr class="separator:a9b8f418d0864d8e30e4de8bb4424306b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1213a9c8b25dad36d08680b4574bf243"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1213a9c8b25dad36d08680b4574bf243">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a> &amp;id)</td></tr>
+<tr class="separator:a1213a9c8b25dad36d08680b4574bf243"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1577c8dfe2384972482f4bdd40f1002a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1577c8dfe2384972482f4bdd40f1002a">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1ResourceResFile.html">ResourceResFile</a> &amp;file)</td></tr>
 <tr class="separator:a1577c8dfe2384972482f4bdd40f1002a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb6dc658707df18b612a202377cfce50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#abb6dc658707df18b612a202377cfce50">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1ResourceResFile.html">ResourceResFile</a> &amp;file)</td></tr>
@@ -2474,6 +2504,11 @@ Functions</h2></td></tr>
 <tr class="separator:aec1f53e011d2f87b1108cfbfa845c870"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a358ad8aed6e2d25a4cda1e632d37def4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a358ad8aed6e2d25a4cda1e632d37def4">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1SceneTreeData.html">SceneTreeData</a> &amp;data)</td></tr>
 <tr class="separator:a358ad8aed6e2d25a4cda1e632d37def4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aff6785c4f1c801a52a207e1b9595af00"><td class="memItemLeft" align="right" valign="top">constexpr const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aff6785c4f1c801a52a207e1b9595af00">EcsNullEntity</a></td></tr>
+<tr class="separator:aff6785c4f1c801a52a207e1b9595af00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a80373c9834c1d91495fe5180718e49fb"></a>
@@ -2894,20 +2929,6 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
 
 </div>
 </div>
-<a id="a60b4d58019b04c497522f1eeabfc3d04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60b4d58019b04c497522f1eeabfc3d04">&#9670;&nbsp;</a></span>GfxIndexBufferSetup</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacewmoge.html#a60b4d58019b04c497522f1eeabfc3d04">wmoge::GfxIndexBufferSetup</a> = typedef <a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a>&lt;<a class="el" href="classwmoge_1_1GfxIndexBuffer.html">GfxIndexBuffer</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a713ffe854cb861885b2b7f6198e80c63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a713ffe854cb861885b2b7f6198e80c63">&#9670;&nbsp;</a></span>GfxStorageBufferSetup</h2>
 
@@ -2919,6 +2940,8 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Setup to bind storage buffer. </p>
 
 </div>
 </div>
@@ -2949,6 +2972,8 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Setup to bind uniform buffer. </p>
 
 </div>
 </div>
@@ -2981,34 +3006,6 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
 </div><div class="memdoc">
 
 <p>Decl of vertex attributes streams. </p>
-
-</div>
-</div>
-<a id="af6e15629549f5a3bc324341cfd5dd4ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6e15629549f5a3bc324341cfd5dd4ac">&#9670;&nbsp;</a></span>GfxVertBufferSetup</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacewmoge.html#af6e15629549f5a3bc324341cfd5dd4ac">wmoge::GfxVertBufferSetup</a> = typedef <a class="el" href="structwmoge_1_1GfxBufferSetup.html">GfxBufferSetup</a>&lt;<a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af939e001236c51567d1abb6c46a679ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af939e001236c51567d1abb6c46a679ba">&#9670;&nbsp;</a></span>GfxVertBuffersSetup</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacewmoge.html#af939e001236c51567d1abb6c46a679ba">wmoge::GfxVertBuffersSetup</a> = typedef std::array&lt;<a class="el" href="namespacewmoge.html#af6e15629549f5a3bc324341cfd5dd4ac">GfxVertBufferSetup</a>, <a class="el" href="structwmoge_1_1GfxLimits.html#a56be14d409a9b933b897b964a626465b">GfxLimits::MAX_VERT_BUFFERS</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -3219,22 +3216,6 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a20382e0374aa8fb389a56ffde8edb638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20382e0374aa8fb389a56ffde8edb638">&#9670;&nbsp;</a></span>RenderCameras</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacewmoge.html#a20382e0374aa8fb389a56ffde8edb638">wmoge::RenderCameras</a> = typedef std::vector&lt;<a class="el" href="classwmoge_1_1RenderCamera.html">RenderCamera</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Cameras list for rendering. </p>
 
 </div>
 </div>
@@ -3733,6 +3714,8 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Pipeline type to draw primitive. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="afdc8dfc5858af93dedca502b2986906aa4803e6b9e63dabf04de980788d6a13c4"></a>Line&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afdc8dfc5858af93dedca502b2986906aaca4a72f0df8c5e27a6016e1c56039ba2"></a>TrianglesSolid&#160;</td><td class="fielddoc"></td></tr>
@@ -5400,11 +5383,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Type of node in the tree. </p>
+<p>Type of node in the tree (hint for editor in most cases) </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5a497031794414a552435f90151ac3b54b"></a>Object&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5ab0f2b97dc5d2b76b26e040408bb1d8af"></a>Folder&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5a359b71e88f40029251366609358a302f"></a>Layer&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5a3ff36c343bbf89fca402e0880e438744"></a>Prefabed&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -7691,7 +7675,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a9da9e605f9db2f03b0a7deb76c6f8b63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9da9e605f9db2f03b0a7deb76c6f8b63">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[1/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9da9e605f9db2f03b0a7deb76c6f8b63">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[1/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7719,7 +7703,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a59c7f5222f329b22547d85684ffcaa6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c7f5222f329b22547d85684ffcaa6b">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[2/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c7f5222f329b22547d85684ffcaa6b">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[2/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7747,7 +7731,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a223ec56179523ad8bc054dd7e9210bbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a223ec56179523ad8bc054dd7e9210bbb">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[3/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a223ec56179523ad8bc054dd7e9210bbb">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[3/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7775,7 +7759,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a2ed2dbecf5925fb2ac0615183a48348f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ed2dbecf5925fb2ac0615183a48348f">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[4/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ed2dbecf5925fb2ac0615183a48348f">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[4/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7803,7 +7787,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ab1f45d3ee2b33ef75f747e4895bc414f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1f45d3ee2b33ef75f747e4895bc414f">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[5/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f45d3ee2b33ef75f747e4895bc414f">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[5/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7831,7 +7815,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5786bff151f5d341edad551cf5a4953d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5786bff151f5d341edad551cf5a4953d">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[6/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5786bff151f5d341edad551cf5a4953d">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[6/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7861,7 +7845,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="a0d79418cd5b3df4c810e967b3b67981d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d79418cd5b3df4c810e967b3b67981d">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[7/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d79418cd5b3df4c810e967b3b67981d">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[7/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7889,7 +7873,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="aac2bc355f29647b405f723ee8b6b7cea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac2bc355f29647b405f723ee8b6b7cea">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[8/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aac2bc355f29647b405f723ee8b6b7cea">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[8/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7917,7 +7901,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="a5a34565aa7f4ce620a04599815b0e0e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a34565aa7f4ce620a04599815b0e0e2">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[9/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a34565aa7f4ce620a04599815b0e0e2">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[9/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7945,7 +7929,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="ac9458d4cc2e6a961178ef0beea27a2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9458d4cc2e6a961178ef0beea27a2b2">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[10/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9458d4cc2e6a961178ef0beea27a2b2">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[10/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7973,7 +7957,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="a73f69cde8c056a03f27e19fab885bd4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73f69cde8c056a03f27e19fab885bd4f">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[11/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f69cde8c056a03f27e19fab885bd4f">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[11/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8001,7 +7985,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="a0257035cab594cf32ea23033aca0c002"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0257035cab594cf32ea23033aca0c002">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[12/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0257035cab594cf32ea23033aca0c002">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[12/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8031,7 +8015,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="aa3f71fc4d00a5f1f157ff705b282e28e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3f71fc4d00a5f1f157ff705b282e28e">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[13/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f71fc4d00a5f1f157ff705b282e28e">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[13/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8059,7 +8043,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="ac75899a96e37debfdabf7be47a1cf4ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac75899a96e37debfdabf7be47a1cf4ec">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[14/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac75899a96e37debfdabf7be47a1cf4ec">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[14/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8086,36 +8070,8 @@ template&lt;typename T , int size&gt; </div>
 
 </div>
 </div>
-<a id="ad08fd195fa7aaf16b09b1a7ec4aa3f1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad08fd195fa7aaf16b09b1a7ec4aa3f1b">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[15/49]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::yaml_read </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Mesh.html">Mesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="af95eff045115299fff8c9da263e0760c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af95eff045115299fff8c9da263e0760c">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[16/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af95eff045115299fff8c9da263e0760c">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[15/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8142,8 +8098,36 @@ template&lt;typename T , int size&gt; </div>
 
 </div>
 </div>
+<a id="a33d751a1b1b69eee72404cdfc4c11306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33d751a1b1b69eee72404cdfc4c11306">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[16/50]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::yaml_read </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>file</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a35bd72267ba2fba7ae93a9d4ececca4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35bd72267ba2fba7ae93a9d4ececca4a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[17/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a35bd72267ba2fba7ae93a9d4ececca4a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[17/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8171,7 +8155,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="a67a42f76723cda0a15dab4be3a27f534"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67a42f76723cda0a15dab4be3a27f534">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[18/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a67a42f76723cda0a15dab4be3a27f534">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[18/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8199,7 +8183,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="aa1ffa3a4d48206a9e4fb566dfea28b34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1ffa3a4d48206a9e4fb566dfea28b34">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[19/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ffa3a4d48206a9e4fb566dfea28b34">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[19/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8227,7 +8211,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="aa5e68febfba81ba1c668860ab38db2e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5e68febfba81ba1c668860ab38db2e7">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[20/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5e68febfba81ba1c668860ab38db2e7">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[20/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8263,7 +8247,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="abe8ae5cb31d606c4f6c540fde9866ac9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe8ae5cb31d606c4f6c540fde9866ac9">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[21/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe8ae5cb31d606c4f6c540fde9866ac9">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[21/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8298,8 +8282,36 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a9b8f418d0864d8e30e4de8bb4424306b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b8f418d0864d8e30e4de8bb4424306b">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[22/50]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::yaml_read </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1577c8dfe2384972482f4bdd40f1002a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1577c8dfe2384972482f4bdd40f1002a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[22/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1577c8dfe2384972482f4bdd40f1002a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[23/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8327,7 +8339,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a94368096f230e3d1ec076983490b01c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94368096f230e3d1ec076983490b01c7">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[23/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a94368096f230e3d1ec076983490b01c7">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[24/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8355,7 +8367,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a3b92265425d35ead718de8653e249983"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b92265425d35ead718de8653e249983">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[24/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b92265425d35ead718de8653e249983">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[25/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8383,7 +8395,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a0c1343f8deb173e9032e2075fa2b4193"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c1343f8deb173e9032e2075fa2b4193">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[25/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c1343f8deb173e9032e2075fa2b4193">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[26/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8411,7 +8423,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aec1f53e011d2f87b1108cfbfa845c870"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec1f53e011d2f87b1108cfbfa845c870">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[26/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aec1f53e011d2f87b1108cfbfa845c870">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[27/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8439,7 +8451,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aaf5a3c48379618ca955630ef1f02ac60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf5a3c48379618ca955630ef1f02ac60">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[27/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf5a3c48379618ca955630ef1f02ac60">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[28/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8467,7 +8479,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ae2de1107fccc4b1b0813a345064162f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2de1107fccc4b1b0813a345064162f0">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[28/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2de1107fccc4b1b0813a345064162f0">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[29/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8495,7 +8507,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aeaca47d569c29b68fa355be09f69a21a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeaca47d569c29b68fa355be09f69a21a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[29/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaca47d569c29b68fa355be09f69a21a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[30/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8523,7 +8535,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a43a8f6c54184c2578b9e45721260adf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43a8f6c54184c2578b9e45721260adf4">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[30/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a43a8f6c54184c2578b9e45721260adf4">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[31/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8551,7 +8563,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="af566307fd7facf94a27a5d4e1c2cd2c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af566307fd7facf94a27a5d4e1c2cd2c8">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[31/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af566307fd7facf94a27a5d4e1c2cd2c8">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[32/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8581,7 +8593,7 @@ template&lt;typename T , std::size_t S&gt; </div>
 </div>
 </div>
 <a id="a02419b8b7a55740bbff30af483246bed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02419b8b7a55740bbff30af483246bed">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[32/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a02419b8b7a55740bbff30af483246bed">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[33/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8611,7 +8623,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a25cfe06621cb5e335600528eeb43d136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25cfe06621cb5e335600528eeb43d136">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[33/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a25cfe06621cb5e335600528eeb43d136">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[34/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8641,7 +8653,7 @@ template&lt;typename K , typename V &gt; </div>
 </div>
 </div>
 <a id="ab7200f4cd40d4789fbd811c41acbbe10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7200f4cd40d4789fbd811c41acbbe10">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[34/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7200f4cd40d4789fbd811c41acbbe10">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[35/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8669,7 +8681,7 @@ template&lt;typename K , typename V &gt; </div>
 </div>
 </div>
 <a id="ab45bb97219ab8e1d1f648030611a8429"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab45bb97219ab8e1d1f648030611a8429">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[35/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab45bb97219ab8e1d1f648030611a8429">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[36/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8699,7 +8711,7 @@ template&lt;typename K , typename V &gt; </div>
 </div>
 </div>
 <a id="a82459518f65ee2039a49115980539a3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82459518f65ee2039a49115980539a3e">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[36/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a82459518f65ee2039a49115980539a3e">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[37/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8729,7 +8741,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a50c3818b2e5e7020743a37b7af7f998c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50c3818b2e5e7020743a37b7af7f998c">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[37/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a50c3818b2e5e7020743a37b7af7f998c">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[38/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8757,7 +8769,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a33d0517f27c5ba943a931491c629f88a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33d0517f27c5ba943a931491c629f88a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[38/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a33d0517f27c5ba943a931491c629f88a">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[39/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8787,7 +8799,7 @@ template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;:
 </div>
 </div>
 <a id="a806b18721efba3d0cf54c642ddaff7f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a806b18721efba3d0cf54c642ddaff7f4">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[39/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a806b18721efba3d0cf54c642ddaff7f4">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[40/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8817,7 +8829,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a2fb9c44f4ab783b5a0513988dc415b30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fb9c44f4ab783b5a0513988dc415b30">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[40/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fb9c44f4ab783b5a0513988dc415b30">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[41/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8845,7 +8857,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a3dee75c9a8a2f72f40ee193d17c56cee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dee75c9a8a2f72f40ee193d17c56cee">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[41/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dee75c9a8a2f72f40ee193d17c56cee">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[42/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8873,7 +8885,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a034e60997b25b16c4b52217b15a616d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a034e60997b25b16c4b52217b15a616d4">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[42/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a034e60997b25b16c4b52217b15a616d4">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[43/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8901,7 +8913,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a451f8c47baf43d66de63d584fa859d8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a451f8c47baf43d66de63d584fa859d8d">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[43/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a451f8c47baf43d66de63d584fa859d8d">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[44/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8929,7 +8941,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a828d6f12f3185301fbf8a05e3467c0ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a828d6f12f3185301fbf8a05e3467c0ec">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[44/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a828d6f12f3185301fbf8a05e3467c0ec">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[45/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8957,7 +8969,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a1b2a31a26800c5c2296120193a638483"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b2a31a26800c5c2296120193a638483">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[45/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b2a31a26800c5c2296120193a638483">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[46/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8987,7 +8999,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a2237e93ea9338530b1c4579ddb79613e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2237e93ea9338530b1c4579ddb79613e">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[46/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2237e93ea9338530b1c4579ddb79613e">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[47/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9017,7 +9029,7 @@ template&lt;typename T , int N&gt; </div>
 </div>
 </div>
 <a id="a05ed322755ed4b420f303bac9ed05b37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05ed322755ed4b420f303bac9ed05b37">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[47/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a05ed322755ed4b420f303bac9ed05b37">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[48/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9047,7 +9059,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a8ecce908dd75a2da86b6c6f1d5935485"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ecce908dd75a2da86b6c6f1d5935485">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[48/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ecce908dd75a2da86b6c6f1d5935485">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[49/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9077,7 +9089,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a2fdb80d72c3adf4dfacbc690d686edbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fdb80d72c3adf4dfacbc690d686edbb">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[49/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fdb80d72c3adf4dfacbc690d686edbb">&#9670;&nbsp;</a></span>yaml_read() <span class="overload">[50/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9133,7 +9145,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="afd37589ff7f24f16294e0134b8307d03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd37589ff7f24f16294e0134b8307d03">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[1/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afd37589ff7f24f16294e0134b8307d03">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[1/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9161,7 +9173,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a77ab8a74ef44f1ac8082c2780ca74d35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77ab8a74ef44f1ac8082c2780ca74d35">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[2/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a77ab8a74ef44f1ac8082c2780ca74d35">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[2/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9189,7 +9201,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a788c03c1d22e1987c153edb712a798da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a788c03c1d22e1987c153edb712a798da">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[3/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a788c03c1d22e1987c153edb712a798da">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[3/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9217,7 +9229,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a537d86c8bcb3e7ed9591a5e125d8ae8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a537d86c8bcb3e7ed9591a5e125d8ae8e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[4/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a537d86c8bcb3e7ed9591a5e125d8ae8e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[4/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9245,7 +9257,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a59907ba02951142bb340f339363041cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59907ba02951142bb340f339363041cf">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[5/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a59907ba02951142bb340f339363041cf">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[5/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9273,7 +9285,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a266a38ce508aa5104c180f20169e40c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a266a38ce508aa5104c180f20169e40c1">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[6/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a266a38ce508aa5104c180f20169e40c1">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[6/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9303,7 +9315,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="ac64787f8577d14d6dd55ed7c5881739e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac64787f8577d14d6dd55ed7c5881739e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[7/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac64787f8577d14d6dd55ed7c5881739e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[7/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9331,7 +9343,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="ac3ccc4793f776ae82a6db865e3ce4757"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3ccc4793f776ae82a6db865e3ce4757">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[8/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3ccc4793f776ae82a6db865e3ce4757">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[8/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9359,7 +9371,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="ae6c59615112c9e38d2a3a1d4d3779749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6c59615112c9e38d2a3a1d4d3779749">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[9/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6c59615112c9e38d2a3a1d4d3779749">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[9/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9387,7 +9399,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="a22df090ad8b30d21dd750df2f9072f51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22df090ad8b30d21dd750df2f9072f51">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[10/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a22df090ad8b30d21dd750df2f9072f51">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[10/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9415,7 +9427,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="aca781a644a003365ce75df44c96ac23a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca781a644a003365ce75df44c96ac23a">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[11/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aca781a644a003365ce75df44c96ac23a">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[11/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9443,7 +9455,7 @@ template&lt;typename T , std::size_t MinCapacity&gt; </div>
 </div>
 </div>
 <a id="a808578b7b8e0b612222632ea6a7b95b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a808578b7b8e0b612222632ea6a7b95b0">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[12/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a808578b7b8e0b612222632ea6a7b95b0">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[12/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9473,7 +9485,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="af173d8f11dfc986d31b5ebea756c219a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af173d8f11dfc986d31b5ebea756c219a">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[13/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af173d8f11dfc986d31b5ebea756c219a">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[13/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9501,7 +9513,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="abe3d7846875b6677203083d5112d4f76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe3d7846875b6677203083d5112d4f76">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[14/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abe3d7846875b6677203083d5112d4f76">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[14/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9528,36 +9540,8 @@ template&lt;typename T , int size&gt; </div>
 
 </div>
 </div>
-<a id="a4ec05b2396d5e1e4b38fc0f3aea586a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ec05b2396d5e1e4b38fc0f3aea586a4">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[15/49]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::yaml_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Mesh.html">Mesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>mesh</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a231b9a659f3989ffa1efcf2fd7ee31fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a231b9a659f3989ffa1efcf2fd7ee31fc">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[16/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a231b9a659f3989ffa1efcf2fd7ee31fc">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[15/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9584,8 +9568,36 @@ template&lt;typename T , int size&gt; </div>
 
 </div>
 </div>
+<a id="a4c71dd06a66b6a170614cc7110f6fc8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c71dd06a66b6a170614cc7110f6fc8e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[16/50]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::yaml_write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;&#160;</td>
+          <td class="paramname"><em>file</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a54f99ed505dd5b10216dbc12417ea9fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54f99ed505dd5b10216dbc12417ea9fd">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[17/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f99ed505dd5b10216dbc12417ea9fd">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[17/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9613,7 +9625,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="ae800546685484290535295227a2d8a00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae800546685484290535295227a2d8a00">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[18/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae800546685484290535295227a2d8a00">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[18/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9641,7 +9653,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="a7fd76a006a614edebcad51453e3f60b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fd76a006a614edebcad51453e3f60b8">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[19/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd76a006a614edebcad51453e3f60b8">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[19/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9669,7 +9681,7 @@ template&lt;typename T , int size&gt; </div>
 </div>
 </div>
 <a id="a3d57b7a8a0322da353f42e28b1d1800e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d57b7a8a0322da353f42e28b1d1800e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[20/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d57b7a8a0322da353f42e28b1d1800e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[20/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9705,7 +9717,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a57618745b4662f2bc2d0ee89cd3dd5bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57618745b4662f2bc2d0ee89cd3dd5bc">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[21/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a57618745b4662f2bc2d0ee89cd3dd5bc">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[21/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9740,8 +9752,36 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a1213a9c8b25dad36d08680b4574bf243"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1213a9c8b25dad36d08680b4574bf243">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[22/50]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::yaml_write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a> &amp;&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="abb6dc658707df18b612a202377cfce50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb6dc658707df18b612a202377cfce50">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[22/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abb6dc658707df18b612a202377cfce50">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[23/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9769,7 +9809,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a8069f019aa1127c50974e7b8afe79cea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8069f019aa1127c50974e7b8afe79cea">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[23/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8069f019aa1127c50974e7b8afe79cea">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[24/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9797,7 +9837,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a514b42c09404175ceaed19ca170c9a53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a514b42c09404175ceaed19ca170c9a53">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[24/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a514b42c09404175ceaed19ca170c9a53">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[25/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9825,7 +9865,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a46612d67710cb82d5a3173efc288a53b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46612d67710cb82d5a3173efc288a53b">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[25/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a46612d67710cb82d5a3173efc288a53b">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[26/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9853,7 +9893,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a358ad8aed6e2d25a4cda1e632d37def4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a358ad8aed6e2d25a4cda1e632d37def4">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[26/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a358ad8aed6e2d25a4cda1e632d37def4">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[27/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9881,7 +9921,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aae4e86aaf9aea0e370acb8071ee11aab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae4e86aaf9aea0e370acb8071ee11aab">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[27/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aae4e86aaf9aea0e370acb8071ee11aab">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[28/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9909,7 +9949,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="acac0e96c68f95f10618410982e1ceb7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acac0e96c68f95f10618410982e1ceb7e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[28/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acac0e96c68f95f10618410982e1ceb7e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[29/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9937,7 +9977,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a04ca8c9e4399496c011517be48c1b754"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04ca8c9e4399496c011517be48c1b754">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[29/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a04ca8c9e4399496c011517be48c1b754">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[30/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9965,7 +10005,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a1972fc7acd4c52a0a43c0adbd08cd32b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1972fc7acd4c52a0a43c0adbd08cd32b">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[30/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1972fc7acd4c52a0a43c0adbd08cd32b">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[31/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9993,7 +10033,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="af73dcd0a0a4cae5e2c2c0b4bc03eb084"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af73dcd0a0a4cae5e2c2c0b4bc03eb084">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[31/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af73dcd0a0a4cae5e2c2c0b4bc03eb084">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[32/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10023,7 +10063,7 @@ template&lt;typename T , std::size_t S&gt; </div>
 </div>
 </div>
 <a id="a1306845260795e5ec8846c14d720843c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1306845260795e5ec8846c14d720843c">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[32/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1306845260795e5ec8846c14d720843c">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[33/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10053,7 +10093,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a2232bf0e4563035650b6f3a6a00a71ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2232bf0e4563035650b6f3a6a00a71ad">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[33/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2232bf0e4563035650b6f3a6a00a71ad">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[34/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10083,7 +10123,7 @@ template&lt;typename K , typename V &gt; </div>
 </div>
 </div>
 <a id="a4c814a34b81786343e8bb7eb9c98460f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c814a34b81786343e8bb7eb9c98460f">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[34/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c814a34b81786343e8bb7eb9c98460f">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[35/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10111,7 +10151,7 @@ template&lt;typename K , typename V &gt; </div>
 </div>
 </div>
 <a id="a94d46b10cf2324ec954286a7904b8bae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94d46b10cf2324ec954286a7904b8bae">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[35/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d46b10cf2324ec954286a7904b8bae">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[36/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10141,7 +10181,7 @@ template&lt;typename K , typename V &gt; </div>
 </div>
 </div>
 <a id="a011304567a3fcf4c21f4794ed7089f7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a011304567a3fcf4c21f4794ed7089f7f">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[36/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a011304567a3fcf4c21f4794ed7089f7f">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[37/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10171,7 +10211,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a48a1ace1cfcb1543822c01c7f4c7d9a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48a1ace1cfcb1543822c01c7f4c7d9a5">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[37/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a48a1ace1cfcb1543822c01c7f4c7d9a5">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[38/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10199,7 +10239,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a014307ddcd778b51a04589c806e83e28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a014307ddcd778b51a04589c806e83e28">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[38/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a014307ddcd778b51a04589c806e83e28">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[39/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10229,7 +10269,7 @@ template&lt;class T , class  = typename std::enable_if&lt;std::is_enum&lt;T&gt;:
 </div>
 </div>
 <a id="a6134b59912097808e3cc6d92c848b893"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6134b59912097808e3cc6d92c848b893">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[39/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6134b59912097808e3cc6d92c848b893">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[40/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10259,7 +10299,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a5ea43fdff1590614329aa4ca9c914c35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ea43fdff1590614329aa4ca9c914c35">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[40/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ea43fdff1590614329aa4ca9c914c35">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[41/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10287,7 +10327,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a6c0a3f6910976df09e1af870cdcad116"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c0a3f6910976df09e1af870cdcad116">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[41/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c0a3f6910976df09e1af870cdcad116">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[42/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10315,7 +10355,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a809f49ed821dbd38e02e09624c09a67e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a809f49ed821dbd38e02e09624c09a67e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[42/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a809f49ed821dbd38e02e09624c09a67e">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[43/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10343,7 +10383,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a1a0268f135a605d75c6c82d4b9a9764d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a0268f135a605d75c6c82d4b9a9764d">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[43/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a0268f135a605d75c6c82d4b9a9764d">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[44/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10371,7 +10411,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ae82ca32cd00a1c4aeaf41a163c28f2bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae82ca32cd00a1c4aeaf41a163c28f2bd">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[44/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae82ca32cd00a1c4aeaf41a163c28f2bd">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[45/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10399,7 +10439,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a9bc4f141448e46c99f48e09ff1ad4d65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bc4f141448e46c99f48e09ff1ad4d65">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[45/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bc4f141448e46c99f48e09ff1ad4d65">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[46/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10429,7 +10469,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a78f21b78ee91bb9af1b1e8b43fb3333b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78f21b78ee91bb9af1b1e8b43fb3333b">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[46/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a78f21b78ee91bb9af1b1e8b43fb3333b">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[47/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10459,7 +10499,7 @@ template&lt;typename T , int N&gt; </div>
 </div>
 </div>
 <a id="a9f481933a74b24e379d59ea57655d31c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f481933a74b24e379d59ea57655d31c">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[47/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f481933a74b24e379d59ea57655d31c">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[48/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10489,7 +10529,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a319e078af43b9bd8e57ab0db45656eb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a319e078af43b9bd8e57ab0db45656eb8">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[48/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a319e078af43b9bd8e57ab0db45656eb8">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[49/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10519,7 +10559,7 @@ template&lt;typename K , typename V , typename H &gt; </div>
 </div>
 </div>
 <a id="a0aa3c3d0b7bb1edbbd1d42c899a4c939"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0aa3c3d0b7bb1edbbd1d42c899a4c939">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[49/49]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa3c3d0b7bb1edbbd1d42c899a4c939">&#9670;&nbsp;</a></span>yaml_write() <span class="overload">[50/50]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10570,6 +10610,29 @@ template&lt;typename K , typename V , typename H &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aff6785c4f1c801a52a207e1b9595af00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff6785c4f1c801a52a207e1b9595af00">&#9670;&nbsp;</a></span>EcsNullEntity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> wmoge::EcsNullEntity</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

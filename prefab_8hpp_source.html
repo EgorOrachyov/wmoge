@@ -115,25 +115,29 @@ $(function() {
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Prefab.html#a832371f53a078fc27a0b7cd49895c504">read_from_yaml</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Prefab.html#ac396ac53af2b8fda11d2926cf1d2d045">copy_to</a>(<a class="code" href="classwmoge_1_1Object.html">Object</a>&amp; other) <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        std::optional&lt;SceneTree&gt; m_scene_tree;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classwmoge_1_1Prefab.html#a7a23c4ce4eb88d5d21f6db4153e71c72">   55</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structwmoge_1_1SceneTreeData.html">SceneTreeData</a>&amp; <a class="code" href="classwmoge_1_1Prefab.html#a7a23c4ce4eb88d5d21f6db4153e71c72">get_data</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_data; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="structwmoge_1_1SceneTreeData.html">SceneTreeData</a> m_data;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_PREFAB_HPP</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_PREFAB_HPP</span></div>
 <div class="ttc" id="aasync_8hpp_html"><div class="ttname"><a href="async_8hpp.html">async.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:61</div></div>
 <div class="ttc" id="aclasswmoge_1_1Prefab_html"><div class="ttname"><a href="classwmoge_1_1Prefab.html">wmoge::Prefab</a></div><div class="ttdoc">A prefab resource which can be instantiated into a set of objects.</div><div class="ttdef"><b>Definition:</b> prefab.hpp:48</div></div>
+<div class="ttc" id="aclasswmoge_1_1Prefab_html_a7a23c4ce4eb88d5d21f6db4153e71c72"><div class="ttname"><a href="classwmoge_1_1Prefab.html#a7a23c4ce4eb88d5d21f6db4153e71c72">wmoge::Prefab::get_data</a></div><div class="ttdeci">const SceneTreeData &amp; get_data() const</div><div class="ttdef"><b>Definition:</b> prefab.hpp:55</div></div>
 <div class="ttc" id="aclasswmoge_1_1Prefab_html_a832371f53a078fc27a0b7cd49895c504"><div class="ttname"><a href="classwmoge_1_1Prefab.html#a832371f53a078fc27a0b7cd49895c504">wmoge::Prefab::read_from_yaml</a></div><div class="ttdeci">Status read_from_yaml(const YamlConstNodeRef &amp;node) override</div><div class="ttdef"><b>Definition:</b> prefab.cpp:36</div></div>
 <div class="ttc" id="aclasswmoge_1_1Prefab_html_ac396ac53af2b8fda11d2926cf1d2d045"><div class="ttname"><a href="classwmoge_1_1Prefab.html#ac396ac53af2b8fda11d2926cf1d2d045">wmoge::Prefab::copy_to</a></div><div class="ttdeci">Status copy_to(Object &amp;other) const override</div><div class="ttdef"><b>Definition:</b> prefab.cpp:42</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html"><div class="ttname"><a href="classwmoge_1_1Resource.html">wmoge::Resource</a></div><div class="ttdoc">Base class for any engine resource.</div><div class="ttdef"><b>Definition:</b> resource.hpp:48</div></div>
+<div class="ttc" id="aclasswmoge_1_1Resource_html"><div class="ttname"><a href="classwmoge_1_1Resource.html">wmoge::Resource</a></div><div class="ttdoc">Base class for any engine resource.</div><div class="ttdef"><b>Definition:</b> resource.hpp:72</div></div>
 <div class="ttc" id="aclasswmoge_1_1Resource_html_ad6cb22c023c2c0220f269599b7d13122"><div class="ttname"><a href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">wmoge::Resource::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Resource, Object)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:73</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_a936fad1881d807f1e080d012bb1977c3"><div class="ttname"><a href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">wmoge::YamlConstNodeRef</a></div><div class="ttdeci">ryml::ConstNodeRef YamlConstNodeRef</div><div class="ttdoc">Constant reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:65</div></div>
 <div class="ttc" id="aresource_8hpp_html"><div class="ttname"><a href="resource_8hpp.html">resource.hpp</a></div></div>
 <div class="ttc" id="ascene__tree_8hpp_html"><div class="ttname"><a href="scene__tree_8hpp.html">scene_tree.hpp</a></div></div>
+<div class="ttc" id="astructwmoge_1_1SceneTreeData_html"><div class="ttname"><a href="structwmoge_1_1SceneTreeData.html">wmoge::SceneTreeData</a></div><div class="ttdoc">Serializable struct with an editable scene tree data.</div><div class="ttdef"><b>Definition:</b> scene_tree.hpp:66</div></div>
 <div class="ttc" id="ayaml_8hpp_html"><div class="ttname"><a href="yaml_8hpp.html">yaml.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

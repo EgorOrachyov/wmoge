@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['windownotification_6285',['WindowNotification',['../namespacewmoge.html#aade252b867a55f4d42f121705b6ec1f2',1,'wmoge']]]
+  ['windownotification_6342',['WindowNotification',['../namespacewmoge.html#aade252b867a55f4d42f121705b6ec1f2',1,'wmoge']]]
 ];

@@ -1,10 +1,14 @@
 <map id="wmoge::RenderCmd" name="wmoge::RenderCmd">
-<area shape="rect" id="node1" title="POD&#45;Command representing single draw call." alt="" coords="696,92,835,119"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxPipeline.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="427,5,563,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="221,32,367,59"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="425,56,565,83"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="7,7,118,33"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,57,120,84"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1GfxBufferSetup.html" title=" " alt="" coords="416,107,575,149"/>
-<area shape="rect" id="node7" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="424,173,567,200"/>
+<area shape="rect" id="node1" title="POD&#45;Command representing single draw call." alt="" coords="1377,109,1516,136"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GfxVertBuffersSetup.html" title="Setup to bind an vertex buffers." alt="" coords="1067,7,1256,33"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="731,7,879,33"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="416,57,540,84"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="728,57,883,84"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="221,109,367,136"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1GfxPipeline.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="907,109,1043,136"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="564,165,704,192"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="7,84,118,111"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,135,120,161"/>
+<area shape="rect" id="node9" href="$structwmoge_1_1GfxIndexBufferSetup.html" title="Setup to bind an index buffer." alt="" coords="1067,57,1256,84"/>
+<area shape="rect" id="node11" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="1090,221,1233,248"/>
 </map>

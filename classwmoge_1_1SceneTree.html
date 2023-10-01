@@ -103,18 +103,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adf01de7d93a4541bb85c1d1971e6c0c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#adf01de7d93a4541bb85c1d1971e6c0c2">SceneTree</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
 <tr class="memdesc:adf01de7d93a4541bb85c1d1971e6c0c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new editable scene.  <a href="classwmoge_1_1SceneTree.html#adf01de7d93a4541bb85c1d1971e6c0c2">More...</a><br /></td></tr>
 <tr class="separator:adf01de7d93a4541bb85c1d1971e6c0c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0955a473d594562baf60ec1976241e77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a0955a473d594562baf60ec1976241e77">visit</a> (const std::function&lt; void(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;node)&gt; &amp;visitor)</td></tr>
-<tr class="separator:a0955a473d594562baf60ec1976241e77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4469720b00a1a05935f16bd00aaea212"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a4469720b00a1a05935f16bd00aaea212">sync</a> ()</td></tr>
+<tr class="separator:a4469720b00a1a05935f16bd00aaea212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef765425b8284973caf824bb1142ba5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#aef765425b8284973caf824bb1142ba5c">each</a> (const std::function&lt; void(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;)&gt; &amp;visitor)</td></tr>
+<tr class="separator:aef765425b8284973caf824bb1142ba5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86bee75942074f7842338e86320d5341"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a86bee75942074f7842338e86320d5341">contains</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;node) const</td></tr>
+<tr class="separator:a86bee75942074f7842338e86320d5341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abec812955ae2f15688543a73a2d8dcc2"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#abec812955ae2f15688543a73a2d8dcc2">find_node</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:abec812955ae2f15688543a73a2d8dcc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5464f2e3788dbccb669f8b89e452e726"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a5464f2e3788dbccb669f8b89e452e726">get_nodes</a> ()</td></tr>
 <tr class="separator:a5464f2e3788dbccb669f8b89e452e726"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a79b6c1bc05fca8cc751e1b43985df"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#ad4a79b6c1bc05fca8cc751e1b43985df">filter_nodes</a> (const std::function&lt; bool(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;node)&gt; &amp;predicate)</td></tr>
-<tr class="separator:ad4a79b6c1bc05fca8cc751e1b43985df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a119fb79d9edb949bb67606ef1f1d6ae0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a119fb79d9edb949bb67606ef1f1d6ae0">filter_nodes</a> (const std::function&lt; bool(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;)&gt; &amp;predicate)</td></tr>
+<tr class="separator:a119fb79d9edb949bb67606ef1f1d6ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a713eec251bdccd75cbe176c268bd607b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a713eec251bdccd75cbe176c268bd607b">build</a> (const <a class="el" href="structwmoge_1_1SceneTreeData.html">SceneTreeData</a> &amp;data)</td></tr>
 <tr class="separator:a713eec251bdccd75cbe176c268bd607b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9516f1a7a77eb3917c6a40cff3173122"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a9516f1a7a77eb3917c6a40cff3173122">dump</a> (<a class="el" href="structwmoge_1_1SceneTreeData.html">SceneTreeData</a> &amp;data)</td></tr>
 <tr class="separator:a9516f1a7a77eb3917c6a40cff3173122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa20fa350d00249333371d6a3ae7c91"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a4fa20fa350d00249333371d6a3ae7c91">get_name</a> () const</td></tr>
+<tr class="separator:a4fa20fa350d00249333371d6a3ae7c91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e405f893be50a97919dd062a334ca37"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a9e405f893be50a97919dd062a334ca37">get_root</a> () const</td></tr>
 <tr class="separator:a9e405f893be50a97919dd062a334ca37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8602a0968909a89aea9355f04540e0ca"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Scene.html">Scene</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTree.html#a8602a0968909a89aea9355f04540e0ca">get_scene</a> () const</td></tr>
@@ -179,7 +185,9 @@ Additional Inherited Members</h2></td></tr>
 <p>When the game is started, scene tree emits a scene object, which is a high-performance and low overhead container with entities for a runtime. Meta information, nodes, hierarchy, etc. is not presented in a final game for a speed and memory reasons.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> </dd>
 <dd>
-<a class="el" href="classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects.">SceneNode</a> </dd></dl>
+<a class="el" href="classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects.">SceneNode</a> </dd>
+<dd>
+<a class="el" href="classwmoge_1_1SceneTreePacked.html" title="Represents packed scene trre resource which can be used to load editable scene.">SceneTreePacked</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adf01de7d93a4541bb85c1d1971e6c0c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adf01de7d93a4541bb85c1d1971e6c0c2">&#9670;&nbsp;</a></span>SceneTree()</h2>
@@ -198,9 +206,10 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates new editable scene. </p>
+<p>Constructor creates an empty tree with a hidden root inside. Also a runtime representation of a tree is allocated for tree interactive editing and dispaly at editor.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> name to unique identify it at runtime </td></tr>
+    <tr><td class="paramname">name</td><td><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> name to unique identify it at editor and runtime </td></tr>
   </table>
   </dd>
 </dl>
@@ -226,6 +235,24 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a86bee75942074f7842338e86320d5341"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86bee75942074f7842338e86320d5341">&#9670;&nbsp;</a></span>contains()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::SceneTree::contains </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a9516f1a7a77eb3917c6a40cff3173122"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9516f1a7a77eb3917c6a40cff3173122">&#9670;&nbsp;</a></span>dump()</h2>
 
@@ -244,8 +271,26 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ad4a79b6c1bc05fca8cc751e1b43985df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4a79b6c1bc05fca8cc751e1b43985df">&#9670;&nbsp;</a></span>filter_nodes()</h2>
+<a id="aef765425b8284973caf824bb1142ba5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef765425b8284973caf824bb1142ba5c">&#9670;&nbsp;</a></span>each()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::SceneTree::each </td>
+          <td>(</td>
+          <td class="paramtype">const std::function&lt; void(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>visitor</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a119fb79d9edb949bb67606ef1f1d6ae0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a119fb79d9edb949bb67606ef1f1d6ae0">&#9670;&nbsp;</a></span>filter_nodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +298,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &gt; wmoge::SceneTree::filter_nodes </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; bool(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;node)&gt; &amp;&#160;</td>
+          <td class="paramtype">const std::function&lt; bool(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;)&gt; &amp;&#160;</td>
           <td class="paramname"><em>predicate</em></td><td>)</td>
           <td></td>
         </tr>
@@ -276,6 +321,31 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4fa20fa350d00249333371d6a3ae7c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa20fa350d00249333371d6a3ae7c91">&#9670;&nbsp;</a></span>get_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&amp; wmoge::SceneTree::get_name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -347,17 +417,16 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0955a473d594562baf60ec1976241e77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0955a473d594562baf60ec1976241e77">&#9670;&nbsp;</a></span>visit()</h2>
+<a id="a4469720b00a1a05935f16bd00aaea212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4469720b00a1a05935f16bd00aaea212">&#9670;&nbsp;</a></span>sync()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::SceneTree::visit </td>
+          <td class="memname">void wmoge::SceneTree::sync </td>
           <td>(</td>
-          <td class="paramtype">const std::function&lt; void(const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &gt; &amp;node)&gt; &amp;&#160;</td>
-          <td class="paramname"><em>visitor</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>

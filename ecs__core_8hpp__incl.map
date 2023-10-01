@@ -1,9 +1,10 @@
 <map id="engine/ecs/ecs_core.hpp" name="engine/ecs/ecs_core.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="185,5,352,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="252,5,419,32"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,80,60,107"/>
 <area shape="rect" id="node3" title=" " alt="" coords="85,80,159,107"/>
 <area shape="rect" id="node4" title=" " alt="" coords="184,80,263,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="287,80,341,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="365,80,434,107"/>
-<area shape="rect" id="node7" title=" " alt="" coords="459,80,513,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="287,80,383,107"/>
+<area shape="rect" id="node6" title=" " alt="" coords="407,80,461,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="485,80,554,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="579,80,633,107"/>
 </map>

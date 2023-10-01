@@ -63,6 +63,7 @@ var menudata={children:[
 {text:"b",url:"namespacemembers_vars.html#index_b"},
 {text:"c",url:"namespacemembers_vars.html#index_c"},
 {text:"d",url:"namespacemembers_vars.html#index_d"},
+{text:"e",url:"namespacemembers_vars.html#index_e"},
 {text:"l",url:"namespacemembers_vars.html#index_l"},
 {text:"m",url:"namespacemembers_vars.html#index_m"},
 {text:"p",url:"namespacemembers_vars.html#index_p"},
@@ -194,6 +195,7 @@ var menudata={children:[
 {text:"c",url:"functions_rela.html#index_c"},
 {text:"g",url:"functions_rela.html#index_g"},
 {text:"m",url:"functions_rela.html#index_m"},
+{text:"s",url:"functions_rela.html#index_s"},
 {text:"t",url:"functions_rela.html#index_t"},
 {text:"y",url:"functions_rela.html#index_y"}]}]}]},
 {text:"Files",url:"files.html",children:[

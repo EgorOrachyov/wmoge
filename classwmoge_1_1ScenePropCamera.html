@@ -109,6 +109,12 @@ Collaboration diagram for wmoge::ScenePropCamera:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2c185653f74efe42143b6553e5f3d37a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ScenePropCamera.html#a2c185653f74efe42143b6553e5f3d37a">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1ScenePropCamera.html">ScenePropCamera</a>, <a class="el" href="classwmoge_1_1SceneProperty.html">SceneProperty</a>)</td></tr>
 <tr class="separator:a2c185653f74efe42143b6553e5f3d37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53e8071dbf63bf5363c09cb3347cca13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ScenePropCamera.html#a53e8071dbf63bf5363c09cb3347cca13">collect_arch</a> (<a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;arch, class <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;owner) override</td></tr>
+<tr class="separator:a53e8071dbf63bf5363c09cb3347cca13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a299e4377948b00191280241b668419a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ScenePropCamera.html#a299e4377948b00191280241b668419a8">on_make_entity</a> (<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> entity, class <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;owner) override</td></tr>
+<tr class="separator:a299e4377948b00191280241b668419a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6acf032dcee3f11d6590e1be34116e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ScenePropCamera.html#a6acf032dcee3f11d6590e1be34116e3f">on_delete_entity</a> (<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> entity, class <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;owner) override</td></tr>
+<tr class="separator:a6acf032dcee3f11d6590e1be34116e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f3775342dfe5b39ac41a878ae66408d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ScenePropCamera.html#a1f3775342dfe5b39ac41a878ae66408d">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const override</td></tr>
 <tr class="separator:a1f3775342dfe5b39ac41a878ae66408d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac58703b65984634e169fba522e95a411"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ScenePropCamera.html#ac58703b65984634e169fba522e95a411">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
@@ -174,6 +180,44 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Node property. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a53e8071dbf63bf5363c09cb3347cca13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53e8071dbf63bf5363c09cb3347cca13">&#9670;&nbsp;</a></span>collect_arch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ScenePropCamera::collect_arch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;&#160;</td>
+          <td class="paramname"><em>arch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneProperty.html#a8eb453a023f4cfa5251bdedc9dc05a7d">wmoge::SceneProperty</a>.</p>
+
+</div>
+</div>
 <a id="a1f3775342dfe5b39ac41a878ae66408d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1f3775342dfe5b39ac41a878ae66408d">&#9670;&nbsp;</a></span>copy_to()</h2>
 
@@ -199,6 +243,82 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="classwmoge_1_1Object.html#a4f5046efc308880c57c27ed7ef725138">wmoge::Object</a>.</p>
+
+</div>
+</div>
+<a id="a6acf032dcee3f11d6590e1be34116e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6acf032dcee3f11d6590e1be34116e3f">&#9670;&nbsp;</a></span>on_delete_entity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ScenePropCamera::on_delete_entity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneProperty.html#ac555d23184120065c5123b5a8e2c722b">wmoge::SceneProperty</a>.</p>
+
+</div>
+</div>
+<a id="a299e4377948b00191280241b668419a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a299e4377948b00191280241b668419a8">&#9670;&nbsp;</a></span>on_make_entity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ScenePropCamera::on_make_entity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1SceneNode.html">SceneNode</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1SceneProperty.html#a8d642988b2e4298008e5b18854a98d4c">wmoge::SceneProperty</a>.</p>
 
 </div>
 </div>

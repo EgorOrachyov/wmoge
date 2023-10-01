@@ -86,13 +86,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a747f6dbffa7b2efafe0a18aba2737868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates new entity for later creation.  <a href="classwmoge_1_1EcsWorld.html#a747f6dbffa7b2efafe0a18aba2737868">More...</a><br /></td></tr>
 <tr class="separator:a747f6dbffa7b2efafe0a18aba2737868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c38259846f69a51e9328a95cd62d259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a6c38259846f69a51e9328a95cd62d259">make_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity, const <a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;arch)</td></tr>
-<tr class="memdesc:a6c38259846f69a51e9328a95cd62d259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new entity within work with requested archetype.  <a href="classwmoge_1_1EcsWorld.html#a6c38259846f69a51e9328a95cd62d259">More...</a><br /></td></tr>
+<tr class="memdesc:a6c38259846f69a51e9328a95cd62d259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new entity within world with requested archetype.  <a href="classwmoge_1_1EcsWorld.html#a6c38259846f69a51e9328a95cd62d259">More...</a><br /></td></tr>
 <tr class="separator:a6c38259846f69a51e9328a95cd62d259"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66a1929412dfdace7eca895a5541f4c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a66a1929412dfdace7eca895a5541f4c3">destroy_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity)</td></tr>
 <tr class="memdesc:a66a1929412dfdace7eca895a5541f4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys entity by a handle.  <a href="classwmoge_1_1EcsWorld.html#a66a1929412dfdace7eca895a5541f4c3">More...</a><br /></td></tr>
 <tr class="separator:a66a1929412dfdace7eca895a5541f4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00a48a22fd632cc847df722fc4cdd656"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a00a48a22fd632cc847df722fc4cdd656">is_alive</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity) const</td></tr>
-<tr class="memdesc:a00a48a22fd632cc847df722fc4cdd656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whenever entity with given handle is alive in still the world.  <a href="classwmoge_1_1EcsWorld.html#a00a48a22fd632cc847df722fc4cdd656">More...</a><br /></td></tr>
+<tr class="memdesc:a00a48a22fd632cc847df722fc4cdd656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whenever entity with given handle is still alive in the world.  <a href="classwmoge_1_1EcsWorld.html#a00a48a22fd632cc847df722fc4cdd656">More...</a><br /></td></tr>
 <tr class="separator:a00a48a22fd632cc847df722fc4cdd656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a494f25a395505129b2a7ed0b3c00d471"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a494f25a395505129b2a7ed0b3c00d471">get_arch</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity) const</td></tr>
 <tr class="memdesc:a494f25a395505129b2a7ed0b3c00d471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return archetype of given entity by its handle.  <a href="classwmoge_1_1EcsWorld.html#a494f25a395505129b2a7ed0b3c00d471">More...</a><br /></td></tr>
@@ -118,6 +118,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2e2d50ccca281fd1f363fc45a07eead3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a2e2d50ccca281fd1f363fc45a07eead3">execute_system</a> (const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;system)</td></tr>
 <tr class="memdesc:a2e2d50ccca281fd1f363fc45a07eead3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manual trigger of system execution.  <a href="classwmoge_1_1EcsWorld.html#a2e2d50ccca281fd1f363fc45a07eead3">More...</a><br /></td></tr>
 <tr class="separator:a2e2d50ccca281fd1f363fc45a07eead3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad08cccb59a589810c41e14f8f967e80c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#ad08cccb59a589810c41e14f8f967e80c">each</a> (const <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> &amp;query, const std::function&lt; void(<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>)&gt; &amp;func)</td></tr>
+<tr class="memdesc:ad08cccb59a589810c41e14f8f967e80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exec function for each entity matching query.  <a href="classwmoge_1_1EcsWorld.html#ad08cccb59a589810c41e14f8f967e80c">More...</a><br /></td></tr>
+<tr class="separator:ad08cccb59a589810c41e14f8f967e80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac61564df905284ca2906cb9c53f5599f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#ac61564df905284ca2906cb9c53f5599f">clear</a> ()</td></tr>
 <tr class="memdesc:ac61564df905284ca2906cb9c53f5599f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clear world destroying all entities.  <a href="classwmoge_1_1EcsWorld.html#ac61564df905284ca2906cb9c53f5599f">More...</a><br /></td></tr>
 <tr class="separator:ac61564df905284ca2906cb9c53f5599f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,11 +130,11 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Container which manages created entities and components. </p>
-<p>Typical usage of a system:</p>
+<p>Typical usage of a world:</p>
 <ol type="1">
-<li>Allocate an entity using allocate method, save id</li>
+<li>Allocate an entity using allocate method, save entity id</li>
 <li>Call make to construct an entity</li>
-<li>Process entity in updates</li>
+<li>Process entity in updates, systems, queries</li>
 <li>Call destroy on entity</li>
 </ol>
 <p>If you run in jobs or in systems update, for steps 2) and 4) use queue to schedule commands, which will be executed on <code>sync</code> step. </p>
@@ -209,6 +212,36 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Destroys entity by a handle. </p>
+
+</div>
+</div>
+<a id="ad08cccb59a589810c41e14f8f967e80c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad08cccb59a589810c41e14f8f967e80c">&#9670;&nbsp;</a></span>each()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsWorld::each </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> &amp;&#160;</td>
+          <td class="paramname"><em>query</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::function&lt; void(<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>)&gt; &amp;&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exec function for each entity matching query. </p>
 
 </div>
 </div>
@@ -334,7 +367,7 @@ template&lt;class Component &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Checks whenever entity with given handle is alive in still the world. </p>
+<p>Checks whenever entity with given handle is still alive in the world. </p>
 
 </div>
 </div>
@@ -364,7 +397,7 @@ template&lt;class Component &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Create new entity within work with requested archetype. </p>
+<p>Create new entity within world with requested archetype. </p>
 
 </div>
 </div>

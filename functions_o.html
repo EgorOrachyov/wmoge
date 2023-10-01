@@ -69,8 +69,12 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GfxDescBindValue.html#a10f7682506ae395d5c9a8aae9753f6d1">wmoge::GfxDescBindValue</a>
 , <a class="el" href="structwmoge_1_1GfxDynAllocation.html#a4eb2b5159af87f85e4461489451d7a3f">wmoge::GfxDynAllocation&lt; GfxBufferType, CpuPtrType &gt;</a>
 , <a class="el" href="structwmoge_1_1GfxDynBuffer_1_1Chunk.html#a75d06139107782aa7d62305dc12fdb77">wmoge::GfxDynBuffer::Chunk</a>
+, <a class="el" href="structwmoge_1_1GfxIndexBufferSetup.html#af8704da4c4530dcb303ecb054c232ba6">wmoge::GfxIndexBufferSetup</a>
 , <a class="el" href="structwmoge_1_1GfxVertElement.html#ab37b344fdb0b71c55d7698e578e1b5b1">wmoge::GfxVertElement</a>
 , <a class="el" href="structwmoge_1_1ShaderParameter.html#a91770b927f8a9421f68931def083c6f2">wmoge::ShaderParameter</a>
+</li>
+<li>offsets
+: <a class="el" href="structwmoge_1_1GfxVertBuffersSetup.html#a0fa258d67d6a9cd7fd82bf7717e9e202">wmoge::GfxVertBuffersSetup</a>
 </li>
 <li>on_action()
 : <a class="el" href="classwmoge_1_1LuaScriptInstance.html#a237ea3a76d3a8f2a55bab919ceace253">wmoge::LuaScriptInstance</a>
@@ -86,6 +90,10 @@ $(function() {
 <li>on_debug_draw()
 : <a class="el" href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">wmoge::DebugLayer</a>
 , <a class="el" href="classwmoge_1_1Layer.html#a713d1d9b973a4829fbcb3298a9cd8791">wmoge::Layer</a>
+</li>
+<li>on_delete_entity()
+: <a class="el" href="classwmoge_1_1ScenePropCamera.html#a6acf032dcee3f11d6590e1be34116e3f">wmoge::ScenePropCamera</a>
+, <a class="el" href="classwmoge_1_1SceneProperty.html#ac555d23184120065c5123b5a8e2c722b">wmoge::SceneProperty</a>
 </li>
 <li>on_end_frame()
 : <a class="el" href="classwmoge_1_1Layer.html#a15860a4a86f6c517f66762c7594b2da2">wmoge::Layer</a>
@@ -113,6 +121,10 @@ $(function() {
 <li>on_input_mouse()
 : <a class="el" href="classwmoge_1_1LuaScriptInstance.html#a8a05f4d0f8a848d5b0fbcb212dc2688a">wmoge::LuaScriptInstance</a>
 , <a class="el" href="classwmoge_1_1ScriptInstance.html#ae256fb896031686a3ef1e344ffc26a1f">wmoge::ScriptInstance</a>
+</li>
+<li>on_make_entity()
+: <a class="el" href="classwmoge_1_1ScenePropCamera.html#a299e4377948b00191280241b668419a8">wmoge::ScenePropCamera</a>
+, <a class="el" href="classwmoge_1_1SceneProperty.html#a8d642988b2e4298008e5b18854a98d4c">wmoge::SceneProperty</a>
 </li>
 <li>on_message()
 : <a class="el" href="classwmoge_1_1LogListener.html#ae3a396875f9baa153aea45f41414e47c">wmoge::LogListener</a>
@@ -191,6 +203,7 @@ $(function() {
 </li>
 <li>operator bool()
 : <a class="el" href="classwmoge_1_1Ref.html#a9efb20fbdc75784e04fd76e98fcdd47d">wmoge::Ref&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1ResourceId.html#af85658d40cd265b188c47ce4740d6aa5">wmoge::ResourceId</a>
 , <a class="el" href="classwmoge_1_1Status.html#a2a6e0c389d94421b42e7d7a99a6b4944">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1UUID.html#aa34d042ee4c732c59cdcfe3dbaaedb4f">wmoge::UUID</a>
 , <a class="el" href="classwmoge_1_1Var.html#a0248da582928d0177fedb01b503aa9be">wmoge::Var</a>
@@ -223,7 +236,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Var.html#a3bc7b62ab088a14f19fb5856495451b1">wmoge::Var</a>
 </li>
 <li>operator StringId()
-: <a class="el" href="classwmoge_1_1Var.html#addf3d443a39b40dd14077d254fd32540">wmoge::Var</a>
+: <a class="el" href="classwmoge_1_1ResourceId.html#a46893fa8f9cc51eb2cda1a7413b19395">wmoge::ResourceId</a>
+, <a class="el" href="classwmoge_1_1Var.html#addf3d443a39b40dd14077d254fd32540">wmoge::Var</a>
 </li>
 <li>operator!=()
 : <a class="el" href="structwmoge_1_1EcsEntity.html#a89564c320b2a502ce4fa77edb70aa3c5">wmoge::EcsEntity</a>
@@ -237,6 +251,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1StringId.html#a792b500d5763622736ee564403fece92">wmoge::StringId</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#a1d98bc8218372336c4eee1937a25e65e">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a105a33a0d8efa273a27c1033db9af50e">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1UUID.html#ad25b7261e8b59477f063b18cfc8f3e11">wmoge::UUID</a>
 , <a class="el" href="classwmoge_1_1Var.html#a0c0ac9f8553e2376b388454e39f9a7e3">wmoge::Var</a>
 </li>
 <li>operator()()
@@ -254,6 +269,7 @@ $(function() {
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1StringId_01_4.html#a140c0a78db6f271c8b36939de6339556">std::hash&lt; wmoge::StringId &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1TQuat_3_01T_01_4_01_4.html#abbd941919567c7670be1af2f47f21b55">std::hash&lt; wmoge::TQuat&lt; T &gt; &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1TVecN_3_01T_00_01N_01_4_01_4.html#addcadda0e5d7d2a59266d0411e964bc7">std::hash&lt; wmoge::TVecN&lt; T, N &gt; &gt;</a>
+, <a class="el" href="structstd_1_1hash_3_01wmoge_1_1UUID_01_4.html#a5ef783e625cb5a2b62e63b56ab831763">std::hash&lt; wmoge::UUID &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01wmoge_1_1Var_01_4.html#a324149cd339486548e06093d98b40193">std::hash&lt; wmoge::Var &gt;</a>
 , <a class="el" href="structwmoge_1_1TDetMxN.html#a19b3bd9b6e784139841aa1862ad65dee">wmoge::TDetMxN&lt; T, DM, DN &gt;</a>
 , <a class="el" href="structwmoge_1_1TDetMxN_3_01T_00_011_00_011_01_4.html#ad9f73a137c3b7f38022fb6d21cc07346">wmoge::TDetMxN&lt; T, 1, 1 &gt;</a>
@@ -316,7 +332,7 @@ $(function() {
 </li>
 <li>operator=()
 : <a class="el" href="classwmoge_1_1Ref.html#a62a8b163eed86a33ebba33a3dc65a228">wmoge::Ref&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1Status.html#a74abce48f750809f19e824182b29525f">wmoge::Status</a>
+, <a class="el" href="classwmoge_1_1Status.html#a41076246da279ac4d886e96c0b2fb1e3">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a5a219631d3af9809f8642824fdf7774c">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#a0d6da9c39be477bc57a1f1656ceeb9a9">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#af7b1c22bd13913d27805e575604c8717">wmoge::TVecN&lt; T, N &gt;</a>
@@ -338,6 +354,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1StringId.html#a1c3b503a9af908180fd427c7f0913cdd">wmoge::StringId</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#ac78dec0b7b4f4ee335fdea999d050f50">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a5fdbd92679ad28e9b1a266ba86e0ecda">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1UUID.html#af1445af1d7a94ab8ef58d592de852e38">wmoge::UUID</a>
 , <a class="el" href="classwmoge_1_1Var.html#ae9c827e50e0b87d5cd9a883df7ffc6ab">wmoge::Var</a>
 </li>
 <li>operator&gt;()
