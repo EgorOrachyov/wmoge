@@ -125,8 +125,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae564d718740e83370e404f0e44fadb3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa699566e398f5e49feb4753f0b8ea861"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#aa699566e398f5e49feb4753f0b8ea861">get_domain</a> () const</td></tr>
 <tr class="separator:aa699566e398f5e49feb4753f0b8ea861"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeddd772cc9e1e0a42defd96879eb7785"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#aeddd772cc9e1e0a42defd96879eb7785">get_render_queue</a> () const</td></tr>
-<tr class="separator:aeddd772cc9e1e0a42defd96879eb7785"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a344c07326507aaf94b4b243ad13ff9c8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a>&lt; <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a344c07326507aaf94b4b243ad13ff9c8">get_keywords</a> () const</td></tr>
 <tr class="separator:a344c07326507aaf94b4b243ad13ff9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5f2298c31deecf7fd18d588e3c197fc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map</a>&lt; <a class="el" href="classwmoge_1_1StringId.html">StringId</a>, <a class="el" href="structwmoge_1_1ShaderParameter.html">ShaderParameter</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#ac5f2298c31deecf7fd18d588e3c197fc">get_parameters</a> () const</td></tr>
@@ -141,6 +139,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7ee69ca70f711fed1931f4a8523d529b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11038a86ce679f5c12cb54e16268bcf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#ad11038a86ce679f5c12cb54e16268bcf">get_textures_count</a> () const</td></tr>
 <tr class="separator:ad11038a86ce679f5c12cb54e16268bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa22c0c08f06b50c029c7a7ea813c9822"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#aa22c0c08f06b50c029c7a7ea813c9822">get_start_textures_slot</a> () const</td></tr>
+<tr class="separator:aa22c0c08f06b50c029c7a7ea813c9822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b1878814233a91468bb57e43ea48ab"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a50b1878814233a91468bb57e43ea48ab">get_start_buffers_slot</a> () const</td></tr>
+<tr class="separator:a50b1878814233a91468bb57e43ea48ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f9637eaa223116e4955fec7ad918c3b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a4f9637eaa223116e4955fec7ad918c3b">get_include_textures</a> () const</td></tr>
 <tr class="separator:a4f9637eaa223116e4955fec7ad918c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd134e7dc4994d1be34506dfa5af3361"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#afd134e7dc4994d1be34506dfa5af3361">get_include_parameters</a> () const</td></tr>
@@ -529,14 +531,31 @@ Variants creation is optimized by usage of the shader cache. If an item was comp
 
 </div>
 </div>
-<a id="aeddd772cc9e1e0a42defd96879eb7785"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeddd772cc9e1e0a42defd96879eb7785">&#9670;&nbsp;</a></span>get_render_queue()</h2>
+<a id="a50b1878814233a91468bb57e43ea48ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b1878814233a91468bb57e43ea48ab">&#9670;&nbsp;</a></span>get_start_buffers_slot()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::Shader::get_render_queue </td>
+          <td class="memname">int wmoge::Shader::get_start_buffers_slot </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa22c0c08f06b50c029c7a7ea813c9822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22c0c08f06b50c029c7a7ea813c9822">&#9670;&nbsp;</a></span>get_start_textures_slot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wmoge::Shader::get_start_textures_slot </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

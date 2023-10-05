@@ -64,6 +64,9 @@ $(function() {
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>m_active
+: <a class="el" href="classwmoge_1_1Camera.html#ab15c446563ba652bc6c39e0ab997f146">wmoge::Camera</a>
+</li>
 <li>m_alignment
 : <a class="el" href="classwmoge_1_1GfxDynBuffer.html#ab141cdcc2e8ca91f95827d6b5a744d8e">wmoge::GfxDynBuffer</a>
 </li>
@@ -233,6 +236,9 @@ $(function() {
 <li>m_length
 : <a class="el" href="classwmoge_1_1AudioStream.html#a1451a577c099edfffd680f67b59ff9ca">wmoge::AudioStream</a>
 </li>
+<li>m_lods
+: <a class="el" href="classwmoge_1_1RenderMesh.html#a9b4d065fcbc21fc46ce87b7446816c3e">wmoge::RenderMesh</a>
+</li>
 <li>m_mame
 : <a class="el" href="classwmoge_1_1InputDevice.html#ae178b5211672b719fe4b6128838a61fc">wmoge::InputDevice</a>
 </li>
@@ -241,6 +247,9 @@ $(function() {
 </li>
 <li>m_mask
 : <a class="el" href="classwmoge_1_1Script.html#a5b567ed22ad337ba221e768927260c91">wmoge::Script</a>
+</li>
+<li>m_material_slots
+: <a class="el" href="classwmoge_1_1RenderMesh.html#a8526d6e3362e01610cee4dbf09b3766c">wmoge::RenderMesh</a>
 </li>
 <li>m_mem
 : <a class="el" href="classwmoge_1_1Var.html#ae9ee3107d9d68f92b6ac2e8ab24f46fb">wmoge::Var</a>
@@ -336,7 +345,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Texture.html#a361e6d4481455541b708eeba5e5701a1">wmoge::Texture</a>
 </li>
 <li>m_type
-: <a class="el" href="classwmoge_1_1EventScript.html#a01630c7c209aad56bc14f5cd3767a849">wmoge::EventScript</a>
+: <a class="el" href="classwmoge_1_1Camera.html#a41d9d74bd361d0684772b90dde017d23">wmoge::Camera</a>
+, <a class="el" href="classwmoge_1_1EventScript.html#a01630c7c209aad56bc14f5cd3767a849">wmoge::EventScript</a>
 </li>
 <li>m_up
 : <a class="el" href="classwmoge_1_1Camera.html#ab71a35a1ca272bbbf11f5b2875d96088">wmoge::Camera</a>
@@ -377,7 +387,8 @@ $(function() {
 <li>make_active()
 : <a class="el" href="classwmoge_1_1ALAudioBus.html#a025d0eaa7e87fbed5fc14924eee3d49c">wmoge::ALAudioBus</a>
 , <a class="el" href="classwmoge_1_1AudioBus.html#a96b6cdf61eff4a49c738e95933227654">wmoge::AudioBus</a>
-, <a class="el" href="classwmoge_1_1CameraManager.html#a1ec24388af097dd9d7baa6bca0887d89">wmoge::CameraManager</a>
+, <a class="el" href="classwmoge_1_1Camera.html#a34eff7b9ba54ac81208b72fd65737292">wmoge::Camera</a>
+, <a class="el" href="classwmoge_1_1SceneManager.html#a0459220f378bdea9c1f3c96c8e7e9327">wmoge::SceneManager</a>
 </li>
 <li>make_buffer()
 : <a class="el" href="classwmoge_1_1GfxDynBuffer.html#a8dac66c4eeb8917e075dc868372e331f">wmoge::GfxDynBuffer</a>
@@ -552,6 +563,9 @@ $(function() {
 <li>mat_view_proj
 : <a class="el" href="structwmoge_1_1AuxDrawPrimitive_1_1FillParams.html#a6c7a3577ed6d3e1b2e619a8c1f681a7a">wmoge::AuxDrawPrimitive::FillParams</a>
 </li>
+<li>materials
+: <a class="el" href="structwmoge_1_1MeshMaterialSlots.html#acbc080d2b1f3a193913834879d36d0c7">wmoge::MeshMaterialSlots</a>
+</li>
 <li>matrix
 : <a class="el" href="structwmoge_1_1EcsComponentLocalToParent.html#ab1fe4975b19446ad799cf9552e90aa5c">wmoge::EcsComponentLocalToParent</a>
 , <a class="el" href="structwmoge_1_1EcsComponentLocalToWorld.html#aa01ea86dd8f6a0e883840e1f8920c53a">wmoge::EcsComponentLocalToWorld</a>
@@ -574,6 +588,9 @@ $(function() {
 </li>
 <li>MAX_BUTTONS
 : <a class="el" href="classwmoge_1_1Mouse.html#a3b5777d69e7bda2737418734c299d426">wmoge::Mouse</a>
+</li>
+<li>MAX_CAMERAS
+: <a class="el" href="classwmoge_1_1RenderCameras.html#afdd14b95ce43008b0a3764dd368f3341">wmoge::RenderCameras</a>
 </li>
 <li>max_color_attachments
 : <a class="el" href="structwmoge_1_1GfxDeviceCaps.html#ac9ed06c50c38f9a2837a7e2a99f2d5a8">wmoge::GfxDeviceCaps</a>
@@ -677,6 +694,9 @@ $(function() {
 </li>
 <li>mesh
 : <a class="el" href="structwmoge_1_1MeshBuilder.html#a716dfd790bababd4df35800dd203547c">wmoge::MeshBuilder</a>
+</li>
+<li>meshes_skinned
+: <a class="el" href="structwmoge_1_1SceneData.html#a67c3efbf85200eba02d86f0a3da969a8">wmoge::SceneData</a>
 </li>
 <li>meshes_static
 : <a class="el" href="structwmoge_1_1SceneData.html#ac824b1697786e0e4ec0a7d6f1dcb4c39">wmoge::SceneData</a>

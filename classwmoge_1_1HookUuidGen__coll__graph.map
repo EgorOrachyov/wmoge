@@ -1,0 +1,4 @@
+<map id="wmoge::HookUuidGen" name="wmoge::HookUuidGen">
+<area shape="rect" id="node1" title="Engine hook to generate uuids." alt="" coords="5,80,157,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Hook.html" title="Interface for an engine hook to perform some actions on lower engine levels." alt="" coords="31,5,132,32"/>
+</map>

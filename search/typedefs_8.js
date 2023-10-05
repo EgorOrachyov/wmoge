@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['map_6237',['Map',['../namespacewmoge.html#a168af4fb2d723037d5789203c93ba31b',1,'wmoge']]],
-  ['mat_6238',['Mat',['../classwmoge_1_1TQuat.html#ab7b4874c42fed76ad1718c285b9f1e33',1,'wmoge::TQuat']]],
-  ['mat2x2f_6239',['Mat2x2f',['../namespacewmoge.html#a92b25a8c9505f03b97d300e3b2a5afef',1,'wmoge']]],
-  ['mat2x4f_6240',['Mat2x4f',['../namespacewmoge.html#ad562c040792a00c55384680049db8766',1,'wmoge']]],
-  ['mat3x3f_6241',['Mat3x3f',['../namespacewmoge.html#a4b09e8859cd0a654c39347f4b8f80c95',1,'wmoge']]],
-  ['mat3x4f_6242',['Mat3x4f',['../namespacewmoge.html#a95d4c39b1d29e95545a372171e6914a1',1,'wmoge']]],
-  ['mat4x4f_6243',['Mat4x4f',['../namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f',1,'wmoge']]]
+  ['layer_6402',['Layer',['../classwmoge_1_1SceneTransformManager.html#aa3b68f04f021414d302464b6c31cc1fc',1,'wmoge::SceneTransformManager']]],
+  ['layerptr_6403',['LayerPtr',['../classwmoge_1_1LayerStack.html#a6783e810fa86a5e734dc1e30ac0181cc',1,'wmoge::LayerStack']]],
+  ['layerstorage_6404',['LayerStorage',['../classwmoge_1_1LayerStack.html#a5206f4402280f0e42d846c0a49f5debb',1,'wmoge::LayerStack']]],
+  ['list_5ftype_6405',['list_type',['../classwmoge_1_1TypedMap.html#a23cf57dd3b946d4639e8129a83a90c1f',1,'wmoge::TypedMap']]],
+  ['luaconvcpptolua_6406',['LuaConvCppToLua',['../namespacewmoge.html#a51c754a670de04df984275752aea47cb',1,'wmoge']]]
 ];

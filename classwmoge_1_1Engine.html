@@ -82,14 +82,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a56f46c74ddd8c19d674da6dc28cc476f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#a56f46c74ddd8c19d674da6dc28cc476f">push_layer</a> (class <a class="el" href="classwmoge_1_1Layer.html">Layer</a> *layer)</td></tr>
-<tr class="separator:a56f46c74ddd8c19d674da6dc28cc476f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23297a413a9c9673018b335b36677b27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#a23297a413a9c9673018b335b36677b27">request_close</a> ()</td></tr>
 <tr class="separator:a23297a413a9c9673018b335b36677b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca6d3c9d2008f543140e65a3484f0dd2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#aca6d3c9d2008f543140e65a3484f0dd2">close_requested</a> () const</td></tr>
 <tr class="separator:aca6d3c9d2008f543140e65a3484f0dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79a10de6d2e8517ff6dcc86a9dd546bd"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1Application.html">Application</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#a79a10de6d2e8517ff6dcc86a9dd546bd">application</a> ()</td></tr>
 <tr class="separator:a79a10de6d2e8517ff6dcc86a9dd546bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a518fad2894b5658845ed288623948732"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1LayerStack.html">LayerStack</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#a518fad2894b5658845ed288623948732">layer_stack</a> ()</td></tr>
+<tr class="separator:a518fad2894b5658845ed288623948732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9da8d4745af7ce328f92b374bebbf0c1"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1HookList.html">HookList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#a9da8d4745af7ce328f92b374bebbf0c1">hook_list</a> ()</td></tr>
+<tr class="separator:a9da8d4745af7ce328f92b374bebbf0c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adac9861518befa137ff0bd573958e6b6"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1CmdLine.html">CmdLine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#adac9861518befa137ff0bd573958e6b6">cmd_line</a> ()</td></tr>
 <tr class="separator:adac9861518befa137ff0bd573958e6b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52a8490f425c23a416bbc2f7ba6c7a51"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1ConfigFile.html">ConfigFile</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Engine.html#a52a8490f425c23a416bbc2f7ba6c7a51">config</a> ()</td></tr>
@@ -570,6 +572,23 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a9da8d4745af7ce328f92b374bebbf0c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9da8d4745af7ce328f92b374bebbf0c1">&#9670;&nbsp;</a></span>hook_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1HookList.html">HookList</a> * wmoge::Engine::hook_list </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aaa7b3fa06c46a13d08b5d1761d07e2e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa7b3fa06c46a13d08b5d1761d07e2e9">&#9670;&nbsp;</a></span>input()</h2>
 
@@ -612,6 +631,23 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a id="a518fad2894b5658845ed288623948732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a518fad2894b5658845ed288623948732">&#9670;&nbsp;</a></span>layer_stack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1LayerStack.html">LayerStack</a> * wmoge::Engine::layer_stack </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a8cf2591b16e586392f49056680e5ad91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8cf2591b16e586392f49056680e5ad91">&#9670;&nbsp;</a></span>main_queue()</h2>
 
@@ -639,24 +675,6 @@ Friends</h2></td></tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Profiler.html">Profiler</a> * wmoge::Engine::profiler </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a56f46c74ddd8c19d674da6dc28cc476f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f46c74ddd8c19d674da6dc28cc476f">&#9670;&nbsp;</a></span>push_layer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::Engine::push_layer </td>
-          <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1Layer.html">Layer</a> *&#160;</td>
-          <td class="paramname"><em>layer</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

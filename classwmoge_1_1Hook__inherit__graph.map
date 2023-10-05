@@ -1,0 +1,7 @@
+<map id="wmoge::Hook" name="wmoge::Hook">
+<area shape="rect" id="node1" title="Interface for an engine hook to perform some actions on lower engine levels." alt="" coords="269,5,370,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1HookConfig.html" title="Engine hook to setup common config workflow." alt="" coords="5,80,143,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1HookLogs.html" title="Engine hook to configure and and init engine logs." alt="" coords="167,80,298,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1HookRootRemap.html" title="Engine hook to remap root game folder to other (for debug moslty)" alt="" coords="323,80,492,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1HookUuidGen.html" title="Engine hook to generate uuids." alt="" coords="517,80,669,107"/>
+</map>
