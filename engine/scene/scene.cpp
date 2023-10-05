@@ -55,7 +55,8 @@ namespace wmoge {
 
     Status yaml_read(const YamlConstNodeRef& node, SceneData& data) {
         WG_YAML_READ_AS(node, "name", data.name);
-        WG_YAML_READ_AS(node, "entities_names", data.entities_names);
+        WG_YAML_READ_AS(node, "names", data.names);
+        WG_YAML_READ_AS(node, "transforms", data.transforms);
         WG_YAML_READ_AS(node, "cameras", data.cameras);
 
         return StatusCode::Ok;
@@ -63,7 +64,8 @@ namespace wmoge {
     Status yaml_write(YamlNodeRef node, const SceneData& data) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "name", data.name);
-        WG_YAML_WRITE_AS(node, "entities_names", data.entities_names);
+        WG_YAML_WRITE_AS(node, "names", data.names);
+        WG_YAML_WRITE_AS(node, "transforms", data.transforms);
         WG_YAML_WRITE_AS(node, "cameras", data.cameras);
 
         return StatusCode::Ok;
@@ -74,6 +76,10 @@ namespace wmoge {
         m_transforms = std::make_unique<SceneTransformManager>();
         m_ecs_world  = std::make_unique<EcsWorld>();
         m_cameras    = std::make_unique<CameraManager>();
+    }
+    void Scene::advance(float delta_time) {
+        m_delta_time = delta_time * m_time_factor;
+        m_time += m_delta_time;
     }
     void Scene::clear() {
         m_ecs_world->clear();

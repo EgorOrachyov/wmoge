@@ -25,50 +25,51 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_MANAGER_HPP
-#define WMOGE_SCENE_MANAGER_HPP
+#ifndef WMOGE_HOOK_CONFIG_HPP
+#define WMOGE_HOOK_CONFIG_HPP
 
-#include "scene/scene.hpp"
-
-#include <deque>
-#include <mutex>
-#include <optional>
-#include <stack>
-#include <vector>
+#include "core/cmd_line.hpp"
+#include "core/engine.hpp"
+#include "core/hook.hpp"
+#include "debug/profiler.hpp"
+#include "resource/config_file.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class SceneManager
-     * @brief Manager for game loaded and active scenes
+    /** 
+     * @class HookConfig
+     * @brief Engine hook to setup common config workflow
      */
-    class SceneManager final {
+    class HookConfig : public Hook {
     public:
-        SceneManager();
+        ~HookConfig() override = default;
 
-        void                      clear();
-        void                      update();
-        void                      make_active(Ref<Scene> scene);
-        Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const StringId& name);
-        std::optional<Ref<Scene>> find_by_name(const StringId& name);
+        std::string get_name() const override {
+            return "config";
+        }
 
-    private:
-        void scene_render();
-        void scene_pfx();
-        void scene_scripting();
-        void scene_physics();
-        void scene_audio();
+        void on_add_cmd_line_options(CmdLine& cmd_line) override {
+            cmd_line.add_string("config_engine", "path to engine config", "root://config/engine.cfg");
+            cmd_line.add_string("config_game", "path to game config", "root://config/game.cfg");
+        }
 
-    private:
-        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
-        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-        Ref<Scene>              m_running; // active scene
-        Ref<Scene>              m_default; // default scene to always show something
+        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
+            ConfigFile* config   = engine.config();
+            Profiler*   profiler = engine.profiler();
 
-        std::mutex m_mutex;
+            if (!config->load_and_stack(cmd_line.get_string("config_engine"))) {
+                std::cerr << "failed to load config engine file, check your configure";
+            }
+            if (!config->load_and_stack(cmd_line.get_string("config_game"))) {
+                std::cerr << "failed to load config game file, check your configure";
+            }
+
+            profiler->set_enabled(config->get_bool(SID("debug.profiler"), false));
+
+            return StatusCode::Ok;
+        }
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_MANAGER_HPP
+#endif//WMOGE_HOOK_CONFIG_HPP

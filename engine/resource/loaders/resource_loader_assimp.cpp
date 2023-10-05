@@ -31,8 +31,8 @@
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "math/math_utils3d.hpp"
+#include "mesh/mesh_builder.hpp"
 #include "platform/file_system.hpp"
-#include "render/mesh_builder.hpp"
 #include "resource/mesh.hpp"
 
 #include <assimp/Importer.hpp>

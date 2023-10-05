@@ -28,19 +28,43 @@
 #ifndef WMOGE_RENDER_OBJECT_HPP
 #define WMOGE_RENDER_OBJECT_HPP
 
+#include "core/mask.hpp"
+#include "core/string_id.hpp"
 #include "render/render_camera.hpp"
+#include "resource/material.hpp"
+
+#include <optional>
+#include <vector>
 
 namespace wmoge {
 
+    /** 
+     * @brief Flags which can be set on object to control its rendering 
+     */
+    enum class RenderObjectFlag {
+        Hidden = 0,
+        Wireframe,
+        CastNoShadows,
+        RecieveNoShadows
+    };
+
     /**
-     * @class RednerObject 
+     * @class RenderObject 
      * @brief Base class for any scene object which can be rendered
      */
-    class RednerObject {
+    class RenderObject {
     public:
-        virtual void render() = 0;
+        virtual ~RenderObject() = default;
+
+        virtual void                         render(const RenderCameras& cameras, class RenderEngine& engine) = 0;
+        virtual bool                         has_materials() const                                            = 0;
+        virtual std::optional<Ref<Material>> get_material() const                                             = 0;
+        virtual std::vector<Ref<Material>>   get_materials() const                                            = 0;
 
     private:
+        StringId               m_name;
+        int                    m_id = -1;
+        Mask<RenderObjectFlag> m_flags;
     };
 
 }// namespace wmoge

@@ -44,6 +44,7 @@
 #include "core/fast_map.hpp"
 #include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
+#include "core/hook.hpp"
 #include "core/layer.hpp"
 #include "core/log.hpp"
 #include "core/mask.hpp"
@@ -128,6 +129,8 @@
 #include "memory/mem_linear.hpp"
 #include "memory/mem_pool.hpp"
 
+#include "mesh/mesh_builder.hpp"
+
 #include "pfx/pfx_component.hpp"
 #include "pfx/pfx_emitter.hpp"
 #include "pfx/pfx_feature.hpp"
@@ -142,13 +145,16 @@
 
 #include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
-#include "render/mesh_builder.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
+#include "render/render_mesh.hpp"
+#include "render/render_mesh_skinned.hpp"
+#include "render/render_mesh_static.hpp"
 #include "render/render_object.hpp"
 #include "render/render_queue.hpp"
 #include "render/shader_manager.hpp"
 #include "render/shader_pass.hpp"
+#include "render/shader_properties.hpp"
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
 

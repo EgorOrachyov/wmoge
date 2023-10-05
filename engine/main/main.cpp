@@ -32,6 +32,8 @@
 #include "core/class.hpp"
 #include "core/cmd_line.hpp"
 #include "core/engine.hpp"
+#include "core/hook.hpp"
+#include "core/layer.hpp"
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
 #include "debug/console.hpp"
@@ -67,6 +69,12 @@ namespace wmoge {
 
         engine->m_application = application;
 
+        m_layer_stack         = std::make_unique<LayerStack>();
+        engine->m_layer_stack = m_layer_stack.get();
+
+        m_hook_list         = std::make_unique<HookList>();
+        engine->m_hook_list = m_hook_list.get();
+
         m_cmd_line         = std::make_unique<CmdLine>();
         engine->m_cmd_line = m_cmd_line.get();
 
@@ -87,38 +95,6 @@ namespace wmoge {
 
     Main::~Main() = default;
 
-    bool Main::prepare() {
-        WG_AUTO_PROFILE_PLATFORM("Main::load_config");
-
-        const bool log_to_out     = m_config->get_bool(SID("engine.log_to_out"), true);
-        const bool log_to_file    = m_config->get_bool(SID("engine.log_to_file"), true);
-        const bool log_to_console = m_config->get_bool(SID("engine.log_to_console"), true);
-
-        const auto log_to_out_level     = Enum::parse<LogLevel>(m_config->get_string(SID("engine.log_to_out_level"), "Info"));
-        const auto log_to_file_level    = Enum::parse<LogLevel>(m_config->get_string(SID("engine.log_to_file_level"), "Info"));
-        const auto log_to_console_level = Enum::parse<LogLevel>(m_config->get_string(SID("engine.log_to_console_level"), "Info"));
-
-        if (log_to_file) {
-            m_log_listener_stream = std::make_shared<LogListenerStream>("file", log_to_file_level);
-            Log::instance()->listen(m_log_listener_stream);
-            WG_LOG_INFO("attach file log listener");
-        }
-        if (log_to_out) {
-            m_log_listener_stdout = std::make_shared<LogListenerStdout>("out", log_to_out_level);
-            Log::instance()->listen(m_log_listener_stdout);
-            WG_LOG_INFO("attach stdout log listener");
-        }
-        if (log_to_console) {
-            m_log_listener_console = std::make_shared<LogListenerConsole>(m_console.get(), log_to_console_level);
-            Log::instance()->listen(m_log_listener_console);
-            WG_LOG_INFO("attach console log listener");
-        }
-
-        m_profiler->set_enabled(m_config->get_bool(SID("debug.profiler"), false));
-
-        return true;
-    }
-
     bool Main::initialize() {
         WG_AUTO_PROFILE_PLATFORM("Main::initialize");
 
@@ -130,14 +106,15 @@ namespace wmoge {
 
         m_event_manager         = std::make_unique<EventManager>();
         engine->m_event_manager = m_event_manager.get();
+        WG_LOG_INFO("init event manager");
 
         m_task_manager         = std::make_unique<TaskManager>(config->get_int(SID("task_manager.workers"), 4));
         engine->m_task_manager = m_task_manager.get();
+        WG_LOG_INFO("init task manager");
 
         m_main_queue         = std::make_unique<CallbackQueue>();
         engine->m_main_queue = m_main_queue.get();
-
-        WG_LOG_INFO("init low level systems");
+        WG_LOG_INFO("init main queue");
 
         engine->application()->on_register();
 
@@ -208,8 +185,8 @@ namespace wmoge {
         m_console->init();
         WG_LOG_INFO("init high level systems");
 
-        m_dbg_layer = std::make_unique<DebugLayer>();
-        engine->push_layer(m_dbg_layer.get());
+        m_dbg_layer = std::make_shared<DebugLayer>();
+        m_layer_stack->attach(m_dbg_layer);
         WG_LOG_INFO("init debug layer");
 
         engine->application()->on_init();
@@ -237,7 +214,6 @@ namespace wmoge {
 
         auto* engine     = Engine::instance();
         auto* gfx_driver = engine->gfx_driver();
-        auto& layers     = engine->m_layers;
 
         auto new_point = clock::now();
         auto t         = float(double(std::chrono::duration_cast<ns>(new_point - m_runtime_time).count()) * 1e-9);
@@ -249,53 +225,30 @@ namespace wmoge {
         engine->m_current_delta      = dt;
         engine->m_current_delta_game = Math::min(dt, 1.0f / 20.0f);
 
-        // Frame start
-        for (auto it = layers.begin(); it != layers.end(); ++it)
-            (*it)->on_start_frame();
+        m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {
+            layer->on_start_frame();
+        });
 
-        // Begin new GPU frame only here, since it has costly command buffer
-        // allocation, acquiring new window image for presentation, etc.
         gfx_driver->begin_frame();
         gfx_driver->prepare_window(m_glfw_window_manager->primary_window());
 
-        // Flush commands to be executed on main
+        m_glfw_window_manager->poll_events();
         m_main_queue->flush();
-
-        // Flush pending events from last frame
         m_event_manager->flush();
-
-        // Dispatch action manager events
         m_action_manager->update();
+        m_scene_manager->update();
 
-        // Process scene
-        // todo
+        m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {
+            layer->on_debug_draw();
+        });
 
-        // After flush and before swap we have a lot of time, which will be used
-        // for main to sleep. It can be used to do some useful work, such as GC
-        m_lua_script_system->update();
-
-        // Debug draw, can be used for debug UI, console, stats, overlay, etc.
-        for (auto it = layers.begin(); it != layers.end(); ++it)
-            (*it)->on_debug_draw();
-
-        // Render debug canvas
-        m_canvas_2d_debug->render();
-
-        engine->application()->on_update();
-
-        // Finish frame, submitting commands
-        // after this point no rendering on GPU is allowed
         gfx_driver->end_frame();
 
-        // Frame end
-        for (auto it = layers.rbegin(); it != layers.rend(); ++it)
-            (*it)->on_end_frame();
+        m_layer_stack->each_down([](LayerStack::LayerPtr& layer) {
+            layer->on_end_frame();
+        });
 
-        // Wait for vsync and swap buffers, so main sleep the rest of the frame
         gfx_driver->swap_buffers(m_glfw_window_manager->primary_window());
-
-        // Obtain new events from the operating system
-        m_glfw_window_manager->poll_events();
 
         return true;
     }
@@ -306,6 +259,7 @@ namespace wmoge {
 
         engine->application()->on_shutdown();
 
+        m_layer_stack->clear();
         m_resource_manager->clear();
         m_task_manager->shutdown();
         m_main_queue->flush();
@@ -329,6 +283,7 @@ namespace wmoge {
         m_task_manager.reset();
         m_event_manager.reset();
         m_resource_manager.reset();
+        m_hook_list.reset();
 
         WG_LOG_INFO("shutdown engine systems");
 

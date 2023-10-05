@@ -33,6 +33,9 @@ add_library(wmoge STATIC
         core/fast_map.hpp
         core/fast_set.hpp
         core/fast_vector.hpp
+        core/hook.cpp
+        core/hook.hpp
+        core/layer.cpp
         core/layer.hpp
         core/log.cpp
         core/log.hpp
@@ -172,6 +175,10 @@ add_library(wmoge STATIC
         hgfx/hgfx_pass_base.hpp
         hgfx/hgfx_pass_text.cpp
         hgfx/hgfx_pass_text.hpp
+        hooks/hook_config.hpp
+        hooks/hook_logs.hpp
+        hooks/hook_root_remap.hpp
+        hooks/hook_uuid_gen.hpp
         io/archive.cpp
         io/archive.hpp
         io/archive_file.cpp
@@ -203,6 +210,8 @@ add_library(wmoge STATIC
         memory/mem_linear.hpp
         memory/mem_pool.cpp
         memory/mem_pool.hpp
+        mesh/mesh_builder.cpp
+        mesh/mesh_builder.hpp
         pfx/pfx_component.cpp
         pfx/pfx_component.hpp
         pfx/pfx_component_runtime.cpp
@@ -239,12 +248,16 @@ add_library(wmoge STATIC
         render/aux_draw_manager.hpp
         render/aux_draw_canvas.cpp
         render/aux_draw_canvas.hpp
-        render/mesh_builder.cpp
-        render/mesh_builder.hpp
         render/render_camera.cpp
         render/render_camera.hpp
         render/render_engine.cpp
         render/render_engine.hpp
+        render/render_mesh_skinned.cpp
+        render/render_mesh_skinned.hpp
+        render/render_mesh_static.cpp
+        render/render_mesh_static.hpp
+        render/render_mesh.cpp
+        render/render_mesh.hpp
         render/render_object.cpp
         render/render_object.hpp
         render/render_queue.cpp
@@ -255,6 +268,8 @@ add_library(wmoge STATIC
         render/shader_manager.hpp
         render/shader_pass.cpp
         render/shader_pass.hpp
+        render/shader_properties.cpp
+        render/shader_properties.hpp
         render/texture_compression.cpp
         render/texture_compression.hpp
         render/texture_manager.cpp

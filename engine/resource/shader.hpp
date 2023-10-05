@@ -42,10 +42,6 @@
 
 namespace wmoge {
 
-    enum class ShaderQueue {
-
-    };
-
     /**
      * @class ShaderParameter
      * @brief Shader parameter info
@@ -103,7 +99,6 @@ namespace wmoge {
         std::string                  fragment;
         std::string                  compute;
         StringId                     domain;
-        int                          render_queue = 0;
         ShaderPipelineState          state{};
 
         friend Status yaml_read(const YamlConstNodeRef& node, ShaderFile& file);
@@ -150,7 +145,6 @@ namespace wmoge {
         [[nodiscard]] const std::string&                         get_fragment() const;
         [[nodiscard]] const std::string&                         get_compute() const;
         [[nodiscard]] const StringId&                            get_domain() const;
-        [[nodiscard]] int                                        get_render_queue() const;
         [[nodiscard]] const fast_set<StringId>&                  get_keywords() const;
         [[nodiscard]] const fast_map<StringId, ShaderParameter>& get_parameters() const;
         [[nodiscard]] const fast_map<StringId, ShaderTexture>&   get_textures() const;
@@ -158,6 +152,8 @@ namespace wmoge {
         [[nodiscard]] int                                        get_parameters_size() const;
         [[nodiscard]] int                                        get_parameters_count() const;
         [[nodiscard]] int                                        get_textures_count() const;
+        [[nodiscard]] int                                        get_start_textures_slot() const;
+        [[nodiscard]] int                                        get_start_buffers_slot() const;
         [[nodiscard]] const std::string&                         get_include_textures() const;
         [[nodiscard]] const std::string&                         get_include_parameters() const;
 
@@ -166,7 +162,7 @@ namespace wmoge {
         Status generate_textures_layout();
 
     private:
-        // Compiled and cached variants of the shader
+        // Compiled and cached variants of the shader (subject to be removed)
         // This is stored here also to reduce look-ups count into global manager when doing material rendering
         fast_map<StringId, Ref<GfxShader>> m_variants;
 
@@ -175,7 +171,6 @@ namespace wmoge {
         fast_set<StringId>                  m_keywords;
         ShaderPipelineState                 m_pipeline_state{};
         StringId                            m_domain;
-        int                                 m_render_queue = 0;
 
         std::string m_vertex;
         std::string m_fragment;

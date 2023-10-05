@@ -48,7 +48,6 @@ namespace wmoge {
         explicit Main(class Application* application);
         ~Main();
 
-        bool prepare();
         bool initialize();
         bool iteration();
         bool shutdown();
@@ -62,31 +61,30 @@ namespace wmoge {
         time_point  m_time_point{};
         time_point  m_runtime_time{};
 
-        std::shared_ptr<class LogListenerStream>  m_log_listener_stream;
-        std::shared_ptr<class LogListenerStdout>  m_log_listener_stdout;
-        std::shared_ptr<class LogListenerConsole> m_log_listener_console;
-        std::unique_ptr<class CmdLine>            m_cmd_line;
-        std::unique_ptr<class ConfigFile>         m_config;
-        std::unique_ptr<class CallbackQueue>      m_main_queue;
-        std::unique_ptr<class FileSystem>         m_file_system;
-        std::unique_ptr<class TaskManager>        m_task_manager;
-        std::unique_ptr<class EventManager>       m_event_manager;
-        std::unique_ptr<class ResourceManager>    m_resource_manager;
-        std::unique_ptr<class AuxDrawManager>     m_aux_draw_manager;
-        std::unique_ptr<class SceneManager>       m_scene_manager;
-        std::unique_ptr<class ActionManager>      m_action_manager;
-        std::unique_ptr<class GameTokenManager>   m_game_token_manager;
-        std::unique_ptr<class Profiler>           m_profiler;
-        std::unique_ptr<class Console>            m_console;
-        std::unique_ptr<class AuxDrawCanvas>      m_canvas_2d_debug;
-        std::unique_ptr<class ShaderManager>      m_shader_manager;
-        std::unique_ptr<class RenderEngine>       m_render_engine;
-        std::unique_ptr<class EcsRegistry>        m_ecs_registry;
-        std::unique_ptr<class GlfwWindowManager>  m_glfw_window_manager;
-        std::unique_ptr<class VKDriver>           m_vk_driver;
-        std::unique_ptr<class ALAudioEngine>      m_al_engine;
-        std::unique_ptr<class DebugLayer>         m_dbg_layer;
-        std::unique_ptr<class LuaScriptSystem>    m_lua_script_system;
+        std::shared_ptr<class DebugLayer>        m_dbg_layer;
+        std::unique_ptr<class LayerStack>        m_layer_stack;
+        std::unique_ptr<class HookList>          m_hook_list;
+        std::unique_ptr<class CmdLine>           m_cmd_line;
+        std::unique_ptr<class ConfigFile>        m_config;
+        std::unique_ptr<class CallbackQueue>     m_main_queue;
+        std::unique_ptr<class FileSystem>        m_file_system;
+        std::unique_ptr<class TaskManager>       m_task_manager;
+        std::unique_ptr<class EventManager>      m_event_manager;
+        std::unique_ptr<class ResourceManager>   m_resource_manager;
+        std::unique_ptr<class AuxDrawManager>    m_aux_draw_manager;
+        std::unique_ptr<class SceneManager>      m_scene_manager;
+        std::unique_ptr<class ActionManager>     m_action_manager;
+        std::unique_ptr<class GameTokenManager>  m_game_token_manager;
+        std::unique_ptr<class Profiler>          m_profiler;
+        std::unique_ptr<class Console>           m_console;
+        std::unique_ptr<class AuxDrawCanvas>     m_canvas_2d_debug;
+        std::unique_ptr<class ShaderManager>     m_shader_manager;
+        std::unique_ptr<class RenderEngine>      m_render_engine;
+        std::unique_ptr<class EcsRegistry>       m_ecs_registry;
+        std::unique_ptr<class GlfwWindowManager> m_glfw_window_manager;
+        std::unique_ptr<class VKDriver>          m_vk_driver;
+        std::unique_ptr<class ALAudioEngine>     m_al_engine;
+        std::unique_ptr<class LuaScriptSystem>   m_lua_script_system;
     };
 
 }// namespace wmoge

@@ -29,6 +29,7 @@
 #define WMOGE_RENDER_CAMERA_HPP
 
 #include "core/array_view.hpp"
+#include "core/fast_vector.hpp"
 #include "math/aabb.hpp"
 #include "math/frustum.hpp"
 #include "math/mat.hpp"
@@ -46,6 +47,17 @@ namespace wmoge {
     enum class CameraProjection {
         Perspective = 0,
         Orthographic
+    };
+
+    /**
+     * @brief Type of camera, how and what to render
+     */
+    enum class CameraType {
+        Color  = 0,
+        Shadow = 1,
+        Image  = 2,
+        Debug  = 3,
+        Editor = 4
     };
 
     /**
@@ -80,6 +92,7 @@ namespace wmoge {
         Vec3f up        = Vec3f::axis_y();
 
         CameraProjection projection = CameraProjection::Perspective;
+        CameraType       type       = CameraType::Color;
     };
 
     /**
@@ -88,6 +101,9 @@ namespace wmoge {
      */
     class RenderCameras final {
     public:
+        /** @brief Max allowed count of cameras to render at single time */
+        static constexpr int MAX_CAMERAS = 64;
+
         int                 add_camera(const RenderCamera& camera);
         const RenderCamera& at(int index);
         void                clear();
@@ -97,7 +113,7 @@ namespace wmoge {
         [[nodiscard]] bool                          is_empty() const { return m_cameras.empty(); }
 
     private:
-        std::vector<RenderCamera> m_cameras;
+        fast_vector<RenderCamera, MAX_CAMERAS> m_cameras;
     };
 
 }// namespace wmoge

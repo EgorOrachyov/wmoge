@@ -63,28 +63,17 @@ namespace wmoge {
     };
 
     /**
-     * @class SceneDataTransform
-     * @brief
-     */
-    struct SceneDataTransform {
-        TransformEdt transform;
-
-        friend Status yaml_read(const YamlConstNodeRef& node, SceneDataTransform& data);
-        friend Status yaml_write(YamlNodeRef node, const SceneDataTransform& data);
-    };
-
-    /**
      * @class SceneDataMeshStatic
-     * @brief
+     * @brief Serializable struct with static mesh info to attach to object
      */
     struct SceneDataMeshStatic {
     };
 
     /**
-     * @class SceneDataMeshAnimated
-     * @brief
+     * @class SceneDataMeshSkinned
+     * @brief Serializable struct with skinned mesh info to attach to object
      */
-    struct SceneDataMeshAnimated {
+    struct SceneDataMeshSkinned {
     };
 
     /**
@@ -122,10 +111,11 @@ namespace wmoge {
     struct SceneData final {
         StringId                                   name;
         std::vector<EcsArch>                       entities;
-        std::vector<std::string>                   entities_names;
+        std::vector<std::string>                   names;
+        std::vector<TransformEdt>                  transforms;
         SceneEntityVector<SceneDataCamera>         cameras;
-        SceneEntityVector<SceneDataTransform>      transforms;
         SceneEntityVector<SceneDataMeshStatic>     meshes_static;
+        SceneEntityVector<SceneDataMeshSkinned>    meshes_skinned;
         SceneEntityVector<SceneDataAudioSource>    audio_sources;
         SceneEntityVector<SceneDataAudioListener>  autio_listeners;
         SceneEntityVector<SceneDataAudioLuaScript> lua_scripts;
@@ -143,18 +133,29 @@ namespace wmoge {
         Scene(StringId name = StringId());
         ~Scene() override = default;
 
+        void advance(float delta_time);
         void clear();
 
         [[nodiscard]] const StringId&        get_name();
         [[nodiscard]] EcsWorld*              get_ecs_world();
         [[nodiscard]] SceneTransformManager* get_transforms();
         [[nodiscard]] CameraManager*         get_cameras();
+        [[nodiscard]] float                  get_time() const { return m_time; }
+        [[nodiscard]] float                  get_time_factor() const { return m_time_factor; }
+        [[nodiscard]] float                  get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] bool                   need_simulate() const { return m_need_simulate; }
+        [[nodiscard]] bool                   need_render() const { return m_need_render; }
 
     private:
-        StringId                               m_name;
         std::unique_ptr<EcsWorld>              m_ecs_world;
         std::unique_ptr<SceneTransformManager> m_transforms;
         std::unique_ptr<CameraManager>         m_cameras;
+        StringId                               m_name;
+        float                                  m_time          = 0.0f;
+        float                                  m_time_factor   = 1.0f;
+        float                                  m_delta_time    = 0.0f;
+        bool                                   m_need_simulate = true;
+        bool                                   m_need_render   = true;
     };
 
 }// namespace wmoge

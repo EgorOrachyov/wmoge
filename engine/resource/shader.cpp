@@ -104,8 +104,7 @@ namespace wmoge {
         WG_YAML_READ_AS_OPT(node, "vertex", file.vertex);
         WG_YAML_READ_AS_OPT(node, "fragment", file.fragment);
         WG_YAML_READ_AS_OPT(node, "compute", file.compute);
-        WG_YAML_READ_AS(node, "domain", file.domain);
-        WG_YAML_READ_AS_OPT(node, "render_queue", file.render_queue);
+        WG_YAML_READ_AS_OPT(node, "domain", file.domain);
         WG_YAML_READ_AS_OPT(node, "state", file.state);
 
         return StatusCode::Ok;
@@ -119,7 +118,6 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "fragment", file.fragment);
         WG_YAML_WRITE_AS(node, "compute", file.compute);
         WG_YAML_WRITE_AS(node, "domain", file.domain);
-        WG_YAML_WRITE_AS(node, "render_queue", file.render_queue);
         WG_YAML_WRITE_AS(node, "state", file.state);
 
         return StatusCode::Ok;
@@ -132,7 +130,6 @@ namespace wmoge {
         WG_YAML_READ(node, shader_file);
 
         m_domain         = shader_file.domain;
-        m_render_queue   = shader_file.render_queue;
         m_vertex         = shader_file.vertex;
         m_fragment       = shader_file.fragment;
         m_compute        = shader_file.compute;
@@ -166,7 +163,6 @@ namespace wmoge {
         shader->m_parameters         = m_parameters;
         shader->m_textures           = m_textures;
         shader->m_domain             = m_domain;
-        shader->m_render_queue       = m_render_queue;
         shader->m_pipeline_state     = m_pipeline_state;
         shader->m_keywords           = m_keywords;
         return StatusCode::Ok;
@@ -231,9 +227,6 @@ namespace wmoge {
     const StringId& Shader::get_domain() const {
         return m_domain;
     }
-    int Shader::get_render_queue() const {
-        return m_render_queue;
-    }
     const fast_set<StringId>& Shader::get_keywords() const {
         return m_keywords;
     }
@@ -255,6 +248,12 @@ namespace wmoge {
     int Shader::get_textures_count() const {
         return int(m_textures.size());
     }
+    int Shader::get_start_textures_slot() const {
+        return 1;
+    }
+    int Shader::get_start_buffers_slot() const {
+        return 0;
+    }
     const std::string& Shader::get_include_parameters() const {
         return m_include_parameters;
     }
@@ -271,7 +270,7 @@ namespace wmoge {
         int               pad_count  = 0;
         std::stringstream params_declaration;
 
-        params_declaration << "LAYOUT_BUFFER(DRAW_SET_PER_MATERIAL, MAT_BINDING_PARAMS) uniform MaterialParameters {\n";
+        params_declaration << "LAYOUT_BUFFER(DRAW_SET_PER_MATERIAL, 0) uniform MaterialParameters {\n";
         for (auto& entry : m_parameters) {
             auto& parameter = entry.second;
 
@@ -334,7 +333,7 @@ namespace wmoge {
         for (auto& entry : m_textures) {
             auto& texture = entry.second;
 
-            tex_declaration << "LAYOUT_SAMPLER(DRAW_SET_PER_MATERIAL, MAT_BINDING_TEX + " << total_count << ") uniform ";
+            tex_declaration << "LAYOUT_SAMPLER(DRAW_SET_PER_MATERIAL, 1 + " << total_count << ") uniform ";
 
             switch (texture.type) {
                 case GfxTex::Tex2d:

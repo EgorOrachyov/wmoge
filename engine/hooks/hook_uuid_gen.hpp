@@ -25,50 +25,45 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_MANAGER_HPP
-#define WMOGE_SCENE_MANAGER_HPP
+#ifndef WMOGE_HOOK_UUID_GEN_HPP
+#define WMOGE_HOOK_UUID_GEN_HPP
 
-#include "scene/scene.hpp"
-
-#include <deque>
-#include <mutex>
-#include <optional>
-#include <stack>
-#include <vector>
+#include "core/cmd_line.hpp"
+#include "core/hook.hpp"
+#include "core/uuid.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class SceneManager
-     * @brief Manager for game loaded and active scenes
+    /** 
+     * @class HookUuidGen
+     * @brief Engine hook to generate uuids
      */
-    class SceneManager final {
+    class HookUuidGen : public Hook {
     public:
-        SceneManager();
+        ~HookUuidGen() override = default;
 
-        void                      clear();
-        void                      update();
-        void                      make_active(Ref<Scene> scene);
-        Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const StringId& name);
-        std::optional<Ref<Scene>> find_by_name(const StringId& name);
+        std::string get_name() const override {
+            return "uuid_gen";
+        }
 
-    private:
-        void scene_render();
-        void scene_pfx();
-        void scene_scripting();
-        void scene_physics();
-        void scene_audio();
+        void on_add_cmd_line_options(CmdLine& cmd_line) override {
+            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
+        }
 
-    private:
-        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
-        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-        Ref<Scene>              m_running; // active scene
-        Ref<Scene>              m_default; // default scene to always show something
+        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
+            const int uuid_count = cmd_line.get_int("gen_uuids");
 
-        std::mutex m_mutex;
+            if (uuid_count > 0) {
+                for (int i = 0; i < uuid_count; i++) {
+                    std::cout << UUID::generate() << std::endl;
+                }
+                return StatusCode::ExitCode0;
+            }
+
+            return StatusCode::Ok;
+        }
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_MANAGER_HPP
+#endif//WMOGE_HOOK_UUID_GEN_HPP

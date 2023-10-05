@@ -25,50 +25,26 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_MANAGER_HPP
-#define WMOGE_SCENE_MANAGER_HPP
+#include "hook.hpp"
 
-#include "scene/scene.hpp"
-
-#include <deque>
-#include <mutex>
-#include <optional>
-#include <stack>
-#include <vector>
+#include <algorithm>
+#include <cassert>
 
 namespace wmoge {
 
-    /**
-     * @class SceneManager
-     * @brief Manager for game loaded and active scenes
-     */
-    class SceneManager final {
-    public:
-        SceneManager();
+    void HookList::attach(HookPtr hook) {
+        assert(hook);
+        m_storage.push_back(std::move(hook));
+        m_storage.back()->on_attach();
+    }
 
-        void                      clear();
-        void                      update();
-        void                      make_active(Ref<Scene> scene);
-        Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const StringId& name);
-        std::optional<Ref<Scene>> find_by_name(const StringId& name);
+    void HookList::remove(HookPtr hook) {
+        assert(hook);
+        m_storage.erase(std::find(m_storage.begin(), m_storage.end(), hook));
+    }
 
-    private:
-        void scene_render();
-        void scene_pfx();
-        void scene_scripting();
-        void scene_physics();
-        void scene_audio();
-
-    private:
-        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
-        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-        Ref<Scene>              m_running; // active scene
-        Ref<Scene>              m_default; // default scene to always show something
-
-        std::mutex m_mutex;
-    };
+    void HookList::clear() {
+        m_storage.clear();
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_MANAGER_HPP

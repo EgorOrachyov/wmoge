@@ -31,10 +31,6 @@
 
 namespace wmoge {
 
-    void Engine::push_layer(Layer* layer) {
-        assert(layer);
-        m_layers.push_back(layer);
-    }
     void Engine::request_close() {
         m_close_requested.store(true);
     }
@@ -44,6 +40,12 @@ namespace wmoge {
 
     class Application* Engine::application() {
         return m_application;
+    }
+    LayerStack* Engine::layer_stack() {
+        return m_layer_stack;
+    }
+    HookList* Engine::hook_list() {
+        return m_hook_list;
     }
     CmdLine* Engine::cmd_line() {
         return m_cmd_line;

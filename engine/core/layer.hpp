@@ -28,6 +28,11 @@
 #ifndef WMOGE_LAYER_HPP
 #define WMOGE_LAYER_HPP
 
+#include "core/array_view.hpp"
+
+#include <memory>
+#include <vector>
+
 namespace wmoge {
 
     /**
@@ -38,10 +43,56 @@ namespace wmoge {
     public:
         virtual ~Layer() = default;
 
+        virtual void on_attach() {}
         virtual void on_start_frame() {}
         virtual void on_debug_draw() {}
         virtual void on_end_frame() {}
     };
+
+    /**
+     * @class LayerStack
+     * @brief Stack of attached engine layers
+     */
+    class LayerStack {
+    public:
+        LayerStack()                  = default;
+        LayerStack(const LayerStack&) = delete;
+        LayerStack(LayerStack&&)      = delete;
+        ~LayerStack()                 = default;
+
+        using LayerPtr     = std::shared_ptr<Layer>;
+        using LayerStorage = std::vector<LayerPtr>;
+
+        template<typename F>
+        void each_up(F&& f);
+        template<typename F>
+        void each_down(F&& f);
+
+        void attach(LayerPtr layer);
+        void remove(LayerPtr layer);
+        void clear();
+
+        [[nodiscard]] ArrayView<const LayerPtr> get_layers() const { return m_layers; }
+        [[nodiscard]] std::size_t               get_size() const { return m_layers.size(); }
+        [[nodiscard]] bool                      is_empty() const { return m_layers.empty(); }
+
+    private:
+        LayerStorage m_layers;
+    };
+
+    template<typename F>
+    inline void LayerStack::each_up(F&& f) {
+        for (auto it = m_layers.begin(); it != m_layers.end(); ++it) {
+            f(*it);
+        }
+    }
+
+    template<typename F>
+    inline void LayerStack::each_down(F&& f) {
+        for (auto it = m_layers.rbegin(); it != m_layers.rend(); ++it) {
+            f(*it);
+        }
+    }
 
 }// namespace wmoge
 

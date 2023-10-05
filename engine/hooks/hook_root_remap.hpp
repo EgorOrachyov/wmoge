@@ -25,50 +25,44 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_MANAGER_HPP
-#define WMOGE_SCENE_MANAGER_HPP
+#ifndef WMOGE_HOOK_ROOT_REMAP_HPP
+#define WMOGE_HOOK_ROOT_REMAP_HPP
 
-#include "scene/scene.hpp"
-
-#include <deque>
-#include <mutex>
-#include <optional>
-#include <stack>
-#include <vector>
+#include "core/cmd_line.hpp"
+#include "core/engine.hpp"
+#include "core/hook.hpp"
+#include "platform/file_system.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class SceneManager
-     * @brief Manager for game loaded and active scenes
+    /** 
+     * @class HookRootRemap
+     * @brief Engine hook to remap root game folder to other (for debug moslty)
      */
-    class SceneManager final {
+    class HookRootRemap : public Hook {
     public:
-        SceneManager();
+        ~HookRootRemap() override = default;
 
-        void                      clear();
-        void                      update();
-        void                      make_active(Ref<Scene> scene);
-        Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const StringId& name);
-        std::optional<Ref<Scene>> find_by_name(const StringId& name);
+        std::string get_name() const override {
+            return "root_remap";
+        }
 
-    private:
-        void scene_render();
-        void scene_pfx();
-        void scene_scripting();
-        void scene_physics();
-        void scene_audio();
+        void on_add_cmd_line_options(CmdLine& cmd_line) override {
+            cmd_line.add_string("root_remap", "remap path to engine root folder", "");
+        }
 
-    private:
-        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
-        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-        Ref<Scene>              m_running; // active scene
-        Ref<Scene>              m_default; // default scene to always show something
+        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
+            const std::string remap_path = cmd_line.get_string("root_remap");
 
-        std::mutex m_mutex;
+            if (!remap_path.empty()) {
+                engine.file_system()->root(remap_path);
+                std::cout << "remap exe root to " << remap_path << std::endl;
+            }
+
+            return StatusCode::Ok;
+        }
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_MANAGER_HPP
+#endif//WMOGE_HOOK_ROOT_REMAP_HPP

@@ -25,137 +25,34 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "material.hpp"
+#include "shader_properties.hpp"
 
-#include "core/class.hpp"
 #include "core/engine.hpp"
-#include "debug/profiler.hpp"
-#include "render/render_engine.hpp"
-#include "resource/resource_manager.hpp"
+#include "core/log.hpp"
+#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_driver.hpp"
 
+#include <algorithm>
 #include <cstring>
-#include <magic_enum.hpp>
-#include <sstream>
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, MaterialFile::Entry& entry) {
-        WG_YAML_READ_AS(node, "name", entry.name);
-        WG_YAML_READ_AS(node, "value", entry.value);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MaterialFile::Entry& entry) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", entry.name);
-        WG_YAML_WRITE_AS(node, "value", entry.value);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file) {
-        WG_YAML_READ_AS(node, "shader", file.shader);
-        WG_YAML_READ_AS_OPT(node, "keywords", file.keywords);
-        WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
-        WG_YAML_READ_AS_OPT(node, "textures", file.textures);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MaterialFile& file) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "shader", file.shader);
-        WG_YAML_WRITE_AS(node, "keywords", file.keywords);
-        WG_YAML_WRITE_AS(node, "parameters", file.parameters);
-        WG_YAML_WRITE_AS(node, "textures", file.textures);
-
-        return StatusCode::Ok;
-    }
-
-    void Material::create(Ref<Shader> shader) {
+    ShaderProperties::ShaderProperties(const Ref<Shader>& shader, const StringId& name) {
         assert(shader);
 
-        m_shader = std::move(shader);
-        m_textures.resize(m_shader->get_textures_count());
-        m_parameters.resize(m_shader->get_parameters_size());
+        m_name   = name;
+        m_shader = shader;
+        m_textures.resize(shader->get_textures_count());
 
-        for (const auto& entry : m_shader->get_parameters()) {
-            auto& param = entry.second;
-            set_param(param.name, param.value);
-        }
+        if (shader->get_parameters_size() > 0) {
+            const int params_size = shader->get_parameters_size();
 
-        auto res_man = Engine::instance()->resource_manager();
-
-        for (const auto& entry : m_shader->get_textures()) {
-            auto texture = res_man->load(SID(entry.second.value)).cast<Texture>();
-
-            if (!texture) {
-                WG_LOG_ERROR("no loaded texture " << entry.second.value);
-                continue;
-            }
-
-            m_textures[entry.second.id] = texture;
+            m_parameters = make_ref<Data>(params_size);
+            m_buffer     = Engine::instance()->gfx_driver()->make_uniform_buffer(params_size, GfxMemUsage::CpuVisibleGpu, name);
         }
     }
 
-    Status Material::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_RESOURCE("Material::load_from_import_options");
-
-        MaterialFile material_file;
-        WG_YAML_READ(node, material_file);
-
-        auto res_man = Engine::instance()->resource_manager();
-
-        auto material_shader = res_man->load(SID(material_file.shader)).cast<Shader>();
-        if (!material_shader) {
-            WG_LOG_ERROR("not found shader " << material_file.shader << " for " << get_name());
-            return StatusCode::NoResource;
-        }
-
-        create(material_shader);
-
-        for (const auto& param : material_file.parameters) {
-            set_param(param.name, param.value);
-        }
-
-        for (const auto& texture : material_file.textures) {
-            auto texture_res = res_man->load(SID(texture.value)).cast<Texture>();
-            if (!texture_res) {
-                WG_LOG_ERROR("not found texture " << texture.value << " for " << get_name());
-                continue;
-            }
-
-            set_texture(texture.name, texture_res);
-        }
-
-        for (auto& keyword : material_file.keywords) {
-            m_keywords.insert(std::move(keyword));
-        }
-
-        return StatusCode::Ok;
-    }
-    Status Material::copy_to(Object& copy) const {
-        Resource::copy_to(copy);
-        auto material          = dynamic_cast<Material*>(&copy);
-        material->m_shader     = m_shader;
-        material->m_parameters = m_parameters;
-        material->m_textures   = m_textures;
-        return StatusCode::Ok;
-    }
-
-    const Ref<Shader>& Material::get_shader() {
-        return m_shader;
-    }
-    const fast_vector<std::uint8_t>& Material::get_parameters() {
-        return m_parameters;
-    }
-    const fast_vector<Ref<Texture>>& Material::get_textures() {
-        return m_textures;
-    }
-    const fast_set<StringId>& Material::get_keywords() {
-        return m_keywords;
-    }
-
-    void Material::set_param(const StringId& name, const std::string& string_value) {
+    void ShaderProperties::set_param(const StringId& name, const std::string& string_value) {
         assert(m_shader);
 
         const auto& params = m_shader->get_parameters();
@@ -167,7 +64,7 @@ namespace wmoge {
         }
 
         std::stringstream value(string_value);
-        auto*             mem = m_parameters.data() + param->second.offset;
+        auto*             mem = m_parameters->buffer() + param->second.offset;
 
         switch (param->second.type) {
             case GfxShaderParam::Int:
@@ -195,8 +92,10 @@ namespace wmoge {
                 WG_LOG_ERROR("invalid shader parameter type");
                 return;
         }
+
+        m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_int(const StringId& name, int value) {
+    void ShaderProperties::set_int(const StringId& name, int value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Int;
@@ -208,9 +107,10 @@ namespace wmoge {
             return;
         }
 
-        std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
+        std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
+        m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_float(const StringId& name, float value) {
+    void ShaderProperties::set_float(const StringId& name, float value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Float;
@@ -222,9 +122,10 @@ namespace wmoge {
             return;
         }
 
-        std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
+        std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
+        m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_vec2(const StringId& name, const Vec2f& value) {
+    void ShaderProperties::set_vec2(const StringId& name, const Vec2f& value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Vec2;
@@ -236,9 +137,10 @@ namespace wmoge {
             return;
         }
 
-        std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
+        std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
+        m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_vec3(const StringId& name, const Vec3f& value) {
+    void ShaderProperties::set_vec3(const StringId& name, const Vec3f& value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Vec3;
@@ -250,9 +152,10 @@ namespace wmoge {
             return;
         }
 
-        std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
+        std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
+        m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_vec4(const StringId& name, const Vec4f& value) {
+    void ShaderProperties::set_vec4(const StringId& name, const Vec4f& value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Vec4;
@@ -264,9 +167,10 @@ namespace wmoge {
             return;
         }
 
-        std::memcpy(m_parameters.data() + param->second.offset, &value, param->second.size);
+        std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
+        m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_texture(const StringId& name, const Ref<Texture>& texture) {
+    void ShaderProperties::set_texture(const StringId& name, const Ref<Texture>& texture) {
         assert(m_shader);
 
         if (!texture) {
@@ -283,10 +187,77 @@ namespace wmoge {
         }
 
         m_textures[texture_param->second.id] = texture;
+        m_dirty.set(DirtyFlag::Textures);
     }
 
-    void Material::register_class() {
-        auto* cls = Class::register_class<Material>();
+    void ShaderProperties::from(const Ref<Material>& material) {
+        assert(material);
+
+        if (!material) {
+            WG_LOG_ERROR("passed null material to sef from " << m_name);
+            return;
+        }
+        if (material->get_shader() != m_shader) {
+            WG_LOG_ERROR("cannot fill props for " << m_name << " of shader " << m_shader->get_name() << " from " << material->get_name());
+            return;
+        }
+
+        std::copy(material->get_textures().begin(), material->get_textures().end(), m_textures.begin());
+        std::memcpy(m_parameters->buffer(), material->get_parameters().data(), m_shader->get_parameters_size());
+
+        m_dirty.set(DirtyFlag::Textures);
+        m_dirty.set(DirtyFlag::Parameters);
+    }
+
+    void ShaderProperties::validate() {
+        if (!m_dirty.bits.any()) {
+            return;
+        }
+
+        if (m_dirty.get(DirtyFlag::Parameters) && m_buffer) {
+            GfxCtx* gfx_ctx = Engine::instance()->gfx_ctx();
+            gfx_ctx->update_uniform_buffer(m_buffer, 0, m_buffer->size(), m_parameters);
+            m_dirty.set(DirtyFlag::Parameters, false);
+        }
+        if (m_dirty.get(DirtyFlag::Textures) && m_textures.size() > 0) {
+            GfxDescSetResources desc_set_resources;
+
+            int buffer_slot = m_shader->get_start_buffers_slot();
+            if (m_buffer) {
+                GfxDescSetResource& resource   = desc_set_resources.emplace_back();
+                GfxDescBindPoint&   bind_point = resource.first;
+                GfxDescBindValue&   bind_value = resource.second;
+                bind_point.type                = GfxBindingType::UniformBuffer;
+                bind_point.binding             = buffer_slot++;
+                bind_point.array_element       = 0;
+                bind_value.resource            = m_buffer.as<GfxResource>();
+                bind_value.range               = m_buffer->size();
+                bind_value.offset              = 0;
+            }
+
+            const int textures_slot = m_shader->get_start_buffers_slot();
+            for (int i = 0; i < int(m_textures.size()); i++) {
+                if (m_textures[i]) {
+                    GfxDescSetResource& resource   = desc_set_resources.emplace_back();
+                    GfxDescBindPoint&   bind_point = resource.first;
+                    GfxDescBindValue&   bind_value = resource.second;
+                    bind_point.type                = GfxBindingType::SampledTexture;
+                    bind_point.binding             = textures_slot + i;
+                    bind_point.array_element       = 0;
+                    bind_value.resource            = m_textures[i]->get_texture().as<GfxResource>();
+                    bind_value.sampler             = m_textures[i]->get_sampler();
+                    bind_value.range               = 0;
+                    bind_value.offset              = 0;
+                }
+            }
+
+            if (!desc_set_resources.empty()) {
+                GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
+                m_desc_set            = gfx_driver->make_desc_set(desc_set_resources, m_name);
+            }
+
+            m_dirty.set(DirtyFlag::Textures, false);
+        }
     }
 
 }// namespace wmoge

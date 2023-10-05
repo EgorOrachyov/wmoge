@@ -29,6 +29,7 @@
 #define WMOGE_MESH_HPP
 
 #include "core/data.hpp"
+#include "core/fast_vector.hpp"
 #include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"

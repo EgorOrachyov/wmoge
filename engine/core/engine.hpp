@@ -46,12 +46,12 @@ namespace wmoge {
      */
     class Engine {
     public:
-        void push_layer(class Layer* layer);
-
         void request_close();
         bool close_requested() const;
 
         class Application*      application();
+        class LayerStack*       layer_stack();
+        class HookList*         hook_list();
         class CmdLine*          cmd_line();
         class ConfigFile*       config();
         class CallbackQueue*    main_queue();
@@ -98,6 +98,8 @@ namespace wmoge {
         float                                 m_current_delta_game = 0;
 
         class Application*      m_application        = nullptr;
+        class LayerStack*       m_layer_stack        = nullptr;
+        class HookList*         m_hook_list          = nullptr;
         class CmdLine*          m_cmd_line           = nullptr;
         class ConfigFile*       m_config             = nullptr;
         class CallbackQueue*    m_main_queue         = nullptr;
@@ -121,8 +123,6 @@ namespace wmoge {
         class AudioEngine*      m_audio_engine       = nullptr;
         class RenderEngine*     m_render_engine      = nullptr;
         class EcsRegistry*      m_ecs_registry       = nullptr;
-
-        std::vector<class Layer*> m_layers;
     };
 
 }// namespace wmoge

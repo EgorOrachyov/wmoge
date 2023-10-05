@@ -64,6 +64,8 @@ namespace wmoge {
         NoClass,          // No registered class
         NoValue,          // No value to return
         NoResource,       // No such resource in engine files
+        ExitCode0,        // App should exit, code 0 - everything is Ok, normal close
+        ExitCode1         // App should exit, code 1 - Error occured, normal close
     };
 
     /**

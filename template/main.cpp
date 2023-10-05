@@ -52,11 +52,25 @@ public:
         scene_tree                             = scene_tree_packed->instantiate();
         scene                                  = scene_tree->get_scene();
 
+        class ApplicationLayer : public Layer {
+        public:
+            ApplicationLayer(GameApplication* game) : game(game) {}
+
+            void on_debug_draw() override {
+                game->on_debug_draw();
+            }
+
+            GameApplication* game;
+        };
+
+        Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
+        Engine::instance()->scene_manager()->make_active(scene);
+
         WG_LOG_INFO("init");
     }
 
-    void on_update() override {
-        WG_AUTO_PROFILE(app, "GameApplication::on_update");
+    void on_debug_draw() {
+        WG_AUTO_PROFILE(app, "GameApplication::on_debug_draw");
 
         Engine*         engine           = Engine::instance();
         GfxCtx*         gfx_ctx          = engine->gfx_ctx();
@@ -67,7 +81,7 @@ public:
         static float angle       = 0.0f;
         static int   frame_count = 0;
 
-        angle += 0.007f;
+        angle += 0.001f;
         frame_count += 1;
 
         std::vector<Ref<Camera>> cameras;

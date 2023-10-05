@@ -53,15 +53,8 @@ namespace wmoge {
     void Camera::set_projection(CameraProjection projection) {
         m_projection = projection;
     }
-
-    bool Camera::is_active() const {
-        return m_manager->is_active(this);
-    }
-    bool Camera::is_default() const {
-        return m_manager->is_default(this);
-    }
-    bool Camera::is_debug() const {
-        return m_manager->is_default(this);
+    void Camera::make_active(bool active) {
+        m_active = active;
     }
 
     CameraDebug::CameraDebug(CameraManager* manager) : Camera(manager) {
@@ -90,14 +83,7 @@ namespace wmoge {
             float angle_horizontal = 0.0f;
 
             if (id == CD_TOGGLE) {
-                if (!is_active()) {
-                    m_to_restore = m_manager->get_active_camera();
-                    m_manager->make_active(Ref<Camera>(this));
-                } else {
-                    m_manager->make_active(m_to_restore);
-                    m_to_restore.reset();
-                }
-
+                make_active(!is_active());
                 return true;
             }
 
@@ -153,8 +139,6 @@ namespace wmoge {
         m_camera_debug = make_ref<CameraDebug>(this);
         m_camera_debug->set_name(SID("debug"));
 
-        m_camera_active = m_camera_default;
-
         m_cameras.push_back(m_camera_default);
         m_cameras.push_back(m_camera_debug);
     }
@@ -167,21 +151,38 @@ namespace wmoge {
 
         return camera;
     }
-    Ref<Camera> CameraManager::find_camera(const StringId& name) {
+    std::optional<Ref<Camera>> CameraManager::find_camera(const StringId& name) {
         for (auto& camera : m_cameras) {
             if (camera->get_name() == name) {
                 return camera;
             }
         }
-        return {};
+        return std::nullopt;
     }
-
-    void CameraManager::make_active(const Ref<Camera>& camera) {
-        m_camera_active = camera;
+    std::optional<Ref<Camera>> CameraManager::find_active() {
+        for (auto& camera : m_cameras) {
+            if (camera->is_active()) {
+                return camera;
+            }
+        }
+        return std::nullopt;
     }
-
-    bool CameraManager::is_active(const Camera* camera) const {
-        return camera == m_camera_active.get();
+    std::optional<Ref<Camera>> CameraManager::find_first(const std::function<bool(const Ref<Camera>&)>& pred) {
+        for (auto& camera : m_cameras) {
+            if (pred(camera)) {
+                return camera;
+            }
+        }
+        return std::nullopt;
+    }
+    std::vector<Ref<Camera>> CameraManager::filter(const std::function<bool(const Ref<Camera>&)>& pred) {
+        std::vector<Ref<Camera>> filtered;
+        for (auto& camera : m_cameras) {
+            if (pred(camera)) {
+                filtered.push_back(camera);
+            }
+        }
+        return filtered;
     }
     bool CameraManager::is_default(const Camera* camera) const {
         return camera == m_camera_default.get();

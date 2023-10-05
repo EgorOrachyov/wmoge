@@ -67,6 +67,20 @@ namespace wmoge {
     static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
     static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
 
+    /** @brief Supported engine queue types */
+    enum class RenderQueueType {
+        None = 0,
+        Background,
+        Shadow,
+        GBuffer,
+        Forward,
+        Trasparent,
+        Pfx,
+        Ui,
+        Overlay,
+        Total = 8
+    };
+
     /**
      * @class RenderQueue
      * @brief Thread-safe queue to collect and sort draw commands for gfx submission

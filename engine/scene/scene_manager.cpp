@@ -27,12 +27,13 @@
 
 #include "scene_manager.hpp"
 
-#include <utility>
-
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "scene/scene_components.hpp"
+
+#include <cassert>
+#include <utility>
 
 namespace wmoge {
 
@@ -49,6 +50,9 @@ namespace wmoge {
         ecs_registry->register_component<EcsComponentName>();
         ecs_registry->register_component<EcsComponentTag>();
         ecs_registry->register_component<EcsComponentCamera>();
+
+        m_default = make_scene(SID("<default>"));
+        m_running = m_default;
     }
 
     void SceneManager::clear() {
@@ -58,25 +62,41 @@ namespace wmoge {
 
         m_scenes.clear();
         m_to_clear.clear();
-        m_next.reset();
         m_running.reset();
     }
+    void SceneManager::update() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::update");
 
-    void SceneManager::next(Ref<Scene> scene) {
+        if (!m_running) {
+            WG_LOG_ERROR("no active scene to run, please create one");
+            return;
+        }
+
+        scene_render();
+        scene_physics();
+        scene_pfx();
+        scene_audio();
+        scene_scripting();
+    }
+    void SceneManager::make_active(Ref<Scene> scene) {
         std::lock_guard guard(m_mutex);
 
-        m_next = std::move(scene);
-    }
+        assert(scene);
+        assert(m_running);
 
+        if (scene != m_running) {
+            WG_LOG_INFO("switch scene from " << m_running->get_name() << " to " << scene->get_name());
+        }
+
+        m_running = std::move(scene);
+    }
     Ref<Scene> SceneManager::get_running_scene() {
         std::lock_guard guard(m_mutex);
         return m_running;
     }
-    Ref<Scene> SceneManager::get_next_scene() {
-        std::lock_guard guard(m_mutex);
-        return m_next;
-    }
     Ref<Scene> SceneManager::make_scene(const StringId& name) {
+        WG_AUTO_PROFILE_SCENE("SceneManager::make_scene");
+
         std::lock_guard guard(m_mutex);
 
         auto scene = make_ref<Scene>(name);
@@ -84,8 +104,9 @@ namespace wmoge {
 
         return scene;
     }
-
     std::optional<Ref<Scene>> SceneManager::find_by_name(const StringId& name) {
+        WG_AUTO_PROFILE_SCENE("SceneManager::find_by_name");
+
         for (Ref<Scene>& scene : m_scenes) {
             if (scene->get_name() == name) {
                 return scene;
@@ -93,6 +114,22 @@ namespace wmoge {
         }
 
         return std::nullopt;
+    }
+
+    void SceneManager::scene_render() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_render");
+    }
+    void SceneManager::scene_pfx() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_pfx");
+    }
+    void SceneManager::scene_scripting() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_scripting");
+    }
+    void SceneManager::scene_physics() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_physics");
+    }
+    void SceneManager::scene_audio() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_audio");
     }
 
 }// namespace wmoge

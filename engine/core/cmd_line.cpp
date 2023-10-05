@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    CmdLine::CmdLine() : m_options("wmoge", "wmoge game engine from \'game-engine-tutorial\'") {
+    CmdLine::CmdLine() : m_options("wmoge", "wmoge engine runtime and tools") {
     }
 
     void CmdLine::add_int(const std::string& name, const std::string& desc, const std::string& value) {

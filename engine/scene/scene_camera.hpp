@@ -54,10 +54,7 @@ namespace wmoge {
         void set_color(const Color4f& color);
         void set_near_far(float near, float far);
         void set_projection(CameraProjection projection);
-
-        [[nodiscard]] bool is_active() const;
-        [[nodiscard]] bool is_default() const;
-        [[nodiscard]] bool is_debug() const;
+        void make_active(bool active);
 
         [[nodiscard]] const RenderCamera&     get_render_camera() const { return m_render_camera; }
         [[nodiscard]] const Vec3f&            get_position() const { return m_position; }
@@ -71,6 +68,8 @@ namespace wmoge {
         [[nodiscard]] const StringId&         get_name() const { return m_name; }
         [[nodiscard]] const StringId&         get_target() const { return m_target; }
         [[nodiscard]] const CameraProjection& get_projection() const { return m_projection; }
+        [[nodiscard]] CameraType              get_type() const { return m_type; }
+        [[nodiscard]] bool                    is_active() const { return m_active; }
 
     protected:
         RenderCamera     m_render_camera;
@@ -85,6 +84,8 @@ namespace wmoge {
         StringId         m_name       = SID("default");
         StringId         m_target     = SID("primary");
         CameraProjection m_projection = CameraProjection::Perspective;
+        CameraType       m_type       = CameraType::Color;
+        bool             m_active     = false;
 
         class CameraManager* m_manager;
     };
@@ -102,11 +103,9 @@ namespace wmoge {
         [[nodiscard]] float get_speed_rotate() const { return m_speed_rotate; }
 
     private:
-        Ref<Camera>      m_to_restore;
         EventListenerHnd m_action_listener;
-
-        float m_speed_move   = 10.0f;
-        float m_speed_rotate = 2.0f;
+        float            m_speed_move   = 10.0f;
+        float            m_speed_rotate = 2.0f;
     };
 
     /**
@@ -117,26 +116,22 @@ namespace wmoge {
     public:
         CameraManager();
 
-        Ref<Camera> make_camera(const StringId& name = StringId());
-        Ref<Camera> find_camera(const StringId& name);
-
-        void make_active(const Ref<Camera>& camera);
-
-        [[nodiscard]] bool is_active(const Camera* camera) const;
-        [[nodiscard]] bool is_default(const Camera* camera) const;
-        [[nodiscard]] bool is_debug(const Camera* camera) const;
+        Ref<Camera>                make_camera(const StringId& name = StringId());
+        std::optional<Ref<Camera>> find_camera(const StringId& name);
+        std::optional<Ref<Camera>> find_active();
+        std::optional<Ref<Camera>> find_first(const std::function<bool(const Ref<Camera>&)>& pred);
+        std::vector<Ref<Camera>>   filter(const std::function<bool(const Ref<Camera>&)>& pred);
 
         [[nodiscard]] ArrayView<const Ref<Camera>> get_cameras() const { return m_cameras; }
-        [[nodiscard]] Ref<Camera>                  get_active_camera() const { return m_camera_active; }
         [[nodiscard]] Ref<Camera>                  get_debug_camera() const { return m_camera_debug; }
         [[nodiscard]] Ref<Camera>                  get_default_camera() const { return m_camera_default; }
+        [[nodiscard]] bool                         is_default(const Camera* camera) const;
+        [[nodiscard]] bool                         is_debug(const Camera* camera) const;
 
     private:
         std::vector<Ref<Camera>> m_cameras;
-
-        Ref<Camera> m_camera_active;
-        Ref<Camera> m_camera_debug;
-        Ref<Camera> m_camera_default;
+        Ref<Camera>              m_camera_debug;
+        Ref<Camera>              m_camera_default;
     };
 
 }// namespace wmoge

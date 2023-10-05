@@ -25,50 +25,53 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_MANAGER_HPP
-#define WMOGE_SCENE_MANAGER_HPP
+#ifndef WMOGE_RENDER_MESH_HPP
+#define WMOGE_RENDER_MESH_HPP
 
-#include "scene/scene.hpp"
+#include "core/fast_vector.hpp"
+#include "gfx/gfx_pipeline.hpp"
+#include "render/render_object.hpp"
+#include "render/shader_properties.hpp"
+#include "resource/material.hpp"
+#include "resource/mesh.hpp"
+#include "resource/shader.hpp"
 
-#include <deque>
-#include <mutex>
-#include <optional>
-#include <stack>
 #include <vector>
 
 namespace wmoge {
 
+    struct MeshMaterialSlots {
+        fast_vector<Ref<Material>, 1> materials;
+    };
+
+    struct MeshMaterialReferences {
+        fast_vector<int> chunk_indeces;
+    };
+
+    struct MeshLods {
+        fast_vector<Ref<Mesh>, 1>              lods;
+        fast_vector<MeshMaterialReferences, 1> references;
+        fast_vector<float, 1>                  distances;
+    };
+
     /**
-     * @class SceneManager
-     * @brief Manager for game loaded and active scenes
+     * @class MeshCachedRenderData
+     * @brief Incapsulates info required to render meshes
      */
-    class SceneManager final {
+    struct MeshCachedRenderData {
+        fast_vector<ShaderProperties, 1> properties;
+        fast_vector<Ref<GfxPipeline>, 1> pipelines;
+    };
+
+    class RenderMesh : public RenderObject {
     public:
-        SceneManager();
+        ~RenderMesh() override = default;
 
-        void                      clear();
-        void                      update();
-        void                      make_active(Ref<Scene> scene);
-        Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const StringId& name);
-        std::optional<Ref<Scene>> find_by_name(const StringId& name);
-
-    private:
-        void scene_render();
-        void scene_pfx();
-        void scene_scripting();
-        void scene_physics();
-        void scene_audio();
-
-    private:
-        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
-        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-        Ref<Scene>              m_running; // active scene
-        Ref<Scene>              m_default; // default scene to always show something
-
-        std::mutex m_mutex;
+    protected:
+        MeshMaterialSlots m_material_slots;
+        MeshLods          m_lods;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_SCENE_MANAGER_HPP
+#endif//WMOGE_RENDER_MESH_HPP
