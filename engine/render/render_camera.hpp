@@ -37,6 +37,7 @@
 #include "math/plane.hpp"
 #include "math/vec.hpp"
 
+#include <bitset>
 #include <vector>
 
 namespace wmoge {
@@ -58,6 +59,14 @@ namespace wmoge {
         Image  = 2,
         Debug  = 3,
         Editor = 4
+    };
+
+    /** 
+     * @class CameraLimits
+     * @brief Holds global render engine config on cameras rendering
+     */
+    struct CameraLimits {
+        static constexpr int MAX_CAMERAS = 64;
     };
 
     /**
@@ -96,14 +105,17 @@ namespace wmoge {
     };
 
     /**
+     * @class RenderCameraMask
+     * @brief Mask of toggled cameras, can be used for filtering and culling
+     */
+    class RenderCameraMask : std::bitset<CameraLimits::MAX_CAMERAS> {};
+
+    /**
      * @class RenderCameras
      * @brief Cameras list for rendering
      */
     class RenderCameras final {
     public:
-        /** @brief Max allowed count of cameras to render at single time */
-        static constexpr int MAX_CAMERAS = 64;
-
         int                 add_camera(const RenderCamera& camera);
         const RenderCamera& at(int index);
         void                clear();
@@ -113,7 +125,7 @@ namespace wmoge {
         [[nodiscard]] bool                          is_empty() const { return m_cameras.empty(); }
 
     private:
-        fast_vector<RenderCamera, MAX_CAMERAS> m_cameras;
+        fast_vector<RenderCamera, CameraLimits::MAX_CAMERAS> m_cameras;
     };
 
 }// namespace wmoge

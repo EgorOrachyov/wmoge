@@ -70,23 +70,20 @@ namespace wmoge {
             });
         }
 
+        const std::string& sources_vertex   = get_vertex(gfx_lang);
+        const std::string& sources_fragment = get_fragment(gfx_lang);
+        const std::string& sources_compute  = get_compute(gfx_lang);
+
         if (shader) {
-            // todo: emmit params insert actual code
-            builder.add_vs_module(shader->get_include_parameters());
-            builder.add_fs_module(shader->get_include_parameters());
-            builder.add_fs_module(shader->get_include_textures());
-            builder.add_vs_module(shader->get_vertex());
-            builder.add_fs_module(shader->get_fragment());
-            builder.add_cs_module(shader->get_compute());
+            builder.add_vs_module(StringUtils::find_replace_first(sources_vertex, "__SHADER_CODE_VERTEX__", shader->get_include_parameters() + "\n" + shader->get_vertex()));
+            builder.add_fs_module(StringUtils::find_replace_first(sources_fragment, "__SHADER_CODE_FRAGMENT__", shader->get_include_parameters() + "\n" + shader->get_include_textures() + "\n" + shader->get_fragment()));
+            builder.add_cs_module(StringUtils::find_replace_first(sources_compute, "__SHADER_CODE_COMPUTE__", shader->get_include_parameters() + "\n" + shader->get_include_textures() + "\n" + shader->get_compute()));
+
+        } else {
+            builder.add_vs_module(sources_vertex);
+            builder.add_fs_module(sources_fragment);
+            builder.add_cs_module(sources_compute);
         }
-
-        const auto& sources_vertex   = get_vertex(gfx_lang);
-        const auto& sources_fragment = get_fragment(gfx_lang);
-        const auto& sources_compute  = get_compute(gfx_lang);
-
-        builder.add_vs_module(sources_vertex);
-        builder.add_fs_module(sources_fragment);
-        builder.add_cs_module(sources_compute);
 
         GfxDescSetLayoutDescs layouts_desc;
         fill_layout(layouts_desc, shader);

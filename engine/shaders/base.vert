@@ -9,50 +9,23 @@
 
 #version 450 core
 
+#define INOUT out
+#define VERTEX_SHADER
+#include "inout_attributes.glsl"
+#include "vertex_attributes.glsl"
 #include "common_defines.glsl"
 
-//@ in vec3 inPos3f;
-//@ in vec4 inCol04f;
-//@ in vec4 inCol14f;
-//@ in vec4 inCol24f;
-//@ in vec4 inCol34f;
-
-#ifndef ATTRIB_Pos3f
-#error "Pos attribute must be defined"
-#endif
-
-#ifdef ATTRIB_Col04f
-LAYOUT_LOCATION(0) out vec4 fsCol04f;
-#endif
-
-#ifdef ATTRIB_Col14f
-LAYOUT_LOCATION(1) out vec4 fsCol14f;
-#endif
-
-#ifdef ATTRIB_Col24f
-LAYOUT_LOCATION(2) out vec4 fsCol24f;
-#endif
-
-#ifdef ATTRIB_Col34f
-LAYOUT_LOCATION(3) out vec4 fsCol34f;
-#endif
-
 void main() {
-    #ifdef ATTRIB_Col04f
-    fsCol04f = inCol04f;
-    #endif
+    VertexAttributes vertex = ReadVertexAttributes();
+    InoutAttributes result;
 
-    #ifdef ATTRIB_Col14f
-    fsCol14f = inCol14f;
-    #endif
+    result.worldPos = vertex.pos3;
+    result.col[0] = vertex.col[0];
+    result.col[1] = vertex.col[1];
+    result.col[2] = vertex.col[2];
+    result.col[3] = vertex.col[3];
+    
+    StoreInoutAttributes(result);
 
-    #ifdef ATTRIB_Col24f
-    fsCol24f = inCol24f;
-    #endif
-
-    #ifdef ATTRIB_Col34f
-    fsCol34f = inCol34f;
-    #endif
-
-    gl_Position = mat_clip_proj_view * vec4(inPos3f, 1.0f);
+    gl_Position = mat_clip_proj_view * vec4(vertex.pos3, 1.0f);
 }

@@ -34,15 +34,38 @@
 namespace wmoge {
 
     /**
-     * @class MemPool
-     * @brief Pool of free memory blocks of equal size
+     * @class MemPoolBase
+     * @brief Base class for mem-pool implementation
      */
-    class MemPool {
+    class MemPoolBase {
+    public:
+        static const std::size_t EXPAND_SIZE = 16;
+
+        explicit MemPoolBase(std::size_t chunk_size, std::size_t expand_size = EXPAND_SIZE);
+        ~MemPoolBase();
+
+    protected:
+        void* impl_allocate();
+        void  impl_free(void* mem);
+        void  impl_reset();
+
+    private:
+        std::vector<void*> m_buffers;
+        std::vector<void*> m_free;
+        std::size_t        m_allocated = 0;
+        std::size_t        m_chunk_size;
+        std::size_t        m_expand_size;
+    };
+
+    /**
+     * @class MemPool
+     * @brief Thread-safe pool of free memory blocks of equal size
+     */
+    class MemPool final : public MemPoolBase {
     public:
         static const std::size_t EXPAND_SIZE = 16;
 
         explicit MemPool(std::size_t chunk_size, std::size_t expand_size = EXPAND_SIZE);
-        ~MemPool();
 
         void* allocate();
         void  free(void* mem);

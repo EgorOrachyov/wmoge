@@ -31,13 +31,16 @@
 #include "core/class.hpp"
 #include "core/object.hpp"
 #include "core/string_id.hpp"
+#include "core/uuid.hpp"
 #include "event/event.hpp"
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
 
-#include <atomic>
-#include <filesystem>
+#include <cstddef>
+#include <functional>
+#include <ostream>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace wmoge {
@@ -52,11 +55,17 @@ namespace wmoge {
         ResourceId(const std::string& id);
         ResourceId(const StringId& id);
 
+        bool operator==(const ResourceId& other) const { return m_name == other.m_name; }
+        bool operator!=(const ResourceId& other) const { return m_name != other.m_name; }
+        bool operator<(const ResourceId& other) const { return m_name < other.m_name; }
+
         operator bool() const { return is_empty(); }
         operator StringId() const { return sid(); }
 
-        [[nodiscard]] const StringId& sid() const { return m_name; }
-        [[nodiscard]] bool            is_empty() const { return m_name.empty(); }
+        [[nodiscard]] const StringId&    sid() const { return m_name; }
+        [[nodiscard]] const std::string& str() const { return m_name.str(); }
+        [[nodiscard]] bool               is_empty() const { return m_name.empty(); }
+        [[nodiscard]] std::size_t        hash() const { return m_name.hash(); }
 
         friend Status yaml_read(const YamlConstNodeRef& node, ResourceId& id);
         friend Status yaml_write(YamlNodeRef node, const ResourceId& id);
@@ -64,6 +73,13 @@ namespace wmoge {
     private:
         StringId m_name;
     };
+
+    static_assert(std::is_trivially_destructible_v<ResourceId>, "id must be trivial as ptr on int");
+
+    inline std::ostream& operator<<(std::ostream& stream, const ResourceId& id) {
+        stream << id.sid();
+        return stream;
+    }
 
     /**
      * @class Resource
@@ -73,17 +89,34 @@ namespace wmoge {
     public:
         WG_OBJECT(Resource, Object);
 
+        void              set_name(StringId name) { m_id = ResourceId(name); }
+        void              set_id(ResourceId id) { m_id = id; }
+        void              set_uuid(UUID uuid) { m_uuid = uuid; }
+        const StringId&   get_name() { return m_id.sid(); }
+        const ResourceId& get_id() { return m_id; }
+        const UUID&       get_uuid() { return m_uuid; }
+
         Status copy_to(Object& other) const override;
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status write_to_yaml(YamlNodeRef node) const override;
 
-        void            set_name(StringId name) { m_name = std::move(name); }
-        const StringId& get_name() { return m_name; }
-
     private:
-        StringId m_name;
+        ResourceId m_id;
+        UUID       m_uuid;
     };
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::ResourceId> {
+    public:
+        std::size_t operator()(const wmoge::ResourceId& id) const {
+            return id.hash();
+        }
+    };
+
+}// namespace std
 
 #endif//WMOGE_RESOURCE_HPP

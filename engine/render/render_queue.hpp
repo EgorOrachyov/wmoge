@@ -28,14 +28,18 @@
 #ifndef WMOGE_RENDER_QUEUE_HPP
 #define WMOGE_RENDER_QUEUE_HPP
 
+#include "core/fast_vector.hpp"
+#include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
 
+#include <array>
 #include <cinttypes>
 #include <mutex>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -57,29 +61,18 @@ namespace wmoge {
      * @brief POD-Command representing single draw call
      */
     struct RenderCmd {
+        static constexpr int NUM_DESC_SETS = 2;
+
         GfxVertBuffersSetup vert_buffers;
         GfxIndexBufferSetup index_setup;
-        GfxDescSet*         desc_sets[GfxLimits::MAX_DESC_SETS]{};
+        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr};
+        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1};
         GfxPipeline*        pipeline = nullptr;
         GfxDrawCall         call_params;
     };
 
     static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
     static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
-
-    /** @brief Supported engine queue types */
-    enum class RenderQueueType {
-        None = 0,
-        Background,
-        Shadow,
-        GBuffer,
-        Forward,
-        Trasparent,
-        Pfx,
-        Ui,
-        Overlay,
-        Total = 8
-    };
 
     /**
      * @class RenderQueue

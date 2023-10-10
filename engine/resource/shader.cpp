@@ -124,7 +124,7 @@ namespace wmoge {
     }
 
     Status Shader::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_RESOURCE("Shader::load_from_import_options");
+        WG_AUTO_PROFILE_RESOURCE("Shader::read_from_yaml");
 
         ShaderFile shader_file;
         WG_YAML_READ(node, shader_file);
@@ -168,16 +168,6 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    bool Shader::has_variant(const StringId& key) {
-        std::lock_guard lock(m_mutex);
-        auto            query = m_variants.find(key);
-        return query != m_variants.end();
-    }
-    Ref<GfxShader> Shader::find_variant(const StringId& shader_key) {
-        std::lock_guard lock(m_mutex);
-        auto            query = m_variants.find(shader_key);
-        return query != m_variants.end() ? query->second : Ref<GfxShader>{};
-    }
     Ref<GfxShader> Shader::create_variant(const fast_vector<std::string>& defines) {
         return create_variant({}, defines);
     }
@@ -187,31 +177,32 @@ namespace wmoge {
         Engine*        engine         = Engine::instance();
         ShaderManager* shader_manager = engine->shader_manager();
 
-        StringId shader_key = shader_manager->make_shader_key(m_domain, streams, defines, this);
-
-        Ref<GfxShader> shader_variant = find_variant(shader_key);
+        Ref<GfxShader> shader_variant = shader_manager->get_shader(m_domain, streams, defines, this);
         if (shader_variant) {
             return shader_variant;
         }
 
-        shader_variant = shader_manager->find(shader_key);
-        if (shader_variant) {
-            std::lock_guard lock(m_mutex);
-            m_variants[shader_key] = shader_variant;
-
-            return shader_variant;
-        }
-
-        shader_variant = shader_manager->get_shader(m_domain, streams, defines, this);
-        if (shader_variant) {
-            std::lock_guard lock(m_mutex);
-            m_variants[shader_key] = shader_variant;
-
-            return shader_variant;
-        }
-
-        WG_LOG_ERROR("failed to create shader variant " << shader_key);
+        WG_LOG_ERROR("failed to create shader variant " << shader_manager->make_shader_key(m_domain, streams, defines, this));
         return Ref<GfxShader>();
+    }
+
+    void Shader::fill_layout(GfxDescSetLayoutDesc& layout) const {
+        if (!m_parameters.empty()) {
+            GfxDescBinging& binding = layout.emplace_back();
+            binding.binding         = get_start_buffers_slot();
+            binding.count           = 1;
+            binding.type            = GfxBindingType::UniformBuffer;
+            binding.name            = SID("MaterialParameters");
+        }
+        if (!m_textures.empty()) {
+            for (const auto& texture : m_textures) {
+                GfxDescBinging& binding = layout.emplace_back();
+                binding.binding         = get_start_textures_slot() + texture.second.id;
+                binding.count           = 1;
+                binding.type            = GfxBindingType::SampledTexture;
+                binding.name            = texture.second.name;
+            }
+        }
     }
 
     const std::string& Shader::get_vertex() const {
@@ -270,7 +261,7 @@ namespace wmoge {
         int               pad_count  = 0;
         std::stringstream params_declaration;
 
-        params_declaration << "LAYOUT_BUFFER(DRAW_SET_PER_MATERIAL, 0) uniform MaterialParameters {\n";
+        params_declaration << "LAYOUT_BUFFER(MATERIAL_SET, 0, std140) uniform MaterialParameters {\n";
         for (auto& entry : m_parameters) {
             auto& parameter = entry.second;
 
@@ -306,7 +297,7 @@ namespace wmoge {
                     total_size += 4 * sizeof(float);
                     break;
                 case GfxShaderParam::Vec4:
-                    params_declaration << "vec4 " << parameter.name.str() << "\n";
+                    params_declaration << "vec4 " << parameter.name.str() << ";\n";
                     parameter.offset = total_size;
                     parameter.size   = 4 * sizeof(float);
                     total_size += 4 * sizeof(float);
@@ -333,7 +324,7 @@ namespace wmoge {
         for (auto& entry : m_textures) {
             auto& texture = entry.second;
 
-            tex_declaration << "LAYOUT_SAMPLER(DRAW_SET_PER_MATERIAL, 1 + " << total_count << ") uniform ";
+            tex_declaration << "LAYOUT_SAMPLER(MATERIAL_SET, 1 + " << total_count << ") uniform ";
 
             switch (texture.type) {
                 case GfxTex::Tex2d:

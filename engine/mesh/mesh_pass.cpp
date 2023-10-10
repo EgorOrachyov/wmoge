@@ -25,53 +25,49 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_MESH_HPP
-#define WMOGE_RENDER_MESH_HPP
+#include "mesh_pass.hpp"
 
-#include "core/fast_vector.hpp"
-#include "gfx/gfx_pipeline.hpp"
-#include "render/render_object.hpp"
-#include "render/shader_properties.hpp"
-#include "resource/material.hpp"
-#include "resource/mesh.hpp"
-#include "resource/shader.hpp"
-
-#include <vector>
+#include <cassert>
 
 namespace wmoge {
 
-    struct MeshMaterialSlots {
-        fast_vector<Ref<Material>, 1> materials;
-    };
+    bool MeshPassList::has_pass(MeshPassType pass_type) const {
+        return m_mask.get(pass_type);
+    }
 
-    struct MeshMaterialReferences {
-        fast_vector<int> chunk_indeces;
-    };
+    std::optional<Ref<GfxPipeline>> MeshPassList::get_pass(MeshPassType pass_type) const {
+        if (m_mask.get(pass_type)) {
+            for (std::size_t i = 0; i < get_size(); i++) {
+                if (m_types[i] == pass_type) {
+                    return m_pipelines[i];
+                }
+            }
 
-    struct MeshLods {
-        fast_vector<Ref<Mesh>, 1>              lods;
-        fast_vector<MeshMaterialReferences, 1> references;
-        fast_vector<float, 1>                  distances;
-    };
+            assert(false && "Invalid invariant of mask state and list state");
+        }
 
-    /**
-     * @class MeshCachedRenderData
-     * @brief Incapsulates info required to render meshes
-     */
-    struct MeshCachedRenderData {
-        fast_vector<ShaderProperties, 1> properties;
-        fast_vector<Ref<GfxPipeline>, 1> pipelines;
-    };
+        return std::nullopt;
+    }
 
-    class RenderMesh : public RenderObject {
-    public:
-        ~RenderMesh() override = default;
+    void MeshPassList::add_pass(Ref<GfxPipeline> pass, MeshPassType pass_type, bool overwrite) {
+        assert(pass);
 
-    protected:
-        MeshMaterialSlots m_material_slots;
-        MeshLods          m_lods;
-    };
+        if (!m_mask.get(pass_type)) {
+            m_pipelines.push_back(std::move(pass));
+            m_types.push_back(pass_type);
+            return;
+        }
+
+        if (overwrite) {
+            for (std::size_t i = 0; i < get_size(); i++) {
+                if (m_types[i] == pass_type) {
+                    m_pipelines[i] = std::move(pass);
+                    return;
+                }
+            }
+
+            assert(false && "Invalid invariant of mask state and list state");
+        }
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_MESH_HPP

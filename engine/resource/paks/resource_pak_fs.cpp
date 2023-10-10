@@ -42,7 +42,7 @@ namespace wmoge {
     std::string ResourcePakFileSystem::get_name() const {
         return "pak_fs";
     }
-    Status ResourcePakFileSystem::get_meta(const StringId& name, ResourceMeta& meta) {
+    Status ResourcePakFileSystem::get_meta(const ResourceId& name, ResourceMeta& meta) {
         WG_AUTO_PROFILE_RESOURCE("ResourcePakFileSystem::meta");
 
         std::string meta_file_path = name.str() + ".res";

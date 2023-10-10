@@ -48,6 +48,8 @@ public:
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 
+        Ref<Model> model = Engine::instance()->resource_manager()->load(SID("res://models/suzanne")).cast<Model>();
+
         Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
         scene_tree                             = scene_tree_packed->instantiate();
         scene                                  = scene_tree->get_scene();
@@ -65,6 +67,15 @@ public:
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
         Engine::instance()->scene_manager()->make_active(scene);
+
+        auto shader  = Engine::instance()->resource_manager()->load(SID("res://shaders/test_shader")).cast<Shader>();
+        auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {});
+
+        while (variant->status() == GfxShaderStatus::Compiling) {
+            WG_LOG_INFO("waiting for " << variant->name() << " compilation...");
+            std::this_thread::sleep_for(std::chrono::seconds{1});
+        }
+        WG_LOG_INFO("status for " << variant->name() << " is " << magic_enum::enum_name(variant->status()));
 
         WG_LOG_INFO("init");
     }
@@ -144,7 +155,7 @@ public:
         pass_border.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Norm3f};
         pass_border.compile(gfx_ctx);
 
-        gfx_ctx->begin_render_pass({}, SID("quad"));
+        gfx_ctx->begin_render_pass({}, SID("Suzanne"));
         {
             gfx_ctx->bind_target(engine->window_manager()->primary_window());
             gfx_ctx->viewport(viewport);

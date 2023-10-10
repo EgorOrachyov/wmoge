@@ -28,7 +28,11 @@
 #ifndef WMOGE_RENDER_MESH_STATIC_HPP
 #define WMOGE_RENDER_MESH_STATIC_HPP
 
+#include "core/fast_vector.hpp"
 #include "render/render_object.hpp"
+#include "resource/material.hpp"
+#include "resource/mesh.hpp"
+#include "resource/model.hpp"
 
 namespace wmoge {
 
@@ -38,7 +42,15 @@ namespace wmoge {
      */
     class RenderMeshStatic : public RenderObject {
     public:
+        RenderMeshStatic(Ref<Model> model);
+
+        void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
+        bool                         has_materials() const override;
+        std::optional<Ref<Material>> get_material() const override;
+        std::vector<Ref<Material>>   get_materials() const override;
+
     private:
+        Ref<Model> m_model;
     };
 
 }// namespace wmoge

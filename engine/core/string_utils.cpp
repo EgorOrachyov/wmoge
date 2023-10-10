@@ -121,4 +121,16 @@ namespace wmoge {
         }
     }
 
+    std::string StringUtils::find_replace_first(const std::string& source, const std::string& substring, const std::string& replacement) {
+        const auto iter = source.find(substring);
+
+        if (iter != std::string::npos) {
+            std::string result = source;
+            result.replace(iter, substring.length(), replacement);
+            return std::move(result);
+        }
+
+        return source;
+    }
+
 }// namespace wmoge

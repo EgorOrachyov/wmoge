@@ -230,7 +230,7 @@ namespace wmoge {
             const int default_version = 100;
 
             if (!shader.parse(&built_in_res, default_version, true, messages)) {
-                WG_LOG_ERROR("failed to parse shader: " << shader.getInfoLog());
+                WG_LOG_ERROR("failed to parse shader Num=" << i << ": " << shader.getInfoLog());
                 m_message = shader.getInfoLog();
                 m_status.store(GfxShaderStatus::Failed);
                 return;

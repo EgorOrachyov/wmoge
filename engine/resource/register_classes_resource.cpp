@@ -34,6 +34,7 @@
 #include "resource/image.hpp"
 #include "resource/material.hpp"
 #include "resource/mesh.hpp"
+#include "resource/model.hpp"
 #include "resource/pfx_effect.hpp"
 #include "resource/prefab.hpp"
 #include "resource/resource.hpp"
@@ -58,6 +59,7 @@ namespace wmoge {
         Texture2d::register_class();
         TextureCube::register_class();
         Material::register_class();
+        Model::register_class();
         Script::register_class();
         PfxEffect::register_class();
         Prefab::register_class();

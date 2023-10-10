@@ -96,7 +96,7 @@ namespace wmoge {
          *
          * @return Resource reference
          */
-        AsyncResult<Ref<Resource>> load_async(const StringId& name, ResourceCallback callback = ResourceCallback());
+        AsyncResult<Ref<Resource>> load_async(const ResourceId& name, ResourceCallback callback = ResourceCallback());
 
         /**
          * @brief Sync load of the engine resource using provided resource name
@@ -118,10 +118,10 @@ namespace wmoge {
          *
          * @return Resource reference
          */
-        Ref<Resource> load(const StringId& name);
+        Ref<Resource> load(const ResourceId& name);
 
         /** @brief Find a resource by name if it is already cached */
-        Ref<Resource> find(const StringId& name);
+        Ref<Resource> find(const ResourceId& name);
 
         /** @brief Add specific format resource loader */
         void add_loader(std::shared_ptr<ResourceLoader> loader);
@@ -133,7 +133,7 @@ namespace wmoge {
         std::optional<ResourceLoader*> find_loader(const StringId& loader);
 
         /** @brief Find resource meta by resource name */
-        std::optional<ResourceMeta> find_meta(const StringId& resource);
+        std::optional<ResourceMeta> find_meta(const ResourceId& resource);
 
         /**
          * @brief Clear from a cache only unused resource
@@ -176,8 +176,8 @@ namespace wmoge {
 
     private:
         fast_vector<std::shared_ptr<ResourcePak>>           m_paks;
-        fast_map<StringId, Ref<Resource>>                   m_resources;
-        fast_map<StringId, LoadState>                       m_loading;
+        fast_map<ResourceId, Ref<Resource>>                 m_resources;
+        fast_map<ResourceId, LoadState>                     m_loading;
         fast_map<StringId, std::shared_ptr<ResourceLoader>> m_loaders;
 
         mutable std::recursive_mutex m_mutex;

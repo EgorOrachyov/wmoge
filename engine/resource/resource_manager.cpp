@@ -57,7 +57,7 @@ namespace wmoge {
         add_loader(std::make_shared<ResourceLoaderWav>());
     }
 
-    AsyncResult<Ref<Resource>> ResourceManager::load_async(const StringId& name, ResourceCallback callback) {
+    AsyncResult<Ref<Resource>> ResourceManager::load_async(const ResourceId& name, ResourceCallback callback) {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::load_async");
 
         std::lock_guard guard(m_mutex);
@@ -161,7 +161,7 @@ namespace wmoge {
         return AsyncResult<Ref<Resource>>(state.async_op);
     }
 
-    Ref<Resource> ResourceManager::load(const StringId& name) {
+    Ref<Resource> ResourceManager::load(const ResourceId& name) {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::load");
 
         Ref<Resource> fast_look_up = find(name);
@@ -174,7 +174,7 @@ namespace wmoge {
         return async.is_ok() ? async.result() : nullptr;
     }
 
-    Ref<Resource> ResourceManager::find(const StringId& name) {
+    Ref<Resource> ResourceManager::find(const ResourceId& name) {
         WG_AUTO_PROFILE_RESOURCE("ResourceManager::find");
 
         std::lock_guard guard(m_mutex);
@@ -203,7 +203,7 @@ namespace wmoge {
         return query != m_loaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
     }
 
-    std::optional<ResourceMeta> ResourceManager::find_meta(const StringId& resource) {
+    std::optional<ResourceMeta> ResourceManager::find_meta(const ResourceId& resource) {
         std::lock_guard guard(m_mutex);
 
         ResourceMeta resource_meta;

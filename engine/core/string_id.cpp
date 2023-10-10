@@ -34,6 +34,10 @@
 
 namespace wmoge {
 
+    /**
+     * @class StringStorage
+     * @brief Global storage to hold unique string ids data
+     */
     class StringStorage {
     public:
         void                  get_or_create(const std::string& key, const std::string*& str);

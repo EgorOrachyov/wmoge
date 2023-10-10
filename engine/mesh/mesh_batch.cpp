@@ -25,8 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "render_mesh.hpp"
+#include "mesh_batch.hpp"
+
+#include "debug/profiler.hpp"
+#include "gfx/gfx_driver.hpp"
 
 namespace wmoge {
 
-}
+    MeshBatchCollector::MeshBatchCollector(class GfxDriver* gfx_driver) {
+        m_gfx_driver = gfx_driver;
+        m_dyn_vbuff  = m_gfx_driver->dyn_vert_buffer();
+        m_dyn_ibuff  = m_gfx_driver->dyn_index_buffer();
+        m_dyn_ubuff  = m_gfx_driver->dyn_uniform_buffer();
+    }
+
+    void MeshBatchCollector::add_batch(const MeshBatch& b) {
+        std::lock_guard guard(m_mutex);
+
+        m_batches.push_back(b);
+    }
+
+}// namespace wmoge

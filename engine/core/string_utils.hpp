@@ -81,6 +81,9 @@ namespace wmoge {
 
         /** @return Split string by symbols */
         static void split(const std::string& what, const std::string& splitters, std::vector<std::string>& result);
+
+        /** @return Finds and replaces first matched substring in a source string */
+        static std::string find_replace_first(const std::string& source, const std::string& substring, const std::string& replacement);
     };
 
 }// namespace wmoge

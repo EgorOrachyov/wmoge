@@ -78,9 +78,9 @@ namespace wmoge {
                 gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(vert_buffers.buffers[i]), i, vert_buffers.offsets[i]);
             }
 
-            for (int i = 0; i < GfxLimits::MAX_DESC_SETS; i++) {
-                if (cmd.desc_sets[i]) {
-                    gfx_ctx->bind_desc_set(Ref<GfxDescSet>(cmd.desc_sets[i]), i);
+            for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {
+                if (cmd.desc_sets[i] && cmd.desc_sets_slots[i] >= 0) {
+                    gfx_ctx->bind_desc_set(Ref<GfxDescSet>(cmd.desc_sets[i]), cmd.desc_sets_slots[i]);
                 }
             }
 

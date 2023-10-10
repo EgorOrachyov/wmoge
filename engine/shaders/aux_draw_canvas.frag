@@ -11,10 +11,8 @@
 
 layout(location = 0) out vec4 fs_color;
 
-LAYOUT_LOCATION(0)
-in vec4 in_color;
-LAYOUT_LOCATION(1)
-in vec2 in_uv;
+LAYOUT_LOCATION(0) in vec4 in_color;
+LAYOUT_LOCATION(1) in vec2 in_uv;
 
 void main() {
     #ifdef CANVAS_FONT_BITMAP

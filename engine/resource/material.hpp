@@ -28,13 +28,20 @@
 #ifndef WMOGE_MATERIAL_HPP
 #define WMOGE_MATERIAL_HPP
 
-#include "core/fast_map.hpp"
+#include "core/array_view.hpp"
+#include "core/data.hpp"
 #include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
+#include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "math/vec.hpp"
+#include "resource/resource_ref.hpp"
 #include "resource/shader.hpp"
 #include "resource/texture.hpp"
+
+#include <string>
+#include <vector>
 
 namespace wmoge {
 
@@ -43,18 +50,27 @@ namespace wmoge {
      * @brief Represents material file stored in resources folder
      */
     struct MaterialFile {
-        struct Entry {
+        /** @brief Param info of a material */
+        struct EntryParam {
             StringId    name;
             std::string value;
 
-            friend Status yaml_read(const YamlConstNodeRef& node, Entry& entry);
-            friend Status yaml_write(YamlNodeRef node, const Entry& entry);
+            friend Status yaml_read(const YamlConstNodeRef& node, EntryParam& entry);
+            friend Status yaml_write(YamlNodeRef node, const EntryParam& entry);
         };
 
-        std::vector<Entry>    parameters;
-        std::vector<Entry>    textures;
-        std::vector<StringId> keywords;
-        StringId              shader;
+        /** @brief Texture info of a material */
+        struct EntryTexture {
+            StringId                 name;
+            ResourceRefHard<Texture> value;
+
+            friend Status yaml_read(const YamlConstNodeRef& node, EntryTexture& entry);
+            friend Status yaml_write(YamlNodeRef node, const EntryTexture& entry);
+        };
+
+        std::vector<EntryParam>   parameters;
+        std::vector<EntryTexture> textures;
+        ResourceRefHard<Shader>   shader;
 
         friend Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
         friend Status yaml_write(YamlNodeRef node, const MaterialFile& file);
@@ -76,7 +92,7 @@ namespace wmoge {
      *
      * @see MaterialShader
      */
-    class Material : public Resource {
+    class Material final : public Resource {
     public:
         WG_OBJECT(Material, Resource);
 
@@ -89,7 +105,7 @@ namespace wmoge {
          *
          * @param shader Valid shader to use for this material
          */
-        void create(Ref<Shader> shader);
+        Material(Ref<Shader> shader);
 
         /** @brief Set material parameter by name from string value */
         void set_param(const StringId& name, const std::string& value);
@@ -106,19 +122,35 @@ namespace wmoge {
         /** @brief Set material texture parameter value by name */
         void set_texture(const StringId& name, const Ref<Texture>& texture);
 
+        /** @brief Validates GPU state of material, buffer and descriptor set for rendering */
+        void validate();
+
+        [[nodiscard]] ArrayView<const Ref<Texture>> get_textures() const { return m_textures; }
+        [[nodiscard]] const Ref<Shader>&            get_shader() const { return m_shader; }
+        [[nodiscard]] const Ref<Data>&              get_parameters() const { return m_parameters; }
+        [[nodiscard]] const Ref<GfxUniformBuffer>&  get_buffer() const { return m_buffer; }
+        [[nodiscard]] const Ref<GfxDescSet>&        get_desc_set() const { return m_desc_set; }
+        [[nodiscard]] const StringId&               get_name() const { return m_name; }
+
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
-        [[nodiscard]] const Ref<Shader>&               get_shader();
-        [[nodiscard]] const fast_vector<std::uint8_t>& get_parameters();
-        [[nodiscard]] const fast_vector<Ref<Texture>>& get_textures();
-        [[nodiscard]] const fast_set<StringId>&        get_keywords();
+    private:
+        void init();
 
     private:
-        Ref<Shader>               m_shader;
-        fast_vector<std::uint8_t> m_parameters;
+        enum class DirtyFlag {
+            Textures   = 0,
+            Parameters = 1
+        };
+
         fast_vector<Ref<Texture>> m_textures;
-        fast_set<StringId>        m_keywords;
+        Ref<Shader>               m_shader;
+        Ref<Data>                 m_parameters;
+        Ref<GfxUniformBuffer>     m_buffer;
+        Ref<GfxDescSet>           m_desc_set;
+        StringId                  m_name;
+        Mask<DirtyFlag>           m_dirty = {DirtyFlag::Textures, DirtyFlag::Parameters};
     };
 
 }// namespace wmoge

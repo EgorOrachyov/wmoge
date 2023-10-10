@@ -43,6 +43,19 @@
 namespace wmoge {
 
     /**
+     * @class ShaderData
+     * @brief Entry holding cached data of a particular shader
+     */
+    struct ShaderData {
+        StringId       name;
+        Ref<GfxShader> shader;
+        Ref<Data>      bytecode;
+
+        friend Status archive_write(Archive& archive, const ShaderData& shader_data);
+        friend Status archive_read(Archive& archive, ShaderData& shader_data);
+    };
+
+    /**
      * @class ShaderManager
      * @brief Render module access to engine shaders
      */
@@ -66,16 +79,6 @@ namespace wmoge {
         void           save_cache(const std::string& path_on_disk);
         void           load_cache(const std::string& path_on_disk);
         void           register_pass(std::unique_ptr<ShaderPass> pass);
-
-        /** @brief Entry holding data of a particular shader */
-        struct ShaderData {
-            StringId       name;
-            Ref<GfxShader> shader;
-            Ref<Data>      bytecode;
-
-            friend Status archive_write(Archive& archive, const ShaderData& shader_data);
-            friend Status archive_read(Archive& archive, ShaderData& shader_data);
-        };
 
     private:
         void load_sources_from_build();

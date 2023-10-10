@@ -66,6 +66,7 @@ add_library(wmoge STATIC
         core/timer.hpp
         core/typed_array.hpp
         core/typed_map.hpp
+        core/unrolled_list.hpp
         core/uuid.cpp
         core/uuid.hpp
         core/var.cpp
@@ -210,8 +211,12 @@ add_library(wmoge STATIC
         memory/mem_linear.hpp
         memory/mem_pool.cpp
         memory/mem_pool.hpp
+        mesh/mesh_batch.cpp
+        mesh/mesh_batch.hpp
         mesh/mesh_builder.cpp
         mesh/mesh_builder.hpp
+        mesh/mesh_pass.cpp
+        mesh/mesh_pass.hpp
         pfx/pfx_component.cpp
         pfx/pfx_component.hpp
         pfx/pfx_component_runtime.cpp
@@ -256,8 +261,6 @@ add_library(wmoge STATIC
         render/render_mesh_skinned.hpp
         render/render_mesh_static.cpp
         render/render_mesh_static.hpp
-        render/render_mesh.cpp
-        render/render_mesh.hpp
         render/render_object.cpp
         render/render_object.hpp
         render/render_queue.cpp
@@ -268,8 +271,6 @@ add_library(wmoge STATIC
         render/shader_manager.hpp
         render/shader_pass.cpp
         render/shader_pass.hpp
-        render/shader_properties.cpp
-        render/shader_properties.hpp
         render/texture_compression.cpp
         render/texture_compression.hpp
         render/texture_manager.cpp
@@ -288,6 +289,8 @@ add_library(wmoge STATIC
         resource/material.hpp
         resource/mesh.cpp
         resource/mesh.hpp
+        resource/model.cpp
+        resource/model.hpp
         resource/pfx_effect.cpp
         resource/pfx_effect.hpp
         resource/prefab.cpp
@@ -300,6 +303,7 @@ add_library(wmoge STATIC
         resource/resource_meta.cpp
         resource/resource_meta.hpp
         resource/resource_pak.hpp
+        resource/resource_ref.hpp
         resource/scene_packed.cpp
         resource/scene_packed.hpp
         resource/scene_tree_packed.cpp

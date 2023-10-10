@@ -42,6 +42,7 @@
 // built-in passes
 #include "shaders/generated/auto_aux_draw_canvas_pass.hpp"
 #include "shaders/generated/auto_base_pass.hpp"
+#include "shaders/generated/auto_material_deferred_pass.hpp"
 #include "shaders/generated/auto_text_pass.hpp"
 
 #include <array>
@@ -49,6 +50,18 @@
 #include <string>
 
 namespace wmoge {
+
+    Status archive_write(Archive& archive, const ShaderData& shader_data) {
+        archive << shader_data.name;
+        archive << shader_data.bytecode;
+        return StatusCode::Ok;
+    }
+
+    Status archive_read(Archive& archive, ShaderData& shader_data) {
+        archive >> shader_data.name;
+        archive >> shader_data.bytecode;
+        return StatusCode::Ok;
+    }
 
     ShaderManager::ShaderManager() {
         auto* engine  = Engine::instance();
@@ -325,17 +338,6 @@ namespace wmoge {
         m_passes[pass->get_name()] = std::move(pass);
     }
 
-    Status archive_write(Archive& archive, const ShaderManager::ShaderData& shader_data) {
-        archive << shader_data.name;
-        archive << shader_data.bytecode;
-        return StatusCode::Ok;
-    }
-    Status archive_read(Archive& archive, ShaderManager::ShaderData& shader_data) {
-        archive >> shader_data.name;
-        archive >> shader_data.bytecode;
-        return StatusCode::Ok;
-    }
-
     void ShaderManager::load_sources_from_build() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_build");
 
@@ -343,6 +345,7 @@ namespace wmoge {
         register_pass(std::make_unique<ShaderPassBase>());
         register_pass(std::make_unique<ShaderPassText>());
         register_pass(std::make_unique<ShaderPassAuxDrawCanvas>());
+        register_pass(std::make_unique<ShaderPassMaterialDeferred>());
     }
     void ShaderManager::load_sources_from_disk() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_disk");

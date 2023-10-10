@@ -62,6 +62,7 @@
 #include "core/timer.hpp"
 #include "core/typed_array.hpp"
 #include "core/typed_map.hpp"
+#include "core/unrolled_list.hpp"
 #include "core/uuid.hpp"
 #include "core/var.hpp"
 
@@ -129,7 +130,9 @@
 #include "memory/mem_linear.hpp"
 #include "memory/mem_pool.hpp"
 
+#include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_builder.hpp"
+#include "mesh/mesh_pass.hpp"
 
 #include "pfx/pfx_component.hpp"
 #include "pfx/pfx_emitter.hpp"
@@ -147,14 +150,12 @@
 #include "render/aux_draw_manager.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
-#include "render/render_mesh.hpp"
 #include "render/render_mesh_skinned.hpp"
 #include "render/render_mesh_static.hpp"
 #include "render/render_object.hpp"
 #include "render/render_queue.hpp"
 #include "render/shader_manager.hpp"
 #include "render/shader_pass.hpp"
-#include "render/shader_properties.hpp"
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
 
@@ -164,6 +165,7 @@
 #include "resource/image.hpp"
 #include "resource/material.hpp"
 #include "resource/mesh.hpp"
+#include "resource/model.hpp"
 #include "resource/pfx_effect.hpp"
 #include "resource/prefab.hpp"
 #include "resource/resource.hpp"
@@ -171,6 +173,7 @@
 #include "resource/resource_manager.hpp"
 #include "resource/resource_meta.hpp"
 #include "resource/resource_pak.hpp"
+#include "resource/resource_ref.hpp"
 #include "resource/scene_packed.hpp"
 #include "resource/scene_tree_packed.hpp"
 #include "resource/script.hpp"

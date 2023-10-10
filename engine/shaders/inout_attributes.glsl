@@ -1,0 +1,177 @@
+/**********************************************************************************/
+/* Wmoge game engine                                                              */
+/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/**********************************************************************************/
+/* MIT License                                                                    */
+/*                                                                                */
+/* Copyright (c) 2023 Egor Orachyov                                               */
+/**********************************************************************************/
+
+#include "common_defines.glsl"
+
+#ifndef INOUT
+    #error "Must be defined"
+#endif
+
+#if defined(ATTRIB_Pos3f) || defined(ATTRIB_Pos2f) 
+    LAYOUT_LOCATION( 0) INOUT vec3 inout_worldPos;
+#endif
+
+#ifdef ATTRIB_Norm3f
+    LAYOUT_LOCATION( 1) INOUT vec3 inout_worldNorm;
+#endif
+
+#ifdef ATTRIB_Tang3f
+    LAYOUT_LOCATION( 2) INOUT vec3 inout_worldTang;
+#endif
+
+#ifdef ATTRIB_Col04f
+    LAYOUT_LOCATION( 3) INOUT vec4 inout_col0;
+#endif
+
+#ifdef ATTRIB_Col14f
+    LAYOUT_LOCATION( 4) INOUT vec4 inout_col1;
+#endif
+
+#ifdef ATTRIB_Col24f
+    LAYOUT_LOCATION( 5) INOUT vec4 inout_col2;
+#endif
+
+#ifdef ATTRIB_Col34f
+    LAYOUT_LOCATION( 6) INOUT vec4 inout_col3;
+#endif
+
+#ifdef ATTRIB_Uv02f
+    LAYOUT_LOCATION( 7) INOUT vec2 inout_uv0;
+#endif 
+
+#ifdef ATTRIB_Uv12f
+    LAYOUT_LOCATION( 8) INOUT vec2 inout_uv1;
+#endif 
+
+#ifdef ATTRIB_Uv22f
+    LAYOUT_LOCATION( 9) INOUT vec2 inout_uv2;
+#endif 
+
+#ifdef ATTRIB_Uv32f
+    LAYOUT_LOCATION(10) INOUT vec2 inout_uv3;
+#endif
+
+struct InoutAttributes {
+    vec3 worldPos;
+    vec3 worldNorm;
+    vec3 worldTang;
+    vec4 col[4];
+    vec2 uv[4];
+};
+
+#ifdef VERTEX_SHADER
+void StoreInoutAttributes(in InoutAttributes attributes) {
+    #if defined(ATTRIB_Pos3f) || defined(ATTRIB_Pos2f) 
+        inout_worldPos = attributes.worldPos;
+    #endif
+
+    #ifdef ATTRIB_Norm3f
+        inout_worldNorm = attributes.worldNorm;
+    #endif
+
+    #ifdef ATTRIB_Tang3f
+        inout_worldTang = attributes.worldTang;
+    #endif
+
+    #ifdef ATTRIB_Col04f
+        inout_col0 = attributes.col[0];
+    #endif
+
+    #ifdef ATTRIB_Col14f
+        inout_col1 = attributes.col[1];
+    #endif
+
+    #ifdef ATTRIB_Col24f
+        inout_col2 = attributes.col[2];
+    #endif
+
+    #ifdef ATTRIB_Col34f
+        inout_col3 = attributes.col[3];
+    #endif
+
+    #ifdef ATTRIB_Uv02f
+        inout_uv0 = attributes.uv[0];
+    #endif 
+
+    #ifdef ATTRIB_Uv12f
+        inout_uv1 = attributes.uv[1];
+    #endif 
+
+    #ifdef ATTRIB_Uv22f
+        inout_uv2 = attributes.uv[2];
+    #endif 
+
+    #ifdef ATTRIB_Uv32f
+        inout_uv3 = attributes.uv[3];
+    #endif
+}
+#endif//VERTEX_SHADER
+
+#ifdef FRAGMENT_SHADER
+InoutAttributes ReadInoutAttributes() {
+    InoutAttributes attributes;
+    attributes.worldPos = vec3(0,0,0);
+    attributes.worldNorm = vec3(0,0,0);
+    attributes.worldTang = vec3(0,0,0);
+    attributes.col[0] = vec4(0,0,0,0);
+    attributes.col[1] = vec4(0,0,0,0);
+    attributes.col[2] = vec4(0,0,0,0);
+    attributes.col[3] = vec4(0,0,0,0);
+    attributes.uv[0] = vec2(0,0);
+    attributes.uv[1] = vec2(0,0);
+    attributes.uv[2] = vec2(0,0);
+    attributes.uv[3] = vec2(0,0);
+
+    #if defined(ATTRIB_Pos3f) || defined(ATTRIB_Pos2f) 
+        attributes.worldPos = inout_worldPos;
+    #endif
+
+    #ifdef ATTRIB_Norm3f
+        attributes.worldNorm = inout_worldNorm;
+    #endif
+
+    #ifdef ATTRIB_Tang3f
+        attributes.worldTang = inout_worldTang;
+    #endif
+
+    #ifdef ATTRIB_Col04f
+        attributes.col[0] = inout_col0;
+    #endif
+
+    #ifdef ATTRIB_Col14f
+        attributes.col[1] = inout_col1;
+    #endif
+
+    #ifdef ATTRIB_Col24f
+        attributes.col[2] = inout_col2;
+    #endif
+
+    #ifdef ATTRIB_Col34f
+        attributes.col[3] = inout_col3;
+    #endif
+
+    #ifdef ATTRIB_Uv02f
+        attributes.uv[0] = inout_uv0;
+    #endif 
+
+    #ifdef ATTRIB_Uv12f
+        attributes.uv[1] = inout_uv1;
+    #endif 
+
+    #ifdef ATTRIB_Uv22f
+        attributes.uv[2] = inout_uv2;
+    #endif 
+
+    #ifdef ATTRIB_Uv32f
+        attributes.uv[3] = inout_uv3;
+    #endif
+
+    return attributes;
+}
+#endif//FRAGMENT_SHADER

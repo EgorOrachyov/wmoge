@@ -36,6 +36,10 @@
 
 namespace wmoge {
 
+    /** 
+     * @class RefCnt
+     * @brief Base class for any atomic reference counted class
+     */
     class RefCnt {
     public:
         virtual ~RefCnt();
@@ -62,6 +66,10 @@ namespace wmoge {
         if (object) object->unref();
     }
 
+    /** 
+     * @class Ref
+     * @brief Smart reference-counted pointer to T class
+     */
     template<typename T>
     class Ref {
     public:

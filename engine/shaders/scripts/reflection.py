@@ -33,25 +33,25 @@ class TypeSampler(Type):
         Type.__init__(self, name)
 
 
-TYPE_FLOAT = TypeScalar('float', 4)
-TYPE_INT = TypeScalar('int', 4)
-TYPE_UINT = TypeScalar('uint', 4)
-TYPE_VEC2 = TypeVector('vec2', TYPE_FLOAT, 2)
-TYPE_VEC3 = TypeVector('vec3', TYPE_FLOAT, 3)
-TYPE_VEC4 = TypeVector('vec4', TYPE_FLOAT, 4)
-TYPE_IVEC2 = TypeVector('ivec2', TYPE_INT, 2)
-TYPE_IVEC3 = TypeVector('ivec2', TYPE_INT, 3)
-TYPE_IVEC4 = TypeVector('ivec2', TYPE_INT, 4)
-TYPE_UVEC2 = TypeVector('uvec2', TYPE_UINT, 2)
-TYPE_UVEC3 = TypeVector('uvec2', TYPE_UINT, 3)
-TYPE_UVEC4 = TypeVector('uvec2', TYPE_UINT, 4)
-TYPE_MAT2 = TypeMatrix('mat2', TYPE_FLOAT, 2, 2)
-TYPE_MAT3 = TypeMatrix('mat3', TYPE_FLOAT, 3, 3)
-TYPE_MAT4 = TypeMatrix('mat4', TYPE_FLOAT, 4, 4)
+TYPE_FLOAT = TypeScalar("float", 4)
+TYPE_INT = TypeScalar("int", 4)
+TYPE_UINT = TypeScalar("uint", 4)
+TYPE_VEC2 = TypeVector("vec2", TYPE_FLOAT, 2)
+TYPE_VEC3 = TypeVector("vec3", TYPE_FLOAT, 3)
+TYPE_VEC4 = TypeVector("vec4", TYPE_FLOAT, 4)
+TYPE_IVEC2 = TypeVector("ivec2", TYPE_INT, 2)
+TYPE_IVEC3 = TypeVector("ivec2", TYPE_INT, 3)
+TYPE_IVEC4 = TypeVector("ivec2", TYPE_INT, 4)
+TYPE_UVEC2 = TypeVector("uvec2", TYPE_UINT, 2)
+TYPE_UVEC3 = TypeVector("uvec2", TYPE_UINT, 3)
+TYPE_UVEC4 = TypeVector("uvec2", TYPE_UINT, 4)
+TYPE_MAT2 = TypeMatrix("mat2", TYPE_FLOAT, 2, 2)
+TYPE_MAT3 = TypeMatrix("mat3", TYPE_FLOAT, 3, 3)
+TYPE_MAT4 = TypeMatrix("mat4", TYPE_FLOAT, 4, 4)
 
-TYPE_SAMPLER_2D = TypeSampler('sampler2D')
-TYPE_SAMPLER_3D = TypeSampler('sampler3D')
-TYPE_SAMPLER_CUBE = TypeSampler('samplerCube')
+TYPE_SAMPLER_2D = TypeSampler("sampler2D")
+TYPE_SAMPLER_3D = TypeSampler("sampler3D")
+TYPE_SAMPLER_CUBE = TypeSampler("samplerCube")
 
 
 class Binding:
@@ -66,11 +66,11 @@ class Binding:
 class BindingAllocator:
     def __init__(self, max_sets=3):
         self.max_sets = max_sets
-        self.next_slot = 0
+        self.next_slots = [0] * self.max_sets
 
     def next(self, set_num=0):
-        slot_num = self.next_slot
-        self.next_slot += 1
+        slot_num = self.next_slots[set_num]
+        self.next_slots[set_num] += 1
         return Binding(set_num, slot_num)
 
 
@@ -104,12 +104,12 @@ class Buffer:
 
 class UniformBuffer(Buffer):
     def __init__(self, name, layout, binding, fields):
-        Buffer.__init__(self, name, layout, binding, Struct(name, fields), 'uniform')
+        Buffer.__init__(self, name, layout, binding, Struct(name, fields), "uniform")
 
 
 class StorageBuffer(Buffer):
     def __init__(self, name, layout, binding, fields):
-        Buffer.__init__(self, name, layout, binding, Struct(name, fields), 'buffer')
+        Buffer.__init__(self, name, layout, binding, Struct(name, fields), "buffer")
 
 
 class Constant:
@@ -141,24 +141,28 @@ class SamplerCube(Sampler):
 
 
 class Shader:
-    def __init__(self,
-                 name: str,
-                 cls: str,
-                 constants: list[Constant],
-                 buffers: list[Buffer],
-                 samplers: list[Sampler],
-                 files: list[str]):
+    def __init__(
+        self,
+        name: str,
+        cls: str,
+        constants: list[Constant],
+        buffers: list[Buffer],
+        samplers: list[Sampler],
+        files: list[str],
+        material_set=None,
+    ):
         self.name = name
         self.cls = cls
         self.constants = constants
         self.buffers = buffers
         self.samplers = samplers
         self.files = files
+        self.material_set = material_set
 
     def filter_files(self, filter_string):
         return [file for file in self.files if filter_string in file]
 
     def set_resources(self, set_num):
-        return \
-            [buffer for buffer in self.buffers if buffer.binding.set_num == set_num] + \
-            [sampler for sampler in self.samplers if sampler.binding.set_num == set_num]
+        return [
+            buffer for buffer in self.buffers if buffer.binding.set_num == set_num
+        ] + [sampler for sampler in self.samplers if sampler.binding.set_num == set_num]

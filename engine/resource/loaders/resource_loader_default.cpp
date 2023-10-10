@@ -35,7 +35,6 @@ namespace wmoge {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderDefault::load");
 
         res = meta.cls->instantiate().cast<Resource>();
-        res->set_name(name);
 
         if (!res) {
             WG_LOG_ERROR("failed to instantiate resource " << name);
@@ -52,7 +51,7 @@ namespace wmoge {
         if (resource_tree.empty()) {
             WG_LOG_ERROR("failed to read parse file " << meta.path_on_disk.value());
             return StatusCode::FailedParse;
-        }
+        };
 
         res->set_name(name);
 

@@ -1,0 +1,3 @@
+parameters: []
+textures: []
+shader: "res://shaders/test_shader"

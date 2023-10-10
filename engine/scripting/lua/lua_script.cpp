@@ -37,7 +37,7 @@
 namespace wmoge {
 
     Status LuaScript::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_LUA("LuaScript::load_from_import_options");
+        WG_AUTO_PROFILE_LUA("LuaScript::read_from_yaml");
 
         if (!Script::read_from_yaml(node)) {
             return StatusCode::FailedRead;

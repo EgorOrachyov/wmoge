@@ -108,9 +108,11 @@ namespace wmoge {
             return StatusCode::Error;
         }
 
-        import_ctx.builder.mesh = make_ref<Mesh>();
+        auto mesh = make_ref<Mesh>();
 
-        res = import_ctx.builder.mesh;
+        import_ctx.builder.set_mesh(mesh);
+
+        res = mesh;
         res->set_name(name);
 
         if (!import_ctx.builder.build()) {
@@ -164,54 +166,57 @@ namespace wmoge {
         MeshChunk chunk;
         chunk.name          = SID(std::string(mesh->mName.data, mesh->mName.length));
         chunk.index_count   = int(3 * num_faces);
-        chunk.vertex_offset = builder.num_vertices;
-        chunk.index_offset  = builder.num_indices;
+        chunk.vertex_offset = builder.get_num_vertices();
+        chunk.index_offset  = builder.get_num_indices();
         chunk.aabb          = Aabbf((aabb_min + aabb_max) * 0.5f, (aabb_max - aabb_min) * 0.5f);
 
-        builder.chunks.push_back(chunk);
-        builder.num_vertices += int(num_vertices);
+        builder.add_chunk(chunk);
 
         for (unsigned int vert_id = 0; vert_id < num_vertices; vert_id++) {
+            MeshVertex vertex;
+
             if (attribs.get(GfxVertAttrib::Pos3f) && mesh->HasPositions()) {
                 Vec3f pos;
-                pos[0] = mesh->mVertices[vert_id].x;
-                pos[1] = mesh->mVertices[vert_id].y;
-                pos[2] = mesh->mVertices[vert_id].z;
-                pos    = Math3d::transform(transform, pos);
-                builder.pos3.push_back(pos);
+                pos[0]      = mesh->mVertices[vert_id].x;
+                pos[1]      = mesh->mVertices[vert_id].y;
+                pos[2]      = mesh->mVertices[vert_id].z;
+                vertex.pos3 = Math3d::transform(transform, pos);
+                vertex.attribs.set(GfxVertAttrib::Pos3f);
             }
             if (attribs.get(GfxVertAttrib::Norm3f) && mesh->HasNormals()) {
                 Vec3f norm;
-                norm[0] = mesh->mNormals[vert_id].x;
-                norm[1] = mesh->mNormals[vert_id].y;
-                norm[2] = mesh->mNormals[vert_id].z;
-                norm    = Math3d::transform_w0(inv_transform, norm);
-                builder.norm.push_back(norm);
+                norm[0]     = mesh->mNormals[vert_id].x;
+                norm[1]     = mesh->mNormals[vert_id].y;
+                norm[2]     = mesh->mNormals[vert_id].z;
+                vertex.norm = Math3d::transform_w0(inv_transform, norm);
+                vertex.attribs.set(GfxVertAttrib::Norm3f);
             }
             if (attribs.get(GfxVertAttrib::Tang3f) && mesh->HasTangentsAndBitangents()) {
                 Vec3f tang;
-                tang[0] = mesh->mTangents[vert_id].x;
-                tang[1] = mesh->mTangents[vert_id].y;
-                tang[2] = mesh->mTangents[vert_id].z;
-                tang    = Math3d::transform_w0(inv_transform, tang);
-                builder.tang.push_back(tang);
+                tang[0]     = mesh->mTangents[vert_id].x;
+                tang[1]     = mesh->mTangents[vert_id].y;
+                tang[2]     = mesh->mTangents[vert_id].z;
+                vertex.tang = Math3d::transform_w0(inv_transform, tang);
+                vertex.attribs.set(GfxVertAttrib::Tang3f);
             }
             for (int i = 0; i < 4; i++) {
                 if (attribs.get(static_cast<GfxVertAttrib>(int(GfxVertAttrib::Uv02f) + i)) && mesh->HasTextureCoords(i)) {
-                    Vec2f uv;
-                    uv[0] = mesh->mTextureCoords[i][vert_id].x;
-                    uv[1] = mesh->mTextureCoords[i][vert_id].y;
-                    builder.uv[i].push_back(uv);
+                    GfxVertAttrib uv_ids[] = {GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Uv22f, GfxVertAttrib::Uv32f};
+                    Vec2f         uv;
+                    uv[0]        = mesh->mTextureCoords[i][vert_id].x;
+                    uv[1]        = mesh->mTextureCoords[i][vert_id].y;
+                    vertex.uv[i] = uv;
+                    vertex.attribs.set(uv_ids[i]);
                 }
             }
+
+            builder.add_vertex(vertex);
         }
 
         for (unsigned int face_id = 0; face_id < num_faces; face_id++) {
             aiFace face = mesh->mFaces[face_id];
             assert(face.mNumIndices == 3);
-            for (unsigned int i = 0; i < face.mNumIndices; i++) {
-                builder.add_index(face.mIndices[i]);
-            }
+            builder.add_triangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
         }
 
         return StatusCode::Ok;

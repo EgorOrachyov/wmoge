@@ -33,10 +33,13 @@
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_vert_format.hpp"
 #include "io/yaml.hpp"
 #include "resource/resource.hpp"
+#include "resource/resource_ref.hpp"
+#include "resource/texture.hpp"
 
 #include <mutex>
 
@@ -62,10 +65,10 @@ namespace wmoge {
      * @brief Shader texture info
      */
     struct ShaderTexture {
-        StringId    name;
-        GfxTex      type;
-        int         id = -1;
-        std::string value;
+        StringId                 name;
+        GfxTex                   type;
+        int                      id = -1;
+        ResourceRefHard<Texture> value;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
         friend Status yaml_write(YamlNodeRef node, const ShaderTexture& texture);
@@ -112,22 +115,28 @@ namespace wmoge {
      * Shader allows user to write custom shaders to draw mesh
      * geometry to the screen. Material shader has a number of built-in
      * features. It automates hardware shader creation, allows to select
-     * queue and domain for rendering, provides mechanism to simplify user
+     * domain (base shader) for rendering, provides mechanism to simplify user
      * params exposure in a form of data and texture values.
      *
      * Shader is special resource which consists of optionally a vertex, fragment
      * compute code written using glsl language. This code if followed by a special
-     * declaration, which defines the shader domain, render queue type and
+     * declaration, which defines the shader domain, keywords, and
      * set of data and texture parameters, which are exposed by this shader
      * to the end (material) user.
      *
      * @note For actual rendering shader can produce one or more gfx shader variants.
      *       Single variant is an actual gfx shader item. Variants share common behaviour,
-     *       but differ in a set of defines. Variants  created on demand, when they are requested.
+     *       but differ in a set of defines. Variants created on demand, when they are requested.
      *
      * @note Variants creation is optimized by usage of the shader cache. If
      *       an item was compiled once and its byte code for current platform
      *       was cached, then its byte code reused.
+     * 
+     * @node Large amound of unique shaders and large amound of variants for compilation
+     *       can lead to performance penalties, since variats compilation may take
+     *       a long time to first compile. Also each variant produces unique PSO objects,
+     *       which compilation also may take a long time. Additional RAM is also required
+     *       for greater amound of shaders, variants and PSOs.
      */
     class Shader : public Resource {
     public:
@@ -136,10 +145,9 @@ namespace wmoge {
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
-        [[nodiscard]] bool           has_variant(const StringId& shader_key);
-        [[nodiscard]] Ref<GfxShader> find_variant(const StringId& shader_key);
         [[nodiscard]] Ref<GfxShader> create_variant(const fast_vector<std::string>& defines);
         [[nodiscard]] Ref<GfxShader> create_variant(const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines);
+        void                         fill_layout(GfxDescSetLayoutDesc& layout) const;
 
         [[nodiscard]] const std::string&                         get_vertex() const;
         [[nodiscard]] const std::string&                         get_fragment() const;
@@ -162,24 +170,17 @@ namespace wmoge {
         Status generate_textures_layout();
 
     private:
-        // Compiled and cached variants of the shader (subject to be removed)
-        // This is stored here also to reduce look-ups count into global manager when doing material rendering
-        fast_map<StringId, Ref<GfxShader>> m_variants;
-
         fast_map<StringId, ShaderParameter> m_parameters;
         fast_map<StringId, ShaderTexture>   m_textures;
         fast_set<StringId>                  m_keywords;
         ShaderPipelineState                 m_pipeline_state{};
         StringId                            m_domain;
-
-        std::string m_vertex;
-        std::string m_fragment;
-        std::string m_compute;
-        std::string m_include_textures;
-        std::string m_include_parameters;
-        int         m_parameters_size = 0;
-
-        std::mutex m_mutex;
+        std::string                         m_vertex;
+        std::string                         m_fragment;
+        std::string                         m_compute;
+        std::string                         m_include_textures;
+        std::string                         m_include_parameters;
+        int                                 m_parameters_size = 0;
     };
 
 }// namespace wmoge

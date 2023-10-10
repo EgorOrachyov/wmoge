@@ -48,8 +48,8 @@ namespace wmoge {
     }
 
     Status Resource::copy_to(Object& other) const {
-        auto* ptr   = dynamic_cast<Resource*>(&other);
-        ptr->m_name = SID(m_name.str() + "_copy");
+        auto* ptr = dynamic_cast<Resource*>(&other);
+        ptr->m_id = SID(m_id.str() + "_copy");
         return StatusCode::Ok;
     }
     Status Resource::read_from_yaml(const YamlConstNodeRef& node) {
