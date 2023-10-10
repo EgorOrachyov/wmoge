@@ -3,7 +3,7 @@
 <area shape="rect" id="node3" href="$classwmoge_1_1Joystick.html" title=" " alt="" coords="32,155,151,181"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Keyboard.html" title=" " alt="" coords="188,155,312,181"/>
 <area shape="rect" id="node7" href="$classwmoge_1_1Mouse.html" title=" " alt="" coords="350,155,459,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="195,5,305,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="195,5,305,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1GlfwJoystick.html" title=" " alt="" coords="5,229,151,256"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1GlfwKeyboard.html" title=" " alt="" coords="175,229,325,256"/>
 <area shape="rect" id="node8" href="$classwmoge_1_1GlfwMouse.html" title=" " alt="" coords="350,229,486,256"/>

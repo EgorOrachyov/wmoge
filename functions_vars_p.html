@@ -68,7 +68,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ResourceMeta.html#a6a28dbcb0f2fcc83f8420d02706c6cf8">wmoge::ResourceMeta</a>
 </li>
 <li>parameters
-: <a class="el" href="structwmoge_1_1MaterialFile.html#a54fcc618163195579d5477127e3540c1">wmoge::MaterialFile</a>
+: <a class="el" href="structwmoge_1_1MaterialFile.html#ad2565b4f3410b1998fc5bfc8ba99f69b">wmoge::MaterialFile</a>
 , <a class="el" href="structwmoge_1_1ShaderFile.html#a97a4adf631b61d8a8b88b61e202e0d4b">wmoge::ShaderFile</a>
 </li>
 <li>PARAMS_LOC
@@ -98,6 +98,9 @@ $(function() {
 <li>pass_desc
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a5289d53c7f1d1b8a61bc16e8d8bc798a">wmoge::GfxPipelineState</a>
 </li>
+<li>pass_list
+: <a class="el" href="structwmoge_1_1MeshBatch.html#a5a6f791fbeb0f27238ec27a6d77098bf">wmoge::MeshBatch</a>
+</li>
 <li>path
 : <a class="el" href="classwmoge_1_1EventFileSystem.html#a9acf97e934b39af05606c1b37c6ca3c3">wmoge::EventFileSystem</a>
 </li>
@@ -119,9 +122,6 @@ $(function() {
 </li>
 <li>pipeline
 : <a class="el" href="structwmoge_1_1RenderCmd.html#a7cacc006428f965b4812d2cf34a5f524">wmoge::RenderCmd</a>
-</li>
-<li>pipelines
-: <a class="el" href="structwmoge_1_1MeshCachedRenderData.html#aad83f0b8a9712bdb75c5b7154ae7ce29">wmoge::MeshCachedRenderData</a>
 </li>
 <li>PLANES_COUNT
 : <a class="el" href="classwmoge_1_1TFrustum.html#a60194b4e7b10a58b56e1342b09a4eca9">wmoge::TFrustum&lt; T &gt;</a>
@@ -150,13 +150,13 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TAabb.html#a0bc231618c83ab9f943c52a79b743b37">wmoge::TAabb&lt; T &gt;</a>
 </li>
 <li>pos2
-: <a class="el" href="structwmoge_1_1MeshBuilder.html#a83961a2efe5f610dc22782a324ffad70">wmoge::MeshBuilder</a>
+: <a class="el" href="structwmoge_1_1MeshVertex.html#a2ae43ae4b4c6252e7092d59770cb2ce7">wmoge::MeshVertex</a>
 </li>
 <li>pos2d
 : <a class="el" href="structwmoge_1_1PfxSpawnParams.html#a2288a49def9f09673b4fdc1deccdc643">wmoge::PfxSpawnParams</a>
 </li>
 <li>pos3
-: <a class="el" href="structwmoge_1_1MeshBuilder.html#a678a1f2170c5521ac721ed0358d55578">wmoge::MeshBuilder</a>
+: <a class="el" href="structwmoge_1_1MeshVertex.html#a1dcec27608a054554135bcbf02b4eb73">wmoge::MeshVertex</a>
 </li>
 <li>position
 : <a class="el" href="classwmoge_1_1EventMouse.html#aaf72db1b650409d255fe64d0f2d264db">wmoge::EventMouse</a>
@@ -185,6 +185,9 @@ $(function() {
 <li>proj
 : <a class="el" href="classwmoge_1_1RenderCamera.html#a5dbe682ed9266170b773e434858c43de">wmoge::RenderCamera</a>
 </li>
+<li>Proj
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#a205b7cdcf9d99ffb87848f24c8e38815">wmoge::ShaderMaterialDeferred::ViewData</a>
+</li>
 <li>proj_view
 : <a class="el" href="classwmoge_1_1RenderCamera.html#a68e23f84e041b8574114e3aef4246a44">wmoge::RenderCamera</a>
 </li>
@@ -195,9 +198,17 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RenderCamera.html#a4c2eaae70046bedb67d8b6c5f393cd4b">wmoge::RenderCamera</a>
 , <a class="el" href="structwmoge_1_1SceneDataCamera.html#af3ce2187878f74f26847ef22bf48cc92">wmoge::SceneDataCamera</a>
 </li>
+<li>ProjPrev
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#a9c83c09bb0f3b8c381172a767cd9875d">wmoge::ShaderMaterialDeferred::ViewData</a>
+</li>
+<li>ProjView
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#ac3dc6c2793551194b23549f8f13ceed0">wmoge::ShaderMaterialDeferred::ViewData</a>
+</li>
+<li>ProjViewPrev
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#af0385e7d66891117280d34c03fcd8ffc">wmoge::ShaderMaterialDeferred::ViewData</a>
+</li>
 <li>properties
-: <a class="el" href="structwmoge_1_1MeshCachedRenderData.html#a4b23e606976880b9840187cac8cad423">wmoge::MeshCachedRenderData</a>
-, <a class="el" href="structwmoge_1_1SceneNodeData.html#a7c52a1b2e5c6b101350aa5e4868121da">wmoge::SceneNodeData</a>
+: <a class="el" href="structwmoge_1_1SceneNodeData.html#a7c52a1b2e5c6b101350aa5e4868121da">wmoge::SceneNodeData</a>
 </li>
 <li>ptr
 : <a class="el" href="structwmoge_1_1GfxDynAllocation.html#a920479031f4a27641ef5deb070e27ccc">wmoge::GfxDynAllocation&lt; GfxBufferType, CpuPtrType &gt;</a>

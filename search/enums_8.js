@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pfxattribute_6499',['PfxAttribute',['../namespacewmoge.html#aab3417795946a8295bbe33d012a01230',1,'wmoge']]],
-  ['pfxeffecttype_6500',['PfxEffectType',['../namespacewmoge.html#ab57be49f2b2b2896bfefc5db77931aeb',1,'wmoge']]]
+  ['meshpasstype_6698',['MeshPassType',['../namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc',1,'wmoge']]]
 ];

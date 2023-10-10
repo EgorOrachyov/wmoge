@@ -118,9 +118,11 @@ $(function() {
 , <a class="el" href="structwmoge_1_1AuxDrawTriangles.html#ab6c660d6d677e223641df0f6508c1ccd">wmoge::AuxDrawTriangles</a>
 </li>
 <li>fill_layout()
-: <a class="el" href="classwmoge_1_1ShaderPass.html#a5fba673c6db008a02822cf4db0d59b95">wmoge::ShaderPass</a>
+: <a class="el" href="classwmoge_1_1Shader.html#a0e03d84531a071d1090ba5d0aa7f69f8">wmoge::Shader</a>
+, <a class="el" href="classwmoge_1_1ShaderPass.html#a5fba673c6db008a02822cf4db0d59b95">wmoge::ShaderPass</a>
 , <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#ad1fb0d7cf570648cf6ce7747f6615ee2">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#ab6bf6c3c453619a42a354e395d3863b1">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassMaterialDeferred.html#a862d7d1fd3ce8a20132f478201fbca13">wmoge::ShaderPassMaterialDeferred</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#a9afc7c8fbe7eb3d00e164d4dcf5bef69">wmoge::ShaderPassText</a>
 </li>
 <li>fill_required_layout()
@@ -139,7 +141,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1EcsSystemInfo.html#a139af831977d00f078b362daa2523e22">wmoge::EcsSystemInfo</a>
 </li>
 <li>find()
-: <a class="el" href="classwmoge_1_1ResourceManager.html#af9d68b847fe6a78e1838931c583ccc43">wmoge::ResourceManager</a>
+: <a class="el" href="classwmoge_1_1ResourceManager.html#aa2938e208af0ccfb9def9e0c03c6f04e">wmoge::ResourceManager</a>
 , <a class="el" href="classwmoge_1_1ShaderManager.html#ad61b671995d080e20c57669714280427">wmoge::ShaderManager</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a89399adb9bba04df66146bfce5e2e728">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
@@ -172,7 +174,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ResourceManager.html#a214a089df5e0c13930b2da087034ddac">wmoge::ResourceManager</a>
 </li>
 <li>find_meta()
-: <a class="el" href="classwmoge_1_1ResourceManager.html#a893bf1a16e7bb39585529c44223da16f">wmoge::ResourceManager</a>
+: <a class="el" href="classwmoge_1_1ResourceManager.html#aa29b39cf0da9a0091fe52eb4d74a0051">wmoge::ResourceManager</a>
 </li>
 <li>find_node()
 : <a class="el" href="classwmoge_1_1SceneTree.html#abec812955ae2f15688543a73a2d8dcc2">wmoge::SceneTree</a>
@@ -180,11 +182,11 @@ $(function() {
 <li>find_or_insert()
 : <a class="el" href="classwmoge_1_1TypedMap.html#a88b81ceb6b3ca1f81aef6b38d76214b7">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
+<li>find_replace_first()
+: <a class="el" href="classwmoge_1_1StringUtils.html#ae7a08cd1e676aaf7a919bb029a2dfd5d">wmoge::StringUtils</a>
+</li>
 <li>find_var()
 : <a class="el" href="classwmoge_1_1Console.html#a6605fb6a2e4f2d14d296ee376e1aa64b">wmoge::Console</a>
-</li>
-<li>find_variant()
-: <a class="el" href="classwmoge_1_1Shader.html#a34cddd7191f8f227f43ecd23c15512ff">wmoge::Shader</a>
 </li>
 <li>finish()
 : <a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a0807489784d1fb062e21a2271d19c659">wmoge::VKRenderPassBinder</a>
@@ -193,7 +195,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1MeshImportOptions_1_1Process.html#a4ba7be4ae7bc73973502172bfece0d9a">wmoge::MeshImportOptions::Process</a>
 </li>
 <li>floor()
-: <a class="el" href="classwmoge_1_1Math.html#a34eb31b95d2617d4590b369aad43ad74">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a454102ea73542b3122c434cde74caf95">wmoge::Math</a>
 </li>
 <li>flush()
 : <a class="el" href="classwmoge_1_1AuxDrawManager.html#ae5b5d65af282ddfe148ca541adcb78bf">wmoge::AuxDrawManager</a>
@@ -258,17 +260,29 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKFramebufferObject.html#a815b4594201a75bbae992a90c5896162">wmoge::VKFramebufferObject</a>
 , <a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a20cd17eaeb8316ef28b1a8108fe24fc5">wmoge::VKRenderPassBinder</a>
 </li>
+<li>FRAMEDATA_LOC
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a67cab0252cae2660a04678eb13c454fc">wmoge::ShaderMaterialDeferred</a>
+</li>
+<li>FRAMEDATA_NAME
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a957140a7f46bcf933a86e2c11b809b6e">wmoge::ShaderMaterialDeferred</a>
+</li>
+<li>FRAMEDATA_SET
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a6f05266f58b5f0f6e72a79f07783dcc6">wmoge::ShaderMaterialDeferred</a>
+</li>
+<li>FRAMEDATA_SLOT
+: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a477b89e4208d42d1d32c6777dce10b86">wmoge::ShaderMaterialDeferred</a>
+</li>
 <li>FRAMES_IN_FLIGHT
 : <a class="el" href="structwmoge_1_1GfxLimits.html#ab91a02b9586be4a5c58f4ccb71ba8256">wmoge::GfxLimits</a>
 </li>
 <li>free()
 : <a class="el" href="classwmoge_1_1MemPool.html#a2eb389cf40ef10fdd58dcc64e944d6c7">wmoge::MemPool</a>
+, <a class="el" href="classwmoge_1_1UnrolledList.html#a4c4859c141c59b69ca2f8a3c7bf4a676">wmoge::UnrolledList&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1VKDescManager.html#afbe66e5dfa268b3891a208b09e930933">wmoge::VKDescManager</a>
 </li>
 <li>from
 : <a class="el" href="structwmoge_1_1AuxDrawLines_1_1Line.html#ae8cfc0d44243915b5dfe7fdf63f6dc43">wmoge::AuxDrawLines::Line</a>
 , <a class="el" href="classwmoge_1_1PfxRange.html#aafa331bdf5f611170890717c811c9fae">wmoge::PfxRange</a>
-, <a class="el" href="classwmoge_1_1ShaderProperties.html#ac0a86018f972eed781c7c79453adfe4b">wmoge::ShaderProperties</a>
 </li>
 <li>from3x3to4x4()
 : <a class="el" href="classwmoge_1_1Math2d.html#aaa51cd89dae147c5e52148e4c0dce8ee">wmoge::Math2d</a>

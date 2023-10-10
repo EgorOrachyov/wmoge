@@ -1,0 +1,5 @@
+<map id="wmoge::MaterialFile::EntryTexture" name="wmoge::MaterialFile::EntryTexture">
+<area shape="rect" id="node1" title="Texture info of a material." alt="" coords="107,109,245,151"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceRefHard.html" title=" " alt="" coords="5,5,179,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="203,13,317,39"/>
+</map>

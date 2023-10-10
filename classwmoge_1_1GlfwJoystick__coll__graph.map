@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title=" " alt="" coords="67,249,212,276"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1Joystick.html" title=" " alt="" coords="80,173,199,200"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1InputDevice.html" title=" " alt="" coords="11,96,150,123"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
 </map>

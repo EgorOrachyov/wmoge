@@ -1,6 +1,6 @@
 <map id="wmoge::Keyboard" name="wmoge::Keyboard">
 <area shape="rect" id="node1" title=" " alt="" coords="67,171,191,197"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1InputDevice.html" title=" " alt="" coords="59,95,198,121"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
 </map>

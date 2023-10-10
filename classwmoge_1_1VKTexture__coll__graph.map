@@ -3,7 +3,7 @@
 <area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="149,275,300,316"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1GfxTexture.html" title="Gfx device texture resource." alt="" coords="158,199,291,225"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="56,102,201,129"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
 <area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="226,95,418,136"/>
 </map>

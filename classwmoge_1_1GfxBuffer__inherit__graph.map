@@ -5,7 +5,7 @@
 <area shape="rect" id="node10" href="$classwmoge_1_1GfxUniformBuffer.html" title="Gfx uniform buffer." alt="" coords="529,137,700,163"/>
 <area shape="rect" id="node13" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="541,194,689,221"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="164,111,309,138"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,111,116,138"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,111,116,138"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="748,5,899,47"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1VKIndexBuffer.html" title="Gfx vulkan index buffer implementation." alt="" coords="954,13,1107,39"/>
 <area shape="rect" id="node8" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="748,71,899,112"/>

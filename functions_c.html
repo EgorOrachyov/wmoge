@@ -173,12 +173,8 @@ $(function() {
 <li>children
 : <a class="el" href="structwmoge_1_1EcsComponentChildren.html#a4ff42bb4c92f867c4cb6b7ec10a6cfb4">wmoge::EcsComponentChildren</a>
 </li>
-<li>chunk_indeces
-: <a class="el" href="structwmoge_1_1MeshMaterialReferences.html#a69567b772d848185cf77c2dff73c3354">wmoge::MeshMaterialReferences</a>
-</li>
 <li>chunks
-: <a class="el" href="structwmoge_1_1MeshBuilder.html#a848b6433c795f0a14772c6458f090396">wmoge::MeshBuilder</a>
-, <a class="el" href="structwmoge_1_1MeshFile.html#a50c125ac5271252d12f98032a8437e75">wmoge::MeshFile</a>
+: <a class="el" href="structwmoge_1_1MeshFile.html#a50c125ac5271252d12f98032a8437e75">wmoge::MeshFile</a>
 </li>
 <li>clamp()
 : <a class="el" href="classwmoge_1_1Math.html#a6a2759c04fd52aaa4d3d9ba65c420953">wmoge::Math</a>
@@ -224,7 +220,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ConfigFile.html#a0d5172998506cd70dc6ce705ac95ec55">wmoge::ConfigFile</a>
 , <a class="el" href="classwmoge_1_1EcsArchStorage.html#a659c74ff2da425db1de6d11bcdc52e51">wmoge::EcsArchStorage</a>
 , <a class="el" href="classwmoge_1_1EcsWorld.html#ac61564df905284ca2906cb9c53f5599f">wmoge::EcsWorld</a>
-, <a class="el" href="classwmoge_1_1GfxCtx.html#a6a7e56a73f6b1e70f5d6ff70448643b6">wmoge::GfxCtx</a>
+, <a class="el" href="classwmoge_1_1GfxCtx.html#a18510d2f5ed1cdee423135bb53da93d7">wmoge::GfxCtx</a>
 , <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a936937c1776ab10e6ce5e359cb257fb2">wmoge::GfxCtxWrapper</a>
 , <a class="el" href="classwmoge_1_1HookList.html#a418c047b9dc7b48e585d18769693637b">wmoge::HookList</a>
 , <a class="el" href="classwmoge_1_1LayerStack.html#ad70d6830981cc216771a1f857702ad05">wmoge::LayerStack</a>
@@ -235,6 +231,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneManager.html#a24a34a7c20c243cf7e4ea7b6ece5e50f">wmoge::SceneManager</a>
 , <a class="el" href="classwmoge_1_1TypedArray.html#a1446376a3c5c9fad2f9ca307aa48b0b7">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#accd024ccd4ea84ae8a83c5cfeba52053">wmoge::TypedMap&lt; K, V, H &gt;</a>
+, <a class="el" href="classwmoge_1_1UnrolledList.html#a3645f3d3016eedba05e610e2aaff0494">wmoge::UnrolledList&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1VKCtx.html#a3330e810ed63340ff336a02641cf57e0">wmoge::VKCtx</a>
 </li>
 <li>clear_cache()
@@ -279,6 +276,7 @@ $(function() {
 <li>CLS
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a72186578fbcf1a61661df0346c32fcb7">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a819364b716076435e36841576a75f547">wmoge::ShaderBase</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a39a7c712262cb67dabf4ac11d63635c2">wmoge::ShaderMaterialDeferred</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a362cb734451cb64920920542912a4e9e">wmoge::ShaderText</a>
 </li>
 <li>cmd()
@@ -318,8 +316,12 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col3.html#aff5eb9c8f019c33dcfe59db3290e5daf">wmoge::GfxVF_Pos3Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col4.html#a2b099fbded1c2fe35770cdd331747eba">wmoge::GfxVF_Pos3Col4</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col4Uv2.html#a6af5033fe4bfa2afa559c013823fa968">wmoge::GfxVF_Pos3Col4Uv2</a>
-, <a class="el" href="structwmoge_1_1MeshBuilder.html#a205b117cf3f19cf706219a55bb9e239a">wmoge::MeshBuilder</a>
+, <a class="el" href="structwmoge_1_1MeshVertex.html#a4325c7cdc7558729cb1e48ed928dee1f">wmoge::MeshVertex</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a4f45d763ab5c97251d14579afa8575e2">wmoge::TMatMxN&lt; T, M, N &gt;</a>
+</li>
+<li>collect()
+: <a class="el" href="classwmoge_1_1RenderMeshStatic.html#adb41403d70962d6f13409d0bd370483e">wmoge::RenderMeshStatic</a>
+, <a class="el" href="classwmoge_1_1RenderObject.html#ab9d4ecd8b03c6bd7c12cb7040c5387d0">wmoge::RenderObject</a>
 </li>
 <li>collect_arch()
 : <a class="el" href="classwmoge_1_1ScenePropCamera.html#a53e8071dbf63bf5363c09cb3347cca13">wmoge::ScenePropCamera</a>
@@ -412,6 +414,7 @@ $(function() {
 <li>const_iterator
 : <a class="el" href="classwmoge_1_1TypedArray.html#aa1cfb61a4ad3b6cb3a274debe0cd7bdd">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a2d0207a860a7eab6a65522798381df41">wmoge::TypedMap&lt; K, V, H &gt;</a>
+, <a class="el" href="classwmoge_1_1UnrolledList.html#aff9cc4f1a0a6635753c26493bf598d06">wmoge::UnrolledList&lt; T, NodeCapacity &gt;</a>
 </li>
 <li>const_max()
 : <a class="el" href="classwmoge_1_1Math.html#a2c6f5f08223fe0427d0277d8bc82f955">wmoge::Math</a>
@@ -446,6 +449,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1Image.html#aa3830c75023eb5cc83e14b32e0ffab0c">wmoge::Image</a>
 , <a class="el" href="classwmoge_1_1LuaScript.html#ab4f801dbdde8409d19dd88f7f2426ee8">wmoge::LuaScript</a>
 , <a class="el" href="classwmoge_1_1Material.html#af92c1ea0e4d96c5bd1beab6dcb6d730c">wmoge::Material</a>
+, <a class="el" href="classwmoge_1_1Model.html#a855a89ea2159b772997dfa44f9c31f00">wmoge::Model</a>
 , <a class="el" href="classwmoge_1_1Object.html#a4f5046efc308880c57c27ed7ef725138">wmoge::Object</a>
 , <a class="el" href="classwmoge_1_1PfxEffect.html#a66d436c2023c2581d69d89ed1301c947">wmoge::PfxEffect</a>
 , <a class="el" href="classwmoge_1_1Prefab.html#ac396ac53af2b8fda11d2926cf1d2d045">wmoge::Prefab</a>
@@ -473,7 +477,6 @@ $(function() {
 : <a class="el" href="structwmoge_1_1EcsComponentInfo.html#a7433fdcec54324aa5387cd2a8d49c090">wmoge::EcsComponentInfo</a>
 , <a class="el" href="classwmoge_1_1GlfwWindowManager.html#aa7024d4cc131c4431e4f5f7105ca08d7">wmoge::GlfwWindowManager</a>
 , <a class="el" href="classwmoge_1_1Image.html#a17a56ceb47505e05fd6d6ff61b329ef8">wmoge::Image</a>
-, <a class="el" href="classwmoge_1_1Material.html#aeea76987e2b8d4a4ff43a9436fed11e7">wmoge::Material</a>
 , <a class="el" href="classwmoge_1_1PfxFeature.html#a5ba268a9d0ada736ac906bd27f43f5fb">wmoge::PfxFeature</a>
 , <a class="el" href="classwmoge_1_1VKIndexBuffer.html#a12db49de3a7ae57c70320f29e7b411b2">wmoge::VKIndexBuffer</a>
 , <a class="el" href="classwmoge_1_1VKSampler.html#a24bb28a3034e6a5f3e262522aea923cf">wmoge::VKSampler</a>

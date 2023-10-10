@@ -1,4 +1,4 @@
 <map id="wmoge::SceneTransform" name="wmoge::SceneTransform">
 <area shape="rect" id="node1" title="Single node in a hierarchy of a transformation." alt="" coords="5,80,172,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="33,5,144,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,5,144,32"/>
 </map>

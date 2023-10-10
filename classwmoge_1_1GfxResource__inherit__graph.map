@@ -12,7 +12,7 @@
 <area shape="rect" id="node40" href="$classwmoge_1_1GfxTexture.html" title="Gfx device texture resource." alt="" coords="380,753,513,780"/>
 <area shape="rect" id="node43" href="$classwmoge_1_1GfxUniformPool.html" title="Pool for per&#45;frame small const buffer allocations to configure render passes." alt="" coords="365,804,528,831"/>
 <area shape="rect" id="node44" href="$classwmoge_1_1GfxVertFormat.html" title="Class describing the format of the input to the vertex shader." alt="" coords="369,863,524,889"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,576,116,603"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,576,116,603"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1VKFramebufferObject.html" title="Raii wrapper for VkFramebuffer object." alt="" coords="584,5,779,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="604,56,759,83"/>
 <area shape="rect" id="node9" href="$classwmoge_1_1GfxStorageBuffer.html" title="Gfx storage buffer." alt="" coords="597,107,766,133"/>

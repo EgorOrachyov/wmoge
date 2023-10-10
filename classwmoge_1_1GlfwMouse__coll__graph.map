@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title=" " alt="" coords="150,275,286,301"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1Mouse.html" title=" " alt="" coords="163,199,273,225"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1InputDevice.html" title=" " alt="" coords="59,95,198,121"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="222,95,393,121"/>
 </map>

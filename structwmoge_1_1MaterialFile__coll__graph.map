@@ -1,4 +1,4 @@
 <map id="wmoge::MaterialFile" name="wmoge::MaterialFile">
-<area shape="rect" id="node1" title="Represents material file stored in resources folder." alt="" coords="5,95,143,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="17,5,131,32"/>
+<area shape="rect" id="node1" title="Represents material file stored in resources folder." alt="" coords="23,109,161,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceRefHard.html" title=" " alt="" coords="5,5,179,47"/>
 </map>

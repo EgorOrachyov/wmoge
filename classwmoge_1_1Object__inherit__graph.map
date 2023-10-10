@@ -1,13 +1,13 @@
 <map id="wmoge::Object" name="wmoge::Object">
-<area shape="rect" id="node1" title="Base class for any scene tree object or resource with reflection support." alt="" coords="164,791,272,817"/>
+<area shape="rect" id="node1" title="Base class for any scene tree object or resource with reflection support." alt="" coords="164,816,272,843"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1Event.html" title="Event holding some data which can be processed by listeners." alt="" coords="346,208,449,235"/>
 <area shape="rect" id="node17" href="$classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="334,436,461,463"/>
-<area shape="rect" id="node20" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="331,740,464,767"/>
-<area shape="rect" id="node21" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="335,791,460,817"/>
-<area shape="rect" id="node39" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="328,841,467,868"/>
-<area shape="rect" id="node40" href="$classwmoge_1_1SceneProperty.html" title="Serializable property assigned to a scene node." alt="" coords="320,1196,475,1223"/>
-<area shape="rect" id="node46" href="$classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects." alt="" coords="331,1247,464,1273"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,791,116,817"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="331,765,464,792"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="335,816,460,843"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="328,867,467,893"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1SceneProperty.html" title="Serializable property assigned to a scene node." alt="" coords="320,1247,475,1273"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects." alt="" coords="331,1297,464,1324"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,816,116,843"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1EventAction.html" title="Action event dispatch from raw input and active mapping." alt="" coords="560,31,700,57"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1EventFileSystem.html" title="Action event dispatch from raw input and active mapping." alt="" coords="546,81,714,108"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1EventInput.html" title="Base class for input events." alt="" coords="564,132,696,159"/>
@@ -29,20 +29,21 @@
 <area shape="rect" id="node26" href="$classwmoge_1_1Image.html" title="Hardware&#45;independent image representation." alt="" coords="577,639,683,665"/>
 <area shape="rect" id="node27" href="$classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry." alt="" coords="572,689,688,716"/>
 <area shape="rect" id="node28" href="$classwmoge_1_1Mesh.html" title="Vertex and index data structured as chunks which can be rendered." alt="" coords="579,740,681,767"/>
-<area shape="rect" id="node29" href="$classwmoge_1_1PfxEffect.html" title="Complete pfx effect which can be instantiated for emitting." alt="" coords="569,791,691,817"/>
-<area shape="rect" id="node30" href="$classwmoge_1_1Prefab.html" title="A prefab resource which can be instantiated into a set of objects." alt="" coords="576,841,684,868"/>
-<area shape="rect" id="node31" href="$classwmoge_1_1ScenePacked.html" title="Represents packed scene resource which can be used to load scenes." alt="" coords="555,892,705,919"/>
-<area shape="rect" id="node32" href="$classwmoge_1_1SceneTreePacked.html" title="Represents packed scene trre resource which can be used to load editable scene." alt="" coords="541,943,719,969"/>
-<area shape="rect" id="node33" href="$classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="578,993,682,1020"/>
-<area shape="rect" id="node35" href="$classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material." alt="" coords="575,1044,685,1071"/>
-<area shape="rect" id="node36" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="573,1095,687,1121"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1Model.html" title="Resource which stores a complete textured mesh model with level of details and other settings." alt="" coords="577,791,683,817"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1PfxEffect.html" title="Complete pfx effect which can be instantiated for emitting." alt="" coords="569,841,691,868"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1Prefab.html" title="A prefab resource which can be instantiated into a set of objects." alt="" coords="576,892,684,919"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1ScenePacked.html" title="Represents packed scene resource which can be used to load scenes." alt="" coords="555,943,705,969"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1SceneTreePacked.html" title="Represents packed scene trre resource which can be used to load editable scene." alt="" coords="541,993,719,1020"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="578,1044,682,1071"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material." alt="" coords="575,1095,685,1121"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="573,1145,687,1172"/>
 <area shape="rect" id="node23" href="$classwmoge_1_1AudioStreamWav.html" title="Simple audio resource loaded from .wav file format." alt="" coords="785,487,956,513"/>
-<area shape="rect" id="node34" href="$classwmoge_1_1LuaScript.html" title="Holds info about a lua declared class in a user script." alt="" coords="807,993,934,1020"/>
-<area shape="rect" id="node37" href="$classwmoge_1_1Texture2d.html" title="2d gpu texture resource" alt="" coords="807,1069,934,1096"/>
-<area shape="rect" id="node38" href="$classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture resource." alt="" coords="799,1120,942,1147"/>
-<area shape="rect" id="node41" href="$classwmoge_1_1ScenePropAudioListener.html" title="Node property." alt="" coords="523,1145,737,1172"/>
-<area shape="rect" id="node42" href="$classwmoge_1_1ScenePropAudioSource.html" title="Node property." alt="" coords="526,1196,734,1223"/>
-<area shape="rect" id="node43" href="$classwmoge_1_1ScenePropCamera.html" title="Node property." alt="" coords="541,1247,719,1273"/>
-<area shape="rect" id="node44" href="$classwmoge_1_1ScenePropLuaScript.html" title="Node property." alt="" coords="535,1297,725,1324"/>
-<area shape="rect" id="node45" href="$classwmoge_1_1ScenePropMeshStatic.html" title="Node property." alt="" coords="530,1348,730,1375"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1LuaScript.html" title="Holds info about a lua declared class in a user script." alt="" coords="807,1044,934,1071"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1Texture2d.html" title="2d gpu texture resource" alt="" coords="807,1120,934,1147"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture resource." alt="" coords="799,1171,942,1197"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1ScenePropAudioListener.html" title="Node property." alt="" coords="523,1196,737,1223"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1ScenePropAudioSource.html" title="Node property." alt="" coords="526,1247,734,1273"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1ScenePropCamera.html" title="Node property." alt="" coords="541,1297,719,1324"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1ScenePropLuaScript.html" title="Node property." alt="" coords="535,1348,725,1375"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1ScenePropMeshStatic.html" title="Node property." alt="" coords="530,1399,730,1425"/>
 </map>

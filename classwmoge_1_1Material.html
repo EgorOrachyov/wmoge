@@ -69,7 +69,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classwmoge_1_1Material-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">wmoge::Material Class Reference</div>  </div>
+<div class="title">wmoge::Material Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,7 +85,7 @@ Inheritance diagram for wmoge::Material:</div>
 <area shape="rect" title="Controls the rendering of the mesh geometry." alt="" coords="10,229,126,256"/>
 <area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="5,155,131,181"/>
 <area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="14,80,122,107"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="13,5,123,32"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="13,5,123,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -96,7 +96,7 @@ Collaboration diagram for wmoge::Material:</div>
 <area shape="rect" title="Controls the rendering of the mesh geometry." alt="" coords="10,229,126,256"/>
 <area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="5,155,131,181"/>
 <area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="14,80,122,107"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="13,5,123,32"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="13,5,123,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -104,9 +104,9 @@ Collaboration diagram for wmoge::Material:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a96734c1f37780c9d3139e12203b8c2e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a96734c1f37780c9d3139e12203b8c2e5">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Material.html">Material</a>, <a class="el" href="classwmoge_1_1Resource.html">Resource</a>)</td></tr>
 <tr class="separator:a96734c1f37780c9d3139e12203b8c2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeea76987e2b8d4a4ff43a9436fed11e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#aeea76987e2b8d4a4ff43a9436fed11e7">create</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; shader)</td></tr>
-<tr class="memdesc:aeea76987e2b8d4a4ff43a9436fed11e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create material using specified shader.  <a href="classwmoge_1_1Material.html#aeea76987e2b8d4a4ff43a9436fed11e7">More...</a><br /></td></tr>
-<tr class="separator:aeea76987e2b8d4a4ff43a9436fed11e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27dc9d29d26c46d078bb99b971b4a42a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a27dc9d29d26c46d078bb99b971b4a42a">Material</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; shader)</td></tr>
+<tr class="memdesc:a27dc9d29d26c46d078bb99b971b4a42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create material using specified shader.  <a href="classwmoge_1_1Material.html#a27dc9d29d26c46d078bb99b971b4a42a">More...</a><br /></td></tr>
+<tr class="separator:a27dc9d29d26c46d078bb99b971b4a42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e41704ce997bb37b745af0917400073"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a2e41704ce997bb37b745af0917400073">set_param</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, const std::string &amp;value)</td></tr>
 <tr class="memdesc:a2e41704ce997bb37b745af0917400073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set material parameter by name from string value.  <a href="classwmoge_1_1Material.html#a2e41704ce997bb37b745af0917400073">More...</a><br /></td></tr>
 <tr class="separator:a2e41704ce997bb37b745af0917400073"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,31 +128,46 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae8f9875c2e1ece0c6d9af7309374fcd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#ae8f9875c2e1ece0c6d9af7309374fcd3">set_texture</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Texture.html">Texture</a> &gt; &amp;texture)</td></tr>
 <tr class="memdesc:ae8f9875c2e1ece0c6d9af7309374fcd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set material texture parameter value by name.  <a href="classwmoge_1_1Material.html#ae8f9875c2e1ece0c6d9af7309374fcd3">More...</a><br /></td></tr>
 <tr class="separator:ae8f9875c2e1ece0c6d9af7309374fcd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35ba63afef6eba81159e4852a8198a10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a35ba63afef6eba81159e4852a8198a10">validate</a> ()</td></tr>
+<tr class="memdesc:a35ba63afef6eba81159e4852a8198a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates GPU state of material, buffer and descriptor set for rendering.  <a href="classwmoge_1_1Material.html#a35ba63afef6eba81159e4852a8198a10">More...</a><br /></td></tr>
+<tr class="separator:a35ba63afef6eba81159e4852a8198a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7b06e117097d6dd8a4e9ddae3e8a8ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Texture.html">Texture</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#af7b06e117097d6dd8a4e9ddae3e8a8ea">get_textures</a> () const</td></tr>
+<tr class="separator:af7b06e117097d6dd8a4e9ddae3e8a8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a9c00a49663d92a55cd2486952cab64"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a2a9c00a49663d92a55cd2486952cab64">get_shader</a> () const</td></tr>
+<tr class="separator:a2a9c00a49663d92a55cd2486952cab64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8511bba6cf69975ed8ba1064cb55464d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a8511bba6cf69975ed8ba1064cb55464d">get_parameters</a> () const</td></tr>
+<tr class="separator:a8511bba6cf69975ed8ba1064cb55464d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adebc02d599f6e97003df50ad40c0b4ac"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#adebc02d599f6e97003df50ad40c0b4ac">get_buffer</a> () const</td></tr>
+<tr class="separator:adebc02d599f6e97003df50ad40c0b4ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07cfc33c1a0d0da3923cf917744fb5b8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a07cfc33c1a0d0da3923cf917744fb5b8">get_desc_set</a> () const</td></tr>
+<tr class="separator:a07cfc33c1a0d0da3923cf917744fb5b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05ce1a423cacff0c50d0db75ccc04415"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a05ce1a423cacff0c50d0db75ccc04415">get_name</a> () const</td></tr>
+<tr class="separator:a05ce1a423cacff0c50d0db75ccc04415"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ee0b23450edf78123ca4171bf4a986b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a0ee0b23450edf78123ca4171bf4a986b">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
 <tr class="separator:a0ee0b23450edf78123ca4171bf4a986b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af92c1ea0e4d96c5bd1beab6dcb6d730c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#af92c1ea0e4d96c5bd1beab6dcb6d730c">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const override</td></tr>
 <tr class="separator:af92c1ea0e4d96c5bd1beab6dcb6d730c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c9dc943a1620ca903352e2f126d0fc2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a6c9dc943a1620ca903352e2f126d0fc2">get_shader</a> ()</td></tr>
-<tr class="separator:a6c9dc943a1620ca903352e2f126d0fc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31e4004c9e928dc066fbe0ac10156684"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; std::uint8_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a31e4004c9e928dc066fbe0ac10156684">get_parameters</a> ()</td></tr>
-<tr class="separator:a31e4004c9e928dc066fbe0ac10156684"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ca1aeb22e365a60dc7e172d86554b16"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Texture.html">Texture</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a7ca1aeb22e365a60dc7e172d86554b16">get_textures</a> ()</td></tr>
-<tr class="separator:a7ca1aeb22e365a60dc7e172d86554b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65a357a8d2cf1c4671317adab5dba260"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a>&lt; <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html#a65a357a8d2cf1c4671317adab5dba260">get_keywords</a> ()</td></tr>
-<tr class="separator:a65a357a8d2cf1c4671317adab5dba260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Resource.html">wmoge::Resource</a></td></tr>
 <tr class="memitem:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Resource.html">Resource</a>, <a class="el" href="classwmoge_1_1Object.html">Object</a>)</td></tr>
 <tr class="separator:ad6cb22c023c2c0220f269599b7d13122 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
+<tr class="separator:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3615034ba0ba788c63b9a8f6edbaf025 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a3615034ba0ba788c63b9a8f6edbaf025">set_id</a> (<a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a> id)</td></tr>
+<tr class="separator:a3615034ba0ba788c63b9a8f6edbaf025 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fec1fb4ac0ccb6b7fea5f0b0debfe88 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a4fec1fb4ac0ccb6b7fea5f0b0debfe88">set_uuid</a> (<a class="el" href="classwmoge_1_1UUID.html">UUID</a> uuid)</td></tr>
+<tr class="separator:a4fec1fb4ac0ccb6b7fea5f0b0debfe88 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d91eac0d560d470dedbeea48a2dc8e9 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a6d91eac0d560d470dedbeea48a2dc8e9">get_name</a> ()</td></tr>
+<tr class="separator:a6d91eac0d560d470dedbeea48a2dc8e9 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a427881d5ba432c3151e15f3c515f42ee inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a427881d5ba432c3151e15f3c515f42ee">get_id</a> ()</td></tr>
+<tr class="separator:a427881d5ba432c3151e15f3c515f42ee inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94cf2a88728cd8267b2d6f188af6b25f inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94cf2a88728cd8267b2d6f188af6b25f">get_uuid</a> ()</td></tr>
+<tr class="separator:a94cf2a88728cd8267b2d6f188af6b25f inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af322c46f1e180c2a655c7c83f5fc089e inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#af322c46f1e180c2a655c7c83f5fc089e">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const override</td></tr>
 <tr class="separator:af322c46f1e180c2a655c7c83f5fc089e inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab84697930f7a1605d23483fa02f28d23 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ab84697930f7a1605d23483fa02f28d23">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
 <tr class="separator:ab84697930f7a1605d23483fa02f28d23 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc5ca3cbe177a344d53d48f0f6d22650 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#abc5ca3cbe177a344d53d48f0f6d22650">write_to_yaml</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node) const override</td></tr>
 <tr class="separator:abc5ca3cbe177a344d53d48f0f6d22650 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a95f90ecb01695089b7867eb57e678e8b">set_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
-<tr class="separator:a95f90ecb01695089b7867eb57e678e8b inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d91eac0d560d470dedbeea48a2dc8e9 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a6d91eac0d560d470dedbeea48a2dc8e9">get_name</a> ()</td></tr>
-<tr class="separator:a6d91eac0d560d470dedbeea48a2dc8e9 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Object.html">wmoge::Object</a></td></tr>
 <tr class="memitem:af0c6c7469aacde5603240b23d2fe4be5 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#af0c6c7469aacde5603240b23d2fe4be5">~Object</a> () override=default</td></tr>
 <tr class="separator:af0c6c7469aacde5603240b23d2fe4be5 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,7 +221,35 @@ Additional Inherited Members</h2></td></tr>
 <p><a class="el" href="classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry.">Material</a> is composed of the shader object and a set of material params. <a class="el" href="classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry.">Material</a> shader object defines the set of available params for rendering settings. <a class="el" href="classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry.">Material</a> params provide user the ability to easily set params to tweak rendering of the concrete object. User can apply shader to a given mesh geometry and issuer rendering on a GPU.</p>
 <dl class="section note"><dt>Note</dt><dd>Particular shader variation depends on a mesh properties and other settings, thus huge number of materials with different settings may cause a significant increase of shader variations count.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd>MaterialShader </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a27dc9d29d26c46d078bb99b971b4a42a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27dc9d29d26c46d078bb99b971b4a42a">&#9670;&nbsp;</a></span>Material()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::Material::Material </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt;&#160;</td>
+          <td class="paramname"><em>shader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create material using specified shader. </p>
+<p>This method initialized material with specified shader, allocates params storage with default values, setups default textures and prepares material for the rendering.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shader</td><td>Valid shader to use for this material </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="af92c1ea0e4d96c5bd1beab6dcb6d730c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af92c1ea0e4d96c5bd1beab6dcb6d730c">&#9670;&nbsp;</a></span>copy_to()</h2>
 
@@ -235,97 +278,152 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aeea76987e2b8d4a4ff43a9436fed11e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeea76987e2b8d4a4ff43a9436fed11e7">&#9670;&nbsp;</a></span>create()</h2>
+<a id="adebc02d599f6e97003df50ad40c0b4ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adebc02d599f6e97003df50ad40c0b4ac">&#9670;&nbsp;</a></span>get_buffer()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::Material::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt;&#160;</td>
-          <td class="paramname"><em>shader</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create material using specified shader. </p>
-<p>This method initialized material with specified shader, allocates params storage with default values, setups default textures and prepares material for the rendering.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shader</td><td>Valid shader to use for this material </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a65a357a8d2cf1c4671317adab5dba260"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65a357a8d2cf1c4671317adab5dba260">&#9670;&nbsp;</a></span>get_keywords()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#a8ee454bf2410ccc9478115eff9b5436d">fast_set</a>&lt; <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt; &amp; wmoge::Material::get_keywords </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a>&gt;&amp; wmoge::Material::get_buffer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a31e4004c9e928dc066fbe0ac10156684"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31e4004c9e928dc066fbe0ac10156684">&#9670;&nbsp;</a></span>get_parameters()</h2>
+<a id="a07cfc33c1a0d0da3923cf917744fb5b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07cfc33c1a0d0da3923cf917744fb5b8">&#9670;&nbsp;</a></span>get_desc_set()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; std::uint8_t &gt; &amp; wmoge::Material::get_parameters </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a>&gt;&amp; wmoge::Material::get_desc_set </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a6c9dc943a1620ca903352e2f126d0fc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c9dc943a1620ca903352e2f126d0fc2">&#9670;&nbsp;</a></span>get_shader()</h2>
+<a id="a05ce1a423cacff0c50d0db75ccc04415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05ce1a423cacff0c50d0db75ccc04415">&#9670;&nbsp;</a></span>get_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; &amp; wmoge::Material::get_shader </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&amp; wmoge::Material::get_name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7ca1aeb22e365a60dc7e172d86554b16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ca1aeb22e365a60dc7e172d86554b16">&#9670;&nbsp;</a></span>get_textures()</h2>
+<a id="a8511bba6cf69975ed8ba1064cb55464d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8511bba6cf69975ed8ba1064cb55464d">&#9670;&nbsp;</a></span>get_parameters()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Texture.html">Texture</a> &gt; &gt; &amp; wmoge::Material::get_textures </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt;&amp; wmoge::Material::get_parameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a9c00a49663d92a55cd2486952cab64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9c00a49663d92a55cd2486952cab64">&#9670;&nbsp;</a></span>get_shader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Shader.html">Shader</a>&gt;&amp; wmoge::Material::get_shader </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af7b06e117097d6dd8a4e9ddae3e8a8ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7b06e117097d6dd8a4e9ddae3e8a8ea">&#9670;&nbsp;</a></span>get_textures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt;const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Texture.html">Texture</a>&gt; &gt; wmoge::Material::get_textures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -565,6 +663,25 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Set material vec4 parameter value by name. </p>
+
+</div>
+</div>
+<a id="a35ba63afef6eba81159e4852a8198a10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35ba63afef6eba81159e4852a8198a10">&#9670;&nbsp;</a></span>validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::Material::validate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Validates GPU state of material, buffer and descriptor set for rendering. </p>
 
 </div>
 </div>

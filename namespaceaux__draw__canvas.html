@@ -101,30 +101,25 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  Shader(name=<span class="stringliteral">&#39;aux_draw_canvas&#39;</span>,</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;                cls=<span class="stringliteral">&#39;AuxDrawCanvas&#39;</span>,</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;                constants=</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;                [</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;                ],</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;                buffers=</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;                [</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;                    UniformBuffer(<span class="stringliteral">&#39;Params&#39;</span>, <span class="stringliteral">&#39;std140&#39;</span>, BINDINGS.next(), [</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;                        StructField(TYPE_MAT4, <span class="stringliteral">&#39;clip_proj_screen&#39;</span>),</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                        StructField(TYPE_FLOAT, <span class="stringliteral">&#39;gamma&#39;</span>),</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                        StructField(TYPE_FLOAT, <span class="stringliteral">&#39;inverse_gamma&#39;</span>)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                    ])</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                ],</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                samplers=</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                [</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                    Sampler2d(<span class="stringliteral">&#39;Texture&#39;</span>, BINDINGS.next())</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                ],</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                files=</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                [</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                    <span class="stringliteral">&#39;aux_draw_canvas.vert&#39;</span>,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                    <span class="stringliteral">&#39;aux_draw_canvas.frag&#39;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                ]</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                )</div>
+<b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  Shader(</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    name=<span class="stringliteral">&quot;aux_draw_canvas&quot;</span>,</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    cls=<span class="stringliteral">&quot;AuxDrawCanvas&quot;</span>,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    constants=[],</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    buffers=[</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        UniformBuffer(</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;            <span class="stringliteral">&quot;Params&quot;</span>,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;            <span class="stringliteral">&quot;std140&quot;</span>,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;            BINDINGS.next(),</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;            [</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                StructField(TYPE_MAT4, <span class="stringliteral">&quot;clip_proj_screen&quot;</span>),</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;                StructField(TYPE_FLOAT, <span class="stringliteral">&quot;gamma&quot;</span>),</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;                StructField(TYPE_FLOAT, <span class="stringliteral">&quot;inverse_gamma&quot;</span>),</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            ],</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        )</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    ],</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    samplers=[Sampler2d(<span class="stringliteral">&quot;Texture&quot;</span>, BINDINGS.next())],</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    files=[<span class="stringliteral">&quot;aux_draw_canvas.vert&quot;</span>, <span class="stringliteral">&quot;aux_draw_canvas.frag&quot;</span>],</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;)</div>
 </div><!-- fragment -->
 </div>
 </div>

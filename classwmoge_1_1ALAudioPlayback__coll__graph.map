@@ -1,7 +1,7 @@
 <map id="wmoge::ALAudioPlayback" name="wmoge::ALAudioPlayback">
 <area shape="rect" id="node1" title="OpenAL audio playback inmpleemntation." alt="" coords="129,200,302,227"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1AudioPlayback.html" title="An instance of audio stream for playing sound." alt="" coords="137,124,293,151"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="5,13,116,39"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,13,116,39"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="141,5,290,47"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="314,13,429,39"/>
 </map>

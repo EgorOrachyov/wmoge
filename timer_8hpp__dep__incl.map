@@ -1,25 +1,25 @@
 <map id="engine/core/timer.hpp" name="engine/core/timer.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="7595,5,7741,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="7659,5,7805,32"/>
 <area shape="rect" id="node2" href="$timer_8cpp.html" title=" " alt="" coords="5,80,152,107"/>
 <area shape="rect" id="node3" href="$profiler_8hpp.html" title=" " alt="" coords="4155,80,4320,107"/>
 <area shape="rect" id="node19" href="$engine_8hpp.html" title=" " alt="" coords="577,244,703,271"/>
-<area shape="rect" id="node33" href="$vk__pipeline_8cpp.html" title=" " alt="" coords="7516,155,7657,196"/>
-<area shape="rect" id="node35" href="$vk__shader_8cpp.html" title=" " alt="" coords="7681,155,7823,196"/>
-<area shape="rect" id="node48" href="$resource__manager_8cpp.html" title=" " alt="" coords="7847,155,8015,196"/>
-<area shape="rect" id="node49" href="$scene__packed_8cpp.html" title=" " alt="" coords="8039,155,8193,196"/>
-<area shape="rect" id="node50" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="8217,155,8370,196"/>
-<area shape="rect" id="node4" href="$al__bus_8cpp.html" title=" " alt="" coords="5370,155,5507,196"/>
-<area shape="rect" id="node5" href="$al__engine_8cpp.html" title=" " alt="" coords="5531,155,5669,196"/>
-<area shape="rect" id="node6" href="$al__playback_8cpp.html" title=" " alt="" coords="5693,155,5830,196"/>
-<area shape="rect" id="node7" href="$async_8cpp.html" title=" " alt="" coords="5854,162,6005,189"/>
-<area shape="rect" id="node8" href="$callback__queue_8cpp.html" title=" " alt="" coords="6029,155,6171,196"/>
-<area shape="rect" id="node9" href="$callback__stream_8cpp.html" title=" " alt="" coords="6195,155,6336,196"/>
-<area shape="rect" id="node10" href="$task_8cpp.html" title=" " alt="" coords="6359,162,6502,189"/>
-<area shape="rect" id="node11" href="$task__manager_8cpp.html" title=" " alt="" coords="6526,162,6725,189"/>
-<area shape="rect" id="node12" href="$task__parallel__for_8cpp.html" title=" " alt="" coords="6749,155,6915,196"/>
-<area shape="rect" id="node13" href="$task__runtime_8cpp.html" title=" " alt="" coords="6940,162,7132,189"/>
-<area shape="rect" id="node14" href="$console_8cpp.html" title=" " alt="" coords="7157,162,7329,189"/>
-<area shape="rect" id="node15" href="$debug__layer_8cpp.html" title=" " alt="" coords="7353,155,7492,196"/>
+<area shape="rect" id="node33" href="$vk__pipeline_8cpp.html" title=" " alt="" coords="7580,155,7721,196"/>
+<area shape="rect" id="node35" href="$vk__shader_8cpp.html" title=" " alt="" coords="7745,155,7887,196"/>
+<area shape="rect" id="node48" href="$resource__manager_8cpp.html" title=" " alt="" coords="7911,155,8079,196"/>
+<area shape="rect" id="node49" href="$scene__packed_8cpp.html" title=" " alt="" coords="8103,155,8257,196"/>
+<area shape="rect" id="node50" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="8281,155,8434,196"/>
+<area shape="rect" id="node4" href="$al__bus_8cpp.html" title=" " alt="" coords="5434,155,5571,196"/>
+<area shape="rect" id="node5" href="$al__engine_8cpp.html" title=" " alt="" coords="5595,155,5733,196"/>
+<area shape="rect" id="node6" href="$al__playback_8cpp.html" title=" " alt="" coords="5757,155,5894,196"/>
+<area shape="rect" id="node7" href="$async_8cpp.html" title=" " alt="" coords="5918,162,6069,189"/>
+<area shape="rect" id="node8" href="$callback__queue_8cpp.html" title=" " alt="" coords="6093,155,6235,196"/>
+<area shape="rect" id="node9" href="$callback__stream_8cpp.html" title=" " alt="" coords="6259,155,6400,196"/>
+<area shape="rect" id="node10" href="$task_8cpp.html" title=" " alt="" coords="6423,162,6566,189"/>
+<area shape="rect" id="node11" href="$task__manager_8cpp.html" title=" " alt="" coords="6590,162,6789,189"/>
+<area shape="rect" id="node12" href="$task__parallel__for_8cpp.html" title=" " alt="" coords="6813,155,6979,196"/>
+<area shape="rect" id="node13" href="$task__runtime_8cpp.html" title=" " alt="" coords="7004,162,7196,189"/>
+<area shape="rect" id="node14" href="$console_8cpp.html" title=" " alt="" coords="7221,162,7393,189"/>
+<area shape="rect" id="node15" href="$debug__layer_8cpp.html" title=" " alt="" coords="7417,155,7556,196"/>
 <area shape="rect" id="node16" href="$profiler_8cpp.html" title=" " alt="" coords="227,162,392,189"/>
 <area shape="rect" id="node17" href="$ecs__memory_8cpp.html" title=" " alt="" coords="416,162,603,189"/>
 <area shape="rect" id="node18" href="$ecs__system_8hpp.html" title=" " alt="" coords="678,162,861,189"/>
@@ -45,8 +45,8 @@
 <area shape="rect" id="node41" href="$application_8cpp.html" title=" " alt="" coords="3963,244,4165,271"/>
 <area shape="rect" id="node42" href="$compression_8cpp.html" title=" " alt="" coords="4255,162,4431,189"/>
 <area shape="rect" id="node43" href="$main_8cpp.html" title=" " alt="" coords="4455,162,4603,189"/>
-<area shape="rect" id="node44" href="$pfx__component__runtime_8cpp.html" title=" " alt="" coords="4628,155,4801,196"/>
-<area shape="rect" id="node45" href="$pfx__emitter_8cpp.html" title=" " alt="" coords="4825,162,4999,189"/>
-<area shape="rect" id="node46" href="$pfx__scene_8cpp.html" title=" " alt="" coords="5023,162,5191,189"/>
-<area shape="rect" id="node47" href="$file__system_8cpp.html" title=" " alt="" coords="5215,155,5345,196"/>
+<area shape="rect" id="node44" href="$mesh__batch_8cpp.html" title=" " alt="" coords="4628,162,4823,189"/>
+<area shape="rect" id="node45" href="$pfx__component__runtime_8cpp.html" title=" " alt="" coords="4847,155,5020,196"/>
+<area shape="rect" id="node46" href="$pfx__emitter_8cpp.html" title=" " alt="" coords="5044,162,5217,189"/>
+<area shape="rect" id="node47" href="$pfx__scene_8cpp.html" title=" " alt="" coords="5241,162,5409,189"/>
 </map>

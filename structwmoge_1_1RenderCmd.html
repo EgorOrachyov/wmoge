@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="structwmoge_1_1RenderCmd-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::RenderCmd Class Reference</div>  </div>
@@ -90,7 +91,7 @@ Collaboration diagram for wmoge::RenderCmd:</div>
 <area shape="rect" href="classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="221,109,367,136"/>
 <area shape="rect" href="classwmoge_1_1GfxPipeline.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="907,109,1043,136"/>
 <area shape="rect" href="classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="564,165,704,192"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title=" " alt="" coords="7,84,118,111"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="7,84,118,111"/>
 <area shape="rect" href="classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,135,120,161"/>
 <area shape="rect" href="structwmoge_1_1GfxIndexBufferSetup.html" title="Setup to bind an index buffer." alt="" coords="1067,57,1256,84"/>
 <area shape="rect" href="structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="1090,221,1233,248"/>
@@ -103,12 +104,19 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a30daee0bd060d4657222609904b7cfc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fef737907eb5a159bd18dc252d82e5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GfxIndexBufferSetup.html">GfxIndexBufferSetup</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a4fef737907eb5a159bd18dc252d82e5a">index_setup</a></td></tr>
 <tr class="separator:a4fef737907eb5a159bd18dc252d82e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fe881bc8106e98a186d1f66aaf1ab14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a3fe881bc8106e98a186d1f66aaf1ab14">desc_sets</a> [<a class="el" href="structwmoge_1_1GfxLimits.html#a4de7b591097552f80b060925adbc1b31">GfxLimits::MAX_DESC_SETS</a>] {}</td></tr>
-<tr class="separator:a3fe881bc8106e98a186d1f66aaf1ab14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4d2c6ee8fd02020cf0a7984a267685"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a3d4d2c6ee8fd02020cf0a7984a267685">desc_sets</a> [<a class="el" href="structwmoge_1_1RenderCmd.html#a85073baf6febddde9ce8edecf776f0b3">NUM_DESC_SETS</a>] {nullptr, nullptr}</td></tr>
+<tr class="separator:a3d4d2c6ee8fd02020cf0a7984a267685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13a79943cfdbdb28949e2a79bbecb7cc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a13a79943cfdbdb28949e2a79bbecb7cc">desc_sets_slots</a> [<a class="el" href="structwmoge_1_1RenderCmd.html#a85073baf6febddde9ce8edecf776f0b3">NUM_DESC_SETS</a>] {-1, -1}</td></tr>
+<tr class="separator:a13a79943cfdbdb28949e2a79bbecb7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cacc006428f965b4812d2cf34a5f524"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxPipeline.html">GfxPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a7cacc006428f965b4812d2cf34a5f524">pipeline</a> = nullptr</td></tr>
 <tr class="separator:a7cacc006428f965b4812d2cf34a5f524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a166c9c2364daa1d3f26e5bb2e8755df5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GfxDrawCall.html">GfxDrawCall</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a166c9c2364daa1d3f26e5bb2e8755df5">call_params</a></td></tr>
 <tr class="separator:a166c9c2364daa1d3f26e5bb2e8755df5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a85073baf6febddde9ce8edecf776f0b3"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html#a85073baf6febddde9ce8edecf776f0b3">NUM_DESC_SETS</a> = 2</td></tr>
+<tr class="separator:a85073baf6febddde9ce8edecf776f0b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>POD-Command representing single draw call. </p>
@@ -127,14 +135,28 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3fe881bc8106e98a186d1f66aaf1ab14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fe881bc8106e98a186d1f66aaf1ab14">&#9670;&nbsp;</a></span>desc_sets</h2>
+<a id="a3d4d2c6ee8fd02020cf0a7984a267685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4d2c6ee8fd02020cf0a7984a267685">&#9670;&nbsp;</a></span>desc_sets</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a>* wmoge::RenderCmd::desc_sets[<a class="el" href="structwmoge_1_1GfxLimits.html#a4de7b591097552f80b060925adbc1b31">GfxLimits::MAX_DESC_SETS</a>] {}</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a>* wmoge::RenderCmd::desc_sets[<a class="el" href="structwmoge_1_1RenderCmd.html#a85073baf6febddde9ce8edecf776f0b3">NUM_DESC_SETS</a>] {nullptr, nullptr}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13a79943cfdbdb28949e2a79bbecb7cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13a79943cfdbdb28949e2a79bbecb7cc">&#9670;&nbsp;</a></span>desc_sets_slots</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wmoge::RenderCmd::desc_sets_slots[<a class="el" href="structwmoge_1_1RenderCmd.html#a85073baf6febddde9ce8edecf776f0b3">NUM_DESC_SETS</a>] {-1, -1}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -151,6 +173,28 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="structwmoge_1_1GfxIndexBufferSetup.html">GfxIndexBufferSetup</a> wmoge::RenderCmd::index_setup</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85073baf6febddde9ce8edecf776f0b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85073baf6febddde9ce8edecf776f0b3">&#9670;&nbsp;</a></span>NUM_DESC_SETS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int wmoge::RenderCmd::NUM_DESC_SETS = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

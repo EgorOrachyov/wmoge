@@ -1,6 +1,6 @@
 <map id="wmoge::Camera" name="wmoge::Camera">
 <area shape="rect" id="node1" title="In&#45;game camera for rendering the scene." alt="" coords="608,331,723,357"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="311,5,422,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="311,5,422,32"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="12,72,171,99"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1RenderCamera.html" title="Camera data used for scene objects rendering." alt="" coords="289,212,445,239"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="8,205,175,246"/>

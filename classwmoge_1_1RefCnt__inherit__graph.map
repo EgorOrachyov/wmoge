@@ -1,5 +1,5 @@
 <map id="wmoge::RefCnt" name="wmoge::RefCnt">
-<area shape="rect" id="node1" title=" " alt="" coords="5,1127,116,1153"/>
+<area shape="rect" id="node1" title="Base class for any atomic reference counted class." alt="" coords="5,1127,116,1153"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1ActionMap.html" title="Abstracts user input by actions table with input remapping." alt="" coords="181,81,313,108"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1Archive.html" title="Serialization and de&#45;serialization archive." alt="" coords="190,132,305,159"/>
 <area shape="rect" id="node8" href="$classwmoge_1_1AsyncStateBase.html" title="Base class for any object which want to listen to async result." alt="" coords="164,275,331,301"/>

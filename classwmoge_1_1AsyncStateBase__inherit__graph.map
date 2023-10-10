@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Base class for any object which want to listen to async result." alt="" coords="186,80,353,107"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1AsyncState.html" title=" " alt="" coords="107,155,253,196"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1AsyncState.html" title="An async operation shared data state." alt="" coords="277,162,443,189"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title=" " alt="" coords="214,5,325,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="214,5,325,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1TaskRuntime.html" title="State of scheduled running task." alt="" coords="5,244,152,271"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1TaskRuntimeParallelFor.html" title="State of scheduled running parallel&#45;for task." alt="" coords="177,244,386,271"/>
 </map>
