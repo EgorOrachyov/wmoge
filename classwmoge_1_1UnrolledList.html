@@ -114,10 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4c4859c141c59b69ca2f8a3c7bf4a676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5615f572114b95258aaa21239546a5c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#a5615f572114b95258aaa21239546a5c2">reserve</a> (std::size_t <a class="el" href="classwmoge_1_1UnrolledList.html#a0c17dc1b8b94afdd4cd93c8e5b910a01">size</a>)</td></tr>
 <tr class="separator:a5615f572114b95258aaa21239546a5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27700c60268d65d9d2748d46f72e2a35"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; T * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#a27700c60268d65d9d2748d46f72e2a35">nodes</a> () const</td></tr>
-<tr class="separator:a27700c60268d65d9d2748d46f72e2a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef8d5f2a419eab05602f5a77dae6cdab"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#aef8d5f2a419eab05602f5a77dae6cdab">sizes</a> () const</td></tr>
-<tr class="separator:aef8d5f2a419eab05602f5a77dae6cdab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a711d6f65de4c649c210f97c283451c96"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; T * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#a711d6f65de4c649c210f97c283451c96">nodes</a> () const</td></tr>
+<tr class="separator:a711d6f65de4c649c210f97c283451c96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24368ab48a724cd61087b3e030c533ff"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#a24368ab48a724cd61087b3e030c533ff">sizes</a> () const</td></tr>
+<tr class="separator:a24368ab48a724cd61087b3e030c533ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c17dc1b8b94afdd4cd93c8e5b910a01"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#a0c17dc1b8b94afdd4cd93c8e5b910a01">size</a> () const</td></tr>
 <tr class="separator:a0c17dc1b8b94afdd4cd93c8e5b910a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d006f9938f2b33d1b76337b217cf0fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html#a9d006f9938f2b33d1b76337b217cf0fb">is_empty</a> () const</td></tr>
@@ -498,8 +498,8 @@ template&lt;typename T , int NodeCapacity = 128&gt; </div>
 
 </div>
 </div>
-<a id="a27700c60268d65d9d2748d46f72e2a35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27700c60268d65d9d2748d46f72e2a35">&#9670;&nbsp;</a></span>nodes()</h2>
+<a id="a711d6f65de4c649c210f97c283451c96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a711d6f65de4c649c210f97c283451c96">&#9670;&nbsp;</a></span>nodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -510,7 +510,7 @@ template&lt;typename T , int NodeCapacity = 128&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;T*&gt;&amp; <a class="el" href="classwmoge_1_1UnrolledList.html">wmoge::UnrolledList</a>&lt; T, NodeCapacity &gt;::nodes </td>
+          <td class="memname">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;T*&gt;&amp; <a class="el" href="classwmoge_1_1UnrolledList.html">wmoge::UnrolledList</a>&lt; T, NodeCapacity &gt;::nodes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -608,8 +608,8 @@ template&lt;typename T , int NodeCapacity = 128&gt; </div>
 
 </div>
 </div>
-<a id="aef8d5f2a419eab05602f5a77dae6cdab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef8d5f2a419eab05602f5a77dae6cdab">&#9670;&nbsp;</a></span>sizes()</h2>
+<a id="a24368ab48a724cd61087b3e030c533ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24368ab48a724cd61087b3e030c533ff">&#9670;&nbsp;</a></span>sizes()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -620,7 +620,7 @@ template&lt;typename T , int NodeCapacity = 128&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt;int&gt;&amp; <a class="el" href="classwmoge_1_1UnrolledList.html">wmoge::UnrolledList</a>&lt; T, NodeCapacity &gt;::sizes </td>
+          <td class="memname">const <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;int&gt;&amp; <a class="el" href="classwmoge_1_1UnrolledList.html">wmoge::UnrolledList</a>&lt; T, NodeCapacity &gt;::sizes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

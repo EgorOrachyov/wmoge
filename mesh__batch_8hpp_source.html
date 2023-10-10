@@ -164,12 +164,23 @@ $(function() {
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        std::mutex m_mutex;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    };</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_MESH_BATCH_HPP</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classwmoge_1_1MeshBatchCompiler.html">  112</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1MeshBatchCompiler.html">MeshBatchCompiler</a> final {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classwmoge_1_1MeshBatchCompiler.html#a77c7311b9b49b68fb10257c31a156ee5">  114</a></span>&#160;        <a class="code" href="classwmoge_1_1MeshBatchCompiler.html#a77c7311b9b49b68fb10257c31a156ee5">MeshBatchCompiler</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1ShaderManager.html">ShaderManager</a>* m_shader_manager;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>*     m_driver;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1GfxCtx.html">GfxCtx</a>*        m_ctx;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    };</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_MESH_BATCH_HPP</span></div>
 <div class="ttc" id="aaabb_8hpp_html"><div class="ttname"><a href="aabb_8hpp.html">aabb.hpp</a></div></div>
 <div class="ttc" id="aarray__view_8hpp_html"><div class="ttname"><a href="array__view_8hpp.html">array_view.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1ArrayView_html"><div class="ttname"><a href="classwmoge_1_1ArrayView.html">wmoge::ArrayView</a></div><div class="ttdoc">View to elements of array.</div><div class="ttdef"><b>Definition:</b> array_view.hpp:46</div></div>
+<div class="ttc" id="aclasswmoge_1_1GfxCtx_html"><div class="ttname"><a href="classwmoge_1_1GfxCtx.html">wmoge::GfxCtx</a></div><div class="ttdoc">Gfx context interface.</div><div class="ttdef"><b>Definition:</b> gfx_ctx.hpp:61</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDescSet_html"><div class="ttname"><a href="classwmoge_1_1GfxDescSet.html">wmoge::GfxDescSet</a></div><div class="ttdoc">Represent set of resources optimized for binding to a pipeline.</div><div class="ttdef"><b>Definition:</b> gfx_desc_set.hpp:117</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriver_html"><div class="ttname"><a href="classwmoge_1_1GfxDriver.html">wmoge::GfxDriver</a></div><div class="ttdoc">Gfx driver interface.</div><div class="ttdef"><b>Definition:</b> gfx_driver.hpp:62</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDynIndexBuffer_html"><div class="ttname"><a href="classwmoge_1_1GfxDynIndexBuffer.html">wmoge::GfxDynIndexBuffer</a></div><div class="ttdoc">Dynamic index buffer for immediate and frequently changed geometry.</div><div class="ttdef"><b>Definition:</b> gfx_dynamic_buffers.hpp:165</div></div>
@@ -186,8 +197,11 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1MeshBatchCollector_html_a990be17fea67df34cf471b423a462cdb"><div class="ttname"><a href="classwmoge_1_1MeshBatchCollector.html#a990be17fea67df34cf471b423a462cdb">wmoge::MeshBatchCollector::MeshBatchCollector</a></div><div class="ttdeci">MeshBatchCollector(const MeshBatchCollector &amp;)=delete</div></div>
 <div class="ttc" id="aclasswmoge_1_1MeshBatchCollector_html_aa3e0fe82555bc13ff0ca98f787d7116e"><div class="ttname"><a href="classwmoge_1_1MeshBatchCollector.html#aa3e0fe82555bc13ff0ca98f787d7116e">wmoge::MeshBatchCollector::get_batches</a></div><div class="ttdeci">ArrayView&lt; const MeshBatch &gt; get_batches() const</div><div class="ttdef"><b>Definition:</b> mesh_batch.hpp:93</div></div>
 <div class="ttc" id="aclasswmoge_1_1MeshBatchCollector_html_adc5895c04fdeaaa09f3352fc515c75c6"><div class="ttname"><a href="classwmoge_1_1MeshBatchCollector.html#adc5895c04fdeaaa09f3352fc515c75c6">wmoge::MeshBatchCollector::MeshBatchCollector</a></div><div class="ttdeci">MeshBatchCollector(class GfxDriver *gfx_driver)</div><div class="ttdef"><b>Definition:</b> mesh_batch.cpp:35</div></div>
+<div class="ttc" id="aclasswmoge_1_1MeshBatchCompiler_html"><div class="ttname"><a href="classwmoge_1_1MeshBatchCompiler.html">wmoge::MeshBatchCompiler</a></div><div class="ttdoc">Compiles collection of mesh batches into set of render commands for rendering.</div><div class="ttdef"><b>Definition:</b> mesh_batch.hpp:112</div></div>
+<div class="ttc" id="aclasswmoge_1_1MeshBatchCompiler_html_a77c7311b9b49b68fb10257c31a156ee5"><div class="ttname"><a href="classwmoge_1_1MeshBatchCompiler.html#a77c7311b9b49b68fb10257c31a156ee5">wmoge::MeshBatchCompiler::MeshBatchCompiler</a></div><div class="ttdeci">MeshBatchCompiler()</div></div>
 <div class="ttc" id="aclasswmoge_1_1MeshPassList_html"><div class="ttname"><a href="classwmoge_1_1MeshPassList.html">wmoge::MeshPassList</a></div><div class="ttdoc">List with compiled PSO states to render mesh in multiple passes.</div><div class="ttdef"><b>Definition:</b> mesh_pass.hpp:57</div></div>
 <div class="ttc" id="aclasswmoge_1_1RenderObject_html"><div class="ttname"><a href="classwmoge_1_1RenderObject.html">wmoge::RenderObject</a></div><div class="ttdoc">Base class for any scene object which can be rendered.</div><div class="ttdef"><b>Definition:</b> render_object.hpp:46</div></div>
+<div class="ttc" id="aclasswmoge_1_1ShaderManager_html"><div class="ttname"><a href="classwmoge_1_1ShaderManager.html">wmoge::ShaderManager</a></div><div class="ttdoc">Render module access to engine shaders.</div><div class="ttdef"><b>Definition:</b> shader_manager.hpp:62</div></div>
 <div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:43</div></div>
 <div class="ttc" id="aclasswmoge_1_1TAabb_html"><div class="ttname"><a href="classwmoge_1_1TAabb.html">wmoge::TAabb&lt; float &gt;</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1TMatMxN_html"><div class="ttname"><a href="classwmoge_1_1TMatMxN.html">wmoge::TMatMxN&lt; float, 4, 4 &gt;</a></div></div>
