@@ -25,75 +25,47 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_QUEUE_HPP
-#define WMOGE_RENDER_QUEUE_HPP
+#ifndef WMOGE_RENDER_DEFS_HPP
+#define WMOGE_RENDER_DEFS_HPP
 
-#include "core/fast_vector.hpp"
-#include "core/mask.hpp"
-#include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_pipeline.hpp"
-
-#include <array>
-#include <cinttypes>
-#include <mutex>
-#include <type_traits>
-#include <utility>
-#include <vector>
+#include <bitset>
 
 namespace wmoge {
 
     /**
-     * @class RenderCmdKey
-     * @brief Key to sort commands for efficient execution
+     * @brief Type of projection for cameras
      */
-    struct RenderCmdKey {
-        std::uint64_t value = 0;
+    enum class CameraProjection {
+        Perspective = 0,
+        Orthographic
     };
-
-    static_assert(std::is_trivially_destructible_v<RenderCmdKey>, "render cmd key must be trivial as possible");
-    static_assert(sizeof(RenderCmdKey) == sizeof(std::uint64_t), "render cmd key must fit 8 bytes");
 
     /**
-     * @class RenderCmd
-     * @brief POD-Command representing single draw call
+     * @brief Type of camera, how and what to render
      */
-    struct RenderCmd {
-        static constexpr int NUM_DESC_SETS = 2;
-
-        GfxVertBuffersSetup vert_buffers;
-        GfxIndexBufferSetup index_setup;
-        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr};
-        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1};
-        GfxPipeline*        pipeline = nullptr;
-        GfxDrawCall         call_params;
+    enum class CameraType {
+        Color  = 0,
+        Shadow = 1,
+        Image  = 2,
+        Debug  = 3,
+        Editor = 4
     };
 
-    static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
-    static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
+    /** 
+     * @class RenderLimits
+     * @brief Holds global render engine config
+     */
+    struct RenderLimits {
+        static constexpr int MAX_CAMERAS = 64;
+        static constexpr int MAX_VIEWS   = MAX_CAMERAS;
+    };
 
     /**
-     * @class RenderQueue
-     * @brief Thread-safe queue to collect and sort draw commands for gfx submission
+     * @class RenderCameraMask
+     * @brief Mask of toggled cameras, can be used for filtering and culling
      */
-    struct RenderQueue {
-    public:
-        void push(RenderCmdKey key, const RenderCmd& cmd);
-        void clear();
-        void sort();
-        int  execute(GfxCtx* gfx_ctx, const Ref<GfxDescSet>& gfx_set_common);
-
-        [[nodiscard]] std::size_t      size() const;
-        [[nodiscard]] const RenderCmd& cmd(std::size_t index) const;
-
-    private:
-        std::vector<std::pair<RenderCmdKey, int>> m_queue;
-        std::vector<RenderCmd>                    m_buffer;
-        std::mutex                                m_mutex;
-    };
+    class RenderCameraMask : public std::bitset<RenderLimits::MAX_CAMERAS> {};
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_QUEUE_HPP
+#endif//WMOGE_RENDER_DEFS_HPP

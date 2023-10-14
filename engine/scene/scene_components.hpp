@@ -35,9 +35,14 @@
 #include "math/color.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
+#include "render/render_mesh_skinned.hpp"
+#include "render/render_mesh_static.hpp"
+#include "render/render_object.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_node.hpp"
 #include "scene/scene_transform.hpp"
+
+#include <memory>
 
 namespace wmoge {
 
@@ -119,6 +124,26 @@ namespace wmoge {
         WG_ECS_COMPONENT(EcsComponentCamera, 7);
 
         Ref<Camera> camera;
+    };
+
+    /**
+     * @class EcsComponentLight
+     * @brief Light source component
+     */
+    struct EcsComponentLight {
+        WG_ECS_COMPONENT(EcsComponentLight, 8);
+
+        /* std::unique_ptr<Light> light; */
+    };
+
+    /**
+     * @class EcsComponentMeshStatic
+     * @brief Static mesh renderer component
+     */
+    struct EcsComponentMeshStatic {
+        WG_ECS_COMPONENT(EcsComponentMeshStatic, 9);
+
+        std::unique_ptr<RenderMeshStatic> mesh;
     };
 
 }// namespace wmoge

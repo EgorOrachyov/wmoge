@@ -30,6 +30,7 @@
 
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
+#include "math/vec.hpp"
 #include "resource/image.hpp"
 
 namespace wmoge {
@@ -56,8 +57,10 @@ namespace wmoge {
         virtual void               close()            = 0;
         virtual int                width() const      = 0;
         virtual int                height() const     = 0;
+        virtual Size2i             size() const       = 0;
         virtual int                fbo_width() const  = 0;
         virtual int                fbo_height() const = 0;
+        virtual Size2i             fbo_size() const   = 0;
         virtual float              scale_x() const    = 0;
         virtual float              scale_y() const    = 0;
         virtual bool               in_focus() const   = 0;

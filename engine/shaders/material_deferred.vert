@@ -21,5 +21,5 @@ void main() {
 
     StoreInoutAttributes(shaderInoutVs.result);
 
-    gl_Position = ProjView * vec4(shaderInoutVs.result.worldPos, 1.0f);
+    gl_Position = ClipProjView * vec4(shaderInoutVs.result.worldPos, 1.0f);
 }

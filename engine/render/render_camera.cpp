@@ -29,33 +29,90 @@
 
 namespace wmoge {
 
-    void RenderCamera::update_matrices() {
-        if (projection == CameraProjection::Perspective) {
-            proj = Math3d::perspective(fov, aspect, near, far);
-        }
-
-        view      = Math3d::look_at(position, direction, up);
-        proj_view = proj * view;
+    void RenderCamera::set_proj_params(float fov, float aspect, float near, float far) {
+        m_fov    = fov;
+        m_aspect = aspect;
+        m_near   = near;
+        m_far    = far;
     }
-    void RenderCamera::update_frustum() {
-        frustum = Frustumf(position, direction, up, fov, aspect, near, far);
+    void RenderCamera::set_viewport(const Rect2i& viewport) {
+        m_viewport = viewport;
+    }
+    void RenderCamera::look(const Vec3f& dir, const Vec3f& up) {
+        m_direction = dir;
+        m_up        = up;
+    }
+    void RenderCamera::move(const Vec3f& delta) {
+        m_position += delta;
+    }
+    void RenderCamera::move_to(const Vec3f& point) {
+        m_position = point;
+    }
+
+    void RenderCamera::validate() {
+        update_matrices();
+        update_frustum();
     }
 
     bool RenderCamera::is_inside_or_intersects(const Aabbf& box) const {
-        return frustum.is_inside_or_intersects(box);
+        return m_frustum.is_inside_or_intersects(box);
     }
     float RenderCamera::distance(const Aabbf& box) const {
-        return box.distance(position);
+        return box.distance(m_position);
     }
 
-    int RenderCameras::add_camera(const RenderCamera& camera) {
+    void RenderCamera::update_matrices() {
+        if (m_projection == CameraProjection::Perspective) {
+            m_proj = Math3d::perspective(m_fov, m_aspect, m_near, m_far);
+        }
+        m_view      = Math3d::look_at(m_position, m_direction, m_up);
+        m_proj_view = m_proj * m_view;
+    }
+    void RenderCamera::update_frustum() {
+        m_frustum = Frustumf(m_position, m_direction, m_up, m_fov, m_aspect, m_near, m_far);
+    }
+
+    int RenderCameras::add_camera(CameraType type, const RenderCamera& camera, std::optional<RenderCamera> camera_prev) {
         const int index = int(m_cameras.size());
-        m_cameras.push_back(camera);
+
+        RenderCameraData& data = m_cameras.emplace_back();
+        data.camera            = camera;
+        data.type              = type;
+        data.proj              = camera.get_proj();
+        data.proj_prev         = camera.get_proj();
+        data.view              = camera.get_view();
+        data.view_prev         = camera.get_view();
+        data.proj_view         = camera.get_proj_view();
+        data.proj_view_prev    = camera.get_proj_view();
+        data.viewport          = camera.get_viewport();
+        data.direction         = camera.get_direction();
+        data.direction_prev    = camera.get_direction();
+        data.position          = camera.get_position();
+        data.position_prev     = camera.get_position();
+        data.up                = camera.get_up();
+        data.up_prev           = camera.get_up();
+
+        if (camera_prev.has_value()) {
+            data.proj_prev      = camera_prev->get_proj();
+            data.view_prev      = camera_prev->get_view();
+            data.proj_view_prev = camera_prev->get_proj_view();
+            data.direction_prev = camera_prev->get_direction();
+            data.position_prev  = camera_prev->get_position();
+            data.up_prev        = camera_prev->get_up();
+            data.movement       = data.position - data.position_prev;
+        }
+
         return index;
     }
-    const RenderCamera& RenderCameras::at(int index) {
+
+    const RenderCamera& RenderCameras::camera_at(int index) const {
+        return m_cameras[index].camera;
+    }
+
+    const RenderCameraData& RenderCameras::data_at(int index) const {
         return m_cameras[index];
     }
+
     void RenderCameras::clear() {
         m_cameras.clear();
     }

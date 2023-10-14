@@ -30,9 +30,12 @@
 
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
+#include "core/status.hpp"
 #include "core/unrolled_list.hpp"
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
+#include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_vert_format.hpp"
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
@@ -65,14 +68,16 @@ namespace wmoge {
      * @brief Batch of mesh elements with the same vertex/index buffer and material instances
      */
     struct MeshBatch final {
-        MeshBatchElement      elements[1];          //< List of batch elements to draw
-        GfxVertBuffersSetup   vertex_buffers;       //< Vertex buffers with vertex data
-        GfxVertAttribsStreams vertex_streams;       //< Describes vertex attributes layout in memory
-        GfxIndexBufferSetup   index_buffer;         //< Optional index buffer with batch indices
-        class Material*       material    = nullptr;//< Material to apply to rendered elements
-        class GfxDescSet*     mesh_params = nullptr;//< Mesh descriptor set with batch common resources
-        class MeshPassList*   pass_list   = nullptr;//< Cached list with mesh passes for faster RenderCmd generation
-        class RenderObject*   object      = nullptr;//< Render object this batch belongs to
+        MeshBatchElement      elements[1];                         //< List of batch elements to draw
+        GfxVertBuffersSetup   vertex_buffers;                      //< Vertex buffers with vertex data
+        GfxVertAttribsStreams vertex_streams;                      //< Describes vertex attributes layout in memory
+        GfxIndexBufferSetup   index_buffer;                        //< Optional index buffer with batch indices
+        RenderCameraMask      cam_mask;                            //< Mask in which cameras mesh batch wants to be rendered
+        class Material*       material    = nullptr;               //< Material to apply to rendered elements
+        class GfxDescSet*     mesh_params = nullptr;               //< Mesh descriptor set with batch common resources
+        class MeshPassList*   pass_list   = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
+        class RenderObject*   object      = nullptr;               //< Render object this batch belongs to
+        GfxPrimType           prim_type   = GfxPrimType::Triangles;//< Type of primitives to render
     };
 
     static_assert(std::is_trivially_destructible_v<MeshBatch>, "mesh batch must be trivial as possible");
@@ -83,12 +88,13 @@ namespace wmoge {
      */
     class MeshBatchCollector final {
     public:
-        MeshBatchCollector(class GfxDriver* gfx_driver);
+        MeshBatchCollector();
         MeshBatchCollector(const MeshBatchCollector&) = delete;
         MeshBatchCollector(MeshBatchCollector&&)      = delete;
         ~MeshBatchCollector()                         = default;
 
         void add_batch(const MeshBatch& batch);
+        void clear();
 
         [[nodiscard]] ArrayView<const MeshBatch> get_batches() const { return m_batches; }
         [[nodiscard]] GfxDynVertBuffer*          get_dyn_vbuff() const { return m_dyn_vbuff; }
@@ -100,7 +106,7 @@ namespace wmoge {
         GfxDynVertBuffer*      m_dyn_vbuff;
         GfxDynIndexBuffer*     m_dyn_ibuff;
         GfxDynUniformBuffer*   m_dyn_ubuff;
-        GfxDriver*             m_gfx_driver;
+        class GfxDriver*       m_gfx_driver;
 
         std::mutex m_mutex;
     };
@@ -113,10 +119,20 @@ namespace wmoge {
     public:
         MeshBatchCompiler();
 
+        Status compile_batch(const MeshBatch& batch);
+        void   set_views(ArrayView<struct RenderView> views);
+        void   set_cameras(RenderCameras& cameras);
+        void   clear();
+
     private:
-        class ShaderManager* m_shader_manager;
-        class GfxDriver*     m_driver;
-        class GfxCtx*        m_ctx;
+        ArrayView<struct RenderView> m_views;
+        RenderCameras*               m_cameras;
+        class ShaderManager*         m_shader_manager;
+        class GfxDriver*             m_driver;
+        class GfxCtx*                m_ctx;
+
+        std::vector<Ref<GfxPipeline>> _pipeliens;
+        std::vector<Ref<GfxDescSet>>  _sets;
     };
 
 }// namespace wmoge

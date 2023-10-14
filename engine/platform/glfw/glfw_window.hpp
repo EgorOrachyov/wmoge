@@ -46,8 +46,10 @@ namespace wmoge {
         void               close() override;
         int                width() const override;
         int                height() const override;
+        Size2i             size() const override;
         int                fbo_width() const override;
         int                fbo_height() const override;
+        Size2i             fbo_size() const override;
         float              scale_x() const override;
         float              scale_y() const override;
         bool               in_focus() const override;

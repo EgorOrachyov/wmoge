@@ -256,7 +256,13 @@ namespace wmoge {
             return;
         }
 
-        if (m_dirty.get(DirtyFlag::Parameters) && m_parameters) {
+        const bool need_buffer_update   = m_dirty.get(DirtyFlag::Parameters) && m_parameters;
+        const bool need_textures_update = m_dirty.get(DirtyFlag::Textures) && m_textures.size() > 0;
+        const bool need_desc_update     = !m_buffer && need_buffer_update || need_textures_update;
+
+        m_dirty.bits.reset();
+
+        if (need_buffer_update) {
             Engine* engine  = Engine::instance();
             GfxCtx* gfx_ctx = engine->gfx_ctx();
 
@@ -265,9 +271,9 @@ namespace wmoge {
             }
 
             gfx_ctx->update_uniform_buffer(m_buffer, 0, m_buffer->size(), m_parameters);
-            m_dirty.set(DirtyFlag::Parameters, false);
         }
-        if (m_dirty.get(DirtyFlag::Textures) && m_textures.size() > 0) {
+
+        if (need_desc_update) {
             GfxDescSetResources desc_set_resources;
 
             int buffer_slot = m_shader->get_start_buffers_slot();
@@ -303,8 +309,6 @@ namespace wmoge {
                 GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
                 m_desc_set            = gfx_driver->make_desc_set(desc_set_resources, m_name);
             }
-
-            m_dirty.set(DirtyFlag::Textures, false);
         }
     }
 

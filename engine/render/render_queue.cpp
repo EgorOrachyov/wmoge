@@ -55,7 +55,7 @@ namespace wmoge {
             return p1.first.value < p2.first.value;
         });
     }
-    int RenderQueue::execute(GfxCtx* gfx_ctx) {
+    int RenderQueue::execute(GfxCtx* gfx_ctx, const Ref<GfxDescSet>& gfx_set_common) {
         WG_AUTO_PROFILE_RENDER("RenderQueue::execute");
 
         int num_executed = 0;
@@ -73,15 +73,19 @@ namespace wmoge {
                 continue;
             }
 
-            for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
-                if (!vert_buffers.buffers[i]) { break; }
-                gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(vert_buffers.buffers[i]), i, vert_buffers.offsets[i]);
+            if (num_executed == 0) {
+                gfx_ctx->bind_desc_set(gfx_set_common, 0);
             }
 
             for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {
                 if (cmd.desc_sets[i] && cmd.desc_sets_slots[i] >= 0) {
                     gfx_ctx->bind_desc_set(Ref<GfxDescSet>(cmd.desc_sets[i]), cmd.desc_sets_slots[i]);
                 }
+            }
+
+            for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
+                if (!vert_buffers.buffers[i]) { break; }
+                gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(vert_buffers.buffers[i]), i, vert_buffers.offsets[i]);
             }
 
             if (cmd.index_setup.buffer) {

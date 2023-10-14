@@ -94,12 +94,6 @@ namespace wmoge {
             static_cast<Component*>(mem)->~Component();
         };
 
-        component_info.copy = [](void* mem, const void* src_mem) -> void {
-            Component&       dst = *(static_cast<Component*>(mem));
-            const Component& src = *(static_cast<const Component*>(src_mem));
-            dst                  = src;
-        };
-
         component_info.swap = [](void* mem1, void* mem2) -> void {
             Component& cmp1 = *(static_cast<Component*>(mem1));
             Component& cmp2 = *(static_cast<Component*>(mem2));

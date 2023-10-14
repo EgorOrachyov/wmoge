@@ -30,6 +30,7 @@
 
 #include "core/mask.hpp"
 #include "core/string_id.hpp"
+#include "math/mat.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "render/render_camera.hpp"
 #include "resource/material.hpp"
@@ -48,6 +49,7 @@ namespace wmoge {
         virtual ~RenderObject() = default;
 
         virtual void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) = 0;
+        virtual void                         update_transform(const Mat4x4f& l2w, const Mat4x4f& w2l)                                    = 0;
         virtual bool                         has_materials() const                                                                       = 0;
         virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
         virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;

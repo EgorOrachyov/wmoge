@@ -27,6 +27,77 @@
 
 #include "render_mesh_static.hpp"
 
+#include <cassert>
+
 namespace wmoge {
 
-}
+    RenderMeshStatic::RenderMeshStatic(Ref<Model> model) {
+        assert(model);
+        m_model = std::move(model);
+    }
+
+    void RenderMeshStatic::collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) {
+        const int lod_idx = 0;
+
+        const ArrayView<const ResourceRefHard<Material>> materials = m_model->get_materials();
+        const ModelLod&                                  lod       = m_model->get_lods()[lod_idx];
+        const Ref<Mesh>&                                 mesh      = lod.mesh.get_safe();
+        const ArrayView<const MeshChunk>                 chunks    = mesh->get_chunks();
+
+        for (int i = 0; i < int(chunks.size()); i++) {
+            const MeshChunk& chunk = chunks[i];
+
+            MeshBatchElement element;
+            element.name                = chunk.name;// must be debug only
+            element.draw_call.base      = chunk.vertex_offset;
+            element.draw_call.count     = chunk.index_count;
+            element.draw_call.instances = 1;
+            element.transform           = m_transform_l2w;
+            element.transform_prev      = m_transform_l2w;// static mesh has no movement and motion
+
+            MeshBatch batch;
+            batch.elements[0]             = element;
+            batch.vertex_buffers          = mesh->get_gfx_vert_buffes_setup();
+            batch.vertex_streams          = mesh->get_attribs();
+            batch.index_buffer.buffer     = mesh->get_gfx_index_buffer().get();
+            batch.index_buffer.index_type = mesh->get_index_type();
+            batch.index_buffer.offset     = chunk.index_offset;
+            batch.cam_mask                = mask;
+            batch.material                = materials[lod.materials[i]].get_safe().get();
+            batch.mesh_params             = nullptr;// todo: custom mesh data
+            batch.pass_list               = nullptr;// todo: cache pso list
+            batch.object                  = this;
+            batch.prim_type               = mesh->get_prim_type();
+
+            collector.add_batch(batch);
+        }
+    }
+
+    void RenderMeshStatic::update_transform(const Mat4x4f& l2w, const Mat4x4f&) {
+        m_transform_l2w = l2w;
+    }
+
+    bool RenderMeshStatic::has_materials() const {
+        return !m_model->get_materials().empty();
+    }
+
+    std::optional<Ref<Material>> RenderMeshStatic::get_material() const {
+        if (has_materials()) {
+            return m_model->get_materials()[0].get_safe();
+        }
+        return std::nullopt;
+    }
+
+    std::vector<Ref<Material>> RenderMeshStatic::get_materials() const {
+        std::vector<Ref<Material>>                 result;
+        ArrayView<const ResourceRefHard<Material>> materials = m_model->get_materials();
+
+        result.reserve(materials.size());
+        for (auto& ref : materials) {
+            result.push_back(ref.get_safe());
+        }
+
+        return result;
+    }
+
+}// namespace wmoge

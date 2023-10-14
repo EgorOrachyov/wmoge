@@ -80,9 +80,14 @@ namespace wmoge {
         /** @brief fills pipeline required layout with optional shader passed for material resources */
         virtual void fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader){};
 
-        virtual const std::string& get_vertex(GfxShaderLang lang)   = 0;
+        /** @brief get vertex shader code if present */
+        virtual const std::string& get_vertex(GfxShaderLang lang) = 0;
+
+        /** @brief get fragment shader code if present */
         virtual const std::string& get_fragment(GfxShaderLang lang) = 0;
-        virtual const std::string& get_compute(GfxShaderLang lang)  = 0;
+
+        /** @brief get compute shader code if present */
+        virtual const std::string& get_compute(GfxShaderLang lang) = 0;
 
         /** @brief unique lower-case pass name */
         virtual StringId get_name() = 0;

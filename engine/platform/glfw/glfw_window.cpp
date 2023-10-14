@@ -97,6 +97,15 @@ namespace wmoge {
         return h;
     }
 
+    Size2i GlfwWindow::size() const {
+        std::lock_guard guard(m_manager.mutex());
+
+        int w, h;
+        glfwGetWindowSize(m_hnd, &w, &h);
+
+        return Size2i(w, h);
+    }
+
     int GlfwWindow::fbo_width() const {
         std::lock_guard guard(m_manager.mutex());
 
@@ -111,6 +120,15 @@ namespace wmoge {
         int h;
         glfwGetFramebufferSize(m_hnd, nullptr, &h);
         return h;
+    }
+
+    Size2i GlfwWindow::fbo_size() const {
+        std::lock_guard guard(m_manager.mutex());
+
+        int w, h;
+        glfwGetFramebufferSize(m_hnd, &w, &h);
+
+        return Size2i(w, h);
     }
 
     float GlfwWindow::scale_x() const {

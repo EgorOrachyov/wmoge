@@ -28,26 +28,79 @@
 #ifndef WMOGE_RENDER_ENGINE_HPP
 #define WMOGE_RENDER_ENGINE_HPP
 
+#include "core/array_view.hpp"
+#include "core/fast_vector.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
+#include "gfx/gfx_buffers.hpp"
+#include "mesh/mesh_batch.hpp"
+#include "mesh/mesh_pass.hpp"
+#include "platform/window.hpp"
 #include "render/render_camera.hpp"
-#include "resource/mesh.hpp"
-#include "resource/shader.hpp"
+#include "render/render_defs.hpp"
+#include "render/render_queue.hpp"
+
+#include <array>
 
 namespace wmoge {
 
     /**
+     * @class RenderView
+     * @brief Holds data required to render a single view
+     */
+    struct RenderView {
+        Ref<GfxUniformBuffer>                             view_data;
+        std::array<RenderQueue, int(MeshPassType::Total)> queues;
+    };
+
+    /**
      * @class RenderEngine
-     * @brief Responsible for a single scene rendering for each frame
+     * @brief Global rendering engine responsible for visualization of render objects
+     * 
+     * Render engine is a global manager responsiple for rendering of objects for each frame.
+     * It is used by a scene manager to render an active scene to a screen.
+     * 
+     * Render engine itself is lower-level class, which operates render objects,
+     * list of cameras, params and etc. to collect requrest of batch elements from 
+     * different objects (which wants to be rendered), compile it into optimized
+     * render commands and submit commands to the GPU using selected rendering path.
+     * 
+     * @see RenderObject
+     * @see RenderCamera
+     * @see RenderCameras
+     * @see MeshBatchCollector
+     * @see MeshBatchCompiler
      */
     class RenderEngine {
     public:
         RenderEngine();
 
-        [[nodiscard]] RenderCameras& get_cameras() { return m_cameras; }
+        void set_time(float time);
+        void set_delta_time(float delta_time);
+        void set_target(const Ref<Window>& window);
+        void begin_rendering();
+        void end_rendering();
+        void allocate_veiws();
+        void prepare_frame_data();
+
+        [[nodiscard]] RenderCameras&               get_cameras() { return m_cameras; }
+        [[nodiscard]] MeshBatchCollector&          get_collector() { return m_collector; }
+        [[nodiscard]] MeshBatchCompiler&           get_compiler() { return m_compiler; }
+        [[nodiscard]] ArrayView<RenderView>        get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
+        [[nodiscard]] float                        get_time() const { return m_time; }
+        [[nodiscard]] float                        get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] const Ref<Window>&           get_main_target() const { return m_main_target; }
+        [[nodiscard]] const Ref<GfxUniformBuffer>& get_frame_data() const { return m_frame_data; }
 
     private:
-        RenderCameras m_cameras;
+        RenderCameras                                   m_cameras;
+        MeshBatchCollector                              m_collector;
+        MeshBatchCompiler                               m_compiler;
+        std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
+        float                                           m_time       = 0.0f;
+        float                                           m_delta_time = 0.0f;
+        Ref<Window>                                     m_main_target;
+        Ref<GfxUniformBuffer>                           m_frame_data;
     };
 
 }// namespace wmoge

@@ -33,15 +33,8 @@ namespace wmoge {
         arch.set_component<EcsComponentCamera>();
     }
     void ScenePropCamera::on_make_entity(EcsEntity entity, SceneNode& owner) {
-        Scene*              scene      = owner.get_scene();
-        EcsWorld*           world      = scene->get_ecs_world();
-        EcsComponentCamera& ecs_camera = world->get_component_rw<EcsComponentCamera>(entity);
-
-        ecs_camera.camera = scene->get_cameras()->make_camera(owner.get_name());
-        ecs_camera.camera->set_color(settings.color);
-        ecs_camera.camera->set_fov(settings.fov);
-        ecs_camera.camera->set_near_far(settings.near, settings.far);
-        ecs_camera.camera->set_projection(settings.projection);
+        settings.name = owner.get_name();
+        owner.get_scene()->add_camera(entity, settings);
     }
     void ScenePropCamera::on_delete_entity(EcsEntity entity, SceneNode& owner) {
         // no special action
@@ -64,6 +57,29 @@ namespace wmoge {
         auto* cls = Class::register_class<ScenePropCamera>();
     }
 
+    void ScenePropMeshStatic::collect_arch(EcsArch& arch, SceneNode& owner) {
+        arch.set_component<EcsComponentMeshStatic>();
+    }
+    void ScenePropMeshStatic::on_make_entity(EcsEntity entity, SceneNode& owner) {
+        owner.get_scene()->add_mesh_static(entity, settings);
+    }
+    void ScenePropMeshStatic::on_delete_entity(EcsEntity entity, SceneNode& owner) {
+        // no special action
+    }
+    Status ScenePropMeshStatic::copy_to(Object& other) const {
+        auto* ptr     = dynamic_cast<ScenePropMeshStatic*>(&other);
+        ptr->settings = settings;
+        return StatusCode::Ok;
+    }
+    Status ScenePropMeshStatic::read_from_yaml(const YamlConstNodeRef& node) {
+        WG_YAML_READ(node, settings);
+        return StatusCode::Ok;
+    }
+    Status ScenePropMeshStatic::write_to_yaml(YamlNodeRef node) const {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE(node, settings);
+        return StatusCode::Ok;
+    }
     void ScenePropMeshStatic::register_class() {
         auto* cls = Class::register_class<ScenePropMeshStatic>();
     }

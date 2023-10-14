@@ -1,4 +1,5 @@
 from reflection import *
+from common import FrameData, ViewData, DrawCallData
 
 BINDINGS = BindingAllocator()
 
@@ -11,34 +12,19 @@ SHADER = Shader(
             "FrameData",
             "std140",
             BINDINGS.next(),
-            [
-                StructField(TYPE_FLOAT, "time"),
-                StructField(TYPE_FLOAT, "timeDelta"),
-                StructField(TYPE_FLOAT, "_pad0"),
-                StructField(TYPE_FLOAT, "_pad1"),
-            ],
+            FrameData,
         ),
         UniformBuffer(
             "ViewData",
             "std140",
             BINDINGS.next(),
-            [
-                StructField(TYPE_MAT4, "Proj"),
-                StructField(TYPE_MAT4, "View"),
-                StructField(TYPE_MAT4, "ProjView"),
-                StructField(TYPE_MAT4, "ProjPrev"),
-                StructField(TYPE_MAT4, "ViewPrev"),
-                StructField(TYPE_MAT4, "ProjViewPrev"),
-            ],
+            ViewData,
         ),
         UniformBuffer(
             "DrawCallData",
             "std140",
             BINDINGS.next(2),
-            [
-                StructField(TYPE_MAT4, "Model"),
-                StructField(TYPE_MAT4, "ModelPrev"),
-            ],
+            DrawCallData,
         ),
     ],
     samplers=[],

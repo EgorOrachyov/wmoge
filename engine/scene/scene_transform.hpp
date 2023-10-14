@@ -86,10 +86,15 @@ namespace wmoge {
     public:
         ~SceneTransformManager();
 
+        /** @brief Single horizonatl layer in a hierarchy of scene transforms */
         using Layer = std::vector<SceneTransform*>;
 
         void add(int layer, SceneTransform* transform);
         void remove(int layer, SceneTransform* transform);
+
+        [[nodiscard]] ArrayView<Layer>           get_layers() { return m_layers; }
+        [[nodiscard]] ArrayView<SceneTransform*> get_layer(int i) { return m_layers[i]; }
+        [[nodiscard]] int                        get_num_layers() const { return int(m_layers.size()); }
 
     private:
         std::vector<Layer> m_layers;

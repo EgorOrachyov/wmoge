@@ -38,58 +38,67 @@
 
 namespace wmoge {
 
-    static const char source_aux_draw_canvas_vk450_frag[] = R"(
-layout (set = 0, binding = 1) uniform sampler2D Texture;
+    /** @brief Auto generated reflection for 'common' shader */
+    struct ShaderCommon {
+        static constexpr const char NAME[]       = "common";
+        static constexpr const char CLS[]        = "Common";
+        static constexpr int        NUM_FILES    = 0;
+        static constexpr int        NUM_CONSTS   = 0;
+        static constexpr int        NUM_SAMPLERS = 0;
+        static constexpr int        NUM_BUFFERS  = 3;
 
-layout (set = 0, binding = 0, std140) uniform Params {
-mat4 clip_proj_screen;
-float gamma;
-float inverse_gamma;
-};
+        struct FrameData {
+            float time;
+            float timeDelta;
+            float _fd_pad0;
+            float _fd_pad1;
+        };
 
+        static constexpr const int  FRAMEDATA_SET    = 0;
+        static constexpr const int  FRAMEDATA_SLOT   = 0;
+        static constexpr const auto FRAMEDATA_LOC    = GfxLocation{0, 0};
+        static constexpr const char FRAMEDATA_NAME[] = "FrameData";
 
-#define TARGET_VULKAN
-#if defined(TARGET_VULKAN)
-#define LAYOUT_LOCATION(idx) layout(location = idx)
-#else
-#define LAYOUT_LOCATION(idx)
-#endif
-#if defined(TARGET_VULKAN)
-#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(set = set_idx, binding = binding_idx, fields_layout)
-#else
-#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(fields_layout)
-#endif
-#if defined(TARGET_VULKAN)
-#define LAYOUT_SAMPLER(set_idx, binding_idx) layout(set = set_idx, binding = binding_idx)
-#else
-#define LAYOUT_SAMPLER(set_idx, binding_idx)
-#endif
-vec3 srgb_to_linear(in vec3 color, in float gamma) {
-    return pow(color, vec3(gamma));
-}
-vec3 linear_to_srgb(in vec3 color, in float inverse_gamma) {
-    return pow(color, vec3(inverse_gamma));
-}
-vec2 unpack_uv(in vec2 uv) {
-    #ifdef TARGET_VULKAN
-    return vec2(uv.x, 1.0f - uv.y);
-    #else
-    return uv;
-    #endif
-}
-layout(location = 0) out vec4 fs_color;
-LAYOUT_LOCATION(0) in vec4 in_color;
-LAYOUT_LOCATION(1) in vec2 in_uv;
-void main() {
-    #ifdef CANVAS_FONT_BITMAP
-    float mask = texture(Texture, in_uv).r;
-    fs_color   = vec4(in_color.rgb, in_color.a * mask);
-    #else
-    vec4 tex_color_srgb   = texture(Texture, in_uv).rgba;
-    vec4 tex_color_linear = vec4(srgb_to_linear(tex_color_srgb.rgb, gamma), tex_color_srgb.a);
-    fs_color = vec4(in_color.rgba * tex_color_linear);
-    #endif
-}
+        struct ViewData {
+            Mat4x4f Clip;
+            Mat4x4f Proj;
+            Mat4x4f View;
+            Mat4x4f ProjView;
+            Mat4x4f ClipProjView;
+            Mat4x4f ProjPrev;
+            Mat4x4f ViewPrev;
+            Mat4x4f ProjViewPrev;
+            Mat4x4f ClipProjViewPrev;
+            Vec4f   Movement;
+            Vec4f   Position;
+            Vec4f   Direction;
+            Vec4f   Up;
+            Vec4f   PositionPrev;
+            Vec4f   DirectionPrev;
+            Vec4f   UpPrev;
+            Vec4i   Viewport;
+            int     CamIdx;
+            int     _vd_pad0;
+            int     _vd_pad1;
+            int     _vd_pad2;
+        };
 
-)";
-}
+        static constexpr const int  VIEWDATA_SET    = 0;
+        static constexpr const int  VIEWDATA_SLOT   = 1;
+        static constexpr const auto VIEWDATA_LOC    = GfxLocation{0, 1};
+        static constexpr const char VIEWDATA_NAME[] = "ViewData";
+
+        struct DrawCallData {
+            Mat4x4f Model;
+            Mat4x4f ModelPrev;
+            Vec4f   AabbPos;
+            Vec4f   AabbSizeHalf;
+        };
+
+        static constexpr const int  DRAWCALLDATA_SET    = 2;
+        static constexpr const int  DRAWCALLDATA_SLOT   = 0;
+        static constexpr const auto DRAWCALLDATA_LOC    = GfxLocation{2, 0};
+        static constexpr const char DRAWCALLDATA_NAME[] = "DrawCallData";
+    };
+
+}// namespace wmoge

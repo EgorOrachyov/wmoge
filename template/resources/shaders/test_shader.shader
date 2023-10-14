@@ -12,9 +12,10 @@ state:
  depth_func: Less
 vertex: >
     void Vertex(inout ShaderInoutVs vs) {
-        // no op
+        vs.result.worldPos = vec3(Model * vec4(vs.attributes.pos3, 1.0f));
+        vs.result.worldNorm = vec3(Model * vec4(vs.attributes.norm, 0.0f));
     }
 fragment: >
     void Fragment(inout ShaderInoutFs fs) {
-        fs.result.baseColor = color;
+        fs.result.baseColor = color * max(0.1f, dot(-Direction.xyz, fs.attributes.worldNorm));
     }

@@ -34,9 +34,6 @@
 
 namespace wmoge {
 
-    Camera::Camera(CameraManager* manager) : m_manager(manager) {
-    }
-
     void Camera::set_name(const StringId& name) {
         m_name = name;
     }
@@ -57,7 +54,23 @@ namespace wmoge {
         m_active = active;
     }
 
-    CameraDebug::CameraDebug(CameraManager* manager) : Camera(manager) {
+    RenderCamera& Camera::update_render_camera(Size2i target) {
+        const float width     = float(target.x());
+        const float height    = float(target.y());
+        const float aspect    = height > 0 ? width / height : 1.0f;
+        const Vec4f viewportf = Vec4f{width, height, width, height} * m_viewport;
+
+        RenderCamera camera;
+        camera.set_proj_params(m_fov, aspect, m_near, m_far);
+        camera.set_viewport(Rect2i{int(viewportf.x()), int(viewportf.y()), int(viewportf.z()), int(viewportf.w())});
+        camera.look(m_direction, m_up);
+        camera.move_to(m_position);
+        camera.validate();
+
+        return m_render_camera = camera;
+    }
+
+    CameraDebug::CameraDebug() {
         m_action_listener = Engine::instance()->event_manager()->subscribe<EventAction>([this](const EventAction& action) {
             static const StringId CD_TOGGLE       = SID("cd_toggle");
             static const StringId CD_MOVE_UP      = SID("cd_move_up");
@@ -133,10 +146,10 @@ namespace wmoge {
     }
 
     CameraManager::CameraManager() {
-        m_camera_default = make_ref<Camera>(this);
+        m_camera_default = make_ref<Camera>();
         m_camera_default->set_name(SID("default"));
 
-        m_camera_debug = make_ref<CameraDebug>(this);
+        m_camera_debug = make_ref<CameraDebug>();
         m_camera_debug->set_name(SID("debug"));
 
         m_cameras.push_back(m_camera_default);
@@ -144,11 +157,9 @@ namespace wmoge {
     }
 
     Ref<Camera> CameraManager::make_camera(const StringId& name) {
-        auto camera = make_ref<Camera>(this);
+        auto camera = make_ref<Camera>();
         camera->set_name(name);
-
         m_cameras.push_back(camera);
-
         return camera;
     }
     std::optional<Ref<Camera>> CameraManager::find_camera(const StringId& name) {

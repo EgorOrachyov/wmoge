@@ -47,4 +47,28 @@ nodes:
      - class: ScenePropCamera
        fov: 45.0
        projection: Perspective
+ - name: "models"
+   uuid: 13626177115197044525
+   type: Folder
+ - name: "suzanne_static_0"
+   uuid: 11435823289912096762
+   transform:
+    translation: -3 0 8
+    scale: 0.2 0.2 0.2
+   parent: 13626177115197044525
+   type: Object
+   properties:
+     - class: ScenePropMeshStatic
+       model: "res://models/suzanne"
+ - name: "suzanne_static_1"
+   uuid: 18383606916514128848
+   transform:
+    translation: 3 0 8
+    scale: 0.1 0.1 0.1
+   parent: 13626177115197044525
+   type: Object
+   properties:
+     - class: ScenePropMeshStatic
+       model: "res://models/suzanne"
+
        

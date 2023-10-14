@@ -83,6 +83,8 @@ public:
     void on_debug_draw() {
         WG_AUTO_PROFILE(app, "GameApplication::on_debug_draw");
 
+        return;
+
         Engine*         engine           = Engine::instance();
         GfxCtx*         gfx_ctx          = engine->gfx_ctx();
         AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();

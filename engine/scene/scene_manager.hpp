@@ -54,6 +54,8 @@ namespace wmoge {
         std::optional<Ref<Scene>> find_by_name(const StringId& name);
 
     private:
+        void scene_hier();
+        void scene_transforms();
         void scene_render();
         void scene_pfx();
         void scene_scripting();

@@ -29,10 +29,13 @@
 #define WMOGE_RENDER_MESH_STATIC_HPP
 
 #include "core/fast_vector.hpp"
+#include "math/math_utils3d.hpp"
 #include "render/render_object.hpp"
 #include "resource/material.hpp"
 #include "resource/mesh.hpp"
 #include "resource/model.hpp"
+
+#include <optional>
 
 namespace wmoge {
 
@@ -45,12 +48,14 @@ namespace wmoge {
         RenderMeshStatic(Ref<Model> model);
 
         void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
+        void                         update_transform(const Mat4x4f& l2w, const Mat4x4f& w2l) override;
         bool                         has_materials() const override;
         std::optional<Ref<Material>> get_material() const override;
         std::vector<Ref<Material>>   get_materials() const override;
 
     private:
         Ref<Model> m_model;
+        Mat4x4f    m_transform_l2w = Math3d::identity();
     };
 
 }// namespace wmoge

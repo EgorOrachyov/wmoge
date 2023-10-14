@@ -290,6 +290,8 @@ namespace wmoge {
     void ShaderManager::save_cache(const std::string& path_on_disk) {
         WG_AUTO_PROFILE_RENDER("ShaderManager::save_cache");
 
+        return;
+
         std::lock_guard lock(m_mutex);
 
         std::fstream file;
@@ -298,7 +300,10 @@ namespace wmoge {
             return;
         }
 
-        for (auto it = m_cache.begin(); it != m_cache.end(); ++it) {
+        auto it     = m_cache.begin();
+        auto it_end = m_cache.end();
+
+        while (it != it_end) {
             if (!it->second.bytecode) {
                 Ref<Data> bytecode = it->second.shader->byte_code();
                 if (!bytecode) {
@@ -307,6 +312,7 @@ namespace wmoge {
                 }
                 it->second.bytecode = std::move(bytecode);
             }
+            ++it;
         }
 
         ArchiveWriterFile archive(file);

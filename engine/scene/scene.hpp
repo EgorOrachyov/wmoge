@@ -35,6 +35,8 @@
 #include "ecs/ecs_world.hpp"
 #include "math/transform.hpp"
 #include "platform/window.hpp"
+#include "resource/model.hpp"
+#include "resource/resource_ref.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_transform.hpp"
 
@@ -50,12 +52,12 @@ namespace wmoge {
      * @brief Serializable struct with camera data for a scene object
      */
     struct SceneDataCamera {
+        StringId         name;
         Color4f          color      = Color::BLACK4f;
         Vec4f            viewport   = Vec4f(0, 0, 1, 1);
         float            fov        = 45.0f;
         float            near       = 0.1f;
         float            far        = 10000.0f;
-        StringId         target     = SID("primary");
         CameraProjection projection = CameraProjection::Perspective;
 
         friend Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data);
@@ -67,6 +69,10 @@ namespace wmoge {
      * @brief Serializable struct with static mesh info to attach to object
      */
     struct SceneDataMeshStatic {
+        ResourceRefHard<Model> model;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, SceneDataMeshStatic& data);
+        friend Status yaml_write(YamlNodeRef node, const SceneDataMeshStatic& data);
     };
 
     /**
@@ -127,14 +133,34 @@ namespace wmoge {
     /**
      * @class Scene
      * @brief Scene objects container representing running game state
+     * 
+     * Scene is a data container for a runtime scene data, required for game simulation and rendering.
+     * The scene itself is a plain data container of game objects whitout any simulation or drawing loging.
+     * Game objects stored as entities edintified by simple numeric ids. Components of entities stored
+     * in a ECS world in an optimized fashion, what gives fast processing and low overhed.
+     * 
+     * Scene data is optimized for runtime simulation, fast deserialization, not for the editing.
+     * Editing of the scene used by a separate stucture, named SceneTree. Tree manages hierarchy of
+     * nodes with extra editor information (not shared with final game). It follows SOLID principels,
+     * gives flexibility and performance in the final game (where Godot, UE, CryEngine, Unity use
+     * mix or editor and scene logic, what causes pure CPU performance of scene processing).
+     * 
+     * Update of this scene state, sinmulation, scene rendering is done externally.
+     * Scene data is travered by a scene manager, and required operations performed there.
+     * 
+     * @see SceneNode
+     * @see SceneTree
      */
     class Scene final : public RefCnt {
     public:
         Scene(StringId name = StringId());
         ~Scene() override = default;
 
-        void advance(float delta_time);
-        void clear();
+        Status build(const SceneData& data);
+        void   add_camera(EcsEntity entity, const SceneDataCamera& data);
+        void   add_mesh_static(EcsEntity entity, const SceneDataMeshStatic& data);
+        void   advance(float delta_time);
+        void   clear();
 
         [[nodiscard]] const StringId&        get_name();
         [[nodiscard]] EcsWorld*              get_ecs_world();

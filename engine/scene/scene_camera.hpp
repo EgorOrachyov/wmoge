@@ -46,15 +46,15 @@ namespace wmoge {
      */
     class Camera : public RefCnt {
     public:
-        Camera(class CameraManager* manager);
         ~Camera() override = default;
 
-        void set_name(const StringId& name);
-        void set_fov(float fov);
-        void set_color(const Color4f& color);
-        void set_near_far(float near, float far);
-        void set_projection(CameraProjection projection);
-        void make_active(bool active);
+        void          set_name(const StringId& name);
+        void          set_fov(float fov);
+        void          set_color(const Color4f& color);
+        void          set_near_far(float near, float far);
+        void          set_projection(CameraProjection projection);
+        void          make_active(bool active);
+        RenderCamera& update_render_camera(Size2i target);
 
         [[nodiscard]] const RenderCamera&     get_render_camera() const { return m_render_camera; }
         [[nodiscard]] const Vec3f&            get_position() const { return m_position; }
@@ -66,9 +66,7 @@ namespace wmoge {
         [[nodiscard]] float                   get_near() const { return m_near; }
         [[nodiscard]] float                   get_far() const { return m_far; }
         [[nodiscard]] const StringId&         get_name() const { return m_name; }
-        [[nodiscard]] const StringId&         get_target() const { return m_target; }
         [[nodiscard]] const CameraProjection& get_projection() const { return m_projection; }
-        [[nodiscard]] CameraType              get_type() const { return m_type; }
         [[nodiscard]] bool                    is_active() const { return m_active; }
 
     protected:
@@ -82,12 +80,8 @@ namespace wmoge {
         float            m_near       = 0.1f;
         float            m_far        = 10000.0f;
         StringId         m_name       = SID("default");
-        StringId         m_target     = SID("primary");
         CameraProjection m_projection = CameraProjection::Perspective;
-        CameraType       m_type       = CameraType::Color;
         bool             m_active     = false;
-
-        class CameraManager* m_manager;
     };
 
     /**
@@ -96,7 +90,7 @@ namespace wmoge {
      */
     class CameraDebug : public Camera {
     public:
-        CameraDebug(class CameraManager* manager);
+        CameraDebug();
         ~CameraDebug() override;
 
         [[nodiscard]] float get_speed_move() const { return m_speed_move; }

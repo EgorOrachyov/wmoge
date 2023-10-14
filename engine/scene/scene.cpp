@@ -27,28 +27,42 @@
 
 #include "scene.hpp"
 
+#include "scene/scene_components.hpp"
+
 namespace wmoge {
 
     Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data) {
+        WG_YAML_READ_AS_OPT(node, "name", data.name);
         WG_YAML_READ_AS_OPT(node, "color", data.color);
         WG_YAML_READ_AS_OPT(node, "viewport", data.viewport);
         WG_YAML_READ_AS_OPT(node, "fov", data.fov);
         WG_YAML_READ_AS_OPT(node, "near", data.near);
         WG_YAML_READ_AS_OPT(node, "far", data.far);
-        WG_YAML_READ_AS_OPT(node, "target", data.target);
         WG_YAML_READ_AS_OPT(node, "projection", data.projection);
 
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const SceneDataCamera& data) {
         WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "name", data.name);
         WG_YAML_WRITE_AS(node, "color", data.color);
         WG_YAML_WRITE_AS(node, "viewport", data.viewport);
         WG_YAML_WRITE_AS(node, "fov", data.fov);
         WG_YAML_WRITE_AS(node, "near", data.near);
         WG_YAML_WRITE_AS(node, "far", data.far);
-        WG_YAML_WRITE_AS(node, "target", data.target);
         WG_YAML_WRITE_AS(node, "projection", data.projection);
+
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(const YamlConstNodeRef& node, SceneDataMeshStatic& data) {
+        WG_YAML_READ_AS(node, "model", data.model);
+
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const SceneDataMeshStatic& data) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "model", data.model);
 
         return StatusCode::Ok;
     }
@@ -58,6 +72,7 @@ namespace wmoge {
         WG_YAML_READ_AS(node, "names", data.names);
         WG_YAML_READ_AS(node, "transforms", data.transforms);
         WG_YAML_READ_AS(node, "cameras", data.cameras);
+        WG_YAML_READ_AS(node, "meshes_static", data.meshes_static);
 
         return StatusCode::Ok;
     }
@@ -67,6 +82,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "names", data.names);
         WG_YAML_WRITE_AS(node, "transforms", data.transforms);
         WG_YAML_WRITE_AS(node, "cameras", data.cameras);
+        WG_YAML_WRITE_AS(node, "meshes_static", data.meshes_static);
 
         return StatusCode::Ok;
     }
@@ -76,6 +92,23 @@ namespace wmoge {
         m_transforms = std::make_unique<SceneTransformManager>();
         m_ecs_world  = std::make_unique<EcsWorld>();
         m_cameras    = std::make_unique<CameraManager>();
+    }
+    Status Scene::build(const SceneData& data) {
+        return StatusCode::Ok;
+    }
+    void Scene::add_camera(EcsEntity entity, const SceneDataCamera& data) {
+        EcsComponentCamera& ecs_camera = get_ecs_world()->get_component_rw<EcsComponentCamera>(entity);
+
+        ecs_camera.camera = get_cameras()->make_camera(data.name);
+        ecs_camera.camera->set_color(data.color);
+        ecs_camera.camera->set_fov(data.fov);
+        ecs_camera.camera->set_near_far(data.near, data.far);
+        ecs_camera.camera->set_projection(data.projection);
+    }
+    void Scene::add_mesh_static(EcsEntity entity, const SceneDataMeshStatic& data) {
+        EcsComponentMeshStatic& ecs_mesh = get_ecs_world()->get_component_rw<EcsComponentMeshStatic>(entity);
+
+        ecs_mesh.mesh = std::make_unique<RenderMeshStatic>(data.model.get_safe());
     }
     void Scene::advance(float delta_time) {
         m_delta_time = delta_time * m_time_factor;

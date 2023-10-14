@@ -50,13 +50,12 @@ namespace wmoge {
      * @brief Holds information required to work with components
      */
     struct EcsComponentInfo {
-        StringId                                name;
-        int                                     idx  = -1;
-        int                                     size = -1;
-        std::function<void(void*)>              create;
-        std::function<void(void*)>              destroy;
-        std::function<void(void*, const void*)> copy;
-        std::function<void(void*, void*)>       swap;
+        StringId                          name;
+        int                               idx  = -1;
+        int                               size = -1;
+        std::function<void(void*)>        create;
+        std::function<void(void*)>        destroy;
+        std::function<void(void*, void*)> swap;
     };
 
 #define WG_ECS_COMPONENT(ecs_component_class, ecs_idx)                                                         \

@@ -184,34 +184,34 @@ namespace wmoge {
         }
     }
 
-    const std::vector<MeshChunk>& Mesh::get_chunks() {
+    ArrayView<const MeshChunk> Mesh::get_chunks() const {
         return m_chunks;
     }
-    const MeshChunk& Mesh::get_chunk(int i) {
+    const MeshChunk& Mesh::get_chunk(int i) const {
         assert(i < m_chunks.size());
         return m_chunks[i];
     }
-    const Ref<Data>& Mesh::get_vertex_buffer(int i) {
+    const Ref<Data>& Mesh::get_vertex_buffer(int i) const {
         assert(i < MAX_BUFFER);
         return m_vertex_buffers[i];
     }
-    const Ref<Data>& Mesh::get_index_buffer() {
+    const Ref<Data>& Mesh::get_index_buffer() const {
         return m_index_buffer;
     }
-    const Ref<GfxVertBuffer>& Mesh::get_gfx_vertex_buffer(int i) {
+    const Ref<GfxVertBuffer>& Mesh::get_gfx_vertex_buffer(int i) const {
         assert(i < MAX_BUFFER);
         return m_gfx_vertex_buffers[i];
     }
-    const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffer() {
+    const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffer() const {
         return m_gfx_index_buffer;
     }
-    GfxIndexType Mesh::get_index_type() {
+    GfxIndexType Mesh::get_index_type() const {
         return m_index_type;
     }
-    GfxPrimType Mesh::get_prim_type() {
+    GfxPrimType Mesh::get_prim_type() const {
         return m_prim_type;
     }
-    GfxVertAttribsStreams Mesh::get_attribs() {
+    GfxVertAttribsStreams Mesh::get_attribs() const {
         return m_attribs;
     }
     int Mesh::get_num_vertices() const {
@@ -220,8 +220,16 @@ namespace wmoge {
     int Mesh::get_num_indices() const {
         return m_num_indices;
     }
-    Aabbf Mesh::get_aabb() {
+    Aabbf Mesh::get_aabb() const {
         return m_aabb;
+    }
+    GfxVertBuffersSetup Mesh::get_gfx_vert_buffes_setup() const {
+        GfxVertBuffersSetup setup;
+        for (int i = 0; i < MAX_BUFFER; i++) {
+            setup.buffers[i] = m_gfx_vertex_buffers[i].get();
+            setup.offsets[i] = 0;
+        }
+        return setup;
     }
 
     void Mesh::register_class() {

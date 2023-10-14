@@ -75,11 +75,11 @@ namespace wmoge {
             return m_ptr ? std::optional<Ref<T>>(m_ptr) : std::optional<Ref<T>>();
         }
 
-        [[nodiscard]] Ref<T> get_unsafe() const {
+        [[nodiscard]] const Ref<T>& get_unsafe() const {
             return m_ptr;
         }
 
-        [[nodiscard]] Ref<T> get_safe() const {
+        [[nodiscard]] const Ref<T>& get_safe() const {
             assert(m_ptr);
             return m_ptr;
         }

@@ -34,13 +34,15 @@ namespace wmoge {
     void CallbackQueue::flush() {
         WG_AUTO_PROFILE_CORE("CallbackQueue::flush");
 
-        std::lock_guard guard(m_mutex);
-
-        for (auto& callback : m_queue) {
-            callback();
+        std::vector<std::function<void()>> to_flush;
+        {
+            std::lock_guard guard(m_mutex);
+            std::swap(to_flush, m_queue);
         }
 
-        m_queue.clear();
+        for (auto& callback : to_flush) {
+            callback();
+        }
     }
 
     void CallbackQueue::clear() {

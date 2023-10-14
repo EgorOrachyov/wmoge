@@ -62,6 +62,16 @@ namespace wmoge {
     class ScenePropMeshStatic : public SceneProperty {
     public:
         WG_OBJECT(ScenePropMeshStatic, SceneProperty);
+
+        void collect_arch(EcsArch& arch, class SceneNode& owner) override;
+        void on_make_entity(EcsEntity entity, class SceneNode& owner) override;
+        void on_delete_entity(EcsEntity entity, class SceneNode& owner) override;
+
+        Status copy_to(Object& other) const override;
+        Status read_from_yaml(const YamlConstNodeRef& node) override;
+        Status write_to_yaml(YamlNodeRef node) const override;
+
+        SceneDataMeshStatic settings;
     };
 
     /**

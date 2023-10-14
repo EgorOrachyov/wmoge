@@ -160,17 +160,17 @@ class CodeGeneratorGlsl(CodeGenerator):
         if element == reflection.TYPE_VEC4:
             return "vec4"
         if element == reflection.TYPE_IVEC2:
-            return "vec2i"
+            return "ivec2"
         if element == reflection.TYPE_IVEC3:
-            return "vec3i"
+            return "ivec3"
         if element == reflection.TYPE_IVEC4:
-            return "vec4i"
+            return "ivec4"
         if element == reflection.TYPE_UVEC2:
-            return "vec2u"
+            return "uvec2"
         if element == reflection.TYPE_UVEC3:
-            return "vec3u"
+            return "uvec3"
         if element == reflection.TYPE_UVEC4:
-            return "vec4u"
+            return "uvec4"
         if element == reflection.TYPE_MAT2:
             return "mat2"
         if element == reflection.TYPE_MAT3:
@@ -585,6 +585,9 @@ def process_cxx_reflection(shader):
 
 
 def process_cxx_pass(shader):
+    if len(shader.files) == 0:
+        return
+
     with open(DIR_GENERATED / f"{PREFIX}{shader.name}_pass.hpp", "w") as file:
         file.write(LICENSE_HEADER)
         file.write("\n")
