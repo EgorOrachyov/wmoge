@@ -94,8 +94,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aff75f83cc35cbc8f50192c31c22ae095"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9d4ecd8b03c6bd7c12cb7040c5387d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#ab9d4ecd8b03c6bd7c12cb7040c5387d0">collect</a> (const <a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> &amp;cameras, <a class="el" href="classwmoge_1_1RenderCameraMask.html">RenderCameraMask</a> mask, <a class="el" href="classwmoge_1_1MeshBatchCollector.html">MeshBatchCollector</a> &amp;collector)=0</td></tr>
 <tr class="separator:ab9d4ecd8b03c6bd7c12cb7040c5387d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a45d123d064a5f64e10cfa1600d64cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a9a45d123d064a5f64e10cfa1600d64cc">update_transform</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;l2w, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;w2l)=0</td></tr>
-<tr class="separator:a9a45d123d064a5f64e10cfa1600d64cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09c10a535c86f67d163ed73639da09f9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a09c10a535c86f67d163ed73639da09f9">update_transform</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;l2w)=0</td></tr>
+<tr class="separator:a09c10a535c86f67d163ed73639da09f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaab195ce079c399c66e1637155877e53"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#aaab195ce079c399c66e1637155877e53">has_materials</a> () const =0</td></tr>
 <tr class="separator:aaab195ce079c399c66e1637155877e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d20a470d63dca9e7215fc6bbf4ebbbd"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Material.html">Material</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a6d20a470d63dca9e7215fc6bbf4ebbbd">get_material</a> () const =0</td></tr>
@@ -257,8 +257,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9a45d123d064a5f64e10cfa1600d64cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a45d123d064a5f64e10cfa1600d64cc">&#9670;&nbsp;</a></span>update_transform()</h2>
+<a id="a09c10a535c86f67d163ed73639da09f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09c10a535c86f67d163ed73639da09f9">&#9670;&nbsp;</a></span>update_transform()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,18 +270,8 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual void wmoge::RenderObject::update_transform </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
-          <td class="paramname"><em>l2w</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>l2w</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
-          <td class="paramname"><em>w2l</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -291,7 +281,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1RenderMeshStatic.html#abeddb14c5c5c593b4206b60769546c84">wmoge::RenderMeshStatic</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1RenderMeshStatic.html#af007bf540f07c07ea08b5bc98f1604c2">wmoge::RenderMeshStatic</a>.</p>
 
 </div>
 </div>

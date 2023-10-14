@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="structwmoge_1_1RenderView-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::RenderView Class Reference</div>  </div>
@@ -82,29 +83,59 @@ Collaboration diagram for wmoge::RenderView:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1RenderView__coll__graph.png" border="0" usemap="#awmoge_1_1RenderView_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1RenderView_coll__map" id="awmoge_1_1RenderView_coll__map">
-<area shape="rect" title="Holds data required to render a single view." alt="" coords="10,109,150,136"/>
+<area shape="rect" title="Holds data required to render a single view." alt="" coords="97,109,237,136"/>
 <area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="179,5,328,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a0894c843b6ee54e09e6c747495315502"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structwmoge_1_1RenderQueue.html">RenderQueue</a>, <a class="el" href="structwmoge_1_1RenderView.html#a923e4332511c4ec5613a8e40e020bdd7">QUEUE_COUNT</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderView.html#a0894c843b6ee54e09e6c747495315502">queues</a></td></tr>
+<tr class="separator:a0894c843b6ee54e09e6c747495315502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a573a7baaf99f33e1dda029f8c283f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderView.html#a7a573a7baaf99f33e1dda029f8c283f4">view_data</a></td></tr>
 <tr class="separator:a7a573a7baaf99f33e1dda029f8c283f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a473a3ea6831c05ca62636c4363540568"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="structwmoge_1_1RenderQueue.html">RenderQueue</a>, int(<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca96b0141273eabab320119c467cdcaf17">MeshPassType::Total</a>)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderView.html#a473a3ea6831c05ca62636c4363540568">queues</a></td></tr>
-<tr class="separator:a473a3ea6831c05ca62636c4363540568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af04e6bfeca4397c85ba496522fba0a9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderView.html#af04e6bfeca4397c85ba496522fba0a9a">view_set</a></td></tr>
+<tr class="separator:af04e6bfeca4397c85ba496522fba0a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a923e4332511c4ec5613a8e40e020bdd7"><td class="memItemLeft" align="right" valign="top">static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderView.html#a923e4332511c4ec5613a8e40e020bdd7">QUEUE_COUNT</a> = int(<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca96b0141273eabab320119c467cdcaf17">MeshPassType::Total</a>)</td></tr>
+<tr class="separator:a923e4332511c4ec5613a8e40e020bdd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds data required to render a single view. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a473a3ea6831c05ca62636c4363540568"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a473a3ea6831c05ca62636c4363540568">&#9670;&nbsp;</a></span>queues</h2>
+<a id="a923e4332511c4ec5613a8e40e020bdd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a923e4332511c4ec5613a8e40e020bdd7">&#9670;&nbsp;</a></span>QUEUE_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr int wmoge::RenderView::QUEUE_COUNT = int(<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca96b0141273eabab320119c467cdcaf17">MeshPassType::Total</a>)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0894c843b6ee54e09e6c747495315502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0894c843b6ee54e09e6c747495315502">&#9670;&nbsp;</a></span>queues</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::array&lt;<a class="el" href="structwmoge_1_1RenderQueue.html">RenderQueue</a>, int(<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca96b0141273eabab320119c467cdcaf17">MeshPassType::Total</a>)&gt; wmoge::RenderView::queues</td>
+          <td class="memname">std::array&lt;<a class="el" href="structwmoge_1_1RenderQueue.html">RenderQueue</a>, <a class="el" href="structwmoge_1_1RenderView.html#a923e4332511c4ec5613a8e40e020bdd7">QUEUE_COUNT</a>&gt; wmoge::RenderView::queues</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -119,6 +150,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a>&gt; wmoge::RenderView::view_data</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af04e6bfeca4397c85ba496522fba0a9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af04e6bfeca4397c85ba496522fba0a9a">&#9670;&nbsp;</a></span>view_set</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a>&gt; wmoge::RenderView::view_set</td>
         </tr>
       </table>
 </div><div class="memdoc">

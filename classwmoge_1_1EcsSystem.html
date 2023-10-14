@@ -77,6 +77,16 @@ $(function() {
  <a href="classwmoge_1_1EcsSystem.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ecs__system_8hpp_source.html">ecs_system.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for wmoge::EcsSystem:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1EcsSystem__inherit__graph.png" border="0" usemap="#awmoge_1_1EcsSystem_inherit__map" alt="Inheritance graph"/></div>
+<map name="awmoge_1_1EcsSystem_inherit__map" id="awmoge_1_1EcsSystem_inherit__map">
+<area shape="rect" title="Base class for any system, which can be register within a world." alt="" coords="147,5,283,32"/>
+<area shape="rect" href="classwmoge_1_1EcsSysCacheMatrices.html" title="Store cached matrices after hier update for each entity." alt="" coords="5,87,207,114"/>
+<area shape="rect" href="classwmoge_1_1EcsSysCollectStaticMeshes.html" title="Collect static mesh from scene for rendering." alt="" coords="231,80,419,121"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -85,10 +95,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4d5542ad0d207fff7fabcf7b2709b75a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#a4d5542ad0d207fff7fabcf7b2709b75a">process_batch</a> (class <a class="el" href="classwmoge_1_1EcsWorld.html">EcsWorld</a> &amp;world, <a class="el" href="classwmoge_1_1EcsArchStorage.html">EcsArchStorage</a> &amp;storage, int start_entity, int count)=0</td></tr>
 <tr class="memdesc:a4d5542ad0d207fff7fabcf7b2709b75a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called on system to process a batch of entities having the same archetype.  <a href="classwmoge_1_1EcsSystem.html#a4d5542ad0d207fff7fabcf7b2709b75a">More...</a><br /></td></tr>
 <tr class="separator:a4d5542ad0d207fff7fabcf7b2709b75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bad0afccf88d8a1d06b0a54c3ff9c3a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a890a8a4454ee7bcb2133a5a098cbcf04">EcsSystemType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#a6bad0afccf88d8a1d06b0a54c3ff9c3a">get_type</a> () const =0</td></tr>
-<tr class="separator:a6bad0afccf88d8a1d06b0a54c3ff9c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21db12c4ab1989846c563dcd7aff250d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0">EcsSystemExecMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#a21db12c4ab1989846c563dcd7aff250d">get_exec_mode</a> () const =0</td></tr>
-<tr class="separator:a21db12c4ab1989846c563dcd7aff250d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e57bb9a9f29b866524dae581b211a3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a890a8a4454ee7bcb2133a5a098cbcf04">EcsSystemType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#a38e57bb9a9f29b866524dae581b211a3">get_type</a> () const</td></tr>
+<tr class="separator:a38e57bb9a9f29b866524dae581b211a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ab8fd4e0e1c29280cb94f6b8e99fa9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0">EcsSystemExecMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#ad2ab8fd4e0e1c29280cb94f6b8e99fa9">get_exec_mode</a> () const</td></tr>
+<tr class="separator:ad2ab8fd4e0e1c29280cb94f6b8e99fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a5c79af69ed8cd0ef5894c7094ca143"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#a4a5c79af69ed8cd0ef5894c7094ca143">get_name</a> () const =0</td></tr>
 <tr class="separator:a4a5c79af69ed8cd0ef5894c7094ca143"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade5f1cd656555c471b84c44c338db19d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsSystem.html#ade5f1cd656555c471b84c44c338db19d">get_query</a> () const =0</td></tr>
@@ -123,8 +133,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a21db12c4ab1989846c563dcd7aff250d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21db12c4ab1989846c563dcd7aff250d">&#9670;&nbsp;</a></span>get_exec_mode()</h2>
+<a id="ad2ab8fd4e0e1c29280cb94f6b8e99fa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ab8fd4e0e1c29280cb94f6b8e99fa9">&#9670;&nbsp;</a></span>get_exec_mode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,10 +151,12 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classwmoge_1_1EcsSysCacheMatrices.html#a35967a959a95743defeb136f3dba1cd0">wmoge::EcsSysCacheMatrices</a>, and <a class="el" href="classwmoge_1_1EcsSysCollectStaticMeshes.html#a98bebc083d9c3f1c34d93c18725fe90b">wmoge::EcsSysCollectStaticMeshes</a>.</p>
 
 </div>
 </div>
@@ -171,6 +183,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implemented in <a class="el" href="classwmoge_1_1EcsSysCacheMatrices.html#a4435f7ec492d22b03049822f1889f7f0">wmoge::EcsSysCacheMatrices</a>, and <a class="el" href="classwmoge_1_1EcsSysCollectStaticMeshes.html#ad846b708f9e568a259df6fd4e05e44ee">wmoge::EcsSysCollectStaticMeshes</a>.</p>
+
 </div>
 </div>
 <a id="ade5f1cd656555c471b84c44c338db19d"></a>
@@ -196,10 +210,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implemented in <a class="el" href="classwmoge_1_1EcsSysCacheMatrices.html#ac682d4d2598dacaf3a80df6e93a6d0e7">wmoge::EcsSysCacheMatrices</a>, and <a class="el" href="classwmoge_1_1EcsSysCollectStaticMeshes.html#aeaf5297c5bfd07a99f97a07162ea5b17">wmoge::EcsSysCollectStaticMeshes</a>.</p>
+
 </div>
 </div>
-<a id="a6bad0afccf88d8a1d06b0a54c3ff9c3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bad0afccf88d8a1d06b0a54c3ff9c3a">&#9670;&nbsp;</a></span>get_type()</h2>
+<a id="a38e57bb9a9f29b866524dae581b211a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38e57bb9a9f29b866524dae581b211a3">&#9670;&nbsp;</a></span>get_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,7 +232,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -280,6 +296,8 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p>Implemented in <a class="el" href="classwmoge_1_1EcsSysCacheMatrices.html#ab045b0d7044a5428ca9e3bef567fe210">wmoge::EcsSysCacheMatrices</a>, and <a class="el" href="classwmoge_1_1EcsSysCollectStaticMeshes.html#a377128e8b91998bdad21353a46571d94">wmoge::EcsSysCollectStaticMeshes</a>.</p>
 
 </div>
 </div>

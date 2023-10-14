@@ -1,0 +1,5 @@
+<map id="wmoge::EcsSysCollectStaticMeshes" name="wmoge::EcsSysCollectStaticMeshes">
+<area shape="rect" id="node1" title="Collect static mesh from scene for rendering." alt="" coords="75,95,263,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1EcsSystem.html" title="Base class for any system, which can be register within a world." alt="" coords="5,5,141,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RenderObjectCollector.html" title="Auxilary class to collect renderable object in MT." alt="" coords="165,5,365,32"/>
+</map>
