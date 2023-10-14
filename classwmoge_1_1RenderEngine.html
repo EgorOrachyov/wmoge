@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Responsible for a single scene rendering for each frame.  
+<p>Global rendering engine responsible for visualization of render objects.  
  <a href="classwmoge_1_1RenderEngine.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="render__engine_8hpp_source.html">render_engine.hpp</a>&gt;</code></p>
@@ -82,11 +82,50 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a1d40255da921244c8690b7f6bf9adb70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a1d40255da921244c8690b7f6bf9adb70">RenderEngine</a> ()</td></tr>
 <tr class="separator:a1d40255da921244c8690b7f6bf9adb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e1ced966febe01fd831f0ccb83d5c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#aa3e1ced966febe01fd831f0ccb83d5c2">set_time</a> (float time)</td></tr>
+<tr class="separator:aa3e1ced966febe01fd831f0ccb83d5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c8b09c36db1da399c31f3d6054dba07"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a5c8b09c36db1da399c31f3d6054dba07">set_delta_time</a> (float delta_time)</td></tr>
+<tr class="separator:a5c8b09c36db1da399c31f3d6054dba07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1394b1428dbf2c79bb97881fe0ad1d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ac1394b1428dbf2c79bb97881fe0ad1d8">set_target</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Window.html">Window</a> &gt; &amp;window)</td></tr>
+<tr class="separator:ac1394b1428dbf2c79bb97881fe0ad1d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f455b2f4a9bc7ec86961e910238afd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a7f455b2f4a9bc7ec86961e910238afd8">begin_rendering</a> ()</td></tr>
+<tr class="separator:a7f455b2f4a9bc7ec86961e910238afd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0180353b5a6c04ceae3e03e53e603c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#af0180353b5a6c04ceae3e03e53e603c6">end_rendering</a> ()</td></tr>
+<tr class="separator:af0180353b5a6c04ceae3e03e53e603c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad19cb6e9eb3d092a40f54ea380276282"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ad19cb6e9eb3d092a40f54ea380276282">allocate_veiws</a> ()</td></tr>
+<tr class="separator:ad19cb6e9eb3d092a40f54ea380276282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57990eede24cb0b934d89426556b5f7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a57990eede24cb0b934d89426556b5f7a">prepare_frame_data</a> ()</td></tr>
+<tr class="separator:a57990eede24cb0b934d89426556b5f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad141078841052360bb9cf5ea3cb09e16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ad141078841052360bb9cf5ea3cb09e16">get_cameras</a> ()</td></tr>
 <tr class="separator:ad141078841052360bb9cf5ea3cb09e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdcd21e30fa9b170b69dac5cff732811"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1MeshBatchCollector.html">MeshBatchCollector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#afdcd21e30fa9b170b69dac5cff732811">get_collector</a> ()</td></tr>
+<tr class="separator:afdcd21e30fa9b170b69dac5cff732811"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d6f2645cc653fc93c131849e0ae9770"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html">MeshBatchCompiler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a8d6f2645cc653fc93c131849e0ae9770">get_compiler</a> ()</td></tr>
+<tr class="separator:a8d6f2645cc653fc93c131849e0ae9770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade076fcfeeb17e391e790237f449f378"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; <a class="el" href="structwmoge_1_1RenderView.html">RenderView</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ade076fcfeeb17e391e790237f449f378">get_views</a> ()</td></tr>
+<tr class="separator:ade076fcfeeb17e391e790237f449f378"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b9d1a9d252a6586cba925d523ee88c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a31b9d1a9d252a6586cba925d523ee88c">get_time</a> () const</td></tr>
+<tr class="separator:a31b9d1a9d252a6586cba925d523ee88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d36a4167c9f44fbfd54cd4bb8e1f63"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a09d36a4167c9f44fbfd54cd4bb8e1f63">get_delta_time</a> () const</td></tr>
+<tr class="separator:a09d36a4167c9f44fbfd54cd4bb8e1f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a115659948942b4e3736a643926af9bf7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Window.html">Window</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a115659948942b4e3736a643926af9bf7">get_main_target</a> () const</td></tr>
+<tr class="separator:a115659948942b4e3736a643926af9bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3407229da071adfef57037d84b970da"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ae3407229da071adfef57037d84b970da">get_frame_data</a> () const</td></tr>
+<tr class="separator:ae3407229da071adfef57037d84b970da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Responsible for a single scene rendering for each frame. </p>
+<div class="textblock"><p>Global rendering engine responsible for visualization of render objects. </p>
+<p>Render engine is a global manager responsiple for rendering of objects for each frame. It is used by a scene manager to render an active scene to a screen.</p>
+<p>Render engine itself is lower-level class, which operates render objects, list of cameras, params and etc. to collect requrest of batch elements from different objects (which wants to be rendered), compile it into optimized render commands and submit commands to the GPU using selected rendering path.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered.">RenderObject</a> </dd>
+<dd>
+<a class="el" href="classwmoge_1_1RenderCamera.html" title="Camera primitive to setup rendering.">RenderCamera</a> </dd>
+<dd>
+<a class="el" href="classwmoge_1_1RenderCameras.html" title="Cameras list for rendering.">RenderCameras</a> </dd>
+<dd>
+<a class="el" href="classwmoge_1_1MeshBatchCollector.html" title="Service to collect batches from render objects for drawing.">MeshBatchCollector</a> </dd>
+<dd>
+<a class="el" href="classwmoge_1_1MeshBatchCompiler.html" title="Compiles collection of mesh batches into set of render commands for rendering.">MeshBatchCompiler</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1d40255da921244c8690b7f6bf9adb70"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1d40255da921244c8690b7f6bf9adb70">&#9670;&nbsp;</a></span>RenderEngine()</h2>
@@ -106,6 +145,57 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad19cb6e9eb3d092a40f54ea380276282"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad19cb6e9eb3d092a40f54ea380276282">&#9670;&nbsp;</a></span>allocate_veiws()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::allocate_veiws </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f455b2f4a9bc7ec86961e910238afd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f455b2f4a9bc7ec86961e910238afd8">&#9670;&nbsp;</a></span>begin_rendering()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::begin_rendering </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0180353b5a6c04ceae3e03e53e603c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0180353b5a6c04ceae3e03e53e603c6">&#9670;&nbsp;</a></span>end_rendering()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::end_rendering </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad141078841052360bb9cf5ea3cb09e16"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad141078841052360bb9cf5ea3cb09e16">&#9670;&nbsp;</a></span>get_cameras()</h2>
 
@@ -127,6 +217,252 @@ Public Member Functions</h2></td></tr>
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afdcd21e30fa9b170b69dac5cff732811"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdcd21e30fa9b170b69dac5cff732811">&#9670;&nbsp;</a></span>get_collector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1MeshBatchCollector.html">MeshBatchCollector</a>&amp; wmoge::RenderEngine::get_collector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d6f2645cc653fc93c131849e0ae9770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d6f2645cc653fc93c131849e0ae9770">&#9670;&nbsp;</a></span>get_compiler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html">MeshBatchCompiler</a>&amp; wmoge::RenderEngine::get_compiler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a09d36a4167c9f44fbfd54cd4bb8e1f63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09d36a4167c9f44fbfd54cd4bb8e1f63">&#9670;&nbsp;</a></span>get_delta_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float wmoge::RenderEngine::get_delta_time </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3407229da071adfef57037d84b970da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3407229da071adfef57037d84b970da">&#9670;&nbsp;</a></span>get_frame_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a>&gt;&amp; wmoge::RenderEngine::get_frame_data </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a115659948942b4e3736a643926af9bf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115659948942b4e3736a643926af9bf7">&#9670;&nbsp;</a></span>get_main_target()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Window.html">Window</a>&gt;&amp; wmoge::RenderEngine::get_main_target </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a31b9d1a9d252a6586cba925d523ee88c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b9d1a9d252a6586cba925d523ee88c">&#9670;&nbsp;</a></span>get_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float wmoge::RenderEngine::get_time </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade076fcfeeb17e391e790237f449f378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade076fcfeeb17e391e790237f449f378">&#9670;&nbsp;</a></span>get_views()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt;<a class="el" href="structwmoge_1_1RenderView.html">RenderView</a>&gt; wmoge::RenderEngine::get_views </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57990eede24cb0b934d89426556b5f7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57990eede24cb0b934d89426556b5f7a">&#9670;&nbsp;</a></span>prepare_frame_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::prepare_frame_data </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c8b09c36db1da399c31f3d6054dba07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c8b09c36db1da399c31f3d6054dba07">&#9670;&nbsp;</a></span>set_delta_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::set_delta_time </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>delta_time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1394b1428dbf2c79bb97881fe0ad1d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1394b1428dbf2c79bb97881fe0ad1d8">&#9670;&nbsp;</a></span>set_target()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::set_target </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Window.html">Window</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>window</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa3e1ced966febe01fd831f0ccb83d5c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3e1ced966febe01fd831f0ccb83d5c2">&#9670;&nbsp;</a></span>set_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::set_time </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>

@@ -241,9 +241,6 @@ $(function() {
 <li>m_mame
 : <a class="el" href="classwmoge_1_1InputDevice.html#ae178b5211672b719fe4b6128838a61fc">wmoge::InputDevice</a>
 </li>
-<li>m_manager
-: <a class="el" href="classwmoge_1_1Camera.html#a3add2cdb557864649ca100923568c513">wmoge::Camera</a>
-</li>
 <li>m_mask
 : <a class="el" href="classwmoge_1_1Script.html#a5b567ed22ad337ba221e768927260c91">wmoge::Script</a>
 </li>
@@ -330,9 +327,6 @@ $(function() {
 <li>m_stream
 : <a class="el" href="classwmoge_1_1AudioPlayback.html#aab35c7d4f6a5bece8f466a5d61aec047">wmoge::AudioPlayback</a>
 </li>
-<li>m_target
-: <a class="el" href="classwmoge_1_1Camera.html#a14f5f87b049bd6f45cd6708eafa2d78b">wmoge::Camera</a>
-</li>
 <li>m_tex_type
 : <a class="el" href="classwmoge_1_1GfxTexture.html#a487a90a0c7d29173aa9cc07676882113">wmoge::GfxTexture</a>
 , <a class="el" href="classwmoge_1_1Texture.html#a799201e47aaa25843a49d6679e6c0207">wmoge::Texture</a>
@@ -341,8 +335,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Texture.html#a361e6d4481455541b708eeba5e5701a1">wmoge::Texture</a>
 </li>
 <li>m_type
-: <a class="el" href="classwmoge_1_1Camera.html#a41d9d74bd361d0684772b90dde017d23">wmoge::Camera</a>
-, <a class="el" href="classwmoge_1_1EventScript.html#a01630c7c209aad56bc14f5cd3767a849">wmoge::EventScript</a>
+: <a class="el" href="classwmoge_1_1EventScript.html#a01630c7c209aad56bc14f5cd3767a849">wmoge::EventScript</a>
 </li>
 <li>m_up
 : <a class="el" href="classwmoge_1_1Camera.html#ab71a35a1ca272bbbf11f5b2875d96088">wmoge::Camera</a>
@@ -420,7 +413,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Mouse.html#a3b5777d69e7bda2737418734c299d426">wmoge::Mouse</a>
 </li>
 <li>MAX_CAMERAS
-: <a class="el" href="structwmoge_1_1CameraLimits.html#ac7957aadd8b8515c0cd55d76d737fd84">wmoge::CameraLimits</a>
+: <a class="el" href="structwmoge_1_1RenderLimits.html#aee305212ae8914c0c76396fdc472fde3">wmoge::RenderLimits</a>
 </li>
 <li>max_color_attachments
 : <a class="el" href="structwmoge_1_1GfxDeviceCaps.html#ac9ed06c50c38f9a2837a7e2a99f2d5a8">wmoge::GfxDeviceCaps</a>
@@ -501,8 +494,12 @@ $(function() {
 <li>max_vertex_attributes
 : <a class="el" href="structwmoge_1_1GfxDeviceCaps.html#a173aed6e31b92266041307fa03e47fd4">wmoge::GfxDeviceCaps</a>
 </li>
+<li>MAX_VIEWS
+: <a class="el" href="structwmoge_1_1RenderLimits.html#a8ec4c8ed06e323d4cebbfbcdfb85237e">wmoge::RenderLimits</a>
+</li>
 <li>mesh
-: <a class="el" href="structwmoge_1_1ModelLod.html#a7ea1d264c0008b3058b7e90e1d9f6c82">wmoge::ModelLod</a>
+: <a class="el" href="structwmoge_1_1EcsComponentMeshStatic.html#ad84b7a2a88f9d935f23e808c49b3b83e">wmoge::EcsComponentMeshStatic</a>
+, <a class="el" href="structwmoge_1_1ModelLod.html#a7ea1d264c0008b3058b7e90e1d9f6c82">wmoge::ModelLod</a>
 </li>
 <li>mesh_params
 : <a class="el" href="structwmoge_1_1MeshBatch.html#ae6c28408eeeb4da38b0426d79d1abd27">wmoge::MeshBatch</a>
@@ -549,11 +546,16 @@ $(function() {
 <li>mix_weights
 : <a class="el" href="classwmoge_1_1HgfxPassBase.html#ac541633b4dae07e6972334270d46ca1c">wmoge::HgfxPassBase</a>
 </li>
+<li>model
+: <a class="el" href="structwmoge_1_1SceneDataMeshStatic.html#a9aaa2aa865aadab480e1e237d0dc999d">wmoge::SceneDataMeshStatic</a>
+</li>
 <li>Model
-: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1DrawCallData.html#a5b2dc0e8af30190ce71467842e78282c">wmoge::ShaderMaterialDeferred::DrawCallData</a>
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1DrawCallData.html#acce7cfee6ce549cb2a74be21774d75d1">wmoge::ShaderCommon::DrawCallData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1DrawCallData.html#a5b2dc0e8af30190ce71467842e78282c">wmoge::ShaderMaterialDeferred::DrawCallData</a>
 </li>
 <li>ModelPrev
-: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1DrawCallData.html#a171282e097384fb75490363bf25dafb9">wmoge::ShaderMaterialDeferred::DrawCallData</a>
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1DrawCallData.html#a3f4704dc1438a93f80d15267ca491758">wmoge::ShaderCommon::DrawCallData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1DrawCallData.html#a171282e097384fb75490363bf25dafb9">wmoge::ShaderMaterialDeferred::DrawCallData</a>
 </li>
 <li>modifiers
 : <a class="el" href="classwmoge_1_1EventKeyboard.html#abd3756e38b1324553f446b894a84d5a5">wmoge::EventKeyboard</a>
@@ -564,6 +566,13 @@ $(function() {
 </li>
 <li>mouse_button
 : <a class="el" href="structwmoge_1_1ActionActivation.html#a4a9b4298bcca7e8a049df9ba229c076e">wmoge::ActionActivation</a>
+</li>
+<li>movement
+: <a class="el" href="structwmoge_1_1RenderCameraData.html#a05e9263a1891d195247a167691736552">wmoge::RenderCameraData</a>
+</li>
+<li>Movement
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1ViewData.html#accc33cc5abf775bdc3c681b537bc6b59">wmoge::ShaderCommon::ViewData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#a6676be542ad3c7e00f583734b91bc801">wmoge::ShaderMaterialDeferred::ViewData</a>
 </li>
 </ul>
 </div><!-- contents -->

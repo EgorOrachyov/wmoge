@@ -93,20 +93,28 @@ $(function() {
 <li>CallbackStream()
 : <a class="el" href="classwmoge_1_1CallbackStream.html#a75a9719aa0a434c26ecd5d50078b8fff">wmoge::CallbackStream</a>
 </li>
-<li>Camera()
-: <a class="el" href="classwmoge_1_1Camera.html#a702d5b5bff3a7a37bf22fe4ebfd28a2f">wmoge::Camera</a>
+<li>cam_mask
+: <a class="el" href="structwmoge_1_1MeshBatch.html#abe9270eb5c496cfbc7918a84bbce60ea">wmoge::MeshBatch</a>
 </li>
 <li>camera
 : <a class="el" href="structwmoge_1_1EcsComponentCamera.html#a60e164550f40d621f22c1d99688d8506">wmoge::EcsComponentCamera</a>
+, <a class="el" href="structwmoge_1_1RenderCameraData.html#ad625c93e0b312947e4744e21165e9c7b">wmoge::RenderCameraData</a>
+</li>
+<li>camera_at()
+: <a class="el" href="classwmoge_1_1RenderCameras.html#ac7eb589aeed5b599175c35003f616f20">wmoge::RenderCameras</a>
 </li>
 <li>CameraDebug()
-: <a class="el" href="classwmoge_1_1CameraDebug.html#af7675edb0213d01d51835d31e03063a1">wmoge::CameraDebug</a>
+: <a class="el" href="classwmoge_1_1CameraDebug.html#aa06f598db027a95aec59376398200750">wmoge::CameraDebug</a>
 </li>
 <li>CameraManager()
 : <a class="el" href="classwmoge_1_1CameraManager.html#a93b4db59a7481f6753854eaf87d6aa9c">wmoge::CameraManager</a>
 </li>
 <li>cameras
 : <a class="el" href="structwmoge_1_1SceneData.html#ae2d6fab40b86e0c847a54f01dc793ffd">wmoge::SceneData</a>
+</li>
+<li>CamIdx
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1ViewData.html#a08ffa991d98c45e5350b1ec884e6cc1b">wmoge::ShaderCommon::ViewData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#a7117194a940917bb8c999ec9ff2d5669">wmoge::ShaderMaterialDeferred::ViewData</a>
 </li>
 <li>can_memory_map()
 : <a class="el" href="classwmoge_1_1VKDefs.html#a20a68ccdeb1e654c9ddd524eceba7944">wmoge::VKDefs</a>
@@ -140,7 +148,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ProfilerMark.html#a994467b7a2a10bfef213e0a84e3cf71d">wmoge::ProfilerMark</a>
 </li>
 <li>ceil()
-: <a class="el" href="classwmoge_1_1Math.html#a46b8c8f531029acd0bc4952a1aca88db">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#a8f1d5526ac698ac8e206bdf182330572">wmoge::Math</a>
 </li>
 <li>center()
 : <a class="el" href="classwmoge_1_1TAabb.html#a999a246a82171222651ce1eafe1b22f4">wmoge::TAabb&lt; T &gt;</a>
@@ -220,10 +228,12 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ConfigFile.html#a0d5172998506cd70dc6ce705ac95ec55">wmoge::ConfigFile</a>
 , <a class="el" href="classwmoge_1_1EcsArchStorage.html#a659c74ff2da425db1de6d11bcdc52e51">wmoge::EcsArchStorage</a>
 , <a class="el" href="classwmoge_1_1EcsWorld.html#ac61564df905284ca2906cb9c53f5599f">wmoge::EcsWorld</a>
-, <a class="el" href="classwmoge_1_1GfxCtx.html#a18510d2f5ed1cdee423135bb53da93d7">wmoge::GfxCtx</a>
+, <a class="el" href="classwmoge_1_1GfxCtx.html#a6a7e56a73f6b1e70f5d6ff70448643b6">wmoge::GfxCtx</a>
 , <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a936937c1776ab10e6ce5e359cb257fb2">wmoge::GfxCtxWrapper</a>
 , <a class="el" href="classwmoge_1_1HookList.html#a418c047b9dc7b48e585d18769693637b">wmoge::HookList</a>
 , <a class="el" href="classwmoge_1_1LayerStack.html#ad70d6830981cc216771a1f857702ad05">wmoge::LayerStack</a>
+, <a class="el" href="classwmoge_1_1MeshBatchCollector.html#a939a0e84b4db812f13be5de6e456220c">wmoge::MeshBatchCollector</a>
+, <a class="el" href="classwmoge_1_1MeshBatchCompiler.html#aaa7b41b1fe76d94a3ac15e844c59bc79">wmoge::MeshBatchCompiler</a>
 , <a class="el" href="classwmoge_1_1RenderCameras.html#afe5fa7defbef5948fb4fd17a5b6d485a">wmoge::RenderCameras</a>
 , <a class="el" href="structwmoge_1_1RenderQueue.html#af40ec3725d969594edf2b5d04f7f9273">wmoge::RenderQueue</a>
 , <a class="el" href="classwmoge_1_1ResourceManager.html#ae3335ae9a320bb403c164de6016d606e">wmoge::ResourceManager</a>
@@ -246,6 +256,10 @@ $(function() {
 <li>clear_stencil()
 : <a class="el" href="classwmoge_1_1VKRenderPassBinder.html#ac57e8e15b594f9f7ed280a0b8e6b90c6">wmoge::VKRenderPassBinder</a>
 </li>
+<li>Clip
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1ViewData.html#ad82658db578126d73cfb2d76c2883ab7">wmoge::ShaderCommon::ViewData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#ad3e68a457442c19ce72b5ce49c339561">wmoge::ShaderMaterialDeferred::ViewData</a>
+</li>
 <li>clip_matrix()
 : <a class="el" href="classwmoge_1_1GfxCtx.html#a3a194ef1edfadabb54700d75458f6eba">wmoge::GfxCtx</a>
 , <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#adfa3cdc67bef072a864b50d939964923">wmoge::GfxCtxWrapper</a>
@@ -256,6 +270,14 @@ $(function() {
 </li>
 <li>clip_proj_screen
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas_1_1Params.html#a62350038d6b4477dc35f8fc6edfc7f28">wmoge::ShaderAuxDrawCanvas::Params</a>
+</li>
+<li>ClipProjView
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1ViewData.html#a792df7b8b6d9beccd67037d6277e9cc2">wmoge::ShaderCommon::ViewData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#af993ee307fd622da25dcf2a86fa90c37">wmoge::ShaderMaterialDeferred::ViewData</a>
+</li>
+<li>ClipProjViewPrev
+: <a class="el" href="structwmoge_1_1ShaderCommon_1_1ViewData.html#aaa53d04b69c84976d36020fea66d4a4a">wmoge::ShaderCommon::ViewData</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred_1_1ViewData.html#ad8df5f48dc8d520abd31c61df9dfda28">wmoge::ShaderMaterialDeferred::ViewData</a>
 </li>
 <li>clone()
 : <a class="el" href="classwmoge_1_1Object.html#a898060ea83bbf3cf8a5bb3263eadbd57">wmoge::Object</a>
@@ -276,6 +298,7 @@ $(function() {
 <li>CLS
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a72186578fbcf1a61661df0346c32fcb7">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a819364b716076435e36841576a75f547">wmoge::ShaderBase</a>
+, <a class="el" href="structwmoge_1_1ShaderCommon.html#a9dc861e56e1909b496b41d8049a6260f">wmoge::ShaderCommon</a>
 , <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a39a7c712262cb67dabf4ac11d63635c2">wmoge::ShaderMaterialDeferred</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a362cb734451cb64920920542912a4e9e">wmoge::ShaderText</a>
 </li>
@@ -326,6 +349,7 @@ $(function() {
 <li>collect_arch()
 : <a class="el" href="classwmoge_1_1ScenePropCamera.html#a53e8071dbf63bf5363c09cb3347cca13">wmoge::ScenePropCamera</a>
 , <a class="el" href="classwmoge_1_1SceneProperty.html#a8eb453a023f4cfa5251bdedc9dc05a7d">wmoge::SceneProperty</a>
+, <a class="el" href="classwmoge_1_1ScenePropMeshStatic.html#a889ab47c70cb6e50678d958b738eb5d2">wmoge::ScenePropMeshStatic</a>
 </li>
 <li>color
 : <a class="el" href="structwmoge_1_1AuxDrawBox.html#a31cf837d9ab838f07f4aac2d976ed086">wmoge::AuxDrawBox</a>
@@ -360,6 +384,9 @@ $(function() {
 , <a class="el" href="classwmoge_1_1HgfxPassText.html#a561f5cdfc59dfd7ffb1d19650f746923">wmoge::HgfxPassText</a>
 , <a class="el" href="structwmoge_1_1ShaderBuilder.html#a65572bdaa39a37abe4fb3a7bbd19ea92">wmoge::ShaderBuilder</a>
 , <a class="el" href="classwmoge_1_1ShaderPass.html#a81596aad59049b94b980a8299f392cc5">wmoge::ShaderPass</a>
+</li>
+<li>compile_batch()
+: <a class="el" href="classwmoge_1_1MeshBatchCompiler.html#a1aba986ebe612bb4a9fe66adfbcb538c">wmoge::MeshBatchCompiler</a>
 </li>
 <li>compile_from_byte_code()
 : <a class="el" href="classwmoge_1_1VKShader.html#a21c00c61e152178e19cc029120c1af09">wmoge::VKShader</a>
@@ -433,9 +460,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneTree.html#a86bee75942074f7842338e86320d5341">wmoge::SceneTree</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#ae1c3b31b184f2f6a75590823ace71b1d">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
-<li>copy
-: <a class="el" href="structwmoge_1_1EcsComponentInfo.html#aa49cc97126da4f8d9e57d36b28119c06">wmoge::EcsComponentInfo</a>
-, <a class="el" href="classwmoge_1_1TypedArray.html#a3b1dbdd9ba2c341501dd81578e26ca9f">wmoge::TypedArray&lt; T &gt;</a>
+<li>copy()
+: <a class="el" href="classwmoge_1_1TypedArray.html#a3b1dbdd9ba2c341501dd81578e26ca9f">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a2f050467d59343cceaa517e4ba74dc01">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
 <li>copy_properties()
@@ -457,6 +483,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneNode.html#a227467114021d16e1e294f0c4cafa5fc">wmoge::SceneNode</a>
 , <a class="el" href="classwmoge_1_1ScenePacked.html#addfe22dcf4113df58a0adc3584f2f779">wmoge::ScenePacked</a>
 , <a class="el" href="classwmoge_1_1ScenePropCamera.html#a1f3775342dfe5b39ac41a878ae66408d">wmoge::ScenePropCamera</a>
+, <a class="el" href="classwmoge_1_1ScenePropMeshStatic.html#a4b5b9f1ca55ee38666ebeb728b5a1f4f">wmoge::ScenePropMeshStatic</a>
 , <a class="el" href="classwmoge_1_1SceneTreePacked.html#ad95dc73de057b4de233a1d302b3269dc">wmoge::SceneTreePacked</a>
 , <a class="el" href="classwmoge_1_1Script.html#a2808eba6061131b859c69660031c6ef6">wmoge::Script</a>
 , <a class="el" href="classwmoge_1_1Shader.html#a8366d063d23f7e4217e80693b0b7c0ff">wmoge::Shader</a>
@@ -486,7 +513,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1WindowManager.html#a21a58945cc7dbed87d774f51ba506fd2">wmoge::WindowManager</a>
 </li>
 <li>create_2d()
-: <a class="el" href="classwmoge_1_1VKTexture.html#ac016dea49e6672916c2484f7622e4e72">wmoge::VKTexture</a>
+: <a class="el" href="classwmoge_1_1VKTexture.html#ad9e311f34f39faf966a4bb7e21a3f546">wmoge::VKTexture</a>
 </li>
 <li>create_2d_array()
 : <a class="el" href="classwmoge_1_1VKTexture.html#a82fa06a343a7eefa3c2726135e49f166">wmoge::VKTexture</a>

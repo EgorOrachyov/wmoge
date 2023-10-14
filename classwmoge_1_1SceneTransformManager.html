@@ -82,6 +82,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:aa3b68f04f021414d302464b6c31cc1fc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransformManager.html#aa3b68f04f021414d302464b6c31cc1fc">Layer</a> = std::vector&lt; <a class="el" href="classwmoge_1_1SceneTransform.html">SceneTransform</a> * &gt;</td></tr>
+<tr class="memdesc:aa3b68f04f021414d302464b6c31cc1fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single horizonatl layer in a hierarchy of scene transforms.  <a href="classwmoge_1_1SceneTransformManager.html#aa3b68f04f021414d302464b6c31cc1fc">More...</a><br /></td></tr>
 <tr class="separator:aa3b68f04f021414d302464b6c31cc1fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -92,6 +93,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a92e61a739f69c4a5840418cdf6e49370"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac956b0be916ea60d2e680784a5aaf55d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransformManager.html#ac956b0be916ea60d2e680784a5aaf55d">remove</a> (int layer, <a class="el" href="classwmoge_1_1SceneTransform.html">SceneTransform</a> *transform)</td></tr>
 <tr class="separator:ac956b0be916ea60d2e680784a5aaf55d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac24c89e6a30a5d08977ed41bb097df7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; <a class="el" href="classwmoge_1_1SceneTransformManager.html#aa3b68f04f021414d302464b6c31cc1fc">Layer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransformManager.html#aac24c89e6a30a5d08977ed41bb097df7">get_layers</a> ()</td></tr>
+<tr class="separator:aac24c89e6a30a5d08977ed41bb097df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b009abfa0f2d142dccf95ae0624e22f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; <a class="el" href="classwmoge_1_1SceneTransform.html">SceneTransform</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransformManager.html#a0b009abfa0f2d142dccf95ae0624e22f">get_layer</a> (int i)</td></tr>
+<tr class="separator:a0b009abfa0f2d142dccf95ae0624e22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a298696e76015ff52b28503c9e2ed5162"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneTransformManager.html#a298696e76015ff52b28503c9e2ed5162">get_num_layers</a> () const</td></tr>
+<tr class="separator:a298696e76015ff52b28503c9e2ed5162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages layers of scene transforms for fast update. </p>
@@ -107,6 +114,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Single horizonatl layer in a hierarchy of scene transforms. </p>
 
 </div>
 </div>
@@ -153,6 +162,82 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0b009abfa0f2d142dccf95ae0624e22f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b009abfa0f2d142dccf95ae0624e22f">&#9670;&nbsp;</a></span>get_layer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt;<a class="el" href="classwmoge_1_1SceneTransform.html">SceneTransform</a>*&gt; wmoge::SceneTransformManager::get_layer </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac24c89e6a30a5d08977ed41bb097df7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac24c89e6a30a5d08977ed41bb097df7">&#9670;&nbsp;</a></span>get_layers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt;<a class="el" href="classwmoge_1_1SceneTransformManager.html#aa3b68f04f021414d302464b6c31cc1fc">Layer</a>&gt; wmoge::SceneTransformManager::get_layers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a298696e76015ff52b28503c9e2ed5162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a298696e76015ff52b28503c9e2ed5162">&#9670;&nbsp;</a></span>get_num_layers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wmoge::SceneTransformManager::get_num_layers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

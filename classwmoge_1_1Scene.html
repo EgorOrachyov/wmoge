@@ -102,6 +102,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af8e7c8e04de0ce62c78cd951a9c5c3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62e7e25b0c78d245e9d7b1201cdf699f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Scene.html#a62e7e25b0c78d245e9d7b1201cdf699f">~Scene</a> () override=default</td></tr>
 <tr class="separator:a62e7e25b0c78d245e9d7b1201cdf699f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae560abd75794fca022730cdf009596d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Scene.html#ae560abd75794fca022730cdf009596d2">build</a> (const <a class="el" href="structwmoge_1_1SceneData.html">SceneData</a> &amp;data)</td></tr>
+<tr class="separator:ae560abd75794fca022730cdf009596d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4af884a117fe61171641c08bcaabea59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Scene.html#a4af884a117fe61171641c08bcaabea59">add_camera</a> (<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> entity, const <a class="el" href="structwmoge_1_1SceneDataCamera.html">SceneDataCamera</a> &amp;data)</td></tr>
+<tr class="separator:a4af884a117fe61171641c08bcaabea59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acadb34a7f4521e0f994a97662d95ff46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Scene.html#acadb34a7f4521e0f994a97662d95ff46">add_mesh_static</a> (<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> entity, const <a class="el" href="structwmoge_1_1SceneDataMeshStatic.html">SceneDataMeshStatic</a> &amp;data)</td></tr>
+<tr class="separator:acadb34a7f4521e0f994a97662d95ff46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f641875a17166251b6013997eb04519"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Scene.html#a5f641875a17166251b6013997eb04519">advance</a> (float delta_time)</td></tr>
 <tr class="separator:a5f641875a17166251b6013997eb04519"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8e0fea5fbf25b20bee6f4451c44af95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Scene.html#ae8e0fea5fbf25b20bee6f4451c44af95">clear</a> ()</td></tr>
@@ -142,6 +148,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> objects container representing running game state. </p>
+<p><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> is a data container for a runtime scene data, required for game simulation and rendering. The scene itself is a plain data container of game objects whitout any simulation or drawing loging. Game objects stored as entities edintified by simple numeric ids. Components of entities stored in a ECS world in an optimized fashion, what gives fast processing and low overhed.</p>
+<p><a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> data is optimized for runtime simulation, fast deserialization, not for the editing. Editing of the scene used by a separate stucture, named <a class="el" href="classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects.">SceneTree</a>. Tree manages hierarchy of nodes with extra editor information (not shared with final game). It follows SOLID principels, gives flexibility and performance in the final game (where Godot, UE, CryEngine, Unity use mix or editor and scene logic, what causes pure CPU performance of scene processing).</p>
+<p>Update of this scene state, sinmulation, scene rendering is done externally. <a class="el" href="classwmoge_1_1Scene.html" title="Scene objects container representing running game state.">Scene</a> data is travered by a scene manager, and required operations performed there.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects.">SceneNode</a> </dd>
+<dd>
+<a class="el" href="classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects.">SceneTree</a> </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af8e7c8e04de0ce62c78cd951a9c5c3ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af8e7c8e04de0ce62c78cd951a9c5c3ed">&#9670;&nbsp;</a></span>Scene()</h2>
@@ -187,6 +199,62 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4af884a117fe61171641c08bcaabea59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af884a117fe61171641c08bcaabea59">&#9670;&nbsp;</a></span>add_camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::Scene::add_camera </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1SceneDataCamera.html">SceneDataCamera</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acadb34a7f4521e0f994a97662d95ff46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acadb34a7f4521e0f994a97662d95ff46">&#9670;&nbsp;</a></span>add_mesh_static()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::Scene::add_mesh_static </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1SceneDataMeshStatic.html">SceneDataMeshStatic</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5f641875a17166251b6013997eb04519"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f641875a17166251b6013997eb04519">&#9670;&nbsp;</a></span>advance()</h2>
 
@@ -198,6 +266,24 @@ Additional Inherited Members</h2></td></tr>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>delta_time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae560abd75794fca022730cdf009596d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae560abd75794fca022730cdf009596d2">&#9670;&nbsp;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Scene::build </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1SceneData.html">SceneData</a> &amp;&#160;</td>
+          <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

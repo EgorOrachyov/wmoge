@@ -104,10 +104,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5fba673c6db008a02822cf4db0d59b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">fills pipeline required layout with optional shader passed for material resources  <a href="classwmoge_1_1ShaderPass.html#a5fba673c6db008a02822cf4db0d59b95">More...</a><br /></td></tr>
 <tr class="separator:a5fba673c6db008a02822cf4db0d59b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40d21c823ee868b4e6c365fcf88a62fa"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPass.html#a40d21c823ee868b4e6c365fcf88a62fa">get_vertex</a> (<a class="el" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a> lang)=0</td></tr>
+<tr class="memdesc:a40d21c823ee868b4e6c365fcf88a62fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">get vertex shader code if present  <a href="classwmoge_1_1ShaderPass.html#a40d21c823ee868b4e6c365fcf88a62fa">More...</a><br /></td></tr>
 <tr class="separator:a40d21c823ee868b4e6c365fcf88a62fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a408368bbb3afb83bf16a1f67738cc926"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPass.html#a408368bbb3afb83bf16a1f67738cc926">get_fragment</a> (<a class="el" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a> lang)=0</td></tr>
+<tr class="memdesc:a408368bbb3afb83bf16a1f67738cc926"><td class="mdescLeft">&#160;</td><td class="mdescRight">get fragment shader code if present  <a href="classwmoge_1_1ShaderPass.html#a408368bbb3afb83bf16a1f67738cc926">More...</a><br /></td></tr>
 <tr class="separator:a408368bbb3afb83bf16a1f67738cc926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34f5d1eee8a11b28bc9d9e843d709b63"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPass.html#a34f5d1eee8a11b28bc9d9e843d709b63">get_compute</a> (<a class="el" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a> lang)=0</td></tr>
+<tr class="memdesc:a34f5d1eee8a11b28bc9d9e843d709b63"><td class="mdescLeft">&#160;</td><td class="mdescRight">get compute shader code if present  <a href="classwmoge_1_1ShaderPass.html#a34f5d1eee8a11b28bc9d9e843d709b63">More...</a><br /></td></tr>
 <tr class="separator:a34f5d1eee8a11b28bc9d9e843d709b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb283e0c58dca96b94bd2d74537303a8"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPass.html#afb283e0c58dca96b94bd2d74537303a8">get_name</a> ()=0</td></tr>
 <tr class="memdesc:afb283e0c58dca96b94bd2d74537303a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">unique lower-case pass name  <a href="classwmoge_1_1ShaderPass.html#afb283e0c58dca96b94bd2d74537303a8">More...</a><br /></td></tr>
@@ -282,6 +285,8 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>get compute shader code if present </p>
+
 <p>Implemented in <a class="el" href="classwmoge_1_1ShaderPassText.html#ab716c067dd1dac62a05f6b027af8b3a4">wmoge::ShaderPassText</a>, <a class="el" href="classwmoge_1_1ShaderPassMaterialDeferred.html#aa0d8bcdec9dd2210a264f3df7a651f5b">wmoge::ShaderPassMaterialDeferred</a>, <a class="el" href="classwmoge_1_1ShaderPassBase.html#a246b6c25c14f69727e0d20b82e9b3448">wmoge::ShaderPassBase</a>, and <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a41766145e2f168e12114ab34546395df">wmoge::ShaderPassAuxDrawCanvas</a>.</p>
 
 </div>
@@ -309,6 +314,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>get fragment shader code if present </p>
 
 <p>Implemented in <a class="el" href="classwmoge_1_1ShaderPassText.html#ac189d58df3804ba05f42b1693c4eeec6">wmoge::ShaderPassText</a>, <a class="el" href="classwmoge_1_1ShaderPassMaterialDeferred.html#ac0726e2e885cc9375c848245e5374658">wmoge::ShaderPassMaterialDeferred</a>, <a class="el" href="classwmoge_1_1ShaderPassBase.html#aba4f36a0cd1ba5f968183feb6c77e178">wmoge::ShaderPassBase</a>, and <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a9baccb964adf646665cd58fde74281bf">wmoge::ShaderPassAuxDrawCanvas</a>.</p>
 
@@ -366,6 +373,8 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>get vertex shader code if present </p>
 
 <p>Implemented in <a class="el" href="classwmoge_1_1ShaderPassText.html#a72a5b1195677c11eed83d0b130242059">wmoge::ShaderPassText</a>, <a class="el" href="classwmoge_1_1ShaderPassMaterialDeferred.html#a5b163a22ac9c836ff3854fa32fa2ee8a">wmoge::ShaderPassMaterialDeferred</a>, <a class="el" href="classwmoge_1_1ShaderPassBase.html#a80dcf61f5239c6e4ae394b66ab3f0a9b">wmoge::ShaderPassBase</a>, and <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a006bf88d75e41ff94072a1521cdd584e">wmoge::ShaderPassAuxDrawCanvas</a>.</p>
 

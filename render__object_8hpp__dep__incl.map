@@ -1,9 +1,24 @@
 <map id="engine/render/render_object.hpp" name="engine/render/render_object.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="216,5,356,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="169,191,296,218"/>
-<area shape="rect" id="node3" href="$render__mesh__skinned_8hpp.html" title=" " alt="" coords="55,95,195,136"/>
-<area shape="rect" id="node5" href="$render__mesh__static_8hpp.html" title=" " alt="" coords="271,95,411,136"/>
-<area shape="rect" id="node7" href="$render__object_8cpp.html" title=" " alt="" coords="435,95,575,136"/>
-<area shape="rect" id="node4" href="$render__mesh__skinned_8cpp.html" title=" " alt="" coords="5,184,145,225"/>
-<area shape="rect" id="node6" href="$render__mesh__static_8cpp.html" title=" " alt="" coords="320,184,460,225"/>
+<area shape="rect" id="node1" title=" " alt="" coords="201,5,341,47"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="61,549,187,575"/>
+<area shape="rect" id="node3" href="$render__mesh__skinned_8hpp.html" title=" " alt="" coords="93,95,233,136"/>
+<area shape="rect" id="node5" href="$scene__components_8hpp.html" title=" " alt="" coords="309,184,448,225"/>
+<area shape="rect" id="node20" href="$render__mesh__static_8hpp.html" title=" " alt="" coords="309,95,449,136"/>
+<area shape="rect" id="node22" href="$render__object_8cpp.html" title=" " alt="" coords="473,95,613,136"/>
+<area shape="rect" id="node4" href="$render__mesh__skinned_8cpp.html" title=" " alt="" coords="94,184,234,225"/>
+<area shape="rect" id="node6" href="$scene_8cpp.html" title=" " alt="" coords="161,281,324,307"/>
+<area shape="rect" id="node7" href="$scene__components_8cpp.html" title=" " alt="" coords="561,273,700,315"/>
+<area shape="rect" id="node8" href="$scene__manager_8cpp.html" title=" " alt="" coords="724,273,863,315"/>
+<area shape="rect" id="node9" href="$scene__node_8cpp.html" title=" " alt="" coords="940,541,1079,583"/>
+<area shape="rect" id="node10" href="$scene__properties_8hpp.html" title=" " alt="" coords="399,273,537,315"/>
+<area shape="rect" id="node11" href="$register__classes__scene_8cpp.html" title=" " alt="" coords="860,452,1007,493"/>
+<area shape="rect" id="node12" href="$scene__properties_8cpp.html" title=" " alt="" coords="399,363,537,404"/>
+<area shape="rect" id="node13" href="$scene__tree_8hpp.html" title=" " alt="" coords="576,363,715,404"/>
+<area shape="rect" id="node14" href="$prefab_8hpp.html" title=" " alt="" coords="556,459,735,486"/>
+<area shape="rect" id="node17" href="$scene__tree_8cpp.html" title=" " alt="" coords="777,541,916,583"/>
+<area shape="rect" id="node18" href="$scene__tree__packed_8hpp.html" title=" " alt="" coords="378,452,531,493"/>
+<area shape="rect" id="node15" href="$prefab_8cpp.html" title=" " alt="" coords="575,549,753,575"/>
+<area shape="rect" id="node16" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="389,541,550,583"/>
+<area shape="rect" id="node19" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="211,541,365,583"/>
+<area shape="rect" id="node21" href="$render__mesh__static_8cpp.html" title=" " alt="" coords="473,184,613,225"/>
 </map>

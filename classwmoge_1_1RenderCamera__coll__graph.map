@@ -1,7 +1,0 @@
-<map id="wmoge::RenderCamera" name="wmoge::RenderCamera">
-<area shape="rect" id="node1" title="Camera data used for scene objects rendering." alt="" coords="281,117,437,144"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="12,5,171,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="8,73,175,114"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="6,155,177,181"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1TFrustum.html" title=" " alt="" coords="5,205,177,232"/>
-</map>
