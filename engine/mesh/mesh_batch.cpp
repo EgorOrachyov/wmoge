@@ -79,11 +79,13 @@ namespace wmoge {
                 continue;
             }
 
-            Ref<GfxUniformBuffer>       gfx_draw_call_data = m_driver->make_uniform_buffer(int(sizeof(ShaderCommon::DrawCallData)), GfxMemUsage::GpuLocal, SID("draw_call_data"));
-            ShaderCommon::DrawCallData& draw_call_data     = *((ShaderCommon::DrawCallData*) m_ctx->map_uniform_buffer(gfx_draw_call_data));
-            draw_call_data.Model                           = batch.elements[0].transform.transpose();
-            draw_call_data.ModelPrev                       = batch.elements[0].transform_prev.transpose();
-            m_ctx->unmap_uniform_buffer(gfx_draw_call_data);
+            Ref<GfxUniformBuffer> gfx_draw_call_data = m_driver->make_uniform_buffer(int(sizeof(ShaderCommon::DrawCallData)), GfxMemUsage::GpuLocal, SID("draw_call_data"));
+            {
+                ShaderCommon::DrawCallData& draw_call_data = *((ShaderCommon::DrawCallData*) m_ctx->map_uniform_buffer(gfx_draw_call_data));
+                draw_call_data.Model                       = batch.elements[0].transform.transpose();
+                draw_call_data.ModelPrev                   = batch.elements[0].transform_prev.transpose();
+                m_ctx->unmap_uniform_buffer(gfx_draw_call_data);
+            }
 
             GfxDescSetResources gfx_resources;
             {
@@ -118,17 +120,19 @@ namespace wmoge {
             RenderCmd cmd;
             cmd.vert_buffers       = batch.vertex_buffers;
             cmd.index_setup        = batch.index_buffer;
-            cmd.desc_sets[0]       = batch.material->get_desc_set().get();
-            cmd.desc_sets_slots[0] = 1;
-            cmd.desc_sets[1]       = gfx_set.get();
-            cmd.desc_sets_slots[1] = 2;
+            cmd.desc_sets[0]       = view.view_set.get();
+            cmd.desc_sets_slots[0] = 0;
+            cmd.desc_sets[1]       = batch.material->get_desc_set().get();
+            cmd.desc_sets_slots[1] = 1;
+            cmd.desc_sets[2]       = gfx_set.get();
+            cmd.desc_sets_slots[2] = 2;
             cmd.pipeline           = gfx_pso.get();
             cmd.call_params        = batch.elements[0].draw_call;
 
             view.queues[int(MeshPassType::GBuffer)].push(RenderCmdKey(), cmd);
 
-            _pipeliens.push_back(gfx_pso);
-            _sets.push_back(gfx_set);
+            m_transient_pipeliens.push_back(gfx_pso);
+            m_transient_sets.push_back(gfx_set);
         }
 
         return StatusCode::Ok;
@@ -140,8 +144,8 @@ namespace wmoge {
         m_cameras = &cameras;
     }
     void MeshBatchCompiler::clear() {
-        _pipeliens.clear();
-        _sets.clear();
+        m_transient_pipeliens.clear();
+        m_transient_sets.clear();
     }
 
 }// namespace wmoge

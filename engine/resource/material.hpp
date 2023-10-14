@@ -40,6 +40,7 @@
 #include "resource/shader.hpp"
 #include "resource/texture.hpp"
 
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -151,6 +152,8 @@ namespace wmoge {
         Ref<GfxDescSet>           m_desc_set;
         StringId                  m_name;
         Mask<DirtyFlag>           m_dirty = {DirtyFlag::Textures, DirtyFlag::Parameters};
+
+        std::mutex m_mutex;
     };
 
 }// namespace wmoge

@@ -25,75 +25,43 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_QUEUE_HPP
-#define WMOGE_RENDER_QUEUE_HPP
+#ifndef WMOGE_SYSTEM_RENDER_HPP
+#define WMOGE_SYSTEM_RENDER_HPP
 
-#include "core/fast_vector.hpp"
-#include "core/mask.hpp"
-#include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_pipeline.hpp"
-
-#include <array>
-#include <cinttypes>
-#include <mutex>
-#include <type_traits>
-#include <utility>
-#include <vector>
+#include "ecs/ecs_system.hpp"
+#include "ecs/ecs_world.hpp"
+#include "render/render_object.hpp"
+#include "scene/scene_components.hpp"
 
 namespace wmoge {
 
     /**
-     * @class RenderCmdKey
-     * @brief Key to sort commands for efficient execution
+     * @class EcsSysCollectStaticMeshes
+     * @brief Collect static mesh from scene for rendering
      */
-    struct RenderCmdKey {
-        std::uint64_t value = 0;
-    };
-
-    static_assert(std::is_trivially_destructible_v<RenderCmdKey>, "render cmd key must be trivial as possible");
-    static_assert(sizeof(RenderCmdKey) == sizeof(std::uint64_t), "render cmd key must fit 8 bytes");
-
-    /**
-     * @class RenderCmd
-     * @brief POD-Command representing single draw call
-     */
-    struct RenderCmd {
-        static constexpr int NUM_DESC_SETS = 3;
-
-        GfxVertBuffersSetup vert_buffers;
-        GfxIndexBufferSetup index_setup;
-        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr, nullptr};
-        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1, -1};
-        GfxPipeline*        pipeline = nullptr;
-        GfxDrawCall         call_params;
-    };
-
-    static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
-    static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
-
-    /**
-     * @class RenderQueue
-     * @brief Thread-safe queue to collect and sort draw commands for gfx submission
-     */
-    struct RenderQueue {
+    class EcsSysCollectStaticMeshes final : public EcsSystem {
     public:
-        void push(RenderCmdKey key, const RenderCmd& cmd);
-        void clear();
-        void sort();
-        int  execute(GfxCtx* gfx_ctx);
+        RenderObjectCollector* object_collector = nullptr;
 
-        [[nodiscard]] std::size_t      size() const;
-        [[nodiscard]] const RenderCmd& cmd(std::size_t index) const;
+        void process(EcsWorld& world, const EcsEntity& enity, EcsComponentLocalToWorld& l2w, EcsComponentMeshStatic& mesh_static) {
+            mesh_static.mesh->update_transform(l2w.matrix);
+            object_collector->add(mesh_static.mesh.get());
+        }
 
-    private:
-        std::vector<std::pair<RenderCmdKey, int>> m_queue;
-        std::vector<RenderCmd>                    m_buffer;
-        std::mutex                                m_mutex;
+        void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override {
+            WG_ECS_SYSTEM_BIND(EcsSysCollectStaticMeshes);
+        }
+
+        EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
+        StringId          get_name() const override { return SID("collect_static_meshes"); }
+        EcsQuery          get_query() const override {
+            EcsQuery query;
+            query.set_read<EcsComponentLocalToWorld>();
+            query.set_read<EcsComponentMeshStatic>();
+            return query;
+        }
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_QUEUE_HPP
+#endif//WMOGE_SYSTEM_RENDER_HPP

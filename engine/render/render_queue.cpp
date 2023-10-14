@@ -55,7 +55,7 @@ namespace wmoge {
             return p1.first.value < p2.first.value;
         });
     }
-    int RenderQueue::execute(GfxCtx* gfx_ctx, const Ref<GfxDescSet>& gfx_set_common) {
+    int RenderQueue::execute(GfxCtx* gfx_ctx) {
         WG_AUTO_PROFILE_RENDER("RenderQueue::execute");
 
         int num_executed = 0;
@@ -71,10 +71,6 @@ namespace wmoge {
 
             if (!gfx_ctx->bind_pipeline(Ref<GfxPipeline>(cmd.pipeline))) {
                 continue;
-            }
-
-            if (num_executed == 0) {
-                gfx_ctx->bind_desc_set(gfx_set_common, 0);
             }
 
             for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {

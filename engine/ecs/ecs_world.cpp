@@ -123,6 +123,21 @@ namespace wmoge {
         return &m_queue;
     }
 
+    std::vector<int> EcsWorld::filter_arch_idx(const EcsQuery& query) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::filter_arch_idx");
+
+        std::vector<int> filtered_arch;
+        const auto       filter = query.affected();
+
+        for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
+            if ((filter & m_arch_by_idx[arch_idx]) == filter) {
+                filtered_arch.push_back(arch_idx);
+            }
+        }
+
+        return filtered_arch;
+    }
+
     void EcsWorld::register_system(const std::shared_ptr<EcsSystem>& system) {
         WG_AUTO_PROFILE_ECS("EcsWorld::register_system");
 
@@ -130,20 +145,14 @@ namespace wmoge {
         assert(m_system_to_idx.find(system->get_name()) == m_system_to_idx.end());
 
         m_system_to_idx[system->get_name()] = int(m_systems.size());
-        EcsSystemInfo& system_info          = m_systems.emplace_back();
 
-        system_info.query     = system->get_query();
-        system_info.system    = system;
-        system_info.exec_mode = system->get_exec_mode();
-
-        auto filter = system_info.query.affected();
-
-        for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
-            if ((filter & m_arch_by_idx[arch_idx]) == filter) {
-                system_info.filtered_arch.push_back(arch_idx);
-            }
-        }
+        EcsSystemInfo& system_info = m_systems.emplace_back();
+        system_info.query          = system->get_query();
+        system_info.system         = system;
+        system_info.exec_mode      = system->get_exec_mode();
+        system_info.filtered_arch  = filter_arch_idx(system->get_query());
     }
+
     void EcsWorld::execute_system(const std::shared_ptr<EcsSystem>& system) {
         WG_AUTO_PROFILE_ECS("EcsWorld::execute_system");
 
@@ -174,6 +183,47 @@ namespace wmoge {
                         const auto [start_entity, count] = Math::batch_start_count(size, batch_id, batch_count);
 
                         system_info.system->process_batch(*this, storage, start_entity, count);
+                    }
+                    return 0;
+                });
+
+                task.schedule(m_task_manager->get_num_workers(), 1).wait_completed();
+
+                break;
+            }
+
+            default:
+                WG_LOG_ERROR("unknown system exec mode");
+        }
+    }
+
+    void EcsWorld::execute_system(EcsSystem& system) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::execute_system");
+
+        const std::vector<int> filtered_arch = filter_arch_idx(system.get_query());
+
+        switch (system.get_exec_mode()) {
+            case EcsSystemExecMode::OnMain: {
+                for (const int arch_idx : filtered_arch) {
+                    EcsArchStorage& storage      = *m_arch_storage[arch_idx];
+                    const int       size         = storage.get_size();
+                    const int       start_entity = 0;
+                    const int       count        = size;
+
+                    system.process_batch(*this, storage, start_entity, count);
+                }
+
+                break;
+            }
+
+            case EcsSystemExecMode::OnWorkers: {
+                TaskParallelFor task(system.get_name(), [&](TaskContext&, int batch_id, int batch_count) {
+                    for (const int arch_idx : filtered_arch) {
+                        EcsArchStorage& storage          = *m_arch_storage[arch_idx];
+                        const int       size             = storage.get_size();
+                        const auto [start_entity, count] = Math::batch_start_count(size, batch_id, batch_count);
+
+                        system.process_batch(*this, storage, start_entity, count);
                     }
                     return 0;
                 });

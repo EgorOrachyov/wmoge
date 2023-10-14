@@ -25,75 +25,45 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_QUEUE_HPP
-#define WMOGE_RENDER_QUEUE_HPP
+#ifndef WMOGE_SYSTEM_TRANSFORM_HPP
+#define WMOGE_SYSTEM_TRANSFORM_HPP
 
-#include "core/fast_vector.hpp"
-#include "core/mask.hpp"
-#include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_pipeline.hpp"
-
-#include <array>
-#include <cinttypes>
-#include <mutex>
-#include <type_traits>
-#include <utility>
-#include <vector>
+#include "ecs/ecs_system.hpp"
+#include "ecs/ecs_world.hpp"
+#include "scene/scene_components.hpp"
+#include "scene/scene_transform.hpp"
 
 namespace wmoge {
 
     /**
-     * @class RenderCmdKey
-     * @brief Key to sort commands for efficient execution
+     * @class EcsSysCacheMatrices
+     * @brief Store cached matrices after hier update for each entity
      */
-    struct RenderCmdKey {
-        std::uint64_t value = 0;
-    };
-
-    static_assert(std::is_trivially_destructible_v<RenderCmdKey>, "render cmd key must be trivial as possible");
-    static_assert(sizeof(RenderCmdKey) == sizeof(std::uint64_t), "render cmd key must fit 8 bytes");
-
-    /**
-     * @class RenderCmd
-     * @brief POD-Command representing single draw call
-     */
-    struct RenderCmd {
-        static constexpr int NUM_DESC_SETS = 3;
-
-        GfxVertBuffersSetup vert_buffers;
-        GfxIndexBufferSetup index_setup;
-        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr, nullptr};
-        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1, -1};
-        GfxPipeline*        pipeline = nullptr;
-        GfxDrawCall         call_params;
-    };
-
-    static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
-    static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
-
-    /**
-     * @class RenderQueue
-     * @brief Thread-safe queue to collect and sort draw commands for gfx submission
-     */
-    struct RenderQueue {
+    class EcsSysCacheMatrices final : public EcsSystem {
     public:
-        void push(RenderCmdKey key, const RenderCmd& cmd);
-        void clear();
-        void sort();
-        int  execute(GfxCtx* gfx_ctx);
+        void process(EcsWorld& world, const EcsEntity& enity,
+                     EcsComponentSceneTransform& st,
+                     EcsComponentLocalToWorld&   l2w,
+                     EcsComponentLocalToParent&  l2p) {
+            l2w.matrix = st.transform->get_l2w_cached();
+            l2p.matrix = st.transform->get_lt();
+        }
 
-        [[nodiscard]] std::size_t      size() const;
-        [[nodiscard]] const RenderCmd& cmd(std::size_t index) const;
+        void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override {
+            WG_ECS_SYSTEM_BIND(EcsSysCacheMatrices);
+        }
 
-    private:
-        std::vector<std::pair<RenderCmdKey, int>> m_queue;
-        std::vector<RenderCmd>                    m_buffer;
-        std::mutex                                m_mutex;
+        EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
+        StringId          get_name() const override { return SID("cache_matrices"); }
+        EcsQuery          get_query() const override {
+            EcsQuery query;
+            query.set_read<EcsComponentSceneTransform>();
+            query.set_write<EcsComponentLocalToWorld>();
+            query.set_write<EcsComponentLocalToParent>();
+            return query;
+        }
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_QUEUE_HPP
+#endif//WMOGE_SYSTEM_TRANSFORM_HPP

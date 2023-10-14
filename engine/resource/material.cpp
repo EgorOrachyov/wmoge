@@ -252,6 +252,8 @@ namespace wmoge {
     }
 
     void Material::validate() {
+        std::lock_guard guard(m_mutex);
+
         if (!m_dirty.bits.any()) {
             return;
         }

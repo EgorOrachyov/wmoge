@@ -87,6 +87,28 @@ project for educational purposes only.
 * [whereami](https://github.com/gpakosz/whereami) for executable location extracting.
 * [zlib](https://github.com/madler/zlib) for files compression (required for assimp and freetype).
 
+### References
+
+* [Refactoring the Mesh Drawing Pipeline for Unreal Engine 4.22](https://www.youtube.com/watch?v=qx1c190aGhs)
+* [Mesh Drawing Pipeline | Unreal Engine 4.27 Documentation](https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/Rendering/MeshDrawingPipeline/)
+* [Creating a Custom Mesh Component in UE4](https://medium.com/realities-io/creating-a-custom-mesh-component-in-ue4-part-0-intro-2c762c5f0cd6)
+* [Master Class: The CRYENGINE Rendering Pipeline](https://www.youtube.com/watch?v=34S3onEr3r8)
+* [Master Class: In-Depth Guide to Working with Particle Effects in CRYENGINE](https://www.youtube.com/watch?v=npPlJ0npfVQ)
+* [CRYENGINE Tutorial - Art Asset Pipeline: PBR Texture Mapping](https://www.youtube.com/watch?v=hGFP_4TYL2o)
+* [Master Class: How to assign Game Inputs through Actionmapping | CRYENGINE](https://www.youtube.com/watch?v=uTmHUIypR-4)
+* [HypeHype Mobile Rendering Architecture](https://advances.realtimerendering.com/s2023/index.html)
+* [Creating a Tools Pipeline for Horizon: Zero Dawn](https://www.youtube.com/watch?v=KRJkBxKv1VM)
+* [The Future of Scene Description on 'God of War'](https://www.gdcvault.com/play/1026345/The-Future-of-Scene-Description)
+* [The Indirect Lighting Pipeline of 'God of War'](https://www.gdcvault.com/play/1026323/The-Indirect-Lighting-Pipeline-of)
+* [A Context-Aware Character Dialog System in The Last of Us](https://www.gdcvault.com/play/1020386/A-Context-Aware-Character-Dialog)
+* [Parallelizing the Naughty Dog Engine Using Fibers](https://www.gdcvault.com/play/1022186/Parallelizing-the-Naughty-Dog-Engine)
+* [Deferred Lighting in Uncharted 4](https://advances.realtimerendering.com/s2016/)
+* [GPU Driven Effects of The Last of Us Part II by Artem Kovalovs || SIGGRAPH 2020](https://www.youtube.com/watch?v=_bbPeCwNxAU)
+* [Volumetric Fog of The Last of Us Part II by Artem Kovalovs || SIGGRAPH 2020](https://www.youtube.com/watch?v=lo5VN2nOL98)
+* [Game Engine Architecture, Third Edition](https://www.gameenginebook.com/)
+* [Learn OpenGL](https://learnopengl.com/)
+* [Vulkan Tutorial](https://vulkan-tutorial.com/)
+
 ## Building from sources
 
 ### Prerequisites

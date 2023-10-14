@@ -73,7 +73,7 @@ namespace wmoge {
         }
     }
 
-    void RenderMeshStatic::update_transform(const Mat4x4f& l2w, const Mat4x4f&) {
+    void RenderMeshStatic::update_transform(const Mat4x4f& l2w) {
         m_transform_l2w = l2w;
     }
 

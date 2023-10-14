@@ -81,10 +81,10 @@ namespace wmoge {
          */
         virtual void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) = 0;
 
-        [[nodiscard]] virtual EcsSystemType     get_type() const      = 0;
-        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const = 0;
-        [[nodiscard]] virtual StringId          get_name() const      = 0;
-        [[nodiscard]] virtual EcsQuery          get_query() const     = 0;
+        [[nodiscard]] virtual EcsSystemType     get_type() const { return EcsSystemType::Default; }
+        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const { return EcsSystemExecMode::OnMain; }
+        [[nodiscard]] virtual StringId          get_name() const  = 0;
+        [[nodiscard]] virtual EcsQuery          get_query() const = 0;
     };
 
     /**

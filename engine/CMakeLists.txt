@@ -381,6 +381,8 @@ add_library(wmoge STATIC
         scripting/lua_bindings/lua_bindings_resource.hpp
         scripting/lua_bindings/lua_bindings_scene.cpp
         scripting/lua_bindings/lua_bindings_scene.hpp
+        systems/system_render.hpp
+        systems/system_transform.hpp
         debug/console.cpp
         debug/console.hpp
         debug/profiler.cpp

@@ -28,6 +28,7 @@
 #ifndef WMOGE_RENDER_OBJECT_HPP
 #define WMOGE_RENDER_OBJECT_HPP
 
+#include "core/array_view.hpp"
 #include "core/mask.hpp"
 #include "core/string_id.hpp"
 #include "math/mat.hpp"
@@ -35,6 +36,7 @@
 #include "render/render_camera.hpp"
 #include "resource/material.hpp"
 
+#include <mutex>
 #include <optional>
 #include <vector>
 
@@ -49,13 +51,32 @@ namespace wmoge {
         virtual ~RenderObject() = default;
 
         virtual void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) = 0;
-        virtual void                         update_transform(const Mat4x4f& l2w, const Mat4x4f& w2l)                                    = 0;
+        virtual void                         update_transform(const Mat4x4f& l2w)                                                        = 0;
         virtual bool                         has_materials() const                                                                       = 0;
         virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
         virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;
 
     private:
         StringId m_name;
+    };
+
+    /**
+     * @class RenderObjectCollector
+     * @brief Auxilary class to collect renderable object in MT
+     */
+    class RenderObjectCollector {
+    public:
+        RenderObjectCollector() = default;
+
+        void add(RenderObject* object);
+        void clear();
+
+        [[nodiscard]] ArrayView<RenderObject*> get_objects() { return m_objects; }
+        [[nodiscard]] int                      get_size() const { return int(m_objects.size()); }
+
+    private:
+        std::vector<RenderObject*> m_objects;
+        std::mutex                 m_mutex;
     };
 
 }// namespace wmoge

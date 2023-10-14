@@ -37,6 +37,8 @@
 #include "platform/window_manager.hpp"
 #include "render/render_engine.hpp"
 #include "scene/scene_components.hpp"
+#include "systems/system_render.hpp"
+#include "systems/system_transform.hpp"
 
 #include <cassert>
 #include <utility>
@@ -79,6 +81,8 @@ namespace wmoge {
             WG_LOG_ERROR("no active scene to run, please create one");
             return;
         }
+
+        m_running->advance(Engine::instance()->get_delta_time_game());
 
         scene_hier();
         scene_transforms();
@@ -157,19 +161,10 @@ namespace wmoge {
         Scene*    scene     = m_running.get();
         EcsWorld* ecs_world = scene->get_ecs_world();
 
-        EcsQuery query_update_l2w_l2p;
-        query_update_l2w_l2p.set_read<EcsComponentSceneTransform>();
-        query_update_l2w_l2p.set_write<EcsComponentLocalToWorld>();
-        query_update_l2w_l2p.set_write<EcsComponentLocalToWorld>();
-        ecs_world->each(query_update_l2w_l2p, [&](EcsEntity entity) {
-            const Ref<SceneTransform> transform = ecs_world->get_component<EcsComponentSceneTransform>(entity).transform;
-            Mat4x4f&                  mat_l2w   = ecs_world->get_component_rw<EcsComponentLocalToWorld>(entity).matrix;
-            Mat4x4f&                  mat_l2p   = ecs_world->get_component_rw<EcsComponentLocalToParent>(entity).matrix;
-
-            mat_l2w = transform->get_l2w_cached();
-            mat_l2p = transform->get_lt();
-        });
+        EcsSysCacheMatrices sys_cache_matrices;
+        ecs_world->execute_system(sys_cache_matrices);
     }
+
     void SceneManager::scene_render() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_render");
 
@@ -197,57 +192,20 @@ namespace wmoge {
         render_engine->set_time(scene->get_time());
         render_engine->set_delta_time(scene->get_delta_time());
         render_engine->set_target(window);
-        render_engine->allocate_veiws();
         render_engine->prepare_frame_data();
+        render_engine->allocate_veiws();
 
-        MeshBatchCollector& batch_collector = render_engine->get_collector();
-        batch_collector.clear();
-
-        EcsQuery query_static_mesh;
-        query_static_mesh.set_read<EcsComponentLocalToWorld>();
-        query_static_mesh.set_read<EcsComponentMeshStatic>();
-        ecs_world->each(query_static_mesh, [&](EcsEntity entity) {
-            const auto& transform = ecs_world->get_component<EcsComponentLocalToWorld>(entity).matrix;
-            const auto& mesh      = ecs_world->get_component<EcsComponentMeshStatic>(entity).mesh;
-
-            RenderCameraMask mask;
-            mask.flip();
-
-            mesh->update_transform(transform, transform);
-            mesh->collect(render_cameras, mask, batch_collector);
-        });
-
-        MeshBatchCompiler& batch_compiler = render_engine->get_compiler();
-        batch_compiler.clear();
-        batch_compiler.set_cameras(render_cameras);
-        batch_compiler.set_views(render_engine->get_views());
-
-        for (const MeshBatch& batch : batch_collector.get_batches()) {
-            batch_compiler.compile_batch(batch);
-        }
-
-        GfxDescSetResources set_resources;
+        RenderObjectCollector objects_collector;
         {
-            {
-                auto& r               = set_resources.emplace_back();
-                r.first.type          = GfxBindingType::UniformBuffer;
-                r.first.binding       = 0;
-                r.first.array_element = 0;
-                r.second.resource     = render_engine->get_frame_data().as<GfxResource>();
-                r.second.offset       = 0;
-                r.second.range        = render_engine->get_frame_data()->size();
-            }
-            {
-                auto& r               = set_resources.emplace_back();
-                r.first.type          = GfxBindingType::UniformBuffer;
-                r.first.binding       = 1;
-                r.first.array_element = 0;
-                r.second.resource     = render_engine->get_views()[0].view_data.as<GfxResource>();
-                r.second.offset       = 0;
-                r.second.range        = render_engine->get_views()[0].view_data->size();
-            }
+            WG_AUTO_PROFILE_SCENE("SceneManager::collect_meshes");
+
+            EcsSysCollectStaticMeshes sys_collect_static_meshes;
+            sys_collect_static_meshes.object_collector = &objects_collector;
+            ecs_world->execute_system(sys_collect_static_meshes);
         }
-        Ref<GfxDescSet> set_common = gfx_driver->make_desc_set(set_resources, SID("common"));
+
+        render_engine->collect_batches(objects_collector);
+        render_engine->compile_batches();
 
         gfx_ctx->begin_render_pass({}, SID("GBuffer"));
         {
@@ -256,21 +214,25 @@ namespace wmoge {
             gfx_ctx->clear(0, Color4f(0, 0, 0, 0));
             gfx_ctx->clear(1.0f, 0);
 
-            render_engine->get_views()[0].queues[int(MeshPassType::GBuffer)].execute(gfx_ctx, set_common);
+            render_engine->get_views()[0].queues[int(MeshPassType::GBuffer)].execute(gfx_ctx);
         }
         gfx_ctx->end_render_pass();
 
         render_engine->end_rendering();
     }
+
     void SceneManager::scene_pfx() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_pfx");
     }
+
     void SceneManager::scene_scripting() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_scripting");
     }
+
     void SceneManager::scene_physics() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_physics");
     }
+
     void SceneManager::scene_audio() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_audio");
     }

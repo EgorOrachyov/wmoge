@@ -131,8 +131,10 @@ namespace wmoge {
         class GfxDriver*             m_driver;
         class GfxCtx*                m_ctx;
 
-        std::vector<Ref<GfxPipeline>> _pipeliens;
-        std::vector<Ref<GfxDescSet>>  _sets;
+        std::vector<Ref<GfxPipeline>> m_transient_pipeliens;
+        std::vector<Ref<GfxDescSet>>  m_transient_sets;
+
+        std::mutex m_mutex;
     };
 
 }// namespace wmoge

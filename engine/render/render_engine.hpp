@@ -33,11 +33,13 @@
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_pass.hpp"
 #include "platform/window.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_defs.hpp"
+#include "render/render_object.hpp"
 #include "render/render_queue.hpp"
 
 #include <array>
@@ -49,8 +51,11 @@ namespace wmoge {
      * @brief Holds data required to render a single view
      */
     struct RenderView {
-        Ref<GfxUniformBuffer>                             view_data;
-        std::array<RenderQueue, int(MeshPassType::Total)> queues;
+        static constexpr int QUEUE_COUNT = int(MeshPassType::Total);
+
+        std::array<RenderQueue, QUEUE_COUNT> queues;
+        Ref<GfxUniformBuffer>                view_data;
+        Ref<GfxDescSet>                      view_set;
     };
 
     /**
@@ -78,10 +83,14 @@ namespace wmoge {
         void set_time(float time);
         void set_delta_time(float delta_time);
         void set_target(const Ref<Window>& window);
+
         void begin_rendering();
         void end_rendering();
-        void allocate_veiws();
+
         void prepare_frame_data();
+        void allocate_veiws();
+        void collect_batches(RenderObjectCollector& objects);
+        void compile_batches();
 
         [[nodiscard]] RenderCameras&               get_cameras() { return m_cameras; }
         [[nodiscard]] MeshBatchCollector&          get_collector() { return m_collector; }

@@ -92,11 +92,17 @@ namespace wmoge {
         /** @brief Return queue to schedule async commands to execute on next sync */
         [[nodiscard]] CallbackQueue* queue();
 
+        /** @brief Ids of matching arch for given query */
+        std::vector<int> filter_arch_idx(const EcsQuery& query);
+
         /** @brief Registers system within a world */
         void register_system(const std::shared_ptr<EcsSystem>& system);
 
         /** @brief Manual trigger of system execution */
         void execute_system(const std::shared_ptr<EcsSystem>& system);
+
+        /** @brief Manual trigger of system execution */
+        void execute_system(EcsSystem& system);
 
         /** @brief Exec function for each entity matching query*/
         void each(const EcsQuery& query, const std::function<void(EcsEntity)>& func);
