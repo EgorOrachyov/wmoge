@@ -13,6 +13,9 @@ add_subdirectory(base64)
 # Static enum reflection
 add_subdirectory(magic_enum)
 
+# For fast MT sync primitives
+add_subdirectory(yamc)
+
 # Executable file location
 add_subdirectory(whereami)
 

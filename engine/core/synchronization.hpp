@@ -25,60 +25,56 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_OBJECT_HPP
-#define WMOGE_RENDER_OBJECT_HPP
+#ifndef WMOGE_SYNCHRONIZATION_HPP
+#define WMOGE_SYNCHRONIZATION_HPP
 
-#include "core/array_view.hpp"
-#include "core/mask.hpp"
-#include "core/string_id.hpp"
-#include "core/synchronization.hpp"
-#include "math/mat.hpp"
-#include "mesh/mesh_batch.hpp"
-#include "render/render_camera.hpp"
-#include "resource/material.hpp"
-
-#include <optional>
-#include <vector>
+#include <alternate_shared_mutex.hpp>
+#include <naive_spin_mutex.hpp>
+#include <ttas_spin_mutex.hpp>
+#include <yamc_rwlock_sched.hpp>
 
 namespace wmoge {
 
     /**
-     * @class RenderObject 
-     * @brief Base class for any scene object which can be rendered
+     * @class SpinMutexTas
+     * @brief TAS spinlock, non-recursive
      */
-    class RenderObject {
-    public:
-        virtual ~RenderObject() = default;
-
-        virtual void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) = 0;
-        virtual void                         update_transform(const Mat4x4f& l2w)                                                        = 0;
-        virtual bool                         has_materials() const                                                                       = 0;
-        virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
-        virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;
-
-    private:
-        StringId m_name;
-    };
+    class SpinMutexTas : public yamc::spin::mutex {};
 
     /**
-     * @class RenderObjectCollector
-     * @brief Auxilary class to collect renderable object in MT
+     * @class SpinMutexTtas
+     * @brief TTAS spinlock, non-recursive
      */
-    class RenderObjectCollector {
-    public:
-        RenderObjectCollector() = default;
+    class SpinMutexTtas : public yamc::spin_ttas::mutex {};
 
-        void add(RenderObject* object);
-        void clear();
+    /**
+     * @class RwMutexReadPrefer
+     * @brief Read-write lock with policy to prefer readers
+     * 
+     * Policy yamc::rwlock::ReaderPrefer: Reader prefer locking. While any reader thread owns shared lock, 
+     * subsequent other reader threads can immediately acquire shared lock, but subsequent writer threads 
+     * will be blocked until all reader threads release shared lock. This policy might 
+     * introduce "Writer Starvation" if reader threads continuously hold shared lock.
+     */
+    class RwMutexReadPrefer : public yamc::alternate::basic_shared_mutex<yamc::rwlock::ReaderPrefer> {};
 
-        [[nodiscard]] ArrayView<RenderObject*> get_objects() { return m_objects; }
-        [[nodiscard]] int                      get_size() const { return int(m_objects.size()); }
+    /**
+     * @class RwMutexWritePrefer
+     * @brief Read-write lock with policy to prefer writers
+     * 
+     * Policy yamc::rwlock::WriterPrefer: Writer prefer locking. While any reader thread owns 
+     * shared lock and there are a waiting writer thread, subsequent other reader threads 
+     * which try to acquire shared lock are blocked until writer thread's work is done. 
+     * This policy might introduce "Reader Starvation" if writer threads continuously 
+     * try to acquire exclusive lock.
+     */
+    class RwMutexWritePrefer : public yamc::alternate::basic_shared_mutex<yamc::rwlock::WriterPrefer> {};
 
-    private:
-        std::vector<RenderObject*> m_objects;
-        SpinMutex                  m_mutex;
-    };
+    /**
+     * @brief Default engine spin mutex
+     */
+    using SpinMutex = SpinMutexTtas;
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_OBJECT_HPP
+#endif//WMOGE_SYNCHRONIZATION_HPP

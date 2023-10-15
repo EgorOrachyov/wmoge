@@ -55,6 +55,7 @@
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
 #include "core/string_utils.hpp"
+#include "core/synchronization.hpp"
 #include "core/task.hpp"
 #include "core/task_hnd.hpp"
 #include "core/task_manager.hpp"

@@ -33,6 +33,7 @@
 #include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
 #include "core/mask.hpp"
+#include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "math/vec.hpp"
@@ -40,7 +41,6 @@
 #include "resource/shader.hpp"
 #include "resource/texture.hpp"
 
-#include <mutex>
 #include <string>
 #include <vector>
 
@@ -153,7 +153,7 @@ namespace wmoge {
         StringId                  m_name;
         Mask<DirtyFlag>           m_dirty = {DirtyFlag::Textures, DirtyFlag::Parameters};
 
-        std::mutex m_mutex;
+        SpinMutex m_mutex;
     };
 
 }// namespace wmoge

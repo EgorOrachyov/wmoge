@@ -28,6 +28,7 @@
 #ifndef WMOGE_AUX_DRAW_MANAGER_HPP
 #define WMOGE_AUX_DRAW_MANAGER_HPP
 
+#include "core/synchronization.hpp"
 #include "math/mat.hpp"
 #include "math/quat.hpp"
 #include "math/vec.hpp"
@@ -78,10 +79,9 @@ namespace wmoge {
     private:
         std::vector<std::unique_ptr<struct AuxDrawPrimitive>> m_added;
         std::deque<std::unique_ptr<struct AuxDrawPrimitive>>  m_storage;
+        Ref<Font>                                             m_font;
 
-        Ref<Font> m_font;
-
-        mutable std::mutex m_mutex;
+        mutable SpinMutex m_mutex;
     };
 
 }// namespace wmoge

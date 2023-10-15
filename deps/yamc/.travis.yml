@@ -1,0 +1,28 @@
+language: cpp
+
+dist: xenial
+
+jobs:
+  include:
+    - os: linux
+      compiler: gcc
+    - os: linux
+      compiler: clang
+    - os: osx
+      compiler: clang
+      osx_image: xcode9.4
+
+before_script:
+  - cmake --version
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_TESTING=ON ..
+  - make -j2
+  - tests/dump_sizeof
+  - tests/dump_layout
+  - ctest --output-on-failure
+
+notifications:
+  email: false

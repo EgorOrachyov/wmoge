@@ -71,7 +71,6 @@ namespace wmoge {
 
         std::lock_guard guard(m_mutex);
         m_background_queue.push_back(std::move(task));
-        m_cv.notify_one();
     }
 
     void TaskManager::shutdown() {
@@ -80,7 +79,6 @@ namespace wmoge {
         WG_LOG_INFO("shutdown and join already started tasks");
 
         m_finished.store(true);
-        m_cv.notify_all();
 
         for (auto& worker : m_workers) {
             worker.join();
@@ -101,7 +99,6 @@ namespace wmoge {
 
     bool TaskManager::next_to_exec(Ref<class TaskRuntime>& task) {
         std::unique_lock guard(m_mutex);
-        m_cv.wait(guard, [this]() { return !m_background_queue.empty() || m_finished.load(); });
 
         if (m_background_queue.empty() || m_finished.load())
             return false;

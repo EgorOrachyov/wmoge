@@ -9,9 +9,11 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build-Debug/template/template.exe",
-            "args": ["--root_remap=${workspaceRoot}/template"],
+            "args": [
+                "--root_remap=${workspaceRoot}/template"
+            ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceRoot}/build-Debug/template",
             "environment": [],
             "console": "integratedTerminal"
         },
@@ -20,9 +22,11 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceRoot}/build-Release/template/template.exe",
-            "args": ["--root_remap=${workspaceRoot}/template"],
+            "args": [
+                "--root_remap=${workspaceRoot}/template"
+            ],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceRoot}/build-Release/template",
             "environment": [],
             "console": "integratedTerminal"
         }

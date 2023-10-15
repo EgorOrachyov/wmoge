@@ -36,10 +36,7 @@ namespace wmoge {
     bool CallbackStream::consume() {
         std::function<void()> cmd;
         {
-            WG_AUTO_PROFILE_CORE("CmdStream::wait_for_cmd");
-
-            std::unique_lock lock(m_mutex);
-            m_cv.wait(lock, [&]() { return !m_queue.empty() || m_is_closed.load(); });
+            std::lock_guard lock(m_mutex);
 
             if (m_queue.empty() || m_is_closed.load()) {
                 return false;
@@ -62,19 +59,14 @@ namespace wmoge {
 
         push([&]() {
             marker.store(true);
-            m_cv.notify_all();
         });
 
-        std::unique_lock lock(m_mutex);
-        m_cv.wait(lock, [&]() { return marker.load(); });
+        while (!marker.load()) {}
     }
 
     void CallbackStream::push_close() {
         WG_AUTO_PROFILE_CORE("CmdStream::push_close");
-
-        std::lock_guard guard(m_mutex);
         m_is_closed.store(true);
-        m_cv.notify_all();
     }
 
 }// namespace wmoge

@@ -30,11 +30,10 @@
 
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
+#include "core/synchronization.hpp"
 
-#include <condition_variable>
 #include <functional>
 #include <list>
-#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -77,8 +76,7 @@ namespace wmoge {
         std::vector<std::thread>          m_workers;
         std::list<Ref<class TaskRuntime>> m_background_queue;
         std::atomic_bool                  m_finished{false};
-        std::mutex                        m_mutex;
-        std::condition_variable           m_cv;
+        SpinMutex                         m_mutex;
     };
 
 }// namespace wmoge

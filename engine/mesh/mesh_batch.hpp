@@ -31,6 +31,7 @@
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "core/status.hpp"
+#include "core/synchronization.hpp"
 #include "core/unrolled_list.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
@@ -108,7 +109,7 @@ namespace wmoge {
         GfxDynUniformBuffer*   m_dyn_ubuff;
         class GfxDriver*       m_gfx_driver;
 
-        std::mutex m_mutex;
+        SpinMutex m_mutex;
     };
 
     /**
@@ -134,7 +135,7 @@ namespace wmoge {
         std::vector<Ref<GfxPipeline>> m_transient_pipeliens;
         std::vector<Ref<GfxDescSet>>  m_transient_sets;
 
-        std::mutex m_mutex;
+        SpinMutex m_mutex;
     };
 
 }// namespace wmoge

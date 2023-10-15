@@ -31,11 +31,10 @@
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "core/ref.hpp"
+#include "core/synchronization.hpp"
 
 #include <cassert>
-#include <condition_variable>
 #include <functional>
-#include <mutex>
 #include <optional>
 
 namespace wmoge {
@@ -86,7 +85,7 @@ namespace wmoge {
 
         virtual void add_on_completion(AsyncCallback<T> callback) {
             if (!callback) return;
-            std::lock_guard<std::mutex> lock(m_mutex);
+            std::lock_guard lock(m_mutex);
             if (is_completed()) {
                 callback(m_status.load(), m_result);
                 return;
@@ -94,9 +93,8 @@ namespace wmoge {
             m_callbacks.push_back(std::move(callback));
         }
         virtual void set_failed() {
-            std::lock_guard<std::mutex> lock(m_mutex);
+            std::lock_guard lock(m_mutex);
             m_status.store(AsyncStatus::Failed);
-            m_cv.notify_all();
 
             fast_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
             for (auto& c : callbacks) c(AsyncStatus::Failed, m_result);
@@ -104,10 +102,9 @@ namespace wmoge {
             for (auto& d : deps) d->notify(AsyncStatus::Failed, this);
         }
         virtual void set_result(T&& result) {
-            std::lock_guard<std::mutex> lock(m_mutex);
+            std::lock_guard lock(m_mutex);
             m_result = std::make_optional(std::forward<T>(result));
             m_status.store(AsyncStatus::Ok);
-            m_cv.notify_all();
 
             fast_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
             for (auto& c : callbacks) c(AsyncStatus::Ok, m_result);
@@ -117,7 +114,7 @@ namespace wmoge {
 
         void add_dependency(const Ref<AsyncStateBase>& dependency) override {
             assert(dependency);
-            std::lock_guard<std::mutex> lock(m_mutex);
+            std::lock_guard lock(m_mutex);
             if (is_completed()) {
                 dependency->notify(status(), this);
                 return;
@@ -126,9 +123,7 @@ namespace wmoge {
         }
 
         void wait_completed() override {
-            if (is_completed()) return;
-            std::unique_lock<std::mutex> lock(m_mutex);
-            m_cv.wait(lock, [&]() { return is_completed(); });
+            while (!is_completed()) {}
         }
 
         bool is_completed() override {
@@ -146,9 +141,14 @@ namespace wmoge {
         }
 
         T& result() {
-            std::lock_guard<std::mutex> lock(m_mutex);
+            std::lock_guard lock(m_mutex);
             assert(m_result.has_value());
             return m_result.value();
+        }
+
+        std::optional<T> result_opt() {
+            std::lock_guard lock(m_mutex);
+            return m_result;
         }
 
     protected:
@@ -156,8 +156,7 @@ namespace wmoge {
         fast_vector<Ref<AsyncStateBase>> m_children;
         std::optional<T>                 m_result;
         std::atomic<AsyncStatus>         m_status{AsyncStatus::InProcess};
-        std::mutex                       m_mutex;
-        std::condition_variable          m_cv;
+        SpinMutex                        m_mutex;
     };
 
     /**
@@ -274,6 +273,11 @@ namespace wmoge {
         T& result() {
             assert(m_state);
             return m_state->result();
+        }
+
+        std::optional<T> result_opt() {
+            assert(m_state);
+            return m_state->result_opt();
         }
 
         Async as_async() {

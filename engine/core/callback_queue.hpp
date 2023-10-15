@@ -28,9 +28,10 @@
 #ifndef WMOGE_CALLBACK_QUEUE_HPP
 #define WMOGE_CALLBACK_QUEUE_HPP
 
+#include "core/synchronization.hpp"
+
 #include <cstddef>
 #include <functional>
-#include <mutex>
 #include <vector>
 
 namespace wmoge {
@@ -64,7 +65,7 @@ namespace wmoge {
 
     private:
         std::vector<std::function<void()>> m_queue;
-        std::mutex                         m_mutex;
+        SpinMutex                          m_mutex;
     };
 
     template<class Callable>

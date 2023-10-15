@@ -53,6 +53,7 @@ add_library(wmoge STATIC
         core/string_utf.hpp
         core/string_utils.cpp
         core/string_utils.hpp
+        core/synchronization.hpp
         core/task.cpp
         core/task.hpp
         core/task_hnd.hpp
@@ -402,6 +403,7 @@ target_link_libraries(wmoge PUBLIC ryml)
 target_link_libraries(wmoge PUBLIC magic_enum)
 target_link_libraries(wmoge PUBLIC robin_hood)
 target_link_libraries(wmoge PUBLIC svector)
+target_link_libraries(wmoge PUBLIC yamc)
 
 # engine dependencies, private
 target_link_libraries(wmoge PRIVATE glfw)

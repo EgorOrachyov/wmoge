@@ -30,6 +30,7 @@
 
 #include "core/array_view.hpp"
 #include "core/ref.hpp"
+#include "core/synchronization.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils3d.hpp"
 
@@ -98,7 +99,7 @@ namespace wmoge {
 
     private:
         std::vector<Layer> m_layers;
-        std::mutex         m_mutex;
+        SpinMutex          m_mutex;
     };
 
 }// namespace wmoge

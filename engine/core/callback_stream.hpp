@@ -28,10 +28,10 @@
 #ifndef WMOGE_CALLBACK_STREAM_HPP
 #define WMOGE_CALLBACK_STREAM_HPP
 
+#include "core/synchronization.hpp"
+
 #include <atomic>
-#include <condition_variable>
 #include <functional>
-#include <mutex>
 #include <queue>
 
 namespace wmoge {
@@ -76,16 +76,14 @@ namespace wmoge {
 
     private:
         std::queue<std::function<void()>> m_queue;
-        std::mutex                        m_mutex;
-        std::condition_variable           m_cv;
         std::atomic_bool                  m_is_closed{false};
+        SpinMutex                         m_mutex;
     };
 
     template<typename Callable>
     void CallbackStream::push(Callable&& callable) {
         std::lock_guard guard(m_mutex);
         m_queue.emplace(std::forward<Callable>(callable));
-        m_cv.notify_all();
     }
 
     template<typename Callable>

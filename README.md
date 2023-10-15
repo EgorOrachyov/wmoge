@@ -85,6 +85,7 @@ project for educational purposes only.
 * [vma](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator) vulkan library for memory allocation.
 * [volk](https://github.com/zeux/volk) meta loader for vulkan API.
 * [whereami](https://github.com/gpakosz/whereami) for executable location extracting.
+* [yamc](https://github.com/yohhoy/yamc) for faster mutual-exclusion and MT synchronization.
 * [zlib](https://github.com/madler/zlib) for files compression (required for assimp and freetype).
 
 ### References

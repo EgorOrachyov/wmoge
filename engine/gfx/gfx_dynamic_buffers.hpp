@@ -29,11 +29,11 @@
 #define WMOGE_GFX_DYNAMIC_BUFFERS_HPP
 
 #include "core/fast_vector.hpp"
+#include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
 
-#include <mutex>
 #include <utility>
 
 namespace wmoge {
@@ -63,7 +63,7 @@ namespace wmoge {
 
         fast_vector<Bucket> m_buckets;
 
-        mutable std::mutex m_mutex;
+        mutable SpinMutex m_mutex;
     };
 
     /**
@@ -125,7 +125,7 @@ namespace wmoge {
         int                m_alignment          = 0;
         int                m_default_chunk_size = 0;
 
-        mutable std::mutex m_mutex;
+        mutable SpinMutex m_mutex;
     };
 
     /**
