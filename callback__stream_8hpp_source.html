@@ -99,10 +99,10 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_CALLBACK_STREAM_HPP</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_CALLBACK_STREAM_HPP</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="synchronization_8hpp.html">core/synchronization.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;queue&gt;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
@@ -128,38 +128,38 @@ $(function() {
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        std::queue&lt;std::function&lt;void()&gt;&gt; m_queue;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::mutex                        m_mutex;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        std::condition_variable           m_cv;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        std::atomic_bool                  m_is_closed{<span class="keyword">false</span>};</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    };</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">   85</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">CallbackStream::push</a>(Callable&amp;&amp; callable) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        std::lock_guard guard(m_mutex);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        m_queue.emplace(std::forward&lt;Callable&gt;(callable));</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        m_cv.notify_all();</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="classwmoge_1_1CallbackStream.html#a657125d0aaabcdc79c193077a4a05713">   92</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1CallbackStream.html#a657125d0aaabcdc79c193077a4a05713">CallbackStream::push_and_wait</a>(Callable&amp;&amp; callable) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">push</a>(std::forward&lt;Callable&gt;(callable));</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html#a3b37d8adbb7e4411fca730e5dbb074f5">wait</a>();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::atomic_bool                  m_is_closed{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a>                         m_mutex;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    };</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">   84</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">CallbackStream::push</a>(Callable&amp;&amp; callable) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        std::lock_guard guard(m_mutex);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        m_queue.emplace(std::forward&lt;Callable&gt;(callable));</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Callable&gt;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classwmoge_1_1CallbackStream.html#a657125d0aaabcdc79c193077a4a05713">   90</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1CallbackStream.html#a657125d0aaabcdc79c193077a4a05713">CallbackStream::push_and_wait</a>(Callable&amp;&amp; callable) {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">push</a>(std::forward&lt;Callable&gt;(callable));</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html#a3b37d8adbb7e4411fca730e5dbb074f5">wait</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_CALLBACK_STREAM_HPP</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_CALLBACK_STREAM_HPP</span></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html">wmoge::CallbackStream</a></div><div class="ttdoc">Thread-safe unbound multiple-producers single consumer callback stream.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:43</div></div>
-<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a008ba47a6a6a3e9dd7cc86cb3a32c0af"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">wmoge::CallbackStream::push</a></div><div class="ttdeci">void push(Callable &amp;&amp;callable)</div><div class="ttdoc">Push callback to be consumed.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:85</div></div>
+<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a008ba47a6a6a3e9dd7cc86cb3a32c0af"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">wmoge::CallbackStream::push</a></div><div class="ttdeci">void push(Callable &amp;&amp;callable)</div><div class="ttdoc">Push callback to be consumed.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:84</div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a04e8ea1c764496f9a919291653a32f6f"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a04e8ea1c764496f9a919291653a32f6f">wmoge::CallbackStream::CallbackStream</a></div><div class="ttdeci">CallbackStream(CallbackStream &amp;&amp;)=delete</div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a0fccb2fd33514123f9e392c1acf51657"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a0fccb2fd33514123f9e392c1acf51657">wmoge::CallbackStream::consume</a></div><div class="ttdeci">bool consume()</div><div class="ttdoc">Consumes a single command and returns true on success.</div><div class="ttdef"><b>Definition:</b> callback_stream.cpp:36</div></div>
-<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a3b37d8adbb7e4411fca730e5dbb074f5"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a3b37d8adbb7e4411fca730e5dbb074f5">wmoge::CallbackStream::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Blocks execution until all submitted commands at this moment are processed.</div><div class="ttdef"><b>Definition:</b> callback_stream.cpp:58</div></div>
-<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a657125d0aaabcdc79c193077a4a05713"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a657125d0aaabcdc79c193077a4a05713">wmoge::CallbackStream::push_and_wait</a></div><div class="ttdeci">void push_and_wait(Callable &amp;&amp;callable)</div><div class="ttdoc">Push callback to be consumed and wait until consumed.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:92</div></div>
+<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a3b37d8adbb7e4411fca730e5dbb074f5"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a3b37d8adbb7e4411fca730e5dbb074f5">wmoge::CallbackStream::wait</a></div><div class="ttdeci">void wait()</div><div class="ttdoc">Blocks execution until all submitted commands at this moment are processed.</div><div class="ttdef"><b>Definition:</b> callback_stream.cpp:55</div></div>
+<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a657125d0aaabcdc79c193077a4a05713"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a657125d0aaabcdc79c193077a4a05713">wmoge::CallbackStream::push_and_wait</a></div><div class="ttdeci">void push_and_wait(Callable &amp;&amp;callable)</div><div class="ttdoc">Push callback to be consumed and wait until consumed.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:90</div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a75a9719aa0a434c26ecd5d50078b8fff"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a75a9719aa0a434c26ecd5d50078b8fff">wmoge::CallbackStream::CallbackStream</a></div><div class="ttdeci">CallbackStream()=default</div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a763e3eb303b672f9c38e968e220872d5"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a763e3eb303b672f9c38e968e220872d5">wmoge::CallbackStream::~CallbackStream</a></div><div class="ttdeci">~CallbackStream()=default</div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a82b1468148621ccd5a4943f6efa5ea96"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a82b1468148621ccd5a4943f6efa5ea96">wmoge::CallbackStream::CallbackStream</a></div><div class="ttdeci">CallbackStream(CallbackStream &amp;)=delete</div></div>
-<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a8703440d9ff7c7eb79c3ed90f14bfbda"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a8703440d9ff7c7eb79c3ed90f14bfbda">wmoge::CallbackStream::push_close</a></div><div class="ttdeci">void push_close()</div><div class="ttdoc">Push close for a consumer thread.</div><div class="ttdef"><b>Definition:</b> callback_stream.cpp:72</div></div>
+<div class="ttc" id="aclasswmoge_1_1CallbackStream_html_a8703440d9ff7c7eb79c3ed90f14bfbda"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html#a8703440d9ff7c7eb79c3ed90f14bfbda">wmoge::CallbackStream::push_close</a></div><div class="ttdeci">void push_close()</div><div class="ttdoc">Push close for a consumer thread.</div><div class="ttdef"><b>Definition:</b> callback_stream.cpp:67</div></div>
+<div class="ttc" id="aclasswmoge_1_1SpinMutexTtas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTtas.html">wmoge::SpinMutexTtas</a></div><div class="ttdoc">TTAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:48</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
+<div class="ttc" id="asynchronization_8hpp_html"><div class="ttname"><a href="synchronization_8hpp.html">synchronization.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

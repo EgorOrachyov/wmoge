@@ -1,15 +1,18 @@
 <map id="engine/gfx/threaded/gfx_worker.hpp" name="engine/gfx/threaded/gfx_worker.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="378,5,513,47"/>
-<area shape="rect" id="node2" href="$callback__stream_8hpp.html" title=" " alt="" coords="225,95,396,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,169,67,196"/>
-<area shape="rect" id="node8" href="$string__id_8hpp.html" title=" " alt="" coords="478,95,602,121"/>
-<area shape="rect" id="node13" title=" " alt="" coords="625,95,684,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="91,169,218,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="405,169,483,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="242,169,299,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="323,169,381,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="507,169,573,196"/>
-<area shape="rect" id="node10" title=" " alt="" coords="597,169,667,196"/>
-<area shape="rect" id="node11" title=" " alt="" coords="691,169,746,196"/>
-<area shape="rect" id="node12" title=" " alt="" coords="771,169,853,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="535,5,670,47"/>
+<area shape="rect" id="node2" href="$callback__stream_8hpp.html" title=" " alt="" coords="424,95,595,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="207,169,268,196"/>
+<area shape="rect" id="node11" href="$string__id_8hpp.html" title=" " alt="" coords="635,95,759,121"/>
+<area shape="rect" id="node16" title=" " alt="" coords="783,95,841,121"/>
+<area shape="rect" id="node3" href="$synchronization_8hpp.html" title=" " alt="" coords="293,169,457,196"/>
+<area shape="rect" id="node9" title=" " alt="" coords="562,169,641,196"/>
+<area shape="rect" id="node10" title=" " alt="" coords="481,169,538,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,244,189,271"/>
+<area shape="rect" id="node5" title=" " alt="" coords="214,244,365,271"/>
+<area shape="rect" id="node6" title=" " alt="" coords="389,244,531,271"/>
+<area shape="rect" id="node7" title=" " alt="" coords="555,244,719,271"/>
+<area shape="rect" id="node12" title=" " alt="" coords="665,169,730,196"/>
+<area shape="rect" id="node13" title=" " alt="" coords="755,169,824,196"/>
+<area shape="rect" id="node14" title=" " alt="" coords="849,169,903,196"/>
+<area shape="rect" id="node15" title=" " alt="" coords="928,169,1011,196"/>
 </map>

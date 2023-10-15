@@ -78,49 +78,52 @@ $(function() {
 <div class="textblock"><code>#include &quot;<a class="el" href="array__view_8hpp_source.html">core/array_view.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="fast__vector_8hpp_source.html">core/fast_vector.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="synchronization_8hpp_source.html">core/synchronization.hpp</a>&quot;</code><br />
 <code>#include &lt;cassert&gt;</code><br />
-<code>#include &lt;condition_variable&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for async.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="async_8hpp__incl.png" border="0" usemap="#aengine_2core_2async_8hpp" alt=""/></div>
 <map name="aengine_2core_2async_8hpp" id="aengine_2core_2async_8hpp">
-<area shape="rect" title=" " alt="" coords="1509,5,1660,32"/>
-<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="1544,229,1681,256"/>
-<area shape="rect" title=" " alt="" coords="1713,304,1779,331"/>
-<area shape="rect" href="fast__vector_8hpp.html" title=" " alt="" coords="1271,80,1411,107"/>
-<area shape="rect" title=" " alt="" coords="689,304,747,331"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1378,229,1469,256"/>
-<area shape="rect" title=" " alt="" coords="1133,379,1212,405"/>
-<area shape="rect" title=" " alt="" coords="27,229,94,256"/>
-<area shape="rect" title=" " alt="" coords="1859,80,1985,107"/>
-<area shape="rect" title=" " alt="" coords="1548,304,1637,331"/>
-<area shape="rect" title=" " alt="" coords="663,379,728,405"/>
-<area shape="rect" title=" " alt="" coords="1201,304,1259,331"/>
-<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1077,155,1180,181"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="752,155,839,181"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="749,229,841,256"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="563,229,673,256"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="489,304,613,331"/>
-<area shape="rect" title=" " alt="" coords="1103,229,1154,256"/>
-<area shape="rect" title=" " alt="" coords="1178,229,1253,256"/>
-<area shape="rect" title=" " alt="" coords="968,229,1079,256"/>
-<area shape="rect" title=" " alt="" coords="1059,304,1126,331"/>
-<area shape="rect" title=" " alt="" coords="873,304,941,331"/>
-<area shape="rect" title=" " alt="" coords="966,304,1035,331"/>
-<area shape="rect" title=" " alt="" coords="524,379,579,405"/>
-<area shape="rect" title=" " alt="" coords="1411,304,1473,331"/>
-<area shape="rect" title=" " alt="" coords="413,379,495,405"/>
-<area shape="rect" title=" " alt="" coords="1284,304,1336,331"/>
-<area shape="rect" title=" " alt="" coords="317,379,386,405"/>
-<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="220,304,312,331"/>
-<area shape="rect" title=" " alt="" coords="123,379,243,405"/>
-<area shape="rect" title=" " alt="" coords="349,229,420,256"/>
-<area shape="rect" title=" " alt="" coords="444,229,539,256"/>
-<area shape="rect" title=" " alt="" coords="271,229,325,256"/>
+<area shape="rect" title=" " alt="" coords="1703,5,1853,32"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="735,229,872,256"/>
+<area shape="rect" title=" " alt="" coords="1756,304,1821,331"/>
+<area shape="rect" href="fast__vector_8hpp.html" title=" " alt="" coords="475,80,615,107"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1579,229,1670,256"/>
+<area shape="rect" title=" " alt="" coords="1359,379,1437,405"/>
+<area shape="rect" title=" " alt="" coords="1745,229,1811,256"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="2101,80,2265,107"/>
+<area shape="rect" title=" " alt="" coords="572,304,661,331"/>
+<area shape="rect" title=" " alt="" coords="837,379,903,405"/>
+<area shape="rect" title=" " alt="" coords="435,304,494,331"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="493,155,596,181"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1104,155,1191,181"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="105,229,197,256"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="999,229,1109,256"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="841,304,965,331"/>
+<area shape="rect" title=" " alt="" coords="374,229,425,256"/>
+<area shape="rect" title=" " alt="" coords="449,229,523,256"/>
+<area shape="rect" title=" " alt="" coords="548,229,659,256"/>
+<area shape="rect" title=" " alt="" coords="26,304,93,331"/>
+<area shape="rect" title=" " alt="" coords="117,304,185,331"/>
+<area shape="rect" title=" " alt="" coords="209,304,267,331"/>
+<area shape="rect" title=" " alt="" coords="291,304,361,331"/>
+<area shape="rect" title=" " alt="" coords="725,379,780,405"/>
+<area shape="rect" title=" " alt="" coords="1619,304,1681,331"/>
+<area shape="rect" title=" " alt="" coords="1243,379,1326,405"/>
+<area shape="rect" title=" " alt="" coords="1492,304,1544,331"/>
+<area shape="rect" title=" " alt="" coords="977,379,1046,405"/>
+<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="1092,304,1184,331"/>
+<area shape="rect" title=" " alt="" coords="1082,379,1202,405"/>
+<area shape="rect" title=" " alt="" coords="1185,229,1256,256"/>
+<area shape="rect" title=" " alt="" coords="1280,229,1375,256"/>
+<area shape="rect" title=" " alt="" coords="1399,229,1453,256"/>
+<area shape="rect" title=" " alt="" coords="2467,155,2651,181"/>
+<area shape="rect" title=" " alt="" coords="1937,155,2088,181"/>
+<area shape="rect" title=" " alt="" coords="2113,155,2254,181"/>
+<area shape="rect" title=" " alt="" coords="2279,155,2443,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">

@@ -1,7 +1,11 @@
 <map id="engine/core/callback_queue.hpp" name="engine/core/callback_queue.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="109,5,250,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,71,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="95,95,173,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="197,95,255,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="279,95,338,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="491,5,632,47"/>
+<area shape="rect" id="node2" href="$synchronization_8hpp.html" title=" " alt="" coords="293,95,457,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="481,95,546,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="570,95,649,121"/>
+<area shape="rect" id="node9" title=" " alt="" coords="673,95,732,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,189,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="214,169,365,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="389,169,531,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="555,169,719,196"/>
 </map>

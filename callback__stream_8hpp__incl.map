@@ -1,8 +1,11 @@
 <map id="engine/core/callback_stream.hpp" name="engine/core/callback_stream.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="211,5,352,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,67,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="91,95,218,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="242,95,321,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="345,95,402,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="426,95,483,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="488,5,629,47"/>
+<area shape="rect" id="node2" href="$synchronization_8hpp.html" title=" " alt="" coords="293,95,457,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="481,95,543,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="567,95,646,121"/>
+<area shape="rect" id="node9" title=" " alt="" coords="670,95,727,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,189,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="214,169,365,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="389,169,531,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="555,169,719,196"/>
 </map>

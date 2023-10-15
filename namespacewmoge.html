@@ -207,6 +207,18 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1StringUtils.html">StringUtils</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utils to work with default string class.  <a href="classwmoge_1_1StringUtils.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SpinMutexTas.html">SpinMutexTas</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">TAS spinlock, non-recursive.  <a href="classwmoge_1_1SpinMutexTas.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">TTAS spinlock, non-recursive.  <a href="classwmoge_1_1SpinMutexTtas.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RwMutexReadPrefer.html">RwMutexReadPrefer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-write lock with policy to prefer readers.  <a href="classwmoge_1_1RwMutexReadPrefer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RwMutexWritePrefer.html">RwMutexWritePrefer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-write lock with policy to prefer writers.  <a href="classwmoge_1_1RwMutexWritePrefer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Task.html">Task</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Some job to be executed in task manager.  <a href="classwmoge_1_1Task.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1300,6 +1312,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:afa65d8defdd2ed60a69eb9c9be213534"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a> = ankerl::svector&lt; T, MinCapacity &gt;</td></tr>
 <tr class="memdesc:afa65d8defdd2ed60a69eb9c9be213534"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for ankerl vector with small vector optimization.  <a href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">More...</a><br /></td></tr>
 <tr class="separator:afa65d8defdd2ed60a69eb9c9be213534"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8bbf6daacb98efad39eac55533c4249"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae8bbf6daacb98efad39eac55533c4249">SpinMutex</a> = <a class="el" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a></td></tr>
+<tr class="memdesc:ae8bbf6daacb98efad39eac55533c4249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default engine spin mutex.  <a href="namespacewmoge.html#ae8bbf6daacb98efad39eac55533c4249">More...</a><br /></td></tr>
+<tr class="separator:ae8bbf6daacb98efad39eac55533c4249"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0df4ab83c90438ab931d164d388d741"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa0df4ab83c90438ab931d164d388d741">TaskRunnable</a> = std::function&lt; int(<a class="el" href="classwmoge_1_1TaskContext.html">TaskContext</a> &amp;)&gt;</td></tr>
 <tr class="memdesc:aa0df4ab83c90438ab931d164d388d741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function which used to make task.  <a href="namespacewmoge.html#aa0df4ab83c90438ab931d164d388d741">More...</a><br /></td></tr>
 <tr class="separator:aa0df4ab83c90438ab931d164d388d741"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3500,6 +3515,22 @@ template&lt;typename T &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8bbf6daacb98efad39eac55533c4249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8bbf6daacb98efad39eac55533c4249">&#9670;&nbsp;</a></span>SpinMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#ae8bbf6daacb98efad39eac55533c4249">wmoge::SpinMutex</a> = typedef <a class="el" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default engine spin mutex. </p>
 
 </div>
 </div>
