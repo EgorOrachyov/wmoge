@@ -37,6 +37,7 @@
 #include "io/enum.hpp"
 #include "platform/file_system.hpp"
 #include "render/shader_builder.hpp"
+#include "resource/config_file.hpp"
 #include "resource/shader.hpp"
 
 // built-in passes
@@ -64,8 +65,11 @@ namespace wmoge {
     }
 
     ShaderManager::ShaderManager() {
-        auto* engine  = Engine::instance();
-        auto* console = engine->console();
+        Engine*     engine  = Engine::instance();
+        Console*    console = engine->console();
+        ConfigFile* config  = engine->config();
+
+        m_save_cache = config->get_bool(SID("render.shader_manager.save_cache"), false);
 
         m_file_system = engine->file_system();
         m_driver      = engine->gfx_driver();
@@ -134,10 +138,13 @@ namespace wmoge {
         WG_LOG_INFO("init shader manager");
     }
     ShaderManager::~ShaderManager() {
-        save_cache(m_driver->shader_cache_path());
+        if (m_save_cache) {
+            // save cache on exit, can disable it by config
+            save_cache(m_driver->shader_cache_path());
+        }
     }
 
-    StringId ShaderManager::make_shader_key(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader) {
+    StringId ShaderManager::make_shader_key(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
         std::stringstream shader_key_builder;
         shader_key_builder << "type=" << shader_name.str();
 
@@ -151,20 +158,18 @@ namespace wmoge {
             shader_key_builder << "]";
         }
 
-        for (const GfxVertAttribs& attribs : streams) {
-            if (attribs.bits.any()) {
-                shader_key_builder << " [";
+        if (attribs.bits.any()) {
+            shader_key_builder << " [";
 
-                for (int i = 0; i < int(GfxVertAttrib::None); i++) {
-                    auto attrib = static_cast<GfxVertAttrib>(i);
+            for (int i = 0; i < int(GfxVertAttrib::None); i++) {
+                auto attrib = static_cast<GfxVertAttrib>(i);
 
-                    if (attribs.get(attrib)) {
-                        shader_key_builder << magic_enum::enum_name(attrib) << ", ";
-                    }
+                if (attribs.get(attrib)) {
+                    shader_key_builder << magic_enum::enum_name(attrib) << ", ";
                 }
-
-                shader_key_builder << "]";
             }
+
+            shader_key_builder << "]";
         }
 
         if (shader) {
@@ -179,11 +184,11 @@ namespace wmoge {
     Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const fast_vector<std::string>& defines) {
         return get_shader(shader_name, {}, defines, nullptr);
     }
-    Ref<GfxShader> ShaderManager::get_shader(const wmoge::StringId& shader_name, const wmoge::GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines) {
-        return get_shader(shader_name, streams, defines, nullptr);
+    Ref<GfxShader> ShaderManager::get_shader(const wmoge::StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines) {
+        return get_shader(shader_name, attribs, defines, nullptr);
     }
-    Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader) {
-        const StringId shader_key = make_shader_key(shader_name, streams, defines, shader);
+    Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
+        const StringId shader_key = make_shader_key(shader_name, attribs, defines, shader);
         Ref<GfxShader> gfx_shader = find(shader_key);
 
         if (gfx_shader) {
@@ -202,7 +207,7 @@ namespace wmoge {
             pass = iter->second.get();
         }
 
-        if (!pass->compile(shader_key, m_driver, streams, defines, shader, gfx_shader)) {
+        if (!pass->compile(shader_key, m_driver, attribs, defines, shader, gfx_shader)) {
             WG_LOG_ERROR("failed compilation of pass " << pass->get_name());
             return gfx_shader;
         }
@@ -289,8 +294,6 @@ namespace wmoge {
     }
     void ShaderManager::save_cache(const std::string& path_on_disk) {
         WG_AUTO_PROFILE_RENDER("ShaderManager::save_cache");
-
-        return;
 
         std::lock_guard lock(m_mutex);
 

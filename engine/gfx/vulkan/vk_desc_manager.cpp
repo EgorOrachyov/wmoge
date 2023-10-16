@@ -49,11 +49,11 @@ namespace wmoge {
         create_info.maxSets       = config.max_sets;
 
         std::stringstream pool_name;
-        pool_name << "pool@"
-                  << std::to_string(config.max_sets) << "x"
-                  << std::to_string(config.max_images) << ":"
-                  << std::to_string(config.max_ub) << ":"
-                  << std::to_string(config.max_sb);
+        pool_name << "desc_pool "
+                  << "sets=" << std::to_string(config.max_sets) << " "
+                  << "images=" << std::to_string(config.max_images) << " "
+                  << "ubs=" << std::to_string(config.max_ub) << " "
+                  << "sbs=" << std::to_string(config.max_sb);
 
         WG_VK_CHECK(vkCreateDescriptorPool(m_driver.device(), &create_info, nullptr, &m_pool));
         WG_VK_NAME(m_driver.device(), m_pool, VK_OBJECT_TYPE_DESCRIPTOR_POOL, pool_name.str());

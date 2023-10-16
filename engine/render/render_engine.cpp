@@ -55,6 +55,9 @@ namespace wmoge {
         assert(window);
         m_main_target = window;
     }
+    void RenderEngine::set_clear_color(const Color4f& color) {
+        m_clear_color = color;
+    }
 
     void RenderEngine::begin_rendering() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::begin_rendering");
@@ -154,8 +157,7 @@ namespace wmoge {
     void RenderEngine::collect_batches(RenderObjectCollector& objects) {
         WG_AUTO_PROFILE_RENDER("RenderEngine::collect_batches");
 
-        const ArrayView<RenderObject*> render_objects  = objects.get_objects();
-        const int                      task_batch_size = 16;
+        const ArrayView<RenderObject*> render_objects = objects.get_objects();
 
         m_collector.clear();
 
@@ -166,14 +168,13 @@ namespace wmoge {
             return 0;
         });
 
-        task_compile.schedule(int(render_objects.size()), task_batch_size).wait_completed();
+        task_compile.schedule(int(render_objects.size()), m_batch_size).wait_completed();
     }
 
     void RenderEngine::compile_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::compile_batches");
 
-        const ArrayView<const MeshBatch> batches         = m_collector.get_batches();
-        const int                        task_batch_size = 16;
+        const ArrayView<const MeshBatch> batches = m_collector.get_batches();
 
         m_compiler.clear();
         m_compiler.set_cameras(m_cameras);
@@ -184,7 +185,18 @@ namespace wmoge {
             return 0;
         });
 
-        task_compile.schedule(int(batches.size()), task_batch_size).wait_completed();
+        task_compile.schedule(int(batches.size()), m_batch_size).wait_completed();
+    }
+
+    void RenderEngine::render_aux_geom(AuxDrawManager& aux_draw_manager) {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::render_aux_geom");
+
+        if (m_cameras.is_empty()) {
+            return;
+        }
+
+        const RenderCameraData& main_cam = m_cameras.camera_main();
+        aux_draw_manager.render(m_main_target, main_cam.viewport, main_cam.proj_view);
     }
 
 }// namespace wmoge

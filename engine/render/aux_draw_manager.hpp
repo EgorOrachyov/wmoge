@@ -29,6 +29,8 @@
 #define WMOGE_AUX_DRAW_MANAGER_HPP
 
 #include "core/synchronization.hpp"
+#include "gfx/gfx_vector.hpp"
+#include "gfx/gfx_vert_format.hpp"
 #include "math/mat.hpp"
 #include "math/quat.hpp"
 #include "math/vec.hpp"
@@ -70,7 +72,7 @@ namespace wmoge {
         void draw_text_3d(std::string text, const Vec3f& pos, float size, const Color4f& color, float lifetime = LIFETIME_ONE_FRAME);
         void draw_text_2d(std::string text, const Vec2f& pos, float size, const Color4f& color, float lifetime = LIFETIME_ONE_FRAME);
 
-        void render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view, const Vec2f& screen_size);
+        void render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view);
         void flush(float delta_time);
 
         [[nodiscard]] bool is_empty() const;
@@ -79,7 +81,12 @@ namespace wmoge {
     private:
         std::vector<std::unique_ptr<struct AuxDrawPrimitive>> m_added;
         std::deque<std::unique_ptr<struct AuxDrawPrimitive>>  m_storage;
+        GfxVector<GfxVF_Pos3Col4, GfxVertBuffer>              m_lines;
+        GfxVector<GfxVF_Pos3Col4, GfxVertBuffer>              m_tria_solid;
+        GfxVector<GfxVF_Pos3Col4, GfxVertBuffer>              m_tria_wired;
+        GfxVector<GfxVF_Pos3Col4Uv2, GfxVertBuffer>           m_text;
         Ref<Font>                                             m_font;
+        Vec2f                                                 m_screen_size;
 
         mutable SpinMutex m_mutex;
     };

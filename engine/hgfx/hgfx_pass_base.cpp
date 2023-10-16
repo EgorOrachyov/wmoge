@@ -48,13 +48,12 @@ namespace wmoge {
 
         assert(attribs_req.get(GfxVertAttrib::Pos3f));
         assert(attribs_full.get(GfxVertAttrib::Pos3f));
-        GfxVertAttribsStreams streams = {attribs_req};
 
         GfxVertElements elements;
         elements.add_vert_attribs(attribs_req, attribs_full, 0, false);
 
         GfxPipelineState pipeline_state{};
-        pipeline_state.shader       = shader_manager->get_shader(SID("base"), streams, defines);
+        pipeline_state.shader       = shader_manager->get_shader(SID("base"), attribs_req, defines);
         pipeline_state.vert_format  = gfx_driver->make_vert_format(elements, name);
         pipeline_state.prim_type    = prim_type;
         pipeline_state.poly_mode    = poly_mode;

@@ -171,18 +171,18 @@ namespace wmoge {
     Ref<GfxShader> Shader::create_variant(const fast_vector<std::string>& defines) {
         return create_variant({}, defines);
     }
-    Ref<GfxShader> Shader::create_variant(const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines) {
+    Ref<GfxShader> Shader::create_variant(const GfxVertAttribs& attribs, const fast_vector<std::string>& defines) {
         WG_AUTO_PROFILE_RESOURCE("Shader::create_variant");
 
         Engine*        engine         = Engine::instance();
         ShaderManager* shader_manager = engine->shader_manager();
 
-        Ref<GfxShader> shader_variant = shader_manager->get_shader(m_domain, streams, defines, this);
+        Ref<GfxShader> shader_variant = shader_manager->get_shader(m_domain, attribs, defines, this);
         if (shader_variant) {
             return shader_variant;
         }
 
-        WG_LOG_ERROR("failed to create shader variant " << shader_manager->make_shader_key(m_domain, streams, defines, this));
+        WG_LOG_ERROR("failed to create shader variant " << shader_manager->make_shader_key(m_domain, attribs, defines, this));
         return Ref<GfxShader>();
     }
 

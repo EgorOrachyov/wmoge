@@ -58,14 +58,14 @@ namespace wmoge {
          *
          * @param name Shader unique name
          * @param driver Gfx driver for resources creation
-         * @param streams Vertex attributes streams
+         * @param attribs Vertex used attributes in the shader
          * @param defines Additional defines for compilation
          * @param shader Optional material user shader
          * @param out_shader Out gfx shader for actual rendering
          *
          * @return Ok on success
          */
-        virtual Status compile(const StringId& name, GfxDriver* driver, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
+        virtual Status compile(const StringId& name, GfxDriver* driver, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
 
         /**
          * @brief Reloads shader pass sources from a disc

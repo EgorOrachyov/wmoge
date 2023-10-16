@@ -55,6 +55,7 @@ namespace wmoge {
         virtual bool                         has_materials() const                                                                       = 0;
         virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
         virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;
+        virtual StringId                     get_friendly_name() const { return m_name; }
 
     private:
         StringId m_name;

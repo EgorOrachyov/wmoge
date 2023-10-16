@@ -467,13 +467,19 @@ namespace wmoge {
 
         std::string font_name = config->get_string(SID("render.aux.font"), "res://fonts/consolas");
         m_font                = resource_manager->load(SID(font_name)).cast<Font>();
+
+        m_screen_size.values[0] = config->get_float(SID("render.aux.screen_width"), 1280.0f);
+        m_screen_size.values[1] = config->get_float(SID("render.aux.screen_height"), 720.0f);
+
+        m_lines.set_name(SID("aux_lines"));
+        m_tria_solid.set_name(SID("aux_tria_solid"));
+        m_tria_wired.set_name(SID("aux_tria_wired"));
+        m_text.set_name(SID("aux_text"));
     }
 
     AuxDrawManager::~AuxDrawManager() = default;
 
     void AuxDrawManager::draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_line");
-
         std::lock_guard guard(m_mutex);
 
         auto lines = std::make_unique<AuxDrawLines>();
@@ -483,8 +489,6 @@ namespace wmoge {
         m_added.push_back(std::move(lines));
     }
     void AuxDrawManager::draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color, bool solid, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_triangle");
-
         std::lock_guard guard(m_mutex);
 
         auto triangles = std::make_unique<AuxDrawTriangles>();
@@ -494,8 +498,6 @@ namespace wmoge {
         m_added.push_back(std::move(triangles));
     }
     void AuxDrawManager::draw_sphere(const Vec3f& pos, float radius, const Color4f& color, bool solid, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_sphere");
-
         std::lock_guard guard(m_mutex);
 
         auto sphere      = std::make_unique<AuxDrawSphere>();
@@ -508,8 +510,6 @@ namespace wmoge {
         m_added.push_back(std::move(sphere));
     }
     void AuxDrawManager::draw_cylinder(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_cylinder");
-
         std::lock_guard guard(m_mutex);
 
         auto cylinder      = std::make_unique<AuxDrawCylinder>();
@@ -524,8 +524,6 @@ namespace wmoge {
         m_added.push_back(std::move(cylinder));
     }
     void AuxDrawManager::draw_cone(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_cone");
-
         std::lock_guard guard(m_mutex);
 
         auto cone      = std::make_unique<AuxDrawCone>();
@@ -540,8 +538,6 @@ namespace wmoge {
         m_added.push_back(std::move(cone));
     }
     void AuxDrawManager::draw_box(const Vec3f& pos, const Vec3f& size, const Color4f& color, const Quatf& rot, bool solid, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_box");
-
         std::lock_guard guard(m_mutex);
 
         auto box      = std::make_unique<AuxDrawBox>();
@@ -555,8 +551,6 @@ namespace wmoge {
         m_added.push_back(std::move(box));
     }
     void AuxDrawManager::draw_text_3d(std::string text, const Vec3f& pos, float size, const Color4f& color, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_text_3d");
-
         if (text.empty()) {
             WG_LOG_WARNING("passed empty string to draw");
             return;
@@ -575,8 +569,6 @@ namespace wmoge {
         m_added.push_back(std::move(primitive));
     }
     void AuxDrawManager::draw_text_2d(std::string text, const Vec2f& pos, float size, const Color4f& color, float lifetime) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::draw_text_2d");
-
         if (text.empty()) {
             WG_LOG_WARNING("passed empty string to draw");
             return;
@@ -595,7 +587,7 @@ namespace wmoge {
         m_added.push_back(std::move(primitive));
     }
 
-    void AuxDrawManager::render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view, const Vec2f& screen_size) {
+    void AuxDrawManager::render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view) {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::render");
 
         if (is_empty()) {
@@ -638,68 +630,75 @@ namespace wmoge {
         HgfxPassText pass_text;
         pass_text.name         = SID("aux_draw_text");
         pass_text.out_srgb     = true;
-        pass_text.screen_size  = screen_size;
+        pass_text.screen_size  = m_screen_size;
         pass_text.font_texture = m_font->get_bitmap();
         pass_text.font_sampler = m_font->get_sampler();
         pass_text.compile(gfx_ctx);
 
-        const int num_types               = 4;
-        int       num_elements[num_types] = {0, 0, 0, 0};
-        int       num_vertices[num_types];
+        const int num_types                           = 4;
+        int       num_elements[num_types]             = {0, 0, 0, 0};
+        int       num_vertices[num_types]             = {0, 0, 0, 0};
+        int       num_vertices_pre_element[num_types] = {2, 3, 3, 6};
 
         // count total number of elements for each type of primitive
         for (const auto& primitive : m_storage) {
             const int primitive_type_index      = int(primitive->get_type());
             const int num_elements_in_primitive = primitive->get_num_elements();
             num_elements[primitive_type_index] += num_elements_in_primitive;
-
             assert(num_elements_in_primitive > 0);
         }
 
-        int               num_bytes[num_types];
-        const int         vert_factor[num_types] = {2, 3, 3, 6};
-        const std::size_t vert_sizes[num_types]  = {sizeof(GfxVF_Pos3Col4), sizeof(GfxVF_Pos3Col4), sizeof(GfxVF_Pos3Col4), sizeof(GfxVF_Pos3Col4Uv2)};
-
+        // count vertices
         for (int i = 0; i < num_types; i++) {
-            num_vertices[i] = vert_factor[i] * num_elements[i];
-            num_bytes[i]    = num_vertices[i] * int(vert_sizes[i]);
+            num_vertices[i] = num_elements[i] * num_vertices_pre_element[i];
         }
 
-        GfxDynAllocation<GfxVertBuffer, void> allocations[num_types];
+        // reserve space in vert buffers
+        m_lines.resize(num_vertices[int(AuxDrawPrimitiveType::Line)]);
+        m_tria_solid.resize(num_vertices[int(AuxDrawPrimitiveType::TrianglesSolid)]);
+        m_tria_wired.resize(num_vertices[int(AuxDrawPrimitiveType::TrianglesWired)]);
+        m_text.resize(num_vertices[int(AuxDrawPrimitiveType::Text)]);
 
-        // allocate dyn vertex buffers for elements
-        for (int i = 0; i < num_types; i++) {
-            if (num_bytes[i] > 0) {
-                allocations[i] = gfx_driver->dyn_vert_buffer()->allocate(num_bytes[i]);
-            }
-        }
+        void* allocation_per_type[num_types] = {
+                m_lines.get_mem(),
+                m_tria_solid.get_mem(),
+                m_tria_wired.get_mem(),
+                m_text.get_mem()};
+
+        const Ref<GfxVertBuffer>* vert_buffers[num_types] = {
+                &m_lines.get_buffer(),
+                &m_tria_solid.get_buffer(),
+                &m_tria_wired.get_buffer(),
+                &m_text.get_buffer()};
 
         AuxDrawPrimitive::FillParams params;
         params.mat_view_proj = mat_proj_view;
-        params.screen_size   = screen_size;
+        params.screen_size   = m_screen_size;
         params.font          = m_font.get();
 
         // fill vertex data for all elements
         for (const auto& primitive : m_storage) {
             const int primitive_type_index = int(primitive->get_type());
-            auto&     allocation           = allocations[primitive_type_index];
-            allocation.ptr                 = primitive->fill(allocation.ptr, params);
+            auto&     allocation           = allocation_per_type[primitive_type_index];
+            allocation                     = primitive->fill(allocation, params);
         }
 
-        gfx_driver->dyn_vert_buffer()->flush();
+        // flush data
+        m_lines.flush(gfx_ctx);
+        m_tria_solid.flush(gfx_ctx);
+        m_tria_wired.flush(gfx_ctx);
+        m_text.flush(gfx_ctx);
 
         gfx_ctx->begin_render_pass({}, SID("AuxDrawManager"));
         gfx_ctx->bind_target(window);
-        gfx_ctx->clear(0, Color::BLACK4f);
-        gfx_ctx->clear(1.0f, 0);
         gfx_ctx->viewport(viewport);
 
         HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
 
         for (int i = 0; i < num_types; i++) {
             // if it has primitives and configured pass - do draw
-            if (num_vertices[i] > 0 && passes[i] && passes[i]->configure(gfx_ctx)) {
-                gfx_ctx->bind_vert_buffer(Ref<GfxVertBuffer>(allocations[i].buffer), 0, allocations[i].offset);
+            if (num_elements[i] > 0 && passes[i] && passes[i]->configure(gfx_ctx)) {
+                gfx_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
                 gfx_ctx->draw(num_vertices[i], 0, 1);
             }
         }

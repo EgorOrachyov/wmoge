@@ -102,10 +102,10 @@ namespace wmoge {
 
         for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
             WG_VK_CHECK(vkCreateSemaphore(m_driver.device(), &semaphore_info, nullptr, &m_acquire_semaphore[i]));
-            WG_VK_NAME(m_driver.device(), m_acquire_semaphore[i], VK_OBJECT_TYPE_SEMAPHORE, "acquire@" + m_window->id().str() + std::to_string(i));
+            WG_VK_NAME(m_driver.device(), m_acquire_semaphore[i], VK_OBJECT_TYPE_SEMAPHORE, "sem_acquire " + m_window->id().str() + std::to_string(i));
 
             WG_VK_CHECK(vkCreateSemaphore(m_driver.device(), &semaphore_info, nullptr, &m_present_semaphore[i]));
-            WG_VK_NAME(m_driver.device(), m_acquire_semaphore[i], VK_OBJECT_TYPE_SEMAPHORE, "present@" + m_window->id().str() + std::to_string(i));
+            WG_VK_NAME(m_driver.device(), m_acquire_semaphore[i], VK_OBJECT_TYPE_SEMAPHORE, "sem_present " + m_window->id().str() + std::to_string(i));
         }
     }
     void VKWindow::subscribe() {
@@ -195,7 +195,7 @@ namespace wmoge {
         VkSwapchainKHR new_swapchain;
 
         WG_VK_CHECK(vkCreateSwapchainKHR(m_driver.device(), &create_info, nullptr, &new_swapchain));
-        WG_VK_NAME(m_driver.device(), new_swapchain, VK_OBJECT_TYPE_SWAPCHAIN_KHR, "swapchain@" + m_window->id().str());
+        WG_VK_NAME(m_driver.device(), new_swapchain, VK_OBJECT_TYPE_SWAPCHAIN_KHR, "swapchain " + m_window->id().str());
 
         WG_LOG_INFO("create swapchain " << m_window->id() << " " << m_extent.width << "x" << m_extent.height << " images=" << imageCount);
 

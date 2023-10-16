@@ -53,8 +53,8 @@ nodes:
  - name: "suzanne_static_0"
    uuid: 11435823289912096762
    transform:
-    translation: -3 0 8
-    scale: 0.2 0.2 0.2
+    translation: 0 0 10
+    scale: 0.1 0.1 0.1
    parent: 13626177115197044525
    type: Object
    properties:
@@ -63,7 +63,47 @@ nodes:
  - name: "suzanne_static_1"
    uuid: 18383606916514128848
    transform:
-    translation: 3 0 8
+    translation: -5 0 10
+    scale: 0.1 0.1 0.1
+   parent: 13626177115197044525
+   type: Object
+   properties:
+     - class: ScenePropMeshStatic
+       model: "res://models/suzanne"
+ - name: "suzanne_static_2"
+   uuid: 5709596287808610096
+   transform:
+    translation: 5 0 10
+    scale: 0.1 0.1 0.1
+   parent: 13626177115197044525
+   type: Object
+   properties:
+     - class: ScenePropMeshStatic
+       model: "res://models/suzanne"
+ - name: "suzanne_static_3"
+   uuid: 2390060295259296002
+   transform:
+    translation: 0 4 20
+    scale: 0.1 0.1 0.1
+   parent: 13626177115197044525
+   type: Object
+   properties:
+     - class: ScenePropMeshStatic
+       model: "res://models/suzanne"    
+ - name: "suzanne_static_4"
+   uuid: 18011708378599886165
+   transform:
+    translation: -10 0 30
+    scale: 0.1 0.1 0.1
+   parent: 13626177115197044525
+   type: Object
+   properties:
+     - class: ScenePropMeshStatic
+       model: "res://models/suzanne"  
+ - name: "suzanne_static_5"
+   uuid: 5169740776802796167
+   transform:
+    translation: 10 0 30
     scale: 0.1 0.1 0.1
    parent: 13626177115197044525
    type: Object

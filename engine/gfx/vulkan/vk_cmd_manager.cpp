@@ -85,7 +85,7 @@ namespace wmoge {
             pool_info.queueFamilyIndex = m_driver.queues()->gfx_queue_family();
 
             WG_VK_CHECK(vkCreateCommandPool(m_driver.device(), &pool_info, nullptr, &allocation.pool));
-            WG_VK_NAME(m_driver.device(), allocation.pool, VK_OBJECT_TYPE_COMMAND_POOL, "pool@" + std::to_string(m_next_id));
+            WG_VK_NAME(m_driver.device(), allocation.pool, VK_OBJECT_TYPE_COMMAND_POOL, "cmd_pool " + std::to_string(m_next_id));
 
             VkCommandBufferAllocateInfo buffer_info{};
             buffer_info.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -94,7 +94,7 @@ namespace wmoge {
             buffer_info.commandPool        = allocation.pool;
 
             WG_VK_CHECK(vkAllocateCommandBuffers(m_driver.device(), &buffer_info, &allocation.buffer));
-            WG_VK_NAME(m_driver.device(), allocation.buffer, VK_OBJECT_TYPE_COMMAND_BUFFER, "cmd@" + std::to_string(m_next_id));
+            WG_VK_NAME(m_driver.device(), allocation.buffer, VK_OBJECT_TYPE_COMMAND_BUFFER, "cmd_buff " + std::to_string(m_next_id));
 
             m_next_id += 1;
 

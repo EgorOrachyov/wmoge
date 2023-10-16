@@ -34,9 +34,11 @@
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
+#include "math/color.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_pass.hpp"
 #include "platform/window.hpp"
+#include "render/aux_draw_manager.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_defs.hpp"
 #include "render/render_object.hpp"
@@ -83,6 +85,7 @@ namespace wmoge {
         void set_time(float time);
         void set_delta_time(float delta_time);
         void set_target(const Ref<Window>& window);
+        void set_clear_color(const Color4f& color);
 
         void begin_rendering();
         void end_rendering();
@@ -91,6 +94,7 @@ namespace wmoge {
         void allocate_veiws();
         void collect_batches(RenderObjectCollector& objects);
         void compile_batches();
+        void render_aux_geom(AuxDrawManager& aux_draw_manager);
 
         [[nodiscard]] RenderCameras&               get_cameras() { return m_cameras; }
         [[nodiscard]] MeshBatchCollector&          get_collector() { return m_collector; }
@@ -98,6 +102,7 @@ namespace wmoge {
         [[nodiscard]] ArrayView<RenderView>        get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
         [[nodiscard]] float                        get_time() const { return m_time; }
         [[nodiscard]] float                        get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] const Color4f&               get_clear_color() const { return m_clear_color; }
         [[nodiscard]] const Ref<Window>&           get_main_target() const { return m_main_target; }
         [[nodiscard]] const Ref<GfxUniformBuffer>& get_frame_data() const { return m_frame_data; }
 
@@ -106,10 +111,12 @@ namespace wmoge {
         MeshBatchCollector                              m_collector;
         MeshBatchCompiler                               m_compiler;
         std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
-        float                                           m_time       = 0.0f;
-        float                                           m_delta_time = 0.0f;
+        float                                           m_time        = 0.0f;
+        float                                           m_delta_time  = 0.0f;
+        Color4f                                         m_clear_color = Color::BLACK4f;
         Ref<Window>                                     m_main_target;
         Ref<GfxUniformBuffer>                           m_frame_data;
+        int                                             m_batch_size = 4;
     };
 
 }// namespace wmoge

@@ -202,6 +202,9 @@ namespace wmoge {
         assert(i < MAX_BUFFER);
         return m_gfx_vertex_buffers[i];
     }
+    const std::array<Ref<GfxVertBuffer>, Mesh::MAX_BUFFER>& Mesh::get_gfx_vertex_buffers() const {
+        return m_gfx_vertex_buffers;
+    }
     const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffer() const {
         return m_gfx_index_buffer;
     }

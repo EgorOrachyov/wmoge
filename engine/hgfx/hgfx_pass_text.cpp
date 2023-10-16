@@ -46,14 +46,13 @@ namespace wmoge {
         fast_vector<std::string> defines;
         if (out_srgb) defines.push_back("OUT_SRGB");
 
-        GfxVertAttribs        attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
-        GfxVertAttribsStreams streams = {attribs};
+        GfxVertAttribs attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
 
         GfxVertElements elements;
         elements.add_vert_attribs(attribs, attribs, 0, false);
 
         GfxPipelineState pipeline_state{};
-        pipeline_state.shader      = shader_manager->get_shader(SID("text"), streams, defines);
+        pipeline_state.shader      = shader_manager->get_shader(SID("text"), attribs, defines);
         pipeline_state.vert_format = gfx_driver->make_vert_format(elements, name);
         pipeline_state.blending    = true;
 

@@ -69,16 +69,15 @@ namespace wmoge {
      * @brief Batch of mesh elements with the same vertex/index buffer and material instances
      */
     struct MeshBatch final {
-        MeshBatchElement      elements[1];                         //< List of batch elements to draw
-        GfxVertBuffersSetup   vertex_buffers;                      //< Vertex buffers with vertex data
-        GfxVertAttribsStreams vertex_streams;                      //< Describes vertex attributes layout in memory
-        GfxIndexBufferSetup   index_buffer;                        //< Optional index buffer with batch indices
-        RenderCameraMask      cam_mask;                            //< Mask in which cameras mesh batch wants to be rendered
-        class Material*       material    = nullptr;               //< Material to apply to rendered elements
-        class GfxDescSet*     mesh_params = nullptr;               //< Mesh descriptor set with batch common resources
-        class MeshPassList*   pass_list   = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
-        class RenderObject*   object      = nullptr;               //< Render object this batch belongs to
-        GfxPrimType           prim_type   = GfxPrimType::Triangles;//< Type of primitives to render
+        MeshBatchElement     elements[1];                            //< List of batch elements to draw
+        GfxIndexBufferSetup  index_buffer;                           //< Optional index buffer with batch indices
+        RenderCameraMask     cam_mask;                               //< Mask in which cameras mesh batch wants to be rendered
+        class VertexFactory* vertex_factory = nullptr;               //< Fertex factory to provide vertex data and format
+        class Material*      material       = nullptr;               //< Material to apply to rendered elements
+        class GfxDescSet*    mesh_params    = nullptr;               //< Mesh descriptor set with batch common resources
+        class MeshPassList*  pass_list      = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
+        class RenderObject*  object         = nullptr;               //< Render object this batch belongs to
+        GfxPrimType          prim_type      = GfxPrimType::Triangles;//< Type of primitives to render
     };
 
     static_assert(std::is_trivially_destructible_v<MeshBatch>, "mesh batch must be trivial as possible");

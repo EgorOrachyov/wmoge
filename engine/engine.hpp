@@ -102,6 +102,7 @@
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
 
 #include "hgfx/hgfx_pass.hpp"
@@ -159,6 +160,7 @@
 #include "render/shader_pass.hpp"
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
+#include "render/vertex_factory.hpp"
 
 #include "resource/audio_stream.hpp"
 #include "resource/config_file.hpp"

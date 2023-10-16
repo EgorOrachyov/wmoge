@@ -34,6 +34,10 @@ namespace wmoge {
     RenderMeshStatic::RenderMeshStatic(Ref<Model> model) {
         assert(model);
         m_model = std::move(model);
+
+        auto& mesh = m_model->get_lods()[0].mesh.get_safe();
+        m_factories.emplace_back(mesh->get_gfx_vertex_buffers(), mesh->get_attribs(), get_friendly_name());
+        m_factories.back().init();
     }
 
     void RenderMeshStatic::collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) {
@@ -57,8 +61,7 @@ namespace wmoge {
 
             MeshBatch batch;
             batch.elements[0]             = element;
-            batch.vertex_buffers          = mesh->get_gfx_vert_buffes_setup();
-            batch.vertex_streams          = mesh->get_attribs();
+            batch.vertex_factory          = &m_factories.back();
             batch.index_buffer.buffer     = mesh->get_gfx_index_buffer().get();
             batch.index_buffer.index_type = mesh->get_index_type();
             batch.index_buffer.offset     = chunk.index_offset;

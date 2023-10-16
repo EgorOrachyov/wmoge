@@ -119,7 +119,7 @@ namespace wmoge {
      */
     class Mesh : public Resource {
     public:
-        static const int MAX_BUFFER = 3;
+        static constexpr int MAX_BUFFER = GfxLimits::MAX_VERT_STREAMS;
 
         WG_OBJECT(Mesh, Resource);
 
@@ -131,19 +131,20 @@ namespace wmoge {
         void update_aabb();
         void update_gfx_buffers();
 
-        [[nodiscard]] ArrayView<const MeshChunk> get_chunks() const;
-        [[nodiscard]] const MeshChunk&           get_chunk(int i) const;
-        [[nodiscard]] const Ref<Data>&           get_vertex_buffer(int i) const;
-        [[nodiscard]] const Ref<Data>&           get_index_buffer() const;
-        [[nodiscard]] const Ref<GfxVertBuffer>&  get_gfx_vertex_buffer(int i) const;
-        [[nodiscard]] const Ref<GfxIndexBuffer>& get_gfx_index_buffer() const;
-        [[nodiscard]] GfxIndexType               get_index_type() const;
-        [[nodiscard]] GfxPrimType                get_prim_type() const;
-        [[nodiscard]] GfxVertAttribsStreams      get_attribs() const;
-        [[nodiscard]] int                        get_num_vertices() const;
-        [[nodiscard]] int                        get_num_indices() const;
-        [[nodiscard]] Aabbf                      get_aabb() const;
-        [[nodiscard]] GfxVertBuffersSetup        get_gfx_vert_buffes_setup() const;
+        [[nodiscard]] ArrayView<const MeshChunk>                        get_chunks() const;
+        [[nodiscard]] const MeshChunk&                                  get_chunk(int i) const;
+        [[nodiscard]] const Ref<Data>&                                  get_vertex_buffer(int i) const;
+        [[nodiscard]] const Ref<Data>&                                  get_index_buffer() const;
+        [[nodiscard]] const Ref<GfxVertBuffer>&                         get_gfx_vertex_buffer(int i) const;
+        [[nodiscard]] const std::array<Ref<GfxVertBuffer>, MAX_BUFFER>& get_gfx_vertex_buffers() const;
+        [[nodiscard]] const Ref<GfxIndexBuffer>&                        get_gfx_index_buffer() const;
+        [[nodiscard]] GfxIndexType                                      get_index_type() const;
+        [[nodiscard]] GfxPrimType                                       get_prim_type() const;
+        [[nodiscard]] GfxVertAttribsStreams                             get_attribs() const;
+        [[nodiscard]] int                                               get_num_vertices() const;
+        [[nodiscard]] int                                               get_num_indices() const;
+        [[nodiscard]] Aabbf                                             get_aabb() const;
+        [[nodiscard]] GfxVertBuffersSetup                               get_gfx_vert_buffes_setup() const;
 
     private:
         std::vector<MeshChunk>                     m_chunks;

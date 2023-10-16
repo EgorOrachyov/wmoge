@@ -412,7 +412,7 @@ namespace wmoge {
 
             VkShaderModule module;
             WG_VK_CHECK(vkCreateShaderModule(m_driver.device(), &create_info, nullptr, &module));
-            WG_VK_NAME(m_driver.device(), module, VK_OBJECT_TYPE_SHADER_MODULE, "shader@" + name().str());
+            WG_VK_NAME(m_driver.device(), module, VK_OBJECT_TYPE_SHADER_MODULE, "shader " + name().str());
             m_modules.push_back(module);
         }
 
@@ -431,7 +431,7 @@ namespace wmoge {
         layout_create_info.pushConstantRangeCount = 0;
         layout_create_info.pPushConstantRanges    = nullptr;
         WG_VK_CHECK(vkCreatePipelineLayout(m_driver.device(), &layout_create_info, nullptr, &m_layout));
-        WG_VK_NAME(m_driver.device(), m_layout, VK_OBJECT_TYPE_PIPELINE_LAYOUT, "layout@" + name().str());
+        WG_VK_NAME(m_driver.device(), m_layout, VK_OBJECT_TYPE_PIPELINE_LAYOUT, "pso_layout " + name().str());
 
         m_status.store(GfxShaderStatus::Compiled);
     }

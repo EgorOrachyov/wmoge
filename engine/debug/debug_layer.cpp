@@ -34,6 +34,7 @@
 #include "platform/window_manager.hpp"
 #include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
+#include "render/render_engine.hpp"
 
 namespace wmoge {
 
@@ -53,6 +54,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_DEBUG("DebugLayer::on_debug_draw");
 
         auto engine           = Engine::instance();
+        auto render_engine    = engine->render_engine();
         auto canvas_debug     = engine->canvas_2d_debug();
         auto aux_draw_manager = engine->aux_draw_manager();
         auto console          = engine->console();
@@ -62,6 +64,9 @@ namespace wmoge {
         canvas_debug->set_fill_color(Color::BLACK4f);
         canvas_debug->draw_filled_rect({0, 0}, {1280, 720});
         console->render();
+
+        aux_draw_manager->flush(engine->get_delta_time_game());
+        render_engine->render_aux_geom(*aux_draw_manager);
     }
 
 }// namespace wmoge

@@ -125,6 +125,7 @@ namespace wmoge {
         int                     add_camera(CameraType type, const RenderCamera& camera, std::optional<RenderCamera> camera_prev);
         const RenderCamera&     camera_at(int index) const;
         const RenderCameraData& data_at(int index) const;
+        const RenderCameraData& camera_main() const;
         void                    clear();
 
         [[nodiscard]] ArrayView<const RenderCameraData> get_cameras() const { return m_cameras; }

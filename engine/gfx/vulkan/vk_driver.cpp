@@ -757,7 +757,7 @@ namespace wmoge {
         info.pInitialData    = cache_data.data();
 
         WG_VK_CHECK(vkCreatePipelineCache(m_device, &info, nullptr, &m_pipeline_cache));
-        WG_VK_NAME(m_device, m_pipeline_cache, VK_OBJECT_TYPE_PIPELINE_CACHE, "cache@" + m_pipeline_cache_path);
+        WG_VK_NAME(m_device, m_pipeline_cache, VK_OBJECT_TYPE_PIPELINE_CACHE, "pso_cache " + m_pipeline_cache_path);
     }
     void VKDriver::release_pipeline_cache() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::release_pipeline_cache");
@@ -784,7 +784,7 @@ namespace wmoge {
         fence_info.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
         WG_VK_CHECK(vkCreateFence(m_device, &fence_info, nullptr, &m_sync_fence));
-        WG_VK_NAME(m_device, m_sync_fence, VK_OBJECT_TYPE_FENCE, "sync_fence@");
+        WG_VK_NAME(m_device, m_sync_fence, VK_OBJECT_TYPE_FENCE, "sync_fence ");
     }
     void VKDriver::release_sync_fences() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::release_sync_fences");

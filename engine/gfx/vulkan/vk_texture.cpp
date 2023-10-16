@@ -295,7 +295,7 @@ namespace wmoge {
         image_info.flags                 = m_tex_type == GfxTex::TexCube ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
 
         mem_man->allocate(image_info, m_mem_usage, m_image, m_allocation);
-        WG_VK_NAME(m_driver.device(), m_image, VK_OBJECT_TYPE_IMAGE, "image@" + name().str());
+        WG_VK_NAME(m_driver.device(), m_image, VK_OBJECT_TYPE_IMAGE, "image " + name().str());
     }
     void VKTexture::init_view() {
         WG_AUTO_PROFILE_VULKAN("VKTexture::init_view");
@@ -316,7 +316,7 @@ namespace wmoge {
         view_info.components.a                    = VK_COMPONENT_SWIZZLE_IDENTITY;
 
         WG_VK_CHECK(vkCreateImageView(m_driver.device(), &view_info, nullptr, &m_view));
-        WG_VK_NAME(m_driver.device(), m_view, VK_OBJECT_TYPE_IMAGE_VIEW, "view@ " + name().str());
+        WG_VK_NAME(m_driver.device(), m_view, VK_OBJECT_TYPE_IMAGE_VIEW, "image_view " + name().str());
     }
     void VKTexture::init_rt_views() {
         WG_AUTO_PROFILE_VULKAN("VKTexture::init_rt_views");
@@ -346,7 +346,7 @@ namespace wmoge {
                 view_info.components.a                    = VK_COMPONENT_SWIZZLE_IDENTITY;
 
                 VkImageView& view     = m_rt_views[slice * m_mips_count + mip];
-                std::string  dbg_name = "rt_view@" + name().str() + "[" + std::to_string(slice) + "," + std::to_string(mip) + "]";
+                std::string  dbg_name = "rt_view " + name().str() + "[" + std::to_string(slice) + "," + std::to_string(mip) + "]";
 
                 WG_VK_CHECK(vkCreateImageView(m_driver.device(), &view_info, nullptr, &view));
                 WG_VK_NAME(m_driver.device(), view, VK_OBJECT_TYPE_IMAGE_VIEW, dbg_name);

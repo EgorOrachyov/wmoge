@@ -133,7 +133,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "vert@" + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "vert_buff " + name.str());
     }
     void VKVertBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);
@@ -154,7 +154,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "index@" + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "index_buff " + name.str());
     }
     void VKIndexBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);
@@ -175,7 +175,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "uniform@" + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "uniform_buff " + name.str());
     }
     void VKUniformBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);
@@ -196,7 +196,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "storage@" + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "storage_buff " + name.str());
     }
     void VKStorageBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);

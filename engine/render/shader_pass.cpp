@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    Status ShaderPass::compile(const StringId& name, GfxDriver* driver, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader) {
+    Status ShaderPass::compile(const StringId& name, GfxDriver* driver, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader) {
         WG_AUTO_PROFILE_RENDER("ShaderPass::compile");
 
         GfxShaderLang gfx_lang = driver->shader_lang();
@@ -59,16 +59,14 @@ namespace wmoge {
 
         int location_index = 0;
 
-        for (const GfxVertAttribs& attribs : streams) {
-            attribs.for_each([&](int i, GfxVertAttrib attrib) {
-                builder.add_define("ATTRIB_" + Enum::to_str(attrib));
-                builder.vertex.value() << "layout(location = " << location_index << ") in "
-                                       << GfxVertAttribGlslTypes[i] << " "
-                                       << "in" << Enum::to_str(attrib)
-                                       << ";\n";
-                location_index += 1;
-            });
-        }
+        attribs.for_each([&](int i, GfxVertAttrib attrib) {
+            builder.add_define("ATTRIB_" + Enum::to_str(attrib));
+            builder.vertex.value() << "layout(location = " << location_index << ") in "
+                                   << GfxVertAttribGlslTypes[i] << " "
+                                   << "in" << Enum::to_str(attrib)
+                                   << ";\n";
+            location_index += 1;
+        });
 
         const std::string& sources_vertex   = get_vertex(gfx_lang);
         const std::string& sources_fragment = get_fragment(gfx_lang);

@@ -25,41 +25,41 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_MESH_STATIC_HPP
-#define WMOGE_RENDER_MESH_STATIC_HPP
+#include "vertex_factory.hpp"
 
-#include "core/fast_vector.hpp"
-#include "math/math_utils3d.hpp"
-#include "render/render_object.hpp"
-#include "render/vertex_factories.hpp"
-#include "resource/material.hpp"
-#include "resource/mesh.hpp"
-#include "resource/model.hpp"
-
-#include <optional>
+#include "core/engine.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "io/enum.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class RenderMeshStatic 
-     * @brief Static renderable mesh
-     */
-    class RenderMeshStatic : public RenderObject {
-    public:
-        RenderMeshStatic(Ref<Model> model);
+    void VertexFactory::init() {
+        GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
 
-        void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
-        void                         update_transform(const Mat4x4f& l2w) override;
-        bool                         has_materials() const override;
-        std::optional<Ref<Material>> get_material() const override;
-        std::vector<Ref<Material>>   get_materials() const override;
+        const VertexInputType input_types[] = {
+                VertexInputType::Default,
+                VertexInputType::PositionOnly};
 
-    private:
-        Ref<Model>                       m_model;
-        Mat4x4f                          m_transform_l2w = Math3d::identity();
-        fast_vector<VertexFactoryStatic> m_factories;
-    };
+        for (VertexInputType input_type : input_types) {
+            int             used_buffers = 0;
+            GfxVertElements elemets;
+            fill_elements(input_type, elemets, used_buffers);
+            cache_vert_format(gfx_driver, elemets, input_type);
+        }
+    }
+
+    void VertexFactory::cache_vert_format(class GfxDriver* driver, const GfxVertElements& elements, VertexInputType input_type) {
+        const int      idx        = int(input_type);
+        const StringId debug_name = SID(get_friendly_name() + " " + Enum::to_str(input_type));
+        m_gfx_formats[idx]        = driver->make_vert_format(elements, debug_name);
+    }
+
+    const VertexFactoryType& VertexFactory::get_type_info() const {
+        static VertexFactoryType s_type = {
+                SID("VertexFactory"),
+                false};
+
+        return s_type;
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_MESH_STATIC_HPP

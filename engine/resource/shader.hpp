@@ -146,7 +146,7 @@ namespace wmoge {
         Status copy_to(Object& other) const override;
 
         [[nodiscard]] Ref<GfxShader> create_variant(const fast_vector<std::string>& defines);
-        [[nodiscard]] Ref<GfxShader> create_variant(const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines);
+        [[nodiscard]] Ref<GfxShader> create_variant(const GfxVertAttribs& attribs, const fast_vector<std::string>& defines);
         void                         fill_layout(GfxDescSetLayoutDesc& layout) const;
 
         [[nodiscard]] const std::string&                         get_vertex() const;

@@ -25,41 +25,39 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_MESH_STATIC_HPP
-#define WMOGE_RENDER_MESH_STATIC_HPP
+#ifndef WMOGE_VERTEX_FACTORIES_HPP
+#define WMOGE_VERTEX_FACTORIES_HPP
 
-#include "core/fast_vector.hpp"
-#include "math/math_utils3d.hpp"
-#include "render/render_object.hpp"
-#include "render/vertex_factories.hpp"
-#include "resource/material.hpp"
-#include "resource/mesh.hpp"
-#include "resource/model.hpp"
-
-#include <optional>
+#include "render/vertex_factory.hpp"
 
 namespace wmoge {
 
     /**
-     * @class RenderMeshStatic 
-     * @brief Static renderable mesh
+     * @class VertexFactoryStatic
+     * @brief Vertex factory with immutable data which can be used for static mesh rendering
      */
-    class RenderMeshStatic : public RenderObject {
+    class VertexFactoryStatic : public VertexFactory {
     public:
-        RenderMeshStatic(Ref<Model> model);
+        static constexpr int MAX_BUFFERS = GfxLimits::MAX_VERT_STREAMS;
 
-        void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
-        void                         update_transform(const Mat4x4f& l2w) override;
-        bool                         has_materials() const override;
-        std::optional<Ref<Material>> get_material() const override;
-        std::vector<Ref<Material>>   get_materials() const override;
+        VertexFactoryStatic(const std::array<Ref<GfxVertBuffer>, MAX_BUFFERS>& buffers,
+                            const GfxVertAttribsStreams&                       attribs,
+                            const StringId&                                    name = StringId());
+
+        ~VertexFactoryStatic() override = default;
+
+        void                     fill_required_attributes(GfxVertAttribs& attribs, VertexInputType input_type) override;
+        void                     fill_elements(VertexInputType input_type, GfxVertElements& elements, int& used_buffers) override;
+        void                     fill_setup(VertexInputType input_type, GfxVertBuffersSetup& setup, int& used_buffers) override;
+        std::string              get_friendly_name() const override;
+        const VertexFactoryType& get_type_info() const override;
 
     private:
-        Ref<Model>                       m_model;
-        Mat4x4f                          m_transform_l2w = Math3d::identity();
-        fast_vector<VertexFactoryStatic> m_factories;
+        std::array<Ref<GfxVertBuffer>, MAX_BUFFERS> m_buffers;
+        GfxVertAttribsStreams                       m_attribs;
+        StringId                                    m_name;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_MESH_STATIC_HPP
+#endif//WMOGE_VERTEX_FACTORIES_HPP

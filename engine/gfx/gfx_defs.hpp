@@ -39,6 +39,26 @@
 
 namespace wmoge {
 
+    /** @brief Gfx common device limits */
+    struct GfxLimits {
+        /** Vertex shader max input elements */
+        static constexpr int MAX_VERT_ATTRIBUTES = 8;
+        /** Vertex shader max input vertex buffers */
+        static constexpr int MAX_VERT_BUFFERS = 4;
+        /** Vertex shader max input vertex streams with user data */
+        static constexpr int MAX_VERT_STREAMS = 3;
+        /** Limit color attachment count */
+        static constexpr int MAX_COLOR_TARGETS = 8;
+        /** Max number of cube texture faces (it is cube, lol) */
+        static constexpr int MAX_CUBE_FACES = 6;
+        /** Max number of simultaneously drawn frames (1 - draw frame and wait, 2 - draw and present one frame, prepare other, ...)*/
+        static constexpr int FRAMES_IN_FLIGHT = 2;
+        /** Max resources sets count */
+        static constexpr int MAX_DESC_SETS = 3;
+        /** Max size of a single desc set */
+        static constexpr int MAX_DESC_SET_SIZE = 128;
+    };
+
     /** @brief Type of gfx context behaviour */
     enum class GfxCtxType : int {
         Immediate,
@@ -337,6 +357,7 @@ namespace wmoge {
         Uv12f,
         Uv22f,
         Uv32f,
+        PrimitiveIdi,
         None
     };
 
@@ -355,7 +376,8 @@ namespace wmoge {
             GfxFormat::RG32F,
             GfxFormat::RG32F,
             GfxFormat::RG32F,
-            GfxFormat::RG32F};
+            GfxFormat::RG32F,
+            GfxFormat::R32I};
 
     /** @brief Vert attribute sizes */
     static constexpr const int GfxVertAttribSizes[] = {
@@ -372,7 +394,8 @@ namespace wmoge {
             8,
             8,
             8,
-            8};
+            8,
+            4};
 
     /** @brief Vert attribute glsl type */
     static constexpr const char* GfxVertAttribGlslTypes[] = {
@@ -389,13 +412,14 @@ namespace wmoge {
             "vec2",
             "vec2",
             "vec2",
-            "vec2"};
+            "vec2",
+            "int"};
 
     /** @brief Mask of vertex attributes */
     using GfxVertAttribs = Mask<GfxVertAttrib>;
 
     /** @brief Decl of vertex attributes streams */
-    using GfxVertAttribsStreams = std::array<GfxVertAttribs, 3>;
+    using GfxVertAttribsStreams = std::array<GfxVertAttribs, GfxLimits::MAX_VERT_STREAMS>;
 
     /** @brief Type of bindings to a pipeline */
     enum class GfxBindingType : std::uint8_t {
@@ -425,24 +449,6 @@ namespace wmoge {
         int count     = 0;
         int base      = 0;
         int instances = 0;
-    };
-
-    /** @brief Gfx common device limits */
-    struct GfxLimits {
-        /** Vertex shader max input elements */
-        static constexpr int MAX_VERT_ATTRIBUTES = 8;
-        /** Vertex shader max input vertex buffers */
-        static constexpr int MAX_VERT_BUFFERS = 4;
-        /** Limit color attachment count */
-        static constexpr int MAX_COLOR_TARGETS = 8;
-        /** Max number of cube texture faces (it is cube, lol) */
-        static constexpr int MAX_CUBE_FACES = 6;
-        /** Max number of simultaneously drawn frames (1 - draw frame and wait, 2 - draw and present one frame, prepare other, ...)*/
-        static constexpr int FRAMES_IN_FLIGHT = 2;
-        /** Max resources sets count */
-        static constexpr int MAX_DESC_SETS = 3;
-        /** Max size of a single desc set */
-        static constexpr int MAX_DESC_SET_SIZE = 128;
     };
 
     /** @brief Gfx device capabilities */

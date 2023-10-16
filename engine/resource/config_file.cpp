@@ -70,11 +70,19 @@ namespace wmoge {
             if (pos != std::string::npos) {
                 std::string key   = line.substr(0, pos);
                 std::string value = line.substr(pos + 3);
-                if (value[0] == '\"') {
-                    value = value.substr(1, value.find_last_of('\"') - 1);
+                Var         var;
+
+                if (value == "true") {
+                    var = Var(1);
+                } else if (value == "false") {
+                    var = Var(0);
+                } else if (value[0] == '\"') {
+                    var = Var(value.substr(1, value.find_last_of('\"') - 1));
+                } else {
+                    var = Var(value);
                 }
 
-                m_entries.emplace(SID(section.str() + "." + key), value);
+                m_entries.emplace(SID(section.str() + "." + key), var);
             }
         }
 

@@ -47,8 +47,24 @@ namespace wmoge {
     struct Mask {
         Mask() = default;
 
+        Mask(const std::bitset<size>& input) {
+            bits = input;
+        }
+
         Mask(const std::initializer_list<T>& elements) {
             for (auto e : elements) set(e);
+        }
+
+        Mask operator&(const Mask& other) { return Mask(bits & other.bits); }
+        Mask operator|(const Mask& other) { return Mask(bits | other.bits); }
+
+        Mask& operator&=(const Mask& other) {
+            bits &= other.bits;
+            return *this;
+        }
+        Mask& operator|=(const Mask& other) {
+            bits |= other.bits;
+            return *this;
         }
 
         bool get(T flag) const { return bits.test(static_cast<int>(flag)); }

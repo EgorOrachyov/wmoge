@@ -66,11 +66,11 @@ namespace wmoge {
         ShaderManager(ShaderManager&&)      = delete;
         ~ShaderManager();
 
-        StringId       make_shader_key(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader);
+        StringId       make_shader_key(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader);
         Ref<GfxShader> get_shader(const StringId& shader_name);
         Ref<GfxShader> get_shader(const StringId& shader_name, const fast_vector<std::string>& defines);
-        Ref<GfxShader> get_shader(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines);
-        Ref<GfxShader> get_shader(const StringId& shader_name, const GfxVertAttribsStreams& streams, const fast_vector<std::string>& defines, class Shader* shader);
+        Ref<GfxShader> get_shader(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines);
+        Ref<GfxShader> get_shader(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader);
         Ref<GfxShader> find(const StringId& shader_key);
         void           cache(const StringId& shader_key, const Ref<GfxShader>& shader, bool allow_overwrite = false);
         void           dump_stats();
@@ -88,6 +88,7 @@ namespace wmoge {
         fast_map<StringId, ShaderData>                  m_cache;
         fast_map<StringId, std::unique_ptr<ShaderPass>> m_passes;
         std::string                                     m_shaders_directory;
+        bool                                            m_save_cache = false;
 
         class FileSystem* m_file_system = nullptr;
         class GfxDriver*  m_driver      = nullptr;

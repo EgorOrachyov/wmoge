@@ -221,7 +221,7 @@ namespace wmoge {
         VkPipeline new_pipeline;
 
         WG_VK_CHECK(vkCreateGraphicsPipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline));
-        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, "pipeline@" + name().str());
+        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, "pso " + name().str());
 
         release();
         m_pipeline = new_pipeline;

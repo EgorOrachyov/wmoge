@@ -100,7 +100,7 @@ namespace wmoge {
         create_info.pDependencies   = nullptr;
 
         WG_VK_CHECK(vkCreateRenderPass(m_driver.device(), &create_info, nullptr, &m_render_pass));
-        WG_VK_NAME(m_driver.device(), m_render_pass, VK_OBJECT_TYPE_RENDER_PASS, "rp@" + m_name.str());
+        WG_VK_NAME(m_driver.device(), m_render_pass, VK_OBJECT_TYPE_RENDER_PASS, "render_pass " + m_name.str());
 
         m_color_targets_count = color_references_count;
         m_has_depth_stencil   = has_depth_stencil;
@@ -222,7 +222,7 @@ namespace wmoge {
         VkFramebuffer framebuffer;
 
         WG_VK_CHECK(vkCreateFramebuffer(m_driver.device(), &create_info, nullptr, &framebuffer));
-        WG_VK_NAME(m_driver.device(), framebuffer, VK_OBJECT_TYPE_FRAMEBUFFER, "fb@" + m_current_name.str());
+        WG_VK_NAME(m_driver.device(), framebuffer, VK_OBJECT_TYPE_FRAMEBUFFER, "frame_buff " + m_current_name.str());
         m_current_framebuffer = make_ref<VKFramebufferObject>(framebuffer, m_driver);
     }
 

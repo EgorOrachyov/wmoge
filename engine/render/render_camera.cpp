@@ -113,6 +113,10 @@ namespace wmoge {
         return m_cameras[index];
     }
 
+    const RenderCameraData& RenderCameras::camera_main() const {
+        return m_cameras[0];
+    }
+
     void RenderCameras::clear() {
         m_cameras.clear();
     }

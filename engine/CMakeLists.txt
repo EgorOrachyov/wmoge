@@ -128,6 +128,7 @@ add_library(wmoge STATIC
         gfx/gfx_shader.cpp
         gfx/gfx_shader.hpp
         gfx/gfx_texture.hpp
+        gfx/gfx_vector.hpp
         gfx/gfx_vert_format.cpp
         gfx/gfx_vert_format.hpp
         gfx/threaded/gfx_ctx_threaded.hpp
@@ -276,6 +277,10 @@ add_library(wmoge STATIC
         render/texture_compression.hpp
         render/texture_manager.cpp
         render/texture_manager.hpp
+        render/vertex_factories.cpp
+        render/vertex_factories.hpp
+        render/vertex_factory.cpp
+        render/vertex_factory.hpp
         resource/audio_stream.cpp
         resource/audio_stream.hpp
         resource/audio_stream_wav.cpp

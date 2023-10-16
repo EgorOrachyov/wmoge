@@ -25,41 +25,50 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_MESH_STATIC_HPP
-#define WMOGE_RENDER_MESH_STATIC_HPP
-
-#include "core/fast_vector.hpp"
-#include "math/math_utils3d.hpp"
-#include "render/render_object.hpp"
-#include "render/vertex_factories.hpp"
-#include "resource/material.hpp"
-#include "resource/mesh.hpp"
-#include "resource/model.hpp"
-
-#include <optional>
+#include "vertex_factories.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class RenderMeshStatic 
-     * @brief Static renderable mesh
-     */
-    class RenderMeshStatic : public RenderObject {
-    public:
-        RenderMeshStatic(Ref<Model> model);
+    VertexFactoryStatic::VertexFactoryStatic(const std::array<Ref<GfxVertBuffer>, MAX_BUFFERS>& buffers, const GfxVertAttribsStreams& attribs, const StringId& name) {
+        m_buffers = buffers;
+        m_attribs = attribs;
+        m_name    = name;
+    }
 
-        void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
-        void                         update_transform(const Mat4x4f& l2w) override;
-        bool                         has_materials() const override;
-        std::optional<Ref<Material>> get_material() const override;
-        std::vector<Ref<Material>>   get_materials() const override;
+    void VertexFactoryStatic::fill_required_attributes(GfxVertAttribs& attribs, VertexInputType input_type) {
+        for (const auto& stream : m_attribs) {
+            attribs |= stream;
+        }
+    }
 
-    private:
-        Ref<Model>                       m_model;
-        Mat4x4f                          m_transform_l2w = Math3d::identity();
-        fast_vector<VertexFactoryStatic> m_factories;
-    };
+    void VertexFactoryStatic::fill_elements(VertexInputType input_type, GfxVertElements& elements, int& used_buffers) {
+        for (int i = 0; i < MAX_BUFFERS; i++) {
+            if (m_attribs[i].bits.any()) {
+                elements.add_vert_attribs(m_attribs[i], used_buffers, false);
+                used_buffers += 1;
+            }
+        }
+    }
+
+    void VertexFactoryStatic::fill_setup(VertexInputType input_type, GfxVertBuffersSetup& setup, int& used_buffers) {
+        for (int i = 0; i < MAX_BUFFERS; i++) {
+            if (m_attribs[i].bits.any()) {
+                setup.buffers[i] = m_buffers[i].get();
+                setup.offsets[i] = 0;
+            }
+        }
+    }
+
+    std::string VertexFactoryStatic::get_friendly_name() const {
+        return m_name.str();
+    }
+
+    const VertexFactoryType& VertexFactoryStatic::get_type_info() const {
+        static VertexFactoryType s_type = {
+                SID("VertexFactoryStatic"),
+                false};
+
+        return s_type;
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_MESH_STATIC_HPP

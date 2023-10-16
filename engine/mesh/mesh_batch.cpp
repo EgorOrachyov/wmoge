@@ -32,6 +32,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
+#include "render/vertex_factory.hpp"
 #include "resource/material.hpp"
 #include "resource/shader.hpp"
 #include "shaders/generated/auto_common_reflection.hpp"
@@ -101,12 +102,12 @@ namespace wmoge {
             }
             Ref<GfxDescSet> gfx_set = m_driver->make_desc_set(gfx_resources, SID("draw_call"));
 
-            GfxVertElements gfx_elements;
-            gfx_elements.add_vert_attribs(batch.vertex_streams[0], batch.vertex_streams[0], 0, false);
+            GfxVertAttribs attribs;
+            batch.vertex_factory->fill_required_attributes(attribs, VertexInputType::Default);
 
             GfxPipelineState gfx_pso_state;
-            gfx_pso_state.shader       = shader->create_variant(batch.vertex_streams, {});
-            gfx_pso_state.vert_format  = m_driver->make_vert_format(gfx_elements, SID(""));
+            gfx_pso_state.shader       = shader->create_variant(attribs, {});
+            gfx_pso_state.vert_format  = batch.vertex_factory->get_vert_format(VertexInputType::Default);
             gfx_pso_state.prim_type    = batch.prim_type;
             gfx_pso_state.poly_mode    = pipeline_state.poly_mode;
             gfx_pso_state.cull_mode    = pipeline_state.cull_mode;
@@ -117,8 +118,12 @@ namespace wmoge {
             gfx_pso_state.blending     = false;
             Ref<GfxPipeline> gfx_pso   = m_driver->make_pipeline(gfx_pso_state, SID(""));
 
+            GfxVertBuffersSetup vert_setup;
+            int                 used_buffers = 0;
+            batch.vertex_factory->fill_setup(VertexInputType::Default, vert_setup, used_buffers);
+
             RenderCmd cmd;
-            cmd.vert_buffers       = batch.vertex_buffers;
+            cmd.vert_buffers       = vert_setup;
             cmd.index_setup        = batch.index_buffer;
             cmd.desc_sets[0]       = view.view_set.get();
             cmd.desc_sets_slots[0] = 0;
@@ -131,8 +136,11 @@ namespace wmoge {
 
             view.queues[int(MeshPassType::GBuffer)].push(RenderCmdKey(), cmd);
 
-            m_transient_pipeliens.push_back(gfx_pso);
-            m_transient_sets.push_back(gfx_set);
+            {
+                std::lock_guard guard(m_mutex);
+                m_transient_pipeliens.push_back(gfx_pso);
+                m_transient_sets.push_back(gfx_set);
+            }
         }
 
         return StatusCode::Ok;
