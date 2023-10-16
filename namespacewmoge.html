@@ -420,6 +420,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx context interface.  <a href="classwmoge_1_1GfxCtx.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLimits.html">GfxLimits</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx common device limits.  <a href="structwmoge_1_1GfxLimits.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">How to bind resource to gfx pipeline.  <a href="structwmoge_1_1GfxLocation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -428,9 +431,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxDrawCall.html">GfxDrawCall</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Config to dispatch a draw.  <a href="structwmoge_1_1GfxDrawCall.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLimits.html">GfxLimits</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx common device limits.  <a href="structwmoge_1_1GfxLimits.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxDeviceCaps.html">GfxDeviceCaps</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx device capabilities.  <a href="structwmoge_1_1GfxDeviceCaps.html#details">More...</a><br /></td></tr>
@@ -498,6 +498,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx device texture resource.  <a href="classwmoge_1_1GfxTexture.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVector.html">GfxVector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device typed vector with managed buffer accessible for rendering.  <a href="classwmoge_1_1GfxVector.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxVertElement.html">GfxVertElement</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure describing single attribute vertex input.  <a href="structwmoge_1_1GfxVertElement.html#details">More...</a><br /></td></tr>
@@ -914,6 +917,15 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages allocation and streaming of all engine textures.  <a href="classwmoge_1_1TextureManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html">VertexFactoryStatic</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex factory with immutable data which can be used for static mesh rendering.  <a href="classwmoge_1_1VertexFactoryStatic.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1VertexFactoryType.html">VertexFactoryType</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Properties of a particular vertex factory type.  <a href="structwmoge_1_1VertexFactoryType.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactory.html">VertexFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates vertex data source which can be linked to the shader.  <a href="classwmoge_1_1VertexFactory.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AudioImportOptions.html">AudioImportOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options to import audio data from an external format.  <a href="structwmoge_1_1AudioImportOptions.html#details">More...</a><br /></td></tr>
@@ -1364,9 +1376,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:acf3ad47e14e0bf37ad2bbc3f6032332e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fc">GfxVertAttrib</a> &gt;</td></tr>
 <tr class="memdesc:acf3ad47e14e0bf37ad2bbc3f6032332e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structwmoge_1_1Mask.html" title="Typed mask to test safely enum flags.">Mask</a> of vertex attributes.  <a href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">More...</a><br /></td></tr>
 <tr class="separator:acf3ad47e14e0bf37ad2bbc3f6032332e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10e46e4a5fa8d90bc4c470ed3ca5b8e4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a10e46e4a5fa8d90bc4c470ed3ca5b8e4">GfxVertAttribsStreams</a> = std::array&lt; <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>, 3 &gt;</td></tr>
-<tr class="memdesc:a10e46e4a5fa8d90bc4c470ed3ca5b8e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decl of vertex attributes streams.  <a href="namespacewmoge.html#a10e46e4a5fa8d90bc4c470ed3ca5b8e4">More...</a><br /></td></tr>
-<tr class="separator:a10e46e4a5fa8d90bc4c470ed3ca5b8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cc10b7e637bbee6ff6ad3bfc865045f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">GfxVertAttribsStreams</a> = std::array&lt; <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>, <a class="el" href="structwmoge_1_1GfxLimits.html#abc3cb525505e69060b15281b6200651a">GfxLimits::MAX_VERT_STREAMS</a> &gt;</td></tr>
+<tr class="memdesc:a6cc10b7e637bbee6ff6ad3bfc865045f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decl of vertex attributes streams.  <a href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">More...</a><br /></td></tr>
+<tr class="separator:a6cc10b7e637bbee6ff6ad3bfc865045f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a221fccd73c6f4fb32f37da7a578e3574"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a221fccd73c6f4fb32f37da7a578e3574">GfxDescSetLayoutDesc</a> = <a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="structwmoge_1_1GfxDescBinging.html">GfxDescBinging</a>, 8 &gt;</td></tr>
 <tr class="memdesc:a221fccd73c6f4fb32f37da7a578e3574"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of res desc for layout creation.  <a href="namespacewmoge.html#a221fccd73c6f4fb32f37da7a578e3574">More...</a><br /></td></tr>
 <tr class="separator:a221fccd73c6f4fb32f37da7a578e3574"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1877,6 +1889,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca1640e616e5215ad432c61d73169656a6">Uv22f</a>
 , <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3">Uv32f</a>
+, <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4">PrimitiveIdi</a>
 , <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca6adf97f83acf6453d4a6a4b1070f3754">None</a>
 <br />
  }</td></tr>
@@ -2212,6 +2225,10 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a5832391885c491cdb650fda65093731f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats of compressed textures.  <a href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">More...</a><br /></td></tr>
 <tr class="separator:a5832391885c491cdb650fda65093731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad630a6e5631da2a852e2e1e04ad13bb5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5">VertexInputType</a> { <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5a7a1920d61156abc05a60135aefe8bc67">Default</a> = 0
+, <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5aae729b97e00ca6e39722e1ecb6247b75">PositionOnly</a> = 1
+ }</td></tr>
+<tr class="separator:ad630a6e5631da2a852e2e1e04ad13bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e71025a280604d8a4f31873d9be442"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a> { <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">Overwrite</a>
 , <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442a02bce93bff905887ad2233110bf9c49e">Keep</a>
  }</td></tr>
@@ -3185,14 +3202,14 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
 
 </div>
 </div>
-<a id="a10e46e4a5fa8d90bc4c470ed3ca5b8e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10e46e4a5fa8d90bc4c470ed3ca5b8e4">&#9670;&nbsp;</a></span>GfxVertAttribsStreams</h2>
+<a id="a6cc10b7e637bbee6ff6ad3bfc865045f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cc10b7e637bbee6ff6ad3bfc865045f">&#9670;&nbsp;</a></span>GfxVertAttribsStreams</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacewmoge.html#a10e46e4a5fa8d90bc4c470ed3ca5b8e4">wmoge::GfxVertAttribsStreams</a> = typedef std::array&lt;<a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>, 3&gt;</td>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">wmoge::GfxVertAttribsStreams</a> = typedef std::array&lt;<a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>, <a class="el" href="structwmoge_1_1GfxLimits.html#abc3cb525505e69060b15281b6200651a">GfxLimits::MAX_VERT_STREAMS</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -5093,6 +5110,7 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca06e4d3f8bd028c28c06fc09eee431bbb"></a>Uv12f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca1640e616e5215ad432c61d73169656a6"></a>Uv22f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3"></a>Uv32f&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4"></a>PrimitiveIdi&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -5912,6 +5930,32 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a6e4f17edabc6b45b13dd9de865c677c7a3e31308401101b464bd8483995035bd2"></a>ArrayString&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6e4f17edabc6b45b13dd9de865c677c7aa54af0c518415b8652d2e2b44872844e"></a>ArrayVec2f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a6e4f17edabc6b45b13dd9de865c677c7aabffd142a8e518eb511b3193a551a9c5"></a>ArrayVec3f&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ad630a6e5631da2a852e2e1e04ad13bb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad630a6e5631da2a852e2e1e04ad13bb5">&#9670;&nbsp;</a></span>VertexInputType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5">wmoge::VertexInputType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad630a6e5631da2a852e2e1e04ad13bb5a7a1920d61156abc05a60135aefe8bc67"></a>Default&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad630a6e5631da2a852e2e1e04ad13bb5aae729b97e00ca6e39722e1ecb6247b75"></a>PositionOnly&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

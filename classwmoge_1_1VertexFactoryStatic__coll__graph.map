@@ -1,0 +1,4 @@
+<map id="wmoge::VertexFactoryStatic" name="wmoge::VertexFactoryStatic">
+<area shape="rect" id="node1" title="Vertex factory with immutable data which can be used for static mesh rendering." alt="" coords="5,80,189,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VertexFactory.html" title="Encapsulates vertex data source which can be linked to the shader." alt="" coords="22,5,173,32"/>
+</map>

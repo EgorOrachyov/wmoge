@@ -1,5 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="5,31,155,57"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RenderMeshSkinned.html" title="Renderable mesh with bones, skin and animation." alt="" coords="203,5,393,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RenderMeshStatic.html" title="Static renderable mesh." alt="" coords="209,56,387,83"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1RenderCmd.html" title="POD&#45;Command representing single draw call." alt="" coords="5,5,144,32"/>
 </map>
