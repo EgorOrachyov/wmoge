@@ -120,6 +120,10 @@ $(function() {
 , <a class="el" href="structwmoge_1_1AuxDrawText.html#ab44fdbe79badac6cd854c82c397b00cd">wmoge::AuxDrawText</a>
 , <a class="el" href="structwmoge_1_1AuxDrawTriangles.html#ab6c660d6d677e223641df0f6508c1ccd">wmoge::AuxDrawTriangles</a>
 </li>
+<li>fill_data()
+: <a class="el" href="classwmoge_1_1RenderMeshStatic.html#a7db6632d0a4e2fbc1dc5080ed815f282">wmoge::RenderMeshStatic</a>
+, <a class="el" href="classwmoge_1_1RenderObject.html#a84fea6bd33e9fc15e4f6fb41de9e0baa">wmoge::RenderObject</a>
+</li>
 <li>fill_elements()
 : <a class="el" href="classwmoge_1_1VertexFactory.html#add421ec251032df7c1d238f25e72af7d">wmoge::VertexFactory</a>
 , <a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a369be9036fb0b0d346c4f548dd710a2e">wmoge::VertexFactoryStatic</a>
@@ -129,7 +133,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ShaderPass.html#a5fba673c6db008a02822cf4db0d59b95">wmoge::ShaderPass</a>
 , <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#ad1fb0d7cf570648cf6ce7747f6615ee2">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#ab6bf6c3c453619a42a354e395d3863b1">wmoge::ShaderPassBase</a>
-, <a class="el" href="classwmoge_1_1ShaderPassMaterialDeferred.html#a862d7d1fd3ce8a20132f478201fbca13">wmoge::ShaderPassMaterialDeferred</a>
+, <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#aa195f17db3723cc17a4e3340781dcaf0">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#a9afc7c8fbe7eb3d00e164d4dcf5bef69">wmoge::ShaderPassText</a>
 </li>
 <li>fill_required_attributes()
@@ -222,6 +226,10 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxDynBuffer.html#a4e8608df2a196d698710f592c25cb70e">wmoge::GfxDynBuffer</a>
 , <a class="el" href="classwmoge_1_1GfxVector.html#af0bd43cfcc5473cb02ed2ce9f82b5f67">wmoge::GfxVector&lt; T, Storage &gt;</a>
 </li>
+<li>flush_buffers()
+: <a class="el" href="classwmoge_1_1RenderEngine.html#a0194a02fd2830e6a0b842af21c040b83">wmoge::RenderEngine</a>
+, <a class="el" href="classwmoge_1_1RenderScene.html#a7028d31542462416630863634036c96e">wmoge::RenderScene</a>
+</li>
 <li>font
 : <a class="el" href="structwmoge_1_1AuxDrawPrimitive_1_1FillParams.html#a595ae171aba3102424bc4dd896bf2161">wmoge::AuxDrawPrimitive::FillParams</a>
 </li>
@@ -279,20 +287,16 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a20cd17eaeb8316ef28b1a8108fe24fc5">wmoge::VKRenderPassBinder</a>
 </li>
 <li>FRAMEDATA_LOC
-: <a class="el" href="structwmoge_1_1ShaderCommon.html#ac9df19c8cac2564c2a3257dc4eaa6cf6">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a67cab0252cae2660a04678eb13c454fc">wmoge::ShaderMaterialDeferred</a>
+: <a class="el" href="structwmoge_1_1ShaderMaterial.html#ad5a0bdff1a8f4136ddd95878cff67849">wmoge::ShaderMaterial</a>
 </li>
 <li>FRAMEDATA_NAME
-: <a class="el" href="structwmoge_1_1ShaderCommon.html#a7046fd56d7aedfeb4a99359081e9a880">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a957140a7f46bcf933a86e2c11b809b6e">wmoge::ShaderMaterialDeferred</a>
+: <a class="el" href="structwmoge_1_1ShaderMaterial.html#afcb058dd905d3f2a934d859703444ccf">wmoge::ShaderMaterial</a>
 </li>
 <li>FRAMEDATA_SET
-: <a class="el" href="structwmoge_1_1ShaderCommon.html#a87d19e64a992b9a167128ac81fb5d647">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a6f05266f58b5f0f6e72a79f07783dcc6">wmoge::ShaderMaterialDeferred</a>
+: <a class="el" href="structwmoge_1_1ShaderMaterial.html#a610e326175f8d51a1007c79232d4db21">wmoge::ShaderMaterial</a>
 </li>
 <li>FRAMEDATA_SLOT
-: <a class="el" href="structwmoge_1_1ShaderCommon.html#a9a196c67d51b184a4eafbb7424b10976">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a477b89e4208d42d1d32c6777dce10b86">wmoge::ShaderMaterialDeferred</a>
+: <a class="el" href="structwmoge_1_1ShaderMaterial.html#a3475222eb57cf47ddea21e82a4141c5b">wmoge::ShaderMaterial</a>
 </li>
 <li>FRAMES_IN_FLIGHT
 : <a class="el" href="structwmoge_1_1GfxLimits.html#ab91a02b9586be4a5c58f4ccb71ba8256">wmoge::GfxLimits</a>

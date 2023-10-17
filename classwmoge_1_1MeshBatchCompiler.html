@@ -82,8 +82,10 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a77c7311b9b49b68fb10257c31a156ee5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html#a77c7311b9b49b68fb10257c31a156ee5">MeshBatchCompiler</a> ()</td></tr>
 <tr class="separator:a77c7311b9b49b68fb10257c31a156ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aba986ebe612bb4a9fe66adfbcb538c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html#a1aba986ebe612bb4a9fe66adfbcb538c">compile_batch</a> (const <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch)</td></tr>
-<tr class="separator:a1aba986ebe612bb4a9fe66adfbcb538c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9186a7d1f3f90afe4ece0b2ea1d31a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html#ac9186a7d1f3f90afe4ece0b2ea1d31a8">compile_batch</a> (const <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch, int batch_index)</td></tr>
+<tr class="separator:ac9186a7d1f3f90afe4ece0b2ea1d31a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74fdce14881b490a42dd62076dd4370d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html#a74fdce14881b490a42dd62076dd4370d">set_scene</a> (class <a class="el" href="classwmoge_1_1RenderScene.html">RenderScene</a> *scene)</td></tr>
+<tr class="separator:a74fdce14881b490a42dd62076dd4370d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad83906f5a3d29be0386c569a6df17bb7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html#ad83906f5a3d29be0386c569a6df17bb7">set_views</a> (<a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; struct <a class="el" href="structwmoge_1_1RenderView.html">RenderView</a> &gt; views)</td></tr>
 <tr class="separator:ad83906f5a3d29be0386c569a6df17bb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13ab92b92372847f301ea045f0b28887"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html#a13ab92b92372847f301ea045f0b28887">set_cameras</a> (<a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> &amp;cameras)</td></tr>
@@ -129,8 +131,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1aba986ebe612bb4a9fe66adfbcb538c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1aba986ebe612bb4a9fe66adfbcb538c">&#9670;&nbsp;</a></span>compile_batch()</h2>
+<a id="ac9186a7d1f3f90afe4ece0b2ea1d31a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9186a7d1f3f90afe4ece0b2ea1d31a8">&#9670;&nbsp;</a></span>compile_batch()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -139,8 +141,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::MeshBatchCompiler::compile_batch </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;&#160;</td>
-          <td class="paramname"><em>batch</em></td><td>)</td>
+          <td class="paramname"><em>batch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>batch_index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -158,6 +170,24 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> &amp;&#160;</td>
           <td class="paramname"><em>cameras</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a74fdce14881b490a42dd62076dd4370d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74fdce14881b490a42dd62076dd4370d">&#9670;&nbsp;</a></span>set_scene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::MeshBatchCompiler::set_scene </td>
+          <td>(</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1RenderScene.html">RenderScene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

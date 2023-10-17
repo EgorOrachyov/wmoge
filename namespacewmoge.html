@@ -897,6 +897,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderQueue.html">RenderQueue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe queue to collect and sort draw commands for gfx submission.  <a href="structwmoge_1_1RenderQueue.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html">RenderScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render <a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> side scene representation with cached GPU data.  <a href="classwmoge_1_1RenderScene.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderBuilder.html">ShaderBuilder</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder of a particular gfx shader variation.  <a href="structwmoge_1_1ShaderBuilder.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1274,14 +1277,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderBase.html">ShaderBase</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated reflection for 'base' shader.  <a href="structwmoge_1_1ShaderBase.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCommon.html">ShaderCommon</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated reflection for 'common' shader.  <a href="structwmoge_1_1ShaderCommon.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPassMaterial.html">ShaderPassMaterial</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated pass for 'material' shader.  <a href="classwmoge_1_1ShaderPassMaterial.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPassMaterialDeferred.html">ShaderPassMaterialDeferred</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated pass for '<a class="el" href="namespacematerial__deferred.html">material_deferred</a>' shader.  <a href="classwmoge_1_1ShaderPassMaterialDeferred.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html">ShaderMaterialDeferred</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated reflection for '<a class="el" href="namespacematerial__deferred.html">material_deferred</a>' shader.  <a href="structwmoge_1_1ShaderMaterialDeferred.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderMaterial.html">ShaderMaterial</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated reflection for 'material' shader.  <a href="structwmoge_1_1ShaderMaterial.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPassText.html">ShaderPassText</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated pass for 'text' shader.  <a href="classwmoge_1_1ShaderPassText.html#details">More...</a><br /></td></tr>
@@ -1467,6 +1467,15 @@ Typedefs</h2></td></tr>
 <tr class="separator:ab43860f6aea79611cd870a62926080ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fbbdaf7158eee8430c7b41a447bc9eb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6fbbdaf7158eee8430c7b41a447bc9eb">InputModifiers</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#af6c029d922697c858683d0b33390faad">InputModifier</a>, 8 &gt;</td></tr>
 <tr class="separator:a6fbbdaf7158eee8430c7b41a447bc9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45ea890ea8d16bfc309c68b8e4e0253c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a45ea890ea8d16bfc309c68b8e4e0253c">GPUFrameData</a> = <a class="el" href="structwmoge_1_1ShaderMaterial_1_1FrameData.html">ShaderMaterial::FrameData</a></td></tr>
+<tr class="memdesc:a45ea890ea8d16bfc309c68b8e4e0253c"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Autogenerated) Per-frame global allocated data passed to GPU for rendering  <a href="namespacewmoge.html#a45ea890ea8d16bfc309c68b8e4e0253c">More...</a><br /></td></tr>
+<tr class="separator:a45ea890ea8d16bfc309c68b8e4e0253c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05c0eae2e0ff005eaeb32a2b16df5a6a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a05c0eae2e0ff005eaeb32a2b16df5a6a">GPUViewData</a> = <a class="el" href="structwmoge_1_1ShaderMaterial_1_1ViewData.html">ShaderMaterial::ViewData</a></td></tr>
+<tr class="memdesc:a05c0eae2e0ff005eaeb32a2b16df5a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Autogenerated) Common view data and matrices passed to GPU for rendering  <a href="namespacewmoge.html#a05c0eae2e0ff005eaeb32a2b16df5a6a">More...</a><br /></td></tr>
+<tr class="separator:a05c0eae2e0ff005eaeb32a2b16df5a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200c73304e3c4c506f0d1d3c948a9dee"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a200c73304e3c4c506f0d1d3c948a9dee">GPURenderObjectData</a> = <a class="el" href="structwmoge_1_1ShaderMaterial_1_1RenderObjectData.html">ShaderMaterial::RenderObjectData</a></td></tr>
+<tr class="memdesc:a200c73304e3c4c506f0d1d3c948a9dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Autogenerated) Single render object data passed to a GPU for rendering  <a href="namespacewmoge.html#a200c73304e3c4c506f0d1d3c948a9dee">More...</a><br /></td></tr>
+<tr class="separator:a200c73304e3c4c506f0d1d3c948a9dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba7a1a56d34d9dc3f4481d4cf54eeeea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a> = <a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt; &gt;</td></tr>
 <tr class="memdesc:aba7a1a56d34d9dc3f4481d4cf54eeeea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function called when resource loading request is finished.  <a href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">More...</a><br /></td></tr>
 <tr class="separator:aba7a1a56d34d9dc3f4481d4cf54eeeea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2227,7 +2236,9 @@ Enumerations</h2></td></tr>
 <tr class="separator:a5832391885c491cdb650fda65093731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad630a6e5631da2a852e2e1e04ad13bb5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5">VertexInputType</a> { <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5a7a1920d61156abc05a60135aefe8bc67">Default</a> = 0
 , <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5aae729b97e00ca6e39722e1ecb6247b75">PositionOnly</a> = 1
+, <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5a96b0141273eabab320119c467cdcaf17">Total</a> = 2
  }</td></tr>
+<tr class="memdesc:ad630a6e5631da2a852e2e1e04ad13bb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of required vertex input.  <a href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5">More...</a><br /></td></tr>
 <tr class="separator:ad630a6e5631da2a852e2e1e04ad13bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e71025a280604d8a4f31873d9be442"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a> { <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">Overwrite</a>
 , <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442a02bce93bff905887ad2233110bf9c49e">Keep</a>
@@ -3215,6 +3226,54 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
 </div><div class="memdoc">
 
 <p>Decl of vertex attributes streams. </p>
+
+</div>
+</div>
+<a id="a45ea890ea8d16bfc309c68b8e4e0253c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45ea890ea8d16bfc309c68b8e4e0253c">&#9670;&nbsp;</a></span>GPUFrameData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a45ea890ea8d16bfc309c68b8e4e0253c">wmoge::GPUFrameData</a> = typedef <a class="el" href="structwmoge_1_1ShaderMaterial_1_1FrameData.html">ShaderMaterial::FrameData</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Autogenerated) Per-frame global allocated data passed to GPU for rendering </p>
+
+</div>
+</div>
+<a id="a200c73304e3c4c506f0d1d3c948a9dee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a200c73304e3c4c506f0d1d3c948a9dee">&#9670;&nbsp;</a></span>GPURenderObjectData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a200c73304e3c4c506f0d1d3c948a9dee">wmoge::GPURenderObjectData</a> = typedef <a class="el" href="structwmoge_1_1ShaderMaterial_1_1RenderObjectData.html">ShaderMaterial::RenderObjectData</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Autogenerated) Single render object data passed to a GPU for rendering </p>
+
+</div>
+</div>
+<a id="a05c0eae2e0ff005eaeb32a2b16df5a6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05c0eae2e0ff005eaeb32a2b16df5a6a">&#9670;&nbsp;</a></span>GPUViewData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a05c0eae2e0ff005eaeb32a2b16df5a6a">wmoge::GPUViewData</a> = typedef <a class="el" href="structwmoge_1_1ShaderMaterial_1_1ViewData.html">ShaderMaterial::ViewData</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>(Autogenerated) Common view data and matrices passed to GPU for rendering </p>
 
 </div>
 </div>
@@ -5953,9 +6012,12 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Type of required vertex input. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad630a6e5631da2a852e2e1e04ad13bb5a7a1920d61156abc05a60135aefe8bc67"></a>Default&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad630a6e5631da2a852e2e1e04ad13bb5aae729b97e00ca6e39722e1ecb6247b75"></a>PositionOnly&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad630a6e5631da2a852e2e1e04ad13bb5a96b0141273eabab320119c467cdcaf17"></a>Total&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

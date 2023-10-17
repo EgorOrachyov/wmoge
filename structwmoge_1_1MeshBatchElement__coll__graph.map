@@ -1,7 +1,5 @@
 <map id="wmoge::MeshBatchElement" name="wmoge::MeshBatchElement">
-<area shape="rect" id="node1" title="Single instance of a mesh batch subset with unique transform to draw." alt="" coords="308,95,491,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="11,5,166,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="5,57,172,98"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="17,123,160,149"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="31,173,146,200"/>
+<area shape="rect" id="node1" title="Single instance of a mesh batch subset with unique transform to draw." alt="" coords="61,95,244,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="173,5,287,32"/>
 </map>

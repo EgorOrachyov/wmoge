@@ -1,22 +1,20 @@
 <map id="wmoge::MeshBatch" name="wmoge::MeshBatch">
-<area shape="rect" id="node1" title="Batch of mesh elements with the same vertex/index buffer and material instances." alt="" coords="1507,205,1643,232"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry." alt="" coords="1044,16,1160,43"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="540,16,665,43"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="345,16,453,43"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,36,144,63"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="327,83,472,109"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1VertexFactory.html" title="Encapsulates vertex data source which can be linked to the shader." alt="" coords="1203,231,1354,257"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1RenderCameraMask.html" title="Mask of toggled cameras, can be used for filtering and culling." alt="" coords="1185,281,1373,308"/>
-<area shape="rect" id="node8" title=" " alt="" coords="853,274,1020,315"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1MeshPassList.html" title="List with compiled PSO states to render mesh in multiple passes." alt="" coords="1201,332,1356,359"/>
-<area shape="rect" id="node10" href="$structwmoge_1_1GfxIndexBufferSetup.html" title="Setup to bind an index buffer." alt="" coords="1184,77,1373,104"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="859,77,1014,104"/>
-<area shape="rect" id="node12" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="541,77,665,104"/>
-<area shape="rect" id="node19" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="689,128,829,155"/>
-<area shape="rect" id="node14" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="31,99,146,125"/>
-<area shape="rect" id="node15" href="$structwmoge_1_1MeshBatchElement.html" title="Single instance of a mesh batch subset with unique transform to draw." alt="" coords="308,180,491,207"/>
-<area shape="rect" id="node16" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="11,175,166,201"/>
-<area shape="rect" id="node17" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="5,227,172,269"/>
-<area shape="rect" id="node18" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="17,293,160,320"/>
-<area shape="rect" id="node20" href="$classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="1204,383,1353,409"/>
+<area shape="rect" id="node1" title="Batch of mesh elements with the same vertex/index buffer and material instances." alt="" coords="1453,204,1589,231"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry." alt="" coords="991,16,1107,43"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="487,16,612,43"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="292,17,400,44"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="21,37,132,64"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="273,83,419,109"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1VertexFactory.html" title="Encapsulates vertex data source which can be linked to the shader." alt="" coords="1150,229,1301,256"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1RenderCameraMask.html" title="Mask of toggled cameras, can be used for filtering and culling." alt="" coords="1131,280,1319,307"/>
+<area shape="rect" id="node8" title=" " alt="" coords="800,273,967,314"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1MeshPassList.html" title="List with compiled PSO states to render mesh in multiple passes." alt="" coords="1148,331,1303,357"/>
+<area shape="rect" id="node10" href="$structwmoge_1_1GfxIndexBufferSetup.html" title="Setup to bind an index buffer." alt="" coords="1131,76,1320,103"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="806,76,961,103"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="487,76,611,103"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="636,127,776,153"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="19,100,134,127"/>
+<area shape="rect" id="node15" href="$structwmoge_1_1MeshBatchElement.html" title="Single instance of a mesh batch subset with unique transform to draw." alt="" coords="255,176,437,203"/>
+<area shape="rect" id="node16" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="5,176,148,203"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="1151,381,1300,408"/>
 </map>

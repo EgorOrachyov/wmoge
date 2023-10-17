@@ -97,13 +97,12 @@ $(function() {
 <li>NAME
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#aa46fdd990cf8e1f3151cbde54ea92293">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a5868e6eb820cd638618b22915c70fbe3">wmoge::ShaderBase</a>
-, <a class="el" href="structwmoge_1_1ShaderCommon.html#a290b997c007c1e1f8b1c317adc52abdf">wmoge::ShaderCommon</a>
 </li>
 <li>name
 : <a class="el" href="structwmoge_1_1ShaderData.html#af6637520992fd4d71e90ea67d97fa350">wmoge::ShaderData</a>
 </li>
 <li>NAME
-: <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a3c5958010ba22e2494939b7366ecbb48">wmoge::ShaderMaterialDeferred</a>
+: <a class="el" href="structwmoge_1_1ShaderMaterial.html#af992d6994138344512f9deb14f6d77b9">wmoge::ShaderMaterial</a>
 </li>
 <li>name
 : <a class="el" href="structwmoge_1_1ShaderParameter.html#a5a4d47221bce168a284b3336faa26470">wmoge::ShaderParameter</a>
@@ -145,7 +144,7 @@ $(function() {
 : <a class="el" href="classreflection_1_1BindingAllocator.html#acce5c8d8b6dd0ee7b86d77c24eb841e1">reflection.BindingAllocator</a>
 </li>
 <li>next_uint64()
-: <a class="el" href="classwmoge_1_1Random.html#a7ff6fe9e1129ff83f80d7328ec04b16f">wmoge::Random</a>
+: <a class="el" href="classwmoge_1_1Random.html#a62170dbc260c4190ed083ff0ea6ab91e">wmoge::Random</a>
 </li>
 <li>no_alpha
 : <a class="el" href="classwmoge_1_1HgfxPassBase.html#ac0339c5311a4d72dc8361fba6c3a8802">wmoge::HgfxPassBase</a>
@@ -171,6 +170,9 @@ $(function() {
 : <a class="el" href="classwmoge_1_1TQuat.html#a7da846551ef6b169ce47b3e8bb2ea166">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a6bb216118c72bdf7c4e1536c93eb9461">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
+<li>NormalMatrix
+: <a class="el" href="structwmoge_1_1ShaderMaterial_1_1RenderObjectData.html#accb444fb711b0c1594b49a065ccc583c">wmoge::ShaderMaterial::RenderObjectData</a>
+</li>
 <li>notification
 : <a class="el" href="classwmoge_1_1EventResource.html#ac8b7b38d7f8bfa882a3bc11019819905">wmoge::EventResource</a>
 , <a class="el" href="classwmoge_1_1EventToken.html#a0b07e03970a87a135466f7fdb529842d">wmoge::EventToken</a>
@@ -191,15 +193,13 @@ $(function() {
 <li>NUM_BUFFERS
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a63870a4b062ea83701c388578be897a8">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a8195a189bff278a0657bb3b975b831b0">wmoge::ShaderBase</a>
-, <a class="el" href="structwmoge_1_1ShaderCommon.html#a2c792cfb50bb017c27e7ed6489545773">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a753e2361f00e24bef289fb4cedebc7e4">wmoge::ShaderMaterialDeferred</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterial.html#aab9410646bd331c3285b2ae066665445">wmoge::ShaderMaterial</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#af857c95063a54d853a01498b5433581d">wmoge::ShaderText</a>
 </li>
 <li>NUM_CONSTS
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a4ee3a42a28aefb911f58f040bac73558">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#af504fd81dc9816ed25cd7a1719e46da8">wmoge::ShaderBase</a>
-, <a class="el" href="structwmoge_1_1ShaderCommon.html#a3d330083a1c9e0ebd47eb6053abd899b">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#ad9844fd04ea3df78ef37c2195c21c28d">wmoge::ShaderMaterialDeferred</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterial.html#a6eb95af5cdcabd593abf3dd0ba0f8d52">wmoge::ShaderMaterial</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a070b03364a5e0ed19884ee65e2f03b22">wmoge::ShaderText</a>
 </li>
 <li>NUM_DESC_SETS
@@ -208,8 +208,7 @@ $(function() {
 <li>NUM_FILES
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a1ffcad763ee7d60036ea78ea25adbb54">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a59f601e256229f9165beaadd2a7e799b">wmoge::ShaderBase</a>
-, <a class="el" href="structwmoge_1_1ShaderCommon.html#afabe920fd7916267cfd47f3fa723a1dd">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#a70fc1a7f1aedd890e39660f2a90efd5f">wmoge::ShaderMaterialDeferred</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterial.html#aa5431ba7ca9f9f61d25c7e78cc3c9c17">wmoge::ShaderMaterial</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#af0462f84322c03bcfe64c6e6fc58c4aa">wmoge::ShaderText</a>
 </li>
 <li>num_indices
@@ -227,8 +226,7 @@ $(function() {
 <li>NUM_SAMPLERS
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#ab17b2fe24488a3d2f5ec4b62761fec45">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a2b7370e80bb0b9d31a5280333afe36c5">wmoge::ShaderBase</a>
-, <a class="el" href="structwmoge_1_1ShaderCommon.html#ad9a116d50a8e273891f0031cc2ecf3d0">wmoge::ShaderCommon</a>
-, <a class="el" href="structwmoge_1_1ShaderMaterialDeferred.html#ab51e5ef9b5ee771a1c431d8d5f1bfd2f">wmoge::ShaderMaterialDeferred</a>
+, <a class="el" href="structwmoge_1_1ShaderMaterial.html#a05ac147d91c5217be0bd2656191e4b65">wmoge::ShaderMaterial</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a74a408d97c3ea48dd0f9c3ee45a4e010">wmoge::ShaderText</a>
 </li>
 <li>num_threads
