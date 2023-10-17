@@ -35,6 +35,7 @@
 #include "math/mat.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "render/render_camera.hpp"
+#include "render/render_scene.hpp"
 #include "resource/material.hpp"
 
 #include <optional>
@@ -52,6 +53,7 @@ namespace wmoge {
 
         virtual void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) = 0;
         virtual void                         update_transform(const Mat4x4f& l2w)                                                        = 0;
+        virtual void                         fill_data(GPURenderObjectData& gpu_data)                                                    = 0;
         virtual bool                         has_materials() const                                                                       = 0;
         virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
         virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;

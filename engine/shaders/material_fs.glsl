@@ -7,9 +7,8 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#define INOUT in
-#define FRAGMENT_SHADER
 #include "inout_attributes.glsl"
+#include "scene_data.glsl"
 
 struct MaterialAttributes {
     vec4 baseColor;

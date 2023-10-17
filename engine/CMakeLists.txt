@@ -267,6 +267,8 @@ add_library(wmoge STATIC
         render/render_object.hpp
         render/render_queue.cpp
         render/render_queue.hpp
+        render/render_scene.cpp
+        render/render_scene.hpp
         render/shader_builder.cpp
         render/shader_builder.hpp
         render/shader_manager.cpp

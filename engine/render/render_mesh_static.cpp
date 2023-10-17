@@ -56,8 +56,6 @@ namespace wmoge {
             element.draw_call.base      = chunk.vertex_offset;
             element.draw_call.count     = chunk.index_count;
             element.draw_call.instances = 1;
-            element.transform           = m_transform_l2w;
-            element.transform_prev      = m_transform_l2w;// static mesh has no movement and motion
 
             MeshBatch batch;
             batch.elements[0]             = element;
@@ -78,6 +76,12 @@ namespace wmoge {
 
     void RenderMeshStatic::update_transform(const Mat4x4f& l2w) {
         m_transform_l2w = l2w;
+    }
+
+    void RenderMeshStatic::fill_data(GPURenderObjectData& gpu_data) {
+        gpu_data.LocalToWorld     = m_transform_l2w.transpose();
+        gpu_data.LocalToWorldPrev = m_transform_l2w.transpose();
+        gpu_data.NormalMatrix     = m_transform_l2w.transpose();
     }
 
     bool RenderMeshStatic::has_materials() const {

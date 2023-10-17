@@ -50,6 +50,7 @@ namespace wmoge {
 
         void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
         void                         update_transform(const Mat4x4f& l2w) override;
+        void                         fill_data(GPURenderObjectData& gpu_data) override;
         bool                         has_materials() const override;
         std::optional<Ref<Material>> get_material() const override;
         std::vector<Ref<Material>>   get_materials() const override;

@@ -4,7 +4,7 @@ parameters:
    value: "1 1 1 1"    
 textures: []
 keywords: []
-domain: "material_deferred" 
+domain: "material" 
 state:
  cull_mode: Back
  depth_enable: true
@@ -12,8 +12,8 @@ state:
  depth_func: Less
 vertex: >
     void Vertex(inout ShaderInoutVs vs) {
-        vs.result.worldPos = vec3(Model * vec4(vs.attributes.pos3, 1.0f));
-        vs.result.worldNorm = vec3(Model * vec4(vs.attributes.norm, 0.0f));
+        vs.result.worldPos = TransformLocalToWorld(vs.attributes.pos3, vs.attributes.primitiveId);
+        vs.result.worldNorm = TransformLocalToWorldNormal(vs.attributes.pos3, vs.attributes.primitiveId);
     }
 fragment: >
     void Fragment(inout ShaderInoutFs fs) {

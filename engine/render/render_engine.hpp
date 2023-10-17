@@ -43,8 +43,10 @@
 #include "render/render_defs.hpp"
 #include "render/render_object.hpp"
 #include "render/render_queue.hpp"
+#include "render/render_scene.hpp"
 
 #include <array>
+#include <optional>
 
 namespace wmoge {
 
@@ -75,6 +77,7 @@ namespace wmoge {
      * @see RenderObject
      * @see RenderCamera
      * @see RenderCameras
+     * @see RenderObjectCollector
      * @see MeshBatchCollector
      * @see MeshBatchCompiler
      */
@@ -86,37 +89,47 @@ namespace wmoge {
         void set_delta_time(float delta_time);
         void set_target(const Ref<Window>& window);
         void set_clear_color(const Color4f& color);
+        void set_scene(RenderScene* scene);
 
         void begin_rendering();
         void end_rendering();
 
         void prepare_frame_data();
+        void reserve_buffers();
         void allocate_veiws();
-        void collect_batches(RenderObjectCollector& objects);
+        void collect_batches();
         void compile_batches();
+        void flush_buffers();
         void render_aux_geom(AuxDrawManager& aux_draw_manager);
 
-        [[nodiscard]] RenderCameras&               get_cameras() { return m_cameras; }
-        [[nodiscard]] MeshBatchCollector&          get_collector() { return m_collector; }
-        [[nodiscard]] MeshBatchCompiler&           get_compiler() { return m_compiler; }
-        [[nodiscard]] ArrayView<RenderView>        get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
-        [[nodiscard]] float                        get_time() const { return m_time; }
-        [[nodiscard]] float                        get_delta_time() const { return m_delta_time; }
-        [[nodiscard]] const Color4f&               get_clear_color() const { return m_clear_color; }
-        [[nodiscard]] const Ref<Window>&           get_main_target() const { return m_main_target; }
-        [[nodiscard]] const Ref<GfxUniformBuffer>& get_frame_data() const { return m_frame_data; }
+        [[nodiscard]] RenderCameras&                     get_cameras() { return m_cameras; }
+        [[nodiscard]] RenderObjectCollector&             get_obejcts_collector() { return m_objects_collector; }
+        [[nodiscard]] MeshBatchCollector&                get_batch_collector() { return m_batch_collector; }
+        [[nodiscard]] MeshBatchCompiler&                 get_batch_compiler() { return m_batch_compiler; }
+        [[nodiscard]] ArrayView<RenderView>              get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
+        [[nodiscard]] float                              get_time() const { return m_time; }
+        [[nodiscard]] float                              get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] const Color4f&                     get_clear_color() const { return m_clear_color; }
+        [[nodiscard]] const Ref<Window>&                 get_main_target() const { return m_main_target; }
+        [[nodiscard]] const Ref<GfxUniformBuffer>&       get_frame_data() const { return m_frame_data; }
+        [[nodiscard]] const std::optional<RenderCamera>& get_camera_prev() const { return m_camera_prev; }
 
     private:
-        RenderCameras                                   m_cameras;
-        MeshBatchCollector                              m_collector;
-        MeshBatchCompiler                               m_compiler;
         std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
-        float                                           m_time        = 0.0f;
-        float                                           m_delta_time  = 0.0f;
-        Color4f                                         m_clear_color = Color::BLACK4f;
-        Ref<Window>                                     m_main_target;
-        Ref<GfxUniformBuffer>                           m_frame_data;
-        int                                             m_batch_size = 4;
+        RenderObjectCollector                           m_objects_collector;
+        MeshBatchCollector                              m_batch_collector;
+        MeshBatchCompiler                               m_batch_compiler;
+        RenderCameras                                   m_cameras;
+
+        Color4f                     m_clear_color = Color::BLACK4f;
+        Ref<Window>                 m_main_target;
+        Ref<GfxUniformBuffer>       m_frame_data;
+        std::optional<RenderCamera> m_camera_prev;
+        RenderScene*                m_scene = nullptr;
+
+        float m_time       = 0.0f;
+        float m_delta_time = 0.0f;
+        int   m_batch_size = 4;
     };
 
 }// namespace wmoge

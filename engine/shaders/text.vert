@@ -7,8 +7,6 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#version 450 core
-
 #include "common_funcs.glsl"
 
 //@ in vec3 inPos3f;
@@ -32,6 +30,6 @@ LAYOUT_LOCATION(1) out vec2 fsUv02f;
 
 void main() {
     fsCol04f = inCol04f;
-    fsUv02f = unpack_uv(inUv02f);
+    fsUv02f = UnpackUv(inUv02f);
     gl_Position = mat_clip_proj_screen * vec4(inPos3f, 1.0f);
 }

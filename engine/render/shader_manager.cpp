@@ -43,7 +43,7 @@
 // built-in passes
 #include "shaders/generated/auto_aux_draw_canvas_pass.hpp"
 #include "shaders/generated/auto_base_pass.hpp"
-#include "shaders/generated/auto_material_deferred_pass.hpp"
+#include "shaders/generated/auto_material_pass.hpp"
 #include "shaders/generated/auto_text_pass.hpp"
 
 #include <array>
@@ -354,7 +354,7 @@ namespace wmoge {
         register_pass(std::make_unique<ShaderPassBase>());
         register_pass(std::make_unique<ShaderPassText>());
         register_pass(std::make_unique<ShaderPassAuxDrawCanvas>());
-        register_pass(std::make_unique<ShaderPassMaterialDeferred>());
+        register_pass(std::make_unique<ShaderPassMaterial>());
     }
     void ShaderManager::load_sources_from_disk() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_disk");

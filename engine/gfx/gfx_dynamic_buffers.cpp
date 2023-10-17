@@ -57,13 +57,13 @@ namespace wmoge {
 
         if (size_exp.second >= m_buckets.size()) {
             m_buckets.resize(size_exp.second + 1);
-            WG_LOG_INFO("pool new bucket" << size_exp.first << " id=" << size_exp.second);
+            WG_LOG_INFO("pool new bucket size=" << size_exp.first << " id=" << size_exp.second);
         }
 
         Bucket& bucket = m_buckets[size_exp.second];
 
         if (bucket.next >= bucket.buffers.size()) {
-            bucket.buffers.push_back(gfx_driver->make_uniform_buffer(int(size_exp.first), GfxMemUsage::GpuLocal, SID(m_name.str() + "@" + std::to_string(size_exp.first))));
+            bucket.buffers.push_back(gfx_driver->make_uniform_buffer(int(size_exp.first), GfxMemUsage::GpuLocal, SID(m_name.str() + " size=" + std::to_string(size_exp.first))));
             WG_LOG_INFO("pool new chunk size=" << size_exp.first << " id=" << size_exp.second);
         }
 
@@ -105,7 +105,7 @@ namespace wmoge {
 
                 int size = int(Math::ge_pow2_val(Math::max(m_default_chunk_size, required_size)));
 
-                chunk.buffer = make_buffer(size, SID(m_name.str() + "-" + StringUtils::from_int(m_current_chunk)));
+                chunk.buffer = make_buffer(size, SID(m_name.str() + " n=" + StringUtils::from_int(m_current_chunk)));
                 chunk.offset = 0;
             }
             if (!m_chunks[m_current_chunk].mapping) {
@@ -162,7 +162,7 @@ namespace wmoge {
             m_chunks.clear();
 
             auto& chunk  = m_chunks.emplace_back();
-            chunk.buffer = make_buffer(recycle_size, SID(m_name.str() + "-" + StringUtils::from_int(m_current_chunk)));
+            chunk.buffer = make_buffer(recycle_size, SID(m_name.str() + " n=" + StringUtils::from_int(m_current_chunk)));
             chunk.offset = 0;
         }
     }

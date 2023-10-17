@@ -38,7 +38,7 @@ void main() {
     #endif
 
     #ifdef OUT_SRGB
-        result_color.rgb = linear_to_srgb(result_color.rgb, inverse_gamma);
+        result_color.rgb = ColorLinearToSrgb(result_color.rgb, inverse_gamma);
     #endif
 
     #ifdef NO_ALPHA

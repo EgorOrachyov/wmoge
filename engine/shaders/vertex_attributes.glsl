@@ -16,9 +16,10 @@ struct VertexAttributes {
     vec4 boneWeigths;
     vec4 col[4];
     vec2 uv[4];
+    int primitiveId;
 };
 
-VertexAttributes ReadVertexAttributes() {
+VertexAttributes GetVertexAttributesDefault() {
     VertexAttributes attributes;
     attributes.pos3 = vec3(0,0,0);
     attributes.pos2 = vec2(0,0);
@@ -34,6 +35,13 @@ VertexAttributes ReadVertexAttributes() {
     attributes.uv[1] = vec2(0,0);
     attributes.uv[2] = vec2(0,0);
     attributes.uv[3] = vec2(0,0);
+    attributes.primitiveId = -1;
+    
+    return attributes;
+}
+
+VertexAttributes ReadVertexAttributes() {
+    VertexAttributes attributes = GetVertexAttributesDefault();
 
     #ifdef ATTRIB_Pos3f
         attributes.pos3 = inPos3f;
@@ -89,6 +97,10 @@ VertexAttributes ReadVertexAttributes() {
 
     #ifdef ATTRIB_Uv32f
         attributes.uv[3] = inUv32f;
+    #endif
+
+    #ifdef ATTRIB_PrimitiveIdi
+        attributes.primitiveId = inPrimitiveIdi;
     #endif
 
     return attributes;

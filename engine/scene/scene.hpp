@@ -35,6 +35,7 @@
 #include "ecs/ecs_world.hpp"
 #include "math/transform.hpp"
 #include "platform/window.hpp"
+#include "render/render_scene.hpp"
 #include "resource/model.hpp"
 #include "resource/resource_ref.hpp"
 #include "scene/scene_camera.hpp"
@@ -166,6 +167,7 @@ namespace wmoge {
         [[nodiscard]] EcsWorld*              get_ecs_world();
         [[nodiscard]] SceneTransformManager* get_transforms();
         [[nodiscard]] CameraManager*         get_cameras();
+        [[nodiscard]] RenderScene*           get_render_scene();
         [[nodiscard]] float                  get_time() const { return m_time; }
         [[nodiscard]] float                  get_time_factor() const { return m_time_factor; }
         [[nodiscard]] float                  get_delta_time() const { return m_delta_time; }
@@ -176,6 +178,7 @@ namespace wmoge {
         std::unique_ptr<EcsWorld>              m_ecs_world;
         std::unique_ptr<SceneTransformManager> m_transforms;
         std::unique_ptr<CameraManager>         m_cameras;
+        std::unique_ptr<RenderScene>           m_render_scene;
         StringId                               m_name;
         float                                  m_time          = 0.0f;
         float                                  m_time_factor   = 1.0f;

@@ -6,6 +6,7 @@ SHADER = Shader(
     name="aux_draw_canvas",
     cls="AuxDrawCanvas",
     constants=[],
+    structs=[],
     buffers=[
         UniformBuffer(
             "Params",

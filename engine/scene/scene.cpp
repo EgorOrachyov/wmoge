@@ -88,10 +88,11 @@ namespace wmoge {
     }
 
     Scene::Scene(StringId name) {
-        m_name       = name;
-        m_transforms = std::make_unique<SceneTransformManager>();
-        m_ecs_world  = std::make_unique<EcsWorld>();
-        m_cameras    = std::make_unique<CameraManager>();
+        m_name         = name;
+        m_transforms   = std::make_unique<SceneTransformManager>();
+        m_ecs_world    = std::make_unique<EcsWorld>();
+        m_cameras      = std::make_unique<CameraManager>();
+        m_render_scene = std::make_unique<RenderScene>();
     }
     Status Scene::build(const SceneData& data) {
         return StatusCode::Ok;
@@ -128,6 +129,9 @@ namespace wmoge {
     }
     CameraManager* Scene::get_cameras() {
         return m_cameras.get();
+    }
+    RenderScene* Scene::get_render_scene() {
+        return m_render_scene.get();
     }
 
 }// namespace wmoge

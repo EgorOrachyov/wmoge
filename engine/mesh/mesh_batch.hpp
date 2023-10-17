@@ -55,11 +55,8 @@ namespace wmoge {
      * @brief Single instance of a mesh batch subset with unique transform to draw
      */
     struct MeshBatchElement final {
-        StringId    name;          //< Unique element name for debug
-        Aabbf       bounds;        //< Bounding box of the element
-        Mat4x4f     transform;     //< Transform to apply on rendering
-        Mat4x4f     transform_prev;//< Prev frame transform for motion
-        GfxDrawCall draw_call;     //< Params to dispatch a draw
+        StringId    name;     //< Unique element name for debug
+        GfxDrawCall draw_call;//< Params to dispatch a draw
     };
 
     static_assert(std::is_trivially_destructible_v<MeshBatchElement>, "mesh element must be trivial as possible");
@@ -72,7 +69,7 @@ namespace wmoge {
         MeshBatchElement     elements[1];                            //< List of batch elements to draw
         GfxIndexBufferSetup  index_buffer;                           //< Optional index buffer with batch indices
         RenderCameraMask     cam_mask;                               //< Mask in which cameras mesh batch wants to be rendered
-        class VertexFactory* vertex_factory = nullptr;               //< Fertex factory to provide vertex data and format
+        class VertexFactory* vertex_factory = nullptr;               //< Vertex factory to provide vertex data and format
         class Material*      material       = nullptr;               //< Material to apply to rendered elements
         class GfxDescSet*    mesh_params    = nullptr;               //< Mesh descriptor set with batch common resources
         class MeshPassList*  pass_list      = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
@@ -100,6 +97,8 @@ namespace wmoge {
         [[nodiscard]] GfxDynVertBuffer*          get_dyn_vbuff() const { return m_dyn_vbuff; }
         [[nodiscard]] GfxDynIndexBuffer*         get_dyn_ibuff() const { return m_dyn_ibuff; }
         [[nodiscard]] GfxDynUniformBuffer*       get_dyn_ubuff() const { return m_dyn_ubuff; }
+        [[nodiscard]] int                        get_size() const { return int(m_batches.size()); }
+        [[nodiscard]] bool                       is_empty() const { return m_batches.empty(); }
 
     private:
         std::vector<MeshBatch> m_batches;
@@ -119,22 +118,19 @@ namespace wmoge {
     public:
         MeshBatchCompiler();
 
-        Status compile_batch(const MeshBatch& batch);
+        Status compile_batch(const MeshBatch& batch, int batch_index);
+        void   set_scene(class RenderScene* scene);
         void   set_views(ArrayView<struct RenderView> views);
         void   set_cameras(RenderCameras& cameras);
         void   clear();
 
     private:
         ArrayView<struct RenderView> m_views;
-        RenderCameras*               m_cameras;
-        class ShaderManager*         m_shader_manager;
-        class GfxDriver*             m_driver;
-        class GfxCtx*                m_ctx;
-
-        std::vector<Ref<GfxPipeline>> m_transient_pipeliens;
-        std::vector<Ref<GfxDescSet>>  m_transient_sets;
-
-        SpinMutex m_mutex;
+        RenderCameras*               m_cameras        = nullptr;
+        class RenderScene*           m_scene          = nullptr;
+        class ShaderManager*         m_shader_manager = nullptr;
+        class GfxDriver*             m_driver         = nullptr;
+        class GfxCtx*                m_ctx            = nullptr;
     };
 
 }// namespace wmoge

@@ -55,6 +55,7 @@ namespace wmoge {
             if (m_attribs[i].bits.any()) {
                 setup.buffers[i] = m_buffers[i].get();
                 setup.offsets[i] = 0;
+                used_buffers += 1;
             }
         }
     }

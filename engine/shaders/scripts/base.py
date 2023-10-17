@@ -6,6 +6,7 @@ SHADER = Shader(
     name="base",
     cls="Base",
     constants=[],
+    structs=[],
     buffers=[
         UniformBuffer(
             "Params",

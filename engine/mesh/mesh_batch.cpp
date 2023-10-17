@@ -31,11 +31,11 @@
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "render/render_engine.hpp"
+#include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
 #include "render/vertex_factory.hpp"
 #include "resource/material.hpp"
 #include "resource/shader.hpp"
-#include "shaders/generated/auto_common_reflection.hpp"
 
 namespace wmoge {
 
@@ -47,6 +47,8 @@ namespace wmoge {
     }
 
     void MeshBatchCollector::add_batch(const MeshBatch& b) {
+        WG_AUTO_PROFILE_MESH("MeshBatchCollector::add_batch");
+
         std::lock_guard guard(m_mutex);
 
         m_batches.push_back(b);
@@ -62,11 +64,16 @@ namespace wmoge {
         m_ctx            = engine->gfx_ctx();
     }
 
-    Status MeshBatchCompiler::compile_batch(const MeshBatch& batch) {
+    Status MeshBatchCompiler::compile_batch(const MeshBatch& batch, int batch_index) {
+        WG_AUTO_PROFILE_MESH("MeshBatchCompiler::compile_batch");
+
         batch.material->validate();
 
         const Ref<Shader>&        shader         = batch.material->get_shader();
         const ShaderPipelineState pipeline_state = shader->get_pipeline_state();
+
+        auto& objects_ids  = m_scene->get_objects_ids();
+        auto& objects_data = m_scene->get_render_objects_data();
 
         for (int cam_idx = 0; cam_idx < int(m_cameras->get_size()); cam_idx++) {
             if (!batch.cam_mask[cam_idx]) {
@@ -80,30 +87,11 @@ namespace wmoge {
                 continue;
             }
 
-            Ref<GfxUniformBuffer> gfx_draw_call_data = m_driver->make_uniform_buffer(int(sizeof(ShaderCommon::DrawCallData)), GfxMemUsage::GpuLocal, SID("draw_call_data"));
-            {
-                ShaderCommon::DrawCallData& draw_call_data = *((ShaderCommon::DrawCallData*) m_ctx->map_uniform_buffer(gfx_draw_call_data));
-                draw_call_data.Model                       = batch.elements[0].transform.transpose();
-                draw_call_data.ModelPrev                   = batch.elements[0].transform_prev.transpose();
-                m_ctx->unmap_uniform_buffer(gfx_draw_call_data);
-            }
-
-            GfxDescSetResources gfx_resources;
-            {
-                {
-                    auto& r               = gfx_resources.emplace_back();
-                    r.first.type          = GfxBindingType::UniformBuffer;
-                    r.first.binding       = 0;
-                    r.first.array_element = 0;
-                    r.second.resource     = gfx_draw_call_data.as<GfxResource>();
-                    r.second.offset       = 0;
-                    r.second.range        = int(sizeof(ShaderCommon::DrawCallData));
-                }
-            }
-            Ref<GfxDescSet> gfx_set = m_driver->make_desc_set(gfx_resources, SID("draw_call"));
-
             GfxVertAttribs attribs;
             batch.vertex_factory->fill_required_attributes(attribs, VertexInputType::Default);
+
+            // additional attribute to fetch gpu data
+            attribs.set(GfxVertAttrib::PrimitiveIdi);
 
             GfxPipelineState gfx_pso_state;
             gfx_pso_state.shader       = shader->create_variant(attribs, {});
@@ -118,9 +106,17 @@ namespace wmoge {
             gfx_pso_state.blending     = false;
             Ref<GfxPipeline> gfx_pso   = m_driver->make_pipeline(gfx_pso_state, SID(""));
 
+            // fill gpu data and set remap index (in future data will be persistent)
+            objects_ids[batch_index] = batch_index;
+            batch.object->fill_data(objects_data[batch_index]);
+
             GfxVertBuffersSetup vert_setup;
             int                 used_buffers = 0;
             batch.vertex_factory->fill_setup(VertexInputType::Default, vert_setup, used_buffers);
+
+            // set additional instanced buffer with ids
+            vert_setup.buffers[used_buffers] = objects_ids.get_buffer().get();
+            vert_setup.offsets[used_buffers] = int(sizeof(int) * batch_index);
 
             RenderCmd cmd;
             cmd.vert_buffers       = vert_setup;
@@ -129,21 +125,16 @@ namespace wmoge {
             cmd.desc_sets_slots[0] = 0;
             cmd.desc_sets[1]       = batch.material->get_desc_set().get();
             cmd.desc_sets_slots[1] = 1;
-            cmd.desc_sets[2]       = gfx_set.get();
-            cmd.desc_sets_slots[2] = 2;
             cmd.pipeline           = gfx_pso.get();
             cmd.call_params        = batch.elements[0].draw_call;
 
             view.queues[int(MeshPassType::GBuffer)].push(RenderCmdKey(), cmd);
-
-            {
-                std::lock_guard guard(m_mutex);
-                m_transient_pipeliens.push_back(gfx_pso);
-                m_transient_sets.push_back(gfx_set);
-            }
         }
 
         return StatusCode::Ok;
+    }
+    void MeshBatchCompiler::set_scene(RenderScene* scene) {
+        m_scene = scene;
     }
     void MeshBatchCompiler::set_views(ArrayView<struct RenderView> views) {
         m_views = views;
@@ -152,8 +143,6 @@ namespace wmoge {
         m_cameras = &cameras;
     }
     void MeshBatchCompiler::clear() {
-        m_transient_pipeliens.clear();
-        m_transient_sets.clear();
     }
 
 }// namespace wmoge

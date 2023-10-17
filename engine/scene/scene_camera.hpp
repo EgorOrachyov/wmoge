@@ -48,13 +48,13 @@ namespace wmoge {
     public:
         ~Camera() override = default;
 
-        void          set_name(const StringId& name);
-        void          set_fov(float fov);
-        void          set_color(const Color4f& color);
-        void          set_near_far(float near, float far);
-        void          set_projection(CameraProjection projection);
-        void          make_active(bool active);
-        RenderCamera& update_render_camera(Size2i target);
+        void set_name(const StringId& name);
+        void set_fov(float fov);
+        void set_color(const Color4f& color);
+        void set_near_far(float near, float far);
+        void set_projection(CameraProjection projection);
+        void make_active(bool active);
+        void update_render_camera(Size2i target);
 
         [[nodiscard]] const RenderCamera&     get_render_camera() const { return m_render_camera; }
         [[nodiscard]] const Vec3f&            get_position() const { return m_position; }

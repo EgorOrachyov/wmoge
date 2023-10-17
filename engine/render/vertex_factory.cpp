@@ -42,9 +42,10 @@ namespace wmoge {
 
         for (VertexInputType input_type : input_types) {
             int             used_buffers = 0;
-            GfxVertElements elemets;
-            fill_elements(input_type, elemets, used_buffers);
-            cache_vert_format(gfx_driver, elemets, input_type);
+            GfxVertElements elements;
+            fill_elements(input_type, elements, used_buffers);
+            elements.add_vert_attribs({GfxVertAttrib::PrimitiveIdi}, used_buffers, true);
+            cache_vert_format(gfx_driver, elements, input_type);
         }
     }
 

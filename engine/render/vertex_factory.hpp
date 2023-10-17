@@ -47,12 +47,12 @@ namespace wmoge {
     };
 
     /** 
-     * @class VertexInputType
      * @brief Type of required vertex input
      */
     enum class VertexInputType {
         Default      = 0,//< Default type with full attributes
-        PositionOnly = 1 //< Spatial position for depth/shadow rendering
+        PositionOnly = 1,//< Spatial position for depth/shadow rendering
+        Total        = 2
     };
 
     /**
@@ -73,7 +73,7 @@ namespace wmoge {
      */
     class VertexFactory {
     public:
-        static constexpr int TOTAL_INPUT_TYPES = 2;
+        static constexpr int TOTAL_INPUT_TYPES = int(VertexInputType::Total);
 
         virtual ~VertexFactory() = default;
 

@@ -156,6 +156,7 @@
 #include "render/render_mesh_static.hpp"
 #include "render/render_object.hpp"
 #include "render/render_queue.hpp"
+#include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
 #include "render/shader_pass.hpp"
 #include "render/texture_compression.hpp"

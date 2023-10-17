@@ -181,21 +181,20 @@ namespace wmoge {
 
         render_engine->begin_rendering();
 
-        Ref<Camera>  camera      = camera_manager->find_active().value_or(camera_manager->get_default_camera());
-        RenderCamera camera_prev = camera->get_render_camera();
-        RenderCamera camera_curr = camera->update_render_camera(window->fbo_size());
+        Ref<Camera> camera = camera_manager->find_active().value_or(camera_manager->get_default_camera());
+        camera->update_render_camera(window->fbo_size());
+        RenderCamera camera_curr = camera->get_render_camera();
 
         RenderCameras& render_cameras = render_engine->get_cameras();
         render_cameras.clear();
-        render_cameras.add_camera(CameraType::Color, camera_curr, camera_prev);
+        render_cameras.add_camera(CameraType::Color, camera_curr, render_engine->get_camera_prev());
 
         render_engine->set_time(scene->get_time());
         render_engine->set_delta_time(scene->get_delta_time());
         render_engine->set_target(window);
-        render_engine->prepare_frame_data();
-        render_engine->allocate_veiws();
+        render_engine->set_scene(scene->get_render_scene());
 
-        RenderObjectCollector objects_collector;
+        RenderObjectCollector& objects_collector = render_engine->get_obejcts_collector();
         {
             WG_AUTO_PROFILE_SCENE("SceneManager::collect_meshes");
 
@@ -204,14 +203,18 @@ namespace wmoge {
             ecs_world->execute_system(sys_collect_static_meshes);
         }
 
-        render_engine->collect_batches(objects_collector);
+        render_engine->collect_batches();
+        render_engine->reserve_buffers();
+        render_engine->prepare_frame_data();
+        render_engine->allocate_veiws();
         render_engine->compile_batches();
+        render_engine->flush_buffers();
 
         gfx_ctx->begin_render_pass({}, SID("GBuffer"));
         {
-            gfx_ctx->bind_target(window);
+            gfx_ctx->bind_target(render_engine->get_main_target());
             gfx_ctx->viewport(render_cameras.data_at(0).viewport);
-            gfx_ctx->clear(0, Color4f(0, 0, 0, 0));
+            gfx_ctx->clear(0, render_engine->get_clear_color());
             gfx_ctx->clear(1.0f, 0);
 
             render_engine->get_views()[0].queues[int(MeshPassType::GBuffer)].execute(gfx_ctx);

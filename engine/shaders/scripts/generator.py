@@ -108,6 +108,10 @@ class CodeGenerator:
     def run(self):
         result = ""
 
+        for struct in self.shader.structs:
+            result += self.emit_struct(struct)
+            result += "\n"
+
         for const in self.shader.constants:
             result += self.emit_const(const)
             result += "\n"
@@ -178,7 +182,7 @@ class CodeGeneratorGlsl(CodeGenerator):
         if element == reflection.TYPE_MAT4:
             return "mat4"
         if isinstance(element, reflection.Struct):
-            return f"struct {element.name}"
+            return f"{element.name}"
         return ""
 
     def emit_struct(self, struct):
@@ -188,7 +192,7 @@ class CodeGeneratorGlsl(CodeGenerator):
 
         for field in struct.fields:
             generated += f"{self.emit_type_decl(field.decl_type)} {field.name}"
-            generated += f"[{field.array_size}];\n" if field.is_array() else ";\n"
+            generated += field.array_str() + ";\n"
 
         generated += "};\n"
 
@@ -205,7 +209,7 @@ class CodeGeneratorGlsl(CodeGenerator):
 
         for field in buffer.struct.fields:
             generated += f"{self.emit_type_decl(field.decl_type)} {field.name}"
-            generated += f"[{field.array_size}];\n" if field.is_array() else ";\n"
+            generated += field.array_str() + ";\n"
 
         generated += "};\n"
 
@@ -298,8 +302,16 @@ class CodeGeneratorCxx(CodeGenerator):
         generated = f"struct {struct.name}" "{\n"
 
         for field in struct.fields:
+            if field.is_unbound_array():
+                generated += "/* "
+
             generated += f"{self.emit_type_decl(field.decl_type)} {field.name}"
-            generated += f"[{field.array_size}];\n" if field.is_array() else ";\n"
+            generated += field.array_str_cpp()
+
+            if field.is_unbound_array():
+                generated += "; */\n"
+            else:
+                generated += ";\n"
 
         generated += "};\n"
 

@@ -31,40 +31,50 @@ ViewData = [
     StructField(TYPE_INT, "_vd_pad2"),
 ]
 
-DrawCallData = [
-    StructField(TYPE_MAT4, "Model"),
-    StructField(TYPE_MAT4, "ModelPrev"),
-    StructField(TYPE_VEC4, "AabbPos"),
-    StructField(TYPE_VEC4, "AabbSizeHalf"),
-]
+RenderObjectData = Struct(
+    "RenderObjectData",
+    [
+        StructField(TYPE_MAT4, "LocalToWorld"),
+        StructField(TYPE_MAT4, "LocalToWorldPrev"),
+        StructField(TYPE_MAT4, "WorldToLocal"),
+        StructField(TYPE_MAT4, "WorldToLocalPrev"),
+        StructField(TYPE_MAT4, "NormalMatrix"),
+        StructField(TYPE_VEC4, "AabbPos"),
+        StructField(TYPE_VEC4, "AabbSizeHalf"),
+    ],
+)
 
 BINDINGS = BindingAllocator()
 
 SHADER = Shader(
-    name="common",
-    cls="Common",
+    name="material",
+    cls="Material",
     constants=[],
+    structs=[
+        RenderObjectData,
+    ],
     buffers=[
         UniformBuffer(
             "FrameData",
             "std140",
-            BINDINGS.next(0),
+            BINDINGS.next(),
             FrameData,
         ),
         UniformBuffer(
             "ViewData",
             "std140",
-            BINDINGS.next(0),
+            BINDINGS.next(),
             ViewData,
         ),
-        UniformBuffer(
-            "DrawCallData",
-            "std140",
-            BINDINGS.next(2),
-            DrawCallData,
+        StorageBuffer(
+            "RenderObjectsData",
+            "std430",
+            BINDINGS.next(0),
+            [StructField(RenderObjectData, "RenderObjects", ArrayQualifier())],
+            readonly=True,
         ),
     ],
     samplers=[],
-    files=[],
+    files=["material.vert", "material.frag"],
     material_set=1,
 )

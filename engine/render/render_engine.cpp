@@ -33,7 +33,7 @@
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "render/shader_manager.hpp"
-#include "shaders/generated/auto_common_reflection.hpp"
+#include "shaders/generated/auto_material_reflection.hpp"
 
 #include <cassert>
 
@@ -58,13 +58,26 @@ namespace wmoge {
     void RenderEngine::set_clear_color(const Color4f& color) {
         m_clear_color = color;
     }
+    void RenderEngine::set_scene(RenderScene* scene) {
+        m_scene = scene;
+    }
 
     void RenderEngine::begin_rendering() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::begin_rendering");
+
+        m_objects_collector.clear();
+        m_batch_collector.clear();
+        m_batch_compiler.clear();
     }
 
     void RenderEngine::end_rendering() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::end_rendering");
+
+        m_camera_prev.reset();
+
+        if (!m_cameras.is_empty()) {
+            m_camera_prev = m_cameras.camera_main().camera;
+        }
     }
 
     void RenderEngine::prepare_frame_data() {
@@ -73,9 +86,9 @@ namespace wmoge {
         GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
         GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
 
-        m_frame_data = gfx_driver->make_uniform_buffer(int(sizeof(ShaderCommon::FrameData)), GfxMemUsage::GpuLocal, SID("frame_data"));
+        m_frame_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUFrameData)), GfxMemUsage::GpuLocal, SID("frame_data"));
 
-        ShaderCommon::FrameData& frame_data = *((ShaderCommon::FrameData*) gfx_ctx->map_uniform_buffer(m_frame_data));
+        GPUFrameData& frame_data = *((GPUFrameData*) gfx_ctx->map_uniform_buffer(m_frame_data));
 
         frame_data.time      = m_time;
         frame_data.timeDelta = m_delta_time;
@@ -83,6 +96,16 @@ namespace wmoge {
         frame_data._fd_pad1  = 0.0f;
 
         gfx_ctx->unmap_uniform_buffer(m_frame_data);
+    }
+
+    void RenderEngine::reserve_buffers() {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::reserve_buffers");
+
+        m_scene->get_objects_ids().clear();
+        m_scene->get_objects_ids().resize(m_batch_collector.get_size());
+
+        m_scene->get_render_objects_data().clear();
+        m_scene->get_render_objects_data().resize(m_batch_collector.get_size());
     }
 
     void RenderEngine::allocate_veiws() {
@@ -96,9 +119,9 @@ namespace wmoge {
             RenderView&             view   = m_views[view_idx];
             const RenderCameraData& camera = m_cameras.data_at(view_idx);
 
-            view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(ShaderCommon::ViewData)), GfxMemUsage::GpuLocal, SID("view_" + StringUtils::from_int(view_idx)));
+            view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUViewData)), GfxMemUsage::GpuLocal, SID("view_data_" + StringUtils::from_int(view_idx)));
             {
-                ShaderCommon::ViewData& view_data = *((ShaderCommon::ViewData*) gfx_ctx->map_uniform_buffer(view.view_data));
+                GPUViewData& view_data = *((GPUViewData*) gfx_ctx->map_uniform_buffer(view.view_data));
 
                 view_data.Clip             = gfx_clip.transpose();
                 view_data.Proj             = camera.proj.transpose();
@@ -130,7 +153,7 @@ namespace wmoge {
                 {
                     auto& r               = view_resources.emplace_back();
                     r.first.type          = GfxBindingType::UniformBuffer;
-                    r.first.binding       = 0;
+                    r.first.binding       = ShaderMaterial::FRAMEDATA_SLOT;
                     r.first.array_element = 0;
                     r.second.resource     = m_frame_data.as<GfxResource>();
                     r.second.offset       = 0;
@@ -139,11 +162,20 @@ namespace wmoge {
                 {
                     auto& r               = view_resources.emplace_back();
                     r.first.type          = GfxBindingType::UniformBuffer;
-                    r.first.binding       = 1;
+                    r.first.binding       = ShaderMaterial::VIEWDATA_SLOT;
                     r.first.array_element = 0;
                     r.second.resource     = view.view_data.as<GfxResource>();
                     r.second.offset       = 0;
                     r.second.range        = view.view_data->size();
+                }
+                {
+                    auto& r               = view_resources.emplace_back();
+                    r.first.type          = GfxBindingType::StorageBuffer;
+                    r.first.binding       = ShaderMaterial::RENDEROBJECTSDATA_SLOT;
+                    r.first.array_element = 0;
+                    r.second.resource     = m_scene->get_render_objects_data().get_buffer().as<GfxResource>();
+                    r.second.offset       = 0;
+                    r.second.range        = m_scene->get_render_objects_data().get_buffer()->size();
                 }
             }
             view.view_set = gfx_driver->make_desc_set(view_resources, SID("view_set_" + StringUtils::from_int(view_idx)));
@@ -154,17 +186,15 @@ namespace wmoge {
         }
     }
 
-    void RenderEngine::collect_batches(RenderObjectCollector& objects) {
+    void RenderEngine::collect_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::collect_batches");
 
-        const ArrayView<RenderObject*> render_objects = objects.get_objects();
-
-        m_collector.clear();
+        const ArrayView<RenderObject*> render_objects = m_objects_collector.get_objects();
 
         TaskParallelFor task_compile(SID("collect_batches"), [&](TaskContext&, int id, int) {
             RenderCameraMask mask;
             mask.flip();
-            render_objects[id]->collect(m_cameras, mask, m_collector);
+            render_objects[id]->collect(m_cameras, mask, m_batch_collector);
             return 0;
         });
 
@@ -174,18 +204,24 @@ namespace wmoge {
     void RenderEngine::compile_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::compile_batches");
 
-        const ArrayView<const MeshBatch> batches = m_collector.get_batches();
+        const ArrayView<const MeshBatch> batches = m_batch_collector.get_batches();
 
-        m_compiler.clear();
-        m_compiler.set_cameras(m_cameras);
-        m_compiler.set_views(get_views());
+        m_batch_compiler.set_scene(m_scene);
+        m_batch_compiler.set_cameras(m_cameras);
+        m_batch_compiler.set_views(get_views());
 
         TaskParallelFor task_compile(SID("compile_batches"), [&](TaskContext&, int id, int) {
-            m_compiler.compile_batch(batches[id]);
+            m_batch_compiler.compile_batch(batches[id], id);
             return 0;
         });
 
         task_compile.schedule(int(batches.size()), m_batch_size).wait_completed();
+    }
+
+    void RenderEngine::flush_buffers() {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::flush_buffers");
+
+        m_scene->flush_buffers(Engine::instance()->gfx_ctx());
     }
 
     void RenderEngine::render_aux_geom(AuxDrawManager& aux_draw_manager) {

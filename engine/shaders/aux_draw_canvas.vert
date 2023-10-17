@@ -18,6 +18,6 @@ LAYOUT_LOCATION(1) out vec2 out_uv;
 
 void main() {
     out_color   = in_col;
-    out_uv      = unpack_uv(in_uv);
+    out_uv      = UnpackUv(in_uv);
     gl_Position = clip_proj_screen * vec4(in_pos, 0.0f, 1.0f);
 }

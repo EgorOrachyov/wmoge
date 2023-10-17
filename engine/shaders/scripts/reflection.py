@@ -33,6 +33,52 @@ class TypeSampler(Type):
         Type.__init__(self, name)
 
 
+class ArrayQualifier:
+    def __init__(self, size=None):
+        self.size = size
+
+    def get_size(self):
+        return self.size
+
+    def is_ubound(self):
+        return self.size is None
+
+
+class StructField:
+    def __init__(self, decl_type: Type, name: str, array: ArrayQualifier = None):
+        self.decl_type = decl_type
+        self.name = name
+        self.array = array
+
+    def is_array(self):
+        return self.array is not None
+
+    def is_unbound_array(self):
+        return self.is_array() and self.array.is_ubound()
+
+    def array_str(self):
+        if self.is_array():
+            if self.array.is_ubound():
+                return "[]"
+            else:
+                return f"[{self.array.size()}]"
+        return ""
+
+    def array_str_cpp(self):
+        if self.is_array():
+            if self.array.is_ubound():
+                return "[ UNBOUND ]"
+            else:
+                return f"[{self.array.size()}]"
+        return ""
+
+
+class Struct(Type):
+    def __init__(self, name, fields: list[StructField]):
+        Type.__init__(self, name)
+        self.fields = fields
+
+
 TYPE_FLOAT = TypeScalar("float", 4)
 TYPE_INT = TypeScalar("int", 4)
 TYPE_UINT = TypeScalar("uint", 4)
@@ -74,22 +120,6 @@ class BindingAllocator:
         return Binding(set_num, slot_num)
 
 
-class StructField:
-    def __init__(self, decl_type: Type, name: str, array_size=None):
-        self.decl_type = decl_type
-        self.name = name
-        self.array_size = array_size
-
-    def is_array(self):
-        return self.array_size is not None
-
-
-class Struct(Type):
-    def __init__(self, name, fields: list[StructField]):
-        Type.__init__(self, name)
-        self.fields = fields
-
-
 class Buffer:
     def __init__(self, name, layout, binding, struct, keyword):
         self.name = name
@@ -108,8 +138,9 @@ class UniformBuffer(Buffer):
 
 
 class StorageBuffer(Buffer):
-    def __init__(self, name, layout, binding, fields):
-        Buffer.__init__(self, name, layout, binding, Struct(name, fields), "buffer")
+    def __init__(self, name, layout, binding, fields, readonly=False):
+        keyword = "readonly buffer" if readonly else "buffer"
+        Buffer.__init__(self, name, layout, binding, Struct(name, fields), keyword)
 
 
 class Constant:
@@ -146,6 +177,7 @@ class Shader:
         name: str,
         cls: str,
         constants: list[Constant],
+        structs: list[Struct],
         buffers: list[Buffer],
         samplers: list[Sampler],
         files: list[str],
@@ -153,6 +185,7 @@ class Shader:
     ):
         self.name = name
         self.cls = cls
+        self.structs = structs
         self.constants = constants
         self.buffers = buffers
         self.samplers = samplers

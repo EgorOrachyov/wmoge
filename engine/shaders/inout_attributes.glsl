@@ -9,6 +9,14 @@
 
 #include "common_defines.glsl"
 
+#ifdef VERTEX_SHADER
+    #define INOUT out
+#endif
+
+#ifdef FRAGMENT_SHADER
+    #define INOUT in
+#endif
+
 #ifndef INOUT
     #error "Must be defined"
 #endif
@@ -57,12 +65,18 @@
     LAYOUT_LOCATION(10) INOUT vec2 inout_uv3;
 #endif
 
+#ifdef ATTRIB_PrimitiveIdi
+    LAYOUT_LOCATION(11) flat INOUT int inout_primitiveId;
+#endif
+
+
 struct InoutAttributes {
     vec3 worldPos;
     vec3 worldNorm;
     vec3 worldTang;
     vec4 col[4];
     vec2 uv[4];
+    int primitiveId;
 };
 
 #ifdef VERTEX_SHADER
@@ -110,6 +124,10 @@ void StoreInoutAttributes(in InoutAttributes attributes) {
     #ifdef ATTRIB_Uv32f
         inout_uv3 = attributes.uv[3];
     #endif
+
+    #ifdef ATTRIB_PrimitiveIdi
+        inout_primitiveId = attributes.primitiveId;
+    #endif
 }
 #endif//VERTEX_SHADER
 
@@ -127,6 +145,7 @@ InoutAttributes ReadInoutAttributes() {
     attributes.uv[1] = vec2(0,0);
     attributes.uv[2] = vec2(0,0);
     attributes.uv[3] = vec2(0,0);
+    attributes.primitiveId = -1;
 
     #if defined(ATTRIB_Pos3f) || defined(ATTRIB_Pos2f) 
         attributes.worldPos = inout_worldPos;
@@ -170,6 +189,10 @@ InoutAttributes ReadInoutAttributes() {
 
     #ifdef ATTRIB_Uv32f
         attributes.uv[3] = inout_uv3;
+    #endif
+
+    #ifdef ATTRIB_PrimitiveIdi
+        attributes.primitiveId = inout_primitiveId;
     #endif
 
     return attributes;

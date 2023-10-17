@@ -231,6 +231,7 @@ namespace wmoge {
 
             if (!shader.parse(&built_in_res, default_version, true, messages)) {
                 WG_LOG_ERROR("failed to parse shader Num=" << i << ": " << shader.getInfoLog());
+                WG_LOG_INFO(sources[i]);
                 m_message = shader.getInfoLog();
                 m_status.store(GfxShaderStatus::Failed);
                 return;

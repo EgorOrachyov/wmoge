@@ -54,7 +54,7 @@ namespace wmoge {
         m_active = active;
     }
 
-    RenderCamera& Camera::update_render_camera(Size2i target) {
+    void Camera::update_render_camera(Size2i target) {
         const float width     = float(target.x());
         const float height    = float(target.y());
         const float aspect    = height > 0 ? width / height : 1.0f;
@@ -67,7 +67,7 @@ namespace wmoge {
         camera.move_to(m_position);
         camera.validate();
 
-        return m_render_camera = camera;
+        m_render_camera = camera;
     }
 
     CameraDebug::CameraDebug() {

@@ -20,7 +20,7 @@ void main() {
     fs_color   = vec4(in_color.rgb, in_color.a * mask);
     #else
     vec4 tex_color_srgb   = texture(Texture, in_uv).rgba;
-    vec4 tex_color_linear = vec4(srgb_to_linear(tex_color_srgb.rgb, gamma), tex_color_srgb.a);
+    vec4 tex_color_linear = vec4(ColorSrgbToLinear(tex_color_srgb.rgb, gamma), tex_color_srgb.a);
 
     fs_color = vec4(in_color.rgba * tex_color_linear);
     #endif

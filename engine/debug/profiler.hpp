@@ -161,6 +161,7 @@ namespace wmoge {
 #define WG_AUTO_PROFILE_VULKAN(label)         WG_AUTO_PROFILE(vulkan, label)
 #define WG_AUTO_PROFILE_IO(label)             WG_AUTO_PROFILE(io, label)
 #define WG_AUTO_PROFILE_RESOURCE(label)       WG_AUTO_PROFILE(resource, label)
+#define WG_AUTO_PROFILE_MESH(label)           WG_AUTO_PROFILE(mesh, label)
 #define WG_AUTO_PROFILE_RENDER(label)         WG_AUTO_PROFILE(render, label)
 #define WG_AUTO_PROFILE_GAMEPLAY(label)       WG_AUTO_PROFILE(gameplay, label)
 #define WG_AUTO_PROFILE_DEBUG(label)          WG_AUTO_PROFILE(debug, label)

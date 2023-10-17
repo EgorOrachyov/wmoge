@@ -7,10 +7,9 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#define INOUT out
-#define VERTEX_SHADER
 #include "inout_attributes.glsl"
 #include "vertex_attributes.glsl"
+#include "scene_data.glsl"
 
 struct ShaderInoutVs {
     VertexAttributes attributes;

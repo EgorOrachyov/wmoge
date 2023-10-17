@@ -55,6 +55,10 @@ namespace wmoge {
             builder.add_cs_module("#version 410 core\n");
         }
 
+        builder.add_define_vs("VERTEX_SHADER");
+        builder.add_define_fs("FRAGMENT_SHADER");
+        builder.add_define_cs("COMPUTE_SHADER");
+
         builder.add_defines(defines);
 
         int location_index = 0;
