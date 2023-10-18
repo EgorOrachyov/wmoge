@@ -31,7 +31,10 @@
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "core/mask.hpp"
+#include "core/status.hpp"
 #include "gfx/gfx_pipeline.hpp"
+
+#include <string>
 
 namespace wmoge {
 
@@ -73,6 +76,24 @@ namespace wmoge {
         fast_vector<Ref<GfxPipeline>, NUM_PASSES_INLINE> m_pipelines;
         fast_vector<MeshPassType, NUM_PASSES_INLINE>     m_types;
         Mask<MeshPassType>                               m_mask;
+    };
+
+    /**
+     * @class MeshPassProcessor
+     * @brief Responsible for compiling a mesh batch into a draw call for a particular pass
+     */
+    class MeshPassProcessor {
+    public:
+        MeshPassProcessor();
+        virtual ~MeshPassProcessor() = default;
+
+        virtual Status       compile(const struct MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) = 0;
+        virtual std::string  get_name() const                                                       = 0;
+        virtual MeshPassType get_pass_type() const                                                  = 0;
+
+    protected:
+        class ShaderManager* m_shader_manager = nullptr;
+        class GfxDriver*     m_gfx_driver     = nullptr;
     };
 
 }// namespace wmoge

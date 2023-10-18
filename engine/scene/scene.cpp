@@ -118,6 +118,9 @@ namespace wmoge {
     void Scene::clear() {
         m_ecs_world->clear();
     }
+    void Scene::set_state(SceneState state) {
+        m_state = state;
+    }
     const StringId& Scene::get_name() {
         return m_name;
     }

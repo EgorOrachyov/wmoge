@@ -35,6 +35,14 @@ namespace wmoge {
         m_name    = name;
     }
 
+    void VertexFactoryStatic::set_buffers(const std::array<Ref<GfxVertBuffer>, MAX_BUFFERS>& buffers) {
+        m_buffers = buffers;
+    }
+
+    void VertexFactoryStatic::set_attribs(const GfxVertAttribsStreams& attribs) {
+        m_attribs = attribs;
+    }
+
     void VertexFactoryStatic::fill_required_attributes(GfxVertAttribs& attribs, VertexInputType input_type) {
         for (const auto& stream : m_attribs) {
             attribs |= stream;

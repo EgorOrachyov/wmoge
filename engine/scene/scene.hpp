@@ -131,6 +131,14 @@ namespace wmoge {
         friend Status yaml_write(YamlNodeRef node, const SceneData& data);
     };
 
+    /** @brief State of an scene */
+    enum class SceneState {
+        Default,//< Scene created, not started yet
+        Playing,//< Scene started and active
+        Paused, //< Scene started and suspended
+        Finished//< Scene finished and ready for deletion
+    };
+
     /**
      * @class Scene
      * @brief Scene objects container representing running game state
@@ -162,6 +170,7 @@ namespace wmoge {
         void   add_mesh_static(EcsEntity entity, const SceneDataMeshStatic& data);
         void   advance(float delta_time);
         void   clear();
+        void   set_state(SceneState state);
 
         [[nodiscard]] const StringId&        get_name();
         [[nodiscard]] EcsWorld*              get_ecs_world();
@@ -173,6 +182,7 @@ namespace wmoge {
         [[nodiscard]] float                  get_delta_time() const { return m_delta_time; }
         [[nodiscard]] bool                   need_simulate() const { return m_need_simulate; }
         [[nodiscard]] bool                   need_render() const { return m_need_render; }
+        [[nodiscard]] SceneState             get_state() const { return m_state; }
 
     private:
         std::unique_ptr<EcsWorld>              m_ecs_world;
@@ -185,6 +195,7 @@ namespace wmoge {
         float                                  m_delta_time    = 0.0f;
         bool                                   m_need_simulate = true;
         bool                                   m_need_render   = true;
+        SceneState                             m_state         = SceneState::Default;
     };
 
 }// namespace wmoge

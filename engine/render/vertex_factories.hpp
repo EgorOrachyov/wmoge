@@ -40,12 +40,16 @@ namespace wmoge {
     public:
         static constexpr int MAX_BUFFERS = GfxLimits::MAX_VERT_STREAMS;
 
+        VertexFactoryStatic() = default;
+
         VertexFactoryStatic(const std::array<Ref<GfxVertBuffer>, MAX_BUFFERS>& buffers,
                             const GfxVertAttribsStreams&                       attribs,
                             const StringId&                                    name = StringId());
 
         ~VertexFactoryStatic() override = default;
 
+        void                     set_buffers(const std::array<Ref<GfxVertBuffer>, MAX_BUFFERS>& buffers);
+        void                     set_attribs(const GfxVertAttribsStreams& attribs);
         void                     fill_required_attributes(GfxVertAttribs& attribs, VertexInputType input_type) override;
         void                     fill_elements(VertexInputType input_type, GfxVertElements& elements, int& used_buffers) override;
         void                     fill_setup(VertexInputType input_type, GfxVertBuffersSetup& setup, int& used_buffers) override;

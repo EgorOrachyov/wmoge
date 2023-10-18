@@ -25,64 +25,27 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_OBJECT_HPP
-#define WMOGE_RENDER_OBJECT_HPP
+#ifndef WMOGE_MESH_PROCESSORS_HPP
+#define WMOGE_MESH_PROCESSORS_HPP
 
-#include "core/array_view.hpp"
-#include "core/mask.hpp"
-#include "core/string_id.hpp"
-#include "core/synchronization.hpp"
-#include "math/mat.hpp"
-#include "mesh/mesh_batch.hpp"
-#include "render/render_camera.hpp"
-#include "render/render_scene.hpp"
-#include "resource/material.hpp"
-
-#include <optional>
-#include <vector>
+#include "mesh/mesh_pass.hpp"
 
 namespace wmoge {
 
     /**
-     * @class RenderObject 
-     * @brief Base class for any scene object which can be rendered
+     * @class MeshPassProcessorGBuffer
+     * @brief Processor for GBuffer pass
      */
-    class RenderObject {
+    class MeshPassProcessorGBuffer final : public MeshPassProcessor {
     public:
-        virtual ~RenderObject() = default;
+        MeshPassProcessorGBuffer()           = default;
+        ~MeshPassProcessorGBuffer() override = default;
 
-        virtual void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) = 0;
-        virtual void                         update_transform(const Mat4x4f& l2w)                                                        = 0;
-        virtual void                         fill_data(GPURenderObjectData& gpu_data)                                                    = 0;
-        virtual bool                         has_materials() const                                                                       = 0;
-        virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
-        virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;
-        virtual StringId                     get_friendly_name() const;
-        virtual void                         set_friendly_name(StringId name);
-
-    private:
-        StringId m_name;
-    };
-
-    /**
-     * @class RenderObjectCollector
-     * @brief Auxilary class to collect renderable object in MT
-     */
-    class RenderObjectCollector {
-    public:
-        RenderObjectCollector() = default;
-
-        void add(RenderObject* object);
-        void clear();
-
-        [[nodiscard]] ArrayView<RenderObject*> get_objects() { return m_objects; }
-        [[nodiscard]] int                      get_size() const { return int(m_objects.size()); }
-
-    private:
-        std::vector<RenderObject*> m_objects;
-        SpinMutex                  m_mutex;
+        Status       compile(const struct MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) override;
+        std::string  get_name() const override;
+        MeshPassType get_pass_type() const override;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_OBJECT_HPP
+#endif//WMOGE_MESH_PROCESSORS_HPP

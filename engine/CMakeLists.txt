@@ -219,6 +219,8 @@ add_library(wmoge STATIC
         mesh/mesh_builder.hpp
         mesh/mesh_pass.cpp
         mesh/mesh_pass.hpp
+        mesh/mesh_processors.cpp
+        mesh/mesh_processors.hpp
         pfx/pfx_component.cpp
         pfx/pfx_component.hpp
         pfx/pfx_component_runtime.cpp

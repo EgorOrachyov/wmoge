@@ -40,6 +40,7 @@
 #include "gfx/gfx_vert_format.hpp"
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
+#include "mesh/mesh_pass.hpp"
 #include "render/render_camera.hpp"
 
 #include <array>
@@ -102,10 +103,11 @@ namespace wmoge {
 
     private:
         std::vector<MeshBatch> m_batches;
-        GfxDynVertBuffer*      m_dyn_vbuff;
-        GfxDynIndexBuffer*     m_dyn_ibuff;
-        GfxDynUniformBuffer*   m_dyn_ubuff;
-        class GfxDriver*       m_gfx_driver;
+
+        GfxDynVertBuffer*    m_dyn_vbuff;
+        GfxDynIndexBuffer*   m_dyn_ibuff;
+        GfxDynUniformBuffer* m_dyn_ubuff;
+        class GfxDriver*     m_gfx_driver;
 
         SpinMutex m_mutex;
     };
@@ -116,6 +118,8 @@ namespace wmoge {
      */
     class MeshBatchCompiler final {
     public:
+        static constexpr int NUM_PASSES_TOTAL = static_cast<int>(MeshPassType::Total);
+
         MeshBatchCompiler();
 
         Status compile_batch(const MeshBatch& batch, int batch_index);
@@ -125,12 +129,15 @@ namespace wmoge {
         void   clear();
 
     private:
+        std::array<std::unique_ptr<MeshPassProcessor>, NUM_PASSES_TOTAL> m_processors;
+
         ArrayView<struct RenderView> m_views;
-        RenderCameras*               m_cameras        = nullptr;
-        class RenderScene*           m_scene          = nullptr;
-        class ShaderManager*         m_shader_manager = nullptr;
-        class GfxDriver*             m_driver         = nullptr;
-        class GfxCtx*                m_ctx            = nullptr;
+
+        class RenderCameras* m_cameras        = nullptr;
+        class RenderScene*   m_scene          = nullptr;
+        class ShaderManager* m_shader_manager = nullptr;
+        class GfxDriver*     m_driver         = nullptr;
+        class GfxCtx*        m_ctx            = nullptr;
     };
 
 }// namespace wmoge

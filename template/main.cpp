@@ -66,7 +66,7 @@ public:
         };
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
-        Engine::instance()->scene_manager()->make_active(scene);
+        Engine::instance()->scene_manager()->change(scene);
 
         auto shader  = Engine::instance()->resource_manager()->load(SID("res://shaders/test_shader")).cast<Shader>();
         auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {});

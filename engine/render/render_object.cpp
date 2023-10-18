@@ -39,4 +39,12 @@ namespace wmoge {
         m_objects.clear();
     }
 
+    StringId RenderObject::get_friendly_name() const {
+        return m_name;
+    }
+
+    void RenderObject::set_friendly_name(StringId name) {
+        m_name = name;
+    }
+
 }// namespace wmoge

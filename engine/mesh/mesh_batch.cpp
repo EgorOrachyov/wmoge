@@ -30,6 +30,7 @@
 #include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "mesh/mesh_processors.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
@@ -58,14 +59,22 @@ namespace wmoge {
     }
 
     MeshBatchCompiler::MeshBatchCompiler() {
-        Engine* engine   = Engine::instance();
+        Engine* engine = Engine::instance();
+
         m_shader_manager = engine->shader_manager();
         m_driver         = engine->gfx_driver();
         m_ctx            = engine->gfx_ctx();
+
+        // Register pass processors here
+        m_processors[int(MeshPassType::GBuffer)] = std::make_unique<MeshPassProcessorGBuffer>();
     }
 
     Status MeshBatchCompiler::compile_batch(const MeshBatch& batch, int batch_index) {
         WG_AUTO_PROFILE_MESH("MeshBatchCompiler::compile_batch");
+
+        if (!batch.cam_mask.any()) {
+            return StatusCode::Ok;
+        }
 
         batch.material->validate();
 
@@ -87,48 +96,59 @@ namespace wmoge {
                 continue;
             }
 
-            GfxVertAttribs attribs;
-            batch.vertex_factory->fill_required_attributes(attribs, VertexInputType::Default);
+            MeshPassType passes[NUM_PASSES_TOTAL];
+            int          passes_count = 0;
 
-            // additional attribute to fetch gpu data
-            attribs.set(GfxVertAttrib::PrimitiveIdi);
+            if (camera.type == CameraType::Color) {
+                passes[passes_count++] = MeshPassType::GBuffer;
+            }
 
-            GfxPipelineState gfx_pso_state;
-            gfx_pso_state.shader       = shader->create_variant(attribs, {});
-            gfx_pso_state.vert_format  = batch.vertex_factory->get_vert_format(VertexInputType::Default);
-            gfx_pso_state.prim_type    = batch.prim_type;
-            gfx_pso_state.poly_mode    = pipeline_state.poly_mode;
-            gfx_pso_state.cull_mode    = pipeline_state.cull_mode;
-            gfx_pso_state.front_face   = pipeline_state.front_face;
-            gfx_pso_state.depth_enable = pipeline_state.depth_enable;
-            gfx_pso_state.depth_write  = pipeline_state.depth_write;
-            gfx_pso_state.depth_func   = pipeline_state.depth_func;
-            gfx_pso_state.blending     = false;
-            Ref<GfxPipeline> gfx_pso   = m_driver->make_pipeline(gfx_pso_state, SID(""));
+            for (int pass_index = 0; pass_index < passes_count; pass_index++) {
+                const MeshPassType pass_type = passes[pass_index];
+                const int          pass_id   = int(pass_type);
+                Ref<GfxPipeline>   gfx_pso;
 
-            // fill gpu data and set remap index (in future data will be persistent)
-            objects_ids[batch_index] = batch_index;
-            batch.object->fill_data(objects_data[batch_index]);
+                if (batch.pass_list && batch.pass_list->has_pass(pass_type)) {
+                    gfx_pso = batch.pass_list->get_pass(pass_type).value();
+                }
 
-            GfxVertBuffersSetup vert_setup;
-            int                 used_buffers = 0;
-            batch.vertex_factory->fill_setup(VertexInputType::Default, vert_setup, used_buffers);
+                if (!gfx_pso) {
+                    Status result = m_processors[pass_id]->compile(batch, gfx_pso);
 
-            // set additional instanced buffer with ids
-            vert_setup.buffers[used_buffers] = objects_ids.get_buffer().get();
-            vert_setup.offsets[used_buffers] = int(sizeof(int) * batch_index);
+                    if (result.is_error()) {
+                        WG_LOG_ERROR("failed to compile pass " << m_processors[pass_id]->get_name() << " for batch=" << batch_index);
+                        continue;
+                    }
 
-            RenderCmd cmd;
-            cmd.vert_buffers       = vert_setup;
-            cmd.index_setup        = batch.index_buffer;
-            cmd.desc_sets[0]       = view.view_set.get();
-            cmd.desc_sets_slots[0] = 0;
-            cmd.desc_sets[1]       = batch.material->get_desc_set().get();
-            cmd.desc_sets_slots[1] = 1;
-            cmd.pipeline           = gfx_pso.get();
-            cmd.call_params        = batch.elements[0].draw_call;
+                    if (batch.pass_list) {
+                        batch.pass_list->add_pass(gfx_pso, pass_type);
+                    }
+                }
 
-            view.queues[int(MeshPassType::GBuffer)].push(RenderCmdKey(), cmd);
+                // fill gpu data and set remap index (in future data will be persistent)
+                objects_ids[batch_index] = batch_index;
+                batch.object->fill_data(objects_data[batch_index]);
+
+                GfxVertBuffersSetup vert_setup;
+                int                 used_buffers = 0;
+                batch.vertex_factory->fill_setup(VertexInputType::Default, vert_setup, used_buffers);
+
+                // set additional instanced buffer with ids
+                vert_setup.buffers[used_buffers] = objects_ids.get_buffer().get();
+                vert_setup.offsets[used_buffers] = int(sizeof(int) * batch_index);
+
+                RenderCmd cmd;
+                cmd.vert_buffers       = vert_setup;
+                cmd.index_setup        = batch.index_buffer;
+                cmd.desc_sets[0]       = view.view_set.get();
+                cmd.desc_sets_slots[0] = 0;
+                cmd.desc_sets[1]       = batch.material->get_desc_set().get();
+                cmd.desc_sets_slots[1] = 1;
+                cmd.pipeline           = gfx_pso.get();
+                cmd.call_params        = batch.elements[0].draw_call;
+
+                view.queues[pass_id].push(RenderCmdKey(), cmd);
+            }
         }
 
         return StatusCode::Ok;

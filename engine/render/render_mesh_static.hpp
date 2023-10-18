@@ -30,6 +30,7 @@
 
 #include "core/fast_vector.hpp"
 #include "math/math_utils3d.hpp"
+#include "mesh/mesh_pass.hpp"
 #include "render/render_object.hpp"
 #include "render/vertex_factories.hpp"
 #include "resource/material.hpp"
@@ -56,9 +57,19 @@ namespace wmoge {
         std::vector<Ref<Material>>   get_materials() const override;
 
     private:
-        Ref<Model>                       m_model;
-        Mat4x4f                          m_transform_l2w = Math3d::identity();
-        fast_vector<VertexFactoryStatic> m_factories;
+        struct PerLodData {
+            VertexFactoryStatic       factory;
+            fast_vector<MeshPassList> pass_list;
+        };
+
+        struct LodState {
+            int lodIdx = 0;
+        };
+
+        Ref<Model>              m_model;
+        Mat4x4f                 m_transform_l2w = Math3d::identity();
+        fast_vector<PerLodData> m_lod_data;
+        LodState                m_lod_state;
     };
 
 }// namespace wmoge

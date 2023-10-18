@@ -27,6 +27,8 @@
 
 #include "mesh_pass.hpp"
 
+#include "core/engine.hpp"
+
 #include <cassert>
 
 namespace wmoge {
@@ -55,6 +57,7 @@ namespace wmoge {
         if (!m_mask.get(pass_type)) {
             m_pipelines.push_back(std::move(pass));
             m_types.push_back(pass_type);
+            m_mask.set(pass_type);
             return;
         }
 
@@ -68,6 +71,12 @@ namespace wmoge {
 
             assert(false && "Invalid invariant of mask state and list state");
         }
+    }
+
+    MeshPassProcessor::MeshPassProcessor() {
+        Engine* engine   = Engine::instance();
+        m_shader_manager = engine->shader_manager();
+        m_gfx_driver     = engine->gfx_driver();
     }
 
 }// namespace wmoge

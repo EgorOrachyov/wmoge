@@ -60,9 +60,6 @@ namespace wmoge {
         ecs_registry->register_component<EcsComponentCamera>();
         ecs_registry->register_component<EcsComponentLight>();
         ecs_registry->register_component<EcsComponentMeshStatic>();
-
-        m_default = make_scene(SID("<default>"));
-        m_running = m_default;
     }
 
     void SceneManager::clear() {
@@ -77,41 +74,35 @@ namespace wmoge {
     void SceneManager::update() {
         WG_AUTO_PROFILE_SCENE("SceneManager::update");
 
+        // Process change before start of update
+        scene_change();
+
         if (!m_running) {
             WG_LOG_ERROR("no active scene to run, please create one");
             return;
         }
 
-        m_running->advance(Engine::instance()->get_delta_time_game());
-
-        scene_hier();
-        scene_transforms();
-        scene_render();
-        scene_physics();
-        scene_pfx();
-        scene_audio();
-        scene_scripting();
-    }
-    void SceneManager::make_active(Ref<Scene> scene) {
-        std::lock_guard guard(m_mutex);
-
-        assert(scene);
-        assert(m_running);
-
-        if (scene != m_running) {
-            WG_LOG_INFO("switch scene from " << m_running->get_name() << " to " << scene->get_name());
+        if (m_running->get_state() != SceneState::Playing) {
+            WG_LOG_ERROR("active scene must be in a playing state");
+            return;
         }
 
-        m_running = std::move(scene);
+        // Play scene
+        scene_play();
+
+        // If changed after play, updated active scene
+        scene_change();
+    }
+    void SceneManager::change(Ref<Scene> scene) {
+        assert(scene);
+
+        m_next = std::move(scene);
     }
     Ref<Scene> SceneManager::get_running_scene() {
-        std::lock_guard guard(m_mutex);
         return m_running;
     }
     Ref<Scene> SceneManager::make_scene(const StringId& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::make_scene");
-
-        std::lock_guard guard(m_mutex);
 
         auto scene = make_ref<Scene>(name);
         m_scenes.push_back(scene);
@@ -238,6 +229,68 @@ namespace wmoge {
 
     void SceneManager::scene_audio() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_audio");
+    }
+
+    void SceneManager::scene_change() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_change");
+
+        if (m_next) {
+            if (m_running) {
+                assert(m_running->get_state() == SceneState::Playing);
+                scene_pause();
+            }
+
+            m_running = std::move(m_next);
+
+            if (m_running->get_state() == SceneState::Default) {
+                scene_start();
+            }
+            if (m_running->get_state() == SceneState::Paused) {
+                scene_resume();
+            }
+
+            m_next.reset();
+        }
+    }
+
+    void SceneManager::scene_start() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_start");
+
+        m_running->set_state(SceneState::Playing);
+    }
+
+    void SceneManager::scene_play() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_play");
+
+        m_running->advance(Engine::instance()->get_delta_time_game());
+
+        scene_hier();
+        scene_transforms();
+        scene_render();
+        scene_pfx();
+        scene_scripting();
+        scene_physics();
+        scene_audio();
+
+        assert(m_running->get_state() == SceneState::Playing);
+    }
+
+    void SceneManager::scene_pause() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_pause");
+
+        m_running->set_state(SceneState::Paused);
+    }
+
+    void SceneManager::scene_resume() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_resume");
+
+        m_running->set_state(SceneState::Playing);
+    }
+
+    void SceneManager::scene_finish() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_finish");
+
+        m_running->set_state(SceneState::Finished);
     }
 
 }// namespace wmoge
