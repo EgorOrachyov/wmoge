@@ -99,10 +99,16 @@ Collaboration diagram for wmoge::VertexFactoryStatic:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a2de1db5060a50abfbd765c90c9e539cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a2de1db5060a50abfbd765c90c9e539cc">VertexFactoryStatic</a> ()=default</td></tr>
+<tr class="separator:a2de1db5060a50abfbd765c90c9e539cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade7cf8490dd7cf1700265a1a3313e986"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#ade7cf8490dd7cf1700265a1a3313e986">VertexFactoryStatic</a> (const std::array&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> &gt;, <a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a75f5e170ed97519b0a1865a2fc686e76">MAX_BUFFERS</a> &gt; &amp;buffers, const <a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">GfxVertAttribsStreams</a> &amp;attribs, const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name=<a class="el" href="classwmoge_1_1StringId.html">StringId</a>())</td></tr>
 <tr class="separator:ade7cf8490dd7cf1700265a1a3313e986"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7070447fca7e2bca51582e75a9e23b50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a7070447fca7e2bca51582e75a9e23b50">~VertexFactoryStatic</a> () override=default</td></tr>
 <tr class="separator:a7070447fca7e2bca51582e75a9e23b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0f2e9ed3f876a8eb2dc2293fee058b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#ab0f2e9ed3f876a8eb2dc2293fee058b7">set_buffers</a> (const std::array&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> &gt;, <a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a75f5e170ed97519b0a1865a2fc686e76">MAX_BUFFERS</a> &gt; &amp;buffers)</td></tr>
+<tr class="separator:ab0f2e9ed3f876a8eb2dc2293fee058b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5b1b2bfd0605ac5ac0b0216afaf35af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#ad5b1b2bfd0605ac5ac0b0216afaf35af">set_attribs</a> (const <a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">GfxVertAttribsStreams</a> &amp;attribs)</td></tr>
+<tr class="separator:ad5b1b2bfd0605ac5ac0b0216afaf35af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab255a840f45ac8b9fac60ebd48a88e25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#ab255a840f45ac8b9fac60ebd48a88e25">fill_required_attributes</a> (<a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;attribs, <a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5">VertexInputType</a> input_type) override</td></tr>
 <tr class="separator:ab255a840f45ac8b9fac60ebd48a88e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a369be9036fb0b0d346c4f548dd710a2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a369be9036fb0b0d346c4f548dd710a2e">fill_elements</a> (<a class="el" href="namespacewmoge.html#ad630a6e5631da2a852e2e1e04ad13bb5">VertexInputType</a> input_type, <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;elements, int &amp;used_buffers) override</td></tr>
@@ -142,8 +148,33 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Vertex factory with immutable data which can be used for static mesh rendering. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2de1db5060a50abfbd765c90c9e539cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2de1db5060a50abfbd765c90c9e539cc">&#9670;&nbsp;</a></span>VertexFactoryStatic() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::VertexFactoryStatic::VertexFactoryStatic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ade7cf8490dd7cf1700265a1a3313e986"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade7cf8490dd7cf1700265a1a3313e986">&#9670;&nbsp;</a></span>VertexFactoryStatic()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7cf8490dd7cf1700265a1a3313e986">&#9670;&nbsp;</a></span>VertexFactoryStatic() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -379,6 +410,42 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="classwmoge_1_1VertexFactory.html#ab913780fb36bb7b1878a6d80acf73927">wmoge::VertexFactory</a>.</p>
+
+</div>
+</div>
+<a id="ad5b1b2bfd0605ac5ac0b0216afaf35af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5b1b2bfd0605ac5ac0b0216afaf35af">&#9670;&nbsp;</a></span>set_attribs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::VertexFactoryStatic::set_attribs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">GfxVertAttribsStreams</a> &amp;&#160;</td>
+          <td class="paramname"><em>attribs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab0f2e9ed3f876a8eb2dc2293fee058b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0f2e9ed3f876a8eb2dc2293fee058b7">&#9670;&nbsp;</a></span>set_buffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::VertexFactoryStatic::set_buffers </td>
+          <td>(</td>
+          <td class="paramtype">const std::array&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> &gt;, <a class="el" href="classwmoge_1_1VertexFactoryStatic.html#a75f5e170ed97519b0a1865a2fc686e76">MAX_BUFFERS</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>buffers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

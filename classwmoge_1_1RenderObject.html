@@ -104,8 +104,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6d20a470d63dca9e7215fc6bbf4ebbbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc916422dd2ddb8a13810c3ec6bef201"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Material.html">Material</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#acc916422dd2ddb8a13810c3ec6bef201">get_materials</a> () const =0</td></tr>
 <tr class="separator:acc916422dd2ddb8a13810c3ec6bef201"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97cdeb0beb4a47cabf638e3979c33ccf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a97cdeb0beb4a47cabf638e3979c33ccf">get_friendly_name</a> () const</td></tr>
-<tr class="separator:a97cdeb0beb4a47cabf638e3979c33ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14692a73e58eb70b235c52161ab2ff31"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a14692a73e58eb70b235c52161ab2ff31">get_friendly_name</a> () const</td></tr>
+<tr class="separator:a14692a73e58eb70b235c52161ab2ff31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6356a0237ee21a58d49fba60a8412757"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a6356a0237ee21a58d49fba60a8412757">set_friendly_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
+<tr class="separator:a6356a0237ee21a58d49fba60a8412757"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for any scene object which can be rendered. </p>
@@ -208,8 +210,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a97cdeb0beb4a47cabf638e3979c33ccf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97cdeb0beb4a47cabf638e3979c33ccf">&#9670;&nbsp;</a></span>get_friendly_name()</h2>
+<a id="a14692a73e58eb70b235c52161ab2ff31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14692a73e58eb70b235c52161ab2ff31">&#9670;&nbsp;</a></span>get_friendly_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +220,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a> wmoge::RenderObject::get_friendly_name </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1StringId.html">StringId</a> wmoge::RenderObject::get_friendly_name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -226,7 +228,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -314,6 +316,32 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6356a0237ee21a58d49fba60a8412757"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6356a0237ee21a58d49fba60a8412757">&#9670;&nbsp;</a></span>set_friendly_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderObject::set_friendly_name </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a09c10a535c86f67d163ed73639da09f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09c10a535c86f67d163ed73639da09f9">&#9670;&nbsp;</a></span>update_transform()</h2>
 
@@ -342,8 +370,9 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>engine/render/<a class="el" href="render__object_8hpp_source.html">render_object.hpp</a></li>
+<li>engine/render/<a class="el" href="render__object_8cpp.html">render_object.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

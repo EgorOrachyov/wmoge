@@ -102,53 +102,58 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene_8hpp.html">scene/scene.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;deque&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classwmoge_1_1SceneManager.html">   45</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1SceneManager.html">SceneManager</a> final {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="classwmoge_1_1SceneManager.html#ae2ba53a6c44f5de6c98c05f667186680">SceneManager</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span>                      <a class="code" href="classwmoge_1_1SceneManager.html#a24a34a7c20c243cf7e4ea7b6ece5e50f">clear</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span>                      <a class="code" href="classwmoge_1_1SceneManager.html#a8ef58327c64d3e161d20c2775ad59811">update</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span>                      <a class="code" href="classwmoge_1_1SceneManager.html#a0459220f378bdea9c1f3c96c8e7e9327">make_active</a>(<a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a> scene);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>                <a class="code" href="classwmoge_1_1SceneManager.html#a6e2bce32ebfcc05ca244b37262e210dd">get_running_scene</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>                <a class="code" href="classwmoge_1_1SceneManager.html#a700badc0e29bcc8b823f93337876c993">make_scene</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a>&amp; name);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::optional&lt;Ref&lt;Scene&gt;&gt; <a class="code" href="classwmoge_1_1SceneManager.html#a8b2496a7d27ef733dd6a12cd167cdd79">find_by_name</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a>&amp; name);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> scene_hier();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> scene_transforms();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> scene_render();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">void</span> scene_pfx();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> scene_scripting();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">void</span> scene_physics();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordtype">void</span> scene_audio();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        std::vector&lt;Ref&lt;Scene&gt;&gt; m_scenes;  <span class="comment">// allocated scenes in the engine</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        std::deque&lt;Ref&lt;Scene&gt;&gt;  m_to_clear;<span class="comment">// scheduled to be cleared</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>              m_running; <span class="comment">// active scene</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>              m_default; <span class="comment">// default scene to always show something</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1SceneManager.html">   44</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1SceneManager.html">SceneManager</a> final {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classwmoge_1_1SceneManager.html#ae2ba53a6c44f5de6c98c05f667186680">SceneManager</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">void</span>                      <a class="code" href="classwmoge_1_1SceneManager.html#a24a34a7c20c243cf7e4ea7b6ece5e50f">clear</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">void</span>                      <a class="code" href="classwmoge_1_1SceneManager.html#a8ef58327c64d3e161d20c2775ad59811">update</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">void</span>                      <a class="code" href="classwmoge_1_1SceneManager.html#a3d89c65f957b4c9b2dc837a89e534fac">change</a>(<a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a> scene);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>                <a class="code" href="classwmoge_1_1SceneManager.html#a6e2bce32ebfcc05ca244b37262e210dd">get_running_scene</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>                <a class="code" href="classwmoge_1_1SceneManager.html#a700badc0e29bcc8b823f93337876c993">make_scene</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a>&amp; name);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::optional&lt;Ref&lt;Scene&gt;&gt; <a class="code" href="classwmoge_1_1SceneManager.html#a8b2496a7d27ef733dd6a12cd167cdd79">find_by_name</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a>&amp; name);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">void</span> scene_hier();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordtype">void</span> scene_transforms();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">void</span> scene_render();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">void</span> scene_pfx();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">void</span> scene_scripting();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> scene_physics();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">void</span> scene_audio();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">void</span> scene_change();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">void</span> scene_start();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">void</span> scene_play();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordtype">void</span> scene_pause();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">void</span> scene_resume();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">void</span> scene_finish();</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        std::mutex m_mutex;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    };</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_SCENE_MANAGER_HPP</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        std::vector&lt;Ref&lt;Scene&gt;&gt; m_scenes;  <span class="comment">// allocated scenes in the engine</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        std::deque&lt;Ref&lt;Scene&gt;&gt;  m_to_clear;<span class="comment">// scheduled to be cleared</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>              m_running; <span class="comment">// active scene</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>              m_next;    <span class="comment">// next scene to set</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Scene&gt;</a>              m_default; <span class="comment">// default scene to always show something</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    };</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_SCENE_MANAGER_HPP</span></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:74</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html"><div class="ttname"><a href="classwmoge_1_1SceneManager.html">wmoge::SceneManager</a></div><div class="ttdoc">Manager for game loaded and active scenes.</div><div class="ttdef"><b>Definition:</b> scene_manager.hpp:45</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a0459220f378bdea9c1f3c96c8e7e9327"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a0459220f378bdea9c1f3c96c8e7e9327">wmoge::SceneManager::make_active</a></div><div class="ttdeci">void make_active(Ref&lt; Scene &gt; scene)</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:95</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a24a34a7c20c243cf7e4ea7b6ece5e50f"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a24a34a7c20c243cf7e4ea7b6ece5e50f">wmoge::SceneManager::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:68</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a6e2bce32ebfcc05ca244b37262e210dd"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a6e2bce32ebfcc05ca244b37262e210dd">wmoge::SceneManager::get_running_scene</a></div><div class="ttdeci">Ref&lt; Scene &gt; get_running_scene()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:107</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a700badc0e29bcc8b823f93337876c993"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a700badc0e29bcc8b823f93337876c993">wmoge::SceneManager::make_scene</a></div><div class="ttdeci">Ref&lt; Scene &gt; make_scene(const StringId &amp;name)</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:111</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a8b2496a7d27ef733dd6a12cd167cdd79"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a8b2496a7d27ef733dd6a12cd167cdd79">wmoge::SceneManager::find_by_name</a></div><div class="ttdeci">std::optional&lt; Ref&lt; Scene &gt; &gt; find_by_name(const StringId &amp;name)</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:121</div></div>
-<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a8ef58327c64d3e161d20c2775ad59811"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a8ef58327c64d3e161d20c2775ad59811">wmoge::SceneManager::update</a></div><div class="ttdeci">void update()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:77</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html"><div class="ttname"><a href="classwmoge_1_1SceneManager.html">wmoge::SceneManager</a></div><div class="ttdoc">Manager for game loaded and active scenes.</div><div class="ttdef"><b>Definition:</b> scene_manager.hpp:44</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a24a34a7c20c243cf7e4ea7b6ece5e50f"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a24a34a7c20c243cf7e4ea7b6ece5e50f">wmoge::SceneManager::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:65</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a3d89c65f957b4c9b2dc837a89e534fac"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a3d89c65f957b4c9b2dc837a89e534fac">wmoge::SceneManager::change</a></div><div class="ttdeci">void change(Ref&lt; Scene &gt; scene)</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:96</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a6e2bce32ebfcc05ca244b37262e210dd"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a6e2bce32ebfcc05ca244b37262e210dd">wmoge::SceneManager::get_running_scene</a></div><div class="ttdeci">Ref&lt; Scene &gt; get_running_scene()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:101</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a700badc0e29bcc8b823f93337876c993"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a700badc0e29bcc8b823f93337876c993">wmoge::SceneManager::make_scene</a></div><div class="ttdeci">Ref&lt; Scene &gt; make_scene(const StringId &amp;name)</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:104</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a8b2496a7d27ef733dd6a12cd167cdd79"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a8b2496a7d27ef733dd6a12cd167cdd79">wmoge::SceneManager::find_by_name</a></div><div class="ttdeci">std::optional&lt; Ref&lt; Scene &gt; &gt; find_by_name(const StringId &amp;name)</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:112</div></div>
+<div class="ttc" id="aclasswmoge_1_1SceneManager_html_a8ef58327c64d3e161d20c2775ad59811"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#a8ef58327c64d3e161d20c2775ad59811">wmoge::SceneManager::update</a></div><div class="ttdeci">void update()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:74</div></div>
 <div class="ttc" id="aclasswmoge_1_1SceneManager_html_ae2ba53a6c44f5de6c98c05f667186680"><div class="ttname"><a href="classwmoge_1_1SceneManager.html#ae2ba53a6c44f5de6c98c05f667186680">wmoge::SceneManager::SceneManager</a></div><div class="ttdeci">SceneManager()</div><div class="ttdef"><b>Definition:</b> scene_manager.cpp:48</div></div>
 <div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:43</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>

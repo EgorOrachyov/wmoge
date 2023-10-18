@@ -1,13 +1,38 @@
 <map id="engine/mesh/mesh_pass.hpp" name="engine/mesh/mesh_pass.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="256,5,447,32"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,177,132,203"/>
-<area shape="rect" id="node3" href="$mesh__pass_8cpp.html" title=" " alt="" coords="256,87,447,114"/>
-<area shape="rect" id="node4" href="$render__engine_8hpp.html" title=" " alt="" coords="520,80,660,121"/>
-<area shape="rect" id="node5" href="$debug__layer_8cpp.html" title=" " alt="" coords="157,169,295,211"/>
-<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="320,177,468,203"/>
-<area shape="rect" id="node7" href="$mesh__batch_8cpp.html" title=" " alt="" coords="493,177,687,203"/>
-<area shape="rect" id="node8" href="$aux__draw__canvas_8cpp.html" title=" " alt="" coords="712,169,871,211"/>
-<area shape="rect" id="node9" href="$render__engine_8cpp.html" title=" " alt="" coords="895,169,1035,211"/>
-<area shape="rect" id="node10" href="$material_8cpp.html" title=" " alt="" coords="1059,177,1247,203"/>
-<area shape="rect" id="node11" href="$scene__manager_8cpp.html" title=" " alt="" coords="1271,169,1410,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1227,5,1418,32"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="1398,698,1525,725"/>
+<area shape="rect" id="node3" href="$mesh__batch_8hpp.html" title=" " alt="" coords="1108,80,1303,107"/>
+<area shape="rect" id="node6" href="$render__engine_8hpp.html" title=" " alt="" coords="739,244,879,285"/>
+<area shape="rect" id="node32" href="$render__mesh__static_8hpp.html" title=" " alt="" coords="1737,244,1877,285"/>
+<area shape="rect" id="node35" href="$mesh__pass_8cpp.html" title=" " alt="" coords="1578,80,1769,107"/>
+<area shape="rect" id="node36" href="$mesh__processors_8hpp.html" title=" " alt="" coords="1327,80,1553,107"/>
+<area shape="rect" id="node4" href="$mesh__batch_8cpp.html" title=" " alt="" coords="1587,341,1781,367"/>
+<area shape="rect" id="node5" href="$mesh__processors_8cpp.html" title=" " alt="" coords="1420,162,1647,189"/>
+<area shape="rect" id="node13" href="$render__object_8hpp.html" title=" " alt="" coords="1135,155,1275,196"/>
+<area shape="rect" id="node7" href="$debug__layer_8cpp.html" title=" " alt="" coords="928,333,1067,375"/>
+<area shape="rect" id="node8" href="$main_8cpp.html" title=" " alt="" coords="94,341,242,367"/>
+<area shape="rect" id="node9" href="$aux__draw__canvas_8cpp.html" title=" " alt="" coords="266,333,425,375"/>
+<area shape="rect" id="node10" href="$render__engine_8cpp.html" title=" " alt="" coords="449,333,589,375"/>
+<area shape="rect" id="node11" href="$material_8cpp.html" title=" " alt="" coords="715,341,903,367"/>
+<area shape="rect" id="node12" href="$scene__manager_8cpp.html" title=" " alt="" coords="841,512,980,553"/>
+<area shape="rect" id="node14" href="$render__mesh__skinned_8hpp.html" title=" " alt="" coords="1407,244,1547,285"/>
+<area shape="rect" id="node16" href="$scene__components_8hpp.html" title=" " alt="" coords="1208,333,1347,375"/>
+<area shape="rect" id="node30" href="$system__render_8hpp.html" title=" " alt="" coords="741,423,899,464"/>
+<area shape="rect" id="node34" href="$render__object_8cpp.html" title=" " alt="" coords="1243,244,1383,285"/>
+<area shape="rect" id="node15" href="$render__mesh__skinned_8cpp.html" title=" " alt="" coords="1422,333,1562,375"/>
+<area shape="rect" id="node17" href="$scene_8cpp.html" title=" " alt="" coords="1157,430,1320,457"/>
+<area shape="rect" id="node18" href="$scene__components_8cpp.html" title=" " alt="" coords="1344,423,1483,464"/>
+<area shape="rect" id="node19" href="$scene__node_8cpp.html" title=" " alt="" coords="2277,691,2416,732"/>
+<area shape="rect" id="node20" href="$scene__properties_8hpp.html" title=" " alt="" coords="1557,423,1696,464"/>
+<area shape="rect" id="node31" href="$system__transform_8hpp.html" title=" " alt="" coords="923,423,1082,464"/>
+<area shape="rect" id="node21" href="$register__classes__scene_8cpp.html" title=" " alt="" coords="2205,601,2352,643"/>
+<area shape="rect" id="node22" href="$scene__properties_8cpp.html" title=" " alt="" coords="1557,512,1696,553"/>
+<area shape="rect" id="node23" href="$scene__tree_8hpp.html" title=" " alt="" coords="1921,512,2060,553"/>
+<area shape="rect" id="node24" href="$prefab_8hpp.html" title=" " alt="" coords="1901,609,2080,635"/>
+<area shape="rect" id="node27" href="$scene__tree_8cpp.html" title=" " alt="" coords="2115,691,2253,732"/>
+<area shape="rect" id="node28" href="$scene__tree__packed_8hpp.html" title=" " alt="" coords="1723,601,1877,643"/>
+<area shape="rect" id="node25" href="$prefab_8cpp.html" title=" " alt="" coords="1912,698,2091,725"/>
+<area shape="rect" id="node26" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="1726,691,1887,732"/>
+<area shape="rect" id="node29" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="1549,691,1702,732"/>
+<area shape="rect" id="node33" href="$render__mesh__static_8cpp.html" title=" " alt="" coords="1806,333,1946,375"/>
 </map>

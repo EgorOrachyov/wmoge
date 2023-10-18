@@ -752,6 +752,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassList.html">MeshPassList</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">List with compiled PSO states to render mesh in multiple passes.  <a href="classwmoge_1_1MeshPassList.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessor.html">MeshPassProcessor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Responsible for compiling a mesh batch into a draw call for a particular pass.  <a href="classwmoge_1_1MeshPassProcessor.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html">MeshPassProcessorGBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processor for GBuffer pass.  <a href="classwmoge_1_1MeshPassProcessorGBuffer.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PfxComponent.html">PfxComponent</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single component of a pfx effect with particles.  <a href="classwmoge_1_1PfxComponent.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2254,6 +2260,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacewmoge.html#ab57be49f2b2b2896bfefc5db77931aeba95f860251abfb77c6e4a2ae133807b7c">Effect2d</a>
  }</td></tr>
 <tr class="separator:ab57be49f2b2b2896bfefc5db77931aeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44ba7100989617c6bfe5552ea848de38"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38">SceneState</a> { <a class="el" href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38a7a1920d61156abc05a60135aefe8bc67">Default</a>
+, <a class="el" href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38ac9dbb2b7c84159b632d71e512eba8428">Playing</a>
+, <a class="el" href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38ae99180abf47a8b3a856e0bcb2656990a">Paused</a>
+, <a class="el" href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38a8f3d10eb21bd36347c258679eba9e92b">Finished</a>
+ }</td></tr>
+<tr class="memdesc:a44ba7100989617c6bfe5552ea848de38"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of an scene.  <a href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38">More...</a><br /></td></tr>
+<tr class="separator:a44ba7100989617c6bfe5552ea848de38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b23192f3977eaabcfb3e68f66402df5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5">SceneNodeType</a> { <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5a497031794414a552435f90151ac3b54b">Object</a> = 0
 , <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5ab0f2b97dc5d2b76b26e040408bb1d8af">Folder</a>
 , <a class="el" href="namespacewmoge.html#a2b23192f3977eaabcfb3e68f66402df5a359b71e88f40029251366609358a302f">Layer</a>
@@ -5742,6 +5755,36 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5ab0f2b97dc5d2b76b26e040408bb1d8af"></a>Folder&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5a359b71e88f40029251366609358a302f"></a>Layer&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2b23192f3977eaabcfb3e68f66402df5a3ff36c343bbf89fca402e0880e438744"></a>Prefabed&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a44ba7100989617c6bfe5552ea848de38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44ba7100989617c6bfe5552ea848de38">&#9670;&nbsp;</a></span>SceneState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38">wmoge::SceneState</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>State of an scene. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a44ba7100989617c6bfe5552ea848de38a7a1920d61156abc05a60135aefe8bc67"></a>Default&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a44ba7100989617c6bfe5552ea848de38ac9dbb2b7c84159b632d71e512eba8428"></a>Playing&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a44ba7100989617c6bfe5552ea848de38ae99180abf47a8b3a856e0bcb2656990a"></a>Paused&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a44ba7100989617c6bfe5552ea848de38a8f3d10eb21bd36347c258679eba9e92b"></a>Finished&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>

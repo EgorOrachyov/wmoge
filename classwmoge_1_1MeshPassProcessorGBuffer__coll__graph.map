@@ -1,0 +1,6 @@
+<map id="wmoge::MeshPassProcessorGBuffer" name="wmoge::MeshPassProcessorGBuffer">
+<area shape="rect" id="node1" title="Processor for GBuffer pass." alt="" coords="73,171,264,212"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1MeshPassProcessor.html" title="Responsible for compiling a mesh batch into a draw call for a particular pass." alt="" coords="73,95,264,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ShaderManager.html" title="Render module access to engine shaders." alt="" coords="5,5,167,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="191,5,315,32"/>
+</map>
