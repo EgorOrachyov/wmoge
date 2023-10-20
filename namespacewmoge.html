@@ -861,6 +861,10 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility-class for rendering debug geometry and text.  <a href="classwmoge_1_1AuxDrawManager.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html">GraphicsPipelineStage</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCamera.html">RenderCamera</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Camera.html" title="In-game camera for rendering the scene.">Camera</a> primitive to setup rendering.  <a href="classwmoge_1_1RenderCamera.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2184,6 +2188,24 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:afdc8dfc5858af93dedca502b2986906a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pipeline type to draw primitive.  <a href="namespacewmoge.html#afdc8dfc5858af93dedca502b2986906a">More...</a><br /></td></tr>
 <tr class="separator:afdc8dfc5858af93dedca502b2986906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae279f1e848cee4b1b7dc7bad145567dc"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dc">GraphicsPipelineStageType</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca353488005629cf8d75def358ee005f3d">ShadowMap</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca120e44b8338f475d1245b07e9b0cb591">SceneGBuffer</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dcaef3b6ceaf1cfc8a8854ab1a2ea499ce8">SceneForward</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dcac2be22a8eadd48cfd00363d17a8bfbe5">MotionBloor</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca66a45ffadda29d57e51bc9e5ebb34364">DepthOfField</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dcae57cdfbc09f4e0f7445c279d9f580bdd">Bloom</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca90ce25be35310f662a2dda74f78a6fd2">AutoExposure</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dcaf48dc363f46863a4a79bf41a69a33116">ToneMapping</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca38ff0ad2037b8a3fdd0e56681f46df66">SunShafts</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca96b0141273eabab320119c467cdcaf17">Total</a> = 10
+<br />
+ }</td></tr>
+<tr class="memdesc:ae279f1e848cee4b1b7dc7bad145567dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of supported stages.  <a href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dc">More...</a><br /></td></tr>
+<tr class="separator:ae279f1e848cee4b1b7dc7bad145567dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d1e702adb4e0c16dcfa2a32a9c4d40e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40e">CameraProjection</a> { <a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40eaa80420eef88d11f77532f1b9cb467fa3">Perspective</a> = 0
 , <a class="el" href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40ea03424250432f2aa71de95579d2c0eaeb">Orthographic</a>
  }</td></tr>
@@ -5184,6 +5206,43 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3"></a>Uv32f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4"></a>PrimitiveIdi&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ae279f1e848cee4b1b7dc7bad145567dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae279f1e848cee4b1b7dc7bad145567dc">&#9670;&nbsp;</a></span>GraphicsPipelineStageType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dc">wmoge::GraphicsPipelineStageType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Types of supported stages. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca353488005629cf8d75def358ee005f3d"></a>ShadowMap&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca120e44b8338f475d1245b07e9b0cb591"></a>SceneGBuffer&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dcaef3b6ceaf1cfc8a8854ab1a2ea499ce8"></a>SceneForward&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dcac2be22a8eadd48cfd00363d17a8bfbe5"></a>MotionBloor&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca66a45ffadda29d57e51bc9e5ebb34364"></a>DepthOfField&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dcae57cdfbc09f4e0f7445c279d9f580bdd"></a>Bloom&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca90ce25be35310f662a2dda74f78a6fd2"></a>AutoExposure&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dcaf48dc363f46863a4a79bf41a69a33116"></a>ToneMapping&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca38ff0ad2037b8a3fdd0e56681f46df66"></a>SunShafts&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca96b0141273eabab320119c467cdcaf17"></a>Total&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
