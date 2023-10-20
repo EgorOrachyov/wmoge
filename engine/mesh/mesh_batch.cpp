@@ -48,8 +48,6 @@ namespace wmoge {
     }
 
     void MeshBatchCollector::add_batch(const MeshBatch& b) {
-        WG_AUTO_PROFILE_MESH("MeshBatchCollector::add_batch");
-
         std::lock_guard guard(m_mutex);
 
         m_batches.push_back(b);
@@ -70,8 +68,6 @@ namespace wmoge {
     }
 
     Status MeshBatchCompiler::compile_batch(const MeshBatch& batch, int batch_index) {
-        WG_AUTO_PROFILE_MESH("MeshBatchCompiler::compile_batch");
-
         if (!batch.cam_mask.any()) {
             return StatusCode::Ok;
         }

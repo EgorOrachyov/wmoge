@@ -61,6 +61,8 @@ namespace wmoge {
         int num_executed = 0;
         int num_total    = int(m_queue.size());
 
+        GfxPipeline* bound_pipeline = nullptr;
+
         for (int i = 0; i < num_total; i++) {
             const int        cmd_idx = m_queue[i].second;
             const RenderCmd& cmd     = m_buffer[cmd_idx];
@@ -69,8 +71,11 @@ namespace wmoge {
             const GfxIndexBufferSetup& index_setup  = cmd.index_setup;
             const GfxDrawCall&         call_params  = cmd.call_params;
 
-            if (!gfx_ctx->bind_pipeline(Ref<GfxPipeline>(cmd.pipeline))) {
-                continue;
+            if (bound_pipeline != cmd.pipeline) {
+                if (!gfx_ctx->bind_pipeline(Ref<GfxPipeline>(cmd.pipeline))) {
+                    continue;
+                }
+                bound_pipeline = cmd.pipeline;
             }
 
             for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {

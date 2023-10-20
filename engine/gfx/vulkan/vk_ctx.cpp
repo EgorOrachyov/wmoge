@@ -268,24 +268,22 @@ namespace wmoge {
         assert(m_target_bound);
         assert(pipeline);
 
-        // Check equal
-        if (pipeline.get() == m_current_pipeline.get()) {
-            return m_current_pipeline->validate(m_current_pass);
-        }
-
         prepare_render_pass();
 
-        // Check compiled
-        m_current_pipeline = pipeline.cast<VKPipeline>();
-        if (!m_current_pipeline->validate(m_current_pass)) {
+        Ref<VKPipeline> new_pipeline = pipeline.cast<VKPipeline>();
+
+        if (new_pipeline == m_current_pipeline) {
+            return true;
+        }
+        if (!new_pipeline->validate(m_current_pass)) {
             return false;
         }
 
-        // Bind shader for descriptor manager
-        m_current_shader = m_current_pipeline->state().shader.cast<VKShader>();
+        vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, new_pipeline->pipeline());
+        m_current_pipeline = std::move(new_pipeline);
+        m_current_shader   = m_current_pipeline->state().shader.cast<VKShader>();
+        m_pipeline_bound   = true;
 
-        vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_current_pipeline->pipeline());
-        m_pipeline_bound = true;
         return true;
     }
     void VKCtx::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
