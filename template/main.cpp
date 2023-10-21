@@ -48,8 +48,6 @@ public:
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
 
-        Ref<Model> model = Engine::instance()->resource_manager()->load(SID("res://models/suzanne")).cast<Model>();
-
         Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
         scene_tree                             = scene_tree_packed->instantiate();
         scene                                  = scene_tree->get_scene();

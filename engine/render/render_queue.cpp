@@ -30,31 +30,43 @@
 #include "debug/profiler.hpp"
 
 #include <algorithm>
+#include <cassert>
 
 namespace wmoge {
 
-    void RenderQueue::push(RenderCmdKey key, const RenderCmd& cmd) {
-        std::lock_guard guard(m_mutex);
+    bool SortableRenderCmd::operator<(const SortableRenderCmd& other) const {
+        if (bucket_slot != other.bucket_slot) {
+            return bucket_slot < other.bucket_slot;
+        }
 
-        const int index = int(m_buffer.size());
-        m_buffer.push_back(cmd);
-        m_queue.emplace_back(key, index);
+        return false;
     }
+
+    RenderCmd* RenderCmdAllocator::allocate() {
+        std::lock_guard guard(m_mutex);
+        return &m_buffer.emplace_back(RenderCmd());
+    }
+
+    void RenderCmdAllocator::clear() {
+        std::lock_guard guard(m_mutex);
+        m_buffer.clear();
+    }
+
+    void RenderQueue::push(const SortableRenderCmd& cmd) {
+        std::lock_guard guard(m_mutex);
+        m_queue.emplace_back(cmd);
+    }
+
     void RenderQueue::clear() {
         std::lock_guard guard(m_mutex);
-
-        m_buffer.clear();
         m_queue.clear();
     }
+
     void RenderQueue::sort() {
         WG_AUTO_PROFILE_RENDER("RenderQueue::sort");
-
-        std::lock_guard guard(m_mutex);
-
-        std::sort(m_queue.begin(), m_queue.end(), [](const auto& p1, const auto& p2) -> bool {
-            return p1.first.value < p2.first.value;
-        });
+        std::sort(m_queue.begin(), m_queue.end());
     }
+
     int RenderQueue::execute(GfxCtx* gfx_ctx) {
         WG_AUTO_PROFILE_RENDER("RenderQueue::execute");
 
@@ -64,8 +76,8 @@ namespace wmoge {
         GfxPipeline* bound_pipeline = nullptr;
 
         for (int i = 0; i < num_total; i++) {
-            const int        cmd_idx = m_queue[i].second;
-            const RenderCmd& cmd     = m_buffer[cmd_idx];
+            const SortableRenderCmd& sortable_cmd = m_queue[i];
+            const RenderCmd&         cmd          = *sortable_cmd.cmd;
 
             const GfxVertBuffersSetup& vert_buffers = cmd.vert_buffers;
             const GfxIndexBufferSetup& index_setup  = cmd.index_setup;
@@ -102,12 +114,21 @@ namespace wmoge {
         return num_executed;
     }
 
-    std::size_t RenderQueue::size() const {
-        return m_buffer.size();
+    std::vector<SortableRenderCmd>& RenderQueue::get_queue() {
+        return m_queue;
     }
-    const RenderCmd& RenderQueue::cmd(std::size_t index) const {
+
+    const SortableRenderCmd& RenderQueue::get_cmd(std::size_t index) const {
         assert(index < m_queue.size());
-        return m_buffer[m_queue[index].second];
+        return m_queue[index];
+    }
+
+    std::size_t RenderQueue::get_size() const {
+        return m_queue.size();
+    }
+
+    bool RenderQueue::is_empty() const {
+        return m_queue.empty();
     }
 
 }// namespace wmoge

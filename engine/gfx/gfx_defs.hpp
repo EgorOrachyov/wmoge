@@ -449,6 +449,12 @@ namespace wmoge {
         int count     = 0;
         int base      = 0;
         int instances = 0;
+
+        bool operator==(const GfxDrawCall& other) const {
+            return count == other.count &&
+                   base == other.base &&
+                   instances == other.instances;
+        }
     };
 
     /** @brief Gfx device capabilities */

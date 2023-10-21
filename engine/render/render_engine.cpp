@@ -68,6 +68,9 @@ namespace wmoge {
         m_objects_collector.clear();
         m_batch_collector.clear();
         m_batch_compiler.clear();
+        m_cmd_merger.clear();
+        m_cmd_allocator.clear();
+        m_queues.clear();
     }
 
     void RenderEngine::end_rendering() {
@@ -78,6 +81,13 @@ namespace wmoge {
         if (!m_cameras.is_empty()) {
             m_camera_prev = m_cameras.camera_main().camera;
         }
+    }
+
+    void RenderEngine::reserve_buffers() {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::reserve_buffers");
+
+        m_scene->get_render_objects_data().clear();
+        m_scene->get_render_objects_data().resize(m_objects_collector.get_size());
     }
 
     void RenderEngine::prepare_frame_data() {
@@ -96,16 +106,6 @@ namespace wmoge {
         frame_data._fd_pad1  = 0.0f;
 
         gfx_ctx->unmap_uniform_buffer(m_frame_data);
-    }
-
-    void RenderEngine::reserve_buffers() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::reserve_buffers");
-
-        m_scene->get_objects_ids().clear();
-        m_scene->get_objects_ids().resize(m_batch_collector.get_size());
-
-        m_scene->get_render_objects_data().clear();
-        m_scene->get_render_objects_data().resize(m_batch_collector.get_size());
     }
 
     void RenderEngine::allocate_veiws() {
@@ -189,11 +189,14 @@ namespace wmoge {
     void RenderEngine::collect_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::collect_batches");
 
-        const ArrayView<RenderObject*> render_objects = m_objects_collector.get_objects();
+        const ArrayView<RenderObject*>                    render_objects      = m_objects_collector.get_objects();
+        GfxVector<GPURenderObjectData, GfxStorageBuffer>& render_objects_data = m_scene->get_render_objects_data();
 
         TaskParallelFor task_compile(SID("collect_batches"), [&](TaskContext&, int id, int) {
             RenderCameraMask mask;
             mask.flip();
+            render_objects[id]->set_primitive_id(id);
+            render_objects[id]->fill_data(render_objects_data[id]);
             render_objects[id]->collect(m_cameras, mask, m_batch_collector);
             return 0;
         });
@@ -209,6 +212,7 @@ namespace wmoge {
         m_batch_compiler.set_scene(m_scene);
         m_batch_compiler.set_cameras(m_cameras);
         m_batch_compiler.set_views(get_views());
+        m_batch_compiler.set_cmd_allocator(m_cmd_allocator);
 
         TaskParallelFor task_compile(SID("compile_batches"), [&](TaskContext&, int id, int) {
             m_batch_compiler.compile_batch(batches[id], id);
@@ -216,6 +220,49 @@ namespace wmoge {
         });
 
         task_compile.schedule(int(batches.size()), m_batch_size).wait_completed();
+    }
+
+    void RenderEngine::group_queues() {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::group_queues");
+
+        std::size_t total_sorted_cmds = 0;
+
+        for (RenderView& view : get_views()) {
+            for (int i = 0; i < RenderView::QUEUE_COUNT; i++) {
+                if (!view.queues[i].is_empty()) {
+                    total_sorted_cmds += view.queues[i].get_size();
+                    m_queues.push_back(&view.queues[i]);
+                }
+            }
+        }
+
+        m_scene->get_objects_ids().clear();
+        m_scene->get_objects_ids().resize(total_sorted_cmds);
+    }
+
+    void RenderEngine::sort_queues() {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::sort_queues");
+
+        TaskParallelFor task_sort(SID("sort_queues"), [&](TaskContext&, int id, int) {
+            m_queues[id]->sort();
+            return 0;
+        });
+
+        task_sort.schedule(int(m_queues.size()), 1).wait_completed();
+    }
+
+    void RenderEngine::merge_cmds() {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::merge_cmds");
+
+        m_cmd_merger.set_scene(m_scene);
+        m_cmd_merger.set_cmd_allocator(m_cmd_allocator);
+
+        TaskParallelFor task_merge(SID("merge_cmds"), [&](TaskContext&, int id, int) {
+            m_cmd_merger.proccess_queue(*m_queues[id]);
+            return 0;
+        });
+
+        task_merge.schedule(int(m_queues.size()), 1).wait_completed();
     }
 
     void RenderEngine::flush_buffers() {

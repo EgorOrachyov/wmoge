@@ -83,6 +83,10 @@ namespace wmoge {
     /**
      * @class MeshBatchCollector
      * @brief Service to collect batches from render objects for drawing
+     * 
+     * Allows to collect mesh batches (draw requests) from any type of render objects.
+     * Mesh batch allows to translate draw request from user code to engine code. 
+     * Engine itself can compile batches and work with the in the unified and optimized way.
      */
     class MeshBatchCollector final {
     public:
@@ -115,6 +119,10 @@ namespace wmoge {
     /**
      * @class MeshBatchCompiler
      * @brief Compiles collection of mesh batches into set of render commands for rendering
+     * 
+     * Compiles mesh batches into a set of render cmds, for each camera and each pass, which pass
+     * filtering and relevance options. For batches which supports instancing, compiler assignes
+     * bucket slots for further render commands merging.
      */
     class MeshBatchCompiler final {
     public:
@@ -125,7 +133,8 @@ namespace wmoge {
         Status compile_batch(const MeshBatch& batch, int batch_index);
         void   set_scene(class RenderScene* scene);
         void   set_views(ArrayView<struct RenderView> views);
-        void   set_cameras(RenderCameras& cameras);
+        void   set_cameras(class RenderCameras& cameras);
+        void   set_cmd_allocator(class RenderCmdAllocator& allocator);
         void   clear();
 
     private:
@@ -133,11 +142,12 @@ namespace wmoge {
 
         ArrayView<struct RenderView> m_views;
 
-        class RenderCameras* m_cameras        = nullptr;
-        class RenderScene*   m_scene          = nullptr;
-        class ShaderManager* m_shader_manager = nullptr;
-        class GfxDriver*     m_driver         = nullptr;
-        class GfxCtx*        m_ctx            = nullptr;
+        class RenderCmdAllocator* m_cmd_allocator  = nullptr;
+        class RenderCameras*      m_cameras        = nullptr;
+        class RenderScene*        m_scene          = nullptr;
+        class ShaderManager*      m_shader_manager = nullptr;
+        class GfxDriver*          m_driver         = nullptr;
+        class GfxCtx*             m_ctx            = nullptr;
     };
 
 }// namespace wmoge

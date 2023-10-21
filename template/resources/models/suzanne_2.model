@@ -1,0 +1,10 @@
+materials:
+ - "res://materials/test_material_2"
+lods:
+ - mesh: "res://mesh/suzanne"
+   materials:
+    - 0 
+   screen_size: 1
+lod_settings:
+ minimum_lod: 0 
+ num_of_lods: 1

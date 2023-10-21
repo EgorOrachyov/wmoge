@@ -58,10 +58,13 @@ namespace wmoge {
         virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
         virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;
         virtual StringId                     get_friendly_name() const;
+        virtual int                          get_primitive_id() const;
         virtual void                         set_friendly_name(StringId name);
+        virtual void                         set_primitive_id(int id);
 
-    private:
+    protected:
         StringId m_name;
+        int      m_primitive_id = -1;
     };
 
     /**

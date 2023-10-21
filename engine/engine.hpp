@@ -133,6 +133,7 @@
 #include "memory/mem_pool.hpp"
 
 #include "mesh/mesh_batch.hpp"
+#include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_builder.hpp"
 #include "mesh/mesh_pass.hpp"
 

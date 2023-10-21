@@ -102,6 +102,20 @@ namespace wmoge {
             data.movement       = data.position - data.position_prev;
         }
 
+        if (type == CameraType::Color) {
+            data.pass_relevance.set(MeshPassType::Background);
+            data.pass_relevance.set(MeshPassType::Shadow);
+            data.pass_relevance.set(MeshPassType::GBuffer);
+            data.pass_relevance.set(MeshPassType::Forward);
+            data.pass_relevance.set(MeshPassType::Pfx);
+            data.pass_relevance.set(MeshPassType::Ui);
+            data.pass_relevance.set(MeshPassType::Overlay);
+            data.pass_relevance.set(MeshPassType::Outline);
+        }
+        if (type == CameraType::Shadow) {
+            data.pass_relevance.set(MeshPassType::Shadow);
+        }
+
         return index;
     }
 

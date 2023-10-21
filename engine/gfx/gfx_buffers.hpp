@@ -104,6 +104,18 @@ namespace wmoge {
     struct GfxVertBuffersSetup {
         GfxVertBuffer* buffers[GfxLimits::MAX_VERT_BUFFERS] = {0};
         int            offsets[GfxLimits::MAX_VERT_BUFFERS] = {0};
+
+        bool operator==(const GfxVertBuffersSetup& other) const {
+            for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
+                if (buffers[i] != other.buffers[i]) {
+                    return false;
+                }
+                if (offsets[i] != other.offsets[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
     };
 
     /**
@@ -114,6 +126,12 @@ namespace wmoge {
         GfxIndexBuffer* buffer     = nullptr;
         int             offset     = 0;
         GfxIndexType    index_type = GfxIndexType::Uint32;
+
+        bool operator==(const GfxIndexBufferSetup& other) const {
+            return buffer == other.buffer &&
+                   offset == other.offset &&
+                   index_type == other.index_type;
+        }
     };
 
     /** @brief Setup to bind uniform buffer */

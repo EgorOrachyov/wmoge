@@ -215,6 +215,8 @@ add_library(wmoge STATIC
         memory/mem_pool.hpp
         mesh/mesh_batch.cpp
         mesh/mesh_batch.hpp
+        mesh/mesh_bucket.cpp
+        mesh/mesh_bucket.hpp
         mesh/mesh_builder.cpp
         mesh/mesh_builder.hpp
         mesh/mesh_pass.cpp

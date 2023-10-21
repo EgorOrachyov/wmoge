@@ -55,7 +55,7 @@ def main():
                 file,
                 name=f"suzanne_auto_{i}",
                 parent="13626177115197044525",
-                model="res://models/suzanne",
+                model=f"res://models/suzanne_{random.randint(1,3)}",
                 t=t,
             )
 

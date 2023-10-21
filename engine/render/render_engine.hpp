@@ -55,7 +55,7 @@ namespace wmoge {
      * @brief Holds data required to render a single view
      */
     struct RenderView {
-        static constexpr int QUEUE_COUNT = int(MeshPassType::Total);
+        static constexpr int QUEUE_COUNT = MESH_PASSES_TOTAL;
 
         std::array<RenderQueue, QUEUE_COUNT> queues;
         Ref<GfxUniformBuffer>                view_data;
@@ -94,11 +94,14 @@ namespace wmoge {
         void begin_rendering();
         void end_rendering();
 
-        void prepare_frame_data();
         void reserve_buffers();
+        void prepare_frame_data();
         void allocate_veiws();
         void collect_batches();
         void compile_batches();
+        void group_queues();
+        void sort_queues();
+        void merge_cmds();
         void flush_buffers();
         void render_aux_geom(AuxDrawManager& aux_draw_manager);
 
@@ -106,6 +109,8 @@ namespace wmoge {
         [[nodiscard]] RenderObjectCollector&             get_obejcts_collector() { return m_objects_collector; }
         [[nodiscard]] MeshBatchCollector&                get_batch_collector() { return m_batch_collector; }
         [[nodiscard]] MeshBatchCompiler&                 get_batch_compiler() { return m_batch_compiler; }
+        [[nodiscard]] MeshRenderCmdMerger&               get_cmd_merger() { return m_cmd_merger; }
+        [[nodiscard]] RenderCmdAllocator&                get_cmd_allocator() { return m_cmd_allocator; }
         [[nodiscard]] ArrayView<RenderView>              get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
         [[nodiscard]] float                              get_time() const { return m_time; }
         [[nodiscard]] float                              get_delta_time() const { return m_delta_time; }
@@ -116,10 +121,13 @@ namespace wmoge {
 
     private:
         std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
+        std::vector<RenderQueue*>                       m_queues;
         RenderObjectCollector                           m_objects_collector;
         MeshBatchCollector                              m_batch_collector;
         MeshBatchCompiler                               m_batch_compiler;
+        MeshRenderCmdMerger                             m_cmd_merger;
         RenderCameras                                   m_cameras;
+        RenderCmdAllocator                              m_cmd_allocator;
 
         Color4f                     m_clear_color = Color::BLACK4f;
         Ref<Window>                 m_main_target;

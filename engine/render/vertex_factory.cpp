@@ -58,6 +58,7 @@ namespace wmoge {
     const VertexFactoryType& VertexFactory::get_type_info() const {
         static VertexFactoryType s_type = {
                 SID("VertexFactory"),
+                false,
                 false};
 
         return s_type;

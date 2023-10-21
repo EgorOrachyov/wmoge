@@ -40,18 +40,22 @@ namespace wmoge {
 
     /** @brief Supported engine mesh pass types */
     enum class MeshPassType {
-        None = 0,  //< Default invalid
-        Background,//<
-        Shadow,    //< Shadow cache generation for lights
-        GBuffer,   //< GBuffer generation for opaque geometry
-        Forward,   //<
-        Trasparent,//< Objects which require transparancy
-        Pfx,       //< Particles simulation
-        Ui,        //<
-        Outline,   //<
-        Overlay,   //<
+        Background = 0,//<
+        Shadow,        //< Shadow cache generation for lights
+        GBuffer,       //< GBuffer generation for opaque geometry
+        Forward,       //<
+        Pfx,           //< Particles simulation
+        Ui,            //<
+        Outline,       //<
+        Overlay,       //<
         Total = 8
     };
+
+    /** @brief Total num of mesh passes */
+    static constexpr int MESH_PASSES_TOTAL = static_cast<int>(MeshPassType::Total);
+
+    /** @brief Mask of mesh passes */
+    using MeshPassRelevance = Mask<MeshPassType>;
 
     /**
      * @class MeshPassList
@@ -59,7 +63,6 @@ namespace wmoge {
      */
     class MeshPassList {
     public:
-        static constexpr int NUM_PASSES_TOTAL  = static_cast<int>(MeshPassType::Total);
         static constexpr int NUM_PASSES_INLINE = 3;
 
         bool                            has_pass(MeshPassType pass_type) const;
@@ -87,6 +90,7 @@ namespace wmoge {
         MeshPassProcessor();
         virtual ~MeshPassProcessor() = default;
 
+        virtual bool         filter(const struct MeshBatch& batch)                                  = 0;
         virtual Status       compile(const struct MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) = 0;
         virtual std::string  get_name() const                                                       = 0;
         virtual MeshPassType get_pass_type() const                                                  = 0;

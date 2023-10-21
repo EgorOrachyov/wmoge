@@ -180,7 +180,7 @@ namespace wmoge {
         std::vector<std::string> m_required_layers;
         std::vector<std::string> m_required_extensions;
         std::vector<std::string> m_required_device_extensions;
-        bool                     m_use_validation = true;
+        bool                     m_use_validation = false;
 
         std::unique_ptr<GfxDriverWrapper>  m_driver_wrapper;
         std::unique_ptr<GfxCtxWrapper>     m_ctx_immediate_wrapper;

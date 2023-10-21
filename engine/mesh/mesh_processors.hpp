@@ -41,6 +41,7 @@ namespace wmoge {
         MeshPassProcessorGBuffer()           = default;
         ~MeshPassProcessorGBuffer() override = default;
 
+        bool         filter(const struct MeshBatch& batch) override;
         Status       compile(const struct MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) override;
         std::string  get_name() const override;
         MeshPassType get_pass_type() const override;

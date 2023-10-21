@@ -43,8 +43,16 @@ namespace wmoge {
         return m_name;
     }
 
+    int RenderObject::get_primitive_id() const {
+        return m_primitive_id;
+    }
+
     void RenderObject::set_friendly_name(StringId name) {
         m_name = name;
+    }
+
+    void RenderObject::set_primitive_id(int id) {
+        m_primitive_id = id;
     }
 
 }// namespace wmoge

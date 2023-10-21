@@ -66,11 +66,20 @@ namespace wmoge {
         m_engine_name         = info.engine_name;
         m_required_extensions = info.required_ext;
 
+#ifndef WMOGE_RELEASE
+        m_use_validation = config->get_bool(SID("gfx.vulkan.validation_layer"), true);
+#endif
+
         if (m_use_validation) {
             m_required_layers.emplace_back("VK_LAYER_KHRONOS_validation");
+            WG_LOG_INFO("request " << VK_LAYER_KHRONOS_VALIDATION);
+
             m_required_extensions.emplace_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+            WG_LOG_INFO("request " << VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
         }
+
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+        WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
         m_shader_cache_path   = config->get_string(SID("gfx.vulkan.shader_cache"), "cache://shaders_vk.cache");
         m_pipeline_cache_path = config->get_string(SID("gfx.vulkan.pipeline_cache"), "cache://pipelines_vk.cache");

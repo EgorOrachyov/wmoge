@@ -37,6 +37,9 @@
 
 namespace wmoge {
 
+    bool MeshPassProcessorGBuffer::filter(const MeshBatch& batch) {
+        return true;
+    }
     Status MeshPassProcessorGBuffer::compile(const MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) {
         WG_AUTO_PROFILE_MESH("MeshPassProcessorGBuffer::compile");
 

@@ -52,6 +52,8 @@
 #include "math/vec.hpp"
 #include "platform/window.hpp"
 
+#define VK_LAYER_KHRONOS_VALIDATION "VK_LAYER_KHRONOS_validation"
+
 #define WG_VK_ERROR(result, what) \
     if ((result) != VK_SUCCESS) { WG_LOG_ERROR("function returned error: " #what); }
 

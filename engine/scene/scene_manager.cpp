@@ -194,14 +194,17 @@ namespace wmoge {
             ecs_world->execute_system(sys_collect_static_meshes);
         }
 
-        render_engine->collect_batches();
         render_engine->reserve_buffers();
         render_engine->prepare_frame_data();
         render_engine->allocate_veiws();
+        render_engine->collect_batches();
         render_engine->compile_batches();
+        render_engine->group_queues();
+        render_engine->sort_queues();
+        render_engine->merge_cmds();
         render_engine->flush_buffers();
 
-        gfx_ctx->begin_render_pass({}, SID("GBuffer"));
+        gfx_ctx->begin_render_pass({}, SID("PassGeomGBuffer::execute"));
         {
             gfx_ctx->bind_target(render_engine->get_main_target());
             gfx_ctx->viewport(render_cameras.data_at(0).viewport);

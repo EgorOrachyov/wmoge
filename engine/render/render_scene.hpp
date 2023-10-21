@@ -30,6 +30,8 @@
 
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_vector.hpp"
+#include "mesh/mesh_bucket.hpp"
+#include "mesh/mesh_pass.hpp"
 
 #include "shaders/generated/auto_material_reflection.hpp"
 
@@ -62,10 +64,12 @@ namespace wmoge {
 
         [[nodiscard]] GfxVector<GPURenderObjectData, GfxStorageBuffer>& get_render_objects_data() { return m_render_objects_data; }
         [[nodiscard]] GfxVector<int, GfxVertBuffer>&                    get_objects_ids() { return m_objects_ids; }
+        [[nodiscard]] MeshBucketMap&                                    get_bucket_map(MeshPassType pass_type) { return m_bucket_map[int(pass_type)]; }
 
     private:
-        GfxVector<GPURenderObjectData, GfxStorageBuffer> m_render_objects_data;//< Scene render objects data
-        GfxVector<int, GfxVertBuffer>                    m_objects_ids;        //< Remap ids to render data
+        GfxVector<GPURenderObjectData, GfxStorageBuffer> m_render_objects_data;          //< Scene render objects data
+        GfxVector<int, GfxVertBuffer>                    m_objects_ids;                  //< Remap ids to render data
+        MeshBucketMap                                    m_bucket_map[MESH_PASSES_TOTAL];//< Bucket slot map per pass type
     };
 
 }// namespace wmoge

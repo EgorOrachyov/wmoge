@@ -40,7 +40,7 @@ namespace wmoge {
 
     /**
      * @class UnrolledList
-     * @brief Typed container as well as vector but values stored in chunks with persistent mem address to grow operation
+     * @brief Typed container as well as vector but values stored in chunks with persistent mem address in grow operation
      */
     template<typename T, int NodeCapacity = 128>
     class UnrolledList {

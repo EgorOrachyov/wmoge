@@ -44,6 +44,7 @@ namespace wmoge {
     struct VertexFactoryType {
         StringId name;             //< Vertex factory type name
         bool     supports_skinning;//< If supports gpu skinning
+        bool     supports_merging; //< If supports dynamic draw calls merging
     };
 
     /** 

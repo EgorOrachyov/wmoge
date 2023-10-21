@@ -689,7 +689,7 @@ namespace wmoge {
         m_tria_wired.flush(gfx_ctx);
         m_text.flush(gfx_ctx);
 
-        gfx_ctx->begin_render_pass({}, SID("AuxDrawManager"));
+        gfx_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
         gfx_ctx->bind_target(window);
         gfx_ctx->viewport(viewport);
 

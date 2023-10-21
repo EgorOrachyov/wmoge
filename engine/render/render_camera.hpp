@@ -36,6 +36,7 @@
 #include "math/math_utils3d.hpp"
 #include "math/plane.hpp"
 #include "math/vec.hpp"
+#include "mesh/mesh_pass.hpp"
 #include "render/render_defs.hpp"
 
 #include <optional>
@@ -98,22 +99,23 @@ namespace wmoge {
      * @brief Camera data for rendering
      */
     struct RenderCameraData {
-        RenderCamera camera;
-        CameraType   type;
-        Mat4x4f      proj;
-        Mat4x4f      view;
-        Mat4x4f      proj_view;
-        Mat4x4f      proj_prev;
-        Mat4x4f      view_prev;
-        Mat4x4f      proj_view_prev;
-        Rect2i       viewport;
-        Vec3f        movement;
-        Vec3f        position;
-        Vec3f        direction;
-        Vec3f        up;
-        Vec3f        position_prev;
-        Vec3f        direction_prev;
-        Vec3f        up_prev;
+        RenderCamera      camera;
+        CameraType        type;
+        MeshPassRelevance pass_relevance;
+        Mat4x4f           proj;
+        Mat4x4f           view;
+        Mat4x4f           proj_view;
+        Mat4x4f           proj_prev;
+        Mat4x4f           view_prev;
+        Mat4x4f           proj_view_prev;
+        Rect2i            viewport;
+        Vec3f             movement;
+        Vec3f             position;
+        Vec3f             direction;
+        Vec3f             up;
+        Vec3f             position_prev;
+        Vec3f             direction_prev;
+        Vec3f             up_prev;
     };
 
     /**

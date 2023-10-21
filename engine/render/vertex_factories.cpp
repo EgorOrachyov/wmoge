@@ -75,7 +75,8 @@ namespace wmoge {
     const VertexFactoryType& VertexFactoryStatic::get_type_info() const {
         static VertexFactoryType s_type = {
                 SID("VertexFactoryStatic"),
-                false};
+                false,
+                true};
 
         return s_type;
     }

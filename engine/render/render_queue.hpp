@@ -30,6 +30,8 @@
 
 #include "core/fast_vector.hpp"
 #include "core/mask.hpp"
+#include "core/synchronization.hpp"
+#include "core/unrolled_list.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -49,7 +51,7 @@ namespace wmoge {
      * @class RenderCmdKey
      * @brief Key to sort commands for efficient execution
      */
-    struct RenderCmdKey {
+    struct RenderCmdKey final {
         std::uint64_t value = 0;
     };
 
@@ -59,39 +61,85 @@ namespace wmoge {
     /**
      * @class RenderCmd
      * @brief POD-Command representing single draw call
+     * 
+     * Low-level render cmd, which can be submitted for Gfx driver for rendering.
+     * Stores minimum required info. Sorting and merging is done outside.
      */
-    struct RenderCmd {
+    struct RenderCmd final {
         static constexpr int NUM_DESC_SETS = 3;
 
-        GfxVertBuffersSetup vert_buffers;
-        GfxIndexBufferSetup index_setup;
-        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr, nullptr};
-        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1, -1};
-        GfxPipeline*        pipeline = nullptr;
-        GfxDrawCall         call_params;
+        GfxVertBuffersSetup vert_buffers;                                       //< Source of vertex data
+        GfxIndexBufferSetup index_setup;                                        //< Setup of index data for indexed draw
+        GfxDescSet*         desc_sets[NUM_DESC_SETS]{nullptr, nullptr, nullptr};//< Custom desc sets with frame, material and mesh data
+        int                 desc_sets_slots[NUM_DESC_SETS]{-1, -1, -1};         //< Custom desc sets slots
+        GfxPipeline*        pipeline = nullptr;                                 //< Complete compiled PSO to render
+        GfxDrawCall         call_params;                                        //< Params to do a draw
+        int                 primitive_buffer = -1;                              //< Idx of vert buffer to put dynamic instancing data
     };
 
     static_assert(std::is_trivially_destructible_v<RenderCmd>, "render cmd must be trivial as possible");
     static_assert(sizeof(RenderCmd) <= 128, "render cmd must fit 128 bytes");
 
     /**
-     * @class RenderQueue
-     * @brief Thread-safe queue to collect and sort draw commands for gfx submission
+     * @class SortableRenderCmd
+     * @brief POD-Command used for sorting and draw calls merging
+     * 
+     * Captures low-level cmd, sorting options and instaning options.
+     * When sorted, groupds cmds together for efficient merging.
      */
-    struct RenderQueue {
+    struct SortableRenderCmd final {
+        RenderCmd*   cmd          = nullptr;       //< Actual cmd for gfx submission, ref by ptr for raster sorting
+        RenderCmdKey cmd_key      = RenderCmdKey();//< Cmd specifics for sorting (pso, material)
+        int          bucket_slot  = -1;            //< Optional index for dynamic instancing for draw calls merging (if suppported)
+        int          primitive_id = -1;            //< Primitive id for data fetch on gpu
+
+        bool operator<(const SortableRenderCmd& other) const;
+    };
+
+    static_assert(std::is_trivially_destructible_v<SortableRenderCmd>, "sortable render cmd must be trivial as possible");
+    static_assert(sizeof(SortableRenderCmd) <= 24, "sortable render cmd must fit 24 bytes");
+
+    /**
+     * @class RenderCmdAllocator
+     * @brief Thread-safe allocator for RenderCmd withing one frame with persistent placement in memory
+     * 
+     * Allows to allocated render cmds globally for any mesh pass and any render camera.
+     * Allocated commands have persistent ptr, so it is safe to pass it around withing frame.
+     */
+    class RenderCmdAllocator final {
     public:
-        void push(RenderCmdKey key, const RenderCmd& cmd);
+        static constexpr int RENDER_CMD_PER_NODE = 64;
+
+        RenderCmd* allocate();
+        void       clear();
+
+    private:
+        UnrolledList<RenderCmd, RENDER_CMD_PER_NODE> m_buffer;
+        SpinMutex                                    m_mutex;
+    };
+
+    /**
+     * @class RenderQueue
+     * @brief Thread-safe queue to collect draw commands for gfx submission
+     * 
+     * Stores sortable light-weight render commands, which can be sorted fast and merged
+     * into dynamically instanced draw calls.
+     */
+    class RenderQueue final {
+    public:
+        void push(const SortableRenderCmd& cmd);
         void clear();
         void sort();
         int  execute(GfxCtx* gfx_ctx);
 
-        [[nodiscard]] std::size_t      size() const;
-        [[nodiscard]] const RenderCmd& cmd(std::size_t index) const;
+        [[nodiscard]] std::vector<SortableRenderCmd>& get_queue();
+        [[nodiscard]] const SortableRenderCmd&        get_cmd(std::size_t index) const;
+        [[nodiscard]] std::size_t                     get_size() const;
+        [[nodiscard]] bool                            is_empty() const;
 
     private:
-        std::vector<std::pair<RenderCmdKey, int>> m_queue;
-        std::vector<RenderCmd>                    m_buffer;
-        std::mutex                                m_mutex;
+        std::vector<SortableRenderCmd> m_queue;
+        SpinMutex                      m_mutex;
     };
 
 }// namespace wmoge

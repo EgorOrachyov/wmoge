@@ -1,5 +1,5 @@
 materials:
- - "res://materials/test_material"
+ - "res://materials/test_material_1"
 lods:
  - mesh: "res://mesh/suzanne"
    materials:

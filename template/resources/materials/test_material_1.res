@@ -4,5 +4,5 @@ uuid: 0
 loader: default
 class: Material
 description: "test material"
-path_on_disk: "res://materials/test_material.material"
+path_on_disk: "res://materials/test_material_1.material"
 deps: [ ]
