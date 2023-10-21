@@ -247,7 +247,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference-counted typed map for safe copy and passing into scripting system.  <a href="classwmoge_1_1TypedMap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UnrolledList.html">UnrolledList</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typed container as well as vector but values stored in chunks with persistent mem address to grow operation.  <a href="classwmoge_1_1UnrolledList.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typed container as well as vector but values stored in chunks with persistent mem address in grow operation.  <a href="classwmoge_1_1UnrolledList.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1UUID.html">UUID</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique 8-byte long identifier for in-game objects and resources.  <a href="classwmoge_1_1UUID.html#details">More...</a><br /></td></tr>
@@ -743,6 +743,18 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html">MeshBatchCompiler</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles collection of mesh batches into set of render commands for rendering.  <a href="classwmoge_1_1MeshBatchCompiler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshBucketKey.html">MeshBucketKey</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Mesh.html" title="Vertex and index data structured as chunks which can be rendered.">Mesh</a> bucket key to group render cmd for dynamic merge of draw call.  <a href="structwmoge_1_1MeshBucketKey.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshBucketSlot.html">MeshBucketSlot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bucket slot stores data to build instanced render cmd for draw call.  <a href="structwmoge_1_1MeshBucketSlot.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshBucketMap.html">MeshBucketMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe map to assign render cmd bucket slots for merging for dynamic instansing.  <a href="classwmoge_1_1MeshBucketMap.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshRenderCmdMerger.html">MeshRenderCmdMerger</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs merging of sorted draw cmds accordingly to assigned bucket slots.  <a href="classwmoge_1_1MeshRenderCmdMerger.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshVertex.html">MeshVertex</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds the data of a single vertex.  <a href="structwmoge_1_1MeshVertex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -904,8 +916,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderCmd.html">RenderCmd</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">POD-Command representing single draw call.  <a href="structwmoge_1_1RenderCmd.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderQueue.html">RenderQueue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe queue to collect and sort draw commands for gfx submission.  <a href="structwmoge_1_1RenderQueue.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SortableRenderCmd.html">SortableRenderCmd</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">POD-Command used for sorting and draw calls merging.  <a href="structwmoge_1_1SortableRenderCmd.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCmdAllocator.html">RenderCmdAllocator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe allocator for <a class="el" href="structwmoge_1_1RenderCmd.html" title="POD-Command representing single draw call.">RenderCmd</a> withing one frame with persistent placement in memory.  <a href="classwmoge_1_1RenderCmdAllocator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderQueue.html">RenderQueue</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread-safe queue to collect draw commands for gfx submission.  <a href="classwmoge_1_1RenderQueue.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html">RenderScene</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render <a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> side scene representation with cached GPU data.  <a href="classwmoge_1_1RenderScene.html#details">More...</a><br /></td></tr>
@@ -1473,6 +1491,9 @@ Typedefs</h2></td></tr>
 <tr class="separator:a10a124b46711447991c64b62e87e3826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1c5d11e891c9caf1e3b9fdb1f8d4fc6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> = <a class="el" href="namespacewmoge.html#a949390db7db498fd643959e1b9af61f6">Vec4i</a></td></tr>
 <tr class="separator:aa1c5d11e891c9caf1e3b9fdb1f8d4fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24640f98421189e4e4f6f506b11bb37c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a24640f98421189e4e4f6f506b11bb37c">MeshPassRelevance</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a> &gt;</td></tr>
+<tr class="memdesc:a24640f98421189e4e4f6f506b11bb37c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structwmoge_1_1Mask.html" title="Typed mask to test safely enum flags.">Mask</a> of mesh passes.  <a href="namespacewmoge.html#a24640f98421189e4e4f6f506b11bb37c">More...</a><br /></td></tr>
+<tr class="separator:a24640f98421189e4e4f6f506b11bb37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab43860f6aea79611cd870a62926080ca"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab43860f6aea79611cd870a62926080ca">PfxAttributes</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#aab3417795946a8295bbe33d012a01230">PfxAttribute</a> &gt;</td></tr>
 <tr class="separator:ab43860f6aea79611cd870a62926080ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fbbdaf7158eee8430c7b41a447bc9eb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6fbbdaf7158eee8430c7b41a447bc9eb">InputModifiers</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#af6c029d922697c858683d0b33390faad">InputModifier</a>, 8 &gt;</td></tr>
@@ -1955,19 +1976,17 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:ae70111ed549b34cd90811e8a215c8487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration for different frustum view points.  <a href="namespacewmoge.html#ae70111ed549b34cd90811e8a215c8487">More...</a><br /></td></tr>
 <tr class="separator:ae70111ed549b34cd90811e8a215c8487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5906ac40d169284533e2c51be72af3dc"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
-, <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dcaa9ded1e5ce5d75814730bb4caaf49419">Background</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dcaa9ded1e5ce5d75814730bb4caaf49419">Background</a> = 0
 , <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca3f39588bb19e28051d9aedfbb170025c">Shadow</a>
 , <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca628adbb6c98e56748110061187f57243">GBuffer</a>
+, <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca67d2f6740a8eaebf4d5c6f79be8da481">Forward</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca67d2f6740a8eaebf4d5c6f79be8da481">Forward</a>
-, <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca6d370616ba5096155353bfd63892cef6">Trasparent</a>
-, <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca18612607be7d967a300bd0e33c9c2261">Pfx</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca18612607be7d967a300bd0e33c9c2261">Pfx</a>
 , <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca730b1d2ffece9a1c748a54cd0bb0e363">Ui</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca606b51cc1c9d0b4af394419a22f2ff1f">Outline</a>
+, <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca606b51cc1c9d0b4af394419a22f2ff1f">Outline</a>
 , <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca6b551379c3c0b59326abdaf3b4395bd3">Overlay</a>
-, <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca96b0141273eabab320119c467cdcaf17">Total</a> = 8
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca96b0141273eabab320119c467cdcaf17">Total</a> = 8
 <br />
  }</td></tr>
 <tr class="memdesc:a5906ac40d169284533e2c51be72af3dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported engine mesh pass types.  <a href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">More...</a><br /></td></tr>
@@ -3421,6 +3440,22 @@ template&lt;typename T , std::size_t MinCapacity = 4&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24640f98421189e4e4f6f506b11bb37c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24640f98421189e4e4f6f506b11bb37c">&#9670;&nbsp;</a></span>MeshPassRelevance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a24640f98421189e4e4f6f506b11bb37c">wmoge::MeshPassRelevance</a> = typedef <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="structwmoge_1_1Mask.html" title="Typed mask to test safely enum flags.">Mask</a> of mesh passes. </p>
 
 </div>
 </div>
@@ -5675,12 +5710,10 @@ template&lt;typename T &gt; </div>
 
 <p>Supported engine mesh pass types. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dcaa9ded1e5ce5d75814730bb4caaf49419"></a>Background&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dcaa9ded1e5ce5d75814730bb4caaf49419"></a>Background&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca3f39588bb19e28051d9aedfbb170025c"></a>Shadow&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca628adbb6c98e56748110061187f57243"></a>GBuffer&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca67d2f6740a8eaebf4d5c6f79be8da481"></a>Forward&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca6d370616ba5096155353bfd63892cef6"></a>Trasparent&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca18612607be7d967a300bd0e33c9c2261"></a>Pfx&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca730b1d2ffece9a1c748a54cd0bb0e363"></a>Ui&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a5906ac40d169284533e2c51be72af3dca606b51cc1c9d0b4af394419a22f2ff1f"></a>Outline&#160;</td><td class="fielddoc"></td></tr>

@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classwmoge_1_1RenderObject-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::RenderObject Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -85,6 +86,15 @@ Inheritance diagram for wmoge::RenderObject:</div>
 <area shape="rect" title="Base class for any scene object which can be rendered." alt="" coords="130,5,279,32"/>
 <area shape="rect" href="classwmoge_1_1RenderMeshSkinned.html" title="Renderable mesh with bones, skin and animation." alt="" coords="5,80,196,107"/>
 <area shape="rect" href="classwmoge_1_1RenderMeshStatic.html" title="Static renderable mesh." alt="" coords="220,80,397,107"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for wmoge::RenderObject:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1RenderObject__coll__graph.png" border="0" usemap="#awmoge_1_1RenderObject_coll__map" alt="Collaboration graph"/></div>
+<map name="awmoge_1_1RenderObject_coll__map" id="awmoge_1_1RenderObject_coll__map">
+<area shape="rect" title="Base class for any scene object which can be rendered." alt="" coords="5,95,155,121"/>
+<area shape="rect" href="classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="23,5,137,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -106,8 +116,19 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acc916422dd2ddb8a13810c3ec6bef201"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14692a73e58eb70b235c52161ab2ff31"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a14692a73e58eb70b235c52161ab2ff31">get_friendly_name</a> () const</td></tr>
 <tr class="separator:a14692a73e58eb70b235c52161ab2ff31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e1cd462749bb8e4f2848b3ac7ad482"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a11e1cd462749bb8e4f2848b3ac7ad482">get_primitive_id</a> () const</td></tr>
+<tr class="separator:a11e1cd462749bb8e4f2848b3ac7ad482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6356a0237ee21a58d49fba60a8412757"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a6356a0237ee21a58d49fba60a8412757">set_friendly_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
 <tr class="separator:a6356a0237ee21a58d49fba60a8412757"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9b25b017210c41515348777e6f3f88"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a8d9b25b017210c41515348777e6f3f88">set_primitive_id</a> (int id)</td></tr>
+<tr class="separator:a8d9b25b017210c41515348777e6f3f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ac0858a6a7589f108729ebfd6f8c1e07b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#ac0858a6a7589f108729ebfd6f8c1e07b">m_name</a></td></tr>
+<tr class="separator:ac0858a6a7589f108729ebfd6f8c1e07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e1225c76691c63a8970316e5e489bfe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a2e1225c76691c63a8970316e5e489bfe">m_primitive_id</a> = -1</td></tr>
+<tr class="separator:a2e1225c76691c63a8970316e5e489bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base class for any scene object which can be rendered. </p>
@@ -289,6 +310,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a11e1cd462749bb8e4f2848b3ac7ad482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11e1cd462749bb8e4f2848b3ac7ad482">&#9670;&nbsp;</a></span>get_primitive_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wmoge::RenderObject::get_primitive_id </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aaab195ce079c399c66e1637155877e53"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaab195ce079c399c66e1637155877e53">&#9670;&nbsp;</a></span>has_materials()</h2>
 
@@ -342,6 +388,32 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a8d9b25b017210c41515348777e6f3f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d9b25b017210c41515348777e6f3f88">&#9670;&nbsp;</a></span>set_primitive_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderObject::set_primitive_id </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a09c10a535c86f67d163ed73639da09f9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a09c10a535c86f67d163ed73639da09f9">&#9670;&nbsp;</a></span>update_transform()</h2>
 
@@ -367,6 +439,51 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1RenderMeshStatic.html#af007bf540f07c07ea08b5bc98f1604c2">wmoge::RenderMeshStatic</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac0858a6a7589f108729ebfd6f8c1e07b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0858a6a7589f108729ebfd6f8c1e07b">&#9670;&nbsp;</a></span>m_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1StringId.html">StringId</a> wmoge::RenderObject::m_name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2e1225c76691c63a8970316e5e489bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e1225c76691c63a8970316e5e489bfe">&#9670;&nbsp;</a></span>m_primitive_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int wmoge::RenderObject::m_primitive_id = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>

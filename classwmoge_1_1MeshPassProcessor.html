@@ -104,6 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a85bca24297f44a7db54c5391454b0bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa907d32d0bcd2a2ca401b5979f0ca68b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessor.html#aa907d32d0bcd2a2ca401b5979f0ca68b">~MeshPassProcessor</a> ()=default</td></tr>
 <tr class="separator:aa907d32d0bcd2a2ca401b5979f0ca68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8380f2bd4e56482a6a0e3375fc659d09"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessor.html#a8380f2bd4e56482a6a0e3375fc659d09">filter</a> (const struct <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch)=0</td></tr>
+<tr class="separator:a8380f2bd4e56482a6a0e3375fc659d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bffac00eb6c98fc4111438fa6ac03b9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessor.html#a8bffac00eb6c98fc4111438fa6ac03b9">compile</a> (const struct <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPipeline.html">GfxPipeline</a> &gt; &amp;out_pipeline)=0</td></tr>
 <tr class="separator:a8bffac00eb6c98fc4111438fa6ac03b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81df8b6dcd69d4130229ad4c1b753f57"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessor.html#a81df8b6dcd69d4130229ad4c1b753f57">get_name</a> () const =0</td></tr>
@@ -199,6 +201,34 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#a124aa3ca7e5710ef810cdefc7d7eb6d2">wmoge::MeshPassProcessorGBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a8380f2bd4e56482a6a0e3375fc659d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8380f2bd4e56482a6a0e3375fc659d09">&#9670;&nbsp;</a></span>filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool wmoge::MeshPassProcessor::filter </td>
+          <td>(</td>
+          <td class="paramtype">const struct <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;&#160;</td>
+          <td class="paramname"><em>batch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#ae80d6714ec2e68225456f6a1899964e5">wmoge::MeshPassProcessorGBuffer</a>.</p>
 
 </div>
 </div>

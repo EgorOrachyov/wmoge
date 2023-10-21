@@ -1,0 +1,4 @@
+<map id="wmoge::RenderObject" name="wmoge::RenderObject">
+<area shape="rect" id="node1" title="Base class for any scene object which can be rendered." alt="" coords="5,95,155,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="23,5,137,32"/>
+</map>

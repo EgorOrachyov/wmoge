@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1VKMemManager.html" title="Manages memory allocation in vulkan and staging of buffer updates." alt="" coords="5,5,172,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1VertexFactory.html" title="Encapsulates vertex data source which can be linked to the shader." alt="" coords="5,5,156,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VertexFactoryStatic.html" title="Vertex factory with immutable data which can be used for static mesh rendering." alt="" coords="204,5,388,32"/>
 </map>

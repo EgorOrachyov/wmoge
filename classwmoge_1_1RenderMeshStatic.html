@@ -92,8 +92,9 @@ Collaboration diagram for wmoge::RenderMeshStatic:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1RenderMeshStatic__coll__graph.png" border="0" usemap="#awmoge_1_1RenderMeshStatic_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1RenderMeshStatic_coll__map" id="awmoge_1_1RenderMeshStatic_coll__map">
-<area shape="rect" title="Static renderable mesh." alt="" coords="5,80,183,107"/>
-<area shape="rect" href="classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="19,5,169,32"/>
+<area shape="rect" title="Static renderable mesh." alt="" coords="5,171,183,197"/>
+<area shape="rect" href="classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="19,95,169,121"/>
+<area shape="rect" href="classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="37,5,151,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -118,8 +119,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aff75f83cc35cbc8f50192c31c22ae095 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14692a73e58eb70b235c52161ab2ff31 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a14692a73e58eb70b235c52161ab2ff31">get_friendly_name</a> () const</td></tr>
 <tr class="separator:a14692a73e58eb70b235c52161ab2ff31 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e1cd462749bb8e4f2848b3ac7ad482 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a11e1cd462749bb8e4f2848b3ac7ad482">get_primitive_id</a> () const</td></tr>
+<tr class="separator:a11e1cd462749bb8e4f2848b3ac7ad482 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6356a0237ee21a58d49fba60a8412757 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a6356a0237ee21a58d49fba60a8412757">set_friendly_name</a> (<a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
 <tr class="separator:a6356a0237ee21a58d49fba60a8412757 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d9b25b017210c41515348777e6f3f88 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a8d9b25b017210c41515348777e6f3f88">set_primitive_id</a> (int id)</td></tr>
+<tr class="separator:a8d9b25b017210c41515348777e6f3f88 inherit pub_methods_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classwmoge_1_1RenderObject"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classwmoge_1_1RenderObject')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classwmoge_1_1RenderObject.html">wmoge::RenderObject</a></td></tr>
+<tr class="memitem:ac0858a6a7589f108729ebfd6f8c1e07b inherit pro_attribs_classwmoge_1_1RenderObject"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#ac0858a6a7589f108729ebfd6f8c1e07b">m_name</a></td></tr>
+<tr class="separator:ac0858a6a7589f108729ebfd6f8c1e07b inherit pro_attribs_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e1225c76691c63a8970316e5e489bfe inherit pro_attribs_classwmoge_1_1RenderObject"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderObject.html#a2e1225c76691c63a8970316e5e489bfe">m_primitive_id</a> = -1</td></tr>
+<tr class="separator:a2e1225c76691c63a8970316e5e489bfe inherit pro_attribs_classwmoge_1_1RenderObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Static renderable mesh. </p>
