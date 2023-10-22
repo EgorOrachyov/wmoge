@@ -34,14 +34,6 @@
 
 namespace wmoge {
 
-    bool SortableRenderCmd::operator<(const SortableRenderCmd& other) const {
-        if (bucket_slot != other.bucket_slot) {
-            return bucket_slot < other.bucket_slot;
-        }
-
-        return false;
-    }
-
     RenderCmd* RenderCmdAllocator::allocate() {
         std::lock_guard guard(m_mutex);
         return &m_buffer.emplace_back(RenderCmd());

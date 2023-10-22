@@ -53,6 +53,10 @@ namespace wmoge {
      */
     struct RenderCmdKey final {
         std::uint64_t value = 0;
+
+        bool operator<(const RenderCmdKey& other) const { return value < other.value; }
+        bool operator==(const RenderCmdKey& other) const { return value == other.value; }
+        bool operator!=(const RenderCmdKey& other) const { return value != other.value; }
     };
 
     static_assert(std::is_trivially_destructible_v<RenderCmdKey>, "render cmd key must be trivial as possible");
@@ -93,7 +97,15 @@ namespace wmoge {
         int          bucket_slot  = -1;            //< Optional index for dynamic instancing for draw calls merging (if suppported)
         int          primitive_id = -1;            //< Primitive id for data fetch on gpu
 
-        bool operator<(const SortableRenderCmd& other) const;
+        bool operator<(const SortableRenderCmd& other) const {
+            if (cmd_key != other.cmd_key) {
+                return cmd_key < other.cmd_key;
+            }
+            if (bucket_slot != other.bucket_slot) {
+                return bucket_slot < other.bucket_slot;
+            }
+            return false;
+        }
     };
 
     static_assert(std::is_trivially_destructible_v<SortableRenderCmd>, "sortable render cmd must be trivial as possible");
@@ -108,7 +120,7 @@ namespace wmoge {
      */
     class RenderCmdAllocator final {
     public:
-        static constexpr int RENDER_CMD_PER_NODE = 64;
+        static constexpr int RENDER_CMD_PER_NODE = 1024;//< Cmds count in a single allocation
 
         RenderCmd* allocate();
         void       clear();

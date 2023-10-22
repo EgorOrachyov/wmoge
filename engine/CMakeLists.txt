@@ -287,6 +287,8 @@ add_library(wmoge STATIC
         render/vertex_factories.hpp
         render/vertex_factory.cpp
         render/vertex_factory.hpp
+        render/visibility.cpp
+        render/visibility.hpp
         resource/audio_stream.cpp
         resource/audio_stream.hpp
         resource/audio_stream_wav.cpp

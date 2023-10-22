@@ -36,6 +36,7 @@
 #include "math/transform.hpp"
 #include "platform/window.hpp"
 #include "render/render_scene.hpp"
+#include "render/visibility.hpp"
 #include "resource/model.hpp"
 #include "resource/resource_ref.hpp"
 #include "scene/scene_camera.hpp"
@@ -71,6 +72,8 @@ namespace wmoge {
      */
     struct SceneDataMeshStatic {
         ResourceRefHard<Model> model;
+        bool                   use_chunk_culling        = false;
+        bool                   use_non_shared_materials = false;
 
         friend Status yaml_read(const YamlConstNodeRef& node, SceneDataMeshStatic& data);
         friend Status yaml_write(YamlNodeRef node, const SceneDataMeshStatic& data);
@@ -176,6 +179,7 @@ namespace wmoge {
         [[nodiscard]] EcsWorld*              get_ecs_world();
         [[nodiscard]] SceneTransformManager* get_transforms();
         [[nodiscard]] CameraManager*         get_cameras();
+        [[nodiscard]] VisibilitySystem*      get_visibility_system();
         [[nodiscard]] RenderScene*           get_render_scene();
         [[nodiscard]] float                  get_time() const { return m_time; }
         [[nodiscard]] float                  get_time_factor() const { return m_time_factor; }
@@ -188,6 +192,7 @@ namespace wmoge {
         std::unique_ptr<EcsWorld>              m_ecs_world;
         std::unique_ptr<SceneTransformManager> m_transforms;
         std::unique_ptr<CameraManager>         m_cameras;
+        std::unique_ptr<VisibilitySystem>      m_visibility_system;
         std::unique_ptr<RenderScene>           m_render_scene;
         StringId                               m_name;
         float                                  m_time          = 0.0f;

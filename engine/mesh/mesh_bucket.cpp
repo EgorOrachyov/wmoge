@@ -161,16 +161,19 @@ namespace wmoge {
         while (idx_read < queue_size) {
             SortableRenderCmd curr_cmd = cmds[idx_read];
 
+            // Traverse queue while consecuetive commands match the instancing slot
             if (curr_cmd.bucket_slot != -1) {
                 const int curr_bucket_slot = curr_cmd.bucket_slot;
                 int       num_merged       = 1;
                 int       idx_first        = idx_read;
 
+                // Determine range
                 while ((idx_read + 1) < queue_size && (cmds[idx_read + 1].bucket_slot == curr_bucket_slot)) {
                     idx_read += 1;
                     num_merged += 1;
                 }
 
+                // Allocate range of vertex data for per-instance id
                 const std::uint32_t id_offset = m_primitive_offset.fetch_add(num_merged);
                 assert(id_offset < primitives_ids_capacity);
                 assert(id_offset + num_merged <= primitives_ids_capacity);
@@ -179,6 +182,7 @@ namespace wmoge {
                     primitives_ids[id_offset + i] = cmds[idx_first + i].primitive_id;
                 }
 
+                // Create new cmd and fill in
                 RenderCmd* cmd                                   = m_cmd_allocator->allocate();
                 *cmd                                             = *cmds[idx_first].cmd;
                 cmd->vert_buffers.buffers[cmd->primitive_buffer] = primitives_ids_buffer;
@@ -190,12 +194,14 @@ namespace wmoge {
 
                 cmds[idx_write] = new_cmd;
             } else {
+                // Allocate one id and setup
                 const std::uint32_t id_offset = m_primitive_offset.fetch_add(1);
                 assert(id_offset < primitives_ids_capacity);
                 assert(id_offset + 1 <= primitives_ids_capacity);
 
                 cmds[idx_write] = cmds[idx_read];
 
+                // Copy existing cmd and slightly modify
                 RenderCmd* cmd                                   = cmds[idx_write].cmd;
                 cmd->vert_buffers.buffers[cmd->primitive_buffer] = primitives_ids_buffer;
                 cmd->vert_buffers.offsets[cmd->primitive_buffer] = int(id_offset * sizeof(int));

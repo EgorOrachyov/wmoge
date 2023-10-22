@@ -129,19 +129,23 @@ namespace wmoge {
 
                 batch.vertex_factory->fill_setup(VertexInputType::Default, cmd.vert_buffers, cmd.primitive_buffer);
 
-                RenderCmd* final_cmd;
-                int        bucket_slot = -1;
+                RenderCmdKey cmd_key;
+                RenderCmd*   final_cmd;
+                int          bucket_slot = -1;
 
                 if (cmd.call_params.instances == 1 && supports_merging) {
                     MeshBucketMap& bucket_map = m_scene->get_bucket_map(pass_type);
                     bucket_map.add_for_instancing(cmd, final_cmd, bucket_slot);
+                    cmd_key.value = (std::uint64_t(bucket_slot) << 32u) | std::uint64_t(batch.dist);
                 } else {
-                    final_cmd  = m_cmd_allocator->allocate();
-                    *final_cmd = cmd;
+                    final_cmd     = m_cmd_allocator->allocate();
+                    *final_cmd    = cmd;
+                    cmd_key.value = (std::uint64_t(0) << 32u) | std::uint64_t(batch.dist);
                 }
 
                 SortableRenderCmd sortable_cmd;
                 sortable_cmd.cmd          = final_cmd;
+                sortable_cmd.cmd_key      = cmd_key;
                 sortable_cmd.bucket_slot  = bucket_slot;
                 sortable_cmd.primitive_id = primitive_id;
 

@@ -68,9 +68,9 @@ namespace wmoge {
      * @brief Bucket slot stores data to build instanced render cmd for draw call
      */
     struct MeshBucketSlot final {
-        RenderCmd            cmd;   //< Template cmd for instancing
-        std::atomic_uint32_t num{0};//< Num of external references to cmd
-        int                  index = -1;
+        RenderCmd            cmd;       //< Template cmd for instancing
+        std::atomic_uint32_t num{0};    //< Num of external references to cmd
+        int                  index = -1;//< Bucket slot unique index for look-up
     };
 
     /**

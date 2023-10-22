@@ -309,7 +309,7 @@ namespace wmoge {
 
             if (!desc_set_resources.empty()) {
                 GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
-                m_desc_set            = gfx_driver->make_desc_set(desc_set_resources, m_name);
+                m_desc_set            = gfx_driver->make_desc_set(desc_set_resources, get_name());
             }
         }
     }

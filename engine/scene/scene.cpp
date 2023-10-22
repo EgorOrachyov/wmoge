@@ -57,12 +57,16 @@ namespace wmoge {
 
     Status yaml_read(const YamlConstNodeRef& node, SceneDataMeshStatic& data) {
         WG_YAML_READ_AS(node, "model", data.model);
+        WG_YAML_READ_AS_OPT(node, "use_chunk_culling", data.use_chunk_culling);
+        WG_YAML_READ_AS_OPT(node, "use_non_shared_materials", data.use_non_shared_materials);
 
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const SceneDataMeshStatic& data) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "model", data.model);
+        WG_YAML_WRITE_AS(node, "use_chunk_culling", data.use_chunk_culling);
+        WG_YAML_WRITE_AS(node, "use_non_shared_materials", data.use_non_shared_materials);
 
         return StatusCode::Ok;
     }
@@ -88,11 +92,12 @@ namespace wmoge {
     }
 
     Scene::Scene(StringId name) {
-        m_name         = name;
-        m_transforms   = std::make_unique<SceneTransformManager>();
-        m_ecs_world    = std::make_unique<EcsWorld>();
-        m_cameras      = std::make_unique<CameraManager>();
-        m_render_scene = std::make_unique<RenderScene>();
+        m_name              = name;
+        m_transforms        = std::make_unique<SceneTransformManager>();
+        m_ecs_world         = std::make_unique<EcsWorld>();
+        m_cameras           = std::make_unique<CameraManager>();
+        m_visibility_system = std::make_unique<VisibilitySystem>();
+        m_render_scene      = std::make_unique<RenderScene>();
     }
     Status Scene::build(const SceneData& data) {
         return StatusCode::Ok;
@@ -110,6 +115,11 @@ namespace wmoge {
         EcsComponentMeshStatic& ecs_mesh = get_ecs_world()->get_component_rw<EcsComponentMeshStatic>(entity);
 
         ecs_mesh.mesh = std::make_unique<RenderMeshStatic>(data.model.get_safe());
+        get_render_scene()->add_object(ecs_mesh.mesh.get());
+
+        ecs_mesh.vis_item     = get_visibility_system()->alloc_item();
+        ecs_mesh.primitive_id = ecs_mesh.mesh->get_primitive_id();
+        ecs_mesh.dirty        = true;
     }
     void Scene::advance(float delta_time) {
         m_delta_time = delta_time * m_time_factor;
@@ -132,6 +142,9 @@ namespace wmoge {
     }
     CameraManager* Scene::get_cameras() {
         return m_cameras.get();
+    }
+    VisibilitySystem* Scene::get_visibility_system() {
+        return m_visibility_system.get();
     }
     RenderScene* Scene::get_render_scene() {
         return m_render_scene.get();

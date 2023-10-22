@@ -29,16 +29,6 @@
 
 namespace wmoge {
 
-    void RenderObjectCollector::add(RenderObject* object) {
-        std::lock_guard guard(m_mutex);
-
-        m_objects.push_back(object);
-    }
-
-    void RenderObjectCollector::clear() {
-        m_objects.clear();
-    }
-
     StringId RenderObject::get_friendly_name() const {
         return m_name;
     }

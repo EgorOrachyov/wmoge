@@ -154,6 +154,11 @@ namespace wmoge {
 
         EcsSysCacheMatrices sys_cache_matrices;
         ecs_world->execute_system(sys_cache_matrices);
+
+        EcsSysUpdateStaticMeshes sys_update_static_meshes;
+        sys_update_static_meshes.render_scene = scene->get_render_scene();
+        sys_update_static_meshes.vis_system   = scene->get_visibility_system();
+        ecs_world->execute_system(sys_update_static_meshes);
     }
 
     void SceneManager::scene_render() {
@@ -161,14 +166,14 @@ namespace wmoge {
 
         Engine*        engine         = Engine::instance();
         GfxCtx*        gfx_ctx        = engine->gfx_ctx();
-        GfxDriver*     gfx_driver     = engine->gfx_driver();
         RenderEngine*  render_engine  = engine->render_engine();
         WindowManager* window_manager = engine->window_manager();
         Ref<Window>    window         = window_manager->primary_window();
 
-        Scene*         scene          = m_running.get();
-        EcsWorld*      ecs_world      = scene->get_ecs_world();
-        CameraManager* camera_manager = scene->get_cameras();
+        Scene*            scene          = m_running.get();
+        EcsWorld*         ecs_world      = scene->get_ecs_world();
+        VisibilitySystem* vis_system     = scene->get_visibility_system();
+        CameraManager*    camera_manager = scene->get_cameras();
 
         render_engine->begin_rendering();
 
@@ -180,21 +185,21 @@ namespace wmoge {
         render_cameras.clear();
         render_cameras.add_camera(CameraType::Color, camera_curr, render_engine->get_camera_prev());
 
+        vis_system->cull(render_cameras);
+        {
+            WG_AUTO_PROFILE_SCENE("SceneManager::process_visibility");
+
+            EcsSysPocessVisStaticMeshes sys_process_vis_static_meshes;
+            sys_process_vis_static_meshes.render_scene = scene->get_render_scene();
+            sys_process_vis_static_meshes.vis_system   = scene->get_visibility_system();
+            ecs_world->execute_system(sys_process_vis_static_meshes);
+        }
+
         render_engine->set_time(scene->get_time());
         render_engine->set_delta_time(scene->get_delta_time());
         render_engine->set_target(window);
         render_engine->set_scene(scene->get_render_scene());
 
-        RenderObjectCollector& objects_collector = render_engine->get_obejcts_collector();
-        {
-            WG_AUTO_PROFILE_SCENE("SceneManager::collect_meshes");
-
-            EcsSysCollectStaticMeshes sys_collect_static_meshes;
-            sys_collect_static_meshes.object_collector = &objects_collector;
-            ecs_world->execute_system(sys_collect_static_meshes);
-        }
-
-        render_engine->reserve_buffers();
         render_engine->prepare_frame_data();
         render_engine->allocate_veiws();
         render_engine->collect_batches();

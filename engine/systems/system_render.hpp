@@ -30,33 +30,86 @@
 
 #include "ecs/ecs_system.hpp"
 #include "ecs/ecs_world.hpp"
+#include "render/render_mesh_static.hpp"
 #include "render/render_object.hpp"
+#include "render/render_scene.hpp"
+#include "render/visibility.hpp"
 #include "scene/scene_components.hpp"
+
+#include "core/engine.hpp"
+#include "render/aux_draw_manager.hpp"
 
 namespace wmoge {
 
     /**
-     * @class EcsSysCollectStaticMeshes
-     * @brief Collect static mesh from scene for rendering
+     * @class EcsSysUpdateStaticMeshes
+     * @brief Update static meshes from scene before rendering
      */
-    class EcsSysCollectStaticMeshes final : public EcsSystem {
+    class EcsSysUpdateStaticMeshes final : public EcsSystem {
     public:
-        RenderObjectCollector* object_collector = nullptr;
+        RenderScene*      render_scene = nullptr;
+        VisibilitySystem* vis_system   = nullptr;
 
         void process(EcsWorld& world, const EcsEntity& enity, EcsComponentLocalToWorld& l2w, EcsComponentMeshStatic& mesh_static) {
-            mesh_static.mesh->update_transform(l2w.matrix);
-            object_collector->add(mesh_static.mesh.get());
+            if (mesh_static.dirty) {
+                const int     id   = mesh_static.mesh->get_primitive_id();
+                const Mat4x4f mat  = l2w.matrix.transpose();
+                const Aabbf   aabb = mesh_static.mesh->get_aabb().transform(l2w.matrix);
+
+                vis_system->update_item_bbox(mesh_static.vis_item, aabb);
+
+                GPURenderObjectData& gpu_data = render_scene->get_objects_gpu_data()[id];
+                gpu_data.LocalToWorld         = mat;
+                gpu_data.LocalToWorldPrev     = mat;
+                gpu_data.NormalMatrix         = mat;
+                gpu_data.AabbPos              = Vec4f(aabb.center(), 0.0f);
+                gpu_data.AabbSizeHalf         = Vec4f(aabb.extent(), 0.0f);
+
+                mesh_static.dirty = false;
+            }
         }
 
         void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override {
-            WG_ECS_SYSTEM_BIND(EcsSysCollectStaticMeshes);
+            WG_ECS_SYSTEM_BIND(EcsSysUpdateStaticMeshes);
         }
 
         EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
-        StringId          get_name() const override { return SID("collect_static_meshes"); }
+        StringId          get_name() const override { return SID("update_static_meshes"); }
         EcsQuery          get_query() const override {
             EcsQuery query;
             query.set_read<EcsComponentLocalToWorld>();
+            query.set_read<EcsComponentMeshStatic>();
+            return query;
+        }
+    };
+
+    /**
+     * @class EcsSysPocessVisStaticMeshes
+     * @brief Process visibility result for static meshes
+     */
+    class EcsSysPocessVisStaticMeshes final : public EcsSystem {
+    public:
+        RenderScene*      render_scene = nullptr;
+        VisibilitySystem* vis_system   = nullptr;
+
+        void process(EcsWorld& world, const EcsEntity& enity, EcsComponentMeshStatic& mesh_static) {
+            const VisibilityItemResult result = vis_system->get_item_result(mesh_static.vis_item);
+
+            if (result.cam_mask.any()) {
+                mesh_static.mesh->procces_visibility(result.cam_mask, result.distance);
+            }
+
+            render_scene->get_objects_vis()[mesh_static.primitive_id] = result.cam_mask;
+        }
+
+        void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override {
+            WG_ECS_SYSTEM_BIND(EcsSysPocessVisStaticMeshes);
+        }
+
+        EcsSystemExecMode get_exec_mode() const override { return EcsSystemExecMode::OnWorkers; }
+        StringId          get_name() const override { return SID("process_vis_static_meshes"); }
+        EcsQuery          get_query() const override {
+            EcsQuery query;
             query.set_read<EcsComponentMeshStatic>();
             return query;
         }

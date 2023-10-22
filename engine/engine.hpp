@@ -163,6 +163,7 @@
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
 #include "render/vertex_factory.hpp"
+#include "render/visibility.hpp"
 
 #include "resource/audio_stream.hpp"
 #include "resource/config_file.hpp"

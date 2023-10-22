@@ -32,6 +32,7 @@
 #include "core/mask.hpp"
 #include "core/string_id.hpp"
 #include "core/synchronization.hpp"
+#include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "render/render_camera.hpp"
@@ -52,11 +53,11 @@ namespace wmoge {
         virtual ~RenderObject() = default;
 
         virtual void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) = 0;
-        virtual void                         update_transform(const Mat4x4f& l2w)                                                        = 0;
-        virtual void                         fill_data(GPURenderObjectData& gpu_data)                                                    = 0;
+        virtual void                         procces_visibility(RenderCameraMask mask, float distance)                                   = 0;
         virtual bool                         has_materials() const                                                                       = 0;
         virtual std::optional<Ref<Material>> get_material() const                                                                        = 0;
         virtual std::vector<Ref<Material>>   get_materials() const                                                                       = 0;
+        virtual Aabbf                        get_aabb() const                                                                            = 0;
         virtual StringId                     get_friendly_name() const;
         virtual int                          get_primitive_id() const;
         virtual void                         set_friendly_name(StringId name);
@@ -65,25 +66,6 @@ namespace wmoge {
     protected:
         StringId m_name;
         int      m_primitive_id = -1;
-    };
-
-    /**
-     * @class RenderObjectCollector
-     * @brief Auxilary class to collect renderable object in MT
-     */
-    class RenderObjectCollector {
-    public:
-        RenderObjectCollector() = default;
-
-        void add(RenderObject* object);
-        void clear();
-
-        [[nodiscard]] ArrayView<RenderObject*> get_objects() { return m_objects; }
-        [[nodiscard]] int                      get_size() const { return int(m_objects.size()); }
-
-    private:
-        std::vector<RenderObject*> m_objects;
-        SpinMutex                  m_mutex;
     };
 
 }// namespace wmoge

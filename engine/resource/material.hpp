@@ -131,7 +131,6 @@ namespace wmoge {
         [[nodiscard]] const Ref<Data>&              get_parameters() const { return m_parameters; }
         [[nodiscard]] const Ref<GfxUniformBuffer>&  get_buffer() const { return m_buffer; }
         [[nodiscard]] const Ref<GfxDescSet>&        get_desc_set() const { return m_desc_set; }
-        [[nodiscard]] const StringId&               get_name() const { return m_name; }
 
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
@@ -150,7 +149,6 @@ namespace wmoge {
         Ref<Data>                 m_parameters;
         Ref<GfxUniformBuffer>     m_buffer;
         Ref<GfxDescSet>           m_desc_set;
-        StringId                  m_name;
         Mask<DirtyFlag>           m_dirty = {DirtyFlag::Textures, DirtyFlag::Parameters};
 
         SpinMutex m_mutex;

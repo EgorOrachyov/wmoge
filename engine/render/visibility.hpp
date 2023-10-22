@@ -25,54 +25,79 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_MESH_STATIC_HPP
-#define WMOGE_RENDER_MESH_STATIC_HPP
+#ifndef WMGOE_VISIBILITY_HPP
+#define WMGOE_VISIBILITY_HPP
 
-#include "core/fast_vector.hpp"
-#include "math/math_utils3d.hpp"
-#include "mesh/mesh_pass.hpp"
-#include "render/render_object.hpp"
-#include "render/vertex_factories.hpp"
-#include "resource/material.hpp"
-#include "resource/mesh.hpp"
-#include "resource/model.hpp"
+#include "core/array_view.hpp"
+#include "core/string_id.hpp"
+#include "core/synchronization.hpp"
+#include "core/unrolled_list.hpp"
+#include "math/aabb.hpp"
+#include "math/frustum.hpp"
+#include "render/render_camera.hpp"
+#include "render/render_defs.hpp"
 
-#include <optional>
+#include <atomic>
+#include <vector>
 
 namespace wmoge {
 
-    /**
-     * @class RenderMeshStatic 
-     * @brief Static renderable mesh
-     */
-    class RenderMeshStatic : public RenderObject {
-    public:
-        RenderMeshStatic(Ref<Model> model);
+    /** @brief Id of the item to reference in visibility system */
+    using VisibilityItem = int;
 
-        void                         collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) override;
-        void                         procces_visibility(RenderCameraMask mask, float distance) override;
-        bool                         has_materials() const override;
-        std::optional<Ref<Material>> get_material() const override;
-        std::vector<Ref<Material>>   get_materials() const override;
-        Aabbf                        get_aabb() const override;
+    /** @brief Id of invalid item */
+    static constexpr VisibilityItem VIS_ITEM_INVALID = -1;
+
+    /**
+     * @class VisibilityItemData
+     * @brief Data of a single item for management
+     */
+    struct VisibilityItemData {
+        Aabbf          aabb;
+        float          min_dist_2 = 0.0f;
+        float          max_dist_2 = 10000000000.0f;
+        VisibilityItem id         = VIS_ITEM_INVALID;
+    };
+
+    /**
+     * @class VisibilityItemResult
+     * @brief Result of a visibility item culling tests
+     */
+    struct VisibilityItemResult {
+        RenderCameraMask cam_mask;
+        float            distance;
+    };
+
+    /**
+     * @class VisibilitySystem
+     * @brief Manages allocation, frustum and occlussion culling of visibility items
+     */
+    class VisibilitySystem {
+    public:
+        static constexpr int ALLOC_BATCH_SIZE = 1024;
+
+        VisibilitySystem()                        = default;
+        VisibilitySystem(const VisibilitySystem&) = delete;
+        VisibilitySystem(VisibilitySystem&&)      = delete;
+
+        VisibilityItem       alloc_item();
+        void                 release_item(VisibilityItem item);
+        void                 update_item_min_dist(const VisibilityItem& item, float min_dist);
+        void                 update_item_max_dist(const VisibilityItem& item, float max_dist);
+        void                 update_item_bbox(const VisibilityItem& item, const Aabbf& aabbf);
+        VisibilityItemResult get_item_result(const VisibilityItem& item);
+
+        void cull(const RenderCameras& cameras);
 
     private:
-        struct PerLodData {
-            VertexFactoryStatic       factory;
-            fast_vector<MeshPassList> pass_list;
-        };
+        std::vector<VisibilityItemData>   m_items;
+        std::vector<VisibilityItemResult> m_result;
+        std::vector<int>                  m_free;
+        int                               m_task_batch = 16;
 
-        struct LodState {
-            float dist   = 0.0f;
-            int   lodIdx = 0;
-        };
-
-        fast_vector<Ref<Material>> m_materials;
-        fast_vector<PerLodData>    m_lod_data;
-        LodState                   m_lod_state;
-        Ref<Model>                 m_model;
+        RwMutexWritePrefer m_mutex;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_RENDER_MESH_STATIC_HPP
+#endif//WMGOE_VISIBILITY_HPP

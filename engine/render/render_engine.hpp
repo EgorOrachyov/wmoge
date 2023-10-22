@@ -94,7 +94,6 @@ namespace wmoge {
         void begin_rendering();
         void end_rendering();
 
-        void reserve_buffers();
         void prepare_frame_data();
         void allocate_veiws();
         void collect_batches();
@@ -106,7 +105,6 @@ namespace wmoge {
         void render_aux_geom(AuxDrawManager& aux_draw_manager);
 
         [[nodiscard]] RenderCameras&                     get_cameras() { return m_cameras; }
-        [[nodiscard]] RenderObjectCollector&             get_obejcts_collector() { return m_objects_collector; }
         [[nodiscard]] MeshBatchCollector&                get_batch_collector() { return m_batch_collector; }
         [[nodiscard]] MeshBatchCompiler&                 get_batch_compiler() { return m_batch_compiler; }
         [[nodiscard]] MeshRenderCmdMerger&               get_cmd_merger() { return m_cmd_merger; }
@@ -122,7 +120,6 @@ namespace wmoge {
     private:
         std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
         std::vector<RenderQueue*>                       m_queues;
-        RenderObjectCollector                           m_objects_collector;
         MeshBatchCollector                              m_batch_collector;
         MeshBatchCompiler                               m_batch_compiler;
         MeshRenderCmdMerger                             m_cmd_merger;

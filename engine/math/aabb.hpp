@@ -29,7 +29,10 @@
 #define WMOGE_AABB_HPP
 
 #include "io/yaml.hpp"
+#include "math/mat.hpp"
 #include "math/vec.hpp"
+
+#include <array>
 
 namespace wmoge {
 
@@ -55,8 +58,44 @@ namespace wmoge {
             return TAabb<T>((join_max + join_min) * static_cast<T>(0.5), (join_max - join_min) * static_cast<T>(0.5));
         }
 
+        [[nodiscard]] TAabb fit(const TVecN<T, 3>& point) {
+            auto join_min = Vec3f::min(min(), point);
+            auto join_max = Vec3f::max(max(), point);
+            return TAabb<T>((join_max + join_min) * static_cast<T>(0.5), (join_max - join_min) * static_cast<T>(0.5));
+        }
+
         [[nodiscard]] float distance(const TVecN<T, 3>& point) const {
             return (center() - point).length();
+        }
+
+        [[nodiscard]] std::array<TVecN<T, 3>, 8> vertices() const {
+            std::array<TVecN<T, 3>, 8> res;
+            res[0] = TVecN<T, 3>(pos.x() + size_half.x(), pos.y() + size_half.y(), pos.z() + size_half.z());
+            res[1] = TVecN<T, 3>(pos.x() + size_half.x(), pos.y() + size_half.y(), pos.z() - size_half.z());
+            res[2] = TVecN<T, 3>(pos.x() + size_half.x(), pos.y() - size_half.y(), pos.z() + size_half.z());
+            res[3] = TVecN<T, 3>(pos.x() + size_half.x(), pos.y() - size_half.y(), pos.z() - size_half.z());
+            res[4] = TVecN<T, 3>(pos.x() - size_half.x(), pos.y() + size_half.y(), pos.z() + size_half.z());
+            res[5] = TVecN<T, 3>(pos.x() - size_half.x(), pos.y() + size_half.y(), pos.z() - size_half.z());
+            res[6] = TVecN<T, 3>(pos.x() - size_half.x(), pos.y() - size_half.y(), pos.z() + size_half.z());
+            res[7] = TVecN<T, 3>(pos.x() - size_half.x(), pos.y() - size_half.y(), pos.z() - size_half.z());
+            return res;
+        }
+
+        [[nodiscard]] TAabb transform(const TMatMxN<T, 4, 4>& m) const {
+            std::array<TVecN<T, 3>, 8> v = vertices();
+
+            for (int i = 0; i < 8; i++) {
+                v[i] = TVecN<T, 3>(m * TVecN<T, 4>(v[i].x(), v[i].y(), v[i].z(), T(1)));
+            }
+
+            TAabb res;
+            res.pos = v[0];
+
+            for (int i = 1; i < 8; i++) {
+                res = res.fit(v[i]);
+            }
+
+            return res;
         }
 
         TVecN<T, 3> center() const { return pos; }

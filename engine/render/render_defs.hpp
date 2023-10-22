@@ -56,7 +56,7 @@ namespace wmoge {
      * @brief Holds global render engine config
      */
     struct RenderLimits {
-        static constexpr int MAX_CAMERAS = 64;
+        static constexpr int MAX_CAMERAS = 32;
         static constexpr int MAX_VIEWS   = MAX_CAMERAS;
     };
 

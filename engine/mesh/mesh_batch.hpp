@@ -76,6 +76,7 @@ namespace wmoge {
         class MeshPassList*  pass_list      = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
         class RenderObject*  object         = nullptr;               //< Render object this batch belongs to
         GfxPrimType          prim_type      = GfxPrimType::Triangles;//< Type of primitives to render
+        float                dist           = 0.0f;                  //< Distance from camera for sorting
     };
 
     static_assert(std::is_trivially_destructible_v<MeshBatch>, "mesh batch must be trivial as possible");

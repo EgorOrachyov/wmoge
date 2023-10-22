@@ -81,7 +81,10 @@ namespace wmoge {
             const float hfar_h  = tan_fh * far;
             const float hfar_w  = hfar_h * aspect;
 
-            auto right = Vec3f::cross(dir, up);
+            up         = up.normalized();
+            dir        = dir.normalized();
+            auto right = Vec3f::cross(dir, up).normalized();
+            up         = Vec3f::cross(right, dir).normalized();
 
             const Vec3f p_near_left_up    = pos + dir * near + right * (-hnear_w) + up * hnear_h;
             const Vec3f p_near_left_down  = pos + dir * near + right * (-hnear_w) + up * (-hnear_h);
@@ -92,12 +95,12 @@ namespace wmoge {
             const Vec3f p_far_right_up    = pos + dir * far + right * hfar_w + up * hfar_h;
             const Vec3f p_far_right_down  = pos + dir * far + right * hfar_w + up * (-hfar_h);
 
-            planes[0] = Planef(p_near_left_up, p_near_left_down, p_far_left_down);
-            planes[1] = Planef(p_far_right_down, p_near_right_down, p_near_right_up);
-            planes[2] = Planef(p_near_left_down, p_near_right_down, p_far_right_down);
-            planes[3] = Planef(p_far_right_up, p_near_right_up, p_near_left_up);
-            planes[4] = Planef(p_near_right_up, p_near_right_down, p_near_left_down);
-            planes[5] = Planef(p_far_left_up, p_far_left_down, p_far_right_down);
+            planes[0] = Planef(p_near_left_up, p_near_left_down, p_far_left_down);    // Left
+            planes[1] = Planef(p_near_right_up, p_far_right_down, p_near_right_down); // Right
+            planes[2] = Planef(p_near_left_down, p_near_right_down, p_far_right_down);// Bottom
+            planes[3] = Planef(p_near_right_up, p_near_left_up, p_far_right_up);      // Top
+            planes[4] = Planef(p_near_right_up, p_near_right_down, p_near_left_down); // Near
+            planes[5] = Planef(p_far_left_up, p_far_left_down, p_far_right_down);     // Far
 
             points[0] = p_near_left_up;
             points[1] = p_near_left_down;

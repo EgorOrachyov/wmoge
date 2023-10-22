@@ -65,7 +65,6 @@ namespace wmoge {
     void RenderEngine::begin_rendering() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::begin_rendering");
 
-        m_objects_collector.clear();
         m_batch_collector.clear();
         m_batch_compiler.clear();
         m_cmd_merger.clear();
@@ -83,28 +82,23 @@ namespace wmoge {
         }
     }
 
-    void RenderEngine::reserve_buffers() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::reserve_buffers");
-
-        m_scene->get_render_objects_data().clear();
-        m_scene->get_render_objects_data().resize(m_objects_collector.get_size());
-    }
-
     void RenderEngine::prepare_frame_data() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::prepare_frame_data");
 
         GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
         GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
 
-        m_frame_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUFrameData)), GfxMemUsage::GpuLocal, SID("frame_data"));
+        if (!m_frame_data) {
+            m_frame_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUFrameData)), GfxMemUsage::GpuLocal, SID("frame_data"));
+        }
 
         GPUFrameData& frame_data = *((GPUFrameData*) gfx_ctx->map_uniform_buffer(m_frame_data));
-
-        frame_data.time      = m_time;
-        frame_data.timeDelta = m_delta_time;
-        frame_data._fd_pad0  = 0.0f;
-        frame_data._fd_pad1  = 0.0f;
-
+        {
+            frame_data.time      = m_time;
+            frame_data.timeDelta = m_delta_time;
+            frame_data._fd_pad0  = 0.0f;
+            frame_data._fd_pad1  = 0.0f;
+        }
         gfx_ctx->unmap_uniform_buffer(m_frame_data);
     }
 
@@ -119,10 +113,12 @@ namespace wmoge {
             RenderView&             view   = m_views[view_idx];
             const RenderCameraData& camera = m_cameras.data_at(view_idx);
 
-            view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUViewData)), GfxMemUsage::GpuLocal, SID("view_data_" + StringUtils::from_int(view_idx)));
-            {
-                GPUViewData& view_data = *((GPUViewData*) gfx_ctx->map_uniform_buffer(view.view_data));
+            if (!view.view_data) {
+                view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUViewData)), GfxMemUsage::GpuLocal, SID("view_data_" + StringUtils::from_int(view_idx)));
+            }
 
+            GPUViewData& view_data = *((GPUViewData*) gfx_ctx->map_uniform_buffer(view.view_data));
+            {
                 view_data.Clip             = gfx_clip.transpose();
                 view_data.Proj             = camera.proj.transpose();
                 view_data.View             = camera.view.transpose();
@@ -144,9 +140,8 @@ namespace wmoge {
                 view_data._vd_pad0         = 0;
                 view_data._vd_pad1         = 0;
                 view_data._vd_pad2         = 0;
-
-                gfx_ctx->unmap_uniform_buffer(view.view_data);
             }
+            gfx_ctx->unmap_uniform_buffer(view.view_data);
 
             GfxDescSetResources view_resources;
             {
@@ -173,9 +168,9 @@ namespace wmoge {
                     r.first.type          = GfxBindingType::StorageBuffer;
                     r.first.binding       = ShaderMaterial::RENDEROBJECTSDATA_SLOT;
                     r.first.array_element = 0;
-                    r.second.resource     = m_scene->get_render_objects_data().get_buffer().as<GfxResource>();
+                    r.second.resource     = m_scene->get_objects_gpu_data().get_buffer().as<GfxResource>();
                     r.second.offset       = 0;
-                    r.second.range        = m_scene->get_render_objects_data().get_buffer()->size();
+                    r.second.range        = m_scene->get_objects_gpu_data().get_buffer()->size();
                 }
             }
             view.view_set = gfx_driver->make_desc_set(view_resources, SID("view_set_" + StringUtils::from_int(view_idx)));
@@ -189,19 +184,31 @@ namespace wmoge {
     void RenderEngine::collect_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::collect_batches");
 
-        const ArrayView<RenderObject*>                    render_objects      = m_objects_collector.get_objects();
-        GfxVector<GPURenderObjectData, GfxStorageBuffer>& render_objects_data = m_scene->get_render_objects_data();
+        ArrayView<RenderObject*>    objects = m_scene->get_objects();
+        ArrayView<RenderCameraMask> vis     = m_scene->get_objects_vis();
+        GPURenderObjectDataVector&  data    = m_scene->get_objects_gpu_data();
+
+        std::atomic_int total{0};
 
         TaskParallelFor task_compile(SID("collect_batches"), [&](TaskContext&, int id, int) {
-            RenderCameraMask mask;
-            mask.flip();
-            render_objects[id]->set_primitive_id(id);
-            render_objects[id]->fill_data(render_objects_data[id]);
-            render_objects[id]->collect(m_cameras, mask, m_batch_collector);
+            const RenderCameraMask cam_mask = vis[id];
+
+            if (cam_mask.any()) {
+                objects[id]->collect(m_cameras, cam_mask, m_batch_collector);
+                total.fetch_add(1, std::memory_order_relaxed);
+            }
+
             return 0;
         });
 
-        task_compile.schedule(int(render_objects.size()), m_batch_size).wait_completed();
+        task_compile.schedule(int(objects.size()), m_batch_size).wait_completed();
+
+        int draw = total.load();
+        int all  = int(objects.size());
+
+        auto* aux = Engine::instance()->aux_draw_manager();
+        aux->draw_text_2d("drawn: " + StringUtils::from_int(draw), Vec2f{10, 40}, 10.0f, Color::WHITE4f);
+        aux->draw_text_2d("culled: " + StringUtils::from_int(all - draw), Vec2f{10, 30}, 10.0f, Color::WHITE4f);
     }
 
     void RenderEngine::compile_batches() {

@@ -11,7 +11,7 @@ def visit(directory):
     loc = 0
 
     for entry in os.listdir(directory):
-        if os.path.isfile(directory / entry) and '.py' not in entry:
+        if os.path.isfile(directory / entry) and ".py" not in entry:
             with open(directory / entry, "r") as file:
                 file_loc = sum(1 for _ in file)
             loc += file_loc
@@ -25,7 +25,7 @@ def visit(directory):
 
 def main():
     parser = argparse.ArgumentParser("Count `loc` in directory recursively")
-    parser.add_argument("--dir", help="directory to count loc", default="./")
+    parser.add_argument("--dir", help="directory to count loc", default="./engine")
     args = parser.parse_args()
     loc = visit(ROOT / args.dir)
 
@@ -40,5 +40,5 @@ def main():
     print(f"total loc {loc}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -47,16 +47,21 @@ namespace wmoge {
             data.factory.init();
             data.pass_list.resize(lod.materials.size());
         }
+
+        m_materials.reserve(m_model->get_materials().size());
+        for (const ResourceRefHard<Material>& mat : m_model->get_materials()) {
+            m_materials.push_back(mat.get_safe());
+        }
     }
 
     void RenderMeshStatic::collect(const RenderCameras& cameras, RenderCameraMask mask, MeshBatchCollector& collector) {
-        const int lod_idx = m_lod_state.lodIdx;
+        const int   lod_idx = m_lod_state.lodIdx;
+        const float dist    = m_lod_state.dist;
 
-        const ArrayView<const ResourceRefHard<Material>> materials = m_model->get_materials();
-        const ModelLod&                                  lod       = m_model->get_lods()[lod_idx];
-        const Ref<Mesh>&                                 mesh      = lod.mesh.get_safe();
-        const ArrayView<const MeshChunk>                 chunks    = mesh->get_chunks();
-        PerLodData&                                      lod_data  = m_lod_data[lod_idx];
+        const ModelLod&                  lod      = m_model->get_lods()[lod_idx];
+        const Ref<Mesh>&                 mesh     = lod.mesh.get_safe();
+        const ArrayView<const MeshChunk> chunks   = mesh->get_chunks();
+        PerLodData&                      lod_data = m_lod_data[lod_idx];
 
         for (int i = 0; i < int(chunks.size()); i++) {
             const MeshChunk& chunk = chunks[i];
@@ -74,24 +79,19 @@ namespace wmoge {
             batch.index_buffer.index_type = mesh->get_index_type();
             batch.index_buffer.offset     = chunk.index_offset;
             batch.cam_mask                = mask;
-            batch.material                = materials[lod.materials[i]].get_safe().get();
+            batch.material                = m_materials[lod.materials[i]].get();
             batch.mesh_params             = nullptr;// static mesh has no extra params
             batch.pass_list               = &lod_data.pass_list[i];
             batch.object                  = this;
             batch.prim_type               = mesh->get_prim_type();
+            batch.dist                    = dist;
 
             collector.add_batch(batch);
         }
     }
 
-    void RenderMeshStatic::update_transform(const Mat4x4f& l2w) {
-        m_transform_l2w = l2w;
-    }
-
-    void RenderMeshStatic::fill_data(GPURenderObjectData& gpu_data) {
-        gpu_data.LocalToWorld     = m_transform_l2w.transpose();
-        gpu_data.LocalToWorldPrev = m_transform_l2w.transpose();
-        gpu_data.NormalMatrix     = m_transform_l2w.transpose();
+    void RenderMeshStatic::procces_visibility(RenderCameraMask mask, float distance) {
+        m_lod_state.dist = distance;
     }
 
     bool RenderMeshStatic::has_materials() const {
@@ -115,6 +115,10 @@ namespace wmoge {
         }
 
         return result;
+    }
+
+    Aabbf RenderMeshStatic::get_aabb() const {
+        return m_model->get_aabb();
     }
 
 }// namespace wmoge

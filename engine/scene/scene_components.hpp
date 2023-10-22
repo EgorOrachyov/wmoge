@@ -38,11 +38,13 @@
 #include "render/render_mesh_skinned.hpp"
 #include "render/render_mesh_static.hpp"
 #include "render/render_object.hpp"
+#include "render/visibility.hpp"
 #include "scene/scene_camera.hpp"
 #include "scene/scene_node.hpp"
 #include "scene/scene_transform.hpp"
 
 #include <memory>
+#include <optional>
 
 namespace wmoge {
 
@@ -144,6 +146,9 @@ namespace wmoge {
         WG_ECS_COMPONENT(EcsComponentMeshStatic, 9);
 
         std::unique_ptr<RenderMeshStatic> mesh;
+        VisibilityItem                    vis_item     = VIS_ITEM_INVALID;
+        int                               primitive_id = -1;
+        bool                              dirty        = true;
     };
 
 }// namespace wmoge
