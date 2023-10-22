@@ -37,12 +37,14 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_pipeline_cache.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "gfx/gfx_vert_format.hpp"
+#include "gfx/gfx_vert_format_cache.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 #include "platform/window.hpp"
@@ -93,8 +95,10 @@ namespace wmoge {
         virtual void prepare_window(const Ref<Window>& window) = 0;
         virtual void swap_buffers(const Ref<Window>& window)   = 0;
 
-        [[nodiscard]] virtual class GfxCtx* ctx_immediate() = 0;
-        [[nodiscard]] virtual class GfxCtx* ctx_async()     = 0;
+        [[nodiscard]] virtual class GfxCtx*       ctx_immediate()  = 0;
+        [[nodiscard]] virtual class GfxCtx*       ctx_async()      = 0;
+        [[nodiscard]] virtual GfxPipelineCache*   pso_cache()      = 0;
+        [[nodiscard]] virtual GfxVertFormatCache* vert_fmt_cache() = 0;
 
         [[nodiscard]] virtual GfxUniformPool*      uniform_pool()       = 0;
         [[nodiscard]] virtual GfxDynVertBuffer*    dyn_vert_buffer()    = 0;

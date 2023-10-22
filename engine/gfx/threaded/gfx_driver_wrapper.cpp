@@ -53,6 +53,8 @@ namespace wmoge {
         m_pipeline_cache_path = driver->pipeline_cache_path();
         m_ctx_immediate       = driver->ctx_immediate();
         m_ctx_async           = driver->ctx_async();
+        m_pso_cache           = driver->pso_cache();
+        m_vert_fmt_cache      = driver->vert_fmt_cache();
     }
 
     Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const StringId& name) {
@@ -214,6 +216,12 @@ namespace wmoge {
     }
     class GfxCtx* GfxDriverWrapper::ctx_async() {
         return m_ctx_async;
+    }
+    GfxPipelineCache* GfxDriverWrapper::pso_cache() {
+        return m_pso_cache;
+    }
+    GfxVertFormatCache* GfxDriverWrapper::vert_fmt_cache() {
+        return m_vert_fmt_cache;
     }
 
     GfxUniformPool* GfxDriverWrapper::uniform_pool() {

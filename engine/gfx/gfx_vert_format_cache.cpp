@@ -25,60 +25,29 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mesh_processors.hpp"
+#include "gfx_vert_format_cache.hpp"
 
-#include "debug/profiler.hpp"
+#include "core/log.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "mesh/mesh_batch.hpp"
-#include "render/shader_manager.hpp"
-#include "render/vertex_factory.hpp"
-#include "resource/material.hpp"
-#include "resource/shader.hpp"
+
+#include <mutex>
 
 namespace wmoge {
 
-    bool MeshPassProcessorGBuffer::filter(const MeshBatch& batch) {
-        return true;
-    }
-    Status MeshPassProcessorGBuffer::compile(const MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) {
-        WG_AUTO_PROFILE_MESH("MeshPassProcessorGBuffer::compile");
+    Ref<GfxVertFormat> GfxVertFormatCache::get_or_create(const GfxVertElements& elements, const StringId& name) {
+        std::lock_guard guard(m_mutex);
 
-        Material*           material       = batch.material;
-        Shader*             shader         = material->get_shader().get();
-        ShaderPipelineState pipeline_state = shader->get_pipeline_state();
-
-        fast_vector<std::string> defines;
-        {
-            defines.push_back("PASS_GBUFFER");
+        auto& format = m_cache[elements];
+        if (!format) {
+            format = m_driver->make_vert_format(elements, name);
+            WG_LOG_INFO("cache new format " << name);
         }
 
-        GfxVertAttribs attribs;
-        batch.vertex_factory->fill_required_attributes(attribs, VertexInputType::Default);
-
-        // additional attribute to fetch gpu data
-        attribs.set(GfxVertAttrib::PrimitiveIdi);
-
-        GfxPipelineState gfx_pso_state;
-        gfx_pso_state.shader       = m_shader_manager->get_shader(shader->get_domain(), attribs, defines, shader);
-        gfx_pso_state.vert_format  = batch.vertex_factory->get_vert_format(VertexInputType::Default);
-        gfx_pso_state.prim_type    = batch.prim_type;
-        gfx_pso_state.poly_mode    = pipeline_state.poly_mode;
-        gfx_pso_state.cull_mode    = pipeline_state.cull_mode;
-        gfx_pso_state.front_face   = pipeline_state.front_face;
-        gfx_pso_state.depth_enable = pipeline_state.depth_enable;
-        gfx_pso_state.depth_write  = pipeline_state.depth_write;
-        gfx_pso_state.depth_func   = pipeline_state.depth_func;
-        gfx_pso_state.blending     = false;
-
-        out_pipeline = m_gfx_driver->pso_cache()->get_or_create(gfx_pso_state);
-
-        return StatusCode::Ok;
+        return format;
     }
-    std::string MeshPassProcessorGBuffer::get_name() const {
-        return "MeshPassProcessorGBuffer";
-    }
-    MeshPassType MeshPassProcessorGBuffer::get_pass_type() const {
-        return MeshPassType::GBuffer;
+
+    void GfxVertFormatCache::set_driver(GfxDriver* driver) {
+        m_driver = driver;
     }
 
 }// namespace wmoge

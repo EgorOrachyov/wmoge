@@ -97,6 +97,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_pipeline_cache.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
@@ -104,6 +105,7 @@
 #include "gfx/gfx_texture.hpp"
 #include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
+#include "gfx/gfx_vert_format_cache.hpp"
 
 #include "hgfx/hgfx_pass.hpp"
 #include "hgfx/hgfx_pass_base.hpp"

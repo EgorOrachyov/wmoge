@@ -130,6 +130,10 @@ namespace wmoge {
         // init context required for rendering and commands submission
         m_ctx_immediate = std::make_unique<VKCtx>(*this);
 
+        // init caches
+        m_pso_cache      = std::make_unique<GfxPipelineCache>();
+        m_vert_fmt_cache = std::make_unique<GfxVertFormatCache>();
+
         // setup pool and dynamic buffers
         m_uniform_pool       = make_ref<GfxUniformPool>(SID("uniform_pool"));
         m_dyn_vert_buffer    = make_dyn_vert_buffer(config->get_int(SID("gfx.dyn_vert_chunk_size"), DEFAULT_DYN_VERT_CHUNK_SIZE), SID("vk_dyn_vert_buffer"));
@@ -151,6 +155,10 @@ namespace wmoge {
         // finally init wrapper for ctx immediate
         m_ctx_immediate_wrapper = std::make_unique<GfxCtxWrapper>(m_ctx_immediate.get());
 
+        // Provide ptr to wrapper
+        m_pso_cache->set_driver(m_driver_wrapper.get());
+        m_vert_fmt_cache->set_driver(m_driver_wrapper.get());
+
         WG_LOG_INFO("init vulkan gfx driver");
     }
     VKDriver::~VKDriver() {
@@ -165,14 +173,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_format");
 
         assert(on_gfx_thread());
-
-        auto& format = m_formats[elements];
-        if (!format) {
-            format = make_ref<VKVertFormat>(elements, name);
-            WG_LOG_INFO("cache new format " << name);
-        }
-
-        return format;
+        return make_ref<VKVertFormat>(elements, name);
     }
     Ref<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_buffer");
@@ -289,13 +290,7 @@ namespace wmoge {
 
         assert(on_gfx_thread());
 
-        auto& pipeline = m_pipelines[state];
-        if (!pipeline) {
-            pipeline = make_ref<VKPipeline>(state, name, *this);
-            WG_LOG_INFO("cache new pipeline " << name);
-        }
-
-        return pipeline;
+        return make_ref<VKPipeline>(state, name, *this);
     }
     Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
@@ -357,6 +352,12 @@ namespace wmoge {
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
 
+            m_vert_fmt_cache.reset();
+            flush_release();
+
+            m_pso_cache.reset();
+            flush_release();
+
             m_uniform_pool.reset();
             m_dyn_vert_buffer.reset();
             m_dyn_index_buffer.reset();
@@ -372,16 +373,10 @@ namespace wmoge {
             m_render_passes.clear();
             flush_release();
 
-            m_pipelines.clear();
-            flush_release();
-
             m_layouts.clear();
             flush_release();
 
             m_samplers.clear();
-            flush_release();
-
-            m_formats.clear();
             flush_release();
 
             m_window_manager.reset();

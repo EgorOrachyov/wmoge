@@ -78,8 +78,10 @@ namespace wmoge {
         void prepare_window(const Ref<Window>& window) override;
         void swap_buffers(const Ref<Window>& window) override;
 
-        [[nodiscard]] class GfxCtx* ctx_immediate() override;
-        [[nodiscard]] class GfxCtx* ctx_async() override;
+        [[nodiscard]] class GfxCtx*       ctx_immediate() override;
+        [[nodiscard]] class GfxCtx*       ctx_async() override;
+        [[nodiscard]] GfxPipelineCache*   pso_cache() override;
+        [[nodiscard]] GfxVertFormatCache* vert_fmt_cache() override;
 
         [[nodiscard]] GfxUniformPool*      uniform_pool() override;
         [[nodiscard]] GfxDynVertBuffer*    dyn_vert_buffer() override;
@@ -110,8 +112,10 @@ namespace wmoge {
         Mat4x4f              m_clip_matrix;
         std::string          m_shader_cache_path;
         std::string          m_pipeline_cache_path;
-        class GfxCtx*        m_ctx_immediate = nullptr;
-        class GfxCtx*        m_ctx_async     = nullptr;
+        class GfxCtx*        m_ctx_immediate  = nullptr;
+        class GfxCtx*        m_ctx_async      = nullptr;
+        GfxPipelineCache*    m_pso_cache      = nullptr;
+        GfxVertFormatCache*  m_vert_fmt_cache = nullptr;
     };
 
 }// namespace wmoge

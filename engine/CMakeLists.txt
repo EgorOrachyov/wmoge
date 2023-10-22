@@ -120,6 +120,8 @@ add_library(wmoge STATIC
         gfx/gfx_dynamic_buffers.hpp
         gfx/gfx_pipeline.cpp
         gfx/gfx_pipeline.hpp
+        gfx/gfx_pipeline_cache.cpp
+        gfx/gfx_pipeline_cache.hpp
         gfx/gfx_render_pass.cpp
         gfx/gfx_render_pass.hpp
         gfx/gfx_resource.hpp
@@ -131,6 +133,8 @@ add_library(wmoge STATIC
         gfx/gfx_vector.hpp
         gfx/gfx_vert_format.cpp
         gfx/gfx_vert_format.hpp
+        gfx/gfx_vert_format_cache.cpp
+        gfx/gfx_vert_format_cache.hpp
         gfx/threaded/gfx_ctx_threaded.hpp
         gfx/threaded/gfx_ctx_wrapper.cpp
         gfx/threaded/gfx_ctx_wrapper.hpp
