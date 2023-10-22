@@ -144,6 +144,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af878c96b09309e06fdc8d829a48f7619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a121f8eefbd1ac47c698c37a1b34c36dd"><td class="memItemLeft" align="right" valign="top">virtual class <a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a121f8eefbd1ac47c698c37a1b34c36dd">ctx_async</a> ()=0</td></tr>
 <tr class="separator:a121f8eefbd1ac47c698c37a1b34c36dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc9cce122e235b384a201f9ca786d015"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxPipelineCache.html">GfxPipelineCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#adc9cce122e235b384a201f9ca786d015">pso_cache</a> ()=0</td></tr>
+<tr class="separator:adc9cce122e235b384a201f9ca786d015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e94b319dcc34496bd556bedfccead7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxVertFormatCache.html">GfxVertFormatCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#ac4e94b319dcc34496bd556bedfccead7">vert_fmt_cache</a> ()=0</td></tr>
+<tr class="separator:ac4e94b319dcc34496bd556bedfccead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a85385ae4c5f900e832a663090bf19780"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxUniformPool.html">GfxUniformPool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a85385ae4c5f900e832a663090bf19780">uniform_pool</a> ()=0</td></tr>
 <tr class="separator:a85385ae4c5f900e832a663090bf19780"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8436b2d565a34c133e1a10139e788a54"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxDynVertBuffer.html">GfxDynVertBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a8436b2d565a34c133e1a10139e788a54">dyn_vert_buffer</a> ()=0</td></tr>
@@ -1405,6 +1409,33 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="adc9cce122e235b384a201f9ca786d015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9cce122e235b384a201f9ca786d015">&#9670;&nbsp;</a></span>pso_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1GfxPipelineCache.html">GfxPipelineCache</a>* wmoge::GfxDriver::pso_cache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#ab94406864ee6da511ccc60a9f6e756d0">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a795544e4d33d3002ee915e030efc0001">wmoge::GfxDriverWrapper</a>.</p>
+
+</div>
+</div>
 <a id="a127cb4be865ae723e2d5fc26b6d639b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a127cb4be865ae723e2d5fc26b6d639b0">&#9670;&nbsp;</a></span>shader_cache_path()</h2>
 
@@ -1565,6 +1596,33 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#aa1fdbba365f153dad9b0d794cfa7b19c">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a78a2e47d4267709400328aace2db3f0f">wmoge::GfxDriverWrapper</a>.</p>
+
+</div>
+</div>
+<a id="ac4e94b319dcc34496bd556bedfccead7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4e94b319dcc34496bd556bedfccead7">&#9670;&nbsp;</a></span>vert_fmt_cache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1GfxVertFormatCache.html">GfxVertFormatCache</a>* wmoge::GfxDriver::vert_fmt_cache </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a8a80a9d560d1b7cbdf19434a79f16e49">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#ac06c7c0c213e3fd4d5435432a8184af5">wmoge::GfxDriverWrapper</a>.</p>
 
 </div>
 </div>
