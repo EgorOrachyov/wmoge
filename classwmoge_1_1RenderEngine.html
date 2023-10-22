@@ -96,8 +96,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7f455b2f4a9bc7ec86961e910238afd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0180353b5a6c04ceae3e03e53e603c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#af0180353b5a6c04ceae3e03e53e603c6">end_rendering</a> ()</td></tr>
 <tr class="separator:af0180353b5a6c04ceae3e03e53e603c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdac795a1b72b82175618b79210fb05a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#abdac795a1b72b82175618b79210fb05a">reserve_buffers</a> ()</td></tr>
-<tr class="separator:abdac795a1b72b82175618b79210fb05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57990eede24cb0b934d89426556b5f7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a57990eede24cb0b934d89426556b5f7a">prepare_frame_data</a> ()</td></tr>
 <tr class="separator:a57990eede24cb0b934d89426556b5f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad19cb6e9eb3d092a40f54ea380276282"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ad19cb6e9eb3d092a40f54ea380276282">allocate_veiws</a> ()</td></tr>
@@ -118,8 +116,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa6072d7961b4e9b56460a719c4a7d8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad141078841052360bb9cf5ea3cb09e16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ad141078841052360bb9cf5ea3cb09e16">get_cameras</a> ()</td></tr>
 <tr class="separator:ad141078841052360bb9cf5ea3cb09e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96fcc1cb227a617593f33e8b50958f33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RenderObjectCollector.html">RenderObjectCollector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a96fcc1cb227a617593f33e8b50958f33">get_obejcts_collector</a> ()</td></tr>
-<tr class="separator:a96fcc1cb227a617593f33e8b50958f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a4c71b45eddd53d02999b54e03ac581"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1MeshBatchCollector.html">MeshBatchCollector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a0a4c71b45eddd53d02999b54e03ac581">get_batch_collector</a> ()</td></tr>
 <tr class="separator:a0a4c71b45eddd53d02999b54e03ac581"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fc2992fe618be46019728044b58b950"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1MeshBatchCompiler.html">MeshBatchCompiler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a5fc2992fe618be46019728044b58b950">get_batch_compiler</a> ()</td></tr>
@@ -153,7 +149,7 @@ Public Member Functions</h2></td></tr>
 <dd>
 <a class="el" href="classwmoge_1_1RenderCameras.html" title="Cameras list for rendering.">RenderCameras</a> </dd>
 <dd>
-<a class="el" href="classwmoge_1_1RenderObjectCollector.html" title="Auxilary class to collect renderable object in MT.">RenderObjectCollector</a> </dd>
+RenderObjectCollector </dd>
 <dd>
 <a class="el" href="classwmoge_1_1MeshBatchCollector.html" title="Service to collect batches from render objects for drawing.">MeshBatchCollector</a> </dd>
 <dd>
@@ -529,31 +525,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a96fcc1cb227a617593f33e8b50958f33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96fcc1cb227a617593f33e8b50958f33">&#9670;&nbsp;</a></span>get_obejcts_collector()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1RenderObjectCollector.html">RenderObjectCollector</a>&amp; wmoge::RenderEngine::get_obejcts_collector </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a31b9d1a9d252a6586cba925d523ee88c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31b9d1a9d252a6586cba925d523ee88c">&#9670;&nbsp;</a></span>get_time()</h2>
 
@@ -666,23 +637,6 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> &amp;&#160;</td>
           <td class="paramname"><em>aux_draw_manager</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abdac795a1b72b82175618b79210fb05a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdac795a1b72b82175618b79210fb05a">&#9670;&nbsp;</a></span>reserve_buffers()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::RenderEngine::reserve_buffers </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loglevel_7117',['LogLevel',['../namespacewmoge.html#adb66fc860342988f88322798b80659c0',1,'wmoge']]]
+  ['loglevel_7166',['LogLevel',['../namespacewmoge.html#adb66fc860342988f88322798b80659c0',1,'wmoge']]]
 ];
