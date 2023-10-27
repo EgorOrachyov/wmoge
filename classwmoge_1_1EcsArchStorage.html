@@ -90,8 +90,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9811a123d1f413df85eee27a20148eb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad204e07b95c83f76796990fc22a61fa3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsArchStorage.html#ad204e07b95c83f76796990fc22a61fa3">make_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity, std::uint32_t &amp;entity_idx)</td></tr>
 <tr class="separator:ad204e07b95c83f76796990fc22a61fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa65033ea0e9ba29db1d36477469da38c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsArchStorage.html#aa65033ea0e9ba29db1d36477469da38c">destroy_entity</a> (const std::uint32_t &amp;entity_idx)</td></tr>
-<tr class="separator:aa65033ea0e9ba29db1d36477469da38c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69bc56310ea7f7691a7c98d74b64670a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsArchStorage.html#a69bc56310ea7f7691a7c98d74b64670a">destroy_entity</a> (const std::uint32_t &amp;entity_idx, bool &amp;was_swapped)</td></tr>
+<tr class="separator:a69bc56310ea7f7691a7c98d74b64670a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a659c74ff2da425db1de6d11bcdc52e51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsArchStorage.html#a659c74ff2da425db1de6d11bcdc52e51">clear</a> ()</td></tr>
 <tr class="separator:a659c74ff2da425db1de6d11bcdc52e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63c35389007322d98f6b9df565ec1bf8"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
@@ -222,8 +222,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa65033ea0e9ba29db1d36477469da38c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa65033ea0e9ba29db1d36477469da38c">&#9670;&nbsp;</a></span>destroy_entity()</h2>
+<a id="a69bc56310ea7f7691a7c98d74b64670a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69bc56310ea7f7691a7c98d74b64670a">&#9670;&nbsp;</a></span>destroy_entity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,8 +232,18 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void wmoge::EcsArchStorage::destroy_entity </td>
           <td>(</td>
           <td class="paramtype">const std::uint32_t &amp;&#160;</td>
-          <td class="paramname"><em>entity_idx</em></td><td>)</td>
+          <td class="paramname"><em>entity_idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>was_swapped</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

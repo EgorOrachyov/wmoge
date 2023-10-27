@@ -65,21 +65,81 @@ $(function() {
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">texture_manager.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="texture__manager_8hpp_source.html">texture_manager.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="core_2engine_8hpp_source.html">core/engine.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="profiler_8hpp_source.html">debug/profiler.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gfx__ctx_8hpp_source.html">gfx/gfx_ctx.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gfx__driver_8hpp_source.html">gfx/gfx_driver.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for texture_manager.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="texture__manager_8cpp__incl.png" border="0" usemap="#aengine_2render_2texture__manager_8cpp" alt=""/></div>
 <map name="aengine_2render_2texture__manager_8cpp" id="aengine_2render_2texture__manager_8cpp">
-<area shape="rect" title=" " alt="" coords="5,5,148,47"/>
-<area shape="rect" href="texture__manager_8hpp.html" title=" " alt="" coords="5,95,148,121"/>
+<area shape="rect" title=" " alt="" coords="1613,5,1755,47"/>
+<area shape="rect" href="texture__manager_8hpp.html" title=" " alt="" coords="446,169,589,196"/>
+<area shape="rect" href="core_2engine_8hpp.html" title=" " alt="" coords="3067,632,3181,659"/>
+<area shape="rect" href="profiler_8hpp.html" title=" " alt="" coords="3205,632,3328,659"/>
+<area shape="rect" href="gfx__ctx_8hpp.html" title=" " alt="" coords="1630,169,1738,196"/>
+<area shape="rect" href="gfx__driver_8hpp.html" title=" " alt="" coords="1476,95,1599,121"/>
+<area shape="rect" href="gfx__sampler_8hpp.html" title=" " alt="" coords="350,333,487,360"/>
+<area shape="rect" href="gfx__texture_8hpp.html" title=" " alt="" coords="933,251,1064,278"/>
+<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="788,408,929,435"/>
+<area shape="rect" title=" " alt="" coords="867,781,919,808"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1449,632,1535,659"/>
+<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="1185,483,1301,509"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1442,557,1542,584"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1496,707,1587,733"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2110,707,2234,733"/>
+<area shape="rect" title=" " alt="" coords="969,707,1020,733"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="1918,557,2018,584"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1662,632,1765,659"/>
+<area shape="rect" title=" " alt="" coords="2341,781,2406,808"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="1285,632,1424,659"/>
+<area shape="rect" title=" " alt="" coords="2861,707,2941,733"/>
+<area shape="rect" title=" " alt="" coords="3161,781,3223,808"/>
+<area shape="rect" title=" " alt="" coords="1778,781,1843,808"/>
+<area shape="rect" title=" " alt="" coords="2103,781,2182,808"/>
+<area shape="rect" title=" " alt="" coords="1500,781,1583,808"/>
+<area shape="rect" title=" " alt="" coords="1662,707,1773,733"/>
+<area shape="rect" title=" " alt="" coords="2728,707,2787,733"/>
+<area shape="rect" title=" " alt="" coords="1951,781,2020,808"/>
+<area shape="rect" title=" " alt="" coords="2647,781,2702,808"/>
+<area shape="rect" title=" " alt="" coords="3099,707,3154,733"/>
+<area shape="rect" title=" " alt="" coords="3230,707,3298,733"/>
+<area shape="rect" href="timer_8hpp.html" title=" " alt="" coords="3424,707,3528,733"/>
+<area shape="rect" title=" " alt="" coords="3400,781,3461,808"/>
+<area shape="rect" title=" " alt="" coords="3553,707,3610,733"/>
+<area shape="rect" title=" " alt="" coords="3016,707,3075,733"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="2601,632,2738,659"/>
+<area shape="rect" href="callback__queue_8hpp.html" title=" " alt="" coords="2523,251,2688,278"/>
+<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="195,333,325,360"/>
+<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="715,251,859,278"/>
+<area shape="rect" href="gfx__pipeline_8hpp.html" title=" " alt="" coords="1369,251,1503,278"/>
+<area shape="rect" href="gfx__render__pass_8hpp.html" title=" " alt="" coords="1069,333,1232,360"/>
+<area shape="rect" href="gfx__shader_8hpp.html" title=" " alt="" coords="1691,333,1821,360"/>
+<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="1357,333,1515,360"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="1821,483,1923,509"/>
+<area shape="rect" href="window_8hpp.html" title=" " alt="" coords="2048,483,2189,509"/>
+<area shape="rect" title=" " alt="" coords="2614,707,2703,733"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="2201,333,2365,360"/>
+<area shape="rect" href="gfx__dynamic__buffers_8hpp.html" title=" " alt="" coords="454,251,639,278"/>
+<area shape="rect" href="gfx__pipeline__cache_8hpp.html" title=" " alt="" coords="2099,169,2277,196"/>
+<area shape="rect" href="gfx__vert__format__cache_8hpp.html" title=" " alt="" coords="2251,244,2384,285"/>
 </map>
 </div>
-</div></div><!-- contents -->
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1

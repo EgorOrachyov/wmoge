@@ -126,6 +126,7 @@ $(function() {
 <li>m_compute
 : <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a51e0706b67e617cff3df2558ff0c58b6">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#ac5d274090462df9ed00befb57aa83931">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#ae0d138fdc8fa0bbab7c9709909166e44">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#a86ce00cd58ca6487db833bec81b6b8f2">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#ac366f29f477bcb9d840b2b69435a95ac">wmoge::ShaderPassText</a>
 </li>
@@ -182,6 +183,7 @@ $(function() {
 <li>m_fragment
 : <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#abe8ab535728ea3c8ca6925d9474b3cf7">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#af7bd45b7d6fcb0733b6fbdb707b9cd9a">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#a0be5fec4b4a430bd4760b543aee4653c">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#a41a3ee05fef968c82b75c084196ff183">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#a0526dec64f61e512aaa43be49ccb698f">wmoge::ShaderPassText</a>
 </li>
@@ -337,6 +339,10 @@ $(function() {
 <li>m_stream
 : <a class="el" href="classwmoge_1_1AudioPlayback.html#aab35c7d4f6a5bece8f466a5d61aec047">wmoge::AudioPlayback</a>
 </li>
+<li>m_swizz
+: <a class="el" href="classwmoge_1_1GfxTexture.html#af47b4d235205101741d47d31d59d0af6">wmoge::GfxTexture</a>
+, <a class="el" href="classwmoge_1_1Texture.html#a39dc6bd78bde46fecb9302d0b3f330e4">wmoge::Texture</a>
+</li>
 <li>m_tex_type
 : <a class="el" href="classwmoge_1_1GfxTexture.html#a487a90a0c7d29173aa9cc07676882113">wmoge::GfxTexture</a>
 , <a class="el" href="classwmoge_1_1Texture.html#a799201e47aaa25843a49d6679e6c0207">wmoge::Texture</a>
@@ -360,6 +366,7 @@ $(function() {
 <li>m_vertex
 : <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a5a872492f89cb95d48f8e6dad81c5e77">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#a2c1ea516afb3ed637828318ba436fbfc">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#afdec6590b99ed2469cb8436980866ee2">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#abf00a0f8ef653807f59188d09da9e843">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#a47ed97a46b303263bd3dc3daf482342e">wmoge::ShaderPassText</a>
 </li>
@@ -466,9 +473,9 @@ $(function() {
 : <a class="el" href="classwmoge_1_1SceneManager.html#a700badc0e29bcc8b823f93337876c993">wmoge::SceneManager</a>
 </li>
 <li>make_shader()
-: <a class="el" href="classwmoge_1_1GfxDriver.html#aaa6d8822072a6b1046f447c624567b6d">wmoge::GfxDriver</a>
-, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#ab89abf597a84d50cb480d6ef050cd380">wmoge::GfxDriverWrapper</a>
-, <a class="el" href="classwmoge_1_1VKDriver.html#a30fb08a30f71c2ea1fdafd1e14cab62f">wmoge::VKDriver</a>
+: <a class="el" href="classwmoge_1_1GfxDriver.html#ac10c4f60fc4ffaedf99f2ec66c2cfca3">wmoge::GfxDriver</a>
+, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a51db91f81d554fe4f9f29b5c382fc580">wmoge::GfxDriverWrapper</a>
+, <a class="el" href="classwmoge_1_1VKDriver.html#a2266b97ad0673d1cfa7895ce659baf95">wmoge::VKDriver</a>
 </li>
 <li>make_shader_key()
 : <a class="el" href="classwmoge_1_1ShaderManager.html#a54f9c2d5268fb5c5cd1123227c997cf5">wmoge::ShaderManager</a>
@@ -479,9 +486,9 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKDriver.html#a51442d3e4186bf266ca4ca982fbc9cb9">wmoge::VKDriver</a>
 </li>
 <li>make_texture_2d()
-: <a class="el" href="classwmoge_1_1GfxDriver.html#aa95d44a95ec6b0cf9e171a715b66fb79">wmoge::GfxDriver</a>
-, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a9a100bb07ffd3b6b90ba993c9a5c2e3b">wmoge::GfxDriverWrapper</a>
-, <a class="el" href="classwmoge_1_1VKDriver.html#a9c01946e4fa61de8dc870e6b24698de7">wmoge::VKDriver</a>
+: <a class="el" href="classwmoge_1_1GfxDriver.html#ad6d95de66931714bb13ec107b4f5ec13">wmoge::GfxDriver</a>
+, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a3e6300be7234b50970affb6d2968cdbc">wmoge::GfxDriverWrapper</a>
+, <a class="el" href="classwmoge_1_1VKDriver.html#a694cb7ca91f1a68db3c87632eb9fc3fe">wmoge::VKDriver</a>
 </li>
 <li>make_texture_2d_array()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#afee66b75610599481ae6741ccdb287f8">wmoge::GfxDriver</a>
@@ -603,6 +610,11 @@ $(function() {
 </li>
 <li>MAX_CAMERAS
 : <a class="el" href="structwmoge_1_1RenderLimits.html#aee305212ae8914c0c76396fdc472fde3">wmoge::RenderLimits</a>
+</li>
+<li>MAX_CANVAS_IMAGES
+: <a class="el" href="classwmoge_1_1Canvas.html#a4e7c17e86350853b2b30c3b4f79c1583">wmoge::Canvas</a>
+, <a class="el" href="structwmoge_1_1CanvasSharedData.html#ab5b42e6611dfc0a025e1cd20ac8974c3">wmoge::CanvasSharedData</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas.html#a254b9c7a1851d03e1d3cf316758da4f1">wmoge::ShaderCanvas</a>
 </li>
 <li>max_color_attachments
 : <a class="el" href="structwmoge_1_1GfxDeviceCaps.html#ac9ed06c50c38f9a2837a7e2a99f2d5a8">wmoge::GfxDeviceCaps</a>
@@ -727,7 +739,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1MeshBatch.html#ae6c28408eeeb4da38b0426d79d1abd27">wmoge::MeshBatch</a>
 </li>
 <li>MeshBatchCollector()
-: <a class="el" href="classwmoge_1_1MeshBatchCollector.html#a11c4b84392f9acce7f784ca38497f664">wmoge::MeshBatchCollector</a>
+: <a class="el" href="classwmoge_1_1MeshBatchCollector.html#a990be17fea67df34cf471b423a462cdb">wmoge::MeshBatchCollector</a>
 </li>
 <li>MeshBatchCompiler()
 : <a class="el" href="classwmoge_1_1MeshBatchCompiler.html#a77c7311b9b49b68fb10257c31a156ee5">wmoge::MeshBatchCompiler</a>

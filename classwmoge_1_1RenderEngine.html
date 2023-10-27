@@ -92,6 +92,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a764532f44bd49b5e8d205ce8f4b52d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a36ca617e4de818923bf41f0f298b0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a4a36ca617e4de818923bf41f0f298b0f">set_scene</a> (<a class="el" href="classwmoge_1_1RenderScene.html">RenderScene</a> *scene)</td></tr>
 <tr class="separator:a4a36ca617e4de818923bf41f0f298b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a166199d2941cad38bd6f72f2b9fe644f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a166199d2941cad38bd6f72f2b9fe644f">set_visiblity</a> (<a class="el" href="classwmoge_1_1VisibilitySystem.html">VisibilitySystem</a> *visibility)</td></tr>
+<tr class="separator:a166199d2941cad38bd6f72f2b9fe644f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f455b2f4a9bc7ec86961e910238afd8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a7f455b2f4a9bc7ec86961e910238afd8">begin_rendering</a> ()</td></tr>
 <tr class="separator:a7f455b2f4a9bc7ec86961e910238afd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0180353b5a6c04ceae3e03e53e603c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#af0180353b5a6c04ceae3e03e53e603c6">end_rendering</a> ()</td></tr>
@@ -112,6 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a35caacb680a6eb3d6222648b8097c5ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0194a02fd2830e6a0b842af21c040b83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#a0194a02fd2830e6a0b842af21c040b83">flush_buffers</a> ()</td></tr>
 <tr class="separator:a0194a02fd2830e6a0b842af21c040b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae366e175f4cc594a27e87fd88f6b94cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ae366e175f4cc594a27e87fd88f6b94cd">render_canvas</a> (<a class="el" href="classwmoge_1_1Canvas.html">Canvas</a> &amp;canvas, const <a class="el" href="namespacewmoge.html#a94d9c5c30bae9baf72194d8e20452f0e">Vec4f</a> &amp;area)</td></tr>
+<tr class="separator:ae366e175f4cc594a27e87fd88f6b94cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6072d7961b4e9b56460a719c4a7d8f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#aa6072d7961b4e9b56460a719c4a7d8f5">render_aux_geom</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> &amp;aux_draw_manager)</td></tr>
 <tr class="separator:aa6072d7961b4e9b56460a719c4a7d8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad141078841052360bb9cf5ea3cb09e16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderEngine.html#ad141078841052360bb9cf5ea3cb09e16">get_cameras</a> ()</td></tr>
@@ -644,6 +648,34 @@ RenderObjectCollector </dd>
 
 </div>
 </div>
+<a id="ae366e175f4cc594a27e87fd88f6b94cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae366e175f4cc594a27e87fd88f6b94cd">&#9670;&nbsp;</a></span>render_canvas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::render_canvas </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Canvas.html">Canvas</a> &amp;&#160;</td>
+          <td class="paramname"><em>canvas</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a94d9c5c30bae9baf72194d8e20452f0e">Vec4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>area</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a764532f44bd49b5e8d205ce8f4b52d67"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a764532f44bd49b5e8d205ce8f4b52d67">&#9670;&nbsp;</a></span>set_clear_color()</h2>
 
@@ -727,6 +759,24 @@ RenderObjectCollector </dd>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a166199d2941cad38bd6f72f2b9fe644f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a166199d2941cad38bd6f72f2b9fe644f">&#9670;&nbsp;</a></span>set_visiblity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::RenderEngine::set_visiblity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1VisibilitySystem.html">VisibilitySystem</a> *&#160;</td>
+          <td class="paramname"><em>visibility</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

@@ -148,9 +148,11 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Shader.html#a801981251f81df3414afd67601a9a6a5">wmoge::Shader</a>
 </li>
 <li>get()
-: <a class="el" href="classwmoge_1_1ConfigFile.html#a0138e57f65cffad95e1efbf7f6b3d8a0">wmoge::ConfigFile</a>
+: <a class="el" href="classwmoge_1_1ConfigFile.html#aa82df709ca52b66cd913bd97cbb7b4cb">wmoge::ConfigFile</a>
 , <a class="el" href="classwmoge_1_1GameTokenManager.html#a6853ac3b72fa8e9d2c2cbfa8f9f93f20">wmoge::GameTokenManager</a>
-, <a class="el" href="classwmoge_1_1GlfwWindowManager.html#a7262a634c451d4d89cb59c64d8a6105b">wmoge::GlfwWindowManager</a>
+, <a class="el" href="classwmoge_1_1GfxPipelineCache.html#aac3df31d44a29c7825bee0cc3a834cb9">wmoge::GfxPipelineCache</a>
+, <a class="el" href="classwmoge_1_1GfxVertFormatCache.html#a11d58b893e00bfa8bd5f99425d826c1a">wmoge::GfxVertFormatCache</a>
+, <a class="el" href="classwmoge_1_1GlfwWindowManager.html#a3b441f77b40e450c3b344fb9b99acab6">wmoge::GlfwWindowManager</a>
 , <a class="el" href="structwmoge_1_1LuaRefCnt.html#a2c34e65d935c34cadda8f0b20b33502c">wmoge::LuaRefCnt</a>
 , <a class="el" href="classwmoge_1_1LuaScriptInstance.html#aae749982d4b06e72ac6dc3ea6ab47e74">wmoge::LuaScriptInstance</a>
 , <a class="el" href="structwmoge_1_1Mask.html#af7920085657e8a80d3b0aa53049d27fb">wmoge::Mask&lt; T, size &gt;</a>
@@ -326,7 +328,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKDefs.html#ae8e388a087f9af18c0d9095266b19ca6">wmoge::VKDefs</a>
 </li>
 <li>get_component()
-: <a class="el" href="classwmoge_1_1EcsArchStorage.html#a63c35389007322d98f6b9df565ec1bf8">wmoge::EcsArchStorage</a>
+: <a class="el" href="classwmoge_1_1EcsArchStorage.html#a1888025f6729c6413f5a75a8dcc4bd02">wmoge::EcsArchStorage</a>
 , <a class="el" href="classwmoge_1_1EcsWorld.html#a3bff61608ddbda6b599490e31156d544">wmoge::EcsWorld</a>
 , <a class="el" href="classwmoge_1_1PfxComponentRuntime.html#a8c77a32042d95d2498ad958fa5e10fb4">wmoge::PfxComponentRuntime</a>
 , <a class="el" href="classwmoge_1_1PfxEffect.html#af22c9488169217b6774d707036f013c4">wmoge::PfxEffect</a>
@@ -359,6 +361,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ShaderPass.html#a34f5d1eee8a11b28bc9d9e843d709b63">wmoge::ShaderPass</a>
 , <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a41766145e2f168e12114ab34546395df">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#a246b6c25c14f69727e0d20b82e9b3448">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#afa2309e13653136a289d789ea3dbd4a8">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#acb1a7bd365a48a908f5263a88ab0723e">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#ab716c067dd1dac62a05f6b027af8b3a4">wmoge::ShaderPassText</a>
 </li>
@@ -520,6 +523,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ShaderPass.html#a408368bbb3afb83bf16a1f67738cc926">wmoge::ShaderPass</a>
 , <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a9baccb964adf646665cd58fde74281bf">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#aba4f36a0cd1ba5f968183feb6c77e178">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#a12143a944d773aca7ce680148b03aed2">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#a21bbd8a9b4dc7fb849d35cbb509fbb82">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#ac189d58df3804ba05f42b1693c4eeec6">wmoge::ShaderPassText</a>
 </li>
@@ -545,6 +549,18 @@ $(function() {
 </li>
 <li>get_gain_scale()
 : <a class="el" href="classwmoge_1_1ALAudioBus.html#acef9a14b3f66052ecb1f6dbba09448c8">wmoge::ALAudioBus</a>
+</li>
+<li>get_gfx_default_sampler()
+: <a class="el" href="classwmoge_1_1TextureManager.html#a633ef3bae3ff18a47f45928befe9408b">wmoge::TextureManager</a>
+</li>
+<li>get_gfx_default_texture_black()
+: <a class="el" href="classwmoge_1_1TextureManager.html#a655877b4e2730a45f7342013b7f1fd64">wmoge::TextureManager</a>
+</li>
+<li>get_gfx_default_texture_red()
+: <a class="el" href="classwmoge_1_1TextureManager.html#a3bee7ea2e70dc14e4f6b3349506191fc">wmoge::TextureManager</a>
+</li>
+<li>get_gfx_default_texture_white()
+: <a class="el" href="classwmoge_1_1TextureManager.html#a415fefe747adafd48ee757feb11c29ca">wmoge::TextureManager</a>
 </li>
 <li>get_gfx_index_buffer()
 : <a class="el" href="classwmoge_1_1Mesh.html#a3714ba80a653f307ab774a5be7b1ece9">wmoge::Mesh</a>
@@ -766,6 +782,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ShaderPass.html#afb283e0c58dca96b94bd2d74537303a8">wmoge::ShaderPass</a>
 , <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#ad71c988fb60f11ec633e09656f6122bc">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#af52f04615d64c50ad2705c84d8384e01">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#add64bb13f272b1651c1d5af785338040">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#aeeb0927e8da3ff06eb5731a175a06ad7">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#a19b8d2886c05ad154d411befd4d7dbd9">wmoge::ShaderPassText</a>
 </li>
@@ -836,15 +853,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RenderScene.html#a7eb3ff33f8039f0cdf33522c6291fc0a">wmoge::RenderScene</a>
 </li>
 <li>get_objects_vis()
-: <a class="el" href="classwmoge_1_1RenderScene.html#a01ddbb293afdce97b8aa440865669da3">wmoge::RenderScene</a>
+: <a class="el" href="classwmoge_1_1RenderScene.html#a1a4dcd936ed3b92763c8a76aea91db7d">wmoge::RenderScene</a>
 </li>
 <li>get_on_changed()
 : <a class="el" href="classwmoge_1_1ConsoleVar.html#aba6c5fc6ada6c17d50e0d601ca26f15b">wmoge::ConsoleVar</a>
 </li>
 <li>get_or_create()
-: <a class="el" href="classwmoge_1_1GfxPipelineCache.html#aed1800cec893da80206fbbd25104fef2">wmoge::GfxPipelineCache</a>
-, <a class="el" href="classwmoge_1_1GfxVertFormatCache.html#afa5f82b50269e8b98edad4e9b9947d43">wmoge::GfxVertFormatCache</a>
-, <a class="el" href="classwmoge_1_1StringStorage.html#aed174f1411af54f57067ee966071bd8b">wmoge::StringStorage</a>
+: <a class="el" href="classwmoge_1_1StringStorage.html#aed174f1411af54f57067ee966071bd8b">wmoge::StringStorage</a>
 , <a class="el" href="classwmoge_1_1VKWindowManager.html#a32a032bdfbb0e5bed2ec518446e3acd1">wmoge::VKWindowManager</a>
 </li>
 <li>get_owner()
@@ -1000,9 +1015,6 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneNode.html#a5321e8f6c3a4915f591fab45f7f636be">wmoge::SceneNode</a>
 , <a class="el" href="classwmoge_1_1SceneTree.html#a8602a0968909a89aea9355f04540e0ca">wmoge::SceneTree</a>
 </li>
-<li>get_screen_size()
-: <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a8d009fc2bae16bd7dc38a22f6aa6cb0b">wmoge::AuxDrawCanvas</a>
-</li>
 <li>get_script()
 : <a class="el" href="classwmoge_1_1LuaScriptInstance.html#a88ecafa9108710efb46e50b642628e93">wmoge::LuaScriptInstance</a>
 , <a class="el" href="classwmoge_1_1ScriptInstance.html#a4ed756bfba4baadd39f9d7eae191aa41">wmoge::ScriptInstance</a>
@@ -1013,7 +1025,7 @@ $(function() {
 </li>
 <li>get_shader()
 : <a class="el" href="classwmoge_1_1Material.html#a2a9c00a49663d92a55cd2486952cab64">wmoge::Material</a>
-, <a class="el" href="classwmoge_1_1ShaderManager.html#a3eaf4c3521c288c65a359d126b235ee4">wmoge::ShaderManager</a>
+, <a class="el" href="classwmoge_1_1ShaderManager.html#a3c1206cb371f5bc769e21c86c3978a99">wmoge::ShaderManager</a>
 </li>
 <li>get_size()
 : <a class="el" href="classreflection_1_1ArrayQualifier.html#a537ff9a151fe79e1a87ff7ae17138d87">reflection.ArrayQualifier</a>
@@ -1102,6 +1114,9 @@ $(function() {
 </li>
 <li>get_system()
 : <a class="el" href="classwmoge_1_1LuaScript.html#a43fdcc036e0a8b1080f3a00c22f8254e">wmoge::LuaScript</a>
+</li>
+<li>get_tex_swizz()
+: <a class="el" href="classwmoge_1_1Texture.html#aa6e0bc1088b8822b5c262bab253be068">wmoge::Texture</a>
 </li>
 <li>get_tex_type()
 : <a class="el" href="classwmoge_1_1Texture.html#ae5debb7de7791f851a7fbd1540ccde09">wmoge::Texture</a>
@@ -1212,6 +1227,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ShaderPass.html#a40d21c823ee868b4e6c365fcf88a62fa">wmoge::ShaderPass</a>
 , <a class="el" href="classwmoge_1_1ShaderPassAuxDrawCanvas.html#a006bf88d75e41ff94072a1521cdd584e">wmoge::ShaderPassAuxDrawCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassBase.html#a80dcf61f5239c6e4ae394b66ab3f0a9b">wmoge::ShaderPassBase</a>
+, <a class="el" href="classwmoge_1_1ShaderPassCanvas.html#a39af4a03a566a30823b76cca9c1ae47e">wmoge::ShaderPassCanvas</a>
 , <a class="el" href="classwmoge_1_1ShaderPassMaterial.html#af72048fc12097c01ac01de41606414bc">wmoge::ShaderPassMaterial</a>
 , <a class="el" href="classwmoge_1_1ShaderPassText.html#a72a5b1195677c11eed83d0b130242059">wmoge::ShaderPassText</a>
 </li>
@@ -1225,8 +1241,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKDefs.html#ac397fd72db4f44b58d59a6772cbfe078">wmoge::VKDefs</a>
 </li>
 <li>get_viewport()
-: <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a575a4cf94c509d6cc841a0123f9dbd54">wmoge::AuxDrawCanvas</a>
-, <a class="el" href="classwmoge_1_1Camera.html#ac2d66ced94dd177482860c7dbe11455f">wmoge::Camera</a>
+: <a class="el" href="classwmoge_1_1Camera.html#ac2d66ced94dd177482860c7dbe11455f">wmoge::Camera</a>
 , <a class="el" href="classwmoge_1_1RenderCamera.html#aacdeed930b982e026478b1f85572c83e">wmoge::RenderCamera</a>
 </li>
 <li>get_views()
@@ -1298,13 +1313,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxUniformPool.html#a7117087c7b598ba8d8ace93d5f707706">wmoge::GfxUniformPool</a>
 </li>
 <li>GfxVector()
-: <a class="el" href="classwmoge_1_1GfxVector.html#ac051173a45eefbb8ee669e49120d4136">wmoge::GfxVector&lt; T, Storage &gt;</a>
+: <a class="el" href="classwmoge_1_1GfxVector.html#a8a5021840ce66b2f4f836504fe9dfcb2">wmoge::GfxVector&lt; T, Storage &gt;</a>
 </li>
 <li>GfxVertElements()
 : <a class="el" href="classwmoge_1_1GfxVertElements.html#af0df7c3629bcfa436de133b7aba29e1b">wmoge::GfxVertElements</a>
 </li>
 <li>GfxVertFormatCache()
-: <a class="el" href="classwmoge_1_1GfxVertFormatCache.html#a880fab6a5bcb774cd7756486de3098ce">wmoge::GfxVertFormatCache</a>
+: <a class="el" href="classwmoge_1_1GfxVertFormatCache.html#aa23e323d39a1e75857c9193c322d0f45">wmoge::GfxVertFormatCache</a>
 </li>
 <li>GfxWorker()
 : <a class="el" href="classwmoge_1_1GfxWorker.html#a4dc5038ce303f0734fc804f115380078">wmoge::GfxWorker</a>

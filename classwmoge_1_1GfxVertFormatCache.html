@@ -88,10 +88,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a528fdbdbbf0aa8e03829340353aef551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56ae5ebef011e5e7005b0501e55e9dd5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVertFormatCache.html#a56ae5ebef011e5e7005b0501e55e9dd5">~GfxVertFormatCache</a> ()=default</td></tr>
 <tr class="separator:a56ae5ebef011e5e7005b0501e55e9dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa5f82b50269e8b98edad4e9b9947d43"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertFormat.html">GfxVertFormat</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVertFormatCache.html#afa5f82b50269e8b98edad4e9b9947d43">get_or_create</a> (const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;elements, const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name=<a class="el" href="classwmoge_1_1StringId.html">StringId</a>())</td></tr>
-<tr class="separator:afa5f82b50269e8b98edad4e9b9947d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25cc3256f33b3afc96f8d0a21bcc9246"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVertFormatCache.html#a25cc3256f33b3afc96f8d0a21bcc9246">set_driver</a> (class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *driver)</td></tr>
-<tr class="separator:a25cc3256f33b3afc96f8d0a21bcc9246"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11d58b893e00bfa8bd5f99425d826c1a"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertFormat.html">GfxVertFormat</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVertFormatCache.html#a11d58b893e00bfa8bd5f99425d826c1a">get</a> (const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;elements)</td></tr>
+<tr class="separator:a11d58b893e00bfa8bd5f99425d826c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58b4d74545ab65dc0d9b4cb4d743efc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVertFormatCache.html#ae58b4d74545ab65dc0d9b4cb4d743efc">add</a> (const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;elements, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertFormat.html">GfxVertFormat</a> &gt; &amp;format)</td></tr>
+<tr class="separator:ae58b4d74545ab65dc0d9b4cb4d743efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Runtime cache of vertex formats. </p>
@@ -199,14 +199,14 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="afa5f82b50269e8b98edad4e9b9947d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa5f82b50269e8b98edad4e9b9947d43">&#9670;&nbsp;</a></span>get_or_create()</h2>
+<a id="ae58b4d74545ab65dc0d9b4cb4d743efc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58b4d74545ab65dc0d9b4cb4d743efc">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertFormat.html">GfxVertFormat</a> &gt; wmoge::GfxVertFormatCache::get_or_create </td>
+          <td class="memname">void wmoge::GfxVertFormatCache::add </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;&#160;</td>
           <td class="paramname"><em>elements</em>, </td>
@@ -214,8 +214,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em> = <code><a class="el" href="classwmoge_1_1StringId.html">StringId</a>()</code>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertFormat.html">GfxVertFormat</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>format</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -227,17 +227,17 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a25cc3256f33b3afc96f8d0a21bcc9246"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25cc3256f33b3afc96f8d0a21bcc9246">&#9670;&nbsp;</a></span>set_driver()</h2>
+<a id="a11d58b893e00bfa8bd5f99425d826c1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11d58b893e00bfa8bd5f99425d826c1a">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::GfxVertFormatCache::set_driver </td>
+          <td class="memname">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertFormat.html">GfxVertFormat</a> &gt; &gt; wmoge::GfxVertFormatCache::get </td>
           <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td>
-          <td class="paramname"><em>driver</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;&#160;</td>
+          <td class="paramname"><em>elements</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

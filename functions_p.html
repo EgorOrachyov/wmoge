@@ -74,21 +74,25 @@ $(function() {
 <li>PARAMS_LOC
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#ab8fb5994f461f2b5f9f273b39040bc9f">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#abedfdb46fbf131915a5583302901a2a5">wmoge::ShaderBase</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas.html#a37e3e23538fc5cb27579b9f71bec61a0">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a7379067177e16237bcdb306b3dea90e2">wmoge::ShaderText</a>
 </li>
 <li>PARAMS_NAME
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a9b31660346a5cc1f06d33d2304c103aa">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#aded894fb4a0774adcef6a414c1efae00">wmoge::ShaderBase</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas.html#abdd63390179ce37876c96b7dd87f8d70">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a24a125f9b2f53ad20d84d9031c63b9e5">wmoge::ShaderText</a>
 </li>
 <li>PARAMS_SET
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#ae2b10e6f3dcd468ce2bca783b093033d">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#a9691a4df4f3ff751173584a3f6ff36e4">wmoge::ShaderBase</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas.html#a053287ba98abec5b299564289b220701">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a37132a82faaed39b5f83404e7c51df61">wmoge::ShaderText</a>
 </li>
 <li>PARAMS_SLOT
 : <a class="el" href="structwmoge_1_1ShaderAuxDrawCanvas.html#a510321db5ed7bc433a7c91c6dce2708f">wmoge::ShaderAuxDrawCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderBase.html#ae035e5f84352b9a4a556de2d0e98cd51">wmoge::ShaderBase</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas.html#abdd0d7b8bdd2b3d5b1577a89c0364387">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a8aa1c23d7bb65e6c9f94dee04c129f69">wmoge::ShaderText</a>
 </li>
 <li>parent
@@ -97,7 +101,7 @@ $(function() {
 </li>
 <li>parse()
 : <a class="el" href="classwmoge_1_1CmdLine.html#afa50a8ddce14d74fcf1324fbe87ad5f6">wmoge::CmdLine</a>
-, <a class="el" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">wmoge::Enum</a>
+, <a class="el" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">wmoge::Enum</a>
 </li>
 <li>pass_desc
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a5289d53c7f1d1b8a61bc16e8d8bc798a">wmoge::GfxPipelineState</a>
@@ -113,9 +117,24 @@ $(function() {
 <li>path
 : <a class="el" href="classwmoge_1_1EventFileSystem.html#a9acf97e934b39af05606c1b37c6ca3c3">wmoge::EventFileSystem</a>
 </li>
+<li>path_arc_to()
+: <a class="el" href="classwmoge_1_1Canvas.html#a87bc47efc786831664e932fd50efe997">wmoge::Canvas</a>
+</li>
+<li>path_clear()
+: <a class="el" href="classwmoge_1_1Canvas.html#a76cb59f2a3f22006ba41540cca43f7d1">wmoge::Canvas</a>
+</li>
+<li>path_line_to()
+: <a class="el" href="classwmoge_1_1Canvas.html#a521f1560f67d9fc5f472b2f3229f2774">wmoge::Canvas</a>
+</li>
 <li>path_on_disk
 : <a class="el" href="structwmoge_1_1ResourceMeta.html#aeb93bf4908fe955839ebaf882f3f1867">wmoge::ResourceMeta</a>
 , <a class="el" href="structwmoge_1_1ResourceResFile.html#ae8e3a1e3131346acb4d7dfb4b1ea2d8f">wmoge::ResourceResFile</a>
+</li>
+<li>path_stroke()
+: <a class="el" href="classwmoge_1_1Canvas.html#a0550d9227282862daca3867227af31d8">wmoge::Canvas</a>
+</li>
+<li>path_stroke_filled()
+: <a class="el" href="classwmoge_1_1Canvas.html#ad43ccccca39eff459348f6d9d3f6b202">wmoge::Canvas</a>
 </li>
 <li>paths
 : <a class="el" href="classwmoge_1_1EventDrop.html#af54eef0f601e90a828ade8059626547c">wmoge::EventDrop</a>
@@ -128,8 +147,11 @@ $(function() {
 <li>paused
 : <a class="el" href="structwmoge_1_1EventListener.html#a9bdb3b90759a38bfe87ab43446a3c41f">wmoge::EventListener</a>
 </li>
-<li>peek()
-: <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a3ff7e25d7f70324adee02fe851d68ac9">wmoge::AuxDrawCanvas</a>
+<li>peek_clip_rect()
+: <a class="el" href="classwmoge_1_1Canvas.html#a016957d48bbeda77c53cdb66450906d2">wmoge::Canvas</a>
+</li>
+<li>peek_transform()
+: <a class="el" href="classwmoge_1_1Canvas.html#af5eb106eb6124b3ffd6d3abb74b2d4ba">wmoge::Canvas</a>
 </li>
 <li>perspective()
 : <a class="el" href="classwmoge_1_1Math3d.html#a9fabca2b120bb55b149739f5c4626808">wmoge::Math3d</a>
@@ -170,11 +192,20 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a2397ccc32f1d3638cf189b39a6106bc8">wmoge::GfxDriverWrapper</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#aca9bf94d171cb4ff53968a72e77bd35e">wmoge::VKDriver</a>
 </li>
+<li>pipeline_linear
+: <a class="el" href="structwmoge_1_1CanvasSharedData.html#af4058dc01992c035955f65543604664e">wmoge::CanvasSharedData</a>
+</li>
+<li>pipeline_srgb
+: <a class="el" href="structwmoge_1_1CanvasSharedData.html#adb0da452c1deff28bad91e1d224f61eb">wmoge::CanvasSharedData</a>
+</li>
+<li>plane()
+: <a class="el" href="classwmoge_1_1TFrustum.html#ad377859107e552bdca077f35b5560464">wmoge::TFrustum&lt; T &gt;</a>
+</li>
 <li>Plane
 : <a class="el" href="classwmoge_1_1TFrustum.html#ac4a889e9e2ed5a54ed30fde5d34b6aa6">wmoge::TFrustum&lt; T &gt;</a>
 </li>
 <li>plane()
-: <a class="el" href="classwmoge_1_1TFrustum.html#ad377859107e552bdca077f35b5560464">wmoge::TFrustum&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1TFrustum.html#a46d3d1b5cf96df6b1b31dbf80f9c05e3">wmoge::TFrustum&lt; T &gt;</a>
 </li>
 <li>PLANES_COUNT
 : <a class="el" href="classwmoge_1_1TFrustum.html#a60194b4e7b10a58b56e1342b09a4eca9">wmoge::TFrustum&lt; T &gt;</a>
@@ -198,8 +229,11 @@ $(function() {
 , <a class="el" href="classwmoge_1_1HgfxPassBase.html#a1607b2eb57fffea71445d3d24e31235d">wmoge::HgfxPassBase</a>
 , <a class="el" href="structwmoge_1_1ShaderPipelineState.html#a4c14621c9771c652e61a97b9b3ad4561">wmoge::ShaderPipelineState</a>
 </li>
-<li>pop()
-: <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a731c312de70f68ddad62ca3c91d2ca5b">wmoge::AuxDrawCanvas</a>
+<li>pop_clip_rect()
+: <a class="el" href="classwmoge_1_1Canvas.html#a3c2ff0e8f302106d2b5f9af90f8ce51d">wmoge::Canvas</a>
+</li>
+<li>pop_transform()
+: <a class="el" href="classwmoge_1_1Canvas.html#a88279bc473c69d58199bccc5efe782fb">wmoge::Canvas</a>
 </li>
 <li>pos
 : <a class="el" href="structwmoge_1_1AuxDrawBox.html#a8cf4a3b334240c639eeeb6014f5bc272">wmoge::AuxDrawBox</a>
@@ -208,6 +242,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1AuxDrawSphere.html#ac2be210f2542d070f126534de2d0a43d">wmoge::AuxDrawSphere</a>
 , <a class="el" href="structwmoge_1_1AuxDrawText.html#a29d82c1334f6f3ea7db7399a4d915320">wmoge::AuxDrawText</a>
 , <a class="el" href="structwmoge_1_1AuxDrawTriangles_1_1Triangle.html#a80d1438831707b7d1ccd8c8df1b99e2c">wmoge::AuxDrawTriangles::Triangle</a>
+, <a class="el" href="structwmoge_1_1CanvasVert.html#a5188fe3e24b776d8aaf588c7262963c2">wmoge::CanvasVert</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos2Col3.html#af383da5383eb4a31c80477b16c03cc91">wmoge::GfxVF_Pos2Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos2Uv2Col3.html#a43bc29702f428136560a898f517078c2">wmoge::GfxVF_Pos2Uv2Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos2Uv2Col4.html#a2a5867caf4fc79826a5271b9708b5af7">wmoge::GfxVF_Pos2Uv2Col4</a>
@@ -375,8 +410,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1LuaRefCnt.html#a8e9b4389d6d9154223f9f9fe212ac872">wmoge::LuaRefCnt</a>
 </li>
 <li>push()
-: <a class="el" href="classwmoge_1_1AuxDrawCanvas.html#a1651ae51865b6a88342ec5fbad0a8957">wmoge::AuxDrawCanvas</a>
-, <a class="el" href="classwmoge_1_1CallbackQueue.html#ad50f9256ec1063dba88f2754b3d95e55">wmoge::CallbackQueue</a>
+: <a class="el" href="classwmoge_1_1CallbackQueue.html#ad50f9256ec1063dba88f2754b3d95e55">wmoge::CallbackQueue</a>
 , <a class="el" href="classwmoge_1_1CallbackStream.html#a008ba47a6a6a3e9dd7cc86cb3a32c0af">wmoge::CallbackStream</a>
 , <a class="el" href="classwmoge_1_1RenderQueue.html#a773a97a812f1c0890f6f6cadc03444a4">wmoge::RenderQueue</a>
 </li>
@@ -387,8 +421,14 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxVector.html#ad953b0c8cd079204636d887f8b8ae7f3">wmoge::GfxVector&lt; T, Storage &gt;</a>
 , <a class="el" href="classwmoge_1_1UnrolledList.html#a858426f02dd9dd04780b75fb3425a31e">wmoge::UnrolledList&lt; T, NodeCapacity &gt;</a>
 </li>
+<li>push_clip_rect()
+: <a class="el" href="classwmoge_1_1Canvas.html#ad998963c9a1d5194b71b1bf56f90d09e">wmoge::Canvas</a>
+</li>
 <li>push_close()
 : <a class="el" href="classwmoge_1_1CallbackStream.html#a8703440d9ff7c7eb79c3ed90f14bfbda">wmoge::CallbackStream</a>
+</li>
+<li>push_transform()
+: <a class="el" href="classwmoge_1_1Canvas.html#af8440185426052ae5497cca79f50b55d">wmoge::Canvas</a>
 </li>
 </ul>
 </div><!-- contents -->

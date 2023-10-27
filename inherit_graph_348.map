@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Transform3d.html" title="Utility to manage 3d space transformations." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1TextureImportOptions.html" title="Options (base) to import texture." alt="" coords="5,35,200,61"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1Texture2dImportOptions.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="248,5,457,32"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1TextureCubeImportOptions.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="263,57,443,98"/>
 </map>

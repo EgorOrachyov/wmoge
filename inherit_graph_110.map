@@ -1,6 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="5,31,129,57"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxDriverThreaded.html" title="An extension for a gfx driver for threaded communication support." alt="" coords="177,5,356,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GfxDriverWrapper.html" title="Thread&#45;safe wrapper for gfx device to used from any thread." alt="" coords="181,56,353,83"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1VKDriver.html" title="Vulkan gfx driver implementation." alt="" coords="404,5,527,32"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1GfxDescBinging.html" title="Describes single resource binding in a layout." alt="" coords="5,5,168,32"/>
 </map>
