@@ -50,10 +50,11 @@
 #include "platform/glfw/glfw_window_manager.hpp"
 #include "platform/input.hpp"
 #include "platform/window_manager.hpp"
-#include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
+#include "render/canvas.hpp"
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
+#include "render/texture_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
 #include "scene/scene_manager.hpp"
@@ -158,6 +159,9 @@ namespace wmoge {
         m_shader_manager         = std::make_unique<ShaderManager>();
         engine->m_shader_manager = m_shader_manager.get();
 
+        m_texture_manager         = std::make_unique<TextureManager>();
+        engine->m_texture_manager = m_texture_manager.get();
+
         m_render_engine         = std::make_unique<RenderEngine>();
         engine->m_render_engine = m_render_engine.get();
 
@@ -179,8 +183,8 @@ namespace wmoge {
         m_game_token_manager         = std::make_unique<GameTokenManager>();
         engine->m_game_token_manager = m_game_token_manager.get();
 
-        m_canvas_2d_debug         = std::make_unique<AuxDrawCanvas>();
-        engine->m_canvas_2d_debug = m_canvas_2d_debug.get();
+        m_canvas_debug         = std::make_unique<Canvas>();
+        engine->m_canvas_debug = m_canvas_debug.get();
 
         m_console->init();
         WG_LOG_INFO("init high level systems");
@@ -272,9 +276,10 @@ namespace wmoge {
         m_game_token_manager.reset();
         m_action_manager.reset();
         m_aux_draw_manager.reset();
-        m_canvas_2d_debug.reset();
+        m_canvas_debug.reset();
         m_ecs_registry.reset();
         m_render_engine.reset();
+        m_texture_manager.reset();
         m_shader_manager.reset();
         m_al_engine.reset();
         m_vk_driver.reset();

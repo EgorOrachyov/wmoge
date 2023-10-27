@@ -52,7 +52,7 @@ namespace wmoge {
     void VertexFactory::cache_vert_format(class GfxDriver* driver, const GfxVertElements& elements, VertexInputType input_type) {
         const int      idx        = int(input_type);
         const StringId debug_name = SID(get_friendly_name() + " " + Enum::to_str(input_type));
-        m_gfx_formats[idx]        = driver->vert_fmt_cache()->get_or_create(elements, debug_name);
+        m_gfx_formats[idx]        = driver->make_vert_format(elements, debug_name);
     }
 
     const VertexFactoryType& VertexFactory::get_type_info() const {

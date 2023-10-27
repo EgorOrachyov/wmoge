@@ -30,6 +30,7 @@
 
 #include "core/callback_queue.hpp"
 #include "core/fast_map.hpp"
+#include "core/synchronization.hpp"
 #include "core/task_manager.hpp"
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
@@ -128,7 +129,7 @@ namespace wmoge {
         CallbackQueue m_queue;       // queue for async world operations, flushed on sync
         TaskManager*  m_task_manager;// manager for parallel system update
 
-        mutable std::mutex m_mutex;
+        SpinMutex m_mutex;
     };
 
     template<class Component>

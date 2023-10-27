@@ -13,8 +13,6 @@ RenderObjectData GetRenderObjectDataDefault() {
     RenderObjectData data;
     data.LocalToWorld = GetIdentity4x4();
     data.LocalToWorldPrev = GetIdentity4x4();
-    data.WorldToLocal = GetIdentity4x4();
-    data.WorldToLocalPrev = GetIdentity4x4();
     data.NormalMatrix = GetIdentity4x4();
     data.AabbPos = vec4(0,0,0,0);
     data.AabbSizeHalf = vec4(0,0,0,0);

@@ -77,7 +77,7 @@ namespace wmoge {
         ~EcsArchStorage();
 
         void make_entity(const EcsEntity& entity, std::uint32_t& entity_idx);
-        void destroy_entity(const std::uint32_t& entity_idx);
+        void destroy_entity(const std::uint32_t& entity_idx, bool& was_swapped);
         void clear();
 
         template<typename Component>

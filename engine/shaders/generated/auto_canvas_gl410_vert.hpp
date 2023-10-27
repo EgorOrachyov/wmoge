@@ -38,14 +38,38 @@
 
 namespace wmoge {
 
-    static const char source_base_gl410_vert[] = R"(
+    static const char source_canvas_gl410_vert[] = R"(
+struct DrawCmdData{
+vec4 Transform0;
+vec4 Transform1;
+vec4 Transform2;
+vec4 ClipRect;
+int TextureIdx;
+int _dc_pad0;
+int _dc_pad1;
+int _dc_pad2;
+};
+
+#define MAX_CANVAS_IMAGES (4)
+
+uniform sampler2D CanvasImage0;
+
+uniform sampler2D CanvasImage1;
+
+uniform sampler2D CanvasImage2;
+
+uniform sampler2D CanvasImage3;
+
 layout (std140) uniform Params {
-mat4 mat_clip_proj_view;
-vec4 base_color;
-float inverse_gamma;
-float mix_weight_1;
-float mix_weight_2;
-float mix_weight_3;
+mat4 ClipProjView;
+float InverseGamma;
+float _pr_pad0;
+float _pr_pad1;
+float _pr_pad2;
+};
+
+layout (std430) readonly buffer DrawCmdsData {
+DrawCmdData DrawCmds[];
 };
 
 
@@ -65,6 +89,114 @@ float mix_weight_3;
 #else
 #define LAYOUT_SAMPLER(set_idx, binding_idx)
 #endif
+vec3 ColorSrgbToLinear(in vec3 color, in float gamma) {
+    return pow(color, vec3(gamma));
+}
+vec3 ColorLinearToSrgb(in vec3 color, in float inverse_gamma) {
+    return pow(color, vec3(inverse_gamma));
+}
+vec2 UnpackUv(in vec2 uv) {
+    #ifdef TARGET_VULKAN
+    return vec2(uv.x, 1.0f - uv.y);
+    #else
+    return uv;
+    #endif
+}
+mat4 GetIdentity4x4() {
+    mat4 matrix = mat4(
+        vec4(1,0,0,0),
+        vec4(0,1,0,0),
+        vec4(0,0,1,0),
+        vec4(0,0,0,1));
+        
+    return matrix;
+}
+vec3 TransformLocalToWorld(in vec3 posLocal, in mat4 localToWorld) {
+    return (localToWorld * vec4(posLocal, 1.0f)).xyz;
+}
+vec3 TransformLocalToWorldNormal(in vec3 normLocal, in mat4 normalMatrix) {
+    return (normalMatrix * vec4(normLocal, 0.0f)).xyz;
+}
+struct VertexAttributes {
+    vec3 pos3;
+    vec2 pos2;
+    vec3 norm;
+    vec3 tang;
+    ivec4 boneIds;
+    vec4 boneWeigths;
+    vec4 col[4];
+    vec2 uv[4];
+    int primitiveId;
+};
+VertexAttributes GetVertexAttributesDefault() {
+    VertexAttributes attributes;
+    attributes.pos3 = vec3(0,0,0);
+    attributes.pos2 = vec2(0,0);
+    attributes.norm = vec3(0,0,0);
+    attributes.tang = vec3(0,0,0);
+    attributes.boneIds = ivec4(0,0,0,0);
+    attributes.boneWeigths = vec4(0,0,0,0);
+    attributes.col[0] = vec4(0,0,0,0);
+    attributes.col[1] = vec4(0,0,0,0);
+    attributes.col[2] = vec4(0,0,0,0);
+    attributes.col[3] = vec4(0,0,0,0);
+    attributes.uv[0] = vec2(0,0);
+    attributes.uv[1] = vec2(0,0);
+    attributes.uv[2] = vec2(0,0);
+    attributes.uv[3] = vec2(0,0);
+    attributes.primitiveId = -1;
+    
+    return attributes;
+}
+VertexAttributes ReadVertexAttributes() {
+    VertexAttributes attributes = GetVertexAttributesDefault();
+    #ifdef ATTRIB_Pos3f
+        attributes.pos3 = inPos3f;
+    #endif
+    #ifdef ATTRIB_Pos2f
+        attributes.pos2 = inPos2f;
+    #endif
+    #ifdef ATTRIB_Norm3f
+        attributes.norm = inNorm3f;
+    #endif
+    #ifdef ATTRIB_Tang3f
+        attributes.tang = inTang3f;
+    #endif
+    #ifdef ATTRIB_BoneIds4i
+        attributes.boneIds = inBoneIds4i;
+    #endif
+    #ifdef ATTRIB_BoneWeights4f
+        attributes.boneWeigths = inBoneWeights4f;
+    #endif
+    #ifdef ATTRIB_Col04f
+        attributes.col[0] = inCol04f;
+    #endif
+    #ifdef ATTRIB_Col14f
+        attributes.col[1] = inCol14f;
+    #endif
+    #ifdef ATTRIB_Col24f
+        attributes.col[2] = inCol24f;
+    #endif
+    #ifdef ATTRIB_Col34f
+        attributes.col[3] = inCol34f;
+    #endif
+    #ifdef ATTRIB_Uv02f
+        attributes.uv[0] = inUv02f;
+    #endif 
+    #ifdef ATTRIB_Uv12f
+        attributes.uv[1] = inUv12f;
+    #endif 
+    #ifdef ATTRIB_Uv22f
+        attributes.uv[2] = inUv22f;
+    #endif 
+    #ifdef ATTRIB_Uv32f
+        attributes.uv[3] = inUv32f;
+    #endif
+    #ifdef ATTRIB_PrimitiveIdi
+        attributes.primitiveId = inPrimitiveIdi;
+    #endif
+    return attributes;
+}
 #ifdef VERTEX_SHADER
     #define INOUT out
 #endif
@@ -212,97 +344,26 @@ InoutAttributes ReadInoutAttributes() {
     return attributes;
 }
 #endif//FRAGMENT_SHADER
-struct VertexAttributes {
-    vec3 pos3;
-    vec2 pos2;
-    vec3 norm;
-    vec3 tang;
-    ivec4 boneIds;
-    vec4 boneWeigths;
-    vec4 col[4];
-    vec2 uv[4];
-    int primitiveId;
-};
-VertexAttributes GetVertexAttributesDefault() {
-    VertexAttributes attributes;
-    attributes.pos3 = vec3(0,0,0);
-    attributes.pos2 = vec2(0,0);
-    attributes.norm = vec3(0,0,0);
-    attributes.tang = vec3(0,0,0);
-    attributes.boneIds = ivec4(0,0,0,0);
-    attributes.boneWeigths = vec4(0,0,0,0);
-    attributes.col[0] = vec4(0,0,0,0);
-    attributes.col[1] = vec4(0,0,0,0);
-    attributes.col[2] = vec4(0,0,0,0);
-    attributes.col[3] = vec4(0,0,0,0);
-    attributes.uv[0] = vec2(0,0);
-    attributes.uv[1] = vec2(0,0);
-    attributes.uv[2] = vec2(0,0);
-    attributes.uv[3] = vec2(0,0);
-    attributes.primitiveId = -1;
-    
-    return attributes;
+DrawCmdData GetCmdData(in int idx) {
+    return DrawCmds[idx];
 }
-VertexAttributes ReadVertexAttributes() {
-    VertexAttributes attributes = GetVertexAttributesDefault();
-    #ifdef ATTRIB_Pos3f
-        attributes.pos3 = inPos3f;
-    #endif
-    #ifdef ATTRIB_Pos2f
-        attributes.pos2 = inPos2f;
-    #endif
-    #ifdef ATTRIB_Norm3f
-        attributes.norm = inNorm3f;
-    #endif
-    #ifdef ATTRIB_Tang3f
-        attributes.tang = inTang3f;
-    #endif
-    #ifdef ATTRIB_BoneIds4i
-        attributes.boneIds = inBoneIds4i;
-    #endif
-    #ifdef ATTRIB_BoneWeights4f
-        attributes.boneWeigths = inBoneWeights4f;
-    #endif
-    #ifdef ATTRIB_Col04f
-        attributes.col[0] = inCol04f;
-    #endif
-    #ifdef ATTRIB_Col14f
-        attributes.col[1] = inCol14f;
-    #endif
-    #ifdef ATTRIB_Col24f
-        attributes.col[2] = inCol24f;
-    #endif
-    #ifdef ATTRIB_Col34f
-        attributes.col[3] = inCol34f;
-    #endif
-    #ifdef ATTRIB_Uv02f
-        attributes.uv[0] = inUv02f;
-    #endif 
-    #ifdef ATTRIB_Uv12f
-        attributes.uv[1] = inUv12f;
-    #endif 
-    #ifdef ATTRIB_Uv22f
-        attributes.uv[2] = inUv22f;
-    #endif 
-    #ifdef ATTRIB_Uv32f
-        attributes.uv[3] = inUv32f;
-    #endif
-    #ifdef ATTRIB_PrimitiveIdi
-        attributes.primitiveId = inPrimitiveIdi;
-    #endif
-    return attributes;
+mat3 GetDrawCmdTransform(in int idx) {
+    const DrawCmdData data = GetCmdData(idx);
+    return mat3(data.Transform0.xyz,
+                data.Transform1.xyz,
+                data.Transform2.xyz);
 }
 void main() {
-    VertexAttributes vertex = ReadVertexAttributes();
-    InoutAttributes result;
-    result.worldPos = vertex.pos3;
-    result.col[0] = vertex.col[0];
-    result.col[1] = vertex.col[1];
-    result.col[2] = vertex.col[2];
-    result.col[3] = vertex.col[3];
+    const VertexAttributes vertex = ReadVertexAttributes();
+    const mat3 transform = GetDrawCmdTransform(vertex.primitiveId);
     
+    InoutAttributes result;
+    result.worldPos = transform * vec3(vertex.pos2, 1.0f);
+    result.col[0] = vertex.col[0];
+    result.uv[0] = UnpackUv(vertex.uv[0]);
+    result.primitiveId = vertex.primitiveId;
     StoreInoutAttributes(result);
-    gl_Position = mat_clip_proj_view * vec4(vertex.pos3, 1.0f);
+    gl_Position = ClipProjView * vec4(result.worldPos, 1.0f);
 }
 
 )";

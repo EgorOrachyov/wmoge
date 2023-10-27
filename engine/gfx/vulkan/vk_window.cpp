@@ -217,7 +217,7 @@ namespace wmoge {
         GfxTexUsages depth_stencil_usages;
         depth_stencil_usages.set(GfxTexUsageFlag::DepthStencilTarget);
         m_depth_stencil_target = make_ref<VKTexture>(m_driver);
-        m_depth_stencil_target->create_2d(m_driver.vk_ctx()->cmd_current(), width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, m_window->id());
+        m_depth_stencil_target->create_2d(m_driver.vk_ctx()->cmd_current(), width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, m_window->id());
 
         m_requested_extent = m_extent;
         m_version += 1;

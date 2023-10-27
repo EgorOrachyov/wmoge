@@ -26,3 +26,33 @@
 /**********************************************************************************/
 
 #include "texture_manager.hpp"
+
+#include "core/engine.hpp"
+#include "debug/profiler.hpp"
+#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_driver.hpp"
+
+namespace wmoge {
+
+    TextureManager::TextureManager() {
+        WG_AUTO_PROFILE_RENDER("TextureManager::TextureManager");
+
+        Engine* engine = Engine::instance();
+        m_gfx_driver   = engine->gfx_driver();
+        m_gfx_ctx      = engine->gfx_ctx();
+
+        unsigned char white[] = {0xff, 0xff, 0xff, 0xff};
+        unsigned char black[] = {0x00, 0x00, 0x00, 0xff};
+        unsigned char red[]   = {0xff, 0x00, 0x00, 0xff};
+
+        m_gfx_default_sampler       = m_gfx_driver->make_sampler(GfxSamplerDesc{}, SID("default"));
+        m_gfx_default_texture_white = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("default_1x1_white"));
+        m_gfx_default_texture_black = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("default_1x1_black"));
+        m_gfx_default_texture_red   = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("default_1x1_red"));
+
+        m_gfx_ctx->update_texture_2d(m_gfx_default_texture_white, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(white, sizeof(white)));
+        m_gfx_ctx->update_texture_2d(m_gfx_default_texture_black, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(black, sizeof(black)));
+        m_gfx_ctx->update_texture_2d(m_gfx_default_texture_red, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(red, sizeof(red)));
+    }
+
+}// namespace wmoge

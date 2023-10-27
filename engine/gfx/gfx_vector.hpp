@@ -101,6 +101,9 @@ namespace wmoge {
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
                 ptr = gfx_ctx->map_vert_buffer(m_buffer);
             }
+            if constexpr (std::is_same_v<Storage, GfxIndexBuffer>) {
+                ptr = gfx_ctx->map_index_buffer(m_buffer);
+            }
             if constexpr (std::is_same_v<Storage, GfxStorageBuffer>) {
                 ptr = gfx_ctx->map_storage_buffer(m_buffer);
             }
@@ -111,6 +114,9 @@ namespace wmoge {
 
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
                 gfx_ctx->unmap_vert_buffer(m_buffer);
+            }
+            if constexpr (std::is_same_v<Storage, GfxIndexBuffer>) {
+                gfx_ctx->unmap_index_buffer(m_buffer);
             }
             if constexpr (std::is_same_v<Storage, GfxStorageBuffer>) {
                 gfx_ctx->unmap_storage_buffer(m_buffer);
@@ -151,6 +157,9 @@ namespace wmoge {
 
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
                 m_buffer = Engine::instance()->gfx_driver()->make_vert_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
+            }
+            if constexpr (std::is_same_v<Storage, GfxIndexBuffer>) {
+                m_buffer = Engine::instance()->gfx_driver()->make_index_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
             }
             if constexpr (std::is_same_v<Storage, GfxStorageBuffer>) {
                 m_buffer = Engine::instance()->gfx_driver()->make_storage_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);

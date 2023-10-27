@@ -77,8 +77,9 @@ namespace wmoge {
         std::unique_ptr<class GameTokenManager>  m_game_token_manager;
         std::unique_ptr<class Profiler>          m_profiler;
         std::unique_ptr<class Console>           m_console;
-        std::unique_ptr<class AuxDrawCanvas>     m_canvas_2d_debug;
+        std::unique_ptr<class Canvas>            m_canvas_debug;
         std::unique_ptr<class ShaderManager>     m_shader_manager;
+        std::unique_ptr<class TextureManager>    m_texture_manager;
         std::unique_ptr<class RenderEngine>      m_render_engine;
         std::unique_ptr<class EcsRegistry>       m_ecs_registry;
         std::unique_ptr<class GlfwWindowManager> m_glfw_window_manager;

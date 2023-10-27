@@ -132,6 +132,12 @@ namespace wmoge {
         NegativeZ = 5,
     };
 
+    /** @brief Tex view channels swizzling */
+    enum class GfxTexSwizz : int {
+        None       = 0,
+        RRRRtoRGBA = 1
+    };
+
     /** @brief Formats used to specify internal storage format */
     enum class GfxFormat : int {
         Unknown,

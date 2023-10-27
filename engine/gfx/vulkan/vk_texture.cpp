@@ -76,7 +76,7 @@ namespace wmoge {
         init_view();
         init_layout(cmd);
     }
-    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_tex_type     = GfxTex::Tex2d;
@@ -86,6 +86,7 @@ namespace wmoge {
         m_array_slices = 1;
         m_mips_count   = mips;
         m_format       = format;
+        m_swizz        = swizz;
         m_usages       = usages;
         m_name         = name;
         m_mem_usage    = mem_usage;
@@ -310,10 +311,19 @@ namespace wmoge {
         view_info.subresourceRange.levelCount     = m_mips_count;
         view_info.subresourceRange.baseArrayLayer = 0;
         view_info.subresourceRange.layerCount     = m_array_slices;
-        view_info.components.r                    = VK_COMPONENT_SWIZZLE_IDENTITY;
-        view_info.components.g                    = VK_COMPONENT_SWIZZLE_IDENTITY;
-        view_info.components.b                    = VK_COMPONENT_SWIZZLE_IDENTITY;
-        view_info.components.a                    = VK_COMPONENT_SWIZZLE_IDENTITY;
+
+        if (m_swizz == GfxTexSwizz::None) {
+            view_info.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+            view_info.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+            view_info.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+            view_info.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+        }
+        if (m_swizz == GfxTexSwizz::RRRRtoRGBA) {
+            view_info.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+            view_info.components.g = VK_COMPONENT_SWIZZLE_R;
+            view_info.components.b = VK_COMPONENT_SWIZZLE_R;
+            view_info.components.a = VK_COMPONENT_SWIZZLE_R;
+        }
 
         WG_VK_CHECK(vkCreateImageView(m_driver.device(), &view_info, nullptr, &m_view));
         WG_VK_NAME(m_driver.device(), m_view, VK_OBJECT_TYPE_IMAGE_VIEW, "image_view " + name().str());

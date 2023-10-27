@@ -39,7 +39,7 @@
 #include "math/math_utils.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
-#include "render/aux_draw_canvas.hpp"
+#include "render/canvas.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
 
@@ -262,42 +262,35 @@ namespace wmoge {
 
         if (m_state == ConsoleState::Closed) return;
 
-        auto  screen = m_canvas->get_screen_size();
+        auto  screen = Vec2f(1280.0f, 720.0f);
         float height = m_size * m_state_open * screen.y();
         float width  = screen.x();
 
-        m_canvas->push(Vec2f(0.0f, screen.y() - height), 0.0f);
-        m_canvas->set_font(m_console_font);
+        m_canvas->push_transform(Vec2f(0.0f, screen.y() - height), 0.0f);
 
-        m_canvas->set_fill_color(m_color_back);
-        m_canvas->draw_filled_rect(Vec2f(0, 0), Vec2f(width, height));
-
-        m_canvas->set_fill_color(m_color_line);
-        m_canvas->draw_filled_rect(Vec2f(0, 0), Vec2f(width, m_line_size));
-
-        m_canvas->set_font_color(m_color_text);
-        m_canvas->draw_text(">", Vec2f(m_margin, m_text_line), m_text_size);
+        m_canvas->add_rect_filled(Vec2f(0, 0), Vec2f(width, height), m_color_back);
+        m_canvas->add_rect_filled(Vec2f(0, 0), Vec2f(width, m_line_size), m_color_line);
+        m_canvas->add_text(">", m_console_font, m_text_size, Vec2f(m_margin, m_text_line), m_color_text);
 
         if (!m_line.empty()) {
-            m_canvas->set_font_color(m_color_text);
-            m_canvas->draw_text(m_line, Vec2f(m_margin_line, m_text_line), m_text_size);
+            m_canvas->add_text(m_line, m_console_font, m_text_size, Vec2f(m_margin_line, m_text_line), m_color_text);
         }
 
         if (m_state_blink > m_blink_threshold) {
-            m_canvas->set_fill_color(m_color_cursor);
-            m_canvas->draw_filled_rect(Vec2f(m_margin_line + m_cursor_offset, m_margin), Vec2f(m_cursor_width, m_cursor_height));
+            const auto p_min = Vec2f(m_margin_line + m_cursor_offset, m_margin);
+            const auto p_max = p_min + Vec2f(m_cursor_width, m_cursor_height);
+            m_canvas->add_rect_filled(p_min, p_max, m_color_cursor);
         }
 
         float text_pos = m_line_size + m_margin;
         for (int i = static_cast<int>(m_messages.size()) - m_scroll_messages - 1; i >= 0; --i) {
             if (text_pos > height) break;
-            m_canvas->set_font_color(m_messages[i].color);
-            m_canvas->draw_text(m_messages[i].text, Vec2f(m_margin, text_pos), m_text_size);
+            m_canvas->add_text(m_messages[i].text, m_console_font, m_text_size, Vec2f(m_margin, text_pos), m_messages[i].color);
             text_pos += m_text_size;
         }
 
         m_max_to_display = static_cast<int>((height - m_line_size - m_margin) / m_text_size);
-        m_canvas->pop();
+        m_canvas->pop_transform();
     }
 
     void Console::register_commands() {
@@ -409,7 +402,7 @@ namespace wmoge {
         auto res_man = engine->resource_manager();
         auto config  = engine->config();
 
-        m_canvas       = engine->canvas_2d_debug();
+        m_canvas       = engine->canvas_debug();
         m_console_font = res_man->load(SID(config->get_string(SID("debug.console.font"), "res://fonts/anonymous_pro"))).cast<Font>();
         m_margin_line  = m_margin + m_console_font->get_string_size("> ", m_text_size).x();
 

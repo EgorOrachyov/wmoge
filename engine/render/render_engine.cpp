@@ -61,6 +61,9 @@ namespace wmoge {
     void RenderEngine::set_scene(RenderScene* scene) {
         m_scene = scene;
     }
+    void RenderEngine::set_visiblity(VisibilitySystem* visibility) {
+        m_visibility = visibility;
+    }
 
     void RenderEngine::begin_rendering() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::begin_rendering");
@@ -184,17 +187,22 @@ namespace wmoge {
     void RenderEngine::collect_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::collect_batches");
 
-        ArrayView<RenderObject*>    objects = m_scene->get_objects();
-        ArrayView<RenderCameraMask> vis     = m_scene->get_objects_vis();
-        GPURenderObjectDataVector&  data    = m_scene->get_objects_gpu_data();
+        ArrayView<RenderObject*>   objects = m_scene->get_objects();
+        ArrayView<VisibilityItem>  vis     = m_scene->get_objects_vis();
+        GPURenderObjectDataVector& data    = m_scene->get_objects_gpu_data();
 
         std::atomic_int total{0};
 
         TaskParallelFor task_compile(SID("collect_batches"), [&](TaskContext&, int id, int) {
-            const RenderCameraMask cam_mask = vis[id];
+            if (!objects[id]) {
+                return 0;
+            }
 
-            if (cam_mask.any()) {
-                objects[id]->collect(m_cameras, cam_mask, m_batch_collector);
+            const VisibilityItem       vis_item   = vis[id];
+            const VisibilityItemResult vis_result = m_visibility->get_item_result(vis_item);
+
+            if (vis_result.cam_mask.any()) {
+                objects[id]->collect(m_cameras, vis_result.cam_mask, m_batch_collector);
                 total.fetch_add(1, std::memory_order_relaxed);
             }
 
@@ -276,6 +284,17 @@ namespace wmoge {
         WG_AUTO_PROFILE_RENDER("RenderEngine::flush_buffers");
 
         m_scene->flush_buffers(Engine::instance()->gfx_ctx());
+    }
+
+    void RenderEngine::render_canvas(Canvas& canvas, const Vec4f& area) {
+        WG_AUTO_PROFILE_RENDER("RenderEngine::render_canvas");
+
+        if (m_cameras.is_empty()) {
+            return;
+        }
+
+        const RenderCameraData& main_cam = m_cameras.camera_main();
+        canvas.render(m_main_target, main_cam.viewport, area, 2.2f);
     }
 
     void RenderEngine::render_aux_geom(AuxDrawManager& aux_draw_manager) {

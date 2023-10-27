@@ -125,6 +125,7 @@ namespace wmoge {
     class RenderCameras final {
     public:
         int                     add_camera(CameraType type, const RenderCamera& camera, std::optional<RenderCamera> camera_prev);
+        void                    set_prev_params(int index, const RenderCamera& camera_prev);
         const RenderCamera&     camera_at(int index) const;
         const RenderCameraData& data_at(int index) const;
         const RenderCameraData& camera_main() const;

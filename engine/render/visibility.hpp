@@ -30,7 +30,7 @@
 
 #include "core/array_view.hpp"
 #include "core/string_id.hpp"
-#include "core/synchronization.hpp"
+#include "core/string_utils.hpp"
 #include "core/unrolled_list.hpp"
 #include "math/aabb.hpp"
 #include "math/frustum.hpp"
@@ -42,11 +42,26 @@
 
 namespace wmoge {
 
-    /** @brief Id of the item to reference in visibility system */
-    using VisibilityItem = int;
+    /**
+     * @class 
+     * @brief Id of the item to reference in visibility system 
+     */
+    struct VisibilityItem {
+        VisibilityItem() = default;
+        VisibilityItem(int id) : id(id) {}
 
-    /** @brief Id of invalid item */
-    static constexpr VisibilityItem VIS_ITEM_INVALID = -1;
+        bool operator==(const VisibilityItem& other) const { return id == other.id; }
+        bool operator!=(const VisibilityItem& other) const { return id != other.id; }
+
+        bool is_valid() const { return id != -1; }
+
+        operator int() const { return id; }
+        operator bool() const { return is_valid(); }
+
+        [[nodiscard]] std::string to_string() const { return StringUtils::from_int(id); }
+
+        int id = -1;
+    };
 
     /**
      * @class VisibilityItemData
@@ -56,7 +71,7 @@ namespace wmoge {
         Aabbf          aabb;
         float          min_dist_2 = 0.0f;
         float          max_dist_2 = 10000000000.0f;
-        VisibilityItem id         = VIS_ITEM_INVALID;
+        VisibilityItem id;
     };
 
     /**
@@ -94,8 +109,6 @@ namespace wmoge {
         std::vector<VisibilityItemResult> m_result;
         std::vector<int>                  m_free;
         int                               m_task_batch = 16;
-
-        RwMutexWritePrefer m_mutex;
     };
 
 }// namespace wmoge

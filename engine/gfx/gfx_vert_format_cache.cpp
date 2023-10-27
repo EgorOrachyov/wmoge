@@ -27,27 +27,22 @@
 
 #include "gfx_vert_format_cache.hpp"
 
-#include "core/log.hpp"
-#include "gfx/gfx_driver.hpp"
-
 #include <mutex>
 
 namespace wmoge {
 
-    Ref<GfxVertFormat> GfxVertFormatCache::get_or_create(const GfxVertElements& elements, const StringId& name) {
+    std::optional<Ref<GfxVertFormat>> GfxVertFormatCache::get(const GfxVertElements& elements) {
         std::lock_guard guard(m_mutex);
-
-        auto& format = m_cache[elements];
-        if (!format) {
-            format = m_driver->make_vert_format(elements, name);
-            WG_LOG_INFO("cache new format " << name);
+        auto            it = m_cache.find(elements);
+        if (it != m_cache.end()) {
+            return it->second;
         }
-
-        return format;
+        return std::nullopt;
     }
 
-    void GfxVertFormatCache::set_driver(GfxDriver* driver) {
-        m_driver = driver;
+    void GfxVertFormatCache::add(const GfxVertElements& elements, const Ref<GfxVertFormat>& format) {
+        std::lock_guard guard(m_mutex);
+        m_cache[elements] = format;
     }
 
 }// namespace wmoge

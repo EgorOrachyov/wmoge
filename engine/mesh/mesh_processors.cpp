@@ -70,7 +70,7 @@ namespace wmoge {
         gfx_pso_state.depth_func   = pipeline_state.depth_func;
         gfx_pso_state.blending     = false;
 
-        out_pipeline = m_gfx_driver->pso_cache()->get_or_create(gfx_pso_state);
+        out_pipeline = m_gfx_driver->make_pipeline(gfx_pso_state);
 
         return StatusCode::Ok;
     }

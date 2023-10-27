@@ -27,6 +27,7 @@
 
 #include "gfx_driver_wrapper.hpp"
 
+#include "core/log.hpp"
 #include "debug/profiler.hpp"
 
 #include <cassert>
@@ -60,8 +61,15 @@ namespace wmoge {
     Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_vert_format");
 
+        auto cached = m_vert_fmt_cache->get(elements);
+        if (cached.has_value()) {
+            return cached.value();
+        }
+
         Ref<GfxVertFormat> vert_format;
         m_stream->push_and_wait([&]() { vert_format = m_driver->make_vert_format(elements, name); });
+        m_vert_fmt_cache->add(elements, vert_format);
+        WG_LOG_INFO("cache new vf " << name);
         return vert_format;
     }
     Ref<GfxVertBuffer> GfxDriverWrapper::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
@@ -106,11 +114,11 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(code), name); });
         return shader;
     }
-    Ref<GfxTexture> GfxDriverWrapper::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> GfxDriverWrapper::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_texture_2d");
 
         Ref<GfxTexture> texture;
-        m_stream->push_and_wait([&]() { texture = m_driver->make_texture_2d(width, height, mips, format, usages, mem_usage, name); });
+        m_stream->push_and_wait([&]() { texture = m_driver->make_texture_2d(width, height, mips, format, usages, mem_usage, swizz, name); });
         return texture;
     }
     Ref<GfxTexture> GfxDriverWrapper::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
@@ -137,8 +145,15 @@ namespace wmoge {
     Ref<GfxPipeline> GfxDriverWrapper::make_pipeline(const GfxPipelineState& state, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_pipeline");
 
+        auto cached = m_pso_cache->get(state);
+        if (cached.has_value()) {
+            return cached.value();
+        }
+
         Ref<GfxPipeline> pipeline;
         m_stream->push_and_wait([&]() { pipeline = m_driver->make_pipeline(state, name); });
+        m_pso_cache->add(state, pipeline);
+        WG_LOG_INFO("cache new pso " << name);
         return pipeline;
     }
     Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {

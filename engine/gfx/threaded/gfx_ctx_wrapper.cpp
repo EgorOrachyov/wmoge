@@ -207,7 +207,7 @@ namespace wmoge {
         m_stream->push([=]() { m_ctx->end_render_pass(); });
     }
 
-    void GfxCtxWrapper::execute(const std::function<void()>& functor) {
+    void GfxCtxWrapper::execute(const std::function<void(GfxCtx* thread_ctx)>& functor) {
         WG_AUTO_PROFILE_GFX("GfxCtxWrapper::execute");
 
         m_stream->push_and_wait([&]() { m_ctx->execute(functor); });

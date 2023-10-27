@@ -114,10 +114,11 @@ namespace wmoge {
     void Scene::add_mesh_static(EcsEntity entity, const SceneDataMeshStatic& data) {
         EcsComponentMeshStatic& ecs_mesh = get_ecs_world()->get_component_rw<EcsComponentMeshStatic>(entity);
 
-        ecs_mesh.mesh = std::make_unique<RenderMeshStatic>(data.model.get_safe());
-        get_render_scene()->add_object(ecs_mesh.mesh.get());
+        ecs_mesh.mesh     = std::make_unique<RenderMeshStatic>(data.model.get_safe());
+        ecs_mesh.vis_item = get_visibility_system()->alloc_item();
 
-        ecs_mesh.vis_item     = get_visibility_system()->alloc_item();
+        get_render_scene()->add_object(ecs_mesh.mesh.get(), ecs_mesh.vis_item);
+
         ecs_mesh.primitive_id = ecs_mesh.mesh->get_primitive_id();
         ecs_mesh.dirty        = true;
     }

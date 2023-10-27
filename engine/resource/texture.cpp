@@ -112,13 +112,14 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Texture::Texture(GfxFormat format, int width, int height, int depth, int array_slices) {
+    Texture::Texture(GfxFormat format, int width, int height, int depth, int array_slices, GfxTexSwizz swizz) {
         m_format       = format;
         m_width        = width;
         m_height       = height;
         m_depth        = depth;
         m_array_slices = array_slices;
         m_mips         = 1;
+        m_swizz        = swizz;
     }
 
     void Texture::set_source_images(std::vector<Ref<Image>> images) {
@@ -239,7 +240,7 @@ namespace wmoge {
 
         switch (m_tex_type) {
             case GfxTex::Tex2d:
-                m_texture = gfx_driver->make_texture_2d(m_width, m_height, m_mips, format, m_usages, m_mem_usage, get_name());
+                m_texture = gfx_driver->make_texture_2d(m_width, m_height, m_mips, format, m_usages, m_mem_usage, m_swizz, get_name());
                 break;
             case GfxTex::Tex2dArray:
                 m_texture = gfx_driver->make_texture_2d_array(m_width, m_height, m_mips, m_array_slices, format, m_usages, m_mem_usage, get_name());
@@ -316,7 +317,7 @@ namespace wmoge {
         cls->add_field(ClassField(VarType::Int, SID("srgb")), &Texture::m_srgb);
     }
 
-    Texture2d::Texture2d(GfxFormat format, int width, int height) : Texture(format, width, height) {
+    Texture2d::Texture2d(GfxFormat format, int width, int height, GfxTexSwizz swizz) : Texture(format, width, height, 1, 1, swizz) {
         m_tex_type = GfxTex::Tex2d;
     }
     Status Texture2d::copy_to(Object& copy) const {

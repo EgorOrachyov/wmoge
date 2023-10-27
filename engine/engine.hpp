@@ -151,8 +151,8 @@
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 
-#include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
+#include "render/canvas.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_mesh_skinned.hpp"

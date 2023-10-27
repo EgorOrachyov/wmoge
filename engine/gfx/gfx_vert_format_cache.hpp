@@ -33,6 +33,8 @@
 #include "core/synchronization.hpp"
 #include "gfx/gfx_vert_format.hpp"
 
+#include <optional>
+
 namespace wmoge {
 
     /**
@@ -46,12 +48,11 @@ namespace wmoge {
         GfxVertFormatCache(GfxVertFormatCache&&)      = delete;
         ~GfxVertFormatCache()                         = default;
 
-        Ref<GfxVertFormat> get_or_create(const GfxVertElements& elements, const StringId& name = StringId());
-        void               set_driver(class GfxDriver* driver);
+        std::optional<Ref<GfxVertFormat>> get(const GfxVertElements& elements);
+        void                              add(const GfxVertElements& elements, const Ref<GfxVertFormat>& format);
 
     private:
         fast_map<GfxVertElements, Ref<GfxVertFormat>> m_cache;
-        class GfxDriver*                              m_driver = nullptr;
         SpinMutex                                     m_mutex;
     };
 

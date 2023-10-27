@@ -93,18 +93,11 @@ namespace wmoge {
         data.up_prev           = camera.get_up();
 
         if (camera_prev.has_value()) {
-            data.proj_prev      = camera_prev->get_proj();
-            data.view_prev      = camera_prev->get_view();
-            data.proj_view_prev = camera_prev->get_proj_view();
-            data.direction_prev = camera_prev->get_direction();
-            data.position_prev  = camera_prev->get_position();
-            data.up_prev        = camera_prev->get_up();
-            data.movement       = data.position - data.position_prev;
+            set_prev_params(index, *camera_prev);
         }
 
         if (type == CameraType::Color) {
             data.pass_relevance.set(MeshPassType::Background);
-            data.pass_relevance.set(MeshPassType::Shadow);
             data.pass_relevance.set(MeshPassType::GBuffer);
             data.pass_relevance.set(MeshPassType::Forward);
             data.pass_relevance.set(MeshPassType::Pfx);
@@ -117,6 +110,18 @@ namespace wmoge {
         }
 
         return index;
+    }
+
+    void RenderCameras::set_prev_params(int index, const RenderCamera& camera_prev) {
+        RenderCameraData& data = m_cameras[index];
+
+        data.proj_prev      = camera_prev.get_proj();
+        data.view_prev      = camera_prev.get_view();
+        data.proj_view_prev = camera_prev.get_proj_view();
+        data.direction_prev = camera_prev.get_direction();
+        data.position_prev  = camera_prev.get_position();
+        data.up_prev        = camera_prev.get_up();
+        data.movement       = data.position - data.position_prev;
     }
 
     const RenderCamera& RenderCameras::camera_at(int index) const {

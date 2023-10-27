@@ -161,6 +161,38 @@ namespace wmoge {
         ecs_world->execute_system(sys_update_static_meshes);
     }
 
+    void SceneManager::scene_cameras() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_cameras");
+
+        Engine*       engine        = Engine::instance();
+        RenderEngine* render_engine = engine->render_engine();
+
+        Scene*         scene          = m_running.get();
+        CameraManager* camera_manager = scene->get_cameras();
+        RenderCameras& render_cameras = render_engine->get_cameras();
+
+        camera_manager->fill_render_cameras(render_cameras);
+    }
+
+    void SceneManager::scene_visibility() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::scene_visibility");
+
+        Engine*       engine        = Engine::instance();
+        RenderEngine* render_engine = engine->render_engine();
+
+        Scene*               scene          = m_running.get();
+        EcsWorld*            ecs_world      = scene->get_ecs_world();
+        VisibilitySystem*    vis_system     = scene->get_visibility_system();
+        const RenderCameras& render_cameras = render_engine->get_cameras();
+
+        vis_system->cull(render_cameras);
+
+        EcsSysPocessVisStaticMeshes sys_process_vis_static_meshes;
+        sys_process_vis_static_meshes.render_scene = scene->get_render_scene();
+        sys_process_vis_static_meshes.vis_system   = scene->get_visibility_system();
+        ecs_world->execute_system(sys_process_vis_static_meshes);
+    }
+
     void SceneManager::scene_render() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_render");
 
@@ -170,35 +202,15 @@ namespace wmoge {
         WindowManager* window_manager = engine->window_manager();
         Ref<Window>    window         = window_manager->primary_window();
 
-        Scene*            scene          = m_running.get();
-        EcsWorld*         ecs_world      = scene->get_ecs_world();
-        VisibilitySystem* vis_system     = scene->get_visibility_system();
-        CameraManager*    camera_manager = scene->get_cameras();
+        Scene* scene = m_running.get();
 
         render_engine->begin_rendering();
-
-        Ref<Camera> camera = camera_manager->find_active().value_or(camera_manager->get_default_camera());
-        camera->update_render_camera(window->fbo_size());
-        RenderCamera camera_curr = camera->get_render_camera();
-
-        RenderCameras& render_cameras = render_engine->get_cameras();
-        render_cameras.clear();
-        render_cameras.add_camera(CameraType::Color, camera_curr, render_engine->get_camera_prev());
-
-        vis_system->cull(render_cameras);
-        {
-            WG_AUTO_PROFILE_SCENE("SceneManager::process_visibility");
-
-            EcsSysPocessVisStaticMeshes sys_process_vis_static_meshes;
-            sys_process_vis_static_meshes.render_scene = scene->get_render_scene();
-            sys_process_vis_static_meshes.vis_system   = scene->get_visibility_system();
-            ecs_world->execute_system(sys_process_vis_static_meshes);
-        }
 
         render_engine->set_time(scene->get_time());
         render_engine->set_delta_time(scene->get_delta_time());
         render_engine->set_target(window);
         render_engine->set_scene(scene->get_render_scene());
+        render_engine->set_visiblity(scene->get_visibility_system());
 
         render_engine->prepare_frame_data();
         render_engine->allocate_veiws();
@@ -209,16 +221,17 @@ namespace wmoge {
         render_engine->merge_cmds();
         render_engine->flush_buffers();
 
-        gfx_ctx->begin_render_pass({}, SID("PassGeomGBuffer::execute"));
-        {
-            gfx_ctx->bind_target(render_engine->get_main_target());
-            gfx_ctx->viewport(render_cameras.data_at(0).viewport);
-            gfx_ctx->clear(0, render_engine->get_clear_color());
-            gfx_ctx->clear(1.0f, 0);
-
-            render_engine->get_views()[0].queues[int(MeshPassType::GBuffer)].execute(gfx_ctx);
-        }
-        gfx_ctx->end_render_pass();
+        gfx_ctx->execute([&](GfxCtx* thread_ctx) {
+            thread_ctx->begin_render_pass({}, SID("PassGeomGBuffer::execute"));
+            {
+                thread_ctx->bind_target(render_engine->get_main_target());
+                thread_ctx->viewport(render_engine->get_cameras().data_at(0).viewport);
+                thread_ctx->clear(0, render_engine->get_clear_color());
+                thread_ctx->clear(1.0f, 0);
+                render_engine->get_views()[0].queues[int(MeshPassType::GBuffer)].execute(thread_ctx);
+            }
+            thread_ctx->end_render_pass();
+        });
 
         render_engine->end_rendering();
     }
@@ -274,6 +287,8 @@ namespace wmoge {
 
         scene_hier();
         scene_transforms();
+        scene_cameras();
+        scene_visibility();
         scene_render();
         scene_pfx();
         scene_scripting();

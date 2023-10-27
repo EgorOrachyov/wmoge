@@ -689,21 +689,23 @@ namespace wmoge {
         m_tria_wired.flush(gfx_ctx);
         m_text.flush(gfx_ctx);
 
-        gfx_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
-        gfx_ctx->bind_target(window);
-        gfx_ctx->viewport(viewport);
-
         HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
 
-        for (int i = 0; i < num_types; i++) {
-            // if it has primitives and configured pass - do draw
-            if (num_elements[i] > 0 && passes[i] && passes[i]->configure(gfx_ctx)) {
-                gfx_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
-                gfx_ctx->draw(num_vertices[i], 0, 1);
-            }
-        }
+        gfx_ctx->execute([&](GfxCtx* thread_ctx) {
+            thread_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
+            thread_ctx->bind_target(window);
+            thread_ctx->viewport(viewport);
 
-        gfx_ctx->end_render_pass();
+            for (int i = 0; i < num_types; i++) {
+                // if it has primitives and configured pass - do draw
+                if (num_elements[i] > 0 && passes[i] && passes[i]->configure(thread_ctx)) {
+                    thread_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
+                    thread_ctx->draw(num_vertices[i], 0, 1);
+                }
+            }
+
+            thread_ctx->end_render_pass();
+        });
     }
     void AuxDrawManager::flush(float delta_time) {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::flush");

@@ -94,7 +94,7 @@ namespace wmoge {
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
         void end_render_pass() override;
 
-        void execute(const std::function<void()>& functor) override;
+        void execute(const std::function<void(GfxCtx* thread_ctx)>& functor) override;
         void shutdown() override;
 
         void begin_frame() override;

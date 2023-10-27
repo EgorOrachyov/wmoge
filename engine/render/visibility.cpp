@@ -38,8 +38,6 @@
 namespace wmoge {
 
     VisibilityItem VisibilitySystem::alloc_item() {
-        std::unique_lock guard(m_mutex);
-
         if (m_free.empty()) {
             const int curr_capacity = int(m_items.size());
             const int new_capacity  = curr_capacity + ALLOC_BATCH_SIZE;
@@ -57,51 +55,45 @@ namespace wmoge {
         VisibilityItem new_item = m_free.back();
         m_free.pop_back();
 
-        m_items[new_item]  = VisibilityItemData();
-        m_result[new_item] = VisibilityItemResult();
+        m_items[new_item.id]  = VisibilityItemData();
+        m_result[new_item.id] = VisibilityItemResult();
 
-        m_items[new_item].id = new_item;
+        m_items[new_item.id].id = new_item;
 
         return new_item;
     }
 
     void VisibilitySystem::release_item(VisibilityItem item) {
-        std::unique_lock guard(m_mutex);
+        assert(item.is_valid());
 
-        m_items[item]  = VisibilityItemData();
-        m_result[item] = VisibilityItemResult();
+        m_items[item.id]  = VisibilityItemData();
+        m_result[item.id] = VisibilityItemResult();
 
         m_free.push_back(item);
     }
 
     void VisibilitySystem::update_item_min_dist(const VisibilityItem& item, float min_dist) {
-        std::shared_lock guard(m_mutex);
+        assert(item.is_valid());
 
-        assert(item != VIS_ITEM_INVALID);
-
-        m_items[item].min_dist_2 = min_dist * min_dist;
+        m_items[item.id].min_dist_2 = min_dist * min_dist;
     }
 
     void VisibilitySystem::update_item_max_dist(const VisibilityItem& item, float max_dist) {
-        std::shared_lock guard(m_mutex);
+        assert(item.is_valid());
 
-        assert(item != VIS_ITEM_INVALID);
-
-        m_items[item].max_dist_2 = max_dist * max_dist;
+        m_items[item.id].max_dist_2 = max_dist * max_dist;
     }
 
     void VisibilitySystem::update_item_bbox(const VisibilityItem& item, const Aabbf& aabbf) {
-        std::shared_lock guard(m_mutex);
+        assert(item.is_valid());
 
-        assert(item != VIS_ITEM_INVALID);
-
-        m_items[item].aabb = aabbf;
+        m_items[item.id].aabb = aabbf;
     }
 
     VisibilityItemResult VisibilitySystem::get_item_result(const VisibilityItem& item) {
-        assert(item != VIS_ITEM_INVALID);
+        assert(item.is_valid());
 
-        return m_result[item];
+        return m_result[item.id];
     }
 
     void VisibilitySystem::cull(const RenderCameras& cameras) {

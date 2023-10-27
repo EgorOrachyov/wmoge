@@ -97,11 +97,18 @@ namespace wmoge {
         assert(entity.is_valid());
         assert(entity.idx < m_entity_info.size());
 
+        bool need_swap = false;
+
         EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        m_arch_storage[entity_info.arch]->destroy_entity(entity_info.storage, need_swap);
 
-        m_arch_storage[entity_info.arch]->destroy_entity(entity_info.storage);
+        if (need_swap) {
+            const EcsEntity entity_to_swap = m_arch_storage[entity_info.arch]->get_entity(entity_info.storage);
+            assert(m_entity_info[entity_to_swap.idx].arch == entity_info.arch);
+            m_entity_info[entity_to_swap.idx].storage = entity_info.storage;
+        }
+
         m_entity_pool.emplace_back(entity.idx, (entity.gen + 1) % EcsLimits::MAX_GENERATIONS_PER_ARC);
-
         entity_info = EcsEntityInfo{};
     }
 

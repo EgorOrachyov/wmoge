@@ -202,15 +202,15 @@ namespace wmoge {
         float     m_margin           = 3.0f;
         float     m_margin_line      = 14.0f;
 
-        class AuxDrawCanvas* m_canvas = nullptr;
-        std::string          m_line;
-        ConsoleState         m_state           = ConsoleState::Closed;
-        float                m_state_open      = 0.0f;
-        float                m_state_blink     = 0.0f;
-        float                m_current_speed   = 0.0f;
-        float                m_cursor_offset   = 0.0f;
-        int                  m_scroll_messages = 0;
-        int                  m_max_to_display  = 0;
+        class Canvas* m_canvas = nullptr;
+        std::string   m_line;
+        ConsoleState  m_state           = ConsoleState::Closed;
+        float         m_state_open      = 0.0f;
+        float         m_state_blink     = 0.0f;
+        float         m_current_speed   = 0.0f;
+        float         m_cursor_offset   = 0.0f;
+        int           m_scroll_messages = 0;
+        int           m_max_to_display  = 0;
     };
 
 }// namespace wmoge

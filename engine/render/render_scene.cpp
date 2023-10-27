@@ -40,7 +40,7 @@ namespace wmoge {
         m_objects_ids.set_name(SID("objects_ids"));
     }
 
-    void RenderScene::add_object(RenderObject* object) {
+    void RenderScene::add_object(RenderObject* object, VisibilityItem vis_item) {
         assert(object);
 
         if (m_free_objects_ids.empty()) {
@@ -60,7 +60,7 @@ namespace wmoge {
         m_free_objects_ids.pop_back();
 
         m_objects[new_id]          = object;
-        m_objects_vis[new_id]      = RenderCameraMask();
+        m_objects_vis[new_id]      = vis_item;
         m_objects_gpu_data[new_id] = GPURenderObjectData();
 
         object->set_primitive_id(new_id);
@@ -73,7 +73,7 @@ namespace wmoge {
         m_free_objects_ids.push_back(id);
 
         m_objects[id]          = nullptr;
-        m_objects_vis[id]      = RenderCameraMask();
+        m_objects_vis[id]      = VisibilityItem();
         m_objects_gpu_data[id] = GPURenderObjectData();
     }
 

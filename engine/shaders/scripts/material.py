@@ -36,8 +36,6 @@ RenderObjectData = Struct(
     [
         StructField(TYPE_MAT4, "LocalToWorld"),
         StructField(TYPE_MAT4, "LocalToWorldPrev"),
-        StructField(TYPE_MAT4, "WorldToLocal"),
-        StructField(TYPE_MAT4, "WorldToLocalPrev"),
         StructField(TYPE_MAT4, "NormalMatrix"),
         StructField(TYPE_VEC4, "AabbPos"),
         StructField(TYPE_VEC4, "AabbSizeHalf"),
@@ -69,7 +67,7 @@ SHADER = Shader(
         StorageBuffer(
             "RenderObjectsData",
             "std430",
-            BINDINGS.next(0),
+            BINDINGS.next(),
             [StructField(RenderObjectData, "RenderObjects", ArrayQualifier())],
             readonly=True,
         ),

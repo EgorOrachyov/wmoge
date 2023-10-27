@@ -27,27 +27,22 @@
 
 #include "gfx_pipeline_cache.hpp"
 
-#include "core/log.hpp"
-#include "gfx/gfx_driver.hpp"
-
 #include <mutex>
 
 namespace wmoge {
 
-    Ref<GfxPipeline> GfxPipelineCache::get_or_create(const GfxPipelineState& state, const StringId& name) {
+    std::optional<Ref<GfxPipeline>> GfxPipelineCache::get(const GfxPipelineState& state) {
         std::lock_guard guard(m_mutex);
-
-        auto& pipeline = m_cache[state];
-        if (!pipeline) {
-            pipeline = m_driver->make_pipeline(state, name);
-            WG_LOG_INFO("cache new pso " << name);
+        auto            it = m_cache.find(state);
+        if (it != m_cache.end()) {
+            return it->second;
         }
-
-        return pipeline;
+        return std::nullopt;
     }
 
-    void GfxPipelineCache::set_driver(GfxDriver* driver) {
-        m_driver = driver;
+    void GfxPipelineCache::add(const GfxPipelineState& state, const Ref<GfxPipeline>& pipeline) {
+        std::lock_guard guard(m_mutex);
+        m_cache[state] = pipeline;
     }
 
 }// namespace wmoge

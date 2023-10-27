@@ -175,7 +175,7 @@ namespace wmoge {
         TexCompressionParams compression_params{};
         compression_params.format = TexCompressionFormat::BC4;
 
-        m_texture = make_ref<Texture2d>(GfxFormat::R8, bitmap_width, bitmap_height);
+        m_texture = make_ref<Texture2d>(GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
         m_texture->set_name(SID(get_name().str() + "_texture"));
         m_texture->set_sampler_from_desc(sampler_desc);
         m_texture->set_compression(compression_params);

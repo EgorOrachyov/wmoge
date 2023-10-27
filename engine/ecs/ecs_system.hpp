@@ -136,6 +136,10 @@ namespace wmoge {
             const int       entity_idx = start_entity + i;
             const EcsEntity entity     = storage.get_entity(entity_idx);
 
+            if (entity.is_invalid()) {
+                continue;
+            }
+
 #define WG_ECS_ACCESS_COMPONENT(at)                                                                                                 \
     using TypeComponent##at    = typename std::remove_reference<typename std::tuple_element<at, std::tuple<TArgs...>>::type>::type; \
     TypeComponent##at* ptr##at = storage.template get_component<TypeComponent##at>(entity_idx);

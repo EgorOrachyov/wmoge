@@ -365,10 +365,14 @@ namespace wmoge {
         assert(check_thread_valid());
         assert(m_in_render_pass);
 
-        if (m_render_pass_started) {
-            WG_VK_END_LABEL(cmd_current());
-            vkCmdEndRenderPass(cmd_current());
+        if (!m_render_pass_started) {
+            prepare_render_pass();
         }
+
+        assert(m_render_pass_started);
+
+        WG_VK_END_LABEL(cmd_current());
+        vkCmdEndRenderPass(cmd_current());
 
         m_render_pass_binder->finish();
         m_current_pass.reset();
@@ -388,10 +392,10 @@ namespace wmoge {
         m_target_bound        = false;
     }
 
-    void VKCtx::execute(const std::function<void()>& functor) {
+    void VKCtx::execute(const std::function<void(GfxCtx* thread_ctx)>& functor) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::execute");
 
-        functor();
+        functor(this);
     }
     void VKCtx::shutdown() {
         WG_AUTO_PROFILE_VULKAN("VKCtx::shutdown");

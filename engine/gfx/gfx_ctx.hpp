@@ -95,8 +95,8 @@ namespace wmoge {
         virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                            = 0;
         virtual void end_render_pass()                                                                             = 0;
 
-        virtual void execute(const std::function<void()>& functor) = 0;
-        virtual void shutdown()                                    = 0;
+        virtual void execute(const std::function<void(GfxCtx* thread_ctx)>& functor) = 0;
+        virtual void shutdown()                                                      = 0;
 
         virtual void begin_frame() = 0;
         virtual void end_frame()   = 0;

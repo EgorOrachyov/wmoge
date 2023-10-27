@@ -34,6 +34,7 @@
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_pass.hpp"
 #include "render/render_defs.hpp"
+#include "render/visibility.hpp"
 
 #include "shaders/generated/auto_material_reflection.hpp"
 
@@ -71,7 +72,7 @@ namespace wmoge {
     public:
         RenderScene();
 
-        void add_object(class RenderObject* object);
+        void add_object(class RenderObject* object, VisibilityItem vis_item);
         void remove_object(class RenderObject* object);
         void flush_buffers(class GfxCtx* gfx_ctx);
 
@@ -79,14 +80,14 @@ namespace wmoge {
         [[nodiscard]] GPURenderObjectDataVector&     get_objects_gpu_data() { return m_objects_gpu_data; }
         [[nodiscard]] GPURenderObjectIdVector&       get_objects_ids() { return m_objects_ids; }
         [[nodiscard]] ArrayView<class RenderObject*> get_objects() { return m_objects; }
-        [[nodiscard]] ArrayView<RenderCameraMask>    get_objects_vis() { return m_objects_vis; }
+        [[nodiscard]] ArrayView<VisibilityItem>      get_objects_vis() { return m_objects_vis; }
 
     private:
         MeshBucketMap                    m_bucket_map[MESH_PASSES_TOTAL];//< Bucket slot map per pass type for dynamic instancing
         GPURenderObjectIdVector          m_objects_ids;                  //< Remap ids to render data
         GPURenderObjectDataVector        m_objects_gpu_data;             //< Scene render objects gpu data (to fetch in shader by id)
         std::vector<class RenderObject*> m_objects;                      //< Renderable scene objects
-        std::vector<RenderCameraMask>    m_objects_vis;                  //< Renderable scene objects visibility mask
+        std::vector<VisibilityItem>      m_objects_vis;                  //< Renderable scene objects visibility items
         std::vector<int>                 m_free_objects_ids;             //< Pool with free ids
     };
 

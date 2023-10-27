@@ -107,8 +107,9 @@ namespace wmoge {
          * @param height Height of the texture in pixels
          * @param depth Depth of the texture in pixels (in most cases 1)
          * @param array_slices Number of slices for array or cube texture (in most cases 1)
+         * @param swizz Texture channels swizzling
          */
-        Texture(GfxFormat format, int width, int height, int depth = 1, int array_slices = 1);
+        Texture(GfxFormat format, int width, int height, int depth = 1, int array_slices = 1, GfxTexSwizz swizz = GfxTexSwizz::None);
 
         virtual void set_source_images(std::vector<Ref<Image>> images);
         virtual void set_sampler(const Ref<GfxSampler>& sampler);
@@ -134,6 +135,7 @@ namespace wmoge {
         [[nodiscard]] GfxFormat                        get_format() const { return m_format; }
         [[nodiscard]] GfxFormat                        get_format_compressed() const { return m_format_compressed; }
         [[nodiscard]] GfxTex                           get_tex_type() const { return m_tex_type; }
+        [[nodiscard]] GfxTexSwizz                      get_tex_swizz() const { return m_swizz; }
         [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_mem_usage; }
         [[nodiscard]] GfxTexUsages                     get_usages() const { return m_usages; }
         [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
@@ -154,6 +156,7 @@ namespace wmoge {
         GfxFormat                 m_format            = GfxFormat::Unknown;
         GfxFormat                 m_format_compressed = GfxFormat::Unknown;
         GfxTex                    m_tex_type          = GfxTex::Tex2d;
+        GfxTexSwizz               m_swizz             = GfxTexSwizz::None;
         GfxMemUsage               m_mem_usage         = GfxMemUsage::GpuLocal;
         GfxTexUsages              m_usages            = {GfxTexUsageFlag::Sampling};
         bool                      m_srgb              = false;
@@ -168,7 +171,7 @@ namespace wmoge {
     public:
         WG_OBJECT(Texture2d, Texture);
 
-        Texture2d(GfxFormat format, int width, int height);
+        Texture2d(GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
 
         Status copy_to(Object& other) const override;
     };

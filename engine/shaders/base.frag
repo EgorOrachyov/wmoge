@@ -9,8 +9,6 @@
 
 #version 450 core
 
-#define INOUT in
-#define FRAGMENT_SHADER
 #include "inout_attributes.glsl"
 #include "common_funcs.glsl"
 

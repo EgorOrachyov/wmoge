@@ -155,10 +155,6 @@ namespace wmoge {
         // finally init wrapper for ctx immediate
         m_ctx_immediate_wrapper = std::make_unique<GfxCtxWrapper>(m_ctx_immediate.get());
 
-        // Provide ptr to wrapper
-        m_pso_cache->set_driver(m_driver_wrapper.get());
-        m_vert_fmt_cache->set_driver(m_driver_wrapper.get());
-
         WG_LOG_INFO("init vulkan gfx driver");
     }
     VKDriver::~VKDriver() {
@@ -243,13 +239,13 @@ namespace wmoge {
 
         return shader;
     }
-    Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d");
 
         assert(on_gfx_thread());
 
         auto texture = make_ref<VKTexture>(*this);
-        texture->create_2d(m_ctx_immediate->cmd_current(), width, height, mips, format, usages, mem_usage, name);
+        texture->create_2d(m_ctx_immediate->cmd_current(), width, height, mips, format, usages, mem_usage, swizz, name);
         return texture;
     }
     Ref<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {

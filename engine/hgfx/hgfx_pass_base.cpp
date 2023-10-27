@@ -54,7 +54,7 @@ namespace wmoge {
 
         GfxPipelineState pipeline_state{};
         pipeline_state.shader       = shader_manager->get_shader(SID("base"), attribs_req, defines);
-        pipeline_state.vert_format  = gfx_driver->vert_fmt_cache()->get_or_create(elements, name);
+        pipeline_state.vert_format  = gfx_driver->make_vert_format(elements, name);
         pipeline_state.prim_type    = prim_type;
         pipeline_state.poly_mode    = poly_mode;
         pipeline_state.cull_mode    = cull_mode;
@@ -64,7 +64,7 @@ namespace wmoge {
         pipeline_state.depth_func   = depth_func;
         pipeline_state.blending     = !no_alpha;
 
-        m_pipeline = gfx_driver->pso_cache()->get_or_create(pipeline_state, name);
+        m_pipeline = gfx_driver->make_pipeline(pipeline_state, name);
 
         ShaderBase::Params params;
         params.mat_clip_proj_view = (gfx_driver->clip_matrix() * mat_proj_view).transpose();

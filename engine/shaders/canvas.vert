@@ -7,23 +7,32 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#version 450 core
-
-#include "inout_attributes.glsl"
+#include "common_funcs.glsl"
 #include "vertex_attributes.glsl"
-#include "common_defines.glsl"
+#include "inout_attributes.glsl
+
+DrawCmdData GetCmdData(in int idx) {
+    return DrawCmds[idx];
+}
+
+mat3 GetDrawCmdTransform(in int idx) {
+    const DrawCmdData data = GetCmdData(idx);
+    return mat3(data.Transform0.xyz,
+                data.Transform1.xyz,
+                data.Transform2.xyz);
+}
 
 void main() {
-    VertexAttributes vertex = ReadVertexAttributes();
-    InoutAttributes result;
-
-    result.worldPos = vertex.pos3;
-    result.col[0] = vertex.col[0];
-    result.col[1] = vertex.col[1];
-    result.col[2] = vertex.col[2];
-    result.col[3] = vertex.col[3];
+    const VertexAttributes vertex = ReadVertexAttributes();
+    const mat3 transform = GetDrawCmdTransform(vertex.primitiveId);
     
+    InoutAttributes result;
+    result.worldPos = transform * vec3(vertex.pos2, 1.0f);
+    result.col[0] = vertex.col[0];
+    result.uv[0] = UnpackUv(vertex.uv[0]);
+    result.primitiveId = vertex.primitiveId;
+
     StoreInoutAttributes(result);
 
-    gl_Position = mat_clip_proj_view * vec4(vertex.pos3, 1.0f);
+    gl_Position = ClipProjView * vec4(result.worldPos, 1.0f);
 }

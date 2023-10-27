@@ -33,6 +33,8 @@
 #include "core/synchronization.hpp"
 #include "gfx/gfx_pipeline.hpp"
 
+#include <optional>
+
 namespace wmoge {
 
     /**
@@ -46,12 +48,11 @@ namespace wmoge {
         GfxPipelineCache(GfxPipelineCache&&)      = delete;
         ~GfxPipelineCache()                       = default;
 
-        Ref<GfxPipeline> get_or_create(const GfxPipelineState& state, const StringId& name = StringId());
-        void             set_driver(class GfxDriver* driver);
+        std::optional<Ref<GfxPipeline>> get(const GfxPipelineState& state);
+        void                            add(const GfxPipelineState& state, const Ref<GfxPipeline>& pipeline);
 
     private:
         fast_map<GfxPipelineState, Ref<GfxPipeline>> m_cache;
-        class GfxDriver*                             m_driver;
         SpinMutex                                    m_mutex;
     };
 

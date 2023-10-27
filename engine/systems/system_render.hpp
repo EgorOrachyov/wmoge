@@ -98,8 +98,6 @@ namespace wmoge {
             if (result.cam_mask.any()) {
                 mesh_static.mesh->procces_visibility(result.cam_mask, result.distance);
             }
-
-            render_scene->get_objects_vis()[mesh_static.primitive_id] = result.cam_mask;
         }
 
         void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override {

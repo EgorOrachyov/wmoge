@@ -32,7 +32,6 @@
 #include "debug/profiler.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
-#include "render/aux_draw_canvas.hpp"
 #include "render/aux_draw_manager.hpp"
 #include "render/render_engine.hpp"
 
@@ -43,30 +42,28 @@ namespace wmoge {
 
         auto engine           = Engine::instance();
         auto window           = engine->window_manager()->primary_window();
-        auto canvas_debug     = engine->canvas_2d_debug();
+        auto canvas_debug     = engine->canvas_debug();
         auto aux_draw_manager = engine->aux_draw_manager();
-
-        canvas_debug->set_window(window);
-        canvas_debug->set_viewport(Rect2i{0, 0, window->fbo_width(), window->fbo_height()});
-        canvas_debug->set_screen_size(Vec2f(1280, 720));
     }
     void DebugLayer::on_debug_draw() {
         WG_AUTO_PROFILE_DEBUG("DebugLayer::on_debug_draw");
 
         auto engine           = Engine::instance();
         auto render_engine    = engine->render_engine();
-        auto canvas_debug     = engine->canvas_2d_debug();
+        auto canvas_debug     = engine->canvas_debug();
         auto aux_draw_manager = engine->aux_draw_manager();
         auto console          = engine->console();
 
         console->update();
-
-        canvas_debug->set_fill_color(Color::BLACK4f);
-        canvas_debug->draw_filled_rect({0, 0}, {1280, 720});
         console->render();
 
         aux_draw_manager->flush(engine->get_delta_time_game());
         render_engine->render_aux_geom(*aux_draw_manager);
+
+        canvas_debug->compile(true);
+        render_engine->render_canvas(*canvas_debug, Vec4f(0.0f, 0.0f, 1280.0f, 720.0f));
+
+        canvas_debug->clear(false);
     }
 
 }// namespace wmoge

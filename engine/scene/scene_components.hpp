@@ -146,7 +146,7 @@ namespace wmoge {
         WG_ECS_COMPONENT(EcsComponentMeshStatic, 9);
 
         std::unique_ptr<RenderMeshStatic> mesh;
-        VisibilityItem                    vis_item     = VIS_ITEM_INVALID;
+        VisibilityItem                    vis_item;
         int                               primitive_id = -1;
         bool                              dirty        = true;
     };

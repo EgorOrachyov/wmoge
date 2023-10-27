@@ -115,6 +115,7 @@ namespace wmoge {
         std::optional<Ref<Camera>> find_active();
         std::optional<Ref<Camera>> find_first(const std::function<bool(const Ref<Camera>&)>& pred);
         std::vector<Ref<Camera>>   filter(const std::function<bool(const Ref<Camera>&)>& pred);
+        void                       fill_render_cameras(RenderCameras& cameras);
 
         [[nodiscard]] ArrayView<const Ref<Camera>> get_cameras() const { return m_cameras; }
         [[nodiscard]] Ref<Camera>                  get_debug_camera() const { return m_camera_debug; }

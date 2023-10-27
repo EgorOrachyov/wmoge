@@ -28,13 +28,32 @@
 #ifndef WMOGE_TEXTURE_MANAGER_HPP
 #define WMOGE_TEXTURE_MANAGER_HPP
 
+#include "gfx/gfx_sampler.hpp"
+#include "gfx/gfx_texture.hpp"
+
 namespace wmoge {
 
     /**
      * @class TextureManager
      * @brief Manages allocation and streaming of all engine textures
      */
-    class TextureManager {
+    class TextureManager final {
+    public:
+        TextureManager();
+
+        [[nodiscard]] const Ref<GfxTexture>& get_gfx_default_texture_white() const { return m_gfx_default_texture_white; }
+        [[nodiscard]] const Ref<GfxTexture>& get_gfx_default_texture_black() const { return m_gfx_default_texture_black; }
+        [[nodiscard]] const Ref<GfxTexture>& get_gfx_default_texture_red() const { return m_gfx_default_texture_red; }
+        [[nodiscard]] const Ref<GfxSampler>& get_gfx_default_sampler() const { return m_gfx_default_sampler; }
+
+    private:
+        Ref<GfxTexture> m_gfx_default_texture_white;
+        Ref<GfxTexture> m_gfx_default_texture_black;
+        Ref<GfxTexture> m_gfx_default_texture_red;
+        Ref<GfxSampler> m_gfx_default_sampler;
+
+        class GfxDriver* m_gfx_driver;
+        class GfxCtx*    m_gfx_ctx;
     };
 
 }// namespace wmoge

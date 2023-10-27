@@ -261,8 +261,10 @@ add_library(wmoge STATIC
         platform/glfw/glfw_window_manager.hpp
         render/aux_draw_manager.cpp
         render/aux_draw_manager.hpp
-        render/aux_draw_canvas.cpp
-        render/aux_draw_canvas.hpp
+        render/canvas.cpp
+        render/canvas.hpp
+        render/graphics_pipeline.cpp
+        render/graphics_pipeline.hpp
         render/render_camera.cpp
         render/render_camera.hpp
         render/render_engine.cpp

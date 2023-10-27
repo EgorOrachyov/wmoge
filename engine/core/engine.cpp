@@ -83,6 +83,9 @@ namespace wmoge {
     ShaderManager* Engine::shader_manager() {
         return m_shader_manager;
     }
+    TextureManager* Engine::texture_manager() {
+        return m_texture_manager;
+    }
     AuxDrawManager* Engine::aux_draw_manager() {
         return m_aux_draw_manager;
     }
@@ -101,8 +104,8 @@ namespace wmoge {
     Console* Engine::console() {
         return m_console;
     }
-    AuxDrawCanvas* Engine::canvas_2d_debug() {
-        return m_canvas_2d_debug;
+    Canvas* Engine::canvas_debug() {
+        return m_canvas_debug;
     }
     ScriptSystem* Engine::script_system() {
         return m_script_system;

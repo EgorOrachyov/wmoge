@@ -55,6 +55,8 @@ namespace wmoge {
     private:
         void scene_hier();
         void scene_transforms();
+        void scene_cameras();
+        void scene_visibility();
         void scene_render();
         void scene_pfx();
         void scene_scripting();

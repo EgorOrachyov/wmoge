@@ -31,6 +31,8 @@
 #include "event/event_action.hpp"
 #include "event/event_manager.hpp"
 #include "math/quat.hpp"
+#include "platform/window.hpp"
+#include "platform/window_manager.hpp"
 
 namespace wmoge {
 
@@ -194,6 +196,14 @@ namespace wmoge {
             }
         }
         return filtered;
+    }
+    void CameraManager::fill_render_cameras(RenderCameras& cameras) {
+        Ref<Camera> camera = find_active().value_or(get_default_camera());
+        camera->update_render_camera(Engine::instance()->window_manager()->primary_window()->fbo_size());
+        const RenderCamera& camera_curr = camera->get_render_camera();
+
+        cameras.clear();
+        cameras.add_camera(CameraType::Color, camera_curr, std::nullopt);
     }
     bool CameraManager::is_default(const Camera* camera) const {
         return camera == m_camera_default.get();

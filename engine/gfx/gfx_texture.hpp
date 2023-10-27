@@ -46,6 +46,7 @@ namespace wmoge {
         [[nodiscard]] int          mips_count() const { return m_mips_count; }
         [[nodiscard]] int          array_slices() const { return m_array_slices; }
         [[nodiscard]] GfxTex       tex_type() const { return m_tex_type; }
+        [[nodiscard]] GfxTexSwizz  tex_swizz() const { return m_swizz; }
         [[nodiscard]] GfxFormat    format() const { return m_format; }
         [[nodiscard]] GfxMemUsage  mem_usage() const { return m_mem_usage; }
         [[nodiscard]] GfxTexUsages usages() const { return m_usages; }
@@ -57,6 +58,7 @@ namespace wmoge {
         int          m_mips_count   = 1;
         int          m_array_slices = 1;
         GfxTex       m_tex_type     = GfxTex::Tex2d;
+        GfxTexSwizz  m_swizz        = GfxTexSwizz::None;
         GfxFormat    m_format       = GfxFormat::RGBA8;
         GfxMemUsage  m_mem_usage    = GfxMemUsage::GpuLocal;
         GfxTexUsages m_usages;

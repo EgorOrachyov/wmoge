@@ -98,7 +98,7 @@ namespace wmoge {
         out_entity_idx = entity_idx;
         m_size += 1;
     }
-    void EcsArchStorage::destroy_entity(const std::uint32_t& in_entity_idx) {
+    void EcsArchStorage::destroy_entity(const std::uint32_t& in_entity_idx, bool& was_swapped) {
         WG_AUTO_PROFILE_ECS("EcsArchStorage::destroy_entity");
 
         assert(int(in_entity_idx) < m_size);
@@ -120,6 +120,8 @@ namespace wmoge {
                 m_components_info[component_idx]->swap(component_pool.get_element_raw(entity_idx),
                                                        component_pool.get_element_raw(last_entity));
             });
+
+            was_swapped = true;
         }
 
         m_arch.for_each_component([&](int component_idx) {

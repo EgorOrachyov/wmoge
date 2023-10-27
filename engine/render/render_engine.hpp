@@ -39,6 +39,7 @@
 #include "mesh/mesh_pass.hpp"
 #include "platform/window.hpp"
 #include "render/aux_draw_manager.hpp"
+#include "render/canvas.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_defs.hpp"
 #include "render/render_object.hpp"
@@ -90,6 +91,7 @@ namespace wmoge {
         void set_target(const Ref<Window>& window);
         void set_clear_color(const Color4f& color);
         void set_scene(RenderScene* scene);
+        void set_visiblity(VisibilitySystem* visibility);
 
         void begin_rendering();
         void end_rendering();
@@ -102,6 +104,7 @@ namespace wmoge {
         void sort_queues();
         void merge_cmds();
         void flush_buffers();
+        void render_canvas(Canvas& canvas, const Vec4f& area);
         void render_aux_geom(AuxDrawManager& aux_draw_manager);
 
         [[nodiscard]] RenderCameras&                     get_cameras() { return m_cameras; }
@@ -130,7 +133,8 @@ namespace wmoge {
         Ref<Window>                 m_main_target;
         Ref<GfxUniformBuffer>       m_frame_data;
         std::optional<RenderCamera> m_camera_prev;
-        RenderScene*                m_scene = nullptr;
+        RenderScene*                m_scene      = nullptr;
+        VisibilitySystem*           m_visibility = nullptr;
 
         float m_time       = 0.0f;
         float m_delta_time = 0.0f;
