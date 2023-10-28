@@ -98,10 +98,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac57e8e15b594f9f7ed280a0b8e6b90c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12208ceb17553404e6768468db6f2230"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a12208ceb17553404e6768468db6f2230">start</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name)</td></tr>
 <tr class="separator:a12208ceb17553404e6768468db6f2230"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85da24f3f8ab51c51b1d5f88c40afa65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a85da24f3f8ab51c51b1d5f88c40afa65">validate</a> ()</td></tr>
-<tr class="separator:a85da24f3f8ab51c51b1d5f88c40afa65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0807489784d1fb062e21a2271d19c659"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a0807489784d1fb062e21a2271d19c659">finish</a> ()</td></tr>
-<tr class="separator:a0807489784d1fb062e21a2271d19c659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eff1e455e3a0cdb14d104d322aed57e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a8eff1e455e3a0cdb14d104d322aed57e">validate</a> (VkCommandBuffer cmd)</td></tr>
+<tr class="separator:a8eff1e455e3a0cdb14d104d322aed57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38b32734703c807858a5ae307eb56c61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a38b32734703c807858a5ae307eb56c61">finish</a> (VkCommandBuffer cmd)</td></tr>
+<tr class="separator:a38b32734703c807858a5ae307eb56c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5f9d6dd387dfb25664d8b332a74ba5f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKRenderPass.html">VKRenderPass</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#ae5f9d6dd387dfb25664d8b332a74ba5f">render_pass</a> () const</td></tr>
 <tr class="separator:ae5f9d6dd387dfb25664d8b332a74ba5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20cd17eaeb8316ef28b1a8108fe24fc5"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKFramebufferObject.html">VKFramebufferObject</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKRenderPassBinder.html#a20cd17eaeb8316ef28b1a8108fe24fc5">framebuffer</a> () const</td></tr>
@@ -310,8 +310,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0807489784d1fb062e21a2271d19c659"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0807489784d1fb062e21a2271d19c659">&#9670;&nbsp;</a></span>finish()</h2>
+<a id="a38b32734703c807858a5ae307eb56c61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38b32734703c807858a5ae307eb56c61">&#9670;&nbsp;</a></span>finish()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +319,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void wmoge::VKRenderPassBinder::finish </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">VkCommandBuffer&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -420,8 +421,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a85da24f3f8ab51c51b1d5f88c40afa65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85da24f3f8ab51c51b1d5f88c40afa65">&#9670;&nbsp;</a></span>validate()</h2>
+<a id="a8eff1e455e3a0cdb14d104d322aed57e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eff1e455e3a0cdb14d104d322aed57e">&#9670;&nbsp;</a></span>validate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -429,7 +430,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void wmoge::VKRenderPassBinder::validate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">VkCommandBuffer&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

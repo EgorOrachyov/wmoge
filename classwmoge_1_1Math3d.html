@@ -108,6 +108,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:adcb96ab363301922bb4e3f648d64fb84"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Math3d.html#adcb96ab363301922bb4e3f648d64fb84">orthographic</a> (float left, float right, float bottom, float top, float near, float far)</td></tr>
 <tr class="memdesc:adcb96ab363301922bb4e3f648d64fb84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orthographic projection.  <a href="classwmoge_1_1Math3d.html#adcb96ab363301922bb4e3f648d64fb84">More...</a><br /></td></tr>
 <tr class="separator:adcb96ab363301922bb4e3f648d64fb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabc7e4984e767a1db599d0c3dfb917da"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Math3d.html#aabc7e4984e767a1db599d0c3dfb917da">project</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;mat, const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;point)</td></tr>
+<tr class="separator:aabc7e4984e767a1db599d0c3dfb917da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8424bd7e7ba074bfb79ccd8209cc949a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Math3d.html#a8424bd7e7ba074bfb79ccd8209cc949a">to_viewport</a> (const <a class="el" href="namespacewmoge.html#a94d9c5c30bae9baf72194d8e20452f0e">Vec4f</a> &amp;viewport, const <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a> &amp;point)</td></tr>
+<tr class="separator:a8424bd7e7ba074bfb79ccd8209cc949a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99555c7f1c555047259af405c863c6fc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Math3d.html#a99555c7f1c555047259af405c863c6fc">project_to_screen</a> (const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;mat, const <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a> &amp;area, const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;point)</td></tr>
 <tr class="separator:a99555c7f1c555047259af405c863c6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -329,6 +333,42 @@ aspect should be more than 0</dd></dl>
 
 </div>
 </div>
+<a id="aabc7e4984e767a1db599d0c3dfb917da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabc7e4984e767a1db599d0c3dfb917da">&#9670;&nbsp;</a></span>project()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> wmoge::Math3d::project </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a99555c7f1c555047259af405c863c6fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99555c7f1c555047259af405c863c6fc">&#9670;&nbsp;</a></span>project_to_screen()</h2>
 
@@ -508,6 +548,42 @@ aspect should be more than 0</dd></dl>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td>
           <td class="paramname"><em>scale</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8424bd7e7ba074bfb79ccd8209cc949a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8424bd7e7ba074bfb79ccd8209cc949a">&#9670;&nbsp;</a></span>to_viewport()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a> wmoge::Math3d::to_viewport </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a94d9c5c30bae9baf72194d8e20452f0e">Vec4f</a> &amp;&#160;</td>
+          <td class="paramname"><em>viewport</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

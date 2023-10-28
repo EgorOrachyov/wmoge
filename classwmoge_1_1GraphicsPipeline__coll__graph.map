@@ -1,0 +1,10 @@
+<map id="wmoge::GraphicsPipeline" name="wmoge::GraphicsPipeline">
+<area shape="rect" id="node1" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="687,113,855,140"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="341,5,489,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="334,63,495,89"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RenderCameras.html" title="Cameras list for rendering." alt="" coords="333,113,496,140"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1GraphicsPipelineTextures.html" title="Pipeline textures used during rendering." alt="" coords="305,164,524,191"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,97,164,124"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="10,223,159,265"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1ArrayView.html" title=" " alt="" coords="328,215,501,257"/>
+</map>

@@ -75,21 +75,25 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderBase.html#abedfdb46fbf131915a5583302901a2a5">wmoge::ShaderBase</a>
 , <a class="el" href="structwmoge_1_1ShaderCanvas.html#a37e3e23538fc5cb27579b9f71bec61a0">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a7379067177e16237bcdb306b3dea90e2">wmoge::ShaderText</a>
+, <a class="el" href="structwmoge_1_1ShaderTonemap.html#aa857218f2aaff4a5cc67f60d705094f5">wmoge::ShaderTonemap</a>
 </li>
 <li>PARAMS_NAME
 : <a class="el" href="structwmoge_1_1ShaderBase.html#aded894fb4a0774adcef6a414c1efae00">wmoge::ShaderBase</a>
 , <a class="el" href="structwmoge_1_1ShaderCanvas.html#abdd63390179ce37876c96b7dd87f8d70">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a24a125f9b2f53ad20d84d9031c63b9e5">wmoge::ShaderText</a>
+, <a class="el" href="structwmoge_1_1ShaderTonemap.html#a3bfebf025c6dfcea038132012c49cea9">wmoge::ShaderTonemap</a>
 </li>
 <li>PARAMS_SET
 : <a class="el" href="structwmoge_1_1ShaderBase.html#a9691a4df4f3ff751173584a3f6ff36e4">wmoge::ShaderBase</a>
 , <a class="el" href="structwmoge_1_1ShaderCanvas.html#a053287ba98abec5b299564289b220701">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a37132a82faaed39b5f83404e7c51df61">wmoge::ShaderText</a>
+, <a class="el" href="structwmoge_1_1ShaderTonemap.html#a67f744484449250d9b6dbb2140283fd2">wmoge::ShaderTonemap</a>
 </li>
 <li>PARAMS_SLOT
 : <a class="el" href="structwmoge_1_1ShaderBase.html#ae035e5f84352b9a4a556de2d0e98cd51">wmoge::ShaderBase</a>
 , <a class="el" href="structwmoge_1_1ShaderCanvas.html#abdd0d7b8bdd2b3d5b1577a89c0364387">wmoge::ShaderCanvas</a>
 , <a class="el" href="structwmoge_1_1ShaderText.html#a8aa1c23d7bb65e6c9f94dee04c129f69">wmoge::ShaderText</a>
+, <a class="el" href="structwmoge_1_1ShaderTonemap.html#a7a70aaaca0a099c2baf1e09a88cb0f18">wmoge::ShaderTonemap</a>
 </li>
 <li>parent
 : <a class="el" href="structwmoge_1_1EcsComponentParent.html#aceea4590bd60e3ac63c670e2cf8e027c">wmoge::EcsComponentParent</a>
@@ -97,7 +101,7 @@ $(function() {
 </li>
 <li>parse()
 : <a class="el" href="classwmoge_1_1CmdLine.html#afa50a8ddce14d74fcf1324fbe87ad5f6">wmoge::CmdLine</a>
-, <a class="el" href="classwmoge_1_1Enum.html#afd9c19743ef51e8ba7662824eca1c487">wmoge::Enum</a>
+, <a class="el" href="classwmoge_1_1Enum.html#a28cbc51b08ec2b02f7452b6a11fe13bc">wmoge::Enum</a>
 </li>
 <li>pass_desc
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a5289d53c7f1d1b8a61bc16e8d8bc798a">wmoge::GfxPipelineState</a>
@@ -109,6 +113,9 @@ $(function() {
 </li>
 <li>pass_relevance
 : <a class="el" href="structwmoge_1_1RenderCameraData.html#a7998059f897c41ff069f95419b16dff6">wmoge::RenderCameraData</a>
+</li>
+<li>PassToneMap()
+: <a class="el" href="classwmoge_1_1PassToneMap.html#a3562c18324da9526225fa6351ce66d2a">wmoge::PassToneMap</a>
 </li>
 <li>path
 : <a class="el" href="classwmoge_1_1EventFileSystem.html#a9acf97e934b39af05606c1b37c6ca3c3">wmoge::EventFileSystem</a>
@@ -195,13 +202,10 @@ $(function() {
 : <a class="el" href="structwmoge_1_1CanvasSharedData.html#adb0da452c1deff28bad91e1d224f61eb">wmoge::CanvasSharedData</a>
 </li>
 <li>plane()
-: <a class="el" href="classwmoge_1_1TFrustum.html#a46d3d1b5cf96df6b1b31dbf80f9c05e3">wmoge::TFrustum&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1TFrustum.html#ad377859107e552bdca077f35b5560464">wmoge::TFrustum&lt; T &gt;</a>
 </li>
 <li>Plane
 : <a class="el" href="classwmoge_1_1TFrustum.html#ac4a889e9e2ed5a54ed30fde5d34b6aa6">wmoge::TFrustum&lt; T &gt;</a>
-</li>
-<li>plane()
-: <a class="el" href="classwmoge_1_1TFrustum.html#ad377859107e552bdca077f35b5560464">wmoge::TFrustum&lt; T &gt;</a>
 </li>
 <li>PLANES_COUNT
 : <a class="el" href="classwmoge_1_1TFrustum.html#a60194b4e7b10a58b56e1342b09a4eca9">wmoge::TFrustum&lt; T &gt;</a>
@@ -212,7 +216,7 @@ $(function() {
 </li>
 <li>point()
 : <a class="el" href="classwmoge_1_1GfxDescSet.html#a40a8476aa4cd13dd8e0236f2e7e9da81">wmoge::GfxDescSet</a>
-, <a class="el" href="classwmoge_1_1TFrustum.html#afca9e0a603bbb89556403c644c3b3e5e">wmoge::TFrustum&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TFrustum.html#a876d7c36b470f51ad10a75c4eccba351">wmoge::TFrustum&lt; T &gt;</a>
 </li>
 <li>POINTS_COUNT
 : <a class="el" href="classwmoge_1_1TFrustum.html#a1e350b3d8b9fe6780b36aa517d6c4732">wmoge::TFrustum&lt; T &gt;</a>
@@ -240,8 +244,8 @@ $(function() {
 , <a class="el" href="structwmoge_1_1AuxDrawTriangles_1_1Triangle.html#a80d1438831707b7d1ccd8c8df1b99e2c">wmoge::AuxDrawTriangles::Triangle</a>
 , <a class="el" href="structwmoge_1_1CanvasVert.html#a5188fe3e24b776d8aaf588c7262963c2">wmoge::CanvasVert</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos2Col3.html#af383da5383eb4a31c80477b16c03cc91">wmoge::GfxVF_Pos2Col3</a>
+, <a class="el" href="structwmoge_1_1GfxVF__Pos2Uv2.html#a015132c92729fc10b3f608c2963d921a">wmoge::GfxVF_Pos2Uv2</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos2Uv2Col3.html#a43bc29702f428136560a898f517078c2">wmoge::GfxVF_Pos2Uv2Col3</a>
-, <a class="el" href="structwmoge_1_1GfxVF__Pos2Uv2Col4.html#a2a5867caf4fc79826a5271b9708b5af7">wmoge::GfxVF_Pos2Uv2Col4</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col3.html#a459658de895805838756f6129d9e09f3">wmoge::GfxVF_Pos3Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col4.html#adc4383829fbc370aca6e44ab16b11e44">wmoge::GfxVF_Pos3Col4</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col4Uv2.html#adfb48da44c6395aeae18b0939dfcca01">wmoge::GfxVF_Pos3Col4Uv2</a>
@@ -312,6 +316,7 @@ $(function() {
 </li>
 <li>primitive_id
 : <a class="el" href="structwmoge_1_1EcsComponentMeshStatic.html#aca03edfdfd7f51c248cd5a6ba1e68893">wmoge::EcsComponentMeshStatic</a>
+, <a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html#aa41066799fd59b46cf9b1044e7454854">wmoge::GraphicsPipelineTextures</a>
 , <a class="el" href="structwmoge_1_1SortableRenderCmd.html#af7d437c1f9a8f9ef1161dd6bfb6df2d8">wmoge::SortableRenderCmd</a>
 </li>
 <li>procces_visibility()
@@ -367,6 +372,7 @@ $(function() {
 </li>
 <li>project
 : <a class="el" href="structwmoge_1_1AuxDrawText.html#a1ab34b7d6f9d0cd4f8c91621cdb1fe25">wmoge::AuxDrawText</a>
+, <a class="el" href="classwmoge_1_1Math3d.html#aabc7e4984e767a1db599d0c3dfb917da">wmoge::Math3d</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a318ac2e6fa1d5c5c07baddd006f02a91">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>project_to_screen()

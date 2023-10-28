@@ -1,13 +1,40 @@
 <map id="engine/render/shader_manager.hpp" name="engine/render/shader_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="821,5,964,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,102,132,129"/>
-<area shape="rect" id="node3" href="$hgfx__pass__base_8cpp.html" title=" " alt="" coords="156,95,307,136"/>
-<area shape="rect" id="node4" href="$hgfx__pass__text_8cpp.html" title=" " alt="" coords="331,95,481,136"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="505,102,653,129"/>
-<area shape="rect" id="node6" href="$mesh__batch_8cpp.html" title=" " alt="" coords="678,102,873,129"/>
-<area shape="rect" id="node7" href="$mesh__processors_8cpp.html" title=" " alt="" coords="897,102,1123,129"/>
-<area shape="rect" id="node8" href="$canvas_8cpp.html" title=" " alt="" coords="1147,102,1318,129"/>
-<area shape="rect" id="node9" href="$render__engine_8cpp.html" title=" " alt="" coords="1343,95,1483,136"/>
-<area shape="rect" id="node10" href="$shader__manager_8cpp.html" title=" " alt="" coords="1507,95,1649,136"/>
-<area shape="rect" id="node11" href="$shader_8cpp.html" title=" " alt="" coords="1674,102,1855,129"/>
+<area shape="rect" id="node1" title=" " alt="" coords="2416,5,2559,47"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="1279,578,1405,605"/>
+<area shape="rect" id="node3" href="$hgfx__pass__base_8cpp.html" title=" " alt="" coords="2040,95,2191,136"/>
+<area shape="rect" id="node4" href="$hgfx__pass__text_8cpp.html" title=" " alt="" coords="2215,95,2365,136"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="1816,377,1964,404"/>
+<area shape="rect" id="node6" href="$mesh__batch_8cpp.html" title=" " alt="" coords="2390,102,2585,129"/>
+<area shape="rect" id="node7" href="$mesh__processors_8cpp.html" title=" " alt="" coords="2609,102,2835,129"/>
+<area shape="rect" id="node8" href="$canvas_8cpp.html" title=" " alt="" coords="2859,102,3030,129"/>
+<area shape="rect" id="node9" href="$graphics__pipeline_8hpp.html" title=" " alt="" coords="433,95,587,136"/>
+<area shape="rect" id="node36" href="$render__engine_8cpp.html" title=" " alt="" coords="3055,95,3195,136"/>
+<area shape="rect" id="node37" href="$shader__manager_8cpp.html" title=" " alt="" coords="3219,95,3361,136"/>
+<area shape="rect" id="node38" href="$shader_8cpp.html" title=" " alt="" coords="3386,102,3567,129"/>
+<area shape="rect" id="node10" href="$deferred__pipeline_8hpp.html" title=" " alt="" coords="628,184,779,225"/>
+<area shape="rect" id="node13" href="$pass__gbuffer_8cpp.html" title=" " alt="" coords="59,273,217,315"/>
+<area shape="rect" id="node14" href="$pass__gbuffer_8hpp.html" title=" " alt="" coords="234,184,391,225"/>
+<area shape="rect" id="node15" href="$graphics__pipeline_8cpp.html" title=" " alt="" coords="5,184,159,225"/>
+<area shape="rect" id="node16" href="$pass__tonemap_8hpp.html" title=" " alt="" coords="416,184,604,225"/>
+<area shape="rect" id="node18" href="$scene_8hpp.html" title=" " alt="" coords="1025,191,1187,218"/>
+<area shape="rect" id="node11" href="$deferred__pipeline_8cpp.html" title=" " alt="" coords="241,273,392,315"/>
+<area shape="rect" id="node12" href="$scene_8cpp.html" title=" " alt="" coords="629,281,791,307"/>
+<area shape="rect" id="node17" href="$pass__tonemap_8cpp.html" title=" " alt="" coords="416,273,604,315"/>
+<area shape="rect" id="node19" href="$scene__packed_8cpp.html" title=" " alt="" coords="1144,370,1297,411"/>
+<area shape="rect" id="node20" href="$scene__packed_8hpp.html" title=" " alt="" coords="1029,273,1183,315"/>
+<area shape="rect" id="node22" href="$scene__manager_8hpp.html" title=" " alt="" coords="1291,273,1430,315"/>
+<area shape="rect" id="node26" href="$lua__bindings__scene_8hpp.html" title=" " alt="" coords="1587,363,1740,419"/>
+<area shape="rect" id="node28" href="$scene__properties_8hpp.html" title=" " alt="" coords="866,273,1005,315"/>
+<area shape="rect" id="node31" href="$scene__tree_8hpp.html" title=" " alt="" coords="530,370,669,411"/>
+<area shape="rect" id="node21" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="889,571,1051,612"/>
+<area shape="rect" id="node23" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="1092,571,1245,612"/>
+<area shape="rect" id="node24" href="$scene__manager_8cpp.html" title=" " alt="" coords="1423,370,1562,411"/>
+<area shape="rect" id="node25" href="$scene__tree_8cpp.html" title=" " alt="" coords="501,571,639,612"/>
+<area shape="rect" id="node27" href="$lua__bindings__scene_8cpp.html" title=" " alt="" coords="1587,467,1740,523"/>
+<area shape="rect" id="node29" href="$register__classes__scene_8cpp.html" title=" " alt="" coords="786,474,933,515"/>
+<area shape="rect" id="node30" href="$scene__properties_8cpp.html" title=" " alt="" coords="693,370,831,411"/>
+<area shape="rect" id="node32" href="$prefab_8hpp.html" title=" " alt="" coords="583,481,762,508"/>
+<area shape="rect" id="node34" href="$scene__node_8cpp.html" title=" " alt="" coords="338,571,477,612"/>
+<area shape="rect" id="node35" href="$scene__tree__packed_8hpp.html" title=" " alt="" coords="1008,474,1161,515"/>
+<area shape="rect" id="node33" href="$prefab_8cpp.html" title=" " alt="" coords="663,578,842,605"/>
 </map>

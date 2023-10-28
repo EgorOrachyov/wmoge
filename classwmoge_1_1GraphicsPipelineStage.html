@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classwmoge_1_1GraphicsPipelineStage-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::GraphicsPipelineStage Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -74,17 +75,96 @@ $(function() {
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="graphics__pipeline_8hpp_source.html">graphics_pipeline.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for wmoge::GraphicsPipelineStage:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1GraphicsPipelineStage__inherit__graph.png" border="0" usemap="#awmoge_1_1GraphicsPipelineStage_inherit__map" alt="Inheritance graph"/></div>
+<map name="awmoge_1_1GraphicsPipelineStage_inherit__map" id="awmoge_1_1GraphicsPipelineStage_inherit__map">
+<area shape="rect" title=" " alt="" coords="63,5,265,32"/>
+<area shape="rect" href="classwmoge_1_1PassGBuffer.html" title="Executes gbuffer fill pass." alt="" coords="5,80,149,107"/>
+<area shape="rect" href="classwmoge_1_1PassToneMap.html" title="Executes tonemapping pass of hdr to ldr color target." alt="" coords="173,80,328,107"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for wmoge::GraphicsPipelineStage:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1GraphicsPipelineStage__coll__graph.png" border="0" usemap="#awmoge_1_1GraphicsPipelineStage_coll__map" alt="Collaboration graph"/></div>
+<map name="awmoge_1_1GraphicsPipelineStage_coll__map" id="awmoge_1_1GraphicsPipelineStage_coll__map">
+<area shape="rect" title=" " alt="" coords="1020,132,1223,159"/>
+<area shape="rect" href="classwmoge_1_1ShaderManager.html" title="Render module access to engine shaders." alt="" coords="690,5,851,32"/>
+<area shape="rect" href="classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="709,56,833,83"/>
+<area shape="rect" href="classwmoge_1_1RenderEngine.html" title="Global rendering engine responsible for visualization of render objects." alt="" coords="695,107,846,133"/>
+<area shape="rect" href="classwmoge_1_1GfxCtx.html" title="Gfx context interface." alt="" coords="716,157,825,184"/>
+<area shape="rect" href="classwmoge_1_1TextureManager.html" title="Manages allocation and streaming of all engine textures." alt="" coords="689,208,852,235"/>
+<area shape="rect" href="classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="687,259,855,285"/>
+<area shape="rect" href="classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="341,151,489,177"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="334,208,495,235"/>
+<area shape="rect" href="classwmoge_1_1RenderCameras.html" title="Cameras list for rendering." alt="" coords="333,259,496,285"/>
+<area shape="rect" href="structwmoge_1_1GraphicsPipelineTextures.html" title="Pipeline textures used during rendering." alt="" coords="305,309,524,336"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="5,243,164,269"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="10,369,159,410"/>
+<area shape="rect" href="classwmoge_1_1ArrayView.html" title=" " alt="" coords="328,361,501,402"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad63f27ba06859aa6d15741f86cfdf144"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#ad63f27ba06859aa6d15741f86cfdf144">GraphicsPipelineStage</a> ()</td></tr>
+<tr class="separator:ad63f27ba06859aa6d15741f86cfdf144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e8ce3e3cdc41573a9db6ae0b985f606"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a3e8ce3e3cdc41573a9db6ae0b985f606">~GraphicsPipelineStage</a> ()=default</td></tr>
 <tr class="separator:a3e8ce3e3cdc41573a9db6ae0b985f606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ded250306991837a794c1e66f6736d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a3ded250306991837a794c1e66f6736d0">set_pipeline</a> (class <a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a> *pipeline)</td></tr>
+<tr class="separator:a3ded250306991837a794c1e66f6736d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cce63b633eb7c97113fd22fb0d14d6c"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a5cce63b633eb7c97113fd22fb0d14d6c">get_name</a> () const =0</td></tr>
 <tr class="separator:a5cce63b633eb7c97113fd22fb0d14d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cb5da3356a60833bd5ea4463726441d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dc">GraphicsPipelineStageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a3cb5da3356a60833bd5ea4463726441d">get_type</a> () const =0</td></tr>
 <tr class="separator:a3cb5da3356a60833bd5ea4463726441d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a565ca3f1eb6a2d323cac35e3967487bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a565ca3f1eb6a2d323cac35e3967487bf">get_gfx_driver</a> () const</td></tr>
+<tr class="separator:a565ca3f1eb6a2d323cac35e3967487bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfad564846fd1fd9403dbd465d0c629c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#abfad564846fd1fd9403dbd465d0c629c">get_gfx_ctx</a> () const</td></tr>
+<tr class="separator:abfad564846fd1fd9403dbd465d0c629c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d931d775567ac5c4862912af59723f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a77d931d775567ac5c4862912af59723f">get_shader_manager</a> () const</td></tr>
+<tr class="separator:a77d931d775567ac5c4862912af59723f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a9b099fcc8da221e0254ad24fc3ea1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#ae9a9b099fcc8da221e0254ad24fc3ea1">get_tex_manager</a> () const</td></tr>
+<tr class="separator:ae9a9b099fcc8da221e0254ad24fc3ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab1f1affb51cc499f5de148087816be6"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1RenderEngine.html">RenderEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#aab1f1affb51cc499f5de148087816be6">get_render_engine</a> () const</td></tr>
+<tr class="separator:aab1f1affb51cc499f5de148087816be6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1188de8cb1920d44f3f9caa0b00f41f4"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a1188de8cb1920d44f3f9caa0b00f41f4">get_pipeline</a> () const</td></tr>
+<tr class="separator:a1188de8cb1920d44f3f9caa0b00f41f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ae7dac8e78deca313ad302e2119a2107d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#ae7dac8e78deca313ad302e2119a2107d">m_gfx_driver</a></td></tr>
+<tr class="separator:ae7dac8e78deca313ad302e2119a2107d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38ecd7a10ca606bbbcaab2992dd6daa3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a38ecd7a10ca606bbbcaab2992dd6daa3">m_gfx_ctx</a></td></tr>
+<tr class="separator:a38ecd7a10ca606bbbcaab2992dd6daa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd870d79138462d523f04227036571a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#afcd870d79138462d523f04227036571a">m_shader_manager</a></td></tr>
+<tr class="separator:afcd870d79138462d523f04227036571a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3462a38ce05e3ff78c745a714c1b9145"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a3462a38ce05e3ff78c745a714c1b9145">m_tex_manager</a></td></tr>
+<tr class="separator:a3462a38ce05e3ff78c745a714c1b9145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefa0b9667e832c2571fb1525938c5da"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1RenderEngine.html">RenderEngine</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#afefa0b9667e832c2571fb1525938c5da">m_render_engine</a></td></tr>
+<tr class="separator:afefa0b9667e832c2571fb1525938c5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2abe1615fa39be3b6ce95740f97a9239"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipelineStage.html#a2abe1615fa39be3b6ce95740f97a9239">m_pipeline</a></td></tr>
+<tr class="separator:a2abe1615fa39be3b6ce95740f97a9239"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad63f27ba06859aa6d15741f86cfdf144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad63f27ba06859aa6d15741f86cfdf144">&#9670;&nbsp;</a></span>GraphicsPipelineStage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::GraphicsPipelineStage::GraphicsPipelineStage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3e8ce3e3cdc41573a9db6ae0b985f606"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3e8ce3e3cdc41573a9db6ae0b985f606">&#9670;&nbsp;</a></span>~GraphicsPipelineStage()</h2>
 
@@ -111,6 +191,56 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="abfad564846fd1fd9403dbd465d0c629c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfad564846fd1fd9403dbd465d0c629c">&#9670;&nbsp;</a></span>get_gfx_ctx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a>* wmoge::GraphicsPipelineStage::get_gfx_ctx </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a565ca3f1eb6a2d323cac35e3967487bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a565ca3f1eb6a2d323cac35e3967487bf">&#9670;&nbsp;</a></span>get_gfx_driver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>* wmoge::GraphicsPipelineStage::get_gfx_driver </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a5cce63b633eb7c97113fd22fb0d14d6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5cce63b633eb7c97113fd22fb0d14d6c">&#9670;&nbsp;</a></span>get_name()</h2>
 
@@ -130,6 +260,108 @@ Public Member Functions</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1PassToneMap.html#adc6d81c34f60b200930f208aac3f2638">wmoge::PassToneMap</a>, and <a class="el" href="classwmoge_1_1PassGBuffer.html#afd964f5771b974d2adc653323b3e882a">wmoge::PassGBuffer</a>.</p>
+
+</div>
+</div>
+<a id="a1188de8cb1920d44f3f9caa0b00f41f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1188de8cb1920d44f3f9caa0b00f41f4">&#9670;&nbsp;</a></span>get_pipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a>* wmoge::GraphicsPipelineStage::get_pipeline </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab1f1affb51cc499f5de148087816be6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab1f1affb51cc499f5de148087816be6">&#9670;&nbsp;</a></span>get_render_engine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1RenderEngine.html">RenderEngine</a>* wmoge::GraphicsPipelineStage::get_render_engine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a77d931d775567ac5c4862912af59723f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d931d775567ac5c4862912af59723f">&#9670;&nbsp;</a></span>get_shader_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a>* wmoge::GraphicsPipelineStage::get_shader_manager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9a9b099fcc8da221e0254ad24fc3ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9a9b099fcc8da221e0254ad24fc3ea1">&#9670;&nbsp;</a></span>get_tex_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a>* wmoge::GraphicsPipelineStage::get_tex_manager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -159,10 +391,164 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Implemented in <a class="el" href="classwmoge_1_1PassToneMap.html#ad3e728b3489e5fb6b921ffa250646db9">wmoge::PassToneMap</a>, and <a class="el" href="classwmoge_1_1PassGBuffer.html#a1a012498b73a77f97979c3cb18788674">wmoge::PassGBuffer</a>.</p>
+
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a id="a3ded250306991837a794c1e66f6736d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ded250306991837a794c1e66f6736d0">&#9670;&nbsp;</a></span>set_pipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::GraphicsPipelineStage::set_pipeline </td>
+          <td>(</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a> *&#160;</td>
+          <td class="paramname"><em>pipeline</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a38ecd7a10ca606bbbcaab2992dd6daa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38ecd7a10ca606bbbcaab2992dd6daa3">&#9670;&nbsp;</a></span>m_gfx_ctx</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a>* wmoge::GraphicsPipelineStage::m_gfx_ctx</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7dac8e78deca313ad302e2119a2107d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7dac8e78deca313ad302e2119a2107d">&#9670;&nbsp;</a></span>m_gfx_driver</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>* wmoge::GraphicsPipelineStage::m_gfx_driver</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2abe1615fa39be3b6ce95740f97a9239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2abe1615fa39be3b6ce95740f97a9239">&#9670;&nbsp;</a></span>m_pipeline</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a>* wmoge::GraphicsPipelineStage::m_pipeline</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afefa0b9667e832c2571fb1525938c5da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afefa0b9667e832c2571fb1525938c5da">&#9670;&nbsp;</a></span>m_render_engine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1RenderEngine.html">RenderEngine</a>* wmoge::GraphicsPipelineStage::m_render_engine</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcd870d79138462d523f04227036571a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcd870d79138462d523f04227036571a">&#9670;&nbsp;</a></span>m_shader_manager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a>* wmoge::GraphicsPipelineStage::m_shader_manager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3462a38ce05e3ff78c745a714c1b9145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3462a38ce05e3ff78c745a714c1b9145">&#9670;&nbsp;</a></span>m_tex_manager</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a>* wmoge::GraphicsPipelineStage::m_tex_manager</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>engine/render/<a class="el" href="graphics__pipeline_8hpp_source.html">graphics_pipeline.hpp</a></li>
+<li>engine/render/<a class="el" href="graphics__pipeline_8cpp.html">graphics_pipeline.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
