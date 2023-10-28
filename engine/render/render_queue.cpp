@@ -59,7 +59,7 @@ namespace wmoge {
         std::sort(m_queue.begin(), m_queue.end());
     }
 
-    int RenderQueue::execute(GfxCtx* gfx_ctx) {
+    int RenderQueue::execute(GfxCtx* gfx_ctx) const {
         WG_AUTO_PROFILE_RENDER("RenderQueue::execute");
 
         int num_executed = 0;

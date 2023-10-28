@@ -165,14 +165,36 @@ namespace wmoge {
 
         m_current_name = name;
     }
-    void VKRenderPassBinder::validate() {
+    void VKRenderPassBinder::validate(VkCommandBuffer cmd) {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::validate");
 
         prepare_render_pass();
         prepare_framebuffer();
+
+        for (auto& target : m_color_targets) {
+            if (target.texture) {
+                target.texture->transition_layout(cmd, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+            }
+        }
+
+        if (m_depth_stencil_target.texture) {
+            m_depth_stencil_target.texture->transition_layout(cmd, VKDefs::rt_layout_from_fmt(m_depth_stencil_target.texture->format()));
+        }
     }
-    void VKRenderPassBinder::finish() {
+    void VKRenderPassBinder::finish(VkCommandBuffer cmd) {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::finish");
+
+        for (auto& target : m_color_targets) {
+            if (target.texture) {
+                target.texture->transition_layout(cmd, target.texture->primary_layout());
+                target = VKTargetInfo();
+            }
+        }
+
+        if (m_depth_stencil_target.texture) {
+            m_depth_stencil_target.texture->transition_layout(cmd, m_depth_stencil_target.texture->primary_layout());
+            m_depth_stencil_target = VKTargetInfo();
+        }
 
         m_current_render_pass.reset();
         m_current_framebuffer.reset();

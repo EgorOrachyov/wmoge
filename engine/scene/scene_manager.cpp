@@ -202,7 +202,8 @@ namespace wmoge {
         WindowManager* window_manager = engine->window_manager();
         Ref<Window>    window         = window_manager->primary_window();
 
-        Scene* scene = m_running.get();
+        Scene*            scene             = m_running.get();
+        GraphicsPipeline* graphics_pipeline = scene->get_graphics_pipeline();
 
         render_engine->begin_rendering();
 
@@ -221,17 +222,10 @@ namespace wmoge {
         render_engine->merge_cmds();
         render_engine->flush_buffers();
 
-        gfx_ctx->execute([&](GfxCtx* thread_ctx) {
-            thread_ctx->begin_render_pass({}, SID("PassGeomGBuffer::execute"));
-            {
-                thread_ctx->bind_target(render_engine->get_main_target());
-                thread_ctx->viewport(render_engine->get_cameras().data_at(0).viewport);
-                thread_ctx->clear(0, render_engine->get_clear_color());
-                thread_ctx->clear(1.0f, 0);
-                render_engine->get_views()[0].queues[int(MeshPassType::GBuffer)].execute(thread_ctx);
-            }
-            thread_ctx->end_render_pass();
-        });
+        graphics_pipeline->set_scene(scene->get_render_scene());
+        graphics_pipeline->set_cameras(&render_engine->get_cameras());
+        graphics_pipeline->set_views(render_engine->get_views());
+        graphics_pipeline->exectute();
 
         render_engine->end_rendering();
     }
@@ -278,6 +272,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_start");
 
         m_running->set_state(SceneState::Playing);
+        m_running->get_graphics_pipeline()->init();
     }
 
     void SceneManager::scene_play() {

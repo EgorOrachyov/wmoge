@@ -45,6 +45,7 @@
 #include "shaders/generated/auto_canvas_pass.hpp"
 #include "shaders/generated/auto_material_pass.hpp"
 #include "shaders/generated/auto_text_pass.hpp"
+#include "shaders/generated/auto_tonemap_pass.hpp"
 
 #include <array>
 #include <sstream>
@@ -355,6 +356,7 @@ namespace wmoge {
         register_pass(std::make_unique<ShaderPassText>());
         register_pass(std::make_unique<ShaderPassCanvas>());
         register_pass(std::make_unique<ShaderPassMaterial>());
+        register_pass(std::make_unique<ShaderPassTonemap>());
     }
     void ShaderManager::load_sources_from_disk() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_disk");

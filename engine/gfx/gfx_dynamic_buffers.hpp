@@ -48,11 +48,17 @@ namespace wmoge {
         ~GfxUniformPool() override = default;
 
         virtual GfxUniformBufferSetup allocate(int constants_size, const void* mem);
-        virtual void                  recycle();
+        virtual void                  configure(GfxUniformBufferSetup& setup, int constants_size, const void* mem);
+        virtual void                  resycle_allocations();
 
         template<typename ConstantsStructure>
         GfxUniformBufferSetup allocate(const ConstantsStructure& constants) {
             return allocate(int(sizeof(ConstantsStructure)), &constants);
+        }
+
+        template<typename ConstantsStructure>
+        GfxUniformBufferSetup configure(GfxUniformBufferSetup& setup, const ConstantsStructure& constants) {
+            return configure(setup, int(sizeof(ConstantsStructure)), &constants);
         }
 
     private:

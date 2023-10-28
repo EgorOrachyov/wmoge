@@ -138,7 +138,6 @@ namespace wmoge {
         static VkImageLayout rt_layout_from_fmt(GfxFormat fmt) {
             switch (fmt) {
                 case GfxFormat::DEPTH32F:
-                    return VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
                 case GfxFormat::DEPTH24_STENCIL8:
                 case GfxFormat::DEPTH32F_STENCIL8:
                     return VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
@@ -419,6 +418,10 @@ namespace wmoge {
                 case GfxFormat::RG32F:
                 case GfxFormat::RGB32F:
                 case GfxFormat::RGBA32F:
+                case GfxFormat::R32I:
+                case GfxFormat::RG32I:
+                case GfxFormat::RGB32I:
+                case GfxFormat::RGBA32I:
                 case GfxFormat::BC1_RGB:
                 case GfxFormat::BC1_RGB_SRGB:
                 case GfxFormat::BC1_RGBA:

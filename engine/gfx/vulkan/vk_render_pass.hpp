@@ -103,8 +103,8 @@ namespace wmoge {
         void clear_stencil();
 
         void start(const StringId& name);
-        void validate();
-        void finish();
+        void validate(VkCommandBuffer cmd);
+        void finish(VkCommandBuffer cmd);
 
         [[nodiscard]] const Ref<VKRenderPass>&        render_pass() const { return m_current_render_pass; }
         [[nodiscard]] const Ref<VKFramebufferObject>& framebuffer() const { return m_current_framebuffer; }

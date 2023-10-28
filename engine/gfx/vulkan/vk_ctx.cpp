@@ -197,7 +197,8 @@ namespace wmoge {
         assert(pass_desc == GfxRenderPassDesc{});// not supported pass desc yet
 
         m_render_pass_binder->start(name);
-        m_in_render_pass = true;
+        m_in_render_pass   = true;
+        m_render_pass_name = name;
     }
     void VKCtx::bind_target(const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_target");
@@ -374,7 +375,7 @@ namespace wmoge {
         WG_VK_END_LABEL(cmd_current());
         vkCmdEndRenderPass(cmd_current());
 
-        m_render_pass_binder->finish();
+        m_render_pass_binder->finish(cmd_current());
         m_current_pass.reset();
         m_current_pipeline.reset();
         m_current_shader.reset();
@@ -431,7 +432,7 @@ namespace wmoge {
 
         if (!m_render_pass_started) {
             // Potentially recreate make pass and framebuffer
-            m_render_pass_binder->validate();
+            m_render_pass_binder->validate(cmd_current());
             m_current_pass = m_render_pass_binder->render_pass();
 
             std::array<VkClearValue, GfxLimits::MAX_COLOR_TARGETS + 1> clear_values{};
@@ -467,7 +468,7 @@ namespace wmoge {
             render_pass_info.pClearValues    = clear_values.data();
 
             vkCmdBeginRenderPass(cmd_current(), &render_pass_info, VK_SUBPASS_CONTENTS_INLINE);
-            WG_VK_BEGIN_LABEL(cmd_current(), m_current_pass->name());
+            WG_VK_BEGIN_LABEL(cmd_current(), m_render_pass_name);
 
             VkViewport viewport;
             viewport.x        = static_cast<float>(m_viewport.x());

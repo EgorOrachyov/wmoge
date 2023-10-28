@@ -221,11 +221,11 @@ namespace wmoge {
             get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
         } else if (m_current_layout == VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL) {
             barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+            src_stage_flags       = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
             get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
         } else if (m_current_layout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) {
             barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+            src_stage_flags       = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
             get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
         } else if (m_current_layout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
             barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;

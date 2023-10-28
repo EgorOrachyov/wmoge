@@ -41,6 +41,15 @@ namespace wmoge {
 
     RenderEngine::RenderEngine() {
         WG_LOG_INFO("init render engine");
+
+        m_fullscreen_tria.resize(3);
+        m_fullscreen_tria[0].pos = Vec2f(-1, -1);
+        m_fullscreen_tria[0].uv  = Vec2f(0, 0);
+        m_fullscreen_tria[1].pos = Vec2f(-1, 3);
+        m_fullscreen_tria[1].uv  = Vec2f(0, 2);
+        m_fullscreen_tria[2].pos = Vec2f(3, -1);
+        m_fullscreen_tria[2].uv  = Vec2f(2, 0);
+        m_fullscreen_tria.flush(Engine::instance()->gfx_ctx());
     }
 
     void RenderEngine::set_time(float time) {
@@ -113,7 +122,9 @@ namespace wmoge {
         Mat4x4f    gfx_clip   = gfx_driver->clip_matrix();
 
         for (int view_idx = 0; view_idx < int(m_cameras.get_size()); view_idx++) {
-            RenderView&             view   = m_views[view_idx];
+            RenderView& view = m_views[view_idx];
+            view.index       = view_idx;
+
             const RenderCameraData& camera = m_cameras.data_at(view_idx);
 
             if (!view.view_data) {

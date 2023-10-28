@@ -34,7 +34,7 @@ vec4 SampleImage(in int idx, in vec2 uv) {
     if (idx == 2) {
         return texture(CanvasImage2, uv).rgba;
     }
-    if (idx == 4) {
+    if (idx == 3) {
         return texture(CanvasImage3, uv).rgba;
     }
 

@@ -203,6 +203,18 @@ namespace wmoge {
                            0.0f, 0.0f, 0.0f, 1.0f);
         }
 
+        static Vec3f project(const Mat4x4f& mat, const Vec3f& point) {
+            const Vec4f world_space = mat * Vec4f(point, 1.0f);
+            const Vec4f ndc         = world_space / world_space.w();
+            return Vec3f(ndc);
+        }
+
+        static Vec2f to_viewport(const Vec4f& viewport, const Vec2f& point) {
+            const Vec2f pos  = Vec2f(viewport.x(), viewport.y());
+            const Vec2f size = Vec2f(viewport.z(), viewport.w()) - pos;
+            return pos + size * (point * 0.5f + Vec2f(0.5f, 0.5f));
+        }
+
         static Vec2f project_to_screen(const Mat4x4f& mat, const Vec2f& area, const Vec3f& point) {
             const Vec4f world_space = mat * Vec4f(point, 1.0f);
             const Vec4f ndc         = world_space / world_space.w();

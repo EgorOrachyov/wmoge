@@ -49,7 +49,7 @@ namespace wmoge {
 
         fast_vector<std::string> defines;
         {
-            defines.push_back("PASS_GBUFFER");
+            defines.push_back("MESH_PASS_GBUFFER");
         }
 
         GfxVertAttribs attribs;

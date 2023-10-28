@@ -43,20 +43,22 @@ namespace wmoge {
         ShaderManager* shader_manager = engine->shader_manager();
         GfxDriver*     gfx_driver     = engine->gfx_driver();
 
-        fast_vector<std::string> defines;
-        if (out_srgb) defines.push_back("OUT_SRGB");
+        if (!m_pipeline) {
+            fast_vector<std::string> defines;
+            if (out_srgb) defines.push_back("OUT_SRGB");
 
-        GfxVertAttribs attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
+            GfxVertAttribs attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
 
-        GfxVertElements elements;
-        elements.add_vert_attribs(attribs, attribs, 0, false);
+            GfxVertElements elements;
+            elements.add_vert_attribs(attribs, attribs, 0, false);
 
-        GfxPipelineState pipeline_state{};
-        pipeline_state.shader      = shader_manager->get_shader(SID("text"), attribs, defines);
-        pipeline_state.vert_format = gfx_driver->make_vert_format(elements, name);
-        pipeline_state.blending    = true;
+            GfxPipelineState pipeline_state{};
+            pipeline_state.shader      = shader_manager->get_shader(SID("text"), attribs, defines);
+            pipeline_state.vert_format = gfx_driver->make_vert_format(elements, name);
+            pipeline_state.blending    = true;
 
-        m_pipeline = gfx_driver->make_pipeline(pipeline_state, name);
+            m_pipeline = gfx_driver->make_pipeline(pipeline_state, name);
+        }
 
         ShaderText::Params params;
         params.mat_clip_proj_screen = (gfx_driver->clip_matrix() * Math3d::orthographic(0.0f, screen_size.x(), 0, screen_size.y(), -1000.0f, 1000.0f)).transpose();

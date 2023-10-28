@@ -35,6 +35,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils.hpp"
 
+#include "gfx_dynamic_buffers.hpp"
 #include <cassert>
 #include <cstring>
 
@@ -81,7 +82,23 @@ namespace wmoge {
 
         return setup;
     }
-    void GfxUniformPool::recycle() {
+
+    void GfxUniformPool::configure(GfxUniformBufferSetup& setup, int constants_size, const void* mem) {
+        if (!setup.buffer) {
+            setup = allocate(constants_size, mem);
+            return;
+        }
+
+        auto* engine  = Engine::instance();
+        auto* gfx_ctx = engine->gfx_ctx();
+
+        auto  buffer   = Ref<GfxUniformBuffer>(setup.buffer);
+        void* host_ptr = gfx_ctx->map_uniform_buffer(buffer);
+        std::memcpy(host_ptr, mem, constants_size);
+        gfx_ctx->unmap_uniform_buffer(buffer);
+    }
+
+    void GfxUniformPool::resycle_allocations() {
         std::lock_guard guard(m_mutex);
 
         for (Bucket& bucket : m_buckets) {

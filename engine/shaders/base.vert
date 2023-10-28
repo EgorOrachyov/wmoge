@@ -7,8 +7,6 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#version 450 core
-
 #include "inout_attributes.glsl"
 #include "vertex_attributes.glsl"
 #include "common_defines.glsl"

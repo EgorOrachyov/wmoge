@@ -21,11 +21,11 @@
     #error "Must be defined"
 #endif
 
-#if defined(ATTRIB_Pos3f) || defined(ATTRIB_Pos2f) 
+#if !defined(INOUT_DISABLE_POS) && (defined(ATTRIB_Pos3f) || defined(ATTRIB_Pos2f))
     LAYOUT_LOCATION( 0) INOUT vec3 inout_worldPos;
 #endif
 
-#ifdef ATTRIB_Norm3f
+#if !defined(INOUT_DISABLE_NORM) && defined(ATTRIB_Norm3f)
     LAYOUT_LOCATION( 1) INOUT vec3 inout_worldNorm;
 #endif
 

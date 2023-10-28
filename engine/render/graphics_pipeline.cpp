@@ -27,6 +27,64 @@
 
 #include "graphics_pipeline.hpp"
 
+#include "core/engine.hpp"
+
 namespace wmoge {
 
-}
+    void GraphicsPipelineTextures::resize(Size2i new_target_resoulution) {
+        Engine*    engine     = Engine::instance();
+        GfxDriver* gfx_driver = engine->gfx_driver();
+
+        const Size2i       size         = new_target_resoulution;
+        const GfxTexUsages usages       = {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling};
+        const GfxTexUsages depth_usages = {GfxTexUsageFlag::DepthTarget, GfxTexUsageFlag::Sampling};
+
+        depth        = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::DEPTH32F, depth_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("depth"));
+        primitive_id = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::R32I, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("primitive_id"));
+        gbuffer[0]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[0]"));
+        gbuffer[1]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[1]"));
+        gbuffer[2]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[2]"));
+
+        target_viewport = Rect2i(0, 0, new_target_resoulution.x(), new_target_resoulution.y());
+    }
+
+    void GraphicsPipelineTextures::update_viewport(Size2i new_resoulution) {
+        viewport = Rect2i(0, 0, new_resoulution.x(), new_resoulution.y());
+    }
+
+    GraphicsPipelineStage::GraphicsPipelineStage() {
+        Engine* engine = Engine::instance();
+
+        m_gfx_driver     = engine->gfx_driver();
+        m_gfx_ctx        = engine->gfx_ctx();
+        m_shader_manager = engine->shader_manager();
+        m_tex_manager    = engine->texture_manager();
+        m_render_engine  = engine->render_engine();
+    }
+
+    void GraphicsPipelineStage::set_pipeline(GraphicsPipeline* pipeline) {
+        m_pipeline = pipeline;
+    }
+
+    void GraphicsPipeline::set_scene(RenderScene* scene) {
+        m_scene = scene;
+    }
+    void GraphicsPipeline::set_cameras(RenderCameras* cameras) {
+        m_cameras = cameras;
+    }
+    void GraphicsPipeline::set_views(ArrayView<struct RenderView> views) {
+        m_views = views;
+    }
+
+    void GraphicsPipeline::set_target_resolution(Size2i resolution) {
+        m_target_resolution = resolution;
+        m_textures.resize(m_target_resolution);
+        m_textures.update_viewport(m_resolution);
+    }
+
+    void GraphicsPipeline::set_resolution(Size2i resolution) {
+        m_resolution = resolution;
+        m_textures.update_viewport(m_resolution);
+    }
+
+}// namespace wmoge

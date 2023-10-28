@@ -263,6 +263,8 @@ add_library(wmoge STATIC
         render/aux_draw_manager.hpp
         render/canvas.cpp
         render/canvas.hpp
+        render/deferred_pipeline.cpp
+        render/deferred_pipeline.hpp
         render/graphics_pipeline.cpp
         render/graphics_pipeline.hpp
         render/render_camera.cpp
@@ -295,6 +297,10 @@ add_library(wmoge STATIC
         render/vertex_factory.hpp
         render/visibility.cpp
         render/visibility.hpp
+        render/geometry/pass_gbuffer.cpp
+        render/geometry/pass_gbuffer.hpp
+        render/post_process/pass_tonemap.cpp
+        render/post_process/pass_tonemap.hpp
         resource/audio_stream.cpp
         resource/audio_stream.hpp
         resource/audio_stream_wav.cpp

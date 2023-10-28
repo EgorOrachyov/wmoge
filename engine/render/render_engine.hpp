@@ -34,6 +34,8 @@
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
+#include "gfx/gfx_vector.hpp"
+#include "gfx/gfx_vert_format.hpp"
 #include "math/color.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_pass.hpp"
@@ -61,6 +63,7 @@ namespace wmoge {
         std::array<RenderQueue, QUEUE_COUNT> queues;
         Ref<GfxUniformBuffer>                view_data;
         Ref<GfxDescSet>                      view_set;
+        int                                  index = 0;
     };
 
     /**
@@ -119,6 +122,7 @@ namespace wmoge {
         [[nodiscard]] const Ref<Window>&                 get_main_target() const { return m_main_target; }
         [[nodiscard]] const Ref<GfxUniformBuffer>&       get_frame_data() const { return m_frame_data; }
         [[nodiscard]] const std::optional<RenderCamera>& get_camera_prev() const { return m_camera_prev; }
+        [[nodiscard]] const Ref<GfxVertBuffer>&          get_fullscreen_tria() const { return m_fullscreen_tria.get_buffer(); };
 
     private:
         std::array<RenderView, RenderLimits::MAX_VIEWS> m_views;
@@ -128,6 +132,7 @@ namespace wmoge {
         MeshRenderCmdMerger                             m_cmd_merger;
         RenderCameras                                   m_cameras;
         RenderCmdAllocator                              m_cmd_allocator;
+        GfxVector<GfxVF_Pos2Uv2, GfxVertBuffer>         m_fullscreen_tria;
 
         Color4f                     m_clear_color = Color::BLACK4f;
         Ref<Window>                 m_main_target;

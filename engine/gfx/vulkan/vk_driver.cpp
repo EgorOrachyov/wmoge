@@ -418,7 +418,7 @@ namespace wmoge {
             m_ctx_async->begin_frame();
         }
 
-        m_uniform_pool->recycle();
+        m_uniform_pool->resycle_allocations();
     }
     void VKDriver::end_frame() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");

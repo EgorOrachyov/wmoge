@@ -18,4 +18,5 @@ struct ShaderInoutVs {
 
 void InitShaderInoutVs(inout ShaderInoutVs vs) {
     vs.attributes = ReadVertexAttributes();
+    vs.result.primitiveId = vs.attributes.primitiveId;
 }

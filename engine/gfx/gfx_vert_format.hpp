@@ -82,28 +82,50 @@ namespace wmoge {
         virtual const GfxVertElements& elements() const = 0;
     };
 
+    /**
+     * @brief Vert Format: [pos2, uv2, col3,]
+    */
     struct GfxVF_Pos2Uv2Col3 {
         Vec2f pos;
         Vec2f uv;
         Vec3f col;
     };
+
+    /**
+     * @brief Vert Format: [pos3, col3,]
+    */
     struct GfxVF_Pos3Col3 {
         Vec3f pos;
         Vec3f col;
     };
-    struct GfxVF_Pos2Uv2Col4 {
+
+    /**
+     * @brief Vert Format: []
+    */
+    struct GfxVF_Pos2Uv2 {
         Vec2f pos;
         Vec2f uv;
-        Vec4f col;
     };
+
+    /**
+     * @brief Vert Format: []
+    */
     struct GfxVF_Pos2Col3 {
         Vec2f pos;
         Vec3f col;
     };
+
+    /**
+     * @brief Vert Format: []
+    */
     struct GfxVF_Pos3Col4 {
         Vec3f pos;
         Vec4f col;
     };
+
+    /**
+     * @brief Vert Format: []
+    */
     struct GfxVF_Pos3Col4Uv2 {
         Vec3f pos;
         Vec4f col;
@@ -112,7 +134,7 @@ namespace wmoge {
 
     static_assert(sizeof(GfxVF_Pos2Uv2Col3) == 7 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos3Col3) == 6 * sizeof(float), "unexpected size");
-    static_assert(sizeof(GfxVF_Pos2Uv2Col4) == 8 * sizeof(float), "unexpected size");
+    static_assert(sizeof(GfxVF_Pos2Uv2) == 4 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos2Col3) == 5 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos3Col4) == 7 * sizeof(float), "unexpected size");
     static_assert(sizeof(GfxVF_Pos3Col4Uv2) == 9 * sizeof(float), "unexpected size");

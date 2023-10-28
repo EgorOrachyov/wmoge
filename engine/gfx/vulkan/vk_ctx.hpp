@@ -129,10 +129,11 @@ namespace wmoge {
         int                                                        m_clear_stencil = 0;
         Rect2i                                                     m_viewport;
 
-        bool m_in_render_pass      = false;
-        bool m_render_pass_started = false;
-        bool m_pipeline_bound      = false;
-        bool m_target_bound        = false;
+        bool     m_in_render_pass      = false;
+        bool     m_render_pass_started = false;
+        bool     m_pipeline_bound      = false;
+        bool     m_target_bound        = false;
+        StringId m_render_pass_name;
 
         GfxCtxType m_ctx_type = GfxCtxType::Immediate;
         Mat4x4f    m_clip_matrix;

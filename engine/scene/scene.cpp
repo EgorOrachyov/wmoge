@@ -27,6 +27,7 @@
 
 #include "scene.hpp"
 
+#include "render/deferred_pipeline.hpp"
 #include "scene/scene_components.hpp"
 
 namespace wmoge {
@@ -98,6 +99,7 @@ namespace wmoge {
         m_cameras           = std::make_unique<CameraManager>();
         m_visibility_system = std::make_unique<VisibilitySystem>();
         m_render_scene      = std::make_unique<RenderScene>();
+        m_graphics_pipeline = std::make_unique<DeferredPipeline>();
     }
     Status Scene::build(const SceneData& data) {
         return StatusCode::Ok;
@@ -149,6 +151,9 @@ namespace wmoge {
     }
     RenderScene* Scene::get_render_scene() {
         return m_render_scene.get();
+    }
+    GraphicsPipeline* Scene::get_graphics_pipeline() {
+        return m_graphics_pipeline.get();
     }
 
 }// namespace wmoge

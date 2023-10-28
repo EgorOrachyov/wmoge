@@ -67,7 +67,7 @@ public:
         Engine::instance()->scene_manager()->change(scene);
 
         auto shader  = Engine::instance()->resource_manager()->load(SID("res://shaders/test_shader")).cast<Shader>();
-        auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {});
+        auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {"MESH_PASS_GBUFFER"});
 
         while (variant->status() == GfxShaderStatus::Compiling) {
             WG_LOG_INFO("waiting for " << variant->name() << " compilation...");

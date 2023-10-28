@@ -142,7 +142,7 @@ namespace wmoge {
         void push(const SortableRenderCmd& cmd);
         void clear();
         void sort();
-        int  execute(GfxCtx* gfx_ctx);
+        int  execute(GfxCtx* gfx_ctx) const;
 
         [[nodiscard]] std::vector<SortableRenderCmd>& get_queue();
         [[nodiscard]] const SortableRenderCmd&        get_cmd(std::size_t index) const;
