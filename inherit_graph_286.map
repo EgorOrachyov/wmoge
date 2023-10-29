@@ -1,3 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ResourceMeta.html" title="Meta information of a particular resource." alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="5,157,171,184"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoaderAssimp.html" title="Loader for a mesh an animation data based on assimp library." alt="" coords="233,5,443,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ResourceLoaderDefault.html" title="Loader for default single&#45;file resources stored in yaml format." alt="" coords="235,56,441,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1ResourceLoaderFreeType.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="229,107,447,133"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ResourceLoaderImage.html" title="Loader for images through stb image library." alt="" coords="237,157,439,184"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1ResourceLoaderTexture2d.html" title="Loader for 2d textures through stb image library." alt="" coords="227,208,449,235"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1ResourceLoaderTextureCube.html" title="Loader for cube&#45;map textures through stb image library." alt="" coords="219,259,457,285"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1ResourceLoaderWav.html" title="Loader for wav audio sources using audio file library." alt="" coords="243,309,433,336"/>
 </map>

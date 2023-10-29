@@ -93,6 +93,8 @@ Inheritance diagram for wmoge::GfxCtx:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abb597afef54a127e0a06a1daa380d5f8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#abb597afef54a127e0a06a1daa380d5f8">~GfxCtx</a> ()=default</td></tr>
 <tr class="separator:abb597afef54a127e0a06a1daa380d5f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60e9a9c036e3f184c912c42cebe7695"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#ad60e9a9c036e3f184c912c42cebe7695">update_desc_set</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> &gt; &amp;set, const <a class="el" href="namespacewmoge.html#ae5c25b7cf9fc8c447e4652a0c4402a67">GfxDescSetResources</a> &amp;resources)=0</td></tr>
+<tr class="separator:ad60e9a9c036e3f184c912c42cebe7695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39805c2379835bccbd53d10274985871"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a39805c2379835bccbd53d10274985871">update_vert_buffer</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> &gt; &amp;buffer, int offset, int range, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;data)=0</td></tr>
 <tr class="separator:a39805c2379835bccbd53d10274985871"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b3e24008604078055411d62b2d2a10e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a7b3e24008604078055411d62b2d2a10e">update_index_buffer</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxIndexBuffer.html">GfxIndexBuffer</a> &gt; &amp;buffer, int offset, int range, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;data)=0</td></tr>
@@ -161,6 +163,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a69d25674325bf8d5b05c78a54b87e852"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9e28a4612ccafbcc4a6e759790c8a05"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#aa9e28a4612ccafbcc4a6e759790c8a05">end_frame</a> ()=0</td></tr>
 <tr class="separator:aa9e28a4612ccafbcc4a6e759790c8a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2f81cdd21e23936bc17fd08fea2b7c4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#ae2f81cdd21e23936bc17fd08fea2b7c4">begin_label</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;label)=0</td></tr>
+<tr class="separator:ae2f81cdd21e23936bc17fd08fea2b7c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7483eaa9e35c31c80bc5acc1e9e6de2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#ad7483eaa9e35c31c80bc5acc1e9e6de2">end_label</a> ()=0</td></tr>
+<tr class="separator:ad7483eaa9e35c31c80bc5acc1e9e6de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a194ef1edfadabb54700d75458f6eba"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a3a194ef1edfadabb54700d75458f6eba">clip_matrix</a> () const =0</td></tr>
 <tr class="separator:a3a194ef1edfadabb54700d75458f6eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc4a4a527618845b3a7b9d8bd1be5d3c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a5c15081db76c210d617947ba5cf10016">GfxCtxType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#acc4a4a527618845b3a7b9d8bd1be5d3c">ctx_type</a> () const =0</td></tr>
@@ -220,6 +226,34 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#a05c1e386da58eabb92275697c559ce20">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a65e2e5f94bf6edcf0adfcfa2545c957e">wmoge::GfxCtxWrapper</a>.</p>
+
+</div>
+</div>
+<a id="ae2f81cdd21e23936bc17fd08fea2b7c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2f81cdd21e23936bc17fd08fea2b7c4">&#9670;&nbsp;</a></span>begin_label()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::GfxCtx::begin_label </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
+          <td class="paramname"><em>label</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#a5c4efcce4ecb11ec3031a152e45c0674">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a2660bf51476f20adfc5ee102dc42ea91">wmoge::GfxCtxWrapper</a>.</p>
 
 </div>
 </div>
@@ -820,6 +854,33 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ad7483eaa9e35c31c80bc5acc1e9e6de2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7483eaa9e35c31c80bc5acc1e9e6de2">&#9670;&nbsp;</a></span>end_label()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::GfxCtx::end_label </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#ace1df130375cdcedda9b7bd5ec5440a3">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#ab9489407041d082ddcb35ae544d7024d">wmoge::GfxCtxWrapper</a>.</p>
+
+</div>
+</div>
 <a id="a97f26f624645f89c9ac3d54d67cf170f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97f26f624645f89c9ac3d54d67cf170f">&#9670;&nbsp;</a></span>end_render_pass()</h2>
 
@@ -1123,6 +1184,44 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#a5ed6da026b98d3972f9ace91450d960d">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a9a1b44322674767dfb4a74e2efc8a3e0">wmoge::GfxCtxWrapper</a>.</p>
+
+</div>
+</div>
+<a id="ad60e9a9c036e3f184c912c42cebe7695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad60e9a9c036e3f184c912c42cebe7695">&#9670;&nbsp;</a></span>update_desc_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::GfxCtx::update_desc_set </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#ae5c25b7cf9fc8c447e4652a0c4402a67">GfxDescSetResources</a> &amp;&#160;</td>
+          <td class="paramname"><em>resources</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#aa7a46125bbf1ee1c76c313ac342ac37b">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a3b30c9ebd2242385c6e22d959f8eef97">wmoge::GfxCtxWrapper</a>.</p>
 
 </div>
 </div>

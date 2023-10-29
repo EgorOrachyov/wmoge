@@ -86,8 +86,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a938fda0e046a589db2127c151692dec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f29f837570f0be021ce365e74973531"><td class="memItemLeft" align="right" valign="top">VkDescriptorSet&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a4f29f837570f0be021ce365e74973531">allocate</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKDescSetLayout.html">VKDescSetLayout</a> &gt; &amp;layout)</td></tr>
 <tr class="separator:a4f29f837570f0be021ce365e74973531"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbe66e5dfa268b3891a208b09e930933"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#afbe66e5dfa268b3891a208b09e930933">free</a> (VkDescriptorSet set)</td></tr>
-<tr class="separator:afbe66e5dfa268b3891a208b09e930933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a510e5021d34376aca097df4753ec5da5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKDescManager.html#a510e5021d34376aca097df4753ec5da5">free</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKDescSetLayout.html">VKDescSetLayout</a> &gt; &amp;layout, VkDescriptorSet set)</td></tr>
+<tr class="separator:a510e5021d34376aca097df4753ec5da5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manager allocation of descriptor sets. </p>
@@ -156,8 +156,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afbe66e5dfa268b3891a208b09e930933"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbe66e5dfa268b3891a208b09e930933">&#9670;&nbsp;</a></span>free()</h2>
+<a id="a510e5021d34376aca097df4753ec5da5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a510e5021d34376aca097df4753ec5da5">&#9670;&nbsp;</a></span>free()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,9 +165,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void wmoge::VKDescManager::free </td>
           <td>(</td>
-          <td class="paramtype">VkDescriptorSet&#160;</td>
-          <td class="paramname"><em>set</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1VKDescSetLayout.html">VKDescSetLayout</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">VkDescriptorSet&#160;</td>
+          <td class="paramname"><em>set</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
