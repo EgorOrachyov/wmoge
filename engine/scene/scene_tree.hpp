@@ -65,6 +65,7 @@ namespace wmoge {
      */
     struct SceneTreeData {
         std::vector<SceneNodeData> nodes;
+        GraphicsPipelineSettings   pipeline_settings;
 
         friend Status yaml_read(const YamlConstNodeRef& node, SceneTreeData& data);
         friend Status yaml_write(YamlNodeRef node, const SceneTreeData& data);

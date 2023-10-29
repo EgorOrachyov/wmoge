@@ -17,5 +17,11 @@ vertex: >
     }
 fragment: >
     void Fragment(inout ShaderInoutFs fs) {
-        fs.result.baseColor = color * max(0.1f, dot(-Direction.xyz, fs.attributes.worldNorm));
+        float mixing = 0.5f;
+
+        if ((fs.attributes.primitiveId % 3) == 0) {
+            mixing = 4.0f;
+        }
+
+        fs.result.baseColor = mixing * color * max(0.1f, dot(-Direction.xyz, fs.attributes.worldNorm));
     }

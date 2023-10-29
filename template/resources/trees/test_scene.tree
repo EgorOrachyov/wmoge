@@ -1,4 +1,7 @@
 # Serialized scene tree of scene node into a yaml readable file
+pipeline_settings:
+ bloom:
+  dirt_mask: "res://textures/dirt_mask"
 nodes:
  - name: "cameras"
    uuid: "9468856891681035089"

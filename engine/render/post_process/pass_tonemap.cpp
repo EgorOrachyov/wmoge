@@ -58,16 +58,27 @@ namespace wmoge {
     void PassToneMap::execute(int view_idx, const Ref<Window>& window) {
         WG_AUTO_PROFILE_RENDER("PassToneMap::execute");
 
-        const RenderView&               view     = get_pipeline()->get_views()[view_idx];
-        const GraphicsPipelineTextures& textures = get_pipeline()->get_textures();
+        const BloomSettings&            bloom_settings   = get_pipeline()->get_settings().bloom;
+        const TonemapSettings&          tonemap_settings = get_pipeline()->get_settings().tonemap;
+        const RenderView&               view             = get_pipeline()->get_views()[view_idx];
+        const GraphicsPipelineTextures& textures         = get_pipeline()->get_textures();
 
         ShaderTonemap::Params params;
-        params.Clip         = get_gfx_driver()->clip_matrix().transpose();
-        params.InverseGamma = 1.0f / 2.2f;
-        params.Exposure     = 0.5f;
-        params.Mode         = 1.0f;
+        params.Clip                   = get_gfx_driver()->clip_matrix().transpose();
+        params.InverseGamma           = 1.0f / tonemap_settings.gamma;
+        params.Exposure               = tonemap_settings.exposure;
+        params.WhitePoint             = tonemap_settings.white_point;
+        params.Mode                   = float(tonemap_settings.mode);
+        params.BloomIntensity         = bloom_settings.intensity;
+        params.BloomDirtMaskIntensity = bloom_settings.dirt_mask_intensity;
 
         auto setup = get_gfx_driver()->uniform_pool()->allocate(params);
+
+        Ref<GfxTexture> black              = get_tex_manager()->get_gfx_default_texture_black();
+        Ref<GfxTexture> bloom              = bloom_settings.enable ? textures.bloom_upsample[0] : black;
+        const bool      has_bloom_dirt     = bloom_settings.enable && bloom_settings.dirt_mask.has_value();
+        Ref<GfxTexture> bloom_dirt         = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_texture() : black;
+        Ref<GfxSampler> bloom_dirt_sampler = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_sampler() : m_sampler;
 
         GfxDescSetResources resources;
         {
@@ -83,8 +94,22 @@ namespace wmoge {
                 auto& [bind, value] = resources.emplace_back();
                 bind.binding        = ShaderTonemap::IMAGE_SLOT;
                 bind.type           = GfxBindingType::SampledTexture;
-                value.resource      = textures.gbuffer[0].as<GfxResource>();// tmp
+                value.resource      = textures.color_hdr.as<GfxResource>();
                 value.sampler       = m_sampler;
+            }
+            {
+                auto& [bind, value] = resources.emplace_back();
+                bind.binding        = ShaderTonemap::BLOOM_SLOT;
+                bind.type           = GfxBindingType::SampledTexture;
+                value.resource      = bloom.as<GfxResource>();
+                value.sampler       = m_sampler;
+            }
+            {
+                auto& [bind, value] = resources.emplace_back();
+                bind.binding        = ShaderTonemap::BLOOMDIRTMASK_SLOT;
+                bind.type           = GfxBindingType::SampledTexture;
+                value.resource      = bloom_dirt.as<GfxResource>();
+                value.sampler       = bloom_dirt_sampler;
             }
         }
 
@@ -94,7 +119,7 @@ namespace wmoge {
             thread_ctx->begin_render_pass({}, SID("PassToneMap::execute"));
             {
                 thread_ctx->bind_target(window);// tmp
-                thread_ctx->viewport(textures.target_viewport);
+                thread_ctx->viewport(Rect2i(0, 0, window->fbo_width(), window->fbo_height()));
                 thread_ctx->clear(1.0f, 0);// tmp
 
                 if (thread_ctx->bind_pipeline(m_pipeline)) {

@@ -25,68 +25,38 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "deferred_pipeline.hpp"
+#ifndef WMOGE_PASS_BLOOM_HPP
+#define WMOGE_PASS_BLOOM_HPP
 
-#include "core/engine.hpp"
-#include "debug/profiler.hpp"
-#include "geometry/pass_gbuffer.hpp"
-#include "platform/window_manager.hpp"
-#include "post_process/pass_bloom.hpp"
-#include "post_process/pass_tonemap.hpp"
+#include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_desc_set.hpp"
+#include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_sampler.hpp"
+#include "render/graphics_pipeline.hpp"
+#include "render/render_engine.hpp"
 
 namespace wmoge {
 
-    DeferredPipeline::DeferredPipeline()  = default;
-    DeferredPipeline::~DeferredPipeline() = default;
+    /**
+     * @class PassBloom
+     * @brief Executes bloom pass of hdr color target
+    */
+    class PassBloom : public GraphicsPipelineStage {
+    public:
+        PassBloom();
 
-    void DeferredPipeline::init() {
-        WG_AUTO_PROFILE_RENDER("DeferredPipeline::init");
+        void execute(int view_idx);
 
-        m_pass_gbuffer = std::make_unique<PassGBuffer>();
-        m_pass_bloom   = std::make_unique<PassBloom>();
-        m_pass_tonemap = std::make_unique<PassToneMap>();
+        std::string               get_name() const override;
+        GraphicsPipelineStageType get_type() const override;
 
-        m_stages.push_back(m_pass_gbuffer.get());
-        m_stages.push_back(m_pass_bloom.get());
-        m_stages.push_back(m_pass_tonemap.get());
-
-        for (GraphicsPipelineStage* stage : m_stages) {
-            stage->set_pipeline(this);
-        }
-
-        m_textures.resize(m_target_resolution);
-        m_textures.update_viewport(m_resolution);
-    }
-
-    void DeferredPipeline::exectute() {
-        WG_AUTO_PROFILE_RENDER("DeferredPipeline::exectute");
-
-        if (m_views.empty()) {
-            return;
-        }
-
-        const int view_count = int(m_views.size());
-
-        for (int i = view_count - 1; i >= 0; i--) {
-            const int               view_idx = i;
-            const RenderCameraData& camera   = m_cameras->data_at(view_idx);
-
-            if (camera.type == CameraType::Color) {
-                assert(view_idx == 0);
-
-                m_pass_gbuffer->execute(view_idx);
-                m_pass_bloom->execute(view_idx);
-                m_pass_tonemap->execute(view_idx, Engine::instance()->window_manager()->primary_window());//tmp
-            }
-        }
-    }
-
-    std::vector<GraphicsPipelineStage*> DeferredPipeline::get_stages() {
-        return m_stages;
-    }
-
-    std::string DeferredPipeline::get_name() {
-        return "DeferredPipeline";
-    }
+    private:
+        Ref<GfxPipeline> m_pipeline_downsample_prefilter;
+        Ref<GfxPipeline> m_pipeline_downsample;
+        Ref<GfxPipeline> m_pipeline_upsample;
+        Ref<GfxSampler>  m_sampler;
+    };
 
 }// namespace wmoge
+
+#endif//WMOGE_PASS_BLOOM_HPP

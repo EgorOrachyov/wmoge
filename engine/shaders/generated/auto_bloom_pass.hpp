@@ -37,83 +37,64 @@
 #include "math/vec.hpp"
 #include "render/shader_pass.hpp"
 
-#include "auto_canvas_gl410_frag.hpp"
-#include "auto_canvas_gl410_vert.hpp"
-#include "auto_canvas_vk450_frag.hpp"
-#include "auto_canvas_vk450_vert.hpp"
+#include "auto_bloom_gl410_frag.hpp"
+#include "auto_bloom_gl410_vert.hpp"
+#include "auto_bloom_vk450_frag.hpp"
+#include "auto_bloom_vk450_vert.hpp"
 
 namespace wmoge {
-    /** @brief Auto generated pass for 'canvas' shader */
-    class ShaderPassCanvas final : public ShaderPass {
+    /** @brief Auto generated pass for 'bloom' shader */
+    class ShaderPassBloom final : public ShaderPass {
     public:
-        ShaderPassCanvas()           = default;
-        ~ShaderPassCanvas() override = default;
-        StringId get_name() override { return SID("canvas"); }
+        ShaderPassBloom()           = default;
+        ~ShaderPassBloom() override = default;
+        StringId get_name() override { return SID("bloom"); }
         void     fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader) override {
             // fill set num = 0
             {
-                auto& layout                 = layouts_desc.emplace_back();
-                auto& binding_Params         = layout.emplace_back();
-                binding_Params.name          = SID("Params");
-                binding_Params.binding       = 0;
-                binding_Params.count         = 1;
-                binding_Params.type          = GfxBindingType::UniformBuffer;
-                auto& binding_DrawCmdsData   = layout.emplace_back();
-                binding_DrawCmdsData.name    = SID("DrawCmdsData");
-                binding_DrawCmdsData.binding = 1;
-                binding_DrawCmdsData.count   = 1;
-                binding_DrawCmdsData.type    = GfxBindingType::StorageBuffer;
-            }
-            // fill set num = 1
-            {
-                auto& layout                 = layouts_desc.emplace_back();
-                auto& binding_CanvasImage0   = layout.emplace_back();
-                binding_CanvasImage0.name    = SID("CanvasImage0");
-                binding_CanvasImage0.binding = 0;
-                binding_CanvasImage0.count   = 1;
-                binding_CanvasImage0.type    = GfxBindingType::SampledTexture;
-                auto& binding_CanvasImage1   = layout.emplace_back();
-                binding_CanvasImage1.name    = SID("CanvasImage1");
-                binding_CanvasImage1.binding = 1;
-                binding_CanvasImage1.count   = 1;
-                binding_CanvasImage1.type    = GfxBindingType::SampledTexture;
-                auto& binding_CanvasImage2   = layout.emplace_back();
-                binding_CanvasImage2.name    = SID("CanvasImage2");
-                binding_CanvasImage2.binding = 2;
-                binding_CanvasImage2.count   = 1;
-                binding_CanvasImage2.type    = GfxBindingType::SampledTexture;
-                auto& binding_CanvasImage3   = layout.emplace_back();
-                binding_CanvasImage3.name    = SID("CanvasImage3");
-                binding_CanvasImage3.binding = 3;
-                binding_CanvasImage3.count   = 1;
-                binding_CanvasImage3.type    = GfxBindingType::SampledTexture;
+                auto& layout               = layouts_desc.emplace_back();
+                auto& binding_Params       = layout.emplace_back();
+                binding_Params.name        = SID("Params");
+                binding_Params.binding     = 0;
+                binding_Params.count       = 1;
+                binding_Params.type        = GfxBindingType::UniformBuffer;
+                auto& binding_Source       = layout.emplace_back();
+                binding_Source.name        = SID("Source");
+                binding_Source.binding     = 1;
+                binding_Source.count       = 1;
+                binding_Source.type        = GfxBindingType::SampledTexture;
+                auto& binding_SourcePrev   = layout.emplace_back();
+                binding_SourcePrev.name    = SID("SourcePrev");
+                binding_SourcePrev.binding = 2;
+                binding_SourcePrev.count   = 1;
+                binding_SourcePrev.type    = GfxBindingType::SampledTexture;
             }
         }
         Status reload_sources(const std::string& folder, FileSystem* file_system) override {
             // lang is vk450
             {
-                const auto file_path = folder + '/' + "auto_canvas_vk450_vert.glsl";
+                const auto file_path = folder + '/' + "auto_bloom_vk450_vert.glsl";
                 if (file_system->read_file(file_path, m_vertex[0])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             // lang is gl410
             {
-                const auto file_path = folder + '/' + "auto_canvas_gl410_vert.glsl";
+                const auto file_path = folder + '/' + "auto_bloom_gl410_vert.glsl";
                 if (file_system->read_file(file_path, m_vertex[1])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             // lang is vk450
             {
-                const auto file_path = folder + '/' + "auto_canvas_vk450_frag.glsl";
+                const auto file_path = folder + '/' + "auto_bloom_vk450_frag.glsl";
                 if (file_system->read_file(file_path, m_fragment[0])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             // lang is gl410
             {
-                const auto file_path = folder + '/' + "auto_canvas_gl410_frag.glsl";
+                const auto file_path = folder + '/' + "auto_bloom_gl410_frag.glsl";
                 if (file_system->read_file(file_path, m_fragment[1])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
@@ -121,9 +102,9 @@ namespace wmoge {
             return StatusCode::Ok;
         }
         const std::string& get_vertex(GfxShaderLang lang) override { return m_vertex[int(lang)]; }
-        std::string        m_vertex[2] = {source_canvas_vk450_vert, source_canvas_gl410_vert};
+        std::string        m_vertex[2] = {source_bloom_vk450_vert, source_bloom_gl410_vert};
         const std::string& get_fragment(GfxShaderLang lang) override { return m_fragment[int(lang)]; }
-        std::string        m_fragment[2] = {source_canvas_vk450_frag, source_canvas_gl410_frag};
+        std::string        m_fragment[2] = {source_bloom_vk450_frag, source_bloom_gl410_frag};
         const std::string& get_compute(GfxShaderLang lang) override { return m_compute[int(lang)]; }
         std::string        m_compute[2];
     };

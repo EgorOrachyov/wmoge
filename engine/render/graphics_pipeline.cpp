@@ -31,6 +31,58 @@
 
 namespace wmoge {
 
+    Status yaml_read(const YamlConstNodeRef& node, BloomSettings& settings) {
+        WG_YAML_READ_AS_OPT(node, "enable", settings.enable);
+        WG_YAML_READ_AS_OPT(node, "intensity", settings.intensity);
+        WG_YAML_READ_AS_OPT(node, "threshold", settings.threshold);
+        WG_YAML_READ_AS_OPT(node, "knee", settings.knee);
+        WG_YAML_READ_AS_OPT(node, "radius", settings.radius);
+        WG_YAML_READ_AS_OPT(node, "uspample_weight", settings.uspample_weight);
+        WG_YAML_READ_AS_OPT(node, "dirt_mask_intensity", settings.dirt_mask_intensity);
+        WG_YAML_READ_AS_OPT(node, "dirt_mask", settings.dirt_mask);
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const BloomSettings& settings) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "enable", settings.enable);
+        WG_YAML_WRITE_AS(node, "intensity", settings.intensity);
+        WG_YAML_WRITE_AS(node, "threshold", settings.threshold);
+        WG_YAML_WRITE_AS(node, "knee", settings.knee);
+        WG_YAML_WRITE_AS(node, "radius", settings.radius);
+        WG_YAML_WRITE_AS(node, "uspample_weight", settings.uspample_weight);
+        WG_YAML_WRITE_AS(node, "dirt_mask_intensity", settings.dirt_mask_intensity);
+        WG_YAML_WRITE_AS(node, "dirt_mask", settings.dirt_mask);
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(const YamlConstNodeRef& node, TonemapSettings& settings) {
+        WG_YAML_READ_AS_OPT(node, "exposure", settings.exposure);
+        WG_YAML_READ_AS_OPT(node, "gamma", settings.gamma);
+        WG_YAML_READ_AS_OPT(node, "white_point", settings.white_point);
+        WG_YAML_READ_AS_OPT(node, "mode", settings.mode);
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const TonemapSettings& settings) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "exposure", settings.exposure);
+        WG_YAML_WRITE_AS(node, "gamma", settings.gamma);
+        WG_YAML_WRITE_AS(node, "white_point", settings.white_point);
+        WG_YAML_WRITE_AS(node, "mode", settings.mode);
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(const YamlConstNodeRef& node, GraphicsPipelineSettings& settings) {
+        WG_YAML_READ_AS_OPT(node, "bloom", settings.bloom);
+        WG_YAML_READ_AS_OPT(node, "tonemap", settings.tonemap);
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const GraphicsPipelineSettings& settings) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "bloom", settings.bloom);
+        WG_YAML_WRITE_AS(node, "tonemap", settings.tonemap);
+        return StatusCode::Ok;
+    }
+
     void GraphicsPipelineTextures::resize(Size2i new_target_resoulution) {
         Engine*    engine     = Engine::instance();
         GfxDriver* gfx_driver = engine->gfx_driver();
@@ -44,6 +96,22 @@ namespace wmoge {
         gbuffer[0]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[0]"));
         gbuffer[1]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[1]"));
         gbuffer[2]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[2]"));
+        bloom_downsample.clear();
+        bloom_upsample.clear();
+
+        const int mips       = Image::max_mips_count(size.x(), size.y(), 1);
+        const int mip_bias   = 3;
+        const int bloom_mips = Math::max(int(0), mips - mip_bias);
+
+        for (int i = 0; i < bloom_mips; i++) {
+            const Size2i   mip_size = Image::mip_size(i, size.x(), size.y());
+            const StringId name     = SID("bloom mip=" + StringUtils::from_int(i));
+
+            bloom_downsample.push_back(gfx_driver->make_texture_2d(mip_size.x(), mip_size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, name));
+            bloom_upsample.push_back(gfx_driver->make_texture_2d(mip_size.x(), mip_size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, name));
+        }
+
+        color_hdr = gbuffer[0];//tmp
 
         target_viewport = Rect2i(0, 0, new_target_resoulution.x(), new_target_resoulution.y());
     }
@@ -85,6 +153,10 @@ namespace wmoge {
     void GraphicsPipeline::set_resolution(Size2i resolution) {
         m_resolution = resolution;
         m_textures.update_viewport(m_resolution);
+    }
+
+    void GraphicsPipeline::set_settings(const GraphicsPipelineSettings& settings) {
+        m_settings = settings;
     }
 
 }// namespace wmoge

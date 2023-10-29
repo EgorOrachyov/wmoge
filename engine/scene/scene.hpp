@@ -130,6 +130,7 @@ namespace wmoge {
         SceneEntityVector<SceneDataAudioSource>    audio_sources;
         SceneEntityVector<SceneDataAudioListener>  autio_listeners;
         SceneEntityVector<SceneDataAudioLuaScript> lua_scripts;
+        GraphicsPipelineSettings                   pipeline_settings;
 
         friend Status yaml_read(const YamlConstNodeRef& node, SceneData& data);
         friend Status yaml_write(YamlNodeRef node, const SceneData& data);

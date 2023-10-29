@@ -299,6 +299,8 @@ add_library(wmoge STATIC
         render/visibility.hpp
         render/geometry/pass_gbuffer.cpp
         render/geometry/pass_gbuffer.hpp
+        render/post_process/pass_bloom.cpp
+        render/post_process/pass_bloom.hpp
         render/post_process/pass_tonemap.cpp
         render/post_process/pass_tonemap.hpp
         resource/audio_stream.cpp

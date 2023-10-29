@@ -1,0 +1,113 @@
+/**********************************************************************************/
+/* Wmoge game engine                                                              */
+/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/**********************************************************************************/
+/* MIT License                                                                    */
+/*                                                                                */
+/* Copyright (c) 2023 Egor Orachyov                                               */
+/**********************************************************************************/
+
+#include "common_funcs.glsl"
+#include "inout_attributes.glsl"
+
+layout (location = 0) out vec4 out_color;
+
+// Better, temporally stable box filtering
+// [Jimenez14] http://goo.gl/eomGso
+// . . . . . . .
+// . A . B . C .
+// . . D . E . .
+// . F . G . H .
+// . . I . J . .
+// . K . L . M .
+// . . . . . . .
+vec3 DownsampleBox13Tap(in vec2 uv) {
+    vec3 result = vec3(0,0,0);
+
+    const vec3 A = textureOffset(Source, uv, ivec2(-2, -2)).rgb;
+    const vec3 B = textureOffset(Source, uv, ivec2( 0, -2)).rgb;
+    const vec3 C = textureOffset(Source, uv, ivec2( 2, -2)).rgb;
+    const vec3 D = textureOffset(Source, uv, ivec2(-1, -1)).rgb;
+    const vec3 E = textureOffset(Source, uv, ivec2( 1, -1)).rgb;
+    const vec3 F = textureOffset(Source, uv, ivec2(-2,  0)).rgb;
+    const vec3 G = textureOffset(Source, uv, ivec2( 0,  0)).rgb;
+    const vec3 H = textureOffset(Source, uv, ivec2( 2,  0)).rgb;
+    const vec3 I = textureOffset(Source, uv, ivec2(-1,  1)).rgb;
+    const vec3 J = textureOffset(Source, uv, ivec2( 1,  1)).rgb;
+    const vec3 K = textureOffset(Source, uv, ivec2(-2,  2)).rgb;
+    const vec3 L = textureOffset(Source, uv, ivec2( 0,  2)).rgb;
+    const vec3 M = textureOffset(Source, uv, ivec2( 2,  2)).rgb;
+
+    const vec2 div = (1.0 / 4.0) * vec2(0.5, 0.125);
+
+    result += (D + E + I + J) * div.x;
+    result += (A + B + G + F) * div.y;
+    result += (B + C + H + G) * div.y;
+    result += (F + G + L + K) * div.y;
+    result += (G + H + M + L) * div.y;
+    
+    return result;
+}
+
+// Clamp color using user settings for bloom
+// Settings: threshold and curve with knee param
+vec4 Prefilter(vec3 color) {
+    color = QuadraticThreshold(color, ThresholdKnee.x, ThresholdKnee.yzw);
+    return vec4(color, 1.0f);
+}
+
+vec4 DownsamplePrefilterPass(in vec2 uv) {
+    return Prefilter(DownsampleBox13Tap(uv));
+}
+
+vec4 DownsamplePass(in vec2 uv) {
+    return vec4(DownsampleBox13Tap(uv), 1.0f);
+}
+
+// 9-tap bilinear upsampler (tent filter)
+vec3 UpsampleTent(in vec2 uv) {
+    const vec2 texel = 1.0f / textureSize(Source, 0);
+    const vec2 offset = UpsampleRadius * texel;
+
+    vec3 result = vec3(0,0,0);
+
+    result += texture(SourcePrev, uv + offset * vec2(-1,-1)).rgb;
+    result += texture(SourcePrev, uv + offset * vec2( 0,-1)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2( 1,-1)).rgb;
+
+    result += texture(SourcePrev, uv + offset * vec2(-1, 0)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2( 0, 0)).rgb * 4.0;
+    result += texture(SourcePrev, uv + offset * vec2( 1, 0)).rgb * 2.0;
+
+    result += texture(SourcePrev, uv + offset * vec2(-1, 1)).rgb;
+    result += texture(SourcePrev, uv + offset * vec2( 0, 1)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2( 1, 1)).rgb;
+
+    return result * (1.0f / 16.0f);
+}
+
+vec4 Combine(vec3 bloom, in vec2 uv) {
+    vec3 color = texture(Source, uv).rgb;
+    vec3 mixed = mix(color, bloom, UpsampleWeight);
+    return vec4(mixed, 1.0f);
+}
+
+vec4 UpsamplePass(in vec2 uv) {
+    return Combine(UpsampleTent(uv), uv);
+}
+
+void main() {
+    const InoutAttributes attributes = ReadInoutAttributes();
+
+#ifdef BLOOM_DOWNSAMPLE_PREFILTER 
+    out_color = DownsamplePrefilterPass(attributes.uv[0]);
+#endif
+
+#ifdef BLOOM_DOWNSAMPLE 
+    out_color = DownsamplePass(attributes.uv[0]);
+#endif
+
+#ifdef BLOOM_UPSAMPLE
+    out_color = UpsamplePass(attributes.uv[0]);
+#endif
+}

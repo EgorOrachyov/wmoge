@@ -38,49 +38,18 @@
 
 namespace wmoge {
 
-    static const char source_material_gl410_frag[] = R"(
-#define MATERIAL_SET 1
-struct RenderObjectData{
-mat4 LocalToWorld;
-mat4 LocalToWorldPrev;
-mat4 NormalMatrix;
-vec4 AabbPos;
-vec4 AabbSizeHalf;
-};
+    static const char source_bloom_vk450_vert[] = R"(
+layout (set = 0, binding = 1) uniform sampler2D Source;
 
-layout (std140) uniform FrameData {
-float time;
-float timeDelta;
-float _fd_pad0;
-float _fd_pad1;
-};
+layout (set = 0, binding = 2) uniform sampler2D SourcePrev;
 
-layout (std140) uniform ViewData {
+layout (set = 0, binding = 0, std140) uniform Params {
 mat4 Clip;
-mat4 Proj;
-mat4 View;
-mat4 ProjView;
-mat4 ClipProjView;
-mat4 ProjPrev;
-mat4 ViewPrev;
-mat4 ProjViewPrev;
-mat4 ClipProjViewPrev;
-vec4 Movement;
-vec4 Position;
-vec4 Direction;
-vec4 Up;
-vec4 PositionPrev;
-vec4 DirectionPrev;
-vec4 UpPrev;
-ivec4 Viewport;
-int CamIdx;
-int _vd_pad0;
-int _vd_pad1;
-int _vd_pad2;
-};
-
-layout (std430) readonly buffer RenderObjectsData {
-RenderObjectData RenderObjects[];
+vec4 ThresholdKnee;
+float UpsampleRadius;
+float UpsampleWeight;
+float _pr_pad0;
+float _pr_pad1;
 };
 
 
@@ -147,6 +116,86 @@ vec3 TransformLocalToWorld(in vec3 posLocal, in mat4 localToWorld) {
 }
 vec3 TransformLocalToWorldNormal(in vec3 normLocal, in mat4 normalMatrix) {
     return (normalMatrix * vec4(normLocal, 0.0f)).xyz;
+}
+struct VertexAttributes {
+    vec3 pos3;
+    vec2 pos2;
+    vec3 norm;
+    vec3 tang;
+    ivec4 boneIds;
+    vec4 boneWeigths;
+    vec4 col[4];
+    vec2 uv[4];
+    int primitiveId;
+};
+VertexAttributes GetVertexAttributesDefault() {
+    VertexAttributes attributes;
+    attributes.pos3 = vec3(0,0,0);
+    attributes.pos2 = vec2(0,0);
+    attributes.norm = vec3(0,0,0);
+    attributes.tang = vec3(0,0,0);
+    attributes.boneIds = ivec4(0,0,0,0);
+    attributes.boneWeigths = vec4(0,0,0,0);
+    attributes.col[0] = vec4(0,0,0,0);
+    attributes.col[1] = vec4(0,0,0,0);
+    attributes.col[2] = vec4(0,0,0,0);
+    attributes.col[3] = vec4(0,0,0,0);
+    attributes.uv[0] = vec2(0,0);
+    attributes.uv[1] = vec2(0,0);
+    attributes.uv[2] = vec2(0,0);
+    attributes.uv[3] = vec2(0,0);
+    attributes.primitiveId = -1;
+    
+    return attributes;
+}
+VertexAttributes ReadVertexAttributes() {
+    VertexAttributes attributes = GetVertexAttributesDefault();
+    #ifdef ATTRIB_Pos3f
+        attributes.pos3 = inPos3f;
+    #endif
+    #ifdef ATTRIB_Pos2f
+        attributes.pos2 = inPos2f;
+    #endif
+    #ifdef ATTRIB_Norm3f
+        attributes.norm = inNorm3f;
+    #endif
+    #ifdef ATTRIB_Tang3f
+        attributes.tang = inTang3f;
+    #endif
+    #ifdef ATTRIB_BoneIds4i
+        attributes.boneIds = inBoneIds4i;
+    #endif
+    #ifdef ATTRIB_BoneWeights4f
+        attributes.boneWeigths = inBoneWeights4f;
+    #endif
+    #ifdef ATTRIB_Col04f
+        attributes.col[0] = inCol04f;
+    #endif
+    #ifdef ATTRIB_Col14f
+        attributes.col[1] = inCol14f;
+    #endif
+    #ifdef ATTRIB_Col24f
+        attributes.col[2] = inCol24f;
+    #endif
+    #ifdef ATTRIB_Col34f
+        attributes.col[3] = inCol34f;
+    #endif
+    #ifdef ATTRIB_Uv02f
+        attributes.uv[0] = inUv02f;
+    #endif 
+    #ifdef ATTRIB_Uv12f
+        attributes.uv[1] = inUv12f;
+    #endif 
+    #ifdef ATTRIB_Uv22f
+        attributes.uv[2] = inUv22f;
+    #endif 
+    #ifdef ATTRIB_Uv32f
+        attributes.uv[3] = inUv32f;
+    #endif
+    #ifdef ATTRIB_PrimitiveIdi
+        attributes.primitiveId = inPrimitiveIdi;
+    #endif
+    return attributes;
 }
 #ifdef VERTEX_SHADER
     #define INOUT out
@@ -295,73 +344,13 @@ InoutAttributes ReadInoutAttributes() {
     return attributes;
 }
 #endif//FRAGMENT_SHADER
-RenderObjectData GetRenderObjectDataDefault() {
-    RenderObjectData data;
-    data.LocalToWorld = GetIdentity4x4();
-    data.LocalToWorldPrev = GetIdentity4x4();
-    data.NormalMatrix = GetIdentity4x4();
-    data.AabbPos = vec4(0,0,0,0);
-    data.AabbSizeHalf = vec4(0,0,0,0);
-    return data;
-}
-RenderObjectData GetRenderObjectDataById(in int primitiveId) {
-    return RenderObjects[primitiveId];
-}
-vec3 TransformLocalToWorld(in vec3 posLocal, in int primitiveId) {
-    return TransformLocalToWorld(posLocal, GetRenderObjectDataById(primitiveId).LocalToWorld);
-}
-vec3 TransformLocalToWorldNormal(in vec3 normLocal, in int primitiveId) {
-    return TransformLocalToWorldNormal(normLocal, GetRenderObjectDataById(primitiveId).NormalMatrix);
-}
-struct MaterialAttributes {
-    vec4 baseColor;
-    vec3 worldNorm;
-    vec3 emissiveColor;
-    float metallic;
-    float roughness;
-    float reflectance;
-    float ao;
-};
-struct ShaderInoutFs {
-    InoutAttributes attributes;
-    MaterialAttributes result;
-};
-MaterialAttributes GetDefaultMaterialAttributes() {
-    MaterialAttributes attributes;
-    attributes.baseColor = vec4(1,1,1,1);
-    attributes.worldNorm = vec3(0,0,1);
-    attributes.emissiveColor = vec3(0,0,0);
-    attributes.metallic = 0;
-    attributes.roughness = 0;
-    attributes.reflectance = 0;
-    attributes.ao = 0;
-    return attributes;
-}
-void InitShaderInoutFs(inout ShaderInoutFs fs) {
-    fs.attributes = ReadInoutAttributes();
-    fs.result = GetDefaultMaterialAttributes();
-}
-__SHADER_CODE_FRAGMENT__
-#ifdef MESH_PASS_GBUFFER
-    layout (location = 0) out vec4 out_baseColor_dummy;
-    layout (location = 1) out vec4 out_worldNorm_dummy;
-    layout (location = 2) out vec4 out_metallic_roughness_reflectance_ao;
-    layout (location = 3) out int  out_primitiveId;
-#endif
-#if !defined(MESH_PASS_GBUFFER)
-    #error "Must be specified at least one pass"
-#endif
 void main() {
-    ShaderInoutFs shaderInoutFs;
-    InitShaderInoutFs(shaderInoutFs);
-    Fragment(shaderInoutFs);
-    #ifdef MESH_PASS_GBUFFER
-        const MaterialAttributes result = shaderInoutFs.result;
-        out_baseColor_dummy = result.baseColor;
-        out_worldNorm_dummy = vec4(result.worldNorm, 0);
-        out_metallic_roughness_reflectance_ao = vec4(result.metallic, result.roughness, result.reflectance, result.ao);
-        out_primitiveId = shaderInoutFs.attributes.primitiveId;
-    #endif
+    const VertexAttributes vertex = ReadVertexAttributes();
+    
+    InoutAttributes result;
+    result.uv[0] = UnpackUv(vertex.uv[0]);
+    StoreInoutAttributes(result);
+    gl_Position = Clip * vec4(vertex.pos2, 0.0f, 1.0f);
 }
 
 )";

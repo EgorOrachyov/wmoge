@@ -78,6 +78,7 @@ namespace wmoge {
         WG_YAML_READ_AS(node, "transforms", data.transforms);
         WG_YAML_READ_AS(node, "cameras", data.cameras);
         WG_YAML_READ_AS(node, "meshes_static", data.meshes_static);
+        WG_YAML_READ_AS(node, "pipeline_settings", data.pipeline_settings);
 
         return StatusCode::Ok;
     }
@@ -88,6 +89,7 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "transforms", data.transforms);
         WG_YAML_WRITE_AS(node, "cameras", data.cameras);
         WG_YAML_WRITE_AS(node, "meshes_static", data.meshes_static);
+        WG_YAML_WRITE_AS(node, "pipeline_settings", data.pipeline_settings);
 
         return StatusCode::Ok;
     }

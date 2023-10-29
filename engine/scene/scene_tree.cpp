@@ -60,13 +60,15 @@ namespace wmoge {
     }
 
     Status yaml_read(const YamlConstNodeRef& node, SceneTreeData& data) {
-        WG_YAML_READ_AS(node, "nodes", data.nodes);
+        WG_YAML_READ_AS_OPT(node, "nodes", data.nodes);
+        WG_YAML_READ_AS_OPT(node, "pipeline_settings", data.pipeline_settings);
 
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const SceneTreeData& data) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "nodes", data.nodes);
+        WG_YAML_WRITE_AS(node, "pipeline_settings", data.pipeline_settings);
 
         return StatusCode::Ok;
     }
@@ -132,6 +134,10 @@ namespace wmoge {
             parent->add_child(node);
         }
 
+        if (m_scene) {
+            m_scene->get_graphics_pipeline()->set_settings(data.pipeline_settings);
+        }
+
         return StatusCode::Ok;
     }
     Status SceneTree::dump(SceneTreeData& data) {
@@ -165,6 +171,10 @@ namespace wmoge {
             if (node->has_parent() && node->get_parent() != m_root.get()) {
                 node_data.parent = node_to_uuid[node->get_parent()];
             }
+        }
+
+        if (m_scene) {
+            data.pipeline_settings = m_scene->get_graphics_pipeline()->get_settings();
         }
 
         return StatusCode::Ok;

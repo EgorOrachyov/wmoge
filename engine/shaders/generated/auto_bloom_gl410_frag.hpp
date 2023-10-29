@@ -38,49 +38,18 @@
 
 namespace wmoge {
 
-    static const char source_material_gl410_frag[] = R"(
-#define MATERIAL_SET 1
-struct RenderObjectData{
-mat4 LocalToWorld;
-mat4 LocalToWorldPrev;
-mat4 NormalMatrix;
-vec4 AabbPos;
-vec4 AabbSizeHalf;
-};
+    static const char source_bloom_gl410_frag[] = R"(
+uniform sampler2D Source;
 
-layout (std140) uniform FrameData {
-float time;
-float timeDelta;
-float _fd_pad0;
-float _fd_pad1;
-};
+uniform sampler2D SourcePrev;
 
-layout (std140) uniform ViewData {
+layout (std140) uniform Params {
 mat4 Clip;
-mat4 Proj;
-mat4 View;
-mat4 ProjView;
-mat4 ClipProjView;
-mat4 ProjPrev;
-mat4 ViewPrev;
-mat4 ProjViewPrev;
-mat4 ClipProjViewPrev;
-vec4 Movement;
-vec4 Position;
-vec4 Direction;
-vec4 Up;
-vec4 PositionPrev;
-vec4 DirectionPrev;
-vec4 UpPrev;
-ivec4 Viewport;
-int CamIdx;
-int _vd_pad0;
-int _vd_pad1;
-int _vd_pad2;
-};
-
-layout (std430) readonly buffer RenderObjectsData {
-RenderObjectData RenderObjects[];
+vec4 ThresholdKnee;
+float UpsampleRadius;
+float UpsampleWeight;
+float _pr_pad0;
+float _pr_pad1;
 };
 
 
@@ -295,73 +264,87 @@ InoutAttributes ReadInoutAttributes() {
     return attributes;
 }
 #endif//FRAGMENT_SHADER
-RenderObjectData GetRenderObjectDataDefault() {
-    RenderObjectData data;
-    data.LocalToWorld = GetIdentity4x4();
-    data.LocalToWorldPrev = GetIdentity4x4();
-    data.NormalMatrix = GetIdentity4x4();
-    data.AabbPos = vec4(0,0,0,0);
-    data.AabbSizeHalf = vec4(0,0,0,0);
-    return data;
+layout (location = 0) out vec4 out_color;
+// Better, temporally stable box filtering
+// [Jimenez14] http://goo.gl/eomGso
+// . . . . . . .
+// . A . B . C .
+// . . D . E . .
+// . F . G . H .
+// . . I . J . .
+// . K . L . M .
+// . . . . . . .
+vec3 DownsampleBox13Tap(in vec2 uv) {
+    vec3 result = vec3(0,0,0);
+    const vec3 A = textureOffset(Source, uv, ivec2(-2, -2)).rgb;
+    const vec3 B = textureOffset(Source, uv, ivec2( 0, -2)).rgb;
+    const vec3 C = textureOffset(Source, uv, ivec2( 2, -2)).rgb;
+    const vec3 D = textureOffset(Source, uv, ivec2(-1, -1)).rgb;
+    const vec3 E = textureOffset(Source, uv, ivec2( 1, -1)).rgb;
+    const vec3 F = textureOffset(Source, uv, ivec2(-2,  0)).rgb;
+    const vec3 G = textureOffset(Source, uv, ivec2( 0,  0)).rgb;
+    const vec3 H = textureOffset(Source, uv, ivec2( 2,  0)).rgb;
+    const vec3 I = textureOffset(Source, uv, ivec2(-1,  1)).rgb;
+    const vec3 J = textureOffset(Source, uv, ivec2( 1,  1)).rgb;
+    const vec3 K = textureOffset(Source, uv, ivec2(-2,  2)).rgb;
+    const vec3 L = textureOffset(Source, uv, ivec2( 0,  2)).rgb;
+    const vec3 M = textureOffset(Source, uv, ivec2( 2,  2)).rgb;
+    const vec2 div = (1.0 / 4.0) * vec2(0.5, 0.125);
+    result += (D + E + I + J) * div.x;
+    result += (A + B + G + F) * div.y;
+    result += (B + C + H + G) * div.y;
+    result += (F + G + L + K) * div.y;
+    result += (G + H + M + L) * div.y;
+    
+    return result;
 }
-RenderObjectData GetRenderObjectDataById(in int primitiveId) {
-    return RenderObjects[primitiveId];
+// Clamp color using user settings for bloom
+// Settings: threshold and curve with knee param
+vec4 Prefilter(vec3 color) {
+    color = QuadraticThreshold(color, ThresholdKnee.x, ThresholdKnee.yzw);
+    return vec4(color, 1.0f);
 }
-vec3 TransformLocalToWorld(in vec3 posLocal, in int primitiveId) {
-    return TransformLocalToWorld(posLocal, GetRenderObjectDataById(primitiveId).LocalToWorld);
+vec4 DownsamplePrefilterPass(in vec2 uv) {
+    return Prefilter(DownsampleBox13Tap(uv));
 }
-vec3 TransformLocalToWorldNormal(in vec3 normLocal, in int primitiveId) {
-    return TransformLocalToWorldNormal(normLocal, GetRenderObjectDataById(primitiveId).NormalMatrix);
+vec4 DownsamplePass(in vec2 uv) {
+    return vec4(DownsampleBox13Tap(uv), 1.0f);
 }
-struct MaterialAttributes {
-    vec4 baseColor;
-    vec3 worldNorm;
-    vec3 emissiveColor;
-    float metallic;
-    float roughness;
-    float reflectance;
-    float ao;
-};
-struct ShaderInoutFs {
-    InoutAttributes attributes;
-    MaterialAttributes result;
-};
-MaterialAttributes GetDefaultMaterialAttributes() {
-    MaterialAttributes attributes;
-    attributes.baseColor = vec4(1,1,1,1);
-    attributes.worldNorm = vec3(0,0,1);
-    attributes.emissiveColor = vec3(0,0,0);
-    attributes.metallic = 0;
-    attributes.roughness = 0;
-    attributes.reflectance = 0;
-    attributes.ao = 0;
-    return attributes;
+// 9-tap bilinear upsampler (tent filter)
+vec3 UpsampleTent(in vec2 uv) {
+    const vec2 texel = 1.0f / textureSize(Source, 0);
+    const vec2 offset = UpsampleRadius * texel;
+    vec3 result = vec3(0,0,0);
+    result += texture(SourcePrev, uv + offset * vec2(-1,-1)).rgb;
+    result += texture(SourcePrev, uv + offset * vec2( 0,-1)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2( 1,-1)).rgb;
+    result += texture(SourcePrev, uv + offset * vec2(-1, 0)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2( 0, 0)).rgb * 4.0;
+    result += texture(SourcePrev, uv + offset * vec2( 1, 0)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2(-1, 1)).rgb;
+    result += texture(SourcePrev, uv + offset * vec2( 0, 1)).rgb * 2.0;
+    result += texture(SourcePrev, uv + offset * vec2( 1, 1)).rgb;
+    return result * (1.0f / 16.0f);
 }
-void InitShaderInoutFs(inout ShaderInoutFs fs) {
-    fs.attributes = ReadInoutAttributes();
-    fs.result = GetDefaultMaterialAttributes();
+vec4 Combine(vec3 bloom, in vec2 uv) {
+    vec3 color = texture(Source, uv).rgb;
+    vec3 mixed = mix(color, bloom, UpsampleWeight);
+    return vec4(mixed, 1.0f);
 }
-__SHADER_CODE_FRAGMENT__
-#ifdef MESH_PASS_GBUFFER
-    layout (location = 0) out vec4 out_baseColor_dummy;
-    layout (location = 1) out vec4 out_worldNorm_dummy;
-    layout (location = 2) out vec4 out_metallic_roughness_reflectance_ao;
-    layout (location = 3) out int  out_primitiveId;
-#endif
-#if !defined(MESH_PASS_GBUFFER)
-    #error "Must be specified at least one pass"
-#endif
+vec4 UpsamplePass(in vec2 uv) {
+    return Combine(UpsampleTent(uv), uv);
+}
 void main() {
-    ShaderInoutFs shaderInoutFs;
-    InitShaderInoutFs(shaderInoutFs);
-    Fragment(shaderInoutFs);
-    #ifdef MESH_PASS_GBUFFER
-        const MaterialAttributes result = shaderInoutFs.result;
-        out_baseColor_dummy = result.baseColor;
-        out_worldNorm_dummy = vec4(result.worldNorm, 0);
-        out_metallic_roughness_reflectance_ao = vec4(result.metallic, result.roughness, result.reflectance, result.ao);
-        out_primitiveId = shaderInoutFs.attributes.primitiveId;
-    #endif
+    const InoutAttributes attributes = ReadInoutAttributes();
+#ifdef BLOOM_DOWNSAMPLE_PREFILTER 
+    out_color = DownsamplePrefilterPass(attributes.uv[0]);
+#endif
+#ifdef BLOOM_DOWNSAMPLE 
+    out_color = DownsamplePass(attributes.uv[0]);
+#endif
+#ifdef BLOOM_UPSAMPLE
+    out_color = UpsamplePass(attributes.uv[0]);
+#endif
 }
 
 )";

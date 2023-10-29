@@ -52,10 +52,10 @@ namespace wmoge {
 
     private:
         std::unique_ptr<class PassGBuffer> m_pass_gbuffer;
+        std::unique_ptr<class PassBloom>   m_pass_bloom;
         std::unique_ptr<class PassToneMap> m_pass_tonemap;
         // std::unique_ptr<class PassForward>          m_pass_forward;
         // std::unique_ptr<class PassDeferredLighting> m_pass_deferred_lighting;
-        // std::unique_ptr<class PassBloop>            m_pass_bloom;
 
         std::vector<GraphicsPipelineStage*> m_stages;
     };

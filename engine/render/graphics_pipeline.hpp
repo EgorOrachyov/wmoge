@@ -32,17 +32,74 @@
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "io/yaml.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 #include "render/render_camera.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
 #include "render/texture_manager.hpp"
+#include "resource/resource_ref.hpp"
+#include "resource/texture.hpp"
 
 #include <string>
 #include <vector>
 
 namespace wmoge {
+
+    /**
+     * @class BloomSettings
+     * @brief Bloom effect settings
+    */
+    struct BloomSettings {
+        bool                                      enable              = true;
+        float                                     intensity           = 0.9f;
+        float                                     threshold           = 0.9f;
+        float                                     knee                = 0.5f;
+        float                                     radius              = 1.0f;
+        float                                     uspample_weight     = 0.85f;
+        float                                     dirt_mask_intensity = 2.5f;
+        std::optional<ResourceRefHard<Texture2d>> dirt_mask;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, BloomSettings& settings);
+        friend Status yaml_write(YamlNodeRef node, const BloomSettings& settings);
+    };
+
+    /**
+     * @class TonemapSettings
+     * @brief Final HDR image tonemapping settings for composition
+    */
+    struct TonemapSettings {
+
+        /** @brief Mode to select algo */
+        enum class Mode {
+            Exponential      = 0,
+            Reinhard         = 1,
+            ReinhardExtended = 2,
+            Asec             = 3,
+            Uncharted2       = 4
+        };
+
+        float exposure    = 0.8f;
+        float gamma       = 2.2f;
+        float white_point = 1.0f;
+        Mode  mode        = Mode::Exponential;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, TonemapSettings& settings);
+        friend Status yaml_write(YamlNodeRef node, const TonemapSettings& settings);
+    };
+
+    /**
+     * @class GraphicsPipelineSettings
+     * @brief Graphics pipeline settings for rendering scene
+    */
+    struct GraphicsPipelineSettings {
+        BloomSettings   bloom;
+        TonemapSettings tonemap;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, GraphicsPipelineSettings& settings);
+        friend Status yaml_write(YamlNodeRef node, const GraphicsPipelineSettings& settings);
+    };
 
     /** @brief Types of supported stages */
     enum class GraphicsPipelineStageType {
@@ -64,13 +121,15 @@ namespace wmoge {
      * @brief Pipeline textures used during rendering
     */
     struct GraphicsPipelineTextures {
-        Ref<GfxTexture> depth;//< Scene geometry depth buffer
-        Ref<GfxTexture> primitive_id;
-        Ref<GfxTexture> velocity;
-        Ref<GfxTexture> gbuffer[3];
-        Ref<GfxTexture> ssao;
-        Ref<GfxTexture> color_hdr;
-        Ref<GfxTexture> color_ldr;
+        Ref<GfxTexture>              depth;           //< [full] Scene geometry depth buffer
+        Ref<GfxTexture>              primitive_id;    //< [full] Rendered primitive id for gbuffer effects and picking
+        Ref<GfxTexture>              velocity;        //< [full] Velocity buffer
+        Ref<GfxTexture>              gbuffer[3];      //< [full] GBuffer (layout see in shader)
+        Ref<GfxTexture>              ssao;            //< [half] Screen space ambient occlusion
+        Ref<GfxTexture>              color_hdr;       //< [full] Hdr color target for lit scene
+        Ref<GfxTexture>              color_ldr;       //< [full] Ldr color target after tone mapping
+        std::vector<Ref<GfxTexture>> bloom_downsample;//< [full] [half] ... Bloom downsample sample chain
+        std::vector<Ref<GfxTexture>> bloom_upsample;  //< [full] [half] ... Bloom upsample sample chain
 
         Rect2i viewport;
         Rect2i target_viewport;
@@ -122,6 +181,7 @@ namespace wmoge {
         virtual void set_views(ArrayView<struct RenderView> views);
         virtual void set_target_resolution(Size2i resolution);
         virtual void set_resolution(Size2i resolution);
+        virtual void set_settings(const GraphicsPipelineSettings& settings);
 
         virtual void init()     = 0;
         virtual void exectute() = 0;
@@ -129,6 +189,7 @@ namespace wmoge {
         virtual std::vector<GraphicsPipelineStage*> get_stages() = 0;
         virtual std::string                         get_name()   = 0;
 
+        [[nodiscard]] const GraphicsPipelineSettings& get_settings() { return m_settings; }
         [[nodiscard]] const GraphicsPipelineTextures& get_textures() { return m_textures; }
         [[nodiscard]] ArrayView<struct RenderView>    get_views() const { return m_views; }
         [[nodiscard]] RenderCameras*                  get_cameras() const { return m_cameras; }
@@ -137,6 +198,7 @@ namespace wmoge {
         [[nodiscard]] const Size2i&                   get_resolution() const { return m_resolution; }
 
     protected:
+        GraphicsPipelineSettings     m_settings;
         GraphicsPipelineTextures     m_textures;
         ArrayView<struct RenderView> m_views;
         RenderCameras*               m_cameras;
