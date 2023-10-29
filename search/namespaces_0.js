@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['base_4485',['base',['../namespacebase.html',1,'']]]
+  ['base_4560',['base',['../namespacebase.html',1,'']]],
+  ['bloom_4561',['bloom',['../namespacebloom.html',1,'']]]
 ];

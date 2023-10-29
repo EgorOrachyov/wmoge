@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1GraphicsPipelineStage.html" title=" " alt="" coords="5,31,208,57"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1PassGBuffer.html" title="Executes gbuffer fill pass." alt="" coords="261,5,405,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1PassToneMap.html" title="Executes tonemapping pass of hdr to ldr color target." alt="" coords="256,56,411,83"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="5,5,173,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1DeferredPipeline.html" title="Deferred HDR pipeline for scene rendering." alt="" coords="221,5,387,32"/>
 </map>

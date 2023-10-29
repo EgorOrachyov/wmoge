@@ -1,0 +1,6 @@
+<map id="wmoge::SceneTreeData" name="wmoge::SceneTreeData">
+<area shape="rect" id="node1" title="Serializable struct with an editable scene tree data." alt="" coords="96,184,256,211"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="68,95,284,121"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1BloomSettings.html" title="Bloom effect settings." alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1TonemapSettings.html" title="Final HDR image tonemapping settings for composition." alt="" coords="185,5,357,32"/>
+</map>

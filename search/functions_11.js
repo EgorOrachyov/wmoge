@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['queue_6052',['queue',['../classwmoge_1_1EcsWorld.html#a14852f58326ab5b2aaa042fa71ee528e',1,'wmoge::EcsWorld']]],
-  ['queues_6053',['queues',['../classwmoge_1_1VKDriver.html#a619ef0e0eab7813efd0f70bfb12d5f7a',1,'wmoge::VKDriver']]]
+  ['queue_6139',['queue',['../classwmoge_1_1EcsWorld.html#a14852f58326ab5b2aaa042fa71ee528e',1,'wmoge::EcsWorld']]],
+  ['queues_6140',['queues',['../classwmoge_1_1VKDriver.html#a619ef0e0eab7813efd0f70bfb12d5f7a',1,'wmoge::VKDriver']]]
 ];
