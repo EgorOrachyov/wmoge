@@ -77,6 +77,7 @@ namespace wmoge {
         Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
         Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name) override;
         Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
+        Ref<VKFramebufferObject> make_frame_buffer(const VKFrameBufferDesc& desc, const StringId& name);
         Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name) override;
@@ -163,9 +164,10 @@ namespace wmoge {
         Ref<GfxDynIndexBuffer>   m_dyn_index_buffer;
         Ref<GfxDynUniformBuffer> m_dyn_uniform_buffer;
 
-        fast_map<GfxSamplerDesc, Ref<VKSampler>>             m_samplers;
-        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>>       m_render_passes;
-        fast_map<GfxDescSetLayoutDesc, Ref<VKDescSetLayout>> m_layouts;
+        fast_map<GfxSamplerDesc, Ref<VKSampler>>              m_samplers;
+        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>>        m_render_passes;
+        fast_map<VKFrameBufferDesc, Ref<VKFramebufferObject>> m_frame_buffers;
+        fast_map<GfxDescSetLayoutDesc, Ref<VKDescSetLayout>>  m_layouts;
 
         GfxDeviceCaps      m_device_caps;
         StringId           m_driver_name = SID("unknown");

@@ -52,6 +52,19 @@ namespace wmoge {
         WG_LOG_INFO("shutdown vulkan gfx context");
     }
 
+    void VKCtx::update_desc_set(const Ref<GfxDescSet>& set, const GfxDescSetResources& resources) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::update_desc_set");
+
+        assert(check_thread_valid());
+        assert(set);
+        assert(!m_in_render_pass);
+
+        auto vk_desc_set = dynamic_cast<VKDescSet*>(set.get());
+
+        vk_desc_set->update(resources);
+        vk_desc_set->merge(resources);
+    }
+
     void VKCtx::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::update_vert_buffer");
 
@@ -372,8 +385,8 @@ namespace wmoge {
 
         assert(m_render_pass_started);
 
-        WG_VK_END_LABEL(cmd_current());
         vkCmdEndRenderPass(cmd_current());
+        WG_VK_END_LABEL(cmd_current());
 
         m_render_pass_binder->finish(cmd_current());
         m_current_pass.reset();
@@ -412,6 +425,17 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKCtx::end_frame");
 
         m_cmd_manager->update();
+    }
+
+    void VKCtx::begin_label(const StringId& label) {
+        assert(!m_in_render_pass);
+
+        WG_VK_BEGIN_LABEL(cmd_current(), label);
+    }
+    void VKCtx::end_label() {
+        assert(!m_in_render_pass);
+
+        WG_VK_END_LABEL(cmd_current());
     }
 
     const Mat4x4f& VKCtx::clip_matrix() const {
@@ -467,8 +491,8 @@ namespace wmoge {
             render_pass_info.clearValueCount = clear_value_count;
             render_pass_info.pClearValues    = clear_values.data();
 
-            vkCmdBeginRenderPass(cmd_current(), &render_pass_info, VK_SUBPASS_CONTENTS_INLINE);
             WG_VK_BEGIN_LABEL(cmd_current(), m_render_pass_name);
+            vkCmdBeginRenderPass(cmd_current(), &render_pass_info, VK_SUBPASS_CONTENTS_INLINE);
 
             VkViewport viewport;
             viewport.x        = static_cast<float>(m_viewport.x());

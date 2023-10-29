@@ -136,6 +136,14 @@ namespace wmoge {
     void Scene::set_state(SceneState state) {
         m_state = state;
     }
+    void Scene::finalize() {
+        m_ecs_world.reset();
+        m_transforms.reset();
+        m_cameras.reset();
+        m_visibility_system.reset();
+        m_render_scene.reset();
+        m_graphics_pipeline.reset();
+    }
     const StringId& Scene::get_name() {
         return m_name;
     }

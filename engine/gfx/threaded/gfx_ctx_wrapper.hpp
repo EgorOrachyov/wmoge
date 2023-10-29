@@ -52,6 +52,8 @@ namespace wmoge {
 
         ~GfxCtxWrapper() override = default;
 
+        void update_desc_set(const Ref<GfxDescSet>& set, const GfxDescSetResources& resources) override;
+
         void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
         void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
         void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
@@ -91,6 +93,9 @@ namespace wmoge {
 
         void begin_frame() override;
         void end_frame() override;
+
+        void begin_label(const StringId& label) override;
+        void end_label() override;
 
         [[nodiscard]] const Mat4x4f& clip_matrix() const override;
         [[nodiscard]] GfxCtxType     ctx_type() const override;

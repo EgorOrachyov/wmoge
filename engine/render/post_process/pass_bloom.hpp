@@ -35,6 +35,8 @@
 #include "render/graphics_pipeline.hpp"
 #include "render/render_engine.hpp"
 
+#include <vector>
+
 namespace wmoge {
 
     /**

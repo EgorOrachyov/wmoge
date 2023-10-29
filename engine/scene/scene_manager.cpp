@@ -64,7 +64,7 @@ namespace wmoge {
 
     void SceneManager::clear() {
         for (auto& scene : m_scenes) {
-            scene->clear();
+            scene->finalize();
         }
 
         m_scenes.clear();

@@ -62,6 +62,8 @@ namespace wmoge {
     public:
         virtual ~GfxCtx() = default;
 
+        virtual void update_desc_set(const Ref<GfxDescSet>& set, const GfxDescSetResources& resources) = 0;
+
         virtual void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data)                = 0;
         virtual void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data)              = 0;
         virtual void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data)          = 0;
@@ -101,9 +103,29 @@ namespace wmoge {
         virtual void begin_frame() = 0;
         virtual void end_frame()   = 0;
 
+        virtual void begin_label(const StringId& label) = 0;
+        virtual void end_label()                        = 0;
+
         [[nodiscard]] virtual const Mat4x4f& clip_matrix() const = 0;
         [[nodiscard]] virtual GfxCtxType     ctx_type() const    = 0;
     };
+
+    /**
+     * @class GfxDebugLabel
+     * @brief Scope for debug laber
+    */
+    struct GfxDebugLabel {
+        GfxDebugLabel(GfxCtx* ctx, const StringId& label) : ctx(ctx) { ctx->begin_label(label); }
+        ~GfxDebugLabel() { ctx->end_label(); }
+        GfxCtx* ctx;
+    };
+
+#ifndef WMOGE_RELEASE
+    #define WG_GFX_LABEL(ctx, label) \
+        GfxDebugLabel __label_guard(ctx, label);
+#else
+    #define WG_GFX_LABEL(ctx, label)
+#endif
 
 }// namespace wmoge
 

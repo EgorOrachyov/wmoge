@@ -43,17 +43,19 @@ namespace wmoge {
     /**
      * @class VKTargetInfo
      * @brief Info to bind texture as a render target
-     */
+    */
     struct VKTargetInfo {
         Ref<VKTexture> texture;
         int            slice = -1;
         int            mip   = -1;
     };
 
+    static_assert(sizeof(VKTargetInfo) == 16, "VKTargetInfo must fit 16 exactly");
+
     /**
      * @class VKRenderPass
      * @brief Vulkan single render pass implementation required for PSO and drawing
-     */
+    */
     class VKRenderPass : public VKResource<GfxRenderPass> {
     public:
         VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver);
@@ -72,24 +74,43 @@ namespace wmoge {
     };
 
     /**
+     * @class VKFrameBufferDesc
+     * @brief Frame buffer desc for creation and caching
+    */
+    struct VKFrameBufferDesc {
+        VKFrameBufferDesc() = default;
+        bool        operator==(const VKFrameBufferDesc& other) const;
+        std::size_t hash() const;
+
+        std::array<VKTargetInfo, GfxLimits::MAX_COLOR_TARGETS> color_targets{};
+        VKTargetInfo                                           depth_stencil_target{};
+        Ref<VKRenderPass>                                      render_pass;
+    };
+
+    static_assert(sizeof(VKFrameBufferDesc) == (sizeof(VKTargetInfo) * 9 + sizeof(void*)), "VKFrameBufferDesc must fit exactly");
+
+    /**
      * @class VKFramebufferObject
      * @brief Raii wrapper for VkFramebuffer object
-     */
+    */
     class VKFramebufferObject : public VKResource<GfxResource> {
     public:
-        VKFramebufferObject(VkFramebuffer framebuffer, class VKDriver& driver);
+        VKFramebufferObject(const VKFrameBufferDesc& desc, const StringId& name, class VKDriver& driver);
         ~VKFramebufferObject() override;
 
+        Size2i        size() const { return m_size; }
         VkFramebuffer framebuffer() const { return m_framebuffer; }
 
     private:
-        VkFramebuffer m_framebuffer = VK_NULL_HANDLE;
+        Size2i            m_size;
+        VKFrameBufferDesc m_desc;
+        VkFramebuffer     m_framebuffer = VK_NULL_HANDLE;
     };
 
     /**
      * @class VKRenderPassBinder
      * @brief Binds color targets to prepare render pass and frame buffer
-     */
+    */
     class VKRenderPassBinder {
     public:
         explicit VKRenderPassBinder(class VKDriver& driver);
@@ -121,6 +142,7 @@ namespace wmoge {
         Ref<VKWindow>                                          m_window;
 
         GfxRenderPassDesc        m_current_pass_desc{};
+        VKFrameBufferDesc        m_current_fb_desc{};
         Ref<VKRenderPass>        m_current_render_pass{};
         Ref<VKFramebufferObject> m_current_framebuffer{};
         Size2i                   m_current_size{};
@@ -130,5 +152,16 @@ namespace wmoge {
     };
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::VKFrameBufferDesc> {
+        std::size_t operator()(const wmoge::VKFrameBufferDesc& desc) const {
+            return desc.hash();
+        }
+    };
+
+}// namespace std
 
 #endif//WMOGE_VK_RENDER_PASS_HPP

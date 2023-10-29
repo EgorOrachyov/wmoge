@@ -26,9 +26,10 @@
 /**********************************************************************************/
 
 #include "vk_render_pass.hpp"
-#include "vk_driver.hpp"
 
+#include "core/crc32.hpp"
 #include "debug/profiler.hpp"
+#include "gfx/vulkan/vk_driver.hpp"
 
 namespace wmoge {
 
@@ -113,9 +114,50 @@ namespace wmoge {
         }
     }
 
-    VKFramebufferObject::VKFramebufferObject(VkFramebuffer framebuffer, class VKDriver& driver)
-        : VKResource<GfxResource>(driver),
-          m_framebuffer(framebuffer) {
+    bool VKFrameBufferDesc::operator==(const VKFrameBufferDesc& other) const {
+        return std::memcmp(this, &other, sizeof(VKFrameBufferDesc)) == 0;
+    }
+    std::size_t VKFrameBufferDesc::hash() const {
+        return static_cast<std::size_t>(Crc32::hash(this, sizeof(VKFrameBufferDesc)));
+    }
+
+    VKFramebufferObject::VKFramebufferObject(const VKFrameBufferDesc& desc, const StringId& name, class VKDriver& driver)
+        : VKResource<GfxResource>(driver) {
+        m_desc = desc;
+        m_name = name;
+
+        VkFramebufferCreateInfo create_info{};
+        create_info.sType      = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        create_info.renderPass = desc.render_pass->render_pass();
+
+        std::array<VkImageView, GfxLimits::MAX_COLOR_TARGETS + 1> views;
+        int                                                       views_count = 0;
+
+        for (int i = 0; i < GfxLimits::MAX_COLOR_TARGETS; i++) {
+            if (!desc.color_targets[i].texture) {
+                break;
+            }
+
+            auto& texture        = desc.color_targets[i].texture;
+            views[views_count++] = texture->has_rt_views() ? texture->rt_view(desc.color_targets[i].slice, desc.color_targets[i].mip) : texture->view();
+        }
+        if (desc.depth_stencil_target.texture) {
+            auto& texture        = desc.depth_stencil_target.texture;
+            views[views_count++] = texture->rt_view(desc.depth_stencil_target.slice, desc.depth_stencil_target.mip);
+        }
+
+        Ref<VKTexture> ref = desc.depth_stencil_target.texture ? desc.depth_stencil_target.texture : desc.color_targets[0].texture;
+        m_size[0]          = ref->width();
+        m_size[1]          = ref->height();
+
+        create_info.attachmentCount = views_count;
+        create_info.pAttachments    = views.data();
+        create_info.width           = ref->width();
+        create_info.height          = ref->height();
+        create_info.layers          = 1;
+
+        WG_VK_CHECK(vkCreateFramebuffer(m_driver.device(), &create_info, nullptr, &m_framebuffer));
+        WG_VK_NAME(m_driver.device(), m_framebuffer, VK_OBJECT_TYPE_FRAMEBUFFER, "frame_buff " + m_name.str());
     }
     VKFramebufferObject::~VKFramebufferObject() {
         WG_AUTO_PROFILE_VULKAN("VKFramebufferObject::~VKFramebufferObject");
@@ -211,41 +253,12 @@ namespace wmoge {
     void VKRenderPassBinder::prepare_framebuffer() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::prepare_framebuffer");
 
-        VkFramebufferCreateInfo create_info{};
-        create_info.sType      = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-        create_info.renderPass = m_current_render_pass->render_pass();
+        m_current_fb_desc.color_targets        = m_color_targets;
+        m_current_fb_desc.depth_stencil_target = m_depth_stencil_target;
+        m_current_fb_desc.render_pass          = m_current_render_pass;
 
-        std::array<VkImageView, GfxLimits::MAX_COLOR_TARGETS + 1> views;
-        int                                                       views_count = 0;
-
-        for (int i = 0; i < GfxLimits::MAX_COLOR_TARGETS; i++) {
-            if (!m_color_targets[i].texture) {
-                break;
-            }
-
-            auto& texture        = m_color_targets[i].texture;
-            views[views_count++] = texture->has_rt_views() ? texture->rt_view(m_color_targets[i].slice, m_color_targets[i].mip) : texture->view();
-        }
-        if (m_depth_stencil_target.texture) {
-            auto& texture        = m_depth_stencil_target.texture;
-            views[views_count++] = texture->rt_view(m_depth_stencil_target.slice, m_depth_stencil_target.mip);
-        }
-
-        Ref<VKTexture> ref = m_depth_stencil_target.texture ? m_depth_stencil_target.texture : m_color_targets[0].texture;
-        m_current_size[0]  = ref->width();
-        m_current_size[1]  = ref->height();
-
-        create_info.attachmentCount = views_count;
-        create_info.pAttachments    = views.data();
-        create_info.width           = ref->width();
-        create_info.height          = ref->height();
-        create_info.layers          = 1;
-
-        VkFramebuffer framebuffer;
-
-        WG_VK_CHECK(vkCreateFramebuffer(m_driver.device(), &create_info, nullptr, &framebuffer));
-        WG_VK_NAME(m_driver.device(), framebuffer, VK_OBJECT_TYPE_FRAMEBUFFER, "frame_buff " + m_current_name.str());
-        m_current_framebuffer = make_ref<VKFramebufferObject>(framebuffer, m_driver);
+        m_current_framebuffer = m_driver.make_frame_buffer(m_current_fb_desc, m_current_name);
+        m_current_size        = m_current_framebuffer->size();
     }
 
 }// namespace wmoge

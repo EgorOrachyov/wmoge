@@ -75,9 +75,12 @@ namespace wmoge {
     }
     VKDescSet::~VKDescSet() {
         if (m_set) {
-            m_driver.desc_manager()->free(m_set);
+            m_driver.desc_manager()->free(m_layout, m_set);
             m_set = VK_NULL_HANDLE;
         }
+    }
+    void VKDescSet::copy(const GfxDescSetResources& resources) {
+        m_resources = resources;
     }
     void VKDescSet::merge(const GfxDescSetResources& resources) {
         for (const auto& resource : resources) {

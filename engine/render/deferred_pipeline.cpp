@@ -66,10 +66,16 @@ namespace wmoge {
         }
 
         const int view_count = int(m_views.size());
+        Engine*   engine     = Engine::instance();
+        GfxCtx*   gfx_ctx    = engine->gfx_ctx();
+
+        WG_GFX_LABEL(gfx_ctx, SID("DeferredPipeline::exectute"));
 
         for (int i = view_count - 1; i >= 0; i--) {
             const int               view_idx = i;
             const RenderCameraData& camera   = m_cameras->data_at(view_idx);
+
+            WG_GFX_LABEL(gfx_ctx, SID("Render view=" + StringUtils::from_int(view_idx)));
 
             if (camera.type == CameraType::Color) {
                 assert(view_idx == 0);

@@ -60,6 +60,7 @@ namespace wmoge {
         VKDescSet(const GfxDescSetResources& resources, const Ref<VKDescSetLayout>& layout, const StringId& name, class VKDriver& driver);
         ~VKDescSet() override;
 
+        void copy(const GfxDescSetResources& resources);
         void merge(const GfxDescSetResources& resources);
         void update(const GfxDescSetResources& resources);
 

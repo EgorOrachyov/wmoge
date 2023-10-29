@@ -59,25 +59,40 @@ namespace wmoge {
         WG_VK_NAME(m_driver.device(), m_pool, VK_OBJECT_TYPE_DESCRIPTOR_POOL, pool_name.str());
     }
     VKDescManager::~VKDescManager() {
+        for (auto& bucket : m_buckets) {
+            vkFreeDescriptorSets(m_driver.device(), m_pool, std::uint32_t(bucket.second.size()), bucket.second.data());
+        }
+
         vkDestroyDescriptorPool(m_driver.device(), m_pool, nullptr);
     }
 
     VkDescriptorSet VKDescManager::allocate(const Ref<VKDescSetLayout>& layout) {
-        VkDescriptorSetLayout layouts[1] = {layout->layout()};
-        VkDescriptorSet       sets[1]    = {VK_NULL_HANDLE};
+        auto& bucket = m_buckets[layout];
 
-        VkDescriptorSetAllocateInfo alloc_info{};
-        alloc_info.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-        alloc_info.descriptorPool     = m_pool;
-        alloc_info.descriptorSetCount = 1;
-        alloc_info.pSetLayouts        = layouts;
-        WG_VK_CHECK(vkAllocateDescriptorSets(m_driver.device(), &alloc_info, sets));
+        if (bucket.empty()) {
+            VkDescriptorSetLayout layouts[1] = {layout->layout()};
+            VkDescriptorSet       sets[1]    = {VK_NULL_HANDLE};
 
-        return sets[0];
+            VkDescriptorSetAllocateInfo alloc_info{};
+            alloc_info.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+            alloc_info.descriptorPool     = m_pool;
+            alloc_info.descriptorSetCount = 1;
+            alloc_info.pSetLayouts        = layouts;
+            WG_VK_CHECK(vkAllocateDescriptorSets(m_driver.device(), &alloc_info, sets));
+
+            bucket.push_back(sets[0]);
+        }
+
+        assert(!bucket.empty());
+
+        VkDescriptorSet set = bucket.back();
+        bucket.pop_back();
+
+        return set;
     }
 
-    void VKDescManager::free(VkDescriptorSet set) {
-        vkFreeDescriptorSets(m_driver.device(), m_pool, 1, &set);
+    void VKDescManager::free(const Ref<VKDescSetLayout>& layout, VkDescriptorSet set) {
+        m_buckets[layout].push_back(set);
     }
 
 }// namespace wmoge

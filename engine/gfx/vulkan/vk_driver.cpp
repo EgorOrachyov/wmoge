@@ -299,6 +299,17 @@ namespace wmoge {
 
         return render_pass;
     }
+    Ref<VKFramebufferObject> VKDriver::make_frame_buffer(const VKFrameBufferDesc& desc, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_frame_buffer");
+
+        auto& frame_buffer = m_frame_buffers[desc];
+        if (!frame_buffer) {
+            frame_buffer = make_ref<VKFramebufferObject>(desc, name, *this);
+            WG_LOG_INFO("cache new frame buffer " << name);
+        }
+
+        return frame_buffer;
+    }
     Ref<GfxDynVertBuffer> VKDriver::make_dyn_vert_buffer(int chunk_size, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_vert_buffer");
 
@@ -366,7 +377,13 @@ namespace wmoge {
             m_ctx_async.reset();
             flush_release();
 
+            m_frame_buffers.clear();
+            flush_release();
+
             m_render_passes.clear();
+            flush_release();
+
+            m_desc_manager.reset();
             flush_release();
 
             m_layouts.clear();
@@ -384,7 +401,6 @@ namespace wmoge {
 
             glslang::FinalizeProcess();
 
-            m_desc_manager.reset();
             m_mem_manager.reset();
             m_queues.reset();
             m_driver_worker.reset();

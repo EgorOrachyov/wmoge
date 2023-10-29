@@ -176,6 +176,7 @@ namespace wmoge {
         void   advance(float delta_time);
         void   clear();
         void   set_state(SceneState state);
+        void   finalize();
 
         [[nodiscard]] const StringId&        get_name();
         [[nodiscard]] EcsWorld*              get_ecs_world();

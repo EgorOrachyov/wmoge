@@ -59,8 +59,6 @@ namespace wmoge {
     }
 
     Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const StringId& name) {
-        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_vert_format");
-
         auto cached = m_vert_fmt_cache->get(elements);
         if (cached.has_value()) {
             return cached.value();

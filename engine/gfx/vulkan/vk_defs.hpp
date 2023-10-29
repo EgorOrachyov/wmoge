@@ -36,6 +36,7 @@
     #endif
 #endif
 
+#include <cinttypes>
 #include <functional>
 #include <string>
 #include <vector>
