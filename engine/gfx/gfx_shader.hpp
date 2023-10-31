@@ -36,6 +36,7 @@
 
 #include <array>
 #include <cinttypes>
+#include <optional>
 
 namespace wmoge {
 
@@ -90,11 +91,11 @@ namespace wmoge {
      */
     class GfxShader : public GfxResource {
     public:
-        ~GfxShader() override                                 = default;
-        virtual GfxShaderStatus            status() const     = 0;
-        virtual std::string                message() const    = 0;
-        virtual const GfxShaderReflection* reflection() const = 0;
-        virtual Ref<Data>                  byte_code() const  = 0;
+        ~GfxShader() override                                                = default;
+        virtual GfxShaderStatus                           status() const     = 0;
+        virtual std::string                               message() const    = 0;
+        virtual std::optional<const GfxShaderReflection*> reflection() const = 0;
+        virtual Ref<Data>                                 byte_code() const  = 0;
     };
 
 }// namespace wmoge

@@ -8,6 +8,7 @@
 /**********************************************************************************/
 
 #include "common_funcs.glsl"
+#include "color.glsl"
 #include "inout_attributes.glsl
 
 layout (location = 0) out vec4 out_color;

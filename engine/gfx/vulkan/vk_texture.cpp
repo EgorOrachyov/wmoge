@@ -149,9 +149,36 @@ namespace wmoge {
 
         update(cmd, mip, face, region, data);
     }
-    void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination) {
-        WG_AUTO_PROFILE_VULKAN("VKTexture::transition_layout");
+    void VKTexture::transition_layout(VkCommandBuffer cmd, GfxTexBarrierType barrier_type) {
+        VkImageLayout destination = VK_IMAGE_LAYOUT_UNDEFINED;
 
+        if (barrier_type == GfxTexBarrierType::Storage) {
+            assert(m_usages.get(GfxTexUsageFlag::Storage));
+            destination = VK_IMAGE_LAYOUT_GENERAL;
+        }
+        if (barrier_type == GfxTexBarrierType::Sampling) {
+            assert(m_usages.get(GfxTexUsageFlag::Sampling));
+            destination = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+        }
+        if (barrier_type == GfxTexBarrierType::RenderTarget) {
+            assert(m_usages.get(GfxTexUsageFlag::ColorTarget) ||
+                   m_usages.get(GfxTexUsageFlag::DepthTarget) ||
+                   m_usages.get(GfxTexUsageFlag::DepthStencilTarget));
+
+            if (m_usages.get(GfxTexUsageFlag::ColorTarget)) {
+                destination = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+            }
+            if (m_usages.get(GfxTexUsageFlag::DepthTarget)) {
+                destination = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
+            }
+            if (m_usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
+                destination = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+            }
+        }
+
+        transition_layout(cmd, destination);
+    }
+    void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination) {
         VkImageSubresourceRange subresource{};
         subresource.aspectMask     = VKDefs::get_aspect_flags(m_format);
         subresource.baseMipLevel   = 0;
@@ -197,6 +224,9 @@ namespace wmoge {
                     access = VK_ACCESS_SHADER_READ_BIT;
                     stage  = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
                     break;
+                case VK_IMAGE_LAYOUT_GENERAL:
+                    access = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
+                    stage  = VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
                 case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
                     access = 0;
                     stage  = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
@@ -230,6 +260,10 @@ namespace wmoge {
         } else if (m_current_layout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
             barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
             src_stage_flags       = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
+        } else if (m_current_layout == VK_IMAGE_LAYOUT_GENERAL) {
+            barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
+            src_stage_flags       = VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
             get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
         } else if (m_current_layout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
             barrier.srcAccessMask = 0;
@@ -267,6 +301,10 @@ namespace wmoge {
             m_usage_flags |= VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
             assert(!m_usages.get(GfxTexUsageFlag::ColorTarget));
             assert(!m_usages.get(GfxTexUsageFlag::DepthStencilTarget));
+        }
+        if (m_usages.get(GfxTexUsageFlag::Storage)) {
+            m_primary_layout = VK_IMAGE_LAYOUT_GENERAL;
+            m_usage_flags |= VK_IMAGE_USAGE_STORAGE_BIT;
         }
         if (m_usages.get(GfxTexUsageFlag::Sampling)) {
             m_primary_layout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;

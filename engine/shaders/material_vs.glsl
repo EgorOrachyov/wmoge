@@ -10,6 +10,7 @@
 #include "inout_attributes.glsl"
 #include "vertex_attributes.glsl"
 #include "scene_data.glsl"
+#include "color.glsl"
 
 struct ShaderInoutVs {
     VertexAttributes attributes;

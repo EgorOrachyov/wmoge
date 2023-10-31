@@ -26,12 +26,13 @@
 /**********************************************************************************/
 
 #include "vk_shader.hpp"
-#include "vk_driver.hpp"
 
 #include "core/timer.hpp"
 #include "debug/profiler.hpp"
+#include "gfx/vulkan/vk_driver.hpp"
 #include "io/archive.hpp"
 #include "io/archive_memory.hpp"
+#include "io/enum.hpp"
 
 namespace wmoge {
 
@@ -58,6 +59,13 @@ namespace wmoge {
         m_sources.push_back(std::move(fragment));
         m_set_layouts = layouts;
     }
+    VKShader::VKShader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name, VKDriver& driver)
+        : VKResource<GfxShader>(driver) {
+
+        m_name = name;
+        m_sources.push_back(std::move(compute));
+        m_set_layouts = layouts;
+    }
     VKShader::VKShader(Ref<Data> byte_code, const StringId& name, class VKDriver& driver)
         : VKResource<GfxShader>(driver) {
 
@@ -82,8 +90,11 @@ namespace wmoge {
     std::string VKShader::message() const {
         return status() != GfxShaderStatus::Compiling ? m_message : std::string();
     }
-    const GfxShaderReflection* VKShader::reflection() const {
-        return status() == GfxShaderStatus::Compiled ? &m_reflection : nullptr;
+    std::optional<const GfxShaderReflection*> VKShader::reflection() const {
+        if (status() == GfxShaderStatus::Compiled) {
+            return &m_reflection;
+        }
+        return std::nullopt;
     }
     Ref<Data> VKShader::byte_code() const {
         return status() == GfxShaderStatus::Compiled ? m_byte_code : Ref<Data>();
@@ -91,24 +102,19 @@ namespace wmoge {
     void VKShader::compile_from_source() {
         WG_AUTO_PROFILE_VULKAN("VKShader::compile_from_source");
 
+        const bool compile_vert_frag = m_sources.size() == 2;
+        const bool compile_compute   = m_sources.size() == 1;
+
+        assert(compile_vert_frag || compile_compute);
+
         Timer timer;
         timer.start();
 
-        glslang::TProgram program;
-        glslang::TShader  shaders[2] = {glslang::TShader(EShLangVertex), glslang::TShader(EShLangFragment)};
-        EShLanguage       types[2]   = {EShLangVertex, EShLangFragment};
-
-        const char* sources[2] = {m_sources[0].c_str(), m_sources[1].c_str()};
-        const int   lengths[2] = {static_cast<int>(m_sources[0].size()), static_cast<int>(m_sources[1].size())};
-
         const auto messages = static_cast<EShMessages>(EShMsgSpvRules | EShMsgVulkanRules);
 
-        for (int i = 0; i < 2; i++) {
-            auto  language = types[i];
-            auto& shader   = shaders[i];
-
-            const char* shader_sources[1] = {sources[i]};
-            const int   shader_lengths[1] = {lengths[i]};
+        auto compile_single_shader = [&](EShLanguage language, glslang::TShader& shader, const std::string& source) {
+            const char* shader_sources[1] = {source.data()};
+            const int   shader_lengths[1] = {int(source.size())};
 
             shader.setStringsWithLengths(shader_sources, shader_lengths, 1);
 
@@ -230,14 +236,46 @@ namespace wmoge {
             const int default_version = 100;
 
             if (!shader.parse(&built_in_res, default_version, true, messages)) {
-                WG_LOG_ERROR("failed to parse shader Num=" << i << ": " << shader.getInfoLog());
-                WG_LOG_INFO(sources[i]);
+                WG_LOG_ERROR("failed to parse shader Num=" << Enum::to_str(language) << ": " << shader.getInfoLog());
+                WG_LOG_INFO(source);
                 m_message = shader.getInfoLog();
                 m_status.store(GfxShaderStatus::Failed);
+                return false;
+            }
+
+            return true;
+        };
+
+        glslang::TProgram              program;
+        fast_vector<glslang::TShader*> shaders;
+
+        glslang::TShader shader_vertex(EShLangVertex);
+        glslang::TShader shader_fragment(EShLangFragment);
+        glslang::TShader shader_compute(EShLangCompute);
+
+        if (compile_vert_frag) {
+            shaders.push_back(&shader_vertex);
+            shaders.push_back(&shader_fragment);
+
+            if (!compile_single_shader(EShLangVertex, *shaders[0], m_sources[0])) {
+                return;
+            }
+            if (!compile_single_shader(EShLangFragment, *shaders[1], m_sources[1])) {
                 return;
             }
 
-            program.addShader(&shader);
+            program.addShader(shaders[0]);
+            program.addShader(shaders[1]);
+        }
+
+        if (compile_compute) {
+            shaders.push_back(&shader_compute);
+
+            if (!compile_single_shader(EShLangCompute, *shaders.back(), m_sources[0])) {
+                return;
+            }
+
+            program.addShader(shaders[0]);
         }
 
         if (!program.link(messages)) {
@@ -247,26 +285,36 @@ namespace wmoge {
             return;
         }
 
-        std::vector<uint32_t> spirv[2];
-        Ref<Data>             spirv_datas[2];
+        fast_vector<std::vector<uint32_t>> spirvs;
+        fast_vector<Ref<Data>>             spirv_datas;
 
-        for (int i = 0; i < 2; i++) {
-            glslang::TIntermediate* intermediate = program.getIntermediate(types[i]);
+        auto extract_spirv = [&](EShLanguage langugage, std::vector<uint32_t>& spirv, Ref<Data>& spirv_data) {
+            glslang::TIntermediate* intermediate = program.getIntermediate(langugage);
             spv::SpvBuildLogger     logger;
             glslang::SpvOptions     spv_options;
             spv_options.disableOptimizer = false;
             spv_options.validate         = true;
             spv_options.optimizeSize     = true;
-            glslang::GlslangToSpv(*intermediate, spirv[i], &logger, &spv_options);
+            glslang::GlslangToSpv(*intermediate, spirv, &logger, &spv_options);
 
-            if (spirv[i].empty()) {
+            if (spirv.empty()) {
                 WG_LOG_ERROR("failed to compile program: " << logger.getAllMessages());
                 m_message = logger.getAllMessages();
                 m_status.store(GfxShaderStatus::Failed);
-                return;
+                return false;
             }
 
-            spirv_datas[i] = make_ref<Data>(spirv[i].data(), sizeof(uint32_t) * spirv[i].size());
+            spirv_data = make_ref<Data>(spirv.data(), sizeof(uint32_t) * spirv.size());
+            return true;
+        };
+
+        for (auto& shader : shaders) {
+            auto& spirv      = spirvs.emplace_back();
+            auto& spirv_data = spirv_datas.emplace_back();
+
+            if (!extract_spirv(shader->getStage(), spirv, spirv_data)) {
+                return;
+            }
         }
 
         if (!program.buildReflection()) {
@@ -277,12 +325,12 @@ namespace wmoge {
         }
 
         reflect(program);
-        gen_byte_code(spirv_datas[0], spirv_datas[1]);
+        gen_byte_code(spirv_datas);
 
         timer.stop();
         WG_LOG_INFO("compiled (source): " << name() << ", code " << m_byte_code->size_as_kib() << " KiB, time: " << timer.get_elapsed_sec() << " sec");
 
-        init(spirv_datas[0], spirv_datas[1]);
+        init(spirv_datas);
     }
     void VKShader::compile_from_byte_code() {
         WG_AUTO_PROFILE_VULKAN("VKShader::compile_from_byte_code");
@@ -307,7 +355,7 @@ namespace wmoge {
         timer.stop();
         WG_LOG_INFO("compiled (byte code): " << name() << " time: " << timer.get_elapsed_sec() << " sec");
 
-        init(binary.spirvs[0], binary.spirvs[1]);
+        init(binary.spirvs);
     }
     void VKShader::reflect(glslang::TProgram& program) {
         WG_AUTO_PROFILE_VULKAN("VKShader::reflect");
@@ -379,12 +427,11 @@ namespace wmoge {
             }
         }
     }
-    void VKShader::gen_byte_code(const Ref<Data>& vertex, const Ref<Data>& fragment) {
+    void VKShader::gen_byte_code(const fast_vector<Ref<Data>>& spirvs) {
         WG_AUTO_PROFILE_VULKAN("VKShader::gen_byte_code");
 
         VKShaderBinary binary;
-        binary.spirvs.push_back(vertex);
-        binary.spirvs.push_back(fragment);
+        binary.spirvs     = spirvs;
         binary.reflection = m_reflection;
 
         for (auto& layout : m_set_layouts) {
@@ -400,12 +447,10 @@ namespace wmoge {
 
         m_byte_code = make_ref<Data>(archive.get_data().data(), archive.get_data().size());
     }
-    void VKShader::init(const Ref<Data>& vertex, const Ref<Data>& fragment) {
+    void VKShader::init(const fast_vector<Ref<Data>>& spirvs) {
         WG_AUTO_PROFILE_VULKAN("VKShader::init");
 
-        const Data* binaries[2] = {vertex.get(), fragment.get()};
-
-        for (auto binary : binaries) {
+        for (auto& binary : spirvs) {
             VkShaderModuleCreateInfo create_info{};
             create_info.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
             create_info.codeSize = static_cast<uint32_t>(binary->size());

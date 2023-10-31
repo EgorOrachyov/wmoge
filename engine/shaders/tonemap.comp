@@ -8,19 +8,27 @@
 /**********************************************************************************/
 
 #include "common_funcs.glsl"
-#include "inout_attributes.glsl"
+#include "color.glsl"
 #include "hdr.glsl"
 
-layout (location = 0) out vec4 out_color;
+#define GROUP_SIZE_DEFAULT 16
+
+layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, local_size_z = 1) in;
 
 void main() {
-    const InoutAttributes attributes = ReadInoutAttributes();
-    const vec2 uv = attributes.uv[0];
+    const uvec2 gid = gl_GlobalInvocationID.xy;
+
+    if (gid.x >= TargetSize.x || gid.y >= TargetSize.y) {
+        return;
+    }    
+
+    const vec2 uv = vec2(gid) / vec2(TargetSize);
     
-    const vec3 hdrSrcColor  = texture(Image, uv).rgb;
-    const vec3 hdrBloom     = texture(Bloom, uv).rgb * BloomIntensity;
-    const vec3 hdrBloomDirt = texture(BloomDirtMask, uv).rgb * BloomDirtMaskIntensity;
-    const vec3 hdrColor     = hdrSrcColor + hdrBloom + hdrBloom * hdrBloomDirt;
+    const vec3 hdrSrcColor  = textureLod(Image, uv, 0).rgb;
+    const vec3 hdrBloom     = textureLod(Bloom, uv, 0).rgb * BloomIntensity;
+    const vec3 hdrBloomDirt = textureLod(BloomDirtMask, uv, 0).rgb * BloomDirtMaskIntensity;
+
+    const vec3 hdrColor = hdrSrcColor + hdrBloom + hdrBloom * hdrBloomDirt;
 
     vec3 ldrColor = hdrColor;
     const int tonemapMode = int(Mode);
@@ -47,5 +55,5 @@ void main() {
 
     const vec3 gammaColor = ColorLinearToSrgb(ldrColor, InverseGamma);
 
-    out_color = vec4(gammaColor, 1.0f);
+    imageStore(Result, ivec2(gid), vec4(gammaColor, 1.0f));
 }

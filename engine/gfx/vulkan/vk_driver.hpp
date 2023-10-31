@@ -70,12 +70,14 @@ namespace wmoge {
         Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) override;
+        Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) override;
         Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
         Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name) override;
+        Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) override;
         Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
         Ref<VKFramebufferObject> make_frame_buffer(const VKFrameBufferDesc& desc, const StringId& name);
         Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
@@ -91,10 +93,11 @@ namespace wmoge {
         void prepare_window(const Ref<Window>& window) override;
         void swap_buffers(const Ref<Window>& window) override;
 
-        class GfxCtx*       ctx_immediate() override { return m_ctx_immediate.get(); }
-        class GfxCtx*       ctx_async() override { return m_ctx_async.get(); }
-        GfxPipelineCache*   pso_cache() override { return m_pso_cache.get(); }
-        GfxVertFormatCache* vert_fmt_cache() override { return m_vert_fmt_cache.get(); }
+        class GfxCtx*         ctx_immediate() override { return m_ctx_immediate.get(); }
+        class GfxCtx*         ctx_async() override { return m_ctx_async.get(); }
+        GfxPipelineCache*     pso_cache() override { return m_pso_cache.get(); }
+        GfxCompPipelineCache* comp_pso_cache() override { return m_comp_pso_cache.get(); }
+        GfxVertFormatCache*   vert_fmt_cache() override { return m_vert_fmt_cache.get(); }
 
         GfxUniformPool*      uniform_pool() override { return m_uniform_pool.get(); }
         GfxDynVertBuffer*    dyn_vert_buffer() override { return m_dyn_vert_buffer.get(); }
@@ -184,19 +187,20 @@ namespace wmoge {
         std::vector<std::string> m_required_device_extensions;
         bool                     m_use_validation = false;
 
-        std::unique_ptr<GfxDriverWrapper>   m_driver_wrapper;
-        std::unique_ptr<GfxCtxWrapper>      m_ctx_immediate_wrapper;
-        std::unique_ptr<GfxWorker>          m_driver_worker;
-        std::unique_ptr<CallbackStream>     m_driver_cmd_stream;
-        std::unique_ptr<VKWindowManager>    m_window_manager;
-        std::unique_ptr<VKQueues>           m_queues;
-        std::unique_ptr<VKMemManager>       m_mem_manager;
-        std::unique_ptr<VKDescManager>      m_desc_manager;
-        std::unique_ptr<VKCtx>              m_ctx_immediate;
-        std::unique_ptr<VKCtx>              m_ctx_async;
-        std::unique_ptr<GfxPipelineCache>   m_pso_cache;
-        std::unique_ptr<GfxVertFormatCache> m_vert_fmt_cache;
-        std::vector<VkExtensionProperties>  m_device_extensions;
+        std::unique_ptr<GfxDriverWrapper>     m_driver_wrapper;
+        std::unique_ptr<GfxCtxWrapper>        m_ctx_immediate_wrapper;
+        std::unique_ptr<GfxWorker>            m_driver_worker;
+        std::unique_ptr<CallbackStream>       m_driver_cmd_stream;
+        std::unique_ptr<VKWindowManager>      m_window_manager;
+        std::unique_ptr<VKQueues>             m_queues;
+        std::unique_ptr<VKMemManager>         m_mem_manager;
+        std::unique_ptr<VKDescManager>        m_desc_manager;
+        std::unique_ptr<VKCtx>                m_ctx_immediate;
+        std::unique_ptr<VKCtx>                m_ctx_async;
+        std::unique_ptr<GfxPipelineCache>     m_pso_cache;
+        std::unique_ptr<GfxCompPipelineCache> m_comp_pso_cache;
+        std::unique_ptr<GfxVertFormatCache>   m_vert_fmt_cache;
+        std::vector<VkExtensionProperties>    m_device_extensions;
     };
 
 }// namespace wmoge

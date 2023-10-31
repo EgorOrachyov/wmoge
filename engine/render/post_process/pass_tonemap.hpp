@@ -45,14 +45,14 @@ namespace wmoge {
     public:
         PassToneMap();
 
-        void execute(int view_idx, const Ref<Window>& window);
+        void execute(int view_idx);
 
         std::string               get_name() const override;
         GraphicsPipelineStageType get_type() const override;
 
     private:
-        Ref<GfxPipeline> m_pipeline;
-        Ref<GfxSampler>  m_sampler;
+        Ref<GfxCompPipeline> m_pipeline;
+        Ref<GfxSampler>      m_sampler;
     };
 
 }// namespace wmoge

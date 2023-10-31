@@ -53,12 +53,12 @@ namespace wmoge {
     */
     struct BloomSettings {
         bool                                      enable              = true;
-        float                                     intensity           = 0.9f;
-        float                                     threshold           = 0.9f;
+        float                                     intensity           = 1.0f;
+        float                                     threshold           = 1.0f;
         float                                     knee                = 0.5f;
-        float                                     radius              = 1.0f;
-        float                                     uspample_weight     = 0.85f;
-        float                                     dirt_mask_intensity = 2.5f;
+        float                                     radius              = 4.0f;
+        float                                     uspample_weight     = 0.4f;
+        float                                     dirt_mask_intensity = 3.0f;
         std::optional<ResourceRefHard<Texture2d>> dirt_mask;
 
         friend Status yaml_read(const YamlConstNodeRef& node, BloomSettings& settings);
@@ -81,7 +81,6 @@ namespace wmoge {
         };
 
         float exposure    = 0.8f;
-        float gamma       = 2.2f;
         float white_point = 1.0f;
         Mode  mode        = Mode::Exponential;
 
@@ -113,7 +112,8 @@ namespace wmoge {
         AutoExposure,
         ToneMapping,
         SunShafts,
-        Total = 10
+        Composition,
+        Total = 11
     };
 
     /**
@@ -133,6 +133,8 @@ namespace wmoge {
 
         Rect2i viewport;
         Rect2i target_viewport;
+        Vec2u  size;
+        Vec2u  target_size;
 
         void resize(Size2i new_target_resoulution);
         void update_viewport(Size2i new_resoulution);

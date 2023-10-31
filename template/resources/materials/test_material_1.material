@@ -1,5 +1,5 @@
 parameters:
  - name: "color"
-   value: "1 0 0 1"
+   value: "1 0.1 0.1 1"
 textures: []
 shader: "res://shaders/test_shader"

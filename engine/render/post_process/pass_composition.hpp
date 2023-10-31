@@ -25,8 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PASS_BLOOM_HPP
-#define WMOGE_PASS_BLOOM_HPP
+#ifndef WMOGE_PASS_COMPOSITION_HPP
+#define WMOGE_PASS_COMPOSITION_HPP
 
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
@@ -35,30 +35,26 @@
 #include "render/graphics_pipeline.hpp"
 #include "render/render_engine.hpp"
 
-#include <vector>
-
 namespace wmoge {
 
     /**
-     * @class PassBloom
-     * @brief Executes bloom pass of hdr color target
+     * @class PassComposition
+     * @brief Executes final composition
     */
-    class PassBloom : public GraphicsPipelineStage {
+    class PassComposition : public GraphicsPipelineStage {
     public:
-        PassBloom();
+        PassComposition();
 
-        void execute(int view_idx);
+        void execute(int view_idx, const Ref<Window>& window);
 
         std::string               get_name() const override;
         GraphicsPipelineStageType get_type() const override;
 
     private:
-        Ref<GfxCompPipeline> m_pipeline_downsample_prefilter;
-        Ref<GfxCompPipeline> m_pipeline_downsample;
-        Ref<GfxCompPipeline> m_pipeline_upsample;
-        Ref<GfxSampler>      m_sampler;
+        Ref<GfxPipeline> m_pipeline;
+        Ref<GfxSampler>  m_sampler;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_PASS_BLOOM_HPP
+#endif//WMOGE_PASS_COMPOSITION_HPP

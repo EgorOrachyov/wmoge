@@ -99,6 +99,21 @@ namespace wmoge {
         GpuDedicated
     };
 
+    /** @brief Texture sub region */
+    struct GfxTexRegion {
+        int base_mip         = 0;
+        int num_mips         = 0;
+        int base_array_slice = 0;
+        int num_array_slices = 0;
+    };
+
+    /** @brief Texture manual barrier type */
+    enum class GfxTexBarrierType : int {
+        RenderTarget,
+        Sampling,
+        Storage
+    };
+
     /** @brief Texture type */
     enum class GfxTex : int {
         Unknown = 0,
@@ -115,6 +130,8 @@ namespace wmoge {
         DepthTarget = 2,
         /** Texture can be used as render target color attachment */
         ColorTarget = 3,
+        /** Texture can be used in compute shaders as storage image */
+        Storage = 3,
         /** Texture can be sampled within shader */
         Sampling = 4
     };
@@ -432,7 +449,8 @@ namespace wmoge {
         Unknown = 0,
         SampledTexture,
         UniformBuffer,
-        StorageBuffer
+        StorageBuffer,
+        StorageImage
     };
 
     /** @brief How to bind resource to gfx pipeline */

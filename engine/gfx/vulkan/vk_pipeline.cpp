@@ -40,13 +40,9 @@ namespace wmoge {
         m_state = state;
     }
     VKPipeline::~VKPipeline() {
-        WG_AUTO_PROFILE_VULKAN("VKPipeline::~VKPipeline");
-
         release();
     }
     bool VKPipeline::validate(const Ref<VKRenderPass>& render_pass) {
-        WG_AUTO_PROFILE_VULKAN("VKPipeline::validate");
-
         GfxPipelineStatus status = m_status.load();
 
         //  creating pipeline in a background task, wait
@@ -247,6 +243,96 @@ namespace wmoge {
     }
     const GfxPipelineState& VKPipeline::state() const {
         return m_state;
+    }
+
+    VKCompPipeline::VKCompPipeline(const GfxCompPipelineState& state, const StringId& name, VKDriver& driver) : VKResource<GfxCompPipeline>(driver) {
+        m_state = state;
+        m_name  = name;
+    }
+    VKCompPipeline::~VKCompPipeline() {
+        release();
+    }
+    bool VKCompPipeline::validate() {
+        GfxPipelineStatus status = m_status.load();
+
+        //  creating pipeline in a background task, wait
+        if (status == GfxPipelineStatus::Creating) {
+            return false;
+        }
+        // creating is failed, pipeline is broken, nothing to do
+        if (status == GfxPipelineStatus::Failed) {
+            return false;
+        }
+        // pipeline is not yet created or version out of date, have to create new pipeline
+        if (status != GfxPipelineStatus::Created) {
+            auto shader = m_state.shader.cast<VKShader>();
+
+            if (shader->status() != GfxShaderStatus::Compiled) {
+                return false;
+            }
+
+            m_status.store(GfxPipelineStatus::Creating);
+
+            Task compilation_task(m_name, [self = Ref<VKCompPipeline>(this)](auto&) {
+                self->compile();
+                return 0;
+            });
+
+            compilation_task.schedule();
+
+            return false;
+        }
+
+        // so everything is ok, can draw
+        return true;
+    }
+    GfxPipelineStatus VKCompPipeline::status() const {
+        return m_status.load();
+    }
+    std::string VKCompPipeline::message() const {
+        return status() != GfxPipelineStatus::Creating ? m_message : std::string();
+    }
+    const GfxCompPipelineState& VKCompPipeline::state() const {
+        return m_state;
+    }
+    void VKCompPipeline::compile() {
+        WG_AUTO_PROFILE_VULKAN("VKCompPipeline::compile");
+
+        Timer timer;
+        timer.start();
+
+        auto shader = m_state.shader.cast<VKShader>();
+
+        VkPipelineShaderStageCreateInfo shader_stage{};
+        shader_stage.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+        shader_stage.stage  = VK_SHADER_STAGE_COMPUTE_BIT;
+        shader_stage.module = shader->modules()[0];
+        shader_stage.pName  = "main";
+
+        VkComputePipelineCreateInfo pipeline_info{};
+        pipeline_info.sType  = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
+        pipeline_info.layout = shader->layout();
+        pipeline_info.stage  = shader_stage;
+
+        VkPipeline new_pipeline;
+
+        WG_VK_CHECK(vkCreateComputePipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline));
+        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, "pso " + name().str());
+
+        m_pipeline = new_pipeline;
+
+        timer.stop();
+        WG_LOG_INFO("compiled: " << name() << " time: " << timer.get_elapsed_sec() << " sec");
+
+        m_status.store(GfxPipelineStatus::Created);
+    }
+    void VKCompPipeline::release() {
+        WG_AUTO_PROFILE_VULKAN("VKCompPipeline::release");
+
+        if (m_pipeline) {
+            m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });
+            m_pipeline = VK_NULL_HANDLE;
+        }
     }
 
 }// namespace wmoge

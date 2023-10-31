@@ -4,6 +4,7 @@ import material
 import canvas
 import bloom
 import tonemap
+import composition
 
 SHADERS_LIST = [
     base.SHADER,
@@ -12,4 +13,5 @@ SHADERS_LIST = [
     canvas.SHADER,
     bloom.SHADER,
     tonemap.SHADER,
+    composition.SHADER,
 ]

@@ -48,13 +48,15 @@ namespace wmoge {
      * File system abstracts the way how engine files are stored on a target machine.
      * It uses '/' as a universal delimiter and directory separator.
      * It provides a domain prefix in a form of `<PREFIX>://<PATH>` to specify paths.
-     * Standards prefixes are `root://`, `res://` and `cache://`.
+     * Standards prefixes are `root://`,  `eng://`, `res://` and `cache://`.
      * This prefixes must be used for all paths to access engine files.
      *
      * Prefixes description:
-     *  - `root://` prefix to a file relative to the engine directory
-     *  - `res://` prefix relative to a engine resources directory
+     *  - `root://`  prefix to a file relative to the running game main directory
+     *  - `eng://`   prefix to a file relative to the engine private files directory
+     *  - `res://`   prefix relative to engine resources directory
      *  - `cache://` prefix relative to engine cache directory for a cached files
+     *  - `logs://`  prefix relative to engine logs directory
      */
     class FileSystem {
     public:
@@ -83,9 +85,11 @@ namespace wmoge {
     private:
         std::filesystem::path m_executable_path;// absolute exe path
         std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)
+        std::filesystem::path m_eng_path;       // path to directory with engine prvate files
         std::filesystem::path m_resources_path; // path to resources inside root
         std::filesystem::path m_cache_path;     // path to cache inside root
         std::filesystem::path m_debug_path;     // path to debug data inside root
+        std::filesystem::path m_log_path;       // path to log data inside root
 
         std::vector<std::unique_ptr<struct FileSystemWatcher>> m_watchers;
     };

@@ -114,6 +114,7 @@ add_library(wmoge STATIC
         gfx/gfx_defs.hpp
         gfx/gfx_desc_set.cpp
         gfx/gfx_desc_set.hpp
+        gfx/gfx_ctx.cpp
         gfx/gfx_ctx.hpp
         gfx/gfx_driver.hpp
         gfx/gfx_dynamic_buffers.cpp
@@ -301,6 +302,8 @@ add_library(wmoge STATIC
         render/geometry/pass_gbuffer.hpp
         render/post_process/pass_bloom.cpp
         render/post_process/pass_bloom.hpp
+        render/post_process/pass_composition.cpp
+        render/post_process/pass_composition.hpp
         render/post_process/pass_tonemap.cpp
         render/post_process/pass_tonemap.hpp
         resource/audio_stream.cpp

@@ -36,29 +36,22 @@ namespace wmoge {
         GfxSamplerDesc sampler_desc;
         sampler_desc.min_flt = GfxSampFlt::Linear;
         sampler_desc.mag_flt = GfxSampFlt::Linear;
-        sampler_desc.u       = GfxSampAddress::ClampToEdge;
-        sampler_desc.v       = GfxSampAddress::ClampToEdge;
+        sampler_desc.u       = GfxSampAddress::ClampToBorder;
+        sampler_desc.v       = GfxSampAddress::ClampToBorder;
+        sampler_desc.brd_clr = GfxSampBrdClr::Black;
 
         m_sampler = get_gfx_driver()->make_sampler(sampler_desc, SID(sampler_desc.to_str()));
 
-        GfxVertAttribs  attribgs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f};
-        GfxVertElements elements;
-        elements.add_vert_attribs(attribgs, 0, false);
+        GfxCompPipelineState pso_state;
 
-        GfxPipelineState pso_state;
-        pso_state.depth_enable = false;
-        pso_state.depth_write  = false;
-        pso_state.blending     = false;
-        pso_state.vert_format  = get_gfx_driver()->make_vert_format(elements, SID("[pos2, uv2,]"));
+        pso_state.shader                = get_shader_manager()->get_shader(SID("bloom"), {"BLOOM_DOWNSAMPLE_PREFILTER"});
+        m_pipeline_downsample_prefilter = get_gfx_driver()->make_comp_pipeline(pso_state, SID("bloom_downsample_prefilter"));
 
-        pso_state.shader                = get_shader_manager()->get_shader(SID("bloom"), attribgs, {"BLOOM_DOWNSAMPLE_PREFILTER"});
-        m_pipeline_downsample_prefilter = get_gfx_driver()->make_pipeline(pso_state, SID("bloom_downsample_prefilter"));
+        pso_state.shader      = get_shader_manager()->get_shader(SID("bloom"), {"BLOOM_DOWNSAMPLE"});
+        m_pipeline_downsample = get_gfx_driver()->make_comp_pipeline(pso_state, SID("bloom_downsample"));
 
-        pso_state.shader      = get_shader_manager()->get_shader(SID("bloom"), attribgs, {"BLOOM_DOWNSAMPLE"});
-        m_pipeline_downsample = get_gfx_driver()->make_pipeline(pso_state, SID("bloom_downsample"));
-
-        pso_state.shader    = get_shader_manager()->get_shader(SID("bloom"), attribgs, {"BLOOM_UPSAMPLE"});
-        m_pipeline_upsample = get_gfx_driver()->make_pipeline(pso_state, SID("bloom_upsample"));
+        pso_state.shader    = get_shader_manager()->get_shader(SID("bloom"), {"BLOOM_UPSAMPLE"});
+        m_pipeline_upsample = get_gfx_driver()->make_comp_pipeline(pso_state, SID("bloom_upsample"));
     }
 
     void PassBloom::execute(int view_idx) {
@@ -73,7 +66,6 @@ namespace wmoge {
         }
 
         ShaderBloom::Params params;
-        params.Clip           = (get_gfx_driver()->clip_matrix()).transpose();
         params.ThresholdKnee  = Vec4f(settings.threshold, settings.threshold - settings.knee, settings.knee * 2.0f, 0.25f / settings.knee);
         params.UpsampleWeight = settings.uspample_weight;
         params.UpsampleRadius = settings.radius;
@@ -103,12 +95,20 @@ namespace wmoge {
             value.resource      = textures.color_hdr;
             value.sampler       = m_sampler;
         }
+        {
+            auto& [bind, value] = resources.emplace_back();
+            bind.type           = GfxBindingType::StorageImage;
+            bind.binding        = ShaderBloom::RESULT_SLOT;
+            value.resource      = textures.bloom_downsample[0];
+        }
 
         WG_GFX_LABEL(get_gfx_ctx(), SID("PassBloom::execute"));
 
+        const int BLOCK_SIZE = 8;
+
         // Downsample
         {
-            WG_GFX_LABEL(get_gfx_ctx(), SID("Downsample"));
+            WG_GFX_LABEL(get_gfx_ctx(), SID("downsample"));
 
             // Downsample prefilter pass
             {
@@ -117,21 +117,20 @@ namespace wmoge {
                 auto desc_set = get_gfx_driver()->make_desc_set(resources);
 
                 get_gfx_ctx()->execute([&](GfxCtx* thread_ctx) {
-                    thread_ctx->begin_render_pass({}, SID("downsample + prefilter"));
-                    {
-                        const int w = textures.bloom_downsample[0]->width();
-                        const int h = textures.bloom_downsample[0]->height();
+                    WG_GFX_LABEL(thread_ctx, SID("downsample + prefilter"));
 
-                        thread_ctx->bind_color_target(textures.bloom_downsample[0], 0, 0, 0);
-                        thread_ctx->viewport(Rect2i(0, 0, w, h));
+                    const auto& result = textures.bloom_downsample[0];
+                    const int   w      = result->width();
+                    const int   h      = result->height();
 
-                        if (thread_ctx->bind_pipeline(m_pipeline_downsample_prefilter)) {
-                            thread_ctx->bind_desc_set(desc_set, 0);
-                            thread_ctx->bind_vert_buffer(get_render_engine()->get_fullscreen_tria(), 0, 0);
-                            thread_ctx->draw(3, 0, 1);
-                        }
+                    thread_ctx->barrier_image(result, GfxTexBarrierType::Storage);
+
+                    if (thread_ctx->bind_comp_pipeline(m_pipeline_downsample_prefilter)) {
+                        thread_ctx->bind_desc_set(desc_set, 0);
+                        thread_ctx->dispatch(GfxCtx::group_size(w, h, BLOCK_SIZE));
                     }
-                    thread_ctx->end_render_pass();
+
+                    thread_ctx->barrier_image(result, GfxTexBarrierType::Sampling);
                 });
             }
 
@@ -140,29 +139,32 @@ namespace wmoge {
                 WG_AUTO_PROFILE_RENDER("downsample");
 
                 for (int i = 1; i < num_bloom_mips; i++) {
+                    const auto& result = textures.bloom_downsample[i];
                     {
                         auto& [bind, value] = resources[ShaderBloom::SOURCE_SLOT];
                         value.resource      = textures.bloom_downsample[i - 1];
+                    }
+                    {
+                        auto& [bind, value] = resources[ShaderBloom::RESULT_SLOT];
+                        value.resource      = result;
                     }
 
                     auto desc_set = get_gfx_driver()->make_desc_set(resources);
 
                     get_gfx_ctx()->execute([&](GfxCtx* thread_ctx) {
-                        thread_ctx->begin_render_pass({}, SID("downsample mip=" + StringUtils::from_int(i)));
-                        {
-                            const int w = textures.bloom_downsample[i]->width();
-                            const int h = textures.bloom_downsample[i]->height();
+                        WG_GFX_LABEL(thread_ctx, SID("downsample mip=" + StringUtils::from_int(i)));
 
-                            thread_ctx->bind_color_target(textures.bloom_downsample[i], 0, 0, 0);
-                            thread_ctx->viewport(Rect2i(0, 0, w, h));
+                        const int w = result->width();
+                        const int h = result->height();
 
-                            if (thread_ctx->bind_pipeline(m_pipeline_downsample)) {
-                                thread_ctx->bind_desc_set(desc_set, 0);
-                                thread_ctx->bind_vert_buffer(get_render_engine()->get_fullscreen_tria(), 0, 0);
-                                thread_ctx->draw(3, 0, 1);
-                            }
+                        thread_ctx->barrier_image(result, GfxTexBarrierType::Storage);
+
+                        if (thread_ctx->bind_comp_pipeline(m_pipeline_downsample)) {
+                            thread_ctx->bind_desc_set(desc_set, 0);
+                            thread_ctx->dispatch(GfxCtx::group_size(w, h, BLOCK_SIZE));
                         }
-                        thread_ctx->end_render_pass();
+
+                        thread_ctx->barrier_image(result, GfxTexBarrierType::Sampling);
                     });
                 }
             }
@@ -170,12 +172,13 @@ namespace wmoge {
 
         // Upsample pass
         {
-            WG_GFX_LABEL(get_gfx_ctx(), SID("Upsample"));
+            WG_GFX_LABEL(get_gfx_ctx(), SID("upsample"));
             WG_AUTO_PROFILE_RENDER("upsample");
 
             Ref<GfxTexture> source_prev = textures.bloom_downsample.back();
 
             for (int i = num_bloom_mips - 2; i >= 0; i--) {
+                const auto& result = textures.bloom_upsample[i];
                 {
                     auto& [bind, value] = resources[ShaderBloom::SOURCE_SLOT];
                     value.resource      = textures.bloom_downsample[i];
@@ -184,25 +187,27 @@ namespace wmoge {
                     auto& [bind, value] = resources[ShaderBloom::SOURCEPREV_SLOT];
                     value.resource      = source_prev;
                 }
+                {
+                    auto& [bind, value] = resources[ShaderBloom::RESULT_SLOT];
+                    value.resource      = result;
+                }
 
                 auto desc_set = get_gfx_driver()->make_desc_set(resources);
 
                 get_gfx_ctx()->execute([&](GfxCtx* thread_ctx) {
-                    thread_ctx->begin_render_pass({}, SID("upsample mip=" + StringUtils::from_int(i)));
-                    {
-                        const int w = textures.bloom_upsample[i]->width();
-                        const int h = textures.bloom_upsample[i]->height();
+                    WG_GFX_LABEL(thread_ctx, SID("upsample mip=" + StringUtils::from_int(i)));
 
-                        thread_ctx->bind_color_target(textures.bloom_upsample[i], 0, 0, 0);
-                        thread_ctx->viewport(Rect2i(0, 0, w, h));
+                    const int w = result->width();
+                    const int h = result->height();
 
-                        if (thread_ctx->bind_pipeline(m_pipeline_upsample)) {
-                            thread_ctx->bind_desc_set(desc_set, 0);
-                            thread_ctx->bind_vert_buffer(get_render_engine()->get_fullscreen_tria(), 0, 0);
-                            thread_ctx->draw(3, 0, 1);
-                        }
+                    thread_ctx->barrier_image(result, GfxTexBarrierType::Storage);
+
+                    if (thread_ctx->bind_comp_pipeline(m_pipeline_upsample)) {
+                        thread_ctx->bind_desc_set(desc_set, 0);
+                        thread_ctx->dispatch(GfxCtx::group_size(w, h, BLOCK_SIZE));
                     }
-                    thread_ctx->end_render_pass();
+
+                    thread_ctx->barrier_image(result, GfxTexBarrierType::Sampling);
                 });
 
                 source_prev = textures.bloom_upsample[i];

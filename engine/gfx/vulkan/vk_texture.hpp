@@ -53,6 +53,7 @@ namespace wmoge {
         void update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data);
         void update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, const Ref<Data>& data);
 
+        void transition_layout(VkCommandBuffer cmd, GfxTexBarrierType barrier_type);
         void transition_layout(VkCommandBuffer cmd, VkImageLayout destination);
         void transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range);
 

@@ -38,19 +38,32 @@
 
 namespace wmoge {
 
-    static const char source_text_vk450_vert[] = R"(
+    static const char source_tonemap_gl410_comp[] = R"(
+
+#define TONEMAP_MODE_EXP (0)
+#define TONEMAP_MODE_REINH (1)
+#define TONEMAP_MODE_REINH_EXT (2)
+#define TONEMAP_MODE_ACES (3)
+#define TONEMAP_MODE_UN2 (4)
+
+uniform sampler2D Image;
+
+uniform sampler2D Bloom;
+
+uniform sampler2D BloomDirtMask;
 
 
-layout (set = 0, binding = 1) uniform sampler2D FontTexture;
+layout (rgba8) uniform writeonly image2D Result;
 
 
-
-layout (set = 0, binding = 0, std140) uniform Params {
-mat4 mat_clip_proj_screen;
-float inverse_gamma;
-float __pad_1;
-float __pad_2;
-float __pad_3;
+layout (std140) uniform Params {
+uvec2 TargetSize;
+float InverseGamma;
+float Mode;
+float Exposure;
+float BloomIntensity;
+float BloomDirtMaskIntensity;
+float WhitePoint;
 };
 
 
@@ -94,24 +107,94 @@ vec3 TransformLocalToWorld(in vec3 posLocal, in mat4 localToWorld) {
 vec3 TransformLocalToWorldNormal(in vec3 normLocal, in mat4 normalMatrix) {
     return (normalMatrix * vec4(normLocal, 0.0f)).xyz;
 }
-//@ in vec3 inPos3f;
-//@ in vec4 inCol04f;
-//@ in vec2 inUv02f;
-#ifndef ATTRIB_Pos3f
-#error "Pos attribute must be defined"
-#endif
-#ifndef ATTRIB_Col04f
-#error "Col attribute must be defined"
-#endif
-#ifndef ATTRIB_Uv02f
-#error "Uv attribute must be defined"
-#endif
-LAYOUT_LOCATION(0) out vec4 fsCol04f;
-LAYOUT_LOCATION(1) out vec2 fsUv02f;
+vec3 ColorSrgbToLinear(in vec3 color, in float gamma) {
+    return pow(color, vec3(gamma));
+}
+vec3 ColorLinearToSrgb(in vec3 color, in float inverse_gamma) {
+    return pow(color, vec3(inverse_gamma));
+}
+// Convert rgb to luminance with rgb in linear space 
+// with sRGB primaries and D65 white point
+float Luminance(in vec3 color) {
+	return dot(color, vec3(0.2126729, 0.7151522, 0.0721750));
+}
+// Quadratic color thresholding
+// curve = (threshold - knee, knee * 2, 0.25 / knee)
+vec3 QuadraticThreshold(vec3 color, float threshold, vec3 curve)
+{
+    // Pixel brightness
+    float br = max(color.r, max(color.g, color.b));
+    // Under-threshold part: quadratic curve
+    float rq = clamp(br - curve.x, 0.0, curve.y);
+    rq = curve.z * rq * rq;
+    // Combine and apply the brightness response curve.
+    color *= max(rq, br - threshold) / max(br, EPSILON);
+    return color;
+}
+vec3 TonemapReinhard(in vec3 color) {
+    return color / (color + vec3(1,1,1));
+}
+vec3 TonemapReinhardExtended(in vec3 color, in float maxWhite) {
+    return (color * (vec3(1,1,1) + color / sqrt(maxWhite)) ) / (vec3(1,1,1) + color);
+}
+vec3 TonemapExp(in vec3 color, in float exposure) {
+    return vec3(1,1,1) - exp(-color * exposure);
+}
+vec3 TonemapACES(vec3 color) {
+    const float A = 2.51;
+    const float B = 0.03;
+    const float C = 2.43;
+    const float D = 0.59;
+    const float E = 0.14;
+    
+    return (color * (A * color + B)) / (color * (C * color + D) + E);
+}
+vec3 TonemapUncharted2(in vec3 color) {
+    const float A = 0.15;
+    const float B = 0.50;
+    const float C = 0.10;
+    const float D = 0.20;
+    const float E = 0.02;
+    const float F = 0.30;
+    const float W = 11.2;
+    return ((color * (A * color + C * B) + D * E) / (color * (A * color + B) + D * F) ) - E / F;
+}
+#define GROUP_SIZE_DEFAULT 16
+layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, local_size_z = 1) in;
 void main() {
-    fsCol04f = inCol04f;
-    fsUv02f = UnpackUv(inUv02f);
-    gl_Position = mat_clip_proj_screen * vec4(inPos3f, 1.0f);
+    const uvec2 gid = gl_GlobalInvocationID.xy;
+    if (gid.x >= TargetSize.x || gid.y >= TargetSize.y) {
+        return;
+    }    
+    const vec2 uv = vec2(gid) / vec2(TargetSize);
+    
+    const vec3 hdrSrcColor  = textureLod(Image, uv, 0).rgb;
+    const vec3 hdrBloom     = textureLod(Bloom, uv, 0).rgb * BloomIntensity;
+    const vec3 hdrBloomDirt = textureLod(BloomDirtMask, uv, 0).rgb * BloomDirtMaskIntensity;
+    const vec3 hdrColor = hdrSrcColor + hdrBloom + hdrBloom * hdrBloomDirt;
+    vec3 ldrColor = hdrColor;
+    const int tonemapMode = int(Mode);
+    switch (tonemapMode) {
+        case TONEMAP_MODE_EXP: 
+            ldrColor = TonemapExp(hdrColor, Exposure);
+            break;
+        case TONEMAP_MODE_REINH: 
+            ldrColor = TonemapReinhard(hdrColor);
+            break;
+        case TONEMAP_MODE_REINH_EXT: 
+            ldrColor = TonemapReinhardExtended(hdrColor, WhitePoint);
+            break;
+        case TONEMAP_MODE_ACES: 
+            ldrColor = TonemapACES(hdrColor);
+            break;
+        case TONEMAP_MODE_UN2: 
+            ldrColor = TonemapUncharted2(hdrColor);
+            break;     
+        default:
+            break;
+    }
+    const vec3 gammaColor = ColorLinearToSrgb(ldrColor, InverseGamma);
+    imageStore(Result, ivec2(gid), vec4(gammaColor, 1.0f));
 }
 
 )";

@@ -65,23 +65,24 @@ namespace wmoge {
     class VKShader final : public VKResource<GfxShader> {
     public:
         VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver);
+        VKShader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver);
         VKShader(Ref<Data> byte_code, const StringId& name, class VKDriver& driver);
         ~VKShader() override;
 
         void compile_from_source();
         void compile_from_byte_code();
 
-        [[nodiscard]] GfxShaderStatus                    status() const override;
-        [[nodiscard]] std::string                        message() const override;
-        [[nodiscard]] const GfxShaderReflection*         reflection() const override;
-        [[nodiscard]] Ref<Data>                          byte_code() const override;
-        [[nodiscard]] const fast_vector<VkShaderModule>& modules() const { return m_modules; }
-        [[nodiscard]] VkPipelineLayout                   layout() const { return m_layout; }
+        [[nodiscard]] GfxShaderStatus                           status() const override;
+        [[nodiscard]] std::string                               message() const override;
+        [[nodiscard]] std::optional<const GfxShaderReflection*> reflection() const override;
+        [[nodiscard]] Ref<Data>                                 byte_code() const override;
+        [[nodiscard]] const fast_vector<VkShaderModule>&        modules() const { return m_modules; }
+        [[nodiscard]] VkPipelineLayout                          layout() const { return m_layout; }
 
     private:
         void reflect(glslang::TProgram& program);
-        void gen_byte_code(const Ref<Data>& vertex, const Ref<Data>& fragment);
-        void init(const Ref<Data>& vertex, const Ref<Data>& fragment);
+        void gen_byte_code(const fast_vector<Ref<Data>>& spirvs);
+        void init(const fast_vector<Ref<Data>>& spirvs);
 
     private:
         fast_vector<std::string>     m_sources;

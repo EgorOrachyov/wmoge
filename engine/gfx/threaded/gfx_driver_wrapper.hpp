@@ -58,12 +58,14 @@ namespace wmoge {
         Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
         Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) override;
+        Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) override;
         Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) override;
         Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
         Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
         Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name) override;
+        Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) override;
         Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
         Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
         Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name) override;
@@ -78,10 +80,11 @@ namespace wmoge {
         void prepare_window(const Ref<Window>& window) override;
         void swap_buffers(const Ref<Window>& window) override;
 
-        [[nodiscard]] class GfxCtx*       ctx_immediate() override;
-        [[nodiscard]] class GfxCtx*       ctx_async() override;
-        [[nodiscard]] GfxPipelineCache*   pso_cache() override;
-        [[nodiscard]] GfxVertFormatCache* vert_fmt_cache() override;
+        [[nodiscard]] class GfxCtx*         ctx_immediate() override;
+        [[nodiscard]] class GfxCtx*         ctx_async() override;
+        [[nodiscard]] GfxPipelineCache*     pso_cache() override;
+        [[nodiscard]] GfxCompPipelineCache* comp_pso_cache() override;
+        [[nodiscard]] GfxVertFormatCache*   vert_fmt_cache() override;
 
         [[nodiscard]] GfxUniformPool*      uniform_pool() override;
         [[nodiscard]] GfxDynVertBuffer*    dyn_vert_buffer() override;
@@ -99,23 +102,24 @@ namespace wmoge {
         [[nodiscard]] GfxShaderLang          shader_lang() const override;
 
     private:
-        GfxDriverThreaded*   m_driver             = nullptr;
-        GfxUniformPool*      m_uniform_pool       = nullptr;
-        GfxDynVertBuffer*    m_dyn_vert_buffer    = nullptr;
-        GfxDynIndexBuffer*   m_dyn_index_buffer   = nullptr;
-        GfxDynUniformBuffer* m_dyn_uniform_buffer = nullptr;
-        GfxShaderLang        m_shader_lang;
-        CallbackStream*      m_stream = nullptr;
-        GfxDeviceCaps        m_device_caps;
-        StringId             m_driver_name;
-        std::thread::id      m_thread_id;
-        Mat4x4f              m_clip_matrix;
-        std::string          m_shader_cache_path;
-        std::string          m_pipeline_cache_path;
-        class GfxCtx*        m_ctx_immediate  = nullptr;
-        class GfxCtx*        m_ctx_async      = nullptr;
-        GfxPipelineCache*    m_pso_cache      = nullptr;
-        GfxVertFormatCache*  m_vert_fmt_cache = nullptr;
+        GfxDriverThreaded*    m_driver             = nullptr;
+        GfxUniformPool*       m_uniform_pool       = nullptr;
+        GfxDynVertBuffer*     m_dyn_vert_buffer    = nullptr;
+        GfxDynIndexBuffer*    m_dyn_index_buffer   = nullptr;
+        GfxDynUniformBuffer*  m_dyn_uniform_buffer = nullptr;
+        GfxShaderLang         m_shader_lang;
+        CallbackStream*       m_stream = nullptr;
+        GfxDeviceCaps         m_device_caps;
+        StringId              m_driver_name;
+        std::thread::id       m_thread_id;
+        Mat4x4f               m_clip_matrix;
+        std::string           m_shader_cache_path;
+        std::string           m_pipeline_cache_path;
+        class GfxCtx*         m_ctx_immediate  = nullptr;
+        class GfxCtx*         m_ctx_async      = nullptr;
+        GfxPipelineCache*     m_pso_cache      = nullptr;
+        GfxCompPipelineCache* m_comp_pso_cache = nullptr;
+        GfxVertFormatCache*   m_vert_fmt_cache = nullptr;
     };
 
 }// namespace wmoge

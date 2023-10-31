@@ -82,6 +82,9 @@ class CodeGenerator:
     def emit_sampler(self, sampler):
         raise Exception("not implemented")
 
+    def emit_image(self, image):
+        raise Exception("not implemented")
+
     def emit_const(self, const):
         raise Exception("not implemented")
 
@@ -97,6 +100,8 @@ class CodeGenerator:
     def emit(self, element):
         if isinstance(element, reflection.Sampler):
             return self.emit_sampler(element)
+        if isinstance(element, reflection.Image):
+            return self.emit_image(element)
         if isinstance(element, reflection.Constant):
             return self.emit_const(element)
         if isinstance(element, reflection.Struct):
@@ -112,13 +117,25 @@ class CodeGenerator:
             result += self.emit_struct(struct)
             result += "\n"
 
+        result += "\n"
+
         for const in self.shader.constants:
             result += self.emit_const(const)
             result += "\n"
 
+        result += "\n"
+
         for sampler in self.shader.samplers:
             result += self.emit_sampler(sampler)
             result += "\n"
+
+        result += "\n"
+
+        for image in self.shader.images:
+            result += self.emit_image(image)
+            result += "\n"
+
+        result += "\n"
 
         for buffer in self.shader.buffers:
             result += self.emit_buffer(buffer)
@@ -134,6 +151,9 @@ class CodeGeneratorGlsl(CodeGenerator):
     def sampler_layout(self, binding):
         raise Exception("not implemented")
 
+    def image_layout(self, binding, format):
+        raise Exception("not implemented")
+
     def buffer_layout(self, binding, layout):
         raise Exception("not implemented")
 
@@ -145,10 +165,18 @@ class CodeGeneratorGlsl(CodeGenerator):
             + f"uniform {sampler.decl_type.name} {sampler.name};\n"
         )
 
+    def emit_image(self, image):
+        assert isinstance(image, reflection.Image)
+
+        return (
+            self.image_layout(image.binding, image.format)
+            + f"uniform {image.qualifier} {image.decl_type.name} {image.name};\n"
+        )
+
     def emit_const(self, const):
         assert isinstance(const, reflection.Constant)
 
-        return f"#define {const.name} ({const.value})\n"
+        return f"#define {const.name} ({const.value})"
 
     def emit_type_decl(self, element):
         if element == reflection.TYPE_FLOAT:
@@ -223,6 +251,11 @@ class CodeGeneratorGlslVk450(CodeGeneratorGlsl):
     def sampler_layout(self, binding):
         return f"layout (set = {binding.set_num}, binding = {binding.slot_num}) "
 
+    def image_layout(self, binding, format):
+        return (
+            f"layout (set = {binding.set_num}, binding = {binding.slot_num}, {format}) "
+        )
+
     def buffer_layout(self, binding, layout):
         return (
             f"layout (set = {binding.set_num}, binding = {binding.slot_num}, {layout}) "
@@ -235,6 +268,9 @@ class CodeGeneratorGlslGl410(CodeGeneratorGlsl):
 
     def sampler_layout(self, binding):
         return f""
+
+    def image_layout(self, binding, format):
+        return f"layout ({format}) "
 
     def buffer_layout(self, binding, layout):
         return f"layout ({layout}) "
@@ -256,10 +292,24 @@ class CodeGeneratorCxx(CodeGenerator):
             f'static constexpr const char {name}_NAME[] = "{sampler.name}";\n'
         )
 
+    def emit_image(self, image):
+        assert isinstance(image, reflection.Image)
+
+        name = image.name.upper()
+        binding = image.binding
+        return (
+            f"static constexpr const int {name}_SET = {binding.set_num};\n"
+            f"static constexpr const int {name}_SLOT = {binding.slot_num};\n"
+            f"static constexpr const auto {name}_LOC = {binding.to_gfx_loc()};\n"
+            f'static constexpr const char {name}_NAME[] = "{image.name}";\n'
+            f'static constexpr const char {name}_FORMAT[] = "{image.format}";\n'
+            f'static constexpr const char {name}_QUALIFIER[] = "{image.qualifier}";\n'
+        )
+
     def emit_const(self, const):
         assert isinstance(const, reflection.Constant)
 
-        return f"static constexpr const auto {const.name.upper()} = {const.value};\n"
+        return f"static constexpr const auto {const.name.upper()} = {const.value};"
 
     def emit_type_decl(self, element):
         if element == reflection.TYPE_FLOAT:
@@ -377,6 +427,9 @@ class CodeGeneratorPass:
                     if isinstance(resource, reflection.Sampler):
                         var = f"binding_{resource.name}"
                         resource_type = "SampledTexture"
+                    if isinstance(resource, reflection.Image):
+                        var = f"binding_{resource.name}"
+                        resource_type = "StorageImage"
                     if isinstance(resource, reflection.UniformBuffer):
                         var = f"binding_{resource.name}"
                         resource_type = "UniformBuffer"

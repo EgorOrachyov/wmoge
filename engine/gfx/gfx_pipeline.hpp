@@ -69,6 +69,18 @@ namespace wmoge {
     };
 
     /**
+     * @class GfxCompPipelineState
+     * @brief Gfx compute pipeline state description
+     */
+    struct GfxCompPipelineState {
+        GfxCompPipelineState() = default;
+        bool        operator==(const GfxCompPipelineState& other) const;
+        std::size_t hash() const;
+
+        Ref<GfxShader> shader;// = nullptr;
+    };
+
+    /**
      * @class GfxPipeline
      * @brief Represents created and compiled graphics pipeline state object
      *
@@ -86,6 +98,22 @@ namespace wmoge {
         virtual const GfxPipelineState& state() const   = 0;
     };
 
+    /**
+     * @class GfxCompPipeline
+     * @brief Represents created and compiled compute pipeline state object
+     *
+     * Pipeline is a compete object which can be directly bound to the command list for the compute dispatch.
+     * Pipeline creation is asynchronous and done in the background.
+     * When pipeline created it will be used in the rendering.
+     */
+    class GfxCompPipeline : public GfxResource {
+    public:
+        ~GfxCompPipeline() override                         = default;
+        virtual GfxPipelineStatus           status() const  = 0;
+        virtual std::string                 message() const = 0;
+        virtual const GfxCompPipelineState& state() const   = 0;
+    };
+
 }// namespace wmoge
 
 namespace std {
@@ -93,6 +121,13 @@ namespace std {
     template<>
     struct hash<wmoge::GfxPipelineState> {
         std::size_t operator()(const wmoge::GfxPipelineState& desc) const {
+            return desc.hash();
+        }
+    };
+
+    template<>
+    struct hash<wmoge::GfxCompPipelineState> {
+        std::size_t operator()(const wmoge::GfxCompPipelineState& desc) const {
             return desc.hash();
         }
     };

@@ -119,6 +119,7 @@ namespace wmoge {
         void            create(int size, GfxMemUsage usage, const StringId& name);
         void            unmap(VkCommandBuffer cmd) override;
         void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
+        void            barrier(VkCommandBuffer cmd);
         class VKDriver& driver() override { return m_driver; }
     };
 

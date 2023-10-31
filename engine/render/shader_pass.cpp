@@ -39,10 +39,20 @@ namespace wmoge {
 
         GfxShaderLang gfx_lang = driver->shader_lang();
 
+        const std::string& sources_vertex   = get_vertex(gfx_lang);
+        const std::string& sources_fragment = get_fragment(gfx_lang);
+        const std::string& sources_compute  = get_compute(gfx_lang);
+
+        const bool has_vertex   = !sources_vertex.empty();
+        const bool has_fragment = !sources_fragment.empty();
+        const bool has_compute  = !sources_compute.empty();
+
         ShaderBuilder builder;
         builder.key = name;
-        builder.configure_vs();
-        builder.configure_fs();
+
+        if (has_vertex) builder.configure_vs();
+        if (has_fragment) builder.configure_fs();
+        if (has_compute) builder.configure_cs();
 
         if (gfx_lang == GfxShaderLang::GlslVk450) {
             builder.add_vs_module("#version 450 core\n");
@@ -63,18 +73,16 @@ namespace wmoge {
 
         int location_index = 0;
 
-        attribs.for_each([&](int i, GfxVertAttrib attrib) {
-            builder.add_define("ATTRIB_" + Enum::to_str(attrib));
-            builder.vertex.value() << "layout(location = " << location_index << ") in "
-                                   << GfxVertAttribGlslTypes[i] << " "
-                                   << "in" << Enum::to_str(attrib)
-                                   << ";\n";
-            location_index += 1;
-        });
-
-        const std::string& sources_vertex   = get_vertex(gfx_lang);
-        const std::string& sources_fragment = get_fragment(gfx_lang);
-        const std::string& sources_compute  = get_compute(gfx_lang);
+        if (has_vertex || has_fragment) {
+            attribs.for_each([&](int i, GfxVertAttrib attrib) {
+                builder.add_define("ATTRIB_" + Enum::to_str(attrib));
+                builder.vertex.value() << "layout(location = " << location_index << ") in "
+                                       << GfxVertAttribGlslTypes[i] << " "
+                                       << "in" << Enum::to_str(attrib)
+                                       << ";\n";
+                location_index += 1;
+            });
+        }
 
         if (shader) {
             builder.add_vs_module(StringUtils::find_replace_first(sources_vertex, "__SHADER_CODE_VERTEX__", shader->get_include_parameters() + "\n" + shader->get_vertex()));

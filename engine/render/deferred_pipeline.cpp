@@ -32,6 +32,7 @@
 #include "geometry/pass_gbuffer.hpp"
 #include "platform/window_manager.hpp"
 #include "post_process/pass_bloom.hpp"
+#include "post_process/pass_composition.hpp"
 #include "post_process/pass_tonemap.hpp"
 
 namespace wmoge {
@@ -42,13 +43,15 @@ namespace wmoge {
     void DeferredPipeline::init() {
         WG_AUTO_PROFILE_RENDER("DeferredPipeline::init");
 
-        m_pass_gbuffer = std::make_unique<PassGBuffer>();
-        m_pass_bloom   = std::make_unique<PassBloom>();
-        m_pass_tonemap = std::make_unique<PassToneMap>();
+        m_pass_gbuffer     = std::make_unique<PassGBuffer>();
+        m_pass_bloom       = std::make_unique<PassBloom>();
+        m_pass_tonemap     = std::make_unique<PassToneMap>();
+        m_pass_composition = std::make_unique<PassComposition>();
 
         m_stages.push_back(m_pass_gbuffer.get());
         m_stages.push_back(m_pass_bloom.get());
         m_stages.push_back(m_pass_tonemap.get());
+        m_stages.push_back(m_pass_composition.get());
 
         for (GraphicsPipelineStage* stage : m_stages) {
             stage->set_pipeline(this);
@@ -82,7 +85,8 @@ namespace wmoge {
 
                 m_pass_gbuffer->execute(view_idx);
                 m_pass_bloom->execute(view_idx);
-                m_pass_tonemap->execute(view_idx, Engine::instance()->window_manager()->primary_window());//tmp
+                m_pass_tonemap->execute(view_idx);
+                m_pass_composition->execute(0, engine->window_manager()->primary_window());
             }
         }
     }

@@ -72,14 +72,18 @@ namespace wmoge {
         virtual void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) = 0;
         virtual void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data)      = 0;
 
-        virtual void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer)         = 0;
-        virtual void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer)       = 0;
-        virtual void* map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer)   = 0;
-        virtual void* map_storage_buffer(const Ref<GfxStorageBuffer>& buffer)   = 0;
-        virtual void  unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer)       = 0;
-        virtual void  unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer)     = 0;
-        virtual void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
-        virtual void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
+        virtual void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer)       = 0;
+        virtual void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer)     = 0;
+        virtual void* map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
+        virtual void* map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
+
+        virtual void unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer)       = 0;
+        virtual void unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer)     = 0;
+        virtual void unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
+        virtual void unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
+
+        virtual void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) = 0;
+        virtual void barrier_buffer(const Ref<GfxStorageBuffer>& buffer)                           = 0;
 
         virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())      = 0;
         virtual void bind_target(const Ref<Window>& window)                                                        = 0;
@@ -89,12 +93,14 @@ namespace wmoge {
         virtual void clear(int target, const Vec4f& color)                                                         = 0;
         virtual void clear(float depth, int stencil)                                                               = 0;
         virtual bool bind_pipeline(const Ref<GfxPipeline>& pipeline)                                               = 0;
+        virtual bool bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline)                                      = 0;
         virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                 = 0;
         virtual void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) = 0;
         virtual void bind_desc_set(const Ref<GfxDescSet>& set, int index)                                          = 0;
         virtual void bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset = 0)                            = 0;
         virtual void draw(int vertex_count, int base_vertex, int instance_count)                                   = 0;
         virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                            = 0;
+        virtual void dispatch(Vec3i group_count)                                                                   = 0;
         virtual void end_render_pass()                                                                             = 0;
 
         virtual void execute(const std::function<void(GfxCtx* thread_ctx)>& functor) = 0;
@@ -108,6 +114,8 @@ namespace wmoge {
 
         [[nodiscard]] virtual const Mat4x4f& clip_matrix() const = 0;
         [[nodiscard]] virtual GfxCtxType     ctx_type() const    = 0;
+
+        static Vec3i group_size(int x, int y, int local_size);
     };
 
     /**

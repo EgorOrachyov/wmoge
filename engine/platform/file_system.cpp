@@ -68,8 +68,10 @@ namespace wmoge {
     std::filesystem::path FileSystem::resolve(const std::string& path) {
         static const std::string PREFIX_RES   = "res://";
         static const std::string PREFIX_ROOT  = "root://";
+        static const std::string PREFIX_ENG   = "eng://";
         static const std::string PREFIX_CACHE = "cache://";
         static const std::string PREFIX_DEBUG = "debug://";
+        static const std::string PREFIX_LOG   = "logs://";
 
         if (path.find(PREFIX_RES) == 0) {
             return m_resources_path / path.substr(PREFIX_RES.length());
@@ -77,11 +79,17 @@ namespace wmoge {
         if (path.find(PREFIX_ROOT) == 0) {
             return m_root_path / path.substr(PREFIX_ROOT.length());
         }
+        if (path.find(PREFIX_ENG) == 0) {
+            return m_eng_path / path.substr(PREFIX_ENG.length());
+        }
         if (path.find(PREFIX_CACHE) == 0) {
             return m_cache_path / path.substr(PREFIX_CACHE.length());
         }
         if (path.find(PREFIX_DEBUG) == 0) {
-            return m_debug_path / path.substr(PREFIX_CACHE.length());
+            return m_debug_path / path.substr(PREFIX_DEBUG.length());
+        }
+        if (path.find(PREFIX_LOG) == 0) {
+            return m_log_path / path.substr(PREFIX_LOG.length());
         }
 
         WG_LOG_ERROR("unknown domain of the file path " << path);
@@ -208,8 +216,10 @@ namespace wmoge {
         m_root_path = path;
 
         m_resources_path = m_root_path / "resources";
-        m_cache_path     = m_root_path / "cache";
-        m_debug_path     = m_root_path / "debug";
+        m_eng_path       = m_root_path / ".wgengine";
+        m_cache_path     = m_eng_path / "cache";
+        m_debug_path     = m_eng_path / "debug";
+        m_log_path       = m_eng_path / "logs";
 
         if (!std::filesystem::exists(m_resources_path))
             std::filesystem::create_directories(m_resources_path);
@@ -217,14 +227,13 @@ namespace wmoge {
             std::filesystem::create_directories(m_cache_path);
         if (!std::filesystem::exists(m_debug_path))
             std::filesystem::create_directories(m_debug_path);
+        if (!std::filesystem::exists(m_log_path))
+            std::filesystem::create_directories(m_log_path);
 
         auto config_path = m_root_path / "config";
-        auto log_path    = m_root_path / "logs";
 
         if (!std::filesystem::exists(config_path))
             std::filesystem::create_directories(config_path);
-        if (!std::filesystem::exists(log_path))
-            std::filesystem::create_directories(log_path);
     }
 
     const std::filesystem::path& FileSystem::executable_path() const {

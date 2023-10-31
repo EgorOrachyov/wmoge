@@ -20,8 +20,10 @@
 template/logs
 template/debug
 template/cache
+template/.wgengine
 
 # logs, caches and debug data
 games/flappyowl/logs
 games/flappyowl/debug
 games/flappyowl/cache
+games/flappyowl/.wgengine

@@ -37,18 +37,18 @@
 #include "math/vec.hpp"
 #include "render/shader_pass.hpp"
 
-#include "auto_base_gl410_frag.hpp"
-#include "auto_base_gl410_vert.hpp"
-#include "auto_base_vk450_frag.hpp"
-#include "auto_base_vk450_vert.hpp"
+#include "auto_composition_gl410_frag.hpp"
+#include "auto_composition_gl410_vert.hpp"
+#include "auto_composition_vk450_frag.hpp"
+#include "auto_composition_vk450_vert.hpp"
 
 namespace wmoge {
-    /** @brief Auto generated pass for 'base' shader */
-    class ShaderPassBase final : public ShaderPass {
+    /** @brief Auto generated pass for 'composition' shader */
+    class ShaderPassComposition final : public ShaderPass {
     public:
-        ShaderPassBase()           = default;
-        ~ShaderPassBase() override = default;
-        StringId get_name() override { return SID("base"); }
+        ShaderPassComposition()           = default;
+        ~ShaderPassComposition() override = default;
+        StringId get_name() override { return SID("composition"); }
         void     fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader) override {
             // fill set num = 0
             {
@@ -58,44 +58,63 @@ namespace wmoge {
                 binding_Params.binding = 0;
                 binding_Params.count   = 1;
                 binding_Params.type    = GfxBindingType::UniformBuffer;
+                auto& binding_Color    = layout.emplace_back();
+                binding_Color.name     = SID("Color");
+                binding_Color.binding  = 1;
+                binding_Color.count    = 1;
+                binding_Color.type     = GfxBindingType::SampledTexture;
             }
         }
         Status reload_sources(const std::string& folder, FileSystem* file_system) override {
             // lang is vk450
             {
-                const auto file_path = folder + '/' + "auto_base_vk450_vert.glsl";
+                const auto file_path = folder + '/' + "auto_composition_vk450_vert.glsl";
                 if (file_system->read_file(file_path, m_vertex[0])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             // lang is gl410
             {
-                const auto file_path = folder + '/' + "auto_base_gl410_vert.glsl";
+                const auto file_path = folder + '/' + "auto_composition_gl410_vert.glsl";
                 if (file_system->read_file(file_path, m_vertex[1])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             // lang is vk450
             {
-                const auto file_path = folder + '/' + "auto_base_vk450_frag.glsl";
+                const auto file_path = folder + '/' + "auto_composition_vk450_frag.glsl";
                 if (file_system->read_file(file_path, m_fragment[0])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             // lang is gl410
             {
-                const auto file_path = folder + '/' + "auto_base_gl410_frag.glsl";
+                const auto file_path = folder + '/' + "auto_composition_gl410_frag.glsl";
                 if (file_system->read_file(file_path, m_fragment[1])) {
+                    WG_LOG_INFO("reload shader from file " << file_path);
+                }
+            }
+            // lang is vk450
+            {
+                const auto file_path = folder + '/' + "auto_composition_vk450_vert.glsl";
+                if (file_system->read_file(file_path, m_compute[0])) {
+                    WG_LOG_INFO("reload shader from file " << file_path);
+                }
+            }
+            // lang is gl410
+            {
+                const auto file_path = folder + '/' + "auto_composition_gl410_vert.glsl";
+                if (file_system->read_file(file_path, m_compute[1])) {
                     WG_LOG_INFO("reload shader from file " << file_path);
                 }
             }
             return StatusCode::Ok;
         }
         const std::string& get_vertex(GfxShaderLang lang) override { return m_vertex[int(lang)]; }
-        std::string        m_vertex[2] = {source_base_vk450_vert, source_base_gl410_vert};
+        std::string        m_vertex[2] = {source_composition_vk450_vert, source_composition_gl410_vert};
         const std::string& get_fragment(GfxShaderLang lang) override { return m_fragment[int(lang)]; }
-        std::string        m_fragment[2] = {source_base_vk450_frag, source_base_gl410_frag};
+        std::string        m_fragment[2] = {source_composition_vk450_frag, source_composition_gl410_frag};
         const std::string& get_compute(GfxShaderLang lang) override { return m_compute[int(lang)]; }
-        std::string        m_compute[2];
+        std::string        m_compute[2] = {source_composition_vk450_vert, source_composition_gl410_vert};
     };
 }// namespace wmoge

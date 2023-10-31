@@ -80,6 +80,9 @@ namespace wmoge {
         void  unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) override;
         void  unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) override;
 
+        void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) override;
+        void barrier_buffer(const Ref<GfxStorageBuffer>& buffer) override;
+
         void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
         void bind_target(const Ref<Window>& window) override;
         void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
@@ -88,12 +91,14 @@ namespace wmoge {
         void clear(int target, const Vec4f& color) override;
         void clear(float depth, int stencil) override;
         bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
+        bool bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
         void bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
+        void dispatch(Vec3i group_count) override;
         void end_render_pass() override;
 
         void execute(const std::function<void(GfxCtx* thread_ctx)>& functor) override;
@@ -124,6 +129,7 @@ namespace wmoge {
         std::unique_ptr<VKRenderPassBinder>                        m_render_pass_binder;
         Ref<VKRenderPass>                                          m_current_pass;
         Ref<VKPipeline>                                            m_current_pipeline;
+        Ref<VKCompPipeline>                                        m_current_comp_pipeline;
         Ref<VKShader>                                              m_current_shader;
         Ref<VKIndexBuffer>                                         m_current_index_buffer;
         std::array<Ref<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
@@ -137,6 +143,7 @@ namespace wmoge {
         bool     m_in_render_pass      = false;
         bool     m_render_pass_started = false;
         bool     m_pipeline_bound      = false;
+        bool     m_comp_pipeline_bound = false;
         bool     m_target_bound        = false;
         StringId m_render_pass_name;
 

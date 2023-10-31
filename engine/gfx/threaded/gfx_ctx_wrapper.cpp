@@ -103,6 +103,13 @@ namespace wmoge {
         m_stream->push([=]() { m_ctx->unmap_storage_buffer(buffer); });
     }
 
+    void GfxCtxWrapper::barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) {
+        m_stream->push([=]() { m_ctx->barrier_image(texture, barrier_type); });
+    }
+    void GfxCtxWrapper::barrier_buffer(const Ref<GfxStorageBuffer>& buffer) {
+        m_stream->push([=]() { m_ctx->barrier_buffer(buffer); });
+    }
+
     void GfxCtxWrapper::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         m_stream->push([=]() { m_ctx->begin_render_pass(pass_desc, name); });
     }
@@ -129,6 +136,11 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { is_bound = m_ctx->bind_pipeline(pipeline); });
         return is_bound;
     }
+    bool GfxCtxWrapper::bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline) {
+        bool is_bound = false;
+        m_stream->push_and_wait([&]() { is_bound = m_ctx->bind_comp_pipeline(pipeline); });
+        return is_bound;
+    }
     void GfxCtxWrapper::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
         m_stream->push([=]() { m_ctx->bind_vert_buffer(buffer, index, offset); });
     }
@@ -146,6 +158,9 @@ namespace wmoge {
     }
     void GfxCtxWrapper::draw_indexed(int index_count, int base_vertex, int instance_count) {
         m_stream->push([=]() { m_ctx->draw_indexed(index_count, base_vertex, instance_count); });
+    }
+    void GfxCtxWrapper::dispatch(Vec3i group_count) {
+        m_stream->push([=]() { m_ctx->dispatch(group_count); });
     }
     void GfxCtxWrapper::end_render_pass() {
         m_stream->push([=]() { m_ctx->end_render_pass(); });

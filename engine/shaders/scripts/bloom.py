@@ -3,7 +3,6 @@ from reflection import *
 BINDINGS = BindingAllocator()
 
 Params = [
-    StructField(TYPE_MAT4, "Clip"),
     StructField(TYPE_VEC4, "ThresholdKnee"),
     StructField(TYPE_FLOAT, "UpsampleRadius"),
     StructField(TYPE_FLOAT, "UpsampleWeight"),
@@ -28,5 +27,6 @@ SHADER = Shader(
         Sampler2d("Source", BINDINGS.next()),
         Sampler2d("SourcePrev", BINDINGS.next()),
     ],
-    files=["bloom.vert", "bloom.frag"],
+    images=[Image2D("Result", BINDINGS.next(), "rgba16f", "writeonly")],
+    files=["bloom.comp"],
 )

@@ -145,6 +145,13 @@ namespace wmoge {
                     write_info.pBufferInfo              = &buffer_info;
                     break;
                 }
+                case GfxBindingType::StorageImage: {
+                    VkDescriptorImageInfo& image_info = image_infos[image_count++];
+                    image_info.imageView              = value.resource.cast<VKTexture>()->view();
+                    image_info.imageLayout            = VK_IMAGE_LAYOUT_GENERAL;
+                    write_info.pImageInfo             = &image_info;
+                    break;
+                }
                 default:
                     return;
             }

@@ -55,6 +55,7 @@ namespace wmoge {
         m_ctx_immediate       = driver->ctx_immediate();
         m_ctx_async           = driver->ctx_async();
         m_pso_cache           = driver->pso_cache();
+        m_comp_pso_cache      = driver->comp_pso_cache();
         m_vert_fmt_cache      = driver->vert_fmt_cache();
     }
 
@@ -105,6 +106,13 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(vertex), std::move(fragment), layouts, name); });
         return shader;
     }
+    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
+
+        Ref<GfxShader> shader;
+        m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(compute), layouts, name); });
+        return shader;
+    }
     Ref<GfxShader> GfxDriverWrapper::make_shader(Ref<Data> code, const StringId& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
 
@@ -152,6 +160,20 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { pipeline = m_driver->make_pipeline(state, name); });
         m_pso_cache->add(state, pipeline);
         WG_LOG_INFO("cache new pso " << name);
+        return pipeline;
+    }
+    Ref<GfxCompPipeline> GfxDriverWrapper::make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_comp_pipeline");
+
+        auto cached = m_comp_pso_cache->get(state);
+        if (cached.has_value()) {
+            return cached.value();
+        }
+
+        Ref<GfxCompPipeline> pipeline;
+        m_stream->push_and_wait([&]() { pipeline = m_driver->make_comp_pipeline(state, name); });
+        m_comp_pso_cache->add(state, pipeline);
+        WG_LOG_INFO("cache new comp pso " << name);
         return pipeline;
     }
     Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
@@ -232,6 +254,9 @@ namespace wmoge {
     }
     GfxPipelineCache* GfxDriverWrapper::pso_cache() {
         return m_pso_cache;
+    }
+    GfxCompPipelineCache* GfxDriverWrapper::comp_pso_cache() {
+        return m_comp_pso_cache;
     }
     GfxVertFormatCache* GfxDriverWrapper::vert_fmt_cache() {
         return m_vert_fmt_cache;

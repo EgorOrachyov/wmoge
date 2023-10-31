@@ -20,7 +20,7 @@ fragment: >
         float mixing = 0.5f;
 
         if ((fs.attributes.primitiveId % 3) == 0) {
-            mixing = 4.0f;
+            mixing = 20.0f;
         }
 
         fs.result.baseColor = mixing * color * max(0.1f, dot(-Direction.xyz, fs.attributes.worldNorm));

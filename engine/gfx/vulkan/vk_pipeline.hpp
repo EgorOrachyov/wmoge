@@ -38,7 +38,7 @@ namespace wmoge {
 
     /**
      * @class VKPipeline
-     * @brief Vulkan pipeline implementation
+     * @brief Vulkan graphics pipeline implementation
      */
     class VKPipeline final : public VKResource<GfxPipeline> {
     public:
@@ -60,6 +60,35 @@ namespace wmoge {
     private:
         GfxPipelineState               m_state;
         Ref<VKRenderPass>              m_render_pass;
+        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
+        std::string                    m_message;
+        VkPipeline                     m_pipeline = VK_NULL_HANDLE;
+        VkPipelineLayout               m_layout   = VK_NULL_HANDLE;
+    };
+
+    /**
+     * @class VKCompPipeline
+     * @brief  Vulkan compute pipeline implementation
+    */
+    class VKCompPipeline final : public VKResource<GfxCompPipeline> {
+    public:
+        VKCompPipeline(const GfxCompPipelineState& state, const StringId& name, class VKDriver& driver);
+        ~VKCompPipeline() override;
+
+        bool validate();
+
+        GfxPipelineStatus           status() const override;
+        std::string                 message() const override;
+        const GfxCompPipelineState& state() const override;
+        VkPipeline                  pipeline() const { return m_pipeline; }
+        VkPipelineLayout            layout() const { return m_layout; }
+
+    private:
+        void compile();
+        void release();
+
+    private:
+        GfxCompPipelineState           m_state;
         std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
         std::string                    m_message;
         VkPipeline                     m_pipeline = VK_NULL_HANDLE;

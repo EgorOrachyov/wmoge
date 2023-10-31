@@ -8,9 +8,7 @@
 /**********************************************************************************/
 
 #include "common_funcs.glsl"
-#include "inout_attributes.glsl"
-
-layout (location = 0) out vec4 out_color;
+#include "color.glsl"
 
 // Better, temporally stable box filtering
 // [Jimenez14] http://goo.gl/eomGso
@@ -96,18 +94,32 @@ vec4 UpsamplePass(in vec2 uv) {
     return Combine(UpsampleTent(uv), uv);
 }
 
+#define GROUP_SIZE_DEFAULT 8
+
+layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, local_size_z = 1) in;
+
 void main() {
-    const InoutAttributes attributes = ReadInoutAttributes();
+    const uvec2 gid  = gl_GlobalInvocationID.xy;
+    const ivec2 size = imageSize(Result);
+    const vec2  uv   = (vec2(gid) + vec2(0.5f, 0.5f)) / vec2(size);
+
+    if (gid.x >= size.x || gid.y >= size.y) {
+        return;
+    }    
+
+    vec4 outColor;
 
 #ifdef BLOOM_DOWNSAMPLE_PREFILTER 
-    out_color = DownsamplePrefilterPass(attributes.uv[0]);
+    outColor = DownsamplePrefilterPass(uv);
 #endif
 
 #ifdef BLOOM_DOWNSAMPLE 
-    out_color = DownsamplePass(attributes.uv[0]);
+    outColor = DownsamplePass(uv);
 #endif
 
 #ifdef BLOOM_UPSAMPLE
-    out_color = UpsamplePass(attributes.uv[0]);
+    outColor = UpsamplePass(uv);
 #endif
+
+    imageStore(Result, ivec2(gid), outColor);
 }

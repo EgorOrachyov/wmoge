@@ -57,7 +57,6 @@ namespace wmoge {
 
     Status yaml_read(const YamlConstNodeRef& node, TonemapSettings& settings) {
         WG_YAML_READ_AS_OPT(node, "exposure", settings.exposure);
-        WG_YAML_READ_AS_OPT(node, "gamma", settings.gamma);
         WG_YAML_READ_AS_OPT(node, "white_point", settings.white_point);
         WG_YAML_READ_AS_OPT(node, "mode", settings.mode);
         return StatusCode::Ok;
@@ -65,7 +64,6 @@ namespace wmoge {
     Status yaml_write(YamlNodeRef node, const TonemapSettings& settings) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "exposure", settings.exposure);
-        WG_YAML_WRITE_AS(node, "gamma", settings.gamma);
         WG_YAML_WRITE_AS(node, "white_point", settings.white_point);
         WG_YAML_WRITE_AS(node, "mode", settings.mode);
         return StatusCode::Ok;
@@ -88,7 +86,7 @@ namespace wmoge {
         GfxDriver* gfx_driver = engine->gfx_driver();
 
         const Size2i       size         = new_target_resoulution;
-        const GfxTexUsages usages       = {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling};
+        const GfxTexUsages usages       = {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage};
         const GfxTexUsages depth_usages = {GfxTexUsageFlag::DepthTarget, GfxTexUsageFlag::Sampling};
 
         depth        = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::DEPTH32F, depth_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("depth"));
@@ -112,12 +110,15 @@ namespace wmoge {
         }
 
         color_hdr = gbuffer[0];//tmp
+        color_ldr = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA8, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("color_ldr"));
 
         target_viewport = Rect2i(0, 0, new_target_resoulution.x(), new_target_resoulution.y());
+        target_size     = Vec2u(new_target_resoulution.x(), new_target_resoulution.y());
     }
 
     void GraphicsPipelineTextures::update_viewport(Size2i new_resoulution) {
         viewport = Rect2i(0, 0, new_resoulution.x(), new_resoulution.y());
+        size     = Vec2u(new_resoulution.x(), new_resoulution.y());
     }
 
     GraphicsPipelineStage::GraphicsPipelineStage() {

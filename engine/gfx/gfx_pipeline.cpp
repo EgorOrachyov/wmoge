@@ -62,4 +62,11 @@ namespace wmoge {
         return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPipelineState)));
     }
 
+    bool GfxCompPipelineState::operator==(const GfxCompPipelineState& other) const {
+        return shader == other.shader;
+    }
+    std::size_t GfxCompPipelineState::hash() const {
+        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxCompPipelineState)));
+    }
+
 }// namespace wmoge

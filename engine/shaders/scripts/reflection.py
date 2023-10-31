@@ -33,6 +33,11 @@ class TypeSampler(Type):
         Type.__init__(self, name)
 
 
+class TypeImage(Type):
+    def __init__(self, name):
+        Type.__init__(self, name)
+
+
 class ArrayQualifier:
     def __init__(self, size=None):
         self.size = size
@@ -98,6 +103,8 @@ TYPE_MAT4 = TypeMatrix("mat4", TYPE_FLOAT, 4, 4)
 TYPE_SAMPLER_2D = TypeSampler("sampler2D")
 TYPE_SAMPLER_3D = TypeSampler("sampler3D")
 TYPE_SAMPLER_CUBE = TypeSampler("samplerCube")
+
+TYPE_IMAGE_2D = TypeSampler("image2D")
 
 
 class Binding:
@@ -171,16 +178,31 @@ class SamplerCube(Sampler):
         Sampler.__init__(self, name, binding, TYPE_SAMPLER_CUBE)
 
 
+class Image:
+    def __init__(self, name, binding, format, qualifier, decl_type):
+        self.name = name
+        self.binding = binding
+        self.format = format
+        self.qualifier = qualifier
+        self.decl_type = decl_type
+
+
+class Image2D(Image):
+    def __init__(self, name, binding, format, qualifier=""):
+        Image.__init__(self, name, binding, format, qualifier, TYPE_IMAGE_2D)
+
+
 class Shader:
     def __init__(
         self,
         name: str,
         cls: str,
-        constants: list[Constant],
-        structs: list[Struct],
-        buffers: list[Buffer],
-        samplers: list[Sampler],
-        files: list[str],
+        constants: list[Constant] = [],
+        structs: list[Struct] = [],
+        buffers: list[Buffer] = [],
+        samplers: list[Sampler] = [],
+        images: list[Image] = [],
+        files: list[str] = [],
         material_set=None,
     ):
         self.name = name
@@ -189,6 +211,7 @@ class Shader:
         self.constants = constants
         self.buffers = buffers
         self.samplers = samplers
+        self.images = images
         self.files = files
         self.material_set = material_set
 
@@ -196,6 +219,12 @@ class Shader:
         return [file for file in self.files if filter_string in file]
 
     def set_resources(self, set_num):
-        return [
-            buffer for buffer in self.buffers if buffer.binding.set_num == set_num
-        ] + [sampler for sampler in self.samplers if sampler.binding.set_num == set_num]
+        return (
+            [buffer for buffer in self.buffers if buffer.binding.set_num == set_num]
+            + [
+                sampler
+                for sampler in self.samplers
+                if sampler.binding.set_num == set_num
+            ]
+            + [image for image in self.images if image.binding.set_num == set_num]
+        )

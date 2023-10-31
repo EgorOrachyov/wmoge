@@ -75,12 +75,14 @@ namespace wmoge {
         virtual Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                  = 0;
         virtual Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                  = 0;
         virtual Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name = StringId())                                           = 0;
+        virtual Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name = StringId())                                                                = 0;
         virtual Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name = StringId())                                                                                                       = 0;
         virtual Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name = StringId()) = 0;
         virtual Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId())  = 0;
         virtual Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId())                  = 0;
         virtual Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name = StringId())                                                                                          = 0;
         virtual Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name = StringId())                                                                                      = 0;
+        virtual Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name = StringId())                                                                             = 0;
         virtual Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())                                                                              = 0;
         virtual Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name = StringId())                                                                                              = 0;
         virtual Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name = StringId())                                                                                             = 0;
@@ -95,10 +97,11 @@ namespace wmoge {
         virtual void prepare_window(const Ref<Window>& window) = 0;
         virtual void swap_buffers(const Ref<Window>& window)   = 0;
 
-        [[nodiscard]] virtual class GfxCtx*       ctx_immediate()  = 0;
-        [[nodiscard]] virtual class GfxCtx*       ctx_async()      = 0;
-        [[nodiscard]] virtual GfxPipelineCache*   pso_cache()      = 0;
-        [[nodiscard]] virtual GfxVertFormatCache* vert_fmt_cache() = 0;
+        [[nodiscard]] virtual class GfxCtx*         ctx_immediate()  = 0;
+        [[nodiscard]] virtual class GfxCtx*         ctx_async()      = 0;
+        [[nodiscard]] virtual GfxPipelineCache*     pso_cache()      = 0;
+        [[nodiscard]] virtual GfxCompPipelineCache* comp_pso_cache() = 0;
+        [[nodiscard]] virtual GfxVertFormatCache*   vert_fmt_cache() = 0;
 
         [[nodiscard]] virtual GfxUniformPool*      uniform_pool()       = 0;
         [[nodiscard]] virtual GfxDynVertBuffer*    dyn_vert_buffer()    = 0;

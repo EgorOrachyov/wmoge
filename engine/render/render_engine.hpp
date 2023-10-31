@@ -54,9 +54,17 @@
 namespace wmoge {
 
     /**
+     * @class RenderSettings
+     * @brief Global rendering settings for the engine
+    */
+    struct RenderSettings {
+        float gamma = 2.2f;
+    };
+
+    /**
      * @class RenderView
      * @brief Holds data required to render a single view
-     */
+    */
     struct RenderView {
         static constexpr int QUEUE_COUNT = MESH_PASSES_TOTAL;
 
@@ -84,7 +92,7 @@ namespace wmoge {
      * @see RenderObjectCollector
      * @see MeshBatchCollector
      * @see MeshBatchCompiler
-     */
+    */
     class RenderEngine {
     public:
         RenderEngine();
@@ -118,6 +126,7 @@ namespace wmoge {
         [[nodiscard]] ArrayView<RenderView>              get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
         [[nodiscard]] float                              get_time() const { return m_time; }
         [[nodiscard]] float                              get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] const RenderSettings&              get_settings() const { return m_settings; }
         [[nodiscard]] const Color4f&                     get_clear_color() const { return m_clear_color; }
         [[nodiscard]] const Ref<Window>&                 get_main_target() const { return m_main_target; }
         [[nodiscard]] const Ref<GfxUniformBuffer>&       get_frame_data() const { return m_frame_data; }
@@ -134,6 +143,7 @@ namespace wmoge {
         RenderCmdAllocator                              m_cmd_allocator;
         GfxVector<GfxVF_Pos2Uv2, GfxVertBuffer>         m_fullscreen_tria;
 
+        RenderSettings              m_settings;
         Color4f                     m_clear_color = Color::BLACK4f;
         Ref<Window>                 m_main_target;
         Ref<GfxUniformBuffer>       m_frame_data;

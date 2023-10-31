@@ -44,6 +44,7 @@
 #include "shaders/generated/auto_base_pass.hpp"
 #include "shaders/generated/auto_bloom_pass.hpp"
 #include "shaders/generated/auto_canvas_pass.hpp"
+#include "shaders/generated/auto_composition_pass.hpp"
 #include "shaders/generated/auto_material_pass.hpp"
 #include "shaders/generated/auto_text_pass.hpp"
 #include "shaders/generated/auto_tonemap_pass.hpp"
@@ -359,6 +360,7 @@ namespace wmoge {
         register_pass(std::make_unique<ShaderPassMaterial>());
         register_pass(std::make_unique<ShaderPassBloom>());
         register_pass(std::make_unique<ShaderPassTonemap>());
+        register_pass(std::make_unique<ShaderPassComposition>());
     }
     void ShaderManager::load_sources_from_disk() {
         WG_AUTO_PROFILE_RENDER("ShaderManager::load_sources_from_disk");

@@ -3,15 +3,13 @@ from reflection import *
 BINDINGS = BindingAllocator()
 
 Params = [
-    StructField(TYPE_MAT4, "Clip"),
+    StructField(TYPE_UVEC2, "TargetSize"),
     StructField(TYPE_FLOAT, "InverseGamma"),
     StructField(TYPE_FLOAT, "Mode"),
     StructField(TYPE_FLOAT, "Exposure"),
     StructField(TYPE_FLOAT, "BloomIntensity"),
     StructField(TYPE_FLOAT, "BloomDirtMaskIntensity"),
     StructField(TYPE_FLOAT, "WhitePoint"),
-    StructField(TYPE_FLOAT, "_pd_pad0"),
-    StructField(TYPE_FLOAT, "_pd_pad1"),
 ]
 
 SHADER = Shader(
@@ -38,5 +36,6 @@ SHADER = Shader(
         Sampler2d("Bloom", BINDINGS.next()),
         Sampler2d("BloomDirtMask", BINDINGS.next()),
     ],
-    files=["tonemap.vert", "tonemap.frag"],
+    images=[Image2D("Result", BINDINGS.next(), "rgba8", "writeonly")],
+    files=["tonemap.comp"],
 )

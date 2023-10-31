@@ -94,6 +94,11 @@ namespace wmoge {
             return true;
         }
 
+        if (compute.has_value()) {
+            gfx_shader = gfx_driver->make_shader(compute->str(), layouts, key);
+            return true;
+        }
+
         WG_LOG_ERROR("unknown shader modules combination");
         return false;
     }

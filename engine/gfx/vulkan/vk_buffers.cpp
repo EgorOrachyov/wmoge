@@ -204,7 +204,35 @@ namespace wmoge {
     }
     void VKStorageBuffer::update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) {
         VKBuffer::update(cmd, offset, size, mem);
-        VKBuffer::barrier(cmd, offset, size, VK_ACCESS_SHADER_READ_BIT, VK_PIPELINE_STAGE_VERTEX_SHADER_BIT);
+        VKBuffer::barrier(cmd, offset, size, VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT,
+                          VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT);
+    }
+
+    void VKStorageBuffer::barrier(VkCommandBuffer cmd) {
+        const VkAccessFlags flags =
+                VK_ACCESS_SHADER_READ_BIT |
+                VK_ACCESS_SHADER_WRITE_BIT |
+                VK_ACCESS_TRANSFER_READ_BIT |
+                VK_ACCESS_TRANSFER_WRITE_BIT;
+
+        const VkPipelineStageFlags stages =
+                VK_PIPELINE_STAGE_VERTEX_SHADER_BIT |
+                VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT |
+                VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT |
+                VK_PIPELINE_STAGE_TRANSFER_BIT;
+
+        VkBufferMemoryBarrier barrier{};
+        barrier.sType               = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+        barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+        barrier.srcAccessMask       = flags;
+        barrier.dstAccessMask       = flags;
+        barrier.buffer              = m_buffer;
+        barrier.offset              = 0;
+        barrier.size                = VKBuffer::m_size;
+
+        vkCmdPipelineBarrier(cmd, stages, stages, 0,
+                             0, nullptr, 1, &barrier, 0, nullptr);
     }
 
 }// namespace wmoge

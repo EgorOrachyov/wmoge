@@ -132,6 +132,7 @@ namespace wmoge {
 
         // init caches
         m_pso_cache      = std::make_unique<GfxPipelineCache>();
+        m_comp_pso_cache = std::make_unique<GfxCompPipelineCache>();
         m_vert_fmt_cache = std::make_unique<GfxVertFormatCache>();
 
         // setup pool and dynamic buffers
@@ -223,6 +224,22 @@ namespace wmoge {
 
         return shader;
     }
+    Ref<GfxShader> VKDriver::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
+
+        assert(on_gfx_thread());
+
+        auto shader = make_ref<VKShader>(std::move(compute), layouts, name, *this);
+
+        Task compile_shader(SID("vk_compile_shader_" + name.str()), [shader](TaskContext&) {
+            shader->compile_from_source();
+            return 0;
+        });
+
+        compile_shader.schedule();
+
+        return shader;
+    }
     Ref<GfxShader> VKDriver::make_shader(Ref<Data> code, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
@@ -287,6 +304,13 @@ namespace wmoge {
         assert(on_gfx_thread());
 
         return make_ref<VKPipeline>(state, name, *this);
+    }
+    Ref<GfxCompPipeline> VKDriver::make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_comp_pipeline");
+
+        assert(on_gfx_thread());
+
+        return make_ref<VKCompPipeline>(state, name, *this);
     }
     Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
@@ -359,10 +383,13 @@ namespace wmoge {
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
 
-            m_vert_fmt_cache.reset();
+            m_pso_cache.reset();
             flush_release();
 
-            m_pso_cache.reset();
+            m_comp_pso_cache.reset();
+            flush_release();
+
+            m_vert_fmt_cache.reset();
             flush_release();
 
             m_uniform_pool.reset();

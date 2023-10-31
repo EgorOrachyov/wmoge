@@ -131,6 +131,8 @@ namespace wmoge {
                     return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
                 case GfxBindingType::StorageBuffer:
                     return VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+                case GfxBindingType::StorageImage:
+                    return VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
                 default:
                     return VK_DESCRIPTOR_TYPE_MAX_ENUM;
             }

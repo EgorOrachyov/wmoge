@@ -38,69 +38,31 @@
 
 namespace wmoge {
 
-    /** @brief Auto generated reflection for 'canvas' shader */
-    struct ShaderCanvas {
-        static constexpr const char NAME[]       = "canvas";
-        static constexpr const char CLS[]        = "Canvas";
+    /** @brief Auto generated reflection for 'composition' shader */
+    struct ShaderComposition {
+        static constexpr const char NAME[]       = "composition";
+        static constexpr const char CLS[]        = "Composition";
         static constexpr int        NUM_FILES    = 2;
-        static constexpr int        NUM_CONSTS   = 1;
-        static constexpr int        NUM_SAMPLERS = 4;
-        static constexpr int        NUM_BUFFERS  = 2;
+        static constexpr int        NUM_CONSTS   = 0;
+        static constexpr int        NUM_SAMPLERS = 1;
+        static constexpr int        NUM_BUFFERS  = 1;
 
-        struct DrawCmdData {
-            Vec4f Transform0;
-            Vec4f Transform1;
-            Vec4f Transform2;
-            Vec4f ClipRect;
-            int   TextureIdx;
-            int   _dc_pad0;
-            int   _dc_pad1;
-            int   _dc_pad2;
-        };
-
-        static constexpr const auto MAX_CANVAS_IMAGES = 4;
-
-        static constexpr const int  CANVASIMAGE0_SET    = 1;
-        static constexpr const int  CANVASIMAGE0_SLOT   = 0;
-        static constexpr const auto CANVASIMAGE0_LOC    = GfxLocation{1, 0};
-        static constexpr const char CANVASIMAGE0_NAME[] = "CanvasImage0";
-
-        static constexpr const int  CANVASIMAGE1_SET    = 1;
-        static constexpr const int  CANVASIMAGE1_SLOT   = 1;
-        static constexpr const auto CANVASIMAGE1_LOC    = GfxLocation{1, 1};
-        static constexpr const char CANVASIMAGE1_NAME[] = "CanvasImage1";
-
-        static constexpr const int  CANVASIMAGE2_SET    = 1;
-        static constexpr const int  CANVASIMAGE2_SLOT   = 2;
-        static constexpr const auto CANVASIMAGE2_LOC    = GfxLocation{1, 2};
-        static constexpr const char CANVASIMAGE2_NAME[] = "CanvasImage2";
-
-        static constexpr const int  CANVASIMAGE3_SET    = 1;
-        static constexpr const int  CANVASIMAGE3_SLOT   = 3;
-        static constexpr const auto CANVASIMAGE3_LOC    = GfxLocation{1, 3};
-        static constexpr const char CANVASIMAGE3_NAME[] = "CanvasImage3";
+        static constexpr const int  COLOR_SET    = 0;
+        static constexpr const int  COLOR_SLOT   = 1;
+        static constexpr const auto COLOR_LOC    = GfxLocation{0, 1};
+        static constexpr const char COLOR_NAME[] = "Color";
 
         struct Params {
-            Mat4x4f ClipProjView;
+            Mat4x4f Clip;
+            Vec2u   TargetSize;
+            float   Gamma;
             float   InverseGamma;
-            float   _pr_pad0;
-            float   _pr_pad1;
-            float   _pr_pad2;
         };
 
         static constexpr const int  PARAMS_SET    = 0;
         static constexpr const int  PARAMS_SLOT   = 0;
         static constexpr const auto PARAMS_LOC    = GfxLocation{0, 0};
         static constexpr const char PARAMS_NAME[] = "Params";
-
-        struct DrawCmdsData {
-            /* struct DrawCmdData DrawCmds[ UNBOUND ]; */
-        };
-
-        static constexpr const int  DRAWCMDSDATA_SET    = 0;
-        static constexpr const int  DRAWCMDSDATA_SLOT   = 1;
-        static constexpr const auto DRAWCMDSDATA_LOC    = GfxLocation{0, 1};
-        static constexpr const char DRAWCMDSDATA_NAME[] = "DrawCmdsData";
     };
 
 }// namespace wmoge

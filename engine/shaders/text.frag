@@ -8,6 +8,7 @@
 /**********************************************************************************/
 
 #include "common_funcs.glsl"
+#include "color.glsl"
 
 layout (location = 0) out vec4 out_color;
 
@@ -18,7 +19,7 @@ void main() {
     vec4 result_color = vec4(fsCol04f.rgb, fsCol04f.a * texture(FontTexture, fsUv02f).r);
 
     #ifdef OUT_SRGB
-    result_color.rgb = ColorLinearToSrgb(result_color.rgb, inverse_gamma);
+        result_color.rgb = ColorLinearToSrgb(result_color.rgb, inverse_gamma);
     #endif
 
     out_color = result_color;

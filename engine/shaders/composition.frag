@@ -7,17 +7,15 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#include "common_funcs.glsl"
-#include "vertex_attributes.glsl"
-#include "inout_attributes.glsl
+#include "inout_attributes.glsl"
+
+layout (location = 0) out vec4 out_color;
 
 void main() {
-    const VertexAttributes vertex = ReadVertexAttributes();
+    const InoutAttributes attributes = ReadInoutAttributes();
+    const vec2 uv = attributes.uv[0];
     
-    InoutAttributes result;
-    result.uv[0] = UnpackUv(vertex.uv[0]);
+    const vec4 ldrColor = texture(Color, uv).rgba;
 
-    StoreInoutAttributes(result);
-
-    gl_Position = Clip * vec4(vertex.pos2, 0.0f, 1.0f);
+    out_color = ldrColor;
 }

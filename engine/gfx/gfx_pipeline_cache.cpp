@@ -45,4 +45,18 @@ namespace wmoge {
         m_cache[state] = pipeline;
     }
 
+    std::optional<Ref<GfxCompPipeline>> GfxCompPipelineCache::get(const GfxCompPipelineState& state) {
+        std::lock_guard guard(m_mutex);
+        auto            it = m_cache.find(state);
+        if (it != m_cache.end()) {
+            return it->second;
+        }
+        return std::nullopt;
+    }
+
+    void GfxCompPipelineCache::add(const GfxCompPipelineState& state, const Ref<GfxCompPipeline>& pipeline) {
+        std::lock_guard guard(m_mutex);
+        m_cache[state] = pipeline;
+    }
+
 }// namespace wmoge

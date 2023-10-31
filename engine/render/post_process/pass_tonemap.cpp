@@ -41,31 +41,24 @@ namespace wmoge {
 
         m_sampler = get_gfx_driver()->make_sampler(sampler_desc, SID(sampler_desc.to_str()));
 
-        GfxVertAttribs  attribgs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f};
-        GfxVertElements elements;
-        elements.add_vert_attribs(attribgs, 0, false);
+        GfxCompPipelineState pso_state;
+        pso_state.shader = get_shader_manager()->get_shader(SID("tonemap"), {});
 
-        GfxPipelineState pso_state;
-        pso_state.shader       = get_shader_manager()->get_shader(SID("tonemap"), attribgs, {});
-        pso_state.vert_format  = get_gfx_driver()->make_vert_format(elements, SID("[pos2, uv2,]"));
-        pso_state.depth_enable = false;
-        pso_state.depth_write  = false;
-        pso_state.blending     = false;
-
-        m_pipeline = get_gfx_driver()->make_pipeline(pso_state, SID("tonemap"));
+        m_pipeline = get_gfx_driver()->make_comp_pipeline(pso_state, SID("tonemap"));
     }
 
-    void PassToneMap::execute(int view_idx, const Ref<Window>& window) {
+    void PassToneMap::execute(int view_idx) {
         WG_AUTO_PROFILE_RENDER("PassToneMap::execute");
 
         const BloomSettings&            bloom_settings   = get_pipeline()->get_settings().bloom;
         const TonemapSettings&          tonemap_settings = get_pipeline()->get_settings().tonemap;
         const RenderView&               view             = get_pipeline()->get_views()[view_idx];
         const GraphicsPipelineTextures& textures         = get_pipeline()->get_textures();
+        const RenderSettings&           render_settings  = get_render_engine()->get_settings();
 
         ShaderTonemap::Params params;
-        params.Clip                   = get_gfx_driver()->clip_matrix().transpose();
-        params.InverseGamma           = 1.0f / tonemap_settings.gamma;
+        params.TargetSize             = textures.size;
+        params.InverseGamma           = 1.0f / render_settings.gamma;
         params.Exposure               = tonemap_settings.exposure;
         params.WhitePoint             = tonemap_settings.white_point;
         params.Mode                   = float(tonemap_settings.mode);
@@ -74,11 +67,11 @@ namespace wmoge {
 
         auto setup = get_gfx_driver()->uniform_pool()->allocate(params);
 
-        Ref<GfxTexture> black              = get_tex_manager()->get_gfx_default_texture_black();
-        Ref<GfxTexture> bloom              = bloom_settings.enable ? textures.bloom_upsample[0] : black;
-        const bool      has_bloom_dirt     = bloom_settings.enable && bloom_settings.dirt_mask.has_value();
-        Ref<GfxTexture> bloom_dirt         = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_texture() : black;
-        Ref<GfxSampler> bloom_dirt_sampler = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_sampler() : m_sampler;
+        const Ref<GfxTexture> black              = get_tex_manager()->get_gfx_default_texture_black();
+        const Ref<GfxTexture> bloom              = bloom_settings.enable ? textures.bloom_upsample[0] : black;
+        const bool            has_bloom_dirt     = bloom_settings.enable && bloom_settings.dirt_mask.has_value();
+        const Ref<GfxTexture> bloom_dirt         = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_texture() : black;
+        const Ref<GfxSampler> bloom_dirt_sampler = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_sampler() : m_sampler;
 
         GfxDescSetResources resources;
         {
@@ -111,24 +104,27 @@ namespace wmoge {
                 value.resource      = bloom_dirt.as<GfxResource>();
                 value.sampler       = bloom_dirt_sampler;
             }
+            {
+                auto& [bind, value] = resources.emplace_back();
+                bind.binding        = ShaderTonemap::RESULT_SLOT;
+                bind.type           = GfxBindingType::StorageImage;
+                value.resource      = textures.color_ldr.as<GfxResource>();
+            }
         }
 
         auto desc_set = get_gfx_driver()->make_desc_set(resources, SID("tonemap"));
 
         get_gfx_ctx()->execute([&](GfxCtx* thread_ctx) {
-            thread_ctx->begin_render_pass({}, SID("PassToneMap::execute"));
-            {
-                thread_ctx->bind_target(window);// tmp
-                thread_ctx->viewport(Rect2i(0, 0, window->fbo_width(), window->fbo_height()));
-                thread_ctx->clear(1.0f, 0);// tmp
+            WG_GFX_LABEL(thread_ctx, SID("PassToneMap::execute"));
 
-                if (thread_ctx->bind_pipeline(m_pipeline)) {
-                    thread_ctx->bind_desc_set(desc_set, 0);
-                    thread_ctx->bind_vert_buffer(get_render_engine()->get_fullscreen_tria(), 0, 0);
-                    thread_ctx->draw(3, 0, 1);
-                }
+            thread_ctx->barrier_image(textures.color_ldr, GfxTexBarrierType::Storage);
+
+            if (thread_ctx->bind_comp_pipeline(m_pipeline)) {
+                thread_ctx->bind_desc_set(desc_set, 0);
+                thread_ctx->dispatch(GfxCtx::group_size(params.TargetSize.x(), params.TargetSize.y(), 16));
             }
-            thread_ctx->end_render_pass();
+
+            thread_ctx->barrier_image(textures.color_ldr, GfxTexBarrierType::Sampling);
         });
     }
 

@@ -9,6 +9,7 @@
 
 #include "inout_attributes.glsl"
 #include "scene_data.glsl"
+#include "color.glsl"
 
 struct MaterialAttributes {
     vec4 baseColor;

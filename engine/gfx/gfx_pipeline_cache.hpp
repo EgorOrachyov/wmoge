@@ -39,7 +39,7 @@ namespace wmoge {
 
     /**
      * @class GfxPipelineCache
-     * @brief Runtime cache of pipelines
+     * @brief Runtime cache of graphics pipelines
     */
     class GfxPipelineCache final {
     public:
@@ -54,6 +54,25 @@ namespace wmoge {
     private:
         fast_map<GfxPipelineState, Ref<GfxPipeline>> m_cache;
         SpinMutex                                    m_mutex;
+    };
+
+    /**
+     * @class GfxCompPipelineCache
+     * @brief Runtime cache of compute pipelines
+    */
+    class GfxCompPipelineCache final {
+    public:
+        GfxCompPipelineCache()                            = default;
+        GfxCompPipelineCache(const GfxCompPipelineCache&) = delete;
+        GfxCompPipelineCache(GfxCompPipelineCache&&)      = delete;
+        ~GfxCompPipelineCache()                           = default;
+
+        std::optional<Ref<GfxCompPipeline>> get(const GfxCompPipelineState& state);
+        void                                add(const GfxCompPipelineState& state, const Ref<GfxCompPipeline>& pipeline);
+
+    private:
+        fast_map<GfxCompPipelineState, Ref<GfxCompPipeline>> m_cache;
+        SpinMutex                                            m_mutex;
     };
 
 }// namespace wmoge
