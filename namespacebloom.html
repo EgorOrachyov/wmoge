@@ -104,13 +104,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  [</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    StructField(TYPE_MAT4, <span class="stringliteral">&quot;Clip&quot;</span>),</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    StructField(TYPE_VEC4, <span class="stringliteral">&quot;ThresholdKnee&quot;</span>),</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;UpsampleRadius&quot;</span>),</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;UpsampleWeight&quot;</span>),</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;_pr_pad0&quot;</span>),</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;_pr_pad1&quot;</span>),</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;]</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    StructField(TYPE_VEC4, <span class="stringliteral">&quot;ThresholdKnee&quot;</span>),</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;UpsampleRadius&quot;</span>),</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;UpsampleWeight&quot;</span>),</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;_pr_pad0&quot;</span>),</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;_pr_pad1&quot;</span>),</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;]</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -142,8 +141,9 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        Sampler2d(<span class="stringliteral">&quot;Source&quot;</span>, BINDINGS.next()),</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        Sampler2d(<span class="stringliteral">&quot;SourcePrev&quot;</span>, BINDINGS.next()),</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    ],</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    files=[<span class="stringliteral">&quot;bloom.vert&quot;</span>, <span class="stringliteral">&quot;bloom.frag&quot;</span>],</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    images=[Image2D(<span class="stringliteral">&quot;Result&quot;</span>, BINDINGS.next(), <span class="stringliteral">&quot;rgba16f&quot;</span>, <span class="stringliteral">&quot;writeonly&quot;</span>)],</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    files=[<span class="stringliteral">&quot;bloom.comp&quot;</span>],</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;)</div>
 </div><!-- fragment -->
 </div>
 </div>

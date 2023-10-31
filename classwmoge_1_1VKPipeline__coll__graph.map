@@ -1,5 +1,5 @@
 <map id="wmoge::VKPipeline" name="wmoge::VKPipeline">
-<area shape="rect" id="node1" title="Vulkan pipeline implementation." alt="" coords="61,337,196,364"/>
+<area shape="rect" id="node1" title="Vulkan graphics pipeline implementation." alt="" coords="61,337,196,364"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="53,247,204,288"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1GfxPipeline.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="61,171,197,197"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="56,95,201,121"/>

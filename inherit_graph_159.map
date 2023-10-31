@@ -1,4 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Input.html" title="Interface for OS&#45;specific input layer to get user input." alt="" coords="5,5,104,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GlfwInput.html" title="Glfw&#45;based implementation of hardware input." alt="" coords="152,5,279,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1GraphicsPipelineStage.html" title=" " alt="" coords="5,81,208,108"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1PassBloom.html" title="Executes bloom pass of hdr color target." alt="" coords="273,5,411,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1PassComposition.html" title="Executes final composition." alt="" coords="256,56,428,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1PassGBuffer.html" title="Executes gbuffer fill pass." alt="" coords="270,107,414,133"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1PassToneMap.html" title="Executes tonemapping pass of hdr to ldr color target." alt="" coords="265,157,419,184"/>
 </map>

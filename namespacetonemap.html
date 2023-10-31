@@ -104,16 +104,14 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;=  [</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    StructField(TYPE_MAT4, <span class="stringliteral">&quot;Clip&quot;</span>),</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;    StructField(TYPE_UVEC2, <span class="stringliteral">&quot;TargetSize&quot;</span>),</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;InverseGamma&quot;</span>),</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;Mode&quot;</span>),</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;Exposure&quot;</span>),</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;BloomIntensity&quot;</span>),</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;BloomDirtMaskIntensity&quot;</span>),</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;WhitePoint&quot;</span>),</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;_pd_pad0&quot;</span>),</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    StructField(TYPE_FLOAT, <span class="stringliteral">&quot;_pd_pad1&quot;</span>),</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;]</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;]</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -152,8 +150,9 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        Sampler2d(<span class="stringliteral">&quot;Bloom&quot;</span>, BINDINGS.next()),</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        Sampler2d(<span class="stringliteral">&quot;BloomDirtMask&quot;</span>, BINDINGS.next()),</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    ],</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    files=[<span class="stringliteral">&quot;tonemap.vert&quot;</span>, <span class="stringliteral">&quot;tonemap.frag&quot;</span>],</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    images=[Image2D(<span class="stringliteral">&quot;Result&quot;</span>, BINDINGS.next(), <span class="stringliteral">&quot;rgba8&quot;</span>, <span class="stringliteral">&quot;writeonly&quot;</span>)],</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    files=[<span class="stringliteral">&quot;tonemap.comp&quot;</span>],</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;)</div>
 </div><!-- fragment -->
 </div>
 </div>

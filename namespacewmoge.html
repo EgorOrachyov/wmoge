@@ -426,6 +426,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLimits.html">GfxLimits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx common device limits.  <a href="structwmoge_1_1GfxLimits.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxTexRegion.html">GfxTexRegion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> sub region.  <a href="structwmoge_1_1GfxTexRegion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLocation.html">GfxLocation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">How to bind resource to gfx pipeline.  <a href="structwmoge_1_1GfxLocation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -476,11 +479,20 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxPipelineState.html">GfxPipelineState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx pipeline state description.  <a href="structwmoge_1_1GfxPipelineState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxCompPipelineState.html">GfxCompPipelineState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx compute pipeline state description.  <a href="structwmoge_1_1GfxCompPipelineState.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPipeline.html">GfxPipeline</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents created and compiled graphics pipeline state object.  <a href="classwmoge_1_1GfxPipeline.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCompPipeline.html">GfxCompPipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents created and compiled compute pipeline state object.  <a href="classwmoge_1_1GfxCompPipeline.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPipelineCache.html">GfxPipelineCache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache of pipelines.  <a href="classwmoge_1_1GfxPipelineCache.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache of graphics pipelines.  <a href="classwmoge_1_1GfxPipelineCache.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCompPipelineCache.html">GfxCompPipelineCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache of compute pipelines.  <a href="classwmoge_1_1GfxCompPipelineCache.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxRenderPassDesc.html">GfxRenderPassDesc</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx rendering pass descriptor.  <a href="structwmoge_1_1GfxRenderPassDesc.html#details">More...</a><br /></td></tr>
@@ -601,7 +613,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages memory allocation in vulkan and staging of buffer updates.  <a href="classwmoge_1_1VKMemManager.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKPipeline.html">VKPipeline</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vulkan pipeline implementation.  <a href="classwmoge_1_1VKPipeline.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vulkan graphics pipeline implementation.  <a href="classwmoge_1_1VKPipeline.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKCompPipeline.html">VKCompPipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vulkan compute pipeline implementation.  <a href="classwmoge_1_1VKCompPipeline.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKQueues.html">VKQueues</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages device queues for commands execution.  <a href="classwmoge_1_1VKQueues.html#details">More...</a><br /></td></tr>
@@ -926,6 +941,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PassBloom.html">PassBloom</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes bloom pass of hdr color target.  <a href="classwmoge_1_1PassBloom.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PassComposition.html">PassComposition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes final composition.  <a href="classwmoge_1_1PassComposition.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PassToneMap.html">PassToneMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes tonemapping pass of hdr to ldr color target.  <a href="classwmoge_1_1PassToneMap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -943,6 +961,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderCameraMask.html">RenderCameraMask</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structwmoge_1_1Mask.html" title="Typed mask to test safely enum flags.">Mask</a> of toggled cameras, can be used for filtering and culling.  <a href="classwmoge_1_1RenderCameraMask.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderSettings.html">RenderSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global rendering settings for the engine.  <a href="structwmoge_1_1RenderSettings.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RenderView.html">RenderView</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds data required to render a single view.  <a href="structwmoge_1_1RenderView.html#details">More...</a><br /></td></tr>
@@ -1371,6 +1392,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCanvas.html">ShaderCanvas</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated reflection for 'canvas' shader.  <a href="structwmoge_1_1ShaderCanvas.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPassComposition.html">ShaderPassComposition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated pass for 'composition' shader.  <a href="classwmoge_1_1ShaderPassComposition.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderComposition.html">ShaderComposition</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated reflection for 'composition' shader.  <a href="structwmoge_1_1ShaderComposition.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPassMaterial.html">ShaderPassMaterial</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auto generated pass for 'material' shader.  <a href="classwmoge_1_1ShaderPassMaterial.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1774,6 +1801,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a9e9f2605a7b2960584dfe67c9618a11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx memory usage.  <a href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">More...</a><br /></td></tr>
 <tr class="separator:a9e9f2605a7b2960584dfe67c9618a11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a1aba838e2b7875b1db0bcccded5a9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">GfxTexBarrierType</a> : int { <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9a9b0bffda4bcb312168c0d6537cb04b4d">RenderTarget</a>
+, <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9a1d07814d12178c958e4233501cb0bdc7">Sampling</a>
+, <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9a8c4aa541ee911e8d80451ef8cc304806">Storage</a>
+ }</td></tr>
+<tr class="memdesc:ac9a1aba838e2b7875b1db0bcccded5a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture manual barrier type.  <a href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">More...</a><br /></td></tr>
+<tr class="separator:ac9a1aba838e2b7875b1db0bcccded5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab58c0bd9238429533fb862c5a05689b6"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6">GfxTex</a> : int { <a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
 , <a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6a3c8d2366d17507be7f6575d3a295c670">Tex2d</a>
 , <a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6ac7f0f00e025f7ccfa633f286523a6100">Tex2dArray</a>
@@ -1781,10 +1814,14 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ab58c0bd9238429533fb862c5a05689b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture type.  <a href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6">More...</a><br /></td></tr>
 <tr class="separator:ab58c0bd9238429533fb862c5a05689b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65314841d4a2c7defa7ec8176aa2857d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">GfxTexUsageFlag</a> : int { <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857dacec614506ac7d4f4cb239c406797e512">DepthStencilTarget</a> = 1
+<tr class="memitem:a65314841d4a2c7defa7ec8176aa2857d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">GfxTexUsageFlag</a> : int { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857dacec614506ac7d4f4cb239c406797e512">DepthStencilTarget</a> = 1
 , <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da4944d1175161720e44d8636eabc87d06">DepthTarget</a> = 2
 , <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857daa193782000bdf049b37403d15e7b0e88">ColorTarget</a> = 3
-, <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7">Sampling</a> = 4
+, <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da8c4aa541ee911e8d80451ef8cc304806">Storage</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7">Sampling</a> = 4
+<br />
  }</td></tr>
 <tr class="memdesc:a65314841d4a2c7defa7ec8176aa2857d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture usage.  <a href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">More...</a><br /></td></tr>
 <tr class="separator:a65314841d4a2c7defa7ec8176aa2857d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2027,10 +2064,14 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a4764e422936404ac0ffa2abf7cb9a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Named vertex attributes.  <a href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fc">More...</a><br /></td></tr>
 <tr class="separator:a4764e422936404ac0ffa2abf7cb9a0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">GfxBindingType</a> : std::uint8_t { <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
+<tr class="memitem:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">GfxBindingType</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
 , <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa63513442eb8682dcdd58fcc3fa853500">SampledTexture</a>
 , <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88f133adfed6c854e5731cdffbf208cf">UniformBuffer</a>
 , <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa439f57c2c466c89db942b3de48298b2b">StorageBuffer</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaaa078fa7ad769f9e7b53b8c42e3b7bbab">StorageImage</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of bindings to a pipeline.  <a href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">More...</a><br /></td></tr>
 <tr class="separator:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2324,7 +2365,8 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dcaf48dc363f46863a4a79bf41a69a33116">ToneMapping</a>
 , <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca38ff0ad2037b8a3fdd0e56681f46df66">SunShafts</a>
-, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca96b0141273eabab320119c467cdcaf17">Total</a> = 10
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca53eff24a355b7ae55f0aa2bef39bb24c">Composition</a>
+, <a class="el" href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dca96b0141273eabab320119c467cdcaf17">Total</a> = 11
 <br />
  }</td></tr>
 <tr class="memdesc:ae279f1e848cee4b1b7dc7bad145567dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of supported stages.  <a href="namespacewmoge.html#ae279f1e848cee4b1b7dc7bad145567dc">More...</a><br /></td></tr>
@@ -4616,6 +4658,7 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a2e8aafe977c2d83820b74bd87c88d1aaa63513442eb8682dcdd58fcc3fa853500"></a>SampledTexture&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2e8aafe977c2d83820b74bd87c88d1aaa88f133adfed6c854e5731cdffbf208cf"></a>UniformBuffer&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2e8aafe977c2d83820b74bd87c88d1aaa439f57c2c466c89db942b3de48298b2b"></a>StorageBuffer&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2e8aafe977c2d83820b74bd87c88d1aaaa078fa7ad769f9e7b53b8c42e3b7bbab"></a>StorageImage&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -5352,6 +5395,35 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ac9a1aba838e2b7875b1db0bcccded5a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9a1aba838e2b7875b1db0bcccded5a9">&#9670;&nbsp;</a></span>GfxTexBarrierType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">wmoge::GfxTexBarrierType</a> : int</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> manual barrier type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac9a1aba838e2b7875b1db0bcccded5a9a9b0bffda4bcb312168c0d6537cb04b4d"></a>RenderTarget&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac9a1aba838e2b7875b1db0bcccded5a9a1d07814d12178c958e4233501cb0bdc7"></a>Sampling&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac9a1aba838e2b7875b1db0bcccded5a9a8c4aa541ee911e8d80451ef8cc304806"></a>Storage&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a2c9b57ed86ff72a0c7f92caa1cfda522"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c9b57ed86ff72a0c7f92caa1cfda522">&#9670;&nbsp;</a></span>GfxTexCubeFace</h2>
 
@@ -5440,6 +5512,8 @@ template&lt;typename T &gt; </div>
 </td></tr>
 <tr><td class="fieldname"><a id="a65314841d4a2c7defa7ec8176aa2857daa193782000bdf049b37403d15e7b0e88"></a>ColorTarget&#160;</td><td class="fielddoc"><p><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> can be used as render target color attachment </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a65314841d4a2c7defa7ec8176aa2857da8c4aa541ee911e8d80451ef8cc304806"></a>Storage&#160;</td><td class="fielddoc"><p><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> can be used in compute shaders as storage image </p>
+</td></tr>
 <tr><td class="fieldname"><a id="a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7"></a>Sampling&#160;</td><td class="fielddoc"><p><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> can be sampled within shader </p>
 </td></tr>
 </table>
@@ -5520,6 +5594,7 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca90ce25be35310f662a2dda74f78a6fd2"></a>AutoExposure&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dcaf48dc363f46863a4a79bf41a69a33116"></a>ToneMapping&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca38ff0ad2037b8a3fdd0e56681f46df66"></a>SunShafts&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca53eff24a355b7ae55f0aa2bef39bb24c"></a>Composition&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ae279f1e848cee4b1b7dc7bad145567dca96b0141273eabab320119c467cdcaf17"></a>Total&#160;</td><td class="fielddoc"></td></tr>
 </table>
 

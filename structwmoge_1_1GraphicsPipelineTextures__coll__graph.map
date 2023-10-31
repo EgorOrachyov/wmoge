@@ -1,5 +1,6 @@
 <map id="wmoge::GraphicsPipelineTextures" name="wmoge::GraphicsPipelineTextures">
-<area shape="rect" id="node1" title="Pipeline textures used during rendering." alt="" coords="65,197,283,224"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,13,164,39"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="189,5,338,47"/>
+<area shape="rect" id="node1" title="Pipeline textures used during rendering." alt="" coords="321,65,540,92"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="13,5,172,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,58,180,99"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="18,191,167,233"/>
 </map>

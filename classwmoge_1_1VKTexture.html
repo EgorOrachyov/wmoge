@@ -124,6 +124,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa4ee62ff3a37675c47dcd5c11ac171a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace8e1ac5c35e417fd478bc81f1f3908b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKTexture.html#ace8e1ac5c35e417fd478bc81f1f3908b">update_cube</a> (VkCommandBuffer cmd, int mip, int face, const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> &amp;region, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;data)</td></tr>
 <tr class="separator:ace8e1ac5c35e417fd478bc81f1f3908b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83560c96c3094a5f0321ff7832dbc47d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKTexture.html#a83560c96c3094a5f0321ff7832dbc47d">transition_layout</a> (VkCommandBuffer cmd, <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">GfxTexBarrierType</a> barrier_type)</td></tr>
+<tr class="separator:a83560c96c3094a5f0321ff7832dbc47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b4fee580fd675426fb45ff50b8993e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKTexture.html#a3b4fee580fd675426fb45ff50b8993e2">transition_layout</a> (VkCommandBuffer cmd, VkImageLayout destination)</td></tr>
 <tr class="separator:a3b4fee580fd675426fb45ff50b8993e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7efd66e6a0de653c8d0913faefe0d166"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1VKTexture.html#a7efd66e6a0de653c8d0913faefe0d166">transition_layout</a> (VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange &amp;range)</td></tr>
@@ -661,8 +663,36 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a id="a83560c96c3094a5f0321ff7832dbc47d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83560c96c3094a5f0321ff7832dbc47d">&#9670;&nbsp;</a></span>transition_layout() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::VKTexture::transition_layout </td>
+          <td>(</td>
+          <td class="paramtype">VkCommandBuffer&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">GfxTexBarrierType</a>&#160;</td>
+          <td class="paramname"><em>barrier_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3b4fee580fd675426fb45ff50b8993e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b4fee580fd675426fb45ff50b8993e2">&#9670;&nbsp;</a></span>transition_layout() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b4fee580fd675426fb45ff50b8993e2">&#9670;&nbsp;</a></span>transition_layout() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -690,7 +720,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a7efd66e6a0de653c8d0913faefe0d166"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efd66e6a0de653c8d0913faefe0d166">&#9670;&nbsp;</a></span>transition_layout() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efd66e6a0de653c8d0913faefe0d166">&#9670;&nbsp;</a></span>transition_layout() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

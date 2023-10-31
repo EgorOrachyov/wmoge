@@ -133,6 +133,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLimits.html">wmoge::GfxLimits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx common device limits.  <a href="structwmoge_1_1GfxLimits.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxTexRegion.html">wmoge::GfxTexRegion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Texture.html" title="Base-class for any engine gpu texture resource which can be used for rendering.">Texture</a> sub region.  <a href="structwmoge_1_1GfxTexRegion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxLocation.html">wmoge::GfxLocation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">How to bind resource to gfx pipeline.  <a href="structwmoge_1_1GfxLocation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,6 +199,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a9e9f2605a7b2960584dfe67c9618a11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx memory usage.  <a href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">More...</a><br /></td></tr>
 <tr class="separator:a9e9f2605a7b2960584dfe67c9618a11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a1aba838e2b7875b1db0bcccded5a9"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">wmoge::GfxTexBarrierType</a> : int { <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9a9b0bffda4bcb312168c0d6537cb04b4d">wmoge::RenderTarget</a>
+, <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9a1d07814d12178c958e4233501cb0bdc7">wmoge::Sampling</a>
+, <a class="el" href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9a8c4aa541ee911e8d80451ef8cc304806">wmoge::Storage</a>
+ }</td></tr>
+<tr class="memdesc:ac9a1aba838e2b7875b1db0bcccded5a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture manual barrier type.  <a href="namespacewmoge.html#ac9a1aba838e2b7875b1db0bcccded5a9">More...</a><br /></td></tr>
+<tr class="separator:ac9a1aba838e2b7875b1db0bcccded5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab58c0bd9238429533fb862c5a05689b6"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6">wmoge::GfxTex</a> : int { <a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6a88183b946cc5f0e8c96b2e66e1c74a7e">wmoge::Unknown</a> = 0
 , <a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6a3c8d2366d17507be7f6575d3a295c670">wmoge::Tex2d</a>
 , <a class="el" href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6ac7f0f00e025f7ccfa633f286523a6100">wmoge::Tex2dArray</a>
@@ -203,10 +212,14 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ab58c0bd9238429533fb862c5a05689b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture type.  <a href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6">More...</a><br /></td></tr>
 <tr class="separator:ab58c0bd9238429533fb862c5a05689b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65314841d4a2c7defa7ec8176aa2857d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">wmoge::GfxTexUsageFlag</a> : int { <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857dacec614506ac7d4f4cb239c406797e512">wmoge::DepthStencilTarget</a> = 1
+<tr class="memitem:a65314841d4a2c7defa7ec8176aa2857d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">wmoge::GfxTexUsageFlag</a> : int { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857dacec614506ac7d4f4cb239c406797e512">wmoge::DepthStencilTarget</a> = 1
 , <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da4944d1175161720e44d8636eabc87d06">wmoge::DepthTarget</a> = 2
 , <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857daa193782000bdf049b37403d15e7b0e88">wmoge::ColorTarget</a> = 3
-, <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7">wmoge::Sampling</a> = 4
+, <a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da8c4aa541ee911e8d80451ef8cc304806">wmoge::Storage</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7">wmoge::Sampling</a> = 4
+<br />
  }</td></tr>
 <tr class="memdesc:a65314841d4a2c7defa7ec8176aa2857d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Texture usage.  <a href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857d">More...</a><br /></td></tr>
 <tr class="separator:a65314841d4a2c7defa7ec8176aa2857d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -449,10 +462,14 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a4764e422936404ac0ffa2abf7cb9a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Named vertex attributes.  <a href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fc">More...</a><br /></td></tr>
 <tr class="separator:a4764e422936404ac0ffa2abf7cb9a0fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">wmoge::GfxBindingType</a> : std::uint8_t { <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88183b946cc5f0e8c96b2e66e1c74a7e">wmoge::Unknown</a> = 0
+<tr class="memitem:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">wmoge::GfxBindingType</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88183b946cc5f0e8c96b2e66e1c74a7e">wmoge::Unknown</a> = 0
 , <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa63513442eb8682dcdd58fcc3fa853500">wmoge::SampledTexture</a>
 , <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88f133adfed6c854e5731cdffbf208cf">wmoge::UniformBuffer</a>
 , <a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa439f57c2c466c89db942b3de48298b2b">wmoge::StorageBuffer</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaaa078fa7ad769f9e7b53b8c42e3b7bbab">wmoge::StorageImage</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of bindings to a pipeline.  <a href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">More...</a><br /></td></tr>
 <tr class="separator:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
