@@ -65,10 +65,10 @@ namespace wmoge {
      * @brief Shader texture info
      */
     struct ShaderTexture {
-        StringId                 name;
-        GfxTex                   type;
-        int                      id = -1;
-        ResourceRefHard<Texture> value;
+        StringId        name;
+        GfxTex          type;
+        int             id = -1;
+        ResRef<Texture> value;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
         friend Status yaml_write(YamlNodeRef node, const ShaderTexture& texture);

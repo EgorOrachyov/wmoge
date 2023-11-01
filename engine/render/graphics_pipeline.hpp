@@ -29,6 +29,7 @@
 #define WMOGE_GRAPHICS_PIPELINE_HPP
 
 #include "core/array_view.hpp"
+#include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
@@ -52,17 +53,41 @@ namespace wmoge {
      * @brief Bloom effect settings
     */
     struct BloomSettings {
-        bool                                      enable              = true;
-        float                                     intensity           = 1.0f;
-        float                                     threshold           = 1.0f;
-        float                                     knee                = 0.5f;
-        float                                     radius              = 4.0f;
-        float                                     uspample_weight     = 0.4f;
-        float                                     dirt_mask_intensity = 3.0f;
-        std::optional<ResourceRefHard<Texture2d>> dirt_mask;
+        bool                             enable              = true;
+        float                            intensity           = 1.0f;
+        float                            threshold           = 1.0f;
+        float                            knee                = 0.5f;
+        float                            radius              = 4.0f;
+        float                            uspample_weight     = 0.4f;
+        float                            dirt_mask_intensity = 3.0f;
+        std::optional<ResRef<Texture2d>> dirt_mask;
 
         friend Status yaml_read(const YamlConstNodeRef& node, BloomSettings& settings);
         friend Status yaml_write(YamlNodeRef node, const BloomSettings& settings);
+    };
+
+    /**
+     * @class AutoExposureSettings
+     * @brief Automatic exposition or eye adaptation settings
+    */
+    struct AutoExposureSettings {
+
+        /** @brief Mode to select algo */
+        enum class Mode {
+            Adaptive = 0,
+            Instant  = 1
+        };
+
+        bool  enable                = true;
+        Mode  mode                  = Mode::Adaptive;
+        float histogram_log_min     = -10.0f;
+        float histogram_log_max     = 5.0f;
+        float speed_up              = 4.0f;
+        float speed_down            = 0.5f;
+        float exposure_compensation = 1.0f;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, AutoExposureSettings& settings);
+        friend Status yaml_write(YamlNodeRef node, const AutoExposureSettings& settings);
     };
 
     /**
@@ -80,9 +105,9 @@ namespace wmoge {
             Uncharted2       = 4
         };
 
-        float exposure    = 0.8f;
-        float white_point = 1.0f;
         Mode  mode        = Mode::Exponential;
+        float exposure    = 1.0f;
+        float white_point = 1.0f;
 
         friend Status yaml_read(const YamlConstNodeRef& node, TonemapSettings& settings);
         friend Status yaml_write(YamlNodeRef node, const TonemapSettings& settings);
@@ -93,8 +118,9 @@ namespace wmoge {
      * @brief Graphics pipeline settings for rendering scene
     */
     struct GraphicsPipelineSettings {
-        BloomSettings   bloom;
-        TonemapSettings tonemap;
+        BloomSettings        bloom;
+        AutoExposureSettings auto_exposure;
+        TonemapSettings      tonemap;
 
         friend Status yaml_read(const YamlConstNodeRef& node, GraphicsPipelineSettings& settings);
         friend Status yaml_write(YamlNodeRef node, const GraphicsPipelineSettings& settings);
@@ -141,9 +167,20 @@ namespace wmoge {
     };
 
     /**
+     * @class GraphicsPipelineShared
+     * @brief Shared state of pipeline required for rendering
+    */
+    struct GraphicsPipelineShared {
+        Ref<GfxStorageBuffer> lum_histogram;//< Luminance histogram of the hdr color buffer
+        Ref<GfxStorageBuffer> lum_luminance;//< Luminance avg and exposure correction
+
+        void allocate();
+    };
+
+    /**
      * @class GraphicsPipelineStage
      * @brief
-     */
+    */
     class GraphicsPipelineStage {
     public:
         GraphicsPipelineStage();
@@ -173,7 +210,7 @@ namespace wmoge {
     /**
      * @class GraphicsPipeline
      * @brief Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image
-     */
+    */
     class GraphicsPipeline {
     public:
         virtual ~GraphicsPipeline() = default;
@@ -193,6 +230,7 @@ namespace wmoge {
 
         [[nodiscard]] const GraphicsPipelineSettings& get_settings() { return m_settings; }
         [[nodiscard]] const GraphicsPipelineTextures& get_textures() { return m_textures; }
+        [[nodiscard]] const GraphicsPipelineShared&   get_shared() { return m_shared; }
         [[nodiscard]] ArrayView<struct RenderView>    get_views() const { return m_views; }
         [[nodiscard]] RenderCameras*                  get_cameras() const { return m_cameras; }
         [[nodiscard]] RenderScene*                    get_scene() const { return m_scene; }
@@ -202,6 +240,7 @@ namespace wmoge {
     protected:
         GraphicsPipelineSettings     m_settings;
         GraphicsPipelineTextures     m_textures;
+        GraphicsPipelineShared       m_shared;
         ArrayView<struct RenderView> m_views;
         RenderCameras*               m_cameras;
         RenderScene*                 m_scene;

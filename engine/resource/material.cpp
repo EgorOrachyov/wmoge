@@ -109,7 +109,7 @@ namespace wmoge {
         }
 
         for (const auto& entry : m_shader->get_textures()) {
-            m_textures[entry.second.id] = entry.second.value.get_safe();
+            m_textures[entry.second.id] = entry.second.value;
         }
     }
 
@@ -320,7 +320,7 @@ namespace wmoge {
         MaterialFile material_file;
         WG_YAML_READ(node, material_file);
 
-        m_shader = material_file.shader.get_safe();
+        m_shader = material_file.shader;
 
         init();
 
@@ -329,7 +329,7 @@ namespace wmoge {
         }
 
         for (const auto& texture : material_file.textures) {
-            set_texture(texture.name, texture.value.get_safe());
+            set_texture(texture.name, texture.value);
         }
 
         return StatusCode::Ok;

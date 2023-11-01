@@ -19,7 +19,7 @@ vec3 ColorLinearToSrgb(in vec3 color, in float inverse_gamma) {
 
 // Convert rgb to luminance with rgb in linear space 
 // with sRGB primaries and D65 white point
-float Luminance(in vec3 color) {
+float ColorToLuminance(in vec3 color) {
 	return dot(color, vec3(0.2126729, 0.7151522, 0.0721750));
 }
 

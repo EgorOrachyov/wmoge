@@ -54,10 +54,10 @@ namespace wmoge {
         const TonemapSettings&          tonemap_settings = get_pipeline()->get_settings().tonemap;
         const RenderView&               view             = get_pipeline()->get_views()[view_idx];
         const GraphicsPipelineTextures& textures         = get_pipeline()->get_textures();
+        const GraphicsPipelineShared&   shared           = get_pipeline()->get_shared();
         const RenderSettings&           render_settings  = get_render_engine()->get_settings();
 
         ShaderTonemap::Params params;
-        params.TargetSize             = textures.size;
         params.InverseGamma           = 1.0f / render_settings.gamma;
         params.Exposure               = tonemap_settings.exposure;
         params.WhitePoint             = tonemap_settings.white_point;
@@ -70,8 +70,8 @@ namespace wmoge {
         const Ref<GfxTexture> black              = get_tex_manager()->get_gfx_default_texture_black();
         const Ref<GfxTexture> bloom              = bloom_settings.enable ? textures.bloom_upsample[0] : black;
         const bool            has_bloom_dirt     = bloom_settings.enable && bloom_settings.dirt_mask.has_value();
-        const Ref<GfxTexture> bloom_dirt         = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_texture() : black;
-        const Ref<GfxSampler> bloom_dirt_sampler = has_bloom_dirt ? bloom_settings.dirt_mask->get_safe()->get_sampler() : m_sampler;
+        const Ref<GfxTexture> bloom_dirt         = has_bloom_dirt ? bloom_settings.dirt_mask.value()->get_texture() : black;
+        const Ref<GfxSampler> bloom_dirt_sampler = has_bloom_dirt ? bloom_settings.dirt_mask.value()->get_sampler() : m_sampler;
 
         GfxDescSetResources resources;
         {
@@ -82,6 +82,14 @@ namespace wmoge {
                 value.resource      = Ref<GfxResource>(setup.buffer);
                 value.offset        = setup.offset;
                 value.range         = setup.range;
+            }
+            {
+                auto& [bind, value] = resources.emplace_back();
+                bind.binding        = ShaderTonemap::LUMINANCE_SLOT;
+                bind.type           = GfxBindingType::StorageBuffer;
+                value.resource      = shared.lum_luminance;
+                value.offset        = 0;
+                value.range         = shared.lum_luminance->size();
             }
             {
                 auto& [bind, value] = resources.emplace_back();
@@ -121,7 +129,7 @@ namespace wmoge {
 
             if (thread_ctx->bind_comp_pipeline(m_pipeline)) {
                 thread_ctx->bind_desc_set(desc_set, 0);
-                thread_ctx->dispatch(GfxCtx::group_size(params.TargetSize.x(), params.TargetSize.y(), 16));
+                thread_ctx->dispatch(GfxCtx::group_size(textures.size.x(), textures.size.y(), 16));
             }
 
             thread_ctx->barrier_image(textures.color_ldr, GfxTexBarrierType::Sampling);

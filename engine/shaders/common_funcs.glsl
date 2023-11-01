@@ -35,3 +35,7 @@ vec3 TransformLocalToWorld(in vec3 posLocal, in mat4 localToWorld) {
 vec3 TransformLocalToWorldNormal(in vec3 normLocal, in mat4 normalMatrix) {
     return (normalMatrix * vec4(normLocal, 0.0f)).xyz;
 }
+
+vec2 GidToUv(uvec2 gid, ivec2 size) {
+    return (vec2(gid) + vec2(0.5f, 0.5f)) / vec2(size);
+}

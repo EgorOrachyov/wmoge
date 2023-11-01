@@ -95,7 +95,7 @@ namespace wmoge {
         m_aabb = Aabbf();
 
         for (const auto& lod : m_lods) {
-            m_aabb = m_aabb.join(lod.mesh.get_safe()->get_aabb());
+            m_aabb = m_aabb.join(lod.mesh->get_aabb());
         }
     }
 

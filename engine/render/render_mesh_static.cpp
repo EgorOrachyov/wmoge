@@ -41,7 +41,7 @@ namespace wmoge {
         for (int i = 0; i < int(lods.size()); i++) {
             PerLodData&      data = m_lod_data[i];
             const ModelLod&  lod  = lods[i];
-            const Ref<Mesh>& mesh = lod.mesh.get_safe();
+            const Ref<Mesh>& mesh = lod.mesh;
             data.factory.set_buffers(mesh->get_gfx_vertex_buffers());
             data.factory.set_attribs(mesh->get_attribs());
             data.factory.init();
@@ -49,8 +49,8 @@ namespace wmoge {
         }
 
         m_materials.reserve(m_model->get_materials().size());
-        for (const ResourceRefHard<Material>& mat : m_model->get_materials()) {
-            m_materials.push_back(mat.get_safe());
+        for (const ResRef<Material>& mat : m_model->get_materials()) {
+            m_materials.push_back(mat);
         }
     }
 
@@ -59,7 +59,7 @@ namespace wmoge {
         const float dist    = m_lod_state.dist;
 
         const ModelLod&                  lod      = m_model->get_lods()[lod_idx];
-        const Ref<Mesh>&                 mesh     = lod.mesh.get_safe();
+        const Ref<Mesh>&                 mesh     = lod.mesh;
         const ArrayView<const MeshChunk> chunks   = mesh->get_chunks();
         PerLodData&                      lod_data = m_lod_data[lod_idx];
 
@@ -100,18 +100,18 @@ namespace wmoge {
 
     std::optional<Ref<Material>> RenderMeshStatic::get_material() const {
         if (has_materials()) {
-            return m_model->get_materials()[0].get_safe();
+            return m_model->get_materials()[0];
         }
         return std::nullopt;
     }
 
     std::vector<Ref<Material>> RenderMeshStatic::get_materials() const {
-        std::vector<Ref<Material>>                 result;
-        ArrayView<const ResourceRefHard<Material>> materials = m_model->get_materials();
+        std::vector<Ref<Material>>        result;
+        ArrayView<const ResRef<Material>> materials = m_model->get_materials();
 
         result.reserve(materials.size());
         for (auto& ref : materials) {
-            result.push_back(ref.get_safe());
+            result.push_back(ref);
         }
 
         return result;

@@ -62,8 +62,8 @@ namespace wmoge {
 
         /** @brief Texture info of a material */
         struct EntryTexture {
-            StringId                 name;
-            ResourceRefHard<Texture> value;
+            StringId        name;
+            ResRef<Texture> value;
 
             friend Status yaml_read(const YamlConstNodeRef& node, EntryTexture& entry);
             friend Status yaml_write(YamlNodeRef node, const EntryTexture& entry);
@@ -71,7 +71,7 @@ namespace wmoge {
 
         std::vector<EntryParam>   parameters;
         std::vector<EntryTexture> textures;
-        ResourceRefHard<Shader>   shader;
+        ResRef<Shader>            shader;
 
         friend Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
         friend Status yaml_write(YamlNodeRef node, const MaterialFile& file);

@@ -25,43 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_DEFERRED_PIPELINE_HPP
-#define WMOGE_DEFERRED_PIPELINE_HPP
+#ifndef WMOGE_PASS_AUTOEXPOSURE_HPP
+#define WMOGE_PASS_AUTOEXPOSURE_HPP
 
-#include "gfx/gfx_texture.hpp"
+#include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_desc_set.hpp"
+#include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_sampler.hpp"
 #include "render/graphics_pipeline.hpp"
+#include "render/render_engine.hpp"
 
 namespace wmoge {
 
     /**
-     * @class DeferredPipeline
-     * @brief Deferred high-quality HDR pipeline for scene rendering
+     * @class PassAutoExposure
+     * @brief Executes auto exposure to extract luminance histogram of frame and calc exposure correction
     */
-    class DeferredPipeline : public GraphicsPipeline {
+    class PassAutoExposure : public GraphicsPipelineStage {
     public:
-        DeferredPipeline();
-        DeferredPipeline(const DeferredPipeline&) = delete;
-        DeferredPipeline(DeferredPipeline&&)      = delete;
-        ~DeferredPipeline();
+        PassAutoExposure();
 
-        void init() override;
-        void exectute() override;
+        void execute(int view_idx);
 
-        std::vector<GraphicsPipelineStage*> get_stages() override;
-        std::string                         get_name() override;
+        std::string               get_name() const override;
+        GraphicsPipelineStageType get_type() const override;
 
     private:
-        std::unique_ptr<class PassGBuffer>      m_pass_gbuffer;
-        std::unique_ptr<class PassBloom>        m_pass_bloom;
-        std::unique_ptr<class PassAutoExposure> m_pass_autoexposure;
-        std::unique_ptr<class PassToneMap>      m_pass_tonemap;
-        std::unique_ptr<class PassComposition>  m_pass_composition;
-        // std::unique_ptr<class PassForward>          m_pass_forward;
-        // std::unique_ptr<class PassDeferredLighting> m_pass_deferred_lighting;
-
-        std::vector<GraphicsPipelineStage*> m_stages;
+        Ref<GfxCompPipeline> m_pipeline_histogram;
+        Ref<GfxCompPipeline> m_pipeline_avg;
+        Ref<GfxSampler>      m_sampler;
     };
 
 }// namespace wmoge
 
-#endif//WMOGE_DEFERRED_PIPELINE_HPP
+#endif//WMOGE_PASS_AUTOEXPOSURE_HPP

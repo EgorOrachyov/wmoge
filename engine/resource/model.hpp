@@ -44,9 +44,9 @@ namespace wmoge {
      * @brief Serializable struct to hold single lod params
      */
     struct ModelLod {
-        ResourceRefHard<Mesh> mesh;
-        fast_vector<int, 1>   materials;
-        float                 screen_size = 1.0f;
+        ResRef<Mesh>        mesh;
+        fast_vector<int, 1> materials;
+        float               screen_size = 1.0f;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ModelLod& data);
         friend Status yaml_write(YamlNodeRef node, const ModelLod& data);
@@ -69,9 +69,9 @@ namespace wmoge {
      * @brief Serializable struct to hold model info
      */
     struct ModelFile {
-        fast_vector<ResourceRefHard<Material>, 1> materials;
-        fast_vector<ModelLod, 1>                  lods;
-        ModelLodSettings                          lod_settings;
+        fast_vector<ResRef<Material>, 1> materials;
+        fast_vector<ModelLod, 1>         lods;
+        ModelLodSettings                 lod_settings;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ModelFile& data);
         friend Status yaml_write(YamlNodeRef node, const ModelFile& data);
@@ -94,10 +94,10 @@ namespace wmoge {
     public:
         WG_OBJECT(Model, Resource)
 
-        [[nodiscard]] ArrayView<const ResourceRefHard<Material>> get_materials() const { return m_materials; }
-        [[nodiscard]] ArrayView<const ModelLod>                  get_lods() const { return m_lods; }
-        [[nodiscard]] const ModelLodSettings&                    get_lod_settings() const { return m_lod_settings; }
-        [[nodiscard]] const Aabbf&                               get_aabb() const { return m_aabb; }
+        [[nodiscard]] ArrayView<const ResRef<Material>> get_materials() const { return m_materials; }
+        [[nodiscard]] ArrayView<const ModelLod>         get_lods() const { return m_lods; }
+        [[nodiscard]] const ModelLodSettings&           get_lod_settings() const { return m_lod_settings; }
+        [[nodiscard]] const Aabbf&                      get_aabb() const { return m_aabb; }
 
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
@@ -106,10 +106,10 @@ namespace wmoge {
         void update_aabb();
 
     private:
-        fast_vector<ResourceRefHard<Material>, 1> m_materials;
-        fast_vector<ModelLod, 1>                  m_lods;
-        ModelLodSettings                          m_lod_settings;
-        Aabbf                                     m_aabb;
+        fast_vector<ResRef<Material>, 1> m_materials;
+        fast_vector<ModelLod, 1>         m_lods;
+        ModelLodSettings                 m_lod_settings;
+        Aabbf                            m_aabb;
     };
 
 }// namespace wmoge

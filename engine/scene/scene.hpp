@@ -72,9 +72,9 @@ namespace wmoge {
      * @brief Serializable struct with static mesh info to attach to object
      */
     struct SceneDataMeshStatic {
-        ResourceRefHard<Model> model;
-        bool                   use_chunk_culling        = false;
-        bool                   use_non_shared_materials = false;
+        ResRef<Model> model;
+        bool          use_chunk_culling        = false;
+        bool          use_non_shared_materials = false;
 
         friend Status yaml_read(const YamlConstNodeRef& node, SceneDataMeshStatic& data);
         friend Status yaml_write(YamlNodeRef node, const SceneDataMeshStatic& data);

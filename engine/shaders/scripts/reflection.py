@@ -66,7 +66,7 @@ class StructField:
             if self.array.is_ubound():
                 return "[]"
             else:
-                return f"[{self.array.size()}]"
+                return f"[{self.array.get_size()}]"
         return ""
 
     def array_str_cpp(self):
@@ -74,7 +74,7 @@ class StructField:
             if self.array.is_ubound():
                 return "[ UNBOUND ]"
             else:
-                return f"[{self.array.size()}]"
+                return f"[{self.array.get_size()}]"
         return ""
 
 

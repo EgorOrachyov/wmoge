@@ -167,7 +167,7 @@ namespace wmoge {
             return Ref<G>(dynamic_cast<G*>(m_ptr));
         }
 
-    private:
+    protected:
         T* m_ptr = nullptr;
     };
 

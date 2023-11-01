@@ -1,0 +1,61 @@
+/**********************************************************************************/
+/* Wmoge game engine                                                              */
+/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/**********************************************************************************/
+/* MIT License                                                                    */
+/*                                                                                */
+/* Copyright (c) 2023 Egor Orachyov                                               */
+/**********************************************************************************/
+
+// https://bruop.github.io/exposure/
+// http://www.alextardif.com/HistogramLuminance.html
+// https://knarkowicz.wordpress.com/2016/01/09/automatic-exposure/
+// https://google.github.io/filament/Filament.md.html#imagingpipeline/physicallybasedcamera
+// https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/PostProcessEffects/AutomaticExposure/
+
+#include "common_defines.glsl"
+#include "common_funcs.glsl"
+#include "color.glsl"
+
+#define GROUP_SIZE_DEFAULT 16
+
+layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, local_size_z = 1) in;
+
+uint ColorToHistogramBin(in vec3 color) {
+    const float lum = ColorToLuminance(color);
+
+    if (lum <= EPSILON) {
+        return 0;
+    }
+
+    const float lumRange = HistogramLogMax - HistogramLogMin;    
+    const float lumNorm = clamp((log2(lum) - HistogramLogMin) / lumRange, 0.0f, 1.0f);
+
+    return uint(lumNorm * (float(NUM_HISTOGRAM_BINS) - 2.0f) + 1.0f);
+} 
+
+shared uint s_histogramBins[NUM_HISTOGRAM_BINS];
+
+void main() {
+    const uvec2 tid = gl_LocalInvocationID.xy;
+    const uvec2 wid = gl_WorkGroupID.xy;
+    const uvec2 gid = gl_GlobalInvocationID.xy;
+    const ivec2 size = textureSize(Image, 0);
+    const vec2 uv = GidToUv(gid, size);
+
+    const uint index = gl_LocalInvocationIndex;
+
+    s_histogramBins[index] = 0; 
+
+    groupMemoryBarrier();
+
+    if (gid.x < size.x && gid.y < size.y) {
+        const vec3 color = textureLod(Image, uv, 0).rgb;
+        const uint bin = ColorToHistogramBin(color);
+        atomicAdd(s_histogramBins[bin], 1);
+    }
+
+    groupMemoryBarrier();
+
+    atomicAdd(Bins[index], s_histogramBins[index]);
+}

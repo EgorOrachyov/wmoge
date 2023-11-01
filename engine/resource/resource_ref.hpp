@@ -35,78 +35,71 @@
 
 #include <cassert>
 #include <optional>
+#include <type_traits>
 
 namespace wmoge {
 
     /**
-     * @class ResourceRefWeak
+     * @class ResRef
      * @brief Aux box to store resource ref and serialize/deserialize it automatically to and from files
      */
     template<typename T>
-    class ResourceRefWeak {
+    class ResRef : public Ref<T> {
     public:
-        ResourceRefWeak() = default;
+        static_assert(std::is_base_of_v<Resource, T>, "Must be a resource");
 
-    private:
-        ResourceId m_id;
+        ResRef() = default;
+        ResRef(Ref<T> ptr) : Ref<T>(std::move(ptr)) {}
     };
-
-    template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, ResourceRefWeak<T>& ref) {
-        return StatusCode::Ok;
-    }
-
-    template<typename T>
-    Status yaml_write(YamlNodeRef node, const ResourceRefWeak<T>& ref) {
-        return StatusCode::Ok;
-    }
 
     /**
-     * @class ResourceRefHard
+     * @class ResRefWeak
      * @brief Aux box to store resource ref and serialize/deserialize it automatically to and from files
      */
     template<typename T>
-    class ResourceRefHard {
+    class ResRefWeak : public ResourceId {
     public:
-        ResourceRefHard() = default;
-        ResourceRefHard(Ref<T> ptr) : m_ptr(std::move(ptr)) {}
+        static_assert(std::is_base_of_v<Resource, T>, "Must be a resource");
 
-        [[nodiscard]] std::optional<Ref<T>> get() const {
-            return m_ptr ? std::optional<Ref<T>>(m_ptr) : std::optional<Ref<T>>();
-        }
-
-        [[nodiscard]] const Ref<T>& get_unsafe() const {
-            return m_ptr;
-        }
-
-        [[nodiscard]] const Ref<T>& get_safe() const {
-            assert(m_ptr);
-            return m_ptr;
-        }
-
-    private:
-        Ref<T> m_ptr;
+        ResRefWeak() = default;
+        ResRefWeak(const ResourceId& id) : ResourceId(id) {}
+        ResRefWeak(const ResRef<T>& ref) : ResourceId(ref ? ref->get_id() : ResourceId()) {}
     };
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, ResourceRefHard<T>& ref) {
+    Status yaml_read(const YamlConstNodeRef& node, ResRef<T>& ref) {
         ResourceId id;
         WG_YAML_READ(node, id);
         Ref<T> ptr = Engine::instance()->resource_manager()->load(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoResource;
         }
-        ref = ResourceRefHard<T>(ptr);
+        ref = ResRef<T>(ptr);
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const ResourceRefHard<T>& ref) {
-        assert(ref.get().has_value());
-        if (!ref.get().has_value()) {
+    Status yaml_write(YamlNodeRef node, const ResRef<T>& ref) {
+        assert(ref);
+        if (!ref) {
             return StatusCode::NoResource;
         }
-        WG_YAML_WRITE(node, ref.get_safe()->get_name());
+        WG_YAML_WRITE(node, ref->get_id());
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status yaml_read(const YamlConstNodeRef& node, ResRefWeak<T>& ref) {
+        ResourceId id;
+        WG_YAML_READ(node, id);
+        ref = ResRefWeak<T>(id);
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status yaml_write(YamlNodeRef node, const ResRefWeak<T>& ref) {
+        ResourceId id = ref;
+        WG_YAML_WRITE(node, id);
         return StatusCode::Ok;
     }
 

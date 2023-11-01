@@ -38,28 +38,56 @@
 
 namespace wmoge {
 
-    /** @brief Auto generated reflection for 'base' shader */
-    struct ShaderBase {
-        static constexpr const char NAME[]       = "base";
-        static constexpr const char CLS[]        = "Base";
-        static constexpr int        NUM_FILES    = 2;
-        static constexpr int        NUM_CONSTS   = 0;
-        static constexpr int        NUM_SAMPLERS = 0;
-        static constexpr int        NUM_BUFFERS  = 1;
+    /** @brief Auto generated reflection for 'luminance_histogram' shader */
+    struct ShaderLuminanceHistogram {
+        static constexpr const char NAME[]       = "luminance_histogram";
+        static constexpr const char CLS[]        = "LuminanceHistogram";
+        static constexpr int        NUM_FILES    = 1;
+        static constexpr int        NUM_CONSTS   = 1;
+        static constexpr int        NUM_SAMPLERS = 1;
+        static constexpr int        NUM_BUFFERS  = 3;
+
+        static constexpr const auto NUM_HISTOGRAM_BINS = 256;
+
+        static constexpr const int  IMAGE_SET    = 0;
+        static constexpr const int  IMAGE_SLOT   = 3;
+        static constexpr const auto IMAGE_LOC    = GfxLocation{0, 3};
+        static constexpr const char IMAGE_NAME[] = "Image";
 
         struct Params {
-            Mat4x4f mat_clip_proj_view;
-            Vec4f   base_color;
-            float   inverse_gamma;
-            float   mix_weight_1;
-            float   mix_weight_2;
-            float   mix_weight_3;
+            float HistogramLogMin;
+            float HistogramLogMax;
+            float SpeedUp;
+            float SpeedDown;
+            float ExposureCompensation;
+            float Mode;
+            float DeltaTime;
+            float TotalPixelsCount;
         };
 
         static constexpr const int  PARAMS_SET    = 0;
         static constexpr const int  PARAMS_SLOT   = 0;
         static constexpr const auto PARAMS_LOC    = GfxLocation{0, 0};
         static constexpr const char PARAMS_NAME[] = "Params";
+
+        struct Histogram {
+            unsigned int Bins[256];
+        };
+
+        static constexpr const int  HISTOGRAM_SET    = 0;
+        static constexpr const int  HISTOGRAM_SLOT   = 1;
+        static constexpr const auto HISTOGRAM_LOC    = GfxLocation{0, 1};
+        static constexpr const char HISTOGRAM_NAME[] = "Histogram";
+
+        struct Luminance {
+            float LumTemporal;
+            float AutoExposure;
+        };
+
+        static constexpr const int  LUMINANCE_SET    = 0;
+        static constexpr const int  LUMINANCE_SLOT   = 2;
+        static constexpr const auto LUMINANCE_LOC    = GfxLocation{0, 2};
+        static constexpr const char LUMINANCE_NAME[] = "Luminance";
     };
 
 }// namespace wmoge

@@ -1,0 +1,70 @@
+/**********************************************************************************/
+/* Wmoge game engine                                                              */
+/* Available at github https://github.com/EgorOrachyov/wmoge                      */
+/**********************************************************************************/
+/* MIT License                                                                    */
+/*                                                                                */
+/* Copyright (c) 2023 Egor Orachyov                                               */
+/**********************************************************************************/
+
+// https://bruop.github.io/exposure/
+// http://www.alextardif.com/HistogramLuminance.html
+// https://knarkowicz.wordpress.com/2016/01/09/automatic-exposure/
+// https://google.github.io/filament/Filament.md.html#imagingpipeline/physicallybasedcamera
+// https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/PostProcessEffects/AutomaticExposure/
+
+#include "exposure.glsl"
+
+#define GROUP_SIZE_DEFAULT 16
+
+layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, local_size_z = 1) in;
+
+shared uint s_histogramBinsAvg[NUM_HISTOGRAM_BINS];
+
+void main() {
+    const uint index = gl_LocalInvocationIndex;
+    const uint pixelsInBin = Bins[index];
+
+    Bins[index] = 0; // reset bins value
+
+    s_histogramBinsAvg[index] = pixelsInBin * index;
+
+    groupMemoryBarrier();
+
+    for (int offset = NUM_HISTOGRAM_BINS / 2; offset > 0; offset /= 2) {
+        if (index < offset) {
+            s_histogramBinsAvg[index] += s_histogramBinsAvg[index + offset]; 
+        }
+
+        groupMemoryBarrier();
+    }
+
+    if (index == 0) {
+        const float lumRange = HistogramLogMax - HistogramLogMin;    
+        const float numBlackPixels = pixelsInBin;
+        const float finalWeightedCount = s_histogramBinsAvg[0];
+
+        const float weightedLogAverage = (finalWeightedCount / max(TotalPixelsCount - numBlackPixels, 1.0f));
+        const float weightedAvgLuminance = exp2((weightedLogAverage - 1.0f) / float(NUM_HISTOGRAM_BINS - 2) * lumRange + HistogramLogMin);
+
+        const int mode = int(Mode);
+
+        float lumCur = LumTemporal;
+
+        switch (mode) {
+            case MODE_ADAPTIVE:
+                lumCur = LuminanceTemporalAdaptation(weightedAvgLuminance, lumCur, DeltaTime, SpeedUp, SpeedDown);
+                break;
+            case MODE_INSTANT:
+                lumCur = weightedAvgLuminance;
+                break;
+            default:
+                break;        
+        }
+
+        lumCur = clamp(lumCur, exp2(HistogramLogMin), exp2(HistogramLogMax));
+        
+        AutoExposure = Ev100ToExposureFactor(Ev100FromLuminance(lumCur), ExposureCompensation);
+        LumTemporal = lumCur;
+    }
+}

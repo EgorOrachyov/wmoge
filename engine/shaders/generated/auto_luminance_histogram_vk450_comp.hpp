@@ -38,41 +38,40 @@
 
 namespace wmoge {
 
-    static const char source_tonemap_vk450_comp[] = R"(
+    static const char source_luminance_histogram_vk450_comp[] = R"(
 
-#define TONEMAP_MODE_EXP (0)
-#define TONEMAP_MODE_REINH (1)
-#define TONEMAP_MODE_REINH_EXT (2)
-#define TONEMAP_MODE_ACES (3)
-#define TONEMAP_MODE_UN2 (4)
+#define NUM_HISTOGRAM_BINS (256)
 
-layout (set = 0, binding = 2) uniform sampler2D Image;
+layout (set = 0, binding = 3) uniform sampler2D Image;
 
-layout (set = 0, binding = 3) uniform sampler2D Bloom;
-
-layout (set = 0, binding = 4) uniform sampler2D BloomDirtMask;
-
-
-layout (set = 0, binding = 5, rgba8) uniform writeonly image2D Result;
 
 
 layout (set = 0, binding = 0, std140) uniform Params {
-float InverseGamma;
+float HistogramLogMin;
+float HistogramLogMax;
+float SpeedUp;
+float SpeedDown;
+float ExposureCompensation;
 float Mode;
-float Exposure;
-float BloomIntensity;
-float BloomDirtMaskIntensity;
-float WhitePoint;
-float _pr_pad0;
-float _pr_pad1;
+float DeltaTime;
+float TotalPixelsCount;
 };
 
-layout (set = 0, binding = 1, std430) readonly buffer Luminance {
+layout (set = 0, binding = 1, std430) buffer Histogram {
+uint Bins[256];
+};
+
+layout (set = 0, binding = 2, std430) buffer Luminance {
 float LumTemporal;
 float AutoExposure;
 };
 
 
+// https://bruop.github.io/exposure/
+// http://www.alextardif.com/HistogramLuminance.html
+// https://knarkowicz.wordpress.com/2016/01/09/automatic-exposure/
+// https://google.github.io/filament/Filament.md.html#imagingpipeline/physicallybasedcamera
+// https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/PostProcessEffects/AutomaticExposure/
 #define TARGET_VULKAN
 #define EPSILON 0.00001f
 #if defined(TARGET_VULKAN)
@@ -140,73 +139,34 @@ vec3 QuadraticThreshold(vec3 color, float threshold, vec3 curve)
     color *= max(rq, br - threshold) / max(br, EPSILON);
     return color;
 }
-vec3 TonemapReinhard(in vec3 color) {
-    return color / (color + vec3(1,1,1));
-}
-vec3 TonemapReinhardExtended(in vec3 color, in float maxWhite) {
-    return (color * (vec3(1,1,1) + color / sqrt(maxWhite)) ) / (vec3(1,1,1) + color);
-}
-vec3 TonemapExp(in vec3 color, in float exposure) {
-    return vec3(1,1,1) - exp(-color * exposure);
-}
-vec3 TonemapACES(vec3 color) {
-    const float A = 2.51;
-    const float B = 0.03;
-    const float C = 2.43;
-    const float D = 0.59;
-    const float E = 0.14;
-    
-    return (color * (A * color + B)) / (color * (C * color + D) + E);
-}
-vec3 TonemapUncharted2(in vec3 color) {
-    const float A = 0.15;
-    const float B = 0.50;
-    const float C = 0.10;
-    const float D = 0.20;
-    const float E = 0.02;
-    const float F = 0.30;
-    const float W = 11.2;
-    return ((color * (A * color + C * B) + D * E) / (color * (A * color + B) + D * F) ) - E / F;
-}
 #define GROUP_SIZE_DEFAULT 16
 layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, local_size_z = 1) in;
-void main() {
-    const uvec2 gid  = gl_GlobalInvocationID.xy;
-    const ivec2 size = imageSize(Result);
-    if (gid.x >= size.x || gid.y >= size.y) {
-        return;
-    }    
-    const vec2 uv = GidToUv(gid, size);
-    
-    const vec3 hdrSrcColor  = textureLod(Image, uv, 0).rgb;
-    const vec3 hdrBloom     = textureLod(Bloom, uv, 0).rgb * BloomIntensity;
-    const vec3 hdrBloomDirt = textureLod(BloomDirtMask, uv, 0).rgb * BloomDirtMaskIntensity;
-    // Apply auto exposure if has (default is 1.0f)
-    // Computed in luminance passes
-    const vec3 hdrColor = AutoExposure * (hdrSrcColor + hdrBloom + hdrBloom * hdrBloomDirt);
-    vec3 ldrColor = hdrColor; 
-    const int tonemapMode = int(Mode);
-    switch (tonemapMode) {
-        case TONEMAP_MODE_EXP: 
-            ldrColor = TonemapExp(hdrColor, Exposure);
-            break;
-        case TONEMAP_MODE_REINH: 
-            ldrColor = TonemapReinhard(hdrColor);
-            break;
-        case TONEMAP_MODE_REINH_EXT: 
-            ldrColor = TonemapReinhardExtended(hdrColor, WhitePoint);
-            break;
-        case TONEMAP_MODE_ACES: 
-            ldrColor = TonemapACES(hdrColor);
-            break;
-        case TONEMAP_MODE_UN2: 
-            ldrColor = TonemapUncharted2(hdrColor);
-            break;     
-        default:
-            break;
+uint ColorToHistogramBin(in vec3 color) {
+    const float lum = ColorToLuminance(color);
+    if (lum <= EPSILON) {
+        return 0;
     }
-    const vec3 gammaColor = ColorLinearToSrgb(ldrColor, InverseGamma);
-    imageStore(Result, ivec2(gid), vec4(gammaColor, 1.0f));
+    const float lumRange = HistogramLogMax - HistogramLogMin;    
+    const float lumNorm = clamp((log2(lum) - HistogramLogMin) / lumRange, 0.0f, 1.0f);
+    return uint(lumNorm * (float(NUM_HISTOGRAM_BINS) - 2.0f) + 1.0f);
+} 
+shared uint s_histogramBins[NUM_HISTOGRAM_BINS];
+void main() {
+    const uvec2 tid = gl_LocalInvocationID.xy;
+    const uvec2 wid = gl_WorkGroupID.xy;
+    const uvec2 gid = gl_GlobalInvocationID.xy;
+    const ivec2 size = textureSize(Image, 0);
+    const vec2 uv = GidToUv(gid, size);
+    const uint index = gl_LocalInvocationIndex;
+    s_histogramBins[index] = 0; 
+    groupMemoryBarrier();
+    if (gid.x < size.x && gid.y < size.y) {
+        const vec3 color = textureLod(Image, uv, 0).rgb;
+        const uint bin = ColorToHistogramBin(color);
+        atomicAdd(s_histogramBins[bin], 1);
+    }
+    groupMemoryBarrier();
+    atomicAdd(Bins[index], s_histogramBins[index]);
 }
 
 )";

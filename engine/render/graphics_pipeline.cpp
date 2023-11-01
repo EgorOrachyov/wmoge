@@ -28,6 +28,10 @@
 #include "graphics_pipeline.hpp"
 
 #include "core/engine.hpp"
+#include "shaders/generated/auto_luminance_avg_reflection.hpp"
+#include "shaders/generated/auto_luminance_histogram_reflection.hpp"
+
+#include <cstring>
 
 namespace wmoge {
 
@@ -52,6 +56,28 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "uspample_weight", settings.uspample_weight);
         WG_YAML_WRITE_AS(node, "dirt_mask_intensity", settings.dirt_mask_intensity);
         WG_YAML_WRITE_AS(node, "dirt_mask", settings.dirt_mask);
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(const YamlConstNodeRef& node, AutoExposureSettings& settings) {
+        WG_YAML_READ_AS_OPT(node, "enable", settings.enable);
+        WG_YAML_READ_AS_OPT(node, "mode", settings.mode);
+        WG_YAML_READ_AS_OPT(node, "histogram_log_min", settings.histogram_log_min);
+        WG_YAML_READ_AS_OPT(node, "histogram_log_max", settings.histogram_log_max);
+        WG_YAML_READ_AS_OPT(node, "speed_up", settings.speed_up);
+        WG_YAML_READ_AS_OPT(node, "speed_down", settings.speed_down);
+        WG_YAML_READ_AS_OPT(node, "exposure_compensation", settings.exposure_compensation);
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const AutoExposureSettings& settings) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "enable", settings.enable);
+        WG_YAML_WRITE_AS(node, "mode", settings.mode);
+        WG_YAML_WRITE_AS(node, "histogram_log_min", settings.histogram_log_min);
+        WG_YAML_WRITE_AS(node, "histogram_log_max", settings.histogram_log_max);
+        WG_YAML_WRITE_AS(node, "speed_up", settings.speed_up);
+        WG_YAML_WRITE_AS(node, "speed_down", settings.speed_down);
+        WG_YAML_WRITE_AS(node, "exposure_compensation", settings.exposure_compensation);
         return StatusCode::Ok;
     }
 
@@ -119,6 +145,25 @@ namespace wmoge {
     void GraphicsPipelineTextures::update_viewport(Size2i new_resoulution) {
         viewport = Rect2i(0, 0, new_resoulution.x(), new_resoulution.y());
         size     = Vec2u(new_resoulution.x(), new_resoulution.y());
+    }
+
+    void GraphicsPipelineShared::allocate() {
+        Engine*    engine     = Engine::instance();
+        GfxDriver* gfx_driver = engine->gfx_driver();
+        GfxCtx*    gfx_ctx    = engine->gfx_ctx();
+
+        ShaderLuminanceHistogram::Histogram histogram;
+        std::memset(histogram.Bins, 0, sizeof(histogram.Bins));
+
+        ShaderLuminanceHistogram::Luminance luminance;
+        luminance.LumTemporal  = 1.0f;
+        luminance.AutoExposure = 1.0f;
+
+        lum_histogram = gfx_driver->make_storage_buffer(int(sizeof(histogram)), GfxMemUsage::GpuLocal, SID("lum_histogram"));
+        lum_luminance = gfx_driver->make_storage_buffer(int(sizeof(luminance)), GfxMemUsage::GpuLocal, SID("lum_luminance"));
+
+        gfx_ctx->update_storage_buffer(lum_histogram, 0, lum_histogram->size(), make_ref<Data>(&histogram, sizeof(histogram)));
+        gfx_ctx->update_storage_buffer(lum_luminance, 0, lum_luminance->size(), make_ref<Data>(&luminance, sizeof(luminance)));
     }
 
     GraphicsPipelineStage::GraphicsPipelineStage() {
