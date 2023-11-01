@@ -1,0 +1,4 @@
+<map id="wmoge::ResRefWeak&lt; T &gt;" name="wmoge::ResRefWeak&lt; T &gt;">
+<area shape="rect" id="node1" title="Aux box to store resource ref and serialize/deserialize it automatically to and from files." alt="" coords="5,80,181,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResourceId.html" title="Class to track and access resource by its id." alt="" coords="25,5,161,32"/>
+</map>
