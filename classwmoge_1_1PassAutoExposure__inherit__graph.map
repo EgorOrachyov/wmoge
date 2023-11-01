@@ -1,0 +1,4 @@
+<map id="wmoge::PassAutoExposure" name="wmoge::PassAutoExposure">
+<area shape="rect" id="node1" title="Executes auto exposure to extract luminance histogram of frame and calc exposure correction." alt="" coords="17,80,197,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GraphicsPipelineStage.html" title=" " alt="" coords="5,5,208,32"/>
+</map>

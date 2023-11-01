@@ -1,5 +1,6 @@
 <map id="wmoge::ShaderTexture" name="wmoge::ShaderTexture">
-<area shape="rect" id="node1" title="Shader texture info." alt="" coords="99,109,253,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourceRefHard.html" title=" " alt="" coords="5,5,179,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="203,13,317,39"/>
+<area shape="rect" id="node1" title="Shader texture info." alt="" coords="94,185,249,212"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="5,81,172,123"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title="Smart reference&#45;counted pointer to T class." alt="" coords="29,5,149,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="197,89,311,115"/>
 </map>

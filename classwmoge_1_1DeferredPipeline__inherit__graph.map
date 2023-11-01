@@ -1,4 +1,4 @@
 <map id="wmoge::DeferredPipeline" name="wmoge::DeferredPipeline">
-<area shape="rect" id="node1" title="Deferred HDR pipeline for scene rendering." alt="" coords="7,80,172,107"/>
+<area shape="rect" id="node1" title="Deferred high&#45;quality HDR pipeline for scene rendering." alt="" coords="7,80,172,107"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="5,5,173,32"/>
 </map>

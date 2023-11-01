@@ -1,4 +1,5 @@
 <map id="wmoge::ModelLod" name="wmoge::ModelLod">
-<area shape="rect" id="node1" title="Serializable struct to hold single lod params." alt="" coords="29,109,155,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourceRefHard.html" title=" " alt="" coords="5,5,179,47"/>
+<area shape="rect" id="node1" title="Serializable struct to hold single lod params." alt="" coords="25,200,152,227"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="5,96,172,137"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="14,5,163,47"/>
 </map>

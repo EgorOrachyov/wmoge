@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Deferred HDR pipeline for scene rendering.  
+<p>Deferred high-quality HDR pipeline for scene rendering.  
  <a href="classwmoge_1_1DeferredPipeline.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="deferred__pipeline_8hpp_source.html">deferred_pipeline.hpp</a>&gt;</code></p>
@@ -82,7 +82,7 @@ Inheritance diagram for wmoge::DeferredPipeline:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1DeferredPipeline__inherit__graph.png" border="0" usemap="#awmoge_1_1DeferredPipeline_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1DeferredPipeline_inherit__map" id="awmoge_1_1DeferredPipeline_inherit__map">
-<area shape="rect" title="Deferred HDR pipeline for scene rendering." alt="" coords="7,80,172,107"/>
+<area shape="rect" title="Deferred high&#45;quality HDR pipeline for scene rendering." alt="" coords="7,80,172,107"/>
 <area shape="rect" href="classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="5,5,173,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -91,19 +91,22 @@ Collaboration diagram for wmoge::DeferredPipeline:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1DeferredPipeline__coll__graph.png" border="0" usemap="#awmoge_1_1DeferredPipeline_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1DeferredPipeline_coll__map" id="awmoge_1_1DeferredPipeline_coll__map">
-<area shape="rect" title="Deferred HDR pipeline for scene rendering." alt="" coords="920,164,1085,191"/>
-<area shape="rect" href="classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="703,164,871,191"/>
-<area shape="rect" href="structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="323,31,539,57"/>
-<area shape="rect" href="structwmoge_1_1BloomSettings.html" title="Bloom effect settings." alt="" coords="15,5,170,32"/>
-<area shape="rect" href="structwmoge_1_1TonemapSettings.html" title="Final HDR image tonemapping settings for composition." alt="" coords="7,56,179,83"/>
-<area shape="rect" href="classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="357,81,505,108"/>
-<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="350,136,511,163"/>
-<area shape="rect" href="classwmoge_1_1RenderCameras.html" title="Cameras list for rendering." alt="" coords="349,187,512,213"/>
-<area shape="rect" href="structwmoge_1_1GraphicsPipelineTextures.html" title="Pipeline textures used during rendering." alt="" coords="321,237,540,264"/>
-<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="13,177,172,204"/>
-<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="5,230,180,271"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="18,363,167,405"/>
-<area shape="rect" href="classwmoge_1_1ArrayView.html" title=" " alt="" coords="344,289,517,330"/>
+<area shape="rect" title="Deferred high&#45;quality HDR pipeline for scene rendering." alt="" coords="944,219,1109,245"/>
+<area shape="rect" href="classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="727,219,895,245"/>
+<area shape="rect" href="structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="347,59,563,85"/>
+<area shape="rect" href="structwmoge_1_1BloomSettings.html" title="Bloom effect settings." alt="" coords="27,5,182,32"/>
+<area shape="rect" href="structwmoge_1_1TonemapSettings.html" title="Final HDR image tonemapping settings for composition." alt="" coords="19,56,191,83"/>
+<area shape="rect" href="structwmoge_1_1AutoExposureSettings.html" title="Automatic exposition or eye adaptation settings." alt="" coords="5,107,204,133"/>
+<area shape="rect" href="classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="381,113,529,140"/>
+<area shape="rect" href="structwmoge_1_1GraphicsPipelineShared.html" title="Shared state of pipeline required for rendering." alt="" coords="350,164,559,191"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="30,158,179,199"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="374,215,535,241"/>
+<area shape="rect" href="classwmoge_1_1RenderCameras.html" title="Cameras list for rendering." alt="" coords="373,265,536,292"/>
+<area shape="rect" href="structwmoge_1_1GraphicsPipelineTextures.html" title="Pipeline textures used during rendering." alt="" coords="345,316,564,343"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="25,256,184,283"/>
+<area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="17,309,192,350"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="30,442,179,483"/>
+<area shape="rect" href="classwmoge_1_1ArrayView.html" title=" " alt="" coords="368,367,541,409"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -144,6 +147,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab3d787706cc523016fc16ead5ab338ab inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac46b0776f286675298ecdb60edf2a0db inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html">GraphicsPipelineTextures</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#ac46b0776f286675298ecdb60edf2a0db">get_textures</a> ()</td></tr>
 <tr class="separator:ac46b0776f286675298ecdb60edf2a0db inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc7054493d8a81c7e63ef7a96a41b096 inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1GraphicsPipelineShared.html">GraphicsPipelineShared</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#abc7054493d8a81c7e63ef7a96a41b096">get_shared</a> ()</td></tr>
+<tr class="separator:abc7054493d8a81c7e63ef7a96a41b096 inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea0f9225efba3c8a3f32aea8cea9f4ef inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; struct <a class="el" href="structwmoge_1_1RenderView.html">RenderView</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#aea0f9225efba3c8a3f32aea8cea9f4ef">get_views</a> () const</td></tr>
 <tr class="separator:aea0f9225efba3c8a3f32aea8cea9f4ef inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5bef4026183c71eac64233e2960b8c6 inherit pub_methods_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#af5bef4026183c71eac64233e2960b8c6">get_cameras</a> () const</td></tr>
@@ -162,6 +167,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:acae0d860a2e251e0bbdf64a959b0bfc1 inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a249fc8c56ebef2040d53aabfa41c8e20 inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html">GraphicsPipelineTextures</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#a249fc8c56ebef2040d53aabfa41c8e20">m_textures</a></td></tr>
 <tr class="separator:a249fc8c56ebef2040d53aabfa41c8e20 inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe15b7cd8e99b9b5fc0fe59a3060d99a inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GraphicsPipelineShared.html">GraphicsPipelineShared</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#abe15b7cd8e99b9b5fc0fe59a3060d99a">m_shared</a></td></tr>
+<tr class="separator:abe15b7cd8e99b9b5fc0fe59a3060d99a inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6780b474e2b59861321d4cab1e80c86 inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; struct <a class="el" href="structwmoge_1_1RenderView.html">RenderView</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#aa6780b474e2b59861321d4cab1e80c86">m_views</a></td></tr>
 <tr class="separator:aa6780b474e2b59861321d4cab1e80c86 inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac49fef2bc0818496496d3cf0e0ac3acc inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RenderCameras.html">RenderCameras</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GraphicsPipeline.html#ac49fef2bc0818496496d3cf0e0ac3acc">m_cameras</a></td></tr>
@@ -174,7 +181,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:ae553f3e06cec794e494c524443273bae inherit pro_attribs_classwmoge_1_1GraphicsPipeline"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Deferred HDR pipeline for scene rendering. </p>
+<div class="textblock"><p>Deferred high-quality HDR pipeline for scene rendering. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9259d007ee3a3dcb2ed454b626c1d819"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9259d007ee3a3dcb2ed454b626c1d819">&#9670;&nbsp;</a></span>DeferredPipeline() <span class="overload">[1/3]</span></h2>

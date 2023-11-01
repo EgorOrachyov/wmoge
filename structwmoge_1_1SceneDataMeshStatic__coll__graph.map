@@ -1,4 +1,5 @@
 <map id="wmoge::SceneDataMeshStatic" name="wmoge::SceneDataMeshStatic">
-<area shape="rect" id="node1" title="Serializable struct with static mesh info to attach to object." alt="" coords="5,109,205,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourceRefHard.html" title=" " alt="" coords="19,5,192,47"/>
+<area shape="rect" id="node1" title="Serializable struct with static mesh info to attach to object." alt="" coords="5,200,205,227"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="22,96,189,137"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="31,5,180,47"/>
 </map>
