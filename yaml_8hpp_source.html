@@ -343,22 +343,22 @@ $(function() {
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    }</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N&gt;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
 <div class="line"><a name="l00299"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ac53258b8b4df1fedcf5e6b13046e1999">  299</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#aa1ffa3a4d48206a9e4fb566dfea28b34">yaml_read</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node, std::bitset&lt;N&gt;&amp; bitset) {</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        std::array&lt;bool, N&gt; values;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <a class="code" href="yaml_8hpp.html#a79835036680ccadf873ffde9bad312a8">WG_YAML_READ</a>(node, values);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa">N</a>; i++) {</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa">N</a>; i++) {</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <span class="keywordflow">if</span> (values[i]) {</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                bitset.set(i);</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            }</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        }</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">template</span>&lt;<span class="keywordtype">int</span> N&gt;</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> N&gt;</div>
 <div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ab63463a0c8542de3c2a39fd6bcc1590f">  310</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a7fd76a006a614edebcad51453e3f60b8">yaml_write</a>(<a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, <span class="keyword">const</span> std::bitset&lt;N&gt;&amp; bitset) {</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        std::array&lt;bool, N&gt; values;</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        values.fill(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa">N</a>; i++) {</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a8d9c307cb7f3c4a32822a51922d1ceaa">N</a>; i++) {</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="keywordflow">if</span> (bitset.test(i)) {</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                values[i] = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            }</div>
