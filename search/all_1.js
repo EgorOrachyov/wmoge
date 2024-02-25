@@ -9,7 +9,7 @@ var searchData=
   ['abs_26',['abs',['../classwmoge_1_1Math.html#ad226724d976c2f897c87c684b745cc02',1,'wmoge::Math::abs(float a)'],['../classwmoge_1_1Math.html#abbbcd9febbab5f38b44b6471c0d5a876',1,'wmoge::Math::abs(double a)'],['../classwmoge_1_1Math.html#a0588d74d3d759f9ee16c837fbff71a46',1,'wmoge::Math::abs(T a)'],['../classwmoge_1_1TVecN.html#a399663329d42ebcb6137fbbbef6d0a0f',1,'wmoge::TVecN::abs()']]],
   ['acos_27',['acos',['../classwmoge_1_1Math.html#a7cbe78e606b952ec8b076b2b979b570f',1,'wmoge::Math::acos(int a)'],['../classwmoge_1_1Math.html#aa13bd939c406c5e0a088eaf23075cfdc',1,'wmoge::Math::acos(float a)'],['../classwmoge_1_1Math.html#a801d282cb2cd00de5dc1a21bd3a2411e',1,'wmoge::Math::acos(double a)']]],
   ['acquire_28',['acquire',['../classwmoge_1_1WeakRef.html#a350bc8fe914b5e56127acf58815339f5',1,'wmoge::WeakRef']]],
-  ['acquire_5fcast_29',['acquire_cast',['../classwmoge_1_1WeakRef.html#a5828afd83deba54912d01dd27729021b',1,'wmoge::WeakRef']]],
+  ['acquire_5fcast_29',['acquire_cast',['../classwmoge_1_1WeakRef.html#a24e1ac9409c705cad71494c77864c8fe',1,'wmoge::WeakRef']]],
   ['acquire_5fchunk_30',['acquire_chunk',['../classwmoge_1_1EcsPool.html#a9c9b3f0594293c759fb5ea1a18fd1b4e',1,'wmoge::EcsPool']]],
   ['acquire_5fnext_31',['acquire_next',['../classwmoge_1_1VKWindow.html#a2c6fe735a1f98771b58cbba2752ced39',1,'wmoge::VKWindow']]],
   ['acquire_5fsemaphore_32',['acquire_semaphore',['../classwmoge_1_1VKWindow.html#a28a66cc1ce5ce24995fdca166fc86eb2',1,'wmoge::VKWindow']]],

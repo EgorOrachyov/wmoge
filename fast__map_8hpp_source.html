@@ -99,55 +99,87 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive_8hpp.html">io/archive.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;robin_hood.hpp&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#ifdef WG_DEBUG</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map</a> = std::unordered_map&lt;K, V&gt;;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">   45</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map</a> = robin_hood::unordered_flat_map&lt;K, V&gt;;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a9c9b5dfee7827c969e9e0aa49195e81d">   48</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#af41eea25c9e67653685dc519406a9503">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;K, V&gt;</a>&amp; map) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, map.size());</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : map) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry.first);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry.second);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a27f2e5261f6402f87d87956d9e00ddc8">   58</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#ae21e32fb835e822cb002002efdf3d80d">archive_read</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;K, V&gt;</a>&amp; map) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        assert(map.empty());</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::size_t size;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, size);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            robin_hood::pair&lt;K, V&gt; entry;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, entry.first);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, entry.second);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            map.insert(std::move(entry));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="yaml_8hpp.html">io/yaml.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;robin_hood.hpp&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#ifdef WG_DEBUG</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map</a> = std::unordered_map&lt;K, V&gt;;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">   46</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map</a> = robin_hood::unordered_flat_map&lt;K, V&gt;;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a9c9b5dfee7827c969e9e0aa49195e81d">   49</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#af41eea25c9e67653685dc519406a9503">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;K, V&gt;</a>&amp; map) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, map.size());</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : map) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry.first);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry.second);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a27f2e5261f6402f87d87956d9e00ddc8">   59</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#ae21e32fb835e822cb002002efdf3d80d">archive_read</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;K, V&gt;</a>&amp; map) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        assert(map.empty());</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        std::size_t size;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, size);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            robin_hood::pair&lt;K, V&gt; entry;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, entry.first);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, entry.second);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            map.insert(std::move(entry));</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a7402d3bbd45788555def8e566fb6fe47">   73</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#aa1ffa3a4d48206a9e4fb566dfea28b34">yaml_read</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node, <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;K, V&gt;</a>&amp; map) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        assert(map.empty());</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        map.reserve(node.num_children());</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> child = node.first_child(); child.valid(); child = child.next_sibling()) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            robin_hood::pair&lt;K, V&gt; entry;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <a class="code" href="yaml_8hpp.html#a79835036680ccadf873ffde9bad312a8">WG_YAML_READ</a>(child, entry);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            map.insert(std::move(entry));</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a71f63a596b6776ea913398659975455f">   85</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a7fd76a006a614edebcad51453e3f60b8">yaml_write</a>(<a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, <span class="keyword">const</span> <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;K, V&gt;</a>&amp; map) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <a class="code" href="yaml_8hpp.html#a577487b68fa89ebde3159b332738c59c">WG_YAML_SEQ</a>(node);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : map) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> entry_child = node.append_child();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <a class="code" href="yaml_8hpp.html#a036a02c988f3847c7ebf95e64eed2a47">WG_YAML_WRITE</a>(entry_child, entry);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aarchive_8hpp_html"><div class="ttname"><a href="archive_8hpp.html">archive.hpp</a></div></div>
 <div class="ttc" id="aarchive_8hpp_html_acfd58faaa2ecc4ba6ff1d7e5dbc70f13"><div class="ttname"><a href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a></div><div class="ttdeci">#define WG_ARCHIVE_READ(archive, what)</div><div class="ttdef"><b>Definition:</b> archive.hpp:113</div></div>
 <div class="ttc" id="aarchive_8hpp_html_af12fb0c2596662580e85cce45498f2cd"><div class="ttname"><a href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a></div><div class="ttdeci">#define WG_ARCHIVE_WRITE(archive, what)</div><div class="ttdef"><b>Definition:</b> archive.hpp:120</div></div>
 <div class="ttc" id="aclasswmoge_1_1Archive_html"><div class="ttname"><a href="classwmoge_1_1Archive.html">wmoge::Archive</a></div><div class="ttdoc">Serialization and de-serialization archive.</div><div class="ttdef"><b>Definition:</b> archive.hpp:52</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:74</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:45</div></div>
+<div class="ttc" id="anamespacewmoge_html_a72974351f7c8daa1bbabcc2f35e1e91f"><div class="ttname"><a href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">wmoge::YamlNodeRef</a></div><div class="ttdeci">ryml::NodeRef YamlNodeRef</div><div class="ttdoc">Reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:61</div></div>
+<div class="ttc" id="anamespacewmoge_html_a7fd76a006a614edebcad51453e3f60b8"><div class="ttname"><a href="namespacewmoge.html#a7fd76a006a614edebcad51453e3f60b8">wmoge::yaml_write</a></div><div class="ttdeci">Status yaml_write(YamlNodeRef node, const Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:72</div></div>
+<div class="ttc" id="anamespacewmoge_html_a936fad1881d807f1e080d012bb1977c3"><div class="ttname"><a href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">wmoge::YamlConstNodeRef</a></div><div class="ttdeci">ryml::ConstNodeRef YamlConstNodeRef</div><div class="ttdoc">Constant reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:66</div></div>
+<div class="ttc" id="anamespacewmoge_html_aa1ffa3a4d48206a9e4fb566dfea28b34"><div class="ttname"><a href="namespacewmoge.html#aa1ffa3a4d48206a9e4fb566dfea28b34">wmoge::yaml_read</a></div><div class="ttdeci">Status yaml_read(const YamlConstNodeRef &amp;node, Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:84</div></div>
+<div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html_ae21e32fb835e822cb002002efdf3d80d"><div class="ttname"><a href="namespacewmoge.html#ae21e32fb835e822cb002002efdf3d80d">wmoge::archive_read</a></div><div class="ttdeci">Status archive_read(Archive &amp;archive, Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:65</div></div>
 <div class="ttc" id="anamespacewmoge_html_af41eea25c9e67653685dc519406a9503"><div class="ttname"><a href="namespacewmoge.html#af41eea25c9e67653685dc519406a9503">wmoge::archive_write</a></div><div class="ttdeci">Status archive_write(Archive &amp;archive, const Ref&lt; Data &gt; &amp;data)</div><div class="ttdef"><b>Definition:</b> data.cpp:60</div></div>
 <div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
+<div class="ttc" id="ayaml_8hpp_html"><div class="ttname"><a href="yaml_8hpp.html">yaml.hpp</a></div></div>
+<div class="ttc" id="ayaml_8hpp_html_a036a02c988f3847c7ebf95e64eed2a47"><div class="ttname"><a href="yaml_8hpp.html#a036a02c988f3847c7ebf95e64eed2a47">WG_YAML_WRITE</a></div><div class="ttdeci">#define WG_YAML_WRITE(node, what)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:131</div></div>
+<div class="ttc" id="ayaml_8hpp_html_a577487b68fa89ebde3159b332738c59c"><div class="ttname"><a href="yaml_8hpp.html#a577487b68fa89ebde3159b332738c59c">WG_YAML_SEQ</a></div><div class="ttdeci">#define WG_YAML_SEQ(node)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:167</div></div>
+<div class="ttc" id="ayaml_8hpp_html_a79835036680ccadf873ffde9bad312a8"><div class="ttname"><a href="yaml_8hpp.html#a79835036680ccadf873ffde9bad312a8">WG_YAML_READ</a></div><div class="ttdeci">#define WG_YAML_READ(node, what)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:100</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
