@@ -28,7 +28,9 @@
 #ifndef WMOGE_GFX_BUFFERS_HPP
 #define WMOGE_GFX_BUFFERS_HPP
 
+#include "core/data.hpp"
 #include "gfx/gfx_resource.hpp"
+#include "io/serialization.hpp"
 
 #include <array>
 
@@ -139,6 +141,33 @@ namespace wmoge {
 
     /** @brief Setup to bind storage buffer */
     using GfxStorageBufferSetup = GfxBufferSetup<GfxStorageBuffer>;
+
+    /**
+     * @class GfxVertStream
+     * @brief Provides setup for a stream of vertex attributes packed into vertex buffer
+    */
+    struct GfxVertStream {
+        GfxVertAttribs attribs;
+        int            buffer = -1;
+        int            offset = 0;
+        int            size   = 0;
+        int            stride = 0;
+
+        WG_IO_DECLARE(GfxVertStream);
+    };
+
+    /**
+     * @class GfxIndexStream
+     * @brief Provides setup with index data packed into index buffer
+    */
+    struct GfxIndexStream {
+        GfxIndexType index_type = GfxIndexType::None;
+        int          buffer     = -1;
+        int          offset     = 0;
+        int          size       = 0;
+
+        WG_IO_DECLARE(GfxIndexStream);
+    };
 
 }// namespace wmoge
 

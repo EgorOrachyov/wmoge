@@ -83,6 +83,7 @@ namespace wmoge {
 
     /** @brief Type of elements in index buffer */
     enum class GfxIndexType : int {
+        None,
         Uint32,
         Uint16
     };

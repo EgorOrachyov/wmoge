@@ -14,6 +14,7 @@
 // https://docs.unrealengine.com/4.27/en-US/RenderingAndGraphics/PostProcessEffects/AutomaticExposure/
 
 #include "common_defines.glsl"
+#include "common_consts.glsl"
 #include "common_funcs.glsl"
 #include "color.glsl"
 
@@ -24,7 +25,7 @@ layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = GROUP_SIZE_DEFAULT, lo
 uint ColorToHistogramBin(in vec3 color) {
     const float lum = ColorToLuminance(color);
 
-    if (lum <= EPSILON) {
+    if (lum <= EPSILON_LUMINANCE) {
         return 0;
     }
 

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MESH_BUCKET_HPP
-#define WMOGE_MESH_BUCKET_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/synchronization.hpp"
@@ -120,5 +119,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MESH_BUCKET_HPP

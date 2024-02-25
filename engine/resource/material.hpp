@@ -36,6 +36,7 @@
 #include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
+#include "io/serialization.hpp"
 #include "math/vec.hpp"
 #include "resource/resource_ref.hpp"
 #include "resource/shader.hpp"
@@ -56,8 +57,7 @@ namespace wmoge {
             StringId    name;
             std::string value;
 
-            friend Status yaml_read(const YamlConstNodeRef& node, EntryParam& entry);
-            friend Status yaml_write(YamlNodeRef node, const EntryParam& entry);
+            WG_IO_DECLARE(EntryParam);
         };
 
         /** @brief Texture info of a material */
@@ -65,16 +65,14 @@ namespace wmoge {
             StringId        name;
             ResRef<Texture> value;
 
-            friend Status yaml_read(const YamlConstNodeRef& node, EntryTexture& entry);
-            friend Status yaml_write(YamlNodeRef node, const EntryTexture& entry);
+            WG_IO_DECLARE(EntryTexture);
         };
 
         std::vector<EntryParam>   parameters;
         std::vector<EntryTexture> textures;
         ResRef<Shader>            shader;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file);
-        friend Status yaml_write(YamlNodeRef node, const MaterialFile& file);
+        WG_IO_DECLARE(MaterialFile);
     };
 
     /**

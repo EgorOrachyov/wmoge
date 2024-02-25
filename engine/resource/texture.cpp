@@ -29,88 +29,42 @@
 
 #include "core/class.hpp"
 #include "core/data.hpp"
-#include "core/engine.hpp"
 #include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "io/yaml.hpp"
 #include "resource/resource_manager.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options) {
-        WG_YAML_READ_AS_OPT(node, "channels", options.channels);
-        WG_YAML_READ_AS_OPT(node, "format", options.format);
-        WG_YAML_READ_AS_OPT(node, "mipmaps", options.mipmaps);
-        WG_YAML_READ_AS_OPT(node, "srgb", options.srgb);
-        WG_YAML_READ_AS_OPT(node, "compression", options.compression);
-        WG_YAML_READ_AS_OPT(node, "sampling", options.sampling);
-        WG_YAML_READ_AS_OPT(node, "compression", options.compression);
+    WG_IO_BEGIN(TextureImportOptions)
+    WG_IO_FIELD_OPT(channels)
+    WG_IO_FIELD_OPT(format)
+    WG_IO_FIELD_OPT(mipmaps)
+    WG_IO_FIELD_OPT(srgb)
+    WG_IO_FIELD_OPT(sampling)
+    WG_IO_FIELD_OPT(compression)
+    WG_IO_END(TextureImportOptions)
 
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const TextureImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "channels", options.channels);
-        WG_YAML_WRITE_AS(node, "format", options.format);
-        WG_YAML_WRITE_AS(node, "mipmaps", options.mipmaps);
-        WG_YAML_WRITE_AS(node, "srgb", options.srgb);
-        WG_YAML_WRITE_AS(node, "compression", options.compression);
-        WG_YAML_WRITE_AS(node, "sampling", options.sampling);
-        WG_YAML_WRITE_AS(node, "compression", options.compression);
+    WG_IO_BEGIN_SUPER(Texture2dImportOptions, TextureImportOptions)
+    WG_IO_FIELD(source_file)
+    WG_IO_END(Texture2dImportOptions)
 
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN_NMSP(TextureCubeImportOptions, SourceFiles)
+    WG_IO_FIELD(right)
+    WG_IO_FIELD(left)
+    WG_IO_FIELD(top)
+    WG_IO_FIELD(bottom)
+    WG_IO_FIELD(back)
+    WG_IO_FIELD(front)
+    WG_IO_END_NMSP(TextureCubeImportOptions, SourceFiles)
 
-    Status yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options) {
-        WG_YAML_READ_SUPER(node, TextureImportOptions, options);
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const Texture2dImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions::SourceFiles& source_files) {
-        WG_YAML_READ_AS(node, "right", source_files.right);
-        WG_YAML_READ_AS(node, "left", source_files.left);
-        WG_YAML_READ_AS(node, "top", source_files.top);
-        WG_YAML_READ_AS(node, "bottom", source_files.bottom);
-        WG_YAML_READ_AS(node, "back", source_files.back);
-        WG_YAML_READ_AS(node, "front", source_files.front);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const TextureCubeImportOptions::SourceFiles& source_files) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "right", source_files.right);
-        WG_YAML_WRITE_AS(node, "left", source_files.left);
-        WG_YAML_WRITE_AS(node, "top", source_files.top);
-        WG_YAML_WRITE_AS(node, "bottom", source_files.bottom);
-        WG_YAML_WRITE_AS(node, "back", source_files.back);
-        WG_YAML_WRITE_AS(node, "front", source_files.front);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options) {
-        WG_YAML_READ_SUPER(node, TextureImportOptions, options);
-        WG_YAML_READ_AS(node, "source_files", options.source_files);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_SUPER(node, TextureImportOptions, options);
-        WG_YAML_WRITE_AS(node, "source_files", options.source_files);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN_SUPER(TextureCubeImportOptions, TextureImportOptions)
+    WG_IO_FIELD(source_files)
+    WG_IO_END(TextureCubeImportOptions)
 
     Texture::Texture(GfxFormat format, int width, int height, int depth, int array_slices, GfxTexSwizz swizz) {
         m_format       = format;

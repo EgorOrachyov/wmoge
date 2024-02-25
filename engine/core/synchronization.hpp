@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SYNCHRONIZATION_HPP
-#define WMOGE_SYNCHRONIZATION_HPP
+#pragma once
 
 #include <alternate_shared_mutex.hpp>
 #include <naive_spin_mutex.hpp>
@@ -76,5 +75,3 @@ namespace wmoge {
     using SpinMutex = SpinMutexTtas;
 
 }// namespace wmoge
-
-#endif//WMOGE_SYNCHRONIZATION_HPP

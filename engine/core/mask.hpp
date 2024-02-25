@@ -25,9 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MASK_HPP
-#define WMOGE_MASK_HPP
+#pragma once
 
+#include "core/fast_vector.hpp"
+#include "io/archive.hpp"
 #include "io/yaml.hpp"
 
 #include <bitset>
@@ -55,8 +56,8 @@ namespace wmoge {
             for (auto e : elements) set(e);
         }
 
-        Mask operator&(const Mask& other) { return Mask(bits & other.bits); }
-        Mask operator|(const Mask& other) { return Mask(bits | other.bits); }
+        Mask operator&(const Mask& other) const { return Mask(bits & other.bits); }
+        Mask operator|(const Mask& other) const { return Mask(bits | other.bits); }
 
         Mask& operator&=(const Mask& other) {
             bits &= other.bits;
@@ -91,7 +92,7 @@ namespace wmoge {
 
     template<typename T, int size>
     Status yaml_read(const YamlConstNodeRef& node, Mask<T, size>& mask) {
-        std::vector<T> flags;
+        fast_vector<T, size> flags;
         WG_YAML_READ(node, flags);
 
         for (auto flag : flags) {
@@ -103,7 +104,7 @@ namespace wmoge {
 
     template<typename T, int size>
     Status yaml_write(YamlNodeRef node, const Mask<T, size>& mask) {
-        std::vector<T> flags;
+        fast_vector<T, size> flags;
 
         mask.for_each([&](int, T flag) {
             flags.push_back(flag);
@@ -113,6 +114,14 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-}// namespace wmoge
+    template<typename T, int size>
+    Status archive_read(Archive& archive, Mask<T, size>& mask) {
+        return archive.nread(sizeof(Mask<T, size>), &mask);
+    }
 
-#endif//WMOGE_MASK_HPP
+    template<typename T, int size>
+    Status archive_write(Archive& archive, const Mask<T, size>& mask) {
+        return archive.nwrite(sizeof(Mask<T, size>), &mask);
+    }
+
+}// namespace wmoge

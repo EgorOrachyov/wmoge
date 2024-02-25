@@ -27,10 +27,10 @@
 
 #include "glfw_window_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 #include <cstdlib>
@@ -85,6 +85,26 @@ namespace wmoge {
 
         glfwTerminate();
         WG_LOG_INFO("terminate glfw manager");
+    }
+
+    void GlfwWindowManager::poll_events() {
+        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::poll_events");
+
+        std::lock_guard guard(m_mutex);
+
+        glfwPollEvents();
+        m_input->update();
+    }
+
+    fast_vector<Ref<Window>> GlfwWindowManager::windows() {
+        std::lock_guard guard(m_mutex);
+
+        fast_vector<Ref<Window>> windows_list;
+        for (auto& window : m_windows) {
+            windows_list.push_back(window.second.as<Window>());
+        }
+
+        return std::move(windows_list);
     }
 
     Ref<Window> GlfwWindowManager::primary_window() {
@@ -187,15 +207,6 @@ namespace wmoge {
             return glfwCreateWindowSurface(instance, glfw_window->m_hnd, nullptr, &surface_khr);
         };
         return func;
-    }
-
-    void GlfwWindowManager::poll_events() {
-        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::poll_events");
-
-        std::lock_guard guard(m_mutex);
-
-        glfwPollEvents();
-        m_input->update();
     }
 
     Ref<GlfwWindow> GlfwWindowManager::get(GLFWwindow* hnd) {

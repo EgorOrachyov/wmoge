@@ -56,11 +56,12 @@ namespace wmoge {
         explicit GlfwWindowManager(bool vsync, bool client_api);
         ~GlfwWindowManager() override;
 
-        Ref<Window> primary_window() override;
-        Ref<Window> create(const WindowInfo& window_info) override;
-        Ref<Window> get(const StringId& window_id) override;
+        void                     poll_events() override;
+        fast_vector<Ref<Window>> windows() override;
+        Ref<Window>              primary_window() override;
+        Ref<Window>              create(const WindowInfo& window_info) override;
+        Ref<Window>              get(const StringId& window_id) override;
 
-        void                       poll_events();
         std::shared_ptr<GlfwInput> input();
         std::recursive_mutex&      mutex();
 

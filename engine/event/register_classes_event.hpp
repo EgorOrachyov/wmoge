@@ -25,13 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_REGISTER_CLASSES_EVENT_HPP
-#define WMOGE_REGISTER_CLASSES_EVENT_HPP
+#pragma once
 
 namespace wmoge {
 
     void register_classes_event();
 
 }
-
-#endif//WMOGE_REGISTER_CLASSES_EVENT_HPP

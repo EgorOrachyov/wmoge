@@ -25,13 +25,12 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_HOOK_ROOT_REMAP_HPP
-#define WMOGE_HOOK_ROOT_REMAP_HPP
+#pragma once
 
 #include "core/cmd_line.hpp"
-#include "core/engine.hpp"
 #include "core/hook.hpp"
 #include "platform/file_system.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -51,11 +50,11 @@ namespace wmoge {
             cmd_line.add_string("root_remap", "remap path to engine root folder", "");
         }
 
-        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
+        Status on_process(CmdLine& cmd_line) override {
             const std::string remap_path = cmd_line.get_string("root_remap");
 
             if (!remap_path.empty()) {
-                engine.file_system()->root(remap_path);
+                Engine::instance()->file_system()->root(remap_path);
                 std::cout << "remap exe root to " << remap_path << std::endl;
             }
 
@@ -64,5 +63,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_HOOK_ROOT_REMAP_HPP

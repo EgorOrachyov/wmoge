@@ -7,7 +7,7 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
-#include "common_defines.glsl"
+#include "common_consts.glsl"
 
 vec3 ColorSrgbToLinear(in vec3 color, in float gamma) {
     return pow(color, vec3(gamma));
@@ -25,8 +25,7 @@ float ColorToLuminance(in vec3 color) {
 
 // Quadratic color thresholding
 // curve = (threshold - knee, knee * 2, 0.25 / knee)
-vec3 QuadraticThreshold(vec3 color, float threshold, vec3 curve)
-{
+vec3 QuadraticThreshold(vec3 color, float threshold, vec3 curve) {
     // Pixel brightness
     float br = max(color.r, max(color.g, color.b));
 

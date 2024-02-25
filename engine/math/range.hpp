@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RANGE_HPP
-#define WMOGE_RANGE_HPP
+#pragma once
 
 #include "math/math_utils.hpp"
 
@@ -69,5 +68,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RANGE_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_STATUS_HPP
-#define WMOGE_STATUS_HPP
+#pragma once
 
 #include "core/string_id.hpp"
 #include "io/enum.hpp"
@@ -117,5 +116,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_STATUS_HPP

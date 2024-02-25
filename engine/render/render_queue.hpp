@@ -30,8 +30,8 @@
 
 #include "core/fast_vector.hpp"
 #include "core/mask.hpp"
+#include "core/pool_vector.hpp"
 #include "core/synchronization.hpp"
-#include "core/unrolled_list.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -126,8 +126,8 @@ namespace wmoge {
         void       clear();
 
     private:
-        UnrolledList<RenderCmd, RENDER_CMD_PER_NODE> m_buffer;
-        SpinMutex                                    m_mutex;
+        PoolVector<RenderCmd, RENDER_CMD_PER_NODE> m_buffer;
+        SpinMutex                                  m_mutex;
     };
 
     /**

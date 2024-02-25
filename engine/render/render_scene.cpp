@@ -29,7 +29,6 @@
 
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
-#include "render/render_object.hpp"
 
 #include <cassert>
 
@@ -38,43 +37,6 @@ namespace wmoge {
     RenderScene::RenderScene() {
         m_objects_gpu_data.set_name(SID("objects_data_gpu"));
         m_objects_ids.set_name(SID("objects_ids"));
-    }
-
-    void RenderScene::add_object(RenderObject* object, VisibilityItem vis_item) {
-        assert(object);
-
-        if (m_free_objects_ids.empty()) {
-            const int new_id   = int(m_objects.size());
-            const int new_size = new_id + 1;
-
-            m_objects.resize(new_size);
-            m_objects_vis.resize(new_size);
-            m_objects_gpu_data.resize(new_size);
-
-            m_free_objects_ids.push_back(new_id);
-        }
-
-        assert(!m_free_objects_ids.empty());
-
-        const int new_id = m_free_objects_ids.back();
-        m_free_objects_ids.pop_back();
-
-        m_objects[new_id]          = object;
-        m_objects_vis[new_id]      = vis_item;
-        m_objects_gpu_data[new_id] = GPURenderObjectData();
-
-        object->set_primitive_id(new_id);
-    }
-
-    void RenderScene::remove_object(RenderObject* object) {
-        assert(object);
-
-        const int id = object->get_primitive_id();
-        m_free_objects_ids.push_back(id);
-
-        m_objects[id]          = nullptr;
-        m_objects_vis[id]      = VisibilityItem();
-        m_objects_gpu_data[id] = GPURenderObjectData();
     }
 
     void RenderScene::flush_buffers(GfxCtx* gfx_ctx) {

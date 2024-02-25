@@ -31,9 +31,9 @@
 #include "scripting/lua_bindings/lua_bindings.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
 
-#include "core/engine.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

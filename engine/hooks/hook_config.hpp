@@ -25,14 +25,12 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_HOOK_CONFIG_HPP
-#define WMOGE_HOOK_CONFIG_HPP
+#pragma once
 
 #include "core/cmd_line.hpp"
-#include "core/engine.hpp"
 #include "core/hook.hpp"
-#include "debug/profiler.hpp"
 #include "resource/config_file.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -53,9 +51,9 @@ namespace wmoge {
             cmd_line.add_string("config_game", "path to game config", "root://config/game.cfg");
         }
 
-        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
-            ConfigFile* config   = engine.config();
-            Profiler*   profiler = engine.profiler();
+        Status on_process(CmdLine& cmd_line) override {
+            Engine*     engine = Engine::instance();
+            ConfigFile* config = engine->config();
 
             if (!config->load_and_stack(cmd_line.get_string("config_engine"))) {
                 std::cerr << "failed to load config engine file, check your configure";
@@ -64,12 +62,8 @@ namespace wmoge {
                 std::cerr << "failed to load config game file, check your configure";
             }
 
-            profiler->set_enabled(config->get_bool(SID("debug.profiler"), false));
-
             return StatusCode::Ok;
         }
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_HOOK_CONFIG_HPP

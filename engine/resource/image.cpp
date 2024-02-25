@@ -27,9 +27,9 @@
 
 #include "image.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "platform/file_system.hpp"
+#include "system/engine.hpp"
 
 #include <stb_image.hpp>
 #include <stb_image_resize.hpp>
@@ -37,19 +37,10 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options) {
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
-        WG_YAML_READ_AS_OPT(node, "channels", options.channels);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ImageImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
-        WG_YAML_WRITE_AS(node, "channels", options.channels);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ImageImportOptions)
+    WG_IO_FIELD(source_file)
+    WG_IO_FIELD_OPT(channels)
+    WG_IO_END(ImageImportOptions)
 
     void Image::create(int width, int height, int channels, int pixel_size) {
         WG_AUTO_PROFILE_RESOURCE("Image::create");

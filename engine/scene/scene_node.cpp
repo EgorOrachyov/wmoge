@@ -38,9 +38,109 @@
 
 namespace wmoge {
 
+    WG_IO_BEGIN(SceneNodeData)
+    WG_IO_FIELD_OPT(name)
+    WG_IO_FIELD(uuid)
+    WG_IO_FIELD(type)
+    WG_IO_FIELD_OPT(transform)
+    WG_IO_FIELD_OPT(prefab)
+    WG_IO_FIELD_OPT(properties)
+    WG_IO_FIELD_OPT(parent)
+    WG_IO_END(SceneNodeData)
+
+    WG_IO_BEGIN(SceneNodesData)
+    WG_IO_FIELD(nodes)
+    WG_IO_END(SceneNodesData)
+
+    void SceneNodeProp::register_class() {
+        auto* cls = Class::register_class<SceneNodeProp>();
+    }
+
     SceneNode::SceneNode(const StringId& name, wmoge::SceneNodeType type) {
         m_name = name;
         m_type = type;
+    }
+
+    Status SceneNode::build(const std::vector<SceneNodeData>& nodes_data) {
+        std::unordered_map<UUID, Ref<SceneNode>> uuid_to_node;
+
+        uuid_to_node.reserve(nodes_data.size());
+
+        for (const SceneNodeData& node_data : nodes_data) {
+            Ref<SceneNode> node = make_ref<SceneNode>(node_data.name, node_data.type);
+            node->set_uuid(node_data.uuid);
+            node->set_transform(node_data.transform);
+            node->set_properties(copy_objects(node_data.properties));
+            uuid_to_node[node_data.uuid] = node;
+        }
+
+        Ref<SceneNode> root(this);
+
+        for (const SceneNodeData& node_data : nodes_data) {
+            Ref<SceneNode>& node   = uuid_to_node[node_data.uuid];
+            Ref<SceneNode>& parent = node_data.parent ? uuid_to_node[node_data.parent.value()] : root;
+            parent->add_child(node);
+        }
+
+        return StatusCode::Ok;
+    }
+    Status SceneNode::dump(std::vector<SceneNodeData>& nodes_data) {
+        std::vector<Ref<SceneNode>>          nodes = get_nodes();
+        std::unordered_map<SceneNode*, UUID> node_to_uuid;
+
+        node_to_uuid.reserve(nodes.size());
+        nodes_data.reserve(nodes.size());
+
+        Ref<SceneNode> root(this);
+
+        for (const Ref<SceneNode>& node : nodes) {
+            const UUID node_uuid     = node->get_uuid() ? node->get_uuid() : UUID::generate();
+            node_to_uuid[node.get()] = node_uuid;
+
+            SceneNodeData& node_data = nodes_data.emplace_back();
+            node_data.name           = node->get_name();
+            node_data.type           = node->get_type();
+            node_data.uuid           = node->get_uuid();
+            node_data.transform      = node->get_transform();
+            node_data.properties     = node->copy_properties();
+        }
+
+        for (std::size_t node_idx = 0; node_idx < nodes_data.size(); node_idx++) {
+            const Ref<SceneNode>& node      = nodes[node_idx];
+            SceneNodeData&        node_data = nodes_data[node_idx];
+
+            if (node->has_parent() && node->get_parent() != root.get()) {
+                node_data.parent = node_to_uuid[node->get_parent()];
+            }
+        }
+
+        return StatusCode::Ok;
+    }
+
+    void SceneNode::enter_tree(class SceneTree* tree) {
+        assert(tree);
+        assert(!m_tree);
+
+        m_tree   = tree;
+        m_entity = instantiate_entity(m_tree->get_scene().get());
+
+        for (auto& child : m_children) {
+            child->enter_tree(tree);
+        }
+    }
+    void SceneNode::exit_tree() {
+        assert(m_tree);
+
+        for (auto& child : m_children) {
+            child->exit_tree();
+        }
+
+        if (m_entity.is_valid()) {
+            m_tree->get_scene()->destroy_entity(m_entity);
+            m_entity.reset();
+        }
+
+        m_tree = nullptr;
     }
 
     void SceneNode::set_name(const StringId& name) {
@@ -52,11 +152,12 @@ namespace wmoge {
     void SceneNode::set_transform(const TransformEdt& transform) {
         m_transform = transform;
     }
-    void SceneNode::set_properties(std::vector<Ref<SceneProperty>> props) {
+    void SceneNode::set_properties(std::vector<Ref<SceneNodeProp>> props) {
         m_properties = std::move(props);
-    }
-    void SceneNode::set_tree(SceneTree* tree) {
-        m_tree = tree;
+
+        for (auto& prop : m_properties) {
+            prop->set_node(this);
+        }
     }
 
     void SceneNode::add_child(const Ref<SceneNode>& child) {
@@ -67,10 +168,18 @@ namespace wmoge {
         child->m_parent = this;
         child->m_tree   = m_tree;
         child->m_path   = m_path + '/' + child->m_name.str();
+
+        if (has_tree()) {
+            child->enter_tree(m_tree);
+        }
     }
     void SceneNode::remove_child(const Ref<SceneNode>& child) {
         assert(child);
         assert(child->m_parent == this);
+
+        if (has_tree()) {
+            child->exit_tree();
+        }
 
         child->m_parent = nullptr;
         child->m_tree   = nullptr;
@@ -124,15 +233,25 @@ namespace wmoge {
         return found;
     }
 
-    std::vector<Ref<SceneProperty>> SceneNode::copy_properties() const {
-        std::vector<Ref<SceneProperty>> properties;
+    std::vector<Ref<SceneNodeProp>> SceneNode::copy_properties() const {
+        std::vector<Ref<SceneNodeProp>> properties;
 
         if (!copy_objects(m_properties, properties)) {
             WG_LOG_ERROR("failed to copy node properties " << get_name());
             return {};
         }
 
-        return properties;
+        return std::move(properties);
+    }
+
+    std::vector<Ref<SceneNode>> SceneNode::get_nodes() {
+        std::vector<Ref<SceneNode>> nodes;
+
+        each([&](const Ref<SceneNode>& node) {
+            nodes.push_back(node);
+        });
+
+        return std::move(nodes);
     }
 
     bool SceneNode::has_parent() const {
@@ -151,20 +270,22 @@ namespace wmoge {
         return m_tree && m_tree->get_scene();
     }
 
-    std::optional<Ref<SceneTransform>> SceneNode::get_hier_transform() const {
-        if (has_entity()) {
-            assert(has_scene());
-            Scene*    scene = get_scene();
-            EcsWorld* world = scene->get_ecs_world();
-            return world->get_component<EcsComponentSceneTransform>(m_entity).transform;
+    Entity SceneNode::instantiate_entity(class Scene* scene) {
+        EcsArch arch;
+        for (auto& prop : m_properties) {
+            prop->fill_arch(arch);
         }
-        return std::nullopt;
-    }
-    std::optional<Ref<SceneTransform>> SceneNode::get_hier_transform_parent() const {
-        if (has_parent()) {
-            return m_parent->get_hier_transform();
+
+        EcsEntity ecs_entity;
+        EcsWorld* esc_world = scene->get_ecs_world();
+        esc_world->make_entity(ecs_entity, arch);
+
+        Entity entity(ecs_entity, scene);
+        for (auto& prop : m_properties) {
+            prop->add_components(entity);
         }
-        return std::nullopt;
+
+        return entity;
     }
 
     Scene* SceneNode::get_scene() const {
@@ -186,98 +307,6 @@ namespace wmoge {
         }
 
         return StatusCode::Ok;
-    }
-
-    void SceneNode::make_entity() {
-        assert(m_entity.is_invalid());
-        assert(has_tree());
-        assert(has_scene());
-
-        Scene*    scene = get_scene();
-        EcsWorld* world = scene->get_ecs_world();
-        EcsArch   arch;
-
-        arch.set_component<EcsComponentName>();
-        arch.set_component<EcsComponentSceneTransform>();
-        arch.set_component<EcsComponentLocalToWorld>();
-        arch.set_component<EcsComponentLocalToParent>();
-
-        for (auto& prop : m_properties) {
-            prop->collect_arch(arch, *this);
-        }
-
-        m_entity = world->allocate_entity();
-        world->make_entity(m_entity, arch);
-
-        sync_name();
-        sync_transform();
-
-        for (auto& prop : m_properties) {
-            prop->on_make_entity(m_entity, *this);
-        }
-    }
-    void SceneNode::delete_entity() {
-        assert(m_entity.is_valid());
-        assert(has_tree());
-        assert(has_scene());
-
-        Scene*    scene = get_scene();
-        EcsWorld* world = scene->get_ecs_world();
-
-        for (auto& prop : m_properties) {
-            prop->on_delete_entity(m_entity, *this);
-        }
-
-        world->destroy_entity(m_entity);
-        m_entity = EcsEntity{};
-    }
-    void SceneNode::remake_entity() {
-        if (has_entity()) {
-            delete_entity();
-        }
-        make_entity();
-    }
-    void SceneNode::sync_name() {
-        assert(has_entity());
-        assert(has_scene());
-
-        Scene*    scene = get_scene();
-        EcsWorld* world = scene->get_ecs_world();
-
-        world->get_component_rw<EcsComponentName>(m_entity).name = get_path();
-    }
-    void SceneNode::sync_transform() {
-        assert(has_entity());
-        assert(has_scene());
-
-        Scene*    scene = get_scene();
-        EcsWorld* world = scene->get_ecs_world();
-
-        // Hierarchy plus matrices for other systems
-        EcsComponentSceneTransform& ecs_transform = world->get_component_rw<EcsComponentSceneTransform>(m_entity);
-        EcsComponentLocalToParent&  ecs_l2p       = world->get_component_rw<EcsComponentLocalToParent>(m_entity);
-        EcsComponentLocalToWorld&   ecs_l2w       = world->get_component_rw<EcsComponentLocalToWorld>(m_entity);
-
-        // If no hier transfrom, create new and link
-        if (!ecs_transform.transform) {
-            ecs_transform.transform    = make_ref<SceneTransform>(scene->get_transforms());
-            auto parent_hier_transfrom = get_hier_transform_parent();
-            // join hierarchy
-            if (parent_hier_transfrom.has_value()) {
-                parent_hier_transfrom.value()->add_child(ecs_transform.transform);
-            }
-            // if not linked we are first here, link as a root
-            if (!ecs_transform.transform->is_linked()) {
-                ecs_transform.transform->set_layer(0);
-            }
-        }
-
-        // Update transfrom from node local edt params
-        const TransformEdt& t = get_transform();
-        ecs_transform.transform->set_lt(t.get_transform(), t.get_inverse_transform());
-        ecs_transform.transform->update(true);
-        ecs_l2w.matrix = ecs_transform.transform->get_l2w_cached();
-        ecs_l2p.matrix = ecs_transform.transform->get_lt();
     }
 
     void SceneNode::register_class() {

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_FRUSTUM_HPP
-#define WMOGE_FRUSTUM_HPP
+#pragma once
 
 #include "math/aabb.hpp"
 #include "math/math_utils.hpp"
@@ -140,5 +139,3 @@ namespace wmoge {
     using Frustumf = TFrustum<float>;
 
 }// namespace wmoge
-
-#endif//WMOGE_FRUSTUM_HPP

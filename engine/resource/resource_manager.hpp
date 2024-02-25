@@ -176,7 +176,7 @@ namespace wmoge {
 
     private:
         fast_vector<std::shared_ptr<ResourcePak>>           m_paks;
-        fast_map<ResourceId, Ref<Resource>>                 m_resources;
+        fast_map<ResourceId, WeakRef<Resource>>             m_resources;
         fast_map<ResourceId, LoadState>                     m_loading;
         fast_map<StringId, std::shared_ptr<ResourceLoader>> m_loaders;
 

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TASK_HND_HPP
-#define WMOGE_TASK_HND_HPP
+#pragma once
 
 #include "core/async.hpp"
 
@@ -38,5 +37,3 @@ namespace wmoge {
     using TaskHnd = AsyncResult<int>;
 
 }// namespace wmoge
-
-#endif//WMOGE_TASK_HND_HPP

@@ -31,22 +31,12 @@
 
 namespace wmoge {
 
-    Status archive_read(Archive& archive, GfxDescBinging& binging) {
-        WG_ARCHIVE_READ(archive, binging.type);
-        WG_ARCHIVE_READ(archive, binging.binding);
-        WG_ARCHIVE_READ(archive, binging.count);
-        WG_ARCHIVE_READ(archive, binging.name);
-
-        return StatusCode::Ok;
-    }
-    Status archive_write(Archive& archive, const GfxDescBinging& binging) {
-        WG_ARCHIVE_WRITE(archive, binging.type);
-        WG_ARCHIVE_WRITE(archive, binging.binding);
-        WG_ARCHIVE_WRITE(archive, binging.count);
-        WG_ARCHIVE_WRITE(archive, binging.name);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(GfxDescBinging)
+    WG_IO_FIELD(type)
+    WG_IO_FIELD(binding)
+    WG_IO_FIELD(count)
+    WG_IO_FIELD(name)
+    WG_IO_END(GfxDescBinging)
 
     bool GfxDescBinging::operator==(const GfxDescBinging& other) const {
         return type == other.type &&

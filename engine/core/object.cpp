@@ -147,11 +147,37 @@ namespace wmoge {
     }
     Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object) {
         assert(object);
-
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "class", object->class_name());
-
         return object->write_to_yaml(node);
+    }
+
+    Status archive_read_object(Archive& archive, Ref<Object>& object) {
+        assert(!object);
+
+        StringId class_name;
+        WG_ARCHIVE_READ(archive, class_name);
+
+        auto* cls = Class::class_ptr(class_name);
+
+        if (!cls) {
+            WG_LOG_ERROR("no such class to read from archive " << class_name);
+            return StatusCode::NoClass;
+        }
+
+        object = cls->instantiate();
+
+        if (!object) {
+            WG_LOG_ERROR("failed to instantiate class " << class_name);
+            return StatusCode::FailedInstantiate;
+        }
+
+        return object->read_from_archive(archive);
+    }
+    Status archive_write_object(Archive& archive, const Ref<Object>& object) {
+        assert(object);
+        WG_ARCHIVE_WRITE(archive, object->class_name());
+        return object->write_to_archive(archive);
     }
 
 }// namespace wmoge

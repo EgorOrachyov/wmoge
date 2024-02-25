@@ -27,10 +27,10 @@
 
 #include "glfw_input_devices.hpp"
 
-#include "core/engine.hpp"
 #include "event/event_input.hpp"
 #include "event/event_manager.hpp"
 #include "platform/glfw/glfw_input_defs.hpp"
+#include "system/engine.hpp"
 
 #include <algorithm>
 #include <cassert>

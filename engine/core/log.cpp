@@ -27,11 +27,12 @@
 
 #include "log.hpp"
 
-#include <magic_enum.hpp>
-
-#include "core/engine.hpp"
 #include "debug/console.hpp"
 #include "platform/file_system.hpp"
+#include "platform/time.hpp"
+#include "system/engine.hpp"
+
+#include <magic_enum.hpp>
 
 #include <cassert>
 #include <chrono>
@@ -88,13 +89,14 @@ namespace wmoge {
         : m_name(std::move(name)), m_level(level) {
         Engine*     engine      = Engine::instance();
         FileSystem* file_system = engine->file_system();
+        Time*       engine_time = engine->time();
 
-        std::time_t       time = engine->get_time();
+        std::time_t       time = engine_time->get_time();
         std::stringstream log_file_name;
 
         log_file_name << "logs://log_"
                       << m_name << " "
-                      << engine->get_time_formatted("%Y-%m-%d %H-%M-%S", time)
+                      << engine_time->get_time_formatted("%Y-%m-%d %H-%M-%S", time)
                       << ".log";
 
         file_system->open_file(log_file_name.str(), m_stream, std::ios::out);

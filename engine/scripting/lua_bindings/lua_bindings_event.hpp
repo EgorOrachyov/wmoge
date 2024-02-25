@@ -31,7 +31,6 @@
 #include "scripting/lua_bindings/lua_bindings.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
 
-#include "core/engine.hpp"
 #include "event/event.hpp"
 #include "event/event_action.hpp"
 #include "event/event_input.hpp"
@@ -40,6 +39,7 @@
 #include "event/event_resource.hpp"
 #include "event/event_token.hpp"
 #include "event/event_window.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

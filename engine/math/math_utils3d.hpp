@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MATH_UTILS3D_HPP
-#define WMOGE_MATH_UTILS3D_HPP
+#pragma once
 
 #include "mat.hpp"
 #include "math_utils.hpp"
@@ -184,6 +183,15 @@ namespace wmoge {
                            0.0f, 0.0f, -1.0f, 0.0f);
         }
 
+        static Mat4x4f perspective_inv(float fov, float aspect, float near, float far) {
+            float ctg_angle = 1.0f / Math::tan(fov / 2.0f);
+
+            return Mat4x4f(aspect / ctg_angle, 0.0f, 0.0f, 0.0f,
+                           0.0f, 1.0f / ctg_angle, 0.0f, 0.0f,
+                           0.0f, 0.0f, 0.0f, -1.0f,
+                           0.0f, 0.0f, (near - far) / (2 * far * near), (far + near) / (2 * far * near));
+        }
+
         /**
          * @brief Orthographic projection
          *
@@ -223,5 +231,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MATH_UTILS3D_HPP

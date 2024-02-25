@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_REF_HPP
-#define WMOGE_REF_HPP
+#pragma once
 
 #include <atomic>
 #include <cassert>
@@ -39,6 +38,8 @@ namespace wmoge {
     /** 
      * @class RefCnt
      * @brief Base class for any atomic reference counted class
+     * 
+     * @note Thread-safe
      */
     class RefCnt {
     public:
@@ -50,6 +51,7 @@ namespace wmoge {
 
     protected:
         virtual void destroy();
+        virtual void reach_zero();
 
     private:
         std::atomic_uint m_refs_count{0};
@@ -68,7 +70,7 @@ namespace wmoge {
 
     /** 
      * @class Ref
-     * @brief Smart reference-counted pointer to T class
+     * @brief Smart shared reference-counted pointer to T class
      */
     template<typename T>
     class Ref {
@@ -189,5 +191,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_REF_HPP

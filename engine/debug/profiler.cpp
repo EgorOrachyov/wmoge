@@ -27,9 +27,10 @@
 
 #include "profiler.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "platform/file_system.hpp"
+#include "platform/time.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -101,7 +102,7 @@ namespace wmoge {
             return;
         }
 
-        auto start     = engine->get_start();
+        auto start     = engine->time()->get_start();
         auto tid_names = profiler->get_tid_names();
 
         file_stream << R"({"otherData":{}, "traceEvents":[)";
@@ -143,17 +144,23 @@ namespace wmoge {
         add_tid(std::this_thread::get_id(), SID("main-thread"));
     }
     void Profiler::set_enabled(bool value) {
+        std::lock_guard guard(m_mutex);
+
         m_is_enabled.store(value);
+        m_is_collecting.store(value && m_capture);
         WG_LOG_INFO("time profiler status is " << value);
     }
     void Profiler::start_capture(std::shared_ptr<ProfilerCapture> capture) {
-        if (!is_enabled()) return;
         std::lock_guard guard(m_mutex);
+
         m_capture = std::move(capture);
-        m_is_collecting.store(true);
+        if (is_enabled()) {
+            m_is_collecting.store(true);
+        }
     }
     void Profiler::end_capture() {
         std::lock_guard guard(m_mutex);
+
         m_is_collecting.store(false);
         m_capture.reset();
     }

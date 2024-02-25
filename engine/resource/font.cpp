@@ -27,11 +27,11 @@
 
 #include "font.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "platform/file_system.hpp"
 #include "resource/image.hpp"
+#include "system/engine.hpp"
 
 #include <freetype/freetype.h>
 
@@ -40,21 +40,11 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, FontImportOptions& options) {
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
-        WG_YAML_READ_AS_OPT(node, "height", options.height);
-        WG_YAML_READ_AS_OPT(node, "glyphs_in_row", options.glyphs_in_row);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const FontImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
-        WG_YAML_WRITE_AS(node, "height", options.height);
-        WG_YAML_WRITE_AS(node, "glyphs_in_row", options.glyphs_in_row);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(FontImportOptions)
+    WG_IO_FIELD(source_file)
+    WG_IO_FIELD(height)
+    WG_IO_FIELD(glyphs_in_row)
+    WG_IO_END(FontImportOptions)
 
     Status Font::load(const std::string& path, int height, int glyphs_in_row) {
         WG_AUTO_PROFILE_RESOURCE("Font::load");

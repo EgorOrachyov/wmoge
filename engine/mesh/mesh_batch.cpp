@@ -27,7 +27,6 @@
 
 #include "mesh_batch.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "mesh/mesh_bucket.hpp"
@@ -35,9 +34,9 @@
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
-#include "render/vertex_factory.hpp"
 #include "resource/material.hpp"
 #include "resource/shader.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -75,47 +74,25 @@ namespace wmoge {
 
         batch.material->validate();
 
-        const Ref<Shader>&        shader           = batch.material->get_shader();
-        const ShaderPipelineState pipeline_state   = shader->get_pipeline_state();
-        const int                 primitive_id     = batch.object->get_primitive_id();
-        const bool                supports_merging = batch.vertex_factory->get_type_info().supports_merging;
+        const Ref<Shader>&        shader         = batch.material->get_shader();
+        const ShaderPipelineState pipeline_state = shader->get_pipeline_state();
 
         for (int cam_idx = 0; cam_idx < int(m_cameras->get_size()); cam_idx++) {
             if (!batch.cam_mask[cam_idx]) {
                 continue;
             }
 
-            const RenderCameraData&  camera    = m_cameras->data_at(cam_idx);
-            const MeshPassRelevance& relevance = camera.pass_relevance;
-            RenderView&              view      = m_views[cam_idx];
+            const CameraData& camera = m_cameras->data_at(cam_idx);
+            RenderView&       view   = m_views[cam_idx];
 
             for (int pass_id = 0; pass_id < MESH_PASSES_TOTAL; pass_id++) {
                 const MeshPassType pass_type = static_cast<MeshPassType>(pass_id);
 
-                if (!relevance.get(pass_type)) {
-                    continue;
-                }
                 if (!m_processors[pass_id] || !m_processors[pass_id]->filter(batch)) {
                     continue;
                 }
 
                 Ref<GfxPipeline> gfx_pso;
-
-                if (batch.pass_list && batch.pass_list->has_pass(pass_type)) {
-                    gfx_pso = batch.pass_list->get_pass(pass_type).value();
-                }
-                if (!gfx_pso) {
-                    Status result = m_processors[pass_id]->compile(batch, gfx_pso);
-
-                    if (result.is_error()) {
-                        WG_LOG_ERROR("failed to compile pass " << m_processors[pass_id]->get_name() << " for batch=" << batch_index);
-                        continue;
-                    }
-
-                    if (batch.pass_list) {
-                        batch.pass_list->add_pass(gfx_pso, pass_type);
-                    }
-                }
 
                 RenderCmd cmd;
                 cmd.index_setup        = batch.index_buffer;
@@ -124,16 +101,14 @@ namespace wmoge {
                 cmd.desc_sets[1]       = batch.material->get_desc_set().get();
                 cmd.desc_sets_slots[1] = 1;
                 cmd.pipeline           = gfx_pso.get();
-                cmd.call_params        = batch.elements[0].draw_call;
+                cmd.call_params        = batch.draw_call;
                 cmd.primitive_buffer   = 0;
-
-                batch.vertex_factory->fill_setup(VertexInputType::Default, cmd.vert_buffers, cmd.primitive_buffer);
 
                 RenderCmdKey cmd_key;
                 RenderCmd*   final_cmd;
                 int          bucket_slot = -1;
 
-                if (cmd.call_params.instances == 1 && supports_merging) {
+                if (cmd.call_params.instances == 1 /*&& supports_merging*/) {
                     MeshBucketMap& bucket_map = m_scene->get_bucket_map(pass_type);
                     bucket_map.add_for_instancing(cmd, final_cmd, bucket_slot);
                     cmd_key.value = (std::uint64_t(bucket_slot) << 32u) | std::uint64_t(batch.dist);
@@ -144,10 +119,10 @@ namespace wmoge {
                 }
 
                 SortableRenderCmd sortable_cmd;
-                sortable_cmd.cmd          = final_cmd;
-                sortable_cmd.cmd_key      = cmd_key;
-                sortable_cmd.bucket_slot  = bucket_slot;
-                sortable_cmd.primitive_id = primitive_id;
+                sortable_cmd.cmd         = final_cmd;
+                sortable_cmd.cmd_key     = cmd_key;
+                sortable_cmd.bucket_slot = bucket_slot;
+                // sortable_cmd.primitive_id = primitive_id;
 
                 view.queues[pass_id].push(sortable_cmd);
             }
@@ -161,7 +136,7 @@ namespace wmoge {
     void MeshBatchCompiler::set_views(ArrayView<struct RenderView> views) {
         m_views = views;
     }
-    void MeshBatchCompiler::set_cameras(RenderCameras& cameras) {
+    void MeshBatchCompiler::set_cameras(CameraList& cameras) {
         m_cameras = &cameras;
     }
     void MeshBatchCompiler::set_cmd_allocator(RenderCmdAllocator& allocator) {

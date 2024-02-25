@@ -25,25 +25,39 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CRC32_HPP
-#define WMOGE_CRC32_HPP
+#pragma once
 
 #include <memory>
 
 namespace wmoge {
 
-    /** @brief Crc hash type */
+    /**
+     *  @brief Crc hash type 
+    */
     using Crc32Hash = unsigned int;
 
     /**
      * @class Crc32
      * @brief Utility for crc32 hashing
-     */
+    */
     class Crc32 {
     public:
         static Crc32Hash hash(const void* buffer, std::size_t size);
     };
 
-}// namespace wmoge
+    /**
+     * @class Crc32Builder
+     * @brief Utility to build crc32 hash for complex objects
+    */
+    class Crc32Builder {
+    public:
+        Crc32Builder() = default;
 
-#endif//WMOGE_CRC32_HPP
+        Crc32Builder& hash(const void* buffer, std::size_t size);
+        Crc32Hash     get() const;
+
+    private:
+        Crc32Hash m_hash;
+    };
+
+}// namespace wmoge

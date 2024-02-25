@@ -27,32 +27,74 @@
 
 #include "application.hpp"
 
+#include "audio/openal/al_engine.hpp"
+#include "core/callback_queue.hpp"
+#include "core/class.hpp"
 #include "core/cmd_line.hpp"
-#include "core/engine.hpp"
 #include "core/hook.hpp"
+#include "core/ioc_container.hpp"
+#include "core/layer.hpp"
+#include "core/log.hpp"
+#include "core/task_manager.hpp"
+#include "debug/console.hpp"
+#include "debug/debug_layer.hpp"
 #include "debug/profiler.hpp"
+#include "ecs/ecs_registry.hpp"
+#include "event/event_manager.hpp"
+#include "gameplay/action_manager.hpp"
+#include "gameplay/game_token_manager.hpp"
+#include "gfx/vulkan/vk_driver.hpp"
 #include "hooks/hook_config.hpp"
 #include "hooks/hook_logs.hpp"
+#include "hooks/hook_profiler.hpp"
 #include "hooks/hook_root_remap.hpp"
 #include "hooks/hook_uuid_gen.hpp"
-#include "main/main.hpp"
+#include "io/enum.hpp"
+#include "platform/application.hpp"
+#include "platform/file_system.hpp"
+#include "platform/glfw/glfw_window_manager.hpp"
+#include "platform/input.hpp"
+#include "platform/time.hpp"
+#include "platform/window_manager.hpp"
+#include "render/aux_draw_manager.hpp"
+#include "render/canvas.hpp"
+#include "render/render_engine.hpp"
+#include "render/shader_manager.hpp"
+#include "render/texture_manager.hpp"
+#include "resource/config_file.hpp"
+#include "resource/resource_manager.hpp"
+#include "scene/scene_manager.hpp"
+#include "scripting/lua/lua_script_system.hpp"
+#include "scripting/script_system.hpp"
+#include "system/engine.hpp"
+
+#include "event/register_classes_event.hpp"
+#include "pfx/register_classes_pfx.hpp"
+#include "resource/register_classes_resource.hpp"
+#include "scene/register_classes_scene.hpp"
 
 namespace wmoge {
 
+    Status Application::on_register() {
+        IocContainer* ioc = IocContainer::instance();
+
+        ioc->bind<HookList>();
+        ioc->bind<CmdLine>();
+
+        return StatusCode::Ok;
+    }
+
     int Application::run(int argc, const char* const* argv) {
-        Main main(this);
+        IocContainer* ioc = IocContainer::instance();
 
-        auto* engine    = Engine::instance();
-        auto* hook_list = engine->hook_list();
-        auto* cmd_line  = engine->cmd_line();
+        on_register();
 
+        CmdLine* cmd_line = ioc->resolve<CmdLine>().value();
         cmd_line->add_bool("h,help", "display help message", "false");
 
-        hook_list->attach(std::make_shared<HookUuidGen>());
-        hook_list->attach(std::make_shared<HookRootRemap>());
-        hook_list->attach(std::make_shared<HookConfig>());
-        hook_list->attach(std::make_shared<HookLogs>());
+        on_hook();
 
+        HookList* hook_list = ioc->resolve<HookList>().value();
         hook_list->each([&](HookList::HookPtr& hook) {
             hook->on_add_cmd_line_options(*cmd_line);
             return false;
@@ -69,7 +111,7 @@ namespace wmoge {
         std::optional<int> ret_code;
 
         hook_list->each([&](HookList::HookPtr& hook) {
-            const Status     status = hook->on_process(*cmd_line, *engine);
+            const Status     status = hook->on_process(*cmd_line);
             const StatusCode code   = status.code();
 
             if (code == StatusCode::ExitCode0) {
@@ -94,33 +136,162 @@ namespace wmoge {
             return ret_code.value();
         }
 
-        WG_PROFILE_CAPTURE_START(startup, "debug://wmoge_profile_startup.json");
+        signal_before_init.emit();
+        {
+            WG_AUTO_PROFILE_PLATFORM("Application::initialize");
 
-        if (!main.initialize()) {
-            return 1;
+            if (!on_init()) {
+                return 1;
+            }
         }
+        signal_after_init.emit();
 
-        WG_PROFILE_CAPTURE_END(startup);
+        signal_before_loop.emit();
 
-        WG_PROFILE_CAPTURE_START(runtime, "debug://wmoge_profile_runtime.json");
+        while (!should_close()) {
+            WG_AUTO_PROFILE_PLATFORM("Application::iteration");
 
-        while (!engine->close_requested()) {
-            if (!main.iteration()) {
+            if (!on_loop()) {
                 return 1;
             }
         }
 
-        WG_PROFILE_CAPTURE_END(runtime);
+        signal_after_loop.emit();
 
-        WG_PROFILE_CAPTURE_START(shutdown, "debug://wmoge_profile_shutdown.json");
+        signal_before_shutdown.emit();
+        {
+            WG_AUTO_PROFILE_PLATFORM("Application::shutdown");
 
-        if (!main.shutdown()) {
-            return 1;
+            if (!on_shutdown()) {
+                return 1;
+            }
         }
+        signal_after_shutdown.emit();
 
-        WG_PROFILE_CAPTURE_END(shutdown);
+        ioc->clear();
 
         return 0;
+    }
+
+    Status BaseApplication::on_register() {
+        Application::on_register();
+
+        Class::register_types();
+        register_classes_event();
+        register_classes_resource();
+        register_classes_pfx();
+        register_classes_scene();
+
+        IocContainer* ioc = IocContainer::instance();
+
+        ioc->bind<Time>();
+        ioc->bind<LayerStack>();
+        ioc->bind<ConfigFile>();
+        ioc->bind<FileSystem>();
+        ioc->bind<Profiler>();
+        ioc->bind<Console>();
+        ioc->bind<EventManager>();
+        ioc->bind<CallbackQueue>();
+        ioc->bind<ShaderManager>();
+        ioc->bind<TextureManager>();
+        ioc->bind<RenderEngine>();
+        ioc->bind<ResourceManager>();
+        ioc->bind<EcsRegistry>();
+        ioc->bind<AuxDrawManager>();
+        ioc->bind<SceneManager>();
+        ioc->bind<ActionManager>();
+        ioc->bind<GameTokenManager>();
+        ioc->bind<Canvas>();
+
+        ioc->bind_f<TaskManager, TaskManager>([]() {
+            ConfigFile* config = Engine::instance()->config();
+
+            return std::make_shared<TaskManager>(config->get_int(SID("task_manager.workers"), 4));
+        });
+
+        ioc->bind_f<GlfwWindowManager, GlfwWindowManager>([]() {
+            ConfigFile* config = Engine::instance()->config();
+
+            const bool vsync      = config->get_bool(SID("gfx.vsync"), true);
+            const bool client_api = false;
+
+            return std::make_shared<GlfwWindowManager>(vsync, client_api);
+        });
+
+        ioc->bind_f<VKDriver, VKDriver>([]() {
+            GlfwWindowManager* window_manager = IocContainer::instance()->resolve<GlfwWindowManager>().value();
+            Ref<Window>        window         = window_manager->primary_window();
+
+            VKInitInfo init_info;
+            init_info.window       = window;
+            init_info.app_name     = window->title();
+            init_info.engine_name  = "wmoge";
+            init_info.required_ext = window_manager->extensions();
+            init_info.factory      = window_manager->factory();
+
+            return std::make_shared<VKDriver>(std::move(init_info));
+        });
+
+        Engine* engine = Engine::instance();
+        return engine->setup(this);
+    }
+
+    Status BaseApplication::on_hook() {
+        Application::on_hook();
+
+        IocContainer* ioc = IocContainer::instance();
+
+        HookList* hook_list = ioc->resolve<HookList>().value();
+
+        hook_list->attach(std::make_shared<HookUuidGen>());
+        hook_list->attach(std::make_shared<HookRootRemap>());
+        hook_list->attach(std::make_shared<HookConfig>());
+        hook_list->attach(std::make_shared<HookLogs>());
+        hook_list->attach(std::make_shared<HookProfiler>());
+
+        return StatusCode::Ok;
+    }
+
+    Status GameApplication::on_init() {
+        BaseApplication::on_init();
+
+        Engine* engine = Engine::instance();
+        return engine->init();
+    }
+
+    Status GameApplication::on_loop() {
+        BaseApplication::on_loop();
+
+        Engine* engine = Engine::instance();
+        return engine->iteration();
+    }
+
+    Status GameApplication::on_shutdown() {
+        Engine* engine = Engine::instance();
+        engine->shutdown();
+
+        IocContainer* ioc = IocContainer::instance();
+
+        ioc->unbind<ActionManager>();
+        ioc->unbind<SceneManager>();
+        ioc->unbind<ResourceManager>();
+        ioc->unbind<ShaderManager>();
+        ioc->unbind<TextureManager>();
+        ioc->unbind<RenderEngine>();
+        ioc->unbind<AuxDrawManager>();
+        ioc->unbind<Canvas>();
+        ioc->unbind<VKDriver>();
+        ioc->unbind<GlfwWindowManager>();
+        ioc->unbind<TaskManager>();
+        ioc->unbind<EventManager>();
+
+        BaseApplication::on_shutdown();
+
+        return StatusCode::Ok;
+    }
+
+    bool GameApplication::should_close() {
+        return Engine::instance()->close_requested();
     }
 
 }// namespace wmoge

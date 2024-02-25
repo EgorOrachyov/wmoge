@@ -31,7 +31,6 @@
 #include "scripting/lua_bindings/lua_bindings.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
 
-#include "core/engine.hpp"
 #include "resource/audio_stream.hpp"
 #include "resource/config_file.hpp"
 #include "resource/font.hpp"
@@ -41,6 +40,7 @@
 #include "resource/resource_manager.hpp"
 #include "resource/shader.hpp"
 #include "resource/texture.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

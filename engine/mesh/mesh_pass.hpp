@@ -25,14 +25,15 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MESH_PASS_HPP
-#define WMOGE_MESH_PASS_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "core/mask.hpp"
 #include "core/status.hpp"
+#include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_vert_format.hpp"
 
 #include <string>
 
@@ -41,44 +42,49 @@ namespace wmoge {
     /** @brief Supported engine mesh pass types */
     enum class MeshPassType {
         Background = 0,//<
-        Shadow,        //< Shadow cache generation for lights
-        GBuffer,       //< GBuffer generation for opaque geometry
-        Forward,       //<
-        Pfx,           //< Particles simulation
+        Shadow,        //< Pass: Shadow cache generation for lights
+        GBuffer,       //< Pass: GBuffer generation for opaque geometry
+        Forward,       //< Pass: Forward for transparent geometry and complex shading
         Ui,            //<
         Outline,       //<
         Overlay,       //<
-        Total = 8
+        Total = 7
     };
 
     /** @brief Total num of mesh passes */
     static constexpr int MESH_PASSES_TOTAL = static_cast<int>(MeshPassType::Total);
 
-    /** @brief Mask of mesh passes */
-    using MeshPassRelevance = Mask<MeshPassType>;
+    /**
+     * @class MeshPass
+     * @brief Compiled state required to draw a mesh subset into a particular pass
+    */
+    struct MeshPass {
+        GfxVertBuffersSetup vert_setup;
+        GfxIndexBufferSetup index_setup;
+        Ref<GfxVertFormat>  format;
+        Ref<GfxPipeline>    pipeline;
+        MeshPassType        pass_type = MeshPassType::Total;
+    };
 
     /**
      * @class MeshPassList
      * @brief List with compiled PSO states to render mesh in multiple passes
-     */
+    */
     class MeshPassList {
     public:
         static constexpr int NUM_PASSES_INLINE = 3;
 
-        bool                            has_pass(MeshPassType pass_type) const;
-        std::optional<Ref<GfxPipeline>> get_pass(MeshPassType pass_type) const;
-        void                            add_pass(Ref<GfxPipeline> pass, MeshPassType pass_type, bool overwrite = true);
+        bool                     has_pass(MeshPassType pass_type) const;
+        std::optional<MeshPass*> get_pass(MeshPassType pass_type);
+        void                     add_pass(MeshPass&& pass, bool overwrite = true);
 
-        [[nodiscard]] ArrayView<const Ref<GfxPipeline>> get_pipelines() const { return m_pipelines; }
-        [[nodiscard]] ArrayView<const MeshPassType>     get_types() const { return m_types; }
-        [[nodiscard]] const Mask<MeshPassType>&         get_mask() const { return m_mask; }
-        [[nodiscard]] std::size_t                       get_size() const { return m_pipelines.size(); }
-        [[nodiscard]] bool                              is_empty() const { return m_pipelines.empty(); }
+        [[nodiscard]] const Mask<MeshPassType>& get_mask() const { return m_mask; }
+        [[nodiscard]] std::size_t               get_size() const { return m_passes.size(); }
+        [[nodiscard]] bool                      is_empty() const { return m_passes.empty(); }
 
     private:
-        fast_vector<Ref<GfxPipeline>, NUM_PASSES_INLINE> m_pipelines;
-        fast_vector<MeshPassType, NUM_PASSES_INLINE>     m_types;
-        Mask<MeshPassType>                               m_mask;
+        fast_vector<MeshPass, NUM_PASSES_INLINE> m_passes;
+        Mask<MeshPassType>                       m_mask;
     };
 
     /**
@@ -101,5 +107,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MESH_PASS_HPP

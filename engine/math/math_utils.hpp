@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MATH_UTILS_HPP
-#define WMOGE_MATH_UTILS_HPP
+#pragma once
 
 #include <cmath>
 #include <utility>
@@ -243,5 +242,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MATH_UTILS_HPP

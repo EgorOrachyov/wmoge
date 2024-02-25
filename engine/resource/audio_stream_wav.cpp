@@ -28,9 +28,9 @@
 #include "audio_stream_wav.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "platform/file_system.hpp"
+#include "system/engine.hpp"
 
 #include <AudioFile.h>
 

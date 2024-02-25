@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TASK_PARALLEL_FOR_HPP
-#define WMOGE_TASK_PARALLEL_FOR_HPP
+#pragma once
 
 #include "core/async.hpp"
 #include "core/string_id.hpp"
@@ -114,5 +113,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TASK_PARALLEL_FOR_HPP

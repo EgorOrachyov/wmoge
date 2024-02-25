@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_COMPONENTS_HPP
-#define WMOGE_SCENE_COMPONENTS_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "ecs/ecs_component.hpp"
@@ -34,14 +33,13 @@
 #include "math/aabb.hpp"
 #include "math/color.hpp"
 #include "math/mat.hpp"
+#include "math/transform.hpp"
 #include "math/vec.hpp"
-#include "render/render_mesh_skinned.hpp"
-#include "render/render_mesh_static.hpp"
-#include "render/render_object.hpp"
+#include "render/camera.hpp"
+#include "render/light.hpp"
+#include "render/model_instance.hpp"
 #include "render/visibility.hpp"
-#include "scene/scene_camera.hpp"
 #include "scene/scene_node.hpp"
-#include "scene/scene_transform.hpp"
 
 #include <memory>
 #include <optional>
@@ -52,8 +50,8 @@ namespace wmoge {
      * @class EcsComponentChildren
      * @brief List of entity children, for complex objects
      */
-    struct EcsComponentChildren {
-        WG_ECS_COMPONENT(EcsComponentChildren, 0);
+    struct EcsComponentChildren : EcsComponent<EcsComponentChildren> {
+        WG_ECS_COMPONENT(EcsComponentChildren);
 
         fast_vector<EcsEntity> children;
     };
@@ -62,28 +60,49 @@ namespace wmoge {
      * @class EcsComponentParent
      * @brief Parent entity, for complex objects
      */
-    struct EcsComponentParent {
-        WG_ECS_COMPONENT(EcsComponentParent, 1);
+    struct EcsComponentParent : EcsComponent<EcsComponentParent> {
+        WG_ECS_COMPONENT(EcsComponentParent);
 
         EcsEntity parent;
     };
 
     /**
-     * @class EcsComponentSceneTransform
-     * @brief Node in a relative transform hierarchy of objects
+     * @class EcsComponentTransform
+     * @brief Local transform of the entity in some hierarchy
      */
-    struct EcsComponentSceneTransform {
-        WG_ECS_COMPONENT(EcsComponentSceneTransform, 2);
+    struct EcsComponentTransform : EcsComponent<EcsComponentTransform> {
+        WG_ECS_COMPONENT(EcsComponentTransform);
 
-        Ref<SceneTransform> transform;
+        Transform3d transform;
+    };
+
+    /**
+     * @class EcsComponentTransformUpd
+     * @brief Local transform update relative data
+     */
+    struct EcsComponentTransformUpd : EcsComponent<EcsComponentTransformUpd> {
+        WG_ECS_COMPONENT(EcsComponentTransformUpd);
+
+        int  last_frame_updated = -1;
+        bool is_dirty           = true;
     };
 
     /**
      * @class EcsComponentLocalToWorld
      * @brief Matrix to convert local to world coordinates of an object
      */
-    struct EcsComponentLocalToWorld {
-        WG_ECS_COMPONENT(EcsComponentLocalToWorld, 3);
+    struct EcsComponentLocalToWorld : EcsComponent<EcsComponentLocalToWorld> {
+        WG_ECS_COMPONENT(EcsComponentLocalToWorld);
+
+        Mat4x4f matrix;
+    };
+
+    /**
+     * @class EcsComponentWorldToLocal
+     * @brief Matrix to convert world to local coordinates of an object
+     */
+    struct EcsComponentWorldToLocal : EcsComponent<EcsComponentWorldToLocal> {
+        WG_ECS_COMPONENT(EcsComponentWorldToLocal);
 
         Mat4x4f matrix;
     };
@@ -92,18 +111,38 @@ namespace wmoge {
      * @class EcsComponentLocalToParent
      * @brief Matrix to convert local to parent coordinates of an object
      */
-    struct EcsComponentLocalToParent {
-        WG_ECS_COMPONENT(EcsComponentLocalToParent, 4);
+    struct EcsComponentLocalToParent : EcsComponent<EcsComponentLocalToParent> {
+        WG_ECS_COMPONENT(EcsComponentLocalToParent);
 
         Mat4x4f matrix;
+    };
+
+    /**
+     * @class EcsComponentAabbLocal
+     * @brief Aabb volume of object in the local space
+     */
+    struct EcsComponentAabbLocal : EcsComponent<EcsComponentAabbLocal> {
+        WG_ECS_COMPONENT(EcsComponentAabbLocal);
+
+        Aabbf aabb;
+    };
+
+    /**
+     * @class EcsComponentWorldAabb
+     * @brief Aabb volume of object in the world space
+     */
+    struct EcsComponentAabbWorld : EcsComponent<EcsComponentAabbWorld> {
+        WG_ECS_COMPONENT(EcsComponentAabbWorld);
+
+        Aabbf aabb;
     };
 
     /**
      * @class EcsComponentTag
      * @brief Unique tag for fast search of an entity
      */
-    struct EcsComponentTag {
-        WG_ECS_COMPONENT(EcsComponentName, 5);
+    struct EcsComponentTag : EcsComponent<EcsComponentTag> {
+        WG_ECS_COMPONENT(EcsComponentTag);
 
         StringId tag;
     };
@@ -112,8 +151,8 @@ namespace wmoge {
      * @class EcsComponentName
      * @brief Unique full name of entity on a scene
      */
-    struct EcsComponentName {
-        WG_ECS_COMPONENT(EcsComponentName, 6);
+    struct EcsComponentName : EcsComponent<EcsComponentName> {
+        WG_ECS_COMPONENT(EcsComponentName);
 
         std::string name;
     };
@@ -122,35 +161,40 @@ namespace wmoge {
      * @class EcsComponentCamera
      * @brief Game camera component
      */
-    struct EcsComponentCamera {
-        WG_ECS_COMPONENT(EcsComponentCamera, 7);
+    struct EcsComponentCamera : EcsComponent<EcsComponentCamera> {
+        WG_ECS_COMPONENT(EcsComponentCamera);
 
-        Ref<Camera> camera;
+        Camera camera;
     };
 
     /**
      * @class EcsComponentLight
      * @brief Light source component
      */
-    struct EcsComponentLight {
-        WG_ECS_COMPONENT(EcsComponentLight, 8);
+    struct EcsComponentLight : EcsComponent<EcsComponentLight> {
+        WG_ECS_COMPONENT(EcsComponentLight);
 
-        /* std::unique_ptr<Light> light; */
+        Light light;
     };
 
     /**
-     * @class EcsComponentMeshStatic
-     * @brief Static mesh renderer component
+     * @class EcsComponentModel
+     * @brief Visiblity item for culling (shared for geometry, lights, etc.)
      */
-    struct EcsComponentMeshStatic {
-        WG_ECS_COMPONENT(EcsComponentMeshStatic, 9);
+    struct EcsComponentModel : EcsComponent<EcsComponentModel> {
+        WG_ECS_COMPONENT(EcsComponentModel);
 
-        std::unique_ptr<RenderMeshStatic> mesh;
-        VisibilityItem                    vis_item;
-        int                               primitive_id = -1;
-        bool                              dirty        = true;
+        ModelInstance instance;
+    };
+
+    /**
+     * @class EcsComponentVisibilityItem
+     * @brief Visiblity item for culling (shared for geometry, lights, etc.)
+     */
+    struct EcsComponentVisibilityItem : EcsComponent<EcsComponentVisibilityItem> {
+        WG_ECS_COMPONENT(EcsComponentVisibilityItem);
+
+        VisibilityItem item;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_COMPONENTS_HPP

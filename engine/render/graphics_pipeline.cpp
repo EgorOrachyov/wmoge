@@ -27,180 +27,52 @@
 
 #include "graphics_pipeline.hpp"
 
-#include "core/engine.hpp"
-#include "shaders/generated/auto_luminance_avg_reflection.hpp"
-#include "shaders/generated/auto_luminance_histogram_reflection.hpp"
-
 #include <cstring>
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, BloomSettings& settings) {
-        WG_YAML_READ_AS_OPT(node, "enable", settings.enable);
-        WG_YAML_READ_AS_OPT(node, "intensity", settings.intensity);
-        WG_YAML_READ_AS_OPT(node, "threshold", settings.threshold);
-        WG_YAML_READ_AS_OPT(node, "knee", settings.knee);
-        WG_YAML_READ_AS_OPT(node, "radius", settings.radius);
-        WG_YAML_READ_AS_OPT(node, "uspample_weight", settings.uspample_weight);
-        WG_YAML_READ_AS_OPT(node, "dirt_mask_intensity", settings.dirt_mask_intensity);
-        WG_YAML_READ_AS_OPT(node, "dirt_mask", settings.dirt_mask);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const BloomSettings& settings) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "enable", settings.enable);
-        WG_YAML_WRITE_AS(node, "intensity", settings.intensity);
-        WG_YAML_WRITE_AS(node, "threshold", settings.threshold);
-        WG_YAML_WRITE_AS(node, "knee", settings.knee);
-        WG_YAML_WRITE_AS(node, "radius", settings.radius);
-        WG_YAML_WRITE_AS(node, "uspample_weight", settings.uspample_weight);
-        WG_YAML_WRITE_AS(node, "dirt_mask_intensity", settings.dirt_mask_intensity);
-        WG_YAML_WRITE_AS(node, "dirt_mask", settings.dirt_mask);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(BloomSettings)
+    WG_IO_FIELD_OPT(enable)
+    WG_IO_FIELD_OPT(intensity)
+    WG_IO_FIELD_OPT(threshold)
+    WG_IO_FIELD_OPT(knee)
+    WG_IO_FIELD_OPT(radius)
+    WG_IO_FIELD_OPT(uspample_weight)
+    WG_IO_FIELD_OPT(dirt_mask_intensity)
+    WG_IO_FIELD_OPT(dirt_mask)
+    WG_IO_END(BloomSettings)
 
-    Status yaml_read(const YamlConstNodeRef& node, AutoExposureSettings& settings) {
-        WG_YAML_READ_AS_OPT(node, "enable", settings.enable);
-        WG_YAML_READ_AS_OPT(node, "mode", settings.mode);
-        WG_YAML_READ_AS_OPT(node, "histogram_log_min", settings.histogram_log_min);
-        WG_YAML_READ_AS_OPT(node, "histogram_log_max", settings.histogram_log_max);
-        WG_YAML_READ_AS_OPT(node, "speed_up", settings.speed_up);
-        WG_YAML_READ_AS_OPT(node, "speed_down", settings.speed_down);
-        WG_YAML_READ_AS_OPT(node, "exposure_compensation", settings.exposure_compensation);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const AutoExposureSettings& settings) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "enable", settings.enable);
-        WG_YAML_WRITE_AS(node, "mode", settings.mode);
-        WG_YAML_WRITE_AS(node, "histogram_log_min", settings.histogram_log_min);
-        WG_YAML_WRITE_AS(node, "histogram_log_max", settings.histogram_log_max);
-        WG_YAML_WRITE_AS(node, "speed_up", settings.speed_up);
-        WG_YAML_WRITE_AS(node, "speed_down", settings.speed_down);
-        WG_YAML_WRITE_AS(node, "exposure_compensation", settings.exposure_compensation);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(AutoExposureSettings)
+    WG_IO_FIELD_OPT(enable)
+    WG_IO_FIELD_OPT(mode)
+    WG_IO_FIELD_OPT(histogram_log_min)
+    WG_IO_FIELD_OPT(histogram_log_max)
+    WG_IO_FIELD_OPT(speed_up)
+    WG_IO_FIELD_OPT(speed_down)
+    WG_IO_FIELD_OPT(exposure_compensation)
+    WG_IO_END(AutoExposureSettings)
 
-    Status yaml_read(const YamlConstNodeRef& node, TonemapSettings& settings) {
-        WG_YAML_READ_AS_OPT(node, "exposure", settings.exposure);
-        WG_YAML_READ_AS_OPT(node, "white_point", settings.white_point);
-        WG_YAML_READ_AS_OPT(node, "mode", settings.mode);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const TonemapSettings& settings) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "exposure", settings.exposure);
-        WG_YAML_WRITE_AS(node, "white_point", settings.white_point);
-        WG_YAML_WRITE_AS(node, "mode", settings.mode);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(TonemapSettings)
+    WG_IO_FIELD_OPT(mode)
+    WG_IO_FIELD_OPT(exposure)
+    WG_IO_FIELD_OPT(white_point)
+    WG_IO_END(TonemapSettings)
 
-    Status yaml_read(const YamlConstNodeRef& node, GraphicsPipelineSettings& settings) {
-        WG_YAML_READ_AS_OPT(node, "bloom", settings.bloom);
-        WG_YAML_READ_AS_OPT(node, "tonemap", settings.tonemap);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const GraphicsPipelineSettings& settings) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "bloom", settings.bloom);
-        WG_YAML_WRITE_AS(node, "tonemap", settings.tonemap);
-        return StatusCode::Ok;
-    }
-
-    void GraphicsPipelineTextures::resize(Size2i new_target_resoulution) {
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_driver = engine->gfx_driver();
-
-        const Size2i       size         = new_target_resoulution;
-        const GfxTexUsages usages       = {GfxTexUsageFlag::ColorTarget, GfxTexUsageFlag::Sampling, GfxTexUsageFlag::Storage};
-        const GfxTexUsages depth_usages = {GfxTexUsageFlag::DepthTarget, GfxTexUsageFlag::Sampling};
-
-        depth        = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::DEPTH32F, depth_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("depth"));
-        primitive_id = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::R32I, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("primitive_id"));
-        gbuffer[0]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[0]"));
-        gbuffer[1]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[1]"));
-        gbuffer[2]   = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("gbuffer[2]"));
-        bloom_downsample.clear();
-        bloom_upsample.clear();
-
-        const int mips       = Image::max_mips_count(size.x(), size.y(), 1);
-        const int mip_bias   = 3;
-        const int bloom_mips = Math::max(int(0), mips - mip_bias);
-
-        for (int i = 0; i < bloom_mips; i++) {
-            const Size2i   mip_size = Image::mip_size(i, size.x(), size.y());
-            const StringId name     = SID("bloom mip=" + StringUtils::from_int(i));
-
-            bloom_downsample.push_back(gfx_driver->make_texture_2d(mip_size.x(), mip_size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, name));
-            bloom_upsample.push_back(gfx_driver->make_texture_2d(mip_size.x(), mip_size.y(), 1, GfxFormat::RGBA16F, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, name));
-        }
-
-        color_hdr = gbuffer[0];//tmp
-        color_ldr = gfx_driver->make_texture_2d(size.x(), size.y(), 1, GfxFormat::RGBA8, usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("color_ldr"));
-
-        target_viewport = Rect2i(0, 0, new_target_resoulution.x(), new_target_resoulution.y());
-        target_size     = Vec2u(new_target_resoulution.x(), new_target_resoulution.y());
-    }
-
-    void GraphicsPipelineTextures::update_viewport(Size2i new_resoulution) {
-        viewport = Rect2i(0, 0, new_resoulution.x(), new_resoulution.y());
-        size     = Vec2u(new_resoulution.x(), new_resoulution.y());
-    }
-
-    void GraphicsPipelineShared::allocate() {
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_driver = engine->gfx_driver();
-        GfxCtx*    gfx_ctx    = engine->gfx_ctx();
-
-        ShaderLuminanceHistogram::Histogram histogram;
-        std::memset(histogram.Bins, 0, sizeof(histogram.Bins));
-
-        ShaderLuminanceHistogram::Luminance luminance;
-        luminance.LumTemporal  = 1.0f;
-        luminance.AutoExposure = 1.0f;
-
-        lum_histogram = gfx_driver->make_storage_buffer(int(sizeof(histogram)), GfxMemUsage::GpuLocal, SID("lum_histogram"));
-        lum_luminance = gfx_driver->make_storage_buffer(int(sizeof(luminance)), GfxMemUsage::GpuLocal, SID("lum_luminance"));
-
-        gfx_ctx->update_storage_buffer(lum_histogram, 0, lum_histogram->size(), make_ref<Data>(&histogram, sizeof(histogram)));
-        gfx_ctx->update_storage_buffer(lum_luminance, 0, lum_luminance->size(), make_ref<Data>(&luminance, sizeof(luminance)));
-    }
-
-    GraphicsPipelineStage::GraphicsPipelineStage() {
-        Engine* engine = Engine::instance();
-
-        m_gfx_driver     = engine->gfx_driver();
-        m_gfx_ctx        = engine->gfx_ctx();
-        m_shader_manager = engine->shader_manager();
-        m_tex_manager    = engine->texture_manager();
-        m_render_engine  = engine->render_engine();
-    }
-
-    void GraphicsPipelineStage::set_pipeline(GraphicsPipeline* pipeline) {
-        m_pipeline = pipeline;
-    }
+    WG_IO_BEGIN(GraphicsPipelineSettings)
+    WG_IO_FIELD_OPT(bloom)
+    WG_IO_FIELD_OPT(auto_exposure)
+    WG_IO_FIELD_OPT(tonemap)
+    WG_IO_END(GraphicsPipelineSettings)
 
     void GraphicsPipeline::set_scene(RenderScene* scene) {
         m_scene = scene;
     }
-    void GraphicsPipeline::set_cameras(RenderCameras* cameras) {
+    void GraphicsPipeline::set_cameras(CameraList* cameras) {
         m_cameras = cameras;
     }
     void GraphicsPipeline::set_views(ArrayView<struct RenderView> views) {
         m_views = views;
     }
-
-    void GraphicsPipeline::set_target_resolution(Size2i resolution) {
-        m_target_resolution = resolution;
-        m_textures.resize(m_target_resolution);
-        m_textures.update_viewport(m_resolution);
-    }
-
-    void GraphicsPipeline::set_resolution(Size2i resolution) {
-        m_resolution = resolution;
-        m_textures.update_viewport(m_resolution);
-    }
-
     void GraphicsPipeline::set_settings(const GraphicsPipelineSettings& settings) {
         m_settings = settings;
     }

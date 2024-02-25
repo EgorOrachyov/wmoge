@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MODEL_HPP
-#define WMOGE_MODEL_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "io/yaml.hpp"
@@ -37,16 +36,29 @@
 #include "resource/resource.hpp"
 #include "resource/resource_ref.hpp"
 
+#include <optional>
+
 namespace wmoge {
+
+    /**
+     * @class ModelLod
+     * @brief Serializable struct to hold single drawable model mesh chunk info
+     */
+    struct ModelChunk {
+        ResRef<Material> material;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, ModelChunk& data);
+        friend Status yaml_write(YamlNodeRef node, const ModelChunk& data);
+    };
 
     /**
      * @class ModelLod
      * @brief Serializable struct to hold single lod params
      */
     struct ModelLod {
-        ResRef<Mesh>        mesh;
-        fast_vector<int, 1> materials;
-        float               screen_size = 1.0f;
+        fast_vector<ModelChunk>     chunks;
+        ResRef<Mesh>                mesh;
+        std::optional<ResRef<Mesh>> shadow_mesh;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ModelLod& data);
         friend Status yaml_write(YamlNodeRef node, const ModelLod& data);
@@ -69,9 +81,9 @@ namespace wmoge {
      * @brief Serializable struct to hold model info
      */
     struct ModelFile {
-        fast_vector<ResRef<Material>, 1> materials;
-        fast_vector<ModelLod, 1>         lods;
-        ModelLodSettings                 lod_settings;
+        fast_vector<ModelLod, 1>    lods;
+        ModelLodSettings            lod_settings;
+        std::optional<ResRef<Mesh>> collision_mesh;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ModelFile& data);
         friend Status yaml_write(YamlNodeRef node, const ModelFile& data);
@@ -82,8 +94,7 @@ namespace wmoge {
      * @brief Resource which stores a complete textured mesh model with level of details and other settings
      * 
      * Model incapsulates complete setup of a geometry, required for a runtime high-quality rendering.
-     * It tores level of details, each of them has own mesh and materials setup.
-     * Shared list of materials is also stored. This list can be used accross all lods' meshes' chunks.
+     * It stores level of details, each of them has own mesh and materials setup.
      * Model can be used to setup static or skinned mesh renderer in a scene.
      * 
      * @see Material
@@ -94,24 +105,19 @@ namespace wmoge {
     public:
         WG_OBJECT(Model, Resource)
 
-        [[nodiscard]] ArrayView<const ResRef<Material>> get_materials() const { return m_materials; }
-        [[nodiscard]] ArrayView<const ModelLod>         get_lods() const { return m_lods; }
-        [[nodiscard]] const ModelLodSettings&           get_lod_settings() const { return m_lod_settings; }
-        [[nodiscard]] const Aabbf&                      get_aabb() const { return m_aabb; }
+        void update_aabb();
+
+        [[nodiscard]] ArrayView<const ModelLod> get_lods() const { return m_lods; }
+        [[nodiscard]] const ModelLodSettings&   get_lod_settings() const { return m_lod_settings; }
+        [[nodiscard]] const Aabbf&              get_aabb() const { return m_aabb; }
 
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
     private:
-        void update_aabb();
-
-    private:
-        fast_vector<ResRef<Material>, 1> m_materials;
-        fast_vector<ModelLod, 1>         m_lods;
-        ModelLodSettings                 m_lod_settings;
-        Aabbf                            m_aabb;
+        fast_vector<ModelLod, 1> m_lods;
+        ModelLodSettings         m_lod_settings;
+        Aabbf                    m_aabb;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MODEL_HPP

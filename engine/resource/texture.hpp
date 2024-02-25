@@ -31,6 +31,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "io/serialization.hpp"
 #include "render/texture_compression.hpp"
 #include "resource/image.hpp"
 #include "resource/resource.hpp"
@@ -49,8 +50,7 @@ namespace wmoge {
         GfxSamplerDesc       sampling{};
         TexCompressionParams compression{};
 
-        friend Status yaml_read(const YamlConstNodeRef& node, TextureImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const TextureImportOptions& options);
+        WG_IO_DECLARE(TextureImportOptions);
     };
 
     /**
@@ -60,8 +60,7 @@ namespace wmoge {
     struct Texture2dImportOptions : public TextureImportOptions {
         std::string source_file;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, Texture2dImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const Texture2dImportOptions& options);
+        WG_IO_DECLARE(Texture2dImportOptions);
     };
 
     /**
@@ -81,14 +80,12 @@ namespace wmoge {
             std::string back;
             std::string front;
 
-            friend Status yaml_read(const YamlConstNodeRef& node, SourceFiles& source_files);
-            friend Status yaml_write(YamlNodeRef node, const SourceFiles& source_files);
+            WG_IO_DECLARE(SourceFiles);
         };
 
         SourceFiles source_files;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, TextureCubeImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const TextureCubeImportOptions& options);
+        WG_IO_DECLARE(TextureCubeImportOptions);
     };
 
     /**

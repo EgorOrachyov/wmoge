@@ -29,7 +29,7 @@
 #define WMOGE_GFX_SAMPLER_HPP
 
 #include "gfx/gfx_resource.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 
 #include <utility>
 
@@ -55,8 +55,7 @@ namespace wmoge {
         GfxSampAddress w;             // = GfxSampAddress::Repeat;
         GfxSampBrdClr  brd_clr;       // = GfxSampBrdClr::Black;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc);
-        friend Status yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc);
+        WG_IO_DECLARE(GfxSamplerDesc);
     };
 
     /**

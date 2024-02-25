@@ -27,7 +27,6 @@
 
 #include "console.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
@@ -37,11 +36,13 @@
 #include "event/event_manager.hpp"
 #include "gameplay/action_manager.hpp"
 #include "math/math_utils.hpp"
+#include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 #include "render/canvas.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
+#include "system/engine.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -236,7 +237,7 @@ namespace wmoge {
 
         std::lock_guard lock(m_mutex);
 
-        auto dt = float(Engine::instance()->get_delta_time());
+        auto dt = float(Engine::instance()->time()->get_delta_time());
 
         m_state_open = m_state_open + m_current_speed * dt;
         if (m_state_open > 1.0f) {

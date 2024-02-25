@@ -25,8 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_APPLICATION_HPP
-#define WMOGE_APPLICATION_HPP
+#pragma once
+
+#include "core/signal.hpp"
+#include "core/status.hpp"
 
 namespace wmoge {
 
@@ -38,13 +40,56 @@ namespace wmoge {
     public:
         virtual ~Application() = default;
 
-        virtual void on_register(){};
-        virtual void on_init(){};
-        virtual void on_shutdown() {}
+        virtual Status on_register();
+        virtual Status on_hook() { return StatusCode::Ok; }
+        virtual Status on_init() { return StatusCode::Ok; }
+        virtual Status on_loop() { return StatusCode::Ok; }
+        virtual Status on_shutdown() { return StatusCode::Ok; }
+        virtual bool   should_close() { return true; }
+
+        Signal<> signal_before_init;
+        Signal<> signal_after_init;
+        Signal<> signal_before_loop;
+        Signal<> signal_after_loop;
+        Signal<> signal_before_shutdown;
+        Signal<> signal_after_shutdown;
 
         int run(int argc, const char* const* argv);
     };
 
-}// namespace wmoge
+    /**
+     * @class BaseApplication
+     * @brief Base class for application with minimal engine setup
+    */
+    class BaseApplication : public Application {
+    public:
+        ~BaseApplication() override = default;
 
-#endif//WMOGE_APPLICATION_HPP
+        Status on_register() override;
+        Status on_hook() override;
+    };
+
+    /**
+     * @class GameApplication
+     * @brief Base class for application to run stand-alone game
+    */
+    class GameApplication : public BaseApplication {
+    public:
+        ~GameApplication() override = default;
+
+        Status on_init() override;
+        Status on_loop() override;
+        Status on_shutdown() override;
+        bool   should_close() override;
+    };
+
+    /**
+     * @class ToolApplication
+     * @brief Base class for application to run command-line based tool
+    */
+    class ToolApplication : public BaseApplication {
+    public:
+        ~ToolApplication() override = default;
+    };
+
+}// namespace wmoge

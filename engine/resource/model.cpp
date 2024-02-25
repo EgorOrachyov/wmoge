@@ -29,17 +29,27 @@
 
 namespace wmoge {
 
+    Status yaml_read(const YamlConstNodeRef& node, ModelChunk& data) {
+        WG_YAML_READ_AS(node, "material", data.material);
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const ModelChunk& data) {
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "material", data.material);
+        return StatusCode::Ok;
+    }
+
     Status yaml_read(const YamlConstNodeRef& node, ModelLod& data) {
         WG_YAML_READ_AS_OPT(node, "mesh", data.mesh);
-        WG_YAML_READ_AS_OPT(node, "materials", data.materials);
-        WG_YAML_READ_AS_OPT(node, "screen_size", data.screen_size);
+        WG_YAML_READ_AS_OPT(node, "chunks", data.chunks);
+        WG_YAML_READ_AS_OPT(node, "shadow_mesh", data.shadow_mesh);
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const ModelLod& data) {
         WG_YAML_MAP(node);
         WG_YAML_WRITE_AS(node, "mesh", data.mesh);
-        WG_YAML_WRITE_AS(node, "materials", data.materials);
-        WG_YAML_WRITE_AS(node, "screen_size", data.screen_size);
+        WG_YAML_WRITE_AS(node, "chunks", data.chunks);
+        WG_YAML_WRITE_AS(node, "shadow_mesh", data.shadow_mesh);
         return StatusCode::Ok;
     }
 
@@ -56,24 +66,31 @@ namespace wmoge {
     }
 
     Status yaml_read(const YamlConstNodeRef& node, ModelFile& data) {
-        WG_YAML_READ_AS_OPT(node, "materials", data.materials);
         WG_YAML_READ_AS_OPT(node, "lods", data.lods);
         WG_YAML_READ_AS_OPT(node, "lod_settings", data.lod_settings);
+        WG_YAML_READ_AS_OPT(node, "collision_mesh", data.collision_mesh);
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const ModelFile& data) {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "materials", data.materials);
         WG_YAML_WRITE_AS(node, "lods", data.lods);
         WG_YAML_WRITE_AS(node, "lod_settings", data.lod_settings);
+        WG_YAML_WRITE_AS(node, "collision_mesh", data.collision_mesh);
         return StatusCode::Ok;
+    }
+
+    void Model::update_aabb() {
+        m_aabb = Aabbf();
+
+        for (const auto& lod : m_lods) {
+            m_aabb = m_aabb.join(lod.mesh->get_aabb());
+        }
     }
 
     Status Model::read_from_yaml(const YamlConstNodeRef& node) {
         ModelFile model_file;
         WG_YAML_READ(node, model_file);
 
-        m_materials    = std::move(model_file.materials);
         m_lods         = std::move(model_file.lods);
         m_lod_settings = std::move(model_file.lod_settings);
 
@@ -84,19 +101,10 @@ namespace wmoge {
     Status Model::copy_to(Object& other) const {
         Resource::copy_to(other);
         auto* ptr           = dynamic_cast<Model*>(&other);
-        ptr->m_materials    = m_materials;
         ptr->m_lods         = m_lods;
         ptr->m_lod_settings = m_lod_settings;
         ptr->m_aabb         = m_aabb;
         return StatusCode::Ok;
-    }
-
-    void Model::update_aabb() {
-        m_aabb = Aabbf();
-
-        for (const auto& lod : m_lods) {
-            m_aabb = m_aabb.join(lod.mesh->get_aabb());
-        }
     }
 
     void Model::register_class() {

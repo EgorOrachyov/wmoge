@@ -32,6 +32,7 @@
 #include "core/fast_vector.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "io/serialization.hpp"
 #include "math/vec.hpp"
 #include "resource/image.hpp"
 #include "resource/resource.hpp"
@@ -50,8 +51,7 @@ namespace wmoge {
         int         height        = 32;
         int         glyphs_in_row = 16;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, FontImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const FontImportOptions& options);
+        WG_IO_DECLARE(FontImportOptions);
     };
 
     /**

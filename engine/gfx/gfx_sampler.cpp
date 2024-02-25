@@ -35,6 +35,18 @@
 
 namespace wmoge {
 
+    WG_IO_BEGIN(GfxSamplerDesc)
+    WG_IO_FIELD(min_lod)
+    WG_IO_FIELD(max_lod)
+    WG_IO_FIELD(max_anisotropy)
+    WG_IO_FIELD(min_flt)
+    WG_IO_FIELD(mag_flt)
+    WG_IO_FIELD(u)
+    WG_IO_FIELD(v)
+    WG_IO_FIELD(w)
+    WG_IO_FIELD(brd_clr)
+    WG_IO_END(GfxSamplerDesc)
+
     GfxSamplerDesc::GfxSamplerDesc() {
         std::memset(this, 0, sizeof(GfxSamplerDesc));
         min_lod        = 0;
@@ -61,34 +73,6 @@ namespace wmoge {
                      << max_anisotropy;
 
         return sampler_name.str();
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, GfxSamplerDesc& desc) {
-        WG_YAML_READ_AS_OPT(node, "min_lod", desc.min_lod);
-        WG_YAML_READ_AS_OPT(node, "max_lod", desc.max_lod);
-        WG_YAML_READ_AS_OPT(node, "max_anisotropy", desc.max_anisotropy);
-        WG_YAML_READ_AS_OPT(node, "min_flt", desc.min_flt);
-        WG_YAML_READ_AS_OPT(node, "mag_flt", desc.mag_flt);
-        WG_YAML_READ_AS_OPT(node, "u", desc.u);
-        WG_YAML_READ_AS_OPT(node, "v", desc.v);
-        WG_YAML_READ_AS_OPT(node, "w", desc.w);
-        WG_YAML_READ_AS_OPT(node, "brd_clr", desc.brd_clr);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const GfxSamplerDesc& desc) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "min_lod", desc.min_lod);
-        WG_YAML_WRITE_AS(node, "max_lod", desc.max_lod);
-        WG_YAML_WRITE_AS(node, "max_anisotropy", desc.max_anisotropy);
-        WG_YAML_WRITE_AS(node, "min_flt", desc.min_flt);
-        WG_YAML_WRITE_AS(node, "mag_flt", desc.mag_flt);
-        WG_YAML_WRITE_AS(node, "u", desc.u);
-        WG_YAML_WRITE_AS(node, "v", desc.v);
-        WG_YAML_WRITE_AS(node, "w", desc.w);
-        WG_YAML_WRITE_AS(node, "brd_clr", desc.brd_clr);
-
-        return StatusCode::Ok;
     }
 
 }// namespace wmoge

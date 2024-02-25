@@ -30,10 +30,10 @@
 
 #include "scripting/lua_bindings/lua_bindings.hpp"
 
-#include "core/engine.hpp"
 #include "gameplay/action_manager.hpp"
 #include "gameplay/action_map.hpp"
 #include "gameplay/game_token_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

@@ -27,12 +27,12 @@
 
 #include "lua_script.hpp"
 
-#include "core/engine.hpp"
 #include "core/object.hpp"
 #include "debug/profiler.hpp"
 #include "scripting/lua/lua_script_instance.hpp"
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

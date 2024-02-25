@@ -27,13 +27,13 @@
 
 #include "render_engine.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "core/task_parallel_for.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "render/shader_manager.hpp"
 #include "shaders/generated/auto_material_reflection.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 
@@ -60,18 +60,8 @@ namespace wmoge {
         assert(delta_time >= 0);
         m_delta_time = delta_time;
     }
-    void RenderEngine::set_target(const Ref<Window>& window) {
-        assert(window);
-        m_main_target = window;
-    }
-    void RenderEngine::set_clear_color(const Color4f& color) {
-        m_clear_color = color;
-    }
     void RenderEngine::set_scene(RenderScene* scene) {
         m_scene = scene;
-    }
-    void RenderEngine::set_visiblity(VisibilitySystem* visibility) {
-        m_visibility = visibility;
     }
 
     void RenderEngine::begin_rendering() {
@@ -86,12 +76,6 @@ namespace wmoge {
 
     void RenderEngine::end_rendering() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::end_rendering");
-
-        m_camera_prev.reset();
-
-        if (!m_cameras.is_empty()) {
-            m_camera_prev = m_cameras.camera_main().camera;
-        }
     }
 
     void RenderEngine::prepare_frame_data() {
@@ -125,7 +109,7 @@ namespace wmoge {
             RenderView& view = m_views[view_idx];
             view.index       = view_idx;
 
-            const RenderCameraData& camera = m_cameras.data_at(view_idx);
+            const CameraData& camera = m_cameras.data_at(view_idx);
 
             if (!view.view_data) {
                 view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUViewData)), GfxMemUsage::GpuLocal, SID("view_data_" + StringUtils::from_int(view_idx)));
@@ -193,41 +177,6 @@ namespace wmoge {
                 queue.clear();
             }
         }
-    }
-
-    void RenderEngine::collect_batches() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::collect_batches");
-
-        ArrayView<RenderObject*>   objects = m_scene->get_objects();
-        ArrayView<VisibilityItem>  vis     = m_scene->get_objects_vis();
-        GPURenderObjectDataVector& data    = m_scene->get_objects_gpu_data();
-
-        std::atomic_int total{0};
-
-        TaskParallelFor task_compile(SID("collect_batches"), [&](TaskContext&, int id, int) {
-            if (!objects[id]) {
-                return 0;
-            }
-
-            const VisibilityItem       vis_item   = vis[id];
-            const VisibilityItemResult vis_result = m_visibility->get_item_result(vis_item);
-
-            if (vis_result.cam_mask.any()) {
-                objects[id]->collect(m_cameras, vis_result.cam_mask, m_batch_collector);
-                total.fetch_add(1, std::memory_order_relaxed);
-            }
-
-            return 0;
-        });
-
-        task_compile.schedule(int(objects.size()), m_batch_size).wait_completed();
-
-        int draw = total.load();
-        int all  = int(objects.size());
-
-        auto* aux = Engine::instance()->aux_draw_manager();
-        aux->draw_text_2d("drawn: " + StringUtils::from_int(draw), Vec2f{10, 40}, 10.0f, Color::WHITE4f);
-        aux->draw_text_2d("culled: " + StringUtils::from_int(all - draw), Vec2f{10, 30}, 10.0f, Color::WHITE4f);
     }
 
     void RenderEngine::compile_batches() {
@@ -304,8 +253,8 @@ namespace wmoge {
             return;
         }
 
-        const RenderCameraData& main_cam = m_cameras.camera_main();
-        canvas.render(m_main_target, main_cam.viewport, area, 2.2f);
+        const CameraData& main_cam = m_cameras.camera_main();
+        // canvas.render(m_main_target, main_cam.viewport, area, 2.2f);
     }
 
     void RenderEngine::render_aux_geom(AuxDrawManager& aux_draw_manager) {
@@ -315,8 +264,8 @@ namespace wmoge {
             return;
         }
 
-        const RenderCameraData& main_cam = m_cameras.camera_main();
-        aux_draw_manager.render(m_main_target, main_cam.viewport, main_cam.proj_view);
+        const CameraData& main_cam = m_cameras.camera_main();
+        // aux_draw_manager.render(m_main_target, main_cam.viewport, main_cam.proj_view);
     }
 
 }// namespace wmoge

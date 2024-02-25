@@ -25,8 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ECS_CORE_HPP
-#define WMOGE_ECS_CORE_HPP
+#pragma once
+
+#include "io/archive.hpp"
+#include "io/yaml.hpp"
 
 #include <bitset>
 #include <cinttypes>
@@ -55,6 +57,11 @@ namespace wmoge {
      * @brief An entity archetype defining its component structure
      */
     struct EcsArch final : public std::bitset<EcsLimits::MAX_COMPONENTS> {
+        using Bitset = std::bitset<EcsLimits::MAX_COMPONENTS>;
+
+        EcsArch() = default;
+        EcsArch(const Bitset& b) : Bitset(b) {}
+
         template<typename Component>
         void set_component() { set(Component::IDX); }
 
@@ -71,6 +78,19 @@ namespace wmoge {
         }
 
         [[nodiscard]] std::string to_string() const;
+
+        friend Status yaml_read(const YamlConstNodeRef& node, EcsArch& arch) {
+            return yaml_read(node, *((EcsArch::Bitset*) &arch));
+        }
+        friend Status yaml_write(YamlNodeRef node, const EcsArch& arch) {
+            return yaml_write(node, *((const EcsArch::Bitset*) &arch));
+        }
+        friend Status archive_read(Archive& archive, EcsArch& arch) {
+            return archive_read(archive, *((EcsArch::Bitset*) &arch));
+        }
+        friend Status archive_write(Archive& archive, const EcsArch& arch) {
+            return archive_write(archive, *((const EcsArch::Bitset*) &arch));
+        }
     };
 
     inline std::ostream& operator<<(std::ostream& stream, const EcsArch& arch) {
@@ -134,5 +154,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_ECS_CORE_HPP

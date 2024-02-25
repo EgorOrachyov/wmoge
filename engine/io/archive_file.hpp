@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ARCHIVE_FILE_HPP
-#define WMOGE_ARCHIVE_FILE_HPP
+#pragma once
 
 #include "archive.hpp"
 
@@ -72,5 +71,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_ARCHIVE_FILE_HPP

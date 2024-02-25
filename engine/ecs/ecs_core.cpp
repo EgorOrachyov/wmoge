@@ -27,8 +27,8 @@
 
 #include "ecs_core.hpp"
 
-#include "core/engine.hpp"
 #include "ecs/ecs_registry.hpp"
+#include "system/engine.hpp"
 
 #include <sstream>
 #include <string>

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VAR_HPP
-#define WMOGE_VAR_HPP
+#pragma once
 
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
@@ -193,5 +192,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_VAR_HPP

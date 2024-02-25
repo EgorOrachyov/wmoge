@@ -27,11 +27,11 @@
 
 #include "resource_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/timer.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
 #include "event/event_resource.hpp"
+#include "system/engine.hpp"
 
 #include "resource/paks/resource_pak_fs.hpp"
 
@@ -63,9 +63,8 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
 
         // already loaded and cached
-        auto cached = m_resources.find(name);
-        if (cached != m_resources.end()) {
-            Ref<Resource>                res(cached->second);
+        Ref<Resource> res = find(name);
+        if (res) {
             std::optional<Ref<Resource>> res_opt(res);
             auto                         async_op = make_async_op<Ref<Resource>>();
             async_op->set_result(std::move(res));
@@ -125,7 +124,7 @@ namespace wmoge {
                 Engine::instance()->event_manager()->dispatch_deferred(event);
 
                 std::lock_guard guard(m_mutex);
-                m_resources[name] = resource;
+                m_resources[name] = WeakRef<Resource>(resource);
                 async_op->set_result(std::move(resource));
                 return 0;
             }
@@ -181,7 +180,7 @@ namespace wmoge {
 
         auto cached = m_resources.find(name);
         if (cached != m_resources.end()) {
-            return cached->second;
+            return cached->second.acquire();
         }
 
         return {};
@@ -233,7 +232,7 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
         int             evicted = 0;
         for (auto iter = m_resources.begin(); iter != m_resources.end(); ++iter) {
-            if (iter->second->refs_count() == 1) {
+            if (iter->second.acquire()->refs_count() == 1) {
                 iter = m_resources.erase(iter);
                 evicted += 1;
             }

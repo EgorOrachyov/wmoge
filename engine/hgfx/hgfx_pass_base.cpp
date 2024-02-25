@@ -28,10 +28,10 @@
 #include "hgfx_pass_base.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "render/shader_manager.hpp"
 #include "shaders/generated/auto_base_reflection.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_EVENT_LISTENER_HPP
-#define WMOGE_EVENT_LISTENER_HPP
+#pragma once
 
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
@@ -84,5 +83,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_EVENT_LISTENER_HPP

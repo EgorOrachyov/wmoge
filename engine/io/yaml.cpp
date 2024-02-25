@@ -27,8 +27,8 @@
 
 #include "yaml.hpp"
 
-#include "core/engine.hpp"
 #include "platform/file_system.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 #include <sstream>
@@ -76,6 +76,10 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
+    Status yaml_read(const YamlConstNodeRef& node, std::int16_t& value) {
+        node >> value;
+        return StatusCode::Ok;
+    }
 
     Status yaml_write(YamlNodeRef node, const bool& value) {
         node << value;
@@ -94,6 +98,10 @@ namespace wmoge {
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const std::string& value) {
+        node << value;
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const std::int16_t& value) {
         node << value;
         return StatusCode::Ok;
     }

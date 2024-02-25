@@ -31,7 +31,6 @@
 #include "gfx/gfx_driver.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "render/shader_manager.hpp"
-#include "render/vertex_factory.hpp"
 #include "resource/material.hpp"
 #include "resource/shader.hpp"
 
@@ -53,14 +52,12 @@ namespace wmoge {
         }
 
         GfxVertAttribs attribs;
-        batch.vertex_factory->fill_required_attributes(attribs, VertexInputType::Default);
 
         // additional attribute to fetch gpu data
         attribs.set(GfxVertAttrib::PrimitiveIdi);
 
         GfxPipelineState gfx_pso_state;
         gfx_pso_state.shader       = m_shader_manager->get_shader(shader->get_domain(), attribs, defines, shader);
-        gfx_pso_state.vert_format  = batch.vertex_factory->get_vert_format(VertexInputType::Default);
         gfx_pso_state.prim_type    = batch.prim_type;
         gfx_pso_state.poly_mode    = pipeline_state.poly_mode;
         gfx_pso_state.cull_mode    = pipeline_state.cull_mode;

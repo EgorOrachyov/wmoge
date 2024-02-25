@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_EVENT_WINDOW_HPP
-#define WMOGE_EVENT_WINDOW_HPP
+#pragma once
 
 #include "event/event.hpp"
 #include "platform/window.hpp"
@@ -61,5 +60,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_EVENT_WINDOW_HPP

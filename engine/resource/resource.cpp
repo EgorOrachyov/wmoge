@@ -28,16 +28,14 @@
 #include "resource.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
+#include "system/engine.hpp"
+
+#include <algorithm>
+#include <cassert>
+#include <limits>
 
 namespace wmoge {
 
-    ResourceId::ResourceId(const std::string& id) {
-        m_name = SID(id);
-    }
-    ResourceId::ResourceId(const StringId& id) {
-        m_name = id;
-    }
     Status yaml_read(const YamlConstNodeRef& node, ResourceId& id) {
         WG_YAML_READ(node, id.m_name);
         return StatusCode::Ok;
@@ -45,6 +43,21 @@ namespace wmoge {
     Status yaml_write(YamlNodeRef node, const ResourceId& id) {
         WG_YAML_WRITE(node, id.m_name);
         return StatusCode::Ok;
+    }
+    Status archive_read(Archive& archive, ResourceId& id) {
+        WG_ARCHIVE_READ(archive, id.m_name);
+        return StatusCode::Ok;
+    }
+    Status archive_write(Archive& archive, const ResourceId& id) {
+        WG_ARCHIVE_WRITE(archive, id.m_name);
+        return StatusCode::Ok;
+    }
+
+    ResourceId::ResourceId(const std::string& id) {
+        m_name = SID(id);
+    }
+    ResourceId::ResourceId(const StringId& id) {
+        m_name = id;
     }
 
     Status Resource::copy_to(Object& other) const {
@@ -63,6 +76,44 @@ namespace wmoge {
         auto cls = Class::register_class<Resource>();
         cls->add_property(ClassProperty(VarType::StringId, SID("name"), SID("get_name")));
         cls->add_method(ClassMethod(VarType::StringId, SID("get_name"), {}), &Resource::get_name, {});
+    }
+
+    void ResourceDependencies::set_mode(CollectionMode mode, std::optional<int> num_levels) {
+        assert(m_cur_depth == 0);
+
+        if (mode == CollectionMode::OneLevel) {
+            m_max_depth = 1;
+        }
+        if (mode == CollectionMode::MultipleLevels) {
+            m_max_depth = num_levels.value_or(1);
+        }
+        if (mode == CollectionMode::FullDepth) {
+            m_max_depth = std::numeric_limits<int>::max();
+        }
+
+        m_mode = mode;
+    }
+
+    void ResourceDependencies::add(const Ref<Resource>& resource) {
+        if (m_cur_depth >= m_max_depth) {
+            return;
+        }
+        if (!resource) {
+            return;
+        }
+
+        m_cur_depth += 1;
+
+        m_resources.emplace(resource);
+        resource->collect_deps(*this);
+
+        m_cur_depth -= 1;
+    }
+
+    fast_vector<Ref<Resource>> ResourceDependencies::to_vector() const {
+        fast_vector<Ref<Resource>> vec(m_resources.size());
+        std::copy(m_resources.begin(), m_resources.end(), vec.begin());
+        return vec;
     }
 
 }// namespace wmoge

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MESH_PROCESSORS_HPP
-#define WMOGE_MESH_PROCESSORS_HPP
+#pragma once
 
 #include "mesh/mesh_pass.hpp"
 
@@ -48,5 +47,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MESH_PROCESSORS_HPP

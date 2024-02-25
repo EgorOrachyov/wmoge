@@ -25,9 +25,9 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ECS_COMPONENT_HPP
-#define WMOGE_ECS_COMPONENT_HPP
+#pragma once
 
+#include "core/fast_vector.hpp"
 #include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
@@ -43,29 +43,41 @@ namespace wmoge {
      * @class EcsComponent
      * @brief Base class for any engine ecs component
      */
-    struct EcsComponent {};
+    template<typename Component>
+    struct EcsComponent {
+        static int      IDX;
+        static StringId NAME;
+
+        static bool is(int id) { return id == IDX; }
+        static bool is(const std::string& name) { return name == NAME.str(); }
+        static bool is(const StringId& name) { return name == NAME; }
+
+        static void bind(int id, const StringId& name) {
+            IDX  = id;
+            NAME = name;
+        }
+    };
+
+    template<typename Component>
+    int EcsComponent<Component>::IDX = -1;
+
+    template<typename Component>
+    StringId EcsComponent<Component>::NAME;
 
     /**
      * @class EcsComponentInfo
      * @brief Holds information required to work with components
      */
     struct EcsComponentInfo {
-        StringId                          name;
-        int                               idx  = -1;
-        int                               size = -1;
-        std::function<void(void*)>        create;
-        std::function<void(void*)>        destroy;
-        std::function<void(void*, void*)> swap;
+        StringId                                    name;
+        int                                         idx  = -1;
+        int                                         size = -1;
+        std::function<void(class EcsWorld*, void*)> create;
+        std::function<void(class EcsWorld*, void*)> destroy;
+        std::function<void(void*, void*)>           swap;
     };
 
-#define WG_ECS_COMPONENT(ecs_component_class, ecs_idx)                                                         \
-    static_assert(ecs_idx < EcsLimits::MAX_COMPONENTS, "Index for " #ecs_component_class " is out of limits"); \
-    static constexpr int        IDX    = ecs_idx;                                                              \
-    static constexpr const char NAME[] = #ecs_component_class;                                                 \
-    static bool                 is(int id) { return id == IDX; }                                               \
-    static bool                 is(const std::string& name) { return name == NAME; }                           \
-    static bool                 is(const StringId& name) { return name.str() == NAME; }
+#define WG_ECS_COMPONENT(ecs_component_class) \
+    static constexpr char NAME_CSTR[] = #ecs_component_class;
 
 }// namespace wmoge
-
-#endif//WMOGE_ECS_COMPONENT_HPP

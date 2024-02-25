@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RANDOM_HPP
-#define WMOGE_RANDOM_HPP
+#pragma once
 
 #include <cinttypes>
 #include <cstddef>
@@ -47,5 +46,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RANDOM_HPP

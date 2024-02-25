@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PLANE_HPP
-#define WMOGE_PLANE_HPP
+#pragma once
 
 #include "math/vec.hpp"
 
@@ -86,5 +85,3 @@ namespace wmoge {
     using Planef = TPlane<float>;
 
 }// namespace wmoge
-
-#endif//WMOGE_PLANE_HPP

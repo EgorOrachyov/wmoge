@@ -25,9 +25,9 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_AABB_HPP
-#define WMOGE_AABB_HPP
+#pragma once
 
+#include "io/archive.hpp"
 #include "io/yaml.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
@@ -123,7 +123,17 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "size_half", aabb.size_half);
         return StatusCode::Ok;
     }
+    template<typename T>
+    Status archive_read(Archive& archive, TAabb<T>& aabb) {
+        WG_ARCHIVE_READ(archive, aabb.pos);
+        WG_ARCHIVE_READ(archive, aabb.size_half);
+        return StatusCode::Ok;
+    }
+    template<typename T>
+    Status archive_write(Archive& archive, const TAabb<T>& aabb) {
+        WG_ARCHIVE_WRITE(archive, aabb.pos);
+        WG_ARCHIVE_WRITE(archive, aabb.size_half);
+        return StatusCode::Ok;
+    }
 
 }// namespace wmoge
-
-#endif//WMOGE_AABB_HPP

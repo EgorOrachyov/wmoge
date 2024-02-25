@@ -28,100 +28,49 @@
 #include "shader.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "io/enum.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
 #include "render/shader_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter) {
-        WG_YAML_READ_AS(node, "name", parameter.name);
-        WG_YAML_READ_AS(node, "type", parameter.type);
-        WG_YAML_READ_AS_OPT(node, "offset", parameter.offset);
-        WG_YAML_READ_AS_OPT(node, "size", parameter.size);
-        WG_YAML_READ_AS_OPT(node, "value", parameter.value);
+    WG_IO_BEGIN(ShaderParameter)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD(type)
+    WG_IO_FIELD_OPT(offset)
+    WG_IO_FIELD_OPT(size)
+    WG_IO_FIELD_OPT(value)
+    WG_IO_END(ShaderParameter)
 
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ShaderParameter& parameter) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", parameter.name);
-        WG_YAML_WRITE_AS(node, "type", parameter.type);
-        WG_YAML_WRITE_AS(node, "offset", parameter.offset);
-        WG_YAML_WRITE_AS(node, "size", parameter.size);
-        WG_YAML_WRITE_AS(node, "value", parameter.value);
+    WG_IO_BEGIN(ShaderTexture)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD(type)
+    WG_IO_FIELD_OPT(id)
+    WG_IO_FIELD_OPT(value)
+    WG_IO_END(ShaderTexture)
 
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ShaderPipelineState)
+    WG_IO_FIELD_OPT(poly_mode)
+    WG_IO_FIELD_OPT(cull_mode)
+    WG_IO_FIELD_OPT(front_face)
+    WG_IO_FIELD_OPT(depth_enable)
+    WG_IO_FIELD_OPT(depth_write)
+    WG_IO_FIELD_OPT(depth_func)
+    WG_IO_END(ShaderPipelineState)
 
-    Status yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture) {
-        WG_YAML_READ_AS(node, "name", texture.name);
-        WG_YAML_READ_AS(node, "type", texture.type);
-        WG_YAML_READ_AS_OPT(node, "id", texture.id);
-        WG_YAML_READ_AS_OPT(node, "value", texture.value);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ShaderTexture& texture) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", texture.name);
-        WG_YAML_WRITE_AS(node, "type", texture.type);
-        WG_YAML_WRITE_AS(node, "id", texture.id);
-        WG_YAML_WRITE_AS(node, "value", texture.value);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state) {
-        WG_YAML_READ_AS_OPT(node, "poly_mode", state.poly_mode);
-        WG_YAML_READ_AS_OPT(node, "cull_mode", state.cull_mode);
-        WG_YAML_READ_AS_OPT(node, "front_face", state.front_face);
-        WG_YAML_READ_AS_OPT(node, "depth_enable", state.depth_enable);
-        WG_YAML_READ_AS_OPT(node, "depth_write", state.depth_write);
-        WG_YAML_READ_AS_OPT(node, "depth_func", state.depth_func);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ShaderPipelineState& state) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "poly_mode", state.poly_mode);
-        WG_YAML_WRITE_AS(node, "cull_mode", state.cull_mode);
-        WG_YAML_WRITE_AS(node, "front_face", state.front_face);
-        WG_YAML_WRITE_AS(node, "depth_enable", state.depth_enable);
-        WG_YAML_WRITE_AS(node, "depth_write", state.depth_write);
-        WG_YAML_WRITE_AS(node, "depth_func", state.depth_func);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, ShaderFile& file) {
-        WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
-        WG_YAML_READ_AS_OPT(node, "textures", file.textures);
-        WG_YAML_READ_AS_OPT(node, "keywords", file.keywords);
-        WG_YAML_READ_AS_OPT(node, "vertex", file.vertex);
-        WG_YAML_READ_AS_OPT(node, "fragment", file.fragment);
-        WG_YAML_READ_AS_OPT(node, "compute", file.compute);
-        WG_YAML_READ_AS_OPT(node, "domain", file.domain);
-        WG_YAML_READ_AS_OPT(node, "state", file.state);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ShaderFile& file) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "parameters", file.parameters);
-        WG_YAML_WRITE_AS(node, "textures", file.textures);
-        WG_YAML_WRITE_AS(node, "keywords", file.keywords);
-        WG_YAML_WRITE_AS(node, "vertex", file.vertex);
-        WG_YAML_WRITE_AS(node, "fragment", file.fragment);
-        WG_YAML_WRITE_AS(node, "compute", file.compute);
-        WG_YAML_WRITE_AS(node, "domain", file.domain);
-        WG_YAML_WRITE_AS(node, "state", file.state);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ShaderFile)
+    WG_IO_FIELD_OPT(parameters)
+    WG_IO_FIELD_OPT(textures)
+    WG_IO_FIELD_OPT(keywords)
+    WG_IO_FIELD_OPT(vertex)
+    WG_IO_FIELD_OPT(fragment)
+    WG_IO_FIELD_OPT(compute)
+    WG_IO_FIELD(domain)
+    WG_IO_FIELD_OPT(state)
+    WG_IO_END(ShaderFile)
 
     Status Shader::read_from_yaml(const YamlConstNodeRef& node) {
         WG_AUTO_PROFILE_RESOURCE("Shader::read_from_yaml");

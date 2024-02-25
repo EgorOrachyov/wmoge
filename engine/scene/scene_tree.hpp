@@ -25,39 +25,23 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_TREE_HPP
-#define WMOGE_SCENE_TREE_HPP
+#pragma once
 
 #include "core/object.hpp"
 #include "core/string_id.hpp"
+#include "io/serialization.hpp"
 #include "io/yaml.hpp"
+#include "resource/prefab.hpp"
+#include "resource/resource.hpp"
+#include "resource/resource_ref.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_node.hpp"
-#include "scene/scene_properties.hpp"
-#include "scene/scene_property.hpp"
 
 #include <functional>
 #include <optional>
 #include <string>
 
 namespace wmoge {
-
-    /**
-     * @class SceneNodeData
-     * @brief Serializable struct with scene tree single node data
-     */
-    struct SceneNodeData {
-        StringId                        name;
-        UUID                            uuid;
-        SceneNodeType                   type;
-        TransformEdt                    transform;
-        ResourceId                      prefab;
-        std::vector<Ref<SceneProperty>> properties;
-        std::optional<UUID>             parent;
-
-        friend Status yaml_read(const YamlConstNodeRef& node, SceneNodeData& data);
-        friend Status yaml_write(YamlNodeRef node, const SceneNodeData& data);
-    };
 
     /**
      * @class SceneTreeData
@@ -67,8 +51,7 @@ namespace wmoge {
         std::vector<SceneNodeData> nodes;
         GraphicsPipelineSettings   pipeline_settings;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, SceneTreeData& data);
-        friend Status yaml_write(YamlNodeRef node, const SceneTreeData& data);
+        WG_IO_DECLARE(SceneTreeData);
     };
 
     /**
@@ -104,7 +87,6 @@ namespace wmoge {
          */
         SceneTree(const StringId& name);
 
-        void                          sync();
         void                          each(const std::function<void(const Ref<SceneNode>&)>& visitor);
         bool                          contains(const Ref<SceneNode>& node) const;
         std::optional<Ref<SceneNode>> find_node(const std::string& path);
@@ -124,5 +106,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_TREE_HPP

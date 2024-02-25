@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ECS_WORLD_HPP
-#define WMOGE_ECS_WORLD_HPP
+#pragma once
 
 #include "core/callback_queue.hpp"
 #include "core/fast_map.hpp"
@@ -62,12 +61,19 @@ namespace wmoge {
     class EcsWorld {
     public:
         EcsWorld();
+        ~EcsWorld();
 
         /** @brief Allocates new entity for later creation */
         [[nodiscard]] EcsEntity allocate_entity();
 
         /** @brief Create new entity within world with requested archetype */
         void make_entity(const EcsEntity& entity, const EcsArch& arch);
+
+        /** @brief Swap entity components data to other entity */
+        void swap_entity(const EcsEntity& dst, const EcsEntity& src);
+
+        /** @brief Change existing entity arch to a new archetype */
+        void rearch_entity(const EcsEntity& entity, const EcsArch& new_arch);
 
         /** @brief Destroys entity by a handle */
         void destroy_entity(const EcsEntity& entity);
@@ -77,6 +83,10 @@ namespace wmoge {
 
         /** @brief Return archetype of given entity by its handle */
         [[nodiscard]] EcsArch get_arch(const EcsEntity& entity) const;
+
+        /** @brief Returns component existing or new (possibly changes enity arch) */
+        template<class Component>
+        [[nodiscard]] Component& get_or_create_component(const EcsEntity& entity);
 
         /** @brief Returns component for read-only operations */
         template<class Component>
@@ -96,6 +106,9 @@ namespace wmoge {
         /** @brief Ids of matching arch for given query */
         std::vector<int> filter_arch_idx(const EcsQuery& query);
 
+        /** @brief Possibly add new arch to the world allocating space */
+        void register_arch(EcsArch arch);
+
         /** @brief Registers system within a world */
         void register_system(const std::shared_ptr<EcsSystem>& system);
 
@@ -114,23 +127,47 @@ namespace wmoge {
         /** @brief Sync world, flushing all scheduled operations on it */
         void sync();
 
+        /** @brief Sets world specific attribute to access external context of the world */
+        template<typename T>
+        void set_attribute(int slot, T& attribute);
+
+        /** @brief Get world specific attribute to access external context of the world */
+        template<typename T>
+        T& get_attribute(int slot = 0);
+
     private:
-        std::vector<EcsEntityInfo> m_entity_info;       // entity info, accessed by entity idx
-        std::deque<EcsEntity>      m_entity_pool;       // pool with free entities handles
-        int                        m_entity_counter = 0;// total count of created entities
-
-        fast_map<StringId, int>    m_system_to_idx;// map unique system name to idx
-        std::vector<EcsSystemInfo> m_systems;      // registered systems info
-
-        fast_map<EcsArch, int>                       m_arch_to_idx; // arch to unique index
-        std::vector<std::unique_ptr<EcsArchStorage>> m_arch_storage;// storage per arch, indexed by arch idx
-        std::vector<EcsArch>                         m_arch_by_idx; // arch mask, indexed by arch idx
+        std::vector<EcsEntityInfo>                   m_entity_info;       // entity info, accessed by entity idx
+        std::deque<EcsEntity>                        m_entity_pool;       // pool with free entities handles
+        int                                          m_entity_counter = 0;// total count of created entities
+        fast_map<StringId, int>                      m_system_to_idx;     // map unique system name to idx
+        std::vector<EcsSystemInfo>                   m_systems;           // registered systems info
+        fast_map<EcsArch, int>                       m_arch_to_idx;       // arch to unique index
+        std::vector<std::unique_ptr<EcsArchStorage>> m_arch_storage;      // storage per arch, indexed by arch idx
+        std::vector<EcsArch>                         m_arch_by_idx;       // arch mask, indexed by arch idx
+        fast_vector<void*>                           m_attributes;        // custom attributes to access context within world
 
         CallbackQueue m_queue;       // queue for async world operations, flushed on sync
         TaskManager*  m_task_manager;// manager for parallel system update
 
         SpinMutex m_mutex;
     };
+
+    template<class Component>
+    inline Component& EcsWorld::get_or_create_component(const EcsEntity& entity) {
+        assert(entity.is_valid());
+        assert(is_alive(entity));
+
+        const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        const EcsArch&       enity_arch  = m_arch_by_idx[entity_info.arch];
+
+        if (!enity_arch.has_component<Component>()) {
+            EcsArch new_arch = enity_arch;
+            new_arch.set_component<Component>();
+            rearch_entity(entity, new_arch);
+        }
+
+        return get_component_rw<Component>(entity);
+    }
 
     template<class Component>
     const Component& EcsWorld::get_component(const EcsEntity& entity) const {
@@ -159,6 +196,16 @@ namespace wmoge {
         return m_arch_by_idx[entity_info.arch].template has_component<Component>();
     }
 
-}// namespace wmoge
+    template<typename T>
+    inline void EcsWorld::set_attribute(int slot, T& attribute) {
+        if (slot >= m_attributes.size()) m_attributes.resize(slot + 1);
+        m_attributes[slot] = &attribute;
+    }
 
-#endif//WMOGE_ECS_WORLD_HPP
+    template<typename T>
+    inline T& EcsWorld::get_attribute(int slot) {
+        assert(slot < m_attributes.size());
+        return *(static_cast<T*>(m_attributes[slot]));
+    }
+
+}// namespace wmoge

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_EVENT_INPUT_HPP
-#define WMOGE_EVENT_INPUT_HPP
+#pragma once
 
 #include "event/event.hpp"
 #include "platform/input.hpp"
@@ -116,5 +115,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_EVENT_INPUT_HPP

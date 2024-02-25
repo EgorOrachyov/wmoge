@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_LOG_HPP
-#define WMOGE_LOG_HPP
+#pragma once
 
 #include <cstddef>
 #include <fstream>
@@ -133,8 +132,6 @@ namespace wmoge {
         LogLevel       m_level;
     };
 
-}// namespace wmoge
-
 #define WG_LOG_MESSAGE(level, message)                                                                                \
     do {                                                                                                              \
         std::stringstream __ss;                                                                                       \
@@ -146,4 +143,4 @@ namespace wmoge {
 #define WG_LOG_WARNING(message) WG_LOG_MESSAGE(::wmoge::LogLevel::Warning, message)
 #define WG_LOG_ERROR(message)   WG_LOG_MESSAGE(::wmoge::LogLevel::Error, message)
 
-#endif//WMOGE_LOG_HPP
+}// namespace wmoge

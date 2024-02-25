@@ -28,11 +28,11 @@
 #include "resource_pak_fs.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
 #include "resource/resource_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

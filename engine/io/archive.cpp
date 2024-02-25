@@ -29,6 +29,18 @@
 
 namespace wmoge {
 
+    Status archive_read(Archive& archive, bool& value) {
+        char v;
+        WG_ARCHIVE_READ(archive, v);
+        value = v != 0;
+        return StatusCode::Ok;
+    }
+    Status archive_write(Archive& archive, const bool& value) {
+        char v = value ? 1 : 0;
+        WG_ARCHIVE_WRITE(archive, v);
+        return StatusCode::Ok;
+    }
+
     Status archive_write(Archive& archive, const StringId& value) {
         WG_ARCHIVE_WRITE(archive, value.str());
         return StatusCode::Ok;

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_STRING_UTILS_HPP
-#define WMOGE_STRING_UTILS_HPP
+#pragma once
 
 #include <cinttypes>
 #include <string>
@@ -87,5 +86,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_STRING_UTILS_HPP

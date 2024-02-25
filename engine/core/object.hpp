@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_OBJECT_HPP
-#define WMOGE_OBJECT_HPP
+#pragma once
 
 #include "core/ref.hpp"
 #include "core/status.hpp"
@@ -49,14 +48,14 @@ namespace wmoge {
      * @brief Base class for any scene tree object or resource with reflection support
      *
      * Object is a thin as possible class which comes with only thread-safe reference
-     * counting and single virtual table pointer overhead. The object provides and interface
+     * counting and single virtual table pointer overhead. The object provides an interface
      * for common methods, which may be required to manipulate objects and write generalized
      * runtime code.
      *
      * The main feature of the object is the runtime type information support (or reflection).
      * It is possible to get object class, query its inheritance tree, get all methods,
      * properties and fields. Object can be used for more simple automated serialization
-     * and deserialization, viewing in structure in the inspector and so on.
+     * and deserialization, viewing its structure in the inspector and so on.
      */
     class Object : public RefCnt {
     public:
@@ -72,6 +71,8 @@ namespace wmoge {
         virtual Status copy_to(Object& other) const { return StatusCode::Ok; }
         virtual Status read_from_yaml(const YamlConstNodeRef& node) { return StatusCode::NotImplemented; }
         virtual Status write_to_yaml(YamlNodeRef node) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_archive(Archive& archive) { return StatusCode::NotImplemented; }
+        virtual Status write_to_archive(Archive& archive) const { return StatusCode::NotImplemented; }
         virtual Status clone(Ref<Object>& object) const;
 
         virtual Ref<Object> duplicate() const;
@@ -86,6 +87,9 @@ namespace wmoge {
 
         friend Status yaml_read_object(const YamlConstNodeRef& node, Ref<Object>& object);
         friend Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object);
+
+        friend Status archive_read_object(Archive& archive, Ref<Object>& object);
+        friend Status archive_write_object(Archive& archive, const Ref<Object>& object);
     };
 
     template<typename T>
@@ -120,7 +124,7 @@ namespace wmoge {
             return {};
         }
 
-        return result;
+        return std::move(result);
     }
 
     template<typename T>
@@ -154,7 +158,36 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-}// namespace wmoge
+    template<typename T>
+    Status archive_read(Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+        Ref<Object> object;
+        auto        status = archive_read_object(archive, object);
+        if (!status) return status;
+        ref = object.template cast<T>();
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status archive_read(Archive& archive, Ref<T>& ref, typename std::enable_if_t<!std::is_convertible_v<T*, Object*>>* = 0) {
+        ref = make_ref<T>();
+        WG_ARCHIVE_READ(archive, *ref);
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status archive_write(Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+        Ref<Object> object = ref.template as<Object>();
+        auto        status = archive_write_object(archive, object);
+        if (!status) return status;
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status archive_write(Archive& archive, const Ref<T>& ref, typename std::enable_if_t<!std::is_convertible_v<T*, Object*>>* = 0) {
+        assert(ref);
+        WG_ARCHIVE_WRITE(archive, *ref);
+        return StatusCode::Ok;
+    }
 
 #define WG_OBJECT(name, super)                                                                        \
 public:                                                                                               \
@@ -177,4 +210,4 @@ public:                                                                         
         return super::class_name_static();                                                            \
     }
 
-#endif//WMOGE_OBJECT_HPP
+}// namespace wmoge

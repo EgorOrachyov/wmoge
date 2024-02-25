@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_DEBUG_LAYER_HPP
-#define WMOGE_DEBUG_LAYER_HPP
+#pragma once
 
 #include "core/layer.hpp"
 
@@ -44,5 +43,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_DEBUG_LAYER_HPP

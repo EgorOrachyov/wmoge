@@ -28,21 +28,14 @@
 #include "register_classes_scene.hpp"
 
 #include "scene/scene_node.hpp"
-#include "scene/scene_properties.hpp"
-#include "scene/scene_property.hpp"
 #include "scene/scene_tree.hpp"
 
 namespace wmoge {
 
     void register_classes_scene() {
+        SceneNodeProp::register_class();
         SceneNode::register_class();
         SceneTree::register_class();
-        SceneProperty::register_class();
-        ScenePropCamera::register_class();
-        ScenePropMeshStatic::register_class();
-        ScenePropAudioSource::register_class();
-        ScenePropAudioListener::register_class();
-        ScenePropLuaScript::register_class();
     }
 
 }// namespace wmoge

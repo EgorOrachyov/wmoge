@@ -27,6 +27,7 @@
 
 #include "core/string_id.hpp"
 #include "core/fast_map.hpp"
+#include "core/synchronization.hpp"
 
 #include <cassert>
 #include <memory>
@@ -50,7 +51,7 @@ namespace wmoge {
 
     private:
         fast_map<std::string, std::unique_ptr<Entry>> m_entries;
-        mutable std::mutex                            m_mutex;
+        mutable SpinMutex                             m_mutex;
     };
 
     void StringStorage::get_or_create(const std::string& key, const std::string*& str) {

@@ -28,10 +28,11 @@
 #ifndef WMOGE_RESOURCE_REF_HPP
 #define WMOGE_RESOURCE_REF_HPP
 
-#include "core/engine.hpp"
+#include "io/archive.hpp"
 #include "io/yaml.hpp"
 #include "resource/resource.hpp"
 #include "resource/resource_manager.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 #include <optional>
@@ -89,6 +90,28 @@ namespace wmoge {
     }
 
     template<typename T>
+    Status archive_read(Archive& archive, ResRef<T>& ref) {
+        ResourceId id;
+        WG_ARCHIVE_READ(archive, id);
+        Ref<T> ptr = Engine::instance()->resource_manager()->load(id).cast<T>();
+        if (!ptr) {
+            return StatusCode::NoResource;
+        }
+        ref = ResRef<T>(ptr);
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status archive_write(Archive& archive, const ResRef<T>& ref) {
+        assert(ref);
+        if (!ref) {
+            return StatusCode::NoResource;
+        }
+        WG_ARCHIVE_WRITE(archive, ref->get_id());
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
     Status yaml_read(const YamlConstNodeRef& node, ResRefWeak<T>& ref) {
         ResourceId id;
         WG_YAML_READ(node, id);
@@ -100,6 +123,21 @@ namespace wmoge {
     Status yaml_write(YamlNodeRef node, const ResRefWeak<T>& ref) {
         ResourceId id = ref;
         WG_YAML_WRITE(node, id);
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status archive_read(Archive& archive, ResRefWeak<T>& ref) {
+        ResourceId id;
+        WG_ARCHIVE_READ(archive, id);
+        ref = ResRefWeak<T>(id);
+        return StatusCode::Ok;
+    }
+
+    template<typename T>
+    Status archive_write(Archive& archive, const ResRefWeak<T>& ref) {
+        ResourceId id = ref;
+        WG_ARCHIVE_WRITE(archive, id);
         return StatusCode::Ok;
     }
 

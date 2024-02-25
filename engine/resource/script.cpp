@@ -28,9 +28,9 @@
 #include "script.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "platform/file_system.hpp"
 #include "scripting/script_system.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

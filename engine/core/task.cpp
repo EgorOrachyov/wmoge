@@ -27,9 +27,9 @@
 
 #include "core/task.hpp"
 
-#include "core/engine.hpp"
 #include "core/task_runtime.hpp"
 #include "debug/profiler.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

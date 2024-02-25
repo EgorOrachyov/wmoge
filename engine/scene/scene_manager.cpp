@@ -27,18 +27,17 @@
 
 #include "scene_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/task_parallel_for.hpp"
 #include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 #include "render/render_engine.hpp"
 #include "scene/scene_components.hpp"
-#include "systems/system_render.hpp"
-#include "systems/system_transform.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 #include <utility>
@@ -52,14 +51,24 @@ namespace wmoge {
 
         ecs_registry->register_component<EcsComponentChildren>();
         ecs_registry->register_component<EcsComponentParent>();
-        ecs_registry->register_component<EcsComponentSceneTransform>();
+        ecs_registry->register_component<EcsComponentTransform>();
+        ecs_registry->register_component<EcsComponentTransformUpd>();
         ecs_registry->register_component<EcsComponentLocalToWorld>();
+        ecs_registry->register_component<EcsComponentWorldToLocal>();
         ecs_registry->register_component<EcsComponentLocalToParent>();
+        ecs_registry->register_component<EcsComponentAabbLocal>();
+        ecs_registry->register_component<EcsComponentAabbWorld>();
         ecs_registry->register_component<EcsComponentName>();
         ecs_registry->register_component<EcsComponentTag>();
         ecs_registry->register_component<EcsComponentCamera>();
         ecs_registry->register_component<EcsComponentLight>();
-        ecs_registry->register_component<EcsComponentMeshStatic>();
+        ecs_registry->register_component<EcsComponentModel>();
+        ecs_registry->register_component<EcsComponentVisibilityItem>();
+
+        ecs_registry->on_destroy_hook<EcsComponentVisibilityItem>([](EcsWorld& world, EcsComponentVisibilityItem& comp) {
+            if (!comp.item.is_valid()) return;
+            world.get_attribute<Scene>().get_visibility_system()->release_item(comp.item);
+        });
     }
 
     void SceneManager::clear() {
@@ -123,55 +132,14 @@ namespace wmoge {
 
     void SceneManager::scene_hier() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_hier");
-
-        Scene*                 scene             = m_running.get();
-        SceneTransformManager* transform_manager = scene->get_transforms();
-
-        const int num_of_layers = transform_manager->get_num_layers();
-
-        for (int layer_idx = 0; layer_idx < num_of_layers; layer_idx++) {
-            ArrayView<SceneTransform*> layer      = transform_manager->get_layer(layer_idx);
-            const int                  layer_size = int(layer.size());
-            const int                  batch_size = 16;
-
-            if (!layer.empty()) {
-                const StringId  task_name = SID("transform_" + StringUtils::from_int(layer_idx));
-                TaskParallelFor task(task_name, [&](TaskContext&, int id, int) {
-                    layer[id]->update(false);
-                    return 0;
-                });
-
-                task.schedule(layer_size, batch_size).wait_completed();
-            }
-        }
     }
 
     void SceneManager::scene_transforms() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_transforms");
-
-        Scene*    scene     = m_running.get();
-        EcsWorld* ecs_world = scene->get_ecs_world();
-
-        EcsSysCacheMatrices sys_cache_matrices;
-        ecs_world->execute_system(sys_cache_matrices);
-
-        EcsSysUpdateStaticMeshes sys_update_static_meshes;
-        sys_update_static_meshes.render_scene = scene->get_render_scene();
-        sys_update_static_meshes.vis_system   = scene->get_visibility_system();
-        ecs_world->execute_system(sys_update_static_meshes);
     }
 
     void SceneManager::scene_cameras() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_cameras");
-
-        Engine*       engine        = Engine::instance();
-        RenderEngine* render_engine = engine->render_engine();
-
-        Scene*         scene          = m_running.get();
-        CameraManager* camera_manager = scene->get_cameras();
-        RenderCameras& render_cameras = render_engine->get_cameras();
-
-        camera_manager->fill_render_cameras(render_cameras);
     }
 
     void SceneManager::scene_visibility() {
@@ -180,21 +148,18 @@ namespace wmoge {
         Engine*       engine        = Engine::instance();
         RenderEngine* render_engine = engine->render_engine();
 
-        Scene*               scene          = m_running.get();
-        EcsWorld*            ecs_world      = scene->get_ecs_world();
-        VisibilitySystem*    vis_system     = scene->get_visibility_system();
-        const RenderCameras& render_cameras = render_engine->get_cameras();
+        Scene*            scene          = m_running.get();
+        EcsWorld*         ecs_world      = scene->get_ecs_world();
+        VisibilitySystem* vis_system     = scene->get_visibility_system();
+        const CameraList& render_cameras = render_engine->get_cameras();
 
         vis_system->cull(render_cameras);
-
-        EcsSysPocessVisStaticMeshes sys_process_vis_static_meshes;
-        sys_process_vis_static_meshes.render_scene = scene->get_render_scene();
-        sys_process_vis_static_meshes.vis_system   = scene->get_visibility_system();
-        ecs_world->execute_system(sys_process_vis_static_meshes);
     }
 
     void SceneManager::scene_render() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_render");
+
+        return;
 
         Engine*        engine         = Engine::instance();
         GfxCtx*        gfx_ctx        = engine->gfx_ctx();
@@ -202,30 +167,29 @@ namespace wmoge {
         WindowManager* window_manager = engine->window_manager();
         Ref<Window>    window         = window_manager->primary_window();
 
-        Scene*            scene             = m_running.get();
-        GraphicsPipeline* graphics_pipeline = scene->get_graphics_pipeline();
+        Scene*            scene     = m_running.get();
+        EcsWorld*         ecs_world = scene->get_ecs_world();
+        GraphicsPipeline* render_pipeline;
 
         render_engine->begin_rendering();
 
         render_engine->set_time(scene->get_time());
         render_engine->set_delta_time(scene->get_delta_time());
-        render_engine->set_target(window);
         render_engine->set_scene(scene->get_render_scene());
-        render_engine->set_visiblity(scene->get_visibility_system());
 
         render_engine->prepare_frame_data();
         render_engine->allocate_veiws();
-        render_engine->collect_batches();
+
         render_engine->compile_batches();
         render_engine->group_queues();
         render_engine->sort_queues();
         render_engine->merge_cmds();
         render_engine->flush_buffers();
 
-        graphics_pipeline->set_scene(scene->get_render_scene());
-        graphics_pipeline->set_cameras(&render_engine->get_cameras());
-        graphics_pipeline->set_views(render_engine->get_views());
-        graphics_pipeline->exectute();
+        render_pipeline->set_scene(scene->get_render_scene());
+        render_pipeline->set_cameras(&render_engine->get_cameras());
+        render_pipeline->set_views(render_engine->get_views());
+        render_pipeline->exectute();
 
         render_engine->end_rendering();
     }
@@ -272,13 +236,12 @@ namespace wmoge {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_start");
 
         m_running->set_state(SceneState::Playing);
-        m_running->get_graphics_pipeline()->init();
     }
 
     void SceneManager::scene_play() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_play");
 
-        m_running->advance(Engine::instance()->get_delta_time_game());
+        m_running->advance(Engine::instance()->time()->get_delta_time_game());
 
         scene_hier();
         scene_transforms();

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ASYNC_HPP
-#define WMOGE_ASYNC_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
@@ -287,5 +286,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_ASYNC_HPP

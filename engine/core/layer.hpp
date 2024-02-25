@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_LAYER_HPP
-#define WMOGE_LAYER_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 
@@ -45,6 +44,7 @@ namespace wmoge {
 
         virtual void on_attach() {}
         virtual void on_start_frame() {}
+        virtual void on_iter() {}
         virtual void on_debug_draw() {}
         virtual void on_end_frame() {}
     };
@@ -95,5 +95,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_LAYER_HPP

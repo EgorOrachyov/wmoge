@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MESH_HPP
-#define WMOGE_MESH_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/data.hpp"
@@ -34,7 +33,7 @@
 #include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "math/aabb.hpp"
 #include "math/vec.hpp"
 #include "resource/resource.hpp"
@@ -65,31 +64,33 @@ namespace wmoge {
             bool sort_by_ptype           = true;
             bool gen_uv                  = false;
 
-            friend Status yaml_read(const YamlConstNodeRef& node, Process& process);
-            friend Status yaml_write(YamlNodeRef node, const Process& process);
+            WG_IO_DECLARE(Process);
         };
 
         std::string                source_file;
         std::vector<GfxVertAttrib> attributes;
         Process                    process{};
 
-        friend Status yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const MeshImportOptions& options);
+        WG_IO_DECLARE(MeshImportOptions);
     };
 
     /**
      * @class MeshChunk
-     * @brief Represents single mesh chunk in a mesh which can be rendered individually
+     * @brief Represents single mesh chunk in a mesh which can be rendered individually with material
      */
     struct MeshChunk {
-        StringId name;
-        Aabbf    aabb;
-        int      vertex_offset{};
-        int      index_offset{};
-        int      index_count{};
+        StringId         name;
+        Aabbf            aabb;
+        GfxVertAttribs   attribs;
+        GfxPrimType      prim_type          = GfxPrimType::Triangles;
+        int              elem_count         = 0;
+        int              vert_stream_offset = -1;
+        int              vert_stream_count  = 0;
+        int              index_stream       = -1;
+        int              parent             = -1;
+        fast_vector<int> children;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk);
-        friend Status yaml_write(YamlNodeRef node, const MeshChunk& chunk);
+        WG_IO_DECLARE(MeshChunk);
     };
 
     /** 
@@ -97,20 +98,15 @@ namespace wmoge {
      * @brief Struct used to serialize mesh resource data
      */
     struct MeshFile {
-        static const int MAX_BUFFER = 3;
+        fast_vector<MeshChunk>      chunks;
+        fast_vector<Ref<Data>>      vertex_buffers;
+        fast_vector<Ref<Data>>      index_buffers;
+        fast_vector<GfxVertStream>  vert_streams;
+        fast_vector<GfxIndexStream> index_streams;
+        fast_vector<int>            roots;
+        Aabbf                       aabb;
 
-        std::vector<MeshChunk>            chunks;
-        std::array<Ref<Data>, MAX_BUFFER> vertex_buffers;
-        Ref<Data>                         index_buffer;
-        GfxIndexType                      index_type;
-        GfxPrimType                       prim_type;
-        GfxVertAttribsStreams             attribs;
-        int                               num_vertices = 0;
-        int                               num_indices  = 0;
-        Aabbf                             aabb;
-
-        friend Status yaml_read(const YamlConstNodeRef& node, MeshFile& file);
-        friend Status yaml_write(YamlNodeRef node, const MeshFile& file);
+        WG_IO_DECLARE(MeshFile);
     };
 
     /**
@@ -119,47 +115,39 @@ namespace wmoge {
      */
     class Mesh : public Resource {
     public:
-        static constexpr int MAX_BUFFER = GfxLimits::MAX_VERT_STREAMS;
-
         WG_OBJECT(Mesh, Resource);
 
         void add_chunk(const MeshChunk& mesh_chunk);
-        void set_vertex_params(int num_vertices, GfxPrimType prim_type);
-        void set_vertex_buffer(int index, Ref<Data> buffer, GfxVertAttribs attribs);
-        void set_index_buffer(Ref<Data> buffer, int num_indices, GfxIndexType index_type);
+        void add_vertex_buffer(Ref<Data> buffer);
+        void add_index_buffer(Ref<Data> buffer);
+        void add_vert_stream(const GfxVertStream& stream);
+        void add_intex_stream(const GfxIndexStream& stream);
 
         void update_aabb();
         void update_gfx_buffers();
 
-        [[nodiscard]] ArrayView<const MeshChunk>                        get_chunks() const;
-        [[nodiscard]] const MeshChunk&                                  get_chunk(int i) const;
-        [[nodiscard]] const Ref<Data>&                                  get_vertex_buffer(int i) const;
-        [[nodiscard]] const Ref<Data>&                                  get_index_buffer() const;
-        [[nodiscard]] const Ref<GfxVertBuffer>&                         get_gfx_vertex_buffer(int i) const;
-        [[nodiscard]] const std::array<Ref<GfxVertBuffer>, MAX_BUFFER>& get_gfx_vertex_buffers() const;
-        [[nodiscard]] const Ref<GfxIndexBuffer>&                        get_gfx_index_buffer() const;
-        [[nodiscard]] GfxIndexType                                      get_index_type() const;
-        [[nodiscard]] GfxPrimType                                       get_prim_type() const;
-        [[nodiscard]] GfxVertAttribsStreams                             get_attribs() const;
-        [[nodiscard]] int                                               get_num_vertices() const;
-        [[nodiscard]] int                                               get_num_indices() const;
-        [[nodiscard]] Aabbf                                             get_aabb() const;
-        [[nodiscard]] GfxVertBuffersSetup                               get_gfx_vert_buffes_setup() const;
+        [[nodiscard]] GfxVertBuffersSetup get_vert_buffers_setup(int chunk_id) const;
+        [[nodiscard]] GfxIndexBufferSetup get_index_buffer_setup(int chunk_id) const;
+
+        [[nodiscard]] ArrayView<const MeshChunk> get_chunks() const;
+        [[nodiscard]] const MeshChunk&           get_chunk(int i) const;
+        [[nodiscard]] const Ref<GfxVertBuffer>&  get_gfx_vertex_buffers(int i) const;
+        [[nodiscard]] const Ref<GfxIndexBuffer>& get_gfx_index_buffers(int i) const;
+        [[nodiscard]] const GfxVertStream&       get_vert_streams(int i) const;
+        [[nodiscard]] const GfxIndexStream&      get_index_streams(int i) const;
+        [[nodiscard]] ArrayView<const int>       get_roots() const;
+        [[nodiscard]] Aabbf                      get_aabb() const;
 
     private:
-        std::vector<MeshChunk>                     m_chunks;
-        std::array<Ref<GfxVertBuffer>, MAX_BUFFER> m_gfx_vertex_buffers;
-        std::array<Ref<Data>, MAX_BUFFER>          m_vertex_buffers;
-        Ref<GfxIndexBuffer>                        m_gfx_index_buffer;
-        Ref<Data>                                  m_index_buffer;
-        GfxIndexType                               m_index_type;
-        GfxPrimType                                m_prim_type;
-        GfxVertAttribsStreams                      m_attribs;
-        int                                        m_num_vertices = 0;
-        int                                        m_num_indices  = 0;
-        Aabbf                                      m_aabb;
+        fast_vector<MeshChunk>           m_chunks;
+        fast_vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
+        fast_vector<Ref<Data>>           m_vertex_buffers;
+        fast_vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;
+        fast_vector<Ref<Data>>           m_index_buffers;
+        fast_vector<GfxVertStream>       m_vert_streams;
+        fast_vector<GfxIndexStream>      m_index_streams;
+        fast_vector<int>                 m_roots;
+        Aabbf                            m_aabb;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MESH_HPP

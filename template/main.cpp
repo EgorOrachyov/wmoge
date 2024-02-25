@@ -29,17 +29,19 @@
 
 using namespace wmoge;
 
-class GameApplication : public Application {
+class TemplateApplication : public GameApplication {
 public:
-    ~GameApplication() override = default;
+    ~TemplateApplication() override = default;
 
-    void on_register() override {
-        Application::on_register();
+    Status on_register() override {
+        GameApplication::on_register();
+
         WG_LOG_INFO("register");
+        return StatusCode::Ok;
     }
 
-    void on_init() override {
-        Application::on_init();
+    Status on_init() override {
+        GameApplication::on_init();
 
         Engine::instance()->action_manager()->load("root://actions/actionmap_console.yml");
         Engine::instance()->action_manager()->load("root://actions/actionmap_camera_debug.yml");
@@ -47,24 +49,26 @@ public:
         Engine::instance()->action_manager()->activate(SID("camera_debug"));
 
         mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
+        mesh.acquire_cast<Mesh>();
 
-        Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
-        scene_tree                             = scene_tree_packed->instantiate();
-        scene                                  = scene_tree->get_scene();
+        //  Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
+        //  scene_tree                             = scene_tree_packed->instantiate();
+        //  scene                                  = scene_tree->get_scene();
+
+        //  Engine::instance()->scene_manager()->change(scene);
 
         class ApplicationLayer : public Layer {
         public:
-            ApplicationLayer(GameApplication* game) : game(game) {}
+            ApplicationLayer(TemplateApplication* game) : game(game) {}
 
-            void on_debug_draw() override {
-                game->on_debug_draw();
+            void on_iter() override {
+                game->debug_draw();
             }
 
-            GameApplication* game;
+            TemplateApplication* game;
         };
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
-        Engine::instance()->scene_manager()->change(scene);
 
         auto shader  = Engine::instance()->resource_manager()->load(SID("res://shaders/test_shader")).cast<Shader>();
         auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {"MESH_PASS_GBUFFER"});
@@ -76,10 +80,11 @@ public:
         WG_LOG_INFO("status for " << variant->name() << " is " << magic_enum::enum_name(variant->status()));
 
         WG_LOG_INFO("init");
+        return StatusCode::Ok;
     }
 
-    void on_debug_draw() {
-        WG_AUTO_PROFILE(app, "GameApplication::on_debug_draw");
+    void debug_draw() {
+        WG_AUTO_PROFILE(app, "GameApplication::debug_draw");
 
         Engine*         engine           = Engine::instance();
         AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();
@@ -90,7 +95,7 @@ public:
         angle += 0.001f;
         frame_count += 1;
 
-        if (Random::next_float() < engine->get_delta_time()) {
+        if (Random::next_float() < engine->time()->get_delta_time()) {
             Vec3f   pos      = {Random::next_float(-15, 15), Random::next_float(-5, 5), Random::next_float(10, 20)};
             Color4f color    = {Random::next_float(0.2f, 1), Random::next_float(0.2f, 1), Random::next_float(0.2f, 1), 1};
             Quatf   rot      = {Random::next_float(-5, 5), Random::next_float(-5, 5), Random::next_float(-5, 5)};
@@ -105,21 +110,23 @@ public:
         aux_draw_manager->draw_text_2d("wmoge engine v0.0", {10, 10}, 15.0f, Color::YELLOW4f);
     }
 
-    void on_shutdown() override {
+    Status on_shutdown() override {
         mesh.reset();
         scene.reset();
         scene_tree.reset();
 
-        Application::on_shutdown();
+        GameApplication::on_shutdown();
         WG_LOG_INFO("shutdown");
+
+        return StatusCode::Ok;
     }
 
     Ref<Scene>     scene;
     Ref<SceneTree> scene_tree;
-    Ref<Mesh>      mesh;
+    WeakRef<Mesh>  mesh;
 };
 
 int main(int argc, const char* const* argv) {
-    GameApplication game_application;
-    return game_application.run(argc, argv);
+    TemplateApplication app;
+    return app.run(argc, argv);
 }

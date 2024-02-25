@@ -27,13 +27,16 @@
 
 #include "debug_layer.hpp"
 
-#include "core/engine.hpp"
+#include "core/timer.hpp"
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"
+#include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 #include "render/aux_draw_manager.hpp"
 #include "render/render_engine.hpp"
+#include "scene/scene_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -53,15 +56,31 @@ namespace wmoge {
         auto canvas_debug     = engine->canvas_debug();
         auto aux_draw_manager = engine->aux_draw_manager();
         auto console          = engine->console();
+        auto window           = engine->window_manager()->primary_window();
 
         console->update();
         console->render();
 
-        aux_draw_manager->flush(engine->get_delta_time_game());
+        aux_draw_manager->flush(engine->time()->get_delta_time_game());
         render_engine->render_aux_geom(*aux_draw_manager);
 
+        {
+            auto time          = engine->time();
+            auto scene_manager = engine->scene_manager();
+            auto scene         = scene_manager->get_running_scene();
+
+            auto font = engine->resource_manager()->load(SID("res://fonts/anonymous_pro")).cast<Font>();
+
+            const float fps = Math::round(Math::clamp(1.0f / time->get_delta_time_game(), 0.0f, 1000.0f));
+
+            canvas_debug->add_text("frame: " + StringUtils::from_int(int(time->get_iteration())), font, 16.0f, Vec2f(10, 60), Color::YELLOW4f);
+            canvas_debug->add_text("fps: " + StringUtils::from_float(fps) + " (" + StringUtils::from_float(time->get_delta_time_game()) + "ms)", font, 16.0f, Vec2f(10, 40), Color::YELLOW4f);
+            canvas_debug->add_text("scene: " + (scene ? scene->get_name().str() : String("<none>")), font, 16.0f, Vec2f(10, 20), Color::YELLOW4f);
+        }
+
         canvas_debug->compile(true);
-        render_engine->render_canvas(*canvas_debug, Vec4f(0.0f, 0.0f, 1280.0f, 720.0f));
+        canvas_debug->render(window, Rect2i(0, 0, window->fbo_size()), Vec4f(0.0f, 0.0f, 1280.0f, 720.0f), 2.2f);
+        // render_engine->render_canvas(*canvas_debug, Vec4f(0.0f, 0.0f, 1280.0f, 720.0f));
 
         canvas_debug->clear(false);
     }

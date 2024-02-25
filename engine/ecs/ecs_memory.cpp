@@ -27,9 +27,9 @@
 
 #include "ecs_memory.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -53,7 +53,7 @@ namespace wmoge {
         return ((std::uint8_t*) m_chunks[idx / m_chunk_size]) + m_element_size * (idx % m_chunk_size);
     }
 
-    EcsArchStorage::EcsArchStorage(EcsArch arch) : m_arch(arch) {
+    EcsArchStorage::EcsArchStorage(EcsArch arch, class EcsWorld* world) : m_world(world), m_arch(arch) {
         WG_AUTO_PROFILE_ECS("EcsArchStorage::EcsArchStorage");
 
         EcsRegistry* registry = Engine::instance()->ecs_registry();
@@ -92,7 +92,7 @@ namespace wmoge {
 
         *m_pool.back().get_element<EcsEntity>(entity_idx) = entity;
         m_arch.for_each_component([&](int component_idx) {
-            m_components_info[component_idx]->create(m_pool[component_idx].get_element_raw(entity_idx));
+            m_components_info[component_idx]->create(m_world, m_pool[component_idx].get_element_raw(entity_idx));
         });
 
         out_entity_idx = entity_idx;
@@ -125,7 +125,7 @@ namespace wmoge {
         }
 
         m_arch.for_each_component([&](int component_idx) {
-            m_components_info[component_idx]->destroy(m_pool[component_idx].get_element_raw(last_entity));
+            m_components_info[component_idx]->destroy(m_world, m_pool[component_idx].get_element_raw(last_entity));
         });
 
         m_size -= 1;
@@ -137,7 +137,7 @@ namespace wmoge {
         for (int entity_idx = 0; entity_idx < m_size; entity_idx++) {
             *m_pool.back().get_element<EcsEntity>(entity_idx) = EcsEntity();
             m_arch.for_each_component([&](int component_idx) {
-                m_components_info[component_idx]->destroy(m_pool[component_idx].get_element_raw(entity_idx));
+                m_components_info[component_idx]->destroy(m_world, m_pool[component_idx].get_element_raw(entity_idx));
             });
         }
 

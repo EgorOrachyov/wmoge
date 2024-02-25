@@ -27,10 +27,10 @@
 
 #include "game_token_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "event/event_manager.hpp"
 #include "event/event_token.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

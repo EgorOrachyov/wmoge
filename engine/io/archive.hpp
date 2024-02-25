@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ARCHIVE_HPP
-#define WMOGE_ARCHIVE_HPP
+#pragma once
 
 #include "core/log.hpp"
 #include "core/ref.hpp"
@@ -34,7 +33,9 @@
 #include "core/string_id.hpp"
 
 #include <array>
+#include <bitset>
 #include <cinttypes>
+#include <optional>
 #include <unordered_map>
 #include <vector>
 
@@ -69,9 +70,6 @@ namespace wmoge {
         bool     m_can_write = false;
     };
 
-    Status archive_read(Archive& archive, bool& value);
-    Status archive_write(Archive& archive, const bool& value);
-
     template<typename T>
     Status archive_read(Archive& archive, T& value, typename std::enable_if_t<std::is_integral_v<T>>* = nullptr) {
         assert(archive.can_read());
@@ -94,6 +92,18 @@ namespace wmoge {
         return archive.nwrite(sizeof(T), &value);
     }
 
+    template<std::size_t N>
+    Status archive_read(Archive& archive, std::bitset<N>& bitset) {
+        return archive.nread(sizeof(std::bitset<N>), &bitset);
+    }
+    template<std::size_t N>
+    Status archive_write(Archive& archive, const std::bitset<N>& bitset) {
+        return archive.nwrite(sizeof(std::bitset<N>), &bitset);
+    }
+
+    Status archive_read(Archive& archive, bool& value);
+    Status archive_write(Archive& archive, const bool& value);
+
     Status archive_write(Archive& archive, const StringId& value);
     Status archive_write(Archive& archive, const std::string& value);
 
@@ -114,34 +124,22 @@ namespace wmoge {
         }                                    \
     } while (false)
 
-    template<typename T, std::size_t S>
-    Status archive_write(Archive& archive, const std::array<T, S>& array) {
-        for (std::size_t i = 0; i < S; i++) {
-            WG_ARCHIVE_WRITE(archive, array[i]);
-        }
+#define WG_ARCHIVE_READ_SUPER(archive, super, what) \
+    WG_ARCHIVE_READ(archive, *((super*) &what))
+
+#define WG_ARCHIVE_WRITE_SUPER(archive, super, what) \
+    WG_ARCHIVE_WRITE(archive, *((const super*) &what))
+
+    template<typename T, typename K>
+    Status archive_read(Archive& archive, std::pair<K, T>& pair) {
+        WG_ARCHIVE_READ(archive, pair.first);
+        WG_ARCHIVE_READ(archive, pair.second);
         return StatusCode::Ok;
     }
-    template<typename T>
-    Status archive_write(Archive& archive, const std::vector<T>& vector) {
-        WG_ARCHIVE_WRITE(archive, vector.size());
-        for (const auto& entry : vector) {
-            WG_ARCHIVE_WRITE(archive, entry);
-        }
-        return StatusCode::Ok;
-    }
-    template<typename K, typename V>
-    Status archive_write(Archive& archive, const std::unordered_map<K, V>& map) {
-        WG_ARCHIVE_WRITE(archive, map.size());
-        for (const auto& entry : map) {
-            WG_ARCHIVE_WRITE(archive, entry.first);
-            WG_ARCHIVE_WRITE(archive, entry.second);
-        }
-        return StatusCode::Ok;
-    }
-    template<class T>
-    Status archive_write(Archive& archive, const T& enum_value, typename std::enable_if_t<std::is_enum_v<T>>* = nullptr) {
-        int value = static_cast<int>(enum_value);
-        WG_ARCHIVE_WRITE(archive, value);
+    template<typename T, typename K>
+    Status archive_write(Archive& archive, const std::pair<K, T>& pair) {
+        WG_ARCHIVE_WRITE(archive, pair.first);
+        WG_ARCHIVE_WRITE(archive, pair.second);
         return StatusCode::Ok;
     }
 
@@ -152,6 +150,14 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
+    template<typename T, std::size_t S>
+    Status archive_write(Archive& archive, const std::array<T, S>& array) {
+        for (std::size_t i = 0; i < S; i++) {
+            WG_ARCHIVE_WRITE(archive, array[i]);
+        }
+        return StatusCode::Ok;
+    }
+
     template<typename T>
     Status archive_read(Archive& archive, std::vector<T>& vector) {
         assert(vector.empty());
@@ -163,6 +169,15 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
+    template<typename T>
+    Status archive_write(Archive& archive, const std::vector<T>& vector) {
+        WG_ARCHIVE_WRITE(archive, vector.size());
+        for (const auto& entry : vector) {
+            WG_ARCHIVE_WRITE(archive, entry);
+        }
+        return StatusCode::Ok;
+    }
+
     template<typename K, typename V>
     Status archive_read(Archive& archive, std::unordered_map<K, V>& map) {
         assert(map.empty());
@@ -176,11 +191,48 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
+    template<typename K, typename V>
+    Status archive_write(Archive& archive, const std::unordered_map<K, V>& map) {
+        WG_ARCHIVE_WRITE(archive, map.size());
+        for (const auto& entry : map) {
+            WG_ARCHIVE_WRITE(archive, entry.first);
+            WG_ARCHIVE_WRITE(archive, entry.second);
+        }
+        return StatusCode::Ok;
+    }
+
     template<class T>
     Status archive_read(Archive& archive, T& enum_value, typename std::enable_if_t<std::is_enum_v<T>>* = nullptr) {
         int value;
         WG_ARCHIVE_READ(archive, value);
         enum_value = static_cast<T>(value);
+        return StatusCode::Ok;
+    }
+    template<class T>
+    Status archive_write(Archive& archive, const T& enum_value, typename std::enable_if_t<std::is_enum_v<T>>* = nullptr) {
+        int value = static_cast<int>(enum_value);
+        WG_ARCHIVE_WRITE(archive, value);
+        return StatusCode::Ok;
+    }
+
+    template<class T>
+    Status archive_read(Archive& archive, std::optional<T>& opt) {
+        bool has_value = false;
+        WG_ARCHIVE_READ(archive, has_value);
+        if (has_value) {
+            T v;
+            WG_ARCHIVE_READ(archive, v);
+            opt = std::move(v);
+        }
+        return StatusCode::Ok;
+    }
+    template<class T>
+    Status archive_write(Archive& archive, const std::optional<T>& opt) {
+        const bool has_value = opt.has_value();
+        WG_ARCHIVE_WRITE(archive, has_value);
+        if (has_value) {
+            WG_ARCHIVE_WRITE(archive, opt.value());
+        }
         return StatusCode::Ok;
     }
 
@@ -204,5 +256,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_ARCHIVE_HPP

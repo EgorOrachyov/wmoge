@@ -36,20 +36,11 @@
 
 namespace wmoge {
 
-    Status archive_read(Archive& archive, VKShaderBinary& binary) {
-        WG_ARCHIVE_READ(archive, binary.spirvs);
-        WG_ARCHIVE_READ(archive, binary.layouts);
-        WG_ARCHIVE_READ(archive, binary.reflection);
-
-        return StatusCode::Ok;
-    }
-    Status archive_write(Archive& archive, const VKShaderBinary& binary) {
-        WG_ARCHIVE_WRITE(archive, binary.spirvs);
-        WG_ARCHIVE_WRITE(archive, binary.layouts);
-        WG_ARCHIVE_WRITE(archive, binary.reflection);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(VKShaderBinary)
+    WG_IO_FIELD(spirvs)
+    WG_IO_FIELD(layouts)
+    WG_IO_FIELD(reflection)
+    WG_IO_END(VKShaderBinary)
 
     VKShader::VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver)
         : VKResource<GfxShader>(driver) {

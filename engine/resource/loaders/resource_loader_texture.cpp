@@ -27,12 +27,12 @@
 
 #include "resource_loader_texture.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "resource/image.hpp"
 #include "resource/texture.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

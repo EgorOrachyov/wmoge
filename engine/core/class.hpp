@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CLASS_HPP
-#define WMOGE_CLASS_HPP
+#pragma once
 
 #include "core/log.hpp"
 #include "core/ref.hpp"
@@ -143,9 +142,18 @@ namespace wmoge {
     };
 
     /**
+     * @class ClassDB
      * @brief Stores information about all registered engine object classes
      */
-    using ClassDB = std::unordered_map<StringId, std::unique_ptr<class Class>>;
+    class ClassDB final {
+    public:
+        class Class*    class_emplace(StringId name);
+        class Class*    class_ptr(StringId name);
+        static ClassDB* instance();
+
+    private:
+        std::unordered_map<StringId, std::unique_ptr<class Class>> m_db;
+    };
 
     /**
      * @class Class
@@ -188,8 +196,6 @@ namespace wmoge {
 
         Class* add_property(ClassProperty property);
 
-    private:
-        friend class Main;
         static void register_types();
 
     private:
@@ -367,5 +373,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_CLASS_HPP

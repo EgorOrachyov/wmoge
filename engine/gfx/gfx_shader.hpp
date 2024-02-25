@@ -32,7 +32,7 @@
 #include "core/fast_map.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_resource.hpp"
-#include "io/archive.hpp"
+#include "io/serialization.hpp"
 
 #include <array>
 #include <cinttypes>
@@ -53,8 +53,7 @@ namespace wmoge {
             std::int16_t array_size = -1;
             GfxTex       tex        = GfxTex::Unknown;
 
-            friend Status archive_write(Archive& archive, const Texture& texture);
-            friend Status archive_read(Archive& archive, Texture& texture);
+            WG_IO_DECLARE(Texture);
         };
         struct Buffer {
             StringId     name;
@@ -62,8 +61,7 @@ namespace wmoge {
             std::int16_t binding = -1;
             int          size    = -1;
 
-            friend Status archive_write(Archive& archive, const Buffer& buffer);
-            friend Status archive_read(Archive& archive, Buffer& buffer);
+            WG_IO_DECLARE(Buffer);
         };
         fast_map<StringId, Texture>               textures;
         fast_map<StringId, Buffer>                ub_buffers;
@@ -72,8 +70,7 @@ namespace wmoge {
         std::array<int, GfxLimits::MAX_DESC_SETS> ub_buffers_per_desc{};
         std::array<int, GfxLimits::MAX_DESC_SETS> sb_buffers_per_desc{};
 
-        friend Status archive_write(Archive& archive, const GfxShaderReflection& reflection);
-        friend Status archive_read(Archive& archive, GfxShaderReflection& reflection);
+        WG_IO_DECLARE(GfxShaderReflection);
     };
 
     /**

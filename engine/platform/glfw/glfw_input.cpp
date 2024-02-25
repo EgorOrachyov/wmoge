@@ -27,12 +27,12 @@
 
 #include "glfw_input.hpp"
 
-#include "core/engine.hpp"
 #include "core/string_utf.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_input.hpp"
 #include "event/event_manager.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
+#include "system/engine.hpp"
 
 #include <algorithm>
 

@@ -39,182 +39,72 @@ namespace wmoge {
         m_mesh = std::move(mesh);
     }
 
-    void MeshBuilder::add_index(std::uint32_t i) {
-        m_indices.push_back(i);
-        m_num_indices += 1;
+    void MeshBuilder::add_chunk(const StringId& name, const Ref<ArrayMesh>& data) {
+        assert(data);
+
+        m_chunks.push_back(data);
+        m_chunks_names.push_back(name);
+        m_chunks_parents.push_back(-1);
+        m_chunks_children.emplace_back();
     }
 
-    void MeshBuilder::add_triangle(std::uint32_t v0, std::uint32_t v1, std::uint32_t v2) {
-        add_index(v0);
-        add_index(v1);
-        add_index(v2);
-    }
-
-    void MeshBuilder::add_vertex(const MeshVertex& v) {
-        const GfxVertAttribs& attribs = v.attribs;
-
-        if (!attribs.bits.any()) {
-            WG_LOG_ERROR("passed vertex with no attributes to add");
-            return;
-        }
-
-        if (attribs.get(GfxVertAttrib::Pos3f)) {
-            m_pos3.push_back(v.pos3);
-        }
-        if (attribs.get(GfxVertAttrib::Pos2f)) {
-            m_pos2.push_back(v.pos2);
-        }
-        if (attribs.get(GfxVertAttrib::Norm3f)) {
-            m_norm.push_back(v.norm);
-        }
-        if (attribs.get(GfxVertAttrib::Tang3f)) {
-            m_tang.push_back(v.tang);
-        }
-        if (attribs.get(GfxVertAttrib::BoneIds4i)) {
-            m_bone_ids.push_back(v.bone_ids);
-        }
-        if (attribs.get(GfxVertAttrib::BoneWeights4f)) {
-            m_bone_weights.push_back(v.bone_weights);
-        }
-        if (attribs.get(GfxVertAttrib::Col04f)) {
-            m_col[0].push_back(v.col[0]);
-        }
-        if (attribs.get(GfxVertAttrib::Col14f)) {
-            m_col[1].push_back(v.col[1]);
-        }
-        if (attribs.get(GfxVertAttrib::Col24f)) {
-            m_col[2].push_back(v.col[2]);
-        }
-        if (attribs.get(GfxVertAttrib::Col34f)) {
-            m_col[3].push_back(v.col[3]);
-        }
-        if (attribs.get(GfxVertAttrib::Uv02f)) {
-            m_uv[0].push_back(v.uv[0]);
-        }
-        if (attribs.get(GfxVertAttrib::Uv12f)) {
-            m_uv[1].push_back(v.uv[1]);
-        }
-        if (attribs.get(GfxVertAttrib::Uv22f)) {
-            m_uv[2].push_back(v.uv[2]);
-        }
-        if (attribs.get(GfxVertAttrib::Uv32f)) {
-            m_uv[3].push_back(v.uv[3]);
-        }
-
-        m_num_vertices += 1;
-    }
-
-    void MeshBuilder::add_chunk(const MeshChunk& chunk) {
-        m_chunks.push_back(chunk);
+    void MeshBuilder::add_child(int parent_idx, int child_idx) {
+        m_chunks_children[parent_idx].push_back(child_idx);
+        m_chunks_parents[child_idx] = parent_idx;
     }
 
     Status MeshBuilder::build() {
-        if (m_num_vertices == 0) {
-            WG_LOG_ERROR("no vertices to build");
-            return StatusCode::InvalidData;
-        }
-        if (m_num_indices == 0) {
-            WG_LOG_ERROR("no indices to build");
-            return StatusCode::InvalidData;
-        }
-        if (m_chunks.empty()) {
-            WG_LOG_ERROR("no chunks to build");
-            return StatusCode::InvalidData;
-        }
+        const GfxVertAttribs        attribs_stream1 = {GfxVertAttrib::Pos3f, GfxVertAttrib::Pos2f, GfxVertAttrib::Norm3f, GfxVertAttrib::Tang3f};
+        const GfxVertAttribs        attribs_stream2 = {GfxVertAttrib::BoneIds4i, GfxVertAttrib::BoneWeights4f};
+        const GfxVertAttribs        attribs_stream3 = {GfxVertAttrib::Col04f, GfxVertAttrib::Col14f, GfxVertAttrib::Col24f, GfxVertAttrib::Col34f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Uv22f, GfxVertAttrib::Uv32f};
+        const GfxVertAttribsStreams stream_masks    = {attribs_stream1, attribs_stream2, attribs_stream3};
 
-        GfxVertAttribs attribs;
+        int curr_vert_buffer  = 0;
+        int curr_index_buffer = 0;
+        int curr_vert_stream  = 0;
+        int curr_index_stream = 0;
 
-        if (!m_pos3.empty()) {
-            attribs.set(GfxVertAttrib::Pos3f);
-        }
-        if (!m_norm.empty()) {
-            attribs.set(GfxVertAttrib::Norm3f);
-        }
-        if (!m_tang.empty()) {
-            attribs.set(GfxVertAttrib::Tang3f);
-        }
-        if (!m_bone_ids.empty()) {
-            attribs.set(GfxVertAttrib::BoneIds4i);
-        }
-        if (!m_bone_weights.empty()) {
-            attribs.set(GfxVertAttrib::BoneWeights4f);
-        }
-        if (!m_col[0].empty()) {
-            attribs.set(GfxVertAttrib::Col04f);
-        }
-        if (!m_col[1].empty()) {
-            attribs.set(GfxVertAttrib::Col14f);
-        }
-        if (!m_col[2].empty()) {
-            attribs.set(GfxVertAttrib::Col24f);
-        }
-        if (!m_col[3].empty()) {
-            attribs.set(GfxVertAttrib::Col34f);
-        }
-        if (!m_uv[0].empty()) {
-            attribs.set(GfxVertAttrib::Uv02f);
-        }
-        if (!m_uv[1].empty()) {
-            attribs.set(GfxVertAttrib::Uv12f);
-        }
-        if (!m_uv[2].empty()) {
-            attribs.set(GfxVertAttrib::Uv22f);
-        }
-        if (!m_uv[3].empty()) {
-            attribs.set(GfxVertAttrib::Uv32f);
-        }
+        const int n_chunks = int(m_chunks.size());
 
-        int stride = 0;
+        for (int i = 0; i < n_chunks; i++) {
+            Ref<Data>                  vert_data;
+            fast_vector<GfxVertStream> vert_streams;
+            m_chunks[i]->pack_attribs(stream_masks, vert_data, vert_streams);
 
-        attribs.for_each([&](int i, GfxVertAttrib attrib) {
-            stride += GfxVertAttribSizes[i];
-        });
-
-        Ref<Data> vert_data = make_ref<Data>(m_num_vertices * stride);
-        Ref<Data> ind_data  = make_ref<Data>(m_num_indices * sizeof(std::uint32_t));
-
-        std::memcpy(ind_data->buffer(), m_indices.data(), m_indices.size() * sizeof(std::uint32_t));
-
-        int offset = 0;
-
-        const void* attribs_data[] = {
-                m_pos3.data(),
-                m_pos2.data(),
-                m_norm.data(),
-                m_tang.data(),
-                m_bone_ids.data(),
-                m_bone_weights.data(),
-                m_col[0].data(),
-                m_col[1].data(),
-                m_col[2].data(),
-                m_col[3].data(),
-                m_uv[0].data(),
-                m_uv[1].data(),
-                m_uv[2].data(),
-                m_uv[3].data()};
-
-        attribs.for_each([&](int i, GfxVertAttrib attrib) {
-            const auto* src_ptr = reinterpret_cast<const std::uint8_t*>(attribs_data[i]);
-            auto*       dst_ptr = reinterpret_cast<std::uint8_t*>(vert_data->buffer()) + offset;
-
-            for (int vert_id = 0; vert_id < m_num_vertices; vert_id += 1) {
-                std::memcpy(dst_ptr, src_ptr, GfxVertAttribSizes[i]);
-                src_ptr += GfxVertAttribSizes[i];
-                dst_ptr += stride;
+            for (auto& vert_stream : vert_streams) {
+                vert_stream.buffer = curr_vert_buffer;
             }
 
-            offset += GfxVertAttribSizes[i];
-        });
+            Ref<Data>      index_data;
+            GfxIndexStream index_stream;
+            m_chunks[i]->pack_faces(index_data, index_stream);
 
-        assert(m_mesh);
+            index_stream.buffer = curr_index_buffer;
+            m_mesh->add_intex_stream(index_stream);
 
-        for (const MeshChunk& chunk : m_chunks) {
+            MeshChunk chunk;
+            chunk.name               = m_chunks_names[i];
+            chunk.aabb               = m_chunks[i]->get_data().aabb;
+            chunk.attribs            = m_chunks[i]->get_data().attribs;
+            chunk.index_stream       = curr_index_stream;
+            chunk.vert_stream_offset = curr_vert_stream;
+            chunk.vert_stream_count  = int(vert_streams.size());
+            chunk.prim_type          = GfxPrimType::Triangles;
+            chunk.elem_count         = m_chunks[i]->get_num_faces() * 3;
+            chunk.parent             = m_chunks_parents[i];
+            chunk.children           = m_chunks_children[i];
             m_mesh->add_chunk(chunk);
+
+            m_mesh->add_vertex_buffer(vert_data);
+            m_mesh->add_index_buffer(index_data);
+
+            curr_index_stream += 1;
+            curr_vert_stream += int(vert_streams.size());
+
+            curr_vert_buffer += 1;
+            curr_index_buffer += 1;
         }
 
-        m_mesh->set_vertex_params(m_num_vertices, GfxPrimType::Triangles);
-        m_mesh->set_vertex_buffer(0, vert_data, attribs);
-        m_mesh->set_index_buffer(ind_data, m_num_indices, GfxIndexType::Uint32);
         m_mesh->update_aabb();
         m_mesh->update_gfx_buffers();
 

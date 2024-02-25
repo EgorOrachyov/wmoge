@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_BASE64_HPP
-#define WMOGE_BASE64_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "core/status.hpp"
@@ -53,5 +52,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_BASE64_HPP

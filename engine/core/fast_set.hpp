@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_FAST_SET_HPP
-#define WMOGE_FAST_SET_HPP
+#pragma once
 
 #include "io/archive.hpp"
 
@@ -69,5 +68,3 @@ namespace wmoge {
 #endif
 
 }// namespace wmoge
-
-#endif//WMOGE_FAST_SET_HPP

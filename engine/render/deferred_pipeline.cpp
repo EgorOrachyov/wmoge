@@ -27,42 +27,18 @@
 
 #include "deferred_pipeline.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
-#include "geometry/pass_gbuffer.hpp"
 #include "platform/window_manager.hpp"
-#include "post_process/pass_autoexposure.hpp"
-#include "post_process/pass_bloom.hpp"
-#include "post_process/pass_composition.hpp"
-#include "post_process/pass_tonemap.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
-    DeferredPipeline::DeferredPipeline()  = default;
-    DeferredPipeline::~DeferredPipeline() = default;
-
-    void DeferredPipeline::init() {
-        WG_AUTO_PROFILE_RENDER("DeferredPipeline::init");
-
-        m_pass_gbuffer      = std::make_unique<PassGBuffer>();
-        m_pass_bloom        = std::make_unique<PassBloom>();
-        m_pass_autoexposure = std::make_unique<PassAutoExposure>();
-        m_pass_tonemap      = std::make_unique<PassToneMap>();
-        m_pass_composition  = std::make_unique<PassComposition>();
-
-        m_stages.push_back(m_pass_gbuffer.get());
-        m_stages.push_back(m_pass_bloom.get());
-        m_stages.push_back(m_pass_autoexposure.get());
-        m_stages.push_back(m_pass_tonemap.get());
-        m_stages.push_back(m_pass_composition.get());
+    DeferredPipeline::DeferredPipeline() {
+        WG_AUTO_PROFILE_RENDER("DeferredPipeline::DeferredPipeline");
 
         for (GraphicsPipelineStage* stage : m_stages) {
             stage->set_pipeline(this);
         }
-
-        m_shared.allocate();
-        m_textures.resize(m_target_resolution);
-        m_textures.update_viewport(m_resolution);
     }
 
     void DeferredPipeline::exectute() {
@@ -81,29 +57,11 @@ namespace wmoge {
         for (int i = view_count - 1; i >= 0; i--) {
             WG_AUTO_PROFILE_RENDER("Render view=" + StringUtils::from_int(i));
 
-            const int               view_idx = i;
-            const RenderCameraData& camera   = m_cameras->data_at(view_idx);
+            const int         view_idx = i;
+            const CameraData& camera   = m_cameras->data_at(view_idx);
 
             WG_GFX_LABEL(gfx_ctx, SID("Render view=" + StringUtils::from_int(view_idx)));
-
-            if (camera.type == CameraType::Color) {
-                assert(view_idx == 0);
-
-                m_pass_gbuffer->execute(view_idx);
-                m_pass_bloom->execute(view_idx);
-                m_pass_autoexposure->execute(view_idx);
-                m_pass_tonemap->execute(view_idx);
-                m_pass_composition->execute(0, engine->window_manager()->primary_window());
-            }
         }
-    }
-
-    std::vector<GraphicsPipelineStage*> DeferredPipeline::get_stages() {
-        return m_stages;
-    }
-
-    std::string DeferredPipeline::get_name() {
-        return "DeferredPipeline";
     }
 
 }// namespace wmoge

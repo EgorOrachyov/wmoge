@@ -25,15 +25,14 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_HOOK_LOGS_HPP
-#define WMOGE_HOOK_LOGS_HPP
+#pragma once
 
 #include "core/cmd_line.hpp"
-#include "core/engine.hpp"
 #include "core/hook.hpp"
 #include "core/log.hpp"
 #include "io/enum.hpp"
 #include "resource/config_file.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -53,8 +52,9 @@ namespace wmoge {
             cmd_line.add_bool("disable_logs", "disable all logs entirely (overrides config)", "false");
         }
 
-        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
-            ConfigFile* config = engine.config();
+        Status on_process(CmdLine& cmd_line) override {
+            Engine*     engine = Engine::instance();
+            ConfigFile* config = engine->config();
 
             const bool no_logs = cmd_line.get_bool("disable_logs");
             if (no_logs) {
@@ -80,7 +80,7 @@ namespace wmoge {
                 WG_LOG_INFO("attach stdout log listener");
             }
             if (log_to_console) {
-                auto log_listener_console = std::make_shared<LogListenerConsole>(engine.console(), log_to_console_level);
+                auto log_listener_console = std::make_shared<LogListenerConsole>(engine->console(), log_to_console_level);
                 Log::instance()->listen(log_listener_console);
                 WG_LOG_INFO("attach console log listener");
             }
@@ -90,5 +90,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_HOOK_LOGS_HPP

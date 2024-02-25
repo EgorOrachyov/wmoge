@@ -28,12 +28,12 @@
 #ifndef WMOGE_GFX_VECTOR_HPP
 #define WMOGE_GFX_VECTOR_HPP
 
-#include "core/engine.hpp"
 #include "core/string_utils.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 #include <cstring>

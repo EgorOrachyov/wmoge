@@ -25,14 +25,12 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MESH_BATCH_HPP
-#define WMOGE_MESH_BATCH_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "core/status.hpp"
 #include "core/synchronization.hpp"
-#include "core/unrolled_list.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
@@ -41,7 +39,7 @@
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "mesh/mesh_pass.hpp"
-#include "render/render_camera.hpp"
+#include "render/camera.hpp"
 
 #include <array>
 #include <mutex>
@@ -52,31 +50,19 @@
 namespace wmoge {
 
     /**
-     * @class MeshBatchElement
-     * @brief Single instance of a mesh batch subset with unique transform to draw
-     */
-    struct MeshBatchElement final {
-        StringId    name;     //< Unique element name for debug
-        GfxDrawCall draw_call;//< Params to dispatch a draw
-    };
-
-    static_assert(std::is_trivially_destructible_v<MeshBatchElement>, "mesh element must be trivial as possible");
-
-    /**
      * @class MeshBatch
      * @brief Batch of mesh elements with the same vertex/index buffer and material instances
      */
     struct MeshBatch final {
-        MeshBatchElement     elements[1];                            //< List of batch elements to draw
-        GfxIndexBufferSetup  index_buffer;                           //< Optional index buffer with batch indices
-        RenderCameraMask     cam_mask;                               //< Mask in which cameras mesh batch wants to be rendered
-        class VertexFactory* vertex_factory = nullptr;               //< Vertex factory to provide vertex data and format
-        class Material*      material       = nullptr;               //< Material to apply to rendered elements
-        class GfxDescSet*    mesh_params    = nullptr;               //< Mesh descriptor set with batch common resources
-        class MeshPassList*  pass_list      = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
-        class RenderObject*  object         = nullptr;               //< Render object this batch belongs to
-        GfxPrimType          prim_type      = GfxPrimType::Triangles;//< Type of primitives to render
-        float                dist           = 0.0f;                  //< Distance from camera for sorting
+        StringId            name;                                //< Unique element name for debug
+        GfxDrawCall         draw_call;                           //< Params to dispatch a draw
+        GfxIndexBufferSetup index_buffer;                        //< Optional index buffer with batch indices
+        RenderCameraMask    cam_mask;                            //< Mask in which cameras mesh batch wants to be rendered
+        class Material*     material    = nullptr;               //< Material to apply to rendered elements
+        class GfxDescSet*   mesh_params = nullptr;               //< Mesh descriptor set with batch common resources
+        class MeshPassList* pass_list   = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
+        GfxPrimType         prim_type   = GfxPrimType::Triangles;//< Type of primitives to render
+        float               dist        = 0.0f;                  //< Distance from camera for sorting
     };
 
     static_assert(std::is_trivially_destructible_v<MeshBatch>, "mesh batch must be trivial as possible");
@@ -87,7 +73,7 @@ namespace wmoge {
      * 
      * Allows to collect mesh batches (draw requests) from any type of render objects.
      * Mesh batch allows to translate draw request from user code to engine code. 
-     * Engine itself can compile batches and work with the in the unified and optimized way.
+     * Engine itself can compile batches and work with them in the unified and optimized way.
      */
     class MeshBatchCollector final {
     public:
@@ -134,7 +120,7 @@ namespace wmoge {
         Status compile_batch(const MeshBatch& batch, int batch_index);
         void   set_scene(class RenderScene* scene);
         void   set_views(ArrayView<struct RenderView> views);
-        void   set_cameras(class RenderCameras& cameras);
+        void   set_cameras(class CameraList& cameras);
         void   set_cmd_allocator(class RenderCmdAllocator& allocator);
         void   clear();
 
@@ -144,13 +130,11 @@ namespace wmoge {
         ArrayView<struct RenderView> m_views;
 
         class RenderCmdAllocator* m_cmd_allocator  = nullptr;
-        class RenderCameras*      m_cameras        = nullptr;
         class RenderScene*        m_scene          = nullptr;
         class ShaderManager*      m_shader_manager = nullptr;
+        class CameraList*         m_cameras        = nullptr;
         class GfxDriver*          m_driver         = nullptr;
         class GfxCtx*             m_ctx            = nullptr;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MESH_BATCH_HPP

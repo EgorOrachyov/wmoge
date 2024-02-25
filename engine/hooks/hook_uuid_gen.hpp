@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_HOOK_UUID_GEN_HPP
-#define WMOGE_HOOK_UUID_GEN_HPP
+#pragma once
 
 #include "core/cmd_line.hpp"
 #include "core/hook.hpp"
@@ -50,7 +49,7 @@ namespace wmoge {
             cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
         }
 
-        Status on_process(CmdLine& cmd_line, class Engine& engine) override {
+        Status on_process(CmdLine& cmd_line) override {
             const int uuid_count = cmd_line.get_int("gen_uuids");
 
             if (uuid_count > 0) {
@@ -65,5 +64,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_HOOK_UUID_GEN_HPP

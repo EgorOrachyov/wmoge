@@ -29,11 +29,6 @@
 
 #include "core/object.hpp"
 
-#include "event/register_classes_event.hpp"
-#include "pfx/register_classes_pfx.hpp"
-#include "resource/register_classes_resource.hpp"
-#include "scene/register_classes_scene.hpp"
-
 namespace wmoge {
 
     ClassMember::ClassMember(StringId name)
@@ -53,6 +48,24 @@ namespace wmoge {
     }
     Status ClassMethod::call(Object* object, int argc, const Var* argv, Var& ret) const {
         return m_callable(*this, object, argc, argv, ret);
+    }
+
+    Class* ClassDB::class_emplace(StringId name) {
+        Class* ptr = class_ptr(name);
+        if (!ptr) {
+            auto& storage = m_db[name];
+            storage       = std::make_unique<Class>();
+            ptr           = storage.get();
+        }
+        return ptr;
+    }
+    Class* ClassDB::class_ptr(StringId name) {
+        auto query = m_db.find(name);
+        return query != m_db.end() ? query->second.get() : nullptr;
+    }
+    ClassDB* ClassDB::instance() {
+        static ClassDB g_class_db;
+        return &g_class_db;
     }
 
     const Class* Class::super() const {
@@ -95,9 +108,8 @@ namespace wmoge {
     }
 
     Class* Class::class_ptr(StringId name) {
-        ClassDB* db    = class_db();
-        auto     query = db->find(name);
-        return query != db->end() ? query->second.get() : nullptr;
+        ClassDB* db = class_db();
+        return db->class_ptr(name);
     }
     Class* Class::register_class(const StringId& name, const StringId& super, std::size_t size, std::function<Object*()> instantiate) {
         if (!class_ptr(super)) {
@@ -108,10 +120,9 @@ namespace wmoge {
             WG_LOG_ERROR("class: " << name << " already registered");
             return cls;
         }
-        ClassDB& db        = *class_db();
-        db[name]           = std::make_unique<Class>();
-        Class* cls         = db[name].get();
-        Class* super_cls   = db[super].get();
+        ClassDB* db        = class_db();
+        Class*   cls       = db->class_emplace(name);
+        Class*   super_cls = db->class_ptr(super);
         cls->m_name        = name;
         cls->m_super_name  = super;
         cls->m_size        = size;
@@ -125,8 +136,7 @@ namespace wmoge {
         return cls;
     }
     ClassDB* Class::class_db() {
-        static ClassDB classDb;
-        return &classDb;
+        return ClassDB::instance();
     }
 
     Class* Class::add_property(ClassProperty property) {
@@ -137,21 +147,13 @@ namespace wmoge {
     }
 
     void Class::register_types() {
-        ClassDB& db                     = *class_db();
-        db[Object::class_name_static()] = std::make_unique<Class>();
-        Class* cls                      = db[Object::class_name_static()].get();
-
+        Class* cls         = class_db()->class_emplace(Object::class_name_static());
         cls->m_name        = SID("Object");
         cls->m_size        = sizeof(Object);
         cls->m_instantiate = []() { return new Object(); };
         cls->m_supers.emplace(Object::class_name_static());
         cls->add_method(ClassMethod(VarType::Int, SID("hash"), {}), &Object::hash, {});
         cls->add_method(ClassMethod(VarType::String, SID("to_string"), {}), &Object::to_string, {});
-
-        register_classes_event();
-        register_classes_resource();
-        register_classes_pfx();
-        register_classes_scene();
     }
 
 }// namespace wmoge

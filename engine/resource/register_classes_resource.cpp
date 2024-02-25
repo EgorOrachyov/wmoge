@@ -27,6 +27,7 @@
 
 #include "register_classes_resource.hpp"
 
+#include "resource/array_mesh.hpp"
 #include "resource/audio_stream.hpp"
 #include "resource/audio_stream_wav.hpp"
 #include "resource/config_file.hpp"
@@ -48,6 +49,7 @@ namespace wmoge {
 
     void register_classes_resource() {
         Resource::register_class();
+        ArrayMesh::register_class();
         AudioStream::register_class();
         AudioStreamWav::register_class();
         Image::register_class();

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_EVENT_RESOURCE_HPP
-#define WMOGE_EVENT_RESOURCE_HPP
+#pragma once
 
 #include "event/event.hpp"
 #include "resource/resource.hpp"
@@ -57,5 +56,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_EVENT_RESOURCE_HPP

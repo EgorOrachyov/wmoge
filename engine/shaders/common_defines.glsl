@@ -9,8 +9,6 @@
 
 #define TARGET_VULKAN
 
-#define EPSILON 0.00001f
-
 #if defined(TARGET_VULKAN)
 #define LAYOUT_LOCATION(idx) layout(location = idx)
 #else

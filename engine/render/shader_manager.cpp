@@ -27,7 +27,6 @@
 
 #include "shader_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/string_utils.hpp"
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"
@@ -39,6 +38,7 @@
 #include "render/shader_builder.hpp"
 #include "resource/config_file.hpp"
 #include "resource/shader.hpp"
+#include "system/engine.hpp"
 
 // built-in passes
 #include "shaders/generated/auto_base_pass.hpp"

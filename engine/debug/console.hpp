@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CONSOLE_HPP
-#define WMOGE_CONSOLE_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/string_id.hpp"
@@ -214,5 +213,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_CONSOLE_HPP

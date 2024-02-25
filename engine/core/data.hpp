@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_DATA_HPP
-#define WMOGE_DATA_HPP
+#pragma once
 
 #include "core/ref.hpp"
 #include "io/archive.hpp"
@@ -80,5 +79,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_DATA_HPP

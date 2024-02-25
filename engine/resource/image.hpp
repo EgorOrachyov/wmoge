@@ -29,6 +29,7 @@
 #define WMOGE_IMAGE_HPP
 
 #include "core/data.hpp"
+#include "io/serialization.hpp"
 #include "math/vec.hpp"
 #include "resource/resource.hpp"
 
@@ -45,8 +46,7 @@ namespace wmoge {
         std::string source_file;
         int         channels = 4;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ImageImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const ImageImportOptions& options);
+        WG_IO_DECLARE(ImageImportOptions);
     };
 
     /**

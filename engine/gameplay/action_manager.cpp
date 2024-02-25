@@ -27,10 +27,10 @@
 
 #include "action_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

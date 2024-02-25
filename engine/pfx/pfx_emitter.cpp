@@ -27,9 +27,9 @@
 
 #include "pfx_emitter.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "resource/pfx_effect.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

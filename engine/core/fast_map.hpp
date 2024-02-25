@@ -25,10 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_FAST_MAP_HPP
-#define WMOGE_FAST_MAP_HPP
+#pragma once
 
 #include "io/archive.hpp"
+#include "io/yaml.hpp"
 
 #include <robin_hood.hpp>
 #include <unordered_map>
@@ -68,8 +68,29 @@ namespace wmoge {
         }
         return StatusCode::Ok;
     }
+
+    template<typename K, typename V>
+    Status yaml_read(const YamlConstNodeRef& node, fast_map<K, V>& map) {
+        assert(map.empty());
+        map.reserve(node.num_children());
+        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
+            robin_hood::pair<K, V> entry;
+            WG_YAML_READ(child, entry);
+            map.insert(std::move(entry));
+        }
+        return StatusCode::Ok;
+    }
+
+    template<typename K, typename V>
+    Status yaml_write(YamlNodeRef node, const fast_map<K, V>& map) {
+        WG_YAML_SEQ(node);
+        for (const auto& entry : map) {
+            YamlNodeRef entry_child = node.append_child();
+            WG_YAML_WRITE(entry_child, entry);
+        }
+        return StatusCode::Ok;
+    }
+
 #endif
 
 }// namespace wmoge
-
-#endif//WMOGE_FAST_MAP_HPP

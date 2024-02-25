@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_MANAGER_HPP
-#define WMOGE_SCENE_MANAGER_HPP
+#pragma once
 
 #include "scene/scene.hpp"
 
@@ -73,11 +72,10 @@ namespace wmoge {
     private:
         std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
         std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-        Ref<Scene>              m_running; // active scene
-        Ref<Scene>              m_next;    // next scene to set
-        Ref<Scene>              m_default; // default scene to always show something
+
+        Ref<Scene> m_running;// active scene
+        Ref<Scene> m_next;   // next scene to set
+        Ref<Scene> m_default;// default scene to always show something
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_MANAGER_HPP

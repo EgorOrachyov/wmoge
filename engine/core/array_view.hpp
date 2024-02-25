@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ARRAY_VIEW_HPP
-#define WMOGE_ARRAY_VIEW_HPP
+#pragma once
 
 #include "svector.hpp"
 
@@ -82,5 +81,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_ARRAY_VIEW_HPP

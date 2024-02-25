@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ARCHIVE_MEMORY_HPP
-#define WMOGE_ARCHIVE_MEMORY_HPP
+#pragma once
 
 #include <vector>
 
@@ -81,5 +80,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_ARCHIVE_MEMORY_HPP

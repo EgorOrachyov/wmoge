@@ -28,13 +28,13 @@
 #include "material.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "render/render_engine.hpp"
 #include "resource/resource_manager.hpp"
+#include "system/engine.hpp"
 
 #include <algorithm>
 #include <cstring>
@@ -43,49 +43,21 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, MaterialFile::EntryParam& entry) {
-        WG_YAML_READ_AS(node, "name", entry.name);
-        WG_YAML_READ_AS(node, "value", entry.value);
+    WG_IO_BEGIN_NMSP(MaterialFile, EntryParam)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD(value)
+    WG_IO_END_NMSP(MaterialFile, EntryParam)
 
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MaterialFile::EntryParam& entry) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", entry.name);
-        WG_YAML_WRITE_AS(node, "value", entry.value);
+    WG_IO_BEGIN_NMSP(MaterialFile, EntryTexture)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD(value)
+    WG_IO_END_NMSP(MaterialFile, EntryTexture)
 
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, MaterialFile::EntryTexture& entry) {
-        WG_YAML_READ_AS(node, "name", entry.name);
-        WG_YAML_READ_AS(node, "value", entry.value);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MaterialFile::EntryTexture& entry) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", entry.name);
-        WG_YAML_WRITE_AS(node, "value", entry.value);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, MaterialFile& file) {
-        WG_YAML_READ_AS(node, "shader", file.shader);
-        WG_YAML_READ_AS_OPT(node, "parameters", file.parameters);
-        WG_YAML_READ_AS_OPT(node, "textures", file.textures);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MaterialFile& file) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "shader", file.shader);
-        WG_YAML_WRITE_AS(node, "parameters", file.parameters);
-        WG_YAML_WRITE_AS(node, "textures", file.textures);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(MaterialFile)
+    WG_IO_FIELD(shader)
+    WG_IO_FIELD_OPT(parameters)
+    WG_IO_FIELD_OPT(textures)
+    WG_IO_END(MaterialFile)
 
     Material::Material(Ref<Shader> shader) {
         assert(shader);

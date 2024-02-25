@@ -28,12 +28,12 @@
 #include "resource_loader_assimp.hpp"
 
 #include "core/data.hpp"
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "math/math_utils3d.hpp"
 #include "mesh/mesh_builder.hpp"
 #include "platform/file_system.hpp"
 #include "resource/mesh.hpp"
+#include "system/engine.hpp"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
@@ -52,6 +52,7 @@ namespace wmoge {
         unsigned int        options = 0;
         GfxVertAttribs      attribs;
         MeshBuilder         builder;
+        int                 next_mesh_id = 0;
     };
 
     Status ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
@@ -100,17 +101,15 @@ namespace wmoge {
             return StatusCode::FailedParse;
         }
 
+        auto mesh = make_ref<Mesh>();
+        import_ctx.builder.set_mesh(mesh);
         import_ctx.meta = &meta;
         import_ctx.name = &name;
 
-        if (!process_node(import_ctx, import_ctx.scene->mRootNode, Math3d::identity(), Math3d::identity())) {
+        if (!process_node(import_ctx, import_ctx.scene->mRootNode, Math3d::identity(), Math3d::identity(), std::nullopt)) {
             WG_LOG_ERROR("failed to process scene of " << options.source_file);
             return StatusCode::Error;
         }
-
-        auto mesh = make_ref<Mesh>();
-
-        import_ctx.builder.set_mesh(mesh);
 
         res = mesh;
         res->set_name(name);
@@ -125,7 +124,7 @@ namespace wmoge {
     StringId ResourceLoaderAssimp::get_name() {
         return SID("assimp");
     }
-    Status ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform) {
+    Status ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_node");
 
         Mat4x4f local_transform;
@@ -139,20 +138,31 @@ namespace wmoge {
         Mat4x4f global_transform     = parent_transform * local_transform;
         Mat4x4f inv_global_transform = inv_local_transform * inv_parent_transform;
 
+        std::optional<int> mesh_id;
+
+        if (node->mNumMeshes > 1) {
+            WG_LOG_ERROR("More than 1 mesh in a single node, check asset " << context.name);
+            return StatusCode::InvalidData;
+        }
+
         for (unsigned int i = 0; i < node->mNumMeshes; i++) {
             aiMesh* mesh = context.scene->mMeshes[node->mMeshes[i]];
-            process_mesh(context, mesh, global_transform, inv_global_transform);
+            if (!process_mesh(context, mesh, global_transform, inv_global_transform, parent)) {
+                return StatusCode::Error;
+            }
+            mesh_id = context.next_mesh_id;
+            context.next_mesh_id += 1;
         }
 
         for (unsigned int i = 0; i < node->mNumChildren; i++) {
-            if (!process_node(context, node->mChildren[i], global_transform, inv_global_transform)) {
+            if (!process_node(context, node->mChildren[i], global_transform, inv_global_transform, mesh_id)) {
                 return StatusCode::Error;
             }
         }
 
         return StatusCode::Ok;
     }
-    Status ResourceLoaderAssimp::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform) {
+    Status ResourceLoaderAssimp::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_mesh");
 
         const Vec3f aabb_min     = Vec3f(mesh->mAABB.mMin.x, mesh->mAABB.mMin.y, mesh->mAABB.mMin.z);
@@ -160,17 +170,13 @@ namespace wmoge {
         const auto  num_vertices = mesh->mNumVertices;
         const auto  num_faces    = mesh->mNumFaces;
 
+        const auto name = SID(std::string(mesh->mName.data, mesh->mName.length));
+        const auto aabb = Aabbf((aabb_min + aabb_max) * 0.5f, (aabb_max - aabb_min) * 0.5f);
+
         const GfxVertAttribs attribs = context.attribs;
-        MeshBuilder&         builder = context.builder;
 
-        MeshChunk chunk;
-        chunk.name          = SID(std::string(mesh->mName.data, mesh->mName.length));
-        chunk.index_count   = int(3 * num_faces);
-        chunk.vertex_offset = builder.get_num_vertices();
-        chunk.index_offset  = builder.get_num_indices();
-        chunk.aabb          = Aabbf((aabb_min + aabb_max) * 0.5f, (aabb_max - aabb_min) * 0.5f);
-
-        builder.add_chunk(chunk);
+        Ref<ArrayMesh> array_mesh = make_ref<ArrayMesh>();
+        array_mesh->set_aabb(aabb);
 
         for (unsigned int vert_id = 0; vert_id < num_vertices; vert_id++) {
             MeshVertex vertex;
@@ -210,13 +216,21 @@ namespace wmoge {
                 }
             }
 
-            builder.add_vertex(vertex);
+            array_mesh->set_attribs(vertex.attribs);
+            array_mesh->add_vertex(vertex);
         }
 
         for (unsigned int face_id = 0; face_id < num_faces; face_id++) {
             aiFace face = mesh->mFaces[face_id];
             assert(face.mNumIndices == 3);
-            builder.add_triangle(face.mIndices[0], face.mIndices[1], face.mIndices[2]);
+            array_mesh->add_face(MeshFace(face.mIndices[0], face.mIndices[1], face.mIndices[2]));
+        }
+
+        MeshBuilder& builder = context.builder;
+        builder.add_chunk(name, array_mesh);
+
+        if (parent) {
+            builder.add_child(parent.value(), context.next_mesh_id);
         }
 
         return StatusCode::Ok;

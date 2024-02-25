@@ -27,124 +27,72 @@
 
 #include "mesh.hpp"
 
-#include "core/engine.hpp"
+#include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, MeshImportOptions::Process& process) {
-        WG_YAML_READ_AS_OPT(node, "triangulate", process.triangulate);
-        WG_YAML_READ_AS_OPT(node, "tangent_space", process.tangent_space);
-        WG_YAML_READ_AS_OPT(node, "flip_uv", process.flip_uv);
-        WG_YAML_READ_AS_OPT(node, "gen_normals", process.gen_normals);
-        WG_YAML_READ_AS_OPT(node, "gen_smooth_normals", process.gen_smooth_normals);
-        WG_YAML_READ_AS_OPT(node, "join_identical_vertices", process.join_identical_vertices);
-        WG_YAML_READ_AS_OPT(node, "limit_bone_weights", process.limit_bone_weights);
-        WG_YAML_READ_AS_OPT(node, "improve_cache_locality", process.improve_cache_locality);
-        WG_YAML_READ_AS_OPT(node, "sort_by_ptype", process.sort_by_ptype);
-        WG_YAML_READ_AS_OPT(node, "gen_uv", process.gen_uv);
+    WG_IO_BEGIN_NMSP(MeshImportOptions, Process)
+    WG_IO_FIELD_OPT(triangulate)
+    WG_IO_FIELD_OPT(tangent_space)
+    WG_IO_FIELD_OPT(flip_uv)
+    WG_IO_FIELD_OPT(gen_normals)
+    WG_IO_FIELD_OPT(gen_smooth_normals)
+    WG_IO_FIELD_OPT(join_identical_vertices)
+    WG_IO_FIELD_OPT(limit_bone_weights)
+    WG_IO_FIELD_OPT(improve_cache_locality)
+    WG_IO_FIELD_OPT(sort_by_ptype)
+    WG_IO_FIELD_OPT(gen_uv)
+    WG_IO_END_NMSP(MeshImportOptions, Process)
 
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MeshImportOptions::Process& process) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "triangulate", process.triangulate);
-        WG_YAML_WRITE_AS(node, "tangent_space", process.tangent_space);
-        WG_YAML_WRITE_AS(node, "flip_uv", process.flip_uv);
-        WG_YAML_WRITE_AS(node, "gen_normals", process.gen_normals);
-        WG_YAML_WRITE_AS(node, "gen_smooth_normals", process.gen_smooth_normals);
-        WG_YAML_WRITE_AS(node, "join_identical_vertices", process.join_identical_vertices);
-        WG_YAML_WRITE_AS(node, "limit_bone_weights", process.limit_bone_weights);
-        WG_YAML_WRITE_AS(node, "improve_cache_locality", process.improve_cache_locality);
-        WG_YAML_WRITE_AS(node, "sort_by_ptype", process.sort_by_ptype);
-        WG_YAML_WRITE_AS(node, "gen_uv", process.gen_uv);
+    WG_IO_BEGIN(MeshImportOptions)
+    WG_IO_FIELD(source_file)
+    WG_IO_FIELD(attributes)
+    WG_IO_FIELD(process)
+    WG_IO_END(MeshImportOptions)
 
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(MeshChunk)
+    WG_IO_FIELD(name);
+    WG_IO_FIELD(aabb);
+    WG_IO_FIELD(attribs);
+    WG_IO_FIELD(prim_type);
+    WG_IO_FIELD(elem_count);
+    WG_IO_FIELD(vert_stream_offset);
+    WG_IO_FIELD(vert_stream_count);
+    WG_IO_FIELD(index_stream);
+    WG_IO_FIELD(parent);
+    WG_IO_FIELD(children);
+    WG_IO_END(MeshChunk)
 
-    Status yaml_read(const YamlConstNodeRef& node, MeshImportOptions& options) {
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
-        WG_YAML_READ_AS(node, "attributes", options.attributes);
-        WG_YAML_READ_AS_OPT(node, "process", options.process);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MeshImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
-        WG_YAML_WRITE_AS(node, "attributes", options.attributes);
-        WG_YAML_WRITE_AS(node, "process", options.process);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, MeshChunk& chunk) {
-        WG_YAML_READ_AS(node, "aabb", chunk.aabb);
-        WG_YAML_READ_AS(node, "name", chunk.name);
-        WG_YAML_READ_AS(node, "vertex_offset", chunk.vertex_offset);
-        WG_YAML_READ_AS(node, "index_offset", chunk.index_offset);
-        WG_YAML_READ_AS(node, "index_count", chunk.index_count);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MeshChunk& chunk) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "aabb", chunk.aabb);
-        WG_YAML_WRITE_AS(node, "name", chunk.name);
-        WG_YAML_WRITE_AS(node, "vertex_offset", chunk.vertex_offset);
-        WG_YAML_WRITE_AS(node, "index_offset", chunk.index_offset);
-        WG_YAML_WRITE_AS(node, "index_count", chunk.index_count);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, MeshFile& file) {
-        WG_YAML_READ_AS(node, "chunks", file.chunks);
-        WG_YAML_READ_AS(node, "index_type", file.index_type);
-        WG_YAML_READ_AS(node, "prim_type", file.prim_type);
-        WG_YAML_READ_AS(node, "attribs", file.attribs);
-        WG_YAML_READ_AS(node, "num_vertices", file.num_vertices);
-        WG_YAML_READ_AS(node, "num_indices", file.num_indices);
-        WG_YAML_READ_AS(node, "aabb", file.aabb);
-        WG_YAML_READ_AS(node, "vertex_buffers", file.vertex_buffers);
-        WG_YAML_READ_AS(node, "index_buffer", file.index_buffer);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const MeshFile& file) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "chunks", file.chunks);
-        WG_YAML_WRITE_AS(node, "index_type", file.index_type);
-        WG_YAML_WRITE_AS(node, "prim_type", file.prim_type);
-        WG_YAML_WRITE_AS(node, "attribs", file.attribs);
-        WG_YAML_WRITE_AS(node, "num_vertices", file.num_vertices);
-        WG_YAML_WRITE_AS(node, "num_indices", file.num_indices);
-        WG_YAML_WRITE_AS(node, "aabb", file.aabb);
-        WG_YAML_WRITE_AS(node, "vertex_buffers", file.vertex_buffers);
-        WG_YAML_WRITE_AS(node, "index_buffer", file.index_buffer);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(MeshFile)
+    WG_IO_FIELD(chunks);
+    WG_IO_FIELD(vertex_buffers);
+    WG_IO_FIELD(index_buffers);
+    WG_IO_FIELD(vert_streams);
+    WG_IO_FIELD(index_streams);
+    WG_IO_FIELD(roots);
+    WG_IO_FIELD(aabb);
+    WG_IO_END(MeshFile)
 
     void Mesh::add_chunk(const MeshChunk& mesh_chunk) {
+        if (mesh_chunk.parent == -1) {
+            m_roots.push_back(int(m_chunks.size()));
+        }
         m_chunks.push_back(mesh_chunk);
     }
-    void Mesh::set_vertex_params(int num_vertices, GfxPrimType prim_type) {
-        m_num_vertices = num_vertices;
-        m_prim_type    = prim_type;
+    void Mesh::add_vertex_buffer(Ref<Data> buffer) {
+        m_vertex_buffers.push_back(std::move(buffer));
     }
-    void Mesh::set_vertex_buffer(int index, Ref<Data> buffer, GfxVertAttribs attribs) {
-        assert(index < GfxLimits::MAX_VERT_BUFFERS);
-        assert(buffer);
-        m_vertex_buffers[index] = std::move(buffer);
-        m_attribs[index]        = attribs;
+    void Mesh::add_index_buffer(Ref<Data> buffer) {
+        m_index_buffers.push_back(std::move(buffer));
     }
-    void Mesh::set_index_buffer(Ref<Data> buffer, int num_indices, GfxIndexType index_type) {
-        assert(buffer);
-        m_num_indices  = num_indices;
-        m_index_type   = index_type;
-        m_index_buffer = std::move(buffer);
+    void Mesh::add_vert_stream(const GfxVertStream& stream) {
+        m_vert_streams.push_back(stream);
+    }
+    void Mesh::add_intex_stream(const GfxIndexStream& stream) {
+        m_index_streams.push_back(stream);
     }
 
     void Mesh::update_aabb() {
@@ -167,21 +115,45 @@ namespace wmoge {
 
         GfxMemUsage mem_usage = GfxMemUsage::GpuLocal;
 
-        for (int i = 0; i < MAX_BUFFER; ++i) {
-            if (m_vertex_buffers[i]) {
-                int      size           = static_cast<int>(m_vertex_buffers[i]->size());
-                StringId name           = SID(get_name().str() + "_vert" + std::to_string(i));
-                m_gfx_vertex_buffers[i] = gfx_driver->make_vert_buffer(size, mem_usage, name);
-                gfx_ctx->update_vert_buffer(m_gfx_vertex_buffers[i], 0, size, m_vertex_buffers[i]);
-            }
+        m_gfx_vertex_buffers.resize(m_vertex_buffers.size());
+
+        for (int i = 0; i < m_vertex_buffers.size(); ++i) {
+            const int      size     = static_cast<int>(m_vertex_buffers[i]->size());
+            const StringId name     = SID(get_name().str() + "_" + StringUtils::from_int(i));
+            m_gfx_vertex_buffers[i] = gfx_driver->make_vert_buffer(size, mem_usage, name);
+            gfx_ctx->update_vert_buffer(m_gfx_vertex_buffers[i], 0, size, m_vertex_buffers[i]);
         }
 
-        if (m_index_buffer) {
-            int      size      = static_cast<int>(m_index_buffer->size());
-            StringId name      = SID(get_name().str() + "_index");
-            m_gfx_index_buffer = gfx_driver->make_index_buffer(size, mem_usage, name);
-            gfx_ctx->update_index_buffer(m_gfx_index_buffer, 0, size, m_index_buffer);
+        m_gfx_index_buffers.resize(m_index_buffers.size());
+
+        for (int i = 0; i < m_index_buffers.size(); ++i) {
+            const int      size    = static_cast<int>(m_index_buffers[i]->size());
+            const StringId name    = SID(get_name().str() + "_" + StringUtils::from_int(i));
+            m_gfx_index_buffers[i] = gfx_driver->make_index_buffer(size, mem_usage, name);
+            gfx_ctx->update_index_buffer(m_gfx_index_buffers[i], 0, size, m_index_buffers[i]);
         }
+    }
+
+    GfxVertBuffersSetup Mesh::get_vert_buffers_setup(int chunk_id) const {
+        GfxVertBuffersSetup setup;
+        const MeshChunk&    chunk = get_chunk(chunk_id);
+        for (int i = 0; i < chunk.vert_stream_count; i++) {
+            const GfxVertStream& stream = m_vert_streams[chunk.vert_stream_offset + i];
+            setup.buffers[i]            = m_gfx_vertex_buffers[stream.buffer].get();
+            setup.offsets[i]            = stream.offset;
+        }
+        return setup;
+    }
+    GfxIndexBufferSetup Mesh::get_index_buffer_setup(int chunk_id) const {
+        GfxIndexBufferSetup setup;
+        const MeshChunk&    chunk = get_chunk(chunk_id);
+        if (chunk.index_stream != -1) {
+            const GfxIndexStream& stream = m_index_streams[chunk.index_stream];
+            setup.buffer                 = m_gfx_index_buffers[stream.buffer].get();
+            setup.offset                 = stream.offset;
+            setup.index_type             = stream.index_type;
+        }
+        return setup;
     }
 
     ArrayView<const MeshChunk> Mesh::get_chunks() const {
@@ -191,48 +163,27 @@ namespace wmoge {
         assert(i < m_chunks.size());
         return m_chunks[i];
     }
-    const Ref<Data>& Mesh::get_vertex_buffer(int i) const {
-        assert(i < MAX_BUFFER);
-        return m_vertex_buffers[i];
-    }
-    const Ref<Data>& Mesh::get_index_buffer() const {
-        return m_index_buffer;
-    }
-    const Ref<GfxVertBuffer>& Mesh::get_gfx_vertex_buffer(int i) const {
-        assert(i < MAX_BUFFER);
+    const Ref<GfxVertBuffer>& Mesh::get_gfx_vertex_buffers(int i) const {
+        assert(i < m_gfx_vertex_buffers.size());
         return m_gfx_vertex_buffers[i];
     }
-    const std::array<Ref<GfxVertBuffer>, Mesh::MAX_BUFFER>& Mesh::get_gfx_vertex_buffers() const {
-        return m_gfx_vertex_buffers;
+    const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffers(int i) const {
+        assert(i < m_gfx_vertex_buffers.size());
+        return m_gfx_index_buffers[i];
     }
-    const Ref<GfxIndexBuffer>& Mesh::get_gfx_index_buffer() const {
-        return m_gfx_index_buffer;
+    const GfxVertStream& Mesh::get_vert_streams(int i) const {
+        assert(i < m_gfx_vertex_buffers.size());
+        return m_vert_streams[i];
     }
-    GfxIndexType Mesh::get_index_type() const {
-        return m_index_type;
+    const GfxIndexStream& Mesh::get_index_streams(int i) const {
+        assert(i < m_gfx_vertex_buffers.size());
+        return m_index_streams[i];
     }
-    GfxPrimType Mesh::get_prim_type() const {
-        return m_prim_type;
-    }
-    GfxVertAttribsStreams Mesh::get_attribs() const {
-        return m_attribs;
-    }
-    int Mesh::get_num_vertices() const {
-        return m_num_vertices;
-    }
-    int Mesh::get_num_indices() const {
-        return m_num_indices;
+    ArrayView<const int> Mesh::get_roots() const {
+        return m_roots;
     }
     Aabbf Mesh::get_aabb() const {
         return m_aabb;
-    }
-    GfxVertBuffersSetup Mesh::get_gfx_vert_buffes_setup() const {
-        GfxVertBuffersSetup setup;
-        for (int i = 0; i < MAX_BUFFER; i++) {
-            setup.buffers[i] = m_gfx_vertex_buffers[i].get();
-            setup.offsets[i] = 0;
-        }
-        return setup;
     }
 
     void Mesh::register_class() {

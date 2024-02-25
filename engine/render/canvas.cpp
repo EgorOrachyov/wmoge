@@ -27,13 +27,13 @@
 
 #include "canvas.hpp"
 
-#include "core/engine.hpp"
 #include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "render/shader_manager.hpp"
 #include "render/texture_manager.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 
@@ -477,6 +477,7 @@ namespace wmoge {
         gfx_ctx->execute([&](GfxCtx* thread_ctx) {
             thread_ctx->begin_render_pass({}, SID("Canvas::render"));
             thread_ctx->bind_target(window);
+            thread_ctx->clear(0, Color::BLACK4f);// todo: remove
             thread_ctx->viewport(viewport);
 
             if (thread_ctx->bind_pipeline(m_shared->pipeline_srgb)) {

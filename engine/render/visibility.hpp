@@ -31,10 +31,9 @@
 #include "core/array_view.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
-#include "core/unrolled_list.hpp"
 #include "math/aabb.hpp"
 #include "math/frustum.hpp"
-#include "render/render_camera.hpp"
+#include "render/camera.hpp"
 #include "render/render_defs.hpp"
 
 #include <atomic>
@@ -43,7 +42,7 @@
 namespace wmoge {
 
     /**
-     * @class 
+     * @class VisibilityItem
      * @brief Id of the item to reference in visibility system 
      */
     struct VisibilityItem {
@@ -102,7 +101,7 @@ namespace wmoge {
         void                 update_item_bbox(const VisibilityItem& item, const Aabbf& aabbf);
         VisibilityItemResult get_item_result(const VisibilityItem& item);
 
-        void cull(const RenderCameras& cameras);
+        void cull(const CameraList& cameras);
 
     private:
         std::vector<VisibilityItemData>   m_items;

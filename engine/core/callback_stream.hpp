@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CALLBACK_STREAM_HPP
-#define WMOGE_CALLBACK_STREAM_HPP
+#pragma once
 
 #include "core/synchronization.hpp"
 
@@ -93,5 +92,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_CALLBACK_STREAM_HPP

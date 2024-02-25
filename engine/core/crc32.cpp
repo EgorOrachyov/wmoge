@@ -116,4 +116,13 @@ namespace wmoge {
         return crc ^ 0xFFFFFFFF;
     }
 
+    Crc32Builder& Crc32Builder::hash(const void* buffer, std::size_t size) {
+        m_hash ^= Crc32::hash(buffer, size);
+        return *this;
+    }
+
+    Crc32Hash Crc32Builder::get() const {
+        return m_hash;
+    }
+
 }// namespace wmoge

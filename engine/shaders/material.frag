@@ -7,20 +7,28 @@
 /* Copyright (c) 2023 Egor Orachyov                                               */
 /**********************************************************************************/
 
+#include "common_consts.glsl"
 #include "common_defines.glsl"
 #include "common_funcs.glsl"
+#include "gbuffer.glsl"
 #include "material_fs.glsl"
 
 __SHADER_CODE_FRAGMENT__
 
+#ifdef MESH_PASS_FORWARD
+    layout (location = 0) out vec4 out_HdrColor;
+    layout (location = 1) out vec4 out_Norm;
+    layout (location = 2) out int  out_primitiveId;
+#endif
+
 #ifdef MESH_PASS_GBUFFER
-    layout (location = 0) out vec4 out_baseColor_dummy;
-    layout (location = 1) out vec4 out_worldNorm_dummy;
-    layout (location = 2) out vec4 out_metallic_roughness_reflectance_ao;
+    layout (location = 0) out vec4 out_GBuffer0;
+    layout (location = 1) out vec4 out_GBuffer1;
+    layout (location = 2) out vec4 out_GBuffer2;
     layout (location = 3) out int  out_primitiveId;
 #endif
 
-#if !defined(MESH_PASS_GBUFFER)
+#if !defined(MESH_PASS_GBUFFER) && !defined(MESH_PASS_FORWARD)
     #error "Must be specified at least one pass"
 #endif
 
@@ -30,12 +38,17 @@ void main() {
 
     Fragment(shaderInoutFs);
 
-    #ifdef MESH_PASS_GBUFFER
-        const MaterialAttributes result = shaderInoutFs.result;
+    #ifdef MESH_PASS_FORWARD
+        // todo
+    #endif
 
-        out_baseColor_dummy = result.baseColor;
-        out_worldNorm_dummy = vec4(result.worldNorm, 0);
-        out_metallic_roughness_reflectance_ao = vec4(result.metallic, result.roughness, result.reflectance, result.ao);
+    #ifdef MESH_PASS_GBUFFER
+        const Surface result = shaderInoutFs.result;
+        const GBufferValue gbuffer = PackGBufferFromSurface(result);
+
+        out_GBuffer0 = gbuffer.value[0];
+        out_GBuffer1 = gbuffer.value[1];
+        out_GBuffer2 = gbuffer.value[2];
         out_primitiveId = shaderInoutFs.attributes.primitiveId;
     #endif
 }

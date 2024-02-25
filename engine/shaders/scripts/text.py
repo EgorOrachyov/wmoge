@@ -15,9 +15,9 @@ SHADER = Shader(
             [
                 StructField(TYPE_MAT4, "mat_clip_proj_screen"),
                 StructField(TYPE_FLOAT, "inverse_gamma"),
-                StructField(TYPE_FLOAT, "__pad_1"),
-                StructField(TYPE_FLOAT, "__pad_2"),
-                StructField(TYPE_FLOAT, "__pad_3"),
+                StructField(TYPE_FLOAT, "_tp_pad0"),
+                StructField(TYPE_FLOAT, "_tp_pad1"),
+                StructField(TYPE_FLOAT, "_tp_pad2"),
             ],
         )
     ],

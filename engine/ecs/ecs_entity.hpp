@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ECS_ENTITY_HPP
-#define WMOGE_ECS_ENTITY_HPP
+#pragma once
 
 #include "ecs/ecs_core.hpp"
 
@@ -120,5 +119,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_ECS_ENTITY_HPP

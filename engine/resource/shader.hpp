@@ -36,7 +36,7 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_vert_format.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "resource/resource.hpp"
 #include "resource/resource_ref.hpp"
 #include "resource/texture.hpp"
@@ -56,8 +56,7 @@ namespace wmoge {
         int            size   = -1;
         std::string    value;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ShaderParameter& parameter);
-        friend Status yaml_write(YamlNodeRef node, const ShaderParameter& parameter);
+        WG_IO_DECLARE(ShaderParameter);
     };
 
     /**
@@ -70,8 +69,7 @@ namespace wmoge {
         int             id = -1;
         ResRef<Texture> value;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ShaderTexture& texture);
-        friend Status yaml_write(YamlNodeRef node, const ShaderTexture& texture);
+        WG_IO_DECLARE(ShaderTexture);
     };
 
     /**
@@ -86,8 +84,7 @@ namespace wmoge {
         bool             depth_write  = true;
         GfxCompFunc      depth_func   = GfxCompFunc::Less;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ShaderPipelineState& state);
-        friend Status yaml_write(YamlNodeRef node, const ShaderPipelineState& state);
+        WG_IO_DECLARE(ShaderPipelineState);
     };
 
     /**
@@ -104,8 +101,7 @@ namespace wmoge {
         StringId                     domain;
         ShaderPipelineState          state{};
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ShaderFile& file);
-        friend Status yaml_write(YamlNodeRef node, const ShaderFile& file);
+        WG_IO_DECLARE(ShaderFile);
     };
 
     /**

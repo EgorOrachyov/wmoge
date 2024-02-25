@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_STRING_ID_HPP
-#define WMOGE_STRING_ID_HPP
+#pragma once
 
 #include <cstddef>
 #include <functional>
@@ -59,12 +58,14 @@ namespace wmoge {
         const std::string* m_string;
     };
 
-    static_assert(std::is_trivially_destructible_v<StringId>, "string must be trivial as ptr on int");
+    static_assert(std::is_trivially_destructible_v<StringId>, "string must be trivial as ptr or int");
 
     inline std::ostream& operator<<(std::ostream& stream, const StringId& id) {
         stream << '\'' << id.str() << '\'';
         return stream;
     }
+
+#define SID(id) ::wmoge::StringId(id)
 
 }// namespace wmoge
 
@@ -79,7 +80,3 @@ namespace std {
     };
 
 }// namespace std
-
-#define SID(id) ::wmoge::StringId(id)
-
-#endif//WMOGE_STRING_ID_HPP

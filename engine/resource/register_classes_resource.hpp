@@ -25,13 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_REGISTER_CLASSES_RESOURCE_HPP
-#define WMOGE_REGISTER_CLASSES_RESOURCE_HPP
+#pragma once
 
 namespace wmoge {
 
     void register_classes_resource();
 
 }// namespace wmoge
-
-#endif//WMOGE_REGISTER_CLASSES_RESOURCE_HPP

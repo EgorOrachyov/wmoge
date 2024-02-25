@@ -29,105 +29,35 @@
 
 #include "render/deferred_pipeline.hpp"
 #include "scene/scene_components.hpp"
+#include "scene/scene_entity.hpp"
+
+#include <cassert>
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, SceneDataCamera& data) {
-        WG_YAML_READ_AS_OPT(node, "name", data.name);
-        WG_YAML_READ_AS_OPT(node, "color", data.color);
-        WG_YAML_READ_AS_OPT(node, "viewport", data.viewport);
-        WG_YAML_READ_AS_OPT(node, "fov", data.fov);
-        WG_YAML_READ_AS_OPT(node, "near", data.near);
-        WG_YAML_READ_AS_OPT(node, "far", data.far);
-        WG_YAML_READ_AS_OPT(node, "projection", data.projection);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const SceneDataCamera& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", data.name);
-        WG_YAML_WRITE_AS(node, "color", data.color);
-        WG_YAML_WRITE_AS(node, "viewport", data.viewport);
-        WG_YAML_WRITE_AS(node, "fov", data.fov);
-        WG_YAML_WRITE_AS(node, "near", data.near);
-        WG_YAML_WRITE_AS(node, "far", data.far);
-        WG_YAML_WRITE_AS(node, "projection", data.projection);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, SceneDataMeshStatic& data) {
-        WG_YAML_READ_AS(node, "model", data.model);
-        WG_YAML_READ_AS_OPT(node, "use_chunk_culling", data.use_chunk_culling);
-        WG_YAML_READ_AS_OPT(node, "use_non_shared_materials", data.use_non_shared_materials);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const SceneDataMeshStatic& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "model", data.model);
-        WG_YAML_WRITE_AS(node, "use_chunk_culling", data.use_chunk_culling);
-        WG_YAML_WRITE_AS(node, "use_non_shared_materials", data.use_non_shared_materials);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_read(const YamlConstNodeRef& node, SceneData& data) {
-        WG_YAML_READ_AS(node, "name", data.name);
-        WG_YAML_READ_AS(node, "names", data.names);
-        WG_YAML_READ_AS(node, "transforms", data.transforms);
-        WG_YAML_READ_AS(node, "cameras", data.cameras);
-        WG_YAML_READ_AS(node, "meshes_static", data.meshes_static);
-        WG_YAML_READ_AS(node, "pipeline_settings", data.pipeline_settings);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const SceneData& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", data.name);
-        WG_YAML_WRITE_AS(node, "names", data.names);
-        WG_YAML_WRITE_AS(node, "transforms", data.transforms);
-        WG_YAML_WRITE_AS(node, "cameras", data.cameras);
-        WG_YAML_WRITE_AS(node, "meshes_static", data.meshes_static);
-        WG_YAML_WRITE_AS(node, "pipeline_settings", data.pipeline_settings);
-
-        return StatusCode::Ok;
-    }
-
     Scene::Scene(StringId name) {
         m_name              = name;
-        m_transforms        = std::make_unique<SceneTransformManager>();
         m_ecs_world         = std::make_unique<EcsWorld>();
-        m_cameras           = std::make_unique<CameraManager>();
         m_visibility_system = std::make_unique<VisibilitySystem>();
         m_render_scene      = std::make_unique<RenderScene>();
-        m_graphics_pipeline = std::make_unique<DeferredPipeline>();
+
+        m_ecs_world->set_attribute(0, *this);
     }
+
+    Entity Scene::create_entity() {
+        return Entity(get_ecs_world()->allocate_entity(), this);
+    }
+    void Scene::destroy_entity(Entity entity) {
+        assert(this == entity.get_scene());
+        get_ecs_world()->destroy_entity(entity.get_ecs_id());
+    }
+
     Status Scene::build(const SceneData& data) {
         return StatusCode::Ok;
     }
-    void Scene::add_camera(EcsEntity entity, const SceneDataCamera& data) {
-        EcsComponentCamera& ecs_camera = get_ecs_world()->get_component_rw<EcsComponentCamera>(entity);
 
-        ecs_camera.camera = get_cameras()->make_camera(data.name);
-        ecs_camera.camera->set_color(data.color);
-        ecs_camera.camera->set_fov(data.fov);
-        ecs_camera.camera->set_near_far(data.near, data.far);
-        ecs_camera.camera->set_projection(data.projection);
-    }
-    void Scene::add_mesh_static(EcsEntity entity, const SceneDataMeshStatic& data) {
-        EcsComponentMeshStatic& ecs_mesh = get_ecs_world()->get_component_rw<EcsComponentMeshStatic>(entity);
-
-        ecs_mesh.mesh     = std::make_unique<RenderMeshStatic>(data.model);
-        ecs_mesh.vis_item = get_visibility_system()->alloc_item();
-
-        get_render_scene()->add_object(ecs_mesh.mesh.get(), ecs_mesh.vis_item);
-
-        ecs_mesh.primitive_id = ecs_mesh.mesh->get_primitive_id();
-        ecs_mesh.dirty        = true;
-    }
     void Scene::advance(float delta_time) {
-        m_delta_time = delta_time * m_time_factor;
+        m_delta_time = delta_time;
         m_time += m_delta_time;
     }
     void Scene::clear() {
@@ -138,11 +68,8 @@ namespace wmoge {
     }
     void Scene::finalize() {
         m_ecs_world.reset();
-        m_transforms.reset();
-        m_cameras.reset();
         m_visibility_system.reset();
         m_render_scene.reset();
-        m_graphics_pipeline.reset();
     }
     const StringId& Scene::get_name() {
         return m_name;
@@ -150,20 +77,11 @@ namespace wmoge {
     EcsWorld* Scene::get_ecs_world() {
         return m_ecs_world.get();
     }
-    SceneTransformManager* Scene::get_transforms() {
-        return m_transforms.get();
-    }
-    CameraManager* Scene::get_cameras() {
-        return m_cameras.get();
-    }
     VisibilitySystem* Scene::get_visibility_system() {
         return m_visibility_system.get();
     }
     RenderScene* Scene::get_render_scene() {
         return m_render_scene.get();
-    }
-    GraphicsPipeline* Scene::get_graphics_pipeline() {
-        return m_graphics_pipeline.get();
     }
 
 }// namespace wmoge

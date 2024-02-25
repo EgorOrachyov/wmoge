@@ -25,13 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_REGISTER_CLASSES_SCENE_HPP
-#define WMOGE_REGISTER_CLASSES_SCENE_HPP
+#pragma once
 
 namespace wmoge {
 
     void register_classes_scene();
 
 }// namespace wmoge
-
-#endif//WMOGE_REGISTER_CLASSES_SCENE_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ECS_SYSTEM_HPP
-#define WMOGE_ECS_SYSTEM_HPP
+#pragma once
 
 #include "debug/profiler.hpp"
 #include "ecs/ecs_core.hpp"
@@ -178,5 +177,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_ECS_SYSTEM_HPP

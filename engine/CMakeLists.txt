@@ -28,13 +28,13 @@ add_library(wmoge STATIC
         core/crc32.hpp
         core/data.cpp
         core/data.hpp
-        core/engine.cpp
-        core/engine.hpp
         core/fast_map.hpp
         core/fast_set.hpp
         core/fast_vector.hpp
         core/hook.cpp
         core/hook.hpp
+        core/ioc_container.cpp
+        core/ioc_container.hpp
         core/layer.cpp
         core/layer.hpp
         core/log.cpp
@@ -42,10 +42,12 @@ add_library(wmoge STATIC
         core/mask.hpp
         core/object.cpp
         core/object.hpp
+        core/pool_vector.hpp
         core/random.cpp
         core/random.hpp
         core/ref.cpp
         core/ref.hpp
+        core/signal.hpp
         core/status.hpp
         core/string_id.cpp
         core/string_id.hpp
@@ -67,11 +69,12 @@ add_library(wmoge STATIC
         core/timer.hpp
         core/typed_array.hpp
         core/typed_map.hpp
-        core/unrolled_list.hpp
         core/uuid.cpp
         core/uuid.hpp
         core/var.cpp
         core/var.hpp
+        core/weak_ref.cpp
+        core/weak_ref.hpp
         ecs/ecs_component.hpp
         ecs/ecs_core.cpp
         ecs/ecs_core.hpp
@@ -110,6 +113,7 @@ add_library(wmoge STATIC
         gameplay/action_map.hpp
         gameplay/game_token_manager.cpp
         gameplay/game_token_manager.hpp
+        gfx/gfx_buffers.cpp
         gfx/gfx_buffers.hpp
         gfx/gfx_defs.hpp
         gfx/gfx_desc_set.cpp
@@ -119,10 +123,12 @@ add_library(wmoge STATIC
         gfx/gfx_driver.hpp
         gfx/gfx_dynamic_buffers.cpp
         gfx/gfx_dynamic_buffers.hpp
-        gfx/gfx_pipeline.cpp
-        gfx/gfx_pipeline.hpp
+        gfx/gfx_pass.hpp
+        gfx/gfx_pass.cpp
         gfx/gfx_pipeline_cache.cpp
         gfx/gfx_pipeline_cache.hpp
+        gfx/gfx_pipeline.cpp
+        gfx/gfx_pipeline.hpp
         gfx/gfx_render_pass.cpp
         gfx/gfx_render_pass.hpp
         gfx/gfx_resource.hpp
@@ -185,6 +191,7 @@ add_library(wmoge STATIC
         hgfx/hgfx_pass_text.hpp
         hooks/hook_config.hpp
         hooks/hook_logs.hpp
+        hooks/hook_profiler.hpp
         hooks/hook_root_remap.hpp
         hooks/hook_uuid_gen.hpp
         io/archive.cpp
@@ -198,6 +205,7 @@ add_library(wmoge STATIC
         io/compression.cpp
         io/compression.hpp
         io/enum.hpp
+        io/serialization.hpp
         io/yaml.cpp
         io/yaml.hpp
         math/aabb.hpp
@@ -249,6 +257,8 @@ add_library(wmoge STATIC
         platform/input.hpp
         platform/input_defs.hpp
         platform/input_devices.hpp
+        platform/time.cpp
+        platform/time.hpp
         platform/window.hpp
         platform/window_manager.hpp
         platform/glfw/glfw_input.cpp
@@ -262,22 +272,20 @@ add_library(wmoge STATIC
         platform/glfw/glfw_window_manager.hpp
         render/aux_draw_manager.cpp
         render/aux_draw_manager.hpp
+        render/camera.cpp
+        render/camera.hpp
         render/canvas.cpp
         render/canvas.hpp
         render/deferred_pipeline.cpp
         render/deferred_pipeline.hpp
         render/graphics_pipeline.cpp
         render/graphics_pipeline.hpp
-        render/render_camera.cpp
-        render/render_camera.hpp
+        render/light.cpp
+        render/light.hpp
+        render/model_instance.cpp
+        render/model_instance.hpp
         render/render_engine.cpp
         render/render_engine.hpp
-        render/render_mesh_skinned.cpp
-        render/render_mesh_skinned.hpp
-        render/render_mesh_static.cpp
-        render/render_mesh_static.hpp
-        render/render_object.cpp
-        render/render_object.hpp
         render/render_queue.cpp
         render/render_queue.hpp
         render/render_scene.cpp
@@ -292,22 +300,14 @@ add_library(wmoge STATIC
         render/texture_compression.hpp
         render/texture_manager.cpp
         render/texture_manager.hpp
-        render/vertex_factories.cpp
-        render/vertex_factories.hpp
-        render/vertex_factory.cpp
-        render/vertex_factory.hpp
+        render/view.cpp
+        render/view.hpp
+        render/view_manager.cpp
+        render/view_manager.hpp
         render/visibility.cpp
         render/visibility.hpp
-        render/geometry/pass_gbuffer.cpp
-        render/geometry/pass_gbuffer.hpp
-        render/post_process/pass_autoexposure.cpp
-        render/post_process/pass_autoexposure.hpp
-        render/post_process/pass_bloom.cpp
-        render/post_process/pass_bloom.hpp
-        render/post_process/pass_composition.cpp
-        render/post_process/pass_composition.hpp
-        render/post_process/pass_tonemap.cpp
-        render/post_process/pass_tonemap.hpp
+        resource/array_mesh.cpp
+        resource/array_mesh.hpp
         resource/audio_stream.cpp
         resource/audio_stream.hpp
         resource/audio_stream_wav.cpp
@@ -363,24 +363,24 @@ add_library(wmoge STATIC
         resource/loaders/resource_loader_wav.hpp
         resource/paks/resource_pak_fs.cpp
         resource/paks/resource_pak_fs.hpp
-        scene/scene.cpp
-        scene/scene.hpp
-        scene/scene_camera.cpp
-        scene/scene_camera.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
+        scene/scene_data.cpp
+        scene/scene_data.hpp
+        scene/scene_entity.cpp
+        scene/scene_entity.hpp
         scene/scene_manager.cpp
         scene/scene_manager.hpp
+        scene/scene_node_props.cpp
+        scene/scene_node_props.hpp
         scene/scene_node.cpp
         scene/scene_node.hpp
-        scene/scene_properties.cpp
-        scene/scene_properties.hpp
-        scene/scene_property.cpp
-        scene/scene_property.hpp
-        scene/scene_transform.cpp
-        scene/scene_transform.hpp
+        scene/scene_systems.cpp
+        scene/scene_systems.hpp
         scene/scene_tree.cpp
         scene/scene_tree.hpp
+        scene/scene.cpp
+        scene/scene.hpp
         scene/register_classes_scene.cpp
         scene/register_classes_scene.hpp
         scripting/script_instance.hpp
@@ -414,16 +414,14 @@ add_library(wmoge STATIC
         scripting/lua_bindings/lua_bindings_resource.hpp
         scripting/lua_bindings/lua_bindings_scene.cpp
         scripting/lua_bindings/lua_bindings_scene.hpp
-        systems/system_render.hpp
-        systems/system_transform.hpp
+        system/engine.cpp
+        system/engine.hpp
         debug/console.cpp
         debug/console.hpp
         debug/profiler.cpp
         debug/profiler.hpp
         debug/debug_layer.cpp
-        debug/debug_layer.hpp
-        main/main.cpp
-        main/main.hpp)
+        debug/debug_layer.hpp)
 
 # specify public include path, so user can reference engine files by modules names
 target_include_directories(wmoge PUBLIC ${CMAKE_CURRENT_LIST_DIR}/)

@@ -28,13 +28,13 @@
 #include "scene_tree_packed.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "core/task.hpp"
 #include "core/timer.hpp"
 #include "debug/profiler.hpp"
 #include "platform/file_system.hpp"
 #include "scene/scene_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -64,7 +64,6 @@ namespace wmoge {
             timer.start();
 
             scene_tree->build(self->m_data);
-            scene_tree->sync();
 
             timer.stop();
             WG_LOG_INFO("instantiate scene tree " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");

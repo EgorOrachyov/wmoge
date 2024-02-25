@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_ENGINE_GLOBAL_HPP
-#define WMOGE_ENGINE_GLOBAL_HPP
+#pragma once
 
 #include "audio/audio_bus.hpp"
 #include "audio/audio_defs.hpp"
@@ -40,17 +39,19 @@
 #include "core/cmd_line.hpp"
 #include "core/crc32.hpp"
 #include "core/data.hpp"
-#include "core/engine.hpp"
 #include "core/fast_map.hpp"
 #include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
 #include "core/hook.hpp"
+#include "core/ioc_container.hpp"
 #include "core/layer.hpp"
 #include "core/log.hpp"
 #include "core/mask.hpp"
 #include "core/object.hpp"
+#include "core/pool_vector.hpp"
 #include "core/random.hpp"
 #include "core/ref.hpp"
+#include "core/signal.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
@@ -63,9 +64,9 @@
 #include "core/timer.hpp"
 #include "core/typed_array.hpp"
 #include "core/typed_map.hpp"
-#include "core/unrolled_list.hpp"
 #include "core/uuid.hpp"
 #include "core/var.hpp"
+#include "core/weak_ref.hpp"
 
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
@@ -96,6 +97,7 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
+#include "gfx/gfx_pass.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_pipeline_cache.hpp"
 #include "gfx/gfx_render_pass.hpp"
@@ -117,6 +119,7 @@
 #include "io/base64.hpp"
 #include "io/compression.hpp"
 #include "io/enum.hpp"
+#include "io/serialization.hpp"
 #include "io/yaml.hpp"
 
 #include "math/color.hpp"
@@ -148,25 +151,28 @@
 #include "platform/input.hpp"
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
+#include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 
 #include "render/aux_draw_manager.hpp"
+#include "render/camera.hpp"
 #include "render/canvas.hpp"
-#include "render/render_camera.hpp"
+#include "render/graphics_pipeline.hpp"
+#include "render/light.hpp"
+#include "render/model_instance.hpp"
 #include "render/render_engine.hpp"
-#include "render/render_mesh_skinned.hpp"
-#include "render/render_mesh_static.hpp"
-#include "render/render_object.hpp"
 #include "render/render_queue.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
 #include "render/shader_pass.hpp"
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
-#include "render/vertex_factory.hpp"
+#include "render/view.hpp"
+#include "render/view_manager.hpp"
 #include "render/visibility.hpp"
 
+#include "resource/array_mesh.hpp"
 #include "resource/audio_stream.hpp"
 #include "resource/config_file.hpp"
 #include "resource/font.hpp"
@@ -189,20 +195,19 @@
 #include "resource/texture.hpp"
 
 #include "scene/scene.hpp"
-#include "scene/scene_camera.hpp"
 #include "scene/scene_components.hpp"
+#include "scene/scene_data.hpp"
+#include "scene/scene_entity.hpp"
 #include "scene/scene_manager.hpp"
 #include "scene/scene_node.hpp"
-#include "scene/scene_properties.hpp"
-#include "scene/scene_property.hpp"
-#include "scene/scene_transform.hpp"
+#include "scene/scene_node_props.hpp"
 #include "scene/scene_tree.hpp"
 
 #include "scripting/script_instance.hpp"
 #include "scripting/script_native.hpp"
 #include "scripting/script_system.hpp"
 
+#include "system/engine.hpp"
+
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"
-
-#endif//WMOGE_ENGINE_GLOBAL_HPP

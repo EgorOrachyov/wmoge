@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TASK_MANAGER_HPP
-#define WMOGE_TASK_MANAGER_HPP
+#pragma once
 
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
@@ -80,5 +79,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TASK_MANAGER_HPP

@@ -25,9 +25,9 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_QUAT_HPP
-#define WMOGE_QUAT_HPP
+#pragma once
 
+#include "io/archive.hpp"
 #include "io/yaml.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
@@ -451,6 +451,14 @@ namespace wmoge {
         WG_YAML_WRITE_AS(node, "vec", quat.vec);
         return StatusCode::Ok;
     }
+    template<typename T>
+    Status archive_read(Archive& archive, TQuat<T>& quat) {
+        return archive.nread(sizeof(TQuat<T>), &quat);
+    }
+    template<typename T>
+    Status archive_write(Archive& archive, const TQuat<T>& quat) {
+        return archive.nwrite(sizeof(TQuat<T>), &quat);
+    }
 
 }// namespace wmoge
 
@@ -465,5 +473,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_QUAT_HPP

@@ -31,7 +31,7 @@
 #include "core/async.hpp"
 #include "io/yaml.hpp"
 #include "resource/resource.hpp"
-#include "scene/scene_tree.hpp"
+#include "scene/scene_node.hpp"
 
 #include <optional>
 
@@ -43,7 +43,7 @@ namespace wmoge {
      *
      * Prefab stores a sub-tree of scene nodes, which can be instantiated and added
      * to a scene tree at once. Prefab allows to make a complex object composed from
-     * nodes and use it instantiate multiple times and keep all instances in sync.
+     * nodes and use it to instantiate multiple times and keep all instances in sync.
      */
     class Prefab : public Resource {
     public:
@@ -52,10 +52,10 @@ namespace wmoge {
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
-        [[nodiscard]] const SceneTreeData& get_data() const { return m_data; }
+        [[nodiscard]] const SceneNodesData& get_data() const { return m_data; }
 
     private:
-        SceneTreeData m_data;
+        SceneNodesData m_data;
     };
 
 }// namespace wmoge

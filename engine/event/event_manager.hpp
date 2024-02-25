@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_EVENT_MANAGER_HPP
-#define WMOGE_EVENT_MANAGER_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/fast_vector.hpp"
@@ -129,5 +128,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_EVENT_MANAGER_HPP

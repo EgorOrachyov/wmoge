@@ -25,18 +25,17 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GRAPHICS_PIPELINE_HPP
-#define WMOGE_GRAPHICS_PIPELINE_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
-#include "render/render_camera.hpp"
+#include "render/camera.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
 #include "render/texture_manager.hpp"
@@ -53,17 +52,17 @@ namespace wmoge {
      * @brief Bloom effect settings
     */
     struct BloomSettings {
-        bool                             enable              = true;
-        float                            intensity           = 1.0f;
-        float                            threshold           = 1.0f;
-        float                            knee                = 0.5f;
-        float                            radius              = 4.0f;
-        float                            uspample_weight     = 0.4f;
-        float                            dirt_mask_intensity = 3.0f;
+        bool  enable              = true;
+        float intensity           = 1.0f;
+        float threshold           = 1.0f;
+        float knee                = 0.5f;
+        float radius              = 4.0f;
+        float uspample_weight     = 0.4f;
+        float dirt_mask_intensity = 3.0f;
+
         std::optional<ResRef<Texture2d>> dirt_mask;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, BloomSettings& settings);
-        friend Status yaml_write(YamlNodeRef node, const BloomSettings& settings);
+        WG_IO_DECLARE(BloomSettings);
     };
 
     /**
@@ -86,8 +85,7 @@ namespace wmoge {
         float speed_down            = 0.5f;
         float exposure_compensation = 1.0f;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, AutoExposureSettings& settings);
-        friend Status yaml_write(YamlNodeRef node, const AutoExposureSettings& settings);
+        WG_IO_DECLARE(AutoExposureSettings);
     };
 
     /**
@@ -109,8 +107,7 @@ namespace wmoge {
         float exposure    = 1.0f;
         float white_point = 1.0f;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, TonemapSettings& settings);
-        friend Status yaml_write(YamlNodeRef node, const TonemapSettings& settings);
+        WG_IO_DECLARE(TonemapSettings);
     };
 
     /**
@@ -122,59 +119,27 @@ namespace wmoge {
         AutoExposureSettings auto_exposure;
         TonemapSettings      tonemap;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, GraphicsPipelineSettings& settings);
-        friend Status yaml_write(YamlNodeRef node, const GraphicsPipelineSettings& settings);
-    };
-
-    /** @brief Types of supported stages */
-    enum class GraphicsPipelineStageType {
-        None = 0,
-        ShadowMap,
-        SceneGBuffer,
-        SceneForward,
-        MotionBloor,
-        DepthOfField,
-        Bloom,
-        AutoExposure,
-        ToneMapping,
-        SunShafts,
-        Composition,
-        Total = 11
-    };
-
-    /**
-     * @class GraphicsPipelineTextures
-     * @brief Pipeline textures used during rendering
-    */
-    struct GraphicsPipelineTextures {
-        Ref<GfxTexture>              depth;           //< [full] Scene geometry depth buffer
-        Ref<GfxTexture>              primitive_id;    //< [full] Rendered primitive id for gbuffer effects and picking
-        Ref<GfxTexture>              velocity;        //< [full] Velocity buffer
-        Ref<GfxTexture>              gbuffer[3];      //< [full] GBuffer (layout see in shader)
-        Ref<GfxTexture>              ssao;            //< [half] Screen space ambient occlusion
-        Ref<GfxTexture>              color_hdr;       //< [full] Hdr color target for lit scene
-        Ref<GfxTexture>              color_ldr;       //< [full] Ldr color target after tone mapping
-        std::vector<Ref<GfxTexture>> bloom_downsample;//< [full] [half] ... Bloom downsample sample chain
-        std::vector<Ref<GfxTexture>> bloom_upsample;  //< [full] [half] ... Bloom upsample sample chain
-
-        Rect2i viewport;
-        Rect2i target_viewport;
-        Vec2u  size;
-        Vec2u  target_size;
-
-        void resize(Size2i new_target_resoulution);
-        void update_viewport(Size2i new_resoulution);
+        WG_IO_DECLARE(GraphicsPipelineSettings);
     };
 
     /**
      * @class GraphicsPipelineShared
      * @brief Shared state of pipeline required for rendering
     */
-    struct GraphicsPipelineShared {
+    struct GraphicsPipelineResources {
+        Ref<GfxTexture> depth;       //< [full] Scene geometry depth buffer
+        Ref<GfxTexture> primitive_id;//< [full] Rendered primitive id for gbuffer effects and picking
+        Ref<GfxTexture> velocity;    //< [full] Velocity buffer
+        Ref<GfxTexture> gbuffer[4];  //< [full] GBuffer (layout see in shader)
+        Ref<GfxTexture> ssao;        //< [half] Screen space ambient occlusion
+        Ref<GfxTexture> color_hdr;   //< [full] Hdr color target for lit scene
+        Ref<GfxTexture> color_ldr;   //< [full] Ldr color target after tone mapping
+
+        std::vector<Ref<GfxTexture>> bloom_downsample;//< [full] [half] ... Bloom downsample sample chain
+        std::vector<Ref<GfxTexture>> bloom_upsample;  //< [full] [half] ... Bloom upsample sample chain
+
         Ref<GfxStorageBuffer> lum_histogram;//< Luminance histogram of the hdr color buffer
         Ref<GfxStorageBuffer> lum_luminance;//< Luminance avg and exposure correction
-
-        void allocate();
     };
 
     /**
@@ -183,27 +148,12 @@ namespace wmoge {
     */
     class GraphicsPipelineStage {
     public:
-        GraphicsPipelineStage();
         virtual ~GraphicsPipelineStage() = default;
 
-        void set_pipeline(class GraphicsPipeline* pipeline);
-
-        [[nodiscard]] virtual std::string               get_name() const = 0;
-        [[nodiscard]] virtual GraphicsPipelineStageType get_type() const = 0;
-
-        [[nodiscard]] GfxDriver*              get_gfx_driver() const { return m_gfx_driver; }
-        [[nodiscard]] GfxCtx*                 get_gfx_ctx() const { return m_gfx_ctx; }
-        [[nodiscard]] ShaderManager*          get_shader_manager() const { return m_shader_manager; }
-        [[nodiscard]] TextureManager*         get_tex_manager() const { return m_tex_manager; }
-        [[nodiscard]] class RenderEngine*     get_render_engine() const { return m_render_engine; }
+        void                                  set_pipeline(class GraphicsPipeline* pipeline);
         [[nodiscard]] class GraphicsPipeline* get_pipeline() const { return m_pipeline; }
 
     protected:
-        GfxDriver*              m_gfx_driver;
-        GfxCtx*                 m_gfx_ctx;
-        ShaderManager*          m_shader_manager;
-        TextureManager*         m_tex_manager;
-        class RenderEngine*     m_render_engine;
         class GraphicsPipeline* m_pipeline;
     };
 
@@ -216,38 +166,26 @@ namespace wmoge {
         virtual ~GraphicsPipeline() = default;
 
         virtual void set_scene(RenderScene* scene);
-        virtual void set_cameras(RenderCameras* cameras);
+        virtual void set_cameras(CameraList* cameras);
         virtual void set_views(ArrayView<struct RenderView> views);
-        virtual void set_target_resolution(Size2i resolution);
-        virtual void set_resolution(Size2i resolution);
         virtual void set_settings(const GraphicsPipelineSettings& settings);
 
-        virtual void init()     = 0;
         virtual void exectute() = 0;
 
-        virtual std::vector<GraphicsPipelineStage*> get_stages() = 0;
-        virtual std::string                         get_name()   = 0;
-
-        [[nodiscard]] const GraphicsPipelineSettings& get_settings() { return m_settings; }
-        [[nodiscard]] const GraphicsPipelineTextures& get_textures() { return m_textures; }
-        [[nodiscard]] const GraphicsPipelineShared&   get_shared() { return m_shared; }
-        [[nodiscard]] ArrayView<struct RenderView>    get_views() const { return m_views; }
-        [[nodiscard]] RenderCameras*                  get_cameras() const { return m_cameras; }
-        [[nodiscard]] RenderScene*                    get_scene() const { return m_scene; }
-        [[nodiscard]] const Size2i&                   get_target_resolution() const { return m_target_resolution; }
-        [[nodiscard]] const Size2i&                   get_resolution() const { return m_resolution; }
+        [[nodiscard]] ArrayView<GraphicsPipelineStage*> get_stages() { return m_stages; }
+        [[nodiscard]] const GraphicsPipelineSettings&   get_settings() { return m_settings; }
+        [[nodiscard]] const GraphicsPipelineResources&  get_resources() { return m_resources; }
+        [[nodiscard]] ArrayView<struct RenderView>      get_views() const { return m_views; }
+        [[nodiscard]] CameraList*                       get_cameras() const { return m_cameras; }
+        [[nodiscard]] RenderScene*                      get_scene() const { return m_scene; }
 
     protected:
-        GraphicsPipelineSettings     m_settings;
-        GraphicsPipelineTextures     m_textures;
-        GraphicsPipelineShared       m_shared;
-        ArrayView<struct RenderView> m_views;
-        RenderCameras*               m_cameras;
-        RenderScene*                 m_scene;
-        Size2i                       m_target_resolution = Size2i(1280, 720);
-        Size2i                       m_resolution        = Size2i(1280, 720);
+        std::vector<GraphicsPipelineStage*> m_stages;
+        GraphicsPipelineSettings            m_settings;
+        GraphicsPipelineResources           m_resources;
+        ArrayView<struct RenderView>        m_views;
+        CameraList*                         m_cameras;
+        RenderScene*                        m_scene;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GRAPHICS_PIPELINE_HPP

@@ -27,17 +27,22 @@
 
 #include "ecs_world.hpp"
 
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "core/task.hpp"
 #include "core/task_parallel_for.hpp"
 #include "debug/profiler.hpp"
+#include "ecs/ecs_registry.hpp"
 #include "math/math_utils.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 
     EcsWorld::EcsWorld() {
         m_task_manager = Engine::instance()->task_manager();
+    }
+
+    EcsWorld::~EcsWorld() {
+        clear();
     }
 
     EcsEntity EcsWorld::allocate_entity() {
@@ -61,26 +66,11 @@ namespace wmoge {
         WG_AUTO_PROFILE_ECS("EcsWorld::make_entity");
 
         assert(arch.any());
-
         m_entity_info.resize(m_entity_counter);
 
-        if (m_arch_to_idx.find(arch) == m_arch_to_idx.end()) {
-            const int arch_idx  = int(m_arch_storage.size());
-            m_arch_to_idx[arch] = arch_idx;
-            m_arch_by_idx.emplace_back(arch);
-            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch);
-
-            for (EcsSystemInfo& system_info : m_systems) {
-                auto filter = system_info.query.affected();
-
-                if ((filter & arch) == filter) {
-                    system_info.filtered_arch.push_back(arch_idx);
-                }
-            }
-        }
+        register_arch(arch);
 
         assert(m_arch_to_idx.find(arch) != m_arch_to_idx.end());
-
         const int arch_idx = m_arch_to_idx[arch];
 
         EcsEntityInfo& entity_info = m_entity_info[entity.idx];
@@ -89,6 +79,56 @@ namespace wmoge {
         entity_info.state          = EcsEntityState::Alive;
 
         m_arch_storage[arch_idx]->make_entity(entity, entity_info.storage);
+    }
+
+    void EcsWorld::swap_entity(const EcsEntity& left, const EcsEntity& right) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::swap_entity");
+
+        assert(left.is_valid());
+        assert(left.idx < m_entity_info.size());
+        assert(right.is_valid());
+        assert(right.idx < m_entity_info.size());
+
+        const EcsEntityInfo& right_info = m_entity_info[right.idx];
+        const EcsEntityInfo& left_info  = m_entity_info[left.idx];
+
+        EcsArchStorage* right_storage = m_arch_storage[right_info.arch].get();
+        EcsArchStorage* left_storage  = m_arch_storage[left_info.arch].get();
+
+        const EcsArch right_arch = m_arch_by_idx[right_info.arch];
+        const EcsArch left_arch  = m_arch_by_idx[left_info.arch];
+
+        EcsRegistry* ecs_registry = Engine::instance()->ecs_registry();
+
+        EcsArch(right_arch & left_arch).for_each_component([&](int idx) {
+            const EcsComponentInfo& info = ecs_registry->get_component_info(idx);
+            info.swap(right_storage->get_component(right_info.storage, idx), left_storage->get_component(left_info.storage, idx));
+        });
+    }
+
+    void EcsWorld::rearch_entity(const EcsEntity& entity, const EcsArch& new_arch) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::rearch_entity");
+
+        assert(new_arch.any());
+        assert(entity.is_valid());
+        assert(entity.idx < m_entity_info.size());
+
+        EcsEntityInfo& entity_info = m_entity_info[entity.idx];
+        EcsArch        prev_arch   = m_arch_by_idx[entity_info.arch];
+
+        if (prev_arch == new_arch) {
+            return;
+        }
+
+        EcsEntity tmp_entity = allocate_entity();
+        make_entity(tmp_entity, new_arch);
+        swap_entity(tmp_entity, entity);
+
+        EcsEntityInfo& tmp_entity_info = m_entity_info[tmp_entity.idx];
+        std::swap(tmp_entity_info.arch, entity_info.arch);
+        std::swap(tmp_entity_info.storage, entity_info.storage);
+
+        destroy_entity(tmp_entity);
     }
 
     void EcsWorld::destroy_entity(const EcsEntity& entity) {
@@ -131,8 +171,6 @@ namespace wmoge {
     }
 
     std::vector<int> EcsWorld::filter_arch_idx(const EcsQuery& query) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::filter_arch_idx");
-
         std::vector<int> filtered_arch;
         const auto       filter = query.affected();
 
@@ -143,6 +181,23 @@ namespace wmoge {
         }
 
         return filtered_arch;
+    }
+
+    void EcsWorld::register_arch(EcsArch arch) {
+        if (m_arch_to_idx.find(arch) == m_arch_to_idx.end()) {
+            const int arch_idx  = int(m_arch_storage.size());
+            m_arch_to_idx[arch] = arch_idx;
+            m_arch_by_idx.emplace_back(arch);
+            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch, this);
+
+            for (EcsSystemInfo& system_info : m_systems) {
+                auto filter = system_info.query.affected();
+
+                if ((filter & arch) == filter) {
+                    system_info.filtered_arch.push_back(arch_idx);
+                }
+            }
+        }
     }
 
     void EcsWorld::register_system(const std::shared_ptr<EcsSystem>& system) {

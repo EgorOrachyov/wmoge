@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TYPED_MAP_HPP
-#define WMOGE_TYPED_MAP_HPP
+#pragma once
 
 #include "core/ref.hpp"
 #include "io/yaml.hpp"
@@ -126,5 +125,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_TYPED_MAP_HPP

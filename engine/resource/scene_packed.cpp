@@ -28,7 +28,6 @@
 #include "scene_packed.hpp"
 
 #include "core/class.hpp"
-#include "core/engine.hpp"
 #include "core/log.hpp"
 #include "core/task.hpp"
 #include "core/timer.hpp"
@@ -36,6 +35,7 @@
 #include "platform/file_system.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

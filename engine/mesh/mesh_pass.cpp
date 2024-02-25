@@ -27,7 +27,7 @@
 
 #include "mesh_pass.hpp"
 
-#include "core/engine.hpp"
+#include "system/engine.hpp"
 
 #include <cassert>
 
@@ -37,11 +37,11 @@ namespace wmoge {
         return m_mask.get(pass_type);
     }
 
-    std::optional<Ref<GfxPipeline>> MeshPassList::get_pass(MeshPassType pass_type) const {
+    std::optional<MeshPass*> MeshPassList::get_pass(MeshPassType pass_type) {
         if (m_mask.get(pass_type)) {
             for (std::size_t i = 0; i < get_size(); i++) {
-                if (m_types[i] == pass_type) {
-                    return m_pipelines[i];
+                if (m_passes[i].pass_type == pass_type) {
+                    return &m_passes[i];
                 }
             }
 
@@ -51,25 +51,20 @@ namespace wmoge {
         return std::nullopt;
     }
 
-    void MeshPassList::add_pass(Ref<GfxPipeline> pass, MeshPassType pass_type, bool overwrite) {
-        assert(pass);
-
-        if (!m_mask.get(pass_type)) {
-            m_pipelines.push_back(std::move(pass));
-            m_types.push_back(pass_type);
-            m_mask.set(pass_type);
+    void MeshPassList::add_pass(MeshPass&& pass, bool overwrite) {
+        if (!m_mask.get(pass.pass_type)) {
+            m_passes.push_back(std::move(pass));
+            m_mask.set(m_passes.back().pass_type);
             return;
         }
 
         if (overwrite) {
             for (std::size_t i = 0; i < get_size(); i++) {
-                if (m_types[i] == pass_type) {
-                    m_pipelines[i] = std::move(pass);
+                if (m_passes[i].pass_type == pass.pass_type) {
+                    m_passes[i] = std::move(pass);
                     return;
                 }
             }
-
-            assert(false && "Invalid invariant of mask state and list state");
         }
     }
 

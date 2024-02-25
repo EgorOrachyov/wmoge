@@ -33,7 +33,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
-#include "io/archive.hpp"
+#include "io/serialization.hpp"
 
 #include <array>
 #include <cinttypes>
@@ -56,8 +56,7 @@ namespace wmoge {
         [[nodiscard]] bool        operator!=(const GfxDescBinging& other) const;
         [[nodiscard]] std::size_t hash() const;
 
-        friend Status archive_read(Archive& archive, GfxDescBinging& binging);
-        friend Status archive_write(Archive& archive, const GfxDescBinging& binging);
+        WG_IO_DECLARE(GfxDescBinging);
     };
 
     /**

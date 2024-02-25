@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TIMER_HPP
-#define WMOGE_TIMER_HPP
+#pragma once
 
 #include <chrono>
 
@@ -52,5 +51,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TIMER_HPP

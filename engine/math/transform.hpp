@@ -25,10 +25,9 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TRANSFORM_HPP
-#define WMOGE_TRANSFORM_HPP
+#pragma once
 
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils2d.hpp"
 #include "math/math_utils3d.hpp"
@@ -83,6 +82,19 @@ namespace wmoge {
             WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
             WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
             WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+
+            return StatusCode::Ok;
+        }
+        friend Status archive_read(Archive& archive, Transform2d& transform) {
+            WG_ARCHIVE_READ(archive, transform.m_rotation);
+            WG_ARCHIVE_READ(archive, transform.m_translation);
+            WG_ARCHIVE_READ(archive, transform.m_scale);
+            return StatusCode::Ok;
+        }
+        friend Status archive_write(Archive& archive, const Transform2d& transform) {
+            WG_ARCHIVE_WRITE(archive, transform.m_rotation);
+            WG_ARCHIVE_WRITE(archive, transform.m_translation);
+            WG_ARCHIVE_WRITE(archive, transform.m_scale);
             return StatusCode::Ok;
         }
 
@@ -103,6 +115,8 @@ namespace wmoge {
         }
 
         void set_translation(const Vec3f& translation) { m_translation = translation; }
+        void set_rotation(const Quatf& quat) { m_rotation = quat; }
+        void set_scale(const Vec3f& s) { m_scale = s; }
 
         void translate(const Vec3f& offset) { m_translation += offset; }
         void rotate(const Vec3f& axis, float rad) { m_rotation = Quatf(axis, rad) * m_rotation; }
@@ -110,6 +124,28 @@ namespace wmoge {
         void rotate_y(float rad) { m_rotation = Quatf(Vec3f::axis_y(), rad) * m_rotation; }
         void rotate_z(float rad) { m_rotation = Quatf(Vec3f::axis_z(), rad) * m_rotation; }
         void scale(const Vec3f& scale) { m_scale *= scale; }
+
+        Vec3f transform(const Vec3f& v) const {
+            return m_translation + m_rotation.rotate(m_scale * v);
+        }
+
+        Transform3d operator*(const Transform3d& other) const {
+            // v'  = t1 + r1(s1 * v)
+            // v'' = t2 + r2(s2 * v')
+            //     = t2 + r2(s2 * t1 + s2 * r1(s1 * v))
+            //     = (t2 + r2(s2 * t1)) + r2(s2 * r1(s1 * v))
+            //     = (t2 + r2(s2 * t1)) + r2(r1(r1^-1(s2) * s1 * v)))
+            //
+            // t'  = t2 + r2(s2 * t1)
+            // r'  = r2 x r1
+            // s'  = r1^-1(s2) * s1
+
+            Transform3d result;
+            result.set_translation(m_translation + transform(other.m_translation));
+            result.set_rotation(m_rotation * other.m_rotation);
+            result.set_scale(other.m_rotation.conjugate().rotate(m_scale) * other.m_scale);
+            return result;
+        }
 
         [[nodiscard]] Mat4x4f get_transform() const {
             return Math3d::translate(m_translation) *
@@ -138,6 +174,19 @@ namespace wmoge {
             WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
             WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
             WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+
+            return StatusCode::Ok;
+        }
+        friend Status archive_read(Archive& archive, Transform3d& transform) {
+            WG_ARCHIVE_READ(archive, transform.m_rotation);
+            WG_ARCHIVE_READ(archive, transform.m_translation);
+            WG_ARCHIVE_READ(archive, transform.m_scale);
+            return StatusCode::Ok;
+        }
+        friend Status archive_write(Archive& archive, const Transform3d& transform) {
+            WG_ARCHIVE_WRITE(archive, transform.m_rotation);
+            WG_ARCHIVE_WRITE(archive, transform.m_translation);
+            WG_ARCHIVE_WRITE(archive, transform.m_scale);
             return StatusCode::Ok;
         }
 
@@ -204,6 +253,18 @@ namespace wmoge {
 
             return StatusCode::Ok;
         }
+        friend Status archive_read(Archive& archive, TransformEdt& transform) {
+            WG_ARCHIVE_READ(archive, transform.m_rotation);
+            WG_ARCHIVE_READ(archive, transform.m_translation);
+            WG_ARCHIVE_READ(archive, transform.m_scale);
+            return StatusCode::Ok;
+        }
+        friend Status archive_write(Archive& archive, const TransformEdt& transform) {
+            WG_ARCHIVE_WRITE(archive, transform.m_rotation);
+            WG_ARCHIVE_WRITE(archive, transform.m_translation);
+            WG_ARCHIVE_WRITE(archive, transform.m_scale);
+            return StatusCode::Ok;
+        }
 
     private:
         Vec3f m_rotation;
@@ -212,5 +273,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TRANSFORM_HPP

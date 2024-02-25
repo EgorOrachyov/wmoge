@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_NODE_HPP
-#define WMOGE_SCENE_NODE_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/class.hpp"
@@ -34,10 +33,10 @@
 #include "core/uuid.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "math/transform.hpp"
-#include "scene/scene_property.hpp"
-#include "scene/scene_transform.hpp"
+#include "resource/resource_ref.hpp"
+#include "scene/scene_entity.hpp"
 
 #include <functional>
 #include <optional>
@@ -53,6 +52,51 @@ namespace wmoge {
         Folder,
         Layer,
         Prefabed
+    };
+
+    /**
+     * @class SceneNodeProp
+     * @brief An property of the node which can be assigned to node to customize it
+    */
+    class SceneNodeProp : public Object {
+    public:
+        WG_OBJECT(SceneNodeProp, Object)
+
+        virtual void fill_arch(EcsArch& arch) {}
+        virtual void add_components(Entity entity) {}
+
+        void                           set_node(class SceneNode* node) { m_node = node; }
+        [[nodiscard]] bool             has_node() const { return m_node != nullptr; }
+        [[nodiscard]] class SceneNode* get_node() const { return m_node; }
+
+    private:
+        class SceneNode* m_node = nullptr;
+    };
+
+    /**
+     * @class SceneNodeData
+     * @brief Serializable struct with scene tree single node data
+     */
+    struct SceneNodeData {
+        StringId                        name;
+        UUID                            uuid;
+        SceneNodeType                   type;
+        TransformEdt                    transform;
+        ResourceId                      prefab;
+        std::vector<Ref<SceneNodeProp>> properties;
+        std::optional<UUID>             parent;
+
+        WG_IO_DECLARE(SceneNodeData);
+    };
+
+    /**
+     * @class SceneNodesData
+     * @brief Serializable hierarchy of nodes
+     */
+    struct SceneNodesData {
+        std::vector<SceneNodeData> nodes;
+
+        WG_IO_DECLARE(SceneNodesData);
     };
 
     /**
@@ -84,29 +128,32 @@ namespace wmoge {
          */
         SceneNode(const StringId& name, SceneNodeType type);
 
-        void                               set_name(const StringId& name);
-        void                               set_uuid(const UUID& uuid);
-        void                               set_transform(const TransformEdt& transform);
-        void                               set_properties(std::vector<Ref<SceneProperty>> props);
-        void                               set_tree(class SceneTree* tree);
-        void                               add_child(const Ref<SceneNode>& child);
-        void                               remove_child(const Ref<SceneNode>& child);
-        bool                               is_child(const Ref<SceneNode>& node) const;
-        bool                               contains(const Ref<SceneNode>& node) const;
-        void                               each(const std::function<void(const Ref<SceneNode>&)>& visitor);
-        std::optional<Ref<SceneNode>>      find_child(const std::string& name);
-        std::optional<Ref<SceneNode>>      find_child_recursive(const std::string& path);
-        std::vector<Ref<SceneProperty>>    copy_properties() const;
-        bool                               has_parent() const;
-        bool                               has_prefab() const;
-        bool                               has_entity() const;
-        bool                               has_tree() const;
-        bool                               has_scene() const;
-        std::optional<Ref<SceneTransform>> get_hier_transform() const;
-        std::optional<Ref<SceneTransform>> get_hier_transform_parent() const;
+        Status                          build(const std::vector<SceneNodeData>& nodes);
+        Status                          dump(std::vector<SceneNodeData>& nodes);
+        void                            enter_tree(class SceneTree* tree);
+        void                            exit_tree();
+        void                            set_name(const StringId& name);
+        void                            set_uuid(const UUID& uuid);
+        void                            set_transform(const TransformEdt& transform);
+        void                            set_properties(std::vector<Ref<SceneNodeProp>> props);
+        void                            add_child(const Ref<SceneNode>& child);
+        void                            remove_child(const Ref<SceneNode>& child);
+        bool                            is_child(const Ref<SceneNode>& node) const;
+        bool                            contains(const Ref<SceneNode>& node) const;
+        void                            each(const std::function<void(const Ref<SceneNode>&)>& visitor);
+        std::optional<Ref<SceneNode>>   find_child(const std::string& name);
+        std::optional<Ref<SceneNode>>   find_child_recursive(const std::string& path);
+        std::vector<Ref<SceneNodeProp>> copy_properties() const;
+        std::vector<Ref<SceneNode>>     get_nodes();
+        bool                            has_parent() const;
+        bool                            has_prefab() const;
+        bool                            has_entity() const;
+        bool                            has_tree() const;
+        bool                            has_scene() const;
+        Entity                          instantiate_entity(class Scene* scene);
 
         [[nodiscard]] ArrayView<const Ref<SceneNode>>     get_children() const { return m_children; }
-        [[nodiscard]] ArrayView<const Ref<SceneProperty>> get_properties() const { return m_properties; }
+        [[nodiscard]] ArrayView<const Ref<SceneNodeProp>> get_properties() const { return m_properties; }
         [[nodiscard]] class SceneNode*                    get_parent() const { return m_parent; }
         [[nodiscard]] const StringId&                     get_name() const { return m_name; }
         [[nodiscard]] const std::string&                  get_path() const { return m_path; }
@@ -114,23 +161,15 @@ namespace wmoge {
         [[nodiscard]] const Ref<class Prefab>&            get_prefab() const { return m_prefab; }
         [[nodiscard]] const SceneNodeType                 get_type() const { return m_type; }
         [[nodiscard]] const TransformEdt&                 get_transform() const { return m_transform; }
-        [[nodiscard]] const EcsEntity&                    get_entity() const { return m_entity; }
+        [[nodiscard]] const Entity&                       get_entity() const { return m_entity; }
         [[nodiscard]] class SceneTree*                    get_tree() const { return m_tree; }
         [[nodiscard]] class Scene*                        get_scene() const;
 
         Status copy_to(Object& other) const override;
 
     private:
-        friend class SceneTree;
-        void make_entity();
-        void delete_entity();
-        void remake_entity();
-        void sync_name();
-        void sync_transform();
-
-    private:
         std::vector<Ref<SceneNode>>     m_children;
-        std::vector<Ref<SceneProperty>> m_properties;
+        std::vector<Ref<SceneNodeProp>> m_properties;
         SceneNode*                      m_parent = nullptr;
         StringId                        m_name   = SID("");
         std::string                     m_path;
@@ -138,10 +177,8 @@ namespace wmoge {
         Ref<class Prefab>               m_prefab;
         SceneNodeType                   m_type = SceneNodeType::Object;
         TransformEdt                    m_transform;
-        EcsEntity                       m_entity;
+        Entity                          m_entity;
         class SceneTree*                m_tree = nullptr;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_NODE_HPP

@@ -27,9 +27,9 @@
 
 #include "shader_builder.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

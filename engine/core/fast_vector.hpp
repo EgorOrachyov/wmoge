@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_FAST_VECTOR_HPP
-#define WMOGE_FAST_VECTOR_HPP
+#pragma once
 
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
@@ -91,5 +90,3 @@ namespace wmoge {
 #endif
 
 }// namespace wmoge
-
-#endif//WMOGE_FAST_VECTOR_HPP

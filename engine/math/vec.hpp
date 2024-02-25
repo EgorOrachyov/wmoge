@@ -25,12 +25,11 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VEC_HPP
-#define WMOGE_VEC_HPP
+#pragma once
 
-#include "math_utils.hpp"
-
+#include "io/archive.hpp"
 #include "io/yaml.hpp"
+#include "math_utils.hpp"
 
 #include <cassert>
 #include <cstddef>
@@ -81,6 +80,25 @@ namespace wmoge {
                 values[i] = v.values[i];
             }
             values[M] = a;
+        }
+
+        template<int M>
+        TVecN(T a, const TVecN<T, M>& v) : TVecN() {
+            static_assert(N >= M + 1, "Out of bounds index assignment");
+            values[0] = a;
+            for (int i = 0; i < M; i++) {
+                values[i + 1] = v.values[i];
+            }
+        }
+
+        template<int M>
+        TVecN(T a, T b, const TVecN<T, M>& v) : TVecN() {
+            static_assert(N >= M + 2, "Out of bounds index assignment");
+            values[0] = a;
+            values[1] = b;
+            for (int i = 0; i < M; i++) {
+                values[i + 2] = v.values[i];
+            }
         }
 
         TVecN(const std::initializer_list<T>& list) noexcept : TVecN<T, N>() {
@@ -656,6 +674,16 @@ namespace wmoge {
         return yaml_write(node, stream.str());
     }
 
+    template<typename T, int N>
+    Status archive_read(Archive& archive, TVecN<T, N>& v) {
+        return archive.nread(sizeof(TVecN<T, N>), &v);
+    }
+
+    template<typename T, int N>
+    Status archive_write(Archive& archive, const TVecN<T, N>& v) {
+        return archive.nwrite(sizeof(TVecN<T, N>), &v);
+    }
+
 }// namespace wmoge
 
 namespace std {
@@ -669,5 +697,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_VEC_HPP

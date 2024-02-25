@@ -27,7 +27,6 @@
 
 #include "aux_draw_manager.hpp"
 
-#include "core/engine.hpp"
 #include "core/fast_vector.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
@@ -37,6 +36,7 @@
 #include "math/math_utils3d.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
+#include "system/engine.hpp"
 
 #include <algorithm>
 #include <utility>

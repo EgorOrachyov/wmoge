@@ -22,7 +22,6 @@ params:
     w: Repeat
     brd_clr: Black
   compression:
-    format: BC7
     use_channel_weighting: false
     weight_red: 0.3
     weight_green: 0.4

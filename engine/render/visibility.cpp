@@ -96,7 +96,7 @@ namespace wmoge {
         return m_result[item.id];
     }
 
-    void VisibilitySystem::cull(const RenderCameras& cameras) {
+    void VisibilitySystem::cull(const CameraList& cameras) {
         WG_AUTO_PROFILE_RENDER("VisibilitySystem::cull");
 
         const int total_items = int(m_items.size());

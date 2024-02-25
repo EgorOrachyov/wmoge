@@ -31,36 +31,18 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, TexCompressionParams& params) {
-        WG_YAML_READ_AS_OPT(node, "format", params.format);
-        WG_YAML_READ_AS_OPT(node, "use_channel_weighting", params.use_channel_weighting);
-        WG_YAML_READ_AS_OPT(node, "weight_red", params.weight_red);
-        WG_YAML_READ_AS_OPT(node, "weight_green", params.weight_green);
-        WG_YAML_READ_AS_OPT(node, "weight_blue", params.weight_blue);
-        WG_YAML_READ_AS_OPT(node, "use_adaptive_weighting", params.use_adaptive_weighting);
-        WG_YAML_READ_AS_OPT(node, "use_alpha", params.use_alpha);
-        WG_YAML_READ_AS_OPT(node, "alpha_threshold", params.alpha_threshold);
-        WG_YAML_READ_AS_OPT(node, "fquality", params.fquality);
-        WG_YAML_READ_AS_OPT(node, "num_threads", params.num_threads);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_write(YamlNodeRef node, const TexCompressionParams& params) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "format", params.format);
-        WG_YAML_WRITE_AS(node, "use_channel_weighting", params.use_channel_weighting);
-        WG_YAML_WRITE_AS(node, "weight_red", params.weight_red);
-        WG_YAML_WRITE_AS(node, "weight_green", params.weight_green);
-        WG_YAML_WRITE_AS(node, "weight_blue", params.weight_blue);
-        WG_YAML_WRITE_AS(node, "use_adaptive_weighting", params.use_adaptive_weighting);
-        WG_YAML_WRITE_AS(node, "use_alpha", params.use_alpha);
-        WG_YAML_WRITE_AS(node, "alpha_threshold", params.alpha_threshold);
-        WG_YAML_WRITE_AS(node, "fquality", params.fquality);
-        WG_YAML_WRITE_AS(node, "num_threads", params.num_threads);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(TexCompressionParams)
+    WG_IO_FIELD_OPT(format)
+    WG_IO_FIELD_OPT(use_channel_weighting)
+    WG_IO_FIELD_OPT(weight_red)
+    WG_IO_FIELD_OPT(weight_green)
+    WG_IO_FIELD_OPT(weight_blue)
+    WG_IO_FIELD_OPT(use_adaptive_weighting)
+    WG_IO_FIELD_OPT(use_alpha)
+    WG_IO_FIELD_OPT(alpha_threshold)
+    WG_IO_FIELD_OPT(fquality)
+    WG_IO_FIELD_OPT(num_threads)
+    WG_IO_END(TexCompressionParams)
 
     static CMP_FORMAT get_source_format(GfxFormat format) {
         switch (format) {

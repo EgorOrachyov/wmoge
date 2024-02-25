@@ -28,10 +28,10 @@
 #include "vk_pipeline.hpp"
 #include "vk_driver.hpp"
 
-#include "core/engine.hpp"
 #include "core/task.hpp"
 #include "core/timer.hpp"
 #include "debug/profiler.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

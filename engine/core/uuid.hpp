@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_UUID_HPP
-#define WMOGE_UUID_HPP
+#pragma once
 
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
@@ -94,5 +93,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_UUID_HPP

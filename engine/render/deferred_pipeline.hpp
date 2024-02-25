@@ -44,22 +44,9 @@ namespace wmoge {
         DeferredPipeline(DeferredPipeline&&)      = delete;
         ~DeferredPipeline();
 
-        void init() override;
         void exectute() override;
 
-        std::vector<GraphicsPipelineStage*> get_stages() override;
-        std::string                         get_name() override;
-
     private:
-        std::unique_ptr<class PassGBuffer>      m_pass_gbuffer;
-        std::unique_ptr<class PassBloom>        m_pass_bloom;
-        std::unique_ptr<class PassAutoExposure> m_pass_autoexposure;
-        std::unique_ptr<class PassToneMap>      m_pass_tonemap;
-        std::unique_ptr<class PassComposition>  m_pass_composition;
-        // std::unique_ptr<class PassForward>          m_pass_forward;
-        // std::unique_ptr<class PassDeferredLighting> m_pass_deferred_lighting;
-
-        std::vector<GraphicsPipelineStage*> m_stages;
     };
 
 }// namespace wmoge

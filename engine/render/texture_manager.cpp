@@ -27,10 +27,10 @@
 
 #include "texture_manager.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

@@ -25,10 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PROFILER_HPP
-#define WMOGE_PROFILER_HPP
+#pragma once
 
 #include "core/string_id.hpp"
+#include "core/synchronization.hpp"
 #include "core/timer.hpp"
 
 #include <atomic>
@@ -94,6 +94,8 @@ namespace wmoge {
      */
     class ProfilerCapture {
     public:
+        ProfilerCapture() = default;
+
         void set_name(StringId name);
         void set_file(std::string file);
         void add_entry(ProfilerEntry&& entry);
@@ -131,7 +133,7 @@ namespace wmoge {
         std::atomic_bool                              m_is_collecting{false};
         std::shared_ptr<ProfilerCapture>              m_capture;
         std::unordered_map<std::thread::id, StringId> m_tid_names;
-        std::mutex                                    m_mutex;
+        SpinMutex                                     m_mutex;
     };
 
 }// namespace wmoge
@@ -173,16 +175,15 @@ namespace wmoge {
 #define WG_AUTO_PROFILE_PFX(label)            WG_AUTO_PROFILE(pfx, label)
 #define WG_AUTO_PROFILE_AUDIO(label)          WG_AUTO_PROFILE(audio, label)
 #define WG_AUTO_PROFILE_OPENAL(label)         WG_AUTO_PROFILE(openal, label)
+#define WG_AUTO_PROFILE_SYSTEM(label)         WG_AUTO_PROFILE(system, label)
 
-#define WG_PROFILE_CAPTURE_START(session, file_path)                                            \
-    std::shared_ptr<ProfilerCapture> __capture_##session = std::make_shared<ProfilerCapture>(); \
-    __capture_##session->set_name(SID(#session));                                               \
-    __capture_##session->set_file(file_path);                                                   \
-    Engine::instance()->profiler()->start_capture(__capture_##session);
+#define WG_PROFILE_CAPTURE_START(capture, session, file_path) \
+    capture = std::make_shared<ProfilerCapture>();            \
+    capture->set_name(SID(#session));                         \
+    capture->set_file(file_path);                             \
+    Engine::instance()->profiler()->start_capture(capture);
 
-#define WG_PROFILE_CAPTURE_END(session)            \
+#define WG_PROFILE_CAPTURE_END(capture)            \
     Engine::instance()->profiler()->end_capture(); \
-    __capture_##session->save_to_json();           \
-    __capture_##session.reset();
-
-#endif//WMOGE_PROFILER_HPP
+    capture->save_to_json();                       \
+    capture.reset();

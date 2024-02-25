@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CMD_LINE_HPP
-#define WMOGE_CMD_LINE_HPP
+#pragma once
 
 #include <cxxopts.hpp>
 
@@ -58,5 +57,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_CMD_LINE_HPP

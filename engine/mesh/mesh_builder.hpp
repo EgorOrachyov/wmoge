@@ -25,33 +25,18 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MESH_BUILDER_HPP
-#define WMOGE_MESH_BUILDER_HPP
+#pragma once
 
+#include "core/fast_vector.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "math/vec.hpp"
+#include "resource/array_mesh.hpp"
 #include "resource/mesh.hpp"
 
 #include <vector>
 
 namespace wmoge {
-
-    /**
-     * @class MeshVertex
-     * @brief Holds the data of a single vertex
-     */
-    struct MeshVertex {
-        Vec3f          pos3;
-        Vec2f          pos2;
-        Vec3f          norm;
-        Vec3f          tang;
-        Vec4i          bone_ids;
-        Vec4f          bone_weights;
-        Vec4f          col[4];
-        Vec2f          uv[4];
-        GfxVertAttribs attribs;
-    };
 
     /**
      * @class MeshBuilder
@@ -60,35 +45,20 @@ namespace wmoge {
     class MeshBuilder {
     public:
         void set_mesh(Ref<Mesh> mesh);
-        void add_index(std::uint32_t i);
-        void add_triangle(std::uint32_t v0, std::uint32_t v1, std::uint32_t v2);
-        void add_vertex(const MeshVertex& v);
-        void add_chunk(const MeshChunk& chunk);
+        void add_chunk(const StringId& name, const Ref<ArrayMesh>& data);
+        void add_child(int parent_idx, int child_idx);
 
         Status build();
 
         [[nodiscard]] const Ref<Mesh>& get_mesh() const { return m_mesh; }
-        [[nodiscard]] int              get_num_vertices() const { return m_num_vertices; }
-        [[nodiscard]] int              get_num_indices() const { return m_num_indices; }
 
     private:
-        std::vector<MeshChunk>     m_chunks;
-        std::vector<std::uint32_t> m_indices;
-        std::vector<Vec3f>         m_pos3;
-        std::vector<Vec2f>         m_pos2;
-        std::vector<Vec3f>         m_norm;
-        std::vector<Vec3f>         m_tang;
-        std::vector<Vec4i>         m_bone_ids;
-        std::vector<Vec4f>         m_bone_weights;
-        std::vector<Vec4f>         m_col[4];
-        std::vector<Vec2f>         m_uv[4];
-
-        int m_num_vertices = 0;
-        int m_num_indices  = 0;
+        std::vector<Ref<ArrayMesh>>   m_chunks;
+        std::vector<StringId>         m_chunks_names;
+        std::vector<int>              m_chunks_parents;
+        std::vector<fast_vector<int>> m_chunks_children;
 
         Ref<Mesh> m_mesh;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MESH_BUILDER_HPP

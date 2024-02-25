@@ -26,6 +26,7 @@
 /**********************************************************************************/
 
 #include "core/ref.hpp"
+#include "ref.hpp"
 
 namespace wmoge {
 
@@ -44,8 +45,7 @@ namespace wmoge {
 
         if (refs == 1) {
             // Was last reference
-            // Destroy object and release memory
-            destroy();
+            reach_zero();
         }
 
         return refs;
@@ -57,6 +57,11 @@ namespace wmoge {
 
     void RefCnt::destroy() {
         delete this;
+    }
+
+    void RefCnt::reach_zero() {
+        // Destroy object and release memory
+        destroy();
     }
 
 }// namespace wmoge

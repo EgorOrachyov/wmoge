@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CALLBACK_QUEUE_HPP
-#define WMOGE_CALLBACK_QUEUE_HPP
+#pragma once
 
 #include "core/synchronization.hpp"
 
@@ -75,5 +74,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_CALLBACK_QUEUE_HPP

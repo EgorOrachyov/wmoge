@@ -23,5 +23,5 @@ fragment: >
             mixing = 20.0f;
         }
 
-        fs.result.baseColor = mixing * color * max(0.1f, dot(-Direction.xyz, fs.attributes.worldNorm));
+        fs.result.baseColor = mixing * color.rgb;
     }

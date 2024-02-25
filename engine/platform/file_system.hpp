@@ -85,7 +85,7 @@ namespace wmoge {
     private:
         std::filesystem::path m_executable_path;// absolute exe path
         std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)
-        std::filesystem::path m_eng_path;       // path to directory with engine prvate files
+        std::filesystem::path m_eng_path;       // path to directory with engine private files
         std::filesystem::path m_resources_path; // path to resources inside root
         std::filesystem::path m_cache_path;     // path to cache inside root
         std::filesystem::path m_debug_path;     // path to debug data inside root

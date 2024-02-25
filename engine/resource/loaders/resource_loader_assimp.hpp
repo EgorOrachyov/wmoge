@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_LOADER_ASSIMP_HPP
-#define WMOGE_RESOURCE_LOADER_ASSIMP_HPP
+#pragma once
 
 #include "math/mat.hpp"
 #include "math/vec.hpp"
@@ -37,6 +36,8 @@
 
 #include <assimp/mesh.h>
 #include <assimp/scene.h>
+
+#include <optional>
 
 namespace wmoge {
 
@@ -51,10 +52,8 @@ namespace wmoge {
         StringId get_name() override;
 
     private:
-        Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform);
-        Status process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform);
+        Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent);
+        Status process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent);
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RESOURCE_LOADER_ASSIMP_HPP

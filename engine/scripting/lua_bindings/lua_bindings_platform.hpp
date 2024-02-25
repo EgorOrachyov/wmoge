@@ -31,12 +31,12 @@
 #include "scripting/lua_bindings/lua_bindings.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
 
-#include "core/engine.hpp"
 #include "platform/file_system.hpp"
 #include "platform/input.hpp"
 #include "platform/input_devices.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

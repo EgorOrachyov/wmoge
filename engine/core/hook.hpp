@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_HOOK_HPP
-#define WMOGE_HOOK_HPP
+#pragma once
 
 #include "core/cmd_line.hpp"
 #include "core/status.hpp"
@@ -48,7 +47,7 @@ namespace wmoge {
         virtual std::string get_name() const { return ""; }
         virtual void        on_attach() {}
         virtual void        on_add_cmd_line_options(CmdLine& cmd_line) {}
-        virtual Status      on_process(CmdLine& cmd_line, class Engine& engine) { return StatusCode::Ok; }
+        virtual Status      on_process(CmdLine& cmd_line) { return StatusCode::Ok; }
     };
 
     /** 
@@ -84,5 +83,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_HOOK_HPP

@@ -31,7 +31,7 @@
 #include "core/data.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 
 #include <vector>
 
@@ -153,8 +153,7 @@ namespace wmoge {
         float                fquality               = 0.05f;
         int                  num_threads            = 4;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, TexCompressionParams& params);
-        friend Status yaml_write(YamlNodeRef node, const TexCompressionParams& params);
+        WG_IO_DECLARE(TexCompressionParams);
     };
 
     /**

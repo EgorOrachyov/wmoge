@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MAT_HPP
-#define WMOGE_MAT_HPP
+#pragma once
 
 #include <array>
 #include <cassert>
@@ -429,5 +428,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MAT_HPP

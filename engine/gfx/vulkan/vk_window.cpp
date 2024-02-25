@@ -27,7 +27,6 @@
 
 #include "vk_window.hpp"
 
-#include "core/engine.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
 #include "event/event_window.hpp"
@@ -35,6 +34,7 @@
 #include "gfx/vulkan/vk_texture.hpp"
 #include "math/math_utils.hpp"
 #include "resource/config_file.hpp"
+#include "system/engine.hpp"
 
 namespace wmoge {
 

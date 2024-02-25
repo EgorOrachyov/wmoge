@@ -33,6 +33,7 @@
 #include "gfx/gfx_shader.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_resource.hpp"
+#include "io/serialization.hpp"
 
 #include <SPIRV/GlslangToSpv.h>
 #include <StandAlone/ResourceLimits.h>
@@ -54,8 +55,7 @@ namespace wmoge {
         GfxDescSetLayoutDescs  layouts;
         GfxShaderReflection    reflection;
 
-        friend Status archive_read(Archive& archive, VKShaderBinary& binary);
-        friend Status archive_write(Archive& archive, const VKShaderBinary& binary);
+        WG_IO_DECLARE(VKShaderBinary);
     };
 
     /**

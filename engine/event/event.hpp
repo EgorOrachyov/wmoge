@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_EVENT_HPP
-#define WMOGE_EVENT_HPP
+#pragma once
 
 #include "core/class.hpp"
 #include "core/object.hpp"
@@ -75,5 +74,3 @@ namespace wmoge {
         return g_id;                            \
     }                                           \
     std::string to_string() override;
-
-#endif//WMOGE_EVENT_HPP
