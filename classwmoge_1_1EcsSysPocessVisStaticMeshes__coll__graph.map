@@ -1,6 +1,0 @@
-<map id="wmoge::EcsSysPocessVisStaticMeshes" name="wmoge::EcsSysPocessVisStaticMeshes">
-<area shape="rect" id="node1" title="Process visibility result for static meshes." alt="" coords="133,95,344,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1EcsSystem.html" title="Base class for any system, which can be register within a world." alt="" coords="5,5,141,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="165,5,313,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1VisibilitySystem.html" title="Manages allocation, frustum and occlussion culling of visibility items." alt="" coords="337,5,500,32"/>
-</map>

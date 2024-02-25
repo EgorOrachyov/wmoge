@@ -1,0 +1,6 @@
+<map id="wmoge::GameApplication" name="wmoge::GameApplication">
+<area shape="rect" id="node1" title="Base class for application to run stand&#45;alone game." alt="" coords="5,320,175,347"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1BaseApplication.html" title="Base class for application with minimal engine setup." alt="" coords="8,244,172,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Application.html" title="Base class for any application which is an entry point to run." alt="" coords="23,168,157,195"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="9,5,171,32"/>
+</map>

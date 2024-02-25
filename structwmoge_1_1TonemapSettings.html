@@ -67,8 +67,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="structwmoge_1_1TonemapSettings-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::TonemapSettings Class Reference</div>  </div>
@@ -94,6 +94,11 @@ Public Types</h2></td></tr>
 <tr class="memdesc:a4ad9b8d0824c0063988673604a0f816e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode to select algo.  <a href="structwmoge_1_1TonemapSettings.html#a4ad9b8d0824c0063988673604a0f816e">More...</a><br /></td></tr>
 <tr class="separator:a4ad9b8d0824c0063988673604a0f816e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1da12252a4829d93ac46c360515e3fbd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TonemapSettings.html#a1da12252a4829d93ac46c360515e3fbd">WG_IO_DECLARE</a> (<a class="el" href="structwmoge_1_1TonemapSettings.html">TonemapSettings</a>)</td></tr>
+<tr class="separator:a1da12252a4829d93ac46c360515e3fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a01ee8425d8255ea1789c45f62d8a4304"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1TonemapSettings.html#a4ad9b8d0824c0063988673604a0f816e">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TonemapSettings.html#a01ee8425d8255ea1789c45f62d8a4304">mode</a> = <a class="el" href="structwmoge_1_1TonemapSettings.html#a4ad9b8d0824c0063988673604a0f816eac1e19c09f700938f0ff7f1fd4722a3ac">Mode::Exponential</a></td></tr>
@@ -102,13 +107,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ab493c253536f2a93d6ac0b30b19cecb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab79d0e00db14747b6f1e5b71cf125952"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TonemapSettings.html#ab79d0e00db14747b6f1e5b71cf125952">white_point</a> = 1.0f</td></tr>
 <tr class="separator:ab79d0e00db14747b6f1e5b71cf125952"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:abcf6c2ebe702afc121a9dd87cb548a55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TonemapSettings.html#abcf6c2ebe702afc121a9dd87cb548a55">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1TonemapSettings.html">TonemapSettings</a> &amp;settings)</td></tr>
-<tr class="separator:abcf6c2ebe702afc121a9dd87cb548a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12253a35ca319a1561a65e3f0854fea0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TonemapSettings.html#a12253a35ca319a1561a65e3f0854fea0">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1TonemapSettings.html">TonemapSettings</a> &amp;settings)</td></tr>
-<tr class="separator:a12253a35ca319a1561a65e3f0854fea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Final HDR image tonemapping settings for composition. </p>
@@ -144,75 +142,21 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="abcf6c2ebe702afc121a9dd87cb548a55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcf6c2ebe702afc121a9dd87cb548a55">&#9670;&nbsp;</a></span>yaml_read</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1da12252a4829d93ac46c360515e3fbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1da12252a4829d93ac46c360515e3fbd">&#9670;&nbsp;</a></span>WG_IO_DECLARE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_read </td>
+          <td class="memname">wmoge::TonemapSettings::WG_IO_DECLARE </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1TonemapSettings.html">TonemapSettings</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1TonemapSettings.html">TonemapSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a12253a35ca319a1561a65e3f0854fea0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12253a35ca319a1561a65e3f0854fea0">&#9670;&nbsp;</a></span>yaml_write</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1TonemapSettings.html">TonemapSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

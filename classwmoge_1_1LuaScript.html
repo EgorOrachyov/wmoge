@@ -82,11 +82,12 @@ Inheritance diagram for wmoge::LuaScript:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1LuaScript__inherit__graph.png" border="0" usemap="#awmoge_1_1LuaScript_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1LuaScript_inherit__map" id="awmoge_1_1LuaScript_inherit__map">
-<area shape="rect" title="Holds info about a lua declared class in a user script." alt="" coords="5,304,132,331"/>
-<area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="17,229,121,256"/>
-<area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="6,155,131,181"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="15,80,123,107"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="13,5,124,32"/>
+<area shape="rect" title="Holds info about a lua declared class in a user script." alt="" coords="17,393,144,420"/>
+<area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="29,319,133,345"/>
+<area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="18,244,143,271"/>
+<area shape="rect" href="classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="5,155,156,196"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="27,80,135,107"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -94,13 +95,14 @@ Collaboration diagram for wmoge::LuaScript:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1LuaScript__coll__graph.png" border="0" usemap="#awmoge_1_1LuaScript_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1LuaScript_coll__map" id="awmoge_1_1LuaScript_coll__map">
-<area shape="rect" title="Holds info about a lua declared class in a user script." alt="" coords="195,323,322,349"/>
-<area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="207,247,311,273"/>
-<area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="5,157,131,184"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="14,81,122,108"/>
-<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="13,5,123,32"/>
-<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="155,157,363,184"/>
-<area shape="rect" href="classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="387,157,501,184"/>
+<area shape="rect" title="Holds info about a lua declared class in a user script." alt="" coords="208,413,335,440"/>
+<area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="219,337,323,364"/>
+<area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="18,248,143,275"/>
+<area shape="rect" href="classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="5,157,156,199"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="27,81,135,108"/>
+<area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
+<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="167,248,375,275"/>
+<area shape="rect" href="classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="399,248,514,275"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -148,8 +150,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a427881d5ba432c3151e15f3c515f42ee inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94cf2a88728cd8267b2d6f188af6b25f inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#a94cf2a88728cd8267b2d6f188af6b25f">get_uuid</a> ()</td></tr>
 <tr class="separator:a94cf2a88728cd8267b2d6f188af6b25f inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6add2d461429796ceb984192f42a067 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#ab6add2d461429796ceb984192f42a067">collect_deps</a> (class <a class="el" href="classwmoge_1_1ResourceDependencies.html">ResourceDependencies</a> &amp;deps)</td></tr>
+<tr class="separator:ab6add2d461429796ceb984192f42a067 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc5ca3cbe177a344d53d48f0f6d22650 inherit pub_methods_classwmoge_1_1Resource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Resource.html#abc5ca3cbe177a344d53d48f0f6d22650">write_to_yaml</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node) const override</td></tr>
 <tr class="separator:abc5ca3cbe177a344d53d48f0f6d22650 inherit pub_methods_classwmoge_1_1Resource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classwmoge_1_1WeakRefCnt"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1WeakRefCnt')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1WeakRefCnt.html">wmoge::WeakRefCnt&lt; Object &gt;</a></td></tr>
+<tr class="memitem:a036ea3b84417bb12deb92f0b79ea11fc inherit pub_methods_classwmoge_1_1WeakRefCnt"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRefCnt.html#a036ea3b84417bb12deb92f0b79ea11fc">~WeakRefCnt</a> () override=default</td></tr>
+<tr class="separator:a036ea3b84417bb12deb92f0b79ea11fc inherit pub_methods_classwmoge_1_1WeakRefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2232d31583c0c7ca6c1bc9987c8bf63c inherit pub_methods_classwmoge_1_1WeakRefCnt"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1WeakRefAccess.html">WeakRefAccess</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRefCnt.html#a2232d31583c0c7ca6c1bc9987c8bf63c">get_weak_access</a> () const</td></tr>
+<tr class="separator:a2232d31583c0c7ca6c1bc9987c8bf63c inherit pub_methods_classwmoge_1_1WeakRefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Object"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Object')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Object.html">wmoge::Object</a></td></tr>
 <tr class="memitem:af0c6c7469aacde5603240b23d2fe4be5 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#af0c6c7469aacde5603240b23d2fe4be5">~Object</a> () override=default</td></tr>
 <tr class="separator:af0c6c7469aacde5603240b23d2fe4be5 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +174,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a63ee9de985588d6072d785fd51a99561 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e935f40e44fa6b3986cb7f28728614f inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a8e935f40e44fa6b3986cb7f28728614f">signal</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;signal)</td></tr>
 <tr class="separator:a8e935f40e44fa6b3986cb7f28728614f inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3103a4830a0539330f4ad8722e5b92ad inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a3103a4830a0539330f4ad8722e5b92ad">read_from_archive</a> (<a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
+<tr class="separator:a3103a4830a0539330f4ad8722e5b92ad inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdedb99c93d02a6463683b888a0d5e31 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#afdedb99c93d02a6463683b888a0d5e31">write_to_archive</a> (<a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive) const</td></tr>
+<tr class="separator:afdedb99c93d02a6463683b888a0d5e31 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a898060ea83bbf3cf8a5bb3263eadbd57 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a898060ea83bbf3cf8a5bb3263eadbd57">clone</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt; &amp;object) const</td></tr>
 <tr class="separator:a898060ea83bbf3cf8a5bb3263eadbd57 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a504fe31a47db8e5c6599263c198beffb inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a504fe31a47db8e5c6599263c198beffb">duplicate</a> () const</td></tr>
@@ -194,6 +207,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a32087127e76ac0f196614b8abb1c48aa inherit pub_static_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80bf889259a6bb3d194c50b9394bf026 inherit pub_static_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a80bf889259a6bb3d194c50b9394bf026">super_class_name_static</a> ()</td></tr>
 <tr class="separator:a80bf889259a6bb3d194c50b9394bf026 inherit pub_static_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classwmoge_1_1WeakRefCnt"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classwmoge_1_1WeakRefCnt')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classwmoge_1_1WeakRefCnt.html">wmoge::WeakRefCnt&lt; Object &gt;</a></td></tr>
+<tr class="memitem:a425522c5a61f3917bc32fe24794623e5 inherit pro_methods_classwmoge_1_1WeakRefCnt"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WeakRefCnt.html#a425522c5a61f3917bc32fe24794623e5">reach_zero</a> () override</td></tr>
+<tr class="separator:a425522c5a61f3917bc32fe24794623e5 inherit pro_methods_classwmoge_1_1WeakRefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classwmoge_1_1RefCnt"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classwmoge_1_1RefCnt')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></td></tr>
 <tr class="memitem:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#aae1bbca622a836c5b3eafb5ccb9fea58">destroy</a> ()</td></tr>
 <tr class="separator:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>

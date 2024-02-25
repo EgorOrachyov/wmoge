@@ -1,5 +1,4 @@
 <map id="wmoge::MeshFile" name="wmoge::MeshFile">
-<area shape="rect" id="node1" title="Struct used to serialize mesh resource data." alt="" coords="109,109,232,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="5,13,160,39"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="184,5,333,47"/>
+<area shape="rect" id="node1" title="Struct used to serialize mesh resource data." alt="" coords="21,95,144,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="5,5,160,32"/>
 </map>

@@ -1,5 +1,0 @@
-<map id="wmoge::Camera" name="wmoge::Camera">
-<area shape="rect" id="node1" title="In&#45;game camera for rendering the scene." alt="" coords="24,80,139,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1CameraDebug.html" title="Special debug camera for free&#45;fly navigation in&#45;game." alt="" coords="5,155,157,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="26,5,137,32"/>
-</map>

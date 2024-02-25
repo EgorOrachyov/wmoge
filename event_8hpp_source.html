@@ -96,61 +96,58 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_EVENT_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_EVENT_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="class_8hpp.html">core/class.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8hpp.html">core/object.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ref_8hpp.html">core/ref.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aee145b32d30d0acfef1812dde1154df0">   43</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classwmoge_1_1StringId.html">EventType</a> = <a class="code" href="classwmoge_1_1StringId.html">StringId</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1Event.html">   49</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Event.html">Event</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Object.html">Object</a> {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Event.html">Event</a>, <a class="code" href="classwmoge_1_1Object.html">Object</a>)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">   53</a></span>&#160;        virtual const <a class="code" href="classwmoge_1_1StringId.html">EventType</a>&amp; <a class="code" href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">type</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">static</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a> none;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">return</span> none;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        };</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aafc239502313b03c248082849b992329">   60</a></span>&#160;    <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;T&gt;</a> <a class="code" href="namespacewmoge.html#aafc239502313b03c248082849b992329">make_event</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> make_ref&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// Use this macro to declare basic methods for your custom event type.</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">// This macro adds type and static type methods version to get event type.</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="event_8hpp.html#a3e98e4ae58a10e7c7789f491049840b1">   68</a></span>&#160;<span class="preprocessor">#define WG_EVENT(event_class, event_class_base) \</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">    WG_OBJECT(event_class, event_class_base)    \</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">    const EventType&amp; type() const override {    \</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">        return type_static();                   \</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    }                                           \</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">    static const EventType&amp; type_static() {     \</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">        static auto g_id = SID(#event_class);   \</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">        return g_id;                            \</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">    }                                           \</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">    std::string to_string() override;</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_EVENT_HPP</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="class_8hpp.html">core/class.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8hpp.html">core/object.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ref_8hpp.html">core/ref.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aee145b32d30d0acfef1812dde1154df0">   42</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classwmoge_1_1StringId.html">EventType</a> = <a class="code" href="classwmoge_1_1StringId.html">StringId</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classwmoge_1_1Event.html">   48</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Event.html">Event</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Object.html">Object</a> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Event.html">Event</a>, <a class="code" href="classwmoge_1_1Object.html">Object</a>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">   52</a></span>&#160;        virtual const <a class="code" href="classwmoge_1_1StringId.html">EventType</a>&amp; <a class="code" href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">type</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keyword">static</span> <a class="code" href="classwmoge_1_1StringId.html">StringId</a> none;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">return</span> none;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    };</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aafc239502313b03c248082849b992329">   59</a></span>&#160;    <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;T&gt;</a> <a class="code" href="namespacewmoge.html#aafc239502313b03c248082849b992329">make_event</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> make_ref&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// Use this macro to declare basic methods for your custom event type.</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// This macro adds type and static type methods version to get event type.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="event_8hpp.html#a3e98e4ae58a10e7c7789f491049840b1">   67</a></span>&#160;<span class="preprocessor">#define WG_EVENT(event_class, event_class_base) \</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">    WG_OBJECT(event_class, event_class_base)    \</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">    const EventType&amp; type() const override {    \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">        return type_static();                   \</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">    }                                           \</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    static const EventType&amp; type_static() {     \</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">        static auto g_id = SID(#event_class);   \</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">        return g_id;                            \</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">    }                                           \</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">    std::string to_string() override;</span></div>
 <div class="ttc" id="aclass_8hpp_html"><div class="ttname"><a href="class_8hpp.html">class.hpp</a></div></div>
-<div class="ttc" id="aclasswmoge_1_1Event_html"><div class="ttname"><a href="classwmoge_1_1Event.html">wmoge::Event</a></div><div class="ttdoc">Event holding some data which can be processed by listeners.</div><div class="ttdef"><b>Definition:</b> event.hpp:49</div></div>
-<div class="ttc" id="aclasswmoge_1_1Event_html_a6b257f88ccc9c2baf60286ca5c9fe0de"><div class="ttname"><a href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">wmoge::Event::type</a></div><div class="ttdeci">virtual const EventType &amp; type() const</div><div class="ttdef"><b>Definition:</b> event.hpp:53</div></div>
-<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:61</div></div>
-<div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:74</div></div>
-<div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:43</div></div>
+<div class="ttc" id="aclasswmoge_1_1Event_html"><div class="ttname"><a href="classwmoge_1_1Event.html">wmoge::Event</a></div><div class="ttdoc">Event holding some data which can be processed by listeners.</div><div class="ttdef"><b>Definition:</b> event.hpp:48</div></div>
+<div class="ttc" id="aclasswmoge_1_1Event_html_a6b257f88ccc9c2baf60286ca5c9fe0de"><div class="ttname"><a href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">wmoge::Event::type</a></div><div class="ttdeci">virtual const EventType &amp; type() const</div><div class="ttdef"><b>Definition:</b> event.hpp:52</div></div>
+<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
+<div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
+<div class="ttc" id="aclasswmoge_1_1StringId_html"><div class="ttname"><a href="classwmoge_1_1StringId.html">wmoge::StringId</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_aafc239502313b03c248082849b992329"><div class="ttname"><a href="namespacewmoge.html#aafc239502313b03c248082849b992329">wmoge::make_event</a></div><div class="ttdeci">Ref&lt; T &gt; make_event(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> event.hpp:60</div></div>
+<div class="ttc" id="anamespacewmoge_html_aafc239502313b03c248082849b992329"><div class="ttname"><a href="namespacewmoge.html#aafc239502313b03c248082849b992329">wmoge::make_event</a></div><div class="ttdeci">Ref&lt; T &gt; make_event(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> event.hpp:59</div></div>
 <div class="ttc" id="aobject_8hpp_html"><div class="ttname"><a href="object_8hpp.html">object.hpp</a></div></div>
-<div class="ttc" id="aobject_8hpp_html_a8465b8d0410dfbfdcab8d129d92b69c9"><div class="ttname"><a href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a></div><div class="ttdeci">#define WG_OBJECT(name, super)</div><div class="ttdef"><b>Definition:</b> object.hpp:159</div></div>
+<div class="ttc" id="aobject_8hpp_html_a8465b8d0410dfbfdcab8d129d92b69c9"><div class="ttname"><a href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a></div><div class="ttdeci">#define WG_OBJECT(name, super)</div><div class="ttdef"><b>Definition:</b> object.hpp:192</div></div>
 <div class="ttc" id="aref_8hpp_html"><div class="ttname"><a href="ref_8hpp.html">ref.hpp</a></div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

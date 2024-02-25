@@ -1,8 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1GraphicsPipelineStage.html" title=" " alt="" coords="5,107,208,133"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1PassAutoExposure.html" title="Executes auto exposure to extract luminance histogram of frame and calc exposure correction." alt="" coords="256,5,436,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1PassBloom.html" title="Executes bloom pass of hdr color target." alt="" coords="277,56,415,83"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1PassComposition.html" title="Executes final composition." alt="" coords="260,107,432,133"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1PassGBuffer.html" title="Executes gbuffer fill pass." alt="" coords="274,157,418,184"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1PassToneMap.html" title="Executes tonemapping pass of hdr to ldr color target." alt="" coords="269,208,423,235"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1GfxVector.html" title=" " alt="" coords="5,5,187,61"/>
 </map>

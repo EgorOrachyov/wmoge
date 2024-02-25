@@ -73,7 +73,8 @@ $(function() {
 <div class="title">ecs_component.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="object_8hpp_source.html">core/object.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="fast__vector_8hpp_source.html">core/fast_vector.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="object_8hpp_source.html">core/object.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="string__utils_8hpp_source.html">core/string_utils.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ecs__core_8hpp_source.html">ecs/ecs_core.hpp</a>&quot;</code><br />
@@ -85,50 +86,52 @@ Include dependency graph for ecs_component.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="ecs__component_8hpp__incl.png" border="0" usemap="#aengine_2ecs_2ecs__component_8hpp" alt=""/></div>
 <map name="aengine_2ecs_2ecs__component_8hpp" id="aengine_2ecs_2ecs__component_8hpp">
-<area shape="rect" title=" " alt="" coords="2331,5,2536,32"/>
-<area shape="rect" href="object_8hpp.html" title=" " alt="" coords="1033,80,1143,107"/>
-<area shape="rect" title=" " alt="" coords="1386,528,1465,555"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="423,453,547,480"/>
-<area shape="rect" title=" " alt="" coords="2439,528,2494,555"/>
-<area shape="rect" href="string__utils_8hpp.html" title=" " alt="" coords="2139,304,2277,331"/>
-<area shape="rect" href="ecs__core_8hpp.html" title=" " alt="" coords="2979,304,3103,331"/>
-<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="2383,155,2484,181"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1141,379,1232,405"/>
-<area shape="rect" title=" " alt="" coords="2606,453,2671,480"/>
-<area shape="rect" title=" " alt="" coords="295,528,377,555"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="195,379,306,405"/>
-<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="1041,155,1135,181"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1367,304,1454,331"/>
-<area shape="rect" title=" " alt="" coords="767,453,825,480"/>
-<area shape="rect" title=" " alt="" coords="534,379,645,405"/>
-<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="694,304,797,331"/>
-<area shape="rect" title=" " alt="" coords="1733,155,1771,181"/>
-<area shape="rect" title=" " alt="" coords="1225,453,1287,480"/>
-<area shape="rect" title=" " alt="" coords="1729,453,1781,480"/>
-<area shape="rect" title=" " alt="" coords="602,528,667,555"/>
-<area shape="rect" title=" " alt="" coords="917,528,987,555"/>
-<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="205,453,297,480"/>
-<area shape="rect" title=" " alt="" coords="439,528,559,555"/>
-<area shape="rect" href="typed__array_8hpp.html" title=" " alt="" coords="1100,229,1241,256"/>
-<area shape="rect" title=" " alt="" coords="674,453,742,480"/>
-<area shape="rect" title=" " alt="" coords="2188,453,2257,480"/>
-<area shape="rect" title=" " alt="" coords="1917,379,1992,405"/>
-<area shape="rect" href="typed__map_8hpp.html" title=" " alt="" coords="937,229,1076,256"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="1976,304,2115,331"/>
-<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="2366,229,2466,256"/>
-<area shape="rect" title=" " alt="" coords="499,229,546,256"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="974,379,1066,405"/>
-<area shape="rect" title=" " alt="" coords="1437,379,1507,405"/>
-<area shape="rect" title=" " alt="" coords="1531,379,1626,405"/>
-<area shape="rect" title=" " alt="" coords="1843,379,1893,405"/>
-<area shape="rect" title=" " alt="" coords="1651,379,1717,405"/>
-<area shape="rect" title=" " alt="" coords="1358,379,1413,405"/>
-<area shape="rect" title=" " alt="" coords="900,453,967,480"/>
-<area shape="rect" title=" " alt="" coords="991,453,1049,480"/>
-<area shape="rect" title=" " alt="" coords="2168,379,2227,405"/>
-<area shape="rect" title=" " alt="" coords="2656,379,2752,405"/>
-<area shape="rect" title=" " alt="" coords="3158,379,3213,405"/>
-<area shape="rect" title=" " alt="" coords="3029,379,3083,405"/>
+<area shape="rect" title=" " alt="" coords="1484,5,1689,32"/>
+<area shape="rect" href="fast__vector_8hpp.html" title=" " alt="" coords="459,229,599,256"/>
+<area shape="rect" title=" " alt="" coords="181,528,235,555"/>
+<area shape="rect" title=" " alt="" coords="2219,528,2298,555"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1894,453,2018,480"/>
+<area shape="rect" href="object_8hpp.html" title=" " alt="" coords="1803,80,1914,107"/>
+<area shape="rect" href="string__utils_8hpp.html" title=" " alt="" coords="245,304,384,331"/>
+<area shape="rect" href="ecs__core_8hpp.html" title=" " alt="" coords="957,229,1081,256"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="2448,155,2549,181"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1069,304,1171,331"/>
+<area shape="rect" title=" " alt="" coords="627,453,685,480"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1457,304,1543,331"/>
+<area shape="rect" title=" " alt="" coords="510,304,599,331"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1033,379,1125,405"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2499,379,2589,405"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1670,379,1781,405"/>
+<area shape="rect" title=" " alt="" coords="1200,379,1251,405"/>
+<area shape="rect" title=" " alt="" coords="811,379,866,405"/>
+<area shape="rect" title=" " alt="" coords="560,379,635,405"/>
+<area shape="rect" title=" " alt="" coords="891,379,957,405"/>
+<area shape="rect" title=" " alt="" coords="1907,379,2018,405"/>
+<area shape="rect" title=" " alt="" coords="1895,528,1961,555"/>
+<area shape="rect" title=" " alt="" coords="1088,453,1155,480"/>
+<area shape="rect" title=" " alt="" coords="1533,453,1601,480"/>
+<area shape="rect" title=" " alt="" coords="1006,453,1063,480"/>
+<area shape="rect" title=" " alt="" coords="2697,453,2767,480"/>
+<area shape="rect" title=" " alt="" coords="2348,453,2409,480"/>
+<area shape="rect" title=" " alt="" coords="2797,453,2862,480"/>
+<area shape="rect" title=" " alt="" coords="2428,528,2511,555"/>
+<area shape="rect" title=" " alt="" coords="2434,453,2486,480"/>
+<area shape="rect" title=" " alt="" coords="1747,528,1816,555"/>
+<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="1625,453,1717,480"/>
+<area shape="rect" title=" " alt="" coords="1493,528,1613,555"/>
+<area shape="rect" title=" " alt="" coords="1354,379,1425,405"/>
+<area shape="rect" title=" " alt="" coords="1449,379,1543,405"/>
+<area shape="rect" title=" " alt="" coords="1275,379,1330,405"/>
+<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="1935,155,2028,181"/>
+<area shape="rect" title=" " alt="" coords="2259,155,2298,181"/>
+<area shape="rect" href="typed__array_8hpp.html" title=" " alt="" coords="1467,229,1608,256"/>
+<area shape="rect" href="typed__map_8hpp.html" title=" " alt="" coords="1683,229,1821,256"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2787,304,2925,331"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="2449,229,2549,256"/>
+<area shape="rect" title=" " alt="" coords="1897,229,1943,256"/>
+<area shape="rect" title=" " alt="" coords="2867,379,2925,405"/>
+<area shape="rect" title=" " alt="" coords="2312,304,2408,331"/>
+<area shape="rect" title=" " alt="" coords="725,304,779,331"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -136,40 +139,45 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="ecs__component_8hpp__dep__incl.png" border="0" usemap="#aengine_2ecs_2ecs__component_8hppdep" alt=""/></div>
 <map name="aengine_2ecs_2ecs__component_8hppdep" id="aengine_2ecs_2ecs__component_8hppdep">
-<area shape="rect" title=" " alt="" coords="841,5,1047,32"/>
-<area shape="rect" href="ecs__memory_8hpp.html" title=" " alt="" coords="851,80,1037,107"/>
-<area shape="rect" href="ecs__registry_8hpp.html" title=" " alt="" coords="441,229,623,256"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1423,698,1550,725"/>
-<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="1014,229,1186,256"/>
-<area shape="rect" href="scene__components_8hpp.html" title=" " alt="" coords="1864,304,2003,345"/>
-<area shape="rect" href="ecs__memory_8cpp.html" title=" " alt="" coords="595,311,781,338"/>
-<area shape="rect" href="ecs__system_8hpp.html" title=" " alt="" coords="829,155,1011,181"/>
-<area shape="rect" href="system__render_8hpp.html" title=" " alt="" coords="841,393,999,435"/>
-<area shape="rect" href="system__transform_8hpp.html" title=" " alt="" coords="1023,393,1182,435"/>
-<area shape="rect" href="ecs__core_8cpp.html" title=" " alt="" coords="302,311,469,338"/>
-<area shape="rect" href="ecs__registry_8cpp.html" title=" " alt="" coords="43,311,226,338"/>
-<area shape="rect" href="main_8cpp.html" title=" " alt="" coords="850,497,998,524"/>
-<area shape="rect" href="scene__manager_8cpp.html" title=" " alt="" coords="1031,490,1169,531"/>
-<area shape="rect" href="ecs__world_8cpp.html" title=" " alt="" coords="1110,311,1282,338"/>
-<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="1504,311,1667,338"/>
-<area shape="rect" href="scene__packed_8cpp.html" title=" " alt="" coords="1626,490,1779,531"/>
-<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="1623,393,1777,435"/>
-<area shape="rect" href="scene_8cpp.html" title=" " alt="" coords="1852,401,2015,427"/>
-<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="1409,393,1548,435"/>
-<area shape="rect" href="lua__bindings__scene_8hpp.html" title=" " alt="" coords="1295,483,1449,539"/>
-<area shape="rect" href="scene__properties_8hpp.html" title=" " alt="" coords="2089,393,2228,435"/>
-<area shape="rect" href="scene__tree_8hpp.html" title=" " alt="" coords="2027,490,2165,531"/>
-<area shape="rect" href="register__classes__resource_8cpp.html" title=" " alt="" coords="1809,691,1970,732"/>
-<area shape="rect" href="scene__tree__packed_8cpp.html" title=" " alt="" coords="1619,691,1773,732"/>
-<area shape="rect" href="scene__tree_8cpp.html" title=" " alt="" coords="2197,691,2336,732"/>
-<area shape="rect" href="lua__bindings__scene_8cpp.html" title=" " alt="" coords="1295,587,1449,643"/>
-<area shape="rect" href="register__classes__scene_8cpp.html" title=" " alt="" coords="2361,594,2508,635"/>
-<area shape="rect" href="scene__properties_8cpp.html" title=" " alt="" coords="2189,490,2328,531"/>
-<area shape="rect" href="prefab_8hpp.html" title=" " alt="" coords="2007,601,2185,628"/>
-<area shape="rect" href="scene__node_8cpp.html" title=" " alt="" coords="2360,691,2499,732"/>
-<area shape="rect" href="scene__tree__packed_8hpp.html" title=" " alt="" coords="1778,594,1931,635"/>
-<area shape="rect" href="prefab_8cpp.html" title=" " alt="" coords="1995,698,2173,725"/>
-<area shape="rect" href="scene__components_8cpp.html" title=" " alt="" coords="2252,393,2391,435"/>
+<area shape="rect" title=" " alt="" coords="1464,5,1669,32"/>
+<area shape="rect" href="ecs__memory_8hpp.html" title=" " alt="" coords="1215,80,1401,107"/>
+<area shape="rect" href="ecs__registry_8hpp.html" title=" " alt="" coords="1437,229,1619,256"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1087,966,1214,993"/>
+<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="975,229,1147,256"/>
+<area shape="rect" href="scene__components_8hpp.html" title=" " alt="" coords="1869,683,2008,725"/>
+<area shape="rect" href="ecs__memory_8cpp.html" title=" " alt="" coords="1233,311,1420,338"/>
+<area shape="rect" href="ecs__system_8hpp.html" title=" " alt="" coords="1346,155,1529,181"/>
+<area shape="rect" href="ecs__core_8cpp.html" title=" " alt="" coords="1546,311,1713,338"/>
+<area shape="rect" href="ecs__registry_8cpp.html" title=" " alt="" coords="1737,311,1919,338"/>
+<area shape="rect" href="ecs__world_8cpp.html" title=" " alt="" coords="1037,311,1209,338"/>
+<area shape="rect" href="application_8cpp.html" title=" " alt="" coords="1165,587,1366,613"/>
+<area shape="rect" href="scene__manager_8cpp.html" title=" " alt="" coords="2139,780,2277,821"/>
+<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="969,587,1141,613"/>
+<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="825,401,988,427"/>
+<area shape="rect" href="scene__entity_8hpp.html" title=" " alt="" coords="1597,483,1736,524"/>
+<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="717,304,856,345"/>
+<area shape="rect" href="scene__packed_8cpp.html" title=" " alt="" coords="425,579,578,621"/>
+<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="397,483,550,524"/>
+<area shape="rect" href="scene_8cpp.html" title=" " alt="" coords="805,787,968,814"/>
+<area shape="rect" href="scene__entity_8cpp.html" title=" " alt="" coords="1492,579,1631,621"/>
+<area shape="rect" href="scene__tree_8hpp.html" title=" " alt="" coords="1397,780,1536,821"/>
+<area shape="rect" href="scene__node__props_8hpp.html" title=" " alt="" coords="1763,780,1901,821"/>
+<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="729,483,868,524"/>
+<area shape="rect" href="lua__bindings__scene_8hpp.html" title=" " alt="" coords="195,572,349,628"/>
+<area shape="rect" href="register__classes__resource_8cpp.html" title=" " alt="" coords="10,959,171,1000"/>
+<area shape="rect" href="scene__node_8hpp.html" title=" " alt="" coords="1705,579,1844,621"/>
+<area shape="rect" href="prefab_8hpp.html" title=" " alt="" coords="1251,691,1429,717"/>
+<area shape="rect" href="scene__node_8cpp.html" title=" " alt="" coords="1555,869,1693,911"/>
+<area shape="rect" href="register__classes__scene_8cpp.html" title=" " alt="" coords="1384,869,1531,911"/>
+<area shape="rect" href="prefab_8cpp.html" title=" " alt="" coords="1144,787,1323,814"/>
+<area shape="rect" href="scene__tree_8cpp.html" title=" " alt="" coords="1043,869,1181,911"/>
+<area shape="rect" href="scene__tree__packed_8hpp.html" title=" " alt="" coords="195,869,349,911"/>
+<area shape="rect" href="scene__tree__packed_8cpp.html" title=" " alt="" coords="195,959,349,1000"/>
+<area shape="rect" href="scene__components_8cpp.html" title=" " alt="" coords="1976,780,2115,821"/>
+<area shape="rect" href="scene__node__props_8cpp.html" title=" " alt="" coords="1717,869,1856,911"/>
+<area shape="rect" href="debug__layer_8cpp.html" title=" " alt="" coords="704,579,843,621"/>
+<area shape="rect" href="lua__bindings__scene_8cpp.html" title=" " alt="" coords="195,676,349,732"/>
+<area shape="rect" href="scene__data_8cpp.html" title=" " alt="" coords="663,393,801,435"/>
 </map>
 </div>
 </div>
@@ -177,7 +185,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1EcsComponent.html">wmoge::EcsComponent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1EcsComponent.html">wmoge::EcsComponent&lt; Component &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any engine ecs component.  <a href="structwmoge_1_1EcsComponent.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1EcsComponentInfo.html">wmoge::EcsComponentInfo</a></td></tr>
@@ -191,12 +199,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a44368615400b84c4b1d420fdf7174fbb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecs__component_8hpp.html#a44368615400b84c4b1d420fdf7174fbb">WG_ECS_COMPONENT</a>(ecs_component_class,  ecs_idx)</td></tr>
-<tr class="separator:a44368615400b84c4b1d420fdf7174fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c03c718b038b6bd3b2bff49702fe5c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ecs__component_8hpp.html#a1c03c718b038b6bd3b2bff49702fe5c1">WG_ECS_COMPONENT</a>(ecs_component_class)&#160;&#160;&#160;    static constexpr char NAME_CSTR[] = #ecs_component_class;</td></tr>
+<tr class="separator:a1c03c718b038b6bd3b2bff49702fe5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a44368615400b84c4b1d420fdf7174fbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44368615400b84c4b1d420fdf7174fbb">&#9670;&nbsp;</a></span>WG_ECS_COMPONENT</h2>
+<a id="a1c03c718b038b6bd3b2bff49702fe5c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c03c718b038b6bd3b2bff49702fe5c1">&#9670;&nbsp;</a></span>WG_ECS_COMPONENT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,28 +213,12 @@ Macros</h2></td></tr>
           <td class="memname">#define WG_ECS_COMPONENT</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">ecs_component_class, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">ecs_idx&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname">ecs_component_class</td><td>)</td>
+          <td>&#160;&#160;&#160;    static constexpr char NAME_CSTR[] = #ecs_component_class;</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    static_assert(ecs_idx &lt; EcsLimits::MAX_COMPONENTS, <span class="stringliteral">&quot;Index for &quot;</span> #ecs_component_class <span class="stringliteral">&quot; is out of limits&quot;</span>); \</div>
-<div class="line">    static constexpr <span class="keywordtype">int</span>        IDX    = ecs_idx;                                                              \</div>
-<div class="line">    static constexpr <span class="keyword">const</span> <span class="keywordtype">char</span> NAME[] = #ecs_component_class;                                                 \</div>
-<div class="line">    static <span class="keywordtype">bool</span>                 is(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) { <span class="keywordflow">return</span> <span class="keywordtype">id</span> == IDX; }                                               \</div>
-<div class="line">    static <span class="keywordtype">bool</span>                 is(<span class="keyword">const</span> std::string&amp; name) { <span class="keywordflow">return</span> name == NAME; }                           \</div>
-<div class="line">    static <span class="keywordtype">bool</span>                 is(<span class="keyword">const</span> StringId&amp; name) { <span class="keywordflow">return</span> name.str() == NAME; }</div>
-</div><!-- fragment -->
+
 </div>
 </div>
 </div><!-- contents -->

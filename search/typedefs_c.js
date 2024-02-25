@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rect2i_7796',['Rect2i',['../namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6',1,'wmoge']]],
-  ['resourcecallback_7797',['ResourceCallback',['../namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea',1,'wmoge']]]
+  ['quatd_7862',['Quatd',['../namespacewmoge.html#abd557a70377a5cba6d99a5fbb4f249a5',1,'wmoge']]],
+  ['quatf_7863',['Quatf',['../namespacewmoge.html#a2a05ed79786c38d275c521838350850b',1,'wmoge']]]
 ];

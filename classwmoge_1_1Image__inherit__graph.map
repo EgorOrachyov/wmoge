@@ -1,6 +1,7 @@
 <map id="wmoge::Image" name="wmoge::Image">
-<area shape="rect" id="node1" title="Hardware&#45;independent image representation." alt="" coords="15,229,121,256"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="5,155,131,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="14,80,122,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="13,5,123,32"/>
+<area shape="rect" id="node1" title="Hardware&#45;independent image representation." alt="" coords="27,319,134,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="18,244,143,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="5,155,156,196"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="27,80,135,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
 </map>

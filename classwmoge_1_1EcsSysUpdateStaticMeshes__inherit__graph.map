@@ -1,4 +1,0 @@
-<map id="wmoge::EcsSysUpdateStaticMeshes" name="wmoge::EcsSysUpdateStaticMeshes">
-<area shape="rect" id="node1" title="Update static meshes from scene before rendering." alt="" coords="5,80,196,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1EcsSystem.html" title="Base class for any system, which can be register within a world." alt="" coords="33,5,169,32"/>
-</map>

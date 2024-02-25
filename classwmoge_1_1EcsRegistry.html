@@ -105,6 +105,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4598c6c1941d5bc3bdef2441d29add2e"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
 <tr class="memitem:a4598c6c1941d5bc3bdef2441d29add2e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsRegistry.html#a4598c6c1941d5bc3bdef2441d29add2e">register_component</a> ()</td></tr>
 <tr class="separator:a4598c6c1941d5bc3bdef2441d29add2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f1bf6a3aad1007d18217127c753bf83"><td class="memTemplParams" colspan="2">template&lt;typename Component , typename Func &gt; </td></tr>
+<tr class="memitem:a7f1bf6a3aad1007d18217127c753bf83"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsRegistry.html#a7f1bf6a3aad1007d18217127c753bf83">on_create_hook</a> (Func &amp;&amp;on_destroy)</td></tr>
+<tr class="separator:a7f1bf6a3aad1007d18217127c753bf83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca16e246086dd9985047e61952cf1f19"><td class="memTemplParams" colspan="2">template&lt;typename Component , typename Func &gt; </td></tr>
+<tr class="memitem:aca16e246086dd9985047e61952cf1f19"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsRegistry.html#aca16e246086dd9985047e61952cf1f19">on_destroy_hook</a> (Func &amp;&amp;on_destroy)</td></tr>
+<tr class="separator:aca16e246086dd9985047e61952cf1f19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages global ecs state and static info. </p>
@@ -332,6 +338,62 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f1bf6a3aad1007d18217127c753bf83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f1bf6a3aad1007d18217127c753bf83">&#9670;&nbsp;</a></span>on_create_hook()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Component , typename Func &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsRegistry::on_create_hook </td>
+          <td>(</td>
+          <td class="paramtype">Func &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_destroy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aca16e246086dd9985047e61952cf1f19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca16e246086dd9985047e61952cf1f19">&#9670;&nbsp;</a></span>on_destroy_hook()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Component , typename Func &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsRegistry::on_destroy_hook </td>
+          <td>(</td>
+          <td class="paramtype">Func &amp;&amp;&#160;</td>
+          <td class="paramname"><em>on_destroy</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>

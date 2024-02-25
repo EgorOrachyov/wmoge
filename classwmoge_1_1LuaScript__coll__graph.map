@@ -1,9 +1,10 @@
 <map id="wmoge::LuaScript" name="wmoge::LuaScript">
-<area shape="rect" id="node1" title="Holds info about a lua declared class in a user script." alt="" coords="195,323,322,349"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="207,247,311,273"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="5,157,131,184"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="14,81,122,108"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="13,5,123,32"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="155,157,363,184"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="387,157,501,184"/>
+<area shape="rect" id="node1" title="Holds info about a lua declared class in a user script." alt="" coords="208,413,335,440"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="219,337,323,364"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="18,248,143,275"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="5,157,156,199"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="27,81,135,108"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="167,248,375,275"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="399,248,514,275"/>
 </map>

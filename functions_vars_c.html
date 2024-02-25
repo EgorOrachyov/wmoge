@@ -75,11 +75,18 @@ $(function() {
 , <a class="el" href="structwmoge_1_1VisibilityItemResult.html#a63df3be66b25186477c9c1dd08ede03e">wmoge::VisibilityItemResult</a>
 </li>
 <li>camera
-: <a class="el" href="structwmoge_1_1EcsComponentCamera.html#a60e164550f40d621f22c1d99688d8506">wmoge::EcsComponentCamera</a>
-, <a class="el" href="structwmoge_1_1RenderCameraData.html#ad625c93e0b312947e4744e21165e9c7b">wmoge::RenderCameraData</a>
+: <a class="el" href="structwmoge_1_1CameraData.html#a028b251a392ca09d1693969835b6d71c">wmoge::CameraData</a>
+, <a class="el" href="structwmoge_1_1EcsComponentCamera.html#a2e452734d07f881918165a7e2ca8bd31">wmoge::EcsComponentCamera</a>
+</li>
+<li>camera_dists
+: <a class="el" href="structwmoge_1_1RenderParams.html#a96b252ded7a6bee9018cf31c8dfe2cb9">wmoge::RenderParams</a>
+</li>
+<li>camera_mask
+: <a class="el" href="structwmoge_1_1RenderParams.html#abf15668eaadb05fdd6653d6c315535ae">wmoge::RenderParams</a>
 </li>
 <li>cameras
-: <a class="el" href="structwmoge_1_1SceneData.html#ae2d6fab40b86e0c847a54f01dc793ffd">wmoge::SceneData</a>
+: <a class="el" href="structwmoge_1_1RenderPassInfo.html#ace3c6a78cf86f72f8d5e93429b5781f5">wmoge::RenderPassInfo</a>
+, <a class="el" href="structwmoge_1_1SceneData.html#ae2d6fab40b86e0c847a54f01dc793ffd">wmoge::SceneData</a>
 </li>
 <li>CamIdx
 : <a class="el" href="structwmoge_1_1ShaderMaterial_1_1ViewData.html#a794552865199b861e3e6bbbd961b7eaa">wmoge::ShaderMaterial::ViewData</a>
@@ -150,9 +157,11 @@ $(function() {
 </li>
 <li>children
 : <a class="el" href="structwmoge_1_1EcsComponentChildren.html#a4ff42bb4c92f867c4cb6b7ec10a6cfb4">wmoge::EcsComponentChildren</a>
+, <a class="el" href="structwmoge_1_1MeshChunk.html#ab03f6e74f1ed76b37a02f152d320cd0b">wmoge::MeshChunk</a>
 </li>
 <li>chunks
-: <a class="el" href="structwmoge_1_1MeshFile.html#a50c125ac5271252d12f98032a8437e75">wmoge::MeshFile</a>
+: <a class="el" href="structwmoge_1_1MeshFile.html#a6bc9156d0d9f39801f6ef6b8ac3cf8e6">wmoge::MeshFile</a>
+, <a class="el" href="structwmoge_1_1ModelLod.html#a2684f81510acc94a3920a18225fa0f89">wmoge::ModelLod</a>
 </li>
 <li>Clip
 : <a class="el" href="structwmoge_1_1ShaderComposition_1_1Params.html#a6829781f130b69f95f97743916286661">wmoge::ShaderComposition::Params</a>
@@ -199,12 +208,19 @@ $(function() {
 : <a class="el" href="structwmoge_1_1FontGlyph.html#a88850017de3726d06de6723a3b596af5">wmoge::FontGlyph</a>
 </li>
 <li>col
-: <a class="el" href="structwmoge_1_1GfxVF__Pos2Col3.html#af307b76e4a21586a907dcb02049fc3aa">wmoge::GfxVF_Pos2Col3</a>
+: <a class="el" href="structwmoge_1_1ArrayMeshData.html#a8d368fa50a94cea3eeca75abb5dd2efe">wmoge::ArrayMeshData</a>
+, <a class="el" href="structwmoge_1_1GfxVF__Pos2Col3.html#af307b76e4a21586a907dcb02049fc3aa">wmoge::GfxVF_Pos2Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos2Uv2Col3.html#a5bd8ef4a9e6018c22c376645be8b614f">wmoge::GfxVF_Pos2Uv2Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col3.html#aff5eb9c8f019c33dcfe59db3290e5daf">wmoge::GfxVF_Pos3Col3</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col4.html#a2b099fbded1c2fe35770cdd331747eba">wmoge::GfxVF_Pos3Col4</a>
 , <a class="el" href="structwmoge_1_1GfxVF__Pos3Col4Uv2.html#a6af5033fe4bfa2afa559c013823fa968">wmoge::GfxVF_Pos3Col4Uv2</a>
 , <a class="el" href="structwmoge_1_1MeshVertex.html#a4325c7cdc7558729cb1e48ed928dee1f">wmoge::MeshVertex</a>
+</li>
+<li>collector
+: <a class="el" href="structwmoge_1_1RenderPassInfo.html#aece026739381626ff3b9d0a5881a5173">wmoge::RenderPassInfo</a>
+</li>
+<li>collision_mesh
+: <a class="el" href="structwmoge_1_1ModelFile.html#a4c7428a59f4d70de007b0b191d3ed1af">wmoge::ModelFile</a>
 </li>
 <li>color
 : <a class="el" href="structwmoge_1_1AuxDrawBox.html#a31cf837d9ab838f07f4aac2d976ed086">wmoge::AuxDrawBox</a>
@@ -219,10 +235,10 @@ $(function() {
 , <a class="el" href="structwmoge_1_1SceneDataCamera.html#a079073a909fa05a2f52ba1f76d59d9ab">wmoge::SceneDataCamera</a>
 </li>
 <li>color_hdr
-: <a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html#ade3a3a3b525ad9d6831f1139b7fa775e">wmoge::GraphicsPipelineTextures</a>
+: <a class="el" href="structwmoge_1_1GraphicsPipelineResources.html#a74733a9b71a7b3d3a9caaa160e4c0a78">wmoge::GraphicsPipelineResources</a>
 </li>
 <li>color_ldr
-: <a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html#a929b27f7f8f26df88c8bfa52a26c447c">wmoge::GraphicsPipelineTextures</a>
+: <a class="el" href="structwmoge_1_1GraphicsPipelineResources.html#a9b6cf859c84328075dceabc9bb72fb01">wmoge::GraphicsPipelineResources</a>
 </li>
 <li>COLOR_LOC
 : <a class="el" href="structwmoge_1_1ShaderComposition.html#a896c707f630e1d5e8c86b1d4217143c4">wmoge::ShaderComposition</a>
@@ -271,7 +287,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1PfxRange_1_1Iterator.html#ae83ece3d4fe60d9f82580f7e999d36ea">wmoge::PfxRange::Iterator</a>
 </li>
 <li>create
-: <a class="el" href="structwmoge_1_1EcsComponentInfo.html#a7433fdcec54324aa5387cd2a8d49c090">wmoge::EcsComponentInfo</a>
+: <a class="el" href="structwmoge_1_1EcsComponentInfo.html#aad92afec80a325d14bccf9c9accd7fd2">wmoge::EcsComponentInfo</a>
 </li>
 <li>ctx
 : <a class="el" href="structwmoge_1_1GfxDebugLabel.html#ab1aaf92bd878ab116bb55a2b614c0a27">wmoge::GfxDebugLabel</a>
@@ -283,6 +299,9 @@ $(function() {
 </li>
 <li>current
 : <a class="el" href="structwmoge_1_1PfxRange_1_1Iterator.html#a22c7a46b1a39997b524ea70733842982">wmoge::PfxRange::Iterator</a>
+</li>
+<li>current_lod
+: <a class="el" href="structwmoge_1_1LodValue.html#aa73282d254998066233f819a8936eae0">wmoge::LodValue</a>
 </li>
 </ul>
 </div><!-- contents -->

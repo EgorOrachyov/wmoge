@@ -82,12 +82,20 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a90f2f488f1ccbd78ebf18a0dc1b4f88e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a90f2f488f1ccbd78ebf18a0dc1b4f88e">EcsWorld</a> ()</td></tr>
 <tr class="separator:a90f2f488f1ccbd78ebf18a0dc1b4f88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408f2cb5afb2e51172ee45b232c77461"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a408f2cb5afb2e51172ee45b232c77461">~EcsWorld</a> ()</td></tr>
+<tr class="separator:a408f2cb5afb2e51172ee45b232c77461"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a747f6dbffa7b2efafe0a18aba2737868"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a747f6dbffa7b2efafe0a18aba2737868">allocate_entity</a> ()</td></tr>
 <tr class="memdesc:a747f6dbffa7b2efafe0a18aba2737868"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates new entity for later creation.  <a href="classwmoge_1_1EcsWorld.html#a747f6dbffa7b2efafe0a18aba2737868">More...</a><br /></td></tr>
 <tr class="separator:a747f6dbffa7b2efafe0a18aba2737868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c38259846f69a51e9328a95cd62d259"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a6c38259846f69a51e9328a95cd62d259">make_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity, const <a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;arch)</td></tr>
 <tr class="memdesc:a6c38259846f69a51e9328a95cd62d259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create new entity within world with requested archetype.  <a href="classwmoge_1_1EcsWorld.html#a6c38259846f69a51e9328a95cd62d259">More...</a><br /></td></tr>
 <tr class="separator:a6c38259846f69a51e9328a95cd62d259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d52cb78ce94e25d90cb389a2a73dbeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a9d52cb78ce94e25d90cb389a2a73dbeb">swap_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;dst, const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;src)</td></tr>
+<tr class="memdesc:a9d52cb78ce94e25d90cb389a2a73dbeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swap entity components data to other entity.  <a href="classwmoge_1_1EcsWorld.html#a9d52cb78ce94e25d90cb389a2a73dbeb">More...</a><br /></td></tr>
+<tr class="separator:a9d52cb78ce94e25d90cb389a2a73dbeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7057b0861a3fd84c8148f6837fc6bd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#ad7057b0861a3fd84c8148f6837fc6bd1">rearch_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity, const <a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;new_arch)</td></tr>
+<tr class="memdesc:ad7057b0861a3fd84c8148f6837fc6bd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change existing entity arch to a new archetype.  <a href="classwmoge_1_1EcsWorld.html#ad7057b0861a3fd84c8148f6837fc6bd1">More...</a><br /></td></tr>
+<tr class="separator:ad7057b0861a3fd84c8148f6837fc6bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66a1929412dfdace7eca895a5541f4c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a66a1929412dfdace7eca895a5541f4c3">destroy_entity</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity)</td></tr>
 <tr class="memdesc:a66a1929412dfdace7eca895a5541f4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys entity by a handle.  <a href="classwmoge_1_1EcsWorld.html#a66a1929412dfdace7eca895a5541f4c3">More...</a><br /></td></tr>
 <tr class="separator:a66a1929412dfdace7eca895a5541f4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -97,6 +105,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a494f25a395505129b2a7ed0b3c00d471"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a494f25a395505129b2a7ed0b3c00d471">get_arch</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity) const</td></tr>
 <tr class="memdesc:a494f25a395505129b2a7ed0b3c00d471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return archetype of given entity by its handle.  <a href="classwmoge_1_1EcsWorld.html#a494f25a395505129b2a7ed0b3c00d471">More...</a><br /></td></tr>
 <tr class="separator:a494f25a395505129b2a7ed0b3c00d471"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11dcb8a6a5c75cf9dadc2945d22096d3"><td class="memTemplParams" colspan="2">template&lt;class Component &gt; </td></tr>
+<tr class="memitem:a11dcb8a6a5c75cf9dadc2945d22096d3"><td class="memTemplItemLeft" align="right" valign="top">Component &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a11dcb8a6a5c75cf9dadc2945d22096d3">get_or_create_component</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity)</td></tr>
+<tr class="memdesc:a11dcb8a6a5c75cf9dadc2945d22096d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns component existing or new (possibly changes enity arch)  <a href="classwmoge_1_1EcsWorld.html#a11dcb8a6a5c75cf9dadc2945d22096d3">More...</a><br /></td></tr>
+<tr class="separator:a11dcb8a6a5c75cf9dadc2945d22096d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bff61608ddbda6b599490e31156d544"><td class="memTemplParams" colspan="2">template&lt;class Component &gt; </td></tr>
 <tr class="memitem:a3bff61608ddbda6b599490e31156d544"><td class="memTemplItemLeft" align="right" valign="top">const Component &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a3bff61608ddbda6b599490e31156d544">get_component</a> (const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity) const</td></tr>
 <tr class="memdesc:a3bff61608ddbda6b599490e31156d544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns component for read-only operations.  <a href="classwmoge_1_1EcsWorld.html#a3bff61608ddbda6b599490e31156d544">More...</a><br /></td></tr>
@@ -115,6 +127,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa60659dc9e189502f7b4bd76ffef8f82"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#aa60659dc9e189502f7b4bd76ffef8f82">filter_arch_idx</a> (const <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> &amp;query)</td></tr>
 <tr class="memdesc:aa60659dc9e189502f7b4bd76ffef8f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ids of matching arch for given query.  <a href="classwmoge_1_1EcsWorld.html#aa60659dc9e189502f7b4bd76ffef8f82">More...</a><br /></td></tr>
 <tr class="separator:aa60659dc9e189502f7b4bd76ffef8f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7b1fd4a80cb948ea62bd56981c6bad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a1d7b1fd4a80cb948ea62bd56981c6bad">register_arch</a> (<a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> arch)</td></tr>
+<tr class="memdesc:a1d7b1fd4a80cb948ea62bd56981c6bad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possibly add new arch to the world allocating space.  <a href="classwmoge_1_1EcsWorld.html#a1d7b1fd4a80cb948ea62bd56981c6bad">More...</a><br /></td></tr>
+<tr class="separator:a1d7b1fd4a80cb948ea62bd56981c6bad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a534942fd1c007cb2d6a4bc22342b7c36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a534942fd1c007cb2d6a4bc22342b7c36">register_system</a> (const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;system)</td></tr>
 <tr class="memdesc:a534942fd1c007cb2d6a4bc22342b7c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers system within a world.  <a href="classwmoge_1_1EcsWorld.html#a534942fd1c007cb2d6a4bc22342b7c36">More...</a><br /></td></tr>
 <tr class="separator:a534942fd1c007cb2d6a4bc22342b7c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,6 +148,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad1b9ec74467be283272e29519a86f528"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#ad1b9ec74467be283272e29519a86f528">sync</a> ()</td></tr>
 <tr class="memdesc:ad1b9ec74467be283272e29519a86f528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sync world, flushing all scheduled operations on it.  <a href="classwmoge_1_1EcsWorld.html#ad1b9ec74467be283272e29519a86f528">More...</a><br /></td></tr>
 <tr class="separator:ad1b9ec74467be283272e29519a86f528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b7197d8bfff1420ecc50c6e5e692344"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a8b7197d8bfff1420ecc50c6e5e692344"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a8b7197d8bfff1420ecc50c6e5e692344">set_attribute</a> (int slot, T &amp;attribute)</td></tr>
+<tr class="memdesc:a8b7197d8bfff1420ecc50c6e5e692344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets world specific attribute to access external context of the world.  <a href="classwmoge_1_1EcsWorld.html#a8b7197d8bfff1420ecc50c6e5e692344">More...</a><br /></td></tr>
+<tr class="separator:a8b7197d8bfff1420ecc50c6e5e692344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7397bbd5651c6942f838b90d105fe9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aee7397bbd5651c6942f838b90d105fe9"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#aee7397bbd5651c6942f838b90d105fe9">get_attribute</a> (int slot=0)</td></tr>
+<tr class="memdesc:aee7397bbd5651c6942f838b90d105fe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get world specific attribute to access external context of the world.  <a href="classwmoge_1_1EcsWorld.html#aee7397bbd5651c6942f838b90d105fe9">More...</a><br /></td></tr>
+<tr class="separator:aee7397bbd5651c6942f838b90d105fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Container which manages created entities and components. </p>
@@ -153,6 +176,23 @@ Public Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">wmoge::EcsWorld::EcsWorld </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a408f2cb5afb2e51172ee45b232c77461"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a408f2cb5afb2e51172ee45b232c77461">&#9670;&nbsp;</a></span>~EcsWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::EcsWorld::~EcsWorld </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -331,6 +371,36 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aee7397bbd5651c6942f838b90d105fe9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee7397bbd5651c6942f838b90d105fe9">&#9670;&nbsp;</a></span>get_attribute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; wmoge::EcsWorld::get_attribute </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>slot</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get world specific attribute to access external context of the world. </p>
+
+</div>
+</div>
 <a id="a3bff61608ddbda6b599490e31156d544"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bff61608ddbda6b599490e31156d544">&#9670;&nbsp;</a></span>get_component()</h2>
 
@@ -372,6 +442,36 @@ template&lt;class Component &gt; </div>
 </div><div class="memdoc">
 
 <p>Returns component for read-write operations. </p>
+
+</div>
+</div>
+<a id="a11dcb8a6a5c75cf9dadc2945d22096d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11dcb8a6a5c75cf9dadc2945d22096d3">&#9670;&nbsp;</a></span>get_or_create_component()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Component &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Component &amp; wmoge::EcsWorld::get_or_create_component </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns component existing or new (possibly changes enity arch) </p>
 
 </div>
 </div>
@@ -466,6 +566,56 @@ template&lt;class Component &gt; </div>
 
 </div>
 </div>
+<a id="ad7057b0861a3fd84c8148f6837fc6bd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7057b0861a3fd84c8148f6837fc6bd1">&#9670;&nbsp;</a></span>rearch_entity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsWorld::rearch_entity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a> &amp;&#160;</td>
+          <td class="paramname"><em>new_arch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change existing entity arch to a new archetype. </p>
+
+</div>
+</div>
+<a id="a1d7b1fd4a80cb948ea62bd56981c6bad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7b1fd4a80cb948ea62bd56981c6bad">&#9670;&nbsp;</a></span>register_arch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsWorld::register_arch </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsArch.html">EcsArch</a>&#160;</td>
+          <td class="paramname"><em>arch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Possibly add new arch to the world allocating space. </p>
+
+</div>
+</div>
 <a id="a534942fd1c007cb2d6a4bc22342b7c36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a534942fd1c007cb2d6a4bc22342b7c36">&#9670;&nbsp;</a></span>register_system()</h2>
 
@@ -483,6 +633,76 @@ template&lt;class Component &gt; </div>
 </div><div class="memdoc">
 
 <p>Registers system within a world. </p>
+
+</div>
+</div>
+<a id="a8b7197d8bfff1420ecc50c6e5e692344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b7197d8bfff1420ecc50c6e5e692344">&#9670;&nbsp;</a></span>set_attribute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsWorld::set_attribute </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>slot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>attribute</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets world specific attribute to access external context of the world. </p>
+
+</div>
+</div>
+<a id="a9d52cb78ce94e25d90cb389a2a73dbeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d52cb78ce94e25d90cb389a2a73dbeb">&#9670;&nbsp;</a></span>swap_entity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsWorld::swap_entity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Swap entity components data to other entity. </p>
 
 </div>
 </div>

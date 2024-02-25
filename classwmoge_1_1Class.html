@@ -68,7 +68,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classwmoge_1_1Class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::Class Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -125,16 +124,13 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a7fe59cd11b3a7a5d58b2e302a7c3dda4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c46db1d4f05b4ccce8d61d0d323688d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a9c46db1d4f05b4ccce8d61d0d323688d">register_class</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b37b06870881f260106267317a878c2">name</a>, const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;<a class="el" href="classwmoge_1_1Class.html#a3b02b29c7a4bb706657984365b46ec22">super</a>, std::size_t <a class="el" href="classwmoge_1_1Class.html#ac768254b5ee96b2b1741399e55826fa6">size</a>, std::function&lt; <a class="el" href="classwmoge_1_1Object.html">Object</a> *()&gt; <a class="el" href="classwmoge_1_1Class.html#afe831919b01400993752d5de852ec0a3">instantiate</a>)</td></tr>
 <tr class="separator:a9c46db1d4f05b4ccce8d61d0d323688d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8152d918af959decb25427efb5b13c5e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacewmoge.html#ab7488473608761636f3b9967482f32d6">ClassDB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a8152d918af959decb25427efb5b13c5e">class_db</a> ()</td></tr>
+<tr class="memitem:a8152d918af959decb25427efb5b13c5e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmoge_1_1ClassDB.html">ClassDB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a8152d918af959decb25427efb5b13c5e">class_db</a> ()</td></tr>
 <tr class="separator:a8152d918af959decb25427efb5b13c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69c207277f52dc1a10b37915d2f1a7a1"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a69c207277f52dc1a10b37915d2f1a7a1"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a69c207277f52dc1a10b37915d2f1a7a1">register_class</a> ()</td></tr>
 <tr class="separator:a69c207277f52dc1a10b37915d2f1a7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a992c638551243aa0ee7b50d84f4fdf54"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a992c638551243aa0ee7b50d84f4fdf54">Main</a></td></tr>
-<tr class="separator:a992c638551243aa0ee7b50d84f4fdf54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f58226d2b2a8140b3838722b865c0e2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Class.html#a7f58226d2b2a8140b3838722b865c0e2">register_types</a> ()</td></tr>
+<tr class="separator:a7f58226d2b2a8140b3838722b865c0e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Storage for reflection information of particular object-hierarchy class. </p>
@@ -275,7 +271,7 @@ template&lt;typename T , typename... Args&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#ab7488473608761636f3b9967482f32d6">ClassDB</a> * wmoge::Class::class_db </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1ClassDB.html">ClassDB</a> * wmoge::Class::class_db </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -544,6 +540,31 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
+<a id="a7f58226d2b2a8140b3838722b865c0e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f58226d2b2a8140b3838722b865c0e2">&#9670;&nbsp;</a></span>register_types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::Class::register_types </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6b85d628efdab8296027e5a1407accfe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6b85d628efdab8296027e5a1407accfe">&#9670;&nbsp;</a></span>set_instantiate()</h2>
 
@@ -625,29 +646,6 @@ template&lt;typename Callable &gt; </div>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a992c638551243aa0ee7b50d84f4fdf54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a992c638551243aa0ee7b50d84f4fdf54">&#9670;&nbsp;</a></span>Main</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classwmoge_1_1Main.html">Main</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

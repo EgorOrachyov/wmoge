@@ -1,0 +1,12 @@
+<map id="engine/render/light.hpp" name="engine/render/light.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="86,5,238,32"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,266,132,293"/>
+<area shape="rect" id="node3" href="$light_8cpp.html" title=" " alt="" coords="86,87,238,114"/>
+<area shape="rect" id="node4" href="$scene__components_8hpp.html" title=" " alt="" coords="293,80,431,121"/>
+<area shape="rect" id="node5" href="$scene_8cpp.html" title=" " alt="" coords="106,177,269,203"/>
+<area shape="rect" id="node6" href="$scene__components_8cpp.html" title=" " alt="" coords="293,169,431,211"/>
+<area shape="rect" id="node7" href="$scene__manager_8cpp.html" title=" " alt="" coords="455,169,594,211"/>
+<area shape="rect" id="node8" href="$scene__node_8cpp.html" title=" " alt="" coords="618,169,757,211"/>
+<area shape="rect" id="node9" href="$scene__node__props_8hpp.html" title=" " alt="" coords="781,169,919,211"/>
+<area shape="rect" id="node10" href="$scene__node__props_8cpp.html" title=" " alt="" coords="781,259,919,300"/>
+</map>

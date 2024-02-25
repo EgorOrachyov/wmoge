@@ -1,5 +1,5 @@
 <map id="wmoge::SceneDataCamera" name="wmoge::SceneDataCamera">
-<area shape="rect" id="node1" title="Serializable struct with camera data for a scene object." alt="" coords="185,95,363,121"/>
+<area shape="rect" id="node1" title="Serializable struct with camera data for a scene entity." alt="" coords="185,95,363,121"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,5,164,32"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="189,5,359,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="383,5,498,32"/>

@@ -96,28 +96,25 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_DEBUG_LAYER_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_DEBUG_LAYER_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="layer_8hpp.html">core/layer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classwmoge_1_1DebugLayer.html">   39</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1DebugLayer.html">DebugLayer</a> final : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Layer.html">Layer</a> {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1DebugLayer.html#ab0602e09e42af86b7f9765e88cce41b4">   41</a></span>&#160;        <a class="code" href="classwmoge_1_1DebugLayer.html#ab0602e09e42af86b7f9765e88cce41b4">~DebugLayer</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1DebugLayer.html#aad71e5a2a4ed7928645a711e370930c1">on_start_frame</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">on_debug_draw</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_DEBUG_LAYER_HPP</span></div>
-<div class="ttc" id="aclasswmoge_1_1DebugLayer_html"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html">wmoge::DebugLayer</a></div><div class="ttdoc">Debug engine layer attached for dev runtime.</div><div class="ttdef"><b>Definition:</b> debug_layer.hpp:39</div></div>
-<div class="ttc" id="aclasswmoge_1_1DebugLayer_html_aad71e5a2a4ed7928645a711e370930c1"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html#aad71e5a2a4ed7928645a711e370930c1">wmoge::DebugLayer::on_start_frame</a></div><div class="ttdeci">void on_start_frame() override</div><div class="ttdef"><b>Definition:</b> debug_layer.cpp:40</div></div>
-<div class="ttc" id="aclasswmoge_1_1DebugLayer_html_aaf7579c320091a1b42930dd44f1a1f84"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">wmoge::DebugLayer::on_debug_draw</a></div><div class="ttdeci">void on_debug_draw() override</div><div class="ttdef"><b>Definition:</b> debug_layer.cpp:48</div></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="layer_8hpp.html">core/layer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1DebugLayer.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1DebugLayer.html">DebugLayer</a> final : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Layer.html">Layer</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classwmoge_1_1DebugLayer.html#ab0602e09e42af86b7f9765e88cce41b4">   40</a></span>&#160;        <a class="code" href="classwmoge_1_1DebugLayer.html#ab0602e09e42af86b7f9765e88cce41b4">~DebugLayer</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1DebugLayer.html#aad71e5a2a4ed7928645a711e370930c1">on_start_frame</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">on_debug_draw</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    };</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aclasswmoge_1_1DebugLayer_html"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html">wmoge::DebugLayer</a></div><div class="ttdoc">Debug engine layer attached for dev runtime.</div><div class="ttdef"><b>Definition:</b> debug_layer.hpp:38</div></div>
+<div class="ttc" id="aclasswmoge_1_1DebugLayer_html_aad71e5a2a4ed7928645a711e370930c1"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html#aad71e5a2a4ed7928645a711e370930c1">wmoge::DebugLayer::on_start_frame</a></div><div class="ttdeci">void on_start_frame() override</div><div class="ttdef"><b>Definition:</b> debug_layer.cpp:43</div></div>
+<div class="ttc" id="aclasswmoge_1_1DebugLayer_html_aaf7579c320091a1b42930dd44f1a1f84"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html#aaf7579c320091a1b42930dd44f1a1f84">wmoge::DebugLayer::on_debug_draw</a></div><div class="ttdeci">void on_debug_draw() override</div><div class="ttdef"><b>Definition:</b> debug_layer.cpp:51</div></div>
 <div class="ttc" id="aclasswmoge_1_1DebugLayer_html_ab0602e09e42af86b7f9765e88cce41b4"><div class="ttname"><a href="classwmoge_1_1DebugLayer.html#ab0602e09e42af86b7f9765e88cce41b4">wmoge::DebugLayer::~DebugLayer</a></div><div class="ttdeci">~DebugLayer() override=default</div></div>
-<div class="ttc" id="aclasswmoge_1_1Layer_html"><div class="ttname"><a href="classwmoge_1_1Layer.html">wmoge::Layer</a></div><div class="ttdoc">Interface for a general engine layer for execution.</div><div class="ttdef"><b>Definition:</b> layer.hpp:42</div></div>
+<div class="ttc" id="aclasswmoge_1_1Layer_html"><div class="ttname"><a href="classwmoge_1_1Layer.html">wmoge::Layer</a></div><div class="ttdoc">Interface for a general engine layer for execution.</div><div class="ttdef"><b>Definition:</b> layer.hpp:41</div></div>
 <div class="ttc" id="alayer_8hpp_html"><div class="ttname"><a href="layer_8hpp.html">layer.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 </div><!-- fragment --></div><!-- contents -->

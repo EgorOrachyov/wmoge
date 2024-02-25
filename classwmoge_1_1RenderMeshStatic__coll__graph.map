@@ -1,5 +1,0 @@
-<map id="wmoge::RenderMeshStatic" name="wmoge::RenderMeshStatic">
-<area shape="rect" id="node1" title="Static renderable mesh." alt="" coords="5,171,183,197"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="19,95,169,121"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="37,5,151,32"/>
-</map>

@@ -1,17 +1,13 @@
 <map id="wmoge::GraphicsPipeline" name="wmoge::GraphicsPipeline">
-<area shape="rect" id="node1" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="727,219,895,245"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="347,59,563,85"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1BloomSettings.html" title="Bloom effect settings." alt="" coords="27,5,182,32"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1TonemapSettings.html" title="Final HDR image tonemapping settings for composition." alt="" coords="19,56,191,83"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1AutoExposureSettings.html" title="Automatic exposition or eye adaptation settings." alt="" coords="5,107,204,133"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="381,113,529,140"/>
-<area shape="rect" id="node7" href="$structwmoge_1_1GraphicsPipelineShared.html" title="Shared state of pipeline required for rendering." alt="" coords="350,164,559,191"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="30,158,179,199"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="374,215,535,241"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1RenderCameras.html" title="Cameras list for rendering." alt="" coords="373,265,536,292"/>
-<area shape="rect" id="node11" href="$structwmoge_1_1GraphicsPipelineTextures.html" title="Pipeline textures used during rendering." alt="" coords="345,316,564,343"/>
-<area shape="rect" id="node12" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="25,256,184,283"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="17,309,192,350"/>
-<area shape="rect" id="node14" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="30,442,179,483"/>
-<area shape="rect" id="node15" href="$classwmoge_1_1ArrayView.html" title=" " alt="" coords="368,367,541,409"/>
+<area shape="rect" id="node1" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="699,281,867,308"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GraphicsPipelineResources.html" title=" " alt="" coords="341,147,572,173"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="30,6,179,47"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="30,139,179,181"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="349,231,565,257"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1BloomSettings.html" title="Bloom effect settings." alt="" coords="27,205,182,232"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1TonemapSettings.html" title="Final HDR image tonemapping settings for composition." alt="" coords="19,256,191,283"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1AutoExposureSettings.html" title="Automatic exposition or eye adaptation settings." alt="" coords="5,307,204,333"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1RenderScene.html" title="Render Engine side scene representation with cached GPU data." alt="" coords="383,281,531,308"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1CameraList.html" title="Cameras list for rendering." alt="" coords="388,332,525,359"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1ArrayView.html" title=" " alt="" coords="370,383,543,425"/>
 </map>

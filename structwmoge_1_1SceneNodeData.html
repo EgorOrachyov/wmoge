@@ -66,8 +66,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="structwmoge_1_1SceneNodeData-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::SceneNodeData Class Reference</div>  </div>
@@ -77,7 +77,7 @@ $(function() {
 <p>Serializable struct with scene tree single node data.  
  <a href="structwmoge_1_1SceneNodeData.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="scene__tree_8hpp_source.html">scene_tree.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="scene__node_8hpp_source.html">scene_node.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for wmoge::SceneNodeData:</div>
 <div class="dyncontent">
@@ -91,6 +91,11 @@ Collaboration diagram for wmoge::SceneNodeData:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a70d20b0a1dc09abde60441a127a75ec8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#a70d20b0a1dc09abde60441a127a75ec8">WG_IO_DECLARE</a> (<a class="el" href="structwmoge_1_1SceneNodeData.html">SceneNodeData</a>)</td></tr>
+<tr class="separator:a70d20b0a1dc09abde60441a127a75ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ac682fa0cfbf7d1d16ba4025ea9088afe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#ac682fa0cfbf7d1d16ba4025ea9088afe">name</a></td></tr>
@@ -103,89 +108,28 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac4aaa736df7e74320e89fe4cf60100bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44e556b90f35d34529bd73c6838ca01f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ResourceId.html">ResourceId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#a44e556b90f35d34529bd73c6838ca01f">prefab</a></td></tr>
 <tr class="separator:a44e556b90f35d34529bd73c6838ca01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c52a1b2e5c6b101350aa5e4868121da"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneProperty.html">SceneProperty</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#a7c52a1b2e5c6b101350aa5e4868121da">properties</a></td></tr>
-<tr class="separator:a7c52a1b2e5c6b101350aa5e4868121da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f47aba51309642a447fbf6073097a4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1SceneNodeProp.html">SceneNodeProp</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#a33f47aba51309642a447fbf6073097a4">properties</a></td></tr>
+<tr class="separator:a33f47aba51309642a447fbf6073097a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cbfb86112ddebcaaa12bec66e000b11"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#a6cbfb86112ddebcaaa12bec66e000b11">parent</a></td></tr>
 <tr class="separator:a6cbfb86112ddebcaaa12bec66e000b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ab97a96453d5f44f82e8115af24a91617"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#ab97a96453d5f44f82e8115af24a91617">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1SceneNodeData.html">SceneNodeData</a> &amp;data)</td></tr>
-<tr class="separator:ab97a96453d5f44f82e8115af24a91617"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a713d95a6fbfab7b0d740610fed44f79a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneNodeData.html#a713d95a6fbfab7b0d740610fed44f79a">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1SceneNodeData.html">SceneNodeData</a> &amp;data)</td></tr>
-<tr class="separator:a713d95a6fbfab7b0d740610fed44f79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Serializable struct with scene tree single node data. </p>
-</div><h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ab97a96453d5f44f82e8115af24a91617"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab97a96453d5f44f82e8115af24a91617">&#9670;&nbsp;</a></span>yaml_read</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a70d20b0a1dc09abde60441a127a75ec8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70d20b0a1dc09abde60441a127a75ec8">&#9670;&nbsp;</a></span>WG_IO_DECLARE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_read </td>
+          <td class="memname">wmoge::SceneNodeData::WG_IO_DECLARE </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1SceneNodeData.html">SceneNodeData</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1SceneNodeData.html">SceneNodeData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a713d95a6fbfab7b0d740610fed44f79a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a713d95a6fbfab7b0d740610fed44f79a">&#9670;&nbsp;</a></span>yaml_write</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1SceneNodeData.html">SceneNodeData</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -233,14 +177,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c52a1b2e5c6b101350aa5e4868121da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c52a1b2e5c6b101350aa5e4868121da">&#9670;&nbsp;</a></span>properties</h2>
+<a id="a33f47aba51309642a447fbf6073097a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f47aba51309642a447fbf6073097a4">&#9670;&nbsp;</a></span>properties</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1SceneProperty.html">SceneProperty</a>&gt; &gt; wmoge::SceneNodeData::properties</td>
+          <td class="memname">std::vector&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1SceneNodeProp.html">SceneNodeProp</a>&gt; &gt; wmoge::SceneNodeData::properties</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -290,7 +234,7 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/scene/<a class="el" href="scene__tree_8hpp_source.html">scene_tree.hpp</a></li>
+<li>engine/scene/<a class="el" href="scene__node_8hpp_source.html">scene_node.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

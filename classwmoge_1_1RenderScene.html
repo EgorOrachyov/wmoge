@@ -82,10 +82,6 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab39c97859f329b10b6f6426589a052f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#ab39c97859f329b10b6f6426589a052f8">RenderScene</a> ()</td></tr>
 <tr class="separator:ab39c97859f329b10b6f6426589a052f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03fd80f6d4d43409d76b5ecd1b255157"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#a03fd80f6d4d43409d76b5ecd1b255157">add_object</a> (class <a class="el" href="classwmoge_1_1RenderObject.html">RenderObject</a> *object, <a class="el" href="structwmoge_1_1VisibilityItem.html">VisibilityItem</a> vis_item)</td></tr>
-<tr class="separator:a03fd80f6d4d43409d76b5ecd1b255157"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5af23d9640fb0b92f1ef1c05498191d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#ab5af23d9640fb0b92f1ef1c05498191d">remove_object</a> (class <a class="el" href="classwmoge_1_1RenderObject.html">RenderObject</a> *object)</td></tr>
-<tr class="separator:ab5af23d9640fb0b92f1ef1c05498191d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7028d31542462416630863634036c96e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#a7028d31542462416630863634036c96e">flush_buffers</a> (class <a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *gfx_ctx)</td></tr>
 <tr class="separator:a7028d31542462416630863634036c96e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7049b721aa731d1965eef6e622b2a6ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1MeshBucketMap.html">MeshBucketMap</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#a7049b721aa731d1965eef6e622b2a6ba">get_bucket_map</a> (<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a> pass_type)</td></tr>
@@ -94,10 +90,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7389e8786da37b8d039618c69abe21cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb3ff33f8039f0cdf33522c6291fc0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a81bd147623ed7b0cc8e48d47d7bd17be">GPURenderObjectIdVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#a7eb3ff33f8039f0cdf33522c6291fc0a">get_objects_ids</a> ()</td></tr>
 <tr class="separator:a7eb3ff33f8039f0cdf33522c6291fc0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f82c78ab80847e0ef668d30647349e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; class <a class="el" href="classwmoge_1_1RenderObject.html">RenderObject</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#a7f82c78ab80847e0ef668d30647349e3">get_objects</a> ()</td></tr>
-<tr class="separator:a7f82c78ab80847e0ef668d30647349e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a4dcd936ed3b92763c8a76aea91db7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt; <a class="el" href="structwmoge_1_1VisibilityItem.html">VisibilityItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RenderScene.html#a1a4dcd936ed3b92763c8a76aea91db7d">get_objects_vis</a> ()</td></tr>
-<tr class="separator:a1a4dcd936ed3b92763c8a76aea91db7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Render <a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> side scene representation with cached GPU data. </p>
@@ -120,34 +112,6 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a03fd80f6d4d43409d76b5ecd1b255157"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03fd80f6d4d43409d76b5ecd1b255157">&#9670;&nbsp;</a></span>add_object()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::RenderScene::add_object </td>
-          <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1RenderObject.html">RenderObject</a> *&#160;</td>
-          <td class="paramname"><em>object</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1VisibilityItem.html">VisibilityItem</a>&#160;</td>
-          <td class="paramname"><em>vis_item</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a7028d31542462416630863634036c96e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7028d31542462416630863634036c96e">&#9670;&nbsp;</a></span>flush_buffers()</h2>
 
@@ -180,31 +144,6 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a>&#160;</td>
           <td class="paramname"><em>pass_type</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7f82c78ab80847e0ef668d30647349e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f82c78ab80847e0ef668d30647349e3">&#9670;&nbsp;</a></span>get_objects()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt;class <a class="el" href="classwmoge_1_1RenderObject.html">RenderObject</a>*&gt; wmoge::RenderScene::get_objects </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -263,49 +202,6 @@ Public Member Functions</h2></td></tr>
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1a4dcd936ed3b92763c8a76aea91db7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a4dcd936ed3b92763c8a76aea91db7d">&#9670;&nbsp;</a></span>get_objects_vis()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1ArrayView.html">ArrayView</a>&lt;<a class="el" href="structwmoge_1_1VisibilityItem.html">VisibilityItem</a>&gt; wmoge::RenderScene::get_objects_vis </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab5af23d9640fb0b92f1ef1c05498191d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5af23d9640fb0b92f1ef1c05498191d">&#9670;&nbsp;</a></span>remove_object()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::RenderScene::remove_object </td>
-          <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1RenderObject.html">RenderObject</a> *&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>

@@ -66,9 +66,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="structwmoge_1_1MeshFile-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::MeshFile Class Reference</div>  </div>
@@ -84,116 +83,50 @@ Collaboration diagram for wmoge::MeshFile:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1MeshFile__coll__graph.png" border="0" usemap="#awmoge_1_1MeshFile_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1MeshFile_coll__map" id="awmoge_1_1MeshFile_coll__map">
-<area shape="rect" title="Struct used to serialize mesh resource data." alt="" coords="109,109,232,136"/>
-<area shape="rect" href="classwmoge_1_1TAabb.html" title=" " alt="" coords="5,13,160,39"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="184,5,333,47"/>
+<area shape="rect" title="Struct used to serialize mesh resource data." alt="" coords="21,95,144,121"/>
+<area shape="rect" href="classwmoge_1_1TAabb.html" title=" " alt="" coords="5,5,160,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a229ecc8083452cab2c36d9124c71fa72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a229ecc8083452cab2c36d9124c71fa72">WG_IO_DECLARE</a> (<a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a>)</td></tr>
+<tr class="separator:a229ecc8083452cab2c36d9124c71fa72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a50c125ac5271252d12f98032a8437e75"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a50c125ac5271252d12f98032a8437e75">chunks</a></td></tr>
-<tr class="separator:a50c125ac5271252d12f98032a8437e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad855246b9c4f7c70c0f351ca826075e9"><td class="memItemLeft" align="right" valign="top">std::array&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt;, <a class="el" href="structwmoge_1_1MeshFile.html#afd311b0cccaf8b6aa8269c80d7429be7">MAX_BUFFER</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#ad855246b9c4f7c70c0f351ca826075e9">vertex_buffers</a></td></tr>
-<tr class="separator:ad855246b9c4f7c70c0f351ca826075e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f4b7bf635a63397fdd79cc0b1b5b699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a0f4b7bf635a63397fdd79cc0b1b5b699">index_buffer</a></td></tr>
-<tr class="separator:a0f4b7bf635a63397fdd79cc0b1b5b699"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6b5eac81dc01e19bae3ec833294ce1a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#ae6b5eac81dc01e19bae3ec833294ce1a">index_type</a></td></tr>
-<tr class="separator:ae6b5eac81dc01e19bae3ec833294ce1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787e484b904706fd663239e176465b4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a7e16ea6cf3d580d30b782b04af05e281">GfxPrimType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a787e484b904706fd663239e176465b4e">prim_type</a></td></tr>
-<tr class="separator:a787e484b904706fd663239e176465b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4958f83405e27a8ff883753d70cf426e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">GfxVertAttribsStreams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a4958f83405e27a8ff883753d70cf426e">attribs</a></td></tr>
-<tr class="separator:a4958f83405e27a8ff883753d70cf426e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e1231f14981903e1e1a26dd7c1e6eb1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a2e1231f14981903e1e1a26dd7c1e6eb1">num_vertices</a> = 0</td></tr>
-<tr class="separator:a2e1231f14981903e1e1a26dd7c1e6eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24993a1f6de6049277b3ca0e7fe0b225"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a24993a1f6de6049277b3ca0e7fe0b225">num_indices</a> = 0</td></tr>
-<tr class="separator:a24993a1f6de6049277b3ca0e7fe0b225"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc9156d0d9f39801f6ef6b8ac3cf8e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a6bc9156d0d9f39801f6ef6b8ac3cf8e6">chunks</a></td></tr>
+<tr class="separator:a6bc9156d0d9f39801f6ef6b8ac3cf8e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedca0aad4fbc7cf38846c28c957eb7e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#aedca0aad4fbc7cf38846c28c957eb7e6">vertex_buffers</a></td></tr>
+<tr class="separator:aedca0aad4fbc7cf38846c28c957eb7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3112da96144a764aeea61acd1a609db0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a3112da96144a764aeea61acd1a609db0">index_buffers</a></td></tr>
+<tr class="separator:a3112da96144a764aeea61acd1a609db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ccf1b6c9980111862595cd634318daf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="structwmoge_1_1GfxVertStream.html">GfxVertStream</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a5ccf1b6c9980111862595cd634318daf">vert_streams</a></td></tr>
+<tr class="separator:a5ccf1b6c9980111862595cd634318daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4db8d109a476d0279d8817f6778cca1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="structwmoge_1_1GfxIndexStream.html">GfxIndexStream</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#af4db8d109a476d0279d8817f6778cca1">index_streams</a></td></tr>
+<tr class="separator:af4db8d109a476d0279d8817f6778cca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80c5fc3404d87da23b64b75e78804aad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a80c5fc3404d87da23b64b75e78804aad">roots</a></td></tr>
+<tr class="separator:a80c5fc3404d87da23b64b75e78804aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8595bb33aa3930b622f94e03a14b90e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a80373c9834c1d91495fe5180718e49fb">Aabbf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#ac8595bb33aa3930b622f94e03a14b90e">aabb</a></td></tr>
 <tr class="separator:ac8595bb33aa3930b622f94e03a14b90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:afd311b0cccaf8b6aa8269c80d7429be7"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#afd311b0cccaf8b6aa8269c80d7429be7">MAX_BUFFER</a> = 3</td></tr>
-<tr class="separator:afd311b0cccaf8b6aa8269c80d7429be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a36ac003f5680ca75c4177eb9c1bcb933"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a36ac003f5680ca75c4177eb9c1bcb933">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;file)</td></tr>
-<tr class="separator:a36ac003f5680ca75c4177eb9c1bcb933"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f9d9a693868a6cc45306035f63be013"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html#a0f9d9a693868a6cc45306035f63be013">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;file)</td></tr>
-<tr class="separator:a0f9d9a693868a6cc45306035f63be013"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Struct used to serialize mesh resource data. </p>
-</div><h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a36ac003f5680ca75c4177eb9c1bcb933"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36ac003f5680ca75c4177eb9c1bcb933">&#9670;&nbsp;</a></span>yaml_read</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a229ecc8083452cab2c36d9124c71fa72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a229ecc8083452cab2c36d9124c71fa72">&#9670;&nbsp;</a></span>WG_IO_DECLARE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_read </td>
+          <td class="memname">wmoge::MeshFile::WG_IO_DECLARE </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0f9d9a693868a6cc45306035f63be013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f9d9a693868a6cc45306035f63be013">&#9670;&nbsp;</a></span>yaml_write</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1MeshFile.html">MeshFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -213,134 +146,84 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a4958f83405e27a8ff883753d70cf426e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4958f83405e27a8ff883753d70cf426e">&#9670;&nbsp;</a></span>attribs</h2>
+<a id="a6bc9156d0d9f39801f6ef6b8ac3cf8e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc9156d0d9f39801f6ef6b8ac3cf8e6">&#9670;&nbsp;</a></span>chunks</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#a6cc10b7e637bbee6ff6ad3bfc865045f">GfxVertAttribsStreams</a> wmoge::MeshFile::attribs</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a>&gt; wmoge::MeshFile::chunks</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a50c125ac5271252d12f98032a8437e75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50c125ac5271252d12f98032a8437e75">&#9670;&nbsp;</a></span>chunks</h2>
+<a id="a3112da96144a764aeea61acd1a609db0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3112da96144a764aeea61acd1a609db0">&#9670;&nbsp;</a></span>index_buffers</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a>&gt; wmoge::MeshFile::chunks</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt; &gt; wmoge::MeshFile::index_buffers</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a0f4b7bf635a63397fdd79cc0b1b5b699"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f4b7bf635a63397fdd79cc0b1b5b699">&#9670;&nbsp;</a></span>index_buffer</h2>
+<a id="af4db8d109a476d0279d8817f6778cca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4db8d109a476d0279d8817f6778cca1">&#9670;&nbsp;</a></span>index_streams</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt; wmoge::MeshFile::index_buffer</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="structwmoge_1_1GfxIndexStream.html">GfxIndexStream</a>&gt; wmoge::MeshFile::index_streams</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae6b5eac81dc01e19bae3ec833294ce1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6b5eac81dc01e19bae3ec833294ce1a">&#9670;&nbsp;</a></span>index_type</h2>
+<a id="a80c5fc3404d87da23b64b75e78804aad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80c5fc3404d87da23b64b75e78804aad">&#9670;&nbsp;</a></span>roots</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a> wmoge::MeshFile::index_type</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;int&gt; wmoge::MeshFile::roots</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="afd311b0cccaf8b6aa8269c80d7429be7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd311b0cccaf8b6aa8269c80d7429be7">&#9670;&nbsp;</a></span>MAX_BUFFER</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int wmoge::MeshFile::MAX_BUFFER = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a24993a1f6de6049277b3ca0e7fe0b225"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24993a1f6de6049277b3ca0e7fe0b225">&#9670;&nbsp;</a></span>num_indices</h2>
+<a id="a5ccf1b6c9980111862595cd634318daf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ccf1b6c9980111862595cd634318daf">&#9670;&nbsp;</a></span>vert_streams</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::MeshFile::num_indices = 0</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="structwmoge_1_1GfxVertStream.html">GfxVertStream</a>&gt; wmoge::MeshFile::vert_streams</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a2e1231f14981903e1e1a26dd7c1e6eb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e1231f14981903e1e1a26dd7c1e6eb1">&#9670;&nbsp;</a></span>num_vertices</h2>
+<a id="aedca0aad4fbc7cf38846c28c957eb7e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedca0aad4fbc7cf38846c28c957eb7e6">&#9670;&nbsp;</a></span>vertex_buffers</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::MeshFile::num_vertices = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a787e484b904706fd663239e176465b4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a787e484b904706fd663239e176465b4e">&#9670;&nbsp;</a></span>prim_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#a7e16ea6cf3d580d30b782b04af05e281">GfxPrimType</a> wmoge::MeshFile::prim_type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad855246b9c4f7c70c0f351ca826075e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad855246b9c4f7c70c0f351ca826075e9">&#9670;&nbsp;</a></span>vertex_buffers</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::array&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt;, <a class="el" href="structwmoge_1_1MeshFile.html#afd311b0cccaf8b6aa8269c80d7429be7">MAX_BUFFER</a>&gt; wmoge::MeshFile::vertex_buffers</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt; &gt; wmoge::MeshFile::vertex_buffers</td>
         </tr>
       </table>
 </div><div class="memdoc">

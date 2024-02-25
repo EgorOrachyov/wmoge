@@ -1,9 +1,10 @@
 <map id="engine/gameplay/action_manager.hpp" name="engine/gameplay/action_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="352,5,511,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="453,5,612,47"/>
 <area shape="rect" id="node2" href="$console_8cpp.html" title=" " alt="" coords="5,109,177,136"/>
 <area shape="rect" id="node3" href="$engine_8hpp.html" title=" " alt="" coords="201,109,328,136"/>
 <area shape="rect" id="node4" href="$action__manager_8cpp.html" title=" " alt="" coords="352,102,511,143"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title=" " alt="" coords="535,109,683,136"/>
-<area shape="rect" id="node6" href="$lua__bindings__gameplay_8hpp.html" title=" " alt="" coords="707,95,860,151"/>
-<area shape="rect" id="node7" href="$lua__bindings__gameplay_8cpp.html" title=" " alt="" coords="707,199,860,255"/>
+<area shape="rect" id="node5" href="$application_8cpp.html" title=" " alt="" coords="535,109,736,136"/>
+<area shape="rect" id="node6" href="$lua__bindings__gameplay_8hpp.html" title=" " alt="" coords="760,95,913,151"/>
+<area shape="rect" id="node8" href="$engine_8cpp.html" title=" " alt="" coords="937,109,1109,136"/>
+<area shape="rect" id="node7" href="$lua__bindings__gameplay_8cpp.html" title=" " alt="" coords="760,199,913,255"/>
 </map>

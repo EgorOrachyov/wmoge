@@ -1,6 +1,0 @@
-<map id="wmoge::ScenePropAudioSource" name="wmoge::ScenePropAudioSource">
-<area shape="rect" id="node1" title="Node property." alt="" coords="5,229,213,256"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1SceneProperty.html" title="Serializable property assigned to a scene node." alt="" coords="32,155,187,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="55,80,163,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="54,5,165,32"/>
-</map>

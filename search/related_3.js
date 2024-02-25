@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_8325',['Main',['../classwmoge_1_1Class.html#a992c638551243aa0ee7b50d84f4fdf54',1,'wmoge::Class::Main()'],['../classwmoge_1_1Engine.html#a992c638551243aa0ee7b50d84f4fdf54',1,'wmoge::Engine::Main()']]]
+  ['taskmanager_8394',['TaskManager',['../classwmoge_1_1TaskContext.html#abfd65c2d85c5faff5c12fd032cc5cf0a',1,'wmoge::TaskContext']]]
 ];

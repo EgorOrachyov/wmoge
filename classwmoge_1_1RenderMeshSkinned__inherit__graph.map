@@ -1,4 +1,0 @@
-<map id="wmoge::RenderMeshSkinned" name="wmoge::RenderMeshSkinned">
-<area shape="rect" id="node1" title="Renderable mesh with bones, skin and animation." alt="" coords="5,80,196,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RenderObject.html" title="Base class for any scene object which can be rendered." alt="" coords="26,5,175,32"/>
-</map>

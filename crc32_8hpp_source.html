@@ -96,27 +96,39 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_CRC32_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_CRC32_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">   36</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">Crc32Hash</a> = <span class="keywordtype">unsigned</span> int;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classwmoge_1_1Crc32.html">   42</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Crc32.html">Crc32</a> {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">Crc32Hash</a> <a class="code" href="classwmoge_1_1Crc32.html#af47b21c24472be2cb6918aaf9279e3cc">hash</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, std::size_t size);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    };</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_CRC32_HPP</span></div>
-<div class="ttc" id="aclasswmoge_1_1Crc32_html"><div class="ttname"><a href="classwmoge_1_1Crc32.html">wmoge::Crc32</a></div><div class="ttdoc">Utility for crc32 hashing.</div><div class="ttdef"><b>Definition:</b> crc32.hpp:42</div></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">   37</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">Crc32Hash</a> = <span class="keywordtype">unsigned</span> int;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1Crc32.html">   43</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Crc32.html">Crc32</a> {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">static</span> <a class="code" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">Crc32Hash</a> <a class="code" href="classwmoge_1_1Crc32.html#af47b21c24472be2cb6918aaf9279e3cc">hash</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, std::size_t size);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classwmoge_1_1Crc32Builder.html">   52</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Crc32Builder.html">Crc32Builder</a> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classwmoge_1_1Crc32Builder.html#a6c4a4c0aff25c8949d2dd9eaa860260d">   54</a></span>&#160;        <a class="code" href="classwmoge_1_1Crc32Builder.html#a6c4a4c0aff25c8949d2dd9eaa860260d">Crc32Builder</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="classwmoge_1_1Crc32Builder.html">Crc32Builder</a>&amp; <a class="code" href="classwmoge_1_1Crc32Builder.html#aa45255c288b21445289a3ef2c90d09e3">hash</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, std::size_t size);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">Crc32Hash</a>     <a class="code" href="classwmoge_1_1Crc32Builder.html#adf9dcadc5a2fd0e65ff8bde95af595fa">get</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">Crc32Hash</a> m_hash;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    };</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aclasswmoge_1_1Crc32Builder_html"><div class="ttname"><a href="classwmoge_1_1Crc32Builder.html">wmoge::Crc32Builder</a></div><div class="ttdoc">Utility to build crc32 hash for complex objects.</div><div class="ttdef"><b>Definition:</b> crc32.hpp:52</div></div>
+<div class="ttc" id="aclasswmoge_1_1Crc32Builder_html_a6c4a4c0aff25c8949d2dd9eaa860260d"><div class="ttname"><a href="classwmoge_1_1Crc32Builder.html#a6c4a4c0aff25c8949d2dd9eaa860260d">wmoge::Crc32Builder::Crc32Builder</a></div><div class="ttdeci">Crc32Builder()=default</div></div>
+<div class="ttc" id="aclasswmoge_1_1Crc32Builder_html_aa45255c288b21445289a3ef2c90d09e3"><div class="ttname"><a href="classwmoge_1_1Crc32Builder.html#aa45255c288b21445289a3ef2c90d09e3">wmoge::Crc32Builder::hash</a></div><div class="ttdeci">Crc32Builder &amp; hash(const void *buffer, std::size_t size)</div><div class="ttdef"><b>Definition:</b> crc32.cpp:119</div></div>
+<div class="ttc" id="aclasswmoge_1_1Crc32Builder_html_adf9dcadc5a2fd0e65ff8bde95af595fa"><div class="ttname"><a href="classwmoge_1_1Crc32Builder.html#adf9dcadc5a2fd0e65ff8bde95af595fa">wmoge::Crc32Builder::get</a></div><div class="ttdeci">Crc32Hash get() const</div><div class="ttdef"><b>Definition:</b> crc32.cpp:124</div></div>
+<div class="ttc" id="aclasswmoge_1_1Crc32_html"><div class="ttname"><a href="classwmoge_1_1Crc32.html">wmoge::Crc32</a></div><div class="ttdoc">Utility for crc32 hashing.</div><div class="ttdef"><b>Definition:</b> crc32.hpp:43</div></div>
 <div class="ttc" id="aclasswmoge_1_1Crc32_html_af47b21c24472be2cb6918aaf9279e3cc"><div class="ttname"><a href="classwmoge_1_1Crc32.html#af47b21c24472be2cb6918aaf9279e3cc">wmoge::Crc32::hash</a></div><div class="ttdeci">static Crc32Hash hash(const void *buffer, std::size_t size)</div><div class="ttdef"><b>Definition:</b> crc32.cpp:108</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_a010d3914097dc823652422e49a146d2f"><div class="ttname"><a href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">wmoge::Crc32Hash</a></div><div class="ttdeci">unsigned int Crc32Hash</div><div class="ttdoc">Crc hash type.</div><div class="ttdef"><b>Definition:</b> crc32.hpp:36</div></div>
+<div class="ttc" id="anamespacewmoge_html_a010d3914097dc823652422e49a146d2f"><div class="ttname"><a href="namespacewmoge.html#a010d3914097dc823652422e49a146d2f">wmoge::Crc32Hash</a></div><div class="ttdeci">unsigned int Crc32Hash</div><div class="ttdoc">Crc hash type.</div><div class="ttdef"><b>Definition:</b> crc32.hpp:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

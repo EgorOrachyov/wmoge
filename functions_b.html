@@ -106,10 +106,10 @@ $(function() {
 <li>begin()
 : <a class="el" href="classwmoge_1_1ArrayView.html#ad47f01d811c2bbe2f21a8076c38295ab">wmoge::ArrayView&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1PfxRange.html#aa00b685e401ec187a216d51965e5ddf6">wmoge::PfxRange</a>
+, <a class="el" href="classwmoge_1_1PoolVector.html#a94cd716ec9e4c8c8e62a9f49b3d1fed8">wmoge::PoolVector&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1Range.html#afee358b6bdb5a9337fad8a8b93f4cc86">wmoge::Range</a>
 , <a class="el" href="classwmoge_1_1TypedArray.html#a890625f2a66146a38caf5a8768d7b64a">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a7b93c6a549a5de75e321c46629148899">wmoge::TypedMap&lt; K, V, H &gt;</a>
-, <a class="el" href="classwmoge_1_1UnrolledList.html#a27241480718473b1eaf772066ac1313b">wmoge::UnrolledList&lt; T, NodeCapacity &gt;</a>
 </li>
 <li>begin_buffer()
 : <a class="el" href="classwmoge_1_1VKCmdManager.html#ac52b27e85e11249dad594b1dad96ff28">wmoge::VKCmdManager</a>
@@ -141,6 +141,14 @@ $(function() {
 </li>
 <li>BIG_NUMBER_FLOAT32
 : <a class="el" href="classwmoge_1_1Math.html#a313bec3eb1977454291505579e7202b7">wmoge::Math</a>
+</li>
+<li>bind()
+: <a class="el" href="structwmoge_1_1EcsComponent.html#a1b8bf3efb0b12fb50de46ab07ca4a5b6">wmoge::EcsComponent&lt; Component &gt;</a>
+, <a class="el" href="classwmoge_1_1IocContainer.html#ab7710255d5c696fd617fe05272d8c101">wmoge::IocContainer</a>
+, <a class="el" href="classwmoge_1_1Signal.html#a44fbfbea8d01f4e82b8e8443351bf2d0">wmoge::Signal&lt; TArgs &gt;</a>
+</li>
+<li>bind_alias()
+: <a class="el" href="classwmoge_1_1IocContainer.html#a7ddcb95fb3946c1afb498a62d3e12a2b">wmoge::IocContainer</a>
 </li>
 <li>bind_color_target()
 : <a class="el" href="classwmoge_1_1GfxCtx.html#aff048b80957b176bbdd8e7d278123f4b">wmoge::GfxCtx</a>
@@ -178,8 +186,14 @@ $(function() {
 <li>bind_event()
 : <a class="el" href="classwmoge_1_1LuaBindings.html#ac7a73c6d3634630828059e3e2f59ad78">wmoge::LuaBindings</a>
 </li>
+<li>bind_f()
+: <a class="el" href="classwmoge_1_1IocContainer.html#a54abafee67bc89112a32c9fadfebd8cf">wmoge::IocContainer</a>
+</li>
 <li>bind_gameplay()
 : <a class="el" href="classwmoge_1_1LuaBindings.html#ae3a5b4280b8c1de682559cf8043b67c0">wmoge::LuaBindings</a>
+</li>
+<li>bind_i()
+: <a class="el" href="classwmoge_1_1IocContainer.html#a8d92167f265f60558adc2d2ceafcb1d8">wmoge::IocContainer</a>
 </li>
 <li>bind_index_buffer()
 : <a class="el" href="classwmoge_1_1GfxCtx.html#af2def43665f54fce62738b2784358cfe">wmoge::GfxCtx</a>
@@ -238,6 +252,9 @@ $(function() {
 <li>bits
 : <a class="el" href="structwmoge_1_1Mask.html#a1b221b074f9be54d61c9732e40ebcf77">wmoge::Mask&lt; T, size &gt;</a>
 </li>
+<li>Bitset
+: <a class="el" href="structwmoge_1_1EcsArch.html#aa797938c42964fd0cd7187358b6adaa7">wmoge::EcsArch</a>
+</li>
 <li>BLACK3f
 : <a class="el" href="classwmoge_1_1Color.html#af3ff71add1679980a228dd1b36d3effb">wmoge::Color</a>
 </li>
@@ -251,7 +268,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1GraphicsPipelineSettings.html#afa7580e48049305f8d14d8da2181aab7">wmoge::GraphicsPipelineSettings</a>
 </li>
 <li>bloom_downsample
-: <a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html#a1181891f381fc49f820831e4462287ee">wmoge::GraphicsPipelineTextures</a>
+: <a class="el" href="structwmoge_1_1GraphicsPipelineResources.html#add95700454ae381ab6609fac244f59e6">wmoge::GraphicsPipelineResources</a>
 </li>
 <li>BLOOM_LOC
 : <a class="el" href="structwmoge_1_1ShaderTonemap.html#a4a2971568e50ad953ef75244172fbd90">wmoge::ShaderTonemap</a>
@@ -266,7 +283,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderTonemap.html#a8cd09cc6c1deeebab95fdb7095b4352c">wmoge::ShaderTonemap</a>
 </li>
 <li>bloom_upsample
-: <a class="el" href="structwmoge_1_1GraphicsPipelineTextures.html#a84c2b4000839158140cf2173968705bb">wmoge::GraphicsPipelineTextures</a>
+: <a class="el" href="structwmoge_1_1GraphicsPipelineResources.html#a202cf0f93a666338319a6d03d421793a">wmoge::GraphicsPipelineResources</a>
 </li>
 <li>BLOOMDIRTMASK_LOC
 : <a class="el" href="structwmoge_1_1ShaderTonemap.html#a64d4870323726eab3623a14a0a35f6c2">wmoge::ShaderTonemap</a>
@@ -293,10 +310,12 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Color.html#a990bb1a49614cde67661e065ded9ac08">wmoge::Color</a>
 </li>
 <li>bone_ids
-: <a class="el" href="structwmoge_1_1MeshVertex.html#a8a4a746136533160b5c83fc81c13e4ef">wmoge::MeshVertex</a>
+: <a class="el" href="structwmoge_1_1ArrayMeshData.html#aa0638ed458a727c76a8010c4a2a4df77">wmoge::ArrayMeshData</a>
+, <a class="el" href="structwmoge_1_1MeshVertex.html#a8a4a746136533160b5c83fc81c13e4ef">wmoge::MeshVertex</a>
 </li>
 <li>bone_weights
-: <a class="el" href="structwmoge_1_1MeshVertex.html#a55067e55fc61453c037f373d80a00227">wmoge::MeshVertex</a>
+: <a class="el" href="structwmoge_1_1ArrayMeshData.html#a1f8ddd8fabd38bb0e6a2b2c3604e7829">wmoge::ArrayMeshData</a>
+, <a class="el" href="structwmoge_1_1MeshVertex.html#a55067e55fc61453c037f373d80a00227">wmoge::MeshVertex</a>
 </li>
 <li>bottom
 : <a class="el" href="structwmoge_1_1TextureCubeImportOptions_1_1SourceFiles.html#a672fffa9f3a307cd61f3775138609080">wmoge::TextureCubeImportOptions::SourceFiles</a>
@@ -313,7 +332,9 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GfxDynAllocation.html#ab5fb65c54b60fd20e249128e936865f5">wmoge::GfxDynAllocation&lt; GfxBufferType, CpuPtrType &gt;</a>
 , <a class="el" href="structwmoge_1_1GfxDynBuffer_1_1Chunk.html#a9ef23c87acb75d7f995e377012eeaa55">wmoge::GfxDynBuffer::Chunk</a>
 , <a class="el" href="structwmoge_1_1GfxIndexBufferSetup.html#aa1cce383d7d8d19bfed37802cf94a62e">wmoge::GfxIndexBufferSetup</a>
+, <a class="el" href="structwmoge_1_1GfxIndexStream.html#adba9bcb0819a845344a714801b7ea407">wmoge::GfxIndexStream</a>
 , <a class="el" href="structwmoge_1_1GfxVertElement.html#a231dc2b831aba9348966f002b16fe485">wmoge::GfxVertElement</a>
+, <a class="el" href="structwmoge_1_1GfxVertStream.html#a1ae4417545a65269cc7a0e6b119aa2a0">wmoge::GfxVertStream</a>
 , <a class="el" href="classwmoge_1_1VKBuffer.html#a67e6a37ef3014db1827afdea93f6d43c">wmoge::VKBuffer</a>
 </li>
 <li>buffer_layout()
@@ -339,6 +360,7 @@ $(function() {
 <li>build()
 : <a class="el" href="classwmoge_1_1MeshBuilder.html#a417f88e01e4169d5720f59a9b6d446da">wmoge::MeshBuilder</a>
 , <a class="el" href="classwmoge_1_1Scene.html#ae560abd75794fca022730cdf009596d2">wmoge::Scene</a>
+, <a class="el" href="classwmoge_1_1SceneNode.html#affd98e1d9187b703d087aa2337a075c3">wmoge::SceneNode</a>
 , <a class="el" href="classwmoge_1_1SceneTree.html#a713eec251bdccd75cbe176c268bd607b">wmoge::SceneTree</a>
 </li>
 <li>builder

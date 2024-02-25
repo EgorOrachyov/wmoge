@@ -59,6 +59,7 @@ var menudata={children:[
 {text:"p",url:"namespacemembers_func_p.html#index_p"},
 {text:"r",url:"namespacemembers_func_r.html#index_r"},
 {text:"u",url:"namespacemembers_func_u.html#index_u"},
+{text:"w",url:"namespacemembers_func_w.html#index_w"},
 {text:"y",url:"namespacemembers_func_y.html#index_y"}]},
 {text:"Variables",url:"namespacemembers_vars.html",children:[
 {text:"b",url:"namespacemembers_vars.html#index_b"},
@@ -201,8 +202,6 @@ var menudata={children:[
 {text:"a",url:"functions_rela.html#index_a"},
 {text:"c",url:"functions_rela.html#index_c"},
 {text:"g",url:"functions_rela.html#index_g"},
-{text:"m",url:"functions_rela.html#index_m"},
-{text:"s",url:"functions_rela.html#index_s"},
 {text:"t",url:"functions_rela.html#index_t"},
 {text:"y",url:"functions_rela.html#index_y"}]}]}]},
 {text:"Files",url:"files.html",children:[

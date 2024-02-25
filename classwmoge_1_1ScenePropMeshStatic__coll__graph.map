@@ -1,9 +1,0 @@
-<map id="wmoge::ScenePropMeshStatic" name="wmoge::ScenePropMeshStatic">
-<area shape="rect" id="node1" title="Node property." alt="" coords="83,289,283,316"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1SceneProperty.html" title="Serializable property assigned to a scene node." alt="" coords="5,200,160,227"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="29,103,137,130"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="27,13,138,39"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1SceneDataMeshStatic.html" title="Serializable struct with static mesh info to attach to object." alt="" coords="184,200,384,227"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="201,96,367,137"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="209,5,359,47"/>
-</map>

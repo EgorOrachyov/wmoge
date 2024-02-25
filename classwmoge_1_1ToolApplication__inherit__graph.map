@@ -1,0 +1,5 @@
+<map id="wmoge::ToolApplication" name="wmoge::ToolApplication">
+<area shape="rect" id="node1" title="Base class for application to run command&#45;line based tool." alt="" coords="8,155,167,181"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1BaseApplication.html" title="Base class for application with minimal engine setup." alt="" coords="5,80,169,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Application.html" title="Base class for any application which is an entry point to run." alt="" coords="20,5,155,32"/>
+</map>

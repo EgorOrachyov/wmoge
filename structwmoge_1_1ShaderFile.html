@@ -66,8 +66,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="structwmoge_1_1ShaderFile-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::ShaderFile Class Reference</div>  </div>
@@ -89,6 +89,11 @@ Collaboration diagram for wmoge::ShaderFile:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a360848331597f507d5330fd74469a1bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a360848331597f507d5330fd74469a1bf">WG_IO_DECLARE</a> (<a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a>)</td></tr>
+<tr class="separator:a360848331597f507d5330fd74469a1bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a97a4adf631b61d8a8b88b61e202e0d4b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1ShaderParameter.html">ShaderParameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a97a4adf631b61d8a8b88b61e202e0d4b">parameters</a></td></tr>
@@ -107,85 +112,24 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a92df108bec2c8dd4a86f206b80bfcf54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a484a32af07823305aebc4e0cd5c779b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1ShaderPipelineState.html">ShaderPipelineState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a484a32af07823305aebc4e0cd5c779b2">state</a> {}</td></tr>
 <tr class="separator:a484a32af07823305aebc4e0cd5c779b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a0bd2df16ffc4144c932479422dd6502e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a0bd2df16ffc4144c932479422dd6502e">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a> &amp;file)</td></tr>
-<tr class="separator:a0bd2df16ffc4144c932479422dd6502e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c425ba58efc582c93f13180c5c8ceea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a9c425ba58efc582c93f13180c5c8ceea">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a> &amp;file)</td></tr>
-<tr class="separator:a9c425ba58efc582c93f13180c5c8ceea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> file to describe a shader and store as a resource. </p>
-</div><h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a0bd2df16ffc4144c932479422dd6502e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bd2df16ffc4144c932479422dd6502e">&#9670;&nbsp;</a></span>yaml_read</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a360848331597f507d5330fd74469a1bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a360848331597f507d5330fd74469a1bf">&#9670;&nbsp;</a></span>WG_IO_DECLARE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_read </td>
+          <td class="memname">wmoge::ShaderFile::WG_IO_DECLARE </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9c425ba58efc582c93f13180c5c8ceea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c425ba58efc582c93f13180c5c8ceea">&#9670;&nbsp;</a></span>yaml_write</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> yaml_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a>&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a> &amp;&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

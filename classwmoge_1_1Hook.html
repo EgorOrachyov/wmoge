@@ -82,11 +82,12 @@ Inheritance diagram for wmoge::Hook:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1Hook__inherit__graph.png" border="0" usemap="#awmoge_1_1Hook_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1Hook_inherit__map" id="awmoge_1_1Hook_inherit__map">
-<area shape="rect" title="Interface for an engine hook to perform some actions on lower engine levels." alt="" coords="269,5,370,32"/>
-<area shape="rect" href="classwmoge_1_1HookConfig.html" title="Engine hook to setup common config workflow." alt="" coords="5,80,143,107"/>
-<area shape="rect" href="classwmoge_1_1HookLogs.html" title="Engine hook to configure and and init engine logs." alt="" coords="167,80,298,107"/>
-<area shape="rect" href="classwmoge_1_1HookRootRemap.html" title="Engine hook to remap root game folder to other (for debug moslty)" alt="" coords="323,80,492,107"/>
-<area shape="rect" href="classwmoge_1_1HookUuidGen.html" title="Engine hook to generate uuids." alt="" coords="517,80,669,107"/>
+<area shape="rect" title="Interface for an engine hook to perform some actions on lower engine levels." alt="" coords="5,107,107,133"/>
+<area shape="rect" href="classwmoge_1_1HookConfig.html" title="Engine hook to setup common config workflow." alt="" coords="171,5,308,32"/>
+<area shape="rect" href="classwmoge_1_1HookLogs.html" title="Engine hook to configure and and init engine logs." alt="" coords="174,56,305,83"/>
+<area shape="rect" href="classwmoge_1_1HookProfiler.html" title="Engine hook to setup profiler of game application." alt="" coords="169,107,310,133"/>
+<area shape="rect" href="classwmoge_1_1HookRootRemap.html" title="Engine hook to remap root game folder to other (for debug moslty)" alt="" coords="155,157,324,184"/>
+<area shape="rect" href="classwmoge_1_1HookUuidGen.html" title="Engine hook to generate uuids." alt="" coords="163,208,315,235"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -100,8 +101,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a067576f39a9f37ebc341cf6780ce7761"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dd6657e37dd611861122ba11c1e9630"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Hook.html#a2dd6657e37dd611861122ba11c1e9630">on_add_cmd_line_options</a> (<a class="el" href="classwmoge_1_1CmdLine.html">CmdLine</a> &amp;cmd_line)</td></tr>
 <tr class="separator:a2dd6657e37dd611861122ba11c1e9630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46808fb5a496cf44a9a9283acf176379"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Hook.html#a46808fb5a496cf44a9a9283acf176379">on_process</a> (<a class="el" href="classwmoge_1_1CmdLine.html">CmdLine</a> &amp;cmd_line, class <a class="el" href="classwmoge_1_1Engine.html">Engine</a> &amp;engine)</td></tr>
-<tr class="separator:a46808fb5a496cf44a9a9283acf176379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50ca9c35d0aacb06738c973f7cd58367"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Hook.html#a50ca9c35d0aacb06738c973f7cd58367">on_process</a> (<a class="el" href="classwmoge_1_1CmdLine.html">CmdLine</a> &amp;cmd_line)</td></tr>
+<tr class="separator:a50ca9c35d0aacb06738c973f7cd58367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for an engine hook to perform some actions on lower engine levels. </p>
@@ -155,7 +156,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1HookUuidGen.html#aa4ceee8b0283e66ae9e19d61b8f1a578">wmoge::HookUuidGen</a>, <a class="el" href="classwmoge_1_1HookRootRemap.html#a72d9552e624b8735fa9596d206145e9a">wmoge::HookRootRemap</a>, <a class="el" href="classwmoge_1_1HookLogs.html#afb39e7ae3101d2258711671afd741157">wmoge::HookLogs</a>, and <a class="el" href="classwmoge_1_1HookConfig.html#a75e396ffa5322c498a9cb9ae00737fdc">wmoge::HookConfig</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1HookUuidGen.html#aa4ceee8b0283e66ae9e19d61b8f1a578">wmoge::HookUuidGen</a>, <a class="el" href="classwmoge_1_1HookRootRemap.html#a72d9552e624b8735fa9596d206145e9a">wmoge::HookRootRemap</a>, <a class="el" href="classwmoge_1_1HookProfiler.html#a56c55a6dd76a6da2f33e4764997db0d0">wmoge::HookProfiler</a>, <a class="el" href="classwmoge_1_1HookLogs.html#afb39e7ae3101d2258711671afd741157">wmoge::HookLogs</a>, and <a class="el" href="classwmoge_1_1HookConfig.html#a75e396ffa5322c498a9cb9ae00737fdc">wmoge::HookConfig</a>.</p>
 
 </div>
 </div>
@@ -183,7 +184,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1HookUuidGen.html#a47c7aa3acf18cf8219c5e3be5c6e4dcb">wmoge::HookUuidGen</a>, <a class="el" href="classwmoge_1_1HookRootRemap.html#a229b262acbe6239194198c6af151c1f3">wmoge::HookRootRemap</a>, <a class="el" href="classwmoge_1_1HookLogs.html#af26a2465f23775fc1f2ee17a1a3cc2f0">wmoge::HookLogs</a>, and <a class="el" href="classwmoge_1_1HookConfig.html#a90c84ccec3be752e1dd441d6b87de5a0">wmoge::HookConfig</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1HookUuidGen.html#a47c7aa3acf18cf8219c5e3be5c6e4dcb">wmoge::HookUuidGen</a>, <a class="el" href="classwmoge_1_1HookRootRemap.html#a229b262acbe6239194198c6af151c1f3">wmoge::HookRootRemap</a>, <a class="el" href="classwmoge_1_1HookProfiler.html#a42c0dd1990e2b0ab428b181de0d5061b">wmoge::HookProfiler</a>, <a class="el" href="classwmoge_1_1HookLogs.html#af26a2465f23775fc1f2ee17a1a3cc2f0">wmoge::HookLogs</a>, and <a class="el" href="classwmoge_1_1HookConfig.html#a90c84ccec3be752e1dd441d6b87de5a0">wmoge::HookConfig</a>.</p>
 
 </div>
 </div>
@@ -212,8 +213,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a46808fb5a496cf44a9a9283acf176379"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46808fb5a496cf44a9a9283acf176379">&#9670;&nbsp;</a></span>on_process()</h2>
+<a id="a50ca9c35d0aacb06738c973f7cd58367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50ca9c35d0aacb06738c973f7cd58367">&#9670;&nbsp;</a></span>on_process()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,18 +226,8 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Hook::on_process </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1CmdLine.html">CmdLine</a> &amp;&#160;</td>
-          <td class="paramname"><em>cmd_line</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>cmd_line</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1Engine.html">Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -246,7 +237,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1HookUuidGen.html#a3c39a3dda2fe7ee11f021ed6cd3c6820">wmoge::HookUuidGen</a>, <a class="el" href="classwmoge_1_1HookRootRemap.html#a0b29fdbfcb1549e7d6f05171ad4af974">wmoge::HookRootRemap</a>, <a class="el" href="classwmoge_1_1HookLogs.html#ac06d90a5a63ac785cdbbc3a809a4ac51">wmoge::HookLogs</a>, and <a class="el" href="classwmoge_1_1HookConfig.html#a25d2aaa27a3e1d18ca329b6fa6ab3491">wmoge::HookConfig</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1HookUuidGen.html#ac3009f4362b554d91ae8993e86d18426">wmoge::HookUuidGen</a>, <a class="el" href="classwmoge_1_1HookRootRemap.html#a386da31ba30b667418b8b5a66e7876c9">wmoge::HookRootRemap</a>, <a class="el" href="classwmoge_1_1HookProfiler.html#a48208abb0a6ed47974c4323eebcba125">wmoge::HookProfiler</a>, <a class="el" href="classwmoge_1_1HookLogs.html#ac90c6f1da7a81226649ea2c6022e934f">wmoge::HookLogs</a>, and <a class="el" href="classwmoge_1_1HookConfig.html#a7176a9bc14e5c94ee64ab36b81ae008e">wmoge::HookConfig</a>.</p>
 
 </div>
 </div>

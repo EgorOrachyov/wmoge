@@ -1,7 +1,8 @@
 <map id="wmoge::AudioStream" name="wmoge::AudioStream">
-<area shape="rect" id="node1" title="Base class for audio files which can be loaded and played." alt="" coords="18,229,163,256"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1AudioStreamWav.html" title="Simple audio resource loaded from .wav file format." alt="" coords="5,304,176,331"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="28,155,153,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="37,80,145,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="35,5,146,32"/>
+<area shape="rect" id="node1" title="Base class for audio files which can be loaded and played." alt="" coords="18,319,163,345"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1AudioStreamWav.html" title="Simple audio resource loaded from .wav file format." alt="" coords="5,393,176,420"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="28,244,153,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="15,155,166,196"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="37,80,145,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="35,5,146,32"/>
 </map>
