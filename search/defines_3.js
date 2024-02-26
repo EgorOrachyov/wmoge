@@ -50,7 +50,7 @@ var searchData=
   ['wg_5fio_5ffield_5fas_8452',['WG_IO_FIELD_AS',['../serialization_8hpp.html#ad788cdd256ad5a06deceff6090c7a6c1',1,'serialization.hpp']]],
   ['wg_5fio_5ffield_5fext_8453',['WG_IO_FIELD_EXT',['../serialization_8hpp.html#a462fecfae20fd94b2362c59544d0d78b',1,'serialization.hpp']]],
   ['wg_5fio_5ffield_5fopt_8454',['WG_IO_FIELD_OPT',['../serialization_8hpp.html#a9ef627fbc39cd9a87edf721cb200b43e',1,'serialization.hpp']]],
-  ['wg_5fio_5fimplement_8455',['WG_IO_IMPLEMENT',['../serialization_8hpp.html#ac6ec78d833d54cf00677404d0d541737',1,'serialization.hpp']]],
+  ['wg_5fio_5fimplement_8455',['WG_IO_IMPLEMENT',['../serialization_8hpp.html#a87c8ee073964a9d53d996f2c73f7fad7',1,'serialization.hpp']]],
   ['wg_5flog_5ferror_8456',['WG_LOG_ERROR',['../log_8hpp.html#a4a1955f32dcea667f2aeef84eb8b7d1d',1,'log.hpp']]],
   ['wg_5flog_5finfo_8457',['WG_LOG_INFO',['../log_8hpp.html#ac0d502b7f81486348ad4f5f4c886da39',1,'log.hpp']]],
   ['wg_5flog_5fmessage_8458',['WG_LOG_MESSAGE',['../log_8hpp.html#a7eb120a1e12997811244790054e3ff20',1,'log.hpp']]],

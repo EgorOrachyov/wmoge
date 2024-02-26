@@ -191,13 +191,13 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a9354f44271818c1acbf6c81b43565d54"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#a9354f44271818c1acbf6c81b43565d54">WG_IO_DECLARE</a>(cls)</td></tr>
 <tr class="separator:a9354f44271818c1acbf6c81b43565d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6ec78d833d54cf00677404d0d541737"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#ac6ec78d833d54cf00677404d0d541737">WG_IO_IMPLEMENT</a>(nmsp,  prfx,  cls)</td></tr>
-<tr class="separator:ac6ec78d833d54cf00677404d0d541737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87c8ee073964a9d53d996f2c73f7fad7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#a87c8ee073964a9d53d996f2c73f7fad7">WG_IO_IMPLEMENT</a>(nmsp,  trg,  cls)</td></tr>
+<tr class="separator:a87c8ee073964a9d53d996f2c73f7fad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23b6ea6f3b305cea32c5226bd3705707"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#a23b6ea6f3b305cea32c5226bd3705707">WG_IO_BEGIN_SUPER</a>(cls,  super)</td></tr>
 <tr class="separator:a23b6ea6f3b305cea32c5226bd3705707"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed6a441968f39e420899aa8e8ab72b2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#aed6a441968f39e420899aa8e8ab72b2f">WG_IO_BEGIN_NMSP</a>(nmsp,  cls)</td></tr>
 <tr class="separator:aed6a441968f39e420899aa8e8ab72b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98c9b57f89851cdecd860f7c3dde10fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#a98c9b57f89851cdecd860f7c3dde10fc">WG_IO_BEGIN</a>(cls)&#160;&#160;&#160;<a class="el" href="serialization_8hpp.html#aed6a441968f39e420899aa8e8ab72b2f">WG_IO_BEGIN_NMSP</a>(, cls)</td></tr>
+<tr class="memitem:a98c9b57f89851cdecd860f7c3dde10fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#a98c9b57f89851cdecd860f7c3dde10fc">WG_IO_BEGIN</a>(cls)&#160;&#160;&#160;<a class="el" href="serialization_8hpp.html#aed6a441968f39e420899aa8e8ab72b2f">WG_IO_BEGIN_NMSP</a>(global, cls)</td></tr>
 <tr class="separator:a98c9b57f89851cdecd860f7c3dde10fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a462fecfae20fd94b2362c59544d0d78b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="serialization_8hpp.html#a462fecfae20fd94b2362c59544d0d78b">WG_IO_FIELD_EXT</a>(field,  name,  flags)</td></tr>
 <tr class="separator:a462fecfae20fd94b2362c59544d0d78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -235,7 +235,7 @@ Enumerations</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">cls</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="serialization_8hpp.html#aed6a441968f39e420899aa8e8ab72b2f">WG_IO_BEGIN_NMSP</a>(, cls)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="serialization_8hpp.html#aed6a441968f39e420899aa8e8ab72b2f">WG_IO_BEGIN_NMSP</a>(global, cls)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -302,7 +302,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Stream, <span class="keyword">typename</span> Target, <span class="keyword">typename</span> Tag&gt;                                     \</div>
-<div class="line">    struct __##cls##Serializer <span class="keyword">final</span> {                                                           \</div>
+<div class="line">    struct global__##cls##Serializer <span class="keyword">final</span> {                                                     \</div>
 <div class="line">        Status operator()(Stream stream, Target target) {                                        \</div>
 <div class="line">            if constexpr (std::is_same_v&lt;Stream, const YamlConstNodeRef&amp;&gt;) {                     \</div>
 <div class="line">                WG_YAML_READ_SUPER(stream, super, target);                                       \</div>
@@ -362,12 +362,13 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">return</span> StatusCode::Ok; \</div>
-<div class="line">    }                      \</div>
-<div class="line">    ;                      \</div>
-<div class="line">    }                      \</div>
-<div class="line">    ;                      \</div>
-<div class="line">    WG_IO_IMPLEMENT(, , cls)</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">return</span> StatusCode::Ok;           \</div>
+<div class="line">    }                                \</div>
+<div class="line">    ;                                \</div>
+<div class="line">    }                                \</div>
+<div class="line">    ;                                \</div>
+<div class="line">    using global__##cls##Type = cls; \</div>
+<div class="line">    WG_IO_IMPLEMENT(global, global__##cls##Type, cls)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -396,12 +397,13 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">return</span> StatusCode::Ok;        \</div>
-<div class="line">    }                             \</div>
-<div class="line">    ;                             \</div>
-<div class="line">    }                             \</div>
-<div class="line">    ;                             \</div>
-<div class="line">    WG_IO_IMPLEMENT(nmsp, nmsp## ::, cls)</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">return</span> StatusCode::Ok;                 \</div>
+<div class="line">    }                                      \</div>
+<div class="line">    ;                                      \</div>
+<div class="line">    }                                      \</div>
+<div class="line">    ;                                      \</div>
+<div class="line">    using nmsp##__##cls##Type = nmsp::cls; \</div>
+<div class="line">    WG_IO_IMPLEMENT(nmsp, nmsp##__##cls##Type, cls)</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -521,8 +523,8 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
-<a id="ac6ec78d833d54cf00677404d0d541737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6ec78d833d54cf00677404d0d541737">&#9670;&nbsp;</a></span>WG_IO_IMPLEMENT</h2>
+<a id="a87c8ee073964a9d53d996f2c73f7fad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87c8ee073964a9d53d996f2c73f7fad7">&#9670;&nbsp;</a></span>WG_IO_IMPLEMENT</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -537,7 +539,7 @@ Enumerations</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">prfx, </td>
+          <td class="paramname">trg, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -552,17 +554,17 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    Status <a class="code" href="namespacewmoge.html#aa1ffa3a4d48206a9e4fb566dfea28b34">yaml_read</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node, prfx##cls&amp; value) {                                   \</div>
-<div class="line">        return nmsp##__##cls##Serializer&lt;const YamlConstNodeRef&amp;, prfx##cls&amp;, IoTagRead&gt;()(node, value); \</div>
-<div class="line">    }                                                                                                    \</div>
-<div class="line">    Status <a class="code" href="namespacewmoge.html#a7fd76a006a614edebcad51453e3f60b8">yaml_write</a>(<a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, <span class="keyword">const</span> prfx##cls&amp; value) {                                        \</div>
-<div class="line">        return nmsp##__##cls##Serializer&lt;YamlNodeRef, const prfx##cls&amp;, IoTagWrite&gt;()(node, value);      \</div>
-<div class="line">    }                                                                                                    \</div>
-<div class="line">    Status <a class="code" href="namespacewmoge.html#ae21e32fb835e822cb002002efdf3d80d">archive_read</a>(Archive&amp; archive, prfx##cls&amp; value) {                                            \</div>
-<div class="line">        return nmsp##__##cls##Serializer&lt;Archive&amp;, prfx##cls&amp;, IoTagRead&gt;()(archive, value);             \</div>
-<div class="line">    }                                                                                                    \</div>
-<div class="line">    Status <a class="code" href="namespacewmoge.html#af41eea25c9e67653685dc519406a9503">archive_write</a>(Archive&amp; archive, <span class="keyword">const</span> prfx##cls&amp; value) {                                     \</div>
-<div class="line">        return nmsp##__##cls##Serializer&lt;Archive&amp;, const prfx##cls&amp;, IoTagWrite&gt;()(archive, value);      \</div>
+<b>Value:</b><div class="fragment"><div class="line">    Status <a class="code" href="namespacewmoge.html#aa1ffa3a4d48206a9e4fb566dfea28b34">yaml_read</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node, trg&amp; value) {                                   \</div>
+<div class="line">        return nmsp##__##cls##Serializer&lt;const YamlConstNodeRef&amp;, trg&amp;, IoTagRead&gt;()(node, value); \</div>
+<div class="line">    }                                                                                              \</div>
+<div class="line">    Status <a class="code" href="namespacewmoge.html#a7fd76a006a614edebcad51453e3f60b8">yaml_write</a>(<a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, <span class="keyword">const</span> trg&amp; value) {                                        \</div>
+<div class="line">        return nmsp##__##cls##Serializer&lt;YamlNodeRef, const trg&amp;, IoTagWrite&gt;()(node, value);      \</div>
+<div class="line">    }                                                                                              \</div>
+<div class="line">    Status <a class="code" href="namespacewmoge.html#ae21e32fb835e822cb002002efdf3d80d">archive_read</a>(Archive&amp; archive, trg&amp; value) {                                            \</div>
+<div class="line">        return nmsp##__##cls##Serializer&lt;Archive&amp;, trg&amp;, IoTagRead&gt;()(archive, value);             \</div>
+<div class="line">    }                                                                                              \</div>
+<div class="line">    Status <a class="code" href="namespacewmoge.html#af41eea25c9e67653685dc519406a9503">archive_write</a>(Archive&amp; archive, <span class="keyword">const</span> trg&amp; value) {                                     \</div>
+<div class="line">        return nmsp##__##cls##Serializer&lt;Archive&amp;, const trg&amp;, IoTagWrite&gt;()(archive, value);      \</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>
