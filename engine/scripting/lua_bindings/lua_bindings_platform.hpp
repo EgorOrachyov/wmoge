@@ -65,7 +65,7 @@ namespace wmoge {
         bool in_focus() const {
             return cast_unsafe<Window>()->in_focus();
         }
-        const StringId& id() const {
+        const Strid& id() const {
             return cast_unsafe<Window>()->id();
         }
         const std::string& title() const {

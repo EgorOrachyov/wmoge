@@ -68,6 +68,7 @@ namespace wmoge {
         meta.cls          = Class::class_ptr(res_file.cls);
         meta.pak          = this;
         meta.loader       = loader ? loader.value() : nullptr;
+        meta.deps         = std::move(res_file.deps);
         meta.path_on_disk = res_file.path_on_disk;
         meta.import_options.emplace(std::move(res_tree));
 

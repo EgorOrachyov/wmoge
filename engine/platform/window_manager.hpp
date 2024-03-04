@@ -44,7 +44,7 @@ namespace wmoge {
         virtual fast_vector<Ref<Window>> windows()                             = 0;
         virtual Ref<Window>              primary_window()                      = 0;
         virtual Ref<Window>              create(const WindowInfo& window_info) = 0;
-        virtual Ref<Window>              get(const StringId& window_id)        = 0;
+        virtual Ref<Window>              get(const Strid& window_id)           = 0;
     };
 
 }// namespace wmoge

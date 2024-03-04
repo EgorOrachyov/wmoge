@@ -64,9 +64,9 @@ namespace wmoge {
      */
     class VKShader final : public VKResource<GfxShader> {
     public:
-        VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver);
-        VKShader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver);
-        VKShader(Ref<Data> byte_code, const StringId& name, class VKDriver& driver);
+        VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name, class VKDriver& driver);
+        VKShader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name, class VKDriver& driver);
+        VKShader(Ref<Data> byte_code, const Strid& name, class VKDriver& driver);
         ~VKShader() override;
 
         void compile_from_source();

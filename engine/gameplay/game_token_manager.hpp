@@ -46,19 +46,19 @@ namespace wmoge {
     public:
         GameTokenManager();
 
-        void set(const StringId& token, int value);
-        void set(const StringId& token, float value);
-        void set(const StringId& token, std::string value);
-        void set(const StringId& token, Var value);
+        void set(const Strid& token, int value);
+        void set(const Strid& token, float value);
+        void set(const Strid& token, std::string value);
+        void set(const Strid& token, Var value);
 
-        bool get(const StringId& token, int& value);
-        bool get(const StringId& token, float& value);
-        bool get(const StringId& token, std::string& value);
-        bool get(const StringId& token, Var& value);
+        bool get(const Strid& token, int& value);
+        bool get(const Strid& token, float& value);
+        bool get(const Strid& token, std::string& value);
+        bool get(const Strid& token, Var& value);
 
     private:
-        fast_map<StringId, Var> m_tokens;
-        class EventManager*     m_event_manager;
+        fast_map<Strid, Var> m_tokens;
+        class EventManager*  m_event_manager;
     };
 
 }// namespace wmoge

@@ -59,7 +59,7 @@ namespace wmoge {
         m_vert_fmt_cache      = driver->vert_fmt_cache();
     }
 
-    Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const StringId& name) {
+    Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const Strid& name) {
         auto cached = m_vert_fmt_cache->get(elements);
         if (cached.has_value()) {
             return cached.value();
@@ -71,84 +71,84 @@ namespace wmoge {
         WG_LOG_INFO("cache new vf " << name);
         return vert_format;
     }
-    Ref<GfxVertBuffer> GfxDriverWrapper::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxVertBuffer> GfxDriverWrapper::make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_vert_buffer");
 
         Ref<GfxVertBuffer> buffer;
         m_stream->push_and_wait([&]() { buffer = m_driver->make_vert_buffer(size, usage, name); });
         return buffer;
     }
-    Ref<GfxIndexBuffer> GfxDriverWrapper::make_index_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxIndexBuffer> GfxDriverWrapper::make_index_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_index_buffer");
 
         Ref<GfxIndexBuffer> buffer;
         m_stream->push_and_wait([&]() { buffer = m_driver->make_index_buffer(size, usage, name); });
         return buffer;
     }
-    Ref<GfxUniformBuffer> GfxDriverWrapper::make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxUniformBuffer> GfxDriverWrapper::make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_uniform_buffer");
 
         Ref<GfxUniformBuffer> buffer;
         m_stream->push_and_wait([&]() { buffer = m_driver->make_uniform_buffer(size, usage, name); });
         return buffer;
     }
-    Ref<GfxStorageBuffer> GfxDriverWrapper::make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxStorageBuffer> GfxDriverWrapper::make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_storage_buffer");
 
         Ref<GfxStorageBuffer> buffer;
         m_stream->push_and_wait([&]() { buffer = m_driver->make_storage_buffer(size, usage, name); });
         return buffer;
     }
-    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) {
+    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
 
         Ref<GfxShader> shader;
         m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(vertex), std::move(fragment), layouts, name); });
         return shader;
     }
-    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) {
+    Ref<GfxShader> GfxDriverWrapper::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
 
         Ref<GfxShader> shader;
         m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(compute), layouts, name); });
         return shader;
     }
-    Ref<GfxShader> GfxDriverWrapper::make_shader(Ref<Data> code, const StringId& name) {
+    Ref<GfxShader> GfxDriverWrapper::make_shader(Ref<Data> code, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
 
         Ref<GfxShader> shader;
         m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(code), name); });
         return shader;
     }
-    Ref<GfxTexture> GfxDriverWrapper::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) {
+    Ref<GfxTexture> GfxDriverWrapper::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_texture_2d");
 
         Ref<GfxTexture> texture;
         m_stream->push_and_wait([&]() { texture = m_driver->make_texture_2d(width, height, mips, format, usages, mem_usage, swizz, name); });
         return texture;
     }
-    Ref<GfxTexture> GfxDriverWrapper::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> GfxDriverWrapper::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_texture_2d_array");
 
         Ref<GfxTexture> texture;
         m_stream->push_and_wait([&]() { texture = m_driver->make_texture_2d_array(width, height, mips, slices, format, usages, mem_usage, name); });
         return texture;
     }
-    Ref<GfxTexture> GfxDriverWrapper::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> GfxDriverWrapper::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_texture_cube");
 
         Ref<GfxTexture> texture;
         m_stream->push_and_wait([&]() { texture = m_driver->make_texture_cube(width, height, mips, format, usages, mem_usage, name); });
         return texture;
     }
-    Ref<GfxSampler> GfxDriverWrapper::make_sampler(const GfxSamplerDesc& desc, const StringId& name) {
+    Ref<GfxSampler> GfxDriverWrapper::make_sampler(const GfxSamplerDesc& desc, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_sampler");
 
         Ref<GfxSampler> sampler;
         m_stream->push_and_wait([&]() { sampler = m_driver->make_sampler(desc, name); });
         return sampler;
     }
-    Ref<GfxPipeline> GfxDriverWrapper::make_pipeline(const GfxPipelineState& state, const StringId& name) {
+    Ref<GfxPipeline> GfxDriverWrapper::make_pipeline(const GfxPipelineState& state, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_pipeline");
 
         auto cached = m_pso_cache->get(state);
@@ -162,7 +162,7 @@ namespace wmoge {
         WG_LOG_INFO("cache new pso " << name);
         return pipeline;
     }
-    Ref<GfxCompPipeline> GfxDriverWrapper::make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) {
+    Ref<GfxCompPipeline> GfxDriverWrapper::make_comp_pipeline(const GfxCompPipelineState& state, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_comp_pipeline");
 
         auto cached = m_comp_pso_cache->get(state);
@@ -176,42 +176,42 @@ namespace wmoge {
         WG_LOG_INFO("cache new comp pso " << name);
         return pipeline;
     }
-    Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+    Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_render_pass");
 
         Ref<GfxRenderPass> render_pass;
         m_stream->push_and_wait([&]() { render_pass = m_driver->make_render_pass(pass_desc, name); });
         return render_pass;
     }
-    Ref<GfxDynVertBuffer> GfxDriverWrapper::make_dyn_vert_buffer(int chunk_size, const StringId& name) {
+    Ref<GfxDynVertBuffer> GfxDriverWrapper::make_dyn_vert_buffer(int chunk_size, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_dyn_vert_buffer");
 
         Ref<GfxDynVertBuffer> dyn_buffer;
         m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_vert_buffer(chunk_size, name); });
         return dyn_buffer;
     }
-    Ref<GfxDynIndexBuffer> GfxDriverWrapper::make_dyn_index_buffer(int chunk_size, const StringId& name) {
+    Ref<GfxDynIndexBuffer> GfxDriverWrapper::make_dyn_index_buffer(int chunk_size, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_dyn_index_buffer");
 
         Ref<GfxDynIndexBuffer> dyn_buffer;
         m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_index_buffer(chunk_size, name); });
         return dyn_buffer;
     }
-    Ref<GfxDynUniformBuffer> GfxDriverWrapper::make_dyn_uniform_buffer(int chunk_size, const StringId& name) {
+    Ref<GfxDynUniformBuffer> GfxDriverWrapper::make_dyn_uniform_buffer(int chunk_size, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_dyn_uniform_buffer");
 
         Ref<GfxDynUniformBuffer> dyn_buffer;
         m_stream->push_and_wait([&]() { dyn_buffer = m_driver->make_dyn_uniform_buffer(chunk_size, name); });
         return dyn_buffer;
     }
-    Ref<GfxDescSetLayout> GfxDriverWrapper::make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) {
+    Ref<GfxDescSetLayout> GfxDriverWrapper::make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_desc_layout");
 
         Ref<GfxDescSetLayout> desc_layout;
         m_stream->push_and_wait([&]() { desc_layout = m_driver->make_desc_layout(desc, name); });
         return desc_layout;
     }
-    Ref<GfxDescSet> GfxDriverWrapper::make_desc_set(const GfxDescSetResources& resources, const StringId& name) {
+    Ref<GfxDescSet> GfxDriverWrapper::make_desc_set(const GfxDescSetResources& resources, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_desc_set");
 
         Ref<GfxDescSet> desc_set;
@@ -278,7 +278,7 @@ namespace wmoge {
     const GfxDeviceCaps& GfxDriverWrapper::device_caps() const {
         return m_device_caps;
     }
-    const StringId& GfxDriverWrapper::driver_name() const {
+    const Strid& GfxDriverWrapper::driver_name() const {
         return m_driver_name;
     }
     const std::string& GfxDriverWrapper::shader_cache_path() const {

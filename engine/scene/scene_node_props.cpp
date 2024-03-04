@@ -27,6 +27,8 @@
 
 #include "scene_node_props.hpp"
 
+#include "core/class.hpp"
+
 namespace wmoge {
 
     void NodePropSpatial::fill_arch(EcsArch& arch) {
@@ -34,11 +36,69 @@ namespace wmoge {
         arch.set_component<EcsComponentChildren>();
         arch.set_component<EcsComponentTransform>();
         arch.set_component<EcsComponentTransformUpd>();
+        arch.set_component<EcsComponentLocalToWorld>();
+        arch.set_component<EcsComponentWorldToLocal>();
     }
 
-    void NodePropSpatial::add_components(Entity entity) {
+    void NodePropSpatial::add_components(Entity entity, Entity parent) {
+        SceneNode* node = get_node();
+
+        if (parent.is_valid()) {
+            auto& ecs_parent  = entity.get_component<EcsComponentParent>();
+            ecs_parent.parent = parent.get_ecs_id();
+
+            if (parent.has_component<EcsComponentChildren>()) {
+                auto& ecs_children = parent.get_component<EcsComponentChildren>();
+                ecs_children.children.push_back(entity.get_ecs_id());
+            }
+            if (parent.has_component<EcsComponentTransformUpd>()) {
+                auto& ecs_parent_transform_upd  = parent.get_component<EcsComponentTransformUpd>();
+                auto& ecs_self_transform_upd    = entity.get_component<EcsComponentTransformUpd>();
+                ecs_self_transform_upd.batch_id = ecs_parent_transform_upd.batch_id + 1;
+            }
+        }
+
+        auto& ecs_transform     = entity.get_component<EcsComponentTransform>();
+        ecs_transform.transform = node->get_transform().to_transform3d();
+    }
+
+    void NodePropSpatial::process_event(const EventSceneNode& event) {
         SceneNode* node   = get_node();
-        SceneNode* parent = node->get_parent();
+        Entity     entity = node->get_entity();
+
+        if (event.notification == SceneNodeNotification::TransformUpdated) {
+            auto& ecs_transform     = entity.get_component<EcsComponentTransform>();
+            ecs_transform.transform = node->get_transform().to_transform3d();
+
+            auto& ecs_transform_upd    = entity.get_component<EcsComponentTransformUpd>();
+            ecs_transform_upd.is_dirty = true;
+        }
+    }
+
+    Status NodePropSpatial::read_from_yaml(const YamlConstNodeRef& node) {
+        WG_YAML_READ(node, params);
+        return StatusCode::Ok;
+    }
+
+    void NodePropSpatial::register_class() {
+        auto* cls = Class::register_class<NodePropSpatial>();
+    }
+
+    void NodePropCamera::fill_arch(EcsArch& arch) {
+        arch.set_component<EcsComponentCamera>();
+    }
+
+    void NodePropCamera::add_components(Entity entity, Entity parent) {
+        params.fill(entity.get_component<EcsComponentCamera>());
+    }
+
+    Status NodePropCamera::read_from_yaml(const YamlConstNodeRef& node) {
+        WG_YAML_READ(node, params);
+        return StatusCode::Ok;
+    }
+
+    void NodePropCamera::register_class() {
+        auto* cls = Class::register_class<NodePropCamera>();
     }
 
 }// namespace wmoge

@@ -83,6 +83,7 @@
 #include "event/event_listener.hpp"
 #include "event/event_manager.hpp"
 #include "event/event_resource.hpp"
+#include "event/event_scene.hpp"
 #include "event/event_script.hpp"
 #include "event/event_token.hpp"
 #include "event/event_window.hpp"
@@ -158,6 +159,7 @@
 #include "render/aux_draw_manager.hpp"
 #include "render/camera.hpp"
 #include "render/canvas.hpp"
+#include "render/culling.hpp"
 #include "render/graphics_pipeline.hpp"
 #include "render/light.hpp"
 #include "render/model_instance.hpp"
@@ -170,7 +172,6 @@
 #include "render/texture_manager.hpp"
 #include "render/view.hpp"
 #include "render/view_manager.hpp"
-#include "render/visibility.hpp"
 
 #include "resource/array_mesh.hpp"
 #include "resource/audio_stream.hpp"

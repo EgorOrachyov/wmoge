@@ -88,11 +88,11 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    void ActionMap::rename(StringId new_name) {
+    void ActionMap::rename(Strid new_name) {
         m_name = new_name;
     }
 
-    void ActionMap::add_action_activation(const StringId& action_name, const ActionActivation& activation) {
+    void ActionMap::add_action_activation(const Strid& action_name, const ActionActivation& activation) {
         if (!has_action(action_name)) {
             WG_LOG_ERROR("no such action " << action_name);
             return;
@@ -101,7 +101,7 @@ namespace wmoge {
         action.activations.push_back(activation);
     }
 
-    void ActionMap::remove_action(const StringId& action_name) {
+    void ActionMap::remove_action(const Strid& action_name) {
         if (!has_action(action_name)) {
             WG_LOG_ERROR("no such action " << action_name);
             return;
@@ -109,16 +109,16 @@ namespace wmoge {
         m_actions.erase(action_name);
     }
 
-    const StringId& ActionMap::get_name() {
+    const Strid& ActionMap::get_name() {
         return m_name;
     }
     int ActionMap::get_priority() {
         return m_priority;
     }
-    bool ActionMap::has_action(const StringId& action_name) {
+    bool ActionMap::has_action(const Strid& action_name) {
         return get_action(action_name) != nullptr;
     }
-    void ActionMap::add_action(const StringId& action_name, const StringId& display_name) {
+    void ActionMap::add_action(const Strid& action_name, const Strid& display_name) {
         if (has_action(action_name)) {
             WG_LOG_ERROR("an attempt to overwrite action " << action_name);
             return;
@@ -127,7 +127,7 @@ namespace wmoge {
         action.name             = action_name;
         action.display_name     = display_name;
     }
-    const ActionMapAction* ActionMap::get_action(const StringId& action_name) {
+    const ActionMapAction* ActionMap::get_action(const Strid& action_name) {
         auto query = m_actions.find(action_name);
         return query != m_actions.end() ? &query->second : nullptr;
     }

@@ -44,7 +44,7 @@ namespace wmoge {
     std::size_t GfxVertElements::hash() const {
         return Crc32::hash(&m_elements, sizeof(m_elements));
     }
-    void GfxVertElements::add_element(StringId name, GfxFormat format, int buffer, int offset, int stride, bool instanced) {
+    void GfxVertElements::add_element(Strid name, GfxFormat format, int buffer, int offset, int stride, bool instanced) {
         assert(buffer < GfxLimits::MAX_VERT_BUFFERS);
         assert(m_elements_count < GfxLimits::MAX_VERT_ATTRIBUTES);
 

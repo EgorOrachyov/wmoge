@@ -29,14 +29,31 @@
 
 namespace wmoge {
 
-    void Camera::set_proj_params(float fov, float aspect, float near, float far) {
-        m_fov    = fov;
+    Camera::Camera() {
+        validate();
+    }
+
+    void Camera::set_fov(float fov) {
+        m_fov = fov;
+    }
+    void Camera::set_aspect(float aspect) {
         m_aspect = aspect;
-        m_near   = near;
-        m_far    = far;
+    }
+    void Camera::set_near_far(float near, float far) {
+        m_near = near;
+        m_far  = far;
     }
     void Camera::set_viewport(const Rect2i& viewport) {
         m_viewport = viewport;
+    }
+    void Camera::set_color(const Color4f& color) {
+        m_color = color;
+    }
+    void Camera::set_proj(CameraProjection proj) {
+        m_projection = proj;
+    }
+    void Camera::set_name(Strid name) {
+        m_name = std::move(name);
     }
     void Camera::look(const Vec3f& dir, const Vec3f& up) {
         m_direction = dir;

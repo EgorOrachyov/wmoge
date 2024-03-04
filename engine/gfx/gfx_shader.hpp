@@ -47,7 +47,7 @@ namespace wmoge {
     class GfxShaderReflection {
     public:
         struct Texture {
-            StringId     name;
+            Strid        name;
             std::int16_t set        = -1;
             std::int16_t binding    = -1;
             std::int16_t array_size = -1;
@@ -56,16 +56,16 @@ namespace wmoge {
             WG_IO_DECLARE(Texture);
         };
         struct Buffer {
-            StringId     name;
+            Strid        name;
             std::int16_t set     = -1;
             std::int16_t binding = -1;
             int          size    = -1;
 
             WG_IO_DECLARE(Buffer);
         };
-        fast_map<StringId, Texture>               textures;
-        fast_map<StringId, Buffer>                ub_buffers;
-        fast_map<StringId, Buffer>                sb_buffers;
+        fast_map<Strid, Texture>                  textures;
+        fast_map<Strid, Buffer>                   ub_buffers;
+        fast_map<Strid, Buffer>                   sb_buffers;
         std::array<int, GfxLimits::MAX_DESC_SETS> textures_per_desc{};
         std::array<int, GfxLimits::MAX_DESC_SETS> ub_buffers_per_desc{};
         std::array<int, GfxLimits::MAX_DESC_SETS> sb_buffers_per_desc{};

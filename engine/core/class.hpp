@@ -49,14 +49,14 @@ namespace wmoge {
      */
     class ClassMember {
     public:
-        ClassMember(StringId name);
+        ClassMember(Strid name);
 
-        [[nodiscard]] const StringId& name() const { return m_name; };
+        [[nodiscard]] const Strid& name() const { return m_name; };
 
     private:
         friend class Class;
 
-        StringId m_name;
+        Strid m_name;
     };
 
     /**
@@ -65,11 +65,11 @@ namespace wmoge {
      */
     class ClassProperty : public ClassMember {
     public:
-        ClassProperty(VarType type, StringId name, StringId getter = StringId(), StringId setter = StringId());
+        ClassProperty(VarType type, Strid name, Strid getter = Strid(), Strid setter = Strid());
 
-        [[nodiscard]] const StringId& getter() const { return m_getter; };
-        [[nodiscard]] const StringId& setter() const { return m_setter; };
-        [[nodiscard]] VarType         type() const { return m_type; };
+        [[nodiscard]] const Strid& getter() const { return m_getter; };
+        [[nodiscard]] const Strid& setter() const { return m_setter; };
+        [[nodiscard]] VarType      type() const { return m_type; };
 
         [[nodiscard]] bool has_setter() const { return !m_setter.empty(); }
         [[nodiscard]] bool has_getter() const { return !m_getter.empty(); }
@@ -77,9 +77,9 @@ namespace wmoge {
     private:
         friend class Class;
 
-        StringId m_getter;
-        StringId m_setter;
-        VarType  m_type;
+        Strid   m_getter;
+        Strid   m_setter;
+        VarType m_type;
     };
 
     /**
@@ -88,7 +88,7 @@ namespace wmoge {
      */
     class ClassField final : public ClassProperty {
     public:
-        ClassField(VarType type, StringId name);
+        ClassField(VarType type, Strid name);
 
         [[nodiscard]] int native_size() const { return m_native_size; }
         [[nodiscard]] int native_offset() const { return m_native_offset; }
@@ -111,7 +111,7 @@ namespace wmoge {
          */
         using Call = std::function<Status(const ClassMethod&, Object*, int, const Var*, Var&)>;
 
-        ClassMethod(VarType ret, StringId name, std::vector<StringId> args);
+        ClassMethod(VarType ret, Strid name, std::vector<Strid> args);
 
         /**
          * @brief Call this method on object instance
@@ -125,20 +125,20 @@ namespace wmoge {
          */
         Status call(Object* object, int argc, const Var* argv, Var& ret) const;
 
-        [[nodiscard]] const std::vector<StringId>& args_names() const { return m_args_names; }
-        [[nodiscard]] const std::vector<Var>&      args_values() const { return m_args_values; }
-        [[nodiscard]] std::size_t                  args_count() const { return m_args_names.size(); }
-        [[nodiscard]] VarType                      ret() const { return m_ret; }
+        [[nodiscard]] const std::vector<Strid>& args_names() const { return m_args_names; }
+        [[nodiscard]] const std::vector<Var>&   args_values() const { return m_args_values; }
+        [[nodiscard]] std::size_t               args_count() const { return m_args_names.size(); }
+        [[nodiscard]] VarType                   ret() const { return m_ret; }
 
         [[nodiscard]] bool has_ret() const { return m_ret != VarType::Nil; }
 
     private:
         friend class Class;
 
-        Call                  m_callable;
-        std::vector<StringId> m_args_names;
-        std::vector<Var>      m_args_values;
-        VarType               m_ret;
+        Call               m_callable;
+        std::vector<Strid> m_args_names;
+        std::vector<Var>   m_args_values;
+        VarType            m_ret;
     };
 
     /**
@@ -147,12 +147,12 @@ namespace wmoge {
      */
     class ClassDB final {
     public:
-        class Class*    class_emplace(StringId name);
-        class Class*    class_ptr(StringId name);
+        class Class*    class_emplace(Strid name);
+        class Class*    class_ptr(Strid name);
         static ClassDB* instance();
 
     private:
-        std::unordered_map<StringId, std::unique_ptr<class Class>> m_db;
+        std::unordered_map<Strid, std::unique_ptr<class Class>> m_db;
     };
 
     /**
@@ -161,22 +161,22 @@ namespace wmoge {
      */
     class Class final {
     public:
-        [[nodiscard]] const StringId&           name() const { return m_name; }
-        [[nodiscard]] const StringId&           super_name() const { return m_super_name; }
+        [[nodiscard]] const Strid&              name() const { return m_name; }
+        [[nodiscard]] const Strid&              super_name() const { return m_super_name; }
         [[nodiscard]] std::size_t               size() const { return m_size; }
         [[nodiscard]] const Class*              super() const;
-        [[nodiscard]] const ClassProperty*      property(const StringId& name) const;
-        [[nodiscard]] const ClassField*         field(const StringId& name) const;
-        [[nodiscard]] const ClassMethod*        method(const StringId& name) const;
+        [[nodiscard]] const ClassProperty*      property(const Strid& name) const;
+        [[nodiscard]] const ClassField*         field(const Strid& name) const;
+        [[nodiscard]] const ClassMethod*        method(const Strid& name) const;
         [[nodiscard]] std::vector<ClassMember*> members() const;
 
         [[nodiscard]] bool has_super() const { return !m_super_name.empty(); }
-        [[nodiscard]] bool is_inherited_from(const StringId& name) const;
+        [[nodiscard]] bool is_inherited_from(const Strid& name) const;
 
         [[nodiscard]] Ref<Object> instantiate() const;
 
-        static Class*   class_ptr(StringId name);
-        static Class*   register_class(const StringId& name, const StringId& super, std::size_t size, std::function<Object*()> instantiate);
+        static Class*   class_ptr(Strid name);
+        static Class*   register_class(const Strid& name, const Strid& super, std::size_t size, std::function<Object*()> instantiate);
         static ClassDB* class_db();
 
         template<class T>
@@ -199,15 +199,15 @@ namespace wmoge {
         static void register_types();
 
     private:
-        std::function<Object*()>                     m_instantiate;
-        std::unordered_map<StringId, ClassProperty*> m_properties;
-        std::unordered_map<StringId, ClassField*>    m_fields;
-        std::unordered_map<StringId, ClassMethod*>   m_methods;
-        std::unordered_set<StringId>                 m_supers;
-        std::vector<std::shared_ptr<ClassMember>>    m_members;
-        std::size_t                                  m_size;
-        StringId                                     m_name;
-        StringId                                     m_super_name;
+        std::function<Object*()>                  m_instantiate;
+        std::unordered_map<Strid, ClassProperty*> m_properties;
+        std::unordered_map<Strid, ClassField*>    m_fields;
+        std::unordered_map<Strid, ClassMethod*>   m_methods;
+        std::unordered_set<Strid>                 m_supers;
+        std::vector<std::shared_ptr<ClassMember>> m_members;
+        std::size_t                               m_size;
+        Strid                                     m_name;
+        Strid                                     m_super_name;
     };
 
     template<class T>

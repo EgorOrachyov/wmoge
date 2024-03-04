@@ -72,7 +72,7 @@ namespace wmoge {
         WG_LOG_INFO("shutdown openal audio engine");
     }
 
-    Ref<AudioPlayback> ALAudioEngine::make_playback(Ref<AudioStream> stream, const StringId& bus, const StringId& name) {
+    Ref<AudioPlayback> ALAudioEngine::make_playback(Ref<AudioStream> stream, const Strid& bus, const Strid& name) {
         WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_playback");
 
         std::lock_guard guard(m_mutex);
@@ -92,7 +92,7 @@ namespace wmoge {
 
         return make_ref<ALAudioPlayback>(std::move(stream), bus, name, *this);
     }
-    Ref<AudioBus> ALAudioEngine::make_bus(const StringId& name) {
+    Ref<AudioBus> ALAudioEngine::make_bus(const Strid& name) {
         WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_bus");
 
         std::lock_guard guard(m_mutex);
@@ -111,17 +111,17 @@ namespace wmoge {
 
         return (m_bus[name] = make_ref<ALAudioBus>(name, *this)).as<AudioBus>();
     }
-    Ref<AudioBus> ALAudioEngine::find_bus(const StringId& name) {
+    Ref<AudioBus> ALAudioEngine::find_bus(const Strid& name) {
         std::lock_guard guard(m_mutex);
         auto            query = m_bus.find(name);
         return query != m_bus.end() ? query->second.as<AudioBus>() : Ref<AudioBus>{};
     }
-    bool ALAudioEngine::has_bus(const StringId& name) {
+    bool ALAudioEngine::has_bus(const Strid& name) {
         std::lock_guard guard(m_mutex);
         return m_bus.find(name) != m_bus.end();
     }
 
-    ALAudioBus* ALAudioEngine::get_bus(const StringId& name) {
+    ALAudioBus* ALAudioEngine::get_bus(const Strid& name) {
         auto query = m_bus.find(name);
         assert(query != m_bus.end());
         return query != m_bus.end() ? query->second.get() : nullptr;

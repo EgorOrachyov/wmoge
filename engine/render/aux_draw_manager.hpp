@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_AUX_DRAW_MANAGER_HPP
-#define WMOGE_AUX_DRAW_MANAGER_HPP
+#pragma once
 
 #include "core/synchronization.hpp"
 #include "gfx/gfx_vector.hpp"
@@ -92,5 +91,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_AUX_DRAW_MANAGER_HPP

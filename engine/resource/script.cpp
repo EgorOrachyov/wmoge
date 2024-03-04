@@ -49,16 +49,16 @@ namespace wmoge {
     Ref<ScriptInstance> Script::attach_to(Object* object) {
         return Ref<ScriptInstance>{};
     }
-    bool Script::has_property(const StringId& property) {
+    bool Script::has_property(const Strid& property) {
         return false;
     }
-    bool Script::has_method(const StringId& method) {
+    bool Script::has_method(const Strid& method) {
         return false;
     }
     ScriptFunctionsMask Script::get_mask() {
         return m_mask;
     }
-    const StringId& Script::get_language() {
+    const Strid& Script::get_language() {
         return m_language;
     }
     const std::string& Script::get_code() {

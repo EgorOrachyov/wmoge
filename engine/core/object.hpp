@@ -64,10 +64,10 @@ namespace wmoge {
         virtual std::string to_string() { return ""; }
         virtual std::size_t hash() { return 0; }
 
-        virtual Status set(const StringId& property, const Var& value);
-        virtual Status get(const StringId& property, Var& value);
-        virtual Status call(const StringId& method, int argc, const Var* argv, Var& ret);
-        virtual Status signal(const StringId& signal) { return StatusCode::Ok; }
+        virtual Status set(const Strid& property, const Var& value);
+        virtual Status get(const Strid& property, Var& value);
+        virtual Status call(const Strid& method, int argc, const Var* argv, Var& ret);
+        virtual Status signal(const Strid& signal) { return StatusCode::Ok; }
         virtual Status copy_to(Object& other) const { return StatusCode::Ok; }
         virtual Status read_from_yaml(const YamlConstNodeRef& node) { return StatusCode::NotImplemented; }
         virtual Status write_to_yaml(YamlNodeRef node) const { return StatusCode::NotImplemented; }
@@ -78,12 +78,12 @@ namespace wmoge {
         virtual Ref<Object> duplicate() const;
 
         virtual const class Class* class_ptr() const;
-        virtual const StringId&    class_name() const;
-        virtual const StringId&    super_class_name() const;
+        virtual const Strid&       class_name() const;
+        virtual const Strid&       super_class_name() const;
 
         static const class Class* class_ptr_static();
-        static const StringId&    class_name_static();
-        static const StringId&    super_class_name_static();
+        static const Strid&       class_name_static();
+        static const Strid&       super_class_name_static();
 
         friend Status yaml_read_object(const YamlConstNodeRef& node, Ref<Object>& object);
         friend Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object);
@@ -196,17 +196,17 @@ public:                                                                         
     ~name() override = default;                                                                       \
     static void               register_class();                                                       \
     const class Class*        class_ptr() const override { return class_ptr_static(); }               \
-    const StringId&           class_name() const override { return class_name_static(); }             \
-    const StringId&           super_class_name() const override { return super_class_name_static(); } \
+    const Strid&              class_name() const override { return class_name_static(); }             \
+    const Strid&              super_class_name() const override { return super_class_name_static(); } \
     static const class Class* class_ptr_static() {                                                    \
         thread_local Class* cls = Class::class_ptr(class_name_static());                              \
         return cls;                                                                                   \
     }                                                                                                 \
-    static const StringId& class_name_static() {                                                      \
-        thread_local StringId sid = SID(#name);                                                       \
+    static const Strid& class_name_static() {                                                         \
+        thread_local Strid sid = SID(#name);                                                          \
         return sid;                                                                                   \
     }                                                                                                 \
-    static const StringId& super_class_name_static() {                                                \
+    static const Strid& super_class_name_static() {                                                   \
         return super::class_name_static();                                                            \
     }
 

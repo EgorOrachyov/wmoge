@@ -56,16 +56,16 @@ namespace wmoge {
     public:
         ResourceId() = default;
         ResourceId(const std::string& id);
-        ResourceId(const StringId& id);
+        ResourceId(const Strid& id);
 
         bool operator==(const ResourceId& other) const { return m_name == other.m_name; }
         bool operator!=(const ResourceId& other) const { return m_name != other.m_name; }
         bool operator<(const ResourceId& other) const { return m_name < other.m_name; }
 
         operator bool() const { return is_empty(); }
-        operator StringId() const { return sid(); }
+        operator Strid() const { return sid(); }
 
-        [[nodiscard]] const StringId&    sid() const { return m_name; }
+        [[nodiscard]] const Strid&       sid() const { return m_name; }
         [[nodiscard]] const std::string& str() const { return m_name.str(); }
         [[nodiscard]] bool               is_empty() const { return m_name.empty(); }
         [[nodiscard]] std::size_t        hash() const { return m_name.hash(); }
@@ -76,7 +76,7 @@ namespace wmoge {
         friend Status archive_write(Archive& archive, const ResourceId& id);
 
     private:
-        StringId m_name;
+        Strid m_name;
     };
 
     static_assert(std::is_trivially_destructible_v<ResourceId>, "id must be trivial as ptr or int");
@@ -94,10 +94,10 @@ namespace wmoge {
     public:
         WG_OBJECT(Resource, Object);
 
-        void              set_name(StringId name) { m_id = ResourceId(name); }
+        void              set_name(Strid name) { m_id = ResourceId(name); }
         void              set_id(ResourceId id) { m_id = id; }
         void              set_uuid(UUID uuid) { m_uuid = uuid; }
-        const StringId&   get_name() { return m_id.sid(); }
+        const Strid&      get_name() { return m_id.sid(); }
         const ResourceId& get_id() { return m_id; }
         const UUID&       get_uuid() { return m_uuid; }
 

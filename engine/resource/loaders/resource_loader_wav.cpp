@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    Status ResourceLoaderWav::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderWav::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderWav::load");
 
         Ref<AudioStreamWav> audio = meta.cls->instantiate().cast<AudioStreamWav>();
@@ -55,7 +55,7 @@ namespace wmoge {
 
         return audio->load(options.source_file);
     }
-    StringId ResourceLoaderWav::get_name() {
+    Strid ResourceLoaderWav::get_name() {
         return SID("wav");
     }
 

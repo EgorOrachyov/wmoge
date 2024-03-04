@@ -58,13 +58,13 @@ namespace wmoge {
         virtual void set_loop(bool value)          = 0;
 
         const Ref<AudioStream>& get_stream() const { return m_stream; }
-        const StringId&         get_name() const { return m_name; }
-        const StringId&         get_bus_name() const { return m_bus_name; }
+        const Strid&            get_name() const { return m_name; }
+        const Strid&            get_bus_name() const { return m_bus_name; }
 
     protected:
         Ref<AudioStream> m_stream;
-        StringId         m_name;
-        StringId         m_bus_name;
+        Strid            m_name;
+        Strid            m_bus_name;
     };
 
 }// namespace wmoge

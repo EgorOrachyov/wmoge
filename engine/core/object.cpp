@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    Status Object::set(const StringId& property, const Var& value) {
+    Status Object::set(const Strid& property, const Var& value) {
         const Class* cls = class_ptr();
         assert(cls);
 
@@ -52,7 +52,7 @@ namespace wmoge {
         Var dummy;
         return setter->call(this, 1, &value, dummy);
     }
-    Status Object::get(const StringId& property, Var& value) {
+    Status Object::get(const Strid& property, Var& value) {
         const Class* cls = class_ptr();
         assert(cls);
 
@@ -70,7 +70,7 @@ namespace wmoge {
 
         return getter->call(this, 0, nullptr, value);
     }
-    Status Object::call(const StringId& method, int argc, const Var* argv, Var& ret) {
+    Status Object::call(const Strid& method, int argc, const Var* argv, Var& ret) {
         const Class* cls = class_ptr();
         assert(cls);
 
@@ -105,28 +105,28 @@ namespace wmoge {
     const Class* Object::class_ptr() const {
         return class_ptr_static();
     }
-    const StringId& Object::class_name() const {
+    const Strid& Object::class_name() const {
         return class_name_static();
     }
-    const StringId& Object::super_class_name() const {
+    const Strid& Object::super_class_name() const {
         return super_class_name_static();
     }
     const Class* Object::class_ptr_static() {
         return Class::class_ptr(class_name_static());
     }
-    const StringId& Object::class_name_static() {
-        static StringId name = SID("Object");
+    const Strid& Object::class_name_static() {
+        static Strid name = SID("Object");
         return name;
     }
-    const StringId& Object::super_class_name_static() {
-        static StringId name = SID("");
+    const Strid& Object::super_class_name_static() {
+        static Strid name = SID("");
         return name;
     }
 
     Status yaml_read_object(const YamlConstNodeRef& node, Ref<Object>& object) {
         assert(!object);
 
-        StringId class_name;
+        Strid class_name;
         WG_YAML_READ_AS(node, "class", class_name);
 
         auto* cls = Class::class_ptr(class_name);
@@ -155,7 +155,7 @@ namespace wmoge {
     Status archive_read_object(Archive& archive, Ref<Object>& object) {
         assert(!object);
 
-        StringId class_name;
+        Strid class_name;
         WG_ARCHIVE_READ(archive, class_name);
 
         auto* cls = Class::class_ptr(class_name);

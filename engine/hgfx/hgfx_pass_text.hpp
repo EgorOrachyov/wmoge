@@ -47,7 +47,7 @@ namespace wmoge {
     public:
         WG_OBJECT(HgfxPassText, HgfxPass);
 
-        StringId        name;
+        Strid           name;
         Vec2f           screen_size = Vec2f(1280, 720);
         float           gamma       = 2.2f;
         bool            out_srgb    = false;
@@ -57,7 +57,7 @@ namespace wmoge {
         bool compile(GfxCtx* gfx_ctx) override;
         bool configure(GfxCtx* gfx_ctx) override;
 
-        StringId     get_pass_name() override;
+        Strid        get_pass_name() override;
         HgfxPassType get_pass_type() override;
 
     private:

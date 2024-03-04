@@ -46,7 +46,7 @@ namespace wmoge {
     public:
         WG_OBJECT(HgfxPassBase, HgfxPass);
 
-        StringId         name;
+        Strid            name;
         GfxVertAttribs   attribs_req    = {GfxVertAttrib::Pos3f};
         GfxVertAttribs   attribs_full   = {GfxVertAttrib::Pos3f};
         GfxPrimType      prim_type      = GfxPrimType::Triangles;
@@ -66,7 +66,7 @@ namespace wmoge {
         bool compile(GfxCtx* gfx_ctx) override;
         bool configure(GfxCtx* gfx_ctx) override;
 
-        StringId     get_pass_name() override;
+        Strid        get_pass_name() override;
         HgfxPassType get_pass_type() override;
 
     private:

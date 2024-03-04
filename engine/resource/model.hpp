@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/fast_vector.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "math/aabb.hpp"
 #include "resource/material.hpp"
 #include "resource/mesh.hpp"
@@ -36,19 +36,31 @@
 #include "resource/resource.hpp"
 #include "resource/resource_ref.hpp"
 
+#include <cinttypes>
 #include <optional>
 
 namespace wmoge {
 
-    /**
-     * @class ModelLod
-     * @brief Serializable struct to hold single drawable model mesh chunk info
-     */
-    struct ModelChunk {
-        ResRef<Material> material;
+    /** @brief Model obj flag */
+    enum class ModelObjFlag {
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ModelChunk& data);
-        friend Status yaml_write(YamlNodeRef node, const ModelChunk& data);
+    };
+
+    /** @brief Flags to configure model obj */
+    using ModelObjFlags = Mask<ModelObjFlag>;
+
+    /**
+     * @class ModelObj
+     * @brief Serializable struct to hold single renderable model obj
+     */
+    struct ModelObj {
+        ResRef<Material> material;
+        std::int16_t     mesh_idx  = 0;
+        std::int16_t     chunk_idx = 0;
+        ModelObjFlags    flags;
+        Strid            name;
+
+        WG_IO_DECLARE(ModelObj);
     };
 
     /**
@@ -56,12 +68,9 @@ namespace wmoge {
      * @brief Serializable struct to hold single lod params
      */
     struct ModelLod {
-        fast_vector<ModelChunk>     chunks;
-        ResRef<Mesh>                mesh;
-        std::optional<ResRef<Mesh>> shadow_mesh;
+        fast_vector<Size2i> ranges;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ModelLod& data);
-        friend Status yaml_write(YamlNodeRef node, const ModelLod& data);
+        WG_IO_DECLARE(ModelLod);
     };
 
     /**
@@ -69,11 +78,11 @@ namespace wmoge {
      * @brief Serializable struct to hold model lods settings
      */
     struct ModelLodSettings {
+        fast_vector<float> area;
         std::optional<int> minimum_lod;
         std::optional<int> num_of_lods;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ModelLodSettings& data);
-        friend Status yaml_write(YamlNodeRef node, const ModelLodSettings& data);
+        WG_IO_DECLARE(ModelLodSettings);
     };
 
     /**
@@ -81,12 +90,13 @@ namespace wmoge {
      * @brief Serializable struct to hold model info
      */
     struct ModelFile {
-        fast_vector<ModelLod, 1>    lods;
-        ModelLodSettings            lod_settings;
-        std::optional<ResRef<Mesh>> collision_mesh;
+        fast_vector<ModelObj>     objs;
+        fast_vector<ResRef<Mesh>> meshes;
+        ModelLod                  lod;
+        ModelLodSettings          lod_settings;
+        Aabbf                     aabb;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, ModelFile& data);
-        friend Status yaml_write(YamlNodeRef node, const ModelFile& data);
+        WG_IO_DECLARE(ModelFile);
     };
 
     /**
@@ -107,17 +117,19 @@ namespace wmoge {
 
         void update_aabb();
 
-        [[nodiscard]] ArrayView<const ModelLod> get_lods() const { return m_lods; }
-        [[nodiscard]] const ModelLodSettings&   get_lod_settings() const { return m_lod_settings; }
-        [[nodiscard]] const Aabbf&              get_aabb() const { return m_aabb; }
+        [[nodiscard]] ArrayView<ModelObj>     get_objs() { return m_objs; }
+        [[nodiscard]] const ModelLodSettings& get_lod_settings() const { return m_lod_settings; }
+        [[nodiscard]] const Aabbf&            get_aabb() const { return m_aabb; }
 
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
     private:
-        fast_vector<ModelLod, 1> m_lods;
-        ModelLodSettings         m_lod_settings;
-        Aabbf                    m_aabb;
+        fast_vector<ModelObj>     m_objs;
+        fast_vector<ResRef<Mesh>> m_meshes;
+        ModelLod                  m_lod;
+        ModelLodSettings          m_lod_settings;
+        Aabbf                     m_aabb;
     };
 
 }// namespace wmoge

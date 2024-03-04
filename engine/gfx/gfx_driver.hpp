@@ -69,26 +69,26 @@ namespace wmoge {
 
         virtual ~GfxDriver() = default;
 
-        virtual Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const StringId& name = StringId())                                                                                 = 0;
-        virtual Ref<GfxVertBuffer>       make_vert_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                     = 0;
-        virtual Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                    = 0;
-        virtual Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                  = 0;
-        virtual Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name = StringId())                                                                                  = 0;
-        virtual Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name = StringId())                                           = 0;
-        virtual Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name = StringId())                                                                = 0;
-        virtual Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name = StringId())                                                                                                       = 0;
-        virtual Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name = StringId()) = 0;
-        virtual Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId())  = 0;
-        virtual Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name = StringId())                  = 0;
-        virtual Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name = StringId())                                                                                          = 0;
-        virtual Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name = StringId())                                                                                      = 0;
-        virtual Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name = StringId())                                                                             = 0;
-        virtual Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())                                                                              = 0;
-        virtual Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name = StringId())                                                                                              = 0;
-        virtual Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name = StringId())                                                                                             = 0;
-        virtual Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name = StringId())                                                                                           = 0;
-        virtual Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name = StringId())                                                                                = 0;
-        virtual Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const StringId& name = StringId())                                                                               = 0;
+        virtual Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const Strid& name = Strid())                                                                                 = 0;
+        virtual Ref<GfxVertBuffer>       make_vert_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                     = 0;
+        virtual Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                    = 0;
+        virtual Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
+        virtual Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
+        virtual Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name = Strid())                                           = 0;
+        virtual Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name = Strid())                                                                = 0;
+        virtual Ref<GfxShader>           make_shader(Ref<Data> code, const Strid& name = Strid())                                                                                                       = 0;
+        virtual Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name = Strid()) = 0;
+        virtual Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())  = 0;
+        virtual Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())                  = 0;
+        virtual Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const Strid& name = Strid())                                                                                          = 0;
+        virtual Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const Strid& name = Strid())                                                                                      = 0;
+        virtual Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const Strid& name = Strid())                                                                             = 0;
+        virtual Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name = Strid())                                                                              = 0;
+        virtual Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const Strid& name = Strid())                                                                                              = 0;
+        virtual Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const Strid& name = Strid())                                                                                             = 0;
+        virtual Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const Strid& name = Strid())                                                                                           = 0;
+        virtual Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid())                                                                                = 0;
+        virtual Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Strid& name = Strid())                                                                               = 0;
 
         virtual void shutdown() = 0;
 
@@ -109,7 +109,7 @@ namespace wmoge {
         [[nodiscard]] virtual GfxDynUniformBuffer* dyn_uniform_buffer() = 0;
 
         [[nodiscard]] virtual const GfxDeviceCaps&   device_caps() const         = 0;
-        [[nodiscard]] virtual const StringId&        driver_name() const         = 0;
+        [[nodiscard]] virtual const Strid&           driver_name() const         = 0;
         [[nodiscard]] virtual const std::string&     shader_cache_path() const   = 0;
         [[nodiscard]] virtual const std::string&     pipeline_cache_path() const = 0;
         [[nodiscard]] virtual const std::thread::id& thread_id() const           = 0;

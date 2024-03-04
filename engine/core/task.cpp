@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    Task::Task(StringId name, TaskRunnable runnable)
+    Task::Task(Strid name, TaskRunnable runnable)
         : m_runnable(std::move(runnable)),
           m_task_manager(Engine::instance()->task_manager()),
           m_name(name) {

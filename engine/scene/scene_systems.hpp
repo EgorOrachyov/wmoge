@@ -27,6 +27,52 @@
 
 #pragma once
 
+#include "debug/profiler.hpp"
+#include "ecs/ecs_core.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "ecs/ecs_system.hpp"
+#include "ecs/ecs_world.hpp"
+#include "scene/scene_components.hpp"
+
+#include <atomic>
+
 namespace wmoge {
 
-}
+    /**
+     * @class EcsSysUpdateHier
+     * @brief System to iteratively update spatial hierarchy of transforms
+    */
+    class EcsSysUpdateHier : public EcsSystem {
+    public:
+        WG_ECS_SYSTEM(EcsSysUpdateHier, Update, OnWorkers);
+
+        void process(EcsWorld&                    world,
+                     const EcsEntity&             entity,
+                     const EcsComponentParent&    parent,
+                     const EcsComponentChildren&  children,
+                     const EcsComponentTransform& transform,
+                     EcsComponentTransformUpd&    transform_upd,
+                     EcsComponentLocalToWorld&    l2w,
+                     EcsComponentWorldToLocal&    w2l);
+
+        std::atomic<int> num_updated{0};
+        std::atomic<int> num_dirty{0};
+        int              current_batch = 0;
+        int              frame_id      = -1;
+    };
+
+    /**
+     * @class EcsSysReleaseCullItem
+     * @brief System to delete cull items
+    */
+    class EcsSysReleaseCullItem : public EcsSystem {
+    public:
+        WG_ECS_SYSTEM(EcsSysReleaseCullItem, Destroy, OnMain);
+
+        void process(EcsWorld&                world,
+                     const EcsEntity&         entity,
+                     EcsComponentCullingItem& culling_item);
+        ;
+    };
+
+}// namespace wmoge

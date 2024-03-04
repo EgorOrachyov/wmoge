@@ -65,7 +65,8 @@ namespace wmoge {
     void EcsWorld::make_entity(const EcsEntity& entity, const EcsArch& arch) {
         WG_AUTO_PROFILE_ECS("EcsWorld::make_entity");
 
-        assert(arch.any());
+        assert(entity.is_valid());
+
         m_entity_info.resize(m_entity_counter);
 
         register_arch(arch);
@@ -139,8 +140,19 @@ namespace wmoge {
 
         bool need_swap = false;
 
-        EcsEntityInfo& entity_info = m_entity_info[entity.idx];
-        m_arch_storage[entity_info.arch]->destroy_entity(entity_info.storage, need_swap);
+        EcsEntityInfo&  entity_info    = m_entity_info[entity.idx];
+        EcsArch         entity_arch    = m_arch_by_idx[entity_info.arch];
+        EcsArchStorage* entity_storage = m_arch_storage[entity_info.arch].get();
+
+        for (int idx : m_systems_destroy) {
+            const EcsSystemInfo& system_info = m_systems[idx];
+            const EcsArch        requried    = system_info.query.affected();
+            if ((requried & entity_arch) == requried) {
+                system_info.system->process_batch(*this, *entity_storage, entity_info.storage, 1);
+            }
+        }
+
+        entity_storage->destroy_entity(entity_info.storage, need_swap);
 
         if (need_swap) {
             const EcsEntity entity_to_swap = m_arch_storage[entity_info.arch]->get_entity(entity_info.storage);
@@ -188,7 +200,7 @@ namespace wmoge {
             const int arch_idx  = int(m_arch_storage.size());
             m_arch_to_idx[arch] = arch_idx;
             m_arch_by_idx.emplace_back(arch);
-            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch, this);
+            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch);
 
             for (EcsSystemInfo& system_info : m_systems) {
                 auto filter = system_info.query.affected();
@@ -206,13 +218,19 @@ namespace wmoge {
         assert(system);
         assert(m_system_to_idx.find(system->get_name()) == m_system_to_idx.end());
 
-        m_system_to_idx[system->get_name()] = int(m_systems.size());
+        auto system_idx                     = int(m_systems.size());
+        m_system_to_idx[system->get_name()] = system_idx;
 
         EcsSystemInfo& system_info = m_systems.emplace_back();
         system_info.query          = system->get_query();
         system_info.system         = system;
+        system_info.type           = system->get_type();
         system_info.exec_mode      = system->get_exec_mode();
         system_info.filtered_arch  = filter_arch_idx(system->get_query());
+
+        if (system_info.type == EcsSystemType::Destroy) {
+            m_systems_destroy.push_back(system_idx);
+        }
     }
 
     void EcsWorld::execute_system(const std::shared_ptr<EcsSystem>& system) {
@@ -322,7 +340,17 @@ namespace wmoge {
 
         m_queue.clear();
 
+        for (std::uint32_t idx = 0; idx < std::uint32_t(m_entity_info.size()); idx++) {
+            const EcsEntityInfo& enity_info = m_entity_info[idx];
+
+            if (enity_info.state == EcsEntityState::Alive) {
+                EcsEntity entity(idx, enity_info.gen);
+                destroy_entity(entity);
+            }
+        }
+
         for (std::unique_ptr<EcsArchStorage>& storage : m_arch_storage) {
+            assert(storage->get_size() == 0);
             storage->clear();
         }
 

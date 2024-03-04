@@ -54,6 +54,7 @@ namespace wmoge {
     WG_IO_END_NMSP(MaterialFile, EntryTexture)
 
     WG_IO_BEGIN(MaterialFile)
+    WG_IO_PROFILE()
     WG_IO_FIELD(shader)
     WG_IO_FIELD_OPT(parameters)
     WG_IO_FIELD_OPT(textures)
@@ -85,7 +86,7 @@ namespace wmoge {
         }
     }
 
-    void Material::set_param(const StringId& name, const std::string& string_value) {
+    void Material::set_param(const Strid& name, const std::string& string_value) {
         assert(m_shader);
 
         const auto& params = m_shader->get_parameters();
@@ -128,7 +129,7 @@ namespace wmoge {
 
         m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_int(const StringId& name, int value) {
+    void Material::set_int(const Strid& name, int value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Int;
@@ -143,7 +144,7 @@ namespace wmoge {
         std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
         m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_float(const StringId& name, float value) {
+    void Material::set_float(const Strid& name, float value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Float;
@@ -158,7 +159,7 @@ namespace wmoge {
         std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
         m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_vec2(const StringId& name, const Vec2f& value) {
+    void Material::set_vec2(const Strid& name, const Vec2f& value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Vec2;
@@ -173,7 +174,7 @@ namespace wmoge {
         std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
         m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_vec3(const StringId& name, const Vec3f& value) {
+    void Material::set_vec3(const Strid& name, const Vec3f& value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Vec3;
@@ -188,7 +189,7 @@ namespace wmoge {
         std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
         m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_vec4(const StringId& name, const Vec4f& value) {
+    void Material::set_vec4(const Strid& name, const Vec4f& value) {
         assert(m_shader);
 
         const auto  type   = GfxShaderParam::Vec4;
@@ -203,7 +204,7 @@ namespace wmoge {
         std::memcpy(m_parameters->buffer() + param->second.offset, &value, param->second.size);
         m_dirty.set(DirtyFlag::Parameters);
     }
-    void Material::set_texture(const StringId& name, const Ref<Texture>& texture) {
+    void Material::set_texture(const Strid& name, const Ref<Texture>& texture) {
         assert(m_shader);
 
         if (!texture) {

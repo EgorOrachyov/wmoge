@@ -31,26 +31,26 @@
 
 namespace wmoge {
 
-    ClassMember::ClassMember(StringId name)
+    ClassMember::ClassMember(Strid name)
         : m_name(name) {
     }
 
-    ClassProperty::ClassProperty(VarType type, StringId name, StringId getter, StringId setter)
+    ClassProperty::ClassProperty(VarType type, Strid name, Strid getter, Strid setter)
         : ClassMember(name), m_getter(getter), m_setter(setter), m_type(type) {
     }
 
-    ClassField::ClassField(VarType type, StringId name)
+    ClassField::ClassField(VarType type, Strid name)
         : ClassProperty(type, name) {
     }
 
-    ClassMethod::ClassMethod(VarType ret, StringId name, std::vector<StringId> args)
+    ClassMethod::ClassMethod(VarType ret, Strid name, std::vector<Strid> args)
         : ClassMember(name), m_args_names(std::move(args)), m_ret(ret) {
     }
     Status ClassMethod::call(Object* object, int argc, const Var* argv, Var& ret) const {
         return m_callable(*this, object, argc, argv, ret);
     }
 
-    Class* ClassDB::class_emplace(StringId name) {
+    Class* ClassDB::class_emplace(Strid name) {
         Class* ptr = class_ptr(name);
         if (!ptr) {
             auto& storage = m_db[name];
@@ -59,7 +59,7 @@ namespace wmoge {
         }
         return ptr;
     }
-    Class* ClassDB::class_ptr(StringId name) {
+    Class* ClassDB::class_ptr(Strid name) {
         auto query = m_db.find(name);
         return query != m_db.end() ? query->second.get() : nullptr;
     }
@@ -71,15 +71,15 @@ namespace wmoge {
     const Class* Class::super() const {
         return class_ptr(super_name());
     }
-    const ClassProperty* Class::property(const StringId& name) const {
+    const ClassProperty* Class::property(const Strid& name) const {
         auto query = m_properties.find(name);
         return query != m_properties.end() ? query->second : nullptr;
     }
-    const ClassField* Class::field(const StringId& name) const {
+    const ClassField* Class::field(const Strid& name) const {
         auto query = m_fields.find(name);
         return query != m_fields.end() ? query->second : nullptr;
     }
-    const ClassMethod* Class::method(const StringId& name) const {
+    const ClassMethod* Class::method(const Strid& name) const {
         auto query = m_methods.find(name);
         return query != m_methods.end() ? query->second : nullptr;
     }
@@ -103,15 +103,15 @@ namespace wmoge {
         return Ref<Object>(m_instantiate());
     }
 
-    bool Class::is_inherited_from(const StringId& name) const {
+    bool Class::is_inherited_from(const Strid& name) const {
         return m_supers.find(name) != m_supers.end();
     }
 
-    Class* Class::class_ptr(StringId name) {
+    Class* Class::class_ptr(Strid name) {
         ClassDB* db = class_db();
         return db->class_ptr(name);
     }
-    Class* Class::register_class(const StringId& name, const StringId& super, std::size_t size, std::function<Object*()> instantiate) {
+    Class* Class::register_class(const Strid& name, const Strid& super, std::size_t size, std::function<Object*()> instantiate) {
         if (!class_ptr(super)) {
             WG_LOG_ERROR("no such supper class: " << super << " registered");
             return nullptr;

@@ -48,14 +48,13 @@ public:
         Engine::instance()->action_manager()->activate(SID("console"));
         Engine::instance()->action_manager()->activate(SID("camera_debug"));
 
-        mesh = Engine::instance()->resource_manager()->load(SID("res://mesh/suzanne")).cast<Mesh>();
-        mesh.acquire_cast<Mesh>();
+        model = Engine::instance()->resource_manager()->load(SID("res://models/suzanne")).cast<Model>();
 
-        //  Ref<SceneTreePacked> scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
-        //  scene_tree                             = scene_tree_packed->instantiate();
-        //  scene                                  = scene_tree->get_scene();
+        auto scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
+        scene_tree             = scene_tree_packed->instantiate();
+        scene                  = scene_tree->get_scene();
 
-        //  Engine::instance()->scene_manager()->change(scene);
+        Engine::instance()->scene_manager()->change(scene);
 
         class ApplicationLayer : public Layer {
         public:
@@ -111,6 +110,7 @@ public:
     }
 
     Status on_shutdown() override {
+        model.reset();
         mesh.reset();
         scene.reset();
         scene_tree.reset();
@@ -124,6 +124,7 @@ public:
     Ref<Scene>     scene;
     Ref<SceneTree> scene_tree;
     WeakRef<Mesh>  mesh;
+    Ref<Model>     model;
 };
 
 int main(int argc, const char* const* argv) {

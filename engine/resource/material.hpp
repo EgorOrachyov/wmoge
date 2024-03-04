@@ -54,7 +54,7 @@ namespace wmoge {
     struct MaterialFile {
         /** @brief Param info of a material */
         struct EntryParam {
-            StringId    name;
+            Strid       name;
             std::string value;
 
             WG_IO_DECLARE(EntryParam);
@@ -62,7 +62,7 @@ namespace wmoge {
 
         /** @brief Texture info of a material */
         struct EntryTexture {
-            StringId        name;
+            Strid           name;
             ResRef<Texture> value;
 
             WG_IO_DECLARE(EntryTexture);
@@ -107,19 +107,19 @@ namespace wmoge {
         Material(Ref<Shader> shader);
 
         /** @brief Set material parameter by name from string value */
-        void set_param(const StringId& name, const std::string& value);
+        void set_param(const Strid& name, const std::string& value);
         /** @brief Set material int parameter value by name */
-        void set_int(const StringId& name, int value);
+        void set_int(const Strid& name, int value);
         /** @brief Set material float parameter value by name */
-        void set_float(const StringId& name, float value);
+        void set_float(const Strid& name, float value);
         /** @brief Set material vec2 parameter value by name */
-        void set_vec2(const StringId& name, const Vec2f& value);
+        void set_vec2(const Strid& name, const Vec2f& value);
         /** @brief Set material vec3 parameter value by name */
-        void set_vec3(const StringId& name, const Vec3f& value);
+        void set_vec3(const Strid& name, const Vec3f& value);
         /** @brief Set material vec4 parameter value by name */
-        void set_vec4(const StringId& name, const Vec4f& value);
+        void set_vec4(const Strid& name, const Vec4f& value);
         /** @brief Set material texture parameter value by name */
-        void set_texture(const StringId& name, const Ref<Texture>& texture);
+        void set_texture(const Strid& name, const Ref<Texture>& texture);
 
         /** @brief Validates GPU state of material, buffer and descriptor set for rendering */
         void validate();

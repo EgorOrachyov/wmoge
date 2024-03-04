@@ -62,6 +62,7 @@ namespace wmoge {
     WG_IO_END(ShaderPipelineState)
 
     WG_IO_BEGIN(ShaderFile)
+    WG_IO_PROFILE()
     WG_IO_FIELD_OPT(parameters)
     WG_IO_FIELD_OPT(textures)
     WG_IO_FIELD_OPT(keywords)
@@ -164,16 +165,16 @@ namespace wmoge {
         return m_fragment;
     }
 
-    const StringId& Shader::get_domain() const {
+    const Strid& Shader::get_domain() const {
         return m_domain;
     }
-    const fast_set<StringId>& Shader::get_keywords() const {
+    const fast_set<Strid>& Shader::get_keywords() const {
         return m_keywords;
     }
-    const fast_map<StringId, ShaderParameter>& Shader::get_parameters() const {
+    const fast_map<Strid, ShaderParameter>& Shader::get_parameters() const {
         return m_parameters;
     }
-    const fast_map<StringId, ShaderTexture>& Shader::get_textures() const {
+    const fast_map<Strid, ShaderTexture>& Shader::get_textures() const {
         return m_textures;
     }
     const ShaderPipelineState& Shader::get_pipeline_state() const {

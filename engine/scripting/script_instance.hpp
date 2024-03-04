@@ -81,7 +81,7 @@ namespace wmoge {
         virtual void on_scene_exit() {}
         virtual void on_transform_updated() {}
         virtual void on_update(float delta_time){};
-        virtual void on_signal(const StringId& signal) {}
+        virtual void on_signal(const Strid& signal) {}
         virtual void on_input_mouse(const Ref<EventMouse>& event) {}
         virtual void on_input_keyboard(const Ref<EventKeyboard>& event) {}
         virtual void on_input_joystick(const Ref<EventJoystick>& event) {}
@@ -89,9 +89,9 @@ namespace wmoge {
         virtual void on_action(const Ref<EventAction>& action) {}
         virtual void on_token(const Ref<EventToken>& token) {}
 
-        virtual int set(const StringId& property, const Var& value) { return -2; }
-        virtual int get(const StringId& property, Var& value) { return -2; }
-        virtual int call(const StringId& method, int argc, const Var* argv, Var& ret) { return -2; }
+        virtual int set(const Strid& property, const Var& value) { return -2; }
+        virtual int get(const Strid& property, Var& value) { return -2; }
+        virtual int call(const Strid& method, int argc, const Var* argv, Var& ret) { return -2; }
     };
 
 }// namespace wmoge

@@ -61,6 +61,7 @@
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
 #include "render/texture_manager.hpp"
+#include "render/view_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
 #include "scene/scene_manager.hpp"
@@ -202,6 +203,7 @@ namespace wmoge {
         ioc->bind<ActionManager>();
         ioc->bind<GameTokenManager>();
         ioc->bind<Canvas>();
+        ioc->bind<ViewManager>();
 
         ioc->bind_f<TaskManager, TaskManager>([]() {
             ConfigFile* config = Engine::instance()->config();
@@ -272,6 +274,7 @@ namespace wmoge {
 
         IocContainer* ioc = IocContainer::instance();
 
+        ioc->unbind<ViewManager>();
         ioc->unbind<ActionManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<ResourceManager>();

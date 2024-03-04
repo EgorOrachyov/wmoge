@@ -36,7 +36,7 @@ namespace wmoge {
         auto arg_type     = WG_LUA_ARG(state, 0);
         auto arg_function = WG_LUA_ARG(state, 1);
 
-        if (!arg_type.isString() && !arg_type.isInstance<StringId>()) {
+        if (!arg_type.isString() && !arg_type.isInstance<Strid>()) {
             WG_LOG_ERROR("invalid event type " << arg_type.tostring());
             return 0;
         }
@@ -73,7 +73,7 @@ namespace wmoge {
         auto arg_type = WG_LUA_ARG(state, 0);
         auto arg_data = WG_LUA_ARG(state, 1);
 
-        if (!arg_type.isString() && !arg_type.isInstance<StringId>()) {
+        if (!arg_type.isString() && !arg_type.isInstance<Strid>()) {
             WG_LOG_ERROR("invalid event type " << arg_type.tostring());
             return 0;
         }

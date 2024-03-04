@@ -50,7 +50,7 @@ namespace wmoge {
         WG_EVENT(EventToken, Event)
 
         TokenNotification notification = TokenNotification::None;
-        StringId          token;
+        Strid             token;
     };
 
 }// namespace wmoge

@@ -92,7 +92,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_update");
         WG_SAFE_CALL(ScriptFunction::OnUpdate, "on_update", m_script_object, delta_time);
     }
-    void LuaScriptInstance::on_signal(const StringId& signal) {
+    void LuaScriptInstance::on_signal(const Strid& signal) {
         WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_signal");
         WG_SAFE_CALL(ScriptFunction::OnSignal, "on_signal", m_script_object, luabridge::LuaRef(m_state, signal));
     }
@@ -120,13 +120,13 @@ namespace wmoge {
         WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_token");
         WG_SAFE_CALL(ScriptFunction::OnToken, "on_token", m_script_object, luabridge::LuaRef(m_state, LuaEventToken{Ref<RefCnt>(token.get())}));
     }
-    int LuaScriptInstance::set(const StringId& property, const Var& value) {
+    int LuaScriptInstance::set(const Strid& property, const Var& value) {
         return ScriptInstance::set(property, value);
     }
-    int LuaScriptInstance::get(const StringId& property, Var& value) {
+    int LuaScriptInstance::get(const Strid& property, Var& value) {
         return ScriptInstance::get(property, value);
     }
-    int LuaScriptInstance::call(const StringId& method, int argc, const Var* argv, Var& ret) {
+    int LuaScriptInstance::call(const Strid& method, int argc, const Var* argv, Var& ret) {
         return ScriptInstance::call(method, argc, argv, ret);
     }
 

@@ -49,7 +49,8 @@ namespace wmoge {
     WG_IO_FIELD_OPT(compression)
     WG_IO_END(TextureImportOptions)
 
-    WG_IO_BEGIN_SUPER(Texture2dImportOptions, TextureImportOptions)
+    WG_IO_BEGIN(Texture2dImportOptions)
+    WG_IO_SUPER(TextureImportOptions)
     WG_IO_FIELD(source_file)
     WG_IO_END(Texture2dImportOptions)
 
@@ -62,7 +63,8 @@ namespace wmoge {
     WG_IO_FIELD(front)
     WG_IO_END_NMSP(TextureCubeImportOptions, SourceFiles)
 
-    WG_IO_BEGIN_SUPER(TextureCubeImportOptions, TextureImportOptions)
+    WG_IO_BEGIN(TextureCubeImportOptions)
+    WG_IO_SUPER(TextureImportOptions)
     WG_IO_FIELD(source_files)
     WG_IO_END(TextureCubeImportOptions)
 

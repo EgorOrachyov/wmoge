@@ -28,15 +28,15 @@
 #include "event_resource.hpp"
 
 #include "core/class.hpp"
+#include "io/enum.hpp"
 
-#include <magic_enum.hpp>
 #include <sstream>
 
 namespace wmoge {
 
     std::string EventResource::to_string() {
         std::stringstream str;
-        str << "type:" << magic_enum::enum_name(notification) << " res:" << resource_id;
+        str << "type:" << Enum::to_str(notification) << " res:" << resource_id;
         return str.str();
     }
     void EventResource::register_class() {

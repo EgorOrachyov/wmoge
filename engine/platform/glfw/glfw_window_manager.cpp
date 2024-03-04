@@ -164,7 +164,7 @@ namespace wmoge {
         return window;
     }
 
-    Ref<Window> GlfwWindowManager::get(const StringId& window_id) {
+    Ref<Window> GlfwWindowManager::get(const Strid& window_id) {
         std::lock_guard guard(m_mutex);
 
         auto query = m_windows.find(window_id);

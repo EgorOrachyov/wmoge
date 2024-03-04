@@ -35,7 +35,7 @@
 
 namespace wmoge {
 
-    VKDescSetLayout::VKDescSetLayout(const GfxDescSetLayoutDesc& desc, const StringId& name, class VKDriver& driver) : VKResource<GfxDescSetLayout>(driver) {
+    VKDescSetLayout::VKDescSetLayout(const GfxDescSetLayoutDesc& desc, const Strid& name, class VKDriver& driver) : VKResource<GfxDescSetLayout>(driver) {
         m_desc = desc;
         m_name = name;
 
@@ -65,7 +65,7 @@ namespace wmoge {
         }
     }
 
-    VKDescSet::VKDescSet(const GfxDescSetResources& resources, const Ref<VKDescSetLayout>& layout, const StringId& name, class VKDriver& driver) : VKResource<GfxDescSet>(driver) {
+    VKDescSet::VKDescSet(const GfxDescSetResources& resources, const Ref<VKDescSetLayout>& layout, const Strid& name, class VKDriver& driver) : VKResource<GfxDescSet>(driver) {
         m_name      = name;
         m_resources = resources;
         m_layout    = layout;

@@ -31,6 +31,7 @@
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_memory.hpp"
 
+#include <cassert>
 #include <functional>
 #include <memory>
 #include <tuple>
@@ -43,15 +44,16 @@ namespace wmoge {
      * @brief Type of a system
      */
     enum class EcsSystemType {
-        Default
+        Update,// Runtime system for every frame updates
+        Destroy// Called on entity deletion
     };
 
     /**
      * @brief How system must be executed
      */
     enum class EcsSystemExecMode {
-        OnMain,
-        OnWorkers
+        OnMain,  // On main (game) thread only without parallel speed up
+        OnWorkers// In task manager with multiple parallel tasks
     };
 
     /**
@@ -80,9 +82,9 @@ namespace wmoge {
          */
         virtual void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) = 0;
 
-        [[nodiscard]] virtual EcsSystemType     get_type() const { return EcsSystemType::Default; }
+        [[nodiscard]] virtual EcsSystemType     get_type() const { return EcsSystemType::Update; }
         [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const { return EcsSystemExecMode::OnMain; }
-        [[nodiscard]] virtual StringId          get_name() const  = 0;
+        [[nodiscard]] virtual Strid             get_name() const  = 0;
         [[nodiscard]] virtual EcsQuery          get_query() const = 0;
     };
 
@@ -91,12 +93,11 @@ namespace wmoge {
      */
     struct EcsSystemInfo {
         EcsQuery                   query;        // system query, which archetypes its affects
+        EcsSystemType              type;         // system type (exec, deletion, etc.)
         EcsSystemExecMode          exec_mode;    // execution mode
         std::shared_ptr<EcsSystem> system;       // cached system ptr
         std::vector<int>           filtered_arch;// pre-filtered arch idx to execute using this system
     };
-
-#define WG_ECS_SYSTEM_BIND(System) EcsSystemBindHelper(this, &System::process).process_batch(world, storage, start_entity, count)
 
     /**
      * @class EcsSystemBindHelper
@@ -108,7 +109,7 @@ namespace wmoge {
     template<typename T, typename... TArgs>
     class EcsSystemBindHelper {
     public:
-        static_assert(sizeof...(TArgs) <= 5, "supported auto binding is limited by num of components");
+        static_assert(sizeof...(TArgs) <= 6, "supported auto binding is limited by num of components");
 
         EcsSystemBindHelper(T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr);
 
@@ -135,9 +136,7 @@ namespace wmoge {
             const int       entity_idx = start_entity + i;
             const EcsEntity entity     = storage.get_entity(entity_idx);
 
-            if (entity.is_invalid()) {
-                continue;
-            }
+            assert(entity.is_valid());
 
 #define WG_ECS_ACCESS_COMPONENT(at)                                                                                                 \
     using TypeComponent##at    = typename std::remove_reference<typename std::tuple_element<at, std::tuple<TArgs...>>::type>::type; \
@@ -170,10 +169,97 @@ namespace wmoge {
                 WG_ECS_ACCESS_COMPONENT(3);
                 WG_ECS_ACCESS_COMPONENT(4);
                 (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0, *ptr1, *ptr2, *ptr3, *ptr4);
+            } else if constexpr (num_args == 6) {
+                WG_ECS_ACCESS_COMPONENT(0);
+                WG_ECS_ACCESS_COMPONENT(1);
+                WG_ECS_ACCESS_COMPONENT(2);
+                WG_ECS_ACCESS_COMPONENT(3);
+                WG_ECS_ACCESS_COMPONENT(4);
+                WG_ECS_ACCESS_COMPONENT(5);
+                (*m_system_ptr.*m_function_ptr)(world, entity, *ptr0, *ptr1, *ptr2, *ptr3, *ptr4, *ptr5);
             }
 
 #undef WG_ECS_ACCESS_COMPONENT
         }
+    }
+
+    /**
+     * @class EcsSystemQueryHelper
+     * @brief Utility to derive query type
+     *
+     * @tparam T System type
+     * @tparam TArgs Type of system args for processing
+     */
+    template<typename T, typename... TArgs>
+    class EcsSystemQueryHelper {
+    public:
+        static_assert(sizeof...(TArgs) <= 6, "supported auto binding is limited by num of components");
+
+        EcsSystemQueryHelper(const T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr);
+
+        EcsQuery get_query() const;
+
+    private:
+        const T*                         m_system_ptr   = nullptr;
+        EcsSystemNativeFunc<T, TArgs...> m_function_ptr = nullptr;
+    };
+
+    template<typename T, typename... TArgs>
+    inline EcsSystemQueryHelper<T, TArgs...>::EcsSystemQueryHelper(const T* system_ptr, EcsSystemNativeFunc<T, TArgs...> function_ptr) {
+        m_system_ptr   = system_ptr;
+        m_function_ptr = function_ptr;
+    }
+
+    template<typename T, typename... TArgs>
+    inline EcsQuery EcsSystemQueryHelper<T, TArgs...>::get_query() const {
+        EcsQuery query;
+
+        std::tuple<std::remove_reference_t<TArgs>...> pack;
+        constexpr std::size_t                         N = std::tuple_size_v<decltype(pack)>;
+
+#define WG_ECS_PROCESS_ARG(id)                                   \
+    if constexpr (id < N) {                                      \
+        using Arg     = std::tuple_element_t<0, decltype(pack)>; \
+        using NoConst = std::remove_const_t<Arg>;                \
+        if constexpr (std::is_same_v<Arg, NoConst>) {            \
+            query.set_read<NoConst>();                           \
+        } else {                                                 \
+            query.set_write<NoConst>();                          \
+        }                                                        \
+    }
+
+        WG_ECS_PROCESS_ARG(0)
+        WG_ECS_PROCESS_ARG(1)
+        WG_ECS_PROCESS_ARG(2)
+        WG_ECS_PROCESS_ARG(3)
+        WG_ECS_PROCESS_ARG(4)
+        WG_ECS_PROCESS_ARG(5)
+
+#undef WG_ECS_PROCESS_ARG
+
+        return query;
+    }
+
+#define WG_ECS_SYSTEM_BIND(System) \
+    EcsSystemBindHelper(this, &System::process).process_batch(world, storage, start_entity, count)
+
+#define WG_ECS_SYSTEM(name, type, mode)                                                                        \
+    ~name() = default;                                                                                         \
+    void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) override { \
+        WG_AUTO_PROFILE_ECS(#name "::process_batch");                                                          \
+        EcsSystemBindHelper(this, &name::process).process_batch(world, storage, start_entity, count);          \
+    }                                                                                                          \
+    [[nodiscard]] EcsSystemType get_type() const override {                                                    \
+        return EcsSystemType::type;                                                                            \
+    }                                                                                                          \
+    [[nodiscard]] EcsSystemExecMode get_exec_mode() const override {                                           \
+        return EcsSystemExecMode::mode;                                                                        \
+    }                                                                                                          \
+    [[nodiscard]] Strid get_name() const override {                                                            \
+        return SID(#name);                                                                                     \
+    }                                                                                                          \
+    [[nodiscard]] EcsQuery get_query() const override {                                                        \
+        return EcsSystemQueryHelper(this, &name::process).get_query();                                         \
     }
 
 }// namespace wmoge

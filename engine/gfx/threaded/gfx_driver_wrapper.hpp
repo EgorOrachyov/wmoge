@@ -52,26 +52,26 @@ namespace wmoge {
 
         ~GfxDriverWrapper() override = default;
 
-        Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const StringId& name) override;
-        Ref<GfxVertBuffer>       make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) override;
-        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) override;
-        Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) override;
-        Ref<GfxShader>           make_shader(Ref<Data> code, const StringId& name) override;
-        Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) override;
-        Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) override;
-        Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const StringId& name) override;
-        Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const StringId& name) override;
-        Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) override;
-        Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
-        Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const StringId& name) override;
-        Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const StringId& name) override;
-        Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const StringId& name) override;
-        Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) override;
-        Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const StringId& name) override;
+        Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const Strid& name) override;
+        Ref<GfxVertBuffer>       make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) override;
+        Ref<GfxShader>           make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name) override;
+        Ref<GfxShader>           make_shader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name) override;
+        Ref<GfxShader>           make_shader(Ref<Data> code, const Strid& name) override;
+        Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) override;
+        Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) override;
+        Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) override;
+        Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const Strid& name) override;
+        Ref<GfxPipeline>         make_pipeline(const GfxPipelineState& state, const Strid& name) override;
+        Ref<GfxCompPipeline>     make_comp_pipeline(const GfxCompPipelineState& state, const Strid& name) override;
+        Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) override;
+        Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const Strid& name) override;
+        Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const Strid& name) override;
+        Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const Strid& name) override;
+        Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) override;
+        Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Strid& name) override;
 
         void shutdown() override;
 
@@ -92,7 +92,7 @@ namespace wmoge {
         [[nodiscard]] GfxDynUniformBuffer* dyn_uniform_buffer() override;
 
         [[nodiscard]] const GfxDeviceCaps&   device_caps() const override;
-        [[nodiscard]] const StringId&        driver_name() const override;
+        [[nodiscard]] const Strid&           driver_name() const override;
         [[nodiscard]] const std::string&     shader_cache_path() const override;
         [[nodiscard]] const std::string&     pipeline_cache_path() const override;
         [[nodiscard]] const std::thread::id& thread_id() const override;
@@ -110,7 +110,7 @@ namespace wmoge {
         GfxShaderLang         m_shader_lang;
         CallbackStream*       m_stream = nullptr;
         GfxDeviceCaps         m_device_caps;
-        StringId              m_driver_name;
+        Strid                 m_driver_name;
         std::thread::id       m_thread_id;
         Mat4x4f               m_clip_matrix;
         std::string           m_shader_cache_path;

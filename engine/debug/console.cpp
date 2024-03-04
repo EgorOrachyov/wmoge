@@ -64,7 +64,7 @@ namespace wmoge {
         return (std::string) m_value;
     }
 
-    ConsoleVar* Console::register_var(StringId name, Var default_value, std::string help, std::function<void(const Var&, const Var&)> on_changed) {
+    ConsoleVar* Console::register_var(Strid name, Var default_value, std::string help, std::function<void(const Var&, const Var&)> on_changed) {
         std::lock_guard lock(m_mutex);
 
         if (m_vars.find(name) != m_vars.end()) {
@@ -81,7 +81,7 @@ namespace wmoge {
 
         return &var;
     }
-    ConsoleCmd* Console::register_cmd(StringId name, std::string help, std::function<int(const std::vector<std::string>&)> function) {
+    ConsoleCmd* Console::register_cmd(Strid name, std::string help, std::function<int(const std::vector<std::string>&)> function) {
         std::lock_guard lock(m_mutex);
 
         if (m_cmds.find(name) != m_cmds.end()) {
@@ -96,12 +96,12 @@ namespace wmoge {
 
         return &cmd;
     }
-    ConsoleVar* Console::find_var(const StringId& name) {
+    ConsoleVar* Console::find_var(const Strid& name) {
         std::lock_guard lock(m_mutex);
         auto            query = m_vars.find(name);
         return query != m_vars.end() ? &query->second : nullptr;
     }
-    ConsoleCmd* Console::find_cmd(const StringId& name) {
+    ConsoleCmd* Console::find_cmd(const Strid& name) {
         std::lock_guard lock(m_mutex);
         auto            query = m_cmds.find(name);
         return query != m_cmds.end() ? &query->second : nullptr;
@@ -306,7 +306,7 @@ namespace wmoge {
                 return 0;
             }
 
-            StringId name(args[1]);
+            Strid name(args[1]);
 
             if (auto var = find_var(name)) {
                 add_suggestion(var->get_help());
@@ -327,7 +327,7 @@ namespace wmoge {
                 return 0;
             }
 
-            StringId name(args[1]);
+            Strid name(args[1]);
 
             if (auto var = find_var(name)) {
                 add_info(var->get_value().to_string());
@@ -384,8 +384,8 @@ namespace wmoge {
                 return 0;
             }
 
-            StringId name(args[1]);
-            Var      value(args[2]);
+            Strid name(args[1]);
+            Var   value(args[2]);
 
             if (auto var = find_var(name)) {
                 var->change(std::move(value));

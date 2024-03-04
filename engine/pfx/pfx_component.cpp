@@ -43,8 +43,8 @@ namespace wmoge {
         }
 
         for (auto it = node["features"].first_child(); it.valid(); it = it.next_sibling()) {
-            StringId feature_name;//  = Yaml::read_sid(it["feature"]);
-            Class*   feature_class = Class::class_ptr(feature_name);
+            Strid  feature_name;//  = Yaml::read_sid(it["feature"]);
+            Class* feature_class = Class::class_ptr(feature_name);
 
             if (!feature_class) {
                 WG_LOG_ERROR("no registered class for feature " << feature_name);
@@ -87,7 +87,7 @@ namespace wmoge {
     PfxAttributes PfxComponent::get_attributes() const {
         return m_attributes;
     }
-    const StringId& PfxComponent::get_name() const {
+    const Strid& PfxComponent::get_name() const {
         return m_name;
     }
     int PfxComponent::get_features_count() const {

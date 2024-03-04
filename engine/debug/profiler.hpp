@@ -47,15 +47,15 @@ namespace wmoge {
      */
     struct ProfilerMark {
     public:
-        ProfilerMark(StringId label, StringId in_function, StringId in_function_sig,
-                     StringId in_file, StringId in_category,
+        ProfilerMark(Strid label, Strid in_function, Strid in_function_sig,
+                     Strid in_file, Strid in_category,
                      std::size_t in_line);
 
-        StringId        label;
-        StringId        function;
-        StringId        function_sig;
-        StringId        file;
-        StringId        category;
+        Strid           label;
+        Strid           function;
+        Strid           function_sig;
+        Strid           file;
+        Strid           category;
         std::size_t     line;
         std::string     pretty_name;
         class Profiler* profiler;
@@ -96,16 +96,16 @@ namespace wmoge {
     public:
         ProfilerCapture() = default;
 
-        void set_name(StringId name);
+        void set_name(Strid name);
         void set_file(std::string file);
         void add_entry(ProfilerEntry&& entry);
         void save_to_json();
 
-        [[nodiscard]] const StringId&                   get_name() const { return m_name; }
+        [[nodiscard]] const Strid&                      get_name() const { return m_name; }
         [[nodiscard]] const std::vector<ProfilerEntry>& get_entries() const { return m_entries; }
 
     private:
-        StringId                   m_name;
+        Strid                      m_name;
         std::string                m_file;
         std::vector<ProfilerEntry> m_entries;
     };
@@ -122,18 +122,18 @@ namespace wmoge {
         void start_capture(std::shared_ptr<ProfilerCapture> capture);
         void end_capture();
         void add_entry(ProfilerEntry&& entry);
-        void add_tid(std::thread::id id, StringId name);
+        void add_tid(std::thread::id id, Strid name);
 
-        bool                                          is_enabled();
-        bool                                          is_collecting();
-        std::unordered_map<std::thread::id, StringId> get_tid_names() const;
+        bool                                       is_enabled();
+        bool                                       is_collecting();
+        std::unordered_map<std::thread::id, Strid> get_tid_names() const;
 
     private:
-        std::atomic_bool                              m_is_enabled{false};
-        std::atomic_bool                              m_is_collecting{false};
-        std::shared_ptr<ProfilerCapture>              m_capture;
-        std::unordered_map<std::thread::id, StringId> m_tid_names;
-        SpinMutex                                     m_mutex;
+        std::atomic_bool                           m_is_enabled{false};
+        std::atomic_bool                           m_is_collecting{false};
+        std::shared_ptr<ProfilerCapture>           m_capture;
+        std::unordered_map<std::thread::id, Strid> m_tid_names;
+        SpinMutex                                  m_mutex;
     };
 
 }// namespace wmoge

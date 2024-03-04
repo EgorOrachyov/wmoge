@@ -35,21 +35,22 @@ namespace wmoge {
 
     class NodePropSpatial : public SceneNodeProp {
     public:
-        ~NodePropSpatial() override = default;
+        WG_OBJECT(NodePropSpatial, SceneNodeProp)
 
-        void fill_arch(EcsArch& arch) override;
-        void add_components(Entity entity) override;
-
+        void   fill_arch(EcsArch& arch) override;
+        void   add_components(Entity entity, Entity parent) override;
+        void   process_event(const EventSceneNode& event) override;
         Status read_from_yaml(const YamlConstNodeRef& node) override;
+
+        SceneDataSpatial params;
     };
 
     class NodePropCamera : public SceneNodeProp {
     public:
-        ~NodePropCamera() override = default;
+        WG_OBJECT(NodePropCamera, SceneNodeProp)
 
-        void fill_arch(EcsArch& arch) override;
-        void add_components(Entity entity) override;
-
+        void   fill_arch(EcsArch& arch) override;
+        void   add_components(Entity entity, Entity parent) override;
         Status read_from_yaml(const YamlConstNodeRef& node) override;
 
         SceneDataCamera params;
@@ -57,7 +58,7 @@ namespace wmoge {
 
     class NodePropModel : public SceneNodeProp {
     public:
-        ~NodePropModel() override = default;
+        WG_OBJECT(NodePropModel, SceneNodeProp)
     };
 
 }// namespace wmoge

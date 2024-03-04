@@ -32,9 +32,9 @@
 #include "core/string_id.hpp"
 #include "core/weak_ref.hpp"
 #include "ecs/ecs_world.hpp"
+#include "render/culling.hpp"
 #include "render/graphics_pipeline.hpp"
 #include "render/render_scene.hpp"
-#include "render/visibility.hpp"
 #include "scene/scene_data.hpp"
 
 #include <memory>
@@ -75,7 +75,7 @@ namespace wmoge {
      */
     class Scene final : public WeakRefCnt<RefCnt> {
     public:
-        Scene(StringId name = StringId());
+        Scene(Strid name = Strid());
         ~Scene() override = default;
 
         class Entity create_entity();
@@ -86,26 +86,28 @@ namespace wmoge {
         void         set_state(SceneState state);
         void         finalize();
 
-        [[nodiscard]] const StringId&   get_name();
-        [[nodiscard]] EcsWorld*         get_ecs_world();
-        [[nodiscard]] VisibilitySystem* get_visibility_system();
-        [[nodiscard]] RenderScene*      get_render_scene();
-        [[nodiscard]] float             get_time() const { return m_time; }
-        [[nodiscard]] float             get_delta_time() const { return m_delta_time; }
-        [[nodiscard]] bool              need_simulate() const { return m_need_simulate; }
-        [[nodiscard]] bool              need_render() const { return m_need_render; }
-        [[nodiscard]] SceneState        get_state() const { return m_state; }
+        [[nodiscard]] const Strid&    get_name();
+        [[nodiscard]] EcsWorld*       get_ecs_world();
+        [[nodiscard]] CullingManager* get_culling_manager();
+        [[nodiscard]] RenderScene*    get_render_scene();
+        [[nodiscard]] float           get_time() const { return m_time; }
+        [[nodiscard]] float           get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] bool            need_simulate() const { return m_need_simulate; }
+        [[nodiscard]] bool            need_render() const { return m_need_render; }
+        [[nodiscard]] int             get_frame_id() const { return m_frame_id; }
+        [[nodiscard]] SceneState      get_state() const { return m_state; }
 
     private:
-        std::unique_ptr<EcsWorld>         m_ecs_world;
-        std::unique_ptr<VisibilitySystem> m_visibility_system;
-        std::unique_ptr<RenderScene>      m_render_scene;
+        std::unique_ptr<EcsWorld>       m_ecs_world;
+        std::unique_ptr<CullingManager> m_culling_manager;
+        std::unique_ptr<RenderScene>    m_render_scene;
 
-        StringId m_name;
-        float    m_time          = 0.0f;
-        float    m_delta_time    = 0.0f;
-        bool     m_need_simulate = true;
-        bool     m_need_render   = true;
+        Strid m_name;
+        float m_time          = 0.0f;
+        float m_delta_time    = 0.0f;
+        bool  m_need_simulate = true;
+        bool  m_need_render   = true;
+        int   m_frame_id      = -1;
 
         SceneState m_state = SceneState::Default;
     };

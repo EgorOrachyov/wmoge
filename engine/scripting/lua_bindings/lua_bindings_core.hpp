@@ -93,10 +93,10 @@ namespace wmoge {
         std::string to_string() const {
             return cast_unsafe<Object>()->to_string();
         }
-        const StringId& class_name() const {
+        const Strid& class_name() const {
             return cast_unsafe<Object>()->class_name();
         }
-        void signal(const StringId& signal) {
+        void signal(const Strid& signal) {
             cast_unsafe<Object>()->signal(signal);
         }
     };

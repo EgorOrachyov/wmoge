@@ -166,13 +166,13 @@ namespace wmoge {
         WG_LOG_INFO("shutdown vulkan gfx driver");
     }
 
-    Ref<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const StringId& name) {
+    Ref<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_format");
 
         assert(on_gfx_thread());
         return make_ref<VKVertFormat>(elements, name);
     }
-    Ref<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_buffer");
 
         assert(on_gfx_thread());
@@ -181,7 +181,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_index_buffer");
 
         assert(on_gfx_thread());
@@ -190,7 +190,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_uniform_buffer");
 
         assert(on_gfx_thread());
@@ -199,7 +199,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const StringId& name) {
+    Ref<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_storage_buffer");
 
         assert(on_gfx_thread());
@@ -208,7 +208,7 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name) {
+    Ref<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
@@ -224,7 +224,7 @@ namespace wmoge {
 
         return shader;
     }
-    Ref<GfxShader> VKDriver::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name) {
+    Ref<GfxShader> VKDriver::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
@@ -240,7 +240,7 @@ namespace wmoge {
 
         return shader;
     }
-    Ref<GfxShader> VKDriver::make_shader(Ref<Data> code, const StringId& name) {
+    Ref<GfxShader> VKDriver::make_shader(Ref<Data> code, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
@@ -256,7 +256,7 @@ namespace wmoge {
 
         return shader;
     }
-    Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d");
 
         assert(on_gfx_thread());
@@ -265,7 +265,7 @@ namespace wmoge {
         texture->create_2d(m_ctx_immediate->cmd_current(), width, height, mips, format, usages, mem_usage, swizz, name);
         return texture;
     }
-    Ref<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d_array");
 
         assert(on_gfx_thread());
@@ -274,7 +274,7 @@ namespace wmoge {
         texture->create_2d_array(m_ctx_immediate->cmd_current(), width, height, mips, slices, format, usages, mem_usage, name);
         return texture;
     }
-    Ref<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    Ref<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_cube");
 
         assert(on_gfx_thread());
@@ -283,7 +283,7 @@ namespace wmoge {
         texture->create_cube(m_ctx_immediate->cmd_current(), width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
-    Ref<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const StringId& name) {
+    Ref<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_sampler");
 
         assert(on_gfx_thread());
@@ -298,21 +298,21 @@ namespace wmoge {
 
         return sampler;
     }
-    Ref<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const StringId& name) {
+    Ref<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_pipeline");
 
         assert(on_gfx_thread());
 
         return make_ref<VKPipeline>(state, name, *this);
     }
-    Ref<GfxCompPipeline> VKDriver::make_comp_pipeline(const GfxCompPipelineState& state, const StringId& name) {
+    Ref<GfxCompPipeline> VKDriver::make_comp_pipeline(const GfxCompPipelineState& state, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_comp_pipeline");
 
         assert(on_gfx_thread());
 
         return make_ref<VKCompPipeline>(state, name, *this);
     }
-    Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+    Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
 
         auto& render_pass = m_render_passes[pass_desc];
@@ -323,7 +323,7 @@ namespace wmoge {
 
         return render_pass;
     }
-    Ref<VKFramebufferObject> VKDriver::make_frame_buffer(const VKFrameBufferDesc& desc, const StringId& name) {
+    Ref<VKFramebufferObject> VKDriver::make_frame_buffer(const VKFrameBufferDesc& desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_frame_buffer");
 
         auto& frame_buffer = m_frame_buffers[desc];
@@ -334,22 +334,22 @@ namespace wmoge {
 
         return frame_buffer;
     }
-    Ref<GfxDynVertBuffer> VKDriver::make_dyn_vert_buffer(int chunk_size, const StringId& name) {
+    Ref<GfxDynVertBuffer> VKDriver::make_dyn_vert_buffer(int chunk_size, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_vert_buffer");
 
         return make_ref<GfxDynVertBuffer>(chunk_size, 64, name);
     }
-    Ref<GfxDynIndexBuffer> VKDriver::make_dyn_index_buffer(int chunk_size, const StringId& name) {
+    Ref<GfxDynIndexBuffer> VKDriver::make_dyn_index_buffer(int chunk_size, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_index_buffer");
 
         return make_ref<GfxDynIndexBuffer>(chunk_size, 64, name);
     }
-    Ref<GfxDynUniformBuffer> VKDriver::make_dyn_uniform_buffer(int chunk_size, const StringId& name) {
+    Ref<GfxDynUniformBuffer> VKDriver::make_dyn_uniform_buffer(int chunk_size, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_dyn_uniform_buffer");
 
         return make_ref<GfxDynUniformBuffer>(chunk_size, m_device_caps.uniform_block_offset_alignment, name);
     }
-    Ref<GfxDescSetLayout> VKDriver::make_desc_layout(const GfxDescSetLayoutDesc& desc, const StringId& name) {
+    Ref<GfxDescSetLayout> VKDriver::make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_layout");
 
         auto& desc_layout = m_layouts[desc];
@@ -360,7 +360,7 @@ namespace wmoge {
 
         return desc_layout;
     }
-    Ref<GfxDescSet> VKDriver::make_desc_set(const GfxDescSetResources& resources, const StringId& name) {
+    Ref<GfxDescSet> VKDriver::make_desc_set(const GfxDescSetResources& resources, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_set");
 
         GfxDescSetLayoutDesc layout_desc;

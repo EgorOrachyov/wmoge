@@ -79,7 +79,7 @@ namespace wmoge {
      * @brief Represents single mesh chunk in a mesh which can be rendered individually with material
      */
     struct MeshChunk {
-        StringId         name;
+        Strid            name;
         Aabbf            aabb;
         GfxVertAttribs   attribs;
         GfxPrimType      prim_type          = GfxPrimType::Triangles;

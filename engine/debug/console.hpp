@@ -49,7 +49,7 @@ namespace wmoge {
     public:
         virtual ~ConsoleObject() = default;
 
-        [[nodiscard]] const StringId&    get_name() const { return m_name; }
+        [[nodiscard]] const Strid&       get_name() const { return m_name; }
         [[nodiscard]] const std::string& get_help() const { return m_help; }
 
         [[nodiscard]] virtual bool is_cmd() const { return false; }
@@ -57,7 +57,7 @@ namespace wmoge {
 
     protected:
         friend class Console;
-        StringId    m_name;
+        Strid       m_name;
         std::string m_help;
     };
 
@@ -119,7 +119,7 @@ namespace wmoge {
          *
          * @return Registered variable on success
          */
-        ConsoleVar* register_var(StringId name, Var default_value, std::string help, std::function<void(const Var& prev, const Var& next)> on_changed = {});
+        ConsoleVar* register_var(Strid name, Var default_value, std::string help, std::function<void(const Var& prev, const Var& next)> on_changed = {});
         /**
          * @brief Register new console command
          *
@@ -129,12 +129,12 @@ namespace wmoge {
          *
          * @return Registered command on success
          */
-        ConsoleCmd* register_cmd(StringId name, std::string help, std::function<int(const std::vector<std::string>& args)> function);
+        ConsoleCmd* register_cmd(Strid name, std::string help, std::function<int(const std::vector<std::string>& args)> function);
 
         /** @brief Find existing console var by name */
-        ConsoleVar* find_var(const StringId& name);
+        ConsoleVar* find_var(const Strid& name);
         /** @brief Find existing console cmd by name */
-        ConsoleCmd* find_cmd(const StringId& name);
+        ConsoleCmd* find_cmd(const Strid& name);
 
         /** @brief Add message to the console as a text */
         void add_info(const std::string& text);
@@ -170,12 +170,12 @@ namespace wmoge {
         };
 
     private:
-        fast_map<StringId, ConsoleVar> m_vars;
-        fast_map<StringId, ConsoleCmd> m_cmds;
-        std::vector<Message>           m_messages;
-        std::vector<std::string>       m_history;
-        std::vector<std::string>       m_to_process;
-        std::recursive_mutex           m_mutex;
+        fast_map<Strid, ConsoleVar> m_vars;
+        fast_map<Strid, ConsoleCmd> m_cmds;
+        std::vector<Message>        m_messages;
+        std::vector<std::string>    m_history;
+        std::vector<std::string>    m_to_process;
+        std::recursive_mutex        m_mutex;
 
         EventListenerHnd m_actions_listener;
         EventListenerHnd m_keyboard_listener;

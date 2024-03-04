@@ -58,17 +58,17 @@ namespace wmoge {
         bool        operator==(const GfxVertElements& other) const;
         std::size_t hash() const;
 
-        void add_element(StringId name, GfxFormat format, int buffer, int offset, int stride, bool instanced = false);
+        void add_element(Strid name, GfxFormat format, int buffer, int offset, int stride, bool instanced = false);
         void add_vert_attribs(GfxVertAttribs attribs, GfxVertAttribs layout, int buffer, bool instanced);
         void add_vert_attribs(GfxVertAttribs attribs, int buffer, bool instanced);
 
         [[nodiscard]] const std::array<GfxVertElement, GfxLimits::MAX_VERT_ATTRIBUTES>& elements() const { return m_elements; }
-        [[nodiscard]] const std::array<StringId, GfxLimits::MAX_VERT_ATTRIBUTES>&       elements_names() const { return m_elements_names; }
+        [[nodiscard]] const std::array<Strid, GfxLimits::MAX_VERT_ATTRIBUTES>&          elements_names() const { return m_elements_names; }
         [[nodiscard]] int                                                               elements_count() const { return m_elements_count; }
 
     private:
         std::array<GfxVertElement, GfxLimits::MAX_VERT_ATTRIBUTES> m_elements;
-        std::array<StringId, GfxLimits::MAX_VERT_ATTRIBUTES>       m_elements_names;
+        std::array<Strid, GfxLimits::MAX_VERT_ATTRIBUTES>          m_elements_names;
         int                                                        m_elements_count = 0;
     };
 

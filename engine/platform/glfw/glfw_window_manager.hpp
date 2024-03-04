@@ -60,7 +60,7 @@ namespace wmoge {
         fast_vector<Ref<Window>> windows() override;
         Ref<Window>              primary_window() override;
         Ref<Window>              create(const WindowInfo& window_info) override;
-        Ref<Window>              get(const StringId& window_id) override;
+        Ref<Window>              get(const Strid& window_id) override;
 
         std::shared_ptr<GlfwInput> input();
         std::recursive_mutex&      mutex();
@@ -82,7 +82,7 @@ namespace wmoge {
         static void dispatch(GLFWwindow* hnd, WindowNotification notification);
 
     private:
-        fast_map<StringId, Ref<GlfwWindow>>    m_windows;
+        fast_map<Strid, Ref<GlfwWindow>>       m_windows;
         fast_map<GLFWwindow*, Ref<GlfwWindow>> m_windows_by_hnd;
         std::shared_ptr<GlfwInput>             m_input;
         Ref<GlfwWindow>                        m_primary;

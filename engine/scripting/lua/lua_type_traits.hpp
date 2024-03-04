@@ -45,7 +45,7 @@ namespace wmoge {
      */
     class LuaTypeTraits {
     public:
-        static StringId          to_sid(luabridge::LuaRef& ref);
+        static Strid             to_sid(luabridge::LuaRef& ref);
         static Var               to_var(luabridge::LuaRef& ref);
         static luabridge::LuaRef from_object(lua_State* state, Object* object);
         static luabridge::LuaRef from_var(lua_State* state, const Var& var);

@@ -85,7 +85,7 @@ namespace wmoge {
         virtual void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) = 0;
         virtual void barrier_buffer(const Ref<GfxStorageBuffer>& buffer)                           = 0;
 
-        virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name = StringId())      = 0;
+        virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name = Strid())            = 0;
         virtual void bind_target(const Ref<Window>& window)                                                        = 0;
         virtual void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice)             = 0;
         virtual void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice)                         = 0;
@@ -109,8 +109,8 @@ namespace wmoge {
         virtual void begin_frame() = 0;
         virtual void end_frame()   = 0;
 
-        virtual void begin_label(const StringId& label) = 0;
-        virtual void end_label()                        = 0;
+        virtual void begin_label(const Strid& label) = 0;
+        virtual void end_label()                     = 0;
 
         [[nodiscard]] virtual const Mat4x4f& clip_matrix() const = 0;
         [[nodiscard]] virtual GfxCtxType     ctx_type() const    = 0;
@@ -123,7 +123,7 @@ namespace wmoge {
      * @brief Scope for debug laber
     */
     struct GfxDebugLabel {
-        GfxDebugLabel(GfxCtx* ctx, const StringId& label) : ctx(ctx) { ctx->begin_label(label); }
+        GfxDebugLabel(GfxCtx* ctx, const Strid& label) : ctx(ctx) { ctx->begin_label(label); }
         ~GfxDebugLabel() { ctx->end_label(); }
         GfxCtx* ctx;
     };

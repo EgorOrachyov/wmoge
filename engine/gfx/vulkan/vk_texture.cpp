@@ -44,7 +44,7 @@ namespace wmoge {
         if (m_image && m_allocation)
             m_driver.mem_manager()->deallocate(m_image, m_allocation);
     }
-    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const StringId& name) {
+    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_tex_type     = GfxTex::Tex2d;
@@ -76,7 +76,7 @@ namespace wmoge {
         init_view();
         init_layout(cmd);
     }
-    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const StringId& name) {
+    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_tex_type     = GfxTex::Tex2d;
@@ -96,7 +96,7 @@ namespace wmoge {
         init_rt_views();
         init_layout(cmd);
     }
-    void VKTexture::create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    void VKTexture::create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d_array");
 
         m_tex_type     = GfxTex::Tex2dArray;
@@ -115,7 +115,7 @@ namespace wmoge {
         init_rt_views();
         init_layout(cmd);
     }
-    void VKTexture::create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const StringId& name) {
+    void VKTexture::create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_cube");
 
         m_tex_type     = GfxTex::TexCube;

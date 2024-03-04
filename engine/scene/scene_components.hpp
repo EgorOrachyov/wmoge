@@ -33,13 +33,13 @@
 #include "math/aabb.hpp"
 #include "math/color.hpp"
 #include "math/mat.hpp"
+#include "math/math_utils3d.hpp"
 #include "math/transform.hpp"
 #include "math/vec.hpp"
 #include "render/camera.hpp"
+#include "render/culling.hpp"
 #include "render/light.hpp"
 #include "render/model_instance.hpp"
-#include "render/visibility.hpp"
-#include "scene/scene_node.hpp"
 
 #include <memory>
 #include <optional>
@@ -83,6 +83,7 @@ namespace wmoge {
     struct EcsComponentTransformUpd : EcsComponent<EcsComponentTransformUpd> {
         WG_ECS_COMPONENT(EcsComponentTransformUpd);
 
+        int  batch_id           = 0;
         int  last_frame_updated = -1;
         bool is_dirty           = true;
     };
@@ -94,7 +95,7 @@ namespace wmoge {
     struct EcsComponentLocalToWorld : EcsComponent<EcsComponentLocalToWorld> {
         WG_ECS_COMPONENT(EcsComponentLocalToWorld);
 
-        Mat4x4f matrix;
+        Mat4x4f matrix = Math3d::identity();
     };
 
     /**
@@ -104,7 +105,7 @@ namespace wmoge {
     struct EcsComponentWorldToLocal : EcsComponent<EcsComponentWorldToLocal> {
         WG_ECS_COMPONENT(EcsComponentWorldToLocal);
 
-        Mat4x4f matrix;
+        Mat4x4f matrix = Math3d::identity();
     };
 
     /**
@@ -114,7 +115,7 @@ namespace wmoge {
     struct EcsComponentLocalToParent : EcsComponent<EcsComponentLocalToParent> {
         WG_ECS_COMPONENT(EcsComponentLocalToParent);
 
-        Mat4x4f matrix;
+        Mat4x4f matrix = Math3d::identity();
     };
 
     /**
@@ -128,7 +129,7 @@ namespace wmoge {
     };
 
     /**
-     * @class EcsComponentWorldAabb
+     * @class EcsComponentAabbWorld
      * @brief Aabb volume of object in the world space
      */
     struct EcsComponentAabbWorld : EcsComponent<EcsComponentAabbWorld> {
@@ -144,7 +145,7 @@ namespace wmoge {
     struct EcsComponentTag : EcsComponent<EcsComponentTag> {
         WG_ECS_COMPONENT(EcsComponentTag);
 
-        StringId tag;
+        Strid tag;
     };
 
     /**
@@ -179,7 +180,7 @@ namespace wmoge {
 
     /**
      * @class EcsComponentModel
-     * @brief Visiblity item for culling (shared for geometry, lights, etc.)
+     * @brief A renderable model
      */
     struct EcsComponentModel : EcsComponent<EcsComponentModel> {
         WG_ECS_COMPONENT(EcsComponentModel);
@@ -188,13 +189,13 @@ namespace wmoge {
     };
 
     /**
-     * @class EcsComponentVisibilityItem
-     * @brief Visiblity item for culling (shared for geometry, lights, etc.)
+     * @class EcsComponentCullingItem
+     * @brief Item for culling (shared for geometry, lights, etc.)
      */
-    struct EcsComponentVisibilityItem : EcsComponent<EcsComponentVisibilityItem> {
-        WG_ECS_COMPONENT(EcsComponentVisibilityItem);
+    struct EcsComponentCullingItem : EcsComponent<EcsComponentCullingItem> {
+        WG_ECS_COMPONENT(EcsComponentCullingItem);
 
-        VisibilityItem item;
+        CullingItem item;
     };
 
 }// namespace wmoge

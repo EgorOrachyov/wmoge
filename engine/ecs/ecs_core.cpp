@@ -51,7 +51,7 @@ namespace wmoge {
 
         for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
             if (test(i)) {
-                const StringId& name = registry->get_component_info(i).name;
+                const Strid& name = registry->get_component_info(i).name;
                 stream << name << ",";
             }
         }
@@ -77,7 +77,7 @@ namespace wmoge {
 
         for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
             if (affected.test(i)) {
-                const StringId& name = registry->get_component_info(i).name;
+                const Strid& name = registry->get_component_info(i).name;
                 stream << (write.test(i) ? "rw-" : "r-") << name << ",";
             }
         }

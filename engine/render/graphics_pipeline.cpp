@@ -27,11 +27,14 @@
 
 #include "graphics_pipeline.hpp"
 
+#include "debug/profiler.hpp"
+
 #include <cstring>
 
 namespace wmoge {
 
     WG_IO_BEGIN(BloomSettings)
+    WG_IO_PROFILE()
     WG_IO_FIELD_OPT(enable)
     WG_IO_FIELD_OPT(intensity)
     WG_IO_FIELD_OPT(threshold)
@@ -43,6 +46,7 @@ namespace wmoge {
     WG_IO_END(BloomSettings)
 
     WG_IO_BEGIN(AutoExposureSettings)
+    WG_IO_PROFILE()
     WG_IO_FIELD_OPT(enable)
     WG_IO_FIELD_OPT(mode)
     WG_IO_FIELD_OPT(histogram_log_min)
@@ -53,12 +57,14 @@ namespace wmoge {
     WG_IO_END(AutoExposureSettings)
 
     WG_IO_BEGIN(TonemapSettings)
+    WG_IO_PROFILE()
     WG_IO_FIELD_OPT(mode)
     WG_IO_FIELD_OPT(exposure)
     WG_IO_FIELD_OPT(white_point)
     WG_IO_END(TonemapSettings)
 
     WG_IO_BEGIN(GraphicsPipelineSettings)
+    WG_IO_PROFILE()
     WG_IO_FIELD_OPT(bloom)
     WG_IO_FIELD_OPT(auto_exposure)
     WG_IO_FIELD_OPT(tonemap)

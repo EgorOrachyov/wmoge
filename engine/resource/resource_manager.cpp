@@ -96,7 +96,7 @@ namespace wmoge {
         // get dependencies which still loading or already loaded
         fast_vector<Async> deps;
 
-        for (const StringId& dep : resource_meta.value().deps) {
+        for (const Strid& dep : resource_meta.value().deps) {
             deps.push_back(load_async(dep).as_async());
         }
 
@@ -196,7 +196,7 @@ namespace wmoge {
         m_paks.push_back(std::move(pak));
     }
 
-    std::optional<ResourceLoader*> ResourceManager::find_loader(const StringId& loader) {
+    std::optional<ResourceLoader*> ResourceManager::find_loader(const Strid& loader) {
         std::lock_guard guard(m_mutex);
         auto            query = m_loaders.find(loader);
         return query != m_loaders.end() ? std::make_optional(query->second.get()) : std::nullopt;

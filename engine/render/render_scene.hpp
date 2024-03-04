@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_SCENE_HPP
-#define WMOGE_RENDER_SCENE_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
@@ -85,5 +84,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_SCENE_HPP

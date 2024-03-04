@@ -128,7 +128,7 @@ namespace wmoge {
     VKVertBuffer::~VKVertBuffer() {
         release();
     }
-    void VKVertBuffer::create(int size, GfxMemUsage usage, const StringId& name) {
+    void VKVertBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
         GfxBuffer::m_size   = size;
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
@@ -149,7 +149,7 @@ namespace wmoge {
     VKIndexBuffer::~VKIndexBuffer() {
         release();
     }
-    void VKIndexBuffer::create(int size, GfxMemUsage usage, const StringId& name) {
+    void VKIndexBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
         GfxBuffer::m_size   = size;
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
@@ -170,7 +170,7 @@ namespace wmoge {
     VKUniformBuffer::~VKUniformBuffer() {
         release();
     }
-    void VKUniformBuffer::create(int size, GfxMemUsage usage, const StringId& name) {
+    void VKUniformBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
         GfxBuffer::m_size   = size;
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
@@ -191,7 +191,7 @@ namespace wmoge {
     VKStorageBuffer::~VKStorageBuffer() {
         release();
     }
-    void VKStorageBuffer::create(int size, GfxMemUsage usage, const StringId& name) {
+    void VKStorageBuffer::create(int size, GfxMemUsage usage, const Strid& name) {
         GfxBuffer::m_size   = size;
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_QUEUE_HPP
-#define WMOGE_RENDER_QUEUE_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "core/mask.hpp"
@@ -155,5 +154,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_QUEUE_HPP

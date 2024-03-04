@@ -39,7 +39,7 @@ namespace wmoge {
         return false;
     }
 
-    StringId HgfxPass::get_pass_name() {
+    Strid HgfxPass::get_pass_name() {
         return {};
     }
     HgfxPassType HgfxPass::get_pass_type() {
@@ -48,7 +48,7 @@ namespace wmoge {
 
     void HgfxPass::register_class() {
         auto* cls = Class::register_class<HgfxPass>();
-        cls->add_method(ClassMethod(VarType::StringId, SID("get_pass_name"), {}), &HgfxPass::get_pass_name, {});
+        cls->add_method(ClassMethod(VarType::Strid, SID("get_pass_name"), {}), &HgfxPass::get_pass_name, {});
         cls->add_method(ClassMethod(VarType::Int, SID("get_pass_type"), {}), &HgfxPass::get_pass_type, {});
     }
 

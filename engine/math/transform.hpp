@@ -125,35 +125,25 @@ namespace wmoge {
         void rotate_z(float rad) { m_rotation = Quatf(Vec3f::axis_z(), rad) * m_rotation; }
         void scale(const Vec3f& scale) { m_scale *= scale; }
 
+        Transform3d inv() const {
+            Transform3d t;
+            t.set_translation(-m_translation);
+            t.set_rotation(m_rotation.conjugate());
+            t.set_scale(Vec3f(1.0f, 1.0f, 1.0f) / m_scale);
+            return t;
+        }
+
         Vec3f transform(const Vec3f& v) const {
             return m_translation + m_rotation.rotate(m_scale * v);
         }
 
-        Transform3d operator*(const Transform3d& other) const {
-            // v'  = t1 + r1(s1 * v)
-            // v'' = t2 + r2(s2 * v')
-            //     = t2 + r2(s2 * t1 + s2 * r1(s1 * v))
-            //     = (t2 + r2(s2 * t1)) + r2(s2 * r1(s1 * v))
-            //     = (t2 + r2(s2 * t1)) + r2(r1(r1^-1(s2) * s1 * v)))
-            //
-            // t'  = t2 + r2(s2 * t1)
-            // r'  = r2 x r1
-            // s'  = r1^-1(s2) * s1
-
-            Transform3d result;
-            result.set_translation(m_translation + transform(other.m_translation));
-            result.set_rotation(m_rotation * other.m_rotation);
-            result.set_scale(other.m_rotation.conjugate().rotate(m_scale) * other.m_scale);
-            return result;
-        }
-
-        [[nodiscard]] Mat4x4f get_transform() const {
+        [[nodiscard]] Mat4x4f to_mat4x4() const {
             return Math3d::translate(m_translation) *
                    m_rotation.as_matrix() *
                    Math3d::scale(m_scale);
         }
 
-        [[nodiscard]] Mat4x4f get_inverse_transform() const {
+        [[nodiscard]] Mat4x4f to_inv_mat4x4() const {
             return Math3d::scale(Vec3f(1.0f, 1.0f, 1.0f) / m_scale) *
                    m_rotation.inverse().as_matrix() *
                    Math3d::translate(-m_translation);
@@ -198,7 +188,7 @@ namespace wmoge {
 
     /**
      * @class TransformEdt
-     * @brief Utility to manage 3d space transformations with euler angles
+     * @brief Utility to manage 3d space transformations with euler angles (roll, yaw, pitch)
      */
     class TransformEdt {
     public:
@@ -210,13 +200,21 @@ namespace wmoge {
         void rotate(const Vec3f& angles) { m_rotation += angles; }
         void scale(const Vec3f& scale) { m_scale *= scale; }
 
-        [[nodiscard]] Mat4x4f get_transform() const {
+        [[nodiscard]] Transform3d to_transform3d() const {
+            Transform3d t;
+            t.set_translation(m_translation);
+            t.set_scale(m_scale);
+            t.set_rotation(Quatf(m_rotation.x(), m_rotation.y(), m_rotation.z()));
+            return t;
+        }
+
+        [[nodiscard]] Mat4x4f to_mat4x4() const {
             return Math3d::translate(m_translation) *
                    Quatf(m_rotation[0], m_rotation[1], m_rotation[2]).as_matrix() *
                    Math3d::scale(m_scale);
         }
 
-        [[nodiscard]] Mat4x4f get_inverse_transform() const {
+        [[nodiscard]] Mat4x4f to_inv_mat4x4() const {
             return Math3d::scale(Vec3f(1.0f, 1.0f, 1.0f) / m_scale) *
                    Quatf(m_rotation[0], m_rotation[1], m_rotation[2]).inverse().as_matrix() *
                    Math3d::translate(-m_translation);

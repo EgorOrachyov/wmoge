@@ -109,14 +109,16 @@ namespace wmoge {
         EcsQuery() = default;
 
         template<typename Component>
-        void set_read() {
+        EcsQuery& set_read() {
             read.set(Component::IDX);
+            return *this;
         }
 
         template<typename Component>
-        void set_write() {
+        EcsQuery& set_write() {
             read.set(Component::IDX);
             write.set(Component::IDX);
+            return *this;
         }
 
         template<typename Component>

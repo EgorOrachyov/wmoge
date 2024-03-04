@@ -53,13 +53,13 @@ namespace wmoge {
         float              scale_x() const override;
         float              scale_y() const override;
         bool               in_focus() const override;
-        const StringId&    id() const override;
+        const Strid&       id() const override;
         const std::string& title() const override;
 
     private:
         friend class GlfwWindowManager;
 
-        StringId                 m_id;
+        Strid                    m_id;
         std::string              m_title;
         GLFWwindow*              m_hnd = nullptr;
         class GlfwWindowManager& m_manager;

@@ -70,7 +70,7 @@ namespace wmoge {
      */
     class EcsArchStorage {
     public:
-        explicit EcsArchStorage(EcsArch arch, class EcsWorld* world);
+        explicit EcsArchStorage(EcsArch arch);
         EcsArchStorage(const EcsArchStorage&) = delete;
         EcsArchStorage(EcsArchStorage&&)      = delete;
         ~EcsArchStorage();
@@ -91,8 +91,7 @@ namespace wmoge {
         std::array<EcsPool, EcsLimits::MAX_COMPONENTS + 1>             m_pool{};
         std::array<const EcsComponentInfo*, EcsLimits::MAX_COMPONENTS> m_components_info{};
 
-        class EcsWorld* m_world = nullptr;
-        const EcsArch   m_arch;
+        const EcsArch m_arch;
 
         int m_chunk_size = 0;// num entities data within single chunk
         int m_size       = 0;// count of allocated entities

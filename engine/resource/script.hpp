@@ -61,15 +61,15 @@ namespace wmoge {
         Status copy_to(Object& other) const override;
 
         virtual Ref<ScriptInstance> attach_to(Object* object);
-        virtual bool                has_property(const StringId& property);
-        virtual bool                has_method(const StringId& method);
+        virtual bool                has_property(const Strid& property);
+        virtual bool                has_method(const Strid& method);
 
         ScriptFunctionsMask get_mask();
-        const StringId&     get_language();
+        const Strid&        get_language();
         const std::string&  get_code();
 
     protected:
-        StringId            m_language;
+        Strid               m_language;
         std::string         m_code;
         ScriptFunctionsMask m_mask;
     };

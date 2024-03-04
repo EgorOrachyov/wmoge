@@ -39,12 +39,12 @@ namespace wmoge {
     public:
         WG_OBJECT(EventScript, Event)
 
-        void             set_type(StringId type);
+        void             set_type(Strid type);
         std::string      to_string() override;
         const EventType& type() const override;
 
     protected:
-        StringId m_type;
+        Strid m_type;
     };
 
 }// namespace wmoge

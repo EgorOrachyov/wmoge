@@ -71,7 +71,7 @@ namespace wmoge {
         VKVertBuffer(class VKDriver& driver);
         ~VKVertBuffer() override;
 
-        void            create(int size, GfxMemUsage usage, const StringId& name);
+        void            create(int size, GfxMemUsage usage, const Strid& name);
         void            unmap(VkCommandBuffer cmd) override;
         void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         class VKDriver& driver() override { return m_driver; }
@@ -86,7 +86,7 @@ namespace wmoge {
         VKIndexBuffer(class VKDriver& driver);
         ~VKIndexBuffer() override;
 
-        void            create(int size, GfxMemUsage usage, const StringId& name);
+        void            create(int size, GfxMemUsage usage, const Strid& name);
         void            unmap(VkCommandBuffer cmd) override;
         void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         class VKDriver& driver() override { return m_driver; }
@@ -101,7 +101,7 @@ namespace wmoge {
         VKUniformBuffer(class VKDriver& driver);
         ~VKUniformBuffer() override;
 
-        void            create(int size, GfxMemUsage usage, const StringId& name);
+        void            create(int size, GfxMemUsage usage, const Strid& name);
         void            unmap(VkCommandBuffer cmd) override;
         void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         class VKDriver& driver() override { return m_driver; }
@@ -116,7 +116,7 @@ namespace wmoge {
         VKStorageBuffer(class VKDriver& driver);
         ~VKStorageBuffer() override;
 
-        void            create(int size, GfxMemUsage usage, const StringId& name);
+        void            create(int size, GfxMemUsage usage, const Strid& name);
         void            unmap(VkCommandBuffer cmd) override;
         void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         void            barrier(VkCommandBuffer cmd);

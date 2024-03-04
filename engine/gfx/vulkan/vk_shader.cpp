@@ -42,7 +42,7 @@ namespace wmoge {
     WG_IO_FIELD(reflection)
     WG_IO_END(VKShaderBinary)
 
-    VKShader::VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const StringId& name, class VKDriver& driver)
+    VKShader::VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name, class VKDriver& driver)
         : VKResource<GfxShader>(driver) {
 
         m_name = name;
@@ -50,14 +50,14 @@ namespace wmoge {
         m_sources.push_back(std::move(fragment));
         m_set_layouts = layouts;
     }
-    VKShader::VKShader(std::string compute, const GfxDescSetLayouts& layouts, const StringId& name, VKDriver& driver)
+    VKShader::VKShader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name, VKDriver& driver)
         : VKResource<GfxShader>(driver) {
 
         m_name = name;
         m_sources.push_back(std::move(compute));
         m_set_layouts = layouts;
     }
-    VKShader::VKShader(Ref<Data> byte_code, const StringId& name, class VKDriver& driver)
+    VKShader::VKShader(Ref<Data> byte_code, const Strid& name, class VKDriver& driver)
         : VKResource<GfxShader>(driver) {
 
         m_name      = name;
@@ -338,7 +338,7 @@ namespace wmoge {
         }
 
         for (const auto& layout : binary.layouts) {
-            m_set_layouts.push_back(m_driver.make_desc_layout(layout, StringId()));
+            m_set_layouts.push_back(m_driver.make_desc_layout(layout, Strid()));
         }
 
         m_reflection = std::move(binary.reflection);

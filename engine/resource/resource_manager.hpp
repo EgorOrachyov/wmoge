@@ -130,7 +130,7 @@ namespace wmoge {
         void add_pak(std::shared_ptr<ResourcePak> pak);
 
         /** @brief Find resource loader by loader name */
-        std::optional<ResourceLoader*> find_loader(const StringId& loader);
+        std::optional<ResourceLoader*> find_loader(const Strid& loader);
 
         /** @brief Find resource meta by resource name */
         std::optional<ResourceMeta> find_meta(const ResourceId& resource);
@@ -175,10 +175,10 @@ namespace wmoge {
         };
 
     private:
-        fast_vector<std::shared_ptr<ResourcePak>>           m_paks;
-        fast_map<ResourceId, WeakRef<Resource>>             m_resources;
-        fast_map<ResourceId, LoadState>                     m_loading;
-        fast_map<StringId, std::shared_ptr<ResourceLoader>> m_loaders;
+        fast_vector<std::shared_ptr<ResourcePak>>        m_paks;
+        fast_map<ResourceId, WeakRef<Resource>>          m_resources;
+        fast_map<ResourceId, LoadState>                  m_loading;
+        fast_map<Strid, std::shared_ptr<ResourceLoader>> m_loaders;
 
         mutable std::recursive_mutex m_mutex;
     };

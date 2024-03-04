@@ -30,12 +30,12 @@
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
 #include "math/aabb.hpp"
+#include "math/color.hpp"
 #include "math/frustum.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils3d.hpp"
 #include "math/plane.hpp"
 #include "math/vec.hpp"
-#include "mesh/mesh_pass.hpp"
 #include "render/render_defs.hpp"
 
 #include <optional>
@@ -49,10 +49,15 @@ namespace wmoge {
      */
     class Camera final {
     public:
-        Camera() = default;
+        Camera();
 
-        void set_proj_params(float fov, float aspect, float near, float far);
+        void set_fov(float fov);
+        void set_aspect(float aspect);
+        void set_near_far(float near, float far);
         void set_viewport(const Rect2i& viewport);
+        void set_color(const Color4f& color);
+        void set_proj(CameraProjection proj);
+        void set_name(Strid name);
         void look(const Vec3f& dir, const Vec3f& up);
         void move(const Vec3f& delta);
         void move_to(const Vec3f& point);
@@ -91,8 +96,10 @@ namespace wmoge {
         float            m_near   = 0.1f;
         float            m_far    = 1000.0f;
         Vec3f            m_position;
-        Vec3f            m_direction  = Vec3f::axis_z();
-        Vec3f            m_up         = Vec3f::axis_y();
+        Vec3f            m_direction = Vec3f::axis_z();
+        Vec3f            m_up        = Vec3f::axis_y();
+        Strid            m_name;
+        Color4f          m_color      = Color::BLACK4f;
         CameraProjection m_projection = CameraProjection::Perspective;
     };
 

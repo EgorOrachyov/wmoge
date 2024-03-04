@@ -65,7 +65,7 @@ namespace wmoge {
     void VKDebug::add_debug_name(VkDevice device, void* object, VkObjectType object_type, const std::string& name) {
         add_debug_name(device, object, object_type, name.c_str());
     }
-    void VKDebug::add_debug_name(VkDevice device, void* object, VkObjectType object_type, const StringId& name) {
+    void VKDebug::add_debug_name(VkDevice device, void* object, VkObjectType object_type, const Strid& name) {
         add_debug_name(device, object, object_type, name.str().c_str());
     }
     void VKDebug::add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const char* name) {
@@ -74,7 +74,7 @@ namespace wmoge {
     void VKDebug::add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const std::string& name) {
         add_debug_name(device, object, object_type, name.c_str());
     }
-    void VKDebug::add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const StringId& name) {
+    void VKDebug::add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const Strid& name) {
         add_debug_name(device, object, object_type, name.str().c_str());
     }
     void VKDebug::begin_label(VkCommandBuffer buffer, const char* name, const Vec3f& color) {
@@ -93,7 +93,7 @@ namespace wmoge {
     void VKDebug::begin_label(VkCommandBuffer buffer, const std::string& name, const Vec3f& color) {
         begin_label(buffer, name.c_str(), color);
     }
-    void VKDebug::begin_label(VkCommandBuffer buffer, const StringId& name, const Vec3f& color) {
+    void VKDebug::begin_label(VkCommandBuffer buffer, const Strid& name, const Vec3f& color) {
         begin_label(buffer, name.str().c_str(), color);
     }
     void VKDebug::end_label(VkCommandBuffer buffer) {

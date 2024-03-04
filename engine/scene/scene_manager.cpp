@@ -37,6 +37,7 @@
 #include "platform/window_manager.hpp"
 #include "render/render_engine.hpp"
 #include "scene/scene_components.hpp"
+#include "scene/scene_systems.hpp"
 #include "system/engine.hpp"
 
 #include <cassert>
@@ -63,15 +64,15 @@ namespace wmoge {
         ecs_registry->register_component<EcsComponentCamera>();
         ecs_registry->register_component<EcsComponentLight>();
         ecs_registry->register_component<EcsComponentModel>();
-        ecs_registry->register_component<EcsComponentVisibilityItem>();
+        ecs_registry->register_component<EcsComponentCullingItem>();
 
-        ecs_registry->on_destroy_hook<EcsComponentVisibilityItem>([](EcsWorld& world, EcsComponentVisibilityItem& comp) {
-            if (!comp.item.is_valid()) return;
-            world.get_attribute<Scene>().get_visibility_system()->release_item(comp.item);
-        });
+        m_sys_update_hier       = std::make_shared<EcsSysUpdateHier>();
+        m_sys_release_cull_item = std::make_shared<EcsSysReleaseCullItem>();
     }
 
     void SceneManager::clear() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::clear");
+
         for (auto& scene : m_scenes) {
             scene->finalize();
         }
@@ -98,9 +99,6 @@ namespace wmoge {
 
         // Play scene
         scene_play();
-
-        // If changed after play, updated active scene
-        scene_change();
     }
     void SceneManager::change(Ref<Scene> scene) {
         assert(scene);
@@ -110,15 +108,20 @@ namespace wmoge {
     Ref<Scene> SceneManager::get_running_scene() {
         return m_running;
     }
-    Ref<Scene> SceneManager::make_scene(const StringId& name) {
+    Ref<Scene> SceneManager::make_scene(const Strid& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::make_scene");
 
-        auto scene = make_ref<Scene>(name);
+        auto  scene = make_ref<Scene>(name);
+        auto* world = scene->get_ecs_world();
+
+        world->register_system(m_sys_update_hier);
+        world->register_system(m_sys_release_cull_item);
+
         m_scenes.push_back(scene);
 
         return scene;
     }
-    std::optional<Ref<Scene>> SceneManager::find_by_name(const StringId& name) {
+    std::optional<Ref<Scene>> SceneManager::find_by_name(const Strid& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::find_by_name");
 
         for (Ref<Scene>& scene : m_scenes) {
@@ -130,34 +133,49 @@ namespace wmoge {
         return std::nullopt;
     }
 
-    void SceneManager::scene_hier() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_hier");
+    void SceneManager::update_scene_hier() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_hier");
+
+        Scene*    scene     = m_running.get();
+        EcsWorld* ecs_world = scene->get_ecs_world();
+
+        bool has_dirty_transforms = true;
+        int  current_batch        = 0;
+        int  frame_id             = scene->get_frame_id();
+
+        while (has_dirty_transforms) {
+            m_sys_update_hier->current_batch = current_batch;
+            m_sys_update_hier->frame_id      = frame_id;
+            m_sys_update_hier->num_updated.store(0);
+            m_sys_update_hier->num_dirty.store(0);
+
+            ecs_world->execute_system(m_sys_update_hier);
+
+            has_dirty_transforms = m_sys_update_hier->num_dirty.load() > 0;
+            current_batch += 1;
+        }
     }
 
-    void SceneManager::scene_transforms() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_transforms");
+    void SceneManager::update_scene_cameras() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_cameras");
     }
 
-    void SceneManager::scene_cameras() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_cameras");
-    }
-
-    void SceneManager::scene_visibility() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_visibility");
+    void SceneManager::update_scene_visibility() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_visibility");
 
         Engine*       engine        = Engine::instance();
         RenderEngine* render_engine = engine->render_engine();
 
         Scene*            scene          = m_running.get();
         EcsWorld*         ecs_world      = scene->get_ecs_world();
-        VisibilitySystem* vis_system     = scene->get_visibility_system();
+        CullingManager*   vis_system     = scene->get_culling_manager();
         const CameraList& render_cameras = render_engine->get_cameras();
 
         vis_system->cull(render_cameras);
     }
 
-    void SceneManager::scene_render() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_render");
+    void SceneManager::render_scene() {
+        WG_AUTO_PROFILE_SCENE("SceneManager::render_scene");
 
         return;
 
@@ -194,22 +212,6 @@ namespace wmoge {
         render_engine->end_rendering();
     }
 
-    void SceneManager::scene_pfx() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_pfx");
-    }
-
-    void SceneManager::scene_scripting() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_scripting");
-    }
-
-    void SceneManager::scene_physics() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_physics");
-    }
-
-    void SceneManager::scene_audio() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_audio");
-    }
-
     void SceneManager::scene_change() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_change");
 
@@ -243,15 +245,10 @@ namespace wmoge {
 
         m_running->advance(Engine::instance()->time()->get_delta_time_game());
 
-        scene_hier();
-        scene_transforms();
-        scene_cameras();
-        scene_visibility();
-        scene_render();
-        scene_pfx();
-        scene_scripting();
-        scene_physics();
-        scene_audio();
+        update_scene_hier();
+        update_scene_cameras();
+        update_scene_visibility();
+        render_scene();
 
         assert(m_running->get_state() == SceneState::Playing);
     }

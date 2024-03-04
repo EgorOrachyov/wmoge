@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "visibility.hpp"
+#include "culling.hpp"
 
 #include "core/string_utils.hpp"
 #include "core/task_parallel_for.hpp"
@@ -37,7 +37,7 @@
 
 namespace wmoge {
 
-    VisibilityItem VisibilitySystem::alloc_item() {
+    CullingItem CullingManager::alloc_item() {
         if (m_free.empty()) {
             const int curr_capacity = int(m_items.size());
             const int new_capacity  = curr_capacity + ALLOC_BATCH_SIZE;
@@ -52,52 +52,52 @@ namespace wmoge {
 
         assert(!m_free.empty());
 
-        VisibilityItem new_item = m_free.back();
+        CullingItem new_item = m_free.back();
         m_free.pop_back();
 
-        m_items[new_item.id]  = VisibilityItemData();
-        m_result[new_item.id] = VisibilityItemResult();
+        m_items[new_item.id]  = CullingItemData();
+        m_result[new_item.id] = CullingItemResult();
 
         m_items[new_item.id].id = new_item;
 
         return new_item;
     }
 
-    void VisibilitySystem::release_item(VisibilityItem item) {
+    void CullingManager::release_item(CullingItem item) {
         assert(item.is_valid());
 
-        m_items[item.id]  = VisibilityItemData();
-        m_result[item.id] = VisibilityItemResult();
+        m_items[item.id]  = CullingItemData();
+        m_result[item.id] = CullingItemResult();
 
         m_free.push_back(item);
     }
 
-    void VisibilitySystem::update_item_min_dist(const VisibilityItem& item, float min_dist) {
+    void CullingManager::update_item_min_dist(const CullingItem& item, float min_dist) {
         assert(item.is_valid());
 
         m_items[item.id].min_dist_2 = min_dist * min_dist;
     }
 
-    void VisibilitySystem::update_item_max_dist(const VisibilityItem& item, float max_dist) {
+    void CullingManager::update_item_max_dist(const CullingItem& item, float max_dist) {
         assert(item.is_valid());
 
         m_items[item.id].max_dist_2 = max_dist * max_dist;
     }
 
-    void VisibilitySystem::update_item_bbox(const VisibilityItem& item, const Aabbf& aabbf) {
+    void CullingManager::update_item_bbox(const CullingItem& item, const Aabbf& aabbf) {
         assert(item.is_valid());
 
         m_items[item.id].aabb = aabbf;
     }
 
-    VisibilityItemResult VisibilitySystem::get_item_result(const VisibilityItem& item) {
+    CullingItemResult CullingManager::get_item_result(const CullingItem& item) {
         assert(item.is_valid());
 
         return m_result[item.id];
     }
 
-    void VisibilitySystem::cull(const CameraList& cameras) {
-        WG_AUTO_PROFILE_RENDER("VisibilitySystem::cull");
+    void CullingManager::cull(const CameraList& cameras) {
+        WG_AUTO_PROFILE_RENDER("CullingManager::cull");
 
         const int total_items = int(m_items.size());
         const int n_cameras   = int(cameras.get_size());
@@ -107,8 +107,8 @@ namespace wmoge {
             const Vec3f    pos     = cameras.camera_at(cam_idx).get_position();
 
             TaskParallelFor task_cull_camera(SID("cull_cam_" + StringUtils::from_int(cam_idx)), [&](TaskContext&, int id, int) {
-                VisibilityItemData&   data   = m_items[id];
-                VisibilityItemResult& result = m_result[id];
+                CullingItemData&   data   = m_items[id];
+                CullingItemResult& result = m_result[id];
 
                 const float dist_to_camera2    = Vec3f::distance2(pos, data.aabb.center());
                 const bool  is_visible_frustum = frustum.is_inside_or_intersects(data.aabb);

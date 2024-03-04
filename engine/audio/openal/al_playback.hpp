@@ -41,7 +41,7 @@ namespace wmoge {
      */
     class ALAudioPlayback final : public AudioPlayback {
     public:
-        ALAudioPlayback(Ref<AudioStream> stream, StringId bus, const StringId& name, class ALAudioEngine& engine);
+        ALAudioPlayback(Ref<AudioStream> stream, Strid bus, const Strid& name, class ALAudioEngine& engine);
         ~ALAudioPlayback() override;
 
         void play() override;

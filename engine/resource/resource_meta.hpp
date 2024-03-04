@@ -32,13 +32,29 @@
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
-#include "io/yaml.hpp"
+#include "io/serialization.hpp"
 #include "resource/resource.hpp"
 
 #include <optional>
 #include <vector>
 
 namespace wmoge {
+
+    /**
+     * @class ResourceResFile
+     * @brief Structure for ResourceMeta info stored as `.res` file in file system
+     */
+    struct ResourceResFile {
+        int                        version;
+        UUID                       uuid;
+        Strid                      cls;
+        Strid                      loader;
+        fast_vector<Strid>         deps;
+        std::string                description;
+        std::optional<std::string> path_on_disk;
+
+        WG_IO_DECLARE(ResourceResFile)
+    };
 
     /**
      * @class ResourceMeta
@@ -50,26 +66,9 @@ namespace wmoge {
         class Class*               cls     = nullptr;
         class ResourcePak*         pak     = nullptr;
         class ResourceLoader*      loader  = nullptr;
-        fast_vector<StringId>      deps;
+        fast_vector<Strid>         deps;
         std::optional<std::string> path_on_disk;
         std::optional<YamlTree>    import_options;
-    };
-
-    /**
-     * @class ResourceResFile
-     * @brief Structure for ResourceMeta info stored as `.res` file in file system
-     */
-    struct ResourceResFile {
-        int                        version;
-        UUID                       uuid;
-        StringId                   cls;
-        StringId                   loader;
-        fast_vector<StringId>      deps;
-        std::string                description;
-        std::optional<std::string> path_on_disk;
-
-        friend Status yaml_read(const YamlConstNodeRef& node, ResourceResFile& file);
-        friend Status yaml_write(YamlNodeRef node, const ResourceResFile& file);
     };
 
 }// namespace wmoge

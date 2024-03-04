@@ -73,38 +73,38 @@ namespace wmoge {
         return g_storage;
     }
 
-    StringId::StringId() {
+    Strid::Strid() {
         static std::string g_empty;
         m_string = &g_empty;
     }
 
-    StringId::StringId(const std::string& string) : StringId() {
+    Strid::Strid(const std::string& string) : Strid() {
         if (string.empty())
             return;
         StringStorage::instance().get_or_create(string, m_string);
     }
 
-    bool StringId::operator==(const StringId& other) const {
+    bool Strid::operator==(const Strid& other) const {
         return m_string == other.m_string;
     }
 
-    bool StringId::operator!=(const StringId& other) const {
+    bool Strid::operator!=(const Strid& other) const {
         return m_string != other.m_string;
     }
 
-    bool StringId::operator<(const StringId& other) const {
+    bool Strid::operator<(const Strid& other) const {
         return *m_string < *other.m_string;
     }
 
-    std::size_t StringId::id() const {
+    std::size_t Strid::id() const {
         return reinterpret_cast<std::size_t>(m_string);
     }
 
-    std::size_t StringId::hash() const {
+    std::size_t Strid::hash() const {
         return std::hash<std::size_t>()(id());
     }
 
-    const std::string& StringId::str() const {
+    const std::string& Strid::str() const {
         return *m_string;
     }
 

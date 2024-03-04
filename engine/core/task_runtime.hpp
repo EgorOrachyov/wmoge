@@ -44,7 +44,7 @@ namespace wmoge {
      */
     class TaskRuntime final : public AsyncState<int> {
     public:
-        TaskRuntime(StringId name, TaskRunnable runnable, TaskManager* task_manager);
+        TaskRuntime(Strid name, TaskRunnable runnable, TaskManager* task_manager);
 
         void notify(AsyncStatus status, AsyncStateBase* invoker) override;
         void wait_completed() override;
@@ -54,7 +54,7 @@ namespace wmoge {
     private:
         TaskRunnable m_runnable;
         TaskManager* m_task_manager;
-        StringId     m_name;
+        Strid        m_name;
     };
 
     /**
@@ -63,7 +63,7 @@ namespace wmoge {
      */
     class TaskRuntimeParallelFor final : public AsyncState<int> {
     public:
-        TaskRuntimeParallelFor(StringId name, TaskRunnableFor runnable, TaskManager* task_manager, int num_elements, int batch_size);
+        TaskRuntimeParallelFor(Strid name, TaskRunnableFor runnable, TaskManager* task_manager, int num_elements, int batch_size);
 
         void notify(AsyncStatus status, AsyncStateBase* invoker) override;
         void wait_completed() override;
@@ -72,7 +72,7 @@ namespace wmoge {
     private:
         TaskRunnableFor m_runnable;
         TaskManager*    m_task_manager;
-        StringId        m_name;
+        Strid           m_name;
         int             m_num_elements;
         int             m_batch_size;
         int             m_num_tasks;

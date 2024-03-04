@@ -391,10 +391,7 @@ class CodeGeneratorPass:
 
     def emit_name(self):
         return (
-            f"StringId get_name() override "
-            "{"
-            f'return SID("{self.shader.name}");'
-            "}\n"
+            f"Strid get_name() override " "{" f'return SID("{self.shader.name}");' "}\n"
         )
 
     def emit_layouts(self):

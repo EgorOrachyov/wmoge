@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    TaskParallelFor::TaskParallelFor(StringId name, TaskRunnableFor runnable)
+    TaskParallelFor::TaskParallelFor(Strid name, TaskRunnableFor runnable)
         : m_runnable(std::move(runnable)),
           m_task_manager(Engine::instance()->task_manager()),
           m_name(name) {

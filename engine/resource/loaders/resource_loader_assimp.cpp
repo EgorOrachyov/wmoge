@@ -46,7 +46,7 @@
 namespace wmoge {
 
     struct AssimpImportContext {
-        const StringId*     name    = nullptr;
+        const Strid*        name    = nullptr;
         const ResourceMeta* meta    = nullptr;
         const aiScene*      scene   = nullptr;
         unsigned int        options = 0;
@@ -55,7 +55,7 @@ namespace wmoge {
         int                 next_mesh_id = 0;
     };
 
-    Status ResourceLoaderAssimp::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderAssimp::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::load");
 
         if (!meta.import_options.has_value()) {
@@ -121,7 +121,7 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    StringId ResourceLoaderAssimp::get_name() {
+    Strid ResourceLoaderAssimp::get_name() {
         return SID("assimp");
     }
     Status ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent) {

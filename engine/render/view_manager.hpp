@@ -27,6 +27,28 @@
 
 #pragma once
 
+#include "render/view.hpp"
+
 namespace wmoge {
 
-}
+    /**
+     * @class ViewManager
+     * @brief Managers views to render scene and present images to the final window
+    */
+    class ViewManager {
+    public:
+        ViewManager();
+
+        void update();
+
+        Ref<View> create_view(Strid name);
+        void      delete_view(const Ref<View>& view);
+        void      make_active(Ref<View> view);
+        bool      has_view(const Ref<View>& view);
+
+    private:
+        std::vector<Ref<View>> m_views;
+        Ref<View>              m_active;
+    };
+
+}// namespace wmoge

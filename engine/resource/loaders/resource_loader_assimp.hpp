@@ -48,8 +48,8 @@ namespace wmoge {
     class ResourceLoaderAssimp final : public ResourceLoader {
     public:
         ~ResourceLoaderAssimp() override = default;
-        Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
-        StringId get_name() override;
+        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Strid  get_name() override;
 
     private:
         Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent);

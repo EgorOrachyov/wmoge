@@ -52,8 +52,8 @@ namespace wmoge {
         EcsRegistry(EcsRegistry&&)      = delete;
         ~EcsRegistry()                  = default;
 
-        [[nodiscard]] int                     get_component_idx(const StringId& name);
-        [[nodiscard]] const EcsComponentInfo& get_component_info(const StringId& name);
+        [[nodiscard]] int                     get_component_idx(const Strid& name);
+        [[nodiscard]] const EcsComponentInfo& get_component_info(const Strid& name);
         [[nodiscard]] const EcsComponentInfo& get_component_info(int idx);
         [[nodiscard]] MemPool&                get_component_pool(int idx);
         [[nodiscard]] MemPool&                get_entity_pool();
@@ -63,16 +63,10 @@ namespace wmoge {
         template<typename Component>
         void register_component();
 
-        template<typename Component, typename Func>
-        void on_create_hook(Func&& on_destroy);
-
-        template<typename Component, typename Func>
-        void on_destroy_hook(Func&& on_destroy);
-
     private:
         std::array<EcsComponentInfo, EcsLimits::MAX_COMPONENTS>         m_components_info;       // type info of component, indexed by component id
         std::array<std::unique_ptr<MemPool>, EcsLimits::MAX_COMPONENTS> m_components_pool;       // pools to allocate components chunks
-        fast_map<StringId, int>                                         m_components_name_to_idx;// resolve component name to its idx
+        fast_map<Strid, int>                                            m_components_name_to_idx;// resolve component name to its idx
         std::unique_ptr<MemPool>                                        m_entity_pool;           // pool to allocate entities chunks
 
         int m_chunk_size      = 16;// num of components of a single type sequentially allocate in one chunk
@@ -86,7 +80,7 @@ namespace wmoge {
         assert(component_idx < EcsLimits::MAX_COMPONENTS);
 
         EcsComponentInfo& component_info = m_components_info[component_idx];
-        assert(component_info.name == StringId());
+        assert(component_info.name == Strid());
         assert(component_info.idx == -1);
         assert(component_info.size == -1);
 
@@ -96,11 +90,11 @@ namespace wmoge {
         component_info.idx  = Component::IDX;
         component_info.size = sizeof(Component);
 
-        component_info.create = [](class EcsWorld*, void* mem) -> void {
+        component_info.create = [](void* mem) -> void {
             new (mem) Component();
         };
 
-        component_info.destroy = [](class EcsWorld*, void* mem) -> void {
+        component_info.destroy = [](void* mem) -> void {
             static_cast<Component*>(mem)->~Component();
         };
 
@@ -112,26 +106,6 @@ namespace wmoge {
 
         m_components_name_to_idx[component_info.name] = component_info.idx;
         m_components_pool[component_info.idx]         = std::make_unique<MemPool>(component_info.size * m_chunk_size, m_expand_size);
-    }
-
-    template<typename Component, typename Func>
-    inline void EcsRegistry::on_create_hook(Func&& on_destroy) {
-        EcsComponentInfo& component_info = m_components_info[Component::IDX];
-
-        component_info.create = [](class EcsWorld* w, void* mem) -> void {
-            new (mem) Component();
-            f(*w, *(static_cast<Component*>(mem)));
-        };
-    }
-
-    template<typename Component, typename Func>
-    inline void EcsRegistry::on_destroy_hook(Func&& on_destroy) {
-        EcsComponentInfo& component_info = m_components_info[Component::IDX];
-
-        component_info.destroy = [f = std::forward<Func>(on_destroy)](class EcsWorld* w, void* mem) -> void {
-            f(*w, *(static_cast<Component*>(mem)));
-            static_cast<Component*>(mem)->~Component();
-        };
     }
 
 }// namespace wmoge

@@ -40,7 +40,7 @@ namespace wmoge {
      */
     class VKSampler : public VKResource<GfxSampler> {
     public:
-        VKSampler(const GfxSamplerDesc& desc, const StringId& name, class VKDriver& driver);
+        VKSampler(const GfxSamplerDesc& desc, const Strid& name, class VKDriver& driver);
         ~VKSampler() override;
 
         void                  create();

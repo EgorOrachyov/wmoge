@@ -40,12 +40,12 @@ namespace wmoge {
     class InputDevice : public RefCnt {
     public:
         ~InputDevice() override = default;
-        virtual const StringId&  name() const { return m_mame; }
+        virtual const Strid&     name() const { return m_mame; }
         virtual InputDeviceState state() const { return m_state; }
         virtual InputDeviceType  device_type() const { return InputDeviceType::Any; }
 
     protected:
-        StringId         m_mame;
+        Strid            m_mame;
         InputDeviceState m_state;
     };
 
@@ -84,8 +84,8 @@ namespace wmoge {
         const std::vector<InputAction>& buttons_states() const { return m_buttons; }
         const std::vector<float>&       gamepad_axes_states() const { return m_gamepad_axes; }
         const std::vector<InputAction>& gamepad_buttons_states() const { return m_gamepad_buttons; }
-        const StringId&                 gamepad_name() const { return m_gamepad_name; }
-        const StringId&                 guid() const { return m_guid; }
+        const Strid&                    gamepad_name() const { return m_gamepad_name; }
+        const Strid&                    guid() const { return m_guid; }
         int                             id() const { return m_id; }
         bool                            is_gamepad() const { return m_is_gamepad; }
         InputDeviceType                 device_type() const override { return InputDeviceType::Joystick; }
@@ -95,8 +95,8 @@ namespace wmoge {
         std::vector<float>       m_axes;
         std::vector<InputAction> m_gamepad_buttons;
         std::vector<float>       m_gamepad_axes;
-        StringId                 m_gamepad_name;
-        StringId                 m_guid;
+        Strid                    m_gamepad_name;
+        Strid                    m_guid;
         int                      m_id         = -1;
         bool                     m_is_gamepad = false;
     };

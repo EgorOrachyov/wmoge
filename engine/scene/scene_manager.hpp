@@ -30,6 +30,7 @@
 #include "scene/scene.hpp"
 
 #include <deque>
+#include <memory>
 #include <optional>
 #include <stack>
 #include <vector>
@@ -48,20 +49,16 @@ namespace wmoge {
         void                      update();
         void                      change(Ref<Scene> scene);
         Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const StringId& name);
-        std::optional<Ref<Scene>> find_by_name(const StringId& name);
+        Ref<Scene>                make_scene(const Strid& name);
+        std::optional<Ref<Scene>> find_by_name(const Strid& name);
 
     private:
-        void scene_hier();
-        void scene_transforms();
-        void scene_cameras();
-        void scene_visibility();
-        void scene_render();
-        void scene_pfx();
-        void scene_scripting();
-        void scene_physics();
-        void scene_audio();
+        void update_scene_hier();
+        void update_scene_cameras();
+        void update_scene_visibility();
+        void render_scene();
 
+    private:
         void scene_change();
         void scene_start();
         void scene_play();
@@ -76,6 +73,9 @@ namespace wmoge {
         Ref<Scene> m_running;// active scene
         Ref<Scene> m_next;   // next scene to set
         Ref<Scene> m_default;// default scene to always show something
+
+        std::shared_ptr<class EcsSysUpdateHier>      m_sys_update_hier;
+        std::shared_ptr<class EcsSysReleaseCullItem> m_sys_release_cull_item;
     };
 
 }// namespace wmoge

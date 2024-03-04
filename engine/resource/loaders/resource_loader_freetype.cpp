@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    Status ResourceLoaderFreeType::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderFreeType::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderFreeType::load");
 
         Ref<Font> font = meta.cls->instantiate().cast<Font>();
@@ -55,7 +55,7 @@ namespace wmoge {
 
         return font->load(options.source_file, options.height, options.glyphs_in_row);
     }
-    StringId ResourceLoaderFreeType::get_name() {
+    Strid ResourceLoaderFreeType::get_name() {
         return SID("freetype");
     }
 

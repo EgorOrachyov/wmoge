@@ -136,15 +136,19 @@ namespace wmoge {
         T& get_attribute(int slot = 0);
 
     private:
-        std::vector<EcsEntityInfo>                   m_entity_info;       // entity info, accessed by entity idx
-        std::deque<EcsEntity>                        m_entity_pool;       // pool with free entities handles
-        int                                          m_entity_counter = 0;// total count of created entities
-        fast_map<StringId, int>                      m_system_to_idx;     // map unique system name to idx
-        std::vector<EcsSystemInfo>                   m_systems;           // registered systems info
-        fast_map<EcsArch, int>                       m_arch_to_idx;       // arch to unique index
-        std::vector<std::unique_ptr<EcsArchStorage>> m_arch_storage;      // storage per arch, indexed by arch idx
-        std::vector<EcsArch>                         m_arch_by_idx;       // arch mask, indexed by arch idx
-        fast_vector<void*>                           m_attributes;        // custom attributes to access context within world
+        std::vector<EcsEntityInfo> m_entity_info;       // entity info, accessed by entity idx
+        std::deque<EcsEntity>      m_entity_pool;       // pool with free entities handles
+        int                        m_entity_counter = 0;// total count of created entities
+
+        fast_map<Strid, int>       m_system_to_idx;  // map unique system name to idx
+        std::vector<EcsSystemInfo> m_systems;        // registered systems info
+        std::vector<int>           m_systems_destroy;// on entity destroy
+
+        fast_map<EcsArch, int>                       m_arch_to_idx; // arch to unique index
+        std::vector<std::unique_ptr<EcsArchStorage>> m_arch_storage;// storage per arch, indexed by arch idx
+        std::vector<EcsArch>                         m_arch_by_idx; // arch mask, indexed by arch idx
+
+        fast_vector<void*> m_attributes;// custom attributes to access context within world
 
         CallbackQueue m_queue;       // queue for async world operations, flushed on sync
         TaskManager*  m_task_manager;// manager for parallel system update

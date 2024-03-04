@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    VKRenderPass::VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver) : VKResource<GfxRenderPass>(driver), m_pass_desc(pass_desc) {
+    VKRenderPass::VKRenderPass(const GfxRenderPassDesc& pass_desc, const Strid& name, class VKDriver& driver) : VKResource<GfxRenderPass>(driver), m_pass_desc(pass_desc) {
         m_name = name;
 
         int  attachments_count      = 0;
@@ -121,7 +121,7 @@ namespace wmoge {
         return static_cast<std::size_t>(Crc32::hash(this, sizeof(VKFrameBufferDesc)));
     }
 
-    VKFramebufferObject::VKFramebufferObject(const VKFrameBufferDesc& desc, const StringId& name, class VKDriver& driver)
+    VKFramebufferObject::VKFramebufferObject(const VKFrameBufferDesc& desc, const Strid& name, class VKDriver& driver)
         : VKResource<GfxResource>(driver) {
         m_desc = desc;
         m_name = name;
@@ -202,7 +202,7 @@ namespace wmoge {
         m_current_pass_desc.stencil_op         = GfxRtOp::ClearStore;
     }
 
-    void VKRenderPassBinder::start(const StringId& name) {
+    void VKRenderPassBinder::start(const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::start");
 
         m_current_name = name;
@@ -242,7 +242,7 @@ namespace wmoge {
         m_current_framebuffer.reset();
         m_current_size      = {0, 0};
         m_current_pass_desc = GfxRenderPassDesc{};
-        m_current_name      = StringId();
+        m_current_name      = Strid();
     }
 
     void VKRenderPassBinder::prepare_render_pass() {

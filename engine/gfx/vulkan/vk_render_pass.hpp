@@ -58,7 +58,7 @@ namespace wmoge {
     */
     class VKRenderPass : public VKResource<GfxRenderPass> {
     public:
-        VKRenderPass(const GfxRenderPassDesc& pass_desc, const StringId& name, class VKDriver& driver);
+        VKRenderPass(const GfxRenderPassDesc& pass_desc, const Strid& name, class VKDriver& driver);
         ~VKRenderPass() override;
 
         [[nodiscard]] const GfxRenderPassDesc& pass_desc() const override { return m_pass_desc; }
@@ -95,7 +95,7 @@ namespace wmoge {
     */
     class VKFramebufferObject : public VKResource<GfxResource> {
     public:
-        VKFramebufferObject(const VKFrameBufferDesc& desc, const StringId& name, class VKDriver& driver);
+        VKFramebufferObject(const VKFrameBufferDesc& desc, const Strid& name, class VKDriver& driver);
         ~VKFramebufferObject() override;
 
         Size2i        size() const { return m_size; }
@@ -123,7 +123,7 @@ namespace wmoge {
         void clear_depth();
         void clear_stencil();
 
-        void start(const StringId& name);
+        void start(const Strid& name);
         void validate(VkCommandBuffer cmd);
         void finish(VkCommandBuffer cmd);
 
@@ -146,7 +146,7 @@ namespace wmoge {
         Ref<VKRenderPass>        m_current_render_pass{};
         Ref<VKFramebufferObject> m_current_framebuffer{};
         Size2i                   m_current_size{};
-        StringId                 m_current_name{};
+        Strid                    m_current_name{};
 
         class VKDriver& m_driver;
     };

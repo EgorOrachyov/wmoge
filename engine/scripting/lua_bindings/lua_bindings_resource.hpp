@@ -48,7 +48,7 @@ namespace wmoge {
         LuaResource duplicate() const {
             return LuaResource{cast_unsafe<Resource>()->duplicate()};
         }
-        const StringId& get_name() const {
+        const Strid& get_name() const {
             return cast_unsafe<Resource>()->get_name();
         }
     };
@@ -78,16 +78,16 @@ namespace wmoge {
     };
 
     struct LuaConfigFile : public LuaResource {
-        bool get_bool(const StringId& key, bool default_value) {
+        bool get_bool(const Strid& key, bool default_value) {
             return cast_unsafe<ConfigFile>()->get_bool(key, default_value);
         }
-        int get_int(const StringId& key, int default_value) {
+        int get_int(const Strid& key, int default_value) {
             return cast_unsafe<ConfigFile>()->get_int(key, default_value);
         }
-        float get_float(const StringId& key, float default_value) {
+        float get_float(const Strid& key, float default_value) {
             return cast_unsafe<ConfigFile>()->get_float(key, default_value);
         }
-        std::string get_string(const StringId& key, std::string default_value) {
+        std::string get_string(const Strid& key, std::string default_value) {
             return cast_unsafe<ConfigFile>()->get_string(key, default_value);
         }
     };
@@ -144,22 +144,22 @@ namespace wmoge {
     };
 
     struct LuaMaterial : public LuaResource {
-        void set_int(const StringId& name, int value) {
+        void set_int(const Strid& name, int value) {
             cast_unsafe<Material>()->set_int(name, value);
         }
-        void set_float(const StringId& name, float value) {
+        void set_float(const Strid& name, float value) {
             cast_unsafe<Material>()->set_float(name, value);
         }
-        void set_vec2(const StringId& name, const Vec2f& value) {
+        void set_vec2(const Strid& name, const Vec2f& value) {
             cast_unsafe<Material>()->set_vec2(name, value);
         }
-        void set_vec3(const StringId& name, const Vec3f& value) {
+        void set_vec3(const Strid& name, const Vec3f& value) {
             cast_unsafe<Material>()->set_vec3(name, value);
         }
-        void set_vec4(const StringId& name, const Vec4f& value) {
+        void set_vec4(const Strid& name, const Vec4f& value) {
             cast_unsafe<Material>()->set_vec4(name, value);
         }
-        void set_texture(const StringId& name, const Ref<Texture>& texture) {
+        void set_texture(const Strid& name, const Ref<Texture>& texture) {
             cast_unsafe<Material>()->set_texture(name, texture);
         }
     };

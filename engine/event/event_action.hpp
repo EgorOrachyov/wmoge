@@ -39,8 +39,8 @@ namespace wmoge {
     public:
         WG_EVENT(EventAction, Event)
 
-        StringId name;
-        float    strength = 0.0f;
+        Strid name;
+        float strength = 0.0f;
     };
 
 }// namespace wmoge

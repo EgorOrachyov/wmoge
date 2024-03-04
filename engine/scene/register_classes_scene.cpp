@@ -28,6 +28,7 @@
 #include "register_classes_scene.hpp"
 
 #include "scene/scene_node.hpp"
+#include "scene/scene_node_props.hpp"
 #include "scene/scene_tree.hpp"
 
 namespace wmoge {
@@ -36,6 +37,8 @@ namespace wmoge {
         SceneNodeProp::register_class();
         SceneNode::register_class();
         SceneTree::register_class();
+        NodePropSpatial::register_class();
+        NodePropCamera::register_class();
     }
 
 }// namespace wmoge

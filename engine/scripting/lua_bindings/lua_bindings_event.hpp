@@ -44,7 +44,7 @@
 namespace wmoge {
 
     struct LuaEvent : public LuaObject {
-        const StringId& type() const {
+        const Strid& type() const {
             return cast_unsafe<Event>()->type();
         }
     };
@@ -96,7 +96,7 @@ namespace wmoge {
     };
 
     struct LuaEventAction : public LuaEvent {
-        const StringId& name() const {
+        const Strid& name() const {
             return cast_unsafe<EventAction>()->name;
         }
         float strength() const {
@@ -105,7 +105,7 @@ namespace wmoge {
     };
 
     struct LuaEventToken : public LuaEvent {
-        const StringId& token() const {
+        const Strid& token() const {
             return cast_unsafe<EventToken>()->token;
         }
         TokenNotification notification() const {

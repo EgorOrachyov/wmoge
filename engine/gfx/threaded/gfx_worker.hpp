@@ -51,7 +51,7 @@ namespace wmoge {
         CallbackStream*  m_stream = nullptr;
         std::thread      m_worker_thread;
         std::atomic_bool m_finished{false};
-        StringId         m_name = SID("gfx-thread");
+        Strid            m_name = SID("gfx-thread");
     };
 
 }// namespace wmoge

@@ -47,10 +47,10 @@ namespace wmoge {
     public:
         ~GfxResource() override = default;
 
-        [[nodiscard]] const StringId& name() const { return m_name; }
+        [[nodiscard]] const Strid& name() const { return m_name; }
 
     protected:
-        StringId m_name;
+        Strid m_name;
     };
 
 }// namespace wmoge

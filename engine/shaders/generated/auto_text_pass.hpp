@@ -48,8 +48,8 @@ namespace wmoge {
     public:
         ShaderPassText()           = default;
         ~ShaderPassText() override = default;
-        StringId get_name() override { return SID("text"); }
-        void     fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader) override {
+        Strid get_name() override { return SID("text"); }
+        void  fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader) override {
             // fill set num = 0
             {
                 auto& layout                = layouts_desc.emplace_back();

@@ -42,7 +42,7 @@ namespace wmoge {
      */
     class VKPipeline final : public VKResource<GfxPipeline> {
     public:
-        VKPipeline(const GfxPipelineState& state, const StringId& name, class VKDriver& driver);
+        VKPipeline(const GfxPipelineState& state, const Strid& name, class VKDriver& driver);
         ~VKPipeline() override;
 
         bool validate(const Ref<VKRenderPass>& render_pass);
@@ -72,7 +72,7 @@ namespace wmoge {
     */
     class VKCompPipeline final : public VKResource<GfxCompPipeline> {
     public:
-        VKCompPipeline(const GfxCompPipelineState& state, const StringId& name, class VKDriver& driver);
+        VKCompPipeline(const GfxCompPipelineState& state, const Strid& name, class VKDriver& driver);
         ~VKCompPipeline() override;
 
         bool validate();

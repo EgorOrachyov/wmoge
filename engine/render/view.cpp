@@ -27,6 +27,13 @@
 
 #include "view.hpp"
 
+#include "platform/window_manager.hpp"
+#include "system/engine.hpp"
+
 namespace wmoge {
 
-}
+    View::View(Strid name) {
+        m_name = std::move(name);
+    }
+
+}// namespace wmoge

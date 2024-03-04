@@ -44,14 +44,14 @@ namespace wmoge {
      */
     class TaskContext {
     public:
-        [[nodiscard]] const StringId& thread_name() const { return m_thread_name; }
-        [[nodiscard]] int             thread_id() const { return m_thread_id; }
+        [[nodiscard]] const Strid& thread_name() const { return m_thread_name; }
+        [[nodiscard]] int          thread_id() const { return m_thread_id; }
 
     private:
         friend class TaskManager;
 
-        StringId m_thread_name;
-        int      m_thread_id = -1;
+        Strid m_thread_name;
+        int   m_thread_id = -1;
     };
 
     /**

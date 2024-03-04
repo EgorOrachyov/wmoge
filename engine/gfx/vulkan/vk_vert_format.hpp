@@ -39,7 +39,7 @@ namespace wmoge {
      */
     class VKVertFormat final : public GfxVertFormat {
     public:
-        VKVertFormat(const GfxVertElements& elements, const StringId& name);
+        VKVertFormat(const GfxVertElements& elements, const Strid& name);
         ~VKVertFormat() override = default;
 
         const GfxVertElements& elements() const override;

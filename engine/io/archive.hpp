@@ -60,14 +60,14 @@ namespace wmoge {
         [[nodiscard]] virtual bool        is_physical() = 0;
         [[nodiscard]] virtual std::size_t get_size()    = 0;
 
-        [[nodiscard]] bool            can_read() const { return m_can_read; }
-        [[nodiscard]] bool            can_write() const { return m_can_write; }
-        [[nodiscard]] const StringId& get_name() const { return m_name; }
+        [[nodiscard]] bool         can_read() const { return m_can_read; }
+        [[nodiscard]] bool         can_write() const { return m_can_write; }
+        [[nodiscard]] const Strid& get_name() const { return m_name; }
 
     protected:
-        StringId m_name;
-        bool     m_can_read  = false;
-        bool     m_can_write = false;
+        Strid m_name;
+        bool  m_can_read  = false;
+        bool  m_can_write = false;
     };
 
     template<typename T>
@@ -104,10 +104,10 @@ namespace wmoge {
     Status archive_read(Archive& archive, bool& value);
     Status archive_write(Archive& archive, const bool& value);
 
-    Status archive_write(Archive& archive, const StringId& value);
+    Status archive_write(Archive& archive, const Strid& value);
     Status archive_write(Archive& archive, const std::string& value);
 
-    Status archive_read(Archive& archive, StringId& value);
+    Status archive_read(Archive& archive, Strid& value);
     Status archive_read(Archive& archive, std::string& value);
 
 #define WG_ARCHIVE_READ(archive, what)      \

@@ -149,7 +149,7 @@ namespace wmoge {
         }
     }
 
-    StringId ShaderManager::make_shader_key(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
+    Strid ShaderManager::make_shader_key(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
         std::stringstream shader_key_builder;
         shader_key_builder << "type=" << shader_name.str();
 
@@ -183,17 +183,17 @@ namespace wmoge {
 
         return SID(shader_key_builder.str());
     }
-    Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name) {
+    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name) {
         return get_shader(shader_name, {});
     }
-    Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const fast_vector<std::string>& defines) {
+    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name, const fast_vector<std::string>& defines) {
         return get_shader(shader_name, {}, defines, nullptr);
     }
-    Ref<GfxShader> ShaderManager::get_shader(const wmoge::StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines) {
+    Ref<GfxShader> ShaderManager::get_shader(const wmoge::Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines) {
         return get_shader(shader_name, attribs, defines, nullptr);
     }
-    Ref<GfxShader> ShaderManager::get_shader(const StringId& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
-        const StringId shader_key = make_shader_key(shader_name, attribs, defines, shader);
+    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
+        const Strid    shader_key = make_shader_key(shader_name, attribs, defines, shader);
         Ref<GfxShader> gfx_shader = find(shader_key);
 
         if (gfx_shader) {
@@ -222,7 +222,7 @@ namespace wmoge {
         return gfx_shader;
     }
 
-    Ref<GfxShader> ShaderManager::find(const StringId& shader_key) {
+    Ref<GfxShader> ShaderManager::find(const Strid& shader_key) {
         std::lock_guard lock(m_mutex);
 
         auto query = m_cache.find(shader_key);
@@ -244,7 +244,7 @@ namespace wmoge {
 
         return nullptr;
     }
-    void ShaderManager::cache(const StringId& shader_key, const Ref<GfxShader>& shader, bool allow_overwrite) {
+    void ShaderManager::cache(const Strid& shader_key, const Ref<GfxShader>& shader, bool allow_overwrite) {
         WG_AUTO_PROFILE_RENDER("ShaderManager::cache");
 
         std::lock_guard lock(m_mutex);
@@ -269,7 +269,7 @@ namespace wmoge {
             int       current_entry = 1;
 
             for (const auto& entry : m_cache) {
-                const StringId&   key  = entry.first;
+                const Strid&      key  = entry.first;
                 const ShaderData& data = entry.second;
 
                 Ref<Data> bytecode = data.bytecode ? data.bytecode : data.shader->byte_code();

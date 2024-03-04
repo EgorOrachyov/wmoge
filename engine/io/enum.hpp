@@ -49,7 +49,7 @@ namespace wmoge {
         }
 
         template<class T>
-        static StringId to_sid(T value) {
+        static Strid to_sid(T value) {
             return SID(to_str<T>(value));
         }
 

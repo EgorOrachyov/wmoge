@@ -110,7 +110,7 @@ namespace wmoge {
         m_stream->push([=]() { m_ctx->barrier_buffer(buffer); });
     }
 
-    void GfxCtxWrapper::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+    void GfxCtxWrapper::begin_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
         m_stream->push([=]() { m_ctx->begin_render_pass(pass_desc, name); });
     }
     void GfxCtxWrapper::bind_target(const Ref<Window>& window) {
@@ -184,7 +184,7 @@ namespace wmoge {
         m_stream->push([=]() { m_ctx->end_frame(); });
     }
 
-    void GfxCtxWrapper::begin_label(const StringId& label) {
+    void GfxCtxWrapper::begin_label(const Strid& label) {
         m_stream->push([=]() { m_ctx->begin_label(label); });
     }
     void GfxCtxWrapper::end_label() {

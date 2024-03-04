@@ -36,7 +36,7 @@
 
 namespace wmoge {
 
-    Status ResourceLoaderTexture2d::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderTexture2d::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderTexture2d::load");
 
         if (!meta.import_options.has_value()) {
@@ -90,11 +90,11 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    StringId ResourceLoaderTexture2d::get_name() {
+    Strid ResourceLoaderTexture2d::get_name() {
         return SID("texture_2d");
     }
 
-    Status ResourceLoaderTextureCube::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderTextureCube::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderTextureCube::load");
 
         if (!meta.import_options.has_value()) {
@@ -161,7 +161,7 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    StringId ResourceLoaderTextureCube::get_name() {
+    Strid ResourceLoaderTextureCube::get_name() {
         return SID("texture_cube");
     }
 

@@ -52,13 +52,13 @@ namespace wmoge {
 
         bool load(const std::string& filepath);
         bool add(const Ref<ActionMap>& action_map);
-        bool remove(const StringId& action_map);
+        bool remove(const Strid& action_map);
 
-        bool has(const StringId& action_map);
+        bool has(const Strid& action_map);
 
-        void activate(const StringId& action_map, bool active = true);
+        void activate(const Strid& action_map, bool active = true);
         void activate_all(bool active = true);
-        void activate_all_except(const StringId& action_map, bool active = true);
+        void activate_all_except(const Strid& action_map, bool active = true);
 
         void update();
 
@@ -73,7 +73,7 @@ namespace wmoge {
         bool           on_input_keyboard(const EventKeyboard& event);
         bool           on_input_joystick(const EventJoystick& event);
         bool           on_input_gamepad(const EventGamepad& event);
-        ActionMapInfo* get_action_map_info(const StringId& name);
+        ActionMapInfo* get_action_map_info(const Strid& name);
 
     private:
         fast_vector<ActionMapInfo>    m_maps;

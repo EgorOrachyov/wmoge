@@ -33,19 +33,19 @@
 
 namespace wmoge {
 
-    StringId LuaTypeTraits::to_sid(luabridge::LuaRef& ref) {
-        assert(ref.isString() || ref.isInstance<StringId>());
+    Strid LuaTypeTraits::to_sid(luabridge::LuaRef& ref) {
+        assert(ref.isString() || ref.isInstance<Strid>());
 
         if (ref.isString()) {
             return SID(ref.cast<std::string>());
         }
-        if (ref.isInstance<StringId>()) {
-            return ref.cast<StringId>();
+        if (ref.isInstance<Strid>()) {
+            return ref.cast<Strid>();
         }
 
         WG_LOG_ERROR("failed to convert lua object to string id");
 
-        return StringId();
+        return Strid();
     }
 
     Var LuaTypeTraits::to_var(luabridge::LuaRef& ref) {
@@ -101,8 +101,8 @@ namespace wmoge {
         if (var.type() == VarType::String) {
             return luabridge::LuaRef(state, var.operator std::string());
         }
-        if (var.type() == VarType::StringId) {
-            return luabridge::LuaRef(state, var.operator StringId().str());
+        if (var.type() == VarType::Strid) {
+            return luabridge::LuaRef(state, var.operator Strid().str());
         }
 
         WG_LOG_ERROR("unsupported var to lua type");

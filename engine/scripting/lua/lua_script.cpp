@@ -132,17 +132,17 @@ namespace wmoge {
 
         return make_ref<LuaScriptInstance>(std::move(user_object), Ref<LuaScript>(this), object, m_state);
     }
-    bool LuaScript::has_property(const StringId& property) {
+    bool LuaScript::has_property(const Strid& property) {
         return m_lua_properties.find(property) != m_lua_properties.end();
     }
-    bool LuaScript::has_method(const StringId& method) {
+    bool LuaScript::has_method(const Strid& method) {
         return m_lua_methods.find(method) != m_lua_methods.end();
     }
 
-    const fast_map<StringId, luabridge::LuaRef>& LuaScript::get_lua_properties() {
+    const fast_map<Strid, luabridge::LuaRef>& LuaScript::get_lua_properties() {
         return m_lua_properties;
     }
-    const fast_map<StringId, luabridge::LuaRef>& LuaScript::get_lua_methods() {
+    const fast_map<Strid, luabridge::LuaRef>& LuaScript::get_lua_methods() {
         return m_lua_methods;
     }
     const std::optional<luabridge::LuaRef>& LuaScript::get_lua_class() {

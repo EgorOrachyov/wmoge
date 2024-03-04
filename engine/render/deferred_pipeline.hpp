@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_DEFERRED_PIPELINE_HPP
-#define WMOGE_DEFERRED_PIPELINE_HPP
+#pragma once
 
 #include "gfx/gfx_texture.hpp"
 #include "render/graphics_pipeline.hpp"
@@ -50,5 +49,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_DEFERRED_PIPELINE_HPP

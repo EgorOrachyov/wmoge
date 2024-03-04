@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    Status ResourceLoaderDefault::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderDefault::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderDefault::load");
 
         res = meta.cls->instantiate().cast<Resource>();
@@ -62,7 +62,7 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    StringId ResourceLoaderDefault::get_name() {
+    Strid ResourceLoaderDefault::get_name() {
         return SID("default");
     }
 

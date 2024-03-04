@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    Status ResourceLoaderImage::load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) {
+    Status ResourceLoaderImage::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
         WG_AUTO_PROFILE_RESOURCE("ResourceLoaderImage::load");
 
         Ref<Image> image = meta.cls->instantiate().cast<Image>();
@@ -55,7 +55,7 @@ namespace wmoge {
 
         return image->load(options.source_file, options.channels);
     }
-    StringId ResourceLoaderImage::get_name() {
+    Strid ResourceLoaderImage::get_name() {
         return SID("image");
     }
 

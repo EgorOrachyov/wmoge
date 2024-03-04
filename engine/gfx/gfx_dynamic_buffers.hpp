@@ -44,7 +44,7 @@ namespace wmoge {
      */
     class GfxUniformPool : public GfxResource {
     public:
-        GfxUniformPool(const StringId& name);
+        GfxUniformPool(const Strid& name);
         ~GfxUniformPool() override = default;
 
         virtual GfxUniformBufferSetup allocate(int constants_size, const void* mem);
@@ -95,7 +95,7 @@ namespace wmoge {
      */
     class GfxDynBuffer : public GfxResource {
     public:
-        GfxDynBuffer(int size, int alignment, const StringId& name);
+        GfxDynBuffer(int size, int alignment, const Strid& name);
         ~GfxDynBuffer() override = default;
 
         virtual GfxDynAllocation<GfxBuffer, void> allocate_base(int bytes_to_allocate);
@@ -115,9 +115,9 @@ namespace wmoge {
         }
 
     protected:
-        virtual Ref<GfxBuffer> make_buffer(int size, const StringId& name) = 0;
-        virtual void*          map_buffer(const Ref<GfxBuffer>& buffer)    = 0;
-        virtual void           unmap_buffer(const Ref<GfxBuffer>& buffer)  = 0;
+        virtual Ref<GfxBuffer> make_buffer(int size, const Strid& name)   = 0;
+        virtual void*          map_buffer(const Ref<GfxBuffer>& buffer)   = 0;
+        virtual void           unmap_buffer(const Ref<GfxBuffer>& buffer) = 0;
 
     protected:
         struct Chunk {
@@ -140,7 +140,7 @@ namespace wmoge {
      */
     class GfxDynVertBuffer : public GfxDynBuffer {
     public:
-        GfxDynVertBuffer(int size, int alignment, const StringId& name);
+        GfxDynVertBuffer(int size, int alignment, const Strid& name);
         ~GfxDynVertBuffer() override = default;
 
         GfxDynAllocation<GfxVertBuffer, void> allocate(int bytes_to_allocate) {
@@ -159,7 +159,7 @@ namespace wmoge {
         }
 
     protected:
-        Ref<GfxBuffer> make_buffer(int size, const StringId& name) override;
+        Ref<GfxBuffer> make_buffer(int size, const Strid& name) override;
         void*          map_buffer(const Ref<GfxBuffer>& buffer) override;
         void           unmap_buffer(const Ref<GfxBuffer>& buffer) override;
     };
@@ -170,7 +170,7 @@ namespace wmoge {
      */
     class GfxDynIndexBuffer : public GfxDynBuffer {
     public:
-        GfxDynIndexBuffer(int size, int alignment, const StringId& name);
+        GfxDynIndexBuffer(int size, int alignment, const Strid& name);
         ~GfxDynIndexBuffer() override = default;
 
         template<typename BufferStructure>
@@ -184,7 +184,7 @@ namespace wmoge {
         }
 
     protected:
-        Ref<GfxBuffer> make_buffer(int size, const StringId& name) override;
+        Ref<GfxBuffer> make_buffer(int size, const Strid& name) override;
         void*          map_buffer(const Ref<GfxBuffer>& buffer) override;
         void           unmap_buffer(const Ref<GfxBuffer>& buffer) override;
     };
@@ -195,7 +195,7 @@ namespace wmoge {
      */
     class GfxDynUniformBuffer : public GfxDynBuffer {
     public:
-        GfxDynUniformBuffer(int size, int alignment, const StringId& name);
+        GfxDynUniformBuffer(int size, int alignment, const Strid& name);
         ~GfxDynUniformBuffer() override = default;
 
         template<typename BufferStructure>
@@ -209,7 +209,7 @@ namespace wmoge {
         }
 
     protected:
-        Ref<GfxBuffer> make_buffer(int size, const StringId& name) override;
+        Ref<GfxBuffer> make_buffer(int size, const Strid& name) override;
         void*          map_buffer(const Ref<GfxBuffer>& buffer) override;
         void           unmap_buffer(const Ref<GfxBuffer>& buffer) override;
     };

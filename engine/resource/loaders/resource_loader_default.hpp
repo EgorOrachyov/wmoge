@@ -42,8 +42,8 @@ namespace wmoge {
     class ResourceLoaderDefault final : public ResourceLoader {
     public:
         ~ResourceLoaderDefault() override = default;
-        Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) override;
-        StringId get_name() override;
+        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Strid  get_name() override;
     };
 
 }// namespace wmoge

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CANVAS_HPP
-#define WMOGE_CANVAS_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/fast_map.hpp"
@@ -194,5 +193,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_CANVAS_HPP

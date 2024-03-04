@@ -54,7 +54,7 @@ namespace wmoge {
      * @brief Batch of mesh elements with the same vertex/index buffer and material instances
      */
     struct MeshBatch final {
-        StringId            name;                                //< Unique element name for debug
+        Strid               name;                                //< Unique element name for debug
         GfxDrawCall         draw_call;                           //< Params to dispatch a draw
         GfxIndexBufferSetup index_buffer;                        //< Optional index buffer with batch indices
         RenderCameraMask    cam_mask;                            //< Mask in which cameras mesh batch wants to be rendered

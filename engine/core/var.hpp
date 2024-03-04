@@ -53,7 +53,7 @@ namespace wmoge {
         Int         = 1,
         Float       = 2,
         String      = 3,
-        StringId    = 4,
+        Strid       = 4,
         Array       = 5,
         Map         = 6,
         Object      = 7,
@@ -96,7 +96,7 @@ namespace wmoge {
         Var(int value);
         Var(double value);
         Var(String value);
-        Var(StringId value);
+        Var(Strid value);
         Var(Array value);
         Var(Map value);
         Var(const Ref<Object>& value);
@@ -131,7 +131,7 @@ namespace wmoge {
         operator double() const;
         operator std::size_t() const;
         operator String() const;
-        operator StringId() const;
+        operator Strid() const;
         operator Array() const;
         operator Map() const;
         operator Ref<Object>() const;
@@ -161,7 +161,7 @@ namespace wmoge {
         static constexpr std::size_t MEM_SIZE =
                 Math::const_max<size_t,
                                 sizeof(void*),
-                                sizeof(StringId),
+                                sizeof(Strid),
                                 sizeof(String)>();
 
         VarType m_type = VarType::Nil;

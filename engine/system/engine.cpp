@@ -62,6 +62,7 @@
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
 #include "render/texture_manager.hpp"
+#include "render/view_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
 #include "scene/scene_manager.hpp"
@@ -126,6 +127,7 @@ namespace wmoge {
         m_scene_manager    = ioc->resolve<SceneManager>().value();
         m_action_manager   = ioc->resolve<ActionManager>().value();
         m_canvas_debug     = ioc->resolve<Canvas>().value();
+        m_view_manager     = ioc->resolve<ViewManager>().value();
 
         m_console->init();
         m_layer_stack->attach(std::make_shared<DebugLayer>());
@@ -160,6 +162,10 @@ namespace wmoge {
 
         for (auto& w : windows) {
             m_gfx_driver->prepare_window(w);
+        }
+
+        if (m_scene_manager) {
+            m_scene_manager->update();
         }
 
         m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {
@@ -232,6 +238,7 @@ namespace wmoge {
     ScriptSystem*     Engine::script_system() { return m_script_system; }
     AudioEngine*      Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*     Engine::render_engine() { return m_render_engine; }
+    ViewManager*      Engine::view_manager() { return m_view_manager; }
     EcsRegistry*      Engine::ecs_registry() { return m_ecs_registry; }
 
     Engine* Engine::instance() {

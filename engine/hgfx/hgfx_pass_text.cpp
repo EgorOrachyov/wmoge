@@ -103,7 +103,7 @@ namespace wmoge {
         return false;
     }
 
-    StringId HgfxPassText::get_pass_name() {
+    Strid HgfxPassText::get_pass_name() {
         return name;
     }
     HgfxPassType HgfxPassText::get_pass_type() {

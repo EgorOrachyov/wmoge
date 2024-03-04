@@ -71,7 +71,7 @@ namespace wmoge {
          */
         virtual bool configure(GfxCtx* ctx);
 
-        virtual StringId     get_pass_name();
+        virtual Strid        get_pass_name();
         virtual HgfxPassType get_pass_type();
     };
 

@@ -46,7 +46,7 @@ namespace wmoge {
      * @brief Single activation info which can be used to trigger an action
      */
     struct ActionActivation {
-        StringId           device_name     = SID("unknown");
+        Strid              device_name     = SID("unknown");
         InputDeviceType    device_type     = InputDeviceType::Any;
         InputAction        action          = InputAction::Unknown;
         InputKeyboardKey   key             = InputKeyboardKey::Unknown;
@@ -68,8 +68,8 @@ namespace wmoge {
      * @brief Single action which can be stored inside an action map and triggered by an activation info
      */
     struct ActionMapAction {
-        StringId                      name         = SID("<unknown>");
-        StringId                      display_name = SID("<empty action>");
+        Strid                         name         = SID("<unknown>");
+        Strid                         display_name = SID("<empty action>");
         fast_vector<ActionActivation> activations;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ActionMapAction& action);
@@ -84,15 +84,15 @@ namespace wmoge {
     public:
         ~ActionMap() override = default;
 
-        void rename(StringId new_name);
-        void add_action(const StringId& action_name, const StringId& display_name);
-        void add_action_activation(const StringId& action_name, const ActionActivation& activation);
-        void remove_action(const StringId& action_name);
+        void rename(Strid new_name);
+        void add_action(const Strid& action_name, const Strid& display_name);
+        void add_action_activation(const Strid& action_name, const ActionActivation& activation);
+        void remove_action(const Strid& action_name);
 
-        [[nodiscard]] const StringId&              get_name();
+        [[nodiscard]] const Strid&                 get_name();
         [[nodiscard]] int                          get_priority();
-        [[nodiscard]] bool                         has_action(const StringId& action_name);
-        [[nodiscard]] const ActionMapAction*       get_action(const StringId& action_name);
+        [[nodiscard]] bool                         has_action(const Strid& action_name);
+        [[nodiscard]] const ActionMapAction*       get_action(const Strid& action_name);
         [[nodiscard]] std::vector<ActionMapAction> get_actions() const;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ActionMap& action_map);
@@ -101,9 +101,9 @@ namespace wmoge {
     private:
         friend class ActionManager;
 
-        fast_map<StringId, ActionMapAction> m_actions;
-        StringId                            m_name;
-        int                                 m_priority = 0;
+        fast_map<Strid, ActionMapAction> m_actions;
+        Strid                            m_name;
+        int                              m_priority = 0;
     };
 
 }// namespace wmoge

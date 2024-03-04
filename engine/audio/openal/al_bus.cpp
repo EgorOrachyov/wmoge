@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    ALAudioBus::ALAudioBus(StringId name, class ALAudioEngine& engine) : m_engine(engine) {
+    ALAudioBus::ALAudioBus(Strid name, class ALAudioEngine& engine) : m_engine(engine) {
         assert(!name.empty());
         m_name = std::move(name);
     }

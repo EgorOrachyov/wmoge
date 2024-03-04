@@ -35,7 +35,7 @@
 
 namespace wmoge {
 
-    VKPipeline::VKPipeline(const GfxPipelineState& state, const StringId& name, VKDriver& driver) : VKResource<GfxPipeline>(driver) {
+    VKPipeline::VKPipeline(const GfxPipelineState& state, const Strid& name, VKDriver& driver) : VKResource<GfxPipeline>(driver) {
         m_name  = name;
         m_state = state;
     }
@@ -245,7 +245,7 @@ namespace wmoge {
         return m_state;
     }
 
-    VKCompPipeline::VKCompPipeline(const GfxCompPipelineState& state, const StringId& name, VKDriver& driver) : VKResource<GfxCompPipeline>(driver) {
+    VKCompPipeline::VKCompPipeline(const GfxCompPipelineState& state, const Strid& name, VKDriver& driver) : VKResource<GfxCompPipeline>(driver) {
         m_state = state;
         m_name  = name;
     }

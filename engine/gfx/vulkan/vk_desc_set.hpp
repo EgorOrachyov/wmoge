@@ -41,7 +41,7 @@ namespace wmoge {
      */
     class VKDescSetLayout final : public VKResource<GfxDescSetLayout> {
     public:
-        VKDescSetLayout(const GfxDescSetLayoutDesc& desc, const StringId& name, class VKDriver& driver);
+        VKDescSetLayout(const GfxDescSetLayoutDesc& desc, const Strid& name, class VKDriver& driver);
         ~VKDescSetLayout() override;
 
         [[nodiscard]] VkDescriptorSetLayout layout() const { return m_layout; }
@@ -57,7 +57,7 @@ namespace wmoge {
      */
     class VKDescSet final : public VKResource<GfxDescSet> {
     public:
-        VKDescSet(const GfxDescSetResources& resources, const Ref<VKDescSetLayout>& layout, const StringId& name, class VKDriver& driver);
+        VKDescSet(const GfxDescSetResources& resources, const Ref<VKDescSetLayout>& layout, const Strid& name, class VKDriver& driver);
         ~VKDescSet() override;
 
         void copy(const GfxDescSetResources& resources);

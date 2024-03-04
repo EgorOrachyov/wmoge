@@ -41,7 +41,7 @@
 
 namespace wmoge {
 
-    GfxUniformPool::GfxUniformPool(const StringId& name) {
+    GfxUniformPool::GfxUniformPool(const Strid& name) {
         m_name = name;
     }
     GfxUniformBufferSetup GfxUniformPool::allocate(int constants_size, const void* mem) {
@@ -106,7 +106,7 @@ namespace wmoge {
         }
     }
 
-    GfxDynBuffer::GfxDynBuffer(int size, int alignment, const StringId& name) {
+    GfxDynBuffer::GfxDynBuffer(int size, int alignment, const Strid& name) {
         m_default_chunk_size = size;
         m_alignment          = alignment;
         m_name               = name;
@@ -184,9 +184,9 @@ namespace wmoge {
         }
     }
 
-    GfxDynVertBuffer::GfxDynVertBuffer(int size, int alignment, const StringId& name) : GfxDynBuffer(size, alignment, name) {
+    GfxDynVertBuffer::GfxDynVertBuffer(int size, int alignment, const Strid& name) : GfxDynBuffer(size, alignment, name) {
     }
-    Ref<GfxBuffer> GfxDynVertBuffer::make_buffer(int size, const StringId& name) {
+    Ref<GfxBuffer> GfxDynVertBuffer::make_buffer(int size, const Strid& name) {
         return Engine::instance()->gfx_driver()->make_vert_buffer(size, GfxMemUsage::GpuLocal, name);
     }
     void* GfxDynVertBuffer::map_buffer(const Ref<GfxBuffer>& buffer) {
@@ -196,9 +196,9 @@ namespace wmoge {
         Engine::instance()->gfx_ctx()->unmap_vert_buffer(buffer.cast<GfxVertBuffer>());
     }
 
-    GfxDynIndexBuffer::GfxDynIndexBuffer(int size, int alignment, const StringId& name) : GfxDynBuffer(size, alignment, name) {
+    GfxDynIndexBuffer::GfxDynIndexBuffer(int size, int alignment, const Strid& name) : GfxDynBuffer(size, alignment, name) {
     }
-    Ref<GfxBuffer> GfxDynIndexBuffer::make_buffer(int size, const StringId& name) {
+    Ref<GfxBuffer> GfxDynIndexBuffer::make_buffer(int size, const Strid& name) {
         return Engine::instance()->gfx_driver()->make_index_buffer(size, GfxMemUsage::GpuLocal, name);
     }
     void* GfxDynIndexBuffer::map_buffer(const Ref<GfxBuffer>& buffer) {
@@ -208,9 +208,9 @@ namespace wmoge {
         Engine::instance()->gfx_ctx()->unmap_index_buffer(buffer.cast<GfxIndexBuffer>());
     }
 
-    GfxDynUniformBuffer::GfxDynUniformBuffer(int size, int alignment, const StringId& name) : GfxDynBuffer(size, alignment, name) {
+    GfxDynUniformBuffer::GfxDynUniformBuffer(int size, int alignment, const Strid& name) : GfxDynBuffer(size, alignment, name) {
     }
-    Ref<GfxBuffer> GfxDynUniformBuffer::make_buffer(int size, const StringId& name) {
+    Ref<GfxBuffer> GfxDynUniformBuffer::make_buffer(int size, const Strid& name) {
         return Engine::instance()->gfx_driver()->make_uniform_buffer(size, GfxMemUsage::GpuLocal, name);
     }
     void* GfxDynUniformBuffer::map_buffer(const Ref<GfxBuffer>& buffer) {

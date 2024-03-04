@@ -36,17 +36,17 @@
 namespace wmoge {
 
     /**
-     * @class StringId
+     * @class Strid
      * @brief Interned globally-stored string based ids for fast lookups
      */
-    class StringId {
+    class Strid {
     public:
-        StringId();
-        explicit StringId(const std::string& string);
+        Strid();
+        explicit Strid(const std::string& string);
 
-        bool operator==(const StringId& other) const;
-        bool operator!=(const StringId& other) const;
-        bool operator<(const StringId& other) const;
+        bool operator==(const Strid& other) const;
+        bool operator!=(const Strid& other) const;
+        bool operator<(const Strid& other) const;
 
         [[nodiscard]] bool empty() const { return m_string->empty(); }
 
@@ -58,23 +58,23 @@ namespace wmoge {
         const std::string* m_string;
     };
 
-    static_assert(std::is_trivially_destructible_v<StringId>, "string must be trivial as ptr or int");
+    static_assert(std::is_trivially_destructible_v<Strid>, "string must be trivial as ptr or int");
 
-    inline std::ostream& operator<<(std::ostream& stream, const StringId& id) {
+    inline std::ostream& operator<<(std::ostream& stream, const Strid& id) {
         stream << '\'' << id.str() << '\'';
         return stream;
     }
 
-#define SID(id) ::wmoge::StringId(id)
+#define SID(id) ::wmoge::Strid(id)
 
 }// namespace wmoge
 
 namespace std {
 
     template<>
-    struct hash<wmoge::StringId> {
+    struct hash<wmoge::Strid> {
     public:
-        std::size_t operator()(const wmoge::StringId& id) const {
+        std::size_t operator()(const wmoge::Strid& id) const {
             return id.hash();
         }
     };

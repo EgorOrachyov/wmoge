@@ -50,7 +50,7 @@ namespace wmoge {
     class GfxVector {
     public:
         GfxVector() = default;
-        GfxVector(const StringId& name) : m_name(name) {}
+        GfxVector(const Strid& name) : m_name(name) {}
         GfxVector(const GfxVector&) = delete;
         GfxVector(GfxVector&&)      = delete;
         ~GfxVector()                = default;
@@ -63,7 +63,7 @@ namespace wmoge {
         void flush(GfxCtx* gfx_ctx);
         void clear();
         void free();
-        void set_name(const StringId& name);
+        void set_name(const Strid& name);
 
         [[nodiscard]] const std::vector<T>& get_data() const { return m_data; }
         [[nodiscard]] T*                    get_mem() { return m_data.data(); }
@@ -78,7 +78,7 @@ namespace wmoge {
     private:
         std::vector<T> m_data;
         Ref<Storage>   m_buffer;
-        StringId       m_name;
+        Strid          m_name;
     };
 
     template<typename T, typename Storage>
@@ -136,7 +136,7 @@ namespace wmoge {
     }
 
     template<typename T, typename Storage>
-    void GfxVector<T, Storage>::set_name(const StringId& name) {
+    void GfxVector<T, Storage>::set_name(const Strid& name) {
         m_name = name;
     }
 
@@ -153,7 +153,7 @@ namespace wmoge {
             const std::size_t new_capacity = Math::ge_pow2_val(elements);
             const int         new_size     = int(sizeof(T) * new_capacity);
 
-            const StringId buffer_name = SID(m_name.str() + " cap=" + StringUtils::from_int(int(new_capacity)));
+            const Strid buffer_name = SID(m_name.str() + " cap=" + StringUtils::from_int(int(new_capacity)));
 
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
                 m_buffer = Engine::instance()->gfx_driver()->make_vert_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);

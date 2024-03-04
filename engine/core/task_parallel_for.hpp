@@ -67,7 +67,7 @@ namespace wmoge {
          * @param name Name of the task for debugging
          * @param runnable Function to execute as a task job
          */
-        explicit TaskParallelFor(StringId name, TaskRunnableFor runnable);
+        explicit TaskParallelFor(Strid name, TaskRunnableFor runnable);
 
         /**
          * @brief Kick off task for execution
@@ -101,7 +101,7 @@ namespace wmoge {
         [[nodiscard]] TaskRunnableFor& runnable() { return m_runnable; }
 
         /** @brief Optional task label for debugging */
-        [[nodiscard]] const StringId& name() const { return m_name; }
+        [[nodiscard]] const Strid& name() const { return m_name; }
 
         /** @brief Task manager to execute this task; null if used default engine manager */
         [[nodiscard]] TaskManager* task_manager() const { return m_task_manager; }
@@ -109,7 +109,7 @@ namespace wmoge {
     private:
         TaskRunnableFor m_runnable;
         TaskManager*    m_task_manager = nullptr;
-        StringId        m_name;
+        Strid           m_name;
     };
 
 }// namespace wmoge

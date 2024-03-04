@@ -34,11 +34,11 @@
 
 namespace wmoge {
 
-    ProfilerMark::ProfilerMark(StringId    label,
-                               StringId    in_function,
-                               StringId    in_function_sig,
-                               StringId    in_file,
-                               StringId    in_category,
+    ProfilerMark::ProfilerMark(Strid       label,
+                               Strid       in_function,
+                               Strid       in_function_sig,
+                               Strid       in_file,
+                               Strid       in_category,
                                std::size_t in_line)
         : label(label),
           function(in_function),
@@ -79,7 +79,7 @@ namespace wmoge {
         }
     }
 
-    void ProfilerCapture::set_name(StringId name) {
+    void ProfilerCapture::set_name(Strid name) {
         m_name = name;
     }
     void ProfilerCapture::set_file(std::string file) {
@@ -168,7 +168,7 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
         if (m_capture) m_capture->add_entry(std::move(entry));
     }
-    void Profiler::add_tid(std::thread::id id, StringId name) {
+    void Profiler::add_tid(std::thread::id id, Strid name) {
         std::lock_guard guard(m_mutex);
         m_tid_names[id] = std::move(name);
     }
@@ -178,7 +178,7 @@ namespace wmoge {
     bool Profiler::is_collecting() {
         return m_is_collecting.load();
     }
-    std::unordered_map<std::thread::id, StringId> Profiler::get_tid_names() const {
+    std::unordered_map<std::thread::id, Strid> Profiler::get_tid_names() const {
         return m_tid_names;
     }
 

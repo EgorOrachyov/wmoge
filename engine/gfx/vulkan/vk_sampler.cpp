@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    VKSampler::VKSampler(const GfxSamplerDesc& desc, const StringId& name, class VKDriver& driver) : VKResource<GfxSampler>(driver) {
+    VKSampler::VKSampler(const GfxSamplerDesc& desc, const Strid& name, class VKDriver& driver) : VKResource<GfxSampler>(driver) {
         m_name = name;
         m_desc = desc;
     }

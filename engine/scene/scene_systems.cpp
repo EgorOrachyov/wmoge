@@ -27,6 +27,69 @@
 
 #include "scene_systems.hpp"
 
+#include "render/culling.hpp"
+#include "scene/scene.hpp"
+
+#include <cassert>
+
 namespace wmoge {
 
-}
+    void EcsSysUpdateHier::process(EcsWorld&                 world,
+                                   const EcsEntity&          entity,
+                                   const EcsComponentParent& parent, const EcsComponentChildren& children,
+                                   const EcsComponentTransform& transform, EcsComponentTransformUpd& transform_upd,
+                                   EcsComponentLocalToWorld& l2w, EcsComponentWorldToLocal& w2l) {
+        if (!transform_upd.is_dirty) {
+            return;
+        }
+        if (transform_upd.batch_id != current_batch) {
+            return;
+        }
+
+        Mat4x4f l2w_parent = Math3d::identity();
+        Mat4x4f w2l_parent = Math3d::identity();
+
+        if (parent.parent.is_valid()) {
+            EcsArch arch = world.get_arch(parent.parent);
+
+            if (arch.has_component<EcsComponentLocalToWorld>()) {
+                l2w_parent = world.get_component<EcsComponentLocalToWorld>(parent.parent).matrix;
+            }
+            if (arch.has_component<EcsComponentWorldToLocal>()) {
+                w2l_parent = world.get_component<EcsComponentWorldToLocal>(parent.parent).matrix;
+            }
+        }
+
+        const Transform3d& t     = transform.transform;
+        Transform3d        t_inv = t.inv();
+
+        l2w.matrix = l2w_parent * t.to_mat4x4();
+        w2l.matrix = t_inv.to_mat4x4() * w2l_parent;
+
+        num_updated.fetch_add(1);
+
+        for (const EcsEntity child : children.children) {
+            if (world.has_component<EcsComponentTransformUpd>(child)) {
+                world.get_component_rw<EcsComponentTransformUpd>(child).is_dirty = true;
+                num_dirty.fetch_add(1);
+            }
+        }
+
+        transform_upd.is_dirty           = false;
+        transform_upd.last_frame_updated = frame_id;
+    }
+
+    void EcsSysReleaseCullItem::process(EcsWorld& world, const EcsEntity& entity, EcsComponentCullingItem& culling_item) {
+        if (!culling_item.item.is_valid()) {
+            return;
+        }
+
+        Scene&          scene           = world.get_attribute<Scene>();
+        CullingManager* culling_manager = scene.get_culling_manager();
+
+        culling_manager->release_item(culling_item.item);
+
+        culling_item.item = CullingItem();
+    }
+
+}// namespace wmoge

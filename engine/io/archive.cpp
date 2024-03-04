@@ -41,7 +41,7 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status archive_write(Archive& archive, const StringId& value) {
+    Status archive_write(Archive& archive, const Strid& value) {
         WG_ARCHIVE_WRITE(archive, value.str());
         return StatusCode::Ok;
     }
@@ -51,10 +51,10 @@ namespace wmoge {
         return archive.nwrite(int(value.length() * sizeof(char)), value.data());
     }
 
-    Status archive_read(Archive& archive, StringId& value) {
+    Status archive_read(Archive& archive, Strid& value) {
         std::string str;
         WG_ARCHIVE_READ(archive, str);
-        value = StringId(str);
+        value = Strid(str);
         return StatusCode::Ok;
     }
     Status archive_read(Archive& archive, std::string& value) {

@@ -40,9 +40,9 @@ namespace wmoge {
      */
     class ResourceLoader {
     public:
-        virtual ~ResourceLoader()                                                                 = default;
-        virtual Status   load(const StringId& name, const ResourceMeta& meta, Ref<Resource>& res) = 0;
-        virtual StringId get_name()                                                               = 0;
+        virtual ~ResourceLoader()                                                            = default;
+        virtual Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) = 0;
+        virtual Strid  get_name()                                                            = 0;
     };
 
 }// namespace wmoge

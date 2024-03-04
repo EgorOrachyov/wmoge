@@ -103,13 +103,13 @@ namespace wmoge {
         static void load_inst_functions(VkInstance instance);
         static void add_debug_name(VkDevice device, void* object, VkObjectType object_type, const char* name);
         static void add_debug_name(VkDevice device, void* object, VkObjectType object_type, const std::string& name);
-        static void add_debug_name(VkDevice device, void* object, VkObjectType object_type, const StringId& name);
+        static void add_debug_name(VkDevice device, void* object, VkObjectType object_type, const Strid& name);
         static void add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const char* name);
         static void add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const std::string& name);
-        static void add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const StringId& name);
+        static void add_debug_name(VkDevice device, uint64_t object, VkObjectType object_type, const Strid& name);
         static void begin_label(VkCommandBuffer buffer, const char* name, const Vec3f& color = Vec3f(1, 1, 1));
         static void begin_label(VkCommandBuffer buffer, const std::string& name, const Vec3f& color = Vec3f(1, 1, 1));
-        static void begin_label(VkCommandBuffer buffer, const StringId& name, const Vec3f& color = Vec3f(1, 1, 1));
+        static void begin_label(VkCommandBuffer buffer, const Strid& name, const Vec3f& color = Vec3f(1, 1, 1));
         static void end_label(VkCommandBuffer buffer);
 
         static PFN_vkCreateDebugUtilsMessengerEXT  vkCreateDebugUtilsMessengerEXT;

@@ -58,12 +58,12 @@ namespace wmoge {
         virtual void update()   = 0;
         virtual void shutdown() = 0;
 
-        const StringId& get_name() { return m_name; }
-        const StringId& get_language() { return m_language; }
+        const Strid& get_name() { return m_name; }
+        const Strid& get_language() { return m_language; }
 
     protected:
-        StringId    m_name                = SID("none");
-        StringId    m_language            = SID("none");
+        Strid       m_name                = SID("none");
+        Strid       m_language            = SID("none");
         std::size_t m_gc_interval         = 15;
         std::size_t m_gc_cycles           = 0;
         std::size_t m_gc_frames_from_last = 0;

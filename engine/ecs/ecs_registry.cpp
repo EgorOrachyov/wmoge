@@ -41,12 +41,12 @@ namespace wmoge {
         m_entity_pool = std::make_unique<MemPool>(m_chunk_size * sizeof(EcsEntity), m_expand_size);
     }
 
-    int EcsRegistry::get_component_idx(const StringId& name) {
+    int EcsRegistry::get_component_idx(const Strid& name) {
         assert(m_components_name_to_idx.find(name) != m_components_name_to_idx.end());
         return m_components_name_to_idx[name];
     }
 
-    const EcsComponentInfo& EcsRegistry::get_component_info(const StringId& name) {
+    const EcsComponentInfo& EcsRegistry::get_component_info(const Strid& name) {
         assert(m_components_name_to_idx.find(name) != m_components_name_to_idx.end());
         return m_components_info[m_components_name_to_idx[name]];
     }

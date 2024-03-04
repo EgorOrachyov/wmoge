@@ -213,7 +213,7 @@ namespace wmoge {
         dynamic_cast<VKStorageBuffer*>(buffer.get())->barrier(cmd_current());
     }
 
-    void VKCtx::begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) {
+    void VKCtx::begin_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::begin_render_pass");
 
         assert(check_thread_valid());
@@ -497,7 +497,7 @@ namespace wmoge {
         m_render_pass_started = false;
     }
 
-    void VKCtx::begin_label(const StringId& label) {
+    void VKCtx::begin_label(const Strid& label) {
         assert(!m_in_render_pass);
 
         WG_VK_BEGIN_LABEL(cmd_current(), label);

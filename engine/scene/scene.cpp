@@ -27,6 +27,7 @@
 
 #include "scene.hpp"
 
+#include "debug/profiler.hpp"
 #include "render/deferred_pipeline.hpp"
 #include "scene/scene_components.hpp"
 #include "scene/scene_entity.hpp"
@@ -35,11 +36,13 @@
 
 namespace wmoge {
 
-    Scene::Scene(StringId name) {
-        m_name              = name;
-        m_ecs_world         = std::make_unique<EcsWorld>();
-        m_visibility_system = std::make_unique<VisibilitySystem>();
-        m_render_scene      = std::make_unique<RenderScene>();
+    Scene::Scene(Strid name) {
+        WG_AUTO_PROFILE_SCENE("Scene::Scene");
+
+        m_name            = name;
+        m_ecs_world       = std::make_unique<EcsWorld>();
+        m_culling_manager = std::make_unique<CullingManager>();
+        m_render_scene    = std::make_unique<RenderScene>();
 
         m_ecs_world->set_attribute(0, *this);
     }
@@ -53,12 +56,15 @@ namespace wmoge {
     }
 
     Status Scene::build(const SceneData& data) {
+        WG_AUTO_PROFILE_SCENE("Scene::build");
+
         return StatusCode::Ok;
     }
 
     void Scene::advance(float delta_time) {
         m_delta_time = delta_time;
         m_time += m_delta_time;
+        m_frame_id += 1;
     }
     void Scene::clear() {
         m_ecs_world->clear();
@@ -67,18 +73,20 @@ namespace wmoge {
         m_state = state;
     }
     void Scene::finalize() {
+        WG_AUTO_PROFILE_SCENE("Scene::finalize");
+
         m_ecs_world.reset();
-        m_visibility_system.reset();
+        m_culling_manager.reset();
         m_render_scene.reset();
     }
-    const StringId& Scene::get_name() {
+    const Strid& Scene::get_name() {
         return m_name;
     }
     EcsWorld* Scene::get_ecs_world() {
         return m_ecs_world.get();
     }
-    VisibilitySystem* Scene::get_visibility_system() {
-        return m_visibility_system.get();
+    CullingManager* Scene::get_culling_manager() {
+        return m_culling_manager.get();
     }
     RenderScene* Scene::get_render_scene() {
         return m_render_scene.get();

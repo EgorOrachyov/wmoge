@@ -45,7 +45,7 @@ namespace wmoge {
     class MeshBuilder {
     public:
         void set_mesh(Ref<Mesh> mesh);
-        void add_chunk(const StringId& name, const Ref<ArrayMesh>& data);
+        void add_chunk(const Strid& name, const Ref<ArrayMesh>& data);
         void add_child(int parent_idx, int child_idx);
 
         Status build();
@@ -54,7 +54,7 @@ namespace wmoge {
 
     private:
         std::vector<Ref<ArrayMesh>>   m_chunks;
-        std::vector<StringId>         m_chunks_names;
+        std::vector<Strid>            m_chunks_names;
         std::vector<int>              m_chunks_parents;
         std::vector<fast_vector<int>> m_chunks_children;
 

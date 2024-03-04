@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    VKVertFormat::VKVertFormat(const GfxVertElements& elements, const StringId& name) {
+    VKVertFormat::VKVertFormat(const GfxVertElements& elements, const Strid& name) {
         m_name             = name;
         m_attributes_count = 0;
         m_buffers_count    = 0;

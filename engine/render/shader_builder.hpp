@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SHADER_BUILDER_HPP
-#define WMOGE_SHADER_BUILDER_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
@@ -60,7 +59,7 @@ namespace wmoge {
 
         bool compile();
 
-        StringId                         key;
+        Strid                            key;
         std::optional<std::stringstream> vertex;
         std::optional<std::stringstream> fragment;
         std::optional<std::stringstream> compute;
@@ -69,5 +68,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SHADER_BUILDER_HPP

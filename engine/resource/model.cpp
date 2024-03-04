@@ -27,72 +27,55 @@
 
 #include "model.hpp"
 
+#include "debug/profiler.hpp"
+
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, ModelChunk& data) {
-        WG_YAML_READ_AS(node, "material", data.material);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ModelChunk& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "material", data.material);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ModelObj)
+    WG_IO_FIELD(material)
+    WG_IO_FIELD(mesh_idx)
+    WG_IO_FIELD(chunk_idx)
+    WG_IO_FIELD_OPT(flags)
+    WG_IO_FIELD_OPT(name)
+    WG_IO_END(ModelObj)
 
-    Status yaml_read(const YamlConstNodeRef& node, ModelLod& data) {
-        WG_YAML_READ_AS_OPT(node, "mesh", data.mesh);
-        WG_YAML_READ_AS_OPT(node, "chunks", data.chunks);
-        WG_YAML_READ_AS_OPT(node, "shadow_mesh", data.shadow_mesh);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ModelLod& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "mesh", data.mesh);
-        WG_YAML_WRITE_AS(node, "chunks", data.chunks);
-        WG_YAML_WRITE_AS(node, "shadow_mesh", data.shadow_mesh);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ModelLod)
+    WG_IO_FIELD_OPT(ranges)
+    WG_IO_END(ModelLod)
 
-    Status yaml_read(const YamlConstNodeRef& node, ModelLodSettings& data) {
-        WG_YAML_READ_AS_OPT(node, "minimum_lod", data.minimum_lod);
-        WG_YAML_READ_AS_OPT(node, "num_of_lods", data.num_of_lods);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ModelLodSettings& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS_OPT(node, "minimum_lod", data.minimum_lod.has_value(), data.minimum_lod);
-        WG_YAML_WRITE_AS_OPT(node, "num_of_lods", data.num_of_lods.has_value(), data.num_of_lods);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ModelLodSettings)
+    WG_IO_FIELD_OPT(area)
+    WG_IO_FIELD(minimum_lod)
+    WG_IO_FIELD(num_of_lods)
+    WG_IO_END(ModelLodSettings)
 
-    Status yaml_read(const YamlConstNodeRef& node, ModelFile& data) {
-        WG_YAML_READ_AS_OPT(node, "lods", data.lods);
-        WG_YAML_READ_AS_OPT(node, "lod_settings", data.lod_settings);
-        WG_YAML_READ_AS_OPT(node, "collision_mesh", data.collision_mesh);
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const ModelFile& data) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "lods", data.lods);
-        WG_YAML_WRITE_AS(node, "lod_settings", data.lod_settings);
-        WG_YAML_WRITE_AS(node, "collision_mesh", data.collision_mesh);
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ModelFile)
+    WG_IO_FIELD(objs)
+    WG_IO_FIELD(meshes)
+    WG_IO_FIELD_OPT(lod)
+    WG_IO_FIELD_OPT(lod_settings)
+    WG_IO_FIELD_OPT(aabb)
+    WG_IO_END(ModelFile)
 
     void Model::update_aabb() {
         m_aabb = Aabbf();
 
-        for (const auto& lod : m_lods) {
-            m_aabb = m_aabb.join(lod.mesh->get_aabb());
+        for (const auto& mesh : m_meshes) {
+            m_aabb = m_aabb.join(mesh->get_aabb());
         }
     }
 
     Status Model::read_from_yaml(const YamlConstNodeRef& node) {
+        WG_AUTO_PROFILE_RESOURCE("Model::read_from_yaml");
+
         ModelFile model_file;
         WG_YAML_READ(node, model_file);
 
-        m_lods         = std::move(model_file.lods);
+        m_objs         = std::move(model_file.objs);
+        m_meshes       = std::move(model_file.meshes);
+        m_lod          = std::move(model_file.lod);
         m_lod_settings = std::move(model_file.lod_settings);
+        m_aabb         = std::move(model_file.aabb);
 
         update_aabb();
 
@@ -101,7 +84,8 @@ namespace wmoge {
     Status Model::copy_to(Object& other) const {
         Resource::copy_to(other);
         auto* ptr           = dynamic_cast<Model*>(&other);
-        ptr->m_lods         = m_lods;
+        ptr->m_objs         = m_objs;
+        ptr->m_lod          = m_lod;
         ptr->m_lod_settings = m_lod_settings;
         ptr->m_aabb         = m_aabb;
         return StatusCode::Ok;

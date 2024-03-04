@@ -49,7 +49,7 @@ namespace wmoge {
      */
     struct SceneTreeData {
         std::vector<SceneNodeData> nodes;
-        GraphicsPipelineSettings   pipeline_settings;
+        GraphicsPipelineSettings   pipeline;
 
         WG_IO_DECLARE(SceneTreeData);
     };
@@ -85,7 +85,7 @@ namespace wmoge {
          * 
          * @param name Scene name to unique identify it at editor and runtime
          */
-        SceneTree(const StringId& name);
+        SceneTree(const Strid& name);
 
         void                          each(const std::function<void(const Ref<SceneNode>&)>& visitor);
         bool                          contains(const Ref<SceneNode>& node) const;
@@ -95,12 +95,12 @@ namespace wmoge {
         Status                        build(const SceneTreeData& data);
         Status                        dump(SceneTreeData& data);
 
-        [[nodiscard]] const StringId&       get_name() const { return m_name; }
+        [[nodiscard]] const Strid&          get_name() const { return m_name; }
         [[nodiscard]] const Ref<SceneNode>& get_root() const { return m_root; }
         [[nodiscard]] const Ref<Scene>&     get_scene() const { return m_scene; }
 
     private:
-        StringId       m_name;
+        Strid          m_name;
         Ref<SceneNode> m_root;
         Ref<Scene>     m_scene;
     };

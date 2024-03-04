@@ -153,7 +153,7 @@ namespace wmoge {
         return glfwGetWindowAttrib(m_hnd, GLFW_FOCUSED);
     }
 
-    const StringId& GlfwWindow::id() const {
+    const Strid& GlfwWindow::id() const {
         return m_id;
     }
 

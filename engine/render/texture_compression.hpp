@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TEXTURE_COMPRESSION_HPP
-#define WMOGE_TEXTURE_COMPRESSION_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "core/status.hpp"
@@ -175,5 +174,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TEXTURE_COMPRESSION_HPP

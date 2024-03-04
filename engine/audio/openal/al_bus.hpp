@@ -43,7 +43,7 @@ namespace wmoge {
      */
     class ALAudioBus final : public AudioBus {
     public:
-        ALAudioBus(StringId name, class ALAudioEngine& engine);
+        ALAudioBus(Strid name, class ALAudioEngine& engine);
         ~ALAudioBus() override;
 
         void add_playback(ALAudioPlayback* playback);

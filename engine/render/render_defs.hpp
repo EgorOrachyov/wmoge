@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_DEFS_HPP
-#define WMOGE_RENDER_DEFS_HPP
+#pragma once
 
 #include <bitset>
 
@@ -67,5 +66,3 @@ namespace wmoge {
     class RenderCameraMask : public std::bitset<RenderLimits::MAX_CAMERAS> {};
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_DEFS_HPP

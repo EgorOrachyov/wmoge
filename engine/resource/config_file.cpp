@@ -48,7 +48,7 @@ namespace wmoge {
             return StatusCode::FailedRead;
         }
 
-        StringId    section;
+        Strid       section;
         std::string line;
 
         while (!file.eof()) {
@@ -93,7 +93,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_RESOURCE("ConfigFile::stack");
 
         for (const auto& other_entry : other.m_entries) {
-            const StringId& key = other_entry.first;
+            const Strid& key = other_entry.first;
 
             if (m_entries.find(key) == m_entries.end() ||
                 mode == ConfigStackMode::Overwrite) {
@@ -123,28 +123,28 @@ namespace wmoge {
         return m_entries.empty();
     }
 
-    Status ConfigFile::set(const StringId& key, const bool& value, bool overwrite) {
+    Status ConfigFile::set(const Strid& key, const bool& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return StatusCode::Ok;
         }
         return StatusCode::NoValue;
     }
-    Status ConfigFile::set(const StringId& key, const int& value, bool overwrite) {
+    Status ConfigFile::set(const Strid& key, const int& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return StatusCode::Ok;
         }
         return StatusCode::NoValue;
     }
-    Status ConfigFile::set(const StringId& key, const float& value, bool overwrite) {
+    Status ConfigFile::set(const Strid& key, const float& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return StatusCode::Ok;
         }
         return StatusCode::NoValue;
     }
-    Status ConfigFile::set(const StringId& key, const std::string& value, bool overwrite) {
+    Status ConfigFile::set(const Strid& key, const std::string& value, bool overwrite) {
         if (m_entries.find(key) == m_entries.end() || overwrite) {
             m_entries[key] = value;
             return StatusCode::Ok;
@@ -152,54 +152,54 @@ namespace wmoge {
         return StatusCode::NoValue;
     }
 
-    Status ConfigFile::get(const StringId& key, bool& value) {
+    Status ConfigFile::get(const Strid& key, bool& value) {
         Var* p_var;
         if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = (*p_var).operator int();
         return StatusCode::Ok;
     }
-    Status ConfigFile::get(const StringId& key, int& value) {
+    Status ConfigFile::get(const Strid& key, int& value) {
         Var* p_var;
         if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = *p_var;
         return StatusCode::Ok;
     }
-    Status ConfigFile::get(const StringId& key, float& value) {
+    Status ConfigFile::get(const Strid& key, float& value) {
         Var* p_var;
         if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = *p_var;
         return StatusCode::Ok;
     }
-    Status ConfigFile::get(const StringId& key, std::string& value) {
+    Status ConfigFile::get(const Strid& key, std::string& value) {
         Var* p_var;
         if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = p_var->operator String();
         return StatusCode::Ok;
     }
-    Status ConfigFile::get(const StringId& key, Color4f& value) {
+    Status ConfigFile::get(const Strid& key, Color4f& value) {
         Var* p_var;
         if (!get_element(key, p_var)) return StatusCode::NoValue;
         value = Color::from_hex4(static_cast<unsigned int>(StringUtils::to_ulong(p_var->operator String(), 16)));
         return StatusCode::Ok;
     }
 
-    bool ConfigFile::get_bool(const StringId& key, bool value) {
+    bool ConfigFile::get_bool(const Strid& key, bool value) {
         get(key, value);
         return value;
     }
-    int ConfigFile::get_int(const StringId& key, int value) {
+    int ConfigFile::get_int(const Strid& key, int value) {
         get(key, value);
         return value;
     }
-    float ConfigFile::get_float(const StringId& key, float value) {
+    float ConfigFile::get_float(const Strid& key, float value) {
         get(key, value);
         return value;
     }
-    std::string ConfigFile::get_string(const StringId& key, std::string value) {
+    std::string ConfigFile::get_string(const Strid& key, std::string value) {
         get(key, value);
         return value;
     }
-    Color4f ConfigFile::get_color4f(const StringId& key, Color4f value) {
+    Color4f ConfigFile::get_color4f(const Strid& key, Color4f value) {
         get(key, value);
         return value;
     }
@@ -211,7 +211,7 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    bool ConfigFile::get_element(const StringId& key, Var*& element) {
+    bool ConfigFile::get_element(const Strid& key, Var*& element) {
         auto it_element = m_entries.find(key);
         if (it_element == m_entries.end()) return false;
 

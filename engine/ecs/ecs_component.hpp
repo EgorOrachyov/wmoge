@@ -45,14 +45,14 @@ namespace wmoge {
      */
     template<typename Component>
     struct EcsComponent {
-        static int      IDX;
-        static StringId NAME;
+        static int   IDX;
+        static Strid NAME;
 
         static bool is(int id) { return id == IDX; }
         static bool is(const std::string& name) { return name == NAME.str(); }
-        static bool is(const StringId& name) { return name == NAME; }
+        static bool is(const Strid& name) { return name == NAME; }
 
-        static void bind(int id, const StringId& name) {
+        static void bind(int id, const Strid& name) {
             IDX  = id;
             NAME = name;
         }
@@ -62,19 +62,19 @@ namespace wmoge {
     int EcsComponent<Component>::IDX = -1;
 
     template<typename Component>
-    StringId EcsComponent<Component>::NAME;
+    Strid EcsComponent<Component>::NAME;
 
     /**
      * @class EcsComponentInfo
      * @brief Holds information required to work with components
      */
     struct EcsComponentInfo {
-        StringId                                    name;
-        int                                         idx  = -1;
-        int                                         size = -1;
-        std::function<void(class EcsWorld*, void*)> create;
-        std::function<void(class EcsWorld*, void*)> destroy;
-        std::function<void(void*, void*)>           swap;
+        Strid                             name;
+        int                               idx  = -1;
+        int                               size = -1;
+        std::function<void(void*)>        create;
+        std::function<void(void*)>        destroy;
+        std::function<void(void*, void*)> swap;
     };
 
 #define WG_ECS_COMPONENT(ecs_component_class) \

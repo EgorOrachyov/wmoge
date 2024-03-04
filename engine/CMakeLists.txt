@@ -105,6 +105,8 @@ add_library(wmoge STATIC
         event/event_window.hpp
         event/event_resource.cpp
         event/event_resource.hpp
+        event/event_scene.cpp
+        event/event_scene.hpp
         event/register_classes_event.cpp
         event/register_classes_event.hpp
         gameplay/action_manager.cpp
@@ -276,6 +278,8 @@ add_library(wmoge STATIC
         render/camera.hpp
         render/canvas.cpp
         render/canvas.hpp
+        render/culling.cpp
+        render/culling.hpp
         render/deferred_pipeline.cpp
         render/deferred_pipeline.hpp
         render/graphics_pipeline.cpp
@@ -304,8 +308,6 @@ add_library(wmoge STATIC
         render/view.hpp
         render/view_manager.cpp
         render/view_manager.hpp
-        render/visibility.cpp
-        render/visibility.hpp
         resource/array_mesh.cpp
         resource/array_mesh.hpp
         resource/audio_stream.cpp

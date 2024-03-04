@@ -50,7 +50,7 @@ namespace wmoge {
         GfxBindingType type    = GfxBindingType::Unknown;
         std::int16_t   binding = 0;
         std::int16_t   count   = 1;
-        StringId       name;
+        Strid          name;
 
         [[nodiscard]] bool        operator==(const GfxDescBinging& other) const;
         [[nodiscard]] bool        operator!=(const GfxDescBinging& other) const;

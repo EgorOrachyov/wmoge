@@ -39,7 +39,7 @@ namespace wmoge {
     /**
      * @brief Type to identify different events
      */
-    using EventType = StringId;
+    using EventType = Strid;
 
     /**
      * @class Event
@@ -50,7 +50,7 @@ namespace wmoge {
         WG_OBJECT(Event, Object)
 
         virtual const EventType& type() const {
-            static StringId none;
+            static Strid none;
             return none;
         };
     };

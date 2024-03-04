@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RENDER_ENGINE_HPP
-#define WMOGE_RENDER_ENGINE_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/fast_vector.hpp"
@@ -178,5 +177,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RENDER_ENGINE_HPP

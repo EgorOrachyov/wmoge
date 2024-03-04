@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SHADER_PASS_HPP
-#define WMOGE_SHADER_PASS_HPP
+#pragma once
 
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -65,7 +64,7 @@ namespace wmoge {
          *
          * @return Ok on success
          */
-        virtual Status compile(const StringId& name, GfxDriver* driver, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
+        virtual Status compile(const Strid& name, GfxDriver* driver, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
 
         /**
          * @brief Reloads shader pass sources from a disc
@@ -90,9 +89,7 @@ namespace wmoge {
         virtual const std::string& get_compute(GfxShaderLang lang) = 0;
 
         /** @brief unique lower-case pass name */
-        virtual StringId get_name() = 0;
+        virtual Strid get_name() = 0;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SHADER_PASS_HPP

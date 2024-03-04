@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    TaskRuntime::TaskRuntime(StringId name, TaskRunnable runnable, TaskManager* task_manager) {
+    TaskRuntime::TaskRuntime(Strid name, TaskRunnable runnable, TaskManager* task_manager) {
         assert(runnable);
         assert(task_manager);
 
@@ -79,7 +79,7 @@ namespace wmoge {
         }
     }
 
-    TaskRuntimeParallelFor::TaskRuntimeParallelFor(StringId name, TaskRunnableFor runnable, TaskManager* task_manager, int num_elements, int batch_size) {
+    TaskRuntimeParallelFor::TaskRuntimeParallelFor(Strid name, TaskRunnableFor runnable, TaskManager* task_manager, int num_elements, int batch_size) {
         assert(runnable);
         assert(task_manager);
         assert(num_elements > 0);

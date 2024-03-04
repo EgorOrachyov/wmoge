@@ -38,16 +38,16 @@ namespace wmoge {
         m_event_manager = Engine::instance()->event_manager();
     }
 
-    void GameTokenManager::set(const StringId& token, int value) {
+    void GameTokenManager::set(const Strid& token, int value) {
         set(token, Var(value));
     }
-    void GameTokenManager::set(const StringId& token, float value) {
+    void GameTokenManager::set(const Strid& token, float value) {
         set(token, Var(value));
     }
-    void GameTokenManager::set(const StringId& token, std::string value) {
+    void GameTokenManager::set(const Strid& token, std::string value) {
         set(token, Var(std::move(value)));
     }
-    void GameTokenManager::set(const StringId& token, Var value) {
+    void GameTokenManager::set(const Strid& token, Var value) {
         bool has_already = m_tokens.find(token) != m_tokens.end();
         m_tokens[token]  = std::move(value);
 
@@ -61,7 +61,7 @@ namespace wmoge {
         }
     }
 
-    bool GameTokenManager::get(const StringId& token, int& value) {
+    bool GameTokenManager::get(const Strid& token, int& value) {
         auto query = m_tokens.find(token);
         if (query != m_tokens.end()) {
             value = query->second.operator int();
@@ -70,7 +70,7 @@ namespace wmoge {
         WG_LOG_ERROR("no such token " << token);
         return false;
     }
-    bool GameTokenManager::get(const StringId& token, float& value) {
+    bool GameTokenManager::get(const Strid& token, float& value) {
         auto query = m_tokens.find(token);
         if (query != m_tokens.end()) {
             value = query->second.operator float();
@@ -79,7 +79,7 @@ namespace wmoge {
         WG_LOG_ERROR("no such token " << token);
         return false;
     }
-    bool GameTokenManager::get(const StringId& token, std::string& value) {
+    bool GameTokenManager::get(const Strid& token, std::string& value) {
         auto query = m_tokens.find(token);
         if (query != m_tokens.end()) {
             value = query->second.operator std::string();
@@ -88,7 +88,7 @@ namespace wmoge {
         WG_LOG_ERROR("no such token " << token);
         return false;
     }
-    bool GameTokenManager::get(const StringId& token, Var& value) {
+    bool GameTokenManager::get(const Strid& token, Var& value) {
         auto query = m_tokens.find(token);
         if (query != m_tokens.end()) {
             value = query->second;

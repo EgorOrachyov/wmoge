@@ -85,6 +85,7 @@ namespace wmoge {
         class ScriptSystem*     script_system();
         class AudioEngine*      audio_engine();
         class RenderEngine*     render_engine();
+        class ViewManager*      view_manager();
         class EcsRegistry*      ecs_registry();
 
         static Engine* instance();
@@ -120,6 +121,7 @@ namespace wmoge {
         class ScriptSystem*     m_script_system      = nullptr;
         class AudioEngine*      m_audio_engine       = nullptr;
         class RenderEngine*     m_render_engine      = nullptr;
+        class ViewManager*      m_view_manager       = nullptr;
         class EcsRegistry*      m_ecs_registry       = nullptr;
     };
 

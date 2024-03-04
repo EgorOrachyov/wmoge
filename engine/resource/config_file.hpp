@@ -85,31 +85,31 @@ namespace wmoge {
         /** @brief Check if config has no entries */
         bool is_empty();
 
-        Status set(const StringId& key, const bool& value, bool overwrite = true);
-        Status set(const StringId& key, const int& value, bool overwrite = true);
-        Status set(const StringId& key, const float& value, bool overwrite = true);
-        Status set(const StringId& key, const std::string& value, bool overwrite = true);
+        Status set(const Strid& key, const bool& value, bool overwrite = true);
+        Status set(const Strid& key, const int& value, bool overwrite = true);
+        Status set(const Strid& key, const float& value, bool overwrite = true);
+        Status set(const Strid& key, const std::string& value, bool overwrite = true);
 
-        Status get(const StringId& key, bool& value);
-        Status get(const StringId& key, int& value);
-        Status get(const StringId& key, float& value);
-        Status get(const StringId& key, std::string& value);
-        Status get(const StringId& key, Color4f& value);
+        Status get(const Strid& key, bool& value);
+        Status get(const Strid& key, int& value);
+        Status get(const Strid& key, float& value);
+        Status get(const Strid& key, std::string& value);
+        Status get(const Strid& key, Color4f& value);
 
-        bool        get_bool(const StringId& key, bool def_value = false);
-        int         get_int(const StringId& key, int def_value = 0);
-        float       get_float(const StringId& key, float def_value = 1.0f);
-        std::string get_string(const StringId& key, std::string def_value = "");
-        Color4f     get_color4f(const StringId& key, Color4f value = {});
+        bool        get_bool(const Strid& key, bool def_value = false);
+        int         get_int(const Strid& key, int def_value = 0);
+        float       get_float(const Strid& key, float def_value = 1.0f);
+        std::string get_string(const Strid& key, std::string def_value = "");
+        Color4f     get_color4f(const Strid& key, Color4f value = {});
 
         Status copy_to(Object& other) const override;
 
     private:
         /** @brief Single element in a config file */
-        bool get_element(const StringId& key, Var*& element);
+        bool get_element(const Strid& key, Var*& element);
 
     private:
-        fast_map<StringId, Var> m_entries;
+        fast_map<Strid, Var> m_entries;
     };
 
 }// namespace wmoge

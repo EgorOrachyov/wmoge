@@ -29,6 +29,7 @@
 
 #include "core/class.hpp"
 #include "core/log.hpp"
+#include "debug/profiler.hpp"
 #include "resource/prefab.hpp"
 #include "scene/scene_components.hpp"
 #include "scene/scene_tree.hpp"
@@ -39,6 +40,7 @@
 namespace wmoge {
 
     WG_IO_BEGIN(SceneNodeData)
+    WG_IO_PROFILE()
     WG_IO_FIELD_OPT(name)
     WG_IO_FIELD(uuid)
     WG_IO_FIELD(type)
@@ -49,6 +51,7 @@ namespace wmoge {
     WG_IO_END(SceneNodeData)
 
     WG_IO_BEGIN(SceneNodesData)
+    WG_IO_PROFILE()
     WG_IO_FIELD(nodes)
     WG_IO_END(SceneNodesData)
 
@@ -56,12 +59,14 @@ namespace wmoge {
         auto* cls = Class::register_class<SceneNodeProp>();
     }
 
-    SceneNode::SceneNode(const StringId& name, wmoge::SceneNodeType type) {
+    SceneNode::SceneNode(const Strid& name, wmoge::SceneNodeType type) {
         m_name = name;
         m_type = type;
     }
 
     Status SceneNode::build(const std::vector<SceneNodeData>& nodes_data) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::build");
+
         std::unordered_map<UUID, Ref<SceneNode>> uuid_to_node;
 
         uuid_to_node.reserve(nodes_data.size());
@@ -85,6 +90,8 @@ namespace wmoge {
         return StatusCode::Ok;
     }
     Status SceneNode::dump(std::vector<SceneNodeData>& nodes_data) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::dump");
+
         std::vector<Ref<SceneNode>>          nodes = get_nodes();
         std::unordered_map<SceneNode*, UUID> node_to_uuid;
 
@@ -118,17 +125,21 @@ namespace wmoge {
     }
 
     void SceneNode::enter_tree(class SceneTree* tree) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::enter_tree");
+
         assert(tree);
         assert(!m_tree);
 
         m_tree   = tree;
-        m_entity = instantiate_entity(m_tree->get_scene().get());
+        m_entity = instantiate_entity(m_tree->get_scene().get(), has_parent() ? m_parent->get_entity() : Entity());
 
         for (auto& child : m_children) {
             child->enter_tree(tree);
         }
     }
     void SceneNode::exit_tree() {
+        WG_AUTO_PROFILE_SCENE("SceneNode::exit_tree");
+
         assert(m_tree);
 
         for (auto& child : m_children) {
@@ -143,7 +154,38 @@ namespace wmoge {
         m_tree = nullptr;
     }
 
-    void SceneNode::set_name(const StringId& name) {
+    void SceneNode::process_event(const EventSceneNode& event) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::process_event");
+
+        if (event.notification == SceneNodeNotification::TransformUpdated) {
+            m_l2w = m_transform.to_mat4x4();
+            m_w2l = m_transform.to_inv_mat4x4();
+            if (has_parent()) {
+                m_l2w = get_parent()->get_l2w() * m_l2w;
+                m_w2l = m_w2l * get_parent()->get_w2l();
+            }
+        }
+
+        if (has_tree()) {
+            dispatch_to_props(event);
+        }
+
+        dispatch_to_children(event);
+    }
+
+    void SceneNode::dispatch_to_props(const EventSceneNode& event) {
+        for (Ref<SceneNodeProp>& prop : m_properties) {
+            prop->process_event(event);
+        }
+    }
+
+    void SceneNode::dispatch_to_children(const EventSceneNode& event) {
+        for (Ref<SceneNode>& child : m_children) {
+            child->process_event(event);
+        }
+    }
+
+    void SceneNode::set_name(const Strid& name) {
         m_name = name;
     }
     void SceneNode::set_uuid(const UUID& uuid) {
@@ -161,28 +203,37 @@ namespace wmoge {
     }
 
     void SceneNode::add_child(const Ref<SceneNode>& child) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::add_child");
+
         assert(child);
         assert(child->m_parent == nullptr);
+        assert(child->m_tree == nullptr);
 
         m_children.push_back(child);
         child->m_parent = this;
-        child->m_tree   = m_tree;
         child->m_path   = m_path + '/' + child->m_name.str();
 
         if (has_tree()) {
             child->enter_tree(m_tree);
         }
+
+        EventSceneNode event;
+
+        event.notification = SceneNodeNotification::TransformUpdated;
+        child->process_event(event);
     }
     void SceneNode::remove_child(const Ref<SceneNode>& child) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::remove_child");
+
         assert(child);
         assert(child->m_parent == this);
+        assert(child->m_tree == m_tree);
 
         if (has_tree()) {
             child->exit_tree();
         }
 
         child->m_parent = nullptr;
-        child->m_tree   = nullptr;
         child->m_path.clear();
         m_children.erase(std::find(m_children.begin(), m_children.end(), child));
     }
@@ -270,19 +321,21 @@ namespace wmoge {
         return m_tree && m_tree->get_scene();
     }
 
-    Entity SceneNode::instantiate_entity(class Scene* scene) {
+    Entity SceneNode::instantiate_entity(class Scene* scene, Entity parent) {
+        WG_AUTO_PROFILE_SCENE("SceneNode::instantiate_entity");
+
         EcsArch arch;
         for (auto& prop : m_properties) {
             prop->fill_arch(arch);
         }
 
-        EcsEntity ecs_entity;
-        EcsWorld* esc_world = scene->get_ecs_world();
+        EcsWorld* esc_world  = scene->get_ecs_world();
+        EcsEntity ecs_entity = esc_world->allocate_entity();
         esc_world->make_entity(ecs_entity, arch);
 
         Entity entity(ecs_entity, scene);
         for (auto& prop : m_properties) {
-            prop->add_components(entity);
+            prop->add_components(entity, parent);
         }
 
         return entity;
@@ -311,7 +364,7 @@ namespace wmoge {
 
     void SceneNode::register_class() {
         auto* cls = Class::register_class<SceneNode>();
-        cls->add_field(ClassField(VarType::StringId, SID("name")), &SceneNode::m_name);
+        cls->add_field(ClassField(VarType::Strid, SID("name")), &SceneNode::m_name);
         cls->add_field(ClassField(VarType::String, SID("path")), &SceneNode::m_path);
     }
 

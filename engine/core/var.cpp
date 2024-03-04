@@ -55,9 +55,9 @@ namespace wmoge {
         m_type = VarType::String;
         new (m_data.m_mem) String(std::move(value));
     }
-    Var::Var(StringId value) {
-        m_type = VarType::StringId;
-        new (m_data.m_mem) StringId(std::move(value));
+    Var::Var(Strid value) {
+        m_type = VarType::Strid;
+        new (m_data.m_mem) Strid(std::move(value));
     }
     Var::Var(Array value) {
         m_type = VarType::Array;
@@ -113,8 +113,8 @@ namespace wmoge {
             case VarType::String:
                 new (m_data.m_mem) String(var.as<String>());
                 break;
-            case VarType::StringId:
-                new (m_data.m_mem) StringId(var.as<StringId>());
+            case VarType::Strid:
+                new (m_data.m_mem) Strid(var.as<Strid>());
                 break;
             case VarType::Array:
                 new (m_data.m_mem) Array(var.as<Array>());
@@ -161,8 +161,8 @@ namespace wmoge {
             case VarType::String:
                 new (m_data.m_mem) String(std::move(var.as<String>()));
                 break;
-            case VarType::StringId:
-                new (m_data.m_mem) StringId(std::move(var.as<StringId>()));
+            case VarType::Strid:
+                new (m_data.m_mem) Strid(std::move(var.as<Strid>()));
                 break;
             case VarType::Array:
                 new (m_data.m_mem) Array(std::move(var.as<Array>()));
@@ -234,8 +234,8 @@ namespace wmoge {
                 return Math::abs(m_data.m_float - var.m_data.m_float) <= Math::THRESH_COMPARE_FLOAT32;
             case VarType::String:
                 return as<String>() == var.as<String>();
-            case VarType::StringId:
-                return as<StringId>() == var.as<StringId>();
+            case VarType::Strid:
+                return as<Strid>() == var.as<Strid>();
             case VarType::Array: {
                 const auto& ar1 = as<Array>();
                 const auto& ar2 = var.as<Array>();
@@ -267,8 +267,8 @@ namespace wmoge {
                 return Math::abs(m_data.m_float - var.m_data.m_float) > Math::THRESH_COMPARE_FLOAT32;
             case VarType::String:
                 return as<String>() != var.as<String>();
-            case VarType::StringId:
-                return as<StringId>() != var.as<StringId>();
+            case VarType::Strid:
+                return as<Strid>() != var.as<Strid>();
             case VarType::Array: {
                 const auto& ar1 = as<Array>();
                 const auto& ar2 = var.as<Array>();
@@ -300,8 +300,8 @@ namespace wmoge {
                 return m_data.m_float < var.m_data.m_float;
             case VarType::String:
                 return as<String>() < var.as<String>();
-            case VarType::StringId:
-                return as<StringId>() < var.as<StringId>();
+            case VarType::Strid:
+                return as<Strid>() < var.as<Strid>();
             case VarType::Array: {
                 const auto& ar1 = as<Array>();
                 const auto& ar2 = var.as<Array>();
@@ -373,8 +373,8 @@ namespace wmoge {
                 return static_cast<long long>(m_data.m_float);
             case VarType::String:
                 return std::stoll(as<String>());
-            case VarType::StringId:
-                return std::stoll(as<StringId>().str());
+            case VarType::Strid:
+                return std::stoll(as<Strid>().str());
             default:
                 return 0;
         }
@@ -395,8 +395,8 @@ namespace wmoge {
                 return m_data.m_float;
             case VarType::String:
                 return std::stod(as<String>());
-            case VarType::StringId:
-                return std::stod(as<StringId>().str());
+            case VarType::Strid:
+                return std::stod(as<Strid>().str());
             default:
                 return 0;
         }
@@ -408,20 +408,20 @@ namespace wmoge {
         switch (type()) {
             case VarType::String:
                 return as<String>();
-            case VarType::StringId:
-                return as<StringId>().str();
+            case VarType::Strid:
+                return as<Strid>().str();
             default:
                 return String();
         }
     }
-    Var::operator StringId() const {
+    Var::operator Strid() const {
         switch (type()) {
-            case VarType::StringId:
-                return as<StringId>();
+            case VarType::Strid:
+                return as<Strid>();
             case VarType::String:
-                return StringId(as<String>());
+                return Strid(as<String>());
             default:
-                return StringId();
+                return Strid();
         }
     }
     Var::operator Array() const {
@@ -476,8 +476,8 @@ namespace wmoge {
                 case VarType::String:
                     as<String>().~String();
                     break;
-                case VarType::StringId:
-                    as<StringId>().~StringId();
+                case VarType::Strid:
+                    as<Strid>().~Strid();
                     break;
                 case VarType::Array:
                     as<Array>().~Array();
@@ -539,8 +539,8 @@ namespace wmoge {
             case VarType::String:
                 stream << '"' << as<String>() << '"';
                 break;
-            case VarType::StringId:
-                stream << as<StringId>();
+            case VarType::Strid:
+                stream << as<Strid>();
                 break;
             case VarType::Array:
                 stream << '[';
@@ -626,8 +626,8 @@ namespace wmoge {
             case VarType::String:
                 accum ^= std::hash<String>()(as<String>());
                 break;
-            case VarType::StringId:
-                accum ^= std::hash<StringId>()(as<StringId>());
+            case VarType::Strid:
+                accum ^= std::hash<Strid>()(as<Strid>());
                 break;
             case VarType::Array:
                 for (const auto& v : as<Array>()) {

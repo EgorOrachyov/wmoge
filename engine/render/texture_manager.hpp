@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TEXTURE_MANAGER_HPP
-#define WMOGE_TEXTURE_MANAGER_HPP
+#pragma once
 
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
@@ -57,5 +56,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TEXTURE_MANAGER_HPP

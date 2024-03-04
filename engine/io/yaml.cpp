@@ -64,7 +64,7 @@ namespace wmoge {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_read(const YamlConstNodeRef& node, StringId& value) {
+    Status yaml_read(const YamlConstNodeRef& node, Strid& value) {
         std::string string;
         node >> string;
         value = SID(string);
@@ -93,7 +93,7 @@ namespace wmoge {
         node << value;
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const StringId& value) {
+    Status yaml_write(YamlNodeRef node, const Strid& value) {
         node << value.str();
         return StatusCode::Ok;
     }

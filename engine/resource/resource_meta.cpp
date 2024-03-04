@@ -29,29 +29,14 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, ResourceResFile& file) {
-        WG_YAML_READ_AS(node, "version", file.version);
-        WG_YAML_READ_AS(node, "uuid", file.uuid);
-        WG_YAML_READ_AS(node, "class", file.cls);
-        WG_YAML_READ_AS(node, "loader", file.loader);
-        WG_YAML_READ_AS(node, "deps", file.deps);
-        WG_YAML_READ_AS(node, "description", file.description);
-        WG_YAML_READ_AS_OPT(node, "path_on_disk", file.path_on_disk);
-
-        return StatusCode::Ok;
-    }
-
-    Status yaml_write(YamlNodeRef node, const ResourceResFile& file) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "version", file.version);
-        WG_YAML_WRITE_AS(node, "uuid", file.uuid);
-        WG_YAML_WRITE_AS(node, "class", file.cls);
-        WG_YAML_WRITE_AS(node, "loader", file.loader);
-        WG_YAML_WRITE_AS(node, "deps", file.deps);
-        WG_YAML_WRITE_AS(node, "description", file.description);
-        WG_YAML_WRITE_AS_OPT(node, "path_on_disk", file.path_on_disk.has_value(), file.path_on_disk);
-
-        return StatusCode::Ok;
-    }
+    WG_IO_BEGIN(ResourceResFile)
+    WG_IO_FIELD(version)
+    WG_IO_FIELD(uuid)
+    WG_IO_FIELD_AS(cls, "class")
+    WG_IO_FIELD(loader)
+    WG_IO_FIELD(deps)
+    WG_IO_FIELD(description)
+    WG_IO_FIELD_OPT(path_on_disk)
+    WG_IO_END(ResourceResFile)
 
 }// namespace wmoge

@@ -36,11 +36,12 @@
 #include "math/color.hpp"
 #include "math/transform.hpp"
 #include "platform/window.hpp"
+#include "render/culling.hpp"
 #include "render/graphics_pipeline.hpp"
 #include "render/render_scene.hpp"
-#include "render/visibility.hpp"
 #include "resource/model.hpp"
 #include "resource/resource_ref.hpp"
+#include "scene/scene_components.hpp"
 
 #include <memory>
 #include <string>
@@ -50,13 +51,14 @@
 namespace wmoge {
 
     /**
-     * @class SceneDataTransform
+     * @class SceneDataSpatial
      * @brief Serializable struct with transform data for a scene entity
      */
-    struct SceneDataTransform {
-        Transform3d transform;
+    struct SceneDataSpatial {
+        Transform3d        transform;
+        std::optional<int> parent;
 
-        WG_IO_DECLARE(SceneDataTransform);
+        WG_IO_DECLARE(SceneDataSpatial);
     };
 
     /**
@@ -64,13 +66,14 @@ namespace wmoge {
      * @brief Serializable struct with camera data for a scene entity
      */
     struct SceneDataCamera {
-        StringId         name;
+        Strid            name;
         Color4f          color      = Color::BLACK4f;
-        Vec4f            viewport   = Vec4f(0, 0, 1, 1);
         float            fov        = 45.0f;
         float            near       = 0.1f;
         float            far        = 10000.0f;
         CameraProjection projection = CameraProjection::Perspective;
+
+        void fill(EcsComponentCamera& component) const;
 
         WG_IO_DECLARE(SceneDataCamera);
     };
@@ -87,12 +90,12 @@ namespace wmoge {
      * @brief Serializable struct with a scene data for a runtime scene
      */
     struct SceneData final {
-        StringId                              name;
-        std::vector<EcsArch>                  entities;
-        SceneEntityVector<std::string>        names;
-        SceneEntityVector<SceneDataTransform> transforms;
-        SceneEntityVector<SceneDataCamera>    cameras;
-        GraphicsPipelineSettings              pipeline;
+        Strid                               name;
+        std::vector<EcsArch>                entities;
+        SceneEntityVector<std::string>      names;
+        SceneEntityVector<SceneDataSpatial> hier;
+        SceneEntityVector<SceneDataCamera>  cameras;
+        GraphicsPipelineSettings            pipeline;
 
         WG_IO_DECLARE(SceneData);
     };

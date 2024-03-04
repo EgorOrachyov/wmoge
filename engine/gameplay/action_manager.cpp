@@ -76,7 +76,7 @@ namespace wmoge {
 
             for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.name;
+                const Strid&                         action_name        = action_map_action.name;
                 const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
@@ -154,7 +154,7 @@ namespace wmoge {
         return true;
     }
 
-    bool ActionManager::remove(const StringId& action_map) {
+    bool ActionManager::remove(const Strid& action_map) {
         const auto query = std::find_if(m_maps.begin(), m_maps.end(), [&](auto& info) { return info.action_map->get_name() == action_map; });
         const bool found = query != m_maps.end();
 
@@ -163,11 +163,11 @@ namespace wmoge {
         return found;
     }
 
-    bool ActionManager::has(const StringId& action_map) {
+    bool ActionManager::has(const Strid& action_map) {
         return get_action_map_info(action_map) != nullptr;
     }
 
-    void ActionManager::activate(const StringId& action_map, bool active) {
+    void ActionManager::activate(const Strid& action_map, bool active) {
         ActionMapInfo* info = get_action_map_info(action_map);
 
         if (!info) {
@@ -186,7 +186,7 @@ namespace wmoge {
             WG_LOG_INFO("[all] action map " << info.action_map->get_name() << " active=" << active);
         }
     }
-    void ActionManager::activate_all_except(const StringId& action_map, bool active) {
+    void ActionManager::activate_all_except(const Strid& action_map, bool active) {
         for (auto& info : m_maps) {
             if (info.action_map->get_name() != action_map) {
                 info.active = active;
@@ -204,7 +204,7 @@ namespace wmoge {
 
             for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.name;
+                const Strid&                         action_name        = action_map_action.name;
                 const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
@@ -233,7 +233,7 @@ namespace wmoge {
 
             for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.name;
+                const Strid&                         action_name        = action_map_action.name;
                 const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
@@ -262,7 +262,7 @@ namespace wmoge {
 
             for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.name;
+                const Strid&                         action_name        = action_map_action.name;
                 const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
@@ -292,7 +292,7 @@ namespace wmoge {
 
             for (const auto& entry : info.action_map->m_actions) {
                 const ActionMapAction&               action_map_action  = entry.second;
-                const StringId&                      action_name        = action_map_action.name;
+                const Strid&                         action_name        = action_map_action.name;
                 const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
@@ -316,7 +316,7 @@ namespace wmoge {
         return false;
     }
 
-    ActionManager::ActionMapInfo* ActionManager::get_action_map_info(const StringId& name) {
+    ActionManager::ActionMapInfo* ActionManager::get_action_map_info(const Strid& name) {
         for (auto& info : m_maps) {
             if (info.action_map->get_name() == name) {
                 return &info;

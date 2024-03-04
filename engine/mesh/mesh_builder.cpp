@@ -39,7 +39,7 @@ namespace wmoge {
         m_mesh = std::move(mesh);
     }
 
-    void MeshBuilder::add_chunk(const StringId& name, const Ref<ArrayMesh>& data) {
+    void MeshBuilder::add_chunk(const Strid& name, const Ref<ArrayMesh>& data) {
         assert(data);
 
         m_chunks.push_back(data);

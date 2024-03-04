@@ -55,8 +55,8 @@ namespace wmoge {
         WG_OBJECT(PfxFeature, Object)
 
         virtual Ref<PfxFeature> create() const { return {}; };
-        virtual StringId        get_feature_name() const { return StringId(); };
-        virtual StringId        get_feature_family() const { return StringId(); };
+        virtual Strid           get_feature_name() const { return Strid(); };
+        virtual Strid           get_feature_family() const { return Strid(); };
 
         virtual bool load_from_options(const YamlConstNodeRef& node) { return true; };
 

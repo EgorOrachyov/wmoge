@@ -36,13 +36,14 @@
 namespace wmoge {
 
     WG_IO_BEGIN(SceneTreeData)
-    WG_IO_FIELD(nodes)
-    WG_IO_FIELD(pipeline_settings)
+    WG_IO_PROFILE()
+    WG_IO_FIELD_OPT(nodes)
+    WG_IO_FIELD_OPT(pipeline)
     WG_IO_END(SceneTreeData)
 
-    SceneTree::SceneTree(const StringId& name) {
+    SceneTree::SceneTree(const Strid& name) {
         m_name  = name;
-        m_scene = Engine::instance()->scene_manager()->make_scene(SID(name.str() + "__runtime"));
+        m_scene = Engine::instance()->scene_manager()->make_scene(SID(name.str() + ".runtime"));
         m_root  = make_ref<SceneNode>(SID("<root>"), SceneNodeType::Object);
         m_root->enter_tree(this);
     }
@@ -70,6 +71,8 @@ namespace wmoge {
     }
 
     Status SceneTree::build(const SceneTreeData& data) {
+        WG_AUTO_PROFILE_SCENE("SceneTree::build");
+
         if (!m_root->build(data.nodes)) {
             return StatusCode::Error;
         }
@@ -77,6 +80,8 @@ namespace wmoge {
         return StatusCode::Ok;
     }
     Status SceneTree::dump(SceneTreeData& data) {
+        WG_AUTO_PROFILE_SCENE("SceneTree::dump");
+
         if (!m_root->dump(data.nodes)) {
             return StatusCode::Error;
         }

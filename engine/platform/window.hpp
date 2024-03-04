@@ -42,7 +42,7 @@ namespace wmoge {
     struct WindowInfo {
         int         width  = 1280;
         int         height = 720;
-        StringId    id     = SID("primary");
+        Strid       id     = SID("primary");
         std::string title  = "Window";
         Ref<Image>  icons[2];
     };
@@ -64,7 +64,7 @@ namespace wmoge {
         virtual float              scale_x() const    = 0;
         virtual float              scale_y() const    = 0;
         virtual bool               in_focus() const   = 0;
-        virtual const StringId&    id() const         = 0;
+        virtual const Strid&       id() const         = 0;
         virtual const std::string& title() const      = 0;
     };
 

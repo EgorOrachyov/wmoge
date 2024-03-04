@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMGOE_VISIBILITY_HPP
-#define WMGOE_VISIBILITY_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/string_id.hpp"
@@ -42,15 +41,15 @@
 namespace wmoge {
 
     /**
-     * @class VisibilityItem
+     * @class CullingItem
      * @brief Id of the item to reference in visibility system 
      */
-    struct VisibilityItem {
-        VisibilityItem() = default;
-        VisibilityItem(int id) : id(id) {}
+    struct CullingItem {
+        CullingItem() = default;
+        CullingItem(int id) : id(id) {}
 
-        bool operator==(const VisibilityItem& other) const { return id == other.id; }
-        bool operator!=(const VisibilityItem& other) const { return id != other.id; }
+        bool operator==(const CullingItem& other) const { return id == other.id; }
+        bool operator!=(const CullingItem& other) const { return id != other.id; }
 
         bool is_valid() const { return id != -1; }
 
@@ -63,53 +62,51 @@ namespace wmoge {
     };
 
     /**
-     * @class VisibilityItemData
+     * @class CullingItemData
      * @brief Data of a single item for management
      */
-    struct VisibilityItemData {
-        Aabbf          aabb;
-        float          min_dist_2 = 0.0f;
-        float          max_dist_2 = 10000000000.0f;
-        VisibilityItem id;
+    struct CullingItemData {
+        Aabbf       aabb;
+        float       min_dist_2 = 0.0f;
+        float       max_dist_2 = 10000000000.0f;
+        CullingItem id;
     };
 
     /**
-     * @class VisibilityItemResult
+     * @class CullingItemResult
      * @brief Result of a visibility item culling tests
      */
-    struct VisibilityItemResult {
+    struct CullingItemResult {
         RenderCameraMask cam_mask;
         float            distance;
     };
 
     /**
-     * @class VisibilitySystem
+     * @class CullingManager
      * @brief Manages allocation, frustum and occlussion culling of visibility items
      */
-    class VisibilitySystem {
+    class CullingManager {
     public:
         static constexpr int ALLOC_BATCH_SIZE = 1024;
 
-        VisibilitySystem()                        = default;
-        VisibilitySystem(const VisibilitySystem&) = delete;
-        VisibilitySystem(VisibilitySystem&&)      = delete;
+        CullingManager()                      = default;
+        CullingManager(const CullingManager&) = delete;
+        CullingManager(CullingManager&&)      = delete;
 
-        VisibilityItem       alloc_item();
-        void                 release_item(VisibilityItem item);
-        void                 update_item_min_dist(const VisibilityItem& item, float min_dist);
-        void                 update_item_max_dist(const VisibilityItem& item, float max_dist);
-        void                 update_item_bbox(const VisibilityItem& item, const Aabbf& aabbf);
-        VisibilityItemResult get_item_result(const VisibilityItem& item);
+        CullingItem       alloc_item();
+        void              release_item(CullingItem item);
+        void              update_item_min_dist(const CullingItem& item, float min_dist);
+        void              update_item_max_dist(const CullingItem& item, float max_dist);
+        void              update_item_bbox(const CullingItem& item, const Aabbf& aabbf);
+        CullingItemResult get_item_result(const CullingItem& item);
 
         void cull(const CameraList& cameras);
 
     private:
-        std::vector<VisibilityItemData>   m_items;
-        std::vector<VisibilityItemResult> m_result;
-        std::vector<int>                  m_free;
-        int                               m_task_batch = 16;
+        std::vector<CullingItemData>   m_items;
+        std::vector<CullingItemResult> m_result;
+        std::vector<int>               m_free;
+        int                            m_task_batch = 16;
     };
 
 }// namespace wmoge
-
-#endif//WMGOE_VISIBILITY_HPP

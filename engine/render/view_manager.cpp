@@ -27,6 +27,32 @@
 
 #include "view_manager.hpp"
 
+#include <algorithm>
+#include <cassert>
+
 namespace wmoge {
 
-}
+    ViewManager::ViewManager() {
+        m_active = create_view(SID("default"));
+    }
+
+    Ref<View> ViewManager::create_view(Strid name) {
+        auto view = make_ref<View>(std::move(name));
+        m_views.push_back(view);
+        return view;
+    }
+
+    void ViewManager::delete_view(const Ref<View>& view) {
+        assert(has_view(view));
+        m_views.erase(std::find(m_views.begin(), m_views.end(), view));
+    }
+
+    void ViewManager::make_active(Ref<View> view) {
+        m_active = std::move(view);
+    }
+
+    bool ViewManager::has_view(const Ref<View>& view) {
+        return std::find(m_views.begin(), m_views.end(), view) != m_views.end();
+    }
+
+}// namespace wmoge

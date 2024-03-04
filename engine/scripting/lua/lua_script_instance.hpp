@@ -52,7 +52,7 @@ namespace wmoge {
         void on_scene_exit() override;
         void on_transform_updated() override;
         void on_update(float delta_time) override;
-        void on_signal(const StringId& signal) override;
+        void on_signal(const Strid& signal) override;
         void on_input_mouse(const Ref<EventMouse>& event) override;
         void on_input_keyboard(const Ref<EventKeyboard>& event) override;
         void on_input_joystick(const Ref<EventJoystick>& event) override;
@@ -60,9 +60,9 @@ namespace wmoge {
         void on_action(const Ref<EventAction>& action) override;
         void on_token(const Ref<EventToken>& token) override;
 
-        int set(const StringId& property, const Var& value) override;
-        int get(const StringId& property, Var& value) override;
-        int call(const StringId& method, int argc, const Var* argv, Var& ret) override;
+        int set(const Strid& property, const Var& value) override;
+        int get(const Strid& property, Var& value) override;
+        int call(const Strid& method, int argc, const Var* argv, Var& ret) override;
 
         luabridge::LuaRef& get_script_object() { return m_script_object; }
 

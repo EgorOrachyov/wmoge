@@ -53,25 +53,25 @@ namespace wmoge {
     public:
         virtual ~AudioEngine() = default;
 
-        virtual void               update()                                                                          = 0;
-        virtual void               shutdown()                                                                        = 0;
-        virtual Ref<AudioPlayback> make_playback(Ref<AudioStream> stream, const StringId& bus, const StringId& name) = 0;
-        virtual Ref<AudioBus>      make_bus(const StringId& name)                                                    = 0;
-        virtual Ref<AudioBus>      find_bus(const StringId& name)                                                    = 0;
-        virtual bool               has_bus(const StringId& name)                                                     = 0;
+        virtual void               update()                                                                    = 0;
+        virtual void               shutdown()                                                                  = 0;
+        virtual Ref<AudioPlayback> make_playback(Ref<AudioStream> stream, const Strid& bus, const Strid& name) = 0;
+        virtual Ref<AudioBus>      make_bus(const Strid& name)                                                 = 0;
+        virtual Ref<AudioBus>      find_bus(const Strid& name)                                                 = 0;
+        virtual bool               has_bus(const Strid& name)                                                  = 0;
 
         const AudioDriverCaps& get_caps() const { return m_caps; }
-        const StringId&        get_engine_name() const { return m_engine_name; }
-        const StringId&        get_driver_name() const { return m_driver_name; }
-        const StringId&        get_device_name() const { return m_device_name; }
-        const StringId&        get_default_bus() const { return m_default_bus; }
+        const Strid&           get_engine_name() const { return m_engine_name; }
+        const Strid&           get_driver_name() const { return m_driver_name; }
+        const Strid&           get_device_name() const { return m_device_name; }
+        const Strid&           get_default_bus() const { return m_default_bus; }
 
     protected:
         AudioDriverCaps m_caps;
-        StringId        m_engine_name;
-        StringId        m_driver_name;
-        StringId        m_device_name;
-        StringId        m_default_bus;
+        Strid           m_engine_name;
+        Strid           m_driver_name;
+        Strid           m_device_name;
+        Strid           m_default_bus;
     };
 
 }// namespace wmoge

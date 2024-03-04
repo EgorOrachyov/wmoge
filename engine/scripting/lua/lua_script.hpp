@@ -48,21 +48,21 @@ namespace wmoge {
         Status copy_to(Object& other) const override;
 
         Ref<ScriptInstance> attach_to(Object* object) override;
-        bool                has_property(const StringId& property) override;
-        bool                has_method(const StringId& method) override;
+        bool                has_property(const Strid& property) override;
+        bool                has_method(const Strid& method) override;
 
-        const fast_map<StringId, luabridge::LuaRef>& get_lua_properties();
-        const fast_map<StringId, luabridge::LuaRef>& get_lua_methods();
-        const std::optional<luabridge::LuaRef>&      get_lua_class();
-        class LuaScriptSystem*                       get_system();
-        lua_State*                                   get_state();
+        const fast_map<Strid, luabridge::LuaRef>& get_lua_properties();
+        const fast_map<Strid, luabridge::LuaRef>& get_lua_methods();
+        const std::optional<luabridge::LuaRef>&   get_lua_class();
+        class LuaScriptSystem*                    get_system();
+        lua_State*                                get_state();
 
     private:
-        fast_map<StringId, luabridge::LuaRef> m_lua_properties;
-        fast_map<StringId, luabridge::LuaRef> m_lua_methods;
-        std::optional<luabridge::LuaRef>      m_lua_class;
-        class LuaScriptSystem*                m_system = nullptr;
-        lua_State*                            m_state  = nullptr;
+        fast_map<Strid, luabridge::LuaRef> m_lua_properties;
+        fast_map<Strid, luabridge::LuaRef> m_lua_methods;
+        std::optional<luabridge::LuaRef>   m_lua_class;
+        class LuaScriptSystem*             m_system = nullptr;
+        lua_State*                         m_state  = nullptr;
     };
 
 }// namespace wmoge

@@ -118,8 +118,8 @@ namespace wmoge {
         m_gfx_vertex_buffers.resize(m_vertex_buffers.size());
 
         for (int i = 0; i < m_vertex_buffers.size(); ++i) {
-            const int      size     = static_cast<int>(m_vertex_buffers[i]->size());
-            const StringId name     = SID(get_name().str() + "_" + StringUtils::from_int(i));
+            const int   size        = static_cast<int>(m_vertex_buffers[i]->size());
+            const Strid name        = SID(get_name().str() + "_" + StringUtils::from_int(i));
             m_gfx_vertex_buffers[i] = gfx_driver->make_vert_buffer(size, mem_usage, name);
             gfx_ctx->update_vert_buffer(m_gfx_vertex_buffers[i], 0, size, m_vertex_buffers[i]);
         }
@@ -127,8 +127,8 @@ namespace wmoge {
         m_gfx_index_buffers.resize(m_index_buffers.size());
 
         for (int i = 0; i < m_index_buffers.size(); ++i) {
-            const int      size    = static_cast<int>(m_index_buffers[i]->size());
-            const StringId name    = SID(get_name().str() + "_" + StringUtils::from_int(i));
+            const int   size       = static_cast<int>(m_index_buffers[i]->size());
+            const Strid name       = SID(get_name().str() + "_" + StringUtils::from_int(i));
             m_gfx_index_buffers[i] = gfx_driver->make_index_buffer(size, mem_usage, name);
             gfx_ctx->update_index_buffer(m_gfx_index_buffers[i], 0, size, m_index_buffers[i]);
         }

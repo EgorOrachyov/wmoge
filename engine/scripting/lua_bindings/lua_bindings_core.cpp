@@ -113,14 +113,14 @@ namespace wmoge {
                      .addFunction("refs_count", &LuaRefCnt::refs_count)
                      .endClass();
 
-        ns = ns.beginClass<StringId>("StringId")
+        ns = ns.beginClass<Strid>("Strid")
                      .addStaticFunction("new", std::function([](const std::string& id) { return SID(id); }))
                      .addConstructor<void (*)(void)>()
-                     .addProperty("empty", &StringId::empty)
-                     .addProperty("id", &StringId::id)
-                     .addProperty("hash", &StringId::hash)
-                     .addProperty("str", &StringId::str)
-                     .addProperty("__tostring", &StringId::str)
+                     .addProperty("empty", &Strid::empty)
+                     .addProperty("id", &Strid::id)
+                     .addProperty("hash", &Strid::hash)
+                     .addProperty("str", &Strid::str)
+                     .addProperty("__tostring", &Strid::str)
                      .endClass();
 
         ns = ns.deriveClass<LuaData, LuaRefCnt>("Data")

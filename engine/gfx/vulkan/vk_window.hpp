@@ -121,7 +121,7 @@ namespace wmoge {
         Ref<VKWindow> get_or_create(const Ref<Window>& window);
 
     private:
-        fast_map<StringId, Ref<VKWindow>>                               m_windows;
+        fast_map<Strid, Ref<VKWindow>>                                  m_windows;
         std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> m_factory;
         class VKDriver&                                                 m_driver;
     };

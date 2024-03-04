@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    void EventScript::set_type(StringId type) {
+    void EventScript::set_type(Strid type) {
         m_type = std::move(type);
     }
     std::string EventScript::to_string() {

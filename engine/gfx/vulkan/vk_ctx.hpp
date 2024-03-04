@@ -83,7 +83,7 @@ namespace wmoge {
         void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) override;
         void barrier_buffer(const Ref<GfxStorageBuffer>& buffer) override;
 
-        void begin_render_pass(const GfxRenderPassDesc& pass_desc, const StringId& name) override;
+        void begin_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) override;
         void bind_target(const Ref<Window>& window) override;
         void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
         void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) override;
@@ -107,7 +107,7 @@ namespace wmoge {
         void begin_frame() override;
         void end_frame() override;
 
-        void begin_label(const StringId& label) override;
+        void begin_label(const Strid& label) override;
         void end_label() override;
 
         [[nodiscard]] const Mat4x4f&  clip_matrix() const override;
@@ -140,12 +140,12 @@ namespace wmoge {
         int                                                        m_clear_stencil = 0;
         Rect2i                                                     m_viewport;
 
-        bool     m_in_render_pass      = false;
-        bool     m_render_pass_started = false;
-        bool     m_pipeline_bound      = false;
-        bool     m_comp_pipeline_bound = false;
-        bool     m_target_bound        = false;
-        StringId m_render_pass_name;
+        bool  m_in_render_pass      = false;
+        bool  m_render_pass_started = false;
+        bool  m_pipeline_bound      = false;
+        bool  m_comp_pipeline_bound = false;
+        bool  m_target_bound        = false;
+        Strid m_render_pass_name;
 
         GfxCtxType m_ctx_type = GfxCtxType::Immediate;
         Mat4x4f    m_clip_matrix;

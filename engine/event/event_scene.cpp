@@ -25,55 +25,22 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "event_scene.hpp"
 
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "gfx/gfx_texture.hpp"
-#include "math/color.hpp"
-#include "math/vec.hpp"
-#include "platform/window.hpp"
-#include "render/camera.hpp"
-#include "scene/scene_entity.hpp"
+#include "core/class.hpp"
+#include "io/enum.hpp"
 
-#include <optional>
+#include <sstream>
 
 namespace wmoge {
 
-    /**
-     * @class ViewParams
-     * @brief Holds params assositated to the view
-    */
-    struct ViewParams {
-        bool auto_aspect = true;
-    };
-
-    /**
-     * @class View
-     * @brief View control how to present rendered content to the screen
-    */
-    class View : public RefCnt {
-    public:
-        View(Strid name);
-        ~View() override = default;
-
-        void update(bool is_active);
-
-        [[nodiscard]] const ViewParams&            get_params() const { return m_params; }
-        [[nodiscard]] const Camera&                get_camera() const { return m_camera; }
-        [[nodiscard]] const std::optional<Camera>& get_camera_prev() const { return m_camera_prev; }
-        [[nodiscard]] const std::optional<Entity>& get_owner() const { return m_owner; }
-        [[nodiscard]] const Strid&                 get_name() const { return m_name; }
-
-    private:
-        ViewParams            m_params;
-        Camera                m_camera;
-        std::optional<Camera> m_camera_prev;
-        std::optional<Entity> m_owner;
-        Strid                 m_name;
-        Ref<Window>           m_window;
-        Rect2i                m_presentation_area  = Rect2i(0, 0, 1280, 720);
-        Color4f               m_presentation_color = Color::BLACK4f;
-    };
+    std::string EventSceneNode::to_string() {
+        std::stringstream str;
+        str << "type:" << Enum::to_str(notification);
+        return str.str();
+    }
+    void EventSceneNode::register_class() {
+        auto* cls = Class::register_class<EventSceneNode>();
+    }
 
 }// namespace wmoge

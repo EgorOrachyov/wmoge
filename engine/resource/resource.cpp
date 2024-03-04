@@ -56,7 +56,7 @@ namespace wmoge {
     ResourceId::ResourceId(const std::string& id) {
         m_name = SID(id);
     }
-    ResourceId::ResourceId(const StringId& id) {
+    ResourceId::ResourceId(const Strid& id) {
         m_name = id;
     }
 
@@ -74,8 +74,8 @@ namespace wmoge {
 
     void Resource::register_class() {
         auto cls = Class::register_class<Resource>();
-        cls->add_property(ClassProperty(VarType::StringId, SID("name"), SID("get_name")));
-        cls->add_method(ClassMethod(VarType::StringId, SID("get_name"), {}), &Resource::get_name, {});
+        cls->add_property(ClassProperty(VarType::Strid, SID("name"), SID("get_name")));
+        cls->add_method(ClassMethod(VarType::Strid, SID("get_name"), {}), &Resource::get_name, {});
     }
 
     void ResourceDependencies::set_mode(CollectionMode mode, std::optional<int> num_levels) {
