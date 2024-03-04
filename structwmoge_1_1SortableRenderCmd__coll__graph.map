@@ -1,16 +1,16 @@
 <map id="wmoge::SortableRenderCmd" name="wmoge::SortableRenderCmd">
-<area shape="rect" id="node1" title="POD&#45;Command used for sorting and draw calls merging." alt="" coords="1641,136,1828,163"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1RenderCmd.html" title="POD&#45;Command representing single draw call." alt="" coords="1388,108,1527,135"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1GfxVertBuffersSetup.html" title="Setup to bind an vertex buffers." alt="" coords="1067,7,1256,33"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="727,7,875,33"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="416,57,540,84"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="724,57,879,84"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="221,108,367,135"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1GfxPipeline.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="564,108,700,135"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="903,160,1043,187"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="7,83,118,109"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,133,120,160"/>
-<area shape="rect" id="node10" href="$structwmoge_1_1GfxIndexBufferSetup.html" title="Setup to bind an index buffer." alt="" coords="1067,57,1256,84"/>
-<area shape="rect" id="node12" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="1090,221,1233,248"/>
-<area shape="rect" id="node14" href="$structwmoge_1_1RenderCmdKey.html" title="Key to sort commands for efficient execution." alt="" coords="1377,159,1537,185"/>
+<area shape="rect" id="node1" title="POD&#45;Command used for sorting and draw calls merging." alt="" coords="1637,136,1824,163"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1RenderCmd.html" title="POD&#45;Command representing single draw call." alt="" coords="1384,108,1523,135"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GfxVertBuffersSetup.html" title="Setup to bind an vertex buffers." alt="" coords="1063,7,1252,33"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxVertBuffer.html" title="Gfx vertex buffer." alt="" coords="723,7,871,33"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="412,57,536,84"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1GfxIndexBuffer.html" title="Gfx index buffer." alt="" coords="720,57,875,84"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="217,108,363,135"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1GfxPipeline.html" title="Represents created and compiled graphics pipeline state object." alt="" coords="560,108,696,135"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1GfxDescSet.html" title="Represent set of resources optimized for binding to a pipeline." alt="" coords="899,160,1039,187"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,83,116,109"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="12,133,109,160"/>
+<area shape="rect" id="node10" href="$structwmoge_1_1GfxIndexBufferSetup.html" title="Setup to bind an index buffer." alt="" coords="1063,57,1252,84"/>
+<area shape="rect" id="node12" href="$structwmoge_1_1GfxDrawCall.html" title="Config to dispatch a draw." alt="" coords="1086,221,1229,248"/>
+<area shape="rect" id="node14" href="$structwmoge_1_1RenderCmdKey.html" title="Key to sort commands for efficient execution." alt="" coords="1373,159,1533,185"/>
 </map>

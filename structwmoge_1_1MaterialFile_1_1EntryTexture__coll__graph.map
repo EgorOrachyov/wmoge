@@ -1,6 +1,6 @@
 <map id="wmoge::MaterialFile::EntryTexture" name="wmoge::MaterialFile::EntryTexture">
-<area shape="rect" id="node1" title="Texture info of a material." alt="" coords="103,200,240,241"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="5,96,172,137"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="14,5,163,47"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="197,103,311,130"/>
+<area shape="rect" id="node1" title="Texture info of a material." alt="" coords="40,200,177,241"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,103,103,130"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="127,96,293,137"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="135,5,285,47"/>
 </map>

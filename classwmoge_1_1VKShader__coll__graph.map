@@ -1,8 +1,8 @@
 <map id="wmoge::VKShader" name="wmoge::VKShader">
-<area shape="rect" id="node1" title="Vulkan implementation of gfx shader program resource." alt="" coords="64,337,193,364"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="53,247,204,288"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1GfxShader.html" title="Complete gpu program (shader with complete set of stages) for the execution." alt="" coords="63,171,194,197"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="56,95,201,121"/>
+<area shape="rect" id="node1" title="Vulkan implementation of gfx shader program resource." alt="" coords="60,337,189,364"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="49,247,200,288"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxShader.html" title="Complete gpu program (shader with complete set of stages) for the execution." alt="" coords="59,171,190,197"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,95,197,121"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
 </map>

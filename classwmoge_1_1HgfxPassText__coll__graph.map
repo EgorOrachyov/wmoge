@@ -5,6 +5,6 @@
 <area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="333,57,483,98"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="323,123,493,149"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="333,174,483,215"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="351,240,465,267"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="359,173,457,200"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="333,225,483,266"/>
 </map>

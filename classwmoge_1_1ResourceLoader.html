@@ -97,10 +97,10 @@ Inheritance diagram for wmoge::ResourceLoader:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aece79573bacea1bfbb1d407601bc8776"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourceLoader.html#aece79573bacea1bfbb1d407601bc8776">~ResourceLoader</a> ()=default</td></tr>
 <tr class="separator:aece79573bacea1bfbb1d407601bc8776"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf891a32de3b15d470c28f5fa9673b51"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourceLoader.html#acf891a32de3b15d470c28f5fa9673b51">load</a> (const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;name, const <a class="el" href="structwmoge_1_1ResourceMeta.html">ResourceMeta</a> &amp;meta, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt; &amp;res)=0</td></tr>
-<tr class="separator:acf891a32de3b15d470c28f5fa9673b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21015468e15c3ec77eae54d2daa77a52"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourceLoader.html#a21015468e15c3ec77eae54d2daa77a52">get_name</a> ()=0</td></tr>
-<tr class="separator:a21015468e15c3ec77eae54d2daa77a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadda53eff2ac814c14272dda1563aa4c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourceLoader.html#aadda53eff2ac814c14272dda1563aa4c">load</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name, const <a class="el" href="structwmoge_1_1ResourceMeta.html">ResourceMeta</a> &amp;meta, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Resource.html">Resource</a> &gt; &amp;res)=0</td></tr>
+<tr class="separator:aadda53eff2ac814c14272dda1563aa4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c2dc4d464f7095d76ed4f0f27ba7933"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ResourceLoader.html#a0c2dc4d464f7095d76ed4f0f27ba7933">get_name</a> ()=0</td></tr>
+<tr class="separator:a0c2dc4d464f7095d76ed4f0f27ba7933"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Class.html" title="Storage for reflection information of particular object-hierarchy class.">Class</a> responsible for loading or resource(s) in a specific format. </p>
@@ -131,8 +131,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a21015468e15c3ec77eae54d2daa77a52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21015468e15c3ec77eae54d2daa77a52">&#9670;&nbsp;</a></span>get_name()</h2>
+<a id="a0c2dc4d464f7095d76ed4f0f27ba7933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c2dc4d464f7095d76ed4f0f27ba7933">&#9670;&nbsp;</a></span>get_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,7 +141,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1StringId.html">StringId</a> wmoge::ResourceLoader::get_name </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ResourceLoader::get_name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -154,12 +154,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ResourceLoaderWav.html#aba87fec217f9b077552f39e2f2ace388">wmoge::ResourceLoaderWav</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTextureCube.html#a593e14cf0ccc259616f4a59658d10ca1">wmoge::ResourceLoaderTextureCube</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTexture2d.html#ab282148d7a913ce76713fb46e63f0a85">wmoge::ResourceLoaderTexture2d</a>, <a class="el" href="classwmoge_1_1ResourceLoaderImage.html#ad1c479f92d5265a26c6a376dad299159">wmoge::ResourceLoaderImage</a>, <a class="el" href="classwmoge_1_1ResourceLoaderFreeType.html#a43768626b40e277c40e00be1a22b7b22">wmoge::ResourceLoaderFreeType</a>, <a class="el" href="classwmoge_1_1ResourceLoaderDefault.html#a4494b32a909614649953f17fb9375958">wmoge::ResourceLoaderDefault</a>, and <a class="el" href="classwmoge_1_1ResourceLoaderAssimp.html#aaf8256bb448c6ecdf9e3f5e5bf101fad">wmoge::ResourceLoaderAssimp</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ResourceLoaderWav.html#a49ae89817416f9afbac02e59dcc7a47a">wmoge::ResourceLoaderWav</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTextureCube.html#a7d4e3dfdc4f581fee5f616eb0a124aa0">wmoge::ResourceLoaderTextureCube</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTexture2d.html#a6628fd106f8ba8386acd9a6c6d66bfd0">wmoge::ResourceLoaderTexture2d</a>, <a class="el" href="classwmoge_1_1ResourceLoaderImage.html#a3033191c8b16e8188e218ffbc8a5942f">wmoge::ResourceLoaderImage</a>, <a class="el" href="classwmoge_1_1ResourceLoaderFreeType.html#a1389e110908f3e809eb0564da3e05c5f">wmoge::ResourceLoaderFreeType</a>, <a class="el" href="classwmoge_1_1ResourceLoaderDefault.html#a25d0dc133330a37c88e142da41981ee3">wmoge::ResourceLoaderDefault</a>, and <a class="el" href="classwmoge_1_1ResourceLoaderAssimp.html#a77fe29301582bb6297b81b6cb827064f">wmoge::ResourceLoaderAssimp</a>.</p>
 
 </div>
 </div>
-<a id="acf891a32de3b15d470c28f5fa9673b51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf891a32de3b15d470c28f5fa9673b51">&#9670;&nbsp;</a></span>load()</h2>
+<a id="aadda53eff2ac814c14272dda1563aa4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadda53eff2ac814c14272dda1563aa4c">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,7 +170,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ResourceLoader::load </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
@@ -198,7 +198,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1ResourceLoaderWav.html#af37882f8cb27e39c1e50522a1f58f650">wmoge::ResourceLoaderWav</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTextureCube.html#ad7f25fdbf0b1b260fedd75505bce1835">wmoge::ResourceLoaderTextureCube</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTexture2d.html#a6bf31e8a70d6d709f7a50f1fd6eba8d1">wmoge::ResourceLoaderTexture2d</a>, <a class="el" href="classwmoge_1_1ResourceLoaderImage.html#aed76d5ee02ec732abd98dcdd7bbca708">wmoge::ResourceLoaderImage</a>, <a class="el" href="classwmoge_1_1ResourceLoaderFreeType.html#ab007ed9f4f75db94dcc85962dc2f73bf">wmoge::ResourceLoaderFreeType</a>, <a class="el" href="classwmoge_1_1ResourceLoaderDefault.html#a4c7146325dfc46deee0b521c0a51322f">wmoge::ResourceLoaderDefault</a>, and <a class="el" href="classwmoge_1_1ResourceLoaderAssimp.html#a0eec776c103c72ae782cb7de6f8c608f">wmoge::ResourceLoaderAssimp</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1ResourceLoaderWav.html#a8b46151eb23d205aff34e7eaf059bc57">wmoge::ResourceLoaderWav</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTextureCube.html#a5f5a2eb061d72ef35310756bcc50e562">wmoge::ResourceLoaderTextureCube</a>, <a class="el" href="classwmoge_1_1ResourceLoaderTexture2d.html#a4be017b3702c6411d231176422e954c3">wmoge::ResourceLoaderTexture2d</a>, <a class="el" href="classwmoge_1_1ResourceLoaderImage.html#ab2ea6468d53486df11b55b566939d648">wmoge::ResourceLoaderImage</a>, <a class="el" href="classwmoge_1_1ResourceLoaderFreeType.html#a7e0e86d7ab6fb10d87dcac8a69a168a1">wmoge::ResourceLoaderFreeType</a>, <a class="el" href="classwmoge_1_1ResourceLoaderDefault.html#a4a5f7baa0fe5ba5b5ad88b3516870c38">wmoge::ResourceLoaderDefault</a>, and <a class="el" href="classwmoge_1_1ResourceLoaderAssimp.html#ab038c9a254164671bb96b75a0316a0b5">wmoge::ResourceLoaderAssimp</a>.</p>
 
 </div>
 </div>

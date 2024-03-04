@@ -1,0 +1,7 @@
+<map id="wmoge::ModelObj" name="wmoge::ModelObj">
+<area shape="rect" id="node1" title="Serializable struct to hold single renderable model obj." alt="" coords="235,185,361,212"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="5,81,172,123"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title="Smart shared reference&#45;counted pointer to T class." alt="" coords="29,5,149,32"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="196,89,400,115"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="424,89,521,115"/>
+</map>

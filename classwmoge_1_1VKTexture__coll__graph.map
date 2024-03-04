@@ -1,9 +1,9 @@
 <map id="wmoge::VKTexture" name="wmoge::VKTexture">
-<area shape="rect" id="node1" title="Vulkan gfx texture implementation for resources and render targets." alt="" coords="159,365,290,392"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="149,275,300,316"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1GfxTexture.html" title="Gfx device texture resource." alt="" coords="158,199,291,225"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="56,102,201,129"/>
+<area shape="rect" id="node1" title="Vulkan gfx texture implementation for resources and render targets." alt="" coords="155,365,286,392"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="145,275,296,316"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxTexture.html" title="Gfx device texture resource." alt="" coords="154,199,287,225"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,102,197,129"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="141,5,255,32"/>
-<area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="226,95,418,136"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="222,95,414,136"/>
 </map>

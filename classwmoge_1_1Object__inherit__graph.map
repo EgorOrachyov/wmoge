@@ -1,13 +1,13 @@
 <map id="wmoge::Object" name="wmoge::Object">
-<area shape="rect" id="node1" title="Base class for any scene tree object or resource with reflection support." alt="" coords="164,1171,272,1197"/>
+<area shape="rect" id="node1" title="Base class for any scene tree object or resource with reflection support." alt="" coords="164,1221,272,1248"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="327,627,478,669"/>
-<area shape="rect" id="node24" href="$classwmoge_1_1Event.html" title="Event holding some data which can be processed by listeners." alt="" coords="351,943,454,969"/>
-<area shape="rect" id="node38" href="$classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="339,1120,466,1147"/>
-<area shape="rect" id="node41" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="336,1171,469,1197"/>
-<area shape="rect" id="node42" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="333,1221,472,1248"/>
-<area shape="rect" id="node43" href="$classwmoge_1_1SceneNodeProp.html" title="An property of the node which can be assigned to node to customize it." alt="" coords="320,1272,485,1299"/>
-<area shape="rect" id="node47" href="$classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects." alt="" coords="336,1323,469,1349"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,1171,116,1197"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1Event.html" title="Event holding some data which can be processed by listeners." alt="" coords="351,968,454,995"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="339,1171,466,1197"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1PfxFeature.html" title="Pfx reusable feature which controls single aspect of particles." alt="" coords="336,1221,469,1248"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1SceneNode.html" title="Represents single node (object) in an editable tree hierarchy of scene objects." alt="" coords="333,1272,472,1299"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1SceneNodeProp.html" title="An property of the node which can be assigned to node to customize it." alt="" coords="320,1323,485,1349"/>
+<area shape="rect" id="node48" href="$classwmoge_1_1SceneTree.html" title="Editable tree of a scene objects." alt="" coords="336,1373,469,1400"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,1221,116,1248"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="557,385,683,412"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1ArrayMesh.html" title="Editable indexed mesh data which can be converted to a render mesh." alt="" coords="777,5,909,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1AudioStream.html" title="Base class for audio files which can be loaded and played." alt="" coords="771,56,916,83"/>
@@ -32,18 +32,19 @@
 <area shape="rect" id="node26" href="$classwmoge_1_1EventFileSystem.html" title="Action event dispatch from raw input and active mapping." alt="" coords="536,816,704,843"/>
 <area shape="rect" id="node27" href="$classwmoge_1_1EventInput.html" title="Base class for input events." alt="" coords="554,867,686,893"/>
 <area shape="rect" id="node33" href="$classwmoge_1_1EventResource.html" title="Event dispatched by resource manager." alt="" coords="541,917,699,944"/>
-<area shape="rect" id="node34" href="$classwmoge_1_1EventScript.html" title="Base class for any event which can be sent from/to script." alt="" coords="551,968,689,995"/>
-<area shape="rect" id="node36" href="$classwmoge_1_1EventToken.html" title="Event sent on token manager updates/events." alt="" coords="551,1019,689,1045"/>
-<area shape="rect" id="node37" href="$classwmoge_1_1EventWindow.html" title="Platform window event." alt="" coords="545,1069,695,1096"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1EventSceneNode.html" title="Event dispatched on scene node updates." alt="" coords="535,968,705,995"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1EventScript.html" title="Base class for any event which can be sent from/to script." alt="" coords="551,1019,689,1045"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1EventToken.html" title="Event sent on token manager updates/events." alt="" coords="551,1069,689,1096"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1EventWindow.html" title="Platform window event." alt="" coords="545,1120,695,1147"/>
 <area shape="rect" id="node28" href="$classwmoge_1_1EventDrop.html" title="Drop input for desktop." alt="" coords="778,765,909,792"/>
 <area shape="rect" id="node29" href="$classwmoge_1_1EventGamepad.html" title="Gamepad mapped input." alt="" coords="764,816,923,843"/>
 <area shape="rect" id="node30" href="$classwmoge_1_1EventJoystick.html" title="Joystick input." alt="" coords="768,867,919,893"/>
 <area shape="rect" id="node31" href="$classwmoge_1_1EventKeyboard.html" title="Keyboard input." alt="" coords="765,917,922,944"/>
 <area shape="rect" id="node32" href="$classwmoge_1_1EventMouse.html" title="Mouse input." alt="" coords="772,968,915,995"/>
-<area shape="rect" id="node35" href="$classwmoge_1_1LuaEventScript.html" title=" " alt="" coords="764,1019,923,1045"/>
-<area shape="rect" id="node39" href="$classwmoge_1_1HgfxPassBase.html" title="Render simple 3d geometry with optional vertex color without texturing and lighting." alt="" coords="541,1120,699,1147"/>
-<area shape="rect" id="node40" href="$classwmoge_1_1HgfxPassText.html" title="Render simple 2d text on a screen with blending support." alt="" coords="544,1171,696,1197"/>
-<area shape="rect" id="node44" href="$classwmoge_1_1NodePropCamera.html" title=" " alt="" coords="533,1221,707,1248"/>
-<area shape="rect" id="node45" href="$classwmoge_1_1NodePropModel.html" title=" " alt="" coords="539,1272,701,1299"/>
-<area shape="rect" id="node46" href="$classwmoge_1_1NodePropSpatial.html" title=" " alt="" coords="536,1323,704,1349"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1LuaEventScript.html" title=" " alt="" coords="764,1019,923,1045"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1HgfxPassBase.html" title="Render simple 3d geometry with optional vertex color without texturing and lighting." alt="" coords="541,1171,699,1197"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1HgfxPassText.html" title="Render simple 2d text on a screen with blending support." alt="" coords="544,1221,696,1248"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1NodePropCamera.html" title=" " alt="" coords="533,1272,707,1299"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1NodePropModel.html" title=" " alt="" coords="539,1323,701,1349"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1NodePropSpatial.html" title=" " alt="" coords="536,1373,704,1400"/>
 </map>

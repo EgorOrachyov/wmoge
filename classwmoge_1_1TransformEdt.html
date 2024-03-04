@@ -74,7 +74,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Utility to manage 3d space transformations with euler angles.  
+<p>Utility to manage 3d space transformations with euler angles (roll, yaw, pitch)  
  <a href="classwmoge_1_1TransformEdt.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="transform_8hpp_source.html">transform.hpp</a>&gt;</code></p>
@@ -89,10 +89,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4b3f3bea5f8232746cd4ccf40ec07d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24c94cf77e1abf1743c2b3b490cc9c3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#a24c94cf77e1abf1743c2b3b490cc9c3b">scale</a> (const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;scale)</td></tr>
 <tr class="separator:a24c94cf77e1abf1743c2b3b490cc9c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14189b5b1315dc8ba571e3f3743b964c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#a14189b5b1315dc8ba571e3f3743b964c">get_transform</a> () const</td></tr>
-<tr class="separator:a14189b5b1315dc8ba571e3f3743b964c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07dd00b371517073d1d58782111a9e11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#a07dd00b371517073d1d58782111a9e11">get_inverse_transform</a> () const</td></tr>
-<tr class="separator:a07dd00b371517073d1d58782111a9e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d101f9596e4bb689b1d336b7a91b1d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Transform3d.html">Transform3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#a5d101f9596e4bb689b1d336b7a91b1d4">to_transform3d</a> () const</td></tr>
+<tr class="separator:a5d101f9596e4bb689b1d336b7a91b1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3393e3e485beb3bc9d5b6fce8d79575"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#ab3393e3e485beb3bc9d5b6fce8d79575">to_mat4x4</a> () const</td></tr>
+<tr class="separator:ab3393e3e485beb3bc9d5b6fce8d79575"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae57ff29f77907fc495fdfa00109029fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#ae57ff29f77907fc495fdfa00109029fa">to_inv_mat4x4</a> () const</td></tr>
+<tr class="separator:ae57ff29f77907fc495fdfa00109029fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec498fb69adf4360f38b7a5019e784fd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#aec498fb69adf4360f38b7a5019e784fd">get_rotation</a> () const</td></tr>
 <tr class="separator:aec498fb69adf4360f38b7a5019e784fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b9e05ac2d77dccd3ae51d285098c9ed"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TransformEdt.html#a2b9e05ac2d77dccd3ae51d285098c9ed">get_translation</a> () const</td></tr>
@@ -112,7 +114,7 @@ Friends</h2></td></tr>
 <tr class="separator:ad9617030bbcb57ea16ed8fe3c11c90ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Utility to manage 3d space transformations with euler angles. </p>
+<div class="textblock"><p>Utility to manage 3d space transformations with euler angles (roll, yaw, pitch) </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae4dcf136459841627a4fade39dc60508"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae4dcf136459841627a4fade39dc60508">&#9670;&nbsp;</a></span>TransformEdt()</h2>
@@ -140,31 +142,6 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a07dd00b371517073d1d58782111a9e11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07dd00b371517073d1d58782111a9e11">&#9670;&nbsp;</a></span>get_inverse_transform()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::TransformEdt::get_inverse_transform </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aec498fb69adf4360f38b7a5019e784fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aec498fb69adf4360f38b7a5019e784fd">&#9670;&nbsp;</a></span>get_rotation()</h2>
 
@@ -201,31 +178,6 @@ Friends</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a>&amp; wmoge::TransformEdt::get_scale </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a14189b5b1315dc8ba571e3f3743b964c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14189b5b1315dc8ba571e3f3743b964c">&#9670;&nbsp;</a></span>get_transform()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::TransformEdt::get_transform </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -306,6 +258,81 @@ Friends</h2></td></tr>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> &amp;&#160;</td>
           <td class="paramname"><em>scale</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae57ff29f77907fc495fdfa00109029fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae57ff29f77907fc495fdfa00109029fa">&#9670;&nbsp;</a></span>to_inv_mat4x4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::TransformEdt::to_inv_mat4x4 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab3393e3e485beb3bc9d5b6fce8d79575"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3393e3e485beb3bc9d5b6fce8d79575">&#9670;&nbsp;</a></span>to_mat4x4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> wmoge::TransformEdt::to_mat4x4 </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d101f9596e4bb689b1d336b7a91b1d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d101f9596e4bb689b1d336b7a91b1d4">&#9670;&nbsp;</a></span>to_transform3d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Transform3d.html">Transform3d</a> wmoge::TransformEdt::to_transform3d </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>

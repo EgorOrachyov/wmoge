@@ -90,14 +90,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a765906c43d859a29b3c61dccb087a144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6641409a0fe8f570c12c43f0b8779286"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#a6641409a0fe8f570c12c43f0b8779286">add_entry</a> (<a class="el" href="structwmoge_1_1ProfilerEntry.html">ProfilerEntry</a> &amp;&amp;entry)</td></tr>
 <tr class="separator:a6641409a0fe8f570c12c43f0b8779286"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad49a84ae2b6d69399105533fb7d91d91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#ad49a84ae2b6d69399105533fb7d91d91">add_tid</a> (std::thread::id id, <a class="el" href="classwmoge_1_1StringId.html">StringId</a> name)</td></tr>
-<tr class="separator:ad49a84ae2b6d69399105533fb7d91d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6996bc39096cc257e2b15a23b50c8425"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#a6996bc39096cc257e2b15a23b50c8425">add_tid</a> (std::thread::id id, <a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
+<tr class="separator:a6996bc39096cc257e2b15a23b50c8425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e82a2d6ed31d55b26509ee21dd25799"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#a4e82a2d6ed31d55b26509ee21dd25799">is_enabled</a> ()</td></tr>
 <tr class="separator:a4e82a2d6ed31d55b26509ee21dd25799"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac86866f30c7ab5ae9dc3a0a6d5204696"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#ac86866f30c7ab5ae9dc3a0a6d5204696">is_collecting</a> ()</td></tr>
 <tr class="separator:ac86866f30c7ab5ae9dc3a0a6d5204696"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88591e3010ab75cfc48aed8aa75825cf"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::thread::id, <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#a88591e3010ab75cfc48aed8aa75825cf">get_tid_names</a> () const</td></tr>
-<tr class="separator:a88591e3010ab75cfc48aed8aa75825cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8dffdcf325ae565375ae3e135ac9844"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::thread::id, <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#ac8dffdcf325ae565375ae3e135ac9844">get_tid_names</a> () const</td></tr>
+<tr class="separator:ac8dffdcf325ae565375ae3e135ac9844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> profiler to capture trace of engine execution. </p>
@@ -138,8 +138,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad49a84ae2b6d69399105533fb7d91d91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad49a84ae2b6d69399105533fb7d91d91">&#9670;&nbsp;</a></span>add_tid()</h2>
+<a id="a6996bc39096cc257e2b15a23b50c8425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6996bc39096cc257e2b15a23b50c8425">&#9670;&nbsp;</a></span>add_tid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -153,7 +153,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td>
           <td class="paramname"><em>name</em>&#160;</td>
         </tr>
         <tr>
@@ -183,14 +183,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a88591e3010ab75cfc48aed8aa75825cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88591e3010ab75cfc48aed8aa75825cf">&#9670;&nbsp;</a></span>get_tid_names()</h2>
+<a id="ac8dffdcf325ae565375ae3e135ac9844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8dffdcf325ae565375ae3e135ac9844">&#9670;&nbsp;</a></span>get_tid_names()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt; std::thread::id, <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &gt; wmoge::Profiler::get_tid_names </td>
+          <td class="memname">std::unordered_map&lt; std::thread::id, <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; wmoge::Profiler::get_tid_names </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

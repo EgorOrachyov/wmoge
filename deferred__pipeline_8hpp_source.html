@@ -96,30 +96,27 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_DEFERRED_PIPELINE_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_DEFERRED_PIPELINE_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__texture_8hpp.html">gfx/gfx_texture.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="graphics__pipeline_8hpp.html">render/graphics_pipeline.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html">   40</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1DeferredPipeline.html">DeferredPipeline</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a> {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#a9259d007ee3a3dcb2ed454b626c1d819">DeferredPipeline</a>();</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html#abc8578fb6cc1ae5b32467a1508338efa">   43</a></span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#abc8578fb6cc1ae5b32467a1508338efa">DeferredPipeline</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1DeferredPipeline.html">DeferredPipeline</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html#aad87feb5d35fed26474a9ca9d3df6fcf">   44</a></span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#aad87feb5d35fed26474a9ca9d3df6fcf">DeferredPipeline</a>(<a class="code" href="classwmoge_1_1DeferredPipeline.html">DeferredPipeline</a>&amp;&amp;)      = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html#a402ae34fc79285d085dec5afa1573fca">   45</a></span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#a402ae34fc79285d085dec5afa1573fca">~DeferredPipeline</a>();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1DeferredPipeline.html#a63b348af7d7662b681b0bc308ddb2556">exectute</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    };</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_DEFERRED_PIPELINE_HPP</span></div>
-<div class="ttc" id="aclasswmoge_1_1DeferredPipeline_html"><div class="ttname"><a href="classwmoge_1_1DeferredPipeline.html">wmoge::DeferredPipeline</a></div><div class="ttdoc">Deferred high-quality HDR pipeline for scene rendering.</div><div class="ttdef"><b>Definition:</b> deferred_pipeline.hpp:40</div></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__texture_8hpp.html">gfx/gfx_texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="graphics__pipeline_8hpp.html">render/graphics_pipeline.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html">   39</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1DeferredPipeline.html">DeferredPipeline</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1GraphicsPipeline.html">GraphicsPipeline</a> {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#a9259d007ee3a3dcb2ed454b626c1d819">DeferredPipeline</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html#abc8578fb6cc1ae5b32467a1508338efa">   42</a></span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#abc8578fb6cc1ae5b32467a1508338efa">DeferredPipeline</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1DeferredPipeline.html">DeferredPipeline</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html#aad87feb5d35fed26474a9ca9d3df6fcf">   43</a></span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#aad87feb5d35fed26474a9ca9d3df6fcf">DeferredPipeline</a>(<a class="code" href="classwmoge_1_1DeferredPipeline.html">DeferredPipeline</a>&amp;&amp;)      = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1DeferredPipeline.html#a402ae34fc79285d085dec5afa1573fca">   44</a></span>&#160;        <a class="code" href="classwmoge_1_1DeferredPipeline.html#a402ae34fc79285d085dec5afa1573fca">~DeferredPipeline</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1DeferredPipeline.html#a63b348af7d7662b681b0bc308ddb2556">exectute</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aclasswmoge_1_1DeferredPipeline_html"><div class="ttname"><a href="classwmoge_1_1DeferredPipeline.html">wmoge::DeferredPipeline</a></div><div class="ttdoc">Deferred high-quality HDR pipeline for scene rendering.</div><div class="ttdef"><b>Definition:</b> deferred_pipeline.hpp:39</div></div>
 <div class="ttc" id="aclasswmoge_1_1DeferredPipeline_html_a402ae34fc79285d085dec5afa1573fca"><div class="ttname"><a href="classwmoge_1_1DeferredPipeline.html#a402ae34fc79285d085dec5afa1573fca">wmoge::DeferredPipeline::~DeferredPipeline</a></div><div class="ttdeci">~DeferredPipeline()</div></div>
 <div class="ttc" id="aclasswmoge_1_1DeferredPipeline_html_a63b348af7d7662b681b0bc308ddb2556"><div class="ttname"><a href="classwmoge_1_1DeferredPipeline.html#a63b348af7d7662b681b0bc308ddb2556">wmoge::DeferredPipeline::exectute</a></div><div class="ttdeci">void exectute() override</div><div class="ttdef"><b>Definition:</b> deferred_pipeline.cpp:44</div></div>
 <div class="ttc" id="aclasswmoge_1_1DeferredPipeline_html_a9259d007ee3a3dcb2ed454b626c1d819"><div class="ttname"><a href="classwmoge_1_1DeferredPipeline.html#a9259d007ee3a3dcb2ed454b626c1d819">wmoge::DeferredPipeline::DeferredPipeline</a></div><div class="ttdeci">DeferredPipeline()</div><div class="ttdef"><b>Definition:</b> deferred_pipeline.cpp:36</div></div>

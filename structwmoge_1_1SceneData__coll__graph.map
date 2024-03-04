@@ -1,8 +1,8 @@
 <map id="wmoge::SceneData" name="wmoge::SceneData">
-<area shape="rect" id="node1" title="Serializable struct with a scene data for a runtime scene." alt="" coords="298,184,433,211"/>
+<area shape="rect" id="node1" title="Serializable struct with a scene data for a runtime scene." alt="" coords="294,184,429,211"/>
 <area shape="rect" id="node2" href="$structwmoge_1_1GraphicsPipelineSettings.html" title="Graphics pipeline settings for rendering scene." alt="" coords="163,95,379,121"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1BloomSettings.html" title="Bloom effect settings." alt="" coords="5,5,160,32"/>
 <area shape="rect" id="node4" href="$structwmoge_1_1TonemapSettings.html" title="Final HDR image tonemapping settings for composition." alt="" coords="185,5,357,32"/>
 <area shape="rect" id="node5" href="$structwmoge_1_1AutoExposureSettings.html" title="Automatic exposition or eye adaptation settings." alt="" coords="381,5,579,32"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="403,95,517,121"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="403,95,501,121"/>
 </map>

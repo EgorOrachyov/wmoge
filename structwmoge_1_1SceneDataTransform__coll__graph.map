@@ -1,4 +1,0 @@
-<map id="wmoge::SceneDataTransform" name="wmoge::SceneDataTransform">
-<area shape="rect" id="node1" title="Serializable struct with transform data for a scene entity." alt="" coords="5,95,199,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Transform3d.html" title="Utility to manage 3d space transformations." alt="" coords="31,5,173,32"/>
-</map>

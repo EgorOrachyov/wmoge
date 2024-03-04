@@ -1,5 +1,5 @@
 <map id="wmoge::EcsComponentTag" name="wmoge::EcsComponentTag">
-<area shape="rect" id="node1" title="Unique tag for fast search of an entity." alt="" coords="75,109,255,136"/>
+<area shape="rect" id="node1" title="Unique tag for fast search of an entity." alt="" coords="71,109,251,136"/>
 <area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,164,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="189,13,303,39"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="188,13,285,39"/>
 </map>

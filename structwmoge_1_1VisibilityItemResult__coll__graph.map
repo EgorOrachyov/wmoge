@@ -1,5 +1,0 @@
-<map id="wmoge::VisibilityItemResult" name="wmoge::VisibilityItemResult">
-<area shape="rect" id="node1" title="Result of a visibility item culling tests." alt="" coords="9,185,190,212"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RenderCameraMask.html" title="Mask of toggled cameras, can be used for filtering and culling." alt="" coords="5,96,193,123"/>
-<area shape="rect" id="node3" title=" " alt="" coords="16,5,183,47"/>
-</map>

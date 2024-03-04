@@ -95,7 +95,7 @@ Collaboration diagram for wmoge::ConsoleObject:</div>
 <div class="center"><img src="classwmoge_1_1ConsoleObject__coll__graph.png" border="0" usemap="#awmoge_1_1ConsoleObject_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ConsoleObject_coll__map" id="awmoge_1_1ConsoleObject_coll__map">
 <area shape="rect" title="Base class for any console object." alt="" coords="5,95,160,121"/>
-<area shape="rect" href="classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="25,5,140,32"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="34,5,131,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -103,8 +103,8 @@ Collaboration diagram for wmoge::ConsoleObject:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a92b7858e855950f285c791501a0877ce"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#a92b7858e855950f285c791501a0877ce">~ConsoleObject</a> ()=default</td></tr>
 <tr class="separator:a92b7858e855950f285c791501a0877ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7db0647198f9ee2f5f10b8a665e195f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#af7db0647198f9ee2f5f10b8a665e195f">get_name</a> () const</td></tr>
-<tr class="separator:af7db0647198f9ee2f5f10b8a665e195f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af09b6989e090dc5f22117a6796be3008"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#af09b6989e090dc5f22117a6796be3008">get_name</a> () const</td></tr>
+<tr class="separator:af09b6989e090dc5f22117a6796be3008"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb86db63df5b8f0e25220725076d436a"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#afb86db63df5b8f0e25220725076d436a">get_help</a> () const</td></tr>
 <tr class="separator:afb86db63df5b8f0e25220725076d436a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2f5f444a7e8a2db8752c47b810df7f5"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#aa2f5f444a7e8a2db8752c47b810df7f5">is_cmd</a> () const</td></tr>
@@ -114,8 +114,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a7ffe0c191657ae15ddf9c4b4461ed41b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1StringId.html">StringId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#a7ffe0c191657ae15ddf9c4b4461ed41b">m_name</a></td></tr>
-<tr class="separator:a7ffe0c191657ae15ddf9c4b4461ed41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc46c5f32a07cf411b3ef456ac4a2b35"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#acc46c5f32a07cf411b3ef456ac4a2b35">m_name</a></td></tr>
+<tr class="separator:acc46c5f32a07cf411b3ef456ac4a2b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc928b08754b1f7924d1b0b8ae58bd3a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ConsoleObject.html#adc928b08754b1f7924d1b0b8ae58bd3a">m_help</a></td></tr>
 <tr class="separator:adc928b08754b1f7924d1b0b8ae58bd3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -178,8 +178,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="af7db0647198f9ee2f5f10b8a665e195f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7db0647198f9ee2f5f10b8a665e195f">&#9670;&nbsp;</a></span>get_name()</h2>
+<a id="af09b6989e090dc5f22117a6796be3008"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af09b6989e090dc5f22117a6796be3008">&#9670;&nbsp;</a></span>get_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +188,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classwmoge_1_1StringId.html">StringId</a>&amp; wmoge::ConsoleObject::get_name </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a>&amp; wmoge::ConsoleObject::get_name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -303,8 +303,8 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a7ffe0c191657ae15ddf9c4b4461ed41b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ffe0c191657ae15ddf9c4b4461ed41b">&#9670;&nbsp;</a></span>m_name</h2>
+<a id="acc46c5f32a07cf411b3ef456ac4a2b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc46c5f32a07cf411b3ef456ac4a2b35">&#9670;&nbsp;</a></span>m_name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -313,7 +313,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1StringId.html">StringId</a> wmoge::ConsoleObject::m_name</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ConsoleObject::m_name</td>
         </tr>
       </table>
   </td>

@@ -1,4 +1,4 @@
 <map id="wmoge::ShaderParameter" name="wmoge::ShaderParameter">
 <area shape="rect" id="node1" title="Shader parameter info." alt="" coords="5,95,176,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="33,5,148,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="42,5,139,32"/>
 </map>

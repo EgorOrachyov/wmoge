@@ -1,5 +1,5 @@
 <map id="wmoge::ResourceResFile" name="wmoge::ResourceResFile">
-<area shape="rect" id="node1" title="Structure for ResourceMeta info stored as .res file in file system." alt="" coords="39,109,208,136"/>
+<area shape="rect" id="node1" title="Structure for ResourceMeta info stored as .res file in file system." alt="" coords="33,109,203,136"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and resources." alt="" coords="5,5,108,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1StringId.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="133,5,247,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="132,5,229,32"/>
 </map>

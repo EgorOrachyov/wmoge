@@ -1,0 +1,5 @@
+<map id="wmoge::EcsSystem" name="wmoge::EcsSystem">
+<area shape="rect" id="node1" title="Base class for any system, which can be register within a world." alt="" coords="151,5,287,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1EcsSysReleaseCullItem.html" title="System to delete cull items." alt="" coords="5,80,215,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EcsSysUpdateHier.html" title="System to iteratively update spatial hierarchy of transforms." alt="" coords="239,80,419,107"/>
+</map>
