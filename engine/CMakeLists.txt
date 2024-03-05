@@ -304,6 +304,8 @@ add_library(wmoge STATIC
         render/texture_compression.hpp
         render/texture_manager.cpp
         render/texture_manager.hpp
+        render/texture_resize.cpp
+        render/texture_resize.hpp
         render/view.cpp
         render/view.hpp
         render/view_manager.cpp

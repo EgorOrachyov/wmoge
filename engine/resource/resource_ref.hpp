@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_REF_HPP
-#define WMOGE_RESOURCE_REF_HPP
+#pragma once
 
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
@@ -142,5 +141,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_RESOURCE_REF_HPP

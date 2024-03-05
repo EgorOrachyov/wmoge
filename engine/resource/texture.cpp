@@ -47,6 +47,7 @@ namespace wmoge {
     WG_IO_FIELD_OPT(srgb)
     WG_IO_FIELD_OPT(sampling)
     WG_IO_FIELD_OPT(compression)
+    WG_IO_FIELD_OPT(resizing)
     WG_IO_END(TextureImportOptions)
 
     WG_IO_BEGIN(Texture2dImportOptions)
@@ -263,6 +264,7 @@ namespace wmoge {
         texture->m_compression  = m_compression;
         return StatusCode::Ok;
     }
+
     void Texture::register_class() {
         auto* cls = Class::register_class<Texture>();
         cls->add_field(ClassField(VarType::Int, SID("width")), &Texture::m_width);

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_LOADER_TEXTURE_HPP
-#define WMOGE_RESOURCE_LOADER_TEXTURE_HPP
+#pragma once
 
 #include "resource/resource_loader.hpp"
 
@@ -60,5 +59,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RESOURCE_LOADER_TEXTURE_HPP

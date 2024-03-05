@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCRIPT_HPP
-#define WMOGE_SCRIPT_HPP
+#pragma once
 
 #include "resource/resource.hpp"
 #include "scripting/script_instance.hpp"
@@ -75,5 +74,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCRIPT_HPP

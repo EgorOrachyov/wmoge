@@ -29,8 +29,21 @@
 
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "resource/image.hpp"
+#include "resource/texture.hpp"
 
 namespace wmoge {
+
+    struct TexDesc {
+        Strid     name;
+        int       width        = 0;
+        int       height       = 0;
+        int       depth        = 1;
+        int       array_slices = 1;
+        int       mips         = 1;
+        bool      resource     = false;
+        GfxFormat format       = GfxFormat::Unknown;
+    };
 
     /**
      * @class TextureManager

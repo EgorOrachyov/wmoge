@@ -25,40 +25,78 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "texture_resize.hpp"
 
-#include "core/data.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "io/yaml.hpp"
-#include "resource/resource.hpp"
-#include "resource/resource_meta.hpp"
-
-#include <filesystem>
-#include <optional>
-#include <string>
-#include <vector>
+#include "debug/profiler.hpp"
+#include "math/math_utils.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ResourcePak
-     * @brief Interface for the package of the resources on disc
-     *
-     * ResourcePak abstracts access to the resources on disk. It provides ability
-     * to load a particular resource meta file from a resource name, and allows
-     * to read a raw data using path.
-     *
-     * Internally resource pack can be represented as a wrapper for a file system
-     * resource directory, or it can manage a compressed pak of resources on a disk.
-     */
-    class ResourcePak {
-    public:
-        virtual ~ResourcePak()                                                                  = default;
-        virtual std::string get_name() const                                                    = 0;
-        virtual Status      get_meta(const ResourceId& name, ResourceMeta& meta)                = 0;
-        virtual Status      read_file(const std::string& path, Ref<Data>& data)                 = 0;
-        virtual Status      read_file(const std::string& path, std::vector<std::uint8_t>& data) = 0;
-    };
+    WG_IO_BEGIN(TexResizeParams)
+    WG_IO_FIELD_OPT(preset)
+    WG_IO_FIELD_OPT(auto_adjust)
+    WG_IO_FIELD_OPT(minify)
+    WG_IO_END(TexResizeParams)
+
+    Status TexResize::resize(const TexResizeParams& params, Image& image) {
+        WG_AUTO_PROFILE_RENDER("TexResize::resize");
+
+        TexSizePreset preset = params.preset;
+
+        if (params.auto_adjust || preset == TexSizePreset::None) {
+            int w = image.get_width();
+            int h = image.get_height();
+
+            if (params.minify) {
+                w = Math::min(w, h);
+                h = Math::min(w, h);
+            } else {
+                w = Math::max(w, h);
+                h = Math::max(w, h);
+            }
+
+            preset = fit_preset(w, h);
+        }
+
+        assert(preset != TexSizePreset::None);
+        const Vec2i size = preset_to_size(preset);
+
+        return image.resize(size.x(), size.y());
+    }
+
+    Vec2i TexResize::preset_to_size(TexSizePreset preset) {
+        switch (preset) {
+            case TexSizePreset::Size128x128:
+                return Vec2i(128, 128);
+            case TexSizePreset::Size256x256:
+                return Vec2i(256, 256);
+            case TexSizePreset::Size512x512:
+                return Vec2i(512, 512);
+            case TexSizePreset::Size1024x1024:
+                return Vec2i(1024, 1024);
+            case TexSizePreset::Size2048x2048:
+                return Vec2i(2048, 2048);
+            case TexSizePreset::Size4096x4096:
+                return Vec2i(4096, 4096);
+            default:
+                return Vec2i(0, 0);
+        }
+    }
+
+    TexSizePreset TexResize::fit_preset(int width, int height) {
+        if (width == 0 || height == 0) {
+            return TexSizePreset::None;
+        }
+
+        TexSizePreset preset = TexSizePreset::Size128x128;
+        Vec2i         size   = preset_to_size(preset);
+
+        while (size.x() < width && size.y() < height && preset != TexSizePreset::Size4096x4096) {
+            preset = static_cast<TexSizePreset>(static_cast<int>(preset) + 1);
+            size   = preset_to_size(preset);
+        }
+
+        return preset;
+    }
 
 }// namespace wmoge

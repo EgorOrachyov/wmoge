@@ -30,6 +30,7 @@
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "render/texture_resize.hpp"
 #include "resource/image.hpp"
 #include "resource/texture.hpp"
 #include "system/engine.hpp"
@@ -52,6 +53,11 @@ namespace wmoge {
         if (!source_image->load(options.source_file, options.channels)) {
             WG_LOG_ERROR("failed to load source image " << options.source_file);
             return StatusCode::FailedRead;
+        }
+
+        if (!TexResize::resize(options.resizing, *source_image)) {
+            WG_LOG_ERROR("failed to resize source image " << options.source_file);
+            return StatusCode::FailedResize;
         }
 
         Ref<Texture2d> texture = make_ref<Texture2d>(
@@ -113,6 +119,7 @@ namespace wmoge {
                 WG_LOG_ERROR("failed to load source image " << path);
                 return false;
             }
+            image->set_name(SID(path));
             return true;
         };
 
@@ -123,6 +130,13 @@ namespace wmoge {
             !load_source(options.source_files.front) ||
             !load_source(options.source_files.back)) {
             return StatusCode::FailedRead;
+        }
+
+        for (Ref<Image>& source_image : source_images) {
+            if (!TexResize::resize(options.resizing, *source_image)) {
+                WG_LOG_ERROR("failed to resize source image " << source_image->get_name());
+                return StatusCode::FailedResize;
+            }
         }
 
         Ref<TextureCube> texture = make_ref<TextureCube>(

@@ -27,38 +27,52 @@
 
 #pragma once
 
-#include "core/data.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "io/yaml.hpp"
-#include "resource/resource.hpp"
-#include "resource/resource_meta.hpp"
-
-#include <filesystem>
-#include <optional>
-#include <string>
-#include <vector>
+#include "resource/image.hpp"
 
 namespace wmoge {
 
     /**
-     * @class ResourcePak
-     * @brief Interface for the package of the resources on disc
-     *
-     * ResourcePak abstracts access to the resources on disk. It provides ability
-     * to load a particular resource meta file from a resource name, and allows
-     * to read a raw data using path.
-     *
-     * Internally resource pack can be represented as a wrapper for a file system
-     * resource directory, or it can manage a compressed pak of resources on a disk.
-     */
-    class ResourcePak {
+     * @brief Available texture resources sizes for optimized memory usage
+    */
+    enum TexSizePreset {
+        None = 0,
+        Size128x128,
+        Size256x256,
+        Size512x512,
+        Size1024x1024,
+        Size2048x2048,
+        Size4096x4096
+    };
+
+    /**
+     * @class TexResizeParams
+     * @brief Params to resize source texture image content (on import)
+    */
+    struct TexResizeParams {
+        TexSizePreset preset      = TexSizePreset::None;
+        bool          auto_adjust = true;
+        bool          minify      = true;
+
+        WG_IO_DECLARE(TexResizeParams);
+    };
+
+    /**
+     * @class TexResize
+     * @brief Handles image data resize before texture creation
+    */
+    class TexResize {
     public:
-        virtual ~ResourcePak()                                                                  = default;
-        virtual std::string get_name() const                                                    = 0;
-        virtual Status      get_meta(const ResourceId& name, ResourceMeta& meta)                = 0;
-        virtual Status      read_file(const std::string& path, Ref<Data>& data)                 = 0;
-        virtual Status      read_file(const std::string& path, std::vector<std::uint8_t>& data) = 0;
+        /**
+         * Resizes provided image according to the params given
+         * 
+         * @param params Resize options
+         * @param image Inout image to be resized
+         * @param preset Out preset given image
+        */
+        static Status resize(const TexResizeParams& params, Image& image);
+
+        static Vec2i         preset_to_size(TexSizePreset preset);
+        static TexSizePreset fit_preset(int width, int height);
     };
 
 }// namespace wmoge

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_META_HPP
-#define WMOGE_RESOURCE_META_HPP
+#pragma once
 
 #include "core/class.hpp"
 #include "core/fast_vector.hpp"
@@ -72,5 +71,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RESOURCE_META_HPP

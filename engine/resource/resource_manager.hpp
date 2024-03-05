@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_MANAGER_HPP
-#define WMOGE_RESOURCE_MANAGER_HPP
+#pragma once
 
 #include "core/async.hpp"
 #include "core/fast_map.hpp"
@@ -184,5 +183,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RESOURCE_MANAGER_HPP

@@ -170,6 +170,7 @@
 #include "render/shader_pass.hpp"
 #include "render/texture_compression.hpp"
 #include "render/texture_manager.hpp"
+#include "render/texture_resize.hpp"
 #include "render/view.hpp"
 #include "render/view_manager.hpp"
 

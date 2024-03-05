@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PREFAB_HPP
-#define WMOGE_PREFAB_HPP
+#pragma once
 
 #include "core/async.hpp"
 #include "io/yaml.hpp"
@@ -59,5 +58,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_PREFAB_HPP

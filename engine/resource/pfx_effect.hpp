@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_PFX_EFFECT_HPP
-#define WMOGE_PFX_EFFECT_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "pfx/pfx_component.hpp"
@@ -75,5 +74,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_PFX_EFFECT_HPP

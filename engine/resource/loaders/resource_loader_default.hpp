@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_LOADER_DEFAULT_HPP
-#define WMOGE_RESOURCE_LOADER_DEFAULT_HPP
+#pragma once
 
 #include "resource/resource.hpp"
 #include "resource/resource_loader.hpp"
@@ -47,5 +46,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_RESOURCE_LOADER_DEFAULT_HPP

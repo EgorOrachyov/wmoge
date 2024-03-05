@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_RESOURCE_HPP
-#define WMOGE_RESOURCE_HPP
+#pragma once
 
 #include "core/class.hpp"
 #include "core/fast_set.hpp"
@@ -154,5 +153,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_RESOURCE_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCENE_PACKED_HPP
-#define WMOGE_SCENE_PACKED_HPP
+#pragma once
 
 #include "core/async.hpp"
 #include "io/yaml.hpp"
@@ -67,5 +66,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCENE_PACKED_HPP

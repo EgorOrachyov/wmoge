@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_FONT_HPP
-#define WMOGE_FONT_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/fast_vector.hpp"
@@ -137,5 +136,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_FONT_HPP

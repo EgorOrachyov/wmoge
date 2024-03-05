@@ -52,6 +52,7 @@ namespace wmoge {
         FailedWrite,      // Failed to write some data
         FailedEncode,     // Failed to encode binary data
         FailedDecode,     // Failed to decode binary data
+        FailedResize,     // Data resize error
         FailedCompress,   // Compression bc, lz, zip error
         FailedDecompress, // Decompression bc, lz, zip error
         FailedCompile,    // Shader compilation

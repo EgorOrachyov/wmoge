@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_AUDIO_STREAM_HPP
-#define WMOGE_AUDIO_STREAM_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "resource/resource.hpp"
@@ -74,5 +73,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_AUDIO_STREAM_HPP

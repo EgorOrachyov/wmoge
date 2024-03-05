@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_MATERIAL_HPP
-#define WMOGE_MATERIAL_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/data.hpp"
@@ -153,5 +152,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_MATERIAL_HPP

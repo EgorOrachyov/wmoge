@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_CONFIG_FILE_HPP
-#define WMOGE_CONFIG_FILE_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/string_id.hpp"
@@ -113,5 +112,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_CONFIG_FILE_HPP

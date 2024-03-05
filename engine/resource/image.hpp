@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_IMAGE_HPP
-#define WMOGE_IMAGE_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "io/serialization.hpp"
@@ -152,5 +151,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_IMAGE_HPP

@@ -25,14 +25,14 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_TEXTURE_HPP
-#define WMOGE_TEXTURE_HPP
+#pragma once
 
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "io/serialization.hpp"
 #include "render/texture_compression.hpp"
+#include "render/texture_resize.hpp"
 #include "resource/image.hpp"
 #include "resource/resource.hpp"
 
@@ -49,6 +49,7 @@ namespace wmoge {
         bool                 srgb     = true;
         GfxSamplerDesc       sampling{};
         TexCompressionParams compression{};
+        TexResizeParams      resizing{};
 
         WG_IO_DECLARE(TextureImportOptions);
     };
@@ -99,7 +100,7 @@ namespace wmoge {
         /**
          * @brief Create new texture of desired format and size
          *
-         * @param format Base (uncompressed) texture format
+         * @param format Base (with no compression) texture format
          * @param width Width of the texture in pixels
          * @param height Height of the texture in pixels
          * @param depth Depth of the texture in pixels (in most cases 1)
@@ -187,5 +188,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_TEXTURE_HPP
