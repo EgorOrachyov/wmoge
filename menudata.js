@@ -106,7 +106,8 @@ var menudata={children:[
 {text:"s",url:"namespacemembers_enum.html#index_s"},
 {text:"t",url:"namespacemembers_enum.html#index_t"},
 {text:"v",url:"namespacemembers_enum.html#index_v"},
-{text:"w",url:"namespacemembers_enum.html#index_w"}]}]}]},
+{text:"w",url:"namespacemembers_enum.html#index_w"}]},
+{text:"Enumerator",url:"namespacemembers_eval.html"}]}]},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},

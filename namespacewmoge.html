@@ -1072,8 +1072,16 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TexCompression.html">TexCompression</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides methods for texture data compression.  <a href="classwmoge_1_1TexCompression.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TexDesc.html">TexDesc</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages allocation and streaming of all engine textures.  <a href="classwmoge_1_1TextureManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TexResizeParams.html">TexResizeParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Params to resize source texture image content (on import)  <a href="structwmoge_1_1TexResizeParams.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TexResize.html">TexResize</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles image data resize before texture creation.  <a href="classwmoge_1_1TexResize.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ViewParams.html">ViewParams</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds params assositated to the view.  <a href="structwmoge_1_1ViewParams.html#details">More...</a><br /></td></tr>
@@ -1703,14 +1711,14 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26">AudioPlaybackState</a> : int { <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26">AudioPlaybackState</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26ac9dbb2b7c84159b632d71e512eba8428">Playing</a>
 , <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26ae99180abf47a8b3a856e0bcb2656990a">Paused</a>
 , <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26ac23e2b09ebe6bf4cb5e2a9abe85c0be2">Stopped</a>
  }</td></tr>
 <tr class="memdesc:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of audio stream playback.  <a href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26">More...</a><br /></td></tr>
 <tr class="separator:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a480f734f9ee3fa977a9ae2dac397d23a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23a">AudioBusState</a> : int { <a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23aa6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:a480f734f9ee3fa977a9ae2dac397d23a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23a">AudioBusState</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23aa4d3d769b812b6faa6b76e1a8abaece2d">Active</a>
 , <a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23aa3cab03c00dbd11bc3569afa0748013f0">Inactive</a>
  }</td></tr>
@@ -1746,20 +1754,21 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baeca8fe233a24d3f538eefd0da34fb8fe">FailedEncode</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba96934825dc1af4d81031d982e2c8a538">FailedDecode</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba841817167bae1422714e1e72a38e8f90">FailedResize</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba5250c2b10c48c04a5d73fcd8d19200ff">FailedCompress</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba9812a05aa95a31f4c356c2d604871fcd">FailedDecompress</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bac0eb4b0ef046d73618fcfc66b1f531ec">FailedCompile</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba9812a05aa95a31f4c356c2d604871fcd">FailedDecompress</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bac0eb4b0ef046d73618fcfc66b1f531ec">FailedCompile</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba3c4b6828f5a12280debdb5a12e0e72ba">InvalidData</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba627251310d3384b591e4138be21145d5">InvalidParameter</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baedf260198e4d75d1cb3c7588f7380120">InvalidState</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baf2cc1ab691026d44ce2e7cc8db7e2f64">NoProperty</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baedf260198e4d75d1cb3c7588f7380120">InvalidState</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baf2cc1ab691026d44ce2e7cc8db7e2f64">NoProperty</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba148c74fe4cebf3317656171f70acda53">NoMethod</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baed544e165d08264f0f78543c596e1f6d">NoClass</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bad50dfcd4fe8be490a6759f4396f6a4c5">NoValue</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba81e124c25b261c366509c30962a4a7fd">NoResource</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bad50dfcd4fe8be490a6759f4396f6a4c5">NoValue</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba81e124c25b261c366509c30962a4a7fd">NoResource</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baaf7cfe08e573835c4fffeed05dcd1b79">ExitCode0</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba4c40906f8854a89f3a01d34b8b3d10de">ExitCode1</a>
 <br />
@@ -1810,19 +1819,19 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aad26ed5e46cf2bc858144f4f867717be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of file system file actions.  <a href="namespacewmoge.html#aad26ed5e46cf2bc858144f4f867717be">More...</a><br /></td></tr>
 <tr class="separator:aad26ed5e46cf2bc858144f4f867717be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac15e049556f5ce0a504d011dbf6633"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633">ResourceNotification</a> { <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:a9ac15e049556f5ce0a504d011dbf6633"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633">ResourceNotification</a> { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633a7381d487d18845b379422325c0a768d6">Loaded</a>
 , <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633a942d5bc50011e67d348b6a4a1906dff4">FailedLoad</a>
 , <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633af756efe6580f590fd25d2f57c998d948">Evicted</a>
  }</td></tr>
 <tr class="memdesc:a9ac15e049556f5ce0a504d011dbf6633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource system event types.  <a href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633">More...</a><br /></td></tr>
 <tr class="separator:a9ac15e049556f5ce0a504d011dbf6633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace36795878d656e3dd431e4831ecfc58"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58">SceneNodeNotification</a> { <a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+<tr class="memitem:ace36795878d656e3dd431e4831ecfc58"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58">SceneNodeNotification</a> { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58a10702a6532d7bcb11ed21561e4ad1236">TransformUpdated</a>
  }</td></tr>
 <tr class="memdesc:ace36795878d656e3dd431e4831ecfc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node notification type.  <a href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58">More...</a><br /></td></tr>
 <tr class="separator:ace36795878d656e3dd431e4831ecfc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad577a781f400d7d9e6f7484c20fce409"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409">TokenNotification</a> : int { <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:ad577a781f400d7d9e6f7484c20fce409"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409">TokenNotification</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409af29ddbfb905eb2593fdcdfb243f9af85">Added</a>
 , <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409aff0a3b7f3daef040faf89a88fdac01b7">Updated</a>
 , <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409a93f07b720ebf7d1246512569761a5804">Removed</a>
@@ -1864,7 +1873,7 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a8e3673f7210a01ee9ec7c6e9431aa497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of the gfx pipeline.  <a href="namespacewmoge.html#a8e3673f7210a01ee9ec7c6e9431aa497">More...</a><br /></td></tr>
 <tr class="separator:a8e3673f7210a01ee9ec7c6e9431aa497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a0ea4c3fe702d4b272577a3a375334a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a> : int { <a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334aa6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:a4a0ea4c3fe702d4b272577a3a375334a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334aa2f3a46e0add3a07937412cbeb8f95727">Uint32</a>
 , <a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334aa3167337450665ae9b3b34004d33cafe8">Uint16</a>
  }</td></tr>
@@ -1913,7 +1922,7 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a2c9b57ed86ff72a0c7f92caa1cfda522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Face id in cube map texture.  <a href="namespacewmoge.html#a2c9b57ed86ff72a0c7f92caa1cfda522">More...</a><br /></td></tr>
 <tr class="separator:a2c9b57ed86ff72a0c7f92caa1cfda522"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14b72c71b7b44f44cd12281a1102062"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">GfxTexSwizz</a> : int { <a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+<tr class="memitem:ad14b72c71b7b44f44cd12281a1102062"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">GfxTexSwizz</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062a2351a905c71af1520c94a8bebaa48434">RRRRtoRGBA</a> = 1
  }</td></tr>
 <tr class="memdesc:ad14b72c71b7b44f44cd12281a1102062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tex view channels swizzling.  <a href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">More...</a><br /></td></tr>
@@ -2135,7 +2144,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca1640e616e5215ad432c61d73169656a6">Uv22f</a>
 , <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3">Uv32f</a>
 , <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4">PrimitiveIdi</a>
-, <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a4764e422936404ac0ffa2abf7cb9a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Named vertex attributes.  <a href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fc">More...</a><br /></td></tr>
@@ -2418,7 +2427,7 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:afdc8dfc5858af93dedca502b2986906a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pipeline type to draw primitive.  <a href="namespacewmoge.html#afdc8dfc5858af93dedca502b2986906a">More...</a><br /></td></tr>
 <tr class="separator:afdc8dfc5858af93dedca502b2986906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79f19219cb882ed2b60e69885f5e4674"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674">CanvasFlag</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674abef2481eda40bd121482f1814d72314f">Rounded</a> = 1
 , <a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674ab93bbfeadcb381f77b1817904336e887">RoundedCornerLU</a> = 2
 , <a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674aaeb4d13487268380809f51624014ad5a">RoundedCornerRU</a> = 3
@@ -2496,6 +2505,30 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a5832391885c491cdb650fda65093731f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats of compressed textures.  <a href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">More...</a><br /></td></tr>
 <tr class="separator:a5832391885c491cdb650fda65093731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad82029899fb29d7109555af6797d6401"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">TexSizePreset</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84">None</a> = 0
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401af065d3ab5bd1cfa09ed2a3bf7a7635a6">Size128x128</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a62d4159630863d63ab116270a9d57ade">Size256x256</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a3a51abf3754f7b27d58a5b0b501ffe57">Size512x512</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ab29ce219b01109b2fccb5ea9de40ea53">Size1024x1024</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401aa5b3ed29d5488ac14be72243286a8808">Size2048x2048</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ae8a571f755c04f636d1c08ef59fb2778">Size4096x4096</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ad82029899fb29d7109555af6797d6401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available texture resources sizes for optimized memory usage.  <a href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">More...</a><br /></td></tr>
+<tr class="separator:ad82029899fb29d7109555af6797d6401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e71025a280604d8a4f31873d9be442"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a> { <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">Overwrite</a>
 , <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442a02bce93bff905887ad2233110bf9c49e">Keep</a>
  }</td></tr>
@@ -4342,7 +4375,7 @@ template&lt;typename T &gt; </div>
 
 <p>State of bus for playing sounds. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a480f734f9ee3fa977a9ae2dac397d23aa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a480f734f9ee3fa977a9ae2dac397d23aa4d3d769b812b6faa6b76e1a8abaece2d"></a>Active&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a480f734f9ee3fa977a9ae2dac397d23aa3cab03c00dbd11bc3569afa0748013f0"></a>Inactive&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -4371,7 +4404,7 @@ template&lt;typename T &gt; </div>
 
 <p>State of audio stream playback. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26ac9dbb2b7c84159b632d71e512eba8428"></a>Playing&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26ae99180abf47a8b3a856e0bcb2656990a"></a>Paused&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26ac23e2b09ebe6bf4cb5e2a9abe85c0be2"></a>Stopped&#160;</td><td class="fielddoc"></td></tr>
@@ -4490,7 +4523,7 @@ template&lt;typename T &gt; </div>
 
 <p><a class="el" href="classwmoge_1_1Canvas.html" title="Low-level primitives for 2d drawing using lines, polygones, text and images.">Canvas</a> drawing primitive flags. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674abef2481eda40bd121482f1814d72314f"></a>Rounded&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674ab93bbfeadcb381f77b1817904336e887"></a>RoundedCornerLU&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674aaeb4d13487268380809f51624014ad5a"></a>RoundedCornerRU&#160;</td><td class="fielddoc"></td></tr>
@@ -5013,7 +5046,7 @@ template&lt;typename T &gt; </div>
 
 <p>Type of elements in index buffer. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4a0ea4c3fe702d4b272577a3a375334aa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4a0ea4c3fe702d4b272577a3a375334aa2f3a46e0add3a07937412cbeb8f95727"></a>Uint32&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4a0ea4c3fe702d4b272577a3a375334aa3167337450665ae9b3b34004d33cafe8"></a>Uint16&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -5585,7 +5618,7 @@ template&lt;typename T &gt; </div>
 
 <p>Tex view channels swizzling. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad14b72c71b7b44f44cd12281a1102062a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad14b72c71b7b44f44cd12281a1102062a2351a905c71af1520c94a8bebaa48434"></a>RRRRtoRGBA&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -5664,7 +5697,7 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca1640e616e5215ad432c61d73169656a6"></a>Uv22f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3"></a>Uv32f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4"></a>PrimitiveIdi&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -6306,7 +6339,7 @@ template&lt;typename T &gt; </div>
 
 <p><a class="el" href="classwmoge_1_1Resource.html" title="Base class for any engine resource.">Resource</a> system event types. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633a7381d487d18845b379422325c0a768d6"></a>Loaded&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633a942d5bc50011e67d348b6a4a1906dff4"></a>FailedLoad&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633af756efe6580f590fd25d2f57c998d948"></a>Evicted&#160;</td><td class="fielddoc"></td></tr>
@@ -6336,7 +6369,7 @@ template&lt;typename T &gt; </div>
 
 <p>Node notification type. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ace36795878d656e3dd431e4831ecfc58a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace36795878d656e3dd431e4831ecfc58a10702a6532d7bcb11ed21561e4ad1236"></a>TransformUpdated&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -6471,6 +6504,7 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085baaeea03ccd826d0bc3c5f83ec10b24329"></a>FailedWrite&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085baeca8fe233a24d3f538eefd0da34fb8fe"></a>FailedEncode&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba96934825dc1af4d81031d982e2c8a538"></a>FailedDecode&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba841817167bae1422714e1e72a38e8f90"></a>FailedResize&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba5250c2b10c48c04a5d73fcd8d19200ff"></a>FailedCompress&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba9812a05aa95a31f4c356c2d604871fcd"></a>FailedDecompress&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085bac0eb4b0ef046d73618fcfc66b1f531ec"></a>FailedCompile&#160;</td><td class="fielddoc"></td></tr>
@@ -6579,6 +6613,40 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="ad82029899fb29d7109555af6797d6401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad82029899fb29d7109555af6797d6401">&#9670;&nbsp;</a></span>TexSizePreset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">wmoge::TexSizePreset</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Available texture resources sizes for optimized memory usage. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401af065d3ab5bd1cfa09ed2a3bf7a7635a6"></a>Size128x128&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a62d4159630863d63ab116270a9d57ade"></a>Size256x256&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a3a51abf3754f7b27d58a5b0b501ffe57"></a>Size512x512&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401ab29ce219b01109b2fccb5ea9de40ea53"></a>Size1024x1024&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401aa5b3ed29d5488ac14be72243286a8808"></a>Size2048x2048&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401ae8a571f755c04f636d1c08ef59fb2778"></a>Size4096x4096&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="ad577a781f400d7d9e6f7484c20fce409"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad577a781f400d7d9e6f7484c20fce409">&#9670;&nbsp;</a></span>TokenNotification</h2>
 
@@ -6601,7 +6669,7 @@ template&lt;typename T &gt; </div>
 
 <p>Types of token events. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409af29ddbfb905eb2593fdcdfb243f9af85"></a>Added&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409aff0a3b7f3daef040faf89a88fdac01b7"></a>Updated&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409a93f07b720ebf7d1246512569761a5804"></a>Removed&#160;</td><td class="fielddoc"></td></tr>

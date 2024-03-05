@@ -96,78 +96,75 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_RESOURCE_MANAGER_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_RESOURCE_MANAGER_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="async_8hpp.html">core/async.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8hpp.html">core/object.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="task_8hpp.html">core/task.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__loader_8hpp.html">resource/resource_loader.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__meta_8hpp.html">resource/resource_meta.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__pak_8hpp.html">resource/resource_pak.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">   57</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a> = <a class="code" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback&lt;Ref&lt;Resource&gt;</a>&gt;;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classwmoge_1_1ResourceManager.html">   72</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ResourceManager.html">ResourceManager</a> {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classwmoge_1_1ResourceManager.html#ade51fe4614e6dc1efcb012d80284b5be">ResourceManager</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classwmoge_1_1ResourceManager.html#a94b4a2ed4b72ded4d1788f6879c67dfa">   75</a></span>&#160;        <a class="code" href="classwmoge_1_1ResourceManager.html#a94b4a2ed4b72ded4d1788f6879c67dfa">~ResourceManager</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <a class="code" href="classwmoge_1_1AsyncResult.html">AsyncResult&lt;Ref&lt;Resource&gt;</a>&gt; <a class="code" href="classwmoge_1_1ResourceManager.html#a39964c783758284c23e3b32e50430936">load_async</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; name, <a class="code" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a> callback = <a class="code" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a>());</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Resource&gt;</a> <a class="code" href="classwmoge_1_1ResourceManager.html#adae7d27c32ea5b24411fabbd5952b45b">load</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; name);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Resource&gt;</a> <a class="code" href="classwmoge_1_1ResourceManager.html#aa2938e208af0ccfb9def9e0c03c6f04e">find</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; name);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#a9cfb73ca503240b1a9a2cefdbfbdd72f">add_loader</a>(std::shared_ptr&lt;ResourceLoader&gt; loader);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#ac207cda0b336a0b91a23efdbb722309a">add_pak</a>(std::shared_ptr&lt;ResourcePak&gt; pak);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        std::optional&lt;ResourceLoader*&gt; <a class="code" href="classwmoge_1_1ResourceManager.html#a706eb24da7a3ef133064967387890fe1">find_loader</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Strid.html">Strid</a>&amp; loader);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        std::optional&lt;ResourceMeta&gt; <a class="code" href="classwmoge_1_1ResourceManager.html#aa29b39cf0da9a0091fe52eb4d74a0051">find_meta</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; resource);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#a11c8948887ba247c53815c143d498a8d">gc</a>();</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#ae3335ae9a320bb403c164de6016d606e">clear</a>();</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keyword">class </span>LoadState {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;Async&gt;</a>     deps;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <a class="code" href="classwmoge_1_1Ref.html">AsyncOp&lt;Ref&lt;Resource&gt;</a>&gt; async_op;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <a class="code" href="classwmoge_1_1AsyncResult.html">TaskHnd</a>                task_hnd;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        };</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;std::shared_ptr&lt;ResourcePak&gt;</a>&gt;        m_paks;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;ResourceId, WeakRef&lt;Resource&gt;</a>&gt;          m_resources;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;ResourceId, LoadState&gt;</a>                  m_loading;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;Strid, std::shared_ptr&lt;ResourceLoader&gt;</a>&gt; m_loaders;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keyword">mutable</span> std::recursive_mutex m_mutex;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    };</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_RESOURCE_MANAGER_HPP</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="async_8hpp.html">core/async.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8hpp.html">core/object.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="task_8hpp.html">core/task.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__loader_8hpp.html">resource/resource_loader.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__meta_8hpp.html">resource/resource_meta.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__pak_8hpp.html">resource/resource_pak.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">   56</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a> = <a class="code" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback&lt;Ref&lt;Resource&gt;</a>&gt;;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classwmoge_1_1ResourceManager.html">   71</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ResourceManager.html">ResourceManager</a> {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="classwmoge_1_1ResourceManager.html#ade51fe4614e6dc1efcb012d80284b5be">ResourceManager</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classwmoge_1_1ResourceManager.html#a94b4a2ed4b72ded4d1788f6879c67dfa">   74</a></span>&#160;        <a class="code" href="classwmoge_1_1ResourceManager.html#a94b4a2ed4b72ded4d1788f6879c67dfa">~ResourceManager</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="classwmoge_1_1AsyncResult.html">AsyncResult&lt;Ref&lt;Resource&gt;</a>&gt; <a class="code" href="classwmoge_1_1ResourceManager.html#a39964c783758284c23e3b32e50430936">load_async</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; name, <a class="code" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a> callback = <a class="code" href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">ResourceCallback</a>());</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Resource&gt;</a> <a class="code" href="classwmoge_1_1ResourceManager.html#adae7d27c32ea5b24411fabbd5952b45b">load</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; name);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Resource&gt;</a> <a class="code" href="classwmoge_1_1ResourceManager.html#aa2938e208af0ccfb9def9e0c03c6f04e">find</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; name);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#a9cfb73ca503240b1a9a2cefdbfbdd72f">add_loader</a>(std::shared_ptr&lt;ResourceLoader&gt; loader);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#ac207cda0b336a0b91a23efdbb722309a">add_pak</a>(std::shared_ptr&lt;ResourcePak&gt; pak);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        std::optional&lt;ResourceLoader*&gt; <a class="code" href="classwmoge_1_1ResourceManager.html#a706eb24da7a3ef133064967387890fe1">find_loader</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Strid.html">Strid</a>&amp; loader);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        std::optional&lt;ResourceMeta&gt; <a class="code" href="classwmoge_1_1ResourceManager.html#aa29b39cf0da9a0091fe52eb4d74a0051">find_meta</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1ResourceId.html">ResourceId</a>&amp; resource);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#a11c8948887ba247c53815c143d498a8d">gc</a>();</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1ResourceManager.html#ae3335ae9a320bb403c164de6016d606e">clear</a>();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keyword">class </span>LoadState {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;Async&gt;</a>     deps;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <a class="code" href="classwmoge_1_1Ref.html">AsyncOp&lt;Ref&lt;Resource&gt;</a>&gt; async_op;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <a class="code" href="classwmoge_1_1AsyncResult.html">TaskHnd</a>                task_hnd;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        };</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;std::shared_ptr&lt;ResourcePak&gt;</a>&gt;        m_paks;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;ResourceId, WeakRef&lt;Resource&gt;</a>&gt;          m_resources;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;ResourceId, LoadState&gt;</a>                  m_loading;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;Strid, std::shared_ptr&lt;ResourceLoader&gt;</a>&gt; m_loaders;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keyword">mutable</span> std::recursive_mutex m_mutex;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    };</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aasync_8hpp_html"><div class="ttname"><a href="async_8hpp.html">async.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1AsyncResult_html"><div class="ttname"><a href="classwmoge_1_1AsyncResult.html">wmoge::AsyncResult</a></div><div class="ttdoc">Handle to an asynchronous operation with a result to get.</div><div class="ttdef"><b>Definition:</b> async.hpp:260</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="aclasswmoge_1_1ResourceId_html"><div class="ttname"><a href="classwmoge_1_1ResourceId.html">wmoge::ResourceId</a></div><div class="ttdoc">Class to track and access resource by its id.</div><div class="ttdef"><b>Definition:</b> resource.hpp:55</div></div>
-<div class="ttc" id="aclasswmoge_1_1ResourceManager_html"><div class="ttname"><a href="classwmoge_1_1ResourceManager.html">wmoge::ResourceManager</a></div><div class="ttdoc">Manages resources loading and caching in the engine.</div><div class="ttdef"><b>Definition:</b> resource_manager.hpp:72</div></div>
+<div class="ttc" id="aclasswmoge_1_1ResourceId_html"><div class="ttname"><a href="classwmoge_1_1ResourceId.html">wmoge::ResourceId</a></div><div class="ttdoc">Class to track and access resource by its id.</div><div class="ttdef"><b>Definition:</b> resource.hpp:54</div></div>
+<div class="ttc" id="aclasswmoge_1_1ResourceManager_html"><div class="ttname"><a href="classwmoge_1_1ResourceManager.html">wmoge::ResourceManager</a></div><div class="ttdoc">Manages resources loading and caching in the engine.</div><div class="ttdef"><b>Definition:</b> resource_manager.hpp:71</div></div>
 <div class="ttc" id="aclasswmoge_1_1ResourceManager_html_a11c8948887ba247c53815c143d498a8d"><div class="ttname"><a href="classwmoge_1_1ResourceManager.html#a11c8948887ba247c53815c143d498a8d">wmoge::ResourceManager::gc</a></div><div class="ttdeci">void gc()</div><div class="ttdoc">Clear from a cache only unused resource.</div><div class="ttdef"><b>Definition:</b> resource_manager.cpp:229</div></div>
 <div class="ttc" id="aclasswmoge_1_1ResourceManager_html_a39964c783758284c23e3b32e50430936"><div class="ttname"><a href="classwmoge_1_1ResourceManager.html#a39964c783758284c23e3b32e50430936">wmoge::ResourceManager::load_async</a></div><div class="ttdeci">AsyncResult&lt; Ref&lt; Resource &gt; &gt; load_async(const ResourceId &amp;name, ResourceCallback callback=ResourceCallback())</div><div class="ttdoc">Async load of engine resource using provided resource name.</div><div class="ttdef"><b>Definition:</b> resource_manager.cpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1ResourceManager_html_a706eb24da7a3ef133064967387890fe1"><div class="ttname"><a href="classwmoge_1_1ResourceManager.html#a706eb24da7a3ef133064967387890fe1">wmoge::ResourceManager::find_loader</a></div><div class="ttdeci">std::optional&lt; ResourceLoader * &gt; find_loader(const Strid &amp;loader)</div><div class="ttdoc">Find resource loader by loader name.</div><div class="ttdef"><b>Definition:</b> resource_manager.cpp:199</div></div>
@@ -184,7 +181,7 @@ $(function() {
 <div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_a3bac69a211f7ac3f56a54f02d0865e38"><div class="ttname"><a href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">wmoge::AsyncCallback</a></div><div class="ttdeci">std::function&lt; void(AsyncStatus, std::optional&lt; T &gt; &amp;)&gt; AsyncCallback</div><div class="ttdoc">Callback function which optionally may be called on async op completion.</div><div class="ttdef"><b>Definition:</b> async.hpp:56</div></div>
-<div class="ttc" id="anamespacewmoge_html_aba7a1a56d34d9dc3f4481d4cf54eeeea"><div class="ttname"><a href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">wmoge::ResourceCallback</a></div><div class="ttdeci">AsyncCallback&lt; Ref&lt; Resource &gt; &gt; ResourceCallback</div><div class="ttdoc">Callback function called when resource loading request is finished.</div><div class="ttdef"><b>Definition:</b> resource_manager.hpp:57</div></div>
+<div class="ttc" id="anamespacewmoge_html_aba7a1a56d34d9dc3f4481d4cf54eeeea"><div class="ttname"><a href="namespacewmoge.html#aba7a1a56d34d9dc3f4481d4cf54eeeea">wmoge::ResourceCallback</a></div><div class="ttdeci">AsyncCallback&lt; Ref&lt; Resource &gt; &gt; ResourceCallback</div><div class="ttdoc">Callback function called when resource loading request is finished.</div><div class="ttdef"><b>Definition:</b> resource_manager.hpp:56</div></div>
 <div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html_afa65d8defdd2ed60a69eb9c9be213534"><div class="ttname"><a href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">wmoge::fast_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; fast_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> fast_vector.hpp:46</div></div>
 <div class="ttc" id="aobject_8hpp_html"><div class="ttname"><a href="object_8hpp.html">object.hpp</a></div></div>
