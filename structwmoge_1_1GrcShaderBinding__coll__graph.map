@@ -1,0 +1,8 @@
+<map id="wmoge::GrcShaderBinding" name="wmoge::GrcShaderBinding">
+<area shape="rect" id="node1" title="An interface exposed bindable param." alt="" coords="336,137,511,163"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="24,5,173,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="24,71,173,112"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1GrcShaderQualifiers.html" title="Additional qualifiers for shader interface params." alt="" coords="5,137,192,163"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="50,187,147,214"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="24,239,173,280"/>
+</map>

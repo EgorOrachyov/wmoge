@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['taskmanager_8527',['TaskManager',['../classwmoge_1_1TaskContext.html#abfd65c2d85c5faff5c12fd032cc5cf0a',1,'wmoge::TaskContext']]]
+  ['passbuilder_8794',['PassBuilder',['../classwmoge_1_1GrcShaderClassBuilder.html#a92c74c813ebc50a5f1098a40aff93786',1,'wmoge::GrcShaderClassBuilder']]]
 ];

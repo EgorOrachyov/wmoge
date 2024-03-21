@@ -112,7 +112,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1PoolVector.html#a94cd716ec9e4c8c8e62a9f49b3d1fed8">wmoge::PoolVector&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1Range.html#afee358b6bdb5a9337fad8a8b93f4cc86">wmoge::Range</a>
 , <a class="el" href="classwmoge_1_1TypedArray.html#a890625f2a66146a38caf5a8768d7b64a">wmoge::TypedArray&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1TypedMap.html#a2cedd69a2e12e9c0bdbdc686593a6a92">wmoge::TypedMap&lt; K, V, H &gt;</a>
+, <a class="el" href="classwmoge_1_1TypedMap.html#a7b93c6a549a5de75e321c46629148899">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
 <li>begin_buffer()
 : <a class="el" href="classwmoge_1_1VKCmdManager.html#ac52b27e85e11249dad594b1dad96ff28">wmoge::VKCmdManager</a>
@@ -238,6 +238,15 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GfxLocation.html#aaeb554b66881d826b0a7d515cd62038b">wmoge::GfxLocation</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#aab3640b571b1dc3e7fffcfb1d772ba23">wmoge::GfxShaderReflection::Buffer</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#a636514385faadb7a8503ea61edddc8fa">wmoge::GfxShaderReflection::Texture</a>
+, <a class="el" href="structwmoge_1_1GrcShaderBinding.html#a28a2153979678b41b19e8f599386af1c">wmoge::GrcShaderBinding</a>
+, <a class="el" href="structwmoge_1_1GrcShaderBufferInfo.html#aca6cb6dbf3d1c2a76f59b5049ee0c208">wmoge::GrcShaderBufferInfo</a>
+, <a class="el" href="structwmoge_1_1GrcShaderParamInfo.html#abb696d8dfda5423c819d1215c71cdf74">wmoge::GrcShaderParamInfo</a>
+</li>
+<li>binding_type
+: <a class="el" href="structwmoge_1_1GrcShaderParamInfo.html#a71cac3798ccead63bf6895280d5fe56d">wmoge::GrcShaderParamInfo</a>
+</li>
+<li>bindings
+: <a class="el" href="structwmoge_1_1GrcShaderSpace.html#a9734a9cb6918ac4882b136ba3f963d59">wmoge::GrcShaderSpace</a>
 </li>
 <li>Bins
 : <a class="el" href="structwmoge_1_1ShaderLuminanceAvg_1_1Histogram.html#a75bbc1439203b783bbbfe20845dfd8dc">wmoge::ShaderLuminanceAvg::Histogram</a>
@@ -317,6 +326,9 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ArrayMeshData.html#a1f8ddd8fabd38bb0e6a2b2c3604e7829">wmoge::ArrayMeshData</a>
 , <a class="el" href="structwmoge_1_1MeshVertex.html#a55067e55fc61453c037f373d80a00227">wmoge::MeshVertex</a>
 </li>
+<li>BOOL
+: <a class="el" href="structwmoge_1_1GrcShaderTypes.html#a97a61bb1283ec345409270b8224e50b3">wmoge::GrcShaderTypes</a>
+</li>
 <li>bottom
 : <a class="el" href="structwmoge_1_1TextureCubeImportOptions_1_1SourceFiles.html#a672fffa9f3a307cd61f3775138609080">wmoge::TextureCubeImportOptions::SourceFiles</a>
 </li>
@@ -335,6 +347,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GfxIndexStream.html#adba9bcb0819a845344a714801b7ea407">wmoge::GfxIndexStream</a>
 , <a class="el" href="structwmoge_1_1GfxVertElement.html#a231dc2b831aba9348966f002b16fe485">wmoge::GfxVertElement</a>
 , <a class="el" href="structwmoge_1_1GfxVertStream.html#a1ae4417545a65269cc7a0e6b119aa2a0">wmoge::GfxVertStream</a>
+, <a class="el" href="structwmoge_1_1GrcShaderParamInfo.html#a6a527ee2d8f13cf399c0085f82893cda">wmoge::GrcShaderParamInfo</a>
 , <a class="el" href="classwmoge_1_1VKBuffer.html#a67e6a37ef3014db1827afdea93f6d43c">wmoge::VKBuffer</a>
 </li>
 <li>buffer_layout()
@@ -352,6 +365,7 @@ $(function() {
 <li>buffers
 : <a class="el" href="classreflection_1_1Shader.html#a6b4510d6ffccddb765a3fa350281fd0f">reflection.Shader</a>
 , <a class="el" href="structwmoge_1_1GfxVertBuffersSetup.html#a9b2255f4972dd2c0d39288a575cf2f7a">wmoge::GfxVertBuffersSetup</a>
+, <a class="el" href="structwmoge_1_1GrcShaderReflection.html#af53829bd6ba5953c977e6cbf56566e9e">wmoge::GrcShaderReflection</a>
 , <a class="el" href="classwmoge_1_1VKVertFormat.html#a2d31c3a883048aa3ce04fc74acae06c9">wmoge::VKVertFormat</a>
 </li>
 <li>buffers_count()
@@ -389,9 +403,21 @@ $(function() {
 <li>buttons_states()
 : <a class="el" href="classwmoge_1_1Joystick.html#a9e664f62f34b51372a27062aaca0eeef">wmoge::Joystick</a>
 </li>
+<li>BVEC2
+: <a class="el" href="structwmoge_1_1GrcShaderTypes.html#ad990b90c8d766f987162fa4b56d2cf84">wmoge::GrcShaderTypes</a>
+</li>
+<li>BVEC3
+: <a class="el" href="structwmoge_1_1GrcShaderTypes.html#ab1ca3fb06bd2f18140ba33b0e0173c2e">wmoge::GrcShaderTypes</a>
+</li>
+<li>BVEC4
+: <a class="el" href="structwmoge_1_1GrcShaderTypes.html#a980b3fada970e456f234ad48c87c3a23">wmoge::GrcShaderTypes</a>
+</li>
 <li>byte_code()
 : <a class="el" href="classwmoge_1_1GfxShader.html#ae5fedac707c604f5fc97e3a297f8ddb2">wmoge::GfxShader</a>
 , <a class="el" href="classwmoge_1_1VKShader.html#adc044064ae1020336b6f3a0a96e53d5d">wmoge::VKShader</a>
+</li>
+<li>byte_size
+: <a class="el" href="structwmoge_1_1GrcShaderType.html#afcca7b3c11dc24f4cca87896d8ff7426">wmoge::GrcShaderType</a>
 </li>
 <li>bytecode
 : <a class="el" href="structwmoge_1_1ShaderData.html#a455172096afa37df0c16ed2173948062">wmoge::ShaderData</a>

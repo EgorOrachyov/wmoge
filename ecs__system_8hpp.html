@@ -229,6 +229,9 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a5c9ba3005f2dabc3535c200fff245caf"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5c9ba3005f2dabc3535c200fff245caf">wmoge::EcsSystemNativeFunc</a> = void(T::*)(class EcsWorld &amp;world, const EcsEntity &amp;entity, TArgs... args)</td></tr>
 <tr class="memdesc:a5c9ba3005f2dabc3535c200fff245caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static function which can be used to implement a system interface.  <a href="namespacewmoge.html#a5c9ba3005f2dabc3535c200fff245caf">More...</a><br /></td></tr>
 <tr class="separator:a5c9ba3005f2dabc3535c200fff245caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a740aab47334358992bcac8805de97dc0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a740aab47334358992bcac8805de97dc0">wmoge::EcsSystemPtr</a> = std::shared_ptr&lt; EcsSystem &gt;</td></tr>
+<tr class="memdesc:a740aab47334358992bcac8805de97dc0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> pointer to a ecs system.  <a href="namespacewmoge.html#a740aab47334358992bcac8805de97dc0">More...</a><br /></td></tr>
+<tr class="separator:a740aab47334358992bcac8805de97dc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -237,8 +240,8 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a890a8a4454ee7bcb2133a5a098cbcf04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of a system.  <a href="namespacewmoge.html#a890a8a4454ee7bcb2133a5a098cbcf04">More...</a><br /></td></tr>
 <tr class="separator:a890a8a4454ee7bcb2133a5a098cbcf04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22475efc9d9a61efc8fe7bcda01319d0"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0">wmoge::EcsSystemExecMode</a> { <a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0a77aa3de85d4d6669ecb9a3693cdac748">wmoge::OnMain</a>
-, <a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0aa5595d73aee577fe5d8e3a1d5299d45c">wmoge::OnWorkers</a>
+<tr class="memitem:a22475efc9d9a61efc8fe7bcda01319d0"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0">wmoge::EcsSystemExecMode</a> { <a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0a8096cbefe1715cf50962916d1d852588">wmoge::SingleThread</a>
+, <a class="el" href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0a5ad77ca263c9b9ee6228d080a84f435c">wmoge::WorkerThreads</a>
  }</td></tr>
 <tr class="memdesc:a22475efc9d9a61efc8fe7bcda01319d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">How system must be executed.  <a href="namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0">More...</a><br /></td></tr>
 <tr class="separator:a22475efc9d9a61efc8fe7bcda01319d0"><td class="memSeparator" colspan="2">&#160;</td></tr>

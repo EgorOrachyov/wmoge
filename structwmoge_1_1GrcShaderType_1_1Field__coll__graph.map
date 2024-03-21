@@ -1,0 +1,8 @@
+<map id="wmoge::GrcShaderType::Field" name="wmoge::GrcShaderType::Field">
+<area shape="rect" id="node1" title=" " alt="" coords="144,275,304,316"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,171,155,212"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="179,178,269,205"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="170,81,278,108"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="169,5,279,32"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="294,178,391,205"/>
+</map>

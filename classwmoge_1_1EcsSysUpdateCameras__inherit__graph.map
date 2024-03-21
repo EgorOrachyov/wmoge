@@ -1,0 +1,4 @@
+<map id="wmoge::EcsSysUpdateCameras" name="wmoge::EcsSysUpdateCameras">
+<area shape="rect" id="node1" title="Updates cameras based on transform." alt="" coords="5,80,213,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1EcsSystem.html" title="Base class for any system, which can be register within a world." alt="" coords="41,5,177,32"/>
+</map>

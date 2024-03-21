@@ -133,12 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a534942fd1c007cb2d6a4bc22342b7c36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a534942fd1c007cb2d6a4bc22342b7c36">register_system</a> (const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;system)</td></tr>
 <tr class="memdesc:a534942fd1c007cb2d6a4bc22342b7c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers system within a world.  <a href="classwmoge_1_1EcsWorld.html#a534942fd1c007cb2d6a4bc22342b7c36">More...</a><br /></td></tr>
 <tr class="separator:a534942fd1c007cb2d6a4bc22342b7c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e2d50ccca281fd1f363fc45a07eead3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a2e2d50ccca281fd1f363fc45a07eead3">execute_system</a> (const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;system)</td></tr>
-<tr class="memdesc:a2e2d50ccca281fd1f363fc45a07eead3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manual trigger of system execution.  <a href="classwmoge_1_1EcsWorld.html#a2e2d50ccca281fd1f363fc45a07eead3">More...</a><br /></td></tr>
-<tr class="separator:a2e2d50ccca281fd1f363fc45a07eead3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0835322757fc3e9d767897fdaa9361c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a0835322757fc3e9d767897fdaa9361c2">execute_system</a> (<a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &amp;system)</td></tr>
-<tr class="memdesc:a0835322757fc3e9d767897fdaa9361c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manual trigger of system execution.  <a href="classwmoge_1_1EcsWorld.html#a0835322757fc3e9d767897fdaa9361c2">More...</a><br /></td></tr>
-<tr class="separator:a0835322757fc3e9d767897fdaa9361c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8011fb6a4df251e73bc56b5b12ecdb23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#a8011fb6a4df251e73bc56b5b12ecdb23">schedule_system</a> (const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;system, <a class="el" href="classwmoge_1_1Async.html">Async</a> depends_on=<a class="el" href="classwmoge_1_1Async.html">Async</a>{})</td></tr>
+<tr class="memdesc:a8011fb6a4df251e73bc56b5b12ecdb23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules system to be executed.  <a href="classwmoge_1_1EcsWorld.html#a8011fb6a4df251e73bc56b5b12ecdb23">More...</a><br /></td></tr>
+<tr class="separator:a8011fb6a4df251e73bc56b5b12ecdb23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad08cccb59a589810c41e14f8f967e80c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsWorld.html#ad08cccb59a589810c41e14f8f967e80c">each</a> (const <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> &amp;query, const std::function&lt; void(<a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>)&gt; &amp;func)</td></tr>
 <tr class="memdesc:ad08cccb59a589810c41e14f8f967e80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exec function for each entity matching query.  <a href="classwmoge_1_1EcsWorld.html#ad08cccb59a589810c41e14f8f967e80c">More...</a><br /></td></tr>
 <tr class="separator:ad08cccb59a589810c41e14f8f967e80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -288,46 +285,6 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Exec function for each entity matching query. </p>
-
-</div>
-</div>
-<a id="a2e2d50ccca281fd1f363fc45a07eead3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e2d50ccca281fd1f363fc45a07eead3">&#9670;&nbsp;</a></span>execute_system() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::EcsWorld::execute_system </td>
-          <td>(</td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>system</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Manual trigger of system execution. </p>
-
-</div>
-</div>
-<a id="a0835322757fc3e9d767897fdaa9361c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0835322757fc3e9d767897fdaa9361c2">&#9670;&nbsp;</a></span>execute_system() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::EcsWorld::execute_system </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &amp;&#160;</td>
-          <td class="paramname"><em>system</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Manual trigger of system execution. </p>
 
 </div>
 </div>
@@ -633,6 +590,36 @@ template&lt;class Component &gt; </div>
 </div><div class="memdoc">
 
 <p>Registers system within a world. </p>
+
+</div>
+</div>
+<a id="a8011fb6a4df251e73bc56b5b12ecdb23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8011fb6a4df251e73bc56b5b12ecdb23">&#9670;&nbsp;</a></span>schedule_system()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::EcsWorld::schedule_system </td>
+          <td>(</td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classwmoge_1_1EcsSystem.html">EcsSystem</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>system</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td>
+          <td class="paramname"><em>depends_on</em> = <code><a class="el" href="classwmoge_1_1Async.html">Async</a>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Schedules system to be executed. </p>
 
 </div>
 </div>

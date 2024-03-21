@@ -203,6 +203,8 @@ var menudata={children:[
 {text:"a",url:"functions_rela.html#index_a"},
 {text:"c",url:"functions_rela.html#index_c"},
 {text:"g",url:"functions_rela.html#index_g"},
+{text:"p",url:"functions_rela.html#index_p"},
+{text:"s",url:"functions_rela.html#index_s"},
 {text:"t",url:"functions_rela.html#index_t"},
 {text:"y",url:"functions_rela.html#index_y"}]}]}]},
 {text:"Files",url:"files.html",children:[
