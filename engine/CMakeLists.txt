@@ -125,8 +125,6 @@ add_library(wmoge STATIC
         gfx/gfx_driver.hpp
         gfx/gfx_dynamic_buffers.cpp
         gfx/gfx_dynamic_buffers.hpp
-        gfx/gfx_pass.hpp
-        gfx/gfx_pass.cpp
         gfx/gfx_pipeline_cache.cpp
         gfx/gfx_pipeline_cache.hpp
         gfx/gfx_pipeline.cpp
@@ -185,6 +183,20 @@ add_library(wmoge STATIC
         gfx/vulkan/vk_vert_format.hpp
         gfx/vulkan/vk_window.cpp
         gfx/vulkan/vk_window.hpp
+        glsl/glsl_include_processor.cpp
+        glsl/glsl_include_processor.hpp
+        glsl/glsl_shader_compiler.cpp
+        glsl/glsl_shader_compiler.hpp
+        grc/grc_shader_class_builder.cpp
+        grc/grc_shader_class_builder.hpp
+        grc/grc_shader_class.cpp
+        grc/grc_shader_class.hpp
+        grc/grc_shader_manager.cpp
+        grc/grc_shader_manager.hpp
+        grc/grc_shader_reflection.cpp
+        grc/grc_shader_reflection.hpp
+        grc/grc_shader.cpp
+        grc/grc_shader.hpp
         hgfx/hgfx_pass.cpp
         hgfx/hgfx_pass.hpp
         hgfx/hgfx_pass_base.cpp

@@ -27,6 +27,7 @@
 
 #include "scene_manager.hpp"
 
+#include "core/async.hpp"
 #include "core/task_parallel_for.hpp"
 #include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
@@ -66,8 +67,10 @@ namespace wmoge {
         ecs_registry->register_component<EcsComponentModel>();
         ecs_registry->register_component<EcsComponentCullingItem>();
 
-        m_sys_update_hier       = std::make_shared<EcsSysUpdateHier>();
-        m_sys_release_cull_item = std::make_shared<EcsSysReleaseCullItem>();
+        m_sys_update_hier       = ecs_registry->register_system<EcsSysUpdateHier>();
+        m_sys_update_cameras    = ecs_registry->register_system<EcsSysUpdateCameras>();
+        m_sys_update_aabb       = ecs_registry->register_system<EcsSysUpdateAabb>();
+        m_sys_release_cull_item = ecs_registry->register_system<EcsSysReleaseCullItem>();
     }
 
     void SceneManager::clear() {
@@ -111,15 +114,7 @@ namespace wmoge {
     Ref<Scene> SceneManager::make_scene(const Strid& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::make_scene");
 
-        auto  scene = make_ref<Scene>(name);
-        auto* world = scene->get_ecs_world();
-
-        world->register_system(m_sys_update_hier);
-        world->register_system(m_sys_release_cull_item);
-
-        m_scenes.push_back(scene);
-
-        return scene;
+        return m_scenes.emplace_back(make_ref<Scene>(name));
     }
     std::optional<Ref<Scene>> SceneManager::find_by_name(const Strid& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::find_by_name");
@@ -136,28 +131,65 @@ namespace wmoge {
     void SceneManager::update_scene_hier() {
         WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_hier");
 
-        Scene*    scene     = m_running.get();
-        EcsWorld* ecs_world = scene->get_ecs_world();
+        class HierUpdater : public AsyncState<int> {
+        public:
+            explicit HierUpdater(SceneManager* scene_manager) {
+                m_scene_manager = scene_manager;
+            }
 
-        bool has_dirty_transforms = true;
-        int  current_batch        = 0;
-        int  frame_id             = scene->get_frame_id();
+            void run_next_batch() {
+                if (!m_has_dirty_transforms) {
+                    set_result(0);
+                    return;
+                }
 
-        while (has_dirty_transforms) {
-            m_sys_update_hier->current_batch = current_batch;
-            m_sys_update_hier->frame_id      = frame_id;
-            m_sys_update_hier->num_updated.store(0);
-            m_sys_update_hier->num_dirty.store(0);
+                Scene*    scene     = m_scene_manager->get_running_scene().get();
+                EcsWorld* ecs_world = scene->get_ecs_world();
 
-            ecs_world->execute_system(m_sys_update_hier);
+                std::shared_ptr<class EcsSysUpdateHier>& sys_update_hier = m_scene_manager->m_sys_update_hier;
 
-            has_dirty_transforms = m_sys_update_hier->num_dirty.load() > 0;
-            current_batch += 1;
-        }
+                sys_update_hier->current_batch = m_current_batch;
+                sys_update_hier->frame_id      = scene->get_frame_id();
+                sys_update_hier->num_updated.store(0);
+                sys_update_hier->num_dirty.store(0);
+
+                ecs_world->schedule_system(sys_update_hier).add_dependency(Ref<HierUpdater>(this));
+            }
+
+            void notify(AsyncStatus status, AsyncStateBase* invoker) override {
+                if (status == AsyncStatus::Failed) {
+                    set_failed();
+                    return;
+                }
+
+                std::shared_ptr<class EcsSysUpdateHier>& sys_update_hier = m_scene_manager->m_sys_update_hier;
+
+                m_has_dirty_transforms = sys_update_hier->num_dirty.load() > 0;
+                m_current_batch += 1;
+
+                run_next_batch();
+            }
+
+        private:
+            SceneManager* m_scene_manager;
+            bool          m_has_dirty_transforms = true;
+            int           m_current_batch        = 0;
+        };
+
+        Ref<HierUpdater> hier_updater = make_ref<HierUpdater>(this);
+        hier_updater->run_next_batch();
+
+        m_sync.complete_heir = AsyncResult<int>(hier_updater).as_async();
     }
 
     void SceneManager::update_scene_cameras() {
         WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_cameras");
+
+        Scene*    scene     = m_running.get();
+        EcsWorld* ecs_world = scene->get_ecs_world();
+
+        m_sys_update_cameras->frame_id = scene->get_frame_id();
+        ecs_world->schedule_system(m_sys_update_cameras, m_sync.complete_heir);
     }
 
     void SceneManager::update_scene_visibility() {
@@ -171,7 +203,7 @@ namespace wmoge {
         CullingManager*   vis_system     = scene->get_culling_manager();
         const CameraList& render_cameras = render_engine->get_cameras();
 
-        vis_system->cull(render_cameras);
+        //   vis_system->cull(render_cameras);
     }
 
     void SceneManager::render_scene() {
@@ -245,10 +277,14 @@ namespace wmoge {
 
         m_running->advance(Engine::instance()->time()->get_delta_time_game());
 
+        m_sync = SyncContext();
+
         update_scene_hier();
         update_scene_cameras();
         update_scene_visibility();
         render_scene();
+
+        m_sync.await_all();
 
         assert(m_running->get_state() == SceneState::Playing);
     }
@@ -269,6 +305,15 @@ namespace wmoge {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_finish");
 
         m_running->set_state(SceneState::Finished);
+    }
+
+    void SceneManager::SyncContext::await_all() {
+        WG_AUTO_PROFILE_SCENE("SyncContext::await_all");
+
+        if (complete_heir.is_not_null()) complete_heir.wait_completed();
+        if (complete_cameras.is_not_null()) complete_cameras.wait_completed();
+        if (complete_visibility.is_not_null()) complete_visibility.wait_completed();
+        if (complete_render.is_not_null()) complete_render.wait_completed();
     }
 
 }// namespace wmoge

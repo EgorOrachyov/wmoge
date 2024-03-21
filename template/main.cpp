@@ -78,6 +78,53 @@ public:
         }
         WG_LOG_INFO("status for " << variant->name() << " is " << magic_enum::enum_name(variant->status()));
 
+        TextureManager* txm     = Engine::instance()->texture_manager();
+        Ref<GfxTexture> tex_def = txm->get_gfx_default_texture_white();
+        Ref<GfxSampler> smp_def = txm->get_gfx_default_sampler();
+
+        GrcShaderClassBuilder builder;
+
+        builder.set_name(SID("canvas"))
+                .add_constant(SID("MAX_CANVAS_IMAGES"), 4)
+                .add_struct(SID("Params"), 80)
+                .add_field(SID("ClipProjView"), GrcShaderTypes::MAT4, TypedArray<float>({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}))
+                .add_field(SID("InverseGamma"), GrcShaderTypes::FLOAT, 1.0f / 2.2f)
+                .add_field(SID("_pr_pad0"), GrcShaderTypes::FLOAT, 0.0f)
+                .add_field(SID("_pr_pad1"), GrcShaderTypes::FLOAT, 0.0f)
+                .add_field(SID("_pr_pad2"), GrcShaderTypes::FLOAT, 0.0f)
+                .end_struct()
+                .add_struct(SID("DrawCmd"), 80)
+                .add_field(SID("Transform0"), GrcShaderTypes::VEC4)
+                .add_field(SID("Transform1"), GrcShaderTypes::VEC4)
+                .add_field(SID("Transform2"), GrcShaderTypes::VEC4)
+                .add_field(SID("ClipRect"), GrcShaderTypes::VEC4)
+                .add_field(SID("TextureIdx"), GrcShaderTypes::INT)
+                .add_field(SID("_dc_pad0"), GrcShaderTypes::INT)
+                .add_field(SID("_dc_pad1"), GrcShaderTypes::INT)
+                .add_field(SID("_dc_pad2"), GrcShaderTypes::INT)
+                .end_struct()
+                .add_struct(SID("DrawCmds"), 0)
+                .add_field_array(SID("Cmds"), SID("DrawCmd"))
+                .end_struct()
+                .add_space(SID("Default"), GrcShaderSpaceType::Default)
+                .add_inline_uniform_buffer(SID("Params"), SID("Params"))
+                .add_storage_buffer(SID("DrawCmds"), SID("DrawCmds"))
+                .end_space()
+                .add_space(SID("Images"), GrcShaderSpaceType::Default)
+                .add_texture_2d(SID("CanvasImage0"), tex_def, smp_def)
+                .add_texture_2d(SID("CanvasImage1"), tex_def, smp_def)
+                .add_texture_2d(SID("CanvasImage2"), tex_def, smp_def)
+                .add_texture_2d(SID("CanvasImage3"), tex_def, smp_def)
+                .end_space()
+                .add_pass(SID("Default"))
+                .add_option(SID("OUT_COLOR"), {SID("SRGB"), SID("LINEAR")})
+                .end_pass()
+                .add_source(SID("canvas.vert"), GfxShaderModule::Vertex)
+                .add_source(SID("canvas.frag"), GfxShaderModule::Fragment);
+
+        std::shared_ptr<GrcShaderClass> shader_class;
+        builder.finish(shader_class);
+
         WG_LOG_INFO("init");
         return StatusCode::Ok;
     }

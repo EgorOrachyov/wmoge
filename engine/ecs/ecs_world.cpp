@@ -29,6 +29,7 @@
 
 #include "core/log.hpp"
 #include "core/task.hpp"
+#include "core/task_manager.hpp"
 #include "core/task_parallel_for.hpp"
 #include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
@@ -39,6 +40,11 @@ namespace wmoge {
 
     EcsWorld::EcsWorld() {
         m_task_manager = Engine::instance()->task_manager();
+        m_ecs_registry = Engine::instance()->ecs_registry();
+
+        for (const EcsSystemPtr& system : m_ecs_registry->get_systems()) {
+            register_system(system);
+        }
     }
 
     EcsWorld::~EcsWorld() {
@@ -99,10 +105,8 @@ namespace wmoge {
         const EcsArch right_arch = m_arch_by_idx[right_info.arch];
         const EcsArch left_arch  = m_arch_by_idx[left_info.arch];
 
-        EcsRegistry* ecs_registry = Engine::instance()->ecs_registry();
-
         EcsArch(right_arch & left_arch).for_each_component([&](int idx) {
-            const EcsComponentInfo& info = ecs_registry->get_component_info(idx);
+            const EcsComponentInfo& info = m_ecs_registry->get_component_info(idx);
             info.swap(right_storage->get_component(right_info.storage, idx), left_storage->get_component(left_info.storage, idx));
         });
     }
@@ -233,8 +237,8 @@ namespace wmoge {
         }
     }
 
-    void EcsWorld::execute_system(const std::shared_ptr<EcsSystem>& system) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::execute_system");
+    Async EcsWorld::schedule_system(const std::shared_ptr<EcsSystem>& system, Async depends_on) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::schedule_system");
 
         assert(system);
         assert(m_system_to_idx.find(system->get_name()) != m_system_to_idx.end());
@@ -242,20 +246,24 @@ namespace wmoge {
         EcsSystemInfo& system_info = m_systems[m_system_to_idx[system->get_name()]];
 
         switch (system_info.exec_mode) {
-            case EcsSystemExecMode::OnMain: {
-                for (const int arch_idx : system_info.filtered_arch) {
-                    EcsArchStorage& storage      = *m_arch_storage[arch_idx];
-                    const int       size         = storage.get_size();
-                    const int       start_entity = 0;
-                    const int       count        = size;
+            case EcsSystemExecMode::SingleThread: {
+                Task task(system_info.system->get_name(), [&](TaskContext&) {
+                    for (const int arch_idx : system_info.filtered_arch) {
+                        EcsArchStorage& storage      = *m_arch_storage[arch_idx];
+                        const int       size         = storage.get_size();
+                        const int       start_entity = 0;
+                        const int       count        = size;
 
-                    system_info.system->process_batch(*this, storage, start_entity, count);
-                }
+                        system_info.system->process_batch(*this, storage, start_entity, count);
+                    }
 
-                break;
+                    return 0;
+                });
+
+                return task.schedule(depends_on).as_async();
             }
 
-            case EcsSystemExecMode::OnWorkers: {
+            case EcsSystemExecMode::WorkerThreads: {
                 TaskParallelFor task(system->get_name(), [&](TaskContext&, int batch_id, int batch_count) {
                     for (const int arch_idx : system_info.filtered_arch) {
                         EcsArchStorage& storage          = *m_arch_storage[arch_idx];
@@ -267,54 +275,12 @@ namespace wmoge {
                     return 0;
                 });
 
-                task.schedule(m_task_manager->get_num_workers(), 1).wait_completed();
-
-                break;
+                return task.schedule(m_task_manager->get_num_workers(), 1, depends_on).as_async();
             }
 
             default:
                 WG_LOG_ERROR("unknown system exec mode");
-        }
-    }
-
-    void EcsWorld::execute_system(EcsSystem& system) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::execute_system");
-
-        const std::vector<int> filtered_arch = filter_arch_idx(system.get_query());
-
-        switch (system.get_exec_mode()) {
-            case EcsSystemExecMode::OnMain: {
-                for (const int arch_idx : filtered_arch) {
-                    EcsArchStorage& storage      = *m_arch_storage[arch_idx];
-                    const int       size         = storage.get_size();
-                    const int       start_entity = 0;
-                    const int       count        = size;
-
-                    system.process_batch(*this, storage, start_entity, count);
-                }
-
-                break;
-            }
-
-            case EcsSystemExecMode::OnWorkers: {
-                TaskParallelFor task(system.get_name(), [&](TaskContext&, int batch_id, int batch_count) {
-                    for (const int arch_idx : filtered_arch) {
-                        EcsArchStorage& storage          = *m_arch_storage[arch_idx];
-                        const int       size             = storage.get_size();
-                        const auto [start_entity, count] = Math::batch_start_count(size, batch_id, batch_count);
-
-                        system.process_batch(*this, storage, start_entity, count);
-                    }
-                    return 0;
-                });
-
-                task.schedule(m_task_manager->get_num_workers(), 1).wait_completed();
-
-                break;
-            }
-
-            default:
-                WG_LOG_ERROR("unknown system exec mode");
+                return Async{};
         }
     }
 

@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/async.hpp"
 #include "scene/scene.hpp"
 
 #include <deque>
@@ -75,7 +76,20 @@ namespace wmoge {
         Ref<Scene> m_default;// default scene to always show something
 
         std::shared_ptr<class EcsSysUpdateHier>      m_sys_update_hier;
+        std::shared_ptr<class EcsSysUpdateCameras>   m_sys_update_cameras;
+        std::shared_ptr<class EcsSysUpdateAabb>      m_sys_update_aabb;
         std::shared_ptr<class EcsSysReleaseCullItem> m_sys_release_cull_item;
+
+        struct SyncContext {
+            Async complete_heir;
+            Async complete_cameras;
+            Async complete_visibility;
+            Async complete_render;
+
+            void await_all();
+        };
+
+        SyncContext m_sync;// Allows to sync different parts of scene update
     };
 
 }// namespace wmoge

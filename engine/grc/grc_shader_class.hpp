@@ -27,41 +27,44 @@
 
 #pragma once
 
-#include "gfx/gfx_defs.hpp"
+#include "core/status.hpp"
+#include "grc/grc_shader_reflection.hpp"
+#include "platform/file_system.hpp"
 
 namespace wmoge {
 
     /**
-     * @class GfxPassDesc
-     * @brief Base class for a description to setup a gfx pass
+     * @class GrcShaderClass
+     * @brief Reprsents a particular shader program class
      * 
-     * Gfx pass descriptor is a minimal self-contained representation,
-     * required to setup a GfxPass for rendering.
+     * GrcShaderClass is a high level representation of a shading program.
+     * It provides a connection between raw glsl sources code of a shader,
+     * material and engine gfx module for runtime usage.
      * 
-     * Description can be created from any system and used to automate
-     * setup of required for the rendering data:
-     *  - gather required defines for the shader
-     *  - compile gfx shader items
-     *  - setup required vertex format and render state
-     *  - compile pipeline state object
+     * GrcShaderClass provides info about a particular shader type. It provides
+     * layout information, parameters and structures layout, defines and
+     * compilations options, constants and includes, and provides hot-reloading
+     * mechanism for debugging. 
+     * 
+     * GrcShaderClass is a `template` shader for drawing with pre-defined interface.
+     * It is not suitable for rendering. In order to get a concrete instance of 
+     * compiled gpu program, pass and options must be provided from GrcShader.
     */
-    class GfxPassDesc {
+    class GrcShaderClass {
     public:
-    };
+        GrcShaderClass(GrcShaderReflection&& reflection);
 
-    /**
-     * @class GfxPass
-     * @brief Base class for any GPU shaders
-     * 
-     * Gfx pass is a high level shading program representation. It provides connection
-     * between a shader, written using glsl in engine source code, optional user defined
-     * material and a low-level engine gfx api.
-     *
-     * Gfx pass provides info about required pipeline layout, allows to obtain final
-     * shader source code, provides defines info and etc.
-    */
-    class GfxPass {
-    public:
+        int    set_idx(int idx);
+        Status reload_sources(const std::string& folder, FileSystem* fs);
+        Status fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
+        bool   has_dependency(const Strid& dependency) const;
+        bool   has_space(GrcShaderSpaceType space_type) const;
+
+        [[nodiscard]] const GrcShaderReflection& get_reflection() const { return m_reflection; }
+
+    private:
+        GrcShaderReflection m_reflection;
+        int                 m_idx = -1;
     };
 
 }// namespace wmoge

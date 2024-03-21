@@ -25,72 +25,57 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "core/async.hpp"
-
-#include "async.hpp"
-#include "debug/profiler.hpp"
+#include "glsl_include_processor.hpp"
 
 namespace wmoge {
 
-    Async Async::join(ArrayView<Async> dependencies) {
-        WG_AUTO_PROFILE_CORE("Async::join");
-
-        if (dependencies.empty()) {
-            auto state = make_ref<AsyncState<int>>();
-            state->set_result(0);
-            return Async(std::move(state));
-        }
-
-        class AsyncStateJoin : public AsyncState<int> {
-        public:
-            explicit AsyncStateJoin(int to_wait) {
-                m_deps_to_wait = to_wait;
-            }
-
-            void notify(AsyncStatus status, AsyncStateBase* invoker) override {
-                WG_AUTO_PROFILE_CORE("AsyncStateJoin::notify");
-
-                assert(m_deps_to_wait > 0);
-
-                if (status == AsyncStatus::Ok) {
-                    assert(m_deps_ok.load() < m_deps_to_wait);
-                    bool do_ok = (m_deps_ok.fetch_add(1) == m_deps_to_wait - 1);
-
-                    if (do_ok) {
-                        set_result(0);
-                    }
-                }
-
-                if (status == AsyncStatus::Failed) {
-                    assert(m_deps_failed.load() < m_deps_to_wait);
-                    bool do_fail = (m_deps_failed.fetch_add(1) == 0);
-
-                    if (do_fail) {
-                        set_failed();
-                    }
-                }
-            }
-
-        private:
-            int             m_deps_to_wait = 0;
-            std::atomic_int m_deps_ok{0};
-            std::atomic_int m_deps_failed{0};
-        };
-
-        auto state      = make_ref<AsyncStateJoin>(int(dependencies.size()));
-        auto state_base = state.as<AsyncStateBase>();
-
-        for (auto& dependency : dependencies) {
-            dependency.add_dependency(state_base);
-        }
-
-        return Async(std::move(state));
+    GlslIncludeProcessor::GlslIncludeProcessor(std::string folder, FileSystem* file_system) {
+        m_folder      = std::move(folder);
+        m_file_system = file_system;
     }
 
-    Async Async::completed() {
-        auto state = make_async_op<int>();
-        state->set_result(0);
-        return Async(state);
+    Status GlslIncludeProcessor::parse_file(const Strid& file) {
+        const std::string file_path = m_folder + '/' + file.str();
+        std::string       content;
+
+        if (!m_file_system->read_file(file_path, content)) {
+            WG_LOG_ERROR("failed read shader source " << file_path);
+            return StatusCode::FailedRead;
+        }
+
+        std::stringstream stream(content);
+        std::string       line;
+
+        while (std::getline(stream, line)) {
+            const auto prefix = std::string("#include ");
+            auto       pragma = line.find(prefix);
+
+            if (pragma != std::string::npos) {
+                auto line_len  = line.length();
+                auto cut_start = prefix.length() + 1;
+                auto cut_count = line_len - cut_start - 1;
+
+                const Strid include_file = SID(line.substr(cut_start, cut_count));
+
+                const auto recursion_check = std::find(m_includes.begin(), m_includes.end(), include_file);
+
+                if (recursion_check != m_includes.end()) {
+                    continue;
+                }
+
+                if (!parse_file(include_file)) {
+                    WG_LOG_ERROR("failed parse include file " << include_file);
+                    return StatusCode::Error;
+                }
+
+                m_includes.push_back(include_file);
+
+            } else {
+                m_result << line;
+            }
+        }
+
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

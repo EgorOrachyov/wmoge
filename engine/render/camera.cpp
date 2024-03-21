@@ -55,6 +55,15 @@ namespace wmoge {
     void Camera::set_name(Strid name) {
         m_name = std::move(name);
     }
+    void Camera::set_transform(const Mat4x4f& transform) {
+        Vec3f position;
+        Vec3f direction = Vec3f::axis_z();
+        Vec3f up        = Vec3f::axis_y();
+
+        position  = Math3d::transform(transform, position);
+        direction = Math3d::transform_w0(transform, direction).normalized();
+        up        = Math3d::transform_w0(transform, up).normalized();
+    }
     void Camera::look(const Vec3f& dir, const Vec3f& up) {
         m_direction = dir;
         m_up        = up;

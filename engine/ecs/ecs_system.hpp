@@ -52,8 +52,8 @@ namespace wmoge {
      * @brief How system must be executed
      */
     enum class EcsSystemExecMode {
-        OnMain,  // On main (game) thread only without parallel speed up
-        OnWorkers// In task manager with multiple parallel tasks
+        SingleThread,// One thread only without parallel speed up
+        WorkerThreads// In task manager with multiple parallel tasks
     };
 
     /**
@@ -83,20 +83,25 @@ namespace wmoge {
         virtual void process_batch(class EcsWorld& world, EcsArchStorage& storage, int start_entity, int count) = 0;
 
         [[nodiscard]] virtual EcsSystemType     get_type() const { return EcsSystemType::Update; }
-        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const { return EcsSystemExecMode::OnMain; }
+        [[nodiscard]] virtual EcsSystemExecMode get_exec_mode() const { return EcsSystemExecMode::SingleThread; }
         [[nodiscard]] virtual Strid             get_name() const  = 0;
         [[nodiscard]] virtual EcsQuery          get_query() const = 0;
     };
 
     /**
+     * @brief Shader pointer to a ecs system
+    */
+    using EcsSystemPtr = std::shared_ptr<EcsSystem>;
+
+    /**
      * @brief Holds system information for execution within a world
      */
     struct EcsSystemInfo {
-        EcsQuery                   query;        // system query, which archetypes its affects
-        EcsSystemType              type;         // system type (exec, deletion, etc.)
-        EcsSystemExecMode          exec_mode;    // execution mode
-        std::shared_ptr<EcsSystem> system;       // cached system ptr
-        std::vector<int>           filtered_arch;// pre-filtered arch idx to execute using this system
+        EcsQuery          query;        // system query, which archetypes its affects
+        EcsSystemType     type;         // system type (exec, deletion, etc.)
+        EcsSystemExecMode exec_mode;    // execution mode
+        EcsSystemPtr      system;       // cached system ptr
+        std::vector<int>  filtered_arch;// pre-filtered arch idx to execute using this system
     };
 
     /**

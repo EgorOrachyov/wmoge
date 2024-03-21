@@ -75,11 +75,34 @@ namespace wmoge {
             }
         }
 
-        transform_upd.is_dirty           = false;
-        transform_upd.last_frame_updated = frame_id;
+        transform_upd.is_dirty      = false;
+        transform_upd.frame_updated = frame_id;
     }
 
-    void EcsSysReleaseCullItem::process(EcsWorld& world, const EcsEntity& entity, EcsComponentCullingItem& culling_item) {
+    void EcsSysUpdateCameras::process(EcsWorld&                       world,
+                                      const EcsEntity&                entity,
+                                      const EcsComponentTransformUpd& transform_upd,
+                                      const EcsComponentLocalToWorld& l2w,
+                                      EcsComponentCamera&             camera) {
+        if (transform_upd.frame_updated == frame_id) {
+            camera.camera.set_transform(l2w.matrix);
+        }
+    }
+
+    void EcsSysUpdateAabb::process(EcsWorld&                       world,
+                                   const EcsEntity&                entity,
+                                   const EcsComponentTransformUpd& transform_upd,
+                                   const EcsComponentLocalToWorld& l2w,
+                                   const EcsComponentAabbLocal&    bbox_local,
+                                   EcsComponentAabbWorld&          bbox_world) {
+        if (transform_upd.frame_updated == frame_id) {
+            bbox_world.aabb = bbox_local.aabb.transform(l2w.matrix);
+        }
+    }
+
+    void EcsSysReleaseCullItem::process(EcsWorld&                world,
+                                        const EcsEntity&         entity,
+                                        EcsComponentCullingItem& culling_item) {
         if (!culling_item.item.is_valid()) {
             return;
         }

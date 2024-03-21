@@ -37,6 +37,9 @@
 
 namespace wmoge {
 
+    class ShaderDesc : public RefCnt {
+    };
+
     /**
      * @class ShaderPass
      * @brief Base class for any engine shading pass

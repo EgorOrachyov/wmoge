@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/fast_map.hpp"
 #include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
@@ -37,6 +38,7 @@
 #include "memory/mem_pool.hpp"
 
 #include <array>
+#include <memory>
 #include <mutex>
 
 namespace wmoge {
@@ -52,22 +54,29 @@ namespace wmoge {
         EcsRegistry(EcsRegistry&&)      = delete;
         ~EcsRegistry()                  = default;
 
-        [[nodiscard]] int                     get_component_idx(const Strid& name);
-        [[nodiscard]] const EcsComponentInfo& get_component_info(const Strid& name);
-        [[nodiscard]] const EcsComponentInfo& get_component_info(int idx);
-        [[nodiscard]] MemPool&                get_component_pool(int idx);
-        [[nodiscard]] MemPool&                get_entity_pool();
-        [[nodiscard]] int                     get_chunk_size() const { return m_chunk_size; }
-        [[nodiscard]] int                     get_expand_size() const { return m_expand_size; }
+        [[nodiscard]] int                           get_component_idx(const Strid& name);
+        [[nodiscard]] const EcsComponentInfo&       get_component_info(const Strid& name);
+        [[nodiscard]] const EcsComponentInfo&       get_component_info(int idx);
+        [[nodiscard]] MemPool&                      get_component_pool(int idx);
+        [[nodiscard]] MemPool&                      get_entity_pool();
+        [[nodiscard]] int                           get_chunk_size() const { return m_chunk_size; }
+        [[nodiscard]] int                           get_expand_size() const { return m_expand_size; }
+        [[nodiscard]] ArrayView<const EcsSystemPtr> get_systems() const { return m_systems; }
 
         template<typename Component>
         void register_component();
 
+        template<typename System>
+        std::shared_ptr<System> register_system();
+
     private:
-        std::array<EcsComponentInfo, EcsLimits::MAX_COMPONENTS>         m_components_info;       // type info of component, indexed by component id
-        std::array<std::unique_ptr<MemPool>, EcsLimits::MAX_COMPONENTS> m_components_pool;       // pools to allocate components chunks
-        fast_map<Strid, int>                                            m_components_name_to_idx;// resolve component name to its idx
-        std::unique_ptr<MemPool>                                        m_entity_pool;           // pool to allocate entities chunks
+        static const int MAX_CMP = EcsLimits::MAX_COMPONENTS;
+
+        std::array<EcsComponentInfo, MAX_CMP>         m_components_info;       // type info of component, indexed by component id
+        std::array<std::unique_ptr<MemPool>, MAX_CMP> m_components_pool;       // pools to allocate components chunks
+        fast_map<Strid, int>                          m_components_name_to_idx;// resolve component name to its idx
+        std::unique_ptr<MemPool>                      m_entity_pool;           // pool to allocate entities chunks
+        std::vector<EcsSystemPtr>                     m_systems;               // registered global systems
 
         int m_chunk_size      = 16;// num of components of a single type sequentially allocate in one chunk
         int m_expand_size     = 2; // num of chunks in a single pooled allocation in head
@@ -106,6 +115,13 @@ namespace wmoge {
 
         m_components_name_to_idx[component_info.name] = component_info.idx;
         m_components_pool[component_info.idx]         = std::make_unique<MemPool>(component_info.size * m_chunk_size, m_expand_size);
+    }
+
+    template<typename System>
+    inline std::shared_ptr<System> EcsRegistry::register_system() {
+        auto sys = std::make_shared<System>();
+        m_systems.emplace_back(sys);
+        return sys;
     }
 
 }// namespace wmoge

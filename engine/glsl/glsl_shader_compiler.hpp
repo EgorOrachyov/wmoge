@@ -25,72 +25,15 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "core/async.hpp"
-
-#include "async.hpp"
-#include "debug/profiler.hpp"
+#pragma once
 
 namespace wmoge {
 
-    Async Async::join(ArrayView<Async> dependencies) {
-        WG_AUTO_PROFILE_CORE("Async::join");
-
-        if (dependencies.empty()) {
-            auto state = make_ref<AsyncState<int>>();
-            state->set_result(0);
-            return Async(std::move(state));
-        }
-
-        class AsyncStateJoin : public AsyncState<int> {
-        public:
-            explicit AsyncStateJoin(int to_wait) {
-                m_deps_to_wait = to_wait;
-            }
-
-            void notify(AsyncStatus status, AsyncStateBase* invoker) override {
-                WG_AUTO_PROFILE_CORE("AsyncStateJoin::notify");
-
-                assert(m_deps_to_wait > 0);
-
-                if (status == AsyncStatus::Ok) {
-                    assert(m_deps_ok.load() < m_deps_to_wait);
-                    bool do_ok = (m_deps_ok.fetch_add(1) == m_deps_to_wait - 1);
-
-                    if (do_ok) {
-                        set_result(0);
-                    }
-                }
-
-                if (status == AsyncStatus::Failed) {
-                    assert(m_deps_failed.load() < m_deps_to_wait);
-                    bool do_fail = (m_deps_failed.fetch_add(1) == 0);
-
-                    if (do_fail) {
-                        set_failed();
-                    }
-                }
-            }
-
-        private:
-            int             m_deps_to_wait = 0;
-            std::atomic_int m_deps_ok{0};
-            std::atomic_int m_deps_failed{0};
-        };
-
-        auto state      = make_ref<AsyncStateJoin>(int(dependencies.size()));
-        auto state_base = state.as<AsyncStateBase>();
-
-        for (auto& dependency : dependencies) {
-            dependency.add_dependency(state_base);
-        }
-
-        return Async(std::move(state));
-    }
-
-    Async Async::completed() {
-        auto state = make_async_op<int>();
-        state->set_result(0);
-        return Async(state);
-    }
+    /**
+     * @class GlslShaderCompiler
+     * @brief Glslang based compiler for shaders
+    */
+    class GlslShaderCompiler {
+    };
 
 }// namespace wmoge

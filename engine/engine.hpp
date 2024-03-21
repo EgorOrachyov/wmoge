@@ -98,7 +98,6 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
-#include "gfx/gfx_pass.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_pipeline_cache.hpp"
 #include "gfx/gfx_render_pass.hpp"
@@ -109,6 +108,11 @@
 #include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
 #include "gfx/gfx_vert_format_cache.hpp"
+
+#include "grc/grc_shader.hpp"
+#include "grc/grc_shader_class.hpp"
+#include "grc/grc_shader_class_builder.hpp"
+#include "grc/grc_shader_reflection.hpp"
 
 #include "hgfx/hgfx_pass.hpp"
 #include "hgfx/hgfx_pass_base.hpp"

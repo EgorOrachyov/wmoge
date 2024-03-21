@@ -44,7 +44,7 @@ namespace wmoge {
     */
     class EcsSysUpdateHier : public EcsSystem {
     public:
-        WG_ECS_SYSTEM(EcsSysUpdateHier, Update, OnWorkers);
+        WG_ECS_SYSTEM(EcsSysUpdateHier, Update, WorkerThreads);
 
         void process(EcsWorld&                    world,
                      const EcsEntity&             entity,
@@ -62,12 +62,47 @@ namespace wmoge {
     };
 
     /**
+     * @class EcsSysUpdateCameras
+     * @brief Updates cameras based on transform
+    */
+    class EcsSysUpdateCameras : public EcsSystem {
+    public:
+        WG_ECS_SYSTEM(EcsSysUpdateCameras, Update, WorkerThreads);
+
+        void process(EcsWorld&                       world,
+                     const EcsEntity&                entity,
+                     const EcsComponentTransformUpd& transform_upd,
+                     const EcsComponentLocalToWorld& l2w,
+                     EcsComponentCamera&             camera);
+
+        int frame_id = -1;
+    };
+
+    /**
+     * @class EcsSysUpdateAabb
+     * @brief Updates bounding boxes based on transform
+    */
+    class EcsSysUpdateAabb : public EcsSystem {
+    public:
+        WG_ECS_SYSTEM(EcsSysUpdateAabb, Update, WorkerThreads);
+
+        void process(EcsWorld&                       world,
+                     const EcsEntity&                entity,
+                     const EcsComponentTransformUpd& transform_upd,
+                     const EcsComponentLocalToWorld& l2w,
+                     const EcsComponentAabbLocal&    bbox_local,
+                     EcsComponentAabbWorld&          bbox_world);
+
+        int frame_id = -1;
+    };
+
+    /**
      * @class EcsSysReleaseCullItem
      * @brief System to delete cull items
     */
     class EcsSysReleaseCullItem : public EcsSystem {
     public:
-        WG_ECS_SYSTEM(EcsSysReleaseCullItem, Destroy, OnMain);
+        WG_ECS_SYSTEM(EcsSysReleaseCullItem, Destroy, SingleThread);
 
         void process(EcsWorld&                world,
                      const EcsEntity&         entity,

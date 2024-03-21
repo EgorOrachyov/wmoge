@@ -27,10 +27,10 @@
 
 #pragma once
 
+#include "core/async.hpp"
 #include "core/callback_queue.hpp"
 #include "core/fast_map.hpp"
 #include "core/synchronization.hpp"
-#include "core/task_manager.hpp"
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
@@ -112,11 +112,8 @@ namespace wmoge {
         /** @brief Registers system within a world */
         void register_system(const std::shared_ptr<EcsSystem>& system);
 
-        /** @brief Manual trigger of system execution */
-        void execute_system(const std::shared_ptr<EcsSystem>& system);
-
-        /** @brief Manual trigger of system execution */
-        void execute_system(EcsSystem& system);
+        /** @brief Schedules system to be executed */
+        Async schedule_system(const std::shared_ptr<EcsSystem>& system, Async depends_on = Async{});
 
         /** @brief Exec function for each entity matching query*/
         void each(const EcsQuery& query, const std::function<void(EcsEntity)>& func);
@@ -150,8 +147,9 @@ namespace wmoge {
 
         fast_vector<void*> m_attributes;// custom attributes to access context within world
 
-        CallbackQueue m_queue;       // queue for async world operations, flushed on sync
-        TaskManager*  m_task_manager;// manager for parallel system update
+        CallbackQueue      m_queue;       // queue for async world operations, flushed on sync
+        class TaskManager* m_task_manager;// manager for parallel system update
+        class EcsRegistry* m_ecs_registry;// registry of the ecs world
 
         SpinMutex m_mutex;
     };

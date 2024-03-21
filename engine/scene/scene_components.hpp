@@ -83,9 +83,9 @@ namespace wmoge {
     struct EcsComponentTransformUpd : EcsComponent<EcsComponentTransformUpd> {
         WG_ECS_COMPONENT(EcsComponentTransformUpd);
 
-        int  batch_id           = 0;
-        int  last_frame_updated = -1;
-        bool is_dirty           = true;
+        int  batch_id      = 0;
+        int  frame_updated = -1;
+        bool is_dirty      = true;
     };
 
     /**

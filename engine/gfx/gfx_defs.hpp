@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_DEFS_HPP
-#define WMOGE_GFX_DEFS_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "core/mask.hpp"
@@ -35,6 +34,7 @@
 #include "math/vec.hpp"
 
 #include <array>
+#include <bitset>
 #include <cinttypes>
 
 namespace wmoge {
@@ -501,5 +501,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_DEFS_HPP

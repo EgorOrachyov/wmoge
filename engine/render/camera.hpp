@@ -58,6 +58,7 @@ namespace wmoge {
         void set_color(const Color4f& color);
         void set_proj(CameraProjection proj);
         void set_name(Strid name);
+        void set_transform(const Mat4x4f& transform);
         void look(const Vec3f& dir, const Vec3f& up);
         void move(const Vec3f& delta);
         void move_to(const Vec3f& point);
