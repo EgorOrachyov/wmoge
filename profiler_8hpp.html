@@ -194,6 +194,8 @@ Macros</h2></td></tr>
 <tr class="separator:a9166770201567cfebeb65a8cb5828130"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51d859fd41b73e521fc3061ca3716aed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profiler_8hpp.html#a51d859fd41b73e521fc3061ca3716aed">WG_PROFILE_CAPTURE_START</a>(capture,  session,  file_path)</td></tr>
 <tr class="separator:a51d859fd41b73e521fc3061ca3716aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1267017b0e9215836432f63f6ddc71d9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profiler_8hpp.html#a1267017b0e9215836432f63f6ddc71d9">WG_PROFILE_CAPTURE_END</a>(capture)</td></tr>
+<tr class="separator:a1267017b0e9215836432f63f6ddc71d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae72ce63657183560f1b11dbce5a0a5f6"></a>
@@ -686,6 +688,27 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="a1267017b0e9215836432f63f6ddc71d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1267017b0e9215836432f63f6ddc71d9">&#9670;&nbsp;</a></span>WG_PROFILE_CAPTURE_END</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_PROFILE_CAPTURE_END</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">capture</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    Engine::instance()-&gt;profiler()-&gt;end_capture(); \</div>
+<div class="line">    capture-&gt;save_to_json();                       \</div>
+<div class="line">    capture.reset();</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a51d859fd41b73e521fc3061ca3716aed"></a>

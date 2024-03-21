@@ -64,7 +64,7 @@ var searchData=
   ['wg_5flua_5fmap_5fclass_8875',['WG_LUA_MAP_CLASS',['../lua__bindings_8hpp.html#a59f18657150c3576d13ab916e594f14d',1,'lua_bindings.hpp']]],
   ['wg_5flua_5fmap_5fclass_5fcustom_8876',['WG_LUA_MAP_CLASS_CUSTOM',['../lua__bindings_8hpp.html#a51d965d4f9e941748e75156ee5ba9058',1,'lua_bindings.hpp']]],
   ['wg_5fobject_8877',['WG_OBJECT',['../object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9',1,'object.hpp']]],
-  ['wg_5fprofile_5fcapture_5fend_8878',['WG_PROFILE_CAPTURE_END',['../profiler_8cpp.html#a1267017b0e9215836432f63f6ddc71d9',1,'profiler.hpp']]],
+  ['wg_5fprofile_5fcapture_5fend_8878',['WG_PROFILE_CAPTURE_END',['../profiler_8hpp.html#a1267017b0e9215836432f63f6ddc71d9',1,'profiler.hpp']]],
   ['wg_5fprofile_5fcapture_5fstart_8879',['WG_PROFILE_CAPTURE_START',['../profiler_8hpp.html#a51d859fd41b73e521fc3061ca3716aed',1,'profiler.hpp']]],
   ['wg_5fprofile_5fdesc_8880',['WG_PROFILE_DESC',['../profiler_8hpp.html#a3fe286c00acb6d43cc72029fdae34545',1,'profiler.hpp']]],
   ['wg_5fprofile_5fmark_8881',['WG_PROFILE_MARK',['../profiler_8hpp.html#a23c3a23cdbcd2315c79dd29a933cf070',1,'profiler.hpp']]],
