@@ -169,10 +169,11 @@ $(function() {
 </li>
 <li>set()
 : <a class="el" href="classwmoge_1_1ConfigFile.html#ad88e915bc39b9c14192b2669afe68c2c">wmoge::ConfigFile</a>
-, <a class="el" href="classwmoge_1_1GameTokenManager.html#a529a6747b16ef9375cd2e2ead728ec58">wmoge::GameTokenManager</a>
+, <a class="el" href="classwmoge_1_1GameTokenManager.html#a1d0c6242997d0069090552d088571c4f">wmoge::GameTokenManager</a>
 , <a class="el" href="structwmoge_1_1GfxLocation.html#a5849f754776145ea8c8d0a67d5002abd">wmoge::GfxLocation</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#ae6234133e63e9d745463dc33b69647d9">wmoge::GfxShaderReflection::Buffer</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#a69f4b4b754dd8d24f4f65042934044b4">wmoge::GfxShaderReflection::Texture</a>
+, <a class="el" href="structwmoge_1_1GrcShaderParamAccess.html#aa6f3ec968261b1d6cf791c5dac6b4d2f">wmoge::GrcShaderParamAccess&lt; StorageProvider &gt;</a>
 , <a class="el" href="structwmoge_1_1LuaRefCnt.html#ac1cce5177cab9406857e2fd563f9c1c3">wmoge::LuaRefCnt</a>
 , <a class="el" href="classwmoge_1_1LuaScriptInstance.html#adf8cc6920ff25a64c37b2435cf61f6c3">wmoge::LuaScriptInstance</a>
 , <a class="el" href="structwmoge_1_1Mask.html#ac0dd38e81df58039ad3192832de75fa2">wmoge::Mask&lt; T, size &gt;</a>
@@ -258,7 +259,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Resource.html#a3615034ba0ba788c63b9a8f6edbaf025">wmoge::Resource</a>
 </li>
 <li>set_idx()
-: <a class="el" href="classwmoge_1_1GrcShaderClass.html#ab4a4bd4dd5ba4a449da5bdc5d9637acd">wmoge::GrcShaderClass</a>
+: <a class="el" href="classwmoge_1_1GrcShaderClass.html#a69509f46557970c116cf4723dbd6052a">wmoge::GrcShaderClass</a>
 </li>
 <li>set_instantiate()
 : <a class="el" href="classwmoge_1_1Class.html#a6b85d628efdab8296027e5a1407accfe">wmoge::Class</a>
@@ -407,6 +408,10 @@ $(function() {
 <li>set_uuid()
 : <a class="el" href="classwmoge_1_1Resource.html#a4fec1fb4ac0ccb6b7fea5f0b0debfe88">wmoge::Resource</a>
 , <a class="el" href="classwmoge_1_1SceneNode.html#a69a6574f19a566beba29e6e1e632a3ae">wmoge::SceneNode</a>
+</li>
+<li>set_var()
+: <a class="el" href="classwmoge_1_1GrcShaderParam.html#a8038271f8215f9843a5ba544ddba73aa">wmoge::GrcShaderParam</a>
+, <a class="el" href="classwmoge_1_1GrcShaderParamBlock.html#a6b46e9c2ec9c930976f42eb3c5598e8c">wmoge::GrcShaderParamBlock</a>
 </li>
 <li>set_vec2()
 : <a class="el" href="structwmoge_1_1LuaMaterial.html#a648b4ce292d71a0d06a420b5a9d96bfb">wmoge::LuaMaterial</a>
@@ -733,6 +738,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1EcsEntityInfo.html#a6cce5df6ec1eb763162d8607acdc4fd4">wmoge::EcsEntityInfo</a>
 , <a class="el" href="classwmoge_1_1GfxCompPipeline.html#a0944d19964b50f20f48a943f75b3dbd3">wmoge::GfxCompPipeline</a>
 , <a class="el" href="classwmoge_1_1GfxPipeline.html#aba6a87ba3c7460b0e38db2156a94a5c4">wmoge::GfxPipeline</a>
+, <a class="el" href="structwmoge_1_1GrcShaderPass.html#aac4976692ddbffb9e2247f87ba25d2a8">wmoge::GrcShaderPass</a>
 , <a class="el" href="classwmoge_1_1InputDevice.html#a3c896aa43870f1fd956b303f563a1168">wmoge::InputDevice</a>
 , <a class="el" href="structwmoge_1_1ShaderFile.html#a484a32af07823305aebc4e0cd5c779b2">wmoge::ShaderFile</a>
 , <a class="el" href="classwmoge_1_1VKCompPipeline.html#a0df357fb0c6460d9998f8e762dda3f18">wmoge::VKCompPipeline</a>
@@ -747,7 +753,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxShader.html#a7706fe8981a0c02275206f50fac7e845">wmoge::GfxShader</a>
 </li>
 <li>Status()
-: <a class="el" href="classwmoge_1_1Status.html#a72fe873609020c4b38ce699ba76a4199">wmoge::Status</a>
+: <a class="el" href="classwmoge_1_1Status.html#afea57d980d1f58d43e7374ecd288c831">wmoge::Status</a>
 </li>
 <li>status()
 : <a class="el" href="classwmoge_1_1VKCompPipeline.html#a6858010f1a0a98fbf05f546e4b8361ec">wmoge::VKCompPipeline</a>
@@ -762,30 +768,38 @@ $(function() {
 </li>
 <li>stencil_cmask
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a76d3b97e0fdd9fe15e2005565d5e8878">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#acbd90c7cdbc5ee368c3088d81a544c9e">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_comp_func
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#afa3b05cfef63256506c5a85b765cbc80">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#ad60ffa9b6214935830ad8912158c2f6e">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_dfail
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#ad4e3c70e97f1a758491584db9c0dc996">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#af8924b68f8a55f6e853de56fe6b6bb8c">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_dpass
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a4ccfcd39349cc1089a0d0ae9bc12cd5d">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#a8656a4863bd26e243263650c966912f8">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_enable
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a108c1379e0dc3283034d2a3ea980482e">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#a0e4dc714e70469cba4dc4e0bdcca3a29">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_op
 : <a class="el" href="structwmoge_1_1GfxRenderPassDesc.html#a99ad3d5a697461248dc88561291500c8">wmoge::GfxRenderPassDesc</a>
 </li>
 <li>stencil_rvalue
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a0b70f8b510cb3c3abb523cb45056c2aa">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#ab6434bc237e8f32074edebcb3f277789">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_sfail
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a4f3e3de259f86b6b8707f28bcccec953">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#af83688567ce8c7027286df8608ab0a7f">wmoge::GrcPipelineState</a>
 </li>
 <li>stencil_wmask
 : <a class="el" href="structwmoge_1_1GfxPipelineState.html#a5a5ec5dc8474738731f0de03918304d6">wmoge::GfxPipelineState</a>
+, <a class="el" href="structwmoge_1_1GrcPipelineState.html#a84b6b089dfb71339893840318fd0829b">wmoge::GrcPipelineState</a>
 </li>
 <li>stop()
 : <a class="el" href="classwmoge_1_1ALAudioPlayback.html#a2ac9a4f40997babd1df4da5ff5744ae4">wmoge::ALAudioPlayback</a>

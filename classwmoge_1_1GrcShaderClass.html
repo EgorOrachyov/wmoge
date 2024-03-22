@@ -82,8 +82,12 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7b807c3e32c256e7e949123a546f389b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#a7b807c3e32c256e7e949123a546f389b">GrcShaderClass</a> (<a class="el" href="structwmoge_1_1GrcShaderReflection.html">GrcShaderReflection</a> &amp;&amp;reflection)</td></tr>
 <tr class="separator:a7b807c3e32c256e7e949123a546f389b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a4bd4dd5ba4a449da5bdc5d9637acd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#ab4a4bd4dd5ba4a449da5bdc5d9637acd">set_idx</a> (int idx)</td></tr>
-<tr class="separator:ab4a4bd4dd5ba4a449da5bdc5d9637acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96785b98169737d044cfed212e435dea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GrcShaderParamId.html">GrcShaderParamId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#a96785b98169737d044cfed212e435dea">get_param_id</a> (<a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
+<tr class="separator:a96785b98169737d044cfed212e435dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a439a0f44c3bf0389762808528eff5253"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structwmoge_1_1GrcShaderParamInfo.html">GrcShaderParamInfo</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#a439a0f44c3bf0389762808528eff5253">get_param_info</a> (<a class="el" href="structwmoge_1_1GrcShaderParamId.html">GrcShaderParamId</a> id)</td></tr>
+<tr class="separator:a439a0f44c3bf0389762808528eff5253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69509f46557970c116cf4723dbd6052a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#a69509f46557970c116cf4723dbd6052a">set_idx</a> (int idx)</td></tr>
+<tr class="separator:a69509f46557970c116cf4723dbd6052a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3076983042989a68f403e7e011b8e3ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#a3076983042989a68f403e7e011b8e3ca">reload_sources</a> (const std::string &amp;folder, <a class="el" href="classwmoge_1_1FileSystem.html">FileSystem</a> *fs)</td></tr>
 <tr class="separator:a3076983042989a68f403e7e011b8e3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17fb28a9a81c9cfedc12afa0d65d4e5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html#a17fb28a9a81c9cfedc12afa0d65d4e5c">fill_layout</a> (<a class="el" href="namespacewmoge.html#a221fccd73c6f4fb32f37da7a578e3574">GfxDescSetLayoutDesc</a> &amp;desc, int space) const</td></tr>
@@ -142,6 +146,42 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96785b98169737d044cfed212e435dea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96785b98169737d044cfed212e435dea">&#9670;&nbsp;</a></span>get_param_id()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structwmoge_1_1GrcShaderParamId.html">GrcShaderParamId</a> wmoge::GrcShaderClass::get_param_id </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a439a0f44c3bf0389762808528eff5253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a439a0f44c3bf0389762808528eff5253">&#9670;&nbsp;</a></span>get_param_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structwmoge_1_1GrcShaderParamInfo.html">GrcShaderParamInfo</a> * &gt; wmoge::GrcShaderClass::get_param_info </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderParamId.html">GrcShaderParamId</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -237,14 +277,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab4a4bd4dd5ba4a449da5bdc5d9637acd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4a4bd4dd5ba4a449da5bdc5d9637acd">&#9670;&nbsp;</a></span>set_idx()</h2>
+<a id="a69509f46557970c116cf4723dbd6052a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69509f46557970c116cf4723dbd6052a">&#9670;&nbsp;</a></span>set_idx()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::GrcShaderClass::set_idx </td>
+          <td class="memname">void wmoge::GrcShaderClass::set_idx </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>

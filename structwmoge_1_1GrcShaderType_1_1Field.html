@@ -94,10 +94,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa0c1c1dc4d32fb06927d87244081c167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf4ee9235ea448d5882531599135139d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1GrcShaderType.html">GrcShaderType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#acf4ee9235ea448d5882531599135139d">type</a></td></tr>
 <tr class="separator:acf4ee9235ea448d5882531599135139d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a5ab27b8cf9470c246bd87d88643968"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#a3a5ab27b8cf9470c246bd87d88643968">offset</a> = -1</td></tr>
-<tr class="separator:a3a5ab27b8cf9470c246bd87d88643968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2adfce99c4cd6a7ac09881551e9d58f0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#a2adfce99c4cd6a7ac09881551e9d58f0">n_array_elem</a> = 0</td></tr>
-<tr class="separator:a2adfce99c4cd6a7ac09881551e9d58f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae684318e436c13107b53c4e29a364135"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#ae684318e436c13107b53c4e29a364135">offset</a> = -1</td></tr>
+<tr class="separator:ae684318e436c13107b53c4e29a364135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0d78bd6fb6fef9c87178c6a71f021a"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#a3c0d78bd6fb6fef9c87178c6a71f021a">elem_count</a> = 0</td></tr>
+<tr class="separator:a3c0d78bd6fb6fef9c87178c6a71f021a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a038984a3a428eb2b130484740897ee32"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#a038984a3a428eb2b130484740897ee32">is_array</a> = false</td></tr>
 <tr class="separator:a038984a3a428eb2b130484740897ee32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99aac090da39049c2a344875ccb9018a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Var.html">Var</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#a99aac090da39049c2a344875ccb9018a">default_value</a></td></tr>
@@ -118,6 +118,20 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a3c0d78bd6fb6fef9c87178c6a71f021a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c0d78bd6fb6fef9c87178c6a71f021a">&#9670;&nbsp;</a></span>elem_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int16_t wmoge::GrcShaderType::Field::elem_count = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a038984a3a428eb2b130484740897ee32"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a038984a3a428eb2b130484740897ee32">&#9670;&nbsp;</a></span>is_array</h2>
 
@@ -126,20 +140,6 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">bool wmoge::GrcShaderType::Field::is_array = false</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2adfce99c4cd6a7ac09881551e9d58f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2adfce99c4cd6a7ac09881551e9d58f0">&#9670;&nbsp;</a></span>n_array_elem</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int wmoge::GrcShaderType::Field::n_array_elem = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -160,14 +160,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3a5ab27b8cf9470c246bd87d88643968"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a5ab27b8cf9470c246bd87d88643968">&#9670;&nbsp;</a></span>offset</h2>
+<a id="ae684318e436c13107b53c4e29a364135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae684318e436c13107b53c4e29a364135">&#9670;&nbsp;</a></span>offset</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::GrcShaderType::Field::offset = -1</td>
+          <td class="memname">std::int16_t wmoge::GrcShaderType::Field::offset = -1</td>
         </tr>
       </table>
 </div><div class="memdoc">

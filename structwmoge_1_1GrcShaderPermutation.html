@@ -90,12 +90,14 @@ Collaboration diagram for wmoge::GrcShaderPermutation:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a06d16bc6219339fcde21c33bad9bb10c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPermutation.html#a06d16bc6219339fcde21c33bad9bb10c">attribs</a></td></tr>
-<tr class="separator:a06d16bc6219339fcde21c33bad9bb10c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad58fb04465428e3e1923b3251da10dcd"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="structwmoge_1_1GrcShaderPermutation.html#a9763f30538b104863bcc8add83484a41">MAX_OPTIONS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPermutation.html#ad58fb04465428e3e1923b3251da10dcd">options</a></td></tr>
 <tr class="separator:ad58fb04465428e3e1923b3251da10dcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19b2cbee394d69babc38ef4981fdfd86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPermutation.html#a19b2cbee394d69babc38ef4981fdfd86">pass_idx</a></td></tr>
-<tr class="separator:a19b2cbee394d69babc38ef4981fdfd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e7e39f8e4b286a4ef1b66de54b0ae17"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPermutation.html#a7e7e39f8e4b286a4ef1b66de54b0ae17">technique_idx</a></td></tr>
+<tr class="separator:a7e7e39f8e4b286a4ef1b66de54b0ae17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4606f3d39414fbed885b72324c01def"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPermutation.html#ad4606f3d39414fbed885b72324c01def">pass_idx</a></td></tr>
+<tr class="separator:ad4606f3d39414fbed885b72324c01def"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac89edfa62499e67057d293b88a827e3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPermutation.html#ac89edfa62499e67057d293b88a827e3f">vert_attribs</a></td></tr>
+<tr class="separator:ac89edfa62499e67057d293b88a827e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -105,20 +107,6 @@ Static Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines a particular variant of a compiled shader. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a06d16bc6219339fcde21c33bad9bb10c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06d16bc6219339fcde21c33bad9bb10c">&#9670;&nbsp;</a></span>attribs</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> wmoge::GrcShaderPermutation::attribs</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a9763f30538b104863bcc8add83484a41"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9763f30538b104863bcc8add83484a41">&#9670;&nbsp;</a></span>MAX_OPTIONS</h2>
 
@@ -155,14 +143,42 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a19b2cbee394d69babc38ef4981fdfd86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19b2cbee394d69babc38ef4981fdfd86">&#9670;&nbsp;</a></span>pass_idx</h2>
+<a id="ad4606f3d39414fbed885b72324c01def"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4606f3d39414fbed885b72324c01def">&#9670;&nbsp;</a></span>pass_idx</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int wmoge::GrcShaderPermutation::pass_idx</td>
+          <td class="memname">std::int16_t wmoge::GrcShaderPermutation::pass_idx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e7e39f8e4b286a4ef1b66de54b0ae17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e7e39f8e4b286a4ef1b66de54b0ae17">&#9670;&nbsp;</a></span>technique_idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int16_t wmoge::GrcShaderPermutation::technique_idx</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac89edfa62499e67057d293b88a827e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac89edfa62499e67057d293b88a827e3f">&#9670;&nbsp;</a></span>vert_attribs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> wmoge::GrcShaderPermutation::vert_attribs</td>
         </tr>
       </table>
 </div><div class="memdoc">

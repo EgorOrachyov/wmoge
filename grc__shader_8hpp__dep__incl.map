@@ -1,5 +1,6 @@
 <map id="engine/grc/grc_shader.hpp" name="engine/grc/grc_shader.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="68,5,243,32"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,80,132,107"/>
-<area shape="rect" id="node3" href="$grc__shader_8cpp.html" title=" " alt="" coords="156,80,331,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="156,5,331,32"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,87,132,114"/>
+<area shape="rect" id="node3" href="$grc__shader_8cpp.html" title=" " alt="" coords="156,87,331,114"/>
+<area shape="rect" id="node4" href="$grc__shader__param_8cpp.html" title=" " alt="" coords="355,80,505,121"/>
 </map>

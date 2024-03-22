@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['taskmanager_8797',['TaskManager',['../classwmoge_1_1TaskContext.html#abfd65c2d85c5faff5c12fd032cc5cf0a',1,'wmoge::TaskContext']]]
+  ['taskmanager_8862',['TaskManager',['../classwmoge_1_1TaskContext.html#abfd65c2d85c5faff5c12fd032cc5cf0a',1,'wmoge::TaskContext']]],
+  ['techniquebuilder_8863',['TechniqueBuilder',['../classwmoge_1_1GrcShaderClassBuilder.html#a5b1b585162ce351b9649392257c634e7',1,'wmoge::GrcShaderClassBuilder']]]
 ];

@@ -82,8 +82,10 @@ Collaboration diagram for wmoge::GrcShaderPass:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1GrcShaderPass__coll__graph.png" border="0" usemap="#awmoge_1_1GrcShaderPass_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1GrcShaderPass_coll__map" id="awmoge_1_1GrcShaderPass_coll__map">
-<area shape="rect" title="Defines single pass of shader, a functional subset." alt="" coords="5,95,168,121"/>
-<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="38,5,135,32"/>
+<area shape="rect" title="Defines single pass of shader, a functional subset." alt="" coords="210,95,373,121"/>
+<area shape="rect" href="structwmoge_1_1GrcShaderOptions.html" title="Map of options for a technique or pass." alt="" coords="5,5,183,32"/>
+<area shape="rect" href="structwmoge_1_1GrcPipelineState.html" title="Rendering settings provided in a pass." alt="" coords="207,5,375,32"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="400,5,497,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -91,8 +93,14 @@ Collaboration diagram for wmoge::GrcShaderPass:</div>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a70dfd65fa82ed70cded77e60268f4705"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html#a70dfd65fa82ed70cded77e60268f4705">name</a></td></tr>
 <tr class="separator:a70dfd65fa82ed70cded77e60268f4705"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a571a6bcfb2db8899872d696cf882c2ca"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1GrcShaderOption.html">GrcShaderOption</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html#a571a6bcfb2db8899872d696cf882c2ca">options</a></td></tr>
-<tr class="separator:a571a6bcfb2db8899872d696cf882c2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac4976692ddbffb9e2247f87ba25d2a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GrcPipelineState.html">GrcPipelineState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html#aac4976692ddbffb9e2247f87ba25d2a8">state</a></td></tr>
+<tr class="separator:aac4976692ddbffb9e2247f87ba25d2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba325853234182ce27b058dbd051f69c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GrcShaderOptions.html">GrcShaderOptions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html#aba325853234182ce27b058dbd051f69c">options</a></td></tr>
+<tr class="separator:aba325853234182ce27b058dbd051f69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9469ec40c09038b727bd828a726f1a9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html#ac9469ec40c09038b727bd828a726f1a9">ui_name</a></td></tr>
+<tr class="separator:ac9469ec40c09038b727bd828a726f1a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57596821ff8b5564cb2eab98b2359502"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html#a57596821ff8b5564cb2eab98b2359502">ui_hint</a></td></tr>
+<tr class="separator:a57596821ff8b5564cb2eab98b2359502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines single pass of shader, a functional subset. </p>
@@ -111,14 +119,56 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a571a6bcfb2db8899872d696cf882c2ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a571a6bcfb2db8899872d696cf882c2ca">&#9670;&nbsp;</a></span>options</h2>
+<a id="aba325853234182ce27b058dbd051f69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba325853234182ce27b058dbd051f69c">&#9670;&nbsp;</a></span>options</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structwmoge_1_1GrcShaderOption.html">GrcShaderOption</a>&gt; wmoge::GrcShaderPass::options</td>
+          <td class="memname"><a class="el" href="structwmoge_1_1GrcShaderOptions.html">GrcShaderOptions</a> wmoge::GrcShaderPass::options</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac4976692ddbffb9e2247f87ba25d2a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac4976692ddbffb9e2247f87ba25d2a8">&#9670;&nbsp;</a></span>state</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structwmoge_1_1GrcPipelineState.html">GrcPipelineState</a> wmoge::GrcShaderPass::state</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57596821ff8b5564cb2eab98b2359502"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57596821ff8b5564cb2eab98b2359502">&#9670;&nbsp;</a></span>ui_hint</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string wmoge::GrcShaderPass::ui_hint</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac9469ec40c09038b727bd828a726f1a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9469ec40c09038b727bd828a726f1a9">&#9670;&nbsp;</a></span>ui_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string wmoge::GrcShaderPass::ui_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
