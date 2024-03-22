@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_DRIVER_HPP
-#define WMOGE_GFX_DRIVER_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/callback_queue.hpp"
@@ -120,5 +119,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_DRIVER_HPP

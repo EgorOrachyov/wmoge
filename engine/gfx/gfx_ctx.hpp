@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_CTX_H
-#define WMOGE_GFX_CTX_H
+#pragma once
 
 #include "core/array_view.hpp"
 #include "core/callback_queue.hpp"
@@ -136,5 +135,3 @@ namespace wmoge {
 #endif
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_CTX_H

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_VECTOR_HPP
-#define WMOGE_GFX_VECTOR_HPP
+#pragma once
 
 #include "core/string_utils.hpp"
 #include "gfx/gfx_buffers.hpp"
@@ -170,5 +169,3 @@ namespace wmoge {
     }
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_VECTOR_HPP

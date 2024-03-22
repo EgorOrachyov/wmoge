@@ -40,6 +40,11 @@ namespace wmoge {
     */
     class GrcShaderClassBuilder {
     public:
+        class StructBuilder;
+        class SpaceBuilder;
+        class PassBuilder;
+        class TechniqueBuilder;
+
         class StructBuilder {
         public:
             StructBuilder(GrcShaderClassBuilder& owner, Ref<GrcShaderType> struct_type);
@@ -47,7 +52,7 @@ namespace wmoge {
             StructBuilder&         add_field(Strid name, Strid struct_type);
             StructBuilder&         add_field(Strid name, Ref<GrcShaderType> type, Var value = Var());
             StructBuilder&         add_field_array(Strid name, Strid struct_type, int n_elements = 0);
-            StructBuilder&         add_field_array(Strid name, Ref<GrcShaderType> type, Var value = Var(), int n_elements = 0);
+            StructBuilder&         add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements = 0, Var value = Var());
             GrcShaderClassBuilder& end_struct();
 
         private:
@@ -79,37 +84,56 @@ namespace wmoge {
 
         class PassBuilder {
         public:
-            PassBuilder(GrcShaderClassBuilder& owner, GrcShaderPass& pass);
+            PassBuilder(GrcShaderClassBuilder& owner, GrcShaderPass& pass, TechniqueBuilder& technique);
 
-            PassBuilder&           add_option(Strid name, fast_vector<Strid> variants);
-            GrcShaderClassBuilder& end_pass();
+            PassBuilder&      add_option(Strid name, const fast_vector<Strid>& variants);
+            PassBuilder&      add_state(const GrcPipelineState& state);
+            TechniqueBuilder& end_pass();
 
         private:
             GrcShaderClassBuilder& m_owner;
             GrcShaderPass&         m_pass;
+            TechniqueBuilder&      m_technique;
+            std::int16_t           m_next_option_idx = 0;
 
+            friend class GrcShaderClassBuilder;
+        };
+
+        class TechniqueBuilder {
+        public:
+            TechniqueBuilder(GrcShaderClassBuilder& owner, GrcShaderTechnique& technique);
+
+            TechniqueBuilder&      add_option(Strid name, const fast_vector<Strid>& variants);
+            PassBuilder            add_pass(Strid name);
+            GrcShaderClassBuilder& end_technique();
+
+        private:
+            GrcShaderClassBuilder& m_owner;
+            GrcShaderTechnique&    m_technique;
+            std::int16_t           m_next_option_idx  = 0;
+            std::int16_t           m_next_variant_idx = 0;
+
+            friend class PassBuilder;
             friend class GrcShaderClassBuilder;
         };
 
         GrcShaderClassBuilder& set_name(Strid name);
         GrcShaderClassBuilder& add_source(Strid file, GfxShaderModule module);
         GrcShaderClassBuilder& add_constant(Strid name, Var value);
-        GrcShaderClassBuilder& add_option(Strid name, fast_vector<Strid> variants);
         StructBuilder          add_struct(Strid name, int byte_size);
         SpaceBuilder           add_space(Strid name, GrcShaderSpaceType type);
-        PassBuilder            add_pass(Strid name);
+        TechniqueBuilder       add_technique(Strid name);
 
         Status finish(std::shared_ptr<GrcShaderClass>& shader_class);
 
     private:
         GrcShaderReflection m_reflection;
-        int                 m_next_option_idx  = 0;
-        int                 m_next_variant_idx = 0;
-        int                 m_next_pass_idx    = 0;
+        std::int16_t        m_next_technique_idx = 0;
 
         friend class StructBuilder;
         friend class SpaceBuilder;
         friend class PassBuilder;
+        friend class TechniqueBuilder;
     };
 
 }// namespace wmoge

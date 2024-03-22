@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_VERT_FORMAT_HPP
-#define WMOGE_GFX_VERT_FORMAT_HPP
+#pragma once
 
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
@@ -151,5 +150,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_GFX_VERT_FORMAT_HPP

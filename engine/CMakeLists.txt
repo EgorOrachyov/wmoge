@@ -193,6 +193,10 @@ add_library(wmoge STATIC
         grc/grc_shader_class.hpp
         grc/grc_shader_manager.cpp
         grc/grc_shader_manager.hpp
+        grc/grc_shader_param_block.cpp
+        grc/grc_shader_param_block.hpp
+        grc/grc_shader_param.cpp
+        grc/grc_shader_param.hpp
         grc/grc_shader_reflection.cpp
         grc/grc_shader_reflection.hpp
         grc/grc_shader.cpp

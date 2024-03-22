@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_SHADER_HPP
-#define WMOGE_GFX_SHADER_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "core/fast_map.hpp"
@@ -96,5 +95,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_SHADER_HPP

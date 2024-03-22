@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_DESC_SET_HPP
-#define WMOGE_GFX_DESC_SET_HPP
+#pragma once
 
 #include "core/crc32.hpp"
 #include "core/fast_vector.hpp"
@@ -169,5 +168,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_GFX_DESC_SET_HPP

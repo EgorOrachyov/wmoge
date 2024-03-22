@@ -86,8 +86,9 @@ public:
 
         builder.set_name(SID("canvas"))
                 .add_constant(SID("MAX_CANVAS_IMAGES"), 4)
-                .add_struct(SID("Params"), 80)
+                .add_struct(SID("Params"), 96)
                 .add_field(SID("ClipProjView"), GrcShaderTypes::MAT4, TypedArray<float>({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}))
+                .add_field_array(SID("CustomData"), GrcShaderTypes::FLOAT, 4, Array({1, 2, 3, 4}))
                 .add_field(SID("InverseGamma"), GrcShaderTypes::FLOAT, 1.0f / 2.2f)
                 .add_field(SID("_pr_pad0"), GrcShaderTypes::FLOAT, 0.0f)
                 .add_field(SID("_pr_pad1"), GrcShaderTypes::FLOAT, 0.0f)
@@ -108,22 +109,32 @@ public:
                 .end_struct()
                 .add_space(SID("Default"), GrcShaderSpaceType::Default)
                 .add_inline_uniform_buffer(SID("Params"), SID("Params"))
-                .add_storage_buffer(SID("DrawCmds"), SID("DrawCmds"))
-                .end_space()
-                .add_space(SID("Images"), GrcShaderSpaceType::Default)
+                //.add_storage_buffer(SID("DrawCmds"), SID("DrawCmds"))
+                //.end_space()
+                //.add_space(SID("Images"), GrcShaderSpaceType::Default)
                 .add_texture_2d(SID("CanvasImage0"), tex_def, smp_def)
                 .add_texture_2d(SID("CanvasImage1"), tex_def, smp_def)
                 .add_texture_2d(SID("CanvasImage2"), tex_def, smp_def)
                 .add_texture_2d(SID("CanvasImage3"), tex_def, smp_def)
                 .end_space()
+                .add_technique(SID("Default"))
                 .add_pass(SID("Default"))
                 .add_option(SID("OUT_COLOR"), {SID("SRGB"), SID("LINEAR")})
                 .end_pass()
+                .end_technique()
                 .add_source(SID("canvas.vert"), GfxShaderModule::Vertex)
                 .add_source(SID("canvas.frag"), GfxShaderModule::Fragment);
 
         std::shared_ptr<GrcShaderClass> shader_class;
         builder.finish(shader_class);
+
+        GrcShaderParamId p_clip_proj_view = shader_class->get_param_id(SID("Params.ClipProjView"));
+        GrcShaderParamId p_inverse_gamma  = shader_class->get_param_id(SID("Params.InverseGamma"));
+
+        GrcShaderParamBlock block(*shader_class, 0);
+        block.set_var(p_clip_proj_view, Math3d::perspective(1.0f, 1.0f, 0.1f, 100000.f));
+        block.set_var(p_inverse_gamma, 1.0f / 4.0f);
+        block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx(), SID("test"));
 
         WG_LOG_INFO("init");
         return StatusCode::Ok;

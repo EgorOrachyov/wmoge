@@ -112,6 +112,8 @@
 #include "grc/grc_shader.hpp"
 #include "grc/grc_shader_class.hpp"
 #include "grc/grc_shader_class_builder.hpp"
+#include "grc/grc_shader_param.hpp"
+#include "grc/grc_shader_param_block.hpp"
 #include "grc/grc_shader_reflection.hpp"
 
 #include "hgfx/hgfx_pass.hpp"

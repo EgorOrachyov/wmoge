@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_TEXTURE_HPP
-#define WMOGE_GFX_TEXTURE_HPP
+#pragma once
 
 #include "gfx/gfx_resource.hpp"
 
@@ -65,5 +64,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_TEXTURE_HPP

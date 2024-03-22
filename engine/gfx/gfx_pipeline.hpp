@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_PIPELINE_HPP
-#define WMOGE_GFX_PIPELINE_HPP
+#pragma once
 
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_render_pass.hpp"
@@ -133,5 +132,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_GFX_PIPELINE_HPP

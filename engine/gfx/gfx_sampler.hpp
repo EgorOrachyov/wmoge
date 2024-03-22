@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_SAMPLER_HPP
-#define WMOGE_GFX_SAMPLER_HPP
+#pragma once
 
 #include "gfx/gfx_resource.hpp"
 #include "io/serialization.hpp"
@@ -80,5 +79,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_GFX_SAMPLER_HPP

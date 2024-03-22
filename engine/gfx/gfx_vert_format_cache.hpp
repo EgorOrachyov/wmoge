@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_VERT_FORMAT_CACHE_HPP
-#define WMOGE_GFX_VERT_FORMAT_CACHE_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/string_id.hpp"
@@ -57,5 +56,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_VERT_FORMAT_CACHE_HPP

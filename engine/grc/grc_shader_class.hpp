@@ -28,8 +28,11 @@
 #pragma once
 
 #include "core/status.hpp"
+#include "core/string_id.hpp"
 #include "grc/grc_shader_reflection.hpp"
 #include "platform/file_system.hpp"
+
+#include <optional>
 
 namespace wmoge {
 
@@ -54,11 +57,13 @@ namespace wmoge {
     public:
         GrcShaderClass(GrcShaderReflection&& reflection);
 
-        int    set_idx(int idx);
-        Status reload_sources(const std::string& folder, FileSystem* fs);
-        Status fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
-        bool   has_dependency(const Strid& dependency) const;
-        bool   has_space(GrcShaderSpaceType space_type) const;
+        GrcShaderParamId                   get_param_id(Strid name);
+        std::optional<GrcShaderParamInfo*> get_param_info(GrcShaderParamId id);
+        void                               set_idx(int idx);
+        Status                             reload_sources(const std::string& folder, FileSystem* fs);
+        Status                             fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
+        bool                               has_dependency(const Strid& dependency) const;
+        bool                               has_space(GrcShaderSpaceType space_type) const;
 
         [[nodiscard]] const GrcShaderReflection& get_reflection() const { return m_reflection; }
 

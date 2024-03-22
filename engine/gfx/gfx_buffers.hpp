@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_BUFFERS_HPP
-#define WMOGE_GFX_BUFFERS_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "gfx/gfx_resource.hpp"
@@ -170,5 +169,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_BUFFERS_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_DYNAMIC_BUFFERS_HPP
-#define WMOGE_GFX_DYNAMIC_BUFFERS_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "core/synchronization.hpp"
@@ -215,5 +214,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_DYNAMIC_BUFFERS_HPP

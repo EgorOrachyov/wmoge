@@ -37,6 +37,31 @@ namespace wmoge {
         : m_reflection(std::move(reflection)) {
     }
 
+    GrcShaderParamId GrcShaderClass::get_param_id(Strid name) {
+        auto query = m_reflection.params_id.find(name);
+
+        if (query != m_reflection.params_id.end()) {
+            return GrcShaderParamId(query->second);
+        }
+
+        return GrcShaderParamId();
+    }
+
+    std::optional<GrcShaderParamInfo*> GrcShaderClass::get_param_info(GrcShaderParamId id) {
+        if (id.is_invalid()) {
+            return std::nullopt;
+        }
+        if (id.index >= m_reflection.params_info.size()) {
+            return std::nullopt;
+        }
+
+        return &m_reflection.params_info[id.index];
+    }
+
+    void GrcShaderClass::set_idx(int idx) {
+        m_idx = idx;
+    }
+
     Status GrcShaderClass::reload_sources(const std::string& folder, FileSystem* fs) {
         fast_vector<GrcShaderInclude>    new_includes;
         fast_vector<GrcShaderSourceFile> new_sources;

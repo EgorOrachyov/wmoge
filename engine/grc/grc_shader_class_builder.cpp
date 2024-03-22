@@ -28,6 +28,10 @@
 #include "grc_shader_class_builder.hpp"
 
 #include "core/string_utils.hpp"
+#include "math/vec.hpp"
+
+#include <cassert>
+#include <cstring>
 
 namespace wmoge {
 
@@ -57,18 +61,18 @@ namespace wmoge {
         field.name                  = name;
         field.type                  = m_owner.m_reflection.declarations[struct_type];
         field.is_array              = true;
-        field.n_array_elem          = n_elements;
+        field.elem_count            = n_elements;
         field.offset                = n_elements * field.type->byte_size;
         return *this;
     }
 
-    GrcShaderClassBuilder::StructBuilder& GrcShaderClassBuilder::StructBuilder::add_field_array(Strid name, Ref<GrcShaderType> type, Var value, int n_elements) {
+    GrcShaderClassBuilder::StructBuilder& GrcShaderClassBuilder::StructBuilder::add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements, Var value) {
         GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
         field.name                  = name;
         field.type                  = type;
         field.default_value         = value;
         field.is_array              = true;
-        field.n_array_elem          = n_elements;
+        field.elem_count            = n_elements;
         field.offset                = n_elements * field.type->byte_size;
         return *this;
     }
@@ -149,27 +153,56 @@ namespace wmoge {
         return m_owner;
     }
 
-    GrcShaderClassBuilder::PassBuilder::PassBuilder(GrcShaderClassBuilder& owner, GrcShaderPass& pass)
-        : m_owner(owner), m_pass(pass) {
+    GrcShaderClassBuilder::PassBuilder::PassBuilder(GrcShaderClassBuilder& owner, GrcShaderPass& pass, TechniqueBuilder& technique)
+        : m_owner(owner), m_pass(pass), m_technique(technique) {
     }
 
-    GrcShaderClassBuilder::PassBuilder& GrcShaderClassBuilder::PassBuilder::add_option(Strid name, fast_vector<Strid> variants) {
-        GrcShaderOption& option = m_pass.options.emplace_back();
+    GrcShaderClassBuilder::PassBuilder& GrcShaderClassBuilder::PassBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
+        GrcShaderOption& option = m_pass.options.options.emplace_back();
         option.name             = name;
-        option.variants         = std::move(variants);
-        option.mappings.resize(option.variants.size());
 
-        m_owner.m_reflection.options_map[name] = m_owner.m_next_option_idx++;
+        m_pass.options.options_map[name] = m_next_option_idx++;
 
-        for (int i = 0; i < int(option.variants.size()); i++) {
-            option.mappings[i]                                    = m_owner.m_next_variant_idx++;
-            m_owner.m_reflection.variants_map[option.variants[i]] = option.mappings[i];
+        for (int i = 0; i < int(variants.size()); i++) {
+            option.variants[variants[i]] = m_technique.m_next_variant_idx++;
         }
 
         return *this;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::PassBuilder::end_pass() {
+    GrcShaderClassBuilder::PassBuilder& GrcShaderClassBuilder::PassBuilder::add_state(const GrcPipelineState& state) {
+        m_pass.state = state;
+        return *this;
+    }
+
+    GrcShaderClassBuilder::TechniqueBuilder& GrcShaderClassBuilder::PassBuilder::end_pass() {
+        return m_technique;
+    }
+
+    GrcShaderClassBuilder::TechniqueBuilder::TechniqueBuilder(GrcShaderClassBuilder& owner, GrcShaderTechnique& technique)
+        : m_owner(owner), m_technique(technique) {
+    }
+
+    GrcShaderClassBuilder::TechniqueBuilder& GrcShaderClassBuilder::TechniqueBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
+        GrcShaderOption& option = m_technique.options.options.emplace_back();
+        option.name             = name;
+
+        m_technique.options.options_map[name] = m_next_option_idx++;
+
+        for (int i = 0; i < int(variants.size()); i++) {
+            option.variants[variants[i]] = m_next_variant_idx++;
+        }
+
+        return *this;
+    }
+
+    GrcShaderClassBuilder::PassBuilder GrcShaderClassBuilder::TechniqueBuilder::add_pass(Strid name) {
+        GrcShaderPass& pass = m_technique.passes.emplace_back();
+        pass.name           = name;
+        return PassBuilder(m_owner, pass, *this);
+    }
+
+    GrcShaderClassBuilder& GrcShaderClassBuilder::TechniqueBuilder::end_technique() {
         return m_owner;
     }
 
@@ -193,22 +226,6 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::add_option(Strid name, fast_vector<Strid> variants) {
-        GrcShaderOption& option = m_reflection.options.emplace_back();
-        option.name             = name;
-        option.variants         = std::move(variants);
-        option.mappings.resize(option.variants.size());
-
-        m_reflection.options_map[name] = m_next_option_idx++;
-
-        for (int i = 0; i < int(option.variants.size()); i++) {
-            option.mappings[i]                            = m_next_variant_idx++;
-            m_reflection.variants_map[option.variants[i]] = option.mappings[i];
-        }
-
-        return *this;
-    }
-
     GrcShaderClassBuilder::StructBuilder GrcShaderClassBuilder::add_struct(Strid name, int byte_size) {
         Ref<GrcShaderType> struct_type  = make_ref<GrcShaderType>();
         struct_type->name               = name;
@@ -225,11 +242,11 @@ namespace wmoge {
         return SpaceBuilder(*this, space);
     }
 
-    GrcShaderClassBuilder::PassBuilder GrcShaderClassBuilder::add_pass(Strid name) {
-        GrcShaderPass& pass           = m_reflection.passes.emplace_back();
-        pass.name                     = name;
-        m_reflection.passes_map[name] = m_next_pass_idx++;
-        return PassBuilder(*this, pass);
+    GrcShaderClassBuilder::TechniqueBuilder GrcShaderClassBuilder::add_technique(Strid name) {
+        GrcShaderTechnique& technique     = m_reflection.techniques.emplace_back();
+        technique.name                    = name;
+        m_reflection.techniques_map[name] = m_next_technique_idx++;
+        return TechniqueBuilder(*this, technique);
     }
 
     Status GrcShaderClassBuilder::finish(std::shared_ptr<GrcShaderClass>& shader_class) {
@@ -258,11 +275,11 @@ namespace wmoge {
             }
         }
 
-        std::int16_t space_idx  = 0;
-        std::int16_t buffer_idx = 0;
+        std::int16_t space_idx = 0;
 
         for (const auto& space : m_reflection.spaces) {
             std::int16_t binding_idx = 0;
+            std::int16_t buffer_idx  = 0;
 
             for (const auto& binding : space.bindings) {
                 switch (binding.binding) {
@@ -270,11 +287,12 @@ namespace wmoge {
                         GrcShaderBufferInfo& buffer = m_reflection.buffers.emplace_back();
                         buffer.space                = space_idx;
                         buffer.binding              = binding_idx;
+                        buffer.idx                  = buffer_idx;
 
                         std::int16_t offset = 0;
 
                         for (const auto& field : binding.type->fields) {
-                            if (field.is_array && field.n_array_elem == 0) {
+                            if (field.is_array && field.elem_count == 0) {
                                 WG_LOG_ERROR("no size array not allowed in "
                                              << " name=" << binding.name
                                              << " in " << m_reflection.shader_name);
@@ -282,35 +300,51 @@ namespace wmoge {
                             }
 
                             const std::string param_name_base = binding.name.str() + "." + field.name.str();
-                            const int         params_to_add   = field.is_array ? field.n_array_elem : 1;
+                            const Var&        default_var     = field.default_value;
 
-                            const Var& default_var = field.default_value;
-                            Array      default_vars;
+                            GrcShaderParamInfo& field_param = m_reflection.params_info.emplace_back();
+                            field_param.name                = SID(param_name_base);
+                            field_param.type                = field.type;
+                            field_param.space               = space_idx;
+                            field_param.binding             = binding_idx;
+                            field_param.buffer              = buffer_idx;
+                            field_param.offset              = offset;
+                            field_param.elem_count          = field.is_array ? field.elem_count : 1;
+                            field_param.default_var         = default_var;
+                            field_param.default_value_str   = default_var.to_string();
+                            field_param.binding_type        = binding.binding;
+                            field_param.byte_size           = field_param.elem_count * field_param.type->byte_size;
 
                             if (field.is_array) {
-                                default_vars = std::move(default_var.operator wmoge::Array());
-                            }
+                                Array        default_vars    = default_var;
+                                std::int16_t elemenet_offset = offset;
 
-                            for (int i = 0; i < params_to_add; i++) {
-                                std::string param_name = param_name_base;
+                                for (int i = 0; i < field.elem_count; i++) {
 
-                                if (field.is_array) {
-                                    param_name += "[" + StringUtils::from_int(i) + "]";
+                                    std::string param_name = param_name_base;
+
+                                    if (field.is_array) {
+                                        param_name += "[" + StringUtils::from_int(i) + "]";
+                                    }
+
+                                    GrcShaderParamInfo& param = m_reflection.params_info.emplace_back();
+                                    param.name                = SID(param_name);
+                                    param.type                = field.type;
+                                    param.space               = space_idx;
+                                    param.binding             = binding_idx;
+                                    param.buffer              = buffer_idx;
+                                    param.offset              = elemenet_offset;
+                                    param.elem_idx            = std::int16_t(i);
+                                    param.default_var         = i < default_vars.size() ? default_vars[i] : default_var;
+                                    param.default_value_str   = param.default_var.to_string();
+                                    param.binding_type        = binding.binding;
+                                    param.byte_size           = param.elem_count * param.type->byte_size;
+
+                                    elemenet_offset += field.type->byte_size;
                                 }
-
-                                GrcShaderParamInfo& param = m_reflection.params_info.emplace_back();
-                                param.name                = SID(param_name);
-                                param.type                = field.type;
-                                param.space               = space_idx;
-                                param.binding             = binding_idx;
-                                param.buffer              = buffer_idx;
-                                param.offset              = offset;
-                                param.default_var         = i < default_vars.size() ? default_vars[i] : default_var;
-                                param.default_value_str   = param.default_var.to_string();
-                                param.binding_type        = binding.binding;
-
-                                offset += field.type->byte_size;
                             }
+
+                            offset += field.offset;
                         }
 
                         if (offset == 0) {
@@ -343,7 +377,7 @@ namespace wmoge {
                         param.binding             = binding_idx;
                         param.default_tex         = binding.default_tex;
                         param.default_sampler     = binding.default_sampler;
-                        param.default_value_str   = binding.default_tex->name().str();
+                        param.default_value_str   = binding.default_tex ? binding.default_tex->name().str() : "Nil";
                         param.binding_type        = binding.binding;
                         break;
                     }
@@ -370,14 +404,56 @@ namespace wmoge {
             space_idx++;
         }
 
-        int param_idx = 0;
+        std::int16_t param_idx = 0;
 
         for (auto& param : m_reflection.params_info) {
             m_reflection.params_id[param.name] = param_idx++;
         }
 
-        shader_class = std::make_shared<GrcShaderClass>(std::move(m_reflection));
+        for (auto& buffer : m_reflection.buffers) {
+            Ref<Data>& defaults_data = buffer.defaults;
+            defaults_data            = make_ref<Data>(buffer.size);
 
+            std::uint8_t* defaults_ptr = defaults_data->buffer();
+            std::memset(defaults_ptr, 0, buffer.size);
+
+            const GrcShaderBinding&   binding     = m_reflection.spaces[buffer.space].bindings[buffer.binding];
+            const Ref<GrcShaderType>& buffer_type = binding.type;
+
+            assert(buffer_type->type == GrcShaderBaseType::Struct);
+
+            for (const GrcShaderParamInfo& param : m_reflection.params_info) {
+                if (param.binding != buffer.binding) {
+                    continue;
+                }
+                if (param.elem_count > 1) {
+                    continue;
+                }
+                if (param.default_var.type() == VarType::Nil) {
+                    continue;
+                }
+
+                const Var&         var        = param.default_var;
+                const auto&        param_type = param.type;
+                const std::int16_t param_size = param.byte_size;
+                std::uint8_t*      param_ptr  = defaults_ptr + param.offset;
+
+                if (param_type == GrcShaderTypes::BOOL) {
+                    const int v = var;
+                    std::memcpy(param_ptr, &v, sizeof(v));
+                } else if (param_type == GrcShaderTypes::INT) {
+                    const int v = var;
+                    std::memcpy(param_ptr, &v, sizeof(v));
+                } else if (param_type == GrcShaderTypes::FLOAT) {
+                    const float v = var;
+                    std::memcpy(param_ptr, &v, sizeof(v));
+                } else {
+                    WG_LOG_WARNING("unsuported defaults type " << param_type->name);
+                }
+            }
+        }
+
+        shader_class = std::make_shared<GrcShaderClass>(std::move(m_reflection));
         return StatusCode::Ok;
     }
 

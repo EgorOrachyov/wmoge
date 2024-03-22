@@ -38,9 +38,10 @@ namespace wmoge {
     struct GrcShaderPermutation {
         static constexpr int MAX_OPTIONS = 64;
 
-        GfxVertAttribs           attribs;
         std::bitset<MAX_OPTIONS> options;
-        int                      pass_idx;
+        std::int16_t             technique_idx;
+        std::int16_t             pass_idx;
+        GfxVertAttribs           vert_attribs;
     };
 
     /**
