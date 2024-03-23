@@ -164,15 +164,15 @@ namespace wmoge {
             GfxDescBindValue&   bind_value = resource.second;
 
             if constexpr (std::is_same_v<T, Ref<GfxUniformBuffer>>) {
-                bind_value.resource = v.as<GfxResource>();
+                bind_value.resource = v.template as<GfxResource>();
                 return StatusCode::Ok;
             }
             if constexpr (std::is_same_v<T, Ref<GfxStorageBuffer>>) {
-                bind_value.resource = v.as<GfxResource>();
+                bind_value.resource = v.template as<GfxResource>();
                 return StatusCode::Ok;
             }
             if constexpr (std::is_same_v<T, Ref<GfxTexture>>) {
-                bind_value.resource = v.as<GfxResource>();
+                bind_value.resource = v.template as<GfxResource>();
                 return StatusCode::Ok;
             }
             if constexpr (std::is_same_v<T, Ref<GfxSampler>>) {
@@ -245,15 +245,15 @@ namespace wmoge {
             const GfxDescBindValue&   bind_value = resource.second;
 
             if constexpr (std::is_same_v<T, Ref<GfxUniformBuffer>>) {
-                v = bind_value.resource.cast<GfxUniformBuffer>();
+                v = bind_value.resource.template cast<GfxUniformBuffer>();
                 return StatusCode::Ok;
             }
             if constexpr (std::is_same_v<T, Ref<GfxStorageBuffer>>) {
-                v = bind_value.resource.cast<GfxStorageBuffer>();
+                v = bind_value.resource.template cast<GfxStorageBuffer>();
                 return StatusCode::Ok;
             }
             if constexpr (std::is_same_v<T, Ref<GfxTexture>>) {
-                v = bind_value.resource.cast<GfxTexture>();
+                v = bind_value.resource.template cast<GfxTexture>();
                 return StatusCode::Ok;
             }
             if constexpr (std::is_same_v<T, Ref<GfxSampler>>) {
