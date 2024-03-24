@@ -33,10 +33,12 @@
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
 
+#include <deque>
 #include <filesystem>
 #include <fstream>
 #include <memory>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace wmoge {
@@ -60,6 +62,9 @@ namespace wmoge {
      */
     class FileSystem {
     public:
+        /** @brief Rule used to remap path to other in-engine path */
+        using ResolutionRule = std::pair<std::string, std::string>;
+
         FileSystem();
         ~FileSystem();
 
@@ -72,6 +77,7 @@ namespace wmoge {
         Status                save_file(const std::string& path, const std::string& data);
         Status                save_file(const std::string& path, const std::vector<std::uint8_t>& data);
         void                  watch(const std::string& path);
+        void                  add_rule(const ResolutionRule& rule, bool front = false);
 
         /** @brief Re-root engine fs directory to new path */
         void root(const std::filesystem::path& path);
@@ -83,13 +89,14 @@ namespace wmoge {
         [[nodiscard]] const std::filesystem::path& debug_path() const;
 
     private:
-        std::filesystem::path m_executable_path;// absolute exe path
-        std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)
-        std::filesystem::path m_eng_path;       // path to directory with engine private files
-        std::filesystem::path m_resources_path; // path to resources inside root
-        std::filesystem::path m_cache_path;     // path to cache inside root
-        std::filesystem::path m_debug_path;     // path to debug data inside root
-        std::filesystem::path m_log_path;       // path to log data inside root
+        std::deque<ResolutionRule> m_resolution_rules;
+        std::filesystem::path      m_executable_path;// absolute exe path
+        std::filesystem::path      m_root_path;      // path to root directory of engine files (virtual)
+        std::filesystem::path      m_eng_path;       // path to directory with engine private files
+        std::filesystem::path      m_resources_path; // path to resources inside root
+        std::filesystem::path      m_cache_path;     // path to cache inside root
+        std::filesystem::path      m_debug_path;     // path to debug data inside root
+        std::filesystem::path      m_log_path;       // path to log data inside root
 
         std::vector<std::unique_ptr<struct FileSystemWatcher>> m_watchers;
     };

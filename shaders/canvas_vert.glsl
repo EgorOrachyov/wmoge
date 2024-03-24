@@ -1,7 +1,7 @@
 #version 450 core
 
 #include "common/defines.glsl"
-#include "common/funcs.glsl"
+#include "common/math.glsl"
 #include "common/vertex.glsl"
 
 LAYOUT_LOCATION(0) vec3 out vsWorldPos;
@@ -26,7 +26,7 @@ void main() {
     
     vsWorldPos = transform * vec3(vertex.pos2, 1.0f);
     vsCol = vertex.col[0];
-    vsUv = UnpackUv(vertex.uv[0]);
+    vsUv = vertex.uv[0];
     vsCmdId = vertex.primitiveId;
 
     gl_Position = ClipProjView * vec4(vsWorldPos, 1.0f);

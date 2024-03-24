@@ -57,11 +57,11 @@ namespace wmoge {
     private:
         fast_map<Strid, Ref<GrcShaderScript>> m_scripts;
         fast_map<Strid, Ref<GrcShaderType>>   m_global_types;
-
-        GrcTextureManager* m_texture_manager;
-        FileSystem*        m_file_system;
-        GfxDriver*         m_gfx_driver;
-        Console*           m_console;
+        std::string                           m_shaders_folder;
+        GrcTextureManager*                    m_texture_manager;
+        FileSystem*                           m_file_system;
+        GfxDriver*                            m_gfx_driver;
+        Console*                              m_console;
 
         std::recursive_mutex m_mutex;
     };

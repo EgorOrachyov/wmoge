@@ -60,6 +60,7 @@ namespace wmoge {
         std::stringstream  m_result;
         std::string        m_folder;
         FileSystem*        m_file_system;
+        bool               m_skip_version_pragma = true;
     };
 
 }// namespace wmoge

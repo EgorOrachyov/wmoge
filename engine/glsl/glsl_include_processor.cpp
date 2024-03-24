@@ -46,14 +46,16 @@ namespace wmoge {
         std::stringstream stream(content);
         std::string       line;
 
+        const auto include_prefix = std::string("#include ");
+        const auto version_prefix = std::string("#version");
+
         while (std::getline(stream, line)) {
-            const auto prefix = std::string("#include ");
-            auto       pragma = line.find(prefix);
+            auto pragma = line.find(include_prefix);
 
             if (pragma != std::string::npos) {
                 auto line_len  = line.length();
-                auto cut_start = prefix.length() + 1;
-                auto cut_count = line_len - cut_start - 1;
+                auto cut_start = include_prefix.length() + 1;
+                auto cut_count = line_len - cut_start - 2;
 
                 const Strid include_file = SID(line.substr(cut_start, cut_count));
 
@@ -63,16 +65,25 @@ namespace wmoge {
                     continue;
                 }
 
+                m_result << "\n// Begin include file " << include_file << "\n";
+
                 if (!parse_file(include_file)) {
                     WG_LOG_ERROR("failed parse include file " << include_file);
                     return StatusCode::Error;
                 }
 
-                m_includes.push_back(include_file);
+                m_result << "\n// End include file " << include_file << "\n";
 
-            } else {
-                m_result << line;
+                m_includes.push_back(include_file);
+                continue;
             }
+
+            pragma = line.find(version_prefix);
+            if (pragma != std::string::npos && m_skip_version_pragma) {
+                continue;
+            }
+
+            m_result << line;
         }
 
         return StatusCode::Ok;

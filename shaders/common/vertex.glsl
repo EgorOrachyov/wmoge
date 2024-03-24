@@ -1,11 +1,4 @@
-/**********************************************************************************/
-/* Wmoge game engine                                                              */
-/* Available at github https://github.com/EgorOrachyov/wmoge                      */
-/**********************************************************************************/
-/* MIT License                                                                    */
-/*                                                                                */
-/* Copyright (c) 2023 Egor Orachyov                                               */
-/**********************************************************************************/
+#include "common/math.glsl"
 
 struct VertexAttributes {
     vec3  pos3;
@@ -86,19 +79,19 @@ VertexAttributes ReadVertexAttributes() {
     #endif     
 
     #ifdef ATTRIB_UV0_2F
-        attributes.uv[0] = inUv02f;
+        attributes.uv[0] = UnpackUv(inUv02f);
     #endif     
 
     #ifdef ATTRIB_UV1_2F
-        attributes.uv[1] = inUv12f;
+        attributes.uv[1] = UnpackUv(inUv12f);
     #endif     
 
     #ifdef ATTRIB_UV2_2F
-        attributes.uv[2] = inUv22f;
+        attributes.uv[2] = UnpackUv(inUv22f);
     #endif     
 
     #ifdef ATTRIB_UV3_2F
-        attributes.uv[3] = inUv32f;
+        attributes.uv[3] = UnpackUv(inUv32f);
     #endif     
 
     #ifdef ATTRIB_OBJECT_ID

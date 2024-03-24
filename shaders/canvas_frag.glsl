@@ -1,6 +1,6 @@
 #version 450 core
 
-#include "common/funcs.glsl"
+#include "common/math.glsl"
 #include "common/color.glsl"
 
 layout (location = 0) out vec4 outColor;

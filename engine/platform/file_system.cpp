@@ -53,6 +53,23 @@ namespace wmoge {
             : watch(std::move(path), std::move(callback)) {}
     };
 
+    const std::string PREFIX_ROOT = "root://";
+
+    const std::string PREFIX_RES = "res://";
+    const std::string REMAP_RES  = "root://resources/";
+
+    const std::string PREFIX_ENG = "eng://";
+    const std::string REMAP_ENG  = "root://.wgengine/";
+
+    const std::string PREFIX_CACHE = "cache://";
+    const std::string REMAP_CACHE  = "eng://cache/";
+
+    const std::string PREFIX_DEBUG = "debug://";
+    const std::string REMAP_DEBUG  = "eng://debug/";
+
+    const std::string PREFIX_LOG = "logs://";
+    const std::string REMAP_LOG  = "eng://logs/";
+
     FileSystem::FileSystem() {
         int         path_length = wai_getExecutablePath(nullptr, 0, nullptr);
         std::string path_exe(path_length + 1, '\0');
@@ -61,35 +78,42 @@ namespace wmoge {
         m_executable_path = path_exe;
 
         root(m_executable_path.parent_path());
+
+        add_rule({PREFIX_RES, REMAP_RES});
+        add_rule({PREFIX_ENG, REMAP_ENG});
+        add_rule({PREFIX_CACHE, REMAP_CACHE});
+        add_rule({PREFIX_DEBUG, REMAP_DEBUG});
+        add_rule({PREFIX_LOG, REMAP_LOG});
     }
 
     FileSystem::~FileSystem() = default;
 
     std::filesystem::path FileSystem::resolve(const std::string& path) {
-        static const std::string PREFIX_RES   = "res://";
-        static const std::string PREFIX_ROOT  = "root://";
-        static const std::string PREFIX_ENG   = "eng://";
-        static const std::string PREFIX_CACHE = "cache://";
-        static const std::string PREFIX_DEBUG = "debug://";
-        static const std::string PREFIX_LOG   = "logs://";
+        std::string current_resolve = path;
+        bool        resolved        = false;
 
-        if (path.find(PREFIX_RES) == 0) {
-            return m_resources_path / path.substr(PREFIX_RES.length());
+        while (!resolved) {
+            bool applied_rule = false;
+
+            for (const auto& rule : m_resolution_rules) {
+                if (current_resolve.find(rule.first) == 0) {
+                    current_resolve = rule.second + current_resolve.substr(rule.first.length());
+                    applied_rule    = true;
+                    break;
+                }
+            }
+
+            if (!applied_rule) {
+                if (current_resolve.find(PREFIX_ROOT) == 0) {
+                    break;
+                }
+            }
+
+            resolved = !applied_rule;
         }
-        if (path.find(PREFIX_ROOT) == 0) {
-            return m_root_path / path.substr(PREFIX_ROOT.length());
-        }
-        if (path.find(PREFIX_ENG) == 0) {
-            return m_eng_path / path.substr(PREFIX_ENG.length());
-        }
-        if (path.find(PREFIX_CACHE) == 0) {
-            return m_cache_path / path.substr(PREFIX_CACHE.length());
-        }
-        if (path.find(PREFIX_DEBUG) == 0) {
-            return m_debug_path / path.substr(PREFIX_DEBUG.length());
-        }
-        if (path.find(PREFIX_LOG) == 0) {
-            return m_log_path / path.substr(PREFIX_LOG.length());
+
+        if (current_resolve.find(PREFIX_ROOT) == 0) {
+            return m_root_path / current_resolve.substr(PREFIX_ROOT.length());
         }
 
         WG_LOG_ERROR("unknown domain of the file path " << path);
@@ -209,6 +233,14 @@ namespace wmoge {
 
                 event_manager->dispatch(event);
             }));
+        }
+    }
+
+    void FileSystem::add_rule(const ResolutionRule& rule, bool front) {
+        if (front) {
+            m_resolution_rules.push_front(rule);
+        } else {
+            m_resolution_rules.push_back(rule);
         }
     }
 

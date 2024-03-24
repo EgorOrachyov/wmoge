@@ -1,9 +1,11 @@
 #include "common/consts.glsl"
 
+// Convert color in srgb space to linear space
 vec3 ColorSrgbToLinear(in vec3 color, in float gamma) {
     return pow(color, vec3(gamma));
 }
 
+// Convert color in linear space to gamma space
 vec3 ColorLinearToSrgb(in vec3 color, in float inverse_gamma) {
     return pow(color, vec3(inverse_gamma));
 }

@@ -50,6 +50,9 @@ namespace wmoge {
         for (auto& type : builtin_types) {
             add_global_type(type);
         }
+
+        m_shaders_folder = "root://shaders";
+        m_file_system->add_rule({m_shaders_folder, "root://../shaders"});
     }
 
     Status GrcShaderManager::load_script(const GrcShaderScriptFile& file) {
@@ -216,9 +219,9 @@ namespace wmoge {
         }
 
         Ref<GrcShaderScript> shader_script;
-        const Status         status = builder.finish(shader_script);
 
-        if (!status) { return status; }
+        const Status build_status = builder.finish(shader_script);
+        if (!build_status) { return build_status; }
 
         for (const auto& param_block : file.param_blocks) {
             for (const auto& param : param_block.params) {
@@ -228,6 +231,9 @@ namespace wmoge {
                 param_info.ui_hint              = param.ui_hint;
             }
         }
+
+        const Status reload_status = shader_script->reload_sources(m_shaders_folder, m_file_system);
+        if (!reload_status) { return reload_status; }
 
         return fit_script(shader_script);
     }
