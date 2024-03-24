@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classwmoge_1_1FileSystem-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -78,6 +79,12 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="file__system_8hpp_source.html">file_system.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a8735ea1572226f77d417a692813880f6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a8735ea1572226f77d417a692813880f6">ResolutionRule</a> = std::pair&lt; std::string, std::string &gt;</td></tr>
+<tr class="memdesc:a8735ea1572226f77d417a692813880f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rule used to remap path to other in-engine path.  <a href="classwmoge_1_1FileSystem.html#a8735ea1572226f77d417a692813880f6">More...</a><br /></td></tr>
+<tr class="separator:a8735ea1572226f77d417a692813880f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a15fa887be30f07340080ef83a088e237"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a15fa887be30f07340080ef83a088e237">FileSystem</a> ()</td></tr>
@@ -102,6 +109,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a69ea09f5b420695f7810ec05e2020112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0cba15c9f5baac8c89fcfb8d42f02786"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a0cba15c9f5baac8c89fcfb8d42f02786">watch</a> (const std::string &amp;path)</td></tr>
 <tr class="separator:a0cba15c9f5baac8c89fcfb8d42f02786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0008eb561631f39bae32a6726b298af5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a0008eb561631f39bae32a6726b298af5">add_rule</a> (const <a class="el" href="classwmoge_1_1FileSystem.html#a8735ea1572226f77d417a692813880f6">ResolutionRule</a> &amp;rule, bool front=false)</td></tr>
+<tr class="separator:a0008eb561631f39bae32a6726b298af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a985ec8e8b05961d9d09a9f5345dae8b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FileSystem.html#a985ec8e8b05961d9d09a9f5345dae8b5">root</a> (const std::filesystem::path &amp;path)</td></tr>
 <tr class="memdesc:a985ec8e8b05961d9d09a9f5345dae8b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-root engine fs directory to new path.  <a href="classwmoge_1_1FileSystem.html#a985ec8e8b05961d9d09a9f5345dae8b5">More...</a><br /></td></tr>
 <tr class="separator:a985ec8e8b05961d9d09a9f5345dae8b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,7 +135,24 @@ Public Member Functions</h2></td></tr>
 <li><code>cache://</code> prefix relative to engine cache directory for a cached files</li>
 <li><code>logs://</code> prefix relative to engine logs directory </li>
 </ul>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a8735ea1572226f77d417a692813880f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8735ea1572226f77d417a692813880f6">&#9670;&nbsp;</a></span>ResolutionRule</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classwmoge_1_1FileSystem.html#a8735ea1572226f77d417a692813880f6">wmoge::FileSystem::ResolutionRule</a> =  std::pair&lt;std::string, std::string&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rule used to remap path to other in-engine path. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a15fa887be30f07340080ef83a088e237"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a15fa887be30f07340080ef83a088e237">&#9670;&nbsp;</a></span>FileSystem()</h2>
 
@@ -170,6 +196,34 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0008eb561631f39bae32a6726b298af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0008eb561631f39bae32a6726b298af5">&#9670;&nbsp;</a></span>add_rule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::FileSystem::add_rule </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1FileSystem.html#a8735ea1572226f77d417a692813880f6">ResolutionRule</a> &amp;&#160;</td>
+          <td class="paramname"><em>rule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>front</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a718485a07014d3f0af1840f6af3dc958"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a718485a07014d3f0af1840f6af3dc958">&#9670;&nbsp;</a></span>cache_path()</h2>
 
