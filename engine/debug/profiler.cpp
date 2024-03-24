@@ -46,7 +46,7 @@ namespace wmoge {
           file(in_file),
           category(in_category),
           line(in_line),
-          profiler(Engine::instance()->profiler()) {
+          profiler(Profiler::instance()) {
 
         pretty_name = label.str();
 
@@ -68,7 +68,7 @@ namespace wmoge {
     ProfilerTimeEvent::~ProfilerTimeEvent() {
         m_timer.stop();
 
-        if (m_mark->profiler->is_collecting()) {
+        if (m_mark->profiler && m_mark->profiler->is_collecting()) {
             ProfilerEntry entry;
             entry.tid   = std::this_thread::get_id();
             entry.start = m_timer.get_start();
@@ -140,6 +140,8 @@ namespace wmoge {
         WG_LOG_INFO("saved capture to " << m_file);
     }
 
+    Profiler* Profiler::g_profiler = nullptr;
+
     Profiler::Profiler() {
         add_tid(std::this_thread::get_id(), SID("main-thread"));
     }
@@ -180,6 +182,13 @@ namespace wmoge {
     }
     std::unordered_map<std::thread::id, Strid> Profiler::get_tid_names() const {
         return m_tid_names;
+    }
+
+    Profiler* Profiler::instance() {
+        return g_profiler;
+    }
+    void Profiler::provide(Profiler* profiler) {
+        g_profiler = profiler;
     }
 
 }// namespace wmoge

@@ -55,26 +55,26 @@ namespace wmoge {
     const Status s = GrcShaderParamAccess(*this).get(param_id, v); \
     return s
 
-    GrcShaderParamBlock::GrcShaderParamBlock(GrcShaderClass& shader_class, std::int16_t space_idx) {
-        configure(shader_class, space_idx);
+    GrcShaderParamBlock::GrcShaderParamBlock(GrcShaderScript& shader_script, std::int16_t space_idx) {
+        configure(shader_script, space_idx);
     }
 
-    Status GrcShaderParamBlock::configure(GrcShaderClass& shader_class, std::int16_t space_idx) {
-        m_class = &shader_class;
-        m_space = space_idx;
+    Status GrcShaderParamBlock::configure(GrcShaderScript& shader_script, std::int16_t space_idx) {
+        m_script = &shader_script;
+        m_space  = space_idx;
 
-        assert(space_idx < m_class->get_reflection().spaces.size());
+        assert(space_idx < m_script->get_reflection().spaces.size());
 
         return reset_defaults();
     }
 
     Status GrcShaderParamBlock::reset_defaults() {
-        if (!m_class) {
+        if (!m_script) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
         }
 
-        const GrcShaderSpace& space = m_class->get_reflection().spaces[m_space];
+        const GrcShaderSpace& space = m_script->get_reflection().spaces[m_space];
 
         if (m_gfx_resources.empty()) {
             m_gfx_resources.resize(space.bindings.size());
@@ -115,14 +115,14 @@ namespace wmoge {
         }
 
         if (m_buffers.empty()) {
-            for (const auto& buffer : m_class->get_reflection().buffers) {
+            for (const auto& buffer : m_script->get_reflection().buffers) {
                 if (buffer.space == m_space) {
                     m_buffers.emplace_back(make_ref<Data>(buffer.size));
                 }
             }
         }
 
-        for (const auto& buffer : m_class->get_reflection().buffers) {
+        for (const auto& buffer : m_script->get_reflection().buffers) {
             if (buffer.space == m_space) {
                 const Ref<Data>& src = buffer.defaults;
                 const Ref<Data>& dst = m_buffers[buffer.idx];
@@ -144,7 +144,7 @@ namespace wmoge {
     }
 
     Status GrcShaderParamBlock::validate(GfxDriver* driver, GfxCtx* ctx, Strid name) {
-        if (!m_class) {
+        if (!m_script) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
         }
@@ -152,10 +152,10 @@ namespace wmoge {
             return StatusCode::Ok;
         }
 
-        const GrcShaderSpace& space = m_class->get_reflection().spaces[m_space];
+        const GrcShaderSpace& space = m_script->get_reflection().spaces[m_space];
 
         if (m_dirty_buffers) {
-            for (const auto& buffer : m_class->get_reflection().buffers) {
+            for (const auto& buffer : m_script->get_reflection().buffers) {
                 if (buffer.space == m_space) {
                     const Ref<Data>&  src = m_buffers[buffer.idx];
                     GfxDescBindValue& v   = m_gfx_resources[buffer.binding].second;
@@ -180,11 +180,19 @@ namespace wmoge {
                 const GfxDescBindValue& v = m_gfx_resources[i].second;
 
                 if (!v.resource) {
-                    WG_LOG_ERROR("missing res setup of " << name << " binding=" << i);
+                    WG_LOG_ERROR("missing res setup of "
+                                 << name
+                                 << " space=" << m_space
+                                 << " binding=" << i
+                                 << " script=" << m_script->get_name());
                     return StatusCode::InvalidState;
                 }
                 if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
-                    WG_LOG_ERROR("missing sampler setup of " << name << " binding=" << i);
+                    WG_LOG_ERROR("missing sampler setup of "
+                                 << name
+                                 << " space=" << m_space
+                                 << " binding=" << i
+                                 << " script=" << m_script->get_name());
                     return StatusCode::InvalidState;
                 }
             }

@@ -38,7 +38,6 @@
 #include "render/camera.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
-#include "render/texture_manager.hpp"
 #include "resource/resource_ref.hpp"
 #include "resource/texture.hpp"
 

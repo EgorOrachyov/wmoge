@@ -45,6 +45,7 @@
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "grc/grc_texture_manager.hpp"
 #include "hooks/hook_config.hpp"
 #include "hooks/hook_logs.hpp"
 #include "hooks/hook_profiler.hpp"
@@ -61,7 +62,6 @@
 #include "render/canvas.hpp"
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
-#include "render/texture_manager.hpp"
 #include "render/view_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
@@ -74,20 +74,22 @@
 
 namespace wmoge {
 
+    Engine* Engine::g_engine = nullptr;
+
     Status Engine::setup(Application* application) {
         m_application = application;
 
         IocContainer* ioc = IocContainer::instance();
 
         m_class_db    = ClassDB::instance();
-        m_time        = ioc->resolve<Time>().value();
-        m_layer_stack = ioc->resolve<LayerStack>().value();
-        m_cmd_line    = ioc->resolve<CmdLine>().value();
-        m_hook_list   = ioc->resolve<HookList>().value();
-        m_file_system = ioc->resolve<FileSystem>().value();
-        m_config      = ioc->resolve<ConfigFile>().value();
-        m_console     = ioc->resolve<Console>().value();
-        m_profiler    = ioc->resolve<Profiler>().value();
+        m_time        = ioc->resolve_v<Time>();
+        m_layer_stack = ioc->resolve_v<LayerStack>();
+        m_cmd_line    = ioc->resolve_v<CmdLine>();
+        m_hook_list   = ioc->resolve_v<HookList>();
+        m_file_system = ioc->resolve_v<FileSystem>();
+        m_config      = ioc->resolve_v<ConfigFile>();
+        m_console     = ioc->resolve_v<Console>();
+        m_profiler    = ioc->resolve_v<Profiler>();
 
         return StatusCode::Ok;
     }
@@ -97,11 +99,11 @@ namespace wmoge {
 
         IocContainer* ioc = IocContainer::instance();
 
-        m_event_manager = ioc->resolve<EventManager>().value();
-        m_task_manager  = ioc->resolve<TaskManager>().value();
+        m_event_manager = ioc->resolve_v<EventManager>();
+        m_task_manager  = ioc->resolve_v<TaskManager>();
 
-        m_window_manager = ioc->resolve<GlfwWindowManager>().value();
-        m_input          = ioc->resolve<GlfwWindowManager>().value()->input().get();
+        m_window_manager = ioc->resolve_v<GlfwWindowManager>();
+        m_input          = ioc->resolve_v<GlfwInput>();
 
         WindowInfo window_info;
         window_info.width    = m_config->get_int(SID("window.width"), 1280);
@@ -115,19 +117,19 @@ namespace wmoge {
         auto window = m_window_manager->create(window_info);
         WG_LOG_INFO("init window " << window_info.id);
 
-        m_gfx_driver = ioc->resolve<VKDriver>().value()->driver_wrapper();
-        m_gfx_ctx    = ioc->resolve<VKDriver>().value()->ctx_immediate_wrapper();
+        m_gfx_driver = ioc->resolve_v<GfxDriver>();
+        m_gfx_ctx    = ioc->resolve_v<GfxCtx>();
 
-        m_shader_manager   = ioc->resolve<ShaderManager>().value();
-        m_texture_manager  = ioc->resolve<TextureManager>().value();
-        m_render_engine    = ioc->resolve<RenderEngine>().value();
-        m_resource_manager = ioc->resolve<ResourceManager>().value();
-        m_ecs_registry     = ioc->resolve<EcsRegistry>().value();
-        m_aux_draw_manager = ioc->resolve<AuxDrawManager>().value();
-        m_scene_manager    = ioc->resolve<SceneManager>().value();
-        m_action_manager   = ioc->resolve<ActionManager>().value();
-        m_canvas_debug     = ioc->resolve<Canvas>().value();
-        m_view_manager     = ioc->resolve<ViewManager>().value();
+        m_shader_manager   = ioc->resolve_v<ShaderManager>();
+        m_texture_manager  = ioc->resolve_v<GrcTextureManager>();
+        m_render_engine    = ioc->resolve_v<RenderEngine>();
+        m_resource_manager = ioc->resolve_v<ResourceManager>();
+        m_ecs_registry     = ioc->resolve_v<EcsRegistry>();
+        m_aux_draw_manager = ioc->resolve_v<AuxDrawManager>();
+        m_scene_manager    = ioc->resolve_v<SceneManager>();
+        m_action_manager   = ioc->resolve_v<ActionManager>();
+        m_canvas_debug     = ioc->resolve_v<Canvas>();
+        m_view_manager     = ioc->resolve_v<ViewManager>();
 
         m_console->init();
         m_layer_stack->attach(std::make_shared<DebugLayer>());
@@ -210,40 +212,43 @@ namespace wmoge {
         return m_close_requested.load();
     }
 
-    Application*      Engine::application() { return m_application; }
-    ClassDB*          Engine::class_db() { return m_class_db; }
-    Time*             Engine::time() { return m_time; }
-    LayerStack*       Engine::layer_stack() { return m_layer_stack; }
-    HookList*         Engine::hook_list() { return m_hook_list; }
-    CmdLine*          Engine::cmd_line() { return m_cmd_line; }
-    ConfigFile*       Engine::config() { return m_config; }
-    CallbackQueue*    Engine::main_queue() { return m_main_queue; }
-    FileSystem*       Engine::file_system() { return m_file_system; }
-    TaskManager*      Engine::task_manager() { return m_task_manager; }
-    EventManager*     Engine::event_manager() { return m_event_manager; }
-    ResourceManager*  Engine::resource_manager() { return m_resource_manager; }
-    WindowManager*    Engine::window_manager() { return m_window_manager; }
-    Input*            Engine::input() { return m_input; }
-    GfxDriver*        Engine::gfx_driver() { return m_gfx_driver; }
-    GfxCtx*           Engine::gfx_ctx() { return m_gfx_ctx; }
-    ShaderManager*    Engine::shader_manager() { return m_shader_manager; }
-    TextureManager*   Engine::texture_manager() { return m_texture_manager; }
-    AuxDrawManager*   Engine::aux_draw_manager() { return m_aux_draw_manager; }
-    SceneManager*     Engine::scene_manager() { return m_scene_manager; }
-    ActionManager*    Engine::action_manager() { return m_action_manager; }
-    GameTokenManager* Engine::game_token_manager() { return m_game_token_manager; }
-    Profiler*         Engine::profiler() { return m_profiler; }
-    Console*          Engine::console() { return m_console; }
-    Canvas*           Engine::canvas_debug() { return m_canvas_debug; }
-    ScriptSystem*     Engine::script_system() { return m_script_system; }
-    AudioEngine*      Engine::audio_engine() { return m_audio_engine; }
-    RenderEngine*     Engine::render_engine() { return m_render_engine; }
-    ViewManager*      Engine::view_manager() { return m_view_manager; }
-    EcsRegistry*      Engine::ecs_registry() { return m_ecs_registry; }
+    Application*       Engine::application() { return m_application; }
+    ClassDB*           Engine::class_db() { return m_class_db; }
+    Time*              Engine::time() { return m_time; }
+    LayerStack*        Engine::layer_stack() { return m_layer_stack; }
+    HookList*          Engine::hook_list() { return m_hook_list; }
+    CmdLine*           Engine::cmd_line() { return m_cmd_line; }
+    ConfigFile*        Engine::config() { return m_config; }
+    CallbackQueue*     Engine::main_queue() { return m_main_queue; }
+    FileSystem*        Engine::file_system() { return m_file_system; }
+    TaskManager*       Engine::task_manager() { return m_task_manager; }
+    EventManager*      Engine::event_manager() { return m_event_manager; }
+    ResourceManager*   Engine::resource_manager() { return m_resource_manager; }
+    WindowManager*     Engine::window_manager() { return m_window_manager; }
+    Input*             Engine::input() { return m_input; }
+    GfxDriver*         Engine::gfx_driver() { return m_gfx_driver; }
+    GfxCtx*            Engine::gfx_ctx() { return m_gfx_ctx; }
+    ShaderManager*     Engine::shader_manager() { return m_shader_manager; }
+    GrcTextureManager* Engine::texture_manager() { return m_texture_manager; }
+    AuxDrawManager*    Engine::aux_draw_manager() { return m_aux_draw_manager; }
+    SceneManager*      Engine::scene_manager() { return m_scene_manager; }
+    ActionManager*     Engine::action_manager() { return m_action_manager; }
+    GameTokenManager*  Engine::game_token_manager() { return m_game_token_manager; }
+    Profiler*          Engine::profiler() { return m_profiler; }
+    Console*           Engine::console() { return m_console; }
+    Canvas*            Engine::canvas_debug() { return m_canvas_debug; }
+    ScriptSystem*      Engine::script_system() { return m_script_system; }
+    AudioEngine*       Engine::audio_engine() { return m_audio_engine; }
+    RenderEngine*      Engine::render_engine() { return m_render_engine; }
+    ViewManager*       Engine::view_manager() { return m_view_manager; }
+    EcsRegistry*       Engine::ecs_registry() { return m_ecs_registry; }
 
     Engine* Engine::instance() {
-        static Engine g_engine;
-        return &g_engine;
+        return g_engine;
+    }
+
+    void Engine::provide(Engine* engine) {
+        g_engine = engine;
     }
 
 }// namespace wmoge

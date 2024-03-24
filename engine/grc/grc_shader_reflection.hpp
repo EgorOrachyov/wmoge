@@ -118,6 +118,27 @@ namespace wmoge {
         std::int16_t       n_elem    = -1;                     // num of elements in vec/mat type
         std::int16_t       byte_size = 0;                      // raw byte size
         fast_vector<Field> fields;                             // fields of a struct type
+        bool               is_primitive = false;               // is a primitive type, raw value in a memory
+    };
+
+    /**
+     * @class GrcShaderStructRegister
+     * @brief Helper to build and register struct type
+     */
+    class GrcShaderStructRegister {
+    public:
+        GrcShaderStructRegister(Strid name, std::size_t size);
+
+        GrcShaderStructRegister& add_field(Strid name, Strid struct_type);
+        GrcShaderStructRegister& add_field(Strid name, Ref<GrcShaderType> type, Var value = Var());
+        GrcShaderStructRegister& add_field_array(Strid name, Strid struct_type, int n_elements = 0);
+        GrcShaderStructRegister& add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements = 0, Var value = Var());
+
+        Status finish();
+
+    private:
+        Ref<GrcShaderType>      m_struct_type;
+        class GrcShaderManager* m_manager;
     };
 
     /**
@@ -144,6 +165,8 @@ namespace wmoge {
         static Ref<GrcShaderType> SAMPLER2D_ARRAY;
         static Ref<GrcShaderType> SAMPLER_CUBE;
         static Ref<GrcShaderType> IMAGE2D;
+
+        static std::vector<Ref<GrcShaderType>> builtin();
     };
 
     /**
@@ -244,44 +267,50 @@ namespace wmoge {
      * @brief Rendering settings provided in a pass
     */
     struct GrcPipelineState {
-        GfxPolyMode     poly_mode         = GfxPolyMode::Fill;
-        GfxPolyCullMode cull_mode         = GfxPolyCullMode::Disabled;
-        int             depth_enable      = false;
-        int             depth_write       = true;
-        GfxCompFunc     depth_func        = GfxCompFunc::Less;
-        int             stencil_enable    = false;
-        int             stencil_wmask     = 0;
-        int             stencil_rvalue    = 0;
-        int             stencil_cmask     = 0;
-        GfxCompFunc     stencil_comp_func = GfxCompFunc::Never;
-        GfxOp           stencil_sfail     = GfxOp::Keep;
-        GfxOp           stencil_dfail     = GfxOp::Keep;
-        GfxOp           stencil_dpass     = GfxOp::Keep;
-        int             blending          = false;
+        GfxPolyMode      poly_mode         = GfxPolyMode::Fill;
+        GfxPolyCullMode  cull_mode         = GfxPolyCullMode::Disabled;
+        GfxPolyFrontFace front_face        = GfxPolyFrontFace::CounterClockwise;
+        bool             depth_enable      = false;
+        bool             depth_write       = true;
+        GfxCompFunc      depth_func        = GfxCompFunc::Less;
+        bool             stencil_enable    = false;
+        int              stencil_wmask     = 0;
+        int              stencil_rvalue    = 0;
+        int              stencil_cmask     = 0;
+        GfxCompFunc      stencil_comp_func = GfxCompFunc::Never;
+        GfxOp            stencil_sfail     = GfxOp::Keep;
+        GfxOp            stencil_dfail     = GfxOp::Keep;
+        GfxOp            stencil_dpass     = GfxOp::Keep;
+        bool             blending          = false;
+
+        WG_IO_DECLARE(GrcPipelineState);
     };
 
     /**
-     * @class GrcShaderPass
+     * @class GrcShaderPassInfo
      * @brief Defines single pass of shader, a functional subset
     */
-    struct GrcShaderPass {
-        Strid            name;
-        GrcPipelineState state;
-        GrcShaderOptions options;
-        std::string      ui_name;
-        std::string      ui_hint;
+    struct GrcShaderPassInfo {
+        Strid                name;
+        GrcPipelineState     state;
+        GrcShaderOptions     options;
+        fast_map<Strid, Var> tags;
+        std::string          ui_name;
+        std::string          ui_hint;
     };
 
     /**
-     * @class GrcShaderTechnique
+     * @class GrcShaderTechniqueInfo
      * @brief Defines single technique as collection of passes for drawing
     */
-    struct GrcShaderTechnique {
-        Strid                      name;
-        GrcShaderOptions           options;
-        fast_vector<GrcShaderPass> passes;
-        std::string                ui_name;
-        std::string                ui_hint;
+    struct GrcShaderTechniqueInfo {
+        Strid                          name;
+        GrcShaderOptions               options;
+        fast_vector<GrcShaderPassInfo> passes;
+        fast_map<Strid, std::int16_t>  passes_map;
+        fast_map<Strid, Var>           tags;
+        std::string                    ui_name;
+        std::string                    ui_hint;
     };
 
     /**
@@ -342,7 +371,10 @@ namespace wmoge {
      * @brief Full reflection information of a single shader class
     */
     struct GrcShaderReflection {
-        Strid                               shader_name;   // shader class global unique name
+        Strid                               shader_name;   // shader script global unique name
+        Strid                               shader_extends;// shader script which we extend in this one
+        std::string                         ui_name;       // optional ui name
+        std::string                         ui_hint;       // optional ui hint
         fast_map<Strid, std::int16_t>       params_id;     // mapping of full param name to its id
         fast_vector<GrcShaderParamInfo>     params_info;   // id to param info
         fast_vector<GrcShaderBufferInfo>    buffers;       // buffer info for scalar params packing
@@ -351,7 +383,7 @@ namespace wmoge {
         fast_vector<GrcShaderInclude>       includes;      // shader includes per module
         fast_vector<GrcShaderSpace>         spaces;        // binding spaces for descriptor sets creation
         fast_vector<GrcShaderSourceFile>    sources;       // source code modules
-        fast_vector<GrcShaderTechnique>     techniques;    // shader techniques info
+        fast_vector<GrcShaderTechniqueInfo> techniques;    // shader techniques info
         fast_map<Strid, std::int16_t>       techniques_map;// mapping techniques name to its id
         fast_set<Strid>                     dependencies;  // shader files dependencies for hot-reload
     };

@@ -54,6 +54,9 @@ namespace wmoge {
         GfxSampAddress w;             // = GfxSampAddress::Repeat;
         GfxSampBrdClr  brd_clr;       // = GfxSampBrdClr::Black;
 
+        static GfxSamplerDesc make(GfxSampFlt flt, float aniso, GfxSampAddress address);
+        static GfxSamplerDesc make(GfxSampFlt flt, float aniso, GfxSampBrdClr brd_clr);
+
         WG_IO_DECLARE(GfxSamplerDesc);
     };
 

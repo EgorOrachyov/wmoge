@@ -45,6 +45,9 @@
 
 namespace wmoge {
 
+    Log  g_null_log;
+    Log* Log::g_log = &g_null_log;
+
     void Log::listen(const std::shared_ptr<LogListener>& listener) {
         assert(listener);
         std::lock_guard guard(m_mutex);
@@ -62,8 +65,10 @@ namespace wmoge {
             listener->on_message(entry);
     }
     Log* Log::instance() {
-        static auto g_log = std::make_unique<Log>();
-        return g_log.get();
+        return g_log;
+    }
+    void Log::provide(Log* log) {
+        g_log = log;
     }
 
     LogListenerStdout::LogListenerStdout(std::string name, LogLevel level)

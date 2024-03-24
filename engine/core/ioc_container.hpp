@@ -29,6 +29,7 @@
 
 #include "core/log.hpp"
 #include "core/status.hpp"
+#include "core/synchronization.hpp"
 
 #include <any>
 #include <cassert>
@@ -92,14 +93,20 @@ namespace wmoge {
         template<typename S>
         std::optional<S*> resolve();
 
+        template<typename S>
+        S* resolve_v();
+
         static IocContainer* instance();
 
     private:
         std::unordered_map<std::type_index, IocEntry> m_entries;
+        std::recursive_mutex                          m_mutex;
     };
 
     template<typename S, typename T, typename Factory>
     inline void IocContainer::bind_f(Factory&& factory) {
+        std::lock_guard guard(m_mutex);
+
         IocEntry entry;
         entry.source_type   = typeid(S);
         entry.provided_type = typeid(T);
@@ -113,6 +120,8 @@ namespace wmoge {
 
     template<typename S, typename T>
     inline void IocContainer::bind_i(std::shared_ptr<T> instance) {
+        std::lock_guard guard(m_mutex);
+
         bind_f<S, T>([i = std::move(instance)]() {
             return i;
         });
@@ -120,6 +129,8 @@ namespace wmoge {
 
     template<typename S>
     inline void IocContainer::bind() {
+        std::lock_guard guard(m_mutex);
+
         bind_f<S, S>([]() {
             return std::make_shared<S>();
         });
@@ -127,11 +138,15 @@ namespace wmoge {
 
     template<typename S>
     inline void IocContainer::unbind() {
+        std::lock_guard guard(m_mutex);
+
         erase(typeid(S));
     }
 
     template<typename S>
     inline std::optional<S*> IocContainer::resolve() {
+        std::lock_guard guard(m_mutex);
+
         auto opt_entry = get(typeid(S));
 
         if (!opt_entry) {
@@ -170,6 +185,11 @@ namespace wmoge {
         }
 
         return ptr;
+    }
+
+    template<typename S>
+    inline S* IocContainer::resolve_v() {
+        return resolve<S>().value();
     }
 
 }// namespace wmoge

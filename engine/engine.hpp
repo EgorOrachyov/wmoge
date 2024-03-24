@@ -110,11 +110,16 @@
 #include "gfx/gfx_vert_format_cache.hpp"
 
 #include "grc/grc_shader.hpp"
-#include "grc/grc_shader_class.hpp"
-#include "grc/grc_shader_class_builder.hpp"
+#include "grc/grc_shader_manager.hpp"
 #include "grc/grc_shader_param.hpp"
 #include "grc/grc_shader_param_block.hpp"
+#include "grc/grc_shader_pass.hpp"
 #include "grc/grc_shader_reflection.hpp"
+#include "grc/grc_shader_script.hpp"
+#include "grc/grc_shader_script_builder.hpp"
+#include "grc/grc_texture_compression.hpp"
+#include "grc/grc_texture_manager.hpp"
+#include "grc/grc_texture_resize.hpp"
 
 #include "hgfx/hgfx_pass.hpp"
 #include "hgfx/hgfx_pass_base.hpp"
@@ -174,9 +179,6 @@
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
 #include "render/shader_pass.hpp"
-#include "render/texture_compression.hpp"
-#include "render/texture_manager.hpp"
-#include "render/texture_resize.hpp"
 #include "render/view.hpp"
 #include "render/view_manager.hpp"
 

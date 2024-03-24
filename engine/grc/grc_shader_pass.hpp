@@ -27,52 +27,18 @@
 
 #pragma once
 
-#include "resource/image.hpp"
+#include "gfx/gfx_desc_set.hpp"
+#include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_vert_format.hpp"
 
 namespace wmoge {
 
     /**
-     * @brief Available texture resources sizes for optimized memory usage
+     * @class GrcShaderPass
+     * @brief Compiled shader pass ready for drawing
     */
-    enum TexSizePreset {
-        None = 0,
-        Size128x128,
-        Size256x256,
-        Size512x512,
-        Size1024x1024,
-        Size2048x2048,
-        Size4096x4096
-    };
-
-    /**
-     * @class TexResizeParams
-     * @brief Params to resize source texture image content (on import)
-    */
-    struct TexResizeParams {
-        TexSizePreset preset      = TexSizePreset::None;
-        bool          auto_adjust = true;
-        bool          minify      = true;
-
-        WG_IO_DECLARE(TexResizeParams);
-    };
-
-    /**
-     * @class TexResize
-     * @brief Handles image data resize before texture creation
-    */
-    class TexResize {
-    public:
-        /**
-         * Resizes provided image according to the params given
-         * 
-         * @param params Resize options
-         * @param image Inout image to be resized
-         * @param preset Out preset given image
-        */
-        static Status resize(const TexResizeParams& params, Image& image);
-
-        static Vec2i         preset_to_size(TexSizePreset preset);
-        static TexSizePreset fit_preset(int width, int height);
+    class GrcShaderPass {
+        std::int16_t queue_idx = -1;
     };
 
 }// namespace wmoge

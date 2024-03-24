@@ -35,8 +35,8 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "grc/grc_shader_class.hpp"
 #include "grc/grc_shader_reflection.hpp"
+#include "grc/grc_shader_script.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 
@@ -70,14 +70,14 @@ namespace wmoge {
         /**
          * @brief Creates params block with default setup for given shader class and space.
          * 
-         * @param shader_class Class of shader intended to be used with block
+         * @param shader_script Class of shader intended to be used with block
          * @param space_idx Index of space to be used with this block
         */
-        GrcShaderParamBlock(GrcShaderClass& shader_class, std::int16_t space_idx);
+        GrcShaderParamBlock(GrcShaderScript& shader_script, std::int16_t space_idx);
 
         ~GrcShaderParamBlock() = default;
 
-        Status configure(GrcShaderClass& shader_class, std::int16_t space_idx);
+        Status configure(GrcShaderScript& shader_script, std::int16_t space_idx);
         Status reset_defaults();
         Status validate(class GfxDriver* driver, class GfxCtx* ctx, Strid name);
 
@@ -110,7 +110,7 @@ namespace wmoge {
         Status get_var(GrcShaderParamId param_id, Ref<GfxStorageBuffer>& v);
 
         [[nodiscard]] const Ref<GfxDescSet>& get_gfx_set() { return m_gfx_set; }
-        [[nodiscard]] GrcShaderClass*        get_class() { return m_class; }
+        [[nodiscard]] GrcShaderScript*       get_script() { return m_script; }
         [[nodiscard]] std::int16_t           get_space() { return m_space; }
         [[nodiscard]] Ref<Data>*             get_buffer(std::int16_t buffer_idx);
         [[nodiscard]] Ref<Data>*             get_buffer(std::int16_t space_idx, std::int16_t buffer_idx);
@@ -125,7 +125,7 @@ namespace wmoge {
         GfxDescSetResources       m_gfx_resources;
         Ref<GfxDescSet>           m_gfx_set;
         fast_vector<Ref<Data>, 1> m_buffers;
-        GrcShaderClass*           m_class         = nullptr;
+        GrcShaderScript*          m_script        = nullptr;
         std::int16_t              m_space         = -1;
         std::int8_t               m_dirty_buffers = 1;
         std::int8_t               m_dirty_set     = 1;

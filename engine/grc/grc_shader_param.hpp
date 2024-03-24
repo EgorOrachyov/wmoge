@@ -36,8 +36,8 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "grc/grc_shader_class.hpp"
 #include "grc/grc_shader_reflection.hpp"
+#include "grc/grc_shader_script.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 
@@ -112,8 +112,8 @@ namespace wmoge {
                 return StatusCode::InvalidParameter;
             }
 
-            GrcShaderClass*                    cls    = provider.get_class();
-            std::optional<GrcShaderParamInfo*> p_info = cls->get_param_info(param_id);
+            GrcShaderScript*                   script = provider.get_script();
+            std::optional<GrcShaderParamInfo*> p_info = script->get_param_info(param_id);
 
             if (!p_info) {
                 WG_LOG_ERROR("no such param id");
@@ -191,8 +191,8 @@ namespace wmoge {
                 return StatusCode::InvalidParameter;
             }
 
-            GrcShaderClass*                    cls    = provider.get_class();
-            std::optional<GrcShaderParamInfo*> p_info = cls->get_param_info(param_id);
+            GrcShaderScript*                   script = provider.get_script();
+            std::optional<GrcShaderParamInfo*> p_info = script->get_param_info(param_id);
 
             if (!p_info) {
                 WG_LOG_ERROR("no such param id");

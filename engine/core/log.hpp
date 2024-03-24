@@ -80,10 +80,13 @@ namespace wmoge {
         void log(LogLevel level, std::string message, std::string file, std::string function, std::size_t line);
 
         static Log* instance();
+        static void provide(Log* log);
 
     private:
         std::vector<std::shared_ptr<LogListener>> m_listeners;
         std::recursive_mutex                      m_mutex;
+
+        static Log* g_log;
     };
 
     /**

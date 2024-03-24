@@ -20,7 +20,7 @@ DrawCmdData GetCmdData(in int idx) {
 bool ChechClipRect(in vec4 clipRect, in vec2 pos) {
     const vec2 clipMin = clipRect.xy;
     const vec2 clipMax = clipRect.zw;
-
+    
     return pos.x < clipMin.x || pos.x > clipMax.x ||
            pos.y < clipMin.y || pos.y > clipMax.y;
 }

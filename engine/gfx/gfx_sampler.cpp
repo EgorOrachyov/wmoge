@@ -74,5 +74,26 @@ namespace wmoge {
 
         return sampler_name.str();
     }
+    GfxSamplerDesc GfxSamplerDesc::make(GfxSampFlt flt, float aniso, GfxSampAddress address) {
+        GfxSamplerDesc d;
+        d.min_flt        = flt;
+        d.mag_flt        = flt;
+        d.max_anisotropy = aniso;
+        d.u              = address;
+        d.v              = address;
+        d.w              = address;
+        return d;
+    }
+    GfxSamplerDesc GfxSamplerDesc::make(GfxSampFlt flt, float aniso, GfxSampBrdClr brd_clr) {
+        GfxSamplerDesc d;
+        d.min_flt        = flt;
+        d.mag_flt        = flt;
+        d.max_anisotropy = aniso;
+        d.u              = GfxSampAddress::ClampToBorder;
+        d.v              = GfxSampAddress::ClampToBorder;
+        d.w              = GfxSampAddress::ClampToBorder;
+        d.brd_clr        = brd_clr;
+        return d;
+    }
 
 }// namespace wmoge

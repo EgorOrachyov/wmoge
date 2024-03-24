@@ -30,10 +30,14 @@
 namespace wmoge {
 
     void IocContainer::clear() {
+        std::lock_guard guard(m_mutex);
+
         m_entries.clear();
     }
 
     void IocContainer::add(IocEntry&& entry) {
+        std::lock_guard guard(m_mutex);
+
         auto query = m_entries.find(entry.source_type.value());
 
         if (query != m_entries.end()) {
@@ -47,6 +51,8 @@ namespace wmoge {
     }
 
     void IocContainer::erase(std::type_index entry_type) {
+        std::lock_guard guard(m_mutex);
+
         auto iter = m_entries.find(entry_type);
         if (iter != m_entries.end()) {
             m_entries.erase(iter);
@@ -54,6 +60,8 @@ namespace wmoge {
     }
 
     std::optional<IocEntry*> IocContainer::get(std::type_index entry_type) {
+        std::lock_guard guard(m_mutex);
+
         auto query = m_entries.find(entry_type);
 
         if (query != m_entries.end()) {

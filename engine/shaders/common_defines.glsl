@@ -16,9 +16,9 @@
 #endif
 
 #if defined(TARGET_VULKAN)
-#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(set = set_idx, binding = binding_idx, fields_layout)
+    #define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(set = set_idx, binding = binding_idx, fields_layout)
 #else
-#define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(fields_layout)
+    #define LAYOUT_BUFFER(set_idx, binding_idx, fields_layout) layout(fields_layout)
 #endif
 
 #if defined(TARGET_VULKAN)

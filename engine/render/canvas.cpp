@@ -31,8 +31,8 @@
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "grc/grc_texture_manager.hpp"
 #include "render/shader_manager.hpp"
-#include "render/texture_manager.hpp"
 #include "system/engine.hpp"
 
 #include <cassert>
@@ -68,9 +68,9 @@ namespace wmoge {
     void CanvasSharedData::compile() {
         WG_AUTO_PROFILE_RENDER("CanvasSharedData::compile");
 
-        Engine*         engine      = Engine::instance();
-        GfxDriver*      gfx_drvier  = engine->gfx_driver();
-        TextureManager* tex_manager = engine->texture_manager();
+        Engine*            engine      = Engine::instance();
+        GfxDriver*         gfx_drvier  = engine->gfx_driver();
+        GrcTextureManager* tex_manager = engine->texture_manager();
 
         // Expecting to fit all textures in single set (mathces most use cases)
         const int textures_count         = int(tex_buffer.size());
@@ -98,8 +98,8 @@ namespace wmoge {
                     value.resource               = texture->get_texture().as<GfxResource>();
                     value.sampler                = texture->get_sampler();
                 } else {
-                    value.resource = tex_manager->get_gfx_default_texture_white().as<GfxResource>();
-                    value.sampler  = tex_manager->get_gfx_default_sampler();
+                    value.resource = tex_manager->get_texture(GrcDefaultTexture::White).as<GfxResource>();
+                    value.sampler  = tex_manager->get_sampler(GrcDefaultSampler::Default);
                 }
             }
 

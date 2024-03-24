@@ -29,14 +29,14 @@
 
 #include "core/cmd_line.hpp"
 #include "core/hook.hpp"
+#include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
     /** 
      * @class HookRootRemap
-     * @brief Engine hook to remap root game folder to other (for debug moslty)
+     * @brief Engine hook to remap root folder to other (for debug moslty)
      */
     class HookRootRemap : public Hook {
     public:
@@ -54,7 +54,8 @@ namespace wmoge {
             const std::string remap_path = cmd_line.get_string("root_remap");
 
             if (!remap_path.empty()) {
-                Engine::instance()->file_system()->root(remap_path);
+                FileSystem* fs = IocContainer::instance()->resolve<FileSystem>().value_or(nullptr);
+                fs->root(remap_path);
                 std::cout << "remap exe root to " << remap_path << std::endl;
             }
 

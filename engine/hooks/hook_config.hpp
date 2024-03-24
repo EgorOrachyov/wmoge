@@ -29,8 +29,8 @@
 
 #include "core/cmd_line.hpp"
 #include "core/hook.hpp"
+#include "core/ioc_container.hpp"
 #include "resource/config_file.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -52,14 +52,13 @@ namespace wmoge {
         }
 
         Status on_process(CmdLine& cmd_line) override {
-            Engine*     engine = Engine::instance();
-            ConfigFile* config = engine->config();
+            ConfigFile* config = IocContainer::instance()->resolve<ConfigFile>().value();
 
             if (!config->load_and_stack(cmd_line.get_string("config_engine"))) {
-                std::cerr << "failed to load config engine file, check your configure";
+                std::cerr << "failed to load config engine file, check your configuration file or path";
             }
             if (!config->load_and_stack(cmd_line.get_string("config_game"))) {
-                std::cerr << "failed to load config game file, check your configure";
+                std::cerr << "failed to load config game file, check your configure file of path";
             }
 
             return StatusCode::Ok;

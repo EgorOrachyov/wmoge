@@ -29,10 +29,10 @@
 
 #include "core/cmd_line.hpp"
 #include "core/hook.hpp"
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "io/enum.hpp"
 #include "resource/config_file.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -53,8 +53,7 @@ namespace wmoge {
         }
 
         Status on_process(CmdLine& cmd_line) override {
-            Engine*     engine = Engine::instance();
-            ConfigFile* config = engine->config();
+            ConfigFile* config = IocContainer::instance()->resolve<ConfigFile>().value();
 
             const bool no_logs = cmd_line.get_bool("disable_logs");
             if (no_logs) {
@@ -80,7 +79,7 @@ namespace wmoge {
                 WG_LOG_INFO("attach stdout log listener");
             }
             if (log_to_console) {
-                auto log_listener_console = std::make_shared<LogListenerConsole>(engine->console(), log_to_console_level);
+                auto log_listener_console = std::make_shared<LogListenerConsole>(IocContainer::instance()->resolve_v<Console>(), log_to_console_level);
                 Log::instance()->listen(log_listener_console);
                 WG_LOG_INFO("attach console log listener");
             }

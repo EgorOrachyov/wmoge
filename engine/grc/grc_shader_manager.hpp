@@ -26,3 +26,44 @@
 /**********************************************************************************/
 
 #pragma once
+
+#include "core/fast_map.hpp"
+#include "debug/console.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "grc/grc_shader.hpp"
+#include "grc/grc_shader_reflection.hpp"
+#include "grc/grc_shader_script.hpp"
+#include "grc/grc_texture_manager.hpp"
+#include "platform/file_system.hpp"
+
+#include <mutex>
+
+namespace wmoge {
+
+    /**
+     * @class GrcShaderManager
+     * @brief Manager for loading and compilation of shader scripts
+    */
+    class GrcShaderManager {
+    public:
+        GrcShaderManager();
+
+        Status                            load_script(const GrcShaderScriptFile& file);
+        Status                            fit_script(const Ref<GrcShaderScript>& script);
+        Ref<GrcShaderScript>              find_script(Strid name);
+        void                              add_global_type(const Ref<GrcShaderType>& type);
+        std::optional<Ref<GrcShaderType>> find_global_type(Strid name);
+
+    private:
+        fast_map<Strid, Ref<GrcShaderScript>> m_scripts;
+        fast_map<Strid, Ref<GrcShaderType>>   m_global_types;
+
+        GrcTextureManager* m_texture_manager;
+        FileSystem*        m_file_system;
+        GfxDriver*         m_gfx_driver;
+        Console*           m_console;
+
+        std::recursive_mutex m_mutex;
+    };
+
+}// namespace wmoge

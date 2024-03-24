@@ -44,6 +44,8 @@
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "grc/grc_shader_manager.hpp"
+#include "grc/grc_texture_manager.hpp"
 #include "hooks/hook_config.hpp"
 #include "hooks/hook_logs.hpp"
 #include "hooks/hook_profiler.hpp"
@@ -60,7 +62,6 @@
 #include "render/canvas.hpp"
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
-#include "render/texture_manager.hpp"
 #include "render/view_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
@@ -76,24 +77,130 @@
 
 namespace wmoge {
 
-    Status Application::on_register() {
-        IocContainer* ioc = IocContainer::instance();
-
+    static void bind_globals(IocContainer* ioc) {
         ioc->bind<HookList>();
         ioc->bind<CmdLine>();
+        ioc->bind<Time>();
+        ioc->bind<LayerStack>();
+        ioc->bind<ConfigFile>();
+        ioc->bind<FileSystem>();
+        ioc->bind<Console>();
+        ioc->bind<EventManager>();
+        ioc->bind<CallbackQueue>();
+        ioc->bind<ShaderManager>();
+        ioc->bind<GrcTextureManager>();
+        ioc->bind<GrcShaderManager>();
+        ioc->bind<RenderEngine>();
+        ioc->bind<ResourceManager>();
+        ioc->bind<EcsRegistry>();
+        ioc->bind<AuxDrawManager>();
+        ioc->bind<SceneManager>();
+        ioc->bind<ActionManager>();
+        ioc->bind<GameTokenManager>();
+        ioc->bind<Canvas>();
+        ioc->bind<ViewManager>();
 
-        return StatusCode::Ok;
+        ioc->bind_f<TaskManager, TaskManager>([ioc]() {
+            ConfigFile* config      = ioc->resolve_v<ConfigFile>();
+            const int   num_workers = config->get_int(SID("task_manager.workers"), 4);
+            return std::make_shared<TaskManager>(num_workers);
+        });
+
+        ioc->bind_f<GlfwWindowManager, GlfwWindowManager>([ioc]() {
+            ConfigFile* config     = ioc->resolve_v<ConfigFile>();
+            const bool  vsync      = config->get_bool(SID("gfx.vsync"), true);
+            const bool  client_api = false;
+            return std::make_shared<GlfwWindowManager>(vsync, client_api);
+        });
+
+        ioc->bind_f<GlfwInput, GlfwInput>([ioc]() {
+            GlfwWindowManager* window_manager = ioc->resolve_v<GlfwWindowManager>();
+            return window_manager->input();
+        });
+
+        ioc->bind_f<VKDriver, VKDriver>([ioc]() {
+            GlfwWindowManager* window_manager = ioc->resolve_v<GlfwWindowManager>();
+            Ref<Window>        window         = window_manager->primary_window();
+
+            VKInitInfo init_info;
+            init_info.window       = window;
+            init_info.app_name     = window->title();
+            init_info.engine_name  = "wmoge";
+            init_info.required_ext = window_manager->extensions();
+            init_info.factory      = window_manager->factory();
+
+            return std::make_shared<VKDriver>(std::move(init_info));
+        });
+
+        ioc->bind_f<GfxDriver, GfxDriver>([ioc]() {
+            return std::shared_ptr<GfxDriver>(ioc->resolve_v<VKDriver>()->driver_wrapper(), [](auto p) {});
+        });
+
+        ioc->bind_f<GfxCtx, GfxCtx>([ioc]() {
+            return std::shared_ptr<GfxCtx>(ioc->resolve_v<VKDriver>()->ctx_immediate_wrapper(), [](auto p) {});
+        });
+
+        ioc->bind_f<Profiler, Profiler>([]() {
+            auto profiler = std::make_shared<Profiler>();
+            Profiler::provide(profiler.get());
+            return profiler;
+        });
+
+        ioc->bind_f<Log, Log>([]() {
+            auto log = std::make_shared<Log>();
+            Log::provide(log.get());
+            return log;
+        });
+
+        ioc->bind_f<Engine, Engine>([]() {
+            auto engine = std::make_shared<Engine>();
+            Engine::provide(engine.get());
+            return engine;
+        });
+    }
+
+    static void unbind_globals(IocContainer* ioc) {
+        ioc->unbind<ViewManager>();
+        ioc->unbind<ActionManager>();
+        ioc->unbind<SceneManager>();
+        ioc->unbind<ResourceManager>();
+        ioc->unbind<ShaderManager>();
+        ioc->unbind<GrcShaderManager>();
+        ioc->unbind<GrcTextureManager>();
+        ioc->unbind<RenderEngine>();
+        ioc->unbind<AuxDrawManager>();
+        ioc->unbind<Canvas>();
+        ioc->unbind<VKDriver>();
+        ioc->unbind<GlfwInput>();
+        ioc->unbind<GlfwWindowManager>();
+        ioc->unbind<TaskManager>();
+        ioc->unbind<EventManager>();
+    }
+
+    static void register_classes() {
+        Class::register_types();
+        register_classes_event();
+        register_classes_resource();
+        register_classes_pfx();
+        register_classes_scene();
     }
 
     int Application::run(int argc, const char* const* argv) {
         IocContainer* ioc = IocContainer::instance();
+
+        bind_globals(ioc);
+        register_classes();
+
+        Log* log = ioc->resolve<Log>().value();
+
+        ioc->bind_i<Application>(std::shared_ptr<Application>(this, [](auto p) {}));
 
         on_register();
 
         CmdLine* cmd_line = ioc->resolve<CmdLine>().value();
         cmd_line->add_bool("h,help", "display help message", "false");
 
-        on_hook();
+        signal_hook.emit();
 
         HookList* hook_list = ioc->resolve<HookList>().value();
         hook_list->each([&](HookList::HookPtr& hook) {
@@ -169,128 +276,36 @@ namespace wmoge {
         }
         signal_after_shutdown.emit();
 
+        unbind_globals(ioc);
+
         ioc->clear();
 
         return 0;
     }
 
-    Status BaseApplication::on_register() {
-        Application::on_register();
-
-        Class::register_types();
-        register_classes_event();
-        register_classes_resource();
-        register_classes_pfx();
-        register_classes_scene();
-
-        IocContainer* ioc = IocContainer::instance();
-
-        ioc->bind<Time>();
-        ioc->bind<LayerStack>();
-        ioc->bind<ConfigFile>();
-        ioc->bind<FileSystem>();
-        ioc->bind<Profiler>();
-        ioc->bind<Console>();
-        ioc->bind<EventManager>();
-        ioc->bind<CallbackQueue>();
-        ioc->bind<ShaderManager>();
-        ioc->bind<TextureManager>();
-        ioc->bind<RenderEngine>();
-        ioc->bind<ResourceManager>();
-        ioc->bind<EcsRegistry>();
-        ioc->bind<AuxDrawManager>();
-        ioc->bind<SceneManager>();
-        ioc->bind<ActionManager>();
-        ioc->bind<GameTokenManager>();
-        ioc->bind<Canvas>();
-        ioc->bind<ViewManager>();
-
-        ioc->bind_f<TaskManager, TaskManager>([]() {
-            ConfigFile* config = Engine::instance()->config();
-
-            return std::make_shared<TaskManager>(config->get_int(SID("task_manager.workers"), 4));
+    Status GameApplication::on_register() {
+        signal_hook.bind([]() {
+            HookList* hook_list = IocContainer::instance()->resolve<HookList>().value();
+            hook_list->attach(std::make_shared<HookUuidGen>());
+            hook_list->attach(std::make_shared<HookRootRemap>());
+            hook_list->attach(std::make_shared<HookConfig>());
+            hook_list->attach(std::make_shared<HookLogs>());
+            hook_list->attach(std::make_shared<HookProfiler>());
         });
 
-        ioc->bind_f<GlfwWindowManager, GlfwWindowManager>([]() {
-            ConfigFile* config = Engine::instance()->config();
-
-            const bool vsync      = config->get_bool(SID("gfx.vsync"), true);
-            const bool client_api = false;
-
-            return std::make_shared<GlfwWindowManager>(vsync, client_api);
-        });
-
-        ioc->bind_f<VKDriver, VKDriver>([]() {
-            GlfwWindowManager* window_manager = IocContainer::instance()->resolve<GlfwWindowManager>().value();
-            Ref<Window>        window         = window_manager->primary_window();
-
-            VKInitInfo init_info;
-            init_info.window       = window;
-            init_info.app_name     = window->title();
-            init_info.engine_name  = "wmoge";
-            init_info.required_ext = window_manager->extensions();
-            init_info.factory      = window_manager->factory();
-
-            return std::make_shared<VKDriver>(std::move(init_info));
-        });
-
-        Engine* engine = Engine::instance();
-        return engine->setup(this);
-    }
-
-    Status BaseApplication::on_hook() {
-        Application::on_hook();
-
-        IocContainer* ioc = IocContainer::instance();
-
-        HookList* hook_list = ioc->resolve<HookList>().value();
-
-        hook_list->attach(std::make_shared<HookUuidGen>());
-        hook_list->attach(std::make_shared<HookRootRemap>());
-        hook_list->attach(std::make_shared<HookConfig>());
-        hook_list->attach(std::make_shared<HookLogs>());
-        hook_list->attach(std::make_shared<HookProfiler>());
-
-        return StatusCode::Ok;
+        return IocContainer::instance()->resolve<Engine>().value()->setup(this);
     }
 
     Status GameApplication::on_init() {
-        BaseApplication::on_init();
-
-        Engine* engine = Engine::instance();
-        return engine->init();
+        return Engine::instance()->init();
     }
 
     Status GameApplication::on_loop() {
-        BaseApplication::on_loop();
-
-        Engine* engine = Engine::instance();
-        return engine->iteration();
+        return Engine::instance()->iteration();
     }
 
     Status GameApplication::on_shutdown() {
-        Engine* engine = Engine::instance();
-        engine->shutdown();
-
-        IocContainer* ioc = IocContainer::instance();
-
-        ioc->unbind<ViewManager>();
-        ioc->unbind<ActionManager>();
-        ioc->unbind<SceneManager>();
-        ioc->unbind<ResourceManager>();
-        ioc->unbind<ShaderManager>();
-        ioc->unbind<TextureManager>();
-        ioc->unbind<RenderEngine>();
-        ioc->unbind<AuxDrawManager>();
-        ioc->unbind<Canvas>();
-        ioc->unbind<VKDriver>();
-        ioc->unbind<GlfwWindowManager>();
-        ioc->unbind<TaskManager>();
-        ioc->unbind<EventManager>();
-
-        BaseApplication::on_shutdown();
-
-        return StatusCode::Ok;
+        return Engine::instance()->shutdown();
     }
 
     bool GameApplication::should_close() {

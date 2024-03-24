@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "grc_shader_class.hpp"
+#include "grc_shader_script.hpp"
 
 #include "glsl/glsl_include_processor.hpp"
 
@@ -33,11 +33,71 @@
 
 namespace wmoge {
 
-    GrcShaderClass::GrcShaderClass(GrcShaderReflection&& reflection)
+    WG_IO_BEGIN_NMSP(GrcShaderScriptFile, Option)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD(variants)
+    WG_IO_END_NMSP(GrcShaderScriptFile, Option);
+
+    WG_IO_BEGIN_NMSP(GrcShaderScriptFile, Param)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD(type)
+    WG_IO_FIELD_OPT(elements)
+    WG_IO_FIELD_OPT(value)
+    WG_IO_FIELD_OPT(ui_name)
+    WG_IO_FIELD_OPT(ui_hint)
+    WG_IO_FIELD_OPT(binding)
+    WG_IO_END_NMSP(GrcShaderScriptFile, Param);
+
+    WG_IO_BEGIN_NMSP(GrcShaderScriptFile, ParamBlock)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD_OPT(type)
+    WG_IO_FIELD(params)
+    WG_IO_END_NMSP(GrcShaderScriptFile, ParamBlock);
+
+    WG_IO_BEGIN_NMSP(GrcShaderScriptFile, Pass)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD_OPT(state)
+    WG_IO_FIELD_OPT(options)
+    WG_IO_FIELD_OPT(tags)
+    WG_IO_END_NMSP(GrcShaderScriptFile, Pass);
+
+    WG_IO_BEGIN_NMSP(GrcShaderScriptFile, Technique)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD_OPT(options)
+    WG_IO_FIELD(passes)
+    WG_IO_FIELD_OPT(tags)
+    WG_IO_END_NMSP(GrcShaderScriptFile, Technique);
+
+    WG_IO_BEGIN_NMSP(GrcShaderScriptFile, Source)
+    WG_IO_FIELD(file)
+    WG_IO_FIELD(module)
+    WG_IO_END_NMSP(GrcShaderScriptFile, Source);
+
+    WG_IO_BEGIN(GrcShaderScriptFile)
+    WG_IO_FIELD(name)
+    WG_IO_FIELD_OPT(extends)
+    WG_IO_FIELD_OPT(ui_name)
+    WG_IO_FIELD_OPT(ui_hint)
+    WG_IO_FIELD(param_blocks)
+    WG_IO_FIELD(techniques)
+    WG_IO_FIELD(sources)
+    WG_IO_END(GrcShaderScriptFile);
+
+    GrcShaderScript::GrcShaderScript(GrcShaderReflection&& reflection)
         : m_reflection(std::move(reflection)) {
     }
 
-    GrcShaderParamId GrcShaderClass::get_param_id(Strid name) {
+    std::optional<std::int16_t> GrcShaderScript::find_techique(Strid name) {
+        auto r = m_reflection.techniques_map.find(name);
+        return r != m_reflection.techniques_map.end() ? std::optional<std::int16_t>(r->second) : std::nullopt;
+    }
+
+    std::optional<std::int16_t> GrcShaderScript::find_pass(std::int16_t technique, Strid name) {
+        auto r = m_reflection.techniques[technique].passes_map.find(name);
+        return r != m_reflection.techniques[technique].passes_map.end() ? std::optional<std::int16_t>(r->second) : std::nullopt;
+    }
+
+    GrcShaderParamId GrcShaderScript::get_param_id(Strid name) {
         auto query = m_reflection.params_id.find(name);
 
         if (query != m_reflection.params_id.end()) {
@@ -47,7 +107,7 @@ namespace wmoge {
         return GrcShaderParamId();
     }
 
-    std::optional<GrcShaderParamInfo*> GrcShaderClass::get_param_info(GrcShaderParamId id) {
+    std::optional<GrcShaderParamInfo*> GrcShaderScript::get_param_info(GrcShaderParamId id) {
         if (id.is_invalid()) {
             return std::nullopt;
         }
@@ -58,11 +118,7 @@ namespace wmoge {
         return &m_reflection.params_info[id.index];
     }
 
-    void GrcShaderClass::set_idx(int idx) {
-        m_idx = idx;
-    }
-
-    Status GrcShaderClass::reload_sources(const std::string& folder, FileSystem* fs) {
+    Status GrcShaderScript::reload_sources(const std::string& folder, FileSystem* fs) {
         fast_vector<GrcShaderInclude>    new_includes;
         fast_vector<GrcShaderSourceFile> new_sources;
         fast_set<Strid>                  new_dependencies;
@@ -102,7 +158,7 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status GrcShaderClass::fill_layout(GfxDescSetLayoutDesc& desc, int space) const {
+    Status GrcShaderScript::fill_layout(GfxDescSetLayoutDesc& desc, int space) const {
         assert(0 <= space && space < m_reflection.spaces.size());
 
         const GrcShaderSpace& shader_space = m_reflection.spaces[space];
@@ -144,11 +200,11 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    bool GrcShaderClass::has_dependency(const Strid& dependency) const {
+    bool GrcShaderScript::has_dependency(const Strid& dependency) const {
         return m_reflection.dependencies.find(dependency) != m_reflection.dependencies.end();
     }
 
-    bool GrcShaderClass::has_space(GrcShaderSpaceType space_type) const {
+    bool GrcShaderScript::has_space(GrcShaderSpaceType space_type) const {
         for (const GrcShaderSpace& space : m_reflection.spaces) {
             if (space.type == space_type) {
                 return true;

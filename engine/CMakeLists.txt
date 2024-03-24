@@ -187,20 +187,28 @@ add_library(wmoge STATIC
         glsl/glsl_include_processor.hpp
         glsl/glsl_shader_compiler.cpp
         glsl/glsl_shader_compiler.hpp
-        grc/grc_shader_class_builder.cpp
-        grc/grc_shader_class_builder.hpp
-        grc/grc_shader_class.cpp
-        grc/grc_shader_class.hpp
         grc/grc_shader_manager.cpp
         grc/grc_shader_manager.hpp
         grc/grc_shader_param_block.cpp
         grc/grc_shader_param_block.hpp
         grc/grc_shader_param.cpp
         grc/grc_shader_param.hpp
+        grc/grc_shader_pass.cpp
+        grc/grc_shader_pass.hpp
         grc/grc_shader_reflection.cpp
         grc/grc_shader_reflection.hpp
+        grc/grc_shader_script_builder.cpp
+        grc/grc_shader_script_builder.hpp
+        grc/grc_shader_script.cpp
+        grc/grc_shader_script.hpp
         grc/grc_shader.cpp
         grc/grc_shader.hpp
+        grc/grc_texture_compression.cpp
+        grc/grc_texture_compression.hpp
+        grc/grc_texture_manager.cpp
+        grc/grc_texture_manager.hpp
+        grc/grc_texture_resize.cpp
+        grc/grc_texture_resize.hpp
         hgfx/hgfx_pass.cpp
         hgfx/hgfx_pass.hpp
         hgfx/hgfx_pass_base.cpp
@@ -316,12 +324,6 @@ add_library(wmoge STATIC
         render/shader_manager.hpp
         render/shader_pass.cpp
         render/shader_pass.hpp
-        render/texture_compression.cpp
-        render/texture_compression.hpp
-        render/texture_manager.cpp
-        render/texture_manager.hpp
-        render/texture_resize.cpp
-        render/texture_resize.hpp
         render/view.cpp
         render/view.hpp
         render/view_manager.cpp

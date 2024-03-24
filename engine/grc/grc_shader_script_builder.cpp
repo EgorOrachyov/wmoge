@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "grc_shader_class_builder.hpp"
+#include "grc_shader_script_builder.hpp"
 
 #include "core/string_utils.hpp"
 #include "math/vec.hpp"
@@ -35,11 +35,11 @@
 
 namespace wmoge {
 
-    GrcShaderClassBuilder::StructBuilder::StructBuilder(GrcShaderClassBuilder& owner, Ref<GrcShaderType> struct_type)
+    GrcShaderScriptBuilder::StructBuilder::StructBuilder(GrcShaderScriptBuilder& owner, Ref<GrcShaderType> struct_type)
         : m_owner(owner), m_struct_type(struct_type) {
     }
 
-    GrcShaderClassBuilder::StructBuilder& GrcShaderClassBuilder::StructBuilder::add_field(Strid name, Strid struct_type) {
+    GrcShaderScriptBuilder::StructBuilder& GrcShaderScriptBuilder::StructBuilder::add_field(Strid name, Strid struct_type) {
         GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
         field.name                  = name;
         field.type                  = m_owner.m_reflection.declarations[struct_type];
@@ -47,7 +47,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::StructBuilder& GrcShaderClassBuilder::StructBuilder::add_field(Strid name, Ref<GrcShaderType> type, Var value) {
+    GrcShaderScriptBuilder::StructBuilder& GrcShaderScriptBuilder::StructBuilder::add_field(Strid name, Ref<GrcShaderType> type, Var value) {
         GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
         field.name                  = name;
         field.type                  = type;
@@ -56,7 +56,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::StructBuilder& GrcShaderClassBuilder::StructBuilder::add_field_array(Strid name, Strid struct_type, int n_elements) {
+    GrcShaderScriptBuilder::StructBuilder& GrcShaderScriptBuilder::StructBuilder::add_field_array(Strid name, Strid struct_type, int n_elements) {
         GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
         field.name                  = name;
         field.type                  = m_owner.m_reflection.declarations[struct_type];
@@ -66,7 +66,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::StructBuilder& GrcShaderClassBuilder::StructBuilder::add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements, Var value) {
+    GrcShaderScriptBuilder::StructBuilder& GrcShaderScriptBuilder::StructBuilder::add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements, Var value) {
         GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
         field.name                  = name;
         field.type                  = type;
@@ -77,15 +77,15 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::StructBuilder::end_struct() {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::StructBuilder::end_struct() {
         return m_owner;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder::SpaceBuilder(GrcShaderClassBuilder& owner, GrcShaderSpace& space)
+    GrcShaderScriptBuilder::SpaceBuilder::SpaceBuilder(GrcShaderScriptBuilder& owner, GrcShaderSpace& space)
         : m_owner(owner), m_space(space) {
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_inline_uniform_buffer(Strid name, Strid type_struct) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_inline_uniform_buffer(Strid name, Strid type_struct) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::InlineUniformBuffer;
@@ -94,7 +94,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_uniform_buffer(Strid name, Strid type_struct) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_uniform_buffer(Strid name, Strid type_struct) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::UniformBuffer;
@@ -103,7 +103,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_texture_2d(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_texture_2d(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::Sampler2d;
@@ -113,7 +113,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_texture_2d_array(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_texture_2d_array(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::Sampler2dArray;
@@ -123,7 +123,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_texture_cube(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_texture_cube(Strid name, Ref<GfxTexture> texture, Ref<GfxSampler> sampler) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::SamplerCube;
@@ -133,7 +133,7 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_storage_buffer(Strid name, Strid type_struct) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_storage_buffer(Strid name, Strid type_struct) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::StorageBuffer;
@@ -142,22 +142,22 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::SpaceBuilder& GrcShaderClassBuilder::SpaceBuilder::add_storage_image_2d(Strid name) {
+    GrcShaderScriptBuilder::SpaceBuilder& GrcShaderScriptBuilder::SpaceBuilder::add_storage_image_2d(Strid name) {
         GrcShaderBinding& binding = m_space.bindings.emplace_back();
         binding.name              = name;
         binding.binding           = GrcShaderBindingType::StorageImage2d;
         return *this;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::SpaceBuilder::end_space() {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::SpaceBuilder::end_space() {
         return m_owner;
     }
 
-    GrcShaderClassBuilder::PassBuilder::PassBuilder(GrcShaderClassBuilder& owner, GrcShaderPass& pass, TechniqueBuilder& technique)
+    GrcShaderScriptBuilder::PassBuilder::PassBuilder(GrcShaderScriptBuilder& owner, GrcShaderPassInfo& pass, TechniqueBuilder& technique)
         : m_owner(owner), m_pass(pass), m_technique(technique) {
     }
 
-    GrcShaderClassBuilder::PassBuilder& GrcShaderClassBuilder::PassBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
+    GrcShaderScriptBuilder::PassBuilder& GrcShaderScriptBuilder::PassBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
         GrcShaderOption& option = m_pass.options.options.emplace_back();
         option.name             = name;
 
@@ -170,20 +170,31 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::PassBuilder& GrcShaderClassBuilder::PassBuilder::add_state(const GrcPipelineState& state) {
+    GrcShaderScriptBuilder::PassBuilder& GrcShaderScriptBuilder::PassBuilder::add_ui_info(const std::string& name, const std::string& hint) {
+        m_pass.ui_name = name;
+        m_pass.ui_hint = hint;
+        return *this;
+    }
+
+    GrcShaderScriptBuilder::PassBuilder& GrcShaderScriptBuilder::PassBuilder::add_state(const GrcPipelineState& state) {
         m_pass.state = state;
         return *this;
     }
 
-    GrcShaderClassBuilder::TechniqueBuilder& GrcShaderClassBuilder::PassBuilder::end_pass() {
+    GrcShaderScriptBuilder::PassBuilder& GrcShaderScriptBuilder::PassBuilder::add_tag(Strid name, Var value) {
+        m_pass.tags[name] = std::move(value);
+        return *this;
+    }
+
+    GrcShaderScriptBuilder::TechniqueBuilder& GrcShaderScriptBuilder::PassBuilder::end_pass() {
         return m_technique;
     }
 
-    GrcShaderClassBuilder::TechniqueBuilder::TechniqueBuilder(GrcShaderClassBuilder& owner, GrcShaderTechnique& technique)
+    GrcShaderScriptBuilder::TechniqueBuilder::TechniqueBuilder(GrcShaderScriptBuilder& owner, GrcShaderTechniqueInfo& technique)
         : m_owner(owner), m_technique(technique) {
     }
 
-    GrcShaderClassBuilder::TechniqueBuilder& GrcShaderClassBuilder::TechniqueBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
+    GrcShaderScriptBuilder::TechniqueBuilder& GrcShaderScriptBuilder::TechniqueBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
         GrcShaderOption& option = m_technique.options.options.emplace_back();
         option.name             = name;
 
@@ -196,29 +207,47 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::PassBuilder GrcShaderClassBuilder::TechniqueBuilder::add_pass(Strid name) {
-        GrcShaderPass& pass = m_technique.passes.emplace_back();
-        pass.name           = name;
+    GrcShaderScriptBuilder::TechniqueBuilder& GrcShaderScriptBuilder::TechniqueBuilder::add_tag(Strid name, Var value) {
+        m_technique.tags[name] = std::move(value);
+        return *this;
+    }
+
+    GrcShaderScriptBuilder::TechniqueBuilder& GrcShaderScriptBuilder::TechniqueBuilder::add_ui_info(const std::string& name, const std::string& hint) {
+        m_technique.ui_name = name;
+        m_technique.ui_hint = hint;
+        return *this;
+    }
+
+    GrcShaderScriptBuilder::PassBuilder GrcShaderScriptBuilder::TechniqueBuilder::add_pass(Strid name) {
+        GrcShaderPassInfo& pass      = m_technique.passes.emplace_back();
+        pass.name                    = name;
+        m_technique.passes_map[name] = m_next_pass_idx++;
         return PassBuilder(m_owner, pass, *this);
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::TechniqueBuilder::end_technique() {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::TechniqueBuilder::end_technique() {
         return m_owner;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::set_name(Strid name) {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::set_name(Strid name) {
         m_reflection.shader_name = name;
         return *this;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::add_source(Strid file, GfxShaderModule module) {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::add_ui_info(const std::string& name, const std::string& hint) {
+        m_reflection.ui_name = name;
+        m_reflection.ui_hint = hint;
+        return *this;
+    }
+
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::add_source(Strid file, GfxShaderModule module) {
         GrcShaderSourceFile& source_file = m_reflection.sources.emplace_back();
         source_file.name                 = file;
         source_file.module               = module;
         return *this;
     }
 
-    GrcShaderClassBuilder& GrcShaderClassBuilder::add_constant(Strid name, Var value) {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::add_constant(Strid name, Var value) {
         GrcShaderConstant& constant = m_reflection.constants.emplace_back();
         constant.name               = name;
         constant.str                = value.to_string();
@@ -226,7 +255,21 @@ namespace wmoge {
         return *this;
     }
 
-    GrcShaderClassBuilder::StructBuilder GrcShaderClassBuilder::add_struct(Strid name, int byte_size) {
+    GrcShaderScriptBuilder& GrcShaderScriptBuilder::add_struct(const Ref<GrcShaderType>& struct_type) {
+        assert(struct_type);
+        assert(struct_type->type == GrcShaderBaseType::Struct);
+        m_reflection.declarations[struct_type->name] = struct_type;
+
+        for (const auto& field : struct_type->fields) {
+            if (field.type->type == GrcShaderBaseType::Struct) {
+                add_struct(field.type);
+            }
+        }
+
+        return *this;
+    }
+
+    GrcShaderScriptBuilder::StructBuilder GrcShaderScriptBuilder::add_struct(Strid name, int byte_size) {
         Ref<GrcShaderType> struct_type  = make_ref<GrcShaderType>();
         struct_type->name               = name;
         struct_type->type               = GrcShaderBaseType::Struct;
@@ -235,21 +278,21 @@ namespace wmoge {
         return StructBuilder(*this, struct_type);
     }
 
-    GrcShaderClassBuilder::SpaceBuilder GrcShaderClassBuilder::add_space(Strid name, GrcShaderSpaceType type) {
+    GrcShaderScriptBuilder::SpaceBuilder GrcShaderScriptBuilder::add_space(Strid name, GrcShaderSpaceType type) {
         GrcShaderSpace& space = m_reflection.spaces.emplace_back();
         space.name            = name;
         space.type            = type;
         return SpaceBuilder(*this, space);
     }
 
-    GrcShaderClassBuilder::TechniqueBuilder GrcShaderClassBuilder::add_technique(Strid name) {
-        GrcShaderTechnique& technique     = m_reflection.techniques.emplace_back();
+    GrcShaderScriptBuilder::TechniqueBuilder GrcShaderScriptBuilder::add_technique(Strid name) {
+        GrcShaderTechniqueInfo& technique = m_reflection.techniques.emplace_back();
         technique.name                    = name;
         m_reflection.techniques_map[name] = m_next_technique_idx++;
         return TechniqueBuilder(*this, technique);
     }
 
-    Status GrcShaderClassBuilder::finish(std::shared_ptr<GrcShaderClass>& shader_class) {
+    Status GrcShaderScriptBuilder::finish(Ref<GrcShaderScript>& shader_script) {
         for (const auto& [name, type] : m_reflection.declarations) {
             int byte_size = 0;
 
@@ -299,7 +342,7 @@ namespace wmoge {
                                 return StatusCode::Error;
                             }
 
-                            const std::string param_name_base = binding.name.str() + "." + field.name.str();
+                            const std::string param_name_base = field.name.str();
                             const Var&        default_var     = field.default_value;
 
                             GrcShaderParamInfo& field_param = m_reflection.params_info.emplace_back();
@@ -453,7 +496,7 @@ namespace wmoge {
             }
         }
 
-        shader_class = std::make_shared<GrcShaderClass>(std::move(m_reflection));
+        shader_script = make_ref<GrcShaderScript>(std::move(m_reflection));
         return StatusCode::Ok;
     }
 

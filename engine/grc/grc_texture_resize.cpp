@@ -25,34 +25,78 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "texture_manager.hpp"
+#include "grc_texture_resize.hpp"
 
 #include "debug/profiler.hpp"
-#include "gfx/gfx_ctx.hpp"
-#include "gfx/gfx_driver.hpp"
-#include "system/engine.hpp"
+#include "math/math_utils.hpp"
 
 namespace wmoge {
 
-    TextureManager::TextureManager() {
-        WG_AUTO_PROFILE_RENDER("TextureManager::TextureManager");
+    WG_IO_BEGIN(GrcTexResizeParams)
+    WG_IO_FIELD_OPT(preset)
+    WG_IO_FIELD_OPT(auto_adjust)
+    WG_IO_FIELD_OPT(minify)
+    WG_IO_END(GrcTexResizeParams)
 
-        Engine* engine = Engine::instance();
-        m_gfx_driver   = engine->gfx_driver();
-        m_gfx_ctx      = engine->gfx_ctx();
+    Status GrcTexResize::resize(const GrcTexResizeParams& params, Image& image) {
+        WG_AUTO_PROFILE_RENDER("GrcTexResize::resize");
 
-        unsigned char white[] = {0xff, 0xff, 0xff, 0xff};
-        unsigned char black[] = {0x00, 0x00, 0x00, 0xff};
-        unsigned char red[]   = {0xff, 0x00, 0x00, 0xff};
+        GrcTexSizePreset preset = params.preset;
 
-        m_gfx_default_sampler       = m_gfx_driver->make_sampler(GfxSamplerDesc{}, SID("default"));
-        m_gfx_default_texture_white = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("default_1x1_white"));
-        m_gfx_default_texture_black = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("default_1x1_black"));
-        m_gfx_default_texture_red   = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID("default_1x1_red"));
+        if (params.auto_adjust || preset == GrcTexSizePreset::None) {
+            int w = image.get_width();
+            int h = image.get_height();
 
-        m_gfx_ctx->update_texture_2d(m_gfx_default_texture_white, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(white, sizeof(white)));
-        m_gfx_ctx->update_texture_2d(m_gfx_default_texture_black, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(black, sizeof(black)));
-        m_gfx_ctx->update_texture_2d(m_gfx_default_texture_red, 0, Rect2i(0, 0, 1, 1), make_ref<Data>(red, sizeof(red)));
+            if (params.minify) {
+                w = Math::min(w, h);
+                h = Math::min(w, h);
+            } else {
+                w = Math::max(w, h);
+                h = Math::max(w, h);
+            }
+
+            preset = fit_preset(w, h);
+        }
+
+        assert(preset != GrcTexSizePreset::None);
+        const Vec2i size = preset_to_size(preset);
+
+        return image.resize(size.x(), size.y());
+    }
+
+    Vec2i GrcTexResize::preset_to_size(GrcTexSizePreset preset) {
+        switch (preset) {
+            case GrcTexSizePreset::Size128x128:
+                return Vec2i(128, 128);
+            case GrcTexSizePreset::Size256x256:
+                return Vec2i(256, 256);
+            case GrcTexSizePreset::Size512x512:
+                return Vec2i(512, 512);
+            case GrcTexSizePreset::Size1024x1024:
+                return Vec2i(1024, 1024);
+            case GrcTexSizePreset::Size2048x2048:
+                return Vec2i(2048, 2048);
+            case GrcTexSizePreset::Size4096x4096:
+                return Vec2i(4096, 4096);
+            default:
+                return Vec2i(0, 0);
+        }
+    }
+
+    GrcTexSizePreset GrcTexResize::fit_preset(int width, int height) {
+        if (width == 0 || height == 0) {
+            return GrcTexSizePreset::None;
+        }
+
+        GrcTexSizePreset preset = GrcTexSizePreset::Size128x128;
+        Vec2i            size   = preset_to_size(preset);
+
+        while (size.x() < width && size.y() < height && preset != GrcTexSizePreset::Size4096x4096) {
+            preset = static_cast<GrcTexSizePreset>(static_cast<int>(preset) + 1);
+            size   = preset_to_size(preset);
+        }
+
+        return preset;
     }
 
 }// namespace wmoge

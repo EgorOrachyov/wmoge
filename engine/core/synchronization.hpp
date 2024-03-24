@@ -32,6 +32,8 @@
 #include <ttas_spin_mutex.hpp>
 #include <yamc_rwlock_sched.hpp>
 
+#include <mutex>
+
 namespace wmoge {
 
     /**

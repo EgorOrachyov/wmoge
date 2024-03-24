@@ -27,45 +27,52 @@
 
 #pragma once
 
-#include "gfx/gfx_sampler.hpp"
-#include "gfx/gfx_texture.hpp"
 #include "resource/image.hpp"
-#include "resource/texture.hpp"
 
 namespace wmoge {
 
-    struct TexDesc {
-        Strid     name;
-        int       width        = 0;
-        int       height       = 0;
-        int       depth        = 1;
-        int       array_slices = 1;
-        int       mips         = 1;
-        bool      resource     = false;
-        GfxFormat format       = GfxFormat::Unknown;
+    /**
+     * @brief Available texture resources sizes for optimized memory usage
+    */
+    enum GrcTexSizePreset {
+        None = 0,
+        Size128x128,
+        Size256x256,
+        Size512x512,
+        Size1024x1024,
+        Size2048x2048,
+        Size4096x4096
     };
 
     /**
-     * @class TextureManager
-     * @brief Manages allocation and streaming of all engine textures
-     */
-    class TextureManager final {
+     * @class GrcTexResizeParams
+     * @brief Params to resize source texture image content (on import)
+    */
+    struct GrcTexResizeParams {
+        GrcTexSizePreset preset      = GrcTexSizePreset::None;
+        bool             auto_adjust = true;
+        bool             minify      = true;
+
+        WG_IO_DECLARE(GrcTexResizeParams);
+    };
+
+    /**
+     * @class GrcTexResize
+     * @brief Handles image data resize before texture creation
+    */
+    class GrcTexResize {
     public:
-        TextureManager();
+        /**
+         * Resizes provided image according to the params given
+         * 
+         * @param params Resize options
+         * @param image Inout image to be resized
+         * @param preset Out preset given image
+        */
+        static Status resize(const GrcTexResizeParams& params, Image& image);
 
-        [[nodiscard]] const Ref<GfxTexture>& get_gfx_default_texture_white() const { return m_gfx_default_texture_white; }
-        [[nodiscard]] const Ref<GfxTexture>& get_gfx_default_texture_black() const { return m_gfx_default_texture_black; }
-        [[nodiscard]] const Ref<GfxTexture>& get_gfx_default_texture_red() const { return m_gfx_default_texture_red; }
-        [[nodiscard]] const Ref<GfxSampler>& get_gfx_default_sampler() const { return m_gfx_default_sampler; }
-
-    private:
-        Ref<GfxTexture> m_gfx_default_texture_white;
-        Ref<GfxTexture> m_gfx_default_texture_black;
-        Ref<GfxTexture> m_gfx_default_texture_red;
-        Ref<GfxSampler> m_gfx_default_sampler;
-
-        class GfxDriver* m_gfx_driver;
-        class GfxCtx*    m_gfx_ctx;
+        static Vec2i            preset_to_size(GrcTexSizePreset preset);
+        static GrcTexSizePreset fit_preset(int width, int height);
     };
 
 }// namespace wmoge

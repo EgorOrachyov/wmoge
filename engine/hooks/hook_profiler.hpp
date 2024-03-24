@@ -29,11 +29,11 @@
 
 #include "core/cmd_line.hpp"
 #include "core/hook.hpp"
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "platform/application.hpp"
 #include "resource/config_file.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -54,10 +54,9 @@ namespace wmoge {
         }
 
         Status on_process(CmdLine& cmd_line) override {
-            Engine*      engine      = Engine::instance();
-            ConfigFile*  config      = engine->config();
-            Profiler*    profiler    = engine->profiler();
-            Application* application = engine->application();
+            ConfigFile*  config      = IocContainer::instance()->resolve_v<ConfigFile>();
+            Profiler*    profiler    = IocContainer::instance()->resolve_v<Profiler>();
+            Application* application = IocContainer::instance()->resolve_v<Application>();
 
             enable_profiler = enable_profiler || cmd_line.get_bool("profiler");
             enable_profiler = enable_profiler || config->get_bool(SID("debug.profiler"), false);

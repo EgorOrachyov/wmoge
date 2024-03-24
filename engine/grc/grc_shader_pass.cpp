@@ -25,46 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "core/fast_vector.hpp"
-#include "grc/grc_shader_reflection.hpp"
-#include "grc/grc_shader_script.hpp"
+#include "grc_shader_pass.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class GrcShaderPermutation
-     * @brief Defines a particular variant of a compiled shader
-    */
-    struct GrcShaderPermutation {
-        static constexpr int MAX_OPTIONS = 64;
-
-        std::bitset<MAX_OPTIONS> options;
-        std::int16_t             technique_idx;
-        std::int16_t             pass_idx;
-        GfxVertAttribs           vert_attribs;
-    };
-
-    /**
-     * @class GrcShader
-     * @brief Shader is an instance of shader class for rendering
-     * 
-     * GrcShader in an instance of shader class. It allows to select a particular pass 
-     * and options for program, configure params, and render geometry, dispatch compute
-     * shader or configure a particular shader pass.
-     * 
-     * GrcShader provides pass and options info for gpu program compilation. In some
-     * cases it may require vertex format as well for rendering passes. 
-     * 
-     * GrcShader may be used itself for internal rendering, or a base for compilation
-     * of passes for optimized engine models/meshes rendering.
-    */
-    class GrcShader {
-    public:
-    private:
-        std::int16_t     m_techique_idx = -1;
-        GrcShaderScript* m_class;
-    };
-
-}// namespace wmoge
+}

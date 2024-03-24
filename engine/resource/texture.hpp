@@ -30,9 +30,9 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/grc_texture_compression.hpp"
+#include "grc/grc_texture_resize.hpp"
 #include "io/serialization.hpp"
-#include "render/texture_compression.hpp"
-#include "render/texture_resize.hpp"
 #include "resource/image.hpp"
 #include "resource/resource.hpp"
 
@@ -43,13 +43,13 @@ namespace wmoge {
      * @brief Options (base) to import texture
      */
     struct TextureImportOptions {
-        int                  channels = 4;
-        GfxFormat            format   = GfxFormat::RGBA8;
-        bool                 mipmaps  = true;
-        bool                 srgb     = true;
-        GfxSamplerDesc       sampling{};
-        TexCompressionParams compression{};
-        TexResizeParams      resizing{};
+        int                     channels = 4;
+        GfxFormat               format   = GfxFormat::RGBA8;
+        bool                    mipmaps  = true;
+        bool                    srgb     = true;
+        GfxSamplerDesc          sampling{};
+        GrcTexCompressionParams compression{};
+        GrcTexResizeParams      resizing{};
 
         WG_IO_DECLARE(TextureImportOptions);
     };
@@ -112,7 +112,7 @@ namespace wmoge {
         virtual void set_source_images(std::vector<Ref<Image>> images);
         virtual void set_sampler(const Ref<GfxSampler>& sampler);
         virtual void set_sampler_from_desc(const GfxSamplerDesc& desc);
-        virtual void set_compression(const TexCompressionParams& params);
+        virtual void set_compression(const GrcTexCompressionParams& params);
 
         /** @brief Generate mip-chain for the image using source 0-mip faces data */
         virtual Status generate_mips();
@@ -137,7 +137,7 @@ namespace wmoge {
         [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_mem_usage; }
         [[nodiscard]] GfxTexUsages                     get_usages() const { return m_usages; }
         [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
-        [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_compression; }
+        [[nodiscard]] const GrcTexCompressionParams&   get_compression() const { return m_compression; }
 
         Status copy_to(Object& other) const override;
 
@@ -158,7 +158,7 @@ namespace wmoge {
         GfxMemUsage               m_mem_usage         = GfxMemUsage::GpuLocal;
         GfxTexUsages              m_usages            = {GfxTexUsageFlag::Sampling};
         bool                      m_srgb              = false;
-        TexCompressionParams      m_compression{};
+        GrcTexCompressionParams   m_compression{};
     };
 
     /**

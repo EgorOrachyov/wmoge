@@ -128,12 +128,17 @@ namespace wmoge {
         bool                                       is_collecting();
         std::unordered_map<std::thread::id, Strid> get_tid_names() const;
 
+        static Profiler* instance();
+        static void      provide(Profiler* profiler);
+
     private:
         std::atomic_bool                           m_is_enabled{false};
         std::atomic_bool                           m_is_collecting{false};
         std::shared_ptr<ProfilerCapture>           m_capture;
         std::unordered_map<std::thread::id, Strid> m_tid_names;
         SpinMutex                                  m_mutex;
+
+        static Profiler* g_profiler;
     };
 
 }// namespace wmoge
@@ -159,6 +164,7 @@ namespace wmoge {
 #define WG_AUTO_PROFILE_PLATFORM(label)       WG_AUTO_PROFILE(platform, label)
 #define WG_AUTO_PROFILE_GLFW(label)           WG_AUTO_PROFILE(glfw, label)
 #define WG_AUTO_PROFILE_GFX(label)            WG_AUTO_PROFILE(gfx, label)
+#define WG_AUTO_PROFILE_GRC(label)            WG_AUTO_PROFILE(grc, label)
 #define WG_AUTO_PROFILE_HGFX(label)           WG_AUTO_PROFILE(hgfx, label)
 #define WG_AUTO_PROFILE_VULKAN(label)         WG_AUTO_PROFILE(vulkan, label)
 #define WG_AUTO_PROFILE_IO(label)             WG_AUTO_PROFILE(io, label)
@@ -181,9 +187,9 @@ namespace wmoge {
     capture = std::make_shared<ProfilerCapture>();            \
     capture->set_name(SID(#session));                         \
     capture->set_file(file_path);                             \
-    Engine::instance()->profiler()->start_capture(capture);
+    Profiler::instance()->start_capture(capture);
 
-#define WG_PROFILE_CAPTURE_END(capture)            \
-    Engine::instance()->profiler()->end_capture(); \
-    capture->save_to_json();                       \
+#define WG_PROFILE_CAPTURE_END(capture)  \
+    Profiler::instance()->end_capture(); \
+    capture->save_to_json();             \
     capture.reset();

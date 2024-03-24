@@ -27,9 +27,12 @@
 
 #pragma once
 
+#include "core/fast_vector.hpp"
+#include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "grc/grc_shader_reflection.hpp"
+#include "io/serialization.hpp"
 #include "platform/file_system.hpp"
 
 #include <optional>
@@ -37,39 +40,121 @@
 namespace wmoge {
 
     /**
-     * @class GrcShaderClass
-     * @brief Reprsents a particular shader program class
+     * @class GrcShaderScriptFile
+     * @brief Serializable representation of a script file
+    */
+    struct GrcShaderScriptFile {
+
+        /** @brief Compilation option */
+        struct Option {
+            Strid              name;
+            fast_vector<Strid> variants;
+
+            WG_IO_DECLARE(Option);
+        };
+
+        /** @brief Single param defenition */
+        struct Param {
+            Strid                name;
+            Strid                type;
+            int                  elements = 1;
+            std::string          value;
+            std::string          ui_name;
+            std::string          ui_hint;
+            GrcShaderBindingType binding = GrcShaderBindingType::None;
+
+            WG_IO_DECLARE(Param);
+        };
+
+        /** @brief Params block definition */
+        struct ParamBlock {
+            Strid              name;
+            GrcShaderSpaceType type;
+            fast_vector<Param> params;
+
+            WG_IO_DECLARE(ParamBlock);
+        };
+
+        /** @brief Single technique pass */
+        struct Pass {
+            Strid                        name;
+            GrcPipelineState             state;
+            fast_vector<Option>          options;
+            fast_map<Strid, std::string> tags;
+            std::string                  ui_name;
+            std::string                  ui_hint;
+
+            WG_IO_DECLARE(Pass);
+        };
+
+        /** @brief Technique defenition */
+        struct Technique {
+            Strid                        name;
+            fast_vector<Option>          options;
+            fast_vector<Pass>            passes;
+            fast_map<Strid, std::string> tags;
+            std::string                  ui_name;
+            std::string                  ui_hint;
+
+            WG_IO_DECLARE(Technique);
+        };
+
+        /** @brief Source code of shader per module */
+        struct Source {
+            std::string     file;
+            GfxShaderModule module;
+
+            WG_IO_DECLARE(Source);
+        };
+
+        Strid                   name;
+        Strid                   extends;
+        std::string             ui_name;
+        std::string             ui_hint;
+        fast_vector<ParamBlock> param_blocks;
+        fast_vector<Technique>  techniques;
+        fast_vector<Source>     sources;
+
+        WG_IO_DECLARE(GrcShaderScriptFile);
+    };
+
+    /**
+     * @class GrcShaderScript
+     * @brief Reprsents a particular shader program script
      * 
-     * GrcShaderClass is a high level representation of a shading program.
+     * GrcShaderScript is a high level representation of a shading program.
      * It provides a connection between raw glsl sources code of a shader,
      * material and engine gfx module for runtime usage.
      * 
-     * GrcShaderClass provides info about a particular shader type. It provides
+     * GrcShaderScript provides info about a particular shader type. It provides
      * layout information, parameters and structures layout, defines and
      * compilations options, constants and includes, and provides hot-reloading
      * mechanism for debugging. 
      * 
-     * GrcShaderClass is a `template` shader for drawing with pre-defined interface.
+     * GrcShaderScript is a `template` shader for drawing with pre-defined interface.
      * It is not suitable for rendering. In order to get a concrete instance of 
      * compiled gpu program, pass and options must be provided from GrcShader.
     */
-    class GrcShaderClass {
+    class GrcShaderScript : public RefCnt {
     public:
-        GrcShaderClass(GrcShaderReflection&& reflection);
+        GrcShaderScript(GrcShaderReflection&& reflection);
+        ~GrcShaderScript() override = default;
 
+        std::optional<std::int16_t>        find_techique(Strid name);
+        std::optional<std::int16_t>        find_pass(std::int16_t technique, Strid name);
         GrcShaderParamId                   get_param_id(Strid name);
         std::optional<GrcShaderParamInfo*> get_param_info(GrcShaderParamId id);
-        void                               set_idx(int idx);
         Status                             reload_sources(const std::string& folder, FileSystem* fs);
         Status                             fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
         bool                               has_dependency(const Strid& dependency) const;
         bool                               has_space(GrcShaderSpaceType space_type) const;
 
         [[nodiscard]] const GrcShaderReflection& get_reflection() const { return m_reflection; }
+        [[nodiscard]] GrcShaderReflection&       get_reflection() { return m_reflection; }
+        [[nodiscard]] const Strid&               get_name() const { return m_reflection.shader_name; }
 
     private:
         GrcShaderReflection m_reflection;
-        int                 m_idx = -1;
     };
 
 }// namespace wmoge

@@ -1,0 +1,41 @@
+#define EPSILON           0.00001f
+#define EPSILON_LUMINANCE 0.001f
+
+#define DEFAULT_ISO 100.0f
+#define DEFAULT_SENSITIVITY 12.5f
+
+#define PI          3.14159265359
+#define PI_HALF     1.57079632679
+#define PI_QUARTER  0.78539816339
+#define EULER_NUM   2.71828182846
+
+#define REFLECTANCE_TABLE_WATER         0.02
+#define REFLECTANCE_TABLE_FABRIC        0.04
+#define REFLECTANCE_TABLE_LIQUIDS       0.02
+#define REFLECTANCE_TABLE_GEMSTONES     0.05
+#define REFLECTANCE_TABLE_PLASTIC       0.04
+#define REFLECTANCE_TABLE_GLASS         0.04
+#define REFLECTANCE_TABLE_DIELECTRIC    0.04
+#define REFLECTANCE_TABLE_EYES          0.025
+#define REFLECTANCE_TABLE_SKIN          0.028
+#define REFLECTANCE_TABLE_HAIR          0.046
+#define REFLECTANCE_TABLE_TEETH         0.058
+#define REFLECTANCE_TABLE_DEFAULT       0.04
+
+#define IOR_TABLE_WATER         1.33
+#define IOR_TABLE_FABRIC        1.5
+#define IOR_TABLE_LIQUIDS       1.33
+#define IOR_TABLE_GEMSTONES     1.58
+#define IOR_TABLE_PLASTIC       1.5
+#define IOR_TABLE_GLASS         1.5
+#define IOR_TABLE_DIELECTRIC    1.33
+#define IOR_TABLE_EYES          1.38
+#define IOR_TABLE_SKIN          1.4
+#define IOR_TABLE_HAIR          1.55
+#define IOR_TABLE_TEETH         1.63
+#define IOR_TABLE_DEFAULT       1.5
+
+#define LIGHT_TYPE_DIR      0
+#define LIGHT_TYPE_SPOT     1
+#define LIGHT_TYPE_POINT    2
+#define LIGHT_TYPE_AREA     3

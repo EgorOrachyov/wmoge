@@ -78,60 +78,36 @@ public:
         }
         WG_LOG_INFO("status for " << variant->name() << " is " << magic_enum::enum_name(variant->status()));
 
-        TextureManager* txm     = Engine::instance()->texture_manager();
-        Ref<GfxTexture> tex_def = txm->get_gfx_default_texture_white();
-        Ref<GfxSampler> smp_def = txm->get_gfx_default_sampler();
-
-        GrcShaderClassBuilder builder;
-
-        builder.set_name(SID("canvas"))
-                .add_constant(SID("MAX_CANVAS_IMAGES"), 4)
-                .add_struct(SID("Params"), 96)
-                .add_field(SID("ClipProjView"), GrcShaderTypes::MAT4, TypedArray<float>({0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}))
-                .add_field_array(SID("CustomData"), GrcShaderTypes::FLOAT, 4, Array({1, 2, 3, 4}))
-                .add_field(SID("InverseGamma"), GrcShaderTypes::FLOAT, 1.0f / 2.2f)
-                .add_field(SID("_pr_pad0"), GrcShaderTypes::FLOAT, 0.0f)
-                .add_field(SID("_pr_pad1"), GrcShaderTypes::FLOAT, 0.0f)
-                .add_field(SID("_pr_pad2"), GrcShaderTypes::FLOAT, 0.0f)
-                .end_struct()
-                .add_struct(SID("DrawCmd"), 80)
+        GrcShaderStructRegister rdc(SID("DrawCmd"), 4 * 4 * 3 + 4 * 4 + 4 * 4);
+        rdc
                 .add_field(SID("Transform0"), GrcShaderTypes::VEC4)
                 .add_field(SID("Transform1"), GrcShaderTypes::VEC4)
                 .add_field(SID("Transform2"), GrcShaderTypes::VEC4)
                 .add_field(SID("ClipRect"), GrcShaderTypes::VEC4)
-                .add_field(SID("TextureIdx"), GrcShaderTypes::INT)
-                .add_field(SID("_dc_pad0"), GrcShaderTypes::INT)
-                .add_field(SID("_dc_pad1"), GrcShaderTypes::INT)
-                .add_field(SID("_dc_pad2"), GrcShaderTypes::INT)
-                .end_struct()
-                .add_struct(SID("DrawCmds"), 0)
-                .add_field_array(SID("Cmds"), SID("DrawCmd"))
-                .end_struct()
-                .add_space(SID("Default"), GrcShaderSpaceType::Default)
-                .add_inline_uniform_buffer(SID("Params"), SID("Params"))
-                //.add_storage_buffer(SID("DrawCmds"), SID("DrawCmds"))
-                //.end_space()
-                //.add_space(SID("Images"), GrcShaderSpaceType::Default)
-                .add_texture_2d(SID("CanvasImage0"), tex_def, smp_def)
-                .add_texture_2d(SID("CanvasImage1"), tex_def, smp_def)
-                .add_texture_2d(SID("CanvasImage2"), tex_def, smp_def)
-                .add_texture_2d(SID("CanvasImage3"), tex_def, smp_def)
-                .end_space()
-                .add_technique(SID("Default"))
-                .add_pass(SID("Default"))
-                .add_option(SID("OUT_COLOR"), {SID("SRGB"), SID("LINEAR")})
-                .end_pass()
-                .end_technique()
-                .add_source(SID("canvas.vert"), GfxShaderModule::Vertex)
-                .add_source(SID("canvas.frag"), GfxShaderModule::Fragment);
+                .add_field(SID("TextureIdx0"), GrcShaderTypes::INT)
+                .add_field(SID("TextureIdx1"), GrcShaderTypes::INT)
+                .add_field(SID("TextureIdx2"), GrcShaderTypes::INT)
+                .add_field(SID("TextureIdx3"), GrcShaderTypes::INT)
+                .finish();
 
-        std::shared_ptr<GrcShaderClass> shader_class;
-        builder.finish(shader_class);
+        GrcShaderStructRegister rdcs(SID("DrawCmdsBuffer"), 0);
+        rdcs
+                .add_field_array(SID("DrawCmds"), SID("DrawCmd"))
+                .finish();
 
-        GrcShaderParamId p_clip_proj_view = shader_class->get_param_id(SID("Params.ClipProjView"));
-        GrcShaderParamId p_inverse_gamma  = shader_class->get_param_id(SID("Params.InverseGamma"));
+        GrcShaderManager* shader_manager = IocContainer::instance()->resolve_v<GrcShaderManager>();
 
-        GrcShaderParamBlock block(*shader_class, 0);
+        GrcShaderScriptFile shader_script_file;
+        YamlTree            yaml_tree = yaml_parse_file("res://../../shaders/canvas.shader");
+        WG_YAML_READ(yaml_tree.crootref(), shader_script_file);
+
+        shader_manager->load_script(shader_script_file);
+
+        Ref<GrcShaderScript> shader_script    = shader_manager->find_script(SID("canvas"));
+        GrcShaderParamId     p_clip_proj_view = shader_script->get_param_id(SID("ClipProjView"));
+        GrcShaderParamId     p_inverse_gamma  = shader_script->get_param_id(SID("InverseGamma"));
+
+        GrcShaderParamBlock block(*shader_script, 0);
         block.set_var(p_clip_proj_view, Math3d::perspective(1.0f, 1.0f, 0.1f, 100000.f));
         block.set_var(p_inverse_gamma, 1.0f / 4.0f);
         block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx(), SID("test"));

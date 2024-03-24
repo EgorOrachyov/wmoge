@@ -40,13 +40,7 @@ namespace wmoge {
     public:
         virtual ~Application() = default;
 
-        virtual Status on_register();
-        virtual Status on_hook() { return StatusCode::Ok; }
-        virtual Status on_init() { return StatusCode::Ok; }
-        virtual Status on_loop() { return StatusCode::Ok; }
-        virtual Status on_shutdown() { return StatusCode::Ok; }
-        virtual bool   should_close() { return true; }
-
+        Signal<> signal_hook;
         Signal<> signal_before_init;
         Signal<> signal_after_init;
         Signal<> signal_before_loop;
@@ -54,29 +48,25 @@ namespace wmoge {
         Signal<> signal_before_shutdown;
         Signal<> signal_after_shutdown;
 
-        int run(int argc, const char* const* argv);
-    };
+        virtual Status on_register() { return StatusCode::Ok; }
+        virtual Status on_init() { return StatusCode::Ok; }
+        virtual Status on_loop() { return StatusCode::Ok; }
+        virtual Status on_shutdown() { return StatusCode::Ok; }
+        virtual bool   should_close() { return true; }
+        virtual void   requiest_close() {}
 
-    /**
-     * @class BaseApplication
-     * @brief Base class for application with minimal engine setup
-    */
-    class BaseApplication : public Application {
-    public:
-        ~BaseApplication() override = default;
-
-        Status on_register() override;
-        Status on_hook() override;
+        [[nodiscard]] int run(int argc, const char* const* argv);
     };
 
     /**
      * @class GameApplication
      * @brief Base class for application to run stand-alone game
     */
-    class GameApplication : public BaseApplication {
+    class GameApplication : public Application {
     public:
         ~GameApplication() override = default;
 
+        Status on_register() override;
         Status on_init() override;
         Status on_loop() override;
         Status on_shutdown() override;
@@ -87,7 +77,7 @@ namespace wmoge {
      * @class ToolApplication
      * @brief Base class for application to run command-line based tool
     */
-    class ToolApplication : public BaseApplication {
+    class ToolApplication : public Application {
     public:
         ~ToolApplication() override = default;
     };

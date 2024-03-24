@@ -30,7 +30,7 @@
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "render/texture_resize.hpp"
+#include "grc/grc_texture_resize.hpp"
 #include "resource/image.hpp"
 #include "resource/texture.hpp"
 #include "system/engine.hpp"
@@ -55,7 +55,7 @@ namespace wmoge {
             return StatusCode::FailedRead;
         }
 
-        if (!TexResize::resize(options.resizing, *source_image)) {
+        if (!GrcTexResize::resize(options.resizing, *source_image)) {
             WG_LOG_ERROR("failed to resize source image " << options.source_file);
             return StatusCode::FailedResize;
         }
@@ -83,7 +83,7 @@ namespace wmoge {
                 return StatusCode::Error;
             }
         }
-        if (options.compression.format != TexCompressionFormat::Unknown) {
+        if (options.compression.format != GrcTexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
                 return StatusCode::Error;
@@ -133,7 +133,7 @@ namespace wmoge {
         }
 
         for (Ref<Image>& source_image : source_images) {
-            if (!TexResize::resize(options.resizing, *source_image)) {
+            if (!GrcTexResize::resize(options.resizing, *source_image)) {
                 WG_LOG_ERROR("failed to resize source image " << source_image->get_name());
                 return StatusCode::FailedResize;
             }
@@ -162,7 +162,7 @@ namespace wmoge {
                 return StatusCode::Error;
             }
         }
-        if (options.compression.format != TexCompressionFormat::Unknown) {
+        if (options.compression.format != GrcTexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
                 return StatusCode::Error;
