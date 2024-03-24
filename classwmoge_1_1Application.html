@@ -84,9 +84,8 @@ Inheritance diagram for wmoge::Application:</div>
 <div class="center"><img src="classwmoge_1_1Application__inherit__graph.png" border="0" usemap="#awmoge_1_1Application_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1Application_inherit__map" id="awmoge_1_1Application_inherit__map">
 <area shape="rect" title="Base class for any application which is an entry point to run." alt="" coords="116,5,251,32"/>
-<area shape="rect" href="classwmoge_1_1BaseApplication.html" title="Base class for application with minimal engine setup." alt="" coords="101,80,265,107"/>
-<area shape="rect" href="classwmoge_1_1GameApplication.html" title="Base class for application to run stand&#45;alone game." alt="" coords="5,155,175,181"/>
-<area shape="rect" href="classwmoge_1_1ToolApplication.html" title="Base class for application to run command&#45;line based tool." alt="" coords="199,155,357,181"/>
+<area shape="rect" href="classwmoge_1_1GameApplication.html" title="Base class for application to run stand&#45;alone game." alt="" coords="5,80,175,107"/>
+<area shape="rect" href="classwmoge_1_1ToolApplication.html" title="Base class for application to run command&#45;line based tool." alt="" coords="199,80,357,107"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -94,7 +93,7 @@ Collaboration diagram for wmoge::Application:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1Application__coll__graph.png" border="0" usemap="#awmoge_1_1Application_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1Application_coll__map" id="awmoge_1_1Application_coll__map">
-<area shape="rect" title="Base class for any application which is an entry point to run." alt="" coords="19,168,154,195"/>
+<area shape="rect" title="Base class for any application which is an entry point to run." alt="" coords="19,183,154,209"/>
 <area shape="rect" href="classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="5,5,168,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -103,10 +102,8 @@ Collaboration diagram for wmoge::Application:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a63a1d9fadf309f56c25f1cd6be3422f2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a63a1d9fadf309f56c25f1cd6be3422f2">~Application</a> ()=default</td></tr>
 <tr class="separator:a63a1d9fadf309f56c25f1cd6be3422f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a628ca080d384abb354ac470d73548b76"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a628ca080d384abb354ac470d73548b76">on_register</a> ()</td></tr>
-<tr class="separator:a628ca080d384abb354ac470d73548b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a9de067129a8d69d1eaf320599acf1d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a2a9de067129a8d69d1eaf320599acf1d">on_hook</a> ()</td></tr>
-<tr class="separator:a2a9de067129a8d69d1eaf320599acf1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66950062685bef85cb0391c4af3c181"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#aa66950062685bef85cb0391c4af3c181">on_register</a> ()</td></tr>
+<tr class="separator:aa66950062685bef85cb0391c4af3c181"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a550303a4c365e8f38d8ed604132066c7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a550303a4c365e8f38d8ed604132066c7">on_init</a> ()</td></tr>
 <tr class="separator:a550303a4c365e8f38d8ed604132066c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab134930f9e44d3d0383ef676f822125f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#ab134930f9e44d3d0383ef676f822125f">on_loop</a> ()</td></tr>
@@ -115,11 +112,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a94e5c272fb1dd58c8b43e355e9ca5c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c74992cb3f51707f0646130757e9fbf"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a5c74992cb3f51707f0646130757e9fbf">should_close</a> ()</td></tr>
 <tr class="separator:a5c74992cb3f51707f0646130757e9fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e639f99e78ab3593e6bd2d5866b9264"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a4e639f99e78ab3593e6bd2d5866b9264">requiest_close</a> ()</td></tr>
+<tr class="separator:a4e639f99e78ab3593e6bd2d5866b9264"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5e3cf5e96a016aa8707f87254e4426a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#ae5e3cf5e96a016aa8707f87254e4426a">run</a> (int argc, const char *const *argv)</td></tr>
 <tr class="separator:ae5e3cf5e96a016aa8707f87254e4426a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a3d16a069f986873a19646b2eda7650fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Signal.html">Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a3d16a069f986873a19646b2eda7650fa">signal_hook</a></td></tr>
+<tr class="separator:a3d16a069f986873a19646b2eda7650fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8446ccc225c599ee058dd6e6f4c7668"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Signal.html">Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#ad8446ccc225c599ee058dd6e6f4c7668">signal_before_init</a></td></tr>
 <tr class="separator:ad8446ccc225c599ee058dd6e6f4c7668"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f01ad8261ae39742206ed36b16e3252"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Signal.html">Signal</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html#a4f01ad8261ae39742206ed36b16e3252">signal_after_init</a></td></tr>
@@ -162,33 +163,6 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2a9de067129a8d69d1eaf320599acf1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a9de067129a8d69d1eaf320599acf1d">&#9670;&nbsp;</a></span>on_hook()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Application::on_hook </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classwmoge_1_1BaseApplication.html#ab3222e89262effbc2c5331650d15f789">wmoge::BaseApplication</a>.</p>
-
-</div>
-</div>
 <a id="a550303a4c365e8f38d8ed604132066c7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a550303a4c365e8f38d8ed604132066c7">&#9670;&nbsp;</a></span>on_init()</h2>
 
@@ -243,8 +217,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a628ca080d384abb354ac470d73548b76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a628ca080d384abb354ac470d73548b76">&#9670;&nbsp;</a></span>on_register()</h2>
+<a id="aa66950062685bef85cb0391c4af3c181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66950062685bef85cb0391c4af3c181">&#9670;&nbsp;</a></span>on_register()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,7 +227,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Application::on_register </td>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Application::on_register </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -261,12 +235,12 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classwmoge_1_1BaseApplication.html#aa49504825d9bd61627167aa98fe18cf2">wmoge::BaseApplication</a>.</p>
+<p>Reimplemented in <a class="el" href="classwmoge_1_1GameApplication.html#ac0cc0812aba719729d11be3dd758209d">wmoge::GameApplication</a>.</p>
 
 </div>
 </div>
@@ -294,6 +268,31 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented in <a class="el" href="classwmoge_1_1GameApplication.html#a5f15ca89e6c6a14b4234b1a1738a135f">wmoge::GameApplication</a>.</p>
+
+</div>
+</div>
+<a id="a4e639f99e78ab3593e6bd2d5866b9264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e639f99e78ab3593e6bd2d5866b9264">&#9670;&nbsp;</a></span>requiest_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::Application::requiest_close </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -431,6 +430,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Signal.html">Signal</a> wmoge::Application::signal_before_shutdown</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d16a069f986873a19646b2eda7650fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d16a069f986873a19646b2eda7650fa">&#9670;&nbsp;</a></span>signal_hook</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Signal.html">Signal</a> wmoge::Application::signal_hook</td>
         </tr>
       </table>
 </div><div class="memdoc">

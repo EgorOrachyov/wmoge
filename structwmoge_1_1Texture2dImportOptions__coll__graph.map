@@ -1,7 +1,7 @@
 <map id="wmoge::Texture2dImportOptions" name="wmoge::Texture2dImportOptions">
-<area shape="rect" id="node1" title="Options to import 2d&#45;texture from a source file." alt="" coords="199,171,409,197"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1TextureImportOptions.html" title="Options (base) to import texture." alt="" coords="207,95,401,121"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1GfxSamplerDesc.html" title="Gfx sampler descriptor." alt="" coords="5,5,173,32"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="198,5,410,32"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1TexResizeParams.html" title="Params to resize source texture image content (on import)" alt="" coords="434,5,609,32"/>
+<area shape="rect" id="node1" title="Options to import 2d&#45;texture from a source file." alt="" coords="187,185,397,212"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1TextureImportOptions.html" title="Options (base) to import texture." alt="" coords="195,109,389,136"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GfxSamplerDesc.html" title="Gfx sampler descriptor." alt="" coords="5,13,173,39"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1GrcTexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="198,5,386,47"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1GrcTexResizeParams.html" title="Params to resize source texture image content (on import)" alt="" coords="410,13,606,39"/>
 </map>

@@ -1,12 +1,12 @@
 <map id="engine/resource/texture.hpp" name="engine/resource/texture.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="717,5,899,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="720,5,901,32"/>
 <area shape="rect" id="node2" href="$gfx__defs_8hpp.html" title=" " alt="" coords="715,304,831,331"/>
-<area shape="rect" id="node37" href="$gfx__sampler_8hpp.html" title=" " alt="" coords="203,155,341,181"/>
+<area shape="rect" id="node37" href="$gfx__sampler_8hpp.html" title=" " alt="" coords="201,155,338,181"/>
 <area shape="rect" id="node39" href="$serialization_8hpp.html" title=" " alt="" coords="907,304,1035,331"/>
-<area shape="rect" id="node40" href="$gfx__texture_8hpp.html" title=" " alt="" coords="316,80,447,107"/>
-<area shape="rect" id="node41" href="$texture__compression_8hpp.html" title=" " alt="" coords="523,229,730,256"/>
-<area shape="rect" id="node42" href="$texture__resize_8hpp.html" title=" " alt="" coords="958,80,1125,107"/>
-<area shape="rect" id="node43" href="$image_8hpp.html" title=" " alt="" coords="941,155,1075,181"/>
+<area shape="rect" id="node40" href="$gfx__texture_8hpp.html" title=" " alt="" coords="313,80,444,107"/>
+<area shape="rect" id="node41" href="$grc__texture__compression_8hpp.html" title=" " alt="" coords="520,229,733,256"/>
+<area shape="rect" id="node42" href="$grc__texture__resize_8hpp.html" title=" " alt="" coords="960,80,1133,107"/>
+<area shape="rect" id="node43" href="$image_8hpp.html" title=" " alt="" coords="945,155,1079,181"/>
 <area shape="rect" id="node44" href="$resource_8hpp.html" title=" " alt="" coords="1923,229,2074,256"/>
 <area shape="rect" id="node3" href="$data_8hpp.html" title=" " alt="" coords="473,453,573,480"/>
 <area shape="rect" id="node4" href="$ref_8hpp.html" title=" " alt="" coords="2005,603,2096,629"/>
@@ -42,7 +42,7 @@
 <area shape="rect" id="node30" title=" " alt="" coords="1581,603,1691,629"/>
 <area shape="rect" id="node34" href="$fast__vector_8hpp.html" title=" " alt="" coords="1242,453,1382,480"/>
 <area shape="rect" id="node35" title=" " alt="" coords="867,528,963,555"/>
-<area shape="rect" id="node38" href="$gfx__resource_8hpp.html" title=" " alt="" coords="200,229,341,256"/>
+<area shape="rect" id="node38" href="$gfx__resource_8hpp.html" title=" " alt="" coords="197,229,339,256"/>
 <area shape="rect" id="node45" href="$class_8hpp.html" title=" " alt="" coords="2467,528,2573,555"/>
 <area shape="rect" id="node46" href="$fast__set_8hpp.html" title=" " alt="" coords="1640,453,1763,480"/>
 <area shape="rect" id="node47" href="$object_8hpp.html" title=" " alt="" coords="2298,453,2409,480"/>

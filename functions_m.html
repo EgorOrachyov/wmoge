@@ -118,7 +118,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Texture.html#ade9ead5e39115fb0432ba6d9b6f69906">wmoge::Texture</a>
 </li>
 <li>m_compression
-: <a class="el" href="classwmoge_1_1Texture.html#ac7e7a21904ef6a6dd896ab35d0739292">wmoge::Texture</a>
+: <a class="el" href="classwmoge_1_1Texture.html#a9df243b8078c0187010b1be056ad3e7e">wmoge::Texture</a>
 </li>
 <li>m_compute
 : <a class="el" href="classwmoge_1_1ShaderPassBase.html#ac5d274090462df9ed00befb57aa83931">wmoge::ShaderPassBase</a>
@@ -381,6 +381,9 @@ $(function() {
 <li>major_version
 : <a class="el" href="structwmoge_1_1AudioDriverCaps.html#ae319369bd019bb35cd3f640e35dbf314">wmoge::AudioDriverCaps</a>
 </li>
+<li>make()
+: <a class="el" href="structwmoge_1_1GfxSamplerDesc.html#ab5b30f9b3c79cf2a80eb345d537aa842">wmoge::GfxSamplerDesc</a>
+</li>
 <li>make_active()
 : <a class="el" href="classwmoge_1_1ALAudioBus.html#a025d0eaa7e87fbed5fc14924eee3d49c">wmoge::ALAudioBus</a>
 , <a class="el" href="classwmoge_1_1AudioBus.html#a96b6cdf61eff4a49c738e95933227654">wmoge::AudioBus</a>
@@ -469,7 +472,7 @@ $(function() {
 </li>
 <li>make_shader()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#ad881889d965e2a1a42d07e6ee42c0949">wmoge::GfxDriver</a>
-, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a7cc7565385bd79d55f0e3da0e4c98a41">wmoge::GfxDriverWrapper</a>
+, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a60743c7f4d69c54ee80c60a485230ee7">wmoge::GfxDriverWrapper</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#aac506693aa4b0b371cf994a4fbd00cd5">wmoge::VKDriver</a>
 </li>
 <li>make_shader_key()
@@ -787,7 +790,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1GfxSamplerDesc.html#a499464903865bc3404fb8d74f88aa443">wmoge::GfxSamplerDesc</a>
 </li>
 <li>minify
-: <a class="el" href="structwmoge_1_1TexResizeParams.html#a90333ddf1e72e745a55eaea69c634261">wmoge::TexResizeParams</a>
+: <a class="el" href="structwmoge_1_1GrcTexResizeParams.html#a3ee68556e74dbb8fd92274b212d2d22a">wmoge::GrcTexResizeParams</a>
 </li>
 <li>minimum_lod
 : <a class="el" href="structwmoge_1_1ModelLodSettings.html#a2bd9a0c5e7611a7bf8e4001295777e64">wmoge::ModelLodSettings</a>
@@ -804,9 +807,6 @@ $(function() {
 <li>mipmaps
 : <a class="el" href="structwmoge_1_1TextureImportOptions.html#af4af67e6a26c735ef47e7b131663b77e">wmoge::TextureImportOptions</a>
 </li>
-<li>mips
-: <a class="el" href="structwmoge_1_1TexDesc.html#ad086f7129e1adb31247f950830685b4e">wmoge::TexDesc</a>
-</li>
 <li>mips_count()
 : <a class="el" href="classwmoge_1_1GfxTexture.html#a5922fd649ad6afce58fdb82cebe60e2c">wmoge::GfxTexture</a>
 </li>
@@ -822,12 +822,14 @@ $(function() {
 <li>mix_weights
 : <a class="el" href="classwmoge_1_1HgfxPassBase.html#ac541633b4dae07e6972334270d46ca1c">wmoge::HgfxPassBase</a>
 </li>
+<li>Mode
+: <a class="el" href="structwmoge_1_1AutoExposureSettings.html#a4a07fd4c37509ce9729adca9806dde77">wmoge::AutoExposureSettings</a>
+</li>
 <li>mode
 : <a class="el" href="structwmoge_1_1AutoExposureSettings.html#a68ee0d90f2c2fbb648728f32480d2634">wmoge::AutoExposureSettings</a>
 </li>
 <li>Mode
-: <a class="el" href="structwmoge_1_1AutoExposureSettings.html#a4a07fd4c37509ce9729adca9806dde77">wmoge::AutoExposureSettings</a>
-, <a class="el" href="structwmoge_1_1ShaderLuminanceAvg_1_1Params.html#a7f30dafabc0e0ada3a15b1a0abddd90d">wmoge::ShaderLuminanceAvg::Params</a>
+: <a class="el" href="structwmoge_1_1ShaderLuminanceAvg_1_1Params.html#a7f30dafabc0e0ada3a15b1a0abddd90d">wmoge::ShaderLuminanceAvg::Params</a>
 , <a class="el" href="structwmoge_1_1ShaderLuminanceHistogram_1_1Params.html#a96db02311717775f56f4e4a737daf926">wmoge::ShaderLuminanceHistogram::Params</a>
 , <a class="el" href="structwmoge_1_1ShaderTonemap_1_1Params.html#a6c77d31de77a686b2e7d19aa62fbf8b1">wmoge::ShaderTonemap::Params</a>
 </li>
@@ -858,6 +860,7 @@ $(function() {
 </li>
 <li>module
 : <a class="el" href="structwmoge_1_1GrcShaderInclude.html#ab4993a1c3b465505dbcdac4f2ea75089">wmoge::GrcShaderInclude</a>
+, <a class="el" href="structwmoge_1_1GrcShaderScriptFile_1_1Source.html#a8ffa33075667aca7cf290d47e17bab50">wmoge::GrcShaderScriptFile::Source</a>
 , <a class="el" href="structwmoge_1_1GrcShaderSourceFile.html#a2b524233b656ab77d363a7cd822a905b">wmoge::GrcShaderSourceFile</a>
 </li>
 <li>modules()

@@ -1,12 +1,12 @@
 <map id="wmoge::TextureCube" name="wmoge::TextureCube">
-<area shape="rect" id="node1" title="Cube&#45;map gpu texture resource." alt="" coords="1041,137,1184,163"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="879,137,992,163"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="566,13,691,39"/>
+<area shape="rect" id="node1" title="Cube&#45;map gpu texture resource." alt="" coords="1021,137,1164,163"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="859,137,972,163"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="556,13,681,39"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="323,5,473,47"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="165,13,273,39"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,13,116,39"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="554,64,703,105"/>
-<area shape="rect" id="node8" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="533,129,725,171"/>
-<area shape="rect" id="node9" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="523,195,735,222"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="554,247,703,288"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="544,64,693,105"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="523,129,715,171"/>
+<area shape="rect" id="node9" href="$structwmoge_1_1GrcTexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="525,195,713,236"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="544,260,693,301"/>
 </map>

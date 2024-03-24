@@ -67,6 +67,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classwmoge_1_1Profiler-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::Profiler Class Reference</div>  </div>
@@ -98,6 +99,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac86866f30c7ab5ae9dc3a0a6d5204696"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8dffdcf325ae565375ae3e135ac9844"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::thread::id, <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#ac8dffdcf325ae565375ae3e135ac9844">get_tid_names</a> () const</td></tr>
 <tr class="separator:ac8dffdcf325ae565375ae3e135ac9844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:add880cf62b70e4c25aff79812720cc25"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmoge_1_1Profiler.html">Profiler</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#add880cf62b70e4c25aff79812720cc25">instance</a> ()</td></tr>
+<tr class="separator:add880cf62b70e4c25aff79812720cc25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa66c2fd3133c9a5f14a2e94e7104b8ce"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Profiler.html#aa66c2fd3133c9a5f14a2e94e7104b8ce">provide</a> (<a class="el" href="classwmoge_1_1Profiler.html">Profiler</a> *profiler)</td></tr>
+<tr class="separator:aa66c2fd3133c9a5f14a2e94e7104b8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> profiler to capture trace of engine execution. </p>
@@ -200,6 +208,31 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="add880cf62b70e4c25aff79812720cc25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add880cf62b70e4c25aff79812720cc25">&#9670;&nbsp;</a></span>instance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Profiler.html">Profiler</a> * wmoge::Profiler::instance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ac86866f30c7ab5ae9dc3a0a6d5204696"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac86866f30c7ab5ae9dc3a0a6d5204696">&#9670;&nbsp;</a></span>is_collecting()</h2>
 
@@ -230,6 +263,32 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa66c2fd3133c9a5f14a2e94e7104b8ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66c2fd3133c9a5f14a2e94e7104b8ce">&#9670;&nbsp;</a></span>provide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::Profiler::provide </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Profiler.html">Profiler</a> *&#160;</td>
+          <td class="paramname"><em>profiler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

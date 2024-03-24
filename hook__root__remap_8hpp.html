@@ -74,55 +74,62 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="cmd__line_8hpp_source.html">core/cmd_line.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="hook_8hpp_source.html">core/hook.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="ioc__container_8hpp_source.html">core/ioc_container.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="file__system_8hpp_source.html">platform/file_system.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="system_2engine_8hpp_source.html">system/engine.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for hook_root_remap.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="hook__root__remap_8hpp__incl.png" border="0" usemap="#aengine_2hooks_2hook__root__remap_8hpp" alt=""/></div>
 <map name="aengine_2hooks_2hook__root__remap_8hpp" id="aengine_2hooks_2hook__root__remap_8hpp">
-<area shape="rect" title=" " alt="" coords="213,5,373,47"/>
-<area shape="rect" href="cmd__line_8hpp.html" title=" " alt="" coords="5,319,132,345"/>
-<area shape="rect" href="hook_8hpp.html" title=" " alt="" coords="265,244,368,271"/>
-<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="789,95,951,121"/>
-<area shape="rect" href="system_2engine_8hpp.html" title=" " alt="" coords="574,244,705,271"/>
-<area shape="rect" title=" " alt="" coords="23,393,114,420"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="360,319,471,345"/>
-<area shape="rect" title=" " alt="" coords="293,468,348,495"/>
-<area shape="rect" title=" " alt="" coords="748,393,816,420"/>
-<area shape="rect" title=" " alt="" coords="1109,393,1167,420"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="844,393,968,420"/>
-<area shape="rect" title=" " alt="" coords="1369,468,1435,495"/>
-<area shape="rect" title=" " alt="" coords="867,468,945,495"/>
-<area shape="rect" title=" " alt="" coords="641,468,710,495"/>
-<area shape="rect" title=" " alt="" coords="1669,468,1751,495"/>
-<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="992,393,1084,420"/>
-<area shape="rect" title=" " alt="" coords="2149,468,2269,495"/>
-<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1721,169,1821,196"/>
-<area shape="rect" title=" " alt="" coords="2043,393,2110,420"/>
-<area shape="rect" title=" " alt="" coords="778,319,858,345"/>
-<area shape="rect" href="string__utf_8hpp.html" title=" " alt="" coords="271,169,400,196"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1834,319,1925,345"/>
-<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1323,244,1425,271"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1728,244,1815,271"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2570,244,2709,271"/>
-<area shape="rect" title=" " alt="" coords="1573,393,1634,420"/>
-<area shape="rect" title=" " alt="" coords="1925,393,1991,420"/>
-<area shape="rect" title=" " alt="" coords="2401,393,2453,420"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1717,319,1809,345"/>
-<area shape="rect" title=" " alt="" coords="1271,319,1322,345"/>
-<area shape="rect" title=" " alt="" coords="1347,319,1401,345"/>
-<area shape="rect" title=" " alt="" coords="1426,319,1501,345"/>
-<area shape="rect" title=" " alt="" coords="1525,319,1591,345"/>
-<area shape="rect" title=" " alt="" coords="1136,319,1247,345"/>
-<area shape="rect" title=" " alt="" coords="1491,393,1548,420"/>
-<area shape="rect" title=" " alt="" coords="1658,393,1727,420"/>
-<area shape="rect" title=" " alt="" coords="2198,319,2307,345"/>
-<area shape="rect" title=" " alt="" coords="2332,319,2403,345"/>
-<area shape="rect" title=" " alt="" coords="1949,319,2044,345"/>
-<area shape="rect" title=" " alt="" coords="2068,319,2123,345"/>
-<area shape="rect" title=" " alt="" coords="2630,319,2689,345"/>
-<area shape="rect" title=" " alt="" coords="547,319,601,345"/>
+<area shape="rect" title=" " alt="" coords="852,5,1012,47"/>
+<area shape="rect" href="cmd__line_8hpp.html" title=" " alt="" coords="418,319,545,345"/>
+<area shape="rect" href="hook_8hpp.html" title=" " alt="" coords="795,244,898,271"/>
+<area shape="rect" href="ioc__container_8hpp.html" title=" " alt="" coords="1132,244,1284,271"/>
+<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="1739,95,1901,121"/>
+<area shape="rect" title=" " alt="" coords="5,393,96,420"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1219,319,1330,345"/>
+<area shape="rect" title=" " alt="" coords="1857,468,1911,495"/>
+<area shape="rect" title=" " alt="" coords="1413,393,1481,420"/>
+<area shape="rect" title=" " alt="" coords="1903,393,1961,420"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1505,393,1629,420"/>
+<area shape="rect" title=" " alt="" coords="1515,468,1581,495"/>
+<area shape="rect" title=" " alt="" coords="1298,468,1377,495"/>
+<area shape="rect" title=" " alt="" coords="975,468,1044,495"/>
+<area shape="rect" title=" " alt="" coords="1749,468,1832,495"/>
+<area shape="rect" href="enum_8hpp.html" title=" " alt="" coords="1194,393,1286,420"/>
+<area shape="rect" title=" " alt="" coords="1605,468,1725,495"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1750,319,1842,345"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="569,319,733,345"/>
+<area shape="rect" title=" " alt="" coords="960,319,1003,345"/>
+<area shape="rect" title=" " alt="" coords="2721,393,2786,420"/>
+<area shape="rect" title=" " alt="" coords="1659,319,1725,345"/>
+<area shape="rect" title=" " alt="" coords="1027,319,1103,345"/>
+<area shape="rect" title=" " alt="" coords="1128,319,1195,345"/>
+<area shape="rect" title=" " alt="" coords="1918,319,2029,345"/>
+<area shape="rect" title=" " alt="" coords="2861,393,2928,420"/>
+<area shape="rect" title=" " alt="" coords="1113,393,1170,420"/>
+<area shape="rect" title=" " alt="" coords="1759,393,1828,420"/>
+<area shape="rect" title=" " alt="" coords="120,393,304,420"/>
+<area shape="rect" title=" " alt="" coords="329,393,479,420"/>
+<area shape="rect" title=" " alt="" coords="504,393,645,420"/>
+<area shape="rect" title=" " alt="" coords="670,393,834,420"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1877,169,1977,196"/>
+<area shape="rect" title=" " alt="" coords="1507,244,1587,271"/>
+<area shape="rect" href="string__utf_8hpp.html" title=" " alt="" coords="3337,169,3466,196"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2987,319,3077,345"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1875,244,1978,271"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="2327,244,2414,271"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="3072,244,3211,271"/>
+<area shape="rect" title=" " alt="" coords="3003,393,3064,420"/>
+<area shape="rect" title=" " alt="" coords="3089,393,3141,420"/>
+<area shape="rect" title=" " alt="" coords="2152,319,2203,345"/>
+<area shape="rect" title=" " alt="" coords="2227,319,2282,345"/>
+<area shape="rect" title=" " alt="" coords="2053,319,2128,345"/>
+<area shape="rect" title=" " alt="" coords="2459,319,2568,345"/>
+<area shape="rect" title=" " alt="" coords="2593,319,2663,345"/>
+<area shape="rect" title=" " alt="" coords="2687,319,2782,345"/>
+<area shape="rect" title=" " alt="" coords="2806,319,2861,345"/>
+<area shape="rect" title=" " alt="" coords="3152,319,3211,345"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -141,7 +148,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HookRootRemap.html">wmoge::HookRootRemap</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to remap root game folder to other (for debug moslty)  <a href="classwmoge_1_1HookRootRemap.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to remap root folder to other (for debug moslty)  <a href="classwmoge_1_1HookRootRemap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>

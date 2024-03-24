@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['light_5fgrid_5fbuild_5066',['light_grid_build',['../namespacelight__grid__build.html',1,'']]],
-  ['luminance_5067',['luminance',['../namespaceluminance.html',1,'']]],
-  ['luminance_5favg_5068',['luminance_avg',['../namespaceluminance__avg.html',1,'']]],
-  ['luminance_5fhistogram_5069',['luminance_histogram',['../namespaceluminance__histogram.html',1,'']]]
+  ['light_5fgrid_5fbuild_5106',['light_grid_build',['../namespacelight__grid__build.html',1,'']]],
+  ['luminance_5107',['luminance',['../namespaceluminance.html',1,'']]],
+  ['luminance_5favg_5108',['luminance_avg',['../namespaceluminance__avg.html',1,'']]],
+  ['luminance_5fhistogram_5109',['luminance_histogram',['../namespaceluminance__histogram.html',1,'']]]
 ];

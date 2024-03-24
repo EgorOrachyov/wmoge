@@ -103,23 +103,25 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;ttas_spin_mutex.hpp&gt;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;yamc_rwlock_sched.hpp&gt;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1SpinMutexTas.html">   41</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1SpinMutexTas.html">SpinMutexTas</a> : <span class="keyword">public</span> yamc::spin::mutex {};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1SpinMutexTtas.html">   47</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a> : <span class="keyword">public</span> yamc::spin_ttas::mutex {};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classwmoge_1_1RwMutexReadPrefer.html">   58</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1RwMutexReadPrefer.html">RwMutexReadPrefer</a> : <span class="keyword">public</span> yamc::alternate::basic_shared_mutex&lt;yamc::rwlock::ReaderPrefer&gt; {};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classwmoge_1_1RwMutexWritePrefer.html">   70</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1RwMutexWritePrefer.html">RwMutexWritePrefer</a> : <span class="keyword">public</span> yamc::alternate::basic_shared_mutex&lt;yamc::rwlock::WriterPrefer&gt; {};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ae8bbf6daacb98efad39eac55533c4249">   75</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a> = <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="ttc" id="aclasswmoge_1_1RwMutexReadPrefer_html"><div class="ttname"><a href="classwmoge_1_1RwMutexReadPrefer.html">wmoge::RwMutexReadPrefer</a></div><div class="ttdoc">Read-write lock with policy to prefer readers.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:58</div></div>
-<div class="ttc" id="aclasswmoge_1_1RwMutexWritePrefer_html"><div class="ttname"><a href="classwmoge_1_1RwMutexWritePrefer.html">wmoge::RwMutexWritePrefer</a></div><div class="ttdoc">Read-write lock with policy to prefer writers.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:70</div></div>
-<div class="ttc" id="aclasswmoge_1_1SpinMutexTas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTas.html">wmoge::SpinMutexTas</a></div><div class="ttdoc">TAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:41</div></div>
-<div class="ttc" id="aclasswmoge_1_1SpinMutexTtas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTtas.html">wmoge::SpinMutexTtas</a></div><div class="ttdoc">TTAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:47</div></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1SpinMutexTas.html">   43</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1SpinMutexTas.html">SpinMutexTas</a> : <span class="keyword">public</span> yamc::spin::mutex {};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1SpinMutexTtas.html">   49</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a> : <span class="keyword">public</span> yamc::spin_ttas::mutex {};</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classwmoge_1_1RwMutexReadPrefer.html">   60</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1RwMutexReadPrefer.html">RwMutexReadPrefer</a> : <span class="keyword">public</span> yamc::alternate::basic_shared_mutex&lt;yamc::rwlock::ReaderPrefer&gt; {};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classwmoge_1_1RwMutexWritePrefer.html">   72</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1RwMutexWritePrefer.html">RwMutexWritePrefer</a> : <span class="keyword">public</span> yamc::alternate::basic_shared_mutex&lt;yamc::rwlock::WriterPrefer&gt; {};</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ae8bbf6daacb98efad39eac55533c4249">   77</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a> = <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutexTtas</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aclasswmoge_1_1RwMutexReadPrefer_html"><div class="ttname"><a href="classwmoge_1_1RwMutexReadPrefer.html">wmoge::RwMutexReadPrefer</a></div><div class="ttdoc">Read-write lock with policy to prefer readers.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:60</div></div>
+<div class="ttc" id="aclasswmoge_1_1RwMutexWritePrefer_html"><div class="ttname"><a href="classwmoge_1_1RwMutexWritePrefer.html">wmoge::RwMutexWritePrefer</a></div><div class="ttdoc">Read-write lock with policy to prefer writers.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:72</div></div>
+<div class="ttc" id="aclasswmoge_1_1SpinMutexTas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTas.html">wmoge::SpinMutexTas</a></div><div class="ttdoc">TAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:43</div></div>
+<div class="ttc" id="aclasswmoge_1_1SpinMutexTtas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTtas.html">wmoge::SpinMutexTtas</a></div><div class="ttdoc">TTAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:49</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

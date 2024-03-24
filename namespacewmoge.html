@@ -65,7 +65,8 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge Namespace Reference</div>  </div>
 </div><!--header-->
@@ -708,11 +709,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShader.html">GrcShader</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> is an instance of shader class for rendering.  <a href="classwmoge_1_1GrcShader.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClass.html">GrcShaderClass</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reprsents a particular shader program class.  <a href="classwmoge_1_1GrcShaderClass.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderClassBuilder.html">GrcShaderClassBuilder</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows to configure a particular shader class and register in the engine.  <a href="classwmoge_1_1GrcShaderClassBuilder.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderManager.html">GrcShaderManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for loading and compilation of shader scripts.  <a href="classwmoge_1_1GrcShaderManager.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderParam.html">GrcShaderParam</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for a param modification inside a shader or a param block.  <a href="classwmoge_1_1GrcShaderParam.html#details">More...</a><br /></td></tr>
@@ -723,8 +721,14 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderParamBlock.html">GrcShaderParamBlock</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds params set which can be bound to a shader for drawing.  <a href="classwmoge_1_1GrcShaderParamBlock.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderPass.html">GrcShaderPass</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiled shader pass ready for drawing.  <a href="classwmoge_1_1GrcShaderPass.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderType.html">GrcShaderType</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursive complex type for declaring of anything in a shader what has a type.  <a href="structwmoge_1_1GrcShaderType.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderStructRegister.html">GrcShaderStructRegister</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to build and register struct type.  <a href="classwmoge_1_1GrcShaderStructRegister.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderTypes.html">GrcShaderTypes</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-defined common shader types.  <a href="structwmoge_1_1GrcShaderTypes.html#details">More...</a><br /></td></tr>
@@ -756,11 +760,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcPipelineState.html">GrcPipelineState</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendering settings provided in a pass.  <a href="structwmoge_1_1GrcPipelineState.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPass.html">GrcShaderPass</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines single pass of shader, a functional subset.  <a href="structwmoge_1_1GrcShaderPass.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderPassInfo.html">GrcShaderPassInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines single pass of shader, a functional subset.  <a href="structwmoge_1_1GrcShaderPassInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderTechnique.html">GrcShaderTechnique</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines single technique as collection of passes for drawing.  <a href="structwmoge_1_1GrcShaderTechnique.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderTechniqueInfo.html">GrcShaderTechniqueInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines single technique as collection of passes for drawing.  <a href="structwmoge_1_1GrcShaderTechniqueInfo.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderParamId.html">GrcShaderParamId</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a shader param.  <a href="structwmoge_1_1GrcShaderParamId.html#details">More...</a><br /></td></tr>
@@ -773,6 +777,30 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderReflection.html">GrcShaderReflection</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Full reflection information of a single shader class.  <a href="structwmoge_1_1GrcShaderReflection.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializable representation of a script file.  <a href="structwmoge_1_1GrcShaderScriptFile.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderScript.html">GrcShaderScript</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reprsents a particular shader program script.  <a href="classwmoge_1_1GrcShaderScript.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcShaderScriptBuilder.html">GrcShaderScriptBuilder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows to configure a particular shader class and register in the engine.  <a href="classwmoge_1_1GrcShaderScriptBuilder.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of parameters to compress texture data.  <a href="structwmoge_1_1GrcTexCompressionParams.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcTexCompression.html">GrcTexCompression</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides methods for texture data compression.  <a href="classwmoge_1_1GrcTexCompression.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcTextureManager.html">GrcTextureManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render core manager for gfx texture resources.  <a href="classwmoge_1_1GrcTextureManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GrcTexResizeParams.html">GrcTexResizeParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Params to resize source texture image content (on import)  <a href="structwmoge_1_1GrcTexResizeParams.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GrcTexResize.html">GrcTexResize</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles image data resize before texture creation.  <a href="classwmoge_1_1GrcTexResize.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HgfxPass.html">HgfxPass</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any high level graphics logic for in-engine and scriptable rendering.  <a href="classwmoge_1_1HgfxPass.html#details">More...</a><br /></td></tr>
@@ -793,7 +821,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to setup profiler of game application.  <a href="classwmoge_1_1HookProfiler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HookRootRemap.html">HookRootRemap</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to remap root game folder to other (for debug moslty)  <a href="classwmoge_1_1HookRootRemap.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to remap root folder to other (for debug moslty)  <a href="classwmoge_1_1HookRootRemap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HookUuidGen.html">HookUuidGen</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to generate uuids.  <a href="classwmoge_1_1HookUuidGen.html#details">More...</a><br /></td></tr>
@@ -940,9 +968,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Application.html">Application</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any application which is an entry point to run.  <a href="classwmoge_1_1Application.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1BaseApplication.html">BaseApplication</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for application with minimal engine setup.  <a href="classwmoge_1_1BaseApplication.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GameApplication.html">GameApplication</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for application to run stand-alone game.  <a href="classwmoge_1_1GameApplication.html#details">More...</a><br /></td></tr>
@@ -1139,23 +1164,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPass.html">ShaderPass</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for any engine shading pass.  <a href="classwmoge_1_1ShaderPass.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of parameters to compress texture data.  <a href="structwmoge_1_1TexCompressionParams.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TexCompression.html">TexCompression</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides methods for texture data compression.  <a href="classwmoge_1_1TexCompression.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TexDesc.html">TexDesc</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages allocation and streaming of all engine textures.  <a href="classwmoge_1_1TextureManager.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1TexResizeParams.html">TexResizeParams</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Params to resize source texture image content (on import)  <a href="structwmoge_1_1TexResizeParams.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TexResize.html">TexResize</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles image data resize before texture creation.  <a href="classwmoge_1_1TexResize.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ViewParams.html">ViewParams</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds params assositated to the view.  <a href="structwmoge_1_1ViewParams.html#details">More...</a><br /></td></tr>
@@ -1794,14 +1802,14 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26">AudioPlaybackState</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26">AudioPlaybackState</a> : int { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26ac9dbb2b7c84159b632d71e512eba8428">Playing</a>
 , <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26ae99180abf47a8b3a856e0bcb2656990a">Paused</a>
 , <a class="el" href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26ac23e2b09ebe6bf4cb5e2a9abe85c0be2">Stopped</a>
  }</td></tr>
 <tr class="memdesc:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">State of audio stream playback.  <a href="namespacewmoge.html#ab2d6d2f4b2a59ce8adb15be217f26c26">More...</a><br /></td></tr>
 <tr class="separator:ab2d6d2f4b2a59ce8adb15be217f26c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a480f734f9ee3fa977a9ae2dac397d23a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23a">AudioBusState</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:a480f734f9ee3fa977a9ae2dac397d23a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23a">AudioBusState</a> : int { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23aa4d3d769b812b6faa6b76e1a8abaece2d">Active</a>
 , <a class="el" href="namespacewmoge.html#a480f734f9ee3fa977a9ae2dac397d23aa3cab03c00dbd11bc3569afa0748013f0">Inactive</a>
  }</td></tr>
@@ -1902,19 +1910,19 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aad26ed5e46cf2bc858144f4f867717be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of file system file actions.  <a href="namespacewmoge.html#aad26ed5e46cf2bc858144f4f867717be">More...</a><br /></td></tr>
 <tr class="separator:aad26ed5e46cf2bc858144f4f867717be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac15e049556f5ce0a504d011dbf6633"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633">ResourceNotification</a> { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:a9ac15e049556f5ce0a504d011dbf6633"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633">ResourceNotification</a> { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633a7381d487d18845b379422325c0a768d6">Loaded</a>
 , <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633a942d5bc50011e67d348b6a4a1906dff4">FailedLoad</a>
 , <a class="el" href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633af756efe6580f590fd25d2f57c998d948">Evicted</a>
  }</td></tr>
 <tr class="memdesc:a9ac15e049556f5ce0a504d011dbf6633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource system event types.  <a href="namespacewmoge.html#a9ac15e049556f5ce0a504d011dbf6633">More...</a><br /></td></tr>
 <tr class="separator:a9ac15e049556f5ce0a504d011dbf6633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace36795878d656e3dd431e4831ecfc58"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58">SceneNodeNotification</a> { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+<tr class="memitem:ace36795878d656e3dd431e4831ecfc58"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58">SceneNodeNotification</a> { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58a10702a6532d7bcb11ed21561e4ad1236">TransformUpdated</a>
  }</td></tr>
 <tr class="memdesc:ace36795878d656e3dd431e4831ecfc58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Node notification type.  <a href="namespacewmoge.html#ace36795878d656e3dd431e4831ecfc58">More...</a><br /></td></tr>
 <tr class="separator:ace36795878d656e3dd431e4831ecfc58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad577a781f400d7d9e6f7484c20fce409"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409">TokenNotification</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:ad577a781f400d7d9e6f7484c20fce409"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409">TokenNotification</a> : int { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409af29ddbfb905eb2593fdcdfb243f9af85">Added</a>
 , <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409aff0a3b7f3daef040faf89a88fdac01b7">Updated</a>
 , <a class="el" href="namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409a93f07b720ebf7d1246512569761a5804">Removed</a>
@@ -1956,7 +1964,7 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a8e3673f7210a01ee9ec7c6e9431aa497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of the gfx pipeline.  <a href="namespacewmoge.html#a8e3673f7210a01ee9ec7c6e9431aa497">More...</a><br /></td></tr>
 <tr class="separator:a8e3673f7210a01ee9ec7c6e9431aa497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a0ea4c3fe702d4b272577a3a375334a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+<tr class="memitem:a4a0ea4c3fe702d4b272577a3a375334a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a> : int { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334aa2f3a46e0add3a07937412cbeb8f95727">Uint32</a>
 , <a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334aa3167337450665ae9b3b34004d33cafe8">Uint16</a>
  }</td></tr>
@@ -2005,7 +2013,7 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a2c9b57ed86ff72a0c7f92caa1cfda522"><td class="mdescLeft">&#160;</td><td class="mdescRight">Face id in cube map texture.  <a href="namespacewmoge.html#a2c9b57ed86ff72a0c7f92caa1cfda522">More...</a><br /></td></tr>
 <tr class="separator:a2c9b57ed86ff72a0c7f92caa1cfda522"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad14b72c71b7b44f44cd12281a1102062"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">GfxTexSwizz</a> : int { <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+<tr class="memitem:ad14b72c71b7b44f44cd12281a1102062"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">GfxTexSwizz</a> : int { <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062a2351a905c71af1520c94a8bebaa48434">RRRRtoRGBA</a> = 1
  }</td></tr>
 <tr class="memdesc:ad14b72c71b7b44f44cd12281a1102062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tex view channels swizzling.  <a href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">More...</a><br /></td></tr>
@@ -2227,7 +2235,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca1640e616e5215ad432c61d73169656a6">Uv22f</a>
 , <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3">Uv32f</a>
 , <a class="el" href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4">PrimitiveIdi</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a4764e422936404ac0ffa2abf7cb9a0fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Named vertex attributes.  <a href="namespacewmoge.html#a4764e422936404ac0ffa2abf7cb9a0fc">More...</a><br /></td></tr>
@@ -2244,7 +2252,7 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of bindings to a pipeline.  <a href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">More...</a><br /></td></tr>
 <tr class="separator:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf9abf34cd0e18ff18c2e211b8173669"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#abf9abf34cd0e18ff18c2e211b8173669">GrcShaderBaseType</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#abf9abf34cd0e18ff18c2e211b8173669a1686a6c336b71b36d77354cea19a8b52">Int</a>
 , <a class="el" href="namespacewmoge.html#abf9abf34cd0e18ff18c2e211b8173669a22ae0e2b89e5e3d477f988cc36d3272b">Float</a>
 , <a class="el" href="namespacewmoge.html#abf9abf34cd0e18ff18c2e211b8173669ac26f15e86e3de4c398a8273272aba034">Bool</a>
@@ -2260,7 +2268,7 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:abf9abf34cd0e18ff18c2e211b8173669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base (built-in) types for compositing shader interface.  <a href="namespacewmoge.html#abf9abf34cd0e18ff18c2e211b8173669">More...</a><br /></td></tr>
 <tr class="separator:abf9abf34cd0e18ff18c2e211b8173669"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9050f7a26594106bc71e44be3b50f957"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9050f7a26594106bc71e44be3b50f957">GrcShaderBindingType</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a9050f7a26594106bc71e44be3b50f957afe97fac1103f4c6a7870acace3bbb4c3">InlineUniformBuffer</a>
 , <a class="el" href="namespacewmoge.html#a9050f7a26594106bc71e44be3b50f957a88f133adfed6c854e5731cdffbf208cf">UniformBuffer</a>
 , <a class="el" href="namespacewmoge.html#a9050f7a26594106bc71e44be3b50f957a439f57c2c466c89db942b3de48298b2b">StorageBuffer</a>
@@ -2280,6 +2288,92 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a2eb83ecce0b7fd8d0ba220d47685df60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semantics of a space containing parameters.  <a href="namespacewmoge.html#a2eb83ecce0b7fd8d0ba220d47685df60">More...</a><br /></td></tr>
 <tr class="separator:a2eb83ecce0b7fd8d0ba220d47685df60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a359fcd4a15e028f0d240eb51260bef7c"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7c">GrcTexCompressionType</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7ca88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
+, <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7ca88ec7b741e9c3ccac7b61b1301ba11e8">BC1</a>
+, <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7ca4d2bc7c468d854a7046ae1ca6b7cf64e">BC2</a>
+, <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7caa9e959126c7c9b4230b56975a1ea015d">BC3</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7cae64cdc788598d5cea29e5c14ce1fc381">BC4</a>
+, <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7cace789f624a22f7c5e6baafe4f4fe9e4d">BC5</a>
+, <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7ca8369ba67f113ff8c9faab3282fb87f8b">BC6</a>
+, <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7caaa51ef981f910b0ec9ed8b82c65be593">BC7</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a359fcd4a15e028f0d240eb51260bef7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported types of block compression for textures.  <a href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7c">More...</a><br /></td></tr>
+<tr class="separator:a359fcd4a15e028f0d240eb51260bef7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdf8e58280ce1179955047471b83b088"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">GrcTexCompressionFormat</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a4eea8fa30e0a9cfacad5b0ae86cf5bb6">BC1_RGB</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a0afdef10f949ad914c6ff95e245d3287">BC1_RGB_SRGB</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a9ec3439fb000579338e3e46f203c1e1c">BC1_RGBA</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a7208922bebe278294a966047b23b9619">BC1_RGBA_SRGB</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a4d2bc7c468d854a7046ae1ca6b7cf64e">BC2</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088ad8823158bc0323e65b353b99dbec42c8">BC2_SRGB</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088aa9e959126c7c9b4230b56975a1ea015d">BC3</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a02bf65916f20a9561b709107c60cccf2">BC3_SRGB</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088ae64cdc788598d5cea29e5c14ce1fc381">BC4</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a939fd457c7554c01a0bc0554a17f707a">BC4_SNORM</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088ace789f624a22f7c5e6baafe4f4fe9e4d">BC5</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a82e090c9814840994b9e585466e86c2e">BC5_SNORM</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088ace4518e9fd8c138dd8097b69fdf5f5f2">BC6H_UFLOAT</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a4548b3edd98de93ed878ccefa59e5799">BC6H_SFLOAT</a>
+, <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088aaa51ef981f910b0ec9ed8b82c65be593">BC7</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088a1f2d0087f03ce3d88e442258ccd7c898">BC7_SRGB</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:acdf8e58280ce1179955047471b83b088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats of compressed textures.  <a href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">More...</a><br /></td></tr>
+<tr class="separator:acdf8e58280ce1179955047471b83b088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f30313f2af907beb8e86050ca9051fe"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fe">GrcDefaultTexture</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fea25a81701fbfa4a1efdf660a950c1d006">White</a> = 0
+, <a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051feae90dfb84e30edf611e326eeb04d680de">Black</a>
+, <a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051feaee38e4d5dd68c4e440825018d549cb47">Red</a>
+, <a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fead382816a3cbeed082c9e216e7392eed1">Green</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fea9594eec95be70e7b1710f730fdda33d9">Blue</a>
+, <a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fea994ae1d9731cebe455aff211bcb25b93">Gray</a>
+, <a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fea96b0141273eabab320119c467cdcaf17">Total</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a2f30313f2af907beb8e86050ca9051fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Built-in default textures.  <a href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fe">More...</a><br /></td></tr>
+<tr class="separator:a2f30313f2af907beb8e86050ca9051fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0521c3268d458ba4aeb833e5f9fea2e8"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8">GrcDefaultSampler</a> { <a class="el" href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8a7a1920d61156abc05a60135aefe8bc67">Default</a> = 0
+, <a class="el" href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8a32a843da6ea40ab3b17a3421ccdf671b">Linear</a>
+, <a class="el" href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8a60494f02d440f316319dd0fad40ad007">Nearest</a>
+, <a class="el" href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8a96b0141273eabab320119c467cdcaf17">Total</a>
+ }</td></tr>
+<tr class="memdesc:a0521c3268d458ba4aeb833e5f9fea2e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Built-in default samplers.  <a href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8">More...</a><br /></td></tr>
+<tr class="separator:a0521c3268d458ba4aeb833e5f9fea2e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c364f3beb409ddb7d6685f79fb6ab6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6">GrcTexSizePreset</a> { <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a15d10a093128975e1497b8752bd64e84">None</a> = 0
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6af065d3ab5bd1cfa09ed2a3bf7a7635a6">Size128x128</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a62d4159630863d63ab116270a9d57ade">Size256x256</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6a3a51abf3754f7b27d58a5b0b501ffe57">Size512x512</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6ab29ce219b01109b2fccb5ea9de40ea53">Size1024x1024</a>
+, <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6aa5b3ed29d5488ac14be72243286a8808">Size2048x2048</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6ae8a571f755c04f636d1c08ef59fb2778">Size4096x4096</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ac4c364f3beb409ddb7d6685f79fb6ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available texture resources sizes for optimized memory usage.  <a href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6">More...</a><br /></td></tr>
+<tr class="separator:ac4c364f3beb409ddb7d6685f79fb6ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fbc06adebf351f255f3c3d99bc64285"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a7fbc06adebf351f255f3c3d99bc64285">HgfxPassType</a> { <a class="el" href="namespacewmoge.html#a7fbc06adebf351f255f3c3d99bc64285a7a1920d61156abc05a60135aefe8bc67">Default</a>
  }</td></tr>
 <tr class="memdesc:a7fbc06adebf351f255f3c3d99bc64285"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of hgfx pass types.  <a href="namespacewmoge.html#a7fbc06adebf351f255f3c3d99bc64285">More...</a><br /></td></tr>
@@ -2547,7 +2641,7 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:afdc8dfc5858af93dedca502b2986906a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pipeline type to draw primitive.  <a href="namespacewmoge.html#afdc8dfc5858af93dedca502b2986906a">More...</a><br /></td></tr>
 <tr class="separator:afdc8dfc5858af93dedca502b2986906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79f19219cb882ed2b60e69885f5e4674"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674">CanvasFlag</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
+&#160;&#160;<a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
 , <a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674abef2481eda40bd121482f1814d72314f">Rounded</a> = 1
 , <a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674ab93bbfeadcb381f77b1817904336e887">RoundedCornerLU</a> = 2
 , <a class="el" href="namespacewmoge.html#a79f19219cb882ed2b60e69885f5e4674aaeb4d13487268380809f51624014ad5a">RoundedCornerRU</a> = 3
@@ -2585,73 +2679,6 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a36813b822597e5521201e3b4a36dd1a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of camera, how and what to render.  <a href="namespacewmoge.html#a36813b822597e5521201e3b4a36dd1a2">More...</a><br /></td></tr>
 <tr class="separator:a36813b822597e5521201e3b4a36dd1a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1233afa43f696dcad40e8322492b1d48"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48">TexCompressionType</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
-, <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48a88ec7b741e9c3ccac7b61b1301ba11e8">BC1</a>
-, <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48a4d2bc7c468d854a7046ae1ca6b7cf64e">BC2</a>
-, <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48aa9e959126c7c9b4230b56975a1ea015d">BC3</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48ae64cdc788598d5cea29e5c14ce1fc381">BC4</a>
-, <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48ace789f624a22f7c5e6baafe4f4fe9e4d">BC5</a>
-, <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48a8369ba67f113ff8c9faab3282fb87f8b">BC6</a>
-, <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48aaa51ef981f910b0ec9ed8b82c65be593">BC7</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a1233afa43f696dcad40e8322492b1d48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported types of block compression for textures.  <a href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48">More...</a><br /></td></tr>
-<tr class="separator:a1233afa43f696dcad40e8322492b1d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5832391885c491cdb650fda65093731f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">TexCompressionFormat</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa4eea8fa30e0a9cfacad5b0ae86cf5bb6">BC1_RGB</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa0afdef10f949ad914c6ff95e245d3287">BC1_RGB_SRGB</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa9ec3439fb000579338e3e46f203c1e1c">BC1_RGBA</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa7208922bebe278294a966047b23b9619">BC1_RGBA_SRGB</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa4d2bc7c468d854a7046ae1ca6b7cf64e">BC2</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fad8823158bc0323e65b353b99dbec42c8">BC2_SRGB</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731faa9e959126c7c9b4230b56975a1ea015d">BC3</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa02bf65916f20a9561b709107c60cccf2">BC3_SRGB</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fae64cdc788598d5cea29e5c14ce1fc381">BC4</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa939fd457c7554c01a0bc0554a17f707a">BC4_SNORM</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731face789f624a22f7c5e6baafe4f4fe9e4d">BC5</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa82e090c9814840994b9e585466e86c2e">BC5_SNORM</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731face4518e9fd8c138dd8097b69fdf5f5f2">BC6H_UFLOAT</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa4548b3edd98de93ed878ccefa59e5799">BC6H_SFLOAT</a>
-, <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731faaa51ef981f910b0ec9ed8b82c65be593">BC7</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731fa1f2d0087f03ce3d88e442258ccd7c898">BC7_SRGB</a>
-<br />
- }</td></tr>
-<tr class="memdesc:a5832391885c491cdb650fda65093731f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats of compressed textures.  <a href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">More...</a><br /></td></tr>
-<tr class="separator:a5832391885c491cdb650fda65093731f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad82029899fb29d7109555af6797d6401"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">TexSizePreset</a> { <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84">None</a> = 0
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a> = 0
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401af065d3ab5bd1cfa09ed2a3bf7a7635a6">Size128x128</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a62d4159630863d63ab116270a9d57ade">Size256x256</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a3a51abf3754f7b27d58a5b0b501ffe57">Size512x512</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ab29ce219b01109b2fccb5ea9de40ea53">Size1024x1024</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401aa5b3ed29d5488ac14be72243286a8808">Size2048x2048</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ae8a571f755c04f636d1c08ef59fb2778">Size4096x4096</a>
-<br />
- }</td></tr>
-<tr class="memdesc:ad82029899fb29d7109555af6797d6401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available texture resources sizes for optimized memory usage.  <a href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">More...</a><br /></td></tr>
-<tr class="separator:ad82029899fb29d7109555af6797d6401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e71025a280604d8a4f31873d9be442"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442">ConfigStackMode</a> { <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442ada364eb37e143f6b2b5559aa03f5913a">Overwrite</a>
 , <a class="el" href="namespacewmoge.html#a29e71025a280604d8a4f31873d9be442a02bce93bff905887ad2233110bf9c49e">Keep</a>
  }</td></tr>
@@ -2896,6 +2923,28 @@ Functions</h2></td></tr>
 <tr class="separator:a237a3045db5e8f792d90ce4eb583a08d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41d01fc961023d2a04d37bdf159e8f6c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; const char * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a41d01fc961023d2a04d37bdf159e8f6c">pack_strings</a> (const std::vector&lt; std::string &gt; &amp;names)</td></tr>
 <tr class="separator:a41d01fc961023d2a04d37bdf159e8f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847af23962073563911114a386932647"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a847af23962073563911114a386932647">WG_IO_END</a> (<a class="el" href="structwmoge_1_1GrcPipelineState.html">GrcPipelineState</a>)</td></tr>
+<tr class="separator:a847af23962073563911114a386932647"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b120aa3124eda229a4504086e245580"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a3b120aa3124eda229a4504086e245580">WG_IO_END_NMSP</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>, Option)</td></tr>
+<tr class="separator:a3b120aa3124eda229a4504086e245580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f8d96b2890d5c5fca053992a6f6d7ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2f8d96b2890d5c5fca053992a6f6d7ec">WG_IO_END_NMSP</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>, Param)</td></tr>
+<tr class="separator:a2f8d96b2890d5c5fca053992a6f6d7ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addaca6560e26056a3f7defed430b701c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#addaca6560e26056a3f7defed430b701c">WG_IO_END_NMSP</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>, ParamBlock)</td></tr>
+<tr class="separator:addaca6560e26056a3f7defed430b701c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad089bda4113c70832b3670d406a08bef"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad089bda4113c70832b3670d406a08bef">WG_IO_END_NMSP</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>, Pass)</td></tr>
+<tr class="separator:ad089bda4113c70832b3670d406a08bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d8464bf1b4c5a88b1557f94153ec253"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2d8464bf1b4c5a88b1557f94153ec253">WG_IO_END_NMSP</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>, Technique)</td></tr>
+<tr class="separator:a2d8464bf1b4c5a88b1557f94153ec253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f5be5710bcdafe7cd7ca83895a0b771"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6f5be5710bcdafe7cd7ca83895a0b771">WG_IO_END_NMSP</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>, Source)</td></tr>
+<tr class="separator:a6f5be5710bcdafe7cd7ca83895a0b771"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a28a74bde7508dc896b87638bcf3fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a34a28a74bde7508dc896b87638bcf3fb">WG_IO_END</a> (<a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>)</td></tr>
+<tr class="separator:a34a28a74bde7508dc896b87638bcf3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a39675f318e1a01c2fa77fedc6817e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">GfxFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a3a39675f318e1a01c2fa77fedc6817e7">get_gfx_format</a> (<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">GrcTexCompressionFormat</a> format)</td></tr>
+<tr class="separator:a3a39675f318e1a01c2fa77fedc6817e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac335d4cf0014a3f2bea585c58e53c190"><td class="memItemLeft" align="right" valign="top">CMP_FORMAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac335d4cf0014a3f2bea585c58e53c190">get_compressed_format</a> (<a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">GrcTexCompressionFormat</a> format)</td></tr>
+<tr class="separator:ac335d4cf0014a3f2bea585c58e53c190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58040ceaa4218370e6554e8d9ed80bae"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a58040ceaa4218370e6554e8d9ed80bae">get_error</a> (CMP_ERROR error)</td></tr>
+<tr class="separator:a58040ceaa4218370e6554e8d9ed80bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4222a1ea3a27b2c683bdac64280a49ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4222a1ea3a27b2c683bdac64280a49ec">archive_read</a> (<a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive, bool &amp;value)</td></tr>
 <tr class="separator:a4222a1ea3a27b2c683bdac64280a49ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add2ba4973e5189ed492cdb93324e65cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#add2ba4973e5189ed492cdb93324e65cd">archive_write</a> (<a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive, const bool &amp;value)</td></tr>
@@ -3094,12 +3143,6 @@ Functions</h2></td></tr>
 <tr class="separator:ab24d9411b48b46c2e25183784dc0de3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4f266b75a5ba4116e56da3c4087870e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad4f266b75a5ba4116e56da3c4087870e">archive_read</a> (<a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive, <a class="el" href="structwmoge_1_1ShaderData.html">ShaderData</a> &amp;shader_data)</td></tr>
 <tr class="separator:ad4f266b75a5ba4116e56da3c4087870e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e53e44989dc055eb21af6b9fc1792d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">GfxFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5e53e44989dc055eb21af6b9fc1792d7">get_gfx_format</a> (<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">TexCompressionFormat</a> format)</td></tr>
-<tr class="separator:a5e53e44989dc055eb21af6b9fc1792d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65770cba9f6be5587e420265b3f22cac"><td class="memItemLeft" align="right" valign="top">CMP_FORMAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a65770cba9f6be5587e420265b3f22cac">get_compressed_format</a> (<a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">TexCompressionFormat</a> format)</td></tr>
-<tr class="separator:a65770cba9f6be5587e420265b3f22cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58040ceaa4218370e6554e8d9ed80bae"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a58040ceaa4218370e6554e8d9ed80bae">get_error</a> (CMP_ERROR error)</td></tr>
-<tr class="separator:a58040ceaa4218370e6554e8d9ed80bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ed2dbecf5925fb2ac0615183a48348f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2ed2dbecf5925fb2ac0615183a48348f">yaml_read</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node, <a class="el" href="structwmoge_1_1AudioImportOptions.html">AudioImportOptions</a> &amp;options)</td></tr>
 <tr class="separator:a2ed2dbecf5925fb2ac0615183a48348f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a537d86c8bcb3e7ed9591a5e125d8ae8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a537d86c8bcb3e7ed9591a5e125d8ae8e">yaml_write</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, const <a class="el" href="structwmoge_1_1AudioImportOptions.html">AudioImportOptions</a> &amp;options)</td></tr>
@@ -3172,6 +3215,11 @@ Functions</h2></td></tr>
 <tr class="separator:ad125e991d948020b68317efa3a01d6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a913d56d59571ae1b6da37a4d7f7ef227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a913d56d59571ae1b6da37a4d7f7ef227">register_classes_scene</a> ()</td></tr>
 <tr class="separator:a913d56d59571ae1b6da37a4d7f7ef227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a58823150986b0cc53133694f379f1632"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Log.html">Log</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a58823150986b0cc53133694f379f1632">g_null_log</a></td></tr>
+<tr class="separator:a58823150986b0cc53133694f379f1632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a80373c9834c1d91495fe5180718e49fb"></a>
@@ -4514,7 +4562,7 @@ template&lt;typename T &gt; </div>
 
 <p>State of bus for playing sounds. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a480f734f9ee3fa977a9ae2dac397d23aa4d3d769b812b6faa6b76e1a8abaece2d"></a>Active&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a480f734f9ee3fa977a9ae2dac397d23aa3cab03c00dbd11bc3569afa0748013f0"></a>Inactive&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -4543,7 +4591,7 @@ template&lt;typename T &gt; </div>
 
 <p>State of audio stream playback. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26ac9dbb2b7c84159b632d71e512eba8428"></a>Playing&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26ae99180abf47a8b3a856e0bcb2656990a"></a>Paused&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ab2d6d2f4b2a59ce8adb15be217f26c26ac23e2b09ebe6bf4cb5e2a9abe85c0be2"></a>Stopped&#160;</td><td class="fielddoc"></td></tr>
@@ -4662,7 +4710,7 @@ template&lt;typename T &gt; </div>
 
 <p><a class="el" href="classwmoge_1_1Canvas.html" title="Low-level primitives for 2d drawing using lines, polygones, text and images.">Canvas</a> drawing primitive flags. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674abef2481eda40bd121482f1814d72314f"></a>Rounded&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674ab93bbfeadcb381f77b1817904336e887"></a>RoundedCornerLU&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a79f19219cb882ed2b60e69885f5e4674aaeb4d13487268380809f51624014ad5a"></a>RoundedCornerRU&#160;</td><td class="fielddoc"></td></tr>
@@ -5185,7 +5233,7 @@ template&lt;typename T &gt; </div>
 
 <p>Type of elements in index buffer. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4a0ea4c3fe702d4b272577a3a375334aa2f3a46e0add3a07937412cbeb8f95727"></a>Uint32&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4a0ea4c3fe702d4b272577a3a375334aa3167337450665ae9b3b34004d33cafe8"></a>Uint16&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -5757,7 +5805,7 @@ template&lt;typename T &gt; </div>
 
 <p>Tex view channels swizzling. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad14b72c71b7b44f44cd12281a1102062a2351a905c71af1520c94a8bebaa48434"></a>RRRRtoRGBA&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -5836,7 +5884,70 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca1640e616e5215ad432c61d73169656a6"></a>Uv22f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca177d88f7893489660b51621abc4203b3"></a>Uv32f&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4764e422936404ac0ffa2abf7cb9a0fca9d596e2c6797534355d0b7bf1866f7a4"></a>PrimitiveIdi&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a0521c3268d458ba4aeb833e5f9fea2e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0521c3268d458ba4aeb833e5f9fea2e8">&#9670;&nbsp;</a></span>GrcDefaultSampler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a0521c3268d458ba4aeb833e5f9fea2e8">wmoge::GrcDefaultSampler</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Built-in default samplers. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0521c3268d458ba4aeb833e5f9fea2e8a7a1920d61156abc05a60135aefe8bc67"></a>Default&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0521c3268d458ba4aeb833e5f9fea2e8a32a843da6ea40ab3b17a3421ccdf671b"></a>Linear&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0521c3268d458ba4aeb833e5f9fea2e8a60494f02d440f316319dd0fad40ad007"></a>Nearest&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0521c3268d458ba4aeb833e5f9fea2e8a96b0141273eabab320119c467cdcaf17"></a>Total&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a2f30313f2af907beb8e86050ca9051fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f30313f2af907beb8e86050ca9051fe">&#9670;&nbsp;</a></span>GrcDefaultTexture</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a2f30313f2af907beb8e86050ca9051fe">wmoge::GrcDefaultTexture</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Built-in default textures. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051fea25a81701fbfa4a1efdf660a950c1d006"></a>White&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051feae90dfb84e30edf611e326eeb04d680de"></a>Black&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051feaee38e4d5dd68c4e440825018d549cb47"></a>Red&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051fead382816a3cbeed082c9e216e7392eed1"></a>Green&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051fea9594eec95be70e7b1710f730fdda33d9"></a>Blue&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051fea994ae1d9731cebe455aff211bcb25b93"></a>Gray&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a2f30313f2af907beb8e86050ca9051fea96b0141273eabab320119c467cdcaf17"></a>Total&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -5863,7 +5974,7 @@ template&lt;typename T &gt; </div>
 
 <p>Base (built-in) types for compositing shader interface. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abf9abf34cd0e18ff18c2e211b8173669a1686a6c336b71b36d77354cea19a8b52"></a>Int&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abf9abf34cd0e18ff18c2e211b8173669a22ae0e2b89e5e3d477f988cc36d3272b"></a>Float&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="abf9abf34cd0e18ff18c2e211b8173669ac26f15e86e3de4c398a8273272aba034"></a>Bool&#160;</td><td class="fielddoc"></td></tr>
@@ -5898,7 +6009,7 @@ template&lt;typename T &gt; </div>
 
 <p>Binding types supported by shader pass interface. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9050f7a26594106bc71e44be3b50f957afe97fac1103f4c6a7870acace3bbb4c3"></a>InlineUniformBuffer&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9050f7a26594106bc71e44be3b50f957a88f133adfed6c854e5731cdffbf208cf"></a>UniformBuffer&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9050f7a26594106bc71e44be3b50f957a439f57c2c466c89db942b3de48298b2b"></a>StorageBuffer&#160;</td><td class="fielddoc"></td></tr>
@@ -5936,6 +6047,132 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="a2eb83ecce0b7fd8d0ba220d47685df60a3bb3e8c8a24891ba0f7608bcc96f8b0a"></a>Frame&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2eb83ecce0b7fd8d0ba220d47685df60ad92a8333dd3ccb895cc65f7455b71206"></a>Material&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a2eb83ecce0b7fd8d0ba220d47685df60a2d03c2d5a7ec65ef4619e0582c272ec2"></a>Draw&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="acdf8e58280ce1179955047471b83b088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf8e58280ce1179955047471b83b088">&#9670;&nbsp;</a></span>GrcTexCompressionFormat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">wmoge::GrcTexCompressionFormat</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Formats of compressed textures. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a4eea8fa30e0a9cfacad5b0ae86cf5bb6"></a>BC1_RGB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a0afdef10f949ad914c6ff95e245d3287"></a>BC1_RGB_SRGB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a9ec3439fb000579338e3e46f203c1e1c"></a>BC1_RGBA&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a7208922bebe278294a966047b23b9619"></a>BC1_RGBA_SRGB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a4d2bc7c468d854a7046ae1ca6b7cf64e"></a>BC2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088ad8823158bc0323e65b353b99dbec42c8"></a>BC2_SRGB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088aa9e959126c7c9b4230b56975a1ea015d"></a>BC3&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a02bf65916f20a9561b709107c60cccf2"></a>BC3_SRGB&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088ae64cdc788598d5cea29e5c14ce1fc381"></a>BC4&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a939fd457c7554c01a0bc0554a17f707a"></a>BC4_SNORM&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088ace789f624a22f7c5e6baafe4f4fe9e4d"></a>BC5&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a82e090c9814840994b9e585466e86c2e"></a>BC5_SNORM&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088ace4518e9fd8c138dd8097b69fdf5f5f2"></a>BC6H_UFLOAT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a4548b3edd98de93ed878ccefa59e5799"></a>BC6H_SFLOAT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088aaa51ef981f910b0ec9ed8b82c65be593"></a>BC7&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="acdf8e58280ce1179955047471b83b088a1f2d0087f03ce3d88e442258ccd7c898"></a>BC7_SRGB&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a359fcd4a15e028f0d240eb51260bef7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a359fcd4a15e028f0d240eb51260bef7c">&#9670;&nbsp;</a></span>GrcTexCompressionType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a359fcd4a15e028f0d240eb51260bef7c">wmoge::GrcTexCompressionType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Supported types of block compression for textures. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7ca88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7ca88ec7b741e9c3ccac7b61b1301ba11e8"></a>BC1&#160;</td><td class="fielddoc"><p>BC1 Mode. </p>
+<p>Type of data: RGB + optional 1-bit alpha <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 0.5 byte/px Pallet size: 4 Line segments: 1 Use for: <a class="el" href="classwmoge_1_1Color.html" title="Utilities to work with colors.">Color</a> maps, Cutout color maps (1-bit alpha), Normal maps, if memory is tight </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7ca4d2bc7c468d854a7046ae1ca6b7cf64e"></a>BC2&#160;</td><td class="fielddoc"><p>BC2 Mode. </p>
+<p>Type of data: RGB + 4-bit alpha <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 4 Line segments: 1 Use for: n/a </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7caa9e959126c7c9b4230b56975a1ea015d"></a>BC3&#160;</td><td class="fielddoc"><p>BC3 Mode. </p>
+<p>Type of data: RGBA <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 4 color + 8 alpha Line segments: 1 color + 1 alpha Use for: <a class="el" href="classwmoge_1_1Color.html" title="Utilities to work with colors.">Color</a> maps with full alpha, Packing color and mono maps together </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7cae64cdc788598d5cea29e5c14ce1fc381"></a>BC4&#160;</td><td class="fielddoc"><p>BC4 Mode. </p>
+<p>Type of data: Grayscale <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 0.5 byte/px Pallet size: 8 Line segments: 1 Use for: Height maps, Gloss maps, <a class="el" href="classwmoge_1_1Font.html" title="Font resource for rendering texts from true type fonts.">Font</a> atlases, Any grayscale image </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7cace789f624a22f7c5e6baafe4f4fe9e4d"></a>BC5&#160;</td><td class="fielddoc"><p>BC5 Mode. </p>
+<p>Type of data: 2 × grayscale <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 8 per channel Line segments: 1 per channel Use for: Tangent-space normal maps </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7ca8369ba67f113ff8c9faab3282fb87f8b"></a>BC6&#160;</td><td class="fielddoc"><p>BC6 Mode. </p>
+<p>Type of data: RGB, floating-point <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 8–16 Line segments: 1–2 Use for: HDR images </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a359fcd4a15e028f0d240eb51260bef7caaa51ef981f910b0ec9ed8b82c65be593"></a>BC7&#160;</td><td class="fielddoc"><p>BC7 Mode. </p>
+<p>Type of data: RGB or RGBA <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 4–16 Line segments: 1–3 Use for: High-quality color maps, <a class="el" href="classwmoge_1_1Color.html" title="Utilities to work with colors.">Color</a> maps with full alpha </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ac4c364f3beb409ddb7d6685f79fb6ab6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c364f3beb409ddb7d6685f79fb6ab6">&#9670;&nbsp;</a></span>GrcTexSizePreset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#ac4c364f3beb409ddb7d6685f79fb6ab6">wmoge::GrcTexSizePreset</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Available texture resources sizes for optimized memory usage. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a15d10a093128975e1497b8752bd64e84"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6af065d3ab5bd1cfa09ed2a3bf7a7635a6"></a>Size128x128&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a62d4159630863d63ab116270a9d57ade"></a>Size256x256&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a3a51abf3754f7b27d58a5b0b501ffe57"></a>Size512x512&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6ab29ce219b01109b2fccb5ea9de40ea53"></a>Size1024x1024&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6aa5b3ed29d5488ac14be72243286a8808"></a>Size2048x2048&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6ae8a571f755c04f636d1c08ef59fb2778"></a>Size4096x4096&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -6577,7 +6814,7 @@ template&lt;typename T &gt; </div>
 
 <p><a class="el" href="classwmoge_1_1Resource.html" title="Base class for any engine resource.">Resource</a> system event types. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633a7381d487d18845b379422325c0a768d6"></a>Loaded&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633a942d5bc50011e67d348b6a4a1906dff4"></a>FailedLoad&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a9ac15e049556f5ce0a504d011dbf6633af756efe6580f590fd25d2f57c998d948"></a>Evicted&#160;</td><td class="fielddoc"></td></tr>
@@ -6607,7 +6844,7 @@ template&lt;typename T &gt; </div>
 
 <p>Node notification type. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ace36795878d656e3dd431e4831ecfc58a10702a6532d7bcb11ed21561e4ad1236"></a>TransformUpdated&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
@@ -6760,133 +6997,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a5832391885c491cdb650fda65093731f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5832391885c491cdb650fda65093731f">&#9670;&nbsp;</a></span>TexCompressionFormat</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">wmoge::TexCompressionFormat</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Formats of compressed textures. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa4eea8fa30e0a9cfacad5b0ae86cf5bb6"></a>BC1_RGB&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa0afdef10f949ad914c6ff95e245d3287"></a>BC1_RGB_SRGB&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa9ec3439fb000579338e3e46f203c1e1c"></a>BC1_RGBA&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa7208922bebe278294a966047b23b9619"></a>BC1_RGBA_SRGB&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa4d2bc7c468d854a7046ae1ca6b7cf64e"></a>BC2&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fad8823158bc0323e65b353b99dbec42c8"></a>BC2_SRGB&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731faa9e959126c7c9b4230b56975a1ea015d"></a>BC3&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa02bf65916f20a9561b709107c60cccf2"></a>BC3_SRGB&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fae64cdc788598d5cea29e5c14ce1fc381"></a>BC4&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa939fd457c7554c01a0bc0554a17f707a"></a>BC4_SNORM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731face789f624a22f7c5e6baafe4f4fe9e4d"></a>BC5&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa82e090c9814840994b9e585466e86c2e"></a>BC5_SNORM&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731face4518e9fd8c138dd8097b69fdf5f5f2"></a>BC6H_UFLOAT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa4548b3edd98de93ed878ccefa59e5799"></a>BC6H_SFLOAT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731faaa51ef981f910b0ec9ed8b82c65be593"></a>BC7&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a5832391885c491cdb650fda65093731fa1f2d0087f03ce3d88e442258ccd7c898"></a>BC7_SRGB&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<a id="a1233afa43f696dcad40e8322492b1d48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1233afa43f696dcad40e8322492b1d48">&#9670;&nbsp;</a></span>TexCompressionType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48">wmoge::TexCompressionType</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Supported types of block compression for textures. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48a88ec7b741e9c3ccac7b61b1301ba11e8"></a>BC1&#160;</td><td class="fielddoc"><p>BC1 Mode. </p>
-<p>Type of data: RGB + optional 1-bit alpha <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 0.5 byte/px Pallet size: 4 Line segments: 1 Use for: <a class="el" href="classwmoge_1_1Color.html" title="Utilities to work with colors.">Color</a> maps, Cutout color maps (1-bit alpha), Normal maps, if memory is tight </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48a4d2bc7c468d854a7046ae1ca6b7cf64e"></a>BC2&#160;</td><td class="fielddoc"><p>BC2 Mode. </p>
-<p>Type of data: RGB + 4-bit alpha <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 4 Line segments: 1 Use for: n/a </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48aa9e959126c7c9b4230b56975a1ea015d"></a>BC3&#160;</td><td class="fielddoc"><p>BC3 Mode. </p>
-<p>Type of data: RGBA <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 4 color + 8 alpha Line segments: 1 color + 1 alpha Use for: <a class="el" href="classwmoge_1_1Color.html" title="Utilities to work with colors.">Color</a> maps with full alpha, Packing color and mono maps together </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48ae64cdc788598d5cea29e5c14ce1fc381"></a>BC4&#160;</td><td class="fielddoc"><p>BC4 Mode. </p>
-<p>Type of data: Grayscale <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 0.5 byte/px Pallet size: 8 Line segments: 1 Use for: Height maps, Gloss maps, <a class="el" href="classwmoge_1_1Font.html" title="Font resource for rendering texts from true type fonts.">Font</a> atlases, Any grayscale image </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48ace789f624a22f7c5e6baafe4f4fe9e4d"></a>BC5&#160;</td><td class="fielddoc"><p>BC5 Mode. </p>
-<p>Type of data: 2 × grayscale <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 8 per channel Line segments: 1 per channel Use for: Tangent-space normal maps </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48a8369ba67f113ff8c9faab3282fb87f8b"></a>BC6&#160;</td><td class="fielddoc"><p>BC6 Mode. </p>
-<p>Type of data: RGB, floating-point <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 8–16 Line segments: 1–2 Use for: HDR images </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1233afa43f696dcad40e8322492b1d48aaa51ef981f910b0ec9ed8b82c65be593"></a>BC7&#160;</td><td class="fielddoc"><p>BC7 Mode. </p>
-<p>Type of data: RGB or RGBA <a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> rate: 1 byte/px Pallet size: 4–16 Line segments: 1–3 Use for: High-quality color maps, <a class="el" href="classwmoge_1_1Color.html" title="Utilities to work with colors.">Color</a> maps with full alpha </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a id="ad82029899fb29d7109555af6797d6401"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad82029899fb29d7109555af6797d6401">&#9670;&nbsp;</a></span>TexSizePreset</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">wmoge::TexSizePreset</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Available texture resources sizes for optimized memory usage. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401af065d3ab5bd1cfa09ed2a3bf7a7635a6"></a>Size128x128&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a62d4159630863d63ab116270a9d57ade"></a>Size256x256&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a3a51abf3754f7b27d58a5b0b501ffe57"></a>Size512x512&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401ab29ce219b01109b2fccb5ea9de40ea53"></a>Size1024x1024&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401aa5b3ed29d5488ac14be72243286a8808"></a>Size2048x2048&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401ae8a571f755c04f636d1c08ef59fb2778"></a>Size4096x4096&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
 <a id="ad577a781f400d7d9e6f7484c20fce409"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad577a781f400d7d9e6f7484c20fce409">&#9670;&nbsp;</a></span>TokenNotification</h2>
 
@@ -6909,7 +7019,7 @@ template&lt;typename T &gt; </div>
 
 <p>Types of token events. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac4c364f3beb409ddb7d6685f79fb6ab6a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409af29ddbfb905eb2593fdcdfb243f9af85"></a>Added&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409aff0a3b7f3daef040faf89a88fdac01b7"></a>Updated&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad577a781f400d7d9e6f7484c20fce409a93f07b720ebf7d1246512569761a5804"></a>Removed&#160;</td><td class="fielddoc"></td></tr>
@@ -8751,8 +8861,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a65770cba9f6be5587e420265b3f22cac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65770cba9f6be5587e420265b3f22cac">&#9670;&nbsp;</a></span>get_compressed_format()</h2>
+<a id="ac335d4cf0014a3f2bea585c58e53c190"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac335d4cf0014a3f2bea585c58e53c190">&#9670;&nbsp;</a></span>get_compressed_format()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8760,7 +8870,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">CMP_FORMAT wmoge::get_compressed_format </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">TexCompressionFormat</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">GrcTexCompressionFormat</a>&#160;</td>
           <td class="paramname"><em>format</em></td><td>)</td>
           <td></td>
         </tr>
@@ -8787,8 +8897,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a5e53e44989dc055eb21af6b9fc1792d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e53e44989dc055eb21af6b9fc1792d7">&#9670;&nbsp;</a></span>get_gfx_format()</h2>
+<a id="a3a39675f318e1a01c2fa77fedc6817e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a39675f318e1a01c2fa77fedc6817e7">&#9670;&nbsp;</a></span>get_gfx_format()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8796,7 +8906,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname"><a class="el" href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">GfxFormat</a> wmoge::get_gfx_format </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a5832391885c491cdb650fda65093731f">TexCompressionFormat</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#acdf8e58280ce1179955047471b83b088">GrcTexCompressionFormat</a>&#160;</td>
           <td class="paramname"><em>format</em></td><td>)</td>
           <td></td>
         </tr>
@@ -9493,6 +9603,210 @@ template&lt;typename T &gt; </div>
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a847af23962073563911114a386932647"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847af23962073563911114a386932647">&#9670;&nbsp;</a></span>WG_IO_END() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcPipelineState.html">GrcPipelineState</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34a28a74bde7508dc896b87638bcf3fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a28a74bde7508dc896b87638bcf3fb">&#9670;&nbsp;</a></span>WG_IO_END() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3b120aa3124eda229a4504086e245580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b120aa3124eda229a4504086e245580">&#9670;&nbsp;</a></span>WG_IO_END_NMSP() <span class="overload">[1/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END_NMSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Option&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f8d96b2890d5c5fca053992a6f6d7ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f8d96b2890d5c5fca053992a6f6d7ec">&#9670;&nbsp;</a></span>WG_IO_END_NMSP() <span class="overload">[2/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END_NMSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Param&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="addaca6560e26056a3f7defed430b701c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addaca6560e26056a3f7defed430b701c">&#9670;&nbsp;</a></span>WG_IO_END_NMSP() <span class="overload">[3/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END_NMSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ParamBlock&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad089bda4113c70832b3670d406a08bef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad089bda4113c70832b3670d406a08bef">&#9670;&nbsp;</a></span>WG_IO_END_NMSP() <span class="overload">[4/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END_NMSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Pass&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f5be5710bcdafe7cd7ca83895a0b771"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f5be5710bcdafe7cd7ca83895a0b771">&#9670;&nbsp;</a></span>WG_IO_END_NMSP() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END_NMSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Source&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d8464bf1b4c5a88b1557f94153ec253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d8464bf1b4c5a88b1557f94153ec253">&#9670;&nbsp;</a></span>WG_IO_END_NMSP() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_IO_END_NMSP </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GrcShaderScriptFile.html">GrcShaderScriptFile</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Technique&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -12099,6 +12413,21 @@ template&lt;typename K , typename V , typename H &gt; </div>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a58823150986b0cc53133694f379f1632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58823150986b0cc53133694f379f1632">&#9670;&nbsp;</a></span>g_null_log</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Log.html">Log</a> wmoge::g_null_log</td>
         </tr>
       </table>
 </div><div class="memdoc">

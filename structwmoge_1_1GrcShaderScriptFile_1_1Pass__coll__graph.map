@@ -1,0 +1,5 @@
+<map id="wmoge::GrcShaderScriptFile::Pass" name="wmoge::GrcShaderScriptFile::Pass">
+<area shape="rect" id="node1" title="Single technique pass." alt="" coords="75,95,261,136"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GrcPipelineState.html" title="Rendering settings provided in a pass." alt="" coords="5,5,173,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="198,5,295,32"/>
+</map>

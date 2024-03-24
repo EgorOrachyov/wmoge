@@ -97,15 +97,15 @@ Collaboration diagram for wmoge::Texture:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1Texture__coll__graph.png" border="0" usemap="#awmoge_1_1Texture_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1Texture_coll__map" id="awmoge_1_1Texture_coll__map">
-<area shape="rect" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="879,137,992,163"/>
-<area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="566,13,691,39"/>
+<area shape="rect" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="859,137,972,163"/>
+<area shape="rect" href="classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="556,13,681,39"/>
 <area shape="rect" href="classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="323,5,473,47"/>
 <area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="165,13,273,39"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,13,116,39"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="554,64,703,105"/>
-<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="533,129,725,171"/>
-<area shape="rect" href="structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="523,195,735,222"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="554,247,703,288"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="544,64,693,105"/>
+<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="523,129,715,171"/>
+<area shape="rect" href="structwmoge_1_1GrcTexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="525,195,713,236"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="544,260,693,301"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -122,8 +122,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa6d424d995f5c1ff433dd7507362341e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a386e828a836a4bb2a8dd32b07a18d761"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a386e828a836a4bb2a8dd32b07a18d761">set_sampler_from_desc</a> (const <a class="el" href="structwmoge_1_1GfxSamplerDesc.html">GfxSamplerDesc</a> &amp;desc)</td></tr>
 <tr class="separator:a386e828a836a4bb2a8dd32b07a18d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a410a44e4324d4560dd7c51a798d58f35"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a410a44e4324d4560dd7c51a798d58f35">set_compression</a> (const <a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> &amp;params)</td></tr>
-<tr class="separator:a410a44e4324d4560dd7c51a798d58f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8538e474a0cb44579502ad62932f38ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a8538e474a0cb44579502ad62932f38ea">set_compression</a> (const <a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a> &amp;params)</td></tr>
+<tr class="separator:a8538e474a0cb44579502ad62932f38ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfa0538f12f03c5b62e37ed7bf447eb7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#abfa0538f12f03c5b62e37ed7bf447eb7">generate_mips</a> ()</td></tr>
 <tr class="memdesc:abfa0538f12f03c5b62e37ed7bf447eb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate mip-chain for the image using source 0-mip faces data.  <a href="classwmoge_1_1Texture.html#abfa0538f12f03c5b62e37ed7bf447eb7">More...</a><br /></td></tr>
 <tr class="separator:abfa0538f12f03c5b62e37ed7bf447eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,8 +165,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab94fd57bd90da15b895fdadd1ef9121f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c04500ce7ac6f2aaabb0484c0491120"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a7c04500ce7ac6f2aaabb0484c0491120">get_srgb</a> () const</td></tr>
 <tr class="separator:a7c04500ce7ac6f2aaabb0484c0491120"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc1b2f486c0b17158a4eed25c0a61ef8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#afc1b2f486c0b17158a4eed25c0a61ef8">get_compression</a> () const</td></tr>
-<tr class="separator:afc1b2f486c0b17158a4eed25c0a61ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79a46ab62b3713cb346788727bd17089"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a79a46ab62b3713cb346788727bd17089">get_compression</a> () const</td></tr>
+<tr class="separator:a79a46ab62b3713cb346788727bd17089"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addc7457113b4ef959d34df26dc48c036"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#addc7457113b4ef959d34df26dc48c036">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const override</td></tr>
 <tr class="separator:addc7457113b4ef959d34df26dc48c036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1Resource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Resource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Resource.html">wmoge::Resource</a></td></tr>
@@ -268,8 +268,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ad50ed29614408fa025fe87dff657b53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3807218be1f738eb7e27239103f1ea1c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a3807218be1f738eb7e27239103f1ea1c">m_srgb</a> = false</td></tr>
 <tr class="separator:a3807218be1f738eb7e27239103f1ea1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7e7a21904ef6a6dd896ab35d0739292"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#ac7e7a21904ef6a6dd896ab35d0739292">m_compression</a> {}</td></tr>
-<tr class="separator:ac7e7a21904ef6a6dd896ab35d0739292"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9df243b8078c0187010b1be056ad3e7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Texture.html#a9df243b8078c0187010b1be056ad3e7e">m_compression</a> {}</td></tr>
+<tr class="separator:a9df243b8078c0187010b1be056ad3e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -517,8 +517,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="afc1b2f486c0b17158a4eed25c0a61ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc1b2f486c0b17158a4eed25c0a61ef8">&#9670;&nbsp;</a></span>get_compression()</h2>
+<a id="a79a46ab62b3713cb346788727bd17089"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79a46ab62b3713cb346788727bd17089">&#9670;&nbsp;</a></span>get_compression()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -527,7 +527,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a>&amp; wmoge::Texture::get_compression </td>
+          <td class="memname">const <a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a>&amp; wmoge::Texture::get_compression </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -892,8 +892,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a410a44e4324d4560dd7c51a798d58f35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a410a44e4324d4560dd7c51a798d58f35">&#9670;&nbsp;</a></span>set_compression()</h2>
+<a id="a8538e474a0cb44579502ad62932f38ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8538e474a0cb44579502ad62932f38ea">&#9670;&nbsp;</a></span>set_compression()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -904,7 +904,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void wmoge::Texture::set_compression </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a> &amp;&#160;</td>
           <td class="paramname"><em>params</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1069,8 +1069,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ac7e7a21904ef6a6dd896ab35d0739292"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7e7a21904ef6a6dd896ab35d0739292">&#9670;&nbsp;</a></span>m_compression</h2>
+<a id="a9df243b8078c0187010b1be056ad3e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9df243b8078c0187010b1be056ad3e7e">&#9670;&nbsp;</a></span>m_compression</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1079,7 +1079,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> wmoge::Texture::m_compression {}</td>
+          <td class="memname"><a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a> wmoge::Texture::m_compression {}</td>
         </tr>
       </table>
   </td>
