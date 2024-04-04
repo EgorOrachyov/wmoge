@@ -106,9 +106,9 @@ Collaboration diagram for wmoge::Font:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab9603837492931de03e1834285036390"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#ab9603837492931de03e1834285036390">WG_OBJECT</a> (<a class="el" href="classwmoge_1_1Font.html">Font</a>, <a class="el" href="classwmoge_1_1Resource.html">Resource</a>)</td></tr>
 <tr class="separator:ab9603837492931de03e1834285036390"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a170c468203c820d7be4d37d6acbdf50d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#a170c468203c820d7be4d37d6acbdf50d">load</a> (const std::string &amp;path, int height=40, int glyphs_in_row=16)</td></tr>
-<tr class="memdesc:a170c468203c820d7be4d37d6acbdf50d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads font from a .ttf file from file system using specified height in pixels.  <a href="classwmoge_1_1Font.html#a170c468203c820d7be4d37d6acbdf50d">More...</a><br /></td></tr>
-<tr class="separator:a170c468203c820d7be4d37d6acbdf50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a247f558906ad5e47be2f062356455fae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#a247f558906ad5e47be2f062356455fae">init</a> (const <a class="el" href="structwmoge_1_1FontDesc.html">FontDesc</a> &amp;desc)</td></tr>
+<tr class="memdesc:a247f558906ad5e47be2f062356455fae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Init font from desc.  <a href="classwmoge_1_1Font.html#a247f558906ad5e47be2f062356455fae">More...</a><br /></td></tr>
+<tr class="separator:a247f558906ad5e47be2f062356455fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af25e341a8a87a1a50ca39d4a16a0c9ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Font.html#af25e341a8a87a1a50ca39d4a16a0c9ed">get_string_size</a> (const std::string &amp;text, float size)</td></tr>
 <tr class="memdesc:af25e341a8a87a1a50ca39d4a16a0c9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size in pixels of a text in given font.  <a href="classwmoge_1_1Font.html#af25e341a8a87a1a50ca39d4a16a0c9ed">More...</a><br /></td></tr>
 <tr class="separator:af25e341a8a87a1a50ca39d4a16a0c9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -537,49 +537,30 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a170c468203c820d7be4d37d6acbdf50d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a170c468203c820d7be4d37d6acbdf50d">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a247f558906ad5e47be2f062356455fae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a247f558906ad5e47be2f062356455fae">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Font::load </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::Font::init </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1FontDesc.html">FontDesc</a> &amp;&#160;</td>
+          <td class="paramname"><em>desc</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>height</em> = <code>40</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>glyphs_in_row</em> = <code>16</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Loads font from a .ttf file from file system using specified height in pixels. </p>
-<dl class="section note"><dt>Note</dt><dd>Uses FreeType2 library for .ttf file loading</dd></dl>
+<p>Init font from desc. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filepath</td><td>Path to the font .ttf file in a file system </td></tr>
-    <tr><td class="paramname">height</td><td><a class="el" href="classwmoge_1_1Font.html" title="Font resource for rendering texts from true type fonts.">Font</a> height in pixels </td></tr>
-    <tr><td class="paramname">glyphs_in_row</td><td>Num of glyphs in a row of a bitmap</td></tr>
+    <tr><td class="paramname">desc</td><td>Description of font</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if font loaded </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Ok on success </dd></dl>
 
 </div>
 </div>

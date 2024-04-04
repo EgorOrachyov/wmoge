@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1Ref.html" title="Smart shared reference&#45;counted pointer to T class." alt="" coords="5,42,125,69"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ResRef.html" title=" " alt="" coords="173,5,340,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1ResRef.html" title="Aux box to store resource ref and serialize/deserialize it automatically to and from files." alt="" coords="185,71,328,98"/>
 </map>
