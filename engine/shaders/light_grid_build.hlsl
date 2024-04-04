@@ -12,12 +12,14 @@
 
 #define GROUP_SIZE_DEFAULT 64
 
-layout (local_size_x = GROUP_SIZE_DEFAULT, local_size_y = 1, local_size_z = 1) in;
+layout(local_size_x = GROUP_SIZE_DEFAULT, local_size_y = 1, local_size_z = 1) in;
 
-void main() {
+void main()
+{
     const uint tid = gl_GlobalInvocationID.x;
 
-    if (tid < GridSize) {
+    if (tid < GridSize)
+    {
         return;
     }
 
@@ -30,25 +32,27 @@ void main() {
 
     uint lightCouner = 0;
 
-    for (uint i = 0; i < numLights && lightCouner < GridCellSize; i++) {
+    for (uint i = 0; i < numLights && lightCouner < GridCellSize; i++)
+    {
         Light light = GetLight(i);
 
         bool affects = true;
 
-        if (light.type == LIGHT_TYPE_DIR) {
+        if (light.type == LIGHT_TYPE_DIR)
+        {
+        }
+        if (light.type == LIGHT_TYPE_SPOT)
+        {
+        }
+        if (light.type == LIGHT_TYPE_POINT)
+        {
+        }
+        if (light.type == LIGHT_TYPE_AREA)
+        {
+        }
 
-        }
-        if (light.type == LIGHT_TYPE_SPOT) {
-            
-        }
-        if (light.type == LIGHT_TYPE_POINT) {
-            
-        }
-        if (light.type == LIGHT_TYPE_AREA) {
-            
-        }
-
-        if (affects) {
+        if (affects)
+        {
             LightGridCellLights[lightsOffset + lightCouner] = i;
             lightCouner += 1;
         }

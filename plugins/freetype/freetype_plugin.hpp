@@ -27,33 +27,20 @@
 
 #pragma once
 
-#include "math/mat.hpp"
-#include "math/vec.hpp"
-#include "resource/resource.hpp"
-#include "resource/resource_loader.hpp"
-#include "resource/resource_meta.hpp"
-#include "resource/resource_pak.hpp"
-
-#include <assimp/mesh.h>
-#include <assimp/scene.h>
-
-#include <optional>
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
     /**
-     * @class ResourceLoaderAssimp
-     * @brief Loader for a mesh an animation data based on assimp library
-     */
-    class ResourceLoaderAssimp final : public ResourceLoader {
+     * @class FreetypePlugin
+     * @brief Plugin which brings freetype fonts support
+    */
+    class FreetypePlugin : public Plugin {
     public:
-        ~ResourceLoaderAssimp() override = default;
-        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
-        Strid  get_name() override;
+        FreetypePlugin();
+        ~FreetypePlugin() override = default;
 
-    private:
-        Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent);
-        Status process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent);
+        Status on_register() override;
     };
 
 }// namespace wmoge

@@ -27,40 +27,41 @@
 
 #pragma once
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "core/fast_map.hpp"
+#include "core/fast_set.hpp"
+#include "core/string_id.hpp"
+#include "system/plugin.hpp"
+
+#include <memory>
+#include <vector>
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
-     */
-    class HookUuidGen : public Hook {
+    /**
+     * @class PluginManager
+     * @brief Manager for engine plug-ins system
+    */
+    class PluginManager {
     public:
-        ~HookUuidGen() override = default;
+        PluginManager() = default;
 
-        std::string get_name() const override {
-            return "uuid_gen";
-        }
+        void setup();
+        void init();
+        void shutdown();
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
-        }
+        template<typename T>
+        void add();
+        void add(std::shared_ptr<Plugin> plugin);
 
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
-
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
+    private:
+        std::vector<std::shared_ptr<Plugin>> m_plugins;
+        fast_map<Strid, int>                 m_plugins_id;
+        fast_set<Strid>                      m_plugins_loaded;
     };
+
+    template<typename T>
+    inline void PluginManager::add() {
+        add(std::make_shared<T>());
+    }
 
 }// namespace wmoge

@@ -75,6 +75,21 @@ namespace wmoge {
     };
 
     /**
+     * @class FontDesc
+     * @brief Describes font data internal
+    */
+    struct FontDesc {
+        fast_map<int, FontGlyph> glyphs;
+        Ref<Texture2d>           texture;
+        std::string              family_name;
+        std::string              style_name;
+        int                      height        = -1;
+        int                      glyphs_in_row = -1;
+        int                      max_height    = -1;
+        int                      max_width     = -1;
+    };
+
+    /**
      * @class Font
      * @brief Font resource for rendering texts from true type fonts
      *
@@ -88,17 +103,13 @@ namespace wmoge {
         WG_OBJECT(Font, Resource);
 
         /**
-         * @brief Loads font from a .ttf file from file system using specified height in pixels
-         *
-         * @note Uses FreeType2 library for .ttf file loading
-         *
-         * @param filepath Path to the font .ttf file in a file system
-         * @param height Font height in pixels
-         * @param glyphs_in_row Num of glyphs in a row of a bitmap
-         *
-         * @return True if font loaded
-         */
-        Status load(const std::string& path, int height = 40, int glyphs_in_row = 16);
+         * @brief Init font from desc
+         * 
+         * @param desc Description of font
+         * 
+         * @return Ok on success
+        */
+        Status init(const FontDesc& desc);
 
         /**
          * @brief Returns the size in pixels of a text in given font

@@ -28,11 +28,11 @@
 #pragma once
 
 #include "core/cmd_line.hpp"
-#include "core/hook.hpp"
-#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "io/enum.hpp"
 #include "resource/config_file.hpp"
+#include "system/hook.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 

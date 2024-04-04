@@ -25,38 +25,22 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "resource_loader_image.hpp"
+#pragma once
 
-#include "debug/profiler.hpp"
-#include "resource/image.hpp"
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
-    Status ResourceLoaderImage::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderImage::load");
+    /**
+     * @class ImagePlugin
+     * @brief Plugin which adds variouse utilities to work with image data in the engine
+    */
+    class ImagePlugin : public Plugin {
+    public:
+        ImagePlugin();
+        ~ImagePlugin() override = default;
 
-        Ref<Image> image = meta.cls->instantiate().cast<Image>();
-
-        if (!image) {
-            WG_LOG_ERROR("Failed to instantiate image " << name);
-            return StatusCode::FailedInstantiate;
-        }
-
-        res = image;
-        res->set_name(name);
-
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("No import options to load image " << name);
-            return StatusCode::InvalidData;
-        }
-
-        ImageImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
-
-        return image->load(options.source_file, options.channels);
-    }
-    Strid ResourceLoaderImage::get_name() {
-        return SID("image");
-    }
+        Status on_register() override;
+    };
 
 }// namespace wmoge

@@ -27,40 +27,37 @@
 
 #pragma once
 
-#include "core/cmd_line.hpp"
+#include "core/status.hpp"
+#include "core/string_id.hpp"
+#include "core/string_utils.hpp"
 #include "core/uuid.hpp"
-#include "system/hook.hpp"
+
+#include <vector>
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
-     */
-    class HookUuidGen : public Hook {
+    /**
+     * @class Plugin
+     * @brief Base class for any engine plug-in
+    */
+    class Plugin {
     public:
-        ~HookUuidGen() override = default;
+        virtual ~Plugin() = default;
 
-        std::string get_name() const override {
-            return "uuid_gen";
-        }
+        virtual Status on_register() { return StatusCode::Ok; }
+        virtual Status on_init() { return StatusCode::Ok; }
+        virtual Status on_shutdown() { return StatusCode::Ok; }
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
-        }
+        [[nodiscard]] const UUID&               get_uuid() { return m_uuid; }
+        [[nodiscard]] const Strid&              get_name() { return m_name; }
+        [[nodiscard]] const std::string&        get_description() { return m_description; }
+        [[nodiscard]] const std::vector<Strid>& get_requirements() { return m_requirements; }
 
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
-
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
+    protected:
+        UUID               m_uuid;
+        Strid              m_name;
+        std::string        m_description;
+        std::vector<Strid> m_requirements;
     };
 
 }// namespace wmoge

@@ -31,12 +31,6 @@ add_library(wmoge STATIC
         core/fast_map.hpp
         core/fast_set.hpp
         core/fast_vector.hpp
-        core/hook.cpp
-        core/hook.hpp
-        core/ioc_container.cpp
-        core/ioc_container.hpp
-        core/layer.cpp
-        core/layer.hpp
         core/log.cpp
         core/log.hpp
         core/mask.hpp
@@ -371,14 +365,8 @@ add_library(wmoge STATIC
         resource/texture.hpp
         resource/register_classes_resource.cpp
         resource/register_classes_resource.hpp
-        resource/loaders/resource_loader_assimp.cpp
-        resource/loaders/resource_loader_assimp.hpp
         resource/loaders/resource_loader_default.cpp
         resource/loaders/resource_loader_default.hpp
-        resource/loaders/resource_loader_freetype.cpp
-        resource/loaders/resource_loader_freetype.hpp
-        resource/loaders/resource_loader_image.cpp
-        resource/loaders/resource_loader_image.hpp
         resource/loaders/resource_loader_texture.cpp
         resource/loaders/resource_loader_texture.hpp
         resource/loaders/resource_loader_wav.cpp
@@ -438,6 +426,15 @@ add_library(wmoge STATIC
         scripting/lua_bindings/lua_bindings_scene.hpp
         system/engine.cpp
         system/engine.hpp
+        system/hook.cpp
+        system/hook.hpp
+        system/ioc_container.cpp
+        system/ioc_container.hpp
+        system/layer.cpp
+        system/layer.hpp
+        system/plugin_manager.cpp
+        system/plugin_manager.hpp
+        system/plugin.hpp
         debug/console.cpp
         debug/console.hpp
         debug/profiler.cpp
@@ -461,10 +458,8 @@ target_link_libraries(wmoge PUBLIC yamc)
 target_link_libraries(wmoge PRIVATE glfw)
 target_link_libraries(wmoge PRIVATE whereami)
 target_link_libraries(wmoge PRIVATE stbimage)
-target_link_libraries(wmoge PRIVATE freetype)
 target_link_libraries(wmoge PRIVATE filewatch)
 target_link_libraries(wmoge PRIVATE lz4)
-target_link_libraries(wmoge PRIVATE assimp)
 target_link_libraries(wmoge PRIVATE compressonator)
 target_link_libraries(wmoge PRIVATE base64)
 

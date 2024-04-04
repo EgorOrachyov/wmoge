@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "resource_loader_assimp.hpp"
+#include "assimp_resource_loader.hpp"
 
 #include "core/data.hpp"
 #include "debug/profiler.hpp"
@@ -55,8 +55,8 @@ namespace wmoge {
         int                 next_mesh_id = 0;
     };
 
-    Status ResourceLoaderAssimp::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::load");
+    Status AssimpResourceLoader::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
+        WG_AUTO_PROFILE_RESOURCE("AssimpResourceLoader::load");
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("no import options file for " << name);
@@ -121,11 +121,11 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    Strid ResourceLoaderAssimp::get_name() {
+    Strid AssimpResourceLoader::get_name() {
         return SID("assimp");
     }
-    Status ResourceLoaderAssimp::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_node");
+    Status AssimpResourceLoader::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent) {
+        WG_AUTO_PROFILE_RESOURCE("AssimpResourceLoader::process_node");
 
         Mat4x4f local_transform;
         Mat4x4f inv_local_transform;
@@ -162,8 +162,8 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    Status ResourceLoaderAssimp::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderAssimp::process_mesh");
+    Status AssimpResourceLoader::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) {
+        WG_AUTO_PROFILE_RESOURCE("AssimpResourceLoader::process_mesh");
 
         const Vec3f aabb_min     = Vec3f(mesh->mAABB.mMin.x, mesh->mAABB.mMin.y, mesh->mAABB.mMin.z);
         const Vec3f aabb_max     = Vec3f(mesh->mAABB.mMax.x, mesh->mAABB.mMax.y, mesh->mAABB.mMax.z);

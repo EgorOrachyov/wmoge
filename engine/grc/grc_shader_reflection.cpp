@@ -27,8 +27,8 @@
 
 #include "grc_shader_reflection.hpp"
 
-#include "core/ioc_container.hpp"
 #include "grc/grc_shader_manager.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 

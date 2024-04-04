@@ -27,6 +27,10 @@
 
 #include <engine.hpp>
 
+#include "assimp_plugin.hpp"
+#include "freetype_plugin.hpp"
+#include "image_plugin.hpp"
+
 using namespace wmoge;
 
 class TemplateApplication : public GameApplication {
@@ -34,6 +38,11 @@ public:
     ~TemplateApplication() override = default;
 
     Status on_register() override {
+        PluginManager* plugin_manager = IocContainer::instance()->resolve_v<PluginManager>();
+        plugin_manager->add<AssimpPlugin>();
+        plugin_manager->add<FreetypePlugin>();
+        plugin_manager->add<ImagePlugin>();
+
         GameApplication::on_register();
 
         WG_LOG_INFO("register");

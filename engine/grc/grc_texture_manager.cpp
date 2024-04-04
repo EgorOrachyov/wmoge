@@ -27,7 +27,7 @@
 
 #include "grc_texture_manager.hpp"
 
-#include "core/ioc_container.hpp"
+#include "system/ioc_container.hpp"
 
 #include <cassert>
 

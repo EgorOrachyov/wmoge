@@ -31,9 +31,6 @@
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
 #include "core/cmd_line.hpp"
-#include "core/hook.hpp"
-#include "core/ioc_container.hpp"
-#include "core/layer.hpp"
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
 #include "debug/console.hpp"
@@ -69,17 +66,22 @@
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
 #include "system/engine.hpp"
+#include "system/hook.hpp"
+#include "system/ioc_container.hpp"
+#include "system/layer.hpp"
 
 #include "event/register_classes_event.hpp"
 #include "pfx/register_classes_pfx.hpp"
 #include "resource/register_classes_resource.hpp"
 #include "scene/register_classes_scene.hpp"
+#include "system/plugin_manager.hpp"
 
 namespace wmoge {
 
     static void bind_globals(IocContainer* ioc) {
         ioc->bind<HookList>();
         ioc->bind<CmdLine>();
+        ioc->bind<PluginManager>();
         ioc->bind<Time>();
         ioc->bind<LayerStack>();
         ioc->bind<ConfigFile>();
@@ -175,6 +177,7 @@ namespace wmoge {
         ioc->unbind<GlfwWindowManager>();
         ioc->unbind<TaskManager>();
         ioc->unbind<EventManager>();
+        ioc->unbind<PluginManager>();
     }
 
     static void register_classes() {

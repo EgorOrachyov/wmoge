@@ -27,40 +27,19 @@
 
 #pragma once
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "resource/resource_loader.hpp"
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
+    /**
+     * @class ImageResourceLoader
+     * @brief Loader for images through stb image library
      */
-    class HookUuidGen : public Hook {
+    class ImageResourceLoader final : public ResourceLoader {
     public:
-        ~HookUuidGen() override = default;
-
-        std::string get_name() const override {
-            return "uuid_gen";
-        }
-
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
-        }
-
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
-
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
+        ~ImageResourceLoader() override = default;
+        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Strid  get_name() override;
     };
 
 }// namespace wmoge

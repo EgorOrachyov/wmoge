@@ -25,42 +25,38 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "image_resource_loader.hpp"
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "debug/profiler.hpp"
+#include "resource/image.hpp"
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
-     */
-    class HookUuidGen : public Hook {
-    public:
-        ~HookUuidGen() override = default;
+    Status ImageResourceLoader::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
+        WG_AUTO_PROFILE_RESOURCE("ImageResourceLoader::load");
 
-        std::string get_name() const override {
-            return "uuid_gen";
+        Ref<Image> image = meta.cls->instantiate().cast<Image>();
+
+        if (!image) {
+            WG_LOG_ERROR("Failed to instantiate image " << name);
+            return StatusCode::FailedInstantiate;
         }
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
+        res = image;
+        res->set_name(name);
+
+        if (!meta.import_options.has_value()) {
+            WG_LOG_ERROR("No import options to load image " << name);
+            return StatusCode::InvalidData;
         }
 
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
+        ImageImportOptions options;
+        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
 
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
-    };
+        return image->load(options.source_file, options.channels);
+    }
+    Strid ImageResourceLoader::get_name() {
+        return SID("image");
+    }
 
 }// namespace wmoge

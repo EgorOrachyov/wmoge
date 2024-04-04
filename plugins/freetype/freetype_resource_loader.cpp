@@ -25,42 +25,39 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "freetype_resource_loader.hpp"
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "debug/profiler.hpp"
+#include "freetype_font.hpp"
+#include "resource/font.hpp"
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
-     */
-    class HookUuidGen : public Hook {
-    public:
-        ~HookUuidGen() override = default;
+    Status FreetypeResourceLoader::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
+        WG_AUTO_PROFILE_RESOURCE("FreetypeResourceLoader::load");
 
-        std::string get_name() const override {
-            return "uuid_gen";
+        Ref<Font> font = meta.cls->instantiate().cast<Font>();
+
+        if (!font) {
+            WG_LOG_ERROR("failed to instantiate font " << name);
+            return StatusCode::FailedInstantiate;
         }
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
+        res = font;
+        res->set_name(name);
+
+        if (!meta.import_options.has_value()) {
+            WG_LOG_ERROR("no import options to load font " << name);
+            return StatusCode::InvalidData;
         }
 
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
+        FontImportOptions options;
+        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
 
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
-    };
+        return FreetypeFont::load(font, options.source_file, options.height, options.glyphs_in_row);
+    }
+    Strid FreetypeResourceLoader::get_name() {
+        return SID("freetype");
+    }
 
 }// namespace wmoge

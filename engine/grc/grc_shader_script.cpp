@@ -87,7 +87,7 @@ namespace wmoge {
         : m_reflection(std::move(reflection)) {
     }
 
-    std::optional<std::int16_t> GrcShaderScript::find_techique(Strid name) {
+    std::optional<std::int16_t> GrcShaderScript::find_technique(Strid name) {
         auto r = m_reflection.techniques_map.find(name);
         return r != m_reflection.techniques_map.end() ? std::optional<std::int16_t>(r->second) : std::nullopt;
     }

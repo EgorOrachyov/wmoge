@@ -27,40 +27,33 @@
 
 #pragma once
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "math/mat.hpp"
+#include "math/vec.hpp"
+#include "resource/resource.hpp"
+#include "resource/resource_loader.hpp"
+#include "resource/resource_meta.hpp"
+#include "resource/resource_pak.hpp"
+
+#include <assimp/mesh.h>
+#include <assimp/scene.h>
+
+#include <optional>
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
+    /**
+     * @class AssimpResourceLoader
+     * @brief Loader for a mesh an animation data based on assimp library
      */
-    class HookUuidGen : public Hook {
+    class AssimpResourceLoader final : public ResourceLoader {
     public:
-        ~HookUuidGen() override = default;
+        ~AssimpResourceLoader() override = default;
+        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
+        Strid  get_name() override;
 
-        std::string get_name() const override {
-            return "uuid_gen";
-        }
-
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
-        }
-
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
-
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
+    private:
+        Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent);
+        Status process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent);
     };
 
 }// namespace wmoge

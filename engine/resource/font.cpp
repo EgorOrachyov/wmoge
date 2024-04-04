@@ -33,8 +33,6 @@
 #include "resource/image.hpp"
 #include "system/engine.hpp"
 
-#include <freetype/freetype.h>
-
 #include <sstream>
 #include <string>
 
@@ -46,146 +44,19 @@ namespace wmoge {
     WG_IO_FIELD(glyphs_in_row)
     WG_IO_END(FontImportOptions)
 
-    Status Font::load(const std::string& path, int height, int glyphs_in_row) {
-        WG_AUTO_PROFILE_RESOURCE("Font::load");
-
-        static const int GLYPHS_SIZE_SHIFT    = 6;
-        static const int GLYPHS_BITMAP_OFFSET = 2;
-
-        std::vector<std::uint8_t> ttf_data;
-        if (!Engine::instance()->file_system()->read_file(path, ttf_data)) {
-            WG_LOG_ERROR("failed to load font data from resource pak " << path);
-            return StatusCode::FailedRead;
-        }
-
-        FT_Library ft_library;
-        if (FT_Init_FreeType(&ft_library)) {
-            WG_LOG_ERROR("failed to init free type library");
-            return StatusCode::Error;
-        }
-
-        FT_Face ft_face;
-        if (FT_New_Memory_Face(ft_library, ttf_data.data(), static_cast<FT_Long>(ttf_data.size()), 0, &ft_face)) {
-            WG_LOG_ERROR("failed to parse font data for " << path);
-            FT_Done_FreeType(ft_library);
-            return StatusCode::FailedParse;
-        }
-
-        m_family_name = ft_face->family_name;
-        m_style_name  = ft_face->style_name;
-
-        FT_Select_Charmap(ft_face, ft_encoding_unicode);
-        FT_Set_Pixel_Sizes(ft_face, 0, height);
-
-        m_glyphs[0];
-        for (int i = 32; i < 126; i++) m_glyphs[i];
-
-        int                       loaded     = 0;
-        int                       max_width  = 0;
-        int                       max_height = 0;
-        std::vector<std::uint8_t> glyphs_rendered;
-
-        for (auto& entry : m_glyphs) {
-            auto& glyph = entry.second;
-
-            if (FT_Load_Char(ft_face, entry.first, FT_LOAD_RENDER)) continue;
-
-            FT_GlyphSlot ft_glyph = ft_face->glyph;
-
-            glyph.code_point = entry.first;
-            glyph.size       = Size2i(ft_glyph->bitmap.width, ft_glyph->bitmap.rows);
-            glyph.bearing    = Vec2i(ft_glyph->bitmap_left, ft_glyph->bitmap_top);
-            glyph.advance    = Vec2i(ft_glyph->advance.x >> GLYPHS_SIZE_SHIFT, ft_glyph->advance.y >> GLYPHS_SIZE_SHIFT);
-
-            auto offset = glyphs_rendered.size();
-            auto size   = glyph.size.x() * glyph.size.y();
-            glyphs_rendered.resize(offset + size);
-            std::memcpy(glyphs_rendered.data() + offset, ft_glyph->bitmap.buffer, size);
-
-            max_width  = Math::max(max_width, glyph.size.x());
-            max_height = Math::max(max_height, glyph.size.y());
-            loaded += 1;
-        }
-
-        FT_Done_Face(ft_face);
-        FT_Done_FreeType(ft_library);
-
-        int bitmap_cols   = glyphs_in_row;
-        int bitmap_rows   = loaded / bitmap_cols + (loaded % bitmap_cols ? 1 : 0);
-        int bitmap_width  = bitmap_cols * max_width + Math::max(0, bitmap_cols - 1) * GLYPHS_BITMAP_OFFSET;
-        int bitmap_height = bitmap_rows * max_height + Math::max(0, bitmap_rows - 1) * GLYPHS_BITMAP_OFFSET;
-        int bitmap_size   = bitmap_width * bitmap_height;
-
-        Ref<Image> bitmap = make_ref<Image>();
-        bitmap->set_name(SID(get_name().str() + "_bitmap"));
-        bitmap->create(bitmap_width, bitmap_height, 1, 1);
-        auto* dst_ptr     = bitmap->get_pixel_data()->buffer();
-        auto* src_ptr     = glyphs_rendered.data();
-        int   read_offset = 0;
-        int   count       = 0;
-
-        std::memset(dst_ptr, 0, bitmap_size);
-
-        for (auto& entry : m_glyphs) {
-            if (entry.second.code_point < 0)
-                continue;
-
-            int row          = count / bitmap_cols;
-            int col          = count % bitmap_cols;
-            int write_offset = row * (max_height + GLYPHS_BITMAP_OFFSET) * bitmap_width + col * (max_width + GLYPHS_BITMAP_OFFSET);
-
-            auto& glyph         = entry.second;
-            glyph.bitmap_uv0[0] = static_cast<float>(col * (max_width + GLYPHS_BITMAP_OFFSET)) / static_cast<float>(bitmap_width);
-            glyph.bitmap_uv0[1] = 1.0f - static_cast<float>(row * (max_height + GLYPHS_BITMAP_OFFSET)) / static_cast<float>(bitmap_height);
-            glyph.bitmap_uv1[0] = glyph.bitmap_uv0[0] + static_cast<float>(glyph.size.x()) / static_cast<float>(bitmap_width);
-            glyph.bitmap_uv1[1] = glyph.bitmap_uv0[1] - static_cast<float>(glyph.size.y()) / static_cast<float>(bitmap_height);
-
-            for (int i = 0; i < glyph.size.y(); i++) {
-                std::memcpy(dst_ptr + write_offset, src_ptr + read_offset, glyph.size.x());
-                read_offset += glyph.size.x();
-                write_offset += bitmap_width;
-            }
-
-            count += 1;
-        }
-
-        m_glyphs_in_row = glyphs_in_row;
-        m_height        = height;
-        m_max_width     = max_width;
-        m_max_height    = max_height;
-
-        GfxSamplerDesc sampler_desc;
-        sampler_desc.brd_clr        = GfxSampBrdClr::Black;
-        sampler_desc.mag_flt        = GfxSampFlt::Linear;
-        sampler_desc.min_flt        = GfxSampFlt::LinearMipmapLinear;
-        sampler_desc.max_anisotropy = Engine::instance()->gfx_driver()->device_caps().max_anisotropy;
-        sampler_desc.u              = GfxSampAddress::ClampToBorder;
-        sampler_desc.v              = GfxSampAddress::ClampToBorder;
-
-        GrcTexCompressionParams compression_params{};
-        compression_params.format = GrcTexCompressionFormat::BC4;
-
-        m_texture = make_ref<Texture2d>(GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
-        m_texture->set_name(SID(get_name().str() + "_texture"));
-        m_texture->set_sampler_from_desc(sampler_desc);
-        m_texture->set_compression(compression_params);
-        m_texture->set_source_images({bitmap});
-
-        if (!m_texture->generate_mips()) {
-            WG_LOG_ERROR("failed to gen font mips " << get_name());
-            return StatusCode::Error;
-        }
-        if (!m_texture->generate_compressed_data()) {
-            WG_LOG_ERROR("failed to compress font texture " << get_name());
-            return StatusCode::Error;
-        }
-        if (!m_texture->generate_gfx_resource()) {
-            WG_LOG_ERROR("failed to create gfx font texture " << get_name());
-            return StatusCode::Error;
-        }
+    Status Font::init(const FontDesc& desc) {
+        m_glyphs        = desc.glyphs;
+        m_texture       = desc.texture;
+        m_family_name   = desc.family_name;
+        m_style_name    = desc.style_name;
+        m_height        = desc.height;
+        m_glyphs_in_row = desc.glyphs_in_row;
+        m_max_height    = desc.max_height;
+        m_max_width     = desc.max_width;
 
         return StatusCode::Ok;
     }
+
     Vec2f Font::get_string_size(const std::string& text, float size) {
         const int   n          = int(text.size());
         const float scale      = size > 0 ? size / float(get_height()) : 1.0f;

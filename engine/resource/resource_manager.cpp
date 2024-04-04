@@ -35,10 +35,7 @@
 
 #include "resource/paks/resource_pak_fs.hpp"
 
-#include "resource/loaders/resource_loader_assimp.hpp"
 #include "resource/loaders/resource_loader_default.hpp"
-#include "resource/loaders/resource_loader_freetype.hpp"
-#include "resource/loaders/resource_loader_image.hpp"
 #include "resource/loaders/resource_loader_texture.hpp"
 #include "resource/loaders/resource_loader_wav.hpp"
 
@@ -49,9 +46,6 @@ namespace wmoge {
     ResourceManager::ResourceManager() {
         add_pak(std::make_shared<ResourcePakFileSystem>());
         add_loader(std::make_shared<ResourceLoaderDefault>());
-        add_loader(std::make_shared<ResourceLoaderAssimp>());
-        add_loader(std::make_shared<ResourceLoaderFreeType>());
-        add_loader(std::make_shared<ResourceLoaderImage>());
         add_loader(std::make_shared<ResourceLoaderTexture2d>());
         add_loader(std::make_shared<ResourceLoaderTextureCube>());
         add_loader(std::make_shared<ResourceLoaderWav>());

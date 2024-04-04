@@ -25,21 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "image_plugin.hpp"
 
-#include "resource/resource_loader.hpp"
+#include "core/log.hpp"
+#include "core/status.hpp"
+#include "image_resource_loader.hpp"
+#include "resource/resource_manager.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ResourceLoaderFreeType
-     * @brief Loader for ttf fonts through freetype2 library
-     */
-    class ResourceLoaderFreeType final : public ResourceLoader {
-    public:
-        ~ResourceLoaderFreeType() override = default;
-        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
-        Strid  get_name() override;
-    };
+    ImagePlugin::ImagePlugin() {
+        m_name         = SID("iamge");
+        m_uuid         = UUID::generate();
+        m_description  = "Brings image utilities and import support into the engine";
+        m_requirements = {};
+    }
+
+    Status ImagePlugin::on_register() {
+        IocContainer*    ioc_container    = IocContainer::instance();
+        ResourceManager* resource_manager = ioc_container->resolve_v<ResourceManager>();
+
+        resource_manager->add_loader(std::make_shared<ImageResourceLoader>());
+
+        WG_LOG_INFO("init image plugin");
+
+        return StatusCode::Ok;
+    }
 
 }// namespace wmoge

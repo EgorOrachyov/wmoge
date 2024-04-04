@@ -28,9 +28,9 @@
 #pragma once
 
 #include "core/cmd_line.hpp"
-#include "core/hook.hpp"
-#include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
+#include "system/hook.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 

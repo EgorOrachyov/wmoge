@@ -31,9 +31,6 @@
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
 #include "core/cmd_line.hpp"
-#include "core/hook.hpp"
-#include "core/ioc_container.hpp"
-#include "core/layer.hpp"
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
 #include "debug/console.hpp"
@@ -69,6 +66,10 @@
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
 #include "system/engine.hpp"
+#include "system/hook.hpp"
+#include "system/ioc_container.hpp"
+#include "system/layer.hpp"
+#include "system/plugin_manager.hpp"
 
 #include <cassert>
 
@@ -81,15 +82,18 @@ namespace wmoge {
 
         IocContainer* ioc = IocContainer::instance();
 
-        m_class_db    = ClassDB::instance();
-        m_time        = ioc->resolve_v<Time>();
-        m_layer_stack = ioc->resolve_v<LayerStack>();
-        m_cmd_line    = ioc->resolve_v<CmdLine>();
-        m_hook_list   = ioc->resolve_v<HookList>();
-        m_file_system = ioc->resolve_v<FileSystem>();
-        m_config      = ioc->resolve_v<ConfigFile>();
-        m_console     = ioc->resolve_v<Console>();
-        m_profiler    = ioc->resolve_v<Profiler>();
+        m_class_db       = ClassDB::instance();
+        m_time           = ioc->resolve_v<Time>();
+        m_layer_stack    = ioc->resolve_v<LayerStack>();
+        m_cmd_line       = ioc->resolve_v<CmdLine>();
+        m_hook_list      = ioc->resolve_v<HookList>();
+        m_file_system    = ioc->resolve_v<FileSystem>();
+        m_config         = ioc->resolve_v<ConfigFile>();
+        m_console        = ioc->resolve_v<Console>();
+        m_profiler       = ioc->resolve_v<Profiler>();
+        m_plugin_manager = ioc->resolve_v<PluginManager>();
+
+        m_plugin_manager->setup();
 
         return StatusCode::Ok;
     }
@@ -146,6 +150,8 @@ namespace wmoge {
             WG_LOG_INFO("configure exit on primary window close");
         }
 
+        m_plugin_manager->init();
+
         return StatusCode::Ok;
     }
 
@@ -196,6 +202,7 @@ namespace wmoge {
     Status Engine::shutdown() {
         WG_AUTO_PROFILE_SYSTEM("Engine::shutdown");
 
+        m_plugin_manager->shutdown();
         m_layer_stack->clear();
         m_task_manager->shutdown();
         m_console->shutdown();
@@ -218,6 +225,7 @@ namespace wmoge {
     LayerStack*        Engine::layer_stack() { return m_layer_stack; }
     HookList*          Engine::hook_list() { return m_hook_list; }
     CmdLine*           Engine::cmd_line() { return m_cmd_line; }
+    PluginManager*     Engine::plugin_manager() { return m_plugin_manager; }
     ConfigFile*        Engine::config() { return m_config; }
     CallbackQueue*     Engine::main_queue() { return m_main_queue; }
     FileSystem*        Engine::file_system() { return m_file_system; }

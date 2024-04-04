@@ -182,6 +182,7 @@ namespace wmoge {
 #define WG_AUTO_PROFILE_AUDIO(label)          WG_AUTO_PROFILE(audio, label)
 #define WG_AUTO_PROFILE_OPENAL(label)         WG_AUTO_PROFILE(openal, label)
 #define WG_AUTO_PROFILE_SYSTEM(label)         WG_AUTO_PROFILE(system, label)
+#define WG_AUTO_PROFILE_PLUGIN(label)         WG_AUTO_PROFILE(plugin, label)
 
 #define WG_PROFILE_CAPTURE_START(capture, session, file_path) \
     capture = std::make_shared<ProfilerCapture>();            \

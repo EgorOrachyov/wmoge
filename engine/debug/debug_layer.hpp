@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/layer.hpp"
+#include "system/layer.hpp"
 
 namespace wmoge {
 

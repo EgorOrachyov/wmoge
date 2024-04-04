@@ -25,38 +25,33 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "resource_loader_freetype.hpp"
+#pragma once
 
-#include "debug/profiler.hpp"
+#include "core/status.hpp"
+#include "core/string_utils.hpp"
 #include "resource/font.hpp"
 
 namespace wmoge {
 
-    Status ResourceLoaderFreeType::load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) {
-        WG_AUTO_PROFILE_RESOURCE("ResourceLoaderFreeType::load");
-
-        Ref<Font> font = meta.cls->instantiate().cast<Font>();
-
-        if (!font) {
-            WG_LOG_ERROR("failed to instantiate font " << name);
-            return StatusCode::FailedInstantiate;
-        }
-
-        res = font;
-        res->set_name(name);
-
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("no import options to load font " << name);
-            return StatusCode::InvalidData;
-        }
-
-        FontImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
-
-        return font->load(options.source_file, options.height, options.glyphs_in_row);
-    }
-    Strid ResourceLoaderFreeType::get_name() {
-        return SID("freetype");
-    }
+    /**
+     * @class FreetypeFont
+     * @brief Provides utilies to work with .ttf font via freetype library
+    */
+    class FreetypeFont {
+    public:
+        /**
+         * @brief Loads font from a .ttf file from file system using specified height in pixels
+         *
+         * @note Uses FreeType2 library for .ttf file loading
+         *
+         * @param font Font to load into
+         * @param filepath Path to the font .ttf file in a file system
+         * @param height Font height in pixels
+         * @param glyphs_in_row Num of glyphs in a row of a bitmap
+         *
+         * @return True if font loaded
+         */
+        static Status load(const Ref<Font>& font, const std::string& path, int height = 40, int glyphs_in_row = 16);
+    };
 
 }// namespace wmoge

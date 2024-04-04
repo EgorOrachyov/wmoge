@@ -98,6 +98,10 @@ namespace wmoge {
             m_mesh->add_vertex_buffer(vert_data);
             m_mesh->add_index_buffer(index_data);
 
+            for (auto& vert_stream : vert_streams) {
+                m_mesh->add_vert_stream(vert_stream);
+            }
+
             curr_index_stream += 1;
             curr_vert_stream += int(vert_streams.size());
 

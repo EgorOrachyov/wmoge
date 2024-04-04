@@ -25,42 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "freetype_plugin.hpp"
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "core/log.hpp"
+#include "core/status.hpp"
+#include "freetype_resource_loader.hpp"
+#include "resource/resource_manager.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
-     */
-    class HookUuidGen : public Hook {
-    public:
-        ~HookUuidGen() override = default;
+    FreetypePlugin::FreetypePlugin() {
+        m_name         = SID("freetype");
+        m_uuid         = UUID::generate();
+        m_description  = "Brings freetype import library support for ttf fonts";
+        m_requirements = {};
+    }
 
-        std::string get_name() const override {
-            return "uuid_gen";
-        }
+    Status FreetypePlugin::on_register() {
+        IocContainer*    ioc_container    = IocContainer::instance();
+        ResourceManager* resource_manager = ioc_container->resolve_v<ResourceManager>();
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
-        }
+        resource_manager->add_loader(std::make_shared<FreetypeResourceLoader>());
 
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
+        WG_LOG_INFO("init freetype plugin");
 
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
-                }
-                return StatusCode::ExitCode0;
-            }
-
-            return StatusCode::Ok;
-        }
-    };
+        return StatusCode::Ok;
+    }
 
 }// namespace wmoge

@@ -27,19 +27,20 @@
 
 #pragma once
 
-#include "resource/resource_loader.hpp"
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
     /**
-     * @class ResourceLoaderImage
-     * @brief Loader for images through stb image library
-     */
-    class ResourceLoaderImage final : public ResourceLoader {
+     * @class AssimpPlugin
+     * @brief Plugin which brings assimp support to the engine
+    */
+    class AssimpPlugin : public Plugin {
     public:
-        ~ResourceLoaderImage() override = default;
-        Status load(const Strid& name, const ResourceMeta& meta, Ref<Resource>& res) override;
-        Strid  get_name() override;
+        AssimpPlugin();
+        ~AssimpPlugin() override = default;
+
+        Status on_register() override;
     };
 
 }// namespace wmoge

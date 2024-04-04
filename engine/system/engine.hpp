@@ -63,6 +63,7 @@ namespace wmoge {
         class LayerStack*        layer_stack();
         class HookList*          hook_list();
         class CmdLine*           cmd_line();
+        class PluginManager*     plugin_manager();
         class ConfigFile*        config();
         class CallbackQueue*     main_queue();
         class FileSystem*        file_system();
@@ -100,6 +101,7 @@ namespace wmoge {
         class LayerStack*        m_layer_stack        = nullptr;
         class HookList*          m_hook_list          = nullptr;
         class CmdLine*           m_cmd_line           = nullptr;
+        class PluginManager*     m_plugin_manager     = nullptr;
         class ConfigFile*        m_config             = nullptr;
         class CallbackQueue*     m_main_queue         = nullptr;
         class FileSystem*        m_file_system        = nullptr;

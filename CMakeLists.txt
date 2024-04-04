@@ -54,21 +54,61 @@ endif ()
 ###########################################################
 # Aux functions to work with targets
 
+# configure defines (for engine mostly)
 function(wmoge_target_defs target)
     foreach (DEFINITION ${TARGET_DEFINES})
         target_compile_definitions(${target} PUBLIC ${DEFINITION})
     endforeach ()
 endfunction()
 
-function(wmoge_game name sources icon)
-    # game executable (with optional executable icon)
-    add_executable(${name} ${sources} ${icon})
-    # link engine library to our game
-    target_link_libraries(${name} PRIVATE wmoge)
+# plugin static library (dyn lib support and loading will be added later)
+function(wmoge_plugin name)
+    set(flags)
+    set(args)
+    set(listArgs INCLUDES SOURCES DEPENDENCIES)
+    cmake_parse_arguments(arg "${flags}" "${args}" "${listArgs}" ${ARGN})
+
+    if (NOT arg_INCLUDES)
+        message(FATAL_ERROR "[wmoge_game(${name})]: INCLUDES is a required argument")
+    endif()
+    if (NOT arg_SOURCES)
+        message(FATAL_ERROR "[wmoge_game(${name})]: SOURCES is a required argument")
+    endif()
+    if (NOT arg_DEPENDENCIES)
+        message(FATAL_ERROR "[wmoge_game(${name})]: DEPENDENCIES is a required argument")
+    endif()
+    
+    add_library(${name} STATIC ${arg_SOURCES})
+    target_link_libraries(${name} PUBLIC ${arg_DEPENDENCIES})
+    target_include_directories(${name} PUBLIC ${arg_INCLUDES})
+    message(STATUS "Configure engine plugin <<${name}>>")
+endfunction(wmoge_plugin name sources)
+
+# game executable (with optional executable icon)
+function(wmoge_game name)
+    set(flags)
+    set(args ICON)
+    set(listArgs INCLUDES SOURCES DEPENDENCIES)
+    cmake_parse_arguments(arg "${flags}" "${args}" "${listArgs}" ${ARGN})
+
+    if (NOT arg_INCLUDES)
+        message(FATAL_ERROR "[wmoge_game(${name})]: INCLUDES is a required argument")
+    endif()
+    if (NOT arg_SOURCES)
+        message(FATAL_ERROR "[wmoge_game(${name})]: SOURCES is a required argument")
+    endif()
+    if (NOT arg_DEPENDENCIES)
+        message(FATAL_ERROR "[wmoge_game(${name})]: DEPENDENCIES is a required argument")
+    endif()
+
+    add_executable(${name} ${arg_SOURCES} ${arg_ICON})
+    target_link_libraries(${name} PRIVATE ${arg_DEPENDENCIES})
+    target_include_directories(${name} PRIVATE ${arg_INCLUDES})
+    message(STATUS "Configure game executable <<${name}>>")
 endfunction()
 
 ###########################################################
-# Third-party dependencies of the tutorial
+# Third-party dependencies of the engine
 
 add_subdirectory(deps)
 
@@ -76,6 +116,11 @@ add_subdirectory(deps)
 # Engine sources (will be as static library)
 
 add_subdirectory(engine)
+
+###########################################################
+# Plugins sources (standard plugins for engine)
+
+add_subdirectory(plugins)
 
 ###########################################################
 # Game template for test purposes and to kick-off new projects

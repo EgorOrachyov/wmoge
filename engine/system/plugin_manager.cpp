@@ -25,42 +25,47 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "plugin_manager.hpp"
 
-#include "core/cmd_line.hpp"
-#include "core/uuid.hpp"
-#include "system/hook.hpp"
+#include "core/log.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    /** 
-     * @class HookUuidGen
-     * @brief Engine hook to generate uuids
-     */
-    class HookUuidGen : public Hook {
-    public:
-        ~HookUuidGen() override = default;
-
-        std::string get_name() const override {
-            return "uuid_gen";
-        }
-
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
-        }
-
-        Status on_process(CmdLine& cmd_line) override {
-            const int uuid_count = cmd_line.get_int("gen_uuids");
-
-            if (uuid_count > 0) {
-                for (int i = 0; i < uuid_count; i++) {
-                    std::cout << UUID::generate() << std::endl;
+    void PluginManager::setup() {
+        for (auto& plugin : m_plugins) {
+            for (auto& dep : plugin->get_requirements()) {
+                if (m_plugins_loaded.find(dep) == m_plugins_loaded.end()) {
+                    WG_LOG_ERROR("plugin name=" << plugin->get_name() << " dep=" << dep << " not loaded");
                 }
-                return StatusCode::ExitCode0;
             }
 
-            return StatusCode::Ok;
+            plugin->on_register();
+            m_plugins_loaded.insert(plugin->get_name());
         }
-    };
+
+        WG_LOG_INFO("register plugins");
+    }
+
+    void PluginManager::init() {
+        for (auto& plugin : m_plugins) {
+            plugin->on_init();
+        }
+
+        WG_LOG_INFO("init plugins");
+    }
+
+    void PluginManager::shutdown() {
+        for (auto& plugin : m_plugins) {
+            plugin->on_shutdown();
+        }
+
+        WG_LOG_INFO("shutdown plugins");
+    }
+
+    void PluginManager::add(std::shared_ptr<Plugin> plugin) {
+        m_plugins_id[plugin->get_name()] = int(m_plugins.size());
+        m_plugins.push_back(std::move(plugin));
+    }
 
 }// namespace wmoge

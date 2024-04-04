@@ -140,7 +140,7 @@ namespace wmoge {
         GrcShaderScript(GrcShaderReflection&& reflection);
         ~GrcShaderScript() override = default;
 
-        std::optional<std::int16_t>        find_techique(Strid name);
+        std::optional<std::int16_t>        find_technique(Strid name);
         std::optional<std::int16_t>        find_pass(std::int16_t technique, Strid name);
         GrcShaderParamId                   get_param_id(Strid name);
         std::optional<GrcShaderParamInfo*> get_param_info(GrcShaderParamId id);

@@ -42,9 +42,6 @@
 #include "core/fast_map.hpp"
 #include "core/fast_set.hpp"
 #include "core/fast_vector.hpp"
-#include "core/hook.hpp"
-#include "core/ioc_container.hpp"
-#include "core/layer.hpp"
 #include "core/log.hpp"
 #include "core/mask.hpp"
 #include "core/object.hpp"
@@ -218,6 +215,11 @@
 #include "scripting/script_system.hpp"
 
 #include "system/engine.hpp"
+#include "system/hook.hpp"
+#include "system/ioc_container.hpp"
+#include "system/layer.hpp"
+#include "system/plugin.hpp"
+#include "system/plugin_manager.hpp"
 
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"

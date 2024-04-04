@@ -27,13 +27,13 @@
 
 #include "grc_shader_manager.hpp"
 
-#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
 #include "grc/grc_shader_script_builder.hpp"
 #include "io/enum.hpp"
 #include "math/math_utils.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
