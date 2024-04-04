@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_INPUT_DEFS_HPP
-#define WMOGE_INPUT_DEFS_HPP
+#pragma once
 
 #include "core/mask.hpp"
 
@@ -208,5 +207,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_INPUT_DEFS_HPP

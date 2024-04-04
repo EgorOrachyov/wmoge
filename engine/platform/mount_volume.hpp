@@ -28,43 +28,24 @@
 #pragma once
 
 #include "core/ref.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
-#include "math/vec.hpp"
-#include "resource/image.hpp"
+#include "core/string_utils.hpp"
+#include "platform/file.hpp"
 
 namespace wmoge {
 
     /**
-     * @class WindowInfo
-     * @brief Struct holding window creation info
-     */
-    struct WindowInfo {
-        int         width  = 1280;
-        int         height = 720;
-        Strid       id     = SID("primary");
-        std::string title  = "Window";
-        Ref<Image>  icons[2];
-    };
-
-    /**
-     * @class Window
-     * @brief Interface for OS-specific window for displaying graphics
-     */
-    class Window : public RefCnt {
+     * @class MountVolume
+     * @brief An interface which allows to mount into system virtual file volumes
+    */
+    class MountVolume : public RefCnt {
     public:
-        ~Window() override                            = default;
-        virtual void               close()            = 0;
-        virtual int                width() const      = 0;
-        virtual int                height() const     = 0;
-        virtual Size2i             size() const       = 0;
-        virtual int                fbo_width() const  = 0;
-        virtual int                fbo_height() const = 0;
-        virtual Size2i             fbo_size() const   = 0;
-        virtual float              scale_x() const    = 0;
-        virtual float              scale_y() const    = 0;
-        virtual bool               in_focus() const   = 0;
-        virtual const Strid&       id() const         = 0;
-        virtual const std::string& title() const      = 0;
+        ~MountVolume() override = default;
+
+        virtual bool   exists(const std::string& path) { return false; }
+        virtual Status open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) { return StatusCode::NotImplemented; }
+        virtual Status mounted() { return StatusCode::Ok; }
     };
 
 }// namespace wmoge

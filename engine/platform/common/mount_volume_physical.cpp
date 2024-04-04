@@ -25,46 +25,50 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "mount_volume_physical.hpp"
 
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "math/vec.hpp"
-#include "resource/image.hpp"
+#include "platform/common/file_physical.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class WindowInfo
-     * @brief Struct holding window creation info
-     */
-    struct WindowInfo {
-        int         width  = 1280;
-        int         height = 720;
-        Strid       id     = SID("primary");
-        std::string title  = "Window";
-        Ref<Image>  icons[2];
-    };
+    MountVolumePhysical::MountVolumePhysical(std::filesystem::path path, std::string mapping) {
+        m_path    = std::move(path);
+        m_mapping = std::move(mapping);
+    }
 
-    /**
-     * @class Window
-     * @brief Interface for OS-specific window for displaying graphics
-     */
-    class Window : public RefCnt {
-    public:
-        ~Window() override                            = default;
-        virtual void               close()            = 0;
-        virtual int                width() const      = 0;
-        virtual int                height() const     = 0;
-        virtual Size2i             size() const       = 0;
-        virtual int                fbo_width() const  = 0;
-        virtual int                fbo_height() const = 0;
-        virtual Size2i             fbo_size() const   = 0;
-        virtual float              scale_x() const    = 0;
-        virtual float              scale_y() const    = 0;
-        virtual bool               in_focus() const   = 0;
-        virtual const Strid&       id() const         = 0;
-        virtual const std::string& title() const      = 0;
-    };
+    void MountVolumePhysical::change_path(std::filesystem::path path) {
+        m_path = std::move(path);
+    }
+
+    bool MountVolumePhysical::exists(const std::string& path) {
+        auto prefix = path.find(m_mapping);
+        if (prefix != 0) {
+            return false;
+        }
+
+        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        return std::filesystem::exists(remapped);
+    }
+
+    Status MountVolumePhysical::open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) {
+        auto prefix = path.find(m_mapping);
+        if (prefix != 0) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        const std::filesystem::path remapped      = m_path / path.substr(m_mapping.length());
+        Ref<FilePhysical>           file_physical = make_ref<FilePhysical>();
+
+        if (!file_physical->open(remapped, mode)) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        file = file_physical.as<File>();
+        return StatusCode::Ok;
+    }
+
+    Status MountVolumePhysical::mounted() {
+        return StatusCode::Ok;
+    }
 
 }// namespace wmoge

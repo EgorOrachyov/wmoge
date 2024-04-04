@@ -303,7 +303,7 @@ namespace wmoge {
         std::lock_guard lock(m_mutex);
 
         std::fstream file;
-        if (!m_file_system->open_file(path_on_disk, file, std::ios_base::out | std::ios_base::binary)) {
+        if (!m_file_system->open_file_physical(path_on_disk, file, std::ios_base::out | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to open shader cache file to save " << path_on_disk);
             return;
         }
@@ -334,7 +334,7 @@ namespace wmoge {
         std::lock_guard lock(m_mutex);
 
         std::fstream file;
-        if (!m_file_system->open_file(path_on_disk, file, std::ios_base::in | std::ios_base::binary)) {
+        if (!m_file_system->open_file_physical(path_on_disk, file, std::ios_base::in | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to open shader cache file to load " << path_on_disk);
             return;
         }

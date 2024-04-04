@@ -43,7 +43,7 @@ namespace wmoge {
         std::fstream file;
         FileSystem*  file_system = Engine::instance()->file_system();
 
-        if (!file_system->open_file(path, file, std::ios_base::in | std::ios_base::binary)) {
+        if (!file_system->open_file_physical(path, file, std::ios_base::in | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to read config file from " << path);
             return StatusCode::FailedRead;
         }

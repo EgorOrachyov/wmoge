@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_WINDOW_MANAGER_HPP
-#define WMOGE_WINDOW_MANAGER_HPP
+#pragma once
 
 #include "core/fast_vector.hpp"
 #include "platform/window.hpp"
@@ -48,5 +47,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_WINDOW_MANAGER_HPP

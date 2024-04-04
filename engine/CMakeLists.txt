@@ -274,13 +274,19 @@ add_library(wmoge STATIC
         platform/application.hpp
         platform/file_system.cpp
         platform/file_system.hpp
+        platform/file.hpp
         platform/input.hpp
         platform/input_defs.hpp
         platform/input_devices.hpp
+        platform/mount_volume.hpp
         platform/time.cpp
         platform/time.hpp
         platform/window.hpp
         platform/window_manager.hpp
+        platform/common/file_physical.cpp
+        platform/common/file_physical.hpp
+        platform/common/mount_volume_physical.cpp
+        platform/common/mount_volume_physical.hpp
         platform/glfw/glfw_input.cpp
         platform/glfw/glfw_input.hpp
         platform/glfw/glfw_input_defs.hpp

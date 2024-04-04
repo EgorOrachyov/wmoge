@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_INPUT_HPP
-#define WMOGE_INPUT_HPP
+#pragma once
 
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
@@ -46,5 +45,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_INPUT_HPP

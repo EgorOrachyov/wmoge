@@ -27,44 +27,33 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "math/vec.hpp"
-#include "resource/image.hpp"
+#include "platform/mount_volume.hpp"
+
+#include <filesystem>
+#include <fstream>
+#include <memory>
+#include <string>
+#include <utility>
 
 namespace wmoge {
 
     /**
-     * @class WindowInfo
-     * @brief Struct holding window creation info
-     */
-    struct WindowInfo {
-        int         width  = 1280;
-        int         height = 720;
-        Strid       id     = SID("primary");
-        std::string title  = "Window";
-        Ref<Image>  icons[2];
-    };
-
-    /**
-     * @class Window
-     * @brief Interface for OS-specific window for displaying graphics
-     */
-    class Window : public RefCnt {
+     * @class MountVolumePhysical
+     * @brief Wrapper for a physical folder location
+    */
+    class MountVolumePhysical : public MountVolume {
     public:
-        ~Window() override                            = default;
-        virtual void               close()            = 0;
-        virtual int                width() const      = 0;
-        virtual int                height() const     = 0;
-        virtual Size2i             size() const       = 0;
-        virtual int                fbo_width() const  = 0;
-        virtual int                fbo_height() const = 0;
-        virtual Size2i             fbo_size() const   = 0;
-        virtual float              scale_x() const    = 0;
-        virtual float              scale_y() const    = 0;
-        virtual bool               in_focus() const   = 0;
-        virtual const Strid&       id() const         = 0;
-        virtual const std::string& title() const      = 0;
+        MountVolumePhysical(std::filesystem::path path, std::string mapping);
+        ~MountVolumePhysical() override = default;
+
+        void   change_path(std::filesystem::path path);
+        bool   exists(const std::string& path) override;
+        Status open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) override;
+        Status mounted() override;
+
+    private:
+        std::filesystem::path m_path;
+        std::string           m_mapping;
     };
 
 }// namespace wmoge

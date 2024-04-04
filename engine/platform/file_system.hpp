@@ -25,13 +25,15 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_FILE_SYSTEM_HPP
-#define WMOGE_FILE_SYSTEM_HPP
+#pragma once
 
 #include "core/data.hpp"
+#include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
+#include "platform/file.hpp"
+#include "platform/mount_volume.hpp"
 
 #include <deque>
 #include <filesystem>
@@ -64,43 +66,46 @@ namespace wmoge {
     public:
         /** @brief Rule used to remap path to other in-engine path */
         using ResolutionRule = std::pair<std::string, std::string>;
+        /** @brief Mount point allowing to virtualize file system files structure */
+        using MountPoint = std::pair<std::string, Ref<MountVolume>>;
 
         FileSystem();
         ~FileSystem();
 
-        std::filesystem::path resolve(const std::string& path);
+        std::string           resolve(const std::string& path);
+        std::filesystem::path resolve_physical(const std::string& path);
         bool                  exists(const std::string& path);
+        bool                  exists_physical(const std::string& path);
         Status                read_file(const std::string& path, std::string& data);
         Status                read_file(const std::string& path, Ref<Data>& data);
         Status                read_file(const std::string& path, std::vector<std::uint8_t>& data);
-        Status                open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
+        Status                open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
+        Status                open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode);
         Status                save_file(const std::string& path, const std::string& data);
         Status                save_file(const std::string& path, const std::vector<std::uint8_t>& data);
         void                  watch(const std::string& path);
         void                  add_rule(const ResolutionRule& rule, bool front = false);
-
-        /** @brief Re-root engine fs directory to new path */
-        void root(const std::filesystem::path& path);
+        void                  add_mounting(const MountPoint& point, bool front = false);
+        void                  root(const std::filesystem::path& path);
 
         [[nodiscard]] const std::filesystem::path& executable_path() const;
         [[nodiscard]] const std::filesystem::path& root_path() const;
-        [[nodiscard]] const std::filesystem::path& resources_path() const;
-        [[nodiscard]] const std::filesystem::path& cache_path() const;
-        [[nodiscard]] const std::filesystem::path& debug_path() const;
 
     private:
-        std::deque<ResolutionRule> m_resolution_rules;
-        std::filesystem::path      m_executable_path;// absolute exe path
-        std::filesystem::path      m_root_path;      // path to root directory of engine files (virtual)
-        std::filesystem::path      m_eng_path;       // path to directory with engine private files
-        std::filesystem::path      m_resources_path; // path to resources inside root
-        std::filesystem::path      m_cache_path;     // path to cache inside root
-        std::filesystem::path      m_debug_path;     // path to debug data inside root
-        std::filesystem::path      m_log_path;       // path to log data inside root
+        std::deque<ResolutionRule> m_resolution_rules;// applied first, ordered by priority
+        std::deque<MountPoint>     m_mount_points;    // serached after resouliton second, ordered by priority
+
+        std::filesystem::path m_executable_path;// absolute exe path
+        std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)
+        std::filesystem::path m_eng_path;       // path to directory with engine private files
+        std::filesystem::path m_resources_path; // path to resources inside root
+        std::filesystem::path m_cache_path;     // path to cache inside root
+        std::filesystem::path m_debug_path;     // path to debug data inside root
+        std::filesystem::path m_log_path;       // path to log data inside root
 
         std::vector<std::unique_ptr<struct FileSystemWatcher>> m_watchers;
+
+        Ref<MountVolume> m_root_volume;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_FILE_SYSTEM_HPP

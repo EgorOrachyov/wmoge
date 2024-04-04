@@ -32,6 +32,7 @@
 #include "debug/profiler.hpp"
 #include "event/event_filesystem.hpp"
 #include "event/event_manager.hpp"
+#include "platform/common/mount_volume_physical.hpp"
 #include "system/engine.hpp"
 
 #include <filesystem>
@@ -76,6 +77,7 @@ namespace wmoge {
         wai_getExecutablePath(path_exe.data(), path_length, nullptr);
 
         m_executable_path = path_exe;
+        m_root_volume     = make_ref<MountVolumePhysical>(std::filesystem::path(), PREFIX_ROOT).as<MountVolume>();
 
         root(m_executable_path.parent_path());
 
@@ -84,11 +86,13 @@ namespace wmoge {
         add_rule({PREFIX_CACHE, REMAP_CACHE});
         add_rule({PREFIX_DEBUG, REMAP_DEBUG});
         add_rule({PREFIX_LOG, REMAP_LOG});
+
+        add_mounting({PREFIX_ROOT, m_root_volume});
     }
 
     FileSystem::~FileSystem() = default;
 
-    std::filesystem::path FileSystem::resolve(const std::string& path) {
+    std::string FileSystem::resolve(const std::string& path) {
         std::string current_resolve = path;
         bool        resolved        = false;
 
@@ -113,62 +117,127 @@ namespace wmoge {
         }
 
         if (current_resolve.find(PREFIX_ROOT) == 0) {
-            return m_root_path / current_resolve.substr(PREFIX_ROOT.length());
+            return current_resolve;
+        }
+
+        WG_LOG_ERROR("unknown domain of the file path " << path);
+        return {};
+    }
+    std::filesystem::path FileSystem::resolve_physical(const std::string& path) {
+        const std::string resolved_path = resolve(path);
+
+        if (!resolved_path.empty()) {
+            if (resolved_path.find(PREFIX_ROOT) == 0) {
+                return m_root_path / resolved_path.substr(PREFIX_ROOT.length());
+            }
         }
 
         WG_LOG_ERROR("unknown domain of the file path " << path);
         return {};
     }
     bool FileSystem::exists(const std::string& path) {
-        std::filesystem::path resolved = resolve(path);
-        return !resolved.empty() && std::filesystem::exists(resolved);
+        std::string resolved = resolve(path);
+
+        if (resolved.empty()) {
+            return false;
+        }
+
+        for (const MountPoint& mount_point : m_mount_points) {
+            const auto& prefix  = mount_point.first;
+            const auto& adapter = mount_point.second;
+
+            if (resolved.find(prefix) == 0) {
+                if (adapter->exists(resolved)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    bool FileSystem::exists_physical(const std::string& path) {
+        std::filesystem::path resolved = resolve_physical(path);
+
+        if (resolved.empty()) {
+            return false;
+        }
+
+        return std::filesystem::exists(resolved);
     }
     Status FileSystem::read_file(const std::string& path, std::string& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
-        std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
-        std::fstream            file;
+        FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
+        Ref<File>         file;
 
-        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
+        if (!open_file(path, file, mode)) {
+            return StatusCode::FailedOpenFile;
+        }
 
-        auto size = file.tellg();
+        std::size_t size = 0;
+        if (!file->size(size)) {
+            return StatusCode::FailedRead;
+        }
+
         data.resize(size);
-        file.seekg(0, std::ios::beg);
-        file.read(reinterpret_cast<char*>(data.data()), size);
+
+        if (!file->nread(data.data(), size)) {
+            return StatusCode::FailedRead;
+        }
+
         return StatusCode::Ok;
     }
     Status FileSystem::read_file(const std::string& path, Ref<Data>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
-        std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
-        std::fstream            file;
+        FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
+        Ref<File>         file;
 
-        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
+        if (!open_file(path, file, mode)) {
+            return StatusCode::FailedOpenFile;
+        }
 
-        auto size = file.tellg();
-        data      = make_ref<Data>(size);
-        file.seekg(0, std::ios::beg);
-        file.read(reinterpret_cast<char*>(data->buffer()), size);
+        std::size_t size = 0;
+        if (!file->size(size)) {
+            return StatusCode::FailedRead;
+        }
+
+        data = make_ref<Data>(size);
+
+        if (!file->nread(data->buffer(), size)) {
+            return StatusCode::FailedRead;
+        }
+
         return StatusCode::Ok;
     }
     Status FileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
-        std::ios_base::openmode mode = std::ios::in | std::ios::ate | std::ios::binary;
-        std::fstream            file;
+        FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
+        Ref<File>         file;
 
-        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
+        if (!open_file(path, file, mode)) {
+            return StatusCode::FailedOpenFile;
+        }
 
-        auto size = file.tellg();
+        std::size_t size = 0;
+        if (!file->size(size)) {
+            return StatusCode::FailedRead;
+        }
+
         data.resize(size);
-        file.seekg(0, std::ios::beg);
-        file.read(reinterpret_cast<char*>(data.data()), size);
+
+        if (!file->nread(data.data(), size)) {
+            return StatusCode::FailedRead;
+        }
+
         return StatusCode::Ok;
     }
-    Status FileSystem::open_file(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file");
 
-        std::filesystem::path resolved = resolve(path);
+    Status FileSystem::open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file_physical");
+
+        std::filesystem::path resolved = resolve_physical(path);
         std::fstream          file(resolved, mode);
 
         if (!file.is_open()) {
@@ -178,62 +247,95 @@ namespace wmoge {
         fstream = std::move(file);
         return StatusCode::Ok;
     }
+
+    Status FileSystem::open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) {
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file");
+
+        const std::string resolved_path = resolve(path);
+
+        for (const MountPoint& mount_point : m_mount_points) {
+            const auto& prefix  = mount_point.first;
+            const auto& adapter = mount_point.second;
+
+            if (resolved_path.find(prefix) == 0) {
+                if (adapter->exists(resolved_path)) {
+                    return adapter->open_file(resolved_path, file, mode);
+                }
+            }
+        }
+
+        return StatusCode::FailedOpenFile;
+    }
+
     Status FileSystem::save_file(const std::string& path, const std::string& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
-        std::ios_base::openmode mode = std::ios::out | std::ios::binary;
-        std::fstream            file;
+        FileOpenModeFlags mode = {FileOpenMode::Out, FileOpenMode::Binary};
+        Ref<File>         file;
 
-        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
+        if (!open_file(path, file, mode)) {
+            return StatusCode::FailedOpenFile;
+        }
 
-        file.write(data.data(), std::streamsize(data.size()));
+        if (!file->nwrite(data.data(), data.size())) {
+            return StatusCode::FailedWrite;
+        }
+
         return StatusCode::Ok;
     }
     Status FileSystem::save_file(const std::string& path, const std::vector<std::uint8_t>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
-        std::ios_base::openmode mode = std::ios::out | std::ios::binary;
-        std::fstream            file;
+        FileOpenModeFlags mode = {FileOpenMode::Out, FileOpenMode::Binary};
+        Ref<File>         file;
 
-        if (!open_file(path, file, mode)) return StatusCode::FailedOpenFile;
+        if (!open_file(path, file, mode)) {
+            return StatusCode::FailedOpenFile;
+        }
 
-        file.write(reinterpret_cast<const char*>(data.data()), std::streamsize(data.size()));
+        if (!file->nwrite(data.data(), data.size())) {
+            return StatusCode::FailedWrite;
+        }
+
         return StatusCode::Ok;
     }
 
     void FileSystem::watch(const std::string& path) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::watch");
 
-        auto resolved_path = resolve(path);
+        auto resolved_path = resolve_physical(path);
 
-        if (!resolved_path.empty()) {
-            m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [path](const std::string& dropped, const filewatch::Event change_type) {
-                auto* engine        = Engine::instance();
-                auto* event_manager = engine->event_manager();
-
-                auto event    = make_event<EventFileSystem>();
-                event->path   = path;
-                event->entry  = dropped;
-                event->action = FileSystemAction::Unknown;
-
-                switch (change_type) {
-                    case filewatch::Event::added:
-                        event->action = FileSystemAction::Added;
-                        break;
-                    case filewatch::Event::modified:
-                        event->action = FileSystemAction::Modified;
-                        break;
-                    case filewatch::Event::removed:
-                        event->action = FileSystemAction::Removed;
-                        break;
-                    default:
-                        WG_LOG_ERROR("unknown event type on file path=" << event->path << " entry=" << dropped);
-                        break;
-                }
-
-                event_manager->dispatch(event);
-            }));
+        if (resolved_path.empty()) {
+            WG_LOG_ERROR("failed to resolve to physical path for a watch " << path);
+            return;
         }
+
+        m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [path](const std::string& dropped, const filewatch::Event change_type) {
+            auto* engine        = Engine::instance();
+            auto* event_manager = engine->event_manager();
+
+            auto event    = make_event<EventFileSystem>();
+            event->path   = path;
+            event->entry  = dropped;
+            event->action = FileSystemAction::Unknown;
+
+            switch (change_type) {
+                case filewatch::Event::added:
+                    event->action = FileSystemAction::Added;
+                    break;
+                case filewatch::Event::modified:
+                    event->action = FileSystemAction::Modified;
+                    break;
+                case filewatch::Event::removed:
+                    event->action = FileSystemAction::Removed;
+                    break;
+                default:
+                    WG_LOG_ERROR("unknown event type on file path=" << event->path << " entry=" << dropped);
+                    break;
+            }
+
+            event_manager->dispatch(event);
+        }));
     }
 
     void FileSystem::add_rule(const ResolutionRule& rule, bool front) {
@@ -241,6 +343,14 @@ namespace wmoge {
             m_resolution_rules.push_front(rule);
         } else {
             m_resolution_rules.push_back(rule);
+        }
+    }
+
+    void FileSystem::add_mounting(const MountPoint& point, bool front) {
+        if (front) {
+            m_mount_points.push_front(point);
+        } else {
+            m_mount_points.push_back(point);
         }
     }
 
@@ -266,6 +376,8 @@ namespace wmoge {
 
         if (!std::filesystem::exists(config_path))
             std::filesystem::create_directories(config_path);
+
+        m_root_volume.cast<MountVolumePhysical>()->change_path(m_root_path);
     }
 
     const std::filesystem::path& FileSystem::executable_path() const {
@@ -273,15 +385,6 @@ namespace wmoge {
     }
     const std::filesystem::path& FileSystem::root_path() const {
         return m_root_path;
-    }
-    const std::filesystem::path& FileSystem::resources_path() const {
-        return m_resources_path;
-    }
-    const std::filesystem::path& FileSystem::cache_path() const {
-        return m_cache_path;
-    }
-    const std::filesystem::path& FileSystem::debug_path() const {
-        return m_debug_path;
     }
 
 }// namespace wmoge

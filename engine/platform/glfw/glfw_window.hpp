@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GLFW_WINDOW_HPP
-#define WMOGE_GLFW_WINDOW_HPP
+#pragma once
 
 #include "platform/window.hpp"
 
@@ -66,5 +65,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GLFW_WINDOW_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GLFW_INPUT_HPP
-#define WMOGE_GLFW_INPUT_HPP
+#pragma once
 
 #include "core/fast_map.hpp"
 #include "core/fast_vector.hpp"
@@ -79,5 +78,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GLFW_INPUT_HPP

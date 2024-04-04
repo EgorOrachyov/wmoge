@@ -27,44 +27,33 @@
 
 #pragma once
 
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "math/vec.hpp"
-#include "resource/image.hpp"
+#include "platform/file.hpp"
+
+#include <filesystem>
+#include <fstream>
+#include <memory>
+#include <string>
+#include <utility>
 
 namespace wmoge {
 
     /**
-     * @class WindowInfo
-     * @brief Struct holding window creation info
-     */
-    struct WindowInfo {
-        int         width  = 1280;
-        int         height = 720;
-        Strid       id     = SID("primary");
-        std::string title  = "Window";
-        Ref<Image>  icons[2];
-    };
-
-    /**
-     * @class Window
-     * @brief Interface for OS-specific window for displaying graphics
-     */
-    class Window : public RefCnt {
+     * @class FilePhysical
+     * @brief Wrapper for a fstream for physical file reading/writing
+    */
+    class FilePhysical : public File {
     public:
-        ~Window() override                            = default;
-        virtual void               close()            = 0;
-        virtual int                width() const      = 0;
-        virtual int                height() const     = 0;
-        virtual Size2i             size() const       = 0;
-        virtual int                fbo_width() const  = 0;
-        virtual int                fbo_height() const = 0;
-        virtual Size2i             fbo_size() const   = 0;
-        virtual float              scale_x() const    = 0;
-        virtual float              scale_y() const    = 0;
-        virtual bool               in_focus() const   = 0;
-        virtual const Strid&       id() const         = 0;
-        virtual const std::string& title() const      = 0;
+        FilePhysical()           = default;
+        ~FilePhysical() override = default;
+
+        Status open(const std::filesystem::path& path, const FileOpenModeFlags& mode);
+        Status nread(void* buffer, std::size_t bytes) override;
+        Status nwrite(const void* buffer, std::size_t bytes) override;
+        Status eof(bool& is_eof) override;
+        Status size(std::size_t& out_size) override;
+
+    private:
+        std::fstream m_stream;
     };
 
 }// namespace wmoge

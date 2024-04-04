@@ -25,46 +25,53 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "core/ref.hpp"
-#include "core/string_id.hpp"
-#include "math/vec.hpp"
-#include "resource/image.hpp"
+#include "file_physical.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class WindowInfo
-     * @brief Struct holding window creation info
-     */
-    struct WindowInfo {
-        int         width  = 1280;
-        int         height = 720;
-        Strid       id     = SID("primary");
-        std::string title  = "Window";
-        Ref<Image>  icons[2];
-    };
+    Status FilePhysical::open(const std::filesystem::path& path, const FileOpenModeFlags& mode) {
+        std::ios::openmode openmode = 0;
 
-    /**
-     * @class Window
-     * @brief Interface for OS-specific window for displaying graphics
-     */
-    class Window : public RefCnt {
-    public:
-        ~Window() override                            = default;
-        virtual void               close()            = 0;
-        virtual int                width() const      = 0;
-        virtual int                height() const     = 0;
-        virtual Size2i             size() const       = 0;
-        virtual int                fbo_width() const  = 0;
-        virtual int                fbo_height() const = 0;
-        virtual Size2i             fbo_size() const   = 0;
-        virtual float              scale_x() const    = 0;
-        virtual float              scale_y() const    = 0;
-        virtual bool               in_focus() const   = 0;
-        virtual const Strid&       id() const         = 0;
-        virtual const std::string& title() const      = 0;
-    };
+        if (mode.get(FileOpenMode::In)) {
+            openmode = openmode | std::ios::in;
+        }
+        if (mode.get(FileOpenMode::Out)) {
+            openmode = openmode | std::ios::out;
+        }
+        if (mode.get(FileOpenMode::Binary)) {
+            openmode = openmode | std::ios::binary;
+        }
+
+        m_stream.open(path, openmode);
+
+        if (!m_stream.is_open()) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        return StatusCode::Ok;
+    }
+
+    Status FilePhysical::nread(void* buffer, std::size_t bytes) {
+        m_stream.read(reinterpret_cast<char*>(buffer), std::streamsize(bytes));
+        return StatusCode::Ok;
+    }
+
+    Status FilePhysical::nwrite(const void* buffer, std::size_t bytes) {
+        m_stream.write(reinterpret_cast<const char*>(buffer), std::streamsize(bytes));
+        return StatusCode::Ok;
+    }
+
+    Status FilePhysical::eof(bool& is_eof) {
+        is_eof = m_stream.eof();
+        return StatusCode::Ok;
+    }
+
+    Status FilePhysical::size(std::size_t& out_size) {
+        std::size_t pos = m_stream.tellg();
+        m_stream.seekg(0, std::ios::end);
+        out_size = m_stream.tellg();
+        m_stream.seekg(std::streampos(pos), std::ios::beg);
+        return StatusCode::Ok;
+    }
 
 }// namespace wmoge

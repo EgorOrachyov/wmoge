@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GLFW_WINDOW_MANAGER_HPP
-#define WMOGE_GLFW_WINDOW_MANAGER_HPP
+#pragma once
 
 // include first
 #include <volk.h>
@@ -93,5 +92,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GLFW_WINDOW_MANAGER_HPP

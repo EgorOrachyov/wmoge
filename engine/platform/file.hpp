@@ -27,44 +27,40 @@
 
 #pragma once
 
+#include "core/mask.hpp"
 #include "core/ref.hpp"
+#include "core/status.hpp"
 #include "core/string_id.hpp"
-#include "math/vec.hpp"
-#include "resource/image.hpp"
+#include "core/string_utils.hpp"
 
 namespace wmoge {
 
     /**
-     * @class WindowInfo
-     * @brief Struct holding window creation info
-     */
-    struct WindowInfo {
-        int         width  = 1280;
-        int         height = 720;
-        Strid       id     = SID("primary");
-        std::string title  = "Window";
-        Ref<Image>  icons[2];
+     * @brief File intended usage mode 
+    */
+    enum class FileOpenMode {
+        In     = 0,
+        Out    = 1,
+        Binary = 2
     };
 
     /**
-     * @class Window
-     * @brief Interface for OS-specific window for displaying graphics
-     */
-    class Window : public RefCnt {
+     * @brief File open mode flags
+    */
+    using FileOpenModeFlags = Mask<FileOpenMode>;
+
+    /**
+     * @class File
+     * @brief Interface for platform or virtual file type
+    */
+    class File : public RefCnt {
     public:
-        ~Window() override                            = default;
-        virtual void               close()            = 0;
-        virtual int                width() const      = 0;
-        virtual int                height() const     = 0;
-        virtual Size2i             size() const       = 0;
-        virtual int                fbo_width() const  = 0;
-        virtual int                fbo_height() const = 0;
-        virtual Size2i             fbo_size() const   = 0;
-        virtual float              scale_x() const    = 0;
-        virtual float              scale_y() const    = 0;
-        virtual bool               in_focus() const   = 0;
-        virtual const Strid&       id() const         = 0;
-        virtual const std::string& title() const      = 0;
+        ~File() override = default;
+
+        virtual Status nread(void* buffer, std::size_t bytes)        = 0;
+        virtual Status nwrite(const void* buffer, std::size_t bytes) = 0;
+        virtual Status eof(bool& is_eof)                             = 0;
+        virtual Status size(std::size_t& out_size)                   = 0;
     };
 
 }// namespace wmoge

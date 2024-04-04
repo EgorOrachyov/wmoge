@@ -97,7 +97,7 @@ namespace wmoge {
 
         std::fstream file_stream;
 
-        if (!file_system->open_file(m_file, file_stream, std::ios_base::out | std::ios::binary)) {
+        if (!file_system->open_file_physical(m_file, file_stream, std::ios_base::out | std::ios::binary)) {
             WG_LOG_ERROR("failed to open capture file " << m_file);
             return;
         }

@@ -104,7 +104,7 @@ namespace wmoge {
                       << engine_time->get_time_formatted("%Y-%m-%d %H-%M-%S", time)
                       << ".log";
 
-        file_system->open_file(log_file_name.str(), m_stream, std::ios::out);
+        file_system->open_file_physical(log_file_name.str(), m_stream, std::ios::out);
     }
     void LogListenerStream::on_message(const wmoge::LogEntry& entry) {
         if (entry.level == LogLevel::Never || entry.level < m_level)

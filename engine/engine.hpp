@@ -156,10 +156,12 @@
 #include "pfx/pfx_feature.hpp"
 
 #include "platform/application.hpp"
+#include "platform/file.hpp"
 #include "platform/file_system.hpp"
 #include "platform/input.hpp"
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
+#include "platform/mount_volume.hpp"
 #include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
