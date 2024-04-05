@@ -963,6 +963,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MountVolumePhysical.html">MountVolumePhysical</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for a physical folder location.  <a href="classwmoge_1_1MountVolumePhysical.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1DllLibrary.html">DllLibrary</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1DllManager.html">DllManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for dynamic loading of shared/dll libraries in the engine.  <a href="classwmoge_1_1DllManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1File.html">File</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for platform or virtual file type.  <a href="classwmoge_1_1File.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1847,29 +1852,32 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba997ca4ce119685f40f03a9a8a6c5346e">NotImplemented</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bac9dc14753cf4b699799106f3394e0d2d">FailedInstantiate</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baec63892d768727ddda59ad5ba1dc8b61">FailedOpenFile</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba6e320a71067a94fc31dfb3ff6e80fd39">FailedLoadLibrary</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baf034fc658e22781028bff3b60d64e3a7">FailedLoadSymbol</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baec63892d768727ddda59ad5ba1dc8b61">FailedOpenFile</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba56c989a215adcaf6df32dfab476e61d6">FailedParse</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba0788c96108a7f4e7ffa727a268fc423a">FailedRead</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba0788c96108a7f4e7ffa727a268fc423a">FailedRead</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baaeea03ccd826d0bc3c5f83ec10b24329">FailedWrite</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baeca8fe233a24d3f538eefd0da34fb8fe">FailedEncode</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baeca8fe233a24d3f538eefd0da34fb8fe">FailedEncode</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba96934825dc1af4d81031d982e2c8a538">FailedDecode</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba841817167bae1422714e1e72a38e8f90">FailedResize</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba841817167bae1422714e1e72a38e8f90">FailedResize</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba5250c2b10c48c04a5d73fcd8d19200ff">FailedCompress</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba9812a05aa95a31f4c356c2d604871fcd">FailedDecompress</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba9812a05aa95a31f4c356c2d604871fcd">FailedDecompress</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bac0eb4b0ef046d73618fcfc66b1f531ec">FailedCompile</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba3c4b6828f5a12280debdb5a12e0e72ba">InvalidData</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba3c4b6828f5a12280debdb5a12e0e72ba">InvalidData</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba627251310d3384b591e4138be21145d5">InvalidParameter</a>
-, <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baedf260198e4d75d1cb3c7588f7380120">InvalidState</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baedf260198e4d75d1cb3c7588f7380120">InvalidState</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baf2cc1ab691026d44ce2e7cc8db7e2f64">NoProperty</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba148c74fe4cebf3317656171f70acda53">NoMethod</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baed544e165d08264f0f78543c596e1f6d">NoClass</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bad50dfcd4fe8be490a6759f4396f6a4c5">NoValue</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba148c74fe4cebf3317656171f70acda53">NoMethod</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baed544e165d08264f0f78543c596e1f6d">NoClass</a>
+, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085bad50dfcd4fe8be490a6759f4396f6a4c5">NoValue</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba81e124c25b261c366509c30962a4a7fd">NoResource</a>
-, <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baaf7cfe08e573835c4fffeed05dcd1b79">ExitCode0</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baaf7cfe08e573835c4fffeed05dcd1b79">ExitCode0</a>
 , <a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba4c40906f8854a89f3a01d34b8b3d10de">ExitCode1</a>
 <br />
  }</td></tr>
@@ -7059,6 +7067,8 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba997ca4ce119685f40f03a9a8a6c5346e"></a>NotImplemented&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085bac9dc14753cf4b699799106f3394e0d2d"></a>FailedInstantiate&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba6e320a71067a94fc31dfb3ff6e80fd39"></a>FailedLoadLibrary&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085baf034fc658e22781028bff3b60d64e3a7"></a>FailedLoadSymbol&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085baec63892d768727ddda59ad5ba1dc8b61"></a>FailedOpenFile&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba56c989a215adcaf6df32dfab476e61d6"></a>FailedParse&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba0788c96108a7f4e7ffa727a268fc423a"></a>FailedRead&#160;</td><td class="fielddoc"></td></tr>
