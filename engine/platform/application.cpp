@@ -50,6 +50,7 @@
 #include "hooks/hook_uuid_gen.hpp"
 #include "io/enum.hpp"
 #include "platform/application.hpp"
+#include "platform/dll_manager.hpp"
 #include "platform/file_system.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
 #include "platform/input.hpp"
@@ -81,6 +82,7 @@ namespace wmoge {
     static void bind_globals(IocContainer* ioc) {
         ioc->bind<HookList>();
         ioc->bind<CmdLine>();
+        ioc->bind<DllManager>();
         ioc->bind<PluginManager>();
         ioc->bind<Time>();
         ioc->bind<LayerStack>();
@@ -178,6 +180,7 @@ namespace wmoge {
         ioc->unbind<TaskManager>();
         ioc->unbind<EventManager>();
         ioc->unbind<PluginManager>();
+        ioc->unbind<DllManager>();
     }
 
     static void register_classes() {

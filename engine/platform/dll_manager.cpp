@@ -1,3 +1,4 @@
+#include "dll_manager.hpp"
 /**********************************************************************************/
 /* Wmoge game engine                                                              */
 /* Available at github https://github.com/EgorOrachyov/wmoge                      */
@@ -25,53 +26,75 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "file_physical.hpp"
+#include "dll_manager.hpp"
+
+#include "platform/file_system.hpp"
+#include "system/ioc_container.hpp"
+
+#include <dynalo/dynalo.hpp>
 
 namespace wmoge {
 
-    Status FilePhysical::open(const std::filesystem::path& path, const FileOpenModeFlags& mode) {
-        std::ios::openmode openmode{};
+    struct DllLibrary {
+        Strid                  name;
+        std::string            name_native;
+        std::filesystem::path  path;
+        dynalo::native::handle handle{};
+    };
 
-        if (mode.get(FileOpenMode::In)) {
-            openmode = openmode | std::ios::in;
+    DllManager::DllManager() = default;
+
+    DllManager::~DllManager() {
+        for (auto& lib : m_libraries) {
+            dynalo::close(lib->handle);
         }
-        if (mode.get(FileOpenMode::Out)) {
-            openmode = openmode | std::ios::out;
-        }
-        if (mode.get(FileOpenMode::Binary)) {
-            openmode = openmode | std::ios::binary;
+    };
+
+    Status wmoge::DllManager::load(const Strid& library, const std::string& path) {
+        if (is_loaded(library)) {
+            return StatusCode::InvalidState;
         }
 
-        m_stream.open(path, openmode);
+        FileSystem* fs = IocContainer::instance()->resolve_v<FileSystem>();
 
-        if (!m_stream.is_open()) {
-            return StatusCode::FailedOpenFile;
+        DllLibrary dll_library{};
+        dll_library.name        = library;
+        dll_library.name_native = dynalo::to_native_name(library.str());
+        dll_library.path        = fs->resolve_physical(path) / dll_library.name_native;
+
+        try {
+            dll_library.handle = dynalo::open(dll_library.path.string());
+        } catch (const std::runtime_error&) {
+            return StatusCode::FailedLoadLibrary;
         }
+
+        m_libraries.push_back(std::make_unique<DllLibrary>(std::move(dll_library)));
 
         return StatusCode::Ok;
     }
 
-    Status FilePhysical::nread(void* buffer, std::size_t bytes) {
-        m_stream.read(reinterpret_cast<char*>(buffer), std::streamsize(bytes));
-        return StatusCode::Ok;
+    Status DllManager::load_symbol(const Strid& library, const std::string& symbol_name, void*& addr) {
+        for (auto& lib : m_libraries) {
+            if (lib->name == library) {
+                try {
+                    addr = (void*) dynalo::get_function<void()>(lib->handle, symbol_name);
+                } catch (const std::runtime_error&) {
+                    return StatusCode::FailedLoadSymbol;
+                }
+            }
+        }
+
+        return StatusCode::InvalidState;
     }
 
-    Status FilePhysical::nwrite(const void* buffer, std::size_t bytes) {
-        m_stream.write(reinterpret_cast<const char*>(buffer), std::streamsize(bytes));
-        return StatusCode::Ok;
-    }
+    bool DllManager::is_loaded(const Strid& library) {
+        for (auto& lib : m_libraries) {
+            if (lib->name == library) {
+                return true;
+            }
+        }
 
-    Status FilePhysical::eof(bool& is_eof) {
-        is_eof = m_stream.eof();
-        return StatusCode::Ok;
-    }
-
-    Status FilePhysical::size(std::size_t& out_size) {
-        std::size_t pos = m_stream.tellg();
-        m_stream.seekg(0, std::ios::end);
-        out_size = m_stream.tellg();
-        m_stream.seekg(std::streampos(pos), std::ios::beg);
-        return StatusCode::Ok;
+        return false;
     }
 
 }// namespace wmoge

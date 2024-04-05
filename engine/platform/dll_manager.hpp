@@ -25,53 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "file_physical.hpp"
+#pragma once
+
+#include "core/fast_vector.hpp"
+#include "core/status.hpp"
+#include "core/string_id.hpp"
+#include "core/string_utils.hpp"
+
+#include <memory>
 
 namespace wmoge {
 
-    Status FilePhysical::open(const std::filesystem::path& path, const FileOpenModeFlags& mode) {
-        std::ios::openmode openmode{};
+    /**
+     * @class DllManager
+     * @brief Manager for dynamic loading of shared/dll libraries in the engine
+    */
+    class DllManager {
+    public:
+        DllManager();
+        ~DllManager();
 
-        if (mode.get(FileOpenMode::In)) {
-            openmode = openmode | std::ios::in;
-        }
-        if (mode.get(FileOpenMode::Out)) {
-            openmode = openmode | std::ios::out;
-        }
-        if (mode.get(FileOpenMode::Binary)) {
-            openmode = openmode | std::ios::binary;
-        }
+        Status load(const Strid& library, const std::string& path);
+        Status load_symbol(const Strid& library, const std::string& symbol_name, void*& addr);
+        bool   is_loaded(const Strid& library);
 
-        m_stream.open(path, openmode);
-
-        if (!m_stream.is_open()) {
-            return StatusCode::FailedOpenFile;
-        }
-
-        return StatusCode::Ok;
-    }
-
-    Status FilePhysical::nread(void* buffer, std::size_t bytes) {
-        m_stream.read(reinterpret_cast<char*>(buffer), std::streamsize(bytes));
-        return StatusCode::Ok;
-    }
-
-    Status FilePhysical::nwrite(const void* buffer, std::size_t bytes) {
-        m_stream.write(reinterpret_cast<const char*>(buffer), std::streamsize(bytes));
-        return StatusCode::Ok;
-    }
-
-    Status FilePhysical::eof(bool& is_eof) {
-        is_eof = m_stream.eof();
-        return StatusCode::Ok;
-    }
-
-    Status FilePhysical::size(std::size_t& out_size) {
-        std::size_t pos = m_stream.tellg();
-        m_stream.seekg(0, std::ios::end);
-        out_size = m_stream.tellg();
-        m_stream.seekg(std::streampos(pos), std::ios::beg);
-        return StatusCode::Ok;
-    }
+    private:
+        fast_vector<std::unique_ptr<struct DllLibrary>> m_libraries;
+    };
 
 }// namespace wmoge

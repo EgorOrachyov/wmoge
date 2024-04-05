@@ -46,6 +46,8 @@ namespace wmoge {
         Error,            // General error code
         NotImplemented,   // Functionality not implemented
         FailedInstantiate,// Cannot instantiate object from class
+        FailedLoadLibrary,// Failed to open dynamic library
+        FailedLoadSymbol, // Failed to open dynamic symbol
         FailedOpenFile,   // Failed to open file or stream for read/write operations
         FailedParse,      // Failed to parse structured file
         FailedRead,       // Failed to perform reading of some data

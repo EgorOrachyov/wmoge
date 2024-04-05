@@ -50,6 +50,7 @@
 #include "hooks/hook_uuid_gen.hpp"
 #include "io/enum.hpp"
 #include "platform/application.hpp"
+#include "platform/dll_manager.hpp"
 #include "platform/file_system.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
 #include "platform/input.hpp"
@@ -91,6 +92,7 @@ namespace wmoge {
         m_config         = ioc->resolve_v<ConfigFile>();
         m_console        = ioc->resolve_v<Console>();
         m_profiler       = ioc->resolve_v<Profiler>();
+        m_dll_manager    = ioc->resolve_v<DllManager>();
         m_plugin_manager = ioc->resolve_v<PluginManager>();
 
         m_plugin_manager->setup();
@@ -225,6 +227,7 @@ namespace wmoge {
     LayerStack*        Engine::layer_stack() { return m_layer_stack; }
     HookList*          Engine::hook_list() { return m_hook_list; }
     CmdLine*           Engine::cmd_line() { return m_cmd_line; }
+    DllManager*        Engine::dll_manager() { return m_dll_manager; }
     PluginManager*     Engine::plugin_manager() { return m_plugin_manager; }
     ConfigFile*        Engine::config() { return m_config; }
     CallbackQueue*     Engine::main_queue() { return m_main_queue; }

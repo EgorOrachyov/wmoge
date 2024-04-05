@@ -272,6 +272,8 @@ add_library(wmoge STATIC
         pfx/register_classes_pfx.hpp
         platform/application.cpp
         platform/application.hpp
+        platform/dll_manager.cpp
+        platform/dll_manager.hpp
         platform/file_system.cpp
         platform/file_system.hpp
         platform/file.hpp
@@ -448,17 +450,26 @@ add_library(wmoge STATIC
         debug/debug_layer.cpp
         debug/debug_layer.hpp)
 
+# add interface to the engine for plugins
+add_library(wmoge_headers INTERFACE)
+
 # specify public include path, so user can reference engine files by modules names
-target_include_directories(wmoge PUBLIC ${CMAKE_CURRENT_LIST_DIR}/)
+target_include_directories(wmoge_headers INTERFACE ${CMAKE_CURRENT_LIST_DIR}/)
 
 # engine dependencies, which are also visible to the engine users
-target_link_libraries(wmoge PUBLIC cxxopts)
-target_link_libraries(wmoge PUBLIC tinyxml2)
-target_link_libraries(wmoge PUBLIC ryml)
-target_link_libraries(wmoge PUBLIC magic_enum)
-target_link_libraries(wmoge PUBLIC robin_hood)
-target_link_libraries(wmoge PUBLIC svector)
-target_link_libraries(wmoge PUBLIC yamc)
+target_link_libraries(wmoge_headers INTERFACE cxxopts)
+target_link_libraries(wmoge_headers INTERFACE tinyxml2)
+target_link_libraries(wmoge_headers INTERFACE ryml)
+target_link_libraries(wmoge_headers INTERFACE magic_enum)
+target_link_libraries(wmoge_headers INTERFACE robin_hood)
+target_link_libraries(wmoge_headers INTERFACE svector)
+target_link_libraries(wmoge_headers INTERFACE yamc)
+
+# generic functions to setup target
+wmoge_target_iface_defs(wmoge_headers)
+
+# engine headers target link to engine library
+target_link_libraries(wmoge PUBLIC wmoge_headers)
 
 # engine dependencies, private
 target_link_libraries(wmoge PRIVATE glfw)
@@ -468,6 +479,7 @@ target_link_libraries(wmoge PRIVATE filewatch)
 target_link_libraries(wmoge PRIVATE lz4)
 target_link_libraries(wmoge PRIVATE compressonator)
 target_link_libraries(wmoge PRIVATE base64)
+target_link_libraries(wmoge PRIVATE dynalo)
 
 # audio dependencies, private
 target_link_libraries(wmoge PRIVATE OpenAL)
@@ -482,6 +494,3 @@ target_link_libraries(wmoge PRIVATE volk)
 target_link_libraries(wmoge PRIVATE vma)
 target_link_libraries(wmoge PRIVATE glslang)
 target_link_libraries(wmoge PRIVATE SPIRV)
-
-# generic functions to setup target
-wmoge_target_defs(wmoge)

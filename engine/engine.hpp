@@ -156,6 +156,7 @@
 #include "pfx/pfx_feature.hpp"
 
 #include "platform/application.hpp"
+#include "platform/dll_manager.hpp"
 #include "platform/file.hpp"
 #include "platform/file_system.hpp"
 #include "platform/input.hpp"

@@ -68,6 +68,7 @@ project for educational purposes only.
 * [base64](https://github.com/ReneNyffenegger/cpp-base64) for base64 encoding/decoding in text serialization.
 * [compressonator](https://github.com/GPUOpen-Tools/compressonator) texture compression library.
 * [cxxopts](https://github.com/jarro2783/cxxopts) for command-line options processing.
+* [dynalo](https://github.com/maddouri/dynalo) for cross platform dynamic loading of shared libraries.
 * [filewatch](https://github.com/ThomasMonkman/filewatch) for OS file system events tracking.
 * [freetype](https://github.com/freetype/freetype) for true-type fonts loading and rendering.
 * [glfw](https://github.com/glfw/glfw) for cross-platform window and input management.
@@ -95,8 +96,9 @@ project for educational purposes only.
 * [Creating a Custom Mesh Component in UE4](https://medium.com/realities-io/creating-a-custom-mesh-component-in-ue4-part-0-intro-2c762c5f0cd6)
 * [Master Class: The CRYENGINE Rendering Pipeline](https://www.youtube.com/watch?v=34S3onEr3r8)
 * [Master Class: In-Depth Guide to Working with Particle Effects in CRYENGINE](https://www.youtube.com/watch?v=npPlJ0npfVQ)
+* [Master Class: How to assign Game Inputs through Actionmapping in CRYENGINE](https://www.youtube.com/watch?v=uTmHUIypR-4)
+* [Master Class: Comprehensive Guide to Working with Audio in CRYENGINE](https://www.youtube.com/watch?v=oG1trk1PLMM)
 * [CRYENGINE Tutorial - Art Asset Pipeline: PBR Texture Mapping](https://www.youtube.com/watch?v=hGFP_4TYL2o)
-* [Master Class: How to assign Game Inputs through Actionmapping | CRYENGINE](https://www.youtube.com/watch?v=uTmHUIypR-4)
 * [HypeHype Mobile Rendering Architecture](https://advances.realtimerendering.com/s2023/index.html)
 * [Creating a Tools Pipeline for Horizon: Zero Dawn](https://www.youtube.com/watch?v=KRJkBxKv1VM)
 * [The Future of Scene Description on 'God of War'](https://www.gdcvault.com/play/1026345/The-Future-of-Scene-Description)

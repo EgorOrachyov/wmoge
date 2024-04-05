@@ -7,6 +7,9 @@ add_subdirectory(svector)
 # Command-line options parses
 add_subdirectory(cxxopts)
 
+# Cross-platfrom dynamic and shared library loader
+add_subdirectory(dynalo)
+
 # Base64 encoding/decoding library
 add_subdirectory(base64)
 
