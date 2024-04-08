@@ -1,9 +1,9 @@
 <map id="engine/scripting/lua_bindings/lua_bindings_math.hpp" name="engine/scripting/lua_bindings/lua_bindings_math.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="2713,5,2866,61"/>
-<area shape="rect" id="node2" href="$lua__bindings_8hpp.html" title=" " alt="" coords="911,109,1057,151"/>
+<area shape="rect" id="node2" href="$lua__bindings_8hpp.html" title=" " alt="" coords="936,109,1083,151"/>
 <area shape="rect" id="node34" href="$math__utils_8hpp.html" title=" " alt="" coords="2780,587,2919,613"/>
 <area shape="rect" id="node36" href="$vec_8hpp.html" title=" " alt="" coords="2863,512,2963,539"/>
-<area shape="rect" id="node42" href="$mat_8hpp.html" title=" " alt="" coords="2563,437,2664,464"/>
+<area shape="rect" id="node42" href="$mat_8hpp.html" title=" " alt="" coords="2564,437,2665,464"/>
 <area shape="rect" id="node43" href="$quat_8hpp.html" title=" " alt="" coords="2517,363,2621,389"/>
 <area shape="rect" id="node44" href="$aabb_8hpp.html" title=" " alt="" coords="2048,363,2155,389"/>
 <area shape="rect" id="node45" href="$color_8hpp.html" title=" " alt="" coords="3179,117,3285,143"/>
@@ -13,9 +13,9 @@
 <area shape="rect" id="node3" href="$lua__defs_8hpp.html" title=" " alt="" coords="787,288,957,315"/>
 <area shape="rect" id="node26" title=" " alt="" coords="552,661,672,688"/>
 <area shape="rect" id="node41" href="$lua__type__traits_8hpp.html" title=" " alt="" coords="1024,199,1168,240"/>
-<area shape="rect" id="node4" href="$fast__map_8hpp.html" title=" " alt="" coords="1183,512,1313,539"/>
+<area shape="rect" id="node4" href="$flat__map_8hpp.html" title=" " alt="" coords="1186,512,1310,539"/>
 <area shape="rect" id="node14" title=" " alt="" coords="661,811,739,837"/>
-<area shape="rect" id="node31" href="$object_8hpp.html" title=" " alt="" coords="579,363,690,389"/>
+<area shape="rect" id="node31" href="$core_2object_8hpp.html" title=" " alt="" coords="579,363,690,389"/>
 <area shape="rect" id="node39" title=" " alt="" coords="894,363,957,389"/>
 <area shape="rect" id="node40" title=" " alt="" coords="715,363,869,389"/>
 <area shape="rect" id="node5" href="$archive_8hpp.html" title=" " alt="" coords="2026,587,2129,613"/>

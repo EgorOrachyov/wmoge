@@ -98,8 +98,8 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input_8hpp.html">platform/input.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="glfw__input__defs_8hpp.html">glfw_input_defs.hpp</a>&quot;</span></div>
@@ -138,13 +138,14 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> joystick_callback(<span class="keywordtype">int</span> jid, <span class="keywordtype">int</span> state);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;Ref&lt;GlfwJoystick&gt;</a>&gt; m_joysticks;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GlfwMouse&gt;</a>                 m_mouse;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GlfwKeyboard&gt;</a>              m_keyboard;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1GlfwWindowManager.html">GlfwWindowManager</a>&amp;       m_manager;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;Ref&lt;GlfwJoystick&gt;</a>&gt; m_joysticks;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GlfwMouse&gt;</a>                     m_mouse;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GlfwKeyboard&gt;</a>                  m_keyboard;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1GlfwWindowManager.html">GlfwWindowManager</a>&amp;           m_manager;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    };</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1GlfwInput_html"><div class="ttname"><a href="classwmoge_1_1GlfwInput.html">wmoge::GlfwInput</a></div><div class="ttdoc">Glfw-based implementation of hardware input.</div><div class="ttdef"><b>Definition:</b> glfw_input.hpp:47</div></div>
 <div class="ttc" id="aclasswmoge_1_1GlfwInput_html_a03612a04fa2149a4babf6a587a992807"><div class="ttname"><a href="classwmoge_1_1GlfwInput.html#a03612a04fa2149a4babf6a587a992807">wmoge::GlfwInput::keyboard</a></div><div class="ttdeci">Ref&lt; Keyboard &gt; keyboard() override</div><div class="ttdef"><b>Definition:</b> glfw_input.cpp:55</div></div>
 <div class="ttc" id="aclasswmoge_1_1GlfwInput_html_a0c274f7f326a0604021b836276645bd7"><div class="ttname"><a href="classwmoge_1_1GlfwInput.html#a0c274f7f326a0604021b836276645bd7">wmoge::GlfwInput::GlfwInput</a></div><div class="ttdeci">GlfwInput(class GlfwWindowManager &amp;manager)</div><div class="ttdef"><b>Definition:</b> glfw_input.cpp:41</div></div>
@@ -154,13 +155,12 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1GlfwWindowManager_html"><div class="ttname"><a href="classwmoge_1_1GlfwWindowManager.html">wmoge::GlfwWindowManager</a></div><div class="ttdoc">Glfw window and input manager.</div><div class="ttdef"><b>Definition:</b> glfw_window_manager.hpp:53</div></div>
 <div class="ttc" id="aclasswmoge_1_1Input_html"><div class="ttname"><a href="classwmoge_1_1Input.html">wmoge::Input</a></div><div class="ttdoc">Interface for OS-specific input layer to get user input.</div><div class="ttdef"><b>Definition:</b> input.hpp:39</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="afast__map_8hpp_html"><div class="ttname"><a href="fast__map_8hpp.html">fast_map.hpp</a></div></div>
-<div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
+<div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="aglfw__input__defs_8hpp_html"><div class="ttname"><a href="glfw__input__defs_8hpp.html">glfw_input_defs.hpp</a></div></div>
 <div class="ttc" id="aglfw__input__devices_8hpp_html"><div class="ttname"><a href="glfw__input__devices_8hpp.html">glfw_input_devices.hpp</a></div></div>
 <div class="ttc" id="ainput_8hpp_html"><div class="ttname"><a href="input_8hpp.html">input.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa65d8defdd2ed60a69eb9c9be213534"><div class="ttname"><a href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">wmoge::fast_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; fast_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> fast_vector.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aab92eeabc73bd97853a14acc053ba596"><div class="ttname"><a href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">wmoge::buffered_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; buffered_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> buffered_vector.hpp:46</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -2,17 +2,17 @@
 <area shape="rect" id="node1" title=" " alt="" coords="5653,5,5833,32"/>
 <area shape="rect" id="node2" href="$var_8hpp.html" title=" " alt="" coords="4250,80,4385,107"/>
 <area shape="rect" id="node6" href="$engine_8hpp.html" title=" " alt="" coords="1390,512,1517,539"/>
-<area shape="rect" id="node3" href="$class_8hpp.html" title=" " alt="" coords="3366,162,3514,189"/>
+<area shape="rect" id="node3" href="$core_2class_8hpp.html" title=" " alt="" coords="3366,162,3514,189"/>
 <area shape="rect" id="node9" href="$config__file_8hpp.html" title=" " alt="" coords="6032,423,6184,464"/>
-<area shape="rect" id="node44" href="$object_8hpp.html" title=" " alt="" coords="561,162,713,189"/>
+<area shape="rect" id="node44" href="$core_2object_8hpp.html" title=" " alt="" coords="561,162,713,189"/>
 <area shape="rect" id="node45" href="$var_8cpp.html" title=" " alt="" coords="25,251,159,278"/>
 <area shape="rect" id="node46" href="$script__instance_8hpp.html" title=" " alt="" coords="184,244,333,285"/>
 <area shape="rect" id="node47" href="$console_8hpp.html" title=" " alt="" coords="6259,430,6431,457"/>
 <area shape="rect" id="node48" href="$game__token__manager_8hpp.html" title=" " alt="" coords="6507,423,6661,464"/>
 <area shape="rect" id="node49" href="$grc__shader__reflection_8hpp.html" title=" " alt="" coords="6,333,157,375"/>
 <area shape="rect" id="node50" href="$lua__type__traits_8hpp.html" title=" " alt="" coords="4250,155,4385,196"/>
-<area shape="rect" id="node4" href="$class_8cpp.html" title=" " alt="" coords="657,251,805,278"/>
-<area shape="rect" id="node5" href="$object_8cpp.html" title=" " alt="" coords="1009,251,1161,278"/>
+<area shape="rect" id="node4" href="$core_2class_8cpp.html" title=" " alt="" coords="657,251,805,278"/>
+<area shape="rect" id="node5" href="$core_2object_8cpp.html" title=" " alt="" coords="1009,251,1161,278"/>
 <area shape="rect" id="node7" href="$event_8hpp.html" title=" " alt="" coords="829,251,985,278"/>
 <area shape="rect" id="node8" href="$resource_8hpp.html" title=" " alt="" coords="1071,341,1263,367"/>
 <area shape="rect" id="node10" href="$application_8cpp.html" title=" " alt="" coords="6306,512,6507,539"/>

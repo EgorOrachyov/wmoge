@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title=" " alt="" coords="1847,5,1997,32"/>
 <area shape="rect" id="node2" href="$array__view_8hpp.html" title=" " alt="" coords="899,229,1036,256"/>
 <area shape="rect" id="node4" title=" " alt="" coords="2087,304,2152,331"/>
-<area shape="rect" id="node7" href="$fast__vector_8hpp.html" title=" " alt="" coords="564,80,704,107"/>
+<area shape="rect" id="node7" href="$buffered__vector_8hpp.html" title=" " alt="" coords="552,80,716,107"/>
 <area shape="rect" id="node15" href="$ref_8hpp.html" title=" " alt="" coords="1877,229,1967,256"/>
 <area shape="rect" id="node17" title=" " alt="" coords="1904,379,1983,405"/>
 <area shape="rect" id="node28" title=" " alt="" coords="317,229,383,256"/>
@@ -28,7 +28,7 @@
 <area shape="rect" id="node18" title=" " alt="" coords="1667,379,1750,405"/>
 <area shape="rect" id="node19" title=" " alt="" coords="1823,304,1875,331"/>
 <area shape="rect" id="node22" title=" " alt="" coords="1365,379,1434,405"/>
-<area shape="rect" id="node23" href="$enum_8hpp.html" title=" " alt="" coords="1503,304,1595,331"/>
+<area shape="rect" id="node23" href="$io_2enum_8hpp.html" title=" " alt="" coords="1503,304,1595,331"/>
 <area shape="rect" id="node24" title=" " alt="" coords="1519,379,1639,405"/>
 <area shape="rect" id="node31" title=" " alt="" coords="1111,229,1221,256"/>
 <area shape="rect" id="node32" title=" " alt="" coords="1245,229,1316,256"/>

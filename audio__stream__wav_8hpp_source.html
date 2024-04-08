@@ -98,8 +98,8 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="data_8hpp.html">core/data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="data_8hpp.html">core/data.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="audio__stream_8hpp.html">resource/audio_stream.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -117,11 +117,12 @@ $(function() {
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1AudioStreamWav.html#af504ffca0f06e2617843a8cc041d999e">copy_to</a>(<a class="code" href="classwmoge_1_1Object.html">Object</a>&amp; other) <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;Ref&lt;Data&gt;</a>, 2&gt; m_data;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;Ref&lt;Data&gt;</a>, 2&gt; m_data;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    };</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aaudio__stream_8hpp_html"><div class="ttname"><a href="audio__stream_8hpp.html">audio_stream.hpp</a></div></div>
+<div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStreamWav_html"><div class="ttname"><a href="classwmoge_1_1AudioStreamWav.html">wmoge::AudioStreamWav</a></div><div class="ttdoc">Simple audio resource loaded from .wav file format.</div><div class="ttdef"><b>Definition:</b> audio_stream_wav.hpp:41</div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStreamWav_html_a457aa0606039f7b04a6c8a0c02941057"><div class="ttname"><a href="classwmoge_1_1AudioStreamWav.html#a457aa0606039f7b04a6c8a0c02941057">wmoge::AudioStreamWav::get_channel_data</a></div><div class="ttdeci">Ref&lt; Data &gt; get_channel_data(int channel) override</div><div class="ttdef"><b>Definition:</b> audio_stream_wav.cpp:80</div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStreamWav_html_acf428e97739f5700ccca917019237e75"><div class="ttname"><a href="classwmoge_1_1AudioStreamWav.html#acf428e97739f5700ccca917019237e75">wmoge::AudioStreamWav::load</a></div><div class="ttdeci">Status load(const std::string &amp;file_path)</div><div class="ttdoc">Loads an audio from a wav file using audio file library.</div><div class="ttdef"><b>Definition:</b> audio_stream_wav.cpp:41</div></div>
@@ -132,9 +133,8 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Resource_html_ad6cb22c023c2c0220f269599b7d13122"><div class="ttname"><a href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">wmoge::Resource::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Resource, Object)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="adata_8hpp_html"><div class="ttname"><a href="data_8hpp.html">data.hpp</a></div></div>
-<div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa65d8defdd2ed60a69eb9c9be213534"><div class="ttname"><a href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">wmoge::fast_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; fast_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> fast_vector.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aab92eeabc73bd97853a14acc053ba596"><div class="ttname"><a href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">wmoge::buffered_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; buffered_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> buffered_vector.hpp:46</div></div>
 <div class="ttc" id="aresource_8hpp_html"><div class="ttname"><a href="resource_8hpp.html">resource.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

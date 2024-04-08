@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="synchronization_8hpp.html">core/synchronization.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__pipeline_8hpp.html">gfx/gfx_pipeline.hpp</a>&quot;</span></div>
@@ -118,7 +118,7 @@ $(function() {
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">void</span>                            <a class="code" href="classwmoge_1_1GfxPipelineCache.html#aacbd62925312c8ace2936ad6a0284d56">add</a>(<span class="keyword">const</span> <a class="code" href="structwmoge_1_1GfxPipelineState.html">GfxPipelineState</a>&amp; state, <span class="keyword">const</span> <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GfxPipeline&gt;</a>&amp; pipeline);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;GfxPipelineState, Ref&lt;GfxPipeline&gt;</a>&gt; m_cache;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map&lt;GfxPipelineState, Ref&lt;GfxPipeline&gt;</a>&gt; m_cache;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a>                                    m_mutex;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    };</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
@@ -133,7 +133,7 @@ $(function() {
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">void</span>                                <a class="code" href="classwmoge_1_1GfxCompPipelineCache.html#a9ed16a5263f0ebca047d6897a98909ad">add</a>(<span class="keyword">const</span> <a class="code" href="structwmoge_1_1GfxCompPipelineState.html">GfxCompPipelineState</a>&amp; state, <span class="keyword">const</span> <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GfxCompPipeline&gt;</a>&amp; pipeline);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;GfxCompPipelineState, Ref&lt;GfxCompPipeline&gt;</a>&gt; m_cache;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map&lt;GfxCompPipelineState, Ref&lt;GfxCompPipeline&gt;</a>&gt; m_cache;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a>                                            m_mutex;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    };</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
@@ -154,10 +154,10 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1GfxPipelineCache_html_add92d3ec736464b612d0ea68351b2258"><div class="ttname"><a href="classwmoge_1_1GfxPipelineCache.html#add92d3ec736464b612d0ea68351b2258">wmoge::GfxPipelineCache::GfxPipelineCache</a></div><div class="ttdeci">GfxPipelineCache(const GfxPipelineCache &amp;)=delete</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
 <div class="ttc" id="aclasswmoge_1_1SpinMutexTtas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTtas.html">wmoge::SpinMutexTtas</a></div><div class="ttdoc">TTAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:49</div></div>
-<div class="ttc" id="afast__map_8hpp_html"><div class="ttname"><a href="fast__map_8hpp.html">fast_map.hpp</a></div></div>
+<div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="agfx__pipeline_8hpp_html"><div class="ttname"><a href="gfx__pipeline_8hpp.html">gfx_pipeline.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1GfxCompPipelineState_html"><div class="ttname"><a href="structwmoge_1_1GfxCompPipelineState.html">wmoge::GfxCompPipelineState</a></div><div class="ttdoc">Gfx compute pipeline state description.</div><div class="ttdef"><b>Definition:</b> gfx_pipeline.hpp:74</div></div>
 <div class="ttc" id="astructwmoge_1_1GfxPipelineState_html"><div class="ttname"><a href="structwmoge_1_1GfxPipelineState.html">wmoge::GfxPipelineState</a></div><div class="ttdoc">Gfx pipeline state description.</div><div class="ttdef"><b>Definition:</b> gfx_pipeline.hpp:44</div></div>

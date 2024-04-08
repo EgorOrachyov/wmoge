@@ -5,9 +5,9 @@
 <area shape="rect" id="node33" href="$gfx__desc__set_8hpp.html" title=" " alt="" coords="1368,326,1512,353"/>
 <area shape="rect" id="node37" href="$gfx__pipeline_8hpp.html" title=" " alt="" coords="2314,326,2449,353"/>
 <area shape="rect" id="node41" href="$gfx__texture_8hpp.html" title=" " alt="" coords="1637,326,1768,353"/>
-<area shape="rect" id="node49" href="$color_8hpp.html" title=" " alt="" coords="337,169,444,196"/>
+<area shape="rect" id="node49" href="$color_8hpp.html" title=" " alt="" coords="335,169,441,196"/>
 <area shape="rect" id="node50" href="$math__utils3d_8hpp.html" title=" " alt="" coords="2905,483,3058,509"/>
-<area shape="rect" id="node3" href="$object_8hpp.html" title=" " alt="" coords="609,483,719,509"/>
+<area shape="rect" id="node3" href="$core_2object_8hpp.html" title=" " alt="" coords="609,483,719,509"/>
 <area shape="rect" id="node24" href="$gfx__ctx_8hpp.html" title=" " alt="" coords="2525,244,2633,271"/>
 <area shape="rect" id="node45" href="$gfx__driver_8hpp.html" title=" " alt="" coords="2248,169,2371,196"/>
 <area shape="rect" id="node4" href="$ref_8hpp.html" title=" " alt="" coords="1985,781,2076,808"/>
@@ -43,9 +43,9 @@
 <area shape="rect" id="node43" href="$window_8hpp.html" title=" " alt="" coords="1404,557,1545,584"/>
 <area shape="rect" id="node44" title=" " alt="" coords="3045,326,3104,353"/>
 <area shape="rect" id="node28" title=" " alt="" coords="2157,707,2237,733"/>
-<area shape="rect" id="node32" href="$serialization_8hpp.html" title=" " alt="" coords="1131,632,1259,659"/>
-<area shape="rect" id="node34" href="$crc32_8hpp.html" title=" " alt="" coords="1304,408,1411,435"/>
-<area shape="rect" id="node35" href="$fast__vector_8hpp.html" title=" " alt="" coords="1283,632,1423,659"/>
+<area shape="rect" id="node32" href="$serialization_8hpp.html" title=" " alt="" coords="1107,632,1235,659"/>
+<area shape="rect" id="node34" href="$buffered__vector_8hpp.html" title=" " alt="" coords="1259,632,1423,659"/>
+<area shape="rect" id="node35" href="$crc32_8hpp.html" title=" " alt="" coords="1304,408,1411,435"/>
 <area shape="rect" id="node46" href="$gfx__dynamic__buffers_8hpp.html" title=" " alt="" coords="1995,326,2181,353"/>
 <area shape="rect" id="node47" href="$gfx__pipeline__cache_8hpp.html" title=" " alt="" coords="2221,244,2398,271"/>
 <area shape="rect" id="node48" href="$gfx__vert__format__cache_8hpp.html" title=" " alt="" coords="1160,319,1293,360"/>

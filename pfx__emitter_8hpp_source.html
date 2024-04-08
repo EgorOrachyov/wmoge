@@ -140,13 +140,13 @@ $(function() {
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">bool</span>                       <a class="code" href="classwmoge_1_1PfxEmitter.html#a49d335a4e919fbef3eb37d95ebfdaf91">is_active</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;PfxComponentRuntime&gt;</a> m_runtime;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;PfxSpawnParams&gt;</a>      m_emit_queue;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;class PfxEffect&gt;</a>             m_effect;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1RenderScene.html">RenderScene</a>*               m_scene;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">float</span>                            m_time       = 0.0f;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">float</span>                            m_delta_time = 0.0f;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">bool</span>                             m_is_active  = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;PfxComponentRuntime&gt;</a> m_runtime;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;PfxSpawnParams&gt;</a>      m_emit_queue;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;class PfxEffect&gt;</a>                 m_effect;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">class </span><a class="code" href="classwmoge_1_1RenderScene.html">RenderScene</a>*                   m_scene;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">float</span>                                m_time       = 0.0f;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">float</span>                                m_delta_time = 0.0f;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">bool</span>                                 m_is_active  = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        std::mutex m_mutex;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    };</div>
@@ -176,7 +176,7 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1TVecN_html"><div class="ttname"><a href="classwmoge_1_1TVecN.html">wmoge::TVecN&lt; float, 4 &gt;</a></div></div>
 <div class="ttc" id="acolor_8hpp_html"><div class="ttname"><a href="color_8hpp.html">color.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa65d8defdd2ed60a69eb9c9be213534"><div class="ttname"><a href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">wmoge::fast_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; fast_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> fast_vector.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aab92eeabc73bd97853a14acc053ba596"><div class="ttname"><a href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">wmoge::buffered_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; buffered_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> buffered_vector.hpp:46</div></div>
 <div class="ttc" id="apfx__component_8hpp_html"><div class="ttname"><a href="pfx__component_8hpp.html">pfx_component.hpp</a></div></div>
 <div class="ttc" id="apfx__component__runtime_8hpp_html"><div class="ttname"><a href="pfx__component__runtime_8hpp.html">pfx_component_runtime.hpp</a></div></div>
 <div class="ttc" id="apfx__feature_8hpp_html"><div class="ttname"><a href="pfx__feature_8hpp.html">pfx_feature.hpp</a></div></div>

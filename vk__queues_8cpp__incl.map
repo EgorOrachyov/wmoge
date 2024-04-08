@@ -1,7 +1,7 @@
 <map id="engine/gfx/vulkan/vk_queues.cpp" name="engine/gfx/vulkan/vk_queues.cpp">
 <area shape="rect" id="node1" title=" " alt="" coords="1779,5,1920,47"/>
 <area shape="rect" id="node2" href="$vk__queues_8hpp.html" title=" " alt="" coords="1795,95,1904,121"/>
-<area shape="rect" id="node3" href="$fast__vector_8hpp.html" title=" " alt="" coords="537,408,677,435"/>
+<area shape="rect" id="node3" href="$buffered__vector_8hpp.html" title=" " alt="" coords="525,408,689,435"/>
 <area shape="rect" id="node26" href="$gfx__driver_8hpp.html" title=" " alt="" coords="1788,169,1911,196"/>
 <area shape="rect" id="node48" href="$vk__defs_8hpp.html" title=" " alt="" coords="1991,483,2145,509"/>
 <area shape="rect" id="node4" href="$archive_8hpp.html" title=" " alt="" coords="1637,707,1739,733"/>
@@ -20,7 +20,7 @@
 <area shape="rect" id="node6" title=" " alt="" coords="2611,931,2666,957"/>
 <area shape="rect" id="node9" title=" " alt="" coords="1518,856,1583,883"/>
 <area shape="rect" id="node10" title=" " alt="" coords="523,931,602,957"/>
-<area shape="rect" id="node11" title=" " alt="" coords="1739,931,1821,957"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1753,931,1836,957"/>
 <area shape="rect" id="node20" title=" " alt="" coords="965,781,1085,808"/>
 <area shape="rect" id="node21" title=" " alt="" coords="1109,781,1219,808"/>
 <area shape="rect" id="node22" title=" " alt="" coords="1243,781,1314,808"/>
@@ -32,7 +32,7 @@
 <area shape="rect" id="node30" href="$gfx__buffers_8hpp.html" title=" " alt="" coords="1164,408,1295,435"/>
 <area shape="rect" id="node31" href="$gfx__resource_8hpp.html" title=" " alt="" coords="1521,483,1663,509"/>
 <area shape="rect" id="node32" href="$gfx__defs_8hpp.html" title=" " alt="" coords="1655,557,1771,584"/>
-<area shape="rect" id="node33" href="$vec_8hpp.html" title=" " alt="" coords="1522,632,1622,659"/>
+<area shape="rect" id="node33" href="$vec_8hpp.html" title=" " alt="" coords="1523,632,1623,659"/>
 <area shape="rect" id="node34" href="$gfx__ctx_8hpp.html" title=" " alt="" coords="1703,244,1811,271"/>
 <area shape="rect" id="node35" href="$gfx__desc__set_8hpp.html" title=" " alt="" coords="1361,326,1505,353"/>
 <area shape="rect" id="node36" href="$gfx__sampler_8hpp.html" title=" " alt="" coords="1522,408,1659,435"/>

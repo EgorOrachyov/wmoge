@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="console_8hpp.html">debug/console.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__driver_8hpp.html">gfx/gfx_driver.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grc__shader_8hpp.html">grc/grc_shader.hpp</a>&quot;</span></div>
@@ -122,8 +122,8 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::optional&lt;Ref&lt;GrcShaderType&gt;&gt; <a class="code" href="classwmoge_1_1GrcShaderManager.html#a91cfd1ae6fbbdd8208bdf0ae060caa6c">find_global_type</a>(<a class="code" href="classwmoge_1_1Strid.html">Strid</a> name);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;Strid, Ref&lt;GrcShaderScript&gt;</a>&gt; m_scripts;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;Strid, Ref&lt;GrcShaderType&gt;</a>&gt;   m_global_types;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map&lt;Strid, Ref&lt;GrcShaderScript&gt;</a>&gt; m_scripts;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map&lt;Strid, Ref&lt;GrcShaderType&gt;</a>&gt;   m_global_types;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::string                           m_shaders_folder;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="classwmoge_1_1GrcTextureManager.html">GrcTextureManager</a>*                    m_texture_manager;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="classwmoge_1_1FileSystem.html">FileSystem</a>*                           m_file_system;</div>
@@ -149,15 +149,15 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
 <div class="ttc" id="aconsole_8hpp_html"><div class="ttname"><a href="console_8hpp.html">console.hpp</a></div></div>
-<div class="ttc" id="afast__map_8hpp_html"><div class="ttname"><a href="fast__map_8hpp.html">fast_map.hpp</a></div></div>
 <div class="ttc" id="afile__system_8hpp_html"><div class="ttname"><a href="file__system_8hpp.html">file_system.hpp</a></div></div>
+<div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="agfx__driver_8hpp_html"><div class="ttname"><a href="gfx__driver_8hpp.html">gfx_driver.hpp</a></div></div>
 <div class="ttc" id="agrc__shader_8hpp_html"><div class="ttname"><a href="grc__shader_8hpp.html">grc_shader.hpp</a></div></div>
 <div class="ttc" id="agrc__shader__reflection_8hpp_html"><div class="ttname"><a href="grc__shader__reflection_8hpp.html">grc_shader_reflection.hpp</a></div></div>
 <div class="ttc" id="agrc__shader__script_8hpp_html"><div class="ttname"><a href="grc__shader__script_8hpp.html">grc_shader_script.hpp</a></div></div>
 <div class="ttc" id="agrc__texture__manager_8hpp_html"><div class="ttname"><a href="grc__texture__manager_8hpp.html">grc_texture_manager.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="astructwmoge_1_1GrcShaderScriptFile_html"><div class="ttname"><a href="structwmoge_1_1GrcShaderScriptFile.html">wmoge::GrcShaderScriptFile</a></div><div class="ttdoc">Serializable representation of a script file.</div><div class="ttdef"><b>Definition:</b> grc_shader_script.hpp:46</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

@@ -98,8 +98,8 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="class_8hpp.html">core/class.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="object_8hpp.html">core/object.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="core_2class_8hpp.html">core/class.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="core_2object_8hpp.html">core/object.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ref_8hpp.html">core/ref.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -111,7 +111,7 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classwmoge_1_1Event.html">   48</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Event.html">Event</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Object.html">Object</a> {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Event.html">Event</a>, <a class="code" href="classwmoge_1_1Object.html">Object</a>)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="core_2object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Event.html">Event</a>, <a class="code" href="classwmoge_1_1Object.html">Object</a>)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">   52</a></span>&#160;        virtual const <a class="code" href="classwmoge_1_1Strid.html">EventType</a>&amp; <a class="code" href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">type</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keyword">static</span> <a class="code" href="classwmoge_1_1Strid.html">Strid</a> none;</div>
@@ -138,16 +138,16 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">        return g_id;                            \</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">    }                                           \</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">    std::string to_string() override;</span></div>
-<div class="ttc" id="aclass_8hpp_html"><div class="ttname"><a href="class_8hpp.html">class.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1Event_html"><div class="ttname"><a href="classwmoge_1_1Event.html">wmoge::Event</a></div><div class="ttdoc">Event holding some data which can be processed by listeners.</div><div class="ttdef"><b>Definition:</b> event.hpp:48</div></div>
 <div class="ttc" id="aclasswmoge_1_1Event_html_a6b257f88ccc9c2baf60286ca5c9fe0de"><div class="ttname"><a href="classwmoge_1_1Event.html#a6b257f88ccc9c2baf60286ca5c9fe0de">wmoge::Event::type</a></div><div class="ttdeci">virtual const EventType &amp; type() const</div><div class="ttdef"><b>Definition:</b> event.hpp:52</div></div>
 <div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
+<div class="ttc" id="acore_2class_8hpp_html"><div class="ttname"><a href="core_2class_8hpp.html">class.hpp</a></div></div>
+<div class="ttc" id="acore_2object_8hpp_html"><div class="ttname"><a href="core_2object_8hpp.html">object.hpp</a></div></div>
+<div class="ttc" id="acore_2object_8hpp_html_a8465b8d0410dfbfdcab8d129d92b69c9"><div class="ttname"><a href="core_2object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a></div><div class="ttdeci">#define WG_OBJECT(name, super)</div><div class="ttdef"><b>Definition:</b> object.hpp:192</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_aafc239502313b03c248082849b992329"><div class="ttname"><a href="namespacewmoge.html#aafc239502313b03c248082849b992329">wmoge::make_event</a></div><div class="ttdeci">Ref&lt; T &gt; make_event(TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> event.hpp:59</div></div>
-<div class="ttc" id="aobject_8hpp_html"><div class="ttname"><a href="object_8hpp.html">object.hpp</a></div></div>
-<div class="ttc" id="aobject_8hpp_html_a8465b8d0410dfbfdcab8d129d92b69c9"><div class="ttname"><a href="object_8hpp.html#a8465b8d0410dfbfdcab8d129d92b69c9">WG_OBJECT</a></div><div class="ttdeci">#define WG_OBJECT(name, super)</div><div class="ttdef"><b>Definition:</b> object.hpp:192</div></div>
 <div class="ttc" id="aref_8hpp_html"><div class="ttname"><a href="ref_8hpp.html">ref.hpp</a></div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

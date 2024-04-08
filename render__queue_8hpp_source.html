@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mask_8hpp.html">core/mask.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pool__vector_8hpp.html">core/pool_vector.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="synchronization_8hpp.html">core/synchronization.hpp</a>&quot;</span></div>
@@ -171,8 +171,8 @@ $(function() {
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordtype">void</span>       <a class="code" href="classwmoge_1_1RenderCmdAllocator.html#a4457071e8ffe8dfaba72b433f490cf0b">clear</a>();</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="classwmoge_1_1PoolVector.html">PoolVector&lt;RenderCmd, RENDER_CMD_PER_NODE&gt;</a> m_buffer;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a>                                  m_mutex;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="classwmoge_1_1pool__vector.html">pool_vector&lt;RenderCmd, RENDER_CMD_PER_NODE&gt;</a> m_buffer;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="classwmoge_1_1SpinMutexTtas.html">SpinMutex</a>                                   m_mutex;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    };</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
 <div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="classwmoge_1_1RenderQueue.html">  139</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1RenderQueue.html">RenderQueue</a> final {</div>
@@ -193,10 +193,10 @@ $(function() {
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    };</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxCtx_html"><div class="ttname"><a href="classwmoge_1_1GfxCtx.html">wmoge::GfxCtx</a></div><div class="ttdoc">Gfx context interface.</div><div class="ttdef"><b>Definition:</b> gfx_ctx.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDescSet_html"><div class="ttname"><a href="classwmoge_1_1GfxDescSet.html">wmoge::GfxDescSet</a></div><div class="ttdoc">Represent set of resources optimized for binding to a pipeline.</div><div class="ttdef"><b>Definition:</b> gfx_desc_set.hpp:115</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxPipeline_html"><div class="ttname"><a href="classwmoge_1_1GfxPipeline.html">wmoge::GfxPipeline</a></div><div class="ttdoc">Represents created and compiled graphics pipeline state object.</div><div class="ttdef"><b>Definition:</b> gfx_pipeline.hpp:92</div></div>
-<div class="ttc" id="aclasswmoge_1_1PoolVector_html"><div class="ttname"><a href="classwmoge_1_1PoolVector.html">wmoge::PoolVector</a></div><div class="ttdoc">Typed container as well as vector but values stored in chunks with persistent mem address in grow ope...</div><div class="ttdef"><b>Definition:</b> pool_vector.hpp:46</div></div>
 <div class="ttc" id="aclasswmoge_1_1RenderCmdAllocator_html"><div class="ttname"><a href="classwmoge_1_1RenderCmdAllocator.html">wmoge::RenderCmdAllocator</a></div><div class="ttdoc">Thread-safe allocator for RenderCmd withing one frame with persistent placement in memory.</div><div class="ttdef"><b>Definition:</b> render_queue.hpp:120</div></div>
 <div class="ttc" id="aclasswmoge_1_1RenderCmdAllocator_html_a3cc059eab47a35c5e13ca127f0fdc3f8"><div class="ttname"><a href="classwmoge_1_1RenderCmdAllocator.html#a3cc059eab47a35c5e13ca127f0fdc3f8">wmoge::RenderCmdAllocator::RENDER_CMD_PER_NODE</a></div><div class="ttdeci">static constexpr int RENDER_CMD_PER_NODE</div><div class="ttdef"><b>Definition:</b> render_queue.hpp:122</div></div>
 <div class="ttc" id="aclasswmoge_1_1RenderCmdAllocator_html_a4457071e8ffe8dfaba72b433f490cf0b"><div class="ttname"><a href="classwmoge_1_1RenderCmdAllocator.html#a4457071e8ffe8dfaba72b433f490cf0b">wmoge::RenderCmdAllocator::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> render_queue.cpp:42</div></div>
@@ -211,7 +211,7 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1RenderQueue_html_af40ec3725d969594edf2b5d04f7f9273"><div class="ttname"><a href="classwmoge_1_1RenderQueue.html#af40ec3725d969594edf2b5d04f7f9273">wmoge::RenderQueue::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> render_queue.cpp:52</div></div>
 <div class="ttc" id="aclasswmoge_1_1RenderQueue_html_af9f4675879c107083e5fea3e6cb4e534"><div class="ttname"><a href="classwmoge_1_1RenderQueue.html#af9f4675879c107083e5fea3e6cb4e534">wmoge::RenderQueue::get_queue</a></div><div class="ttdeci">std::vector&lt; SortableRenderCmd &gt; &amp; get_queue()</div><div class="ttdef"><b>Definition:</b> render_queue.cpp:109</div></div>
 <div class="ttc" id="aclasswmoge_1_1SpinMutexTtas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTtas.html">wmoge::SpinMutexTtas</a></div><div class="ttdoc">TTAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:49</div></div>
-<div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1pool__vector_html"><div class="ttname"><a href="classwmoge_1_1pool__vector.html">wmoge::pool_vector</a></div><div class="ttdoc">Typed container as well as vector but values stored in chunks with persistent mem address in grow ope...</div><div class="ttdef"><b>Definition:</b> pool_vector.hpp:46</div></div>
 <div class="ttc" id="agfx__buffers_8hpp_html"><div class="ttname"><a href="gfx__buffers_8hpp.html">gfx_buffers.hpp</a></div></div>
 <div class="ttc" id="agfx__ctx_8hpp_html"><div class="ttname"><a href="gfx__ctx_8hpp.html">gfx_ctx.hpp</a></div></div>
 <div class="ttc" id="agfx__defs_8hpp_html"><div class="ttname"><a href="gfx__defs_8hpp.html">gfx_defs.hpp</a></div></div>

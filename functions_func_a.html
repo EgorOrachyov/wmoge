@@ -113,12 +113,16 @@ $(function() {
 , <a class="el" href="classwmoge_1_1IocContainer.html#a3f4b3e319b80b8e2118c51323335602a">wmoge::IocContainer</a>
 , <a class="el" href="classwmoge_1_1PluginManager.html#ade01c6ec0e9bcac19ab9fbe6ef650e07">wmoge::PluginManager</a>
 , <a class="el" href="classwmoge_1_1ResourceDependencies.html#ac53955d18f9e23f51ec33afeb2d789d6">wmoge::ResourceDependencies</a>
+, <a class="el" href="classwmoge_1_1RttiTypeStorage.html#a08cd631494c125abce31615b9d3dbbce">wmoge::RttiTypeStorage</a>
 </li>
 <li>add_action()
 : <a class="el" href="classwmoge_1_1ActionMap.html#ad3db410a7e309f84b633572efac1a3ea">wmoge::ActionMap</a>
 </li>
 <li>add_action_activation()
 : <a class="el" href="classwmoge_1_1ActionMap.html#a29d7cd870de209fbafb012b0de035dc0">wmoge::ActionMap</a>
+</li>
+<li>add_arg()
+: <a class="el" href="classwmoge_1_1RttiCallable.html#af4430f026c4c62285ae37858050e60f2">wmoge::RttiCallable</a>
 </li>
 <li>add_batch()
 : <a class="el" href="classwmoge_1_1MeshBatchCollector.html#a455f3280de02490be5197607a923dd18">wmoge::MeshBatchCollector</a>
@@ -167,7 +171,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderBuilder.html#add24b5348bf7071c04a11371738e510b">wmoge::ShaderBuilder</a>
 </li>
 <li>add_defines()
-: <a class="el" href="structwmoge_1_1ShaderBuilder.html#aba7a913c1359406594022283f006bc26">wmoge::ShaderBuilder</a>
+: <a class="el" href="structwmoge_1_1ShaderBuilder.html#a5222090bb39f76be53b2ecb8cf3bdf3f">wmoge::ShaderBuilder</a>
 </li>
 <li>add_dependency()
 : <a class="el" href="classwmoge_1_1AsyncBase.html#a98a3bb17df72f0a89d5c945958594b4f">wmoge::AsyncBase&lt; State &gt;</a>
@@ -190,6 +194,9 @@ $(function() {
 <li>add_face()
 : <a class="el" href="classwmoge_1_1ArrayMesh.html#a6ce9503144dbde978740a50f79631d0e">wmoge::ArrayMesh</a>
 </li>
+<li>add_factory()
+: <a class="el" href="classwmoge_1_1RttiClass.html#a5739118fb55938a2338c79bbd6010c57">wmoge::RttiClass</a>
+</li>
 <li>add_feature()
 : <a class="el" href="classwmoge_1_1PfxComponent.html#af4afc4c18b241aaf2c30097f12e8814c">wmoge::PfxComponent</a>
 </li>
@@ -197,10 +204,11 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Class.html#af218a5a15887e43f7adaeb432c4b4025">wmoge::Class</a>
 , <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1StructBuilder.html#a6bb0def4e022d850cf72a91bd120310d">wmoge::GrcShaderScriptBuilder::StructBuilder</a>
 , <a class="el" href="classwmoge_1_1GrcShaderStructRegister.html#ab0c43e5b5668a4b258e044920aab36f1">wmoge::GrcShaderStructRegister</a>
+, <a class="el" href="classwmoge_1_1RttiStruct.html#a2fad0bf8d7b545244abb1e07018955e3">wmoge::RttiStruct</a>
 </li>
 <li>add_field_array()
-: <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1StructBuilder.html#a6c52c77df317f54f82e4ea66ef306ad1">wmoge::GrcShaderScriptBuilder::StructBuilder</a>
-, <a class="el" href="classwmoge_1_1GrcShaderStructRegister.html#aa1a90bba77eec3226050e14879c93954">wmoge::GrcShaderStructRegister</a>
+: <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1StructBuilder.html#a9350d06abeecbde46d2a558b986e457d">wmoge::GrcShaderScriptBuilder::StructBuilder</a>
+, <a class="el" href="classwmoge_1_1GrcShaderStructRegister.html#aa8ba142ab13027dcaba47ac469ffd4cf">wmoge::GrcShaderStructRegister</a>
 </li>
 <li>add_for_instancing()
 : <a class="el" href="classwmoge_1_1MeshBucketMap.html#adf6a35b6dd1a584c593b0e0d4cb460e2">wmoge::MeshBucketMap</a>
@@ -237,6 +245,7 @@ $(function() {
 </li>
 <li>add_method()
 : <a class="el" href="classwmoge_1_1Class.html#ae1c32293678d6b8a80ba3afa5177b77d">wmoge::Class</a>
+, <a class="el" href="classwmoge_1_1RttiClass.html#a8f85954ea58df2c576a64041545441dd">wmoge::RttiClass</a>
 </li>
 <li>add_mounting()
 : <a class="el" href="classwmoge_1_1FileSystem.html#a307c39ab7b3440552ad4998fc8b4a1c2">wmoge::FileSystem</a>
@@ -246,8 +255,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1AsyncState.html#ad6b8d53b95cd437b9b54e12af132d23e">wmoge::AsyncState&lt; T &gt;</a>
 </li>
 <li>add_option()
-: <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1PassBuilder.html#ac3ef451d8ecbbc106eb42a9147517300">wmoge::GrcShaderScriptBuilder::PassBuilder</a>
-, <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1TechniqueBuilder.html#a00bc3f207563630c165beebf1c2f339c">wmoge::GrcShaderScriptBuilder::TechniqueBuilder</a>
+: <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1PassBuilder.html#a923842a95fa52b8f88127e3682a95449">wmoge::GrcShaderScriptBuilder::PassBuilder</a>
+, <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1TechniqueBuilder.html#a029f61612bddac11401d865aa4dbf062">wmoge::GrcShaderScriptBuilder::TechniqueBuilder</a>
 </li>
 <li>add_pak()
 : <a class="el" href="classwmoge_1_1ResourceManager.html#ac207cda0b336a0b91a23efdbb722309a">wmoge::ResourceManager</a>
@@ -274,8 +283,14 @@ $(function() {
 <li>add_rect_filled()
 : <a class="el" href="classwmoge_1_1Canvas.html#a288bdc0b348434d8971b0ab7cf747e57">wmoge::Canvas</a>
 </li>
+<li>add_ret()
+: <a class="el" href="classwmoge_1_1RttiCallable.html#a0be3cb26dc218fc0693d0c515144cdb5">wmoge::RttiCallable</a>
+</li>
 <li>add_rule()
 : <a class="el" href="classwmoge_1_1FileSystem.html#a0008eb561631f39bae32a6726b298af5">wmoge::FileSystem</a>
+</li>
+<li>add_signal()
+: <a class="el" href="classwmoge_1_1RttiClass.html#ab040f2972791411af0925469ef1b6c90">wmoge::RttiClass</a>
 </li>
 <li>add_source()
 : <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder.html#a6bb78f64bc3126abbc2ad9b2b91a5043">wmoge::GrcShaderScriptBuilder</a>
@@ -383,7 +398,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxDynIndexBuffer.html#a1aa3bd9eabf45cd6eb4d9c70f2fd6b56">wmoge::GfxDynIndexBuffer</a>
 , <a class="el" href="classwmoge_1_1GfxDynUniformBuffer.html#a201245f091c52b5062586174c26a9b92">wmoge::GfxDynUniformBuffer</a>
 , <a class="el" href="classwmoge_1_1GfxDynVertBuffer.html#a437978daea8f46f629c53767d11a67f0">wmoge::GfxDynVertBuffer</a>
-, <a class="el" href="classwmoge_1_1GfxUniformPool.html#a8c53a9f86bd29d91585456d8f9a203a6">wmoge::GfxUniformPool</a>
+, <a class="el" href="classwmoge_1_1GfxUniformPool.html#a0909d5d68a35fa58d24b003c53b78aaf">wmoge::GfxUniformPool</a>
 , <a class="el" href="classwmoge_1_1MemLinear.html#a882a932ffc8cda7767a5b932f955c4f2">wmoge::MemLinear</a>
 , <a class="el" href="classwmoge_1_1MemPool.html#ad9c31b7bc99b07de68c657b49cf672b2">wmoge::MemPool</a>
 , <a class="el" href="classwmoge_1_1RenderCmdAllocator.html#a4bf2e2f0c97a5397c01f2bd30f719025">wmoge::RenderCmdAllocator</a>
@@ -411,7 +426,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKBuffer.html#a21bfac3c383a4f7921e0bf03aa02b560">wmoge::VKBuffer</a>
 </li>
 <li>angle()
-: <a class="el" href="classwmoge_1_1TQuat.html#a2dac413f175eb78e65c2f354e89f112b">wmoge::TQuat&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1TQuat.html#a7c95de6c4092bde39aa81a536c19a5aa">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a3aa21a5ecf177b256f54c29beab240ad">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>application()
@@ -448,7 +463,7 @@ $(function() {
 : <a class="el" href="classreflection_1_1StructField.html#a6262467e2c5c0c5d4ec5fad91e1b94f6">reflection.StructField</a>
 </li>
 <li>ArrayView()
-: <a class="el" href="classwmoge_1_1ArrayView.html#a38d1fdaf4dfecc01633dc07317cb7f98">wmoge::ArrayView&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1ArrayView.html#a63416bb623e0ff8411843c54a5f404ab">wmoge::ArrayView&lt; T &gt;</a>
 </li>
 <li>as()
 : <a class="el" href="classwmoge_1_1Ref.html#a9eaf37ed378974ae93f67525b41398f8">wmoge::Ref&lt; T &gt;</a>
@@ -473,7 +488,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1ConsoleVar.html#af3c264dc4e9b9e0e81bfd0d8f9b98548">wmoge::ConsoleVar</a>
 </li>
 <li>asin()
-: <a class="el" href="classwmoge_1_1Math.html#af967400aa17b831b6eb70db8bf621446">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#ab3c27af39b9ac482c24aec55db918219">wmoge::Math</a>
 </li>
 <li>Async()
 : <a class="el" href="classwmoge_1_1Async.html#a9639b1c33dc5d7d0bf4a145b46eddf97">wmoge::Async</a>

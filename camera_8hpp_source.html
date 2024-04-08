@@ -99,7 +99,7 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__view_8hpp.html">core/array_view.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="aabb_8hpp.html">math/aabb.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="color_8hpp.html">math/color.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="frustum_8hpp.html">math/frustum.hpp</a>&quot;</span></div>
@@ -206,12 +206,13 @@ $(function() {
 <div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classwmoge_1_1CameraList.html#afc167fc50130777fcf2d78ad1b5fe23b">  147</a></span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span>                        <a class="code" href="classwmoge_1_1CameraList.html#afc167fc50130777fcf2d78ad1b5fe23b">is_empty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_cameras.empty(); }</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector&lt;CameraData, RenderLimits::MAX_CAMERAS&gt;</a> m_cameras;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector&lt;CameraData, RenderLimits::MAX_CAMERAS&gt;</a> m_cameras;</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    };</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aaabb_8hpp_html"><div class="ttname"><a href="aabb_8hpp.html">aabb.hpp</a></div></div>
 <div class="ttc" id="aarray__view_8hpp_html"><div class="ttname"><a href="array__view_8hpp.html">array_view.hpp</a></div></div>
+<div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1ArrayView_html"><div class="ttname"><a href="classwmoge_1_1ArrayView.html">wmoge::ArrayView</a></div><div class="ttdoc">View to elements of array.</div><div class="ttdef"><b>Definition:</b> array_view.hpp:45</div></div>
 <div class="ttc" id="aclasswmoge_1_1CameraList_html"><div class="ttname"><a href="classwmoge_1_1CameraList.html">wmoge::CameraList</a></div><div class="ttdoc">Cameras list for rendering.</div><div class="ttdef"><b>Definition:</b> camera.hpp:134</div></div>
 <div class="ttc" id="aclasswmoge_1_1CameraList_html_a21f2d82909c284dda77dee5f00cc26a7"><div class="ttname"><a href="classwmoge_1_1CameraList.html#a21f2d82909c284dda77dee5f00cc26a7">wmoge::CameraList::CameraList</a></div><div class="ttdeci">CameraList()=default</div></div>
@@ -263,7 +264,6 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1TVecN_html_a1332d5344942013851e5d5cd1b9ec51b"><div class="ttname"><a href="classwmoge_1_1TVecN.html#a1332d5344942013851e5d5cd1b9ec51b">wmoge::TVecN&lt; float, 3 &gt;::axis_z</a></div><div class="ttdeci">static TVecN axis_z()</div><div class="ttdef"><b>Definition:</b> vec.hpp:604</div></div>
 <div class="ttc" id="aclasswmoge_1_1TVecN_html_aaa832592f8b04105cb8de1c57182eedd"><div class="ttname"><a href="classwmoge_1_1TVecN.html#aaa832592f8b04105cb8de1c57182eedd">wmoge::TVecN&lt; float, 3 &gt;::axis_y</a></div><div class="ttdeci">static TVecN axis_y()</div><div class="ttdef"><b>Definition:</b> vec.hpp:600</div></div>
 <div class="ttc" id="acolor_8hpp_html"><div class="ttname"><a href="color_8hpp.html">color.hpp</a></div></div>
-<div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
 <div class="ttc" id="afrustum_8hpp_html"><div class="ttname"><a href="frustum_8hpp.html">frustum.hpp</a></div></div>
 <div class="ttc" id="amat_8hpp_html"><div class="ttname"><a href="mat_8hpp.html">mat.hpp</a></div></div>
 <div class="ttc" id="amath__utils3d_8hpp_html"><div class="ttname"><a href="math__utils3d_8hpp.html">math_utils3d.hpp</a></div></div>
@@ -273,7 +273,7 @@ $(function() {
 <div class="ttc" id="anamespacewmoge_html_a9b40ad659b284af204946d16f8b41010"><div class="ttname"><a href="namespacewmoge.html#a9b40ad659b284af204946d16f8b41010">wmoge::Color4f</a></div><div class="ttdeci">Vec4f Color4f</div><div class="ttdef"><b>Definition:</b> vec.hpp:629</div></div>
 <div class="ttc" id="anamespacewmoge_html_a9d1e702adb4e0c16dcfa2a32a9c4d40e"><div class="ttname"><a href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40e">wmoge::CameraProjection</a></div><div class="ttdeci">CameraProjection</div><div class="ttdoc">Type of projection for cameras.</div><div class="ttdef"><b>Definition:</b> render_defs.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_a9d1e702adb4e0c16dcfa2a32a9c4d40eaa80420eef88d11f77532f1b9cb467fa3"><div class="ttname"><a href="namespacewmoge.html#a9d1e702adb4e0c16dcfa2a32a9c4d40eaa80420eef88d11f77532f1b9cb467fa3">wmoge::CameraProjection::Perspective</a></div><div class="ttdeci">@ Perspective</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa65d8defdd2ed60a69eb9c9be213534"><div class="ttname"><a href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">wmoge::fast_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; fast_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> fast_vector.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aab92eeabc73bd97853a14acc053ba596"><div class="ttname"><a href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">wmoge::buffered_vector</a></div><div class="ttdeci">ankerl::svector&lt; T, MinCapacity &gt; buffered_vector</div><div class="ttdoc">Wrapper for ankerl vector with small vector optimization.</div><div class="ttdef"><b>Definition:</b> buffered_vector.hpp:46</div></div>
 <div class="ttc" id="aplane_8hpp_html"><div class="ttname"><a href="plane_8hpp.html">plane.hpp</a></div></div>
 <div class="ttc" id="arender__defs_8hpp_html"><div class="ttname"><a href="render__defs_8hpp.html">render_defs.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1CameraData_html"><div class="ttname"><a href="structwmoge_1_1CameraData.html">wmoge::CameraData</a></div><div class="ttdoc">Camera data for rendering.</div><div class="ttdef"><b>Definition:</b> camera.hpp:111</div></div>

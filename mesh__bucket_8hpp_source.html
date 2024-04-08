@@ -98,7 +98,7 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="synchronization_8hpp.html">core/synchronization.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__queue_8hpp.html">render/render_queue.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
@@ -146,7 +146,7 @@ $(function() {
 <div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classwmoge_1_1MeshBucketMap.html#a1b371d2d6c51251d66338691a1e4feb7">   90</a></span>&#160;        [[nodiscard]] <span class="keywordtype">int</span>             <a class="code" href="classwmoge_1_1MeshBucketMap.html#a1b371d2d6c51251d66338691a1e4feb7">get_slots_count</a>() { <span class="keywordflow">return</span> int(m_slots.size()); }</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;MeshBucketKey, int&gt;</a>                 m_buckets_map;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map&lt;MeshBucketKey, int&gt;</a>                 m_buckets_map;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        std::vector&lt;std::unique_ptr&lt;MeshBucketSlot&gt;&gt; m_slots;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="classwmoge_1_1RwMutexWritePrefer.html">RwMutexWritePrefer</a>                           m_mutex;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    };</div>
@@ -185,10 +185,10 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1RenderScene_html"><div class="ttname"><a href="classwmoge_1_1RenderScene.html">wmoge::RenderScene</a></div><div class="ttdoc">Render Engine side scene representation with cached GPU data.</div><div class="ttdef"><b>Definition:</b> render_scene.hpp:69</div></div>
 <div class="ttc" id="aclasswmoge_1_1RwMutexWritePrefer_html"><div class="ttname"><a href="classwmoge_1_1RwMutexWritePrefer.html">wmoge::RwMutexWritePrefer</a></div><div class="ttdoc">Read-write lock with policy to prefer writers.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:72</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
-<div class="ttc" id="afast__map_8hpp_html"><div class="ttname"><a href="fast__map_8hpp.html">fast_map.hpp</a></div></div>
+<div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> ref.hpp:183</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="arender__queue_8hpp_html"><div class="ttname"><a href="render__queue_8hpp.html">render_queue.hpp</a></div></div>
 <div class="ttc" id="astructstd_1_1hash_3_01wmoge_1_1MeshBucketKey_01_4_html_ae7af7740a08c7c9e7ec4876b5b34bbe0"><div class="ttname"><a href="structstd_1_1hash_3_01wmoge_1_1MeshBucketKey_01_4.html#ae7af7740a08c7c9e7ec4876b5b34bbe0">std::hash&lt; wmoge::MeshBucketKey &gt;::operator()</a></div><div class="ttdeci">std::size_t operator()(const wmoge::MeshBucketKey &amp;key) const</div><div class="ttdef"><b>Definition:</b> mesh_bucket.hpp:56</div></div>
 <div class="ttc" id="astructwmoge_1_1MeshBucketKey_html"><div class="ttname"><a href="structwmoge_1_1MeshBucketKey.html">wmoge::MeshBucketKey</a></div><div class="ttdoc">Mesh bucket key to group render cmd for dynamic merge of draw call.</div><div class="ttdef"><b>Definition:</b> mesh_bucket.hpp:43</div></div>

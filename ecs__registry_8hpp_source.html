@@ -99,8 +99,8 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__view_8hpp.html">core/array_view.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__map_8hpp.html">core/fast_map.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="fast__vector_8hpp.html">core/fast_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ecs__component_8hpp.html">ecs/ecs_component.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ecs__core_8hpp.html">ecs/ecs_core.hpp</a>&quot;</span></div>
@@ -141,7 +141,7 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        std::array&lt;EcsComponentInfo, MAX_CMP&gt;         m_components_info;       <span class="comment">// type info of component, indexed by component id</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::array&lt;std::unique_ptr&lt;MemPool&gt;, MAX_CMP&gt; m_components_pool;       <span class="comment">// pools to allocate components chunks</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">fast_map&lt;Strid, int&gt;</a>                          m_components_name_to_idx;<span class="comment">// resolve component name to its idx</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <a class="code" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map&lt;Strid, int&gt;</a>                          m_components_name_to_idx;<span class="comment">// resolve component name to its idx</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        std::unique_ptr&lt;MemPool&gt;                      m_entity_pool;           <span class="comment">// pool to allocate entities chunks</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::vector&lt;EcsSystemPtr&gt;                     m_systems;               <span class="comment">// registered global systems</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
@@ -193,6 +193,7 @@ $(function() {
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aarray__view_8hpp_html"><div class="ttname"><a href="array__view_8hpp.html">array_view.hpp</a></div></div>
+<div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1ArrayView_html"><div class="ttname"><a href="classwmoge_1_1ArrayView.html">wmoge::ArrayView</a></div><div class="ttdoc">View to elements of array.</div><div class="ttdef"><b>Definition:</b> array_view.hpp:45</div></div>
 <div class="ttc" id="aclasswmoge_1_1EcsRegistry_html"><div class="ttname"><a href="classwmoge_1_1EcsRegistry.html">wmoge::EcsRegistry</a></div><div class="ttdoc">Manages global ecs state and static info.</div><div class="ttdef"><b>Definition:</b> ecs_registry.hpp:50</div></div>
 <div class="ttc" id="aclasswmoge_1_1EcsRegistry_html_a0416bf380731c1a32475dc405541d162"><div class="ttname"><a href="classwmoge_1_1EcsRegistry.html#a0416bf380731c1a32475dc405541d162">wmoge::EcsRegistry::get_expand_size</a></div><div class="ttdeci">int get_expand_size() const</div><div class="ttdef"><b>Definition:</b> ecs_registry.hpp:63</div></div>
@@ -214,11 +215,10 @@ $(function() {
 <div class="ttc" id="aecs__core_8hpp_html"><div class="ttname"><a href="ecs__core_8hpp.html">ecs_core.hpp</a></div></div>
 <div class="ttc" id="aecs__entity_8hpp_html"><div class="ttname"><a href="ecs__entity_8hpp.html">ecs_entity.hpp</a></div></div>
 <div class="ttc" id="aecs__system_8hpp_html"><div class="ttname"><a href="ecs__system_8hpp.html">ecs_system.hpp</a></div></div>
-<div class="ttc" id="afast__map_8hpp_html"><div class="ttname"><a href="fast__map_8hpp.html">fast_map.hpp</a></div></div>
-<div class="ttc" id="afast__vector_8hpp_html"><div class="ttname"><a href="fast__vector_8hpp.html">fast_vector.hpp</a></div></div>
+<div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="amem__pool_8hpp_html"><div class="ttname"><a href="mem__pool_8hpp.html">mem_pool.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="anamespacewmoge_html_ad995af68539d10f8dc97d1803a07907c"><div class="ttname"><a href="namespacewmoge.html#ad995af68539d10f8dc97d1803a07907c">wmoge::fast_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; fast_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> fast_map.hpp:46</div></div>
+<div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 <div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:68</div></div>
 <div class="ttc" id="astructwmoge_1_1EcsComponentInfo_html"><div class="ttname"><a href="structwmoge_1_1EcsComponentInfo.html">wmoge::EcsComponentInfo</a></div><div class="ttdoc">Holds information required to work with components.</div><div class="ttdef"><b>Definition:</b> ecs_component.hpp:71</div></div>

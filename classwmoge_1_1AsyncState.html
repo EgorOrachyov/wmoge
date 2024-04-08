@@ -144,10 +144,10 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:acbdcae51d417f6ab4b78c18b2298a3b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncState.html#acbdcae51d417f6ab4b78c18b2298a3b8">m_callbacks</a></td></tr>
-<tr class="separator:acbdcae51d417f6ab4b78c18b2298a3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e10b332d829244110ad66dea8aa62c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1AsyncStateBase.html">AsyncStateBase</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncState.html#a9e10b332d829244110ad66dea8aa62c5">m_children</a></td></tr>
-<tr class="separator:a9e10b332d829244110ad66dea8aa62c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8633ad3fe52f9a7ed5b7955d9ea26f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncState.html#a6f8633ad3fe52f9a7ed5b7955d9ea26f">m_callbacks</a></td></tr>
+<tr class="separator:a6f8633ad3fe52f9a7ed5b7955d9ea26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c38205e87affde7679911ddfd2b53f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1AsyncStateBase.html">AsyncStateBase</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncState.html#a5c38205e87affde7679911ddfd2b53f2">m_children</a></td></tr>
+<tr class="separator:a5c38205e87affde7679911ddfd2b53f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d890b43e2f1ea3f7e4b15dab2037a04"><td class="memItemLeft" align="right" valign="top">std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncState.html#a4d890b43e2f1ea3f7e4b15dab2037a04">m_result</a></td></tr>
 <tr class="separator:a4d890b43e2f1ea3f7e4b15dab2037a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76a96bf09c043aa1c71d97a08572332f"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; <a class="el" href="namespacewmoge.html#a45b83d888066bb3e4aff04d7e36efd47">AsyncStatus</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AsyncState.html#a76a96bf09c043aa1c71d97a08572332f">m_status</a> {<a class="el" href="namespacewmoge.html#a45b83d888066bb3e4aff04d7e36efd47a651a693296d758550ddc034a389ef058">AsyncStatus::InProcess</a>}</td></tr>
@@ -516,8 +516,8 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="acbdcae51d417f6ab4b78c18b2298a3b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbdcae51d417f6ab4b78c18b2298a3b8">&#9670;&nbsp;</a></span>m_callbacks</h2>
+<a id="a6f8633ad3fe52f9a7ed5b7955d9ea26f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f8633ad3fe52f9a7ed5b7955d9ea26f">&#9670;&nbsp;</a></span>m_callbacks</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -528,7 +528,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback</a>&lt;T&gt; &gt; <a class="el" href="classwmoge_1_1AsyncState.html">wmoge::AsyncState</a>&lt; T &gt;::m_callbacks</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="namespacewmoge.html#a3bac69a211f7ac3f56a54f02d0865e38">AsyncCallback</a>&lt;T&gt; &gt; <a class="el" href="classwmoge_1_1AsyncState.html">wmoge::AsyncState</a>&lt; T &gt;::m_callbacks</td>
         </tr>
       </table>
   </td>
@@ -540,8 +540,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a9e10b332d829244110ad66dea8aa62c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e10b332d829244110ad66dea8aa62c5">&#9670;&nbsp;</a></span>m_children</h2>
+<a id="a5c38205e87affde7679911ddfd2b53f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c38205e87affde7679911ddfd2b53f2">&#9670;&nbsp;</a></span>m_children</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -552,7 +552,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#afa65d8defdd2ed60a69eb9c9be213534">fast_vector</a>&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1AsyncStateBase.html">AsyncStateBase</a>&gt; &gt; <a class="el" href="classwmoge_1_1AsyncState.html">wmoge::AsyncState</a>&lt; T &gt;::m_children</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1AsyncStateBase.html">AsyncStateBase</a>&gt; &gt; <a class="el" href="classwmoge_1_1AsyncState.html">wmoge::AsyncState</a>&lt; T &gt;::m_children</td>
         </tr>
       </table>
   </td>

@@ -1,6 +1,6 @@
 <map id="engine/core/signal.hpp" name="engine/core/signal.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="1449,5,1599,32"/>
-<area shape="rect" id="node2" href="$fast__vector_8hpp.html" title=" " alt="" coords="593,80,733,107"/>
+<area shape="rect" id="node2" href="$buffered__vector_8hpp.html" title=" " alt="" coords="581,80,745,107"/>
 <area shape="rect" id="node11" title=" " alt="" coords="5,304,64,331"/>
 <area shape="rect" id="node15" title=" " alt="" coords="1577,379,1655,405"/>
 <area shape="rect" id="node17" title=" " alt="" coords="1045,304,1097,331"/>
@@ -27,7 +27,7 @@
 <area shape="rect" id="node14" title=" " alt="" coords="818,304,883,331"/>
 <area shape="rect" id="node16" title=" " alt="" coords="1337,379,1420,405"/>
 <area shape="rect" id="node20" title=" " alt="" coords="1457,379,1527,405"/>
-<area shape="rect" id="node21" href="$enum_8hpp.html" title=" " alt="" coords="1757,304,1849,331"/>
+<area shape="rect" id="node21" href="$io_2enum_8hpp.html" title=" " alt="" coords="1757,304,1849,331"/>
 <area shape="rect" id="node22" title=" " alt="" coords="1784,379,1904,405"/>
 <area shape="rect" id="node29" title=" " alt="" coords="987,229,1096,256"/>
 <area shape="rect" id="node30" title=" " alt="" coords="1121,229,1191,256"/>
