@@ -29,7 +29,7 @@
 
 namespace wmoge {
 
-    void LuaBindings::bind_scene(luabridge::Namespace& ns, fast_map<const wmoge::Class*, wmoge::LuaConvCppToLua>& mapping) {
+    void LuaBindings::bind_scene(luabridge::Namespace& ns, flat_map<const wmoge::Class*, wmoge::LuaConvCppToLua>& mapping) {
     }
 
 }// namespace wmoge

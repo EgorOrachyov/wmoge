@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "io/serialization.hpp"
@@ -79,7 +79,7 @@ namespace wmoge {
      * @brief Describes font data internal
     */
     struct FontDesc {
-        fast_map<int, FontGlyph> glyphs;
+        flat_map<int, FontGlyph> glyphs;
         Ref<Texture2d>           texture;
         std::string              family_name;
         std::string              style_name;
@@ -126,7 +126,7 @@ namespace wmoge {
 
         [[nodiscard]] const std::string&              get_family_name() { return m_family_name; }
         [[nodiscard]] const std::string&              get_style_name() { return m_style_name; }
-        [[nodiscard]] const fast_map<int, FontGlyph>& get_glyphs() { return m_glyphs; }
+        [[nodiscard]] const flat_map<int, FontGlyph>& get_glyphs() { return m_glyphs; }
         [[nodiscard]] const Ref<Texture2d>&           get_texture() { return m_texture; }
         [[nodiscard]] const Ref<GfxTexture>&          get_bitmap() { return m_texture->get_texture(); }
         [[nodiscard]] const Ref<GfxSampler>&          get_sampler() { return m_texture->get_sampler(); }
@@ -136,7 +136,7 @@ namespace wmoge {
         [[nodiscard]] int                             get_max_height() { return m_max_height; }
 
     private:
-        fast_map<int, FontGlyph> m_glyphs;
+        flat_map<int, FontGlyph> m_glyphs;
         Ref<Texture2d>           m_texture;
         std::string              m_family_name;
         std::string              m_style_name;

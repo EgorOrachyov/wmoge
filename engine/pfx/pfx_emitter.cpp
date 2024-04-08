@@ -60,7 +60,7 @@ namespace wmoge {
     void PfxEmitter::update() {
         WG_AUTO_PROFILE_PFX("PfxEmitter::update");
 
-        fast_vector<PfxSpawnParams> emit_queue;
+        buffered_vector<PfxSpawnParams> emit_queue;
         {
             std::lock_guard guard(m_mutex);
             std::swap(emit_queue, m_emit_queue);

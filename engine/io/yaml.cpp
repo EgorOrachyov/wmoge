@@ -60,6 +60,10 @@ namespace wmoge {
         node >> value;
         return StatusCode::Ok;
     }
+    Status yaml_read(const YamlConstNodeRef& node, unsigned int& value) {
+        node >> value;
+        return StatusCode::Ok;
+    }
     Status yaml_read(const YamlConstNodeRef& node, float& value) {
         node >> value;
         return StatusCode::Ok;
@@ -86,6 +90,10 @@ namespace wmoge {
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const int& value) {
+        node << value;
+        return StatusCode::Ok;
+    }
+    Status yaml_write(YamlNodeRef node, const unsigned int& value) {
         node << value;
         return StatusCode::Ok;
     }

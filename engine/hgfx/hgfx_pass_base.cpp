@@ -43,7 +43,7 @@ namespace wmoge {
         GfxDriver*     gfx_driver     = engine->gfx_driver();
 
         if (!m_pipeline) {
-            fast_vector<std::string> defines;
+            buffered_vector<std::string> defines;
             if (out_srgb) defines.push_back("OUT_SRGB");
             if (no_alpha) defines.push_back("NO_ALPHA");
 

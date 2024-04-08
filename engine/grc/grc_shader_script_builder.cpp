@@ -157,7 +157,7 @@ namespace wmoge {
         : m_owner(owner), m_pass(pass), m_technique(technique) {
     }
 
-    GrcShaderScriptBuilder::PassBuilder& GrcShaderScriptBuilder::PassBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
+    GrcShaderScriptBuilder::PassBuilder& GrcShaderScriptBuilder::PassBuilder::add_option(Strid name, const buffered_vector<Strid>& variants) {
         GrcShaderOption& option = m_pass.options.options.emplace_back();
         option.name             = name;
 
@@ -194,7 +194,7 @@ namespace wmoge {
         : m_owner(owner), m_technique(technique) {
     }
 
-    GrcShaderScriptBuilder::TechniqueBuilder& GrcShaderScriptBuilder::TechniqueBuilder::add_option(Strid name, const fast_vector<Strid>& variants) {
+    GrcShaderScriptBuilder::TechniqueBuilder& GrcShaderScriptBuilder::TechniqueBuilder::add_option(Strid name, const buffered_vector<Strid>& variants) {
         GrcShaderOption& option = m_technique.options.options.emplace_back();
         option.name             = name;
 

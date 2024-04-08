@@ -28,7 +28,7 @@
 #ifndef WMOGE_PFX_COMPONENT_HPP
 #define WMOGE_PFX_COMPONENT_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/ref.hpp"
 #include "pfx/pfx_feature.hpp"
 
@@ -69,11 +69,11 @@ namespace wmoge {
         bool                   is_active() const;
 
     private:
-        fast_vector<Ref<PfxFeature>> m_features;
-        PfxAttributes                m_attributes;
-        Strid                        m_name;
-        int                          m_amount = 0;
-        bool                         m_active = false;
+        buffered_vector<Ref<PfxFeature>> m_features;
+        PfxAttributes                    m_attributes;
+        Strid                            m_name;
+        int                              m_amount = 0;
+        bool                             m_active = false;
     };
 
 }// namespace wmoge

@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/mask.hpp"
 #include "core/pool_vector.hpp"
 #include "core/synchronization.hpp"
@@ -125,8 +125,8 @@ namespace wmoge {
         void       clear();
 
     private:
-        PoolVector<RenderCmd, RENDER_CMD_PER_NODE> m_buffer;
-        SpinMutex                                  m_mutex;
+        pool_vector<RenderCmd, RENDER_CMD_PER_NODE> m_buffer;
+        SpinMutex                                   m_mutex;
     };
 
     /**

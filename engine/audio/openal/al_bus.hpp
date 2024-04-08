@@ -31,7 +31,7 @@
 #include "audio/audio_bus.hpp"
 #include "audio/audio_defs.hpp"
 #include "audio/openal/al_playback.hpp"
-#include "core/fast_set.hpp"
+#include "core/flat_set.hpp"
 
 #include <atomic>
 
@@ -54,14 +54,14 @@ namespace wmoge {
         void set_pitch_scale(float value) override;
         void get_playbacks(std::vector<Ref<AudioPlayback>>& playbacks) override;
 
-        fast_set<ALAudioPlayback*>& get_playbacks() { return m_playbacks; }
+        flat_set<ALAudioPlayback*>& get_playbacks() { return m_playbacks; }
         AudioBusState               get_state() { return m_state; }
         float                       get_gain_scale() { return m_gain_scale; }
         float                       get_pitch_scale() { return m_pitch_scale; }
         class ALAudioEngine&        get_engine() { return m_engine; }
 
     private:
-        fast_set<ALAudioPlayback*> m_playbacks;
+        flat_set<ALAudioPlayback*> m_playbacks;
         AudioBusState              m_state       = AudioBusState::Active;
         float                      m_gain_scale  = 1.0f;
         float                      m_pitch_scale = 1.0f;

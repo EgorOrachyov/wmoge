@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "platform/input.hpp"
 
 #include "glfw_input_defs.hpp"
@@ -71,10 +71,10 @@ namespace wmoge {
         static void joystick_callback(int jid, int state);
 
     private:
-        fast_vector<Ref<GlfwJoystick>> m_joysticks;
-        Ref<GlfwMouse>                 m_mouse;
-        Ref<GlfwKeyboard>              m_keyboard;
-        class GlfwWindowManager&       m_manager;
+        buffered_vector<Ref<GlfwJoystick>> m_joysticks;
+        Ref<GlfwMouse>                     m_mouse;
+        Ref<GlfwKeyboard>                  m_keyboard;
+        class GlfwWindowManager&           m_manager;
     };
 
 }// namespace wmoge

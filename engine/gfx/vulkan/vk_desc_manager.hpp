@@ -28,7 +28,7 @@
 #ifndef WMOGE_VK_DESC_MANAGER_HPP
 #define WMOGE_VK_DESC_MANAGER_HPP
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/vulkan/vk_buffers.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -66,7 +66,7 @@ namespace wmoge {
         void            free(const Ref<VKDescSetLayout>& layout, VkDescriptorSet set);
 
     private:
-        fast_map<Ref<VKDescSetLayout>, std::vector<VkDescriptorSet>> m_buckets;
+        flat_map<Ref<VKDescSetLayout>, std::vector<VkDescriptorSet>> m_buckets;
         VkDescriptorPool                                             m_pool = VK_NULL_HANDLE;
 
         class VKDriver& m_driver;

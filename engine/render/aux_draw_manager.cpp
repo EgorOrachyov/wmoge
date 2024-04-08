@@ -27,7 +27,7 @@
 
 #include "aux_draw_manager.hpp"
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
@@ -105,7 +105,7 @@ namespace wmoge {
             Color4f color;
         };
 
-        fast_vector<Line, 1> lines;
+        buffered_vector<Line, 1> lines;
 
         ~AuxDrawLines() override = default;
 
@@ -140,8 +140,8 @@ namespace wmoge {
             Color4f color;
         };
 
-        fast_vector<Triangle, 1> triangles;
-        AuxDrawPrimitiveType     type = AuxDrawPrimitiveType::TrianglesSolid;
+        buffered_vector<Triangle, 1> triangles;
+        AuxDrawPrimitiveType         type = AuxDrawPrimitiveType::TrianglesSolid;
 
         ~AuxDrawTriangles() override = default;
 

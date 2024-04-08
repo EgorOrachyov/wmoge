@@ -51,7 +51,7 @@ namespace wmoge {
         return 1;
     }
 
-    void LuaBindings::bind_resource(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping) {
+    void LuaBindings::bind_resource(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping) {
         WG_LUA_MAP_CLASS(mapping, Resource);
         ns = ns.deriveClass<LuaResource, LuaObject>("Resource")
                      .addFunction("duplicate", &LuaResource::duplicate)

@@ -86,7 +86,7 @@ namespace wmoge {
         public:
             PassBuilder(GrcShaderScriptBuilder& owner, GrcShaderPassInfo& pass, TechniqueBuilder& technique);
 
-            PassBuilder&      add_option(Strid name, const fast_vector<Strid>& variants);
+            PassBuilder&      add_option(Strid name, const buffered_vector<Strid>& variants);
             PassBuilder&      add_ui_info(const std::string& name, const std::string& hint);
             PassBuilder&      add_state(const GrcPipelineState& state);
             PassBuilder&      add_tag(Strid name, Var value);
@@ -105,7 +105,7 @@ namespace wmoge {
         public:
             TechniqueBuilder(GrcShaderScriptBuilder& owner, GrcShaderTechniqueInfo& technique);
 
-            TechniqueBuilder&       add_option(Strid name, const fast_vector<Strid>& variants);
+            TechniqueBuilder&       add_option(Strid name, const buffered_vector<Strid>& variants);
             TechniqueBuilder&       add_tag(Strid name, Var value);
             TechniqueBuilder&       add_ui_info(const std::string& name, const std::string& hint);
             PassBuilder             add_pass(Strid name);

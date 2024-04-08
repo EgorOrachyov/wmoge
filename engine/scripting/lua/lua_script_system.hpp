@@ -34,8 +34,8 @@
 #include "event/event.hpp"
 #include "scripting/lua/lua_defs.hpp"
 #include "scripting/script_system.hpp"
-#include <core/fast_map.hpp>
-#include <core/fast_vector.hpp>
+#include <core/buffered_vector.hpp>
+#include <core/flat_map.hpp>
 
 #include <mutex>
 #include <optional>
@@ -59,12 +59,12 @@ namespace wmoge {
         const std::vector<std::string>&                get_object_callbacks();
         const std::string&                             get_object_parent();
         const std::string&                             get_object_class();
-        const fast_map<const Class*, LuaConvCppToLua>& get_object_to_lua();
+        const flat_map<const Class*, LuaConvCppToLua>& get_object_to_lua();
         lua_State*                                     get_global_state();
         std::recursive_mutex&                          get_mutex();
 
     private:
-        fast_map<const Class*, LuaConvCppToLua> m_object_to_lua;
+        flat_map<const Class*, LuaConvCppToLua> m_object_to_lua;
         std::vector<std::string>                m_object_callbacks;
         std::string                             m_object_parent = "parent";
         std::string                             m_object_class  = "class";

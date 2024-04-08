@@ -28,7 +28,7 @@
 #ifndef WMOGE_LUA_DEFS_HPP
 #define WMOGE_LUA_DEFS_HPP
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/object.hpp"
 
 #include <lua.hpp>

@@ -28,7 +28,7 @@
 #ifndef WMOGE_MEM_LINEAR_HPP
 #define WMOGE_MEM_LINEAR_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 
 #include <mutex>
 
@@ -50,11 +50,11 @@ namespace wmoge {
         void  reset();
 
     private:
-        fast_vector<void*> m_buffers;
-        std::size_t        m_capacity;
-        std::size_t        m_allocated       = 0;
-        std::size_t        m_allocated_total = 0;
-        std::mutex         m_mutex;
+        buffered_vector<void*> m_buffers;
+        std::size_t            m_capacity;
+        std::size_t            m_allocated       = 0;
+        std::size_t            m_allocated_total = 0;
+        std::mutex             m_mutex;
     };
 
 }// namespace wmoge

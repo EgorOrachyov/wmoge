@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_vert_format.hpp"
@@ -51,7 +51,7 @@ namespace wmoge {
         void                              add(const GfxVertElements& elements, const Ref<GfxVertFormat>& format);
 
     private:
-        fast_map<GfxVertElements, Ref<GfxVertFormat>> m_cache;
+        flat_map<GfxVertElements, Ref<GfxVertFormat>> m_cache;
         SpinMutex                                     m_mutex;
     };
 

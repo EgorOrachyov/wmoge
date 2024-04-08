@@ -46,7 +46,7 @@ namespace wmoge {
         Shader*             shader         = material->get_shader().get();
         ShaderPipelineState pipeline_state = shader->get_pipeline_state();
 
-        fast_vector<std::string> defines;
+        buffered_vector<std::string> defines;
         {
             defines.push_back("MESH_PASS_GBUFFER");
         }

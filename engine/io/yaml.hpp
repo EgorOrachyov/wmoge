@@ -85,6 +85,7 @@ namespace wmoge {
 
     Status yaml_read(const YamlConstNodeRef& node, bool& value);
     Status yaml_read(const YamlConstNodeRef& node, int& value);
+    Status yaml_read(const YamlConstNodeRef& node, unsigned int& value);
     Status yaml_read(const YamlConstNodeRef& node, float& value);
     Status yaml_read(const YamlConstNodeRef& node, Strid& value);
     Status yaml_read(const YamlConstNodeRef& node, std::string& value);
@@ -92,6 +93,7 @@ namespace wmoge {
 
     Status yaml_write(YamlNodeRef node, const bool& value);
     Status yaml_write(YamlNodeRef node, const int& value);
+    Status yaml_write(YamlNodeRef node, const unsigned int& value);
     Status yaml_write(YamlNodeRef node, const float& value);
     Status yaml_write(YamlNodeRef node, const Strid& value);
     Status yaml_write(YamlNodeRef node, const std::string& value);

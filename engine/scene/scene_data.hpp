@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/class.hpp"
-#include "core/fast_vector.hpp"
 #include "core/ref.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_world.hpp"

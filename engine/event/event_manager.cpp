@@ -144,7 +144,7 @@ namespace wmoge {
 
         m_dispatching = true;
 
-        fast_vector<Ref<Event>> events;
+        buffered_vector<Ref<Event>> events;
         std::swap(events, m_events_deferred);
 
         for (auto& event : events) {

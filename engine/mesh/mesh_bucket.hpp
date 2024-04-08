@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/synchronization.hpp"
 #include "render/render_queue.hpp"
 
@@ -90,7 +90,7 @@ namespace wmoge {
         [[nodiscard]] int             get_slots_count() { return int(m_slots.size()); }
 
     private:
-        fast_map<MeshBucketKey, int>                 m_buckets_map;
+        flat_map<MeshBucketKey, int>                 m_buckets_map;
         std::vector<std::unique_ptr<MeshBucketSlot>> m_slots;
         RwMutexWritePrefer                           m_mutex;
     };

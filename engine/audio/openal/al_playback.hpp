@@ -31,7 +31,7 @@
 #include "audio/audio_defs.hpp"
 #include "audio/audio_playback.hpp"
 #include "audio/openal/al_defs.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 
 namespace wmoge {
 
@@ -64,22 +64,22 @@ namespace wmoge {
         void set_max_distance(float value) override;
         void set_loop(bool value) override;
 
-        fast_vector<ALuint>& get_buffers() { return m_buffers; }
-        ALuint               get_source() { return m_source; }
-        AudioPlaybackState   get_state() { return m_state; }
-        float                get_pitch_scale() { return m_pitch_scale; }
-        float                get_gain() { return m_gain; }
-        class ALAudioBus*    get_bus() { return m_bus; }
-        class ALAudioEngine& get_engine() { return m_engine; }
+        buffered_vector<ALuint>& get_buffers() { return m_buffers; }
+        ALuint                   get_source() { return m_source; }
+        AudioPlaybackState       get_state() { return m_state; }
+        float                    get_pitch_scale() { return m_pitch_scale; }
+        float                    get_gain() { return m_gain; }
+        class ALAudioBus*        get_bus() { return m_bus; }
+        class ALAudioEngine&     get_engine() { return m_engine; }
 
     private:
-        fast_vector<ALuint>  m_buffers;
-        ALuint               m_source      = AL_NONE;
-        AudioPlaybackState   m_state       = AudioPlaybackState::Stopped;
-        float                m_pitch_scale = 1.0f;
-        float                m_gain        = 1.0f;
-        class ALAudioBus*    m_bus         = nullptr;
-        class ALAudioEngine& m_engine;
+        buffered_vector<ALuint> m_buffers;
+        ALuint                  m_source      = AL_NONE;
+        AudioPlaybackState      m_state       = AudioPlaybackState::Stopped;
+        float                   m_pitch_scale = 1.0f;
+        float                   m_gain        = 1.0f;
+        class ALAudioBus*       m_bus         = nullptr;
+        class ALAudioEngine&    m_engine;
     };
 
 }// namespace wmoge

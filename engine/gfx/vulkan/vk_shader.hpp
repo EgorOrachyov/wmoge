@@ -28,7 +28,7 @@
 #ifndef WMOGE_VK_SHADER_HPP
 #define WMOGE_VK_SHADER_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -51,9 +51,9 @@ namespace wmoge {
      * @brief Struct used for serialization of vulkan shader into binary format
      */
     struct VKShaderBinary {
-        fast_vector<Ref<Data>> spirvs;
-        GfxDescSetLayoutDescs  layouts;
-        GfxShaderReflection    reflection;
+        buffered_vector<Ref<Data>> spirvs;
+        GfxDescSetLayoutDescs      layouts;
+        GfxShaderReflection        reflection;
 
         WG_IO_DECLARE(VKShaderBinary);
     };
@@ -76,23 +76,23 @@ namespace wmoge {
         [[nodiscard]] std::string                               message() const override;
         [[nodiscard]] std::optional<const GfxShaderReflection*> reflection() const override;
         [[nodiscard]] Ref<Data>                                 byte_code() const override;
-        [[nodiscard]] const fast_vector<VkShaderModule>&        modules() const { return m_modules; }
+        [[nodiscard]] const buffered_vector<VkShaderModule>&    modules() const { return m_modules; }
         [[nodiscard]] VkPipelineLayout                          layout() const { return m_layout; }
 
     private:
         void reflect(glslang::TProgram& program);
-        void gen_byte_code(const fast_vector<Ref<Data>>& spirvs);
-        void init(const fast_vector<Ref<Data>>& spirvs);
+        void gen_byte_code(const buffered_vector<Ref<Data>>& spirvs);
+        void init(const buffered_vector<Ref<Data>>& spirvs);
 
     private:
-        fast_vector<std::string>     m_sources;
-        fast_vector<VkShaderModule>  m_modules;
-        std::atomic<GfxShaderStatus> m_status{GfxShaderStatus::Compiling};
-        std::string                  m_message;
-        GfxShaderReflection          m_reflection;
-        GfxDescSetLayouts            m_set_layouts{};
-        Ref<Data>                    m_byte_code;
-        VkPipelineLayout             m_layout = VK_NULL_HANDLE;
+        buffered_vector<std::string>    m_sources;
+        buffered_vector<VkShaderModule> m_modules;
+        std::atomic<GfxShaderStatus>    m_status{GfxShaderStatus::Compiling};
+        std::string                     m_message;
+        GfxShaderReflection             m_reflection;
+        GfxDescSetLayouts               m_set_layouts{};
+        Ref<Data>                       m_byte_code;
+        VkPipelineLayout                m_layout = VK_NULL_HANDLE;
     };
 
 }// namespace wmoge

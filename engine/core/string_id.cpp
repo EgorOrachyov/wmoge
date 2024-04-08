@@ -26,7 +26,7 @@
 /**********************************************************************************/
 
 #include "core/string_id.hpp"
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/synchronization.hpp"
 
 #include <cassert>
@@ -50,7 +50,7 @@ namespace wmoge {
         };
 
     private:
-        fast_map<std::string, std::unique_ptr<Entry>> m_entries;
+        flat_map<std::string, std::unique_ptr<Entry>> m_entries;
         mutable SpinMutex                             m_mutex;
     };
 

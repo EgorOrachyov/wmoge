@@ -28,6 +28,7 @@
 #include "scene_node.hpp"
 
 #include "core/class.hpp"
+#include "core/flat_map.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "resource/prefab.hpp"
@@ -67,7 +68,7 @@ namespace wmoge {
     Status SceneNode::build(const std::vector<SceneNodeData>& nodes_data) {
         WG_AUTO_PROFILE_SCENE("SceneNode::build");
 
-        std::unordered_map<UUID, Ref<SceneNode>> uuid_to_node;
+        flat_map<UUID, Ref<SceneNode>> uuid_to_node;
 
         uuid_to_node.reserve(nodes_data.size());
 
@@ -92,8 +93,8 @@ namespace wmoge {
     Status SceneNode::dump(std::vector<SceneNodeData>& nodes_data) {
         WG_AUTO_PROFILE_SCENE("SceneNode::dump");
 
-        std::vector<Ref<SceneNode>>          nodes = get_nodes();
-        std::unordered_map<SceneNode*, UUID> node_to_uuid;
+        std::vector<Ref<SceneNode>> nodes = get_nodes();
+        flat_map<SceneNode*, UUID>  node_to_uuid;
 
         node_to_uuid.reserve(nodes.size());
         nodes_data.reserve(nodes.size());

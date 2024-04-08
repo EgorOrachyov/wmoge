@@ -28,8 +28,8 @@
 #pragma once
 
 #include "core/async.hpp"
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/task.hpp"
@@ -168,16 +168,16 @@ namespace wmoge {
          */
         class LoadState {
         public:
-            fast_vector<Async>     deps;
+            buffered_vector<Async> deps;
             AsyncOp<Ref<Resource>> async_op;
             TaskHnd                task_hnd;
         };
 
     private:
-        fast_vector<std::shared_ptr<ResourcePak>>        m_paks;
-        fast_map<ResourceId, WeakRef<Resource>>          m_resources;
-        fast_map<ResourceId, LoadState>                  m_loading;
-        fast_map<Strid, std::shared_ptr<ResourceLoader>> m_loaders;
+        buffered_vector<std::shared_ptr<ResourcePak>>    m_paks;
+        flat_map<ResourceId, WeakRef<Resource>>          m_resources;
+        flat_map<ResourceId, LoadState>                  m_loading;
+        flat_map<Strid, std::shared_ptr<ResourceLoader>> m_loaders;
 
         mutable std::recursive_mutex m_mutex;
     };

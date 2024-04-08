@@ -139,7 +139,7 @@ namespace wmoge {
     const std::string& LuaScriptSystem::get_object_class() {
         return m_object_class;
     }
-    const fast_map<const Class*, LuaConvCppToLua>& LuaScriptSystem::get_object_to_lua() {
+    const flat_map<const Class*, LuaConvCppToLua>& LuaScriptSystem::get_object_to_lua() {
         return m_object_to_lua;
     }
     lua_State* LuaScriptSystem::get_global_state() {

@@ -25,72 +25,61 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "struct.hpp"
 
-#include "io/archive.hpp"
-#include "io/yaml.hpp"
-
-#include <robin_hood.hpp>
-#include <unordered_map>
+#include <cassert>
 
 namespace wmoge {
 
-#ifdef WG_DEBUG
-    template<typename K, typename V>
-    using fast_map = std::unordered_map<K, V>;
-#else
-    /**
-     * @brief wrapper for fast robin_hood unordered map
-     */
-    template<typename K, typename V>
-    using fast_map = robin_hood::unordered_flat_map<K, V>;
+    RttiStruct::RttiStruct(Strid name, std::size_t byte_size, RttiStruct* parent) : RttiType(name, byte_size) {
+        m_parent = parent;
 
-    template<typename K, typename V>
-    Status archive_write(Archive& archive, const fast_map<K, V>& map) {
-        WG_ARCHIVE_WRITE(archive, map.size());
-        for (const auto& entry : map) {
-            WG_ARCHIVE_WRITE(archive, entry.first);
-            WG_ARCHIVE_WRITE(archive, entry.second);
+        if (m_parent) {
+            m_inherits   = parent->m_inherits;
+            m_fields     = parent->m_fields;
+            m_fields_map = parent->m_fields_map;
+            m_members    = parent->m_members;
         }
-        return StatusCode::Ok;
+
+        m_inherits.insert(name);
     }
 
-    template<typename K, typename V>
-    Status archive_read(Archive& archive, fast_map<K, V>& map) {
-        assert(map.empty());
-        std::size_t size;
-        WG_ARCHIVE_READ(archive, size);
-        for (int i = 0; i < size; i++) {
-            robin_hood::pair<K, V> entry;
-            WG_ARCHIVE_READ(archive, entry.first);
-            WG_ARCHIVE_READ(archive, entry.second);
-            map.insert(std::move(entry));
+    std::optional<const RttiField*> RttiStruct::find_field(const Strid& name) const {
+        auto query = m_fields_map.find(name);
+
+        if (query != m_fields_map.end()) {
+            return &m_fields[query->second];
         }
-        return StatusCode::Ok;
+
+        return std::nullopt;
     }
 
-    template<typename K, typename V>
-    Status yaml_read(const YamlConstNodeRef& node, fast_map<K, V>& map) {
-        assert(map.empty());
-        map.reserve(node.num_children());
-        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            robin_hood::pair<K, V> entry;
-            WG_YAML_READ(child, entry);
-            map.insert(std::move(entry));
-        }
-        return StatusCode::Ok;
+    void RttiStruct::add_field(RttiField field) {
+        assert(!has_field(field.get_name()));
+
+        const std::int16_t id = std::int16_t(m_fields.size());
+        m_fields.push_back(std::move(field));
+        m_fields_map[m_fields.back().get_name()] = id;
+        m_members.insert(m_fields.back().get_name());
     }
 
-    template<typename K, typename V>
-    Status yaml_write(YamlNodeRef node, const fast_map<K, V>& map) {
-        WG_YAML_SEQ(node);
-        for (const auto& entry : map) {
-            YamlNodeRef entry_child = node.append_child();
-            WG_YAML_WRITE(entry_child, entry);
-        }
-        return StatusCode::Ok;
+    bool RttiStruct::has_field(const Strid& name) const {
+        auto query = m_fields_map.find(name);
+        return query != m_fields_map.end();
     }
 
-#endif
+    bool RttiStruct::has_member(const Strid& name) const {
+        auto query = m_members.find(name);
+        return query != m_members.end();
+    }
+
+    bool RttiStruct::has_parent() const {
+        return m_parent;
+    }
+
+    bool RttiStruct::is_subtype_of(const Strid& name) const {
+        auto query = m_inherits.find(name);
+        return query != m_inherits.end();
+    }
 
 }// namespace wmoge

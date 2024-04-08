@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "math/aabb.hpp"
 #include "math/color.hpp"
 #include "math/frustum.hpp"
@@ -147,7 +147,7 @@ namespace wmoge {
         [[nodiscard]] bool                        is_empty() const { return m_cameras.empty(); }
 
     private:
-        fast_vector<CameraData, RenderLimits::MAX_CAMERAS> m_cameras;
+        buffered_vector<CameraData, RenderLimits::MAX_CAMERAS> m_cameras;
     };
 
 }// namespace wmoge

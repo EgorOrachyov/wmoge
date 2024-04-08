@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"

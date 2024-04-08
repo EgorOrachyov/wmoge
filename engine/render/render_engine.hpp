@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"
@@ -87,9 +87,9 @@ namespace wmoge {
      * @brief Params passed to draw a particular object
     */
     struct RenderParams {
-        LodValue                                      lod_value;
-        RenderCameraMask                              camera_mask;
-        fast_vector<float, RenderLimits::MAX_CAMERAS> camera_dists;
+        LodValue                                          lod_value;
+        RenderCameraMask                                  camera_mask;
+        buffered_vector<float, RenderLimits::MAX_CAMERAS> camera_dists;
     };
 
     /**

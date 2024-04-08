@@ -237,8 +237,8 @@ namespace wmoge {
             return true;
         };
 
-        glslang::TProgram              program;
-        fast_vector<glslang::TShader*> shaders;
+        glslang::TProgram                  program;
+        buffered_vector<glslang::TShader*> shaders;
 
         glslang::TShader shader_vertex(EShLangVertex);
         glslang::TShader shader_fragment(EShLangFragment);
@@ -276,8 +276,8 @@ namespace wmoge {
             return;
         }
 
-        fast_vector<std::vector<uint32_t>> spirvs;
-        fast_vector<Ref<Data>>             spirv_datas;
+        buffered_vector<std::vector<uint32_t>> spirvs;
+        buffered_vector<Ref<Data>>             spirv_datas;
 
         auto extract_spirv = [&](EShLanguage langugage, std::vector<uint32_t>& spirv, Ref<Data>& spirv_data) {
             glslang::TIntermediate* intermediate = program.getIntermediate(langugage);
@@ -418,7 +418,7 @@ namespace wmoge {
             }
         }
     }
-    void VKShader::gen_byte_code(const fast_vector<Ref<Data>>& spirvs) {
+    void VKShader::gen_byte_code(const buffered_vector<Ref<Data>>& spirvs) {
         WG_AUTO_PROFILE_VULKAN("VKShader::gen_byte_code");
 
         VKShaderBinary binary;
@@ -438,7 +438,7 @@ namespace wmoge {
 
         m_byte_code = make_ref<Data>(archive.get_data().data(), archive.get_data().size());
     }
-    void VKShader::init(const fast_vector<Ref<Data>>& spirvs) {
+    void VKShader::init(const buffered_vector<Ref<Data>>& spirvs) {
         WG_AUTO_PROFILE_VULKAN("VKShader::init");
 
         for (auto& binary : spirvs) {

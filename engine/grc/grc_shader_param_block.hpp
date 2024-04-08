@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
-#include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -122,13 +122,13 @@ namespace wmoge {
         void dirty_set() { m_dirty_set = 1; }
 
     private:
-        GfxDescSetResources       m_gfx_resources;
-        Ref<GfxDescSet>           m_gfx_set;
-        fast_vector<Ref<Data>, 1> m_buffers;
-        GrcShaderScript*          m_script        = nullptr;
-        std::int16_t              m_space         = -1;
-        std::int8_t               m_dirty_buffers = 1;
-        std::int8_t               m_dirty_set     = 1;
+        GfxDescSetResources           m_gfx_resources;
+        Ref<GfxDescSet>               m_gfx_set;
+        buffered_vector<Ref<Data>, 1> m_buffers;
+        GrcShaderScript*              m_script        = nullptr;
+        std::int16_t                  m_space         = -1;
+        std::int8_t                   m_dirty_buffers = 1;
+        std::int8_t                   m_dirty_set     = 1;
     };
 
 }// namespace wmoge

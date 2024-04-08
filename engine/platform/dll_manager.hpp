@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
@@ -50,7 +50,7 @@ namespace wmoge {
         bool   is_loaded(const Strid& library);
 
     private:
-        fast_vector<std::unique_ptr<struct DllLibrary>> m_libraries;
+        buffered_vector<std::unique_ptr<struct DllLibrary>> m_libraries;
     };
 
 }// namespace wmoge

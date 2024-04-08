@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "math/aabb.hpp"
@@ -53,7 +53,7 @@ namespace wmoge {
     struct EcsComponentChildren : EcsComponent<EcsComponentChildren> {
         WG_ECS_COMPONENT(EcsComponentChildren);
 
-        fast_vector<EcsEntity> children;
+        buffered_vector<EcsEntity> children;
     };
 
     /**

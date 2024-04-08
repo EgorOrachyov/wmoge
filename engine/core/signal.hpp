@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 
 #include <algorithm>
@@ -61,8 +61,8 @@ namespace wmoge {
             int      id = -1;
         };
 
-        fast_vector<Client, 2> m_callbacks;
-        int                    m_next_id = 0;
+        buffered_vector<Client, 2> m_callbacks;
+        int                        m_next_id = 0;
     };
 
     template<typename... TArgs>

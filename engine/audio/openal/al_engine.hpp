@@ -32,7 +32,7 @@
 #include "audio/openal/al_bus.hpp"
 #include "audio/openal/al_defs.hpp"
 #include "audio/openal/al_playback.hpp"
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 
 #include <mutex>
 
@@ -65,7 +65,7 @@ namespace wmoge {
         bool init_caps();
 
     private:
-        fast_map<Strid, Ref<ALAudioBus>> m_bus;
+        flat_map<Strid, Ref<ALAudioBus>> m_bus;
         ALCdevice*                       m_device  = nullptr;
         ALCcontext*                      m_context = nullptr;
         std::recursive_mutex             m_mutex;

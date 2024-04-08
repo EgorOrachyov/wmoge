@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "io/archive.hpp"
@@ -65,11 +65,11 @@ namespace wmoge {
         ShaderManager(ShaderManager&&)      = delete;
         ~ShaderManager();
 
-        Strid          make_shader_key(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader);
+        Strid          make_shader_key(const Strid& shader_name, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines, class Shader* shader);
         Ref<GfxShader> get_shader(const Strid& shader_name);
-        Ref<GfxShader> get_shader(const Strid& shader_name, const fast_vector<std::string>& defines);
-        Ref<GfxShader> get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines);
-        Ref<GfxShader> get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader);
+        Ref<GfxShader> get_shader(const Strid& shader_name, const buffered_vector<std::string>& defines);
+        Ref<GfxShader> get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines);
+        Ref<GfxShader> get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines, class Shader* shader);
         Ref<GfxShader> find(const Strid& shader_key);
         void           cache(const Strid& shader_key, const Ref<GfxShader>& shader, bool allow_overwrite = false);
         void           dump_stats();
@@ -84,8 +84,8 @@ namespace wmoge {
         void load_sources_from_disk();
 
     private:
-        fast_map<Strid, ShaderData>                  m_cache;
-        fast_map<Strid, std::unique_ptr<ShaderPass>> m_passes;
+        flat_map<Strid, ShaderData>                  m_cache;
+        flat_map<Strid, std::unique_ptr<ShaderPass>> m_passes;
         std::string                                  m_shaders_directory;
         bool                                         m_save_cache = false;
 

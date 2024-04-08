@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    Status ShaderPass::compile(const Strid& name, GfxDriver* driver, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader) {
+    Status ShaderPass::compile(const Strid& name, GfxDriver* driver, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader) {
         WG_AUTO_PROFILE_RENDER("ShaderPass::compile");
 
         GfxShaderLang gfx_lang = driver->shader_lang();

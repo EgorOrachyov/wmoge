@@ -105,7 +105,7 @@ namespace wmoge {
         return 1;
     }
 
-    void LuaBindings::bind_core(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping) {
+    void LuaBindings::bind_core(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping) {
         ns = ns.beginClass<LuaRefCnt>("RefCnt")
                      .addFunction("is_null", &LuaRefCnt::is_null)
                      .addFunction("ref", &LuaRefCnt::ref)

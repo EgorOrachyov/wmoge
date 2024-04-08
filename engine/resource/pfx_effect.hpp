@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "pfx/pfx_component.hpp"
 #include "pfx/pfx_emitter.hpp"
 #include "pfx/pfx_feature.hpp"
@@ -69,8 +69,8 @@ namespace wmoge {
         PfxEffectType            get_type() const;
 
     private:
-        fast_vector<Ref<PfxComponent>> m_components;
-        PfxEffectType                  m_type = PfxEffectType::None;
+        buffered_vector<Ref<PfxComponent>> m_components;
+        PfxEffectType                      m_type = PfxEffectType::None;
     };
 
 }// namespace wmoge

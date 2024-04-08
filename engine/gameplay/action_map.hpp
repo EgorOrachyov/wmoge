@@ -28,8 +28,8 @@
 #ifndef WMOGE_ACTION_MAP_HPP
 #define WMOGE_ACTION_MAP_HPP
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "event/event_listener.hpp"
@@ -68,9 +68,9 @@ namespace wmoge {
      * @brief Single action which can be stored inside an action map and triggered by an activation info
      */
     struct ActionMapAction {
-        Strid                         name         = SID("<unknown>");
-        Strid                         display_name = SID("<empty action>");
-        fast_vector<ActionActivation> activations;
+        Strid                             name         = SID("<unknown>");
+        Strid                             display_name = SID("<empty action>");
+        buffered_vector<ActionActivation> activations;
 
         friend Status yaml_read(const YamlConstNodeRef& node, ActionMapAction& action);
         friend Status yaml_write(YamlNodeRef node, const ActionMapAction& action);
@@ -101,7 +101,7 @@ namespace wmoge {
     private:
         friend class ActionManager;
 
-        fast_map<Strid, ActionMapAction> m_actions;
+        flat_map<Strid, ActionMapAction> m_actions;
         Strid                            m_name;
         int                              m_priority = 0;
     };

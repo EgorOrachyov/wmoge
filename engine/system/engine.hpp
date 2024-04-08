@@ -58,6 +58,7 @@ namespace wmoge {
         bool close_requested() const;
 
         class Application*       application();
+        class RttiTypeStorage*   type_storage();
         class ClassDB*           class_db();
         class Time*              time();
         class LayerStack*        layer_stack();
@@ -97,6 +98,7 @@ namespace wmoge {
         std::atomic_bool m_close_requested{false};
 
         class Application*       m_application        = nullptr;
+        class RttiTypeStorage*   m_type_storage       = nullptr;
         class ClassDB*           m_class_db           = nullptr;
         class Time*              m_time               = nullptr;
         class LayerStack*        m_layer_stack        = nullptr;

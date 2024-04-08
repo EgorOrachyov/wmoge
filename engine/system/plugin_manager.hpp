@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_set.hpp"
+#include "core/flat_map.hpp"
+#include "core/flat_set.hpp"
 #include "core/string_id.hpp"
 #include "system/plugin.hpp"
 
@@ -55,8 +55,8 @@ namespace wmoge {
 
     private:
         std::vector<std::shared_ptr<Plugin>> m_plugins;
-        fast_map<Strid, int>                 m_plugins_id;
-        fast_set<Strid>                      m_plugins_loaded;
+        flat_map<Strid, int>                 m_plugins_id;
+        flat_set<Strid>                      m_plugins_loaded;
     };
 
     template<typename T>

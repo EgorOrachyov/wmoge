@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
@@ -47,8 +47,8 @@ namespace wmoge {
 
         /** @brief Compilation option */
         struct Option {
-            Strid              name;
-            fast_vector<Strid> variants;
+            Strid                  name;
+            buffered_vector<Strid> variants;
 
             WG_IO_DECLARE(Option);
         };
@@ -68,9 +68,9 @@ namespace wmoge {
 
         /** @brief Params block definition */
         struct ParamBlock {
-            Strid              name;
-            GrcShaderSpaceType type;
-            fast_vector<Param> params;
+            Strid                  name;
+            GrcShaderSpaceType     type;
+            buffered_vector<Param> params;
 
             WG_IO_DECLARE(ParamBlock);
         };
@@ -79,8 +79,8 @@ namespace wmoge {
         struct Pass {
             Strid                        name;
             GrcPipelineState             state;
-            fast_vector<Option>          options;
-            fast_map<Strid, std::string> tags;
+            buffered_vector<Option>      options;
+            flat_map<Strid, std::string> tags;
             std::string                  ui_name;
             std::string                  ui_hint;
 
@@ -90,9 +90,9 @@ namespace wmoge {
         /** @brief Technique defenition */
         struct Technique {
             Strid                        name;
-            fast_vector<Option>          options;
-            fast_vector<Pass>            passes;
-            fast_map<Strid, std::string> tags;
+            buffered_vector<Option>      options;
+            buffered_vector<Pass>        passes;
+            flat_map<Strid, std::string> tags;
             std::string                  ui_name;
             std::string                  ui_hint;
 
@@ -107,13 +107,13 @@ namespace wmoge {
             WG_IO_DECLARE(Source);
         };
 
-        Strid                   name;
-        Strid                   extends;
-        std::string             ui_name;
-        std::string             ui_hint;
-        fast_vector<ParamBlock> param_blocks;
-        fast_vector<Technique>  techniques;
-        fast_vector<Source>     sources;
+        Strid                       name;
+        Strid                       extends;
+        std::string                 ui_name;
+        std::string                 ui_hint;
+        buffered_vector<ParamBlock> param_blocks;
+        buffered_vector<Technique>  techniques;
+        buffered_vector<Source>     sources;
 
         WG_IO_DECLARE(GrcShaderScriptFile);
     };

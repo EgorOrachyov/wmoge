@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
-#include "core/fast_vector.hpp"
 #include "core/log.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"

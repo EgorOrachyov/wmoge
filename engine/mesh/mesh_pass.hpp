@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/mask.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_buffers.hpp"
@@ -83,8 +83,8 @@ namespace wmoge {
         [[nodiscard]] bool                      is_empty() const { return m_passes.empty(); }
 
     private:
-        fast_vector<MeshPass, NUM_PASSES_INLINE> m_passes;
-        Mask<MeshPassType>                       m_mask;
+        buffered_vector<MeshPass, NUM_PASSES_INLINE> m_passes;
+        Mask<MeshPassType>                           m_mask;
     };
 
     /**

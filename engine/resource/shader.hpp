@@ -27,9 +27,9 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_set.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
+#include "core/flat_set.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
@@ -140,17 +140,17 @@ namespace wmoge {
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;
 
-        [[nodiscard]] Ref<GfxShader> create_variant(const fast_vector<std::string>& defines);
-        [[nodiscard]] Ref<GfxShader> create_variant(const GfxVertAttribs& attribs, const fast_vector<std::string>& defines);
+        [[nodiscard]] Ref<GfxShader> create_variant(const buffered_vector<std::string>& defines);
+        [[nodiscard]] Ref<GfxShader> create_variant(const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines);
         void                         fill_layout(GfxDescSetLayoutDesc& layout) const;
 
         [[nodiscard]] const std::string&                      get_vertex() const;
         [[nodiscard]] const std::string&                      get_fragment() const;
         [[nodiscard]] const std::string&                      get_compute() const;
         [[nodiscard]] const Strid&                            get_domain() const;
-        [[nodiscard]] const fast_set<Strid>&                  get_keywords() const;
-        [[nodiscard]] const fast_map<Strid, ShaderParameter>& get_parameters() const;
-        [[nodiscard]] const fast_map<Strid, ShaderTexture>&   get_textures() const;
+        [[nodiscard]] const flat_set<Strid>&                  get_keywords() const;
+        [[nodiscard]] const flat_map<Strid, ShaderParameter>& get_parameters() const;
+        [[nodiscard]] const flat_map<Strid, ShaderTexture>&   get_textures() const;
         [[nodiscard]] const ShaderPipelineState&              get_pipeline_state() const;
         [[nodiscard]] int                                     get_parameters_size() const;
         [[nodiscard]] int                                     get_parameters_count() const;
@@ -165,9 +165,9 @@ namespace wmoge {
         Status generate_textures_layout();
 
     private:
-        fast_map<Strid, ShaderParameter> m_parameters;
-        fast_map<Strid, ShaderTexture>   m_textures;
-        fast_set<Strid>                  m_keywords;
+        flat_map<Strid, ShaderParameter> m_parameters;
+        flat_map<Strid, ShaderTexture>   m_textures;
+        flat_set<Strid>                  m_keywords;
         ShaderPipelineState              m_pipeline_state{};
         Strid                            m_domain;
         std::string                      m_vertex;

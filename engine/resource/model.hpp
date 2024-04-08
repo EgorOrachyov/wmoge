@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "io/serialization.hpp"
 #include "math/aabb.hpp"
 #include "resource/material.hpp"
@@ -68,7 +68,7 @@ namespace wmoge {
      * @brief Serializable struct to hold single lod params
      */
     struct ModelLod {
-        fast_vector<Size2i> ranges;
+        buffered_vector<Size2i> ranges;
 
         WG_IO_DECLARE(ModelLod);
     };
@@ -78,9 +78,9 @@ namespace wmoge {
      * @brief Serializable struct to hold model lods settings
      */
     struct ModelLodSettings {
-        fast_vector<float> area;
-        std::optional<int> minimum_lod;
-        std::optional<int> num_of_lods;
+        buffered_vector<float> area;
+        std::optional<int>     minimum_lod;
+        std::optional<int>     num_of_lods;
 
         WG_IO_DECLARE(ModelLodSettings);
     };
@@ -90,11 +90,11 @@ namespace wmoge {
      * @brief Serializable struct to hold model info
      */
     struct ModelFile {
-        fast_vector<ModelObj>     objs;
-        fast_vector<ResRef<Mesh>> meshes;
-        ModelLod                  lod;
-        ModelLodSettings          lod_settings;
-        Aabbf                     aabb;
+        buffered_vector<ModelObj>     objs;
+        buffered_vector<ResRef<Mesh>> meshes;
+        ModelLod                      lod;
+        ModelLodSettings              lod_settings;
+        Aabbf                         aabb;
 
         WG_IO_DECLARE(ModelFile);
     };
@@ -125,11 +125,11 @@ namespace wmoge {
         Status copy_to(Object& other) const override;
 
     private:
-        fast_vector<ModelObj>     m_objs;
-        fast_vector<ResRef<Mesh>> m_meshes;
-        ModelLod                  m_lod;
-        ModelLodSettings          m_lod_settings;
-        Aabbf                     m_aabb;
+        buffered_vector<ModelObj>     m_objs;
+        buffered_vector<ResRef<Mesh>> m_meshes;
+        ModelLod                      m_lod;
+        ModelLodSettings              m_lod_settings;
+        Aabbf                         m_aabb;
     };
 
 }// namespace wmoge

@@ -31,6 +31,7 @@
 #include "core/synchronization.hpp"
 
 #include <optional>
+#include <type_traits>
 
 namespace wmoge {
 

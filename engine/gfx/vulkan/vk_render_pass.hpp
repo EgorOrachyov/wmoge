@@ -28,7 +28,7 @@
 #ifndef WMOGE_VK_RENDER_PASS_HPP
 #define WMOGE_VK_RENDER_PASS_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/vulkan/vk_defs.hpp"

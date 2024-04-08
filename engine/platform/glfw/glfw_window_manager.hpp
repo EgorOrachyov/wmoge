@@ -33,7 +33,7 @@
 // include after vk symbols are available
 #include <GLFW/glfw3.h>
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "event/event_window.hpp"
 #include "platform/glfw/glfw_input.hpp"
 #include "platform/glfw/glfw_window.hpp"
@@ -55,11 +55,11 @@ namespace wmoge {
         explicit GlfwWindowManager(bool vsync, bool client_api);
         ~GlfwWindowManager() override;
 
-        void                     poll_events() override;
-        fast_vector<Ref<Window>> windows() override;
-        Ref<Window>              primary_window() override;
-        Ref<Window>              create(const WindowInfo& window_info) override;
-        Ref<Window>              get(const Strid& window_id) override;
+        void                         poll_events() override;
+        buffered_vector<Ref<Window>> windows() override;
+        Ref<Window>                  primary_window() override;
+        Ref<Window>                  create(const WindowInfo& window_info) override;
+        Ref<Window>                  get(const Strid& window_id) override;
 
         std::shared_ptr<GlfwInput> input();
         std::recursive_mutex&      mutex();
@@ -81,8 +81,8 @@ namespace wmoge {
         static void dispatch(GLFWwindow* hnd, WindowNotification notification);
 
     private:
-        fast_map<Strid, Ref<GlfwWindow>>       m_windows;
-        fast_map<GLFWwindow*, Ref<GlfwWindow>> m_windows_by_hnd;
+        flat_map<Strid, Ref<GlfwWindow>>       m_windows;
+        flat_map<GLFWwindow*, Ref<GlfwWindow>> m_windows_by_hnd;
         std::shared_ptr<GlfwInput>             m_input;
         Ref<GlfwWindow>                        m_primary;
         bool                                   m_vsync;

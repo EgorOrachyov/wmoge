@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "debug/console.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/grc_shader.hpp"
@@ -55,8 +55,8 @@ namespace wmoge {
         std::optional<Ref<GrcShaderType>> find_global_type(Strid name);
 
     private:
-        fast_map<Strid, Ref<GrcShaderScript>> m_scripts;
-        fast_map<Strid, Ref<GrcShaderType>>   m_global_types;
+        flat_map<Strid, Ref<GrcShaderScript>> m_scripts;
+        flat_map<Strid, Ref<GrcShaderType>>   m_global_types;
         std::string                           m_shaders_folder;
         GrcTextureManager*                    m_texture_manager;
         FileSystem*                           m_file_system;

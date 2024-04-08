@@ -118,10 +118,10 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Ref<GfxShader> Shader::create_variant(const fast_vector<std::string>& defines) {
+    Ref<GfxShader> Shader::create_variant(const buffered_vector<std::string>& defines) {
         return create_variant({}, defines);
     }
-    Ref<GfxShader> Shader::create_variant(const GfxVertAttribs& attribs, const fast_vector<std::string>& defines) {
+    Ref<GfxShader> Shader::create_variant(const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines) {
         WG_AUTO_PROFILE_RESOURCE("Shader::create_variant");
 
         Engine*        engine         = Engine::instance();
@@ -168,13 +168,13 @@ namespace wmoge {
     const Strid& Shader::get_domain() const {
         return m_domain;
     }
-    const fast_set<Strid>& Shader::get_keywords() const {
+    const flat_set<Strid>& Shader::get_keywords() const {
         return m_keywords;
     }
-    const fast_map<Strid, ShaderParameter>& Shader::get_parameters() const {
+    const flat_map<Strid, ShaderParameter>& Shader::get_parameters() const {
         return m_parameters;
     }
-    const fast_map<Strid, ShaderTexture>& Shader::get_textures() const {
+    const flat_map<Strid, ShaderTexture>& Shader::get_textures() const {
         return m_textures;
     }
     const ShaderPipelineState& Shader::get_pipeline_state() const {

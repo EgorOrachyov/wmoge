@@ -77,13 +77,13 @@ namespace wmoge {
         bool                       is_active() const;
 
     private:
-        fast_vector<PfxComponentRuntime> m_runtime;
-        fast_vector<PfxSpawnParams>      m_emit_queue;
-        Ref<class PfxEffect>             m_effect;
-        class RenderScene*               m_scene;
-        float                            m_time       = 0.0f;
-        float                            m_delta_time = 0.0f;
-        bool                             m_is_active  = true;
+        buffered_vector<PfxComponentRuntime> m_runtime;
+        buffered_vector<PfxSpawnParams>      m_emit_queue;
+        Ref<class PfxEffect>                 m_effect;
+        class RenderScene*                   m_scene;
+        float                                m_time       = 0.0f;
+        float                                m_delta_time = 0.0f;
+        bool                                 m_is_active  = true;
 
         std::mutex m_mutex;
     };

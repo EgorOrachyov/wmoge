@@ -28,8 +28,8 @@
 #ifndef WMOGE_VK_CTX_HPP
 #define WMOGE_VK_CTX_HPP
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/threaded/gfx_ctx_threaded.hpp"

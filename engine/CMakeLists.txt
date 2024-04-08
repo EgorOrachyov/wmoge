@@ -16,6 +16,7 @@ add_library(wmoge STATIC
         core/array_view.hpp
         core/async.cpp
         core/async.hpp
+        core/buffered_vector.hpp
         core/callback_queue.cpp
         core/callback_queue.hpp
         core/class.cpp
@@ -28,9 +29,8 @@ add_library(wmoge STATIC
         core/crc32.hpp
         core/data.cpp
         core/data.hpp
-        core/fast_map.hpp
-        core/fast_set.hpp
-        core/fast_vector.hpp
+        core/flat_map.hpp
+        core/flat_set.hpp
         core/log.cpp
         core/log.hpp
         core/mask.hpp
@@ -381,6 +381,18 @@ add_library(wmoge STATIC
         resource/loaders/resource_loader_wav.hpp
         resource/paks/resource_pak_fs.cpp
         resource/paks/resource_pak_fs.hpp
+        rtti/callable.cpp
+        rtti/callable.hpp
+        rtti/class.cpp
+        rtti/class.hpp
+        rtti/enum.hpp
+        rtti/meta_data.hpp
+        rtti/struct.cpp
+        rtti/struct.hpp
+        rtti/traits.hpp
+        rtti/type_storage.cpp
+        rtti/type_storage.hpp
+        rtti/type.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
         scene/scene_data.cpp

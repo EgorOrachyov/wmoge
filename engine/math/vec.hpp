@@ -633,7 +633,6 @@ namespace wmoge {
 
     using Size2i = TVecN<int, 2>;
     using Size2f = TVecN<float, 2>;
-    using Size2u = TVecN<unsigned int, 2>;
 
     using Rect2i = Vec4i;
 

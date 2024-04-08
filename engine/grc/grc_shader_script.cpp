@@ -119,9 +119,9 @@ namespace wmoge {
     }
 
     Status GrcShaderScript::reload_sources(const std::string& folder, FileSystem* fs) {
-        fast_vector<GrcShaderInclude>    new_includes;
-        fast_vector<GrcShaderSourceFile> new_sources;
-        fast_set<Strid>                  new_dependencies;
+        buffered_vector<GrcShaderInclude>    new_includes;
+        buffered_vector<GrcShaderSourceFile> new_sources;
+        flat_set<Strid>                      new_dependencies;
 
         for (GrcShaderSourceFile& source_file : m_reflection.sources) {
             GlslIncludeProcessor include_processor(folder, fs);

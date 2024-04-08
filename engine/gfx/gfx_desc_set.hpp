@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/crc32.hpp"
-#include "core/fast_vector.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
@@ -84,13 +84,13 @@ namespace wmoge {
     };
 
     /** @brief Array of res desc for layout creation */
-    using GfxDescSetLayoutDesc = fast_vector<GfxDescBinging, 8>;
+    using GfxDescSetLayoutDesc = buffered_vector<GfxDescBinging, 8>;
 
     /** @brief Single resource description in a set */
     using GfxDescSetResource = std::pair<GfxDescBindPoint, GfxDescBindValue>;
 
     /** @brief Array of resources with bind points and values for desc set creation */
-    using GfxDescSetResources = fast_vector<GfxDescSetResource, 8>;
+    using GfxDescSetResources = buffered_vector<GfxDescSetResource, 8>;
 
     /**
      * @class GfxDescSetLayout
@@ -127,10 +127,10 @@ namespace wmoge {
     };
 
     /** @brief Array of layouts descriptions for shader and pipeline creation */
-    using GfxDescSetLayoutDescs = fast_vector<GfxDescSetLayoutDesc, GfxLimits::MAX_DESC_SETS>;
+    using GfxDescSetLayoutDescs = buffered_vector<GfxDescSetLayoutDesc, GfxLimits::MAX_DESC_SETS>;
 
     /** @brief Array of layouts for shader and pipeline creation */
-    using GfxDescSetLayouts = fast_vector<Ref<GfxDescSetLayout>, GfxLimits::MAX_DESC_SETS>;
+    using GfxDescSetLayouts = buffered_vector<Ref<GfxDescSetLayout>, GfxLimits::MAX_DESC_SETS>;
 
 }// namespace wmoge
 

@@ -28,7 +28,7 @@
 #ifndef WMOGE_VK_QUEUES_HPP
 #define WMOGE_VK_QUEUES_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 
@@ -46,18 +46,18 @@ namespace wmoge {
         bool is_complete() const;
         void init_queues(VkDevice device);
 
-        const fast_vector<uint32_t>& unique_families() const { return m_families; }
-        uint32_t                     gfx_queue_family() const { return m_gfx_queue_family; }
-        uint32_t                     tsf_queue_family() const { return m_tsf_queue_family; }
-        uint32_t                     prs_queue_family() const { return m_prs_queue_family; }
-        VkQueue                      gfx_queue() const { return m_gfx_queue; }
-        VkQueue                      tsf_queue() const { return m_tsf_queue; }
-        VkQueue                      prs_queue() const { return m_prs_queue; }
-        VkSharingMode                mode() const { return m_mode; }
+        const buffered_vector<uint32_t>& unique_families() const { return m_families; }
+        uint32_t                         gfx_queue_family() const { return m_gfx_queue_family; }
+        uint32_t                         tsf_queue_family() const { return m_tsf_queue_family; }
+        uint32_t                         prs_queue_family() const { return m_prs_queue_family; }
+        VkQueue                          gfx_queue() const { return m_gfx_queue; }
+        VkQueue                          tsf_queue() const { return m_tsf_queue; }
+        VkQueue                          prs_queue() const { return m_prs_queue; }
+        VkSharingMode                    mode() const { return m_mode; }
 
     private:
-        fast_vector<uint32_t>                m_families;
-        fast_vector<VkQueueFamilyProperties> m_props;
+        buffered_vector<uint32_t>                m_families;
+        buffered_vector<VkQueueFamilyProperties> m_props;
 
         VkQueue m_gfx_queue = VK_NULL_HANDLE;
         VkQueue m_tsf_queue = VK_NULL_HANDLE;

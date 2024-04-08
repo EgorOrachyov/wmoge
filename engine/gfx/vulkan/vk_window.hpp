@@ -28,8 +28,8 @@
 #ifndef WMOGE_VK_WINDOW_HPP
 #define WMOGE_VK_WINDOW_HPP
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "event/event_listener.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
@@ -65,12 +65,12 @@ namespace wmoge {
         void acquire_next();
         void get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
 
-        [[nodiscard]] const fast_vector<Ref<VKTexture>>& color() const { return m_color_targets; }
-        [[nodiscard]] const Ref<VKTexture>&              depth_stencil() const { return m_depth_stencil_target; }
-        [[nodiscard]] VkSurfaceKHR                       surface_khr() const { return m_surface; }
-        [[nodiscard]] VkSwapchainKHR                     swapchain() const { return m_swapchain; }
-        [[nodiscard]] VkSemaphore                        acquire_semaphore() const { return m_acquire_semaphore[m_semaphore_index]; }
-        [[nodiscard]] VkSemaphore                        present_semaphore() const { return m_present_semaphore[m_semaphore_index]; }
+        [[nodiscard]] const buffered_vector<Ref<VKTexture>>& color() const { return m_color_targets; }
+        [[nodiscard]] const Ref<VKTexture>&                  depth_stencil() const { return m_depth_stencil_target; }
+        [[nodiscard]] VkSurfaceKHR                           surface_khr() const { return m_surface; }
+        [[nodiscard]] VkSwapchainKHR                         swapchain() const { return m_swapchain; }
+        [[nodiscard]] VkSemaphore                            acquire_semaphore() const { return m_acquire_semaphore[m_semaphore_index]; }
+        [[nodiscard]] VkSemaphore                            present_semaphore() const { return m_present_semaphore[m_semaphore_index]; }
 
         [[nodiscard]] int      version() const { return m_version; }
         [[nodiscard]] int      width() const { return int(m_extent.width); }
@@ -86,16 +86,16 @@ namespace wmoge {
         void recreate_swapchain();
 
     private:
-        VkSurfaceKHR                m_surface;
-        VkSurfaceFormatKHR          m_surface_format;
-        VkSurfaceCapabilitiesKHR    m_capabilities{};
-        VkSwapchainKHR              m_swapchain = VK_NULL_HANDLE;
-        VkExtent2D                  m_extent{};
-        VkExtent2D                  m_requested_extent{};
-        VkPresentModeKHR            m_vsync       = VK_PRESENT_MODE_MAX_ENUM_KHR;
-        VkPresentModeKHR            m_performance = VK_PRESENT_MODE_MAX_ENUM_KHR;
-        fast_vector<Ref<VKTexture>> m_color_targets;
-        Ref<VKTexture>              m_depth_stencil_target;
+        VkSurfaceKHR                    m_surface;
+        VkSurfaceFormatKHR              m_surface_format;
+        VkSurfaceCapabilitiesKHR        m_capabilities{};
+        VkSwapchainKHR                  m_swapchain = VK_NULL_HANDLE;
+        VkExtent2D                      m_extent{};
+        VkExtent2D                      m_requested_extent{};
+        VkPresentModeKHR                m_vsync       = VK_PRESENT_MODE_MAX_ENUM_KHR;
+        VkPresentModeKHR                m_performance = VK_PRESENT_MODE_MAX_ENUM_KHR;
+        buffered_vector<Ref<VKTexture>> m_color_targets;
+        Ref<VKTexture>                  m_depth_stencil_target;
 
         Ref<Window>      m_window;
         EventListenerHnd m_window_event;
@@ -121,7 +121,7 @@ namespace wmoge {
         Ref<VKWindow> get_or_create(const Ref<Window>& window);
 
     private:
-        fast_map<Strid, Ref<VKWindow>>                                  m_windows;
+        flat_map<Strid, Ref<VKWindow>>                                  m_windows;
         std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> m_factory;
         class VKDriver&                                                 m_driver;
     };

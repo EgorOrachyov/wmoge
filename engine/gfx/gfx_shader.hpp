@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/data.hpp"
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "io/serialization.hpp"
@@ -62,9 +62,9 @@ namespace wmoge {
 
             WG_IO_DECLARE(Buffer);
         };
-        fast_map<Strid, Texture>                  textures;
-        fast_map<Strid, Buffer>                   ub_buffers;
-        fast_map<Strid, Buffer>                   sb_buffers;
+        flat_map<Strid, Texture>                  textures;
+        flat_map<Strid, Buffer>                   ub_buffers;
+        flat_map<Strid, Buffer>                   sb_buffers;
         std::array<int, GfxLimits::MAX_DESC_SETS> textures_per_desc{};
         std::array<int, GfxLimits::MAX_DESC_SETS> ub_buffers_per_desc{};
         std::array<int, GfxLimits::MAX_DESC_SETS> sb_buffers_per_desc{};

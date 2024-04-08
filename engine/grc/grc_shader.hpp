@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "grc/grc_shader_reflection.hpp"
 #include "grc/grc_shader_script.hpp"
 

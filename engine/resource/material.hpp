@@ -28,9 +28,9 @@
 #pragma once
 
 #include "core/array_view.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
-#include "core/fast_set.hpp"
-#include "core/fast_vector.hpp"
+#include "core/flat_set.hpp"
 #include "core/mask.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
@@ -141,12 +141,12 @@ namespace wmoge {
             Parameters = 1
         };
 
-        fast_vector<Ref<Texture>> m_textures;
-        Ref<Shader>               m_shader;
-        Ref<Data>                 m_parameters;
-        Ref<GfxUniformBuffer>     m_buffer;
-        Ref<GfxDescSet>           m_desc_set;
-        Mask<DirtyFlag>           m_dirty = {DirtyFlag::Textures, DirtyFlag::Parameters};
+        buffered_vector<Ref<Texture>> m_textures;
+        Ref<Shader>                   m_shader;
+        Ref<Data>                     m_parameters;
+        Ref<GfxUniformBuffer>         m_buffer;
+        Ref<GfxDescSet>               m_desc_set;
+        Mask<DirtyFlag>               m_dirty = {DirtyFlag::Textures, DirtyFlag::Parameters};
 
         SpinMutex m_mutex;
     };

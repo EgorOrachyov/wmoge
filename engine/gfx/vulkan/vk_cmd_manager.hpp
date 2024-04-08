@@ -28,7 +28,7 @@
 #ifndef WMOGE_VK_CMD_POOL_HPP
 #define WMOGE_VK_CMD_POOL_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 
 #include <array>
@@ -57,8 +57,8 @@ namespace wmoge {
             VkCommandBuffer buffer = VK_NULL_HANDLE;
         };
 
-        std::array<fast_vector<Allocation>, GfxLimits::FRAMES_IN_FLIGHT> m_used_allocations{};
-        fast_vector<Allocation>                                          m_free_allocations{};
+        std::array<buffered_vector<Allocation>, GfxLimits::FRAMES_IN_FLIGHT> m_used_allocations{};
+        buffered_vector<Allocation>                                          m_free_allocations{};
 
         Allocation  m_allocation{};
         std::size_t m_index   = 0 % GfxLimits::FRAMES_IN_FLIGHT;

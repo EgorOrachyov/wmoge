@@ -28,8 +28,8 @@
 #ifndef WMOGE_VK_DRIVER_HPP
 #define WMOGE_VK_DRIVER_HPP
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 
 #include "gfx/gfx_driver.hpp"
 #include "gfx/threaded/gfx_driver_threaded.hpp"
@@ -167,10 +167,10 @@ namespace wmoge {
         Ref<GfxDynIndexBuffer>   m_dyn_index_buffer;
         Ref<GfxDynUniformBuffer> m_dyn_uniform_buffer;
 
-        fast_map<GfxSamplerDesc, Ref<VKSampler>>              m_samplers;
-        fast_map<GfxRenderPassDesc, Ref<VKRenderPass>>        m_render_passes;
-        fast_map<VKFrameBufferDesc, Ref<VKFramebufferObject>> m_frame_buffers;
-        fast_map<GfxDescSetLayoutDesc, Ref<VKDescSetLayout>>  m_layouts;
+        flat_map<GfxSamplerDesc, Ref<VKSampler>>              m_samplers;
+        flat_map<GfxRenderPassDesc, Ref<VKRenderPass>>        m_render_passes;
+        flat_map<VKFrameBufferDesc, Ref<VKFramebufferObject>> m_frame_buffers;
+        flat_map<GfxDescSetLayoutDesc, Ref<VKDescSetLayout>>  m_layouts;
 
         GfxDeviceCaps      m_device_caps;
         Strid              m_driver_name = SID("unknown");

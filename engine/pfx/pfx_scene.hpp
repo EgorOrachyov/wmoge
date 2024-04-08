@@ -28,7 +28,7 @@
 #ifndef WMOGE_PFX_SCENE_HPP
 #define WMOGE_PFX_SCENE_HPP
 
-#include "core/fast_set.hpp"
+#include "core/flat_set.hpp"
 #include "pfx/pfx_emitter.hpp"
 
 #include <mutex>
@@ -46,7 +46,7 @@ namespace wmoge {
         void update(float dt);
 
     private:
-        fast_set<Ref<PfxEmitter>> m_emitters;
+        flat_set<Ref<PfxEmitter>> m_emitters;
         std::mutex                m_mutex;
     };
 

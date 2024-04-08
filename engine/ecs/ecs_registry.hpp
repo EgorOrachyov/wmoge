@@ -28,8 +28,8 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
@@ -74,7 +74,7 @@ namespace wmoge {
 
         std::array<EcsComponentInfo, MAX_CMP>         m_components_info;       // type info of component, indexed by component id
         std::array<std::unique_ptr<MemPool>, MAX_CMP> m_components_pool;       // pools to allocate components chunks
-        fast_map<Strid, int>                          m_components_name_to_idx;// resolve component name to its idx
+        flat_map<Strid, int>                          m_components_name_to_idx;// resolve component name to its idx
         std::unique_ptr<MemPool>                      m_entity_pool;           // pool to allocate entities chunks
         std::vector<EcsSystemPtr>                     m_systems;               // registered global systems
 

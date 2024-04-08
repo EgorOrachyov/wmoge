@@ -70,9 +70,9 @@ namespace wmoge {
         std::int16_t next_pad_idx   = 0;
         std::int16_t next_block_idx = 0;
 
-        fast_vector<std::int16_t> inline_params_idx;
-        fast_vector<Strid>        inline_params_names;
-        fast_vector<std::int16_t> inline_params_sizes;
+        buffered_vector<std::int16_t> inline_params_idx;
+        buffered_vector<Strid>        inline_params_names;
+        buffered_vector<std::int16_t> inline_params_sizes;
 
         for (const auto& param_block : file.param_blocks) {
             bool         block_has_inline_params = false;

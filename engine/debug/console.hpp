@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 #include "event/event_listener.hpp"
@@ -170,8 +170,8 @@ namespace wmoge {
         };
 
     private:
-        fast_map<Strid, ConsoleVar> m_vars;
-        fast_map<Strid, ConsoleCmd> m_cmds;
+        flat_map<Strid, ConsoleVar> m_vars;
+        flat_map<Strid, ConsoleCmd> m_cmds;
         std::vector<Message>        m_messages;
         std::vector<std::string>    m_history;
         std::vector<std::string>    m_to_process;

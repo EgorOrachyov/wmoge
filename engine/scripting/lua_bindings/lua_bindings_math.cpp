@@ -80,7 +80,7 @@ namespace wmoge {
             .addStaticFunction("max", &Vec::max)                                                    \
             .addStaticFunction("clamp", &Vec::clamp)
 
-    void LuaBindings::bind_math(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>&) {
+    void LuaBindings::bind_math(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>&) {
         ns = ns.beginClass<Vec2f>("Vec2f")
                      .addStaticFunction("new", std::function([](float x, float y) { return Vec2f(x, y); }))
                      .WG_ADD_VEC_PROPS(Vec2f, x)

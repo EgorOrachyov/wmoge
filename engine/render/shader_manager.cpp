@@ -149,7 +149,7 @@ namespace wmoge {
         }
     }
 
-    Strid ShaderManager::make_shader_key(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
+    Strid ShaderManager::make_shader_key(const Strid& shader_name, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines, class Shader* shader) {
         std::stringstream shader_key_builder;
         shader_key_builder << "type=" << shader_name.str();
 
@@ -186,13 +186,13 @@ namespace wmoge {
     Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name) {
         return get_shader(shader_name, {});
     }
-    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name, const fast_vector<std::string>& defines) {
+    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name, const buffered_vector<std::string>& defines) {
         return get_shader(shader_name, {}, defines, nullptr);
     }
-    Ref<GfxShader> ShaderManager::get_shader(const wmoge::Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines) {
+    Ref<GfxShader> ShaderManager::get_shader(const wmoge::Strid& shader_name, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines) {
         return get_shader(shader_name, attribs, defines, nullptr);
     }
-    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader) {
+    Ref<GfxShader> ShaderManager::get_shader(const Strid& shader_name, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines, class Shader* shader) {
         const Strid    shader_key = make_shader_key(shader_name, attribs, defines, shader);
         Ref<GfxShader> gfx_shader = find(shader_key);
 

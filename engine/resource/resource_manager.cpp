@@ -88,7 +88,7 @@ namespace wmoge {
         }
 
         // get dependencies which still loading or already loaded
-        fast_vector<Async> deps;
+        buffered_vector<Async> deps;
 
         for (const Strid& dep : resource_meta.value().deps) {
             deps.push_back(load_async(dep).as_async());

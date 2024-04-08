@@ -28,7 +28,7 @@
 #ifndef WMOGE_ACTION_MANAGER_HPP
 #define WMOGE_ACTION_MANAGER_HPP
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "event/event.hpp"
 #include "event/event_action.hpp"
 #include "event/event_input.hpp"
@@ -76,12 +76,12 @@ namespace wmoge {
         ActionMapInfo* get_action_map_info(const Strid& name);
 
     private:
-        fast_vector<ActionMapInfo>    m_maps;
-        fast_vector<Ref<EventAction>> m_events;
-        EventListenerHnd              m_listener_mouse;
-        EventListenerHnd              m_listener_keyboard;
-        EventListenerHnd              m_listener_joystick;
-        EventListenerHnd              m_listener_gamepad;
+        buffered_vector<ActionMapInfo>    m_maps;
+        buffered_vector<Ref<EventAction>> m_events;
+        EventListenerHnd                  m_listener_mouse;
+        EventListenerHnd                  m_listener_keyboard;
+        EventListenerHnd                  m_listener_joystick;
+        EventListenerHnd                  m_listener_gamepad;
     };
 
 }// namespace wmoge

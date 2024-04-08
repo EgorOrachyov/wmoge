@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "math/vec.hpp"
@@ -53,10 +53,10 @@ namespace wmoge {
         [[nodiscard]] const Ref<Mesh>& get_mesh() const { return m_mesh; }
 
     private:
-        std::vector<Ref<ArrayMesh>>   m_chunks;
-        std::vector<Strid>            m_chunks_names;
-        std::vector<int>              m_chunks_parents;
-        std::vector<fast_vector<int>> m_chunks_children;
+        std::vector<Ref<ArrayMesh>>       m_chunks;
+        std::vector<Strid>                m_chunks_names;
+        std::vector<int>                  m_chunks_parents;
+        std::vector<buffered_vector<int>> m_chunks_children;
 
         Ref<Mesh> m_mesh;
     };

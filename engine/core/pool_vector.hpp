@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "io/yaml.hpp"
 
 #include <array>
@@ -39,30 +39,30 @@
 namespace wmoge {
 
     /**
-     * @class PoolVector
+     * @class pool_vector
      * @brief Typed container as well as vector but values stored in chunks with persistent mem address in grow operation
      */
     template<typename T, int NodeCapacity = 128>
-    class PoolVector {
+    class pool_vector {
     public:
         static constexpr std::size_t NODE_CAPACITY = NodeCapacity;
 
-        PoolVector() = default;
+        pool_vector() = default;
 
-        PoolVector(const PoolVector& other) {
+        pool_vector(const pool_vector& other) {
             reserve(other.size());
             for (const auto& value : other) {
                 emplace_back(value);
             }
         }
 
-        PoolVector(PoolVector&& other) {
+        pool_vector(pool_vector&& other) {
             m_nodes      = std::move(other.m_nodes);
             m_size       = other.m_size;
             other.m_size = 0;
         }
 
-        ~PoolVector();
+        ~pool_vector();
 
         template<typename... TArgs>
         T&   emplace_back(TArgs&&... args);
@@ -128,36 +128,36 @@ namespace wmoge {
         void* allocate_back();
 
     private:
-        fast_vector<NodePtr<T>> m_nodes;
-        std::size_t             m_size = 0;
+        buffered_vector<NodePtr<T>> m_nodes;
+        std::size_t                 m_size = 0;
     };
 
     template<typename T, int NodeCapacity>
-    inline PoolVector<T, NodeCapacity>::~PoolVector() {
+    inline pool_vector<T, NodeCapacity>::~pool_vector() {
         clear();
     }
 
     template<typename T, int NodeCapacity>
     template<typename... TArgs>
-    inline T& PoolVector<T, NodeCapacity>::emplace_back(TArgs&&... args) {
+    inline T& pool_vector<T, NodeCapacity>::emplace_back(TArgs&&... args) {
         void* mem = allocate_back();
         return *(new (mem) T(std::forward<TArgs...>(args...)));
     }
 
     template<typename T, int NodeCapacity>
-    inline void PoolVector<T, NodeCapacity>::push_back(const T& element) {
+    inline void pool_vector<T, NodeCapacity>::push_back(const T& element) {
         void* mem = allocate_back();
         new (mem) T(element);
     }
 
     template<typename T, int NodeCapacity>
-    inline void PoolVector<T, NodeCapacity>::push_back(T&& element) {
+    inline void pool_vector<T, NodeCapacity>::push_back(T&& element) {
         void* mem = allocate_back();
         new (mem) T(std::move(element));
     }
 
     template<typename T, int NodeCapacity>
-    inline void PoolVector<T, NodeCapacity>::clear() {
+    inline void pool_vector<T, NodeCapacity>::clear() {
         for (std::size_t i = 0; i < m_size; i++) {
             std::size_t node_idx = i / NODE_CAPACITY;
             std::size_t item_idx = i % NODE_CAPACITY;
@@ -169,7 +169,7 @@ namespace wmoge {
     }
 
     template<typename T, int NodeCapacity>
-    inline void PoolVector<T, NodeCapacity>::reserve(std::size_t size) {
+    inline void pool_vector<T, NodeCapacity>::reserve(std::size_t size) {
         if (m_size >= size) {
             return;
         }
@@ -179,21 +179,21 @@ namespace wmoge {
     }
 
     template<typename T, int NodeCapacity>
-    inline T& PoolVector<T, NodeCapacity>::operator[](std::size_t i) {
+    inline T& pool_vector<T, NodeCapacity>::operator[](std::size_t i) {
         std::size_t node_idx = m_size / NODE_CAPACITY;
         std::size_t item_idx = m_size % NODE_CAPACITY;
         return m_nodes[node_idx]->items[item_idx].mem;
     }
 
     template<typename T, int NodeCapacity>
-    inline const T& PoolVector<T, NodeCapacity>::operator[](std::size_t i) const {
+    inline const T& pool_vector<T, NodeCapacity>::operator[](std::size_t i) const {
         std::size_t node_idx = m_size / NODE_CAPACITY;
         std::size_t item_idx = m_size % NODE_CAPACITY;
         return m_nodes[node_idx]->items[item_idx].mem;
     }
 
     template<typename T, int NodeCapacity>
-    inline void* PoolVector<T, NodeCapacity>::allocate_back() {
+    inline void* pool_vector<T, NodeCapacity>::allocate_back() {
         if (capacity() == size()) {
             m_nodes.push_back(std::make_unique<Node<T>>());
         }
@@ -204,7 +204,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t NodeCapacity>
-    Status yaml_read(const YamlConstNodeRef& node, PoolVector<T, NodeCapacity>& vec) {
+    Status yaml_read(const YamlConstNodeRef& node, pool_vector<T, NodeCapacity>& vec) {
         vec.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
             T element;
@@ -215,7 +215,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t NodeCapacity>
-    Status yaml_write(YamlNodeRef node, const PoolVector<T, NodeCapacity>& vec) {
+    Status yaml_write(YamlNodeRef node, const pool_vector<T, NodeCapacity>& vec) {
         WG_YAML_SEQ(node);
         for (const T& value : vec) {
             YamlNodeRef child = node.append_child();

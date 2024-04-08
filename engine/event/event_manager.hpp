@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "event/event.hpp"
 #include "event/event_listener.hpp"
 #include "memory/mem_pool.hpp"
@@ -102,10 +102,10 @@ namespace wmoge {
         void flush();
 
     private:
-        fast_map<EventType, fast_vector<EventListener*>> m_event_to_listener;
-        fast_map<EventListenerHnd, EventListener*>       m_hnd_to_listener;
-        fast_vector<Ref<Event>>                          m_events;
-        fast_vector<Ref<Event>>                          m_events_deferred;
+        flat_map<EventType, buffered_vector<EventListener*>> m_event_to_listener;
+        flat_map<EventListenerHnd, EventListener*>           m_hnd_to_listener;
+        buffered_vector<Ref<Event>>                          m_events;
+        buffered_vector<Ref<Event>>                          m_events_deferred;
 
         MemPool          m_listeners_pool;
         EventListenerHnd m_next_hnd{0};

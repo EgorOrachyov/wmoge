@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 #include "math/color.hpp"
@@ -108,7 +108,7 @@ namespace wmoge {
         bool get_element(const Strid& key, Var*& element);
 
     private:
-        fast_map<Strid, Var> m_entries;
+        flat_map<Strid, Var> m_entries;
     };
 
 }// namespace wmoge

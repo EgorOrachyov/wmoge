@@ -47,7 +47,7 @@ namespace wmoge {
         add_define_fs(define);
         add_define_cs(define);
     }
-    void ShaderBuilder::add_defines(const fast_vector<std::string>& defines) {
+    void ShaderBuilder::add_defines(const buffered_vector<std::string>& defines) {
         for (const auto& d : defines) {
             add_define(d);
         }

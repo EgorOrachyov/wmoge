@@ -139,10 +139,10 @@ namespace wmoge {
         return m_lua_methods.find(method) != m_lua_methods.end();
     }
 
-    const fast_map<Strid, luabridge::LuaRef>& LuaScript::get_lua_properties() {
+    const flat_map<Strid, luabridge::LuaRef>& LuaScript::get_lua_properties() {
         return m_lua_properties;
     }
-    const fast_map<Strid, luabridge::LuaRef>& LuaScript::get_lua_methods() {
+    const flat_map<Strid, luabridge::LuaRef>& LuaScript::get_lua_methods() {
         return m_lua_methods;
     }
     const std::optional<luabridge::LuaRef>& LuaScript::get_lua_class() {

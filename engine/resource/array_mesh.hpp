@@ -100,7 +100,7 @@ namespace wmoge {
         void set_data(ArrayMeshData&& data) { m_data = std::move(data); }
         void add_vertex(const MeshVertex& vertex);
         void add_face(const MeshFace& face);
-        void pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, fast_vector<GfxVertStream>& streams) const;
+        void pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, buffered_vector<GfxVertStream>& streams) const;
         void pack_faces(Ref<Data>& buffer, GfxIndexStream& stream) const;
 
         [[nodiscard]] const ArrayMeshData& get_data() const { return m_data; }

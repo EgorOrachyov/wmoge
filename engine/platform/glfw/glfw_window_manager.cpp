@@ -96,10 +96,10 @@ namespace wmoge {
         m_input->update();
     }
 
-    fast_vector<Ref<Window>> GlfwWindowManager::windows() {
+    buffered_vector<Ref<Window>> GlfwWindowManager::windows() {
         std::lock_guard guard(m_mutex);
 
-        fast_vector<Ref<Window>> windows_list;
+        buffered_vector<Ref<Window>> windows_list;
         for (auto& window : m_windows) {
             windows_list.push_back(window.second.as<Window>());
         }

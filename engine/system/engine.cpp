@@ -63,6 +63,7 @@
 #include "render/view_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
+#include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
@@ -84,6 +85,7 @@ namespace wmoge {
         IocContainer* ioc = IocContainer::instance();
 
         m_class_db       = ClassDB::instance();
+        m_type_storage   = ioc->resolve_v<RttiTypeStorage>();
         m_time           = ioc->resolve_v<Time>();
         m_layer_stack    = ioc->resolve_v<LayerStack>();
         m_cmd_line       = ioc->resolve_v<CmdLine>();
@@ -222,6 +224,7 @@ namespace wmoge {
     }
 
     Application*       Engine::application() { return m_application; }
+    RttiTypeStorage*   Engine::type_storage() { return m_type_storage; }
     ClassDB*           Engine::class_db() { return m_class_db; }
     Time*              Engine::time() { return m_time; }
     LayerStack*        Engine::layer_stack() { return m_layer_stack; }

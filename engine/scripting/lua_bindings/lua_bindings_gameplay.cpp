@@ -80,7 +80,7 @@ namespace wmoge {
         return 0;
     }
 
-    void LuaBindings::bind_gameplay(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping) {
+    void LuaBindings::bind_gameplay(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping) {
         ns = ns.beginNamespace("ActionManager")
                      .addFunction("load", lua_ActionManager_load_action_map)
                      .addFunction("has", lua_ActionManager_has_action_map)

@@ -76,7 +76,7 @@ namespace wmoge {
         return 1;
     }
 
-    void LuaBindings::bind_platform(luabridge::Namespace& ns, fast_map<const Class*, LuaConvCppToLua>& mapping) {
+    void LuaBindings::bind_platform(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping) {
         LuaBindings::bind_enum<InputDeviceType>(ns, "InputDeviceType");
         LuaBindings::bind_enum<InputDeviceState>(ns, "InputDeviceState");
         LuaBindings::bind_enum<InputAction>(ns, "InputAction");

@@ -110,8 +110,8 @@ namespace wmoge {
         m_cur_depth -= 1;
     }
 
-    fast_vector<Ref<Resource>> ResourceDependencies::to_vector() const {
-        fast_vector<Ref<Resource>> vec(m_resources.size());
+    buffered_vector<Ref<Resource>> ResourceDependencies::to_vector() const {
+        buffered_vector<Ref<Resource>> vec(m_resources.size());
         std::copy(m_resources.begin(), m_resources.end(), vec.begin());
         return vec;
     }

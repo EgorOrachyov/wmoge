@@ -27,44 +27,45 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "type_storage.hpp"
 
-#include <robin_hood.hpp>
-#include <unordered_set>
+#include <cassert>
 
 namespace wmoge {
 
-#ifdef WG_DEBUG
-    template<typename K>
-    using fast_set = std::unordered_set<K>;
-#else
-    /**
-     * @brief wrapper for fast robin_hood unordered set
-     */
-    template<typename K>
-    using fast_set = robin_hood::unordered_flat_set<K>;
+    RttiTypeStorage* RttiTypeStorage::g_storage = nullptr;
 
-    template<typename K>
-    Status archive_write(Archive& archive, const fast_set<K>& map) {
-        archive << static_cast<int>(map.size());
-        for (const auto& entry : map) {
-            archive << entry;
+    std::optional<RttiType*> RttiTypeStorage::find_type(const Strid& name) {
+        auto query = m_types.find(name);
+
+        if (query != m_types.end()) {
+            return query->second.get();
         }
-        return StatusCode::Ok;
+
+        return std::nullopt;
     }
 
-    template<typename K>
-    Status archive_read(Archive& archive, fast_set<K>& map) {
-        assert(map.empty());
-        int size;
-        archive >> size;
-        for (int i = 0; i < size; i++) {
-            K entry;
-            archive >> entry;
-            map.insert(std::move(entry));
-        }
-        return StatusCode::Ok;
+    RttiClass* RttiTypeStorage::find_class(const Strid& name) {
+        return dynamic_cast<RttiClass*>(find_type(name).value_or(nullptr));
     }
-#endif
+
+    bool RttiTypeStorage::has(const Strid& name) {
+        auto query = m_types.find(name);
+        return query != m_types.end();
+    }
+
+    void RttiTypeStorage::add(const Ref<RttiType>& type) {
+        assert(type);
+        assert(!has(type->get_name()));
+        m_types[type->get_name()] = type;
+    }
+
+    RttiTypeStorage* RttiTypeStorage::instance() {
+        return g_storage;
+    }
+
+    void RttiTypeStorage::provide(RttiTypeStorage* storage) {
+        g_storage = storage;
+    }
 
 }// namespace wmoge

@@ -28,7 +28,7 @@
 #ifndef WMOGE_GAME_TOKEN_MANAGER_HPP
 #define WMOGE_GAME_TOKEN_MANAGER_HPP
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 
@@ -57,7 +57,7 @@ namespace wmoge {
         bool get(const Strid& token, Var& value);
 
     private:
-        fast_map<Strid, Var> m_tokens;
+        flat_map<Strid, Var> m_tokens;
         class EventManager*  m_event_manager;
     };
 

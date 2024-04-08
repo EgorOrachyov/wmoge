@@ -63,6 +63,7 @@
 #include "render/view_manager.hpp"
 #include "resource/config_file.hpp"
 #include "resource/resource_manager.hpp"
+#include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
@@ -142,6 +143,12 @@ namespace wmoge {
 
         ioc->bind_f<GfxCtx, GfxCtx>([ioc]() {
             return std::shared_ptr<GfxCtx>(ioc->resolve_v<VKDriver>()->ctx_immediate_wrapper(), [](auto p) {});
+        });
+
+        ioc->bind_f<RttiTypeStorage, RttiTypeStorage>([]() {
+            auto type_storage = std::make_shared<RttiTypeStorage>();
+            RttiTypeStorage::provide(type_storage.get());
+            return type_storage;
         });
 
         ioc->bind_f<Profiler, Profiler>([]() {

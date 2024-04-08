@@ -67,8 +67,8 @@ namespace wmoge {
         const int n_chunks = int(m_chunks.size());
 
         for (int i = 0; i < n_chunks; i++) {
-            Ref<Data>                  vert_data;
-            fast_vector<GfxVertStream> vert_streams;
+            Ref<Data>                      vert_data;
+            buffered_vector<GfxVertStream> vert_streams;
             m_chunks[i]->pack_attribs(stream_masks, vert_data, vert_streams);
 
             for (auto& vert_stream : vert_streams) {

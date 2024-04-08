@@ -28,8 +28,8 @@
 #pragma once
 
 #include "core/array_view.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
-#include "core/fast_vector.hpp"
 #include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -79,16 +79,16 @@ namespace wmoge {
      * @brief Represents single mesh chunk in a mesh which can be rendered individually with material
      */
     struct MeshChunk {
-        Strid            name;
-        Aabbf            aabb;
-        GfxVertAttribs   attribs;
-        GfxPrimType      prim_type          = GfxPrimType::Triangles;
-        int              elem_count         = 0;
-        int              vert_stream_offset = -1;
-        int              vert_stream_count  = 0;
-        int              index_stream       = -1;
-        int              parent             = -1;
-        fast_vector<int> children;
+        Strid                name;
+        Aabbf                aabb;
+        GfxVertAttribs       attribs;
+        GfxPrimType          prim_type          = GfxPrimType::Triangles;
+        int                  elem_count         = 0;
+        int                  vert_stream_offset = -1;
+        int                  vert_stream_count  = 0;
+        int                  index_stream       = -1;
+        int                  parent             = -1;
+        buffered_vector<int> children;
 
         WG_IO_DECLARE(MeshChunk);
     };
@@ -98,13 +98,13 @@ namespace wmoge {
      * @brief Struct used to serialize mesh resource data
      */
     struct MeshFile {
-        fast_vector<MeshChunk>      chunks;
-        fast_vector<Ref<Data>>      vertex_buffers;
-        fast_vector<Ref<Data>>      index_buffers;
-        fast_vector<GfxVertStream>  vert_streams;
-        fast_vector<GfxIndexStream> index_streams;
-        fast_vector<int>            roots;
-        Aabbf                       aabb;
+        buffered_vector<MeshChunk>      chunks;
+        buffered_vector<Ref<Data>>      vertex_buffers;
+        buffered_vector<Ref<Data>>      index_buffers;
+        buffered_vector<GfxVertStream>  vert_streams;
+        buffered_vector<GfxIndexStream> index_streams;
+        buffered_vector<int>            roots;
+        Aabbf                           aabb;
 
         WG_IO_DECLARE(MeshFile);
     };
@@ -139,15 +139,15 @@ namespace wmoge {
         [[nodiscard]] Aabbf                      get_aabb() const;
 
     private:
-        fast_vector<MeshChunk>           m_chunks;
-        fast_vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
-        fast_vector<Ref<Data>>           m_vertex_buffers;
-        fast_vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;
-        fast_vector<Ref<Data>>           m_index_buffers;
-        fast_vector<GfxVertStream>       m_vert_streams;
-        fast_vector<GfxIndexStream>      m_index_streams;
-        fast_vector<int>                 m_roots;
-        Aabbf                            m_aabb;
+        buffered_vector<MeshChunk>           m_chunks;
+        buffered_vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
+        buffered_vector<Ref<Data>>           m_vertex_buffers;
+        buffered_vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;
+        buffered_vector<Ref<Data>>           m_index_buffers;
+        buffered_vector<GfxVertStream>       m_vert_streams;
+        buffered_vector<GfxIndexStream>      m_index_streams;
+        buffered_vector<int>                 m_roots;
+        Aabbf                                m_aabb;
     };
 
 }// namespace wmoge

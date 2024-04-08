@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_pipeline.hpp"
@@ -51,7 +51,7 @@ namespace wmoge {
         void                            add(const GfxPipelineState& state, const Ref<GfxPipeline>& pipeline);
 
     private:
-        fast_map<GfxPipelineState, Ref<GfxPipeline>> m_cache;
+        flat_map<GfxPipelineState, Ref<GfxPipeline>> m_cache;
         SpinMutex                                    m_mutex;
     };
 
@@ -70,7 +70,7 @@ namespace wmoge {
         void                                add(const GfxCompPipelineState& state, const Ref<GfxCompPipeline>& pipeline);
 
     private:
-        fast_map<GfxCompPipelineState, Ref<GfxCompPipeline>> m_cache;
+        flat_map<GfxCompPipelineState, Ref<GfxCompPipeline>> m_cache;
         SpinMutex                                            m_mutex;
     };
 

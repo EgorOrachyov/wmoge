@@ -67,7 +67,7 @@ namespace wmoge {
          *
          * @return Ok on success
          */
-        virtual Status compile(const Strid& name, GfxDriver* driver, const GfxVertAttribs& attribs, const fast_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
+        virtual Status compile(const Strid& name, GfxDriver* driver, const GfxVertAttribs& attribs, const buffered_vector<std::string>& defines, class Shader* shader, Ref<GfxShader>& out_shader);
 
         /**
          * @brief Reloads shader pass sources from a disc

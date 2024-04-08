@@ -27,9 +27,9 @@
 
 #pragma once
 
-#include "core/fast_map.hpp"
-#include "core/fast_set.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
+#include "core/flat_set.hpp"
 #include "core/mask.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
@@ -111,14 +111,14 @@ namespace wmoge {
             Var                default_value;     // optional default value to set
         };
 
-        Strid              name;                               // type name
-        GrcShaderBaseType  type      = GrcShaderBaseType::None;// type of its base
-        std::int16_t       n_row     = -1;                     // num of rows for vector like types
-        std::int16_t       n_col     = -1;                     // num of columns for matrix like types
-        std::int16_t       n_elem    = -1;                     // num of elements in vec/mat type
-        std::int16_t       byte_size = 0;                      // raw byte size
-        fast_vector<Field> fields;                             // fields of a struct type
-        bool               is_primitive = false;               // is a primitive type, raw value in a memory
+        Strid                  name;                               // type name
+        GrcShaderBaseType      type      = GrcShaderBaseType::None;// type of its base
+        std::int16_t           n_row     = -1;                     // num of rows for vector like types
+        std::int16_t           n_col     = -1;                     // num of columns for matrix like types
+        std::int16_t           n_elem    = -1;                     // num of elements in vec/mat type
+        std::int16_t           byte_size = 0;                      // raw byte size
+        buffered_vector<Field> fields;                             // fields of a struct type
+        bool                   is_primitive = false;               // is a primitive type, raw value in a memory
     };
 
     /**
@@ -237,9 +237,9 @@ namespace wmoge {
      * @brief Contains interface resources for a single descriptor set 
     */
     struct GrcShaderSpace {
-        Strid                         name;
-        GrcShaderSpaceType            type = GrcShaderSpaceType::Default;
-        fast_vector<GrcShaderBinding> bindings;
+        Strid                             name;
+        GrcShaderSpaceType                type = GrcShaderSpaceType::Default;
+        buffered_vector<GrcShaderBinding> bindings;
     };
 
     /**
@@ -248,7 +248,7 @@ namespace wmoge {
     */
     struct GrcShaderOption {
         Strid                         name;
-        fast_map<Strid, std::int16_t> variants;
+        flat_map<Strid, std::int16_t> variants;
         std::string                   ui_name;
         std::string                   ui_hint;
     };
@@ -258,8 +258,8 @@ namespace wmoge {
      * @brief Map of options for a technique or pass
     */
     struct GrcShaderOptions {
-        fast_vector<GrcShaderOption>  options;
-        fast_map<Strid, std::int16_t> options_map;
+        buffered_vector<GrcShaderOption> options;
+        flat_map<Strid, std::int16_t>    options_map;
     };
 
     /**
@@ -294,7 +294,7 @@ namespace wmoge {
         Strid                name;
         GrcPipelineState     state;
         GrcShaderOptions     options;
-        fast_map<Strid, Var> tags;
+        flat_map<Strid, Var> tags;
         std::string          ui_name;
         std::string          ui_hint;
     };
@@ -304,13 +304,13 @@ namespace wmoge {
      * @brief Defines single technique as collection of passes for drawing
     */
     struct GrcShaderTechniqueInfo {
-        Strid                          name;
-        GrcShaderOptions               options;
-        fast_vector<GrcShaderPassInfo> passes;
-        fast_map<Strid, std::int16_t>  passes_map;
-        fast_map<Strid, Var>           tags;
-        std::string                    ui_name;
-        std::string                    ui_hint;
+        Strid                              name;
+        GrcShaderOptions                   options;
+        buffered_vector<GrcShaderPassInfo> passes;
+        flat_map<Strid, std::int16_t>      passes_map;
+        flat_map<Strid, Var>               tags;
+        std::string                        ui_name;
+        std::string                        ui_hint;
     };
 
     /**
@@ -371,21 +371,21 @@ namespace wmoge {
      * @brief Full reflection information of a single shader class
     */
     struct GrcShaderReflection {
-        Strid                               shader_name;   // shader script global unique name
-        Strid                               shader_extends;// shader script which we extend in this one
-        std::string                         ui_name;       // optional ui name
-        std::string                         ui_hint;       // optional ui hint
-        fast_map<Strid, std::int16_t>       params_id;     // mapping of full param name to its id
-        fast_vector<GrcShaderParamInfo>     params_info;   // id to param info
-        fast_vector<GrcShaderBufferInfo>    buffers;       // buffer info for scalar params packing
-        fast_map<Strid, Ref<GrcShaderType>> declarations;  // shader defined struct types
-        fast_vector<GrcShaderConstant>      constants;     // shader defined constanst
-        fast_vector<GrcShaderInclude>       includes;      // shader includes per module
-        fast_vector<GrcShaderSpace>         spaces;        // binding spaces for descriptor sets creation
-        fast_vector<GrcShaderSourceFile>    sources;       // source code modules
-        fast_vector<GrcShaderTechniqueInfo> techniques;    // shader techniques info
-        fast_map<Strid, std::int16_t>       techniques_map;// mapping techniques name to its id
-        fast_set<Strid>                     dependencies;  // shader files dependencies for hot-reload
+        Strid                                   shader_name;   // shader script global unique name
+        Strid                                   shader_extends;// shader script which we extend in this one
+        std::string                             ui_name;       // optional ui name
+        std::string                             ui_hint;       // optional ui hint
+        flat_map<Strid, std::int16_t>           params_id;     // mapping of full param name to its id
+        buffered_vector<GrcShaderParamInfo>     params_info;   // id to param info
+        buffered_vector<GrcShaderBufferInfo>    buffers;       // buffer info for scalar params packing
+        flat_map<Strid, Ref<GrcShaderType>>     declarations;  // shader defined struct types
+        buffered_vector<GrcShaderConstant>      constants;     // shader defined constanst
+        buffered_vector<GrcShaderInclude>       includes;      // shader includes per module
+        buffered_vector<GrcShaderSpace>         spaces;        // binding spaces for descriptor sets creation
+        buffered_vector<GrcShaderSourceFile>    sources;       // source code modules
+        buffered_vector<GrcShaderTechniqueInfo> techniques;    // shader techniques info
+        flat_map<Strid, std::int16_t>           techniques_map;// mapping techniques name to its id
+        flat_set<Strid>                         dependencies;  // shader files dependencies for hot-reload
     };
 
 }// namespace wmoge

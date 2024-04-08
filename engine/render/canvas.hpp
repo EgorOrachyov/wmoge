@@ -28,8 +28,8 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_map.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
@@ -108,11 +108,11 @@ namespace wmoge {
         void compile();
         void clear();
 
-        std::vector<Ref<Texture2d>>   tex_buffer;     //< Texures referenced in cmds, store separately to pack batched into descriptor sets
-        fast_map<Ref<Texture2d>, int> tex_map;        //< Map used textures to ids (to batch used textures together)
-        fast_vector<Ref<GfxDescSet>>  tex_sets;       //< Descriptor sets with textures to bind
-        Ref<GfxPipeline>              pipeline_srgb;  //< Cached pso to draw all primitives
-        Ref<GfxPipeline>              pipeline_linear;//< Cached pso to draw all primitives
+        std::vector<Ref<Texture2d>>      tex_buffer;     //< Texures referenced in cmds, store separately to pack batched into descriptor sets
+        flat_map<Ref<Texture2d>, int>    tex_map;        //< Map used textures to ids (to batch used textures together)
+        buffered_vector<Ref<GfxDescSet>> tex_sets;       //< Descriptor sets with textures to bind
+        Ref<GfxPipeline>                 pipeline_srgb;  //< Cached pso to draw all primitives
+        Ref<GfxPipeline>                 pipeline_linear;//< Cached pso to draw all primitives
     };
 
     /**
@@ -185,8 +185,8 @@ namespace wmoge {
 
         std::vector<Vec2f>                            m_path;           //< Internal tmp buffer to draw path
         std::shared_ptr<CanvasSharedData>             m_shared;         //< Shared state amond all canvas classes for cmds rendering
-        fast_vector<Vec4f, INLINE_STACK_SIZE>         m_clip_rect_stack;//< Context stack
-        fast_vector<Mat3x3f, INLINE_STACK_SIZE>       m_transform_stack;//< Context stack
+        buffered_vector<Vec4f, INLINE_STACK_SIZE>     m_clip_rect_stack;//< Context stack
+        buffered_vector<Mat3x3f, INLINE_STACK_SIZE>   m_transform_stack;//< Context stack
         GfxVector<GPUCanvasDrawCmd, GfxStorageBuffer> m_gpu_cmd_buffer; //< Packed cmd data for gpu
         Ref<GfxUniformBuffer>                         m_params;         //< Cached ubo to fill with const params
         Ref<GfxDescSet>                               m_params_set;     //< Cached ubo to fill with const params and draw cmds buffer

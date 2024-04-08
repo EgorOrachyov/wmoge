@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
-#include "core/fast_vector.hpp"
 #include "resource/audio_stream.hpp"
 #include "resource/resource.hpp"
 
@@ -56,7 +56,7 @@ namespace wmoge {
         Status copy_to(Object& other) const override;
 
     private:
-        fast_vector<Ref<Data>, 2> m_data;
+        buffered_vector<Ref<Data>, 2> m_data;
     };
 
 }// namespace wmoge

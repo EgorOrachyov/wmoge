@@ -75,9 +75,9 @@ namespace wmoge {
             if (!info.active) continue;
 
             for (const auto& entry : info.action_map->m_actions) {
-                const ActionMapAction&               action_map_action  = entry.second;
-                const Strid&                         action_name        = action_map_action.name;
-                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
+                const ActionMapAction&                   action_map_action  = entry.second;
+                const Strid&                             action_name        = action_map_action.name;
+                const buffered_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type != InputDeviceType::Joystick) {
@@ -203,9 +203,9 @@ namespace wmoge {
             if (!info.active) continue;
 
             for (const auto& entry : info.action_map->m_actions) {
-                const ActionMapAction&               action_map_action  = entry.second;
-                const Strid&                         action_name        = action_map_action.name;
-                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
+                const ActionMapAction&                   action_map_action  = entry.second;
+                const Strid&                             action_name        = action_map_action.name;
+                const buffered_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Mouse &&
@@ -232,9 +232,9 @@ namespace wmoge {
             if (!info.active) continue;
 
             for (const auto& entry : info.action_map->m_actions) {
-                const ActionMapAction&               action_map_action  = entry.second;
-                const Strid&                         action_name        = action_map_action.name;
-                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
+                const ActionMapAction&                   action_map_action  = entry.second;
+                const Strid&                             action_name        = action_map_action.name;
+                const buffered_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Keyboard &&
@@ -261,9 +261,9 @@ namespace wmoge {
             if (!info.active) continue;
 
             for (const auto& entry : info.action_map->m_actions) {
-                const ActionMapAction&               action_map_action  = entry.second;
-                const Strid&                         action_name        = action_map_action.name;
-                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
+                const ActionMapAction&                   action_map_action  = entry.second;
+                const Strid&                             action_name        = action_map_action.name;
+                const buffered_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.device_type == InputDeviceType::Joystick &&
@@ -291,9 +291,9 @@ namespace wmoge {
             if (!info.active) continue;
 
             for (const auto& entry : info.action_map->m_actions) {
-                const ActionMapAction&               action_map_action  = entry.second;
-                const Strid&                         action_name        = action_map_action.name;
-                const fast_vector<ActionActivation>& action_activations = action_map_action.activations;
+                const ActionMapAction&                   action_map_action  = entry.second;
+                const Strid&                             action_name        = action_map_action.name;
+                const buffered_vector<ActionActivation>& action_activations = action_map_action.activations;
 
                 for (const ActionActivation& activation : action_activations) {
                     if (activation.gamepad_button != InputGamepadButton::Unknown &&

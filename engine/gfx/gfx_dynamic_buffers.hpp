@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -66,7 +66,7 @@ namespace wmoge {
             int                                next = 0;
         };
 
-        fast_vector<Bucket> m_buckets;
+        buffered_vector<Bucket> m_buckets;
 
         mutable SpinMutex m_mutex;
     };
@@ -125,10 +125,10 @@ namespace wmoge {
             int            offset  = 0;
         };
 
-        fast_vector<Chunk> m_chunks;
-        int                m_current_chunk      = 0;
-        int                m_alignment          = 0;
-        int                m_default_chunk_size = 0;
+        buffered_vector<Chunk> m_chunks;
+        int                    m_current_chunk      = 0;
+        int                    m_alignment          = 0;
+        int                    m_default_chunk_size = 0;
 
         mutable SpinMutex m_mutex;
     };

@@ -121,6 +121,30 @@ public:
         block.set_var(p_inverse_gamma, 1.0f / 4.0f);
         block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx(), SID("test"));
 
+        Engine* engine = Engine::instance();
+
+        std::vector<GfxFormat> formats = {GfxFormat::BC1_RGB, GfxFormat::BC2, GfxFormat::R16};
+        std::vector<Vec2i>     sizes   = {Vec2i(10, 20), Vec2i(0, 30), Vec2i(-1, -1)};
+
+        RttiType*        tenum   = rtti_type<GfxSampAddress>();
+        RttiType*        tint    = rtti_type<int>();
+        RttiType*        tfloat  = rtti_type<float>();
+        RttiType*        tstring = rtti_type<std::string>();
+        RttiType*        tstrid  = rtti_type<Strid>();
+        RttiType*        tvecf   = rtti_type<decltype(formats)>();
+        RttiType*        tvecs   = rtti_type<decltype(sizes)>();
+        RttiTypeStorage* s       = RttiTypeStorage::instance();
+
+        std::stringstream stream;
+
+        stream.clear();
+        tvecf->to_string(&formats, stream);
+        WG_LOG_INFO(stream.str());
+
+        stream.str("");
+        tvecs->to_string(&sizes, stream);
+        WG_LOG_INFO(stream.str());
+
         WG_LOG_INFO("init");
         return StatusCode::Ok;
     }

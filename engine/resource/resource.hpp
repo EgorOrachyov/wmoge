@@ -27,9 +27,9 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/class.hpp"
-#include "core/fast_set.hpp"
-#include "core/fast_vector.hpp"
+#include "core/flat_set.hpp"
 #include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
@@ -130,11 +130,11 @@ namespace wmoge {
         void set_mode(CollectionMode mode, std::optional<int> num_levels);
         void add(const Ref<Resource>& resource);
 
-        [[nodiscard]] CollectionMode             get_mode() const { return m_mode; }
-        [[nodiscard]] fast_vector<Ref<Resource>> to_vector() const;
+        [[nodiscard]] CollectionMode                 get_mode() const { return m_mode; }
+        [[nodiscard]] buffered_vector<Ref<Resource>> to_vector() const;
 
     private:
-        fast_set<Ref<class Resource>> m_resources;
+        flat_set<Ref<class Resource>> m_resources;
         int                           m_max_depth = 1;
         int                           m_cur_depth = 0;
         CollectionMode                m_mode      = CollectionMode::OneLevel;

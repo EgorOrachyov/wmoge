@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/array_view.hpp"
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/ref.hpp"
 #include "core/synchronization.hpp"
 
@@ -95,9 +95,9 @@ namespace wmoge {
             std::lock_guard lock(m_mutex);
             m_status.store(AsyncStatus::Failed);
 
-            fast_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
+            buffered_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
             for (auto& c : callbacks) c(AsyncStatus::Failed, m_result);
-            fast_vector<Ref<AsyncStateBase>> deps = std::move(m_children);
+            buffered_vector<Ref<AsyncStateBase>> deps = std::move(m_children);
             for (auto& d : deps) d->notify(AsyncStatus::Failed, this);
         }
         virtual void set_result(T&& result) {
@@ -105,9 +105,9 @@ namespace wmoge {
             m_result = std::make_optional(std::forward<T>(result));
             m_status.store(AsyncStatus::Ok);
 
-            fast_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
+            buffered_vector<AsyncCallback<T>> callbacks = std::move(m_callbacks);
             for (auto& c : callbacks) c(AsyncStatus::Ok, m_result);
-            fast_vector<Ref<AsyncStateBase>> deps = std::move(m_children);
+            buffered_vector<Ref<AsyncStateBase>> deps = std::move(m_children);
             for (auto& d : deps) d->notify(AsyncStatus::Ok, this);
         }
 
@@ -151,11 +151,11 @@ namespace wmoge {
         }
 
     protected:
-        fast_vector<AsyncCallback<T>>    m_callbacks;
-        fast_vector<Ref<AsyncStateBase>> m_children;
-        std::optional<T>                 m_result;
-        std::atomic<AsyncStatus>         m_status{AsyncStatus::InProcess};
-        SpinMutex                        m_mutex;
+        buffered_vector<AsyncCallback<T>>    m_callbacks;
+        buffered_vector<Ref<AsyncStateBase>> m_children;
+        std::optional<T>                     m_result;
+        std::atomic<AsyncStatus>             m_status{AsyncStatus::InProcess};
+        SpinMutex                            m_mutex;
     };
 
     /**

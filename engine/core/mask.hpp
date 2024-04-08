@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
 
@@ -92,7 +92,7 @@ namespace wmoge {
 
     template<typename T, int size>
     Status yaml_read(const YamlConstNodeRef& node, Mask<T, size>& mask) {
-        fast_vector<T, size> flags;
+        buffered_vector<T, size> flags;
         WG_YAML_READ(node, flags);
 
         for (auto flag : flags) {
@@ -104,7 +104,7 @@ namespace wmoge {
 
     template<typename T, int size>
     Status yaml_write(YamlNodeRef node, const Mask<T, size>& mask) {
-        fast_vector<T, size> flags;
+        buffered_vector<T, size> flags;
 
         mask.for_each([&](int, T flag) {
             flags.push_back(flag);

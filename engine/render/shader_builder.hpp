@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_shader.hpp"
@@ -49,7 +49,7 @@ namespace wmoge {
         void configure_fs();
         void configure_cs();
         void add_define(const std::string& define);
-        void add_defines(const fast_vector<std::string>& defines);
+        void add_defines(const buffered_vector<std::string>& defines);
         void add_define_vs(const std::string& define);
         void add_define_fs(const std::string& define);
         void add_define_cs(const std::string& define);

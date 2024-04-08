@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/fast_vector.hpp"
+#include "core/buffered_vector.hpp"
 #include "platform/window.hpp"
 
 namespace wmoge {
@@ -38,12 +38,12 @@ namespace wmoge {
      */
     class WindowManager {
     public:
-        virtual ~WindowManager()                                               = default;
-        virtual void                     poll_events()                         = 0;
-        virtual fast_vector<Ref<Window>> windows()                             = 0;
-        virtual Ref<Window>              primary_window()                      = 0;
-        virtual Ref<Window>              create(const WindowInfo& window_info) = 0;
-        virtual Ref<Window>              get(const Strid& window_id)           = 0;
+        virtual ~WindowManager()                                                   = default;
+        virtual void                         poll_events()                         = 0;
+        virtual buffered_vector<Ref<Window>> windows()                             = 0;
+        virtual Ref<Window>                  primary_window()                      = 0;
+        virtual Ref<Window>                  create(const WindowInfo& window_info) = 0;
+        virtual Ref<Window>                  get(const Strid& window_id)           = 0;
     };
 
 }// namespace wmoge

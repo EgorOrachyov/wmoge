@@ -28,7 +28,7 @@
 #ifndef WMOGE_LUA_SCRIPT_HPP
 #define WMOGE_LUA_SCRIPT_HPP
 
-#include "core/fast_map.hpp"
+#include "core/flat_map.hpp"
 #include "resource/script.hpp"
 #include "scripting/lua/lua_defs.hpp"
 
@@ -51,15 +51,15 @@ namespace wmoge {
         bool                has_property(const Strid& property) override;
         bool                has_method(const Strid& method) override;
 
-        const fast_map<Strid, luabridge::LuaRef>& get_lua_properties();
-        const fast_map<Strid, luabridge::LuaRef>& get_lua_methods();
+        const flat_map<Strid, luabridge::LuaRef>& get_lua_properties();
+        const flat_map<Strid, luabridge::LuaRef>& get_lua_methods();
         const std::optional<luabridge::LuaRef>&   get_lua_class();
         class LuaScriptSystem*                    get_system();
         lua_State*                                get_state();
 
     private:
-        fast_map<Strid, luabridge::LuaRef> m_lua_properties;
-        fast_map<Strid, luabridge::LuaRef> m_lua_methods;
+        flat_map<Strid, luabridge::LuaRef> m_lua_properties;
+        flat_map<Strid, luabridge::LuaRef> m_lua_methods;
         std::optional<luabridge::LuaRef>   m_lua_class;
         class LuaScriptSystem*             m_system = nullptr;
         lua_State*                         m_state  = nullptr;

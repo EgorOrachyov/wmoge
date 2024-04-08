@@ -108,7 +108,7 @@ namespace wmoge {
         m_data.faces.push_back(face);
     }
 
-    void ArrayMesh::pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, fast_vector<GfxVertStream>& streams) const {
+    void ArrayMesh::pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, buffered_vector<GfxVertStream>& streams) const {
         const void* attribs_data[] = {
                 m_data.pos3.data(),
                 m_data.pos2.data(),

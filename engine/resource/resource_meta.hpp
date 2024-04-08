@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/class.hpp"
-#include "core/fast_vector.hpp"
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
 #include "io/serialization.hpp"
@@ -48,7 +48,7 @@ namespace wmoge {
         UUID                       uuid;
         Strid                      cls;
         Strid                      loader;
-        fast_vector<Strid>         deps;
+        buffered_vector<Strid>     deps;
         std::string                description;
         std::optional<std::string> path_on_disk;
 
@@ -65,7 +65,7 @@ namespace wmoge {
         class Class*               cls     = nullptr;
         class ResourcePak*         pak     = nullptr;
         class ResourceLoader*      loader  = nullptr;
-        fast_vector<Strid>         deps;
+        buffered_vector<Strid>     deps;
         std::optional<std::string> path_on_disk;
         std::optional<YamlTree>    import_options;
     };
