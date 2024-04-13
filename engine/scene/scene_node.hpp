@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "asset/asset_ref.hpp"
 #include "core/array_view.hpp"
 #include "core/class.hpp"
 #include "core/object.hpp"
@@ -37,7 +38,6 @@
 #include "io/serialization.hpp"
 #include "math/math_utils3d.hpp"
 #include "math/transform.hpp"
-#include "resource/resource_ref.hpp"
 #include "scene/scene_entity.hpp"
 
 #include <functional>
@@ -85,7 +85,7 @@ namespace wmoge {
         UUID                            uuid;
         SceneNodeType                   type;
         TransformEdt                    transform;
-        ResourceId                      prefab;
+        AssetId                         prefab;
         std::vector<Ref<SceneNodeProp>> properties;
         std::optional<UUID>             parent;
 

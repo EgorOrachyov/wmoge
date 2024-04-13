@@ -27,10 +27,10 @@
 
 #pragma once
 
+#include "asset/image.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "math/vec.hpp"
-#include "resource/image.hpp"
 
 namespace wmoge {
 

@@ -27,10 +27,10 @@
 
 #include "assimp_plugin.hpp"
 
-#include "assimp_resource_loader.hpp"
+#include "asset/asset_manager.hpp"
+#include "assimp_asset_loader.hpp"
 #include "core/log.hpp"
 #include "core/status.hpp"
-#include "resource/resource_manager.hpp"
 #include "system/ioc_container.hpp"
 
 namespace wmoge {
@@ -43,10 +43,10 @@ namespace wmoge {
     }
 
     Status AssimpPlugin::on_register() {
-        IocContainer*    ioc_container    = IocContainer::instance();
-        ResourceManager* resource_manager = ioc_container->resolve_v<ResourceManager>();
+        IocContainer* ioc_container = IocContainer::instance();
+        AssetManager* asset_manager = ioc_container->resolve_v<AssetManager>();
 
-        resource_manager->add_loader(std::make_shared<AssimpResourceLoader>());
+        asset_manager->add_loader(std::make_shared<AssimpAssetLoader>());
 
         WG_LOG_INFO("init assimp plugin");
 

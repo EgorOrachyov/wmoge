@@ -27,6 +27,8 @@
 
 #include "console.hpp"
 
+#include "asset/asset_manager.hpp"
+#include "asset/config_file.hpp"
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
 #include "debug/profiler.hpp"
@@ -40,8 +42,6 @@
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 #include "render/canvas.hpp"
-#include "resource/config_file.hpp"
-#include "resource/resource_manager.hpp"
 #include "system/engine.hpp"
 
 #include <algorithm>
@@ -400,11 +400,11 @@ namespace wmoge {
         WG_AUTO_PROFILE_DEBUG("Console::load_settings");
 
         auto engine  = Engine::instance();
-        auto res_man = engine->resource_manager();
+        auto res_man = engine->asset_manager();
         auto config  = engine->config();
 
         m_canvas       = engine->canvas_debug();
-        m_console_font = res_man->load(SID(config->get_string(SID("debug.console.font"), "res://fonts/anonymous_pro"))).cast<Font>();
+        m_console_font = res_man->load(SID(config->get_string(SID("debug.console.font"), "asset://fonts/anonymous_pro"))).cast<Font>();
         m_margin_line  = m_margin + m_console_font->get_string_size("> ", m_text_size).x();
 
         config->get(SID("debug.console.color_back"), m_color_back);

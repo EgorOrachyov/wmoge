@@ -27,11 +27,11 @@
 
 #pragma once
 
+#include "asset/config_file.hpp"
 #include "core/cmd_line.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
 #include "platform/application.hpp"
-#include "resource/config_file.hpp"
 #include "system/hook.hpp"
 #include "system/ioc_container.hpp"
 

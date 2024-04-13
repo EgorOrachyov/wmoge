@@ -27,6 +27,8 @@
 
 #include "shader_manager.hpp"
 
+#include "asset/config_file.hpp"
+#include "asset/shader.hpp"
 #include "core/string_utils.hpp"
 #include "debug/console.hpp"
 #include "debug/profiler.hpp"
@@ -36,8 +38,6 @@
 #include "io/enum.hpp"
 #include "platform/file_system.hpp"
 #include "render/shader_builder.hpp"
-#include "resource/config_file.hpp"
-#include "resource/shader.hpp"
 #include "system/engine.hpp"
 
 // built-in passes

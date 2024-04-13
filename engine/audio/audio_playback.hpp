@@ -28,10 +28,10 @@
 #ifndef WMOGE_AUDIO_PLAYBACK_HPP
 #define WMOGE_AUDIO_PLAYBACK_HPP
 
+#include "asset/audio_stream.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "math/vec.hpp"
-#include "resource/audio_stream.hpp"
 
 namespace wmoge {
 

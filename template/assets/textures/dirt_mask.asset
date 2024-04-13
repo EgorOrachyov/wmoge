@@ -1,0 +1,33 @@
+# Wmoge asset meta file
+version: 1
+uuid: 0
+loader: texture_2d
+class: Texture2d
+deps: [ ]
+description: ""
+params:
+  source_file: "asset://textures/dirt_mask.png"
+  channels: 4
+  format: RGBA8
+  mipmaps: true
+  srgb: true
+  sampling:
+    min_lod: 0.0
+    max_lod: 32.0
+    max_anisotropy: 16.0
+    min_flt: Linear
+    mag_flt: LinearMipmapNearest
+    u: Repeat
+    v: Repeat
+    w: Repeat
+    brd_clr: Black
+  compression:
+    use_channel_weighting: false
+    weight_red: 0.3
+    weight_green: 0.4
+    weight_blue: 0.3
+    use_adaptive_weighting: false
+    use_alpha: false
+    alpha_threshold: 128
+    fquality: 0.05
+    num_threads: 4

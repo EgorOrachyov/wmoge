@@ -27,9 +27,9 @@
 
 #pragma once
 
+#include "asset/font.hpp"
 #include "core/status.hpp"
 #include "core/string_utils.hpp"
-#include "resource/font.hpp"
 
 namespace wmoge {
 

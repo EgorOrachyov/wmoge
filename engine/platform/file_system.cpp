@@ -56,8 +56,8 @@ namespace wmoge {
 
     const std::string PREFIX_ROOT = "root://";
 
-    const std::string PREFIX_RES = "res://";
-    const std::string REMAP_RES  = "root://resources/";
+    const std::string PREFIX_ASSET = "asset://";
+    const std::string REMAP_ASSET  = "root://assets/";
 
     const std::string PREFIX_ENG = "eng://";
     const std::string REMAP_ENG  = "root://.wgengine/";
@@ -81,7 +81,7 @@ namespace wmoge {
 
         root(m_executable_path.parent_path());
 
-        add_rule({PREFIX_RES, REMAP_RES});
+        add_rule({PREFIX_ASSET, REMAP_ASSET});
         add_rule({PREFIX_ENG, REMAP_ENG});
         add_rule({PREFIX_CACHE, REMAP_CACHE});
         add_rule({PREFIX_DEBUG, REMAP_DEBUG});
@@ -357,14 +357,14 @@ namespace wmoge {
     void FileSystem::root(const std::filesystem::path& path) {
         m_root_path = path;
 
-        m_resources_path = m_root_path / "resources";
-        m_eng_path       = m_root_path / ".wgengine";
-        m_cache_path     = m_eng_path / "cache";
-        m_debug_path     = m_eng_path / "debug";
-        m_log_path       = m_eng_path / "logs";
+        m_assets_path = m_root_path / "assets";
+        m_eng_path    = m_root_path / ".wgengine";
+        m_cache_path  = m_eng_path / "cache";
+        m_debug_path  = m_eng_path / "debug";
+        m_log_path    = m_eng_path / "logs";
 
-        if (!std::filesystem::exists(m_resources_path))
-            std::filesystem::create_directories(m_resources_path);
+        if (!std::filesystem::exists(m_assets_path))
+            std::filesystem::create_directories(m_assets_path);
         if (!std::filesystem::exists(m_cache_path))
             std::filesystem::create_directories(m_cache_path);
         if (!std::filesystem::exists(m_debug_path))

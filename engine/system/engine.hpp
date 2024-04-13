@@ -71,7 +71,7 @@ namespace wmoge {
         class FileSystem*        file_system();
         class TaskManager*       task_manager();
         class EventManager*      event_manager();
-        class ResourceManager*   resource_manager();
+        class AssetManager*      asset_manager();
         class WindowManager*     window_manager();
         class Input*             input();
         class GfxDriver*         gfx_driver();
@@ -111,7 +111,7 @@ namespace wmoge {
         class FileSystem*        m_file_system        = nullptr;
         class TaskManager*       m_task_manager       = nullptr;
         class EventManager*      m_event_manager      = nullptr;
-        class ResourceManager*   m_resource_manager   = nullptr;
+        class AssetManager*      m_asset_manager      = nullptr;
         class WindowManager*     m_window_manager     = nullptr;
         class Input*             m_input              = nullptr;
         class GfxDriver*         m_gfx_driver         = nullptr;

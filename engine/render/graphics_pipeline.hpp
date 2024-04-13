@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include "asset/asset_ref.hpp"
+#include "asset/texture.hpp"
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
@@ -38,8 +40,6 @@
 #include "render/camera.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
-#include "resource/resource_ref.hpp"
-#include "resource/texture.hpp"
 
 #include <string>
 #include <vector>
@@ -59,7 +59,7 @@ namespace wmoge {
         float uspample_weight     = 0.4f;
         float dirt_mask_intensity = 3.0f;
 
-        std::optional<ResRef<Texture2d>> dirt_mask;
+        std::optional<AssetRef<Texture2d>> dirt_mask;
 
         WG_IO_DECLARE(BloomSettings);
     };
@@ -125,7 +125,7 @@ namespace wmoge {
      * @class GraphicsPipelineShared
      * @brief Shared state of pipeline required for rendering
     */
-    struct GraphicsPipelineResources {
+    struct GraphicsPipelineAssets {
         Ref<GfxTexture> depth;       //< [full] Scene geometry depth buffer
         Ref<GfxTexture> primitive_id;//< [full] Rendered primitive id for gbuffer effects and picking
         Ref<GfxTexture> velocity;    //< [full] Velocity buffer
@@ -173,7 +173,7 @@ namespace wmoge {
 
         [[nodiscard]] ArrayView<GraphicsPipelineStage*> get_stages() { return m_stages; }
         [[nodiscard]] const GraphicsPipelineSettings&   get_settings() { return m_settings; }
-        [[nodiscard]] const GraphicsPipelineResources&  get_resources() { return m_resources; }
+        [[nodiscard]] const GraphicsPipelineAssets&     get_assets() { return m_assets; }
         [[nodiscard]] ArrayView<struct RenderView>      get_views() const { return m_views; }
         [[nodiscard]] CameraList*                       get_cameras() const { return m_cameras; }
         [[nodiscard]] RenderScene*                      get_scene() const { return m_scene; }
@@ -181,7 +181,7 @@ namespace wmoge {
     protected:
         std::vector<GraphicsPipelineStage*> m_stages;
         GraphicsPipelineSettings            m_settings;
-        GraphicsPipelineResources           m_resources;
+        GraphicsPipelineAssets              m_assets;
         ArrayView<struct RenderView>        m_views;
         CameraList*                         m_cameras;
         RenderScene*                        m_scene;

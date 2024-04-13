@@ -27,10 +27,10 @@
 
 #include "freetype_font.hpp"
 
+#include "asset/image.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "platform/file_system.hpp"
-#include "resource/image.hpp"
 #include "system/engine.hpp"
 
 #include <freetype/freetype.h>
@@ -38,14 +38,14 @@
 namespace wmoge {
 
     Status FreetypeFont::load(const Ref<Font>& font, const std::string& path, int height, int glyphs_in_row) {
-        WG_AUTO_PROFILE_RESOURCE("FreetypeFont::load");
+        WG_AUTO_PROFILE_ASSET("FreetypeFont::load");
 
         static const int GLYPHS_SIZE_SHIFT    = 6;
         static const int GLYPHS_BITMAP_OFFSET = 2;
 
         std::vector<std::uint8_t> ttf_data;
         if (!Engine::instance()->file_system()->read_file(path, ttf_data)) {
-            WG_LOG_ERROR("failed to load font data from resource pak " << path);
+            WG_LOG_ERROR("failed to load font data from asset pak " << path);
             return StatusCode::FailedRead;
         }
 

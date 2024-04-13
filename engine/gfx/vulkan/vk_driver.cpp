@@ -27,6 +27,7 @@
 
 #include "vk_driver.hpp"
 
+#include "asset/config_file.hpp"
 #include "core/string_utils.hpp"
 #include "core/task.hpp"
 #include "debug/profiler.hpp"
@@ -37,7 +38,6 @@
 #include "gfx/vulkan/vk_shader.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 #include "platform/file_system.hpp"
-#include "resource/config_file.hpp"
 #include "system/engine.hpp"
 
 #include <cassert>

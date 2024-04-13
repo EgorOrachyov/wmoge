@@ -429,21 +429,21 @@ namespace wmoge {
         GfxDescSetResources resources;
         {
             {
-                auto& resource = resources.emplace_back();
-                auto& point    = resource.first;
+                auto& asset    = resources.emplace_back();
+                auto& point    = asset.first;
                 point.type     = GfxBindingType::UniformBuffer;
                 point.binding  = ShaderCanvas::PARAMS_SLOT;
-                auto& value    = resource.second;
+                auto& value    = asset.second;
                 value.resource = m_params.as<GfxResource>();
                 value.offset   = 0;
                 value.range    = m_params->size();
             }
             {
-                auto& resource = resources.emplace_back();
-                auto& point    = resource.first;
+                auto& asset    = resources.emplace_back();
+                auto& point    = asset.first;
                 point.type     = GfxBindingType::StorageBuffer;
                 point.binding  = ShaderCanvas::DRAWCMDSDATA_SLOT;
-                auto& value    = resource.second;
+                auto& value    = asset.second;
                 value.resource = m_gpu_cmd_buffer.get_buffer().as<GfxResource>();
                 value.offset   = 0;
                 value.range    = m_gpu_cmd_buffer.get_buffer()->size();

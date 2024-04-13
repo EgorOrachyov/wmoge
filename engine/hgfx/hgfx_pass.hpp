@@ -61,7 +61,7 @@ namespace wmoge {
         virtual bool compile(GfxCtx* ctx);
 
         /**
-         * @brief Configures state binding all required resources to gfx
+         * @brief Configures state binding all required assets to gfx
          *
          * @note Must be called only after successful `compile call`
          * @note Must be called inside render pass

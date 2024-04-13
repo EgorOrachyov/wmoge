@@ -27,12 +27,12 @@
 
 #pragma once
 
-#include "resource/image.hpp"
+#include "asset/image.hpp"
 
 namespace wmoge {
 
     /**
-     * @brief Available texture resources sizes for optimized memory usage
+     * @brief Available texture assets sizes for optimized memory usage
     */
     enum GrcTexSizePreset {
         None = 0,

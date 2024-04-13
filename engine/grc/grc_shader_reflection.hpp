@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "asset/shader.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
@@ -40,7 +41,6 @@
 #include "gfx/gfx_texture.hpp"
 #include "io/serialization.hpp"
 #include "platform/file_system.hpp"
-#include "resource/shader.hpp"
 
 #include <cinttypes>
 #include <filesystem>
@@ -234,7 +234,7 @@ namespace wmoge {
 
     /**
      * @class GrcShaderSpace
-     * @brief Contains interface resources for a single descriptor set 
+     * @brief Contains interface assets for a single descriptor set 
     */
     struct GrcShaderSpace {
         Strid                             name;

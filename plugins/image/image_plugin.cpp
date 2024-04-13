@@ -27,10 +27,10 @@
 
 #include "image_plugin.hpp"
 
+#include "asset/asset_manager.hpp"
 #include "core/log.hpp"
 #include "core/status.hpp"
-#include "image_resource_loader.hpp"
-#include "resource/resource_manager.hpp"
+#include "image_asset_loader.hpp"
 #include "system/ioc_container.hpp"
 
 namespace wmoge {
@@ -43,10 +43,10 @@ namespace wmoge {
     }
 
     Status ImagePlugin::on_register() {
-        IocContainer*    ioc_container    = IocContainer::instance();
-        ResourceManager* resource_manager = ioc_container->resolve_v<ResourceManager>();
+        IocContainer* ioc_container = IocContainer::instance();
+        AssetManager* asset_manager = ioc_container->resolve_v<AssetManager>();
 
-        resource_manager->add_loader(std::make_shared<ImageResourceLoader>());
+        asset_manager->add_loader(std::make_shared<ImageAssetLoader>());
 
         WG_LOG_INFO("init image plugin");
 

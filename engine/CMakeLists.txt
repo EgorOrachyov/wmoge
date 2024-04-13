@@ -97,8 +97,8 @@ add_library(wmoge STATIC
         event/event_token.hpp
         event/event_window.cpp
         event/event_window.hpp
-        event/event_resource.cpp
-        event/event_resource.hpp
+        event/event_asset.cpp
+        event/event_asset.hpp
         event/event_scene.cpp
         event/event_scene.hpp
         event/register_classes_event.cpp
@@ -330,57 +330,57 @@ add_library(wmoge STATIC
         render/view.hpp
         render/view_manager.cpp
         render/view_manager.hpp
-        resource/array_mesh.cpp
-        resource/array_mesh.hpp
-        resource/audio_stream.cpp
-        resource/audio_stream.hpp
-        resource/audio_stream_wav.cpp
-        resource/audio_stream_wav.hpp
-        resource/font.cpp
-        resource/font.hpp
-        resource/config_file.cpp
-        resource/config_file.hpp
-        resource/image.cpp
-        resource/image.hpp
-        resource/material.cpp
-        resource/material.hpp
-        resource/mesh.cpp
-        resource/mesh.hpp
-        resource/model.cpp
-        resource/model.hpp
-        resource/pfx_effect.cpp
-        resource/pfx_effect.hpp
-        resource/prefab.cpp
-        resource/prefab.hpp
-        resource/resource.cpp
-        resource/resource.hpp
-        resource/resource_loader.hpp
-        resource/resource_manager.cpp
-        resource/resource_manager.hpp
-        resource/resource_meta.cpp
-        resource/resource_meta.hpp
-        resource/resource_pak.hpp
-        resource/resource_ref.hpp
-        resource/scene_packed.cpp
-        resource/scene_packed.hpp
-        resource/scene_tree_packed.cpp
-        resource/scene_tree_packed.hpp
-        resource/script.cpp
-        resource/script.hpp
-        resource/shader.cpp
-        resource/shader.hpp
-        resource/texture.cpp
-        resource/texture.hpp
-        resource/register_classes_resource.cpp
-        resource/register_classes_resource.hpp
-        resource/loaders/resource_loader_default.cpp
-        resource/loaders/resource_loader_default.hpp
-        resource/loaders/resource_loader_texture.cpp
-        resource/loaders/resource_loader_texture.hpp
-        resource/loaders/resource_loader_wav.cpp
-        resource/loaders/resource_loader_wav.hpp
-        resource/paks/resource_pak_fs.cpp
-        resource/paks/resource_pak_fs.hpp
+        asset/array_mesh.cpp
+        asset/array_mesh.hpp
+        asset/audio_stream.cpp
+        asset/audio_stream.hpp
+        asset/audio_stream_wav.cpp
+        asset/audio_stream_wav.hpp
+        asset/font.cpp
+        asset/font.hpp
+        asset/config_file.cpp
+        asset/config_file.hpp
+        asset/image.cpp
+        asset/image.hpp
+        asset/material.cpp
+        asset/material.hpp
+        asset/mesh.cpp
+        asset/mesh.hpp
+        asset/model.cpp
+        asset/model.hpp
+        asset/pfx_effect.cpp
+        asset/pfx_effect.hpp
+        asset/prefab.cpp
+        asset/prefab.hpp
+        asset/asset.cpp
+        asset/asset.hpp
+        asset/asset_loader.hpp
+        asset/asset_manager.cpp
+        asset/asset_manager.hpp
+        asset/asset_meta.cpp
+        asset/asset_meta.hpp
+        asset/asset_pak.hpp
+        asset/asset_ref.hpp
+        asset/scene_packed.cpp
+        asset/scene_packed.hpp
+        asset/scene_tree_packed.cpp
+        asset/scene_tree_packed.hpp
+        asset/script.cpp
+        asset/script.hpp
+        asset/shader.cpp
+        asset/shader.hpp
+        asset/texture.cpp
+        asset/texture.hpp
+        asset/register_classes_asset.cpp
+        asset/register_classes_asset.hpp
+        asset/loaders/asset_loader_default.cpp
+        asset/loaders/asset_loader_default.hpp
+        asset/loaders/asset_loader_texture.cpp
+        asset/loaders/asset_loader_texture.hpp
+        asset/loaders/asset_loader_wav.cpp
+        asset/loaders/asset_loader_wav.hpp
+        asset/paks/asset_pak_fs.cpp
+        asset/paks/asset_pak_fs.hpp
         rtti/callable.cpp
         rtti/callable.hpp
         rtti/class.cpp
@@ -440,8 +440,8 @@ add_library(wmoge STATIC
         scripting/lua_bindings/lua_bindings_math.hpp
         scripting/lua_bindings/lua_bindings_platform.cpp
         scripting/lua_bindings/lua_bindings_platform.hpp
-        scripting/lua_bindings/lua_bindings_resource.cpp
-        scripting/lua_bindings/lua_bindings_resource.hpp
+        scripting/lua_bindings/lua_bindings_asset.cpp
+        scripting/lua_bindings/lua_bindings_asset.hpp
         scripting/lua_bindings/lua_bindings_scene.cpp
         scripting/lua_bindings/lua_bindings_scene.hpp
         system/engine.cpp

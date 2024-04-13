@@ -27,9 +27,9 @@
 
 #include "scene_tree.hpp"
 
+#include "asset/prefab.hpp"
 #include "core/class.hpp"
 #include "debug/profiler.hpp"
-#include "resource/prefab.hpp"
 #include "scene/scene_manager.hpp"
 #include "system/engine.hpp"
 

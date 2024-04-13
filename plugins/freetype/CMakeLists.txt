@@ -5,8 +5,8 @@ set(PLUGIN_SOURCES
     freetype_font.hpp
     freetype_plugin.cpp
     freetype_plugin.hpp
-    freetype_resource_loader.cpp
-    freetype_resource_loader.hpp)
+    freetype_asset_loader.cpp
+    freetype_asset_loader.hpp)
 
 wmoge_plugin(${PLUGIN_NAME} 
     INCLUDES ${CMAKE_CURRENT_LIST_DIR}/ 

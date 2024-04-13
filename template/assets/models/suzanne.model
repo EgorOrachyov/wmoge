@@ -1,0 +1,13 @@
+objs:
+  - material: "asset://materials/test_material_1"
+    mesh_idx: 0
+    chunk_idx: 0
+    name: "root"
+meshes:
+  - "asset://mesh/suzanne"
+lod:
+ ranges:
+   - 0 1  
+lod_settings:
+ minimum_lod: 0 
+ num_of_lods: 1

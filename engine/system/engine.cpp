@@ -27,6 +27,8 @@
 
 #include "engine.hpp"
 
+#include "asset/asset_manager.hpp"
+#include "asset/config_file.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
@@ -61,8 +63,6 @@
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
 #include "render/view_manager.hpp"
-#include "resource/config_file.hpp"
-#include "resource/resource_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
 #include "scripting/lua/lua_script_system.hpp"
@@ -131,7 +131,7 @@ namespace wmoge {
         m_shader_manager   = ioc->resolve_v<ShaderManager>();
         m_texture_manager  = ioc->resolve_v<GrcTextureManager>();
         m_render_engine    = ioc->resolve_v<RenderEngine>();
-        m_resource_manager = ioc->resolve_v<ResourceManager>();
+        m_asset_manager    = ioc->resolve_v<AssetManager>();
         m_ecs_registry     = ioc->resolve_v<EcsRegistry>();
         m_aux_draw_manager = ioc->resolve_v<AuxDrawManager>();
         m_scene_manager    = ioc->resolve_v<SceneManager>();
@@ -237,7 +237,7 @@ namespace wmoge {
     FileSystem*        Engine::file_system() { return m_file_system; }
     TaskManager*       Engine::task_manager() { return m_task_manager; }
     EventManager*      Engine::event_manager() { return m_event_manager; }
-    ResourceManager*   Engine::resource_manager() { return m_resource_manager; }
+    AssetManager*      Engine::asset_manager() { return m_asset_manager; }
     WindowManager*     Engine::window_manager() { return m_window_manager; }
     Input*             Engine::input() { return m_input; }
     GfxDriver*         Engine::gfx_driver() { return m_gfx_driver; }

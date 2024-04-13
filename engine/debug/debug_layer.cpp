@@ -69,7 +69,7 @@ namespace wmoge {
             auto scene_manager = engine->scene_manager();
             auto scene         = scene_manager->get_running_scene();
 
-            auto font = engine->resource_manager()->load(SID("res://fonts/anonymous_pro")).cast<Font>();
+            auto font = engine->asset_manager()->load(SID("asset://fonts/anonymous_pro")).cast<Font>();
 
             const float fps = Math::round(Math::clamp(1.0f / time->get_delta_time_game(), 0.0f, 1000.0f));
 

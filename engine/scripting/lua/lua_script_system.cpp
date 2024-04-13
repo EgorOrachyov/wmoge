@@ -27,9 +27,9 @@
 
 #include "lua_script_system.hpp"
 
+#include "asset/script.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
-#include "resource/script.hpp"
 #include "scripting/lua/lua_event_script.hpp"
 #include "scripting/lua/lua_script.hpp"
 #include "scripting/lua_bindings/lua_bindings.hpp"
@@ -61,7 +61,7 @@ namespace wmoge {
         LuaBindings::bind_core(ns, m_object_to_lua);
         LuaBindings::bind_platform(ns, m_object_to_lua);
         LuaBindings::bind_event(ns, m_object_to_lua);
-        LuaBindings::bind_resource(ns, m_object_to_lua);
+        LuaBindings::bind_asset(ns, m_object_to_lua);
         LuaBindings::bind_gameplay(ns, m_object_to_lua);
         LuaBindings::bind_scene(ns, m_object_to_lua);
         ns = ns.endNamespace();

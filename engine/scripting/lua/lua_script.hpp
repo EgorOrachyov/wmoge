@@ -28,8 +28,8 @@
 #ifndef WMOGE_LUA_SCRIPT_HPP
 #define WMOGE_LUA_SCRIPT_HPP
 
+#include "asset/script.hpp"
 #include "core/flat_map.hpp"
-#include "resource/script.hpp"
 #include "scripting/lua/lua_defs.hpp"
 
 #include <optional>

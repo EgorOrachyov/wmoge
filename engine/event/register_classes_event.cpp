@@ -29,9 +29,9 @@
 
 #include "event/event.hpp"
 #include "event/event_action.hpp"
+#include "event/event_asset.hpp"
 #include "event/event_filesystem.hpp"
 #include "event/event_input.hpp"
-#include "event/event_resource.hpp"
 #include "event/event_scene.hpp"
 #include "event/event_script.hpp"
 #include "event/event_token.hpp"
@@ -48,7 +48,7 @@ namespace wmoge {
         EventDrop::register_class();
         EventWindow::register_class();
         EventAction::register_class();
-        EventResource::register_class();
+        EventAsset::register_class();
         EventSceneNode::register_class();
         EventToken::register_class();
         EventScript::register_class();

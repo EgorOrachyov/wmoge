@@ -27,6 +27,8 @@
 
 #include "application.hpp"
 
+#include "asset/asset_manager.hpp"
+#include "asset/config_file.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
@@ -61,8 +63,6 @@
 #include "render/render_engine.hpp"
 #include "render/shader_manager.hpp"
 #include "render/view_manager.hpp"
-#include "resource/config_file.hpp"
-#include "resource/resource_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
 #include "scripting/lua/lua_script_system.hpp"
@@ -72,9 +72,9 @@
 #include "system/ioc_container.hpp"
 #include "system/layer.hpp"
 
+#include "asset/register_classes_asset.hpp"
 #include "event/register_classes_event.hpp"
 #include "pfx/register_classes_pfx.hpp"
-#include "resource/register_classes_resource.hpp"
 #include "scene/register_classes_scene.hpp"
 #include "system/plugin_manager.hpp"
 
@@ -96,7 +96,7 @@ namespace wmoge {
         ioc->bind<GrcTextureManager>();
         ioc->bind<GrcShaderManager>();
         ioc->bind<RenderEngine>();
-        ioc->bind<ResourceManager>();
+        ioc->bind<AssetManager>();
         ioc->bind<EcsRegistry>();
         ioc->bind<AuxDrawManager>();
         ioc->bind<SceneManager>();
@@ -174,7 +174,7 @@ namespace wmoge {
         ioc->unbind<ViewManager>();
         ioc->unbind<ActionManager>();
         ioc->unbind<SceneManager>();
-        ioc->unbind<ResourceManager>();
+        ioc->unbind<AssetManager>();
         ioc->unbind<ShaderManager>();
         ioc->unbind<GrcShaderManager>();
         ioc->unbind<GrcTextureManager>();
@@ -193,7 +193,7 @@ namespace wmoge {
     static void register_classes() {
         Class::register_types();
         register_classes_event();
-        register_classes_resource();
+        register_classes_asset();
         register_classes_pfx();
         register_classes_scene();
     }

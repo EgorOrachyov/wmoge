@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "asset/font.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
@@ -34,7 +35,6 @@
 #include "math/quat.hpp"
 #include "math/vec.hpp"
 #include "platform/window.hpp"
-#include "resource/font.hpp"
 
 #include <deque>
 #include <memory>

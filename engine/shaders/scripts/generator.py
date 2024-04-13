@@ -400,10 +400,10 @@ class CodeGeneratorPass:
         sources += "void fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader) override {\n"
 
         for set_num in range(MAX_SETS):
-            resources = self.shader.set_resources(set_num)
+            assets = self.shader.set_assets(set_num)
 
             if self.shader.material_set and set_num == self.shader.material_set:
-                assert len(resources) == 0
+                assert len(assets) == 0
 
                 sources += f"// fill set num = {set_num}" "\n"
                 sources += "if (shader) {\n"
@@ -412,33 +412,33 @@ class CodeGeneratorPass:
                 sources += "}\n"
                 continue
 
-            if len(resources) > 0:
+            if len(assets) > 0:
                 sources += f"// fill set num = {set_num}" "\n"
                 sources += "{\n"
                 sources += "auto& layout = layouts_desc.emplace_back();\n"
 
                 var = ""
-                resource_type = ""
+                asset_type = ""
 
-                for resource in resources:
-                    if isinstance(resource, reflection.Sampler):
-                        var = f"binding_{resource.name}"
-                        resource_type = "SampledTexture"
-                    if isinstance(resource, reflection.Image):
-                        var = f"binding_{resource.name}"
-                        resource_type = "StorageImage"
-                    if isinstance(resource, reflection.UniformBuffer):
-                        var = f"binding_{resource.name}"
-                        resource_type = "UniformBuffer"
-                    if isinstance(resource, reflection.StorageBuffer):
-                        var = f"binding_{resource.name}"
-                        resource_type = "StorageBuffer"
+                for asset in assets:
+                    if isinstance(asset, reflection.Sampler):
+                        var = f"binding_{asset.name}"
+                        asset_type = "SampledTexture"
+                    if isinstance(asset, reflection.Image):
+                        var = f"binding_{asset.name}"
+                        asset_type = "StorageImage"
+                    if isinstance(asset, reflection.UniformBuffer):
+                        var = f"binding_{asset.name}"
+                        asset_type = "UniformBuffer"
+                    if isinstance(asset, reflection.StorageBuffer):
+                        var = f"binding_{asset.name}"
+                        asset_type = "StorageBuffer"
 
                     sources += f"auto& {var} = layout.emplace_back();\n"
-                    sources += f"{var}.name = " f'SID("{resource.name}");\n'
-                    sources += f"{var}.binding = {resource.binding.slot_num};\n"
+                    sources += f"{var}.name = " f'SID("{asset.name}");\n'
+                    sources += f"{var}.binding = {asset.binding.slot_num};\n"
                     sources += f"{var}.count = {1};\n"
-                    sources += f"{var}.type = GfxBindingType::{resource_type};\n"
+                    sources += f"{var}.type = GfxBindingType::{asset_type};\n"
 
                 sources += "}\n"
                 continue

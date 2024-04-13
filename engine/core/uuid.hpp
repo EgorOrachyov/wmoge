@@ -41,7 +41,7 @@ namespace wmoge {
 
     /**
      * @class UUID
-     * @brief Unique 8-byte long identifier for in-game objects and resources
+     * @brief Unique 8-byte long identifier for in-game objects and assets
      */
     class UUID {
     public:

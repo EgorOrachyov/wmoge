@@ -59,7 +59,7 @@ namespace wmoge {
         GfxIndexBufferSetup index_buffer;                        //< Optional index buffer with batch indices
         RenderCameraMask    cam_mask;                            //< Mask in which cameras mesh batch wants to be rendered
         class Material*     material    = nullptr;               //< Material to apply to rendered elements
-        class GfxDescSet*   mesh_params = nullptr;               //< Mesh descriptor set with batch common resources
+        class GfxDescSet*   mesh_params = nullptr;               //< Mesh descriptor set with batch common assets
         class MeshPassList* pass_list   = nullptr;               //< Cached list with mesh passes for faster RenderCmd generation
         GfxPrimType         prim_type   = GfxPrimType::Triangles;//< Type of primitives to render
         float               dist        = 0.0f;                  //< Distance from camera for sorting

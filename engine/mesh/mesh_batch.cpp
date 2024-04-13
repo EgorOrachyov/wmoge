@@ -27,6 +27,8 @@
 
 #include "mesh_batch.hpp"
 
+#include "asset/material.hpp"
+#include "asset/shader.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "mesh/mesh_bucket.hpp"
@@ -34,8 +36,6 @@
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
-#include "resource/material.hpp"
-#include "resource/shader.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

@@ -27,13 +27,13 @@
 
 #pragma once
 
+#include "asset/shader.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "platform/file_system.hpp"
-#include "resource/shader.hpp"
 
 namespace wmoge {
 
@@ -59,7 +59,7 @@ namespace wmoge {
          * @brief Compile a gfx shader for this specific shader pass
          *
          * @param name Shader unique name
-         * @param driver Gfx driver for resources creation
+         * @param driver Gfx driver for assets creation
          * @param attribs Vertex used attributes in the shader
          * @param defines Additional defines for compilation
          * @param shader Optional material user shader
@@ -79,7 +79,7 @@ namespace wmoge {
          */
         virtual Status reload_sources(const std::string& folder, FileSystem* file_system) = 0;
 
-        /** @brief fills pipeline required layout with optional shader passed for material resources */
+        /** @brief fills pipeline required layout with optional shader passed for material assets */
         virtual void fill_layout(GfxDescSetLayoutDescs& layouts_desc, Shader* shader){};
 
         /** @brief get vertex shader code if present */

@@ -45,7 +45,7 @@ namespace wmoge {
 
     /**
      * @class Object
-     * @brief Base class for any scene tree object or resource with reflection support
+     * @brief Base class for any scene tree object or asset with reflection support
      *
      * Object is a thin as possible class which comes with only thread-safe reference
      * counting and single virtual table pointer overhead. The object provides an interface

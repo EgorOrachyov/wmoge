@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include "asset/asset_ref.hpp"
+#include "asset/model.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/class.hpp"
 #include "core/ref.hpp"
@@ -39,8 +41,6 @@
 #include "render/culling.hpp"
 #include "render/graphics_pipeline.hpp"
 #include "render/render_scene.hpp"
-#include "resource/model.hpp"
-#include "resource/resource_ref.hpp"
 #include "scene/scene_components.hpp"
 
 #include <memory>

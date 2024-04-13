@@ -58,7 +58,7 @@ namespace wmoge {
 
     /**
      * @class GrcTextureManager
-     * @brief Render core manager for gfx texture resources
+     * @brief Render core manager for gfx texture assets
     */
     class GrcTextureManager {
     public:

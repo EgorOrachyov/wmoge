@@ -218,7 +218,7 @@ class Shader:
     def filter_files(self, filter_string):
         return [file for file in self.files if filter_string in file]
 
-    def set_resources(self, set_num):
+    def set_assets(self, set_num):
         return (
             [buffer for buffer in self.buffers if buffer.binding.set_num == set_num]
             + [

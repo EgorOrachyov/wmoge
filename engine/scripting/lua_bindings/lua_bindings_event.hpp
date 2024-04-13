@@ -33,10 +33,10 @@
 
 #include "event/event.hpp"
 #include "event/event_action.hpp"
+#include "event/event_asset.hpp"
 #include "event/event_input.hpp"
 #include "event/event_listener.hpp"
 #include "event/event_manager.hpp"
-#include "event/event_resource.hpp"
 #include "event/event_token.hpp"
 #include "event/event_window.hpp"
 #include "system/engine.hpp"

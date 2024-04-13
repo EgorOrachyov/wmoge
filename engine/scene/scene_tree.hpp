@@ -27,13 +27,13 @@
 
 #pragma once
 
+#include "asset/asset.hpp"
+#include "asset/asset_ref.hpp"
+#include "asset/prefab.hpp"
 #include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "io/serialization.hpp"
 #include "io/yaml.hpp"
-#include "resource/prefab.hpp"
-#include "resource/resource.hpp"
-#include "resource/resource_ref.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_node.hpp"
 

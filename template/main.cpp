@@ -57,9 +57,9 @@ public:
         Engine::instance()->action_manager()->activate(SID("console"));
         Engine::instance()->action_manager()->activate(SID("camera_debug"));
 
-        model = Engine::instance()->resource_manager()->load(SID("res://models/suzanne")).cast<Model>();
+        model = Engine::instance()->asset_manager()->load(SID("asset://models/suzanne")).cast<Model>();
 
-        auto scene_tree_packed = Engine::instance()->resource_manager()->load(SID("res://trees/test_scene")).cast<SceneTreePacked>();
+        auto scene_tree_packed = Engine::instance()->asset_manager()->load(SID("asset://trees/test_scene")).cast<SceneTreePacked>();
         scene_tree             = scene_tree_packed->instantiate();
         scene                  = scene_tree->get_scene();
 
@@ -78,7 +78,7 @@ public:
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
 
-        auto shader  = Engine::instance()->resource_manager()->load(SID("res://shaders/test_shader")).cast<Shader>();
+        auto shader  = Engine::instance()->asset_manager()->load(SID("asset://shaders/test_shader")).cast<Shader>();
         auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {"MESH_PASS_GBUFFER"});
 
         while (variant->status() == GfxShaderStatus::Compiling) {
@@ -107,7 +107,7 @@ public:
         GrcShaderManager* shader_manager = IocContainer::instance()->resolve_v<GrcShaderManager>();
 
         GrcShaderScriptFile shader_script_file;
-        YamlTree            yaml_tree = yaml_parse_file("res://../../shaders/canvas.shader");
+        YamlTree            yaml_tree = yaml_parse_file("asset://../../shaders/canvas.shader");
         WG_YAML_READ(yaml_tree.crootref(), shader_script_file);
 
         shader_manager->load_script(shader_script_file);

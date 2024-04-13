@@ -27,6 +27,8 @@
 
 #include "aux_draw_manager.hpp"
 
+#include "asset/asset_manager.hpp"
+#include "asset/config_file.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/log.hpp"
 #include "debug/profiler.hpp"
@@ -34,8 +36,6 @@
 #include "hgfx/hgfx_pass_base.hpp"
 #include "hgfx/hgfx_pass_text.hpp"
 #include "math/math_utils3d.hpp"
-#include "resource/config_file.hpp"
-#include "resource/resource_manager.hpp"
 #include "system/engine.hpp"
 
 #include <algorithm>
@@ -461,12 +461,12 @@ namespace wmoge {
     AuxDrawManager::AuxDrawManager() {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::AuxDrawManager");
 
-        Engine*          engine           = Engine::instance();
-        ResourceManager* resource_manager = engine->resource_manager();
-        ConfigFile*      config           = engine->config();
+        Engine*       engine        = Engine::instance();
+        AssetManager* asset_manager = engine->asset_manager();
+        ConfigFile*   config        = engine->config();
 
-        std::string font_name = config->get_string(SID("render.aux.font"), "res://fonts/consolas");
-        m_font                = resource_manager->load(SID(font_name)).cast<Font>();
+        std::string font_name = config->get_string(SID("render.aux.font"), "asset://fonts/consolas");
+        m_font                = asset_manager->load(SID(font_name)).cast<Font>();
 
         m_screen_size.values[0] = config->get_float(SID("render.aux.screen_width"), 1280.0f);
         m_screen_size.values[1] = config->get_float(SID("render.aux.screen_height"), 720.0f);

@@ -91,7 +91,7 @@ namespace wmoge {
 
     void LuaBindings::bind_event(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping) {
         bind_enum<WindowNotification>(ns, "WindowNotification");
-        bind_enum<ResourceNotification>(ns, "ResourceNotification");
+        bind_enum<AssetNotification>(ns, "AssetNotification");
         bind_enum<TokenNotification>(ns, "TokenNotification");
 
         ns = ns.beginNamespace("EventManager")
