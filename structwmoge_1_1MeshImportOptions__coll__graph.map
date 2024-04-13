@@ -1,4 +1,4 @@
 <map id="wmoge::MeshImportOptions" name="wmoge::MeshImportOptions">
-<area shape="rect" id="node1" title="Options to import mesh resource from external resource format." alt="" coords="5,109,189,136"/>
+<area shape="rect" id="node1" title="Options to import mesh asset from external asset format." alt="" coords="5,109,189,136"/>
 <area shape="rect" id="node2" href="$structwmoge_1_1MeshImportOptions_1_1Process.html" title="Controls post&#45;process of imported mesh." alt="" coords="5,5,189,47"/>
 </map>

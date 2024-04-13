@@ -1,9 +1,9 @@
 <map id="wmoge::Texture2d" name="wmoge::Texture2d">
-<area shape="rect" id="node1" title="2d gpu texture resource" alt="" coords="1021,137,1148,163"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture resource which can be used for rendering." alt="" coords="859,137,972,163"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="556,13,681,39"/>
+<area shape="rect" id="node1" title="2d gpu texture asset" alt="" coords="1021,137,1148,163"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture asset which can be used for rendering." alt="" coords="859,137,972,163"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="567,13,671,39"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="323,5,473,47"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="165,13,273,39"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="165,13,273,39"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,13,116,39"/>
 <area shape="rect" id="node7" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="544,64,693,105"/>
 <area shape="rect" id="node8" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="523,129,715,171"/>

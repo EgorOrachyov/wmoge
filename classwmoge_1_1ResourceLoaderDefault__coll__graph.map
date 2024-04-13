@@ -1,4 +1,0 @@
-<map id="wmoge::ResourceLoaderDefault" name="wmoge::ResourceLoaderDefault">
-<area shape="rect" id="node1" title="Loader for default single&#45;file resources stored in yaml format." alt="" coords="5,80,212,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="26,5,191,32"/>
-</map>

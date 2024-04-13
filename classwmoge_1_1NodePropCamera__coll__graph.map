@@ -1,7 +1,7 @@
 <map id="wmoge::NodePropCamera" name="wmoge::NodePropCamera">
 <area shape="rect" id="node1" title=" " alt="" coords="99,260,272,287"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1SceneNodeProp.html" title="An property of the node which can be assigned to node to customize it." alt="" coords="5,171,171,197"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="34,81,142,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="34,81,142,108"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,5,143,32"/>
 <area shape="rect" id="node5" href="$structwmoge_1_1SceneDataCamera.html" title="Serializable struct with camera data for a scene entity." alt="" coords="195,171,373,197"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="185,81,343,108"/>

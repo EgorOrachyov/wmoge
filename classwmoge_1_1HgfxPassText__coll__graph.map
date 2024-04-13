@@ -1,7 +1,7 @@
 <map id="wmoge::HgfxPassText" name="wmoge::HgfxPassText">
 <area shape="rect" id="node1" title="Render simple 2d text on a screen with blending support." alt="" coords="620,123,772,149"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="345,5,471,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="165,5,273,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="165,5,273,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="333,57,483,98"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="323,123,493,149"/>

@@ -2,7 +2,7 @@
 <area shape="rect" id="node1" title="Gamepad mapped input." alt="" coords="75,337,233,364"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1EventInput.html" title="Base class for input events." alt="" coords="5,241,137,267"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1Event.html" title="Event holding some data which can be processed by listeners." alt="" coords="20,157,123,184"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="17,81,125,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="17,81,125,108"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="16,5,127,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="162,233,311,275"/>
 </map>

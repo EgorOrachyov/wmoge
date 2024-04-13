@@ -131,11 +131,11 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstracts access to the engine and game files directory. </p>
-<p><a class="el" href="classwmoge_1_1File.html" title="Interface for platform or virtual file type.">File</a> system abstracts the way how engine files are stored on a target machine. It uses '/' as a universal delimiter and directory separator. It provides a domain prefix in a form of <code>&lt;PREFIX&gt;://&lt;PATH&gt;</code> to specify paths. Standards prefixes are <code>root://</code>, <code>eng://</code>, <code>res://</code> and <code>cache://</code>. This prefixes must be used for all paths to access engine files.</p>
+<p><a class="el" href="classwmoge_1_1File.html" title="Interface for platform or virtual file type.">File</a> system abstracts the way how engine files are stored on a target machine. It uses '/' as a universal delimiter and directory separator. It provides a domain prefix in a form of <code>&lt;PREFIX&gt;://&lt;PATH&gt;</code> to specify paths. Standards prefixes are <code>root://</code>, <code>eng://</code>, <code>asset://</code> and <code>cache://</code>. This prefixes must be used for all paths to access engine files.</p>
 <p>Prefixes description:</p><ul>
 <li><code>root://</code> prefix to a file relative to the running game main directory</li>
 <li><code>eng://</code> prefix to a file relative to the engine private files directory</li>
-<li><code>res://</code> prefix relative to engine resources directory</li>
+<li><code>asset://</code> prefix relative to engine assets directory</li>
 <li><code>cache://</code> prefix relative to engine cache directory for a cached files</li>
 <li><code>logs://</code> prefix relative to engine logs directory </li>
 </ul>

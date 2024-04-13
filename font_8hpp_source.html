@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/resource/font.hpp Source File</title>
+<title>wmoge: engine/asset/font.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_15fc65921b8713fb556d30e882510e5d.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,15 +98,15 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__sampler_8hpp.html">gfx/gfx_sampler.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__texture_8hpp.html">gfx/gfx_texture.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image_8hpp.html">resource/image.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture_8hpp.html">resource/texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="asset_8hpp.html">asset/asset.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image_8hpp.html">asset/image.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture_8hpp.html">asset/texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="buffered__vector_8hpp.html">core/buffered_vector.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="flat__map_8hpp.html">core/flat_map.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__sampler_8hpp.html">gfx/gfx_sampler.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__texture_8hpp.html">gfx/gfx_texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
@@ -145,9 +145,9 @@ $(function() {
 <div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structwmoge_1_1FontDesc.html#ac83bd555a02794e968a3bbc316d17e0d">   89</a></span>&#160;        <span class="keywordtype">int</span>                      <a class="code" href="structwmoge_1_1FontDesc.html#ac83bd555a02794e968a3bbc316d17e0d">max_width</a>     = -1;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    };</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classwmoge_1_1Font.html">  101</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Font.html">Font</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Resource.html">Resource</a> {</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="classwmoge_1_1Font.html">  101</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Font.html">Font</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Asset.html">Asset</a> {</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classwmoge_1_1Font.html#ab9603837492931de03e1834285036390">  103</a></span>&#160;        <a class="code" href="classwmoge_1_1Font.html#ab9603837492931de03e1834285036390">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Font.html">Font</a>, <a class="code" href="classwmoge_1_1Resource.html">Resource</a>);</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classwmoge_1_1Font.html#ae846b6c6d995505f2d9157240a2a1d3d">  103</a></span>&#160;        <a class="code" href="classwmoge_1_1Font.html#ae846b6c6d995505f2d9157240a2a1d3d">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Font.html">Font</a>, <a class="code" href="classwmoge_1_1Asset.html">Asset</a>);</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Font.html#a247f558906ad5e47be2f062356455fae">init</a>(<span class="keyword">const</span> <a class="code" href="structwmoge_1_1FontDesc.html">FontDesc</a>&amp; desc);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
@@ -179,8 +179,10 @@ $(function() {
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    };</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aasset_8hpp_html"><div class="ttname"><a href="asset_8hpp.html">asset.hpp</a></div></div>
 <div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
-<div class="ttc" id="aclasswmoge_1_1Font_html"><div class="ttname"><a href="classwmoge_1_1Font.html">wmoge::Font</a></div><div class="ttdoc">Font resource for rendering texts from true type fonts.</div><div class="ttdef"><b>Definition:</b> font.hpp:101</div></div>
+<div class="ttc" id="aclasswmoge_1_1Asset_html"><div class="ttname"><a href="classwmoge_1_1Asset.html">wmoge::Asset</a></div><div class="ttdoc">Base class for any engine asset.</div><div class="ttdef"><b>Definition:</b> asset.hpp:92</div></div>
+<div class="ttc" id="aclasswmoge_1_1Font_html"><div class="ttname"><a href="classwmoge_1_1Font.html">wmoge::Font</a></div><div class="ttdoc">Font asset for rendering texts from true type fonts.</div><div class="ttdef"><b>Definition:</b> font.hpp:101</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_a0b1053ff758715eff10a080ebdb9942b"><div class="ttname"><a href="classwmoge_1_1Font.html#a0b1053ff758715eff10a080ebdb9942b">wmoge::Font::to_string</a></div><div class="ttdeci">std::string to_string() override</div><div class="ttdef"><b>Definition:</b> font.cpp:97</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_a159df093e46cc232066a28d869c57d8b"><div class="ttname"><a href="classwmoge_1_1Font.html#a159df093e46cc232066a28d869c57d8b">wmoge::Font::get_max_width</a></div><div class="ttdeci">int get_max_width()</div><div class="ttdef"><b>Definition:</b> font.hpp:135</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_a24080290cb9b3cb7a5805f78e35e9be9"><div class="ttname"><a href="classwmoge_1_1Font.html#a24080290cb9b3cb7a5805f78e35e9be9">wmoge::Font::get_height</a></div><div class="ttdeci">int get_height()</div><div class="ttdef"><b>Definition:</b> font.hpp:133</div></div>
@@ -192,13 +194,12 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Font_html_a8c30942b3b1570ece4855bfc6cdcf873"><div class="ttname"><a href="classwmoge_1_1Font.html#a8c30942b3b1570ece4855bfc6cdcf873">wmoge::Font::copy_to</a></div><div class="ttdeci">Status copy_to(Object &amp;copy) const override</div><div class="ttdef"><b>Definition:</b> font.cpp:85</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_a91f5ada27d989546f6142ab37a85f963"><div class="ttname"><a href="classwmoge_1_1Font.html#a91f5ada27d989546f6142ab37a85f963">wmoge::Font::get_texture</a></div><div class="ttdeci">const Ref&lt; Texture2d &gt; &amp; get_texture()</div><div class="ttdef"><b>Definition:</b> font.hpp:130</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_a98f4f23db9f2495673d5f396bc6d96f9"><div class="ttname"><a href="classwmoge_1_1Font.html#a98f4f23db9f2495673d5f396bc6d96f9">wmoge::Font::get_glyphs_in_row</a></div><div class="ttdeci">int get_glyphs_in_row()</div><div class="ttdef"><b>Definition:</b> font.hpp:134</div></div>
-<div class="ttc" id="aclasswmoge_1_1Font_html_ab9603837492931de03e1834285036390"><div class="ttname"><a href="classwmoge_1_1Font.html#ab9603837492931de03e1834285036390">wmoge::Font::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Font, Resource)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_acaec47b43d7bc7c01b599db5232bc644"><div class="ttname"><a href="classwmoge_1_1Font.html#acaec47b43d7bc7c01b599db5232bc644">wmoge::Font::get_family_name</a></div><div class="ttdeci">const std::string &amp; get_family_name()</div><div class="ttdef"><b>Definition:</b> font.hpp:127</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_ae53b8ce23c18f92f6ea47527b3b610c0"><div class="ttname"><a href="classwmoge_1_1Font.html#ae53b8ce23c18f92f6ea47527b3b610c0">wmoge::Font::get_glyphs</a></div><div class="ttdeci">const flat_map&lt; int, FontGlyph &gt; &amp; get_glyphs()</div><div class="ttdef"><b>Definition:</b> font.hpp:129</div></div>
+<div class="ttc" id="aclasswmoge_1_1Font_html_ae846b6c6d995505f2d9157240a2a1d3d"><div class="ttname"><a href="classwmoge_1_1Font.html#ae846b6c6d995505f2d9157240a2a1d3d">wmoge::Font::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Font, Asset)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Font_html_af25e341a8a87a1a50ca39d4a16a0c9ed"><div class="ttname"><a href="classwmoge_1_1Font.html#af25e341a8a87a1a50ca39d4a16a0c9ed">wmoge::Font::get_string_size</a></div><div class="ttdeci">Vec2f get_string_size(const std::string &amp;text, float size)</div><div class="ttdoc">Returns the size in pixels of a text in given font.</div><div class="ttdef"><b>Definition:</b> font.cpp:60</div></div>
-<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
+<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or asset with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html"><div class="ttname"><a href="classwmoge_1_1Resource.html">wmoge::Resource</a></div><div class="ttdoc">Base class for any engine resource.</div><div class="ttdef"><b>Definition:</b> resource.hpp:92</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="aclasswmoge_1_1TVecN_html"><div class="ttname"><a href="classwmoge_1_1TVecN.html">wmoge::TVecN&lt; int, 2 &gt;</a></div></div>
 <div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
@@ -206,12 +207,11 @@ $(function() {
 <div class="ttc" id="agfx__texture_8hpp_html"><div class="ttname"><a href="gfx__texture_8hpp.html">gfx_texture.hpp</a></div></div>
 <div class="ttc" id="aimage_8hpp_html"><div class="ttname"><a href="image_8hpp.html">image.hpp</a></div></div>
 <div class="ttc" id="anamespacetext_html"><div class="ttname"><a href="namespacetext.html">text</a></div><div class="ttdef"><b>Definition:</b> text.py:1</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> array_mesh.cpp:35</div></div>
 <div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html_adb7d63d477753bf293887047703c6caf"><div class="ttname"><a href="namespacewmoge.html#adb7d63d477753bf293887047703c6caf">wmoge::FontTextAlignment</a></div><div class="ttdeci">FontTextAlignment</div><div class="ttdoc">Alignment of text for layout.</div><div class="ttdef"><b>Definition:</b> font.hpp:59</div></div>
 <div class="ttc" id="anamespacewmoge_html_adb7d63d477753bf293887047703c6cafa4f1f6016fc9f3f2353c0cc7c67b292bd"><div class="ttname"><a href="namespacewmoge.html#adb7d63d477753bf293887047703c6cafa4f1f6016fc9f3f2353c0cc7c67b292bd">wmoge::FontTextAlignment::Center</a></div><div class="ttdeci">@ Center</div></div>
 <div class="ttc" id="anamespacewmoge_html_adb7d63d477753bf293887047703c6cafa945d5e233cf7d6240f6b783b36a374ff"><div class="ttname"><a href="namespacewmoge.html#adb7d63d477753bf293887047703c6cafa945d5e233cf7d6240f6b783b36a374ff">wmoge::FontTextAlignment::Left</a></div><div class="ttdeci">@ Left</div></div>
-<div class="ttc" id="aresource_8hpp_html"><div class="ttname"><a href="resource_8hpp.html">resource.hpp</a></div></div>
 <div class="ttc" id="aserialization_8hpp_html"><div class="ttname"><a href="serialization_8hpp.html">serialization.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1FontDesc_html"><div class="ttname"><a href="structwmoge_1_1FontDesc.html">wmoge::FontDesc</a></div><div class="ttdoc">Describes font data internal.</div><div class="ttdef"><b>Definition:</b> font.hpp:81</div></div>
 <div class="ttc" id="astructwmoge_1_1FontDesc_html_a245f4a299875f0cafb6203ca0631b30f"><div class="ttname"><a href="structwmoge_1_1FontDesc.html#a245f4a299875f0cafb6203ca0631b30f">wmoge::FontDesc::family_name</a></div><div class="ttdeci">std::string family_name</div><div class="ttdef"><b>Definition:</b> font.hpp:84</div></div>
@@ -229,7 +229,7 @@ $(function() {
 <div class="ttc" id="astructwmoge_1_1FontGlyph_html_aa937348a0c345ff9cc66d6fcaf2ec6bd"><div class="ttname"><a href="structwmoge_1_1FontGlyph.html#aa937348a0c345ff9cc66d6fcaf2ec6bd">wmoge::FontGlyph::advance</a></div><div class="ttdeci">Vec2i advance</div><div class="ttdef"><b>Definition:</b> font.hpp:71</div></div>
 <div class="ttc" id="astructwmoge_1_1FontGlyph_html_ab1e92edfe398a88e9bf3ee4720f22ce4"><div class="ttname"><a href="structwmoge_1_1FontGlyph.html#ab1e92edfe398a88e9bf3ee4720f22ce4">wmoge::FontGlyph::size</a></div><div class="ttdeci">Size2i size</div><div class="ttdef"><b>Definition:</b> font.hpp:69</div></div>
 <div class="ttc" id="astructwmoge_1_1FontGlyph_html_acb46d7375f8ab6e9afd49ad1f4de811e"><div class="ttname"><a href="structwmoge_1_1FontGlyph.html#acb46d7375f8ab6e9afd49ad1f4de811e">wmoge::FontGlyph::bitmap_uv0</a></div><div class="ttdeci">Vec2f bitmap_uv0</div><div class="ttdef"><b>Definition:</b> font.hpp:72</div></div>
-<div class="ttc" id="astructwmoge_1_1FontImportOptions_html"><div class="ttname"><a href="structwmoge_1_1FontImportOptions.html">wmoge::FontImportOptions</a></div><div class="ttdoc">Options to import a font resource.</div><div class="ttdef"><b>Definition:</b> font.hpp:48</div></div>
+<div class="ttc" id="astructwmoge_1_1FontImportOptions_html"><div class="ttname"><a href="structwmoge_1_1FontImportOptions.html">wmoge::FontImportOptions</a></div><div class="ttdoc">Options to import a font asset.</div><div class="ttdef"><b>Definition:</b> font.hpp:48</div></div>
 <div class="ttc" id="astructwmoge_1_1FontImportOptions_html_a029256fdaaaba9eb0074e1210c177728"><div class="ttname"><a href="structwmoge_1_1FontImportOptions.html#a029256fdaaaba9eb0074e1210c177728">wmoge::FontImportOptions::source_file</a></div><div class="ttdeci">std::string source_file</div><div class="ttdef"><b>Definition:</b> font.hpp:49</div></div>
 <div class="ttc" id="astructwmoge_1_1FontImportOptions_html_a1d645f1d9dc270ec09665b08c64f5df7"><div class="ttname"><a href="structwmoge_1_1FontImportOptions.html#a1d645f1d9dc270ec09665b08c64f5df7">wmoge::FontImportOptions::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition:</b> font.hpp:50</div></div>
 <div class="ttc" id="astructwmoge_1_1FontImportOptions_html_a6948b2b27b457ecae48be4836659e273"><div class="ttname"><a href="structwmoge_1_1FontImportOptions.html#a6948b2b27b457ecae48be4836659e273">wmoge::FontImportOptions::WG_IO_DECLARE</a></div><div class="ttdeci">WG_IO_DECLARE(FontImportOptions)</div></div>

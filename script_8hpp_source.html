@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/resource/script.hpp Source File</title>
+<title>wmoge: engine/asset/script.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_15fc65921b8713fb556d30e882510e5d.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,14 +98,14 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="asset_8hpp.html">asset/asset.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__instance_8hpp.html">scripting/script_instance.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classwmoge_1_1Script.html">   55</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Script.html">Script</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Resource.html">Resource</a> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="classwmoge_1_1Script.html">   55</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Script.html">Script</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Asset.html">Asset</a> {</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Script.html">Script</a>, <a class="code" href="classwmoge_1_1Resource.html">Resource</a>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="classwmoge_1_1Asset.html#a45f5971dbf4819e7ca22846bedb5dab8">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Script.html">Script</a>, <a class="code" href="classwmoge_1_1Asset.html">Asset</a>)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Script.html#a3dd6f21046b69bb533b3ad23fffc0f04">read_from_yaml</a>(<span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&amp; node) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Script.html#a2808eba6061131b859c69660031c6ef6">copy_to</a>(<a class="code" href="classwmoge_1_1Object.html">Object</a>&amp; other) <span class="keyword">const override</span>;</div>
@@ -125,10 +125,11 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
+<div class="ttc" id="aasset_8hpp_html"><div class="ttname"><a href="asset_8hpp.html">asset.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1Asset_html"><div class="ttname"><a href="classwmoge_1_1Asset.html">wmoge::Asset</a></div><div class="ttdoc">Base class for any engine asset.</div><div class="ttdef"><b>Definition:</b> asset.hpp:92</div></div>
+<div class="ttc" id="aclasswmoge_1_1Asset_html_a45f5971dbf4819e7ca22846bedb5dab8"><div class="ttname"><a href="classwmoge_1_1Asset.html#a45f5971dbf4819e7ca22846bedb5dab8">wmoge::Asset::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Asset, Object)</div></div>
+<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or asset with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html"><div class="ttname"><a href="classwmoge_1_1Resource.html">wmoge::Resource</a></div><div class="ttdoc">Base class for any engine resource.</div><div class="ttdef"><b>Definition:</b> resource.hpp:92</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html_ad6cb22c023c2c0220f269599b7d13122"><div class="ttname"><a href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">wmoge::Resource::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Resource, Object)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Script_html"><div class="ttname"><a href="classwmoge_1_1Script.html">wmoge::Script</a></div><div class="ttdoc">Base class for any script which can be used to extend an object logic.</div><div class="ttdef"><b>Definition:</b> script.hpp:55</div></div>
 <div class="ttc" id="aclasswmoge_1_1Script_html_a0d943776888c388f2994e5211b0b088d"><div class="ttname"><a href="classwmoge_1_1Script.html#a0d943776888c388f2994e5211b0b088d">wmoge::Script::get_mask</a></div><div class="ttdeci">ScriptFunctionsMask get_mask()</div><div class="ttdef"><b>Definition:</b> script.cpp:58</div></div>
 <div class="ttc" id="aclasswmoge_1_1Script_html_a2808eba6061131b859c69660031c6ef6"><div class="ttname"><a href="classwmoge_1_1Script.html#a2808eba6061131b859c69660031c6ef6">wmoge::Script::copy_to</a></div><div class="ttdeci">Status copy_to(Object &amp;other) const override</div><div class="ttdef"><b>Definition:</b> script.cpp:40</div></div>
@@ -143,9 +144,8 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Script_html_ade80c3d4dd36471ff09fe411f1d7febe"><div class="ttname"><a href="classwmoge_1_1Script.html#ade80c3d4dd36471ff09fe411f1d7febe">wmoge::Script::attach_to</a></div><div class="ttdeci">virtual Ref&lt; ScriptInstance &gt; attach_to(Object *object)</div><div class="ttdef"><b>Definition:</b> script.cpp:49</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> array_mesh.cpp:35</div></div>
 <div class="ttc" id="anamespacewmoge_html_a936fad1881d807f1e080d012bb1977c3"><div class="ttname"><a href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">wmoge::YamlConstNodeRef</a></div><div class="ttdeci">ryml::ConstNodeRef YamlConstNodeRef</div><div class="ttdoc">Constant reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:66</div></div>
-<div class="ttc" id="aresource_8hpp_html"><div class="ttname"><a href="resource_8hpp.html">resource.hpp</a></div></div>
 <div class="ttc" id="ascript__instance_8hpp_html"><div class="ttname"><a href="script__instance_8hpp.html">script_instance.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1Mask_html"><div class="ttname"><a href="structwmoge_1_1Mask.html">wmoge::Mask&lt; ScriptFunction &gt;</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

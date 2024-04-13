@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/resource/prefab.hpp File Reference</title>
+<title>wmoge: engine/asset/prefab.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_15fc65921b8713fb556d30e882510e5d.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,83 +72,83 @@ $(function() {
 <div class="title">prefab.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="async_8hpp_source.html">core/async.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="asset_8hpp_source.html">asset/asset.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="async_8hpp_source.html">core/async.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="yaml_8hpp_source.html">io/yaml.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="resource_8hpp_source.html">resource/resource.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="scene__node_8hpp_source.html">scene/scene_node.hpp</a>&quot;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for prefab.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="prefab_8hpp__incl.png" border="0" usemap="#aengine_2resource_2prefab_8hpp" alt=""/></div>
-<map name="aengine_2resource_2prefab_8hpp" id="aengine_2resource_2prefab_8hpp">
-<area shape="rect" title=" " alt="" coords="1520,5,1698,32"/>
-<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="790,304,900,331"/>
-<area shape="rect" title=" " alt="" coords="644,528,710,555"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="2366,453,2452,480"/>
-<area shape="rect" href="resource_8hpp.html" title=" " alt="" coords="1618,229,1768,256"/>
-<area shape="rect" href="scene__node_8hpp.html" title=" " alt="" coords="1874,80,2029,107"/>
-<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="876,379,1014,405"/>
-<area shape="rect" title=" " alt="" coords="988,603,1054,629"/>
-<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="1396,379,1560,405"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1494,528,1585,555"/>
-<area shape="rect" title=" " alt="" coords="3530,677,3608,704"/>
-<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="250,528,414,555"/>
-<area shape="rect" title=" " alt="" coords="978,453,1067,480"/>
-<area shape="rect" title=" " alt="" coords="818,677,883,704"/>
-<area shape="rect" title=" " alt="" coords="1376,603,1434,629"/>
-<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1903,453,2006,480"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1970,528,2062,555"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="2188,528,2299,555"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2519,603,2643,629"/>
-<area shape="rect" title=" " alt="" coords="1793,528,1844,555"/>
-<area shape="rect" title=" " alt="" coords="2912,528,2967,555"/>
-<area shape="rect" title=" " alt="" coords="3381,528,3456,555"/>
-<area shape="rect" title=" " alt="" coords="3043,528,3154,555"/>
-<area shape="rect" title=" " alt="" coords="3896,677,3951,704"/>
-<area shape="rect" title=" " alt="" coords="1509,603,1570,629"/>
-<area shape="rect" title=" " alt="" coords="1137,677,1220,704"/>
-<area shape="rect" title=" " alt="" coords="2391,603,2443,629"/>
-<area shape="rect" title=" " alt="" coords="2432,677,2501,704"/>
-<area shape="rect" title=" " alt="" coords="2476,528,2596,555"/>
-<area shape="rect" title=" " alt="" coords="1609,528,1718,555"/>
-<area shape="rect" title=" " alt="" coords="2620,528,2691,555"/>
-<area shape="rect" title=" " alt="" coords="2715,528,2810,555"/>
-<area shape="rect" title=" " alt="" coords="2834,528,2888,555"/>
-<area shape="rect" title=" " alt="" coords="33,603,217,629"/>
-<area shape="rect" title=" " alt="" coords="242,603,392,629"/>
-<area shape="rect" title=" " alt="" coords="417,603,558,629"/>
-<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="3092,453,3198,480"/>
-<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="1788,379,1905,405"/>
-<area shape="rect" href="core_2object_8hpp.html" title=" " alt="" coords="1980,379,2091,405"/>
-<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="2166,379,2265,405"/>
-<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="420,453,548,480"/>
-<area shape="rect" href="event_8hpp.html" title=" " alt="" coords="2390,304,2505,331"/>
-<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="1585,379,1713,405"/>
-<area shape="rect" href="ecs__core_8hpp.html" title=" " alt="" coords="3532,379,3656,405"/>
-<area shape="rect" href="ecs__entity_8hpp.html" title=" " alt="" coords="3732,304,3862,331"/>
-<area shape="rect" href="event__scene_8hpp.html" title=" " alt="" coords="2310,155,2466,181"/>
-<area shape="rect" href="math__utils3d_8hpp.html" title=" " alt="" coords="1066,229,1219,256"/>
-<area shape="rect" href="transform_8hpp.html" title=" " alt="" coords="1240,155,1375,181"/>
-<area shape="rect" href="resource__ref_8hpp.html" title=" " alt="" coords="1647,155,1819,181"/>
-<area shape="rect" href="scene__entity_8hpp.html" title=" " alt="" coords="3582,155,3740,181"/>
+<div class="center"><img src="prefab_8hpp__incl.png" border="0" usemap="#aengine_2asset_2prefab_8hpp" alt=""/></div>
+<map name="aengine_2asset_2prefab_8hpp" id="aengine_2asset_2prefab_8hpp">
+<area shape="rect" title=" " alt="" coords="901,5,1061,32"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="1451,229,1565,256"/>
+<area shape="rect" title=" " alt="" coords="923,528,989,555"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="2991,453,3078,480"/>
+<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="472,304,581,331"/>
+<area shape="rect" href="scene__node_8hpp.html" title=" " alt="" coords="2513,80,2668,107"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="1337,379,1501,405"/>
+<area shape="rect" title=" " alt="" coords="2430,677,2495,704"/>
+<area shape="rect" title=" " alt="" coords="3969,677,4023,704"/>
+<area shape="rect" title=" " alt="" coords="1397,603,1456,629"/>
+<area shape="rect" title=" " alt="" coords="2651,677,2730,704"/>
+<area shape="rect" title=" " alt="" coords="1577,677,1660,704"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2326,603,2450,629"/>
+<area shape="rect" title=" " alt="" coords="4417,677,4487,704"/>
+<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="2268,379,2375,405"/>
+<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="2399,379,2516,405"/>
+<area shape="rect" href="core_2object_8hpp.html" title=" " alt="" coords="1926,379,2037,405"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="3845,379,3944,405"/>
+<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="296,453,424,480"/>
+<area shape="rect" href="event_8hpp.html" title=" " alt="" coords="2019,304,2133,331"/>
+<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="2591,379,2719,405"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="2595,453,2698,480"/>
+<area shape="rect" title=" " alt="" coords="753,453,842,480"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="2603,528,2695,555"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1491,528,1581,555"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="2719,528,2830,555"/>
+<area shape="rect" title=" " alt="" coords="2905,528,2956,555"/>
+<area shape="rect" title=" " alt="" coords="3114,528,3169,555"/>
+<area shape="rect" title=" " alt="" coords="3833,528,3908,555"/>
+<area shape="rect" title=" " alt="" coords="2214,528,2325,555"/>
+<area shape="rect" title=" " alt="" coords="2041,603,2109,629"/>
+<area shape="rect" title=" " alt="" coords="1203,603,1269,629"/>
+<area shape="rect" title=" " alt="" coords="1859,603,1911,629"/>
+<area shape="rect" title=" " alt="" coords="3345,528,3465,555"/>
+<area shape="rect" title=" " alt="" coords="2980,528,3089,555"/>
+<area shape="rect" title=" " alt="" coords="3490,528,3561,555"/>
+<area shape="rect" title=" " alt="" coords="3585,528,3679,555"/>
+<area shape="rect" title=" " alt="" coords="3703,528,3758,555"/>
+<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="1893,453,1987,480"/>
+<area shape="rect" title=" " alt="" coords="2467,453,2571,480"/>
+<area shape="rect" title=" " alt="" coords="1627,453,1666,480"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="246,528,410,555"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="550,379,687,405"/>
+<area shape="rect" href="asset__ref_8hpp.html" title=" " alt="" coords="1019,155,1155,181"/>
+<area shape="rect" href="ecs__core_8hpp.html" title=" " alt="" coords="4051,379,4175,405"/>
+<area shape="rect" href="ecs__entity_8hpp.html" title=" " alt="" coords="4285,304,4416,331"/>
+<area shape="rect" href="event__scene_8hpp.html" title=" " alt="" coords="2242,155,2398,181"/>
+<area shape="rect" href="math__utils3d_8hpp.html" title=" " alt="" coords="2743,229,2897,256"/>
+<area shape="rect" href="transform_8hpp.html" title=" " alt="" coords="2587,155,2722,181"/>
+<area shape="rect" href="scene__entity_8hpp.html" title=" " alt="" coords="4050,155,4209,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="prefab_8hpp__dep__incl.png" border="0" usemap="#aengine_2resource_2prefab_8hppdep" alt=""/></div>
-<map name="aengine_2resource_2prefab_8hppdep" id="aengine_2resource_2prefab_8hppdep">
-<area shape="rect" title=" " alt="" coords="287,5,466,32"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="391,266,517,293"/>
-<area shape="rect" href="prefab_8cpp.html" title=" " alt="" coords="107,87,286,114"/>
-<area shape="rect" href="register__classes__resource_8cpp.html" title=" " alt="" coords="5,259,167,300"/>
-<area shape="rect" href="scene__node_8cpp.html" title=" " alt="" coords="75,169,214,211"/>
-<area shape="rect" href="scene__tree_8cpp.html" title=" " alt="" coords="638,169,777,211"/>
-<area shape="rect" href="scene__tree_8hpp.html" title=" " alt="" coords="361,80,499,121"/>
-<area shape="rect" href="scene__tree__packed_8hpp.html" title=" " alt="" coords="239,169,392,211"/>
-<area shape="rect" href="register__classes__scene_8cpp.html" title=" " alt="" coords="467,169,614,211"/>
-<area shape="rect" href="scene__tree__packed_8cpp.html" title=" " alt="" coords="213,259,367,300"/>
+<div class="center"><img src="prefab_8hpp__dep__incl.png" border="0" usemap="#aengine_2asset_2prefab_8hppdep" alt=""/></div>
+<map name="aengine_2asset_2prefab_8hppdep" id="aengine_2asset_2prefab_8hppdep">
+<area shape="rect" title=" " alt="" coords="336,5,496,32"/>
+<area shape="rect" href="prefab_8cpp.html" title=" " alt="" coords="5,87,165,114"/>
+<area shape="rect" href="register__classes__asset_8cpp.html" title=" " alt="" coords="183,259,326,300"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="537,266,663,293"/>
+<area shape="rect" href="scene__node_8cpp.html" title=" " alt="" coords="240,169,379,211"/>
+<area shape="rect" href="scene__tree_8cpp.html" title=" " alt="" coords="784,169,923,211"/>
+<area shape="rect" href="scene__tree_8hpp.html" title=" " alt="" coords="453,80,592,121"/>
+<area shape="rect" href="scene__tree__packed_8hpp.html" title=" " alt="" coords="403,169,538,211"/>
+<area shape="rect" href="register__classes__scene_8cpp.html" title=" " alt="" coords="613,169,760,211"/>
+<area shape="rect" href="scene__tree__packed_8cpp.html" title=" " alt="" coords="378,259,513,300"/>
 </map>
 </div>
 </div>
@@ -157,7 +157,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Prefab.html">wmoge::Prefab</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A prefab resource which can be instantiated into a set of objects.  <a href="classwmoge_1_1Prefab.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A prefab asset which can be instantiated into a set of objects.  <a href="classwmoge_1_1Prefab.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>

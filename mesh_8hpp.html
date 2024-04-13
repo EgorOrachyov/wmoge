@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/resource/mesh.hpp File Reference</title>
+<title>wmoge: engine/asset/mesh.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_15fc65921b8713fb556d30e882510e5d.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,7 +72,8 @@ $(function() {
 <div class="title">mesh.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="array__view_8hpp_source.html">core/array_view.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="asset_8hpp_source.html">asset/asset.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="array__view_8hpp_source.html">core/array_view.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="buffered__vector_8hpp_source.html">core/buffered_vector.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="data_8hpp_source.html">core/data.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mask_8hpp_source.html">core/mask.hpp</a>&quot;</code><br />
@@ -81,115 +82,114 @@ $(function() {
 <code>#include &quot;<a class="el" href="serialization_8hpp_source.html">io/serialization.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="aabb_8hpp_source.html">math/aabb.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vec_8hpp_source.html">math/vec.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="resource_8hpp_source.html">resource/resource.hpp</a>&quot;</code><br />
 <code>#include &lt;unordered_map&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for mesh.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="mesh_8hpp__incl.png" border="0" usemap="#aengine_2resource_2mesh_8hpp" alt=""/></div>
-<map name="aengine_2resource_2mesh_8hpp" id="aengine_2resource_2mesh_8hpp">
-<area shape="rect" title=" " alt="" coords="905,5,1080,32"/>
-<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="68,528,205,555"/>
-<area shape="rect" title=" " alt="" coords="497,603,555,629"/>
-<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="515,379,679,405"/>
-<area shape="rect" title=" " alt="" coords="1833,528,1944,555"/>
-<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1363,379,1463,405"/>
-<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="866,304,973,331"/>
-<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="979,80,1110,107"/>
-<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="1351,229,1467,256"/>
-<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="1801,379,1901,405"/>
-<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="957,229,1085,256"/>
-<area shape="rect" href="aabb_8hpp.html" title=" " alt="" coords="1693,229,1799,256"/>
-<area shape="rect" href="resource_8hpp.html" title=" " alt="" coords="2643,155,2793,181"/>
-<area shape="rect" title=" " alt="" coords="5,603,95,629"/>
-<area shape="rect" title=" " alt="" coords="2480,603,2545,629"/>
-<area shape="rect" title=" " alt="" coords="1125,677,1191,704"/>
-<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="1712,453,1815,480"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1567,453,1653,480"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1564,528,1656,555"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2595,528,2686,555"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="3015,528,3125,555"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="3167,603,3291,629"/>
-<area shape="rect" title=" " alt="" coords="534,528,585,555"/>
-<area shape="rect" title=" " alt="" coords="761,528,816,555"/>
-<area shape="rect" title=" " alt="" coords="2110,528,2185,555"/>
-<area shape="rect" title=" " alt="" coords="2019,528,2086,555"/>
-<area shape="rect" title=" " alt="" coords="2166,603,2235,629"/>
-<area shape="rect" title=" " alt="" coords="3643,677,3697,704"/>
-<area shape="rect" title=" " alt="" coords="2625,603,2686,629"/>
-<area shape="rect" title=" " alt="" coords="3189,677,3268,704"/>
-<area shape="rect" title=" " alt="" coords="2783,677,2866,704"/>
-<area shape="rect" title=" " alt="" coords="2380,603,2432,629"/>
-<area shape="rect" title=" " alt="" coords="3395,677,3465,704"/>
-<area shape="rect" title=" " alt="" coords="1025,528,1145,555"/>
-<area shape="rect" title=" " alt="" coords="841,528,950,555"/>
-<area shape="rect" title=" " alt="" coords="1169,528,1240,555"/>
-<area shape="rect" title=" " alt="" coords="1264,528,1359,555"/>
-<area shape="rect" title=" " alt="" coords="1383,528,1437,555"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2230,453,2369,480"/>
-<area shape="rect" title=" " alt="" coords="1190,453,1270,480"/>
-<area shape="rect" title=" " alt="" coords="2310,528,2369,555"/>
-<area shape="rect" title=" " alt="" coords="1294,453,1390,480"/>
-<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="1222,155,1363,181"/>
-<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="2249,304,2350,331"/>
-<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="3001,453,3107,480"/>
-<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="1507,379,1625,405"/>
-<area shape="rect" href="core_2object_8hpp.html" title=" " alt="" coords="2663,379,2773,405"/>
-<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="2863,379,2962,405"/>
-<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="2078,453,2206,480"/>
-<area shape="rect" href="event_8hpp.html" title=" " alt="" coords="3347,304,3462,331"/>
+<div class="center"><img src="mesh_8hpp__incl.png" border="0" usemap="#aengine_2asset_2mesh_8hpp" alt=""/></div>
+<map name="aengine_2asset_2mesh_8hpp" id="aengine_2asset_2mesh_8hpp">
+<area shape="rect" title=" " alt="" coords="3255,5,3411,32"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="2035,80,2149,107"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="3069,379,3233,405"/>
+<area shape="rect" title=" " alt="" coords="2551,603,2609,629"/>
+<area shape="rect" title=" " alt="" coords="2618,528,2729,555"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="3853,379,3953,405"/>
+<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="2409,229,2537,256"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="2941,304,3048,331"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="4039,528,4177,555"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="3410,379,3510,405"/>
+<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="3452,80,3583,107"/>
+<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="3399,229,3515,256"/>
+<area shape="rect" href="aabb_8hpp.html" title=" " alt="" coords="3940,229,4047,256"/>
+<area shape="rect" title=" " alt="" coords="2307,677,2373,704"/>
+<area shape="rect" title=" " alt="" coords="510,677,565,704"/>
+<area shape="rect" title=" " alt="" coords="750,677,829,704"/>
+<area shape="rect" title=" " alt="" coords="1243,677,1325,704"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="803,603,927,629"/>
+<area shape="rect" title=" " alt="" coords="1631,677,1700,704"/>
+<area shape="rect" title=" " alt="" coords="2308,528,2375,555"/>
+<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="1013,229,1120,256"/>
+<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="2612,229,2729,256"/>
+<area shape="rect" href="core_2object_8hpp.html" title=" " alt="" coords="1617,229,1727,256"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="1527,379,1625,405"/>
+<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="1968,453,2096,480"/>
+<area shape="rect" href="event_8hpp.html" title=" " alt="" coords="1189,155,1304,181"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="2627,453,2730,480"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="2967,453,3054,480"/>
+<area shape="rect" title=" " alt="" coords="3974,603,4063,629"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="2450,528,2542,555"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2092,528,2183,555"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1061,528,1171,555"/>
+<area shape="rect" title=" " alt="" coords="3736,528,3787,555"/>
+<area shape="rect" title=" " alt="" coords="3381,528,3435,555"/>
+<area shape="rect" title=" " alt="" coords="1753,528,1828,555"/>
+<area shape="rect" title=" " alt="" coords="305,603,373,629"/>
+<area shape="rect" title=" " alt="" coords="3329,603,3399,629"/>
+<area shape="rect" title=" " alt="" coords="3793,603,3858,629"/>
+<area shape="rect" title=" " alt="" coords="3089,528,3209,555"/>
+<area shape="rect" title=" " alt="" coords="2804,528,2913,555"/>
+<area shape="rect" title=" " alt="" coords="3234,528,3305,555"/>
+<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="1007,304,1100,331"/>
+<area shape="rect" title=" " alt="" coords="2332,304,2436,331"/>
+<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="3665,453,3804,480"/>
+<area shape="rect" title=" " alt="" coords="3879,453,3975,480"/>
+<area shape="rect" title=" " alt="" coords="1661,304,1699,331"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="1853,528,2017,555"/>
+<area shape="rect" title=" " alt="" coords="3409,453,3489,480"/>
+<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="3447,155,3588,181"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="3991,304,4092,331"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="mesh_8hpp__dep__incl.png" border="0" usemap="#aengine_2resource_2mesh_8hppdep" alt=""/></div>
-<map name="aengine_2resource_2mesh_8hppdep" id="aengine_2resource_2mesh_8hppdep">
-<area shape="rect" title=" " alt="" coords="355,5,530,32"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="790,995,917,1022"/>
-<area shape="rect" href="mesh__builder_8hpp.html" title=" " alt="" coords="130,80,331,107"/>
-<area shape="rect" href="mesh_8cpp.html" title=" " alt="" coords="355,80,530,107"/>
-<area shape="rect" href="model_8hpp.html" title=" " alt="" coords="554,80,731,107"/>
-<area shape="rect" href="register__classes__resource_8cpp.html" title=" " alt="" coords="3207,988,3369,1029"/>
-<area shape="rect" href="mesh__builder_8cpp.html" title=" " alt="" coords="43,162,245,189"/>
-<area shape="rect" href="model__instance_8hpp.html" title=" " alt="" coords="573,155,712,196"/>
-<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="1083,333,1221,375"/>
-<area shape="rect" href="model_8cpp.html" title=" " alt="" coords="321,162,498,189"/>
-<area shape="rect" href="model__instance_8cpp.html" title=" " alt="" coords="545,244,684,285"/>
-<area shape="rect" href="scene__components_8hpp.html" title=" " alt="" coords="708,244,847,285"/>
-<area shape="rect" href="scene_8cpp.html" title=" " alt="" coords="1245,609,1408,635"/>
-<area shape="rect" href="scene__components_8cpp.html" title=" " alt="" coords="576,333,715,375"/>
-<area shape="rect" href="scene__node_8cpp.html" title=" " alt="" coords="911,891,1049,933"/>
-<area shape="rect" href="scene__node__props_8hpp.html" title=" " alt="" coords="1483,691,1621,732"/>
-<area shape="rect" href="scene__manager_8cpp.html" title=" " alt="" coords="525,787,664,829"/>
-<area shape="rect" href="scene__systems_8hpp.html" title=" " alt="" coords="627,423,765,464"/>
-<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="1279,430,1441,457"/>
-<area shape="rect" href="scene__data_8cpp.html" title=" " alt="" coords="1465,423,1604,464"/>
-<area shape="rect" href="scene__packed_8cpp.html" title=" " alt="" coords="3046,787,3199,829"/>
-<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="3097,691,3250,732"/>
-<area shape="rect" href="scene__entity_8cpp.html" title=" " alt="" coords="819,601,957,643"/>
-<area shape="rect" href="scene__entity_8hpp.html" title=" " alt="" coords="1133,512,1272,553"/>
-<area shape="rect" href="scene__tree_8hpp.html" title=" " alt="" coords="1347,787,1485,829"/>
-<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="2472,691,2611,732"/>
-<area shape="rect" href="lua__bindings__scene_8hpp.html" title=" " alt="" coords="2869,780,3022,836"/>
-<area shape="rect" href="scene__systems_8cpp.html" title=" " alt="" coords="768,512,907,553"/>
-<area shape="rect" href="view_8hpp.html" title=" " alt="" coords="1703,609,1857,635"/>
-<area shape="rect" href="scene__node_8hpp.html" title=" " alt="" coords="1032,601,1171,643"/>
-<area shape="rect" href="view_8cpp.html" title=" " alt="" coords="1645,698,1800,725"/>
-<area shape="rect" href="view__manager_8hpp.html" title=" " alt="" coords="1977,691,2108,732"/>
-<area shape="rect" href="application_8cpp.html" title=" " alt="" coords="2277,795,2478,821"/>
-<area shape="rect" href="view__manager_8cpp.html" title=" " alt="" coords="1875,787,2005,829"/>
-<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="2081,795,2253,821"/>
-<area shape="rect" href="prefab_8hpp.html" title=" " alt="" coords="1144,698,1323,725"/>
-<area shape="rect" href="register__classes__scene_8cpp.html" title=" " alt="" coords="1227,891,1373,933"/>
-<area shape="rect" href="prefab_8cpp.html" title=" " alt="" coords="1144,795,1323,821"/>
-<area shape="rect" href="scene__tree_8cpp.html" title=" " alt="" coords="1448,891,1587,933"/>
-<area shape="rect" href="scene__tree__packed_8hpp.html" title=" " alt="" coords="2589,891,2742,933"/>
-<area shape="rect" href="scene__tree__packed_8cpp.html" title=" " alt="" coords="2671,988,2825,1029"/>
-<area shape="rect" href="scene__node__props_8cpp.html" title=" " alt="" coords="1661,787,1800,829"/>
-<area shape="rect" href="debug__layer_8cpp.html" title=" " alt="" coords="2655,787,2793,829"/>
-<area shape="rect" href="lua__bindings__scene_8cpp.html" title=" " alt="" coords="2869,884,3022,940"/>
+<div class="center"><img src="mesh_8hpp__dep__incl.png" border="0" usemap="#aengine_2asset_2mesh_8hppdep" alt=""/></div>
+<map name="aengine_2asset_2mesh_8hppdep" id="aengine_2asset_2mesh_8hppdep">
+<area shape="rect" title=" " alt="" coords="347,5,503,32"/>
+<area shape="rect" href="mesh_8cpp.html" title=" " alt="" coords="5,80,161,107"/>
+<area shape="rect" href="model_8hpp.html" title=" " alt="" coords="1016,80,1175,107"/>
+<area shape="rect" href="register__classes__asset_8cpp.html" title=" " alt="" coords="3091,988,3233,1029"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1029,995,1156,1022"/>
+<area shape="rect" href="mesh__builder_8hpp.html" title=" " alt="" coords="185,80,387,107"/>
+<area shape="rect" href="model_8cpp.html" title=" " alt="" coords="3245,162,3404,189"/>
+<area shape="rect" href="model__instance_8hpp.html" title=" " alt="" coords="959,155,1098,196"/>
+<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="1142,333,1281,375"/>
+<area shape="rect" href="model__instance_8cpp.html" title=" " alt="" coords="959,244,1098,285"/>
+<area shape="rect" href="scene__components_8hpp.html" title=" " alt="" coords="797,244,935,285"/>
+<area shape="rect" href="scene_8cpp.html" title=" " alt="" coords="1243,609,1406,635"/>
+<area shape="rect" href="scene__components_8cpp.html" title=" " alt="" coords="979,333,1118,375"/>
+<area shape="rect" href="scene__node_8cpp.html" title=" " alt="" coords="1130,891,1269,933"/>
+<area shape="rect" href="scene__node__props_8hpp.html" title=" " alt="" coords="979,691,1118,732"/>
+<area shape="rect" href="scene__manager_8cpp.html" title=" " alt="" coords="563,787,702,829"/>
+<area shape="rect" href="scene__systems_8hpp.html" title=" " alt="" coords="614,423,753,464"/>
+<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="1418,430,1581,457"/>
+<area shape="rect" href="scene__data_8cpp.html" title=" " alt="" coords="1605,423,1743,464"/>
+<area shape="rect" href="scene__packed_8cpp.html" title=" " alt="" coords="2939,787,3073,829"/>
+<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="2980,691,3115,732"/>
+<area shape="rect" href="scene__entity_8cpp.html" title=" " alt="" coords="1430,601,1569,643"/>
+<area shape="rect" href="scene__entity_8hpp.html" title=" " alt="" coords="1565,512,1703,553"/>
+<area shape="rect" href="scene__tree_8hpp.html" title=" " alt="" coords="1681,787,1819,829"/>
+<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="2623,691,2762,732"/>
+<area shape="rect" href="lua__bindings__scene_8hpp.html" title=" " alt="" coords="3200,780,3353,836"/>
+<area shape="rect" href="scene__systems_8cpp.html" title=" " alt="" coords="929,512,1067,553"/>
+<area shape="rect" href="view_8hpp.html" title=" " alt="" coords="1885,609,2039,635"/>
+<area shape="rect" href="scene__node_8hpp.html" title=" " alt="" coords="1593,601,1731,643"/>
+<area shape="rect" href="view_8cpp.html" title=" " alt="" coords="1942,698,2097,725"/>
+<area shape="rect" href="view__manager_8hpp.html" title=" " alt="" coords="2171,691,2302,732"/>
+<area shape="rect" href="application_8cpp.html" title=" " alt="" coords="2347,795,2548,821"/>
+<area shape="rect" href="view__manager_8cpp.html" title=" " alt="" coords="1945,787,2075,829"/>
+<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="2151,795,2323,821"/>
+<area shape="rect" href="prefab_8hpp.html" title=" " alt="" coords="1553,698,1713,725"/>
+<area shape="rect" href="register__classes__scene_8cpp.html" title=" " alt="" coords="1293,891,1439,933"/>
+<area shape="rect" href="prefab_8cpp.html" title=" " alt="" coords="1446,795,1606,821"/>
+<area shape="rect" href="scene__tree_8cpp.html" title=" " alt="" coords="1574,891,1713,933"/>
+<area shape="rect" href="scene__tree__packed_8hpp.html" title=" " alt="" coords="2728,891,2863,933"/>
+<area shape="rect" href="scene__tree__packed_8cpp.html" title=" " alt="" coords="2781,988,2916,1029"/>
+<area shape="rect" href="scene__node__props_8cpp.html" title=" " alt="" coords="979,787,1118,829"/>
+<area shape="rect" href="debug__layer_8cpp.html" title=" " alt="" coords="2725,787,2863,829"/>
+<area shape="rect" href="lua__bindings__scene_8cpp.html" title=" " alt="" coords="3200,884,3353,940"/>
+<area shape="rect" href="mesh__builder_8cpp.html" title=" " alt="" coords="185,162,387,189"/>
 </map>
 </div>
 </div>
@@ -198,7 +198,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshImportOptions.html">wmoge::MeshImportOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options to import mesh resource from external resource format.  <a href="structwmoge_1_1MeshImportOptions.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options to import mesh asset from external asset format.  <a href="structwmoge_1_1MeshImportOptions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshImportOptions_1_1Process.html">wmoge::MeshImportOptions::Process</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls post-process of imported mesh.  <a href="structwmoge_1_1MeshImportOptions_1_1Process.html#details">More...</a><br /></td></tr>
@@ -207,7 +207,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents single mesh chunk in a mesh which can be rendered individually with material.  <a href="structwmoge_1_1MeshChunk.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshFile.html">wmoge::MeshFile</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct used to serialize mesh resource data.  <a href="structwmoge_1_1MeshFile.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct used to serialize mesh asset data.  <a href="structwmoge_1_1MeshFile.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Mesh.html">wmoge::Mesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex and index data structured as chunks which can be rendered.  <a href="classwmoge_1_1Mesh.html#details">More...</a><br /></td></tr>

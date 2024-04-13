@@ -85,7 +85,7 @@ Inheritance diagram for wmoge::HgfxPassBase:</div>
 <map name="awmoge_1_1HgfxPassBase_inherit__map" id="awmoge_1_1HgfxPassBase_inherit__map">
 <area shape="rect" title="Render simple 3d geometry with optional vertex color without texturing and lighting." alt="" coords="5,229,163,256"/>
 <area shape="rect" href="classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="21,155,147,181"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="30,80,138,107"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="30,80,138,107"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="29,5,139,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -96,7 +96,7 @@ Collaboration diagram for wmoge::HgfxPassBase:</div>
 <map name="awmoge_1_1HgfxPassBase_coll__map" id="awmoge_1_1HgfxPassBase_coll__map">
 <area shape="rect" title="Render simple 3d geometry with optional vertex color without texturing and lighting." alt="" coords="657,113,815,140"/>
 <area shape="rect" href="classwmoge_1_1HgfxPass.html" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="359,5,485,32"/>
-<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="165,5,273,32"/>
+<area shape="rect" href="classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="165,5,273,32"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" href="classwmoge_1_1TVecN.html" title=" " alt="" coords="337,56,507,83"/>
 <area shape="rect" href="classwmoge_1_1TMatMxN.html" title=" " alt="" coords="339,107,505,149"/>
@@ -113,7 +113,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af4583731831ab38c238bbc638e12847f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiles pass preparing all state required for rendering.  <a href="classwmoge_1_1HgfxPassBase.html#af4583731831ab38c238bbc638e12847f">More...</a><br /></td></tr>
 <tr class="separator:af4583731831ab38c238bbc638e12847f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a977d7ca8b4430f00c28a648f29528c0f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HgfxPassBase.html#a977d7ca8b4430f00c28a648f29528c0f">configure</a> (<a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *gfx_ctx) override</td></tr>
-<tr class="memdesc:a977d7ca8b4430f00c28a648f29528c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures state binding all required resources to gfx.  <a href="classwmoge_1_1HgfxPassBase.html#a977d7ca8b4430f00c28a648f29528c0f">More...</a><br /></td></tr>
+<tr class="memdesc:a977d7ca8b4430f00c28a648f29528c0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures state binding all required assets to gfx.  <a href="classwmoge_1_1HgfxPassBase.html#a977d7ca8b4430f00c28a648f29528c0f">More...</a><br /></td></tr>
 <tr class="separator:a977d7ca8b4430f00c28a648f29528c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4678a862301a9a93b1f442bdd81a4231"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HgfxPassBase.html#a4678a862301a9a93b1f442bdd81a4231">get_pass_name</a> () override</td></tr>
 <tr class="separator:a4678a862301a9a93b1f442bdd81a4231"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -284,7 +284,7 @@ Must be called outside render pass</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Configures state binding all required resources to gfx. </p>
+<p>Configures state binding all required assets to gfx. </p>
 <dl class="section note"><dt>Note</dt><dd>Must be called only after successful <code>compile call</code> </dd>
 <dd>
 Must be called inside render pass</dd></dl>

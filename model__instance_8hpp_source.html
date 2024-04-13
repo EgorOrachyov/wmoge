@@ -98,13 +98,13 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__view_8hpp.html">core/array_view.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__batch_8hpp.html">mesh/mesh_batch.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__pass_8hpp.html">mesh/mesh_pass.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8hpp.html">render/camera.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__engine_8hpp.html">render/render_engine.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="model_8hpp.html">resource/model.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource__ref_8hpp.html">resource/resource_ref.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="asset__ref_8hpp.html">asset/asset_ref.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="model_8hpp.html">asset/model.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__view_8hpp.html">core/array_view.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__batch_8hpp.html">mesh/mesh_batch.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__pass_8hpp.html">mesh/mesh_pass.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8hpp.html">render/camera.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__engine_8hpp.html">render/render_engine.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
@@ -122,6 +122,7 @@ $(function() {
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aarray__view_8hpp_html"><div class="ttname"><a href="array__view_8hpp.html">array_view.hpp</a></div></div>
+<div class="ttc" id="aasset__ref_8hpp_html"><div class="ttname"><a href="asset__ref_8hpp.html">asset_ref.hpp</a></div></div>
 <div class="ttc" id="acamera_8hpp_html"><div class="ttname"><a href="camera_8hpp.html">camera.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1ModelInstance_html"><div class="ttname"><a href="classwmoge_1_1ModelInstance.html">wmoge::ModelInstance</a></div><div class="ttdoc">An instance of renderable model with cached state for optimized rendering.</div><div class="ttdef"><b>Definition:</b> model_instance.hpp:44</div></div>
 <div class="ttc" id="aclasswmoge_1_1ModelInstance_html_a290639039688f6f40a04a32cb162195f"><div class="ttname"><a href="classwmoge_1_1ModelInstance.html#a290639039688f6f40a04a32cb162195f">wmoge::ModelInstance::init</a></div><div class="ttdeci">void init(Ref&lt; Model &gt; model)</div></div>
@@ -132,9 +133,8 @@ $(function() {
 <div class="ttc" id="amesh__batch_8hpp_html"><div class="ttname"><a href="mesh__batch_8hpp.html">mesh_batch.hpp</a></div></div>
 <div class="ttc" id="amesh__pass_8hpp_html"><div class="ttname"><a href="mesh__pass_8hpp.html">mesh_pass.hpp</a></div></div>
 <div class="ttc" id="amodel_8hpp_html"><div class="ttname"><a href="model_8hpp.html">model.hpp</a></div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> array_mesh.cpp:35</div></div>
 <div class="ttc" id="arender__engine_8hpp_html"><div class="ttname"><a href="render__engine_8hpp.html">render_engine.hpp</a></div></div>
-<div class="ttc" id="aresource__ref_8hpp_html"><div class="ttname"><a href="resource__ref_8hpp.html">resource_ref.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1RenderParams_html"><div class="ttname"><a href="structwmoge_1_1RenderParams.html">wmoge::RenderParams</a></div><div class="ttdoc">Params passed to draw a particular object.</div><div class="ttdef"><b>Definition:</b> render_engine.hpp:89</div></div>
 <div class="ttc" id="astructwmoge_1_1RenderPassInfo_html"><div class="ttname"><a href="structwmoge_1_1RenderPassInfo.html">wmoge::RenderPassInfo</a></div><div class="ttdoc">Global render state passed to objects during rendering.</div><div class="ttdef"><b>Definition:</b> render_engine.hpp:99</div></div>
 </div><!-- fragment --></div><!-- contents -->

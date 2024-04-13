@@ -1,4 +1,0 @@
-<map id="wmoge::ResourceLoaderWav" name="wmoge::ResourceLoaderWav">
-<area shape="rect" id="node1" title="Loader for wav audio sources using audio file library." alt="" coords="5,80,196,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="18,5,183,32"/>
-</map>

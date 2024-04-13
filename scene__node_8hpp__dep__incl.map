@@ -1,15 +1,15 @@
 <map id="engine/scene/scene_node.hpp" name="engine/scene/scene_node.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="402,5,541,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="525,355,652,382"/>
-<area shape="rect" id="node3" href="$prefab_8hpp.html" title=" " alt="" coords="202,95,381,121"/>
-<area shape="rect" id="node6" href="$scene__node_8cpp.html" title=" " alt="" coords="291,259,430,300"/>
-<area shape="rect" id="node8" href="$scene__tree_8hpp.html" title=" " alt="" coords="455,169,594,211"/>
-<area shape="rect" id="node11" href="$register__classes__scene_8cpp.html" title=" " alt="" coords="683,259,830,300"/>
-<area shape="rect" id="node12" href="$scene__node__props_8hpp.html" title=" " alt="" coords="742,169,881,211"/>
-<area shape="rect" id="node4" href="$prefab_8cpp.html" title=" " alt="" coords="31,177,210,203"/>
-<area shape="rect" id="node5" href="$register__classes__resource_8cpp.html" title=" " alt="" coords="73,348,235,389"/>
-<area shape="rect" id="node7" href="$scene__tree_8cpp.html" title=" " alt="" coords="129,259,267,300"/>
-<area shape="rect" id="node9" href="$scene__tree__packed_8hpp.html" title=" " alt="" coords="455,259,608,300"/>
-<area shape="rect" id="node10" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="348,348,501,389"/>
-<area shape="rect" id="node13" href="$scene__node__props_8cpp.html" title=" " alt="" coords="905,259,1043,300"/>
+<area shape="rect" id="node1" title=" " alt="" coords="530,5,668,47"/>
+<area shape="rect" id="node2" href="$prefab_8hpp.html" title=" " alt="" coords="136,95,296,121"/>
+<area shape="rect" id="node5" href="$engine_8hpp.html" title=" " alt="" coords="545,355,672,382"/>
+<area shape="rect" id="node6" href="$scene__node_8cpp.html" title=" " alt="" coords="248,259,387,300"/>
+<area shape="rect" id="node8" href="$scene__tree_8hpp.html" title=" " alt="" coords="422,169,560,211"/>
+<area shape="rect" id="node11" href="$register__classes__scene_8cpp.html" title=" " alt="" coords="672,259,819,300"/>
+<area shape="rect" id="node12" href="$scene__node__props_8hpp.html" title=" " alt="" coords="770,169,908,211"/>
+<area shape="rect" id="node3" href="$prefab_8cpp.html" title=" " alt="" coords="136,177,296,203"/>
+<area shape="rect" id="node4" href="$register__classes__asset_8cpp.html" title=" " alt="" coords="85,348,228,389"/>
+<area shape="rect" id="node7" href="$scene__tree_8cpp.html" title=" " alt="" coords="86,259,224,300"/>
+<area shape="rect" id="node9" href="$scene__tree__packed_8hpp.html" title=" " alt="" coords="412,259,546,300"/>
+<area shape="rect" id="node10" href="$scene__tree__packed_8cpp.html" title=" " alt="" coords="386,348,521,389"/>
+<area shape="rect" id="node13" href="$scene__node__props_8cpp.html" title=" " alt="" coords="894,259,1032,300"/>
 </map>

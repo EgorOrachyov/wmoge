@@ -1,9 +1,9 @@
 <map id="wmoge::MeshBatch" name="wmoge::MeshBatch">
 <area shape="rect" id="node1" title="Batch of mesh elements with the same vertex/index buffer and material instances." alt="" coords="1361,173,1497,199"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry." alt="" coords="1087,21,1203,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Resource.html" title="Base class for any engine resource." alt="" coords="771,21,897,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="782,21,886,47"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="412,5,563,47"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="236,47,344,74"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="236,47,344,74"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,77,116,103"/>
 <area shape="rect" id="node13" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="217,106,363,133"/>
 <area shape="rect" id="node7" href="$classwmoge_1_1RenderCameraMask.html" title="Mask of toggled cameras, can be used for filtering and culling." alt="" coords="1051,223,1239,250"/>

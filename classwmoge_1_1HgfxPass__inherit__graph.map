@@ -2,6 +2,6 @@
 <area shape="rect" id="node1" title="Base class for any high level graphics logic for in&#45;engine and scriptable rendering." alt="" coords="110,155,237,181"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1HgfxPassBase.html" title="Render simple 3d geometry with optional vertex color without texturing and lighting." alt="" coords="5,229,163,256"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1HgfxPassText.html" title="Render simple 2d text on a screen with blending support." alt="" coords="187,229,339,256"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or resource with reflection support." alt="" coords="119,80,227,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="119,80,227,107"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="118,5,229,32"/>
 </map>

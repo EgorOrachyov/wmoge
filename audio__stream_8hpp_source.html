@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/resource/audio_stream.hpp Source File</title>
+<title>wmoge: engine/asset/audio_stream.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_15fc65921b8713fb556d30e882510e5d.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,8 +98,8 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="data_8hpp.html">core/data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="asset_8hpp.html">asset/asset.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="data_8hpp.html">core/data.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -110,9 +110,9 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">friend</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="structwmoge_1_1AudioImportOptions.html#a6a9d25d5ccae8e7bbba7479d013f227d">yaml_write</a>(<a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, <span class="keyword">const</span> <a class="code" href="structwmoge_1_1AudioImportOptions.html">AudioImportOptions</a>&amp; options);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    };</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classwmoge_1_1AudioStream.html">   50</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1AudioStream.html">AudioStream</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Resource.html">Resource</a> {</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classwmoge_1_1AudioStream.html">   50</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1AudioStream.html">AudioStream</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Asset.html">Asset</a> {</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1AudioStream.html">AudioStream</a>, <a class="code" href="classwmoge_1_1Resource.html">Resource</a>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="classwmoge_1_1Asset.html#a45f5971dbf4819e7ca22846bedb5dab8">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1AudioStream.html">AudioStream</a>, <a class="code" href="classwmoge_1_1Asset.html">Asset</a>)</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classwmoge_1_1AudioStream.html#a280ffc46e98965c1012a6a8f230abdb2">   54</a></span>&#160;        virtual <a class="code" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="code" href="classwmoge_1_1Data.html">Data</a>&gt; <a class="code" href="classwmoge_1_1AudioStream.html#a280ffc46e98965c1012a6a8f230abdb2">get_channel_data</a>(<span class="keywordtype">int</span> channel) { <span class="keywordflow">return</span> <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Data&gt;</a>{}; }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
@@ -136,6 +136,9 @@ $(function() {
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aasset_8hpp_html"><div class="ttname"><a href="asset_8hpp.html">asset.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1Asset_html"><div class="ttname"><a href="classwmoge_1_1Asset.html">wmoge::Asset</a></div><div class="ttdoc">Base class for any engine asset.</div><div class="ttdef"><b>Definition:</b> asset.hpp:92</div></div>
+<div class="ttc" id="aclasswmoge_1_1Asset_html_a45f5971dbf4819e7ca22846bedb5dab8"><div class="ttname"><a href="classwmoge_1_1Asset.html#a45f5971dbf4819e7ca22846bedb5dab8">wmoge::Asset::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Asset, Object)</div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStream_html"><div class="ttname"><a href="classwmoge_1_1AudioStream.html">wmoge::AudioStream</a></div><div class="ttdoc">Base class for audio files which can be loaded and played.</div><div class="ttdef"><b>Definition:</b> audio_stream.hpp:50</div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStream_html_a02857660ee715d38beeab06d4523bf6a"><div class="ttname"><a href="classwmoge_1_1AudioStream.html#a02857660ee715d38beeab06d4523bf6a">wmoge::AudioStream::copy_to</a></div><div class="ttdeci">Status copy_to(Object &amp;other) const override</div><div class="ttdef"><b>Definition:</b> audio_stream.cpp:50</div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStream_html_a1451a577c099edfffd680f67b59ff9ca"><div class="ttname"><a href="classwmoge_1_1AudioStream.html#a1451a577c099edfffd680f67b59ff9ca">wmoge::AudioStream::m_length</a></div><div class="ttdeci">float m_length</div><div class="ttdef"><b>Definition:</b> audio_stream.hpp:68</div></div>
@@ -153,16 +156,13 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1AudioStream_html_ae462d8d78a510380c3f5cce5141f7d25"><div class="ttname"><a href="classwmoge_1_1AudioStream.html#ae462d8d78a510380c3f5cce5141f7d25">wmoge::AudioStream::read_from_yaml</a></div><div class="ttdeci">Status read_from_yaml(const YamlConstNodeRef &amp;node) override</div><div class="ttdef"><b>Definition:</b> audio_stream.cpp:46</div></div>
 <div class="ttc" id="aclasswmoge_1_1AudioStream_html_af56711019108ad5c1f7df987c51a5107"><div class="ttname"><a href="classwmoge_1_1AudioStream.html#af56711019108ad5c1f7df987c51a5107">wmoge::AudioStream::m_num_channels</a></div><div class="ttdeci">int m_num_channels</div><div class="ttdef"><b>Definition:</b> audio_stream.hpp:72</div></div>
 <div class="ttc" id="aclasswmoge_1_1Data_html"><div class="ttname"><a href="classwmoge_1_1Data.html">wmoge::Data</a></div><div class="ttdoc">Safe, automatic and reference-counted raw binary data buffer.</div><div class="ttdef"><b>Definition:</b> data.hpp:44</div></div>
-<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
+<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or asset with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html"><div class="ttname"><a href="classwmoge_1_1Resource.html">wmoge::Resource</a></div><div class="ttdoc">Base class for any engine resource.</div><div class="ttdef"><b>Definition:</b> resource.hpp:92</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html_ad6cb22c023c2c0220f269599b7d13122"><div class="ttname"><a href="classwmoge_1_1Resource.html#ad6cb22c023c2c0220f269599b7d13122">wmoge::Resource::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Resource, Object)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="adata_8hpp_html"><div class="ttname"><a href="data_8hpp.html">data.hpp</a></div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> array_mesh.cpp:35</div></div>
 <div class="ttc" id="anamespacewmoge_html_a72974351f7c8daa1bbabcc2f35e1e91f"><div class="ttname"><a href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">wmoge::YamlNodeRef</a></div><div class="ttdeci">ryml::NodeRef YamlNodeRef</div><div class="ttdoc">Reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:61</div></div>
 <div class="ttc" id="anamespacewmoge_html_a936fad1881d807f1e080d012bb1977c3"><div class="ttname"><a href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">wmoge::YamlConstNodeRef</a></div><div class="ttdeci">ryml::ConstNodeRef YamlConstNodeRef</div><div class="ttdoc">Constant reference to a node in yaml tree.</div><div class="ttdef"><b>Definition:</b> yaml.hpp:66</div></div>
-<div class="ttc" id="aresource_8hpp_html"><div class="ttname"><a href="resource_8hpp.html">resource.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1AudioImportOptions_html"><div class="ttname"><a href="structwmoge_1_1AudioImportOptions.html">wmoge::AudioImportOptions</a></div><div class="ttdoc">Options to import audio data from an external format.</div><div class="ttdef"><b>Definition:</b> audio_stream.hpp:39</div></div>
 <div class="ttc" id="astructwmoge_1_1AudioImportOptions_html_a378951d1987512480a98416f72ed6f55"><div class="ttname"><a href="structwmoge_1_1AudioImportOptions.html#a378951d1987512480a98416f72ed6f55">wmoge::AudioImportOptions::source_file</a></div><div class="ttdeci">std::string source_file</div><div class="ttdef"><b>Definition:</b> audio_stream.hpp:40</div></div>
 <div class="ttc" id="astructwmoge_1_1AudioImportOptions_html_a6a9d25d5ccae8e7bbba7479d013f227d"><div class="ttname"><a href="structwmoge_1_1AudioImportOptions.html#a6a9d25d5ccae8e7bbba7479d013f227d">wmoge::AudioImportOptions::yaml_write</a></div><div class="ttdeci">friend Status yaml_write(YamlNodeRef node, const AudioImportOptions &amp;options)</div><div class="ttdef"><b>Definition:</b> audio_stream.cpp:39</div></div>

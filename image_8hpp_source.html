@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/resource/image.hpp Source File</title>
+<title>wmoge: engine/asset/image.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_15fc65921b8713fb556d30e882510e5d.html">resource</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -98,10 +98,10 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="data_8hpp.html">core/data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="resource_8hpp.html">resource/resource.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="asset_8hpp.html">asset/asset.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="data_8hpp.html">core/data.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
@@ -115,9 +115,9 @@ $(function() {
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structwmoge_1_1ImageImportOptions.html#a12763f3df05ad5576844a679c3d202f9">   48</a></span>&#160;        <a class="code" href="structwmoge_1_1ImageImportOptions.html#a12763f3df05ad5576844a679c3d202f9">WG_IO_DECLARE</a>(<a class="code" href="structwmoge_1_1ImageImportOptions.html">ImageImportOptions</a>);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classwmoge_1_1Image.html">   58</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Image.html">Image</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Resource.html">Resource</a> {</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classwmoge_1_1Image.html">   58</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1Image.html">Image</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Asset.html">Asset</a> {</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classwmoge_1_1Image.html#a9c8e20db053af807075c6f2ef0e90806">   60</a></span>&#160;        <a class="code" href="classwmoge_1_1Image.html#a9c8e20db053af807075c6f2ef0e90806">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Image.html">Image</a>, <a class="code" href="classwmoge_1_1Resource.html">Resource</a>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="classwmoge_1_1Image.html#afa1124650588ef5d8923a950e81bf747">   60</a></span>&#160;        <a class="code" href="classwmoge_1_1Image.html#afa1124650588ef5d8923a950e81bf747">WG_OBJECT</a>(<a class="code" href="classwmoge_1_1Image.html">Image</a>, <a class="code" href="classwmoge_1_1Asset.html">Asset</a>);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Image.html#a17a56ceb47505e05fd6d6ff61b329ef8">create</a>(<span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, <span class="keywordtype">int</span> channels = 4, <span class="keywordtype">int</span> pixel_size = 4);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
@@ -153,6 +153,8 @@ $(function() {
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    };</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aasset_8hpp_html"><div class="ttname"><a href="asset_8hpp.html">asset.hpp</a></div></div>
+<div class="ttc" id="aclasswmoge_1_1Asset_html"><div class="ttname"><a href="classwmoge_1_1Asset.html">wmoge::Asset</a></div><div class="ttdoc">Base class for any engine asset.</div><div class="ttdef"><b>Definition:</b> asset.hpp:92</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html"><div class="ttname"><a href="classwmoge_1_1Image.html">wmoge::Image</a></div><div class="ttdoc">Hardware-independent image representation.</div><div class="ttdef"><b>Definition:</b> image.hpp:58</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_a17a56ceb47505e05fd6d6ff61b329ef8"><div class="ttname"><a href="classwmoge_1_1Image.html#a17a56ceb47505e05fd6d6ff61b329ef8">wmoge::Image::create</a></div><div class="ttdeci">void create(int width, int height, int channels=4, int pixel_size=4)</div><div class="ttdoc">Creates new image of specified size.</div><div class="ttdef"><b>Definition:</b> image.cpp:45</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_a1980e81d6639344d52b6dce60299e731"><div class="ttname"><a href="classwmoge_1_1Image.html#a1980e81d6639344d52b6dce60299e731">wmoge::Image::get_width</a></div><div class="ttdeci">int get_width()</div><div class="ttdef"><b>Definition:</b> image.hpp:116</div></div>
@@ -162,7 +164,6 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Image_html_a4d64e78b4ccea567611e829e81825154"><div class="ttname"><a href="classwmoge_1_1Image.html#a4d64e78b4ccea567611e829e81825154">wmoge::Image::is_not_empty</a></div><div class="ttdeci">bool is_not_empty()</div><div class="ttdef"><b>Definition:</b> image.hpp:121</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_a54e390e7a53e4179ce6ef6cdb70f6c63"><div class="ttname"><a href="classwmoge_1_1Image.html#a54e390e7a53e4179ce6ef6cdb70f6c63">wmoge::Image::is_empty</a></div><div class="ttdeci">bool is_empty()</div><div class="ttdef"><b>Definition:</b> image.hpp:120</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_a68b3a458ce28c9b964c952a587febd0b"><div class="ttname"><a href="classwmoge_1_1Image.html#a68b3a458ce28c9b964c952a587febd0b">wmoge::Image::resize</a></div><div class="ttdeci">Status resize(int new_width, int new_height)</div><div class="ttdoc">Resizes image to new dimensions preserving content.</div><div class="ttdef"><b>Definition:</b> image.cpp:98</div></div>
-<div class="ttc" id="aclasswmoge_1_1Image_html_a9c8e20db053af807075c6f2ef0e90806"><div class="ttname"><a href="classwmoge_1_1Image.html#a9c8e20db053af807075c6f2ef0e90806">wmoge::Image::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Image, Resource)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_aa0f8720399cd1a165a4f0d04a6e0498c"><div class="ttname"><a href="classwmoge_1_1Image.html#aa0f8720399cd1a165a4f0d04a6e0498c">wmoge::Image::max_mips_count</a></div><div class="ttdeci">static int max_mips_count(int width, int height, int depth)</div><div class="ttdoc">Returns max levels (mips including 0) count for specified image.</div><div class="ttdef"><b>Definition:</b> image.cpp:165</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_aa3830c75023eb5cc83e14b32e0ffab0c"><div class="ttname"><a href="classwmoge_1_1Image.html#aa3830c75023eb5cc83e14b32e0ffab0c">wmoge::Image::copy_to</a></div><div class="ttdeci">Status copy_to(Object &amp;copy) const override</div><div class="ttdef"><b>Definition:</b> image.cpp:141</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_ab632d0331ef3b33ea27fc8000ccf2568"><div class="ttname"><a href="classwmoge_1_1Image.html#ab632d0331ef3b33ea27fc8000ccf2568">wmoge::Image::save</a></div><div class="ttdeci">Status save(std::filesystem::path filepath)</div><div class="ttdoc">Save image to file in file system using specified filepath.</div><div class="ttdef"><b>Definition:</b> image.cpp:87</div></div>
@@ -170,15 +171,14 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Image_html_abdf38201d3bbb9be102d3cc18780b91d"><div class="ttname"><a href="classwmoge_1_1Image.html#abdf38201d3bbb9be102d3cc18780b91d">wmoge::Image::get_pixel_size</a></div><div class="ttdeci">int get_pixel_size()</div><div class="ttdef"><b>Definition:</b> image.hpp:119</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_ac216b2d6501661788a501cfae453f009"><div class="ttname"><a href="classwmoge_1_1Image.html#ac216b2d6501661788a501cfae453f009">wmoge::Image::get_pixel_data</a></div><div class="ttdeci">const Ref&lt; Data &gt; &amp; get_pixel_data()</div><div class="ttdef"><b>Definition:</b> image.hpp:115</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_af66a7e7c1253ffc4e0834e3dda3fe261"><div class="ttname"><a href="classwmoge_1_1Image.html#af66a7e7c1253ffc4e0834e3dda3fe261">wmoge::Image::to_string</a></div><div class="ttdeci">std::string to_string() override</div><div class="ttdef"><b>Definition:</b> image.cpp:151</div></div>
+<div class="ttc" id="aclasswmoge_1_1Image_html_afa1124650588ef5d8923a950e81bf747"><div class="ttname"><a href="classwmoge_1_1Image.html#afa1124650588ef5d8923a950e81bf747">wmoge::Image::WG_OBJECT</a></div><div class="ttdeci">WG_OBJECT(Image, Asset)</div></div>
 <div class="ttc" id="aclasswmoge_1_1Image_html_afa67399ba9adb758fb51430a5894a84c"><div class="ttname"><a href="classwmoge_1_1Image.html#afa67399ba9adb758fb51430a5894a84c">wmoge::Image::get_channels</a></div><div class="ttdeci">int get_channels()</div><div class="ttdef"><b>Definition:</b> image.hpp:118</div></div>
-<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or resource with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
+<div class="ttc" id="aclasswmoge_1_1Object_html"><div class="ttname"><a href="classwmoge_1_1Object.html">wmoge::Object</a></div><div class="ttdoc">Base class for any scene tree object or asset with reflection support.</div><div class="ttdef"><b>Definition:</b> object.hpp:60</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="aclasswmoge_1_1Resource_html"><div class="ttname"><a href="classwmoge_1_1Resource.html">wmoge::Resource</a></div><div class="ttdoc">Base class for any engine resource.</div><div class="ttdef"><b>Definition:</b> resource.hpp:92</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="aclasswmoge_1_1TVecN_html"><div class="ttname"><a href="classwmoge_1_1TVecN.html">wmoge::TVecN&lt; int, 2 &gt;</a></div></div>
 <div class="ttc" id="adata_8hpp_html"><div class="ttname"><a href="data_8hpp.html">data.hpp</a></div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> audio_bus.hpp:37</div></div>
-<div class="ttc" id="aresource_8hpp_html"><div class="ttname"><a href="resource_8hpp.html">resource.hpp</a></div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> array_mesh.cpp:35</div></div>
 <div class="ttc" id="aserialization_8hpp_html"><div class="ttname"><a href="serialization_8hpp.html">serialization.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1ImageImportOptions_html"><div class="ttname"><a href="structwmoge_1_1ImageImportOptions.html">wmoge::ImageImportOptions</a></div><div class="ttdoc">Options to import an image from an external format, such as png, jpeg, bmp, etc.</div><div class="ttdef"><b>Definition:</b> image.hpp:44</div></div>
 <div class="ttc" id="astructwmoge_1_1ImageImportOptions_html_a12763f3df05ad5576844a679c3d202f9"><div class="ttname"><a href="structwmoge_1_1ImageImportOptions.html#a12763f3df05ad5576844a679c3d202f9">wmoge::ImageImportOptions::WG_IO_DECLARE</a></div><div class="ttdeci">WG_IO_DECLARE(ImageImportOptions)</div></div>

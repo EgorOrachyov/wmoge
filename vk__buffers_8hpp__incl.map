@@ -1,6 +1,6 @@
 <map id="engine/gfx/vulkan/vk_buffers.hpp" name="engine/gfx/vulkan/vk_buffers.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="780,5,921,47"/>
-<area shape="rect" id="node2" href="$data_8hpp.html" title=" " alt="" coords="423,617,523,644"/>
+<area shape="rect" id="node2" href="$data_8hpp.html" title=" " alt="" coords="431,617,531,644"/>
 <area shape="rect" id="node36" href="$gfx__buffers_8hpp.html" title=" " alt="" coords="615,319,745,345"/>
 <area shape="rect" id="node44" href="$vk__defs_8hpp.html" title=" " alt="" coords="1072,169,1227,196"/>
 <area shape="rect" id="node50" href="$vk__resource_8hpp.html" title=" " alt="" coords="1017,95,1197,121"/>
@@ -47,6 +47,6 @@
 <area shape="rect" id="node45" title=" " alt="" coords="1291,244,1347,271"/>
 <area shape="rect" id="node46" title=" " alt="" coords="1371,244,1487,271"/>
 <area shape="rect" id="node47" href="$window_8hpp.html" title=" " alt="" coords="717,244,859,271"/>
-<area shape="rect" id="node48" href="$image_8hpp.html" title=" " alt="" coords="1854,319,1989,345"/>
-<area shape="rect" id="node49" href="$resource_8hpp.html" title=" " alt="" coords="1959,393,2110,420"/>
+<area shape="rect" id="node48" href="$image_8hpp.html" title=" " alt="" coords="1868,319,1985,345"/>
+<area shape="rect" id="node49" href="$asset_8hpp.html" title=" " alt="" coords="1971,393,2085,420"/>
 </map>

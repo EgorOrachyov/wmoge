@@ -166,7 +166,7 @@ $(function() {
 </li>
 <li>set()
 : <a class="el" href="classwmoge_1_1ConfigFile.html#a0c0400171db273e1cf6072dadcaa28d1">wmoge::ConfigFile</a>
-, <a class="el" href="classwmoge_1_1GameTokenManager.html#a1d0c6242997d0069090552d088571c4f">wmoge::GameTokenManager</a>
+, <a class="el" href="classwmoge_1_1GameTokenManager.html#a529a6747b16ef9375cd2e2ead728ec58">wmoge::GameTokenManager</a>
 , <a class="el" href="structwmoge_1_1GfxLocation.html#a5849f754776145ea8c8d0a67d5002abd">wmoge::GfxLocation</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#ae6234133e63e9d745463dc33b69647d9">wmoge::GfxShaderReflection::Buffer</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#a69f4b4b754dd8d24f4f65042934044b4">wmoge::GfxShaderReflection::Texture</a>
@@ -190,6 +190,9 @@ $(function() {
 </li>
 <li>set_aspect()
 : <a class="el" href="classwmoge_1_1Camera.html#a604d29754ed8b7601f402404e9e04fee">wmoge::Camera</a>
+</li>
+<li>set_assets()
+: <a class="el" href="classreflection_1_1Shader.html#a2179d67d3cc47ad4e57ba84dea29e45b">reflection.Shader</a>
 </li>
 <li>set_attenuation()
 : <a class="el" href="classwmoge_1_1Light.html#ac4c6491dad42760a4f85fa2e4e89c4cc">wmoge::Light</a>
@@ -253,7 +256,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1AudioBus.html#a23116c1b19c84e8600561ae80e1bc1ce">wmoge::AudioBus</a>
 </li>
 <li>set_id()
-: <a class="el" href="classwmoge_1_1Resource.html#a3615034ba0ba788c63b9a8f6edbaf025">wmoge::Resource</a>
+: <a class="el" href="classwmoge_1_1Asset.html#ae2b111947e7216d8fc679e12be66114b">wmoge::Asset</a>
 </li>
 <li>set_instantiate()
 : <a class="el" href="classwmoge_1_1Class.html#a6b85d628efdab8296027e5a1407accfe">wmoge::Class</a>
@@ -292,14 +295,14 @@ $(function() {
 , <a class="el" href="classwmoge_1_1AudioPlayback.html#ab464621b41384c4556c56156989c1978">wmoge::AudioPlayback</a>
 </li>
 <li>set_mode()
-: <a class="el" href="classwmoge_1_1ResourceDependencies.html#a439fb00de9199d3a34506db2a07ac8f8">wmoge::ResourceDependencies</a>
+: <a class="el" href="classwmoge_1_1AssetDependencies.html#a0ae69e1e30455ec76946c61c966934af">wmoge::AssetDependencies</a>
 </li>
 <li>set_name()
-: <a class="el" href="classwmoge_1_1Camera.html#ace8a5dc8286d824102f09203e1208894">wmoge::Camera</a>
+: <a class="el" href="classwmoge_1_1Asset.html#aba359a42d3c4d6c4dfa2a79bf438313f">wmoge::Asset</a>
+, <a class="el" href="classwmoge_1_1Camera.html#ace8a5dc8286d824102f09203e1208894">wmoge::Camera</a>
 , <a class="el" href="classwmoge_1_1GfxVector.html#a663434eaf225aaa7d0d75357f3ccba37">wmoge::GfxVector&lt; T, Storage &gt;</a>
 , <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder.html#a56ff892fb3e72151742bd1d4b5c2cfdd">wmoge::GrcShaderScriptBuilder</a>
 , <a class="el" href="classwmoge_1_1ProfilerCapture.html#a2e72684a014396b917fbf22ab3a51c3d">wmoge::ProfilerCapture</a>
-, <a class="el" href="classwmoge_1_1Resource.html#a2f4a891dd8c887896f627423d1e86a5d">wmoge::Resource</a>
 , <a class="el" href="classwmoge_1_1SceneNode.html#a78b23102b2552496c6ee74e4b5c6fdcd">wmoge::SceneNode</a>
 </li>
 <li>set_near_far()
@@ -341,9 +344,6 @@ $(function() {
 </li>
 <li>set_read()
 : <a class="el" href="structwmoge_1_1EcsQuery.html#aa26e8cb15d1a20b2bb0b449066b417f0">wmoge::EcsQuery</a>
-</li>
-<li>set_resources()
-: <a class="el" href="classreflection_1_1Shader.html#af403a81763a026584fb437c6450db6d3">reflection.Shader</a>
 </li>
 <li>set_result()
 : <a class="el" href="classwmoge_1_1AsyncState.html#aee53fab9a937ecf470679759b7921800">wmoge::AsyncState&lt; T &gt;</a>
@@ -404,12 +404,12 @@ $(function() {
 , <a class="el" href="classwmoge_1_1Light.html#af41d478a03705ece25db89f31985a787">wmoge::Light</a>
 </li>
 <li>set_uuid()
-: <a class="el" href="classwmoge_1_1Resource.html#a4fec1fb4ac0ccb6b7fea5f0b0debfe88">wmoge::Resource</a>
+: <a class="el" href="classwmoge_1_1Asset.html#a055b75c05db53865f0bedaf3d825854f">wmoge::Asset</a>
 , <a class="el" href="classwmoge_1_1SceneNode.html#a69a6574f19a566beba29e6e1e632a3ae">wmoge::SceneNode</a>
 </li>
 <li>set_var()
 : <a class="el" href="classwmoge_1_1GrcShaderParam.html#a8038271f8215f9843a5ba544ddba73aa">wmoge::GrcShaderParam</a>
-, <a class="el" href="classwmoge_1_1GrcShaderParamBlock.html#ae619535a0953da22995582b3a4598938">wmoge::GrcShaderParamBlock</a>
+, <a class="el" href="classwmoge_1_1GrcShaderParamBlock.html#a2735bc5444dc41b9582602d6311e758b">wmoge::GrcShaderParamBlock</a>
 </li>
 <li>set_vec2()
 : <a class="el" href="structwmoge_1_1LuaMaterial.html#a648b4ce292d71a0d06a420b5a9d96bfb">wmoge::LuaMaterial</a>
@@ -461,7 +461,7 @@ $(function() {
 , <a class="el" href="classgenerator_1_1CodeGeneratorPass.html#a163a2e45299f30c1a036fe58d4bf122d">generator.CodeGeneratorPass</a>
 , <a class="el" href="structwmoge_1_1GfxCompPipelineState.html#ae2029aa0420f6501e169b0fa2421351b">wmoge::GfxCompPipelineState</a>
 , <a class="el" href="structwmoge_1_1GfxPipelineState.html#aed4e6084f304fe0aec0e5aab5eceb0ea">wmoge::GfxPipelineState</a>
-, <a class="el" href="structwmoge_1_1MaterialFile.html#a1b29018d61076f509417ab14dd6efc4b">wmoge::MaterialFile</a>
+, <a class="el" href="structwmoge_1_1MaterialFile.html#a13dcb0ab17061ed1a82ef7cd6b0410e8">wmoge::MaterialFile</a>
 , <a class="el" href="structwmoge_1_1ShaderData.html#a4ce3a22570618885c6ee4205606045ff">wmoge::ShaderData</a>
 </li>
 <li>shader_cache_path()
@@ -534,7 +534,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKDriver.html#af2b3fdd33917c20660ec5d648e34a180">wmoge::VKDriver</a>
 </li>
 <li>sid()
-: <a class="el" href="classwmoge_1_1ResourceId.html#ad50322f88fe1bf7727ed32f28035cfe3">wmoge::ResourceId</a>
+: <a class="el" href="classwmoge_1_1AssetId.html#acc77822f5a3963301662056cf8274b1c">wmoge::AssetId</a>
 </li>
 <li>signal()
 : <a class="el" href="structwmoge_1_1LuaObject.html#ae2cdc1c505cd77ec7ed13248a9f5e7b2">wmoge::LuaObject</a>
@@ -721,7 +721,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1TextureImportOptions.html#a4b0a4ed80f31de035e8cb9418e852350">wmoge::TextureImportOptions</a>
 </li>
 <li>ssao
-: <a class="el" href="structwmoge_1_1GraphicsPipelineResources.html#a1f2ee2ecaac422d239ca44f9d1b03204">wmoge::GraphicsPipelineResources</a>
+: <a class="el" href="structwmoge_1_1GraphicsPipelineAssets.html#a209159c96420fc0f02869d9eb2b93ef8">wmoge::GraphicsPipelineAssets</a>
 </li>
 <li>stack()
 : <a class="el" href="classwmoge_1_1ConfigFile.html#aa5ca1333d0cecd7b282ea4c892308560">wmoge::ConfigFile</a>
@@ -763,7 +763,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxShader.html#a7706fe8981a0c02275206f50fac7e845">wmoge::GfxShader</a>
 </li>
 <li>Status()
-: <a class="el" href="classwmoge_1_1Status.html#afea57d980d1f58d43e7374ecd288c831">wmoge::Status</a>
+: <a class="el" href="classwmoge_1_1Status.html#a67c4e3df28b272f5eab3484e64be309f">wmoge::Status</a>
 </li>
 <li>status()
 : <a class="el" href="classwmoge_1_1VKCompPipeline.html#a6858010f1a0a98fbf05f546e4b8361ec">wmoge::VKCompPipeline</a>
@@ -827,9 +827,9 @@ $(function() {
 <li>store_op()
 : <a class="el" href="classwmoge_1_1VKDefs.html#a55b855cf06989da439095d74c6d042a3">wmoge::VKDefs</a>
 </li>
-<li>str
-: <a class="el" href="structwmoge_1_1GrcShaderConstant.html#a5091b7605831a26d22fbacedcde41613">wmoge::GrcShaderConstant</a>
-, <a class="el" href="classwmoge_1_1ResourceId.html#a6a93eb34dd73f49aefee13f90e313aba">wmoge::ResourceId</a>
+<li>str()
+: <a class="el" href="classwmoge_1_1AssetId.html#ac3bc15d05827e7f13983756d2f338216">wmoge::AssetId</a>
+, <a class="el" href="structwmoge_1_1GrcShaderConstant.html#a5091b7605831a26d22fbacedcde41613">wmoge::GrcShaderConstant</a>
 , <a class="el" href="classwmoge_1_1Strid.html#a9d5e1c54b9b6a90fe851b042ecac9362">wmoge::Strid</a>
 </li>
 <li>strength

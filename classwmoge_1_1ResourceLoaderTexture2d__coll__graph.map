@@ -1,4 +1,0 @@
-<map id="wmoge::ResourceLoaderTexture2d" name="wmoge::ResourceLoaderTexture2d">
-<area shape="rect" id="node1" title="Loader for 2d textures through stb image library." alt="" coords="5,80,228,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ResourceLoader.html" title="Class responsible for loading or resource(s) in a specific format." alt="" coords="34,5,199,32"/>
-</map>

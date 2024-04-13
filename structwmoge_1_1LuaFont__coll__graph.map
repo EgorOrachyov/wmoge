@@ -1,6 +1,6 @@
 <map id="wmoge::LuaFont" name="wmoge::LuaFont">
 <area shape="rect" id="node1" title=" " alt="" coords="21,337,139,364"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1LuaResource.html" title=" " alt="" coords="7,261,153,288"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1LuaAsset.html" title=" " alt="" coords="17,261,143,288"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="15,185,145,212"/>
 <area shape="rect" id="node4" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="14,109,146,136"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>

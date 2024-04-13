@@ -1,19 +1,19 @@
 <map id="engine/scripting/lua_bindings/lua_bindings_platform.hpp" name="engine/scripting/lua_bindings/lua_bindings_platform.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1457,5,1610,61"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1426,5,1579,61"/>
 <area shape="rect" id="node2" href="$lua__bindings_8hpp.html" title=" " alt="" coords="449,199,596,240"/>
 <area shape="rect" id="node30" href="$lua__bindings__core_8hpp.html" title=" " alt="" coords="1965,109,2120,151"/>
 <area shape="rect" id="node37" href="$system_2engine_8hpp.html" title=" " alt="" coords="2951,601,3081,628"/>
 <area shape="rect" id="node39" href="$file__system_8hpp.html" title=" " alt="" coords="2708,527,2871,553"/>
 <area shape="rect" id="node44" href="$input_8hpp.html" title=" " alt="" coords="44,452,169,479"/>
 <area shape="rect" id="node46" href="$input__devices_8hpp.html" title=" " alt="" coords="157,527,334,553"/>
-<area shape="rect" id="node47" href="$window_8hpp.html" title=" " alt="" coords="1469,452,1611,479"/>
-<area shape="rect" id="node49" href="$window__manager_8hpp.html" title=" " alt="" coords="1333,377,1531,404"/>
+<area shape="rect" id="node47" href="$window_8hpp.html" title=" " alt="" coords="1472,452,1613,479"/>
+<area shape="rect" id="node49" href="$window__manager_8hpp.html" title=" " alt="" coords="1335,377,1534,404"/>
 <area shape="rect" id="node3" href="$lua__defs_8hpp.html" title=" " alt="" coords="317,377,486,404"/>
 <area shape="rect" id="node20" title=" " alt="" coords="780,751,900,777"/>
-<area shape="rect" id="node27" href="$lua__type__traits_8hpp.html" title=" " alt="" coords="800,288,944,329"/>
+<area shape="rect" id="node27" href="$lua__type__traits_8hpp.html" title=" " alt="" coords="835,288,979,329"/>
 <area shape="rect" id="node4" href="$flat__map_8hpp.html" title=" " alt="" coords="1382,601,1506,628"/>
-<area shape="rect" id="node15" title=" " alt="" coords="783,900,862,927"/>
-<area shape="rect" id="node21" href="$core_2object_8hpp.html" title=" " alt="" coords="1635,452,1746,479"/>
+<area shape="rect" id="node15" title=" " alt="" coords="782,900,861,927"/>
+<area shape="rect" id="node21" href="$core_2object_8hpp.html" title=" " alt="" coords="1638,452,1749,479"/>
 <area shape="rect" id="node25" title=" " alt="" coords="245,452,307,479"/>
 <area shape="rect" id="node26" title=" " alt="" coords="332,452,487,479"/>
 <area shape="rect" id="node5" href="$archive_8hpp.html" title=" " alt="" coords="1325,676,1427,703"/>
@@ -24,13 +24,13 @@
 <area shape="rect" id="node17" href="$status_8hpp.html" title=" " alt="" coords="2435,751,2546,777"/>
 <area shape="rect" id="node18" href="$string__id_8hpp.html" title=" " alt="" coords="1230,825,1354,852"/>
 <area shape="rect" id="node7" title=" " alt="" coords="2151,900,2217,927"/>
-<area shape="rect" id="node8" title=" " alt="" coords="3059,825,3125,852"/>
-<area shape="rect" id="node9" title=" " alt="" coords="2939,825,3007,852"/>
+<area shape="rect" id="node8" title=" " alt="" coords="3045,825,3112,852"/>
+<area shape="rect" id="node9" title=" " alt="" coords="2898,825,2966,852"/>
 <area shape="rect" id="node10" title=" " alt="" coords="1783,825,1841,852"/>
 <area shape="rect" id="node11" title=" " alt="" coords="3326,900,3381,927"/>
-<area shape="rect" id="node14" title=" " alt="" coords="2799,825,2860,852"/>
+<area shape="rect" id="node14" title=" " alt="" coords="2703,825,2764,852"/>
 <area shape="rect" id="node16" title=" " alt="" coords="1967,825,2019,852"/>
-<area shape="rect" id="node22" href="$var_8hpp.html" title=" " alt="" coords="1301,527,1395,553"/>
+<area shape="rect" id="node22" href="$var_8hpp.html" title=" " alt="" coords="1304,527,1397,553"/>
 <area shape="rect" id="node23" href="$math__utils_8hpp.html" title=" " alt="" coords="1613,676,1752,703"/>
 <area shape="rect" id="node24" href="$vec_8hpp.html" title=" " alt="" coords="815,601,915,628"/>
 <area shape="rect" id="node28" href="$mat_8hpp.html" title=" " alt="" coords="1733,527,1835,553"/>
@@ -46,7 +46,7 @@
 <area shape="rect" id="node41" href="$file_8hpp.html" title=" " alt="" coords="2385,676,2498,703"/>
 <area shape="rect" id="node42" href="$mount__volume_8hpp.html" title=" " alt="" coords="2366,601,2549,628"/>
 <area shape="rect" id="node43" title=" " alt="" coords="3315,601,3373,628"/>
-<area shape="rect" id="node45" href="$input__defs_8hpp.html" title=" " alt="" coords="52,601,209,628"/>
-<area shape="rect" id="node48" href="$image_8hpp.html" title=" " alt="" coords="1473,527,1607,553"/>
+<area shape="rect" id="node45" href="$input__defs_8hpp.html" title=" " alt="" coords="47,601,204,628"/>
+<area shape="rect" id="node48" href="$image_8hpp.html" title=" " alt="" coords="1484,527,1601,553"/>
 <area shape="rect" id="node50" href="$buffered__vector_8hpp.html" title=" " alt="" coords="1194,601,1358,628"/>
 </map>

@@ -1,21 +1,21 @@
 <map id="wmoge::LuaObject" name="wmoge::LuaObject">
 <area shape="rect" id="node1" title=" " alt="" coords="185,259,316,285"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1LuaEvent.html" title=" " alt="" coords="375,157,500,184"/>
-<area shape="rect" id="node13" href="$structwmoge_1_1LuaResource.html" title=" " alt="" coords="364,360,511,387"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1LuaAsset.html" title=" " alt="" coords="364,157,491,184"/>
+<area shape="rect" id="node10" href="$structwmoge_1_1LuaEvent.html" title=" " alt="" coords="365,360,490,387"/>
 <area shape="rect" id="node2" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="5,259,137,285"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1LuaEventAction.html" title=" " alt="" coords="563,56,725,83"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1LuaEventInput.html" title=" " alt="" coords="567,107,721,133"/>
-<area shape="rect" id="node11" href="$structwmoge_1_1LuaEventToken.html" title=" " alt="" coords="563,157,725,184"/>
-<area shape="rect" id="node12" href="$structwmoge_1_1LuaEventWindow.html" title=" " alt="" coords="559,208,729,235"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1LuaEventDrop.html" title=" " alt="" coords="792,5,944,32"/>
-<area shape="rect" id="node7" href="$structwmoge_1_1LuaEventGamepad.html" title=" " alt="" coords="777,56,959,83"/>
-<area shape="rect" id="node8" href="$structwmoge_1_1LuaEventJoystick.html" title=" " alt="" coords="781,107,955,133"/>
-<area shape="rect" id="node9" href="$structwmoge_1_1LuaEventKeyboard.html" title=" " alt="" coords="779,157,957,184"/>
-<area shape="rect" id="node10" href="$structwmoge_1_1LuaEventMouse.html" title=" " alt="" coords="786,208,950,235"/>
-<area shape="rect" id="node14" href="$structwmoge_1_1LuaAudioStream.html" title=" " alt="" coords="561,259,727,285"/>
-<area shape="rect" id="node15" href="$structwmoge_1_1LuaConfigFile.html" title=" " alt="" coords="569,309,719,336"/>
-<area shape="rect" id="node16" href="$structwmoge_1_1LuaFont.html" title=" " alt="" coords="585,360,703,387"/>
-<area shape="rect" id="node17" href="$structwmoge_1_1LuaMaterial.html" title=" " alt="" coords="575,411,713,437"/>
-<area shape="rect" id="node18" href="$structwmoge_1_1LuaPfxEffect.html" title=" " alt="" coords="572,461,716,488"/>
-<area shape="rect" id="node19" href="$structwmoge_1_1LuaTexture.html" title=" " alt="" coords="577,512,711,539"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1LuaAudioStream.html" title=" " alt="" coords="541,5,707,32"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1LuaConfigFile.html" title=" " alt="" coords="549,56,699,83"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1LuaFont.html" title=" " alt="" coords="565,107,683,133"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1LuaMaterial.html" title=" " alt="" coords="555,157,693,184"/>
+<area shape="rect" id="node8" href="$structwmoge_1_1LuaPfxEffect.html" title=" " alt="" coords="552,208,696,235"/>
+<area shape="rect" id="node9" href="$structwmoge_1_1LuaTexture.html" title=" " alt="" coords="557,259,691,285"/>
+<area shape="rect" id="node11" href="$structwmoge_1_1LuaEventAction.html" title=" " alt="" coords="543,309,705,336"/>
+<area shape="rect" id="node12" href="$structwmoge_1_1LuaEventInput.html" title=" " alt="" coords="547,360,701,387"/>
+<area shape="rect" id="node18" href="$structwmoge_1_1LuaEventToken.html" title=" " alt="" coords="543,411,705,437"/>
+<area shape="rect" id="node19" href="$structwmoge_1_1LuaEventWindow.html" title=" " alt="" coords="539,461,709,488"/>
+<area shape="rect" id="node13" href="$structwmoge_1_1LuaEventDrop.html" title=" " alt="" coords="772,259,924,285"/>
+<area shape="rect" id="node14" href="$structwmoge_1_1LuaEventGamepad.html" title=" " alt="" coords="757,309,939,336"/>
+<area shape="rect" id="node15" href="$structwmoge_1_1LuaEventJoystick.html" title=" " alt="" coords="761,360,935,387"/>
+<area shape="rect" id="node16" href="$structwmoge_1_1LuaEventKeyboard.html" title=" " alt="" coords="759,411,937,437"/>
+<area shape="rect" id="node17" href="$structwmoge_1_1LuaEventMouse.html" title=" " alt="" coords="766,461,930,488"/>
 </map>
