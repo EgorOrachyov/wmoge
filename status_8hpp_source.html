@@ -182,7 +182,17 @@ $(function() {
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">return</span> stream;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="status_8hpp.html#a491b78ebb0c80ba80b066ec8880893e8">  121</a></span>&#160;<span class="preprocessor">#define WG_CHECKED(operation)               \</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">    {                                       \</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">        const Status _status = (operation); \</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">        if (!_status) {                     \</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">            return _status;                 \</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">        }                                   \</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">  129</a></span>&#160;<span class="preprocessor">#define WG_OK StatusCode::Ok</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aclasswmoge_1_1Enum_html_a50e3bc546733c26864c03694986b893b"><div class="ttname"><a href="classwmoge_1_1Enum.html#a50e3bc546733c26864c03694986b893b">wmoge::Enum::to_str</a></div><div class="ttdeci">static std::string to_str(T value)</div><div class="ttdef"><b>Definition:</b> enum.hpp:57</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html_a0e4cc5caae6c6ce9dbb29fc797cacdc8"><div class="ttname"><a href="classwmoge_1_1Status.html#a0e4cc5caae6c6ce9dbb29fc797cacdc8">wmoge::Status::is_ok</a></div><div class="ttdeci">bool is_ok() const</div><div class="ttdef"><b>Definition:</b> status.hpp:96</div></div>

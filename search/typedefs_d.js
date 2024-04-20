@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['rect2i_8711',['Rect2i',['../namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6',1,'wmoge']]],
-  ['resolutionrule_8712',['ResolutionRule',['../classwmoge_1_1FileSystem.html#a8735ea1572226f77d417a692813880f6',1,'wmoge::FileSystem']]]
+  ['quat_8847',['Quat',['../structwmoge_1_1RttiTypeOf_3_01TQuat_3_01T_01_4_01_4.html#aa30e81018b37d2354a52ca24460c98af',1,'wmoge::RttiTypeOf&lt; TQuat&lt; T &gt; &gt;']]],
+  ['quatd_8848',['Quatd',['../namespacewmoge.html#abd557a70377a5cba6d99a5fbb4f249a5',1,'wmoge']]],
+  ['quatf_8849',['Quatf',['../namespacewmoge.html#a2a05ed79786c38d275c521838350850b',1,'wmoge']]]
 ];

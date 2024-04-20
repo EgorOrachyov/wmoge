@@ -68,6 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -168,6 +169,13 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a491b78ebb0c80ba80b066ec8880893e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="status_8hpp.html#a491b78ebb0c80ba80b066ec8880893e8">WG_CHECKED</a>(operation)</td></tr>
+<tr class="separator:a491b78ebb0c80ba80b066ec8880893e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b62ff05bb070920d3ef8f1c6783d6de"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>&#160;&#160;&#160;StatusCode::Ok</td></tr>
+<tr class="separator:a8b62ff05bb070920d3ef8f1c6783d6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:afa9c77373a703158a05edad6a590085b"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085b">wmoge::StatusCode</a> { <br />
@@ -213,6 +221,45 @@ Functions</h2></td></tr>
 <tr class="memitem:a28d6f10eec38a913dd46550eebe30809"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a28d6f10eec38a913dd46550eebe30809">wmoge::operator&lt;&lt;</a> (std::ostream &amp;stream, const Status &amp;status)</td></tr>
 <tr class="separator:a28d6f10eec38a913dd46550eebe30809"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a491b78ebb0c80ba80b066ec8880893e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a491b78ebb0c80ba80b066ec8880893e8">&#9670;&nbsp;</a></span>WG_CHECKED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_CHECKED</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">operation</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    {                                       \</div>
+<div class="line">        const Status _status = (operation); \</div>
+<div class="line">        if (!_status) {                     \</div>
+<div class="line">            return _status;                 \</div>
+<div class="line">        }                                   \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8b62ff05bb070920d3ef8f1c6783d6de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b62ff05bb070920d3ef8f1c6783d6de">&#9670;&nbsp;</a></span>WG_OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_OK&#160;&#160;&#160;StatusCode::Ok</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

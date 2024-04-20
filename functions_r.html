@@ -97,6 +97,7 @@ $(function() {
 </li>
 <li>read_from_archive()
 : <a class="el" href="classwmoge_1_1Object.html#a3103a4830a0539330f4ad8722e5b92ad">wmoge::Object</a>
+, <a class="el" href="classwmoge_1_1RttiStruct.html#a45afd9e8192acfccfa6b8c10dd7e7798">wmoge::RttiStruct</a>
 , <a class="el" href="classwmoge_1_1RttiType.html#a573ec7c98d84db6359248898bec54ed8">wmoge::RttiType</a>
 , <a class="el" href="classwmoge_1_1RttiTypeT.html#a3aac8cbf7db8d79a763d3cb462fc57d9">wmoge::RttiTypeT&lt; T, Base &gt;</a>
 </li>
@@ -111,6 +112,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1NodePropSpatial.html#ae9d561824fec82c9e21d93f7be87789f">wmoge::NodePropSpatial</a>
 , <a class="el" href="classwmoge_1_1Object.html#a61cacbf997be8f3ef4b2f4586715bc67">wmoge::Object</a>
 , <a class="el" href="classwmoge_1_1Prefab.html#a832371f53a078fc27a0b7cd49895c504">wmoge::Prefab</a>
+, <a class="el" href="classwmoge_1_1RttiStruct.html#a3f158c7355758d094714f1cb9113802f">wmoge::RttiStruct</a>
 , <a class="el" href="classwmoge_1_1RttiType.html#ab9a4fab2f068346dc54e97653a677023">wmoge::RttiType</a>
 , <a class="el" href="classwmoge_1_1RttiTypeT.html#a031afff1bbd62b9f69136c8458a0dd84">wmoge::RttiTypeT&lt; T, Base &gt;</a>
 , <a class="el" href="classwmoge_1_1ScenePacked.html#a51fb57999f76c6b639f55db82ece1d91">wmoge::ScenePacked</a>
@@ -137,7 +139,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1LuaRefCnt.html#aa9821e35100dff9d6e21a9833a5966fc">wmoge::LuaRefCnt</a>
 </li>
 <li>Ref()
-: <a class="el" href="classwmoge_1_1Ref.html#aa738bee7cfa2935e2dfa56b3b5548dab">wmoge::Ref&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1Ref.html#a71a856c85872d867aea05fc097be43b4">wmoge::Ref&lt; T &gt;</a>
 </li>
 <li>ref()
 : <a class="el" href="classwmoge_1_1RefCnt.html#a8ce80fe96ff694a060f318521d1d529a">wmoge::RefCnt</a>
@@ -150,6 +152,9 @@ $(function() {
 <li>refs_count()
 : <a class="el" href="structwmoge_1_1LuaRefCnt.html#ac51bf7d1e2b0446de96d3ae758831b38">wmoge::LuaRefCnt</a>
 , <a class="el" href="classwmoge_1_1RefCnt.html#afb7916425067c1d775930cf5e3f98ed7">wmoge::RefCnt</a>
+</li>
+<li>RefT
+: <a class="el" href="classwmoge_1_1RttiTypeRefT.html#a74b5d061d0f84659e8977b73031b638b">wmoge::RttiTypeRefT&lt; PtrT &gt;</a>
 </li>
 <li>register_arch()
 : <a class="el" href="classwmoge_1_1EcsWorld.html#a1d7b1fd4a80cb948ea62bd56981c6bad">wmoge::EcsWorld</a>
@@ -214,11 +219,25 @@ $(function() {
 <li>remove_child()
 : <a class="el" href="classwmoge_1_1SceneNode.html#aa32c183b01041945332756a730ba76e6">wmoge::SceneNode</a>
 </li>
+<li>remove_element()
+: <a class="el" href="classwmoge_1_1RttiType.html#a1c3071b1a3fc7d98395c13e0bb51a4ff">wmoge::RttiType</a>
+, <a class="el" href="classwmoge_1_1RttiTypeBaseMapT.html#a398a4ce4f69fe5be716650a04f714346">wmoge::RttiTypeBaseMapT&lt; MapT, KeyT, ValueT &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a81e45210671de3b937348ae440a827e2">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>
+</li>
 <li>remove_emitter()
 : <a class="el" href="classwmoge_1_1PfxScene.html#a45cff6a17b0517cb377f3d3919d6530a">wmoge::PfxScene</a>
 </li>
 <li>remove_playback()
 : <a class="el" href="classwmoge_1_1ALAudioBus.html#a09fa4f59df063715a38131f80ff55f4b">wmoge::ALAudioBus</a>
+</li>
+<li>RemoveConst
+: <a class="el" href="structwmoge_1_1RttiArgInfo.html#afe8cd10db68c80af85df5476179c6652">wmoge::RttiArgInfo&lt; ArgT &gt;</a>
+</li>
+<li>RemovePointer
+: <a class="el" href="structwmoge_1_1RttiArgInfo.html#a5867a857354b732b38e147f3f4eca28d">wmoge::RttiArgInfo&lt; ArgT &gt;</a>
+</li>
+<li>RemoveRef
+: <a class="el" href="structwmoge_1_1RttiArgInfo.html#a45aa99108f745101c793024a5d99dfd9">wmoge::RttiArgInfo&lt; ArgT &gt;</a>
 </li>
 <li>rename()
 : <a class="el" href="classwmoge_1_1ActionMap.html#a1f7bba6f6a88521624e7abc10812151f">wmoge::ActionMap</a>
@@ -415,11 +434,11 @@ $(function() {
 <li>rt_view()
 : <a class="el" href="classwmoge_1_1VKTexture.html#acd242cfdc0a7fc3dfae3766333887b43">wmoge::VKTexture</a>
 </li>
-<li>RttiCallable()
-: <a class="el" href="classwmoge_1_1RttiCallable.html#ad03c223aced815eb79666ea5b1bf6307">wmoge::RttiCallable</a>
-</li>
 <li>RttiClass()
 : <a class="el" href="classwmoge_1_1RttiClass.html#a14132600768316b6e93a2b775f33aed1">wmoge::RttiClass</a>
+</li>
+<li>RttiClassT()
+: <a class="el" href="classwmoge_1_1RttiClassT.html#a3378ee4be1c17a347a4f2cb6a09c0463">wmoge::RttiClassT&lt; ClassT &gt;</a>
 </li>
 <li>RttiEnum()
 : <a class="el" href="classwmoge_1_1RttiEnum.html#a0c791a90bd2576702f1670edf7ddf877">wmoge::RttiEnum</a>
@@ -427,17 +446,35 @@ $(function() {
 <li>RttiField()
 : <a class="el" href="classwmoge_1_1RttiField.html#a2ba038d2326cb339a180d5956a8b5f07">wmoge::RttiField</a>
 </li>
+<li>RttiFunction()
+: <a class="el" href="classwmoge_1_1RttiFunction.html#a737898f4fb9f05b973249e5054de5583">wmoge::RttiFunction</a>
+</li>
+<li>RttiFunctionSignal()
+: <a class="el" href="classwmoge_1_1RttiFunctionSignal.html#abdc6cc00fb650c727c056ac6d1e2f066">wmoge::RttiFunctionSignal</a>
+</li>
+<li>RttiFunctionT()
+: <a class="el" href="classwmoge_1_1RttiFunctionT.html#a8cd7d95e074e7495cb3e70f2e6278f40">wmoge::RttiFunctionT&lt; TClass, TSignature, TRet, TArgs &gt;</a>
+</li>
 <li>RttiMember()
 : <a class="el" href="classwmoge_1_1RttiMember.html#aa5a16a095872d5b3cb41c30a652598a4">wmoge::RttiMember</a>
 </li>
+<li>RttiMetaData()
+: <a class="el" href="classwmoge_1_1RttiMetaData.html#ade89412bad9f6f95b592a6aeb2cc4748">wmoge::RttiMetaData</a>
+</li>
+<li>RttiMetaProperty()
+: <a class="el" href="structwmoge_1_1RttiMetaProperty.html#a07c6cf9ca346b70d0fa801725f8a504d">wmoge::RttiMetaProperty</a>
+</li>
 <li>RttiMethod()
-: <a class="el" href="classwmoge_1_1RttiMethod.html#a23fa59ffeb67dc221ba849cc64e7efd4">wmoge::RttiMethod</a>
+: <a class="el" href="classwmoge_1_1RttiMethod.html#af10e72592b7ced771b0ec4139a677bc0">wmoge::RttiMethod</a>
 </li>
 <li>RttiSignal()
-: <a class="el" href="classwmoge_1_1RttiSignal.html#a3997a0095665c518087dba9724ba73d7">wmoge::RttiSignal</a>
+: <a class="el" href="classwmoge_1_1RttiSignal.html#a21f5e72f2f8ebec4fb20c8ad44363c57">wmoge::RttiSignal</a>
 </li>
 <li>RttiStruct()
 : <a class="el" href="classwmoge_1_1RttiStruct.html#aa40d48fb3f1f1864ff509963788a130c">wmoge::RttiStruct</a>
+</li>
+<li>RttiStructT()
+: <a class="el" href="classwmoge_1_1RttiStructT.html#a725ffa5e5a5cec11f2ea9d981bef2a83">wmoge::RttiStructT&lt; StructT &gt;</a>
 </li>
 <li>RttiType()
 : <a class="el" href="classwmoge_1_1RttiType.html#a4538c7c84f23c230516554334326235f">wmoge::RttiType</a>
@@ -456,6 +493,12 @@ $(function() {
 </li>
 <li>RttiTypeFundamentalT()
 : <a class="el" href="classwmoge_1_1RttiTypeFundamentalT.html#a5b6216b9d28bbb6e1c03e627b8797e74">wmoge::RttiTypeFundamentalT&lt; T &gt;</a>
+</li>
+<li>RttiTypeOptionalT()
+: <a class="el" href="classwmoge_1_1RttiTypeOptionalT.html#a477001c9e9057a2e2cf255ee79cf0f02">wmoge::RttiTypeOptionalT&lt; T &gt;</a>
+</li>
+<li>RttiTypeRefT()
+: <a class="el" href="classwmoge_1_1RttiTypeRefT.html#ae3b1c294adfa646c6e2e67bd14b8758f">wmoge::RttiTypeRefT&lt; PtrT &gt;</a>
 </li>
 <li>RttiTypeStorage()
 : <a class="el" href="classwmoge_1_1RttiTypeStorage.html#a21d166627863fd540658fb3052196685">wmoge::RttiTypeStorage</a>

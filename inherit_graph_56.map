@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1AssetMetaFile.html" title="Structure for AssetMeta info stored as .res file in file system." alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetPakFileSystem.html" title="Assets pak based on the filesystem asset directory access." alt="" coords="180,5,372,32"/>
 </map>

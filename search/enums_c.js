@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vartype_8819',['VarType',['../namespacewmoge.html#a6e4f17edabc6b45b13dd9de865c677c7',1,'wmoge']]]
+  ['tokennotification_8963',['TokenNotification',['../namespacewmoge.html#ad577a781f400d7d9e6f7484c20fce409',1,'wmoge']]]
 ];

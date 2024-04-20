@@ -1,6 +1,6 @@
 <map id="wmoge::RenderPassInfo" name="wmoge::RenderPassInfo">
-<area shape="rect" id="node1" title="Global render state passed to objects during rendering." alt="" coords="199,109,362,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1ArrayView.html" title=" " alt="" coords="5,5,188,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1CameraList.html" title="Cameras list for rendering." alt="" coords="212,13,349,39"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1MeshBatchCollector.html" title="Service to collect batches from render objects for drawing." alt="" coords="374,13,561,39"/>
+<area shape="rect" id="node1" title="Global render state passed to objects during rendering." alt="" coords="179,109,342,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1CameraList.html" title="Cameras list for rendering." alt="" coords="5,13,143,39"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1MeshBatchCollector.html" title="Service to collect batches from render objects for drawing." alt="" coords="167,13,354,39"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1array__view.html" title=" " alt="" coords="378,5,533,47"/>
 </map>

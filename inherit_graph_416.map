@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1ShaderCanvas.html" title="Auto generated reflection for &#39;canvas&#39; shader." alt="" coords="5,5,160,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1ScriptSystem.html" title="Engine script system responsible for scripting features for a game." alt="" coords="5,5,153,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1LuaScriptSystem.html" title="Lua language based script system of the engine." alt="" coords="201,5,372,32"/>
 </map>

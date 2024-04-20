@@ -76,7 +76,7 @@ $(function() {
 <p>Info of a callable function param.  
  <a href="structwmoge_1_1RttiParamInfo.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="callable_8hpp_source.html">callable.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="function_8hpp_source.html">function.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for wmoge::RttiParamInfo:</div>
 <div class="dyncontent">
@@ -86,13 +86,13 @@ Collaboration diagram for wmoge::RttiParamInfo:</div>
 <area shape="rect" href="classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="195,95,313,121"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="332,5,429,32"/>
-<area shape="rect" href="classwmoge_1_1RttiMetaData.html" title=" " alt="" coords="141,5,287,32"/>
+<area shape="rect" href="classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="141,5,287,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a71924d915aa0364e44f58a724642bdde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RttiType.html">RttiType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiParamInfo.html#a71924d915aa0364e44f58a724642bdde">type</a></td></tr>
+<tr class="memitem:a71924d915aa0364e44f58a724642bdde"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RttiType.html">RttiType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiParamInfo.html#a71924d915aa0364e44f58a724642bdde">type</a> = nullptr</td></tr>
 <tr class="separator:a71924d915aa0364e44f58a724642bdde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb44c6daf97e8697548ae0099995d4b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiParamInfo.html#aeb44c6daf97e8697548ae0099995d4b8">name</a></td></tr>
 <tr class="separator:aeb44c6daf97e8697548ae0099995d4b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -102,6 +102,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a720aa78402ce2abe3e6c42dfe7b2c911"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a403b212dcc8b9e96e1acd6a965df8962"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiParamInfo.html#a403b212dcc8b9e96e1acd6a965df8962">is_ptr</a> = false</td></tr>
 <tr class="separator:a403b212dcc8b9e96e1acd6a965df8962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad61457e59eed4b728d5aa1877474df29"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiParamInfo.html#ad61457e59eed4b728d5aa1877474df29">stack_size</a> = 0</td></tr>
+<tr class="separator:ad61457e59eed4b728d5aa1877474df29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeabbd4b5870ba23f880e105c5a313403"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiParamInfo.html#aeabbd4b5870ba23f880e105c5a313403">stack_offset</a> = 0</td></tr>
+<tr class="separator:aeabbd4b5870ba23f880e105c5a313403"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Info of a callable function param. </p>
@@ -162,6 +166,34 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aeabbd4b5870ba23f880e105c5a313403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeabbd4b5870ba23f880e105c5a313403">&#9670;&nbsp;</a></span>stack_offset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t wmoge::RttiParamInfo::stack_offset = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad61457e59eed4b728d5aa1877474df29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad61457e59eed4b728d5aa1877474df29">&#9670;&nbsp;</a></span>stack_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t wmoge::RttiParamInfo::stack_size = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a71924d915aa0364e44f58a724642bdde"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a71924d915aa0364e44f58a724642bdde">&#9670;&nbsp;</a></span>type</h2>
 
@@ -169,7 +201,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1RttiType.html">RttiType</a>* wmoge::RttiParamInfo::type</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1RttiType.html">RttiType</a>* wmoge::RttiParamInfo::type = nullptr</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -177,7 +209,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/rtti/<a class="el" href="callable_8hpp_source.html">callable.hpp</a></li>
+<li>engine/rtti/<a class="el" href="function_8hpp_source.html">function.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

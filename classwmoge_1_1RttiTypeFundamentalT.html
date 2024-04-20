@@ -95,7 +95,7 @@ Collaboration diagram for wmoge::RttiTypeFundamentalT&lt; T &gt;:</div>
 <area shape="rect" href="classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="129,95,248,121"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
-<area shape="rect" href="classwmoge_1_1RttiMetaData.html" title=" " alt="" coords="262,5,409,32"/>
+<area shape="rect" href="classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="262,5,409,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -133,6 +133,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac57b78aff35efa3a26e6fba5867a83eb inherit pub_methods_classwmoge_1_1RttiType"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad24be9eb20fad7e1ab69a1d5a8d097e4 inherit pub_methods_classwmoge_1_1RttiType"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#ad24be9eb20fad7e1ab69a1d5a8d097e4">set_metadata</a> (<a class="el" href="classwmoge_1_1RttiMetaData.html">RttiMetaData</a> meta_data)</td></tr>
 <tr class="separator:ad24be9eb20fad7e1ab69a1d5a8d097e4 inherit pub_methods_classwmoge_1_1RttiType"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb34e1e9e67688656780f36b5d9f3690 inherit pub_methods_classwmoge_1_1RttiType"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#adb34e1e9e67688656780f36b5d9f3690">add_element</a> (void *src) const</td></tr>
+<tr class="separator:adb34e1e9e67688656780f36b5d9f3690 inherit pub_methods_classwmoge_1_1RttiType"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c3071b1a3fc7d98395c13e0bb51a4ff inherit pub_methods_classwmoge_1_1RttiType"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a1c3071b1a3fc7d98395c13e0bb51a4ff">remove_element</a> (void *src, int index) const</td></tr>
+<tr class="separator:a1c3071b1a3fc7d98395c13e0bb51a4ff inherit pub_methods_classwmoge_1_1RttiType"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4350988ccb9679582c95f07288ac7e3a inherit pub_methods_classwmoge_1_1RttiType"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a4350988ccb9679582c95f07288ac7e3a">is_listable</a> () const</td></tr>
+<tr class="separator:a4350988ccb9679582c95f07288ac7e3a inherit pub_methods_classwmoge_1_1RttiType"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ff3fd325c56b2177fd3dd76c4a3943c inherit pub_methods_classwmoge_1_1RttiType"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a2ff3fd325c56b2177fd3dd76c4a3943c">get_name</a> () const</td></tr>
 <tr class="separator:a2ff3fd325c56b2177fd3dd76c4a3943c inherit pub_methods_classwmoge_1_1RttiType"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e07f693a02477748ee5fa16dd1ad1b1 inherit pub_methods_classwmoge_1_1RttiType"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiType.html#a8e07f693a02477748ee5fa16dd1ad1b1">get_str</a> () const</td></tr>
