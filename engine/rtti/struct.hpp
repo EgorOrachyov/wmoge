@@ -69,6 +69,7 @@ namespace wmoge {
     class RttiField : public RttiMember {
     public:
         RttiField(Strid name, RttiType* type, std::size_t byte_size, std::size_t byte_offset) : RttiMember(name) {
+            m_type        = type;
             m_byte_size   = byte_size;
             m_byte_offset = byte_offset;
         }
@@ -104,6 +105,13 @@ namespace wmoge {
         [[nodiscard]] const flat_map<Strid, std::int16_t>& get_fields_map() const { return m_fields_map; }
         [[nodiscard]] const std::vector<RttiField>&        get_fields() const { return m_fields; }
         [[nodiscard]] RttiStruct*                          get_parent() const { return m_parent; }
+
+        Status copy(void* dst, const void* src) const override;
+        Status read_from_yaml(void* dst, YamlConstNodeRef node) const override;
+        Status write_to_yaml(const void* src, YamlNodeRef node) const override;
+        Status read_from_archive(void* dst, Archive& archive) const override;
+        Status write_to_archive(const void* src, Archive& archive) const override;
+        Status to_string(const void* src, std::stringstream& s) const override;
 
     protected:
         flat_set<Strid>               m_inherits;

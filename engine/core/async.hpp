@@ -247,7 +247,7 @@ namespace wmoge {
          *
          * @return New async signaled when all deps finished or failed if one failed
          */
-        static Async join(ArrayView<Async> dependencies);
+        static Async join(array_view<Async> dependencies);
 
         /**
          * @brief Make signaled (completed) async op

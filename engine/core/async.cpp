@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    Async Async::join(ArrayView<Async> dependencies) {
+    Async Async::join(array_view<Async> dependencies) {
         WG_AUTO_PROFILE_CORE("Async::join");
 
         if (dependencies.empty()) {

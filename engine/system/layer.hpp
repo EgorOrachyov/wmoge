@@ -72,9 +72,9 @@ namespace wmoge {
         void remove(LayerPtr layer);
         void clear();
 
-        [[nodiscard]] ArrayView<const LayerPtr> get_layers() const { return m_layers; }
-        [[nodiscard]] std::size_t               get_size() const { return m_layers.size(); }
-        [[nodiscard]] bool                      is_empty() const { return m_layers.empty(); }
+        [[nodiscard]] array_view<const LayerPtr> get_layers() const { return m_layers; }
+        [[nodiscard]] std::size_t                get_size() const { return m_layers.size(); }
+        [[nodiscard]] bool                       is_empty() const { return m_layers.empty(); }
 
     private:
         LayerStorage m_layers;

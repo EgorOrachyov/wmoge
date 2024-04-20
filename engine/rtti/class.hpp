@@ -31,7 +31,7 @@
 #include "core/flat_set.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
-#include "rtti/callable.hpp"
+#include "rtti/function.hpp"
 #include "rtti/meta_data.hpp"
 #include "rtti/struct.hpp"
 #include "rtti/type.hpp"
@@ -50,11 +50,14 @@ namespace wmoge {
     */
     class RttiMethod : public RttiMember {
     public:
-        RttiMethod(Strid name, RttiCallable* type) : RttiMember(name) {
+        RttiMethod(Strid name, Ref<RttiFunction> function) : RttiMember(name) {
+            m_function = std::move(function);
         }
 
+        [[nodiscard]] const Ref<RttiFunction>& get_function() const { return m_function; }
+
     private:
-        RttiCallable* m_type;
+        Ref<RttiFunction> m_function;
     };
 
     /**
@@ -63,11 +66,14 @@ namespace wmoge {
     */
     class RttiSignal : public RttiMember {
     public:
-        RttiSignal(Strid name, RttiCallable* type) : RttiMember(name) {
+        RttiSignal(Strid name, Ref<RttiFunctionSignal> function) : RttiMember(name) {
+            m_function = std::move(function);
         }
 
+        [[nodiscard]] const Ref<RttiFunctionSignal>& get_function() const { return m_function; }
+
     private:
-        RttiCallable* m_type;
+        Ref<RttiFunctionSignal> m_function;
     };
 
     /**
@@ -85,16 +91,24 @@ namespace wmoge {
         std::optional<const RttiSignal*> find_signal(const Strid& name) const;
         void                             add_signal(RttiSignal signal);
         bool                             has_signal(const Strid& name) const;
-        void                             add_factory(std::function<class Object*()> factory);
+        void                             add_factory(std::function<class RttiObject*()> factory);
         bool                             can_instantiate() const;
-        class Object*                    instantiate() const;
+        class RttiObject*                instantiate() const;
+
+        [[nodiscard]] const std::function<class RttiObject*()>& get_factory() const { return m_factory; }
+        [[nodiscard]] const flat_map<Strid, int>&               get_methods_map() const { return m_methods_map; }
+        [[nodiscard]] const std::vector<RttiMethod>&            get_methods() const { return m_methods; }
+        [[nodiscard]] const flat_map<Strid, int>&               get_signals_map() const { return m_signals_map; }
+        [[nodiscard]] const std::vector<RttiSignal>&            get_signals() const { return m_signals; }
+        [[nodiscard]] RttiClass*                                get_parent_class() const { return m_parent_class; }
 
     private:
-        std::function<class Object*()> m_factory;
-        flat_map<Strid, int>           m_methods_map;
-        std::vector<RttiMethod>        m_methods;
-        flat_map<Strid, int>           m_signals_map;
-        std::vector<RttiSignal>        m_signals;
+        std::function<class RttiObject*()> m_factory;
+        flat_map<Strid, int>               m_methods_map;
+        std::vector<RttiMethod>            m_methods;
+        flat_map<Strid, int>               m_signals_map;
+        std::vector<RttiSignal>            m_signals;
+        RttiClass*                         m_parent_class = nullptr;
     };
 
 }// namespace wmoge

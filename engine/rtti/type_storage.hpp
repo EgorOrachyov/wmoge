@@ -49,6 +49,7 @@ namespace wmoge {
         ~RttiTypeStorage() = default;
 
         std::optional<RttiType*> find_type(const Strid& name);
+        RttiStruct*              find_struct(const Strid& name);
         RttiClass*               find_class(const Strid& name);
         bool                     has(const Strid& name);
         void                     add(const Ref<RttiType>& type);

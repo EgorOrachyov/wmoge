@@ -129,14 +129,14 @@ namespace wmoge {
         [[nodiscard]] GfxVertBuffersSetup get_vert_buffers_setup(int chunk_id) const;
         [[nodiscard]] GfxIndexBufferSetup get_index_buffer_setup(int chunk_id) const;
 
-        [[nodiscard]] ArrayView<const MeshChunk> get_chunks() const;
-        [[nodiscard]] const MeshChunk&           get_chunk(int i) const;
-        [[nodiscard]] const Ref<GfxVertBuffer>&  get_gfx_vertex_buffers(int i) const;
-        [[nodiscard]] const Ref<GfxIndexBuffer>& get_gfx_index_buffers(int i) const;
-        [[nodiscard]] const GfxVertStream&       get_vert_streams(int i) const;
-        [[nodiscard]] const GfxIndexStream&      get_index_streams(int i) const;
-        [[nodiscard]] ArrayView<const int>       get_roots() const;
-        [[nodiscard]] Aabbf                      get_aabb() const;
+        [[nodiscard]] array_view<const MeshChunk> get_chunks() const;
+        [[nodiscard]] const MeshChunk&            get_chunk(int i) const;
+        [[nodiscard]] const Ref<GfxVertBuffer>&   get_gfx_vertex_buffers(int i) const;
+        [[nodiscard]] const Ref<GfxIndexBuffer>&  get_gfx_index_buffers(int i) const;
+        [[nodiscard]] const GfxVertStream&        get_vert_streams(int i) const;
+        [[nodiscard]] const GfxIndexStream&       get_index_streams(int i) const;
+        [[nodiscard]] array_view<const int>       get_roots() const;
+        [[nodiscard]] Aabbf                       get_aabb() const;
 
     private:
         buffered_vector<MeshChunk>           m_chunks;

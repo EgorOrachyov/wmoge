@@ -54,14 +54,14 @@ namespace wmoge {
         EcsRegistry(EcsRegistry&&)      = delete;
         ~EcsRegistry()                  = default;
 
-        [[nodiscard]] int                           get_component_idx(const Strid& name);
-        [[nodiscard]] const EcsComponentInfo&       get_component_info(const Strid& name);
-        [[nodiscard]] const EcsComponentInfo&       get_component_info(int idx);
-        [[nodiscard]] MemPool&                      get_component_pool(int idx);
-        [[nodiscard]] MemPool&                      get_entity_pool();
-        [[nodiscard]] int                           get_chunk_size() const { return m_chunk_size; }
-        [[nodiscard]] int                           get_expand_size() const { return m_expand_size; }
-        [[nodiscard]] ArrayView<const EcsSystemPtr> get_systems() const { return m_systems; }
+        [[nodiscard]] int                            get_component_idx(const Strid& name);
+        [[nodiscard]] const EcsComponentInfo&        get_component_info(const Strid& name);
+        [[nodiscard]] const EcsComponentInfo&        get_component_info(int idx);
+        [[nodiscard]] MemPool&                       get_component_pool(int idx);
+        [[nodiscard]] MemPool&                       get_entity_pool();
+        [[nodiscard]] int                            get_chunk_size() const { return m_chunk_size; }
+        [[nodiscard]] int                            get_expand_size() const { return m_expand_size; }
+        [[nodiscard]] array_view<const EcsSystemPtr> get_systems() const { return m_systems; }
 
         template<typename Component>
         void register_component();

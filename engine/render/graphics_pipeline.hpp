@@ -166,23 +166,23 @@ namespace wmoge {
 
         virtual void set_scene(RenderScene* scene);
         virtual void set_cameras(CameraList* cameras);
-        virtual void set_views(ArrayView<struct RenderView> views);
+        virtual void set_views(array_view<struct RenderView> views);
         virtual void set_settings(const GraphicsPipelineSettings& settings);
 
         virtual void exectute() = 0;
 
-        [[nodiscard]] ArrayView<GraphicsPipelineStage*> get_stages() { return m_stages; }
-        [[nodiscard]] const GraphicsPipelineSettings&   get_settings() { return m_settings; }
-        [[nodiscard]] const GraphicsPipelineAssets&     get_assets() { return m_assets; }
-        [[nodiscard]] ArrayView<struct RenderView>      get_views() const { return m_views; }
-        [[nodiscard]] CameraList*                       get_cameras() const { return m_cameras; }
-        [[nodiscard]] RenderScene*                      get_scene() const { return m_scene; }
+        [[nodiscard]] array_view<GraphicsPipelineStage*> get_stages() { return m_stages; }
+        [[nodiscard]] const GraphicsPipelineSettings&    get_settings() { return m_settings; }
+        [[nodiscard]] const GraphicsPipelineAssets&      get_assets() { return m_assets; }
+        [[nodiscard]] array_view<struct RenderView>      get_views() const { return m_views; }
+        [[nodiscard]] CameraList*                        get_cameras() const { return m_cameras; }
+        [[nodiscard]] RenderScene*                       get_scene() const { return m_scene; }
 
     protected:
         std::vector<GraphicsPipelineStage*> m_stages;
         GraphicsPipelineSettings            m_settings;
         GraphicsPipelineAssets              m_assets;
-        ArrayView<struct RenderView>        m_views;
+        array_view<struct RenderView>       m_views;
         CameraList*                         m_cameras;
         RenderScene*                        m_scene;
     };

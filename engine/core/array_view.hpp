@@ -36,23 +36,23 @@
 namespace wmoge {
 
     /**
-     * @class ArrayView
+     * @class array_view
      * @brief View to elements of array
      *
      * @tparam T Type of elements
      */
     template<typename T>
-    class ArrayView {
+    class array_view {
     public:
-        ArrayView() = default;
-        ArrayView(T* data, std::size_t size) : m_data(data), m_size(size) {}
-        ArrayView(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        array_view() = default;
+        array_view(T* data, std::size_t size) : m_data(data), m_size(size) {}
+        array_view(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
         template<typename M>
-        ArrayView(const std::vector<M>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        array_view(const std::vector<M>& vector) : m_data(vector.data()), m_size(vector.size()) {}
         template<std::size_t MinCapacity>
-        ArrayView(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        array_view(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
         template<typename M, std::size_t MinCapacity>
-        ArrayView(const ankerl::svector<M, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        array_view(const ankerl::svector<M, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
 
         T& operator[](const int i) {
             assert(i < size());

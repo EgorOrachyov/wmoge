@@ -150,7 +150,7 @@ namespace wmoge {
     void GfxCtxWrapper::bind_desc_set(const Ref<GfxDescSet>& set, int index) {
         m_stream->push([=]() { m_ctx->bind_desc_set(set, index); });
     }
-    void GfxCtxWrapper::bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) {
+    void GfxCtxWrapper::bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset) {
         m_stream->push([=]() { m_ctx->bind_desc_sets(sets, offset); });
     }
     void GfxCtxWrapper::draw(int vertex_count, int base_vertex, int instance_count) {

@@ -123,11 +123,11 @@ namespace wmoge {
         /** @brief Validates GPU state of material, buffer and descriptor set for rendering */
         void validate();
 
-        [[nodiscard]] ArrayView<const Ref<Texture>> get_textures() const { return m_textures; }
-        [[nodiscard]] const Ref<Shader>&            get_shader() const { return m_shader; }
-        [[nodiscard]] const Ref<Data>&              get_parameters() const { return m_parameters; }
-        [[nodiscard]] const Ref<GfxUniformBuffer>&  get_buffer() const { return m_buffer; }
-        [[nodiscard]] const Ref<GfxDescSet>&        get_desc_set() const { return m_desc_set; }
+        [[nodiscard]] array_view<const Ref<Texture>> get_textures() const { return m_textures; }
+        [[nodiscard]] const Ref<Shader>&             get_shader() const { return m_shader; }
+        [[nodiscard]] const Ref<Data>&               get_parameters() const { return m_parameters; }
+        [[nodiscard]] const Ref<GfxUniformBuffer>&   get_buffer() const { return m_buffer; }
+        [[nodiscard]] const Ref<GfxDescSet>&         get_desc_set() const { return m_desc_set; }
 
         Status read_from_yaml(const YamlConstNodeRef& node) override;
         Status copy_to(Object& other) const override;

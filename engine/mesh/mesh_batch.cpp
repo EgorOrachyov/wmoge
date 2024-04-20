@@ -133,7 +133,7 @@ namespace wmoge {
     void MeshBatchCompiler::set_scene(RenderScene* scene) {
         m_scene = scene;
     }
-    void MeshBatchCompiler::set_views(ArrayView<struct RenderView> views) {
+    void MeshBatchCompiler::set_views(array_view<struct RenderView> views) {
         m_views = views;
     }
     void MeshBatchCompiler::set_cameras(CameraList& cameras) {

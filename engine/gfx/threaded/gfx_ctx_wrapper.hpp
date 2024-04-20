@@ -87,7 +87,7 @@ namespace wmoge {
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
-        void bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) override;
+        void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
         void dispatch(Vec3i group_count) override;

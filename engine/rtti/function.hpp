@@ -34,6 +34,7 @@
 #include "rtti/meta_data.hpp"
 #include "rtti/type.hpp"
 
+#include <functional>
 #include <vector>
 
 namespace wmoge {
@@ -43,32 +44,71 @@ namespace wmoge {
      * @brief Info of a callable function param
     */
     struct RttiParamInfo {
-        RttiType* type;
-        Strid     name;
-        bool      is_const = false;
-        bool      is_ref   = false;
-        bool      is_ptr   = false;
+        RttiType*   type = nullptr;
+        Strid       name;
+        bool        is_const     = false;
+        bool        is_ref       = false;
+        bool        is_ptr       = false;
+        std::size_t stack_size   = 0;
+        std::size_t stack_offset = 0;
     };
 
     /**
-     * @class RttiCallable
+     * @class RttiFrame
+     * @brief Context of rtti function call
+    */
+    struct RttiFrame {};
+
+    /**
+     * @brief Something callable through rtti system
+    */
+    using RttiCallable = std::function<Status(RttiFrame& frame, void* p_args_ret)>;
+
+    /**
+     * @class RttiFunction
      * @brief Represents type of something callable with function signature
     */
-    class RttiCallable : public RttiType {
+    class RttiFunction : public RefCnt {
     public:
-        RttiCallable(Strid name, std::size_t byte_size) : RttiType(name, byte_size) {}
-        ~RttiCallable() override = default;
+        RttiFunction(Strid name, std::size_t byte_size, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret) {
+            m_name       = name;
+            m_byte_size  = byte_size;
+            m_stack_size = stack_size;
+            m_args       = std::move(args);
+            m_ret        = std::move(ret);
+        }
 
-        void add_arg(RttiParamInfo arg);
-        void add_ret(RttiParamInfo ret);
+        ~RttiFunction() override = default;
 
+        virtual Status call(RttiFrame& frame, class RttiObject* target, void* p_args_ret) { return StatusCode::NotImplemented; }
+
+        [[nodiscard]] const Strid&                      get_name() const { return m_name; }
+        [[nodiscard]] std::size_t                       get_byte_size() const { return m_byte_size; }
+        [[nodiscard]] std::size_t                       get_stack_size() const { return m_stack_size; }
         [[nodiscard]] const std::vector<RttiParamInfo>& get_args() const { return m_args; }
         [[nodiscard]] const RttiParamInfo&              get_ret() const { return m_ret; }
         [[nodiscard]] bool                              has_ret() const { return m_ret.type; }
 
-    private:
+    protected:
         std::vector<RttiParamInfo> m_args;
         RttiParamInfo              m_ret;
+        std::size_t                m_byte_size;
+        std::size_t                m_stack_size;
+        Strid                      m_name;
+    };
+
+    /**
+     * @class RttiFunctionSignal
+     * @brief Function callable with signal interface
+     * 
+    */
+    class RttiFunctionSignal : public RttiFunction {
+    public:
+        RttiFunctionSignal(Strid name, std::size_t byte_size, std::size_t stack_size, std::vector<RttiParamInfo> args, RttiParamInfo ret) : RttiFunction(name, byte_size, stack_size, std::move(args), std::move(ret)) {}
+        ~RttiFunctionSignal() override = default;
+
+        virtual Status bind(RttiCallable callable, int& id) { return StatusCode::NotImplemented; }
+        virtual Status unbind(int id) { return StatusCode::NotImplemented; }
     };
 
 }// namespace wmoge

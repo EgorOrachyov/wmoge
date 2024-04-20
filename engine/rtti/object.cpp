@@ -24,3 +24,70 @@
 /* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  */
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
+
+#include "object.hpp"
+
+#include "rtti/type_storage.hpp"
+
+namespace wmoge {
+
+    Status RttiObject::clone(Ref<RttiObject>& object) const {
+        if (!object) {
+            return StatusCode::InvalidParameter;
+        }
+        RttiClass* tclass = get_class();
+        return tclass->copy(object.get(), this);
+    }
+
+    Ref<RttiObject> RttiObject::duplicate() const {
+        RttiClass*      tclass = get_class();
+        Ref<RttiObject> object(tclass->instantiate());
+        if (!tclass->copy(object.get(), this)) {
+            object.reset();
+        }
+        return object;
+    }
+    Strid RttiObject::get_class_name() const {
+        return get_class_name_static();
+    }
+    Strid RttiObject::get_parent_class_name() const {
+        return get_parent_class_name_static();
+    }
+    RttiClass* RttiObject::get_class() const {
+        return get_class_static();
+    }
+    RttiClass* RttiObject::get_parent_class() const {
+        return get_parent_class_static();
+    }
+
+    Strid RttiObject::get_class_name_static() {
+        static Strid g_class_name("RttiObject");
+        return g_class_name;
+    }
+    Strid RttiObject::get_parent_class_name_static() {
+        static Strid g_class_name;
+        return g_class_name;
+    }
+    RttiClass* RttiObject::get_class_static() {
+        static RttiClass* g_class = RttiTypeStorage::instance()->find_class(get_class_name_static());
+        return g_class;
+    }
+    RttiClass* RttiObject::get_parent_class_static() {
+        static RttiClass* g_class = nullptr;
+        return g_class;
+    }
+
+    Status RttiObject::yaml_read_object(YamlConstNodeRef node, Ref<Object>& object) {
+        return WG_OK;
+    }
+    Status RttiObject::yaml_write_object(YamlNodeRef node, const Ref<Object>& object) {
+        return WG_OK;
+    }
+    Status RttiObject::archive_read_object(Archive& archive, Ref<Object>& object) {
+        return WG_OK;
+    }
+    Status RttiObject::archive_write_object(Archive& archive, const Ref<Object>& object) {
+        return WG_OK;
+    }
+
+}// namespace wmoge

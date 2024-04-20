@@ -182,7 +182,7 @@ namespace wmoge {
     void RenderEngine::compile_batches() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::compile_batches");
 
-        const ArrayView<const MeshBatch> batches = m_batch_collector.get_batches();
+        const array_view<const MeshBatch> batches = m_batch_collector.get_batches();
 
         m_batch_compiler.set_scene(m_scene);
         m_batch_compiler.set_cameras(m_cameras);

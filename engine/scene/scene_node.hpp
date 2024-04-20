@@ -158,20 +158,20 @@ namespace wmoge {
         bool                            has_scene() const;
         Entity                          instantiate_entity(class Scene* scene, Entity parent);
 
-        [[nodiscard]] ArrayView<const Ref<SceneNode>>     get_children() const { return m_children; }
-        [[nodiscard]] ArrayView<const Ref<SceneNodeProp>> get_properties() const { return m_properties; }
-        [[nodiscard]] class SceneNode*                    get_parent() const { return m_parent; }
-        [[nodiscard]] const Strid&                        get_name() const { return m_name; }
-        [[nodiscard]] const std::string&                  get_path() const { return m_path; }
-        [[nodiscard]] const UUID&                         get_uuid() const { return m_uuid; }
-        [[nodiscard]] const Ref<class Prefab>&            get_prefab() const { return m_prefab; }
-        [[nodiscard]] const SceneNodeType                 get_type() const { return m_type; }
-        [[nodiscard]] const TransformEdt&                 get_transform() const { return m_transform; }
-        [[nodiscard]] const Mat4x4f&                      get_l2w() const { return m_l2w; }
-        [[nodiscard]] const Mat4x4f&                      get_w2l() const { return m_w2l; }
-        [[nodiscard]] const Entity&                       get_entity() const { return m_entity; }
-        [[nodiscard]] class SceneTree*                    get_tree() const { return m_tree; }
-        [[nodiscard]] class Scene*                        get_scene() const;
+        [[nodiscard]] array_view<const Ref<SceneNode>>     get_children() const { return m_children; }
+        [[nodiscard]] array_view<const Ref<SceneNodeProp>> get_properties() const { return m_properties; }
+        [[nodiscard]] class SceneNode*                     get_parent() const { return m_parent; }
+        [[nodiscard]] const Strid&                         get_name() const { return m_name; }
+        [[nodiscard]] const std::string&                   get_path() const { return m_path; }
+        [[nodiscard]] const UUID&                          get_uuid() const { return m_uuid; }
+        [[nodiscard]] const Ref<class Prefab>&             get_prefab() const { return m_prefab; }
+        [[nodiscard]] const SceneNodeType                  get_type() const { return m_type; }
+        [[nodiscard]] const TransformEdt&                  get_transform() const { return m_transform; }
+        [[nodiscard]] const Mat4x4f&                       get_l2w() const { return m_l2w; }
+        [[nodiscard]] const Mat4x4f&                       get_w2l() const { return m_w2l; }
+        [[nodiscard]] const Entity&                        get_entity() const { return m_entity; }
+        [[nodiscard]] class SceneTree*                     get_tree() const { return m_tree; }
+        [[nodiscard]] class Scene*                         get_scene() const;
 
         Status copy_to(Object& other) const override;
 

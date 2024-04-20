@@ -66,6 +66,9 @@ namespace wmoge {
         virtual Status read_from_archive(void* dst, Archive& archive) const { return StatusCode::NotImplemented; }
         virtual Status write_to_archive(const void* src, Archive& archive) const { return StatusCode::NotImplemented; }
         virtual Status to_string(const void* src, std::stringstream& s) const { return StatusCode::NotImplemented; }
+        virtual Status add_element(void* src) const { return StatusCode::NotImplemented; }
+        virtual Status remove_element(void* src, int index) const { return StatusCode::NotImplemented; }
+        virtual bool   is_listable() const { return false; }
 
         [[nodiscard]] const Strid&        get_name() const { return m_name; }
         [[nodiscard]] const std::string&  get_str() const { return m_name.str(); }

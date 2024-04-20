@@ -26,3 +26,37 @@
 /**********************************************************************************/
 
 #pragma once
+
+#include "core/ref.hpp"
+#include "rtti/class.hpp"
+
+namespace wmoge {
+
+    /**
+     * @class RttiObject
+     * @brief Base class for any engine object which has class information and full rtti support.
+    */
+    class RttiObject : public RefCnt {
+    public:
+        ~RttiObject() override = default;
+
+        virtual Status clone(Ref<RttiObject>& object) const;
+
+        virtual Ref<RttiObject> duplicate() const;
+        virtual Strid           get_class_name() const;
+        virtual Strid           get_parent_class_name() const;
+        virtual RttiClass*      get_class() const;
+        virtual RttiClass*      get_parent_class() const;
+
+        static Strid      get_class_name_static();
+        static Strid      get_parent_class_name_static();
+        static RttiClass* get_class_static();
+        static RttiClass* get_parent_class_static();
+
+        static Status yaml_read_object(YamlConstNodeRef node, Ref<Object>& object);
+        static Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object);
+        static Status archive_read_object(Archive& archive, Ref<Object>& object);
+        static Status archive_write_object(Archive& archive, const Ref<Object>& object);
+    };
+
+}// namespace wmoge

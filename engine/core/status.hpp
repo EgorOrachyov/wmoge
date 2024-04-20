@@ -118,4 +118,14 @@ namespace wmoge {
         return stream;
     }
 
+#define WG_CHECKED(operation)               \
+    {                                       \
+        const Status _status = (operation); \
+        if (!_status) {                     \
+            return _status;                 \
+        }                                   \
+    }
+
+#define WG_OK StatusCode::Ok
+
 }// namespace wmoge

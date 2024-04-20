@@ -381,7 +381,7 @@ namespace wmoge {
         m_desc_sets[index] = set.cast<VKDescSet>()->set();
         vkCmdBindDescriptorSets(cmd_current(), bind_point, m_current_shader->layout(), index, 1, &m_desc_sets[index], 0, nullptr);
     }
-    void VKCtx::bind_desc_sets(const ArrayView<GfxDescSet*>& sets, int offset) {
+    void VKCtx::bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_desc_sets");
 
         assert(check_thread_valid());

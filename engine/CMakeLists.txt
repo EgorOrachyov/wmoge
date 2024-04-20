@@ -381,12 +381,13 @@ add_library(wmoge STATIC
         asset/loaders/asset_loader_wav.hpp
         asset/paks/asset_pak_fs.cpp
         asset/paks/asset_pak_fs.hpp
-        rtti/callable.cpp
-        rtti/callable.hpp
         rtti/class.cpp
         rtti/class.hpp
         rtti/enum.hpp
+        rtti/function.hpp
         rtti/meta_data.hpp
+        rtti/object.cpp
+        rtti/object.hpp
         rtti/struct.cpp
         rtti/struct.hpp
         rtti/traits.hpp

@@ -31,6 +31,46 @@
 #include "freetype_plugin.hpp"
 #include "image_plugin.hpp"
 
+namespace wmoge {
+
+    struct TestStruct {
+        WG_RTTI_STRUCT(TestStruct)
+
+        std::vector<int> prices = {10, 20, 30};
+        std::string      shop   = "uroz";
+    };
+
+    WG_RTTI_STRUCT_BEGIN(TestStruct) {
+        WG_RTTI_META_DATA(RttiVisibleAnywhere, RttiUiName("Test Struct"), RttiUiHint("Rtti test for struct types"));
+        WG_RTTI_FIELD(prices, {RttiVisibleAnywhere});
+        WG_RTTI_FIELD(shop, {RttiVisibleAnywhere});
+    }
+    WG_RTTI_END();
+
+    class TestClass : public RttiObject {
+        WG_RTTI_CLASS(TestClass, RttiObject)
+
+        void do_work(const TestStruct& a, int b, std::string* c) {
+            WG_LOG_INFO("do work " << *c << " " << b);
+        }
+
+        std::unordered_map<std::string, TestStruct> map      = {{"1", TestStruct()}};
+        std::optional<TestStruct>                   optional = TestStruct();
+        Ref<TestClass>                              reference;
+    };
+
+    WG_RTTI_CLASS_BEGIN(TestClass) {
+        WG_RTTI_META_DATA(RttiVisibleAnywhere, RttiUiName("Test Class"), RttiUiHint("Rtti test for class types"));
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(map, {RttiVisibleAnywhere});
+        WG_RTTI_FIELD(optional, {RttiVisibleAnywhere});
+        WG_RTTI_FIELD(reference, {RttiVisibleAnywhere});
+        WG_RTTI_METHOD(do_work, {"a", "b", "c"}, {RttiNoScriptExport});
+    }
+    WG_RTTI_END();
+
+}// namespace wmoge
+
 using namespace wmoge;
 
 class TemplateApplication : public GameApplication {
@@ -133,6 +173,8 @@ public:
         RttiType*        tstrid  = rtti_type<Strid>();
         RttiType*        tvecf   = rtti_type<decltype(formats)>();
         RttiType*        tvecs   = rtti_type<decltype(sizes)>();
+        RttiType*        tstruct = rtti_type<TestStruct>();
+        RttiType*        tclass  = rtti_type<TestClass>();
         RttiTypeStorage* s       = RttiTypeStorage::instance();
 
         std::stringstream stream;
@@ -142,8 +184,36 @@ public:
         WG_LOG_INFO(stream.str());
 
         stream.str("");
+        tvecs->add_element(&sizes);
+        tvecs->remove_element(&sizes, 0);
+        tvecs->remove_element(&sizes, 0);
         tvecs->to_string(&sizes, stream);
         WG_LOG_INFO(stream.str());
+
+        stream.str("");
+        TestStruct test_struct;
+        tstruct->to_string(&test_struct, stream);
+        WG_LOG_INFO(stream.str());
+
+        stream.str("");
+        TestClass test_class;
+        tclass->to_string(&test_class, stream);
+        WG_LOG_INFO(stream.str());
+
+        TestStruct  a;
+        int         b = 2;
+        std::string c = "rdr";
+
+        std::uint8_t arg_buffer[20];
+        *((TestStruct**) (arg_buffer + 0))   = &a;
+        *((int*) (arg_buffer + 8))           = b;
+        *((std::string**) (arg_buffer + 12)) = &c;
+
+        RttiFrame frame;
+
+        RttiFunction* do_work = test_class.get_class()->find_method(SID("do_work")).value()->get_function().get();
+        do_work->call(frame, &test_class, arg_buffer);
+        WG_LOG_INFO("call " << do_work->get_name());
 
         WG_LOG_INFO("init");
         return StatusCode::Ok;

@@ -28,11 +28,20 @@
 #include "class.hpp"
 
 #include <cassert>
+#include <cinttypes>
 
 namespace wmoge {
 
     RttiClass::RttiClass(Strid name, std::size_t byte_size, RttiClass* parent)
         : RttiStruct(name, byte_size, parent) {
+        m_parent_class = parent;
+
+        if (parent) {
+            m_methods     = parent->m_methods;
+            m_methods_map = parent->m_methods_map;
+            m_signals     = parent->m_signals;
+            m_signals_map = parent->m_signals_map;
+        }
     }
 
     std::optional<const RttiMethod*> RttiClass::find_method(const Strid& name) const {
@@ -83,7 +92,7 @@ namespace wmoge {
         return query != m_signals_map.end();
     }
 
-    void RttiClass::add_factory(std::function<class Object*()> factory) {
+    void RttiClass::add_factory(std::function<class RttiObject*()> factory) {
         m_factory = std::move(factory);
     }
 
@@ -91,7 +100,7 @@ namespace wmoge {
         return m_factory.operator bool();
     }
 
-    class Object* RttiClass::instantiate() const {
+    class RttiObject* RttiClass::instantiate() const {
         return m_factory ? m_factory() : nullptr;
     }
 

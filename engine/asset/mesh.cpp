@@ -156,7 +156,7 @@ namespace wmoge {
         return setup;
     }
 
-    ArrayView<const MeshChunk> Mesh::get_chunks() const {
+    array_view<const MeshChunk> Mesh::get_chunks() const {
         return m_chunks;
     }
     const MeshChunk& Mesh::get_chunk(int i) const {
@@ -179,7 +179,7 @@ namespace wmoge {
         assert(i < m_gfx_vertex_buffers.size());
         return m_index_streams[i];
     }
-    ArrayView<const int> Mesh::get_roots() const {
+    array_view<const int> Mesh::get_roots() const {
         return m_roots;
     }
     Aabbf Mesh::get_aabb() const {

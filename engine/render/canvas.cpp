@@ -175,7 +175,7 @@ namespace wmoge {
 
     void Canvas::add_line(const Vec2f& p1, const Vec2f& p2, const Color4f& color, float thickness) {
         Vec2f points[] = {p1, p2};
-        add_polyline(ArrayView<Vec2f>(points, 2), color, thickness);
+        add_polyline(array_view<Vec2f>(points, 2), color, thickness);
     }
     void Canvas::add_rect(const Vec2f& p_min, const Vec2f& p_max, const Color4f& color, float rounding, CanvasFlags flags, float thickness) {
         if (!need_rounding(rounding, flags)) {
@@ -224,7 +224,7 @@ namespace wmoge {
     }
     void Canvas::add_triangle_filled(const Vec2f& p1, const Vec2f& p2, const Vec2f& p3, const Color4f& color) {
     }
-    void Canvas::add_polyline(const ArrayView<Vec2f>& points, const Color4f& color, float thickness) {
+    void Canvas::add_polyline(const array_view<Vec2f>& points, const Color4f& color, float thickness) {
         set_texture();
 
         assert(points.size() > 1);
@@ -253,7 +253,7 @@ namespace wmoge {
             write_idx(start + 3, start + 2, start + 0);
         }
     }
-    void Canvas::add_polygone(const ArrayView<Vec2f>& points, const Color4f& color) {
+    void Canvas::add_polygone(const array_view<Vec2f>& points, const Color4f& color) {
         set_texture();
 
         assert(points.size() >= 3);
@@ -366,11 +366,11 @@ namespace wmoge {
         }
     }
     void Canvas::path_stroke(const Color4f& color, float thickness) {
-        add_polyline(ArrayView<Vec2f>(m_path.data(), int(m_path.size())), color, thickness);
+        add_polyline(array_view<Vec2f>(m_path.data(), int(m_path.size())), color, thickness);
         path_clear();
     }
     void Canvas::path_stroke_filled(const Color4f& color) {
-        add_polygone(ArrayView<Vec2f>(m_path.data(), int(m_path.size())), color);
+        add_polygone(array_view<Vec2f>(m_path.data(), int(m_path.size())), color);
         path_clear();
     }
     void Canvas::path_clear() {

@@ -28,6 +28,7 @@
 #include "struct.hpp"
 
 #include <cassert>
+#include <cinttypes>
 
 namespace wmoge {
 
@@ -80,6 +81,115 @@ namespace wmoge {
     bool RttiStruct::is_subtype_of(const Strid& name) const {
         auto query = m_inherits.find(name);
         return query != m_inherits.end();
+    }
+
+    Status RttiStruct::copy(void* dst, const void* src) const {
+        assert(dst);
+        assert(src);
+        std::uint8_t*       self  = reinterpret_cast<std::uint8_t*>(dst);
+        const std::uint8_t* other = reinterpret_cast<const std::uint8_t*>(dst);
+        if (has_parent()) {
+            WG_CHECKED(get_parent()->copy(self, other));
+        }
+        for (const RttiField& field : get_fields()) {
+            if (field.get_meta_data().is_no_copy()) {
+                continue;
+            }
+            std::size_t offset = field.get_byte_offset();
+            WG_CHECKED(field.get_type()->copy(self + offset, other + offset));
+        }
+        return WG_OK;
+    }
+
+    Status RttiStruct::read_from_yaml(void* dst, YamlConstNodeRef node) const {
+        assert(dst);
+        std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
+        if (has_parent()) {
+            WG_CHECKED(get_parent()->read_from_yaml(self, node));
+        }
+        for (const RttiField& field : get_fields()) {
+            if (field.get_meta_data().is_no_save_load()) {
+                continue;
+            }
+
+            const std::string&  field_name = field.get_name().str();
+            const ryml::csubstr field_name_str(field_name.data(), field_name.length());
+
+            if (field.get_meta_data().is_optional()) {
+                if (node.has_child(field_name_str)) {
+                    WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str]));
+                }
+            } else {
+                WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str]));
+            }
+        }
+        return WG_OK;
+    }
+
+    Status RttiStruct::write_to_yaml(const void* src, YamlNodeRef node) const {
+        assert(src);
+        WG_YAML_MAP(node);
+        const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
+        if (has_parent()) {
+            WG_CHECKED(get_parent()->write_to_yaml(self, node));
+        }
+        for (const RttiField& field : get_fields()) {
+            if (field.get_meta_data().is_no_save_load()) {
+                continue;
+            }
+
+            const std::string&  field_name = field.get_name().str();
+            const ryml::csubstr field_name_str(field_name.data(), field_name.length());
+
+            YamlNodeRef child = node.append_child();
+            child << ryml::key(field_name_str);
+
+            WG_CHECKED(field.get_type()->write_to_yaml(self + field.get_byte_offset(), child));
+        }
+        return WG_OK;
+    }
+
+    Status RttiStruct::read_from_archive(void* dst, Archive& archive) const {
+        assert(dst);
+        std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
+        if (has_parent()) {
+            WG_CHECKED(get_parent()->read_from_archive(self, archive));
+        }
+        for (const RttiField& field : get_fields()) {
+            if (field.get_meta_data().is_no_save_load()) {
+                continue;
+            }
+            WG_CHECKED(field.get_type()->read_from_archive(self + field.get_byte_offset(), archive));
+        }
+        return WG_OK;
+    }
+
+    Status RttiStruct::write_to_archive(const void* src, Archive& archive) const {
+        assert(src);
+        const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
+        if (has_parent()) {
+            WG_CHECKED(get_parent()->write_to_archive(self, archive));
+        }
+        for (const RttiField& field : get_fields()) {
+            if (field.get_meta_data().is_no_save_load()) {
+                continue;
+            }
+            WG_CHECKED(field.get_type()->write_to_archive(self + field.get_byte_offset(), archive));
+        }
+        return WG_OK;
+    }
+
+    Status RttiStruct::to_string(const void* src, std::stringstream& s) const {
+        assert(src);
+        const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
+        s << "{";
+        for (const RttiField& field : get_fields()) {
+            s << field.get_name() << "=";
+            WG_CHECKED(field.get_type()->to_string(self + field.get_byte_offset(), s));
+            s << "; ";
+        }
+        s << "}";
+        return WG_OK;
     }
 
 }// namespace wmoge

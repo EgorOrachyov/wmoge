@@ -76,7 +76,7 @@ namespace wmoge {
     void GraphicsPipeline::set_cameras(CameraList* cameras) {
         m_cameras = cameras;
     }
-    void GraphicsPipeline::set_views(ArrayView<struct RenderView> views) {
+    void GraphicsPipeline::set_views(array_view<struct RenderView> views) {
         m_views = views;
     }
     void GraphicsPipeline::set_settings(const GraphicsPipelineSettings& settings) {

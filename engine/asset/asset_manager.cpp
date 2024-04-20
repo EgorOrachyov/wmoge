@@ -126,7 +126,7 @@ namespace wmoge {
         });
 
         // schedule to run only if all deps are loaded
-        auto task_hnd = task.schedule(Async::join(ArrayView(deps)));
+        auto task_hnd = task.schedule(Async::join(array_view(deps)));
 
         // add erase of loading state here, since it is possible, that task can be aborted
         task_hnd.add_on_completion([this, name, async_op](AsyncStatus status, std::optional<int>&) {

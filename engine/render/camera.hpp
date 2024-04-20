@@ -142,9 +142,9 @@ namespace wmoge {
         const CameraData& camera_main() const;
         void              clear();
 
-        [[nodiscard]] ArrayView<const CameraData> get_cameras() const { return m_cameras; }
-        [[nodiscard]] std::size_t                 get_size() const { return m_cameras.size(); }
-        [[nodiscard]] bool                        is_empty() const { return m_cameras.empty(); }
+        [[nodiscard]] array_view<const CameraData> get_cameras() const { return m_cameras; }
+        [[nodiscard]] std::size_t                  get_size() const { return m_cameras.size(); }
+        [[nodiscard]] bool                         is_empty() const { return m_cameras.empty(); }
 
     private:
         buffered_vector<CameraData, RenderLimits::MAX_CAMERAS> m_cameras;

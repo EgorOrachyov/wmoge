@@ -117,7 +117,7 @@ namespace wmoge {
 
         void update_aabb();
 
-        [[nodiscard]] ArrayView<ModelObj>     get_objs() { return m_objs; }
+        [[nodiscard]] array_view<ModelObj>    get_objs() { return m_objs; }
         [[nodiscard]] const ModelLodSettings& get_lod_settings() const { return m_lod_settings; }
         [[nodiscard]] const Aabbf&            get_aabb() const { return m_aabb; }
 

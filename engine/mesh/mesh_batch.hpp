@@ -85,12 +85,12 @@ namespace wmoge {
         void add_batch(const MeshBatch& batch);
         void clear();
 
-        [[nodiscard]] ArrayView<const MeshBatch> get_batches() const { return m_batches; }
-        [[nodiscard]] GfxDynVertBuffer*          get_dyn_vbuff() const { return m_dyn_vbuff; }
-        [[nodiscard]] GfxDynIndexBuffer*         get_dyn_ibuff() const { return m_dyn_ibuff; }
-        [[nodiscard]] GfxDynUniformBuffer*       get_dyn_ubuff() const { return m_dyn_ubuff; }
-        [[nodiscard]] int                        get_size() const { return int(m_batches.size()); }
-        [[nodiscard]] bool                       is_empty() const { return m_batches.empty(); }
+        [[nodiscard]] array_view<const MeshBatch> get_batches() const { return m_batches; }
+        [[nodiscard]] GfxDynVertBuffer*           get_dyn_vbuff() const { return m_dyn_vbuff; }
+        [[nodiscard]] GfxDynIndexBuffer*          get_dyn_ibuff() const { return m_dyn_ibuff; }
+        [[nodiscard]] GfxDynUniformBuffer*        get_dyn_ubuff() const { return m_dyn_ubuff; }
+        [[nodiscard]] int                         get_size() const { return int(m_batches.size()); }
+        [[nodiscard]] bool                        is_empty() const { return m_batches.empty(); }
 
     private:
         std::vector<MeshBatch> m_batches;
@@ -119,7 +119,7 @@ namespace wmoge {
 
         Status compile_batch(const MeshBatch& batch, int batch_index);
         void   set_scene(class RenderScene* scene);
-        void   set_views(ArrayView<struct RenderView> views);
+        void   set_views(array_view<struct RenderView> views);
         void   set_cameras(class CameraList& cameras);
         void   set_cmd_allocator(class RenderCmdAllocator& allocator);
         void   clear();
@@ -127,7 +127,7 @@ namespace wmoge {
     private:
         std::array<std::unique_ptr<MeshPassProcessor>, NUM_PASSES_TOTAL> m_processors;
 
-        ArrayView<struct RenderView> m_views;
+        array_view<struct RenderView> m_views;
 
         class RenderCmdAllocator* m_cmd_allocator  = nullptr;
         class RenderScene*        m_scene          = nullptr;

@@ -167,10 +167,11 @@
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 
-#include "rtti/callable.hpp"
 #include "rtti/class.hpp"
 #include "rtti/enum.hpp"
+#include "rtti/function.hpp"
 #include "rtti/meta_data.hpp"
+#include "rtti/object.hpp"
 #include "rtti/struct.hpp"
 #include "rtti/traits.hpp"
 #include "rtti/type.hpp"

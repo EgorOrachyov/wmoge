@@ -97,9 +97,9 @@ namespace wmoge {
      * @brief Global render state passed to objects during rendering
     */
     struct RenderPassInfo {
-        ArrayView<RenderView> views;
-        CameraList*           cameras   = nullptr;
-        MeshBatchCollector*   collector = nullptr;
+        array_view<RenderView> views;
+        CameraList*            cameras   = nullptr;
+        MeshBatchCollector*    collector = nullptr;
     };
 
     /**
@@ -147,7 +147,7 @@ namespace wmoge {
         [[nodiscard]] MeshBatchCompiler&           get_batch_compiler() { return m_batch_compiler; }
         [[nodiscard]] MeshRenderCmdMerger&         get_cmd_merger() { return m_cmd_merger; }
         [[nodiscard]] RenderCmdAllocator&          get_cmd_allocator() { return m_cmd_allocator; }
-        [[nodiscard]] ArrayView<RenderView>        get_views() { return ArrayView<RenderView>(m_views.data(), m_cameras.get_size()); }
+        [[nodiscard]] array_view<RenderView>       get_views() { return array_view<RenderView>(m_views.data(), m_cameras.get_size()); }
         [[nodiscard]] const RenderSettings&        get_settings() const { return m_settings; }
         [[nodiscard]] float                        get_time() const { return m_time; }
         [[nodiscard]] float                        get_delta_time() const { return m_delta_time; }

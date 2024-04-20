@@ -150,8 +150,8 @@ namespace wmoge {
         void           add_rect_filled(const Vec2f& p_min, const Vec2f& p_max, const Color4f& color, float rounding = 0.0f, CanvasFlags flags = {});
         void           add_triangle(const Vec2f& p1, const Vec2f& p2, const Vec2f& p3, const Color4f& color, float thickness = 1.0f);
         void           add_triangle_filled(const Vec2f& p1, const Vec2f& p2, const Vec2f& p3, const Color4f& color);
-        void           add_polyline(const ArrayView<Vec2f>& points, const Color4f& color, float thickness = 1.0f);
-        void           add_polygone(const ArrayView<Vec2f>& points, const Color4f& color);
+        void           add_polyline(const array_view<Vec2f>& points, const Color4f& color, float thickness = 1.0f);
+        void           add_polygone(const array_view<Vec2f>& points, const Color4f& color);
         void           add_text(const std::string& text, const Ref<Font>& font, float font_size, const Vec2f& p, const Color4f& color);
         void           add_image(const Ref<Texture2d>& image, const Vec2f& p_min, const Vec2f& p_max, const Vec2f& uv_min, const Vec2f& uv_max, const Color4f& color);
         void           path_line_to(const Vec2f& p);

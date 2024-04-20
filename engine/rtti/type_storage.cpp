@@ -25,8 +25,6 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
 #include "type_storage.hpp"
 
 #include <cassert>
@@ -45,6 +43,10 @@ namespace wmoge {
         return std::nullopt;
     }
 
+    RttiStruct* RttiTypeStorage::find_struct(const Strid& name) {
+        return dynamic_cast<RttiStruct*>(find_type(name).value_or(nullptr));
+    }
+
     RttiClass* RttiTypeStorage::find_class(const Strid& name) {
         return dynamic_cast<RttiClass*>(find_type(name).value_or(nullptr));
     }
@@ -56,7 +58,7 @@ namespace wmoge {
 
     void RttiTypeStorage::add(const Ref<RttiType>& type) {
         assert(type);
-        assert(!has(type->get_name()));
+        assert(!has(type->get_name()) || m_types[type->get_name()] == type);
         m_types[type->get_name()] = type;
     }
 
