@@ -2,10 +2,11 @@
 version: 1
 uuid: 0
 loader: freetype
-class: Font
+rtti: Font
 deps: [ ]
 description: "debug font for aux drawing"
-params:
-  source_file: "asset://fonts/consolas.ttf"
+import_data:
+  rtti: FreetypeImportData
+  source_files: [{file: "asset://fonts/consolas.ttf"}]
   height: 32
   glyphs_in_row: 16

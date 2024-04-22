@@ -25,85 +25,96 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "class.hpp"
+#include "date_time.hpp"
 
-#include "rtti/object.hpp"
-
-#include <cassert>
-#include <cinttypes>
+#include <ctime>
+#include <sstream>
 
 namespace wmoge {
 
-    RttiClass::RttiClass(Strid name, std::size_t byte_size, RttiClass* parent)
-        : RttiStruct(name, byte_size, parent) {
-        m_parent_class = parent;
+    DateTime::DateTime(const DateTimeTm& tm) {
+        std::tm s_tm;
 
-        if (parent) {
-            m_methods     = parent->m_methods;
-            m_methods_map = parent->m_methods_map;
-            m_signals     = parent->m_signals;
-            m_signals_map = parent->m_signals_map;
-        }
+        s_tm.tm_year = tm.year;
+        s_tm.tm_mon  = tm.month;
+        s_tm.tm_mday = tm.day;
+        s_tm.tm_hour = tm.hour;
+        s_tm.tm_min  = tm.minute;
+        s_tm.tm_sec  = tm.second;
+
+        std::time_t s_time_t = std::mktime(&s_tm);
+        m_value              = clock::from_time_t(s_time_t);
     }
 
-    std::optional<const RttiMethod*> RttiClass::find_method(const Strid& name) const {
-        auto query = m_methods_map.find(name);
+    DateTime::DateTime(const std::string& source) {
+        DateTimeTm        tm;
+        std::stringstream str(source);
 
-        if (query != m_methods_map.end()) {
-            return &m_methods[query->second];
-        }
+        str >> tm.year >> tm.month >> tm.day >> tm.hour >> tm.minute >> tm.second;
 
-        return std::nullopt;
+        *this = DateTime(tm);
     }
 
-    void RttiClass::add_method(RttiMethod method) {
-        assert(!has_method(method.get_name()));
+    DateTimeTm DateTime::to_tm() const {
+        std::tm     s_tm;
+        std::time_t s_time_t = to_time_t();
 
-        const std::int16_t id = std::int16_t(m_methods.size());
-        m_methods.push_back(std::move(method));
-        m_methods_map[m_methods.back().get_name()] = id;
-        m_members.insert(m_methods.back().get_name());
+#if defined(TARGET_WINDOWS)
+        localtime_s(&s_tm, &s_time_t);
+#else
+        localtime_r(&s_time_t, &s_tm);
+#endif
+
+        DateTimeTm tm{};
+        tm.year   = s_tm.tm_year;
+        tm.month  = s_tm.tm_mon;
+        tm.day    = s_tm.tm_mday;
+        tm.hour   = s_tm.tm_hour;
+        tm.minute = s_tm.tm_min;
+        tm.second = s_tm.tm_sec;
+        return tm;
     }
 
-    bool RttiClass::has_method(const Strid& name) const {
-        auto query = m_methods_map.find(name);
-        return query != m_methods_map.end();
+    std::time_t DateTime::to_time_t() const {
+        return clock::to_time_t(m_value);
     }
 
-    std::optional<const RttiSignal*> RttiClass::find_signal(const Strid& name) const {
-        auto query = m_signals_map.find(name);
+    std::string DateTime::to_string() const {
+        std::stringstream str;
+        DateTimeTm        tm = to_tm();
 
-        if (query != m_signals_map.end()) {
-            return &m_signals[query->second];
-        }
+        str << tm.year << ' '
+            << tm.month << ' '
+            << tm.day << ' '
+            << tm.hour << ' '
+            << tm.minute << ' '
+            << tm.second;
 
-        return std::nullopt;
+        return str.str();
     }
 
-    void RttiClass::add_signal(RttiSignal signal) {
-        assert(!has_signal(signal.get_name()));
-
-        const std::int16_t id = std::int16_t(m_signals.size());
-        m_signals.push_back(std::move(signal));
-        m_signals_map[m_signals.back().get_name()] = id;
-        m_members.insert(m_signals.back().get_name());
+    DateTime DateTime::now() {
+        DateTime t;
+        t.m_value = clock::now();
+        return t;
     }
 
-    bool RttiClass::has_signal(const Strid& name) const {
-        auto query = m_signals_map.find(name);
-        return query != m_signals_map.end();
+    Status yaml_read(YamlConstNodeRef node, DateTime& value) {
+        std::string s;
+        WG_YAML_READ(node, s);
+        value = DateTime(s);
+        return WG_OK;
     }
-
-    void RttiClass::add_factory(std::function<class RttiObject*()> factory) {
-        m_factory = std::move(factory);
+    Status yaml_write(YamlNodeRef node, const DateTime& value) {
+        const std::string s = value.to_string();
+        WG_YAML_WRITE(node, s);
+        return WG_OK;
     }
-
-    bool RttiClass::can_instantiate() const {
-        return m_factory.operator bool();
+    Status archive_read(Archive& archive, DateTime& value) {
+        return archive.nread(sizeof(value.m_value), &value.m_value);
     }
-
-    Ref<class RttiObject> RttiClass::instantiate() const {
-        return m_factory ? Ref<class RttiObject>(m_factory()) : Ref<class RttiObject>();
+    Status archive_write(Archive& archive, const DateTime& value) {
+        return archive.nwrite(sizeof(value.m_value), &value.m_value);
     }
 
 }// namespace wmoge

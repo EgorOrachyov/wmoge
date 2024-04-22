@@ -78,6 +78,9 @@
 #include "scene/register_classes_scene.hpp"
 #include "system/plugin_manager.hpp"
 
+#include "asset/_rtti.hpp"
+#include "rtti/_rtti.hpp"
+
 namespace wmoge {
 
     static void bind_globals(IocContainer* ioc) {
@@ -198,11 +201,18 @@ namespace wmoge {
         register_classes_scene();
     }
 
+    static void bind_rtti(IocContainer* ioc) {
+        ioc->resolve_v<RttiTypeStorage>();
+        rtti_rtti();
+        rtti_asset();
+    }
+
     int Application::run(int argc, const char* const* argv) {
         IocContainer* ioc = IocContainer::instance();
 
         bind_globals(ioc);
         register_classes();
+        bind_rtti(ioc);
 
         Log* log = ioc->resolve<Log>().value();
 

@@ -32,12 +32,12 @@
 #include "debug/profiler.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     AssetPakFileSystem::AssetPakFileSystem() {
-        m_file_system = Engine::instance()->file_system();
+        m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
     }
     std::string AssetPakFileSystem::get_name() const {
         return "pak_fs";
@@ -45,7 +45,7 @@ namespace wmoge {
     Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
         WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
 
-        std::string meta_file_path = name.str() + ".asset";
+        std::string meta_file_path = name.str() + AssetMetaFile::FILE_EXTENSION;
 
         auto res_tree = yaml_parse_file(meta_file_path);
 
@@ -54,22 +54,22 @@ namespace wmoge {
             return StatusCode::FailedParse;
         }
 
-        AssetMetaFile res_file;
+        AssetMetaFile asset_file;
 
-        if (!yaml_read(res_tree.crootref(), res_file)) {
-            WG_LOG_ERROR("failed to parse .res file " << meta_file_path);
+        if (!yaml_read(res_tree, asset_file)) {
+            WG_LOG_ERROR("failed to parse .asset file " << meta_file_path);
             return StatusCode::FailedRead;
         }
 
-        auto loader = Engine::instance()->asset_manager()->find_loader(res_file.loader);
+        auto loader = IocContainer::instance()->resolve_v<AssetManager>()->find_loader(asset_file.loader);
 
-        meta.version      = res_file.version;
-        meta.uuid         = res_file.uuid;
-        meta.cls          = Class::class_ptr(res_file.cls);
+        meta.uuid         = asset_file.uuid;
+        meta.cls          = Class::class_ptr(asset_file.rtti);
         meta.pak          = this;
-        meta.loader       = loader ? loader.value() : nullptr;
-        meta.deps         = std::move(res_file.deps);
-        meta.path_on_disk = res_file.path_on_disk;
+        meta.loader       = loader.value_or(nullptr);
+        meta.deps         = std::move(asset_file.deps);
+        meta.path_on_disk = asset_file.path_on_disk;
+        meta.import_data  = asset_file.import_data;
         meta.import_options.emplace(std::move(res_tree));
 
         return StatusCode::Ok;

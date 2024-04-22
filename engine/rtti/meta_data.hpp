@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "core/flat_set.hpp"
+#include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "core/var.hpp"
@@ -40,14 +40,13 @@ namespace wmoge {
      * @brief List of available meta attributes
     */
     enum class RttiMetaAttribute {
-        NoSaveLoad,     // Property must not be saved and loaded in serialization
-        NoCopy,         // Property must not be copied on duplication
-        NoScriptExport, // Property must not be exported to scrip binding
-        Optional,       // Property optional to load from textual data
-        VisibleAnywhere,// Property is visible in any scope
-        UiName,         // Ui friendly name
-        UiHint,         // Ui hint for the user
-        UiCategory      // Ui category for the search
+        NoSaveLoad,    // Property must not be saved and loaded in serialization
+        NoCopy,        // Property must not be copied on duplication
+        NoScriptExport,// Property must not be exported to scrip binding
+        Optional,      // Property optional to load from textual data
+        UiName,        // Ui friendly name
+        UiHint,        // Ui hint for the user
+        UiCategory     // Ui category for the search
     };
 
     /**
@@ -69,33 +68,27 @@ namespace wmoge {
     class RttiMetaData {
     public:
         RttiMetaData() = default;
-        RttiMetaData(const std::initializer_list<const RttiMetaProperty>& properties_list) {
-            for (const auto& property : properties_list) {
-                m_properties[property.attribute] = property.value;
-            }
-            m_no_save_load = has_attribute(RttiMetaAttribute::NoSaveLoad);
-            m_no_copy      = has_attribute(RttiMetaAttribute::NoCopy);
-            m_optional     = has_attribute(RttiMetaAttribute::Optional);
-        }
+        RttiMetaData(const std::initializer_list<const RttiMetaProperty>& properties_list);
 
         [[nodiscard]] const flat_map<RttiMetaAttribute, Var>& get_properties() const { return m_properties; }
         [[nodiscard]] bool                                    is_no_save_load() const { return m_no_save_load; }
         [[nodiscard]] bool                                    is_no_copy() const { return m_no_copy; }
+        [[nodiscard]] bool                                    is_no_script_exprot() const { return m_no_script_exprot; }
         [[nodiscard]] bool                                    is_optional() const { return m_optional; }
         [[nodiscard]] bool                                    has_attribute(RttiMetaAttribute attribute) { return m_properties.find(attribute) != m_properties.end(); }
 
     private:
         flat_map<RttiMetaAttribute, Var> m_properties;
-        bool                             m_no_save_load = false;
-        bool                             m_no_copy      = false;
-        bool                             m_optional     = false;
+        bool                             m_no_save_load     = false;
+        bool                             m_no_copy          = false;
+        bool                             m_no_script_exprot = false;
+        bool                             m_optional         = false;
     };
 
 #define RttiNoSaveLoad      RttiMetaProperty(RttiMetaAttribute::NoSaveLoad)
 #define RttiNoCopy          RttiMetaProperty(RttiMetaAttribute::NoCopy)
 #define RttiNoScriptExport  RttiMetaProperty(RttiMetaAttribute::NoScriptExport)
 #define RttiOptional        RttiMetaProperty(RttiMetaAttribute::Optional)
-#define RttiVisibleAnywhere RttiMetaProperty(RttiMetaAttribute::VisibleAnywhere)
 #define RttiUiName(str)     RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))
 #define RttiUiHint(str)     RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))
 #define RttiUiCategory(str) RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))

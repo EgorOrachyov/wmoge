@@ -27,62 +27,68 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "asset/asset_import_data.hpp"
-#include "core/buffered_vector.hpp"
-#include "core/class.hpp"
-#include "core/string_id.hpp"
-#include "core/uuid.hpp"
-#include "rtti/traits.hpp"
+#include "date_time.hpp"
+#include "io/serialization.hpp"
 
-#include <optional>
-#include <vector>
+#include <chrono>
+#include <cstddef>
+#include <ctime>
+#include <functional>
+#include <ostream>
+#include <string>
+#include <type_traits>
 
 namespace wmoge {
 
     /**
-     * @class AssetMetaFile
-     * @brief Structure for AssetMeta info stored as `.asset` file in file system
-     */
-    struct AssetMetaFile {
-        WG_RTTI_STRUCT(AssetMetaFile);
-
-        static constexpr char FILE_EXTENSION[] = ".asset";
-
-        UUID                       uuid;
-        Strid                      rtti;
-        Strid                      loader;
-        buffered_vector<Strid>     deps;
-        std::string                description;
-        std::optional<std::string> path_on_disk;
-        Ref<AssetImportData>       import_data;
+     * @brief DateTimeTm
+     * @class Decomposed time struct
+    */
+    struct DateTimeTm {
+        int year   = 1900;
+        int month  = 1;
+        int day    = 1;
+        int hour   = 0;
+        int minute = 0;
+        int second = 0;
     };
-
-    WG_RTTI_STRUCT_BEGIN(AssetMetaFile) {
-        WG_RTTI_META_DATA();
-        WG_RTTI_FIELD(uuid, {RttiOptional});
-        WG_RTTI_FIELD(rtti, {});
-        WG_RTTI_FIELD(loader, {});
-        WG_RTTI_FIELD(deps, {RttiOptional});
-        WG_RTTI_FIELD(description, {RttiOptional});
-        WG_RTTI_FIELD(path_on_disk, {RttiOptional});
-        WG_RTTI_FIELD(import_data, {RttiOptional});
-    }
-    WG_RTTI_END;
 
     /**
-     * @class AssetMeta
-     * @brief Meta information of a particular asset
-     */
-    struct AssetMeta {
-        UUID                       uuid   = UUID();
-        class Class*               cls    = nullptr;
-        class AssetPak*            pak    = nullptr;
-        class AssetLoader*         loader = nullptr;
-        buffered_vector<Strid>     deps;
-        std::optional<std::string> path_on_disk;
-        std::optional<YamlTree>    import_options;
-        Ref<AssetImportData>       import_data;
+     * @class DateTime
+     * @brief Represents a date and time value.
+    */
+    class DateTime {
+    public:
+        using clock      = std::chrono::system_clock;
+        using time_point = clock::time_point;
+
+        DateTime() = default;
+        DateTime(const DateTimeTm& tm);
+        DateTime(const std::string& source);
+
+        [[nodiscard]] DateTimeTm  to_tm() const;
+        [[nodiscard]] std::time_t to_time_t() const;
+        [[nodiscard]] std::string to_string() const;
+
+        [[nodiscard]] time_point get_time_point() const { return m_value; }
+
+        static DateTime now();
+
+        friend Status yaml_read(YamlConstNodeRef node, DateTime& value);
+        friend Status yaml_write(YamlNodeRef node, const DateTime& value);
+        friend Status archive_read(Archive& archive, DateTime& value);
+        friend Status archive_write(Archive& archive, const DateTime& value);
+
+    private:
+        using clock      = std::chrono::system_clock;
+        using time_point = clock::time_point;
+
+        time_point m_value{};
     };
+
+    inline std::ostream& operator<<(std::ostream& stream, const DateTime& dt) {
+        stream << dt.to_string();
+        return stream;
+    }
 
 }// namespace wmoge

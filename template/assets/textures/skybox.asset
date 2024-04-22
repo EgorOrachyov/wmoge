@@ -2,7 +2,7 @@
 version: 1
 uuid: 0
 loader: texture_cube
-class: TextureCube
+rtti: TextureCube
 deps: [ ]
 description: "example skybox"
 params:

@@ -134,13 +134,13 @@ namespace wmoge {
     Status archive_read(Archive& archive, std::pair<K, T>& pair) {
         WG_ARCHIVE_READ(archive, pair.first);
         WG_ARCHIVE_READ(archive, pair.second);
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename T, typename K>
     Status archive_write(Archive& archive, const std::pair<K, T>& pair) {
         WG_ARCHIVE_WRITE(archive, pair.first);
         WG_ARCHIVE_WRITE(archive, pair.second);
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename T, std::size_t S>
@@ -148,14 +148,14 @@ namespace wmoge {
         for (std::size_t i = 0; i < S; i++) {
             WG_ARCHIVE_READ(archive, array[i]);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename T, std::size_t S>
     Status archive_write(Archive& archive, const std::array<T, S>& array) {
         for (std::size_t i = 0; i < S; i++) {
             WG_ARCHIVE_WRITE(archive, array[i]);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename T>
@@ -167,7 +167,7 @@ namespace wmoge {
         for (int i = 0; i < size; i++) {
             WG_ARCHIVE_READ(archive, vector[i]);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename T>
     Status archive_write(Archive& archive, const std::vector<T>& vector) {
@@ -175,7 +175,7 @@ namespace wmoge {
         for (const auto& entry : vector) {
             WG_ARCHIVE_WRITE(archive, entry);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename K, typename V>
@@ -189,7 +189,7 @@ namespace wmoge {
             WG_ARCHIVE_READ(archive, entry.second);
             map.insert(std::move(entry));
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename K, typename V>
     Status archive_write(Archive& archive, const std::unordered_map<K, V>& map) {
@@ -198,7 +198,7 @@ namespace wmoge {
             WG_ARCHIVE_WRITE(archive, entry.first);
             WG_ARCHIVE_WRITE(archive, entry.second);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<class T>
@@ -206,13 +206,13 @@ namespace wmoge {
         int value;
         WG_ARCHIVE_READ(archive, value);
         enum_value = static_cast<T>(value);
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<class T>
     Status archive_write(Archive& archive, const T& enum_value, typename std::enable_if_t<std::is_enum_v<T>>* = nullptr) {
         int value = static_cast<int>(enum_value);
         WG_ARCHIVE_WRITE(archive, value);
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<class T>
@@ -224,7 +224,7 @@ namespace wmoge {
             WG_ARCHIVE_READ(archive, v);
             opt = std::move(v);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<class T>
     Status archive_write(Archive& archive, const std::optional<T>& opt) {
@@ -233,7 +233,7 @@ namespace wmoge {
         if (has_value) {
             WG_ARCHIVE_WRITE(archive, opt.value());
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename T>

@@ -28,8 +28,10 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
+#include "core/date_time.hpp"
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
+#include "core/uuid.hpp"
 #include "io/archive.hpp"
 #include "io/enum.hpp"
 #include "io/yaml.hpp"
@@ -389,6 +391,26 @@ namespace wmoge {
         }
     };
 
+    template<>
+    struct RttiTypeOf<UUID> {
+        static Strid name() {
+            return SID("uuid");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeFundamentalT<UUID>>(name());
+        }
+    };
+
+    template<>
+    struct RttiTypeOf<DateTime> {
+        static Strid name() {
+            return SID("datetime");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeFundamentalT<DateTime>>(name());
+        }
+    };
+
     template<typename T, int N>
     struct RttiTypeOf<TVecN<T, N>> {
         using Vec = TVecN<T, N>;
@@ -692,6 +714,16 @@ namespace wmoge {
         }
     };
 
+    template<>
+    struct RttiTypeOf<RttiObject> {
+        static Strid name() {
+            return SID("RttiObject");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiClassT<RttiObject>>();
+        }
+    };
+
 #define WG_RTTI_GENERATED_TYPE(struct_type, parent_type, rtti_type, rtti_type_getter, modifier)                    \
 public:                                                                                                            \
     static Strid get_class_name_static() {                                                                         \
@@ -733,7 +765,8 @@ public:                                                                         
     }                                                                                                              \
     friend Status archive_write(Archive& archive, const struct_type& value) {                                      \
         return get_class_static()->write_to_archive(&value, archive);                                              \
-    }
+    }                                                                                                              \
+    friend struct RttiTypeOf<struct_type>;
 
 #define WG_RTTI_STRUCT_EXT(struct_type, parent_type) WG_RTTI_GENERATED_TYPE(struct_type, parent_type, RttiStruct, find_struct, )
 #define WG_RTTI_STRUCT(struct_type)                  WG_RTTI_STRUCT_EXT(struct_type, )
@@ -766,7 +799,7 @@ public:                                                                         
             RttiTypeStorage::instance()->add(t.as<RttiType>());     \
             auto binder = [&]()
 
-#define WG_RTTI_END()                      \
+#define WG_RTTI_END                        \
     ;                                      \
     binder();                              \
     t->set_metadata(std::move(meta_data)); \

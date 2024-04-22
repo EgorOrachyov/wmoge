@@ -46,7 +46,8 @@ namespace wmoge {
         Status      read_file(const std::string& path, std::vector<std::uint8_t>& data) override;
 
     private:
-        class FileSystem* m_file_system;
+        class FileSystem*   m_file_system;
+        class AssetManager* m_asset_manager;
     };
 
 }// namespace wmoge

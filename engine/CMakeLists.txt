@@ -29,6 +29,8 @@ add_library(wmoge STATIC
         core/crc32.hpp
         core/data.cpp
         core/data.hpp
+        core/date_time.cpp
+        core/date_time.hpp
         core/flat_map.hpp
         core/flat_set.hpp
         core/log.cpp
@@ -354,10 +356,10 @@ add_library(wmoge STATIC
         asset/prefab.hpp
         asset/asset.cpp
         asset/asset.hpp
+        asset/asset_import_data.hpp
         asset/asset_loader.hpp
         asset/asset_manager.cpp
         asset/asset_manager.hpp
-        asset/asset_meta.cpp
         asset/asset_meta.hpp
         asset/asset_pak.hpp
         asset/asset_ref.hpp
@@ -381,10 +383,12 @@ add_library(wmoge STATIC
         asset/loaders/asset_loader_wav.hpp
         asset/paks/asset_pak_fs.cpp
         asset/paks/asset_pak_fs.hpp
+        asset/_rtti.hpp
         rtti/class.cpp
         rtti/class.hpp
         rtti/enum.hpp
         rtti/function.hpp
+        rtti/meta_data.cpp
         rtti/meta_data.hpp
         rtti/object.cpp
         rtti/object.hpp
@@ -394,6 +398,7 @@ add_library(wmoge STATIC
         rtti/type_storage.cpp
         rtti/type_storage.hpp
         rtti/type.hpp
+        rtti/_rtti.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
         scene/scene_data.cpp

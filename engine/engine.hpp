@@ -40,6 +40,7 @@
 #include "core/cmd_line.hpp"
 #include "core/crc32.hpp"
 #include "core/data.hpp"
+#include "core/date_time.hpp"
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
 #include "core/log.hpp"
@@ -194,6 +195,7 @@
 
 #include "asset/array_mesh.hpp"
 #include "asset/asset.hpp"
+#include "asset/asset_import_data.hpp"
 #include "asset/asset_loader.hpp"
 #include "asset/asset_manager.hpp"
 #include "asset/asset_meta.hpp"

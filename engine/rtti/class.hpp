@@ -93,7 +93,7 @@ namespace wmoge {
         bool                             has_signal(const Strid& name) const;
         void                             add_factory(std::function<class RttiObject*()> factory);
         bool                             can_instantiate() const;
-        class RttiObject*                instantiate() const;
+        Ref<class RttiObject>            instantiate() const;
 
         [[nodiscard]] const std::function<class RttiObject*()>& get_factory() const { return m_factory; }
         [[nodiscard]] const flat_map<Strid, int>&               get_methods_map() const { return m_methods_map; }

@@ -27,6 +27,7 @@
 
 #include "freetype_plugin.hpp"
 
+#include "_rtti.hpp"
 #include "asset/asset_manager.hpp"
 #include "core/log.hpp"
 #include "core/status.hpp"
@@ -43,6 +44,8 @@ namespace wmoge {
     }
 
     Status FreetypePlugin::on_register() {
+        rtti_freetype();
+
         IocContainer* ioc_container = IocContainer::instance();
         AssetManager* asset_manager = ioc_container->resolve_v<AssetManager>();
 

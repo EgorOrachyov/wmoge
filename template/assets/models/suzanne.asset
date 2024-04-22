@@ -2,7 +2,7 @@
 version: 1
 uuid: 0
 loader: default
-class: Model
+rtti: Model
 description: "test model"
 path_on_disk: "asset://models/suzanne.model"
 deps:

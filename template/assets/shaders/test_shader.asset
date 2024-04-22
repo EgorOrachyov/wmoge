@@ -2,7 +2,7 @@
 version: 1
 uuid: 0
 loader: default
-class: Shader
+rtti: Shader
 description: "test shader"
 path_on_disk: "asset://shaders/test_shader.shader"
 deps: [ ]

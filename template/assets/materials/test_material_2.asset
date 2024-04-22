@@ -2,7 +2,7 @@
 version: 1
 uuid: 0
 loader: default
-class: Material
+rtti: Material
 description: "test material"
 path_on_disk: "asset://materials/test_material_2.material"
 deps: [ ]

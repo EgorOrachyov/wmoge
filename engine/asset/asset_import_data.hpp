@@ -27,62 +27,53 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "asset/asset_import_data.hpp"
-#include "core/buffered_vector.hpp"
-#include "core/class.hpp"
-#include "core/string_id.hpp"
-#include "core/uuid.hpp"
+#include "core/crc32.hpp"
+#include "core/date_time.hpp"
 #include "rtti/traits.hpp"
 
-#include <optional>
+#include <string>
 #include <vector>
 
 namespace wmoge {
 
     /**
-     * @class AssetMetaFile
-     * @brief Structure for AssetMeta info stored as `.asset` file in file system
-     */
-    struct AssetMetaFile {
-        WG_RTTI_STRUCT(AssetMetaFile);
+     * @class AssetSourceFile
+     * @brief Represent source file info of an asset
+    */
+    struct AssetSourceFile {
+        WG_RTTI_STRUCT(AssetSourceFile);
 
-        static constexpr char FILE_EXTENSION[] = ".asset";
-
-        UUID                       uuid;
-        Strid                      rtti;
-        Strid                      loader;
-        buffered_vector<Strid>     deps;
-        std::string                description;
-        std::optional<std::string> path_on_disk;
-        Ref<AssetImportData>       import_data;
+        std::string file;
+        Crc32Hash   file_hash;
+        DateTime    timestamp;
     };
 
-    WG_RTTI_STRUCT_BEGIN(AssetMetaFile) {
-        WG_RTTI_META_DATA();
-        WG_RTTI_FIELD(uuid, {RttiOptional});
-        WG_RTTI_FIELD(rtti, {});
-        WG_RTTI_FIELD(loader, {});
-        WG_RTTI_FIELD(deps, {RttiOptional});
-        WG_RTTI_FIELD(description, {RttiOptional});
-        WG_RTTI_FIELD(path_on_disk, {RttiOptional});
-        WG_RTTI_FIELD(import_data, {RttiOptional});
+    WG_RTTI_STRUCT_BEGIN(AssetSourceFile) {
+        WG_RTTI_FIELD(file, {RttiOptional, RttiUiHint("Path to original file on disk")});
+        WG_RTTI_FIELD(file_hash, {RttiOptional, RttiUiHint("File content hash")});
+        WG_RTTI_FIELD(timestamp, {RttiOptional, RttiUiHint("Time when file was imported")});
     }
     WG_RTTI_END;
 
     /**
-     * @class AssetMeta
-     * @brief Meta information of a particular asset
-     */
-    struct AssetMeta {
-        UUID                       uuid   = UUID();
-        class Class*               cls    = nullptr;
-        class AssetPak*            pak    = nullptr;
-        class AssetLoader*         loader = nullptr;
-        buffered_vector<Strid>     deps;
-        std::optional<std::string> path_on_disk;
-        std::optional<YamlTree>    import_options;
-        Ref<AssetImportData>       import_data;
+     * @class AssetImportData
+     * @brief Data and options for importing an asset
+    */
+    class AssetImportData : public RttiObject {
+    public:
+        WG_RTTI_CLASS(AssetImportData, RttiObject);
+
+        AssetImportData()           = default;
+        ~AssetImportData() override = default;
+
+        std::vector<AssetSourceFile> source_files;
     };
+
+    WG_RTTI_CLASS_BEGIN(AssetImportData) {
+        WG_RTTI_META_DATA({RttiUiName("Asset import data"), RttiUiHint("Asset manager assosiated data to import asset")});
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(source_files, {RttiOptional});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

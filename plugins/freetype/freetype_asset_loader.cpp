@@ -30,14 +30,20 @@
 #include "asset/font.hpp"
 #include "debug/profiler.hpp"
 #include "freetype_font.hpp"
+#include "freetype_import_data.hpp"
 
 namespace wmoge {
 
     Status FreetypeAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
         WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load");
 
-        Ref<Font> font = meta.cls->instantiate().cast<Font>();
+        Ref<FreetypeImportData> import_data = meta.import_data.cast<FreetypeImportData>();
+        if (!import_data) {
+            WG_LOG_ERROR("no valid import data for " << name);
+            return StatusCode::InvalidData;
+        }
 
+        Ref<Font> font = meta.cls->instantiate().cast<Font>();
         if (!font) {
             WG_LOG_ERROR("failed to instantiate font " << name);
             return StatusCode::FailedInstantiate;
@@ -45,16 +51,12 @@ namespace wmoge {
 
         res = font;
         res->set_name(name);
+        res->set_import_data(import_data);
 
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("no import options to load font " << name);
-            return StatusCode::InvalidData;
-        }
+        import_data->source_files[0].timestamp = DateTime::now();
+        import_data->source_files[0].file_hash = Crc32::hash(import_data->source_files[0].file.data(), import_data->source_files[0].file.length());
 
-        FontImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
-
-        return FreetypeFont::load(font, options.source_file, options.height, options.glyphs_in_row);
+        return FreetypeFont::load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
     }
     Strid FreetypeAssetLoader::get_name() {
         return SID("freetype");

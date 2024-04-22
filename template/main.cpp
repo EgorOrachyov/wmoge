@@ -41,11 +41,11 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(TestStruct) {
-        WG_RTTI_META_DATA(RttiVisibleAnywhere, RttiUiName("Test Struct"), RttiUiHint("Rtti test for struct types"));
-        WG_RTTI_FIELD(prices, {RttiVisibleAnywhere});
-        WG_RTTI_FIELD(shop, {RttiVisibleAnywhere});
+        WG_RTTI_META_DATA(RttiUiName("Test Struct"), RttiUiHint("Rtti test for struct types"));
+        WG_RTTI_FIELD(prices, {});
+        WG_RTTI_FIELD(shop, {});
     }
-    WG_RTTI_END();
+    WG_RTTI_END;
 
     class TestClass : public RttiObject {
         WG_RTTI_CLASS(TestClass, RttiObject)
@@ -60,14 +60,14 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(TestClass) {
-        WG_RTTI_META_DATA(RttiVisibleAnywhere, RttiUiName("Test Class"), RttiUiHint("Rtti test for class types"));
+        WG_RTTI_META_DATA(RttiUiName("Test Class"), RttiUiHint("Rtti test for class types"));
         WG_RTTI_FACTORY();
-        WG_RTTI_FIELD(map, {RttiVisibleAnywhere});
-        WG_RTTI_FIELD(optional, {RttiVisibleAnywhere});
-        WG_RTTI_FIELD(reference, {RttiVisibleAnywhere});
+        WG_RTTI_FIELD(map, {});
+        WG_RTTI_FIELD(optional, {});
+        WG_RTTI_FIELD(reference, {});
         WG_RTTI_METHOD(do_work, {"a", "b", "c"}, {RttiNoScriptExport});
     }
-    WG_RTTI_END();
+    WG_RTTI_END;
 
 }// namespace wmoge
 

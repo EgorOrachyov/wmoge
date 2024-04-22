@@ -25,18 +25,14 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "asset_meta.hpp"
+#pragma once
+
+#include "rtti/traits.hpp"
 
 namespace wmoge {
 
-    WG_IO_BEGIN(AssetMetaFile)
-    WG_IO_FIELD(version)
-    WG_IO_FIELD(uuid)
-    WG_IO_FIELD_AS(cls, "class")
-    WG_IO_FIELD(loader)
-    WG_IO_FIELD(deps)
-    WG_IO_FIELD(description)
-    WG_IO_FIELD_OPT(path_on_disk)
-    WG_IO_END(AssetMetaFile)
+    inline void rtti_rtti() {
+        rtti_type<RttiObject>();
+    }
 
-}// namespace wmoge
+}

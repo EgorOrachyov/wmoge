@@ -32,19 +32,25 @@
 namespace wmoge {
 
     Status RttiObject::clone(Ref<RttiObject>& object) const {
-        if (!object) {
-            return StatusCode::InvalidParameter;
-        }
-        RttiClass* tclass = get_class();
-        return tclass->copy(object.get(), this);
+        RttiClass* rtti_class = get_class();
+        object                = rtti_class->instantiate();
+        return rtti_class->copy(object.get(), this);
     }
-
+    Status RttiObject::read_from_yaml(YamlConstNodeRef node) {
+        return get_class()->read_from_yaml(this, node);
+    }
+    Status RttiObject::write_to_yaml(YamlNodeRef node) const {
+        return get_class()->write_to_yaml(this, node);
+    }
+    Status RttiObject::read_from_archive(Archive& archive) {
+        return get_class()->read_from_archive(this, archive);
+    }
+    Status RttiObject::write_to_archive(Archive& archive) const {
+        return get_class()->write_to_archive(this, archive);
+    }
     Ref<RttiObject> RttiObject::duplicate() const {
-        RttiClass*      tclass = get_class();
-        Ref<RttiObject> object(tclass->instantiate());
-        if (!tclass->copy(object.get(), this)) {
-            object.reset();
-        }
+        Ref<RttiObject> object;
+        clone(object);
         return object;
     }
     Strid RttiObject::get_class_name() const {
@@ -76,18 +82,73 @@ namespace wmoge {
         static RttiClass* g_class = nullptr;
         return g_class;
     }
+    Status RttiObject::yaml_read_object(YamlConstNodeRef node, Ref<RttiObject>& object) {
+        assert(!object);
 
-    Status RttiObject::yaml_read_object(YamlConstNodeRef node, Ref<Object>& object) {
-        return WG_OK;
+        if (node.empty()) {
+            return WG_OK;
+        }
+
+        Strid rtti_name;
+        WG_YAML_READ_AS(node, "rtti", rtti_name);
+
+        RttiClass* rtti_class = RttiTypeStorage::instance()->find_class(rtti_name);
+        if (!rtti_class) {
+            WG_LOG_ERROR("no such class to read from yaml " << rtti_name);
+            return StatusCode::NoClass;
+        }
+
+        object = rtti_class->instantiate();
+        if (!object) {
+            WG_LOG_ERROR("failed to instantiate class " << rtti_name);
+            return StatusCode::FailedInstantiate;
+        }
+
+        return object->read_from_yaml(node);
     }
-    Status RttiObject::yaml_write_object(YamlNodeRef node, const Ref<Object>& object) {
-        return WG_OK;
+    Status RttiObject::yaml_write_object(YamlNodeRef node, const Ref<RttiObject>& object) {
+        if (!object) {
+            return WG_OK;
+        }
+        WG_YAML_MAP(node);
+        WG_YAML_WRITE_AS(node, "rtti", object->get_class_name());
+        return object->write_to_yaml(node);
     }
-    Status RttiObject::archive_read_object(Archive& archive, Ref<Object>& object) {
-        return WG_OK;
+    Status RttiObject::archive_read_object(Archive& archive, Ref<RttiObject>& object) {
+        assert(!object);
+
+        bool has_value;
+        WG_ARCHIVE_READ(archive, has_value);
+
+        if (!has_value) {
+            return WG_OK;
+        }
+
+        Strid rtti_name;
+        WG_ARCHIVE_READ(archive, rtti_name);
+
+        RttiClass* rtti_class = RttiTypeStorage::instance()->find_class(rtti_name);
+        if (!rtti_class) {
+            WG_LOG_ERROR("no such class to read from archive " << rtti_name);
+            return StatusCode::NoClass;
+        }
+
+        object = rtti_class->instantiate();
+        if (!object) {
+            WG_LOG_ERROR("failed to instantiate class " << rtti_name);
+            return StatusCode::FailedInstantiate;
+        }
+
+        return object->read_from_archive(archive);
     }
-    Status RttiObject::archive_write_object(Archive& archive, const Ref<Object>& object) {
-        return WG_OK;
+    Status RttiObject::archive_write_object(Archive& archive, const Ref<RttiObject>& object) {
+        const bool has_value = object;
+        WG_ARCHIVE_WRITE(archive, has_value);
+        if (!has_value) {
+            return WG_OK;
+        }
+        WG_ARCHIVE_WRITE(archive, object->get_class_name());
+        return object->write_to_archive(archive);
     }
 
 }// namespace wmoge

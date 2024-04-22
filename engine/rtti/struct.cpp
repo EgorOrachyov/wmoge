@@ -104,9 +104,6 @@ namespace wmoge {
     Status RttiStruct::read_from_yaml(void* dst, YamlConstNodeRef node) const {
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
-        if (has_parent()) {
-            WG_CHECKED(get_parent()->read_from_yaml(self, node));
-        }
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
@@ -120,6 +117,10 @@ namespace wmoge {
                     WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str]));
                 }
             } else {
+                if (!node.has_child(field_name_str)) {
+                    WG_LOG_ERROR("failed to read yaml " << field_name);
+                    return StatusCode::FailedRead;
+                }
                 WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str]));
             }
         }
@@ -130,9 +131,6 @@ namespace wmoge {
         assert(src);
         WG_YAML_MAP(node);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
-        if (has_parent()) {
-            WG_CHECKED(get_parent()->write_to_yaml(self, node));
-        }
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
@@ -152,9 +150,6 @@ namespace wmoge {
     Status RttiStruct::read_from_archive(void* dst, Archive& archive) const {
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
-        if (has_parent()) {
-            WG_CHECKED(get_parent()->read_from_archive(self, archive));
-        }
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
@@ -167,9 +162,6 @@ namespace wmoge {
     Status RttiStruct::write_to_archive(const void* src, Archive& archive) const {
         assert(src);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
-        if (has_parent()) {
-            WG_CHECKED(get_parent()->write_to_archive(self, archive));
-        }
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;

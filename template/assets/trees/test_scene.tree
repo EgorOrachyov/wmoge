@@ -14,8 +14,8 @@ nodes:
     rotation: 0 0 0
    parent: "9468856891681035089"
    properties:
-     - class: NodePropSpatial
-     - class: NodePropCamera
+     - rtti: NodePropSpatial
+     - rtti: NodePropCamera
        fov: 45.0
        projection: Perspective
  - name: "camera_1"
@@ -26,8 +26,8 @@ nodes:
     rotation: 0 180 0
    parent: "9468856891681035089"
    properties:
-     - class: NodePropSpatial   
-     - class: NodePropCamera
+     - rtti: NodePropSpatial   
+     - rtti: NodePropCamera
        fov: 45.0
        projection: Perspective
  - name: "camera_2"
@@ -38,8 +38,8 @@ nodes:
     rotation: 0 -90 0
    parent: "9468856891681035089"
    properties:
-     - class: NodePropSpatial
-     - class: NodePropCamera
+     - rtti: NodePropSpatial
+     - rtti: NodePropCamera
        fov: 45.0
        projection: Perspective
  - name: "camera_3"
@@ -50,8 +50,8 @@ nodes:
     rotation: 0 90 0
    parent: "9468856891681035089"
    properties:
-     - class: NodePropSpatial
-     - class: NodePropCamera
+     - rtti: NodePropSpatial
+     - rtti: NodePropCamera
        fov: 45.0
        projection: Perspective
  - name: "models"

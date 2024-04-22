@@ -137,24 +137,10 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, Ref<T>& ref, typename std::enable_if_t<!std::is_convertible_v<T*, Object*>>* = 0) {
-        ref = make_ref<T>();
-        WG_YAML_READ(node, *ref);
-        return StatusCode::Ok;
-    }
-
-    template<typename T>
     Status yaml_write(YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object = ref.template as<Object>();
         auto        status = yaml_write_object(node, object);
         if (!status) return status;
-        return StatusCode::Ok;
-    }
-
-    template<typename T>
-    Status yaml_write(YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<!std::is_convertible_v<T*, Object*>>* = 0) {
-        assert(ref);
-        WG_YAML_WRITE(node, *ref);
         return StatusCode::Ok;
     }
 
@@ -168,24 +154,10 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_read(Archive& archive, Ref<T>& ref, typename std::enable_if_t<!std::is_convertible_v<T*, Object*>>* = 0) {
-        ref = make_ref<T>();
-        WG_ARCHIVE_READ(archive, *ref);
-        return StatusCode::Ok;
-    }
-
-    template<typename T>
     Status archive_write(Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object = ref.template as<Object>();
         auto        status = archive_write_object(archive, object);
         if (!status) return status;
-        return StatusCode::Ok;
-    }
-
-    template<typename T>
-    Status archive_write(Archive& archive, const Ref<T>& ref, typename std::enable_if_t<!std::is_convertible_v<T*, Object*>>* = 0) {
-        assert(ref);
-        WG_ARCHIVE_WRITE(archive, *ref);
         return StatusCode::Ok;
     }
 

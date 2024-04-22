@@ -127,7 +127,7 @@ namespace wmoge {
         assert(!object);
 
         Strid class_name;
-        WG_YAML_READ_AS(node, "class", class_name);
+        WG_YAML_READ_AS(node, "rtti", class_name);
 
         auto* cls = Class::class_ptr(class_name);
 
@@ -148,7 +148,7 @@ namespace wmoge {
     Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object) {
         assert(object);
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "class", object->class_name());
+        WG_YAML_WRITE_AS(node, "rtti", object->class_name());
         return object->write_to_yaml(node);
     }
 

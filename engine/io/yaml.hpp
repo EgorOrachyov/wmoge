@@ -99,6 +99,11 @@ namespace wmoge {
     Status yaml_write(YamlNodeRef node, const std::string& value);
     Status yaml_write(YamlNodeRef node, const std::int16_t& value);
 
+    template<typename T>
+    Status yaml_read(const YamlTree& tree, T& value) {
+        return yaml_read(tree.crootref(), value);
+    }
+
 #define WG_YAML_READ(node, what)                                     \
     do {                                                             \
         if (!yaml_read(node, what)) {                                \
@@ -172,7 +177,7 @@ namespace wmoge {
     Status yaml_read(const YamlConstNodeRef& node, std::pair<K, V>& pair) {
         WG_YAML_READ_AS(node, "key", pair.first);
         WG_YAML_READ_AS(node, "value", pair.second);
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename K, typename V>
     Status yaml_write(YamlNodeRef node, const std::pair<K, V>& pair) {
@@ -184,14 +189,14 @@ namespace wmoge {
         YamlNodeRef value = node.append_child();
         WG_YAML_WRITE_AS(value, "value", pair.second);
 
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename K, typename V>
     Status yaml_read(const YamlConstNodeRef& node, robin_hood::pair<K, V>& pair) {
         WG_YAML_READ_AS(node, "key", pair.first);
         WG_YAML_READ_AS(node, "value", pair.second);
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename K, typename V>
     Status yaml_write(YamlNodeRef node, const robin_hood::pair<K, V>& pair) {
@@ -203,7 +208,7 @@ namespace wmoge {
         YamlNodeRef value = node.append_child();
         WG_YAML_WRITE_AS(value, "value", pair.second);
 
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename T, std::size_t S>
@@ -213,7 +218,7 @@ namespace wmoge {
         for (auto child = node.first_child(); child.valid() && element_id < S; child = child.next_sibling()) {
             WG_YAML_READ(child, array[element_id++]);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename T, std::size_t S>
     Status yaml_write(YamlNodeRef node, const std::array<T, S>& array) {
@@ -222,7 +227,7 @@ namespace wmoge {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, array[i]);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename T>
@@ -234,7 +239,7 @@ namespace wmoge {
             WG_YAML_READ(child, vector[element_id]);
             element_id += 1;
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename T>
     Status yaml_write(YamlNodeRef node, const std::vector<T>& vector) {
@@ -243,7 +248,7 @@ namespace wmoge {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, value);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename K, typename V>
@@ -255,7 +260,7 @@ namespace wmoge {
             WG_YAML_READ(child, entry);
             map.insert(std::move(entry));
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<typename K, typename V>
     Status yaml_write(YamlNodeRef node, const std::unordered_map<K, V>& map) {
@@ -264,7 +269,7 @@ namespace wmoge {
             YamlNodeRef entry_child = node.append_child();
             WG_YAML_WRITE(entry_child, entry);
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
@@ -276,25 +281,28 @@ namespace wmoge {
             return StatusCode::FailedRead;
         }
         enum_value = parsed.value();
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
     Status yaml_write(YamlNodeRef node, const T& enum_value) {
         node << std::string(magic_enum::enum_name(enum_value));
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
     template<typename T>
     Status yaml_read(const YamlConstNodeRef& node, std::optional<T>& wrapper) {
-        wrapper.emplace();
-        WG_YAML_READ(node, wrapper.value());
-        return StatusCode::Ok;
+        if (!node.empty()) {
+            wrapper.emplace();
+            WG_YAML_READ(node, wrapper.value());
+        }
+        return WG_OK;
     }
     template<typename T>
     Status yaml_write(YamlNodeRef node, const std::optional<T>& wrapper) {
-        assert(wrapper.has_value());
-        WG_YAML_WRITE(node, wrapper.value());
-        return StatusCode::Ok;
+        if (wrapper.has_value()) {
+            WG_YAML_WRITE(node, wrapper.value());
+        }
+        return WG_OK;
     }
 
     template<std::size_t N>
@@ -306,7 +314,7 @@ namespace wmoge {
                 bitset.set(i);
             }
         }
-        return StatusCode::Ok;
+        return WG_OK;
     }
     template<std::size_t N>
     Status yaml_write(YamlNodeRef node, const std::bitset<N>& bitset) {
@@ -318,7 +326,7 @@ namespace wmoge {
             }
         }
         WG_YAML_WRITE(node, values);
-        return StatusCode::Ok;
+        return WG_OK;
     }
 
 }// namespace wmoge
