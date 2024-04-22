@@ -197,13 +197,13 @@ $(function() {
 <div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ac7847912b57313c94be6c0ec8800e729">  134</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#aa08e743e90d5f0a1bbe45425a504a862">archive_read</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, std::pair&lt;K, T&gt;&amp; pair) {</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, pair.first);</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, pair.second);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> K&gt;</div>
 <div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a21065370cba4f1f74ad332fe93abc167">  140</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> std::pair&lt;K, T&gt;&amp; pair) {</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, pair.first);</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, pair.second);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> S&gt;</div>
@@ -211,14 +211,14 @@ $(function() {
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a5dbc98dcc983a70728bd082d1a47546e">S</a>; i++) {</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, array[i]);</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        }</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> S&gt;</div>
 <div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a60f1405ce9ec30c8e879f211bbbf763d">  154</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> std::array&lt;T, S&gt;&amp; array) {</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a5dbc98dcc983a70728bd082d1a47546e">S</a>; i++) {</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, array[i]);</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    }</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
@@ -230,7 +230,7 @@ $(function() {
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, vector[i]);</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        }</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    }</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a7f9d1e5948ddfa122272b79df98c17a9">  173</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> std::vector&lt;T&gt;&amp; vector) {</div>
@@ -238,7 +238,7 @@ $(function() {
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : vector) {</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry);</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    }</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
@@ -252,7 +252,7 @@ $(function() {
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, entry.second);</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            map.insert(std::move(entry));</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
 <div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a573c6500a05a52fb2d48d5f90c8ab5c8">  195</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> std::unordered_map&lt;K, V&gt;&amp; map) {</div>
@@ -261,7 +261,7 @@ $(function() {
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry.first);</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, entry.second);</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    }</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
@@ -269,13 +269,13 @@ $(function() {
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordtype">int</span> value;</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, value);</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        enum_value = <span class="keyword">static_cast&lt;</span><a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a><span class="keyword">&gt;</span>(value);</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    }</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a199a842daa31660b25b63808607496ce">  212</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> T&amp; enum_value, <span class="keyword">typename</span> std::enable_if_t&lt;std::is_enum_v&lt;T&gt;&gt;* = <span class="keyword">nullptr</span>) {</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordtype">int</span> value = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(enum_value);</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, value);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
@@ -287,7 +287,7 @@ $(function() {
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            <a class="code" href="archive_8hpp.html#acfd58faaa2ecc4ba6ff1d7e5dbc70f13">WG_ARCHIVE_READ</a>(archive, v);</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            opt = std::move(v);</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        }</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="namespacewmoge.html#aeedd3e704ae43160cc61a17228e214ee">  230</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> std::optional&lt;T&gt;&amp; opt) {</div>
@@ -296,7 +296,7 @@ $(function() {
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">if</span> (has_value) {</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <a class="code" href="archive_8hpp.html#af12fb0c2596662580e85cce45498f2cd">WG_ARCHIVE_WRITE</a>(archive, opt.value());</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        }</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    }</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
@@ -339,17 +339,17 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
 <div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="log_8hpp.html">log.hpp</a></div></div>
 <div class="ttc" id="alog_8hpp_html_a4a1955f32dcea667f2aeef84eb8b7d1d"><div class="ttname"><a href="log_8hpp.html#a4a1955f32dcea667f2aeef84eb8b7d1d">WG_LOG_ERROR</a></div><div class="ttdeci">#define WG_LOG_ERROR(message)</div><div class="ttdef"><b>Definition:</b> log.hpp:147</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> array_mesh.cpp:35</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:33</div></div>
 <div class="ttc" id="anamespacewmoge_html_a0961c1f306e4270f00b1e2c30593f843"><div class="ttname"><a href="namespacewmoge.html#a0961c1f306e4270f00b1e2c30593f843">wmoge::operator&gt;&gt;</a></div><div class="ttdeci">Archive &amp; operator&gt;&gt;(Archive &amp;archive, T &amp;value)</div><div class="ttdef"><b>Definition:</b> archive.hpp:249</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886a5dbc98dcc983a70728bd082d1a47546e"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886a5dbc98dcc983a70728bd082d1a47546e">wmoge::InputKeyboardKey::S</a></div><div class="ttdeci">@ S</div></div>
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">wmoge::InputKeyboardKey::T</a></div><div class="ttdeci">@ T</div></div>
 <div class="ttc" id="anamespacewmoge_html_a979de770006e829ff1b15a4e0b992e86"><div class="ttname"><a href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">wmoge::archive_write</a></div><div class="ttdeci">Status archive_write(Archive &amp;archive, const AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:51</div></div>
 <div class="ttc" id="anamespacewmoge_html_aa08e743e90d5f0a1bbe45425a504a862"><div class="ttname"><a href="namespacewmoge.html#aa08e743e90d5f0a1bbe45425a504a862">wmoge::archive_read</a></div><div class="ttdeci">Status archive_read(Archive &amp;archive, AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:47</div></div>
-<div class="ttc" id="anamespacewmoge_html_adede183c01d39f6f86a970aac0d60f07"><div class="ttname"><a href="namespacewmoge.html#adede183c01d39f6f86a970aac0d60f07">wmoge::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;stream, const AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.hpp:83</div></div>
+<div class="ttc" id="anamespacewmoge_html_adede183c01d39f6f86a970aac0d60f07"><div class="ttname"><a href="namespacewmoge.html#adede183c01d39f6f86a970aac0d60f07">wmoge::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;stream, const AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.hpp:84</div></div>
 <div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085ba997ca4ce119685f40f03a9a8a6c5346e"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085ba997ca4ce119685f40f03a9a8a6c5346e">wmoge::StatusCode::NotImplemented</a></div><div class="ttdeci">@ NotImplemented</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
 <div class="ttc" id="aref_8hpp_html"><div class="ttname"><a href="ref_8hpp.html">ref.hpp</a></div></div>
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:129</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

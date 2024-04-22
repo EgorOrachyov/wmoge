@@ -82,18 +82,17 @@ Collaboration diagram for wmoge::AssetMeta:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1AssetMeta__coll__graph.png" border="0" usemap="#awmoge_1_1AssetMeta_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1AssetMeta_coll__map" id="awmoge_1_1AssetMeta_coll__map">
-<area shape="rect" title="Meta information of a particular asset." alt="" coords="203,95,337,121"/>
-<area shape="rect" href="classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="5,5,132,32"/>
-<area shape="rect" href="classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="156,5,259,32"/>
-<area shape="rect" href="classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="283,5,385,32"/>
-<area shape="rect" href="classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="410,5,554,32"/>
+<area shape="rect" title="Meta information of a particular asset." alt="" coords="275,107,408,133"/>
+<area shape="rect" href="classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="17,5,143,32"/>
+<area shape="rect" href="classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="29,56,131,83"/>
+<area shape="rect" href="classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="29,107,131,133"/>
+<area shape="rect" href="classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="8,157,152,184"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="5,209,155,250"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a94f18e65b7821307d33d9085a71c21d9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetMeta.html#a94f18e65b7821307d33d9085a71c21d9">version</a> = 0</td></tr>
-<tr class="separator:a94f18e65b7821307d33d9085a71c21d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fadd990b07e272b340cb753c46d428b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetMeta.html#a9fadd990b07e272b340cb753c46d428b">uuid</a> = <a class="el" href="classwmoge_1_1UUID.html">UUID</a>()</td></tr>
 <tr class="separator:a9fadd990b07e272b340cb753c46d428b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a767226495e4a53b306ffe2ef5e337482"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1Class.html">Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetMeta.html#a767226495e4a53b306ffe2ef5e337482">cls</a> = nullptr</td></tr>
@@ -108,6 +107,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a9d4d1a88033001570d980e989d1d4577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae25fb3f20ca0fad6df4843999a0c1b04"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetMeta.html#ae25fb3f20ca0fad6df4843999a0c1b04">import_options</a></td></tr>
 <tr class="separator:ae25fb3f20ca0fad6df4843999a0c1b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade9d792a345d2c469c9b9f5d45bd1e24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1AssetImportData.html">AssetImportData</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssetMeta.html#ade9d792a345d2c469c9b9f5d45bd1e24">import_data</a></td></tr>
+<tr class="separator:ade9d792a345d2c469c9b9f5d45bd1e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Meta information of a particular asset. </p>
@@ -134,6 +135,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="classwmoge_1_1Strid.html">Strid</a>&gt; wmoge::AssetMeta::deps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ade9d792a345d2c469c9b9f5d45bd1e24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade9d792a345d2c469c9b9f5d45bd1e24">&#9670;&nbsp;</a></span>import_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1AssetImportData.html">AssetImportData</a>&gt; wmoge::AssetMeta::import_data</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -204,20 +219,6 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1UUID.html">UUID</a> wmoge::AssetMeta::uuid = <a class="el" href="classwmoge_1_1UUID.html">UUID</a>()</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a94f18e65b7821307d33d9085a71c21d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94f18e65b7821307d33d9085a71c21d9">&#9670;&nbsp;</a></span>version</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int wmoge::AssetMeta::version = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">

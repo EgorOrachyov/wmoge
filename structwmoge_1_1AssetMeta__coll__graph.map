@@ -1,7 +1,8 @@
 <map id="wmoge::AssetMeta" name="wmoge::AssetMeta">
-<area shape="rect" id="node1" title="Meta information of a particular asset." alt="" coords="203,95,337,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="5,5,132,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="156,5,259,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="283,5,385,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="410,5,554,32"/>
+<area shape="rect" id="node1" title="Meta information of a particular asset." alt="" coords="275,107,408,133"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="17,5,143,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="29,56,131,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="29,107,131,133"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="8,157,152,184"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,209,155,250"/>
 </map>

@@ -1,26 +1,5 @@
 var searchData=
 [
-  ['pfx_5fcomponent_2ecpp_5783',['pfx_component.cpp',['../pfx__component_8cpp.html',1,'']]],
-  ['pfx_5fcomponent_2ehpp_5784',['pfx_component.hpp',['../pfx__component_8hpp.html',1,'']]],
-  ['pfx_5fcomponent_5fruntime_2ecpp_5785',['pfx_component_runtime.cpp',['../pfx__component__runtime_8cpp.html',1,'']]],
-  ['pfx_5fcomponent_5fruntime_2ehpp_5786',['pfx_component_runtime.hpp',['../pfx__component__runtime_8hpp.html',1,'']]],
-  ['pfx_5feffect_2ecpp_5787',['pfx_effect.cpp',['../pfx__effect_8cpp.html',1,'']]],
-  ['pfx_5feffect_2ehpp_5788',['pfx_effect.hpp',['../pfx__effect_8hpp.html',1,'']]],
-  ['pfx_5femitter_2ecpp_5789',['pfx_emitter.cpp',['../pfx__emitter_8cpp.html',1,'']]],
-  ['pfx_5femitter_2ehpp_5790',['pfx_emitter.hpp',['../pfx__emitter_8hpp.html',1,'']]],
-  ['pfx_5ffeature_2ecpp_5791',['pfx_feature.cpp',['../pfx__feature_8cpp.html',1,'']]],
-  ['pfx_5ffeature_2ehpp_5792',['pfx_feature.hpp',['../pfx__feature_8hpp.html',1,'']]],
-  ['pfx_5fscene_2ecpp_5793',['pfx_scene.cpp',['../pfx__scene_8cpp.html',1,'']]],
-  ['pfx_5fscene_2ehpp_5794',['pfx_scene.hpp',['../pfx__scene_8hpp.html',1,'']]],
-  ['pfx_5fstorage_2ecpp_5795',['pfx_storage.cpp',['../pfx__storage_8cpp.html',1,'']]],
-  ['pfx_5fstorage_2ehpp_5796',['pfx_storage.hpp',['../pfx__storage_8hpp.html',1,'']]],
-  ['plane_2ehpp_5797',['plane.hpp',['../plane_8hpp.html',1,'']]],
-  ['plugin_2ehpp_5798',['plugin.hpp',['../plugin_8hpp.html',1,'']]],
-  ['plugin_5fmanager_2ecpp_5799',['plugin_manager.cpp',['../plugin__manager_8cpp.html',1,'']]],
-  ['plugin_5fmanager_2ehpp_5800',['plugin_manager.hpp',['../plugin__manager_8hpp.html',1,'']]],
-  ['pool_5fvector_2ehpp_5801',['pool_vector.hpp',['../pool__vector_8hpp.html',1,'']]],
-  ['prefab_2ecpp_5802',['prefab.cpp',['../prefab_8cpp.html',1,'']]],
-  ['prefab_2ehpp_5803',['prefab.hpp',['../prefab_8hpp.html',1,'']]],
-  ['profiler_2ecpp_5804',['profiler.cpp',['../profiler_8cpp.html',1,'']]],
-  ['profiler_2ehpp_5805',['profiler.hpp',['../profiler_8hpp.html',1,'']]]
+  ['object_2ecpp_5827',['object.cpp',['../core_2object_8cpp.html',1,'(Global Namespace)'],['../rtti_2object_8cpp.html',1,'(Global Namespace)']]],
+  ['object_2ehpp_5828',['object.hpp',['../core_2object_8hpp.html',1,'(Global Namespace)'],['../rtti_2object_8hpp.html',1,'(Global Namespace)']]]
 ];
