@@ -95,10 +95,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0b60549a162014747823b747c8f05421"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8df81309f7611bcbc24eee4ba0f3f524"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetPak.html#a8df81309f7611bcbc24eee4ba0f3f524">get_meta</a> (const <a class="el" href="classwmoge_1_1AssetId.html">AssetId</a> &amp;name, <a class="el" href="structwmoge_1_1AssetMeta.html">AssetMeta</a> &amp;meta)=0</td></tr>
 <tr class="separator:a8df81309f7611bcbc24eee4ba0f3f524"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a185c5b2e59d6c2ea4a7fdabc0d4399c6"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetPak.html#a185c5b2e59d6c2ea4a7fdabc0d4399c6">read_file</a> (const std::string &amp;path, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;data)=0</td></tr>
-<tr class="separator:a185c5b2e59d6c2ea4a7fdabc0d4399c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29d2e1373b4c0c9ec148ed708e3cb18f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssetPak.html#a29d2e1373b4c0c9ec148ed708e3cb18f">read_file</a> (const std::string &amp;path, std::vector&lt; std::uint8_t &gt; &amp;data)=0</td></tr>
-<tr class="separator:a29d2e1373b4c0c9ec148ed708e3cb18f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for the package of the assets on disc. </p>
@@ -193,82 +189,6 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1AssetPakFileSystem.html#ac98f19a46b2cd15fd68f63ef77ee2586">wmoge::AssetPakFileSystem</a>.</p>
-
-</div>
-</div>
-<a id="a185c5b2e59d6c2ea4a7fdabc0d4399c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a185c5b2e59d6c2ea4a7fdabc0d4399c6">&#9670;&nbsp;</a></span>read_file() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetPak::read_file </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetPakFileSystem.html#a42ad8d3e37a261bf575db1c300992c62">wmoge::AssetPakFileSystem</a>.</p>
-
-</div>
-</div>
-<a id="a29d2e1373b4c0c9ec148ed708e3cb18f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29d2e1373b4c0c9ec148ed708e3cb18f">&#9670;&nbsp;</a></span>read_file() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssetPak::read_file </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; std::uint8_t &gt; &amp;&#160;</td>
-          <td class="paramname"><em>data</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1AssetPakFileSystem.html#a6936b53fb83399647e40ffb8f27df68b">wmoge::AssetPakFileSystem</a>.</p>
 
 </div>
 </div>

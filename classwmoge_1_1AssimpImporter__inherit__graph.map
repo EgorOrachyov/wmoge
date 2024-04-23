@@ -1,0 +1,4 @@
+<map id="wmoge::AssimpImporter" name="wmoge::AssimpImporter">
+<area shape="rect" id="node1" title="Assimp base importer (assimp scene visitor)" alt="" coords="21,5,184,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssimpMeshImporter.html" title="Assimp mesh importer." alt="" coords="5,80,200,107"/>
+</map>

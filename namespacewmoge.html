@@ -167,9 +167,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Material.html">Material</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the rendering of the mesh geometry.  <a href="classwmoge_1_1Material.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshImportOptions.html">MeshImportOptions</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options to import mesh asset from external asset format.  <a href="structwmoge_1_1MeshImportOptions.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents single mesh chunk in a mesh which can be rendered individually with material.  <a href="structwmoge_1_1MeshChunk.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -972,6 +969,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HookConfig.html">HookConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to setup common config workflow.  <a href="classwmoge_1_1HookConfig.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HookEngine.html">HookEngine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to setup runtime of the game.  <a href="classwmoge_1_1HookEngine.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1HookLogs.html">HookLogs</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Engine.html" title="Global engine state giving access for other systems.">Engine</a> hook to configure and and init engine logs.  <a href="classwmoge_1_1HookLogs.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1435,6 +1435,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiTypeOf_3_01Status_01_4.html">RttiTypeOf&lt; Status &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiTypeOf_3_01Mask_3_01T_00_01N_01_4_01_4.html">RttiTypeOf&lt; Mask&lt; T, N &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiTypeOf_3_01TVecN_3_01T_00_01N_01_4_01_4.html">RttiTypeOf&lt; TVecN&lt; T, N &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RttiTypeOf_3_01TQuat_3_01T_01_4_01_4.html">RttiTypeOf&lt; TQuat&lt; T &gt; &gt;</a></td></tr>
@@ -1720,6 +1722,41 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PluginManager.html">PluginManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for engine plug-ins system.  <a href="classwmoge_1_1PluginManager.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpMeshAssetLoader.html">AssimpMeshAssetLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loader for a mesh data based on assimp library.  <a href="classwmoge_1_1AssimpMeshAssetLoader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1AssimpProcess.html">AssimpProcess</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls post-process of imported data.  <a href="structwmoge_1_1AssimpProcess.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpMeshImportData.html">AssimpMeshImportData</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html">AssimpImporter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assimp base importer (assimp scene visitor)  <a href="classwmoge_1_1AssimpImporter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpMeshImporter.html">AssimpMeshImporter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assimp mesh importer.  <a href="classwmoge_1_1AssimpMeshImporter.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpPlugin.html">AssimpPlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug-in.">Plugin</a> which brings assimp support to the engine.  <a href="classwmoge_1_1AssimpPlugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeAssetLoader.html">FreetypeAssetLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loader for ttf fonts through freetype2 library.  <a href="classwmoge_1_1FreetypeAssetLoader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeFont.html">FreetypeFont</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides utilies to work with .ttf font via freetype library.  <a href="classwmoge_1_1FreetypeFont.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeImportData.html">FreetypeImportData</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Data.html" title="Safe, automatic and reference-counted raw binary data buffer.">Data</a> to import freetype font.  <a href="classwmoge_1_1FreetypeImportData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypePlugin.html">FreetypePlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug-in.">Plugin</a> which brings freetype fonts support.  <a href="classwmoge_1_1FreetypePlugin.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImageAssetLoader.html">ImageAssetLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loader for images through stb image library.  <a href="classwmoge_1_1ImageAssetLoader.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ImagePlugin.html">ImagePlugin</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug-in.">Plugin</a> which adds variouse utilities to work with image data in the engine.  <a href="classwmoge_1_1ImagePlugin.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -3438,6 +3475,24 @@ Functions</h2></td></tr>
 <tr class="separator:a7ddec9bf537be2ac0a37cf49082e2b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a913d56d59571ae1b6da37a4d7f7ef227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a913d56d59571ae1b6da37a4d7f7ef227">register_classes_scene</a> ()</td></tr>
 <tr class="separator:a913d56d59571ae1b6da37a4d7f7ef227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a4892290f25e001cf9fe37c983a08d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2a4892290f25e001cf9fe37c983a08d9">rtti_assimp</a> ()</td></tr>
+<tr class="separator:a2a4892290f25e001cf9fe37c983a08d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c8845eaf9390a9232b778f4c38c5e12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a4c8845eaf9390a9232b778f4c38c5e12">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1AssimpMeshAssetLoader.html">AssimpMeshAssetLoader</a>)</td></tr>
+<tr class="separator:a4c8845eaf9390a9232b778f4c38c5e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52bb1790e36275a7fe92b6eaf22fa948"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a52bb1790e36275a7fe92b6eaf22fa948">WG_RTTI_STRUCT_BEGIN</a> (<a class="el" href="structwmoge_1_1AssimpProcess.html">AssimpProcess</a>)</td></tr>
+<tr class="separator:a52bb1790e36275a7fe92b6eaf22fa948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33862592df6306786b00f53a4c1ae72e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a33862592df6306786b00f53a4c1ae72e">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1AssimpMeshImportData.html">AssimpMeshImportData</a>)</td></tr>
+<tr class="separator:a33862592df6306786b00f53a4c1ae72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf3fc5c0528480b92e4faac9681aed1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a7bf3fc5c0528480b92e4faac9681aed1">rtti_freetype</a> ()</td></tr>
+<tr class="separator:a7bf3fc5c0528480b92e4faac9681aed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa863de42e1c3cbb19130161660404f2a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa863de42e1c3cbb19130161660404f2a">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1FreetypeAssetLoader.html">FreetypeAssetLoader</a>)</td></tr>
+<tr class="separator:aa863de42e1c3cbb19130161660404f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afef46f9847da4b7d4ae2adfb70505905"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afef46f9847da4b7d4ae2adfb70505905">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1FreetypeImportData.html">FreetypeImportData</a>)</td></tr>
+<tr class="separator:afef46f9847da4b7d4ae2adfb70505905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a472c388b5b6b9fe6749a26be61b647c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a472c388b5b6b9fe6749a26be61b647c8">rtti_image</a> ()</td></tr>
+<tr class="separator:a472c388b5b6b9fe6749a26be61b647c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220a01ec4610f53eec5be44e4a702bcf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a220a01ec4610f53eec5be44e4a702bcf">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1ImageAssetLoader.html">ImageAssetLoader</a>)</td></tr>
+<tr class="separator:a220a01ec4610f53eec5be44e4a702bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -10104,6 +10159,81 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a2a4892290f25e001cf9fe37c983a08d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a4892290f25e001cf9fe37c983a08d9">&#9670;&nbsp;</a></span>rtti_assimp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::rtti_assimp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7bf3fc5c0528480b92e4faac9681aed1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf3fc5c0528480b92e4faac9681aed1">&#9670;&nbsp;</a></span>rtti_freetype()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::rtti_freetype </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a472c388b5b6b9fe6749a26be61b647c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a472c388b5b6b9fe6749a26be61b647c8">&#9670;&nbsp;</a></span>rtti_image()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::rtti_image </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae8401424a26ab1dedfdb86fc5bf85ef8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8401424a26ab1dedfdb86fc5bf85ef8">&#9670;&nbsp;</a></span>rtti_rtti()</h2>
 
@@ -10903,7 +11033,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="abae1aaa9043b82d38184eefbc94a6387"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abae1aaa9043b82d38184eefbc94a6387">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[1/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abae1aaa9043b82d38184eefbc94a6387">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[1/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10921,7 +11051,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ae655317132982f83bcb4fa09c060ffea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae655317132982f83bcb4fa09c060ffea">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[2/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae655317132982f83bcb4fa09c060ffea">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[2/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10939,7 +11069,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aa9a9ce315329dbf41a3a6ae116d58b4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9a9ce315329dbf41a3a6ae116d58b4e">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[3/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9a9ce315329dbf41a3a6ae116d58b4e">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[3/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10957,7 +11087,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a8d497a8608b8f905205d14274cfae2b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d497a8608b8f905205d14274cfae2b1">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[4/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d497a8608b8f905205d14274cfae2b1">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[4/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10975,7 +11105,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a9348f15f58a64782bab801322e4abb64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9348f15f58a64782bab801322e4abb64">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[5/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9348f15f58a64782bab801322e4abb64">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[5/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -10993,7 +11123,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ad0651525d4823e8efcc3071ab0d49257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0651525d4823e8efcc3071ab0d49257">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[6/6]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0651525d4823e8efcc3071ab0d49257">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[6/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11010,8 +11140,98 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a4c8845eaf9390a9232b778f4c38c5e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c8845eaf9390a9232b778f4c38c5e12">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[7/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_RTTI_CLASS_BEGIN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1AssimpMeshAssetLoader.html">AssimpMeshAssetLoader</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a33862592df6306786b00f53a4c1ae72e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33862592df6306786b00f53a4c1ae72e">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[8/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_RTTI_CLASS_BEGIN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1AssimpMeshImportData.html">AssimpMeshImportData</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa863de42e1c3cbb19130161660404f2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa863de42e1c3cbb19130161660404f2a">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[9/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_RTTI_CLASS_BEGIN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1FreetypeAssetLoader.html">FreetypeAssetLoader</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afef46f9847da4b7d4ae2adfb70505905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afef46f9847da4b7d4ae2adfb70505905">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[10/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_RTTI_CLASS_BEGIN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1FreetypeImportData.html">FreetypeImportData</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a220a01ec4610f53eec5be44e4a702bcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a220a01ec4610f53eec5be44e4a702bcf">&#9670;&nbsp;</a></span>WG_RTTI_CLASS_BEGIN() <span class="overload">[11/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_RTTI_CLASS_BEGIN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1ImageAssetLoader.html">ImageAssetLoader</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a33d1119b9f57568f0b44bdbb8e98b465"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33d1119b9f57568f0b44bdbb8e98b465">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a33d1119b9f57568f0b44bdbb8e98b465">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11029,7 +11249,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ab7b3d55a887c90811ef3a1dbeceae1c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7b3d55a887c90811ef3a1dbeceae1c2">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7b3d55a887c90811ef3a1dbeceae1c2">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11047,7 +11267,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="a426e5257c546c29b6990bf5b9be9a1ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a426e5257c546c29b6990bf5b9be9a1ef">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[3/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a426e5257c546c29b6990bf5b9be9a1ef">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -11056,6 +11276,24 @@ template&lt;typename T &gt; </div>
           <td class="memname">wmoge::WG_RTTI_STRUCT_BEGIN </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structwmoge_1_1AssetSourceFile.html">AssetSourceFile</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a52bb1790e36275a7fe92b6eaf22fa948"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52bb1790e36275a7fe92b6eaf22fa948">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::WG_RTTI_STRUCT_BEGIN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1AssimpProcess.html">AssimpProcess</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
