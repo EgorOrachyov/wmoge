@@ -117,14 +117,14 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">struct </span>IoTagRead;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">struct </span>IoTagWrite;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="serialization_8hpp.html#a9354f44271818c1acbf6c81b43565d54">   49</a></span>&#160;<span class="preprocessor">#define WG_IO_DECLARE(cls)                                             \</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">    friend Status yaml_read(const YamlConstNodeRef&amp; node, cls&amp; value); \</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    friend Status yaml_write(YamlNodeRef node, const cls&amp; value);      \</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    friend Status archive_read(Archive&amp; archive, cls&amp; value);          \</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="serialization_8hpp.html#a9354f44271818c1acbf6c81b43565d54">   49</a></span>&#160;<span class="preprocessor">#define WG_IO_DECLARE(cls)                                        \</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">    friend Status yaml_read(YamlConstNodeRef node, cls&amp; value);   \</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    friend Status yaml_write(YamlNodeRef node, const cls&amp; value); \</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    friend Status archive_read(Archive&amp; archive, cls&amp; value);     \</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">    friend Status archive_write(Archive&amp; archive, const cls&amp; value);</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="serialization_8hpp.html#a87c8ee073964a9d53d996f2c73f7fad7">   55</a></span>&#160;<span class="preprocessor">#define WG_IO_IMPLEMENT(nmsp, trg, cls)                                                            \</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">    Status yaml_read(const YamlConstNodeRef&amp; node, trg&amp; value) {                                   \</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">    Status yaml_read(YamlConstNodeRef node, trg&amp; value) {                                          \</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">        return nmsp##__##cls##Serializer&lt;const YamlConstNodeRef&amp;, trg&amp;, IoTagRead&gt;()(node, value); \</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">    }                                                                                              \</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">    Status yaml_write(YamlNodeRef node, const trg&amp; value) {                                        \</span></div>
@@ -228,7 +228,7 @@ $(function() {
 <div class="ttc" id="aarchive_8hpp_html"><div class="ttname"><a href="archive_8hpp.html">archive.hpp</a></div></div>
 <div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="log_8hpp.html">log.hpp</a></div></div>
 <div class="ttc" id="amask_8hpp_html"><div class="ttname"><a href="mask_8hpp.html">mask.hpp</a></div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:33</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:37</div></div>
 <div class="ttc" id="anamespacewmoge_html_a6e0673c22b766f045f104c50ab144ebd"><div class="ttname"><a href="namespacewmoge.html#a6e0673c22b766f045f104c50ab144ebd">wmoge::IoFlag</a></div><div class="ttdeci">IoFlag</div><div class="ttdef"><b>Definition:</b> serialization.hpp:40</div></div>
 <div class="ttc" id="anamespacewmoge_html_a6e0673c22b766f045f104c50ab144ebda683ce0b2a99309f9c4fcbb73823cadce"><div class="ttname"><a href="namespacewmoge.html#a6e0673c22b766f045f104c50ab144ebda683ce0b2a99309f9c4fcbb73823cadce">wmoge::IoFlag::ReadOptional</a></div><div class="ttdeci">@ ReadOptional</div></div>
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
