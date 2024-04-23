@@ -70,7 +70,7 @@ namespace wmoge {
     }
 
     template<typename K, typename V>
-    Status yaml_read(const YamlConstNodeRef& node, flat_map<K, V>& map) {
+    Status yaml_read(YamlConstNodeRef node, flat_map<K, V>& map) {
         assert(map.empty());
         map.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {

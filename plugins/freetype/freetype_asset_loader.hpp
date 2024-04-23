@@ -37,9 +37,18 @@ namespace wmoge {
      */
     class FreetypeAssetLoader final : public AssetLoader {
     public:
+        WG_RTTI_CLASS(FreetypeAssetLoader, AssetLoader);
+
+        FreetypeAssetLoader()           = default;
         ~FreetypeAssetLoader() override = default;
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) override;
-        Strid  get_name() override;
+
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
     };
+
+    WG_RTTI_CLASS_BEGIN(FreetypeAssetLoader) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

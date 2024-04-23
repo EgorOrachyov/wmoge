@@ -62,6 +62,27 @@ namespace wmoge {
         m_types[type->get_name()] = type;
     }
 
+    std::vector<RttiType*> RttiTypeStorage::find_types(const std::function<bool(const Ref<RttiType>&)>& filter) {
+        std::vector<RttiType*> result;
+        for (auto& entry : m_types) {
+            if (filter(entry.second)) {
+                result.push_back(entry.second.get());
+            }
+        }
+        return std::move(result);
+    }
+
+    std::vector<RttiClass*> RttiTypeStorage::find_classes(const std::function<bool(const Ref<RttiClass>&)>& filter) {
+        std::vector<RttiClass*> result;
+        for (auto& entry : m_types) {
+            Ref<RttiClass> casted = entry.second.cast<RttiClass>();
+            if (casted && filter(casted)) {
+                result.push_back(casted.get());
+            }
+        }
+        return std::move(result);
+    }
+
     RttiTypeStorage* RttiTypeStorage::instance() {
         return g_storage;
     }

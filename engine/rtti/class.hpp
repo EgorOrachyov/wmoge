@@ -94,6 +94,7 @@ namespace wmoge {
         void                             add_factory(std::function<class RttiObject*()> factory);
         bool                             can_instantiate() const;
         Ref<class RttiObject>            instantiate() const;
+        bool                             is_subtype_of(const RttiClass* type) const;
 
         [[nodiscard]] const std::function<class RttiObject*()>& get_factory() const { return m_factory; }
         [[nodiscard]] const flat_map<Strid, int>&               get_methods_map() const { return m_methods_map; }

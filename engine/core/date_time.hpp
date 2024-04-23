@@ -59,8 +59,8 @@ namespace wmoge {
     */
     class DateTime {
     public:
-        using clock      = std::chrono::system_clock;
-        using time_point = clock::time_point;
+        using Clock     = std::chrono::system_clock;
+        using TimePoint = Clock::time_point;
 
         DateTime() = default;
         DateTime(const DateTimeTm& tm);
@@ -70,7 +70,7 @@ namespace wmoge {
         [[nodiscard]] std::time_t to_time_t() const;
         [[nodiscard]] std::string to_string() const;
 
-        [[nodiscard]] time_point get_time_point() const { return m_value; }
+        [[nodiscard]] TimePoint get_time_point() const { return m_value; }
 
         static DateTime now();
 
@@ -80,10 +80,7 @@ namespace wmoge {
         friend Status archive_write(Archive& archive, const DateTime& value);
 
     private:
-        using clock      = std::chrono::system_clock;
-        using time_point = clock::time_point;
-
-        time_point m_value{};
+        TimePoint m_value{};
     };
 
     inline std::ostream& operator<<(std::ostream& stream, const DateTime& dt) {

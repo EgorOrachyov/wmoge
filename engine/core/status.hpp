@@ -98,7 +98,8 @@ namespace wmoge {
 
         operator bool() const { return is_ok(); }
 
-        [[nodiscard]] StatusCode code() const { return m_code; }
+        [[nodiscard]] StatusCode  code() const { return m_code; }
+        [[nodiscard]] StatusCode& code() { return m_code; }
 
 #ifdef WG_DEBUG
         [[nodiscard]] std::string message() const { return m_message; }

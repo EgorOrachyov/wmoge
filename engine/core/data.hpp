@@ -71,7 +71,7 @@ namespace wmoge {
         friend Status archive_read(Archive& archive, Ref<Data>& data);
 
         friend Status yaml_write(YamlNodeRef node, const Ref<Data>& data);
-        friend Status yaml_read(const YamlConstNodeRef& node, Ref<Data>& data);
+        friend Status yaml_read(YamlConstNodeRef node, Ref<Data>& data);
 
     private:
         std::size_t   m_size   = 0;

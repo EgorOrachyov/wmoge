@@ -92,7 +92,7 @@ namespace wmoge {
     static_assert(sizeof(TypedArray<int>) <= sizeof(void*), "Typed array must fit size of native pointer");
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, TypedArray<T>& array) {
+    Status yaml_read(YamlConstNodeRef node, TypedArray<T>& array) {
         array.resize(node.num_children());
         std::size_t element_id = 0;
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {

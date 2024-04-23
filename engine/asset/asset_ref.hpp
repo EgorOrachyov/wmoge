@@ -67,7 +67,7 @@ namespace wmoge {
     };
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, AssetRef<T>& ref) {
+    Status yaml_read(YamlConstNodeRef node, AssetRef<T>& ref) {
         AssetId id;
         WG_YAML_READ(node, id);
         Ref<T> ptr = Engine::instance()->asset_manager()->load(id).cast<T>();
@@ -111,7 +111,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, AssetRefWeak<T>& ref) {
+    Status yaml_read(YamlConstNodeRef node, AssetRefWeak<T>& ref) {
         AssetId id;
         WG_YAML_READ(node, id);
         ref = AssetRefWeak<T>(id);

@@ -111,7 +111,7 @@ namespace wmoge {
     using Aabbf = TAabb<float>;
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, TAabb<T>& aabb) {
+    Status yaml_read(YamlConstNodeRef node, TAabb<T>& aabb) {
         WG_YAML_READ_AS(node, "pos", aabb.pos);
         WG_YAML_READ_AS(node, "size_half", aabb.size_half);
         return StatusCode::Ok;

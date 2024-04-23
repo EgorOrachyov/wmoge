@@ -37,6 +37,7 @@
 #include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/task.hpp"
+#include "rtti/traits.hpp"
 
 #include <filesystem>
 #include <functional>
@@ -123,7 +124,7 @@ namespace wmoge {
         Ref<Asset> find(const AssetId& name);
 
         /** @brief Add specific format asset loader */
-        void add_loader(std::shared_ptr<AssetLoader> loader);
+        void add_loader(Ref<AssetLoader> loader);
 
         /** @brief Add additional pak for assets loading */
         void add_pak(std::shared_ptr<AssetPak> pak);
@@ -174,10 +175,12 @@ namespace wmoge {
         };
 
     private:
-        buffered_vector<std::shared_ptr<AssetPak>>    m_paks;
-        flat_map<AssetId, WeakRef<Asset>>             m_assets;
-        flat_map<AssetId, LoadState>                  m_loading;
-        flat_map<Strid, std::shared_ptr<AssetLoader>> m_loaders;
+        buffered_vector<std::shared_ptr<AssetPak>> m_paks;
+        flat_map<AssetId, WeakRef<Asset>>          m_assets;
+        flat_map<AssetId, LoadState>               m_loading;
+        flat_map<Strid, Ref<AssetLoader>>          m_loaders;
+        class FileSystem*                          m_file_system  = nullptr;
+        class RttiTypeStorage*                     m_type_storage = nullptr;
 
         mutable std::recursive_mutex m_mutex;
     };

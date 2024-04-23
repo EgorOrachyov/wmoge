@@ -99,6 +99,7 @@ namespace wmoge {
         bool                            has_member(const Strid& name) const;
         bool                            has_parent() const;
         bool                            is_subtype_of(const Strid& name) const;
+        bool                            is_subtype_of(const RttiStruct* type) const;
 
         [[nodiscard]] const flat_set<Strid>&               get_inherits() const { return m_inherits; }
         [[nodiscard]] const flat_set<Strid>&               get_members() const { return m_members; }

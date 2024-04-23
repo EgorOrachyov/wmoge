@@ -83,6 +83,10 @@ namespace wmoge {
         return query != m_inherits.end();
     }
 
+    bool RttiStruct::is_subtype_of(const RttiStruct* type) const {
+        return is_subtype_of(type->get_name());
+    }
+
     Status RttiStruct::copy(void* dst, const void* src) const {
         assert(dst);
         assert(src);

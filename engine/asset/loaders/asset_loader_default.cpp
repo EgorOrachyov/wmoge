@@ -31,12 +31,12 @@
 
 namespace wmoge {
 
-    Status AssetLoaderDefault::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status AssetLoaderDefault::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("AssetLoaderDefault::load");
 
-        res = meta.cls->instantiate().cast<Asset>();
+        asset = meta.cls->instantiate().cast<Asset>();
 
-        if (!res) {
+        if (!asset) {
             WG_LOG_ERROR("failed to instantiate asset " << name);
             return StatusCode::FailedInstantiate;
         }
@@ -53,17 +53,14 @@ namespace wmoge {
             return StatusCode::FailedParse;
         };
 
-        res->set_name(name);
+        asset->set_name(name);
 
-        if (!res->read_from_yaml(asset_tree.crootref())) {
+        if (!asset->read_from_yaml(asset_tree.crootref())) {
             WG_LOG_ERROR("failed to load asset from file " << meta.path_on_disk.value());
             return StatusCode::FailedRead;
         }
 
         return StatusCode::Ok;
-    }
-    Strid AssetLoaderDefault::get_name() {
-        return SID("default");
     }
 
 }// namespace wmoge

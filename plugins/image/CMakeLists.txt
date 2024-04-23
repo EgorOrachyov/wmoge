@@ -4,7 +4,8 @@ set(PLUGIN_SOURCES
     image_plugin.cpp
     image_plugin.hpp
     image_asset_loader.cpp
-    image_asset_loader.hpp)
+    image_asset_loader.hpp
+    _rtti.hpp)
 
 wmoge_plugin(${PLUGIN_NAME} 
     INCLUDES ${CMAKE_CURRENT_LIST_DIR}/ 

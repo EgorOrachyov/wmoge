@@ -39,7 +39,7 @@ namespace wmoge {
     struct AudioImportOptions {
         std::string source_file;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options);
+        friend Status yaml_read(YamlConstNodeRef node, AudioImportOptions& options);
         friend Status yaml_write(YamlNodeRef node, const AudioImportOptions& options);
     };
 

@@ -38,7 +38,7 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, ActionActivation& activation) {
+    Status yaml_read(YamlConstNodeRef node, ActionActivation& activation) {
         WG_YAML_READ_AS_OPT(node, "device_name", activation.device_name);
         WG_YAML_READ_AS_OPT(node, "device_type", activation.device_type);
         WG_YAML_READ_AS_OPT(node, "action", activation.action);
@@ -72,7 +72,7 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status yaml_read(const YamlConstNodeRef& node, ActionMapAction& action) {
+    Status yaml_read(YamlConstNodeRef node, ActionMapAction& action) {
         WG_YAML_READ_AS(node, "action", action.name);
         WG_YAML_READ_AS(node, "display_name", action.display_name);
         WG_YAML_READ_AS(node, "activations", action.activations);
@@ -142,7 +142,7 @@ namespace wmoge {
         return actions;
     }
 
-    Status yaml_read(const YamlConstNodeRef& node, ActionMap& action_map) {
+    Status yaml_read(YamlConstNodeRef node, ActionMap& action_map) {
         std::vector<ActionMapAction> actions;
 
         WG_YAML_READ_AS(node, "name", action_map.m_name);

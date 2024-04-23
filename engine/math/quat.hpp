@@ -439,7 +439,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, TQuat<T>& quat) {
+    Status yaml_read(YamlConstNodeRef node, TQuat<T>& quat) {
         WG_YAML_READ_AS(node, "scalar", quat.scalar);
         WG_YAML_READ_AS(node, "vec", quat.vec);
         return StatusCode::Ok;

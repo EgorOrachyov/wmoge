@@ -91,7 +91,7 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    Status yaml_read(const YamlConstNodeRef& node, Mask<T, size>& mask) {
+    Status yaml_read(YamlConstNodeRef node, Mask<T, size>& mask) {
         buffered_vector<T, size> flags;
         WG_YAML_READ(node, flags);
 

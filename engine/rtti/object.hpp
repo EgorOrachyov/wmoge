@@ -98,7 +98,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status yaml_read(YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object;
         WG_CHECKED(RttiObject::yaml_read_object(node, object));
         ref = object.template cast<T>();

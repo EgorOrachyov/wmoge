@@ -37,7 +37,7 @@
 
 namespace wmoge {
 
-    Status AssetLoaderTexture2d::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status AssetLoaderTexture2d::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("AssetLoaderTexture2d::load");
 
         if (!meta.import_options.has_value()) {
@@ -70,8 +70,8 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        res = texture;
-        res->set_name(name);
+        asset = texture;
+        asset->set_name(name);
 
         texture->set_source_images({source_image});
         texture->set_sampler_from_desc(options.sampling);
@@ -96,11 +96,8 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    Strid AssetLoaderTexture2d::get_name() {
-        return SID("texture_2d");
-    }
 
-    Status AssetLoaderTextureCube::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status AssetLoaderTextureCube::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("AssetLoaderTextureCube::load");
 
         if (!meta.import_options.has_value()) {
@@ -149,8 +146,8 @@ namespace wmoge {
             return StatusCode::Error;
         }
 
-        res = texture;
-        res->set_name(name);
+        asset = texture;
+        asset->set_name(name);
 
         texture->set_source_images(source_images);
         texture->set_sampler_from_desc(options.sampling);
@@ -174,9 +171,6 @@ namespace wmoge {
         }
 
         return StatusCode::Ok;
-    }
-    Strid AssetLoaderTextureCube::get_name() {
-        return SID("texture_cube");
     }
 
 }// namespace wmoge

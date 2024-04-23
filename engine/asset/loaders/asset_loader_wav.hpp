@@ -37,9 +37,18 @@ namespace wmoge {
      */
     class AssetLoaderWav final : public AssetLoader {
     public:
+        WG_RTTI_CLASS(AssetLoaderWav, AssetLoader);
+
+        AssetLoaderWav()           = default;
         ~AssetLoaderWav() override = default;
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) override;
-        Strid  get_name() override;
+
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
     };
+
+    WG_RTTI_CLASS_BEGIN(AssetLoaderWav) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

@@ -128,7 +128,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(const YamlConstNodeRef& node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status yaml_read(YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object;
         auto        status = yaml_read_object(node, object);
         if (!status) return status;

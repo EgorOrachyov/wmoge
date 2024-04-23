@@ -35,4 +35,4 @@ namespace wmoge {
         rtti_type<RttiObject>();
     }
 
-}
+}// namespace wmoge

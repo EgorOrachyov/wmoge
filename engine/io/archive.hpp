@@ -104,11 +104,14 @@ namespace wmoge {
     Status archive_read(Archive& archive, bool& value);
     Status archive_write(Archive& archive, const bool& value);
 
+    Status archive_read(Archive& archive, Strid& value);
     Status archive_write(Archive& archive, const Strid& value);
+
+    Status archive_read(Archive& archive, std::string& value);
     Status archive_write(Archive& archive, const std::string& value);
 
-    Status archive_read(Archive& archive, Strid& value);
-    Status archive_read(Archive& archive, std::string& value);
+    Status archive_read(Archive& archive, Status& value);
+    Status archive_write(Archive& archive, const Status& value);
 
 #define WG_ARCHIVE_READ(archive, what)      \
     do {                                    \

@@ -77,7 +77,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status yaml_read(const YamlConstNodeRef& node, buffered_vector<T, MinCapacity>& vector) {
+    Status yaml_read(YamlConstNodeRef node, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         vector.resize(node.num_children());
         std::size_t element_id = 0;

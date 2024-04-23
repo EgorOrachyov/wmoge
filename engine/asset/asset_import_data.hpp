@@ -70,7 +70,7 @@ namespace wmoge {
     };
 
     WG_RTTI_CLASS_BEGIN(AssetImportData) {
-        WG_RTTI_META_DATA({RttiUiName("Asset import data"), RttiUiHint("Asset manager assosiated data to import asset")});
+        WG_RTTI_META_DATA(RttiUiName("Asset import data"), RttiUiHint("Asset manager assosiated data to import asset"));
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(source_files, {RttiOptional});
     }

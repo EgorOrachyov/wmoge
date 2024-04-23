@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    Status ImageAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status ImageAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load");
 
         Ref<Image> image = meta.cls->instantiate().cast<Image>();
@@ -42,8 +42,8 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        res = image;
-        res->set_name(name);
+        asset = image;
+        asset->set_name(name);
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load image " << name);
@@ -54,9 +54,6 @@ namespace wmoge {
         WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
 
         return image->load(options.source_file, options.channels);
-    }
-    Strid ImageAssetLoader::get_name() {
-        return SID("image");
     }
 
 }// namespace wmoge

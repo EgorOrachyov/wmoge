@@ -4,7 +4,8 @@ set(PLUGIN_SOURCES
     assimp_plugin.cpp
     assimp_plugin.hpp
     assimp_asset_loader.cpp
-    assimp_asset_loader.hpp)
+    assimp_asset_loader.hpp
+    _rtti.hpp)
 
 wmoge_plugin(${PLUGIN_NAME} 
     INCLUDES ${CMAKE_CURRENT_LIST_DIR}/ 

@@ -106,4 +106,8 @@ namespace wmoge {
         return m_factory ? Ref<class RttiObject>(m_factory()) : Ref<class RttiObject>();
     }
 
+    bool RttiClass::is_subtype_of(const RttiClass* type) const {
+        return RttiStruct::is_subtype_of(type->get_name());
+    }
+
 }// namespace wmoge

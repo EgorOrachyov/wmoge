@@ -42,10 +42,19 @@ namespace wmoge {
      */
     class AssetLoaderTexture2d final : public AssetLoader {
     public:
+        WG_RTTI_CLASS(AssetLoaderTexture2d, AssetLoader);
+
+        AssetLoaderTexture2d()           = default;
         ~AssetLoaderTexture2d() override = default;
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) override;
-        Strid  get_name() override;
+
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
     };
+
+    WG_RTTI_CLASS_BEGIN(AssetLoaderTexture2d) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
     /**
      * @class AssetLoaderTextureCube
@@ -53,9 +62,18 @@ namespace wmoge {
      */
     class AssetLoaderTextureCube final : public AssetLoader {
     public:
+        WG_RTTI_CLASS(AssetLoaderTextureCube, AssetLoader);
+
+        AssetLoaderTextureCube()           = default;
         ~AssetLoaderTextureCube() override = default;
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) override;
-        Strid  get_name() override;
+
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
     };
+
+    WG_RTTI_CLASS_BEGIN(AssetLoaderTextureCube) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

@@ -46,14 +46,14 @@ namespace wmoge {
     struct IoTagRead;
     struct IoTagWrite;
 
-#define WG_IO_DECLARE(cls)                                             \
-    friend Status yaml_read(const YamlConstNodeRef& node, cls& value); \
-    friend Status yaml_write(YamlNodeRef node, const cls& value);      \
-    friend Status archive_read(Archive& archive, cls& value);          \
+#define WG_IO_DECLARE(cls)                                        \
+    friend Status yaml_read(YamlConstNodeRef node, cls& value);   \
+    friend Status yaml_write(YamlNodeRef node, const cls& value); \
+    friend Status archive_read(Archive& archive, cls& value);     \
     friend Status archive_write(Archive& archive, const cls& value);
 
 #define WG_IO_IMPLEMENT(nmsp, trg, cls)                                                            \
-    Status yaml_read(const YamlConstNodeRef& node, trg& value) {                                   \
+    Status yaml_read(YamlConstNodeRef node, trg& value) {                                          \
         return nmsp##__##cls##Serializer<const YamlConstNodeRef&, trg&, IoTagRead>()(node, value); \
     }                                                                                              \
     Status yaml_write(YamlNodeRef node, const trg& value) {                                        \

@@ -204,7 +204,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t NodeCapacity>
-    Status yaml_read(const YamlConstNodeRef& node, pool_vector<T, NodeCapacity>& vec) {
+    Status yaml_read(YamlConstNodeRef node, pool_vector<T, NodeCapacity>& vec) {
         vec.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
             T element;

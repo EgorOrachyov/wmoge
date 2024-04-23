@@ -36,7 +36,7 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, AssetId& id) {
+    Status yaml_read(YamlConstNodeRef node, AssetId& id) {
         WG_YAML_READ(node, id.m_name);
         return StatusCode::Ok;
     }

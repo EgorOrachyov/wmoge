@@ -52,66 +52,78 @@ namespace wmoge {
         return yaml_parse(file);
     }
 
-    Status yaml_read(const YamlConstNodeRef& node, bool& value) {
+    Status yaml_read(YamlConstNodeRef node, bool& value) {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_read(const YamlConstNodeRef& node, int& value) {
-        node >> value;
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, unsigned int& value) {
-        node >> value;
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, float& value) {
-        node >> value;
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, Strid& value) {
-        std::string string;
-        node >> string;
-        value = SID(string);
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, std::string& value) {
-        if (node.has_val()) {
-            node >> value;
-        }
-        return StatusCode::Ok;
-    }
-    Status yaml_read(const YamlConstNodeRef& node, std::int16_t& value) {
-        node >> value;
+    Status yaml_write(YamlNodeRef node, const bool& value) {
+        node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_write(YamlNodeRef node, const bool& value) {
-        node << value;
+    Status yaml_read(YamlConstNodeRef node, int& value) {
+        node >> value;
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const int& value) {
         node << value;
         return StatusCode::Ok;
     }
+
+    Status yaml_read(YamlConstNodeRef node, unsigned int& value) {
+        node >> value;
+        return StatusCode::Ok;
+    }
     Status yaml_write(YamlNodeRef node, const unsigned int& value) {
         node << value;
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(YamlConstNodeRef node, float& value) {
+        node >> value;
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const float& value) {
         node << value;
         return StatusCode::Ok;
     }
+
+    Status yaml_read(YamlConstNodeRef node, Strid& value) {
+        std::string string;
+        node >> string;
+        value = SID(string);
+        return StatusCode::Ok;
+    }
     Status yaml_write(YamlNodeRef node, const Strid& value) {
         node << value.str();
+        return StatusCode::Ok;
+    }
+
+    Status yaml_read(YamlConstNodeRef node, std::string& value) {
+        if (node.has_val()) {
+            node >> value;
+        }
         return StatusCode::Ok;
     }
     Status yaml_write(YamlNodeRef node, const std::string& value) {
         node << value;
         return StatusCode::Ok;
     }
+
+    Status yaml_read(YamlConstNodeRef node, std::int16_t& value) {
+        node >> value;
+        return StatusCode::Ok;
+    }
     Status yaml_write(YamlNodeRef node, const std::int16_t& value) {
         node << value;
         return StatusCode::Ok;
+    }
+
+    Status yaml_read(YamlConstNodeRef node, Status& value) {
+        return yaml_read(node, value.code());
+    }
+    Status yaml_write(YamlNodeRef node, const Status& value) {
+        return yaml_write(node, value.code());
     }
 
 }// namespace wmoge

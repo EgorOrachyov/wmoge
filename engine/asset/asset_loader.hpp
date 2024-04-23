@@ -30,6 +30,7 @@
 #include "asset/asset.hpp"
 #include "asset/asset_meta.hpp"
 #include "asset/asset_pak.hpp"
+#include "rtti/traits.hpp"
 
 namespace wmoge {
 
@@ -37,11 +38,20 @@ namespace wmoge {
      * @class AssetLoader
      * @brief Class responsible for loading or asset(s) in a specific format
      */
-    class AssetLoader {
+    class AssetLoader : public RttiObject {
     public:
-        virtual ~AssetLoader()                                                         = default;
-        virtual Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) = 0;
-        virtual Strid  get_name()                                                      = 0;
+        WG_RTTI_CLASS(AssetLoader, RttiObject);
+
+        AssetLoader()          = default;
+        virtual ~AssetLoader() = default;
+
+        virtual Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) { return StatusCode::NotImplemented; }
     };
+
+    WG_RTTI_CLASS_BEGIN(AssetLoader) {
+        WG_RTTI_META_DATA(RttiUiHint("Interface for an asset loader to implement custom loading"));
+        //  WG_RTTI_METHOD(load, {"name", "meta", "asset"}, {RttiUiHint("Instantiates and loads a particular asset type from meta info")});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

@@ -34,6 +34,7 @@
 #include "rtti/type.hpp"
 
 #include <cinttypes>
+#include <functional>
 #include <memory>
 #include <optional>
 
@@ -53,6 +54,8 @@ namespace wmoge {
         RttiClass*               find_class(const Strid& name);
         bool                     has(const Strid& name);
         void                     add(const Ref<RttiType>& type);
+        std::vector<RttiType*>   find_types(const std::function<bool(const Ref<RttiType>&)>& filter);
+        std::vector<RttiClass*>  find_classes(const std::function<bool(const Ref<RttiClass>&)>& filter);
 
         static RttiTypeStorage* instance();
         static void             provide(RttiTypeStorage* storage);

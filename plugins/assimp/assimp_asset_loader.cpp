@@ -55,7 +55,7 @@ namespace wmoge {
         int              next_mesh_id = 0;
     };
 
-    Status AssimpAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status AssimpAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("AssimpAssetLoader::load");
 
         if (!meta.import_options.has_value()) {
@@ -111,8 +111,8 @@ namespace wmoge {
             return StatusCode::Error;
         }
 
-        res = mesh;
-        res->set_name(name);
+        asset = mesh;
+        asset->set_name(name);
 
         if (!import_ctx.builder.build()) {
             WG_LOG_ERROR("failed to build mesh " << name);
@@ -121,9 +121,7 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    Strid AssimpAssetLoader::get_name() {
-        return SID("assimp");
-    }
+
     Status AssimpAssetLoader::process_node(AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent) {
         WG_AUTO_PROFILE_ASSET("AssimpAssetLoader::process_node");
 
@@ -162,6 +160,7 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
+
     Status AssimpAssetLoader::process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) {
         WG_AUTO_PROFILE_ASSET("AssimpAssetLoader::process_mesh");
 

@@ -46,7 +46,7 @@ namespace wmoge {
         return {Random::next_uint64()};
     }
 
-    Status yaml_read(const YamlConstNodeRef& node, UUID& id) {
+    Status yaml_read(YamlConstNodeRef node, UUID& id) {
         std::string value;
         node >> value;
         id = UUID(value);

@@ -31,24 +31,32 @@
 #include "debug/profiler.hpp"
 #include "event/event_asset.hpp"
 #include "event/event_manager.hpp"
+#include "platform/file_system.hpp"
+#include "rtti/type_storage.hpp"
 #include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include "asset/paks/asset_pak_fs.hpp"
-
-#include "asset/loaders/asset_loader_default.hpp"
-#include "asset/loaders/asset_loader_texture.hpp"
-#include "asset/loaders/asset_loader_wav.hpp"
 
 #include <chrono>
 
 namespace wmoge {
 
     AssetManager::AssetManager() {
+        m_file_system  = IocContainer::instance()->resolve_v<FileSystem>();
+        m_type_storage = IocContainer::instance()->resolve_v<RttiTypeStorage>();
+
+        std::vector<RttiClass*> loaders = m_type_storage->find_classes([](const Ref<RttiClass>& type) {
+            return type->is_subtype_of(AssetLoader::get_class_static()) && type->can_instantiate();
+        });
+
+        for (auto& loader : loaders) {
+            assert(loader);
+            assert(loader->can_instantiate());
+            add_loader(loader->instantiate().cast<AssetLoader>());
+        }
+
         add_pak(std::make_shared<AssetPakFileSystem>());
-        add_loader(std::make_shared<AssetLoaderDefault>());
-        add_loader(std::make_shared<AssetLoaderTexture2d>());
-        add_loader(std::make_shared<AssetLoaderTextureCube>());
-        add_loader(std::make_shared<AssetLoaderWav>());
     }
 
     AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name, AssetCallback callback) {
@@ -180,9 +188,9 @@ namespace wmoge {
         return {};
     }
 
-    void AssetManager::add_loader(std::shared_ptr<AssetLoader> loader) {
+    void AssetManager::add_loader(Ref<AssetLoader> loader) {
         std::lock_guard guard(m_mutex);
-        m_loaders[loader->get_name()] = std::move(loader);
+        m_loaders[loader->get_class_name()] = std::move(loader);
     }
 
     void AssetManager::add_pak(std::shared_ptr<AssetPak> pak) {

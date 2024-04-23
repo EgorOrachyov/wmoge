@@ -1,7 +1,7 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: texture_2d
+loader: AssetLoaderTexture2d
 rtti: Texture2d
 deps: [ ]
 description: "background texture"

@@ -28,13 +28,23 @@
 #pragma once
 
 #include "asset/asset_import_data.hpp"
+#include "asset/asset_loader.hpp"
 #include "asset/asset_meta.hpp"
+#include "asset/loaders/asset_loader_default.hpp"
+#include "asset/loaders/asset_loader_texture.hpp"
+#include "asset/loaders/asset_loader_wav.hpp"
 
 namespace wmoge {
 
     inline void rtti_asset() {
         rtti_type<AssetImportData>();
         rtti_type<AssetMetaFile>();
+        rtti_type<AssetMeta>();
+        rtti_type<AssetLoader>();
+        rtti_type<AssetLoaderDefault>();
+        rtti_type<AssetLoaderTexture2d>();
+        rtti_type<AssetLoaderTextureCube>();
+        rtti_type<AssetLoaderWav>();
     }
 
 }// namespace wmoge

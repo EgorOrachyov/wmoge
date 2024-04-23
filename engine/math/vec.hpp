@@ -648,7 +648,7 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status yaml_read(const YamlConstNodeRef& node, TVecN<T, N>& v) {
+    Status yaml_read(YamlConstNodeRef node, TVecN<T, N>& v) {
         std::string str;
         WG_YAML_READ(node, str);
 

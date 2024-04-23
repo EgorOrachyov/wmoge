@@ -34,7 +34,7 @@
 
 namespace wmoge {
 
-    Status FreetypeAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status FreetypeAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load");
 
         Ref<FreetypeImportData> import_data = meta.import_data.cast<FreetypeImportData>();
@@ -49,17 +49,11 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        res = font;
-        res->set_name(name);
-        res->set_import_data(import_data);
-
-        import_data->source_files[0].timestamp = DateTime::now();
-        import_data->source_files[0].file_hash = Crc32::hash(import_data->source_files[0].file.data(), import_data->source_files[0].file.length());
+        asset = font;
+        asset->set_name(name);
+        asset->set_import_data(import_data);
 
         return FreetypeFont::load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
-    }
-    Strid FreetypeAssetLoader::get_name() {
-        return SID("freetype");
     }
 
 }// namespace wmoge

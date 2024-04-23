@@ -31,7 +31,7 @@
 
 namespace wmoge {
 
-    Status yaml_read(const YamlConstNodeRef& node, AudioImportOptions& options) {
+    Status yaml_read(YamlConstNodeRef node, AudioImportOptions& options) {
         WG_YAML_READ_AS(node, "source_file", options.source_file);
 
         return StatusCode::Ok;

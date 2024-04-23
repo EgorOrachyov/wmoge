@@ -32,7 +32,7 @@
 
 namespace wmoge {
 
-    Status AssetLoaderWav::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) {
+    Status AssetLoaderWav::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
         WG_AUTO_PROFILE_ASSET("AssetLoaderWav::load");
 
         Ref<AudioStreamWav> audio = meta.cls->instantiate().cast<AudioStreamWav>();
@@ -42,8 +42,8 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        res = audio;
-        res->set_name(name);
+        asset = audio;
+        asset->set_name(name);
 
         if (!meta.import_options.has_value()) {
             WG_LOG_ERROR("No import options to load audio " << name);
@@ -54,9 +54,6 @@ namespace wmoge {
         WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
 
         return audio->load(options.source_file);
-    }
-    Strid AssetLoaderWav::get_name() {
-        return SID("wav");
     }
 
 }// namespace wmoge

@@ -47,13 +47,22 @@ namespace wmoge {
      */
     class AssimpAssetLoader final : public AssetLoader {
     public:
+        WG_RTTI_CLASS(AssimpAssetLoader, AssetLoader);
+
+        AssimpAssetLoader()           = default;
         ~AssimpAssetLoader() override = default;
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& res) override;
-        Strid  get_name() override;
+
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
 
     private:
         Status process_node(struct AssimpImportContext& context, aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent);
         Status process_mesh(struct AssimpImportContext& context, aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent);
     };
+
+    WG_RTTI_CLASS_BEGIN(AssimpAssetLoader) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

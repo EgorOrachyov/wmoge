@@ -31,6 +31,7 @@
 #include "core/date_time.hpp"
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
+#include "core/status.hpp"
 #include "core/uuid.hpp"
 #include "io/archive.hpp"
 #include "io/enum.hpp"
@@ -384,7 +385,7 @@ namespace wmoge {
     template<>
     struct RttiTypeOf<Strid> {
         static Strid name() {
-            return SID("Strid");
+            return SID("strid");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeFundamentalT<Strid>>(name());
@@ -411,12 +412,22 @@ namespace wmoge {
         }
     };
 
+    template<>
+    struct RttiTypeOf<Status> {
+        static Strid name() {
+            return SID("status");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeFundamentalT<Status>>(name());
+        }
+    };
+
     template<typename T, int N>
     struct RttiTypeOf<TVecN<T, N>> {
         using Vec = TVecN<T, N>;
 
         static Strid name() {
-            return SID(std::string("Vec<") + rtti_type<T>()->get_str() + "," + std::to_string(N) + ">");
+            return SID(std::string("vec<") + rtti_type<T>()->get_str() + "," + std::to_string(N) + ">");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeFundamentalT<Vec>>(name());
@@ -428,7 +439,7 @@ namespace wmoge {
         using Quat = TQuat<T>;
 
         static Strid name() {
-            return SID(std::string("Quat<") + rtti_type<T>()->get_str() + ">");
+            return SID(std::string("quat<") + rtti_type<T>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeFundamentalT<Quat>>(name());

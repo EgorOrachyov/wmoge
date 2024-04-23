@@ -71,7 +71,7 @@ namespace wmoge {
                    Math2d::translate(-m_translation);
         }
 
-        friend Status yaml_read(const YamlConstNodeRef& node, Transform2d& transform) {
+        friend Status yaml_read(YamlConstNodeRef node, Transform2d& transform) {
             WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
             WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
             WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
@@ -153,7 +153,7 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status yaml_read(const YamlConstNodeRef& node, Transform3d& transform) {
+        friend Status yaml_read(YamlConstNodeRef node, Transform3d& transform) {
             WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
             WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
             WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
@@ -224,7 +224,7 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status yaml_read(const YamlConstNodeRef& node, TransformEdt& transform) {
+        friend Status yaml_read(YamlConstNodeRef node, TransformEdt& transform) {
             Vec3f rotation_deg;
 
             WG_YAML_READ_AS_OPT(node, "rotation", rotation_deg);

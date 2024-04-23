@@ -100,7 +100,7 @@ namespace wmoge {
     static_assert(sizeof(TypedMap<int, int, std::hash<int>>) <= sizeof(void*), "Typed map must fit size of native pointer");
 
     template<typename K, typename V, typename H>
-    Status yaml_read(const YamlConstNodeRef& node, TypedMap<K, V, H>& map) {
+    Status yaml_read(YamlConstNodeRef node, TypedMap<K, V, H>& map) {
         map.reserve(node.num_children());
 
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {

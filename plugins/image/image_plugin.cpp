@@ -27,11 +27,9 @@
 
 #include "image_plugin.hpp"
 
-#include "asset/asset_manager.hpp"
+#include "_rtti.hpp"
 #include "core/log.hpp"
-#include "core/status.hpp"
 #include "image_asset_loader.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -43,10 +41,7 @@ namespace wmoge {
     }
 
     Status ImagePlugin::on_register() {
-        IocContainer* ioc_container = IocContainer::instance();
-        AssetManager* asset_manager = ioc_container->resolve_v<AssetManager>();
-
-        asset_manager->add_loader(std::make_shared<ImageAssetLoader>());
+        rtti_image();
 
         WG_LOG_INFO("init image plugin");
 

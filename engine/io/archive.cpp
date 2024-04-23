@@ -41,9 +41,22 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
+    Status archive_read(Archive& archive, Strid& value) {
+        std::string str;
+        WG_ARCHIVE_READ(archive, str);
+        value = Strid(str);
+        return StatusCode::Ok;
+    }
     Status archive_write(Archive& archive, const Strid& value) {
         WG_ARCHIVE_WRITE(archive, value.str());
         return StatusCode::Ok;
+    }
+
+    Status archive_read(Archive& archive, std::string& value) {
+        std::size_t len;
+        WG_ARCHIVE_READ(archive, len);
+        value.resize(len);
+        return archive.nread(int(value.length() * sizeof(char)), value.data());
     }
     Status archive_write(Archive& archive, const std::string& value) {
         std::size_t len = value.length();
@@ -51,17 +64,11 @@ namespace wmoge {
         return archive.nwrite(int(value.length() * sizeof(char)), value.data());
     }
 
-    Status archive_read(Archive& archive, Strid& value) {
-        std::string str;
-        WG_ARCHIVE_READ(archive, str);
-        value = Strid(str);
-        return StatusCode::Ok;
+    Status archive_read(Archive& archive, Status& value) {
+        return archive_read(archive, value.code());
     }
-    Status archive_read(Archive& archive, std::string& value) {
-        std::size_t len;
-        WG_ARCHIVE_READ(archive, len);
-        value.resize(len);
-        return archive.nread(int(value.length() * sizeof(char)), value.data());
+    Status archive_write(Archive& archive, const Status& value) {
+        return archive_write(archive, value.code());
     }
 
 }// namespace wmoge

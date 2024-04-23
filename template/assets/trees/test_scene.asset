@@ -1,7 +1,7 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: default
+loader: AssetLoaderDefault
 rtti: SceneTreePacked
 description: "test scene tree"
 path_on_disk: "asset://trees/test_scene.tree"

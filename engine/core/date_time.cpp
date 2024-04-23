@@ -34,7 +34,6 @@ namespace wmoge {
 
     DateTime::DateTime(const DateTimeTm& tm) {
         std::tm s_tm;
-
         s_tm.tm_year = tm.year;
         s_tm.tm_mon  = tm.month;
         s_tm.tm_mday = tm.day;
@@ -43,7 +42,7 @@ namespace wmoge {
         s_tm.tm_sec  = tm.second;
 
         std::time_t s_time_t = std::mktime(&s_tm);
-        m_value              = clock::from_time_t(s_time_t);
+        m_value              = Clock::from_time_t(s_time_t);
     }
 
     DateTime::DateTime(const std::string& source) {
@@ -76,7 +75,7 @@ namespace wmoge {
     }
 
     std::time_t DateTime::to_time_t() const {
-        return clock::to_time_t(m_value);
+        return Clock::to_time_t(m_value);
     }
 
     std::string DateTime::to_string() const {
@@ -95,7 +94,7 @@ namespace wmoge {
 
     DateTime DateTime::now() {
         DateTime t;
-        t.m_value = clock::now();
+        t.m_value = Clock::now();
         return t;
     }
 

@@ -79,7 +79,7 @@ namespace wmoge {
 
         [[nodiscard]] std::string to_string() const;
 
-        friend Status yaml_read(const YamlConstNodeRef& node, EcsArch& arch) {
+        friend Status yaml_read(YamlConstNodeRef node, EcsArch& arch) {
             return yaml_read(node, *((EcsArch::Bitset*) &arch));
         }
         friend Status yaml_write(YamlNodeRef node, const EcsArch& arch) {

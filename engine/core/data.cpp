@@ -81,7 +81,7 @@ namespace wmoge {
         }
         return StatusCode::FailedWrite;
     }
-    Status yaml_read(const YamlConstNodeRef& node, Ref<Data>& data) {
+    Status yaml_read(YamlConstNodeRef node, Ref<Data>& data) {
         std::string encoded;
         if (yaml_read(node, encoded)) {
             return Base64::decode(encoded, data);
