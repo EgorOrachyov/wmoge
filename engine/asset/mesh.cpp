@@ -34,25 +34,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN_NMSP(MeshImportOptions, Process)
-    WG_IO_FIELD_OPT(triangulate)
-    WG_IO_FIELD_OPT(tangent_space)
-    WG_IO_FIELD_OPT(flip_uv)
-    WG_IO_FIELD_OPT(gen_normals)
-    WG_IO_FIELD_OPT(gen_smooth_normals)
-    WG_IO_FIELD_OPT(join_identical_vertices)
-    WG_IO_FIELD_OPT(limit_bone_weights)
-    WG_IO_FIELD_OPT(improve_cache_locality)
-    WG_IO_FIELD_OPT(sort_by_ptype)
-    WG_IO_FIELD_OPT(gen_uv)
-    WG_IO_END_NMSP(MeshImportOptions, Process)
-
-    WG_IO_BEGIN(MeshImportOptions)
-    WG_IO_FIELD(source_file)
-    WG_IO_FIELD(attributes)
-    WG_IO_FIELD(process)
-    WG_IO_END(MeshImportOptions)
-
     WG_IO_BEGIN(MeshChunk)
     WG_IO_FIELD(name);
     WG_IO_FIELD(aabb);

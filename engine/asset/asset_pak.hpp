@@ -54,11 +54,9 @@ namespace wmoge {
      */
     class AssetPak {
     public:
-        virtual ~AssetPak()                                                                     = default;
-        virtual std::string get_name() const                                                    = 0;
-        virtual Status      get_meta(const AssetId& name, AssetMeta& meta)                      = 0;
-        virtual Status      read_file(const std::string& path, Ref<Data>& data)                 = 0;
-        virtual Status      read_file(const std::string& path, std::vector<std::uint8_t>& data) = 0;
+        virtual ~AssetPak()                                                = default;
+        virtual std::string get_name() const                               = 0;
+        virtual Status      get_meta(const AssetId& name, AssetMeta& meta) = 0;
     };
 
 }// namespace wmoge

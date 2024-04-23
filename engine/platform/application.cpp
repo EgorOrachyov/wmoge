@@ -46,6 +46,7 @@
 #include "grc/grc_shader_manager.hpp"
 #include "grc/grc_texture_manager.hpp"
 #include "hooks/hook_config.hpp"
+#include "hooks/hook_engine.hpp"
 #include "hooks/hook_logs.hpp"
 #include "hooks/hook_profiler.hpp"
 #include "hooks/hook_root_remap.hpp"
@@ -314,6 +315,7 @@ namespace wmoge {
             hook_list->attach(std::make_shared<HookConfig>());
             hook_list->attach(std::make_shared<HookLogs>());
             hook_list->attach(std::make_shared<HookProfiler>());
+            hook_list->attach(std::make_shared<HookEngine>());
         });
 
         return IocContainer::instance()->resolve<Engine>().value()->setup(this);

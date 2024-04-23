@@ -1,12 +1,13 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: AssimpAssetLoader
+loader: AssimpMeshAssetLoader
 rtti: Mesh
 deps: [ ]
 description: "suzanne test mesh"
-params:
-  source_file: "asset://mesh/suzanne.obj"
+import_data:
+  rtti: AssimpMeshImportData
+  source_files: [{file: "asset://mesh/suzanne.obj"}]
   attributes: [ "Pos3f", "Norm3f" ]
   process:
     triangulate: true

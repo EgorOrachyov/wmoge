@@ -44,37 +44,6 @@
 namespace wmoge {
 
     /**
-     * @class MeshImportOptions
-     * @brief Options to import mesh asset from external asset format
-     */
-    struct MeshImportOptions {
-        /**
-         * @class Process
-         * @brief Controls post-process of imported mesh
-         */
-        struct Process {
-            bool triangulate             = true;
-            bool tangent_space           = false;
-            bool flip_uv                 = true;
-            bool gen_normals             = false;
-            bool gen_smooth_normals      = false;
-            bool join_identical_vertices = true;
-            bool limit_bone_weights      = true;
-            bool improve_cache_locality  = false;
-            bool sort_by_ptype           = true;
-            bool gen_uv                  = false;
-
-            WG_IO_DECLARE(Process);
-        };
-
-        std::string                source_file;
-        std::vector<GfxVertAttrib> attributes;
-        Process                    process{};
-
-        WG_IO_DECLARE(MeshImportOptions);
-    };
-
-    /**
      * @class MeshChunk
      * @brief Represents single mesh chunk in a mesh which can be rendered individually with material
      */

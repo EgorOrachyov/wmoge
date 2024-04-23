@@ -25,68 +25,65 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "assimp_asset_loader.hpp"
+#pragma once
 
 #include "asset/mesh.hpp"
 #include "assimp_import_data.hpp"
-#include "assimp_importer.hpp"
-#include "core/data.hpp"
-#include "debug/profiler.hpp"
-#include "math/math_utils3d.hpp"
+#include "core/array_view.hpp"
+#include "core/string_id.hpp"
 #include "mesh/mesh_builder.hpp"
-#include "platform/file_system.hpp"
-#include "system/ioc_container.hpp"
 
-#include <cassert>
-#include <cstring>
-#include <vector>
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
 
 namespace wmoge {
 
-    Status AssimpMeshAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load");
+    /**
+     * @class AssimpImporter
+     * @brief Assimp base importer (assimp scene visitor)
+    */
+    class AssimpImporter {
+    public:
+        AssimpImporter() = default;
 
-        Ref<AssimpMeshImportData> import_data = meta.import_data.cast<AssimpMeshImportData>();
-        if (!import_data) {
-            WG_LOG_ERROR("no import options file for " << name);
-            return StatusCode::InvalidData;
-        }
+        Status read(std::string file_name, array_view<std::uint8_t> data, const AssimpProcess& flags);
+        Status process();
 
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
-        std::string file_name   = import_data->source_files[0].file;
+        [[nodiscard]] const AssimpProcess& get_flags() const { return m_flags; }
+        [[nodiscard]] const std::string&   get_file_name() const { return m_file_name; }
+        [[nodiscard]] int                  get_next_mesh_id() const { return m_next_mesh_id; }
 
-        std::vector<std::uint8_t> file_data;
-        if (!file_system->read_file(file_name, file_data)) {
-            WG_LOG_ERROR("failed to load file " << file_name);
-            return StatusCode::FailedRead;
-        }
+    protected:
+        virtual Status process_node(aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent);
+        virtual Status process_mesh(aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) { return WG_OK; }
 
-        AssimpMeshImporter importer;
-        if (!importer.read(file_name, file_data, import_data->process)) {
-            WG_LOG_ERROR("failed to import file " << file_name);
-            return StatusCode::Error;
-        }
+    private:
+        Assimp::Importer m_importer;
+        AssimpProcess    m_flags;
+        std::string      m_file_name;
+        unsigned int     m_options      = 0;
+        const aiScene*   m_scene        = nullptr;
+        int              m_next_mesh_id = 0;
+    };
 
-        importer.set_attribs(import_data->attributes);
-        if (!importer.process()) {
-            WG_LOG_ERROR("failed to process file " << file_name);
-            return StatusCode::Error;
-        }
+    /**
+     * @class AssimpMeshImporter
+     * @brief Assimp mesh importer
+    */
+    class AssimpMeshImporter : public AssimpImporter {
+    public:
+        AssimpMeshImporter() = default;
 
-        Ref<Mesh> mesh = make_ref<Mesh>();
+        void         set_attribs(GfxVertAttribs attribs) { m_attribs = attribs; }
+        MeshBuilder& get_builder() { return m_builder; }
 
-        asset = mesh;
-        asset->set_name(name);
-        asset->set_import_data(import_data.as<AssetImportData>());
+    protected:
+        Status process_mesh(aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) override;
 
-        MeshBuilder& builder = importer.get_builder();
-        builder.set_mesh(mesh);
-        if (!builder.build()) {
-            WG_LOG_ERROR("failed to build mesh " << file_name);
-            return StatusCode::Error;
-        }
-
-        return WG_OK;
-    }
+    protected:
+        GfxVertAttribs m_attribs;
+        MeshBuilder    m_builder;
+    };
 
 }// namespace wmoge

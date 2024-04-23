@@ -28,11 +28,14 @@
 #pragma once
 
 #include "assimp_asset_loader.hpp"
+#include "assimp_import_data.hpp"
 
 namespace wmoge {
 
     inline void rtti_assimp() {
-        rtti_type<AssimpAssetLoader>();
+        rtti_type<AssimpMeshAssetLoader>();
+        rtti_type<AssimpProcess>();
+        rtti_type<AssimpMeshImportData>();
     }
 
 }// namespace wmoge

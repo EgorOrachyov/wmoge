@@ -212,6 +212,7 @@ add_library(wmoge STATIC
         hgfx/hgfx_pass_text.cpp
         hgfx/hgfx_pass_text.hpp
         hooks/hook_config.hpp
+        hooks/hook_engine.hpp
         hooks/hook_logs.hpp
         hooks/hook_profiler.hpp
         hooks/hook_root_remap.hpp

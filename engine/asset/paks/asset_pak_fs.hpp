@@ -42,8 +42,6 @@ namespace wmoge {
 
         std::string get_name() const override;
         Status      get_meta(const AssetId& name, AssetMeta& meta) override;
-        Status      read_file(const std::string& path, Ref<Data>& data) override;
-        Status      read_file(const std::string& path, std::vector<std::uint8_t>& data) override;
 
     private:
         class FileSystem*   m_file_system;

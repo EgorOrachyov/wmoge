@@ -1,12 +1,13 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: AssimpAssetLoader
+loader: AssimpMeshAssetLoader
 rtti: Mesh
 deps: [ ]
 description: "sphere test mesh"
-params:
-  source_file: "asset://mesh/sphere.obj"
+import_data:
+  rtti: AssimpMeshImportData
+  source_files: [{file: "asset://mesh/sphere.obj"}]
   attributes: [ "Pos3f", "Norm3f", "Tang3f", "Uv02f" ]
   process:
     triangulate: true

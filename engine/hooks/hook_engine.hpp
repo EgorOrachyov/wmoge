@@ -25,68 +25,32 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "assimp_asset_loader.hpp"
+#pragma once
 
-#include "asset/mesh.hpp"
-#include "assimp_import_data.hpp"
-#include "assimp_importer.hpp"
-#include "core/data.hpp"
-#include "debug/profiler.hpp"
-#include "math/math_utils3d.hpp"
-#include "mesh/mesh_builder.hpp"
-#include "platform/file_system.hpp"
+#include "core/cmd_line.hpp"
+#include "system/hook.hpp"
 #include "system/ioc_container.hpp"
-
-#include <cassert>
-#include <cstring>
-#include <vector>
 
 namespace wmoge {
 
-    Status AssimpMeshAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load");
+    /** 
+     * @class HookEngine
+     * @brief Engine hook to setup runtime of the game
+     */
+    class HookEngine : public Hook {
+    public:
+        ~HookEngine() override = default;
 
-        Ref<AssimpMeshImportData> import_data = meta.import_data.cast<AssimpMeshImportData>();
-        if (!import_data) {
-            WG_LOG_ERROR("no import options file for " << name);
-            return StatusCode::InvalidData;
+        std::string get_name() const override {
+            return "engine";
         }
 
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
-        std::string file_name   = import_data->source_files[0].file;
-
-        std::vector<std::uint8_t> file_data;
-        if (!file_system->read_file(file_name, file_data)) {
-            WG_LOG_ERROR("failed to load file " << file_name);
-            return StatusCode::FailedRead;
+        void on_add_cmd_line_options(CmdLine& cmd_line) override {
         }
 
-        AssimpMeshImporter importer;
-        if (!importer.read(file_name, file_data, import_data->process)) {
-            WG_LOG_ERROR("failed to import file " << file_name);
-            return StatusCode::Error;
+        Status on_process(CmdLine& cmd_line) override {
+            return StatusCode::Ok;
         }
-
-        importer.set_attribs(import_data->attributes);
-        if (!importer.process()) {
-            WG_LOG_ERROR("failed to process file " << file_name);
-            return StatusCode::Error;
-        }
-
-        Ref<Mesh> mesh = make_ref<Mesh>();
-
-        asset = mesh;
-        asset->set_name(name);
-        asset->set_import_data(import_data.as<AssetImportData>());
-
-        MeshBuilder& builder = importer.get_builder();
-        builder.set_mesh(mesh);
-        if (!builder.build()) {
-            WG_LOG_ERROR("failed to build mesh " << file_name);
-            return StatusCode::Error;
-        }
-
-        return WG_OK;
-    }
+    };
 
 }// namespace wmoge

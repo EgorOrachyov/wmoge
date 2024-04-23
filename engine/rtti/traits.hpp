@@ -31,6 +31,7 @@
 #include "core/date_time.hpp"
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
+#include "core/mask.hpp"
 #include "core/status.hpp"
 #include "core/uuid.hpp"
 #include "io/archive.hpp"
@@ -322,103 +323,37 @@ namespace wmoge {
         }
     };
 
-    template<>
-    struct RttiTypeOf<std::int16_t> {
-        static Strid name() {
-            return SID("int16_t");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<std::int16_t>>(name());
-        }
-    };
+#define WG_RTTI_FUNDAMENTAL_DECL(type, pretty_name)              \
+    template<>                                                   \
+    struct RttiTypeOf<type> {                                    \
+        static Strid name() {                                    \
+            return SID(pretty_name);                             \
+        }                                                        \
+        static Ref<RttiType> make() {                            \
+            return make_ref<RttiTypeFundamentalT<type>>(name()); \
+        }                                                        \
+    }
 
-    template<>
-    struct RttiTypeOf<int> {
-        static Strid name() {
-            return SID("int");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<int>>(name());
-        }
-    };
+    WG_RTTI_FUNDAMENTAL_DECL(std::int16_t, "int16_t");
+    WG_RTTI_FUNDAMENTAL_DECL(int, "int");
+    WG_RTTI_FUNDAMENTAL_DECL(unsigned int, "uint");
+    WG_RTTI_FUNDAMENTAL_DECL(float, "float");
+    WG_RTTI_FUNDAMENTAL_DECL(bool, "bool");
+    WG_RTTI_FUNDAMENTAL_DECL(std::string, "string");
+    WG_RTTI_FUNDAMENTAL_DECL(Strid, "strid");
+    WG_RTTI_FUNDAMENTAL_DECL(UUID, "uuid");
+    WG_RTTI_FUNDAMENTAL_DECL(DateTime, "datetime");
+    WG_RTTI_FUNDAMENTAL_DECL(Status, "status");
 
-    template<>
-    struct RttiTypeOf<unsigned int> {
-        static Strid name() {
-            return SID("uint");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<unsigned int>>(name());
-        }
-    };
+    template<typename T, int N>
+    struct RttiTypeOf<Mask<T, N>> {
+        using MaskType = Mask<T, N>;
 
-    template<>
-    struct RttiTypeOf<float> {
         static Strid name() {
-            return SID("float");
+            return SID(std::string("mask<") + rtti_type<T>()->get_str() + "," + std::to_string(N) + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<float>>(name());
-        }
-    };
-
-    template<>
-    struct RttiTypeOf<bool> {
-        static Strid name() {
-            return SID("bool");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<bool>>(name());
-        }
-    };
-
-    template<>
-    struct RttiTypeOf<std::string> {
-        static Strid name() {
-            return SID("string");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<std::string>>(name());
-        }
-    };
-
-    template<>
-    struct RttiTypeOf<Strid> {
-        static Strid name() {
-            return SID("strid");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<Strid>>(name());
-        }
-    };
-
-    template<>
-    struct RttiTypeOf<UUID> {
-        static Strid name() {
-            return SID("uuid");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<UUID>>(name());
-        }
-    };
-
-    template<>
-    struct RttiTypeOf<DateTime> {
-        static Strid name() {
-            return SID("datetime");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<DateTime>>(name());
-        }
-    };
-
-    template<>
-    struct RttiTypeOf<Status> {
-        static Strid name() {
-            return SID("status");
-        }
-        static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<Status>>(name());
+            return make_ref<RttiTypeFundamentalT<MaskType>>(name());
         }
     };
 

@@ -74,11 +74,5 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    Status AssetPakFileSystem::read_file(const std::string& path, Ref<Data>& data) {
-        return m_file_system->read_file(path, data);
-    }
-    Status AssetPakFileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
-        return m_file_system->read_file(path, data);
-    }
 
 }// namespace wmoge

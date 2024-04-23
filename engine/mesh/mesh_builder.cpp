@@ -54,6 +54,8 @@ namespace wmoge {
     }
 
     Status MeshBuilder::build() {
+        assert(m_mesh);
+
         const GfxVertAttribs        attribs_stream1 = {GfxVertAttrib::Pos3f, GfxVertAttrib::Pos2f, GfxVertAttrib::Norm3f, GfxVertAttrib::Tang3f};
         const GfxVertAttribs        attribs_stream2 = {GfxVertAttrib::BoneIds4i, GfxVertAttrib::BoneWeights4f};
         const GfxVertAttribs        attribs_stream3 = {GfxVertAttrib::Col04f, GfxVertAttrib::Col14f, GfxVertAttrib::Col24f, GfxVertAttrib::Col34f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Uv22f, GfxVertAttrib::Uv32f};

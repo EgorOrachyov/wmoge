@@ -25,68 +25,69 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "assimp_asset_loader.hpp"
+#pragma once
 
-#include "asset/mesh.hpp"
-#include "assimp_import_data.hpp"
-#include "assimp_importer.hpp"
-#include "core/data.hpp"
-#include "debug/profiler.hpp"
-#include "math/math_utils3d.hpp"
-#include "mesh/mesh_builder.hpp"
-#include "platform/file_system.hpp"
-#include "system/ioc_container.hpp"
-
-#include <cassert>
-#include <cstring>
-#include <vector>
+#include "asset/asset_import_data.hpp"
+#include "core/mask.hpp"
+#include "gfx/gfx_vert_format.hpp"
 
 namespace wmoge {
 
-    Status AssimpMeshAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load");
+    /**
+     * @class AssimpProcess
+     * @brief Controls post-process of imported data
+     */
+    struct AssimpProcess {
+        WG_RTTI_STRUCT(AssimpProcess);
 
-        Ref<AssimpMeshImportData> import_data = meta.import_data.cast<AssimpMeshImportData>();
-        if (!import_data) {
-            WG_LOG_ERROR("no import options file for " << name);
-            return StatusCode::InvalidData;
-        }
+        bool triangulate             = true;
+        bool tangent_space           = false;
+        bool flip_uv                 = true;
+        bool gen_normals             = false;
+        bool gen_smooth_normals      = false;
+        bool join_identical_vertices = true;
+        bool limit_bone_weights      = true;
+        bool improve_cache_locality  = false;
+        bool sort_by_ptype           = true;
+        bool gen_uv                  = false;
+    };
 
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
-        std::string file_name   = import_data->source_files[0].file;
-
-        std::vector<std::uint8_t> file_data;
-        if (!file_system->read_file(file_name, file_data)) {
-            WG_LOG_ERROR("failed to load file " << file_name);
-            return StatusCode::FailedRead;
-        }
-
-        AssimpMeshImporter importer;
-        if (!importer.read(file_name, file_data, import_data->process)) {
-            WG_LOG_ERROR("failed to import file " << file_name);
-            return StatusCode::Error;
-        }
-
-        importer.set_attribs(import_data->attributes);
-        if (!importer.process()) {
-            WG_LOG_ERROR("failed to process file " << file_name);
-            return StatusCode::Error;
-        }
-
-        Ref<Mesh> mesh = make_ref<Mesh>();
-
-        asset = mesh;
-        asset->set_name(name);
-        asset->set_import_data(import_data.as<AssetImportData>());
-
-        MeshBuilder& builder = importer.get_builder();
-        builder.set_mesh(mesh);
-        if (!builder.build()) {
-            WG_LOG_ERROR("failed to build mesh " << file_name);
-            return StatusCode::Error;
-        }
-
-        return WG_OK;
+    WG_RTTI_STRUCT_BEGIN(AssimpProcess) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(triangulate, {RttiOptional});
+        WG_RTTI_FIELD(tangent_space, {RttiOptional});
+        WG_RTTI_FIELD(flip_uv, {RttiOptional});
+        WG_RTTI_FIELD(gen_normals, {RttiOptional});
+        WG_RTTI_FIELD(gen_smooth_normals, {RttiOptional});
+        WG_RTTI_FIELD(join_identical_vertices, {RttiOptional});
+        WG_RTTI_FIELD(limit_bone_weights, {RttiOptional});
+        WG_RTTI_FIELD(improve_cache_locality, {RttiOptional});
+        WG_RTTI_FIELD(sort_by_ptype, {RttiOptional});
+        WG_RTTI_FIELD(gen_uv, {RttiOptional});
     }
+    WG_RTTI_END;
+
+    /**
+     * @class MeshImportOptions
+     * @brief Options to import mesh asset from external asset format
+     */
+    class AssimpMeshImportData : public AssetImportData {
+    public:
+        WG_RTTI_CLASS(AssimpMeshImportData, AssetImportData);
+
+        AssimpMeshImportData()           = default;
+        ~AssimpMeshImportData() override = default;
+
+        AssimpProcess       process{};
+        Mask<GfxVertAttrib> attributes;
+    };
+
+    WG_RTTI_CLASS_BEGIN(AssimpMeshImportData) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(process, {RttiOptional});
+        WG_RTTI_FIELD(attributes, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge
