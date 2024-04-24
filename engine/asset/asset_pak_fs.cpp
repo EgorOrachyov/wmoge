@@ -25,35 +25,51 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "image_asset_loader.hpp"
+#include "asset_pak_fs.hpp"
 
-#include "asset/image.hpp"
+#include "asset/asset_manager.hpp"
+#include "core/class.hpp"
 #include "debug/profiler.hpp"
+#include "io/yaml.hpp"
+#include "platform/file_system.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    Status ImageAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load");
+    AssetPakFileSystem::AssetPakFileSystem() {
+        m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
+    }
+    std::string AssetPakFileSystem::get_name() const {
+        return "pak_fs";
+    }
+    Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
+        WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
 
-        Ref<Image> image = meta.cls->instantiate().cast<Image>();
+        std::string meta_file_path = name.str() + AssetMetaFile::FILE_EXTENSION;
 
-        if (!image) {
-            WG_LOG_ERROR("Failed to instantiate image " << name);
-            return StatusCode::FailedInstantiate;
+        auto res_tree = yaml_parse_file(meta_file_path);
+        if (res_tree.empty()) {
+            WG_LOG_ERROR("failed to parse tree file " << meta_file_path);
+            return StatusCode::FailedParse;
         }
 
-        asset = image;
-        asset->set_name(name);
+        AssetMetaFile asset_file;
 
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("No import options to load image " << name);
-            return StatusCode::InvalidData;
+        if (!yaml_read(res_tree, asset_file)) {
+            WG_LOG_ERROR("failed to parse .asset file " << meta_file_path);
+            return StatusCode::FailedRead;
         }
 
-        ImageImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
+        auto loader = IocContainer::instance()->resolve_v<AssetManager>()->find_loader(asset_file.loader);
 
-        return image->load(options.source_file, options.channels);
+        meta.uuid        = asset_file.uuid;
+        meta.cls         = Class::class_ptr(asset_file.rtti);
+        meta.pak         = this;
+        meta.loader      = loader.value_or(nullptr);
+        meta.deps        = std::move(asset_file.deps);
+        meta.import_data = asset_file.import_data;
+
+        return StatusCode::Ok;
     }
 
 }// namespace wmoge

@@ -44,12 +44,14 @@ namespace wmoge {
         WG_RTTI_STRUCT(AssetSourceFile);
 
         std::string file;
+        std::string file_tag;
         Crc32Hash   file_hash;
         DateTime    timestamp;
     };
 
     WG_RTTI_STRUCT_BEGIN(AssetSourceFile) {
         WG_RTTI_FIELD(file, {RttiOptional, RttiUiHint("Path to original file on disk")});
+        WG_RTTI_FIELD(file_tag, {RttiOptional, RttiUiHint("Optional tag to hint file usage")});
         WG_RTTI_FIELD(file_hash, {RttiOptional, RttiUiHint("File content hash")});
         WG_RTTI_FIELD(timestamp, {RttiOptional, RttiUiHint("Time when file was imported")});
     }
@@ -66,6 +68,9 @@ namespace wmoge {
         AssetImportData()           = default;
         ~AssetImportData() override = default;
 
+        [[nodiscard]] bool has_soruce_files() const { return !source_files.empty(); }
+        [[nodiscard]] int  source_files_size() const { return int(source_files.size()); }
+
         std::vector<AssetSourceFile> source_files;
     };
 
@@ -73,6 +78,8 @@ namespace wmoge {
         WG_RTTI_META_DATA(RttiUiName("Asset import data"), RttiUiHint("Asset manager assosiated data to import asset"));
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(source_files, {RttiOptional});
+        WG_RTTI_METHOD(has_soruce_files, {}, {});
+        WG_RTTI_METHOD(source_files_size, {}, {});
     }
     WG_RTTI_END;
 

@@ -40,35 +40,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(TextureImportOptions)
-    WG_IO_FIELD_OPT(channels)
-    WG_IO_FIELD_OPT(format)
-    WG_IO_FIELD_OPT(mipmaps)
-    WG_IO_FIELD_OPT(srgb)
-    WG_IO_FIELD_OPT(sampling)
-    WG_IO_FIELD_OPT(compression)
-    WG_IO_FIELD_OPT(resizing)
-    WG_IO_END(TextureImportOptions)
-
-    WG_IO_BEGIN(Texture2dImportOptions)
-    WG_IO_SUPER(TextureImportOptions)
-    WG_IO_FIELD(source_file)
-    WG_IO_END(Texture2dImportOptions)
-
-    WG_IO_BEGIN_NMSP(TextureCubeImportOptions, SourceFiles)
-    WG_IO_FIELD(right)
-    WG_IO_FIELD(left)
-    WG_IO_FIELD(top)
-    WG_IO_FIELD(bottom)
-    WG_IO_FIELD(back)
-    WG_IO_FIELD(front)
-    WG_IO_END_NMSP(TextureCubeImportOptions, SourceFiles)
-
-    WG_IO_BEGIN(TextureCubeImportOptions)
-    WG_IO_SUPER(TextureImportOptions)
-    WG_IO_FIELD(source_files)
-    WG_IO_END(TextureCubeImportOptions)
-
     Texture::Texture(GfxFormat format, int width, int height, int depth, int array_slices, GfxTexSwizz swizz) {
         m_format       = format;
         m_width        = width;

@@ -27,50 +27,74 @@
 
 #pragma once
 
-#include "asset/asset_loader.hpp"
-
-#include "asset/texture.hpp"
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_sampler.hpp"
-#include "gfx/gfx_texture.hpp"
+#include "asset/asset_import_data.hpp"
 
 namespace wmoge {
 
     /**
-     * @class AssetLoaderTexture2d
-     * @brief Loader for 2d textures through stb image library
+     * @class TextureImportData
+     * @brief Base class for import data to import textures for GPU rendering
      */
-    class AssetLoaderTexture2d final : public AssetLoader {
+    class TextureImportData : public AssetImportData {
     public:
-        WG_RTTI_CLASS(AssetLoaderTexture2d, AssetLoader);
+        WG_RTTI_CLASS(TextureImportData, AssetImportData);
 
-        AssetLoaderTexture2d()           = default;
-        ~AssetLoaderTexture2d() override = default;
+        TextureImportData()           = default;
+        ~TextureImportData() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        GfxSamplerDesc          sampling{};
+        GrcTexCompressionParams compression{};
+        GrcTexResizeParams      resizing{};
+        GfxFormat               format   = GfxFormat::RGBA8;
+        int                     channels = 4;
+        bool                    mipmaps  = true;
+        bool                    srgb     = true;
     };
 
-    WG_RTTI_CLASS_BEGIN(AssetLoaderTexture2d) {
+    WG_RTTI_CLASS_BEGIN(TextureImportData) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(sampling, {RttiOptional});
+        WG_RTTI_FIELD(compression, {RttiOptional});
+        WG_RTTI_FIELD(resizing, {RttiOptional});
+        WG_RTTI_FIELD(format, {RttiOptional});
+        WG_RTTI_FIELD(channels, {RttiOptional});
+        WG_RTTI_FIELD(mipmaps, {RttiOptional});
+        WG_RTTI_FIELD(srgb, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class Texture2dImportOptions
+     * @brief Options to import 2d-texture from a source file
+     */
+    class Texture2dImportData : public TextureImportData {
+    public:
+        WG_RTTI_CLASS(Texture2dImportData, TextureImportData);
+
+        Texture2dImportData()           = default;
+        ~Texture2dImportData() override = default;
+    };
+
+    WG_RTTI_CLASS_BEGIN(Texture2dImportData) {
         WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
 
     /**
-     * @class AssetLoaderTextureCube
-     * @brief Loader for cube-map textures through stb image library
+     * @class TextureCubeImportOptions
+     * @brief Options to import a cube-map texture from source files
      */
-    class AssetLoaderTextureCube final : public AssetLoader {
+    class TextureCubeImportData : public TextureImportData {
     public:
-        WG_RTTI_CLASS(AssetLoaderTextureCube, AssetLoader);
+        WG_RTTI_CLASS(TextureCubeImportData, TextureImportData);
 
-        AssetLoaderTextureCube()           = default;
-        ~AssetLoaderTextureCube() override = default;
-
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        TextureCubeImportData()           = default;
+        ~TextureCubeImportData() override = default;
     };
 
-    WG_RTTI_CLASS_BEGIN(AssetLoaderTextureCube) {
+    WG_RTTI_CLASS_BEGIN(TextureCubeImportData) {
         WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }

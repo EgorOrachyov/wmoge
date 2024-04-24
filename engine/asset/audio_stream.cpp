@@ -31,18 +31,6 @@
 
 namespace wmoge {
 
-    Status yaml_read(YamlConstNodeRef node, AudioImportOptions& options) {
-        WG_YAML_READ_AS(node, "source_file", options.source_file);
-
-        return StatusCode::Ok;
-    }
-    Status yaml_write(YamlNodeRef node, const AudioImportOptions& options) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "source_file", options.source_file);
-
-        return StatusCode::Ok;
-    }
-
     Status AudioStream::read_from_yaml(const YamlConstNodeRef& node) {
         return Asset::read_from_yaml(node);
     }

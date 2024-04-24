@@ -32,13 +32,13 @@
 namespace wmoge {
 
     /**
-     * @class ImagePlugin
-     * @brief Plugin which adds variouse utilities to work with image data in the engine
+     * @class RuntimePlugin
+     * @brief Plugin for standard engine runtime workflows
     */
-    class ImagePlugin : public Plugin {
+    class RuntimePlugin : public Plugin {
     public:
-        ImagePlugin();
-        ~ImagePlugin() override = default;
+        RuntimePlugin();
+        ~RuntimePlugin() override = default;
 
         Status on_register() override;
     };

@@ -1,18 +1,19 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: AssetLoaderTextureCube
+loader: TextureCubeAssetLoader
 rtti: TextureCube
 deps: [ ]
 description: "example skybox"
-params:
+import_data:
+  rtti: TextureCubeImportData
   source_files:
-    right: "asset://textures/skybox_right.jpg"
-    left: "asset://textures/skybox_left.jpg"
-    top: "asset://textures/skybox_top.jpg"
-    bottom: "asset://textures/skybox_bottom.jpg"
-    back: "asset://textures/skybox_back.jpg"
-    front: "asset://textures/skybox_front.jpg"
+    - { file: "asset://textures/skybox_right.jpg", file_tag: right }
+    - { file: "asset://textures/skybox_left.jpg", file_tag: left }
+    - { file: "asset://textures/skybox_top.jpg", file_tag: top }
+    - { file: "asset://textures/skybox_bottom.jpg", file_tag: bottom }
+    - { file: "asset://textures/skybox_front.jpg", file_tag: front }
+    - { file: "asset://textures/skybox_back.jpg", file_tag: back }
   channels: 4
   format: RGBA8
   mipmaps: true

@@ -25,72 +25,55 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "grc_texture_resize.hpp"
+#pragma once
 
-#include "debug/profiler.hpp"
-#include "math/math_utils.hpp"
+#include "asset/asset_loader.hpp"
+
+#include "asset/texture.hpp"
+#include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_sampler.hpp"
+#include "gfx/gfx_texture.hpp"
 
 namespace wmoge {
 
-    Status GrcTexResize::resize(const GrcTexResizeParams& params, Image& image) {
-        WG_AUTO_PROFILE_RENDER("GrcTexResize::resize");
+    /**
+     * @class Texture2dAssetLoader
+     * @brief Loader for 2d textures through stb image library
+     */
+    class Texture2dAssetLoader final : public AssetLoader {
+    public:
+        WG_RTTI_CLASS(Texture2dAssetLoader, AssetLoader);
 
-        GrcTexSizePreset preset = params.preset;
+        Texture2dAssetLoader()           = default;
+        ~Texture2dAssetLoader() override = default;
 
-        if (params.auto_adjust || preset == GrcTexSizePreset::None) {
-            int w = image.get_width();
-            int h = image.get_height();
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+    };
 
-            if (params.minify) {
-                w = Math::min(w, h);
-                h = Math::min(w, h);
-            } else {
-                w = Math::max(w, h);
-                h = Math::max(w, h);
-            }
-
-            preset = fit_preset(w, h);
-        }
-
-        assert(preset != GrcTexSizePreset::None);
-        const Vec2i size = preset_to_size(preset);
-
-        return image.resize(size.x(), size.y());
+    WG_RTTI_CLASS_BEGIN(Texture2dAssetLoader) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
     }
+    WG_RTTI_END;
 
-    Vec2i GrcTexResize::preset_to_size(GrcTexSizePreset preset) {
-        switch (preset) {
-            case GrcTexSizePreset::Size128x128:
-                return Vec2i(128, 128);
-            case GrcTexSizePreset::Size256x256:
-                return Vec2i(256, 256);
-            case GrcTexSizePreset::Size512x512:
-                return Vec2i(512, 512);
-            case GrcTexSizePreset::Size1024x1024:
-                return Vec2i(1024, 1024);
-            case GrcTexSizePreset::Size2048x2048:
-                return Vec2i(2048, 2048);
-            case GrcTexSizePreset::Size4096x4096:
-                return Vec2i(4096, 4096);
-            default:
-                return Vec2i(0, 0);
-        }
+    /**
+     * @class TextureCubeAssetLoader
+     * @brief Loader for cube-map textures through stb image library
+     */
+    class TextureCubeAssetLoader final : public AssetLoader {
+    public:
+        WG_RTTI_CLASS(TextureCubeAssetLoader, AssetLoader);
+
+        TextureCubeAssetLoader()           = default;
+        ~TextureCubeAssetLoader() override = default;
+
+        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+    };
+
+    WG_RTTI_CLASS_BEGIN(TextureCubeAssetLoader) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
     }
-
-    GrcTexSizePreset GrcTexResize::fit_preset(int width, int height) {
-        if (width == 0 || height == 0) {
-            return GrcTexSizePreset::None;
-        }
-
-        GrcTexSizePreset preset = GrcTexSizePreset::Size128x128;
-        Vec2i            size   = preset_to_size(preset);
-
-        while (size.x() < width && size.y() < height && preset != GrcTexSizePreset::Size4096x4096) {
-            preset = static_cast<GrcTexSizePreset>(static_cast<int>(preset) + 1);
-            size   = preset_to_size(preset);
-        }
-
-        return preset;
-    }
+    WG_RTTI_END;
 
 }// namespace wmoge

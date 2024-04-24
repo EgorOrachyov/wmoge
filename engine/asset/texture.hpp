@@ -39,57 +39,6 @@
 namespace wmoge {
 
     /**
-     * @class TextureImportOptions
-     * @brief Options (base) to import texture
-     */
-    struct TextureImportOptions {
-        int                     channels = 4;
-        GfxFormat               format   = GfxFormat::RGBA8;
-        bool                    mipmaps  = true;
-        bool                    srgb     = true;
-        GfxSamplerDesc          sampling{};
-        GrcTexCompressionParams compression{};
-        GrcTexResizeParams      resizing{};
-
-        WG_IO_DECLARE(TextureImportOptions);
-    };
-
-    /**
-     * @class Texture2dImportOptions
-     * @brief Options to import 2d-texture from a source file
-     */
-    struct Texture2dImportOptions : public TextureImportOptions {
-        std::string source_file;
-
-        WG_IO_DECLARE(Texture2dImportOptions);
-    };
-
-    /**
-     * @class TextureCubeImportOptions
-     * @brief Options to import a cube-map texture from source files
-     */
-    struct TextureCubeImportOptions : public TextureImportOptions {
-        /**
-         * @class SourceFiles
-         * @brief Files fro each cube-map face
-         */
-        struct SourceFiles {
-            std::string right;
-            std::string left;
-            std::string top;
-            std::string bottom;
-            std::string back;
-            std::string front;
-
-            WG_IO_DECLARE(SourceFiles);
-        };
-
-        SourceFiles source_files;
-
-        WG_IO_DECLARE(TextureCubeImportOptions);
-    };
-
-    /**
      * @class Texture
      * @brief Base-class for any engine gpu texture asset which can be used for rendering
      */

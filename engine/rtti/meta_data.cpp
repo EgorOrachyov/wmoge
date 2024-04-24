@@ -32,12 +32,24 @@ namespace wmoge {
     RttiMetaData::RttiMetaData(const std::initializer_list<const RttiMetaProperty>& properties_list) {
         for (const auto& property : properties_list) {
             m_properties[property.attribute] = property.value;
+            m_attributes.set(property.attribute);
         }
+    }
 
-        m_no_save_load     = has_attribute(RttiMetaAttribute::NoSaveLoad);
-        m_no_copy          = has_attribute(RttiMetaAttribute::NoCopy);
-        m_no_script_exprot = has_attribute(RttiMetaAttribute::NoScriptExport);
-        m_optional         = has_attribute(RttiMetaAttribute::Optional);
+    bool RttiMetaData::is_no_save_load() const {
+        return m_attributes.get(RttiMetaAttribute::NoSaveLoad);
+    }
+    bool RttiMetaData::is_no_copy() const {
+        return m_attributes.get(RttiMetaAttribute::NoCopy);
+    }
+    bool RttiMetaData::is_no_script_exprot() const {
+        return m_attributes.get(RttiMetaAttribute::NoScriptExport);
+    }
+    bool RttiMetaData::is_optional() const {
+        return m_attributes.get(RttiMetaAttribute::Optional);
+    }
+    bool RttiMetaData::has_attribute(RttiMetaAttribute attribute) {
+        return m_attributes.get(attribute);
     }
 
 }// namespace wmoge

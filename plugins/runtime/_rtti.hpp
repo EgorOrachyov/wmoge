@@ -25,35 +25,29 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "asset_loader_wav.hpp"
+#pragma once
 
-#include "asset/audio_stream_wav.hpp"
-#include "debug/profiler.hpp"
+#include "asset/default_asset_loader.hpp"
+#include "asset/image_asset_loader.hpp"
+#include "asset/image_import_data.hpp"
+#include "asset/texture_asset_loader.hpp"
+#include "asset/texture_import_data.hpp"
+#include "asset/wav_asset_loader.hpp"
+#include "asset/wav_import_data.hpp"
 
 namespace wmoge {
 
-    Status AssetLoaderWav::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssetLoaderWav::load");
-
-        Ref<AudioStreamWav> audio = meta.cls->instantiate().cast<AudioStreamWav>();
-
-        if (!audio) {
-            WG_LOG_ERROR("failed to instantiate audio " << name);
-            return StatusCode::FailedInstantiate;
-        }
-
-        asset = audio;
-        asset->set_name(name);
-
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("No import options to load audio " << name);
-            return StatusCode::InvalidData;
-        }
-
-        AudioImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
-
-        return audio->load(options.source_file);
+    inline void rtti_runtime() {
+        rtti_type<DefaultAssetLoader>();
+        rtti_type<ImageAssetLoader>();
+        rtti_type<ImageImportData>();
+        rtti_type<Texture2dAssetLoader>();
+        rtti_type<TextureCubeAssetLoader>();
+        rtti_type<TextureImportData>();
+        rtti_type<Texture2dImportData>();
+        rtti_type<TextureCubeImportData>();
+        rtti_type<WavAssetLoader>();
+        rtti_type<WavImportData>();
     }
 
 }// namespace wmoge

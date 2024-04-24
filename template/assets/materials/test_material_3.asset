@@ -1,8 +1,10 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: AssetLoaderDefault
+loader: DefaultAssetLoader
 rtti: Material
 description: "test material"
-path_on_disk: "asset://materials/test_material_3.material"
 deps: [ ]
+import_data:
+  rtti: AssetImportData
+  source_files: [{file: "asset://materials/test_material_3.material"}]

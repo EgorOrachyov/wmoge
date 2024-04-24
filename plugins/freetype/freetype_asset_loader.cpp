@@ -42,6 +42,10 @@ namespace wmoge {
             WG_LOG_ERROR("no valid import data for " << name);
             return StatusCode::InvalidData;
         }
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << name);
+            return StatusCode::InvalidData;
+        }
 
         Ref<Font> font = meta.cls->instantiate().cast<Font>();
         if (!font) {
@@ -51,7 +55,7 @@ namespace wmoge {
 
         asset = font;
         asset->set_name(name);
-        asset->set_import_data(import_data);
+        asset->set_import_data(meta.import_data);
 
         return FreetypeFont::load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
     }

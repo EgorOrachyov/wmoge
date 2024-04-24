@@ -200,6 +200,7 @@
 #include "asset/asset_manager.hpp"
 #include "asset/asset_meta.hpp"
 #include "asset/asset_pak.hpp"
+#include "asset/asset_pak_fs.hpp"
 #include "asset/asset_ref.hpp"
 #include "asset/audio_stream.hpp"
 #include "asset/config_file.hpp"

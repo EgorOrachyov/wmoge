@@ -1,12 +1,13 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: AssetLoaderTexture2d
+loader: Texture2dAssetLoader
 rtti: Texture2d
 deps: [ ]
 description: ""
-params:
-  source_file: "asset://textures/dirt_mask.png"
+import_data:
+  rtti: Texture2dImportData
+  source_files: [{file: "asset://textures/dirt_mask.png"}]
   channels: 4
   format: RGBA8
   mipmaps: true

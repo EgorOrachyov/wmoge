@@ -48,7 +48,11 @@ namespace wmoge {
 
         Ref<AssimpMeshImportData> import_data = meta.import_data.cast<AssimpMeshImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import options file for " << name);
+            WG_LOG_ERROR("no import data for " << name);
+            return StatusCode::InvalidData;
+        }
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << name);
             return StatusCode::InvalidData;
         }
 
@@ -77,7 +81,7 @@ namespace wmoge {
 
         asset = mesh;
         asset->set_name(name);
-        asset->set_import_data(import_data.as<AssetImportData>());
+        asset->set_import_data(meta.import_data);
 
         MeshBuilder& builder = importer.get_builder();
         builder.set_mesh(mesh);

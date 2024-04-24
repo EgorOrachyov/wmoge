@@ -27,6 +27,7 @@
 
 #include "asset_manager.hpp"
 
+#include "asset/asset_pak_fs.hpp"
 #include "core/timer.hpp"
 #include "debug/profiler.hpp"
 #include "event/event_asset.hpp"
@@ -35,8 +36,6 @@
 #include "rtti/type_storage.hpp"
 #include "system/engine.hpp"
 #include "system/ioc_container.hpp"
-
-#include "asset/paks/asset_pak_fs.hpp"
 
 #include <chrono>
 

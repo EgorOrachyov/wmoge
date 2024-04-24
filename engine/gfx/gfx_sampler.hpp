@@ -28,7 +28,7 @@
 #pragma once
 
 #include "gfx/gfx_resource.hpp"
-#include "io/serialization.hpp"
+#include "rtti/traits.hpp"
 
 #include <utility>
 
@@ -39,10 +39,13 @@ namespace wmoge {
      * @brief Gfx sampler descriptor
      */
     struct GfxSamplerDesc {
+        WG_RTTI_STRUCT(GfxSamplerDesc);
+
         GfxSamplerDesc();
-        bool        operator==(const GfxSamplerDesc& other) const;
-        std::size_t hash() const;
-        std::string to_str() const;
+
+        [[nodiscard]] bool        operator==(const GfxSamplerDesc& other) const;
+        [[nodiscard]] std::size_t hash() const;
+        [[nodiscard]] std::string to_str() const;
 
         float          min_lod;       // = 0;
         float          max_lod;       // = 32.0f;
@@ -56,9 +59,21 @@ namespace wmoge {
 
         static GfxSamplerDesc make(GfxSampFlt flt, float aniso, GfxSampAddress address);
         static GfxSamplerDesc make(GfxSampFlt flt, float aniso, GfxSampBrdClr brd_clr);
-
-        WG_IO_DECLARE(GfxSamplerDesc);
     };
+
+    WG_RTTI_STRUCT_BEGIN(GfxSamplerDesc) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(min_lod, {RttiOptional});
+        WG_RTTI_FIELD(max_lod, {RttiOptional});
+        WG_RTTI_FIELD(max_anisotropy, {RttiOptional});
+        WG_RTTI_FIELD(min_flt, {RttiOptional});
+        WG_RTTI_FIELD(mag_flt, {RttiOptional});
+        WG_RTTI_FIELD(u, {RttiOptional});
+        WG_RTTI_FIELD(v, {RttiOptional});
+        WG_RTTI_FIELD(w, {RttiOptional});
+        WG_RTTI_FIELD(brd_clr, {RttiOptional});
+    }
+    WG_RTTI_END;
 
     /**
      * @class GfxSampler

@@ -363,6 +363,8 @@ add_library(wmoge STATIC
         asset/asset_manager.hpp
         asset/asset_meta.hpp
         asset/asset_pak.hpp
+        asset/asset_pak_fs.cpp
+        asset/asset_pak_fs.hpp
         asset/asset_ref.hpp
         asset/scene_packed.cpp
         asset/scene_packed.hpp
@@ -376,14 +378,6 @@ add_library(wmoge STATIC
         asset/texture.hpp
         asset/register_classes_asset.cpp
         asset/register_classes_asset.hpp
-        asset/loaders/asset_loader_default.cpp
-        asset/loaders/asset_loader_default.hpp
-        asset/loaders/asset_loader_texture.cpp
-        asset/loaders/asset_loader_texture.hpp
-        asset/loaders/asset_loader_wav.cpp
-        asset/loaders/asset_loader_wav.hpp
-        asset/paks/asset_pak_fs.cpp
-        asset/paks/asset_pak_fs.hpp
         asset/_rtti.hpp
         rtti/class.cpp
         rtti/class.hpp

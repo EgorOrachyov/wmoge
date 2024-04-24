@@ -25,72 +25,34 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "grc_texture_resize.hpp"
+#include "image_asset_loader.hpp"
 
+#include "asset/image.hpp"
 #include "debug/profiler.hpp"
-#include "math/math_utils.hpp"
+#include "image_import_data.hpp"
 
 namespace wmoge {
 
-    Status GrcTexResize::resize(const GrcTexResizeParams& params, Image& image) {
-        WG_AUTO_PROFILE_RENDER("GrcTexResize::resize");
+    Status ImageAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
+        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load");
 
-        GrcTexSizePreset preset = params.preset;
-
-        if (params.auto_adjust || preset == GrcTexSizePreset::None) {
-            int w = image.get_width();
-            int h = image.get_height();
-
-            if (params.minify) {
-                w = Math::min(w, h);
-                h = Math::min(w, h);
-            } else {
-                w = Math::max(w, h);
-                h = Math::max(w, h);
-            }
-
-            preset = fit_preset(w, h);
+        Ref<ImageImportData> import_data = meta.import_data.cast<ImageImportData>();
+        if (!import_data) {
+            WG_LOG_ERROR("no import data to load image " << name);
+            return StatusCode::InvalidData;
+        }
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << name);
+            return StatusCode::InvalidData;
         }
 
-        assert(preset != GrcTexSizePreset::None);
-        const Vec2i size = preset_to_size(preset);
+        Ref<Image> image = make_ref<Image>();
 
-        return image.resize(size.x(), size.y());
-    }
+        asset = image;
+        asset->set_name(name);
+        asset->set_import_data(meta.import_data);
 
-    Vec2i GrcTexResize::preset_to_size(GrcTexSizePreset preset) {
-        switch (preset) {
-            case GrcTexSizePreset::Size128x128:
-                return Vec2i(128, 128);
-            case GrcTexSizePreset::Size256x256:
-                return Vec2i(256, 256);
-            case GrcTexSizePreset::Size512x512:
-                return Vec2i(512, 512);
-            case GrcTexSizePreset::Size1024x1024:
-                return Vec2i(1024, 1024);
-            case GrcTexSizePreset::Size2048x2048:
-                return Vec2i(2048, 2048);
-            case GrcTexSizePreset::Size4096x4096:
-                return Vec2i(4096, 4096);
-            default:
-                return Vec2i(0, 0);
-        }
-    }
-
-    GrcTexSizePreset GrcTexResize::fit_preset(int width, int height) {
-        if (width == 0 || height == 0) {
-            return GrcTexSizePreset::None;
-        }
-
-        GrcTexSizePreset preset = GrcTexSizePreset::Size128x128;
-        Vec2i            size   = preset_to_size(preset);
-
-        while (size.x() < width && size.y() < height && preset != GrcTexSizePreset::Size4096x4096) {
-            preset = static_cast<GrcTexSizePreset>(static_cast<int>(preset) + 1);
-            size   = preset_to_size(preset);
-        }
-
-        return preset;
+        return image->load(import_data->source_files[0].file, import_data->channels);
     }
 
 }// namespace wmoge

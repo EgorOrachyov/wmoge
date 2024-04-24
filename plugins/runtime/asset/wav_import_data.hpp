@@ -25,42 +25,28 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "asset_loader_default.hpp"
+#pragma once
 
-#include "debug/profiler.hpp"
+#include "asset/asset_import_data.hpp"
 
 namespace wmoge {
 
-    Status AssetLoaderDefault::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssetLoaderDefault::load");
+    /**
+     * @class WavImportData
+     * @brief Options to import an audio file from `.wav` files format
+     */
+    class WavImportData : public AssetImportData {
+    public:
+        WG_RTTI_CLASS(WavImportData, AssetImportData);
 
-        asset = meta.cls->instantiate().cast<Asset>();
+        WavImportData()           = default;
+        ~WavImportData() override = default;
+    };
 
-        if (!asset) {
-            WG_LOG_ERROR("failed to instantiate asset " << name);
-            return StatusCode::FailedInstantiate;
-        }
-
-        if (meta.path_on_disk->empty()) {
-            WG_LOG_ERROR("no path on disk to load asset file " << name);
-            return StatusCode::InvalidData;
-        }
-
-        auto asset_tree = yaml_parse_file(meta.path_on_disk.value());
-
-        if (asset_tree.empty()) {
-            WG_LOG_ERROR("failed to read parse file " << meta.path_on_disk.value());
-            return StatusCode::FailedParse;
-        };
-
-        asset->set_name(name);
-
-        if (!asset->read_from_yaml(asset_tree.crootref())) {
-            WG_LOG_ERROR("failed to load asset from file " << meta.path_on_disk.value());
-            return StatusCode::FailedRead;
-        }
-
-        return StatusCode::Ok;
+    WG_RTTI_CLASS_BEGIN(WavImportData) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
     }
+    WG_RTTI_END;
 
 }// namespace wmoge

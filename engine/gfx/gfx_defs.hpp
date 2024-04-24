@@ -142,12 +142,12 @@ namespace wmoge {
 
     /** @brief Face id in cube map texture */
     enum class GfxTexCubeFace : int {
-        PositiveX = 0,
-        NegativeX = 1,
-        PositiveY = 2,
-        NegativeY = 3,
-        PositiveZ = 4,
-        NegativeZ = 5,
+        PositiveX = 0,// right
+        NegativeX = 1,// left
+        PositiveY = 2,// top
+        NegativeY = 3,// bottom
+        PositiveZ = 4,// front
+        NegativeZ = 5,// back
     };
 
     /** @brief Tex view channels swizzling */

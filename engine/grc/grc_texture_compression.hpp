@@ -30,7 +30,7 @@
 #include "core/data.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
-#include "io/serialization.hpp"
+#include "rtti/traits.hpp"
 
 #include <vector>
 
@@ -141,6 +141,8 @@ namespace wmoge {
      * @brief Set of parameters to compress texture data
      */
     struct GrcTexCompressionParams {
+        WG_RTTI_STRUCT(GrcTexCompressionParams);
+
         GrcTexCompressionFormat format                 = GrcTexCompressionFormat::Unknown;
         bool                    use_channel_weighting  = false;
         float                   weight_red             = 0.3f;
@@ -151,9 +153,22 @@ namespace wmoge {
         int                     alpha_threshold        = 128;
         float                   fquality               = 0.05f;
         int                     num_threads            = 4;
-
-        WG_IO_DECLARE(GrcTexCompressionParams);
     };
+
+    WG_RTTI_STRUCT_BEGIN(GrcTexCompressionParams) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(format, {RttiOptional});
+        WG_RTTI_FIELD(use_channel_weighting, {RttiOptional});
+        WG_RTTI_FIELD(weight_red, {RttiOptional});
+        WG_RTTI_FIELD(weight_green, {RttiOptional});
+        WG_RTTI_FIELD(weight_blue, {RttiOptional});
+        WG_RTTI_FIELD(use_adaptive_weighting, {RttiOptional});
+        WG_RTTI_FIELD(use_alpha, {RttiOptional});
+        WG_RTTI_FIELD(alpha_threshold, {RttiOptional});
+        WG_RTTI_FIELD(fquality, {RttiOptional});
+        WG_RTTI_FIELD(num_threads, {RttiOptional});
+    }
+    WG_RTTI_END;
 
     /**
      * @class GrcTexCompression

@@ -33,17 +33,6 @@
 namespace wmoge {
 
     /**
-     * @class AudioImportOptions
-     * @brief Options to import audio data from an external format
-     */
-    struct AudioImportOptions {
-        std::string source_file;
-
-        friend Status yaml_read(YamlConstNodeRef node, AudioImportOptions& options);
-        friend Status yaml_write(YamlNodeRef node, const AudioImportOptions& options);
-    };
-
-    /**
      * @class AudioStream
      * @brief Base class for audio files which can be loaded and played
      */

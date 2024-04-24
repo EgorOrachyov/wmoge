@@ -38,17 +38,6 @@
 namespace wmoge {
 
     /**
-     * @class ImageImportOptions
-     * @brief Options to import an image from an external format, such as `png`, `jpeg`, `bmp`, etc.
-     */
-    struct ImageImportOptions {
-        std::string source_file;
-        int         channels = 4;
-
-        WG_IO_DECLARE(ImageImportOptions);
-    };
-
-    /**
      * @class Image
      * @brief Hardware-independent image representation.
      *

@@ -49,13 +49,12 @@ namespace wmoge {
 
         static constexpr char FILE_EXTENSION[] = ".asset";
 
-        UUID                       uuid;
-        Strid                      rtti;
-        Strid                      loader;
-        buffered_vector<Strid>     deps;
-        std::string                description;
-        std::optional<std::string> path_on_disk;
-        Ref<AssetImportData>       import_data;
+        UUID                   uuid;
+        Strid                  rtti;
+        Strid                  loader;
+        buffered_vector<Strid> deps;
+        std::string            description;
+        Ref<AssetImportData>   import_data;
     };
 
     WG_RTTI_STRUCT_BEGIN(AssetMetaFile) {
@@ -65,7 +64,6 @@ namespace wmoge {
         WG_RTTI_FIELD(loader, {});
         WG_RTTI_FIELD(deps, {RttiOptional});
         WG_RTTI_FIELD(description, {RttiOptional});
-        WG_RTTI_FIELD(path_on_disk, {RttiOptional});
         WG_RTTI_FIELD(import_data, {RttiOptional});
     }
     WG_RTTI_END;
@@ -77,21 +75,18 @@ namespace wmoge {
     struct AssetMeta {
         WG_RTTI_STRUCT(AssetMeta);
 
-        UUID                       uuid   = UUID();
-        class Class*               cls    = nullptr;
-        class AssetPak*            pak    = nullptr;
-        class AssetLoader*         loader = nullptr;
-        buffered_vector<Strid>     deps;
-        std::optional<std::string> path_on_disk;
-        std::optional<YamlTree>    import_options;
-        Ref<AssetImportData>       import_data;
+        UUID                   uuid   = UUID();
+        class Class*           cls    = nullptr;
+        class AssetPak*        pak    = nullptr;
+        class AssetLoader*     loader = nullptr;
+        buffered_vector<Strid> deps;
+        Ref<AssetImportData>   import_data;
     };
 
     WG_RTTI_STRUCT_BEGIN(AssetMeta) {
         WG_RTTI_META_DATA();
         WG_RTTI_FIELD(uuid, {RttiOptional});
         WG_RTTI_FIELD(deps, {RttiOptional});
-        WG_RTTI_FIELD(path_on_disk, {RttiOptional});
         WG_RTTI_FIELD(import_data, {RttiOptional});
     }
     WG_RTTI_END;

@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
+#include "core/data.hpp"
 #include "core/date_time.hpp"
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
@@ -294,9 +295,9 @@ namespace wmoge {
     };
 
     template<typename T>
-    struct RttiTypeOf<Ref<T>> {
+    struct RttiTypeOf<Ref<T>, typename std::enable_if<std::is_base_of_v<RttiObject, T>>::type> {
         static Strid name() {
-            return SID(std::string("Ref<") + rtti_type<T>()->get_str() + ">");
+            return SID(std::string("ref<") + rtti_type<T>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeRefT<T>>(name());

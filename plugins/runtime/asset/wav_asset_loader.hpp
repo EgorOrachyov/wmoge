@@ -32,20 +32,20 @@
 namespace wmoge {
 
     /**
-     * @class AssetLoaderWav
+     * @class WavAssetLoader
      * @brief Loader for wav audio sources using audio file library
      */
-    class AssetLoaderWav final : public AssetLoader {
+    class WavAssetLoader final : public AssetLoader {
     public:
-        WG_RTTI_CLASS(AssetLoaderWav, AssetLoader);
+        WG_RTTI_CLASS(WavAssetLoader, AssetLoader);
 
-        AssetLoaderWav()           = default;
-        ~AssetLoaderWav() override = default;
+        WavAssetLoader()           = default;
+        ~WavAssetLoader() override = default;
 
         Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
     };
 
-    WG_RTTI_CLASS_BEGIN(AssetLoaderWav) {
+    WG_RTTI_CLASS_BEGIN(WavAssetLoader) {
         WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
     }

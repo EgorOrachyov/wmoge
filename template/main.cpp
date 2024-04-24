@@ -29,7 +29,7 @@
 
 #include "assimp_plugin.hpp"
 #include "freetype_plugin.hpp"
-#include "image_plugin.hpp"
+#include "runtime_plugin.hpp"
 
 namespace wmoge {
 
@@ -79,9 +79,9 @@ public:
 
     Status on_register() override {
         PluginManager* plugin_manager = IocContainer::instance()->resolve_v<PluginManager>();
+        plugin_manager->add<RuntimePlugin>();
         plugin_manager->add<AssimpPlugin>();
         plugin_manager->add<FreetypePlugin>();
-        plugin_manager->add<ImagePlugin>();
 
         GameApplication::on_register();
 

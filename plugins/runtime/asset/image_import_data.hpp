@@ -25,54 +25,31 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "asset_pak_fs.hpp"
+#pragma once
 
-#include "asset/asset_manager.hpp"
-#include "core/class.hpp"
-#include "debug/profiler.hpp"
-#include "io/yaml.hpp"
-#include "platform/file_system.hpp"
-#include "system/ioc_container.hpp"
+#include "asset/asset_import_data.hpp"
 
 namespace wmoge {
 
-    AssetPakFileSystem::AssetPakFileSystem() {
-        m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
+    /**
+     * @class ImageImportOptions
+     * @brief Options to import an image from an external format, such as `png`, `jpeg`, `bmp`, etc.
+     */
+    class ImageImportData : public AssetImportData {
+    public:
+        WG_RTTI_CLASS(ImageImportData, AssetImportData);
+
+        ImageImportData()           = default;
+        ~ImageImportData() override = default;
+
+        int channels = 4;
+    };
+
+    WG_RTTI_CLASS_BEGIN(ImageImportData) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(channels, {RttiOptional});
     }
-    std::string AssetPakFileSystem::get_name() const {
-        return "pak_fs";
-    }
-    Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
-        WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
-
-        std::string meta_file_path = name.str() + AssetMetaFile::FILE_EXTENSION;
-
-        auto res_tree = yaml_parse_file(meta_file_path);
-
-        if (res_tree.empty()) {
-            WG_LOG_ERROR("failed to parse tree file " << meta_file_path);
-            return StatusCode::FailedParse;
-        }
-
-        AssetMetaFile asset_file;
-
-        if (!yaml_read(res_tree, asset_file)) {
-            WG_LOG_ERROR("failed to parse .asset file " << meta_file_path);
-            return StatusCode::FailedRead;
-        }
-
-        auto loader = IocContainer::instance()->resolve_v<AssetManager>()->find_loader(asset_file.loader);
-
-        meta.uuid         = asset_file.uuid;
-        meta.cls          = Class::class_ptr(asset_file.rtti);
-        meta.pak          = this;
-        meta.loader       = loader.value_or(nullptr);
-        meta.deps         = std::move(asset_file.deps);
-        meta.path_on_disk = asset_file.path_on_disk;
-        meta.import_data  = asset_file.import_data;
-        meta.import_options.emplace(std::move(res_tree));
-
-        return StatusCode::Ok;
-    }
+    WG_RTTI_END;
 
 }// namespace wmoge

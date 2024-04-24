@@ -25,25 +25,50 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "image_plugin.hpp"
+#include "default_asset_loader.hpp"
 
-#include "_rtti.hpp"
-#include "core/log.hpp"
-#include "image_asset_loader.hpp"
+#include "debug/profiler.hpp"
 
 namespace wmoge {
 
-    ImagePlugin::ImagePlugin() {
-        m_name         = SID("iamge");
-        m_uuid         = UUID::generate();
-        m_description  = "Brings image utilities and import support into the engine";
-        m_requirements = {};
-    }
+    Status DefaultAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
+        WG_AUTO_PROFILE_ASSET("DefaultAssetLoader::load");
 
-    Status ImagePlugin::on_register() {
-        rtti_image();
+        Ref<AssetImportData> import_data = meta.import_data.cast<AssetImportData>();
+        if (!import_data) {
+            WG_LOG_ERROR("no import data to load " << name);
+            return StatusCode::InvalidData;
+        }
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << name);
+            return StatusCode::InvalidData;
+        }
 
-        WG_LOG_INFO("init image plugin");
+        std::string path_on_disk = import_data->source_files[0].file;
+        if (path_on_disk.empty()) {
+            WG_LOG_ERROR("no path on disk to load asset file " << name);
+            return StatusCode::InvalidData;
+        }
+
+        asset = meta.cls->instantiate().cast<Asset>();
+        if (!asset) {
+            WG_LOG_ERROR("failed to instantiate asset " << name);
+            return StatusCode::FailedInstantiate;
+        }
+
+        auto asset_tree = yaml_parse_file(path_on_disk);
+        if (asset_tree.empty()) {
+            WG_LOG_ERROR("failed to read parse file " << path_on_disk);
+            return StatusCode::FailedParse;
+        };
+
+        asset->set_name(name);
+        asset->set_import_data(meta.import_data);
+
+        if (!asset->read_from_yaml(asset_tree.crootref())) {
+            WG_LOG_ERROR("failed to load asset from file " << path_on_disk);
+            return StatusCode::FailedRead;
+        }
 
         return StatusCode::Ok;
     }

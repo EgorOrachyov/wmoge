@@ -28,6 +28,7 @@
 #pragma once
 
 #include "asset/image.hpp"
+#include "rtti/traits.hpp"
 
 namespace wmoge {
 
@@ -49,12 +50,20 @@ namespace wmoge {
      * @brief Params to resize source texture image content (on import)
     */
     struct GrcTexResizeParams {
+        WG_RTTI_STRUCT(GrcTexResizeParams);
+
         GrcTexSizePreset preset      = GrcTexSizePreset::None;
         bool             auto_adjust = true;
         bool             minify      = true;
-
-        WG_IO_DECLARE(GrcTexResizeParams);
     };
+
+    WG_RTTI_STRUCT_BEGIN(GrcTexResizeParams) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(preset, {RttiOptional});
+        WG_RTTI_FIELD(auto_adjust, {RttiOptional});
+        WG_RTTI_FIELD(minify, {RttiOptional});
+    }
+    WG_RTTI_END;
 
     /**
      * @class GrcTexResize

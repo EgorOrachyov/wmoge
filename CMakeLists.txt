@@ -114,7 +114,7 @@ function(wmoge_game name)
     add_executable(${name} ${arg_SOURCES} ${arg_ICON})
     target_link_libraries(${name} PRIVATE ${arg_DEPENDENCIES})
     target_include_directories(${name} PRIVATE ${arg_INCLUDES})
-    message(STATUS "Configure game executable '${name}' tyoe APPLICATION")
+    message(STATUS "Configure game executable '${name}' type APPLICATION")
 endfunction()
 
 ###########################################################

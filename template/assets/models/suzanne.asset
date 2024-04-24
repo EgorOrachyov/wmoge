@@ -1,10 +1,12 @@
 # Wmoge asset meta file
 version: 1
 uuid: 0
-loader: AssetLoaderDefault
+loader: DefaultAssetLoader
 rtti: Model
 description: "test model"
-path_on_disk: "asset://models/suzanne.model"
 deps:
   - "asset://materials/test_material_1"
   - "asset://mesh/suzanne"
+import_data:
+  rtti: AssetImportData
+  source_files: [{file: "asset://models/suzanne.model"}]

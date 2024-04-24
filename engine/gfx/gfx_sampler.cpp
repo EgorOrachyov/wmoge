@@ -35,18 +35,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(GfxSamplerDesc)
-    WG_IO_FIELD(min_lod)
-    WG_IO_FIELD(max_lod)
-    WG_IO_FIELD(max_anisotropy)
-    WG_IO_FIELD(min_flt)
-    WG_IO_FIELD(mag_flt)
-    WG_IO_FIELD(u)
-    WG_IO_FIELD(v)
-    WG_IO_FIELD(w)
-    WG_IO_FIELD(brd_clr)
-    WG_IO_END(GfxSamplerDesc)
-
     GfxSamplerDesc::GfxSamplerDesc() {
         std::memset(this, 0, sizeof(GfxSamplerDesc));
         min_lod        = 0;

@@ -25,33 +25,26 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "runtime_plugin.hpp"
 
-#include "asset/asset.hpp"
-#include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
-#include "asset/asset_pak.hpp"
+#include "_rtti.hpp"
+#include "core/log.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class AssetLoaderDefault
-     * @brief Loader for default single-file assets stored in yaml format
-     */
-    class AssetLoaderDefault final : public AssetLoader {
-    public:
-        WG_RTTI_CLASS(AssetLoaderDefault, AssetLoader);
-
-        AssetLoaderDefault()           = default;
-        ~AssetLoaderDefault() override = default;
-
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
-    };
-
-    WG_RTTI_CLASS_BEGIN(AssetLoaderDefault) {
-        WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
+    RuntimePlugin::RuntimePlugin() {
+        m_name         = SID("runtime");
+        m_uuid         = UUID::generate();
+        m_description  = "Standard engine runtime plugin for minimum functionality";
+        m_requirements = {};
     }
-    WG_RTTI_END;
+
+    Status RuntimePlugin::on_register() {
+        rtti_runtime();
+
+        WG_LOG_INFO("init runtime plugin");
+
+        return StatusCode::Ok;
+    }
 
 }// namespace wmoge

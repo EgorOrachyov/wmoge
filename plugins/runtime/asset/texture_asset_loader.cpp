@@ -25,10 +25,11 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "asset_loader_texture.hpp"
+#include "texture_asset_loader.hpp"
 
 #include "asset/image.hpp"
 #include "asset/texture.hpp"
+#include "asset/texture_import_data.hpp"
 #include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
@@ -37,31 +38,33 @@
 
 namespace wmoge {
 
-    Status AssetLoaderTexture2d::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssetLoaderTexture2d::load");
+    Status Texture2dAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
+        WG_AUTO_PROFILE_ASSET("Texture2dAssetLoader::load");
 
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("No import options to load texture " << name);
+        Ref<Texture2dImportData> import_data = meta.import_data.cast<Texture2dImportData>();
+        if (!import_data) {
+            WG_LOG_ERROR("no import data for " << name);
+            return StatusCode::InvalidData;
+        }
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << name);
             return StatusCode::InvalidData;
         }
 
-        Texture2dImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
-
         Ref<Image> source_image = make_ref<Image>();
 
-        if (!source_image->load(options.source_file, options.channels)) {
-            WG_LOG_ERROR("failed to load source image " << options.source_file);
+        if (!source_image->load(import_data->source_files[0].file, import_data->channels)) {
+            WG_LOG_ERROR("failed to load source image " << import_data->source_files[0].file);
             return StatusCode::FailedRead;
         }
 
-        if (!GrcTexResize::resize(options.resizing, *source_image)) {
-            WG_LOG_ERROR("failed to resize source image " << options.source_file);
+        if (!GrcTexResize::resize(import_data->resizing, *source_image)) {
+            WG_LOG_ERROR("failed to resize source image " << import_data->source_files[0].file);
             return StatusCode::FailedResize;
         }
 
         Ref<Texture2d> texture = make_ref<Texture2d>(
-                options.format,
+                import_data->format,
                 source_image->get_width(),
                 source_image->get_height());
 
@@ -72,18 +75,19 @@ namespace wmoge {
 
         asset = texture;
         asset->set_name(name);
+        asset->set_import_data(meta.import_data);
 
         texture->set_source_images({source_image});
-        texture->set_sampler_from_desc(options.sampling);
-        texture->set_compression(options.compression);
+        texture->set_sampler_from_desc(import_data->sampling);
+        texture->set_compression(import_data->compression);
 
-        if (options.mipmaps) {
+        if (import_data->mipmaps) {
             if (!texture->generate_mips()) {
                 WG_LOG_ERROR("failed to gen mip chain for " << name);
                 return StatusCode::Error;
             }
         }
-        if (options.compression.format != GrcTexCompressionFormat::Unknown) {
+        if (import_data->compression.format != GrcTexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
                 return StatusCode::Error;
@@ -97,22 +101,24 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status AssetLoaderTextureCube::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssetLoaderTextureCube::load");
+    Status TextureCubeAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
+        WG_AUTO_PROFILE_ASSET("TextureCubeAssetLoader::load");
 
-        if (!meta.import_options.has_value()) {
-            WG_LOG_ERROR("No import options to load texture " << name);
+        Ref<TextureCubeImportData> import_data = meta.import_data.cast<TextureCubeImportData>();
+        if (!import_data) {
+            WG_LOG_ERROR("no import data for " << name);
             return StatusCode::InvalidData;
         }
-
-        TextureCubeImportOptions options;
-        WG_YAML_READ_AS(meta.import_options->crootref(), "params", options);
+        if (import_data->source_files_size() < 6) {
+            WG_LOG_ERROR("not enough source files " << name);
+            return StatusCode::InvalidData;
+        }
 
         std::vector<Ref<Image>> source_images;
 
         auto load_source = [&](const std::string& path) {
             auto image = source_images.emplace_back(make_ref<Image>());
-            if (!image->load(path, options.channels)) {
+            if (!image->load(path, import_data->channels)) {
                 WG_LOG_ERROR("failed to load source image " << path);
                 return false;
             }
@@ -120,24 +126,26 @@ namespace wmoge {
             return true;
         };
 
-        if (!load_source(options.source_files.right) ||
-            !load_source(options.source_files.left) ||
-            !load_source(options.source_files.top) ||
-            !load_source(options.source_files.bottom) ||
-            !load_source(options.source_files.front) ||
-            !load_source(options.source_files.back)) {
+        // right, left, top, bottom, front, back
+
+        if (!load_source(import_data->source_files[0].file) ||
+            !load_source(import_data->source_files[1].file) ||
+            !load_source(import_data->source_files[2].file) ||
+            !load_source(import_data->source_files[3].file) ||
+            !load_source(import_data->source_files[4].file) ||
+            !load_source(import_data->source_files[5].file)) {
             return StatusCode::FailedRead;
         }
 
         for (Ref<Image>& source_image : source_images) {
-            if (!GrcTexResize::resize(options.resizing, *source_image)) {
+            if (!GrcTexResize::resize(import_data->resizing, *source_image)) {
                 WG_LOG_ERROR("failed to resize source image " << source_image->get_name());
                 return StatusCode::FailedResize;
             }
         }
 
         Ref<TextureCube> texture = make_ref<TextureCube>(
-                options.format,
+                import_data->format,
                 source_images.front()->get_width(),
                 source_images.front()->get_height());
 
@@ -148,18 +156,19 @@ namespace wmoge {
 
         asset = texture;
         asset->set_name(name);
+        asset->set_import_data(meta.import_data);
 
         texture->set_source_images(source_images);
-        texture->set_sampler_from_desc(options.sampling);
-        texture->set_compression(options.compression);
+        texture->set_sampler_from_desc(import_data->sampling);
+        texture->set_compression(import_data->compression);
 
-        if (options.mipmaps) {
+        if (import_data->mipmaps) {
             if (!texture->generate_mips()) {
                 WG_LOG_ERROR("failed to gen mip chain for " << name);
                 return StatusCode::Error;
             }
         }
-        if (options.compression.format != GrcTexCompressionFormat::Unknown) {
+        if (import_data->compression.format != GrcTexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
                 return StatusCode::Error;

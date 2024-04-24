@@ -37,11 +37,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(ImageImportOptions)
-    WG_IO_FIELD(source_file)
-    WG_IO_FIELD_OPT(channels)
-    WG_IO_END(ImageImportOptions)
-
     void Image::create(int width, int height, int channels, int pixel_size) {
         WG_AUTO_PROFILE_ASSET("Image::create");
 

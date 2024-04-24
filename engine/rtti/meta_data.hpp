@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/flat_map.hpp"
+#include "core/mask.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "core/var.hpp"
@@ -70,19 +71,17 @@ namespace wmoge {
         RttiMetaData() = default;
         RttiMetaData(const std::initializer_list<const RttiMetaProperty>& properties_list);
 
+        [[nodiscard]] bool is_no_save_load() const;
+        [[nodiscard]] bool is_no_copy() const;
+        [[nodiscard]] bool is_no_script_exprot() const;
+        [[nodiscard]] bool is_optional() const;
+        [[nodiscard]] bool has_attribute(RttiMetaAttribute attribute);
+
         [[nodiscard]] const flat_map<RttiMetaAttribute, Var>& get_properties() const { return m_properties; }
-        [[nodiscard]] bool                                    is_no_save_load() const { return m_no_save_load; }
-        [[nodiscard]] bool                                    is_no_copy() const { return m_no_copy; }
-        [[nodiscard]] bool                                    is_no_script_exprot() const { return m_no_script_exprot; }
-        [[nodiscard]] bool                                    is_optional() const { return m_optional; }
-        [[nodiscard]] bool                                    has_attribute(RttiMetaAttribute attribute) { return m_properties.find(attribute) != m_properties.end(); }
 
     private:
         flat_map<RttiMetaAttribute, Var> m_properties;
-        bool                             m_no_save_load     = false;
-        bool                             m_no_copy          = false;
-        bool                             m_no_script_exprot = false;
-        bool                             m_optional         = false;
+        Mask<RttiMetaAttribute>          m_attributes;
     };
 
 #define RttiNoSaveLoad      RttiMetaProperty(RttiMetaAttribute::NoSaveLoad)

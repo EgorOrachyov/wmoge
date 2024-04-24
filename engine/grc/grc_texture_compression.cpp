@@ -31,19 +31,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(GrcTexCompressionParams)
-    WG_IO_FIELD_OPT(format)
-    WG_IO_FIELD_OPT(use_channel_weighting)
-    WG_IO_FIELD_OPT(weight_red)
-    WG_IO_FIELD_OPT(weight_green)
-    WG_IO_FIELD_OPT(weight_blue)
-    WG_IO_FIELD_OPT(use_adaptive_weighting)
-    WG_IO_FIELD_OPT(use_alpha)
-    WG_IO_FIELD_OPT(alpha_threshold)
-    WG_IO_FIELD_OPT(fquality)
-    WG_IO_FIELD_OPT(num_threads)
-    WG_IO_END(GrcTexCompressionParams)
-
     static CMP_FORMAT get_source_format(GfxFormat format) {
         switch (format) {
             case GfxFormat::R8:
