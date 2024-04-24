@@ -1,5 +1,0 @@
-<map id="wmoge::TextureImportOptions" name="wmoge::TextureImportOptions">
-<area shape="rect" id="node1" title="Options (base) to import texture." alt="" coords="122,5,317,32"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1Texture2dImportOptions.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="5,87,215,114"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1TextureCubeImportOptions.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="239,80,419,121"/>
-</map>

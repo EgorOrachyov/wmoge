@@ -1,15 +1,20 @@
 <map id="wmoge::RttiObject" name="wmoge::RttiObject">
-<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,157,292,184"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="340,56,508,83"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="352,233,496,260"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,157,116,184"/>
+<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,284,292,311"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="340,132,508,159"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="352,385,496,412"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,284,116,311"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1AssimpMeshImportData.html" title=" " alt="" coords="561,5,771,32"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1FreetypeImportData.html" title="Data to import freetype font." alt="" coords="574,56,758,83"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1AssetLoaderDefault.html" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="573,107,759,133"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1AssetLoaderTexture2d.html" title="Loader for 2d textures through stb image library." alt="" coords="565,157,767,184"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1AssetLoaderTextureCube.html" title="Loader for cube&#45;map textures through stb image library." alt="" coords="557,208,775,235"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1AssetLoaderWav.html" title="Loader for wav audio sources using audio file library." alt="" coords="581,259,751,285"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="556,309,776,336"/>
-<area shape="rect" id="node12" href="$classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="569,360,763,387"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1ImageAssetLoader.html" title="Loader for images through stb image library." alt="" coords="576,411,756,437"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1ImageImportData.html" title=" " alt="" coords="581,107,751,133"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1TextureImportData.html" title="Base class for import data to import textures for GPU rendering." alt="" coords="577,157,755,184"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1WavImportData.html" title="Options to import an audio file from .wav files format." alt="" coords="586,208,746,235"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Texture2dImportData.html" title=" " alt="" coords="832,132,1023,159"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1TextureCubeImportData.html" title=" " alt="" coords="824,183,1031,209"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="556,259,776,285"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1DefaultAssetLoader.html" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="573,309,759,336"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="569,360,763,387"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1ImageAssetLoader.html" title="Loader for images through stb image library." alt="" coords="576,411,756,437"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1Texture2dAssetLoader.html" title="Loader for 2d textures through stb image library." alt="" coords="565,461,767,488"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1TextureCubeAssetLoader.html" title="Loader for cube&#45;map textures through stb image library." alt="" coords="557,512,775,539"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1WavAssetLoader.html" title="Loader for wav audio sources using audio file library." alt="" coords="581,563,751,589"/>
 </map>

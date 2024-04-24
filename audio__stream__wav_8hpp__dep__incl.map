@@ -1,6 +1,6 @@
 <map id="engine/asset/audio_stream_wav.hpp" name="engine/asset/audio_stream_wav.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="172,5,303,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="165,5,296,47"/>
 <area shape="rect" id="node2" href="$audio__stream__wav_8cpp.html" title=" " alt="" coords="5,95,136,136"/>
-<area shape="rect" id="node3" href="$asset__loader__wav_8cpp.html" title=" " alt="" coords="160,95,315,136"/>
-<area shape="rect" id="node4" href="$register__classes__asset_8cpp.html" title=" " alt="" coords="339,95,482,136"/>
+<area shape="rect" id="node3" href="$register__classes__asset_8cpp.html" title=" " alt="" coords="159,95,302,136"/>
+<area shape="rect" id="node4" href="$wav__asset__loader_8cpp.html" title=" " alt="" coords="327,95,481,136"/>
 </map>

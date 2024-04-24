@@ -1,6 +1,0 @@
-<map id="wmoge::AssetLoaderTexture2d" name="wmoge::AssetLoaderTexture2d">
-<area shape="rect" id="node1" title="Loader for 2d textures through stb image library." alt="" coords="5,229,207,256"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="34,155,178,181"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="42,80,170,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="51,5,161,32"/>
-</map>

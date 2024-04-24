@@ -89,7 +89,7 @@ $(function() {
 : <a class="el" href="classreflection_1_1Shader.html#a1fb7dbbcd8f3a0347df85f90f3312749">reflection.Shader</a>
 </li>
 <li>sampling
-: <a class="el" href="structwmoge_1_1TextureImportOptions.html#a5a32b3a20dc2e3f548440d351b743f63">wmoge::TextureImportOptions</a>
+: <a class="el" href="classwmoge_1_1TextureImportData.html#acd36c953c5821233fe0c11811bb652a4">wmoge::TextureImportData</a>
 </li>
 <li>save()
 : <a class="el" href="classwmoge_1_1Image.html#ab632d0331ef3b33ea27fc8000ccf2568">wmoge::Image</a>
@@ -169,7 +169,7 @@ $(function() {
 </li>
 <li>set()
 : <a class="el" href="classwmoge_1_1ConfigFile.html#a0c0400171db273e1cf6072dadcaa28d1">wmoge::ConfigFile</a>
-, <a class="el" href="classwmoge_1_1GameTokenManager.html#a529a6747b16ef9375cd2e2ead728ec58">wmoge::GameTokenManager</a>
+, <a class="el" href="classwmoge_1_1GameTokenManager.html#a09a56c557727ba597305580fe8ccc45a">wmoge::GameTokenManager</a>
 , <a class="el" href="structwmoge_1_1GfxLocation.html#a5849f754776145ea8c8d0a67d5002abd">wmoge::GfxLocation</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Buffer.html#ae6234133e63e9d745463dc33b69647d9">wmoge::GfxShaderReflection::Buffer</a>
 , <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#a69f4b4b754dd8d24f4f65042934044b4">wmoge::GfxShaderReflection::Texture</a>
@@ -415,8 +415,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1SceneNode.html#a69a6574f19a566beba29e6e1e632a3ae">wmoge::SceneNode</a>
 </li>
 <li>set_var()
-: <a class="el" href="classwmoge_1_1GrcShaderParam.html#a04971c32b7ef34ef7a71ce904b781962">wmoge::GrcShaderParam</a>
-, <a class="el" href="classwmoge_1_1GrcShaderParamBlock.html#a8244ec8bff4aa28952d5043df1906c87">wmoge::GrcShaderParamBlock</a>
+: <a class="el" href="classwmoge_1_1GrcShaderParam.html#a8038271f8215f9843a5ba544ddba73aa">wmoge::GrcShaderParam</a>
+, <a class="el" href="classwmoge_1_1GrcShaderParamBlock.html#ae619535a0953da22995582b3a4598938">wmoge::GrcShaderParamBlock</a>
 </li>
 <li>set_vec2()
 : <a class="el" href="structwmoge_1_1LuaMaterial.html#a648b4ce292d71a0d06a420b5a9d96bfb">wmoge::LuaMaterial</a>
@@ -491,7 +491,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1GrcShaderReflection.html#a286aee4713c93d999c95ab45aefe50f6">wmoge::GrcShaderReflection</a>
 </li>
 <li>ShaderManager()
-: <a class="el" href="classwmoge_1_1ShaderManager.html#a388cee698b719efd3b08c7a72431de7d">wmoge::ShaderManager</a>
+: <a class="el" href="classwmoge_1_1ShaderManager.html#aaa20738f9452beaa911f7761f73beea2">wmoge::ShaderManager</a>
 </li>
 <li>ShaderPassBase()
 : <a class="el" href="classwmoge_1_1ShaderPassBase.html#a81488077f8b80a3046bb5c3fd82404da">wmoge::ShaderPassBase</a>
@@ -643,14 +643,13 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RenderEngine.html#aef85f48934224843dad264c0069cea79">wmoge::RenderEngine</a>
 </li>
 <li>source_file
-: <a class="el" href="structwmoge_1_1AudioImportOptions.html#a378951d1987512480a98416f72ed6f55">wmoge::AudioImportOptions</a>
-, <a class="el" href="structwmoge_1_1FontImportOptions.html#a029256fdaaaba9eb0074e1210c177728">wmoge::FontImportOptions</a>
-, <a class="el" href="structwmoge_1_1ImageImportOptions.html#a993718967d18f0885cbe1ee7bfb18315">wmoge::ImageImportOptions</a>
-, <a class="el" href="structwmoge_1_1Texture2dImportOptions.html#ad25f023c1118c92c3eab55ec1c36bd37">wmoge::Texture2dImportOptions</a>
+: <a class="el" href="structwmoge_1_1FontImportOptions.html#a029256fdaaaba9eb0074e1210c177728">wmoge::FontImportOptions</a>
 </li>
 <li>source_files
 : <a class="el" href="classwmoge_1_1AssetImportData.html#ac0112a7e64f50dd962a4e2c1e299d3d9">wmoge::AssetImportData</a>
-, <a class="el" href="structwmoge_1_1TextureCubeImportOptions.html#a28f2a09930382a93b0f529cfcdc417cc">wmoge::TextureCubeImportOptions</a>
+</li>
+<li>source_files_size()
+: <a class="el" href="classwmoge_1_1AssetImportData.html#abf1725f6329dc30158afab9e54914d34">wmoge::AssetImportData</a>
 </li>
 <li>SOURCE_LOC
 : <a class="el" href="structwmoge_1_1ShaderBloom.html#ae3435f76d71fc09423a33196b37abcda">wmoge::ShaderBloom</a>
@@ -725,7 +724,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Math.html#ab7ac364dda02261ccdfb6d74117f0fa4">wmoge::Math</a>
 </li>
 <li>srgb
-: <a class="el" href="structwmoge_1_1TextureImportOptions.html#a4b0a4ed80f31de035e8cb9418e852350">wmoge::TextureImportOptions</a>
+: <a class="el" href="classwmoge_1_1TextureImportData.html#ac071a0b7e3712c70e6f29fc0f20f5479">wmoge::TextureImportData</a>
 </li>
 <li>ssao
 : <a class="el" href="structwmoge_1_1GraphicsPipelineAssets.html#a209159c96420fc0f02869d9eb2b93ef8">wmoge::GraphicsPipelineAssets</a>

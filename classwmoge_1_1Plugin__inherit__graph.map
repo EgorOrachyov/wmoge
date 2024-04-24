@@ -2,5 +2,5 @@
 <area shape="rect" id="node1" title="Base class for any engine plug&#45;in." alt="" coords="205,5,311,32"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1AssimpPlugin.html" title="Plugin which brings assimp support to the engine." alt="" coords="5,80,156,107"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1FreetypePlugin.html" title="Plugin which brings freetype fonts support." alt="" coords="180,80,336,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1ImagePlugin.html" title="Plugin which adds variouse utilities to work with image data in the engine." alt="" coords="360,80,503,107"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RuntimePlugin.html" title="Plugin for standard engine runtime workflows." alt="" coords="361,80,515,107"/>
 </map>
