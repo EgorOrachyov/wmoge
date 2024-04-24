@@ -54,7 +54,7 @@ jobs:
         run: cmake --build ${{ env.build_dir }} --target=template
 
   ubuntu:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
         with:
@@ -67,7 +67,7 @@ jobs:
       - name: Update apt
         shell: bash
         run: |
-          sudo apt update
+          sudo apt-get update
 
       - name: Install glfw dependencies
         shell: bash
@@ -84,7 +84,7 @@ jobs:
       - name: Install openal dependencies
         shell: bash
         run: |
-          sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev libpipewire-0.3-dev qtbase5-dev libdbus-1-dev
+          sudo apt-get install -y libpulse-dev portaudio19-dev libasound2-dev libjack-dev libpipewire-0.2-dev qtbase5-dev libdbus-1-dev
 
       - name: Install Vulkan SDK
         uses: humbletim/setup-vulkan-sdk@v1.2.0
