@@ -27,7 +27,7 @@
 
 #include "lua_script_instance.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "scripting/lua/lua_script.hpp"
 #include "scripting/lua_bindings/lua_bindings_event.hpp"
 

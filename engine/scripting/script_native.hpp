@@ -28,9 +28,9 @@
 #ifndef WMOGE_SCRIPT_NATIVE_HPP
 #define WMOGE_SCRIPT_NATIVE_HPP
 
-#include "asset/script.hpp"
 #include "core/class.hpp"
 #include "core/object.hpp"
+#include "scripting/script.hpp"
 #include "scripting/script_instance.hpp"
 
 namespace wmoge {

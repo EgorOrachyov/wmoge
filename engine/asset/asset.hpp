@@ -36,7 +36,7 @@
 #include "core/uuid.hpp"
 #include "core/weak_ref.hpp"
 #include "event/event.hpp"
-#include "io/serialization.hpp"
+#include "rtti/traits.hpp"
 
 #include <cstddef>
 #include <functional>
@@ -86,13 +86,15 @@ namespace wmoge {
         return stream;
     }
 
+    WG_RTTI_DECL(AssetId, "assetid");
+
     /**
      * @class Asset
      * @brief Base class for any engine asset
     */
-    class Asset : public WeakRefCnt<Object> {
+    class Asset : public WeakRefCnt<RttiObject> {
     public:
-        WG_OBJECT(Asset, Object);
+        WG_RTTI_CLASS(Asset, RttiObject);
 
         void                        set_name(Strid name) { m_id = AssetId(name); }
         void                        set_id(AssetId id) { m_id = id; }
@@ -105,15 +107,20 @@ namespace wmoge {
 
         virtual void collect_deps(class AssetDependencies& deps) {}
 
-        Status copy_to(Object& other) const override;
-        Status read_from_yaml(const YamlConstNodeRef& node) override;
-        Status write_to_yaml(YamlNodeRef node) const override;
-
     private:
         AssetId              m_id;
         UUID                 m_uuid;
         Ref<AssetImportData> m_import_data;
     };
+
+    WG_RTTI_CLASS_BEGIN(Asset) {
+        WG_RTTI_META_DATA(RttiUiHint("Base class for any engine asset"));
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_id, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(m_uuid, {RttiNoSaveLoad});
+        WG_RTTI_FIELD(m_import_data, {RttiNoSaveLoad});
+    }
+    WG_RTTI_END;
 
     /**
      * @class AssetDependencies

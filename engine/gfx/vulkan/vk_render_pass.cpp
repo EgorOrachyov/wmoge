@@ -28,8 +28,8 @@
 #include "vk_render_pass.hpp"
 
 #include "core/crc32.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

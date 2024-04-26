@@ -117,7 +117,7 @@ namespace wmoge {
      * 
      * @see SceneProperty
      * @see SceneTree
-     * @see Prefab
+     * @see ScenePrefab
      */
     class SceneNode : public Object {
     public:
@@ -164,7 +164,7 @@ namespace wmoge {
         [[nodiscard]] const Strid&                         get_name() const { return m_name; }
         [[nodiscard]] const std::string&                   get_path() const { return m_path; }
         [[nodiscard]] const UUID&                          get_uuid() const { return m_uuid; }
-        [[nodiscard]] const Ref<class Prefab>&             get_prefab() const { return m_prefab; }
+        [[nodiscard]] const Ref<class ScenePrefab>&        get_prefab() const { return m_prefab; }
         [[nodiscard]] const SceneNodeType                  get_type() const { return m_type; }
         [[nodiscard]] const TransformEdt&                  get_transform() const { return m_transform; }
         [[nodiscard]] const Mat4x4f&                       get_l2w() const { return m_l2w; }
@@ -182,7 +182,7 @@ namespace wmoge {
         Strid                           m_name   = SID("");
         std::string                     m_path;
         UUID                            m_uuid = UUID::generate();
-        Ref<class Prefab>               m_prefab;
+        Ref<class ScenePrefab>          m_prefab;
         SceneNodeType                   m_type = SceneNodeType::Object;
         TransformEdt                    m_transform;               // local editable transform
         Mat4x4f                         m_l2w = Math3d::identity();// cached in hier

@@ -37,6 +37,7 @@
 #include <cinttypes>
 #include <optional>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 namespace wmoge {
@@ -167,7 +168,7 @@ namespace wmoge {
         std::size_t size;
         WG_ARCHIVE_READ(archive, size);
         vector.resize(size);
-        for (int i = 0; i < size; i++) {
+        for (std::size_t i = 0; i < size; i++) {
             WG_ARCHIVE_READ(archive, vector[i]);
         }
         return WG_OK;
@@ -181,12 +182,34 @@ namespace wmoge {
         return WG_OK;
     }
 
+    template<typename T>
+    Status archive_read(Archive& archive, std::unordered_set<T>& set) {
+        assert(set.empty());
+        std::size_t size;
+        WG_ARCHIVE_READ(archive, size);
+        set.reserve(size);
+        for (std::size_t i = 0; i < size; i++) {
+            T entry;
+            WG_ARCHIVE_READ(archive, entry);
+            set.insert(std::move(entry));
+        }
+        return WG_OK;
+    }
+    template<typename T>
+    Status archive_write(Archive& archive, const std::unordered_set<T>& set) {
+        WG_ARCHIVE_WRITE(archive, set.size());
+        for (const auto& entry : set) {
+            WG_ARCHIVE_WRITE(archive, entry);
+        }
+        return WG_OK;
+    }
+
     template<typename K, typename V>
     Status archive_read(Archive& archive, std::unordered_map<K, V>& map) {
         assert(map.empty());
         std::size_t size;
         WG_ARCHIVE_READ(archive, size);
-        for (int i = 0; i < size; i++) {
+        for (std::size_t i = 0; i < size; i++) {
             std::pair<K, V> entry;
             WG_ARCHIVE_READ(archive, entry.first);
             WG_ARCHIVE_READ(archive, entry.second);

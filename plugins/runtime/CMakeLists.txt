@@ -6,6 +6,8 @@ set(PLUGIN_SOURCES
     asset/image_asset_loader.cpp
     asset/image_asset_loader.hpp
     asset/image_import_data.hpp
+    asset/shader_asset_loader.cpp
+    asset/shader_asset_loader.hpp
     asset/texture_asset_loader.cpp
     asset/texture_asset_loader.hpp
     asset/texture_import_data.hpp

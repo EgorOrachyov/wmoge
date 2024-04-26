@@ -34,7 +34,7 @@
 namespace wmoge {
 
     struct TestStruct {
-        WG_RTTI_STRUCT(TestStruct)
+        WG_RTTI_STRUCT(TestStruct);
 
         std::vector<int> prices = {10, 20, 30};
         std::string      shop   = "uroz";
@@ -48,7 +48,7 @@ namespace wmoge {
     WG_RTTI_END;
 
     class TestClass : public RttiObject {
-        WG_RTTI_CLASS(TestClass, RttiObject)
+        WG_RTTI_CLASS(TestClass, RttiObject);
 
         void do_work(const TestStruct& a, int b, std::string* c) {
             WG_LOG_INFO("do work " << *c << " " << b);
@@ -97,7 +97,7 @@ public:
         Engine::instance()->action_manager()->activate(SID("console"));
         Engine::instance()->action_manager()->activate(SID("camera_debug"));
 
-        model = Engine::instance()->asset_manager()->load(SID("asset://models/suzanne")).cast<Model>();
+        mesh = Engine::instance()->asset_manager()->load(SID("asset://mesh/suzanne")).cast<Mesh>();
 
         auto scene_tree_packed = Engine::instance()->asset_manager()->load(SID("asset://trees/test_scene")).cast<SceneTreePacked>();
         scene_tree             = scene_tree_packed->instantiate();
@@ -117,15 +117,6 @@ public:
         };
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
-
-        auto shader  = Engine::instance()->asset_manager()->load(SID("asset://shaders/test_shader")).cast<Shader>();
-        auto variant = shader->create_variant({GfxVertAttribs{GfxVertAttrib::Pos3f}}, {"MESH_PASS_GBUFFER"});
-
-        while (variant->status() == GfxShaderStatus::Compiling) {
-            WG_LOG_INFO("waiting for " << variant->name() << " compilation...");
-            std::this_thread::sleep_for(std::chrono::seconds{1});
-        }
-        WG_LOG_INFO("status for " << variant->name() << " is " << magic_enum::enum_name(variant->status()));
 
         GrcShaderStructRegister rdc(SID("DrawCmd"), 4 * 4 * 3 + 4 * 4 + 4 * 4);
         rdc
@@ -163,8 +154,9 @@ public:
 
         Engine* engine = Engine::instance();
 
-        std::vector<GfxFormat> formats = {GfxFormat::BC1_RGB, GfxFormat::BC2, GfxFormat::R16};
-        std::vector<Vec2i>     sizes   = {Vec2i(10, 20), Vec2i(0, 30), Vec2i(-1, -1)};
+        std::vector<GfxFormat>    formats = {GfxFormat::BC1_RGB, GfxFormat::BC2, GfxFormat::R16};
+        std::vector<Vec2i>        sizes   = {Vec2i(10, 20), Vec2i(0, 30), Vec2i(-1, -1)};
+        std::unordered_set<Strid> names   = {Strid("a"), Strid("b")};
 
         RttiType*        tenum   = rtti_type<GfxSampAddress>();
         RttiType*        tint    = rtti_type<int>();
@@ -173,6 +165,7 @@ public:
         RttiType*        tstrid  = rtti_type<Strid>();
         RttiType*        tvecf   = rtti_type<decltype(formats)>();
         RttiType*        tvecs   = rtti_type<decltype(sizes)>();
+        RttiType*        tsets   = rtti_type<decltype(names)>();
         RttiType*        tstruct = rtti_type<TestStruct>();
         RttiType*        tclass  = rtti_type<TestClass>();
         RttiTypeStorage* s       = RttiTypeStorage::instance();
@@ -247,7 +240,6 @@ public:
     }
 
     Status on_shutdown() override {
-        model.reset();
         mesh.reset();
         scene.reset();
         scene_tree.reset();
@@ -261,7 +253,6 @@ public:
     Ref<Scene>     scene;
     Ref<SceneTree> scene_tree;
     WeakRef<Mesh>  mesh;
-    Ref<Model>     model;
 };
 
 int main(int argc, const char* const* argv) {

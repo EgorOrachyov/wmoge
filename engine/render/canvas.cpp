@@ -28,10 +28,10 @@
 #include "canvas.hpp"
 
 #include "core/string_utils.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "grc/grc_texture_manager.hpp"
+#include "grc/texture_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "render/shader_manager.hpp"
 #include "system/engine.hpp"
 

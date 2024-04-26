@@ -28,8 +28,8 @@
 #include "glfw_window.hpp"
 
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

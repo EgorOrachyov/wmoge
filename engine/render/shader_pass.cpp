@@ -29,7 +29,7 @@
 
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "render/shader_builder.hpp"
 
 namespace wmoge {

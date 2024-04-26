@@ -28,7 +28,7 @@
 #include "al_bus.hpp"
 
 #include "audio/openal/al_engine.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

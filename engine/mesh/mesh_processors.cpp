@@ -27,11 +27,11 @@
 
 #include "mesh_processors.hpp"
 
-#include "asset/material.hpp"
-#include "asset/shader.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "material/material.hpp"
+#include "material/shader.hpp"
 #include "mesh/mesh_batch.hpp"
+#include "profiler/profiler.hpp"
 #include "render/shader_manager.hpp"
 
 namespace wmoge {

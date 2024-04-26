@@ -45,6 +45,7 @@
 #include <stack>
 #include <type_traits>
 #include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -253,6 +254,27 @@ namespace wmoge {
     Status yaml_write(YamlNodeRef node, const std::vector<T>& vector) {
         WG_YAML_SEQ(node);
         for (const T& value : vector) {
+            YamlNodeRef child = node.append_child();
+            WG_YAML_WRITE(child, value);
+        }
+        return WG_OK;
+    }
+
+    template<typename T>
+    Status yaml_read(YamlConstNodeRef node, std::unordered_set<T>& set) {
+        assert(set.empty());
+        set.reserve(node.num_children());
+        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
+            T entry;
+            WG_YAML_READ(child, entry);
+            set.insert(std::move(entry));
+        }
+        return WG_OK;
+    }
+    template<typename T>
+    Status yaml_write(YamlNodeRef node, const std::unordered_set<T>& set) {
+        WG_YAML_SEQ(node);
+        for (const T& value : set) {
             YamlNodeRef child = node.append_child();
             WG_YAML_WRITE(child, value);
         }

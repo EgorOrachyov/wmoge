@@ -27,7 +27,7 @@
 
 #include "al_engine.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

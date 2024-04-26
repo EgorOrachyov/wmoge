@@ -27,10 +27,10 @@
 
 #include "freetype_asset_loader.hpp"
 
-#include "asset/font.hpp"
-#include "debug/profiler.hpp"
 #include "freetype_font.hpp"
 #include "freetype_import_data.hpp"
+#include "profiler/profiler.hpp"
+#include "render/font.hpp"
 
 namespace wmoge {
 
@@ -47,7 +47,7 @@ namespace wmoge {
             return StatusCode::InvalidData;
         }
 
-        Ref<Font> font = meta.cls->instantiate().cast<Font>();
+        Ref<Font> font = meta.rtti->instantiate().cast<Font>();
         if (!font) {
             WG_LOG_ERROR("failed to instantiate font " << name);
             return StatusCode::FailedInstantiate;

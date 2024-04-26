@@ -28,14 +28,14 @@
 #include "aux_draw_manager.hpp"
 
 #include "asset/asset_manager.hpp"
-#include "asset/config_file.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "hgfx/hgfx_pass_base.hpp"
 #include "hgfx/hgfx_pass_text.hpp"
 #include "math/math_utils3d.hpp"
+#include "profiler/profiler.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 
 #include <algorithm>

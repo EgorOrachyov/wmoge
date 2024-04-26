@@ -27,10 +27,10 @@
 
 #include "scene_tree.hpp"
 
-#include "asset/prefab.hpp"
 #include "core/class.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "scene/scene_manager.hpp"
+#include "scene/scene_prefab.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

@@ -27,13 +27,13 @@
 
 #include "lua_script_system.hpp"
 
-#include "asset/script.hpp"
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "scripting/lua/lua_event_script.hpp"
 #include "scripting/lua/lua_script.hpp"
 #include "scripting/lua_bindings/lua_bindings.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
+#include "scripting/script.hpp"
 
 #include <sstream>
 
@@ -42,7 +42,6 @@ namespace wmoge {
     LuaScriptSystem::LuaScriptSystem() {
         WG_AUTO_PROFILE_LUA("LuaScriptSystem::LuaScriptSystem");
 
-        LuaScript::register_class();
         LuaEventScript::register_class();
 
         m_global_state = luaL_newstate();

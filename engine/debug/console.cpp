@@ -28,10 +28,8 @@
 #include "console.hpp"
 
 #include "asset/asset_manager.hpp"
-#include "asset/config_file.hpp"
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
-#include "debug/profiler.hpp"
 #include "event/event.hpp"
 #include "event/event_action.hpp"
 #include "event/event_input.hpp"
@@ -41,7 +39,9 @@
 #include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "render/canvas.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 
 #include <algorithm>

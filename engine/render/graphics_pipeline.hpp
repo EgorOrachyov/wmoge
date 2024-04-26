@@ -28,7 +28,6 @@
 #pragma once
 
 #include "asset/asset_ref.hpp"
-#include "asset/texture.hpp"
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_ctx.hpp"
@@ -40,6 +39,7 @@
 #include "render/camera.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"
+#include "render/texture.hpp"
 
 #include <string>
 #include <vector>

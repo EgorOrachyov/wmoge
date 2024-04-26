@@ -31,22 +31,31 @@ project for educational purposes only.
 
 * 🖥️ Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.
 * 🔨 Moder C++17 based engine with clear architecture.
-* 🔨 Runtime reflection system with class, method and property information.
+* 🔨 Full runtime reflection system (RTTI) with class, method and property information.
 * 🏎️ Task manager and task graph support for concurrent execution.
 * 🏎️ Custom async (future & promise) implementation with join, notify and continuation.
+* 🏎️ Extendet set of containers, with buffered vector, flat maps, sets, etc.
+* ⚙ Command line and hook system to build custom tools.
 * ⚙ Simple stack-based config system.
+* ⚙ Dependency injection and IoC container system for global managers.
 * 🎥 Abstract graphics (gfx) device interface for GPU driver communication.
 * 🎥 Vulkan-based gfx device backend.
-* 🎥 (in progress) OpenGL-based gfx device backend.
-* 🎨 Automated generation of shader passes with automated layout creation, compilation and reloading.
+* 🎥 (future) OpenGL-based gfx device backend.
+* 🎥 (future) DX12-based gfx device backend.
+* 🎨 Custom shader files syntax support to write any shaders with rich features.
+* 🎨 Automated fast runtime shaders reflection generatio.
+* 🎨 Automated shaders layout creation, compilation and reloading.
+* 🎨 Built-in GLSL shader compiler for online compilation.
+* 🎨 Hot-reloading of shaders at runtime.
+* 🎨 Compiled shaders runtime and offline cahce to speed-up loading.
 * 🎨 Gpu pipelines runtime and offline cache to speed-up rendering.
-* 🎨 Lightweight runtime and offline shader cache system to speed-up shaders compilation.
-* 🎨 High-level shaders and render-passes with generated static reflection from a python script.
 * 📦 Async resource-loading system with runtime cache.
 * 📦 Unified resources handling, meta-information, support for external formats through custom loaders.
 * 📦 Yaml and binary serialization support.
+* 📦 LZ4 compression and decompression for fast assets loading.
 * 📦 Gpu texture compression into BCn (1-7) format for faster loading, rendering and lower memory usage.
 * 🅰️ Custom math library with 2d and 3d-space primitives.
+* 🅰️ (future) SIMD utilities for fast vectorized math.
 * 🧱 Ecs-based scene model with fast, parallel and memory-friendly update.
 * 🧱 Tree-based object model for editor (offline) scene description.
 * 🎧 (in progress) OpenAL audio renderer for playing game sounds.

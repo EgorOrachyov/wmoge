@@ -28,7 +28,7 @@
 #include "vk_texture.hpp"
 #include "vk_driver.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

@@ -28,78 +28,13 @@
 #include "lua_script.hpp"
 
 #include "core/object.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "scripting/lua/lua_script_instance.hpp"
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {
-
-    Status LuaScript::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_AUTO_PROFILE_LUA("LuaScript::read_from_yaml");
-
-        if (!Script::read_from_yaml(node)) {
-            return StatusCode::FailedRead;
-        }
-
-        auto* engine        = Engine::instance();
-        auto* script_system = engine->script_system();
-
-        m_system = dynamic_cast<LuaScriptSystem*>(script_system);
-
-        if (!m_system) {
-            WG_LOG_ERROR("engine script system not lua");
-            return StatusCode::Error;
-        }
-
-        if (m_system->get_language() != get_language()) {
-            WG_LOG_ERROR("cannot load script of language " << get_language() << " for system " << m_system->get_name());
-            return StatusCode::Error;
-        }
-
-        std::lock_guard guard(m_system->get_mutex());
-        m_state = m_system->get_global_state();
-
-        luaL_dostring(m_state, get_code().c_str());
-        auto user_object = luabridge::LuaRef::fromStack(m_state, -1);
-
-        if (!user_object.isTable()) {
-            std::stringstream out_error;
-            user_object.print(out_error);
-            WG_LOG_ERROR("expecting created instance to be an object (lua table)");
-            WG_LOG_ERROR("luabridge log: " << out_error.str());
-            return StatusCode::Error;
-        }
-
-        if (!user_object[m_system->get_object_class()].isTable()) {
-            WG_LOG_ERROR("expecting user class to be a table");
-            return StatusCode::Error;
-        }
-
-        auto user_class = user_object[m_system->get_object_class()];
-        auto user_mask  = ScriptFunctionsMask();
-
-        for (int i = 0; i < static_cast<int>(ScriptFunction::Total); i++) {
-            if (user_class[m_system->get_object_callbacks()[i]].isFunction()) {
-                user_mask.set(static_cast<ScriptFunction>(i));
-            }
-        }
-
-        m_mask = user_mask;
-
-        return StatusCode::Ok;
-    }
-    Status LuaScript::copy_to(Object& copy) const {
-        Script::copy_to(copy);
-        auto* script             = dynamic_cast<LuaScript*>(&copy);
-        script->m_state          = m_state;
-        script->m_system         = m_system;
-        script->m_lua_class      = m_lua_class;
-        script->m_lua_methods    = m_lua_methods;
-        script->m_lua_properties = m_lua_properties;
-        return StatusCode::Ok;
-    }
 
     Ref<ScriptInstance> LuaScript::attach_to(Object* object) {
         WG_AUTO_PROFILE_LUA("LuaScript::attach_to");
@@ -153,10 +88,6 @@ namespace wmoge {
     }
     lua_State* LuaScript::get_state() {
         return m_state;
-    }
-
-    void LuaScript::register_class() {
-        auto* cls = Class::register_class<LuaScript>();
     }
 
 }// namespace wmoge

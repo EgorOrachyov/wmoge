@@ -27,12 +27,12 @@
 
 #include "scene_node.hpp"
 
-#include "asset/prefab.hpp"
 #include "core/class.hpp"
 #include "core/flat_map.hpp"
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "scene/scene_components.hpp"
+#include "scene/scene_prefab.hpp"
 #include "scene/scene_tree.hpp"
 
 #include <cassert>

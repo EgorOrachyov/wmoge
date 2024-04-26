@@ -27,7 +27,7 @@
 
 #include "scene_data.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

@@ -28,7 +28,7 @@
 #include "al_playback.hpp"
 
 #include "audio/openal/al_engine.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cstring>
 

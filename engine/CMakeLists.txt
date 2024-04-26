@@ -1,10 +1,26 @@
 # declare static engine library
 add_library(wmoge STATIC
         engine.hpp
+        asset/asset.cpp
+        asset/asset.hpp
+        asset/asset_import_data.hpp
+        asset/asset_loader.hpp
+        asset/asset_manager.cpp
+        asset/asset_manager.hpp
+        asset/asset_meta.hpp
+        asset/asset_pak.hpp
+        asset/asset_pak_fs.cpp
+        asset/asset_pak_fs.hpp
+        asset/asset_ref.hpp
+        asset/_rtti.hpp
         audio/audio_bus.hpp
         audio/audio_defs.hpp
         audio/audio_engine.hpp
         audio/audio_playback.hpp
+        audio/audio_stream_wav.cpp
+        audio/audio_stream_wav.hpp
+        audio/audio_stream.cpp
+        audio/audio_stream.hpp
         audio/openal/al_bus.cpp
         audio/openal/al_bus.hpp
         audio/openal/al_defs.cpp
@@ -183,28 +199,28 @@ add_library(wmoge STATIC
         glsl/glsl_include_processor.hpp
         glsl/glsl_shader_compiler.cpp
         glsl/glsl_shader_compiler.hpp
-        grc/grc_shader_manager.cpp
-        grc/grc_shader_manager.hpp
-        grc/grc_shader_param_block.cpp
-        grc/grc_shader_param_block.hpp
-        grc/grc_shader_param.cpp
-        grc/grc_shader_param.hpp
-        grc/grc_shader_pass.cpp
-        grc/grc_shader_pass.hpp
-        grc/grc_shader_reflection.cpp
-        grc/grc_shader_reflection.hpp
-        grc/grc_shader_script_builder.cpp
-        grc/grc_shader_script_builder.hpp
-        grc/grc_shader_script.cpp
-        grc/grc_shader_script.hpp
-        grc/grc_shader.cpp
-        grc/grc_shader.hpp
-        grc/grc_texture_compression.cpp
-        grc/grc_texture_compression.hpp
-        grc/grc_texture_manager.cpp
-        grc/grc_texture_manager.hpp
-        grc/grc_texture_resize.cpp
-        grc/grc_texture_resize.hpp
+        grc/shader_manager.cpp
+        grc/shader_manager.hpp
+        grc/shader_param_block.cpp
+        grc/shader_param_block.hpp
+        grc/shader_param.cpp
+        grc/shader_param.hpp
+        grc/shader_pass.cpp
+        grc/shader_pass.hpp
+        grc/shader_reflection.cpp
+        grc/shader_reflection.hpp
+        grc/shader_script_builder.cpp
+        grc/shader_script_builder.hpp
+        grc/shader_script.cpp
+        grc/shader_script.hpp
+        grc/shader.cpp
+        grc/shader.hpp
+        grc/texture_compression.cpp
+        grc/texture_compression.hpp
+        grc/texture_manager.cpp
+        grc/texture_manager.hpp
+        grc/texture_resize.cpp
+        grc/texture_resize.hpp
         hgfx/hgfx_pass.cpp
         hgfx/hgfx_pass.hpp
         hgfx/hgfx_pass_base.cpp
@@ -231,6 +247,10 @@ add_library(wmoge STATIC
         io/serialization.hpp
         io/yaml.cpp
         io/yaml.hpp
+        material/material.cpp
+        material/material.hpp
+        material/shader.cpp
+        material/shader.hpp
         math/aabb.hpp
         math/color.cpp
         math/color.hpp
@@ -249,6 +269,8 @@ add_library(wmoge STATIC
         memory/mem_linear.hpp
         memory/mem_pool.cpp
         memory/mem_pool.hpp
+        mesh/array_mesh.cpp
+        mesh/array_mesh.hpp
         mesh/mesh_batch.cpp
         mesh/mesh_batch.hpp
         mesh/mesh_bucket.cpp
@@ -259,10 +281,14 @@ add_library(wmoge STATIC
         mesh/mesh_pass.hpp
         mesh/mesh_processors.cpp
         mesh/mesh_processors.hpp
-        pfx/pfx_component.cpp
-        pfx/pfx_component.hpp
+        mesh/mesh.cpp
+        mesh/mesh.hpp
         pfx/pfx_component_runtime.cpp
         pfx/pfx_component_runtime.hpp
+        pfx/pfx_component.cpp
+        pfx/pfx_component.hpp
+        pfx/pfx_effect.cpp
+        pfx/pfx_effect.hpp
         pfx/pfx_emitter.cpp
         pfx/pfx_emitter.hpp
         pfx/pfx_feature.cpp
@@ -301,6 +327,8 @@ add_library(wmoge STATIC
         platform/glfw/glfw_window.hpp
         platform/glfw/glfw_window_manager.cpp
         platform/glfw/glfw_window_manager.hpp
+        profiler/profiler.cpp
+        profiler/profiler.hpp
         render/aux_draw_manager.cpp
         render/aux_draw_manager.hpp
         render/camera.cpp
@@ -311,12 +339,18 @@ add_library(wmoge STATIC
         render/culling.hpp
         render/deferred_pipeline.cpp
         render/deferred_pipeline.hpp
+        render/font.cpp
+        render/font.hpp
         render/graphics_pipeline.cpp
         render/graphics_pipeline.hpp
+        render/image.cpp
+        render/image.hpp
         render/light.cpp
         render/light.hpp
         render/model_instance.cpp
         render/model_instance.hpp
+        render/model.cpp
+        render/model.hpp
         render/render_engine.cpp
         render/render_engine.hpp
         render/render_queue.cpp
@@ -329,56 +363,13 @@ add_library(wmoge STATIC
         render/shader_manager.hpp
         render/shader_pass.cpp
         render/shader_pass.hpp
+        render/texture.cpp
+        render/texture.hpp
         render/view.cpp
         render/view.hpp
         render/view_manager.cpp
         render/view_manager.hpp
-        asset/array_mesh.cpp
-        asset/array_mesh.hpp
-        asset/audio_stream.cpp
-        asset/audio_stream.hpp
-        asset/audio_stream_wav.cpp
-        asset/audio_stream_wav.hpp
-        asset/font.cpp
-        asset/font.hpp
-        asset/config_file.cpp
-        asset/config_file.hpp
-        asset/image.cpp
-        asset/image.hpp
-        asset/material.cpp
-        asset/material.hpp
-        asset/mesh.cpp
-        asset/mesh.hpp
-        asset/model.cpp
-        asset/model.hpp
-        asset/pfx_effect.cpp
-        asset/pfx_effect.hpp
-        asset/prefab.cpp
-        asset/prefab.hpp
-        asset/asset.cpp
-        asset/asset.hpp
-        asset/asset_import_data.hpp
-        asset/asset_loader.hpp
-        asset/asset_manager.cpp
-        asset/asset_manager.hpp
-        asset/asset_meta.hpp
-        asset/asset_pak.hpp
-        asset/asset_pak_fs.cpp
-        asset/asset_pak_fs.hpp
-        asset/asset_ref.hpp
-        asset/scene_packed.cpp
-        asset/scene_packed.hpp
-        asset/scene_tree_packed.cpp
-        asset/scene_tree_packed.hpp
-        asset/script.cpp
-        asset/script.hpp
-        asset/shader.cpp
-        asset/shader.hpp
-        asset/texture.cpp
-        asset/texture.hpp
-        asset/register_classes_asset.cpp
-        asset/register_classes_asset.hpp
-        asset/_rtti.hpp
+        rtti/builtin.hpp
         rtti/class.cpp
         rtti/class.hpp
         rtti/enum.hpp
@@ -406,8 +397,14 @@ add_library(wmoge STATIC
         scene/scene_node_props.hpp
         scene/scene_node.cpp
         scene/scene_node.hpp
+        scene/scene_packed.cpp
+        scene/scene_packed.hpp
+        scene/scene_prefab.cpp
+        scene/scene_prefab.hpp
         scene/scene_systems.cpp
         scene/scene_systems.hpp
+        scene/scene_tree_packed.cpp
+        scene/scene_tree_packed.hpp
         scene/scene_tree.cpp
         scene/scene_tree.hpp
         scene/scene.cpp
@@ -418,6 +415,8 @@ add_library(wmoge STATIC
         scripting/script_native.cpp
         scripting/script_native.hpp
         scripting/script_system.hpp
+        scripting/script.cpp
+        scripting/script.hpp
         scripting/lua/lua_defs.cpp
         scripting/lua/lua_defs.hpp
         scripting/lua/lua_event_script.cpp
@@ -445,6 +444,8 @@ add_library(wmoge STATIC
         scripting/lua_bindings/lua_bindings_asset.hpp
         scripting/lua_bindings/lua_bindings_scene.cpp
         scripting/lua_bindings/lua_bindings_scene.hpp
+        system/config_file.cpp
+        system/config_file.hpp
         system/engine.cpp
         system/engine.hpp
         system/hook.cpp
@@ -458,8 +459,6 @@ add_library(wmoge STATIC
         system/plugin.hpp
         debug/console.cpp
         debug/console.hpp
-        debug/profiler.cpp
-        debug/profiler.hpp
         debug/debug_layer.cpp
         debug/debug_layer.hpp)
 

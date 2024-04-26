@@ -28,10 +28,10 @@
 #include "glfw_input.hpp"
 
 #include "core/string_utf.hpp"
-#include "debug/profiler.hpp"
 #include "event/event_input.hpp"
 #include "event/event_manager.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 #include <algorithm>

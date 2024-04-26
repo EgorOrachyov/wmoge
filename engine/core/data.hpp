@@ -28,12 +28,14 @@
 #pragma once
 
 #include "core/ref.hpp"
+#include "core/string_utils.hpp"
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
 #include "math/math_utils.hpp"
 
 #include <cstddef>
 #include <filesystem>
+#include <ostream>
 
 namespace wmoge {
 
@@ -77,5 +79,14 @@ namespace wmoge {
         std::size_t   m_size   = 0;
         std::uint8_t* m_buffer = nullptr;
     };
+
+    inline std::ostream& operator<<(std::ostream& stream, const Ref<Data>& data) {
+        if (!data || !data->buffer()) {
+            stream << "nil";
+        } else {
+            stream << data->buffer() << " size=" << StringUtils::from_mem_size(data->size());
+        }
+        return stream;
+    }
 
 }// namespace wmoge

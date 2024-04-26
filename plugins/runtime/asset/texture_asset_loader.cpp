@@ -27,13 +27,13 @@
 
 #include "texture_asset_loader.hpp"
 
-#include "asset/image.hpp"
-#include "asset/texture.hpp"
 #include "asset/texture_import_data.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "grc/grc_texture_resize.hpp"
+#include "grc/texture_resize.hpp"
+#include "profiler/profiler.hpp"
+#include "render/image.hpp"
+#include "render/texture.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

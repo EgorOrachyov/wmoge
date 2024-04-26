@@ -27,11 +27,11 @@
 
 #pragma once
 
-#include "debug/profiler.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "ecs/ecs_system.hpp"
 #include "ecs/ecs_world.hpp"
+#include "profiler/profiler.hpp"
 #include "scene/scene_components.hpp"
 
 #include <atomic>

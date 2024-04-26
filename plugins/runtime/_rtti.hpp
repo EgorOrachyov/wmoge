@@ -30,6 +30,7 @@
 #include "asset/default_asset_loader.hpp"
 #include "asset/image_asset_loader.hpp"
 #include "asset/image_import_data.hpp"
+#include "asset/shader_asset_loader.hpp"
 #include "asset/texture_asset_loader.hpp"
 #include "asset/texture_import_data.hpp"
 #include "asset/wav_asset_loader.hpp"
@@ -41,6 +42,7 @@ namespace wmoge {
         rtti_type<DefaultAssetLoader>();
         rtti_type<ImageAssetLoader>();
         rtti_type<ImageImportData>();
+        rtti_type<ShaderAssetLoader>();
         rtti_type<Texture2dAssetLoader>();
         rtti_type<TextureCubeAssetLoader>();
         rtti_type<TextureImportData>();

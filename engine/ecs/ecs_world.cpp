@@ -31,9 +31,9 @@
 #include "core/task.hpp"
 #include "core/task_manager.hpp"
 #include "core/task_parallel_for.hpp"
-#include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "math/math_utils.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

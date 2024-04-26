@@ -28,11 +28,11 @@
 #include "vk_shader.hpp"
 
 #include "core/timer.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "io/archive.hpp"
 #include "io/archive_memory.hpp"
 #include "io/enum.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

@@ -27,12 +27,12 @@
 
 #pragma once
 
-#include "asset/shader.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_shader.hpp"
+#include "material/shader.hpp"
 #include "platform/file_system.hpp"
 
 namespace wmoge {

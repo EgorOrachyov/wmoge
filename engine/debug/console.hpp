@@ -27,12 +27,12 @@
 
 #pragma once
 
-#include "asset/font.hpp"
 #include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 #include "event/event_listener.hpp"
 #include "math/color.hpp"
+#include "render/font.hpp"
 
 #include <functional>
 #include <mutex>

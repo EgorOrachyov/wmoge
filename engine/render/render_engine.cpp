@@ -29,8 +29,8 @@
 
 #include "core/log.hpp"
 #include "core/task_parallel_for.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "profiler/profiler.hpp"
 #include "render/shader_manager.hpp"
 #include "shaders/generated/auto_material_reflection.hpp"
 #include "system/engine.hpp"

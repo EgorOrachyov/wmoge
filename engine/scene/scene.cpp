@@ -27,7 +27,7 @@
 
 #include "scene.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "render/deferred_pipeline.hpp"
 #include "scene/scene_components.hpp"
 #include "scene/scene_entity.hpp"

@@ -27,7 +27,7 @@
 
 #include "callback_stream.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

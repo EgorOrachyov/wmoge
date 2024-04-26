@@ -28,7 +28,7 @@
 #include "gfx_driver_wrapper.hpp"
 
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

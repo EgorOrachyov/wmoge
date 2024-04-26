@@ -27,9 +27,9 @@
 
 #include "vk_desc_set.hpp"
 
-#include "debug/profiler.hpp"
 #include "gfx/vulkan/vk_desc_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

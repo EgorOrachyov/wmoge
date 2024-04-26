@@ -28,9 +28,9 @@
 #ifndef WMOGE_LUA_SCRIPT_INSTANCE_HPP
 #define WMOGE_LUA_SCRIPT_INSTANCE_HPP
 
-#include "asset/script.hpp"
 #include "scripting/lua/lua_defs.hpp"
 #include "scripting/lua/lua_script_system.hpp"
+#include "scripting/script.hpp"
 #include "scripting/script_instance.hpp"
 
 namespace wmoge {

@@ -29,11 +29,11 @@
 
 #include "core/data.hpp"
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "io/enum.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
 #include "platform/input.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

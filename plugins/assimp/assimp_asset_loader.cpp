@@ -27,14 +27,14 @@
 
 #include "assimp_asset_loader.hpp"
 
-#include "asset/mesh.hpp"
 #include "assimp_import_data.hpp"
 #include "assimp_importer.hpp"
 #include "core/data.hpp"
-#include "debug/profiler.hpp"
 #include "math/math_utils3d.hpp"
+#include "mesh/mesh.hpp"
 #include "mesh/mesh_builder.hpp"
 #include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
 #include <cassert>

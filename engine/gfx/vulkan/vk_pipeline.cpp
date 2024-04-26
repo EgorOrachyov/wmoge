@@ -30,7 +30,7 @@
 
 #include "core/task.hpp"
 #include "core/timer.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

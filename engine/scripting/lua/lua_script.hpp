@@ -28,9 +28,9 @@
 #ifndef WMOGE_LUA_SCRIPT_HPP
 #define WMOGE_LUA_SCRIPT_HPP
 
-#include "asset/script.hpp"
 #include "core/flat_map.hpp"
 #include "scripting/lua/lua_defs.hpp"
+#include "scripting/script.hpp"
 
 #include <optional>
 
@@ -42,10 +42,10 @@ namespace wmoge {
      */
     class LuaScript final : public Script {
     public:
-        WG_OBJECT(LuaScript, Script)
+        WG_RTTI_CLASS(LuaScript, Script);
 
-        Status read_from_yaml(const YamlConstNodeRef& node) override;
-        Status copy_to(Object& other) const override;
+        LuaScript()           = default;
+        ~LuaScript() override = default;
 
         Ref<ScriptInstance> attach_to(Object* object) override;
         bool                has_property(const Strid& property) override;
@@ -64,6 +64,12 @@ namespace wmoge {
         class LuaScriptSystem*             m_system = nullptr;
         lua_State*                         m_state  = nullptr;
     };
+
+    WG_RTTI_CLASS_BEGIN(LuaScript) {
+        WG_RTTI_META_DATA(RttiUiHint(""));
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge
 

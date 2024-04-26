@@ -30,7 +30,6 @@
 #include "asset/asset.hpp"
 #include "asset/asset_import_data.hpp"
 #include "core/buffered_vector.hpp"
-#include "core/class.hpp"
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
 #include "rtti/traits.hpp"
@@ -76,7 +75,7 @@ namespace wmoge {
         WG_RTTI_STRUCT(AssetMeta);
 
         UUID                   uuid   = UUID();
-        class Class*           cls    = nullptr;
+        class RttiClass*       rtti   = nullptr;
         class AssetPak*        pak    = nullptr;
         class AssetLoader*     loader = nullptr;
         buffered_vector<Strid> deps;

@@ -27,7 +27,7 @@
 
 #include "pfx_scene.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

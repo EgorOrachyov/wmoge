@@ -29,8 +29,8 @@
 
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
-#include "debug/profiler.hpp"
 #include "math/math_utils.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

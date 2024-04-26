@@ -27,8 +27,8 @@
 
 #include "render_scene.hpp"
 
-#include "debug/profiler.hpp"
 #include "gfx/gfx_ctx.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

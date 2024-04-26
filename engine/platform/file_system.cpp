@@ -29,10 +29,10 @@
 
 #include "core/data.hpp"
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "event/event_filesystem.hpp"
 #include "event/event_manager.hpp"
 #include "platform/common/mount_volume_physical.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 #include <filesystem>

@@ -27,7 +27,7 @@
 
 #include "gfx_ctx_wrapper.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

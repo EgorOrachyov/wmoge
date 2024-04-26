@@ -28,8 +28,8 @@
 #include "glfw_window_manager.hpp"
 
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 #include <cassert>

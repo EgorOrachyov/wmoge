@@ -27,13 +27,13 @@
 
 #pragma once
 
-#include "asset/texture.hpp"
 #include "core/synchronization.hpp"
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils3d.hpp"
 #include "math/vec.hpp"
 #include "render/camera.hpp"
+#include "render/texture.hpp"
 
 #include <vector>
 

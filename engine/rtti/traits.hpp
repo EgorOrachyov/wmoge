@@ -41,6 +41,7 @@
 #include "math/mat.hpp"
 #include "math/quat.hpp"
 #include "math/vec.hpp"
+#include "rtti/builtin.hpp"
 #include "rtti/class.hpp"
 #include "rtti/enum.hpp"
 #include "rtti/object.hpp"
@@ -112,6 +113,25 @@ namespace wmoge {
         }
     };
 
+    template<typename PairT, typename KeyT, typename ValueT>
+    class RttiTypePairT : public RttiTypeT<PairT, RttiTypePair> {
+    public:
+        RttiTypePairT(Strid name) : RttiTypeT<PairT, RttiTypePair>(name) {
+            RttiTypePair::m_key_type   = rtti_type<KeyT>();
+            RttiTypePair::m_value_type = rtti_type<ValueT>();
+        }
+        ~RttiTypePairT() override = default;
+        Status to_string(const void* src, std::stringstream& s) const override {
+            const PairT& pair = *((const PairT*) src);
+            s << "{";
+            RttiTypePair::m_key_type->to_string(&(pair.first), s);
+            s << ":";
+            RttiTypePair::m_value_type->to_string(&(pair.first), s);
+            s << "}";
+            return WG_OK;
+        }
+    };
+
     template<typename T>
     class RttiTypeEnumT : public RttiTypeT<T, RttiEnum> {
     public:
@@ -146,18 +166,46 @@ namespace wmoge {
         }
     };
 
-    template<typename VecT, typename ElemT>
-    class RttiTypeBaseVectorT : public RttiTypeT<VecT, RttiType> {
+    template<typename VecT, typename ValueT, int N>
+    class RttiTypeVecT : public RttiTypeT<VecT, RttiTypeVec> {
     public:
-        RttiTypeBaseVectorT(Strid name) : RttiTypeT<VecT, RttiType>(name) {
-            m_elem_type = rtti_type<ElemT>();
+        RttiTypeVecT(Strid name) : RttiTypeT<VecT, RttiTypeVec>(name) {
+            RttiTypeVec::m_value_type = rtti_type<ValueT>();
+            RttiTypeVec::m_dimension  = N;
+        }
+        ~RttiTypeVecT() override = default;
+        Status to_string(const void* src, std::stringstream& s) const override {
+            s << *((const VecT*) src);
+            return WG_OK;
+        }
+    };
+
+    template<typename MaskT, typename ValueT, int N>
+    class RttiTypeMaskT : public RttiTypeT<MaskT, RttiTypeMask> {
+    public:
+        RttiTypeMaskT(Strid name) : RttiTypeT<MaskT, RttiTypeMask>(name) {
+            RttiTypeMask::m_value_type = rtti_type<ValueT>();
+            RttiTypeMask::m_dimension  = N;
+        }
+        ~RttiTypeMaskT() override = default;
+        Status to_string(const void* src, std::stringstream& s) const override {
+            s << *((const MaskT*) src);
+            return WG_OK;
+        }
+    };
+
+    template<typename VecT, typename ElemT>
+    class RttiTypeBaseVectorT : public RttiTypeT<VecT, RttiTypeVector> {
+    public:
+        RttiTypeBaseVectorT(Strid name) : RttiTypeT<VecT, RttiTypeVector>(name) {
+            RttiTypeVector::m_value_type = rtti_type<ElemT>();
         }
         ~RttiTypeBaseVectorT() override = default;
         Status to_string(const void* src, std::stringstream& s) const override {
             const VecT& vec = *((const VecT*) src);
             s << "[";
             for (const auto& elem : vec) {
-                WG_CHECKED(m_elem_type->to_string(&elem, s));
+                WG_CHECKED(RttiTypeVector::m_value_type->to_string(&elem, s));
                 s << ", ";
             }
             s << "]";
@@ -178,26 +226,23 @@ namespace wmoge {
         bool is_listable() const override {
             return true;
         }
-
-    private:
-        RttiType* m_elem_type;
     };
 
     template<typename MapT, typename KeyT, typename ValueT>
-    class RttiTypeBaseMapT : public RttiTypeT<MapT, RttiType> {
+    class RttiTypeBaseMapT : public RttiTypeT<MapT, RttiTypeMap> {
     public:
-        RttiTypeBaseMapT(Strid name) : RttiTypeT<MapT, RttiType>(name) {
-            m_key_type   = rtti_type<KeyT>();
-            m_value_type = rtti_type<ValueT>();
+        RttiTypeBaseMapT(Strid name) : RttiTypeT<MapT, RttiTypeMap>(name) {
+            RttiTypeMap::m_key_type   = rtti_type<KeyT>();
+            RttiTypeMap::m_value_type = rtti_type<ValueT>();
         }
         ~RttiTypeBaseMapT() override = default;
         Status to_string(const void* src, std::stringstream& s) const override {
             const MapT& map = *((const MapT*) src);
             s << "{";
             for (const auto& elem : map) {
-                WG_CHECKED(m_key_type->to_string(&(elem.first), s));
+                WG_CHECKED(RttiTypeMap::m_key_type->to_string(&(elem.first), s));
                 s << ": ";
-                WG_CHECKED(m_value_type->to_string(&(elem.second), s));
+                WG_CHECKED(RttiTypeMap::m_value_type->to_string(&(elem.second), s));
                 s << ", ";
             }
             s << "}";
@@ -218,80 +263,82 @@ namespace wmoge {
         bool is_listable() const override {
             return true;
         }
-
-    private:
-        RttiType* m_key_type;
-        RttiType* m_value_type;
     };
 
     template<typename SetT, typename KeyT>
-    class RttiTypeBaseSetT : public RttiTypeT<SetT, RttiType> {
+    class RttiTypeBaseSetT : public RttiTypeT<SetT, RttiTypeSet> {
     public:
-        RttiTypeBaseSetT(Strid name) : RttiTypeT<SetT, RttiType>(name) {
-            m_key_type = rtti_type<KeyT>();
+        RttiTypeBaseSetT(Strid name) : RttiTypeT<SetT, RttiTypeSet>(name) {
+            RttiTypeSet::m_value_type = rtti_type<KeyT>();
         }
         ~RttiTypeBaseSetT() override = default;
         Status to_string(const void* src, std::stringstream& s) const override {
             const SetT& set = *((const SetT*) src);
             s << "{";
             for (const auto& elem : set) {
-                WG_CHECKED(m_key_type->to_string(&elem, s));
+                WG_CHECKED(RttiTypeSet::m_value_type->to_string(&elem, s));
                 s << ", ";
             }
             s << "}";
             return WG_OK;
         }
-
-    private:
-        RttiType* m_key_type;
+        Status add_element(void* src) const override {
+            SetT& set = *((SetT*) src);
+            set.emplace();
+            return WG_OK;
+        }
+        Status remove_element(void* src, int index) const override {
+            SetT& set = *((SetT*) src);
+            if (index < set.size()) {
+                set.erase(std::next(set.begin(), index));
+            }
+            return WG_OK;
+        }
+        bool is_listable() const override {
+            return true;
+        }
     };
 
     template<typename PtrT>
-    class RttiTypeRefT : public RttiTypeT<Ref<PtrT>, RttiType> {
+    class RttiTypeRefT : public RttiTypeT<Ref<PtrT>, RttiTypeRef> {
     public:
-        using ParentT = RttiTypeT<Ref<PtrT>, RttiType>;
+        using ParentT = RttiTypeT<Ref<PtrT>, RttiTypeRef>;
         using RefT    = Ref<PtrT>;
 
         RttiTypeRefT(Strid name) : ParentT(name) {
-            m_ptr_type = rtti_type<PtrT>();
+            RttiTypeRef::m_value_type = rtti_type<PtrT>();
         }
         ~RttiTypeRefT() override = default;
         Status to_string(const void* src, std::stringstream& s) const override {
             const RefT& self = *((const RefT*) src);
             if (self) {
-                return m_ptr_type->to_string(self.get(), s);
+                return RttiTypeRef::m_value_type->to_string(self.get(), s);
             } else {
                 s << "nil";
             }
             return WG_OK;
         }
-
-    private:
-        RttiType* m_ptr_type;
     };
 
     template<typename T>
-    class RttiTypeOptionalT : public RttiTypeT<std::optional<T>, RttiType> {
+    class RttiTypeOptionalT : public RttiTypeT<std::optional<T>, RttiTypeOptional> {
     public:
-        using ParentT   = RttiTypeT<std::optional<T>, RttiType>;
+        using ParentT   = RttiTypeT<std::optional<T>, RttiTypeOptional>;
         using OptionalT = std::optional<T>;
 
         RttiTypeOptionalT(Strid name) : ParentT(name) {
-            m_type = rtti_type<T>();
+            RttiTypeOptional::m_value_type = rtti_type<T>();
         }
         ~RttiTypeOptionalT() override = default;
         Status to_string(const void* src, std::stringstream& s) const override {
             const OptionalT& self = *((const OptionalT*) src);
             if (self) {
-                return m_type->to_string(&self.value(), s);
+                return RttiTypeOptional::m_value_type->to_string(&self.value(), s);
             } else {
                 s << "nil";
             }
             return WG_OK;
         }
-
-    private:
-        RttiType* m_type;
     };
 
     template<typename T>
@@ -311,6 +358,18 @@ namespace wmoge {
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeOptionalT<T>>(name());
+        }
+    };
+
+    template<typename KeyT, typename ValueT>
+    struct RttiTypeOf<std::pair<KeyT, ValueT>> {
+        using PairT = std::pair<KeyT, ValueT>;
+
+        static Strid name() {
+            return SID(std::string("pair<") + rtti_type<KeyT>()->get_str() + "," + rtti_type<ValueT>()->get_str() + ">");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypePairT<PairT, KeyT, ValueT>>(name());
         }
     };
 
@@ -335,6 +394,8 @@ namespace wmoge {
         }                                                        \
     }
 
+#define WG_RTTI_DECL(type, pretty_name) WG_RTTI_FUNDAMENTAL_DECL(type, pretty_name)
+
     WG_RTTI_FUNDAMENTAL_DECL(std::int16_t, "int16_t");
     WG_RTTI_FUNDAMENTAL_DECL(int, "int");
     WG_RTTI_FUNDAMENTAL_DECL(unsigned int, "uint");
@@ -345,6 +406,7 @@ namespace wmoge {
     WG_RTTI_FUNDAMENTAL_DECL(UUID, "uuid");
     WG_RTTI_FUNDAMENTAL_DECL(DateTime, "datetime");
     WG_RTTI_FUNDAMENTAL_DECL(Status, "status");
+    WG_RTTI_FUNDAMENTAL_DECL(Ref<Data>, "data");
 
     template<typename T, int N>
     struct RttiTypeOf<Mask<T, N>> {
@@ -354,7 +416,7 @@ namespace wmoge {
             return SID(std::string("mask<") + rtti_type<T>()->get_str() + "," + std::to_string(N) + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<MaskType>>(name());
+            return make_ref<RttiTypeMaskT<MaskType, T, N>>(name());
         }
     };
 
@@ -366,7 +428,7 @@ namespace wmoge {
             return SID(std::string("vec<") + rtti_type<T>()->get_str() + "," + std::to_string(N) + ">");
         }
         static Ref<RttiType> make() {
-            return make_ref<RttiTypeFundamentalT<Vec>>(name());
+            return make_ref<RttiTypeVecT<Vec, T, N>>(name());
         }
     };
 
@@ -399,10 +461,22 @@ namespace wmoge {
         using VecT = ankerl::svector<E, S>;
 
         static Strid name() {
-            return SID(std::string("buffered_vector<") + rtti_type<E>()->get_str() + "," + std::to_string(S) + ">");
+            return SID(std::string("bvector<") + rtti_type<E>()->get_str() + "," + std::to_string(S) + ">");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeBaseVectorT<VecT, E>>(name());
+        }
+    };
+
+    template<typename K>
+    struct RttiTypeOf<std::unordered_set<K>> {
+        using SetT = std::unordered_set<K>;
+
+        static Strid name() {
+            return SID(std::string("uset<") + rtti_type<K>()->get_str() + ">");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeBaseSetT<SetT, K>>(name());
         }
     };
 
@@ -411,7 +485,7 @@ namespace wmoge {
         using MapT = std::unordered_map<K, V>;
 
         static Strid name() {
-            return SID(std::string("unordered_map<") + rtti_type<K>()->get_str() + "," + rtti_type<V>()->get_str() + ">");
+            return SID(std::string("umap<") + rtti_type<K>()->get_str() + "," + rtti_type<V>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeBaseMapT<MapT, K, V>>(name());
@@ -423,7 +497,7 @@ namespace wmoge {
         using MapT = robin_hood::unordered_flat_map<K, V>;
 
         static Strid name() {
-            return SID(std::string("flat_map<") + rtti_type<K>()->get_str() + "," + rtti_type<V>()->get_str() + ">");
+            return SID(std::string("fmap<") + rtti_type<K>()->get_str() + "," + rtti_type<V>()->get_str() + ">");
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeBaseMapT<MapT, K, V>>(name());

@@ -27,10 +27,10 @@
 
 #pragma once
 
-#include "asset/mesh.hpp"
 #include "assimp_import_data.hpp"
 #include "core/array_view.hpp"
 #include "core/string_id.hpp"
+#include "mesh/mesh.hpp"
 #include "mesh/mesh_builder.hpp"
 
 #include <assimp/Importer.hpp>

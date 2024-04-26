@@ -27,6 +27,8 @@
 
 #include "struct.hpp"
 
+#include "profiler/profiler.hpp"
+
 #include <cassert>
 #include <cinttypes>
 
@@ -91,10 +93,7 @@ namespace wmoge {
         assert(dst);
         assert(src);
         std::uint8_t*       self  = reinterpret_cast<std::uint8_t*>(dst);
-        const std::uint8_t* other = reinterpret_cast<const std::uint8_t*>(dst);
-        if (has_parent()) {
-            WG_CHECKED(get_parent()->copy(self, other));
-        }
+        const std::uint8_t* other = reinterpret_cast<const std::uint8_t*>(src);
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_copy()) {
                 continue;
@@ -106,6 +105,7 @@ namespace wmoge {
     }
 
     Status RttiStruct::read_from_yaml(void* dst, YamlConstNodeRef node) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_yaml");
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
         for (const RttiField& field : get_fields()) {
@@ -132,6 +132,8 @@ namespace wmoge {
     }
 
     Status RttiStruct::write_to_yaml(const void* src, YamlNodeRef node) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_yaml");
+
         assert(src);
         WG_YAML_MAP(node);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
@@ -152,7 +154,9 @@ namespace wmoge {
     }
 
     Status RttiStruct::read_from_archive(void* dst, Archive& archive) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_archive");
         assert(dst);
+
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_save_load()) {
@@ -164,6 +168,8 @@ namespace wmoge {
     }
 
     Status RttiStruct::write_to_archive(const void* src, Archive& archive) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_archive");
+
         assert(src);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
         for (const RttiField& field : get_fields()) {

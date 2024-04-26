@@ -29,10 +29,10 @@
 
 #include "asset/asset_pak_fs.hpp"
 #include "core/timer.hpp"
-#include "debug/profiler.hpp"
 #include "event/event_asset.hpp"
 #include "event/event_manager.hpp"
 #include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
 #include "system/engine.hpp"
 #include "system/ioc_container.hpp"
@@ -209,10 +209,10 @@ namespace wmoge {
         AssetMeta asset_meta;
         for (auto& pak : m_paks) {
             if (pak->get_meta(asset, asset_meta)) {
-                if (asset_meta.cls && asset_meta.loader && asset_meta.pak) {
+                if (asset_meta.rtti && asset_meta.loader && asset_meta.pak) {
                     return std::make_optional(std::move(asset_meta));
                 }
-                if (!asset_meta.cls) {
+                if (!asset_meta.rtti) {
                     WG_LOG_ERROR("no class found in runtime for " << asset << " in " << pak->get_name());
                 }
                 if (!asset_meta.loader) {

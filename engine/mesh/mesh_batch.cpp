@@ -27,12 +27,12 @@
 
 #include "mesh_batch.hpp"
 
-#include "asset/material.hpp"
-#include "asset/shader.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "material/material.hpp"
+#include "material/shader.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_processors.hpp"
+#include "profiler/profiler.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
 #include "render/shader_manager.hpp"

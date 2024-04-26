@@ -27,10 +27,10 @@
 
 #include "freetype_font.hpp"
 
-#include "asset/image.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
+#include "render/image.hpp"
 #include "system/engine.hpp"
 
 #include <freetype/freetype.h>

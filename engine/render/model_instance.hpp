@@ -28,11 +28,11 @@
 #pragma once
 
 #include "asset/asset_ref.hpp"
-#include "asset/model.hpp"
 #include "core/array_view.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_pass.hpp"
 #include "render/camera.hpp"
+#include "render/model.hpp"
 #include "render/render_engine.hpp"
 
 namespace wmoge {

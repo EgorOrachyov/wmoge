@@ -27,7 +27,7 @@
 
 #include "gfx_worker.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 #include <cassert>

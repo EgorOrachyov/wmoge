@@ -29,8 +29,8 @@
 
 #include "core/data.hpp"
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "math/math_utils3d.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 #include <cstring>

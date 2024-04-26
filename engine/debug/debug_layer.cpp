@@ -29,10 +29,10 @@
 
 #include "core/timer.hpp"
 #include "debug/console.hpp"
-#include "debug/profiler.hpp"
 #include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "render/aux_draw_manager.hpp"
 #include "render/render_engine.hpp"
 #include "scene/scene_manager.hpp"

@@ -27,8 +27,6 @@
 
 #pragma once
 
-#include "asset/font.hpp"
-#include "asset/texture.hpp"
 #include "core/array_view.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
@@ -43,6 +41,8 @@
 #include "math/math_utils2d.hpp"
 #include "math/transform.hpp"
 #include "math/vec.hpp"
+#include "render/font.hpp"
+#include "render/texture.hpp"
 
 #include "shaders/generated/auto_canvas_reflection.hpp"
 

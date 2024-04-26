@@ -28,7 +28,7 @@
 #include "core/async.hpp"
 
 #include "async.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

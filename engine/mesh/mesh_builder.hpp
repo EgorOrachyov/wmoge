@@ -27,12 +27,12 @@
 
 #pragma once
 
-#include "asset/array_mesh.hpp"
-#include "asset/mesh.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "math/vec.hpp"
+#include "mesh/array_mesh.hpp"
+#include "mesh/mesh.hpp"
 
 #include <vector>
 

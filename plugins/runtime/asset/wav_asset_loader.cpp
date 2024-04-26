@@ -27,9 +27,9 @@
 
 #include "wav_asset_loader.hpp"
 
-#include "asset/audio_stream_wav.hpp"
 #include "asset/wav_import_data.hpp"
-#include "debug/profiler.hpp"
+#include "audio/audio_stream_wav.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 
@@ -46,7 +46,7 @@ namespace wmoge {
             return StatusCode::InvalidData;
         }
 
-        Ref<AudioStreamWav> audio = meta.cls->instantiate().cast<AudioStreamWav>();
+        Ref<AudioStreamWav> audio = meta.rtti->instantiate().cast<AudioStreamWav>();
         if (!audio) {
             WG_LOG_ERROR("failed to instantiate audio " << name);
             return StatusCode::FailedInstantiate;

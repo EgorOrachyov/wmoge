@@ -27,17 +27,17 @@
 
 #include "shader_manager.hpp"
 
-#include "asset/config_file.hpp"
-#include "asset/shader.hpp"
 #include "core/string_utils.hpp"
 #include "debug/console.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "io/archive_file.hpp"
 #include "io/enum.hpp"
+#include "material/shader.hpp"
 #include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
 #include "render/shader_builder.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 
 // built-in passes

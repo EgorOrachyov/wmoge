@@ -28,9 +28,9 @@
 #include "pfx_component_runtime.hpp"
 
 #include "core/log.hpp"
-#include "debug/profiler.hpp"
 #include "gfx/gfx_vert_format.hpp"
 #include "pfx/pfx_emitter.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 

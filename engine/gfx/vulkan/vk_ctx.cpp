@@ -27,9 +27,9 @@
 
 #include "vk_ctx.hpp"
 
-#include "debug/profiler.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

@@ -27,7 +27,7 @@
 
 #include "graphics_pipeline.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cstring>
 

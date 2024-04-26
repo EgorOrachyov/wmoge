@@ -27,13 +27,13 @@
 
 #include "vk_window.hpp"
 
-#include "asset/config_file.hpp"
-#include "debug/profiler.hpp"
 #include "event/event_manager.hpp"
 #include "event/event_window.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 #include "math/math_utils.hpp"
+#include "profiler/profiler.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

@@ -27,8 +27,8 @@
 
 #include "deferred_pipeline.hpp"
 
-#include "debug/profiler.hpp"
 #include "platform/window_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

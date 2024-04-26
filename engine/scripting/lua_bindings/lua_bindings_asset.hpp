@@ -32,14 +32,14 @@
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
 
 #include "asset/asset_manager.hpp"
-#include "asset/audio_stream.hpp"
-#include "asset/config_file.hpp"
-#include "asset/font.hpp"
-#include "asset/image.hpp"
-#include "asset/material.hpp"
-#include "asset/pfx_effect.hpp"
-#include "asset/shader.hpp"
-#include "asset/texture.hpp"
+#include "audio/audio_stream.hpp"
+#include "material/material.hpp"
+#include "material/shader.hpp"
+#include "pfx/pfx_effect.hpp"
+#include "render/font.hpp"
+#include "render/image.hpp"
+#include "render/texture.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

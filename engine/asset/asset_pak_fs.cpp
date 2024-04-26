@@ -28,10 +28,9 @@
 #include "asset_pak_fs.hpp"
 
 #include "asset/asset_manager.hpp"
-#include "core/class.hpp"
-#include "debug/profiler.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
 namespace wmoge {
@@ -39,9 +38,11 @@ namespace wmoge {
     AssetPakFileSystem::AssetPakFileSystem() {
         m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
     }
+
     std::string AssetPakFileSystem::get_name() const {
         return "pak_fs";
     }
+
     Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
         WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
 
@@ -61,13 +62,14 @@ namespace wmoge {
         }
 
         auto loader = IocContainer::instance()->resolve_v<AssetManager>()->find_loader(asset_file.loader);
+        auto rtti   = IocContainer::instance()->resolve_v<RttiTypeStorage>()->find_class(asset_file.rtti);
 
         meta.uuid        = asset_file.uuid;
-        meta.cls         = Class::class_ptr(asset_file.rtti);
+        meta.rtti        = rtti;
         meta.pak         = this;
         meta.loader      = loader.value_or(nullptr);
         meta.deps        = std::move(asset_file.deps);
-        meta.import_data = asset_file.import_data;
+        meta.import_data = std::move(asset_file.import_data);
 
         return StatusCode::Ok;
     }

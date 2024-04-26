@@ -27,9 +27,9 @@
 
 #pragma once
 
-#include "debug/profiler.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_memory.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 #include <functional>

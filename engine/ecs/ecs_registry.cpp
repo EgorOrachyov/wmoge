@@ -27,7 +27,7 @@
 
 #include "ecs_registry.hpp"
 
-#include "asset/config_file.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

@@ -28,8 +28,8 @@
 #include "hgfx_pass_text.hpp"
 
 #include "core/class.hpp"
-#include "debug/profiler.hpp"
 #include "math/math_utils3d.hpp"
+#include "profiler/profiler.hpp"
 #include "render/shader_manager.hpp"
 #include "shaders/generated/auto_text_reflection.hpp"
 #include "system/engine.hpp"

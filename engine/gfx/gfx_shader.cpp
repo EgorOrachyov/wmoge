@@ -27,7 +27,7 @@
 
 #include "gfx_shader.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 

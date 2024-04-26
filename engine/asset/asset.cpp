@@ -60,24 +60,6 @@ namespace wmoge {
         m_name = id;
     }
 
-    Status Asset::copy_to(Object& other) const {
-        auto* ptr = dynamic_cast<Asset*>(&other);
-        ptr->m_id = SID(m_id.str() + "_copy");
-        return StatusCode::Ok;
-    }
-    Status Asset::read_from_yaml(const YamlConstNodeRef& node) {
-        return StatusCode::Ok;
-    }
-    Status Asset::write_to_yaml(YamlNodeRef node) const {
-        return StatusCode::Ok;
-    }
-
-    void Asset::register_class() {
-        auto cls = Class::register_class<Asset>();
-        cls->add_property(ClassProperty(VarType::Strid, SID("name"), SID("get_name")));
-        cls->add_method(ClassMethod(VarType::Strid, SID("get_name"), {}), &Asset::get_name, {});
-    }
-
     void AssetDependencies::set_mode(CollectionMode mode, std::optional<int> num_levels) {
         assert(m_cur_depth == 0);
 

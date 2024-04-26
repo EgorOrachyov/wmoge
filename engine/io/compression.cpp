@@ -27,7 +27,7 @@
 
 #include "compression.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <lz4.hpp>
 

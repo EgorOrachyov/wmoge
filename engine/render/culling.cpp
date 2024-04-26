@@ -29,7 +29,7 @@
 
 #include "core/string_utils.hpp"
 #include "core/task_parallel_for.hpp"
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cassert>
 #include <mutex>

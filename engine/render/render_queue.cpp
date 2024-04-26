@@ -27,7 +27,7 @@
 
 #include "render_queue.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 #include <algorithm>
 #include <cassert>

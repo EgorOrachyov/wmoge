@@ -27,8 +27,8 @@
 
 #include "ecs_memory.hpp"
 
-#include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
+#include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

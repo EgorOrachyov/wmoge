@@ -27,7 +27,7 @@
 
 #include "default_asset_loader.hpp"
 
-#include "debug/profiler.hpp"
+#include "profiler/profiler.hpp"
 
 namespace wmoge {
 
@@ -50,7 +50,7 @@ namespace wmoge {
             return StatusCode::InvalidData;
         }
 
-        asset = meta.cls->instantiate().cast<Asset>();
+        asset = meta.rtti->instantiate().cast<Asset>();
         if (!asset) {
             WG_LOG_ERROR("failed to instantiate asset " << name);
             return StatusCode::FailedInstantiate;

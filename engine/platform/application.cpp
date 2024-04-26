@@ -28,7 +28,6 @@
 #include "application.hpp"
 
 #include "asset/asset_manager.hpp"
-#include "asset/config_file.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
@@ -37,14 +36,13 @@
 #include "core/task_manager.hpp"
 #include "debug/console.hpp"
 #include "debug/debug_layer.hpp"
-#include "debug/profiler.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "event/event_manager.hpp"
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
-#include "grc/grc_shader_manager.hpp"
-#include "grc/grc_texture_manager.hpp"
+#include "grc/shader_manager.hpp"
+#include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
 #include "hooks/hook_engine.hpp"
 #include "hooks/hook_logs.hpp"
@@ -59,6 +57,7 @@
 #include "platform/input.hpp"
 #include "platform/time.hpp"
 #include "platform/window_manager.hpp"
+#include "profiler/profiler.hpp"
 #include "render/aux_draw_manager.hpp"
 #include "render/canvas.hpp"
 #include "render/render_engine.hpp"
@@ -68,19 +67,28 @@
 #include "scene/scene_manager.hpp"
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
+#include "system/config_file.hpp"
 #include "system/engine.hpp"
 #include "system/hook.hpp"
 #include "system/ioc_container.hpp"
 #include "system/layer.hpp"
+#include "system/plugin_manager.hpp"
 
-#include "asset/register_classes_asset.hpp"
 #include "event/register_classes_event.hpp"
 #include "pfx/register_classes_pfx.hpp"
 #include "scene/register_classes_scene.hpp"
-#include "system/plugin_manager.hpp"
 
 #include "asset/_rtti.hpp"
+#include "audio/_rtti.hpp"
+#include "event/_rtti.hpp"
+#include "material/_rtti.hpp"
+#include "mesh/_rtti.hpp"
+#include "pfx/_rtti.hpp"
+#include "render/_rtti.hpp"
 #include "rtti/_rtti.hpp"
+#include "scene/_rtti.hpp"
+#include "scripting/_rtti.hpp"
+#include "system/_rtti.hpp"
 
 namespace wmoge {
 
@@ -197,7 +205,6 @@ namespace wmoge {
     static void register_classes() {
         Class::register_types();
         register_classes_event();
-        register_classes_asset();
         register_classes_pfx();
         register_classes_scene();
     }
@@ -206,6 +213,14 @@ namespace wmoge {
         ioc->resolve_v<RttiTypeStorage>();
         rtti_rtti();
         rtti_asset();
+        rtti_audio();
+        rtti_material();
+        rtti_mesh();
+        rtti_pfx();
+        rtti_render();
+        rtti_scene();
+        rtti_scripting();
+        rtti_system();
     }
 
     int Application::run(int argc, const char* const* argv) {

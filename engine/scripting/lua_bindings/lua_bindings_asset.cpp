@@ -36,7 +36,7 @@ namespace wmoge {
 
         auto* asset_manager = Engine::instance()->asset_manager();
         auto  asset         = asset_manager->load(LuaTypeTraits::to_sid(asset_id));
-        LuaTypeTraits::from_object(state, asset.get()).push();
+        // LuaTypeTraits::from_object(state, asset.get()).push();
 
         return 1;
     }
@@ -46,19 +46,19 @@ namespace wmoge {
 
         auto* asset_manager = Engine::instance()->asset_manager();
         auto  asset         = asset_manager->find(LuaTypeTraits::to_sid(asset_id));
-        LuaTypeTraits::from_object(state, asset.get()).push();
+        // LuaTypeTraits::from_object(state, asset.get()).push();
 
         return 1;
     }
 
     void LuaBindings::bind_asset(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping) {
-        WG_LUA_MAP_CLASS(mapping, Asset);
+        // WG_LUA_MAP_CLASS(mapping, Asset);
         ns = ns.deriveClass<LuaAsset, LuaObject>("Asset")
                      .addFunction("duplicate", &LuaAsset::duplicate)
                      .addFunction("get_name", &LuaAsset::get_name)
                      .endClass();
 
-        WG_LUA_MAP_CLASS(mapping, AudioStream);
+        // WG_LUA_MAP_CLASS(mapping, AudioStream);
         ns = ns.deriveClass<LuaAudioStream, LuaAsset>("AudioStream")
                      .addFunction("get_length", &LuaAudioStream::get_length)
                      .addFunction("get_samples_rate", &LuaAudioStream::get_samples_rate)
@@ -69,7 +69,7 @@ namespace wmoge {
                      .addFunction("is_mono", &LuaAudioStream::is_mono)
                      .endClass();
 
-        WG_LUA_MAP_CLASS(mapping, ConfigFile);
+        // WG_LUA_MAP_CLASS(mapping, ConfigFile);
         ns = ns.deriveClass<LuaConfigFile, LuaAsset>("ConfigFile")
                      .addFunction("get_bool", &LuaConfigFile::get_bool)
                      .addFunction("get_int", &LuaConfigFile::get_int)
@@ -77,7 +77,7 @@ namespace wmoge {
                      .addFunction("get_string", &LuaConfigFile::get_string)
                      .endClass();
 
-        WG_LUA_MAP_CLASS(mapping, Texture);
+        // WG_LUA_MAP_CLASS(mapping, Texture);
         ns = ns.deriveClass<LuaTexture, LuaAsset>("Texture")
                      .addFunction("get_width", &LuaTexture::get_width)
                      .addFunction("get_height", &LuaTexture::get_height)
@@ -87,13 +87,13 @@ namespace wmoge {
                      .addFunction("get_srgb", &LuaTexture::get_srgb)
                      .endClass();
 
-        WG_LUA_MAP_CLASS(mapping, PfxEffect);
+        // WG_LUA_MAP_CLASS(mapping, PfxEffect);
         ns = ns.deriveClass<LuaPfxEffect, LuaAsset>("PfxEffect")
                      .addFunction("get_components_count", &LuaPfxEffect::get_components_count)
                      .addFunction("get_type", &LuaPfxEffect::get_type)
                      .endClass();
 
-        WG_LUA_MAP_CLASS(mapping, Material);
+        // WG_LUA_MAP_CLASS(mapping, Material);
         ns = ns.deriveClass<LuaMaterial, LuaAsset>("Material")
                      .addFunction("set_int", &LuaMaterial::set_int)
                      .addFunction("set_float", &LuaMaterial::set_float)
