@@ -179,6 +179,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxVertElements.html#a5e0b9da4f52e148d27a4c3dcef47b2f6">wmoge::GfxVertElements</a>
 , <a class="el" href="classwmoge_1_1RttiType.html#adb34e1e9e67688656780f36b5d9f3690">wmoge::RttiType</a>
 , <a class="el" href="classwmoge_1_1RttiTypeBaseMapT.html#a4d86367d1adf939ef5cef823818705fe">wmoge::RttiTypeBaseMapT&lt; MapT, KeyT, ValueT &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiTypeBaseSetT.html#ae6050d84cc64685357330a8092090d07">wmoge::RttiTypeBaseSetT&lt; SetT, KeyT &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiTypeBaseVectorT.html#a78b02a1286b66573e898d9f621d3f8fa">wmoge::RttiTypeBaseVectorT&lt; VecT, ElemT &gt;</a>
 </li>
 <li>add_emitter()
@@ -248,7 +249,7 @@ $(function() {
 <li>add_method()
 : <a class="el" href="classwmoge_1_1Class.html#ae1c32293678d6b8a80ba3afa5177b77d">wmoge::Class</a>
 , <a class="el" href="classwmoge_1_1RttiClass.html#a8f85954ea58df2c576a64041545441dd">wmoge::RttiClass</a>
-, <a class="el" href="classwmoge_1_1RttiClassT.html#a875dd15b51c0f9e0db5d96fdcb0dbd18">wmoge::RttiClassT&lt; ClassT &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiClassT.html#aaff56866fc988f32dff1ca85c8e62bd7">wmoge::RttiClassT&lt; ClassT &gt;</a>
 </li>
 <li>add_method_t()
 : <a class="el" href="classwmoge_1_1RttiClassT.html#a430a8f6b2b0c38d57aef95041e532d5f">wmoge::RttiClassT&lt; ClassT &gt;</a>
@@ -401,12 +402,12 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxDynIndexBuffer.html#a1aa3bd9eabf45cd6eb4d9c70f2fd6b56">wmoge::GfxDynIndexBuffer</a>
 , <a class="el" href="classwmoge_1_1GfxDynUniformBuffer.html#a201245f091c52b5062586174c26a9b92">wmoge::GfxDynUniformBuffer</a>
 , <a class="el" href="classwmoge_1_1GfxDynVertBuffer.html#a437978daea8f46f629c53767d11a67f0">wmoge::GfxDynVertBuffer</a>
-, <a class="el" href="classwmoge_1_1GfxUniformPool.html#a8c53a9f86bd29d91585456d8f9a203a6">wmoge::GfxUniformPool</a>
+, <a class="el" href="classwmoge_1_1GfxUniformPool.html#a0909d5d68a35fa58d24b003c53b78aaf">wmoge::GfxUniformPool</a>
 , <a class="el" href="classwmoge_1_1MemLinear.html#a882a932ffc8cda7767a5b932f955c4f2">wmoge::MemLinear</a>
 , <a class="el" href="classwmoge_1_1MemPool.html#ad9c31b7bc99b07de68c657b49cf672b2">wmoge::MemPool</a>
 , <a class="el" href="classwmoge_1_1RenderCmdAllocator.html#a4bf2e2f0c97a5397c01f2bd30f719025">wmoge::RenderCmdAllocator</a>
 , <a class="el" href="classwmoge_1_1VKDescManager.html#a4f29f837570f0be021ce365e74973531">wmoge::VKDescManager</a>
-, <a class="el" href="classwmoge_1_1VKMemManager.html#adc3001c0a8f9c83654b7e9098f5f1faa">wmoge::VKMemManager</a>
+, <a class="el" href="classwmoge_1_1VKMemManager.html#ab21aae16cce5b55545b7b872c1a08dd4">wmoge::VKMemManager</a>
 </li>
 <li>allocate_base()
 : <a class="el" href="classwmoge_1_1GfxDynBuffer.html#ab4b4372008d9515fe24f0e171bf0972b">wmoge::GfxDynBuffer</a>
@@ -472,7 +473,10 @@ $(function() {
 : <a class="el" href="classreflection_1_1StructField.html#a6262467e2c5c0c5d4ec5fad91e1b94f6">reflection.StructField</a>
 </li>
 <li>array_view()
-: <a class="el" href="classwmoge_1_1array__view.html#a2adf6b65f34a6199e1003b0f2b7598eb">wmoge::array_view&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1array__view.html#a4ad0225d6b01329b233b479fa0654533">wmoge::array_view&lt; T &gt;</a>
+</li>
+<li>ArrayMesh()
+: <a class="el" href="classwmoge_1_1ArrayMesh.html#ab82136596e2ef9fbf4bc3bb26459ebc0">wmoge::ArrayMesh</a>
 </li>
 <li>as()
 : <a class="el" href="classwmoge_1_1Ref.html#a9eaf37ed378974ae93f67525b41398f8">wmoge::Ref&lt; T &gt;</a>
@@ -572,6 +576,12 @@ $(function() {
 </li>
 <li>audio_engine()
 : <a class="el" href="classwmoge_1_1Engine.html#a543e413f597de6bd7e0eccf431b9c244">wmoge::Engine</a>
+</li>
+<li>AudioStream()
+: <a class="el" href="classwmoge_1_1AudioStream.html#ab646fc080a982d7decec2ae90f836ca1">wmoge::AudioStream</a>
+</li>
+<li>AudioStreamWav()
+: <a class="el" href="classwmoge_1_1AudioStreamWav.html#acc247c6c66b0bc66ba441a995df894fe">wmoge::AudioStreamWav</a>
 </li>
 <li>aux_draw_manager()
 : <a class="el" href="classwmoge_1_1Engine.html#a208a7673d27c004cec394c22d9cec1a3">wmoge::Engine</a>

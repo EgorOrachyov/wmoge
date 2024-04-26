@@ -1,23 +1,37 @@
 <map id="wmoge::RttiType" name="wmoge::RttiType">
-<area shape="rect" id="node1" title="Base class for any rtti system type for a reflection." alt="" coords="164,242,283,269"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="333,5,503,47"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="333,71,503,112"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="331,136,505,177"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="339,201,497,243"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="343,267,493,308"/>
-<area shape="rect" id="node13" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="332,332,504,373"/>
-<area shape="rect" id="node15" href="$classwmoge_1_1RttiEnum.html" title="Enum type reflection info." alt="" coords="357,402,479,429"/>
-<area shape="rect" id="node18" href="$classwmoge_1_1RttiStruct.html" title="Runtime struct info as a collecion of fields without logic." alt="" coords="355,463,481,490"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,242,116,269"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiTypeOptionalT.html" title=" " alt="" coords="553,13,757,39"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RttiTypeBaseSetT.html" title=" " alt="" coords="567,71,743,112"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1RttiTypeBaseMapT.html" title=" " alt="" coords="565,136,746,177"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1RttiTypeRefT.html" title=" " alt="" coords="582,201,729,243"/>
-<area shape="rect" id="node12" href="$classwmoge_1_1RttiTypeFundamentalT.html" title=" " alt="" coords="559,267,752,308"/>
-<area shape="rect" id="node14" href="$classwmoge_1_1RttiTypeBaseVectorT.html" title=" " alt="" coords="562,332,749,373"/>
-<area shape="rect" id="node16" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="581,397,730,439"/>
-<area shape="rect" id="node17" href="$classwmoge_1_1RttiTypeEnumT.html" title=" " alt="" coords="805,405,995,431"/>
-<area shape="rect" id="node19" href="$classwmoge_1_1RttiClass.html" title="Class refletion info for all types inherited from engine Object type." alt="" coords="594,463,717,490"/>
-<area shape="rect" id="node21" href="$classwmoge_1_1RttiStructT.html" title=" " alt="" coords="589,515,722,556"/>
-<area shape="rect" id="node20" href="$classwmoge_1_1RttiClassT.html" title=" " alt="" coords="831,456,969,497"/>
+<area shape="rect" id="node1" title="Base class for any rtti system type for a reflection." alt="" coords="164,391,283,418"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="339,25,489,67"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RttiEnum.html" title="Enum type reflection info." alt="" coords="353,111,475,138"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1RttiStruct.html" title="Runtime struct info as a collecion of fields without logic." alt="" coords="351,195,477,222"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1RttiTypeMap.html" title="Base rtti to inspect map containers." alt="" coords="343,271,485,298"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1RttiTypeMask.html" title="Base rtti to inspect bit mask." alt="" coords="339,333,489,359"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1RttiTypeOptional.html" title="Base rtti to inspect optional value." alt="" coords="331,391,497,418"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1RttiTypePair.html" title="Base rtti to inspect pair containers." alt="" coords="343,445,485,471"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1RttiTypeRef.html" title="Base rtti to inspect ref counted value." alt="" coords="345,499,483,526"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1RttiTypeSet.html" title="Base rtti to inspect set containers." alt="" coords="345,559,483,586"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1RttiTypeVec.html" title="Base rtti to inspect Vec values." alt="" coords="343,629,485,655"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1RttiTypeVector.html" title="Base rtti to inspect vector containers." alt="" coords="336,715,492,742"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,391,116,418"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiTypeFundamentalT.html" title=" " alt="" coords="557,5,751,47"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="579,71,729,112"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1RttiTypeEnumT.html" title=" " alt="" coords="818,78,1007,105"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1RttiClass.html" title="Class refletion info for all types inherited from engine Object type." alt="" coords="593,137,715,163"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1RttiStructT.html" title=" " alt="" coords="587,188,721,229"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1RttiClassT.html" title=" " alt="" coords="843,129,982,171"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="567,253,741,295"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1RttiTypeBaseMapT.html" title=" " alt="" coords="822,253,1003,295"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="563,319,745,360"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1RttiTypeMaskT.html" title=" " alt="" coords="833,319,992,360"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="545,384,763,425"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1RttiTypeOptionalT.html" title=" " alt="" coords="811,391,1015,418"/>
+<area shape="rect" id="node22" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="568,449,740,491"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1RttiTypePairT.html" title=" " alt="" coords="833,449,993,491"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="575,515,733,556"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1RttiTypeRefT.html" title=" " alt="" coords="839,515,986,556"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="569,580,739,621"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1RttiTypeBaseSetT.html" title=" " alt="" coords="825,580,1001,621"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="568,645,740,687"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1RttiTypeVecT.html" title=" " alt="" coords="838,645,987,687"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="568,711,740,752"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1RttiTypeBaseVectorT.html" title=" " alt="" coords="819,711,1006,752"/>
 </map>

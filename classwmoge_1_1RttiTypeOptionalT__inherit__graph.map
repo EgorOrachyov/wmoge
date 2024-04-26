@@ -1,6 +1,7 @@
 <map id="wmoge::RttiTypeOptionalT&lt; T &gt;" name="wmoge::RttiTypeOptionalT&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,244,209,271"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="23,155,192,196"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="48,80,167,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="52,5,163,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="12,319,216,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiTypeT.html" title=" " alt="" coords="5,229,223,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiTypeOptional.html" title="Base rtti to inspect optional value." alt="" coords="31,155,197,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="55,80,173,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="59,5,169,32"/>
 </map>

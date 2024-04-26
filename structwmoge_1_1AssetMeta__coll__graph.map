@@ -1,10 +1,14 @@
 <map id="wmoge::AssetMeta" name="wmoge::AssetMeta">
-<area shape="rect" id="node1" title="Meta information of a particular asset." alt="" coords="612,107,745,133"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="354,5,481,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="366,56,469,83"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Class.html" title="Storage for reflection information of particular object&#45;hierarchy class." alt="" coords="366,107,469,133"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="345,157,489,184"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="165,157,293,184"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,157,116,184"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="343,209,492,250"/>
+<area shape="rect" id="node1" title="Meta information of a particular asset." alt="" coords="1047,108,1180,135"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetPak.html" title="Interface for the package of the assets on disc." alt="" coords="789,5,915,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="801,56,903,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiClass.html" title="Class refletion info for all types inherited from engine Object type." alt="" coords="791,169,913,196"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RttiStruct.html" title="Runtime struct info as a collecion of fields without logic." alt="" coords="460,187,585,213"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1RttiType.html" title="Base class for any rtti system type for a reflection." alt="" coords="287,171,406,197"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="23,111,134,137"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="283,97,411,124"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="30,169,127,196"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="5,220,152,247"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="609,101,753,128"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="777,221,927,262"/>
 </map>

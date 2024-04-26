@@ -101,32 +101,35 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="default__asset__loader_8hpp.html">asset/default_asset_loader.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image__asset__loader_8hpp.html">asset/image_asset_loader.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image__import__data_8hpp.html">asset/image_import_data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__asset__loader_8hpp.html">asset/texture_asset_loader.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__import__data_8hpp.html">asset/texture_import_data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="wav__asset__loader_8hpp.html">asset/wav_asset_loader.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="wav__import__data_8hpp.html">asset/wav_import_data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a1d693a4ae3e3d94bb9a6bfa18de73ceb">   40</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespacewmoge.html#a1d693a4ae3e3d94bb9a6bfa18de73ceb">rtti_runtime</a>() {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        rtti_type&lt;DefaultAssetLoader&gt;();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        rtti_type&lt;ImageAssetLoader&gt;();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        rtti_type&lt;ImageImportData&gt;();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        rtti_type&lt;Texture2dAssetLoader&gt;();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        rtti_type&lt;TextureCubeAssetLoader&gt;();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        rtti_type&lt;TextureImportData&gt;();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        rtti_type&lt;Texture2dImportData&gt;();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        rtti_type&lt;TextureCubeImportData&gt;();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        rtti_type&lt;WavAssetLoader&gt;();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        rtti_type&lt;WavImportData&gt;();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__asset__loader_8hpp.html">asset/shader_asset_loader.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__asset__loader_8hpp.html">asset/texture_asset_loader.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__import__data_8hpp.html">asset/texture_import_data.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="wav__asset__loader_8hpp.html">asset/wav_asset_loader.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="wav__import__data_8hpp.html">asset/wav_import_data.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a1d693a4ae3e3d94bb9a6bfa18de73ceb">   41</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespacewmoge.html#a1d693a4ae3e3d94bb9a6bfa18de73ceb">rtti_runtime</a>() {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        rtti_type&lt;DefaultAssetLoader&gt;();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        rtti_type&lt;ImageAssetLoader&gt;();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        rtti_type&lt;ImageImportData&gt;();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        rtti_type&lt;ShaderAssetLoader&gt;();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        rtti_type&lt;Texture2dAssetLoader&gt;();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        rtti_type&lt;TextureCubeAssetLoader&gt;();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        rtti_type&lt;TextureImportData&gt;();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        rtti_type&lt;Texture2dImportData&gt;();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        rtti_type&lt;TextureCubeImportData&gt;();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        rtti_type&lt;WavAssetLoader&gt;();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        rtti_type&lt;WavImportData&gt;();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="adefault__asset__loader_8hpp_html"><div class="ttname"><a href="default__asset__loader_8hpp.html">default_asset_loader.hpp</a></div></div>
 <div class="ttc" id="aimage__asset__loader_8hpp_html"><div class="ttname"><a href="image__asset__loader_8hpp.html">image_asset_loader.hpp</a></div></div>
 <div class="ttc" id="aimage__import__data_8hpp_html"><div class="ttname"><a href="image__import__data_8hpp.html">image_import_data.hpp</a></div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:34</div></div>
-<div class="ttc" id="anamespacewmoge_html_a1d693a4ae3e3d94bb9a6bfa18de73ceb"><div class="ttname"><a href="namespacewmoge.html#a1d693a4ae3e3d94bb9a6bfa18de73ceb">wmoge::rtti_runtime</a></div><div class="ttdeci">void rtti_runtime()</div><div class="ttdef"><b>Definition:</b> _rtti.hpp:40</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:35</div></div>
+<div class="ttc" id="anamespacewmoge_html_a1d693a4ae3e3d94bb9a6bfa18de73ceb"><div class="ttname"><a href="namespacewmoge.html#a1d693a4ae3e3d94bb9a6bfa18de73ceb">wmoge::rtti_runtime</a></div><div class="ttdeci">void rtti_runtime()</div><div class="ttdef"><b>Definition:</b> _rtti.hpp:41</div></div>
+<div class="ttc" id="ashader__asset__loader_8hpp_html"><div class="ttname"><a href="shader__asset__loader_8hpp.html">shader_asset_loader.hpp</a></div></div>
 <div class="ttc" id="atexture__asset__loader_8hpp_html"><div class="ttname"><a href="texture__asset__loader_8hpp.html">texture_asset_loader.hpp</a></div></div>
 <div class="ttc" id="atexture__import__data_8hpp_html"><div class="ttname"><a href="texture__import__data_8hpp.html">texture_import_data.hpp</a></div></div>
 <div class="ttc" id="awav__asset__loader_8hpp_html"><div class="ttname"><a href="wav__asset__loader_8hpp.html">wav_asset_loader.hpp</a></div></div>

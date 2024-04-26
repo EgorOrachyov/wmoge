@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/debug/profiler.hpp Source File</title>
+<title>wmoge: engine/profiler/profiler.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_034e53b0aafbc306f73517440ab81ce0.html">debug</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_7aa3b3e52b31010d855762577b09d3c1.html">profiler</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -219,32 +219,33 @@ $(function() {
 <div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#abedd2deae9b4565aeab0fd54f3e607cb">  168</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_HGFX(label)           WG_AUTO_PROFILE(hgfx, label)</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a64f7b9c569b1780aab2e416e7238ae7d">  169</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_VULKAN(label)         WG_AUTO_PROFILE(vulkan, label)</span></div>
 <div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a228f951685078d6805234a0c49b7ccd1">  170</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_IO(label)             WG_AUTO_PROFILE(io, label)</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a0b4a709344517bb04764537dfd3bc348">  171</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_ASSET(label)          WG_AUTO_PROFILE(asset, label)</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a13090b1e629f75c45efd273a5d09141c">  172</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_MESH(label)           WG_AUTO_PROFILE(mesh, label)</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a5156b8eab6be8c2d146b8dd674806341">  173</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_RENDER(label)         WG_AUTO_PROFILE(render, label)</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a5d1ee2b4cf0501d27ddf4ffbc1427277">  174</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_GAMEPLAY(label)       WG_AUTO_PROFILE(gameplay, label)</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#ae63134ce6d3ddc01fbc20480e1775af7">  175</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_DEBUG(label)          WG_AUTO_PROFILE(debug, label)</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a49add12d133caf96d59d4ea4b91a4cd6">  176</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_ECS(label)            WG_AUTO_PROFILE(ecs, label)</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a31603b8d62c4bf23cf7087fb7393fdd5">  177</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_ECS_DECS(label, desc) WG_AUTO_PROFILE_DESC(ecs, label, desc)</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#ab88c885ed077a701ba6293a48378218b">  178</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_SCENE(label)          WG_AUTO_PROFILE(scene, label)</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a5d89b7ca5f38afd0fc771830e1dfc0b3">  179</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_SCRIPTING(label)      WG_AUTO_PROFILE(scripting, label)</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#aa1934c787b07e05354c3f061b833fd3f">  180</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_LUA(label)            WG_AUTO_PROFILE(lua, label)</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a3075e3645246b35eff024c8f046ff296">  181</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_PFX(label)            WG_AUTO_PROFILE(pfx, label)</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#aaa649d83d8d387133a785a54506319ea">  182</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_AUDIO(label)          WG_AUTO_PROFILE(audio, label)</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#adaad2a96b0146d103695c9e1bdba69e4">  183</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_OPENAL(label)         WG_AUTO_PROFILE(openal, label)</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a9166770201567cfebeb65a8cb5828130">  184</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_SYSTEM(label)         WG_AUTO_PROFILE(system, label)</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a88ce8acc28a702de90daaf187e3f7c10">  185</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_PLUGIN(label)         WG_AUTO_PROFILE(plugin, label)</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a51d859fd41b73e521fc3061ca3716aed">  187</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_CAPTURE_START(capture, session, file_path) \</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">    capture = std::make_shared&lt;ProfilerCapture&gt;();            \</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">    capture-&gt;set_name(SID(#session));                         \</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">    capture-&gt;set_file(file_path);                             \</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor">    Profiler::instance()-&gt;start_capture(capture);</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a1267017b0e9215836432f63f6ddc71d9">  193</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_CAPTURE_END(capture)  \</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="preprocessor">    Profiler::instance()-&gt;end_capture(); \</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">    capture-&gt;save_to_json();             \</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">    capture.reset();</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#aa1ad04fc4f77c5b6d107eba356313375">  171</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_RTTI(label)           WG_AUTO_PROFILE(rtti, label)</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a0b4a709344517bb04764537dfd3bc348">  172</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_ASSET(label)          WG_AUTO_PROFILE(asset, label)</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a13090b1e629f75c45efd273a5d09141c">  173</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_MESH(label)           WG_AUTO_PROFILE(mesh, label)</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a5156b8eab6be8c2d146b8dd674806341">  174</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_RENDER(label)         WG_AUTO_PROFILE(render, label)</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a5d1ee2b4cf0501d27ddf4ffbc1427277">  175</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_GAMEPLAY(label)       WG_AUTO_PROFILE(gameplay, label)</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#ae63134ce6d3ddc01fbc20480e1775af7">  176</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_DEBUG(label)          WG_AUTO_PROFILE(debug, label)</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a49add12d133caf96d59d4ea4b91a4cd6">  177</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_ECS(label)            WG_AUTO_PROFILE(ecs, label)</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a31603b8d62c4bf23cf7087fb7393fdd5">  178</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_ECS_DECS(label, desc) WG_AUTO_PROFILE_DESC(ecs, label, desc)</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#ab88c885ed077a701ba6293a48378218b">  179</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_SCENE(label)          WG_AUTO_PROFILE(scene, label)</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a5d89b7ca5f38afd0fc771830e1dfc0b3">  180</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_SCRIPTING(label)      WG_AUTO_PROFILE(scripting, label)</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#aa1934c787b07e05354c3f061b833fd3f">  181</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_LUA(label)            WG_AUTO_PROFILE(lua, label)</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a3075e3645246b35eff024c8f046ff296">  182</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_PFX(label)            WG_AUTO_PROFILE(pfx, label)</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#aaa649d83d8d387133a785a54506319ea">  183</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_AUDIO(label)          WG_AUTO_PROFILE(audio, label)</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#adaad2a96b0146d103695c9e1bdba69e4">  184</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_OPENAL(label)         WG_AUTO_PROFILE(openal, label)</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a9166770201567cfebeb65a8cb5828130">  185</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_SYSTEM(label)         WG_AUTO_PROFILE(system, label)</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a88ce8acc28a702de90daaf187e3f7c10">  186</a></span>&#160;<span class="preprocessor">#define WG_AUTO_PROFILE_PLUGIN(label)         WG_AUTO_PROFILE(plugin, label)</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a51d859fd41b73e521fc3061ca3716aed">  188</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_CAPTURE_START(capture, session, file_path) \</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">    capture = std::make_shared&lt;ProfilerCapture&gt;();            \</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">    capture-&gt;set_name(SID(#session));                         \</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor">    capture-&gt;set_file(file_path);                             \</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">    Profiler::instance()-&gt;start_capture(capture);</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="profiler_8hpp.html#a1267017b0e9215836432f63f6ddc71d9">  194</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_CAPTURE_END(capture)  \</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">    Profiler::instance()-&gt;end_capture(); \</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">    capture-&gt;save_to_json();             \</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">    capture.reset();</span></div>
 <div class="ttc" id="aclasswmoge_1_1ProfilerCapture_html"><div class="ttname"><a href="classwmoge_1_1ProfilerCapture.html">wmoge::ProfilerCapture</a></div><div class="ttdoc">Capture storing all events recorded during capture.</div><div class="ttdef"><b>Definition:</b> profiler.hpp:95</div></div>
 <div class="ttc" id="aclasswmoge_1_1ProfilerCapture_html_a1e19581a747a46c6eee179aafe823345"><div class="ttname"><a href="classwmoge_1_1ProfilerCapture.html#a1e19581a747a46c6eee179aafe823345">wmoge::ProfilerCapture::set_file</a></div><div class="ttdeci">void set_file(std::string file)</div><div class="ttdef"><b>Definition:</b> profiler.cpp:85</div></div>
 <div class="ttc" id="aclasswmoge_1_1ProfilerCapture_html_a2e72684a014396b917fbf22ab3a51c3d"><div class="ttname"><a href="classwmoge_1_1ProfilerCapture.html#a2e72684a014396b917fbf22ab3a51c3d">wmoge::ProfilerCapture::set_name</a></div><div class="ttdeci">void set_name(Strid name)</div><div class="ttdef"><b>Definition:</b> profiler.cpp:82</div></div>
@@ -271,7 +272,7 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1SpinMutexTtas_html"><div class="ttname"><a href="classwmoge_1_1SpinMutexTtas.html">wmoge::SpinMutexTtas</a></div><div class="ttdoc">TTAS spinlock, non-recursive.</div><div class="ttdef"><b>Definition:</b> synchronization.hpp:49</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
 <div class="ttc" id="aclasswmoge_1_1Timer_html"><div class="ttname"><a href="classwmoge_1_1Timer.html">wmoge::Timer</a></div><div class="ttdoc">Simple time to measure elapsed time.</div><div class="ttdef"><b>Definition:</b> timer.hpp:38</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:34</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:35</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1ProfilerEntry_html"><div class="ttname"><a href="structwmoge_1_1ProfilerEntry.html">wmoge::ProfilerEntry</a></div><div class="ttdoc">Capture single entry holding information about function execution.</div><div class="ttdef"><b>Definition:</b> profiler.hpp:83</div></div>
 <div class="ttc" id="astructwmoge_1_1ProfilerEntry_html_a0433581613798b2f049fb3a0b12e0a41"><div class="ttname"><a href="structwmoge_1_1ProfilerEntry.html#a0433581613798b2f049fb3a0b12e0a41">wmoge::ProfilerEntry::stop</a></div><div class="ttdeci">std::chrono::steady_clock::time_point stop</div><div class="ttdef"><b>Definition:</b> profiler.hpp:86</div></div>

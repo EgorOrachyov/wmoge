@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/asset/scene_packed.cpp File Reference</title>
+<title>wmoge: engine/scene/scene_packed.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_07b0a471a1b3ed24b8eb313dfb4b3e99.html">asset</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_c4b2e6fa44e5132327cff5b3242dfb0d.html">scene</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,70 +72,69 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="scene__packed_8hpp_source.html">scene_packed.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="core_2class_8hpp_source.html">core/class.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="log_8hpp_source.html">core/log.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="task_8hpp_source.html">core/task.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="timer_8hpp_source.html">core/timer.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="profiler_8hpp_source.html">debug/profiler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="file__system_8hpp_source.html">platform/file_system.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="profiler_8hpp_source.html">profiler/profiler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="scene_8hpp_source.html">scene/scene.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="scene__manager_8hpp_source.html">scene/scene_manager.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="system_2engine_8hpp_source.html">system/engine.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for scene_packed.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="scene__packed_8cpp__incl.png" border="0" usemap="#aengine_2asset_2scene__packed_8cpp" alt=""/></div>
-<map name="aengine_2asset_2scene__packed_8cpp" id="aengine_2asset_2scene__packed_8cpp">
-<area shape="rect" title=" " alt="" coords="2305,5,2439,47"/>
-<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="1356,95,1487,121"/>
-<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="2532,319,2639,345"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="3153,393,3245,420"/>
-<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="2183,169,2303,196"/>
-<area shape="rect" href="task_8hpp.html" title=" " alt="" coords="538,244,638,271"/>
-<area shape="rect" href="timer_8hpp.html" title=" " alt="" coords="5,468,109,495"/>
-<area shape="rect" href="profiler_8hpp.html" title=" " alt="" coords="773,393,896,420"/>
-<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="4216,169,4379,196"/>
-<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="2313,95,2490,121"/>
-<area shape="rect" href="system_2engine_8hpp.html" title=" " alt="" coords="3733,319,3864,345"/>
-<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="1355,244,1469,271"/>
-<area shape="rect" title=" " alt="" coords="376,468,443,495"/>
-<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="539,393,648,420"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="3023,319,3110,345"/>
-<area shape="rect" title=" " alt="" coords="4114,543,4179,569"/>
-<area shape="rect" title=" " alt="" coords="3249,543,3303,569"/>
-<area shape="rect" title=" " alt="" coords="2384,468,2443,495"/>
-<area shape="rect" title=" " alt="" coords="1309,543,1387,569"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="3457,468,3581,495"/>
-<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="387,393,515,420"/>
-<area shape="rect" title=" " alt="" coords="3365,468,3433,495"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1373,468,1464,495"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="4091,393,4202,420"/>
-<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="2984,393,3077,420"/>
-<area shape="rect" title=" " alt="" coords="2859,468,2933,495"/>
-<area shape="rect" title=" " alt="" coords="2249,468,2359,495"/>
-<area shape="rect" title=" " alt="" coords="2451,393,2555,420"/>
-<area shape="rect" title=" " alt="" coords="3648,468,3715,495"/>
-<area shape="rect" title=" " alt="" coords="745,543,802,569"/>
-<area shape="rect" title=" " alt="" coords="3119,468,3188,495"/>
-<area shape="rect" title=" " alt="" coords="929,543,991,569"/>
-<area shape="rect" title=" " alt="" coords="4421,543,4473,569"/>
-<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="606,468,770,495"/>
-<area shape="rect" title=" " alt="" coords="3523,393,3578,420"/>
-<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="879,319,1009,345"/>
-<area shape="rect" href="culling_8hpp.html" title=" " alt="" coords="2000,393,2123,420"/>
-<area shape="rect" href="graphics__pipeline_8hpp.html" title=" " alt="" coords="1784,319,1971,345"/>
-<area shape="rect" href="render__scene_8hpp.html" title=" " alt="" coords="1457,393,1621,420"/>
-<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="2135,244,2287,271"/>
-<area shape="rect" title=" " alt="" coords="3806,393,3863,420"/>
-<area shape="rect" href="task__hnd_8hpp.html" title=" " alt="" coords="524,319,652,345"/>
-<area shape="rect" href="task__manager_8hpp.html" title=" " alt="" coords="1072,393,1229,420"/>
-<area shape="rect" title=" " alt="" coords="1048,468,1107,495"/>
-<area shape="rect" title=" " alt="" coords="312,543,373,569"/>
-<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="4247,244,4347,271"/>
-<area shape="rect" title=" " alt="" coords="4379,393,4459,420"/>
-<area shape="rect" href="string__utf_8hpp.html" title=" " alt="" coords="4787,244,4917,271"/>
-<area shape="rect" href="file_8hpp.html" title=" " alt="" coords="3990,319,4103,345"/>
-<area shape="rect" href="mount__volume_8hpp.html" title=" " alt="" coords="4041,244,4223,271"/>
+<div class="center"><img src="scene__packed_8cpp__incl.png" border="0" usemap="#aengine_2scene_2scene__packed_8cpp" alt=""/></div>
+<map name="aengine_2scene_2scene__packed_8cpp" id="aengine_2scene_2scene__packed_8cpp">
+<area shape="rect" title=" " alt="" coords="2257,5,2396,47"/>
+<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="977,95,1108,121"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1731,625,1823,651"/>
+<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="2393,169,2513,196"/>
+<area shape="rect" href="task_8hpp.html" title=" " alt="" coords="1265,244,1365,271"/>
+<area shape="rect" href="timer_8hpp.html" title=" " alt="" coords="4029,625,4133,651"/>
+<area shape="rect" href="file__system_8hpp.html" title=" " alt="" coords="1747,393,1909,420"/>
+<area shape="rect" href="profiler_8hpp.html" title=" " alt="" coords="3473,543,3599,569"/>
+<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="2365,95,2542,121"/>
+<area shape="rect" href="system_2engine_8hpp.html" title=" " alt="" coords="3291,543,3421,569"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="455,393,569,420"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="1265,543,1351,569"/>
+<area shape="rect" title=" " alt="" coords="416,625,483,651"/>
+<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="1260,393,1369,420"/>
+<area shape="rect" href="asset__import__data_8hpp.html" title=" " alt="" coords="1899,617,2032,659"/>
+<area shape="rect" title=" " alt="" coords="2042,781,2097,808"/>
+<area shape="rect" title=" " alt="" coords="2624,707,2683,733"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="1113,468,1277,495"/>
+<area shape="rect" title=" " alt="" coords="731,781,797,808"/>
+<area shape="rect" title=" " alt="" coords="629,781,707,808"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="654,707,778,733"/>
+<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="2115,543,2221,569"/>
+<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="1061,543,1189,569"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1048,625,1139,651"/>
+<area shape="rect" title=" " alt="" coords="1230,707,1282,733"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="811,625,922,651"/>
+<area shape="rect" title=" " alt="" coords="1163,625,1218,651"/>
+<area shape="rect" title=" " alt="" coords="2107,625,2218,651"/>
+<area shape="rect" title=" " alt="" coords="1568,707,1635,733"/>
+<area shape="rect" title=" " alt="" coords="3755,707,3823,733"/>
+<area shape="rect" title=" " alt="" coords="2707,707,2765,733"/>
+<area shape="rect" title=" " alt="" coords="1781,707,1851,733"/>
+<area shape="rect" title=" " alt="" coords="3324,707,3385,733"/>
+<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="2395,625,2559,651"/>
+<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="2948,319,3079,345"/>
+<area shape="rect" href="culling_8hpp.html" title=" " alt="" coords="2941,625,3064,651"/>
+<area shape="rect" href="graphics__pipeline_8hpp.html" title=" " alt="" coords="3153,319,3340,345"/>
+<area shape="rect" href="render__scene_8hpp.html" title=" " alt="" coords="2542,393,2706,420"/>
+<area shape="rect" href="scene__data_8hpp.html" title=" " alt="" coords="2695,244,2847,271"/>
+<area shape="rect" title=" " alt="" coords="2993,468,3050,495"/>
+<area shape="rect" href="task__hnd_8hpp.html" title=" " alt="" coords="1251,319,1379,345"/>
+<area shape="rect" href="task__manager_8hpp.html" title=" " alt="" coords="1832,543,1989,569"/>
+<area shape="rect" title=" " alt="" coords="1547,625,1605,651"/>
+<area shape="rect" title=" " alt="" coords="3949,707,4011,733"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1454,468,1554,495"/>
+<area shape="rect" title=" " alt="" coords="2584,625,2664,651"/>
+<area shape="rect" href="string__utf_8hpp.html" title=" " alt="" coords="2635,468,2765,495"/>
+<area shape="rect" href="file_8hpp.html" title=" " alt="" coords="873,543,986,569"/>
+<area shape="rect" href="mount__volume_8hpp.html" title=" " alt="" coords="753,468,935,495"/>
+<area shape="rect" title=" " alt="" coords="3393,625,3447,651"/>
 </map>
 </div>
 </div><table class="memberdecls">
