@@ -68,10 +68,10 @@ $(function() {
 : <a class="el" href="structwmoge_1_1EcsComponentTag.html#ab8f6e6e72037ce16182fcfc4e0428615">wmoge::EcsComponentTag</a>
 </li>
 <li>tags
-: <a class="el" href="structwmoge_1_1GrcShaderPassInfo.html#aa63ca1f60b68807bde2ac508a4e3d96b">wmoge::GrcShaderPassInfo</a>
-, <a class="el" href="structwmoge_1_1GrcShaderScriptFile_1_1Pass.html#a91252531c98e6620d48b70a2f799de72">wmoge::GrcShaderScriptFile::Pass</a>
-, <a class="el" href="structwmoge_1_1GrcShaderScriptFile_1_1Technique.html#addaacbf1eade5f3f7ff1c4e2b6d20719">wmoge::GrcShaderScriptFile::Technique</a>
-, <a class="el" href="structwmoge_1_1GrcShaderTechniqueInfo.html#a22dcb01290fdda8cc6a13d53c2ee121e">wmoge::GrcShaderTechniqueInfo</a>
+: <a class="el" href="structwmoge_1_1ShaderFilePass.html#a667107734e6df0eaa378c9a45535aae7">wmoge::ShaderFilePass</a>
+, <a class="el" href="structwmoge_1_1ShaderFileTechnique.html#a299f2ec5c903e451f0a741f6e465d2bb">wmoge::ShaderFileTechnique</a>
+, <a class="el" href="structwmoge_1_1ShaderPassInfo.html#a2f8659bfdb45c6b0c44fc11da8159228">wmoge::ShaderPassInfo</a>
+, <a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#aeeaf8dc1a2f999c812d289068e3e73ac">wmoge::ShaderTechniqueInfo</a>
 </li>
 <li>tang
 : <a class="el" href="structwmoge_1_1ArrayMeshData.html#aa0689c4b7c6fd7c0281c1b4140ceb873">wmoge::ArrayMeshData</a>
@@ -84,17 +84,14 @@ $(function() {
 : <a class="el" href="structwmoge_1_1ShaderComposition_1_1Params.html#aa660b3b00b102a827b5a467fbbdf8937">wmoge::ShaderComposition::Params</a>
 </li>
 <li>technique_idx
-: <a class="el" href="structwmoge_1_1GrcShaderPermutation.html#a7e7e39f8e4b286a4ef1b66de54b0ae17">wmoge::GrcShaderPermutation</a>
+: <a class="el" href="structwmoge_1_1ShaderPermutation.html#a7815afd22b01f8ad1381b4571fb9d6a1">wmoge::ShaderPermutation</a>
 </li>
 <li>techniques
-: <a class="el" href="structwmoge_1_1GrcShaderReflection.html#a8f8628ad11468bcce03d7a2e3712d867">wmoge::GrcShaderReflection</a>
-, <a class="el" href="structwmoge_1_1GrcShaderScriptFile.html#a066a6740986fa43d28f6a6dd95434a3a">wmoge::GrcShaderScriptFile</a>
+: <a class="el" href="structwmoge_1_1ShaderFile.html#a963d003220767d4b2c5a341278bbbf31">wmoge::ShaderFile</a>
+, <a class="el" href="structwmoge_1_1ShaderReflection.html#aec850e719a4e64d4b3263eaf40d79c77">wmoge::ShaderReflection</a>
 </li>
 <li>techniques_map
-: <a class="el" href="structwmoge_1_1GrcShaderReflection.html#ad333dbe1380ed5a45fb59bacbda8c0e0">wmoge::GrcShaderReflection</a>
-</li>
-<li>tex
-: <a class="el" href="structwmoge_1_1GfxShaderReflection_1_1Texture.html#ae7bbde42022ddf12df134652e178f285">wmoge::GfxShaderReflection::Texture</a>
+: <a class="el" href="structwmoge_1_1ShaderReflection.html#a8f5db52e5d2c3ea7ebfa56b1c38d3aa0">wmoge::ShaderReflection</a>
 </li>
 <li>tex_buffer
 : <a class="el" href="structwmoge_1_1CanvasSharedData.html#aba9dcc46ff5f84affea82296895d3256">wmoge::CanvasSharedData</a>
@@ -118,14 +115,6 @@ $(function() {
 </li>
 <li>TextureIdx
 : <a class="el" href="structwmoge_1_1ShaderCanvas_1_1DrawCmdData.html#a12e938519a0ff207681c7cc21a77d476">wmoge::ShaderCanvas::DrawCmdData</a>
-</li>
-<li>textures
-: <a class="el" href="classwmoge_1_1GfxShaderReflection.html#a9da03742c0cb1474e2d23cb6791d026f">wmoge::GfxShaderReflection</a>
-, <a class="el" href="structwmoge_1_1MaterialFile.html#acbeed5b0ecbe82346e9f02f1dc7ec166">wmoge::MaterialFile</a>
-, <a class="el" href="structwmoge_1_1ShaderFile.html#aa8a079ec71deecd427dafdf6121851e3">wmoge::ShaderFile</a>
-</li>
-<li>textures_per_desc
-: <a class="el" href="classwmoge_1_1GfxShaderReflection.html#aee80abec69b2996f155b14301d22132f">wmoge::GfxShaderReflection</a>
 </li>
 <li>THRESH_COMPARE_FLOAT32
 : <a class="el" href="classwmoge_1_1Math.html#a4955c185b99367ee618f1a9ea094b612">wmoge::Math</a>
@@ -233,18 +222,16 @@ $(function() {
 , <a class="el" href="structwmoge_1_1EventListener.html#a8db0c39abc7dc43201f1969f11382696">wmoge::EventListener</a>
 , <a class="el" href="structwmoge_1_1GfxDescBindPoint.html#a7ed2102fdd10f7259deebeeb046b9e9e">wmoge::GfxDescBindPoint</a>
 , <a class="el" href="structwmoge_1_1GfxDescBinging.html#a86d6b4741c1e999df1832a9b7ce9a65b">wmoge::GfxDescBinging</a>
-, <a class="el" href="structwmoge_1_1GrcShaderBinding.html#a7941d5a58291a58a32fc7afac005ce69">wmoge::GrcShaderBinding</a>
-, <a class="el" href="structwmoge_1_1GrcShaderParamInfo.html#a4cb504804e92e02fe03a11eaa5b2118a">wmoge::GrcShaderParamInfo</a>
-, <a class="el" href="structwmoge_1_1GrcShaderScriptFile_1_1Param.html#a405e876808fbb1b771b6370c47bc3d23">wmoge::GrcShaderScriptFile::Param</a>
-, <a class="el" href="structwmoge_1_1GrcShaderScriptFile_1_1ParamBlock.html#a4b86522e74b458f2107c8208221fd3b6">wmoge::GrcShaderScriptFile::ParamBlock</a>
-, <a class="el" href="structwmoge_1_1GrcShaderSpace.html#a0b001514f6822f04156e6075b1f44736">wmoge::GrcShaderSpace</a>
-, <a class="el" href="structwmoge_1_1GrcShaderType_1_1Field.html#acf4ee9235ea448d5882531599135139d">wmoge::GrcShaderType::Field</a>
-, <a class="el" href="structwmoge_1_1GrcShaderType.html#afd45a90d07bd473c13b5239df08bcc5e">wmoge::GrcShaderType</a>
 , <a class="el" href="structwmoge_1_1IocEntry.html#a094d7d785bb74669b6241ce7a25f4d09">wmoge::IocEntry</a>
 , <a class="el" href="structwmoge_1_1RttiParamInfo.html#a71924d915aa0364e44f58a724642bdde">wmoge::RttiParamInfo</a>
 , <a class="el" href="structwmoge_1_1SceneNodeData.html#a932059064e8b5e44f2672dcf2c383f12">wmoge::SceneNodeData</a>
-, <a class="el" href="structwmoge_1_1ShaderParameter.html#af820bdb781c7c603de4d06f952489cde">wmoge::ShaderParameter</a>
-, <a class="el" href="structwmoge_1_1ShaderTexture.html#a9818cd5b9ca590a81ff7459b2cf20203">wmoge::ShaderTexture</a>
+, <a class="el" href="structwmoge_1_1ShaderBinding.html#a730aa93ba5cd0c970ca6f52872314a9f">wmoge::ShaderBinding</a>
+, <a class="el" href="structwmoge_1_1ShaderFileParam.html#a6dedb65d621435aa37d9904a0dde93d4">wmoge::ShaderFileParam</a>
+, <a class="el" href="structwmoge_1_1ShaderFileParamBlock.html#a3f6d02d1f8fe31fbc96bc984e8628ccc">wmoge::ShaderFileParamBlock</a>
+, <a class="el" href="structwmoge_1_1ShaderParamInfo.html#a757ed6e18cc25976c9da20801bad354e">wmoge::ShaderParamInfo</a>
+, <a class="el" href="structwmoge_1_1ShaderSpace.html#a3e6d89e2e7b542c9b0d4bdfacc5902d1">wmoge::ShaderSpace</a>
+, <a class="el" href="structwmoge_1_1ShaderType_1_1Field.html#af79be5abe3a3bc6ac69608be9129e148">wmoge::ShaderType::Field</a>
+, <a class="el" href="structwmoge_1_1ShaderType.html#a4e9738d7495687bdf3e182be4c3ad30c">wmoge::ShaderType</a>
 </li>
 </ul>
 </div><!-- contents -->

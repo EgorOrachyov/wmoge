@@ -93,7 +93,7 @@ Collaboration diagram for wmoge::MeshPassProcessorGBuffer:</div>
 <map name="awmoge_1_1MeshPassProcessorGBuffer_coll__map" id="awmoge_1_1MeshPassProcessorGBuffer_coll__map">
 <area shape="rect" title="Processor for GBuffer pass." alt="" coords="73,171,264,212"/>
 <area shape="rect" href="classwmoge_1_1MeshPassProcessor.html" title="Responsible for compiling a mesh batch into a draw call for a particular pass." alt="" coords="73,95,264,121"/>
-<area shape="rect" href="classwmoge_1_1ShaderManager.html" title="Render module access to engine shaders." alt="" coords="5,5,167,32"/>
+<area shape="rect" href="classwmoge_1_1ShaderManager.html" title="Manager for loading and compilation of shader scripts." alt="" coords="5,5,167,32"/>
 <area shape="rect" href="classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="191,5,315,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
@@ -106,8 +106,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0021684a02521e63d483b4ae1aee520f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae80d6714ec2e68225456f6a1899964e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#ae80d6714ec2e68225456f6a1899964e5">filter</a> (const struct <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch) override</td></tr>
 <tr class="separator:ae80d6714ec2e68225456f6a1899964e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a124aa3ca7e5710ef810cdefc7d7eb6d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#a124aa3ca7e5710ef810cdefc7d7eb6d2">compile</a> (const struct <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPipeline.html">GfxPipeline</a> &gt; &amp;out_pipeline) override</td></tr>
-<tr class="separator:a124aa3ca7e5710ef810cdefc7d7eb6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e6be910995087c7e1c32e6f5df115f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#a6e6be910995087c7e1c32e6f5df115f0">compile</a> (const struct <a class="el" href="structwmoge_1_1MeshBatch.html">MeshBatch</a> &amp;batch, <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoGraphics.html">GfxPsoGraphics</a> &gt; &amp;out_pipeline) override</td></tr>
+<tr class="separator:a6e6be910995087c7e1c32e6f5df115f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad1c1202c2361f777f579d2b56d13edf"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#aad1c1202c2361f777f579d2b56d13edf">get_name</a> () const override</td></tr>
 <tr class="separator:aad1c1202c2361f777f579d2b56d13edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afca56b83e535cbdc12b151cde50c137d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#afca56b83e535cbdc12b151cde50c137d">get_pass_type</a> () const override</td></tr>
@@ -180,8 +180,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a124aa3ca7e5710ef810cdefc7d7eb6d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a124aa3ca7e5710ef810cdefc7d7eb6d2">&#9670;&nbsp;</a></span>compile()</h2>
+<a id="a6e6be910995087c7e1c32e6f5df115f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e6be910995087c7e1c32e6f5df115f0">&#9670;&nbsp;</a></span>compile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +198,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPipeline.html">GfxPipeline</a> &gt; &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoGraphics.html">GfxPsoGraphics</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>out_pipeline</em>&#160;</td>
         </tr>
         <tr>
@@ -214,7 +214,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classwmoge_1_1MeshPassProcessor.html#a8bffac00eb6c98fc4111438fa6ac03b9">wmoge::MeshPassProcessor</a>.</p>
+<p>Implements <a class="el" href="classwmoge_1_1MeshPassProcessor.html#afb7b64084f243b405884a8cc744ebdfe">wmoge::MeshPassProcessor</a>.</p>
 
 </div>
 </div>

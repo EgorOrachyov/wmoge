@@ -1,5 +1,4 @@
 <map id="wmoge::ShaderFile" name="wmoge::ShaderFile">
-<area shape="rect" id="node1" title="Shader file to describe a shader and store as a asset." alt="" coords="71,95,203,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1ShaderPipelineState.html" title="Shader pipeline settings." alt="" coords="127,5,315,32"/>
+<area shape="rect" id="node1" title="Serializable representation of a shader file." alt="" coords="5,109,137,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="23,5,120,32"/>
 </map>

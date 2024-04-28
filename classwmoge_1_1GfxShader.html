@@ -67,13 +67,14 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classwmoge_1_1GfxShader-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">wmoge::GfxShader Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">wmoge::GfxShader Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Complete gpu program (shader with complete set of stages) for the execution.  
+<p>Compiled single gpu program module.  
  <a href="classwmoge_1_1GfxShader.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="gfx__shader_8hpp_source.html">gfx_shader.hpp</a>&gt;</code></p>
@@ -82,11 +83,11 @@ Inheritance diagram for wmoge::GfxShader:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1GfxShader__inherit__graph.png" border="0" usemap="#awmoge_1_1GfxShader_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1GfxShader_inherit__map" id="awmoge_1_1GfxShader_inherit__map">
-<area shape="rect" title="Complete gpu program (shader with complete set of stages) for the execution." alt="" coords="15,155,146,181"/>
+<area shape="rect" title="Compiled single gpu program module." alt="" coords="15,155,146,181"/>
 <area shape="rect" href="classwmoge_1_1VKResource.html" title=" " alt="" coords="5,229,156,271"/>
 <area shape="rect" href="classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="8,80,153,107"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
-<area shape="rect" href="classwmoge_1_1VKShader.html" title="Vulkan implementation of gfx shader program resource." alt="" coords="16,319,145,345"/>
+<area shape="rect" href="classwmoge_1_1VKShader.html" title="Vulkan implementation of gfx shader." alt="" coords="16,319,145,345"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -94,10 +95,11 @@ Collaboration diagram for wmoge::GfxShader:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1GfxShader__coll__graph.png" border="0" usemap="#awmoge_1_1GfxShader_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1GfxShader_coll__map" id="awmoge_1_1GfxShader_coll__map">
-<area shape="rect" title="Complete gpu program (shader with complete set of stages) for the execution." alt="" coords="59,171,190,197"/>
-<area shape="rect" href="classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,95,197,121"/>
+<area shape="rect" title="Compiled single gpu program module." alt="" coords="145,199,275,225"/>
+<area shape="rect" href="classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,102,197,129"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="222,95,371,136"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -105,14 +107,10 @@ Collaboration diagram for wmoge::GfxShader:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:abbafe89166c81ede3443dc5ddfa4c32d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#abbafe89166c81ede3443dc5ddfa4c32d">~GfxShader</a> () override=default</td></tr>
 <tr class="separator:abbafe89166c81ede3443dc5ddfa4c32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7706fe8981a0c02275206f50fac7e845"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a0e90c126942a93a782424e8124df2304">GfxShaderStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#a7706fe8981a0c02275206f50fac7e845">status</a> () const =0</td></tr>
-<tr class="separator:a7706fe8981a0c02275206f50fac7e845"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a009ffc13c41b5cb15470e8eacf06504e"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#a009ffc13c41b5cb15470e8eacf06504e">message</a> () const =0</td></tr>
-<tr class="separator:a009ffc13c41b5cb15470e8eacf06504e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fb452ffe2432e6b1d1a551a4de5f16e"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; const <a class="el" href="classwmoge_1_1GfxShaderReflection.html">GfxShaderReflection</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#a9fb452ffe2432e6b1d1a551a4de5f16e">reflection</a> () const =0</td></tr>
-<tr class="separator:a9fb452ffe2432e6b1d1a551a4de5f16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5fedac707c604f5fc97e3a297f8ddb2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#ae5fedac707c604f5fc97e3a297f8ddb2">byte_code</a> () const =0</td></tr>
-<tr class="separator:ae5fedac707c604f5fc97e3a297f8ddb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94854f38af74287e17903f73f3a4edd6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#a94854f38af74287e17903f73f3a4edd6">get_bytecode</a> () const</td></tr>
+<tr class="separator:a94854f38af74287e17903f73f3a4edd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e6299a058abd2ded660184b040672d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a46e0aac98e1e704a70bf5c3a5cff14e9">GfxShaderModule</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#af8e6299a058abd2ded660184b040672d">get_module_type</a> () const</td></tr>
+<tr class="separator:af8e6299a058abd2ded660184b040672d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1GfxResource"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1GfxResource')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1GfxResource.html">wmoge::GfxResource</a></td></tr>
 <tr class="memitem:a614dbe8971c2e009c7aa4db99894b9f8 inherit pub_methods_classwmoge_1_1GfxResource"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxResource.html#a614dbe8971c2e009c7aa4db99894b9f8">~GfxResource</a> () override=default</td></tr>
 <tr class="separator:a614dbe8971c2e009c7aa4db99894b9f8 inherit pub_methods_classwmoge_1_1GfxResource"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +126,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#afb7916425067c1d775930cf5e3f98ed7">refs_count</a> ()</td></tr>
 <tr class="separator:afb7916425067c1d775930cf5e3f98ed7 inherit pub_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7e0903cd86de2c96ce769daae7bbc7eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#a7e0903cd86de2c96ce769daae7bbc7eb">m_bytecode</a></td></tr>
+<tr class="separator:a7e0903cd86de2c96ce769daae7bbc7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31191ce2175e602eed50d93361195750"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a46e0aac98e1e704a70bf5c3a5cff14e9">GfxShaderModule</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html#a31191ce2175e602eed50d93361195750">m_module_type</a></td></tr>
+<tr class="separator:a31191ce2175e602eed50d93361195750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classwmoge_1_1GfxResource"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classwmoge_1_1GfxResource')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classwmoge_1_1GfxResource.html">wmoge::GfxResource</a></td></tr>
+<tr class="memitem:a8910cf56b1130cef0482cf4a22c49028 inherit pro_attribs_classwmoge_1_1GfxResource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxResource.html#a8910cf56b1130cef0482cf4a22c49028">m_name</a></td></tr>
+<tr class="separator:a8910cf56b1130cef0482cf4a22c49028 inherit pro_attribs_classwmoge_1_1GfxResource"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classwmoge_1_1RefCnt"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classwmoge_1_1RefCnt')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classwmoge_1_1RefCnt.html">wmoge::RefCnt</a></td></tr>
@@ -135,17 +143,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:aae1bbca622a836c5b3eafb5ccb9fea58 inherit pro_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1acc2af3749653bfcc0d5e18374fbcef inherit pro_methods_classwmoge_1_1RefCnt"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RefCnt.html#a1acc2af3749653bfcc0d5e18374fbcef">reach_zero</a> ()</td></tr>
 <tr class="separator:a1acc2af3749653bfcc0d5e18374fbcef inherit pro_methods_classwmoge_1_1RefCnt"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_classwmoge_1_1GfxResource"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classwmoge_1_1GfxResource')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classwmoge_1_1GfxResource.html">wmoge::GfxResource</a></td></tr>
-<tr class="memitem:a8910cf56b1130cef0482cf4a22c49028 inherit pro_attribs_classwmoge_1_1GfxResource"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxResource.html#a8910cf56b1130cef0482cf4a22c49028">m_name</a></td></tr>
-<tr class="separator:a8910cf56b1130cef0482cf4a22c49028 inherit pro_attribs_classwmoge_1_1GfxResource"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Complete gpu program (shader with complete set of stages) for the execution. </p>
-<p>Shaders consists of a number of stages for execution. <a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> can be created from any engine thread. <a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> compilation is asynchronous and done in the background. As soon as shader compiled, it will be used in the rendering pipeline.</p>
-<p>Possible shader stages sets:</p><ul>
-<li>vertex and fragment for classic rendering</li>
-<li>compute for computational pipeline </li>
-</ul>
+<div class="textblock"><p>Compiled single gpu program module. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abbafe89166c81ede3443dc5ddfa4c32d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abbafe89166c81ede3443dc5ddfa4c32d">&#9670;&nbsp;</a></span>~GfxShader()</h2>
@@ -173,8 +173,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae5fedac707c604f5fc97e3a297f8ddb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5fedac707c604f5fc97e3a297f8ddb2">&#9670;&nbsp;</a></span>byte_code()</h2>
+<a id="a94854f38af74287e17903f73f3a4edd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94854f38af74287e17903f73f3a4edd6">&#9670;&nbsp;</a></span>get_bytecode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +183,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt; wmoge::GfxShader::byte_code </td>
+          <td class="memname">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt;&amp; wmoge::GfxShader::get_bytecode </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -191,17 +191,15 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1VKShader.html#adc044064ae1020336b6f3a0a96e53d5d">wmoge::VKShader</a>.</p>
-
 </div>
 </div>
-<a id="a009ffc13c41b5cb15470e8eacf06504e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a009ffc13c41b5cb15470e8eacf06504e">&#9670;&nbsp;</a></span>message()</h2>
+<a id="af8e6299a058abd2ded660184b040672d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e6299a058abd2ded660184b040672d">&#9670;&nbsp;</a></span>get_module_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,7 +208,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::string wmoge::GfxShader::message </td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a46e0aac98e1e704a70bf5c3a5cff14e9">GfxShaderModule</a> wmoge::GfxShader::get_module_type </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -218,17 +216,16 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1VKShader.html#a429ed365c10f23efa9a28c142998d886">wmoge::VKShader</a>.</p>
-
 </div>
 </div>
-<a id="a9fb452ffe2432e6b1d1a551a4de5f16e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fb452ffe2432e6b1d1a551a4de5f16e">&#9670;&nbsp;</a></span>reflection()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7e0903cd86de2c96ce769daae7bbc7eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e0903cd86de2c96ce769daae7bbc7eb">&#9670;&nbsp;</a></span>m_bytecode</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -237,25 +234,20 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::optional&lt;const <a class="el" href="classwmoge_1_1GfxShaderReflection.html">GfxShaderReflection</a>*&gt; wmoge::GfxShader::reflection </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt; wmoge::GfxShader::m_bytecode</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1VKShader.html#a393e94afa5fde84bcd57e5267f66271f">wmoge::VKShader</a>.</p>
-
 </div>
 </div>
-<a id="a7706fe8981a0c02275206f50fac7e845"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7706fe8981a0c02275206f50fac7e845">&#9670;&nbsp;</a></span>status()</h2>
+<a id="a31191ce2175e602eed50d93361195750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31191ce2175e602eed50d93361195750">&#9670;&nbsp;</a></span>m_module_type</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,20 +256,15 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespacewmoge.html#a0e90c126942a93a782424e8124df2304">GfxShaderStatus</a> wmoge::GfxShader::status </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#a46e0aac98e1e704a70bf5c3a5cff14e9">GfxShaderModule</a> wmoge::GfxShader::m_module_type</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKShader.html#aae5866d610b1412c955e4dc0bbf1d169">wmoge::VKShader</a>.</p>
 
 </div>
 </div>

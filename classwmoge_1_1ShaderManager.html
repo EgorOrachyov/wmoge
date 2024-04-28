@@ -73,128 +73,37 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Render module access to engine shaders.  
+<p>Manager for loading and compilation of shader scripts.  
  <a href="classwmoge_1_1ShaderManager.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="render_2shader__manager_8hpp_source.html">shader_manager.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aaa20738f9452beaa911f7761f73beea2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#aaa20738f9452beaa911f7761f73beea2">ShaderManager</a> ()</td></tr>
 <tr class="separator:aaa20738f9452beaa911f7761f73beea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af74572e5afa7527b58b27789387d0844"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#af74572e5afa7527b58b27789387d0844">ShaderManager</a> (const <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> &amp;)=delete</td></tr>
-<tr class="separator:af74572e5afa7527b58b27789387d0844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a388cee698b719efd3b08c7a72431de7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a388cee698b719efd3b08c7a72431de7d">ShaderManager</a> (<a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> &amp;&amp;)=delete</td></tr>
-<tr class="separator:a388cee698b719efd3b08c7a72431de7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c8bce0732d4101ba39908c16fdfdb5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a9c8bce0732d4101ba39908c16fdfdb5b">~ShaderManager</a> ()</td></tr>
-<tr class="separator:a9c8bce0732d4101ba39908c16fdfdb5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a978ca7b15afaca62d358acd29740a9d9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a978ca7b15afaca62d358acd29740a9d9">make_shader_key</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_name, const <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;attribs, const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;defines, class <a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader)</td></tr>
-<tr class="separator:a978ca7b15afaca62d358acd29740a9d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27cb25f35a757ba2f0f9fec30c07f25d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a27cb25f35a757ba2f0f9fec30c07f25d">get_shader</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_name)</td></tr>
-<tr class="separator:a27cb25f35a757ba2f0f9fec30c07f25d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe2ffae631a0e35b46440d7319e28ef2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#abe2ffae631a0e35b46440d7319e28ef2">get_shader</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_name, const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;defines)</td></tr>
-<tr class="separator:abe2ffae631a0e35b46440d7319e28ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa61ec3cbccb7b9c1a36b0a067f439ede"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#aa61ec3cbccb7b9c1a36b0a067f439ede">get_shader</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_name, const <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;attribs, const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;defines)</td></tr>
-<tr class="separator:aa61ec3cbccb7b9c1a36b0a067f439ede"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5533505a4b2d2cd45262775790a88a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ae5533505a4b2d2cd45262775790a88a2">get_shader</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_name, const <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;attribs, const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;defines, class <a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader)</td></tr>
-<tr class="separator:ae5533505a4b2d2cd45262775790a88a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757ccd990230be017f89afd4dfa3c163"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a757ccd990230be017f89afd4dfa3c163">find</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_key)</td></tr>
-<tr class="separator:a757ccd990230be017f89afd4dfa3c163"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a42b88260033546466975ff9d5138c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a6a42b88260033546466975ff9d5138c5">cache</a> (const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;shader_key, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; &amp;shader, bool allow_overwrite=false)</td></tr>
-<tr class="separator:a6a42b88260033546466975ff9d5138c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fe690aa441adde76f660b933427a3b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a3fe690aa441adde76f660b933427a3b0">dump_stats</a> ()</td></tr>
-<tr class="separator:a3fe690aa441adde76f660b933427a3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceed69f62982da4018d15b3dace22221"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#aceed69f62982da4018d15b3dace22221">reload_shaders</a> ()</td></tr>
-<tr class="separator:aceed69f62982da4018d15b3dace22221"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2aba46a3ea0b97e54cf6f3e96502abe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ae2aba46a3ea0b97e54cf6f3e96502abe">clear_cache</a> ()</td></tr>
-<tr class="separator:ae2aba46a3ea0b97e54cf6f3e96502abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a828a526f348714e89991bc44f907f794"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a828a526f348714e89991bc44f907f794">save_cache</a> (const std::string &amp;path_on_disk)</td></tr>
-<tr class="separator:a828a526f348714e89991bc44f907f794"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a878cb83d322c3051a3b4f34d7e900935"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a878cb83d322c3051a3b4f34d7e900935">load_cache</a> (const std::string &amp;path_on_disk)</td></tr>
-<tr class="separator:a878cb83d322c3051a3b4f34d7e900935"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b14a225671bd3d97b8713482346761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#af3b14a225671bd3d97b8713482346761">register_pass</a> (std::unique_ptr&lt; <a class="el" href="classwmoge_1_1ShaderPass.html">ShaderPass</a> &gt; pass)</td></tr>
-<tr class="separator:af3b14a225671bd3d97b8713482346761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30f2c466e121559749644f2e764e7920"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a30f2c466e121559749644f2e764e7920">fit_shader</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; &amp;shader)</td></tr>
+<tr class="separator:a30f2c466e121559749644f2e764e7920"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbd49f084599f757b7e20b3c465c5cea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#acbd49f084599f757b7e20b3c465c5cea">find_shader</a> (<a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
+<tr class="separator:acbd49f084599f757b7e20b3c465c5cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c4a20269164e1db92603c9b9752043f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a3c4a20269164e1db92603c9b9752043f">add_global_type</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &amp;type)</td></tr>
+<tr class="separator:a3c4a20269164e1db92603c9b9752043f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65afc39aeb9b1cc6170454757ba3bea7"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a65afc39aeb9b1cc6170454757ba3bea7">find_global_type</a> (<a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
+<tr class="separator:a65afc39aeb9b1cc6170454757ba3bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a2c02fe6fbf9758e2e2860abf3e148"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ad7a2c02fe6fbf9758e2e2860abf3e148">get_shaders_folder</a> () const</td></tr>
+<tr class="separator:ad7a2c02fe6fbf9758e2e2860abf3e148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Render module access to engine shaders. </p>
+<div class="textblock"><p>Manager for loading and compilation of shader scripts. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaa20738f9452beaa911f7761f73beea2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa20738f9452beaa911f7761f73beea2">&#9670;&nbsp;</a></span>ShaderManager() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa20738f9452beaa911f7761f73beea2">&#9670;&nbsp;</a></span>ShaderManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">wmoge::ShaderManager::ShaderManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af74572e5afa7527b58b27789387d0844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af74572e5afa7527b58b27789387d0844">&#9670;&nbsp;</a></span>ShaderManager() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wmoge::ShaderManager::ShaderManager </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a388cee698b719efd3b08c7a72431de7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a388cee698b719efd3b08c7a72431de7d">&#9670;&nbsp;</a></span>ShaderManager() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wmoge::ShaderManager::ShaderManager </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> &amp;&amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9c8bce0732d4101ba39908c16fdfdb5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c8bce0732d4101ba39908c16fdfdb5b">&#9670;&nbsp;</a></span>~ShaderManager()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">wmoge::ShaderManager::~ShaderManager </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -205,326 +114,106 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6a42b88260033546466975ff9d5138c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a42b88260033546466975ff9d5138c5">&#9670;&nbsp;</a></span>cache()</h2>
+<a id="a3c4a20269164e1db92603c9b9752043f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c4a20269164e1db92603c9b9752043f">&#9670;&nbsp;</a></span>add_global_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::ShaderManager::cache </td>
+          <td class="memname">void wmoge::ShaderManager::add_global_type </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>shader</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>allow_overwrite</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ae2aba46a3ea0b97e54cf6f3e96502abe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2aba46a3ea0b97e54cf6f3e96502abe">&#9670;&nbsp;</a></span>clear_cache()</h2>
+<a id="a65afc39aeb9b1cc6170454757ba3bea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65afc39aeb9b1cc6170454757ba3bea7">&#9670;&nbsp;</a></span>find_global_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void wmoge::ShaderManager::clear_cache </td>
+          <td class="memname">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &gt; wmoge::ShaderManager::find_global_type </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acbd49f084599f757b7e20b3c465c5cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd49f084599f757b7e20b3c465c5cea">&#9670;&nbsp;</a></span>find_shader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; wmoge::ShaderManager::find_shader </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a30f2c466e121559749644f2e764e7920"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30f2c466e121559749644f2e764e7920">&#9670;&nbsp;</a></span>fit_shader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ShaderManager::fit_shader </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Shader.html">Shader</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shader</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad7a2c02fe6fbf9758e2e2860abf3e148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a2c02fe6fbf9758e2e2860abf3e148">&#9670;&nbsp;</a></span>get_shaders_folder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; wmoge::ShaderManager::get_shaders_folder </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3fe690aa441adde76f660b933427a3b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fe690aa441adde76f660b933427a3b0">&#9670;&nbsp;</a></span>dump_stats()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ShaderManager::dump_stats </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a757ccd990230be017f89afd4dfa3c163"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a757ccd990230be017f89afd4dfa3c163">&#9670;&nbsp;</a></span>find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; wmoge::ShaderManager::find </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a27cb25f35a757ba2f0f9fec30c07f25d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27cb25f35a757ba2f0f9fec30c07f25d">&#9670;&nbsp;</a></span>get_shader() <span class="overload">[1/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; wmoge::ShaderManager::get_shader </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abe2ffae631a0e35b46440d7319e28ef2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe2ffae631a0e35b46440d7319e28ef2">&#9670;&nbsp;</a></span>get_shader() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; wmoge::ShaderManager::get_shader </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>defines</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa61ec3cbccb7b9c1a36b0a067f439ede"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa61ec3cbccb7b9c1a36b0a067f439ede">&#9670;&nbsp;</a></span>get_shader() <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; wmoge::ShaderManager::get_shader </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;&#160;</td>
-          <td class="paramname"><em>attribs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>defines</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae5533505a4b2d2cd45262775790a88a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5533505a4b2d2cd45262775790a88a2">&#9670;&nbsp;</a></span>get_shader() <span class="overload">[4/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt; wmoge::ShaderManager::get_shader </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;&#160;</td>
-          <td class="paramname"><em>attribs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>defines</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1Shader.html">Shader</a> *&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a878cb83d322c3051a3b4f34d7e900935"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a878cb83d322c3051a3b4f34d7e900935">&#9670;&nbsp;</a></span>load_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ShaderManager::load_cache </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path_on_disk</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a978ca7b15afaca62d358acd29740a9d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a978ca7b15afaca62d358acd29740a9d9">&#9670;&nbsp;</a></span>make_shader_key()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ShaderManager::make_shader_key </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader_name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a> &amp;&#160;</td>
-          <td class="paramname"><em>attribs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt; &amp;&#160;</td>
-          <td class="paramname"><em>defines</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1Shader.html">Shader</a> *&#160;</td>
-          <td class="paramname"><em>shader</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af3b14a225671bd3d97b8713482346761"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3b14a225671bd3d97b8713482346761">&#9670;&nbsp;</a></span>register_pass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ShaderManager::register_pass </td>
-          <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classwmoge_1_1ShaderPass.html">ShaderPass</a> &gt;&#160;</td>
-          <td class="paramname"><em>pass</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aceed69f62982da4018d15b3dace22221"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceed69f62982da4018d15b3dace22221">&#9670;&nbsp;</a></span>reload_shaders()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ShaderManager::reload_shaders </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a828a526f348714e89991bc44f907f794"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a828a526f348714e89991bc44f907f794">&#9670;&nbsp;</a></span>save_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmoge::ShaderManager::save_cache </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path_on_disk</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>engine/render/<a class="el" href="render_2shader__manager_8hpp_source.html">shader_manager.hpp</a></li>
-<li>engine/render/<a class="el" href="render_2shader__manager_8cpp.html">shader_manager.cpp</a></li>
+<li>engine/grc/<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a></li>
+<li>engine/grc/<a class="el" href="shader__manager_8cpp.html">shader_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

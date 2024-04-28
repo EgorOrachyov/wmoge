@@ -1,6 +1,7 @@
 <map id="wmoge::GfxShader" name="wmoge::GfxShader">
-<area shape="rect" id="node1" title="Complete gpu program (shader with complete set of stages) for the execution." alt="" coords="59,171,190,197"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,95,197,121"/>
+<area shape="rect" id="node1" title="Compiled single gpu program module." alt="" coords="145,199,275,225"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,102,197,129"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="222,95,371,136"/>
 </map>

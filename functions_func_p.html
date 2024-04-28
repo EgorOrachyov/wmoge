@@ -82,7 +82,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKRenderPass.html#ad8c0e15fc17aeee2c993a0f022cca34d">wmoge::VKRenderPass</a>
 </li>
 <li>PassBuilder()
-: <a class="el" href="classwmoge_1_1GrcShaderScriptBuilder_1_1PassBuilder.html#aea441f41ea5f77fec5e64438baac0484">wmoge::GrcShaderScriptBuilder::PassBuilder</a>
+: <a class="el" href="classwmoge_1_1ShaderBuilder_1_1PassBuilder.html#ac8721ed248140a27543ed75698c41905">wmoge::ShaderBuilder::PassBuilder</a>
 </li>
 <li>path_arc_to()
 : <a class="el" href="classwmoge_1_1Canvas.html#a87bc47efc786831664e932fd50efe997">wmoge::Canvas</a>
@@ -138,8 +138,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKDriver.html#a70dbeef568964b6cfd532bd61f0a0f72">wmoge::VKDriver</a>
 </li>
 <li>pipeline()
-: <a class="el" href="classwmoge_1_1VKCompPipeline.html#a58c2dfe68d84c4f4ead865cf650f3859">wmoge::VKCompPipeline</a>
-, <a class="el" href="classwmoge_1_1VKPipeline.html#a81f0de061d95eb3a60acb368111a3b96">wmoge::VKPipeline</a>
+: <a class="el" href="classwmoge_1_1VKPsoCompute.html#a8182d0df2bcece8de19505af49d95d55">wmoge::VKPsoCompute</a>
+, <a class="el" href="classwmoge_1_1VKPsoGraphics.html#a5b12cf3b69585337098e5bd5e656fe4d">wmoge::VKPsoGraphics</a>
 </li>
 <li>pipeline_cache()
 : <a class="el" href="classwmoge_1_1VKDriver.html#aaaf0a26c9b1f7fccd5365ce4d3749d67">wmoge::VKDriver</a>
@@ -164,7 +164,7 @@ $(function() {
 </li>
 <li>point()
 : <a class="el" href="classwmoge_1_1GfxDescSet.html#a40a8476aa4cd13dd8e0236f2e7e9da81">wmoge::GfxDescSet</a>
-, <a class="el" href="classwmoge_1_1TFrustum.html#afca9e0a603bbb89556403c644c3b3e5e">wmoge::TFrustum&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TFrustum.html#a876d7c36b470f51ad10a75c4eccba351">wmoge::TFrustum&lt; T &gt;</a>
 </li>
 <li>poll_events()
 : <a class="el" href="classwmoge_1_1GlfwWindowManager.html#ad413d1c22f5a8b0db0636354ad5155eb">wmoge::GlfwWindowManager</a>
@@ -198,7 +198,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKWindow.html#a9b89891cd867428eac62b4dd08904b46">wmoge::VKWindow</a>
 </li>
 <li>preset_to_size()
-: <a class="el" href="classwmoge_1_1GrcTexResize.html#a03488257e418c5c93ebc7c240c274e8e">wmoge::GrcTexResize</a>
+: <a class="el" href="classwmoge_1_1TexResize.html#aa29a70ecb42d302d016b76051e3d5d96">wmoge::TexResize</a>
 </li>
 <li>primary_layout()
 : <a class="el" href="classwmoge_1_1VKTexture.html#a63ddd52c8fbe8c6ad7e5504b14335410">wmoge::VKTexture</a>
@@ -271,10 +271,20 @@ $(function() {
 <li>prs_queue_family()
 : <a class="el" href="classwmoge_1_1VKQueues.html#a32813b2a232d0c795416062c6f95ebec">wmoge::VKQueues</a>
 </li>
-<li>pso_cache()
-: <a class="el" href="classwmoge_1_1GfxDriver.html#adc9cce122e235b384a201f9ca786d015">wmoge::GfxDriver</a>
-, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a795544e4d33d3002ee915e030efc0001">wmoge::GfxDriverWrapper</a>
-, <a class="el" href="classwmoge_1_1VKDriver.html#ab94406864ee6da511ccc60a9f6e756d0">wmoge::VKDriver</a>
+<li>pso_compute_cache()
+: <a class="el" href="classwmoge_1_1GfxDriver.html#aa05b4aafc667d4510266e6c3e0169cff">wmoge::GfxDriver</a>
+, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a4028e3779a05add4513bb68e30540258">wmoge::GfxDriverWrapper</a>
+, <a class="el" href="classwmoge_1_1VKDriver.html#a7fbfbaacf40c17e891b7b6d64e1932ad">wmoge::VKDriver</a>
+</li>
+<li>pso_graphics_cache()
+: <a class="el" href="classwmoge_1_1GfxDriver.html#af010256b644ea2c1d916a20d7644a7ab">wmoge::GfxDriver</a>
+, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#ad27fd09b20369bc8dfbdc94a1d210f5a">wmoge::GfxDriverWrapper</a>
+, <a class="el" href="classwmoge_1_1VKDriver.html#ae7a92ebdcc900896ca94d5c5c87b316f">wmoge::VKDriver</a>
+</li>
+<li>pso_layout_cache()
+: <a class="el" href="classwmoge_1_1GfxDriver.html#aa0e3ec29434e82fa7b7782866efaa7e4">wmoge::GfxDriver</a>
+, <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a827ed80b398e0597b4f9b6cc9da7d3f3">wmoge::GfxDriverWrapper</a>
+, <a class="el" href="classwmoge_1_1VKDriver.html#a2e7104aeae8ee1d455d4b3698bb4f91a">wmoge::VKDriver</a>
 </li>
 <li>push()
 : <a class="el" href="classwmoge_1_1CallbackQueue.html#ad50f9256ec1063dba88f2754b3d95e55">wmoge::CallbackQueue</a>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['ecsentitystate_9247',['EcsEntityState',['../namespacewmoge.html#a803562e837408826afd7977c1a255b91',1,'wmoge']]],
-  ['ecssystemexecmode_9248',['EcsSystemExecMode',['../namespacewmoge.html#a22475efc9d9a61efc8fe7bcda01319d0',1,'wmoge']]],
-  ['ecssystemtype_9249',['EcsSystemType',['../namespacewmoge.html#a890a8a4454ee7bcb2133a5a098cbcf04',1,'wmoge']]]
+  ['defaultsampler_9101',['DefaultSampler',['../namespacewmoge.html#a34a113ab414c098093d0da12bfd6322b',1,'wmoge']]],
+  ['defaulttexture_9102',['DefaultTexture',['../namespacewmoge.html#aff93c57829acd42a3c74602b395116bc',1,'wmoge']]]
 ];

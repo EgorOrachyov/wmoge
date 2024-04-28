@@ -84,8 +84,8 @@ Inheritance diagram for wmoge::TextureImportData:</div>
 <div class="center"><img src="classwmoge_1_1TextureImportData__inherit__graph.png" border="0" usemap="#awmoge_1_1TextureImportData_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1TextureImportData_inherit__map" id="awmoge_1_1TextureImportData_inherit__map">
 <area shape="rect" title="Base class for import data to import textures for GPU rendering." alt="" coords="123,229,300,256"/>
-<area shape="rect" href="classwmoge_1_1Texture2dImportData.html" title=" " alt="" coords="5,304,196,331"/>
-<area shape="rect" href="classwmoge_1_1TextureCubeImportData.html" title=" " alt="" coords="220,304,427,331"/>
+<area shape="rect" href="classwmoge_1_1Texture2dImportData.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="5,304,196,331"/>
+<area shape="rect" href="classwmoge_1_1TextureCubeImportData.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="220,304,427,331"/>
 <area shape="rect" href="classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="127,155,295,181"/>
 <area shape="rect" href="classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="147,80,275,107"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="156,5,267,32"/>
@@ -96,13 +96,13 @@ Collaboration diagram for wmoge::TextureImportData:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1TextureImportData__coll__graph.png" border="0" usemap="#awmoge_1_1TextureImportData_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1TextureImportData_coll__map" id="awmoge_1_1TextureImportData_coll__map">
-<area shape="rect" title="Base class for import data to import textures for GPU rendering." alt="" coords="664,85,841,112"/>
-<area shape="rect" href="classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="357,5,525,32"/>
+<area shape="rect" title="Base class for import data to import textures for GPU rendering." alt="" coords="680,81,857,108"/>
+<area shape="rect" href="classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="365,5,533,32"/>
 <area shape="rect" href="classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="165,5,293,32"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" href="structwmoge_1_1GfxSamplerDesc.html" title="Gfx sampler descriptor." alt="" coords="357,56,525,83"/>
-<area shape="rect" href="structwmoge_1_1GrcTexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="347,107,535,149"/>
-<area shape="rect" href="structwmoge_1_1GrcTexResizeParams.html" title="Params to resize source texture image content (on import)" alt="" coords="343,173,539,200"/>
+<area shape="rect" href="structwmoge_1_1GfxSamplerDesc.html" title="Gfx sampler descriptor." alt="" coords="365,56,533,83"/>
+<area shape="rect" href="structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="343,107,555,133"/>
+<area shape="rect" href="structwmoge_1_1TexResizeParams.html" title="Params to resize source texture image content (on import)" alt="" coords="361,157,536,184"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -128,6 +128,8 @@ Public Member Functions</h2></td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1RttiObject"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1RttiObject')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1RttiObject.html">wmoge::RttiObject</a></td></tr>
 <tr class="memitem:a239ab3a535f64d2885c39c2d00d1de54 inherit pub_methods_classwmoge_1_1RttiObject"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#a239ab3a535f64d2885c39c2d00d1de54">~RttiObject</a> () override=default</td></tr>
 <tr class="separator:a239ab3a535f64d2885c39c2d00d1de54 inherit pub_methods_classwmoge_1_1RttiObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55f7661b4d17f549e03ce537601a65c9 inherit pub_methods_classwmoge_1_1RttiObject"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#a55f7661b4d17f549e03ce537601a65c9">to_string</a> () const</td></tr>
+<tr class="separator:a55f7661b4d17f549e03ce537601a65c9 inherit pub_methods_classwmoge_1_1RttiObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3a4e4652a2a5bb507ac28fb032b0a9d inherit pub_methods_classwmoge_1_1RttiObject"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#ae3a4e4652a2a5bb507ac28fb032b0a9d">clone</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> &gt; &amp;object) const</td></tr>
 <tr class="separator:ae3a4e4652a2a5bb507ac28fb032b0a9d inherit pub_methods_classwmoge_1_1RttiObject"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0c09370d6fbcb223a7205104e955a76 inherit pub_methods_classwmoge_1_1RttiObject"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#aa0c09370d6fbcb223a7205104e955a76">read_from_yaml</a> (<a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> node)</td></tr>
@@ -162,10 +164,10 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:acd36c953c5821233fe0c11811bb652a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GfxSamplerDesc.html">GfxSamplerDesc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#acd36c953c5821233fe0c11811bb652a4">sampling</a> {}</td></tr>
 <tr class="separator:acd36c953c5821233fe0c11811bb652a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af95d5d97f5b255c84527c96a93682373"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#af95d5d97f5b255c84527c96a93682373">compression</a> {}</td></tr>
-<tr class="separator:af95d5d97f5b255c84527c96a93682373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fc8263483d6ca26172a57582037f731"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1GrcTexResizeParams.html">GrcTexResizeParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#a1fc8263483d6ca26172a57582037f731">resizing</a> {}</td></tr>
-<tr class="separator:a1fc8263483d6ca26172a57582037f731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949da8ad5cba0cfbfe9d202a15f47a7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#a949da8ad5cba0cfbfe9d202a15f47a7d">compression</a> {}</td></tr>
+<tr class="separator:a949da8ad5cba0cfbfe9d202a15f47a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4097c90d2b238de6fbede679f4d5f78a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1TexResizeParams.html">TexResizeParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#a4097c90d2b238de6fbede679f4d5f78a">resizing</a> {}</td></tr>
+<tr class="separator:a4097c90d2b238de6fbede679f4d5f78a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adfa6ba7d46d5d42964672c39bdcf726b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">GfxFormat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#adfa6ba7d46d5d42964672c39bdcf726b">format</a> = <a class="el" href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2ab4b279046a02077466fa26cabb00c642">GfxFormat::RGBA8</a></td></tr>
 <tr class="separator:adfa6ba7d46d5d42964672c39bdcf726b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bb29fa0ba5eedbf7cfc3f8fb5767c44"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TextureImportData.html#a5bb29fa0ba5eedbf7cfc3f8fb5767c44">channels</a> = 4</td></tr>
@@ -300,14 +302,14 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="af95d5d97f5b255c84527c96a93682373"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af95d5d97f5b255c84527c96a93682373">&#9670;&nbsp;</a></span>compression</h2>
+<a id="a949da8ad5cba0cfbfe9d202a15f47a7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949da8ad5cba0cfbfe9d202a15f47a7d">&#9670;&nbsp;</a></span>compression</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structwmoge_1_1GrcTexCompressionParams.html">GrcTexCompressionParams</a> wmoge::TextureImportData::compression {}</td>
+          <td class="memname"><a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> wmoge::TextureImportData::compression {}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -342,14 +344,14 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a1fc8263483d6ca26172a57582037f731"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fc8263483d6ca26172a57582037f731">&#9670;&nbsp;</a></span>resizing</h2>
+<a id="a4097c90d2b238de6fbede679f4d5f78a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4097c90d2b238de6fbede679f4d5f78a">&#9670;&nbsp;</a></span>resizing</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structwmoge_1_1GrcTexResizeParams.html">GrcTexResizeParams</a> wmoge::TextureImportData::resizing {}</td>
+          <td class="memname"><a class="el" href="structwmoge_1_1TexResizeParams.html">TexResizeParams</a> wmoge::TextureImportData::resizing {}</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -74,56 +74,53 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> file to describe a shader and store as a asset.  
+<p>Serializable representation of a shader file.  
  <a href="structwmoge_1_1ShaderFile.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="material_2shader_8hpp_source.html">shader.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="shader__file_8hpp_source.html">shader_file.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for wmoge::ShaderFile:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1ShaderFile__coll__graph.png" border="0" usemap="#awmoge_1_1ShaderFile_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ShaderFile_coll__map" id="awmoge_1_1ShaderFile_coll__map">
-<area shape="rect" title="Shader file to describe a shader and store as a asset." alt="" coords="71,95,203,121"/>
-<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
-<area shape="rect" href="structwmoge_1_1ShaderPipelineState.html" title="Shader pipeline settings." alt="" coords="127,5,315,32"/>
+<area shape="rect" title="Serializable representation of a shader file." alt="" coords="5,109,137,136"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="23,5,120,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a360848331597f507d5330fd74469a1bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a360848331597f507d5330fd74469a1bf">WG_IO_DECLARE</a> (<a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a>)</td></tr>
-<tr class="separator:a360848331597f507d5330fd74469a1bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46e6ca7c31b2511c27903fca974baa7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a46e6ca7c31b2511c27903fca974baa7f">WG_RTTI_STRUCT</a> (<a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a>)</td></tr>
+<tr class="separator:a46e6ca7c31b2511c27903fca974baa7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a97a4adf631b61d8a8b88b61e202e0d4b"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1ShaderParameter.html">ShaderParameter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a97a4adf631b61d8a8b88b61e202e0d4b">parameters</a></td></tr>
-<tr class="separator:a97a4adf631b61d8a8b88b61e202e0d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8a079ec71deecd427dafdf6121851e3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structwmoge_1_1ShaderTexture.html">ShaderTexture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#aa8a079ec71deecd427dafdf6121851e3">textures</a></td></tr>
-<tr class="separator:aa8a079ec71deecd427dafdf6121851e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a091ea5776e208ff247d8a722a76b688a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a091ea5776e208ff247d8a722a76b688a">keywords</a></td></tr>
-<tr class="separator:a091ea5776e208ff247d8a722a76b688a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab887b8daf115a2d0b0542906511f5d57"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#ab887b8daf115a2d0b0542906511f5d57">vertex</a></td></tr>
-<tr class="separator:ab887b8daf115a2d0b0542906511f5d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21576fd42bc90a14d2fc702f7373fcfb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a21576fd42bc90a14d2fc702f7373fcfb">fragment</a></td></tr>
-<tr class="separator:a21576fd42bc90a14d2fc702f7373fcfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd0535be66a74b6f643ccf6e83aa364e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#afd0535be66a74b6f643ccf6e83aa364e">compute</a></td></tr>
-<tr class="separator:afd0535be66a74b6f643ccf6e83aa364e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7042718b97e4eb2445d3b4d5bab2309"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#ad7042718b97e4eb2445d3b4d5bab2309">domain</a></td></tr>
-<tr class="separator:ad7042718b97e4eb2445d3b4d5bab2309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a484a32af07823305aebc4e0cd5c779b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1ShaderPipelineState.html">ShaderPipelineState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a484a32af07823305aebc4e0cd5c779b2">state</a> {}</td></tr>
-<tr class="separator:a484a32af07823305aebc4e0cd5c779b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72ddf4eadedcd7c3935a24970c7f52e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a72ddf4eadedcd7c3935a24970c7f52e0">name</a></td></tr>
+<tr class="separator:a72ddf4eadedcd7c3935a24970c7f52e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4a84aa97ac961174907e22c504854c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#af4a84aa97ac961174907e22c504854c1">extends</a></td></tr>
+<tr class="separator:af4a84aa97ac961174907e22c504854c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2469aa3ff05c1b4614190c3a1afbcc8b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a2469aa3ff05c1b4614190c3a1afbcc8b">ui_name</a></td></tr>
+<tr class="separator:a2469aa3ff05c1b4614190c3a1afbcc8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23d670d12aa644f23e4a4b15dc6936bc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a23d670d12aa644f23e4a4b15dc6936bc">ui_hint</a></td></tr>
+<tr class="separator:a23d670d12aa644f23e4a4b15dc6936bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f5818052bb6cddd25deccb15ea1e7e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="structwmoge_1_1ShaderFileParamBlock.html">ShaderFileParamBlock</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a54f5818052bb6cddd25deccb15ea1e7e">param_blocks</a></td></tr>
+<tr class="separator:a54f5818052bb6cddd25deccb15ea1e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a963d003220767d4b2c5a341278bbbf31"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="structwmoge_1_1ShaderFileTechnique.html">ShaderFileTechnique</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a963d003220767d4b2c5a341278bbbf31">techniques</a></td></tr>
+<tr class="separator:a963d003220767d4b2c5a341278bbbf31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a084246203e999381cd0bfdba851c0132"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="structwmoge_1_1ShaderFileSource.html">ShaderFileSource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html#a084246203e999381cd0bfdba851c0132">sources</a></td></tr>
+<tr class="separator:a084246203e999381cd0bfdba851c0132"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material.">Shader</a> file to describe a shader and store as a asset. </p>
+<div class="textblock"><p>Serializable representation of a shader file. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a360848331597f507d5330fd74469a1bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a360848331597f507d5330fd74469a1bf">&#9670;&nbsp;</a></span>WG_IO_DECLARE()</h2>
+<a id="a46e6ca7c31b2511c27903fca974baa7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46e6ca7c31b2511c27903fca974baa7f">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">wmoge::ShaderFile::WG_IO_DECLARE </td>
+          <td class="memname">wmoge::ShaderFile::WG_RTTI_STRUCT </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -135,112 +132,98 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="afd0535be66a74b6f643ccf6e83aa364e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd0535be66a74b6f643ccf6e83aa364e">&#9670;&nbsp;</a></span>compute</h2>
+<a id="af4a84aa97ac961174907e22c504854c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4a84aa97ac961174907e22c504854c1">&#9670;&nbsp;</a></span>extends</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string wmoge::ShaderFile::compute</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ShaderFile::extends</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ad7042718b97e4eb2445d3b4d5bab2309"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7042718b97e4eb2445d3b4d5bab2309">&#9670;&nbsp;</a></span>domain</h2>
+<a id="a72ddf4eadedcd7c3935a24970c7f52e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72ddf4eadedcd7c3935a24970c7f52e0">&#9670;&nbsp;</a></span>name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ShaderFile::domain</td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ShaderFile::name</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a21576fd42bc90a14d2fc702f7373fcfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21576fd42bc90a14d2fc702f7373fcfb">&#9670;&nbsp;</a></span>fragment</h2>
+<a id="a54f5818052bb6cddd25deccb15ea1e7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54f5818052bb6cddd25deccb15ea1e7e">&#9670;&nbsp;</a></span>param_blocks</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string wmoge::ShaderFile::fragment</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="structwmoge_1_1ShaderFileParamBlock.html">ShaderFileParamBlock</a>&gt; wmoge::ShaderFile::param_blocks</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a091ea5776e208ff247d8a722a76b688a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a091ea5776e208ff247d8a722a76b688a">&#9670;&nbsp;</a></span>keywords</h2>
+<a id="a084246203e999381cd0bfdba851c0132"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a084246203e999381cd0bfdba851c0132">&#9670;&nbsp;</a></span>sources</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classwmoge_1_1Strid.html">Strid</a>&gt; wmoge::ShaderFile::keywords</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="structwmoge_1_1ShaderFileSource.html">ShaderFileSource</a>&gt; wmoge::ShaderFile::sources</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a97a4adf631b61d8a8b88b61e202e0d4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97a4adf631b61d8a8b88b61e202e0d4b">&#9670;&nbsp;</a></span>parameters</h2>
+<a id="a963d003220767d4b2c5a341278bbbf31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a963d003220767d4b2c5a341278bbbf31">&#9670;&nbsp;</a></span>techniques</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structwmoge_1_1ShaderParameter.html">ShaderParameter</a>&gt; wmoge::ShaderFile::parameters</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="structwmoge_1_1ShaderFileTechnique.html">ShaderFileTechnique</a>&gt; wmoge::ShaderFile::techniques</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a484a32af07823305aebc4e0cd5c779b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a484a32af07823305aebc4e0cd5c779b2">&#9670;&nbsp;</a></span>state</h2>
+<a id="a23d670d12aa644f23e4a4b15dc6936bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23d670d12aa644f23e4a4b15dc6936bc">&#9670;&nbsp;</a></span>ui_hint</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structwmoge_1_1ShaderPipelineState.html">ShaderPipelineState</a> wmoge::ShaderFile::state {}</td>
+          <td class="memname">std::string wmoge::ShaderFile::ui_hint</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa8a079ec71deecd427dafdf6121851e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8a079ec71deecd427dafdf6121851e3">&#9670;&nbsp;</a></span>textures</h2>
+<a id="a2469aa3ff05c1b4614190c3a1afbcc8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2469aa3ff05c1b4614190c3a1afbcc8b">&#9670;&nbsp;</a></span>ui_name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structwmoge_1_1ShaderTexture.html">ShaderTexture</a>&gt; wmoge::ShaderFile::textures</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab887b8daf115a2d0b0542906511f5d57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab887b8daf115a2d0b0542906511f5d57">&#9670;&nbsp;</a></span>vertex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string wmoge::ShaderFile::vertex</td>
+          <td class="memname">std::string wmoge::ShaderFile::ui_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -248,7 +231,7 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/material/<a class="el" href="material_2shader_8hpp_source.html">shader.hpp</a></li>
+<li>engine/grc/<a class="el" href="shader__file_8hpp_source.html">shader_file.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

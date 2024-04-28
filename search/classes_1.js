@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['base64_4841',['Base64',['../classwmoge_1_1Base64.html',1,'wmoge']]],
-  ['binding_4842',['Binding',['../classreflection_1_1Binding.html',1,'reflection']]],
-  ['bindingallocator_4843',['BindingAllocator',['../classreflection_1_1BindingAllocator.html',1,'reflection']]],
-  ['bloomsettings_4844',['BloomSettings',['../structwmoge_1_1BloomSettings.html',1,'wmoge']]],
-  ['buffer_4845',['Buffer',['../classreflection_1_1Buffer.html',1,'reflection.Buffer'],['../structwmoge_1_1GfxShaderReflection_1_1Buffer.html',1,'wmoge::GfxShaderReflection::Buffer']]]
+  ['base64_4768',['Base64',['../classwmoge_1_1Base64.html',1,'wmoge']]],
+  ['binding_4769',['Binding',['../classreflection_1_1Binding.html',1,'reflection']]],
+  ['bindingallocator_4770',['BindingAllocator',['../classreflection_1_1BindingAllocator.html',1,'reflection']]],
+  ['bloomsettings_4771',['BloomSettings',['../structwmoge_1_1BloomSettings.html',1,'wmoge']]],
+  ['buffer_4772',['Buffer',['../classreflection_1_1Buffer.html',1,'reflection']]]
 ];

@@ -1,0 +1,5 @@
+<map id="wmoge::ShaderTechniqueInfo" name="wmoge::ShaderTechniqueInfo">
+<area shape="rect" id="node1" title="Defines single technique as collection of passes for drawing." alt="" coords="32,95,225,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1ShaderOptions.html" title="Map of options for a technique or pass." alt="" coords="127,5,283,32"/>
+</map>

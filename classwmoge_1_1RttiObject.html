@@ -94,7 +94,7 @@ Inheritance diagram for wmoge::RttiObject:</div>
 <area shape="rect" href="classwmoge_1_1ConfigFile.html" title="Ini&#45;file based simple config file." alt="" coords="864,107,991,133"/>
 <area shape="rect" href="classwmoge_1_1Font.html" title="Font asset for rendering texts from true type fonts." alt="" coords="879,157,975,184"/>
 <area shape="rect" href="classwmoge_1_1Image.html" title="Hardware&#45;independent image representation." alt="" coords="874,208,981,235"/>
-<area shape="rect" href="classwmoge_1_1Material.html" title="Controls the rendering of the mesh geometry." alt="" coords="869,259,985,285"/>
+<area shape="rect" href="classwmoge_1_1Material.html" title=" " alt="" coords="869,259,985,285"/>
 <area shape="rect" href="classwmoge_1_1Mesh.html" title="Vertex and index data structured as chunks which can be rendered." alt="" coords="876,309,979,336"/>
 <area shape="rect" href="classwmoge_1_1Model.html" title="Asset which stores a complete textured mesh model with level of details and other settings." alt="" coords="875,360,980,387"/>
 <area shape="rect" href="classwmoge_1_1PfxEffect.html" title="Complete pfx effect which can be instantiated for emitting." alt="" coords="866,411,989,437"/>
@@ -102,19 +102,19 @@ Inheritance diagram for wmoge::RttiObject:</div>
 <area shape="rect" href="classwmoge_1_1ScenePrefab.html" title="A prefab asset which can be instantiated into a set of objects." alt="" coords="855,512,1000,539"/>
 <area shape="rect" href="classwmoge_1_1SceneTreePacked.html" title="Represents packed scene trre asset which can be used to load editable scene." alt="" coords="839,563,1016,589"/>
 <area shape="rect" href="classwmoge_1_1Script.html" title="Base class for any script which can be used to extend an object logic." alt="" coords="875,613,979,640"/>
-<area shape="rect" href="classwmoge_1_1Shader.html" title="Base class for any shader which can be used with material." alt="" coords="872,664,983,691"/>
+<area shape="rect" href="classwmoge_1_1Shader.html" title="Reprsents a particular shader program script." alt="" coords="872,664,983,691"/>
 <area shape="rect" href="classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture asset which can be used for rendering." alt="" coords="871,715,984,741"/>
 <area shape="rect" href="classwmoge_1_1AudioStreamWav.html" title="Simple audio asset loaded from .wav file format." alt="" coords="1079,56,1249,83"/>
 <area shape="rect" href="classwmoge_1_1LuaScript.html" title="Holds info about a lua declared class in a user script." alt="" coords="1101,613,1227,640"/>
 <area shape="rect" href="classwmoge_1_1Texture2d.html" title="2d gpu texture asset" alt="" coords="1101,689,1227,716"/>
 <area shape="rect" href="classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture asset." alt="" coords="1093,740,1235,767"/>
-<area shape="rect" href="classwmoge_1_1AssimpMeshImportData.html" title=" " alt="" coords="561,613,771,640"/>
+<area shape="rect" href="classwmoge_1_1AssimpMeshImportData.html" title="Options to import mesh asset from external asset format." alt="" coords="561,613,771,640"/>
 <area shape="rect" href="classwmoge_1_1FreetypeImportData.html" title="Data to import freetype font." alt="" coords="574,664,758,691"/>
-<area shape="rect" href="classwmoge_1_1ImageImportData.html" title=" " alt="" coords="581,715,751,741"/>
+<area shape="rect" href="classwmoge_1_1ImageImportData.html" title="Options to import an image from an external format, such as png, jpeg, bmp, etc." alt="" coords="581,715,751,741"/>
 <area shape="rect" href="classwmoge_1_1TextureImportData.html" title="Base class for import data to import textures for GPU rendering." alt="" coords="577,765,755,792"/>
 <area shape="rect" href="classwmoge_1_1WavImportData.html" title="Options to import an audio file from .wav files format." alt="" coords="586,816,746,843"/>
-<area shape="rect" href="classwmoge_1_1Texture2dImportData.html" title=" " alt="" coords="832,765,1023,792"/>
-<area shape="rect" href="classwmoge_1_1TextureCubeImportData.html" title=" " alt="" coords="824,816,1031,843"/>
+<area shape="rect" href="classwmoge_1_1Texture2dImportData.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="832,765,1023,792"/>
+<area shape="rect" href="classwmoge_1_1TextureCubeImportData.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="824,816,1031,843"/>
 <area shape="rect" href="classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="556,867,776,893"/>
 <area shape="rect" href="classwmoge_1_1DefaultAssetLoader.html" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="573,917,759,944"/>
 <area shape="rect" href="classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="569,968,763,995"/>
@@ -139,6 +139,8 @@ Collaboration diagram for wmoge::RttiObject:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a239ab3a535f64d2885c39c2d00d1de54"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#a239ab3a535f64d2885c39c2d00d1de54">~RttiObject</a> () override=default</td></tr>
 <tr class="separator:a239ab3a535f64d2885c39c2d00d1de54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55f7661b4d17f549e03ce537601a65c9"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#a55f7661b4d17f549e03ce537601a65c9">to_string</a> () const</td></tr>
+<tr class="separator:a55f7661b4d17f549e03ce537601a65c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3a4e4652a2a5bb507ac28fb032b0a9d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#ae3a4e4652a2a5bb507ac28fb032b0a9d">clone</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1RttiObject.html">RttiObject</a> &gt; &amp;object) const</td></tr>
 <tr class="separator:ae3a4e4652a2a5bb507ac28fb032b0a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0c09370d6fbcb223a7205104e955a76"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RttiObject.html#aa0c09370d6fbcb223a7205104e955a76">read_from_yaml</a> (<a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> node)</td></tr>
@@ -589,6 +591,31 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramtype"><a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a>&#160;</td>
           <td class="paramname"><em>node</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a55f7661b4d17f549e03ce537601a65c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55f7661b4d17f549e03ce537601a65c9">&#9670;&nbsp;</a></span>to_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string wmoge::RttiObject::to_string </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>

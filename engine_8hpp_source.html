@@ -188,131 +188,125 @@ $(function() {
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__vert__format_8hpp.html">gfx/gfx_vert_format.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__vert__format__cache_8hpp.html">gfx/gfx_vert_format_cache.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grc_2shader_8hpp.html">grc/shader.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grc_2shader__manager_8hpp.html">grc/shader_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__param_8hpp.html">grc/shader_param.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__param__block_8hpp.html">grc/shader_param_block.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grc_2shader__pass_8hpp.html">grc/shader_pass.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__reflection_8hpp.html">grc/shader_reflection.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__script_8hpp.html">grc/shader_script.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__script__builder_8hpp.html">grc/shader_script_builder.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader_8hpp.html">grc/shader.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__builder_8hpp.html">grc/shader_builder.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__file_8hpp.html">grc/shader_file.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__manager_8hpp.html">grc/shader_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__param_8hpp.html">grc/shader_param.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__param__block_8hpp.html">grc/shader_param_block.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__pass_8hpp.html">grc/shader_pass.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="shader__reflection_8hpp.html">grc/shader_reflection.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__compression_8hpp.html">grc/texture_compression.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__manager_8hpp.html">grc/texture_manager.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__resize_8hpp.html">grc/texture_resize.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hgfx__pass_8hpp.html">hgfx/hgfx_pass.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hgfx__pass__base_8hpp.html">hgfx/hgfx_pass_base.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hgfx__pass__text_8hpp.html">hgfx/hgfx_pass_text.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive_8hpp.html">io/archive.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive__file_8hpp.html">io/archive_file.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive__memory_8hpp.html">io/archive_memory.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="base64_8hpp.html">io/base64.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="compression_8hpp.html">io/compression.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="io_2enum_8hpp.html">io/enum.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="yaml_8hpp.html">io/yaml.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="material_8hpp.html">material/material.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="material_2shader_8hpp.html">material/shader.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="color_8hpp.html">math/color.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="frustum_8hpp.html">math/frustum.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mat_8hpp.html">math/mat.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils_8hpp.html">math/math_utils.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils2d_8hpp.html">math/math_utils2d.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils3d_8hpp.html">math/math_utils3d.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plane_8hpp.html">math/plane.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="quat_8hpp.html">math/quat.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="range_8hpp.html">math/range.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="transform_8hpp.html">math/transform.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mem__linear_8hpp.html">memory/mem_linear.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mem__pool_8hpp.html">memory/mem_pool.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__mesh_8hpp.html">mesh/array_mesh.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh_8hpp.html">mesh/mesh.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__batch_8hpp.html">mesh/mesh_batch.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__bucket_8hpp.html">mesh/mesh_bucket.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__builder_8hpp.html">mesh/mesh_builder.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__pass_8hpp.html">mesh/mesh_pass.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive_8hpp.html">io/archive.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive__file_8hpp.html">io/archive_file.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="archive__memory_8hpp.html">io/archive_memory.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="base64_8hpp.html">io/base64.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="compression_8hpp.html">io/compression.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="io_2enum_8hpp.html">io/enum.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="yaml_8hpp.html">io/yaml.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="material_8hpp.html">material/material.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="color_8hpp.html">math/color.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="frustum_8hpp.html">math/frustum.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mat_8hpp.html">math/mat.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils_8hpp.html">math/math_utils.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils2d_8hpp.html">math/math_utils2d.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__utils3d_8hpp.html">math/math_utils3d.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plane_8hpp.html">math/plane.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="quat_8hpp.html">math/quat.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="range_8hpp.html">math/range.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="transform_8hpp.html">math/transform.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="vec_8hpp.html">math/vec.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mem__linear_8hpp.html">memory/mem_linear.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mem__pool_8hpp.html">memory/mem_pool.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="array__mesh_8hpp.html">mesh/array_mesh.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh_8hpp.html">mesh/mesh.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__batch_8hpp.html">mesh/mesh_batch.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__bucket_8hpp.html">mesh/mesh_bucket.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__builder_8hpp.html">mesh/mesh_builder.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mesh__pass_8hpp.html">mesh/mesh_pass.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__component_8hpp.html">pfx/pfx_component.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__effect_8hpp.html">pfx/pfx_effect.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__emitter_8hpp.html">pfx/pfx_emitter.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__feature_8hpp.html">pfx/pfx_feature.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__component_8hpp.html">pfx/pfx_component.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__effect_8hpp.html">pfx/pfx_effect.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__emitter_8hpp.html">pfx/pfx_emitter.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="pfx__feature_8hpp.html">pfx/pfx_feature.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="application_8hpp.html">platform/application.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dll__manager_8hpp.html">platform/dll_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="file_8hpp.html">platform/file.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="file__system_8hpp.html">platform/file_system.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input_8hpp.html">platform/input.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input__defs_8hpp.html">platform/input_defs.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input__devices_8hpp.html">platform/input_devices.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mount__volume_8hpp.html">platform/mount_volume.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="time_8hpp.html">platform/time.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="window_8hpp.html">platform/window.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="window__manager_8hpp.html">platform/window_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="profiler_8hpp.html">profiler/profiler.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="builtin_8hpp.html">rtti/builtin.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rtti_2class_8hpp.html">rtti/class.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rtti_2enum_8hpp.html">rtti/enum.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="function_8hpp.html">rtti/function.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="meta__data_8hpp.html">rtti/meta_data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rtti_2object_8hpp.html">rtti/object.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="struct_8hpp.html">rtti/struct.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="traits_8hpp.html">rtti/traits.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type_8hpp.html">rtti/type.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type__storage_8hpp.html">rtti/type_storage.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="aux__draw__manager_8hpp.html">render/aux_draw_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8hpp.html">render/camera.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="canvas_8hpp.html">render/canvas.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="culling_8hpp.html">render/culling.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="font_8hpp.html">render/font.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="graphics__pipeline_8hpp.html">render/graphics_pipeline.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image_8hpp.html">render/image.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="light_8hpp.html">render/light.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="model_8hpp.html">render/model.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="model__instance_8hpp.html">render/model_instance.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__engine_8hpp.html">render/render_engine.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__queue_8hpp.html">render/render_queue.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__scene_8hpp.html">render/render_scene.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render_2shader__manager_8hpp.html">render/shader_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render_2shader__pass_8hpp.html">render/shader_pass.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture_8hpp.html">render/texture.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="view_8hpp.html">render/view.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="view__manager_8hpp.html">render/view_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene_8hpp.html">scene/scene.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__components_8hpp.html">scene/scene_components.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__data_8hpp.html">scene/scene_data.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__entity_8hpp.html">scene/scene_entity.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__manager_8hpp.html">scene/scene_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__node_8hpp.html">scene/scene_node.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__node__props_8hpp.html">scene/scene_node_props.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__packed_8hpp.html">scene/scene_packed.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__prefab_8hpp.html">scene/scene_prefab.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__tree_8hpp.html">scene/scene_tree.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__tree__packed_8hpp.html">scene/scene_tree_packed.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script_8hpp.html">scripting/script.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__instance_8hpp.html">scripting/script_instance.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__native_8hpp.html">scripting/script_native.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__system_8hpp.html">scripting/script_system.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config__file_8hpp.html">system/config_file.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="system_2engine_8hpp.html">system/engine.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hook_8hpp.html">system/hook.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ioc__container_8hpp.html">system/ioc_container.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="layer_8hpp.html">system/layer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plugin_8hpp.html">system/plugin.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plugin__manager_8hpp.html">system/plugin_manager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="console_8hpp.html">debug/console.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="application_8hpp.html">platform/application.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="dll__manager_8hpp.html">platform/dll_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="file_8hpp.html">platform/file.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="file__system_8hpp.html">platform/file_system.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input_8hpp.html">platform/input.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input__defs_8hpp.html">platform/input_defs.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="input__devices_8hpp.html">platform/input_devices.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="mount__volume_8hpp.html">platform/mount_volume.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="time_8hpp.html">platform/time.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="window_8hpp.html">platform/window.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="window__manager_8hpp.html">platform/window_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="profiler_8hpp.html">profiler/profiler.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="builtin_8hpp.html">rtti/builtin.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rtti_2class_8hpp.html">rtti/class.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rtti_2enum_8hpp.html">rtti/enum.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="function_8hpp.html">rtti/function.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="meta__data_8hpp.html">rtti/meta_data.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="rtti_2object_8hpp.html">rtti/object.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="struct_8hpp.html">rtti/struct.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="traits_8hpp.html">rtti/traits.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type_8hpp.html">rtti/type.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="type__storage_8hpp.html">rtti/type_storage.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="aux__draw__manager_8hpp.html">render/aux_draw_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8hpp.html">render/camera.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="canvas_8hpp.html">render/canvas.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="common_8hpp.html">render/common.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="culling_8hpp.html">render/culling.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="font_8hpp.html">render/font.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="graphics__pipeline_8hpp.html">render/graphics_pipeline.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image_8hpp.html">render/image.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="light_8hpp.html">render/light.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="model_8hpp.html">render/model.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="model__instance_8hpp.html">render/model_instance.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__engine_8hpp.html">render/render_engine.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__queue_8hpp.html">render/render_queue.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="render__scene_8hpp.html">render/render_scene.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture_8hpp.html">render/texture.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="view_8hpp.html">render/view.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="view__manager_8hpp.html">render/view_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene_8hpp.html">scene/scene.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__components_8hpp.html">scene/scene_components.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__data_8hpp.html">scene/scene_data.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__entity_8hpp.html">scene/scene_entity.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__manager_8hpp.html">scene/scene_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__node_8hpp.html">scene/scene_node.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__node__props_8hpp.html">scene/scene_node_props.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__packed_8hpp.html">scene/scene_packed.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__prefab_8hpp.html">scene/scene_prefab.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__tree_8hpp.html">scene/scene_tree.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="scene__tree__packed_8hpp.html">scene/scene_tree_packed.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script_8hpp.html">scripting/script.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__instance_8hpp.html">scripting/script_instance.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__native_8hpp.html">scripting/script_native.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="script__system_8hpp.html">scripting/script_system.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config__file_8hpp.html">system/config_file.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="system_2engine_8hpp.html">system/engine.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hook_8hpp.html">system/hook.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ioc__container_8hpp.html">system/ioc_container.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="layer_8hpp.html">system/layer.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plugin_8hpp.html">system/plugin.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plugin__manager_8hpp.html">system/plugin_manager.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="console_8hpp.html">debug/console.hpp</a>&quot;</span></div>
 <div class="ttc" id="aaction__manager_8hpp_html"><div class="ttname"><a href="action__manager_8hpp.html">action_manager.hpp</a></div></div>
 <div class="ttc" id="aaction__map_8hpp_html"><div class="ttname"><a href="action__map_8hpp.html">action_map.hpp</a></div></div>
 <div class="ttc" id="aapplication_8hpp_html"><div class="ttname"><a href="application_8hpp.html">application.hpp</a></div></div>
@@ -344,6 +338,7 @@ $(function() {
 <div class="ttc" id="acanvas_8hpp_html"><div class="ttname"><a href="canvas_8hpp.html">canvas.hpp</a></div></div>
 <div class="ttc" id="acmd__line_8hpp_html"><div class="ttname"><a href="cmd__line_8hpp.html">cmd_line.hpp</a></div></div>
 <div class="ttc" id="acolor_8hpp_html"><div class="ttname"><a href="color_8hpp.html">color.hpp</a></div></div>
+<div class="ttc" id="acommon_8hpp_html"><div class="ttname"><a href="common_8hpp.html">common.hpp</a></div></div>
 <div class="ttc" id="acompression_8hpp_html"><div class="ttname"><a href="compression_8hpp.html">compression.hpp</a></div></div>
 <div class="ttc" id="aconfig__file_8hpp_html"><div class="ttname"><a href="config__file_8hpp.html">config_file.hpp</a></div></div>
 <div class="ttc" id="aconsole_8hpp_html"><div class="ttname"><a href="console_8hpp.html">console.hpp</a></div></div>
@@ -397,12 +392,6 @@ $(function() {
 <div class="ttc" id="agfx__vert__format_8hpp_html"><div class="ttname"><a href="gfx__vert__format_8hpp.html">gfx_vert_format.hpp</a></div></div>
 <div class="ttc" id="agfx__vert__format__cache_8hpp_html"><div class="ttname"><a href="gfx__vert__format__cache_8hpp.html">gfx_vert_format_cache.hpp</a></div></div>
 <div class="ttc" id="agraphics__pipeline_8hpp_html"><div class="ttname"><a href="graphics__pipeline_8hpp.html">graphics_pipeline.hpp</a></div></div>
-<div class="ttc" id="agrc_2shader_8hpp_html"><div class="ttname"><a href="grc_2shader_8hpp.html">shader.hpp</a></div></div>
-<div class="ttc" id="agrc_2shader__manager_8hpp_html"><div class="ttname"><a href="grc_2shader__manager_8hpp.html">shader_manager.hpp</a></div></div>
-<div class="ttc" id="agrc_2shader__pass_8hpp_html"><div class="ttname"><a href="grc_2shader__pass_8hpp.html">shader_pass.hpp</a></div></div>
-<div class="ttc" id="ahgfx__pass_8hpp_html"><div class="ttname"><a href="hgfx__pass_8hpp.html">hgfx_pass.hpp</a></div></div>
-<div class="ttc" id="ahgfx__pass__base_8hpp_html"><div class="ttname"><a href="hgfx__pass__base_8hpp.html">hgfx_pass_base.hpp</a></div></div>
-<div class="ttc" id="ahgfx__pass__text_8hpp_html"><div class="ttname"><a href="hgfx__pass__text_8hpp.html">hgfx_pass_text.hpp</a></div></div>
 <div class="ttc" id="ahook_8hpp_html"><div class="ttname"><a href="hook_8hpp.html">hook.hpp</a></div></div>
 <div class="ttc" id="aimage_8hpp_html"><div class="ttname"><a href="image_8hpp.html">image.hpp</a></div></div>
 <div class="ttc" id="ainput_8hpp_html"><div class="ttname"><a href="input_8hpp.html">input.hpp</a></div></div>
@@ -415,7 +404,6 @@ $(function() {
 <div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="log_8hpp.html">log.hpp</a></div></div>
 <div class="ttc" id="amask_8hpp_html"><div class="ttname"><a href="mask_8hpp.html">mask.hpp</a></div></div>
 <div class="ttc" id="amat_8hpp_html"><div class="ttname"><a href="mat_8hpp.html">mat.hpp</a></div></div>
-<div class="ttc" id="amaterial_2shader_8hpp_html"><div class="ttname"><a href="material_2shader_8hpp.html">shader.hpp</a></div></div>
 <div class="ttc" id="amaterial_8hpp_html"><div class="ttname"><a href="material_8hpp.html">material.hpp</a></div></div>
 <div class="ttc" id="amath__utils2d_8hpp_html"><div class="ttname"><a href="math__utils2d_8hpp.html">math_utils2d.hpp</a></div></div>
 <div class="ttc" id="amath__utils3d_8hpp_html"><div class="ttname"><a href="math__utils3d_8hpp.html">math_utils3d.hpp</a></div></div>
@@ -444,8 +432,6 @@ $(function() {
 <div class="ttc" id="arandom_8hpp_html"><div class="ttname"><a href="random_8hpp.html">random.hpp</a></div></div>
 <div class="ttc" id="arange_8hpp_html"><div class="ttname"><a href="range_8hpp.html">range.hpp</a></div></div>
 <div class="ttc" id="aref_8hpp_html"><div class="ttname"><a href="ref_8hpp.html">ref.hpp</a></div></div>
-<div class="ttc" id="arender_2shader__manager_8hpp_html"><div class="ttname"><a href="render_2shader__manager_8hpp.html">shader_manager.hpp</a></div></div>
-<div class="ttc" id="arender_2shader__pass_8hpp_html"><div class="ttname"><a href="render_2shader__pass_8hpp.html">shader_pass.hpp</a></div></div>
 <div class="ttc" id="arender__engine_8hpp_html"><div class="ttname"><a href="render__engine_8hpp.html">render_engine.hpp</a></div></div>
 <div class="ttc" id="arender__queue_8hpp_html"><div class="ttname"><a href="render__queue_8hpp.html">render_queue.hpp</a></div></div>
 <div class="ttc" id="arender__scene_8hpp_html"><div class="ttname"><a href="render__scene_8hpp.html">render_scene.hpp</a></div></div>
@@ -468,11 +454,14 @@ $(function() {
 <div class="ttc" id="ascript__native_8hpp_html"><div class="ttname"><a href="script__native_8hpp.html">script_native.hpp</a></div></div>
 <div class="ttc" id="ascript__system_8hpp_html"><div class="ttname"><a href="script__system_8hpp.html">script_system.hpp</a></div></div>
 <div class="ttc" id="aserialization_8hpp_html"><div class="ttname"><a href="serialization_8hpp.html">serialization.hpp</a></div></div>
+<div class="ttc" id="ashader_8hpp_html"><div class="ttname"><a href="shader_8hpp.html">shader.hpp</a></div></div>
+<div class="ttc" id="ashader__builder_8hpp_html"><div class="ttname"><a href="shader__builder_8hpp.html">shader_builder.hpp</a></div></div>
+<div class="ttc" id="ashader__file_8hpp_html"><div class="ttname"><a href="shader__file_8hpp.html">shader_file.hpp</a></div></div>
+<div class="ttc" id="ashader__manager_8hpp_html"><div class="ttname"><a href="shader__manager_8hpp.html">shader_manager.hpp</a></div></div>
 <div class="ttc" id="ashader__param_8hpp_html"><div class="ttname"><a href="shader__param_8hpp.html">shader_param.hpp</a></div></div>
 <div class="ttc" id="ashader__param__block_8hpp_html"><div class="ttname"><a href="shader__param__block_8hpp.html">shader_param_block.hpp</a></div></div>
+<div class="ttc" id="ashader__pass_8hpp_html"><div class="ttname"><a href="shader__pass_8hpp.html">shader_pass.hpp</a></div></div>
 <div class="ttc" id="ashader__reflection_8hpp_html"><div class="ttname"><a href="shader__reflection_8hpp.html">shader_reflection.hpp</a></div></div>
-<div class="ttc" id="ashader__script_8hpp_html"><div class="ttname"><a href="shader__script_8hpp.html">shader_script.hpp</a></div></div>
-<div class="ttc" id="ashader__script__builder_8hpp_html"><div class="ttname"><a href="shader__script__builder_8hpp.html">shader_script_builder.hpp</a></div></div>
 <div class="ttc" id="asignal_8hpp_html"><div class="ttname"><a href="signal_8hpp.html">signal.hpp</a></div></div>
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>

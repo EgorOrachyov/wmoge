@@ -860,58 +860,66 @@ $(function() {
 <div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="preprocessor">    }                                                                                                              \</span></div>
 <div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="preprocessor">    friend struct RttiTypeOf&lt;struct_type&gt;;</span></div>
 <div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160; </div>
-<div class="line"><a name="l00792"></a><span class="lineno"><a class="line" href="traits_8hpp.html#ad9f73bdcfad59c6be5526edc8a0fe900">  792</a></span>&#160;<span class="preprocessor">#define WG_RTTI_STRUCT_EXT(struct_type, parent_type) WG_RTTI_GENERATED_TYPE(struct_type, parent_type, RttiStruct, find_struct, )</span></div>
-<div class="line"><a name="l00793"></a><span class="lineno"><a class="line" href="traits_8hpp.html#ad694be4b30e79c82044e4afeef5d14e5">  793</a></span>&#160;<span class="preprocessor">#define WG_RTTI_STRUCT(struct_type)                  WG_RTTI_STRUCT_EXT(struct_type, )</span></div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160; </div>
-<div class="line"><a name="l00795"></a><span class="lineno"><a class="line" href="traits_8hpp.html#afe4edf473efd7c43431659cfdf08f6f1">  795</a></span>&#160;<span class="preprocessor">#define WG_RTTI_CLASS(class_type, parent_type) WG_RTTI_GENERATED_TYPE(class_type, parent_type, RttiClass, find_class, override)</span></div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160; </div>
-<div class="line"><a name="l00797"></a><span class="lineno"><a class="line" href="traits_8hpp.html#acfd4a9e05921796b929807273396bbaf">  797</a></span>&#160;<span class="preprocessor">#define WG_RTTI_STRUCT_BEGIN(struct_type)                             \</span></div>
-<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="preprocessor">    template&lt;&gt;                                                        \</span></div>
-<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="preprocessor">    struct RttiTypeOf&lt;struct_type&gt; {                                  \</span></div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="preprocessor">        using Type = struct_type;                                     \</span></div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;<span class="preprocessor">        static Strid name() {                                         \</span></div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;<span class="preprocessor">            return SID(#struct_type);                                 \</span></div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="preprocessor">        }                                                             \</span></div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;<span class="preprocessor">        static Ref&lt;RttiType&gt; make() {                                 \</span></div>
-<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;<span class="preprocessor">            Ref&lt;RttiStructT&lt;Type&gt;&gt; t = make_ref&lt;RttiStructT&lt;Type&gt;&gt;(); \</span></div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="preprocessor">            RttiMetaData           meta_data;                         \</span></div>
-<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="preprocessor">            RttiTypeStorage::instance()-&gt;add(t.as&lt;RttiType&gt;());       \</span></div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;<span class="preprocessor">            auto binder = [&amp;]()</span></div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160; </div>
-<div class="line"><a name="l00810"></a><span class="lineno"><a class="line" href="traits_8hpp.html#ab9fedd99f4bf5e288dc5c184a9b2c077">  810</a></span>&#160;<span class="preprocessor">#define WG_RTTI_CLASS_BEGIN(class_type)                             \</span></div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="preprocessor">    template&lt;&gt;                                                      \</span></div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;<span class="preprocessor">    struct RttiTypeOf&lt;class_type&gt; {                                 \</span></div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;<span class="preprocessor">        using Type = class_type;                                    \</span></div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;<span class="preprocessor">        static Strid name() {                                       \</span></div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="preprocessor">            return SID(#class_type);                                \</span></div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;<span class="preprocessor">        }                                                           \</span></div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;<span class="preprocessor">        static Ref&lt;RttiType&gt; make() {                               \</span></div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;<span class="preprocessor">            Ref&lt;RttiClassT&lt;Type&gt;&gt; t = make_ref&lt;RttiClassT&lt;Type&gt;&gt;(); \</span></div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;<span class="preprocessor">            RttiMetaData          meta_data;                        \</span></div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;<span class="preprocessor">            RttiTypeStorage::instance()-&gt;add(t.as&lt;RttiType&gt;());     \</span></div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;<span class="preprocessor">            auto binder = [&amp;]()</span></div>
-<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160; </div>
-<div class="line"><a name="l00823"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a8a43d0668e415bdaca6b928a64eea9f7">  823</a></span>&#160;<span class="preprocessor">#define WG_RTTI_END                        \</span></div>
-<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;<span class="preprocessor">    ;                                      \</span></div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;<span class="preprocessor">    binder();                              \</span></div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;<span class="preprocessor">    t-&gt;set_metadata(std::move(meta_data)); \</span></div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;<span class="preprocessor">    return t.as&lt;RttiType&gt;();               \</span></div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;<span class="preprocessor">    }                                      \</span></div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00792"></a><span class="lineno"><a class="line" href="traits_8hpp.html#ad9f73bdcfad59c6be5526edc8a0fe900">  792</a></span>&#160;<span class="preprocessor">#define WG_RTTI_STRUCT_EXT(struct_type, parent_type)                            \</span></div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="preprocessor">    WG_RTTI_GENERATED_TYPE(struct_type, parent_type, RttiStruct, find_struct, ) \</span></div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="preprocessor">    std::string to_string() const {                                             \</span></div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="preprocessor">        RttiStruct*       rtti_type = get_class();                              \</span></div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="preprocessor">        std::stringstream stream;                                               \</span></div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;<span class="preprocessor">        rtti_type-&gt;to_string(this, stream);                                     \</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="preprocessor">        return stream.str();                                                    \</span></div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160; </div>
+<div class="line"><a name="l00801"></a><span class="lineno"><a class="line" href="traits_8hpp.html#ad694be4b30e79c82044e4afeef5d14e5">  801</a></span>&#160;<span class="preprocessor">#define WG_RTTI_STRUCT(struct_type) WG_RTTI_STRUCT_EXT(struct_type, )</span></div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160; </div>
+<div class="line"><a name="l00803"></a><span class="lineno"><a class="line" href="traits_8hpp.html#afe4edf473efd7c43431659cfdf08f6f1">  803</a></span>&#160;<span class="preprocessor">#define WG_RTTI_CLASS(class_type, parent_type) WG_RTTI_GENERATED_TYPE(class_type, parent_type, RttiClass, find_class, override)</span></div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160; </div>
+<div class="line"><a name="l00805"></a><span class="lineno"><a class="line" href="traits_8hpp.html#acfd4a9e05921796b929807273396bbaf">  805</a></span>&#160;<span class="preprocessor">#define WG_RTTI_STRUCT_BEGIN(struct_type)                             \</span></div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="preprocessor">    template&lt;&gt;                                                        \</span></div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="preprocessor">    struct RttiTypeOf&lt;struct_type&gt; {                                  \</span></div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;<span class="preprocessor">        using Type = struct_type;                                     \</span></div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;<span class="preprocessor">        static Strid name() {                                         \</span></div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;<span class="preprocessor">            return SID(#struct_type);                                 \</span></div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;<span class="preprocessor">        }                                                             \</span></div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;<span class="preprocessor">        static Ref&lt;RttiType&gt; make() {                                 \</span></div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;<span class="preprocessor">            Ref&lt;RttiStructT&lt;Type&gt;&gt; t = make_ref&lt;RttiStructT&lt;Type&gt;&gt;(); \</span></div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;<span class="preprocessor">            RttiMetaData           meta_data;                         \</span></div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;<span class="preprocessor">            RttiTypeStorage::instance()-&gt;add(t.as&lt;RttiType&gt;());       \</span></div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;<span class="preprocessor">            auto binder = [&amp;]()</span></div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160; </div>
+<div class="line"><a name="l00818"></a><span class="lineno"><a class="line" href="traits_8hpp.html#ab9fedd99f4bf5e288dc5c184a9b2c077">  818</a></span>&#160;<span class="preprocessor">#define WG_RTTI_CLASS_BEGIN(class_type)                             \</span></div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;<span class="preprocessor">    template&lt;&gt;                                                      \</span></div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;<span class="preprocessor">    struct RttiTypeOf&lt;class_type&gt; {                                 \</span></div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;<span class="preprocessor">        using Type = class_type;                                    \</span></div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;<span class="preprocessor">        static Strid name() {                                       \</span></div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;<span class="preprocessor">            return SID(#class_type);                                \</span></div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;<span class="preprocessor">        }                                                           \</span></div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;<span class="preprocessor">        static Ref&lt;RttiType&gt; make() {                               \</span></div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;<span class="preprocessor">            Ref&lt;RttiClassT&lt;Type&gt;&gt; t = make_ref&lt;RttiClassT&lt;Type&gt;&gt;(); \</span></div>
+<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;<span class="preprocessor">            RttiMetaData          meta_data;                        \</span></div>
+<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;<span class="preprocessor">            RttiTypeStorage::instance()-&gt;add(t.as&lt;RttiType&gt;());     \</span></div>
+<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;<span class="preprocessor">            auto binder = [&amp;]()</span></div>
 <div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160; </div>
-<div class="line"><a name="l00831"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a1241fb1235bcd237704ee49ad1cf34af">  831</a></span>&#160;<span class="preprocessor">#define WG_RTTI_META_DATA(...) \</span></div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;<span class="preprocessor">    meta_data = std::move(RttiMetaData({__VA_ARGS__}))</span></div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160; </div>
-<div class="line"><a name="l00834"></a><span class="lineno"><a class="line" href="traits_8hpp.html#aa0e6fa275027fd38a1957a454a7e4ad9">  834</a></span>&#160;<span class="preprocessor">#define WG_RTTI_FACTORY() \</span></div>
-<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;<span class="preprocessor">    t-&gt;add_factory([]() -&gt; RttiObject* { return new Type(); })</span></div>
-<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160; </div>
-<div class="line"><a name="l00837"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a1914fdebc170b5138c3a8ca6b8cf2421">  837</a></span>&#160;<span class="preprocessor">#define WG_RTTI_FIELD(property, ...) \</span></div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;<span class="preprocessor">    t-&gt;add_field&lt;decltype(Type::property)&gt;(SID(#property), offsetof(Type, property), __VA_ARGS__)</span></div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160; </div>
-<div class="line"><a name="l00840"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a605ab63760773e88d45882736d3df60f">  840</a></span>&#160;<span class="preprocessor">#define WG_RTTI_METHOD(method, ...) \</span></div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;<span class="preprocessor">    t-&gt;add_method(SID(#method), &amp;Type::method, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160; </div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00831"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a8a43d0668e415bdaca6b928a64eea9f7">  831</a></span>&#160;<span class="preprocessor">#define WG_RTTI_END                        \</span></div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;<span class="preprocessor">    ;                                      \</span></div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;<span class="preprocessor">    binder();                              \</span></div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;<span class="preprocessor">    t-&gt;set_metadata(std::move(meta_data)); \</span></div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;<span class="preprocessor">    return t.as&lt;RttiType&gt;();               \</span></div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;<span class="preprocessor">    }                                      \</span></div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;<span class="preprocessor">    }</span></div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160; </div>
+<div class="line"><a name="l00839"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a1241fb1235bcd237704ee49ad1cf34af">  839</a></span>&#160;<span class="preprocessor">#define WG_RTTI_META_DATA(...) \</span></div>
+<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;<span class="preprocessor">    meta_data = std::move(RttiMetaData({__VA_ARGS__}))</span></div>
+<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160; </div>
+<div class="line"><a name="l00842"></a><span class="lineno"><a class="line" href="traits_8hpp.html#aa0e6fa275027fd38a1957a454a7e4ad9">  842</a></span>&#160;<span class="preprocessor">#define WG_RTTI_FACTORY() \</span></div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;<span class="preprocessor">    t-&gt;add_factory([]() -&gt; RttiObject* { return new Type(); })</span></div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160; </div>
+<div class="line"><a name="l00845"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a1914fdebc170b5138c3a8ca6b8cf2421">  845</a></span>&#160;<span class="preprocessor">#define WG_RTTI_FIELD(property, ...) \</span></div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;<span class="preprocessor">    t-&gt;add_field&lt;decltype(Type::property)&gt;(SID(#property), offsetof(Type, property), __VA_ARGS__)</span></div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160; </div>
+<div class="line"><a name="l00848"></a><span class="lineno"><a class="line" href="traits_8hpp.html#a605ab63760773e88d45882736d3df60f">  848</a></span>&#160;<span class="preprocessor">#define WG_RTTI_METHOD(method, ...) \</span></div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;<span class="preprocessor">    t-&gt;add_method(SID(#method), &amp;Type::method, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160; </div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aarchive_8hpp_html"><div class="ttname"><a href="archive_8hpp.html">archive.hpp</a></div></div>
 <div class="ttc" id="abuffered__vector_8hpp_html"><div class="ttname"><a href="buffered__vector_8hpp.html">buffered_vector.hpp</a></div></div>
 <div class="ttc" id="abuiltin_8hpp_html"><div class="ttname"><a href="builtin_8hpp.html">builtin.hpp</a></div></div>
@@ -1044,7 +1052,7 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1RttiType_html_a4f9e523258f9fc37a91471de632ebeb8"><div class="ttname"><a href="classwmoge_1_1RttiType.html#a4f9e523258f9fc37a91471de632ebeb8">wmoge::RttiType::to_string</a></div><div class="ttdeci">virtual Status to_string(const void *src, std::stringstream &amp;s) const</div><div class="ttdef"><b>Definition:</b> type.hpp:68</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
-<div class="ttc" id="aclasswmoge_1_1Strid_html_a9d5e1c54b9b6a90fe851b042ecac9362"><div class="ttname"><a href="classwmoge_1_1Strid.html#a9d5e1c54b9b6a90fe851b042ecac9362">wmoge::Strid::str</a></div><div class="ttdeci">const std::string &amp; str() const</div><div class="ttdef"><b>Definition:</b> string_id.cpp:107</div></div>
+<div class="ttc" id="aclasswmoge_1_1Strid_html_a9d5e1c54b9b6a90fe851b042ecac9362"><div class="ttname"><a href="classwmoge_1_1Strid.html#a9d5e1c54b9b6a90fe851b042ecac9362">wmoge::Strid::str</a></div><div class="ttdeci">const std::string &amp; str() const</div><div class="ttdef"><b>Definition:</b> string_id.cpp:110</div></div>
 <div class="ttc" id="aclasswmoge_1_1TQuat_html"><div class="ttname"><a href="classwmoge_1_1TQuat.html">wmoge::TQuat</a></div><div class="ttdef"><b>Definition:</b> quat.hpp:38</div></div>
 <div class="ttc" id="aclasswmoge_1_1TVecN_html"><div class="ttname"><a href="classwmoge_1_1TVecN.html">wmoge::TVecN</a></div><div class="ttdef"><b>Definition:</b> vec.hpp:44</div></div>
 <div class="ttc" id="aclasswmoge_1_1UUID_html"><div class="ttname"><a href="classwmoge_1_1UUID.html">wmoge::UUID</a></div><div class="ttdoc">Unique 8-byte long identifier for in-game objects and assets.</div><div class="ttdef"><b>Definition:</b> uuid.hpp:46</div></div>
@@ -1079,7 +1087,7 @@ $(function() {
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
 <div class="ttc" id="astatus_8hpp_html_a491b78ebb0c80ba80b066ec8880893e8"><div class="ttname"><a href="status_8hpp.html#a491b78ebb0c80ba80b066ec8880893e8">WG_CHECKED</a></div><div class="ttdeci">#define WG_CHECKED(operation)</div><div class="ttdef"><b>Definition:</b> status.hpp:122</div></div>
 <div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
-<div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:68</div></div>
+<div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:69</div></div>
 <div class="ttc" id="astruct_8hpp_html"><div class="ttname"><a href="struct_8hpp.html">struct.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1Mask_html"><div class="ttname"><a href="structwmoge_1_1Mask.html">wmoge::Mask</a></div><div class="ttdoc">Typed mask to test safely enum flags.</div><div class="ttdef"><b>Definition:</b> mask.hpp:48</div></div>
 <div class="ttc" id="astructwmoge_1_1RttiArgInfo_html"><div class="ttname"><a href="structwmoge_1_1RttiArgInfo.html">wmoge::RttiArgInfo</a></div><div class="ttdef"><b>Definition:</b> traits.hpp:529</div></div>

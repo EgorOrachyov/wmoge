@@ -96,44 +96,41 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_GFX_WORKER_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_GFX_WORKER_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="callback__stream_8hpp.html">core/callback_stream.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxWorker.html">   43</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1GfxWorker.html">GfxWorker</a> {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classwmoge_1_1GfxWorker.html#a4dc5038ce303f0734fc804f115380078">GfxWorker</a>(<a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>* cmd_stream);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">void</span>            <a class="code" href="classwmoge_1_1GfxWorker.html#ac571e1e7e3d0bab10d4d3cefe35fb97e">terminate</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        std::thread::id <a class="code" href="classwmoge_1_1GfxWorker.html#a7d601d6159f01886a0c9d6c267350d55">get_worker_id</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>*  m_stream = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        std::thread      m_worker_thread;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::atomic_bool m_finished{<span class="keyword">false</span>};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="classwmoge_1_1Strid.html">Strid</a>            m_name = <a class="code" href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a>(<span class="stringliteral">&quot;gfx-thread&quot;</span>);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_GFX_WORKER_HPP</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="callback__stream_8hpp.html">core/callback_stream.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__id_8hpp.html">core/string_id.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxWorker.html">   42</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1GfxWorker.html">GfxWorker</a> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classwmoge_1_1GfxWorker.html#a4dc5038ce303f0734fc804f115380078">GfxWorker</a>(<a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>* cmd_stream);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span>            <a class="code" href="classwmoge_1_1GfxWorker.html#ac571e1e7e3d0bab10d4d3cefe35fb97e">terminate</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        std::thread::id <a class="code" href="classwmoge_1_1GfxWorker.html#a7d601d6159f01886a0c9d6c267350d55">get_worker_id</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>*  m_stream = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        std::thread      m_worker_thread;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        std::atomic_bool m_finished{<span class="keyword">false</span>};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classwmoge_1_1Strid.html">Strid</a>            m_name = <a class="code" href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a>(<span class="stringliteral">&quot;gfx-thread&quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="acallback__stream_8hpp_html"><div class="ttname"><a href="callback__stream_8hpp.html">callback_stream.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html">wmoge::CallbackStream</a></div><div class="ttdoc">Thread-safe unbound multiple-producers single consumer callback stream.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:42</div></div>
-<div class="ttc" id="aclasswmoge_1_1GfxWorker_html"><div class="ttname"><a href="classwmoge_1_1GfxWorker.html">wmoge::GfxWorker</a></div><div class="ttdoc">Manages gfx thread processing gfx API calls.</div><div class="ttdef"><b>Definition:</b> gfx_worker.hpp:43</div></div>
+<div class="ttc" id="aclasswmoge_1_1GfxWorker_html"><div class="ttname"><a href="classwmoge_1_1GfxWorker.html">wmoge::GfxWorker</a></div><div class="ttdoc">Manages gfx thread processing gfx API calls.</div><div class="ttdef"><b>Definition:</b> gfx_worker.hpp:42</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxWorker_html_a4dc5038ce303f0734fc804f115380078"><div class="ttname"><a href="classwmoge_1_1GfxWorker.html#a4dc5038ce303f0734fc804f115380078">wmoge::GfxWorker::GfxWorker</a></div><div class="ttdeci">GfxWorker(CallbackStream *cmd_stream)</div><div class="ttdef"><b>Definition:</b> gfx_worker.cpp:37</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxWorker_html_a7d601d6159f01886a0c9d6c267350d55"><div class="ttname"><a href="classwmoge_1_1GfxWorker.html#a7d601d6159f01886a0c9d6c267350d55">wmoge::GfxWorker::get_worker_id</a></div><div class="ttdeci">std::thread::id get_worker_id()</div><div class="ttdef"><b>Definition:</b> gfx_worker.cpp:56</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxWorker_html_ac571e1e7e3d0bab10d4d3cefe35fb97e"><div class="ttname"><a href="classwmoge_1_1GfxWorker.html#ac571e1e7e3d0bab10d4d3cefe35fb97e">wmoge::GfxWorker::terminate</a></div><div class="ttdeci">void terminate()</div><div class="ttdef"><b>Definition:</b> gfx_worker.cpp:51</div></div>
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:35</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
-<div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:68</div></div>
+<div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:69</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -96,27 +96,24 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* SOFTWARE.                                                                      */</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/**********************************************************************************/</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef WMOGE_GFX_DRIVER_THREADED_HPP</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WMOGE_GFX_DRIVER_THREADED_HPP</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="callback__stream_8hpp.html">core/callback_stream.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__driver_8hpp.html">gfx/gfx_driver.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxDriverThreaded.html">   46</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1GfxDriverThreaded.html">GfxDriverThreaded</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxDriverThreaded.html#aa0f719ead04c51587ed972bc92ae7f17">   48</a></span>&#160;        <a class="code" href="classwmoge_1_1GfxDriverThreaded.html#aa0f719ead04c51587ed972bc92ae7f17">~GfxDriverThreaded</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxDriverThreaded.html#a18e5029dac29dadd5a426572c147e949">   50</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>* <a class="code" href="classwmoge_1_1GfxDriverThreaded.html#a18e5029dac29dadd5a426572c147e949">cmd_stream</a>() = 0;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    };</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span><span class="comment">//WMOGE_GFX_DRIVER_THREADED_HPP</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="callback__stream_8hpp.html">core/callback_stream.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__driver_8hpp.html">gfx/gfx_driver.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxDriverThreaded.html">   45</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1GfxDriverThreaded.html">GfxDriverThreaded</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxDriverThreaded.html#aa0f719ead04c51587ed972bc92ae7f17">   47</a></span>&#160;        <a class="code" href="classwmoge_1_1GfxDriverThreaded.html#aa0f719ead04c51587ed972bc92ae7f17">~GfxDriverThreaded</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1GfxDriverThreaded.html#a18e5029dac29dadd5a426572c147e949">   49</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1CallbackStream.html">CallbackStream</a>* <a class="code" href="classwmoge_1_1GfxDriverThreaded.html#a18e5029dac29dadd5a426572c147e949">cmd_stream</a>() = 0;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    };</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="acallback__stream_8hpp_html"><div class="ttname"><a href="callback__stream_8hpp.html">callback_stream.hpp</a></div></div>
 <div class="ttc" id="aclasswmoge_1_1CallbackStream_html"><div class="ttname"><a href="classwmoge_1_1CallbackStream.html">wmoge::CallbackStream</a></div><div class="ttdoc">Thread-safe unbound multiple-producers single consumer callback stream.</div><div class="ttdef"><b>Definition:</b> callback_stream.hpp:42</div></div>
-<div class="ttc" id="aclasswmoge_1_1GfxDriverThreaded_html"><div class="ttname"><a href="classwmoge_1_1GfxDriverThreaded.html">wmoge::GfxDriverThreaded</a></div><div class="ttdoc">An extension for a gfx driver for threaded communication support.</div><div class="ttdef"><b>Definition:</b> gfx_driver_threaded.hpp:46</div></div>
+<div class="ttc" id="aclasswmoge_1_1GfxDriverThreaded_html"><div class="ttname"><a href="classwmoge_1_1GfxDriverThreaded.html">wmoge::GfxDriverThreaded</a></div><div class="ttdoc">An extension for a gfx driver for threaded communication support.</div><div class="ttdef"><b>Definition:</b> gfx_driver_threaded.hpp:45</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriverThreaded_html_a18e5029dac29dadd5a426572c147e949"><div class="ttname"><a href="classwmoge_1_1GfxDriverThreaded.html#a18e5029dac29dadd5a426572c147e949">wmoge::GfxDriverThreaded::cmd_stream</a></div><div class="ttdeci">virtual CallbackStream * cmd_stream()=0</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriverThreaded_html_aa0f719ead04c51587ed972bc92ae7f17"><div class="ttname"><a href="classwmoge_1_1GfxDriverThreaded.html#aa0f719ead04c51587ed972bc92ae7f17">wmoge::GfxDriverThreaded::~GfxDriverThreaded</a></div><div class="ttdeci">~GfxDriverThreaded() override=default</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriver_html"><div class="ttname"><a href="classwmoge_1_1GfxDriver.html">wmoge::GfxDriver</a></div><div class="ttdoc">Gfx driver interface.</div><div class="ttdef"><b>Definition:</b> gfx_driver.hpp:63</div></div>

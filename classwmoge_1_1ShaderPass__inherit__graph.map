@@ -1,5 +1,5 @@
 <map id="wmoge::ShaderPass" name="wmoge::ShaderPass">
-<area shape="rect" id="node1" title="Base class for any engine shading pass." alt="" coords="5,208,147,235"/>
+<area shape="rect" id="node1" title="Compiled shader pass ready for drawing." alt="" coords="5,208,147,235"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1ShaderPassBase.html" title="Auto generated pass for &#39;base&#39; shader." alt="" coords="223,5,394,32"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1ShaderPassBloom.html" title="Auto generated pass for &#39;bloom&#39; shader." alt="" coords="219,56,398,83"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1ShaderPassCanvas.html" title="Auto generated pass for &#39;canvas&#39; shader." alt="" coords="216,107,401,133"/>
