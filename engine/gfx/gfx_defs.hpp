@@ -356,6 +356,12 @@ namespace wmoge {
         Compute
     };
 
+    /** @brief Shader program type */
+    enum class GfxShaderProgramType : int {
+        Graphics,
+        Compute
+    };
+
     /** @brief Data parameters which can be exposed by a shader */
     enum class GfxShaderParam : int {
         Int,

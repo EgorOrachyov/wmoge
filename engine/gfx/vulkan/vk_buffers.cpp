@@ -25,10 +25,9 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include <cassert>
-
 #include "vk_buffers.hpp"
-#include "vk_driver.hpp"
+
+#include "gfx/vulkan/vk_driver.hpp"
 
 namespace wmoge {
 
@@ -133,7 +132,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "vert_buff " + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
     }
     void VKVertBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);
@@ -154,7 +153,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "index_buff " + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
     }
     void VKIndexBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);
@@ -175,7 +174,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "uniform_buff " + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
     }
     void VKUniformBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);
@@ -196,7 +195,7 @@ namespace wmoge {
         GfxBuffer::m_usage  = usage;
         GfxResource::m_name = name;
         VKBuffer::init(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, usage);
-        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, "storage_buff " + name.str());
+        WG_VK_NAME(m_driver.device(), m_buffer, VK_OBJECT_TYPE_BUFFER, name);
     }
     void VKStorageBuffer::unmap(VkCommandBuffer cmd) {
         VKBuffer::unmap(cmd);

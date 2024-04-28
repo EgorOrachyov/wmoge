@@ -64,7 +64,7 @@ namespace wmoge {
         virtual void set_source_images(std::vector<Ref<Image>> images);
         virtual void set_sampler(const Ref<GfxSampler>& sampler);
         virtual void set_sampler_from_desc(const GfxSamplerDesc& desc);
-        virtual void set_compression(const GrcTexCompressionParams& params);
+        virtual void set_compression(const TexCompressionParams& params);
 
         /** @brief Generate mip-chain for the image using source 0-mip faces data */
         virtual Status generate_mips();
@@ -89,7 +89,7 @@ namespace wmoge {
         [[nodiscard]] GfxMemUsage                      get_mem_usage() const { return m_mem_usage; }
         [[nodiscard]] GfxTexUsages                     get_usages() const { return m_usages; }
         [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
-        [[nodiscard]] const GrcTexCompressionParams&   get_compression() const { return m_compression; }
+        [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_compression; }
 
     protected:
         std::vector<Ref<Image>>   m_images;
@@ -108,7 +108,7 @@ namespace wmoge {
         GfxMemUsage               m_mem_usage         = GfxMemUsage::GpuLocal;
         GfxTexUsages              m_usages            = {GfxTexUsageFlag::Sampling};
         bool                      m_srgb              = false;
-        GrcTexCompressionParams   m_compression{};
+        TexCompressionParams      m_compression{};
     };
 
     WG_RTTI_CLASS_BEGIN(Texture) {

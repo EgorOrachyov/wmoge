@@ -65,7 +65,7 @@ namespace wmoge {
         int num_executed = 0;
         int num_total    = int(m_queue.size());
 
-        GfxPipeline* bound_pipeline = nullptr;
+        GfxPsoGraphics* bound_pipeline = nullptr;
 
         for (int i = 0; i < num_total; i++) {
             const SortableRenderCmd& sortable_cmd = m_queue[i];
@@ -76,7 +76,7 @@ namespace wmoge {
             const GfxDrawCall&         call_params  = cmd.call_params;
 
             if (bound_pipeline != cmd.pipeline) {
-                if (!gfx_ctx->bind_pipeline(Ref<GfxPipeline>(cmd.pipeline))) {
+                if (!gfx_ctx->bind_pipeline(Ref<GfxPsoGraphics>(cmd.pipeline))) {
                     continue;
                 }
                 bound_pipeline = cmd.pipeline;

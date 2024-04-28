@@ -42,6 +42,7 @@
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
 #include "hooks/hook_logs.hpp"
@@ -60,7 +61,6 @@
 #include "render/aux_draw_manager.hpp"
 #include "render/canvas.hpp"
 #include "render/render_engine.hpp"
-#include "render/shader_manager.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
@@ -129,7 +129,7 @@ namespace wmoge {
         m_gfx_ctx    = ioc->resolve_v<GfxCtx>();
 
         m_shader_manager   = ioc->resolve_v<ShaderManager>();
-        m_texture_manager  = ioc->resolve_v<GrcTextureManager>();
+        m_texture_manager  = ioc->resolve_v<TextureManager>();
         m_render_engine    = ioc->resolve_v<RenderEngine>();
         m_asset_manager    = ioc->resolve_v<AssetManager>();
         m_ecs_registry     = ioc->resolve_v<EcsRegistry>();
@@ -223,39 +223,39 @@ namespace wmoge {
         return m_close_requested.load();
     }
 
-    Application*       Engine::application() { return m_application; }
-    RttiTypeStorage*   Engine::type_storage() { return m_type_storage; }
-    ClassDB*           Engine::class_db() { return m_class_db; }
-    Time*              Engine::time() { return m_time; }
-    LayerStack*        Engine::layer_stack() { return m_layer_stack; }
-    HookList*          Engine::hook_list() { return m_hook_list; }
-    CmdLine*           Engine::cmd_line() { return m_cmd_line; }
-    DllManager*        Engine::dll_manager() { return m_dll_manager; }
-    PluginManager*     Engine::plugin_manager() { return m_plugin_manager; }
-    ConfigFile*        Engine::config() { return m_config; }
-    CallbackQueue*     Engine::main_queue() { return m_main_queue; }
-    FileSystem*        Engine::file_system() { return m_file_system; }
-    TaskManager*       Engine::task_manager() { return m_task_manager; }
-    EventManager*      Engine::event_manager() { return m_event_manager; }
-    AssetManager*      Engine::asset_manager() { return m_asset_manager; }
-    WindowManager*     Engine::window_manager() { return m_window_manager; }
-    Input*             Engine::input() { return m_input; }
-    GfxDriver*         Engine::gfx_driver() { return m_gfx_driver; }
-    GfxCtx*            Engine::gfx_ctx() { return m_gfx_ctx; }
-    ShaderManager*     Engine::shader_manager() { return m_shader_manager; }
-    GrcTextureManager* Engine::texture_manager() { return m_texture_manager; }
-    AuxDrawManager*    Engine::aux_draw_manager() { return m_aux_draw_manager; }
-    SceneManager*      Engine::scene_manager() { return m_scene_manager; }
-    ActionManager*     Engine::action_manager() { return m_action_manager; }
-    GameTokenManager*  Engine::game_token_manager() { return m_game_token_manager; }
-    Profiler*          Engine::profiler() { return m_profiler; }
-    Console*           Engine::console() { return m_console; }
-    Canvas*            Engine::canvas_debug() { return m_canvas_debug; }
-    ScriptSystem*      Engine::script_system() { return m_script_system; }
-    AudioEngine*       Engine::audio_engine() { return m_audio_engine; }
-    RenderEngine*      Engine::render_engine() { return m_render_engine; }
-    ViewManager*       Engine::view_manager() { return m_view_manager; }
-    EcsRegistry*       Engine::ecs_registry() { return m_ecs_registry; }
+    Application*      Engine::application() { return m_application; }
+    RttiTypeStorage*  Engine::type_storage() { return m_type_storage; }
+    ClassDB*          Engine::class_db() { return m_class_db; }
+    Time*             Engine::time() { return m_time; }
+    LayerStack*       Engine::layer_stack() { return m_layer_stack; }
+    HookList*         Engine::hook_list() { return m_hook_list; }
+    CmdLine*          Engine::cmd_line() { return m_cmd_line; }
+    DllManager*       Engine::dll_manager() { return m_dll_manager; }
+    PluginManager*    Engine::plugin_manager() { return m_plugin_manager; }
+    ConfigFile*       Engine::config() { return m_config; }
+    CallbackQueue*    Engine::main_queue() { return m_main_queue; }
+    FileSystem*       Engine::file_system() { return m_file_system; }
+    TaskManager*      Engine::task_manager() { return m_task_manager; }
+    EventManager*     Engine::event_manager() { return m_event_manager; }
+    AssetManager*     Engine::asset_manager() { return m_asset_manager; }
+    WindowManager*    Engine::window_manager() { return m_window_manager; }
+    Input*            Engine::input() { return m_input; }
+    GfxDriver*        Engine::gfx_driver() { return m_gfx_driver; }
+    GfxCtx*           Engine::gfx_ctx() { return m_gfx_ctx; }
+    ShaderManager*    Engine::shader_manager() { return m_shader_manager; }
+    TextureManager*   Engine::texture_manager() { return m_texture_manager; }
+    AuxDrawManager*   Engine::aux_draw_manager() { return m_aux_draw_manager; }
+    SceneManager*     Engine::scene_manager() { return m_scene_manager; }
+    ActionManager*    Engine::action_manager() { return m_action_manager; }
+    GameTokenManager* Engine::game_token_manager() { return m_game_token_manager; }
+    Profiler*         Engine::profiler() { return m_profiler; }
+    Console*          Engine::console() { return m_console; }
+    Canvas*           Engine::canvas_debug() { return m_canvas_debug; }
+    ScriptSystem*     Engine::script_system() { return m_script_system; }
+    AudioEngine*      Engine::audio_engine() { return m_audio_engine; }
+    RenderEngine*     Engine::render_engine() { return m_render_engine; }
+    ViewManager*      Engine::view_manager() { return m_view_manager; }
+    EcsRegistry*      Engine::ecs_registry() { return m_ecs_registry; }
 
     Engine* Engine::instance() {
         return g_engine;

@@ -186,7 +186,7 @@ namespace wmoge {
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
         s << "{";
         for (const RttiField& field : get_fields()) {
-            s << field.get_name() << "=";
+            s << field.get_name().str() << "=";
             WG_CHECKED(field.get_type()->to_string(self + field.get_byte_offset(), s));
             s << "; ";
         }

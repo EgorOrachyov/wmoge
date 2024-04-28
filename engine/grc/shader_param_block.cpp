@@ -37,76 +37,76 @@
 
 namespace wmoge {
 
-#define WG_GRC_SET_VAR_BUFF                                        \
-    const Status s = GrcShaderParamAccess(*this).set(param_id, v); \
-    if (s) { dirty_buffers(); }                                    \
+#define WG_GRC_SET_VAR_BUFF                                     \
+    const Status s = ShaderParamAccess(*this).set(param_id, v); \
+    if (s) { dirty_buffers(); }                                 \
     return s
 
-#define WG_GRC_SET_VAR_BIND                                        \
-    const Status s = GrcShaderParamAccess(*this).set(param_id, v); \
-    if (s) { dirty_set(); }                                        \
+#define WG_GRC_SET_VAR_BIND                                     \
+    const Status s = ShaderParamAccess(*this).set(param_id, v); \
+    if (s) { dirty_set(); }                                     \
     return s
 
-#define WG_GRC_GET_VAR_BUFF                                        \
-    const Status s = GrcShaderParamAccess(*this).get(param_id, v); \
+#define WG_GRC_GET_VAR_BUFF                                     \
+    const Status s = ShaderParamAccess(*this).get(param_id, v); \
     return s
 
-#define WG_GRC_GET_VAR_BIND                                        \
-    const Status s = GrcShaderParamAccess(*this).get(param_id, v); \
+#define WG_GRC_GET_VAR_BIND                                     \
+    const Status s = ShaderParamAccess(*this).get(param_id, v); \
     return s
 
-    GrcShaderParamBlock::GrcShaderParamBlock(GrcShaderScript& shader_script, std::int16_t space_idx) {
-        configure(shader_script, space_idx);
+    ShaderParamBlock::ShaderParamBlock(Shader& shader, std::int16_t space_idx) {
+        configure(shader, space_idx);
     }
 
-    Status GrcShaderParamBlock::configure(GrcShaderScript& shader_script, std::int16_t space_idx) {
-        m_script = &shader_script;
+    Status ShaderParamBlock::configure(Shader& shader, std::int16_t space_idx) {
+        m_shader = &shader;
         m_space  = space_idx;
 
-        assert(space_idx < m_script->get_reflection().spaces.size());
+        assert(space_idx < m_shader->get_reflection().spaces.size());
 
         return reset_defaults();
     }
 
-    Status GrcShaderParamBlock::reset_defaults() {
-        if (!m_script) {
+    Status ShaderParamBlock::reset_defaults() {
+        if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
         }
 
-        const GrcShaderSpace& space = m_script->get_reflection().spaces[m_space];
+        const ShaderSpace& space = m_shader->get_reflection().spaces[m_space];
 
         if (m_gfx_resources.empty()) {
             m_gfx_resources.resize(space.bindings.size());
         }
 
         for (std::int16_t i = 0; i < std::int16_t(space.bindings.size()); i++) {
-            const GrcShaderBinding& binding = space.bindings[i];
-            GfxDescBindPoint&       p       = m_gfx_resources[i].first;
-            GfxDescBindValue&       v       = m_gfx_resources[i].second;
+            const ShaderBinding& binding = space.bindings[i];
+            GfxDescBindPoint&    p       = m_gfx_resources[i].first;
+            GfxDescBindValue&    v       = m_gfx_resources[i].second;
 
             p.binding       = i;
             p.array_element = 0;
             v.offset        = 0;
 
             switch (binding.binding) {
-                case GrcShaderBindingType::InlineUniformBuffer:
-                case GrcShaderBindingType::UniformBuffer:
+                case ShaderBindingType::InlineUniformBuffer:
+                case ShaderBindingType::UniformBuffer:
                     p.type  = GfxBindingType::UniformBuffer;
                     v.range = binding.type->byte_size;
                     break;
-                case GrcShaderBindingType::StorageBuffer:
+                case ShaderBindingType::StorageBuffer:
                     p.type  = GfxBindingType::StorageBuffer;
                     v.range = binding.type->byte_size;
                     break;
-                case GrcShaderBindingType::Sampler2d:
-                case GrcShaderBindingType::Sampler2dArray:
-                case GrcShaderBindingType::SamplerCube:
+                case ShaderBindingType::Sampler2d:
+                case ShaderBindingType::Sampler2dArray:
+                case ShaderBindingType::SamplerCube:
                     p.type     = GfxBindingType::SampledTexture;
                     v.resource = binding.default_tex.as<GfxResource>();
                     v.sampler  = binding.default_sampler;
                     break;
-                case GrcShaderBindingType::StorageImage2d:
+                case ShaderBindingType::StorageImage2d:
                     p.type = GfxBindingType::StorageImage;
                     break;
                 default:
@@ -115,14 +115,14 @@ namespace wmoge {
         }
 
         if (m_buffers.empty()) {
-            for (const auto& buffer : m_script->get_reflection().buffers) {
+            for (const auto& buffer : m_shader->get_reflection().buffers) {
                 if (buffer.space == m_space) {
                     m_buffers.emplace_back(make_ref<Data>(buffer.size));
                 }
             }
         }
 
-        for (const auto& buffer : m_script->get_reflection().buffers) {
+        for (const auto& buffer : m_shader->get_reflection().buffers) {
             if (buffer.space == m_space) {
                 const Ref<Data>& src = buffer.defaults;
                 const Ref<Data>& dst = m_buffers[buffer.idx];
@@ -143,8 +143,8 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status GrcShaderParamBlock::validate(GfxDriver* driver, GfxCtx* ctx, Strid name) {
-        if (!m_script) {
+    Status ShaderParamBlock::validate(GfxDriver* driver, GfxCtx* ctx, Strid name) {
+        if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
         }
@@ -152,10 +152,10 @@ namespace wmoge {
             return StatusCode::Ok;
         }
 
-        const GrcShaderSpace& space = m_script->get_reflection().spaces[m_space];
+        const ShaderSpace& space = m_shader->get_reflection().spaces[m_space];
 
         if (m_dirty_buffers) {
-            for (const auto& buffer : m_script->get_reflection().buffers) {
+            for (const auto& buffer : m_shader->get_reflection().buffers) {
                 if (buffer.space == m_space) {
                     const Ref<Data>&  src = m_buffers[buffer.idx];
                     GfxDescBindValue& v   = m_gfx_resources[buffer.binding].second;
@@ -184,7 +184,7 @@ namespace wmoge {
                                  << name
                                  << " space=" << m_space
                                  << " binding=" << i
-                                 << " script=" << m_script->get_name());
+                                 << " script=" << m_shader->get_name());
                     return StatusCode::InvalidState;
                 }
                 if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
@@ -192,7 +192,7 @@ namespace wmoge {
                                  << name
                                  << " space=" << m_space
                                  << " binding=" << i
-                                 << " script=" << m_script->get_name());
+                                 << " script=" << m_shader->get_name());
                     return StatusCode::InvalidState;
                 }
             }
@@ -206,47 +206,47 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, int v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, float v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Vec2f& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Vec3f& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Vec4f& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Vec2i& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Vec3i& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Vec4i& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Mat4x4f& v) { WG_GRC_SET_VAR_BUFF; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Ref<GfxTexture>& v) { WG_GRC_SET_VAR_BIND; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Ref<GfxSampler>& v) { WG_GRC_SET_VAR_BIND; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Ref<GfxUniformBuffer>& v) { WG_GRC_SET_VAR_BIND; }
-    Status GrcShaderParamBlock::set_var(GrcShaderParamId param_id, const Ref<GfxStorageBuffer>& v) { WG_GRC_SET_VAR_BIND; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, int v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, float v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Vec2f& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Vec3f& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Vec4f& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Vec2i& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Vec3i& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Vec4i& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Mat4x4f& v) { WG_GRC_SET_VAR_BUFF; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxTexture>& v) { WG_GRC_SET_VAR_BIND; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxSampler>& v) { WG_GRC_SET_VAR_BIND; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxUniformBuffer>& v) { WG_GRC_SET_VAR_BIND; }
+    Status ShaderParamBlock::set_var(ShaderParamId param_id, const Ref<GfxStorageBuffer>& v) { WG_GRC_SET_VAR_BIND; }
 
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, int& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, float& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Vec2f& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Vec3f& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Vec4f& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Vec2i& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Vec3i& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Vec4i& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Mat4x4f& v) { WG_GRC_GET_VAR_BUFF; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Ref<GfxTexture>& v) { WG_GRC_GET_VAR_BIND; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Ref<GfxSampler>& v) { WG_GRC_GET_VAR_BIND; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Ref<GfxUniformBuffer>& v) { WG_GRC_GET_VAR_BIND; }
-    Status GrcShaderParamBlock::get_var(GrcShaderParamId param_id, Ref<GfxStorageBuffer>& v) { WG_GRC_GET_VAR_BIND; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, int& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, float& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Vec2f& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Vec3f& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Vec4f& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Vec2i& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Vec3i& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Vec4i& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Mat4x4f& v) { WG_GRC_GET_VAR_BUFF; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxTexture>& v) { WG_GRC_GET_VAR_BIND; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxSampler>& v) { WG_GRC_GET_VAR_BIND; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxUniformBuffer>& v) { WG_GRC_GET_VAR_BIND; }
+    Status ShaderParamBlock::get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v) { WG_GRC_GET_VAR_BIND; }
 
-    Ref<Data>* GrcShaderParamBlock::get_buffer(std::int16_t buffer_idx) {
+    Ref<Data>* ShaderParamBlock::get_buffer(std::int16_t buffer_idx) {
         return &m_buffers[buffer_idx];
     }
-    Ref<Data>* GrcShaderParamBlock::get_buffer(std::int16_t space_idx, std::int16_t buffer_idx) {
+    Ref<Data>* ShaderParamBlock::get_buffer(std::int16_t space_idx, std::int16_t buffer_idx) {
         if (space_idx != m_space) {
             return nullptr;
         }
         return &m_buffers[buffer_idx];
     }
-    GfxDescSetResources* GrcShaderParamBlock::get_gfx_resources() {
+    GfxDescSetResources* ShaderParamBlock::get_gfx_resources() {
         return &m_gfx_resources;
     }
-    GfxDescSetResources* GrcShaderParamBlock::get_gfx_resources(std::int16_t space_idx) {
+    GfxDescSetResources* ShaderParamBlock::get_gfx_resources(std::int16_t space_idx) {
         if (space_idx != m_space) {
             return nullptr;
         }

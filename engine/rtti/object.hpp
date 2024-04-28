@@ -41,6 +41,7 @@ namespace wmoge {
     public:
         ~RttiObject() override = default;
 
+        virtual std::string     to_string() const;
         virtual Status          clone(Ref<RttiObject>& object) const;
         virtual Status          read_from_yaml(YamlConstNodeRef node);
         virtual Status          write_to_yaml(YamlNodeRef node) const;

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_WORKER_HPP
-#define WMOGE_GFX_WORKER_HPP
+#pragma once
 
 #include "core/callback_stream.hpp"
 #include "core/string_id.hpp"
@@ -55,5 +54,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_WORKER_HPP

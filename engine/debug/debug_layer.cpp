@@ -79,7 +79,7 @@ namespace wmoge {
         }
 
         canvas_debug->compile(true);
-        canvas_debug->render(window, Rect2i(0, 0, window->fbo_size()), Vec4f(0.0f, 0.0f, 1280.0f, 720.0f), 2.2f);
+        // canvas_debug->render(window, Rect2i(0, 0, window->fbo_size()), Vec4f(0.0f, 0.0f, 1280.0f, 720.0f), 2.2f);
         // render_engine->render_canvas(*canvas_debug, Vec4f(0.0f, 0.0f, 1280.0f, 720.0f));
 
         canvas_debug->clear(false);

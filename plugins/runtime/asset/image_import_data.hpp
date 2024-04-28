@@ -32,7 +32,7 @@
 namespace wmoge {
 
     /**
-     * @class ImageImportOptions
+     * @class ImageImportData
      * @brief Options to import an image from an external format, such as `png`, `jpeg`, `bmp`, etc.
      */
     class ImageImportData : public AssetImportData {

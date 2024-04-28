@@ -12,7 +12,6 @@ add_library(wmoge STATIC
         asset/asset_pak_fs.cpp
         asset/asset_pak_fs.hpp
         asset/asset_ref.hpp
-        asset/_rtti.hpp
         audio/audio_bus.hpp
         audio/audio_defs.hpp
         audio/audio_engine.hpp
@@ -146,7 +145,6 @@ add_library(wmoge STATIC
         gfx/gfx_resource.hpp
         gfx/gfx_sampler.cpp
         gfx/gfx_sampler.hpp
-        gfx/gfx_shader.cpp
         gfx/gfx_shader.hpp
         gfx/gfx_texture.hpp
         gfx/gfx_vector.hpp
@@ -209,24 +207,17 @@ add_library(wmoge STATIC
         grc/shader_pass.hpp
         grc/shader_reflection.cpp
         grc/shader_reflection.hpp
-        grc/shader_script_builder.cpp
-        grc/shader_script_builder.hpp
-        grc/shader_script.cpp
-        grc/shader_script.hpp
+        grc/shader_builder.cpp
+        grc/shader_builder.hpp
         grc/shader.cpp
         grc/shader.hpp
+        grc/shader_file.hpp
         grc/texture_compression.cpp
         grc/texture_compression.hpp
         grc/texture_manager.cpp
         grc/texture_manager.hpp
         grc/texture_resize.cpp
         grc/texture_resize.hpp
-        hgfx/hgfx_pass.cpp
-        hgfx/hgfx_pass.hpp
-        hgfx/hgfx_pass_base.cpp
-        hgfx/hgfx_pass_base.hpp
-        hgfx/hgfx_pass_text.cpp
-        hgfx/hgfx_pass_text.hpp
         hooks/hook_config.hpp
         hooks/hook_engine.hpp
         hooks/hook_logs.hpp
@@ -249,8 +240,6 @@ add_library(wmoge STATIC
         io/yaml.hpp
         material/material.cpp
         material/material.hpp
-        material/shader.cpp
-        material/shader.hpp
         math/aabb.hpp
         math/color.cpp
         math/color.hpp
@@ -357,12 +346,6 @@ add_library(wmoge STATIC
         render/render_queue.hpp
         render/render_scene.cpp
         render/render_scene.hpp
-        render/shader_builder.cpp
-        render/shader_builder.hpp
-        render/shader_manager.cpp
-        render/shader_manager.hpp
-        render/shader_pass.cpp
-        render/shader_pass.hpp
         render/texture.cpp
         render/texture.hpp
         render/view.cpp
@@ -384,7 +367,6 @@ add_library(wmoge STATIC
         rtti/type_storage.cpp
         rtti/type_storage.hpp
         rtti/type.hpp
-        rtti/_rtti.hpp
         scene/scene_components.cpp
         scene/scene_components.hpp
         scene/scene_data.cpp

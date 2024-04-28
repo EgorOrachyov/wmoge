@@ -36,7 +36,7 @@ namespace wmoge {
     /**
      * @brief Built-in default textures
     */
-    enum class GrcDefaultTexture {
+    enum class DefaultTexture {
         White = 0,
         Black,
         Red,
@@ -49,7 +49,7 @@ namespace wmoge {
     /**
      * @brief Built-in default samplers
     */
-    enum class GrcDefaultSampler {
+    enum class DefaultSampler {
         Default = 0,
         Linear,
         Nearest,
@@ -57,15 +57,15 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcTextureManager
+     * @class TextureManager
      * @brief Render core manager for gfx texture assets
     */
-    class GrcTextureManager {
+    class TextureManager {
     public:
-        GrcTextureManager();
+        TextureManager();
 
-        [[nodiscard]] const Ref<GfxTexture>& get_texture(GrcDefaultTexture texture);
-        [[nodiscard]] const Ref<GfxSampler>& get_sampler(GrcDefaultSampler sampler);
+        [[nodiscard]] const Ref<GfxTexture>& get_texture(DefaultTexture texture);
+        [[nodiscard]] const Ref<GfxSampler>& get_sampler(DefaultSampler sampler);
 
     private:
         void init_default_textures();
@@ -75,8 +75,8 @@ namespace wmoge {
         GfxDriver* m_gfx_driver;
         GfxCtx*    m_gfx_ctx;
 
-        Ref<GfxTexture> m_default_textures[int(GrcDefaultTexture::Total)];
-        Ref<GfxSampler> m_default_samplers[int(GrcDefaultSampler::Total)];
+        Ref<GfxTexture> m_default_textures[int(DefaultTexture::Total)];
+        Ref<GfxSampler> m_default_samplers[int(DefaultSampler::Total)];
     };
 
 }// namespace wmoge

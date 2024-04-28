@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_CTX_THREADED_HPP
-#define WMOGE_GFX_CTX_THREADED_HPP
+#pragma once
 
 #include "core/callback_stream.hpp"
 #include "gfx/gfx_ctx.hpp"
@@ -52,5 +51,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_CTX_THREADED_HPP

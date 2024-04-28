@@ -29,6 +29,7 @@
 #include "core/flat_map.hpp"
 #include "core/synchronization.hpp"
 
+#include "string_id.hpp"
 #include <cassert>
 #include <memory>
 #include <mutex>
@@ -78,6 +79,8 @@ namespace wmoge {
         m_string = &g_empty;
     }
 
+    Strid::Strid(const char* string) : Strid(std::string(string)) {
+    }
     Strid::Strid(const std::string& string) : Strid() {
         if (string.empty())
             return;

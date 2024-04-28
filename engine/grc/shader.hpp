@@ -27,17 +27,26 @@
 
 #pragma once
 
+#include "asset/asset.hpp"
 #include "core/buffered_vector.hpp"
+#include "core/ref.hpp"
+#include "core/status.hpp"
+#include "core/string_id.hpp"
+#include "gfx/gfx_desc_set.hpp"
+#include "grc/shader_file.hpp"
 #include "grc/shader_reflection.hpp"
-#include "grc/shader_script.hpp"
+#include "platform/file_system.hpp"
+#include "rtti/traits.hpp"
+
+#include <optional>
 
 namespace wmoge {
 
     /**
-     * @class GrcShaderPermutation
+     * @class ShaderPermutation
      * @brief Defines a particular variant of a compiled shader
     */
-    struct GrcShaderPermutation {
+    struct ShaderPermutation {
         static constexpr int MAX_OPTIONS = 64;
 
         std::bitset<MAX_OPTIONS> options;
@@ -47,24 +56,53 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShader
-     * @brief Shader is an instance of shader class for rendering
+     * @class Shader
+     * @brief Reprsents a particular shader program script
      * 
-     * GrcShader in an instance of shader class. It allows to select a particular pass 
-     * and options for program, configure params, and render geometry, dispatch compute
-     * shader or configure a particular shader pass.
+     * Shader is a high level representation of a shading program.
+     * It provides a connection between raw glsl sources code of a shader,
+     * material and engine gfx module for runtime usage.
      * 
-     * GrcShader provides pass and options info for gpu program compilation. In some
-     * cases it may require vertex format as well for rendering passes. 
+     * Shader provides info about a particular shader type. It provides
+     * layout information, parameters and structures layout, defines and
+     * compilations options, constants and includes, and provides hot-reloading
+     * mechanism for debugging. 
      * 
-     * GrcShader may be used itself for internal rendering, or a base for compilation
-     * of passes for optimized engine models/meshes rendering.
+     * Shader is a shader defenition for drawing with pre-defined interface.
+     * It is not an compiled instance of a particular glsl shader. In order to get 
+     * a concrete instance of compiled gpu program, pass and options must be
+     * provided from ShaderInstance or Material / MaterialInstance classes.
     */
-    class GrcShader {
+    class Shader : public Asset {
     public:
+        WG_RTTI_CLASS(Shader, Asset);
+
+        Shader()           = default;
+        ~Shader() override = default;
+
+        Status                          from_reflection(ShaderReflection& reflection);
+        Status                          from_file(const ShaderFile& file);
+        std::optional<std::int16_t>     find_technique(Strid name);
+        std::optional<std::int16_t>     find_pass(std::int16_t technique, Strid name);
+        ShaderParamId                   get_param_id(Strid name);
+        std::optional<ShaderParamInfo*> get_param_info(ShaderParamId id);
+        Status                          reload_sources(const std::string& folder, FileSystem* fs);
+        Status                          fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
+        bool                            has_dependency(const Strid& dependency) const;
+        bool                            has_space(ShaderSpaceType space_type) const;
+
+        [[nodiscard]] const ShaderReflection& get_reflection() const { return m_reflection; }
+        [[nodiscard]] ShaderReflection&       get_reflection() { return m_reflection; }
+        [[nodiscard]] const Strid&            get_name() const { return m_reflection.shader_name; }
+
     private:
-        std::int16_t     m_techique_idx = -1;
-        GrcShaderScript* m_class;
+        ShaderReflection m_reflection;
     };
+
+    WG_RTTI_CLASS_BEGIN(Shader) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_WINDOW_HPP
-#define WMOGE_VK_WINDOW_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
@@ -127,5 +126,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_WINDOW_HPP

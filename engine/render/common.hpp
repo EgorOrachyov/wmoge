@@ -25,34 +25,10 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "gfx_shader.hpp"
+#pragma once
 
-#include "profiler/profiler.hpp"
+#include "rtti/traits.hpp"
 
 namespace wmoge {
 
-    WG_IO_BEGIN_NMSP(GfxShaderReflection, Texture)
-    WG_IO_FIELD(name);
-    WG_IO_FIELD(set);
-    WG_IO_FIELD(binding);
-    WG_IO_FIELD(array_size);
-    WG_IO_FIELD(tex);
-    WG_IO_END_NMSP(GfxShaderReflection, Texture)
-
-    WG_IO_BEGIN_NMSP(GfxShaderReflection, Buffer)
-    WG_IO_FIELD(name);
-    WG_IO_FIELD(set);
-    WG_IO_FIELD(binding);
-    WG_IO_FIELD(size);
-    WG_IO_END_NMSP(GfxShaderReflection, Buffer)
-
-    WG_IO_BEGIN(GfxShaderReflection)
-    WG_IO_FIELD(textures);
-    WG_IO_FIELD(ub_buffers);
-    WG_IO_FIELD(sb_buffers);
-    WG_IO_FIELD(textures_per_desc);
-    WG_IO_FIELD(ub_buffers_per_desc);
-    WG_IO_FIELD(sb_buffers_per_desc);
-    WG_IO_END(GfxShaderReflection)
-
-}// namespace wmoge
+}

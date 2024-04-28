@@ -286,7 +286,7 @@ namespace wmoge {
         m_render_pass_binder->clear_depth();
         m_render_pass_binder->clear_stencil();
     }
-    bool VKCtx::bind_pipeline(const Ref<GfxPipeline>& pipeline) {
+    bool VKCtx::bind_pipeline(const Ref<GfxPsoGraphics>& pipeline) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pipeline");
 
         assert(check_thread_valid());
@@ -296,9 +296,9 @@ namespace wmoge {
 
         prepare_render_pass();
 
-        Ref<VKPipeline> new_pipeline = pipeline.cast<VKPipeline>();
+        Ref<VKPsoGraphics> new_pipeline = pipeline.cast<VKPsoGraphics>();
 
-        if (new_pipeline == m_current_pipeline) {
+        if (new_pipeline == m_current_pso_graphics) {
             return true;
         }
         if (!new_pipeline->validate(m_current_pass)) {
@@ -306,22 +306,22 @@ namespace wmoge {
         }
 
         vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, new_pipeline->pipeline());
-        m_current_pipeline = std::move(new_pipeline);
-        m_current_shader   = m_current_pipeline->state().shader.cast<VKShader>();
-        m_pipeline_bound   = true;
+        m_current_pso_graphics = std::move(new_pipeline);
+        m_current_pso_layout   = m_current_pso_graphics->state().layout.cast<VKPsoLayout>();
+        m_pipeline_bound       = true;
 
         return true;
     }
-    bool VKCtx::bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline) {
+    bool VKCtx::bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pipeline");
 
         assert(check_thread_valid());
         assert(!m_in_render_pass);
         assert(pipeline);
 
-        Ref<VKCompPipeline> new_pipeline = pipeline.cast<VKCompPipeline>();
+        Ref<VKPsoCompute> new_pipeline = pipeline.cast<VKPsoCompute>();
 
-        if (new_pipeline == m_current_comp_pipeline) {
+        if (new_pipeline == m_current_pso_compute) {
             return true;
         }
         if (!new_pipeline->validate()) {
@@ -329,9 +329,9 @@ namespace wmoge {
         }
 
         vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_COMPUTE, new_pipeline->pipeline());
-        m_current_comp_pipeline = std::move(new_pipeline);
-        m_current_shader        = m_current_comp_pipeline->state().shader.cast<VKShader>();
-        m_comp_pipeline_bound   = true;
+        m_current_pso_compute = std::move(new_pipeline);
+        m_current_pso_layout  = m_current_pso_compute->state().layout.cast<VKPsoLayout>();
+        m_comp_pipeline_bound = true;
 
         return true;
     }
@@ -379,7 +379,7 @@ namespace wmoge {
         }
 
         m_desc_sets[index] = set.cast<VKDescSet>()->set();
-        vkCmdBindDescriptorSets(cmd_current(), bind_point, m_current_shader->layout(), index, 1, &m_desc_sets[index], 0, nullptr);
+        vkCmdBindDescriptorSets(cmd_current(), bind_point, m_current_pso_layout->layout(), index, 1, &m_desc_sets[index], 0, nullptr);
     }
     void VKCtx::bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_desc_sets");
@@ -404,7 +404,7 @@ namespace wmoge {
             bind_point = VK_PIPELINE_BIND_POINT_COMPUTE;
         }
 
-        vkCmdBindDescriptorSets(cmd_current(), bind_point, m_current_shader->layout(), offset, count, &m_desc_sets[offset], 0, nullptr);
+        vkCmdBindDescriptorSets(cmd_current(), bind_point, m_current_pso_layout->layout(), offset, count, &m_desc_sets[offset], 0, nullptr);
     }
     void VKCtx::draw(int vertex_count, int base_vertex, int instance_count) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::draw");
@@ -449,8 +449,8 @@ namespace wmoge {
 
         m_render_pass_binder->finish(cmd_current());
         m_current_pass.reset();
-        m_current_pipeline.reset();
-        m_current_shader.reset();
+        m_current_pso_graphics.reset();
+        m_current_pso_layout.reset();
         m_current_index_buffer.reset();
         m_current_vert_buffers.fill(nullptr);
         m_current_vert_buffers_offsets.fill(0);
@@ -487,9 +487,9 @@ namespace wmoge {
 
         m_cmd_manager->update();
 
-        m_current_pipeline.reset();
-        m_current_comp_pipeline.reset();
-        m_current_shader.reset();
+        m_current_pso_graphics.reset();
+        m_current_pso_compute.reset();
+        m_current_pso_layout.reset();
 
         m_target_bound        = false;
         m_pipeline_bound      = false;

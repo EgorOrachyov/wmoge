@@ -29,22 +29,17 @@
 
 #include "gfx/gfx_driver.hpp"
 #include "material/material.hpp"
-#include "material/shader.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_processors.hpp"
 #include "profiler/profiler.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
-#include "render/shader_manager.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {
 
     MeshBatchCollector::MeshBatchCollector() {
         m_gfx_driver = Engine::instance()->gfx_driver();
-        m_dyn_vbuff  = m_gfx_driver->dyn_vert_buffer();
-        m_dyn_ibuff  = m_gfx_driver->dyn_index_buffer();
-        m_dyn_ubuff  = m_gfx_driver->dyn_uniform_buffer();
     }
 
     void MeshBatchCollector::add_batch(const MeshBatch& b) {
@@ -59,9 +54,8 @@ namespace wmoge {
     MeshBatchCompiler::MeshBatchCompiler() {
         Engine* engine = Engine::instance();
 
-        m_shader_manager = engine->shader_manager();
-        m_driver         = engine->gfx_driver();
-        m_ctx            = engine->gfx_ctx();
+        m_driver = engine->gfx_driver();
+        m_ctx    = engine->gfx_ctx();
 
         // Register pass processors here
         m_processors[int(MeshPassType::GBuffer)] = std::make_unique<MeshPassProcessorGBuffer>();
@@ -71,11 +65,6 @@ namespace wmoge {
         if (!batch.cam_mask.any()) {
             return StatusCode::Ok;
         }
-
-        batch.material->validate();
-
-        const Ref<Shader>&        shader         = batch.material->get_shader();
-        const ShaderPipelineState pipeline_state = shader->get_pipeline_state();
 
         for (int cam_idx = 0; cam_idx < int(m_cameras->get_size()); cam_idx++) {
             if (!batch.cam_mask[cam_idx]) {
@@ -92,13 +81,13 @@ namespace wmoge {
                     continue;
                 }
 
-                Ref<GfxPipeline> gfx_pso;
+                Ref<GfxPsoGraphics> gfx_pso;
 
                 RenderCmd cmd;
                 cmd.index_setup        = batch.index_buffer;
                 cmd.desc_sets[0]       = view.view_set.get();
                 cmd.desc_sets_slots[0] = 0;
-                cmd.desc_sets[1]       = batch.material->get_desc_set().get();
+                // cmd.desc_sets[1]       = batch.material->get_desc_set().get();
                 cmd.desc_sets_slots[1] = 1;
                 cmd.pipeline           = gfx_pso.get();
                 cmd.call_params        = batch.draw_call;

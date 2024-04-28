@@ -32,12 +32,12 @@
 
 namespace wmoge {
 
-    Status GrcTexResize::resize(const GrcTexResizeParams& params, Image& image) {
-        WG_AUTO_PROFILE_RENDER("GrcTexResize::resize");
+    Status TexResize::resize(const TexResizeParams& params, Image& image) {
+        WG_AUTO_PROFILE_RENDER("TexResize::resize");
 
-        GrcTexSizePreset preset = params.preset;
+        TexSizePreset preset = params.preset;
 
-        if (params.auto_adjust || preset == GrcTexSizePreset::None) {
+        if (params.auto_adjust || preset == TexSizePreset::None) {
             int w = image.get_width();
             int h = image.get_height();
 
@@ -52,41 +52,41 @@ namespace wmoge {
             preset = fit_preset(w, h);
         }
 
-        assert(preset != GrcTexSizePreset::None);
+        assert(preset != TexSizePreset::None);
         const Vec2i size = preset_to_size(preset);
 
         return image.resize(size.x(), size.y());
     }
 
-    Vec2i GrcTexResize::preset_to_size(GrcTexSizePreset preset) {
+    Vec2i TexResize::preset_to_size(TexSizePreset preset) {
         switch (preset) {
-            case GrcTexSizePreset::Size128x128:
+            case TexSizePreset::Size128x128:
                 return Vec2i(128, 128);
-            case GrcTexSizePreset::Size256x256:
+            case TexSizePreset::Size256x256:
                 return Vec2i(256, 256);
-            case GrcTexSizePreset::Size512x512:
+            case TexSizePreset::Size512x512:
                 return Vec2i(512, 512);
-            case GrcTexSizePreset::Size1024x1024:
+            case TexSizePreset::Size1024x1024:
                 return Vec2i(1024, 1024);
-            case GrcTexSizePreset::Size2048x2048:
+            case TexSizePreset::Size2048x2048:
                 return Vec2i(2048, 2048);
-            case GrcTexSizePreset::Size4096x4096:
+            case TexSizePreset::Size4096x4096:
                 return Vec2i(4096, 4096);
             default:
                 return Vec2i(0, 0);
         }
     }
 
-    GrcTexSizePreset GrcTexResize::fit_preset(int width, int height) {
+    TexSizePreset TexResize::fit_preset(int width, int height) {
         if (width == 0 || height == 0) {
-            return GrcTexSizePreset::None;
+            return TexSizePreset::None;
         }
 
-        GrcTexSizePreset preset = GrcTexSizePreset::Size128x128;
-        Vec2i            size   = preset_to_size(preset);
+        TexSizePreset preset = TexSizePreset::Size128x128;
+        Vec2i         size   = preset_to_size(preset);
 
-        while (size.x() < width && size.y() < height && preset != GrcTexSizePreset::Size4096x4096) {
-            preset = static_cast<GrcTexSizePreset>(static_cast<int>(preset) + 1);
+        while (size.x() < width && size.y() < height && preset != TexSizePreset::Size4096x4096) {
+            preset = static_cast<TexSizePreset>(static_cast<int>(preset) + 1);
             size   = preset_to_size(preset);
         }
 

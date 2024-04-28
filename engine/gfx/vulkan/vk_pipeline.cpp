@@ -26,23 +26,51 @@
 /**********************************************************************************/
 
 #include "vk_pipeline.hpp"
-#include "vk_driver.hpp"
 
 #include "core/task.hpp"
 #include "core/timer.hpp"
+#include "gfx/vulkan/vk_driver.hpp"
 #include "profiler/profiler.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {
 
-    VKPipeline::VKPipeline(const GfxPipelineState& state, const Strid& name, VKDriver& driver) : VKResource<GfxPipeline>(driver) {
+    VKPsoLayout::VKPsoLayout(const GfxDescSetLayouts& layouts, const Strid& name, VKDriver& driver) : VKResource<GfxPsoLayout>(driver) {
+        m_name    = name;
+        m_layouts = layouts;
+
+        VkDescriptorSetLayout vk_layouts[GfxLimits::MAX_DESC_SETS];
+        std::uint32_t         vk_layouts_count = 0;
+
+        for (const auto& layout : layouts) {
+            assert(vk_layouts_count < GfxLimits::MAX_DESC_SETS);
+            vk_layouts[vk_layouts_count++] = layout.cast<VKDescSetLayout>()->layout();
+        }
+
+        VkPipelineLayoutCreateInfo layout_create_info{};
+        layout_create_info.sType                  = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+        layout_create_info.setLayoutCount         = vk_layouts_count;
+        layout_create_info.pSetLayouts            = vk_layouts;
+        layout_create_info.pushConstantRangeCount = 0;
+        layout_create_info.pPushConstantRanges    = nullptr;
+        WG_VK_CHECK(vkCreatePipelineLayout(m_driver.device(), &layout_create_info, nullptr, &m_layout));
+        WG_VK_NAME(m_driver.device(), m_layout, VK_OBJECT_TYPE_PIPELINE_LAYOUT, name.str());
+    }
+
+    VKPsoLayout::~VKPsoLayout() {
+        if (m_layout) {
+            vkDestroyPipelineLayout(m_driver.device(), m_layout, nullptr);
+        }
+    }
+
+    VKPsoGraphics::VKPsoGraphics(const GfxPsoStateGraphics& state, const Strid& name, VKDriver& driver) : VKResource<GfxPsoGraphics>(driver) {
         m_name  = name;
         m_state = state;
     }
-    VKPipeline::~VKPipeline() {
+    VKPsoGraphics::~VKPsoGraphics() {
         release();
     }
-    bool VKPipeline::validate(const Ref<VKRenderPass>& render_pass) {
+    bool VKPsoGraphics::validate(const Ref<VKRenderPass>& render_pass) {
         GfxPipelineStatus status = m_status.load();
 
         //  creating pipeline in a background task, wait
@@ -55,17 +83,12 @@ namespace wmoge {
         }
         // pipeline is not yet created or version out of date, have to create new pipeline
         if (status != GfxPipelineStatus::Created || m_render_pass != render_pass) {
-            auto shader = m_state.shader.cast<VKShader>();
-            if (shader->status() != GfxShaderStatus::Compiled) {
-                return false;
-            }
-
             assert(m_state.pass_desc == GfxRenderPassDesc{} || m_state.pass_desc == render_pass->pass_desc());
 
             m_render_pass = render_pass;
             m_status.store(GfxPipelineStatus::Creating);
 
-            Task compilation_task(m_name, [self = Ref<VKPipeline>(this)](auto&) {
+            Task compilation_task(m_name, [self = Ref<VKPsoGraphics>(this)](auto&) {
                 self->compile();
                 return 0;
             });
@@ -78,23 +101,25 @@ namespace wmoge {
         // so everything is ok, can draw
         return true;
     }
-    void VKPipeline::compile() {
-        WG_AUTO_PROFILE_VULKAN("VKPipeline::compile");
+    void VKPsoGraphics::compile() {
+        WG_AUTO_PROFILE_VULKAN("VKPsoGraphics::compile");
 
         Timer timer;
         timer.start();
 
-        auto shader = m_state.shader.cast<VKShader>();
+        auto program = m_state.program.cast<VKShaderProgram>();
+        auto layout  = m_state.layout.cast<VKPsoLayout>();
 
-        std::array<VkPipelineShaderStageCreateInfo, 2> shader_stages{};
-        shader_stages[0].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        shader_stages[0].stage  = VK_SHADER_STAGE_VERTEX_BIT;
-        shader_stages[0].module = shader->modules()[0];
-        shader_stages[0].pName  = "main";
-        shader_stages[1].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        shader_stages[1].stage  = VK_SHADER_STAGE_FRAGMENT_BIT;
-        shader_stages[1].module = shader->modules()[1];
-        shader_stages[1].pName  = "main";
+        std::array<VkPipelineShaderStageCreateInfo, 6> shader_stages{};
+        std::uint32_t                                  shader_stages_cout = 0;
+
+        for (const Ref<GfxShader>& shader : program->get_desc()) {
+            const std::uint32_t idx   = shader_stages_cout++;
+            shader_stages[idx].sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+            shader_stages[idx].stage  = VKDefs::get_shader_module_type(shader->get_module_type());
+            shader_stages[idx].module = shader.cast<VKShader>()->module();
+            shader_stages[idx].pName  = "main";
+        }
 
         auto vert_format = m_state.vert_format.cast<VKVertFormat>();
 
@@ -198,7 +223,7 @@ namespace wmoge {
 
         VkGraphicsPipelineCreateInfo pipeline_info{};
         pipeline_info.sType               = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-        pipeline_info.stageCount          = static_cast<uint32_t>(shader_stages.size());
+        pipeline_info.stageCount          = shader_stages_cout;
         pipeline_info.pStages             = shader_stages.data();
         pipeline_info.pVertexInputState   = &vertex_input_state;
         pipeline_info.pInputAssemblyState = &input_assembly;
@@ -208,7 +233,7 @@ namespace wmoge {
         pipeline_info.pDepthStencilState  = &depth_stencil;
         pipeline_info.pColorBlendState    = &color_blending;
         pipeline_info.pDynamicState       = &dynamic_state;
-        pipeline_info.layout              = shader->layout();
+        pipeline_info.layout              = layout->layout();
         pipeline_info.renderPass          = m_render_pass->render_pass();
         pipeline_info.subpass             = 0;
         pipeline_info.basePipelineHandle  = m_pipeline;
@@ -217,7 +242,7 @@ namespace wmoge {
         VkPipeline new_pipeline;
 
         WG_VK_CHECK(vkCreateGraphicsPipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline));
-        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, "pso " + name().str());
+        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, name().str());
 
         release();
         m_pipeline = new_pipeline;
@@ -227,32 +252,29 @@ namespace wmoge {
 
         m_status.store(GfxPipelineStatus::Created);
     }
-    void VKPipeline::release() {
-        WG_AUTO_PROFILE_VULKAN("VKPipeline::release");
+    void VKPsoGraphics::release() {
+        WG_AUTO_PROFILE_VULKAN("VKPsoGraphics::release");
 
         if (m_pipeline) {
             m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });
             m_pipeline = VK_NULL_HANDLE;
         }
     }
-    GfxPipelineStatus VKPipeline::status() const {
+    GfxPipelineStatus VKPsoGraphics::status() const {
         return m_status.load();
     }
-    std::string VKPipeline::message() const {
-        return status() != GfxPipelineStatus::Creating ? m_message : std::string();
-    }
-    const GfxPipelineState& VKPipeline::state() const {
+    const GfxPsoStateGraphics& VKPsoGraphics::state() const {
         return m_state;
     }
 
-    VKCompPipeline::VKCompPipeline(const GfxCompPipelineState& state, const Strid& name, VKDriver& driver) : VKResource<GfxCompPipeline>(driver) {
+    VKPsoCompute::VKPsoCompute(const GfxPsoStateCompute& state, const Strid& name, VKDriver& driver) : VKResource<GfxPsoCompute>(driver) {
         m_state = state;
         m_name  = name;
     }
-    VKCompPipeline::~VKCompPipeline() {
+    VKPsoCompute::~VKPsoCompute() {
         release();
     }
-    bool VKCompPipeline::validate() {
+    bool VKPsoCompute::validate() {
         GfxPipelineStatus status = m_status.load();
 
         //  creating pipeline in a background task, wait
@@ -265,59 +287,50 @@ namespace wmoge {
         }
         // pipeline is not yet created or version out of date, have to create new pipeline
         if (status != GfxPipelineStatus::Created) {
-            auto shader = m_state.shader.cast<VKShader>();
-
-            if (shader->status() != GfxShaderStatus::Compiled) {
-                return false;
-            }
-
             m_status.store(GfxPipelineStatus::Creating);
 
-            Task compilation_task(m_name, [self = Ref<VKCompPipeline>(this)](auto&) {
+            Task compilation_task(m_name, [self = Ref<VKPsoCompute>(this)](auto&) {
                 self->compile();
                 return 0;
             });
 
             compilation_task.schedule();
-
             return false;
         }
 
         // so everything is ok, can draw
         return true;
     }
-    GfxPipelineStatus VKCompPipeline::status() const {
+    GfxPipelineStatus VKPsoCompute::status() const {
         return m_status.load();
     }
-    std::string VKCompPipeline::message() const {
-        return status() != GfxPipelineStatus::Creating ? m_message : std::string();
-    }
-    const GfxCompPipelineState& VKCompPipeline::state() const {
+    const GfxPsoStateCompute& VKPsoCompute::state() const {
         return m_state;
     }
-    void VKCompPipeline::compile() {
-        WG_AUTO_PROFILE_VULKAN("VKCompPipeline::compile");
+    void VKPsoCompute::compile() {
+        WG_AUTO_PROFILE_VULKAN("VKPsoCompute::compile");
 
         Timer timer;
         timer.start();
 
         auto shader = m_state.shader.cast<VKShader>();
+        auto layout = m_state.layout.cast<VKPsoLayout>();
 
         VkPipelineShaderStageCreateInfo shader_stage{};
         shader_stage.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         shader_stage.stage  = VK_SHADER_STAGE_COMPUTE_BIT;
-        shader_stage.module = shader->modules()[0];
+        shader_stage.module = shader->module();
         shader_stage.pName  = "main";
 
         VkComputePipelineCreateInfo pipeline_info{};
         pipeline_info.sType  = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
-        pipeline_info.layout = shader->layout();
+        pipeline_info.layout = layout->layout();
         pipeline_info.stage  = shader_stage;
 
         VkPipeline new_pipeline;
 
         WG_VK_CHECK(vkCreateComputePipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline));
-        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, "pso " + name().str());
+        WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, name().str());
 
         m_pipeline = new_pipeline;
 
@@ -326,8 +339,8 @@ namespace wmoge {
 
         m_status.store(GfxPipelineStatus::Created);
     }
-    void VKCompPipeline::release() {
-        WG_AUTO_PROFILE_VULKAN("VKCompPipeline::release");
+    void VKPsoCompute::release() {
+        WG_AUTO_PROFILE_VULKAN("VKPsoCompute::release");
 
         if (m_pipeline) {
             m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });

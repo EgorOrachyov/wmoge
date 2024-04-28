@@ -32,76 +32,58 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(GrcPipelineState)
-    WG_IO_FIELD_OPT(poly_mode)
-    WG_IO_FIELD_OPT(cull_mode)
-    WG_IO_FIELD_OPT(front_face)
-    WG_IO_FIELD_OPT(depth_enable)
-    WG_IO_FIELD_OPT(depth_write)
-    WG_IO_FIELD_OPT(depth_func)
-    WG_IO_FIELD_OPT(stencil_enable)
-    WG_IO_FIELD_OPT(stencil_wmask)
-    WG_IO_FIELD_OPT(stencil_rvalue)
-    WG_IO_FIELD_OPT(stencil_cmask)
-    WG_IO_FIELD_OPT(stencil_comp_func)
-    WG_IO_FIELD_OPT(stencil_sfail)
-    WG_IO_FIELD_OPT(stencil_dfail)
-    WG_IO_FIELD_OPT(stencil_dpass)
-    WG_IO_FIELD_OPT(blending)
-    WG_IO_END(GrcPipelineState);
-
-    static Ref<GrcShaderType> make(GrcShaderBaseType base_type, Strid name, bool is_primitive = false) {
-        Ref<GrcShaderType> t = make_ref<GrcShaderType>();
-        t->name              = name;
-        t->type              = base_type;
-        t->byte_size         = GrcShaderBaseTypeSizes[int(base_type)];
-        t->is_primitive      = is_primitive;
+    static Ref<ShaderType> make(ShaderBaseType base_type, Strid name, bool is_primitive = false) {
+        Ref<ShaderType> t = make_ref<ShaderType>();
+        t->name           = name;
+        t->type           = base_type;
+        t->byte_size      = ShaderBaseTypeSizes[int(base_type)];
+        t->is_primitive   = is_primitive;
         return t;
     }
-    static Ref<GrcShaderType> make(GrcShaderBaseType base_type, Strid name, int n_rows) {
-        Ref<GrcShaderType> t = make_ref<GrcShaderType>();
-        t->name              = name;
-        t->type              = base_type;
-        t->n_row             = n_rows;
-        t->n_col             = 1;
-        t->n_elem            = n_rows * 1;
-        t->byte_size         = GrcShaderBaseTypeSizes[int(base_type)] * t->n_elem;
-        t->is_primitive      = true;
+    static Ref<ShaderType> make(ShaderBaseType base_type, Strid name, int n_rows) {
+        Ref<ShaderType> t = make_ref<ShaderType>();
+        t->name           = name;
+        t->type           = base_type;
+        t->n_row          = n_rows;
+        t->n_col          = 1;
+        t->n_elem         = n_rows * 1;
+        t->byte_size      = ShaderBaseTypeSizes[int(base_type)] * t->n_elem;
+        t->is_primitive   = true;
         return t;
     }
-    static Ref<GrcShaderType> make(GrcShaderBaseType base_type, Strid name, int n_rows, int n_cols) {
-        Ref<GrcShaderType> t = make_ref<GrcShaderType>();
-        t->name              = name;
-        t->type              = base_type;
-        t->n_row             = n_rows;
-        t->n_col             = n_cols;
-        t->n_elem            = n_rows * n_cols;
-        t->byte_size         = GrcShaderBaseTypeSizes[int(base_type)] * t->n_elem;
-        t->is_primitive      = true;
+    static Ref<ShaderType> make(ShaderBaseType base_type, Strid name, int n_rows, int n_cols) {
+        Ref<ShaderType> t = make_ref<ShaderType>();
+        t->name           = name;
+        t->type           = base_type;
+        t->n_row          = n_rows;
+        t->n_col          = n_cols;
+        t->n_elem         = n_rows * n_cols;
+        t->byte_size      = ShaderBaseTypeSizes[int(base_type)] * t->n_elem;
+        t->is_primitive   = true;
         return t;
     }
 
-    Ref<GrcShaderType> GrcShaderTypes::FLOAT           = make(GrcShaderBaseType::Float, SID("float"), true);
-    Ref<GrcShaderType> GrcShaderTypes::INT             = make(GrcShaderBaseType::Int, SID("int"), true);
-    Ref<GrcShaderType> GrcShaderTypes::BOOL            = make(GrcShaderBaseType::Bool, SID("bool"), true);
-    Ref<GrcShaderType> GrcShaderTypes::VEC2            = make(GrcShaderBaseType::Float, SID("vec2"), 2);
-    Ref<GrcShaderType> GrcShaderTypes::VEC3            = make(GrcShaderBaseType::Float, SID("vec3"), 3);
-    Ref<GrcShaderType> GrcShaderTypes::VEC4            = make(GrcShaderBaseType::Float, SID("vec4"), 4);
-    Ref<GrcShaderType> GrcShaderTypes::IVEC2           = make(GrcShaderBaseType::Int, SID("ivec2"), 2);
-    Ref<GrcShaderType> GrcShaderTypes::IVEC3           = make(GrcShaderBaseType::Int, SID("ivec3"), 3);
-    Ref<GrcShaderType> GrcShaderTypes::IVEC4           = make(GrcShaderBaseType::Int, SID("ivec4"), 4);
-    Ref<GrcShaderType> GrcShaderTypes::BVEC2           = make(GrcShaderBaseType::Bool, SID("bvec2"), 2);
-    Ref<GrcShaderType> GrcShaderTypes::BVEC3           = make(GrcShaderBaseType::Bool, SID("bvec3"), 3);
-    Ref<GrcShaderType> GrcShaderTypes::BVEC4           = make(GrcShaderBaseType::Bool, SID("bvec4"), 4);
-    Ref<GrcShaderType> GrcShaderTypes::MAT2            = make(GrcShaderBaseType::Float, SID("mat2"), 2, 2);
-    Ref<GrcShaderType> GrcShaderTypes::MAT3            = make(GrcShaderBaseType::Float, SID("mat3"), 3, 3);
-    Ref<GrcShaderType> GrcShaderTypes::MAT4            = make(GrcShaderBaseType::Float, SID("mat4"), 4, 4);
-    Ref<GrcShaderType> GrcShaderTypes::SAMPLER2D       = make(GrcShaderBaseType::Sampler2d, SID("sampler2D"));
-    Ref<GrcShaderType> GrcShaderTypes::SAMPLER2D_ARRAY = make(GrcShaderBaseType::Sampler2dArray, SID("sampler2DArray"));
-    Ref<GrcShaderType> GrcShaderTypes::SAMPLER_CUBE    = make(GrcShaderBaseType::SamplerCube, SID("samplerCube"));
-    Ref<GrcShaderType> GrcShaderTypes::IMAGE2D         = make(GrcShaderBaseType::Image2d, SID("image2D"));
+    Ref<ShaderType> ShaderTypes::FLOAT           = make(ShaderBaseType::Float, SID("float"), true);
+    Ref<ShaderType> ShaderTypes::INT             = make(ShaderBaseType::Int, SID("int"), true);
+    Ref<ShaderType> ShaderTypes::BOOL            = make(ShaderBaseType::Bool, SID("bool"), true);
+    Ref<ShaderType> ShaderTypes::VEC2            = make(ShaderBaseType::Float, SID("vec2"), 2);
+    Ref<ShaderType> ShaderTypes::VEC3            = make(ShaderBaseType::Float, SID("vec3"), 3);
+    Ref<ShaderType> ShaderTypes::VEC4            = make(ShaderBaseType::Float, SID("vec4"), 4);
+    Ref<ShaderType> ShaderTypes::IVEC2           = make(ShaderBaseType::Int, SID("ivec2"), 2);
+    Ref<ShaderType> ShaderTypes::IVEC3           = make(ShaderBaseType::Int, SID("ivec3"), 3);
+    Ref<ShaderType> ShaderTypes::IVEC4           = make(ShaderBaseType::Int, SID("ivec4"), 4);
+    Ref<ShaderType> ShaderTypes::BVEC2           = make(ShaderBaseType::Bool, SID("bvec2"), 2);
+    Ref<ShaderType> ShaderTypes::BVEC3           = make(ShaderBaseType::Bool, SID("bvec3"), 3);
+    Ref<ShaderType> ShaderTypes::BVEC4           = make(ShaderBaseType::Bool, SID("bvec4"), 4);
+    Ref<ShaderType> ShaderTypes::MAT2            = make(ShaderBaseType::Float, SID("mat2"), 2, 2);
+    Ref<ShaderType> ShaderTypes::MAT3            = make(ShaderBaseType::Float, SID("mat3"), 3, 3);
+    Ref<ShaderType> ShaderTypes::MAT4            = make(ShaderBaseType::Float, SID("mat4"), 4, 4);
+    Ref<ShaderType> ShaderTypes::SAMPLER2D       = make(ShaderBaseType::Sampler2d, SID("sampler2D"));
+    Ref<ShaderType> ShaderTypes::SAMPLER2D_ARRAY = make(ShaderBaseType::Sampler2dArray, SID("sampler2DArray"));
+    Ref<ShaderType> ShaderTypes::SAMPLER_CUBE    = make(ShaderBaseType::SamplerCube, SID("samplerCube"));
+    Ref<ShaderType> ShaderTypes::IMAGE2D         = make(ShaderBaseType::Image2d, SID("image2D"));
 
-    std::vector<Ref<GrcShaderType>> GrcShaderTypes::builtin() {
+    std::vector<Ref<ShaderType>> ShaderTypes::builtin() {
         return {FLOAT,
                 INT,
                 BOOL,
@@ -123,53 +105,53 @@ namespace wmoge {
                 IMAGE2D};
     }
 
-    GrcShaderStructRegister::GrcShaderStructRegister(Strid name, std::size_t size) {
-        m_manager                = IocContainer::instance()->resolve_v<GrcShaderManager>();
-        m_struct_type            = make_ref<GrcShaderType>();
+    ShaderStructRegister::ShaderStructRegister(Strid name, std::size_t size) {
+        m_manager                = IocContainer::instance()->resolve_v<ShaderManager>();
+        m_struct_type            = make_ref<ShaderType>();
         m_struct_type->name      = name;
         m_struct_type->byte_size = std::int16_t(size);
-        m_struct_type->type      = GrcShaderBaseType::Struct;
+        m_struct_type->type      = ShaderBaseType::Struct;
     }
 
-    GrcShaderStructRegister& GrcShaderStructRegister::add_field(Strid name, Strid struct_type) {
-        GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name                  = name;
-        field.type                  = m_manager->find_global_type(struct_type).value();
-        field.offset                = field.type->byte_size;
+    ShaderStructRegister& ShaderStructRegister::add_field(Strid name, Strid struct_type) {
+        ShaderType::Field& field = m_struct_type->fields.emplace_back();
+        field.name               = name;
+        field.type               = m_manager->find_global_type(struct_type).value();
+        field.offset             = field.type->byte_size;
         return *this;
     }
 
-    GrcShaderStructRegister& GrcShaderStructRegister::add_field(Strid name, Ref<GrcShaderType> type, Var value) {
-        GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name                  = name;
-        field.type                  = type;
-        field.default_value         = value;
-        field.offset                = field.type->byte_size;
+    ShaderStructRegister& ShaderStructRegister::add_field(Strid name, Ref<ShaderType> type, Var value) {
+        ShaderType::Field& field = m_struct_type->fields.emplace_back();
+        field.name               = name;
+        field.type               = type;
+        field.default_value      = value;
+        field.offset             = field.type->byte_size;
         return *this;
     }
 
-    GrcShaderStructRegister& GrcShaderStructRegister::add_field_array(Strid name, Strid struct_type, int n_elements) {
-        GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name                  = name;
-        field.type                  = m_manager->find_global_type(struct_type).value();
-        field.is_array              = true;
-        field.elem_count            = n_elements;
-        field.offset                = n_elements * field.type->byte_size;
+    ShaderStructRegister& ShaderStructRegister::add_field_array(Strid name, Strid struct_type, int n_elements) {
+        ShaderType::Field& field = m_struct_type->fields.emplace_back();
+        field.name               = name;
+        field.type               = m_manager->find_global_type(struct_type).value();
+        field.is_array           = true;
+        field.elem_count         = n_elements;
+        field.offset             = n_elements * field.type->byte_size;
         return *this;
     }
 
-    GrcShaderStructRegister& GrcShaderStructRegister::add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements, Var value) {
-        GrcShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name                  = name;
-        field.type                  = type;
-        field.default_value         = value;
-        field.is_array              = true;
-        field.elem_count            = n_elements;
-        field.offset                = n_elements * field.type->byte_size;
+    ShaderStructRegister& ShaderStructRegister::add_field_array(Strid name, Ref<ShaderType> type, int n_elements, Var value) {
+        ShaderType::Field& field = m_struct_type->fields.emplace_back();
+        field.name               = name;
+        field.type               = type;
+        field.default_value      = value;
+        field.is_array           = true;
+        field.elem_count         = n_elements;
+        field.offset             = n_elements * field.type->byte_size;
         return *this;
     }
 
-    Status GrcShaderStructRegister::finish() {
+    Status ShaderStructRegister::finish() {
         m_manager->add_global_type(m_struct_type);
         m_struct_type.reset();
 

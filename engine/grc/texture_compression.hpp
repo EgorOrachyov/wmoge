@@ -39,7 +39,7 @@ namespace wmoge {
     /**
      * @brief Supported types of block compression for textures
      */
-    enum class GrcTexCompressionType {
+    enum class TexCompressionType {
         Unknown = 0,
         /**
          * @brief BC1 Mode
@@ -116,7 +116,7 @@ namespace wmoge {
     /**
      * @brief Formats of compressed textures
      */
-    enum class GrcTexCompressionFormat {
+    enum class TexCompressionFormat {
         Unknown,
         BC1_RGB,
         BC1_RGB_SRGB,
@@ -137,25 +137,25 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcTexCompressionParams
+     * @class TexCompressionParams
      * @brief Set of parameters to compress texture data
      */
-    struct GrcTexCompressionParams {
-        WG_RTTI_STRUCT(GrcTexCompressionParams);
+    struct TexCompressionParams {
+        WG_RTTI_STRUCT(TexCompressionParams);
 
-        GrcTexCompressionFormat format                 = GrcTexCompressionFormat::Unknown;
-        bool                    use_channel_weighting  = false;
-        float                   weight_red             = 0.3f;
-        float                   weight_green           = 0.4f;
-        float                   weight_blue            = 0.3f;
-        bool                    use_adaptive_weighting = false;
-        bool                    use_alpha              = false;
-        int                     alpha_threshold        = 128;
-        float                   fquality               = 0.05f;
-        int                     num_threads            = 4;
+        TexCompressionFormat format                 = TexCompressionFormat::Unknown;
+        bool                 use_channel_weighting  = false;
+        float                weight_red             = 0.3f;
+        float                weight_green           = 0.4f;
+        float                weight_blue            = 0.3f;
+        bool                 use_adaptive_weighting = false;
+        bool                 use_alpha              = false;
+        int                  alpha_threshold        = 128;
+        float                fquality               = 0.05f;
+        int                  num_threads            = 4;
     };
 
-    WG_RTTI_STRUCT_BEGIN(GrcTexCompressionParams) {
+    WG_RTTI_STRUCT_BEGIN(TexCompressionParams) {
         WG_RTTI_META_DATA();
         WG_RTTI_FIELD(format, {RttiOptional});
         WG_RTTI_FIELD(use_channel_weighting, {RttiOptional});
@@ -171,10 +171,10 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
-     * @class GrcTexCompression
+     * @class TexCompression
      * @brief Provides methods for texture data compression
      */
-    class GrcTexCompression {
+    class TexCompression {
     public:
         /**
          * @brief Compress a list of image data using provided setup
@@ -185,7 +185,7 @@ namespace wmoge {
          *
          * @return Ok on success
          */
-        static Status compress(const GrcTexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed);
+        static Status compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed);
     };
 
 }// namespace wmoge

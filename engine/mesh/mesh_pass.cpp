@@ -69,9 +69,9 @@ namespace wmoge {
     }
 
     MeshPassProcessor::MeshPassProcessor() {
-        Engine* engine   = Engine::instance();
-        m_shader_manager = engine->shader_manager();
-        m_gfx_driver     = engine->gfx_driver();
+        Engine* engine = Engine::instance();
+        // m_shader_manager = engine->shader_manager();
+        m_gfx_driver = engine->gfx_driver();
     }
 
 }// namespace wmoge

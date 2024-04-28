@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_MEM_MANAGER_HPP
-#define WMOGE_VK_MEM_MANAGER_HPP
+#pragma once
 
 #include "gfx/gfx_driver.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -74,5 +73,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_MEM_MANAGER_HPP

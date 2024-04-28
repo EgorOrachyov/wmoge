@@ -219,6 +219,8 @@ respond as soon as possible to them.
 | `📁 docs`           | Additional project documents and resources                |
 | `📁 deps`           | Third-party project dependencies, stored as is            |
 | `📁 engine`         | Engine sources compiled into library                      |
+| `📁 plugins`        | Engine common plugins to extend functionality             |
+| `📁 shaders`        | Engine common shader files sources                        |
 | `📁 template`       | Template project which can be used as a base for a game   |
 | `📁 games`          | Example games created with engine                         |
 | `📄 CMakeLists.txt` | CMake configuration, add as sub directory to your project |

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_QUEUES_HPP
-#define WMOGE_VK_QUEUES_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
 #include "gfx/gfx_driver.hpp"
@@ -71,5 +70,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_QUEUES_HPP

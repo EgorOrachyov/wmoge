@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_RENDER_PASS_HPP
-#define WMOGE_VK_RENDER_PASS_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -163,5 +162,3 @@ namespace std {
     };
 
 }// namespace std
-
-#endif//WMOGE_VK_RENDER_PASS_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_DEFS_HPP
-#define WMOGE_VK_DEFS_HPP
+#pragma once
 
 #ifndef VULKAN_VERSION
     #if defined(__APPLE__)
@@ -52,6 +51,8 @@
 #include "gfx/gfx_defs.hpp"
 #include "math/vec.hpp"
 #include "platform/window.hpp"
+
+#include <cassert>
 
 #define VK_LAYER_KHRONOS_VALIDATION "VK_LAYER_KHRONOS_validation"
 
@@ -122,6 +123,19 @@ namespace wmoge {
     class VKDefs {
     public:
         static void schedule_delete(class VKDriver& driver, class GfxResource* resource);
+
+        static VkShaderStageFlagBits get_shader_module_type(GfxShaderModule module) {
+            switch (module) {
+                case GfxShaderModule::Vertex:
+                    return VK_SHADER_STAGE_VERTEX_BIT;
+                case GfxShaderModule::Fragment:
+                    return VK_SHADER_STAGE_FRAGMENT_BIT;
+                case GfxShaderModule::Compute:
+                    return VK_SHADER_STAGE_COMPUTE_BIT;
+                default:
+                    return VK_SHADER_STAGE_FLAG_BITS_MAX_ENUM;
+            }
+        }
 
         static VkDescriptorType get_desc_type(GfxBindingType type) {
             switch (type) {
@@ -669,5 +683,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_DEFS_HPP

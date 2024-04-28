@@ -45,7 +45,6 @@ namespace wmoge {
 
         [[nodiscard]] bool        operator==(const GfxSamplerDesc& other) const;
         [[nodiscard]] std::size_t hash() const;
-        [[nodiscard]] std::string to_str() const;
 
         float          min_lod;       // = 0;
         float          max_lod;       // = 32.0f;

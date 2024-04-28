@@ -37,41 +37,60 @@
 namespace wmoge {
 
     /**
-     * @class GfxPipelineCache
-     * @brief Runtime cache of graphics pipelines
+     * @class GfxPsoLayoutCache
+     * @brief Runtime cache for pipeline layouts
     */
-    class GfxPipelineCache final {
+    class GfxPsoLayoutCache final {
     public:
-        GfxPipelineCache()                        = default;
-        GfxPipelineCache(const GfxPipelineCache&) = delete;
-        GfxPipelineCache(GfxPipelineCache&&)      = delete;
-        ~GfxPipelineCache()                       = default;
+        GfxPsoLayoutCache()                         = default;
+        GfxPsoLayoutCache(const GfxPsoLayoutCache&) = delete;
+        GfxPsoLayoutCache(GfxPsoLayoutCache&&)      = delete;
+        ~GfxPsoLayoutCache()                        = default;
 
-        std::optional<Ref<GfxPipeline>> get(const GfxPipelineState& state);
-        void                            add(const GfxPipelineState& state, const Ref<GfxPipeline>& pipeline);
+        std::optional<Ref<GfxPsoLayout>> get(const GfxDescSetLayouts& layouts);
+        void                             add(const GfxDescSetLayouts& layouts, const Ref<GfxPsoLayout>& layout);
 
     private:
-        flat_map<GfxPipelineState, Ref<GfxPipeline>> m_cache;
-        SpinMutex                                    m_mutex;
+        flat_map<GfxDescSetLayouts, Ref<GfxPsoLayout>> m_cache;
+        SpinMutex                                      m_mutex;
     };
 
     /**
-     * @class GfxCompPipelineCache
-     * @brief Runtime cache of compute pipelines
+     * @class GfxPsoGraphicsCache
+     * @brief Runtime cache of graphics pipelines
     */
-    class GfxCompPipelineCache final {
+    class GfxPsoGraphicsCache final {
     public:
-        GfxCompPipelineCache()                            = default;
-        GfxCompPipelineCache(const GfxCompPipelineCache&) = delete;
-        GfxCompPipelineCache(GfxCompPipelineCache&&)      = delete;
-        ~GfxCompPipelineCache()                           = default;
+        GfxPsoGraphicsCache()                           = default;
+        GfxPsoGraphicsCache(const GfxPsoGraphicsCache&) = delete;
+        GfxPsoGraphicsCache(GfxPsoGraphicsCache&&)      = delete;
+        ~GfxPsoGraphicsCache()                          = default;
 
-        std::optional<Ref<GfxCompPipeline>> get(const GfxCompPipelineState& state);
-        void                                add(const GfxCompPipelineState& state, const Ref<GfxCompPipeline>& pipeline);
+        std::optional<Ref<GfxPsoGraphics>> get(const GfxPsoStateGraphics& state);
+        void                               add(const GfxPsoStateGraphics& state, const Ref<GfxPsoGraphics>& pipeline);
 
     private:
-        flat_map<GfxCompPipelineState, Ref<GfxCompPipeline>> m_cache;
-        SpinMutex                                            m_mutex;
+        flat_map<GfxPsoStateGraphics, Ref<GfxPsoGraphics>> m_cache;
+        SpinMutex                                          m_mutex;
+    };
+
+    /**
+     * @class GfxPsoComputeCache
+     * @brief Runtime cache of compute pipelines
+    */
+    class GfxPsoComputeCache final {
+    public:
+        GfxPsoComputeCache()                          = default;
+        GfxPsoComputeCache(const GfxPsoComputeCache&) = delete;
+        GfxPsoComputeCache(GfxPsoComputeCache&&)      = delete;
+        ~GfxPsoComputeCache()                         = default;
+
+        std::optional<Ref<GfxPsoCompute>> get(const GfxPsoStateCompute& state);
+        void                              add(const GfxPsoStateCompute& state, const Ref<GfxPsoCompute>& pipeline);
+
+    private:
+        flat_map<GfxPsoStateCompute, Ref<GfxPsoCompute>> m_cache;
+        SpinMutex                                        m_mutex;
     };
 
 }// namespace wmoge

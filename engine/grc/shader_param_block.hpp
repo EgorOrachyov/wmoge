@@ -35,8 +35,8 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/shader.hpp"
 #include "grc/shader_reflection.hpp"
-#include "grc/shader_script.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 
@@ -45,72 +45,72 @@
 namespace wmoge {
 
     /**
-     * @class GrcShaderParamBlock
+     * @class ShaderParamBlock
      * @brief Holds params set which can be bound to a shader for drawing
      * 
-     * GrcShaderParamBlock is a smart and comfort abstraction over raw gfx
+     * ShaderParamBlock is a smart and comfort abstraction over raw gfx
      * descriptor set management, required for dispatching shader on a gpu.
      * Prefere its usage instead of raw gfx descriptor sets.
      * 
-     * GrcShaderParamBlock allows to set textures, buffers, and raw params using param
+     * ShaderParamBlock allows to set textures, buffers, and raw params using param
      * id and set methods. Data automatically packed internally into proper places. 
      * Default values setup automatically as well, based on shader class defenition.
      * 
-     * GrcShaderParamBlock automatically creates and update buffers and descriptor sets on a gpu. 
+     * ShaderParamBlock automatically creates and update buffers and descriptor sets on a gpu. 
      * After validation it can be directly inserted into desired descriptor set slot for drawing. 
     */
-    class GrcShaderParamBlock {
+    class ShaderParamBlock {
     public:
         /**
          * Construct empty block with no setup.
          * Configure it using `configure` method.
         */
-        GrcShaderParamBlock() = default;
+        ShaderParamBlock() = default;
 
         /**
-         * @brief Creates params block with default setup for given shader class and space.
+         * @brief Creates params block with default setup for given shader and space.
          * 
-         * @param shader_script Class of shader intended to be used with block
+         * @param shader Shader intended to be used with block
          * @param space_idx Index of space to be used with this block
         */
-        GrcShaderParamBlock(GrcShaderScript& shader_script, std::int16_t space_idx);
+        ShaderParamBlock(Shader& shader, std::int16_t space_idx);
 
-        ~GrcShaderParamBlock() = default;
+        ~ShaderParamBlock() = default;
 
-        Status configure(GrcShaderScript& shader_script, std::int16_t space_idx);
+        Status configure(Shader& shader, std::int16_t space_idx);
         Status reset_defaults();
         Status validate(class GfxDriver* driver, class GfxCtx* ctx, Strid name);
 
-        Status set_var(GrcShaderParamId param_id, int v);
-        Status set_var(GrcShaderParamId param_id, float v);
-        Status set_var(GrcShaderParamId param_id, const Vec2f& v);
-        Status set_var(GrcShaderParamId param_id, const Vec3f& v);
-        Status set_var(GrcShaderParamId param_id, const Vec4f& v);
-        Status set_var(GrcShaderParamId param_id, const Vec2i& v);
-        Status set_var(GrcShaderParamId param_id, const Vec3i& v);
-        Status set_var(GrcShaderParamId param_id, const Vec4i& v);
-        Status set_var(GrcShaderParamId param_id, const Mat4x4f& v);
-        Status set_var(GrcShaderParamId param_id, const Ref<GfxTexture>& v);
-        Status set_var(GrcShaderParamId param_id, const Ref<GfxSampler>& v);
-        Status set_var(GrcShaderParamId param_id, const Ref<GfxUniformBuffer>& v);
-        Status set_var(GrcShaderParamId param_id, const Ref<GfxStorageBuffer>& v);
+        Status set_var(ShaderParamId param_id, int v);
+        Status set_var(ShaderParamId param_id, float v);
+        Status set_var(ShaderParamId param_id, const Vec2f& v);
+        Status set_var(ShaderParamId param_id, const Vec3f& v);
+        Status set_var(ShaderParamId param_id, const Vec4f& v);
+        Status set_var(ShaderParamId param_id, const Vec2i& v);
+        Status set_var(ShaderParamId param_id, const Vec3i& v);
+        Status set_var(ShaderParamId param_id, const Vec4i& v);
+        Status set_var(ShaderParamId param_id, const Mat4x4f& v);
+        Status set_var(ShaderParamId param_id, const Ref<GfxTexture>& v);
+        Status set_var(ShaderParamId param_id, const Ref<GfxSampler>& v);
+        Status set_var(ShaderParamId param_id, const Ref<GfxUniformBuffer>& v);
+        Status set_var(ShaderParamId param_id, const Ref<GfxStorageBuffer>& v);
 
-        Status get_var(GrcShaderParamId param_id, int& v);
-        Status get_var(GrcShaderParamId param_id, float& v);
-        Status get_var(GrcShaderParamId param_id, Vec2f& v);
-        Status get_var(GrcShaderParamId param_id, Vec3f& v);
-        Status get_var(GrcShaderParamId param_id, Vec4f& v);
-        Status get_var(GrcShaderParamId param_id, Vec2i& v);
-        Status get_var(GrcShaderParamId param_id, Vec3i& v);
-        Status get_var(GrcShaderParamId param_id, Vec4i& v);
-        Status get_var(GrcShaderParamId param_id, Mat4x4f& v);
-        Status get_var(GrcShaderParamId param_id, Ref<GfxTexture>& v);
-        Status get_var(GrcShaderParamId param_id, Ref<GfxSampler>& v);
-        Status get_var(GrcShaderParamId param_id, Ref<GfxUniformBuffer>& v);
-        Status get_var(GrcShaderParamId param_id, Ref<GfxStorageBuffer>& v);
+        Status get_var(ShaderParamId param_id, int& v);
+        Status get_var(ShaderParamId param_id, float& v);
+        Status get_var(ShaderParamId param_id, Vec2f& v);
+        Status get_var(ShaderParamId param_id, Vec3f& v);
+        Status get_var(ShaderParamId param_id, Vec4f& v);
+        Status get_var(ShaderParamId param_id, Vec2i& v);
+        Status get_var(ShaderParamId param_id, Vec3i& v);
+        Status get_var(ShaderParamId param_id, Vec4i& v);
+        Status get_var(ShaderParamId param_id, Mat4x4f& v);
+        Status get_var(ShaderParamId param_id, Ref<GfxTexture>& v);
+        Status get_var(ShaderParamId param_id, Ref<GfxSampler>& v);
+        Status get_var(ShaderParamId param_id, Ref<GfxUniformBuffer>& v);
+        Status get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v);
 
         [[nodiscard]] const Ref<GfxDescSet>& get_gfx_set() { return m_gfx_set; }
-        [[nodiscard]] GrcShaderScript*       get_script() { return m_script; }
+        [[nodiscard]] Shader*                get_shader() { return m_shader; }
         [[nodiscard]] std::int16_t           get_space() { return m_space; }
         [[nodiscard]] Ref<Data>*             get_buffer(std::int16_t buffer_idx);
         [[nodiscard]] Ref<Data>*             get_buffer(std::int16_t space_idx, std::int16_t buffer_idx);
@@ -125,7 +125,7 @@ namespace wmoge {
         GfxDescSetResources           m_gfx_resources;
         Ref<GfxDescSet>               m_gfx_set;
         buffered_vector<Ref<Data>, 1> m_buffers;
-        GrcShaderScript*              m_script        = nullptr;
+        Shader*                       m_shader        = nullptr;
         std::int16_t                  m_space         = -1;
         std::int8_t                   m_dirty_buffers = 1;
         std::int8_t                   m_dirty_set     = 1;

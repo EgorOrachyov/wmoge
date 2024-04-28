@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_PIPELINE_HPP
-#define WMOGE_VK_PIPELINE_HPP
+#pragma once
 
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -37,64 +36,69 @@
 namespace wmoge {
 
     /**
-     * @class VKPipeline
-     * @brief Vulkan graphics pipeline implementation
+     * @class VKPsoLayout
+     * @brief Vulkan pipeline layout implementation
      */
-    class VKPipeline final : public VKResource<GfxPipeline> {
+    class VKPsoLayout final : public VKResource<GfxPsoLayout> {
     public:
-        VKPipeline(const GfxPipelineState& state, const Strid& name, class VKDriver& driver);
-        ~VKPipeline() override;
+        VKPsoLayout(const GfxDescSetLayouts& layouts, const Strid& name, class VKDriver& driver);
+        ~VKPsoLayout() override;
 
-        bool validate(const Ref<VKRenderPass>& render_pass);
-
-        GfxPipelineStatus       status() const override;
-        std::string             message() const override;
-        const GfxPipelineState& state() const override;
-        VkPipeline              pipeline() const { return m_pipeline; }
-        VkPipelineLayout        layout() const { return m_layout; }
+        VkPipelineLayout layout() const { return m_layout; }
 
     private:
-        void compile();
-        void release();
-
-    private:
-        GfxPipelineState               m_state;
-        Ref<VKRenderPass>              m_render_pass;
-        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
-        std::string                    m_message;
-        VkPipeline                     m_pipeline = VK_NULL_HANDLE;
-        VkPipelineLayout               m_layout   = VK_NULL_HANDLE;
+        VkPipelineLayout m_layout = VK_NULL_HANDLE;
     };
 
     /**
-     * @class VKCompPipeline
-     * @brief  Vulkan compute pipeline implementation
-    */
-    class VKCompPipeline final : public VKResource<GfxCompPipeline> {
+     * @class VKPsoGraphics
+     * @brief Vulkan graphics pipeline implementation
+     */
+    class VKPsoGraphics final : public VKResource<GfxPsoGraphics> {
     public:
-        VKCompPipeline(const GfxCompPipelineState& state, const Strid& name, class VKDriver& driver);
-        ~VKCompPipeline() override;
+        VKPsoGraphics(const GfxPsoStateGraphics& state, const Strid& name, class VKDriver& driver);
+        ~VKPsoGraphics() override;
 
-        bool validate();
+        bool validate(const Ref<VKRenderPass>& render_pass);
 
-        GfxPipelineStatus           status() const override;
-        std::string                 message() const override;
-        const GfxCompPipelineState& state() const override;
-        VkPipeline                  pipeline() const { return m_pipeline; }
-        VkPipelineLayout            layout() const { return m_layout; }
+        GfxPipelineStatus          status() const override;
+        const GfxPsoStateGraphics& state() const override;
+        VkPipeline                 pipeline() const { return m_pipeline; }
 
     private:
         void compile();
         void release();
 
     private:
-        GfxCompPipelineState           m_state;
-        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
-        std::string                    m_message;
+        GfxPsoStateGraphics            m_state;
+        Ref<VKRenderPass>              m_render_pass;
         VkPipeline                     m_pipeline = VK_NULL_HANDLE;
-        VkPipelineLayout               m_layout   = VK_NULL_HANDLE;
+        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
+    };
+
+    /**
+     * @class VKPsoCompute
+     * @brief  Vulkan compute pipeline implementation
+    */
+    class VKPsoCompute final : public VKResource<GfxPsoCompute> {
+    public:
+        VKPsoCompute(const GfxPsoStateCompute& state, const Strid& name, class VKDriver& driver);
+        ~VKPsoCompute() override;
+
+        bool validate();
+
+        GfxPipelineStatus         status() const override;
+        const GfxPsoStateCompute& state() const override;
+        VkPipeline                pipeline() const { return m_pipeline; }
+
+    private:
+        void compile();
+        void release();
+
+    private:
+        GfxPsoStateCompute             m_state;
+        VkPipeline                     m_pipeline = VK_NULL_HANDLE;
+        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_PIPELINE_HPP

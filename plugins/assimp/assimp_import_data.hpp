@@ -68,7 +68,7 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
-     * @class MeshImportOptions
+     * @class AssimpMeshImportData
      * @brief Options to import mesh asset from external asset format
      */
     class AssimpMeshImportData : public AssetImportData {

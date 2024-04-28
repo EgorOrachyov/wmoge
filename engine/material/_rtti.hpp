@@ -28,12 +28,10 @@
 #pragma once
 
 #include "material/material.hpp"
-#include "material/shader.hpp"
 
 namespace wmoge {
 
     inline void rtti_material() {
-        rtti_type<Shader>();
         rtti_type<Material>();
     }
 

@@ -58,7 +58,7 @@ namespace wmoge {
         info.compareOp        = VK_COMPARE_OP_ALWAYS;
 
         WG_VK_CHECK(vkCreateSampler(m_driver.device(), &info, nullptr, &m_sampler));
-        WG_VK_NAME(m_driver.device(), m_sampler, VK_OBJECT_TYPE_SAMPLER, "sampler " + m_name.str());
+        WG_VK_NAME(m_driver.device(), m_sampler, VK_OBJECT_TYPE_SAMPLER, m_name.str());
     }
 
     VKSampler::~VKSampler() {

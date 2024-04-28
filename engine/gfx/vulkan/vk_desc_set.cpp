@@ -31,8 +31,6 @@
 #include "gfx/vulkan/vk_driver.hpp"
 #include "profiler/profiler.hpp"
 
-#include <cassert>
-
 namespace wmoge {
 
     VKDescSetLayout::VKDescSetLayout(const GfxDescSetLayoutDesc& desc, const Strid& name, class VKDriver& driver) : VKResource<GfxDescSetLayout>(driver) {
@@ -56,7 +54,7 @@ namespace wmoge {
         desc_set_layout_info.bindingCount = bindings_count;
         desc_set_layout_info.pBindings    = bindings;
         WG_VK_CHECK(vkCreateDescriptorSetLayout(m_driver.device(), &desc_set_layout_info, nullptr, &m_layout));
-        WG_VK_NAME(m_driver.device(), m_layout, VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT, "set_layout " + name.str());
+        WG_VK_NAME(m_driver.device(), m_layout, VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT, name.str());
     }
     VKDescSetLayout::~VKDescSetLayout() {
         if (m_layout) {

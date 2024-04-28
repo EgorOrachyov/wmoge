@@ -34,7 +34,6 @@
 #include "asset/asset_manager.hpp"
 #include "audio/audio_stream.hpp"
 #include "material/material.hpp"
-#include "material/shader.hpp"
 #include "pfx/pfx_effect.hpp"
 #include "render/font.hpp"
 #include "render/image.hpp"
@@ -144,24 +143,6 @@ namespace wmoge {
     };
 
     struct LuaMaterial : public LuaAsset {
-        void set_int(const Strid& name, int value) {
-            cast_unsafe<Material>()->set_int(name, value);
-        }
-        void set_float(const Strid& name, float value) {
-            cast_unsafe<Material>()->set_float(name, value);
-        }
-        void set_vec2(const Strid& name, const Vec2f& value) {
-            cast_unsafe<Material>()->set_vec2(name, value);
-        }
-        void set_vec3(const Strid& name, const Vec3f& value) {
-            cast_unsafe<Material>()->set_vec3(name, value);
-        }
-        void set_vec4(const Strid& name, const Vec4f& value) {
-            cast_unsafe<Material>()->set_vec4(name, value);
-        }
-        void set_texture(const Strid& name, const Ref<Texture>& texture) {
-            cast_unsafe<Material>()->set_texture(name, texture);
-        }
     };
 
 }// namespace wmoge

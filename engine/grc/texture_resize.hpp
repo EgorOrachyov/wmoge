@@ -35,7 +35,7 @@ namespace wmoge {
     /**
      * @brief Available texture assets sizes for optimized memory usage
     */
-    enum GrcTexSizePreset {
+    enum TexSizePreset {
         None = 0,
         Size128x128,
         Size256x256,
@@ -46,18 +46,18 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcTexResizeParams
+     * @class TexResizeParams
      * @brief Params to resize source texture image content (on import)
     */
-    struct GrcTexResizeParams {
-        WG_RTTI_STRUCT(GrcTexResizeParams);
+    struct TexResizeParams {
+        WG_RTTI_STRUCT(TexResizeParams);
 
-        GrcTexSizePreset preset      = GrcTexSizePreset::None;
-        bool             auto_adjust = true;
-        bool             minify      = true;
+        TexSizePreset preset      = TexSizePreset::None;
+        bool          auto_adjust = true;
+        bool          minify      = true;
     };
 
-    WG_RTTI_STRUCT_BEGIN(GrcTexResizeParams) {
+    WG_RTTI_STRUCT_BEGIN(TexResizeParams) {
         WG_RTTI_META_DATA();
         WG_RTTI_FIELD(preset, {RttiOptional});
         WG_RTTI_FIELD(auto_adjust, {RttiOptional});
@@ -66,10 +66,10 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
-     * @class GrcTexResize
+     * @class TexResize
      * @brief Handles image data resize before texture creation
     */
-    class GrcTexResize {
+    class TexResize {
     public:
         /**
          * Resizes provided image according to the params given
@@ -78,10 +78,10 @@ namespace wmoge {
          * @param image Inout image to be resized
          * @param preset Out preset given image
         */
-        static Status resize(const GrcTexResizeParams& params, Image& image);
+        static Status resize(const TexResizeParams& params, Image& image);
 
-        static Vec2i            preset_to_size(GrcTexSizePreset preset);
-        static GrcTexSizePreset fit_preset(int width, int height);
+        static Vec2i         preset_to_size(TexSizePreset preset);
+        static TexSizePreset fit_preset(int width, int height);
     };
 
 }// namespace wmoge

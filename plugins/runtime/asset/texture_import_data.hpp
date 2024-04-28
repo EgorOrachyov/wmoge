@@ -42,13 +42,13 @@ namespace wmoge {
         TextureImportData()           = default;
         ~TextureImportData() override = default;
 
-        GfxSamplerDesc          sampling{};
-        GrcTexCompressionParams compression{};
-        GrcTexResizeParams      resizing{};
-        GfxFormat               format   = GfxFormat::RGBA8;
-        int                     channels = 4;
-        bool                    mipmaps  = true;
-        bool                    srgb     = true;
+        GfxSamplerDesc       sampling{};
+        TexCompressionParams compression{};
+        TexResizeParams      resizing{};
+        GfxFormat            format   = GfxFormat::RGBA8;
+        int                  channels = 4;
+        bool                 mipmaps  = true;
+        bool                 srgb     = true;
     };
 
     WG_RTTI_CLASS_BEGIN(TextureImportData) {
@@ -65,7 +65,7 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
-     * @class Texture2dImportOptions
+     * @class Texture2dImportData
      * @brief Options to import 2d-texture from a source file
      */
     class Texture2dImportData : public TextureImportData {
@@ -83,7 +83,7 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
-     * @class TextureCubeImportOptions
+     * @class TextureCubeImportData
      * @brief Options to import a cube-map texture from source files
      */
     class TextureCubeImportData : public TextureImportData {

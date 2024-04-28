@@ -27,11 +27,11 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
 #include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_resource.hpp"
-#include "io/serialization.hpp"
 
 #include <array>
 #include <cinttypes>
@@ -40,58 +40,45 @@
 namespace wmoge {
 
     /**
-     * @class GfxShaderReflection
-     * @brief Reflection data of the shader
+     * @class GfxShader
+     * @brief Compiled single gpu program module
      */
-    class GfxShaderReflection {
+    class GfxShader : public GfxResource {
     public:
-        struct Texture {
-            Strid        name;
-            std::int16_t set        = -1;
-            std::int16_t binding    = -1;
-            std::int16_t array_size = -1;
-            GfxTex       tex        = GfxTex::Unknown;
+        ~GfxShader() override = default;
 
-            WG_IO_DECLARE(Texture);
-        };
-        struct Buffer {
-            Strid        name;
-            std::int16_t set     = -1;
-            std::int16_t binding = -1;
-            int          size    = -1;
+        [[nodiscard]] const Ref<Data>& get_bytecode() const { return m_bytecode; }
+        [[nodiscard]] GfxShaderModule  get_module_type() const { return m_module_type; }
 
-            WG_IO_DECLARE(Buffer);
-        };
-        flat_map<Strid, Texture>                  textures;
-        flat_map<Strid, Buffer>                   ub_buffers;
-        flat_map<Strid, Buffer>                   sb_buffers;
-        std::array<int, GfxLimits::MAX_DESC_SETS> textures_per_desc{};
-        std::array<int, GfxLimits::MAX_DESC_SETS> ub_buffers_per_desc{};
-        std::array<int, GfxLimits::MAX_DESC_SETS> sb_buffers_per_desc{};
-
-        WG_IO_DECLARE(GfxShaderReflection);
+    protected:
+        Ref<Data>       m_bytecode;
+        GfxShaderModule m_module_type;
     };
 
     /**
-     * @class GfxShader
-     * @brief Complete gpu program (shader with complete set of stages) for the execution
-     *
+     * @brief Desc to create program
+    */
+    using GfxShaderProgramDesc = buffered_vector<Ref<GfxShader>, 2>;
+
+    /**
+     * @class GfxShaderProgram
+     * @brief Compiled and linked full shader program with all stages
+     * 
      * Shaders consists of a number of stages for execution.
-     * Shader can be created from any engine thread. Shader compilation
-     * is asynchronous and done in the background. As soon as shader compiled,
-     * it will be used in the rendering pipeline.
+     * Shader can be created from any engine thread. 
      *
      * Possible shader stages sets:
      *  - vertex and fragment for classic rendering
      *  - compute for computational pipeline
-     */
-    class GfxShader : public GfxResource {
+    */
+    class GfxShaderProgram : public GfxResource {
     public:
-        ~GfxShader() override                                                = default;
-        virtual GfxShaderStatus                           status() const     = 0;
-        virtual std::string                               message() const    = 0;
-        virtual std::optional<const GfxShaderReflection*> reflection() const = 0;
-        virtual Ref<Data>                                 byte_code() const  = 0;
+        ~GfxShaderProgram() override = default;
+
+        [[nodiscard]] GfxShaderProgramDesc get_desc() const { return m_desc; }
+
+    protected:
+        GfxShaderProgramDesc m_desc;
     };
 
 }// namespace wmoge

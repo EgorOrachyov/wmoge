@@ -131,12 +131,12 @@ namespace wmoge {
     void GfxCtxWrapper::clear(float depth, int stencil) {
         m_stream->push([=]() { m_ctx->clear(depth, stencil); });
     }
-    bool GfxCtxWrapper::bind_pipeline(const Ref<GfxPipeline>& pipeline) {
+    bool GfxCtxWrapper::bind_pipeline(const Ref<GfxPsoGraphics>& pipeline) {
         bool is_bound = false;
         m_stream->push_and_wait([&]() { is_bound = m_ctx->bind_pipeline(pipeline); });
         return is_bound;
     }
-    bool GfxCtxWrapper::bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline) {
+    bool GfxCtxWrapper::bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline) {
         bool is_bound = false;
         m_stream->push_and_wait([&]() { is_bound = m_ctx->bind_comp_pipeline(pipeline); });
         return is_bound;

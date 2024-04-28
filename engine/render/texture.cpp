@@ -56,9 +56,9 @@ namespace wmoge {
         m_sampler = sampler;
     }
     void Texture::set_sampler_from_desc(const GfxSamplerDesc& desc) {
-        set_sampler(Engine::instance()->gfx_driver()->make_sampler(desc, SID(desc.to_str())));
+        set_sampler(Engine::instance()->gfx_driver()->make_sampler(desc, SID(desc.to_string())));
     }
-    void Texture::set_compression(const GrcTexCompressionParams& params) {
+    void Texture::set_compression(const TexCompressionParams& params) {
         m_compression = params;
     }
 
@@ -89,7 +89,7 @@ namespace wmoge {
     Status Texture::generate_compressed_data() {
         WG_AUTO_PROFILE_ASSET("Texture::generate_compressed_data");
 
-        if (m_compression.format == GrcTexCompressionFormat::Unknown) {
+        if (m_compression.format == TexCompressionFormat::Unknown) {
             WG_LOG_INFO("no compression setup for texture " << get_name());
             return StatusCode::Ok;
         }
@@ -113,7 +113,7 @@ namespace wmoge {
             source_data.push_back(data);
         }
 
-        if (!GrcTexCompression::compress(m_compression, source_data, dest_data)) {
+        if (!TexCompression::compress(m_compression, source_data, dest_data)) {
             WG_LOG_ERROR("failed to compress texture " << get_name());
             return StatusCode::Error;
         }
@@ -156,7 +156,7 @@ namespace wmoge {
         GfxFormat format     = m_format;
         bool      compressed = false;
 
-        if (!m_compressed.empty() && m_compression.format != GrcTexCompressionFormat::Unknown) {
+        if (!m_compressed.empty() && m_compression.format != TexCompressionFormat::Unknown) {
             format     = m_format_compressed;
             compressed = true;
         }

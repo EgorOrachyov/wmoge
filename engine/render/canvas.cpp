@@ -32,7 +32,6 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/texture_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "render/shader_manager.hpp"
 #include "system/engine.hpp"
 
 #include <cassert>
@@ -40,9 +39,9 @@
 namespace wmoge {
 
     CanvasSharedData::CanvasSharedData() {
-        Engine*        engine         = Engine::instance();
-        GfxDriver*     driver         = engine->gfx_driver();
-        ShaderManager* shader_manager = engine->shader_manager();
+        Engine*    engine = Engine::instance();
+        GfxDriver* driver = engine->gfx_driver();
+        // ShaderManager* shader_manager = engine->shader_manager();
 
         GfxVertAttribs attribs_vert = {GfxVertAttrib::Pos2f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
         GfxVertAttribs attribs_inst = {GfxVertAttrib::PrimitiveIdi};
@@ -52,25 +51,25 @@ namespace wmoge {
         elements.add_vert_attribs(attribs_vert, 0, false);
         elements.add_vert_attribs(attribs_inst, 1, true);
 
-        GfxPipelineState pso_state{};
+        GfxPsoStateGraphics pso_state{};
         pso_state.vert_format  = driver->make_vert_format(elements, SID("[pos2, col0, uv0, primitiveId]"));
         pso_state.depth_enable = false;
         pso_state.depth_write  = false;
         pso_state.blending     = true;
 
-        pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {"OUT_SRGB"});
-        pipeline_srgb    = driver->make_pipeline(pso_state, SID("canvas_srgb"));
+        // pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {"OUT_SRGB"});
+        pipeline_srgb = driver->make_pso_graphics(pso_state, SID("canvas_srgb"));
 
-        pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {});
-        pipeline_linear  = driver->make_pipeline(pso_state, SID("canvas_linear"));
+        // pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {});
+        pipeline_linear = driver->make_pso_graphics(pso_state, SID("canvas_linear"));
     }
 
     void CanvasSharedData::compile() {
         WG_AUTO_PROFILE_RENDER("CanvasSharedData::compile");
 
-        Engine*            engine      = Engine::instance();
-        GfxDriver*         gfx_drvier  = engine->gfx_driver();
-        GrcTextureManager* tex_manager = engine->texture_manager();
+        Engine*         engine      = Engine::instance();
+        GfxDriver*      gfx_drvier  = engine->gfx_driver();
+        TextureManager* tex_manager = engine->texture_manager();
 
         // Expecting to fit all textures in single set (mathces most use cases)
         const int textures_count         = int(tex_buffer.size());
@@ -98,8 +97,8 @@ namespace wmoge {
                     value.resource               = texture->get_texture().as<GfxResource>();
                     value.sampler                = texture->get_sampler();
                 } else {
-                    value.resource = tex_manager->get_texture(GrcDefaultTexture::White).as<GfxResource>();
-                    value.sampler  = tex_manager->get_sampler(GrcDefaultSampler::Default);
+                    value.resource = tex_manager->get_texture(DefaultTexture::White).as<GfxResource>();
+                    value.sampler  = tex_manager->get_sampler(DefaultSampler::Default);
                 }
             }
 
@@ -125,9 +124,9 @@ namespace wmoge {
         m_prx_buffer.set_name(SID("canvas_primitives"));
         m_gpu_cmd_buffer.set_name(SID("canvas_cmds"));
 
-        Engine*        engine         = Engine::instance();
-        GfxDriver*     driver         = engine->gfx_driver();
-        ShaderManager* shader_manager = engine->shader_manager();
+        Engine*    engine = Engine::instance();
+        GfxDriver* driver = engine->gfx_driver();
+        // ShaderManager* shader_manager = engine->shader_manager();
 
         m_params = driver->make_uniform_buffer(int(sizeof(ShaderCanvas::Params)), GfxMemUsage::GpuLocal, SID("canvas_params"));
 

@@ -68,7 +68,7 @@ namespace wmoge {
     std::size_t MeshBucketKey::hash() const {
         Crc32Hash hash = 0xffffffff;
 
-        hash ^= Crc32::hash(&cmd.pipeline, sizeof(GfxPipeline*));
+        hash ^= Crc32::hash(&cmd.pipeline, sizeof(GfxPsoGraphics*));
 
         for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {
             hash ^= Crc32::hash(&cmd.desc_sets[i], sizeof(GfxDescSet*));

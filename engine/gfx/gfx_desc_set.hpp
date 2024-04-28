@@ -167,4 +167,19 @@ namespace std {
         }
     };
 
+    template<>
+    struct hash<wmoge::GfxDescSetLayouts> {
+    public:
+        std::size_t operator()(const wmoge::GfxDescSetLayouts& layouts) const {
+            std::hash<wmoge::Ref<wmoge::GfxDescSetLayout>> hasher;
+            std::size_t                                    hash = 0xffffffffff;
+
+            for (const auto& layout : layouts) {
+                hash ^= hasher(layout);
+            }
+
+            return hash;
+        }
+    };
+
 }// namespace std

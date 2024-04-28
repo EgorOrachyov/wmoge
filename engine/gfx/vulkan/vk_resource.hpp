@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_RESOURCE_HPP
-#define WMOGE_VK_RESOURCE_HPP
+#pragma once
 
 #include "gfx/vulkan/vk_defs.hpp"
 
@@ -51,5 +50,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_RESOURCE_HPP

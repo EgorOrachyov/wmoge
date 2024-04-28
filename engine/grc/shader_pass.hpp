@@ -34,11 +34,10 @@
 namespace wmoge {
 
     /**
-     * @class GrcShaderPass
+     * @class ShaderPass
      * @brief Compiled shader pass ready for drawing
     */
-    class GrcShaderPass {
-        std::int16_t queue_idx = -1;
+    class ShaderPass {
     };
 
 }// namespace wmoge

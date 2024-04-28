@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_DESC_SET_HPP
-#define WMOGE_VK_DESC_SET_HPP
+#pragma once
 
 #include "core/array_view.hpp"
 #include "gfx/gfx_desc_set.hpp"
@@ -73,5 +72,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_DESC_SET_HPP

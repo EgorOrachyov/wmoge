@@ -25,19 +25,12 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_SHADER_HPP
-#define WMOGE_VK_SHADER_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
-#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_resource.hpp"
-#include "io/serialization.hpp"
-
-#include <SPIRV/GlslangToSpv.h>
-#include <StandAlone/ResourceLimits.h>
-#include <glslang/Public/ShaderLang.h>
 
 #include <atomic>
 #include <memory>
@@ -47,54 +40,32 @@
 namespace wmoge {
 
     /**
-     * @class VKShaderBinary
-     * @brief Struct used for serialization of vulkan shader into binary format
-     */
-    struct VKShaderBinary {
-        buffered_vector<Ref<Data>> spirvs;
-        GfxDescSetLayoutDescs      layouts;
-        GfxShaderReflection        reflection;
-
-        WG_IO_DECLARE(VKShaderBinary);
-    };
-
-    /**
      * @class VKShader
-     * @brief Vulkan implementation of gfx shader program resource
+     * @brief Vulkan implementation of gfx shader
      */
     class VKShader final : public VKResource<GfxShader> {
     public:
-        VKShader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name, class VKDriver& driver);
-        VKShader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name, class VKDriver& driver);
-        VKShader(Ref<Data> byte_code, const Strid& name, class VKDriver& driver);
+        VKShader(const Strid& name, class VKDriver& driver);
         ~VKShader() override;
 
-        void compile_from_source();
-        void compile_from_byte_code();
+        void create(Ref<Data> bytecode, GfxShaderModule module);
 
-        [[nodiscard]] GfxShaderStatus                           status() const override;
-        [[nodiscard]] std::string                               message() const override;
-        [[nodiscard]] std::optional<const GfxShaderReflection*> reflection() const override;
-        [[nodiscard]] Ref<Data>                                 byte_code() const override;
-        [[nodiscard]] const buffered_vector<VkShaderModule>&    modules() const { return m_modules; }
-        [[nodiscard]] VkPipelineLayout                          layout() const { return m_layout; }
+        [[nodiscard]] VkShaderModule module() const { return m_module; }
 
     private:
-        void reflect(glslang::TProgram& program);
-        void gen_byte_code(const buffered_vector<Ref<Data>>& spirvs);
-        void init(const buffered_vector<Ref<Data>>& spirvs);
+        VkShaderModule m_module = VK_NULL_HANDLE;
+    };
 
-    private:
-        buffered_vector<std::string>    m_sources;
-        buffered_vector<VkShaderModule> m_modules;
-        std::atomic<GfxShaderStatus>    m_status{GfxShaderStatus::Compiling};
-        std::string                     m_message;
-        GfxShaderReflection             m_reflection;
-        GfxDescSetLayouts               m_set_layouts{};
-        Ref<Data>                       m_byte_code;
-        VkPipelineLayout                m_layout = VK_NULL_HANDLE;
+    /**
+     * @class VKShaderProgram
+     * @brief Vulkan implementation of gfx shader program
+     */
+    class VKShaderProgram final : public VKResource<GfxShaderProgram> {
+    public:
+        VKShaderProgram(const Strid& name, class VKDriver& driver);
+        ~VKShaderProgram() override = default;
+
+        void create(GfxShaderProgramDesc desc);
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_SHADER_HPP

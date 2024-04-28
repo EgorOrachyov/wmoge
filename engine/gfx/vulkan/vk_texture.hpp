@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_TEXTURE_HPP
-#define WMOGE_VK_TEXTURE_HPP
+#pragma once
 
 #include "core/data.hpp"
 #include "gfx/gfx_texture.hpp"
@@ -82,5 +81,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_TEXTURE_HPP

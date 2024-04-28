@@ -27,44 +27,20 @@
 
 #pragma once
 
-#include "core/buffered_vector.hpp"
-#include "core/string_id.hpp"
-#include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_shader.hpp"
-
-#include <optional>
-#include <sstream>
-#include <string>
-#include <vector>
+#include "grc/shader.hpp"
+#include "grc/shader_file.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ShaderBuilder
-     * @brief Builder of a particular gfx shader variation
-     */
-    struct ShaderBuilder {
-    public:
-        void configure_vs();
-        void configure_fs();
-        void configure_cs();
-        void add_define(const std::string& define);
-        void add_defines(const buffered_vector<std::string>& defines);
-        void add_define_vs(const std::string& define);
-        void add_define_fs(const std::string& define);
-        void add_define_cs(const std::string& define);
-        void add_vs_module(const std::string& code);
-        void add_fs_module(const std::string& code);
-        void add_cs_module(const std::string& code);
-
-        bool compile();
-
-        Strid                            key;
-        std::optional<std::stringstream> vertex;
-        std::optional<std::stringstream> fragment;
-        std::optional<std::stringstream> compute;
-        GfxDescSetLayouts                layouts;
-        Ref<GfxShader>                   gfx_shader;
-    };
+    inline void rtti_grc() {
+        rtti_type<ShaderFileOption>();
+        rtti_type<ShaderFileParam>();
+        rtti_type<ShaderFileParamBlock>();
+        rtti_type<ShaderFilePass>();
+        rtti_type<ShaderFileTechnique>();
+        rtti_type<ShaderFileSource>();
+        rtti_type<ShaderFile>();
+        rtti_type<Shader>();
+    }
 
 }// namespace wmoge

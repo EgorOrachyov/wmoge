@@ -33,7 +33,7 @@
 
 namespace wmoge {
 
-    GrcTextureManager::GrcTextureManager() {
+    TextureManager::TextureManager() {
         m_gfx_driver = IocContainer::instance()->resolve_v<GfxDriver>();
         m_gfx_ctx    = IocContainer::instance()->resolve_v<GfxCtx>();
 
@@ -41,18 +41,18 @@ namespace wmoge {
         init_default_samplers();
     }
 
-    const Ref<GfxTexture>& GrcTextureManager::get_texture(GrcDefaultTexture texture) {
-        assert(int(texture) < int(GrcDefaultTexture::Total));
+    const Ref<GfxTexture>& TextureManager::get_texture(DefaultTexture texture) {
+        assert(int(texture) < int(DefaultTexture::Total));
         return m_default_textures[int(texture)];
     }
 
-    const Ref<GfxSampler>& GrcTextureManager::get_sampler(GrcDefaultSampler sampler) {
-        assert(int(sampler) < int(GrcDefaultSampler::Total));
+    const Ref<GfxSampler>& TextureManager::get_sampler(DefaultSampler sampler) {
+        assert(int(sampler) < int(DefaultSampler::Total));
         return m_default_samplers[int(sampler)];
     }
 
-    void GrcTextureManager::init_default_textures() {
-        const std::array<std::uint8_t, 4> tex_colors[int(GrcDefaultTexture::Total)] = {
+    void TextureManager::init_default_textures() {
+        const std::array<std::uint8_t, 4> tex_colors[int(DefaultTexture::Total)] = {
                 {0xff, 0xff, 0xff, 0xff},//
                 {0x00, 0x00, 0x00, 0xff},//
                 {0xff, 0x00, 0x00, 0xff},//
@@ -61,7 +61,7 @@ namespace wmoge {
                 {0x7f, 0x7f, 0x7f, 0xff},//
         };
 
-        const char* tex_names[int(GrcDefaultTexture::Total)] = {
+        const char* tex_names[int(DefaultTexture::Total)] = {
                 "white",
                 "black",
                 "red",
@@ -70,29 +70,29 @@ namespace wmoge {
                 "gray",
         };
 
-        for (int i = 0; i < int(GrcDefaultTexture::Total); i++) {
+        for (int i = 0; i < int(DefaultTexture::Total); i++) {
             m_default_textures[i] = m_gfx_driver->make_texture_2d(1, 1, 1, GfxFormat::RGBA8, {GfxTexUsageFlag::Sampling}, GfxMemUsage::GpuLocal, GfxTexSwizz::None, SID(tex_names[i]));
         }
 
-        for (int i = 0; i < int(GrcDefaultTexture::Total); i++) {
+        for (int i = 0; i < int(DefaultTexture::Total); i++) {
             m_gfx_ctx->update_texture_2d(m_default_textures[i], 0, Rect2i(0, 0, 1, 1), make_ref<Data>(tex_colors[i].data(), sizeof(std::uint8_t[4])));
         }
     }
 
-    void GrcTextureManager::init_default_samplers() {
-        const GfxSamplerDesc samp_descs[int(GrcDefaultSampler::Total)] = {
+    void TextureManager::init_default_samplers() {
+        const GfxSamplerDesc samp_descs[int(DefaultSampler::Total)] = {
                 GfxSamplerDesc(),
                 GfxSamplerDesc::make(GfxSampFlt::Linear, m_gfx_driver->device_caps().max_anisotropy, GfxSampAddress::Repeat),
                 GfxSamplerDesc::make(GfxSampFlt::Nearest, 0.0f, GfxSampAddress::Repeat),
         };
 
-        const char* samp_names[int(GrcDefaultSampler::Total)] = {
+        const char* samp_names[int(DefaultSampler::Total)] = {
                 "default",
                 "linear",
                 "nearest",
         };
 
-        for (int i = 0; i < int(GrcDefaultSampler::Total); i++) {
+        for (int i = 0; i < int(DefaultSampler::Total); i++) {
             m_default_samplers[i] = m_gfx_driver->make_sampler(samp_descs[i], SID(samp_names[i]));
         }
     }

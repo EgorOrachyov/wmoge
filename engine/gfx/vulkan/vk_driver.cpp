@@ -81,7 +81,6 @@ namespace wmoge {
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
         WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
-        m_shader_cache_path   = config->get_string(SID("gfx.vulkan.shader_cache"), "cache://shaders_vk.cache");
         m_pipeline_cache_path = config->get_string(SID("gfx.vulkan.pipeline_cache"), "cache://pipelines_vk.cache");
 
         // load vulkan functions from volk
@@ -118,9 +117,6 @@ namespace wmoge {
         config->get(SID("gfx.vulkan.desc_pool_max_sets"), pool_config.max_sets);
         m_desc_manager = std::make_unique<VKDescManager>(pool_config, *this);
 
-        // init glslang for shader compilation
-        init_glslang();
-
         // init pipeline cache
         init_pipeline_cache();
 
@@ -131,15 +127,10 @@ namespace wmoge {
         m_ctx_immediate = std::make_unique<VKCtx>(*this);
 
         // init caches
-        m_pso_cache      = std::make_unique<GfxPipelineCache>();
-        m_comp_pso_cache = std::make_unique<GfxCompPipelineCache>();
-        m_vert_fmt_cache = std::make_unique<GfxVertFormatCache>();
-
-        // setup pool and dynamic buffers
-        m_uniform_pool       = make_ref<GfxUniformPool>(SID("uniform_pool"));
-        m_dyn_vert_buffer    = make_dyn_vert_buffer(config->get_int(SID("gfx.dyn_vert_chunk_size"), DEFAULT_DYN_VERT_CHUNK_SIZE), SID("vk_dyn_vert_buffer"));
-        m_dyn_index_buffer   = make_dyn_index_buffer(config->get_int(SID("gfx.dyn_index_chunk_size"), DEFAULT_DYN_INDEX_CHUNK_SIZE), SID("vk_dyn_index_buffer"));
-        m_dyn_uniform_buffer = make_dyn_uniform_buffer(config->get_int(SID("gfx.dyn_uniform_chunk_size"), DEFAULT_DYN_UNIFORM_CHUNK_SIZE), SID("vk_dyn_uniform_buffer"));
+        m_pso_layout_cache   = std::make_unique<GfxPsoLayoutCache>();
+        m_pso_graphics_cache = std::make_unique<GfxPsoGraphicsCache>();
+        m_pso_compute_cache  = std::make_unique<GfxPsoComputeCache>();
+        m_vert_fmt_cache     = std::make_unique<GfxVertFormatCache>();
 
         // cmd stream of driver thread
         m_driver_cmd_stream = std::make_unique<CallbackStream>();
@@ -208,53 +199,23 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxShader> VKDriver::make_shader(std::string vertex, std::string fragment, const GfxDescSetLayouts& layouts, const Strid& name) {
+    Ref<GfxShader> VKDriver::make_shader(Ref<Data> bytecode, GfxShaderModule module, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
 
-        auto shader = make_ref<VKShader>(std::move(vertex), std::move(fragment), layouts, name, *this);
-
-        Task compile_shader(SID("vk_compile_shader_" + name.str()), [shader](TaskContext&) {
-            shader->compile_from_source();
-            return 0;
-        });
-
-        compile_shader.schedule();
-
+        auto shader = make_ref<VKShader>(name, *this);
+        shader->create(std::move(bytecode), module);
         return shader;
     }
-    Ref<GfxShader> VKDriver::make_shader(std::string compute, const GfxDescSetLayouts& layouts, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
+    Ref<GfxShaderProgram> VKDriver::make_program(GfxShaderProgramDesc desc, const Strid& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_program");
 
         assert(on_gfx_thread());
 
-        auto shader = make_ref<VKShader>(std::move(compute), layouts, name, *this);
-
-        Task compile_shader(SID("vk_compile_shader_" + name.str()), [shader](TaskContext&) {
-            shader->compile_from_source();
-            return 0;
-        });
-
-        compile_shader.schedule();
-
-        return shader;
-    }
-    Ref<GfxShader> VKDriver::make_shader(Ref<Data> code, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
-
-        assert(on_gfx_thread());
-
-        auto shader = make_ref<VKShader>(std::move(code), name, *this);
-
-        Task compile_shader(SID("vk_deserialize_shader_" + name.str()), [shader](TaskContext&) {
-            shader->compile_from_byte_code();
-            return 0;
-        });
-
-        compile_shader.schedule();
-
-        return shader;
+        auto program = make_ref<VKShaderProgram>(name, *this);
+        program->create(std::move(desc));
+        return program;
     }
     Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d");
@@ -298,19 +259,26 @@ namespace wmoge {
 
         return sampler;
     }
-    Ref<GfxPipeline> VKDriver::make_pipeline(const GfxPipelineState& state, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pipeline");
+    Ref<GfxPsoLayout> VKDriver::make_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_layout");
 
         assert(on_gfx_thread());
 
-        return make_ref<VKPipeline>(state, name, *this);
+        return make_ref<VKPsoLayout>(layouts, name, *this);
     }
-    Ref<GfxCompPipeline> VKDriver::make_comp_pipeline(const GfxCompPipelineState& state, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_comp_pipeline");
+    Ref<GfxPsoGraphics> VKDriver::make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_graphics");
 
         assert(on_gfx_thread());
 
-        return make_ref<VKCompPipeline>(state, name, *this);
+        return make_ref<VKPsoGraphics>(state, name, *this);
+    }
+    Ref<GfxPsoCompute> VKDriver::make_pso_compute(const GfxPsoStateCompute& state, const Strid& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_compute");
+
+        assert(on_gfx_thread());
+
+        return make_ref<VKPsoCompute>(state, name, *this);
     }
     Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
@@ -383,19 +351,13 @@ namespace wmoge {
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
 
-            m_pso_cache.reset();
+            m_pso_graphics_cache.reset();
             flush_release();
 
-            m_comp_pso_cache.reset();
+            m_pso_compute_cache.reset();
             flush_release();
 
             m_vert_fmt_cache.reset();
-            flush_release();
-
-            m_uniform_pool.reset();
-            m_dyn_vert_buffer.reset();
-            m_dyn_index_buffer.reset();
-            m_dyn_uniform_buffer.reset();
             flush_release();
 
             m_ctx_immediate.reset();
@@ -425,8 +387,6 @@ namespace wmoge {
             flush_release();
             release_sync_fences();
             release_pipeline_cache();
-
-            glslang::FinalizeProcess();
 
             m_mem_manager.reset();
             m_queues.reset();
@@ -460,8 +420,6 @@ namespace wmoge {
         if (m_ctx_async) {
             m_ctx_async->begin_frame();
         }
-
-        m_uniform_pool->resycle_allocations();
     }
     void VKDriver::end_frame() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");
@@ -774,13 +732,6 @@ namespace wmoge {
 
         WG_VK_CHECK(vkCreateDevice(m_phys_device, &device_create_info, nullptr, &m_device));
     }
-    void VKDriver::init_glslang() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_glslang");
-
-        if (!glslang::InitializeProcess()) {
-            WG_LOG_ERROR("failed to init glslang");
-        }
-    }
     void VKDriver::init_pipeline_cache() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::init_pipeline_cache");
 
@@ -800,7 +751,7 @@ namespace wmoge {
         info.pInitialData    = cache_data.data();
 
         WG_VK_CHECK(vkCreatePipelineCache(m_device, &info, nullptr, &m_pipeline_cache));
-        WG_VK_NAME(m_device, m_pipeline_cache, VK_OBJECT_TYPE_PIPELINE_CACHE, "pso_cache " + m_pipeline_cache_path);
+        WG_VK_NAME(m_device, m_pipeline_cache, VK_OBJECT_TYPE_PIPELINE_CACHE, m_pipeline_cache_path);
     }
     void VKDriver::release_pipeline_cache() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::release_pipeline_cache");
@@ -827,7 +778,7 @@ namespace wmoge {
         fence_info.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
         WG_VK_CHECK(vkCreateFence(m_device, &fence_info, nullptr, &m_sync_fence));
-        WG_VK_NAME(m_device, m_sync_fence, VK_OBJECT_TYPE_FENCE, "sync_fence ");
+        WG_VK_NAME(m_device, m_sync_fence, VK_OBJECT_TYPE_FENCE, "sync_fence");
     }
     void VKDriver::release_sync_fences() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::release_sync_fences");

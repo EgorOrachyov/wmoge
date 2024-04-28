@@ -58,7 +58,7 @@ namespace wmoge {
             return StatusCode::FailedRead;
         }
 
-        if (!GrcTexResize::resize(import_data->resizing, *source_image)) {
+        if (!TexResize::resize(import_data->resizing, *source_image)) {
             WG_LOG_ERROR("failed to resize source image " << import_data->source_files[0].file);
             return StatusCode::FailedResize;
         }
@@ -87,7 +87,7 @@ namespace wmoge {
                 return StatusCode::Error;
             }
         }
-        if (import_data->compression.format != GrcTexCompressionFormat::Unknown) {
+        if (import_data->compression.format != TexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
                 return StatusCode::Error;
@@ -138,7 +138,7 @@ namespace wmoge {
         }
 
         for (Ref<Image>& source_image : source_images) {
-            if (!GrcTexResize::resize(import_data->resizing, *source_image)) {
+            if (!TexResize::resize(import_data->resizing, *source_image)) {
                 WG_LOG_ERROR("failed to resize source image " << source_image->get_name());
                 return StatusCode::FailedResize;
             }
@@ -168,7 +168,7 @@ namespace wmoge {
                 return StatusCode::Error;
             }
         }
-        if (import_data->compression.format != GrcTexCompressionFormat::Unknown) {
+        if (import_data->compression.format != TexCompressionFormat::Unknown) {
             if (!texture->generate_compressed_data()) {
                 WG_LOG_ERROR("failed to compress data for " << name);
                 return StatusCode::Error;

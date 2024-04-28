@@ -27,7 +27,8 @@
 
 #define VMA_IMPLEMENTATION
 #include "vk_mem_manager.hpp"
-#include "vk_driver.hpp"
+
+#include "gfx/vulkan/vk_driver.hpp"
 
 namespace wmoge {
 

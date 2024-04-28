@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_CMD_POOL_HPP
-#define WMOGE_VK_CMD_POOL_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -68,5 +67,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_CMD_POOL_HPP

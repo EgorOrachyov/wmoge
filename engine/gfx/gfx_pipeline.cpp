@@ -33,10 +33,11 @@
 
 namespace wmoge {
 
-    GfxPipelineState::GfxPipelineState() {
-        std::memset(this, 0, sizeof(GfxPipelineState));
+    GfxPsoStateGraphics::GfxPsoStateGraphics() {
+        std::memset(this, 0, sizeof(GfxPsoStateGraphics));
         pass_desc         = GfxRenderPassDesc{};
-        shader            = nullptr;
+        program           = nullptr;
+        layout            = nullptr;
         vert_format       = nullptr;
         prim_type         = GfxPrimType::Triangles;
         poly_mode         = GfxPolyMode::Fill;
@@ -55,18 +56,24 @@ namespace wmoge {
         stencil_dpass     = GfxOp::Keep;
         blending          = false;
     }
-    bool GfxPipelineState::operator==(const GfxPipelineState& other) const {
-        return std::memcmp(this, &other, sizeof(GfxPipelineState)) == 0;
+    bool GfxPsoStateGraphics::operator==(const GfxPsoStateGraphics& other) const {
+        return std::memcmp(this, &other, sizeof(GfxPsoStateGraphics)) == 0;
     }
-    std::size_t GfxPipelineState::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPipelineState)));
+    std::size_t GfxPsoStateGraphics::hash() const {
+        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPsoStateGraphics)));
     }
 
-    bool GfxCompPipelineState::operator==(const GfxCompPipelineState& other) const {
+    GfxPsoStateCompute::GfxPsoStateCompute() {
+        std::memset(this, 0, sizeof(GfxPsoStateCompute));
+        shader = nullptr;
+        layout = nullptr;
+    }
+
+    bool GfxPsoStateCompute::operator==(const GfxPsoStateCompute& other) const {
         return shader == other.shader;
     }
-    std::size_t GfxCompPipelineState::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxCompPipelineState)));
+    std::size_t GfxPsoStateCompute::hash() const {
+        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPsoStateCompute)));
     }
 
 }// namespace wmoge

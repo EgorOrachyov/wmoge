@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_VERT_FORMAT_HPP
-#define WMOGE_VK_VERT_FORMAT_HPP
+#pragma once
 
 #include "gfx/gfx_vert_format.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -61,5 +60,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_VERT_FORMAT_HPP

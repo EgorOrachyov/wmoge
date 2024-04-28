@@ -118,95 +118,34 @@ public:
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
 
-        GrcShaderStructRegister rdc(SID("DrawCmd"), 4 * 4 * 3 + 4 * 4 + 4 * 4);
+        ShaderStructRegister rdc(SID("DrawCmd"), 4 * 4 * 3 + 4 * 4 + 4 * 4);
         rdc
-                .add_field(SID("Transform0"), GrcShaderTypes::VEC4)
-                .add_field(SID("Transform1"), GrcShaderTypes::VEC4)
-                .add_field(SID("Transform2"), GrcShaderTypes::VEC4)
-                .add_field(SID("ClipRect"), GrcShaderTypes::VEC4)
-                .add_field(SID("TextureIdx0"), GrcShaderTypes::INT)
-                .add_field(SID("TextureIdx1"), GrcShaderTypes::INT)
-                .add_field(SID("TextureIdx2"), GrcShaderTypes::INT)
-                .add_field(SID("TextureIdx3"), GrcShaderTypes::INT)
+                .add_field(SID("Transform0"), ShaderTypes::VEC4)
+                .add_field(SID("Transform1"), ShaderTypes::VEC4)
+                .add_field(SID("Transform2"), ShaderTypes::VEC4)
+                .add_field(SID("ClipRect"), ShaderTypes::VEC4)
+                .add_field(SID("TextureIdx0"), ShaderTypes::INT)
+                .add_field(SID("TextureIdx1"), ShaderTypes::INT)
+                .add_field(SID("TextureIdx2"), ShaderTypes::INT)
+                .add_field(SID("TextureIdx3"), ShaderTypes::INT)
                 .finish();
 
-        GrcShaderStructRegister rdcs(SID("DrawCmdsBuffer"), 0);
+        ShaderStructRegister rdcs(SID("DrawCmdsBuffer"), 0);
         rdcs
                 .add_field_array(SID("DrawCmds"), SID("DrawCmd"))
                 .finish();
 
-        GrcShaderManager* shader_manager = IocContainer::instance()->resolve_v<GrcShaderManager>();
+        Ref<Shader> shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
 
-        GrcShaderScriptFile shader_script_file;
-        YamlTree            yaml_tree = yaml_parse_file("asset://../../shaders/canvas.shader");
-        WG_YAML_READ(yaml_tree.crootref(), shader_script_file);
+        ShaderParamId p_clip_proj_view = shader->get_param_id(SID("ClipProjView"));
+        ShaderParamId p_inverse_gamma  = shader->get_param_id(SID("InverseGamma"));
 
-        shader_manager->load_script(shader_script_file);
-
-        Ref<GrcShaderScript> shader_script    = shader_manager->find_script(SID("canvas"));
-        GrcShaderParamId     p_clip_proj_view = shader_script->get_param_id(SID("ClipProjView"));
-        GrcShaderParamId     p_inverse_gamma  = shader_script->get_param_id(SID("InverseGamma"));
-
-        GrcShaderParamBlock block(*shader_script, 0);
+        ShaderParamBlock block(*shader, 0);
         block.set_var(p_clip_proj_view, Math3d::perspective(1.0f, 1.0f, 0.1f, 100000.f));
         block.set_var(p_inverse_gamma, 1.0f / 4.0f);
         block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx(), SID("test"));
 
         Engine* engine = Engine::instance();
-
-        std::vector<GfxFormat>    formats = {GfxFormat::BC1_RGB, GfxFormat::BC2, GfxFormat::R16};
-        std::vector<Vec2i>        sizes   = {Vec2i(10, 20), Vec2i(0, 30), Vec2i(-1, -1)};
-        std::unordered_set<Strid> names   = {Strid("a"), Strid("b")};
-
-        RttiType*        tenum   = rtti_type<GfxSampAddress>();
-        RttiType*        tint    = rtti_type<int>();
-        RttiType*        tfloat  = rtti_type<float>();
-        RttiType*        tstring = rtti_type<std::string>();
-        RttiType*        tstrid  = rtti_type<Strid>();
-        RttiType*        tvecf   = rtti_type<decltype(formats)>();
-        RttiType*        tvecs   = rtti_type<decltype(sizes)>();
-        RttiType*        tsets   = rtti_type<decltype(names)>();
-        RttiType*        tstruct = rtti_type<TestStruct>();
-        RttiType*        tclass  = rtti_type<TestClass>();
-        RttiTypeStorage* s       = RttiTypeStorage::instance();
-
-        std::stringstream stream;
-
-        stream.clear();
-        tvecf->to_string(&formats, stream);
-        WG_LOG_INFO(stream.str());
-
-        stream.str("");
-        tvecs->add_element(&sizes);
-        tvecs->remove_element(&sizes, 0);
-        tvecs->remove_element(&sizes, 0);
-        tvecs->to_string(&sizes, stream);
-        WG_LOG_INFO(stream.str());
-
-        stream.str("");
-        TestStruct test_struct;
-        tstruct->to_string(&test_struct, stream);
-        WG_LOG_INFO(stream.str());
-
-        stream.str("");
-        TestClass test_class;
-        tclass->to_string(&test_class, stream);
-        WG_LOG_INFO(stream.str());
-
-        TestStruct  a;
-        int         b = 2;
-        std::string c = "rdr";
-
-        std::uint8_t arg_buffer[20];
-        *((TestStruct**) (arg_buffer + 0))   = &a;
-        *((int*) (arg_buffer + 8))           = b;
-        *((std::string**) (arg_buffer + 12)) = &c;
-
-        RttiFrame frame;
-
-        RttiFunction* do_work = test_class.get_class()->find_method(SID("do_work")).value()->get_function().get();
-        do_work->call(frame, &test_class, arg_buffer);
-        WG_LOG_INFO("call " << do_work->get_name());
 
         WG_LOG_INFO("init");
         return StatusCode::Ok;

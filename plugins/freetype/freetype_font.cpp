@@ -156,8 +156,8 @@ namespace wmoge {
         sampler_desc.u              = GfxSampAddress::ClampToBorder;
         sampler_desc.v              = GfxSampAddress::ClampToBorder;
 
-        GrcTexCompressionParams compression_params{};
-        compression_params.format = GrcTexCompressionFormat::BC4;
+        TexCompressionParams compression_params{};
+        compression_params.format = TexCompressionFormat::BC4;
 
         font_desc.texture = make_ref<Texture2d>(GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
         font_desc.texture->set_name(SID(font->get_name().str() + "_texture"));

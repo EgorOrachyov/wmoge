@@ -95,12 +95,6 @@ namespace wmoge {
 
         // WG_LUA_MAP_CLASS(mapping, Material);
         ns = ns.deriveClass<LuaMaterial, LuaAsset>("Material")
-                     .addFunction("set_int", &LuaMaterial::set_int)
-                     .addFunction("set_float", &LuaMaterial::set_float)
-                     .addFunction("set_vec2", &LuaMaterial::set_vec2)
-                     .addFunction("set_vec3", &LuaMaterial::set_vec3)
-                     .addFunction("set_vec4", &LuaMaterial::set_vec4)
-                     .addFunction("set_texture", &LuaMaterial::set_texture)
                      .endClass();
 
         ns = ns.beginNamespace("AssetManager")

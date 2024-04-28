@@ -62,7 +62,7 @@ namespace wmoge {
         GfxVertBuffersSetup vert_setup;
         GfxIndexBufferSetup index_setup;
         Ref<GfxVertFormat>  format;
-        Ref<GfxPipeline>    pipeline;
+        Ref<GfxPsoGraphics> pipeline;
         MeshPassType        pass_type = MeshPassType::Total;
     };
 
@@ -96,10 +96,10 @@ namespace wmoge {
         MeshPassProcessor();
         virtual ~MeshPassProcessor() = default;
 
-        virtual bool         filter(const struct MeshBatch& batch)                                  = 0;
-        virtual Status       compile(const struct MeshBatch& batch, Ref<GfxPipeline>& out_pipeline) = 0;
-        virtual std::string  get_name() const                                                       = 0;
-        virtual MeshPassType get_pass_type() const                                                  = 0;
+        virtual bool         filter(const struct MeshBatch& batch)                                     = 0;
+        virtual Status       compile(const struct MeshBatch& batch, Ref<GfxPsoGraphics>& out_pipeline) = 0;
+        virtual std::string  get_name() const                                                          = 0;
+        virtual MeshPassType get_pass_type() const                                                     = 0;
 
     protected:
         class ShaderManager* m_shader_manager = nullptr;

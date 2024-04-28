@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_CTX_HPP
-#define WMOGE_VK_CTX_HPP
+#pragma once
 
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
@@ -90,8 +89,8 @@ namespace wmoge {
         void viewport(const Rect2i& viewport) override;
         void clear(int target, const Vec4f& color) override;
         void clear(float depth, int stencil) override;
-        bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
-        bool bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline) override;
+        bool bind_pipeline(const Ref<GfxPsoGraphics>& pipeline) override;
+        bool bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
@@ -128,9 +127,9 @@ namespace wmoge {
 
         std::unique_ptr<VKRenderPassBinder>                        m_render_pass_binder;
         Ref<VKRenderPass>                                          m_current_pass;
-        Ref<VKPipeline>                                            m_current_pipeline;
-        Ref<VKCompPipeline>                                        m_current_comp_pipeline;
-        Ref<VKShader>                                              m_current_shader;
+        Ref<VKPsoGraphics>                                         m_current_pso_graphics;
+        Ref<VKPsoCompute>                                          m_current_pso_compute;
+        Ref<VKPsoLayout>                                           m_current_pso_layout;
         Ref<VKIndexBuffer>                                         m_current_index_buffer;
         std::array<Ref<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
         std::array<int, GfxLimits::MAX_VERT_BUFFERS>               m_current_vert_buffers_offsets{};
@@ -154,5 +153,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_CTX_HPP

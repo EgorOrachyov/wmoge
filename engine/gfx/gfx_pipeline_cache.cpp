@@ -31,7 +31,21 @@
 
 namespace wmoge {
 
-    std::optional<Ref<GfxPipeline>> GfxPipelineCache::get(const GfxPipelineState& state) {
+    std::optional<Ref<GfxPsoLayout>> GfxPsoLayoutCache::get(const GfxDescSetLayouts& layouts) {
+        std::lock_guard guard(m_mutex);
+        auto            it = m_cache.find(layouts);
+        if (it != m_cache.end()) {
+            return it->second;
+        }
+        return std::nullopt;
+    }
+
+    void GfxPsoLayoutCache::add(const GfxDescSetLayouts& layouts, const Ref<GfxPsoLayout>& layout) {
+        std::lock_guard guard(m_mutex);
+        m_cache[layouts] = layout;
+    }
+
+    std::optional<Ref<GfxPsoGraphics>> GfxPsoGraphicsCache::get(const GfxPsoStateGraphics& state) {
         std::lock_guard guard(m_mutex);
         auto            it = m_cache.find(state);
         if (it != m_cache.end()) {
@@ -40,12 +54,12 @@ namespace wmoge {
         return std::nullopt;
     }
 
-    void GfxPipelineCache::add(const GfxPipelineState& state, const Ref<GfxPipeline>& pipeline) {
+    void GfxPsoGraphicsCache::add(const GfxPsoStateGraphics& state, const Ref<GfxPsoGraphics>& pipeline) {
         std::lock_guard guard(m_mutex);
         m_cache[state] = pipeline;
     }
 
-    std::optional<Ref<GfxCompPipeline>> GfxCompPipelineCache::get(const GfxCompPipelineState& state) {
+    std::optional<Ref<GfxPsoCompute>> GfxPsoComputeCache::get(const GfxPsoStateCompute& state) {
         std::lock_guard guard(m_mutex);
         auto            it = m_cache.find(state);
         if (it != m_cache.end()) {
@@ -54,7 +68,7 @@ namespace wmoge {
         return std::nullopt;
     }
 
-    void GfxCompPipelineCache::add(const GfxCompPipelineState& state, const Ref<GfxCompPipeline>& pipeline) {
+    void GfxPsoComputeCache::add(const GfxPsoStateCompute& state, const Ref<GfxPsoCompute>& pipeline) {
         std::lock_guard guard(m_mutex);
         m_cache[state] = pipeline;
     }

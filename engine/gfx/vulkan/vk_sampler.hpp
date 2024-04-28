@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_SAMPLER_HPP
-#define WMOGE_VK_SAMPLER_HPP
+#pragma once
 
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -53,5 +52,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_SAMPLER_HPP

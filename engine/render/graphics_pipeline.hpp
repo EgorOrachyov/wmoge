@@ -38,7 +38,6 @@
 #include "math/vec.hpp"
 #include "render/camera.hpp"
 #include "render/render_scene.hpp"
-#include "render/shader_manager.hpp"
 #include "render/texture.hpp"
 
 #include <string>

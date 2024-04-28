@@ -27,13 +27,56 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
+#include "core/data.hpp"
+#include "core/string_id.hpp"
+#include "gfx/gfx_defs.hpp"
+
+#include <vector>
+
 namespace wmoge {
+
+    /** 
+     * @class GlslInputFile
+     * @brief Input file to compile 
+     */
+    struct GlslInputFile {
+        std::string     source_code;
+        std::string     entry_point;
+        GfxShaderModule module_type;
+    };
+
+    /** 
+     * @class GlslCompilerInput
+     * @brief Compiler input 
+     */
+    struct GlslCompilerInput {
+        buffered_vector<GlslInputFile> files;
+        Strid                          name;
+        bool                           disable_otimizer = false;
+        bool                           optimize_size    = false;
+        bool                           validate         = true;
+    };
+
+    /** 
+     * @class GlslCompilerOutput
+     * @brief Compiler result
+    */
+    struct GlslCompilerOutput {
+        buffered_vector<Ref<Data>>   bytecode;
+        buffered_vector<std::string> errors;
+    };
 
     /**
      * @class GlslShaderCompiler
      * @brief Glslang based compiler for shaders
     */
     class GlslShaderCompiler {
+    public:
+        GlslShaderCompiler();
+        ~GlslShaderCompiler();
+
+        Status compile(const GlslCompilerInput& input, GlslCompilerOutput& output);
     };
 
 }// namespace wmoge

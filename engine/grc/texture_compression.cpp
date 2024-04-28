@@ -145,72 +145,72 @@ namespace wmoge {
         }
     }
 
-    GfxFormat get_gfx_format(GrcTexCompressionFormat format) {
+    GfxFormat get_gfx_format(TexCompressionFormat format) {
         switch (format) {
-            case GrcTexCompressionFormat::BC1_RGB:
+            case TexCompressionFormat::BC1_RGB:
                 return GfxFormat::BC1_RGB;
-            case GrcTexCompressionFormat::BC1_RGB_SRGB:
+            case TexCompressionFormat::BC1_RGB_SRGB:
                 return GfxFormat::BC1_RGB_SRGB;
-            case GrcTexCompressionFormat::BC1_RGBA:
+            case TexCompressionFormat::BC1_RGBA:
                 return GfxFormat::BC1_RGBA;
-            case GrcTexCompressionFormat::BC1_RGBA_SRGB:
+            case TexCompressionFormat::BC1_RGBA_SRGB:
                 return GfxFormat::BC1_RGBA_SRGB;
-            case GrcTexCompressionFormat::BC2:
+            case TexCompressionFormat::BC2:
                 return GfxFormat::BC2;
-            case GrcTexCompressionFormat::BC2_SRGB:
+            case TexCompressionFormat::BC2_SRGB:
                 return GfxFormat::BC2_SRGB;
-            case GrcTexCompressionFormat::BC3:
+            case TexCompressionFormat::BC3:
                 return GfxFormat::BC3;
-            case GrcTexCompressionFormat::BC3_SRGB:
+            case TexCompressionFormat::BC3_SRGB:
                 return GfxFormat::BC3_SRGB;
-            case GrcTexCompressionFormat::BC4:
+            case TexCompressionFormat::BC4:
                 return GfxFormat::BC4;
-            case GrcTexCompressionFormat::BC4_SNORM:
+            case TexCompressionFormat::BC4_SNORM:
                 return GfxFormat::BC4_SNORM;
-            case GrcTexCompressionFormat::BC5:
+            case TexCompressionFormat::BC5:
                 return GfxFormat::BC5;
-            case GrcTexCompressionFormat::BC5_SNORM:
+            case TexCompressionFormat::BC5_SNORM:
                 return GfxFormat::BC5_SNORM;
-            case GrcTexCompressionFormat::BC6H_UFLOAT:
+            case TexCompressionFormat::BC6H_UFLOAT:
                 return GfxFormat::BC6H_UFLOAT;
-            case GrcTexCompressionFormat::BC6H_SFLOAT:
+            case TexCompressionFormat::BC6H_SFLOAT:
                 return GfxFormat::BC6H_SFLOAT;
-            case GrcTexCompressionFormat::BC7:
+            case TexCompressionFormat::BC7:
                 return GfxFormat::BC7;
-            case GrcTexCompressionFormat::BC7_SRGB:
+            case TexCompressionFormat::BC7_SRGB:
                 return GfxFormat::BC7_SRGB;
             default:
                 return GfxFormat::Unknown;
         }
     }
 
-    CMP_FORMAT get_compressed_format(GrcTexCompressionFormat format) {
+    CMP_FORMAT get_compressed_format(TexCompressionFormat format) {
         switch (format) {
-            case GrcTexCompressionFormat::BC1_RGB:
-            case GrcTexCompressionFormat::BC1_RGB_SRGB:
-            case GrcTexCompressionFormat::BC1_RGBA:
-            case GrcTexCompressionFormat::BC1_RGBA_SRGB:
+            case TexCompressionFormat::BC1_RGB:
+            case TexCompressionFormat::BC1_RGB_SRGB:
+            case TexCompressionFormat::BC1_RGBA:
+            case TexCompressionFormat::BC1_RGBA_SRGB:
                 return CMP_FORMAT_BC1;
-            case GrcTexCompressionFormat::BC2:
-            case GrcTexCompressionFormat::BC2_SRGB:
+            case TexCompressionFormat::BC2:
+            case TexCompressionFormat::BC2_SRGB:
                 return CMP_FORMAT_BC2;
-            case GrcTexCompressionFormat::BC3:
-            case GrcTexCompressionFormat::BC3_SRGB:
+            case TexCompressionFormat::BC3:
+            case TexCompressionFormat::BC3_SRGB:
                 return CMP_FORMAT_BC3;
-            case GrcTexCompressionFormat::BC4:
+            case TexCompressionFormat::BC4:
                 return CMP_FORMAT_BC4;
-            case GrcTexCompressionFormat::BC4_SNORM:
+            case TexCompressionFormat::BC4_SNORM:
                 return CMP_FORMAT_BC4_S;
-            case GrcTexCompressionFormat::BC5:
+            case TexCompressionFormat::BC5:
                 return CMP_FORMAT_BC5;
-            case GrcTexCompressionFormat::BC5_SNORM:
+            case TexCompressionFormat::BC5_SNORM:
                 return CMP_FORMAT_BC5_S;
-            case GrcTexCompressionFormat::BC6H_UFLOAT:
+            case TexCompressionFormat::BC6H_UFLOAT:
                 return CMP_FORMAT_BC6H;
-            case GrcTexCompressionFormat::BC6H_SFLOAT:
+            case TexCompressionFormat::BC6H_SFLOAT:
                 return CMP_FORMAT_BC6H_SF;
-            case GrcTexCompressionFormat::BC7:
-            case GrcTexCompressionFormat::BC7_SRGB:
+            case TexCompressionFormat::BC7:
+            case TexCompressionFormat::BC7_SRGB:
                 return CMP_FORMAT_BC7;
             default:
                 return CMP_FORMAT_Unknown;
@@ -280,8 +280,8 @@ namespace wmoge {
         }
     }
 
-    Status GrcTexCompression::compress(const GrcTexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed) {
-        if (params.format == GrcTexCompressionFormat::Unknown) {
+    Status TexCompression::compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed) {
+        if (params.format == TexCompressionFormat::Unknown) {
             return StatusCode::InvalidParameter;
         }
         if (source.empty()) {

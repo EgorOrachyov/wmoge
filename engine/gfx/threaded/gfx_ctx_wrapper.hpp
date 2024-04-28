@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_GFX_CTX_WRAPPER_HPP
-#define WMOGE_GFX_CTX_WRAPPER_HPP
+#pragma once
 
 #include "core/callback_stream.hpp"
 #include "gfx/gfx_ctx.hpp"
@@ -82,8 +81,8 @@ namespace wmoge {
         void viewport(const Rect2i& viewport) override;
         void clear(int target, const Vec4f& color) override;
         void clear(float depth, int stencil) override;
-        bool bind_pipeline(const Ref<GfxPipeline>& pipeline) override;
-        bool bind_comp_pipeline(const Ref<GfxCompPipeline>& pipeline) override;
+        bool bind_pipeline(const Ref<GfxPsoGraphics>& pipeline) override;
+        bool bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
@@ -113,5 +112,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_GFX_CTX_WRAPPER_HPP

@@ -25,8 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_VK_DESC_MANAGER_HPP
-#define WMOGE_VK_DESC_MANAGER_HPP
+#pragma once
 
 #include "core/flat_map.hpp"
 #include "gfx/gfx_desc_set.hpp"
@@ -73,5 +72,3 @@ namespace wmoge {
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_VK_DESC_MANAGER_HPP

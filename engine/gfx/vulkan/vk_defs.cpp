@@ -26,9 +26,8 @@
 /**********************************************************************************/
 
 #include "vk_defs.hpp"
-#include "vk_driver.hpp"
 
-#include <cassert>
+#include "gfx/vulkan/vk_driver.hpp"
 
 namespace wmoge {
 

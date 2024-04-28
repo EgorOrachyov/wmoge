@@ -34,7 +34,7 @@
 #include "mesh/mesh_pass.hpp"
 #include "render/render_defs.hpp"
 
-#include "shaders/generated/auto_material_reflection.hpp"
+#include "../../shaders/tmp/generated/auto_material_reflection.hpp"
 
 namespace wmoge {
 

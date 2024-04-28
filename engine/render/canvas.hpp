@@ -44,7 +44,7 @@
 #include "render/font.hpp"
 #include "render/texture.hpp"
 
-#include "shaders/generated/auto_canvas_reflection.hpp"
+#include "../../shaders/tmp/generated/auto_canvas_reflection.hpp"
 
 #include <cinttypes>
 #include <memory>
@@ -111,8 +111,8 @@ namespace wmoge {
         std::vector<Ref<Texture2d>>      tex_buffer;     //< Texures referenced in cmds, store separately to pack batched into descriptor sets
         flat_map<Ref<Texture2d>, int>    tex_map;        //< Map used textures to ids (to batch used textures together)
         buffered_vector<Ref<GfxDescSet>> tex_sets;       //< Descriptor sets with textures to bind
-        Ref<GfxPipeline>                 pipeline_srgb;  //< Cached pso to draw all primitives
-        Ref<GfxPipeline>                 pipeline_linear;//< Cached pso to draw all primitives
+        Ref<GfxPsoGraphics>              pipeline_srgb;  //< Cached pso to draw all primitives
+        Ref<GfxPsoGraphics>              pipeline_linear;//< Cached pso to draw all primitives
     };
 
     /**

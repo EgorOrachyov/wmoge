@@ -41,6 +41,7 @@
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "glsl/glsl_shader_compiler.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
@@ -61,7 +62,6 @@
 #include "render/aux_draw_manager.hpp"
 #include "render/canvas.hpp"
 #include "render/render_engine.hpp"
-#include "render/shader_manager.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
@@ -81,6 +81,7 @@
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
 #include "event/_rtti.hpp"
+#include "grc/_rtti.hpp"
 #include "material/_rtti.hpp"
 #include "mesh/_rtti.hpp"
 #include "pfx/_rtti.hpp"
@@ -104,9 +105,9 @@ namespace wmoge {
         ioc->bind<Console>();
         ioc->bind<EventManager>();
         ioc->bind<CallbackQueue>();
+        ioc->bind<GlslShaderCompiler>();
         ioc->bind<ShaderManager>();
-        ioc->bind<GrcTextureManager>();
-        ioc->bind<GrcShaderManager>();
+        ioc->bind<TextureManager>();
         ioc->bind<RenderEngine>();
         ioc->bind<AssetManager>();
         ioc->bind<EcsRegistry>();
@@ -188,8 +189,8 @@ namespace wmoge {
         ioc->unbind<SceneManager>();
         ioc->unbind<AssetManager>();
         ioc->unbind<ShaderManager>();
-        ioc->unbind<GrcShaderManager>();
-        ioc->unbind<GrcTextureManager>();
+        ioc->unbind<GlslShaderCompiler>();
+        ioc->unbind<TextureManager>();
         ioc->unbind<RenderEngine>();
         ioc->unbind<AuxDrawManager>();
         ioc->unbind<Canvas>();
@@ -214,6 +215,7 @@ namespace wmoge {
         rtti_rtti();
         rtti_asset();
         rtti_audio();
+        rtti_grc();
         rtti_material();
         rtti_mesh();
         rtti_pfx();

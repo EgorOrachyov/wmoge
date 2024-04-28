@@ -28,6 +28,7 @@
 #pragma once
 
 #include "gfx/gfx_defs.hpp"
+#include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_shader.hpp"
@@ -38,49 +39,74 @@
 namespace wmoge {
 
     /**
-     * @class GfxPipelineState
+     * @class GfxPsoLayout
+     * @brief Layout of pipeline for resources binding
+    */
+    class GfxPsoLayout : public GfxResource {
+    public:
+        ~GfxPsoLayout() override = default;
+
+        [[nodiscard]] const GfxDescSetLayouts& get_layouts() const { return m_layouts; }
+
+    protected:
+        GfxDescSetLayouts m_layouts;
+    };
+
+    /**
+     * @class GfxPsoStateGraphics
      * @brief Gfx pipeline state description
      */
-    struct GfxPipelineState {
-        GfxPipelineState();
-        bool        operator==(const GfxPipelineState& other) const;
+    struct GfxPsoStateGraphics {
+        GfxPsoStateGraphics();
+        bool        operator==(const GfxPsoStateGraphics& other) const;
         std::size_t hash() const;
 
-        GfxRenderPassDesc  pass_desc;        // = GfxRenderPassDesc{}
-        Ref<GfxShader>     shader;           // = nullptr;
-        Ref<GfxVertFormat> vert_format;      // = nullptr;
-        GfxPrimType        prim_type;        // = GfxPrimType::Triangles;
-        GfxPolyMode        poly_mode;        // = GfxPolyMode::Fill;
-        GfxPolyCullMode    cull_mode;        // = GfxPolyCullMode::Disabled;
-        GfxPolyFrontFace   front_face;       // = GfxPolyFrontFace::CounterClockwise;
-        int                depth_enable;     // = false;
-        int                depth_write;      // = true;
-        GfxCompFunc        depth_func;       // = GfxCompFunc::Less;
-        int                stencil_enable;   // = false;
-        int                stencil_wmask;    // = 0;
-        int                stencil_rvalue;   // = 0;
-        int                stencil_cmask;    // = 0;
-        GfxCompFunc        stencil_comp_func;// = GfxCompFunc::Never;
-        GfxOp              stencil_sfail;    // = GfxOp::Keep;
-        GfxOp              stencil_dfail;    // = GfxOp::Keep;
-        GfxOp              stencil_dpass;    // = GfxOp::Keep;
-        int                blending;         // = false;
+        GfxRenderPassDesc     pass_desc;        // = GfxRenderPassDesc{}
+        Ref<GfxShaderProgram> program;          // = nullptr;
+        Ref<GfxPsoLayout>     layout;           // = nullptr;
+        Ref<GfxVertFormat>    vert_format;      // = nullptr;
+        GfxPrimType           prim_type;        // = GfxPrimType::Triangles;
+        GfxPolyMode           poly_mode;        // = GfxPolyMode::Fill;
+        GfxPolyCullMode       cull_mode;        // = GfxPolyCullMode::Disabled;
+        GfxPolyFrontFace      front_face;       // = GfxPolyFrontFace::CounterClockwise;
+        int                   depth_enable;     // = false;
+        int                   depth_write;      // = true;
+        GfxCompFunc           depth_func;       // = GfxCompFunc::Less;
+        int                   stencil_enable;   // = false;
+        int                   stencil_wmask;    // = 0;
+        int                   stencil_rvalue;   // = 0;
+        int                   stencil_cmask;    // = 0;
+        GfxCompFunc           stencil_comp_func;// = GfxCompFunc::Never;
+        GfxOp                 stencil_sfail;    // = GfxOp::Keep;
+        GfxOp                 stencil_dfail;    // = GfxOp::Keep;
+        GfxOp                 stencil_dpass;    // = GfxOp::Keep;
+        int                   blending;         // = false;
     };
 
     /**
-     * @class GfxCompPipelineState
+     * @class GfxPsoStateCompute
      * @brief Gfx compute pipeline state description
      */
-    struct GfxCompPipelineState {
-        GfxCompPipelineState() = default;
-        bool        operator==(const GfxCompPipelineState& other) const;
+    struct GfxPsoStateCompute {
+        GfxPsoStateCompute();
+        bool        operator==(const GfxPsoStateCompute& other) const;
         std::size_t hash() const;
 
-        Ref<GfxShader> shader;// = nullptr;
+        Ref<GfxShader>    shader;// = nullptr;
+        Ref<GfxPsoLayout> layout;// = nullptr;
     };
 
     /**
-     * @class GfxPipeline
+     * @class GfxPso
+     * @brief Base class for compiled pipeline state object
+    */
+    class GfxPso : public GfxResource {
+    public:
+        ~GfxPso() override = default;
+    };
+
+    /**
+     * @class GfxPsoGraphics
      * @brief Represents created and compiled graphics pipeline state object
      *
      * Pipeline is a compete object which can be directly bound to the command list for the rendering.
@@ -89,28 +115,26 @@ namespace wmoge {
      * Pipeline creation is asynchronous and done in the background.
      * When pipeline created it will be used in the rendering.
      */
-    class GfxPipeline : public GfxResource {
+    class GfxPsoGraphics : public GfxPso {
     public:
-        ~GfxPipeline() override                         = default;
-        virtual GfxPipelineStatus       status() const  = 0;
-        virtual std::string             message() const = 0;
-        virtual const GfxPipelineState& state() const   = 0;
+        ~GfxPsoGraphics() override                        = default;
+        virtual GfxPipelineStatus          status() const = 0;
+        virtual const GfxPsoStateGraphics& state() const  = 0;
     };
 
     /**
-     * @class GfxCompPipeline
+     * @class GfxPsoCompute
      * @brief Represents created and compiled compute pipeline state object
      *
      * Pipeline is a compete object which can be directly bound to the command list for the compute dispatch.
      * Pipeline creation is asynchronous and done in the background.
      * When pipeline created it will be used in the rendering.
      */
-    class GfxCompPipeline : public GfxResource {
+    class GfxPsoCompute : public GfxPso {
     public:
-        ~GfxCompPipeline() override                         = default;
-        virtual GfxPipelineStatus           status() const  = 0;
-        virtual std::string                 message() const = 0;
-        virtual const GfxCompPipelineState& state() const   = 0;
+        ~GfxPsoCompute() override                        = default;
+        virtual GfxPipelineStatus         status() const = 0;
+        virtual const GfxPsoStateCompute& state() const  = 0;
     };
 
 }// namespace wmoge
@@ -118,15 +142,15 @@ namespace wmoge {
 namespace std {
 
     template<>
-    struct hash<wmoge::GfxPipelineState> {
-        std::size_t operator()(const wmoge::GfxPipelineState& desc) const {
+    struct hash<wmoge::GfxPsoStateGraphics> {
+        std::size_t operator()(const wmoge::GfxPsoStateGraphics& desc) const {
             return desc.hash();
         }
     };
 
     template<>
-    struct hash<wmoge::GfxCompPipelineState> {
-        std::size_t operator()(const wmoge::GfxCompPipelineState& desc) const {
+    struct hash<wmoge::GfxPsoStateCompute> {
+        std::size_t operator()(const wmoge::GfxPsoStateCompute& desc) const {
             return desc.hash();
         }
     };

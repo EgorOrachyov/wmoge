@@ -31,8 +31,6 @@
 #include "core/buffered_vector.hpp"
 #include "core/log.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "hgfx/hgfx_pass_base.hpp"
-#include "hgfx/hgfx_pass_text.hpp"
 #include "math/math_utils3d.hpp"
 #include "profiler/profiler.hpp"
 #include "system/config_file.hpp"
@@ -598,42 +596,42 @@ namespace wmoge {
         auto gfx_driver = engine->gfx_driver();
         auto gfx_ctx    = engine->gfx_ctx();
 
-        HgfxPassBase pass_lines;
-        pass_lines.name          = SID("aux_draw_lines");
-        pass_lines.out_srgb      = true;
-        pass_lines.mat_proj_view = mat_proj_view;
-        pass_lines.prim_type     = GfxPrimType::Lines;
-        pass_lines.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        pass_lines.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        pass_lines.compile(gfx_ctx);
+        // HgfxPassBase pass_lines;
+        // pass_lines.name          = SID("aux_draw_lines");
+        // pass_lines.out_srgb      = true;
+        // pass_lines.mat_proj_view = mat_proj_view;
+        // pass_lines.prim_type     = GfxPrimType::Lines;
+        // pass_lines.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
+        // pass_lines.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
+        // pass_lines.compile(gfx_ctx);
 
-        HgfxPassBase pass_triangles_solid;
-        pass_triangles_solid.name          = SID("aux_draw_triangles_solid");
-        pass_triangles_solid.out_srgb      = true;
-        pass_triangles_solid.mat_proj_view = mat_proj_view;
-        pass_triangles_solid.prim_type     = GfxPrimType::Triangles;
-        pass_triangles_solid.poly_mode     = GfxPolyMode::Fill;
-        pass_triangles_solid.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        pass_triangles_solid.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        pass_triangles_solid.compile(gfx_ctx);
+        // HgfxPassBase pass_triangles_solid;
+        // pass_triangles_solid.name          = SID("aux_draw_triangles_solid");
+        // pass_triangles_solid.out_srgb      = true;
+        // pass_triangles_solid.mat_proj_view = mat_proj_view;
+        // pass_triangles_solid.prim_type     = GfxPrimType::Triangles;
+        // pass_triangles_solid.poly_mode     = GfxPolyMode::Fill;
+        // pass_triangles_solid.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
+        // pass_triangles_solid.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
+        // pass_triangles_solid.compile(gfx_ctx);
 
-        HgfxPassBase pass_triangles_wire;
-        pass_triangles_wire.name          = SID("aux_draw_triangles_wire");
-        pass_triangles_wire.out_srgb      = true;
-        pass_triangles_wire.mat_proj_view = mat_proj_view;
-        pass_triangles_wire.prim_type     = GfxPrimType::Triangles;
-        pass_triangles_wire.poly_mode     = GfxPolyMode::Line;
-        pass_triangles_wire.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        pass_triangles_wire.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        pass_triangles_wire.compile(gfx_ctx);
+        // HgfxPassBase pass_triangles_wire;
+        // pass_triangles_wire.name          = SID("aux_draw_triangles_wire");
+        // pass_triangles_wire.out_srgb      = true;
+        // pass_triangles_wire.mat_proj_view = mat_proj_view;
+        // pass_triangles_wire.prim_type     = GfxPrimType::Triangles;
+        // pass_triangles_wire.poly_mode     = GfxPolyMode::Line;
+        // pass_triangles_wire.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
+        // pass_triangles_wire.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
+        // pass_triangles_wire.compile(gfx_ctx);
 
-        HgfxPassText pass_text;
-        pass_text.name         = SID("aux_draw_text");
-        pass_text.out_srgb     = true;
-        pass_text.screen_size  = m_screen_size;
-        pass_text.font_texture = m_font->get_bitmap();
-        pass_text.font_sampler = m_font->get_sampler();
-        pass_text.compile(gfx_ctx);
+        // HgfxPassText pass_text;
+        // pass_text.name         = SID("aux_draw_text");
+        // pass_text.out_srgb     = true;
+        // pass_text.screen_size  = m_screen_size;
+        // pass_text.font_texture = m_font->get_bitmap();
+        // pass_text.font_sampler = m_font->get_sampler();
+        // pass_text.compile(gfx_ctx);
 
         const int num_types                           = 4;
         int       num_elements[num_types]             = {0, 0, 0, 0};
@@ -689,20 +687,20 @@ namespace wmoge {
         m_tria_wired.flush(gfx_ctx);
         m_text.flush(gfx_ctx);
 
-        HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
+        // HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
 
         gfx_ctx->execute([&](GfxCtx* thread_ctx) {
             thread_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
             thread_ctx->bind_target(window);
             thread_ctx->viewport(viewport);
 
-            for (int i = 0; i < num_types; i++) {
-                // if it has primitives and configured pass - do draw
-                if (num_elements[i] > 0 && passes[i] && passes[i]->configure(thread_ctx)) {
-                    thread_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
-                    thread_ctx->draw(num_vertices[i], 0, 1);
-                }
-            }
+            // for (int i = 0; i < num_types; i++) {
+            //     // if it has primitives and configured pass - do draw
+            //     if (num_elements[i] > 0 && passes[i] && passes[i]->configure(thread_ctx)) {
+            //         thread_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
+            //         thread_ctx->draw(num_vertices[i], 0, 1);
+            //     }
+            // }
 
             thread_ctx->end_render_pass();
         });

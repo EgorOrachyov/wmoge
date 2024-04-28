@@ -118,20 +118,16 @@
 #include "gfx/gfx_vert_format_cache.hpp"
 
 #include "grc/shader.hpp"
+#include "grc/shader_builder.hpp"
+#include "grc/shader_file.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/shader_param.hpp"
 #include "grc/shader_param_block.hpp"
 #include "grc/shader_pass.hpp"
 #include "grc/shader_reflection.hpp"
-#include "grc/shader_script.hpp"
-#include "grc/shader_script_builder.hpp"
 #include "grc/texture_compression.hpp"
 #include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
-
-#include "hgfx/hgfx_pass.hpp"
-#include "hgfx/hgfx_pass_base.hpp"
-#include "hgfx/hgfx_pass_text.hpp"
 
 #include "io/archive.hpp"
 #include "io/archive_file.hpp"
@@ -143,7 +139,6 @@
 #include "io/yaml.hpp"
 
 #include "material/material.hpp"
-#include "material/shader.hpp"
 
 #include "math/color.hpp"
 #include "math/frustum.hpp"
@@ -200,6 +195,7 @@
 #include "render/aux_draw_manager.hpp"
 #include "render/camera.hpp"
 #include "render/canvas.hpp"
+#include "render/common.hpp"
 #include "render/culling.hpp"
 #include "render/font.hpp"
 #include "render/graphics_pipeline.hpp"
@@ -210,8 +206,6 @@
 #include "render/render_engine.hpp"
 #include "render/render_queue.hpp"
 #include "render/render_scene.hpp"
-#include "render/shader_manager.hpp"
-#include "render/shader_pass.hpp"
 #include "render/texture.hpp"
 #include "render/view.hpp"
 #include "render/view_manager.hpp"

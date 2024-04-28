@@ -31,6 +31,12 @@
 
 namespace wmoge {
 
+    std::string RttiObject::to_string() const {
+        RttiClass*        rtti_class = get_class();
+        std::stringstream stream;
+        rtti_class->to_string(this, stream);
+        return stream.str();
+    }
     Status RttiObject::clone(Ref<RttiObject>& object) const {
         RttiClass* rtti_class = get_class();
         object                = rtti_class->instantiate();

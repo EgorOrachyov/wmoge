@@ -38,9 +38,8 @@
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "io/serialization.hpp"
-#include "material/shader.hpp"
 #include "platform/file_system.hpp"
+#include "rtti/traits.hpp"
 
 #include <cinttypes>
 #include <filesystem>
@@ -57,7 +56,7 @@ namespace wmoge {
     /**
      * @brief Base (built-in) types for compositing shader interface
     */
-    enum class GrcShaderBaseType {
+    enum class ShaderBaseType {
         None,
         Int,
         Float,
@@ -72,7 +71,7 @@ namespace wmoge {
     /**
      * @brief Sizes of of base types
      */
-    static constexpr const std::int16_t GrcShaderBaseTypeSizes[] = {
+    static constexpr const std::int16_t ShaderBaseTypeSizes[] = {
             0,
             4,
             4,
@@ -86,7 +85,7 @@ namespace wmoge {
     /**
      * @brief Binding types supported by shader pass interface
     */
-    enum class GrcShaderBindingType {
+    enum class ShaderBindingType {
         None,
         InlineUniformBuffer,
         UniformBuffer,
@@ -98,111 +97,111 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShaderType
+     * @class ShaderType
      * @brief Recursive complex type for declaring of anything in a shader what has a type
     */
-    struct GrcShaderType : public RefCnt {
+    struct ShaderType : public RefCnt {
         struct Field {
-            Strid              name;              // field name
-            Ref<GrcShaderType> type;              // base element type (elem type of array)
-            std::int16_t       offset     = -1;   // offset in a struct from this to next field
-            std::int16_t       elem_count = 0;    // count of elem in array (0 if array is unbound)
-            bool               is_array   = false;// is array field
-            Var                default_value;     // optional default value to set
+            Strid           name;              // field name
+            Ref<ShaderType> type;              // base element type (elem type of array)
+            std::int16_t    offset     = -1;   // offset in a struct from this to next field
+            std::int16_t    elem_count = 0;    // count of elem in array (0 if array is unbound)
+            bool            is_array   = false;// is array field
+            Var             default_value;     // optional default value to set
         };
 
-        Strid                  name;                               // type name
-        GrcShaderBaseType      type      = GrcShaderBaseType::None;// type of its base
-        std::int16_t           n_row     = -1;                     // num of rows for vector like types
-        std::int16_t           n_col     = -1;                     // num of columns for matrix like types
-        std::int16_t           n_elem    = -1;                     // num of elements in vec/mat type
-        std::int16_t           byte_size = 0;                      // raw byte size
-        buffered_vector<Field> fields;                             // fields of a struct type
-        bool                   is_primitive = false;               // is a primitive type, raw value in a memory
+        Strid                  name;                            // type name
+        ShaderBaseType         type      = ShaderBaseType::None;// type of its base
+        std::int16_t           n_row     = -1;                  // num of rows for vector like types
+        std::int16_t           n_col     = -1;                  // num of columns for matrix like types
+        std::int16_t           n_elem    = -1;                  // num of elements in vec/mat type
+        std::int16_t           byte_size = 0;                   // raw byte size
+        buffered_vector<Field> fields;                          // fields of a struct type
+        bool                   is_primitive = false;            // is a primitive type, raw value in a memory
     };
 
     /**
-     * @class GrcShaderStructRegister
+     * @class ShaderStructRegister
      * @brief Helper to build and register struct type
      */
-    class GrcShaderStructRegister {
+    class ShaderStructRegister {
     public:
-        GrcShaderStructRegister(Strid name, std::size_t size);
+        ShaderStructRegister(Strid name, std::size_t size);
 
-        GrcShaderStructRegister& add_field(Strid name, Strid struct_type);
-        GrcShaderStructRegister& add_field(Strid name, Ref<GrcShaderType> type, Var value = Var());
-        GrcShaderStructRegister& add_field_array(Strid name, Strid struct_type, int n_elements = 0);
-        GrcShaderStructRegister& add_field_array(Strid name, Ref<GrcShaderType> type, int n_elements = 0, Var value = Var());
+        ShaderStructRegister& add_field(Strid name, Strid struct_type);
+        ShaderStructRegister& add_field(Strid name, Ref<ShaderType> type, Var value = Var());
+        ShaderStructRegister& add_field_array(Strid name, Strid struct_type, int n_elements = 0);
+        ShaderStructRegister& add_field_array(Strid name, Ref<ShaderType> type, int n_elements = 0, Var value = Var());
 
         Status finish();
 
     private:
-        Ref<GrcShaderType>      m_struct_type;
-        class GrcShaderManager* m_manager;
+        Ref<ShaderType>      m_struct_type;
+        class ShaderManager* m_manager;
     };
 
     /**
-     * @class GrcShaderTypes
+     * @class ShaderTypes
      * @brief Pre-defined common shader types
     */
-    struct GrcShaderTypes {
-        static Ref<GrcShaderType> FLOAT;
-        static Ref<GrcShaderType> INT;
-        static Ref<GrcShaderType> BOOL;
-        static Ref<GrcShaderType> VEC2;
-        static Ref<GrcShaderType> VEC3;
-        static Ref<GrcShaderType> VEC4;
-        static Ref<GrcShaderType> IVEC2;
-        static Ref<GrcShaderType> IVEC3;
-        static Ref<GrcShaderType> IVEC4;
-        static Ref<GrcShaderType> BVEC2;
-        static Ref<GrcShaderType> BVEC3;
-        static Ref<GrcShaderType> BVEC4;
-        static Ref<GrcShaderType> MAT2;
-        static Ref<GrcShaderType> MAT3;
-        static Ref<GrcShaderType> MAT4;
-        static Ref<GrcShaderType> SAMPLER2D;
-        static Ref<GrcShaderType> SAMPLER2D_ARRAY;
-        static Ref<GrcShaderType> SAMPLER_CUBE;
-        static Ref<GrcShaderType> IMAGE2D;
+    struct ShaderTypes {
+        static Ref<ShaderType> FLOAT;
+        static Ref<ShaderType> INT;
+        static Ref<ShaderType> BOOL;
+        static Ref<ShaderType> VEC2;
+        static Ref<ShaderType> VEC3;
+        static Ref<ShaderType> VEC4;
+        static Ref<ShaderType> IVEC2;
+        static Ref<ShaderType> IVEC3;
+        static Ref<ShaderType> IVEC4;
+        static Ref<ShaderType> BVEC2;
+        static Ref<ShaderType> BVEC3;
+        static Ref<ShaderType> BVEC4;
+        static Ref<ShaderType> MAT2;
+        static Ref<ShaderType> MAT3;
+        static Ref<ShaderType> MAT4;
+        static Ref<ShaderType> SAMPLER2D;
+        static Ref<ShaderType> SAMPLER2D_ARRAY;
+        static Ref<ShaderType> SAMPLER_CUBE;
+        static Ref<ShaderType> IMAGE2D;
 
-        static std::vector<Ref<GrcShaderType>> builtin();
+        static std::vector<Ref<ShaderType>> builtin();
     };
 
     /**
-     * @class GrcShaderConstant
+     * @class ShaderConstant
      * @brief Declared pass constants inlined as defines into source code
     */
-    struct GrcShaderConstant {
+    struct ShaderConstant {
         Strid       name;
         Var         value;
         std::string str;
     };
 
     /**
-     * @class GrcShaderInclude
+     * @class ShaderInclude
      * @brief Information about single include file of a shader module
     */
-    struct GrcShaderInclude {
+    struct ShaderInclude {
         Strid           name;
         GfxShaderModule module;
     };
 
     /**
-     * @class GrcShaderSourceFile
+     * @class ShaderSourceFile
      * @brief Single shader module required for compilation (shader stage)
     */
-    struct GrcShaderSourceFile {
+    struct ShaderSourceFile {
         Strid           name;
         GfxShaderModule module;
         std::string     content;
     };
 
     /**
-     * @class GrcShaderQualifiers
+     * @class ShaderQualifiers
      * @brief Additional qualifiers for shader interface params
     */
-    struct GrcShaderQualifiers {
+    struct ShaderQualifiers {
         bool readonly  = false;
         bool writeonly = false;
         bool std140    = false;
@@ -210,22 +209,22 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShaderBinding
+     * @class ShaderBinding
      * @brief An interface exposed bindable param
     */
-    struct GrcShaderBinding {
-        Strid                name;
-        Ref<GrcShaderType>   type;
-        GrcShaderBindingType binding = GrcShaderBindingType::None;
-        GrcShaderQualifiers  qualifiers;
-        Ref<GfxTexture>      default_tex;
-        Ref<GfxSampler>      default_sampler;
+    struct ShaderBinding {
+        Strid             name;
+        Ref<ShaderType>   type;
+        ShaderBindingType binding = ShaderBindingType::None;
+        ShaderQualifiers  qualifiers;
+        Ref<GfxTexture>   default_tex;
+        Ref<GfxSampler>   default_sampler;
     };
 
     /**
      * @brief Semantics of a space containing parameters
     */
-    enum class GrcShaderSpaceType {
+    enum class ShaderSpaceType {
         Default,
         Frame,
         Material,
@@ -233,20 +232,20 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShaderSpace
+     * @class ShaderSpace
      * @brief Contains interface assets for a single descriptor set 
     */
-    struct GrcShaderSpace {
-        Strid                             name;
-        GrcShaderSpaceType                type = GrcShaderSpaceType::Default;
-        buffered_vector<GrcShaderBinding> bindings;
+    struct ShaderSpace {
+        Strid                          name;
+        ShaderSpaceType                type = ShaderSpaceType::Default;
+        buffered_vector<ShaderBinding> bindings;
     };
 
     /**
-     * @class GrcShaderOption
+     * @class ShaderOption
      * @brief An user controlled option which affects shader permutation
     */
-    struct GrcShaderOption {
+    struct ShaderOption {
         Strid                         name;
         flat_map<Strid, std::int16_t> variants;
         std::string                   ui_name;
@@ -254,19 +253,21 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShaderOptions
+     * @class ShaderOptions
      * @brief Map of options for a technique or pass
     */
-    struct GrcShaderOptions {
-        buffered_vector<GrcShaderOption> options;
-        flat_map<Strid, std::int16_t>    options_map;
+    struct ShaderOptions {
+        buffered_vector<ShaderOption> options;
+        flat_map<Strid, std::int16_t> options_map;
     };
 
     /**
-     * @class GrcPipelineState
+     * @class PipelineState
      * @brief Rendering settings provided in a pass
     */
-    struct GrcPipelineState {
+    struct PipelineState {
+        WG_RTTI_STRUCT(PipelineState);
+
         GfxPolyMode      poly_mode         = GfxPolyMode::Fill;
         GfxPolyCullMode  cull_mode         = GfxPolyCullMode::Disabled;
         GfxPolyFrontFace front_face        = GfxPolyFrontFace::CounterClockwise;
@@ -282,44 +283,62 @@ namespace wmoge {
         GfxOp            stencil_dfail     = GfxOp::Keep;
         GfxOp            stencil_dpass     = GfxOp::Keep;
         bool             blending          = false;
-
-        WG_IO_DECLARE(GrcPipelineState);
     };
 
+    WG_RTTI_STRUCT_BEGIN(PipelineState) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(poly_mode, {RttiOptional});
+        WG_RTTI_FIELD(cull_mode, {RttiOptional});
+        WG_RTTI_FIELD(front_face, {RttiOptional});
+        WG_RTTI_FIELD(depth_enable, {RttiOptional});
+        WG_RTTI_FIELD(depth_write, {RttiOptional});
+        WG_RTTI_FIELD(depth_func, {RttiOptional});
+        WG_RTTI_FIELD(stencil_enable, {RttiOptional});
+        WG_RTTI_FIELD(stencil_wmask, {RttiOptional});
+        WG_RTTI_FIELD(stencil_rvalue, {RttiOptional});
+        WG_RTTI_FIELD(stencil_cmask, {RttiOptional});
+        WG_RTTI_FIELD(stencil_comp_func, {RttiOptional});
+        WG_RTTI_FIELD(stencil_sfail, {RttiOptional});
+        WG_RTTI_FIELD(stencil_dfail, {RttiOptional});
+        WG_RTTI_FIELD(stencil_dpass, {RttiOptional});
+        WG_RTTI_FIELD(blending, {RttiOptional});
+    }
+    WG_RTTI_END;
+
     /**
-     * @class GrcShaderPassInfo
+     * @class ShaderPassInfo
      * @brief Defines single pass of shader, a functional subset
     */
-    struct GrcShaderPassInfo {
+    struct ShaderPassInfo {
         Strid                name;
-        GrcPipelineState     state;
-        GrcShaderOptions     options;
+        PipelineState        state;
+        ShaderOptions        options;
         flat_map<Strid, Var> tags;
         std::string          ui_name;
         std::string          ui_hint;
     };
 
     /**
-     * @class GrcShaderTechniqueInfo
+     * @class ShaderTechniqueInfo
      * @brief Defines single technique as collection of passes for drawing
     */
-    struct GrcShaderTechniqueInfo {
-        Strid                              name;
-        GrcShaderOptions                   options;
-        buffered_vector<GrcShaderPassInfo> passes;
-        flat_map<Strid, std::int16_t>      passes_map;
-        flat_map<Strid, Var>               tags;
-        std::string                        ui_name;
-        std::string                        ui_hint;
+    struct ShaderTechniqueInfo {
+        Strid                           name;
+        ShaderOptions                   options;
+        buffered_vector<ShaderPassInfo> passes;
+        flat_map<Strid, std::int16_t>   passes_map;
+        flat_map<Strid, Var>            tags;
+        std::string                     ui_name;
+        std::string                     ui_hint;
     };
 
     /**
-     * @class GrcShaderParamId
+     * @class ShaderParamId
      * @brief Handle to a shader param
     */
-    struct GrcShaderParamId {
-        GrcShaderParamId() = default;
-        GrcShaderParamId(std::int16_t index) : index(index) {}
+    struct ShaderParamId {
+        ShaderParamId() = default;
+        ShaderParamId(std::int16_t index) : index(index) {}
 
         operator std::int16_t() const { return index; }
 
@@ -330,35 +349,35 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShaderParamInfo
+     * @class ShaderParamInfo
      * @brief Info about an param which can be set from shader or material
     */
-    struct GrcShaderParamInfo {
-        Strid                name;             // fully qualified param name
-        Ref<GrcShaderType>   type;             // param base type (in case of array - element type)
-        GrcShaderBindingType binding_type;     // binding type where param is
-        std::int16_t         space      = -1;  // binding space
-        std::int16_t         binding    = -1;  // binding index in space
-        std::int16_t         offset     = -1;  // byte offset of scala data in a buffer
-        std::int16_t         buffer     = -1;  // buffer index in space
-        std::int16_t         elem_idx   = -1;  // element index of array element
-        std::int16_t         elem_count = 1;   // count of elements (array size)
-        std::int16_t         byte_size  = 1;   // count of elements (array size)
-        std::string          ui_name;          // optional ui name
-        std::string          ui_hint;          // optional ui hint
-        Var                  ui_range_min;     // optional min range for scalar value
-        Var                  ui_range_max;     // optional max range for scalar value
-        Var                  default_var;      // optional default scalar value
-        Ref<GfxTexture>      default_tex;      // optional texture
-        Ref<GfxSampler>      default_sampler;  // optional sampler
-        std::string          default_value_str;// optional display string of default value
+    struct ShaderParamInfo {
+        Strid             name;             // fully qualified param name
+        Ref<ShaderType>   type;             // param base type (in case of array - element type)
+        ShaderBindingType binding_type;     // binding type where param is
+        std::int16_t      space      = -1;  // binding space
+        std::int16_t      binding    = -1;  // binding index in space
+        std::int16_t      offset     = -1;  // byte offset of scala data in a buffer
+        std::int16_t      buffer     = -1;  // buffer index in space
+        std::int16_t      elem_idx   = -1;  // element index of array element
+        std::int16_t      elem_count = 1;   // count of elements (array size)
+        std::int16_t      byte_size  = 1;   // count of elements (array size)
+        std::string       ui_name;          // optional ui name
+        std::string       ui_hint;          // optional ui hint
+        Var               ui_range_min;     // optional min range for scalar value
+        Var               ui_range_max;     // optional max range for scalar value
+        Var               default_var;      // optional default scalar value
+        Ref<GfxTexture>   default_tex;      // optional texture
+        Ref<GfxSampler>   default_sampler;  // optional sampler
+        std::string       default_value_str;// optional display string of default value
     };
 
     /**
-     * @class GrcShaderBufferInfo
+     * @class ShaderBufferInfo
      * @brief Buffer info for auto packing of scalar params
     */
-    struct GrcShaderBufferInfo {
+    struct ShaderBufferInfo {
         Ref<Data>    defaults;
         std::int16_t space   = -1;
         std::int16_t binding = -1;
@@ -367,25 +386,25 @@ namespace wmoge {
     };
 
     /**
-     * @class GrcShaderReflection
+     * @class ShaderReflection
      * @brief Full reflection information of a single shader class
     */
-    struct GrcShaderReflection {
-        Strid                                   shader_name;   // shader script global unique name
-        Strid                                   shader_extends;// shader script which we extend in this one
-        std::string                             ui_name;       // optional ui name
-        std::string                             ui_hint;       // optional ui hint
-        flat_map<Strid, std::int16_t>           params_id;     // mapping of full param name to its id
-        buffered_vector<GrcShaderParamInfo>     params_info;   // id to param info
-        buffered_vector<GrcShaderBufferInfo>    buffers;       // buffer info for scalar params packing
-        flat_map<Strid, Ref<GrcShaderType>>     declarations;  // shader defined struct types
-        buffered_vector<GrcShaderConstant>      constants;     // shader defined constanst
-        buffered_vector<GrcShaderInclude>       includes;      // shader includes per module
-        buffered_vector<GrcShaderSpace>         spaces;        // binding spaces for descriptor sets creation
-        buffered_vector<GrcShaderSourceFile>    sources;       // source code modules
-        buffered_vector<GrcShaderTechniqueInfo> techniques;    // shader techniques info
-        flat_map<Strid, std::int16_t>           techniques_map;// mapping techniques name to its id
-        flat_set<Strid>                         dependencies;  // shader files dependencies for hot-reload
+    struct ShaderReflection {
+        Strid                                shader_name;   // shader script global unique name
+        Strid                                shader_extends;// shader script which we extend in this one
+        std::string                          ui_name;       // optional ui name
+        std::string                          ui_hint;       // optional ui hint
+        flat_map<Strid, std::int16_t>        params_id;     // mapping of full param name to its id
+        buffered_vector<ShaderParamInfo>     params_info;   // id to param info
+        buffered_vector<ShaderBufferInfo>    buffers;       // buffer info for scalar params packing
+        flat_map<Strid, Ref<ShaderType>>     declarations;  // shader defined struct types
+        buffered_vector<ShaderConstant>      constants;     // shader defined constanst
+        buffered_vector<ShaderInclude>       includes;      // shader includes per module
+        buffered_vector<ShaderSpace>         spaces;        // binding spaces for descriptor sets creation
+        buffered_vector<ShaderSourceFile>    sources;       // source code modules
+        buffered_vector<ShaderTechniqueInfo> techniques;    // shader techniques info
+        flat_map<Strid, std::int16_t>        techniques_map;// mapping techniques name to its id
+        flat_set<Strid>                      dependencies;  // shader files dependencies for hot-reload
     };
 
 }// namespace wmoge

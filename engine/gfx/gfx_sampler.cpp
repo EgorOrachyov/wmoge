@@ -53,15 +53,6 @@ namespace wmoge {
     std::size_t GfxSamplerDesc::hash() const {
         return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxSamplerDesc)));
     }
-    std::string GfxSamplerDesc::to_str() const {
-        std::stringstream sampler_name;
-        sampler_name << magic_enum::enum_name(min_flt) << ":" << magic_enum::enum_name(mag_flt) << ","
-                     << magic_enum::enum_name(u) << ":" << magic_enum::enum_name(v) << ":" << magic_enum::enum_name(w) << ","
-                     << min_lod << ":" << max_lod << ","
-                     << max_anisotropy;
-
-        return sampler_name.str();
-    }
     GfxSamplerDesc GfxSamplerDesc::make(GfxSampFlt flt, float aniso, GfxSampAddress address) {
         GfxSamplerDesc d;
         d.min_flt        = flt;

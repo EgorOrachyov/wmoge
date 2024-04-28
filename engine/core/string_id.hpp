@@ -42,7 +42,8 @@ namespace wmoge {
     class Strid {
     public:
         Strid();
-        explicit Strid(const std::string& string);
+        Strid(const char* string);
+        Strid(const std::string& string);
 
         bool operator==(const Strid& other) const;
         bool operator!=(const Strid& other) const;

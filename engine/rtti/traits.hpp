@@ -789,8 +789,16 @@ public:                                                                         
     }                                                                                                              \
     friend struct RttiTypeOf<struct_type>;
 
-#define WG_RTTI_STRUCT_EXT(struct_type, parent_type) WG_RTTI_GENERATED_TYPE(struct_type, parent_type, RttiStruct, find_struct, )
-#define WG_RTTI_STRUCT(struct_type)                  WG_RTTI_STRUCT_EXT(struct_type, )
+#define WG_RTTI_STRUCT_EXT(struct_type, parent_type)                            \
+    WG_RTTI_GENERATED_TYPE(struct_type, parent_type, RttiStruct, find_struct, ) \
+    std::string to_string() const {                                             \
+        RttiStruct*       rtti_type = get_class();                              \
+        std::stringstream stream;                                               \
+        rtti_type->to_string(this, stream);                                     \
+        return stream.str();                                                    \
+    }
+
+#define WG_RTTI_STRUCT(struct_type) WG_RTTI_STRUCT_EXT(struct_type, )
 
 #define WG_RTTI_CLASS(class_type, parent_type) WG_RTTI_GENERATED_TYPE(class_type, parent_type, RttiClass, find_class, override)
 

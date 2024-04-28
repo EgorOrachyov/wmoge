@@ -36,8 +36,8 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/shader.hpp"
 #include "grc/shader_reflection.hpp"
-#include "grc/shader_script.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 
@@ -49,14 +49,14 @@
 namespace wmoge {
 
     /**
-     * @class GrcShaderParam
+     * @class ShaderParam
      * @brief Wrapper for a param modification inside a shader or a param block
     */
-    class GrcShaderParam {
+    class ShaderParam {
     public:
-        GrcShaderParam() = default;
-        GrcShaderParam(class GrcShader& shader, GrcShaderParamId param_id);
-        GrcShaderParam(class GrcShaderParamBlock& block, GrcShaderParamId param_id);
+        ShaderParam() = default;
+        ShaderParam(class Shader& shader, ShaderParamId param_id);
+        ShaderParam(class ShaderParamBlock& block, ShaderParamId param_id);
 
         Status set_var(int v);
         Status set_var(float v);
@@ -90,38 +90,38 @@ namespace wmoge {
         [[nodiscard]] bool is_invalid() const { return m_param_id.is_invalid(); }
 
     private:
-        class GrcShaderParamBlock* m_block = nullptr;
-        GrcShaderParamId           m_param_id;
+        class ShaderParamBlock* m_block = nullptr;
+        ShaderParamId           m_param_id;
     };
 
     /**
-     * @class GrcShaderParamAccess
+     * @class ShaderParamAccess
      * @brief Helper to access shader params with compile time info
      * 
      * @tparam InfoProvider type of storage of params
     */
     template<typename StorageProvider>
-    struct GrcShaderParamAccess {
+    struct ShaderParamAccess {
 
-        GrcShaderParamAccess(StorageProvider& provider) : provider(provider) {}
+        ShaderParamAccess(StorageProvider& provider) : provider(provider) {}
 
         template<typename T>
-        Status set(GrcShaderParamId param_id, const T& v) {
+        Status set(ShaderParamId param_id, const T& v) {
             if (param_id.is_invalid()) {
                 WG_LOG_ERROR("passed invalid param id");
                 return StatusCode::InvalidParameter;
             }
 
-            GrcShaderScript*                   script = provider.get_script();
-            std::optional<GrcShaderParamInfo*> p_info = script->get_param_info(param_id);
+            Shader*                         script = provider.get_shader();
+            std::optional<ShaderParamInfo*> p_info = script->get_param_info(param_id);
 
             if (!p_info) {
                 WG_LOG_ERROR("no such param id");
                 return StatusCode::InvalidParameter;
             }
 
-            GrcShaderParamInfo* param  = p_info.value();
-            Ref<Data>*          buffer = nullptr;
+            ShaderParamInfo* param  = p_info.value();
+            Ref<Data>*       buffer = nullptr;
 
             if (param->buffer != -1) {
                 buffer = provider.get_buffer(param->space, param->buffer);
@@ -185,22 +185,22 @@ namespace wmoge {
         }
 
         template<typename T>
-        Status get(GrcShaderParamId param_id, T& v) {
+        Status get(ShaderParamId param_id, T& v) {
             if (param_id.is_invalid()) {
                 WG_LOG_ERROR("passed invalid param id");
                 return StatusCode::InvalidParameter;
             }
 
-            GrcShaderScript*                   script = provider.get_script();
-            std::optional<GrcShaderParamInfo*> p_info = script->get_param_info(param_id);
+            Shader*                         script = provider.get_shader();
+            std::optional<ShaderParamInfo*> p_info = script->get_param_info(param_id);
 
             if (!p_info) {
                 WG_LOG_ERROR("no such param id");
                 return StatusCode::InvalidParameter;
             }
 
-            GrcShaderParamInfo* param  = p_info.value();
-            Ref<Data>*          buffer = nullptr;
+            ShaderParamInfo* param  = p_info.value();
+            Ref<Data>*       buffer = nullptr;
 
             if (param->buffer != -1) {
                 buffer = provider.get_buffer(param->space, param->buffer);
