@@ -27,57 +27,33 @@
 
 #pragma once
 
-#include "core/buffered_vector.hpp"
-#include "core/data.hpp"
-#include "core/string_id.hpp"
-#include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_sampler.hpp"
-#include "gfx/gfx_texture.hpp"
+#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_pipeline.hpp"
 #include "grc/shader.hpp"
-#include "grc/shader_reflection.hpp"
-#include "math/mat.hpp"
-#include "math/vec.hpp"
-
-#include <cinttypes>
+#include "grc/shader_param_block.hpp"
 
 namespace wmoge {
 
     /**
-     * @class ShaderParamBlock
-     * @brief Holds params set which can be bound to a shader for drawing
-     * 
-     * ShaderParamBlock is a smart and comfort abstraction over raw gfx
-     * descriptor set management, required for dispatching shader on a gpu.
-     * Prefere its usage instead of raw gfx descriptor sets.
-     * 
-     * ShaderParamBlock allows to set textures, buffers, and raw params using param
-     * id and set methods. Data automatically packed internally into proper places. 
-     * Default values setup automatically as well, based on shader class defenition.
-     * 
-     * ShaderParamBlock automatically creates and update buffers and descriptor sets on a gpu. 
-     * After validation it can be directly inserted into desired descriptor set slot for drawing. 
+     * @class ShaderInstance
+     * @brief An instance of the shader for drawing
     */
-    class ShaderParamBlock {
+    class ShaderInstance {
     public:
-        /**
-         * Construct empty block with no setup.
-         * Configure it using `reset` method.
-        */
-        ShaderParamBlock() = default;
+        ShaderInstance()  = default;
+        ~ShaderInstance() = default;
 
-        /**
-         * @brief Creates params block with default setup for given shader and space.
-         * 
-         * @param shader Shader intended to be used with block
-         * @param space_idx Index of space to be used with this block
-        */
-        ShaderParamBlock(Shader& shader, std::int16_t space_idx);
+        ShaderInstance(Shader& shader, Strid name);
 
-        Status reset(Shader& shader, std::int16_t space_idx);
+        Status reset(Shader& shader, Strid name);
         Status reset_defaults();
-        Status validate(class GfxDriver* driver, class GfxCtx* ctx, Strid name);
+        Status validate(class GfxDriver* driver, class GfxCtx* ctx);
+
+        void set_technique(const Strid& name);
+        void set_technique(std::int16_t idx);
+
+        void set_option(Strid option, Strid variant);
+        void set_option(std::int16_t pass_idx, Strid option, Strid variant);
 
         Status set_var(ShaderParamId param_id, int v);
         Status set_var(ShaderParamId param_id, float v);
@@ -107,27 +83,12 @@ namespace wmoge {
         Status get_var(ShaderParamId param_id, Ref<GfxUniformBuffer>& v);
         Status get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v);
 
-        [[nodiscard]] const Ref<GfxDescSet>&          get_gfx_set() { return m_gfx_set; }
-        [[nodiscard]] Shader*                         get_shader() { return m_shader; }
-        [[nodiscard]] std::int16_t                    get_space() { return m_space; }
-        [[nodiscard]] Ref<Data>*                      get_buffer(std::int16_t buffer_idx);
-        [[nodiscard]] Ref<Data>*                      get_buffer(std::int16_t space_idx, std::int16_t buffer_idx);
-        [[nodiscard]] GfxDescSetResources*            get_gfx_resources();
-        [[nodiscard]] GfxDescSetResources*            get_gfx_resources(std::int16_t space_idx);
-        [[nodiscard]] std::optional<ShaderParamInfo*> get_param_info(ShaderParamId id) const;
-
     private:
-        void dirty_buffers() { m_dirty_buffers = 1; }
-        void dirty_set() { m_dirty_set = 1; }
-
-    private:
-        GfxDescSetResources           m_gfx_resources;
-        Ref<GfxDescSet>               m_gfx_set;
-        buffered_vector<Ref<Data>, 1> m_buffers;
-        Shader*                       m_shader        = nullptr;
-        std::int16_t                  m_space         = -1;
-        std::int8_t                   m_dirty_buffers = 1;
-        std::int8_t                   m_dirty_set     = 1;
+        buffered_vector<ShaderParamBlock>  m_param_blocks;
+        buffered_vector<ShaderPermutation> m_pass_permutations;
+        Shader*                            m_shader = nullptr;
+        Strid                              m_name;
+        std::int16_t                       m_technique_idx = -1;
     };
 
 }// namespace wmoge

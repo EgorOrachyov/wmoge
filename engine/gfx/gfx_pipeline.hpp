@@ -61,7 +61,7 @@ namespace wmoge {
         bool        operator==(const GfxPsoStateGraphics& other) const;
         std::size_t hash() const;
 
-        GfxRenderPassDesc     pass_desc;        // = GfxRenderPassDesc{}
+        Ref<GfxRenderPass>    pass;             // = nullptr;
         Ref<GfxShaderProgram> program;          // = nullptr;
         Ref<GfxPsoLayout>     layout;           // = nullptr;
         Ref<GfxVertFormat>    vert_format;      // = nullptr;
@@ -92,8 +92,8 @@ namespace wmoge {
         bool        operator==(const GfxPsoStateCompute& other) const;
         std::size_t hash() const;
 
-        Ref<GfxShader>    shader;// = nullptr;
-        Ref<GfxPsoLayout> layout;// = nullptr;
+        Ref<GfxShaderProgram> program;// = nullptr;
+        Ref<GfxPsoLayout>     layout; // = nullptr;
     };
 
     /**
@@ -110,16 +110,10 @@ namespace wmoge {
      * @brief Represents created and compiled graphics pipeline state object
      *
      * Pipeline is a compete object which can be directly bound to the command list for the rendering.
-     * Pipeline creation depends on a render pass and shader.
-     * As soon as dependencies created pipeline creation is started.
-     * Pipeline creation is asynchronous and done in the background.
-     * When pipeline created it will be used in the rendering.
      */
     class GfxPsoGraphics : public GfxPso {
     public:
-        ~GfxPsoGraphics() override                        = default;
-        virtual GfxPipelineStatus          status() const = 0;
-        virtual const GfxPsoStateGraphics& state() const  = 0;
+        ~GfxPsoGraphics() override = default;
     };
 
     /**
@@ -127,14 +121,36 @@ namespace wmoge {
      * @brief Represents created and compiled compute pipeline state object
      *
      * Pipeline is a compete object which can be directly bound to the command list for the compute dispatch.
-     * Pipeline creation is asynchronous and done in the background.
-     * When pipeline created it will be used in the rendering.
      */
     class GfxPsoCompute : public GfxPso {
     public:
-        ~GfxPsoCompute() override                        = default;
-        virtual GfxPipelineStatus         status() const = 0;
-        virtual const GfxPsoStateCompute& state() const  = 0;
+        ~GfxPsoCompute() override = default;
+    };
+
+    /**
+     * @class GfxAsyncPsoRequestGraphics
+     * @brief Request for async pso compilation
+    */
+    class GfxAsyncPsoRequestGraphics : public RefCnt {
+    public:
+        ~GfxAsyncPsoRequestGraphics() override = default;
+
+        buffered_vector<GfxPsoStateGraphics, 1> states;
+        buffered_vector<Strid, 1>               names;
+        buffered_vector<Ref<GfxPsoGraphics>, 1> pso;
+    };
+
+    /**
+     * @class GfxAsyncPsoRequestCompute
+     * @brief Request for async pso compilation
+    */
+    class GfxAsyncPsoRequestCompute : public RefCnt {
+    public:
+        ~GfxAsyncPsoRequestCompute() override = default;
+
+        buffered_vector<GfxPsoStateCompute, 1> states;
+        buffered_vector<Strid, 1>              names;
+        buffered_vector<Ref<GfxPsoCompute>, 1> pso;
     };
 
 }// namespace wmoge

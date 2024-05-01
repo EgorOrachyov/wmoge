@@ -63,52 +63,21 @@ namespace wmoge {
         }
     }
 
-    VKPsoGraphics::VKPsoGraphics(const GfxPsoStateGraphics& state, const Strid& name, VKDriver& driver) : VKResource<GfxPsoGraphics>(driver) {
-        m_name  = name;
-        m_state = state;
+    VKPsoGraphics::VKPsoGraphics(const Strid& name, VKDriver& driver) : VKResource<GfxPsoGraphics>(driver) {
+        m_name = name;
     }
     VKPsoGraphics::~VKPsoGraphics() {
         release();
     }
-    bool VKPsoGraphics::validate(const Ref<VKRenderPass>& render_pass) {
-        GfxPipelineStatus status = m_status.load();
 
-        //  creating pipeline in a background task, wait
-        if (status == GfxPipelineStatus::Creating) {
-            return false;
-        }
-        // creating is failed, pipeline is broken, nothing to do
-        if (status == GfxPipelineStatus::Failed) {
-            return false;
-        }
-        // pipeline is not yet created or version out of date, have to create new pipeline
-        if (status != GfxPipelineStatus::Created || m_render_pass != render_pass) {
-            assert(m_state.pass_desc == GfxRenderPassDesc{} || m_state.pass_desc == render_pass->pass_desc());
-
-            m_render_pass = render_pass;
-            m_status.store(GfxPipelineStatus::Creating);
-
-            Task compilation_task(m_name, [self = Ref<VKPsoGraphics>(this)](auto&) {
-                self->compile();
-                return 0;
-            });
-
-            compilation_task.schedule();
-
-            return false;
-        }
-
-        // so everything is ok, can draw
-        return true;
-    }
-    void VKPsoGraphics::compile() {
+    Status VKPsoGraphics::compile(const GfxPsoStateGraphics& state) {
         WG_AUTO_PROFILE_VULKAN("VKPsoGraphics::compile");
 
         Timer timer;
         timer.start();
 
-        auto program = m_state.program.cast<VKShaderProgram>();
-        auto layout  = m_state.layout.cast<VKPsoLayout>();
+        auto program = state.program.cast<VKShaderProgram>();
+        auto layout  = state.layout.cast<VKPsoLayout>();
 
         std::array<VkPipelineShaderStageCreateInfo, 6> shader_stages{};
         std::uint32_t                                  shader_stages_cout = 0;
@@ -121,7 +90,8 @@ namespace wmoge {
             shader_stages[idx].pName  = "main";
         }
 
-        auto vert_format = m_state.vert_format.cast<VKVertFormat>();
+        auto render_pass = state.pass.cast<VKRenderPass>();
+        auto vert_format = state.vert_format.cast<VKVertFormat>();
 
         VkPipelineVertexInputStateCreateInfo vertex_input_state{};
         vertex_input_state.sType                           = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -132,7 +102,7 @@ namespace wmoge {
 
         VkPipelineInputAssemblyStateCreateInfo input_assembly{};
         input_assembly.sType                  = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-        input_assembly.topology               = VKDefs::get_prim_type(m_state.prim_type);
+        input_assembly.topology               = VKDefs::get_prim_type(state.prim_type);
         input_assembly.primitiveRestartEnable = VK_FALSE;
 
         VkPipelineViewportStateCreateInfo viewport_state{};
@@ -144,10 +114,10 @@ namespace wmoge {
         rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
         rasterizer.depthClampEnable        = VK_FALSE;
         rasterizer.rasterizerDiscardEnable = VK_FALSE;
-        rasterizer.polygonMode             = VKDefs::get_poly_mode(m_state.poly_mode);
+        rasterizer.polygonMode             = VKDefs::get_poly_mode(state.poly_mode);
         rasterizer.lineWidth               = 1.0f;
-        rasterizer.cullMode                = VKDefs::get_poly_cull_mode(m_state.cull_mode);
-        rasterizer.frontFace               = VKDefs::get_poly_front_face(m_state.front_face);
+        rasterizer.cullMode                = VKDefs::get_poly_cull_mode(state.cull_mode);
+        rasterizer.frontFace               = VKDefs::get_poly_front_face(state.front_face);
         rasterizer.depthBiasEnable         = VK_FALSE;
         rasterizer.depthBiasConstantFactor = 0.0f;
         rasterizer.depthBiasClamp          = 0.0f;
@@ -163,23 +133,23 @@ namespace wmoge {
         multisampling.alphaToOneEnable      = VK_FALSE;
 
         VkStencilOpState stencil{};
-        stencil.reference   = m_state.stencil_rvalue;
-        stencil.compareMask = m_state.stencil_cmask;
-        stencil.writeMask   = m_state.stencil_wmask;
-        stencil.compareOp   = VKDefs::get_comp_func(m_state.stencil_comp_func);
-        stencil.failOp      = VKDefs::get_stencil_op(m_state.stencil_sfail);
-        stencil.depthFailOp = VKDefs::get_stencil_op(m_state.stencil_dfail);
-        stencil.passOp      = VKDefs::get_stencil_op(m_state.stencil_dpass);
+        stencil.reference   = state.stencil_rvalue;
+        stencil.compareMask = state.stencil_cmask;
+        stencil.writeMask   = state.stencil_wmask;
+        stencil.compareOp   = VKDefs::get_comp_func(state.stencil_comp_func);
+        stencil.failOp      = VKDefs::get_stencil_op(state.stencil_sfail);
+        stencil.depthFailOp = VKDefs::get_stencil_op(state.stencil_dfail);
+        stencil.passOp      = VKDefs::get_stencil_op(state.stencil_dpass);
 
         VkPipelineDepthStencilStateCreateInfo depth_stencil{};
         depth_stencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-        depth_stencil.depthTestEnable       = m_state.depth_enable;
-        depth_stencil.depthWriteEnable      = m_state.depth_write;
-        depth_stencil.depthCompareOp        = VKDefs::get_comp_func(m_state.depth_func);
+        depth_stencil.depthTestEnable       = state.depth_enable;
+        depth_stencil.depthWriteEnable      = state.depth_write;
+        depth_stencil.depthCompareOp        = VKDefs::get_comp_func(state.depth_func);
         depth_stencil.depthBoundsTestEnable = false;
         depth_stencil.minDepthBounds        = 0.0f;
         depth_stencil.maxDepthBounds        = 1.0f;
-        depth_stencil.stencilTestEnable     = m_state.stencil_enable;
+        depth_stencil.stencilTestEnable     = state.stencil_enable;
         depth_stencil.front                 = stencil;
         depth_stencil.back                  = stencil;
 
@@ -190,7 +160,7 @@ namespace wmoge {
         std::array<VkPipelineColorBlendAttachmentState, GfxLimits::MAX_COLOR_TARGETS> blend_attachments;
         blend_attachments.fill(blend_attachment);
 
-        if (m_state.blending) {
+        if (state.blending) {
             blend_attachments[0].blendEnable         = true;
             blend_attachments[0].alphaBlendOp        = VK_BLEND_OP_ADD;
             blend_attachments[0].colorBlendOp        = VK_BLEND_OP_ADD;
@@ -204,7 +174,7 @@ namespace wmoge {
         color_blending.sType             = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
         color_blending.logicOpEnable     = VK_FALSE;
         color_blending.logicOp           = VK_LOGIC_OP_COPY;
-        color_blending.attachmentCount   = m_render_pass->color_targets_count();
+        color_blending.attachmentCount   = render_pass->color_targets_count();
         color_blending.pAttachments      = blend_attachments.data();
         color_blending.blendConstants[0] = 0.0f;
         color_blending.blendConstants[1] = 0.0f;
@@ -234,92 +204,58 @@ namespace wmoge {
         pipeline_info.pColorBlendState    = &color_blending;
         pipeline_info.pDynamicState       = &dynamic_state;
         pipeline_info.layout              = layout->layout();
-        pipeline_info.renderPass          = m_render_pass->render_pass();
+        pipeline_info.renderPass          = render_pass->render_pass();
         pipeline_info.subpass             = 0;
         pipeline_info.basePipelineHandle  = m_pipeline;
         pipeline_info.basePipelineIndex   = -1;
 
         VkPipeline new_pipeline;
 
-        WG_VK_CHECK(vkCreateGraphicsPipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline));
+        auto result = vkCreateGraphicsPipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline);
+        if (result != VK_SUCCESS) {
+            WG_LOG_ERROR("failed to compile: " << name());
+            return StatusCode::Error;
+        }
+
         WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, name().str());
 
         release();
         m_pipeline = new_pipeline;
+        m_layout   = layout;
 
         timer.stop();
         WG_LOG_INFO("compiled: " << name() << " time: " << timer.get_elapsed_sec() << " sec");
 
-        m_status.store(GfxPipelineStatus::Created);
+        return WG_OK;
     }
     void VKPsoGraphics::release() {
         WG_AUTO_PROFILE_VULKAN("VKPsoGraphics::release");
 
         if (m_pipeline) {
-            m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });
+            vkDestroyPipeline(m_driver.device(), m_pipeline, nullptr);
             m_pipeline = VK_NULL_HANDLE;
         }
     }
-    GfxPipelineStatus VKPsoGraphics::status() const {
-        return m_status.load();
-    }
-    const GfxPsoStateGraphics& VKPsoGraphics::state() const {
-        return m_state;
-    }
 
-    VKPsoCompute::VKPsoCompute(const GfxPsoStateCompute& state, const Strid& name, VKDriver& driver) : VKResource<GfxPsoCompute>(driver) {
-        m_state = state;
-        m_name  = name;
+    VKPsoCompute::VKPsoCompute(const Strid& name, VKDriver& driver) : VKResource<GfxPsoCompute>(driver) {
+        m_name = name;
     }
     VKPsoCompute::~VKPsoCompute() {
         release();
     }
-    bool VKPsoCompute::validate() {
-        GfxPipelineStatus status = m_status.load();
-
-        //  creating pipeline in a background task, wait
-        if (status == GfxPipelineStatus::Creating) {
-            return false;
-        }
-        // creating is failed, pipeline is broken, nothing to do
-        if (status == GfxPipelineStatus::Failed) {
-            return false;
-        }
-        // pipeline is not yet created or version out of date, have to create new pipeline
-        if (status != GfxPipelineStatus::Created) {
-            m_status.store(GfxPipelineStatus::Creating);
-
-            Task compilation_task(m_name, [self = Ref<VKPsoCompute>(this)](auto&) {
-                self->compile();
-                return 0;
-            });
-
-            compilation_task.schedule();
-            return false;
-        }
-
-        // so everything is ok, can draw
-        return true;
-    }
-    GfxPipelineStatus VKPsoCompute::status() const {
-        return m_status.load();
-    }
-    const GfxPsoStateCompute& VKPsoCompute::state() const {
-        return m_state;
-    }
-    void VKPsoCompute::compile() {
+    Status VKPsoCompute::compile(const GfxPsoStateCompute& state) {
         WG_AUTO_PROFILE_VULKAN("VKPsoCompute::compile");
 
         Timer timer;
         timer.start();
 
-        auto shader = m_state.shader.cast<VKShader>();
-        auto layout = m_state.layout.cast<VKPsoLayout>();
+        auto program = state.program.cast<VKShaderProgram>();
+        auto layout  = state.layout.cast<VKPsoLayout>();
 
         VkPipelineShaderStageCreateInfo shader_stage{};
         shader_stage.sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         shader_stage.stage  = VK_SHADER_STAGE_COMPUTE_BIT;
-        shader_stage.module = shader->module();
+        shader_stage.module = program->get_desc()[0].cast<VKShader>()->module();
         shader_stage.pName  = "main";
 
         VkComputePipelineCreateInfo pipeline_info{};
@@ -329,21 +265,27 @@ namespace wmoge {
 
         VkPipeline new_pipeline;
 
-        WG_VK_CHECK(vkCreateComputePipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline));
+        auto result = vkCreateComputePipelines(m_driver.device(), m_driver.pipeline_cache(), 1, &pipeline_info, nullptr, &new_pipeline);
+        if (result != VK_SUCCESS) {
+            WG_LOG_ERROR("failed to compile: " << name());
+            return StatusCode::Error;
+        }
+
         WG_VK_NAME(m_driver.device(), new_pipeline, VK_OBJECT_TYPE_PIPELINE, name().str());
 
         m_pipeline = new_pipeline;
+        m_layout   = layout;
 
         timer.stop();
         WG_LOG_INFO("compiled: " << name() << " time: " << timer.get_elapsed_sec() << " sec");
 
-        m_status.store(GfxPipelineStatus::Created);
+        return WG_OK;
     }
     void VKPsoCompute::release() {
         WG_AUTO_PROFILE_VULKAN("VKPsoCompute::release");
 
         if (m_pipeline) {
-            m_driver.release_queue()->push([p = m_pipeline, d = m_driver.device()]() { vkDestroyPipeline(d, p, nullptr); });
+            vkDestroyPipeline(m_driver.device(), m_pipeline, nullptr);
             m_pipeline = VK_NULL_HANDLE;
         }
     }

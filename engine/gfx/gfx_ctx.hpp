@@ -91,8 +91,8 @@ namespace wmoge {
         virtual void viewport(const Rect2i& viewport)                                                              = 0;
         virtual void clear(int target, const Vec4f& color)                                                         = 0;
         virtual void clear(float depth, int stencil)                                                               = 0;
-        virtual bool bind_pipeline(const Ref<GfxPsoGraphics>& pipeline)                                            = 0;
-        virtual bool bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline)                                        = 0;
+        virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                                 = 0;
+        virtual void bind_pso(const Ref<GfxPsoCompute>& pipeline)                                                  = 0;
         virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                 = 0;
         virtual void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) = 0;
         virtual void bind_desc_set(const Ref<GfxDescSet>& set, int index)                                          = 0;

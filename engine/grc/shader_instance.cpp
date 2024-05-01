@@ -25,52 +25,8 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "gfx_pipeline_cache.hpp"
-
-#include <mutex>
+#include "shader_instance.hpp"
 
 namespace wmoge {
 
-    std::optional<Ref<GfxPsoLayout>> GfxPsoLayoutCache::get(const GfxDescSetLayouts& layouts) {
-        std::lock_guard guard(m_mutex);
-        auto            it = m_cache.find(layouts);
-        if (it != m_cache.end()) {
-            return it->second;
-        }
-        return std::nullopt;
-    }
-
-    void GfxPsoLayoutCache::add(const GfxDescSetLayouts& layouts, const Ref<GfxPsoLayout>& layout) {
-        std::lock_guard guard(m_mutex);
-        m_cache[layouts] = layout;
-    }
-
-    std::optional<Ref<GfxPsoGraphics>> GfxPsoGraphicsCache::get(const GfxPsoStateGraphics& state) {
-        std::lock_guard guard(m_mutex);
-        auto            it = m_cache.find(state);
-        if (it != m_cache.end()) {
-            return it->second;
-        }
-        return std::nullopt;
-    }
-
-    void GfxPsoGraphicsCache::add(const GfxPsoStateGraphics& state, const Ref<GfxPsoGraphics>& pipeline) {
-        std::lock_guard guard(m_mutex);
-        m_cache[state] = pipeline;
-    }
-
-    std::optional<Ref<GfxPsoCompute>> GfxPsoComputeCache::get(const GfxPsoStateCompute& state) {
-        std::lock_guard guard(m_mutex);
-        auto            it = m_cache.find(state);
-        if (it != m_cache.end()) {
-            return it->second;
-        }
-        return std::nullopt;
-    }
-
-    void GfxPsoComputeCache::add(const GfxPsoStateCompute& state, const Ref<GfxPsoCompute>& pipeline) {
-        std::lock_guard guard(m_mutex);
-        m_cache[state] = pipeline;
-    }
-
-}// namespace wmoge
+}

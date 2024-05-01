@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/array_view.hpp"
+#include "core/async.hpp"
 #include "core/callback_queue.hpp"
 #include "core/data.hpp"
 #include "gfx/gfx_buffers.hpp"
@@ -36,14 +37,12 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
-#include "gfx/gfx_pipeline_cache.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "gfx/gfx_vert_format.hpp"
-#include "gfx/gfx_vert_format_cache.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 #include "platform/window.hpp"
@@ -62,10 +61,6 @@ namespace wmoge {
      */
     class GfxDriver {
     public:
-        static constexpr const int DEFAULT_DYN_VERT_CHUNK_SIZE    = 64u * 1024u;
-        static constexpr const int DEFAULT_DYN_INDEX_CHUNK_SIZE   = 64u * 1024u;
-        static constexpr const int DEFAULT_DYN_UNIFORM_CHUNK_SIZE = 64u * 1024u;
-
         virtual ~GfxDriver() = default;
 
         virtual Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const Strid& name = Strid())                                                                                 = 0;
@@ -73,7 +68,7 @@ namespace wmoge {
         virtual Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                    = 0;
         virtual Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
         virtual Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
-        virtual Ref<GfxShader>           make_shader(Ref<Data> bytecode, GfxShaderModule module, const Strid& name = Strid())                                                                           = 0;
+        virtual Ref<GfxShader>           make_shader(GfxShaderDesc desc, const Strid& name = Strid())                                                                                                   = 0;
         virtual Ref<GfxShaderProgram>    make_program(GfxShaderProgramDesc desc, const Strid& name = Strid())                                                                                           = 0;
         virtual Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name = Strid()) = 0;
         virtual Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())  = 0;
@@ -87,7 +82,10 @@ namespace wmoge {
         virtual Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const Strid& name = Strid())                                                                                             = 0;
         virtual Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const Strid& name = Strid())                                                                                           = 0;
         virtual Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid())                                                                                = 0;
-        virtual Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Strid& name = Strid())                                                                               = 0;
+        virtual Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name = Strid())                                          = 0;
+        virtual Async                    make_shaders(const Ref<GfxAsyncShaderRequest>& request)                                                                                                        = 0;
+        virtual Async                    make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request)                                                                                             = 0;
+        virtual Async                    make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request)                                                                                               = 0;
 
         virtual void shutdown() = 0;
 
@@ -96,12 +94,8 @@ namespace wmoge {
         virtual void prepare_window(const Ref<Window>& window) = 0;
         virtual void swap_buffers(const Ref<Window>& window)   = 0;
 
-        [[nodiscard]] virtual class GfxCtx*        ctx_immediate()      = 0;
-        [[nodiscard]] virtual class GfxCtx*        ctx_async()          = 0;
-        [[nodiscard]] virtual GfxPsoLayoutCache*   pso_layout_cache()   = 0;
-        [[nodiscard]] virtual GfxPsoGraphicsCache* pso_graphics_cache() = 0;
-        [[nodiscard]] virtual GfxPsoComputeCache*  pso_compute_cache()  = 0;
-        [[nodiscard]] virtual GfxVertFormatCache*  vert_fmt_cache()     = 0;
+        [[nodiscard]] virtual class GfxCtx* ctx_immediate() = 0;
+        [[nodiscard]] virtual class GfxCtx* ctx_async()     = 0;
 
         [[nodiscard]] virtual const GfxDeviceCaps&   device_caps() const         = 0;
         [[nodiscard]] virtual const Strid&           driver_name() const         = 0;

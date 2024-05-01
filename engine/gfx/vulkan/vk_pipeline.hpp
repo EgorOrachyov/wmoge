@@ -56,24 +56,18 @@ namespace wmoge {
      */
     class VKPsoGraphics final : public VKResource<GfxPsoGraphics> {
     public:
-        VKPsoGraphics(const GfxPsoStateGraphics& state, const Strid& name, class VKDriver& driver);
+        VKPsoGraphics(const Strid& name, class VKDriver& driver);
         ~VKPsoGraphics() override;
 
-        bool validate(const Ref<VKRenderPass>& render_pass);
+        Status compile(const GfxPsoStateGraphics& state);
+        void   release();
 
-        GfxPipelineStatus          status() const override;
-        const GfxPsoStateGraphics& state() const override;
-        VkPipeline                 pipeline() const { return m_pipeline; }
-
-    private:
-        void compile();
-        void release();
+        VkPipeline              pipeline() const { return m_pipeline; }
+        const Ref<VKPsoLayout>& layout() const { return m_layout; }
 
     private:
-        GfxPsoStateGraphics            m_state;
-        Ref<VKRenderPass>              m_render_pass;
-        VkPipeline                     m_pipeline = VK_NULL_HANDLE;
-        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
+        VkPipeline       m_pipeline = VK_NULL_HANDLE;
+        Ref<VKPsoLayout> m_layout;
     };
 
     /**
@@ -82,23 +76,18 @@ namespace wmoge {
     */
     class VKPsoCompute final : public VKResource<GfxPsoCompute> {
     public:
-        VKPsoCompute(const GfxPsoStateCompute& state, const Strid& name, class VKDriver& driver);
+        VKPsoCompute(const Strid& name, class VKDriver& driver);
         ~VKPsoCompute() override;
 
-        bool validate();
+        Status compile(const GfxPsoStateCompute& state);
+        void   release();
 
-        GfxPipelineStatus         status() const override;
-        const GfxPsoStateCompute& state() const override;
-        VkPipeline                pipeline() const { return m_pipeline; }
-
-    private:
-        void compile();
-        void release();
+        VkPipeline              pipeline() const { return m_pipeline; }
+        const Ref<VKPsoLayout>& layout() const { return m_layout; }
 
     private:
-        GfxPsoStateCompute             m_state;
-        VkPipeline                     m_pipeline = VK_NULL_HANDLE;
-        std::atomic<GfxPipelineStatus> m_status{GfxPipelineStatus::Default};
+        VkPipeline       m_pipeline = VK_NULL_HANDLE;
+        Ref<VKPsoLayout> m_layout;
     };
 
 }// namespace wmoge

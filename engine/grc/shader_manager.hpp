@@ -39,6 +39,19 @@
 
 namespace wmoge {
 
+    struct ShaderCompilerInput {
+        ShaderPermutation permutation;
+        Shader*           shader        = nullptr;
+        std::int16_t      technique_idx = -1;
+        std::int16_t      pass_idx      = -1;
+    };
+
+    struct ShaderCompilerOutput {
+        Ref<GfxShader>                  shader;
+        Ref<GfxShaderProgram>           program;
+        buffered_vector<std::string, 1> errors;
+    };
+
     /**
      * @class ShaderManager
      * @brief Manager for loading and compilation of shader scripts

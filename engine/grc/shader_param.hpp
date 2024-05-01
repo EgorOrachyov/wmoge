@@ -112,8 +112,7 @@ namespace wmoge {
                 return StatusCode::InvalidParameter;
             }
 
-            Shader*                         script = provider.get_shader();
-            std::optional<ShaderParamInfo*> p_info = script->get_param_info(param_id);
+            std::optional<ShaderParamInfo*> p_info = provider.get_param_info(param_id);
 
             if (!p_info) {
                 WG_LOG_ERROR("no such param id");
@@ -191,8 +190,7 @@ namespace wmoge {
                 return StatusCode::InvalidParameter;
             }
 
-            Shader*                         script = provider.get_shader();
-            std::optional<ShaderParamInfo*> p_info = script->get_param_info(param_id);
+            std::optional<ShaderParamInfo*> p_info = provider.get_param_info(param_id);
 
             if (!p_info) {
                 WG_LOG_ERROR("no such param id");

@@ -30,6 +30,7 @@
 #include "core/buffered_vector.hpp"
 #include "core/data.hpp"
 #include "core/flat_map.hpp"
+#include "core/simple_id.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_resource.hpp"
 
@@ -40,6 +41,21 @@
 namespace wmoge {
 
     /**
+     * @brief Unique key to identify shader
+    */
+    using GfxShaderKey = SimpleId<std::uint32_t>;
+
+    /**
+     * @class GfxShaderDesc
+     * @brief Struct with params to create a gfx shader
+    */
+    struct GfxShaderDesc {
+        Ref<Data>       bytecode;
+        GfxShaderKey    key;
+        GfxShaderModule module_type;
+    };
+
+    /**
      * @class GfxShader
      * @brief Compiled single gpu program module
      */
@@ -47,12 +63,12 @@ namespace wmoge {
     public:
         ~GfxShader() override = default;
 
-        [[nodiscard]] const Ref<Data>& get_bytecode() const { return m_bytecode; }
-        [[nodiscard]] GfxShaderModule  get_module_type() const { return m_module_type; }
+        [[nodiscard]] const Ref<Data>& get_bytecode() const { return m_desc.bytecode; }
+        [[nodiscard]] GfxShaderKey     get_key() const { return m_desc.key; }
+        [[nodiscard]] GfxShaderModule  get_module_type() const { return m_desc.module_type; }
 
     protected:
-        Ref<Data>       m_bytecode;
-        GfxShaderModule m_module_type;
+        GfxShaderDesc m_desc;
     };
 
     /**
@@ -75,10 +91,23 @@ namespace wmoge {
     public:
         ~GfxShaderProgram() override = default;
 
-        [[nodiscard]] GfxShaderProgramDesc get_desc() const { return m_desc; }
+        [[nodiscard]] const GfxShaderProgramDesc& get_desc() const { return m_desc; }
 
     protected:
         GfxShaderProgramDesc m_desc;
+    };
+
+    /**
+     * @class GfxAsyncShaderRequest
+     * @brief Request for async shaders creation
+    */
+    class GfxAsyncShaderRequest : public RefCnt {
+    public:
+        ~GfxAsyncShaderRequest() override = default;
+
+        buffered_vector<GfxShaderDesc, 1>  desc;
+        buffered_vector<Strid, 1>          names;
+        buffered_vector<Ref<GfxShader>, 1> shaders;
     };
 
 }// namespace wmoge

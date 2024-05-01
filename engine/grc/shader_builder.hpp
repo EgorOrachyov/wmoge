@@ -123,6 +123,7 @@ namespace wmoge {
         };
 
         ShaderBuilder&   set_name(Strid name);
+        ShaderBuilder&   set_domain(ShaderDomain domain);
         ShaderBuilder&   add_ui_info(const std::string& name, const std::string& hint);
         ShaderBuilder&   add_source(Strid file, GfxShaderModule module);
         ShaderBuilder&   add_constant(Strid name, Var value);

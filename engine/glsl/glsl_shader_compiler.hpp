@@ -63,8 +63,8 @@ namespace wmoge {
      * @brief Compiler result
     */
     struct GlslCompilerOutput {
-        buffered_vector<Ref<Data>>   bytecode;
-        buffered_vector<std::string> errors;
+        buffered_vector<Ref<Data>>      bytecode;
+        buffered_vector<std::string, 1> errors;
     };
 
     /**

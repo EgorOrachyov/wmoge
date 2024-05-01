@@ -1,4 +1,5 @@
 name: canvas
+domain: Engine
 extends: ""
 ui_name: ""
 ui_hint: "shader to draw 2d primitives onto painting canvas"

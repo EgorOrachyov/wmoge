@@ -29,7 +29,7 @@
 
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
-
+#include "core/task_manager.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/threaded/gfx_driver_threaded.hpp"
 #include "gfx/threaded/gfx_driver_wrapper.hpp"
@@ -46,6 +46,8 @@
 #include "gfx/vulkan/vk_sampler.hpp"
 #include "gfx/vulkan/vk_vert_format.hpp"
 #include "gfx/vulkan/vk_window.hpp"
+#include "platform/file_system.hpp"
+#include "system/config_file.hpp"
 
 #include <array>
 #include <mutex>
@@ -68,7 +70,7 @@ namespace wmoge {
         Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const Strid& name) override;
         Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) override;
         Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) override;
-        Ref<GfxShader>           make_shader(Ref<Data> bytecode, GfxShaderModule module, const Strid& name) override;
+        Ref<GfxShader>           make_shader(GfxShaderDesc desc, const Strid& name) override;
         Ref<GfxShaderProgram>    make_program(GfxShaderProgramDesc desc, const Strid& name) override;
         Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) override;
         Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) override;
@@ -83,7 +85,10 @@ namespace wmoge {
         Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const Strid& name) override;
         Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const Strid& name) override;
         Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) override;
-        Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Strid& name) override;
+        Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name) override;
+        Async                    make_shaders(const Ref<GfxAsyncShaderRequest>& request) override;
+        Async                    make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request) override;
+        Async                    make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request) override;
 
         void shutdown() override;
 
@@ -92,12 +97,8 @@ namespace wmoge {
         void prepare_window(const Ref<Window>& window) override;
         void swap_buffers(const Ref<Window>& window) override;
 
-        class GfxCtx*        ctx_immediate() override { return m_ctx_immediate.get(); }
-        class GfxCtx*        ctx_async() override { return m_ctx_async.get(); }
-        GfxPsoLayoutCache*   pso_layout_cache() override { return m_pso_layout_cache.get(); }
-        GfxPsoGraphicsCache* pso_graphics_cache() override { return m_pso_graphics_cache.get(); }
-        GfxPsoComputeCache*  pso_compute_cache() override { return m_pso_compute_cache.get(); }
-        GfxVertFormatCache*  vert_fmt_cache() override { return m_vert_fmt_cache.get(); }
+        class GfxCtx* ctx_immediate() override { return m_ctx_immediate.get(); }
+        class GfxCtx* ctx_async() override { return m_ctx_async.get(); }
 
         const GfxDeviceCaps&   device_caps() const override { return m_device_caps; }
         const Strid&           driver_name() const override { return m_driver_name; }
@@ -158,7 +159,6 @@ namespace wmoge {
         flat_map<GfxSamplerDesc, Ref<VKSampler>>              m_samplers;
         flat_map<GfxRenderPassDesc, Ref<VKRenderPass>>        m_render_passes;
         flat_map<VKFrameBufferDesc, Ref<VKFramebufferObject>> m_frame_buffers;
-        flat_map<GfxDescSetLayoutDesc, Ref<VKDescSetLayout>>  m_layouts;
 
         GfxDeviceCaps      m_device_caps;
         Strid              m_driver_name = SID("unknown");
@@ -174,21 +174,21 @@ namespace wmoge {
         std::vector<std::string> m_required_device_extensions;
         bool                     m_use_validation = false;
 
-        std::unique_ptr<GfxDriverWrapper>    m_driver_wrapper;
-        std::unique_ptr<GfxCtxWrapper>       m_ctx_immediate_wrapper;
-        std::unique_ptr<GfxWorker>           m_driver_worker;
-        std::unique_ptr<CallbackStream>      m_driver_cmd_stream;
-        std::unique_ptr<VKWindowManager>     m_window_manager;
-        std::unique_ptr<VKQueues>            m_queues;
-        std::unique_ptr<VKMemManager>        m_mem_manager;
-        std::unique_ptr<VKDescManager>       m_desc_manager;
-        std::unique_ptr<VKCtx>               m_ctx_immediate;
-        std::unique_ptr<VKCtx>               m_ctx_async;
-        std::unique_ptr<GfxPsoLayoutCache>   m_pso_layout_cache;
-        std::unique_ptr<GfxPsoGraphicsCache> m_pso_graphics_cache;
-        std::unique_ptr<GfxPsoComputeCache>  m_pso_compute_cache;
-        std::unique_ptr<GfxVertFormatCache>  m_vert_fmt_cache;
-        std::vector<VkExtensionProperties>   m_device_extensions;
+        std::unique_ptr<GfxDriverWrapper>  m_driver_wrapper;
+        std::unique_ptr<GfxCtxWrapper>     m_ctx_immediate_wrapper;
+        std::unique_ptr<GfxWorker>         m_driver_worker;
+        std::unique_ptr<CallbackStream>    m_driver_cmd_stream;
+        std::unique_ptr<VKWindowManager>   m_window_manager;
+        std::unique_ptr<VKQueues>          m_queues;
+        std::unique_ptr<VKMemManager>      m_mem_manager;
+        std::unique_ptr<VKDescManager>     m_desc_manager;
+        std::unique_ptr<VKCtx>             m_ctx_immediate;
+        std::unique_ptr<VKCtx>             m_ctx_async;
+        std::vector<VkExtensionProperties> m_device_extensions;
+
+        ConfigFile*  m_config       = nullptr;
+        FileSystem*  m_file_system  = nullptr;
+        TaskManager* m_task_manager = nullptr;
     };
 
 }// namespace wmoge

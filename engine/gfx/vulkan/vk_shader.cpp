@@ -44,16 +44,15 @@ namespace wmoge {
         }
     }
 
-    void VKShader::create(Ref<Data> bytecode, GfxShaderModule module_type) {
+    void VKShader::create(GfxShaderDesc desc) {
         WG_AUTO_PROFILE_VULKAN("VKShader::create");
 
-        m_bytecode    = std::move(bytecode);
-        m_module_type = module_type;
+        m_desc = std::move(m_desc);
 
         VkShaderModuleCreateInfo create_info{};
         create_info.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-        create_info.codeSize = static_cast<uint32_t>(m_bytecode->size());
-        create_info.pCode    = reinterpret_cast<std::uint32_t*>(m_bytecode->buffer());
+        create_info.codeSize = static_cast<uint32_t>(m_desc.bytecode->size());
+        create_info.pCode    = reinterpret_cast<std::uint32_t*>(m_desc.bytecode->buffer());
 
         WG_VK_CHECK(vkCreateShaderModule(m_driver.device(), &create_info, nullptr, &m_module));
         WG_VK_NAME(m_driver.device(), m_module, VK_OBJECT_TYPE_SHADER_MODULE, name().str());

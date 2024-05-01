@@ -160,11 +160,14 @@ namespace wmoge {
     ShaderBuilder::PassBuilder& ShaderBuilder::PassBuilder::add_option(Strid name, const buffered_vector<Strid>& variants) {
         ShaderOption& option = m_pass.options.options.emplace_back();
         option.name          = name;
+        option.base_variant  = variants.front();
 
         m_pass.options.options_map[name] = m_next_option_idx++;
 
         for (int i = 0; i < int(variants.size()); i++) {
             option.variants[variants[i]] = m_technique.m_next_variant_idx++;
+            m_technique.m_technique.options_remap.emplace_back(name);
+            m_technique.m_technique.variants_remap.emplace_back(variants[i]);
         }
 
         return *this;
@@ -197,11 +200,14 @@ namespace wmoge {
     ShaderBuilder::TechniqueBuilder& ShaderBuilder::TechniqueBuilder::add_option(Strid name, const buffered_vector<Strid>& variants) {
         ShaderOption& option = m_technique.options.options.emplace_back();
         option.name          = name;
+        option.base_variant  = variants.front();
 
         m_technique.options.options_map[name] = m_next_option_idx++;
 
         for (int i = 0; i < int(variants.size()); i++) {
             option.variants[variants[i]] = m_next_variant_idx++;
+            m_technique.options_remap.emplace_back(name);
+            m_technique.variants_remap.emplace_back(variants[i]);
         }
 
         return *this;
@@ -231,6 +237,11 @@ namespace wmoge {
 
     ShaderBuilder& ShaderBuilder::set_name(Strid name) {
         m_reflection.shader_name = name;
+        return *this;
+    }
+
+    ShaderBuilder& ShaderBuilder::set_domain(ShaderDomain domain) {
+        m_reflection.domain = domain;
         return *this;
     }
 

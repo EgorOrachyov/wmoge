@@ -54,6 +54,7 @@ namespace wmoge {
         ShaderBuilder   builder;
 
         builder.set_name(file.name);
+        builder.set_domain(file.domain);
         builder.add_ui_info(file.ui_name.empty() ? file.name.str() : file.ui_name, file.ui_hint);
 
         for (const auto& source : file.sources) {
@@ -79,7 +80,7 @@ namespace wmoge {
                     return StatusCode::InvalidData;
                 }
 
-                auto& type = qtype.value();
+                auto type = qtype.value();
                 if (type->type == ShaderBaseType::Struct) {
                     builder.add_struct(type);
                 }
@@ -108,7 +109,7 @@ namespace wmoge {
             auto struct_bilder = builder.add_struct(inline_params_names[i], inline_params_sizes[i]);
 
             for (const auto& param : param_block.params) {
-                auto& type = shader_manager->find_global_type(param.type).value();
+                auto type = shader_manager->find_global_type(param.type).value();
                 if (!type->is_primitive) {
                     continue;
                 }
@@ -138,7 +139,7 @@ namespace wmoge {
             }
 
             for (const auto& param : param_block.params) {
-                auto& type = shader_manager->find_global_type(param.type).value();
+                auto type = shader_manager->find_global_type(param.type).value();
                 if (type->is_primitive) {
                     continue;
                 }
@@ -353,6 +354,45 @@ namespace wmoge {
             }
         }
         return false;
+    }
+
+    bool Shader::has_option(std::int16_t technique, Strid name, Strid variant) const {
+        if (m_reflection.techniques.size() <= technique) {
+            return false;
+        }
+
+        const ShaderOptions& options = m_reflection.techniques[technique].options;
+
+        auto option_query = options.options_map.find(name);
+        if (option_query == options.options_map.end()) {
+            return false;
+        }
+
+        auto variant_query = options.options[option_query->second].variants.find(variant);
+        return variant_query != options.options[option_query->second].variants.end();
+    }
+
+    bool Shader::has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const {
+        if (m_reflection.techniques.size() <= technique) {
+            return false;
+        }
+        if (m_reflection.techniques[technique].passes.size() <= pass) {
+            return false;
+        }
+
+        const ShaderOptions& options = m_reflection.techniques[technique].passes[pass].options;
+
+        auto option_query = options.options_map.find(name);
+        if (option_query == options.options_map.end()) {
+            return false;
+        }
+
+        auto variant_query = options.options[option_query->second].variants.find(variant);
+        return variant_query != options.options[option_query->second].variants.end();
+    }
+
+    std::int16_t Shader::get_num_spaces() const {
+        return std::int16_t(m_reflection.spaces.size());
     }
 
 }// namespace wmoge

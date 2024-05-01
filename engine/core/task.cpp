@@ -29,13 +29,13 @@
 
 #include "core/task_runtime.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     Task::Task(Strid name, TaskRunnable runnable)
         : m_runnable(std::move(runnable)),
-          m_task_manager(Engine::instance()->task_manager()),
+          m_task_manager(IocContainer::instance()->resolve_v<TaskManager>()),
           m_name(name) {
     }
 

@@ -76,7 +76,7 @@ namespace wmoge {
             const GfxDrawCall&         call_params  = cmd.call_params;
 
             if (bound_pipeline != cmd.pipeline) {
-                if (!gfx_ctx->bind_pipeline(Ref<GfxPsoGraphics>(cmd.pipeline))) {
+                if (false /* !gfx_ctx->bind_pso(Ref<GfxPsoGraphics>(cmd.pipeline)) */) {
                     continue;
                 }
                 bound_pipeline = cmd.pipeline;

@@ -27,32 +27,29 @@
 
 #pragma once
 
-#include "core/flat_map.hpp"
-#include "core/string_id.hpp"
-#include "core/synchronization.hpp"
-#include "gfx/gfx_vert_format.hpp"
-
-#include <optional>
+#include <cinttypes>
+#include <limits>
 
 namespace wmoge {
 
     /**
-     * @class GfxVertFormatCache
-     * @brief Runtime cache of vertex formats
+     * @class SimpleId
+     * @brief Template to make simple id types
     */
-    class GfxVertFormatCache final {
-    public:
-        GfxVertFormatCache()                          = default;
-        GfxVertFormatCache(const GfxVertFormatCache&) = delete;
-        GfxVertFormatCache(GfxVertFormatCache&&)      = delete;
-        ~GfxVertFormatCache()                         = default;
+    template<typename ValueType = std::uint32_t>
+    struct SimpleId {
+        SimpleId() = default;
+        SimpleId(ValueType v) : value(v) {}
 
-        std::optional<Ref<GfxVertFormat>> get(const GfxVertElements& elements);
-        void                              add(const GfxVertElements& elements, const Ref<GfxVertFormat>& format);
+        [[nodiscard]] bool is_valid() const { return value != INVLID_VALUE; }
+        [[nodiscard]] bool is_invalid() const { return !is_valid(); }
 
-    private:
-        flat_map<GfxVertElements, Ref<GfxVertFormat>> m_cache;
-        SpinMutex                                     m_mutex;
+        operator bool() const { return is_valid(); }
+        operator ValueType() const { return value; }
+        operator std::size_t() const { return static_cast<std::size_t>(value); }
+
+        static constexpr ValueType INVLID_VALUE = std::numeric_limits<ValueType>::max();
+        ValueType                  value        = INVLID_VALUE;
     };
 
 }// namespace wmoge

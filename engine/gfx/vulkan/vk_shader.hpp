@@ -48,7 +48,7 @@ namespace wmoge {
         VKShader(const Strid& name, class VKDriver& driver);
         ~VKShader() override;
 
-        void create(Ref<Data> bytecode, GfxShaderModule module);
+        void create(GfxShaderDesc desc);
 
         [[nodiscard]] VkShaderModule module() const { return m_module; }
 

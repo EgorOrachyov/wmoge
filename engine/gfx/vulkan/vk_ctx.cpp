@@ -286,8 +286,8 @@ namespace wmoge {
         m_render_pass_binder->clear_depth();
         m_render_pass_binder->clear_stencil();
     }
-    bool VKCtx::bind_pipeline(const Ref<GfxPsoGraphics>& pipeline) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pipeline");
+    void VKCtx::bind_pso(const Ref<GfxPsoGraphics>& pipeline) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pso");
 
         assert(check_thread_valid());
         assert(m_in_render_pass);
@@ -298,22 +298,13 @@ namespace wmoge {
 
         Ref<VKPsoGraphics> new_pipeline = pipeline.cast<VKPsoGraphics>();
 
-        if (new_pipeline == m_current_pso_graphics) {
-            return true;
-        }
-        if (!new_pipeline->validate(m_current_pass)) {
-            return false;
-        }
-
         vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_GRAPHICS, new_pipeline->pipeline());
         m_current_pso_graphics = std::move(new_pipeline);
-        m_current_pso_layout   = m_current_pso_graphics->state().layout.cast<VKPsoLayout>();
+        m_current_pso_layout   = m_current_pso_graphics->layout();
         m_pipeline_bound       = true;
-
-        return true;
     }
-    bool VKCtx::bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline) {
-        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pipeline");
+    void VKCtx::bind_pso(const Ref<GfxPsoCompute>& pipeline) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pso");
 
         assert(check_thread_valid());
         assert(!m_in_render_pass);
@@ -321,19 +312,10 @@ namespace wmoge {
 
         Ref<VKPsoCompute> new_pipeline = pipeline.cast<VKPsoCompute>();
 
-        if (new_pipeline == m_current_pso_compute) {
-            return true;
-        }
-        if (!new_pipeline->validate()) {
-            return false;
-        }
-
         vkCmdBindPipeline(cmd_current(), VK_PIPELINE_BIND_POINT_COMPUTE, new_pipeline->pipeline());
         m_current_pso_compute = std::move(new_pipeline);
-        m_current_pso_layout  = m_current_pso_compute->state().layout.cast<VKPsoLayout>();
+        m_current_pso_layout  = m_current_pso_compute->layout();
         m_comp_pipeline_bound = true;
-
-        return true;
     }
     void VKCtx::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_vert_buffer");

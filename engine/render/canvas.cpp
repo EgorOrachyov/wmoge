@@ -58,10 +58,10 @@ namespace wmoge {
         pso_state.blending     = true;
 
         // pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {"OUT_SRGB"});
-        pipeline_srgb = driver->make_pso_graphics(pso_state, SID("canvas_srgb"));
+        // pipeline_srgb = driver->make_pso_graphics(pso_state, SID("canvas_srgb"));
 
         // pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {});
-        pipeline_linear = driver->make_pso_graphics(pso_state, SID("canvas_linear"));
+        // pipeline_linear = driver->make_pso_graphics(pso_state, SID("canvas_linear"));
     }
 
     void CanvasSharedData::compile() {
@@ -103,7 +103,7 @@ namespace wmoge {
             }
 
             const std::string name = "canvas idx=" + StringUtils::from_int(i);
-            tex_sets[i]            = gfx_drvier->make_desc_set(resources, SID(name));
+            //  tex_sets[i]            = gfx_drvier->make_desc_set(resources, SID(name));
         }
     }
 
@@ -448,7 +448,7 @@ namespace wmoge {
                 value.range    = m_gpu_cmd_buffer.get_buffer()->size();
             }
         }
-        m_params_set = gfx_drvier->make_desc_set(resources, SID("canvas_params"));
+        // m_params_set = gfx_drvier->make_desc_set(resources, SID("canvas_params"));
 
         if (compile_shared_data) {
             m_shared->compile();
@@ -479,7 +479,7 @@ namespace wmoge {
             thread_ctx->clear(0, Color::BLACK4f);// todo: remove
             thread_ctx->viewport(viewport);
 
-            if (thread_ctx->bind_pipeline(m_shared->pipeline_srgb)) {
+            if (false /* thread_ctx->bind_pso(m_shared->pipeline_srgb) */) {
                 thread_ctx->bind_desc_set(m_params_set, ShaderCanvas::PARAMS_SET);
 
                 const int num_cmds = int(m_gpu_cmd_buffer.get_size());

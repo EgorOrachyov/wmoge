@@ -56,10 +56,10 @@ namespace wmoge {
     return s
 
     ShaderParamBlock::ShaderParamBlock(Shader& shader, std::int16_t space_idx) {
-        configure(shader, space_idx);
+        reset(shader, space_idx);
     }
 
-    Status ShaderParamBlock::configure(Shader& shader, std::int16_t space_idx) {
+    Status ShaderParamBlock::reset(Shader& shader, std::int16_t space_idx) {
         m_shader = &shader;
         m_space  = space_idx;
 
@@ -184,7 +184,7 @@ namespace wmoge {
                                  << name
                                  << " space=" << m_space
                                  << " binding=" << i
-                                 << " script=" << m_shader->get_name());
+                                 << " shader=" << m_shader->get_name());
                     return StatusCode::InvalidState;
                 }
                 if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
@@ -192,12 +192,12 @@ namespace wmoge {
                                  << name
                                  << " space=" << m_space
                                  << " binding=" << i
-                                 << " script=" << m_shader->get_name());
+                                 << " shader=" << m_shader->get_name());
                     return StatusCode::InvalidState;
                 }
             }
 
-            m_gfx_set = driver->make_desc_set(m_gfx_resources, name);
+            m_gfx_set = driver->make_desc_set(m_gfx_resources, m_shader->get_layout(m_space), name);
         }
 
         m_dirty_buffers = 0;
@@ -251,6 +251,9 @@ namespace wmoge {
             return nullptr;
         }
         return &m_gfx_resources;
+    }
+    std::optional<ShaderParamInfo*> ShaderParamBlock::get_param_info(ShaderParamId id) const {
+        return m_shader ? m_shader->get_param_info(id) : std::nullopt;
     }
 
 }// namespace wmoge

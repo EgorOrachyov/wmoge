@@ -160,6 +160,7 @@ namespace wmoge {
 
         Strid                                 name;
         Strid                                 extends;
+        ShaderDomain                          domain;
         std::string                           ui_name;
         std::string                           ui_hint;
         buffered_vector<ShaderFileParamBlock> param_blocks;
@@ -170,6 +171,7 @@ namespace wmoge {
     WG_RTTI_STRUCT_BEGIN(ShaderFile) {
         WG_RTTI_FIELD(name, {});
         WG_RTTI_FIELD(extends, {RttiOptional});
+        WG_RTTI_FIELD(domain, {});
         WG_RTTI_FIELD(ui_name, {RttiOptional});
         WG_RTTI_FIELD(ui_hint, {RttiOptional});
         WG_RTTI_FIELD(param_blocks, {RttiOptional});

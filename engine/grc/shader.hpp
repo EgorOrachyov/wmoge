@@ -38,6 +38,7 @@
 #include "platform/file_system.hpp"
 #include "rtti/traits.hpp"
 
+#include <bitset>
 #include <optional>
 
 namespace wmoge {
@@ -47,12 +48,8 @@ namespace wmoge {
      * @brief Defines a particular variant of a compiled shader
     */
     struct ShaderPermutation {
-        static constexpr int MAX_OPTIONS = 64;
-
-        std::bitset<MAX_OPTIONS> options;
-        std::int16_t             technique_idx;
-        std::int16_t             pass_idx;
-        GfxVertAttribs           vert_attribs;
+        std::bitset<ShaderOptions::MAX_OPTIONS> options;
+        GfxVertAttribs                          vert_attribs;
     };
 
     /**
@@ -90,13 +87,18 @@ namespace wmoge {
         Status                          fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
         bool                            has_dependency(const Strid& dependency) const;
         bool                            has_space(ShaderSpaceType space_type) const;
+        bool                            has_option(std::int16_t technique, Strid name, Strid variant) const;
+        bool                            has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;
+        std::int16_t                    get_num_spaces() const;
 
-        [[nodiscard]] const ShaderReflection& get_reflection() const { return m_reflection; }
-        [[nodiscard]] ShaderReflection&       get_reflection() { return m_reflection; }
-        [[nodiscard]] const Strid&            get_name() const { return m_reflection.shader_name; }
+        [[nodiscard]] const ShaderReflection&      get_reflection() const { return m_reflection; }
+        [[nodiscard]] ShaderReflection&            get_reflection() { return m_reflection; }
+        [[nodiscard]] const Strid&                 get_name() const { return m_reflection.shader_name; }
+        [[nodiscard]] const Ref<GfxDescSetLayout>& get_layout(std::int16_t space) const { return m_layouts[space]; }
 
-    private:
-        ShaderReflection m_reflection;
+    protected:
+        ShaderReflection                       m_reflection;
+        buffered_vector<Ref<GfxDescSetLayout>> m_layouts;
     };
 
     WG_RTTI_CLASS_BEGIN(Shader) {

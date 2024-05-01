@@ -35,7 +35,7 @@ namespace wmoge {
 
     GfxPsoStateGraphics::GfxPsoStateGraphics() {
         std::memset(this, 0, sizeof(GfxPsoStateGraphics));
-        pass_desc         = GfxRenderPassDesc{};
+        pass              = nullptr;
         program           = nullptr;
         layout            = nullptr;
         vert_format       = nullptr;
@@ -65,12 +65,12 @@ namespace wmoge {
 
     GfxPsoStateCompute::GfxPsoStateCompute() {
         std::memset(this, 0, sizeof(GfxPsoStateCompute));
-        shader = nullptr;
-        layout = nullptr;
+        program = nullptr;
+        layout  = nullptr;
     }
 
     bool GfxPsoStateCompute::operator==(const GfxPsoStateCompute& other) const {
-        return shader == other.shader;
+        return std::memcmp(this, &other, sizeof(GfxPsoStateCompute)) == 0;
     }
     std::size_t GfxPsoStateCompute::hash() const {
         return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPsoStateCompute)));

@@ -44,18 +44,6 @@ namespace wmoge {
     AssetManager::AssetManager() {
         m_file_system  = IocContainer::instance()->resolve_v<FileSystem>();
         m_type_storage = IocContainer::instance()->resolve_v<RttiTypeStorage>();
-
-        std::vector<RttiClass*> loaders = m_type_storage->find_classes([](const Ref<RttiClass>& type) {
-            return type->is_subtype_of(AssetLoader::get_class_static()) && type->can_instantiate();
-        });
-
-        for (auto& loader : loaders) {
-            assert(loader);
-            assert(loader->can_instantiate());
-            add_loader(loader->instantiate().cast<AssetLoader>());
-        }
-
-        add_pak(std::make_shared<AssetPakFileSystem>());
     }
 
     AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name, AssetCallback callback) {
@@ -246,6 +234,22 @@ namespace wmoge {
 
         std::lock_guard guard(m_mutex);
         m_assets.clear();
+    }
+
+    void AssetManager::load_loaders() {
+        WG_AUTO_PROFILE_ASSET("AssetManager::load_loaders");
+
+        std::vector<RttiClass*> loaders = m_type_storage->find_classes([](const Ref<RttiClass>& type) {
+            return type->is_subtype_of(AssetLoader::get_class_static()) && type->can_instantiate();
+        });
+
+        for (auto& loader : loaders) {
+            assert(loader);
+            assert(loader->can_instantiate());
+            add_loader(loader->instantiate().cast<AssetLoader>());
+        }
+
+        add_pak(std::make_shared<AssetPakFileSystem>());
     }
 
 }// namespace wmoge

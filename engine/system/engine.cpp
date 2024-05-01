@@ -42,6 +42,7 @@
 #include "gameplay/action_manager.hpp"
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "grc/pso_cache.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
@@ -113,6 +114,9 @@ namespace wmoge {
         m_window_manager = ioc->resolve_v<GlfwWindowManager>();
         m_input          = ioc->resolve_v<GlfwInput>();
 
+        m_asset_manager = ioc->resolve_v<AssetManager>();
+        m_asset_manager->load_loaders();
+
         WindowInfo window_info;
         window_info.width    = m_config->get_int(SID("window.width"), 1280);
         window_info.height   = m_config->get_int(SID("window.height"), 720);
@@ -129,9 +133,9 @@ namespace wmoge {
         m_gfx_ctx    = ioc->resolve_v<GfxCtx>();
 
         m_shader_manager   = ioc->resolve_v<ShaderManager>();
+        m_pso_cache        = ioc->resolve_v<PsoCache>();
         m_texture_manager  = ioc->resolve_v<TextureManager>();
         m_render_engine    = ioc->resolve_v<RenderEngine>();
-        m_asset_manager    = ioc->resolve_v<AssetManager>();
         m_ecs_registry     = ioc->resolve_v<EcsRegistry>();
         m_aux_draw_manager = ioc->resolve_v<AuxDrawManager>();
         m_scene_manager    = ioc->resolve_v<SceneManager>();
@@ -243,6 +247,7 @@ namespace wmoge {
     GfxDriver*        Engine::gfx_driver() { return m_gfx_driver; }
     GfxCtx*           Engine::gfx_ctx() { return m_gfx_ctx; }
     ShaderManager*    Engine::shader_manager() { return m_shader_manager; }
+    PsoCache*         Engine::pso_cache() { return m_pso_cache; }
     TextureManager*   Engine::texture_manager() { return m_texture_manager; }
     AuxDrawManager*   Engine::aux_draw_manager() { return m_aux_draw_manager; }
     SceneManager*     Engine::scene_manager() { return m_scene_manager; }

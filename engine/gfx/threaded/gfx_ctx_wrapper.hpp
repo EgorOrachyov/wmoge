@@ -81,8 +81,8 @@ namespace wmoge {
         void viewport(const Rect2i& viewport) override;
         void clear(int target, const Vec4f& color) override;
         void clear(float depth, int stencil) override;
-        bool bind_pipeline(const Ref<GfxPsoGraphics>& pipeline) override;
-        bool bind_comp_pipeline(const Ref<GfxPsoCompute>& pipeline) override;
+        void bind_pso(const Ref<GfxPsoGraphics>& pipeline) override;
+        void bind_pso(const Ref<GfxPsoCompute>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
         void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;

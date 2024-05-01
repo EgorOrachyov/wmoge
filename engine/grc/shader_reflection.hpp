@@ -247,6 +247,7 @@ namespace wmoge {
     */
     struct ShaderOption {
         Strid                         name;
+        Strid                         base_variant;
         flat_map<Strid, std::int16_t> variants;
         std::string                   ui_name;
         std::string                   ui_hint;
@@ -257,6 +258,8 @@ namespace wmoge {
      * @brief Map of options for a technique or pass
     */
     struct ShaderOptions {
+        static constexpr int MAX_OPTIONS = 64;
+
         buffered_vector<ShaderOption> options;
         flat_map<Strid, std::int16_t> options_map;
     };
@@ -330,6 +333,8 @@ namespace wmoge {
         flat_map<Strid, Var>            tags;
         std::string                     ui_name;
         std::string                     ui_hint;
+        std::vector<Strid>              options_remap;
+        std::vector<Strid>              variants_remap;
     };
 
     /**
@@ -386,12 +391,21 @@ namespace wmoge {
     };
 
     /**
+     * @brief Describes how this shader will be used
+    */
+    enum class ShaderDomain {
+        Material,// Shader to use with materials
+        Engine   // Shader for in-egnine specifics (used without material)
+    };
+
+    /**
      * @class ShaderReflection
      * @brief Full reflection information of a single shader class
     */
     struct ShaderReflection {
         Strid                                shader_name;   // shader script global unique name
         Strid                                shader_extends;// shader script which we extend in this one
+        ShaderDomain                         domain;        // shader domain
         std::string                          ui_name;       // optional ui name
         std::string                          ui_hint;       // optional ui hint
         flat_map<Strid, std::int16_t>        params_id;     // mapping of full param name to its id

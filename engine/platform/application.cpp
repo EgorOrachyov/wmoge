@@ -42,6 +42,7 @@
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
+#include "grc/pso_cache.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
@@ -107,6 +108,7 @@ namespace wmoge {
         ioc->bind<CallbackQueue>();
         ioc->bind<GlslShaderCompiler>();
         ioc->bind<ShaderManager>();
+        ioc->bind<PsoCache>();
         ioc->bind<TextureManager>();
         ioc->bind<RenderEngine>();
         ioc->bind<AssetManager>();
@@ -188,6 +190,7 @@ namespace wmoge {
         ioc->unbind<ActionManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<AssetManager>();
+        ioc->unbind<PsoCache>();
         ioc->unbind<ShaderManager>();
         ioc->unbind<GlslShaderCompiler>();
         ioc->unbind<TextureManager>();

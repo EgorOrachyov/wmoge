@@ -162,6 +162,11 @@ namespace wmoge {
          */
         void clear();
 
+        /**
+         * @brief Loads loaders into manager from global rtti info
+        */
+        void load_loaders();
+
     private:
         /**
          * @class LoadState

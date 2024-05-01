@@ -49,22 +49,11 @@ namespace wmoge {
         m_pipeline_cache_path = driver->pipeline_cache_path();
         m_ctx_immediate       = driver->ctx_immediate();
         m_ctx_async           = driver->ctx_async();
-        m_pso_layout_cache    = driver->pso_layout_cache();
-        m_pso_graphics_cache  = driver->pso_graphics_cache();
-        m_pso_compute_cache   = driver->pso_compute_cache();
-        m_vert_fmt_cache      = driver->vert_fmt_cache();
     }
 
     Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const Strid& name) {
-        auto cached = m_vert_fmt_cache->get(elements);
-        if (cached.has_value()) {
-            return cached.value();
-        }
-
         Ref<GfxVertFormat> vert_format;
         m_stream->push_and_wait([&]() { vert_format = m_driver->make_vert_format(elements, name); });
-        m_vert_fmt_cache->add(elements, vert_format);
-        WG_LOG_INFO("cache new vf " << name);
         return vert_format;
     }
     Ref<GfxVertBuffer> GfxDriverWrapper::make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) {
@@ -95,11 +84,11 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { buffer = m_driver->make_storage_buffer(size, usage, name); });
         return buffer;
     }
-    Ref<GfxShader> GfxDriverWrapper::make_shader(Ref<Data> bytecode, GfxShaderModule module, const Strid& name) {
+    Ref<GfxShader> GfxDriverWrapper::make_shader(GfxShaderDesc desc, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shader");
 
         Ref<GfxShader> shader;
-        m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(bytecode), module, name); });
+        m_stream->push_and_wait([&]() { shader = m_driver->make_shader(std::move(desc), name); });
         return shader;
     }
     Ref<GfxShaderProgram> GfxDriverWrapper::make_program(GfxShaderProgramDesc desc, const Strid& name) {
@@ -140,44 +129,22 @@ namespace wmoge {
     Ref<GfxPsoLayout> GfxDriverWrapper::make_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_pso_layout");
 
-        auto cached = m_pso_layout_cache->get(layouts);
-        if (cached.has_value()) {
-            return cached.value();
-        }
-
         Ref<GfxPsoLayout> pipeline_layout;
         m_stream->push_and_wait([&]() { pipeline_layout = m_driver->make_pso_layout(layouts, name); });
-        m_pso_layout_cache->add(layouts, pipeline_layout);
-        WG_LOG_INFO("cache new pso layout " << name);
-
-        return Ref<GfxPsoLayout>();
+        return pipeline_layout;
     }
     Ref<GfxPsoGraphics> GfxDriverWrapper::make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_pso_graphics");
 
-        auto cached = m_pso_graphics_cache->get(state);
-        if (cached.has_value()) {
-            return cached.value();
-        }
-
         Ref<GfxPsoGraphics> pipeline;
         m_stream->push_and_wait([&]() { pipeline = m_driver->make_pso_graphics(state, name); });
-        m_pso_graphics_cache->add(state, pipeline);
-        WG_LOG_INFO("cache new pso " << name);
         return pipeline;
     }
     Ref<GfxPsoCompute> GfxDriverWrapper::make_pso_compute(const GfxPsoStateCompute& state, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_pso_compute");
 
-        auto cached = m_pso_compute_cache->get(state);
-        if (cached.has_value()) {
-            return cached.value();
-        }
-
         Ref<GfxPsoCompute> pipeline;
         m_stream->push_and_wait([&]() { pipeline = m_driver->make_pso_compute(state, name); });
-        m_pso_compute_cache->add(state, pipeline);
-        WG_LOG_INFO("cache new comp pso " << name);
         return pipeline;
     }
     Ref<GfxRenderPass> GfxDriverWrapper::make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
@@ -215,12 +182,33 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { desc_layout = m_driver->make_desc_layout(desc, name); });
         return desc_layout;
     }
-    Ref<GfxDescSet> GfxDriverWrapper::make_desc_set(const GfxDescSetResources& resources, const Strid& name) {
+    Ref<GfxDescSet> GfxDriverWrapper::make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_desc_set");
 
         Ref<GfxDescSet> desc_set;
-        m_stream->push_and_wait([&]() { desc_set = m_driver->make_desc_set(resources, name); });
+        m_stream->push_and_wait([&]() { desc_set = m_driver->make_desc_set(resources, layout, name); });
         return desc_set;
+    }
+    Async GfxDriverWrapper::make_shaders(const Ref<GfxAsyncShaderRequest>& request) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_shaders");
+
+        Async result;
+        m_stream->push_and_wait([&]() { result = m_driver->make_shaders(request); });
+        return result;
+    }
+    Async GfxDriverWrapper::make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_psos_graphics");
+
+        Async result;
+        m_stream->push_and_wait([&]() { result = m_driver->make_psos_graphics(request); });
+        return result;
+    }
+    Async GfxDriverWrapper::make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_psos_compute");
+
+        Async result;
+        m_stream->push_and_wait([&]() { result = m_driver->make_psos_compute(request); });
+        return result;
     }
 
     void GfxDriverWrapper::shutdown() {
@@ -255,18 +243,6 @@ namespace wmoge {
     }
     class GfxCtx* GfxDriverWrapper::ctx_async() {
         return m_ctx_async;
-    }
-    GfxPsoLayoutCache* GfxDriverWrapper::pso_layout_cache() {
-        return m_pso_layout_cache;
-    }
-    GfxPsoGraphicsCache* GfxDriverWrapper::pso_graphics_cache() {
-        return m_pso_graphics_cache;
-    }
-    GfxPsoComputeCache* GfxDriverWrapper::pso_compute_cache() {
-        return m_pso_compute_cache;
-    }
-    GfxVertFormatCache* GfxDriverWrapper::vert_fmt_cache() {
-        return m_vert_fmt_cache;
     }
 
     const GfxDeviceCaps& GfxDriverWrapper::device_caps() const {

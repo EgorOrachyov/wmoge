@@ -29,6 +29,7 @@
 
 #include "core/string_utils.hpp"
 #include "core/task.hpp"
+#include "core/task_parallel_for.hpp"
 #include "gfx/vulkan/vk_buffers.hpp"
 #include "gfx/vulkan/vk_desc_set.hpp"
 #include "gfx/vulkan/vk_pipeline.hpp"
@@ -38,7 +39,7 @@
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "system/config_file.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <fstream>
@@ -54,7 +55,9 @@ namespace wmoge {
     VKDriver::VKDriver(const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
-        auto* config = Engine::instance()->config();
+        m_config       = IocContainer::instance()->resolve_v<ConfigFile>();
+        m_file_system  = IocContainer::instance()->resolve_v<FileSystem>();
+        m_task_manager = IocContainer::instance()->resolve_v<TaskManager>();
 
         m_driver_name = SID("vulkan");
         m_clip_matrix = Mat4x4f(1.0f, 0.0f, 0.0f, 0.0f,
@@ -67,7 +70,7 @@ namespace wmoge {
         m_required_extensions = info.required_ext;
 
 #ifndef WMOGE_RELEASE
-        m_use_validation = config->get_bool(SID("gfx.vulkan.validation_layer"), true);
+        m_use_validation = m_config->get_bool(SID("gfx.vulkan.validation_layer"), true);
 #endif
 
         if (m_use_validation) {
@@ -81,7 +84,7 @@ namespace wmoge {
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
         WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
-        m_pipeline_cache_path = config->get_string(SID("gfx.vulkan.pipeline_cache"), "cache://pipelines_vk.cache");
+        m_pipeline_cache_path = m_config->get_string(SID("gfx.vulkan.pipeline_cache"), "cache://pipelines_vk.cache");
 
         // load vulkan functions from volk
         init_functions();
@@ -111,10 +114,10 @@ namespace wmoge {
 
         // init manager for desc sets allocation
         VKDescPoolConfig pool_config{};
-        config->get(SID("gfx.vulkan.desc_pool_max_images"), pool_config.max_images);
-        config->get(SID("gfx.vulkan.desc_pool_max_ub"), pool_config.max_ub);
-        config->get(SID("gfx.vulkan.desc_pool_max_sb"), pool_config.max_sb);
-        config->get(SID("gfx.vulkan.desc_pool_max_sets"), pool_config.max_sets);
+        m_config->get(SID("gfx.vulkan.desc_pool_max_images"), pool_config.max_images);
+        m_config->get(SID("gfx.vulkan.desc_pool_max_ub"), pool_config.max_ub);
+        m_config->get(SID("gfx.vulkan.desc_pool_max_sb"), pool_config.max_sb);
+        m_config->get(SID("gfx.vulkan.desc_pool_max_sets"), pool_config.max_sets);
         m_desc_manager = std::make_unique<VKDescManager>(pool_config, *this);
 
         // init pipeline cache
@@ -125,12 +128,6 @@ namespace wmoge {
 
         // init context required for rendering and commands submission
         m_ctx_immediate = std::make_unique<VKCtx>(*this);
-
-        // init caches
-        m_pso_layout_cache   = std::make_unique<GfxPsoLayoutCache>();
-        m_pso_graphics_cache = std::make_unique<GfxPsoGraphicsCache>();
-        m_pso_compute_cache  = std::make_unique<GfxPsoComputeCache>();
-        m_vert_fmt_cache     = std::make_unique<GfxVertFormatCache>();
 
         // cmd stream of driver thread
         m_driver_cmd_stream = std::make_unique<CallbackStream>();
@@ -199,13 +196,13 @@ namespace wmoge {
         buffer->create(size, usage, name);
         return buffer;
     }
-    Ref<GfxShader> VKDriver::make_shader(Ref<Data> bytecode, GfxShaderModule module, const Strid& name) {
+    Ref<GfxShader> VKDriver::make_shader(GfxShaderDesc desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
 
         assert(on_gfx_thread());
 
         auto shader = make_ref<VKShader>(name, *this);
-        shader->create(std::move(bytecode), module);
+        shader->create(std::move(desc));
         return shader;
     }
     Ref<GfxShaderProgram> VKDriver::make_program(GfxShaderProgramDesc desc, const Strid& name) {
@@ -271,14 +268,16 @@ namespace wmoge {
 
         assert(on_gfx_thread());
 
-        return make_ref<VKPsoGraphics>(state, name, *this);
+        Ref<VKPsoGraphics> pipeline = make_ref<VKPsoGraphics>(name, *this);
+        return pipeline->compile(state) ? pipeline : Ref<VKPsoGraphics>();
     }
     Ref<GfxPsoCompute> VKDriver::make_pso_compute(const GfxPsoStateCompute& state, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_compute");
 
         assert(on_gfx_thread());
 
-        return make_ref<VKPsoCompute>(state, name, *this);
+        Ref<VKPsoCompute> pipeline = make_ref<VKPsoCompute>(name, *this);
+        return pipeline->compile(state) ? pipeline : Ref<VKPsoCompute>();
     }
     Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
@@ -320,21 +319,60 @@ namespace wmoge {
     Ref<GfxDescSetLayout> VKDriver::make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_layout");
 
-        auto& desc_layout = m_layouts[desc];
-        if (!desc_layout) {
-            desc_layout = make_ref<VKDescSetLayout>(desc, name, *this);
-            WG_LOG_INFO("cache new desc layout " << name);
-        }
-
-        return desc_layout;
+        return make_ref<VKDescSetLayout>(desc, name, *this);
     }
-    Ref<GfxDescSet> VKDriver::make_desc_set(const GfxDescSetResources& resources, const Strid& name) {
+    Ref<GfxDescSet> VKDriver::make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_set");
 
-        GfxDescSetLayoutDesc layout_desc;
-        GfxDescSet::fill_required_layout(resources, layout_desc);
+        assert(layout);
 
-        return make_ref<VKDescSet>(resources, make_desc_layout(layout_desc, name).cast<VKDescSetLayout>(), name, *this);
+        return make_ref<VKDescSet>(resources, layout.cast<VKDescSetLayout>(), name, *this);
+    }
+    Async VKDriver::make_shaders(const Ref<GfxAsyncShaderRequest>& request) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_shaders");
+
+        request->shaders.resize(request->desc.size());
+
+        TaskParallelFor task(SID("make_shaders"), [r = request, this](TaskContext&, int item_id, int) {
+            Ref<VKShader> shader = make_ref<VKShader>(r->names[item_id], *this);
+            shader->create(r->desc[item_id]);
+            r->shaders[item_id] = shader;
+            return 0;
+        });
+
+        return task.schedule(int(request->desc.size()), 1).as_async();
+    }
+    Async VKDriver::make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_psos_graphics");
+
+        request->pso.resize(request->states.size());
+
+        TaskParallelFor task(SID("make_psos_graphics"), [r = request, this](TaskContext&, int item_id, int) {
+            Ref<VKPsoGraphics> pso = make_ref<VKPsoGraphics>(r->names[item_id], *this);
+            if (pso->compile(r->states[item_id])) {
+                r->pso[item_id] = pso;
+            }
+            return 0;
+        });
+
+        return task.schedule(int(request->states.size()), 1).as_async();
+    }
+    Async VKDriver::make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_psos_compute");
+
+        request->pso.resize(request->states.size());
+
+        TaskParallelFor task(SID("make_psos_compute"), [r = request, this](TaskContext&, int item_id, int) {
+            Ref<VKPsoCompute> pso = make_ref<VKPsoCompute>(r->names[item_id], *this);
+            if (pso->compile(r->states[item_id])) {
+                r->pso[item_id] = pso;
+            }
+            return 0;
+        });
+
+        task.set_task_manager(*m_task_manager);
+
+        return task.schedule(int(request->states.size()), 1).as_async();
     }
 
     void VKDriver::shutdown() {
@@ -351,15 +389,6 @@ namespace wmoge {
 
             WG_VK_CHECK(vkDeviceWaitIdle(m_device));
 
-            m_pso_graphics_cache.reset();
-            flush_release();
-
-            m_pso_compute_cache.reset();
-            flush_release();
-
-            m_vert_fmt_cache.reset();
-            flush_release();
-
             m_ctx_immediate.reset();
             flush_release();
 
@@ -373,9 +402,6 @@ namespace wmoge {
             flush_release();
 
             m_desc_manager.reset();
-            flush_release();
-
-            m_layouts.clear();
             flush_release();
 
             m_samplers.clear();
@@ -735,10 +761,8 @@ namespace wmoge {
     void VKDriver::init_pipeline_cache() {
         WG_AUTO_PROFILE_VULKAN("VKDriver::init_pipeline_cache");
 
-        auto file_system = Engine::instance()->file_system();
-
         std::vector<uint8_t> cache_data;
-        if (!file_system->read_file(m_pipeline_cache_path, cache_data)) {
+        if (!m_file_system->read_file(m_pipeline_cache_path, cache_data)) {
             WG_LOG_INFO("no cache file at " << m_pipeline_cache_path);
             WG_LOG_INFO("creating empty vk pipeline cache");
         } else {
@@ -765,8 +789,7 @@ namespace wmoge {
 
             vkDestroyPipelineCache(m_device, m_pipeline_cache, nullptr);
 
-            auto file_system = Engine::instance()->file_system();
-            file_system->save_file(m_pipeline_cache_path, cache_data);
+            m_file_system->save_file(m_pipeline_cache_path, cache_data);
             WG_LOG_INFO("save pipeline cache: " << m_pipeline_cache_path << " " << StringUtils::from_mem_size(cache_data.size()));
         }
     }

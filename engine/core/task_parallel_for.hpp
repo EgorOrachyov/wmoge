@@ -97,6 +97,9 @@ namespace wmoge {
          */
         TaskHnd schedule(int num_elements, int batch_size, Async depends_on);
 
+        /** @brief Set manager where should execute this task */
+        void set_task_manager(TaskManager& manager) { m_task_manager = &manager; }
+
         /** @brief Function called as a job of task; may be empty */
         [[nodiscard]] TaskRunnableFor& runnable() { return m_runnable; }
 

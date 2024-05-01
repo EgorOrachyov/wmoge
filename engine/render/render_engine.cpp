@@ -170,7 +170,7 @@ namespace wmoge {
                     r.second.range        = m_scene->get_objects_gpu_data().get_buffer()->size();
                 }
             }
-            view.view_set = gfx_driver->make_desc_set(view_resources, SID("view_set_" + StringUtils::from_int(view_idx)));
+            // view.view_set = gfx_driver->make_desc_set(view_resources, SID("view_set_" + StringUtils::from_int(view_idx)));
 
             for (RenderQueue& queue : view.queues) {
                 queue.clear();
