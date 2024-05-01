@@ -69,7 +69,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classwmoge_1_1GfxPsoCompute-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">wmoge::GfxPsoCompute Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">wmoge::GfxPsoCompute Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -107,10 +107,6 @@ Collaboration diagram for wmoge::GfxPsoCompute:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4517565c716c27840a64b7c8937d78fc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoCompute.html#a4517565c716c27840a64b7c8937d78fc">~GfxPsoCompute</a> () override=default</td></tr>
 <tr class="separator:a4517565c716c27840a64b7c8937d78fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1013c1ae42700999f94306ab90a3512c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#a8e3673f7210a01ee9ec7c6e9431aa497">GfxPipelineStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoCompute.html#a1013c1ae42700999f94306ab90a3512c">status</a> () const =0</td></tr>
-<tr class="separator:a1013c1ae42700999f94306ab90a3512c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5652ac28549f1ce6f79da3006559357"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structwmoge_1_1GfxPsoStateCompute.html">GfxPsoStateCompute</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoCompute.html#af5652ac28549f1ce6f79da3006559357">state</a> () const =0</td></tr>
-<tr class="separator:af5652ac28549f1ce6f79da3006559357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1GfxPso"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1GfxPso')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1GfxPso.html">wmoge::GfxPso</a></td></tr>
 <tr class="memitem:ad2773b2f55566c85ff46f81290f879e2 inherit pub_methods_classwmoge_1_1GfxPso"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPso.html#ad2773b2f55566c85ff46f81290f879e2">~GfxPso</a> () override=default</td></tr>
 <tr class="separator:ad2773b2f55566c85ff46f81290f879e2 inherit pub_methods_classwmoge_1_1GfxPso"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,7 +138,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents created and compiled compute pipeline state object. </p>
-<p>Pipeline is a compete object which can be directly bound to the command list for the compute dispatch. Pipeline creation is asynchronous and done in the background. When pipeline created it will be used in the rendering. </p>
+<p>Pipeline is a compete object which can be directly bound to the command list for the compute dispatch. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4517565c716c27840a64b7c8937d78fc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4517565c716c27840a64b7c8937d78fc">&#9670;&nbsp;</a></span>~GfxPsoCompute()</h2>
@@ -166,61 +162,6 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af5652ac28549f1ce6f79da3006559357"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5652ac28549f1ce6f79da3006559357">&#9670;&nbsp;</a></span>state()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const <a class="el" href="structwmoge_1_1GfxPsoStateCompute.html">GfxPsoStateCompute</a>&amp; wmoge::GfxPsoCompute::state </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKPsoCompute.html#a953c3b7eaf2d08e2fb71489266166e38">wmoge::VKPsoCompute</a>.</p>
-
-</div>
-</div>
-<a id="a1013c1ae42700999f94306ab90a3512c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1013c1ae42700999f94306ab90a3512c">&#9670;&nbsp;</a></span>status()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="namespacewmoge.html#a8e3673f7210a01ee9ec7c6e9431aa497">GfxPipelineStatus</a> wmoge::GfxPsoCompute::status </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKPsoCompute.html#a848bf3011eb35c0f655e803f8001d6cc">wmoge::VKPsoCompute</a>.</p>
 
 </div>
 </div>

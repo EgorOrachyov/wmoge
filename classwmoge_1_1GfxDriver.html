@@ -67,7 +67,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classwmoge_1_1GfxDriver-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::GfxDriver Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -104,8 +103,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa1b4854eb55ed9e406dc93134f542b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23649ce63bc2121c4d02a4ecca6a4491"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a23649ce63bc2121c4d02a4ecca6a4491">make_storage_buffer</a> (int size, <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">GfxMemUsage</a> usage, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
 <tr class="separator:a23649ce63bc2121c4d02a4ecca6a4491"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6fd2e71529571de77a624d800e9fb38"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#aa6fd2e71529571de77a624d800e9fb38">make_shader</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; bytecode, <a class="el" href="namespacewmoge.html#a46e0aac98e1e704a70bf5c3a5cff14e9">GfxShaderModule</a> module, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
-<tr class="separator:aa6fd2e71529571de77a624d800e9fb38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3786ff4cdc9796f3545d10e2accd67d3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a3786ff4cdc9796f3545d10e2accd67d3">make_shader</a> (<a class="el" href="structwmoge_1_1GfxShaderDesc.html">GfxShaderDesc</a> desc, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
+<tr class="separator:a3786ff4cdc9796f3545d10e2accd67d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c2d8f0a559f682803632e4694fdd55f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a3c2d8f0a559f682803632e4694fdd55f">make_program</a> (<a class="el" href="namespacewmoge.html#a1db6d2e917118ac0cfdad1d47e60e53b">GfxShaderProgramDesc</a> desc, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
 <tr class="separator:a3c2d8f0a559f682803632e4694fdd55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b3fbdd97645065693c51df86c35c833"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a8b3fbdd97645065693c51df86c35c833">make_texture_2d</a> (int width, int height, int mips, <a class="el" href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">GfxFormat</a> format, <a class="el" href="namespacewmoge.html#aafac141dc8a9250490d194fb3bbacdd5">GfxTexUsages</a> usages, <a class="el" href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">GfxMemUsage</a> mem_usage, <a class="el" href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">GfxTexSwizz</a> swizz, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
@@ -132,8 +131,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9e173f9decac9b968f1beb5a71b5920d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f1dabc7a31a70c4107f3c4433ed0a40"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSetLayout.html">GfxDescSetLayout</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a5f1dabc7a31a70c4107f3c4433ed0a40">make_desc_layout</a> (const <a class="el" href="namespacewmoge.html#a9dc9e32b595069460b4a04185c681d25">GfxDescSetLayoutDesc</a> &amp;desc, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
 <tr class="separator:a5f1dabc7a31a70c4107f3c4433ed0a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedb1e9b4fbde8913dc7ba73df29c21a4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#aedb1e9b4fbde8913dc7ba73df29c21a4">make_desc_set</a> (const <a class="el" href="namespacewmoge.html#a8166962837e67d7506fffeab9550e62d">GfxDescSetResources</a> &amp;resources, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
-<tr class="separator:aedb1e9b4fbde8913dc7ba73df29c21a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27d1b8697bd94cdc3a1cb671b8fef220"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSet.html">GfxDescSet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a27d1b8697bd94cdc3a1cb671b8fef220">make_desc_set</a> (const <a class="el" href="namespacewmoge.html#a8166962837e67d7506fffeab9550e62d">GfxDescSetResources</a> &amp;resources, const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSetLayout.html">GfxDescSetLayout</a> &gt; &amp;layout, const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;name=<a class="el" href="classwmoge_1_1Strid.html">Strid</a>())=0</td></tr>
+<tr class="separator:a27d1b8697bd94cdc3a1cb671b8fef220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ac7cef5bd16a16029866bbb8d75988e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a1ac7cef5bd16a16029866bbb8d75988e">make_shaders</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxAsyncShaderRequest.html">GfxAsyncShaderRequest</a> &gt; &amp;request)=0</td></tr>
+<tr class="separator:a1ac7cef5bd16a16029866bbb8d75988e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f2156b4d5adf52e98efcf752640297c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a9f2156b4d5adf52e98efcf752640297c">make_psos_graphics</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxAsyncPsoRequestGraphics.html">GfxAsyncPsoRequestGraphics</a> &gt; &amp;request)=0</td></tr>
+<tr class="separator:a9f2156b4d5adf52e98efcf752640297c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c97e0375646f32ab392e901bbd2fe89"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a2c97e0375646f32ab392e901bbd2fe89">make_psos_compute</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxAsyncPsoRequestCompute.html">GfxAsyncPsoRequestCompute</a> &gt; &amp;request)=0</td></tr>
+<tr class="separator:a2c97e0375646f32ab392e901bbd2fe89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afba6c95ec1950d4a1ea25610c9724263"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#afba6c95ec1950d4a1ea25610c9724263">shutdown</a> ()=0</td></tr>
 <tr class="separator:afba6c95ec1950d4a1ea25610c9724263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2ccedf7c27a870588840c282e849743"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#ac2ccedf7c27a870588840c282e849743">begin_frame</a> ()=0</td></tr>
@@ -148,14 +153,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af878c96b09309e06fdc8d829a48f7619"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a121f8eefbd1ac47c698c37a1b34c36dd"><td class="memItemLeft" align="right" valign="top">virtual class <a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a121f8eefbd1ac47c698c37a1b34c36dd">ctx_async</a> ()=0</td></tr>
 <tr class="separator:a121f8eefbd1ac47c698c37a1b34c36dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0e3ec29434e82fa7b7782866efaa7e4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxPsoLayoutCache.html">GfxPsoLayoutCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#aa0e3ec29434e82fa7b7782866efaa7e4">pso_layout_cache</a> ()=0</td></tr>
-<tr class="separator:aa0e3ec29434e82fa7b7782866efaa7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af010256b644ea2c1d916a20d7644a7ab"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxPsoGraphicsCache.html">GfxPsoGraphicsCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#af010256b644ea2c1d916a20d7644a7ab">pso_graphics_cache</a> ()=0</td></tr>
-<tr class="separator:af010256b644ea2c1d916a20d7644a7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa05b4aafc667d4510266e6c3e0169cff"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxPsoComputeCache.html">GfxPsoComputeCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#aa05b4aafc667d4510266e6c3e0169cff">pso_compute_cache</a> ()=0</td></tr>
-<tr class="separator:aa05b4aafc667d4510266e6c3e0169cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4e94b319dcc34496bd556bedfccead7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1GfxVertFormatCache.html">GfxVertFormatCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#ac4e94b319dcc34496bd556bedfccead7">vert_fmt_cache</a> ()=0</td></tr>
-<tr class="separator:ac4e94b319dcc34496bd556bedfccead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6980c729b8c413392f25065a7fb0c48"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structwmoge_1_1GfxDeviceCaps.html">GfxDeviceCaps</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#af6980c729b8c413392f25065a7fb0c48">device_caps</a> () const =0</td></tr>
 <tr class="separator:af6980c729b8c413392f25065a7fb0c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb9660b94504e933e79369ead7598bda"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#afb9660b94504e933e79369ead7598bda">driver_name</a> () const =0</td></tr>
@@ -172,15 +169,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac78cf83c844970ce759a3edaa1c53cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c09af90f7564cf927ae397f7db3c763"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a6c09af90f7564cf927ae397f7db3c763">shader_lang</a> () const =0</td></tr>
 <tr class="separator:a6c09af90f7564cf927ae397f7db3c763"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a136b64b1284ee169e5fdb3fe6ecc9844"><td class="memItemLeft" align="right" valign="top">static constexpr const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a136b64b1284ee169e5fdb3fe6ecc9844">DEFAULT_DYN_VERT_CHUNK_SIZE</a> = 64u * 1024u</td></tr>
-<tr class="separator:a136b64b1284ee169e5fdb3fe6ecc9844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade6f9eb1e384e8e1aeeaa04506c1a930"><td class="memItemLeft" align="right" valign="top">static constexpr const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#ade6f9eb1e384e8e1aeeaa04506c1a930">DEFAULT_DYN_INDEX_CHUNK_SIZE</a> = 64u * 1024u</td></tr>
-<tr class="separator:ade6f9eb1e384e8e1aeeaa04506c1a930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03886c7fd718f33fea88b48ef8737717"><td class="memItemLeft" align="right" valign="top">static constexpr const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxDriver.html#a03886c7fd718f33fea88b48ef8737717">DEFAULT_DYN_UNIFORM_CHUNK_SIZE</a> = 64u * 1024u</td></tr>
-<tr class="separator:a03886c7fd718f33fea88b48ef8737717"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Gfx driver interface. </p>
@@ -466,8 +454,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aedb1e9b4fbde8913dc7ba73df29c21a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aedb1e9b4fbde8913dc7ba73df29c21a4">&#9670;&nbsp;</a></span>make_desc_set()</h2>
+<a id="a27d1b8697bd94cdc3a1cb671b8fef220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27d1b8697bd94cdc3a1cb671b8fef220">&#9670;&nbsp;</a></span>make_desc_set()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -480,6 +468,12 @@ Static Public Attributes</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#a8166962837e67d7506fffeab9550e62d">GfxDescSetResources</a> &amp;&#160;</td>
           <td class="paramname"><em>resources</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSetLayout.html">GfxDescSetLayout</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -500,7 +494,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#af743d37a8a191e9dc80b5ef9b09572c3">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a4c72a9c8b9544ab1508cfaadefff03be">wmoge::GfxDriverWrapper</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#aca3ea84611577dd5f4f9c46ed3e05242">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a5348135f265011da0d7a77e5d88fc157">wmoge::GfxDriverWrapper</a>.</p>
 
 </div>
 </div>
@@ -814,6 +808,62 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2c97e0375646f32ab392e901bbd2fe89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c97e0375646f32ab392e901bbd2fe89">&#9670;&nbsp;</a></span>make_psos_compute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::GfxDriver::make_psos_compute </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxAsyncPsoRequestCompute.html">GfxAsyncPsoRequestCompute</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a3cc2d83365828258fb3475d275646638">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a5aa6e7c4e5649725f5a798a212284574">wmoge::GfxDriverWrapper</a>.</p>
+
+</div>
+</div>
+<a id="a9f2156b4d5adf52e98efcf752640297c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f2156b4d5adf52e98efcf752640297c">&#9670;&nbsp;</a></span>make_psos_graphics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::GfxDriver::make_psos_graphics </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxAsyncPsoRequestGraphics.html">GfxAsyncPsoRequestGraphics</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#ac4e52529fa0f6e17727df9779a027136">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a26343d29f9b4bb320b9d5062b20b3505">wmoge::GfxDriverWrapper</a>.</p>
+
+</div>
+</div>
 <a id="af35bf7a55a713a6d373a6ab61128ac63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af35bf7a55a713a6d373a6ab61128ac63">&#9670;&nbsp;</a></span>make_render_pass()</h2>
 
@@ -890,8 +940,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa6fd2e71529571de77a624d800e9fb38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6fd2e71529571de77a624d800e9fb38">&#9670;&nbsp;</a></span>make_shader()</h2>
+<a id="a3786ff4cdc9796f3545d10e2accd67d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3786ff4cdc9796f3545d10e2accd67d3">&#9670;&nbsp;</a></span>make_shader()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -902,14 +952,8 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a>&gt; wmoge::GfxDriver::make_shader </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt;&#160;</td>
-          <td class="paramname"><em>bytecode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacewmoge.html#a46e0aac98e1e704a70bf5c3a5cff14e9">GfxShaderModule</a>&#160;</td>
-          <td class="paramname"><em>module</em>, </td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1GfxShaderDesc.html">GfxShaderDesc</a>&#160;</td>
+          <td class="paramname"><em>desc</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -930,7 +974,35 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#ac9d73b6d6c43da90799a346eff7d68ab">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a68dbbccf053ee8798ecf2aabe93ddac2">wmoge::GfxDriverWrapper</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a7d939a2f7a107b2256269327a9ccd769">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a26f7f241b5383f6aaa855f51aea0f2e1">wmoge::GfxDriverWrapper</a>.</p>
+
+</div>
+</div>
+<a id="a1ac7cef5bd16a16029866bbb8d75988e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ac7cef5bd16a16029866bbb8d75988e">&#9670;&nbsp;</a></span>make_shaders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::GfxDriver::make_shaders </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxAsyncShaderRequest.html">GfxAsyncShaderRequest</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a48391ace1e44c4e2c0f0b4d71c34abc7">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a9ce3d86b53007519450516efad2e8d91">wmoge::GfxDriverWrapper</a>.</p>
 
 </div>
 </div>
@@ -1402,87 +1474,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="aa05b4aafc667d4510266e6c3e0169cff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa05b4aafc667d4510266e6c3e0169cff">&#9670;&nbsp;</a></span>pso_compute_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1GfxPsoComputeCache.html">GfxPsoComputeCache</a>* wmoge::GfxDriver::pso_compute_cache </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a7fbfbaacf40c17e891b7b6d64e1932ad">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a4028e3779a05add4513bb68e30540258">wmoge::GfxDriverWrapper</a>.</p>
-
-</div>
-</div>
-<a id="af010256b644ea2c1d916a20d7644a7ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af010256b644ea2c1d916a20d7644a7ab">&#9670;&nbsp;</a></span>pso_graphics_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1GfxPsoGraphicsCache.html">GfxPsoGraphicsCache</a>* wmoge::GfxDriver::pso_graphics_cache </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#ae7a92ebdcc900896ca94d5c5c87b316f">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#ad27fd09b20369bc8dfbdc94a1d210f5a">wmoge::GfxDriverWrapper</a>.</p>
-
-</div>
-</div>
-<a id="aa0e3ec29434e82fa7b7782866efaa7e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0e3ec29434e82fa7b7782866efaa7e4">&#9670;&nbsp;</a></span>pso_layout_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1GfxPsoLayoutCache.html">GfxPsoLayoutCache</a>* wmoge::GfxDriver::pso_layout_cache </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a2e7104aeae8ee1d455d4b3698bb4f91a">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#a827ed80b398e0597b4f9b6cc9da7d3f3">wmoge::GfxDriverWrapper</a>.</p>
-
-</div>
-</div>
 <a id="a6c09af90f7564cf927ae397f7db3c763"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c09af90f7564cf927ae397f7db3c763">&#9670;&nbsp;</a></span>shader_lang()</h2>
 
@@ -1589,100 +1580,6 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a5bda46487585860da2e087d6ab05e711">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#afe3f16fac56fc1fd19eac2a6b01ad0f9">wmoge::GfxDriverWrapper</a>.</p>
-
-</div>
-</div>
-<a id="ac4e94b319dcc34496bd556bedfccead7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4e94b319dcc34496bd556bedfccead7">&#9670;&nbsp;</a></span>vert_fmt_cache()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1GfxVertFormatCache.html">GfxVertFormatCache</a>* wmoge::GfxDriver::vert_fmt_cache </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKDriver.html#a8a80a9d560d1b7cbdf19434a79f16e49">wmoge::VKDriver</a>, and <a class="el" href="classwmoge_1_1GfxDriverWrapper.html#ac06c7c0c213e3fd4d5435432a8184af5">wmoge::GfxDriverWrapper</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ade6f9eb1e384e8e1aeeaa04506c1a930"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade6f9eb1e384e8e1aeeaa04506c1a930">&#9670;&nbsp;</a></span>DEFAULT_DYN_INDEX_CHUNK_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const int wmoge::GfxDriver::DEFAULT_DYN_INDEX_CHUNK_SIZE = 64u * 1024u</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a03886c7fd718f33fea88b48ef8737717"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03886c7fd718f33fea88b48ef8737717">&#9670;&nbsp;</a></span>DEFAULT_DYN_UNIFORM_CHUNK_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const int wmoge::GfxDriver::DEFAULT_DYN_UNIFORM_CHUNK_SIZE = 64u * 1024u</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a136b64b1284ee169e5fdb3fe6ecc9844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a136b64b1284ee169e5fdb3fe6ecc9844">&#9670;&nbsp;</a></span>DEFAULT_DYN_VERT_CHUNK_SIZE</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const int wmoge::GfxDriver::DEFAULT_DYN_VERT_CHUNK_SIZE = 64u * 1024u</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>

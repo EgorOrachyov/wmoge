@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1RttiMetaData.html" title="Meta data associated with a type or its internal member." alt="" coords="5,5,152,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1RttiMember.html" title="Base class for any composable type (struct or class)" alt="" coords="5,56,143,83"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RttiField.html" title="Field info of a struct or a class." alt="" coords="198,5,317,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiMethod.html" title="Represents a class method." alt="" coords="191,56,324,83"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiSignal.html" title="Represents a class signal." alt="" coords="194,107,321,133"/>
 </map>

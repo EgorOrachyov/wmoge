@@ -89,6 +89,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aea21f4d72bd02b28b2b9a325bb0a0c6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a9fe67241a823b941ffd65792f5454030">TaskHnd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TaskParallelFor.html#aea21f4d72bd02b28b2b9a325bb0a0c6f">schedule</a> (int num_elements, int batch_size, <a class="el" href="classwmoge_1_1Async.html">Async</a> depends_on)</td></tr>
 <tr class="memdesc:aea21f4d72bd02b28b2b9a325bb0a0c6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kick off task for execution.  <a href="classwmoge_1_1TaskParallelFor.html#aea21f4d72bd02b28b2b9a325bb0a0c6f">More...</a><br /></td></tr>
 <tr class="separator:aea21f4d72bd02b28b2b9a325bb0a0c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19e6423e1cdc73704c22f4082a097cbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TaskParallelFor.html#a19e6423e1cdc73704c22f4082a097cbf">set_task_manager</a> (<a class="el" href="classwmoge_1_1TaskManager.html">TaskManager</a> &amp;manager)</td></tr>
+<tr class="memdesc:a19e6423e1cdc73704c22f4082a097cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set manager where should execute this task.  <a href="classwmoge_1_1TaskParallelFor.html#a19e6423e1cdc73704c22f4082a097cbf">More...</a><br /></td></tr>
+<tr class="separator:a19e6423e1cdc73704c22f4082a097cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab528576cb3dfd1331f967ef55fd18635"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a12557d91f95a53bbf61aab161785061e">TaskRunnableFor</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TaskParallelFor.html#ab528576cb3dfd1331f967ef55fd18635">runnable</a> ()</td></tr>
 <tr class="memdesc:ab528576cb3dfd1331f967ef55fd18635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function called as a job of task; may be empty.  <a href="classwmoge_1_1TaskParallelFor.html#ab528576cb3dfd1331f967ef55fd18635">More...</a><br /></td></tr>
 <tr class="separator:ab528576cb3dfd1331f967ef55fd18635"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -293,6 +296,34 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classwmoge_1_1Async.html" title="Handle to an asynchronous operation (may have result or may not)">Async</a> task hnd to track task execution </dd></dl>
+
+</div>
+</div>
+<a id="a19e6423e1cdc73704c22f4082a097cbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19e6423e1cdc73704c22f4082a097cbf">&#9670;&nbsp;</a></span>set_task_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::TaskParallelFor::set_task_manager </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1TaskManager.html">TaskManager</a> &amp;&#160;</td>
+          <td class="paramname"><em>manager</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set manager where should execute this task. </p>
 
 </div>
 </div>

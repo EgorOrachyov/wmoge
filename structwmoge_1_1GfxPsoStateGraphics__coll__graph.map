@@ -1,7 +1,7 @@
 <map id="wmoge::GfxPsoStateGraphics" name="wmoge::GfxPsoStateGraphics">
-<area shape="rect" id="node1" title="Gfx pipeline state description." alt="" coords="313,101,509,127"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="26,5,175,47"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1GfxRenderPassDesc.html" title="Gfx rendering pass descriptor." alt="" coords="5,71,196,98"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="26,123,175,164"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="26,188,175,229"/>
+<area shape="rect" id="node1" title="Gfx pipeline state description." alt="" coords="272,111,468,138"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,71,155,112"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,136,155,177"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,201,155,243"/>
 </map>

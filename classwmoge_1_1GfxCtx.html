@@ -144,10 +144,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6a7e56a73f6b1e70f5d6ff70448643b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18510d2f5ed1cdee423135bb53da93d7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a18510d2f5ed1cdee423135bb53da93d7">clear</a> (float depth, int stencil)=0</td></tr>
 <tr class="separator:a18510d2f5ed1cdee423135bb53da93d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4c23d8ee37caf8a07e2044d631f0c2a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#ad4c23d8ee37caf8a07e2044d631f0c2a">bind_pipeline</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoGraphics.html">GfxPsoGraphics</a> &gt; &amp;pipeline)=0</td></tr>
-<tr class="separator:ad4c23d8ee37caf8a07e2044d631f0c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96588c42458ab772d766c97de54b0f52"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a96588c42458ab772d766c97de54b0f52">bind_comp_pipeline</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoCompute.html">GfxPsoCompute</a> &gt; &amp;pipeline)=0</td></tr>
-<tr class="separator:a96588c42458ab772d766c97de54b0f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac035f0b3e34c7644222882dea291bab9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#ac035f0b3e34c7644222882dea291bab9">bind_pso</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoGraphics.html">GfxPsoGraphics</a> &gt; &amp;pipeline)=0</td></tr>
+<tr class="separator:ac035f0b3e34c7644222882dea291bab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d8b1781087c6926e0dbcab113d82b13"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a7d8b1781087c6926e0dbcab113d82b13">bind_pso</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoCompute.html">GfxPsoCompute</a> &gt; &amp;pipeline)=0</td></tr>
+<tr class="separator:a7d8b1781087c6926e0dbcab113d82b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a412aa40e02efd3218a538691d1e9d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#a8a412aa40e02efd3218a538691d1e9d2">bind_vert_buffer</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> &gt; &amp;buffer, int index, int offset=0)=0</td></tr>
 <tr class="separator:a8a412aa40e02efd3218a538691d1e9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2def43665f54fce62738b2784358cfe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtx.html#af2def43665f54fce62738b2784358cfe">bind_index_buffer</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxIndexBuffer.html">GfxIndexBuffer</a> &gt; &amp;buffer, <a class="el" href="namespacewmoge.html#a4a0ea4c3fe702d4b272577a3a375334a">GfxIndexType</a> index_type, int offset=0)=0</td></tr>
@@ -425,34 +425,6 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a96588c42458ab772d766c97de54b0f52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96588c42458ab772d766c97de54b0f52">&#9670;&nbsp;</a></span>bind_comp_pipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool wmoge::GfxCtx::bind_comp_pipeline </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoCompute.html">GfxPsoCompute</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pipeline</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#a02b3aede640703229dda809942371c5e">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a4ba9f443b15c54a90fccafc764222427">wmoge::GfxCtxWrapper</a>.</p>
-
-</div>
-</div>
 <a id="af7d84b1fbe2e63fde7fbe1d1ae99783a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7d84b1fbe2e63fde7fbe1d1ae99783a">&#9670;&nbsp;</a></span>bind_depth_target()</h2>
 
@@ -617,8 +589,8 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad4c23d8ee37caf8a07e2044d631f0c2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4c23d8ee37caf8a07e2044d631f0c2a">&#9670;&nbsp;</a></span>bind_pipeline()</h2>
+<a id="a7d8b1781087c6926e0dbcab113d82b13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d8b1781087c6926e0dbcab113d82b13">&#9670;&nbsp;</a></span>bind_pso() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -627,7 +599,35 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool wmoge::GfxCtx::bind_pipeline </td>
+          <td class="memname">virtual void wmoge::GfxCtx::bind_pso </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoCompute.html">GfxPsoCompute</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pipeline</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#ac9378aa713048fe278e2a73fc639e1e2">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a9e7556457ca40b1e979a58b8a6039761">wmoge::GfxCtxWrapper</a>.</p>
+
+</div>
+</div>
+<a id="ac035f0b3e34c7644222882dea291bab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac035f0b3e34c7644222882dea291bab9">&#9670;&nbsp;</a></span>bind_pso() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::GfxCtx::bind_pso </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoGraphics.html">GfxPsoGraphics</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>pipeline</em></td><td>)</td>
@@ -641,7 +641,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#a239837543d5e1f19a2601b726fbdcc5c">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#a69dd4c28847e5f43f15aabff1d3d87a5">wmoge::GfxCtxWrapper</a>.</p>
+<p>Implemented in <a class="el" href="classwmoge_1_1VKCtx.html#a745f4901b56e07022d591ae19d41b2ec">wmoge::VKCtx</a>, and <a class="el" href="classwmoge_1_1GfxCtxWrapper.html#aefd302d49ad034ae910780612375af8c">wmoge::GfxCtxWrapper</a>.</p>
 
 </div>
 </div>

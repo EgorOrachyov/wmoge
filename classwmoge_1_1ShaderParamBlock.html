@@ -85,10 +85,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aabefc498f60a3c96f99a291938356c3d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#aabefc498f60a3c96f99a291938356c3d">ShaderParamBlock</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> &amp;shader, std::int16_t space_idx)</td></tr>
 <tr class="memdesc:aabefc498f60a3c96f99a291938356c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates params block with default setup for given shader and space.  <a href="classwmoge_1_1ShaderParamBlock.html#aabefc498f60a3c96f99a291938356c3d">More...</a><br /></td></tr>
 <tr class="separator:aabefc498f60a3c96f99a291938356c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd275bf2a69f048f14d0f1054557d931"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#abd275bf2a69f048f14d0f1054557d931">~ShaderParamBlock</a> ()=default</td></tr>
-<tr class="separator:abd275bf2a69f048f14d0f1054557d931"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81b7bd0e1b76d931abaa034499c4b994"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a81b7bd0e1b76d931abaa034499c4b994">configure</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> &amp;shader, std::int16_t space_idx)</td></tr>
-<tr class="separator:a81b7bd0e1b76d931abaa034499c4b994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67ae4894090d5ae2430647746e8ccf43"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a67ae4894090d5ae2430647746e8ccf43">reset</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> &amp;shader, std::int16_t space_idx)</td></tr>
+<tr class="separator:a67ae4894090d5ae2430647746e8ccf43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae407c9bd0617fe84f1dc849874a99134"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#ae407c9bd0617fe84f1dc849874a99134">reset_defaults</a> ()</td></tr>
 <tr class="separator:ae407c9bd0617fe84f1dc849874a99134"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab83a371ceff021b7cfe37663422ba7f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#ab83a371ceff021b7cfe37663422ba7f0">validate</a> (class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *driver, class <a class="el" href="classwmoge_1_1GfxCtx.html">GfxCtx</a> *ctx, <a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
@@ -159,6 +157,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1fa5e4834c835f42718c7f71ba5c261c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9f9bb2698bc3e123a5c82dbf060ba34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a8166962837e67d7506fffeab9550e62d">GfxDescSetResources</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#ac9f9bb2698bc3e123a5c82dbf060ba34">get_gfx_resources</a> (std::int16_t space_idx)</td></tr>
 <tr class="separator:ac9f9bb2698bc3e123a5c82dbf060ba34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a8258b2e2cd7de82bd808282a68c50d"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structwmoge_1_1ShaderParamInfo.html">ShaderParamInfo</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a2a8258b2e2cd7de82bd808282a68c50d">get_param_info</a> (<a class="el" href="structwmoge_1_1ShaderParamId.html">ShaderParamId</a> id) const</td></tr>
+<tr class="separator:a2a8258b2e2cd7de82bd808282a68c50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Holds params set which can be bound to a shader for drawing. </p>
@@ -188,7 +188,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct empty block with no setup. Configure it using <code>configure</code> method. </p>
+<p>Construct empty block with no setup. Configure it using <code>reset</code> method. </p>
 
 </div>
 </div>
@@ -229,60 +229,7 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abd275bf2a69f048f14d0f1054557d931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd275bf2a69f048f14d0f1054557d931">&#9670;&nbsp;</a></span>~ShaderParamBlock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wmoge::ShaderParamBlock::~ShaderParamBlock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a81b7bd0e1b76d931abaa034499c4b994"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81b7bd0e1b76d931abaa034499c4b994">&#9670;&nbsp;</a></span>configure()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ShaderParamBlock::configure </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1Shader.html">Shader</a> &amp;&#160;</td>
-          <td class="paramname"><em>shader</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::int16_t&#160;</td>
-          <td class="paramname"><em>space_idx</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a9692d9034b917c3c0ed03f3915a6514a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9692d9034b917c3c0ed03f3915a6514a">&#9670;&nbsp;</a></span>get_buffer() <span class="overload">[1/2]</span></h2>
 
@@ -385,6 +332,24 @@ Public Member Functions</h2></td></tr>
 <span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a8258b2e2cd7de82bd808282a68c50d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a8258b2e2cd7de82bd808282a68c50d">&#9670;&nbsp;</a></span>get_param_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="structwmoge_1_1ShaderParamInfo.html">ShaderParamInfo</a> * &gt; wmoge::ShaderParamBlock::get_param_info </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1ShaderParamId.html">ShaderParamId</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 
 </div>
@@ -792,6 +757,34 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="namespacewmoge.html#a949390db7db498fd643959e1b9af61f6">Vec4i</a> &amp;&#160;</td>
           <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a67ae4894090d5ae2430647746e8ccf43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67ae4894090d5ae2430647746e8ccf43">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ShaderParamBlock::reset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Shader.html">Shader</a> &amp;&#160;</td>
+          <td class="paramname"><em>shader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::int16_t&#160;</td>
+          <td class="paramname"><em>space_idx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

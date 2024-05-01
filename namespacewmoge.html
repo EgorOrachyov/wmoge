@@ -240,6 +240,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Signal.html">Signal</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows to immediately notify listeners when something occurse on singnal holder side.  <a href="classwmoge_1_1Signal.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SimpleId.html">SimpleId</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template to make simple id types.  <a href="structwmoge_1_1SimpleId.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Status.html">Status</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper for return status code and an optional error message instead of exception.  <a href="classwmoge_1_1Status.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -545,14 +548,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoCompute.html">GfxPsoCompute</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents created and compiled compute pipeline state object.  <a href="classwmoge_1_1GfxPsoCompute.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoLayoutCache.html">GfxPsoLayoutCache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache for pipeline layouts.  <a href="classwmoge_1_1GfxPsoLayoutCache.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxAsyncPsoRequestGraphics.html">GfxAsyncPsoRequestGraphics</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request for async pso compilation.  <a href="classwmoge_1_1GfxAsyncPsoRequestGraphics.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoGraphicsCache.html">GfxPsoGraphicsCache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache of graphics pipelines.  <a href="classwmoge_1_1GfxPsoGraphicsCache.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxPsoComputeCache.html">GfxPsoComputeCache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache of compute pipelines.  <a href="classwmoge_1_1GfxPsoComputeCache.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxAsyncPsoRequestCompute.html">GfxAsyncPsoRequestCompute</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request for async pso compilation.  <a href="classwmoge_1_1GfxAsyncPsoRequestCompute.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxRenderPassDesc.html">GfxRenderPassDesc</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx rendering pass descriptor.  <a href="structwmoge_1_1GfxRenderPassDesc.html#details">More...</a><br /></td></tr>
@@ -568,11 +568,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxSampler.html">GfxSampler</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx sampler for sampling textures in shaders.  <a href="classwmoge_1_1GfxSampler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxShaderDesc.html">GfxShaderDesc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct with params to create a gfx shader.  <a href="structwmoge_1_1GfxShaderDesc.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiled single gpu program module.  <a href="classwmoge_1_1GfxShader.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiled and linked full shader program with all stages.  <a href="classwmoge_1_1GfxShaderProgram.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxAsyncShaderRequest.html">GfxAsyncShaderRequest</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request for async shaders creation.  <a href="classwmoge_1_1GfxAsyncShaderRequest.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxTexture.html">GfxTexture</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gfx device texture resource.  <a href="classwmoge_1_1GfxTexture.html#details">More...</a><br /></td></tr>
@@ -606,9 +612,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GfxVF__Pos3Col4Uv2.html">GfxVF_Pos3Col4Uv2</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vert Format: [].  <a href="structwmoge_1_1GfxVF__Pos3Col4Uv2.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxVertFormatCache.html">GfxVertFormatCache</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime cache of vertex formats.  <a href="classwmoge_1_1GfxVertFormatCache.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCtxThreaded.html">GfxCtxThreaded</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An extension for a gfx ctx for threaded communication support.  <a href="classwmoge_1_1GfxCtxThreaded.html#details">More...</a><br /></td></tr>
@@ -741,6 +744,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GlslShaderCompiler.html">GlslShaderCompiler</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Glslang based compiler for shaders.  <a href="classwmoge_1_1GlslShaderCompiler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1PsoCacheEntry.html">PsoCacheEntry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cached pso info.  <a href="structwmoge_1_1PsoCacheEntry.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PsoCache.html">PsoCache</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache for pipeline state object to automate and speed-up their creation.  <a href="classwmoge_1_1PsoCache.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a particular variant of a compiled shader.  <a href="structwmoge_1_1ShaderPermutation.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -771,6 +780,13 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderFile.html">ShaderFile</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializable representation of a shader file.  <a href="structwmoge_1_1ShaderFile.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderInstance.html">ShaderInstance</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An instance of the shader for drawing.  <a href="classwmoge_1_1ShaderInstance.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerInput.html">ShaderCompilerInput</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerOutput.html">ShaderCompilerOutput</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for loading and compilation of shader scripts.  <a href="classwmoge_1_1ShaderManager.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -782,9 +798,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds params set which can be bound to a shader for drawing.  <a href="classwmoge_1_1ShaderParamBlock.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderPass.html">ShaderPass</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compiled shader pass ready for drawing.  <a href="classwmoge_1_1ShaderPass.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursive complex type for declaring of anything in a shader what has a type.  <a href="structwmoge_1_1ShaderType.html#details">More...</a><br /></td></tr>
@@ -1893,9 +1906,15 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a7c087682b377f6c4e5b26796ad74a7cf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a7c087682b377f6c4e5b26796ad74a7cf">GfxDescSetLayouts</a> = <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxDescSetLayout.html">GfxDescSetLayout</a> &gt;, <a class="el" href="structwmoge_1_1GfxLimits.html#a4de7b591097552f80b060925adbc1b31">GfxLimits::MAX_DESC_SETS</a> &gt;</td></tr>
 <tr class="memdesc:a7c087682b377f6c4e5b26796ad74a7cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of layouts for shader and pipeline creation.  <a href="namespacewmoge.html#a7c087682b377f6c4e5b26796ad74a7cf">More...</a><br /></td></tr>
 <tr class="separator:a7c087682b377f6c4e5b26796ad74a7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22e5889677b9eae5531bb98145afaee7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a22e5889677b9eae5531bb98145afaee7">GfxShaderKey</a> = <a class="el" href="structwmoge_1_1SimpleId.html">SimpleId</a>&lt; std::uint32_t &gt;</td></tr>
+<tr class="memdesc:a22e5889677b9eae5531bb98145afaee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique key to identify shader.  <a href="namespacewmoge.html#a22e5889677b9eae5531bb98145afaee7">More...</a><br /></td></tr>
+<tr class="separator:a22e5889677b9eae5531bb98145afaee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1db6d2e917118ac0cfdad1d47e60e53b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1db6d2e917118ac0cfdad1d47e60e53b">GfxShaderProgramDesc</a> = <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;, 2 &gt;</td></tr>
 <tr class="memdesc:a1db6d2e917118ac0cfdad1d47e60e53b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Desc to create program.  <a href="namespacewmoge.html#a1db6d2e917118ac0cfdad1d47e60e53b">More...</a><br /></td></tr>
 <tr class="separator:a1db6d2e917118ac0cfdad1d47e60e53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a868650d37201bcc6b72309aaeb302e5c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a868650d37201bcc6b72309aaeb302e5c">PsoKey</a> = <a class="el" href="structwmoge_1_1SimpleId.html">SimpleId</a>&lt; std::uint32_t &gt;</td></tr>
+<tr class="memdesc:a868650d37201bcc6b72309aaeb302e5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique key to identify pso.  <a href="namespacewmoge.html#a868650d37201bcc6b72309aaeb302e5c">More...</a><br /></td></tr>
+<tr class="separator:a868650d37201bcc6b72309aaeb302e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45f8e91c835c2e50ce019159fe3bb434"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a45f8e91c835c2e50ce019159fe3bb434">IoFlags</a> = <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; <a class="el" href="namespacewmoge.html#a6e0673c22b766f045f104c50ab144ebd">IoFlag</a> &gt;</td></tr>
 <tr class="separator:a45f8e91c835c2e50ce019159fe3bb434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22424479837b090cd112339b56004e1b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a22424479837b090cd112339b56004e1b">YamlTree</a> = ryml::Tree</td></tr>
@@ -2472,6 +2491,13 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of bindings to a pipeline.  <a href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aa">More...</a><br /></td></tr>
 <tr class="separator:a2e8aafe977c2d83820b74bd87c88d1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a316fbacc96fca46888d7f1e9158cdf16"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a316fbacc96fca46888d7f1e9158cdf16">PsoStatus</a> { <a class="el" href="namespacewmoge.html#a316fbacc96fca46888d7f1e9158cdf16aef01423a722560270c0256d1bc392401">InCompilation</a>
+, <a class="el" href="namespacewmoge.html#a316fbacc96fca46888d7f1e9158cdf16a4ead4fdae2e4938c155e1db52aa1546d">Compiled</a>
+, <a class="el" href="namespacewmoge.html#a316fbacc96fca46888d7f1e9158cdf16ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+ }</td></tr>
+<tr class="memdesc:a316fbacc96fca46888d7f1e9158cdf16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status of the pso.  <a href="namespacewmoge.html#a316fbacc96fca46888d7f1e9158cdf16">More...</a><br /></td></tr>
+<tr class="separator:a316fbacc96fca46888d7f1e9158cdf16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45cdda43890ce579365cc579d0147b1b"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a45cdda43890ce579365cc579d0147b1b">ShaderBaseType</a> { <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#a45cdda43890ce579365cc579d0147b1ba1686a6c336b71b36d77354cea19a8b52">Int</a>
@@ -2509,6 +2535,11 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a8a43106d4090389eaabb87d5a71b961e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Semantics of a space containing parameters.  <a href="namespacewmoge.html#a8a43106d4090389eaabb87d5a71b961e">More...</a><br /></td></tr>
 <tr class="separator:a8a43106d4090389eaabb87d5a71b961e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1686689839e6909e9855a79edf50b02f"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1686689839e6909e9855a79edf50b02f">ShaderDomain</a> { <a class="el" href="namespacewmoge.html#a1686689839e6909e9855a79edf50b02fad92a8333dd3ccb895cc65f7455b71206">Material</a>
+, <a class="el" href="namespacewmoge.html#a1686689839e6909e9855a79edf50b02fa7bfa30721c5e726ff17e3f972237a82c">Engine</a>
+ }</td></tr>
+<tr class="memdesc:a1686689839e6909e9855a79edf50b02f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes how this shader will be used.  <a href="namespacewmoge.html#a1686689839e6909e9855a79edf50b02f">More...</a><br /></td></tr>
+<tr class="separator:a1686689839e6909e9855a79edf50b02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1233afa43f696dcad40e8322492b1d48"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48">TexCompressionType</a> { <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0
 , <a class="el" href="namespacewmoge.html#a1233afa43f696dcad40e8322492b1d48a88ec7b741e9c3ccac7b61b1301ba11e8">BC1</a>
@@ -2583,14 +2614,15 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401af065d3ab5bd1cfa09ed2a3bf7a7635a6">Size128x128</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754">None</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a62d4159630863d63ab116270a9d57ade">Size256x256</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401af065d3ab5bd1cfa09ed2a3bf7a7635a6">Size128x128</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a62d4159630863d63ab116270a9d57ade">Size256x256</a>
 , <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a3a51abf3754f7b27d58a5b0b501ffe57">Size512x512</a>
 , <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ab29ce219b01109b2fccb5ea9de40ea53">Size1024x1024</a>
-, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401aa5b3ed29d5488ac14be72243286a8808">Size2048x2048</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ae8a571f755c04f636d1c08ef59fb2778">Size4096x4096</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401aa5b3ed29d5488ac14be72243286a8808">Size2048x2048</a>
+, <a class="el" href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401ae8a571f755c04f636d1c08ef59fb2778">Size4096x4096</a>
 <br />
  }</td></tr>
 <tr class="memdesc:ad82029899fb29d7109555af6797d6401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available texture assets sizes for optimized memory usage.  <a href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401">More...</a><br /></td></tr>
@@ -4089,6 +4121,22 @@ template&lt;typename K &gt; </div>
 
 </div>
 </div>
+<a id="a22e5889677b9eae5531bb98145afaee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22e5889677b9eae5531bb98145afaee7">&#9670;&nbsp;</a></span>GfxShaderKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a22e5889677b9eae5531bb98145afaee7">wmoge::GfxShaderKey</a> = typedef <a class="el" href="structwmoge_1_1SimpleId.html">SimpleId</a>&lt;std::uint32_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unique key to identify shader. </p>
+
+</div>
+</div>
 <a id="a1db6d2e917118ac0cfdad1d47e60e53b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1db6d2e917118ac0cfdad1d47e60e53b">&#9670;&nbsp;</a></span>GfxShaderProgramDesc</h2>
 
@@ -4511,6 +4559,22 @@ template&lt;typename K &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a868650d37201bcc6b72309aaeb302e5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a868650d37201bcc6b72309aaeb302e5c">&#9670;&nbsp;</a></span>PsoKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacewmoge.html#a868650d37201bcc6b72309aaeb302e5c">wmoge::PsoKey</a> = typedef <a class="el" href="structwmoge_1_1SimpleId.html">SimpleId</a>&lt;std::uint32_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unique key to identify pso. </p>
 
 </div>
 </div>
@@ -7061,6 +7125,36 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a316fbacc96fca46888d7f1e9158cdf16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a316fbacc96fca46888d7f1e9158cdf16">&#9670;&nbsp;</a></span>PsoStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a316fbacc96fca46888d7f1e9158cdf16">wmoge::PsoStatus</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classwmoge_1_1Status.html" title="Wrapper for return status code and an optional error message instead of exception.">Status</a> of the pso. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a316fbacc96fca46888d7f1e9158cdf16aef01423a722560270c0256d1bc392401"></a>InCompilation&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a316fbacc96fca46888d7f1e9158cdf16a4ead4fdae2e4938c155e1db52aa1546d"></a>Compiled&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a316fbacc96fca46888d7f1e9158cdf16ad7c8c85bf79bbe1b7188497c32c3b0ca"></a>Failed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a5dfd16e53aee8ebcddfe0cbd143ef564"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5dfd16e53aee8ebcddfe0cbd143ef564">&#9670;&nbsp;</a></span>RttiMetaAttribute</h2>
 
@@ -7288,6 +7382,34 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a1686689839e6909e9855a79edf50b02f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1686689839e6909e9855a79edf50b02f">&#9670;&nbsp;</a></span>ShaderDomain</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a1686689839e6909e9855a79edf50b02f">wmoge::ShaderDomain</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Describes how this shader will be used. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1686689839e6909e9855a79edf50b02fad92a8333dd3ccb895cc65f7455b71206"></a>Material&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1686689839e6909e9855a79edf50b02fa7bfa30721c5e726ff17e3f972237a82c"></a>Engine&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="a8a43106d4090389eaabb87d5a71b961e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a43106d4090389eaabb87d5a71b961e">&#9670;&nbsp;</a></span>ShaderSpaceType</h2>
 
@@ -7476,6 +7598,7 @@ template&lt;typename T &gt; </div>
 <p>Available texture assets sizes for optimized memory usage. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="ad82029899fb29d7109555af6797d6401a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
