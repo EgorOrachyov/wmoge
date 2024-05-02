@@ -111,40 +111,12 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">   45</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">flat_set</a> = robin_hood::unordered_flat_set&lt;K&gt;;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a83396da151d47a5ef1fa616e544d1e9b">   48</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">archive_write</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> <a class="code" href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">flat_set&lt;K&gt;</a>&amp; map) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        archive &lt;&lt; static_cast&lt;int&gt;(map.size());</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; entry : map) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            archive &lt;&lt; entry;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K&gt;</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a39917a415152ae65d267a38c5862d557">   57</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#aa08e743e90d5f0a1bbe45425a504a862">archive_read</a>(<a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <a class="code" href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">flat_set&lt;K&gt;</a>&amp; map) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        assert(map.empty());</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">int</span> size;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        archive &gt;&gt; size;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188">K</a> entry;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            archive &gt;&gt; entry;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            map.insert(std::move(entry));</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aarchive_8hpp_html"><div class="ttname"><a href="archive_8hpp.html">archive.hpp</a></div></div>
-<div class="ttc" id="aclasswmoge_1_1Archive_html"><div class="ttname"><a href="classwmoge_1_1Archive.html">wmoge::Archive</a></div><div class="ttdoc">Serialization and de-serialization archive.</div><div class="ttdef"><b>Definition:</b> archive.hpp:53</div></div>
-<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:35</div></div>
 <div class="ttc" id="anamespacewmoge_html_a50fff4269d034e864cd64cde62fb00f9"><div class="ttname"><a href="namespacewmoge.html#a50fff4269d034e864cd64cde62fb00f9">wmoge::flat_set</a></div><div class="ttdeci">robin_hood::unordered_flat_set&lt; K &gt; flat_set</div><div class="ttdoc">wrapper for fast robin_hood unordered set</div><div class="ttdef"><b>Definition:</b> flat_set.hpp:45</div></div>
-<div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886aa5f3c6a11b03839d46af9fb43c97c188">wmoge::InputKeyboardKey::K</a></div><div class="ttdeci">@ K</div></div>
-<div class="ttc" id="anamespacewmoge_html_a979de770006e829ff1b15a4e0b992e86"><div class="ttname"><a href="namespacewmoge.html#a979de770006e829ff1b15a4e0b992e86">wmoge::archive_write</a></div><div class="ttdeci">Status archive_write(Archive &amp;archive, const AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:51</div></div>
-<div class="ttc" id="anamespacewmoge_html_aa08e743e90d5f0a1bbe45425a504a862"><div class="ttname"><a href="namespacewmoge.html#aa08e743e90d5f0a1bbe45425a504a862">wmoge::archive_read</a></div><div class="ttdeci">Status archive_read(Archive &amp;archive, AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:47</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

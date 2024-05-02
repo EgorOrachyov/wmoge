@@ -107,8 +107,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0364b07ad4d1a1f4ba06c496d7ee5c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac11da7efa2b6858ace1386f4359e8466"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1NodePropCamera.html#ac11da7efa2b6858ace1386f4359e8466">add_components</a> (<a class="el" href="classwmoge_1_1Entity.html">Entity</a> entity, <a class="el" href="classwmoge_1_1Entity.html">Entity</a> parent) override</td></tr>
 <tr class="separator:ac11da7efa2b6858ace1386f4359e8466"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75613aeb70f3e54586e825e9f826c71d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1NodePropCamera.html#a75613aeb70f3e54586e825e9f826c71d">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node) override</td></tr>
-<tr class="separator:a75613aeb70f3e54586e825e9f826c71d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmoge_1_1SceneNodeProp"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1SceneNodeProp')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1SceneNodeProp.html">wmoge::SceneNodeProp</a></td></tr>
 <tr class="memitem:a0267801de0c15f0a62779fca416f0d18 inherit pub_methods_classwmoge_1_1SceneNodeProp"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneNodeProp.html#a0267801de0c15f0a62779fca416f0d18">process_event</a> (const <a class="el" href="classwmoge_1_1EventSceneNode.html">EventSceneNode</a> &amp;event)</td></tr>
 <tr class="separator:a0267801de0c15f0a62779fca416f0d18 inherit pub_methods_classwmoge_1_1SceneNodeProp"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,6 +133,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8a9d07b507b6a2dd79afd3915fd13588 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f5046efc308880c57c27ed7ef725138 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a4f5046efc308880c57c27ed7ef725138">copy_to</a> (<a class="el" href="classwmoge_1_1Object.html">Object</a> &amp;other) const</td></tr>
 <tr class="separator:a4f5046efc308880c57c27ed7ef725138 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61cacbf997be8f3ef4b2f4586715bc67 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a61cacbf997be8f3ef4b2f4586715bc67">read_from_yaml</a> (const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;node)</td></tr>
+<tr class="separator:a61cacbf997be8f3ef4b2f4586715bc67 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1c773718dd0de216bff33d8c93ec9c5 inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#ad1c773718dd0de216bff33d8c93ec9c5">write_to_yaml</a> (<a class="el" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node) const</td></tr>
 <tr class="separator:ad1c773718dd0de216bff33d8c93ec9c5 inherit pub_methods_classwmoge_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3103a4830a0539330f4ad8722e5b92ad inherit pub_methods_classwmoge_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Object.html#a3103a4830a0539330f4ad8722e5b92ad">read_from_archive</a> (<a class="el" href="classwmoge_1_1Archive.html">Archive</a> &amp;archive)</td></tr>
@@ -245,34 +245,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="classwmoge_1_1SceneNodeProp.html#ad9c1c69efb5d5d8de99dd4de47e2f43b">wmoge::SceneNodeProp</a>.</p>
-
-</div>
-</div>
-<a id="a75613aeb70f3e54586e825e9f826c71d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75613aeb70f3e54586e825e9f826c71d">&#9670;&nbsp;</a></span>read_from_yaml()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::NodePropCamera::read_from_yaml </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="classwmoge_1_1Object.html#a61cacbf997be8f3ef4b2f4586715bc67">wmoge::Object</a>.</p>
 
 </div>
 </div>
