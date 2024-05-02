@@ -59,8 +59,8 @@ namespace wmoge {
         float              threshold       = 0.1f;
         float              direction       = 0.0f;
 
-        friend Status yaml_read(YamlConstNodeRef node, ActionActivation& activation);
-        friend Status yaml_write(YamlNodeRef node, const ActionActivation& activation);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, ActionActivation& activation);
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const ActionActivation& activation);
     };
 
     /**
@@ -72,8 +72,8 @@ namespace wmoge {
         Strid                             display_name = SID("<empty action>");
         buffered_vector<ActionActivation> activations;
 
-        friend Status yaml_read(YamlConstNodeRef node, ActionMapAction& action);
-        friend Status yaml_write(YamlNodeRef node, const ActionMapAction& action);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, ActionMapAction& action);
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const ActionMapAction& action);
     };
 
     /**
@@ -95,8 +95,8 @@ namespace wmoge {
         [[nodiscard]] const ActionMapAction*       get_action(const Strid& action_name);
         [[nodiscard]] std::vector<ActionMapAction> get_actions() const;
 
-        friend Status yaml_read(YamlConstNodeRef node, ActionMap& action_map);
-        friend Status yaml_write(YamlNodeRef node, const ActionMap& action_map);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, ActionMap& action_map);
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const ActionMap& action_map);
 
     private:
         friend class ActionManager;

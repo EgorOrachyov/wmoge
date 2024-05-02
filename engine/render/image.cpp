@@ -29,7 +29,7 @@
 
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <stb_image.hpp>
 #include <stb_image_resize.hpp>
@@ -54,8 +54,10 @@ namespace wmoge {
     Status Image::load(const std::string& path, int channels) {
         WG_AUTO_PROFILE_ASSET("Image::load");
 
+        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+
         std::vector<std::uint8_t> pixel_data;
-        if (!Engine::instance()->file_system()->read_file(path, pixel_data)) {
+        if (!file_system->read_file(path, pixel_data)) {
             WG_LOG_ERROR("failed to load image file from fs " << path);
             return StatusCode::Error;
         }

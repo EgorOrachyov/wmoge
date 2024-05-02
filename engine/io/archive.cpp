@@ -29,46 +29,46 @@
 
 namespace wmoge {
 
-    Status archive_read(Archive& archive, bool& value) {
+    Status archive_read(IoContext& context, Archive& archive, bool& value) {
         char v;
-        WG_ARCHIVE_READ(archive, v);
+        WG_ARCHIVE_READ(context, archive, v);
         value = v != 0;
         return StatusCode::Ok;
     }
-    Status archive_write(Archive& archive, const bool& value) {
+    Status archive_write(IoContext& context, Archive& archive, const bool& value) {
         char v = value ? 1 : 0;
-        WG_ARCHIVE_WRITE(archive, v);
+        WG_ARCHIVE_WRITE(context, archive, v);
         return StatusCode::Ok;
     }
 
-    Status archive_read(Archive& archive, Strid& value) {
+    Status archive_read(IoContext& context, Archive& archive, Strid& value) {
         std::string str;
-        WG_ARCHIVE_READ(archive, str);
+        WG_ARCHIVE_READ(context, archive, str);
         value = Strid(str);
         return StatusCode::Ok;
     }
-    Status archive_write(Archive& archive, const Strid& value) {
-        WG_ARCHIVE_WRITE(archive, value.str());
+    Status archive_write(IoContext& context, Archive& archive, const Strid& value) {
+        WG_ARCHIVE_WRITE(context, archive, value.str());
         return StatusCode::Ok;
     }
 
-    Status archive_read(Archive& archive, std::string& value) {
+    Status archive_read(IoContext& context, Archive& archive, std::string& value) {
         std::size_t len;
-        WG_ARCHIVE_READ(archive, len);
+        WG_ARCHIVE_READ(context, archive, len);
         value.resize(len);
         return archive.nread(int(value.length() * sizeof(char)), value.data());
     }
-    Status archive_write(Archive& archive, const std::string& value) {
+    Status archive_write(IoContext& context, Archive& archive, const std::string& value) {
         std::size_t len = value.length();
-        WG_ARCHIVE_WRITE(archive, len);
+        WG_ARCHIVE_WRITE(context, archive, len);
         return archive.nwrite(int(value.length() * sizeof(char)), value.data());
     }
 
-    Status archive_read(Archive& archive, Status& value) {
-        return archive_read(archive, value.code());
+    Status archive_read(IoContext& context, Archive& archive, Status& value) {
+        return archive_read(context, archive, value.code());
     }
-    Status archive_write(Archive& archive, const Status& value) {
-        return archive_write(archive, value.code());
+    Status archive_write(IoContext& context, Archive& archive, const Status& value) {
+        return archive_write(context, archive, value.code());
     }
 
 }// namespace wmoge

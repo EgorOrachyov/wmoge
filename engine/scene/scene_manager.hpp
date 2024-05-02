@@ -75,6 +75,9 @@ namespace wmoge {
         Ref<Scene> m_next;   // next scene to set
         Ref<Scene> m_default;// default scene to always show something
 
+        class EcsRegistry*  m_ecs_registry  = nullptr;
+        class RenderEngine* m_render_engine = nullptr;
+
         std::shared_ptr<class EcsSysUpdateHier>      m_sys_update_hier;
         std::shared_ptr<class EcsSysUpdateCameras>   m_sys_update_cameras;
         std::shared_ptr<class EcsSysUpdateAabb>      m_sys_update_aabb;

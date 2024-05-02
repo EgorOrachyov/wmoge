@@ -104,7 +104,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status RttiStruct::read_from_yaml(void* dst, YamlConstNodeRef node) const {
+    Status RttiStruct::read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const {
         WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_yaml");
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
@@ -118,20 +118,20 @@ namespace wmoge {
 
             if (field.get_meta_data().is_optional()) {
                 if (node.has_child(field_name_str)) {
-                    WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str]));
+                    WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str], context));
                 }
             } else {
                 if (!node.has_child(field_name_str)) {
                     WG_LOG_ERROR("failed to read yaml " << field_name);
                     return StatusCode::FailedRead;
                 }
-                WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str]));
+                WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str], context));
             }
         }
         return WG_OK;
     }
 
-    Status RttiStruct::write_to_yaml(const void* src, YamlNodeRef node) const {
+    Status RttiStruct::write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const {
         WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_yaml");
 
         assert(src);
@@ -148,12 +148,12 @@ namespace wmoge {
             YamlNodeRef child = node.append_child();
             child << ryml::key(field_name_str);
 
-            WG_CHECKED(field.get_type()->write_to_yaml(self + field.get_byte_offset(), child));
+            WG_CHECKED(field.get_type()->write_to_yaml(self + field.get_byte_offset(), child, context));
         }
         return WG_OK;
     }
 
-    Status RttiStruct::read_from_archive(void* dst, Archive& archive) const {
+    Status RttiStruct::read_from_archive(void* dst, Archive& archive, IoContext& context) const {
         WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_archive");
         assert(dst);
 
@@ -162,12 +162,12 @@ namespace wmoge {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
             }
-            WG_CHECKED(field.get_type()->read_from_archive(self + field.get_byte_offset(), archive));
+            WG_CHECKED(field.get_type()->read_from_archive(self + field.get_byte_offset(), archive, context));
         }
         return WG_OK;
     }
 
-    Status RttiStruct::write_to_archive(const void* src, Archive& archive) const {
+    Status RttiStruct::write_to_archive(const void* src, Archive& archive, IoContext& context) const {
         WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_archive");
 
         assert(src);
@@ -176,7 +176,7 @@ namespace wmoge {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
             }
-            WG_CHECKED(field.get_type()->write_to_archive(self + field.get_byte_offset(), archive));
+            WG_CHECKED(field.get_type()->write_to_archive(self + field.get_byte_offset(), archive, context));
         }
         return WG_OK;
     }

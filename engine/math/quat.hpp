@@ -439,24 +439,24 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(YamlConstNodeRef node, TQuat<T>& quat) {
-        WG_YAML_READ_AS(node, "scalar", quat.scalar);
-        WG_YAML_READ_AS(node, "vec", quat.vec);
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, TQuat<T>& quat) {
+        WG_YAML_READ_AS(context, node, "scalar", quat.scalar);
+        WG_YAML_READ_AS(context, node, "vec", quat.vec);
         return StatusCode::Ok;
     }
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const TQuat<T>& quat) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const TQuat<T>& quat) {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "scalar", quat.scalar);
-        WG_YAML_WRITE_AS(node, "vec", quat.vec);
+        WG_YAML_WRITE_AS(context, node, "scalar", quat.scalar);
+        WG_YAML_WRITE_AS(context, node, "vec", quat.vec);
         return StatusCode::Ok;
     }
     template<typename T>
-    Status archive_read(Archive& archive, TQuat<T>& quat) {
+    Status archive_read(IoContext& context, Archive& archive, TQuat<T>& quat) {
         return archive.nread(sizeof(TQuat<T>), &quat);
     }
     template<typename T>
-    Status archive_write(Archive& archive, const TQuat<T>& quat) {
+    Status archive_write(IoContext& context, Archive& archive, const TQuat<T>& quat) {
         return archive.nwrite(sizeof(TQuat<T>), &quat);
     }
 

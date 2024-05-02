@@ -113,15 +113,9 @@ namespace wmoge {
     bool ActionManager::load(const std::string& filepath) {
         WG_AUTO_PROFILE_GAMEPLAY("ActionManager::load");
 
-        Ref<ActionMap> action_map      = make_ref<ActionMap>();
-        YamlTree       action_map_tree = yaml_parse_file(filepath);
+        Ref<ActionMap> action_map = make_ref<ActionMap>();
 
-        if (action_map_tree.empty()) {
-            WG_LOG_ERROR("failed to open and parse file with action map " << filepath);
-            return false;
-        }
-
-        if (!yaml_read(action_map_tree.crootref(), *action_map)) {
+        if (!yaml_read_file(filepath, *action_map)) {
             WG_LOG_ERROR("failed to parse action map " << filepath);
             return false;
         }

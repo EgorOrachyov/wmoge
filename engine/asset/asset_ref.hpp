@@ -46,7 +46,7 @@ namespace wmoge {
     template<typename T>
     class AssetRef : public Ref<T> {
     public:
-        static_assert(std::is_base_of_v<Asset, T>, "Must be a asset");
+        static_assert(std::is_base_of_v<Asset, T>, "Must be an asset");
 
         AssetRef() = default;
         AssetRef(Ref<T> ptr) : Ref<T>(std::move(ptr)) {}
@@ -59,7 +59,7 @@ namespace wmoge {
     template<typename T>
     class AssetRefWeak : public AssetId {
     public:
-        static_assert(std::is_base_of_v<Asset, T>, "Must be a asset");
+        static_assert(std::is_base_of_v<Asset, T>, "Must be an asset");
 
         AssetRefWeak() = default;
         AssetRefWeak(const AssetId& id) : AssetId(id) {}
@@ -67,10 +67,10 @@ namespace wmoge {
     };
 
     template<typename T>
-    Status yaml_read(YamlConstNodeRef node, AssetRef<T>& ref) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetRef<T>& ref) {
         AssetId id;
-        WG_YAML_READ(node, id);
-        Ref<T> ptr = Engine::instance()->asset_manager()->load(id).cast<T>();
+        WG_YAML_READ(context, node, id);
+        Ref<T> ptr = context.get_asset_manager()->load(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
         }
@@ -79,20 +79,20 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const AssetRef<T>& ref) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const AssetRef<T>& ref) {
         assert(ref);
         if (!ref) {
             return StatusCode::NoAsset;
         }
-        WG_YAML_WRITE(node, ref->get_id());
+        WG_YAML_WRITE(context, node, ref->get_id());
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status archive_read(Archive& archive, AssetRef<T>& ref) {
+    Status archive_read(IoContext& context, Archive& archive, AssetRef<T>& ref) {
         AssetId id;
-        WG_ARCHIVE_READ(archive, id);
-        Ref<T> ptr = Engine::instance()->asset_manager()->load(id).cast<T>();
+        WG_ARCHIVE_READ(context, archive, id);
+        Ref<T> ptr = context.get_asset_manager()->load(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
         }
@@ -101,42 +101,42 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_write(Archive& archive, const AssetRef<T>& ref) {
+    Status archive_write(IoContext& context, Archive& archive, const AssetRef<T>& ref) {
         assert(ref);
         if (!ref) {
             return StatusCode::NoAsset;
         }
-        WG_ARCHIVE_WRITE(archive, ref->get_id());
+        WG_ARCHIVE_WRITE(context, archive, ref->get_id());
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status yaml_read(YamlConstNodeRef node, AssetRefWeak<T>& ref) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetRefWeak<T>& ref) {
         AssetId id;
-        WG_YAML_READ(node, id);
+        WG_YAML_READ(context, node, id);
         ref = AssetRefWeak<T>(id);
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const AssetRefWeak<T>& ref) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const AssetRefWeak<T>& ref) {
         AssetId id = ref;
-        WG_YAML_WRITE(node, id);
+        WG_YAML_WRITE(context, node, id);
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status archive_read(Archive& archive, AssetRefWeak<T>& ref) {
+    Status archive_read(IoContext& context, Archive& archive, AssetRefWeak<T>& ref) {
         AssetId id;
-        WG_ARCHIVE_READ(archive, id);
+        WG_ARCHIVE_READ(context, archive, id);
         ref = AssetRefWeak<T>(id);
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status archive_write(Archive& archive, const AssetRefWeak<T>& ref) {
+    Status archive_write(IoContext& context, Archive& archive, const AssetRefWeak<T>& ref) {
         AssetId id = ref;
-        WG_ARCHIVE_WRITE(archive, id);
+        WG_ARCHIVE_WRITE(context, archive, id);
         return StatusCode::Ok;
     }
 

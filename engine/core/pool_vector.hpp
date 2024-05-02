@@ -204,22 +204,22 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t NodeCapacity>
-    Status yaml_read(YamlConstNodeRef node, pool_vector<T, NodeCapacity>& vec) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, pool_vector<T, NodeCapacity>& vec) {
         vec.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
             T element;
-            WG_YAML_READ(child, element);
+            WG_YAML_READ(context, child, element);
             vec.push_back(std::move(element));
         }
         return StatusCode::Ok;
     }
 
     template<typename T, std::size_t NodeCapacity>
-    Status yaml_write(YamlNodeRef node, const pool_vector<T, NodeCapacity>& vec) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const pool_vector<T, NodeCapacity>& vec) {
         WG_YAML_SEQ(node);
         for (const T& value : vec) {
             YamlNodeRef child = node.append_child();
-            WG_YAML_WRITE(child, value);
+            WG_YAML_WRITE(context, child, value);
         }
         return StatusCode::Ok;
     }

@@ -184,8 +184,10 @@ namespace wmoge {
         flat_map<AssetId, WeakRef<Asset>>          m_assets;
         flat_map<AssetId, LoadState>               m_loading;
         flat_map<Strid, Ref<AssetLoader>>          m_loaders;
-        class FileSystem*                          m_file_system  = nullptr;
-        class RttiTypeStorage*                     m_type_storage = nullptr;
+
+        class FileSystem*      m_file_system   = nullptr;
+        class RttiTypeStorage* m_type_storage  = nullptr;
+        class EventManager*    m_event_manager = nullptr;
 
         mutable std::recursive_mutex m_mutex;
     };

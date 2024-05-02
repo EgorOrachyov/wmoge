@@ -85,11 +85,11 @@ namespace wmoge {
         static const Strid&       class_name_static();
         static const Strid&       super_class_name_static();
 
-        friend Status yaml_read_object(const YamlConstNodeRef& node, Ref<Object>& object);
-        friend Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object);
+        friend Status yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<Object>& object);
+        friend Status yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<Object>& object);
 
-        friend Status archive_read_object(Archive& archive, Ref<Object>& object);
-        friend Status archive_write_object(Archive& archive, const Ref<Object>& object);
+        friend Status archive_read_object(IoContext& context, Archive& archive, Ref<Object>& object);
+        friend Status archive_write_object(IoContext& context, Archive& archive, const Ref<Object>& object);
     };
 
     template<typename T>
@@ -128,35 +128,35 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object;
-        auto        status = yaml_read_object(node, object);
+        auto        status = yaml_read_object(context, node, object);
         if (!status) return status;
         ref = object.template cast<T>();
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object = ref.template as<Object>();
-        auto        status = yaml_write_object(node, object);
+        auto        status = yaml_write_object(context, node, object);
         if (!status) return status;
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status archive_read(Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status archive_read(IoContext& context, Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object;
-        auto        status = archive_read_object(archive, object);
+        auto        status = archive_read_object(context, archive, object);
         if (!status) return status;
         ref = object.template cast<T>();
         return StatusCode::Ok;
     }
 
     template<typename T>
-    Status archive_write(Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status archive_write(IoContext& context, Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object = ref.template as<Object>();
-        auto        status = archive_write_object(archive, object);
+        auto        status = archive_write_object(context, archive, object);
         if (!status) return status;
         return StatusCode::Ok;
     }

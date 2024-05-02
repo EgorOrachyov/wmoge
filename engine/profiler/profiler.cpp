@@ -30,7 +30,7 @@
 #include "core/log.hpp"
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -91,9 +91,9 @@ namespace wmoge {
     void ProfilerCapture::save_to_json() {
         using namespace std::chrono;
 
-        Engine*     engine      = Engine::instance();
-        FileSystem* file_system = engine->file_system();
-        Profiler*   profiler    = engine->profiler();
+        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        Profiler*   profiler    = IocContainer::instance()->resolve_v<Profiler>();
+        Time*       time        = IocContainer::instance()->resolve_v<Time>();
 
         std::fstream file_stream;
 
@@ -102,7 +102,7 @@ namespace wmoge {
             return;
         }
 
-        auto start     = engine->time()->get_start();
+        auto start     = time->get_start();
         auto tid_names = profiler->get_tid_names();
 
         file_stream << R"({"otherData":{}, "traceEvents":[)";

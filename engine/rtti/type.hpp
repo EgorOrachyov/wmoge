@@ -61,10 +61,10 @@ namespace wmoge {
         virtual Status consturct(void* dst) const { return StatusCode::NotImplemented; }
         virtual Status copy(void* dst, const void* src) const { return StatusCode::NotImplemented; }
         virtual Status destruct(void* dst) const { return StatusCode::NotImplemented; }
-        virtual Status read_from_yaml(void* dst, YamlConstNodeRef node) const { return StatusCode::NotImplemented; }
-        virtual Status write_to_yaml(const void* src, YamlNodeRef node) const { return StatusCode::NotImplemented; }
-        virtual Status read_from_archive(void* dst, Archive& archive) const { return StatusCode::NotImplemented; }
-        virtual Status write_to_archive(const void* src, Archive& archive) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_archive(void* dst, Archive& archive, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status write_to_archive(const void* src, Archive& archive, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status to_string(const void* src, std::stringstream& s) const { return StatusCode::NotImplemented; }
         virtual Status add_element(void* src) const { return StatusCode::NotImplemented; }
         virtual Status remove_element(void* src, int index) const { return StatusCode::NotImplemented; }

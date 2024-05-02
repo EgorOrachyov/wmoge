@@ -98,21 +98,21 @@ namespace wmoge {
         return t;
     }
 
-    Status yaml_read(YamlConstNodeRef node, DateTime& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, DateTime& value) {
         std::string s;
-        WG_YAML_READ(node, s);
+        WG_YAML_READ(context, node, s);
         value = DateTime(s);
         return WG_OK;
     }
-    Status yaml_write(YamlNodeRef node, const DateTime& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const DateTime& value) {
         const std::string s = value.to_string();
-        WG_YAML_WRITE(node, s);
+        WG_YAML_WRITE(context, node, s);
         return WG_OK;
     }
-    Status archive_read(Archive& archive, DateTime& value) {
+    Status archive_read(IoContext& context, Archive& archive, DateTime& value) {
         return archive.nread(sizeof(value.m_value), &value.m_value);
     }
-    Status archive_write(Archive& archive, const DateTime& value) {
+    Status archive_write(IoContext& context, Archive& archive, const DateTime& value) {
         return archive.nwrite(sizeof(value.m_value), &value.m_value);
     }
 

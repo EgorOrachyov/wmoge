@@ -34,7 +34,7 @@
 #include "profiler/profiler.hpp"
 #include "scene/scene.hpp"
 #include "scene/scene_manager.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -44,7 +44,7 @@ namespace wmoge {
         AsyncOp<Ref<Scene>> scene_async = make_async_op<Ref<Scene>>();
 
         Task scene_task(get_name(), [self = Ref<ScenePacked>(this), scene_async](TaskContext&) {
-            Ref<Scene> scene = Engine::instance()->scene_manager()->make_scene(self->get_name());
+            Ref<Scene> scene = IocContainer::instance()->resolve_v<SceneManager>()->make_scene(self->get_name());
 
             Timer timer;
             timer.start();

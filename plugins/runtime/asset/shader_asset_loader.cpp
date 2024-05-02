@@ -57,14 +57,8 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        auto shader_file_tree = yaml_parse_file(path_on_disk);
-        if (shader_file_tree.empty()) {
-            WG_LOG_ERROR("failed to read parse file " << path_on_disk);
-            return StatusCode::FailedParse;
-        };
-
         ShaderFile shader_file;
-        if (!yaml_read(shader_file_tree, shader_file)) {
+        if (!yaml_read_file(path_on_disk, shader_file)) {
             WG_LOG_ERROR("failed to read parse shader file " << path_on_disk);
             return StatusCode::FailedParse;
         }

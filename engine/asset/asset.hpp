@@ -70,10 +70,10 @@ namespace wmoge {
         [[nodiscard]] bool               is_empty() const { return m_name.empty(); }
         [[nodiscard]] std::size_t        hash() const { return m_name.hash(); }
 
-        friend Status yaml_read(YamlConstNodeRef node, AssetId& id);
-        friend Status yaml_write(YamlNodeRef node, const AssetId& id);
-        friend Status archive_read(Archive& archive, AssetId& id);
-        friend Status archive_write(Archive& archive, const AssetId& id);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetId& id);
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const AssetId& id);
+        friend Status archive_read(IoContext& context, Archive& archive, AssetId& id);
+        friend Status archive_write(IoContext& context, Archive& archive, const AssetId& id);
 
     private:
         Strid m_name;

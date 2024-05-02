@@ -46,43 +46,43 @@ namespace wmoge {
     using buffered_vector = ankerl::svector<T, MinCapacity>;
 
     template<typename T, std::size_t MinCapacity>
-    Status archive_write(Archive& archive, const buffered_vector<T, MinCapacity>& vector) {
-        WG_ARCHIVE_WRITE(archive, vector.size());
+    Status archive_write(IoContext& context, Archive& archive, const buffered_vector<T, MinCapacity>& vector) {
+        WG_ARCHIVE_WRITE(context, archive, vector.size());
         for (const auto& entry : vector) {
-            WG_ARCHIVE_WRITE(archive, entry);
+            WG_ARCHIVE_WRITE(context, archive, entry);
         }
         return StatusCode::Ok;
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status archive_read(Archive& archive, buffered_vector<T, MinCapacity>& vector) {
+    Status archive_read(IoContext& context, Archive& archive, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         std::size_t size;
-        WG_ARCHIVE_READ(archive, size);
+        WG_ARCHIVE_READ(context, archive, size);
         vector.resize(size);
         for (int i = 0; i < size; i++) {
-            WG_ARCHIVE_READ(archive, vector[i]);
+            WG_ARCHIVE_READ(context, archive, vector[i]);
         }
         return StatusCode::Ok;
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status yaml_write(YamlNodeRef node, const buffered_vector<T, MinCapacity>& vector) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const buffered_vector<T, MinCapacity>& vector) {
         WG_YAML_SEQ(node);
         for (const T& value : vector) {
             YamlNodeRef child = node.append_child();
-            WG_YAML_WRITE(child, value);
+            WG_YAML_WRITE(context, child, value);
         }
         return StatusCode::Ok;
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status yaml_read(YamlConstNodeRef node, buffered_vector<T, MinCapacity>& vector) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         vector.resize(node.num_children());
         std::size_t element_id = 0;
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            WG_YAML_READ(child, vector[element_id]);
+            WG_YAML_READ(context, child, vector[element_id]);
             element_id += 1;
         }
         return StatusCode::Ok;

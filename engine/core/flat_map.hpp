@@ -46,47 +46,47 @@ namespace wmoge {
     using flat_map = robin_hood::unordered_flat_map<K, V>;
 
     template<typename K, typename V>
-    Status archive_write(Archive& archive, const flat_map<K, V>& map) {
-        WG_ARCHIVE_WRITE(archive, map.size());
+    Status archive_write(IoContext& context, Archive& archive, const flat_map<K, V>& map) {
+        WG_ARCHIVE_WRITE(context, archive, map.size());
         for (const auto& entry : map) {
-            WG_ARCHIVE_WRITE(archive, entry.first);
-            WG_ARCHIVE_WRITE(archive, entry.second);
+            WG_ARCHIVE_WRITE(context, archive, entry.first);
+            WG_ARCHIVE_WRITE(context, archive, entry.second);
         }
         return StatusCode::Ok;
     }
 
     template<typename K, typename V>
-    Status archive_read(Archive& archive, flat_map<K, V>& map) {
+    Status archive_read(IoContext& context, Archive& archive, flat_map<K, V>& map) {
         assert(map.empty());
         std::size_t size;
-        WG_ARCHIVE_READ(archive, size);
+        WG_ARCHIVE_READ(context, archive, size);
         for (int i = 0; i < size; i++) {
             robin_hood::pair<K, V> entry;
-            WG_ARCHIVE_READ(archive, entry.first);
-            WG_ARCHIVE_READ(archive, entry.second);
+            WG_ARCHIVE_READ(context, archive, entry.first);
+            WG_ARCHIVE_READ(context, archive, entry.second);
             map.insert(std::move(entry));
         }
         return StatusCode::Ok;
     }
 
     template<typename K, typename V>
-    Status yaml_read(YamlConstNodeRef node, flat_map<K, V>& map) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, flat_map<K, V>& map) {
         assert(map.empty());
         map.reserve(node.num_children());
         for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
             robin_hood::pair<K, V> entry;
-            WG_YAML_READ(child, entry);
+            WG_YAML_READ(context, child, entry);
             map.insert(std::move(entry));
         }
         return StatusCode::Ok;
     }
 
     template<typename K, typename V>
-    Status yaml_write(YamlNodeRef node, const flat_map<K, V>& map) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const flat_map<K, V>& map) {
         WG_YAML_SEQ(node);
         for (const auto& entry : map) {
             YamlNodeRef entry_child = node.append_child();
-            WG_YAML_WRITE(entry_child, entry);
+            WG_YAML_WRITE(context, entry_child, entry);
         }
         return StatusCode::Ok;
     }

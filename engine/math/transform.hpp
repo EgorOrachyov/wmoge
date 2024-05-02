@@ -71,30 +71,30 @@ namespace wmoge {
                    Math2d::translate(-m_translation);
         }
 
-        friend Status yaml_read(YamlConstNodeRef node, Transform2d& transform) {
-            WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
-            WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
-            WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, Transform2d& transform) {
+            WG_YAML_READ_AS_OPT(context, node, "rotation", transform.m_rotation);
+            WG_YAML_READ_AS_OPT(context, node, "translation", transform.m_translation);
+            WG_YAML_READ_AS_OPT(context, node, "scale", transform.m_scale);
             return StatusCode::Ok;
         }
-        friend Status yaml_write(YamlNodeRef node, const Transform2d& transform) {
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const Transform2d& transform) {
             WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
-            WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
-            WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+            WG_YAML_WRITE_AS(context, node, "rotation", transform.m_rotation);
+            WG_YAML_WRITE_AS(context, node, "translation", transform.m_translation);
+            WG_YAML_WRITE_AS(context, node, "scale", transform.m_scale);
 
             return StatusCode::Ok;
         }
-        friend Status archive_read(Archive& archive, Transform2d& transform) {
-            WG_ARCHIVE_READ(archive, transform.m_rotation);
-            WG_ARCHIVE_READ(archive, transform.m_translation);
-            WG_ARCHIVE_READ(archive, transform.m_scale);
+        friend Status archive_read(IoContext& context, Archive& archive, Transform2d& transform) {
+            WG_ARCHIVE_READ(context, archive, transform.m_rotation);
+            WG_ARCHIVE_READ(context, archive, transform.m_translation);
+            WG_ARCHIVE_READ(context, archive, transform.m_scale);
             return StatusCode::Ok;
         }
-        friend Status archive_write(Archive& archive, const Transform2d& transform) {
-            WG_ARCHIVE_WRITE(archive, transform.m_rotation);
-            WG_ARCHIVE_WRITE(archive, transform.m_translation);
-            WG_ARCHIVE_WRITE(archive, transform.m_scale);
+        friend Status archive_write(IoContext& context, Archive& archive, const Transform2d& transform) {
+            WG_ARCHIVE_WRITE(context, archive, transform.m_rotation);
+            WG_ARCHIVE_WRITE(context, archive, transform.m_translation);
+            WG_ARCHIVE_WRITE(context, archive, transform.m_scale);
             return StatusCode::Ok;
         }
 
@@ -153,30 +153,30 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status yaml_read(YamlConstNodeRef node, Transform3d& transform) {
-            WG_YAML_READ_AS_OPT(node, "rotation", transform.m_rotation);
-            WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
-            WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, Transform3d& transform) {
+            WG_YAML_READ_AS_OPT(context, node, "rotation", transform.m_rotation);
+            WG_YAML_READ_AS_OPT(context, node, "translation", transform.m_translation);
+            WG_YAML_READ_AS_OPT(context, node, "scale", transform.m_scale);
             return StatusCode::Ok;
         }
-        friend Status yaml_write(YamlNodeRef node, const Transform3d& transform) {
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const Transform3d& transform) {
             WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(node, "rotation", transform.m_rotation);
-            WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
-            WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+            WG_YAML_WRITE_AS(context, node, "rotation", transform.m_rotation);
+            WG_YAML_WRITE_AS(context, node, "translation", transform.m_translation);
+            WG_YAML_WRITE_AS(context, node, "scale", transform.m_scale);
 
             return StatusCode::Ok;
         }
-        friend Status archive_read(Archive& archive, Transform3d& transform) {
-            WG_ARCHIVE_READ(archive, transform.m_rotation);
-            WG_ARCHIVE_READ(archive, transform.m_translation);
-            WG_ARCHIVE_READ(archive, transform.m_scale);
+        friend Status archive_read(IoContext& context, Archive& archive, Transform3d& transform) {
+            WG_ARCHIVE_READ(context, archive, transform.m_rotation);
+            WG_ARCHIVE_READ(context, archive, transform.m_translation);
+            WG_ARCHIVE_READ(context, archive, transform.m_scale);
             return StatusCode::Ok;
         }
-        friend Status archive_write(Archive& archive, const Transform3d& transform) {
-            WG_ARCHIVE_WRITE(archive, transform.m_rotation);
-            WG_ARCHIVE_WRITE(archive, transform.m_translation);
-            WG_ARCHIVE_WRITE(archive, transform.m_scale);
+        friend Status archive_write(IoContext& context, Archive& archive, const Transform3d& transform) {
+            WG_ARCHIVE_WRITE(context, archive, transform.m_rotation);
+            WG_ARCHIVE_WRITE(context, archive, transform.m_translation);
+            WG_ARCHIVE_WRITE(context, archive, transform.m_scale);
             return StatusCode::Ok;
         }
 
@@ -224,12 +224,12 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status yaml_read(YamlConstNodeRef node, TransformEdt& transform) {
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, TransformEdt& transform) {
             Vec3f rotation_deg;
 
-            WG_YAML_READ_AS_OPT(node, "rotation", rotation_deg);
-            WG_YAML_READ_AS_OPT(node, "translation", transform.m_translation);
-            WG_YAML_READ_AS_OPT(node, "scale", transform.m_scale);
+            WG_YAML_READ_AS_OPT(context, node, "rotation", rotation_deg);
+            WG_YAML_READ_AS_OPT(context, node, "translation", transform.m_translation);
+            WG_YAML_READ_AS_OPT(context, node, "scale", transform.m_scale);
 
             transform.m_rotation.values[0] = Math::deg_to_rad(rotation_deg[0]);
             transform.m_rotation.values[1] = Math::deg_to_rad(rotation_deg[1]);
@@ -237,7 +237,7 @@ namespace wmoge {
 
             return StatusCode::Ok;
         }
-        friend Status yaml_write(YamlNodeRef node, const TransformEdt& transform) {
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const TransformEdt& transform) {
             Vec3f rotation_deg;
 
             rotation_deg[0] = Math::rad_to_deg(transform.m_rotation.values[0]);
@@ -245,22 +245,22 @@ namespace wmoge {
             rotation_deg[2] = Math::rad_to_deg(transform.m_rotation.values[2]);
 
             WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(node, "rotation", rotation_deg);
-            WG_YAML_WRITE_AS(node, "translation", transform.m_translation);
-            WG_YAML_WRITE_AS(node, "scale", transform.m_scale);
+            WG_YAML_WRITE_AS(context, node, "rotation", rotation_deg);
+            WG_YAML_WRITE_AS(context, node, "translation", transform.m_translation);
+            WG_YAML_WRITE_AS(context, node, "scale", transform.m_scale);
 
             return StatusCode::Ok;
         }
-        friend Status archive_read(Archive& archive, TransformEdt& transform) {
-            WG_ARCHIVE_READ(archive, transform.m_rotation);
-            WG_ARCHIVE_READ(archive, transform.m_translation);
-            WG_ARCHIVE_READ(archive, transform.m_scale);
+        friend Status archive_read(IoContext& context, Archive& archive, TransformEdt& transform) {
+            WG_ARCHIVE_READ(context, archive, transform.m_rotation);
+            WG_ARCHIVE_READ(context, archive, transform.m_translation);
+            WG_ARCHIVE_READ(context, archive, transform.m_scale);
             return StatusCode::Ok;
         }
-        friend Status archive_write(Archive& archive, const TransformEdt& transform) {
-            WG_ARCHIVE_WRITE(archive, transform.m_rotation);
-            WG_ARCHIVE_WRITE(archive, transform.m_translation);
-            WG_ARCHIVE_WRITE(archive, transform.m_scale);
+        friend Status archive_write(IoContext& context, Archive& archive, const TransformEdt& transform) {
+            WG_ARCHIVE_WRITE(context, archive, transform.m_rotation);
+            WG_ARCHIVE_WRITE(context, archive, transform.m_translation);
+            WG_ARCHIVE_WRITE(context, archive, transform.m_scale);
             return StatusCode::Ok;
         }
 

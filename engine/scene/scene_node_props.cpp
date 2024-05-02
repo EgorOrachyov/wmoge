@@ -75,11 +75,6 @@ namespace wmoge {
         }
     }
 
-    Status NodePropSpatial::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_YAML_READ(node, params);
-        return StatusCode::Ok;
-    }
-
     void NodePropSpatial::register_class() {
         auto* cls = Class::register_class<NodePropSpatial>();
     }
@@ -90,11 +85,6 @@ namespace wmoge {
 
     void NodePropCamera::add_components(Entity entity, Entity parent) {
         params.fill(entity.get_component<EcsComponentCamera>());
-    }
-
-    Status NodePropCamera::read_from_yaml(const YamlConstNodeRef& node) {
-        WG_YAML_READ(node, params);
-        return StatusCode::Ok;
     }
 
     void NodePropCamera::register_class() {

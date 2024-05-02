@@ -33,7 +33,7 @@
 #include "event/event_manager.hpp"
 #include "platform/common/mount_volume_physical.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <filesystem>
 #include <functional>
@@ -310,10 +310,9 @@ namespace wmoge {
             return;
         }
 
-        m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [path](const std::string& dropped, const filewatch::Event change_type) {
-            auto* engine        = Engine::instance();
-            auto* event_manager = engine->event_manager();
+        EventManager* event_manager = IocContainer::instance()->resolve_v<EventManager>();
 
+        m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [event_manager, path](const std::string& dropped, const filewatch::Event change_type) {
             auto event    = make_event<EventFileSystem>();
             event->path   = path;
             event->entry  = dropped;

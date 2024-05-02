@@ -65,7 +65,9 @@ namespace wmoge {
         asset->set_name(name);
         asset->set_import_data(meta.import_data);
 
-        if (!asset->read_from_yaml(asset_tree.crootref())) {
+        IoContext context;
+
+        if (!asset->read_from_yaml(context, asset_tree.crootref())) {
             WG_LOG_ERROR("failed to load asset from file " << path_on_disk);
             return StatusCode::FailedRead;
         }

@@ -25,65 +25,34 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "ecs_core.hpp"
+#include "context.hpp"
 
-#include "ecs/ecs_registry.hpp"
+#include "asset/asset_manager.hpp"
+#include "rtti/type_storage.hpp"
+#include "system/config_file.hpp"
 #include "system/ioc_container.hpp"
-
-#include <sstream>
-#include <string>
 
 namespace wmoge {
 
-    std::string EcsArch::to_string() const {
-        if (!any()) {
-            return "'empty'";
+    AssetManager* wmoge::IoContext::get_asset_manager() {
+        if (!m_asset_manager) {
+            m_asset_manager = get_ioc_container()->resolve_v<AssetManager>();
         }
-
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
-
-        std::stringstream stream;
-
-        const int total_components = int(count());
-
-        stream << "(";
-        stream << "count=" << total_components << ":";
-
-        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
-            if (test(i)) {
-                const Strid& name = registry->get_component_info(i).name;
-                stream << name << ",";
-            }
-        }
-
-        stream << ")";
-        return stream.str();
+        return m_asset_manager;
     }
 
-    std::string EcsQuery::to_string() const {
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
-
-        if (!read.any() && !write.any()) {
-            return "'empty'";
+    RttiTypeStorage* IoContext::get_type_storage() {
+        if (!m_type_storage) {
+            m_type_storage = get_ioc_container()->resolve_v<RttiTypeStorage>();
         }
+        return m_type_storage;
+    }
 
-        std::stringstream stream;
-
-        const auto affected       = read | write;
-        const int  total_affected = int(affected.count());
-
-        stream << "<";
-        stream << "count=" << total_affected << ":";
-
-        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
-            if (affected.test(i)) {
-                const Strid& name = registry->get_component_info(i).name;
-                stream << (write.test(i) ? "rw-" : "r-") << name << ",";
-            }
+    IocContainer* IoContext::get_ioc_container() {
+        if (!m_ioc_container) {
+            m_ioc_container = IocContainer::instance();
         }
-
-        stream << ">";
-        return stream.str();
+        return m_ioc_container;
     }
 
 }// namespace wmoge

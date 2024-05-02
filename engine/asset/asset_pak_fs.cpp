@@ -46,17 +46,11 @@ namespace wmoge {
     Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
         WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
 
-        std::string meta_file_path = name.str() + AssetMetaFile::FILE_EXTENSION;
-
-        auto res_tree = yaml_parse_file(meta_file_path);
-        if (res_tree.empty()) {
-            WG_LOG_ERROR("failed to parse tree file " << meta_file_path);
-            return StatusCode::FailedParse;
-        }
+        const std::string meta_file_path = name.str() + AssetMetaFile::FILE_EXTENSION;
 
         AssetMetaFile asset_file;
 
-        if (!yaml_read(res_tree, asset_file)) {
+        if (!yaml_read_file(meta_file_path, asset_file)) {
             WG_LOG_ERROR("failed to parse .asset file " << meta_file_path);
             return StatusCode::FailedRead;
         }

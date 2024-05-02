@@ -91,9 +91,9 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    Status yaml_read(YamlConstNodeRef node, Mask<T, size>& mask) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Mask<T, size>& mask) {
         buffered_vector<T, size> flags;
-        WG_YAML_READ(node, flags);
+        WG_YAML_READ(context, node, flags);
 
         for (auto flag : flags) {
             mask.set(flag);
@@ -103,24 +103,24 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    Status yaml_write(YamlNodeRef node, const Mask<T, size>& mask) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Mask<T, size>& mask) {
         buffered_vector<T, size> flags;
 
         mask.for_each([&](int, T flag) {
             flags.push_back(flag);
         });
 
-        WG_YAML_WRITE(node, flags);
+        WG_YAML_WRITE(context, node, flags);
         return StatusCode::Ok;
     }
 
     template<typename T, int size>
-    Status archive_read(Archive& archive, Mask<T, size>& mask) {
+    Status archive_read(IoContext& context, Archive& archive, Mask<T, size>& mask) {
         return archive.nread(sizeof(Mask<T, size>), &mask);
     }
 
     template<typename T, int size>
-    Status archive_write(Archive& archive, const Mask<T, size>& mask) {
+    Status archive_write(IoContext& context, Archive& archive, const Mask<T, size>& mask) {
         return archive.nwrite(sizeof(Mask<T, size>), &mask);
     }
 

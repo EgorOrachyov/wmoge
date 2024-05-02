@@ -25,65 +25,26 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "ecs_core.hpp"
-
-#include "ecs/ecs_registry.hpp"
-#include "system/ioc_container.hpp"
-
-#include <sstream>
-#include <string>
+#pragma once
 
 namespace wmoge {
 
-    std::string EcsArch::to_string() const {
-        if (!any()) {
-            return "'empty'";
-        }
+    /**
+     * @class IoContext
+     * @brief Context passed to io save load functions
+    */
+    class IoContext {
+    public:
+        IoContext() = default;
 
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
+        [[nodiscard]] class AssetManager*    get_asset_manager();
+        [[nodiscard]] class RttiTypeStorage* get_type_storage();
+        [[nodiscard]] class IocContainer*    get_ioc_container();
 
-        std::stringstream stream;
-
-        const int total_components = int(count());
-
-        stream << "(";
-        stream << "count=" << total_components << ":";
-
-        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
-            if (test(i)) {
-                const Strid& name = registry->get_component_info(i).name;
-                stream << name << ",";
-            }
-        }
-
-        stream << ")";
-        return stream.str();
-    }
-
-    std::string EcsQuery::to_string() const {
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
-
-        if (!read.any() && !write.any()) {
-            return "'empty'";
-        }
-
-        std::stringstream stream;
-
-        const auto affected       = read | write;
-        const int  total_affected = int(affected.count());
-
-        stream << "<";
-        stream << "count=" << total_affected << ":";
-
-        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
-            if (affected.test(i)) {
-                const Strid& name = registry->get_component_info(i).name;
-                stream << (write.test(i) ? "rw-" : "r-") << name << ",";
-            }
-        }
-
-        stream << ">";
-        return stream.str();
-    }
+    private:
+        class AssetManager*    m_asset_manager = nullptr;
+        class RttiTypeStorage* m_type_storage  = nullptr;
+        class IocContainer*    m_ioc_container = nullptr;
+    };
 
 }// namespace wmoge

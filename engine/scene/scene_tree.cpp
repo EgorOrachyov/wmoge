@@ -31,7 +31,7 @@
 #include "profiler/profiler.hpp"
 #include "scene/scene_manager.hpp"
 #include "scene/scene_prefab.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -43,7 +43,7 @@ namespace wmoge {
 
     SceneTree::SceneTree(const Strid& name) {
         m_name  = name;
-        m_scene = Engine::instance()->scene_manager()->make_scene(SID(name.str() + ".runtime"));
+        m_scene = IocContainer::instance()->resolve_v<SceneManager>()->make_scene(SID(name.str() + ".runtime"));
         m_root  = make_ref<SceneNode>(SID("<root>"), SceneNodeType::Object);
         m_root->enter_tree(this);
     }

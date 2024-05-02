@@ -79,17 +79,17 @@ namespace wmoge {
 
         [[nodiscard]] std::string to_string() const;
 
-        friend Status yaml_read(YamlConstNodeRef node, EcsArch& arch) {
-            return yaml_read(node, *((EcsArch::Bitset*) &arch));
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, EcsArch& arch) {
+            return yaml_read(context, node, *((EcsArch::Bitset*) &arch));
         }
-        friend Status yaml_write(YamlNodeRef node, const EcsArch& arch) {
-            return yaml_write(node, *((const EcsArch::Bitset*) &arch));
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const EcsArch& arch) {
+            return yaml_write(context, node, *((const EcsArch::Bitset*) &arch));
         }
-        friend Status archive_read(Archive& archive, EcsArch& arch) {
-            return archive_read(archive, *((EcsArch::Bitset*) &arch));
+        friend Status archive_read(IoContext& context, Archive& archive, EcsArch& arch) {
+            return archive_read(context, archive, *((EcsArch::Bitset*) &arch));
         }
-        friend Status archive_write(Archive& archive, const EcsArch& arch) {
-            return archive_write(archive, *((const EcsArch::Bitset*) &arch));
+        friend Status archive_write(IoContext& context, Archive& archive, const EcsArch& arch) {
+            return archive_write(context, archive, *((const EcsArch::Bitset*) &arch));
         }
     };
 

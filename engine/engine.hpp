@@ -134,6 +134,7 @@
 #include "io/archive_memory.hpp"
 #include "io/base64.hpp"
 #include "io/compression.hpp"
+#include "io/context.hpp"
 #include "io/enum.hpp"
 #include "io/serialization.hpp"
 #include "io/yaml.hpp"

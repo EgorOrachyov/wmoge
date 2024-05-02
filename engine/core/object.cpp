@@ -123,11 +123,11 @@ namespace wmoge {
         return name;
     }
 
-    Status yaml_read_object(const YamlConstNodeRef& node, Ref<Object>& object) {
+    Status yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<Object>& object) {
         assert(!object);
 
         Strid class_name;
-        WG_YAML_READ_AS(node, "rtti", class_name);
+        WG_YAML_READ_AS(context, node, "rtti", class_name);
 
         auto* cls = Class::class_ptr(class_name);
 
@@ -145,18 +145,18 @@ namespace wmoge {
 
         return object->read_from_yaml(node);
     }
-    Status yaml_write_object(YamlNodeRef node, const Ref<Object>& object) {
+    Status yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<Object>& object) {
         assert(object);
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "rtti", object->class_name());
+        WG_YAML_WRITE_AS(context, node, "rtti", object->class_name());
         return object->write_to_yaml(node);
     }
 
-    Status archive_read_object(Archive& archive, Ref<Object>& object) {
+    Status archive_read_object(IoContext& context, Archive& archive, Ref<Object>& object) {
         assert(!object);
 
         Strid class_name;
-        WG_ARCHIVE_READ(archive, class_name);
+        WG_ARCHIVE_READ(context, archive, class_name);
 
         auto* cls = Class::class_ptr(class_name);
 
@@ -174,9 +174,9 @@ namespace wmoge {
 
         return object->read_from_archive(archive);
     }
-    Status archive_write_object(Archive& archive, const Ref<Object>& object) {
+    Status archive_write_object(IoContext& context, Archive& archive, const Ref<Object>& object) {
         assert(object);
-        WG_ARCHIVE_WRITE(archive, object->class_name());
+        WG_ARCHIVE_WRITE(context, archive, object->class_name());
         return object->write_to_archive(archive);
     }
 

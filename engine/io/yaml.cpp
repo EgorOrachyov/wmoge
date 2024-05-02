@@ -28,7 +28,7 @@
 #include "yaml.hpp"
 
 #include "platform/file_system.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <sstream>
@@ -38,13 +38,13 @@ namespace wmoge {
 
     YamlTree yaml_parse(const std::vector<std::uint8_t>& data) {
         auto str_view = ryml::csubstr(reinterpret_cast<const char*>(data.data()), data.size());
-        return ryml::parse_in_arena(str_view);
+        return std::move(ryml::parse_in_arena(str_view));
     }
 
     YamlTree yaml_parse_file(const std::string& file_path) {
         std::vector<std::uint8_t> file;
 
-        if (!Engine::instance()->file_system()->read_file(file_path, file)) {
+        if (!IocContainer::instance()->resolve_v<FileSystem>()->read_file(file_path, file)) {
             WG_LOG_ERROR("failed to read content of file " << file_path);
             return {};
         }
@@ -52,78 +52,78 @@ namespace wmoge {
         return yaml_parse(file);
     }
 
-    Status yaml_read(YamlConstNodeRef node, bool& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, bool& value) {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const bool& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const bool& value) {
         node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, int& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, int& value) {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const int& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const int& value) {
         node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, unsigned int& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, unsigned int& value) {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const unsigned int& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const unsigned int& value) {
         node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, float& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, float& value) {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const float& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const float& value) {
         node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, Strid& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Strid& value) {
         std::string string;
         node >> string;
         value = SID(string);
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const Strid& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Strid& value) {
         node << value.str();
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, std::string& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::string& value) {
         if (node.has_val()) {
             node >> value;
         }
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const std::string& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const std::string& value) {
         node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, std::int16_t& value) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::int16_t& value) {
         node >> value;
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const std::int16_t& value) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const std::int16_t& value) {
         node << value;
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, Status& value) {
-        return yaml_read(node, value.code());
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Status& value) {
+        return yaml_read(context, node, value.code());
     }
-    Status yaml_write(YamlNodeRef node, const Status& value) {
-        return yaml_write(node, value.code());
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Status& value) {
+        return yaml_write(context, node, value.code());
     }
 
 }// namespace wmoge

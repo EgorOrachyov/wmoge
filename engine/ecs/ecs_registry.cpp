@@ -28,12 +28,12 @@
 #include "ecs_registry.hpp"
 
 #include "system/config_file.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     EcsRegistry::EcsRegistry() {
-        ConfigFile* config = Engine::instance()->config();
+        ConfigFile* config = IocContainer::instance()->resolve_v<ConfigFile>();
 
         config->get(SID("ecs.chunk_size"), m_chunk_size);
         config->get(SID("ecs.expand_size"), m_expand_size);

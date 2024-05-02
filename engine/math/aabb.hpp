@@ -111,28 +111,28 @@ namespace wmoge {
     using Aabbf = TAabb<float>;
 
     template<typename T>
-    Status yaml_read(YamlConstNodeRef node, TAabb<T>& aabb) {
-        WG_YAML_READ_AS(node, "pos", aabb.pos);
-        WG_YAML_READ_AS(node, "size_half", aabb.size_half);
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, TAabb<T>& aabb) {
+        WG_YAML_READ_AS(context, node, "pos", aabb.pos);
+        WG_YAML_READ_AS(context, node, "size_half", aabb.size_half);
         return StatusCode::Ok;
     }
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const TAabb<T>& aabb) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const TAabb<T>& aabb) {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "pos", aabb.pos);
-        WG_YAML_WRITE_AS(node, "size_half", aabb.size_half);
+        WG_YAML_WRITE_AS(context, node, "pos", aabb.pos);
+        WG_YAML_WRITE_AS(context, node, "size_half", aabb.size_half);
         return StatusCode::Ok;
     }
     template<typename T>
-    Status archive_read(Archive& archive, TAabb<T>& aabb) {
-        WG_ARCHIVE_READ(archive, aabb.pos);
-        WG_ARCHIVE_READ(archive, aabb.size_half);
+    Status archive_read(IoContext& context, Archive& archive, TAabb<T>& aabb) {
+        WG_ARCHIVE_READ(context, archive, aabb.pos);
+        WG_ARCHIVE_READ(context, archive, aabb.size_half);
         return StatusCode::Ok;
     }
     template<typename T>
-    Status archive_write(Archive& archive, const TAabb<T>& aabb) {
-        WG_ARCHIVE_WRITE(archive, aabb.pos);
-        WG_ARCHIVE_WRITE(archive, aabb.size_half);
+    Status archive_write(IoContext& context, Archive& archive, const TAabb<T>& aabb) {
+        WG_ARCHIVE_WRITE(context, archive, aabb.pos);
+        WG_ARCHIVE_WRITE(context, archive, aabb.size_half);
         return StatusCode::Ok;
     }
 

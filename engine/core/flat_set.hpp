@@ -43,28 +43,6 @@ namespace wmoge {
      */
     template<typename K>
     using flat_set = robin_hood::unordered_flat_set<K>;
-
-    template<typename K>
-    Status archive_write(Archive& archive, const flat_set<K>& map) {
-        archive << static_cast<int>(map.size());
-        for (const auto& entry : map) {
-            archive << entry;
-        }
-        return StatusCode::Ok;
-    }
-
-    template<typename K>
-    Status archive_read(Archive& archive, flat_set<K>& map) {
-        assert(map.empty());
-        int size;
-        archive >> size;
-        for (int i = 0; i < size; i++) {
-            K entry;
-            archive >> entry;
-            map.insert(std::move(entry));
-        }
-        return StatusCode::Ok;
-    }
 #endif
 
 }// namespace wmoge

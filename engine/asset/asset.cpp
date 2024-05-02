@@ -36,20 +36,20 @@
 
 namespace wmoge {
 
-    Status yaml_read(YamlConstNodeRef node, AssetId& id) {
-        WG_YAML_READ(node, id.m_name);
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetId& id) {
+        WG_YAML_READ(context, node, id.m_name);
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const AssetId& id) {
-        WG_YAML_WRITE(node, id.m_name);
+    Status yaml_write(IoContext& context, YamlNodeRef node, const AssetId& id) {
+        WG_YAML_WRITE(context, node, id.m_name);
         return StatusCode::Ok;
     }
-    Status archive_read(Archive& archive, AssetId& id) {
-        WG_ARCHIVE_READ(archive, id.m_name);
+    Status archive_read(IoContext& context, Archive& archive, AssetId& id) {
+        WG_ARCHIVE_READ(context, archive, id.m_name);
         return StatusCode::Ok;
     }
-    Status archive_write(Archive& archive, const AssetId& id) {
-        WG_ARCHIVE_WRITE(archive, id.m_name);
+    Status archive_write(IoContext& context, Archive& archive, const AssetId& id) {
+        WG_ARCHIVE_WRITE(context, archive, id.m_name);
         return StatusCode::Ok;
     }
 

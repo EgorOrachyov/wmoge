@@ -74,10 +74,10 @@ namespace wmoge {
 
         static DateTime now();
 
-        friend Status yaml_read(YamlConstNodeRef node, DateTime& value);
-        friend Status yaml_write(YamlNodeRef node, const DateTime& value);
-        friend Status archive_read(Archive& archive, DateTime& value);
-        friend Status archive_write(Archive& archive, const DateTime& value);
+        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, DateTime& value);
+        friend Status yaml_write(IoContext& context, YamlNodeRef node, const DateTime& value);
+        friend Status archive_read(IoContext& context, Archive& archive, DateTime& value);
+        friend Status archive_write(IoContext& context, Archive& archive, const DateTime& value);
 
     private:
         TimePoint m_value{};

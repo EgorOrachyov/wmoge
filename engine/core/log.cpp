@@ -30,7 +30,7 @@
 #include "debug/console.hpp"
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <magic_enum.hpp>
 
@@ -92,9 +92,8 @@ namespace wmoge {
 
     LogListenerStream::LogListenerStream(std::string name, wmoge::LogLevel level)
         : m_name(std::move(name)), m_level(level) {
-        Engine*     engine      = Engine::instance();
-        FileSystem* file_system = engine->file_system();
-        Time*       engine_time = engine->time();
+        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        Time*       engine_time = IocContainer::instance()->resolve_v<Time>();
 
         std::time_t       time = engine_time->get_time();
         std::stringstream log_file_name;

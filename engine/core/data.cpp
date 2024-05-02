@@ -57,19 +57,19 @@ namespace wmoge {
         return "data 0x" + StringUtils::from_ptr(m_buffer) + " " + StringUtils::from_mem_size(m_size);
     }
 
-    Status archive_write(Archive& archive, const Ref<Data>& data) {
+    Status archive_write(IoContext& context, Archive& archive, const Ref<Data>& data) {
         assert(data);
-        WG_ARCHIVE_WRITE(archive, data->m_size);
+        WG_ARCHIVE_WRITE(context, archive, data->m_size);
         return archive.nwrite(static_cast<int>(data->m_size), data->m_buffer);
     }
-    Status archive_read(Archive& archive, Ref<Data>& data) {
+    Status archive_read(IoContext& context, Archive& archive, Ref<Data>& data) {
         std::size_t size;
-        WG_ARCHIVE_READ(archive, size);
+        WG_ARCHIVE_READ(context, archive, size);
         data = make_ref<Data>(size);
         return archive.nread(static_cast<int>(size), data->buffer());
     }
 
-    Status yaml_write(YamlNodeRef node, const Ref<Data>& data) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<Data>& data) {
         if (!data) {
             node << "";
             return StatusCode::Ok;
@@ -77,13 +77,13 @@ namespace wmoge {
 
         std::string encoded;
         if (Base64::encode(data, encoded)) {
-            return yaml_write(node, encoded);
+            return yaml_write(context, node, encoded);
         }
         return StatusCode::FailedWrite;
     }
-    Status yaml_read(YamlConstNodeRef node, Ref<Data>& data) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<Data>& data) {
         std::string encoded;
-        if (yaml_read(node, encoded)) {
+        if (yaml_read(context, node, encoded)) {
             return Base64::decode(encoded, data);
         }
         return StatusCode::FailedRead;

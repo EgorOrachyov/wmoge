@@ -108,10 +108,10 @@ namespace wmoge {
         [[nodiscard]] RttiStruct*                          get_parent() const { return m_parent; }
 
         Status copy(void* dst, const void* src) const override;
-        Status read_from_yaml(void* dst, YamlConstNodeRef node) const override;
-        Status write_to_yaml(const void* src, YamlNodeRef node) const override;
-        Status read_from_archive(void* dst, Archive& archive) const override;
-        Status write_to_archive(const void* src, Archive& archive) const override;
+        Status read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const override;
+        Status write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const override;
+        Status read_from_archive(void* dst, Archive& archive, IoContext& context) const override;
+        Status write_to_archive(const void* src, Archive& archive, IoContext& context) const override;
         Status to_string(const void* src, std::stringstream& s) const override;
 
     protected:

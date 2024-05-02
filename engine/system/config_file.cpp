@@ -31,7 +31,7 @@
 #include "core/string_utils.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <fstream>
 
@@ -41,7 +41,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_ASSET("ConfigFile::load");
 
         std::fstream file;
-        FileSystem*  file_system = Engine::instance()->file_system();
+        FileSystem*  file_system = IocContainer::instance()->resolve_v<FileSystem>();
 
         if (!file_system->open_file_physical(path, file, std::ios_base::in | std::ios_base::binary)) {
             WG_LOG_ERROR("failed to read config file from " << path);

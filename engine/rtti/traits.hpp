@@ -99,17 +99,17 @@ namespace wmoge {
             ((T*) dst)->~T();
             return WG_OK;
         }
-        Status read_from_yaml(void* dst, YamlConstNodeRef node) const override {
-            return yaml_read(node, *((T*) dst));
+        Status read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const override {
+            return yaml_read(context, node, *((T*) dst));
         }
-        Status write_to_yaml(const void* src, YamlNodeRef node) const override {
-            return yaml_write(node, *((const T*) src));
+        Status write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const override {
+            return yaml_write(context, node, *((const T*) src));
         }
-        Status read_from_archive(void* dst, Archive& archive) const override {
-            return archive_read(archive, *((T*) dst));
+        Status read_from_archive(void* dst, Archive& archive, IoContext& context) const override {
+            return archive_read(context, archive, *((T*) dst));
         }
-        Status write_to_archive(const void* src, Archive& archive) const override {
-            return archive_write(archive, *((T*) src));
+        Status write_to_archive(const void* src, Archive& archive, IoContext& context) const override {
+            return archive_write(context, archive, *((T*) src));
         }
     };
 
@@ -775,17 +775,17 @@ public:                                                                         
     rtti_type* get_parent_class() const modifier {                                                                 \
         return get_parent_class_static();                                                                          \
     }                                                                                                              \
-    friend Status yaml_read(YamlConstNodeRef node, struct_type& value) {                                           \
-        return get_class_static()->read_from_yaml(&value, node);                                                   \
+    friend Status yaml_read(IoContext& context, YamlConstNodeRef node, struct_type& value) {                       \
+        return get_class_static()->read_from_yaml(&value, node, context);                                          \
     }                                                                                                              \
-    friend Status yaml_write(YamlNodeRef node, const struct_type& value) {                                         \
-        return get_class_static()->write_to_yaml(&value, node);                                                    \
+    friend Status yaml_write(IoContext& context, YamlNodeRef node, const struct_type& value) {                     \
+        return get_class_static()->write_to_yaml(&value, node, context);                                           \
     }                                                                                                              \
-    friend Status archive_read(Archive& archive, struct_type& value) {                                             \
-        return get_class_static()->read_from_archive(&value, archive);                                             \
+    friend Status archive_read(IoContext& context, Archive& archive, struct_type& value) {                         \
+        return get_class_static()->read_from_archive(&value, archive, context);                                    \
     }                                                                                                              \
-    friend Status archive_write(Archive& archive, const struct_type& value) {                                      \
-        return get_class_static()->write_to_archive(&value, archive);                                              \
+    friend Status archive_write(IoContext& context, Archive& archive, const struct_type& value) {                  \
+        return get_class_static()->write_to_archive(&value, archive, context);                                     \
     }                                                                                                              \
     friend struct RttiTypeOf<struct_type>;
 

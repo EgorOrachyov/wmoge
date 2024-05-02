@@ -38,52 +38,52 @@
 
 namespace wmoge {
 
-    Status yaml_read(YamlConstNodeRef node, ActionActivation& activation) {
-        WG_YAML_READ_AS_OPT(node, "device_name", activation.device_name);
-        WG_YAML_READ_AS_OPT(node, "device_type", activation.device_type);
-        WG_YAML_READ_AS_OPT(node, "action", activation.action);
-        WG_YAML_READ_AS_OPT(node, "key", activation.key);
-        WG_YAML_READ_AS_OPT(node, "mouse_button", activation.mouse_button);
-        WG_YAML_READ_AS_OPT(node, "joystick", activation.joystick);
-        WG_YAML_READ_AS_OPT(node, "joystick_button", activation.joystick_button);
-        WG_YAML_READ_AS_OPT(node, "axis", activation.axis);
-        WG_YAML_READ_AS_OPT(node, "gamepad_button", activation.gamepad_button);
-        WG_YAML_READ_AS_OPT(node, "gamepad_axis", activation.gamepad_axis);
-        WG_YAML_READ_AS_OPT(node, "threshold", activation.threshold);
-        WG_YAML_READ_AS_OPT(node, "direction", activation.direction);
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, ActionActivation& activation) {
+        WG_YAML_READ_AS_OPT(context, node, "device_name", activation.device_name);
+        WG_YAML_READ_AS_OPT(context, node, "device_type", activation.device_type);
+        WG_YAML_READ_AS_OPT(context, node, "action", activation.action);
+        WG_YAML_READ_AS_OPT(context, node, "key", activation.key);
+        WG_YAML_READ_AS_OPT(context, node, "mouse_button", activation.mouse_button);
+        WG_YAML_READ_AS_OPT(context, node, "joystick", activation.joystick);
+        WG_YAML_READ_AS_OPT(context, node, "joystick_button", activation.joystick_button);
+        WG_YAML_READ_AS_OPT(context, node, "axis", activation.axis);
+        WG_YAML_READ_AS_OPT(context, node, "gamepad_button", activation.gamepad_button);
+        WG_YAML_READ_AS_OPT(context, node, "gamepad_axis", activation.gamepad_axis);
+        WG_YAML_READ_AS_OPT(context, node, "threshold", activation.threshold);
+        WG_YAML_READ_AS_OPT(context, node, "direction", activation.direction);
 
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const ActionActivation& activation) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const ActionActivation& activation) {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "device_name", activation.device_name);
-        WG_YAML_WRITE_AS(node, "device_type", activation.device_type);
-        WG_YAML_WRITE_AS(node, "action", activation.action);
-        WG_YAML_WRITE_AS(node, "key", activation.key);
-        WG_YAML_WRITE_AS(node, "mouse_button", activation.mouse_button);
-        WG_YAML_WRITE_AS(node, "joystick", activation.joystick);
-        WG_YAML_WRITE_AS(node, "joystick_button", activation.joystick_button);
-        WG_YAML_WRITE_AS(node, "axis", activation.axis);
-        WG_YAML_WRITE_AS(node, "gamepad_button", activation.gamepad_button);
-        WG_YAML_WRITE_AS(node, "gamepad_axis", activation.gamepad_axis);
-        WG_YAML_WRITE_AS(node, "threshold", activation.threshold);
-        WG_YAML_WRITE_AS(node, "direction", activation.direction);
+        WG_YAML_WRITE_AS(context, node, "device_name", activation.device_name);
+        WG_YAML_WRITE_AS(context, node, "device_type", activation.device_type);
+        WG_YAML_WRITE_AS(context, node, "action", activation.action);
+        WG_YAML_WRITE_AS(context, node, "key", activation.key);
+        WG_YAML_WRITE_AS(context, node, "mouse_button", activation.mouse_button);
+        WG_YAML_WRITE_AS(context, node, "joystick", activation.joystick);
+        WG_YAML_WRITE_AS(context, node, "joystick_button", activation.joystick_button);
+        WG_YAML_WRITE_AS(context, node, "axis", activation.axis);
+        WG_YAML_WRITE_AS(context, node, "gamepad_button", activation.gamepad_button);
+        WG_YAML_WRITE_AS(context, node, "gamepad_axis", activation.gamepad_axis);
+        WG_YAML_WRITE_AS(context, node, "threshold", activation.threshold);
+        WG_YAML_WRITE_AS(context, node, "direction", activation.direction);
 
         return StatusCode::Ok;
     }
 
-    Status yaml_read(YamlConstNodeRef node, ActionMapAction& action) {
-        WG_YAML_READ_AS(node, "action", action.name);
-        WG_YAML_READ_AS(node, "display_name", action.display_name);
-        WG_YAML_READ_AS(node, "activations", action.activations);
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, ActionMapAction& action) {
+        WG_YAML_READ_AS(context, node, "action", action.name);
+        WG_YAML_READ_AS(context, node, "display_name", action.display_name);
+        WG_YAML_READ_AS(context, node, "activations", action.activations);
 
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const ActionMapAction& action) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const ActionMapAction& action) {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "action", action.name);
-        WG_YAML_WRITE_AS(node, "display_name", action.display_name);
-        WG_YAML_WRITE_AS(node, "activations", action.activations);
+        WG_YAML_WRITE_AS(context, node, "action", action.name);
+        WG_YAML_WRITE_AS(context, node, "display_name", action.display_name);
+        WG_YAML_WRITE_AS(context, node, "activations", action.activations);
 
         return StatusCode::Ok;
     }
@@ -142,12 +142,12 @@ namespace wmoge {
         return actions;
     }
 
-    Status yaml_read(YamlConstNodeRef node, ActionMap& action_map) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, ActionMap& action_map) {
         std::vector<ActionMapAction> actions;
 
-        WG_YAML_READ_AS(node, "name", action_map.m_name);
-        WG_YAML_READ_AS(node, "priority", action_map.m_priority);
-        WG_YAML_READ_AS(node, "actions", actions);
+        WG_YAML_READ_AS(context, node, "name", action_map.m_name);
+        WG_YAML_READ_AS(context, node, "priority", action_map.m_priority);
+        WG_YAML_READ_AS(context, node, "actions", actions);
 
         for (auto& action : actions) {
             action_map.m_actions[action.name] = std::move(action);
@@ -155,11 +155,11 @@ namespace wmoge {
 
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const ActionMap& action_map) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const ActionMap& action_map) {
         WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(node, "name", action_map.m_name);
-        WG_YAML_WRITE_AS(node, "priority", action_map.m_priority);
-        WG_YAML_WRITE_AS(node, "actions", action_map.get_actions());
+        WG_YAML_WRITE_AS(context, node, "name", action_map.m_name);
+        WG_YAML_WRITE_AS(context, node, "priority", action_map.m_priority);
+        WG_YAML_WRITE_AS(context, node, "actions", action_map.get_actions());
 
         return StatusCode::Ok;
     }

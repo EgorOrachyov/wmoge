@@ -43,10 +43,10 @@ namespace wmoge {
 
         virtual std::string     to_string() const;
         virtual Status          clone(Ref<RttiObject>& object) const;
-        virtual Status          read_from_yaml(YamlConstNodeRef node);
-        virtual Status          write_to_yaml(YamlNodeRef node) const;
-        virtual Status          read_from_archive(Archive& archive);
-        virtual Status          write_to_archive(Archive& archive) const;
+        virtual Status          read_from_yaml(IoContext& context, YamlConstNodeRef node);
+        virtual Status          write_to_yaml(IoContext& context, YamlNodeRef node) const;
+        virtual Status          read_from_archive(IoContext& context, Archive& archive);
+        virtual Status          write_to_archive(IoContext& context, Archive& archive) const;
         virtual Ref<RttiObject> duplicate() const;
         virtual Strid           get_class_name() const;
         virtual Strid           get_parent_class_name() const;
@@ -57,10 +57,10 @@ namespace wmoge {
         static Strid      get_parent_class_name_static();
         static RttiClass* get_class_static();
         static RttiClass* get_parent_class_static();
-        static Status     yaml_read_object(YamlConstNodeRef node, Ref<RttiObject>& object);
-        static Status     yaml_write_object(YamlNodeRef node, const Ref<RttiObject>& object);
-        static Status     archive_read_object(Archive& archive, Ref<RttiObject>& object);
-        static Status     archive_write_object(Archive& archive, const Ref<RttiObject>& object);
+        static Status     yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<RttiObject>& object);
+        static Status     yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<RttiObject>& object);
+        static Status     archive_read_object(IoContext& context, Archive& archive, Ref<RttiObject>& object);
+        static Status     archive_write_object(IoContext& context, Archive& archive, const Ref<RttiObject>& object);
     };
 
     template<typename T, typename std::enable_if<std::is_convertible_v<T*, RttiObject*>>::type>
@@ -99,32 +99,32 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object;
-        WG_CHECKED(RttiObject::yaml_read_object(node, object));
+        WG_CHECKED(RttiObject::yaml_read_object(context, node, object));
         ref = object.template cast<T>();
         return WG_OK;
     }
 
     template<typename T>
-    Status yaml_write(YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object = ref.template as<RttiObject>();
-        WG_CHECKED(RttiObject::yaml_write_object(node, object));
+        WG_CHECKED(RttiObject::yaml_write_object(context, node, object));
         return WG_OK;
     }
 
     template<typename T>
-    Status archive_read(Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status archive_read(IoContext& context, Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object;
-        WG_CHECKED(RttiObject::archive_read_object(archive, object));
+        WG_CHECKED(RttiObject::archive_read_object(context, archive, object));
         ref = object.template cast<T>();
         return WG_OK;
     }
 
     template<typename T>
-    Status archive_write(Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status archive_write(IoContext& context, Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object = ref.template as<RttiObject>();
-        WG_CHECKED(RttiObject::archive_write_object(archive, object));
+        WG_CHECKED(RttiObject::archive_write_object(context, archive, object));
         return WG_OK;
     }
 

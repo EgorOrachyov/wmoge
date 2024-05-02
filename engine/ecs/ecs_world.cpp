@@ -34,13 +34,13 @@
 #include "ecs/ecs_registry.hpp"
 #include "math/math_utils.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     EcsWorld::EcsWorld() {
-        m_task_manager = Engine::instance()->task_manager();
-        m_ecs_registry = Engine::instance()->ecs_registry();
+        m_task_manager = IocContainer::instance()->resolve_v<TaskManager>();
+        m_ecs_registry = IocContainer::instance()->resolve_v<EcsRegistry>();
 
         for (const EcsSystemPtr& system : m_ecs_registry->get_systems()) {
             register_system(system);

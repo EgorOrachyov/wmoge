@@ -30,14 +30,13 @@
 #include "core/log.hpp"
 #include "core/task_runtime.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
     TaskManager::TaskManager(int workers_count) {
         assert(workers_count > 0);
 
-        Profiler* profiler = Engine::instance()->profiler();
+        Profiler* profiler = Profiler::instance();
 
         for (int i = 0; i < workers_count; i++) {
             std::thread worker([this, i]() {

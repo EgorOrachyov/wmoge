@@ -648,9 +648,9 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status yaml_read(YamlConstNodeRef node, TVecN<T, N>& v) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, TVecN<T, N>& v) {
         std::string str;
-        WG_YAML_READ(node, str);
+        WG_YAML_READ(context, node, str);
 
         std::stringstream stream(str);
 
@@ -662,7 +662,7 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status yaml_write(YamlNodeRef node, const TVecN<T, N>& v) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const TVecN<T, N>& v) {
         std::stringstream stream;
 
         for (int i = 0; i < N; i++) {
@@ -670,16 +670,16 @@ namespace wmoge {
             if (i + 1 < N) stream << " ";
         }
 
-        return yaml_write(node, stream.str());
+        return yaml_write(context, node, stream.str());
     }
 
     template<typename T, int N>
-    Status archive_read(Archive& archive, TVecN<T, N>& v) {
+    Status archive_read(IoContext& context, Archive& archive, TVecN<T, N>& v) {
         return archive.nread(sizeof(TVecN<T, N>), &v);
     }
 
     template<typename T, int N>
-    Status archive_write(Archive& archive, const TVecN<T, N>& v) {
+    Status archive_write(IoContext& context, Archive& archive, const TVecN<T, N>& v) {
         return archive.nwrite(sizeof(TVecN<T, N>), &v);
     }
 

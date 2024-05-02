@@ -46,21 +46,21 @@ namespace wmoge {
         return {Random::next_uint64()};
     }
 
-    Status yaml_read(YamlConstNodeRef node, UUID& id) {
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, UUID& id) {
         std::string value;
         node >> value;
         id = UUID(value);
         return StatusCode::Ok;
     }
-    Status yaml_write(YamlNodeRef node, const UUID& id) {
+    Status yaml_write(IoContext& context, YamlNodeRef node, const UUID& id) {
         node << StringUtils::from_uint64(id.m_value);
         return StatusCode::Ok;
     }
 
-    Status archive_read(Archive& archive, UUID& id) {
+    Status archive_read(IoContext& context, Archive& archive, UUID& id) {
         return archive.nread(sizeof(id.m_value), &id.m_value);
     }
-    Status archive_write(Archive& archive, const UUID& id) {
+    Status archive_write(IoContext& context, Archive& archive, const UUID& id) {
         return archive.nwrite(sizeof(id.m_value), &id.m_value);
     }
 

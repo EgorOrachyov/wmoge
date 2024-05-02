@@ -39,7 +39,7 @@
 #include "render/render_engine.hpp"
 #include "scene/scene_components.hpp"
 #include "scene/scene_systems.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <utility>
@@ -49,28 +49,29 @@ namespace wmoge {
     SceneManager::SceneManager() {
         WG_LOG_INFO("init scene manager");
 
-        EcsRegistry* ecs_registry = Engine::instance()->ecs_registry();
+        m_render_engine = IocContainer::instance()->resolve_v<RenderEngine>();
+        m_ecs_registry  = IocContainer::instance()->resolve_v<EcsRegistry>();
 
-        ecs_registry->register_component<EcsComponentChildren>();
-        ecs_registry->register_component<EcsComponentParent>();
-        ecs_registry->register_component<EcsComponentTransform>();
-        ecs_registry->register_component<EcsComponentTransformUpd>();
-        ecs_registry->register_component<EcsComponentLocalToWorld>();
-        ecs_registry->register_component<EcsComponentWorldToLocal>();
-        ecs_registry->register_component<EcsComponentLocalToParent>();
-        ecs_registry->register_component<EcsComponentAabbLocal>();
-        ecs_registry->register_component<EcsComponentAabbWorld>();
-        ecs_registry->register_component<EcsComponentName>();
-        ecs_registry->register_component<EcsComponentTag>();
-        ecs_registry->register_component<EcsComponentCamera>();
-        ecs_registry->register_component<EcsComponentLight>();
-        ecs_registry->register_component<EcsComponentModel>();
-        ecs_registry->register_component<EcsComponentCullingItem>();
+        m_ecs_registry->register_component<EcsComponentChildren>();
+        m_ecs_registry->register_component<EcsComponentParent>();
+        m_ecs_registry->register_component<EcsComponentTransform>();
+        m_ecs_registry->register_component<EcsComponentTransformUpd>();
+        m_ecs_registry->register_component<EcsComponentLocalToWorld>();
+        m_ecs_registry->register_component<EcsComponentWorldToLocal>();
+        m_ecs_registry->register_component<EcsComponentLocalToParent>();
+        m_ecs_registry->register_component<EcsComponentAabbLocal>();
+        m_ecs_registry->register_component<EcsComponentAabbWorld>();
+        m_ecs_registry->register_component<EcsComponentName>();
+        m_ecs_registry->register_component<EcsComponentTag>();
+        m_ecs_registry->register_component<EcsComponentCamera>();
+        m_ecs_registry->register_component<EcsComponentLight>();
+        m_ecs_registry->register_component<EcsComponentModel>();
+        m_ecs_registry->register_component<EcsComponentCullingItem>();
 
-        m_sys_update_hier       = ecs_registry->register_system<EcsSysUpdateHier>();
-        m_sys_update_cameras    = ecs_registry->register_system<EcsSysUpdateCameras>();
-        m_sys_update_aabb       = ecs_registry->register_system<EcsSysUpdateAabb>();
-        m_sys_release_cull_item = ecs_registry->register_system<EcsSysReleaseCullItem>();
+        m_sys_update_hier       = m_ecs_registry->register_system<EcsSysUpdateHier>();
+        m_sys_update_cameras    = m_ecs_registry->register_system<EcsSysUpdateCameras>();
+        m_sys_update_aabb       = m_ecs_registry->register_system<EcsSysUpdateAabb>();
+        m_sys_release_cull_item = m_ecs_registry->register_system<EcsSysReleaseCullItem>();
     }
 
     void SceneManager::clear() {
@@ -195,13 +196,10 @@ namespace wmoge {
     void SceneManager::update_scene_visibility() {
         WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_visibility");
 
-        Engine*       engine        = Engine::instance();
-        RenderEngine* render_engine = engine->render_engine();
-
         Scene*            scene          = m_running.get();
         EcsWorld*         ecs_world      = scene->get_ecs_world();
         CullingManager*   vis_system     = scene->get_culling_manager();
-        const CameraList& render_cameras = render_engine->get_cameras();
+        const CameraList& render_cameras = m_render_engine->get_cameras();
 
         //   vis_system->cull(render_cameras);
     }
@@ -211,11 +209,11 @@ namespace wmoge {
 
         return;
 
-        Engine*        engine         = Engine::instance();
-        GfxCtx*        gfx_ctx        = engine->gfx_ctx();
-        RenderEngine*  render_engine  = engine->render_engine();
-        WindowManager* window_manager = engine->window_manager();
-        Ref<Window>    window         = window_manager->primary_window();
+        RenderEngine* render_engine;// = engine->render_engine();
+
+        //  GfxCtx*       gfx_ctx;      // = engine->gfx_ctx();
+        //  WindowManager* window_manager;// = engine->window_manager();
+        //  Ref<Window>    window;        // = window_manager->primary_window();
 
         Scene*            scene     = m_running.get();
         EcsWorld*         ecs_world = scene->get_ecs_world();
@@ -275,7 +273,7 @@ namespace wmoge {
     void SceneManager::scene_play() {
         WG_AUTO_PROFILE_SCENE("SceneManager::scene_play");
 
-        m_running->advance(Engine::instance()->time()->get_delta_time_game());
+        // m_running->advance(... instance()->time()->get_delta_time_game());
 
         m_sync = SyncContext();
 

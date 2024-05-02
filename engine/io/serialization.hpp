@@ -46,44 +46,44 @@ namespace wmoge {
     struct IoTagRead;
     struct IoTagWrite;
 
-#define WG_IO_DECLARE(cls)                                        \
-    friend Status yaml_read(YamlConstNodeRef node, cls& value);   \
-    friend Status yaml_write(YamlNodeRef node, const cls& value); \
-    friend Status archive_read(Archive& archive, cls& value);     \
-    friend Status archive_write(Archive& archive, const cls& value);
+#define WG_IO_DECLARE(cls)                                                            \
+    friend Status yaml_read(IoContext& context, YamlConstNodeRef node, cls& value);   \
+    friend Status yaml_write(IoContext& context, YamlNodeRef node, const cls& value); \
+    friend Status archive_read(IoContext& context, Archive& archive, cls& value);     \
+    friend Status archive_write(IoContext& context, Archive& archive, const cls& value);
 
-#define WG_IO_IMPLEMENT(nmsp, trg, cls)                                                            \
-    Status yaml_read(YamlConstNodeRef node, trg& value) {                                          \
-        return nmsp##__##cls##Serializer<const YamlConstNodeRef&, trg&, IoTagRead>()(node, value); \
-    }                                                                                              \
-    Status yaml_write(YamlNodeRef node, const trg& value) {                                        \
-        return nmsp##__##cls##Serializer<YamlNodeRef, const trg&, IoTagWrite>()(node, value);      \
-    }                                                                                              \
-    Status archive_read(Archive& archive, trg& value) {                                            \
-        return nmsp##__##cls##Serializer<Archive&, trg&, IoTagRead>()(archive, value);             \
-    }                                                                                              \
-    Status archive_write(Archive& archive, const trg& value) {                                     \
-        return nmsp##__##cls##Serializer<Archive&, const trg&, IoTagWrite>()(archive, value);      \
+#define WG_IO_IMPLEMENT(nmsp, trg, cls)                                                                     \
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, trg& value) {                               \
+        return nmsp##__##cls##Serializer<const YamlConstNodeRef&, trg&, IoTagRead>()(context, node, value); \
+    }                                                                                                       \
+    Status yaml_write(IoContext& context, YamlNodeRef node, const trg& value) {                             \
+        return nmsp##__##cls##Serializer<YamlNodeRef, const trg&, IoTagWrite>()(context, node, value);      \
+    }                                                                                                       \
+    Status archive_read(IoContext& context, Archive& archive, trg& value) {                                 \
+        return nmsp##__##cls##Serializer<Archive&, trg&, IoTagRead>()(context, archive, value);             \
+    }                                                                                                       \
+    Status archive_write(IoContext& context, Archive& archive, const trg& value) {                          \
+        return nmsp##__##cls##Serializer<Archive&, const trg&, IoTagWrite>()(context, archive, value);      \
     }
 
 #define WG_IO_SUPER(super)                                                               \
     if constexpr (std::is_same_v<Stream, const YamlConstNodeRef&>) {                     \
-        WG_YAML_READ_SUPER(stream, super, target);                                       \
+        WG_YAML_READ_SUPER(context, stream, super, target);                              \
     }                                                                                    \
     if constexpr (std::is_same_v<Stream, YamlNodeRef>) {                                 \
-        WG_YAML_WRITE_SUPER(stream, super, target);                                      \
+        WG_YAML_WRITE_SUPER(context, stream, super, target);                             \
     }                                                                                    \
     if constexpr (std::is_same_v<Stream, Archive&> && std::is_same_v<Tag, IoTagRead>) {  \
-        WG_ARCHIVE_READ_SUPER(stream, super, target);                                    \
+        WG_ARCHIVE_READ_SUPER(context, stream, super, target);                           \
     }                                                                                    \
     if constexpr (std::is_same_v<Stream, Archive&> && std::is_same_v<Tag, IoTagWrite>) { \
-        WG_ARCHIVE_WRITE_SUPER(stream, super, target);                                   \
+        WG_ARCHIVE_WRITE_SUPER(context, stream, super, target);                          \
     }
 
 #define WG_IO_BEGIN_NMSP(nmsp, cls)                                                 \
     template<typename Stream, typename Target, typename Tag>                        \
     struct nmsp##__##cls##Serializer final {                                        \
-        Status operator()(Stream stream, Target target) {                           \
+        Status operator()(IoContext& context, Stream stream, Target target) {       \
             static const char* profile_mark_yaml_read     = #cls "::yaml_read";     \
             static const char* profile_mark_yaml_write    = #cls "::yaml_write";    \
             static const char* profile_mark_archive_read  = #cls "::archive_read";  \
@@ -114,19 +114,19 @@ namespace wmoge {
     if constexpr (std::is_same_v<Stream, const YamlConstNodeRef&>) {                     \
         const IoFlags mask = flags;                                                      \
         if (mask.get(IoFlag::ReadOptional)) {                                            \
-            WG_YAML_READ_AS_OPT(stream, name, target.field);                             \
+            WG_YAML_READ_AS_OPT(context, stream, name, target.field);                    \
         } else {                                                                         \
-            WG_YAML_READ_AS(stream, name, target.field);                                 \
+            WG_YAML_READ_AS(context, stream, name, target.field);                        \
         }                                                                                \
     }                                                                                    \
     if constexpr (std::is_same_v<Stream, YamlNodeRef>) {                                 \
-        WG_YAML_WRITE_AS(stream, name, target.field);                                    \
+        WG_YAML_WRITE_AS(context, stream, name, target.field);                           \
     }                                                                                    \
     if constexpr (std::is_same_v<Stream, Archive&> && std::is_same_v<Tag, IoTagRead>) {  \
-        WG_ARCHIVE_READ(stream, target.field);                                           \
+        WG_ARCHIVE_READ(context, stream, target.field);                                  \
     }                                                                                    \
     if constexpr (std::is_same_v<Stream, Archive&> && std::is_same_v<Tag, IoTagWrite>) { \
-        WG_ARCHIVE_WRITE(stream, target.field);                                          \
+        WG_ARCHIVE_WRITE(context, stream, target.field);                                 \
     }
 
 #define WG_IO_FIELD_OPT(field) WG_IO_FIELD_EXT(field, #field, {IoFlag::ReadOptional})

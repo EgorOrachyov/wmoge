@@ -34,7 +34,6 @@
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
-#include "system/engine.hpp"
 #include "system/ioc_container.hpp"
 
 #include <chrono>
@@ -42,8 +41,9 @@
 namespace wmoge {
 
     AssetManager::AssetManager() {
-        m_file_system  = IocContainer::instance()->resolve_v<FileSystem>();
-        m_type_storage = IocContainer::instance()->resolve_v<RttiTypeStorage>();
+        m_file_system   = IocContainer::instance()->resolve_v<FileSystem>();
+        m_type_storage  = IocContainer::instance()->resolve_v<RttiTypeStorage>();
+        m_event_manager = IocContainer::instance()->resolve_v<EventManager>();
     }
 
     AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name, AssetCallback callback) {
@@ -110,7 +110,7 @@ namespace wmoge {
                 event->asset_id     = name;
                 event->asset_ref    = asset;
                 event->notification = AssetNotification::Loaded;
-                Engine::instance()->event_manager()->dispatch_deferred(event);
+                m_event_manager->dispatch_deferred(event);
 
                 std::lock_guard guard(m_mutex);
                 m_assets[name] = WeakRef<Asset>(asset);
@@ -131,7 +131,7 @@ namespace wmoge {
                 auto event          = make_event<EventAsset>();
                 event->asset_id     = name;
                 event->notification = AssetNotification::FailedLoad;
-                Engine::instance()->event_manager()->dispatch_deferred(event);
+                m_event_manager->dispatch_deferred(event);
 
                 async_op->set_failed();
                 WG_LOG_ERROR("failed load asset " << name);
