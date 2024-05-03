@@ -47,7 +47,7 @@ namespace wmoge {
         return std::memcmp(this, &other, sizeof(GfxRenderPassDesc)) == 0;
     }
     std::size_t GfxRenderPassDesc::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxRenderPassDesc)));
+        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxRenderPassDesc)));
     }
 
 }// namespace wmoge

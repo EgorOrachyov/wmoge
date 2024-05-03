@@ -13,6 +13,9 @@ add_subdirectory(dynalo)
 # Base64 encoding/decoding library
 add_subdirectory(base64)
 
+# Sha25 hashing
+add_subdirectory(sha256)
+
 # Static enum reflection
 add_subdirectory(magic_enum)
 
@@ -35,7 +38,7 @@ set(ZLIB_LIBRARIES zlibstatic)
 set(ZLIB_INCLUDE_DIR "${CMAKE_CURRENT_LIST_DIR}/zlib")
 set(ZLIB_INCLUDE_DIRS ${ZLIB_INCLUDE_DIR})
 
-# lz4 fast decompression and compression library
+# Lz4 fast decompression and compression library
 add_subdirectory(lz4)
 
 # Xml files parser

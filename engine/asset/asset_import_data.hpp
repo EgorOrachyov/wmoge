@@ -45,7 +45,7 @@ namespace wmoge {
 
         std::string file;
         std::string file_tag;
-        Crc32Hash   file_hash;
+        Crc32       file_hash;
         DateTime    timestamp;
     };
 

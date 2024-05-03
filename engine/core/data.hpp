@@ -27,7 +27,9 @@
 
 #pragma once
 
+#include "core/crc32.hpp"
 #include "core/ref.hpp"
+#include "core/sha256.hpp"
 #include "core/string_utils.hpp"
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
@@ -68,6 +70,8 @@ namespace wmoge {
         [[nodiscard]] std::size_t   size() const { return m_size; }
         [[nodiscard]] std::size_t   size_as_kib() const { return Math::max(m_size / 1024, std::size_t{1}); }
         [[nodiscard]] std::string   to_string() const;
+        [[nodiscard]] Crc32         to_crc32() const;
+        [[nodiscard]] Sha256        to_sha256() const;
 
         friend Status archive_write(IoContext& context, Archive& archive, const Ref<Data>& data);
         friend Status archive_read(IoContext& context, Archive& archive, Ref<Data>& data);

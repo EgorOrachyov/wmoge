@@ -30,6 +30,7 @@
 #include "core/class.hpp"
 #include "core/data.hpp"
 #include "core/log.hpp"
+#include "profiler/profiler.hpp"
 
 #include <cstring>
 
@@ -54,6 +55,8 @@ namespace wmoge {
     }
 
     Status MeshBuilder::build() {
+        WG_AUTO_PROFILE_MESH("MeshBuilder::build");
+
         assert(m_mesh);
 
         const GfxVertAttribs        attribs_stream1 = {GfxVertAttrib::Pos3f, GfxVertAttrib::Pos2f, GfxVertAttrib::Norm3f, GfxVertAttrib::Tang3f};

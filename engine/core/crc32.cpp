@@ -105,7 +105,7 @@ namespace wmoge {
             0xB3667A2E, 0xC4614AB8, 0x5D681B02, 0x2A6F2B94,
             0xB40BBE37, 0xC30C8EA1, 0x5A05DF1B, 0x2D02EF8D};
 
-    Crc32Hash Crc32::hash(const void* buffer, std::size_t size) {
+    Crc32 Crc32Util::hash(const void* buffer, std::size_t size) {
         unsigned int crc = 0xFFFFFFFF;
         auto         buf = reinterpret_cast<const char*>(buffer);
 
@@ -117,11 +117,11 @@ namespace wmoge {
     }
 
     Crc32Builder& Crc32Builder::hash(const void* buffer, std::size_t size) {
-        m_hash ^= Crc32::hash(buffer, size);
+        m_hash ^= Crc32Util::hash(buffer, size);
         return *this;
     }
 
-    Crc32Hash Crc32Builder::get() const {
+    Crc32 Crc32Builder::get() const {
         return m_hash;
     }
 

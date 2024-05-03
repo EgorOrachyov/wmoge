@@ -27,83 +27,91 @@
 
 #pragma once
 
-#include "core/buffered_vector.hpp"
-#include "core/data.hpp"
-#include "core/flat_map.hpp"
-#include "core/sha256.hpp"
-#include "core/simple_id.hpp"
-#include "core/string_id.hpp"
-#include "gfx/gfx_resource.hpp"
-
 #include <array>
 #include <cinttypes>
-#include <optional>
+#include <cstddef>
+#include <functional>
+#include <ostream>
+#include <string>
+#include <type_traits>
 
 namespace wmoge {
 
     /**
-     * @class GfxShaderDesc
-     * @brief Struct with params to create a gfx shader
+     * @class Sha256
+     * @brief SHA 256 bit hash
     */
-    struct GfxShaderDesc {
-        Ref<Data>       bytecode;
-        Sha256          shader_hash;
-        GfxShaderModule module_type;
+    struct Sha256 {
+        static constexpr unsigned int NUM_BITS   = 256;
+        static constexpr unsigned int NUM_BYTES  = NUM_BITS / 8;
+        static constexpr unsigned int NUM_WORDS  = NUM_BYTES / 4;
+        static constexpr unsigned int NUM_HEXDIG = NUM_BITS / 4;
+
+        Sha256() = default;
+        Sha256(const std::string& s);
+
+        bool operator==(const Sha256& other) const;
+        bool operator!=(const Sha256& other) const;
+
+        [[nodiscard]] std::string to_string() const;
+        [[nodiscard]] std::size_t hash() const;
+
+        std::uint32_t values[NUM_WORDS] = {0};
     };
 
-    /**
-     * @class GfxShader
-     * @brief Compiled single gpu program module
-     */
-    class GfxShader : public GfxResource {
-    public:
-        ~GfxShader() override = default;
+    static_assert(std::is_trivially_destructible_v<Sha256>, "Sha256 must be trivial as ptr or int");
 
-        [[nodiscard]] const Ref<Data>& get_bytecode() const { return m_desc.bytecode; }
-        [[nodiscard]] Sha256           get_shader_hash() const { return m_desc.shader_hash; }
-        [[nodiscard]] GfxShaderModule  get_module_type() const { return m_desc.module_type; }
-
-    protected:
-        GfxShaderDesc m_desc;
-    };
+    inline std::ostream& operator<<(std::ostream& stream, const Sha256& sha) {
+        stream << sha.to_string();
+        return stream;
+    }
 
     /**
-     * @brief Desc to create program
-    */
-    using GfxShaderProgramDesc = buffered_vector<Ref<GfxShader>, 2>;
-
-    /**
-     * @class GfxShaderProgram
-     * @brief Compiled and linked full shader program with all stages
+     * @class Sha256Builder
+     * @brief Builder for sha256 hash
      * 
-     * Shaders consists of a number of stages for execution.
-     * Shader can be created from any engine thread. 
-     *
-     * Possible shader stages sets:
-     *  - vertex and fragment for classic rendering
-     *  - compute for computational pipeline
+     * @see https://github.com/System-Glitch/SHA256/
     */
-    class GfxShaderProgram : public GfxResource {
+    class Sha256Builder {
     public:
-        ~GfxShaderProgram() override = default;
+        Sha256Builder();
 
-        [[nodiscard]] const GfxShaderProgramDesc& get_desc() const { return m_desc; }
+        Sha256Builder& hash(const void* buffer, std::size_t size);
+        Sha256         get();
 
-    protected:
-        GfxShaderProgramDesc m_desc;
-    };
+    private:
+        void update(const uint8_t* data, size_t length);
+        void update(const std::string& data);
 
-    /**
-     * @class GfxAsyncShaderRequest
-     * @brief Request for async shaders creation
-    */
-    class GfxAsyncShaderRequest : public RefCnt {
-    public:
-        ~GfxAsyncShaderRequest() override = default;
+        std::array<uint8_t, 32> digest();
 
-        buffered_vector<GfxShaderDesc, 1>  desc;
-        buffered_vector<Strid, 1>          names;
-        buffered_vector<Ref<GfxShader>, 1> shaders;
+        static uint32_t rotr(uint32_t x, uint32_t n);
+        static uint32_t choose(uint32_t e, uint32_t f, uint32_t g);
+        static uint32_t majority(uint32_t a, uint32_t b, uint32_t c);
+        static uint32_t sig0(uint32_t x);
+        static uint32_t sig1(uint32_t x);
+
+        void transform();
+        void pad();
+        void revert(std::array<uint8_t, 32>& hash);
+
+    private:
+        uint8_t  m_data[64];
+        uint32_t m_blocklen;
+        uint64_t m_bitlen;
+        uint32_t m_state[8];//A, B, C, D, E, F, G, H
     };
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::Sha256> {
+    public:
+        std::size_t operator()(const wmoge::Sha256& sha) const {
+            return sha.hash();
+        }
+    };
+
+}// namespace std

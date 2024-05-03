@@ -57,6 +57,22 @@ namespace wmoge {
         return "data 0x" + StringUtils::from_ptr(m_buffer) + " " + StringUtils::from_mem_size(m_size);
     }
 
+    Crc32 Data::to_crc32() const {
+        Crc32Builder builder;
+        if (m_size > 0) {
+            builder.hash(m_buffer, m_size);
+        }
+        return builder.get();
+    }
+
+    Sha256 Data::to_sha256() const {
+        Sha256Builder builder;
+        if (m_size > 0) {
+            builder.hash(m_buffer, m_size);
+        }
+        return builder.get();
+    }
+
     Status archive_write(IoContext& context, Archive& archive, const Ref<Data>& data) {
         assert(data);
         WG_ARCHIVE_WRITE(context, archive, data->m_size);

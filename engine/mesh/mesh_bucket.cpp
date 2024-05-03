@@ -66,27 +66,27 @@ namespace wmoge {
     }
 
     std::size_t MeshBucketKey::hash() const {
-        Crc32Hash hash = 0xffffffff;
+        Crc32 hash = 0xffffffff;
 
-        hash ^= Crc32::hash(&cmd.pipeline, sizeof(GfxPsoGraphics*));
+        hash ^= Crc32Util::hash(&cmd.pipeline, sizeof(GfxPsoGraphics*));
 
         for (int i = 0; i < RenderCmd::NUM_DESC_SETS; i++) {
-            hash ^= Crc32::hash(&cmd.desc_sets[i], sizeof(GfxDescSet*));
-            hash ^= Crc32::hash(&cmd.desc_sets_slots[i], sizeof(int));
+            hash ^= Crc32Util::hash(&cmd.desc_sets[i], sizeof(GfxDescSet*));
+            hash ^= Crc32Util::hash(&cmd.desc_sets_slots[i], sizeof(int));
         }
 
         for (int i = 0; i < GfxLimits::MAX_VERT_BUFFERS; i++) {
-            hash ^= Crc32::hash(&cmd.vert_buffers.buffers[i], sizeof(GfxVertBuffer*));
-            hash ^= Crc32::hash(&cmd.vert_buffers.offsets[i], sizeof(int));
+            hash ^= Crc32Util::hash(&cmd.vert_buffers.buffers[i], sizeof(GfxVertBuffer*));
+            hash ^= Crc32Util::hash(&cmd.vert_buffers.offsets[i], sizeof(int));
         }
 
-        hash ^= Crc32::hash(&cmd.index_setup.buffer, sizeof(GfxIndexBuffer*));
-        hash ^= Crc32::hash(&cmd.index_setup.offset, sizeof(int));
-        hash ^= Crc32::hash(&cmd.index_setup.index_type, sizeof(GfxIndexType));
+        hash ^= Crc32Util::hash(&cmd.index_setup.buffer, sizeof(GfxIndexBuffer*));
+        hash ^= Crc32Util::hash(&cmd.index_setup.offset, sizeof(int));
+        hash ^= Crc32Util::hash(&cmd.index_setup.index_type, sizeof(GfxIndexType));
 
-        hash ^= Crc32::hash(&cmd.call_params.base, sizeof(int));
-        hash ^= Crc32::hash(&cmd.call_params.count, sizeof(int));
-        hash ^= Crc32::hash(&cmd.call_params.instances, sizeof(int));
+        hash ^= Crc32Util::hash(&cmd.call_params.base, sizeof(int));
+        hash ^= Crc32Util::hash(&cmd.call_params.count, sizeof(int));
+        hash ^= Crc32Util::hash(&cmd.call_params.instances, sizeof(int));
 
         return hash;
     }

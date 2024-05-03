@@ -89,6 +89,7 @@ project for educational purposes only.
 * [openal soft](https://github.com/kcat/openal-soft) as a software audio renderer.
 * [rapidyaml](https://github.com/biojppm/rapidyaml) for fast yaml files parsing and serialization.
 * [robin hood hashing](https://github.com/martinus/robin-hood-hashing) for fast & memory efficient hashtable.
+* [sha256](https://github.com/System-Glitch/SHA256) for sha256 hashes computation.
 * [stbimage](https://github.com/nothings/stb) image utilities for images loading, writing and resizing.
 * [svector](https://github.com/martinus/svector) compact SVO optimized vector for C++17 or higher.
 * [tinyxml2](https://github.com/leethomason/tinyxml2) for utf-8 xml files processing.

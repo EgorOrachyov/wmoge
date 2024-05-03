@@ -34,15 +34,15 @@ namespace wmoge {
     /**
      *  @brief Crc hash type 
     */
-    using Crc32Hash = unsigned int;
+    using Crc32 = unsigned int;
 
     /**
      * @class Crc32
      * @brief Utility for crc32 hashing
     */
-    class Crc32 {
+    class Crc32Util {
     public:
-        static Crc32Hash hash(const void* buffer, std::size_t size);
+        static Crc32 hash(const void* buffer, std::size_t size);
     };
 
     /**
@@ -54,10 +54,10 @@ namespace wmoge {
         Crc32Builder() = default;
 
         Crc32Builder& hash(const void* buffer, std::size_t size);
-        Crc32Hash     get() const;
+        Crc32         get() const;
 
     private:
-        Crc32Hash m_hash;
+        Crc32 m_hash;
     };
 
 }// namespace wmoge

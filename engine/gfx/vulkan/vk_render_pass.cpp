@@ -118,7 +118,7 @@ namespace wmoge {
         return std::memcmp(this, &other, sizeof(VKFrameBufferDesc)) == 0;
     }
     std::size_t VKFrameBufferDesc::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(VKFrameBufferDesc)));
+        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(VKFrameBufferDesc)));
     }
 
     VKFramebufferObject::VKFramebufferObject(const VKFrameBufferDesc& desc, const Strid& name, class VKDriver& driver)

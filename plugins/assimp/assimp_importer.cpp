@@ -39,6 +39,8 @@
 namespace wmoge {
 
     Status AssimpImporter::read(std::string file_name, array_view<std::uint8_t> data, const AssimpProcess& flags) {
+        WG_AUTO_PROFILE_ASSET("AssimpImporter::read");
+
         if (flags.triangulate) m_options |= aiProcess_Triangulate;
         if (flags.tangent_space) m_options |= aiProcess_CalcTangentSpace;
         if (flags.flip_uv) m_options |= aiProcess_FlipUVs;

@@ -34,6 +34,7 @@ target_link_libraries(wmoge PRIVATE lz4)
 target_link_libraries(wmoge PRIVATE compressonator)
 target_link_libraries(wmoge PRIVATE base64)
 target_link_libraries(wmoge PRIVATE dynalo)
+target_link_libraries(wmoge PRIVATE sha256)
 
 # audio dependencies, private
 target_link_libraries(wmoge PRIVATE OpenAL)

@@ -643,13 +643,13 @@ namespace wmoge {
                 accum ^= m_data.m_object->hash();
                 break;
             case VarType::ArrayByte:
-                accum ^= Crc32::hash(as<ArrayByte>().data(), as<ArrayByte>().size());
+                accum ^= Crc32Util::hash(as<ArrayByte>().data(), as<ArrayByte>().size());
                 break;
             case VarType::ArrayInt:
-                accum ^= Crc32::hash(as<ArrayInt>().data(), as<ArrayInt>().size());
+                accum ^= Crc32Util::hash(as<ArrayInt>().data(), as<ArrayInt>().size());
                 break;
             case VarType::ArrayFloat:
-                accum ^= Crc32::hash(as<ArrayFloat>().data(), as<ArrayFloat>().size());
+                accum ^= Crc32Util::hash(as<ArrayFloat>().data(), as<ArrayFloat>().size());
                 break;
             case VarType::ArrayString:
                 for (const auto& v : as<ArrayString>()) {
@@ -657,10 +657,10 @@ namespace wmoge {
                 }
                 break;
             case VarType::ArrayVec2f:
-                accum ^= Crc32::hash(as<ArrayVec2f>().data(), as<ArrayVec2f>().size() * sizeof(Vec2f));
+                accum ^= Crc32Util::hash(as<ArrayVec2f>().data(), as<ArrayVec2f>().size() * sizeof(Vec2f));
                 break;
             case VarType::ArrayVec3f:
-                accum ^= Crc32::hash(as<ArrayVec3f>().data(), as<ArrayVec3f>().size() * sizeof(Vec3f));
+                accum ^= Crc32Util::hash(as<ArrayVec3f>().data(), as<ArrayVec3f>().size() * sizeof(Vec3f));
                 break;
             default:
                 break;

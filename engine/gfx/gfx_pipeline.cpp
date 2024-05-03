@@ -60,7 +60,7 @@ namespace wmoge {
         return std::memcmp(this, &other, sizeof(GfxPsoStateGraphics)) == 0;
     }
     std::size_t GfxPsoStateGraphics::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPsoStateGraphics)));
+        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxPsoStateGraphics)));
     }
 
     GfxPsoStateCompute::GfxPsoStateCompute() {
@@ -73,7 +73,7 @@ namespace wmoge {
         return std::memcmp(this, &other, sizeof(GfxPsoStateCompute)) == 0;
     }
     std::size_t GfxPsoStateCompute::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxPsoStateCompute)));
+        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxPsoStateCompute)));
     }
 
 }// namespace wmoge

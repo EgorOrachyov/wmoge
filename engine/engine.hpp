@@ -59,6 +59,7 @@
 #include "core/pool_vector.hpp"
 #include "core/random.hpp"
 #include "core/ref.hpp"
+#include "core/sha256.hpp"
 #include "core/signal.hpp"
 #include "core/simple_id.hpp"
 #include "core/status.hpp"

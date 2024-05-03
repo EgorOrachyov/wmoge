@@ -51,7 +51,7 @@ namespace wmoge {
         return std::memcmp(this, &other, sizeof(GfxSamplerDesc)) == 0;
     }
     std::size_t GfxSamplerDesc::hash() const {
-        return static_cast<std::size_t>(Crc32::hash(this, sizeof(GfxSamplerDesc)));
+        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxSamplerDesc)));
     }
     GfxSamplerDesc GfxSamplerDesc::make(GfxSampFlt flt, float aniso, GfxSampAddress address) {
         GfxSamplerDesc d;
