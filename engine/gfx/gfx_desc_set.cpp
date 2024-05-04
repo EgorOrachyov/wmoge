@@ -31,13 +31,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(GfxDescBinging)
-    WG_IO_FIELD(type)
-    WG_IO_FIELD(binding)
-    WG_IO_FIELD(count)
-    WG_IO_FIELD(name)
-    WG_IO_END(GfxDescBinging)
-
     bool GfxDescBinging::operator==(const GfxDescBinging& other) const {
         return type == other.type &&
                binding == other.binding &&

@@ -27,19 +27,20 @@
 
 #pragma once
 
-#include "archive.hpp"
+#include "io/archive.hpp"
+#include "platform/file.hpp"
 
 #include <fstream>
 
 namespace wmoge {
 
     /**
-     * @class ArchiveWriterFile
-     * @brief An archive to write data to a platform file
+     * @class ArchiveWriterFStream
+     * @brief An archive to write data to a fstream file
      */
-    class ArchiveWriterFile final : public Archive {
+    class ArchiveWriterFStream final : public Archive {
     public:
-        ArchiveWriterFile(std::fstream& stream);
+        ArchiveWriterFStream(std::fstream& stream);
 
         Status nwrite(int num_bytes, const void* bytes) override;
 
@@ -52,13 +53,13 @@ namespace wmoge {
     };
 
     /**
-     * @class ArchiveReaderFile
-     * @brief An archive to read data from a platform file
+     * @class ArchiveReaderFStream
+     * @brief An archive to read data from a fstream file
      */
-    class ArchiveReaderFile final : public Archive {
+    class ArchiveReaderFStream final : public Archive {
     public:
-        ArchiveReaderFile(std::fstream& stream);
-        ~ArchiveReaderFile() override = default;
+        ArchiveReaderFStream(std::fstream& stream);
+        ~ArchiveReaderFStream() override = default;
 
         Status nread(int num_bytes, void* bytes) override;
 
@@ -68,6 +69,47 @@ namespace wmoge {
 
     private:
         std::fstream& m_stream;
+    };
+
+    /**
+     * @class ArchiveWriterFile
+     * @brief An archive to write data to a file
+     */
+    class ArchiveWriterFile final : public Archive {
+    public:
+        ArchiveWriterFile() = default;
+        ArchiveWriterFile(Ref<File> file);
+
+        Status open(const std::string& file_path);
+        Status nwrite(int num_bytes, const void* bytes) override;
+
+        [[nodiscard]] bool   is_memory() override;
+        [[nodiscard]] bool   is_physical() override;
+        [[nodiscard]] size_t get_size() override;
+
+    private:
+        Ref<File> m_file;
+    };
+
+    /**
+     * @class ArchiveReaderFile
+     * @brief An archive to read data from a file
+     */
+    class ArchiveReaderFile final : public Archive {
+    public:
+        ArchiveReaderFile() = default;
+        ArchiveReaderFile(Ref<File> file);
+        ~ArchiveReaderFile() override = default;
+
+        Status open(const std::string& file_path);
+        Status nread(int num_bytes, void* bytes) override;
+
+        [[nodiscard]] bool        is_memory() override;
+        [[nodiscard]] bool        is_physical() override;
+        [[nodiscard]] std::size_t get_size() override;
+
+    private:
+        Ref<File> m_file;
     };
 
 }// namespace wmoge

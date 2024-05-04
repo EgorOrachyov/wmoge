@@ -32,7 +32,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
-#include "io/serialization.hpp"
+#include "rtti/traits.hpp"
 
 #include <array>
 #include <cinttypes>
@@ -46,17 +46,25 @@ namespace wmoge {
      * @brief Describes single resource binding in a layout
      */
     struct GfxDescBinging {
-        GfxBindingType type    = GfxBindingType::Unknown;
-        std::int16_t   binding = 0;
-        std::int16_t   count   = 1;
-        Strid          name;
+        WG_RTTI_STRUCT(GfxDescBinging);
 
         [[nodiscard]] bool        operator==(const GfxDescBinging& other) const;
         [[nodiscard]] bool        operator!=(const GfxDescBinging& other) const;
         [[nodiscard]] std::size_t hash() const;
 
-        WG_IO_DECLARE(GfxDescBinging);
+        GfxBindingType type    = GfxBindingType::Unknown;
+        std::int16_t   binding = 0;
+        std::int16_t   count   = 1;
+        Strid          name;
     };
+
+    WG_RTTI_STRUCT_BEGIN(GfxDescBinging) {
+        WG_RTTI_FIELD(type, {});
+        WG_RTTI_FIELD(binding, {});
+        WG_RTTI_FIELD(count, {});
+        WG_RTTI_FIELD(name, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class GfxDescBindPoint

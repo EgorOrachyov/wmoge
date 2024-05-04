@@ -27,6 +27,9 @@
 
 #pragma once
 
+#include "io/archive.hpp"
+#include "io/yaml.hpp"
+
 #include <array>
 #include <cinttypes>
 #include <cstddef>
@@ -60,6 +63,11 @@ namespace wmoge {
     };
 
     static_assert(std::is_trivially_destructible_v<Sha256>, "Sha256 must be trivial as ptr or int");
+
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Sha256& sha);
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Sha256& sha);
+    Status archive_read(IoContext& context, Archive& archive, Sha256& sha);
+    Status archive_write(IoContext& context, Archive& archive, const Sha256& sha);
 
     inline std::ostream& operator<<(std::ostream& stream, const Sha256& sha) {
         stream << sha.to_string();

@@ -94,6 +94,23 @@ namespace wmoge {
         return hash_value;
     }
 
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, Sha256& sha) {
+        std::string s;
+        WG_CHECKED(yaml_read(context, node, s));
+        sha = Sha256(s);
+        return WG_OK;
+    }
+
+    Status yaml_write(IoContext& context, YamlNodeRef node, const Sha256& sha) {
+        return yaml_write(context, node, sha.to_string());
+    }
+    Status archive_read(IoContext& context, Archive& archive, Sha256& sha) {
+        return archive.nread(sizeof(sha), &sha);
+    }
+    Status archive_write(IoContext& context, Archive& archive, const Sha256& sha) {
+        return archive.nwrite(sizeof(sha), &sha);
+    }
+
     static constexpr std::array<uint32_t, 64> K = {
             0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
             0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,

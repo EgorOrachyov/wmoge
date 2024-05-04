@@ -118,6 +118,7 @@
 #include "gfx/gfx_vert_format.hpp"
 
 #include "grc/pso_cache.hpp"
+#include "grc/pso_file.hpp"
 #include "grc/shader.hpp"
 #include "grc/shader_builder.hpp"
 #include "grc/shader_file.hpp"

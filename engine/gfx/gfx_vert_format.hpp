@@ -29,6 +29,7 @@
 
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
+#include "rtti/traits.hpp"
 
 #include <array>
 #include <utility>
@@ -40,12 +41,23 @@ namespace wmoge {
      * @brief Structure describing single attribute vertex input
      */
     struct GfxVertElement {
+        WG_RTTI_STRUCT(GfxVertElement);
+
         GfxFormat format    = GfxFormat::RGB32F;
         int       buffer    = -1;
         int       stride    = -1;
         int       offset    = -1;
         int       instanced = false;
     };
+
+    WG_RTTI_STRUCT_BEGIN(GfxVertElement) {
+        WG_RTTI_FIELD(format, {});
+        WG_RTTI_FIELD(buffer, {});
+        WG_RTTI_FIELD(stride, {});
+        WG_RTTI_FIELD(offset, {});
+        WG_RTTI_FIELD(instanced, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class GfxVertElements

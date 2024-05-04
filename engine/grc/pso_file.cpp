@@ -25,51 +25,30 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "pso_file.hpp"
 
-#include "gfx/gfx_defs.hpp"
-#include "gfx/gfx_resource.hpp"
-
-#include <array>
-#include <utility>
+#include "io/archive_file.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class GfxRenderPassDesc
-     * @brief Gfx rendering pass descriptor
-     */
-    struct GfxRenderPassDesc {
-        GfxRenderPassDesc();
-        bool        operator==(const GfxRenderPassDesc& other) const;
-        std::size_t hash() const;
+    Status PsoFile::read(const std::string& path, FilePsoData& pso_data) {
+        ArchiveReaderFile archive;
+        WG_CHECKED(archive.open(path));
 
-        std::array<GfxFormat, GfxLimits::MAX_COLOR_TARGETS> color_target_fmts;// = GfxFormat::Unknown;
-        std::array<GfxRtOp, GfxLimits::MAX_COLOR_TARGETS>   color_target_ops; // = GfxRtOp::LoadStore;
-        GfxFormat                                           depth_stencil_fmt;// = GfxFormat::Unknown;
-        GfxRtOp                                             depth_op;         // = GfxRtOp::LoadStore;
-        GfxRtOp                                             stencil_op;       // = GfxRtOp::LoadStore;
-    };
+        IoContext context;
+        WG_ARCHIVE_READ(context, archive, pso_data);
 
-    /**
-     * @class GfxRenderPassDesc
-     * @brief Gfx rendering pass object (for internal usage primary)
-     */
-    class GfxRenderPass : public GfxResource {
-    public:
-        ~GfxRenderPass() override                          = default;
-        virtual const GfxRenderPassDesc& pass_desc() const = 0;
-    };
+        return WG_OK;
+    }
+
+    Status PsoFile::write(const std::string& path, const FilePsoData& pso_data) {
+        ArchiveWriterFile archive;
+        WG_CHECKED(archive.open(path));
+
+        IoContext context;
+        WG_ARCHIVE_WRITE(context, archive, pso_data);
+
+        return WG_OK;
+    }
 
 }// namespace wmoge
-
-namespace std {
-
-    template<>
-    struct hash<wmoge::GfxRenderPassDesc> {
-        std::size_t operator()(const wmoge::GfxRenderPassDesc& desc) const {
-            return desc.hash();
-        }
-    };
-
-}// namespace std

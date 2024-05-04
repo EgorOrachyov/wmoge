@@ -35,13 +35,11 @@ namespace wmoge {
 
     GfxRenderPassDesc::GfxRenderPassDesc() {
         std::memset(this, 0, sizeof(GfxRenderPassDesc));
-        std::fill(color_target_fmts.begin(), color_target_fmts.end(), GfxFormat::R8);
+        std::fill(color_target_fmts.begin(), color_target_fmts.end(), GfxFormat::Unknown);
         std::fill(color_target_ops.begin(), color_target_ops.end(), GfxRtOp::LoadStore);
-        std::fill(color_target_used.begin(), color_target_used.end(), 0);
-        depth_stencil_fmt  = GfxFormat::DEPTH24_STENCIL8;
-        depth_op           = GfxRtOp::LoadStore;
-        stencil_op         = GfxRtOp::LoadStore;
-        depth_stencil_used = 0;
+        depth_stencil_fmt = GfxFormat::Unknown;
+        depth_op          = GfxRtOp::LoadStore;
+        stencil_op        = GfxRtOp::LoadStore;
     }
     bool GfxRenderPassDesc::operator==(const GfxRenderPassDesc& other) const {
         return std::memcmp(this, &other, sizeof(GfxRenderPassDesc)) == 0;

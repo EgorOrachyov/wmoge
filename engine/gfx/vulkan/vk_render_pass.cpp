@@ -45,7 +45,7 @@ namespace wmoge {
         VkAttachmentReference                                                 depth_stencil_reference{};
 
         for (int i = 0; i < GfxLimits::MAX_COLOR_TARGETS; i++) {
-            if (!m_pass_desc.color_target_used[i])
+            if (m_pass_desc.color_target_fmts[i] == GfxFormat::Unknown)
                 break;
 
             attachments[attachments_count].format        = VKDefs::get_format(m_pass_desc.color_target_fmts[i]);
@@ -61,7 +61,7 @@ namespace wmoge {
             attachments_count += 1;
             color_references_count += 1;
         }
-        if (m_pass_desc.depth_stencil_used) {
+        if (m_pass_desc.depth_stencil_fmt != GfxFormat::Unknown) {
             auto layout = VKDefs::rt_layout_from_fmt(m_pass_desc.depth_stencil_fmt);
 
             attachments[attachments_count].format         = VKDefs::get_format(m_pass_desc.depth_stencil_fmt);
@@ -175,7 +175,6 @@ namespace wmoge {
         bind_depth_target(m_window->depth_stencil(), 0, 0);
     }
     void VKRenderPassBinder::bind_color_target(const Ref<VKTexture>& texture, int target, int mip, int slice) {
-        m_current_pass_desc.color_target_used[target] = 1;
         m_current_pass_desc.color_target_fmts[target] = texture->format();
         VKTargetInfo& info                            = m_color_targets[target];
         info.texture                                  = texture;
@@ -183,23 +182,19 @@ namespace wmoge {
         info.slice                                    = slice;
     }
     void VKRenderPassBinder::bind_depth_target(const Ref<VKTexture>& texture, int mip, int slice) {
-        m_current_pass_desc.depth_stencil_used = 1;
-        m_current_pass_desc.depth_stencil_fmt  = texture->format();
-        m_depth_stencil_target.texture         = texture;
-        m_depth_stencil_target.mip             = mip;
-        m_depth_stencil_target.slice           = slice;
+        m_current_pass_desc.depth_stencil_fmt = texture->format();
+        m_depth_stencil_target.texture        = texture;
+        m_depth_stencil_target.mip            = mip;
+        m_depth_stencil_target.slice          = slice;
     }
     void VKRenderPassBinder::clear_color(int target) {
-        m_current_pass_desc.color_target_used[target] = 1;
-        m_current_pass_desc.color_target_ops[target]  = GfxRtOp::ClearStore;
+        m_current_pass_desc.color_target_ops[target] = GfxRtOp::ClearStore;
     }
     void VKRenderPassBinder::clear_depth() {
-        m_current_pass_desc.depth_stencil_used = 1;
-        m_current_pass_desc.depth_op           = GfxRtOp::ClearStore;
+        m_current_pass_desc.depth_op = GfxRtOp::ClearStore;
     }
     void VKRenderPassBinder::clear_stencil() {
-        m_current_pass_desc.depth_stencil_used = 1;
-        m_current_pass_desc.stencil_op         = GfxRtOp::ClearStore;
+        m_current_pass_desc.stencil_op = GfxRtOp::ClearStore;
     }
 
     void VKRenderPassBinder::start(const Strid& name) {

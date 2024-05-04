@@ -27,15 +27,67 @@
 
 #include "archive_file.hpp"
 
+#include "platform/file_system.hpp"
+#include "system/ioc_container.hpp"
+
 namespace wmoge {
 
-    ArchiveWriterFile::ArchiveWriterFile(std::fstream& stream) : m_stream(stream) {
+    ArchiveWriterFStream::ArchiveWriterFStream(std::fstream& stream) : m_stream(stream) {
         m_can_read  = false;
         m_can_write = true;
     }
-    Status ArchiveWriterFile::nwrite(int num_bytes, const void* bytes) {
+    Status ArchiveWriterFStream::nwrite(int num_bytes, const void* bytes) {
         m_stream.write(reinterpret_cast<const char*>(bytes), num_bytes);
         return StatusCode::Ok;
+    }
+    bool ArchiveWriterFStream::is_memory() {
+        return false;
+    }
+    bool ArchiveWriterFStream::is_physical() {
+        return true;
+    }
+    std::size_t ArchiveWriterFStream::get_size() {
+        return m_stream.tellp();
+    }
+
+    ArchiveReaderFStream::ArchiveReaderFStream(std::fstream& stream) : m_stream(stream) {
+        m_can_read  = true;
+        m_can_write = false;
+    }
+    Status ArchiveReaderFStream::nread(int num_bytes, void* bytes) {
+        m_stream.read(reinterpret_cast<char*>(bytes), num_bytes);
+        return StatusCode::Ok;
+    }
+    bool ArchiveReaderFStream::is_memory() {
+        return false;
+    }
+    bool ArchiveReaderFStream::is_physical() {
+        return true;
+    }
+    std::size_t ArchiveReaderFStream::get_size() {
+        auto pos = m_stream.tellp();
+        m_stream.seekp(0, std::ios_base::end);
+        auto size = m_stream.tellp();
+        m_stream.seekp(pos, std::ios_base::beg);
+        return size;
+    }
+
+    ArchiveWriterFile::ArchiveWriterFile(Ref<File> file) : m_file(std::move(file)) {
+        m_can_read  = false;
+        m_can_write = true;
+    }
+    Status ArchiveWriterFile::open(const std::string& file_path) {
+        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        WG_CHECKED(file_system->open_file(file_path, m_file, {FileOpenMode::Out, FileOpenMode::Binary}));
+
+        m_can_read  = false;
+        m_can_write = true;
+
+        return WG_OK;
+    }
+    Status ArchiveWriterFile::nwrite(int num_bytes, const void* bytes) {
+        assert(m_file);
+        return m_file->nwrite(reinterpret_cast<const char*>(bytes), num_bytes);
     }
     bool ArchiveWriterFile::is_memory() {
         return false;
@@ -44,16 +96,27 @@ namespace wmoge {
         return true;
     }
     std::size_t ArchiveWriterFile::get_size() {
-        return m_stream.tellp();
+        std::size_t s;
+        m_file->size(s);
+        return s;
     }
 
-    ArchiveReaderFile::ArchiveReaderFile(std::fstream& stream) : m_stream(stream) {
+    ArchiveReaderFile::ArchiveReaderFile(Ref<File> file) : m_file(std::move(file)) {
         m_can_read  = true;
         m_can_write = false;
     }
+    Status ArchiveReaderFile::open(const std::string& file_path) {
+        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        WG_CHECKED(file_system->open_file(file_path, m_file, {FileOpenMode::In, FileOpenMode::Binary}));
+
+        m_can_read  = false;
+        m_can_write = true;
+
+        return WG_OK;
+    }
     Status ArchiveReaderFile::nread(int num_bytes, void* bytes) {
-        m_stream.read(reinterpret_cast<char*>(bytes), num_bytes);
-        return StatusCode::Ok;
+        assert(m_file);
+        return m_file->nread(reinterpret_cast<char*>(bytes), num_bytes);
     }
     bool ArchiveReaderFile::is_memory() {
         return false;
@@ -62,11 +125,9 @@ namespace wmoge {
         return true;
     }
     std::size_t ArchiveReaderFile::get_size() {
-        auto pos = m_stream.tellp();
-        m_stream.seekp(0, std::ios_base::end);
-        auto size = m_stream.tellp();
-        m_stream.seekp(pos, std::ios_base::beg);
-        return size;
+        std::size_t s;
+        m_file->size(s);
+        return s;
     }
 
 }// namespace wmoge

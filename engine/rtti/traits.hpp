@@ -33,6 +33,7 @@
 #include "core/flat_map.hpp"
 #include "core/flat_set.hpp"
 #include "core/mask.hpp"
+#include "core/sha256.hpp"
 #include "core/status.hpp"
 #include "core/uuid.hpp"
 #include "io/archive.hpp"
@@ -404,6 +405,7 @@ namespace wmoge {
     WG_RTTI_FUNDAMENTAL_DECL(std::string, "string");
     WG_RTTI_FUNDAMENTAL_DECL(Strid, "strid");
     WG_RTTI_FUNDAMENTAL_DECL(UUID, "uuid");
+    WG_RTTI_FUNDAMENTAL_DECL(Sha256, "sha256");
     WG_RTTI_FUNDAMENTAL_DECL(DateTime, "datetime");
     WG_RTTI_FUNDAMENTAL_DECL(Status, "status");
     WG_RTTI_FUNDAMENTAL_DECL(Ref<Data>, "data");
