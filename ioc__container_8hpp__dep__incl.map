@@ -1,5 +1,5 @@
 <map id="engine/system/ioc_container.hpp" name="engine/system/ioc_container.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3097,5,3307,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="3202,5,3413,32"/>
 <area shape="rect" id="node2" href="$asset__manager_8cpp.html" title=" " alt="" coords="5,80,137,121"/>
 <area shape="rect" id="node3" href="$asset__pak__fs_8cpp.html" title=" " alt="" coords="161,80,293,121"/>
 <area shape="rect" id="node4" href="$log_8cpp.html" title=" " alt="" coords="317,87,452,114"/>
@@ -16,24 +16,25 @@
 <area shape="rect" id="node15" href="$shader__manager_8cpp.html" title=" " alt="" coords="2327,87,2533,114"/>
 <area shape="rect" id="node16" href="$shader__reflection_8cpp.html" title=" " alt="" coords="2558,87,2766,114"/>
 <area shape="rect" id="node17" href="$texture__manager_8cpp.html" title=" " alt="" coords="2790,80,2915,121"/>
-<area shape="rect" id="node18" href="$hook__config_8hpp.html" title=" " alt="" coords="3623,87,3819,114"/>
+<area shape="rect" id="node18" href="$hook__config_8hpp.html" title=" " alt="" coords="3833,87,4029,114"/>
 <area shape="rect" id="node19" href="$application_8cpp.html" title=" " alt="" coords="3312,169,3513,196"/>
-<area shape="rect" id="node20" href="$engine_8cpp.html" title=" " alt="" coords="3635,169,3807,196"/>
-<area shape="rect" id="node21" href="$hook__engine_8hpp.html" title=" " alt="" coords="2990,87,3190,114"/>
-<area shape="rect" id="node22" href="$hook__logs_8hpp.html" title=" " alt="" coords="3843,87,4030,114"/>
-<area shape="rect" id="node23" href="$hook__profiler_8hpp.html" title=" " alt="" coords="3214,87,3414,114"/>
-<area shape="rect" id="node24" href="$hook__root__remap_8hpp.html" title=" " alt="" coords="3438,80,3598,121"/>
-<area shape="rect" id="node25" href="$context_8cpp.html" title=" " alt="" coords="4105,87,4249,114"/>
-<area shape="rect" id="node26" href="$yaml_8cpp.html" title=" " alt="" coords="4273,87,4403,114"/>
-<area shape="rect" id="node27" href="$dll__manager_8cpp.html" title=" " alt="" coords="4427,80,4555,121"/>
-<area shape="rect" id="node28" href="$file__system_8cpp.html" title=" " alt="" coords="4579,80,4710,121"/>
-<area shape="rect" id="node29" href="$profiler_8cpp.html" title=" " alt="" coords="4734,87,4902,114"/>
-<area shape="rect" id="node30" href="$image_8cpp.html" title=" " alt="" coords="4926,87,5089,114"/>
-<area shape="rect" id="node31" href="$scene__manager_8cpp.html" title=" " alt="" coords="5113,80,5251,121"/>
-<area shape="rect" id="node32" href="$scene__packed_8cpp.html" title=" " alt="" coords="5275,80,5414,121"/>
-<area shape="rect" id="node33" href="$scene__tree_8cpp.html" title=" " alt="" coords="5438,80,5577,121"/>
-<area shape="rect" id="node34" href="$config__file_8cpp.html" title=" " alt="" coords="5601,80,5745,121"/>
-<area shape="rect" id="node35" href="$ioc__container_8cpp.html" title=" " alt="" coords="5769,87,5979,114"/>
-<area shape="rect" id="node36" href="$plugin__manager_8cpp.html" title=" " alt="" coords="6003,80,6147,121"/>
-<area shape="rect" id="node37" href="$assimp__asset__loader_8cpp.html" title=" " alt="" coords="6171,80,6326,121"/>
+<area shape="rect" id="node20" href="$engine_8cpp.html" title=" " alt="" coords="3643,169,3815,196"/>
+<area shape="rect" id="node21" href="$hook__engine_8hpp.html" title=" " alt="" coords="2939,87,3139,114"/>
+<area shape="rect" id="node22" href="$hook__logs_8hpp.html" title=" " alt="" coords="3214,87,3401,114"/>
+<area shape="rect" id="node23" href="$hook__profiler_8hpp.html" title=" " alt="" coords="3425,87,3625,114"/>
+<area shape="rect" id="node24" href="$hook__root__remap_8hpp.html" title=" " alt="" coords="3649,80,3809,121"/>
+<area shape="rect" id="node25" href="$archive__file_8cpp.html" title=" " alt="" coords="4105,87,4272,114"/>
+<area shape="rect" id="node26" href="$context_8cpp.html" title=" " alt="" coords="4297,87,4441,114"/>
+<area shape="rect" id="node27" href="$yaml_8cpp.html" title=" " alt="" coords="4465,87,4595,114"/>
+<area shape="rect" id="node28" href="$dll__manager_8cpp.html" title=" " alt="" coords="4619,80,4747,121"/>
+<area shape="rect" id="node29" href="$file__system_8cpp.html" title=" " alt="" coords="4771,80,4902,121"/>
+<area shape="rect" id="node30" href="$profiler_8cpp.html" title=" " alt="" coords="4926,87,5094,114"/>
+<area shape="rect" id="node31" href="$image_8cpp.html" title=" " alt="" coords="5118,87,5281,114"/>
+<area shape="rect" id="node32" href="$scene__manager_8cpp.html" title=" " alt="" coords="5305,80,5443,121"/>
+<area shape="rect" id="node33" href="$scene__packed_8cpp.html" title=" " alt="" coords="5467,80,5606,121"/>
+<area shape="rect" id="node34" href="$scene__tree_8cpp.html" title=" " alt="" coords="5630,80,5769,121"/>
+<area shape="rect" id="node35" href="$config__file_8cpp.html" title=" " alt="" coords="5793,80,5937,121"/>
+<area shape="rect" id="node36" href="$ioc__container_8cpp.html" title=" " alt="" coords="5961,87,6171,114"/>
+<area shape="rect" id="node37" href="$plugin__manager_8cpp.html" title=" " alt="" coords="6195,80,6339,121"/>
+<area shape="rect" id="node38" href="$assimp__asset__loader_8cpp.html" title=" " alt="" coords="6363,80,6518,121"/>
 </map>

@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>An archive to read data from a platform file.  
+<p>An archive to read data from a file.  
  <a href="classwmoge_1_1ArchiveReaderFile.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="archive__file_8hpp_source.html">archive_file.hpp</a>&gt;</code></p>
@@ -82,7 +82,7 @@ Inheritance diagram for wmoge::ArchiveReaderFile:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1ArchiveReaderFile__inherit__graph.png" border="0" usemap="#awmoge_1_1ArchiveReaderFile_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1ArchiveReaderFile_inherit__map" id="awmoge_1_1ArchiveReaderFile_inherit__map">
-<area shape="rect" title="An archive to read data from a platform file." alt="" coords="5,155,181,181"/>
+<area shape="rect" title="An archive to read data from a file." alt="" coords="5,155,181,181"/>
 <area shape="rect" href="classwmoge_1_1Archive.html" title="Serialization and de&#45;serialization archive." alt="" coords="36,80,151,107"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="38,5,149,32"/>
 </map>
@@ -92,7 +92,7 @@ Collaboration diagram for wmoge::ArchiveReaderFile:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1ArchiveReaderFile__coll__graph.png" border="0" usemap="#awmoge_1_1ArchiveReaderFile_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ArchiveReaderFile_coll__map" id="awmoge_1_1ArchiveReaderFile_coll__map">
-<area shape="rect" title="An archive to read data from a platform file." alt="" coords="37,171,213,197"/>
+<area shape="rect" title="An archive to read data from a file." alt="" coords="37,171,213,197"/>
 <area shape="rect" href="classwmoge_1_1Archive.html" title="Serialization and de&#45;serialization archive." alt="" coords="67,95,182,121"/>
 <area shape="rect" href="classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
 <area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
@@ -101,10 +101,14 @@ Collaboration diagram for wmoge::ArchiveReaderFile:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a985fdd167276b0c2c370e4ae2a2daa86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#a985fdd167276b0c2c370e4ae2a2daa86">ArchiveReaderFile</a> (std::fstream &amp;stream)</td></tr>
-<tr class="separator:a985fdd167276b0c2c370e4ae2a2daa86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05726115d52094d23e87ce9d5e84859a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#a05726115d52094d23e87ce9d5e84859a">ArchiveReaderFile</a> ()=default</td></tr>
+<tr class="separator:a05726115d52094d23e87ce9d5e84859a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af211712941dc73ad2823d42bda0d7eff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#af211712941dc73ad2823d42bda0d7eff">ArchiveReaderFile</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1File.html">File</a> &gt; file)</td></tr>
+<tr class="separator:af211712941dc73ad2823d42bda0d7eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bf9b9669063076d96cb29b88489de81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#a5bf9b9669063076d96cb29b88489de81">~ArchiveReaderFile</a> () override=default</td></tr>
 <tr class="separator:a5bf9b9669063076d96cb29b88489de81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a374146bd807640e7cbe2331cc7d0afa2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#a374146bd807640e7cbe2331cc7d0afa2">open</a> (const std::string &amp;file_path)</td></tr>
+<tr class="separator:a374146bd807640e7cbe2331cc7d0afa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ccda1eb6b9d72df5ba34378083784e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#a7ccda1eb6b9d72df5ba34378083784e7">nread</a> (int num_bytes, void *bytes) override</td></tr>
 <tr class="separator:a7ccda1eb6b9d72df5ba34378083784e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adaa1c3e3a76966b0b63728109971d48c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ArchiveReaderFile.html#adaa1c3e3a76966b0b63728109971d48c">is_memory</a> () override</td></tr>
@@ -150,10 +154,35 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a02836f1a5f139284bec160493b7231de inherit pro_attribs_classwmoge_1_1Archive"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An archive to read data from a platform file. </p>
+<div class="textblock"><p>An archive to read data from a file. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a985fdd167276b0c2c370e4ae2a2daa86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a985fdd167276b0c2c370e4ae2a2daa86">&#9670;&nbsp;</a></span>ArchiveReaderFile()</h2>
+<a id="a05726115d52094d23e87ce9d5e84859a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05726115d52094d23e87ce9d5e84859a">&#9670;&nbsp;</a></span>ArchiveReaderFile() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::ArchiveReaderFile::ArchiveReaderFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af211712941dc73ad2823d42bda0d7eff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af211712941dc73ad2823d42bda0d7eff">&#9670;&nbsp;</a></span>ArchiveReaderFile() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,8 +190,8 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">wmoge::ArchiveReaderFile::ArchiveReaderFile </td>
           <td>(</td>
-          <td class="paramtype">std::fstream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1File.html">File</a> &gt;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -312,6 +341,24 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Reimplemented from <a class="el" href="classwmoge_1_1Archive.html#a3dc89b0c8be36de4362ac1f1abb4072d">wmoge::Archive</a>.</p>
+
+</div>
+</div>
+<a id="a374146bd807640e7cbe2331cc7d0afa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a374146bd807640e7cbe2331cc7d0afa2">&#9670;&nbsp;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ArchiveReaderFile::open </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

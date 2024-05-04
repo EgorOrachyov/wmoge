@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1IocContainer.html" title="Inversion of control container for simpler dependency injection of global engine managers." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1GraphicsPipeline.html" title="Pipeline capable of rendering scene cameras draw cmds into series of pass to get final image." alt="" coords="5,5,173,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1DeferredPipeline.html" title="Deferred high&#45;quality HDR pipeline for scene rendering." alt="" coords="221,5,387,32"/>
 </map>
