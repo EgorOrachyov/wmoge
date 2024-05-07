@@ -144,6 +144,16 @@ namespace wmoge {
         // finally init wrapper for ctx immediate
         m_ctx_immediate_wrapper = std::make_unique<GfxCtxWrapper>(m_ctx_immediate.get());
 
+#ifdef TARGET_WINDOWS
+        m_shader_patform = GfxShaderPlatform::VulkanWindows;
+#endif
+#ifdef TARGET_LINUX
+        m_shader_patform = GfxShaderPlatform::VulkanLinux;
+#endif
+#ifdef TARGET_MACOS
+        m_shader_patform = GfxShaderPlatform::VulkanMacOS;
+#endif
+
         WG_LOG_INFO("init vulkan gfx driver");
     }
     VKDriver::~VKDriver() {

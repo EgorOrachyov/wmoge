@@ -27,20 +27,8 @@
 
 #pragma once
 
-#include "render/font.hpp"
-#include "render/image.hpp"
-#include "render/model.hpp"
-#include "render/texture.hpp"
-
 namespace wmoge {
 
-    inline void rtti_render() {
-        rtti_type<Image>();
-        rtti_type<Texture>();
-        rtti_type<Texture2d>();
-        rtti_type<TextureCube>();
-        rtti_type<Font>();
-        rtti_type<Model>();
-    }
+    void rtti_render();
 
 }// namespace wmoge

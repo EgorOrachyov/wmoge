@@ -27,12 +27,8 @@
 
 #pragma once
 
-#include "pfx/pfx_effect.hpp"
-
 namespace wmoge {
 
-    inline void rtti_pfx() {
-        rtti_type<PfxEffect>();
-    }
+    void rtti_pfx();
 
 }// namespace wmoge

@@ -37,7 +37,7 @@ namespace wmoge {
     using Crc32 = unsigned int;
 
     /**
-     * @class Crc32
+     * @class Crc32Util
      * @brief Utility for crc32 hashing
     */
     class Crc32Util {

@@ -44,15 +44,6 @@
 namespace wmoge {
 
     /**
-     * @class ShaderPermutation
-     * @brief Defines a particular variant of a compiled shader
-    */
-    struct ShaderPermutation {
-        std::bitset<ShaderOptions::MAX_OPTIONS> options;
-        GfxVertAttribs                          vert_attribs;
-    };
-
-    /**
      * @class Shader
      * @brief Reprsents a particular shader program script
      * 

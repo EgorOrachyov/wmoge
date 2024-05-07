@@ -27,12 +27,8 @@
 
 #pragma once
 
-#include "rtti/traits.hpp"
-
 namespace wmoge {
 
-    inline void rtti_rtti() {
-        rtti_type<RttiObject>();
-    }
+    void rtti_rtti();
 
 }// namespace wmoge

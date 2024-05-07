@@ -33,12 +33,12 @@
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/texture.hpp"
 #include "io/serialization.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 #include "render/camera.hpp"
 #include "render/render_scene.hpp"
-#include "render/texture.hpp"
 
 #include <string>
 #include <vector>

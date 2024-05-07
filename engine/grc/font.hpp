@@ -32,10 +32,10 @@
 #include "core/flat_map.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/image.hpp"
+#include "grc/texture.hpp"
 #include "io/serialization.hpp"
 #include "math/vec.hpp"
-#include "render/image.hpp"
-#include "render/texture.hpp"
 
 #include <vector>
 

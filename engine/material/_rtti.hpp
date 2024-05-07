@@ -27,12 +27,8 @@
 
 #pragma once
 
-#include "material/material.hpp"
-
 namespace wmoge {
 
-    inline void rtti_material() {
-        rtti_type<Material>();
-    }
+    void rtti_material();
 
 }// namespace wmoge

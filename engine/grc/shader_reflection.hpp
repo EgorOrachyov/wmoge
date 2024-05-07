@@ -399,6 +399,22 @@ namespace wmoge {
     };
 
     /**
+     * @class ShaderPermutation
+     * @brief Defines a particular variant of a compiled shader
+    */
+    struct ShaderPermutation {
+        ShaderPermutation() = default;
+
+        bool        operator==(const ShaderPermutation& other) const;
+        std::size_t hash() const;
+
+        std::bitset<ShaderOptions::MAX_OPTIONS> options;
+        GfxVertAttribs                          vert_attribs;
+        std::int16_t                            technique_idx = -1;
+        std::int16_t                            pass_idx      = -1;
+    };
+
+    /**
      * @class ShaderReflection
      * @brief Full reflection information of a single shader class
     */
@@ -422,3 +438,15 @@ namespace wmoge {
     };
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::ShaderPermutation> {
+    public:
+        std::size_t operator()(const wmoge::ShaderPermutation& permutation) const {
+            return permutation.hash();
+        }
+    };
+
+}// namespace std

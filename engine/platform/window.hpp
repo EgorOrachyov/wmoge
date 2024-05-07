@@ -29,8 +29,8 @@
 
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
+#include "grc/image.hpp"
 #include "math/vec.hpp"
-#include "render/image.hpp"
 
 namespace wmoge {
 

@@ -27,14 +27,8 @@
 
 #pragma once
 
-#include "audio/audio_stream.hpp"
-#include "audio/audio_stream_wav.hpp"
-
 namespace wmoge {
 
-    inline void rtti_audio() {
-        rtti_type<AudioStream>();
-        rtti_type<AudioStreamWav>();
-    }
+    void rtti_audio();
 
 }// namespace wmoge

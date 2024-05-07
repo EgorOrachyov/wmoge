@@ -55,20 +55,21 @@ namespace wmoge {
     const Status s = ShaderParamAccess(*this).get(param_id, v); \
     return s
 
-    ShaderParamBlock::ShaderParamBlock(Shader& shader, std::int16_t space_idx) {
-        reset(shader, space_idx);
+    ShaderParamBlock::ShaderParamBlock(Shader& shader, std::int16_t space_idx, const Strid& name) {
+        reset(shader, space_idx, name);
     }
 
-    Status ShaderParamBlock::reset(Shader& shader, std::int16_t space_idx) {
+    Status ShaderParamBlock::reset(Shader& shader, std::int16_t space_idx, const Strid& name) {
         m_shader = &shader;
         m_space  = space_idx;
+        m_name   = name;
 
         assert(space_idx < m_shader->get_reflection().spaces.size());
 
-        return reset_defaults();
+        return restore_defaults();
     }
 
-    Status ShaderParamBlock::reset_defaults() {
+    Status ShaderParamBlock::restore_defaults() {
         if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
@@ -143,7 +144,7 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
-    Status ShaderParamBlock::validate(GfxDriver* driver, GfxCtx* ctx, Strid name) {
+    Status ShaderParamBlock::validate(GfxDriver* driver, GfxCtx* ctx) {
         if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
@@ -181,7 +182,7 @@ namespace wmoge {
 
                 if (!v.resource) {
                     WG_LOG_ERROR("missing res setup of "
-                                 << name
+                                 << m_name
                                  << " space=" << m_space
                                  << " binding=" << i
                                  << " shader=" << m_shader->get_name());
@@ -189,7 +190,7 @@ namespace wmoge {
                 }
                 if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
                     WG_LOG_ERROR("missing sampler setup of "
-                                 << name
+                                 << m_name
                                  << " space=" << m_space
                                  << " binding=" << i
                                  << " shader=" << m_shader->get_name());
@@ -197,7 +198,7 @@ namespace wmoge {
                 }
             }
 
-            m_gfx_set = driver->make_desc_set(m_gfx_resources, m_shader->get_layout(m_space), name);
+            m_gfx_set = driver->make_desc_set(m_gfx_resources, m_shader->get_layout(m_space), m_name);
         }
 
         m_dirty_buffers = 0;

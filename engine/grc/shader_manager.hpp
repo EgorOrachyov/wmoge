@@ -31,6 +31,7 @@
 #include "debug/console.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader.hpp"
+#include "grc/shader_compiler.hpp"
 #include "grc/shader_reflection.hpp"
 #include "grc/texture_manager.hpp"
 #include "platform/file_system.hpp"
@@ -38,19 +39,6 @@
 #include <mutex>
 
 namespace wmoge {
-
-    struct ShaderCompilerInput {
-        ShaderPermutation permutation;
-        Shader*           shader        = nullptr;
-        std::int16_t      technique_idx = -1;
-        std::int16_t      pass_idx      = -1;
-    };
-
-    struct ShaderCompilerOutput {
-        Ref<GfxShader>                  shader;
-        Ref<GfxShaderProgram>           program;
-        buffered_vector<std::string, 1> errors;
-    };
 
     /**
      * @class ShaderManager
@@ -60,23 +48,20 @@ namespace wmoge {
     public:
         ShaderManager();
 
-        Status                         fit_shader(const Ref<Shader>& shader);
-        Ref<Shader>                    find_shader(Strid name);
-        void                           add_global_type(const Ref<ShaderType>& type);
         std::optional<Ref<ShaderType>> find_global_type(Strid name);
+        void                           add_global_type(const Ref<ShaderType>& type);
+        void                           load_compilers();
 
         [[nodiscard]] const std::string& get_shaders_folder() const { return m_shaders_folder; }
 
     private:
-        flat_map<Strid, Ref<Shader>>     m_shaders;
-        flat_map<Strid, Ref<ShaderType>> m_global_types;
-        std::string                      m_shaders_folder;
-        TextureManager*                  m_texture_manager;
-        FileSystem*                      m_file_system;
-        GfxDriver*                       m_gfx_driver;
-        Console*                         m_console;
+        std::array<Ref<ShaderCompiler>, int(GfxShaderPlatform::Max)> m_compilers;
+        flat_map<Strid, Ref<ShaderType>>                             m_global_types;
+        std::string                                                  m_shaders_folder;
 
-        std::recursive_mutex m_mutex;
+        FileSystem* m_file_system;
+        GfxDriver*  m_gfx_driver;
+        Console*    m_console;
     };
 
 }// namespace wmoge

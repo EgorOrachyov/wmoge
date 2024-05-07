@@ -30,6 +30,7 @@
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "grc/shader.hpp"
+#include "grc/shader_cache.hpp"
 #include "grc/shader_param_block.hpp"
 
 namespace wmoge {
@@ -46,14 +47,18 @@ namespace wmoge {
         ShaderInstance(Shader& shader, Strid name);
 
         Status reset(Shader& shader, Strid name);
-        Status reset_defaults();
-        Status validate(class GfxDriver* driver, class GfxCtx* ctx);
+        Status restore_defaults();
 
-        void set_technique(const Strid& name);
-        void set_technique(std::int16_t idx);
+        Status begin_pass(const Strid& pass, class GfxDriver* driver, class GfxCtx* ctx);
+        void   draw(int vertex_count, int base_vertex, int instance_count);
+        void   draw_indexed(int index_count, int base_vertex, int instance_count);
+        void   dispatch(Vec3i group_count);
+        void   end_pass();
 
-        void set_option(Strid option, Strid variant);
-        void set_option(std::int16_t pass_idx, Strid option, Strid variant);
+        Status set_technique(const Strid& name);
+        Status set_technique(std::int16_t idx);
+        Status set_option(Strid option, Strid variant);
+        Status set_option(std::int16_t pass_idx, Strid option, Strid variant);
 
         Status set_var(ShaderParamId param_id, int v);
         Status set_var(ShaderParamId param_id, float v);
@@ -84,11 +89,10 @@ namespace wmoge {
         Status get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v);
 
     private:
-        buffered_vector<ShaderParamBlock>  m_param_blocks;
-        buffered_vector<ShaderPermutation> m_pass_permutations;
-        Shader*                            m_shader = nullptr;
-        Strid                              m_name;
-        std::int16_t                       m_technique_idx = -1;
+        buffered_vector<ShaderParamBlock> m_param_blocks;
+        Shader*                           m_shader = nullptr;
+        Strid                             m_name;
+        std::int16_t                      m_technique_idx = -1;
     };
 
 }// namespace wmoge

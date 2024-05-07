@@ -72,12 +72,13 @@ namespace wmoge {
          * 
          * @param shader Shader intended to be used with block
          * @param space_idx Index of space to be used with this block
+         * @param name Param block name for debug
         */
-        ShaderParamBlock(Shader& shader, std::int16_t space_idx);
+        ShaderParamBlock(Shader& shader, std::int16_t space_idx, const Strid& name);
 
-        Status reset(Shader& shader, std::int16_t space_idx);
-        Status reset_defaults();
-        Status validate(class GfxDriver* driver, class GfxCtx* ctx, Strid name);
+        Status reset(Shader& shader, std::int16_t space_idx, const Strid& name);
+        Status restore_defaults();
+        Status validate(class GfxDriver* driver, class GfxCtx* ctx);
 
         Status set_var(ShaderParamId param_id, int v);
         Status set_var(ShaderParamId param_id, float v);
@@ -124,7 +125,8 @@ namespace wmoge {
         GfxDescSetResources           m_gfx_resources;
         Ref<GfxDescSet>               m_gfx_set;
         buffered_vector<Ref<Data>, 1> m_buffers;
-        Shader*                       m_shader        = nullptr;
+        Shader*                       m_shader = nullptr;
+        Strid                         m_name;
         std::int16_t                  m_space         = -1;
         std::int8_t                   m_dirty_buffers = 1;
         std::int8_t                   m_dirty_set     = 1;

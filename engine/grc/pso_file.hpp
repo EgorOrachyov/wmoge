@@ -38,8 +38,8 @@
 namespace wmoge {
 
     /** @brief Serializable render pass desc */
-    struct FileRenderPass {
-        WG_RTTI_STRUCT(FileRenderPass);
+    struct FilePsoRenderPass {
+        WG_RTTI_STRUCT(FilePsoRenderPass);
 
         buffered_vector<GfxFormat> color_target_fmts;
         buffered_vector<GfxRtOp>   color_target_ops;
@@ -48,7 +48,7 @@ namespace wmoge {
         GfxRtOp                    stencil_op;
     };
 
-    WG_RTTI_STRUCT_BEGIN(FileRenderPass) {
+    WG_RTTI_STRUCT_BEGIN(FilePsoRenderPass) {
         WG_RTTI_FIELD(color_target_fmts, {});
         WG_RTTI_FIELD(color_target_ops, {});
         WG_RTTI_FIELD(depth_stencil_fmt, {});
@@ -58,14 +58,14 @@ namespace wmoge {
     WG_RTTI_END;
 
     /** @brief Serializable vertex format */
-    struct FileVertFormat {
-        WG_RTTI_STRUCT(FileVertFormat);
+    struct FilePsoVertFormat {
+        WG_RTTI_STRUCT(FilePsoVertFormat);
 
         buffered_vector<GfxVertElement> elements;
         Strid                           name;
     };
 
-    WG_RTTI_STRUCT_BEGIN(FileVertFormat) {
+    WG_RTTI_STRUCT_BEGIN(FilePsoVertFormat) {
         WG_RTTI_FIELD(elements, {});
         WG_RTTI_FIELD(name, {});
     }
@@ -173,8 +173,9 @@ namespace wmoge {
     struct FilePsoData {
         WG_RTTI_STRUCT(FilePsoData);
 
-        std::vector<FileRenderPass>       render_passes;
-        std::vector<FileVertFormat>       vert_formats;
+        GfxShaderPlatform                 platform;
+        std::vector<FilePsoRenderPass>    render_passes;
+        std::vector<FilePsoVertFormat>    vert_formats;
         std::vector<GfxDescSetLayoutDesc> desc_layouts;
         std::vector<FilePsoLayout>        pso_layouts;
         std::vector<FilePsoStateGraphics> pso_graphics;
@@ -182,6 +183,7 @@ namespace wmoge {
     };
 
     WG_RTTI_STRUCT_BEGIN(FilePsoData) {
+        WG_RTTI_FIELD(platform, {});
         WG_RTTI_FIELD(render_passes, {});
         WG_RTTI_FIELD(vert_formats, {});
         WG_RTTI_FIELD(desc_layouts, {});

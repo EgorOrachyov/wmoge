@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "render/image.hpp"
+#include "grc/image.hpp"
 #include "rtti/traits.hpp"
 
 namespace wmoge {

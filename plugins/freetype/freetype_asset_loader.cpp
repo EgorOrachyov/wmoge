@@ -29,8 +29,8 @@
 
 #include "freetype_font.hpp"
 #include "freetype_import_data.hpp"
+#include "grc/font.hpp"
 #include "profiler/profiler.hpp"
-#include "render/font.hpp"
 
 namespace wmoge {
 

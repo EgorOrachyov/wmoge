@@ -33,11 +33,11 @@
 
 #include "asset/asset_manager.hpp"
 #include "audio/audio_stream.hpp"
+#include "grc/font.hpp"
+#include "grc/image.hpp"
+#include "grc/texture.hpp"
 #include "material/material.hpp"
 #include "pfx/pfx_effect.hpp"
-#include "render/font.hpp"
-#include "render/image.hpp"
-#include "render/texture.hpp"
 #include "system/config_file.hpp"
 #include "system/engine.hpp"
 

@@ -105,6 +105,8 @@ namespace wmoge {
         [[nodiscard]] virtual std::size_t            frame_number() const        = 0;
         [[nodiscard]] virtual bool                   on_gfx_thread() const       = 0;
         [[nodiscard]] virtual GfxShaderLang          shader_lang() const         = 0;
+        [[nodiscard]] virtual GfxType                get_gfx_type() const        = 0;
+        [[nodiscard]] virtual GfxShaderPlatform      get_shader_platform() const = 0;
     };
 
 }// namespace wmoge

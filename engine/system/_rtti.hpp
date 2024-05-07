@@ -27,12 +27,8 @@
 
 #pragma once
 
-#include "system/config_file.hpp"
-
 namespace wmoge {
 
-    inline void rtti_system() {
-        rtti_type<ConfigFile>();
-    }
+    void rtti_system();
 
 }// namespace wmoge

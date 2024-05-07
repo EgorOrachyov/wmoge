@@ -109,6 +109,8 @@ namespace wmoge {
         bool                   on_gfx_thread() const override { return m_thread_id == std::this_thread::get_id(); }
         GfxShaderLang          shader_lang() const override { return GfxShaderLang::GlslVk450; }
         CallbackStream*        cmd_stream() override { return m_driver_cmd_stream.get(); }
+        GfxType                get_gfx_type() const override { return GfxType::Vulkan; }
+        GfxShaderPlatform      get_shader_platform() const override { return m_shader_patform; }
         GfxDriverWrapper*      driver_wrapper() { return m_driver_wrapper.get(); }
         GfxCtxWrapper*         ctx_immediate_wrapper() { return m_ctx_immediate_wrapper.get(); }
         CallbackQueue*         release_queue() { return &m_deferred_release[m_index]; }
@@ -166,6 +168,7 @@ namespace wmoge {
         Mat4x4f            m_clip_matrix;
         std::atomic_size_t m_frame_number{0};
         std::string        m_pipeline_cache_path;
+        GfxShaderPlatform  m_shader_patform = GfxShaderPlatform::None;
 
         std::string              m_app_name;
         std::string              m_engine_name;

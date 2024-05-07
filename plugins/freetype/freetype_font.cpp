@@ -28,9 +28,10 @@
 #include "freetype_font.hpp"
 
 #include "gfx/gfx_driver.hpp"
+#include "grc/image.hpp"
+#include "grc/texture.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "render/image.hpp"
 #include "system/engine.hpp"
 
 #include <freetype/freetype.h>

@@ -56,6 +56,9 @@ namespace wmoge {
             for (auto e : elements) set(e);
         }
 
+        bool operator==(const Mask& other) const { return bits == other.bits; }
+        bool operator!=(const Mask& other) const { return bits != other.bits; }
+
         Mask operator&(const Mask& other) const { return Mask(bits & other.bits); }
         Mask operator|(const Mask& other) const { return Mask(bits | other.bits); }
 

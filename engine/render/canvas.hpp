@@ -35,14 +35,14 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_vector.hpp"
+#include "grc/font.hpp"
+#include "grc/texture.hpp"
 #include "math/color.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils.hpp"
 #include "math/math_utils2d.hpp"
 #include "math/transform.hpp"
 #include "math/vec.hpp"
-#include "render/font.hpp"
-#include "render/texture.hpp"
 
 #include "../../shaders/tmp/generated/auto_canvas_reflection.hpp"
 

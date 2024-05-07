@@ -27,16 +27,8 @@
 
 #pragma once
 
-#include "scene/scene_packed.hpp"
-#include "scene/scene_prefab.hpp"
-#include "scene/scene_tree_packed.hpp"
-
 namespace wmoge {
 
-    inline void rtti_scene() {
-        rtti_type<ScenePrefab>();
-        rtti_type<ScenePacked>();
-        rtti_type<SceneTreePacked>();
-    }
+    void rtti_scene();
 
 }// namespace wmoge

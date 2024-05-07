@@ -49,6 +49,8 @@ namespace wmoge {
         m_pipeline_cache_path = driver->pipeline_cache_path();
         m_ctx_immediate       = driver->ctx_immediate();
         m_ctx_async           = driver->ctx_async();
+        m_gfx_type            = driver->get_gfx_type();
+        m_shader_platform     = driver->get_shader_platform();
     }
 
     Ref<GfxVertFormat> GfxDriverWrapper::make_vert_format(const GfxVertElements& elements, const Strid& name) {
@@ -268,6 +270,12 @@ namespace wmoge {
     }
     GfxShaderLang GfxDriverWrapper::shader_lang() const {
         return m_shader_lang;
+    }
+    GfxType GfxDriverWrapper::get_gfx_type() const {
+        return m_gfx_type;
+    }
+    GfxShaderPlatform GfxDriverWrapper::get_shader_platform() const {
+        return m_shader_platform;
     }
 
 }// namespace wmoge

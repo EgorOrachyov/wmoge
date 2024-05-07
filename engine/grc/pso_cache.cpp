@@ -154,7 +154,7 @@ namespace wmoge {
         return m_psos[query->second.value].pso.cast<GfxPsoCompute>();
     }
 
-    Async PsoCache::precache_psos(const array_view<GfxPsoStateGraphics>& states, const array_view<Strid>& names) {
+    Async PsoCache::precache_psos(const array_view<GfxPsoStateGraphics>& states, const array_view<Strid>& names, Async depends_on) {
         WG_AUTO_PROFILE_GRC("PsoCache::precache_psos");
 
         assert(states.size() == names.size());
@@ -203,9 +203,9 @@ namespace wmoge {
 
         task.set_task_manager(*m_task_manager);
 
-        return task.schedule().as_async();
+        return task.schedule(depends_on).as_async();
     }
-    Async PsoCache::precache_psos(const array_view<GfxPsoStateCompute>& states, const array_view<Strid>& names) {
+    Async PsoCache::precache_psos(const array_view<GfxPsoStateCompute>& states, const array_view<Strid>& names, Async depends_on) {
         WG_AUTO_PROFILE_GRC("PsoCache::precache_psos");
 
         assert(states.size() == names.size());
@@ -253,7 +253,7 @@ namespace wmoge {
 
         task.set_task_manager(*m_task_manager);
 
-        return task.schedule().as_async();
+        return task.schedule(depends_on).as_async();
     }
 
     PsoKey PsoCache::get_next_key() {

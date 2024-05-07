@@ -27,20 +27,8 @@
 
 #pragma once
 
-#include "grc/shader.hpp"
-#include "grc/shader_file.hpp"
-
 namespace wmoge {
 
-    inline void rtti_grc() {
-        rtti_type<ShaderFileOption>();
-        rtti_type<ShaderFileParam>();
-        rtti_type<ShaderFileParamBlock>();
-        rtti_type<ShaderFilePass>();
-        rtti_type<ShaderFileTechnique>();
-        rtti_type<ShaderFileSource>();
-        rtti_type<ShaderFile>();
-        rtti_type<Shader>();
-    }
+    void rtti_grc();
 
 }// namespace wmoge

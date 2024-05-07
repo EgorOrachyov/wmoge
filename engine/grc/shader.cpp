@@ -223,9 +223,7 @@ namespace wmoge {
             }
         }
 
-        WG_CHECKED(reload_sources(shader_manager->get_shaders_folder(), file_system));
-
-        return shader_manager->fit_shader(shader);
+        return reload_sources(shader_manager->get_shaders_folder(), file_system);
     }
 
     std::optional<std::int16_t> Shader::find_technique(Strid name) {

@@ -27,12 +27,8 @@
 
 #pragma once
 
-#include "scripting/script.hpp"
-
 namespace wmoge {
 
-    inline void rtti_scripting() {
-        rtti_type<Script>();
-    }
+    void rtti_scripting();
 
 }// namespace wmoge

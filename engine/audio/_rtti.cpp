@@ -25,61 +25,16 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "font.hpp"
+#include "_rtti.hpp"
 
-#include "gfx/gfx_driver.hpp"
-#include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
-#include "render/image.hpp"
-#include "system/engine.hpp"
-
-#include <sstream>
-#include <string>
+#include "audio/audio_stream.hpp"
+#include "audio/audio_stream_wav.hpp"
 
 namespace wmoge {
 
-    WG_IO_BEGIN(FontImportOptions)
-    WG_IO_FIELD(source_file)
-    WG_IO_FIELD(height)
-    WG_IO_FIELD(glyphs_in_row)
-    WG_IO_END(FontImportOptions)
-
-    Status Font::init(const FontDesc& desc) {
-        m_glyphs        = desc.glyphs;
-        m_texture       = desc.texture;
-        m_family_name   = desc.family_name;
-        m_style_name    = desc.style_name;
-        m_height        = desc.height;
-        m_glyphs_in_row = desc.glyphs_in_row;
-        m_max_height    = desc.max_height;
-        m_max_width     = desc.max_width;
-
-        return StatusCode::Ok;
-    }
-
-    Vec2f Font::get_string_size(const std::string& text, float size) {
-        const int   n          = int(text.size());
-        const float scale      = size > 0 ? size / float(get_height()) : 1.0f;
-        const auto  null_glyph = m_glyphs.find(0)->second;
-
-        float advance_x = 0.0f;
-        float height    = 0.0f;
-
-        for (int i = 0; i < n; ++i) {
-            auto c     = text[i];
-            auto query = m_glyphs.find(int(c));
-
-            FontGlyph font_glyph = null_glyph;
-            if (query != m_glyphs.end()) font_glyph = query->second;
-
-            float top    = scale * float(font_glyph.bearing.y());
-            float bottom = top - scale * float(font_glyph.size.y());
-
-            advance_x += scale * float(font_glyph.advance.x());
-            height = Math::max(height, top - bottom);
-        }
-
-        return Vec2f(advance_x, height);
+    void rtti_audio() {
+        rtti_type<AudioStream>();
+        rtti_type<AudioStreamWav>();
     }
 
 }// namespace wmoge

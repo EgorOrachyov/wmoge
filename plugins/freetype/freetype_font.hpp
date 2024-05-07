@@ -29,7 +29,7 @@
 
 #include "core/status.hpp"
 #include "core/string_utils.hpp"
-#include "render/font.hpp"
+#include "grc/font.hpp"
 
 namespace wmoge {
 

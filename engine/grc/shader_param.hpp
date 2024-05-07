@@ -55,7 +55,7 @@ namespace wmoge {
     class ShaderParam {
     public:
         ShaderParam() = default;
-        ShaderParam(class Shader& shader, ShaderParamId param_id);
+        ShaderParam(class ShaderInstance& shader, ShaderParamId param_id);
         ShaderParam(class ShaderParamBlock& block, ShaderParamId param_id);
 
         Status set_var(int v);

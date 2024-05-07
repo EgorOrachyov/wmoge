@@ -27,9 +27,9 @@
 
 #include "image_asset_loader.hpp"
 
+#include "grc/image.hpp"
 #include "image_import_data.hpp"
 #include "profiler/profiler.hpp"
-#include "render/image.hpp"
 
 namespace wmoge {
 

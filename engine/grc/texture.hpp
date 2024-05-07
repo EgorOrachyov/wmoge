@@ -31,10 +31,10 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/image.hpp"
 #include "grc/texture_compression.hpp"
 #include "grc/texture_resize.hpp"
 #include "io/serialization.hpp"
-#include "render/image.hpp"
 
 namespace wmoge {
 

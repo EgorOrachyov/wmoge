@@ -79,6 +79,8 @@ namespace wmoge {
      * 
      * Also cache provides ways to precache psos upfront using async compilation. It allows
      * to warmup cache up front and do all heavy work before any actual gameplay
+     * 
+     * @note Thread-safe
     */
     class PsoCache {
     public:
@@ -96,8 +98,8 @@ namespace wmoge {
         std::optional<Ref<GfxPsoGraphics>>   find_pso(const GfxPsoStateGraphics& state);
         std::optional<Ref<GfxPsoCompute>>    find_pso(const GfxPsoStateCompute& state);
 
-        Async precache_psos(const array_view<GfxPsoStateGraphics>& states, const array_view<Strid>& names);
-        Async precache_psos(const array_view<GfxPsoStateCompute>& states, const array_view<Strid>& names);
+        Async precache_psos(const array_view<GfxPsoStateGraphics>& states, const array_view<Strid>& names, Async depends_on = Async());
+        Async precache_psos(const array_view<GfxPsoStateCompute>& states, const array_view<Strid>& names, Async depends_on = Async());
 
     private:
         [[nodiscard]] PsoKey         get_next_key();

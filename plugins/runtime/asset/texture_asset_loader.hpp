@@ -32,7 +32,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "render/texture.hpp"
+#include "grc/texture.hpp"
 
 namespace wmoge {
 

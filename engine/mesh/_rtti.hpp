@@ -27,14 +27,8 @@
 
 #pragma once
 
-#include "mesh/array_mesh.hpp"
-#include "mesh/mesh.hpp"
-
 namespace wmoge {
 
-    inline void rtti_mesh() {
-        rtti_type<ArrayMesh>();
-        rtti_type<Mesh>();
-    }
+    void rtti_mesh();
 
 }// namespace wmoge

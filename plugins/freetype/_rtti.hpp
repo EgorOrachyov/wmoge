@@ -27,14 +27,8 @@
 
 #pragma once
 
-#include "freetype_asset_loader.hpp"
-#include "freetype_import_data.hpp"
-
 namespace wmoge {
 
-    inline void rtti_freetype() {
-        rtti_type<FreetypeImportData>();
-        rtti_type<FreetypeAssetLoader>();
-    }
+    void rtti_freetype();
 
 }// namespace wmoge

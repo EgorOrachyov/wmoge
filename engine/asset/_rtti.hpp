@@ -27,19 +27,8 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "asset/asset_import_data.hpp"
-#include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
-
 namespace wmoge {
 
-    inline void rtti_asset() {
-        rtti_type<AssetImportData>();
-        rtti_type<AssetMetaFile>();
-        rtti_type<AssetMeta>();
-        rtti_type<AssetLoader>();
-        rtti_type<Asset>();
-    }
+    void rtti_asset();
 
 }// namespace wmoge

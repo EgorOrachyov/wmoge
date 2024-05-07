@@ -33,17 +33,19 @@
 #include "io/enum.hpp"
 #include "math/math_utils.hpp"
 #include "profiler/profiler.hpp"
+#include "rtti/type_storage.hpp"
 #include "system/ioc_container.hpp"
+
+#include <cassert>
 
 namespace wmoge {
 
     ShaderManager::ShaderManager() {
         WG_AUTO_PROFILE_GRC("ShaderManager::ShaderManager");
 
-        m_texture_manager = IocContainer::instance()->resolve_v<TextureManager>();
-        m_file_system     = IocContainer::instance()->resolve_v<FileSystem>();
-        m_gfx_driver      = IocContainer::instance()->resolve_v<GfxDriver>();
-        m_console         = IocContainer::instance()->resolve_v<Console>();
+        m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        m_gfx_driver  = IocContainer::instance()->resolve_v<GfxDriver>();
+        m_console     = IocContainer::instance()->resolve_v<Console>();
 
         auto builtin_types = ShaderTypes::builtin();
 
@@ -55,43 +57,34 @@ namespace wmoge {
         m_file_system->add_rule({m_shaders_folder, "root://../shaders"});
     }
 
-    Status ShaderManager::fit_shader(const Ref<Shader>& script) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::fit_shader");
-
-        std::lock_guard guard(m_mutex);
-
-        auto q = m_shaders.find(script->get_name());
-        if (q != m_shaders.end()) {
-            WG_LOG_ERROR("clash in shader name " << script->get_name());
-            return StatusCode::Error;
-        }
-
-        m_shaders[script->get_name()] = script;
-        return StatusCode::Ok;
-    }
-
-    Ref<Shader> ShaderManager::find_shader(Strid name) {
-        std::lock_guard guard(m_mutex);
-
-        auto q = m_shaders.find(name);
-        return q != m_shaders.end() ? q->second : Ref<Shader>();
-    }
-
-    void ShaderManager::add_global_type(const Ref<ShaderType>& type) {
-        std::lock_guard guard(m_mutex);
-
-        m_global_types[type->name] = type;
-    }
-
     std::optional<Ref<ShaderType>> ShaderManager::find_global_type(Strid name) {
-        std::lock_guard guard(m_mutex);
-
         auto q = m_global_types.find(name);
         if (q != m_global_types.end()) {
             return q->second;
         }
 
         return std::optional<Ref<ShaderType>>();
+    }
+
+    void ShaderManager::add_global_type(const Ref<ShaderType>& type) {
+        m_global_types[type->name] = type;
+    }
+
+    void ShaderManager::load_compilers() {
+        WG_AUTO_PROFILE_GRC("ShaderManager::load_compilers");
+
+        RttiTypeStorage* type_storage = IocContainer::instance()->resolve_v<RttiTypeStorage>();
+
+        auto compilers = type_storage->find_classes([](const Ref<RttiClass>& rtti) {
+            return rtti->is_subtype_of(ShaderCompiler::get_class_static()) && rtti->can_instantiate();
+        });
+
+        for (const auto& compiler_class : compilers) {
+            Ref<ShaderCompiler> compiler = compiler_class->instantiate().cast<ShaderCompiler>();
+            assert(compiler);
+            assert(int(compiler->get_platform()) < int(GfxShaderPlatform::Max));
+            m_compilers[int(compiler->get_platform())] = compiler;
+        }
     }
 
 }// namespace wmoge

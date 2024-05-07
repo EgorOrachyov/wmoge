@@ -28,12 +28,12 @@
 #pragma once
 
 #include "core/synchronization.hpp"
+#include "grc/texture.hpp"
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "math/math_utils3d.hpp"
 #include "math/vec.hpp"
 #include "render/camera.hpp"
-#include "render/texture.hpp"
 
 #include <vector>
 

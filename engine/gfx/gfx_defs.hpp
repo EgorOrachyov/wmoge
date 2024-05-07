@@ -59,6 +59,26 @@ namespace wmoge {
         static constexpr int MAX_DESC_SET_SIZE = 128;
     };
 
+    /** @brief Type of gfx adapter */
+    enum class GfxType {
+        None = 0,
+        Vulkan,
+        Dx12,
+        Metal,
+        Max
+    };
+
+    /** @brief Required shader features */
+    enum class GfxShaderPlatform {
+        None = 0,
+        VulkanLinux,
+        VulkanWindows,
+        VulkanMacOS,
+        Dx12Windows,
+        MetalMacOS,
+        Max
+    };
+
     /** @brief Type of gfx context behaviour */
     enum class GfxCtxType : int {
         Immediate,

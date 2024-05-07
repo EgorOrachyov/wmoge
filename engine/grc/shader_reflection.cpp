@@ -27,6 +27,7 @@
 
 #include "shader_reflection.hpp"
 
+#include "core/crc32.hpp"
 #include "grc/shader_manager.hpp"
 #include "system/ioc_container.hpp"
 
@@ -156,6 +157,22 @@ namespace wmoge {
         m_struct_type.reset();
 
         return StatusCode::Ok;
+    }
+
+    bool ShaderPermutation::operator==(const ShaderPermutation& other) const {
+        return options == other.options &&
+               vert_attribs == other.vert_attribs &&
+               technique_idx == other.technique_idx &&
+               pass_idx == pass_idx;
+    }
+
+    std::size_t ShaderPermutation::hash() const {
+        Crc32Builder hasher;
+        hasher.hash(&options, sizeof(options));
+        hasher.hash(&vert_attribs, sizeof(vert_attribs));
+        hasher.hash(&technique_idx, sizeof(technique_idx));
+        hasher.hash(&pass_idx, sizeof(pass_idx));
+        return hasher.get();
     }
 
 }// namespace wmoge

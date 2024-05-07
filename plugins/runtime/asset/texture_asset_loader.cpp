@@ -30,10 +30,10 @@
 #include "asset/texture_import_data.hpp"
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "grc/image.hpp"
+#include "grc/texture.hpp"
 #include "grc/texture_resize.hpp"
 #include "profiler/profiler.hpp"
-#include "render/image.hpp"
-#include "render/texture.hpp"
 #include "system/engine.hpp"
 
 namespace wmoge {

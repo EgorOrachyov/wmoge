@@ -93,6 +93,8 @@ namespace wmoge {
         [[nodiscard]] size_t                 frame_number() const override;
         [[nodiscard]] bool                   on_gfx_thread() const override;
         [[nodiscard]] GfxShaderLang          shader_lang() const override;
+        [[nodiscard]] GfxType                get_gfx_type() const override;
+        [[nodiscard]] GfxShaderPlatform      get_shader_platform() const override;
 
     private:
         GfxDriverThreaded* m_driver = nullptr;
@@ -103,6 +105,8 @@ namespace wmoge {
         std::thread::id    m_thread_id;
         Mat4x4f            m_clip_matrix;
         std::string        m_pipeline_cache_path;
+        GfxType            m_gfx_type;
+        GfxShaderPlatform  m_shader_platform;
         class GfxCtx*      m_ctx_immediate = nullptr;
         class GfxCtx*      m_ctx_async     = nullptr;
     };

@@ -37,7 +37,9 @@
 
 #include <array>
 #include <cinttypes>
+#include <functional>
 #include <optional>
+#include <utility>
 
 namespace wmoge {
 
@@ -107,3 +109,22 @@ namespace wmoge {
     };
 
 }// namespace wmoge
+
+namespace std {
+
+    template<>
+    struct hash<wmoge::GfxShaderProgramDesc> {
+    public:
+        std::size_t operator()(const wmoge::GfxShaderProgramDesc& desc) const {
+            std::hash<wmoge::Ref<wmoge::GfxShader>> hasher;
+            std::size_t                             hash = 0xffffffffff;
+
+            for (const auto& shader : desc) {
+                hash ^= hasher(shader);
+            }
+
+            return hash;
+        }
+    };
+
+}// namespace std

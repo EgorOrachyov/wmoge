@@ -28,6 +28,7 @@
 #include "shader_param.hpp"
 
 #include "grc/shader.hpp"
+#include "grc/shader_instance.hpp"
 #include "grc/shader_param_block.hpp"
 
 namespace wmoge {
@@ -52,7 +53,7 @@ namespace wmoge {
     const Status s = m_block->get_var(m_param_id, v);  \
     return s
 
-    ShaderParam::ShaderParam(Shader& shader, ShaderParamId param_id) {
+    ShaderParam::ShaderParam(ShaderInstance& shader, ShaderParamId param_id) {
     }
 
     ShaderParam::ShaderParam(ShaderParamBlock& block, ShaderParamId param_id) {
