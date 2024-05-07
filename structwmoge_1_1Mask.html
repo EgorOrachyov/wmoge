@@ -87,6 +87,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab791a57bd650fca9c51bac08db98beb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0ce8bb1425ee16724ee0a77e4fe18f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1Mask.html#ae0ce8bb1425ee16724ee0a77e4fe18f3">Mask</a> (const std::initializer_list&lt; T &gt; &amp;elements)</td></tr>
 <tr class="separator:ae0ce8bb1425ee16724ee0a77e4fe18f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d5bb465e46ab7ed416ab083a333277"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1Mask.html#a42d5bb465e46ab7ed416ab083a333277">operator==</a> (const <a class="el" href="structwmoge_1_1Mask.html">Mask</a> &amp;other) const</td></tr>
+<tr class="separator:a42d5bb465e46ab7ed416ab083a333277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a400e619de33ef7bce7c7ad5a81d5100b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1Mask.html#a400e619de33ef7bce7c7ad5a81d5100b">operator!=</a> (const <a class="el" href="structwmoge_1_1Mask.html">Mask</a> &amp;other) const</td></tr>
+<tr class="separator:a400e619de33ef7bce7c7ad5a81d5100b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43689c3728cfacec0a4dccd17708d4bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1Mask.html">Mask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1Mask.html#a43689c3728cfacec0a4dccd17708d4bd">operator&amp;</a> (const <a class="el" href="structwmoge_1_1Mask.html">Mask</a> &amp;other) const</td></tr>
 <tr class="separator:a43689c3728cfacec0a4dccd17708d4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affab1e8705485e483574ee54a7531501"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1Mask.html">Mask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1Mask.html#affab1e8705485e483574ee54a7531501">operator|</a> (const <a class="el" href="structwmoge_1_1Mask.html">Mask</a> &amp;other) const</td></tr>
@@ -263,6 +267,34 @@ template&lt;typename T , int size = 32&gt; </div>
 
 </div>
 </div>
+<a id="a400e619de33ef7bce7c7ad5a81d5100b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a400e619de33ef7bce7c7ad5a81d5100b">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , int size = 32&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="structwmoge_1_1Mask.html">wmoge::Mask</a>&lt; T, size &gt;::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; T, size &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a43689c3728cfacec0a4dccd17708d4bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43689c3728cfacec0a4dccd17708d4bd">&#9670;&nbsp;</a></span>operator&amp;()</h2>
 
@@ -308,6 +340,34 @@ template&lt;typename T , int size = 32&gt; </div>
           <td class="paramtype">const <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; T, size &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42d5bb465e46ab7ed416ab083a333277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d5bb465e46ab7ed416ab083a333277">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , int size = 32&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="structwmoge_1_1Mask.html">wmoge::Mask</a>&lt; T, size &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1Mask.html">Mask</a>&lt; T, size &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>

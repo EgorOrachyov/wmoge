@@ -12,7 +12,7 @@
 <area shape="rect" id="node30" href="$transform_8hpp.html" title=" " alt="" coords="941,319,1075,345"/>
 <area shape="rect" id="node34" href="$camera_8hpp.html" title=" " alt="" coords="2178,319,2307,345"/>
 <area shape="rect" id="node39" href="$culling_8hpp.html" title=" " alt="" coords="1292,244,1415,271"/>
-<area shape="rect" id="node41" href="$light_8hpp.html" title=" " alt="" coords="1747,244,1858,271"/>
+<area shape="rect" id="node41" href="$light_8hpp.html" title=" " alt="" coords="1757,244,1867,271"/>
 <area shape="rect" id="node44" href="$model__instance_8hpp.html" title=" " alt="" coords="2678,95,2855,121"/>
 <area shape="rect" id="node50" title=" " alt="" coords="3759,95,3827,121"/>
 <area shape="rect" id="node3" href="$archive_8hpp.html" title=" " alt="" coords="2093,692,2195,719"/>
@@ -43,7 +43,7 @@
 <area shape="rect" id="node38" href="$render__defs_8hpp.html" title=" " alt="" coords="2425,393,2580,420"/>
 <area shape="rect" id="node40" title=" " alt="" coords="1252,319,1313,345"/>
 <area shape="rect" id="node42" href="$synchronization_8hpp.html" title=" " alt="" coords="2687,319,2851,345"/>
-<area shape="rect" id="node43" href="$texture_8hpp.html" title=" " alt="" coords="1740,319,1865,345"/>
+<area shape="rect" id="node43" href="$texture_8hpp.html" title=" " alt="" coords="1759,319,1865,345"/>
 <area shape="rect" id="node45" href="$asset__ref_8hpp.html" title=" " alt="" coords="2235,617,2371,644"/>
 <area shape="rect" id="node46" href="$mesh__batch_8hpp.html" title=" " alt="" coords="3029,244,3182,271"/>
 <area shape="rect" id="node47" href="$mesh__pass_8hpp.html" title=" " alt="" coords="3332,319,3481,345"/>

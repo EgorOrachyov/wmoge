@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structwmoge_1_1ShaderPermutation-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -76,7 +77,7 @@ $(function() {
 <p>Defines a particular variant of a compiled shader.  
  <a href="structwmoge_1_1ShaderPermutation.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="shader_8hpp_source.html">shader.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="shader__reflection_8hpp_source.html">shader_reflection.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for wmoge::ShaderPermutation:</div>
 <div class="dyncontent">
@@ -87,16 +88,91 @@ Collaboration diagram for wmoge::ShaderPermutation:</div>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8bd8dd1598ff976a1f06b15f82670175"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#a8bd8dd1598ff976a1f06b15f82670175">ShaderPermutation</a> ()=default</td></tr>
+<tr class="separator:a8bd8dd1598ff976a1f06b15f82670175"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80bfaeeabc1f4782374f333523e77ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#aa80bfaeeabc1f4782374f333523e77ff">operator==</a> (const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;other) const</td></tr>
+<tr class="separator:aa80bfaeeabc1f4782374f333523e77ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3ff7fdeae5271bfb080c299b126c0a6"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#af3ff7fdeae5271bfb080c299b126c0a6">hash</a> () const</td></tr>
+<tr class="separator:af3ff7fdeae5271bfb080c299b126c0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a5c922a819c4b802bbef9a25204cdacce"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="structwmoge_1_1ShaderOptions.html#adaf8410c3857e7935b3f1569befe9538">ShaderOptions::MAX_OPTIONS</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#a5c922a819c4b802bbef9a25204cdacce">options</a></td></tr>
 <tr class="separator:a5c922a819c4b802bbef9a25204cdacce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9a59e46b2f8c955227c94b94816cb15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#acf3ad47e14e0bf37ad2bbc3f6032332e">GfxVertAttribs</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#aa9a59e46b2f8c955227c94b94816cb15">vert_attribs</a></td></tr>
 <tr class="separator:aa9a59e46b2f8c955227c94b94816cb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7815afd22b01f8ad1381b4571fb9d6a1"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#a7815afd22b01f8ad1381b4571fb9d6a1">technique_idx</a> = -1</td></tr>
+<tr class="separator:a7815afd22b01f8ad1381b4571fb9d6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae874a9806eb1db0f6dbd1ba475401a57"><td class="memItemLeft" align="right" valign="top">std::int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderPermutation.html#ae874a9806eb1db0f6dbd1ba475401a57">pass_idx</a> = -1</td></tr>
+<tr class="separator:ae874a9806eb1db0f6dbd1ba475401a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines a particular variant of a compiled shader. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8bd8dd1598ff976a1f06b15f82670175"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bd8dd1598ff976a1f06b15f82670175">&#9670;&nbsp;</a></span>ShaderPermutation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">wmoge::ShaderPermutation::ShaderPermutation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af3ff7fdeae5271bfb080c299b126c0a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3ff7fdeae5271bfb080c299b126c0a6">&#9670;&nbsp;</a></span>hash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t wmoge::ShaderPermutation::hash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa80bfaeeabc1f4782374f333523e77ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa80bfaeeabc1f4782374f333523e77ff">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::ShaderPermutation::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a5c922a819c4b802bbef9a25204cdacce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c922a819c4b802bbef9a25204cdacce">&#9670;&nbsp;</a></span>options</h2>
 
@@ -105,6 +181,34 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::bitset&lt;<a class="el" href="structwmoge_1_1ShaderOptions.html#adaf8410c3857e7935b3f1569befe9538">ShaderOptions::MAX_OPTIONS</a>&gt; wmoge::ShaderPermutation::options</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae874a9806eb1db0f6dbd1ba475401a57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae874a9806eb1db0f6dbd1ba475401a57">&#9670;&nbsp;</a></span>pass_idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int16_t wmoge::ShaderPermutation::pass_idx = -1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7815afd22b01f8ad1381b4571fb9d6a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7815afd22b01f8ad1381b4571fb9d6a1">&#9670;&nbsp;</a></span>technique_idx</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::int16_t wmoge::ShaderPermutation::technique_idx = -1</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -125,8 +229,9 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/grc/<a class="el" href="shader_8hpp_source.html">shader.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>engine/grc/<a class="el" href="shader__reflection_8hpp_source.html">shader_reflection.hpp</a></li>
+<li>engine/grc/<a class="el" href="shader__reflection_8cpp.html">shader_reflection.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

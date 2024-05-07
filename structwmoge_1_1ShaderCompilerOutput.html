@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: wmoge::ShaderCompilerOutput Struct Reference</title>
+<title>wmoge: wmoge::ShaderCompilerOutput Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,76 +69,55 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structwmoge_1_1ShaderCompilerOutput-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">wmoge::ShaderCompilerOutput Struct Reference</div>  </div>
+<div class="title">wmoge::ShaderCompilerOutput Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for wmoge::ShaderCompilerOutput:</div>
-<div class="dyncontent">
-<div class="center"><img src="structwmoge_1_1ShaderCompilerOutput__coll__graph.png" border="0" usemap="#awmoge_1_1ShaderCompilerOutput_coll__map" alt="Collaboration graph"/></div>
-<map name="awmoge_1_1ShaderCompilerOutput_coll__map" id="awmoge_1_1ShaderCompilerOutput_coll__map">
-<area shape="rect" title=" " alt="" coords="66,109,267,136"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="179,5,328,47"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<p>Compiler result.  
+ <a href="structwmoge_1_1ShaderCompilerOutput.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="shader__compiler_8hpp_source.html">shader_compiler.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3e897860872bda5d956b08cc9f2f7168"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerOutput.html#a3e897860872bda5d956b08cc9f2f7168">shader</a></td></tr>
-<tr class="separator:a3e897860872bda5d956b08cc9f2f7168"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a486b9b0cb797254f009aa9c225f74732"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerOutput.html#a486b9b0cb797254f009aa9c225f74732">program</a></td></tr>
-<tr class="separator:a486b9b0cb797254f009aa9c225f74732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb5be17341f066eabe2781a9316d25e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerOutput.html#aeb5be17341f066eabe2781a9316d25e9">errors</a></td></tr>
-<tr class="separator:aeb5be17341f066eabe2781a9316d25e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab952079b9877f3d706f89a938c8e0e82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Data.html">Data</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerOutput.html#ab952079b9877f3d706f89a938c8e0e82">bytecode</a></td></tr>
+<tr class="separator:ab952079b9877f3d706f89a938c8e0e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f529e0f28b672d17b5ed8c148a4b43c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderCompilerOutput.html#a7f529e0f28b672d17b5ed8c148a4b43c">errors</a></td></tr>
+<tr class="separator:a7f529e0f28b672d17b5ed8c148a4b43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aeb5be17341f066eabe2781a9316d25e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb5be17341f066eabe2781a9316d25e9">&#9670;&nbsp;</a></span>errors</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compiler result. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab952079b9877f3d706f89a938c8e0e82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab952079b9877f3d706f89a938c8e0e82">&#9670;&nbsp;</a></span>bytecode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;std::string, 1&gt; wmoge::ShaderCompilerOutput::errors</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1Data.html">Data</a>&gt; &gt; wmoge::ShaderCompilerOutput::bytecode</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a486b9b0cb797254f009aa9c225f74732"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a486b9b0cb797254f009aa9c225f74732">&#9670;&nbsp;</a></span>program</h2>
+<a id="a7f529e0f28b672d17b5ed8c148a4b43c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f529e0f28b672d17b5ed8c148a4b43c">&#9670;&nbsp;</a></span>errors</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a>&gt; wmoge::ShaderCompilerOutput::program</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;std::string&gt; wmoge::ShaderCompilerOutput::errors</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a3e897860872bda5d956b08cc9f2f7168"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e897860872bda5d956b08cc9f2f7168">&#9670;&nbsp;</a></span>shader</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt;<a class="el" href="classwmoge_1_1GfxShader.html">GfxShader</a>&gt; wmoge::ShaderCompilerOutput::shader</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>engine/grc/<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>engine/grc/<a class="el" href="shader__compiler_8hpp_source.html">shader_compiler.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

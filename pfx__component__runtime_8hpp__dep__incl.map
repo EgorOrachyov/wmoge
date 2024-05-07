@@ -1,15 +1,14 @@
 <map id="engine/pfx/pfx_component_runtime.hpp" name="engine/pfx/pfx_component_runtime.hpp">
 <area shape="rect" id="node1" title=" " alt="" coords="234,5,407,47"/>
 <area shape="rect" id="node2" href="$pfx__component__runtime_8cpp.html" title=" " alt="" coords="113,169,286,211"/>
-<area shape="rect" id="node3" href="$pfx__emitter_8hpp.html" title=" " alt="" coords="326,95,499,121"/>
+<area shape="rect" id="node3" href="$pfx__emitter_8hpp.html" title=" " alt="" coords="297,95,470,121"/>
 <area shape="rect" id="node4" href="$engine_8hpp.html" title=" " alt="" coords="5,273,132,300"/>
 <area shape="rect" id="node5" href="$pfx__effect_8hpp.html" title=" " alt="" coords="361,177,526,203"/>
-<area shape="rect" id="node9" href="$pfx__emitter_8cpp.html" title=" " alt="" coords="679,273,853,300"/>
-<area shape="rect" id="node12" href="$pfx__scene_8hpp.html" title=" " alt="" coords="826,177,994,203"/>
-<area shape="rect" id="node6" href="$engine_2pfx_2__rtti_8hpp.html" title=" " alt="" coords="157,273,287,300"/>
-<area shape="rect" id="node8" href="$pfx__effect_8cpp.html" title=" " alt="" coords="311,273,477,300"/>
-<area shape="rect" id="node10" href="$lua__bindings__asset_8hpp.html" title=" " alt="" coords="501,259,655,315"/>
-<area shape="rect" id="node7" href="$application_8cpp.html" title=" " alt="" coords="121,377,323,404"/>
-<area shape="rect" id="node11" href="$lua__bindings__asset_8cpp.html" title=" " alt="" coords="501,363,655,419"/>
-<area shape="rect" id="node13" href="$pfx__scene_8cpp.html" title=" " alt="" coords="877,273,1045,300"/>
+<area shape="rect" id="node8" href="$pfx__emitter_8cpp.html" title=" " alt="" coords="679,273,853,300"/>
+<area shape="rect" id="node11" href="$pfx__scene_8hpp.html" title=" " alt="" coords="826,177,994,203"/>
+<area shape="rect" id="node6" href="$engine_2pfx_2__rtti_8cpp.html" title=" " alt="" coords="157,273,287,300"/>
+<area shape="rect" id="node7" href="$pfx__effect_8cpp.html" title=" " alt="" coords="311,273,477,300"/>
+<area shape="rect" id="node9" href="$lua__bindings__asset_8hpp.html" title=" " alt="" coords="501,259,655,315"/>
+<area shape="rect" id="node10" href="$lua__bindings__asset_8cpp.html" title=" " alt="" coords="501,363,655,419"/>
+<area shape="rect" id="node12" href="$pfx__scene_8cpp.html" title=" " alt="" coords="877,273,1045,300"/>
 </map>

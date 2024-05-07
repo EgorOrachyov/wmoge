@@ -1,9 +1,10 @@
 <map id="wmoge::RttiObject" name="wmoge::RttiObject">
-<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,715,292,741"/>
+<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,867,292,893"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="349,501,499,542"/>
-<area shape="rect" id="node24" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="340,715,508,741"/>
-<area shape="rect" id="node32" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="352,1019,496,1045"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,715,116,741"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="340,740,508,767"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="352,993,496,1020"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1ShaderCompiler.html" title="Interface to a shader compiler." alt="" coords="343,1044,505,1071"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,867,116,893"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="614,385,718,412"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1ArrayMesh.html" title="Editable indexed mesh data which can be converted to a render mesh." alt="" coords="861,5,993,32"/>
 <area shape="rect" id="node6" href="$classwmoge_1_1AudioStream.html" title="Base class for audio files which can be loaded and played." alt="" coords="855,56,1000,83"/>

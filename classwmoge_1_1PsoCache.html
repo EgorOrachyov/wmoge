@@ -102,16 +102,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a63188bcca5c805850c98c155445cc829"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b5a0250a100b9a3763bb6b642872055"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxPsoCompute.html">GfxPsoCompute</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PsoCache.html#a2b5a0250a100b9a3763bb6b642872055">find_pso</a> (const <a class="el" href="structwmoge_1_1GfxPsoStateCompute.html">GfxPsoStateCompute</a> &amp;state)</td></tr>
 <tr class="separator:a2b5a0250a100b9a3763bb6b642872055"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f23bedf2b3f1e49e350b39084f669a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PsoCache.html#a8f23bedf2b3f1e49e350b39084f669a5">precache_psos</a> (const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="structwmoge_1_1GfxPsoStateGraphics.html">GfxPsoStateGraphics</a> &gt; &amp;states, const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;names)</td></tr>
-<tr class="separator:a8f23bedf2b3f1e49e350b39084f669a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af98db6e9782667ad4680a5b8a573369c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PsoCache.html#af98db6e9782667ad4680a5b8a573369c">precache_psos</a> (const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="structwmoge_1_1GfxPsoStateCompute.html">GfxPsoStateCompute</a> &gt; &amp;states, const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;names)</td></tr>
-<tr class="separator:af98db6e9782667ad4680a5b8a573369c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d66146677bf07cd52f1d6fac4cd7b60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PsoCache.html#a3d66146677bf07cd52f1d6fac4cd7b60">precache_psos</a> (const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="structwmoge_1_1GfxPsoStateGraphics.html">GfxPsoStateGraphics</a> &gt; &amp;states, const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;names, <a class="el" href="classwmoge_1_1Async.html">Async</a> depends_on=<a class="el" href="classwmoge_1_1Async.html">Async</a>())</td></tr>
+<tr class="separator:a3d66146677bf07cd52f1d6fac4cd7b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bef33a9ee78fdb251382277f03a12b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1PsoCache.html#a3bef33a9ee78fdb251382277f03a12b6">precache_psos</a> (const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="structwmoge_1_1GfxPsoStateCompute.html">GfxPsoStateCompute</a> &gt; &amp;states, const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;names, <a class="el" href="classwmoge_1_1Async.html">Async</a> depends_on=<a class="el" href="classwmoge_1_1Async.html">Async</a>())</td></tr>
+<tr class="separator:a3bef33a9ee78fdb251382277f03a12b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Cache for pipeline state object to automate and speed-up their creation. </p>
 <p>Pso cache handles all aspects of pipeline state objects creation and caching. It manages required for pso objects, like vertex formats and decriptor layouts. Cache tracks and caches all referenced pso.</p>
 <p>Caching is necessary, since pso compilation is a heavy task, which can cause freezes and glitches in the game, if too many psos will be created during gameplay.</p>
-<p>Also cache provides ways to precache psos upfront using async compilation. It allows to warmup cache up front and do all heavy work before any actual gameplay </p>
+<p>Also cache provides ways to precache psos upfront using async compilation. It allows to warmup cache up front and do all heavy work before any actual gameplay</p>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad92f5ca52f51f121ba7cab367443b06c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad92f5ca52f51f121ba7cab367443b06c">&#9670;&nbsp;</a></span>PsoCache()</h2>
@@ -361,8 +362,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af98db6e9782667ad4680a5b8a573369c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af98db6e9782667ad4680a5b8a573369c">&#9670;&nbsp;</a></span>precache_psos() <span class="overload">[1/2]</span></h2>
+<a id="a3bef33a9ee78fdb251382277f03a12b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bef33a9ee78fdb251382277f03a12b6">&#9670;&nbsp;</a></span>precache_psos() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,7 +378,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>names</em>&#160;</td>
+          <td class="paramname"><em>names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td>
+          <td class="paramname"><em>depends_on</em> = <code><a class="el" href="classwmoge_1_1Async.html">Async</a>()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -389,8 +396,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8f23bedf2b3f1e49e350b39084f669a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f23bedf2b3f1e49e350b39084f669a5">&#9670;&nbsp;</a></span>precache_psos() <span class="overload">[2/2]</span></h2>
+<a id="a3d66146677bf07cd52f1d6fac4cd7b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d66146677bf07cd52f1d6fac4cd7b60">&#9670;&nbsp;</a></span>precache_psos() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +412,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>names</em>&#160;</td>
+          <td class="paramname"><em>names</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td>
+          <td class="paramname"><em>depends_on</em> = <code><a class="el" href="classwmoge_1_1Async.html">Async</a>()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

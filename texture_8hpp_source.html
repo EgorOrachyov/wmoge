@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/render/texture.hpp Source File</title>
+<title>wmoge: engine/grc/texture.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_6eaa9a4b68db9d3a4b16103d94f334fb.html">render</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_78a175a9048890aac4dc1acb701c56a8.html">grc</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -102,10 +102,10 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__defs_8hpp.html">gfx/gfx_defs.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__sampler_8hpp.html">gfx/gfx_sampler.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="gfx__texture_8hpp.html">gfx/gfx_texture.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__compression_8hpp.html">grc/texture_compression.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__resize_8hpp.html">grc/texture_resize.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image_8hpp.html">render/image.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="image_8hpp.html">grc/image.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__compression_8hpp.html">grc/texture_compression.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__resize_8hpp.html">grc/texture_resize.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="serialization_8hpp.html">io/serialization.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
@@ -266,17 +266,17 @@ $(function() {
 <div class="ttc" id="agfx__texture_8hpp_html"><div class="ttname"><a href="gfx__texture_8hpp.html">gfx_texture.hpp</a></div></div>
 <div class="ttc" id="aimage_8hpp_html"><div class="ttname"><a href="image_8hpp.html">image.hpp</a></div></div>
 <div class="ttc" id="ameta__data_8hpp_html_a3167e1c27d51d33e48dc6d85fbdb4832"><div class="ttname"><a href="meta__data_8hpp.html#a3167e1c27d51d33e48dc6d85fbdb4832">RttiUiHint</a></div><div class="ttdeci">#define RttiUiHint(str)</div><div class="ttdef"><b>Definition:</b> meta_data.hpp:92</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.hpp:35</div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
 <div class="ttc" id="anamespacewmoge_html_a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7"><div class="ttname"><a href="namespacewmoge.html#a65314841d4a2c7defa7ec8176aa2857da1d07814d12178c958e4233501cb0bdc7">wmoge::GfxTexUsageFlag::Sampling</a></div><div class="ttdeci">@ Sampling</div></div>
-<div class="ttc" id="anamespacewmoge_html_a9e9f2605a7b2960584dfe67c9618a11e"><div class="ttname"><a href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">wmoge::GfxMemUsage</a></div><div class="ttdeci">GfxMemUsage</div><div class="ttdoc">Gfx memory usage.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:92</div></div>
+<div class="ttc" id="anamespacewmoge_html_a9e9f2605a7b2960584dfe67c9618a11e"><div class="ttname"><a href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11e">wmoge::GfxMemUsage</a></div><div class="ttdeci">GfxMemUsage</div><div class="ttdoc">Gfx memory usage.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:112</div></div>
 <div class="ttc" id="anamespacewmoge_html_a9e9f2605a7b2960584dfe67c9618a11ea15902bfe9365f33cd568996ffcae643b"><div class="ttname"><a href="namespacewmoge.html#a9e9f2605a7b2960584dfe67c9618a11ea15902bfe9365f33cd568996ffcae643b">wmoge::GfxMemUsage::GpuLocal</a></div><div class="ttdeci">@ GpuLocal</div></div>
-<div class="ttc" id="anamespacewmoge_html_ab58c0bd9238429533fb862c5a05689b6"><div class="ttname"><a href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6">wmoge::GfxTex</a></div><div class="ttdeci">GfxTex</div><div class="ttdoc">Texture type.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:119</div></div>
+<div class="ttc" id="anamespacewmoge_html_ab58c0bd9238429533fb862c5a05689b6"><div class="ttname"><a href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6">wmoge::GfxTex</a></div><div class="ttdeci">GfxTex</div><div class="ttdoc">Texture type.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:139</div></div>
 <div class="ttc" id="anamespacewmoge_html_ab58c0bd9238429533fb862c5a05689b6a3c8d2366d17507be7f6575d3a295c670"><div class="ttname"><a href="namespacewmoge.html#ab58c0bd9238429533fb862c5a05689b6a3c8d2366d17507be7f6575d3a295c670">wmoge::GfxTex::Tex2d</a></div><div class="ttdeci">@ Tex2d</div></div>
 <div class="ttc" id="anamespacewmoge_html_ab701759ff549fde6467d7f27eab09662"><div class="ttname"><a href="namespacewmoge.html#ab701759ff549fde6467d7f27eab09662">wmoge::WG_RTTI_END</a></div><div class="ttdeci">WG_RTTI_END</div><div class="ttdef"><b>Definition:</b> asset.hpp:123</div></div>
 <div class="ttc" id="anamespacewmoge_html_ac7ffbb9ad2289b8c98397eaccb217f4a"><div class="ttname"><a href="namespacewmoge.html#ac7ffbb9ad2289b8c98397eaccb217f4a">wmoge::WG_RTTI_CLASS_BEGIN</a></div><div class="ttdeci">WG_RTTI_CLASS_BEGIN(Asset)</div><div class="ttdef"><b>Definition:</b> asset.hpp:116</div></div>
-<div class="ttc" id="anamespacewmoge_html_acffa0badd5624791d87d79f12b29a5a2"><div class="ttname"><a href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">wmoge::GfxFormat</a></div><div class="ttdeci">GfxFormat</div><div class="ttdoc">Formats used to specify internal storage format.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:160</div></div>
+<div class="ttc" id="anamespacewmoge_html_acffa0badd5624791d87d79f12b29a5a2"><div class="ttname"><a href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">wmoge::GfxFormat</a></div><div class="ttdeci">GfxFormat</div><div class="ttdoc">Formats used to specify internal storage format.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:180</div></div>
 <div class="ttc" id="anamespacewmoge_html_acffa0badd5624791d87d79f12b29a5a2a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2a88183b946cc5f0e8c96b2e66e1c74a7e">wmoge::GfxFormat::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
-<div class="ttc" id="anamespacewmoge_html_ad14b72c71b7b44f44cd12281a1102062"><div class="ttname"><a href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">wmoge::GfxTexSwizz</a></div><div class="ttdeci">GfxTexSwizz</div><div class="ttdoc">Tex view channels swizzling.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:154</div></div>
+<div class="ttc" id="anamespacewmoge_html_ad14b72c71b7b44f44cd12281a1102062"><div class="ttname"><a href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">wmoge::GfxTexSwizz</a></div><div class="ttdeci">GfxTexSwizz</div><div class="ttdoc">Tex view channels swizzling.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:174</div></div>
 <div class="ttc" id="anamespacewmoge_html_ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84"><div class="ttname"><a href="namespacewmoge.html#ad82029899fb29d7109555af6797d6401a15d10a093128975e1497b8752bd64e84">wmoge::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition:</b> texture_resize.hpp:39</div></div>
 <div class="ttc" id="aserialization_8hpp_html"><div class="ttname"><a href="serialization_8hpp.html">serialization.hpp</a></div></div>
 <div class="ttc" id="astructwmoge_1_1GfxSamplerDesc_html"><div class="ttname"><a href="structwmoge_1_1GfxSamplerDesc.html">wmoge::GfxSamplerDesc</a></div><div class="ttdoc">Gfx sampler descriptor.</div><div class="ttdef"><b>Definition:</b> gfx_sampler.hpp:41</div></div>
