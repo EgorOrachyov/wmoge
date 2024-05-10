@@ -255,6 +255,13 @@ namespace wmoge {
          * @return Completed async
         */
         static Async completed();
+
+        /**
+         * @brief Make signaled (failed) async op
+         * 
+         * @return Failed async
+        */
+        static Async failed();
     };
 
     /**

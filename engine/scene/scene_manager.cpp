@@ -49,8 +49,8 @@ namespace wmoge {
     SceneManager::SceneManager() {
         WG_LOG_INFO("init scene manager");
 
-        m_render_engine = IocContainer::instance()->resolve_v<RenderEngine>();
-        m_ecs_registry  = IocContainer::instance()->resolve_v<EcsRegistry>();
+        m_render_engine = IocContainer::iresolve_v<RenderEngine>();
+        m_ecs_registry  = IocContainer::iresolve_v<EcsRegistry>();
 
         m_ecs_registry->register_component<EcsComponentChildren>();
         m_ecs_registry->register_component<EcsComponentParent>();

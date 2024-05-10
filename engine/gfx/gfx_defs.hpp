@@ -39,6 +39,42 @@
 
 namespace wmoge {
 
+    /** @brief Type of gfx adapter */
+    enum class GfxType {
+        None = 0,
+        Vulkan,
+        Dx12,
+        Metal,
+        Max
+    };
+
+    static constexpr const char* GfxTypeGlslDefines[] = {
+            "DRIVER_NONE",
+            "DRIVER_VULKAN",
+            "DRIVER_DX12",
+            "DRIVER_METAL",
+            "DRIVER_MAX"};
+
+    /** @brief Required shader features */
+    enum class GfxShaderPlatform {
+        None = 0,
+        VulkanLinux,
+        VulkanWindows,
+        VulkanMacOS,
+        Dx12Windows,
+        MetalMacOS,
+        Max
+    };
+
+    static constexpr const char* GfxShaderPlatformGlslDefines[] = {
+            "PLATFORM_NONE",
+            "PLATFORM_VK_LINUX",
+            "PLATFORM_VK_WINDOWS",
+            "PLATFORM_VK_MACOS",
+            "PLATFORM_DX12_WINDOWS",
+            "PLATFORM_METAL_MACOS",
+            "PLATFORM_MAX"};
+
     /** @brief Gfx common device limits */
     struct GfxLimits {
         /** Vertex shader max input elements */
@@ -57,26 +93,10 @@ namespace wmoge {
         static constexpr int MAX_DESC_SETS = 3;
         /** Max size of a single desc set */
         static constexpr int MAX_DESC_SET_SIZE = 128;
-    };
-
-    /** @brief Type of gfx adapter */
-    enum class GfxType {
-        None = 0,
-        Vulkan,
-        Dx12,
-        Metal,
-        Max
-    };
-
-    /** @brief Required shader features */
-    enum class GfxShaderPlatform {
-        None = 0,
-        VulkanLinux,
-        VulkanWindows,
-        VulkanMacOS,
-        Dx12Windows,
-        MetalMacOS,
-        Max
+        /** Max num of gfx types */
+        static constexpr int NUM_TYPES = int(GfxType::Max);
+        /** Max num of shader platfroms */
+        static constexpr int NUM_PLATFORMS = int(GfxShaderPlatform::Max);
     };
 
     /** @brief Type of gfx context behaviour */
@@ -365,16 +385,24 @@ namespace wmoge {
 
     /** @brief Expected language of shaders */
     enum class GfxShaderLang : int {
+        None = 0,
         GlslVk450,
         GlslGl410
     };
 
     /** @brief Shader modules types */
     enum class GfxShaderModule : int {
+        None = 0,
         Vertex,
         Fragment,
         Compute
     };
+
+    static constexpr const char* GfxShaderModuleGlslDefines[] = {
+            "SHADER_NONE",
+            "SHADER_VERTEX",
+            "SHADER_FRAGMENT",
+            "SHADER_COMPUTE"};
 
     /** @brief Shader program type */
     enum class GfxShaderProgramType : int {
@@ -407,7 +435,8 @@ namespace wmoge {
         Uv12f,
         Uv22f,
         Uv32f,
-        PrimitiveIdi,
+        ObjectId1i,
+        InstanceId1i,
         None
     };
 
@@ -427,6 +456,7 @@ namespace wmoge {
             GfxFormat::RG32F,
             GfxFormat::RG32F,
             GfxFormat::RG32F,
+            GfxFormat::R32I,
             GfxFormat::R32I};
 
     /** @brief Vert attribute sizes */
@@ -445,6 +475,7 @@ namespace wmoge {
             8,
             8,
             8,
+            4,
             4};
 
     /** @brief Vert attribute glsl type */
@@ -463,7 +494,27 @@ namespace wmoge {
             "vec2",
             "vec2",
             "vec2",
+            "int",
             "int"};
+
+    /** @brief Vert attribute glsl type */
+    static constexpr const char* GfxVertAttribGlslDefines[] = {
+            "ATTRIB_POS_3F",
+            "ATTRIB_POS_2F",
+            "ATTRIB_NORM_3F",
+            "ATTRIB_TANG_3F",
+            "ATTRIB_BONE_IDS_4I",
+            "ATTRIB_BONE_WEIGHTS_4F",
+            "ATTRIB_COL0_4F",
+            "ATTRIB_COL1_4F",
+            "ATTRIB_COL2_4F",
+            "ATTRIB_COL3_4F",
+            "ATTRIB_UV0_2F",
+            "ATTRIB_UV1_2F",
+            "ATTRIB_UV2_2F",
+            "ATTRIB_UV3_2F",
+            "ATTRIB_OBJECTID_1I",
+            "ATTRIB_INSTANCEID_1I"};
 
     /** @brief Mask of vertex attributes */
     using GfxVertAttribs = Mask<GfxVertAttrib>;

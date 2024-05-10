@@ -36,7 +36,7 @@
 namespace wmoge {
 
     AssetPakFileSystem::AssetPakFileSystem() {
-        m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        m_file_system = IocContainer::iresolve_v<FileSystem>();
     }
 
     std::string AssetPakFileSystem::get_name() const {
@@ -55,8 +55,8 @@ namespace wmoge {
             return StatusCode::FailedRead;
         }
 
-        auto loader = IocContainer::instance()->resolve_v<AssetManager>()->find_loader(asset_file.loader);
-        auto rtti   = IocContainer::instance()->resolve_v<RttiTypeStorage>()->find_class(asset_file.rtti);
+        auto loader = IocContainer::iresolve_v<AssetManager>()->find_loader(asset_file.loader);
+        auto rtti   = IocContainer::iresolve_v<RttiTypeStorage>()->find_class(asset_file.rtti);
 
         meta.uuid        = asset_file.uuid;
         meta.rtti        = rtti;

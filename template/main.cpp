@@ -78,7 +78,7 @@ public:
     ~TemplateApplication() override = default;
 
     Status on_register() override {
-        PluginManager* plugin_manager = IocContainer::instance()->resolve_v<PluginManager>();
+        PluginManager* plugin_manager = IocContainer::iresolve_v<PluginManager>();
         plugin_manager->add<RuntimePlugin>();
         plugin_manager->add<AssimpPlugin>();
         plugin_manager->add<FreetypePlugin>();
@@ -90,6 +90,8 @@ public:
     }
 
     Status on_init() override {
+        WG_AUTO_PROFILE(app, "TemplateApplication::on_init");
+
         GameApplication::on_init();
 
         Engine::instance()->action_manager()->load("root://actions/actionmap_console.yml");
@@ -118,27 +120,27 @@ public:
 
         Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
 
-        ShaderStructRegister rdc(SID("DrawCmd"), 4 * 4 * 3 + 4 * 4 + 4 * 4);
+        ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80);
         rdc
                 .add_field(SID("Transform0"), ShaderTypes::VEC4)
                 .add_field(SID("Transform1"), ShaderTypes::VEC4)
                 .add_field(SID("Transform2"), ShaderTypes::VEC4)
                 .add_field(SID("ClipRect"), ShaderTypes::VEC4)
-                .add_field(SID("TextureIdx0"), ShaderTypes::INT)
-                .add_field(SID("TextureIdx1"), ShaderTypes::INT)
-                .add_field(SID("TextureIdx2"), ShaderTypes::INT)
-                .add_field(SID("TextureIdx3"), ShaderTypes::INT)
+                .add_field(SID("TextureIdx"), ShaderTypes::INT)
+                .add_field(SID("Padding0"), ShaderTypes::INT)
+                .add_field(SID("Padding1"), ShaderTypes::INT)
+                .add_field(SID("Padding2"), ShaderTypes::INT)
                 .finish();
 
-        ShaderStructRegister rdcs(SID("DrawCmdsBuffer"), 0);
+        ShaderStructRegister rdcs(SID("CanvasDrawCmdsBuffer"), 0);
         rdcs
-                .add_field_array(SID("DrawCmds"), SID("DrawCmd"))
+                .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
                 .finish();
 
         Ref<Shader> shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
 
-        ShaderParamId p_clip_proj_view = shader->get_param_id(SID("ClipProjView"));
-        ShaderParamId p_inverse_gamma  = shader->get_param_id(SID("InverseGamma"));
+        ShaderParamId p_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
+        ShaderParamId p_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
 
         ShaderParamBlock block(*shader, 0, SID("canvas"));
         block.set_var(p_clip_proj_view, Math3d::perspective(1.0f, 1.0f, 0.1f, 100000.f));
@@ -152,10 +154,29 @@ public:
     }
 
     void debug_draw() {
-        WG_AUTO_PROFILE(app, "GameApplication::debug_draw");
+        WG_AUTO_PROFILE(app, "TemplateApplication::debug_draw");
 
         Engine*         engine           = Engine::instance();
         AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();
+
+        Ref<Shader> shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
+
+        ShaderPermutation permutation;
+        permutation.technique_idx = 0;
+        permutation.pass_idx      = 0;
+        permutation.options.set(0);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
 
         static float angle       = 0.0f;
         static int   frame_count = 0;
@@ -179,6 +200,8 @@ public:
     }
 
     Status on_shutdown() override {
+        WG_AUTO_PROFILE(app, "TemplateApplication::on_shutdown");
+
         mesh.reset();
         scene.reset();
         scene_tree.reset();

@@ -28,6 +28,9 @@
 #include "pso_cache.hpp"
 
 #include "core/task.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "grc/shader_compiler_task_manager.hpp"
+#include "grc/shader_library.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
@@ -40,8 +43,9 @@
 namespace wmoge {
 
     PsoCache::PsoCache() {
-        m_gfx_driver   = IocContainer::instance()->resolve_v<GfxDriver>();
-        m_task_manager = IocContainer::instance()->resolve_v<TaskManager>();
+        m_shader_library = IocContainer::iresolve_v<ShaderLibrary>();
+        m_task_manager   = IocContainer::iresolve_v<ShaderCompilerTaskManager>();
+        m_gfx_driver     = IocContainer::iresolve_v<GfxDriver>();
     }
 
     Ref<GfxVertFormat> PsoCache::get_or_create_vert_format(const GfxVertElements& elements, const Strid& name) {
@@ -69,6 +73,34 @@ namespace wmoge {
             entry = m_gfx_driver->make_desc_layout(desc, name);
         }
         return entry;
+    }
+    Ref<GfxShaderProgram> PsoCache::get_or_create_program(const GfxShaderProgramDesc& desc, const Strid& name) {
+        auto fast_lookup = find_program(desc);
+        if (fast_lookup) {
+            return fast_lookup.value();
+        }
+
+        std::unique_lock       lock(m_mutex_program);
+        Ref<GfxShaderProgram>& entry = m_programs[desc];
+        if (!entry) {
+            entry = m_gfx_driver->make_program(desc, name);
+        }
+        return entry;
+    }
+    Ref<GfxShaderProgram> PsoCache::get_or_create_program(const GfxShaderProgramHeader& program_header, const Strid& name) {
+        GfxShaderProgramDesc desc;
+        GfxShaderPlatform    platform = m_gfx_driver->get_shader_platform();
+
+        for (const GfxShaderHeader& shader_header : program_header) {
+            Ref<GfxShader> shader = m_shader_library->get_or_create_shader(m_gfx_driver->get_shader_platform(), shader_header.module_type, shader_header.shader_hash);
+            if (!shader) {
+                WG_LOG_ERROR("failed to fetch shader from library for " << name);
+                return Ref<GfxShaderProgram>();
+            }
+            desc.push_back(std::move(shader));
+        }
+
+        return get_or_create_program(desc, name);
     }
     Ref<GfxPsoLayout> PsoCache::get_or_create_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name) {
         auto fast_lookup = find_pso_layout(layouts);
@@ -116,7 +148,7 @@ namespace wmoge {
         return entry.pso.cast<GfxPsoCompute>();
     }
 
-    std::optional<Ref<GfxVertFormat>> PsoCache::find_vert_format(const GfxVertElements& elements) const {
+    std::optional<Ref<GfxVertFormat>> PsoCache::find_vert_format(const GfxVertElements& elements) {
         std::shared_lock lock(m_mutex_vert_format);
         auto             query = m_vert_formats.find(elements);
         return query != m_vert_formats.end() ? std::make_optional(query->second) : std::nullopt;
@@ -125,6 +157,11 @@ namespace wmoge {
         std::shared_lock lock(m_mutex_desc_layout);
         auto             query = m_desc_layouts.find(desc);
         return query != m_desc_layouts.end() ? std::make_optional(query->second) : std::nullopt;
+    }
+    std::optional<Ref<GfxShaderProgram>> PsoCache::find_program(const GfxShaderProgramDesc& desc) {
+        std::shared_lock lock(m_mutex_program);
+        auto             query = m_programs.find(desc);
+        return query != m_programs.end() ? std::make_optional(query->second) : std::nullopt;
     }
     std::optional<Ref<GfxPsoLayout>> PsoCache::find_pso_layout(const GfxDescSetLayouts& layouts) {
         std::shared_lock lock(m_mutex_pso_layouts);

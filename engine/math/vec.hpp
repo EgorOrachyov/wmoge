@@ -354,8 +354,7 @@ namespace wmoge {
         }
 
         static T distance2(const TVecN& a, const TVecN& b) {
-            auto c = a - b;
-            return c.length2();
+            return (a - b).length2();
         }
 
         static T distance(const TVecN& a, const TVecN& b) {
@@ -382,9 +381,12 @@ namespace wmoge {
 
         /**
          * Vector cross product
+         * 
          * @warning Defined only fir 3-dim vectors
+         * 
          * @param a Input vector
          * @param b Input vector
+         *
          * @return Vector c, which satisfies: (a, b, c) - its right three
          */
         static TVecN cross(const TVecN& a, const TVecN& b) {
@@ -407,10 +409,13 @@ namespace wmoge {
 
         /**
          * Triple vector product - volume of the a figure with sign:
+         * 
          * Positive volume if (a,b,c) - right-system three
+         * 
          * @param a Input vector
          * @param b Input vector
          * @param c Input vector
+         *
          * @return Signed volume
          */
         static T triple(const TVecN& a, const TVecN& b, const TVecN& c) {

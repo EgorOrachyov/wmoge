@@ -54,6 +54,15 @@ namespace wmoge {
     };
 
     /**
+     * @class GfxShaderDesc
+     * @brief Struct with header info of the shader
+    */
+    struct GfxShaderHeader {
+        Sha256          shader_hash;
+        GfxShaderModule module_type;
+    };
+
+    /**
      * @class GfxShader
      * @brief Compiled single gpu program module
      */
@@ -73,6 +82,11 @@ namespace wmoge {
      * @brief Desc to create program
     */
     using GfxShaderProgramDesc = buffered_vector<Ref<GfxShader>, 2>;
+
+    /**
+     * @brief Program header with metadata
+    */
+    using GfxShaderProgramHeader = buffered_vector<GfxShaderHeader, 2>;
 
     /**
      * @class GfxShaderProgram

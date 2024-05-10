@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/string_id.hpp"
+#include "grc/shader_compiler.hpp"
 #include "platform/file_system.hpp"
 
 #include <sstream>
@@ -41,7 +42,7 @@ namespace wmoge {
     */
     class GlslIncludeProcessor {
     public:
-        GlslIncludeProcessor(std::string folder, FileSystem* file_system);
+        GlslIncludeProcessor(const ShaderCompilerEnv& env, FileSystem& file_system, bool collect_code = false);
 
         /**
          * Recursively parse file collecting all includes
@@ -56,11 +57,12 @@ namespace wmoge {
         std::string         get_result() { return m_result.str(); }
 
     private:
-        std::vector<Strid> m_includes;
-        std::stringstream  m_result;
-        std::string        m_folder;
-        FileSystem*        m_file_system;
-        bool               m_skip_version_pragma = true;
+        std::vector<Strid>       m_includes;
+        std::stringstream        m_result;
+        FileSystem*              m_file_system;
+        const ShaderCompilerEnv* m_env;
+        bool                     m_skip_version_pragma = true;
+        bool                     m_collect_code        = true;
     };
 
 }// namespace wmoge

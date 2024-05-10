@@ -35,7 +35,7 @@ namespace wmoge {
 
     Task::Task(Strid name, TaskRunnable runnable)
         : m_runnable(std::move(runnable)),
-          m_task_manager(IocContainer::instance()->resolve_v<TaskManager>()),
+          m_task_manager(IocContainer::iresolve_v<TaskManager>()),
           m_name(name) {
     }
 

@@ -258,7 +258,7 @@ namespace wmoge {
             const auto& adapter = mount_point.second;
 
             if (resolved_path.find(prefix) == 0) {
-                if (adapter->exists(resolved_path)) {
+                if (adapter->exists(resolved_path) || mode.get(FileOpenMode::Out)) {
                     return adapter->open_file(resolved_path, file, mode);
                 }
             }
@@ -310,7 +310,7 @@ namespace wmoge {
             return;
         }
 
-        EventManager* event_manager = IocContainer::instance()->resolve_v<EventManager>();
+        EventManager* event_manager = IocContainer::iresolve_v<EventManager>();
 
         m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [event_manager, path](const std::string& dropped, const filewatch::Event change_type) {
             auto event    = make_event<EventFileSystem>();

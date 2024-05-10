@@ -34,8 +34,8 @@
 namespace wmoge {
 
     TextureManager::TextureManager() {
-        m_gfx_driver = IocContainer::instance()->resolve_v<GfxDriver>();
-        m_gfx_ctx    = IocContainer::instance()->resolve_v<GfxCtx>();
+        m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
+        m_gfx_ctx    = IocContainer::iresolve_v<GfxCtx>();
 
         init_default_textures();
         init_default_samplers();

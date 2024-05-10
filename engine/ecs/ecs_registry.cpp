@@ -33,7 +33,7 @@
 namespace wmoge {
 
     EcsRegistry::EcsRegistry() {
-        ConfigFile* config = IocContainer::instance()->resolve_v<ConfigFile>();
+        ConfigFile* config = IocContainer::iresolve_v<ConfigFile>();
 
         config->get(SID("ecs.chunk_size"), m_chunk_size);
         config->get(SID("ecs.expand_size"), m_expand_size);

@@ -27,8 +27,8 @@
 
 #include "shader_param.hpp"
 
-#include "grc/shader.hpp"
 #include "grc/shader_instance.hpp"
+#include "grc/shader_interface.hpp"
 #include "grc/shader_param_block.hpp"
 
 namespace wmoge {

@@ -31,6 +31,10 @@
 
 namespace wmoge {
 
+    Sha256 StringUtils::to_sha256(const std::string& str) {
+        Sha256Builder builder;
+        return builder.hash(str.c_str(), str.length()).get();
+    }
     float StringUtils::to_float(const std::string& str) {
         return std::strtof(str.c_str(), nullptr);
     }
@@ -119,6 +123,11 @@ namespace wmoge {
                 result.push_back(std::move(word));
             }
         }
+    }
+
+    bool StringUtils::is_starts_with(const std::string& str, const std::string& prefix) {
+        auto pos = str.find(prefix);
+        return pos != std::string::npos && pos == 0;
     }
 
     std::string StringUtils::find_replace_first(const std::string& source, const std::string& substring, const std::string& replacement) {

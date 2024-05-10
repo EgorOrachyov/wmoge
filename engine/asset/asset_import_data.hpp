@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "core/crc32.hpp"
 #include "core/date_time.hpp"
+#include "core/sha256.hpp"
 #include "rtti/traits.hpp"
 
 #include <string>
@@ -45,7 +45,7 @@ namespace wmoge {
 
         std::string file;
         std::string file_tag;
-        Crc32       file_hash;
+        Sha256      file_hash;
         DateTime    timestamp;
     };
 

@@ -140,8 +140,8 @@ namespace wmoge {
         }
 
         TQuat& operator*=(T a) {
-            scalar /= a;
-            vec /= a;
+            scalar *= a;
+            vec *= a;
             return *this;
         }
 

@@ -28,7 +28,6 @@
 #pragma once
 
 #include "asset/asset_ref.hpp"
-#include "grc/shader.hpp"
 
 namespace wmoge {
 
@@ -42,9 +41,6 @@ namespace wmoge {
 
         Material()           = default;
         ~Material() override = default;
-
-    private:
-        Ref<Shader> m_shader;
     };
 
     WG_RTTI_CLASS_BEGIN(Material) {

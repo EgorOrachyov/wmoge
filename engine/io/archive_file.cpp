@@ -77,7 +77,7 @@ namespace wmoge {
         m_can_write = true;
     }
     Status ArchiveWriterFile::open(const std::string& file_path) {
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
         WG_CHECKED(file_system->open_file(file_path, m_file, {FileOpenMode::Out, FileOpenMode::Binary}));
 
         m_can_read  = false;
@@ -106,7 +106,7 @@ namespace wmoge {
         m_can_write = false;
     }
     Status ArchiveReaderFile::open(const std::string& file_path) {
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
         WG_CHECKED(file_system->open_file(file_path, m_file, {FileOpenMode::In, FileOpenMode::Binary}));
 
         m_can_read  = false;

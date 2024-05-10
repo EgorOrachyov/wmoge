@@ -79,7 +79,7 @@ namespace wmoge {
                 WG_LOG_INFO("attach stdout log listener");
             }
             if (log_to_console) {
-                auto log_listener_console = std::make_shared<LogListenerConsole>(IocContainer::instance()->resolve_v<Console>(), log_to_console_level);
+                auto log_listener_console = std::make_shared<LogListenerConsole>(IocContainer::iresolve_v<Console>(), log_to_console_level);
                 Log::instance()->listen(log_listener_console);
                 WG_LOG_INFO("attach console log listener");
             }

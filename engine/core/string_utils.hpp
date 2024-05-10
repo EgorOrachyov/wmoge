@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include "core/sha256.hpp"
+
 #include <cinttypes>
 #include <string>
 #include <vector>
@@ -39,6 +41,9 @@ namespace wmoge {
      */
     class StringUtils {
     public:
+        /** @return Convert string content to Sha256 hash value */
+        static Sha256 to_sha256(const std::string& str);
+
         /** @return Convert string content to value */
         static float to_float(const std::string& str);
 
@@ -80,6 +85,9 @@ namespace wmoge {
 
         /** @return Split string by symbols */
         static void split(const std::string& what, const std::string& splitters, std::vector<std::string>& result);
+
+        /** @return True if given string starts with prefix */
+        static bool is_starts_with(const std::string& str, const std::string& prefix);
 
         /** @return Finds and replaces first matched substring in a source string */
         static std::string find_replace_first(const std::string& source, const std::string& substring, const std::string& replacement);

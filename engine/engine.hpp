@@ -117,6 +117,10 @@
 #include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
 
+#include "glsl/glsl_builder.hpp"
+#include "glsl/glsl_include_processor.hpp"
+#include "glsl/glsl_shader_compiler.hpp"
+
 #include "grc/font.hpp"
 #include "grc/image.hpp"
 #include "grc/pso_cache.hpp"
@@ -127,6 +131,7 @@
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_file.hpp"
 #include "grc/shader_instance.hpp"
+#include "grc/shader_interface.hpp"
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/shader_param.hpp"

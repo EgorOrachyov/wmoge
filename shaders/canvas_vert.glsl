@@ -1,20 +1,21 @@
-#version 450 core
+#include "generated/input.glsl"
+#include "generated/declarations.glsl"
 
 #include "common/defines.glsl"
 #include "common/math.glsl"
 #include "common/vertex.glsl"
 
-LAYOUT_LOCATION(0) vec3 out vsWorldPos;
-LAYOUT_LOCATION(1) vec4 out vsCol;
-LAYOUT_LOCATION(2) vec2 out vsUv;
-LAYOUT_LOCATION(3) int out vsCmdId;
+layout (location = 0) out vec3 vsWorldPos;
+layout (location = 1) out vec4 vsCol;
+layout (location = 2) out vec2 vsUv;
+layout (location = 3) flat out int vsCmdId;
 
-DrawCmdData GetCmdData(in int idx) {
+CanvasDrawCmd GetCmdData(in int idx) {
     return DrawCmds[idx];
 }
 
 mat3 GetDrawCmdTransform(in int idx) {
-    const DrawCmdData data = GetCmdData(idx);
+    const CanvasDrawCmd data = GetCmdData(idx);
     return mat3(data.Transform0.xyz,
                 data.Transform1.xyz,
                 data.Transform2.xyz);
@@ -22,12 +23,12 @@ mat3 GetDrawCmdTransform(in int idx) {
 
 void main() {
     const VertexAttributes vertex = ReadVertexAttributes();
-    const mat3 transform = GetDrawCmdTransform(vertex.primitiveId);
+    const mat3 transform = GetDrawCmdTransform(vertex.objectId);
     
     vsWorldPos = transform * vec3(vertex.pos2, 1.0f);
     vsCol = vertex.col[0];
     vsUv = vertex.uv[0];
-    vsCmdId = vertex.primitiveId;
+    vsCmdId = vertex.objectId;
 
     gl_Position = ClipProjView * vec4(vsWorldPos, 1.0f);
 }

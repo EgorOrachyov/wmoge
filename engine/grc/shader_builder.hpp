@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "grc/shader.hpp"
 #include "grc/shader_reflection.hpp"
 
 #include <memory>
@@ -125,14 +124,15 @@ namespace wmoge {
         ShaderBuilder&   set_name(Strid name);
         ShaderBuilder&   set_domain(ShaderDomain domain);
         ShaderBuilder&   add_ui_info(const std::string& name, const std::string& hint);
-        ShaderBuilder&   add_source(Strid file, GfxShaderModule module);
+        ShaderBuilder&   add_source(Strid file, GfxShaderModule module, GfxShaderLang lang);
         ShaderBuilder&   add_constant(Strid name, Var value);
         ShaderBuilder&   add_struct(const Ref<ShaderType>& struct_type);
         StructBuilder    add_struct(Strid name, int byte_size);
         SpaceBuilder     add_space(Strid name, ShaderSpaceType type);
         TechniqueBuilder add_technique(Strid name);
 
-        Status finish(const Ref<Shader>& shader);
+        Status            finish();
+        ShaderReflection& get_reflection();
 
     private:
         ShaderReflection m_reflection;

@@ -44,7 +44,7 @@ namespace wmoge {
         AsyncOp<Ref<Scene>> scene_async = make_async_op<Ref<Scene>>();
 
         Task scene_task(get_name(), [self = Ref<ScenePacked>(this), scene_async](TaskContext&) {
-            Ref<Scene> scene = IocContainer::instance()->resolve_v<SceneManager>()->make_scene(self->get_name());
+            Ref<Scene> scene = IocContainer::iresolve_v<SceneManager>()->make_scene(self->get_name());
 
             Timer timer;
             timer.start();

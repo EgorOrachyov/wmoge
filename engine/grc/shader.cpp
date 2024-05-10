@@ -29,28 +29,21 @@
 
 #include "glsl/glsl_include_processor.hpp"
 #include "grc/shader_builder.hpp"
+#include "grc/shader_cache.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
-#include <cassert>
-
 namespace wmoge {
 
-    Status Shader::from_reflection(ShaderReflection& reflection) {
-        WG_AUTO_PROFILE_GRC("Shader::from_reflection");
-        m_reflection = std::move(reflection);
-        return WG_OK;
-    }
+    Status Shader::load(const ShaderFile& file) {
+        WG_AUTO_PROFILE_GRC("Shader::load");
 
-    Status Shader::from_file(const ShaderFile& file) {
-        WG_AUTO_PROFILE_GRC("Shader::from_file");
-
-        ShaderManager*  shader_manager  = IocContainer::instance()->resolve_v<ShaderManager>();
-        TextureManager* texture_manager = IocContainer::instance()->resolve_v<TextureManager>();
-        FileSystem*     file_system     = IocContainer::instance()->resolve_v<FileSystem>();
+        ShaderManager*  shader_manager  = IocContainer::iresolve_v<ShaderManager>();
+        TextureManager* texture_manager = IocContainer::iresolve_v<TextureManager>();
+        FileSystem*     file_system     = IocContainer::iresolve_v<FileSystem>();
         ShaderBuilder   builder;
 
         builder.set_name(file.name);
@@ -58,7 +51,7 @@ namespace wmoge {
         builder.add_ui_info(file.ui_name.empty() ? file.name.str() : file.ui_name, file.ui_hint);
 
         for (const auto& source : file.sources) {
-            builder.add_source(SID(source.file), source.module);
+            builder.add_source(SID(source.file), source.module, source.lang);
         }
 
         std::int16_t next_pad_idx   = 0;
@@ -120,7 +113,7 @@ namespace wmoge {
                 struct_bilder.add_field(param.name, type, param.value.empty() ? Var() : Var(param.value));
 
                 while (field_size < field_size_aligned) {
-                    struct_bilder.add_field(SID("__pad" + StringUtils::from_int(next_pad_idx++)), type);
+                    struct_bilder.add_field(SID("Padding" + StringUtils::from_int(next_pad_idx++)), type);
                     field_size += type->byte_size;
                 }
             }
@@ -211,186 +204,18 @@ namespace wmoge {
             technique_builder.end_technique();
         }
 
-        Ref<Shader> shader{this};
-        WG_CHECKED(builder.finish(shader));
+        WG_CHECKED(builder.finish());
+        WG_CHECKED(init(builder.get_reflection()));
 
         for (const auto& param_block : file.param_blocks) {
             for (const auto& param : param_block.params) {
-                ShaderReflection& reflection = shader->get_reflection();
-                ShaderParamInfo&  param_info = reflection.params_info[reflection.params_id[param.name]];
-                param_info.ui_name           = param.ui_name.empty() ? param.name.str() : param.ui_name;
-                param_info.ui_hint           = param.ui_hint;
+                ShaderParamInfo& param_info = m_reflection.params_info[m_reflection.params_id[param.name]];
+                param_info.ui_name          = param.ui_name.empty() ? param.name.str() : param.ui_name;
+                param_info.ui_hint          = param.ui_hint;
             }
         }
 
-        return reload_sources(shader_manager->get_shaders_folder(), file_system);
-    }
-
-    std::optional<std::int16_t> Shader::find_technique(Strid name) {
-        auto r = m_reflection.techniques_map.find(name);
-        return r != m_reflection.techniques_map.end() ? std::optional<std::int16_t>(r->second) : std::nullopt;
-    }
-
-    std::optional<std::int16_t> Shader::find_pass(std::int16_t technique, Strid name) {
-        auto r = m_reflection.techniques[technique].passes_map.find(name);
-        return r != m_reflection.techniques[technique].passes_map.end() ? std::optional<std::int16_t>(r->second) : std::nullopt;
-    }
-
-    ShaderParamId Shader::get_param_id(Strid name) {
-        auto query = m_reflection.params_id.find(name);
-
-        if (query != m_reflection.params_id.end()) {
-            return ShaderParamId(query->second);
-        }
-
-        return ShaderParamId();
-    }
-
-    std::optional<ShaderParamInfo*> Shader::get_param_info(ShaderParamId id) {
-        if (id.is_invalid()) {
-            return std::nullopt;
-        }
-        if (id.index >= m_reflection.params_info.size()) {
-            return std::nullopt;
-        }
-
-        return &m_reflection.params_info[id.index];
-    }
-
-    Status Shader::reload_sources(const std::string& folder, FileSystem* fs) {
-        WG_AUTO_PROFILE_GRC("Shader::reload_sources");
-
-        buffered_vector<ShaderInclude>    new_includes;
-        buffered_vector<ShaderSourceFile> new_sources;
-        flat_set<Strid>                   new_dependencies;
-
-        for (ShaderSourceFile& source_file : m_reflection.sources) {
-            GlslIncludeProcessor include_processor(folder, fs);
-
-            if (!include_processor.parse_file(source_file.name)) {
-                WG_LOG_ERROR("failed parse file " << source_file.name);
-                return StatusCode::FailedParse;
-            }
-
-            for (const Strid& include : include_processor.get_includes()) {
-                ShaderInclude& new_include = new_includes.emplace_back();
-                new_include.module         = source_file.module;
-                new_include.name           = include;
-            }
-
-            ShaderSourceFile& new_source_file = new_sources.emplace_back();
-            new_source_file.name              = source_file.name;
-            new_source_file.module            = source_file.module;
-            new_source_file.content           = std::move(include_processor.get_result());
-        }
-
-        for (ShaderInclude& new_include_file : new_includes) {
-            new_dependencies.insert(new_include_file.name);
-        }
-
-        for (ShaderSourceFile& new_source_file : new_sources) {
-            new_dependencies.insert(new_source_file.name);
-        }
-
-        std::swap(m_reflection.includes, new_includes);
-        std::swap(m_reflection.sources, new_sources);
-        std::swap(m_reflection.dependencies, new_dependencies);
-
-        return StatusCode::Ok;
-    }
-
-    Status Shader::fill_layout(GfxDescSetLayoutDesc& desc, int space) const {
-        assert(0 <= space && space < m_reflection.spaces.size());
-
-        const ShaderSpace& shader_space = m_reflection.spaces[space];
-        assert(shader_space.type != ShaderSpaceType::Material);
-
-        std::int16_t binding_id = 0;
-
-        for (const ShaderBinding& binding : shader_space.bindings) {
-            GfxDescBinging& gfx_binding = desc.emplace_back();
-            gfx_binding.binding         = binding_id++;
-            gfx_binding.count           = 1;
-            gfx_binding.name            = binding.name;
-
-            switch (binding.binding) {
-                case ShaderBindingType::InlineUniformBuffer:
-                case ShaderBindingType::UniformBuffer:
-                    gfx_binding.type = GfxBindingType::UniformBuffer;
-                    break;
-
-                case ShaderBindingType::Sampler2d:
-                case ShaderBindingType::Sampler2dArray:
-                case ShaderBindingType::SamplerCube:
-                    gfx_binding.type = GfxBindingType::SampledTexture;
-                    break;
-
-                case ShaderBindingType::StorageBuffer:
-                    gfx_binding.type = GfxBindingType::StorageBuffer;
-                    break;
-
-                case ShaderBindingType::StorageImage2d:
-                    gfx_binding.type = GfxBindingType::StorageImage;
-                    break;
-
-                default:
-                    return StatusCode::InvalidState;
-            }
-        }
-
-        return StatusCode::Ok;
-    }
-
-    bool Shader::has_dependency(const Strid& dependency) const {
-        return m_reflection.dependencies.find(dependency) != m_reflection.dependencies.end();
-    }
-
-    bool Shader::has_space(ShaderSpaceType space_type) const {
-        for (const ShaderSpace& space : m_reflection.spaces) {
-            if (space.type == space_type) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    bool Shader::has_option(std::int16_t technique, Strid name, Strid variant) const {
-        if (m_reflection.techniques.size() <= technique) {
-            return false;
-        }
-
-        const ShaderOptions& options = m_reflection.techniques[technique].options;
-
-        auto option_query = options.options_map.find(name);
-        if (option_query == options.options_map.end()) {
-            return false;
-        }
-
-        auto variant_query = options.options[option_query->second].variants.find(variant);
-        return variant_query != options.options[option_query->second].variants.end();
-    }
-
-    bool Shader::has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const {
-        if (m_reflection.techniques.size() <= technique) {
-            return false;
-        }
-        if (m_reflection.techniques[technique].passes.size() <= pass) {
-            return false;
-        }
-
-        const ShaderOptions& options = m_reflection.techniques[technique].passes[pass].options;
-
-        auto option_query = options.options_map.find(name);
-        if (option_query == options.options_map.end()) {
-            return false;
-        }
-
-        auto variant_query = options.options[option_query->second].variants.find(variant);
-        return variant_query != options.options[option_query->second].variants.end();
-    }
-
-    std::int16_t Shader::get_num_spaces() const {
-        return std::int16_t(m_reflection.spaces.size());
+        return WG_OK;
     }
 
 }// namespace wmoge

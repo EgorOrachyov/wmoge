@@ -91,9 +91,9 @@ namespace wmoge {
     void ProfilerCapture::save_to_json() {
         using namespace std::chrono;
 
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
-        Profiler*   profiler    = IocContainer::instance()->resolve_v<Profiler>();
-        Time*       time        = IocContainer::instance()->resolve_v<Time>();
+        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
+        Profiler*   profiler    = IocContainer::iresolve_v<Profiler>();
+        Time*       time        = IocContainer::iresolve_v<Time>();
 
         std::fstream file_stream;
 

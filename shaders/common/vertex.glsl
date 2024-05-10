@@ -9,8 +9,8 @@ struct VertexAttributes {
     vec4  boneWeigths;
     vec4  col[4];
     vec2  uv[4];
-    int   renderObjectId;
-    int   renderInstanceId;
+    int   objectId;
+    int   instanceId;
 };
 
 VertexAttributes GetVertexAttributesDefault() {
@@ -94,12 +94,12 @@ VertexAttributes ReadVertexAttributes() {
         attributes.uv[3] = UnpackUv(inUv32f);
     #endif     
 
-    #ifdef ATTRIB_OBJECT_ID
-        attributes.objectId = inObjectId;
+    #ifdef ATTRIB_OBJECTID_1I
+        attributes.objectId = inObjectId1i;
     #endif     
 
-    #ifdef ATTRIB_INSTANCE_ID
-        attributes.instanceId = inInstanceId;
+    #ifdef ATTRIB_INSTANCEID_1I
+        attributes.instanceId = inInstanceId1i;
     #endif
 
     return attributes;

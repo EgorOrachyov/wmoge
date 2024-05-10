@@ -32,15 +32,12 @@
 #include "core/data.hpp"
 #include "core/flat_map.hpp"
 #include "core/sha256.hpp"
-#include "core/simple_id.hpp"
-#include "core/synchronization.hpp"
 #include "core/task_manager.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_shader.hpp"
-#include "grc/shader.hpp"
-#include "grc/shader_manager.hpp"
 #include "grc/shader_reflection.hpp"
 
+#include <array>
 #include <cinttypes>
 #include <vector>
 
@@ -51,9 +48,10 @@ namespace wmoge {
     */
     enum class ShaderStatus {
         InCompilation,// Shader in async compilation progress, need to wait for result
+        InBytecode,   // Shader in bytecode, need to try to create program
         Compiled,     // Shader compiled and can be used
         Failed,       // Shader failed to compile, need to evict and try again (shaders hot-reload)
-        None          // Shader not requested to compile yet
+        None          // Shader not requested to compile yet, and has no cache
     };
 
     /** 
@@ -61,10 +59,12 @@ namespace wmoge {
      * @brief Compiled shader program info 
      */
     struct ShaderProgram {
-        buffered_vector<Sha256> modules;
-        Ref<GfxShaderProgram>   program;
-        ShaderPermutation       permutation;
-        ShaderStatus            status;
+        buffered_vector<Sha256> modules;                    // Bytecode hashes of modules (for fast load from bytecode cache)
+        Ref<GfxShaderProgram>   program;                    // Gfx object (may be null if failed compile)
+        ShaderPermutation       permutation;                // Program unique key
+        ShaderStatus            status = ShaderStatus::None;// Current program status
+        Strid                   name;                       // Name for saving, recreation
+        Async                   compilation_task;           // Optional pending compilation task to compile program
     };
 
     /**
@@ -75,7 +75,8 @@ namespace wmoge {
     public:
         ShaderCacheMap() = default;
 
-        std::optional<ShaderProgram*> find_program(const ShaderPermutation& permutation) const;
+        std::optional<ShaderProgram*> find_program(const ShaderPermutation& permutation);
+        ShaderProgram&                get_or_add_entry(const ShaderPermutation& permutation);
         void                          fit_program(const ShaderProgram& program);
         void                          dump_programs(std::vector<ShaderProgram>& out_programs);
 
@@ -87,25 +88,20 @@ namespace wmoge {
      * @class ShaderCache
      * @brief Runtime cache of compiled gfx shaders from high-level shader programs
      * 
-     * @note Thread-safe
+     * Shader cache allows to get particular program variations for a given platform.
+     * Already compiled programs are cached, can be saved and loaded to/from disk. 
     */
     class ShaderCache {
     public:
-        ShaderCache(Shader* shader);
+        ShaderCache() = default;
 
-        Ref<GfxShaderProgram>                get_or_create_program(GfxShaderPlatform platform, const ShaderPermutation& permutation);
-        std::optional<Ref<GfxShaderProgram>> find_program(GfxShaderPlatform platform, const ShaderPermutation& permutation) const;
-
-        Async precompile_programs(GfxShaderPlatform platform, const array_view<ShaderPermutation>& permutations);
+        std::optional<ShaderProgram*> find_program(GfxShaderPlatform platform, const ShaderPermutation& permutation);
+        ShaderProgram&                get_or_add_entry(GfxShaderPlatform platform, const ShaderPermutation& permutation);
+        void                          fit_program(GfxShaderPlatform platform, const ShaderProgram& program);
+        void                          dump_programs(GfxShaderPlatform platform, std::vector<ShaderProgram>& out_programs);
 
     private:
-        std::array<ShaderCacheMap, int(GfxShaderPlatform::Max)> m_maps;
-
-        Shader*      m_shader       = nullptr;
-        GfxDriver*   m_driver       = nullptr;
-        TaskManager* m_task_manager = nullptr;
-
-        mutable RwMutexReadPrefer m_mutex;
+        std::array<ShaderCacheMap, GfxLimits::NUM_PLATFORMS> m_maps;
     };
 
 }// namespace wmoge

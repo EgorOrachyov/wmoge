@@ -11,7 +11,7 @@ vec2 UnpackUv(in vec2 uv) {
 
 // Construct mat3 identity matrix
 mat3 GetIdentity3x3() {
-    mat4 matrix = mat3(
+    mat3 matrix = mat3(
         vec3(1,0,0),
         vec3(0,1,0),
         vec3(0,0,1));

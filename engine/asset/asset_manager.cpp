@@ -41,9 +41,9 @@
 namespace wmoge {
 
     AssetManager::AssetManager() {
-        m_file_system   = IocContainer::instance()->resolve_v<FileSystem>();
-        m_type_storage  = IocContainer::instance()->resolve_v<RttiTypeStorage>();
-        m_event_manager = IocContainer::instance()->resolve_v<EventManager>();
+        m_file_system   = IocContainer::iresolve_v<FileSystem>();
+        m_type_storage  = IocContainer::iresolve_v<RttiTypeStorage>();
+        m_event_manager = IocContainer::iresolve_v<EventManager>();
     }
 
     AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name, AssetCallback callback) {

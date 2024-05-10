@@ -28,13 +28,9 @@
 #pragma once
 
 #include "core/flat_map.hpp"
-#include "debug/console.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "grc/shader.hpp"
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_reflection.hpp"
-#include "grc/texture_manager.hpp"
-#include "platform/file_system.hpp"
 
 #include <mutex>
 
@@ -49,19 +45,24 @@ namespace wmoge {
         ShaderManager();
 
         std::optional<Ref<ShaderType>> find_global_type(Strid name);
+        ShaderCompiler*                find_compiler(GfxShaderPlatform platform);
         void                           add_global_type(const Ref<ShaderType>& type);
         void                           load_compilers();
 
-        [[nodiscard]] const std::string& get_shaders_folder() const { return m_shaders_folder; }
+        [[nodiscard]] const std::string&           get_shaders_folder() const { return m_shaders_folder; }
+        [[nodiscard]] const ShaderCompilerOptions& get_compiler_options() const { return m_compiler_options; }
+        [[nodiscard]] const ShaderCompilerEnv&     get_compiler_env() const { return m_compiler_env; }
 
     private:
-        std::array<Ref<ShaderCompiler>, int(GfxShaderPlatform::Max)> m_compilers;
-        flat_map<Strid, Ref<ShaderType>>                             m_global_types;
-        std::string                                                  m_shaders_folder;
+        std::array<Ref<ShaderCompiler>, GfxLimits::NUM_PLATFORMS> m_compilers;
+        ShaderCompilerOptions                                     m_compiler_options;
+        ShaderCompilerEnv                                         m_compiler_env;
+        flat_map<Strid, Ref<ShaderType>>                          m_global_types;
+        std::string                                               m_shaders_folder;
 
-        FileSystem* m_file_system;
-        GfxDriver*  m_gfx_driver;
-        Console*    m_console;
+        class FileSystem* m_file_system = nullptr;
+        class GfxDriver*  m_gfx_driver  = nullptr;
+        class Console*    m_console     = nullptr;
     };
 
 }// namespace wmoge

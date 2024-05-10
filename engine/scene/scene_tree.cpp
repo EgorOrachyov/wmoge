@@ -43,7 +43,7 @@ namespace wmoge {
 
     SceneTree::SceneTree(const Strid& name) {
         m_name  = name;
-        m_scene = IocContainer::instance()->resolve_v<SceneManager>()->make_scene(SID(name.str() + ".runtime"));
+        m_scene = IocContainer::iresolve_v<SceneManager>()->make_scene(SID(name.str() + ".runtime"));
         m_root  = make_ref<SceneNode>(SID("<root>"), SceneNodeType::Object);
         m_root->enter_tree(this);
     }

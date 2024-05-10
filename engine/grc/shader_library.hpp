@@ -39,6 +39,7 @@
 
 #include <array>
 #include <memory>
+#include <vector>
 
 namespace wmoge {
 
@@ -49,11 +50,12 @@ namespace wmoge {
      * @note Ref to GfxShader created on demand
      */
     struct ShaderModule {
-        Ref<GfxShader>  shader;
-        Ref<Data>       bytecode;
-        GfxShaderModule module_type;
-        Sha256          source_hash;
-        Sha256          bytecode_hash;
+        Ref<GfxShader>  shader;       // Gfx object (may be null if not requested yet)
+        Ref<Data>       bytecode;     // Platform specific bytecode
+        GfxShaderModule module_type;  // Type of shader
+        Sha256          source_hash;  // Hash of source code (text begore compilation)
+        Sha256          bytecode_hash;// Hash of bytecode for fast look-ups and load from binary
+        Strid           name;         // Debug name of module
     };
 
     /** 
@@ -64,10 +66,10 @@ namespace wmoge {
     public:
         ShaderModuleMap();
 
-        Ref<GfxShader>              get_or_create_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
-        std::optional<ShaderModule> find_module(GfxShaderModule module_type, const Sha256& bytecode_hash);
-        void                        fit_module(const ShaderModule& module);
-        void                        dump_modules(std::vector<ShaderModule>& out_modules);
+        Ref<GfxShader>                get_or_create_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
+        std::optional<Ref<GfxShader>> find_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
+        void                          fit_module(const ShaderModule& module);
+        void                          dump_modules(std::vector<ShaderModule>& out_modules);
 
     private:
         flat_map<Sha256, ShaderModule> m_modules;
@@ -89,18 +91,15 @@ namespace wmoge {
     */
     class ShaderLibrary {
     public:
-        ShaderLibrary();
+        ShaderLibrary() = default;
 
-        Ref<GfxShader>              get_or_create_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
-        std::optional<ShaderModule> find_module(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
-        void                        fit_module(GfxShaderPlatform platform, const ShaderModule& module);
-        void                        dump_modules(GfxShaderPlatform platform, std::vector<ShaderModule>& out_modules);
+        Ref<GfxShader>                get_or_create_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
+        std::optional<Ref<GfxShader>> find_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
+        void                          fit_module(GfxShaderPlatform platform, const ShaderModule& module);
+        void                          dump_modules(GfxShaderPlatform platform, std::vector<ShaderModule>& out_modules);
 
     private:
-        std::array<ShaderModuleMap, int(GfxShaderPlatform::Max)> m_libraries;
-
-        FileSystem* m_file_system = nullptr;
-        GfxDriver*  m_driver      = nullptr;
+        std::array<ShaderModuleMap, GfxLimits::NUM_PLATFORMS> m_libraries;
 
         mutable RwMutexReadPrefer m_mutex;
     };

@@ -93,4 +93,10 @@ namespace wmoge {
         return Async(state);
     }
 
+    Async Async::failed() {
+        auto state = make_async_op<int>();
+        state->set_failed();
+        return Async(state);
+    }
+
 }// namespace wmoge

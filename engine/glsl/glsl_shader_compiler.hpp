@@ -31,41 +31,11 @@
 #include "core/data.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "grc/shader_compiler.hpp"
 
 #include <vector>
 
 namespace wmoge {
-
-    /** 
-     * @class GlslInputFile
-     * @brief Input file to compile 
-     */
-    struct GlslInputFile {
-        std::string     source_code;
-        std::string     entry_point;
-        GfxShaderModule module_type;
-    };
-
-    /** 
-     * @class GlslCompilerInput
-     * @brief Compiler input 
-     */
-    struct GlslCompilerInput {
-        buffered_vector<GlslInputFile> files;
-        Strid                          name;
-        bool                           disable_otimizer = false;
-        bool                           optimize_size    = false;
-        bool                           validate         = true;
-    };
-
-    /** 
-     * @class GlslCompilerOutput
-     * @brief Compiler result
-    */
-    struct GlslCompilerOutput {
-        buffered_vector<Ref<Data>>      bytecode;
-        buffered_vector<std::string, 1> errors;
-    };
 
     /**
      * @class GlslShaderCompiler
@@ -76,7 +46,91 @@ namespace wmoge {
         GlslShaderCompiler();
         ~GlslShaderCompiler();
 
-        Status compile(const GlslCompilerInput& input, GlslCompilerOutput& output);
+        Status compile(ShaderCompilerRequest& request);
+
+    private:
+        class FileSystem* m_file_system = nullptr;
     };
+
+    /**
+     * @class GlslShaderCompilerAdapter
+     * @brief Interface implementation for ShaderCompiler
+    */
+    class GlslShaderCompilerAdapter : public ShaderCompiler {
+    public:
+        WG_RTTI_CLASS(GlslShaderCompilerAdapter, ShaderCompiler);
+
+        GlslShaderCompilerAdapter()  = default;
+        ~GlslShaderCompilerAdapter() = default;
+
+        GlslShaderCompilerAdapter(GfxShaderPlatform platform);
+
+        Async             compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) override;
+        GfxShaderPlatform get_platform() override;
+        GfxShaderLang     get_lang() override;
+
+    private:
+        class GlslShaderCompiler* m_glsl_compiler = nullptr;
+        class TaskManager*        m_task_manager  = nullptr;
+        GfxShaderPlatform         m_platform      = GfxShaderPlatform::None;
+    };
+
+    WG_RTTI_CLASS_BEGIN(GlslShaderCompilerAdapter) {
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class GlslShaderCompilerVulkanLinux
+     * @brief Adapter for glsl compiler for GfxShaderPlatform::VulkanLinux
+    */
+    class GlslShaderCompilerVulkanLinux : public GlslShaderCompilerAdapter {
+    public:
+        WG_RTTI_CLASS(GlslShaderCompilerVulkanLinux, GlslShaderCompilerAdapter);
+
+        GlslShaderCompilerVulkanLinux() : GlslShaderCompilerAdapter(GfxShaderPlatform::VulkanLinux) {}
+        ~GlslShaderCompilerVulkanLinux() override = default;
+    };
+
+    WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanLinux) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class GlslShaderCompilerVulkanWindows
+     * @brief Adapter for glsl compiler for GfxShaderPlatform::VulkanWindows
+    */
+    class GlslShaderCompilerVulkanWindows : public GlslShaderCompilerAdapter {
+    public:
+        WG_RTTI_CLASS(GlslShaderCompilerVulkanWindows, GlslShaderCompilerAdapter);
+
+        GlslShaderCompilerVulkanWindows() : GlslShaderCompilerAdapter(GfxShaderPlatform::VulkanWindows) {}
+        ~GlslShaderCompilerVulkanWindows() override = default;
+    };
+
+    WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanWindows) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class GlslShaderCompilerVulkanMacOS
+     * @brief Adapter for glsl compiler for GfxShaderPlatform::VulkanMacOS
+    */
+    class GlslShaderCompilerVulkanMacOS : public GlslShaderCompilerAdapter {
+    public:
+        WG_RTTI_CLASS(GlslShaderCompilerVulkanMacOS, GlslShaderCompilerAdapter);
+
+        GlslShaderCompilerVulkanMacOS() : GlslShaderCompilerAdapter(GfxShaderPlatform::VulkanMacOS) {}
+        ~GlslShaderCompilerVulkanMacOS() override = default;
+    };
+
+    WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanMacOS) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

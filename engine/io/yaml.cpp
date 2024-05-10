@@ -44,7 +44,7 @@ namespace wmoge {
     YamlTree yaml_parse_file(const std::string& file_path) {
         std::vector<std::uint8_t> file;
 
-        if (!IocContainer::instance()->resolve_v<FileSystem>()->read_file(file_path, file)) {
+        if (!IocContainer::iresolve_v<FileSystem>()->read_file(file_path, file)) {
             WG_LOG_ERROR("failed to read content of file " << file_path);
             return {};
         }

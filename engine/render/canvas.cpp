@@ -44,15 +44,15 @@ namespace wmoge {
         // ShaderManager* shader_manager = engine->shader_manager();
 
         GfxVertAttribs attribs_vert = {GfxVertAttrib::Pos2f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
-        GfxVertAttribs attribs_inst = {GfxVertAttrib::PrimitiveIdi};
+        GfxVertAttribs attribs_inst;//= {GfxVertAttrib::PrimitiveIdi};
         GfxVertAttribs attribs_full = attribs_vert | attribs_inst;
 
         GfxVertElements elements;
-        elements.add_vert_attribs(attribs_vert, 0, false);
-        elements.add_vert_attribs(attribs_inst, 1, true);
+        // elements.add_vert_attribs(attribs_vert, 0, false);
+        // elements.add_vert_attribs(attribs_inst, 1, true);
 
         GfxPsoStateGraphics pso_state{};
-        pso_state.vert_format  = driver->make_vert_format(elements, SID("[pos2, col0, uv0, primitiveId]"));
+        // pso_state.vert_format  = driver->make_vert_format(elements, SID("[pos2, col0, uv0, primitiveId]"));
         pso_state.depth_enable = false;
         pso_state.depth_write  = false;
         pso_state.blending     = true;

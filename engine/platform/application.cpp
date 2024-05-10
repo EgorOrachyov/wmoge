@@ -43,6 +43,8 @@
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 #include "grc/pso_cache.hpp"
+#include "grc/shader_compiler_task_manager.hpp"
+#include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
@@ -82,6 +84,7 @@
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
 #include "event/_rtti.hpp"
+#include "glsl/_rtti.hpp"
 #include "grc/_rtti.hpp"
 #include "material/_rtti.hpp"
 #include "mesh/_rtti.hpp"
@@ -107,6 +110,7 @@ namespace wmoge {
         ioc->bind<EventManager>();
         ioc->bind<CallbackQueue>();
         ioc->bind<GlslShaderCompiler>();
+        ioc->bind<ShaderLibrary>();
         ioc->bind<ShaderManager>();
         ioc->bind<PsoCache>();
         ioc->bind<TextureManager>();
@@ -124,6 +128,12 @@ namespace wmoge {
             ConfigFile* config      = ioc->resolve_v<ConfigFile>();
             const int   num_workers = config->get_int(SID("task_manager.workers"), 4);
             return std::make_shared<TaskManager>(num_workers);
+        });
+
+        ioc->bind_f<ShaderCompilerTaskManager, ShaderCompilerTaskManager>([ioc]() {
+            ConfigFile* config      = ioc->resolve_v<ConfigFile>();
+            const int   num_workers = config->get_int(SID("grc.shader_compiler.workers"), 4);
+            return std::make_shared<ShaderCompilerTaskManager>(num_workers);
         });
 
         ioc->bind_f<GlfwWindowManager, GlfwWindowManager>([ioc]() {
@@ -192,6 +202,8 @@ namespace wmoge {
         ioc->unbind<AssetManager>();
         ioc->unbind<PsoCache>();
         ioc->unbind<ShaderManager>();
+        ioc->unbind<ShaderLibrary>();
+        ioc->unbind<ShaderCompilerTaskManager>();
         ioc->unbind<GlslShaderCompiler>();
         ioc->unbind<TextureManager>();
         ioc->unbind<RenderEngine>();
@@ -219,6 +231,7 @@ namespace wmoge {
         rtti_asset();
         rtti_audio();
         rtti_grc();
+        rtti_glsl();
         rtti_material();
         rtti_mesh();
         rtti_pfx();

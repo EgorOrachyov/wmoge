@@ -37,6 +37,8 @@
 
 namespace wmoge {
 
+    static const char G_DEC_TO_HEX[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
     Sha256::Sha256(const std::string& str) {
         std::stringstream s(str);
 
@@ -77,7 +79,7 @@ namespace wmoge {
             const std::uint32_t shift = (i % 8) * 4;
 
             const int digit = (values[word] >> shift) & 0xf;
-            s << ('0' + digit);
+            s << G_DEC_TO_HEX[digit];
         }
 
         return s.str();

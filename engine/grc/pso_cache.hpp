@@ -29,12 +29,12 @@
 
 #include "core/async.hpp"
 #include "core/flat_map.hpp"
+#include "core/sha256.hpp"
 #include "core/simple_id.hpp"
 #include "core/synchronization.hpp"
-#include "core/task_manager.hpp"
 #include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_vert_format.hpp"
 
 #include <cinttypes>
@@ -88,12 +88,15 @@ namespace wmoge {
 
         Ref<GfxVertFormat>    get_or_create_vert_format(const GfxVertElements& elements, const Strid& name = Strid());
         Ref<GfxDescSetLayout> get_or_create_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid());
+        Ref<GfxShaderProgram> get_or_create_program(const GfxShaderProgramDesc& desc, const Strid& name = Strid());
+        Ref<GfxShaderProgram> get_or_create_program(const GfxShaderProgramHeader& header, const Strid& name = Strid());
         Ref<GfxPsoLayout>     get_or_create_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name = Strid());
         Ref<GfxPsoGraphics>   get_or_create_pso(const GfxPsoStateGraphics& state, const Strid& name = Strid());
         Ref<GfxPsoCompute>    get_or_create_pso(const GfxPsoStateCompute& state, const Strid& name = Strid());
 
-        std::optional<Ref<GfxVertFormat>>    find_vert_format(const GfxVertElements& elements) const;
+        std::optional<Ref<GfxVertFormat>>    find_vert_format(const GfxVertElements& elements);
         std::optional<Ref<GfxDescSetLayout>> find_desc_layout(const GfxDescSetLayoutDesc& desc);
+        std::optional<Ref<GfxShaderProgram>> find_program(const GfxShaderProgramDesc& desc);
         std::optional<Ref<GfxPsoLayout>>     find_pso_layout(const GfxDescSetLayouts& layouts);
         std::optional<Ref<GfxPsoGraphics>>   find_pso(const GfxPsoStateGraphics& state);
         std::optional<Ref<GfxPsoCompute>>    find_pso(const GfxPsoStateCompute& state);
@@ -110,6 +113,7 @@ namespace wmoge {
     private:
         flat_map<GfxVertElements, Ref<GfxVertFormat>>         m_vert_formats;
         flat_map<GfxDescSetLayoutDesc, Ref<GfxDescSetLayout>> m_desc_layouts;
+        flat_map<GfxShaderProgramDesc, Ref<GfxShaderProgram>> m_programs;
         flat_map<GfxDescSetLayouts, Ref<GfxPsoLayout>>        m_pso_layouts;
         flat_map<GfxPsoStateGraphics, PsoKey>                 m_pso_graphics;
         flat_map<GfxPsoStateCompute, PsoKey>                  m_pso_compute;
@@ -117,13 +121,15 @@ namespace wmoge {
 
         mutable RwMutexReadPrefer m_mutex_vert_format;
         mutable RwMutexReadPrefer m_mutex_desc_layout;
+        mutable RwMutexReadPrefer m_mutex_program;
         mutable RwMutexReadPrefer m_mutex_pso_layouts;
         mutable RwMutexReadPrefer m_mutex_pso;
 
         PsoKey m_next_key{0};
 
-        GfxDriver*   m_gfx_driver   = nullptr;
-        TaskManager* m_task_manager = nullptr;
+        class ShaderLibrary* m_shader_library = nullptr;
+        class TaskManager*   m_task_manager   = nullptr;
+        class GfxDriver*     m_gfx_driver     = nullptr;
     };
 
 }// namespace wmoge

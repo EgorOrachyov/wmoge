@@ -41,10 +41,12 @@
 #include "platform/file_system.hpp"
 #include "rtti/traits.hpp"
 
+#include <bitset>
 #include <cinttypes>
 #include <filesystem>
 #include <functional>
 #include <memory>
+#include <optional>
 #include <sstream>
 #include <string>
 #include <unordered_map>
@@ -183,7 +185,7 @@ namespace wmoge {
      * @brief Information about single include file of a shader module
     */
     struct ShaderInclude {
-        Strid           name;
+        Strid           file;
         GfxShaderModule module;
     };
 
@@ -192,21 +194,26 @@ namespace wmoge {
      * @brief Single shader module required for compilation (shader stage)
     */
     struct ShaderSourceFile {
-        Strid           name;
+        Strid           file;
         GfxShaderModule module;
-        std::string     content;
+        GfxShaderLang   lang = GfxShaderLang::GlslVk450;
     };
 
     /**
-     * @class ShaderQualifiers
      * @brief Additional qualifiers for shader interface params
     */
-    struct ShaderQualifiers {
-        bool readonly  = false;
-        bool writeonly = false;
-        bool std140    = false;
-        bool std430    = false;
+    enum class ShaderQualifier {
+        Readonly,
+        Writeonly,
+        Std140,
+        Std430,
+        Rgba16f
     };
+
+    /**
+     * @brief Additional qualifiers mask for shader interface params
+    */
+    using ShaderQualifiers = Mask<ShaderQualifier>;
 
     /**
      * @class ShaderBinding
@@ -258,7 +265,7 @@ namespace wmoge {
      * @brief Map of options for a technique or pass
     */
     struct ShaderOptions {
-        static constexpr int MAX_OPTIONS = 64;
+        static constexpr std::int16_t MAX_OPTIONS = 64;
 
         buffered_vector<ShaderOption> options;
         flat_map<Strid, std::int16_t> options_map;
@@ -419,22 +426,23 @@ namespace wmoge {
      * @brief Full reflection information of a single shader class
     */
     struct ShaderReflection {
-        Strid                                shader_name;   // shader script global unique name
-        Strid                                shader_extends;// shader script which we extend in this one
-        ShaderDomain                         domain;        // shader domain
-        std::string                          ui_name;       // optional ui name
-        std::string                          ui_hint;       // optional ui hint
-        flat_map<Strid, std::int16_t>        params_id;     // mapping of full param name to its id
-        buffered_vector<ShaderParamInfo>     params_info;   // id to param info
-        buffered_vector<ShaderBufferInfo>    buffers;       // buffer info for scalar params packing
-        flat_map<Strid, Ref<ShaderType>>     declarations;  // shader defined struct types
-        buffered_vector<ShaderConstant>      constants;     // shader defined constanst
-        buffered_vector<ShaderInclude>       includes;      // shader includes per module
-        buffered_vector<ShaderSpace>         spaces;        // binding spaces for descriptor sets creation
-        buffered_vector<ShaderSourceFile>    sources;       // source code modules
-        buffered_vector<ShaderTechniqueInfo> techniques;    // shader techniques info
-        flat_map<Strid, std::int16_t>        techniques_map;// mapping techniques name to its id
-        flat_set<Strid>                      dependencies;  // shader files dependencies for hot-reload
+        Strid                            shader_name;   // shader script global unique name
+        Strid                            shader_extends;// shader script which we extend in this one
+        ShaderDomain                     domain;        // shader domain
+        std::string                      ui_name;       // optional ui name
+        std::string                      ui_hint;       // optional ui hint
+        flat_map<Strid, std::int16_t>    params_id;     // mapping of full param name to its id
+        std::vector<ShaderParamInfo>     params_info;   // id to param info
+        std::vector<ShaderBufferInfo>    buffers;       // buffer info for scalar params packing
+        flat_map<Strid, Ref<ShaderType>> declarations;  // shader defined struct types
+        std::vector<ShaderConstant>      constants;     // shader defined constanst
+        std::vector<ShaderInclude>       includes;      // shader includes per module
+        std::vector<ShaderSpace>         spaces;        // binding spaces for descriptor sets creation
+        std::vector<ShaderSourceFile>    sources;       // source code modules
+        std::vector<ShaderTechniqueInfo> techniques;    // shader techniques info
+        flat_map<Strid, std::int16_t>    techniques_map;// mapping techniques name to its id
+        flat_set<Strid>                  dependencies;  // shader files dependencies for hot-reload
+        flat_set<GfxShaderLang>          languages;     // shader languages, which it provides
     };
 
 }// namespace wmoge

@@ -55,7 +55,7 @@ namespace wmoge {
             return StatusCode::InvalidState;
         }
 
-        FileSystem* fs = IocContainer::instance()->resolve_v<FileSystem>();
+        FileSystem* fs = IocContainer::iresolve_v<FileSystem>();
 
         DllLibrary dll_library{};
         dll_library.name        = library;

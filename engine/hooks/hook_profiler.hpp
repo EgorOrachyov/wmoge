@@ -54,9 +54,9 @@ namespace wmoge {
         }
 
         Status on_process(CmdLine& cmd_line) override {
-            ConfigFile*  config      = IocContainer::instance()->resolve_v<ConfigFile>();
-            Profiler*    profiler    = IocContainer::instance()->resolve_v<Profiler>();
-            Application* application = IocContainer::instance()->resolve_v<Application>();
+            ConfigFile*  config      = IocContainer::iresolve_v<ConfigFile>();
+            Profiler*    profiler    = IocContainer::iresolve_v<Profiler>();
+            Application* application = IocContainer::iresolve_v<Application>();
 
             enable_profiler = enable_profiler || cmd_line.get_bool("profiler");
             enable_profiler = enable_profiler || config->get_bool(SID("debug.profiler"), false);

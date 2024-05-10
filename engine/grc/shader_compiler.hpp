@@ -30,11 +30,13 @@
 #include "core/async.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/data.hpp"
+#include "core/flat_map.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "rtti/traits.hpp"
 
+#include <string>
 #include <vector>
 
 namespace wmoge {
@@ -44,9 +46,43 @@ namespace wmoge {
      * @brief Input file to compile 
      */
     struct ShaderCompilerInputFile {
-        std::string     source_code;
+        Strid           name;
+        Strid           file_path;
         std::string     entry_point;
         GfxShaderModule module_type;
+    };
+
+    /**
+     * @class ShaderCompilerOptions
+     * @brief Compiler options for compilation
+    */
+    struct ShaderCompilerOptions {
+        bool generate_degug_info = true;
+        bool strip_debug_info    = false;
+        bool disable_otimizer    = true;
+        bool optimize_size       = false;
+        bool validate            = true;
+        bool dump_on_failure     = true;
+    };
+
+    /**
+     * @class ShaderCompilerEnv
+     * @brief Compiler enviroment
+    */
+    struct ShaderCompilerEnv {
+        flat_map<std::string, std::string> virtual_includes;
+        flat_map<std::string, std::string> path_remappings;
+        flat_map<Strid, std::string>       defines;
+
+        void set_define(const Strid& def) { defines[def] = ""; }
+        void set_define(const Strid& def, std::string val) { defines[def] = std::move(val); }
+        void set_define(const Strid& def, int val) { defines[def] = std::to_string(val); }
+
+        void merge(const ShaderCompilerEnv& other) {
+            virtual_includes.insert(other.virtual_includes.begin(), other.virtual_includes.end());
+            path_remappings.insert(other.path_remappings.begin(), other.path_remappings.end());
+            defines.insert(other.defines.begin(), other.defines.end());
+        }
     };
 
     /** 
@@ -57,11 +93,10 @@ namespace wmoge {
         using File = ShaderCompilerInputFile;
 
         buffered_vector<File> files;
-        Strid                 name;
-        bool                  disable_otimizer = false;
-        bool                  optimize_size    = false;
-        bool                  validate         = true;
+        ShaderCompilerOptions options;
+        ShaderCompilerEnv     env;
         GfxShaderLang         language;
+        Strid                 name;
     };
 
     /** 
@@ -70,7 +105,11 @@ namespace wmoge {
     */
     struct ShaderCompilerOutput {
         buffered_vector<Ref<Data>>   bytecode;
+        buffered_vector<Sha256>      source_hashes;
+        buffered_vector<Sha256>      bytecode_hashes;
         buffered_vector<std::string> errors;
+        Status                       status;
+        float                        time_sec = 0.0f;
     };
 
     /**
@@ -110,6 +149,11 @@ namespace wmoge {
          * @brief Returns shader platform of this compiler instance
         */
         virtual GfxShaderPlatform get_platform() { return GfxShaderPlatform::None; }
+
+        /**
+         * @brief Returns shader lang of this compiler instance
+        */
+        virtual GfxShaderLang get_lang() { return GfxShaderLang::None; }
     };
 
     WG_RTTI_CLASS_BEGIN(ShaderCompiler) {

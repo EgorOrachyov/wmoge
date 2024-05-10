@@ -39,8 +39,8 @@
 namespace wmoge {
 
     EcsWorld::EcsWorld() {
-        m_task_manager = IocContainer::instance()->resolve_v<TaskManager>();
-        m_ecs_registry = IocContainer::instance()->resolve_v<EcsRegistry>();
+        m_task_manager = IocContainer::iresolve_v<TaskManager>();
+        m_ecs_registry = IocContainer::iresolve_v<EcsRegistry>();
 
         for (const EcsSystemPtr& system : m_ecs_registry->get_systems()) {
             register_system(system);

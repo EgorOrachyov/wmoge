@@ -141,13 +141,15 @@ namespace wmoge {
     struct ShaderFileSource {
         WG_RTTI_STRUCT(ShaderFileSource);
 
-        std::string     file;
+        Strid           file;
         GfxShaderModule module;
+        GfxShaderLang   lang = GfxShaderLang::GlslVk450;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderFileSource) {
         WG_RTTI_FIELD(file, {});
         WG_RTTI_FIELD(module, {});
+        WG_RTTI_FIELD(lang, {RttiOptional});
     }
     WG_RTTI_END;
 

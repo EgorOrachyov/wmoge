@@ -107,7 +107,7 @@ namespace wmoge {
     }
 
     ShaderStructRegister::ShaderStructRegister(Strid name, std::size_t size) {
-        m_manager                = IocContainer::instance()->resolve_v<ShaderManager>();
+        m_manager                = IocContainer::iresolve_v<ShaderManager>();
         m_struct_type            = make_ref<ShaderType>();
         m_struct_type->name      = name;
         m_struct_type->byte_size = std::int16_t(size);

@@ -33,15 +33,17 @@
 
 namespace wmoge {
 
-    TaskManager::TaskManager(int workers_count) {
+    TaskManager::TaskManager(int workers_count, std::string worker_prefix) {
         assert(workers_count > 0);
+
+        m_worker_prefix = std::move(worker_prefix);
 
         Profiler* profiler = Profiler::instance();
 
         for (int i = 0; i < workers_count; i++) {
             std::thread worker([this, i]() {
                 TaskContext context;
-                context.m_thread_name = SID("worker-" + std::to_string(i));
+                context.m_thread_name = SID(m_worker_prefix + std::to_string(i));
                 context.m_thread_id   = i;
 
                 while (!m_finished.load()) {
@@ -52,7 +54,8 @@ namespace wmoge {
                     }
                 }
             });
-            profiler->add_tid(worker.get_id(), SID("worker-" + std::to_string(i)));
+
+            profiler->add_tid(worker.get_id(), SID(m_worker_prefix + std::to_string(i)));
             m_workers.push_back(std::move(worker));
         }
     }
@@ -66,10 +69,14 @@ namespace wmoge {
 
         assert(task);
 
-        if (m_finished.load()) return;
+        if (m_finished.load()) {
+            return;
+        }
 
-        std::lock_guard guard(m_mutex);
-        m_background_queue.push_back(std::move(task));
+        std::unique_lock lock(m_mutex);
+        m_queue.push_back(std::move(task));
+        lock.unlock();
+        m_cv.notify_all();
     }
 
     void TaskManager::shutdown() {
@@ -78,13 +85,14 @@ namespace wmoge {
         WG_LOG_INFO("shutdown and join already started tasks");
 
         m_finished.store(true);
+        m_cv.notify_all();
 
         for (auto& worker : m_workers) {
             worker.join();
         }
 
         m_workers.clear();
-        m_background_queue.clear();
+        m_queue.clear();
     }
 
     int TaskManager::get_num_workers() {
@@ -93,17 +101,18 @@ namespace wmoge {
 
     int TaskManager::get_num_tasks() {
         std::lock_guard guard(m_mutex);
-        return int(m_background_queue.size());
+        return int(m_queue.size());
     }
 
     bool TaskManager::next_to_exec(Ref<class TaskRuntime>& task) {
         std::unique_lock guard(m_mutex);
+        m_cv.wait(guard, [&]() { return !m_queue.empty() || m_finished.load(); });
 
-        if (m_background_queue.empty() || m_finished.load())
+        if (m_queue.empty() || m_finished.load())
             return false;
 
-        task = std::move(m_background_queue.front());
-        m_background_queue.pop_front();
+        task = std::move(m_queue.front());
+        m_queue.pop_front();
         return true;
     }
 

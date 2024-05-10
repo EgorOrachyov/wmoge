@@ -54,7 +54,7 @@ namespace wmoge {
     Status Image::load(const std::string& path, int channels) {
         WG_AUTO_PROFILE_ASSET("Image::load");
 
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
 
         std::vector<std::uint8_t> pixel_data;
         if (!file_system->read_file(path, pixel_data)) {

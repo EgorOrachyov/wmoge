@@ -29,9 +29,12 @@
 
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
+#include "debug/console.hpp"
 #include "grc/shader_builder.hpp"
+#include "grc/shader_library.hpp"
 #include "io/enum.hpp"
 #include "math/math_utils.hpp"
+#include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
 #include "system/ioc_container.hpp"
@@ -43,9 +46,9 @@ namespace wmoge {
     ShaderManager::ShaderManager() {
         WG_AUTO_PROFILE_GRC("ShaderManager::ShaderManager");
 
-        m_file_system = IocContainer::instance()->resolve_v<FileSystem>();
-        m_gfx_driver  = IocContainer::instance()->resolve_v<GfxDriver>();
-        m_console     = IocContainer::instance()->resolve_v<Console>();
+        m_file_system = IocContainer::iresolve_v<FileSystem>();
+        m_gfx_driver  = IocContainer::iresolve_v<GfxDriver>();
+        m_console     = IocContainer::iresolve_v<Console>();
 
         auto builtin_types = ShaderTypes::builtin();
 
@@ -54,7 +57,13 @@ namespace wmoge {
         }
 
         m_shaders_folder = "root://shaders";
+
         m_file_system->add_rule({m_shaders_folder, "root://../shaders"});
+
+        m_compiler_options = ShaderCompilerOptions();// debug options
+
+        m_compiler_env.path_remappings["common/"] = m_shaders_folder + "/common/";
+        m_compiler_env.path_remappings["shared/"] = m_shaders_folder + "/shared/";
     }
 
     std::optional<Ref<ShaderType>> ShaderManager::find_global_type(Strid name) {
@@ -66,6 +75,11 @@ namespace wmoge {
         return std::optional<Ref<ShaderType>>();
     }
 
+    ShaderCompiler* ShaderManager::find_compiler(GfxShaderPlatform platform) {
+        assert(int(platform) < GfxLimits::NUM_PLATFORMS);
+        return m_compilers[int(platform)].get();
+    }
+
     void ShaderManager::add_global_type(const Ref<ShaderType>& type) {
         m_global_types[type->name] = type;
     }
@@ -73,7 +87,7 @@ namespace wmoge {
     void ShaderManager::load_compilers() {
         WG_AUTO_PROFILE_GRC("ShaderManager::load_compilers");
 
-        RttiTypeStorage* type_storage = IocContainer::instance()->resolve_v<RttiTypeStorage>();
+        RttiTypeStorage* type_storage = IocContainer::iresolve_v<RttiTypeStorage>();
 
         auto compilers = type_storage->find_classes([](const Ref<RttiClass>& rtti) {
             return rtti->is_subtype_of(ShaderCompiler::get_class_static()) && rtti->can_instantiate();

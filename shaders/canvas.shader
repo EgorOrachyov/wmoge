@@ -8,7 +8,7 @@ param_blocks:
     params:
       - { name: ClipProjView, type: mat4, ui_name: "", ui_hint: "" }
       - { name: InverseGamma, type: float, ui_name: "", ui_hint: "" }
-      - { name: DrawCmdsBuffer, type: DrawCmdsBuffer, binding: StorageBuffer, ui_name: "", ui_hint: "" }
+      - { name: CanvasDrawCmdsBuffer, type: CanvasDrawCmdsBuffer, binding: StorageBuffer, ui_name: "", ui_hint: "" }
   - name: images-batch
     params:
       - { name: Image0, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
@@ -29,5 +29,5 @@ techniques:
           depth_write: false
           blending: true
 sources:
-  - { module: Vertex, file: "canvas_vert.glsl" }
-  - { module: Fragment, file: "canvas_frag.glsl" } 
+  - { module: Vertex, file: "root://shaders/canvas_vert.glsl" }
+  - { module: Fragment, file: "root://shaders/canvas_frag.glsl" } 

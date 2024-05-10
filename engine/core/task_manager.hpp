@@ -31,8 +31,10 @@
 #include "core/string_id.hpp"
 #include "core/synchronization.hpp"
 
+#include <condition_variable>
+#include <deque>
 #include <functional>
-#include <list>
+#include <string>
 #include <thread>
 #include <vector>
 
@@ -60,22 +62,25 @@ namespace wmoge {
      */
     class TaskManager {
     public:
-        explicit TaskManager(int workers_count);
-        ~TaskManager();
+        explicit TaskManager(int workers_count, std::string worker_prefix = "worker-");
+        virtual ~TaskManager();
 
         void submit(Ref<class TaskRuntime> task);
         void shutdown();
-        int  get_num_workers();
-        int  get_num_tasks();
+
+        [[nodiscard]] int get_num_workers();
+        [[nodiscard]] int get_num_tasks();
 
     private:
         bool next_to_exec(Ref<class TaskRuntime>& task);
 
     private:
-        std::vector<std::thread>          m_workers;
-        std::list<Ref<class TaskRuntime>> m_background_queue;
-        std::atomic_bool                  m_finished{false};
-        SpinMutex                         m_mutex;
+        std::string                        m_worker_prefix;
+        std::vector<std::thread>           m_workers;
+        std::deque<Ref<class TaskRuntime>> m_queue;
+        std::atomic_bool                   m_finished{false};
+        std::mutex                         m_mutex;
+        std::condition_variable            m_cv;
     };
 
 }// namespace wmoge

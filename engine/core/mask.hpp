@@ -33,6 +33,7 @@
 
 #include <bitset>
 #include <initializer_list>
+#include <sstream>
 #include <vector>
 
 namespace wmoge {
@@ -82,6 +83,16 @@ namespace wmoge {
                     function(i, value);
                 }
             }
+        }
+
+        [[nodiscard]] std::string to_string() const {
+            std::stringstream stream;
+            stream << "[";
+            for_each([&](int, T value) {
+                stream << Enum::to_str(value) << ",";
+            });
+            stream << "]";
+            return stream.str();
         }
 
         std::bitset<size> bits;

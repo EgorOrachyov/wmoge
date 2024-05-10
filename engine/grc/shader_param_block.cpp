@@ -32,10 +32,177 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_param.hpp"
 
+#include <array>
 #include <cassert>
+#include <cinttypes>
 #include <cstring>
+#include <type_traits>
 
 namespace wmoge {
+
+    struct ShaderParamAccess {
+        ShaderParamAccess(ShaderParamBlock& provider) : provider(provider) {}
+
+        template<typename T>
+        Status set(ShaderParamId param_id, const T& v) {
+            if (param_id.is_invalid()) {
+                WG_LOG_ERROR("passed invalid param id");
+                return StatusCode::InvalidParameter;
+            }
+
+            std::optional<ShaderParamInfo*> p_info = provider.find_param(param_id);
+
+            if (!p_info) {
+                WG_LOG_ERROR("no such param id");
+                return StatusCode::InvalidParameter;
+            }
+
+            ShaderParamInfo* param  = p_info.value();
+            Ref<Data>*       buffer = nullptr;
+
+            if (param->buffer != -1) {
+                buffer = provider.get_buffer(param->space, param->buffer);
+                if (!buffer) {
+                    WG_LOG_ERROR("no such buffer");
+                    return StatusCode::InvalidState;
+                }
+
+                const std::int16_t offset  = param->offset;
+                const std::int16_t size    = param->elem_count * param->type->byte_size;
+                std::uint8_t*      ptr     = (*buffer)->buffer();
+                T                  to_copy = v;
+
+                if (size != sizeof(T)) {
+                    WG_LOG_ERROR("mismatched param size to set");
+                    return StatusCode::InvalidParameter;
+                }
+
+                if constexpr (std::is_same_v<T, Mat2x2f>) {
+                    to_copy = to_copy.transpose();
+                }
+                if constexpr (std::is_same_v<T, Mat3x3f>) {
+                    to_copy = to_copy.transpose();
+                }
+                if constexpr (std::is_same_v<T, Mat4x4f>) {
+                    to_copy = to_copy.transpose();
+                }
+
+                std::memcpy(ptr + offset, (const std::uint16_t*) &to_copy, size);
+                return StatusCode::Ok;
+            }
+
+            GfxDescSetResources* resources = provider.get_gfx_resources(param->space);
+            if (!resources) {
+                WG_LOG_ERROR("no such resources set");
+                return StatusCode::InvalidState;
+            }
+
+            GfxDescSetResource& resource   = resources->at(param->binding);
+            GfxDescBindValue&   bind_value = resource.second;
+
+            if constexpr (std::is_same_v<T, Ref<GfxUniformBuffer>>) {
+                bind_value.resource = v.template as<GfxResource>();
+                return StatusCode::Ok;
+            }
+            if constexpr (std::is_same_v<T, Ref<GfxStorageBuffer>>) {
+                bind_value.resource = v.template as<GfxResource>();
+                return StatusCode::Ok;
+            }
+            if constexpr (std::is_same_v<T, Ref<GfxTexture>>) {
+                bind_value.resource = v.template as<GfxResource>();
+                return StatusCode::Ok;
+            }
+            if constexpr (std::is_same_v<T, Ref<GfxSampler>>) {
+                bind_value.sampler = v;
+                return StatusCode::Ok;
+            }
+
+            WG_LOG_ERROR("unsupported type of param");
+            return StatusCode::Error;
+        }
+
+        template<typename T>
+        Status get(ShaderParamId param_id, T& v) {
+            if (param_id.is_invalid()) {
+                WG_LOG_ERROR("passed invalid param id");
+                return StatusCode::InvalidParameter;
+            }
+
+            std::optional<ShaderParamInfo*> p_info = provider.find_param(param_id);
+
+            if (!p_info) {
+                WG_LOG_ERROR("no such param id");
+                return StatusCode::InvalidParameter;
+            }
+
+            ShaderParamInfo* param  = p_info.value();
+            Ref<Data>*       buffer = nullptr;
+
+            if (param->buffer != -1) {
+                buffer = provider.get_buffer(param->space, param->buffer);
+                if (!buffer) {
+                    WG_LOG_ERROR("no such buffer");
+                    return StatusCode::InvalidState;
+                }
+
+                const std::int16_t  offset = param->offset;
+                const std::int16_t  size   = param->elem_count * param->type->byte_size;
+                const std::uint8_t* ptr    = (*buffer)->buffer();
+                T                   to_copy;
+
+                if (size != sizeof(T)) {
+                    WG_LOG_ERROR("mismatched param size to set");
+                    return StatusCode::InvalidParameter;
+                }
+
+                std::memcpy((std::uint16_t*) &to_copy, ptr + offset, size);
+
+                if constexpr (std::is_same_v<T, Mat2x2f>) {
+                    to_copy = to_copy.transpose();
+                }
+                if constexpr (std::is_same_v<T, Mat3x3f>) {
+                    to_copy = to_copy.transpose();
+                }
+                if constexpr (std::is_same_v<T, Mat4x4f>) {
+                    to_copy = to_copy.transpose();
+                }
+
+                v = to_copy;
+                return StatusCode::Ok;
+            }
+
+            const GfxDescSetResources* resources = provider.get_gfx_resources(param->space);
+            if (!resources) {
+                WG_LOG_ERROR("no such resources set");
+                return StatusCode::InvalidState;
+            }
+
+            const GfxDescSetResource& resource   = resources->at(param->binding);
+            const GfxDescBindValue&   bind_value = resource.second;
+
+            if constexpr (std::is_same_v<T, Ref<GfxUniformBuffer>>) {
+                v = bind_value.resource.template cast<GfxUniformBuffer>();
+                return StatusCode::Ok;
+            }
+            if constexpr (std::is_same_v<T, Ref<GfxStorageBuffer>>) {
+                v = bind_value.resource.template cast<GfxStorageBuffer>();
+                return StatusCode::Ok;
+            }
+            if constexpr (std::is_same_v<T, Ref<GfxTexture>>) {
+                v = bind_value.resource.template cast<GfxTexture>();
+                return StatusCode::Ok;
+            }
+            if constexpr (std::is_same_v<T, Ref<GfxSampler>>) {
+                v = bind_value.sampler;
+                return StatusCode::Ok;
+            }
+
+            WG_LOG_ERROR("unsupported type of param");
+            return StatusCode::Error;
+        }
+
+        ShaderParamBlock& provider;
+    };
 
 #define WG_GRC_SET_VAR_BUFF                                     \
     const Status s = ShaderParamAccess(*this).set(param_id, v); \
@@ -55,11 +222,11 @@ namespace wmoge {
     const Status s = ShaderParamAccess(*this).get(param_id, v); \
     return s
 
-    ShaderParamBlock::ShaderParamBlock(Shader& shader, std::int16_t space_idx, const Strid& name) {
-        reset(shader, space_idx, name);
+    ShaderParamBlock::ShaderParamBlock(ShaderInterface& shader, std::int16_t space_idx, const Strid& name) {
+        init(shader, space_idx, name);
     }
 
-    Status ShaderParamBlock::reset(Shader& shader, std::int16_t space_idx, const Strid& name) {
+    Status ShaderParamBlock::init(ShaderInterface& shader, std::int16_t space_idx, const Strid& name) {
         m_shader = &shader;
         m_space  = space_idx;
         m_name   = name;
@@ -185,7 +352,7 @@ namespace wmoge {
                                  << m_name
                                  << " space=" << m_space
                                  << " binding=" << i
-                                 << " shader=" << m_shader->get_name());
+                                 << " shader=" << m_shader->get_shader_name());
                     return StatusCode::InvalidState;
                 }
                 if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
@@ -193,7 +360,7 @@ namespace wmoge {
                                  << m_name
                                  << " space=" << m_space
                                  << " binding=" << i
-                                 << " shader=" << m_shader->get_name());
+                                 << " shader=" << m_shader->get_shader_name());
                     return StatusCode::InvalidState;
                 }
             }
@@ -253,8 +420,8 @@ namespace wmoge {
         }
         return &m_gfx_resources;
     }
-    std::optional<ShaderParamInfo*> ShaderParamBlock::get_param_info(ShaderParamId id) const {
-        return m_shader ? m_shader->get_param_info(id) : std::nullopt;
+    std::optional<ShaderParamInfo*> ShaderParamBlock::find_param(ShaderParamId id) const {
+        return m_shader ? m_shader->find_param(id) : std::nullopt;
     }
 
 }// namespace wmoge

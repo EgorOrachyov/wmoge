@@ -86,20 +86,20 @@ namespace wmoge {
     }
 
     ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_inline_uniform_buffer(Strid name, Strid type_struct) {
-        ShaderBinding& binding    = m_space.bindings.emplace_back();
-        binding.name              = name;
-        binding.binding           = ShaderBindingType::InlineUniformBuffer;
-        binding.type              = m_owner.m_reflection.declarations[type_struct];
-        binding.qualifiers.std140 = true;
+        ShaderBinding& binding = m_space.bindings.emplace_back();
+        binding.name           = name;
+        binding.binding        = ShaderBindingType::InlineUniformBuffer;
+        binding.type           = m_owner.m_reflection.declarations[type_struct];
+        binding.qualifiers     = {ShaderQualifier::Std140};
         return *this;
     }
 
     ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_uniform_buffer(Strid name, Strid type_struct) {
-        ShaderBinding& binding    = m_space.bindings.emplace_back();
-        binding.name              = name;
-        binding.binding           = ShaderBindingType::UniformBuffer;
-        binding.type              = m_owner.m_reflection.declarations[type_struct];
-        binding.qualifiers.std140 = true;
+        ShaderBinding& binding = m_space.bindings.emplace_back();
+        binding.name           = name;
+        binding.binding        = ShaderBindingType::UniformBuffer;
+        binding.type           = m_owner.m_reflection.declarations[type_struct];
+        binding.qualifiers     = {ShaderQualifier::Std140};
         return *this;
     }
 
@@ -134,11 +134,11 @@ namespace wmoge {
     }
 
     ShaderBuilder::SpaceBuilder& ShaderBuilder::SpaceBuilder::add_storage_buffer(Strid name, Strid type_struct) {
-        ShaderBinding& binding    = m_space.bindings.emplace_back();
-        binding.name              = name;
-        binding.binding           = ShaderBindingType::StorageBuffer;
-        binding.type              = m_owner.m_reflection.declarations[type_struct];
-        binding.qualifiers.std430 = true;
+        ShaderBinding& binding = m_space.bindings.emplace_back();
+        binding.name           = name;
+        binding.binding        = ShaderBindingType::StorageBuffer;
+        binding.type           = m_owner.m_reflection.declarations[type_struct];
+        binding.qualifiers     = {ShaderQualifier::Std430};
         return *this;
     }
 
@@ -251,10 +251,12 @@ namespace wmoge {
         return *this;
     }
 
-    ShaderBuilder& ShaderBuilder::add_source(Strid file, GfxShaderModule module) {
+    ShaderBuilder& ShaderBuilder::add_source(Strid file, GfxShaderModule module, GfxShaderLang lang) {
         ShaderSourceFile& source_file = m_reflection.sources.emplace_back();
-        source_file.name              = file;
+        source_file.file              = file;
         source_file.module            = module;
+        source_file.lang              = lang;
+        m_reflection.languages.insert(lang);
         return *this;
     }
 
@@ -303,7 +305,7 @@ namespace wmoge {
         return TechniqueBuilder(*this, technique);
     }
 
-    Status ShaderBuilder::finish(const Ref<Shader>& shader) {
+    Status ShaderBuilder::finish() {
         for (const auto& [name, type] : m_reflection.declarations) {
             int byte_size = 0;
 
@@ -507,7 +509,11 @@ namespace wmoge {
             }
         }
 
-        return shader->from_reflection(m_reflection);
+        return WG_OK;
+    }
+
+    ShaderReflection& ShaderBuilder::get_reflection() {
+        return m_reflection;
     }
 
 }// namespace wmoge

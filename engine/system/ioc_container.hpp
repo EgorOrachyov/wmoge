@@ -96,6 +96,9 @@ namespace wmoge {
         template<typename S>
         S* resolve_v();
 
+        template<typename S>
+        static S* iresolve_v();
+
         static IocContainer* instance();
 
     private:
@@ -190,6 +193,11 @@ namespace wmoge {
     template<typename S>
     inline S* IocContainer::resolve_v() {
         return resolve<S>().value();
+    }
+
+    template<typename S>
+    inline S* IocContainer::iresolve_v() {
+        return instance()->resolve_v<S>();
     }
 
 }// namespace wmoge

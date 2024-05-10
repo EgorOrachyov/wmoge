@@ -55,9 +55,9 @@ namespace wmoge {
     VKDriver::VKDriver(const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
-        m_config       = IocContainer::instance()->resolve_v<ConfigFile>();
-        m_file_system  = IocContainer::instance()->resolve_v<FileSystem>();
-        m_task_manager = IocContainer::instance()->resolve_v<TaskManager>();
+        m_config       = IocContainer::iresolve_v<ConfigFile>();
+        m_file_system  = IocContainer::iresolve_v<FileSystem>();
+        m_task_manager = IocContainer::iresolve_v<TaskManager>();
 
         m_driver_name = SID("vulkan");
         m_clip_matrix = Mat4x4f(1.0f, 0.0f, 0.0f, 0.0f,

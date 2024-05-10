@@ -132,7 +132,9 @@ namespace wmoge {
         m_gfx_driver = ioc->resolve_v<GfxDriver>();
         m_gfx_ctx    = ioc->resolve_v<GfxCtx>();
 
-        m_shader_manager   = ioc->resolve_v<ShaderManager>();
+        m_shader_manager = ioc->resolve_v<ShaderManager>();
+        m_shader_manager->load_compilers();
+
         m_pso_cache        = ioc->resolve_v<PsoCache>();
         m_texture_manager  = ioc->resolve_v<TextureManager>();
         m_render_engine    = ioc->resolve_v<RenderEngine>();

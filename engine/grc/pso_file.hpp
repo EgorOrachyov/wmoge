@@ -91,13 +91,11 @@ namespace wmoge {
 
         Sha256          shader_hash;
         GfxShaderModule module_type;
-        Strid           name;
     };
 
     WG_RTTI_STRUCT_BEGIN(FilePsoShader) {
         WG_RTTI_FIELD(shader_hash, {});
         WG_RTTI_FIELD(module_type, {});
-        WG_RTTI_FIELD(name, {});
     }
     WG_RTTI_END;
 

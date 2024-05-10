@@ -27,18 +27,39 @@
 
 #include "glsl_include_processor.hpp"
 
+#include "core/string_utils.hpp"
+
 namespace wmoge {
 
-    GlslIncludeProcessor::GlslIncludeProcessor(std::string folder, FileSystem* file_system) {
-        m_folder      = std::move(folder);
-        m_file_system = file_system;
+    GlslIncludeProcessor::GlslIncludeProcessor(const ShaderCompilerEnv& env, FileSystem& file_system, bool collect_code) {
+        m_file_system  = &file_system;
+        m_env          = &env;
+        m_collect_code = collect_code;
     }
 
     Status GlslIncludeProcessor::parse_file(const Strid& file) {
-        const std::string file_path = m_folder + '/' + file.str();
-        std::string       content;
+        std::string file_path = file.str();
+        std::string content;
+        bool        not_virtual = true;
 
-        if (!m_file_system->read_file(file_path, content)) {
+        for (auto& rule : m_env->path_remappings) {
+            if (StringUtils::is_starts_with(file_path, rule.first)) {
+                file_path = StringUtils::find_replace_first(file_path, rule.first, rule.second);
+                break;
+            }
+        }
+
+        for (auto& virtual_include : m_env->virtual_includes) {
+            if (StringUtils::is_starts_with(file_path, virtual_include.first)) {
+                if (m_collect_code) {
+                    content = virtual_include.second;
+                }
+                not_virtual = false;
+                break;
+            }
+        }
+
+        if (not_virtual && !m_file_system->read_file(file_path, content)) {
             WG_LOG_ERROR("failed read shader source " << file_path);
             return StatusCode::FailedRead;
         }
@@ -50,31 +71,36 @@ namespace wmoge {
         const auto version_prefix = std::string("#version");
 
         while (std::getline(stream, line)) {
-            auto pragma = line.find(include_prefix);
+            StringUtils::find_replace_first(line, "\r", "");
 
+            auto pragma = line.find(include_prefix);
             if (pragma != std::string::npos) {
                 auto line_len  = line.length();
                 auto cut_start = include_prefix.length() + 1;
                 auto cut_count = line_len - cut_start - 2;
 
-                const Strid include_file = SID(line.substr(cut_start, cut_count));
-
-                const auto recursion_check = std::find(m_includes.begin(), m_includes.end(), include_file);
+                const Strid include_file    = SID(line.substr(cut_start, cut_count));
+                const auto  recursion_check = std::find(m_includes.begin(), m_includes.end(), include_file);
 
                 if (recursion_check != m_includes.end()) {
                     continue;
                 }
 
-                m_result << "\n// Begin include file " << include_file << "\n";
+                m_includes.push_back(include_file);
+
+                if (m_collect_code) {
+                    m_result << "\n// Begin include file " << include_file << "\n";
+                }
 
                 if (!parse_file(include_file)) {
                     WG_LOG_ERROR("failed parse include file " << include_file);
                     return StatusCode::Error;
                 }
 
-                m_result << "\n// End include file " << include_file << "\n";
+                if (m_collect_code) {
+                    m_result << "\n// End include file " << include_file << "\n";
+                }
 
-                m_includes.push_back(include_file);
                 continue;
             }
 
@@ -83,7 +109,9 @@ namespace wmoge {
                 continue;
             }
 
-            m_result << line;
+            if (m_collect_code) {
+                m_result << line << "\n";
+            }
         }
 
         return StatusCode::Ok;

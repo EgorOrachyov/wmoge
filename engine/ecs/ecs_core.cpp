@@ -40,7 +40,7 @@ namespace wmoge {
             return "'empty'";
         }
 
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
+        EcsRegistry* registry = IocContainer::iresolve_v<EcsRegistry>();
 
         std::stringstream stream;
 
@@ -61,7 +61,7 @@ namespace wmoge {
     }
 
     std::string EcsQuery::to_string() const {
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
+        EcsRegistry* registry = IocContainer::iresolve_v<EcsRegistry>();
 
         if (!read.any() && !write.any()) {
             return "'empty'";

@@ -56,7 +56,7 @@ namespace wmoge {
             return StatusCode::InvalidData;
         }
 
-        FileSystem* file_system = IocContainer::instance()->resolve_v<FileSystem>();
+        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
         std::string file_name   = import_data->source_files[0].file;
 
         std::vector<std::uint8_t> file_data;

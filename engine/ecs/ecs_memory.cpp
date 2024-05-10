@@ -56,7 +56,7 @@ namespace wmoge {
     EcsArchStorage::EcsArchStorage(EcsArch arch) : m_arch(arch) {
         WG_AUTO_PROFILE_ECS("EcsArchStorage::EcsArchStorage");
 
-        EcsRegistry* registry = IocContainer::instance()->resolve_v<EcsRegistry>();
+        EcsRegistry* registry = IocContainer::iresolve_v<EcsRegistry>();
 
         m_chunk_size  = registry->get_chunk_size();
         m_pool.back() = EcsPool(sizeof(EcsEntity), m_chunk_size, &registry->get_entity_pool());

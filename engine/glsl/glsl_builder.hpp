@@ -25,55 +25,51 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "mesh_processors.hpp"
+#pragma once
 
-#include "gfx/gfx_driver.hpp"
-#include "material/material.hpp"
-#include "mesh/mesh_batch.hpp"
-#include "profiler/profiler.hpp"
+#include "core/string_id.hpp"
+#include "grc/shader_reflection.hpp"
+
+#include <sstream>
+#include <string>
 
 namespace wmoge {
 
-    bool MeshPassProcessorGBuffer::filter(const MeshBatch& batch) {
-        return true;
-    }
-    Status MeshPassProcessorGBuffer::compile(const MeshBatch& batch, Ref<GfxPsoGraphics>& out_pipeline) {
-        WG_AUTO_PROFILE_MESH("MeshPassProcessorGBuffer::compile");
+    /**
+     * @class GlslBuilder
+     * @brief Builder to construct glsl code file
+    */
+    class GlslBuilder {
+    public:
+        GlslBuilder() = default;
 
-        // Material*           material       = batch.material;
-        // Shader*             shader         = material->get_shader().get();
-        // ShaderPipelineState pipeline_state = shader->get_pipeline_state();
+        void set_version(int version, bool core_profile);
+        void set_module(GfxShaderModule module);
+        void add_define(Strid define);
+        void add_define(Strid define, const std::string& value);
+        void add_vertex_input(int location, const std::string& type, const std::string& name);
+        void add_sampler2d_binding(int space, int slot, Strid name);
+        void add_sampler2dArray_binding(int space, int slot, Strid name);
+        void add_samplerCube_binding(int space, int slot, Strid name);
+        void add_image_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers);
+        void begin_storage_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers);
+        void end_storage_binding();
+        void begin_uniform_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers);
+        void end_uniform_binding();
+        void begin_struct(Strid name);
+        void end_struct();
+        void add_field(Strid type_name, Strid field_name);
+        void add_field(Strid type_name, Strid field_name, std::optional<int> num_elements);
+        void add_source(const std::string& source);
 
-        buffered_vector<std::string> defines;
-        {
-            defines.push_back("MESH_PASS_GBUFFER");
-        }
+        [[nodiscard]] std::string emit() const;
 
-        GfxVertAttribs attribs;
-
-        // additional attribute to fetch gpu data
-        // attribs.set(GfxVertAttrib::PrimitiveIdi);
-
-        GfxPsoStateGraphics gfx_pso_state;
-        // gfx_pso_state.shader       = m_shader_manager->get_shader(shader->get_domain(), attribs, defines, shader);
-        // gfx_pso_state.prim_type    = batch.prim_type;
-        // gfx_pso_state.poly_mode    = pipeline_state.poly_mode;
-        // gfx_pso_state.cull_mode    = pipeline_state.cull_mode;
-        // gfx_pso_state.front_face   = pipeline_state.front_face;
-        // gfx_pso_state.depth_enable = pipeline_state.depth_enable;
-        // gfx_pso_state.depth_write  = pipeline_state.depth_write;
-        // gfx_pso_state.depth_func   = pipeline_state.depth_func;
-        // gfx_pso_state.blending     = false;
-
-        // out_pipeline = m_gfx_driver->make_pso_graphics(gfx_pso_state);
-
-        return StatusCode::Ok;
-    }
-    std::string MeshPassProcessorGBuffer::get_name() const {
-        return "MeshPassProcessorGBuffer";
-    }
-    MeshPassType MeshPassProcessorGBuffer::get_pass_type() const {
-        return MeshPassType::GBuffer;
-    }
+    private:
+        GfxShaderModule   m_module;
+        GfxShaderPlatform m_platform;
+        GfxType           m_driver_type;
+        std::stringstream m_stream;
+        std::string       m_spacing = "    ";
+    };
 
 }// namespace wmoge

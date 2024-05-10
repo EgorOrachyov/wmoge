@@ -67,7 +67,7 @@ namespace wmoge {
         asset->set_name(name);
         asset->set_import_data(meta.import_data);
 
-        return shader->from_file(shader_file);
+        return shader->load(shader_file);
     }
 
 }// namespace wmoge

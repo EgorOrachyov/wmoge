@@ -27,69 +27,23 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "core/buffered_vector.hpp"
-#include "core/ref.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "gfx/gfx_desc_set.hpp"
 #include "grc/shader_file.hpp"
-#include "grc/shader_reflection.hpp"
-#include "platform/file_system.hpp"
-#include "rtti/traits.hpp"
-
-#include <bitset>
-#include <optional>
+#include "grc/shader_interface.hpp"
 
 namespace wmoge {
 
     /**
      * @class Shader
-     * @brief Reprsents a particular shader program script
-     * 
-     * Shader is a high level representation of a shading program.
-     * It provides a connection between raw glsl sources code of a shader,
-     * material and engine gfx module for runtime usage.
-     * 
-     * Shader provides info about a particular shader type. It provides
-     * layout information, parameters and structures layout, defines and
-     * compilations options, constants and includes, and provides hot-reloading
-     * mechanism for debugging. 
-     * 
-     * Shader is a shader defenition for drawing with pre-defined interface.
-     * It is not an compiled instance of a particular glsl shader. In order to get 
-     * a concrete instance of compiled gpu program, pass and options must be
-     * provided from ShaderInstance or Material / MaterialInstance classes.
+     * @brief An engine standard shader class for in-engine drawing facilities
     */
-    class Shader : public Asset {
+    class Shader : public ShaderInterface {
     public:
-        WG_RTTI_CLASS(Shader, Asset);
+        WG_RTTI_CLASS(Shader, ShaderInterface);
+
+        Status load(const ShaderFile& file);
 
         Shader()           = default;
         ~Shader() override = default;
-
-        Status                          from_reflection(ShaderReflection& reflection);
-        Status                          from_file(const ShaderFile& file);
-        std::optional<std::int16_t>     find_technique(Strid name);
-        std::optional<std::int16_t>     find_pass(std::int16_t technique, Strid name);
-        ShaderParamId                   get_param_id(Strid name);
-        std::optional<ShaderParamInfo*> get_param_info(ShaderParamId id);
-        Status                          reload_sources(const std::string& folder, FileSystem* fs);
-        Status                          fill_layout(GfxDescSetLayoutDesc& desc, int space) const;
-        bool                            has_dependency(const Strid& dependency) const;
-        bool                            has_space(ShaderSpaceType space_type) const;
-        bool                            has_option(std::int16_t technique, Strid name, Strid variant) const;
-        bool                            has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;
-        std::int16_t                    get_num_spaces() const;
-
-        [[nodiscard]] const ShaderReflection&      get_reflection() const { return m_reflection; }
-        [[nodiscard]] ShaderReflection&            get_reflection() { return m_reflection; }
-        [[nodiscard]] const Strid&                 get_name() const { return m_reflection.shader_name; }
-        [[nodiscard]] const Ref<GfxDescSetLayout>& get_layout(std::int16_t space) const { return m_layouts[space]; }
-
-    protected:
-        ShaderReflection                       m_reflection;
-        buffered_vector<Ref<GfxDescSetLayout>> m_layouts;
     };
 
     WG_RTTI_CLASS_BEGIN(Shader) {
