@@ -82,8 +82,10 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5631f94421cddd9f321d630a2ab4bdb4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderCacheMap.html#a5631f94421cddd9f321d630a2ab4bdb4">ShaderCacheMap</a> ()=default</td></tr>
 <tr class="separator:a5631f94421cddd9f321d630a2ab4bdb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a395fcc4f084177230b1f45df06919998"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderCacheMap.html#a395fcc4f084177230b1f45df06919998">find_program</a> (const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation) const</td></tr>
-<tr class="separator:a395fcc4f084177230b1f45df06919998"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa56e8671961f7611ea8554c9aab22eb7"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderCacheMap.html#aa56e8671961f7611ea8554c9aab22eb7">find_program</a> (const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation)</td></tr>
+<tr class="separator:aa56e8671961f7611ea8554c9aab22eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a372d888c5713b1a2147355e40276b249"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderCacheMap.html#a372d888c5713b1a2147355e40276b249">get_or_add_entry</a> (const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation)</td></tr>
+<tr class="separator:a372d888c5713b1a2147355e40276b249"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a677ede85728626d089198af80cabedf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderCacheMap.html#a677ede85728626d089198af80cabedf5">fit_program</a> (const <a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> &amp;program)</td></tr>
 <tr class="separator:a677ede85728626d089198af80cabedf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef08271700d3c1e7d67e1387d944fe93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderCacheMap.html#aef08271700d3c1e7d67e1387d944fe93">dump_programs</a> (std::vector&lt; <a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> &gt; &amp;out_programs)</td></tr>
@@ -136,18 +138,18 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a395fcc4f084177230b1f45df06919998"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a395fcc4f084177230b1f45df06919998">&#9670;&nbsp;</a></span>find_program()</h2>
+<a id="aa56e8671961f7611ea8554c9aab22eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa56e8671961f7611ea8554c9aab22eb7">&#9670;&nbsp;</a></span>find_program()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt;<a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a>*&gt; wmoge::ShaderCacheMap::find_program </td>
+          <td class="memname">std::optional&lt; <a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> * &gt; wmoge::ShaderCacheMap::find_program </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;&#160;</td>
           <td class="paramname"><em>permutation</em></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -172,8 +174,27 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a id="a372d888c5713b1a2147355e40276b249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a372d888c5713b1a2147355e40276b249">&#9670;&nbsp;</a></span>get_or_add_entry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structwmoge_1_1ShaderProgram.html">ShaderProgram</a> &amp; wmoge::ShaderCacheMap::get_or_add_entry </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;&#160;</td>
+          <td class="paramname"><em>permutation</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>engine/grc/<a class="el" href="shader__cache_8hpp_source.html">shader_cache.hpp</a></li>
+<li>engine/grc/<a class="el" href="shader__cache_8cpp.html">shader_cache.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

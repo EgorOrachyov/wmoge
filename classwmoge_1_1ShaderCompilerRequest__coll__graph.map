@@ -1,7 +1,10 @@
 <map id="wmoge::ShaderCompilerRequest" name="wmoge::ShaderCompilerRequest">
-<area shape="rect" id="node1" title="Request to compile a shader program." alt="" coords="130,184,341,211"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,95,116,121"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1ShaderCompilerInput.html" title=" " alt="" coords="140,95,331,121"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="187,5,284,32"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1ShaderCompilerOutput.html" title="Compiler result." alt="" coords="355,95,556,121"/>
+<area shape="rect" id="node1" title="Request to compile a shader program." alt="" coords="167,184,378,211"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="43,95,153,121"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1ShaderCompilerInput.html" title=" " alt="" coords="177,95,368,121"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ShaderCompilerOptions.html" title="Compiler options for compilation." alt="" coords="127,5,333,32"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1ShaderCompilerEnv.html" title="Compiler enviroment." alt="" coords="358,5,542,32"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1ShaderCompilerOutput.html" title="Compiler result." alt="" coords="477,95,679,121"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Status.html" title="Wrapper for return status code and an optional error message instead of exception." alt="" coords="567,5,675,32"/>
 </map>

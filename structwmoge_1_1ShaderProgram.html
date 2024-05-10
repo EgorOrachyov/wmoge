@@ -82,10 +82,13 @@ Collaboration diagram for wmoge::ShaderProgram:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1ShaderProgram__coll__graph.png" border="0" usemap="#awmoge_1_1ShaderProgram_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ShaderProgram_coll__map" id="awmoge_1_1ShaderProgram_coll__map">
-<area shape="rect" title="Compiled shader program info." alt="" coords="67,199,227,225"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="5,95,155,136"/>
-<area shape="rect" href="structwmoge_1_1ShaderPermutation.html" title="Defines a particular variant of a compiled shader." alt="" coords="179,102,360,129"/>
-<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="170,5,369,32"/>
+<area shape="rect" title="Compiled shader program info." alt="" coords="668,101,828,127"/>
+<area shape="rect" href="classwmoge_1_1Async.html" title="Handle to an asynchronous operation (may have result or may not)" alt="" coords="375,13,481,39"/>
+<area shape="rect" href="classwmoge_1_1AsyncBase.html" title=" " alt="" coords="5,5,220,47"/>
+<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="353,64,503,105"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="379,130,477,157"/>
+<area shape="rect" href="structwmoge_1_1ShaderPermutation.html" title="Defines a particular variant of a compiled shader." alt="" coords="337,181,519,207"/>
+<area shape="rect" href="structwmoge_1_1Mask.html" title=" " alt="" coords="13,181,212,207"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -97,12 +100,30 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aec54cf078a80c763dde9539a012ca8f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a218dee3676820be71a27999021ec75fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderProgram.html#a218dee3676820be71a27999021ec75fc">permutation</a></td></tr>
 <tr class="separator:a218dee3676820be71a27999021ec75fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88a8989072f39ca8736fba9a942035a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#ad23bd460188df71a49cf4bff3c05a823">ShaderStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderProgram.html#a88a8989072f39ca8736fba9a942035a6">status</a></td></tr>
+<tr class="memitem:a88a8989072f39ca8736fba9a942035a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#ad23bd460188df71a49cf4bff3c05a823">ShaderStatus</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderProgram.html#a88a8989072f39ca8736fba9a942035a6">status</a> = ShaderStatus::None</td></tr>
 <tr class="separator:a88a8989072f39ca8736fba9a942035a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9647fa02e69ca146fcf5c82e174d60de"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderProgram.html#a9647fa02e69ca146fcf5c82e174d60de">name</a></td></tr>
+<tr class="separator:a9647fa02e69ca146fcf5c82e174d60de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0c01e9b6185490e188603ec01ef2109"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Async.html">Async</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderProgram.html#aa0c01e9b6185490e188603ec01ef2109">compilation_task</a></td></tr>
+<tr class="separator:aa0c01e9b6185490e188603ec01ef2109"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Compiled shader program info. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa0c01e9b6185490e188603ec01ef2109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0c01e9b6185490e188603ec01ef2109">&#9670;&nbsp;</a></span>compilation_task</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Async.html">Async</a> wmoge::ShaderProgram::compilation_task</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a220d44c71e7e69596368cdb6364c7ab2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a220d44c71e7e69596368cdb6364c7ab2">&#9670;&nbsp;</a></span>modules</h2>
 
@@ -111,6 +132,20 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt;<a class="el" href="structwmoge_1_1Sha256.html">Sha256</a>&gt; wmoge::ShaderProgram::modules</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9647fa02e69ca146fcf5c82e174d60de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9647fa02e69ca146fcf5c82e174d60de">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ShaderProgram::name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -152,7 +187,7 @@ Public Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#ad23bd460188df71a49cf4bff3c05a823">ShaderStatus</a> wmoge::ShaderProgram::status</td>
+          <td class="memname"><a class="el" href="namespacewmoge.html#ad23bd460188df71a49cf4bff3c05a823">ShaderStatus</a> wmoge::ShaderProgram::status = ShaderStatus::None</td>
         </tr>
       </table>
 </div><div class="memdoc">

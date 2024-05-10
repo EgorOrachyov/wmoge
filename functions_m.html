@@ -106,6 +106,12 @@ $(function() {
 : <a class="el" href="classwmoge_1_1RttiFunction.html#a34fef8f82a3a364dc5d4c6858097e7af">wmoge::RttiFunction</a>
 , <a class="el" href="classwmoge_1_1RttiType.html#af6bb7b60fbb71a1c0d8ed062f30eb297">wmoge::RttiType</a>
 </li>
+<li>m_cache
+: <a class="el" href="classwmoge_1_1ShaderInterface.html#a385f37072cfffe0599008b127933699f">wmoge::ShaderInterface</a>
+</li>
+<li>m_cached_declarations
+: <a class="el" href="classwmoge_1_1ShaderInterface.html#afa9b056520182671aa53aaa5a75dd890">wmoge::ShaderInterface</a>
+</li>
 <li>m_callbacks
 : <a class="el" href="classwmoge_1_1AsyncState.html#a6f8633ad3fe52f9a7ed5b7955d9ea26f">wmoge::AsyncState&lt; T &gt;</a>
 </li>
@@ -186,6 +192,9 @@ $(function() {
 </li>
 <li>m_engine_name
 : <a class="el" href="classwmoge_1_1AudioEngine.html#ab6c46273a0b086d5d3d3c801c8e026f4">wmoge::AudioEngine</a>
+</li>
+<li>m_env
+: <a class="el" href="classwmoge_1_1ShaderInterface.html#a9713de51c85ae512bb8e29b8b0cccb57">wmoge::ShaderInterface</a>
 </li>
 <li>m_fields
 : <a class="el" href="classwmoge_1_1RttiStruct.html#ac362540788002466564347e661f01c96">wmoge::RttiStruct</a>
@@ -273,7 +282,7 @@ $(function() {
 </li>
 <li>m_layouts
 : <a class="el" href="classwmoge_1_1GfxPsoLayout.html#a496792ba5c781794f13b3aecbb687f6b">wmoge::GfxPsoLayout</a>
-, <a class="el" href="classwmoge_1_1Shader.html#a33f5c8854dadac15c35bd084dce657cd">wmoge::Shader</a>
+, <a class="el" href="classwmoge_1_1ShaderInterface.html#a5dcb5dea7eab1eb97d6d70c94e338c99">wmoge::ShaderInterface</a>
 </li>
 <li>m_length
 : <a class="el" href="classwmoge_1_1AudioStream.html#a1451a577c099edfffd680f67b59ff9ca">wmoge::AudioStream</a>
@@ -307,6 +316,7 @@ $(function() {
 <li>m_mutex
 : <a class="el" href="classwmoge_1_1AsyncState.html#a0fefe5adcb1253e38085d77330a85ee9">wmoge::AsyncState&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1GfxDynBuffer.html#a1a6ee6782ff3ea43dad2e9bfa30fcb10">wmoge::GfxDynBuffer</a>
+, <a class="el" href="classwmoge_1_1ShaderInterface.html#a9ce561f3276cdc3886080affa1a3eb56">wmoge::ShaderInterface</a>
 </li>
 <li>m_name
 : <a class="el" href="classwmoge_1_1Archive.html#aa32e4f0434531459a01ae5c9a1148260">wmoge::Archive</a>
@@ -342,11 +352,14 @@ $(function() {
 <li>m_position
 : <a class="el" href="classwmoge_1_1Mouse.html#ac25b1de19b74ba5c73f26ff50390bc18">wmoge::Mouse</a>
 </li>
+<li>m_pso_layout
+: <a class="el" href="classwmoge_1_1ShaderInterface.html#af125ebf770cd78068cbc21908aa6533c">wmoge::ShaderInterface</a>
+</li>
 <li>m_ptr
 : <a class="el" href="classwmoge_1_1Ref.html#a219c8ab7378747e40b4f80bb1f0007be">wmoge::Ref&lt; T &gt;</a>
 </li>
 <li>m_reflection
-: <a class="el" href="classwmoge_1_1Shader.html#a43c32a329d62958332249f82213c4119">wmoge::Shader</a>
+: <a class="el" href="classwmoge_1_1ShaderInterface.html#a87ebbae0d59777e783a0cf6153571784">wmoge::ShaderInterface</a>
 </li>
 <li>m_requirements
 : <a class="el" href="classwmoge_1_1Plugin.html#a6549baa28d6b1bfcc9122dd1f3bc491e">wmoge::Plugin</a>
@@ -735,7 +748,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1EcsComponentWorldToLocal.html#a0a6fc9e7f2092a65aa9bd820da1d748b">wmoge::EcsComponentWorldToLocal</a>
 </li>
 <li>max()
-: <a class="el" href="classwmoge_1_1Math.html#aed14962c4a279c82e54d89bdafede808">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#ac5240bb80d40c9abdda6a74f8f25dbd9">wmoge::Math</a>
 , <a class="el" href="classwmoge_1_1TAabb.html#ab2137f48f46089de2a18299f21a5c6bf">wmoge::TAabb&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#aa7ce4170066b6733df0e6a687eff717d">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
@@ -809,7 +822,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Image.html#aa0f8720399cd1a165a4f0d04a6e0498c">wmoge::Image</a>
 </li>
 <li>MAX_OPTIONS
-: <a class="el" href="structwmoge_1_1ShaderOptions.html#adaf8410c3857e7935b3f1569befe9538">wmoge::ShaderOptions</a>
+: <a class="el" href="structwmoge_1_1ShaderOptions.html#a3aad1858dd3de9295f35db66faf72166">wmoge::ShaderOptions</a>
 </li>
 <li>max_sb
 : <a class="el" href="structwmoge_1_1VKDescPoolConfig.html#a8757f3b46d2b8731ee2cc19e14acf459">wmoge::VKDescPoolConfig</a>
@@ -882,7 +895,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1MemPoolBase.html#ae11d9d473be4e449b6ef075096c66d12">wmoge::MemPoolBase</a>
 </li>
 <li>merge()
-: <a class="el" href="classwmoge_1_1VKDescSet.html#a581be2e39ab162ed40b003d3d87a9cc9">wmoge::VKDescSet</a>
+: <a class="el" href="structwmoge_1_1ShaderCompilerEnv.html#ad3295c5dc80068b7090afe81efaca258">wmoge::ShaderCompilerEnv</a>
+, <a class="el" href="classwmoge_1_1VKDescSet.html#a581be2e39ab162ed40b003d3d87a9cc9">wmoge::VKDescSet</a>
 </li>
 <li>merge_cmds()
 : <a class="el" href="classwmoge_1_1RenderEngine.html#a35caacb680a6eb3d6222648b8097c5ba">wmoge::RenderEngine</a>
@@ -1012,7 +1026,7 @@ $(function() {
 <li>module_type
 : <a class="el" href="structwmoge_1_1FilePsoShader.html#a187d79c64476cc832466c7129b9594fc">wmoge::FilePsoShader</a>
 , <a class="el" href="structwmoge_1_1GfxShaderDesc.html#af37d32d42549c8925f60ba04fde71f69">wmoge::GfxShaderDesc</a>
-, <a class="el" href="structwmoge_1_1GlslInputFile.html#a296cad7458cfad93ea406d24a57f0cc3">wmoge::GlslInputFile</a>
+, <a class="el" href="structwmoge_1_1GfxShaderHeader.html#aeb3c5759c528e916c1f6274aae8d9916">wmoge::GfxShaderHeader</a>
 , <a class="el" href="structwmoge_1_1ShaderCompilerInputFile.html#a30039e4a9ba7b94c28c1882d0bf7c8f2">wmoge::ShaderCompilerInputFile</a>
 , <a class="el" href="structwmoge_1_1ShaderModule.html#a8a8bb4054fe600761b0b9eb97e6de7c0">wmoge::ShaderModule</a>
 </li>

@@ -1,0 +1,4 @@
+<map id="wmoge::ShaderCompilerTaskManager" name="wmoge::ShaderCompilerTaskManager">
+<area shape="rect" id="node1" title="Task manager to schedule shader compilation jobs." alt="" coords="5,80,196,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TaskManager.html" title="Manager for engine async task execution." alt="" coords="26,5,175,32"/>
+</map>

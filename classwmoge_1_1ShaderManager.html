@@ -84,12 +84,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaa20738f9452beaa911f7761f73beea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65afc39aeb9b1cc6170454757ba3bea7"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a65afc39aeb9b1cc6170454757ba3bea7">find_global_type</a> (<a class="el" href="classwmoge_1_1Strid.html">Strid</a> name)</td></tr>
 <tr class="separator:a65afc39aeb9b1cc6170454757ba3bea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e2da163efcf3bc2e2c6e74da648e1e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1ShaderCompiler.html">ShaderCompiler</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a01e2da163efcf3bc2e2c6e74da648e1e">find_compiler</a> (<a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a> platform)</td></tr>
+<tr class="separator:a01e2da163efcf3bc2e2c6e74da648e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c4a20269164e1db92603c9b9752043f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a3c4a20269164e1db92603c9b9752043f">add_global_type</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &amp;type)</td></tr>
 <tr class="separator:a3c4a20269164e1db92603c9b9752043f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad265b84445ef4931b16f557213e48b56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ad265b84445ef4931b16f557213e48b56">load_compilers</a> ()</td></tr>
 <tr class="separator:ad265b84445ef4931b16f557213e48b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7a2c02fe6fbf9758e2e2860abf3e148"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ad7a2c02fe6fbf9758e2e2860abf3e148">get_shaders_folder</a> () const</td></tr>
 <tr class="separator:ad7a2c02fe6fbf9758e2e2860abf3e148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86eca555af918fb0e259c8776c37f8fe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1ShaderCompilerOptions.html">ShaderCompilerOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a86eca555af918fb0e259c8776c37f8fe">get_compiler_options</a> () const</td></tr>
+<tr class="separator:a86eca555af918fb0e259c8776c37f8fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c41c168c205dff90a7533f58e44122a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1ShaderCompilerEnv.html">ShaderCompilerEnv</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a0c41c168c205dff90a7533f58e44122a">get_compiler_env</a> () const</td></tr>
+<tr class="separator:a0c41c168c205dff90a7533f58e44122a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manager for loading and compilation of shader scripts. </p>
@@ -130,6 +136,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a01e2da163efcf3bc2e2c6e74da648e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e2da163efcf3bc2e2c6e74da648e1e">&#9670;&nbsp;</a></span>find_compiler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1ShaderCompiler.html">ShaderCompiler</a> * wmoge::ShaderManager::find_compiler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a>&#160;</td>
+          <td class="paramname"><em>platform</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a65afc39aeb9b1cc6170454757ba3bea7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65afc39aeb9b1cc6170454757ba3bea7">&#9670;&nbsp;</a></span>find_global_type()</h2>
 
@@ -144,6 +168,56 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c41c168c205dff90a7533f58e44122a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c41c168c205dff90a7533f58e44122a">&#9670;&nbsp;</a></span>get_compiler_env()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structwmoge_1_1ShaderCompilerEnv.html">ShaderCompilerEnv</a>&amp; wmoge::ShaderManager::get_compiler_env </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86eca555af918fb0e259c8776c37f8fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86eca555af918fb0e259c8776c37f8fe">&#9670;&nbsp;</a></span>get_compiler_options()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structwmoge_1_1ShaderCompilerOptions.html">ShaderCompilerOptions</a>&amp; wmoge::ShaderManager::get_compiler_options </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

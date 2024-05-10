@@ -78,48 +78,49 @@ $(function() {
 <code>#include &quot;<a class="el" href="yaml_8hpp_source.html">io/yaml.hpp</a>&quot;</code><br />
 <code>#include &lt;bitset&gt;</code><br />
 <code>#include &lt;initializer_list&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for mask.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="mask_8hpp__incl.png" border="0" usemap="#aengine_2core_2mask_8hpp" alt=""/></div>
 <map name="aengine_2core_2mask_8hpp" id="aengine_2core_2mask_8hpp">
-<area shape="rect" title=" " alt="" coords="779,5,928,32"/>
-<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="601,80,765,107"/>
-<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="631,155,734,181"/>
-<area shape="rect" title=" " alt="" coords="5,304,64,331"/>
-<area shape="rect" title=" " alt="" coords="1775,229,1830,256"/>
-<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="917,155,1003,181"/>
-<area shape="rect" title=" " alt="" coords="1079,80,1175,107"/>
-<area shape="rect" title=" " alt="" coords="518,155,607,181"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="222,229,314,256"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1133,229,1224,256"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="998,229,1109,256"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="655,304,779,331"/>
-<area shape="rect" href="context_8hpp.html" title=" " alt="" coords="390,229,493,256"/>
-<area shape="rect" title=" " alt="" coords="517,229,568,256"/>
-<area shape="rect" title=" " alt="" coords="72,229,147,256"/>
-<area shape="rect" title=" " alt="" coords="592,229,659,256"/>
-<area shape="rect" title=" " alt="" coords="683,229,794,256"/>
-<area shape="rect" title=" " alt="" coords="819,229,923,256"/>
-<area shape="rect" title=" " alt="" coords="483,379,549,405"/>
-<area shape="rect" title=" " alt="" coords="89,304,156,331"/>
-<area shape="rect" title=" " alt="" coords="181,304,249,331"/>
-<area shape="rect" title=" " alt="" coords="273,304,330,331"/>
-<area shape="rect" title=" " alt="" coords="355,304,424,331"/>
-<area shape="rect" title=" " alt="" coords="590,379,645,405"/>
-<area shape="rect" title=" " alt="" coords="1124,304,1185,331"/>
-<area shape="rect" title=" " alt="" coords="1261,304,1326,331"/>
-<area shape="rect" title=" " alt="" coords="829,379,907,405"/>
-<area shape="rect" title=" " alt="" coords="1056,379,1139,405"/>
-<area shape="rect" title=" " alt="" coords="1615,304,1667,331"/>
-<area shape="rect" title=" " alt="" coords="708,379,777,405"/>
-<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="1007,304,1099,331"/>
-<area shape="rect" title=" " alt="" coords="1511,379,1631,405"/>
-<area shape="rect" title=" " alt="" coords="1349,229,1459,256"/>
-<area shape="rect" title=" " alt="" coords="1483,229,1554,256"/>
-<area shape="rect" title=" " alt="" coords="1578,229,1673,256"/>
-<area shape="rect" title=" " alt="" coords="1697,229,1751,256"/>
+<area shape="rect" title=" " alt="" coords="1795,5,1945,32"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="1551,80,1715,107"/>
+<area shape="rect" href="archive_8hpp.html" title=" " alt="" coords="631,155,733,181"/>
+<area shape="rect" title=" " alt="" coords="1894,304,1963,331"/>
+<area shape="rect" title=" " alt="" coords="1790,304,1849,331"/>
+<area shape="rect" title=" " alt="" coords="1300,229,1355,256"/>
+<area shape="rect" href="yaml_8hpp.html" title=" " alt="" coords="963,155,1049,181"/>
+<area shape="rect" title=" " alt="" coords="2009,80,2105,107"/>
+<area shape="rect" title=" " alt="" coords="1588,155,1677,181"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1132,229,1224,256"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="325,229,415,256"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="997,229,1108,256"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="891,304,1015,331"/>
+<area shape="rect" href="context_8hpp.html" title=" " alt="" coords="24,229,127,256"/>
+<area shape="rect" title=" " alt="" coords="151,229,202,256"/>
+<area shape="rect" title=" " alt="" coords="226,229,301,256"/>
+<area shape="rect" title=" " alt="" coords="703,229,770,256"/>
+<area shape="rect" title=" " alt="" coords="440,229,551,256"/>
+<area shape="rect" title=" " alt="" coords="575,229,679,256"/>
+<area shape="rect" title=" " alt="" coords="1172,379,1237,405"/>
+<area shape="rect" title=" " alt="" coords="1491,304,1558,331"/>
+<area shape="rect" title=" " alt="" coords="1583,304,1651,331"/>
+<area shape="rect" title=" " alt="" coords="1359,304,1416,331"/>
+<area shape="rect" title=" " alt="" coords="1076,379,1131,405"/>
+<area shape="rect" title=" " alt="" coords="407,304,469,331"/>
+<area shape="rect" title=" " alt="" coords="749,304,815,331"/>
+<area shape="rect" title=" " alt="" coords="545,379,624,405"/>
+<area shape="rect" title=" " alt="" coords="730,379,813,405"/>
+<area shape="rect" title=" " alt="" coords="673,304,725,331"/>
+<area shape="rect" title=" " alt="" coords="950,379,1019,405"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="1243,304,1335,331"/>
+<area shape="rect" title=" " alt="" coords="1611,379,1731,405"/>
+<area shape="rect" title=" " alt="" coords="1379,229,1489,256"/>
+<area shape="rect" title=" " alt="" coords="1513,229,1584,256"/>
+<area shape="rect" title=" " alt="" coords="1608,229,1703,256"/>
+<area shape="rect" title=" " alt="" coords="1727,229,1781,256"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -127,56 +128,56 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="mask_8hpp__dep__incl.png" border="0" usemap="#aengine_2core_2mask_8hppdep" alt=""/></div>
 <map name="aengine_2core_2mask_8hppdep" id="aengine_2core_2mask_8hppdep">
-<area shape="rect" title=" " alt="" coords="2327,5,2476,32"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1858,705,1985,732"/>
-<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="2322,87,2481,114"/>
-<area shape="rect" href="render__queue_8hpp.html" title=" " alt="" coords="1149,527,1289,568"/>
-<area shape="rect" href="shader__reflection_8hpp.html" title=" " alt="" coords="367,445,575,471"/>
-<area shape="rect" href="mesh__pass_8hpp.html" title=" " alt="" coords="1415,445,1606,471"/>
-<area shape="rect" href="canvas_8hpp.html" title=" " alt="" coords="967,445,1137,471"/>
-<area shape="rect" href="assimp__import__data_8hpp.html" title=" " alt="" coords="1921,348,2076,389"/>
-<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="4843,177,4999,203"/>
-<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="4639,87,4809,114"/>
-<area shape="rect" href="pfx__storage_8hpp.html" title=" " alt="" coords="5400,87,5576,114"/>
-<area shape="rect" href="file_8hpp.html" title=" " alt="" coords="4891,623,5045,650"/>
-<area shape="rect" href="input__defs_8hpp.html" title=" " alt="" coords="5070,616,5213,657"/>
-<area shape="rect" href="meta__data_8hpp.html" title=" " alt="" coords="5237,623,5405,650"/>
-<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="373,177,509,203"/>
-<area shape="rect" href="script__instance_8hpp.html" title=" " alt="" coords="5227,80,5376,121"/>
-<area shape="rect" href="gfx__ctx_8hpp.html" title=" " alt="" coords="1733,445,1883,471"/>
-<area shape="rect" href="gfx__driver_8hpp.html" title=" " alt="" coords="1991,534,2156,561"/>
-<area shape="rect" href="shader__library_8hpp.html" title=" " alt="" coords="2010,623,2201,650"/>
-<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="1037,259,1174,300"/>
-<area shape="rect" href="gfx__pipeline_8hpp.html" title=" " alt="" coords="1365,355,1542,382"/>
-<area shape="rect" href="shader__param_8hpp.html" title=" " alt="" coords="508,534,700,561"/>
-<area shape="rect" href="shader__param__block_8hpp.html" title=" " alt="" coords="724,527,892,568"/>
-<area shape="rect" href="gfx__dynamic__buffers_8hpp.html" title=" " alt="" coords="2455,348,2612,389"/>
-<area shape="rect" href="gfx__render__pass_8hpp.html" title=" " alt="" coords="2082,259,2227,300"/>
-<area shape="rect" href="vk__render__pass_8hpp.html" title=" " alt="" coords="4153,348,4295,389"/>
-<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="1503,177,1686,203"/>
-<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="1604,259,1735,300"/>
-<area shape="rect" href="vk__defs_8hpp.html" title=" " alt="" coords="4159,259,4300,300"/>
-<area shape="rect" href="glsl__shader__compiler_8hpp.html" title=" " alt="" coords="1812,169,1967,211"/>
-<area shape="rect" href="shader__compiler_8hpp.html" title=" " alt="" coords="93,266,299,293"/>
-<area shape="rect" href="texture_8hpp.html" title=" " alt="" coords="4420,355,4569,382"/>
-<area shape="rect" href="texture__asset__loader_8hpp.html" title=" " alt="" coords="4292,437,4463,479"/>
-<area shape="rect" href="texture__compression_8hpp.html" title=" " alt="" coords="1301,259,1427,300"/>
-<area shape="rect" href="array__mesh_8hpp.html" title=" " alt="" coords="4629,177,4819,203"/>
-<area shape="rect" href="mesh__builder_8hpp.html" title=" " alt="" coords="4645,266,4846,293"/>
-<area shape="rect" href="auto__base__gl410__frag_8hpp.html" title=" " alt="" coords="2503,169,2681,211"/>
-<area shape="rect" href="auto__base__pass_8hpp.html" title=" " alt="" coords="2455,259,2609,300"/>
-<area shape="rect" href="auto__base__gl410__vert_8hpp.html" title=" " alt="" coords="2898,169,3075,211"/>
-<area shape="rect" href="auto__base__reflection_8hpp.html" title=" " alt="" coords="2705,169,2874,211"/>
-<area shape="rect" href="auto__base__vk450__frag_8hpp.html" title=" " alt="" coords="2041,169,2223,211"/>
-<area shape="rect" href="auto__base__vk450__vert_8hpp.html" title=" " alt="" coords="2247,169,2428,211"/>
-<area shape="rect" href="auto__bloom__gl410__comp_8hpp.html" title=" " alt="" coords="3151,169,3345,211"/>
-<area shape="rect" href="auto__bloom__pass_8hpp.html" title=" " alt="" coords="3171,259,3325,300"/>
-<area shape="rect" href="auto__bloom__reflection_8hpp.html" title=" " alt="" coords="3369,169,3545,211"/>
-<area shape="rect" href="auto__bloom__vk450__comp_8hpp.html" title=" " alt="" coords="3570,169,3769,211"/>
-<area shape="rect" href="auto__canvas__gl410__frag_8hpp.html" title=" " alt="" coords="3843,169,4034,211"/>
-<area shape="rect" href="auto__canvas__pass_8hpp.html" title=" " alt="" coords="3859,259,4018,300"/>
-<area shape="rect" href="auto__canvas__gl410__vert_8hpp.html" title=" " alt="" coords="4058,169,4249,211"/>
-<area shape="rect" href="auto__canvas__reflection_8hpp.html" title=" " alt="" coords="853,348,1035,389"/>
+<area shape="rect" title=" " alt="" coords="4180,5,4329,32"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="1635,705,1762,732"/>
+<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="1997,87,2155,114"/>
+<area shape="rect" href="render__queue_8hpp.html" title=" " alt="" coords="1181,527,1321,568"/>
+<area shape="rect" href="shader__reflection_8hpp.html" title=" " alt="" coords="348,445,556,471"/>
+<area shape="rect" href="mesh__pass_8hpp.html" title=" " alt="" coords="1738,445,1929,471"/>
+<area shape="rect" href="canvas_8hpp.html" title=" " alt="" coords="999,445,1169,471"/>
+<area shape="rect" href="assimp__import__data_8hpp.html" title=" " alt="" coords="3940,348,4095,389"/>
+<area shape="rect" href="mesh_8hpp.html" title=" " alt="" coords="4659,177,4815,203"/>
+<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="4455,87,4625,114"/>
+<area shape="rect" href="pfx__storage_8hpp.html" title=" " alt="" coords="5216,87,5392,114"/>
+<area shape="rect" href="file_8hpp.html" title=" " alt="" coords="4772,623,4927,650"/>
+<area shape="rect" href="input__defs_8hpp.html" title=" " alt="" coords="4951,616,5094,657"/>
+<area shape="rect" href="meta__data_8hpp.html" title=" " alt="" coords="5119,623,5287,650"/>
+<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="475,177,611,203"/>
+<area shape="rect" href="script__instance_8hpp.html" title=" " alt="" coords="5043,80,5192,121"/>
+<area shape="rect" href="gfx__ctx_8hpp.html" title=" " alt="" coords="1511,445,1662,471"/>
+<area shape="rect" href="gfx__driver_8hpp.html" title=" " alt="" coords="1916,534,2081,561"/>
+<area shape="rect" href="shader__library_8hpp.html" title=" " alt="" coords="2058,623,2249,650"/>
+<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="981,259,1118,300"/>
+<area shape="rect" href="gfx__pipeline_8hpp.html" title=" " alt="" coords="1447,355,1625,382"/>
+<area shape="rect" href="shader__param_8hpp.html" title=" " alt="" coords="493,534,685,561"/>
+<area shape="rect" href="shader__param__block_8hpp.html" title=" " alt="" coords="709,527,877,568"/>
+<area shape="rect" href="gfx__dynamic__buffers_8hpp.html" title=" " alt="" coords="2308,437,2465,479"/>
+<area shape="rect" href="gfx__render__pass_8hpp.html" title=" " alt="" coords="1641,259,1786,300"/>
+<area shape="rect" href="vk__render__pass_8hpp.html" title=" " alt="" coords="2359,348,2500,389"/>
+<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="1447,177,1630,203"/>
+<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="1900,259,2031,300"/>
+<area shape="rect" href="vk__defs_8hpp.html" title=" " alt="" coords="2257,259,2399,300"/>
+<area shape="rect" href="glsl__shader__compiler_8hpp.html" title=" " alt="" coords="245,348,400,389"/>
+<area shape="rect" href="shader__compiler_8hpp.html" title=" " alt="" coords="144,266,349,293"/>
+<area shape="rect" href="texture_8hpp.html" title=" " alt="" coords="4119,355,4268,382"/>
+<area shape="rect" href="texture__asset__loader_8hpp.html" title=" " alt="" coords="4164,437,4335,479"/>
+<area shape="rect" href="texture__compression_8hpp.html" title=" " alt="" coords="1245,259,1371,300"/>
+<area shape="rect" href="array__mesh_8hpp.html" title=" " alt="" coords="4445,177,4635,203"/>
+<area shape="rect" href="mesh__builder_8hpp.html" title=" " alt="" coords="4394,266,4595,293"/>
+<area shape="rect" href="auto__base__gl410__frag_8hpp.html" title=" " alt="" coords="2114,169,2291,211"/>
+<area shape="rect" href="auto__base__pass_8hpp.html" title=" " alt="" coords="2473,259,2628,300"/>
+<area shape="rect" href="auto__base__gl410__vert_8hpp.html" title=" " alt="" coords="2315,169,2493,211"/>
+<area shape="rect" href="auto__base__reflection_8hpp.html" title=" " alt="" coords="2517,169,2686,211"/>
+<area shape="rect" href="auto__base__vk450__frag_8hpp.html" title=" " alt="" coords="2711,169,2892,211"/>
+<area shape="rect" href="auto__base__vk450__vert_8hpp.html" title=" " alt="" coords="1857,169,2039,211"/>
+<area shape="rect" href="auto__bloom__gl410__comp_8hpp.html" title=" " alt="" coords="2967,169,3161,211"/>
+<area shape="rect" href="auto__bloom__pass_8hpp.html" title=" " alt="" coords="2987,259,3141,300"/>
+<area shape="rect" href="auto__bloom__reflection_8hpp.html" title=" " alt="" coords="3185,169,3361,211"/>
+<area shape="rect" href="auto__bloom__vk450__comp_8hpp.html" title=" " alt="" coords="3386,169,3585,211"/>
+<area shape="rect" href="auto__canvas__gl410__frag_8hpp.html" title=" " alt="" coords="3659,169,3850,211"/>
+<area shape="rect" href="auto__canvas__pass_8hpp.html" title=" " alt="" coords="3675,259,3834,300"/>
+<area shape="rect" href="auto__canvas__gl410__vert_8hpp.html" title=" " alt="" coords="3874,169,4065,211"/>
+<area shape="rect" href="auto__canvas__reflection_8hpp.html" title=" " alt="" coords="885,348,1067,389"/>
 </map>
 </div>
 </div>
