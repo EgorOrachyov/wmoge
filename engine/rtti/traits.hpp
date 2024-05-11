@@ -402,6 +402,7 @@ namespace wmoge {
     WG_RTTI_FUNDAMENTAL_DECL(unsigned int, "uint");
     WG_RTTI_FUNDAMENTAL_DECL(float, "float");
     WG_RTTI_FUNDAMENTAL_DECL(bool, "bool");
+    WG_RTTI_FUNDAMENTAL_DECL(std::size_t, "size_t");
     WG_RTTI_FUNDAMENTAL_DECL(std::string, "string");
     WG_RTTI_FUNDAMENTAL_DECL(Strid, "strid");
     WG_RTTI_FUNDAMENTAL_DECL(UUID, "uuid");

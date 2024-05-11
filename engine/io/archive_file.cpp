@@ -109,8 +109,8 @@ namespace wmoge {
         FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
         WG_CHECKED(file_system->open_file(file_path, m_file, {FileOpenMode::In, FileOpenMode::Binary}));
 
-        m_can_read  = false;
-        m_can_write = true;
+        m_can_read  = true;
+        m_can_write = false;
 
         return WG_OK;
     }

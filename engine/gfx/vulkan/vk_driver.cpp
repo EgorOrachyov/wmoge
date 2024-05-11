@@ -69,6 +69,16 @@ namespace wmoge {
         m_engine_name         = info.engine_name;
         m_required_extensions = info.required_ext;
 
+#ifdef TARGET_WINDOWS
+        m_shader_patform = GfxShaderPlatform::VulkanWindows;
+#endif
+#ifdef TARGET_LINUX
+        m_shader_patform = GfxShaderPlatform::VulkanLinux;
+#endif
+#ifdef TARGET_MACOS
+        m_shader_patform = GfxShaderPlatform::VulkanMacOS;
+#endif
+
 #ifndef WMOGE_RELEASE
         m_use_validation = m_config->get_bool(SID("gfx.vulkan.validation_layer"), true);
 #endif
@@ -143,16 +153,6 @@ namespace wmoge {
 
         // finally init wrapper for ctx immediate
         m_ctx_immediate_wrapper = std::make_unique<GfxCtxWrapper>(m_ctx_immediate.get());
-
-#ifdef TARGET_WINDOWS
-        m_shader_patform = GfxShaderPlatform::VulkanWindows;
-#endif
-#ifdef TARGET_LINUX
-        m_shader_patform = GfxShaderPlatform::VulkanLinux;
-#endif
-#ifdef TARGET_MACOS
-        m_shader_patform = GfxShaderPlatform::VulkanMacOS;
-#endif
 
         WG_LOG_INFO("init vulkan gfx driver");
     }

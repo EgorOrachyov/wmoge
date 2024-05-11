@@ -106,6 +106,9 @@ namespace wmoge {
     Status yaml_read(IoContext& context, YamlConstNodeRef node, std::int16_t& value);
     Status yaml_write(IoContext& context, YamlNodeRef node, const std::int16_t& value);
 
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::size_t& value);
+    Status yaml_write(IoContext& context, YamlNodeRef node, const std::size_t& value);
+
     Status yaml_read(IoContext& context, YamlConstNodeRef node, Status& value);
     Status yaml_write(IoContext& context, YamlNodeRef node, const Status& value);
 

@@ -47,7 +47,7 @@ namespace wmoge {
     void VKShader::create(GfxShaderDesc desc) {
         WG_AUTO_PROFILE_VULKAN("VKShader::create");
 
-        m_desc = std::move(m_desc);
+        m_desc = std::move(desc);
 
         VkShaderModuleCreateInfo create_info{};
         create_info.sType    = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;

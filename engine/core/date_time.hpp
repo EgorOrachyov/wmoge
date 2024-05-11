@@ -68,7 +68,10 @@ namespace wmoge {
 
         [[nodiscard]] DateTimeTm  to_tm() const;
         [[nodiscard]] std::time_t to_time_t() const;
+        [[nodiscard]] std::tm     to_tm_t() const;
         [[nodiscard]] std::string to_string() const;
+        [[nodiscard]] std::string to_formatted(const std::string& format) const;
+        [[nodiscard]] std::string to_pretty_string() const;
 
         [[nodiscard]] TimePoint get_time_point() const { return m_value; }
 
@@ -84,7 +87,7 @@ namespace wmoge {
     };
 
     inline std::ostream& operator<<(std::ostream& stream, const DateTime& dt) {
-        stream << dt.to_string();
+        stream << dt.to_pretty_string();
         return stream;
     }
 

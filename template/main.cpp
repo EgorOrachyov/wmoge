@@ -164,7 +164,22 @@ public:
         ShaderPermutation permutation;
         permutation.technique_idx = 0;
         permutation.pass_idx      = 0;
+
         permutation.options.set(0);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
+        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+
+        permutation.options.set(1);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
         shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);

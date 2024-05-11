@@ -95,12 +95,12 @@ namespace wmoge {
         [[nodiscard]] const Ref<GfxPsoLayout>&     get_pso_layout() const { return m_pso_layout; }
 
     protected:
-        ShaderReflection                       m_reflection;
-        ShaderCache                            m_cache;
-        ShaderCompilerEnv                      m_env;
-        buffered_vector<Ref<GfxDescSetLayout>> m_layouts;
-        Ref<GfxPsoLayout>                      m_pso_layout;
-        flat_map<GfxShaderLang, std::string>   m_cached_declarations;
+        ShaderReflection                     m_reflection;
+        ShaderCache                          m_cache;
+        ShaderCompilerEnv                    m_env;
+        GfxDescSetLayouts                    m_layouts;
+        GfxPsoLayoutRef                      m_pso_layout;
+        flat_map<GfxShaderLang, std::string> m_cached_declarations;
 
         mutable RwMutexReadPrefer m_mutex;
     };

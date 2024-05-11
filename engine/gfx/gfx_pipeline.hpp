@@ -52,6 +52,8 @@ namespace wmoge {
         GfxDescSetLayouts m_layouts;
     };
 
+    using GfxPsoLayoutRef = Ref<GfxPsoLayout>;
+
     /**
      * @class GfxPsoStateGraphics
      * @brief Gfx pipeline state description
@@ -105,6 +107,8 @@ namespace wmoge {
         ~GfxPso() override = default;
     };
 
+    using GfxPsoRef = Ref<GfxPso>;
+
     /**
      * @class GfxPsoGraphics
      * @brief Represents created and compiled graphics pipeline state object
@@ -116,6 +120,8 @@ namespace wmoge {
         ~GfxPsoGraphics() override = default;
     };
 
+    using GfxPsoGraphicsRef = Ref<GfxPsoGraphics>;
+
     /**
      * @class GfxPsoCompute
      * @brief Represents created and compiled compute pipeline state object
@@ -126,6 +132,8 @@ namespace wmoge {
     public:
         ~GfxPsoCompute() override = default;
     };
+
+    using GfxPsoComputeRef = Ref<GfxPsoCompute>;
 
     /**
      * @class GfxAsyncPsoRequestGraphics
@@ -140,6 +148,8 @@ namespace wmoge {
         buffered_vector<Ref<GfxPsoGraphics>, 1> pso;
     };
 
+    using GfxAsyncPsoRequestGraphicsRef = Ref<GfxAsyncPsoRequestGraphics>;
+
     /**
      * @class GfxAsyncPsoRequestCompute
      * @brief Request for async pso compilation
@@ -152,6 +162,8 @@ namespace wmoge {
         buffered_vector<Strid, 1>              names;
         buffered_vector<Ref<GfxPsoCompute>, 1> pso;
     };
+
+    using GfxAsyncPsoRequestComputeRef = Ref<GfxAsyncPsoRequestCompute>;
 
 }// namespace wmoge
 

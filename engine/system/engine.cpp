@@ -43,6 +43,7 @@
 #include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "grc/pso_cache.hpp"
+#include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "hooks/hook_config.hpp"
@@ -135,6 +136,9 @@ namespace wmoge {
         m_shader_manager = ioc->resolve_v<ShaderManager>();
         m_shader_manager->load_compilers();
 
+        m_shader_library = ioc->resolve_v<ShaderLibrary>();
+        m_shader_library->load_cache("cache://", m_gfx_driver->get_shader_platform());
+
         m_pso_cache        = ioc->resolve_v<PsoCache>();
         m_texture_manager  = ioc->resolve_v<TextureManager>();
         m_render_engine    = ioc->resolve_v<RenderEngine>();
@@ -212,6 +216,8 @@ namespace wmoge {
     Status Engine::shutdown() {
         WG_AUTO_PROFILE_SYSTEM("Engine::shutdown");
 
+        m_shader_library->save_cache("cache://", m_gfx_driver->get_shader_platform());
+
         m_plugin_manager->shutdown();
         m_layer_stack->clear();
         m_task_manager->shutdown();
@@ -249,6 +255,7 @@ namespace wmoge {
     GfxDriver*        Engine::gfx_driver() { return m_gfx_driver; }
     GfxCtx*           Engine::gfx_ctx() { return m_gfx_ctx; }
     ShaderManager*    Engine::shader_manager() { return m_shader_manager; }
+    ShaderLibrary*    Engine::shader_library() { return m_shader_library; }
     PsoCache*         Engine::pso_cache() { return m_pso_cache; }
     TextureManager*   Engine::texture_manager() { return m_texture_manager; }
     AuxDrawManager*   Engine::aux_draw_manager() { return m_aux_draw_manager; }

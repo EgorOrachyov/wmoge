@@ -68,7 +68,7 @@ namespace wmoge {
 
         Ref<GfxShader>                get_or_create_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
         std::optional<Ref<GfxShader>> find_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
-        void                          fit_module(const ShaderModule& module);
+        void                          fit_module(ShaderModule& module);
         void                          dump_modules(std::vector<ShaderModule>& out_modules);
 
     private:
@@ -91,12 +91,15 @@ namespace wmoge {
     */
     class ShaderLibrary {
     public:
-        ShaderLibrary() = default;
+        ShaderLibrary();
 
         Ref<GfxShader>                get_or_create_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
         std::optional<Ref<GfxShader>> find_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
-        void                          fit_module(GfxShaderPlatform platform, const ShaderModule& module);
+        void                          fit_module(GfxShaderPlatform platform, ShaderModule& module);
         void                          dump_modules(GfxShaderPlatform platform, std::vector<ShaderModule>& out_modules);
+        std::string                   get_cache_file_name(const std::string& folder, const GfxShaderPlatform platform);
+        Status                        load_cache(const std::string& folder, const GfxShaderPlatform platform);
+        Status                        save_cache(const std::string& folder, const GfxShaderPlatform platform);
 
     private:
         std::array<ShaderModuleMap, GfxLimits::NUM_PLATFORMS> m_libraries;

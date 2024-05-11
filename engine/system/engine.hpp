@@ -77,6 +77,7 @@ namespace wmoge {
         class GfxDriver*        gfx_driver();
         class GfxCtx*           gfx_ctx();
         class ShaderManager*    shader_manager();
+        class ShaderLibrary*    shader_library();
         class PsoCache*         pso_cache();
         class TextureManager*   texture_manager();
         class AuxDrawManager*   aux_draw_manager();
@@ -118,6 +119,7 @@ namespace wmoge {
         class GfxDriver*        m_gfx_driver         = nullptr;
         class GfxCtx*           m_gfx_ctx            = nullptr;
         class ShaderManager*    m_shader_manager     = nullptr;
+        class ShaderLibrary*    m_shader_library     = nullptr;
         class PsoCache*         m_pso_cache          = nullptr;
         class TextureManager*   m_texture_manager    = nullptr;
         class AuxDrawManager*   m_aux_draw_manager   = nullptr;

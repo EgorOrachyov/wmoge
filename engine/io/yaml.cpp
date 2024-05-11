@@ -119,6 +119,15 @@ namespace wmoge {
         return StatusCode::Ok;
     }
 
+    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::size_t& value) {
+        node >> value;
+        return StatusCode::Ok;
+    }
+    Status yaml_write(IoContext& context, YamlNodeRef node, const std::size_t& value) {
+        node << value;
+        return StatusCode::Ok;
+    }
+
     Status yaml_read(IoContext& context, YamlConstNodeRef node, Status& value) {
         return yaml_read(context, node, value.code());
     }

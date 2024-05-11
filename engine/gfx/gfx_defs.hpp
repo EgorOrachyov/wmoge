@@ -75,6 +75,15 @@ namespace wmoge {
             "PLATFORM_METAL_MACOS",
             "PLATFORM_MAX"};
 
+    static constexpr const char* GfxShaderPlatformFileName[] = {
+            "none",
+            "vk_linux",
+            "vk_windows",
+            "vk_macos",
+            "dx12_windows",
+            "metal_macos",
+            "max"};
+
     /** @brief Gfx common device limits */
     struct GfxLimits {
         /** Vertex shader max input elements */

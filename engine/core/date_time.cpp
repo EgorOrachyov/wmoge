@@ -55,14 +55,7 @@ namespace wmoge {
     }
 
     DateTimeTm DateTime::to_tm() const {
-        std::tm     s_tm;
-        std::time_t s_time_t = to_time_t();
-
-#if defined(TARGET_WINDOWS)
-        localtime_s(&s_tm, &s_time_t);
-#else
-        localtime_r(&s_time_t, &s_tm);
-#endif
+        std::tm s_tm = to_tm_t();
 
         DateTimeTm tm{};
         tm.year   = s_tm.tm_year;
@@ -78,6 +71,19 @@ namespace wmoge {
         return Clock::to_time_t(m_value);
     }
 
+    std::tm DateTime::to_tm_t() const {
+        std::tm     s_tm;
+        std::time_t s_time_t = to_time_t();
+
+#if defined(TARGET_WINDOWS)
+        localtime_s(&s_tm, &s_time_t);
+#else
+        localtime_r(&s_time_t, &s_tm);
+#endif
+
+        return s_tm;
+    }
+
     std::string DateTime::to_string() const {
         std::stringstream str;
         DateTimeTm        tm = to_tm();
@@ -90,6 +96,18 @@ namespace wmoge {
             << tm.second;
 
         return str.str();
+    }
+
+    std::string DateTime::to_formatted(const std::string& format) const {
+        char    buffer[128];
+        std::tm tm = to_tm_t();
+        strftime(buffer, sizeof(buffer), format.c_str(), &tm);
+        return buffer;
+    }
+
+    std::string DateTime::to_pretty_string() const {
+        static const std::string format = "%Y.%m.%d %H:%M:%S";
+        return to_formatted(format);
     }
 
     DateTime DateTime::now() {
