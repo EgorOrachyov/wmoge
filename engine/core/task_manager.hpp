@@ -62,7 +62,7 @@ namespace wmoge {
      */
     class TaskManager {
     public:
-        explicit TaskManager(int workers_count, std::string worker_prefix = "worker-");
+        explicit TaskManager(int workers_count, std::string worker_prefix = "worker");
         virtual ~TaskManager();
 
         void submit(Ref<class TaskRuntime> task);

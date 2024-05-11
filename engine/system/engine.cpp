@@ -186,6 +186,10 @@ namespace wmoge {
             m_gfx_driver->prepare_window(w);
         }
 
+        if (m_event_manager) {
+            m_event_manager->flush();
+        }
+
         if (m_scene_manager) {
             m_scene_manager->update();
         }

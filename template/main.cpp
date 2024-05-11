@@ -137,7 +137,7 @@ public:
                 .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
                 .finish();
 
-        Ref<Shader> shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
+        shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
 
         ShaderParamId p_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
         ShaderParamId p_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
@@ -159,12 +159,11 @@ public:
         Engine*         engine           = Engine::instance();
         AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();
 
-        Ref<Shader> shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
-
         ShaderPermutation permutation;
         permutation.technique_idx = 0;
         permutation.pass_idx      = 0;
 
+        permutation.options.reset();
         permutation.options.set(0);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
@@ -179,6 +178,7 @@ public:
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
         shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
 
+        permutation.options.reset();
         permutation.options.set(1);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
@@ -217,6 +217,7 @@ public:
     Status on_shutdown() override {
         WG_AUTO_PROFILE(app, "TemplateApplication::on_shutdown");
 
+        shader.reset();
         mesh.reset();
         scene.reset();
         scene_tree.reset();
@@ -230,6 +231,7 @@ public:
     Ref<Scene>     scene;
     Ref<SceneTree> scene_tree;
     WeakRef<Mesh>  mesh;
+    Ref<Shader>    shader;
 };
 
 int main(int argc, const char* const* argv) {

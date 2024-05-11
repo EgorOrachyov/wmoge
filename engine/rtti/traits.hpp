@@ -50,6 +50,7 @@
 #include "rtti/type.hpp"
 #include "rtti/type_storage.hpp"
 
+#include <bitset>
 #include <cinttypes>
 #include <mutex>
 #include <optional>
@@ -191,6 +192,19 @@ namespace wmoge {
         ~RttiTypeMaskT() override = default;
         Status to_string(const void* src, std::stringstream& s) const override {
             s << *((const MaskT*) src);
+            return WG_OK;
+        }
+    };
+
+    template<typename BitsetT, int N>
+    class RttiTypeBitsetT : public RttiTypeT<BitsetT, RttiTypeBitset> {
+    public:
+        RttiTypeBitsetT(Strid name) : RttiTypeT<BitsetT, RttiTypeBitset>(name) {
+            RttiTypeBitset::m_dimension = N;
+        }
+        ~RttiTypeBitsetT() override = default;
+        Status to_string(const void* src, std::stringstream& s) const override {
+            s << *((const BitsetT*) src);
             return WG_OK;
         }
     };
@@ -420,6 +434,18 @@ namespace wmoge {
         }
         static Ref<RttiType> make() {
             return make_ref<RttiTypeMaskT<MaskType, T, N>>(name());
+        }
+    };
+
+    template<std::size_t N>
+    struct RttiTypeOf<std::bitset<N>> {
+        using BitsetType = std::bitset<N>;
+
+        static Strid name() {
+            return SID(std::string("bitset<") + std::to_string(N) + ">");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeBitsetT<BitsetType, int(N)>>(name());
         }
     };
 

@@ -35,7 +35,7 @@
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "grc/shader_interface.hpp"
+#include "grc/shader.hpp"
 #include "grc/shader_reflection.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
@@ -74,9 +74,9 @@ namespace wmoge {
          * @param space_idx Index of space to be used with this block
          * @param name Param block name for debug
         */
-        ShaderParamBlock(ShaderInterface& shader, std::int16_t space_idx, const Strid& name);
+        ShaderParamBlock(Shader& shader, std::int16_t space_idx, const Strid& name);
 
-        Status init(ShaderInterface& shader, std::int16_t space_idx, const Strid& name);
+        Status init(Shader& shader, std::int16_t space_idx, const Strid& name);
         Status restore_defaults();
         Status validate(class GfxDriver* driver, class GfxCtx* ctx);
 
@@ -109,7 +109,7 @@ namespace wmoge {
         Status get_var(ShaderParamId param_id, Ref<GfxStorageBuffer>& v);
 
         [[nodiscard]] const Ref<GfxDescSet>&          get_gfx_set() { return m_gfx_set; }
-        [[nodiscard]] ShaderInterface*                get_shader() { return m_shader; }
+        [[nodiscard]] Shader*                         get_shader() { return m_shader; }
         [[nodiscard]] std::int16_t                    get_space() { return m_space; }
         [[nodiscard]] Ref<Data>*                      get_buffer(std::int16_t buffer_idx);
         [[nodiscard]] Ref<Data>*                      get_buffer(std::int16_t space_idx, std::int16_t buffer_idx);
@@ -125,7 +125,7 @@ namespace wmoge {
         GfxDescSetResources           m_gfx_resources;
         Ref<GfxDescSet>               m_gfx_set;
         buffered_vector<Ref<Data>, 1> m_buffers;
-        ShaderInterface*              m_shader = nullptr;
+        Shader*                       m_shader = nullptr;
         Strid                         m_name;
         std::int16_t                  m_space         = -1;
         std::int8_t                   m_dirty_buffers = 1;

@@ -83,18 +83,11 @@ namespace wmoge {
         void unsubscribe(EventListenerHnd hnd);
 
         /**
-         * @brief Dispatch immediately event
+         * @brief Queue event to dispatch
          *
          * @param event Event to dispatch
          */
         void dispatch(const Ref<Event>& event);
-
-        /**
-         * @brief Queue event to dispatch
-         *
-         * @param event Event to dispatch later
-         */
-        void dispatch_deferred(const Ref<Event>& event);
 
         /**
          * @brief Dispatch queued events
@@ -107,8 +100,8 @@ namespace wmoge {
         buffered_vector<Ref<Event>>                          m_events;
         buffered_vector<Ref<Event>>                          m_events_deferred;
 
-        MemPool          m_listeners_pool;
         EventListenerHnd m_next_hnd{0};
+        MemPool          m_listeners_pool;
         bool             m_dispatching = false;
 
         mutable std::recursive_mutex m_mutex;

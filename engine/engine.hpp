@@ -131,7 +131,6 @@
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_file.hpp"
 #include "grc/shader_instance.hpp"
-#include "grc/shader_interface.hpp"
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/shader_param.hpp"

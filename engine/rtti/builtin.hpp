@@ -66,6 +66,21 @@ namespace wmoge {
     };
 
     /**
+     * @class RttiTypeBitset
+     * @brief Base rtti to inspect bit set
+    */
+    class RttiTypeBitset : public RttiType {
+    public:
+        using RttiType::RttiType;
+        ~RttiTypeBitset() override = default;
+
+        [[nodiscard]] int get_dimension() const { return m_dimension; }
+
+    protected:
+        int m_dimension = 0;
+    };
+
+    /**
      * @class RttiTypeRef
      * @brief Base rtti to inspect ref counted value
     */

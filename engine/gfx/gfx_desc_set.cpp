@@ -28,6 +28,7 @@
 #include "gfx_desc_set.hpp"
 
 #include <bitset>
+#include <functional>
 
 namespace wmoge {
 

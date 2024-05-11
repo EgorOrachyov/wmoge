@@ -167,12 +167,10 @@ namespace wmoge {
     }
 
     std::size_t ShaderPermutation::hash() const {
-        Crc32Builder hasher;
-        hasher.hash(&options, sizeof(options));
-        hasher.hash(&vert_attribs, sizeof(vert_attribs));
-        hasher.hash(&technique_idx, sizeof(technique_idx));
-        hasher.hash(&pass_idx, sizeof(pass_idx));
-        return hasher.get();
+        return std::hash<ShaderOptions::Mask>()(options) ^
+               std::hash<GfxVertAttribs::BitsetType>()(vert_attribs.bits) ^
+               std::hash<std::int16_t>()(technique_idx) ^
+               std::hash<std::int16_t>()(pass_idx);
     }
 
 }// namespace wmoge

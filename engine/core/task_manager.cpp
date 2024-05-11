@@ -43,7 +43,7 @@ namespace wmoge {
         for (int i = 0; i < workers_count; i++) {
             std::thread worker([this, i]() {
                 TaskContext context;
-                context.m_thread_name = SID(m_worker_prefix + std::to_string(i));
+                context.m_thread_name = SID(m_worker_prefix + "-" + std::to_string(i));
                 context.m_thread_id   = i;
 
                 while (!m_finished.load()) {
@@ -55,7 +55,7 @@ namespace wmoge {
                 }
             });
 
-            profiler->add_tid(worker.get_id(), SID(m_worker_prefix + std::to_string(i)));
+            profiler->add_tid(worker.get_id(), SID(m_worker_prefix + "-" + std::to_string(i)));
             m_workers.push_back(std::move(worker));
         }
     }
@@ -82,7 +82,7 @@ namespace wmoge {
     void TaskManager::shutdown() {
         WG_AUTO_PROFILE_CORE("TaskManager::shutdown");
 
-        WG_LOG_INFO("shutdown and join already started tasks");
+        WG_LOG_INFO("shutdown manager=" << m_worker_prefix << " and join already started tasks");
 
         m_finished.store(true);
         m_cv.notify_all();
@@ -90,6 +90,8 @@ namespace wmoge {
         for (auto& worker : m_workers) {
             worker.join();
         }
+
+        std::unique_lock lock(m_mutex);
 
         m_workers.clear();
         m_queue.clear();

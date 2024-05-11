@@ -222,11 +222,11 @@ namespace wmoge {
     const Status s = ShaderParamAccess(*this).get(param_id, v); \
     return s
 
-    ShaderParamBlock::ShaderParamBlock(ShaderInterface& shader, std::int16_t space_idx, const Strid& name) {
+    ShaderParamBlock::ShaderParamBlock(Shader& shader, std::int16_t space_idx, const Strid& name) {
         init(shader, space_idx, name);
     }
 
-    Status ShaderParamBlock::init(ShaderInterface& shader, std::int16_t space_idx, const Strid& name) {
+    Status ShaderParamBlock::init(Shader& shader, std::int16_t space_idx, const Strid& name) {
         m_shader = &shader;
         m_space  = space_idx;
         m_name   = name;

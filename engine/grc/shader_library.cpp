@@ -43,6 +43,7 @@
 #include <mutex>
 #include <shared_mutex>
 #include <sstream>
+#include <vector>
 
 namespace wmoge {
 
@@ -189,7 +190,7 @@ namespace wmoge {
         m_libraries[int(platform)].dump_modules(out_modules);
     }
 
-    std::string ShaderLibrary::get_cache_file_name(const std::string& folder, const GfxShaderPlatform platform) {
+    std::string ShaderLibrary::make_cache_file_name(const std::string& folder, const GfxShaderPlatform platform) {
         std::stringstream file_name;
         file_name << folder;
         file_name << "/shader_library." << GfxShaderPlatformFileName[int(platform)] << ".slf";
@@ -199,7 +200,7 @@ namespace wmoge {
     Status ShaderLibrary::load_cache(const std::string& folder, const GfxShaderPlatform platform) {
         WG_AUTO_PROFILE_GRC("ShaderLibrary::load_cache");
 
-        const std::string file_path = get_cache_file_name(folder, platform);
+        const std::string file_path = make_cache_file_name(folder, platform);
         ArchiveReaderFile archive;
         IoContext         context;
 
@@ -255,7 +256,7 @@ namespace wmoge {
             library.total_size += file_module.bytecode->size();
         }
 
-        const std::string file_path = get_cache_file_name(folder, platform);
+        const std::string file_path = make_cache_file_name(folder, platform);
         ArchiveWriterFile archive;
         IoContext         context;
 

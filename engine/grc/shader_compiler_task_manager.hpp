@@ -37,7 +37,7 @@ namespace wmoge {
     */
     class ShaderCompilerTaskManager : public TaskManager {
     public:
-        ShaderCompilerTaskManager(int num_workers) : TaskManager(num_workers, "shader-compiler-") {}
+        ShaderCompilerTaskManager(int num_workers) : TaskManager(num_workers, "shader-compiler") {}
         ~ShaderCompilerTaskManager() = default;
     };
 

@@ -47,6 +47,8 @@ namespace wmoge {
      */
     template<typename T, int size = 32>
     struct Mask {
+        using BitsetType = std::bitset<size>;
+
         Mask() = default;
 
         Mask(const std::bitset<size>& input) {

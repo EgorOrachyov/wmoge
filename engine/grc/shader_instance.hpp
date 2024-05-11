@@ -29,8 +29,8 @@
 
 #include "gfx/gfx_ctx.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "grc/shader.hpp"
 #include "grc/shader_cache.hpp"
-#include "grc/shader_interface.hpp"
 #include "grc/shader_param_block.hpp"
 
 namespace wmoge {
@@ -44,9 +44,9 @@ namespace wmoge {
         ShaderInstance()  = default;
         ~ShaderInstance() = default;
 
-        ShaderInstance(ShaderInterface& shader, Strid name);
+        ShaderInstance(Shader& shader, Strid name);
 
-        Status init(ShaderInterface& shader, Strid name);
+        Status init(Shader& shader, Strid name);
         Status restore_defaults();
 
         Status begin_pass(const Strid& pass, class GfxDriver* driver, class GfxCtx* ctx);
@@ -90,7 +90,7 @@ namespace wmoge {
 
     private:
         buffered_vector<ShaderParamBlock> m_param_blocks;
-        ShaderInterface*                  m_shader = nullptr;
+        Shader*                           m_shader = nullptr;
         Strid                             m_name;
         std::int16_t                      m_technique_idx = -1;
     };

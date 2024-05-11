@@ -266,6 +266,7 @@ namespace wmoge {
     */
     struct ShaderOptions {
         static constexpr std::int16_t MAX_OPTIONS = 64;
+        using Mask                                = std::bitset<MAX_OPTIONS>;
 
         buffered_vector<ShaderOption> options;
         flat_map<Strid, std::int16_t> options_map;
@@ -410,16 +411,25 @@ namespace wmoge {
      * @brief Defines a particular variant of a compiled shader
     */
     struct ShaderPermutation {
-        ShaderPermutation() = default;
+        WG_RTTI_STRUCT(ShaderPermutation);
 
         bool        operator==(const ShaderPermutation& other) const;
         std::size_t hash() const;
 
-        std::bitset<ShaderOptions::MAX_OPTIONS> options;
-        GfxVertAttribs                          vert_attribs;
-        std::int16_t                            technique_idx = -1;
-        std::int16_t                            pass_idx      = -1;
+        ShaderOptions::Mask options;          // = []
+        GfxVertAttribs      vert_attribs;     // = {}
+        std::int16_t        technique_idx = 0;// = 0
+        std::int16_t        pass_idx      = 0;// = 0
     };
+
+    WG_RTTI_STRUCT_BEGIN(ShaderPermutation) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(options, {});
+        WG_RTTI_FIELD(vert_attribs, {});
+        WG_RTTI_FIELD(technique_idx, {});
+        WG_RTTI_FIELD(pass_idx, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class ShaderReflection

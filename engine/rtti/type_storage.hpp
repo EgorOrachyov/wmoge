@@ -30,12 +30,14 @@
 #include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
+#include "core/synchronization.hpp"
 #include "rtti/class.hpp"
 #include "rtti/type.hpp"
 
 #include <cinttypes>
 #include <functional>
 #include <memory>
+#include <mutex>
 #include <optional>
 
 namespace wmoge {
@@ -62,6 +64,7 @@ namespace wmoge {
 
     private:
         flat_map<Strid, Ref<RttiType>> m_types;
+        mutable std::recursive_mutex   m_mutex;
 
         static RttiTypeStorage* g_storage;
     };

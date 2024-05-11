@@ -111,29 +111,6 @@ namespace wmoge {
         assert(event);
         assert(!event->type().empty());
 
-        const bool dispatching = m_dispatching;
-        m_dispatching          = true;
-
-        auto listeners_list = m_event_to_listener.find(event->type());
-        if (listeners_list != m_event_to_listener.end()) {
-            for (auto& listener : listeners_list->second) {
-                if (listener->callback(event)) {
-                    break;
-                }
-            }
-        }
-
-        m_dispatching = dispatching;
-    }
-
-    void EventManager::dispatch_deferred(const Ref<Event>& event) {
-        WG_AUTO_PROFILE_CORE("EventManager::dispatch_deferred");
-
-        std::lock_guard guard(m_mutex);
-
-        assert(event);
-        assert(!event->type().empty());
-
         m_events_deferred.push_back(event);
     }
 

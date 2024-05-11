@@ -97,7 +97,7 @@ namespace wmoge {
         std::optional<Ref<GfxShader>> find_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
         void                          fit_module(GfxShaderPlatform platform, ShaderModule& module);
         void                          dump_modules(GfxShaderPlatform platform, std::vector<ShaderModule>& out_modules);
-        std::string                   get_cache_file_name(const std::string& folder, const GfxShaderPlatform platform);
+        std::string                   make_cache_file_name(const std::string& folder, const GfxShaderPlatform platform);
         Status                        load_cache(const std::string& folder, const GfxShaderPlatform platform);
         Status                        save_cache(const std::string& folder, const GfxShaderPlatform platform);
 

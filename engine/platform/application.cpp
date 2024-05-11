@@ -209,10 +209,10 @@ namespace wmoge {
         ioc->unbind<RenderEngine>();
         ioc->unbind<AuxDrawManager>();
         ioc->unbind<Canvas>();
+        ioc->unbind<TaskManager>();
         ioc->unbind<VKDriver>();
         ioc->unbind<GlfwInput>();
         ioc->unbind<GlfwWindowManager>();
-        ioc->unbind<TaskManager>();
         ioc->unbind<EventManager>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();

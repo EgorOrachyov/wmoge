@@ -34,6 +34,8 @@ namespace wmoge {
     RttiTypeStorage* RttiTypeStorage::g_storage = nullptr;
 
     std::optional<RttiType*> RttiTypeStorage::find_type(const Strid& name) {
+        std::lock_guard guard(m_mutex);
+
         auto query = m_types.find(name);
 
         if (query != m_types.end()) {
@@ -52,17 +54,24 @@ namespace wmoge {
     }
 
     bool RttiTypeStorage::has(const Strid& name) {
+        std::lock_guard guard(m_mutex);
+
         auto query = m_types.find(name);
         return query != m_types.end();
     }
 
     void RttiTypeStorage::add(const Ref<RttiType>& type) {
+        std::lock_guard guard(m_mutex);
+
         assert(type);
-        assert(!has(type->get_name()) || m_types[type->get_name()] == type);
+        assert(m_types.find(type->get_name()) == m_types.end() || m_types[type->get_name()] == type);
+
         m_types[type->get_name()] = type;
     }
 
     std::vector<RttiType*> RttiTypeStorage::find_types(const std::function<bool(const Ref<RttiType>&)>& filter) {
+        std::lock_guard guard(m_mutex);
+
         std::vector<RttiType*> result;
         for (auto& entry : m_types) {
             if (filter(entry.second)) {
@@ -73,6 +82,8 @@ namespace wmoge {
     }
 
     std::vector<RttiClass*> RttiTypeStorage::find_classes(const std::function<bool(const Ref<RttiClass>&)>& filter) {
+        std::lock_guard guard(m_mutex);
+
         std::vector<RttiClass*> result;
         for (auto& entry : m_types) {
             Ref<RttiClass> casted = entry.second.cast<RttiClass>();

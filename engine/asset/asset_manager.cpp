@@ -110,7 +110,7 @@ namespace wmoge {
                 event->asset_id     = name;
                 event->asset_ref    = asset;
                 event->notification = AssetNotification::Loaded;
-                m_event_manager->dispatch_deferred(event);
+                m_event_manager->dispatch(event);
 
                 std::lock_guard guard(m_mutex);
                 m_assets[name] = WeakRef<Asset>(asset);
@@ -131,7 +131,7 @@ namespace wmoge {
                 auto event          = make_event<EventAsset>();
                 event->asset_id     = name;
                 event->notification = AssetNotification::FailedLoad;
-                m_event_manager->dispatch_deferred(event);
+                m_event_manager->dispatch(event);
 
                 async_op->set_failed();
                 WG_LOG_ERROR("failed load asset " << name);

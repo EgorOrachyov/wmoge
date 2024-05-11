@@ -33,7 +33,6 @@
 #include "grc/shader.hpp"
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_file.hpp"
-#include "grc/shader_interface.hpp"
 #include "grc/texture.hpp"
 
 namespace wmoge {
@@ -46,8 +45,9 @@ namespace wmoge {
         rtti_type<ShaderFileTechnique>();
         rtti_type<ShaderFileSource>();
         rtti_type<ShaderFile>();
-        rtti_type<ShaderInterface>();
         rtti_type<Shader>();
+        rtti_type<Shader>();
+        rtti_type<ShaderPermutation>();
         rtti_type<ShaderCompiler>();
         rtti_type<FilePsoVertFormat>();
         rtti_type<FilePsoRenderPass>();

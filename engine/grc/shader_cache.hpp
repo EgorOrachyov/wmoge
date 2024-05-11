@@ -39,6 +39,7 @@
 
 #include <array>
 #include <cinttypes>
+#include <string>
 #include <vector>
 
 namespace wmoge {
@@ -93,12 +94,15 @@ namespace wmoge {
     */
     class ShaderCache {
     public:
-        ShaderCache() = default;
+        ShaderCache();
 
         std::optional<ShaderProgram*> find_program(GfxShaderPlatform platform, const ShaderPermutation& permutation);
         ShaderProgram&                get_or_add_entry(GfxShaderPlatform platform, const ShaderPermutation& permutation);
         void                          fit_program(GfxShaderPlatform platform, const ShaderProgram& program);
         void                          dump_programs(GfxShaderPlatform platform, std::vector<ShaderProgram>& out_programs);
+        std::string                   make_cache_file_name(const std::string& folder, const std::string& prefix, GfxShaderPlatform platform);
+        Status                        load_cache(const std::string& file_path, GfxShaderPlatform platform, bool allow_missing = true);
+        Status                        save_cache(const std::string& file_path, GfxShaderPlatform platform);
 
     private:
         std::array<ShaderCacheMap, GfxLimits::NUM_PLATFORMS> m_maps;
