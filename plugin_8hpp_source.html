@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/system/plugin.hpp Source File</title>
+<title>wmoge: engine/code/system/plugin.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_14c60ad529c4040c99366feaa620c32e.html">system</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_31c30da35259347a64994ed596fa5aea.html">system</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -111,9 +111,9 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a092d8295d4387c980742e231e53cc0cf">   45</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Plugin.html#a092d8295d4387c980742e231e53cc0cf">~Plugin</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a20c31793e2799dd1f72471fdda985aea">   47</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Plugin.html#a20c31793e2799dd1f72471fdda985aea">on_register</a>() { <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>; }</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a9453d9977a5bdcd7089ac92ae1b40f26">   48</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Plugin.html#a9453d9977a5bdcd7089ac92ae1b40f26">on_init</a>() { <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>; }</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a94b2a72b0991fc68c0333b48649a9920">   49</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Plugin.html#a94b2a72b0991fc68c0333b48649a9920">on_shutdown</a>() { <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a20c31793e2799dd1f72471fdda985aea">   47</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Plugin.html#a20c31793e2799dd1f72471fdda985aea">on_register</a>() { <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>; }</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a9453d9977a5bdcd7089ac92ae1b40f26">   48</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Plugin.html#a9453d9977a5bdcd7089ac92ae1b40f26">on_init</a>() { <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>; }</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a94b2a72b0991fc68c0333b48649a9920">   49</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1Plugin.html#a94b2a72b0991fc68c0333b48649a9920">on_shutdown</a>() { <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>; }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#a6b5835bceaff4ec6c12ebc8c93d72e7e">   51</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="classwmoge_1_1UUID.html">UUID</a>&amp;               <a class="code" href="classwmoge_1_1Plugin.html#a6b5835bceaff4ec6c12ebc8c93d72e7e">get_uuid</a>() { <span class="keywordflow">return</span> <a class="code" href="classwmoge_1_1Plugin.html#ade5c68a661cdc0efb2dc05e101d5b524">m_uuid</a>; }</div>
 <div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classwmoge_1_1Plugin.html#ae0c459d0ec43eb87ac28fd665f940767">   52</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="classwmoge_1_1Strid.html">Strid</a>&amp;              <a class="code" href="classwmoge_1_1Plugin.html#ae0c459d0ec43eb87ac28fd665f940767">get_name</a>() { <span class="keywordflow">return</span> <a class="code" href="classwmoge_1_1Plugin.html#aa9bbbb805c7705f8c864f834be487c03">m_name</a>; }</div>
@@ -145,8 +145,8 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Strid_html"><div class="ttname"><a href="classwmoge_1_1Strid.html">wmoge::Strid</a></div><div class="ttdoc">Interned globally-stored string based ids for fast lookups.</div><div class="ttdef"><b>Definition:</b> string_id.hpp:42</div></div>
 <div class="ttc" id="aclasswmoge_1_1UUID_html"><div class="ttname"><a href="classwmoge_1_1UUID.html">wmoge::UUID</a></div><div class="ttdoc">Unique 8-byte long identifier for in-game objects and assets.</div><div class="ttdef"><b>Definition:</b> uuid.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 <div class="ttc" id="astring__utils_8hpp_html"><div class="ttname"><a href="string__utils_8hpp.html">string_utils.hpp</a></div></div>
 <div class="ttc" id="auuid_8hpp_html"><div class="ttname"><a href="uuid_8hpp.html">uuid.hpp</a></div></div>

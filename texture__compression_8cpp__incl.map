@@ -1,5 +1,5 @@
-<map id="engine/grc/texture_compression.cpp" name="engine/grc/texture_compression.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2378,5,2505,47"/>
+<map id="engine/code/grc/texture_compression.cpp" name="engine/code/grc/texture_compression.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2363,5,2520,47"/>
 <area shape="rect" id="node2" href="$texture__compression_8hpp.html" title=" " alt="" coords="2273,95,2439,121"/>
 <area shape="rect" id="node50" title=" " alt="" coords="2464,95,2589,121"/>
 <area shape="rect" id="node3" href="$data_8hpp.html" title=" " alt="" coords="691,468,791,495"/>

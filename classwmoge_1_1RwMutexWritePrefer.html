@@ -96,7 +96,7 @@ Collaboration diagram for wmoge::RwMutexWritePrefer:</div>
 <div class="textblock"><p>Read-write lock with policy to prefer writers. </p>
 <p>Policy yamc::rwlock::WriterPrefer: Writer prefer locking. While any reader thread owns shared lock and there are a waiting writer thread, subsequent other reader threads which try to acquire shared lock are blocked until writer thread's work is done. This policy might introduce "Reader Starvation" if writer threads continuously try to acquire exclusive lock. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>engine/core/<a class="el" href="synchronization_8hpp_source.html">synchronization.hpp</a></li>
+<li>engine/code/core/<a class="el" href="synchronization_8hpp_source.html">synchronization.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/math/aabb.hpp Source File</title>
+<title>wmoge: engine/code/math/aabb.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_6092418e369ca819ce866d11ef016080.html">math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_4ad7ccbe4a3ebd16921d1a686861ec01.html">math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -179,26 +179,26 @@ $(function() {
 <div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a53a7317e6ebe3dd7a11982dc8c95570e">  114</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#af9a3d4df94a8937905540480836c258a">yaml_read</a>(<a class="code" href="classwmoge_1_1IoContext.html">IoContext</a>&amp; context, <a class="code" href="namespacewmoge.html#a936fad1881d807f1e080d012bb1977c3">YamlConstNodeRef</a> node, <a class="code" href="classwmoge_1_1TAabb.html">TAabb&lt;T&gt;</a>&amp; aabb) {</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <a class="code" href="yaml_8hpp.html#a5c70cf5725c070aee484123e11bedaa1">WG_YAML_READ_AS</a>(context, node, <span class="stringliteral">&quot;pos&quot;</span>, aabb.<a class="code" href="classwmoge_1_1TAabb.html#a0bc231618c83ab9f943c52a79b743b37">pos</a>);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <a class="code" href="yaml_8hpp.html#a5c70cf5725c070aee484123e11bedaa1">WG_YAML_READ_AS</a>(context, node, <span class="stringliteral">&quot;size_half&quot;</span>, aabb.<a class="code" href="classwmoge_1_1TAabb.html#ab63b96cf493479d336cba1c9fe82f9d5">size_half</a>);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a6b2116cdfdd7fa826451ab14b7eebedc">  120</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#a39467eed68bf9b08d6aac673ebc01c83">yaml_write</a>(<a class="code" href="classwmoge_1_1IoContext.html">IoContext</a>&amp; context, <a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> node, <span class="keyword">const</span> <a class="code" href="classwmoge_1_1TAabb.html">TAabb&lt;T&gt;</a>&amp; aabb) {</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="yaml_8hpp.html#a08447972426d396ef7bc7c10ddf23f25">WG_YAML_MAP</a>(node);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="yaml_8hpp.html#a3f768b46e00bcd53b069e534f19d0d9e">WG_YAML_WRITE_AS</a>(context, node, <span class="stringliteral">&quot;pos&quot;</span>, aabb.<a class="code" href="classwmoge_1_1TAabb.html#a0bc231618c83ab9f943c52a79b743b37">pos</a>);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <a class="code" href="yaml_8hpp.html#a3f768b46e00bcd53b069e534f19d0d9e">WG_YAML_WRITE_AS</a>(context, node, <span class="stringliteral">&quot;size_half&quot;</span>, aabb.<a class="code" href="classwmoge_1_1TAabb.html#ab63b96cf493479d336cba1c9fe82f9d5">size_half</a>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="namespacewmoge.html#ad2cb66b8eea56da84a9b87c2933266bf">  127</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#aa9229f59e1310870d08e1198922297d5">archive_read</a>(<a class="code" href="classwmoge_1_1IoContext.html">IoContext</a>&amp; context, <a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <a class="code" href="classwmoge_1_1TAabb.html">TAabb&lt;T&gt;</a>&amp; aabb) {</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="archive_8hpp.html#a656ea71c6de3ec77a9ad83a34aa9949b">WG_ARCHIVE_READ</a>(context, archive, aabb.<a class="code" href="classwmoge_1_1TAabb.html#a0bc231618c83ab9f943c52a79b743b37">pos</a>);</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="archive_8hpp.html#a656ea71c6de3ec77a9ad83a34aa9949b">WG_ARCHIVE_READ</a>(context, archive, aabb.<a class="code" href="classwmoge_1_1TAabb.html#ab63b96cf493479d336cba1c9fe82f9d5">size_half</a>);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a21b3b73ea016a1225e5099b01b524f5c">  133</a></span>&#160;    <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="namespacewmoge.html#aa2891c08c0c3f8b15b025129477a852a">archive_write</a>(<a class="code" href="classwmoge_1_1IoContext.html">IoContext</a>&amp; context, <a class="code" href="classwmoge_1_1Archive.html">Archive</a>&amp; archive, <span class="keyword">const</span> <a class="code" href="classwmoge_1_1TAabb.html">TAabb&lt;T&gt;</a>&amp; aabb) {</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <a class="code" href="archive_8hpp.html#aa797161886371981c24c96d58e7a00be">WG_ARCHIVE_WRITE</a>(context, archive, aabb.<a class="code" href="classwmoge_1_1TAabb.html#a0bc231618c83ab9f943c52a79b743b37">pos</a>);</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <a class="code" href="archive_8hpp.html#aa797161886371981c24c96d58e7a00be">WG_ARCHIVE_WRITE</a>(context, archive, aabb.<a class="code" href="classwmoge_1_1TAabb.html#ab63b96cf493479d336cba1c9fe82f9d5">size_half</a>);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}<span class="comment">// namespace wmoge</span></div>
@@ -238,7 +238,7 @@ $(function() {
 <div class="ttc" id="anamespacewmoge_html_aa2891c08c0c3f8b15b025129477a852a"><div class="ttname"><a href="namespacewmoge.html#aa2891c08c0c3f8b15b025129477a852a">wmoge::archive_write</a></div><div class="ttdeci">Status archive_write(IoContext &amp;context, Archive &amp;archive, const AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:51</div></div>
 <div class="ttc" id="anamespacewmoge_html_aa9229f59e1310870d08e1198922297d5"><div class="ttname"><a href="namespacewmoge.html#aa9229f59e1310870d08e1198922297d5">wmoge::archive_read</a></div><div class="ttdeci">Status archive_read(IoContext &amp;context, Archive &amp;archive, AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:47</div></div>
 <div class="ttc" id="anamespacewmoge_html_af9a3d4df94a8937905540480836c258a"><div class="ttname"><a href="namespacewmoge.html#af9a3d4df94a8937905540480836c258a">wmoge::yaml_read</a></div><div class="ttdeci">Status yaml_read(IoContext &amp;context, YamlConstNodeRef node, AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:39</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 <div class="ttc" id="avec_8hpp_html"><div class="ttname"><a href="vec_8hpp.html">vec.hpp</a></div></div>
 <div class="ttc" id="ayaml_8hpp_html"><div class="ttname"><a href="yaml_8hpp.html">yaml.hpp</a></div></div>
 <div class="ttc" id="ayaml_8hpp_html_a08447972426d396ef7bc7c10ddf23f25"><div class="ttname"><a href="yaml_8hpp.html#a08447972426d396ef7bc7c10ddf23f25">WG_YAML_MAP</a></div><div class="ttdeci">#define WG_YAML_MAP(node)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:196</div></div>

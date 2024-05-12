@@ -1,5 +1,5 @@
-<map id="engine/scripting/lua_bindings/lua_bindings_math.hpp" name="engine/scripting/lua_bindings/lua_bindings_math.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1942,5,2095,61"/>
+<map id="engine/code/scripting/lua_bindings/lua_bindings_math.hpp" name="engine/code/scripting/lua_bindings/lua_bindings_math.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1931,5,2106,61"/>
 <area shape="rect" id="node2" href="$lua__bindings_8hpp.html" title=" " alt="" coords="655,109,801,151"/>
 <area shape="rect" id="node34" href="$math__utils_8hpp.html" title=" " alt="" coords="1235,587,1373,613"/>
 <area shape="rect" id="node36" href="$vec_8hpp.html" title=" " alt="" coords="1934,512,2034,539"/>

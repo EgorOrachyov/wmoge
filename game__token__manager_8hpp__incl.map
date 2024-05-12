@@ -1,5 +1,5 @@
-<map id="engine/gameplay/game_token_manager.hpp" name="engine/gameplay/game_token_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="273,5,428,47"/>
+<map id="engine/code/gameplay/game_token_manager.hpp" name="engine/code/gameplay/game_token_manager.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="261,5,440,47"/>
 <area shape="rect" id="node2" href="$flat__map_8hpp.html" title=" " alt="" coords="289,169,413,196"/>
 <area shape="rect" id="node19" href="$string__id_8hpp.html" title=" " alt="" coords="1001,393,1125,420"/>
 <area shape="rect" id="node35" href="$var_8hpp.html" title=" " alt="" coords="1925,95,2019,121"/>

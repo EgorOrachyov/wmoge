@@ -1,5 +1,5 @@
-<map id="engine/scene/scene_node_props.cpp" name="engine/scene/scene_node_props.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3332,5,3470,47"/>
+<map id="engine/code/scene/scene_node_props.cpp" name="engine/code/scene/scene_node_props.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="3316,5,3486,47"/>
 <area shape="rect" id="node2" href="$scene__node__props_8hpp.html" title=" " alt="" coords="2301,95,2456,121"/>
 <area shape="rect" id="node4" href="$core_2class_8hpp.html" title=" " alt="" coords="3160,617,3266,644"/>
 <area shape="rect" id="node3" href="$scene_8hpp.html" title=" " alt="" coords="2420,319,2540,345"/>

@@ -1,5 +1,5 @@
-<map id="plugins/runtime/asset/texture_asset_loader.hpp" name="plugins/runtime/asset/texture_asset_loader.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3912,5,4083,47"/>
+<map id="engine/plugins/runtime/asset/texture_asset_loader.hpp" name="engine/plugins/runtime/asset/texture_asset_loader.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="3894,5,4101,47"/>
 <area shape="rect" id="node2" href="$asset__loader_8hpp.html" title=" " alt="" coords="1723,95,1879,121"/>
 <area shape="rect" id="node43" href="$gfx__defs_8hpp.html" title=" " alt="" coords="3913,632,4029,659"/>
 <area shape="rect" id="node44" href="$gfx__sampler_8hpp.html" title=" " alt="" coords="3929,169,4066,196"/>

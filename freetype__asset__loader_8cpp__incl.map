@@ -1,5 +1,5 @@
-<map id="plugins/freetype/freetype_asset_loader.cpp" name="plugins/freetype/freetype_asset_loader.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1974,5,2137,47"/>
+<map id="engine/plugins/freetype/freetype_asset_loader.cpp" name="engine/plugins/freetype/freetype_asset_loader.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1967,5,2144,47"/>
 <area shape="rect" id="node2" href="$freetype__asset__loader_8hpp.html" title=" " alt="" coords="2374,95,2547,121"/>
 <area shape="rect" id="node39" href="$freetype__font_8hpp.html" title=" " alt="" coords="524,95,645,121"/>
 <area shape="rect" id="node41" href="$font_8hpp.html" title=" " alt="" coords="2010,169,2101,196"/>

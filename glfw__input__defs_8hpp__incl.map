@@ -1,5 +1,5 @@
-<map id="engine/platform/glfw/glfw_input_defs.hpp" name="engine/platform/glfw/glfw_input_defs.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1877,5,2018,47"/>
+<map id="engine/code/platform/glfw/glfw_input_defs.hpp" name="engine/code/platform/glfw/glfw_input_defs.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1863,5,2032,47"/>
 <area shape="rect" id="node2" href="$input__defs_8hpp.html" title=" " alt="" coords="1791,95,1949,121"/>
 <area shape="rect" id="node39" title=" " alt="" coords="1973,95,2079,121"/>
 <area shape="rect" id="node3" href="$mask_8hpp.html" title=" " alt="" coords="1817,169,1923,196"/>

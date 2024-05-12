@@ -1,5 +1,5 @@
-<map id="engine/platform/glfw/glfw_window_manager.cpp" name="engine/platform/glfw/glfw_window_manager.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2701,5,2883,47"/>
+<map id="engine/code/platform/glfw/glfw_window_manager.cpp" name="engine/code/platform/glfw/glfw_window_manager.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2687,5,2897,47"/>
 <area shape="rect" id="node2" href="$glfw__window__manager_8hpp.html" title=" " alt="" coords="796,95,975,121"/>
 <area shape="rect" id="node7" href="$log_8hpp.html" title=" " alt="" coords="2006,483,2098,509"/>
 <area shape="rect" id="node17" title=" " alt="" coords="713,557,778,584"/>

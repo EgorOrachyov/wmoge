@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/hooks/hook_profiler.hpp Source File</title>
+<title>wmoge: engine/code/hooks/hook_profiler.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_19e47448d389f631d861e46eef0c2b44.html">hooks</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_e6cb15e0764bb903dbbf7d5a04825270.html">hooks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -102,7 +102,7 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="log_8hpp.html">core/log.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="application_8hpp.html">platform/application.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="profiler_8hpp.html">profiler/profiler.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config__file_8hpp.html">system/config_file.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="config_8hpp.html">system/config.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="hook_8hpp.html">system/hook.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ioc__container_8hpp.html">system/ioc_container.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
@@ -121,12 +121,12 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classwmoge_1_1HookProfiler.html#a48208abb0a6ed47974c4323eebcba125">   56</a></span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1HookProfiler.html#a48208abb0a6ed47974c4323eebcba125">on_process</a>(<a class="code" href="classwmoge_1_1CmdLine.html">CmdLine</a>&amp; cmd_line)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="classwmoge_1_1ConfigFile.html">ConfigFile</a>*  config      = IocContainer::iresolve_v&lt;ConfigFile&gt;();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <a class="code" href="classwmoge_1_1Config.html">Config</a>*      config      = IocContainer::iresolve_v&lt;Config&gt;();</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="classwmoge_1_1Profiler.html">Profiler</a>*    profiler    = IocContainer::iresolve_v&lt;Profiler&gt;();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <a class="code" href="classwmoge_1_1Application.html">Application</a>* application = IocContainer::iresolve_v&lt;Application&gt;();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            enable_profiler = enable_profiler || cmd_line.<a class="code" href="classwmoge_1_1CmdLine.html#a5f3300f80aa9c0f005a0d4abb450733a">get_bool</a>(<span class="stringliteral">&quot;profiler&quot;</span>);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            enable_profiler = enable_profiler || config-&gt;<a class="code" href="classwmoge_1_1ConfigFile.html#a8c443218da620cbdd5037079fef642a5">get_bool</a>(<a class="code" href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a>(<span class="stringliteral">&quot;debug.profiler&quot;</span>), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            enable_profiler = enable_profiler || config-&gt;<a class="code" href="classwmoge_1_1Config.html#a9bf8743fdd9be502d49466b34c2c0309">get_bool_or_default</a>(<a class="code" href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a>(<span class="stringliteral">&quot;profiler.enable&quot;</span>), <span class="keyword">false</span>);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            profiler-&gt;<a class="code" href="classwmoge_1_1Profiler.html#a0ba0cedde966d9269d5c0f97a4bcf83c">set_enabled</a>(enable_profiler);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
@@ -153,7 +153,7 @@ $(function() {
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                });</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">private</span>:</div>
@@ -176,8 +176,8 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1CmdLine_html"><div class="ttname"><a href="classwmoge_1_1CmdLine.html">wmoge::CmdLine</a></div><div class="ttdoc">Container for parsed command-line options.</div><div class="ttdef"><b>Definition:</b> cmd_line.hpp:38</div></div>
 <div class="ttc" id="aclasswmoge_1_1CmdLine_html_a5f3300f80aa9c0f005a0d4abb450733a"><div class="ttname"><a href="classwmoge_1_1CmdLine.html#a5f3300f80aa9c0f005a0d4abb450733a">wmoge::CmdLine::get_bool</a></div><div class="ttdeci">bool get_bool(const std::string &amp;name)</div><div class="ttdef"><b>Definition:</b> cmd_line.cpp:61</div></div>
 <div class="ttc" id="aclasswmoge_1_1CmdLine_html_a89362382a94d9c808502e7d2d1b5d891"><div class="ttname"><a href="classwmoge_1_1CmdLine.html#a89362382a94d9c808502e7d2d1b5d891">wmoge::CmdLine::add_bool</a></div><div class="ttdeci">void add_bool(const std::string &amp;name, const std::string &amp;desc, const std::string &amp;value=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> cmd_line.cpp:40</div></div>
-<div class="ttc" id="aclasswmoge_1_1ConfigFile_html"><div class="ttname"><a href="classwmoge_1_1ConfigFile.html">wmoge::ConfigFile</a></div><div class="ttdoc">Ini-file based simple config file.</div><div class="ttdef"><b>Definition:</b> config_file.hpp:50</div></div>
-<div class="ttc" id="aclasswmoge_1_1ConfigFile_html_a8c443218da620cbdd5037079fef642a5"><div class="ttname"><a href="classwmoge_1_1ConfigFile.html#a8c443218da620cbdd5037079fef642a5">wmoge::ConfigFile::get_bool</a></div><div class="ttdeci">bool get_bool(const Strid &amp;key, bool def_value=false) const</div><div class="ttdef"><b>Definition:</b> config_file.cpp:186</div></div>
+<div class="ttc" id="aclasswmoge_1_1Config_html"><div class="ttname"><a href="classwmoge_1_1Config.html">wmoge::Config</a></div><div class="ttdoc">Global manager for confgiguration variable and config files.</div><div class="ttdef"><b>Definition:</b> config.hpp:42</div></div>
+<div class="ttc" id="aclasswmoge_1_1Config_html_a9bf8743fdd9be502d49466b34c2c0309"><div class="ttname"><a href="classwmoge_1_1Config.html#a9bf8743fdd9be502d49466b34c2c0309">wmoge::Config::get_bool_or_default</a></div><div class="ttdeci">bool get_bool_or_default(const Strid &amp;key, bool def_value=false) const</div><div class="ttdef"><b>Definition:</b> config.cpp:72</div></div>
 <div class="ttc" id="aclasswmoge_1_1HookProfiler_html"><div class="ttname"><a href="classwmoge_1_1HookProfiler.html">wmoge::HookProfiler</a></div><div class="ttdoc">Engine hook to setup profiler of game application.</div><div class="ttdef"><b>Definition:</b> hook_profiler.hpp:44</div></div>
 <div class="ttc" id="aclasswmoge_1_1HookProfiler_html_a42c0dd1990e2b0ab428b181de0d5061b"><div class="ttname"><a href="classwmoge_1_1HookProfiler.html#a42c0dd1990e2b0ab428b181de0d5061b">wmoge::HookProfiler::on_add_cmd_line_options</a></div><div class="ttdeci">void on_add_cmd_line_options(CmdLine &amp;cmd_line) override</div><div class="ttdef"><b>Definition:</b> hook_profiler.hpp:52</div></div>
 <div class="ttc" id="aclasswmoge_1_1HookProfiler_html_a48208abb0a6ed47974c4323eebcba125"><div class="ttname"><a href="classwmoge_1_1HookProfiler.html#a48208abb0a6ed47974c4323eebcba125">wmoge::HookProfiler::on_process</a></div><div class="ttdeci">Status on_process(CmdLine &amp;cmd_line) override</div><div class="ttdef"><b>Definition:</b> hook_profiler.hpp:56</div></div>
@@ -189,16 +189,16 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Signal_html_a44fbfbea8d01f4e82b8e8443351bf2d0"><div class="ttname"><a href="classwmoge_1_1Signal.html#a44fbfbea8d01f4e82b8e8443351bf2d0">wmoge::Signal::bind</a></div><div class="ttdeci">int bind(Callback &amp;&amp;callback)</div><div class="ttdef"><b>Definition:</b> signal.hpp:76</div></div>
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="acmd__line_8hpp_html"><div class="ttname"><a href="cmd__line_8hpp.html">cmd_line.hpp</a></div></div>
-<div class="ttc" id="aconfig__file_8hpp_html"><div class="ttname"><a href="config__file_8hpp.html">config_file.hpp</a></div></div>
+<div class="ttc" id="aconfig_8hpp_html"><div class="ttname"><a href="config_8hpp.html">config.hpp</a></div></div>
 <div class="ttc" id="ahook_8hpp_html"><div class="ttname"><a href="hook_8hpp.html">hook.hpp</a></div></div>
 <div class="ttc" id="aioc__container_8hpp_html"><div class="ttname"><a href="ioc__container_8hpp.html">ioc_container.hpp</a></div></div>
 <div class="ttc" id="alog_8hpp_html"><div class="ttname"><a href="log_8hpp.html">log.hpp</a></div></div>
 <div class="ttc" id="alog_8hpp_html_ac0d502b7f81486348ad4f5f4c886da39"><div class="ttname"><a href="log_8hpp.html#ac0d502b7f81486348ad4f5f4c886da39">WG_LOG_INFO</a></div><div class="ttdeci">#define WG_LOG_INFO(message)</div><div class="ttdef"><b>Definition:</b> log.hpp:145</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
 <div class="ttc" id="aprofiler_8hpp_html"><div class="ttname"><a href="profiler_8hpp.html">profiler.hpp</a></div></div>
 <div class="ttc" id="aprofiler_8hpp_html_a1267017b0e9215836432f63f6ddc71d9"><div class="ttname"><a href="profiler_8hpp.html#a1267017b0e9215836432f63f6ddc71d9">WG_PROFILE_CAPTURE_END</a></div><div class="ttdeci">#define WG_PROFILE_CAPTURE_END(capture)</div><div class="ttdef"><b>Definition:</b> profiler.hpp:194</div></div>
 <div class="ttc" id="aprofiler_8hpp_html_a51d859fd41b73e521fc3061ca3716aed"><div class="ttname"><a href="profiler_8hpp.html#a51d859fd41b73e521fc3061ca3716aed">WG_PROFILE_CAPTURE_START</a></div><div class="ttdeci">#define WG_PROFILE_CAPTURE_START(capture, session, file_path)</div><div class="ttdef"><b>Definition:</b> profiler.hpp:188</div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 <div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:69</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

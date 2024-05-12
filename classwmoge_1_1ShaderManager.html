@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Manager for loading and compilation of shader scripts.  
+<p>Global shaders manager.  
  <a href="classwmoge_1_1ShaderManager.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a>&gt;</code></p>
@@ -96,9 +96,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a86eca555af918fb0e259c8776c37f8fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c41c168c205dff90a7533f58e44122a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1ShaderCompilerEnv.html">ShaderCompilerEnv</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a0c41c168c205dff90a7533f58e44122a">get_compiler_env</a> () const</td></tr>
 <tr class="separator:a0c41c168c205dff90a7533f58e44122a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e247bdcb8fea5a0a0834c5cc8c54747"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a9e247bdcb8fea5a0a0834c5cc8c54747">is_compilation_enabled</a> () const</td></tr>
+<tr class="separator:a9e247bdcb8fea5a0a0834c5cc8c54747"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a774dafaa8d9d425a72824bb5df2a93aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a774dafaa8d9d425a72824bb5df2a93aa">is_hot_reload_enabled</a> () const</td></tr>
+<tr class="separator:a774dafaa8d9d425a72824bb5df2a93aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Manager for loading and compilation of shader scripts. </p>
+<div class="textblock"><p>Global shaders manager. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaa20738f9452beaa911f7761f73beea2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa20738f9452beaa911f7761f73beea2">&#9670;&nbsp;</a></span>ShaderManager()</h2>
@@ -247,6 +251,56 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9e247bdcb8fea5a0a0834c5cc8c54747"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e247bdcb8fea5a0a0834c5cc8c54747">&#9670;&nbsp;</a></span>is_compilation_enabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::ShaderManager::is_compilation_enabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a774dafaa8d9d425a72824bb5df2a93aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a774dafaa8d9d425a72824bb5df2a93aa">&#9670;&nbsp;</a></span>is_hot_reload_enabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmoge::ShaderManager::is_hot_reload_enabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad265b84445ef4931b16f557213e48b56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad265b84445ef4931b16f557213e48b56">&#9670;&nbsp;</a></span>load_compilers()</h2>
 
@@ -265,8 +319,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>engine/grc/<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a></li>
-<li>engine/grc/<a class="el" href="shader__manager_8cpp.html">shader_manager.cpp</a></li>
+<li>engine/code/grc/<a class="el" href="shader__manager_8hpp_source.html">shader_manager.hpp</a></li>
+<li>engine/code/grc/<a class="el" href="shader__manager_8cpp.html">shader_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

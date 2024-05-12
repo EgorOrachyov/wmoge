@@ -1,5 +1,5 @@
-<map id="engine/gfx/vulkan/vk_resource.hpp" name="engine/gfx/vulkan/vk_resource.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3337,5,3479,47"/>
+<map id="engine/code/gfx/vulkan/vk_resource.hpp" name="engine/code/gfx/vulkan/vk_resource.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="3331,5,3485,47"/>
 <area shape="rect" id="node2" href="$vk__defs_8hpp.html" title=" " alt="" coords="3331,95,3485,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="169,617,244,644"/>
 <area shape="rect" id="node4" title=" " alt="" coords="2937,767,3015,793"/>

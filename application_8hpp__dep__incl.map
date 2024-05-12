@@ -1,7 +1,7 @@
-<map id="engine/platform/application.hpp" name="engine/platform/application.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="137,5,339,32"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,80,132,107"/>
-<area shape="rect" id="node3" href="$hook__profiler_8hpp.html" title=" " alt="" coords="207,80,407,107"/>
-<area shape="rect" id="node4" href="$application_8cpp.html" title=" " alt="" coords="101,155,303,181"/>
-<area shape="rect" id="node5" href="$engine_8cpp.html" title=" " alt="" coords="343,155,515,181"/>
+<map id="engine/code/platform/application.hpp" name="engine/code/platform/application.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="189,5,332,47"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,102,164,129"/>
+<area shape="rect" id="node3" href="$hook__profiler_8hpp.html" title=" " alt="" coords="239,95,402,136"/>
+<area shape="rect" id="node4" href="$application_8cpp.html" title=" " alt="" coords="167,184,309,225"/>
+<area shape="rect" id="node5" href="$engine_8cpp.html" title=" " alt="" coords="351,184,490,225"/>
 </map>

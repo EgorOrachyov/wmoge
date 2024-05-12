@@ -1,5 +1,5 @@
-<map id="engine/hooks/hook_config.hpp" name="engine/hooks/hook_config.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="113,5,309,32"/>
-<area shape="rect" id="node2" href="$application_8cpp.html" title=" " alt="" coords="5,80,207,107"/>
-<area shape="rect" id="node3" href="$engine_8cpp.html" title=" " alt="" coords="231,80,403,107"/>
+<map id="engine/code/hooks/hook_config.hpp" name="engine/code/hooks/hook_config.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="78,5,241,47"/>
+<area shape="rect" id="node2" href="$application_8cpp.html" title=" " alt="" coords="5,95,148,136"/>
+<area shape="rect" id="node3" href="$engine_8cpp.html" title=" " alt="" coords="173,95,311,136"/>
 </map>

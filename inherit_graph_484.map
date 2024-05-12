@@ -1,4 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,129,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1SpinMutexTas.html" title="TAS spinlock, non&#45;recursive." alt="" coords="177,5,331,32"/>
+<area shape="rect" id="node1" href="$structwmoge_1_1SimpleId.html" title="Template to make simple id types." alt="" coords="5,5,209,32"/>
 </map>

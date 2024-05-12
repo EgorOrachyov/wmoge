@@ -1,5 +1,5 @@
-<map id="engine/scene/scene_components.hpp" name="engine/scene/scene_components.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="1383,5,1521,47"/>
+<map id="engine/code/scene/scene_components.hpp" name="engine/code/scene/scene_components.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1367,5,1537,47"/>
 <area shape="rect" id="node2" href="$buffered__vector_8hpp.html" title=" " alt="" coords="2909,543,3073,569"/>
 <area shape="rect" id="node11" title=" " alt="" coords="3248,767,3315,793"/>
 <area shape="rect" id="node16" href="$ecs__component_8hpp.html" title=" " alt="" coords="489,468,652,495"/>

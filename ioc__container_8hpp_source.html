@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/system/ioc_container.hpp Source File</title>
+<title>wmoge: engine/code/system/ioc_container.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_14c60ad529c4040c99366feaa620c32e.html">system</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_31c30da35259347a64994ed596fa5aea.html">system</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -173,7 +173,7 @@ $(function() {
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        entry.provided_type = <span class="keyword">typeid</span>(<a class="code" href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a>);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        entry.factory       = [f = std::move(factory)](std::any&amp; out) -&gt; <a class="code" href="classwmoge_1_1Status.html">Status</a> {</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            out = std::move(f());</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        };</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <a class="code" href="classwmoge_1_1IocContainer.html#a3f4b3e319b80b8e2118c51323335602a">add</a>(std::move(entry));</div>
@@ -284,8 +284,8 @@ $(function() {
 <div class="ttc" id="anamespacewmoge_html_a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3"><div class="ttname"><a href="namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886ab9ece18c950afbfa6b0fdbfa4ff731d3">wmoge::InputKeyboardKey::T</a></div><div class="ttdeci">@ T</div></div>
 <div class="ttc" id="anamespacewmoge_html_ad6a255b71d52ebb58df6549749c7f333"><div class="ttname"><a href="namespacewmoge.html#ad6a255b71d52ebb58df6549749c7f333">wmoge::IocEntryType</a></div><div class="ttdeci">IocEntryType</div><div class="ttdoc">Life-time type of ioc entry.</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:48</div></div>
 <div class="ttc" id="anamespacewmoge_html_ad6a255b71d52ebb58df6549749c7f333a6ff5f73c8b5ebd311406568c8ef50bfd"><div class="ttname"><a href="namespacewmoge.html#ad6a255b71d52ebb58df6549749c7f333a6ff5f73c8b5ebd311406568c8ef50bfd">wmoge::IocEntryType::Singleton</a></div><div class="ttdeci">@ Singleton</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 <div class="ttc" id="astructwmoge_1_1IocEntry_html"><div class="ttname"><a href="structwmoge_1_1IocEntry.html">wmoge::IocEntry</a></div><div class="ttdoc">Stores information about managed entry in IoC container.</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:56</div></div>
 <div class="ttc" id="astructwmoge_1_1IocEntry_html_a094d7d785bb74669b6241ce7a25f4d09"><div class="ttname"><a href="structwmoge_1_1IocEntry.html#a094d7d785bb74669b6241ce7a25f4d09">wmoge::IocEntry::type</a></div><div class="ttdeci">IocEntryType type</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:61</div></div>
 <div class="ttc" id="astructwmoge_1_1IocEntry_html_a1e00212af6b34a4be51d6dbadcfc264f"><div class="ttname"><a href="structwmoge_1_1IocEntry.html#a1e00212af6b34a4be51d6dbadcfc264f">wmoge::IocEntry::factory</a></div><div class="ttdeci">std::function&lt; Status(std::any &amp;)&gt; factory</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:58</div></div>

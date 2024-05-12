@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/core/flat_map.hpp Source File</title>
+<title>wmoge: engine/code/core/flat_map.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_a0e47c104ecd6c0b6dccb5f33d071508.html">core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_978ab9a7be6b483721ce6263ff6ce5b5.html">core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -120,7 +120,7 @@ $(function() {
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="archive_8hpp.html#aa797161886371981c24c96d58e7a00be">WG_ARCHIVE_WRITE</a>(context, archive, entry.first);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="archive_8hpp.html#aa797161886371981c24c96d58e7a00be">WG_ARCHIVE_WRITE</a>(context, archive, entry.second);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
@@ -134,7 +134,7 @@ $(function() {
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <a class="code" href="archive_8hpp.html#a656ea71c6de3ec77a9ad83a34aa9949b">WG_ARCHIVE_READ</a>(context, archive, entry.second);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            map.insert(std::move(entry));</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
@@ -146,7 +146,7 @@ $(function() {
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <a class="code" href="yaml_8hpp.html#a16d43dd9fc161e51ee168d1f2d62d0c1">WG_YAML_READ</a>(context, child, entry);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            map.insert(std::move(entry));</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    }</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> K, <span class="keyword">typename</span> V&gt;</div>
@@ -156,7 +156,7 @@ $(function() {
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <a class="code" href="namespacewmoge.html#a72974351f7c8daa1bbabcc2f35e1e91f">YamlNodeRef</a> entry_child = node.append_child();</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <a class="code" href="yaml_8hpp.html#a5a73609b26eb9e1fbd1fc11d1bd975a6">WG_YAML_WRITE</a>(context, entry_child, entry);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -176,7 +176,7 @@ $(function() {
 <div class="ttc" id="anamespacewmoge_html_aa9229f59e1310870d08e1198922297d5"><div class="ttname"><a href="namespacewmoge.html#aa9229f59e1310870d08e1198922297d5">wmoge::archive_read</a></div><div class="ttdeci">Status archive_read(IoContext &amp;context, Archive &amp;archive, AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:47</div></div>
 <div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html_af9a3d4df94a8937905540480836c258a"><div class="ttname"><a href="namespacewmoge.html#af9a3d4df94a8937905540480836c258a">wmoge::yaml_read</a></div><div class="ttdeci">Status yaml_read(IoContext &amp;context, YamlConstNodeRef node, AssetId &amp;id)</div><div class="ttdef"><b>Definition:</b> asset.cpp:39</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 <div class="ttc" id="ayaml_8hpp_html"><div class="ttname"><a href="yaml_8hpp.html">yaml.hpp</a></div></div>
 <div class="ttc" id="ayaml_8hpp_html_a16d43dd9fc161e51ee168d1f2d62d0c1"><div class="ttname"><a href="yaml_8hpp.html#a16d43dd9fc161e51ee168d1f2d62d0c1">WG_YAML_READ</a></div><div class="ttdeci">#define WG_YAML_READ(context, node, what)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:130</div></div>
 <div class="ttc" id="ayaml_8hpp_html_a577487b68fa89ebde3159b332738c59c"><div class="ttname"><a href="yaml_8hpp.html#a577487b68fa89ebde3159b332738c59c">WG_YAML_SEQ</a></div><div class="ttdeci">#define WG_YAML_SEQ(node)</div><div class="ttdef"><b>Definition:</b> yaml.hpp:197</div></div>

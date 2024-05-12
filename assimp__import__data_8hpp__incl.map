@@ -1,5 +1,5 @@
-<map id="plugins/assimp/assimp_import_data.hpp" name="plugins/assimp/assimp_import_data.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2949,5,3104,47"/>
+<map id="engine/plugins/assimp/assimp_import_data.hpp" name="engine/plugins/assimp/assimp_import_data.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2943,5,3110,47"/>
 <area shape="rect" id="node2" href="$asset__import__data_8hpp.html" title=" " alt="" coords="2307,95,2440,136"/>
 <area shape="rect" id="node11" href="$mask_8hpp.html" title=" " alt="" coords="2248,483,2355,509"/>
 <area shape="rect" id="node48" href="$gfx__vert__format_8hpp.html" title=" " alt="" coords="3452,102,3609,129"/>

@@ -253,8 +253,12 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a3badf8c7cf45e264296671b917c897a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10d10949e5197140808e051c9fd5c96d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a8ce690a9ecb4ef863ec99995dc1bfce2">GfxPsoLayoutRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a10d10949e5197140808e051c9fd5c96d">m_pso_layout</a></td></tr>
 <tr class="separator:a10d10949e5197140808e051c9fd5c96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75a7aadfedb4226fa39456f94a313cb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a75a7aadfedb4226fa39456f94a313cb6">m_active_platform</a></td></tr>
+<tr class="separator:a75a7aadfedb4226fa39456f94a313cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07b7ee09de71b7a335376aca9d3e33b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map</a>&lt; <a class="el" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a07b7ee09de71b7a335376aca9d3e33b6">m_cached_declarations</a></td></tr>
 <tr class="separator:a07b7ee09de71b7a335376aca9d3e33b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af73e54141ab92e3b1a92ab51c6e08a5b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#af73e54141ab92e3b1a92ab51c6e08a5b">m_cache_path</a></td></tr>
+<tr class="separator:af73e54141ab92e3b1a92ab51c6e08a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2adb0fba5f6091ec305fd01967a0422e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1RwMutexReadPrefer.html">RwMutexReadPrefer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Shader.html#a2adb0fba5f6091ec305fd01967a0422e">m_mutex</a></td></tr>
 <tr class="separator:a2adb0fba5f6091ec305fd01967a0422e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -1286,6 +1290,28 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a75a7aadfedb4226fa39456f94a313cb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75a7aadfedb4226fa39456f94a313cb6">&#9670;&nbsp;</a></span>m_active_platform</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a> wmoge::Shader::m_active_platform</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a956ebaa45b3a4c053ae2c805a2caa642"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a956ebaa45b3a4c053ae2c805a2caa642">&#9670;&nbsp;</a></span>m_cache</h2>
 
@@ -1297,6 +1323,28 @@ Additional Inherited Members</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1ShaderCache.html">ShaderCache</a> wmoge::Shader::m_cache</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af73e54141ab92e3b1a92ab51c6e08a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af73e54141ab92e3b1a92ab51c6e08a5b">&#9670;&nbsp;</a></span>m_cache_path</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string wmoge::Shader::m_cache_path</td>
         </tr>
       </table>
   </td>
@@ -1441,8 +1489,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>engine/grc/<a class="el" href="shader_8hpp_source.html">shader.hpp</a></li>
-<li>engine/grc/<a class="el" href="shader_8cpp.html">shader.cpp</a></li>
+<li>engine/code/grc/<a class="el" href="shader_8hpp_source.html">shader.hpp</a></li>
+<li>engine/code/grc/<a class="el" href="shader_8cpp.html">shader.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

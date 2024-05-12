@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: shaders/tmp/generated/auto_composition_pass.hpp Source File</title>
+<title>wmoge: engine/shaders/tmp/generated/auto_composition_pass.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_95c752037a97b41030102703686a0a90.html">shaders</a></li><li class="navelem"><a class="el" href="dir_4d3e22daa989b536893e3fe4b800eea6.html">tmp</a></li><li class="navelem"><a class="el" href="dir_75ae68d82822dcb030aa091d4d150539.html">generated</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_c7f56ea2d71089c57ae90fe9aa303a82.html">shaders</a></li><li class="navelem"><a class="el" href="dir_f00a8937d8eb82a50eda057e3b9e2573.html">tmp</a></li><li class="navelem"><a class="el" href="dir_53c2bcd0707e9259636af63c88d5fee2.html">generated</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -178,7 +178,7 @@ $(function() {
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    <a class="code" href="log_8hpp.html#ac0d502b7f81486348ad4f5f4c886da39">WG_LOG_INFO</a>(<span class="stringliteral">&quot;reload shader from file &quot;</span> &lt;&lt; file_path);</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                }</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        }</div>
 <div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderPassComposition.html#a7b04aa8c6184638f13d49c223da86fdd">  113</a></span>&#160;        <span class="keyword">const</span> std::string&amp; <a class="code" href="classwmoge_1_1ShaderPassComposition.html#a7b04aa8c6184638f13d49c223da86fdd">get_vertex</a>(<a class="code" href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">GfxShaderLang</a> lang)<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <a class="code" href="classwmoge_1_1ShaderPassComposition.html#aedabdba02a984dc31861c471fbfe9a14">m_vertex</a>[int(lang)]; }</div>
 <div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderPassComposition.html#aedabdba02a984dc31861c471fbfe9a14">  114</a></span>&#160;        std::string        <a class="code" href="classwmoge_1_1ShaderPassComposition.html#aedabdba02a984dc31861c471fbfe9a14">m_vertex</a>[2] = {source_composition_vk450_vert, source_composition_gl410_vert};</div>
@@ -192,8 +192,8 @@ $(function() {
 <div class="ttc" id="aauto__composition__gl410__vert_8hpp_html"><div class="ttname"><a href="auto__composition__gl410__vert_8hpp.html">auto_composition_gl410_vert.hpp</a></div></div>
 <div class="ttc" id="aauto__composition__vk450__frag_8hpp_html"><div class="ttname"><a href="auto__composition__vk450__frag_8hpp.html">auto_composition_vk450_frag.hpp</a></div></div>
 <div class="ttc" id="aauto__composition__vk450__vert_8hpp_html"><div class="ttname"><a href="auto__composition__vk450__vert_8hpp.html">auto_composition_vk450_vert.hpp</a></div></div>
-<div class="ttc" id="aclasswmoge_1_1FileSystem_html"><div class="ttname"><a href="classwmoge_1_1FileSystem.html">wmoge::FileSystem</a></div><div class="ttdoc">Abstracts access to the engine and game files directory.</div><div class="ttdef"><b>Definition:</b> file_system.hpp:65</div></div>
-<div class="ttc" id="aclasswmoge_1_1FileSystem_html_acd57efc0486bee2b2397441d4e3bcefb"><div class="ttname"><a href="classwmoge_1_1FileSystem.html#acd57efc0486bee2b2397441d4e3bcefb">wmoge::FileSystem::read_file</a></div><div class="ttdeci">Status read_file(const std::string &amp;path, std::string &amp;data)</div><div class="ttdef"><b>Definition:</b> file_system.cpp:167</div></div>
+<div class="ttc" id="aclasswmoge_1_1FileSystem_html"><div class="ttname"><a href="classwmoge_1_1FileSystem.html">wmoge::FileSystem</a></div><div class="ttdoc">Abstracts access to the engine and game files directory.</div><div class="ttdef"><b>Definition:</b> file_system.hpp:66</div></div>
+<div class="ttc" id="aclasswmoge_1_1FileSystem_html_acd57efc0486bee2b2397441d4e3bcefb"><div class="ttname"><a href="classwmoge_1_1FileSystem.html#acd57efc0486bee2b2397441d4e3bcefb">wmoge::FileSystem::read_file</a></div><div class="ttdeci">Status read_file(const std::string &amp;path, std::string &amp;data)</div><div class="ttdef"><b>Definition:</b> file_system.cpp:160</div></div>
 <div class="ttc" id="aclasswmoge_1_1ShaderPassComposition_html"><div class="ttname"><a href="classwmoge_1_1ShaderPassComposition.html">wmoge::ShaderPassComposition</a></div><div class="ttdoc">Auto generated pass for 'composition' shader.</div><div class="ttdef"><b>Definition:</b> auto_composition_pass.hpp:47</div></div>
 <div class="ttc" id="aclasswmoge_1_1ShaderPassComposition_html_a6b6dae97129570db43e3b8c4406f42fa"><div class="ttname"><a href="classwmoge_1_1ShaderPassComposition.html#a6b6dae97129570db43e3b8c4406f42fa">wmoge::ShaderPassComposition::get_fragment</a></div><div class="ttdeci">const std::string &amp; get_fragment(GfxShaderLang lang) override</div><div class="ttdef"><b>Definition:</b> auto_composition_pass.hpp:115</div></div>
 <div class="ttc" id="aclasswmoge_1_1ShaderPassComposition_html_a7b04aa8c6184638f13d49c223da86fdd"><div class="ttname"><a href="classwmoge_1_1ShaderPassComposition.html#a7b04aa8c6184638f13d49c223da86fdd">wmoge::ShaderPassComposition::get_vertex</a></div><div class="ttdeci">const std::string &amp; get_vertex(GfxShaderLang lang) override</div><div class="ttdef"><b>Definition:</b> auto_composition_pass.hpp:113</div></div>
@@ -217,7 +217,7 @@ $(function() {
 <div class="ttc" id="anamespacewmoge_html_a2e8aafe977c2d83820b74bd87c88d1aaa88f133adfed6c854e5731cdffbf208cf"><div class="ttname"><a href="namespacewmoge.html#a2e8aafe977c2d83820b74bd87c88d1aaa88f133adfed6c854e5731cdffbf208cf">wmoge::GfxBindingType::UniformBuffer</a></div><div class="ttdeci">@ UniformBuffer</div></div>
 <div class="ttc" id="anamespacewmoge_html_ab91cf23f784c3346778d93758e41bcf4"><div class="ttname"><a href="namespacewmoge.html#ab91cf23f784c3346778d93758e41bcf4">wmoge::GfxDescSetLayoutDescs</a></div><div class="ttdeci">buffered_vector&lt; GfxDescSetLayoutDesc, GfxLimits::MAX_DESC_SETS &gt; GfxDescSetLayoutDescs</div><div class="ttdoc">Array of layouts descriptions for shader and pipeline creation.</div><div class="ttdef"><b>Definition:</b> gfx_desc_set.hpp:138</div></div>
 <div class="ttc" id="anamespacewmoge_html_acffe3b78acf826fe80a31a8ddf1eef85"><div class="ttname"><a href="namespacewmoge.html#acffe3b78acf826fe80a31a8ddf1eef85">wmoge::GfxShaderLang</a></div><div class="ttdeci">GfxShaderLang</div><div class="ttdoc">Expected language of shaders.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:396</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
 <div class="ttc" id="astring__id_8hpp_html_a848e435e9b617dc5de009574172b7c6a"><div class="ttname"><a href="string__id_8hpp.html#a848e435e9b617dc5de009574172b7c6a">SID</a></div><div class="ttdeci">#define SID(id)</div><div class="ttdef"><b>Definition:</b> string_id.hpp:69</div></div>
 <div class="ttc" id="astring__utf_8hpp_html"><div class="ttname"><a href="string__utf_8hpp.html">string_utf.hpp</a></div></div>

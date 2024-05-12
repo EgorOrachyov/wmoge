@@ -1,5 +1,5 @@
-<map id="engine/render/model_instance.cpp" name="engine/render/model_instance.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2909,5,3048,47"/>
+<map id="engine/code/render/model_instance.cpp" name="engine/code/render/model_instance.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2908,5,3049,47"/>
 <area shape="rect" id="node2" href="$model__instance_8hpp.html" title=" " alt="" coords="2910,95,3047,121"/>
 <area shape="rect" id="node3" href="$asset__ref_8hpp.html" title=" " alt="" coords="4420,393,4556,420"/>
 <area shape="rect" id="node23" href="$array__view_8hpp.html" title=" " alt="" coords="3334,393,3471,420"/>

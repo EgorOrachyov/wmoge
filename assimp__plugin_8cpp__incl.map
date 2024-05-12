@@ -1,5 +1,5 @@
-<map id="plugins/assimp/assimp_plugin.cpp" name="plugins/assimp/assimp_plugin.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3364,5,3519,47"/>
+<map id="engine/plugins/assimp/assimp_plugin.cpp" name="engine/plugins/assimp/assimp_plugin.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="3366,5,3517,47"/>
 <area shape="rect" id="node2" href="$assimp__plugin_8hpp.html" title=" " alt="" coords="3301,244,3430,271"/>
 <area shape="rect" id="node15" href="$log_8hpp.html" title=" " alt="" coords="2203,931,2295,957"/>
 <area shape="rect" id="node27" href="$plugins_2assimp_2__rtti_8hpp.html" title=" " alt="" coords="3506,95,3574,121"/>

@@ -1,5 +1,5 @@
-<map id="engine/scripting/lua/lua_event_script.hpp" name="engine/scripting/lua/lua_event_script.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="3119,5,3265,47"/>
+<map id="engine/code/scripting/lua/lua_event_script.hpp" name="engine/code/scripting/lua/lua_event_script.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="3109,5,3275,47"/>
 <area shape="rect" id="node2" href="$event__script_8hpp.html" title=" " alt="" coords="2926,95,3079,121"/>
 <area shape="rect" id="node34" title=" " alt="" coords="2925,543,2992,569"/>
 <area shape="rect" id="node47" href="$lua__defs_8hpp.html" title=" " alt="" coords="3107,169,3277,196"/>

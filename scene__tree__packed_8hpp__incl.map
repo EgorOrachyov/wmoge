@@ -1,5 +1,5 @@
-<map id="engine/scene/scene_tree_packed.hpp" name="engine/scene/scene_tree_packed.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="4108,5,4247,47"/>
+<map id="engine/code/scene/scene_tree_packed.hpp" name="engine/code/scene/scene_tree_packed.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="4092,5,4263,47"/>
 <area shape="rect" id="node2" href="$asset_8hpp.html" title=" " alt="" coords="3055,393,3169,420"/>
 <area shape="rect" id="node23" title=" " alt="" coords="580,856,647,883"/>
 <area shape="rect" id="node26" href="$yaml_8hpp.html" title=" " alt="" coords="3587,781,3674,808"/>

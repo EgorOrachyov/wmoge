@@ -1,5 +1,5 @@
-<map id="engine/grc/texture.hpp" name="engine/grc/texture.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="4208,5,4357,32"/>
+<map id="engine/code/grc/texture.hpp" name="engine/code/grc/texture.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="4192,5,4373,32"/>
 <area shape="rect" id="node2" href="$asset_8hpp.html" title=" " alt="" coords="2405,229,2520,256"/>
 <area shape="rect" id="node5" href="$serialization_8hpp.html" title=" " alt="" coords="2720,543,2848,569"/>
 <area shape="rect" id="node44" href="$gfx__defs_8hpp.html" title=" " alt="" coords="3995,543,4111,569"/>

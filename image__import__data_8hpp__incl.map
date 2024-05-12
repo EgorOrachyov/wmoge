@@ -1,5 +1,5 @@
-<map id="plugins/runtime/asset/image_import_data.hpp" name="plugins/runtime/asset/image_import_data.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="2212,5,2372,47"/>
+<map id="engine/plugins/runtime/asset/image_import_data.hpp" name="engine/plugins/runtime/asset/image_import_data.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="2194,5,2390,47"/>
 <area shape="rect" id="node2" href="$asset__import__data_8hpp.html" title=" " alt="" coords="2225,95,2358,136"/>
 <area shape="rect" id="node3" href="$date__time_8hpp.html" title=" " alt="" coords="258,333,390,360"/>
 <area shape="rect" id="node8" title=" " alt="" coords="2031,856,2086,883"/>

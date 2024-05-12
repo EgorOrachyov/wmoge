@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>wmoge: engine/system/hook.hpp Source File</title>
+<title>wmoge: engine/code/system/hook.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_14c60ad529c4040c99366feaa620c32e.html">system</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_996f45160da62e1a3d7f6046fad68f51.html">engine</a></li><li class="navelem"><a class="el" href="dir_0c10233b2546128f7e3a26815fccf431.html">code</a></li><li class="navelem"><a class="el" href="dir_31c30da35259347a64994ed596fa5aea.html">system</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -114,7 +114,7 @@ $(function() {
 <div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classwmoge_1_1Hook.html#a29073ef29b5e6ca3722a917d07c4a7d4">   47</a></span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classwmoge_1_1Hook.html#a29073ef29b5e6ca3722a917d07c4a7d4">get_name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;&quot;</span>; }</div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classwmoge_1_1Hook.html#a067576f39a9f37ebc341cf6780ce7761">   48</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span>        <a class="code" href="classwmoge_1_1Hook.html#a067576f39a9f37ebc341cf6780ce7761">on_attach</a>() {}</div>
 <div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classwmoge_1_1Hook.html#a2dd6657e37dd611861122ba11c1e9630">   49</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span>        <a class="code" href="classwmoge_1_1Hook.html#a2dd6657e37dd611861122ba11c1e9630">on_add_cmd_line_options</a>(<a class="code" href="classwmoge_1_1CmdLine.html">CmdLine</a>&amp; cmd_line) {}</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classwmoge_1_1Hook.html#a50ca9c35d0aacb06738c973f7cd58367">   50</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a>      <a class="code" href="classwmoge_1_1Hook.html#a50ca9c35d0aacb06738c973f7cd58367">on_process</a>(<a class="code" href="classwmoge_1_1CmdLine.html">CmdLine</a>&amp; cmd_line) { <span class="keywordflow">return</span> <a class="code" href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">StatusCode::Ok</a>; }</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classwmoge_1_1Hook.html#a50ca9c35d0aacb06738c973f7cd58367">   50</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classwmoge_1_1Status.html">Status</a>      <a class="code" href="classwmoge_1_1Hook.html#a50ca9c35d0aacb06738c973f7cd58367">on_process</a>(<a class="code" href="classwmoge_1_1CmdLine.html">CmdLine</a>&amp; cmd_line) { <span class="keywordflow">return</span> <a class="code" href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a>; }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    };</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classwmoge_1_1HookList.html">   57</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1HookList.html">HookList</a> {</div>
@@ -167,8 +167,8 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
 <div class="ttc" id="acmd__line_8hpp_html"><div class="ttname"><a href="cmd__line_8hpp.html">cmd_line.hpp</a></div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
-<div class="ttc" id="anamespacewmoge_html_afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115"><div class="ttname"><a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085baa60852f204ed8028c1c58808b746d115">wmoge::StatusCode::Ok</a></div><div class="ttdeci">@ Ok</div></div>
 <div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
+<div class="ttc" id="astatus_8hpp_html_a8b62ff05bb070920d3ef8f1c6783d6de"><div class="ttname"><a href="status_8hpp.html#a8b62ff05bb070920d3ef8f1c6783d6de">WG_OK</a></div><div class="ttdeci">#define WG_OK</div><div class="ttdef"><b>Definition:</b> status.hpp:130</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

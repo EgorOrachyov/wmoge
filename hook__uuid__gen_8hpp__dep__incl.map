@@ -1,5 +1,5 @@
-<map id="engine/hooks/hook_uuid_gen.hpp" name="engine/hooks/hook_uuid_gen.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="130,5,293,47"/>
-<area shape="rect" id="node2" href="$application_8cpp.html" title=" " alt="" coords="5,95,207,121"/>
-<area shape="rect" id="node3" href="$engine_8cpp.html" title=" " alt="" coords="231,95,403,121"/>
+<map id="engine/code/hooks/hook_uuid_gen.hpp" name="engine/code/hooks/hook_uuid_gen.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="78,5,241,47"/>
+<area shape="rect" id="node2" href="$application_8cpp.html" title=" " alt="" coords="5,95,148,136"/>
+<area shape="rect" id="node3" href="$engine_8cpp.html" title=" " alt="" coords="173,95,311,136"/>
 </map>

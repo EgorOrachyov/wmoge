@@ -1,5 +1,5 @@
-<map id="plugins/assimp/assimp_asset_loader.hpp" name="plugins/assimp/assimp_asset_loader.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="4261,5,4416,47"/>
+<map id="engine/plugins/assimp/assimp_asset_loader.hpp" name="engine/plugins/assimp/assimp_asset_loader.hpp">
+<area shape="rect" id="node1" title=" " alt="" coords="4252,5,4425,47"/>
 <area shape="rect" id="node2" href="$asset_8hpp.html" title=" " alt="" coords="2076,319,2191,345"/>
 <area shape="rect" id="node22" title=" " alt="" coords="3163,781,3229,808"/>
 <area shape="rect" id="node36" href="$mat_8hpp.html" title=" " alt="" coords="4505,557,4607,584"/>
