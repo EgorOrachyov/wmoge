@@ -10,7 +10,8 @@
             "request": "launch",
             "program": "${workspaceRoot}/build-Debug/template/template.exe",
             "args": [
-                "--root_remap=${workspaceRoot}/template"
+                "--root_remap=${workspaceRoot}/template",
+                "--engine_remap=root://../engine/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/build-Debug/template",
@@ -23,7 +24,8 @@
             "request": "launch",
             "program": "${workspaceRoot}/build-Release/template/template.exe",
             "args": [
-                "--root_remap=${workspaceRoot}/template"
+                "--root_remap=${workspaceRoot}/template",
+                "--engine_remap=root://../engine/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/build-Release/template",

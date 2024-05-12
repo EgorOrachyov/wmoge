@@ -137,7 +137,7 @@ public:
                 .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
                 .finish();
 
-        shader = Engine::instance()->asset_manager()->load(SID("root://shaders/canvas")).cast<Shader>();
+        shader = Engine::instance()->asset_manager()->load(SID("engine://shaders/canvas")).cast<Shader>();
 
         ShaderParamId p_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
         ShaderParamId p_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));

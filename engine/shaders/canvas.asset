@@ -1,0 +1,9 @@
+# Wmoge asset meta file
+version: 1
+uuid: 0
+loader: ShaderAssetLoader
+rtti: Shader
+deps: [ ]
+import_data:
+  rtti: AssetImportData
+  source_files: [{file: "engine://shaders/canvas.shader"}]

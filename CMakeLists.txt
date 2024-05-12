@@ -128,11 +128,6 @@ add_subdirectory(deps)
 add_subdirectory(engine)
 
 ###########################################################
-# Plugins sources (standard plugins for engine)
-
-add_subdirectory(plugins)
-
-###########################################################
 # Game template for test purposes and to kick-off new projects
 
 add_subdirectory(template)

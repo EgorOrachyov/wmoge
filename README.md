@@ -43,7 +43,7 @@ project for educational purposes only.
 * 🎥 (future) OpenGL-based gfx device backend.
 * 🎥 (future) DX12-based gfx device backend.
 * 🎨 Custom shader files syntax support to write any shaders with rich features.
-* 🎨 Automated fast runtime shaders reflection generatio.
+* 🎨 Automated fast runtime shaders reflection generatiom.
 * 🎨 Automated shaders layout creation, compilation and reloading.
 * 🎨 Built-in GLSL shader compiler for online compilation.
 * 🎨 Hot-reloading of shaders at runtime.
@@ -219,9 +219,7 @@ respond as soon as possible to them.
 | `📁 .github`        | CI/CD scripts and GitHub related files                    |
 | `📁 docs`           | Additional project documents and resources                |
 | `📁 deps`           | Third-party project dependencies, stored as is            |
-| `📁 engine`         | Engine sources compiled into library                      |
-| `📁 plugins`        | Engine common plugins to extend functionality             |
-| `📁 shaders`        | Engine common shader files sources                        |
+| `📁 engine`         | Engine sources code, shaders, config, plugins sources     |
 | `📁 template`       | Template project which can be used as a base for a game   |
 | `📁 games`          | Example games created with engine                         |
 | `📄 CMakeLists.txt` | CMake configuration, add as sub directory to your project |
