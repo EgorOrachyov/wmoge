@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['join_7396',['join',['../classwmoge_1_1Async.html#ac9c0f6ce47617d4b87b075243e646965',1,'wmoge::Async::join()'],['../classwmoge_1_1TAabb.html#a51879428cb4f4559ae6ed3a821023bb3',1,'wmoge::TAabb::join()']]],
-  ['joystick_7397',['joystick',['../classwmoge_1_1GlfwInput.html#ab2046b89ee1782e0dd5a4d5a81affcbc',1,'wmoge::GlfwInput::joystick()'],['../classwmoge_1_1Input.html#a55e4da76584edfe83a145adc835dc5b2',1,'wmoge::Input::joystick()']]]
+  ['key_6842',['key',['../structwmoge_1_1LuaEventKeyboard.html#a87bd1e5abd5652c92a1a1892e088e8eb',1,'wmoge::LuaEventKeyboard']]],
+  ['keyboard_6843',['keyboard',['../classwmoge_1_1GlfwInput.html#a03612a04fa2149a4babf6a587a992807',1,'wmoge::GlfwInput::keyboard()'],['../classwmoge_1_1Input.html#a3b86fed39b3314ecd04c4e5fa3e71c58',1,'wmoge::Input::keyboard()']]],
+  ['keyboard_5fkey_6844',['keyboard_key',['../classwmoge_1_1GlfwInputDefs.html#aa352a873d2de22a5004c395221d7b940',1,'wmoge::GlfwInputDefs']]],
+  ['keys_5fstates_6845',['keys_states',['../classwmoge_1_1Keyboard.html#af97653b6f9a5be7ed0d71e2798cbbfad',1,'wmoge::Keyboard']]]
 ];

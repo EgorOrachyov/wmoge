@@ -170,10 +170,10 @@ $(function() {
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <a class="code" href="classwmoge_1_1ConsoleVar.html">ConsoleVar</a>* <a class="code" href="classwmoge_1_1Console.html#af87c3a828131d6064ba1fe97e79b8894">find_var</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Strid.html">Strid</a>&amp; name);</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <a class="code" href="classwmoge_1_1ConsoleCmd.html">ConsoleCmd</a>* <a class="code" href="classwmoge_1_1Console.html#a328266e9b826a8136aa8f05ff90959fa">find_cmd</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Strid.html">Strid</a>&amp; name);</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#a93630d8fafbfee275e78f2a9d5ec3032">add_info</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="namespacetext.html">text</a>);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#ac8e56503f17e954cee247e6112c57471">add_warning</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="namespacetext.html">text</a>);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#ab7657b02939251c46ebff05c861af15b">add_error</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="namespacetext.html">text</a>);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#a2d75225d237d088d5a6d2db4d9d6803c">add_suggestion</a>(<span class="keyword">const</span> std::string&amp; <a class="code" href="namespacetext.html">text</a>);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#a93630d8fafbfee275e78f2a9d5ec3032">add_info</a>(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#ac8e56503f17e954cee247e6112c57471">add_warning</a>(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#ab7657b02939251c46ebff05c861af15b">add_error</a>(<span class="keyword">const</span> std::string&amp; text);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#a2d75225d237d088d5a6d2db4d9d6803c">add_suggestion</a>(<span class="keyword">const</span> std::string&amp; text);</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classwmoge_1_1Console.html#a7c6cc61b09389591119c9bcd742a15e1">process</a>(<span class="keyword">const</span> std::string&amp; input);</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
@@ -194,7 +194,7 @@ $(function() {
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            Closing</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        };</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keyword">struct </span>Message {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            std::string <a class="code" href="namespacetext.html">text</a>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            std::string text;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <a class="code" href="classwmoge_1_1TVecN.html">Color4f</a>     color;</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        };</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
@@ -288,7 +288,6 @@ $(function() {
 <div class="ttc" id="aevent__listener_8hpp_html"><div class="ttname"><a href="event__listener_8hpp.html">event_listener.hpp</a></div></div>
 <div class="ttc" id="aflat__map_8hpp_html"><div class="ttname"><a href="flat__map_8hpp.html">flat_map.hpp</a></div></div>
 <div class="ttc" id="afont_8hpp_html"><div class="ttname"><a href="font_8hpp.html">font.hpp</a></div></div>
-<div class="ttc" id="anamespacetext_html"><div class="ttname"><a href="namespacetext.html">text</a></div><div class="ttdef"><b>Definition:</b> text.py:1</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
 <div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="astring__id_8hpp_html"><div class="ttname"><a href="string__id_8hpp.html">string_id.hpp</a></div></div>
