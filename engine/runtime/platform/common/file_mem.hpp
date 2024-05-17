@@ -27,49 +27,57 @@
 
 #pragma once
 
-#include "core/cmd_line.hpp"
-#include "system/config.hpp"
-#include "system/hook.hpp"
-#include "system/ioc_container.hpp"
+#include "core/array_view.hpp"
+#include "platform/file.hpp"
+
+#include <vector>
 
 namespace wmoge {
 
-    /** 
-     * @class HookConfig
-     * @brief Engine hook to setup common config workflow
-     */
-    class HookConfig : public Hook {
+    /**
+     * @class FileMemReader
+     * @brief File interface implementation for reading from memory buffer
+    */
+    class FileMemReader : public File {
     public:
-        ~HookConfig() override = default;
+        FileMemReader()           = default;
+        ~FileMemReader() override = default;
 
-        std::string get_name() const override {
-            return "config";
-        }
+        Status init(const array_view<std::uint8_t>& buffer);
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_string("root_config", "path to exe config", "root://config/");
-        }
+        Status nread(void* buffer, std::size_t bytes) override;
+        Status nwrite(const void* buffer, std::size_t bytes) override;
+        Status eof(bool& is_eof) override;
+        Status size(std::size_t& out_size) override;
 
-        Status on_process(CmdLine& cmd_line) override {
-            Config*     config = IocContainer::iresolve_v<Config>();
-            FileSystem* fs     = IocContainer::iresolve_v<FileSystem>();
+        [[nodiscard]] array_view<std::uint8_t>&       get_buffer() { return m_buffer; }
+        [[nodiscard]] const array_view<std::uint8_t>& get_buffer() const { return m_buffer; }
+        [[nodiscard]] std::size_t                     get_position() const { return m_position; }
 
-            const std::string path = cmd_line.get_string("root_config");
+    private:
+        array_view<std::uint8_t> m_buffer;
+        std::size_t              m_position = 0;
+    };
 
-            if (!config->load(path + "/engine.cfg")) {
-                std::cerr << "failed to load exe engine.cfg file, check your configuration file or path";
-            }
-            if (!config->load(path + "/game.cfg")) {
-                std::cerr << "failed to load exe game.cfg file, check your configure file of path";
-            }
-            if (!config->load(path + "/cvars.cfg")) {
-                std::cerr << "failed to load exe cvars.cfg file, check your configure file of path";
-            }
+    /**
+     * @class FileMemWriter
+     * @brief File interface implementation for writing into dynamic memory buffer
+    */
+    class FileMemWriter : public File {
+    public:
+        FileMemWriter()           = default;
+        ~FileMemWriter() override = default;
 
-            fs->setup_mappings();
+        Status nread(void* buffer, std::size_t bytes) override;
+        Status nwrite(const void* buffer, std::size_t bytes) override;
+        Status eof(bool& is_eof) override;
+        Status size(std::size_t& out_size) override;
 
-            return WG_OK;
-        }
+        [[nodiscard]] std::vector<std::uint8_t>&       get_buffer() { return m_buffer; }
+        [[nodiscard]] const std::vector<std::uint8_t>& get_buffer() const { return m_buffer; }
+
+    private:
+        std::vector<std::uint8_t> m_buffer;
     };
 
 }// namespace wmoge

@@ -25,58 +25,62 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "file_mem.hpp"
 
-#include "core/cmd_line.hpp"
-#include "platform/file_system.hpp"
-#include "system/config.hpp"
-#include "system/hook.hpp"
-#include "system/ioc_container.hpp"
+#include <memory>
+#include <string>
+#include <utility>
 
 namespace wmoge {
 
-    /** 
-     * @class HookEngine
-     * @brief Engine hook to setup runtime of the game
-     */
-    class HookEngine : public Hook {
-    public:
-        ~HookEngine() override = default;
+    Status FileMemReader::init(const array_view<std::uint8_t>& buffer) {
+        m_buffer   = buffer;
+        m_position = 0;
+        return WG_OK;
+    }
 
-        std::string get_name() const override {
-            return "engine";
-        }
+    Status FileMemReader::nread(void* buffer, std::size_t bytes) {
+        assert(buffer);
+        assert(bytes + m_position <= m_buffer.size());
+        std::memcpy(buffer, m_buffer.data() + m_position, bytes);
+        m_position += bytes;
+        return WG_OK;
+    }
 
-        void on_add_cmd_line_options(CmdLine& cmd_line) override {
-            cmd_line.add_string("engine_remap", "remap for engine directory", "");
-            cmd_line.add_string("engine_config", "path to engine config", "engine://config/");
-        }
+    Status FileMemReader::nwrite(const void* buffer, std::size_t bytes) {
+        return StatusCode::InvalidState;
+    }
 
-        Status on_process(CmdLine& cmd_line) override {
-            Config*     config = IocContainer::iresolve_v<Config>();
-            FileSystem* fs     = IocContainer::iresolve_v<FileSystem>();
+    Status FileMemReader::eof(bool& is_eof) {
+        is_eof = m_position == m_buffer.size();
+        return WG_OK;
+    }
 
-            const std::string engine_remap = cmd_line.get_string("engine_remap");
-            if (!engine_remap.empty()) {
-                config->set_string(SID("file_system.engine_path"), engine_remap, true);
-            }
+    Status FileMemReader::size(std::size_t& out_size) {
+        out_size = m_buffer.size();
+        return WG_OK;
+    }
 
-            fs->setup_mappings();
+    Status FileMemWriter::nread(void* buffer, std::size_t bytes) {
+        return StatusCode::InvalidState;
+    }
 
-            const std::string config_path = cmd_line.get_string("engine_config");
+    Status FileMemWriter::nwrite(const void* buffer, std::size_t bytes) {
+        assert(buffer);
+        std::size_t offset = m_buffer.size();
+        m_buffer.resize(m_buffer.size() + bytes);
+        std::memcpy(m_buffer.data() + offset, buffer, bytes);
+        return WG_OK;
+    }
 
-            if (!config->load(config_path + "/engine.cfg", ConfigStackMode::Keep)) {
-                std::cerr << "failed to load engine engine.cfg file, check your configuration file or path";
-            }
-            if (!config->load(config_path + "/game.cfg", ConfigStackMode::Keep)) {
-                std::cerr << "failed to load engine game.cfg file, check your configure file of path";
-            }
-            if (!config->load(config_path + "/cvars.cfg", ConfigStackMode::Keep)) {
-                std::cerr << "failed to load engine cvars.cfg file, check your configure file of path";
-            }
+    Status FileMemWriter::eof(bool& is_eof) {
+        is_eof = true;
+        return WG_OK;
+    }
 
-            return WG_OK;
-        }
-    };
+    Status FileMemWriter::size(std::size_t& out_size) {
+        out_size = m_buffer.size();
+        return WG_OK;
+    }
 
 }// namespace wmoge

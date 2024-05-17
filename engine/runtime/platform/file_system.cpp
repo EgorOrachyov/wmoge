@@ -45,7 +45,6 @@
 
 namespace wmoge {
 
-    const std::string FileSystem::PREFIX_ROOT   = "root://";
     const std::string FileSystem::PREFIX_ENGINE = "engine://";
     const std::string FileSystem::PREFIX_ASSET  = "asset://";
     const std::string FileSystem::PREFIX_LOCAL  = "local://";
@@ -54,9 +53,9 @@ namespace wmoge {
     const std::string FileSystem::PREFIX_LOG    = "logs://";
 
     static const std::string REMAP_ROOT   = "../";
-    static const std::string REMAP_ENGINE = "root://engine/";
-    static const std::string REMAP_ASSET  = "root://assets/";
-    static const std::string REMAP_LOCAL  = "root://.wgengine/";
+    static const std::string REMAP_ENGINE = "engine/";
+    static const std::string REMAP_ASSET  = "assets/";
+    static const std::string REMAP_LOCAL  = ".wgengine/";
     static const std::string REMAP_DEBUG  = "local://debug/";
     static const std::string REMAP_CACHE  = "local://cache/";
     static const std::string REMAP_LOG    = "local://logs/";
@@ -78,11 +77,11 @@ namespace wmoge {
         wai_getExecutablePath(path_exe.data(), path_length, nullptr);
 
         m_executable_path = path_exe;
-        m_root_volume     = make_ref<MountVolumePhysical>(std::filesystem::path(), PREFIX_ROOT).as<MountVolume>();
+        m_root_volume     = make_ref<MountVolumePhysical>(std::filesystem::path(), "").as<MountVolume>();
 
         root(m_executable_path.parent_path());
 
-        add_mounting({PREFIX_ROOT, m_root_volume});
+        add_mounting({"", m_root_volume});
     }
 
     FileSystem::~FileSystem() = default;
@@ -102,28 +101,16 @@ namespace wmoge {
                 }
             }
 
-            if (!applied_rule) {
-                if (current_resolve.find(PREFIX_ROOT) == 0) {
-                    break;
-                }
-            }
-
             resolved = !applied_rule;
         }
 
-        if (current_resolve.find(PREFIX_ROOT) == 0) {
-            return current_resolve;
-        }
-
-        return {};
+        return current_resolve;
     }
     std::filesystem::path FileSystem::resolve_physical(const std::string& path) {
         const std::string resolved_path = resolve(path);
 
         if (!resolved_path.empty()) {
-            if (resolved_path.find(PREFIX_ROOT) == 0) {
-                return m_root_path / resolved_path.substr(PREFIX_ROOT.length());
-            }
+            return m_root_path / resolved_path;
         }
 
         return {};

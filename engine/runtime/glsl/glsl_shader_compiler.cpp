@@ -34,7 +34,6 @@
 #include "glsl/glsl_include_processor.hpp"
 #include "grc/shader_compiler_task_manager.hpp"
 #include "io/archive.hpp"
-#include "io/archive_memory.hpp"
 #include "io/enum.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"

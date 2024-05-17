@@ -25,30 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "pso_file.hpp"
+#pragma once
 
-#include "io/archive_file.hpp"
+#include "io/archive.hpp"
+#include "platform/file.hpp"
+
+#include <fstream>
+#include <vector>
 
 namespace wmoge {
 
-    Status PsoFile::read(const std::string& path, FilePsoData& pso_data) {
-        ArchiveReaderFile archive;
-        WG_CHECKED(archive.open(path));
+    /**
+     * @class ArchiveFile
+     * @brief An archive to read/write data to a file with compression
+     */
+    class ArchiveFile final : public Archive {
+    public:
+        ArchiveFile();
+        ~ArchiveFile() override;
 
-        IoContext context;
-        WG_ARCHIVE_READ(context, archive, pso_data);
+        Status set(Ref<File> file, FileOpenModeFlags flags);
+        Status open(const std::string& file_path, FileOpenModeFlags flags);
+        Status nwrite(std::size_t num_bytes, const void* bytes) override;
+        Status nread(std::size_t num_bytes, void* bytes) override;
+        Status begin_compressed() override;
+        Status end_compressed() override;
 
-        return WG_OK;
-    }
+    private:
+        Status             append_raw(std::size_t num_bytes, const void* bytes);
+        Status             append_file(std::size_t num_bytes, const void* bytes);
+        Status             fetch_raw(std::size_t num_bytes, void* bytes);
+        Status             fecth_file(std::size_t num_bytes, void* bytes);
+        Status             flush_compressed();
+        Status             fetch_decompressed();
+        [[nodiscard]] bool is_compressed();
 
-    Status PsoFile::write(const std::string& path, const FilePsoData& pso_data) {
-        ArchiveWriterFile archive;
-        WG_CHECKED(archive.open(path));
-
-        IoContext context;
-        WG_ARCHIVE_WRITE(context, archive, pso_data);
-
-        return WG_OK;
-    }
+    private:
+        std::vector<std::uint8_t> m_buffer_raw;
+        std::vector<std::uint8_t> m_buffer_compressed;
+        std::size_t               m_offset             = 0;
+        std::size_t               m_buffer_size        = 0;
+        std::int32_t              m_compression_region = 0;
+        Ref<File>                 m_file;
+    };
 
 }// namespace wmoge

@@ -94,8 +94,8 @@ public:
 
         GameApplication::on_init();
 
-        Engine::instance()->action_manager()->load("root://actions/actionmap_console.yml");
-        Engine::instance()->action_manager()->load("root://actions/actionmap_camera_debug.yml");
+        Engine::instance()->action_manager()->load("actions/actionmap_console.yml");
+        Engine::instance()->action_manager()->load("actions/actionmap_camera_debug.yml");
         Engine::instance()->action_manager()->activate(SID("console"));
         Engine::instance()->action_manager()->activate(SID("camera_debug"));
 

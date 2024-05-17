@@ -33,15 +33,19 @@
 
 namespace wmoge {
 
-    Status Compression::compress_lz4(const void* in, int size, std::vector<std::uint8_t>& out) {
+    Status Compression::estimate_lz4(const void* in, int size, int& max_compressed_size) {
+        WG_AUTO_PROFILE_IO("Compression::estimate_lz4");
+
+        max_compressed_size = LZ4_compressBound(size);
+
+        return WG_OK;
+    }
+
+    Status Compression::compress_lz4(const void* in, int size, int max_compressed_size, int& compressed_size, std::uint8_t* out) {
         WG_AUTO_PROFILE_IO("Compression::compress_lz4");
 
-        const int max_compressed_size = LZ4_compressBound(size);
-        out.resize(max_compressed_size);
-
-        const int compressed_size = LZ4_compress_default(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out.data()), size, max_compressed_size);
+        compressed_size = LZ4_compress_default(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), size, max_compressed_size);
         if (compressed_size > 0) {
-            out.resize(compressed_size);
             return WG_OK;
         }
 
@@ -51,7 +55,12 @@ namespace wmoge {
     Status Compression::decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out) {
         WG_AUTO_PROFILE_IO("Compression::decompress_lz4");
 
-        return LZ4_decompress_safe(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), compressed_size, decompressed_size) > 0 ? StatusCode::Ok : StatusCode::FailedDecompress;
+        const int decompressed_bytes = LZ4_decompress_safe(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), compressed_size, decompressed_size);
+        if (decompressed_bytes == decompressed_size) {
+            return StatusCode::Ok;
+        }
+
+        return StatusCode::FailedDecompress;
     }
 
 }// namespace wmoge

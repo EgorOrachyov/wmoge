@@ -29,6 +29,7 @@
 
 #include "core/data.hpp"
 #include "core/string_utils.hpp"
+#include "io/ini.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
@@ -40,49 +41,23 @@ namespace wmoge {
     Status ConfigFile::load(const std::string& path) {
         WG_AUTO_PROFILE_ASSET("ConfigFile::load");
 
-        std::fstream file;
-        FileSystem*  file_system = IocContainer::iresolve_v<FileSystem>();
+        std::string content;
+        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
 
-        if (!file_system->open_file_physical(path, file, std::ios_base::in | std::ios_base::binary)) {
+        if (!file_system->read_file(path, content)) {
             WG_LOG_ERROR("failed to read config file from " << path);
             return StatusCode::FailedRead;
         }
 
-        Strid       section;
-        std::string line;
+        IniFile file;
+        WG_CHECKED(file.parse(content));
 
-        while (!file.eof()) {
-            std::getline(file, line);
+        for (auto& entry : file.get_sections()) {
+            IniSection& section = entry.second;
 
-            if (!line.empty() && line[line.length() - 1] == '\r') {
-                line = line.substr(0, line.length() - 1);
-            }
-
-            if (line[0] == '[') {
-                section = SID(line.substr(1, line.find_last_of(']') - 1));
-                continue;
-            }
-            if (line[0] == ';') {
-                continue;
-            }
-
-            auto pos = line.find(" = ");
-            if (pos != std::string::npos) {
-                std::string key   = line.substr(0, pos);
-                std::string value = line.substr(pos + 3);
-                Var         var;
-
-                if (value == "true") {
-                    var = Var(1);
-                } else if (value == "false") {
-                    var = Var(0);
-                } else if (value[0] == '\"') {
-                    var = Var(value.substr(1, value.find_last_of('\"') - 1));
-                } else {
-                    var = Var(value);
-                }
-
-                m_entries.emplace(SID(section.str() + "." + key), var);
+            for (auto& value : section.values) {
+                Strid key(section.name + "." + value.first);
+                m_entries[key] = std::move(value.second);
             }
         }
 

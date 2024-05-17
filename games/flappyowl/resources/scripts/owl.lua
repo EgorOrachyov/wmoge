@@ -25,8 +25,8 @@ function Owl:on_scene_enter()
     self.feathers = self.parent:get("Particles2d")
 
     -- load and enable game action map for controls
-    wmoge.ActionManager.load_action_map("root://actions/actionmap_console.yml")
-    wmoge.ActionManager.load_action_map("root://actions/actionmap_game.yml")
+    wmoge.ActionManager.load_action_map("actions/actionmap_console.yml")
+    wmoge.ActionManager.load_action_map("actions/actionmap_game.yml")
     wmoge.ActionManager.enable_action_map(wmoge.StringId.new("console"))
     wmoge.ActionManager.enable_action_map(wmoge.StringId.new("game"))
 end

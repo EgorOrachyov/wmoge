@@ -11,7 +11,7 @@
             "program": "${workspaceRoot}/build-Debug/template/template.exe",
             "args": [
                 "--root_remap=${workspaceRoot}/template",
-                "--engine_remap=root://../engine/"
+                "--engine_remap=../engine/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/build-Debug/template",
@@ -25,7 +25,7 @@
             "program": "${workspaceRoot}/build-Release/template/template.exe",
             "args": [
                 "--root_remap=${workspaceRoot}/template",
-                "--engine_remap=root://../engine/"
+                "--engine_remap=../engine/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}/build-Release/template",

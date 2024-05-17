@@ -229,16 +229,18 @@ namespace wmoge {
         WG_AUTO_PROFILE_GRC("ShaderLibrary::load_cache");
 
         const std::string file_path = make_cache_file_name(folder, platform);
-        ArchiveReaderFile archive;
+        ArchiveFile       archive;
         IoContext         context;
 
-        if (!archive.open(file_path)) {
+        if (!archive.open(file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
             WG_LOG_ERROR("failed to open shader library " << file_path << " for platform " << Enum::to_str(platform));
             return StatusCode::FailedOpenFile;
         }
 
         FileShaderLibrary library;
+        WG_CHECKED(archive.begin_compressed());
         WG_ARCHIVE_READ(context, archive, library);
+        WG_CHECKED(archive.end_compressed());
 
         std::unique_lock lock(m_mutex);
 
@@ -288,15 +290,17 @@ namespace wmoge {
         }
 
         const std::string file_path = make_cache_file_name(folder, platform);
-        ArchiveWriterFile archive;
+        ArchiveFile       archive;
         IoContext         context;
 
-        if (!archive.open(file_path)) {
+        if (!archive.open(file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
             WG_LOG_ERROR("failed to open shader library " << file_path << " for platform " << Enum::to_str(platform));
             return StatusCode::FailedOpenFile;
         }
 
+        WG_CHECKED(archive.begin_compressed());
         WG_ARCHIVE_WRITE(context, archive, library);
+        WG_CHECKED(archive.end_compressed());
 
         WG_LOG_INFO("save " << file_path
                             << " at=" << library.timestamp

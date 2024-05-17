@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - '.github/**'
-      - 'engine/code/**'
+      - 'engine/runtime/**'
       - 'engine/plugins/**'
       - '.clang-format'
   pull_request:
@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         path:
-          - 'engine/code'
+          - 'engine/runtime'
           - 'engine/plugins'
     steps:
       - uses: actions/checkout@v2

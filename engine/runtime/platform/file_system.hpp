@@ -52,11 +52,10 @@ namespace wmoge {
      * File system abstracts the way how engine files are stored on a target machine.
      * It uses '/' as a universal delimiter and directory separator.
      * It provides a domain prefix in a form of `<PREFIX>://<PATH>` to specify paths.
-     * Standards prefixes are `root://`, `engine://`, `asset://` and `cache://`.
+     * Standards prefixes are `engine://`, `asset://` and `cache://`.
      * This prefixes must be used for all paths to access engine files.
      *
      * Prefixes description:
-     *  - `root://`   prefix to a file relative to the running project main directory
      *  - `engine://` prefix to a file relative to the engine files directory
      *  - `local://`  prefix to a file relative to the local (project) files directory
      *  - `asset://`  prefix relative to project assets directory
@@ -65,7 +64,6 @@ namespace wmoge {
      */
     class FileSystem {
     public:
-        static const std::string PREFIX_ROOT;
         static const std::string PREFIX_ENGINE;
         static const std::string PREFIX_ASSET;
         static const std::string PREFIX_LOCAL;

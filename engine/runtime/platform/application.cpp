@@ -346,7 +346,6 @@ namespace wmoge {
 
             hook_list->attach(std::make_shared<HookUuidGen>());
             hook_list->attach(std::make_shared<HookRootRemap>());
-            hook_list->attach(std::make_shared<HookConfig>());
             hook_list->attach(std::make_shared<HookEngine>());
             hook_list->attach(std::make_shared<HookLogs>());
             hook_list->attach(std::make_shared<HookProfiler>());

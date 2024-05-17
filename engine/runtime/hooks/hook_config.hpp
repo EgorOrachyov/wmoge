@@ -25,46 +25,33 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_COMPRESSION_HPP
-#define WMOGE_COMPRESSION_HPP
+#pragma once
 
-#include "core/status.hpp"
-
-#include <cinttypes>
-#include <vector>
+#include "core/cmd_line.hpp"
+#include "system/config.hpp"
+#include "system/hook.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class Compression
-     * @brief Provides convenient wrapper for fast lz4 library
+    /** 
+     * @class HookConfig
+     * @brief Engine hook to setup common config workflow
      */
-    class Compression {
+    class HookConfig : public Hook {
     public:
-        /**
-         * @brief Compress provided buffer
-         *
-         * @param in buffer to compress
-         * @param size buffer size
-         * @param out output buffer
-         *
-         * @return Ok on success
-         */
-        static Status compress_lz4(const void* in, int size, std::vector<std::uint8_t>& out);
+        ~HookConfig() override = default;
 
-        /**
-         * @brief Decompress provided buffer
-         *
-         * @param in buffer to decompress
-         * @param compressed_size size of compressed buffer
-         * @param decompressed_size decompressed data size
-         * @param out buffer for decompressed data
-         *
-         * @return Ok in success
-         */
-        static Status decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out);
+        std::string get_name() const override {
+            return "config";
+        }
+
+        void on_add_cmd_line_options(CmdLine& cmd_line) override {
+        }
+
+        Status on_process(CmdLine& cmd_line) override {
+            return WG_OK;
+        }
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_COMPRESSION_HPP

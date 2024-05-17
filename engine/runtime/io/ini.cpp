@@ -25,50 +25,57 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include <cstring>
+#include "ini.hpp"
 
-#include "archive_memory.hpp"
+#include <sstream>
 
 namespace wmoge {
 
-    ArchiveWriterMemory::ArchiveWriterMemory() {
-        m_can_write = true;
-    }
-    Status ArchiveWriterMemory::nwrite(int num_bytes, const void* bytes) {
-        auto pos = m_data.size();
-        m_data.resize(pos + num_bytes);
-        m_pos += num_bytes;
-        std::memcpy(m_data.data() + pos, bytes, num_bytes);
+    Status IniFile::parse(const std::string& content) {
+        std::string section_name;
+        std::string line;
+
+        std::stringstream file(content);
+        while (!file.eof()) {
+            std::getline(file, line);
+
+            if (!line.empty() && line[line.length() - 1] == '\r') {
+                line = line.substr(0, line.length() - 1);
+            }
+            if (line[0] == '[') {
+                section_name = line.substr(1, line.find_last_of(']') - 1);
+                continue;
+            }
+            if (line[0] == ';') {
+                continue;
+            }
+
+            auto pos = line.find(" = ");
+            if (pos != std::string::npos) {
+                std::string key   = line.substr(0, pos);
+                std::string value = line.substr(pos + 3);
+                Var         var;
+
+                if (value == "true") {
+                    var = Var(1);
+                } else if (value == "false") {
+                    var = Var(0);
+                } else if (value[0] == '\"') {
+                    var = Var(value.substr(1, value.find_last_of('\"') - 1));
+                } else {
+                    var = Var(value);
+                }
+
+                IniSection& section = m_sections[section_name];
+                if (section.name.empty()) {
+                    section.name = section_name;
+                }
+
+                section.values.emplace(key, var);
+            }
+        }
+
         return WG_OK;
-    }
-    bool ArchiveWriterMemory::is_memory() {
-        return true;
-    }
-    bool ArchiveWriterMemory::is_physical() {
-        return false;
-    }
-    std::size_t ArchiveWriterMemory::get_size() {
-        return m_data.size();
     }
 
-    ArchiveReaderMemory::ArchiveReaderMemory(const std::uint8_t* data, std::size_t size) {
-        m_data     = data;
-        m_size     = size;
-        m_can_read = true;
-    }
-    Status ArchiveReaderMemory::nread(int num_bytes, void* bytes) {
-        assert(m_pos + num_bytes <= get_size());
-        std::memcpy(bytes, m_data + m_pos, num_bytes);
-        m_pos += num_bytes;
-        return WG_OK;
-    }
-    bool ArchiveReaderMemory::is_memory() {
-        return true;
-    }
-    bool ArchiveReaderMemory::is_physical() {
-        return false;
-    }
-    std::size_t ArchiveReaderMemory::get_size() {
-        return m_size;
-    }
 }// namespace wmoge

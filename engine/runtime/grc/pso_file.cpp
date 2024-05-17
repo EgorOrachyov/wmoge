@@ -25,58 +25,30 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "pso_file.hpp"
 
-#include <vector>
-
-#include "core/data.hpp"
-#include "io/archive.hpp"
+#include "io/archive_file.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ArchiveWriterMemory
-     * @brief An archive for binary serialization into a memory buffer
-     */
-    class ArchiveWriterMemory final : public Archive {
-    public:
-        ArchiveWriterMemory();
-        ~ArchiveWriterMemory() override = default;
+    Status PsoFile::read(const std::string& path, FilePsoData& pso_data) {
+        ArchiveFile archive;
+        WG_CHECKED(archive.open(path, {FileOpenMode::In, FileOpenMode::Binary}));
 
-        Status nwrite(int num_bytes, const void* bytes) override;
+        IoContext context;
+        WG_ARCHIVE_READ(context, archive, pso_data);
 
-        bool        is_memory() override;
-        bool        is_physical() override;
-        std::size_t get_size() override;
+        return WG_OK;
+    }
 
-        [[nodiscard]] std::vector<std::uint8_t>& get_data() { return m_data; }
-        [[nodiscard]] std::size_t                get_pos() { return m_pos; }
+    Status PsoFile::write(const std::string& path, const FilePsoData& pso_data) {
+        ArchiveFile archive;
+        WG_CHECKED(archive.open(path, {FileOpenMode::Out, FileOpenMode::Binary}));
 
-    private:
-        std::vector<std::uint8_t> m_data;
-        std::size_t               m_pos = 0;
-    };
+        IoContext context;
+        WG_ARCHIVE_WRITE(context, archive, pso_data);
 
-    /**
-     * @class ArchiveReaderMemory
-     * @brief An archive for binary deserialization from a memory buffer
-     */
-    class ArchiveReaderMemory final : public Archive {
-    public:
-        ArchiveReaderMemory(const std::uint8_t* data, std::size_t size);
-        ~ArchiveReaderMemory() override = default;
-
-        Status nread(int num_bytes, void* bytes) override;
-
-        [[nodiscard]] bool        is_memory() override;
-        [[nodiscard]] bool        is_physical() override;
-        [[nodiscard]] std::size_t get_size() override;
-        [[nodiscard]] std::size_t get_pos() { return m_pos; }
-
-    private:
-        const std::uint8_t* m_data;
-        std::size_t         m_size = 0;
-        std::size_t         m_pos  = 0;
-    };
+        return WG_OK;
+    }
 
 }// namespace wmoge
