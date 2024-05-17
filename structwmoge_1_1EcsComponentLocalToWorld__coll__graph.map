@@ -1,5 +1,0 @@
-<map id="wmoge::EcsComponentLocalToWorld" name="wmoge::EcsComponentLocalToWorld">
-<area shape="rect" id="node1" title="Matrix to convert local to world coordinates of an object." alt="" coords="123,109,313,151"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,217,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1TMatMxN.html" title=" " alt="" coords="241,5,408,47"/>
-</map>

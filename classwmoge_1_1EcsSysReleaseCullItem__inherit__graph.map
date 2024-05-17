@@ -1,4 +1,0 @@
-<map id="wmoge::EcsSysReleaseCullItem" name="wmoge::EcsSysReleaseCullItem">
-<area shape="rect" id="node1" title="System to delete cull items." alt="" coords="5,80,215,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1EcsSystem.html" title="Base class for any system, which can be register within a world." alt="" coords="42,5,178,32"/>
-</map>

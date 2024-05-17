@@ -1,6 +1,0 @@
-<map id="wmoge::FileShaderModule" name="wmoge::FileShaderModule">
-<area shape="rect" id="node1" title=" " alt="" coords="149,124,323,151"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="179,13,293,39"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="318,13,415,39"/>
-</map>

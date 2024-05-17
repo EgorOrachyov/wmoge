@@ -1,4 +1,0 @@
-<map id="wmoge::ActionMapAction" name="wmoge::ActionMapAction">
-<area shape="rect" id="node1" title="Single action which can be stored inside an action map and triggered by an activation info." alt="" coords="5,109,175,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="41,5,139,32"/>
-</map>

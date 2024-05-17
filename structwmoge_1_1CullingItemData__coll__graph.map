@@ -1,5 +1,0 @@
-<map id="wmoge::CullingItemData" name="wmoge::CullingItemData">
-<area shape="rect" id="node1" title="Data of a single item for management." alt="" coords="85,95,248,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="5,5,160,32"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1CullingItem.html" title="Id of the item to reference in visibility system." alt="" coords="185,5,319,32"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="wmoge::EventListener" name="wmoge::EventListener">
-<area shape="rect" id="node1" title="Struct holding info about a particular listener." alt="" coords="97,95,248,121"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EventListenerHnd.html" title="Handle to track event listener." alt="" coords="5,5,180,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="204,5,301,32"/>
-</map>

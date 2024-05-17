@@ -1,28 +1,4 @@
 var searchData=
 [
-  ['field_4712',['Field',['../structwmoge_1_1ShaderType_1_1Field.html',1,'wmoge::ShaderType']]],
-  ['file_4713',['File',['../classwmoge_1_1File.html',1,'wmoge']]],
-  ['filephysical_4714',['FilePhysical',['../classwmoge_1_1FilePhysical.html',1,'wmoge']]],
-  ['filepsodata_4715',['FilePsoData',['../structwmoge_1_1FilePsoData.html',1,'wmoge']]],
-  ['filepsolayout_4716',['FilePsoLayout',['../structwmoge_1_1FilePsoLayout.html',1,'wmoge']]],
-  ['filepsorenderpass_4717',['FilePsoRenderPass',['../structwmoge_1_1FilePsoRenderPass.html',1,'wmoge']]],
-  ['filepsoshader_4718',['FilePsoShader',['../structwmoge_1_1FilePsoShader.html',1,'wmoge']]],
-  ['filepsostatecompute_4719',['FilePsoStateCompute',['../structwmoge_1_1FilePsoStateCompute.html',1,'wmoge']]],
-  ['filepsostategraphics_4720',['FilePsoStateGraphics',['../structwmoge_1_1FilePsoStateGraphics.html',1,'wmoge']]],
-  ['filepsovertformat_4721',['FilePsoVertFormat',['../structwmoge_1_1FilePsoVertFormat.html',1,'wmoge']]],
-  ['fileshaderlibrary_4722',['FileShaderLibrary',['../structwmoge_1_1FileShaderLibrary.html',1,'wmoge']]],
-  ['fileshadermodule_4723',['FileShaderModule',['../structwmoge_1_1FileShaderModule.html',1,'wmoge']]],
-  ['fileshaderprogram_4724',['FileShaderProgram',['../structwmoge_1_1FileShaderProgram.html',1,'wmoge']]],
-  ['fileshaderprogramcache_4725',['FileShaderProgramCache',['../structwmoge_1_1FileShaderProgramCache.html',1,'wmoge']]],
-  ['filesystem_4726',['FileSystem',['../classwmoge_1_1FileSystem.html',1,'wmoge']]],
-  ['filesystemwatcher_4727',['FileSystemWatcher',['../structwmoge_1_1FileSystemWatcher.html',1,'wmoge']]],
-  ['fillparams_4728',['FillParams',['../structwmoge_1_1AuxDrawPrimitive_1_1FillParams.html',1,'wmoge::AuxDrawPrimitive']]],
-  ['font_4729',['Font',['../classwmoge_1_1Font.html',1,'wmoge']]],
-  ['fontdesc_4730',['FontDesc',['../structwmoge_1_1FontDesc.html',1,'wmoge']]],
-  ['fontglyph_4731',['FontGlyph',['../structwmoge_1_1FontGlyph.html',1,'wmoge']]],
-  ['fontimportoptions_4732',['FontImportOptions',['../structwmoge_1_1FontImportOptions.html',1,'wmoge']]],
-  ['freetypeassetloader_4733',['FreetypeAssetLoader',['../classwmoge_1_1FreetypeAssetLoader.html',1,'wmoge']]],
-  ['freetypefont_4734',['FreetypeFont',['../classwmoge_1_1FreetypeFont.html',1,'wmoge']]],
-  ['freetypeimportdata_4735',['FreetypeImportData',['../classwmoge_1_1FreetypeImportData.html',1,'wmoge']]],
-  ['freetypeplugin_4736',['FreetypePlugin',['../classwmoge_1_1FreetypePlugin.html',1,'wmoge']]]
+  ['shaderassetloader_128',['ShaderAssetLoader',['../classwmoge_1_1ShaderAssetLoader.html',1,'wmoge']]]
 ];

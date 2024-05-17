@@ -1,6 +1,0 @@
-<map id="wmoge::RenderParams" name="wmoge::RenderParams">
-<area shape="rect" id="node1" title="Params passed to draw a particular object." alt="" coords="112,185,268,212"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RenderCameraMask.html" title="Mask of toggled cameras, can be used for filtering and culling." alt="" coords="5,96,193,123"/>
-<area shape="rect" id="node3" title=" " alt="" coords="16,5,183,47"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1LodValue.html" title="Selector to draw model lods with otional transition." alt="" coords="218,96,343,123"/>
-</map>

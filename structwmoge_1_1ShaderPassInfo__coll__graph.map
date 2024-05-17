@@ -1,6 +1,0 @@
-<map id="wmoge::ShaderPassInfo" name="wmoge::ShaderPassInfo">
-<area shape="rect" id="node1" title="Defines single pass of shader, a functional subset." alt="" coords="123,95,286,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1ShaderOptions.html" title="Map of options for a technique or pass." alt="" coords="127,5,283,32"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1PipelineState.html" title="Rendering settings provided in a pass." alt="" coords="307,5,454,32"/>
-</map>

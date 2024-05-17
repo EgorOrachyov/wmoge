@@ -1,9 +1,0 @@
-<map id="engine/code/gameplay/game_token_manager.hpp" name="engine/code/gameplay/game_token_manager.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="374,5,553,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="5,109,164,136"/>
-<area shape="rect" id="node3" href="$game__token__manager_8cpp.html" title=" " alt="" coords="189,102,367,143"/>
-<area shape="rect" id="node4" href="$application_8cpp.html" title=" " alt="" coords="392,102,535,143"/>
-<area shape="rect" id="node5" href="$lua__bindings__gameplay_8hpp.html" title=" " alt="" coords="559,95,733,151"/>
-<area shape="rect" id="node7" href="$engine_8cpp.html" title=" " alt="" coords="758,102,897,143"/>
-<area shape="rect" id="node6" href="$lua__bindings__gameplay_8cpp.html" title=" " alt="" coords="559,199,733,255"/>
-</map>

@@ -92,9 +92,9 @@ Inheritance diagram for wmoge::AssimpImporter:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab40ab37df832180586b5f86526db0ad1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#ab40ab37df832180586b5f86526db0ad1">AssimpImporter</a> ()=default</td></tr>
 <tr class="separator:ab40ab37df832180586b5f86526db0ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73c6a57f7c8d3fed4c9298a724546a7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#a73c6a57f7c8d3fed4c9298a724546a7c">read</a> (std::string file_name, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; std::uint8_t &gt; data, const <a class="el" href="structwmoge_1_1AssimpProcess.html">AssimpProcess</a> &amp;flags)</td></tr>
+<tr class="memitem:a73c6a57f7c8d3fed4c9298a724546a7c"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#a73c6a57f7c8d3fed4c9298a724546a7c">read</a> (std::string file_name, array_view&lt; std::uint8_t &gt; data, const <a class="el" href="structwmoge_1_1AssimpProcess.html">AssimpProcess</a> &amp;flags)</td></tr>
 <tr class="separator:a73c6a57f7c8d3fed4c9298a724546a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aedc906289edf7ac9fe918526c513a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#a1aedc906289edf7ac9fe918526c513a6">process</a> ()</td></tr>
+<tr class="memitem:a1aedc906289edf7ac9fe918526c513a6"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#a1aedc906289edf7ac9fe918526c513a6">process</a> ()</td></tr>
 <tr class="separator:a1aedc906289edf7ac9fe918526c513a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf52ac23aa224894bf466ead3607933f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1AssimpProcess.html">AssimpProcess</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#adf52ac23aa224894bf466ead3607933f">get_flags</a> () const</td></tr>
 <tr class="separator:adf52ac23aa224894bf466ead3607933f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -105,9 +105,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:adaff865ba41d26308bd84ed94a435788"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#adaff865ba41d26308bd84ed94a435788">process_node</a> (aiNode *node, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;parent_transform, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;inv_parent_transform, std::optional&lt; int &gt; parent)</td></tr>
+<tr class="memitem:adaff865ba41d26308bd84ed94a435788"><td class="memItemLeft" align="right" valign="top">virtual Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#adaff865ba41d26308bd84ed94a435788">process_node</a> (aiNode *node, const Mat4x4f &amp;parent_transform, const Mat4x4f &amp;inv_parent_transform, std::optional&lt; int &gt; parent)</td></tr>
 <tr class="separator:adaff865ba41d26308bd84ed94a435788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56413e75f08a86b5f30c29c3cd014c23"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#a56413e75f08a86b5f30c29c3cd014c23">process_mesh</a> (aiMesh *mesh, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;transform, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;inv_transform, std::optional&lt; int &gt; parent)</td></tr>
+<tr class="memitem:a56413e75f08a86b5f30c29c3cd014c23"><td class="memItemLeft" align="right" valign="top">virtual Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpImporter.html#a56413e75f08a86b5f30c29c3cd014c23">process_mesh</a> (aiMesh *mesh, const Mat4x4f &amp;transform, const Mat4x4f &amp;inv_transform, std::optional&lt; int &gt; parent)</td></tr>
 <tr class="separator:a56413e75f08a86b5f30c29c3cd014c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -221,7 +221,7 @@ Protected Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssimpImporter::process </td>
+          <td class="memname">Status wmoge::AssimpImporter::process </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -241,7 +241,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssimpImporter::process_mesh </td>
+          <td class="memname">virtual Status wmoge::AssimpImporter::process_mesh </td>
           <td>(</td>
           <td class="paramtype">aiMesh *&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
@@ -249,13 +249,13 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramtype">const Mat4x4f &amp;&#160;</td>
           <td class="paramname"><em>transform</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramtype">const Mat4x4f &amp;&#160;</td>
           <td class="paramname"><em>inv_transform</em>, </td>
         </tr>
         <tr>
@@ -291,7 +291,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssimpImporter::process_node </td>
+          <td class="memname">Status wmoge::AssimpImporter::process_node </td>
           <td>(</td>
           <td class="paramtype">aiNode *&#160;</td>
           <td class="paramname"><em>node</em>, </td>
@@ -299,13 +299,13 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramtype">const Mat4x4f &amp;&#160;</td>
           <td class="paramname"><em>parent_transform</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;&#160;</td>
+          <td class="paramtype">const Mat4x4f &amp;&#160;</td>
           <td class="paramname"><em>inv_parent_transform</em>, </td>
         </tr>
         <tr>
@@ -336,7 +336,7 @@ Protected Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssimpImporter::read </td>
+          <td class="memname">Status wmoge::AssimpImporter::read </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>file_name</em>, </td>
@@ -344,7 +344,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; std::uint8_t &gt;&#160;</td>
+          <td class="paramtype">array_view&lt; std::uint8_t &gt;&#160;</td>
           <td class="paramname"><em>data</em>, </td>
         </tr>
         <tr>

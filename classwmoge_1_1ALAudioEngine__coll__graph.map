@@ -1,6 +1,0 @@
-<map id="wmoge::ALAudioEngine" name="wmoge::ALAudioEngine">
-<area shape="rect" id="node1" title="OpenAL implementation of audio engine." alt="" coords="87,215,245,241"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AudioEngine.html" title="Audio engine interface." alt="" coords="95,139,237,165"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1AudioDriverCaps.html" title="Optional capabilities and specs info about audio engine driver." alt="" coords="5,5,172,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="196,5,293,32"/>
-</map>

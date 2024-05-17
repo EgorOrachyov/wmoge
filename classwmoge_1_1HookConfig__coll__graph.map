@@ -1,4 +1,0 @@
-<map id="wmoge::HookConfig" name="wmoge::HookConfig">
-<area shape="rect" id="node1" title="Engine hook to setup common config workflow." alt="" coords="5,80,143,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Hook.html" title="Interface for an engine hook to perform some actions on lower engine levels." alt="" coords="23,5,125,32"/>
-</map>

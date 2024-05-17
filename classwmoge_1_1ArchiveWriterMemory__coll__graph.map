@@ -1,6 +1,0 @@
-<map id="wmoge::ArchiveWriterMemory" name="wmoge::ArchiveWriterMemory">
-<area shape="rect" id="node1" title="An archive for binary serialization into a memory buffer." alt="" coords="27,171,222,197"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Archive.html" title="Serialization and de&#45;serialization archive." alt="" coords="67,95,182,121"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
-</map>

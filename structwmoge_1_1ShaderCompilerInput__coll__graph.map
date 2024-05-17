@@ -1,6 +1,0 @@
-<map id="wmoge::ShaderCompilerInput" name="wmoge::ShaderCompilerInput">
-<area shape="rect" id="node1" title=" " alt="" coords="135,95,325,121"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1ShaderCompilerOptions.html" title="Compiler options for compilation." alt="" coords="127,5,333,32"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1ShaderCompilerEnv.html" title="Compiler enviroment." alt="" coords="358,5,542,32"/>
-</map>

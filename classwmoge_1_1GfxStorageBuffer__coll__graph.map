@@ -1,7 +1,0 @@
-<map id="wmoge::GfxStorageBuffer" name="wmoge::GfxStorageBuffer">
-<area shape="rect" id="node1" title="Gfx storage buffer." alt="" coords="40,247,209,273"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxBuffer.html" title="Base class for gfx buffer." alt="" coords="63,171,187,197"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,95,197,121"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
-</map>

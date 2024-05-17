@@ -98,26 +98,21 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="status_8hpp.html">core/status.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="string__utils_8hpp.html">core/string_utils.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="font_8hpp.html">grc/font.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;core/status.hpp&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;core/string_utils.hpp&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;grc/font.hpp&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classwmoge_1_1FreetypeFont.html">   40</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1FreetypeFont.html">FreetypeFont</a> {</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">static</span> <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1FreetypeFont.html#af53a7e85472d934dd4bf269cc166c3dc">load</a>(<span class="keyword">const</span> <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Font&gt;</a>&amp; font, <span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">int</span> height = 40, <span class="keywordtype">int</span> glyphs_in_row = 16);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">static</span> Status <a class="code" href="classwmoge_1_1FreetypeFont.html#af53a7e85472d934dd4bf269cc166c3dc">load</a>(<span class="keyword">const</span> Ref&lt;Font&gt;&amp; font, <span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">int</span> height = 40, <span class="keywordtype">int</span> glyphs_in_row = 16);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aclasswmoge_1_1FreetypeFont_html"><div class="ttname"><a href="classwmoge_1_1FreetypeFont.html">wmoge::FreetypeFont</a></div><div class="ttdoc">Provides utilies to work with .ttf font via freetype library.</div><div class="ttdef"><b>Definition:</b> freetype_font.hpp:40</div></div>
 <div class="ttc" id="aclasswmoge_1_1FreetypeFont_html_af53a7e85472d934dd4bf269cc166c3dc"><div class="ttname"><a href="classwmoge_1_1FreetypeFont.html#af53a7e85472d934dd4bf269cc166c3dc">wmoge::FreetypeFont::load</a></div><div class="ttdeci">static Status load(const Ref&lt; Font &gt; &amp;font, const std::string &amp;path, int height=40, int glyphs_in_row=16)</div><div class="ttdoc">Loads font from a .ttf file from file system using specified height in pixels.</div><div class="ttdef"><b>Definition:</b> freetype_font.cpp:41</div></div>
-<div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
-<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
-<div class="ttc" id="afont_8hpp_html"><div class="ttname"><a href="font_8hpp.html">font.hpp</a></div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
-<div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
-<div class="ttc" id="astring__utils_8hpp_html"><div class="ttname"><a href="string__utils_8hpp.html">string_utils.hpp</a></div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

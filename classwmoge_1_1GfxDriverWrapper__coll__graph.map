@@ -1,4 +1,0 @@
-<map id="wmoge::GfxDriverWrapper" name="wmoge::GfxDriverWrapper">
-<area shape="rect" id="node1" title="Thread&#45;safe wrapper for gfx device to used from any thread." alt="" coords="5,80,177,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="29,5,153,32"/>
-</map>

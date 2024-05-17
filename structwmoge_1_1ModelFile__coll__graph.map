@@ -1,6 +1,0 @@
-<map id="wmoge::ModelFile" name="wmoge::ModelFile">
-<area shape="rect" id="node1" title="Serializable struct to hold model info." alt="" coords="219,95,345,121"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1ModelLodSettings.html" title="Serializable struct to hold model lods settings." alt="" coords="5,5,180,32"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="205,5,359,32"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1ModelLod.html" title="Serializable struct to hold single lod params." alt="" coords="384,5,511,32"/>
-</map>

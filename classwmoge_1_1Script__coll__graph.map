@@ -1,9 +1,0 @@
-<map id="wmoge::Script" name="wmoge::Script">
-<area shape="rect" id="node1" title="Base class for any script which can be used to extend an object logic." alt="" coords="209,337,313,364"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="29,248,133,275"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="5,157,156,199"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="17,81,145,108"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
-<area shape="rect" id="node6" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="157,248,365,275"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="389,248,487,275"/>
-</map>

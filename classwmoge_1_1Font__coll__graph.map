@@ -1,7 +1,0 @@
-<map id="wmoge::Font" name="wmoge::Font">
-<area shape="rect" id="node1" title="Font asset for rendering texts from true type fonts." alt="" coords="33,319,129,345"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="29,244,133,271"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="5,155,156,196"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="17,80,145,107"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="25,5,136,32"/>
-</map>

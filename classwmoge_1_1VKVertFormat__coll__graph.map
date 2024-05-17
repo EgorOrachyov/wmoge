@@ -1,7 +1,0 @@
-<map id="wmoge::VKVertFormat" name="wmoge::VKVertFormat">
-<area shape="rect" id="node1" title="Vulkan vertex format description." alt="" coords="48,247,201,273"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxVertFormat.html" title="Class describing the format of the input to the vertex shader." alt="" coords="47,171,202,197"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="52,95,197,121"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
-</map>

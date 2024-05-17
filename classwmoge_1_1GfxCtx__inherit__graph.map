@@ -1,6 +1,0 @@
-<map id="wmoge::GfxCtx" name="wmoge::GfxCtx">
-<area shape="rect" id="node1" title="Gfx context interface." alt="" coords="124,5,233,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxCtxThreaded.html" title="An extension for a gfx ctx for threaded communication support." alt="" coords="5,80,168,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GfxCtxWrapper.html" title="Thread&#45;safe wrapper for gfx context to be used from any thread." alt="" coords="192,80,349,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1VKCtx.html" title="Vulkan gfx contex implementation." alt="" coords="33,155,140,181"/>
-</map>

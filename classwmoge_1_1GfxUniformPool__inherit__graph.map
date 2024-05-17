@@ -1,5 +1,0 @@
-<map id="wmoge::GfxUniformPool" name="wmoge::GfxUniformPool">
-<area shape="rect" id="node1" title="Pool for per&#45;frame small const buffer allocations to configure render passes." alt="" coords="5,155,168,181"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="14,80,159,107"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="31,5,142,32"/>
-</map>

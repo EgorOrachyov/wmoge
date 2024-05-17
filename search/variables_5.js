@@ -1,30 +1,4 @@
 var searchData=
 [
-  ['faces_8001',['faces',['../structwmoge_1_1ArrayMeshData.html#a141388f0bf9aa97ba90e4ce005e62998',1,'wmoge::ArrayMeshData']]],
-  ['factory_8002',['factory',['../structwmoge_1_1VKInitInfo.html#a94e488bb7b1c6c6f620176b439b4704b',1,'wmoge::VKInitInfo::factory()'],['../structwmoge_1_1IocEntry.html#a1e00212af6b34a4be51d6dbadcfc264f',1,'wmoge::IocEntry::factory()']]],
-  ['family_5fname_8003',['family_name',['../structwmoge_1_1FontDesc.html#a245f4a299875f0cafb6203ca0631b30f',1,'wmoge::FontDesc']]],
-  ['far_8004',['far',['../structwmoge_1_1SceneDataCamera.html#a1762b86cbd2a97ea220f532970b53edf',1,'wmoge::SceneDataCamera']]],
-  ['fields_8005',['fields',['../structwmoge_1_1ShaderType.html#a5b9c6b28a59118fbac008102a29b3eb2',1,'wmoge::ShaderType']]],
-  ['file_8006',['file',['../structwmoge_1_1AssetSourceFile.html#a1f08bce3f2b17def11bd14a245ee5ea2',1,'wmoge::AssetSourceFile::file()'],['../structwmoge_1_1LogEntry.html#a56deacdaf3c0e023dadbe566fc5ef277',1,'wmoge::LogEntry::file()'],['../structwmoge_1_1ShaderFileSource.html#a73a8d45394db7d041b78aa26653e6121',1,'wmoge::ShaderFileSource::file()'],['../structwmoge_1_1ShaderInclude.html#a9b0ab6d56f5919a96695b4d96a3c5527',1,'wmoge::ShaderInclude::file()'],['../structwmoge_1_1ShaderSourceFile.html#aab25a4187c12cef8f20d31886feddb68',1,'wmoge::ShaderSourceFile::file()'],['../structwmoge_1_1ProfilerMark.html#a4a7d5fc37038b33b0cd3ea78ba4aecd5',1,'wmoge::ProfilerMark::file()']]],
-  ['file_5fextension_8007',['FILE_EXTENSION',['../structwmoge_1_1AssetMetaFile.html#aef5e51fc9acedc825c79fe1fe3b6f619',1,'wmoge::AssetMetaFile']]],
-  ['file_5fhash_8008',['file_hash',['../structwmoge_1_1AssetSourceFile.html#a205d22de2a86f2069db40a71615dab56',1,'wmoge::AssetSourceFile']]],
-  ['file_5fpath_8009',['file_path',['../structwmoge_1_1ShaderCompilerInputFile.html#a8c347ca7d3dfc01780a05ffa224e4b09',1,'wmoge::ShaderCompilerInputFile']]],
-  ['file_5ftag_8010',['file_tag',['../structwmoge_1_1AssetSourceFile.html#a0a55e47dbdf59d0da732606c20c691b0',1,'wmoge::AssetSourceFile']]],
-  ['files_8011',['files',['../structwmoge_1_1ShaderCompilerInput.html#abb8306a1de89bb93faee52506d2f6325',1,'wmoge::ShaderCompilerInput']]],
-  ['filtered_5farch_8012',['filtered_arch',['../structwmoge_1_1EcsSystemInfo.html#a139af831977d00f078b362daa2523e22',1,'wmoge::EcsSystemInfo']]],
-  ['flags_8013',['flags',['../structwmoge_1_1ModelObj.html#a096aa59900e09bdf8078e4bae8644d37',1,'wmoge::ModelObj']]],
-  ['flip_5fuv_8014',['flip_uv',['../structwmoge_1_1AssimpProcess.html#a883d33ef878bc8303ff52b06556bc6ec',1,'wmoge::AssimpProcess']]],
-  ['float_8015',['FLOAT',['../structwmoge_1_1ShaderTypes.html#a52859b63985c7b2e605b3c56e4bc0cdd',1,'wmoge::ShaderTypes']]],
-  ['font_8016',['font',['../structwmoge_1_1AuxDrawPrimitive_1_1FillParams.html#a595ae171aba3102424bc4dd896bf2161',1,'wmoge::AuxDrawPrimitive::FillParams']]],
-  ['format_8017',['format',['../structwmoge_1_1GfxVertElement.html#a063612b56f3fcf299118ac9f421f133b',1,'wmoge::GfxVertElement::format()'],['../structwmoge_1_1TexCompressionParams.html#a701ed4b3462d8930defc99569adcb09f',1,'wmoge::TexCompressionParams::format()'],['../structwmoge_1_1MeshPass.html#a4e9c9e925085bc6f3865c3d857ebd31d',1,'wmoge::MeshPass::format()'],['../classwmoge_1_1TextureImportData.html#adfa6ba7d46d5d42964672c39bdcf726b',1,'wmoge::TextureImportData::format()'],['../structwmoge_1_1GfxImageData.html#acb7a6b9f2f1a31c9744a0146d465e739',1,'wmoge::GfxImageData::format()']]],
-  ['formats_8018',['formats',['../structwmoge_1_1VKSwapChainSupportInfo.html#a79c17c27854ab65fae119653e7d8371e',1,'wmoge::VKSwapChainSupportInfo']]],
-  ['fov_8019',['fov',['../structwmoge_1_1SceneDataCamera.html#a7631e33e3752e683241dece0f09fb627',1,'wmoge::SceneDataCamera']]],
-  ['fquality_8020',['fquality',['../structwmoge_1_1TexCompressionParams.html#adc1e6175fa550e0f2cd2586566e29681',1,'wmoge::TexCompressionParams']]],
-  ['frame_5fid_8021',['frame_id',['../classwmoge_1_1EcsSysUpdateAabb.html#a1591424265deb7c5374994e05938a378',1,'wmoge::EcsSysUpdateAabb::frame_id()'],['../classwmoge_1_1EcsSysUpdateCameras.html#a2736cfa09f67f00ea38e781f6f579f15',1,'wmoge::EcsSysUpdateCameras::frame_id()'],['../classwmoge_1_1EcsSysUpdateHier.html#a3bb8666ba9398575b37324d218d39d04',1,'wmoge::EcsSysUpdateHier::frame_id()']]],
-  ['frame_5fupdated_8022',['frame_updated',['../structwmoge_1_1EcsComponentTransformUpd.html#a4235a927d92972d54968ccddb503fa7e',1,'wmoge::EcsComponentTransformUpd']]],
-  ['frames_5fin_5fflight_8023',['FRAMES_IN_FLIGHT',['../structwmoge_1_1GfxLimits.html#ab91a02b9586be4a5c58f4ccb71ba8256',1,'wmoge::GfxLimits']]],
-  ['from_8024',['from',['../classwmoge_1_1PfxRange.html#aafa331bdf5f611170890717c811c9fae',1,'wmoge::PfxRange::from()'],['../structwmoge_1_1AuxDrawLines_1_1Line.html#ae8cfc0d44243915b5dfe7fdf63f6dc43',1,'wmoge::AuxDrawLines::Line::from()']]],
-  ['front_5fface_8025',['front_face',['../structwmoge_1_1GfxPsoStateGraphics.html#a654c4196543961c62dd87bf4f6d32cf2',1,'wmoge::GfxPsoStateGraphics::front_face()'],['../structwmoge_1_1FilePsoStateGraphics.html#ad050ff25420c8ac5dbe9677492f41aed',1,'wmoge::FilePsoStateGraphics::front_face()'],['../structwmoge_1_1PipelineState.html#a23c9e52984133fca59cc506e70b79371',1,'wmoge::PipelineState::front_face()']]],
-  ['function_8026',['function',['../structwmoge_1_1LogEntry.html#ad9f0d08c1acc79427658fe9b6719a847',1,'wmoge::LogEntry::function()'],['../structwmoge_1_1ProfilerMark.html#a4eadb5dc88f491615eb8c3d3d94ab957',1,'wmoge::ProfilerMark::function()']]],
-  ['function_5fsig_8027',['function_sig',['../structwmoge_1_1ProfilerMark.html#af9c155b34da196e8be6d7ff14fc71a39',1,'wmoge::ProfilerMark']]]
+  ['improve_5fcache_5flocality_235',['improve_cache_locality',['../structwmoge_1_1AssimpProcess.html#a3e3abf82081357d7f7ed851eabc0fa5a',1,'wmoge::AssimpProcess']]]
 ];

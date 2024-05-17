@@ -98,16 +98,16 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="plugin_8hpp.html">system/plugin.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;system/plugin.hpp&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1AssimpPlugin.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1AssimpPlugin.html">AssimpPlugin</a> : <span class="keyword">public</span> <a class="code" href="classwmoge_1_1Plugin.html">Plugin</a> {</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classwmoge_1_1AssimpPlugin.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1AssimpPlugin.html">AssimpPlugin</a> : <span class="keyword">public</span> Plugin {</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="classwmoge_1_1AssimpPlugin.html#ad4c1435ab90947f97dd4b7c6eef8f326">AssimpPlugin</a>();</div>
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1AssimpPlugin.html#a1de446d798d1af84e9cf811223daa02b">   41</a></span>&#160;        <a class="code" href="classwmoge_1_1AssimpPlugin.html#a1de446d798d1af84e9cf811223daa02b">~AssimpPlugin</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <a class="code" href="classwmoge_1_1Status.html">Status</a> <a class="code" href="classwmoge_1_1AssimpPlugin.html#aa8b5f13ef5711b0e86f8c3e943fbc99b">on_register</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        Status <a class="code" href="classwmoge_1_1AssimpPlugin.html#aa8b5f13ef5711b0e86f8c3e943fbc99b">on_register</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    };</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}<span class="comment">// namespace wmoge</span></div>
@@ -115,10 +115,7 @@ $(function() {
 <div class="ttc" id="aclasswmoge_1_1AssimpPlugin_html_a1de446d798d1af84e9cf811223daa02b"><div class="ttname"><a href="classwmoge_1_1AssimpPlugin.html#a1de446d798d1af84e9cf811223daa02b">wmoge::AssimpPlugin::~AssimpPlugin</a></div><div class="ttdeci">~AssimpPlugin() override=default</div></div>
 <div class="ttc" id="aclasswmoge_1_1AssimpPlugin_html_aa8b5f13ef5711b0e86f8c3e943fbc99b"><div class="ttname"><a href="classwmoge_1_1AssimpPlugin.html#aa8b5f13ef5711b0e86f8c3e943fbc99b">wmoge::AssimpPlugin::on_register</a></div><div class="ttdeci">Status on_register() override</div><div class="ttdef"><b>Definition:</b> assimp_plugin.cpp:43</div></div>
 <div class="ttc" id="aclasswmoge_1_1AssimpPlugin_html_ad4c1435ab90947f97dd4b7c6eef8f326"><div class="ttname"><a href="classwmoge_1_1AssimpPlugin.html#ad4c1435ab90947f97dd4b7c6eef8f326">wmoge::AssimpPlugin::AssimpPlugin</a></div><div class="ttdeci">AssimpPlugin()</div><div class="ttdef"><b>Definition:</b> assimp_plugin.cpp:36</div></div>
-<div class="ttc" id="aclasswmoge_1_1Plugin_html"><div class="ttname"><a href="classwmoge_1_1Plugin.html">wmoge::Plugin</a></div><div class="ttdoc">Base class for any engine plug-in.</div><div class="ttdef"><b>Definition:</b> plugin.hpp:43</div></div>
-<div class="ttc" id="aclasswmoge_1_1Status_html"><div class="ttname"><a href="classwmoge_1_1Status.html">wmoge::Status</a></div><div class="ttdoc">Wrapper for return status code and an optional error message instead of exception.</div><div class="ttdef"><b>Definition:</b> status.hpp:77</div></div>
-<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:35</div></div>
-<div class="ttc" id="aplugin_8hpp_html"><div class="ttname"><a href="plugin_8hpp.html">plugin.hpp</a></div></div>
+<div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:33</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

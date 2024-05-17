@@ -1,5 +1,0 @@
-<map id="wmoge::EcsComponentTransform" name="wmoge::EcsComponentTransform">
-<area shape="rect" id="node1" title="Local transform of the entity in some hierarchy." alt="" coords="87,109,304,136"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,196,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Transform3d.html" title="Utility to manage 3d space transformations." alt="" coords="220,13,363,39"/>
-</map>

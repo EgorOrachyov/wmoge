@@ -1,4 +1,0 @@
-<map id="wmoge::LogListenerStream" name="wmoge::LogListenerStream">
-<area shape="rect" id="node1" title="Log listener which dumps messages to a file stream." alt="" coords="5,80,187,107"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1LogListener.html" title="Listener interface which can be attached to a log." alt="" coords="27,5,165,32"/>
-</map>

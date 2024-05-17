@@ -1,7 +1,0 @@
-<map id="wmoge::LuaEventDrop" name="wmoge::LuaEventDrop">
-<area shape="rect" id="node1" title=" " alt="" coords="7,304,159,331"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1LuaEventInput.html" title=" " alt="" coords="5,229,160,256"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1LuaEvent.html" title=" " alt="" coords="20,155,145,181"/>
-<area shape="rect" id="node4" href="$structwmoge_1_1LuaObject.html" title=" " alt="" coords="17,80,148,107"/>
-<area shape="rect" id="node5" href="$structwmoge_1_1LuaRefCnt.html" title=" " alt="" coords="17,5,149,32"/>
-</map>

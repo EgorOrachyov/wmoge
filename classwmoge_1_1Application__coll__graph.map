@@ -1,4 +1,0 @@
-<map id="wmoge::Application" name="wmoge::Application">
-<area shape="rect" id="node1" title="Base class for any application which is an entry point to run." alt="" coords="19,183,154,209"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="5,5,168,32"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="wmoge::ProfilerEntry" name="wmoge::ProfilerEntry">
-<area shape="rect" id="node1" title="Capture single entry holding information about function execution." alt="" coords="55,243,194,269"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1ProfilerMark.html" title="Structure holding information about profiled function." alt="" coords="55,153,194,180"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Profiler.html" title="Engine profiler to capture trace of engine execution." alt="" coords="5,5,116,32"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
-</map>

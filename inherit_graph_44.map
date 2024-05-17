@@ -1,4 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1AssetId.html" title="Class to track and access asset by its id." alt="" coords="5,5,120,32"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1AssetRefWeak.html" title="Aux box to store asset ref and serialize/deserialize it automatically to and from files." alt="" coords="168,5,355,32"/>
-</map>
