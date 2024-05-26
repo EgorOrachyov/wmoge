@@ -126,6 +126,7 @@ namespace wmoge {
         void validate(VkCommandBuffer cmd);
         void finish(VkCommandBuffer cmd);
 
+        [[nodiscard]] const Ref<VKRenderPass>&        get_or_create_render_pass();
         [[nodiscard]] const Ref<VKRenderPass>&        render_pass() const { return m_current_render_pass; }
         [[nodiscard]] const Ref<VKFramebufferObject>& framebuffer() const { return m_current_framebuffer; }
         [[nodiscard]] int                             width() const { return m_current_size[0]; }

@@ -273,34 +273,43 @@ namespace wmoge {
     };
 
     /**
-     * @class PipelineState
-     * @brief Rendering settings provided in a pass
+     * @brief Pipeline raster state overrides
     */
-    struct PipelineState {
-        WG_RTTI_STRUCT(PipelineState);
+    struct RasterState {
+        WG_RTTI_STRUCT(RasterState);
 
-        GfxPolyMode      poly_mode         = GfxPolyMode::Fill;
-        GfxPolyCullMode  cull_mode         = GfxPolyCullMode::Disabled;
-        GfxPolyFrontFace front_face        = GfxPolyFrontFace::CounterClockwise;
-        bool             depth_enable      = false;
-        bool             depth_write       = true;
-        GfxCompFunc      depth_func        = GfxCompFunc::Less;
-        bool             stencil_enable    = false;
-        int              stencil_wmask     = 0;
-        int              stencil_rvalue    = 0;
-        int              stencil_cmask     = 0;
-        GfxCompFunc      stencil_comp_func = GfxCompFunc::Never;
-        GfxOp            stencil_sfail     = GfxOp::Keep;
-        GfxOp            stencil_dfail     = GfxOp::Keep;
-        GfxOp            stencil_dpass     = GfxOp::Keep;
-        bool             blending          = false;
+        GfxPolyMode      poly_mode  = GfxPolyMode::Fill;
+        GfxPolyCullMode  cull_mode  = GfxPolyCullMode::Disabled;
+        GfxPolyFrontFace front_face = GfxPolyFrontFace::CounterClockwise;
     };
 
-    WG_RTTI_STRUCT_BEGIN(PipelineState) {
-        WG_RTTI_META_DATA();
+    WG_RTTI_STRUCT_BEGIN(RasterState) {
         WG_RTTI_FIELD(poly_mode, {RttiOptional});
         WG_RTTI_FIELD(cull_mode, {RttiOptional});
         WG_RTTI_FIELD(front_face, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @brief Pipeline depth stencil state overrides
+    */
+    struct DepthStencilState {
+        WG_RTTI_STRUCT(DepthStencilState);
+
+        bool        depth_enable      = false;
+        bool        depth_write       = true;
+        GfxCompFunc depth_func        = GfxCompFunc::Less;
+        bool        stencil_enable    = false;
+        int         stencil_wmask     = 0;
+        int         stencil_rvalue    = 0;
+        int         stencil_cmask     = 0;
+        GfxCompFunc stencil_comp_func = GfxCompFunc::Never;
+        GfxOp       stencil_sfail     = GfxOp::Keep;
+        GfxOp       stencil_dfail     = GfxOp::Keep;
+        GfxOp       stencil_dpass     = GfxOp::Keep;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(DepthStencilState) {
         WG_RTTI_FIELD(depth_enable, {RttiOptional});
         WG_RTTI_FIELD(depth_write, {RttiOptional});
         WG_RTTI_FIELD(depth_func, {RttiOptional});
@@ -312,7 +321,42 @@ namespace wmoge {
         WG_RTTI_FIELD(stencil_sfail, {RttiOptional});
         WG_RTTI_FIELD(stencil_dfail, {RttiOptional});
         WG_RTTI_FIELD(stencil_dpass, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @brief Pipeline blend state overrides
+    */
+    struct BlendState {
+        WG_RTTI_STRUCT(BlendState);
+
+        bool blending = false;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(BlendState) {
         WG_RTTI_FIELD(blending, {RttiOptional});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class PipelineState
+     * @brief Rendering settings provided in a pass
+    */
+    struct PipelineState {
+        WG_RTTI_STRUCT(PipelineState);
+
+        RasterState       rs;// = default
+        DepthStencilState ds;// = default
+        BlendState        bs;// = default;
+
+        void fill(GfxPsoStateGraphics& state) const;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(PipelineState) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(rs, {RttiOptional});
+        WG_RTTI_FIELD(ds, {RttiOptional});
+        WG_RTTI_FIELD(bs, {RttiOptional});
     }
     WG_RTTI_END;
 
@@ -403,7 +447,8 @@ namespace wmoge {
     */
     enum class ShaderDomain {
         Material,// Shader to use with materials
-        Engine   // Shader for in-egnine specifics (used without material)
+        Compute, // Shader for in-egnine compute dispatches (used without material)
+        Graphics // Shader for in-egnine graphics dispatches (used without material)
     };
 
     /**

@@ -73,6 +73,7 @@ namespace wmoge {
         void add_vert_attribs(GfxVertAttribs attribs, GfxVertAttribs layout, int buffer, bool instanced);
         void add_vert_attribs(GfxVertAttribs attribs, int buffer, bool instanced);
 
+        [[nodiscard]] Strid                                                             to_name() const;
         [[nodiscard]] const std::array<GfxVertElement, GfxLimits::MAX_VERT_ATTRIBUTES>& elements() const { return m_elements; }
         [[nodiscard]] const std::array<Strid, GfxLimits::MAX_VERT_ATTRIBUTES>&          elements_names() const { return m_elements_names; }
         [[nodiscard]] int                                                               elements_count() const { return m_elements_count; }

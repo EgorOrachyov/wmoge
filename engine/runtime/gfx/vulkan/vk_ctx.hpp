@@ -89,6 +89,7 @@ namespace wmoge {
         void viewport(const Rect2i& viewport) override;
         void clear(int target, const Vec4f& color) override;
         void clear(float depth, int stencil) override;
+        void extract_render_pass(GfxRenderPassRef& rp) override;
         void bind_pso(const Ref<GfxPsoGraphics>& pipeline) override;
         void bind_pso(const Ref<GfxPsoCompute>& pipeline) override;
         void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
@@ -100,7 +101,7 @@ namespace wmoge {
         void dispatch(Vec3i group_count) override;
         void end_render_pass() override;
 
-        void execute(const std::function<void(GfxCtx* thread_ctx)>& functor) override;
+        void execute(const std::function<void()>& functor) override;
         void shutdown() override;
 
         void begin_frame() override;

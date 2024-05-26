@@ -1,5 +1,5 @@
 name: canvas
-domain: Engine
+domain: Graphics
 extends: ""
 ui_name: ""
 ui_hint: "shader to draw 2d primitives onto painting canvas"
@@ -24,10 +24,13 @@ techniques:
       - name: default
         tags: []
         state:
-          cull_mode: Disabled
-          depth_enable: false
-          depth_write: false
-          blending: true
+          rs:
+            cull_mode: Disabled
+          ds:
+            depth_enable: false
+            depth_write: false
+          bs:
+            blending: true
 sources:
   - { module: Vertex, file: "engine://shaders/canvas_vert.glsl" }
   - { module: Fragment, file: "engine://shaders/canvas_frag.glsl" } 

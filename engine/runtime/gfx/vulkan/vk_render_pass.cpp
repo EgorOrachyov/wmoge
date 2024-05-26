@@ -240,6 +240,12 @@ namespace wmoge {
         m_current_name      = Strid();
     }
 
+    const Ref<VKRenderPass>& VKRenderPassBinder::get_or_create_render_pass() {
+        prepare_render_pass();
+
+        return m_current_render_pass;
+    }
+
     void VKRenderPassBinder::prepare_render_pass() {
         WG_AUTO_PROFILE_VULKAN("VKRenderPassBinder::prepare_render_pass");
 

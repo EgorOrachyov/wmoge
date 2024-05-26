@@ -173,4 +173,22 @@ namespace wmoge {
                std::hash<std::int16_t>()(pass_idx);
     }
 
+    void PipelineState::fill(GfxPsoStateGraphics& state) const {
+        state.rs.poly_mode         = rs.poly_mode;
+        state.rs.cull_mode         = rs.cull_mode;
+        state.rs.front_face        = rs.front_face;
+        state.ds.depth_enable      = ds.depth_enable;
+        state.ds.depth_write       = ds.depth_write;
+        state.ds.depth_func        = ds.depth_func;
+        state.ds.stencil_enable    = ds.stencil_enable;
+        state.ds.stencil_wmask     = ds.stencil_wmask;
+        state.ds.stencil_rvalue    = ds.stencil_rvalue;
+        state.ds.stencil_cmask     = ds.stencil_cmask;
+        state.ds.stencil_comp_func = ds.stencil_comp_func;
+        state.ds.stencil_sfail     = ds.stencil_sfail;
+        state.ds.stencil_dfail     = ds.stencil_dfail;
+        state.ds.stencil_dpass     = ds.stencil_dpass;
+        state.bs.blending          = bs.blending;
+    }
+
 }// namespace wmoge

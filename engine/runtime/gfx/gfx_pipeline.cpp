@@ -35,26 +35,26 @@ namespace wmoge {
 
     GfxPsoStateGraphics::GfxPsoStateGraphics() {
         std::memset(this, 0, sizeof(GfxPsoStateGraphics));
-        pass              = nullptr;
-        program           = nullptr;
-        layout            = nullptr;
-        vert_format       = nullptr;
-        prim_type         = GfxPrimType::Triangles;
-        poly_mode         = GfxPolyMode::Fill;
-        cull_mode         = GfxPolyCullMode::Disabled;
-        front_face        = GfxPolyFrontFace::CounterClockwise;
-        depth_enable      = false;
-        depth_write       = true;
-        depth_func        = GfxCompFunc::Less;
-        stencil_enable    = false;
-        stencil_wmask     = 0;
-        stencil_rvalue    = 0;
-        stencil_cmask     = 0;
-        stencil_comp_func = GfxCompFunc::Never;
-        stencil_sfail     = GfxOp::Keep;
-        stencil_dfail     = GfxOp::Keep;
-        stencil_dpass     = GfxOp::Keep;
-        blending          = false;
+        pass                 = nullptr;
+        program              = nullptr;
+        layout               = nullptr;
+        vert_format          = nullptr;
+        prim_type            = GfxPrimType::Triangles;
+        rs.poly_mode         = GfxPolyMode::Fill;
+        rs.cull_mode         = GfxPolyCullMode::Disabled;
+        rs.front_face        = GfxPolyFrontFace::CounterClockwise;
+        ds.depth_enable      = false;
+        ds.depth_write       = true;
+        ds.depth_func        = GfxCompFunc::Less;
+        ds.stencil_enable    = false;
+        ds.stencil_wmask     = 0;
+        ds.stencil_rvalue    = 0;
+        ds.stencil_cmask     = 0;
+        ds.stencil_comp_func = GfxCompFunc::Never;
+        ds.stencil_sfail     = GfxOp::Keep;
+        ds.stencil_dfail     = GfxOp::Keep;
+        ds.stencil_dpass     = GfxOp::Keep;
+        bs.blending          = false;
     }
     bool GfxPsoStateGraphics::operator==(const GfxPsoStateGraphics& other) const {
         return std::memcmp(this, &other, sizeof(GfxPsoStateGraphics)) == 0;

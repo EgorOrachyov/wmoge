@@ -61,6 +61,8 @@ namespace wmoge {
         virtual const GfxRenderPassDesc& pass_desc() const = 0;
     };
 
+    using GfxRenderPassRef = Ref<GfxRenderPass>;
+
 }// namespace wmoge
 
 namespace std {

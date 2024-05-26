@@ -29,6 +29,7 @@
 
 #include "core/buffered_vector.hpp"
 #include "core/data.hpp"
+#include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -59,7 +60,7 @@ namespace wmoge {
      * ShaderParamBlock automatically creates and update buffers and descriptor sets on a gpu. 
      * After validation it can be directly inserted into desired descriptor set slot for drawing. 
     */
-    class ShaderParamBlock {
+    class ShaderParamBlock : public RefCnt {
     public:
         /**
          * Construct empty block with no setup.

@@ -688,10 +688,10 @@ namespace wmoge {
 
         // HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
 
-        gfx_ctx->execute([&](GfxCtx* thread_ctx) {
-            thread_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
-            thread_ctx->bind_target(window);
-            thread_ctx->viewport(viewport);
+        gfx_ctx->execute([&]() {
+            gfx_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
+            gfx_ctx->bind_target(window);
+            gfx_ctx->viewport(viewport);
 
             // for (int i = 0; i < num_types; i++) {
             //     // if it has primitives and configured pass - do draw
@@ -701,7 +701,7 @@ namespace wmoge {
             //     }
             // }
 
-            thread_ctx->end_render_pass();
+            gfx_ctx->end_render_pass();
         });
     }
     void AuxDrawManager::flush(float delta_time) {

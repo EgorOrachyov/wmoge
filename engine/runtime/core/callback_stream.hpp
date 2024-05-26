@@ -46,6 +46,8 @@ namespace wmoge {
         CallbackStream(CallbackStream&&) = delete;
         ~CallbackStream()                = default;
 
+        void set_consumer_id(std::thread::id thread_id);
+
         /** @brief Consumes a single command and returns true on success */
         bool consume();
 
@@ -76,11 +78,17 @@ namespace wmoge {
     private:
         std::queue<std::function<void()>> m_queue;
         std::atomic_bool                  m_is_closed{false};
+        std::thread::id                   m_thread_id;
         SpinMutex                         m_mutex;
     };
 
     template<typename Callable>
     void CallbackStream::push(Callable&& callable) {
+        if (std::this_thread::get_id() == m_thread_id) {
+            callable();
+            return;
+        }
+
         std::lock_guard guard(m_mutex);
         m_queue.emplace(std::forward<Callable>(callable));
     }

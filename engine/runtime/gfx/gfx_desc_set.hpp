@@ -116,6 +116,8 @@ namespace wmoge {
         GfxDescSetLayoutDesc m_desc;
     };
 
+    using GfxDescSetLayoutRef = Ref<GfxDescSetLayout>;
+
     /**
      * @class GfxDescSet
      * @brief Represent set of resources optimized for binding to a pipeline
@@ -133,6 +135,8 @@ namespace wmoge {
     protected:
         GfxDescSetResources m_resources;
     };
+
+    using GfxDescSetRef = Ref<GfxDescSet>;
 
     /** @brief Array of layouts descriptions for shader and pipeline creation */
     using GfxDescSetLayoutDescs = buffered_vector<GfxDescSetLayoutDesc, GfxLimits::MAX_DESC_SETS>;

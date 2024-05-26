@@ -25,8 +25,51 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "shader_instance.hpp"
+#pragma once
+
+#include "core/buffered_vector.hpp"
+#include "grc/shader_param_block.hpp"
+#include "grc/shader_reflection.hpp"
 
 namespace wmoge {
 
-}
+    /**
+     * @class ShaderPass
+     * @brief An instance of a shader pass to select options, configure params and dispatch gpu commands
+    */
+    class ShaderPass {
+    public:
+        ShaderPass(class Shader& shader);
+
+        void set_param_block(std::int16_t idx, Ref<ShaderParamBlock> block);
+        void set_technique(std::int16_t idx);
+        void set_technique(const Strid& name);
+        void set_pass(std::int16_t idx);
+        void set_pass(const Strid& name);
+        void set_attribs(int buffer, GfxVertAttribs attribs, std::optional<GfxVertAttribs> layout = std::nullopt);
+        void set_attribs_instanced(int buffer, GfxVertAttribs attribs, std::optional<GfxVertAttribs> layout = std::nullopt);
+        void set_prim_type(GfxPrimType prim_type);
+        void set_rs(const RasterState& rs);
+        void set_ds(const DepthStencilState& ds);
+        void set_bs(const BlendState& bs);
+
+        Status configure(class GfxCtx* context);
+
+    private:
+        Status configure_graphics(class GfxCtx* context);
+        Status configure_compute(class GfxCtx* context);
+
+    private:
+        buffered_vector<Ref<ShaderParamBlock>>   m_params;
+        PipelineState                            m_pipeline_state;
+        ShaderPermutation                        m_permutation;
+        GfxVertAttribsStreams                    m_vert_attribs;
+        GfxVertAttribsStreams                    m_vert_layout;
+        std::bitset<GfxLimits::MAX_VERT_STREAMS> m_vert_instanced;
+        GfxPrimType                              m_prim_type = GfxPrimType::Triangles;
+        class Shader*                            m_shader;
+        const ShaderTechniqueInfo*               m_technique = nullptr;
+        const ShaderPassInfo*                    m_pass      = nullptr;
+    };
+
+}// namespace wmoge

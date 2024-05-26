@@ -184,7 +184,7 @@ namespace wmoge {
         int m_idx_current = 0;//< Current index to write
 
         std::vector<Vec2f>                            m_path;           //< Internal tmp buffer to draw path
-        std::shared_ptr<CanvasSharedData>             m_shared;         //< Shared state amond all canvas classes for cmds rendering
+        std::shared_ptr<CanvasSharedData>             m_shared;         //< Shared state among all canvas classes for cmds rendering
         buffered_vector<Vec4f, INLINE_STACK_SIZE>     m_clip_rect_stack;//< Context stack
         buffered_vector<Mat3x3f, INLINE_STACK_SIZE>   m_transform_stack;//< Context stack
         GfxVector<GPUCanvasDrawCmd, GfxStorageBuffer> m_gpu_cmd_buffer; //< Packed cmd data for gpu

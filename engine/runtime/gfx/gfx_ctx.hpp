@@ -91,6 +91,7 @@ namespace wmoge {
         virtual void viewport(const Rect2i& viewport)                                                              = 0;
         virtual void clear(int target, const Vec4f& color)                                                         = 0;
         virtual void clear(float depth, int stencil)                                                               = 0;
+        virtual void extract_render_pass(GfxRenderPassRef& rp)                                                     = 0;
         virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                                 = 0;
         virtual void bind_pso(const Ref<GfxPsoCompute>& pipeline)                                                  = 0;
         virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                 = 0;
@@ -102,8 +103,8 @@ namespace wmoge {
         virtual void dispatch(Vec3i group_count)                                                                   = 0;
         virtual void end_render_pass()                                                                             = 0;
 
-        virtual void execute(const std::function<void(GfxCtx* thread_ctx)>& functor) = 0;
-        virtual void shutdown()                                                      = 0;
+        virtual void execute(const std::function<void()>& functor) = 0;
+        virtual void shutdown()                                    = 0;
 
         virtual void begin_frame() = 0;
         virtual void end_frame()   = 0;

@@ -286,6 +286,15 @@ namespace wmoge {
         m_render_pass_binder->clear_depth();
         m_render_pass_binder->clear_stencil();
     }
+    void VKCtx::extract_render_pass(GfxRenderPassRef& rp) {
+        WG_AUTO_PROFILE_VULKAN("VKCtx::extract_render_pass");
+
+        assert(check_thread_valid());
+        assert(m_in_render_pass);
+        assert(m_target_bound);
+
+        rp = m_render_pass_binder->get_or_create_render_pass().as<GfxRenderPass>();
+    }
     void VKCtx::bind_pso(const Ref<GfxPsoGraphics>& pipeline) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::bind_pso");
 
@@ -447,10 +456,10 @@ namespace wmoge {
         m_target_bound        = false;
     }
 
-    void VKCtx::execute(const std::function<void(GfxCtx* thread_ctx)>& functor) {
+    void VKCtx::execute(const std::function<void()>& functor) {
         WG_AUTO_PROFILE_VULKAN("VKCtx::execute");
 
-        functor(this);
+        functor();
     }
     void VKCtx::shutdown() {
         WG_AUTO_PROFILE_VULKAN("VKCtx::shutdown");

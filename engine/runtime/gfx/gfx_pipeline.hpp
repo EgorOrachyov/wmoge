@@ -54,6 +54,33 @@ namespace wmoge {
 
     using GfxPsoLayoutRef = Ref<GfxPsoLayout>;
 
+    /** @brief Graphics pipeline raster state */
+    struct GfxRasterState {
+        GfxPolyMode      poly_mode  = GfxPolyMode::Fill;
+        GfxPolyCullMode  cull_mode  = GfxPolyCullMode::Disabled;
+        GfxPolyFrontFace front_face = GfxPolyFrontFace::CounterClockwise;
+    };
+
+    /** @brief Graphics pipeline depth stencil state */
+    struct GfxDepthStencilState {
+        int         depth_enable      = false;
+        int         depth_write       = true;
+        GfxCompFunc depth_func        = GfxCompFunc::Less;
+        int         stencil_enable    = false;
+        int         stencil_wmask     = 0;
+        int         stencil_rvalue    = 0;
+        int         stencil_cmask     = 0;
+        GfxCompFunc stencil_comp_func = GfxCompFunc::Never;
+        GfxOp       stencil_sfail     = GfxOp::Keep;
+        GfxOp       stencil_dfail     = GfxOp::Keep;
+        GfxOp       stencil_dpass     = GfxOp::Keep;
+    };
+
+    /** @brief Graphics pipeline blending state */
+    struct GfxBlendState {
+        int blending = false;
+    };
+
     /**
      * @class GfxPsoStateGraphics
      * @brief Gfx pipeline state description
@@ -63,26 +90,14 @@ namespace wmoge {
         bool        operator==(const GfxPsoStateGraphics& other) const;
         std::size_t hash() const;
 
-        Ref<GfxRenderPass>    pass;             // = nullptr;
-        Ref<GfxShaderProgram> program;          // = nullptr;
-        Ref<GfxPsoLayout>     layout;           // = nullptr;
-        Ref<GfxVertFormat>    vert_format;      // = nullptr;
-        GfxPrimType           prim_type;        // = GfxPrimType::Triangles;
-        GfxPolyMode           poly_mode;        // = GfxPolyMode::Fill;
-        GfxPolyCullMode       cull_mode;        // = GfxPolyCullMode::Disabled;
-        GfxPolyFrontFace      front_face;       // = GfxPolyFrontFace::CounterClockwise;
-        int                   depth_enable;     // = false;
-        int                   depth_write;      // = true;
-        GfxCompFunc           depth_func;       // = GfxCompFunc::Less;
-        int                   stencil_enable;   // = false;
-        int                   stencil_wmask;    // = 0;
-        int                   stencil_rvalue;   // = 0;
-        int                   stencil_cmask;    // = 0;
-        GfxCompFunc           stencil_comp_func;// = GfxCompFunc::Never;
-        GfxOp                 stencil_sfail;    // = GfxOp::Keep;
-        GfxOp                 stencil_dfail;    // = GfxOp::Keep;
-        GfxOp                 stencil_dpass;    // = GfxOp::Keep;
-        int                   blending;         // = false;
+        Ref<GfxRenderPass>    pass;       // = nullptr;
+        Ref<GfxShaderProgram> program;    // = nullptr;
+        Ref<GfxPsoLayout>     layout;     // = nullptr;
+        Ref<GfxVertFormat>    vert_format;// = nullptr;
+        GfxPrimType           prim_type;  // = GfxPrimType::Triangles;
+        GfxRasterState        rs;         // = default
+        GfxDepthStencilState  ds;         // = default
+        GfxBlendState         bs;         // = default;
     };
 
     /**

@@ -124,7 +124,7 @@ namespace wmoge {
         std::unique_lock lock(m_mutex_pso);
 
         PsoCacheEntry& entry = get_or_add_entry(state);
-        if (entry.status == PsoStatus::None || entry.status == PsoStatus::InCompilation) {
+        if (entry.status == PsoStatus::None) {
             entry.pso    = m_gfx_driver->make_pso_graphics(state, name);
             entry.status = entry.pso ? PsoStatus::Compiled : PsoStatus::Failed;
         }
@@ -140,7 +140,7 @@ namespace wmoge {
         std::unique_lock lock(m_mutex_pso);
 
         PsoCacheEntry& entry = get_or_add_entry(state);
-        if (entry.status == PsoStatus::None || entry.status == PsoStatus::InCompilation) {
+        if (entry.status == PsoStatus::None) {
             entry.pso    = m_gfx_driver->make_pso_compute(state, name);
             entry.status = entry.pso ? PsoStatus::Compiled : PsoStatus::Failed;
         }
@@ -233,6 +233,7 @@ namespace wmoge {
                 PsoCacheEntry& cached_state = m_psos[key];
                 cached_state.pso            = r->pso[i];
                 cached_state.status         = r->pso[i] ? PsoStatus::Compiled : PsoStatus::Failed;
+                cached_state.compilation_op.reset();
             }
 
             return 0;

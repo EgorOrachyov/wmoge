@@ -33,6 +33,10 @@
 
 namespace wmoge {
 
+    void CallbackStream::set_consumer_id(std::thread::id thread_id) {
+        m_thread_id = thread_id;
+    }
+
     bool CallbackStream::consume() {
         std::function<void()> cmd;
         {

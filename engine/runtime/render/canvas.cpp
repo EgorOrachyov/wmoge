@@ -53,9 +53,9 @@ namespace wmoge {
 
         GfxPsoStateGraphics pso_state{};
         // pso_state.vert_format  = driver->make_vert_format(elements, SID("[pos2, col0, uv0, primitiveId]"));
-        pso_state.depth_enable = false;
-        pso_state.depth_write  = false;
-        pso_state.blending     = true;
+        // pso_state.depth_enable = false;
+        // pso_state.depth_write  = false;
+        // pso_state.blending     = true;
 
         // pso_state.shader = shader_manager->get_shader(SID("canvas"), attribs_full, {"OUT_SRGB"});
         // pipeline_srgb = driver->make_pso_graphics(pso_state, SID("canvas_srgb"));
@@ -473,14 +473,14 @@ namespace wmoge {
         }
         gfx_ctx->unmap_uniform_buffer(m_params);
 
-        gfx_ctx->execute([&](GfxCtx* thread_ctx) {
-            thread_ctx->begin_render_pass({}, SID("Canvas::render"));
-            thread_ctx->bind_target(window);
-            thread_ctx->clear(0, Color::BLACK4f);// todo: remove
-            thread_ctx->viewport(viewport);
+        gfx_ctx->execute([&]() {
+            gfx_ctx->begin_render_pass({}, SID("Canvas::render"));
+            gfx_ctx->bind_target(window);
+            gfx_ctx->clear(0, Color::BLACK4f);// todo: remove
+            gfx_ctx->viewport(viewport);
 
             if (false /* thread_ctx->bind_pso(m_shared->pipeline_srgb) */) {
-                thread_ctx->bind_desc_set(m_params_set, ShaderCanvas::PARAMS_SET);
+                gfx_ctx->bind_desc_set(m_params_set, ShaderCanvas::PARAMS_SET);
 
                 const int num_cmds = int(m_gpu_cmd_buffer.get_size());
                 for (int cmd_id = 0; cmd_id < num_cmds; cmd_id++) {
@@ -489,16 +489,16 @@ namespace wmoge {
                     if (cmd.elements > 0) {
                         const int tex_set_idx = cmd.texture_idx >= 0 ? cmd.texture_idx / MAX_CANVAS_IMAGES : 0;
 
-                        thread_ctx->bind_desc_set(m_shared->tex_sets[tex_set_idx], ShaderCanvas::CANVASIMAGE0_SET);
-                        thread_ctx->bind_vert_buffer(m_vtx_buffer.get_buffer(), 0);
-                        thread_ctx->bind_vert_buffer(m_prx_buffer.get_buffer(), 1, int(cmd_id * sizeof(int)));
-                        thread_ctx->bind_index_buffer(m_idx_buffer.get_buffer(), GfxIndexType::Uint32, int(cmd.idx_offset * sizeof(std::uint32_t)));
-                        thread_ctx->draw_indexed(cmd.elements * 3, 0, 1);
+                        gfx_ctx->bind_desc_set(m_shared->tex_sets[tex_set_idx], ShaderCanvas::CANVASIMAGE0_SET);
+                        gfx_ctx->bind_vert_buffer(m_vtx_buffer.get_buffer(), 0);
+                        gfx_ctx->bind_vert_buffer(m_prx_buffer.get_buffer(), 1, int(cmd_id * sizeof(int)));
+                        gfx_ctx->bind_index_buffer(m_idx_buffer.get_buffer(), GfxIndexType::Uint32, int(cmd.idx_offset * sizeof(std::uint32_t)));
+                        gfx_ctx->draw_indexed(cmd.elements * 3, 0, 1);
                     }
                 }
             }
 
-            thread_ctx->end_render_pass();
+            gfx_ctx->end_render_pass();
         });
     }
 

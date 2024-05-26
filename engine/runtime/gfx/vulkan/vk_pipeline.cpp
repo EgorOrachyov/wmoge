@@ -93,6 +93,10 @@ namespace wmoge {
         auto render_pass = state.pass.cast<VKRenderPass>();
         auto vert_format = state.vert_format.cast<VKVertFormat>();
 
+        const GfxRasterState&       rs = state.rs;
+        const GfxDepthStencilState& ds = state.ds;
+        const GfxBlendState&        bs = state.bs;
+
         VkPipelineVertexInputStateCreateInfo vertex_input_state{};
         vertex_input_state.sType                           = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
         vertex_input_state.vertexBindingDescriptionCount   = vert_format->buffers_count();
@@ -114,10 +118,10 @@ namespace wmoge {
         rasterizer.sType                   = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
         rasterizer.depthClampEnable        = VK_FALSE;
         rasterizer.rasterizerDiscardEnable = VK_FALSE;
-        rasterizer.polygonMode             = VKDefs::get_poly_mode(state.poly_mode);
+        rasterizer.polygonMode             = VKDefs::get_poly_mode(rs.poly_mode);
         rasterizer.lineWidth               = 1.0f;
-        rasterizer.cullMode                = VKDefs::get_poly_cull_mode(state.cull_mode);
-        rasterizer.frontFace               = VKDefs::get_poly_front_face(state.front_face);
+        rasterizer.cullMode                = VKDefs::get_poly_cull_mode(rs.cull_mode);
+        rasterizer.frontFace               = VKDefs::get_poly_front_face(rs.front_face);
         rasterizer.depthBiasEnable         = VK_FALSE;
         rasterizer.depthBiasConstantFactor = 0.0f;
         rasterizer.depthBiasClamp          = 0.0f;
@@ -133,23 +137,23 @@ namespace wmoge {
         multisampling.alphaToOneEnable      = VK_FALSE;
 
         VkStencilOpState stencil{};
-        stencil.reference   = state.stencil_rvalue;
-        stencil.compareMask = state.stencil_cmask;
-        stencil.writeMask   = state.stencil_wmask;
-        stencil.compareOp   = VKDefs::get_comp_func(state.stencil_comp_func);
-        stencil.failOp      = VKDefs::get_stencil_op(state.stencil_sfail);
-        stencil.depthFailOp = VKDefs::get_stencil_op(state.stencil_dfail);
-        stencil.passOp      = VKDefs::get_stencil_op(state.stencil_dpass);
+        stencil.reference   = ds.stencil_rvalue;
+        stencil.compareMask = ds.stencil_cmask;
+        stencil.writeMask   = ds.stencil_wmask;
+        stencil.compareOp   = VKDefs::get_comp_func(ds.stencil_comp_func);
+        stencil.failOp      = VKDefs::get_stencil_op(ds.stencil_sfail);
+        stencil.depthFailOp = VKDefs::get_stencil_op(ds.stencil_dfail);
+        stencil.passOp      = VKDefs::get_stencil_op(ds.stencil_dpass);
 
         VkPipelineDepthStencilStateCreateInfo depth_stencil{};
         depth_stencil.sType                 = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-        depth_stencil.depthTestEnable       = state.depth_enable;
-        depth_stencil.depthWriteEnable      = state.depth_write;
-        depth_stencil.depthCompareOp        = VKDefs::get_comp_func(state.depth_func);
+        depth_stencil.depthTestEnable       = ds.depth_enable;
+        depth_stencil.depthWriteEnable      = ds.depth_write;
+        depth_stencil.depthCompareOp        = VKDefs::get_comp_func(ds.depth_func);
         depth_stencil.depthBoundsTestEnable = false;
         depth_stencil.minDepthBounds        = 0.0f;
         depth_stencil.maxDepthBounds        = 1.0f;
-        depth_stencil.stencilTestEnable     = state.stencil_enable;
+        depth_stencil.stencilTestEnable     = ds.stencil_enable;
         depth_stencil.front                 = stencil;
         depth_stencil.back                  = stencil;
 
@@ -160,7 +164,7 @@ namespace wmoge {
         std::array<VkPipelineColorBlendAttachmentState, GfxLimits::MAX_COLOR_TARGETS> blend_attachments;
         blend_attachments.fill(blend_attachment);
 
-        if (state.blending) {
+        if (bs.blending) {
             blend_attachments[0].blendEnable         = true;
             blend_attachments[0].alphaBlendOp        = VK_BLEND_OP_ADD;
             blend_attachments[0].colorBlendOp        = VK_BLEND_OP_ADD;

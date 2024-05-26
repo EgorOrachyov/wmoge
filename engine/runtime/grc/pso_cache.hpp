@@ -52,6 +52,14 @@ namespace wmoge {
     };
 
     /**
+     * @brief How to fetch pso
+    */
+    enum class PsoFetchMode {
+        CreateBlocking,
+        CreateAsync
+    };
+
+    /**
      * @brief Unique key to identify pso
     */
     using PsoKey = SimpleId<std::uint32_t>;
@@ -64,6 +72,7 @@ namespace wmoge {
         Ref<GfxPso> pso;                     // graphics or compute pso
         PsoKey      key;                     // unique key of pso
         PsoStatus   status = PsoStatus::None;// status
+        Async       compilation_op;          // to track compilation
     };
 
     /**

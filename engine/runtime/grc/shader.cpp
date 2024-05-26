@@ -853,8 +853,28 @@ namespace wmoge {
         return variant_query != options.options[option_query->second].variants.end();
     }
 
+    bool Shader::is_material() const {
+        return m_reflection.domain == ShaderDomain::Material;
+    }
+
+    bool Shader::is_graphics() const {
+        return m_reflection.domain == ShaderDomain::Graphics;
+    }
+
+    bool Shader::is_compute() const {
+        return m_reflection.domain == ShaderDomain::Compute;
+    }
+
     const std::int16_t Shader::get_num_spaces() const {
         return std::int16_t(m_reflection.spaces.size());
+    }
+
+    const std::int16_t Shader::get_num_techniques() const {
+        return std::int16_t(m_reflection.techniques.size());
+    }
+
+    const std::int16_t Shader::get_num_passes(std::int16_t technique_idx) const {
+        return std::int16_t(m_reflection.techniques[technique_idx].passes.size());
     }
 
 }// namespace wmoge

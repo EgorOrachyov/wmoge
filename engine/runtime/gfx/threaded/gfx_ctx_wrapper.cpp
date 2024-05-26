@@ -131,6 +131,9 @@ namespace wmoge {
     void GfxCtxWrapper::clear(float depth, int stencil) {
         m_stream->push([=]() { m_ctx->clear(depth, stencil); });
     }
+    void GfxCtxWrapper::extract_render_pass(GfxRenderPassRef& rp) {
+        m_stream->push_and_wait([&]() { m_ctx->extract_render_pass(rp); });
+    }
     void GfxCtxWrapper::bind_pso(const Ref<GfxPsoGraphics>& pipeline) {
         m_stream->push([=]() { m_ctx->bind_pso(pipeline); });
     }
@@ -162,7 +165,7 @@ namespace wmoge {
         m_stream->push([=]() { m_ctx->end_render_pass(); });
     }
 
-    void GfxCtxWrapper::execute(const std::function<void(GfxCtx* thread_ctx)>& functor) {
+    void GfxCtxWrapper::execute(const std::function<void()>& functor) {
         WG_AUTO_PROFILE_GFX("GfxCtxWrapper::execute");
 
         m_stream->push_and_wait([&]() { m_ctx->execute(functor); });

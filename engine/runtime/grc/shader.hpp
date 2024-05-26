@@ -87,15 +87,21 @@ namespace wmoge {
         std::optional<ShaderParamInfo*> find_param(ShaderParamId id);
         ShaderParamId                   find_param_id(Strid name);
 
-        [[nodiscard]] bool                         has_dependency(const Strid& dependency) const;
-        [[nodiscard]] bool                         has_space(ShaderSpaceType space_type) const;
-        [[nodiscard]] bool                         has_option(std::int16_t technique, Strid name, Strid variant) const;
-        [[nodiscard]] bool                         has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;
-        [[nodiscard]] const std::int16_t           get_num_spaces() const;
-        [[nodiscard]] const ShaderReflection&      get_reflection() const { return m_reflection; }
-        [[nodiscard]] const Strid&                 get_shader_name() const { return m_reflection.shader_name; }
-        [[nodiscard]] const Ref<GfxDescSetLayout>& get_layout(std::int16_t space) const { return m_layouts[space]; }
-        [[nodiscard]] const Ref<GfxPsoLayout>&     get_pso_layout() const { return m_pso_layout; }
+        [[nodiscard]] bool                       has_dependency(const Strid& dependency) const;
+        [[nodiscard]] bool                       has_space(ShaderSpaceType space_type) const;
+        [[nodiscard]] bool                       has_option(std::int16_t technique, Strid name, Strid variant) const;
+        [[nodiscard]] bool                       has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;
+        [[nodiscard]] bool                       is_material() const;
+        [[nodiscard]] bool                       is_graphics() const;
+        [[nodiscard]] bool                       is_compute() const;
+        [[nodiscard]] const std::int16_t         get_num_spaces() const;
+        [[nodiscard]] const std::int16_t         get_num_techniques() const;
+        [[nodiscard]] const std::int16_t         get_num_passes(std::int16_t technique_idx) const;
+        [[nodiscard]] const ShaderReflection&    get_reflection() const { return m_reflection; }
+        [[nodiscard]] const Strid&               get_shader_name() const { return m_reflection.shader_name; }
+        [[nodiscard]] const GfxDescSetLayoutRef& get_layout(std::int16_t space) const { return m_layouts[space]; }
+        [[nodiscard]] const GfxPsoLayoutRef&     get_pso_layout() const { return m_pso_layout; }
+        [[nodiscard]] GfxShaderPlatform          get_active_platform() { return m_active_platform; }
 
     protected:
         ShaderReflection                     m_reflection;

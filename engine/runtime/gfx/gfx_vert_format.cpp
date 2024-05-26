@@ -32,6 +32,7 @@
 
 #include <cassert>
 #include <cstring>
+#include <sstream>
 
 namespace wmoge {
 
@@ -88,6 +89,19 @@ namespace wmoge {
     }
     void GfxVertElements::add_vert_attribs(wmoge::GfxVertAttribs attribs, int buffer, bool instanced) {
         add_vert_attribs(attribs, attribs, buffer, instanced);
+    }
+
+    Strid GfxVertElements::to_name() const {
+        std::stringstream s;
+
+        s << "{";
+        for (int i = 0; i < m_elements_count; i++) {
+            s << m_elements_names[i];
+            s << ",";
+        }
+        s << "}";
+
+        return SID(s.str());
     }
 
 }// namespace wmoge
