@@ -43,6 +43,7 @@ namespace wmoge {
         explicit VKTexture(class VKDriver& driver);
         ~VKTexture() override;
 
+        void create(VkCommandBuffer cmd, const GfxTextureDesc& desc, const Strid& name);
         void create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const Strid& name);
         void create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name);
         void create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name);
@@ -58,7 +59,7 @@ namespace wmoge {
 
         VkImage       image() const { return m_image; }
         VkImageView   view() const { return m_view; }
-        VkImageView   rt_view(int slice, int mip) const { return m_rt_views[slice * m_mips_count + mip]; }
+        VkImageView   rt_view(int slice, int mip) const { return m_rt_views[slice * m_desc.mips_count + mip]; }
         VkImageLayout primary_layout() const { return m_primary_layout; }
         VkImageLayout current_layout() const { return m_current_layout; }
         bool          has_rt_views() const { return !m_rt_views.empty(); }

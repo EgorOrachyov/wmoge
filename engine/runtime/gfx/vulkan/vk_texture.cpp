@@ -44,18 +44,28 @@ namespace wmoge {
         if (m_image && m_allocation)
             m_driver.mem_manager()->deallocate(m_image, m_allocation);
     }
+    void VKTexture::create(VkCommandBuffer cmd, const GfxTextureDesc& desc, const Strid& name) {
+        m_desc = desc;
+        m_name = name;
+
+        init_image();
+        init_view();
+        init_rt_views();
+        init_layout(cmd);
+    }
     void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
-        m_tex_type     = GfxTex::Tex2d;
-        m_width        = width;
-        m_height       = height;
-        m_depth        = 1;
-        m_array_slices = 1;
-        m_mips_count   = 1;
-        m_image        = image;
-        m_usages.set(GfxTexUsageFlag::ColorTarget);
-        m_mem_usage      = GfxMemUsage::GpuLocal;
+        m_desc.tex_type     = GfxTex::Tex2d;
+        m_desc.width        = width;
+        m_desc.height       = height;
+        m_desc.depth        = 1;
+        m_desc.array_slices = 1;
+        m_desc.mips_count   = 1;
+        m_desc.usages.set(GfxTexUsageFlag::ColorTarget);
+        m_desc.mem_usage = GfxMemUsage::GpuLocal;
+
+        m_image          = image;
         m_name           = name;
         m_usage_flags    = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
         m_primary_layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
@@ -63,10 +73,10 @@ namespace wmoge {
 
         switch (format) {
             case VK_FORMAT_R8G8B8A8_SRGB:
-                m_format = GfxFormat::SRGB8_ALPHA8;
+                m_desc.format = GfxFormat::SRGB8_ALPHA8;
                 break;
             case VK_FORMAT_B8G8R8A8_SRGB:
-                m_format = GfxFormat::SBGR8_ALPHA8;
+                m_desc.format = GfxFormat::SBGR8_ALPHA8;
                 break;
             default:
                 WG_LOG_ERROR("unsupported vk format for surface color target");
@@ -79,60 +89,51 @@ namespace wmoge {
     void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
-        m_tex_type     = GfxTex::Tex2d;
-        m_width        = width;
-        m_height       = height;
-        m_depth        = 1;
-        m_array_slices = 1;
-        m_mips_count   = mips;
-        m_format       = format;
-        m_swizz        = swizz;
-        m_usages       = usages;
-        m_name         = name;
-        m_mem_usage    = mem_usage;
+        GfxTextureDesc desc;
+        desc.tex_type     = GfxTex::Tex2d;
+        desc.width        = width;
+        desc.height       = height;
+        desc.depth        = 1;
+        desc.array_slices = 1;
+        desc.mips_count   = mips;
+        desc.format       = format;
+        desc.swizz        = swizz;
+        desc.usages       = usages;
+        desc.mem_usage    = mem_usage;
 
-        init_image();
-        init_view();
-        init_rt_views();
-        init_layout(cmd);
+        create(cmd, desc, name);
     }
     void VKTexture::create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d_array");
 
-        m_tex_type     = GfxTex::Tex2dArray;
-        m_width        = width;
-        m_height       = height;
-        m_depth        = 1;
-        m_array_slices = slices;
-        m_mips_count   = mips;
-        m_format       = format;
-        m_usages       = usages;
-        m_name         = name;
-        m_mem_usage    = mem_usage;
+        GfxTextureDesc desc;
+        desc.tex_type     = GfxTex::Tex2dArray;
+        desc.width        = width;
+        desc.height       = height;
+        desc.depth        = 1;
+        desc.array_slices = slices;
+        desc.mips_count   = mips;
+        desc.format       = format;
+        desc.usages       = usages;
+        desc.mem_usage    = mem_usage;
 
-        init_image();
-        init_view();
-        init_rt_views();
-        init_layout(cmd);
+        create(cmd, desc, name);
     }
     void VKTexture::create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_cube");
 
-        m_tex_type     = GfxTex::TexCube;
-        m_width        = width;
-        m_height       = height;
-        m_depth        = 1;
-        m_array_slices = GfxLimits::MAX_CUBE_FACES;
-        m_mips_count   = mips;
-        m_format       = format;
-        m_usages       = usages;
-        m_name         = name;
-        m_mem_usage    = mem_usage;
+        GfxTextureDesc desc;
+        desc.tex_type     = GfxTex::TexCube;
+        desc.width        = width;
+        desc.height       = height;
+        desc.depth        = 1;
+        desc.array_slices = GfxLimits::MAX_CUBE_FACES;
+        desc.mips_count   = mips;
+        desc.format       = format;
+        desc.usages       = usages;
+        desc.mem_usage    = mem_usage;
 
-        init_image();
-        init_view();
-        init_rt_views();
-        init_layout(cmd);
+        create(cmd, desc, name);
     }
     void VKTexture::update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d");
@@ -153,25 +154,25 @@ namespace wmoge {
         VkImageLayout destination = VK_IMAGE_LAYOUT_UNDEFINED;
 
         if (barrier_type == GfxTexBarrierType::Storage) {
-            assert(m_usages.get(GfxTexUsageFlag::Storage));
+            assert(m_desc.usages.get(GfxTexUsageFlag::Storage));
             destination = VK_IMAGE_LAYOUT_GENERAL;
         }
         if (barrier_type == GfxTexBarrierType::Sampling) {
-            assert(m_usages.get(GfxTexUsageFlag::Sampling));
+            assert(m_desc.usages.get(GfxTexUsageFlag::Sampling));
             destination = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         }
         if (barrier_type == GfxTexBarrierType::RenderTarget) {
-            assert(m_usages.get(GfxTexUsageFlag::ColorTarget) ||
-                   m_usages.get(GfxTexUsageFlag::DepthTarget) ||
-                   m_usages.get(GfxTexUsageFlag::DepthStencilTarget));
+            assert(m_desc.usages.get(GfxTexUsageFlag::ColorTarget) ||
+                   m_desc.usages.get(GfxTexUsageFlag::DepthTarget) ||
+                   m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget));
 
-            if (m_usages.get(GfxTexUsageFlag::ColorTarget)) {
+            if (m_desc.usages.get(GfxTexUsageFlag::ColorTarget)) {
                 destination = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
             }
-            if (m_usages.get(GfxTexUsageFlag::DepthTarget)) {
+            if (m_desc.usages.get(GfxTexUsageFlag::DepthTarget)) {
                 destination = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
             }
-            if (m_usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
+            if (m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
                 destination = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
             }
         }
@@ -180,11 +181,11 @@ namespace wmoge {
     }
     void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination) {
         VkImageSubresourceRange subresource{};
-        subresource.aspectMask     = VKDefs::get_aspect_flags(m_format);
+        subresource.aspectMask     = VKDefs::get_aspect_flags(m_desc.format);
         subresource.baseMipLevel   = 0;
-        subresource.levelCount     = m_mips_count;
+        subresource.levelCount     = m_desc.mips_count;
         subresource.baseArrayLayer = 0;
-        subresource.layerCount     = m_array_slices;
+        subresource.layerCount     = m_desc.array_slices;
         transition_layout(cmd, destination, subresource);
     }
     void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range) {
@@ -284,29 +285,29 @@ namespace wmoge {
 
         m_usage_flags = VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 
-        if (m_usages.get(GfxTexUsageFlag::ColorTarget)) {
+        if (m_desc.usages.get(GfxTexUsageFlag::ColorTarget)) {
             m_primary_layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
             m_usage_flags |= VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
-            assert(!m_usages.get(GfxTexUsageFlag::DepthStencilTarget));
-            assert(!m_usages.get(GfxTexUsageFlag::DepthTarget));
+            assert(!m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget));
+            assert(!m_desc.usages.get(GfxTexUsageFlag::DepthTarget));
         }
-        if (m_usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
+        if (m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
             m_primary_layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
             m_usage_flags |= VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
-            assert(!m_usages.get(GfxTexUsageFlag::ColorTarget));
-            assert(!m_usages.get(GfxTexUsageFlag::DepthTarget));
+            assert(!m_desc.usages.get(GfxTexUsageFlag::ColorTarget));
+            assert(!m_desc.usages.get(GfxTexUsageFlag::DepthTarget));
         }
-        if (m_usages.get(GfxTexUsageFlag::DepthTarget)) {
+        if (m_desc.usages.get(GfxTexUsageFlag::DepthTarget)) {
             m_primary_layout = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
             m_usage_flags |= VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
-            assert(!m_usages.get(GfxTexUsageFlag::ColorTarget));
-            assert(!m_usages.get(GfxTexUsageFlag::DepthStencilTarget));
+            assert(!m_desc.usages.get(GfxTexUsageFlag::ColorTarget));
+            assert(!m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget));
         }
-        if (m_usages.get(GfxTexUsageFlag::Storage)) {
+        if (m_desc.usages.get(GfxTexUsageFlag::Storage)) {
             m_primary_layout = VK_IMAGE_LAYOUT_GENERAL;
             m_usage_flags |= VK_IMAGE_USAGE_STORAGE_BIT;
         }
-        if (m_usages.get(GfxTexUsageFlag::Sampling)) {
+        if (m_desc.usages.get(GfxTexUsageFlag::Sampling)) {
             m_primary_layout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
             m_usage_flags |= VK_IMAGE_USAGE_SAMPLED_BIT;
         }
@@ -317,13 +318,13 @@ namespace wmoge {
         VkImageCreateInfo image_info{};
         image_info.sType                 = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
         image_info.pNext                 = nullptr;
-        image_info.imageType             = VKDefs::get_image_type(m_tex_type);
-        image_info.extent.width          = m_width;
-        image_info.extent.height         = m_height;
-        image_info.extent.depth          = m_depth;
-        image_info.mipLevels             = m_mips_count;
-        image_info.arrayLayers           = m_array_slices;
-        image_info.format                = VKDefs::get_format(m_format);
+        image_info.imageType             = VKDefs::get_image_type(m_desc.tex_type);
+        image_info.extent.width          = m_desc.width;
+        image_info.extent.height         = m_desc.height;
+        image_info.extent.depth          = m_desc.depth;
+        image_info.mipLevels             = m_desc.mips_count;
+        image_info.arrayLayers           = m_desc.array_slices;
+        image_info.format                = VKDefs::get_format(m_desc.format);
         image_info.tiling                = VK_IMAGE_TILING_OPTIMAL;
         image_info.initialLayout         = VK_IMAGE_LAYOUT_UNDEFINED;
         image_info.usage                 = m_usage_flags;
@@ -331,9 +332,9 @@ namespace wmoge {
         image_info.queueFamilyIndexCount = static_cast<uint32_t>(queues->unique_families().size());
         image_info.pQueueFamilyIndices   = queues->unique_families().data();
         image_info.samples               = VK_SAMPLE_COUNT_1_BIT;
-        image_info.flags                 = m_tex_type == GfxTex::TexCube ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
+        image_info.flags                 = m_desc.tex_type == GfxTex::TexCube ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0;
 
-        mem_man->allocate(image_info, m_mem_usage, m_image, m_allocation);
+        mem_man->allocate(image_info, m_desc.mem_usage, m_image, m_allocation);
         WG_VK_NAME(m_driver.device(), m_image, VK_OBJECT_TYPE_IMAGE, name().str());
     }
     void VKTexture::init_view() {
@@ -342,21 +343,21 @@ namespace wmoge {
         VkImageViewCreateInfo view_info{};
         view_info.sType                           = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
         view_info.image                           = m_image;
-        view_info.viewType                        = VKDefs::get_view_type(m_tex_type);
-        view_info.format                          = VKDefs::get_format(m_format);
-        view_info.subresourceRange.aspectMask     = VKDefs::get_aspect_flags(m_format);
+        view_info.viewType                        = VKDefs::get_view_type(m_desc.tex_type);
+        view_info.format                          = VKDefs::get_format(m_desc.format);
+        view_info.subresourceRange.aspectMask     = VKDefs::get_aspect_flags(m_desc.format);
         view_info.subresourceRange.baseMipLevel   = 0;
-        view_info.subresourceRange.levelCount     = m_mips_count;
+        view_info.subresourceRange.levelCount     = m_desc.mips_count;
         view_info.subresourceRange.baseArrayLayer = 0;
-        view_info.subresourceRange.layerCount     = m_array_slices;
+        view_info.subresourceRange.layerCount     = m_desc.array_slices;
 
-        if (m_swizz == GfxTexSwizz::None) {
+        if (m_desc.swizz == GfxTexSwizz::None) {
             view_info.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
             view_info.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
             view_info.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
             view_info.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
         }
-        if (m_swizz == GfxTexSwizz::RRRRtoRGBA) {
+        if (m_desc.swizz == GfxTexSwizz::RRRRtoRGBA) {
             view_info.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
             view_info.components.g = VK_COMPONENT_SWIZZLE_R;
             view_info.components.b = VK_COMPONENT_SWIZZLE_R;
@@ -369,21 +370,21 @@ namespace wmoge {
     void VKTexture::init_rt_views() {
         WG_AUTO_PROFILE_VULKAN("VKTexture::init_rt_views");
 
-        if (!m_usages.get(GfxTexUsageFlag::ColorTarget) &&
-            !m_usages.get(GfxTexUsageFlag::DepthTarget) &&
-            !m_usages.get(GfxTexUsageFlag::DepthStencilTarget))
+        if (!m_desc.usages.get(GfxTexUsageFlag::ColorTarget) &&
+            !m_desc.usages.get(GfxTexUsageFlag::DepthTarget) &&
+            !m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget))
             return;
 
-        m_rt_views.resize(m_array_slices * m_mips_count, VK_NULL_HANDLE);
+        m_rt_views.resize(m_desc.array_slices * m_desc.mips_count, VK_NULL_HANDLE);
 
-        for (int slice = 0; slice < m_array_slices; slice++) {
-            for (int mip = 0; mip < m_mips_count; mip++) {
+        for (int slice = 0; slice < m_desc.array_slices; slice++) {
+            for (int mip = 0; mip < m_desc.mips_count; mip++) {
                 VkImageViewCreateInfo view_info{};
                 view_info.sType                           = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
                 view_info.image                           = m_image;
-                view_info.viewType                        = VKDefs::get_view_type(m_tex_type);
-                view_info.format                          = VKDefs::get_format(m_format);
-                view_info.subresourceRange.aspectMask     = VKDefs::get_aspect_flags(m_format);
+                view_info.viewType                        = VKDefs::get_view_type(m_desc.tex_type);
+                view_info.format                          = VKDefs::get_format(m_desc.format);
+                view_info.subresourceRange.aspectMask     = VKDefs::get_aspect_flags(m_desc.format);
                 view_info.subresourceRange.baseMipLevel   = mip;
                 view_info.subresourceRange.levelCount     = 1;
                 view_info.subresourceRange.baseArrayLayer = slice;
@@ -393,7 +394,7 @@ namespace wmoge {
                 view_info.components.b                    = VK_COMPONENT_SWIZZLE_IDENTITY;
                 view_info.components.a                    = VK_COMPONENT_SWIZZLE_IDENTITY;
 
-                VkImageView& view     = m_rt_views[slice * m_mips_count + mip];
+                VkImageView& view     = m_rt_views[slice * m_desc.mips_count + mip];
                 std::string  dbg_name = "rt_view " + name().str() + " slice=" + std::to_string(slice) + " mip=" + std::to_string(mip);
 
                 WG_VK_CHECK(vkCreateImageView(m_driver.device(), &view_info, nullptr, &view));
@@ -414,8 +415,8 @@ namespace wmoge {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update");
 
         assert(data);
-        assert(mip < m_mips_count);
-        assert(slice < m_array_slices);
+        assert(mip < m_desc.mips_count);
+        assert(slice < m_desc.array_slices);
 
         auto mem_man = m_driver.mem_manager();
 

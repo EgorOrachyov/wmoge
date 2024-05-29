@@ -36,6 +36,18 @@
 namespace wmoge {
 
     /**
+     * @class GfxBufferDesc
+     * @brief Gfx buffer desc
+     */
+    struct GfxBufferDesc {
+        [[nodiscard]] bool operator==(const GfxBufferDesc& other) const;
+        [[nodiscard]] bool is_compatible(const GfxBufferDesc& other) const;
+
+        int         size  = 0;
+        GfxMemUsage usage = GfxMemUsage::GpuLocal;
+    };
+
+    /**
      * @class GfxBuffer
      * @brief Base class for gfx buffer
      */
@@ -43,13 +55,16 @@ namespace wmoge {
     public:
         ~GfxBuffer() override = default;
 
-        [[nodiscard]] int         size() const { return m_size; }
-        [[nodiscard]] GfxMemUsage buffer_usage() const { return m_usage; }
+        [[nodiscard]] GfxBufferDesc desc() const;
+        [[nodiscard]] int           size() const { return m_size; }
+        [[nodiscard]] GfxMemUsage   buffer_usage() const { return m_usage; }
 
     protected:
         int         m_size;
         GfxMemUsage m_usage;
     };
+
+    using GfxBufferRef = Ref<GfxBuffer>;
 
     /**
      * @class GfxVertBuffer
@@ -78,6 +93,8 @@ namespace wmoge {
         ~GfxUniformBuffer() override = default;
     };
 
+    using GfxUniformBufferRef = Ref<GfxUniformBuffer>;
+
     /**
      * @class GfxStorageBuffer
      * @brief Gfx storage buffer
@@ -86,6 +103,8 @@ namespace wmoge {
     public:
         ~GfxStorageBuffer() override = default;
     };
+
+    using GfxStorageBufferRef = Ref<GfxStorageBuffer>;
 
     /**
      * @brief Setup to bind a particular buffer range

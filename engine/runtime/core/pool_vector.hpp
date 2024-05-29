@@ -141,7 +141,7 @@ namespace wmoge {
     template<typename... TArgs>
     inline T& pool_vector<T, NodeCapacity>::emplace_back(TArgs&&... args) {
         void* mem = allocate_back();
-        return *(new (mem) T(std::forward<TArgs...>(args...)));
+        return *(new (mem) T(std::forward<TArgs>(args)...));
     }
 
     template<typename T, int NodeCapacity>

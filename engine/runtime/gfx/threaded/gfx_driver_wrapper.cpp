@@ -100,6 +100,13 @@ namespace wmoge {
         m_stream->push_and_wait([&]() { program = m_driver->make_program(std::move(desc), name); });
         return program;
     }
+    Ref<GfxTexture> GfxDriverWrapper::make_texture(const GfxTextureDesc& desc, const Strid& name) {
+        WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_texture");
+
+        Ref<GfxTexture> texture;
+        m_stream->push_and_wait([&]() { texture = m_driver->make_texture(desc, name); });
+        return texture;
+    }
     Ref<GfxTexture> GfxDriverWrapper::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_GFX("GfxDriverWrapper::make_texture_2d");
 

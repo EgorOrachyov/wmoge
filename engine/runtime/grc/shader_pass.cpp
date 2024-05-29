@@ -79,6 +79,27 @@ namespace wmoge {
         }
     }
 
+    void ShaderPass::set_option(const Strid& name, const Strid& variant) {
+        assert(m_technique);
+        assert(m_pass);
+
+        auto selector = [&](const ShaderOptions& options) {
+            auto tq = options.options_map.find(name);
+            if (tq != options.options_map.end()) {
+                auto vq = options.options[tq->second].variants.find(variant);
+                if (vq != options.options[tq->second].variants.end()) {
+                    m_permutation.options.set(vq->second);
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        if (!selector(m_technique->options) || !selector(m_pass->options)) {
+            WG_LOG_ERROR("no such option " << name << "=" << variant);
+        }
+    }
+
     void ShaderPass::set_attribs(int buffer, GfxVertAttribs attribs, std::optional<GfxVertAttribs> layout) {
         m_permutation.vert_attribs |= attribs;
         m_vert_attribs[buffer] = attribs;

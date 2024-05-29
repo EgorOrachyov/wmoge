@@ -25,56 +25,25 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "gfx/gfx_resource.hpp"
+#include "gfx_texture.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class GfxTextureDesc
-     * @brief Gfx device texture descriptor
-     */
-    struct GfxTextureDesc {
-        [[nodiscard]] bool operator==(const GfxTextureDesc& other) const;
-        [[nodiscard]] bool is_compatible(const GfxTextureDesc& other) const;
+    bool GfxTextureDesc::operator==(const GfxTextureDesc& other) const {
+        return width == other.width &&
+               height == other.height &&
+               depth == other.depth &&
+               mips_count == other.mips_count &&
+               array_slices == other.array_slices &&
+               tex_type == other.tex_type &&
+               swizz == other.swizz &&
+               format == other.format &&
+               mem_usage == other.mem_usage &&
+               usages == other.usages;
+    }
 
-        int          width        = 0;
-        int          height       = 0;
-        int          depth        = 0;
-        int          mips_count   = 1;
-        int          array_slices = 1;
-        GfxTex       tex_type     = GfxTex::Tex2d;
-        GfxTexSwizz  swizz        = GfxTexSwizz::None;
-        GfxFormat    format       = GfxFormat::RGBA8;
-        GfxMemUsage  mem_usage    = GfxMemUsage::GpuLocal;
-        GfxTexUsages usages;
-    };
-
-    /**
-     * @class GfxTexture
-     * @brief Gfx device texture resource
-     */
-    class GfxTexture : public GfxResource {
-    public:
-        ~GfxTexture() override = default;
-
-        [[nodiscard]] const GfxTextureDesc& desc() const { return m_desc; }
-        [[nodiscard]] int                   width() const { return m_desc.width; }
-        [[nodiscard]] int                   height() const { return m_desc.height; }
-        [[nodiscard]] int                   depth() const { return m_desc.depth; }
-        [[nodiscard]] int                   mips_count() const { return m_desc.mips_count; }
-        [[nodiscard]] int                   array_slices() const { return m_desc.array_slices; }
-        [[nodiscard]] GfxTex                tex_type() const { return m_desc.tex_type; }
-        [[nodiscard]] GfxTexSwizz           tex_swizz() const { return m_desc.swizz; }
-        [[nodiscard]] GfxFormat             format() const { return m_desc.format; }
-        [[nodiscard]] GfxMemUsage           mem_usage() const { return m_desc.mem_usage; }
-        [[nodiscard]] GfxTexUsages          usages() const { return m_desc.usages; }
-
-    protected:
-        GfxTextureDesc m_desc;
-    };
-
-    using GfxTextureRef = Ref<GfxTexture>;
+    bool GfxTextureDesc::is_compatible(const GfxTextureDesc& other) const {
+        return *this == other;
+    }
 
 }// namespace wmoge

@@ -71,6 +71,7 @@ namespace wmoge {
         Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) override;
         Ref<GfxShader>           make_shader(GfxShaderDesc desc, const Strid& name) override;
         Ref<GfxShaderProgram>    make_program(GfxShaderProgramDesc desc, const Strid& name) override;
+        Ref<GfxTexture>          make_texture(const GfxTextureDesc& desc, const Strid& name) override;
         Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) override;
         Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) override;
         Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) override;

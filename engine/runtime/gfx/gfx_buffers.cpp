@@ -29,6 +29,22 @@
 
 namespace wmoge {
 
+    bool GfxBufferDesc::operator==(const GfxBufferDesc& other) const {
+        return size == other.size &&
+               usage == other.usage;
+    }
+
+    bool GfxBufferDesc::is_compatible(const GfxBufferDesc& other) const {
+        return *this == other;
+    }
+
+    GfxBufferDesc GfxBuffer::desc() const {
+        GfxBufferDesc d;
+        d.size  = m_size;
+        d.usage = m_usage;
+        return d;
+    }
+
     WG_IO_BEGIN(GfxVertStream)
     WG_IO_FIELD(attribs)
     WG_IO_FIELD(buffer)

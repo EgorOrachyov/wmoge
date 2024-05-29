@@ -149,6 +149,16 @@ namespace wmoge {
         GpuDedicated
     };
 
+    /** @brief Gfx genera buffer access */
+    enum class GfxAccess {
+        None,
+        BufferRead,
+        BufferWrite,
+        ImageStore,
+        TexureSample,
+        RenderTarget
+    };
+
     /** @brief Texture sub region */
     struct GfxTexRegion {
         int base_mip         = 0;

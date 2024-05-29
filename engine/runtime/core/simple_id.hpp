@@ -44,6 +44,8 @@ namespace wmoge {
         [[nodiscard]] bool is_valid() const { return value != INVLID_VALUE; }
         [[nodiscard]] bool is_invalid() const { return !is_valid(); }
 
+        void operator++() { ++value; }
+
         operator bool() const { return is_valid(); }
         operator ValueType() const { return value; }
         operator std::size_t() const { return static_cast<std::size_t>(value); }

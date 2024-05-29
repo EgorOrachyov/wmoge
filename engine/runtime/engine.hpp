@@ -194,6 +194,11 @@
 
 #include "profiler/profiler.hpp"
 
+#include "rdg/rdg_graph.hpp"
+#include "rdg/rdg_pass.hpp"
+#include "rdg/rdg_pool.hpp"
+#include "rdg/rdg_resources.hpp"
+
 #include "rtti/builtin.hpp"
 #include "rtti/class.hpp"
 #include "rtti/enum.hpp"

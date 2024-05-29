@@ -225,6 +225,15 @@ namespace wmoge {
         program->create(std::move(desc));
         return program;
     }
+
+    Ref<GfxTexture> VKDriver::make_texture(const GfxTextureDesc& desc, const Strid& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture");
+
+        auto texture = make_ref<VKTexture>(*this);
+        texture->create(m_ctx_immediate->cmd_current(), desc, name);
+        return texture;
+    }
+
     Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d");
 

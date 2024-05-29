@@ -52,4 +52,6 @@ namespace wmoge {
         Strid m_name;
     };
 
+    using GfxResourceRef = Ref<GfxResource>;
+
 }// namespace wmoge

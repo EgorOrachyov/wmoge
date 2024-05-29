@@ -27,54 +27,43 @@
 
 #pragma once
 
-#include "gfx/gfx_resource.hpp"
+#include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_texture.hpp"
+
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class GfxTextureDesc
-     * @brief Gfx device texture descriptor
-     */
-    struct GfxTextureDesc {
-        [[nodiscard]] bool operator==(const GfxTextureDesc& other) const;
-        [[nodiscard]] bool is_compatible(const GfxTextureDesc& other) const;
-
-        int          width        = 0;
-        int          height       = 0;
-        int          depth        = 0;
-        int          mips_count   = 1;
-        int          array_slices = 1;
-        GfxTex       tex_type     = GfxTex::Tex2d;
-        GfxTexSwizz  swizz        = GfxTexSwizz::None;
-        GfxFormat    format       = GfxFormat::RGBA8;
-        GfxMemUsage  mem_usage    = GfxMemUsage::GpuLocal;
-        GfxTexUsages usages;
-    };
-
-    /**
-     * @class GfxTexture
-     * @brief Gfx device texture resource
-     */
-    class GfxTexture : public GfxResource {
+     * @class RDGPool
+     * @brief Pool used to allocate temporary resources for rdg graph execution and reuse them between frames
+    */
+    class RDGPool {
     public:
-        ~GfxTexture() override = default;
+        RDGPool();
 
-        [[nodiscard]] const GfxTextureDesc& desc() const { return m_desc; }
-        [[nodiscard]] int                   width() const { return m_desc.width; }
-        [[nodiscard]] int                   height() const { return m_desc.height; }
-        [[nodiscard]] int                   depth() const { return m_desc.depth; }
-        [[nodiscard]] int                   mips_count() const { return m_desc.mips_count; }
-        [[nodiscard]] int                   array_slices() const { return m_desc.array_slices; }
-        [[nodiscard]] GfxTex                tex_type() const { return m_desc.tex_type; }
-        [[nodiscard]] GfxTexSwizz           tex_swizz() const { return m_desc.swizz; }
-        [[nodiscard]] GfxFormat             format() const { return m_desc.format; }
-        [[nodiscard]] GfxMemUsage           mem_usage() const { return m_desc.mem_usage; }
-        [[nodiscard]] GfxTexUsages          usages() const { return m_desc.usages; }
+        void update();
 
-    protected:
-        GfxTextureDesc m_desc;
+        GfxTextureRef       allocate_texture(const GfxTextureDesc& desc);
+        GfxStorageBufferRef allocate_storage_buffer(const GfxBufferDesc& desc);
+
+    private:
+        template<typename ResourceType>
+        struct PoolEntry {
+            Ref<ResourceType> resource;
+            std::size_t       last_frame_used = 0;
+        };
+
+        using PoolTexture       = PoolEntry<GfxTexture>;
+        using PoolUniformBuffer = PoolEntry<GfxUniformBuffer>;
+        using PoolStorageBuffer = PoolEntry<GfxStorageBuffer>;
+
+        std::vector<PoolTexture>       m_texture_pool;
+        std::vector<PoolUniformBuffer> m_uniform_buffer_pool;
+        std::vector<PoolStorageBuffer> m_storage_buffer_pool;
+
+        class GfxDriver* m_driver = nullptr;
+        int              m_frames_before_gc;
     };
-
-    using GfxTextureRef = Ref<GfxTexture>;
 
 }// namespace wmoge

@@ -46,6 +46,7 @@ namespace wmoge {
         void set_technique(const Strid& name);
         void set_pass(std::int16_t idx);
         void set_pass(const Strid& name);
+        void set_option(const Strid& name, const Strid& variant);
         void set_attribs(int buffer, GfxVertAttribs attribs, std::optional<GfxVertAttribs> layout = std::nullopt);
         void set_attribs_instanced(int buffer, GfxVertAttribs attribs, std::optional<GfxVertAttribs> layout = std::nullopt);
         void set_prim_type(GfxPrimType prim_type);

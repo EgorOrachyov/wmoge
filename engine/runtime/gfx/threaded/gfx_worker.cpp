@@ -40,6 +40,7 @@ namespace wmoge {
         m_stream = cmd_stream;
 
         m_worker_thread = std::thread([&]() {
+            m_stream->set_consumer_id(std::this_thread::get_id());
             while (!m_finished.load()) {
                 m_stream->consume();
             }
