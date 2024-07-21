@@ -80,7 +80,7 @@ namespace wmoge {
         virtual void on_scene_enter() {}
         virtual void on_scene_exit() {}
         virtual void on_transform_updated() {}
-        virtual void on_update(float delta_time){};
+        virtual void on_update(float delta_time) {}
         virtual void on_signal(const Strid& signal) {}
         virtual void on_input_mouse(const Ref<EventMouse>& event) {}
         virtual void on_input_keyboard(const Ref<EventKeyboard>& event) {}

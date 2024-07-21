@@ -25,7 +25,9 @@ def visit(directory):
 
 def main():
     parser = argparse.ArgumentParser("Count `loc` in directory recursively")
-    parser.add_argument("--dir", help="directory to count loc", default="./engine")
+    parser.add_argument(
+        "--dir", help="directory to count loc", default="./engine/runtime"
+    )
     args = parser.parse_args()
     loc = visit(ROOT / args.dir)
 

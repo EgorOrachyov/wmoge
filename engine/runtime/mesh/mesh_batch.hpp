@@ -33,7 +33,6 @@
 #include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_vert_format.hpp"
 #include "math/aabb.hpp"
@@ -86,19 +85,13 @@ namespace wmoge {
         void clear();
 
         [[nodiscard]] array_view<const MeshBatch> get_batches() const { return m_batches; }
-        [[nodiscard]] GfxDynVertBuffer*           get_dyn_vbuff() const { return m_dyn_vbuff; }
-        [[nodiscard]] GfxDynIndexBuffer*          get_dyn_ibuff() const { return m_dyn_ibuff; }
-        [[nodiscard]] GfxDynUniformBuffer*        get_dyn_ubuff() const { return m_dyn_ubuff; }
         [[nodiscard]] int                         get_size() const { return int(m_batches.size()); }
         [[nodiscard]] bool                        is_empty() const { return m_batches.empty(); }
 
     private:
         std::vector<MeshBatch> m_batches;
 
-        GfxDynVertBuffer*    m_dyn_vbuff;
-        GfxDynIndexBuffer*   m_dyn_ibuff;
-        GfxDynUniformBuffer* m_dyn_ubuff;
-        class GfxDriver*     m_gfx_driver;
+        class GfxDriver* m_gfx_driver;
 
         SpinMutex m_mutex;
     };
@@ -134,7 +127,6 @@ namespace wmoge {
         class ShaderManager*      m_shader_manager = nullptr;
         class CameraList*         m_cameras        = nullptr;
         class GfxDriver*          m_driver         = nullptr;
-        class GfxCtx*             m_ctx            = nullptr;
     };
 
 }// namespace wmoge

@@ -593,7 +593,7 @@ namespace wmoge {
 
         auto engine     = Engine::instance();
         auto gfx_driver = engine->gfx_driver();
-        auto gfx_ctx    = engine->gfx_ctx();
+        // auto gfx_ctx    = engine->gfx_ctx();
 
         // HgfxPassBase pass_lines;
         // pass_lines.name          = SID("aux_draw_lines");
@@ -681,28 +681,28 @@ namespace wmoge {
         }
 
         // flush data
-        m_lines.flush(gfx_ctx);
-        m_tria_solid.flush(gfx_ctx);
-        m_tria_wired.flush(gfx_ctx);
-        m_text.flush(gfx_ctx);
+        // m_lines.flush(gfx_ctx);
+        // m_tria_solid.flush(gfx_ctx);
+        // m_tria_wired.flush(gfx_ctx);
+        // m_text.flush(gfx_ctx);
 
         // HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
 
-        gfx_ctx->execute([&]() {
-            gfx_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
-            gfx_ctx->bind_target(window);
-            gfx_ctx->viewport(viewport);
+        //gfx_ctx->execute([&]() {
+        //    gfx_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
+        //    gfx_ctx->bind_target(window);
+        //    gfx_ctx->viewport(viewport);
 
-            // for (int i = 0; i < num_types; i++) {
-            //     // if it has primitives and configured pass - do draw
-            //     if (num_elements[i] > 0 && passes[i] && passes[i]->configure(thread_ctx)) {
-            //         thread_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
-            //         thread_ctx->draw(num_vertices[i], 0, 1);
-            //     }
-            // }
+        //    for (int i = 0; i < num_types; i++) {
+        //        // if it has primitives and configured pass - do draw
+        //        if (num_elements[i] > 0 && passes[i] && passes[i]->configure(thread_ctx)) {
+        //            thread_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
+        //            thread_ctx->draw(num_vertices[i], 0, 1);
+        //        }
+        //    }
 
-            gfx_ctx->end_render_pass();
-        });
+        //    gfx_ctx->end_render_pass();
+        //});
     }
     void AuxDrawManager::flush(float delta_time) {
         WG_AUTO_PROFILE_RENDER("AuxDrawManager::flush");

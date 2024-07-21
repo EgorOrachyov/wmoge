@@ -73,31 +73,35 @@ namespace wmoge {
             WG_VK_CHECK(vmaCreatePool(m_vma, &pool_info, &m_staging[i]));
         }
     }
+
     VKMemManager::~VKMemManager() {
         for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
-            update();// release next
+            update(i);// release next
         }
         for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
             vmaDestroyPool(m_vma, m_staging[i]);
         }
         vmaDestroyAllocator(m_vma);
     }
-    void VKMemManager::update() {
+
+    void VKMemManager::update(std::size_t frame_id) {
         std::lock_guard guard(m_mutex);
 
-        m_current = (m_current + 1) % GfxLimits::FRAMES_IN_FLIGHT;
+        m_frame_id = frame_id;
+        m_index    = m_frame_id % GfxLimits::FRAMES_IN_FLIGHT;
 
-        for (auto& to_release : m_release_buffs[m_current])
+        for (auto& to_release : m_release_buffs[m_index])
             vmaDestroyBuffer(m_vma, to_release.first, to_release.second);
-        for (auto& to_release : m_release_images[m_current])
+        for (auto& to_release : m_release_images[m_index])
             vmaDestroyImage(m_vma, to_release.first, to_release.second);
-        for (auto& to_release : m_release_staging[m_current])
+        for (auto& to_release : m_release_staging[m_index])
             vmaDestroyBuffer(m_vma, to_release.first, to_release.second);
 
-        m_release_buffs[m_current].clear();
-        m_release_images[m_current].clear();
-        m_release_staging[m_current].clear();
+        m_release_buffs[m_index].clear();
+        m_release_images[m_index].clear();
+        m_release_staging[m_index].clear();
     }
+
     void VKMemManager::allocate(VkBufferCreateInfo& buff_info, GfxMemUsage usage, VkBuffer& buffer, VmaAllocation& allocation) {
         VmaAllocationCreateInfo alloc_info{};
         alloc_info.requiredFlags = VKDefs::get_memory_properties(usage);
@@ -105,6 +109,7 @@ namespace wmoge {
         alloc_info.flags         = VKDefs::get_allocation_flags(usage);
         WG_VK_CHECK(vmaCreateBuffer(m_vma, &buff_info, &alloc_info, &buffer, &allocation, nullptr));
     }
+
     void VKMemManager::allocate(VkImageCreateInfo& image_info, GfxMemUsage usage, VkImage& image, VmaAllocation& allocation) {
         VmaAllocationCreateInfo alloc_info{};
         alloc_info.requiredFlags = VKDefs::get_memory_properties(usage);
@@ -112,12 +117,15 @@ namespace wmoge {
         alloc_info.flags         = VKDefs::get_allocation_flags(usage);
         WG_VK_CHECK(vmaCreateImage(m_vma, &image_info, &alloc_info, &image, &allocation, nullptr));
     }
+
     void VKMemManager::deallocate(VkBuffer buffer, VmaAllocation allocation) {
-        m_release_buffs[m_current].emplace_back(buffer, allocation);
+        m_release_buffs[m_index].emplace_back(buffer, allocation);
     }
+
     void VKMemManager::deallocate(VkImage image, VmaAllocation allocation) {
-        m_release_images[m_current].emplace_back(image, allocation);
+        m_release_images[m_index].emplace_back(image, allocation);
     }
+
     void VKMemManager::staging_allocate(VkDeviceSize size, VkBuffer& buffer, VmaAllocation& allocation) {
         std::lock_guard guard(m_mutex);
 
@@ -127,24 +135,28 @@ namespace wmoge {
         buff_info.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
 
         VmaAllocationCreateInfo alloc_info{};
-        alloc_info.pool = m_staging[m_current];
+        alloc_info.pool = m_staging[m_index];
 
         WG_VK_CHECK(vmaCreateBuffer(m_vma, &buff_info, &alloc_info, &buffer, &allocation, nullptr));
-        m_release_staging[m_current].emplace_back(buffer, allocation);
+        m_release_staging[m_index].emplace_back(buffer, allocation);
     }
+
     void* VKMemManager::staging_map(VmaAllocation allocation) {
         void* ptr;
         WG_VK_CHECK(vmaMapMemory(m_vma, allocation, &ptr));
         return ptr;
     }
+
     void VKMemManager::staging_unmap(VmaAllocation allocation) {
         vmaUnmapMemory(m_vma, allocation);
     }
+
     void* VKMemManager::map(VmaAllocation allocation) {
         void* ptr;
         WG_VK_CHECK(vmaMapMemory(m_vma, allocation, &ptr));
         return ptr;
     }
+
     void VKMemManager::unmap(VmaAllocation allocation) {
         vmaUnmapMemory(m_vma, allocation);
     }

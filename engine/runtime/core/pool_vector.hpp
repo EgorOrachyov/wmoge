@@ -105,7 +105,7 @@ namespace wmoge {
                 return m_i != other.m_i;
             }
             IterType& operator*() {
-                return (IterType*) m_nodes[m_i / NODE_CAPACITY]->items[m_i % NODE_CAPACITY].mem;
+                return *((IterType*) m_nodes[m_i / NODE_CAPACITY]->items[m_i % NODE_CAPACITY].mem);
             }
             void operator++() {
                 m_i += 1;

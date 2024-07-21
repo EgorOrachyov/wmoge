@@ -38,7 +38,6 @@ namespace wmoge {
         WG_AUTO_PROFILE_GRC("TextureManager::TextureManager");
 
         m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
-        m_gfx_ctx    = IocContainer::iresolve_v<GfxCtx>();
 
         init_default_textures();
         init_default_samplers();
@@ -80,7 +79,7 @@ namespace wmoge {
         }
 
         for (int i = 0; i < int(DefaultTexture::Total); i++) {
-            m_gfx_ctx->update_texture_2d(m_default_textures[i], 0, Rect2i(0, 0, 1, 1), make_ref<Data>(tex_colors[i].data(), sizeof(std::uint8_t[4])));
+            //     m_gfx_ctx->update_texture_2d(m_default_textures[i], 0, Rect2i(0, 0, 1, 1), make_ref<Data>(tex_colors[i].data(), sizeof(std::uint8_t[4])));
         }
     }
 

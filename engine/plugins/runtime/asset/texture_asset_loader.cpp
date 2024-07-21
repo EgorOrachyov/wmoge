@@ -28,7 +28,7 @@
 #include "texture_asset_loader.hpp"
 
 #include "asset/texture_import_data.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/image.hpp"
 #include "grc/texture.hpp"

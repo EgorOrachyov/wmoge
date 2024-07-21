@@ -70,7 +70,7 @@ namespace wmoge {
     public:
         RenderScene();
 
-        void flush_buffers(class GfxCtx* gfx_ctx);
+        // void flush_buffers(class GfxCmdList* gfx_ctx);
 
         [[nodiscard]] MeshBucketMap&             get_bucket_map(MeshPassType pass_type) { return m_bucket_map[int(pass_type)]; }
         [[nodiscard]] GPURenderObjectDataVector& get_objects_gpu_data() { return m_objects_gpu_data; }

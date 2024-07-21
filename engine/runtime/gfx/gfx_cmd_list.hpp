@@ -44,24 +44,15 @@
 #include "math/vec.hpp"
 #include "platform/window.hpp"
 
-#include <array>
-#include <functional>
-#include <string>
-#include <thread>
-
 namespace wmoge {
 
     /**
-     * @class GfxCtx
-     * @brief Gfx context interface
-     *
-     * Context exposes gfx an environment and API for resources manipulation and rendering.
-     */
-    class GfxCtx {
+     * @class GfxCmdList
+     * @brief List to record gfx commands for execution on device
+    */
+    class GfxCmdList : public GfxResource {
     public:
-        virtual ~GfxCtx() = default;
-
-        virtual void update_desc_set(const Ref<GfxDescSet>& set, const GfxDescSetResources& resources) = 0;
+        ~GfxCmdList() override = default;
 
         virtual void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data)                = 0;
         virtual void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data)              = 0;
@@ -84,14 +75,9 @@ namespace wmoge {
         virtual void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) = 0;
         virtual void barrier_buffer(const Ref<GfxStorageBuffer>& buffer)                           = 0;
 
-        virtual void begin_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name = Strid())            = 0;
-        virtual void bind_target(const Ref<Window>& window)                                                        = 0;
-        virtual void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice)             = 0;
-        virtual void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice)                         = 0;
+        virtual void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc)                                    = 0;
+        virtual void peek_render_pass(GfxRenderPassRef& rp)                                                        = 0;
         virtual void viewport(const Rect2i& viewport)                                                              = 0;
-        virtual void clear(int target, const Vec4f& color)                                                         = 0;
-        virtual void clear(float depth, int stencil)                                                               = 0;
-        virtual void extract_render_pass(GfxRenderPassRef& rp)                                                     = 0;
         virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                                 = 0;
         virtual void bind_pso(const Ref<GfxPsoCompute>& pipeline)                                                  = 0;
         virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                 = 0;
@@ -103,36 +89,12 @@ namespace wmoge {
         virtual void dispatch(Vec3i group_count)                                                                   = 0;
         virtual void end_render_pass()                                                                             = 0;
 
-        virtual void execute(const std::function<void()>& functor) = 0;
-        virtual void shutdown()                                    = 0;
-
-        virtual void begin_frame() = 0;
-        virtual void end_frame()   = 0;
-
         virtual void begin_label(const Strid& label) = 0;
         virtual void end_label()                     = 0;
 
-        [[nodiscard]] virtual const Mat4x4f& clip_matrix() const = 0;
-        [[nodiscard]] virtual GfxCtxType     ctx_type() const    = 0;
-
-        static Vec3i group_size(int x, int y, int local_size);
+        virtual GfxQueueType get_queue_type() const = 0;
     };
 
-    /**
-     * @class GfxDebugLabel
-     * @brief Scope for debug laber
-    */
-    struct GfxDebugLabel {
-        GfxDebugLabel(GfxCtx* ctx, const Strid& label) : ctx(ctx) { ctx->begin_label(label); }
-        ~GfxDebugLabel() { ctx->end_label(); }
-        GfxCtx* ctx;
-    };
-
-#ifndef WMOGE_RELEASE
-    #define WG_GFX_LABEL(ctx, label) \
-        GfxDebugLabel __label_guard(ctx, label);
-#else
-    #define WG_GFX_LABEL(ctx, label)
-#endif
+    using GfxCmdListRef = Ref<GfxCmdList>;
 
 }// namespace wmoge

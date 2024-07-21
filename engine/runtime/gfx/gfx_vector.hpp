@@ -29,7 +29,7 @@
 
 #include "core/string_utils.hpp"
 #include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils.hpp"
 #include "system/engine.hpp"
@@ -59,7 +59,7 @@ namespace wmoge {
 
         void push_back(const T& element);
         void resize(std::size_t size);
-        void flush(GfxCtx* gfx_ctx);
+        void flush(GfxCmdList& cmd_list);
         void clear();
         void free();
         void set_name(const Strid& name);
@@ -93,18 +93,18 @@ namespace wmoge {
     }
 
     template<typename T, typename Storage>
-    void GfxVector<T, Storage>::flush(GfxCtx* gfx_ctx) {
+    void GfxVector<T, Storage>::flush(GfxCmdList& cmd_list) {
         if (!m_data.empty()) {
             void* ptr = nullptr;
 
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
-                ptr = gfx_ctx->map_vert_buffer(m_buffer);
+                ptr = cmd_list.map_vert_buffer(m_buffer);
             }
             if constexpr (std::is_same_v<Storage, GfxIndexBuffer>) {
-                ptr = gfx_ctx->map_index_buffer(m_buffer);
+                ptr = cmd_list.map_index_buffer(m_buffer);
             }
             if constexpr (std::is_same_v<Storage, GfxStorageBuffer>) {
-                ptr = gfx_ctx->map_storage_buffer(m_buffer);
+                ptr = cmd_list.map_storage_buffer(m_buffer);
             }
 
             assert(ptr);
@@ -112,13 +112,13 @@ namespace wmoge {
             std::memcpy(ptr, m_data.data(), sizeof(T) * get_size());
 
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
-                gfx_ctx->unmap_vert_buffer(m_buffer);
+                cmd_list.unmap_vert_buffer(m_buffer);
             }
             if constexpr (std::is_same_v<Storage, GfxIndexBuffer>) {
-                gfx_ctx->unmap_index_buffer(m_buffer);
+                cmd_list.unmap_index_buffer(m_buffer);
             }
             if constexpr (std::is_same_v<Storage, GfxStorageBuffer>) {
-                gfx_ctx->unmap_storage_buffer(m_buffer);
+                cmd_list.unmap_storage_buffer(m_buffer);
             }
         }
     }

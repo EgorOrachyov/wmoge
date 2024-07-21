@@ -28,7 +28,7 @@
 #include "shader_param_block.hpp"
 
 #include "core/log.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_param.hpp"
 
@@ -311,7 +311,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ShaderParamBlock::validate(GfxDriver* driver, GfxCtx* ctx) {
+    Status ShaderParamBlock::validate(GfxDriver* driver, GfxCmdList* cmd_list) {
         if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
@@ -337,7 +337,7 @@ namespace wmoge {
                     assert(buffer);
                     assert(buffer->size() == src->size());
 
-                    ctx->update_uniform_buffer(buffer, v.offset, v.range, src);
+                    cmd_list->update_uniform_buffer(buffer, v.offset, v.range, src);
                 }
             }
         }

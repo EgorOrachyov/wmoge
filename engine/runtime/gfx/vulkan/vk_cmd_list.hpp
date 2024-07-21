@@ -27,31 +27,36 @@
 
 #pragma once
 
-#include "core/callback_stream.hpp"
-#include "gfx/gfx_ctx.hpp"
-#include "gfx/threaded/gfx_ctx_threaded.hpp"
+#include "core/buffered_vector.hpp"
+#include "core/data.hpp"
+#include "core/flat_map.hpp"
+#include "gfx/gfx_cmd_list.hpp"
+#include "gfx/vulkan/vk_buffers.hpp"
+#include "gfx/vulkan/vk_cmd_manager.hpp"
+#include "gfx/vulkan/vk_defs.hpp"
+#include "gfx/vulkan/vk_mem_manager.hpp"
+#include "gfx/vulkan/vk_pipeline.hpp"
+#include "gfx/vulkan/vk_queues.hpp"
+#include "gfx/vulkan/vk_render_pass.hpp"
+#include "gfx/vulkan/vk_resource.hpp"
+#include "gfx/vulkan/vk_vert_format.hpp"
+#include "gfx/vulkan/vk_window.hpp"
+
+#include <array>
+#include <mutex>
+#include <unordered_set>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class GfxCtxWrapper
-     * @brief Thread-safe wrapper for gfx context to be used from any thread
-     *
-     * Wraps GfxCtx interface. It uses commands serialization to send it
-     * to a separate gfx thread, responsible for GPU communication. Simple
-     * commands sent with no wait. Commands requiring immediate feedback
-     * require to wait until gfx thread process them.
-     *
-     * @see GfxCtx
-     * @see GfxCtxThreaded
-     */
-    class GfxCtxWrapper : public GfxCtx {
+     * @class VKCmdList
+     * @brief Vulkan command list object implementation
+    */
+    class VKCmdList : public VKResource<GfxCmdList> {
     public:
-        explicit GfxCtxWrapper(GfxCtxThreaded* ctx);
-
-        ~GfxCtxWrapper() override = default;
-
-        void update_desc_set(const Ref<GfxDescSet>& set, const GfxDescSetResources& resources) override;
+        VKCmdList(VkCommandBuffer cmd_buffer, GfxQueueType queue_type, class VKDriver& driver);
+        ~VKCmdList() override;
 
         void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
         void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) override;
@@ -74,42 +79,49 @@ namespace wmoge {
         void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) override;
         void barrier_buffer(const Ref<GfxStorageBuffer>& buffer) override;
 
-        void begin_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) override;
-        void bind_target(const Ref<Window>& window) override;
-        void bind_color_target(const Ref<GfxTexture>& texture, int target, int mip, int slice) override;
-        void bind_depth_target(const Ref<GfxTexture>& texture, int mip, int slice) override;
+        void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc) override;
+        void peek_render_pass(GfxRenderPassRef& rp) override;
         void viewport(const Rect2i& viewport) override;
-        void clear(int target, const Vec4f& color) override;
-        void clear(float depth, int stencil) override;
-        void extract_render_pass(GfxRenderPassRef& rp) override;
         void bind_pso(const Ref<GfxPsoGraphics>& pipeline) override;
         void bind_pso(const Ref<GfxPsoCompute>& pipeline) override;
-        void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) override;
-        void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) override;
+        void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0) override;
+        void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) override;
         void bind_desc_set(const Ref<GfxDescSet>& set, int index) override;
-        void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset) override;
+        void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset = 0) override;
         void draw(int vertex_count, int base_vertex, int instance_count) override;
         void draw_indexed(int index_count, int base_vertex, int instance_count) override;
         void dispatch(Vec3i group_count) override;
         void end_render_pass() override;
 
-        void execute(const std::function<void()>& functor) override;
-        void shutdown() override;
-
-        void begin_frame() override;
-        void end_frame() override;
-
         void begin_label(const Strid& label) override;
         void end_label() override;
 
-        [[nodiscard]] const Mat4x4f& clip_matrix() const override;
-        [[nodiscard]] GfxCtxType     ctx_type() const override;
+        GfxQueueType    get_queue_type() const override { return m_queue_type; }
+        VkCommandBuffer get_handle() const { return m_cmd_buffer; }
 
     private:
-        GfxCtxThreaded* m_ctx    = nullptr;
-        CallbackStream* m_stream = nullptr;
-        Mat4x4f         m_clip_matrix;
-        GfxCtxType      m_ctx_type;
+        void reset_state();
+
+    private:
+        VkCommandBuffer m_cmd_buffer = VK_NULL_HANDLE;
+        GfxQueueType    m_queue_type = GfxQueueType::None;
+
+        Ref<VKRenderPass>                                          m_current_pass;
+        Ref<VKFrameBuffer>                                         m_current_fbo;
+        Ref<VKWindow>                                              m_current_window;
+        Ref<VKPsoGraphics>                                         m_current_pso_graphics;
+        Ref<VKPsoCompute>                                          m_current_pso_compute;
+        Ref<VKPsoLayout>                                           m_current_pso_layout;
+        Ref<VKIndexBuffer>                                         m_current_index_buffer;
+        std::array<Ref<VKVertBuffer>, GfxLimits::MAX_VERT_BUFFERS> m_current_vert_buffers{};
+        std::array<int, GfxLimits::MAX_VERT_BUFFERS>               m_current_vert_buffers_offsets{};
+        std::array<VkDescriptorSet, GfxLimits::MAX_DESC_SETS>      m_desc_sets{};
+        Rect2i                                                     m_viewport;
+
+        bool m_is_started              = false;
+        bool m_in_render_pass          = false;
+        bool m_pipeline_bound_graphics = false;
+        bool m_pipeline_bound_compute  = false;
     };
 
 }// namespace wmoge

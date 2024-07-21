@@ -29,6 +29,9 @@
 
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_resource.hpp"
+#include "gfx/gfx_texture.hpp"
+#include "math/color.hpp"
+#include "platform/window.hpp"
 
 #include <array>
 #include <utility>
@@ -53,15 +56,64 @@ namespace wmoge {
 
     /**
      * @class GfxRenderPassDesc
-     * @brief Gfx rendering pass object (for internal usage primary)
+     * @brief Gfx rendering pass object
      */
     class GfxRenderPass : public GfxResource {
     public:
-        ~GfxRenderPass() override                          = default;
-        virtual const GfxRenderPassDesc& pass_desc() const = 0;
+        ~GfxRenderPass() override                     = default;
+        virtual const GfxRenderPassDesc& desc() const = 0;
     };
 
     using GfxRenderPassRef = Ref<GfxRenderPass>;
+
+    /**
+     * @class GfxTargetInfo
+     * @brief Info to bind texture as a render target
+    */
+    struct GfxTargetInfo {
+        Ref<GfxTexture> texture;
+        int             slice = 0;
+        int             mip   = 0;
+    };
+
+    /**
+     * @class GfxFrameBufferDesc
+     * @brief Frame buffer desc for creation and caching
+    */
+    struct GfxFrameBufferDesc {
+        GfxFrameBufferDesc() = default;
+        bool        operator==(const GfxFrameBufferDesc& other) const;
+        std::size_t hash() const;
+
+        std::array<GfxTargetInfo, GfxLimits::MAX_COLOR_TARGETS> color_targets{};       // = Default
+        GfxTargetInfo                                           depth_stencil_target{};// = Default
+        Ref<GfxRenderPass>                                      render_pass;           // = nullptr
+    };
+
+    /**
+     * @class GfxFrameBuffer
+     * @brief Gfx frame buffer object with complete set of targets
+     */
+    class GfxFrameBuffer : public GfxResource {
+    public:
+        ~GfxFrameBuffer() override                     = default;
+        virtual const GfxFrameBufferDesc& desc() const = 0;
+    };
+
+    using GfxFrameBufferRef = Ref<GfxFrameBuffer>;
+
+    /**
+     * @class GfxRenderPassBeginInfo
+     * @brief Info to start render pass
+    */
+    struct GfxRenderPassBeginInfo {
+        GfxFrameBufferRef                                 frame_buffer;
+        Ref<Window>                                       window;
+        std::array<Color4f, GfxLimits::MAX_COLOR_TARGETS> clear_color{};
+        float                                             clear_depth   = 1.0f;
+        int                                               clear_stencil = 0;
+        Strid                                             name;
+    };
 
 }// namespace wmoge
 
@@ -70,6 +122,13 @@ namespace std {
     template<>
     struct hash<wmoge::GfxRenderPassDesc> {
         std::size_t operator()(const wmoge::GfxRenderPassDesc& desc) const {
+            return desc.hash();
+        }
+    };
+
+    template<>
+    struct hash<wmoge::GfxFrameBufferDesc> {
+        std::size_t operator()(const wmoge::GfxFrameBufferDesc& desc) const {
             return desc.hash();
         }
     };

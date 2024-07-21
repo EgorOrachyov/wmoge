@@ -32,10 +32,9 @@
 #include "core/callback_queue.hpp"
 #include "core/data.hpp"
 #include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_dynamic_buffers.hpp"
 #include "gfx/gfx_pipeline.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
@@ -63,51 +62,45 @@ namespace wmoge {
     public:
         virtual ~GfxDriver() = default;
 
-        virtual Ref<GfxVertFormat>       make_vert_format(const GfxVertElements& elements, const Strid& name = Strid())                                                                                 = 0;
-        virtual Ref<GfxVertBuffer>       make_vert_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                     = 0;
-        virtual Ref<GfxIndexBuffer>      make_index_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                    = 0;
-        virtual Ref<GfxUniformBuffer>    make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
-        virtual Ref<GfxStorageBuffer>    make_storage_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
-        virtual Ref<GfxShader>           make_shader(GfxShaderDesc desc, const Strid& name = Strid())                                                                                                   = 0;
-        virtual Ref<GfxShaderProgram>    make_program(GfxShaderProgramDesc desc, const Strid& name = Strid())                                                                                           = 0;
-        virtual Ref<GfxTexture>          make_texture(const GfxTextureDesc& desc, const Strid& name = Strid())                                                                                          = 0;
-        virtual Ref<GfxTexture>          make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name = Strid()) = 0;
-        virtual Ref<GfxTexture>          make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())  = 0;
-        virtual Ref<GfxTexture>          make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())                  = 0;
-        virtual Ref<GfxSampler>          make_sampler(const GfxSamplerDesc& desc, const Strid& name = Strid())                                                                                          = 0;
-        virtual Ref<GfxPsoLayout>        make_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name = Strid())                                                                                 = 0;
-        virtual Ref<GfxPsoGraphics>      make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name = Strid())                                                                               = 0;
-        virtual Ref<GfxPsoCompute>       make_pso_compute(const GfxPsoStateCompute& state, const Strid& name = Strid())                                                                                 = 0;
-        virtual Ref<GfxRenderPass>       make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name = Strid())                                                                              = 0;
-        virtual Ref<GfxDynVertBuffer>    make_dyn_vert_buffer(int chunk_size, const Strid& name = Strid())                                                                                              = 0;
-        virtual Ref<GfxDynIndexBuffer>   make_dyn_index_buffer(int chunk_size, const Strid& name = Strid())                                                                                             = 0;
-        virtual Ref<GfxDynUniformBuffer> make_dyn_uniform_buffer(int chunk_size, const Strid& name = Strid())                                                                                           = 0;
-        virtual Ref<GfxDescSetLayout>    make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid())                                                                                = 0;
-        virtual Ref<GfxDescSet>          make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name = Strid())                                          = 0;
-        virtual Async                    make_shaders(const Ref<GfxAsyncShaderRequest>& request)                                                                                                        = 0;
-        virtual Async                    make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request)                                                                                             = 0;
-        virtual Async                    make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request)                                                                                               = 0;
-
         virtual void shutdown() = 0;
 
-        virtual void begin_frame()                             = 0;
-        virtual void end_frame()                               = 0;
-        virtual void prepare_window(const Ref<Window>& window) = 0;
-        virtual void swap_buffers(const Ref<Window>& window)   = 0;
+        virtual Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const Strid& name = Strid())                                                                                 = 0;
+        virtual Ref<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                     = 0;
+        virtual Ref<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                    = 0;
+        virtual Ref<GfxUniformBuffer> make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
+        virtual Ref<GfxStorageBuffer> make_storage_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                  = 0;
+        virtual Ref<GfxShader>        make_shader(GfxShaderDesc desc, const Strid& name = Strid())                                                                                                   = 0;
+        virtual Ref<GfxShaderProgram> make_program(GfxShaderProgramDesc desc, const Strid& name = Strid())                                                                                           = 0;
+        virtual Ref<GfxTexture>       make_texture(const GfxTextureDesc& desc, const Strid& name = Strid())                                                                                          = 0;
+        virtual Ref<GfxTexture>       make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name = Strid()) = 0;
+        virtual Ref<GfxTexture>       make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())  = 0;
+        virtual Ref<GfxTexture>       make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name = Strid())                  = 0;
+        virtual Ref<GfxSampler>       make_sampler(const GfxSamplerDesc& desc, const Strid& name = Strid())                                                                                          = 0;
+        virtual Ref<GfxPsoLayout>     make_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name = Strid())                                                                                 = 0;
+        virtual Ref<GfxPsoGraphics>   make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name = Strid())                                                                               = 0;
+        virtual Ref<GfxPsoCompute>    make_pso_compute(const GfxPsoStateCompute& state, const Strid& name = Strid())                                                                                 = 0;
+        virtual Ref<GfxRenderPass>    make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name = Strid())                                                                              = 0;
+        virtual Ref<GfxRenderPass>    make_render_pass(const Ref<Window>& window, const Strid& name = Strid())                                                                                       = 0;
+        virtual Ref<GfxDescSetLayout> make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid())                                                                                = 0;
+        virtual Ref<GfxDescSet>       make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name = Strid())                                          = 0;
+        virtual Async                 make_shaders(const Ref<GfxAsyncShaderRequest>& request)                                                                                                        = 0;
+        virtual Async                 make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request)                                                                                             = 0;
+        virtual Async                 make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request)                                                                                               = 0;
 
-        [[nodiscard]] virtual class GfxCtx* ctx_immediate() = 0;
-        [[nodiscard]] virtual class GfxCtx* ctx_async()     = 0;
+        virtual void          begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) = 0;
+        virtual GfxCmdListRef acquire_cmd_list(GfxQueueType queue_type = GfxQueueType::Graphics)        = 0;
+        virtual void          submit_cmd_list(const GfxCmdListRef& cmd_list)                            = 0;
+        virtual void          end_frame(bool swap_buffers = true)                                       = 0;
 
-        [[nodiscard]] virtual const GfxDeviceCaps&   device_caps() const         = 0;
-        [[nodiscard]] virtual const Strid&           driver_name() const         = 0;
-        [[nodiscard]] virtual const std::string&     pipeline_cache_path() const = 0;
-        [[nodiscard]] virtual const std::thread::id& thread_id() const           = 0;
-        [[nodiscard]] virtual const Mat4x4f&         clip_matrix() const         = 0;
-        [[nodiscard]] virtual std::size_t            frame_number() const        = 0;
-        [[nodiscard]] virtual bool                   on_gfx_thread() const       = 0;
-        [[nodiscard]] virtual GfxShaderLang          shader_lang() const         = 0;
-        [[nodiscard]] virtual GfxType                get_gfx_type() const        = 0;
-        [[nodiscard]] virtual GfxShaderPlatform      get_shader_platform() const = 0;
+        [[nodiscard]] virtual const GfxDeviceCaps& device_caps() const         = 0;
+        [[nodiscard]] virtual const Strid&         driver_name() const         = 0;
+        [[nodiscard]] virtual const std::string&   pipeline_cache_path() const = 0;
+        [[nodiscard]] virtual const Mat4x4f&       clip_matrix() const         = 0;
+        [[nodiscard]] virtual std::size_t          frame_number() const        = 0;
+        [[nodiscard]] virtual GfxShaderLang        shader_lang() const         = 0;
+        [[nodiscard]] virtual GfxType              get_gfx_type() const        = 0;
+        [[nodiscard]] virtual GfxShaderPlatform    get_shader_platform() const = 0;
+        [[nodiscard]] virtual const GfxCmdListRef& get_default_list() const    = 0;
     };
 
 }// namespace wmoge

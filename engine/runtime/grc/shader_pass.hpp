@@ -54,11 +54,11 @@ namespace wmoge {
         void set_ds(const DepthStencilState& ds);
         void set_bs(const BlendState& bs);
 
-        Status configure(class GfxCtx* context);
+        Status configure(class GfxCmdList& cmd_list);
 
     private:
-        Status configure_graphics(class GfxCtx* context);
-        Status configure_compute(class GfxCtx* context);
+        Status configure_graphics(class GfxCmdList& cmd_list);
+        Status configure_compute(class GfxCmdList& cmd_list);
 
     private:
         buffered_vector<Ref<ShaderParamBlock>>   m_params;

@@ -27,7 +27,7 @@
 
 #include "render_scene.hpp"
 
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "profiler/profiler.hpp"
 
 #include <cassert>
@@ -39,11 +39,11 @@ namespace wmoge {
         m_objects_ids.set_name(SID("objects_ids"));
     }
 
-    void RenderScene::flush_buffers(GfxCtx* gfx_ctx) {
-        WG_AUTO_PROFILE_RENDER("RenderScene::flush_buffers");
+    // void RenderScene::flush_buffers(GfxCmdList* gfx_ctx) {
+    //     WG_AUTO_PROFILE_RENDER("RenderScene::flush_buffers");
 
-        m_objects_gpu_data.flush(gfx_ctx);
-        m_objects_ids.flush(gfx_ctx);
-    }
+    //     m_objects_gpu_data.flush(gfx_ctx);
+    //     m_objects_ids.flush(gfx_ctx);
+    // }
 
 }// namespace wmoge

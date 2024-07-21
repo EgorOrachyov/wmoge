@@ -30,7 +30,7 @@
 #include "core/async.hpp"
 #include "core/task_parallel_for.hpp"
 #include "ecs/ecs_registry.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "platform/time.hpp"
 #include "platform/window.hpp"
@@ -211,7 +211,7 @@ namespace wmoge {
 
         RenderEngine* render_engine;// = engine->render_engine();
 
-        //  GfxCtx*       gfx_ctx;      // = engine->gfx_ctx();
+        //  GfxCmdList*       gfx_ctx;      // = engine->gfx_ctx();
         //  WindowManager* window_manager;// = engine->window_manager();
         //  Ref<Window>    window;        // = window_manager->primary_window();
 

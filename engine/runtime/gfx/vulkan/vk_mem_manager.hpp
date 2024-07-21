@@ -44,7 +44,7 @@ namespace wmoge {
         VKMemManager(class VKDriver& driver);
         ~VKMemManager();
 
-        void update();
+        void update(std::size_t frame_id);
 
         void allocate(VkBufferCreateInfo& buff_info, GfxMemUsage usage, VkBuffer& bufffer, VmaAllocation& allocation);
         void allocate(VkImageCreateInfo& image_info, GfxMemUsage usage, VkImage& image, VmaAllocation& allocation);
@@ -66,7 +66,9 @@ namespace wmoge {
         VmaPool      m_staging[GfxLimits::FRAMES_IN_FLIGHT];
         VmaAllocator m_vma = VK_NULL_HANDLE;
 
-        int             m_current = 0;
+        std::size_t m_index    = 0 % GfxLimits::FRAMES_IN_FLIGHT;
+        std::size_t m_frame_id = 0;
+
         class VKDriver& m_driver;
 
         std::mutex m_mutex;

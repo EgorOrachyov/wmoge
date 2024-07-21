@@ -92,7 +92,7 @@ namespace wmoge {
     void Mesh::update_gfx_buffers() {
         auto* engine     = Engine::instance();
         auto* gfx_driver = engine->gfx_driver();
-        auto* gfx_ctx    = engine->gfx_ctx();
+        // auto* gfx_ctx    = engine->gfx_ctx();
 
         GfxMemUsage mem_usage = GfxMemUsage::GpuLocal;
 
@@ -102,7 +102,7 @@ namespace wmoge {
             const int   size        = static_cast<int>(m_vertex_buffers[i]->size());
             const Strid name        = SID(get_name().str() + "_" + StringUtils::from_int(i));
             m_gfx_vertex_buffers[i] = gfx_driver->make_vert_buffer(size, mem_usage, name);
-            gfx_ctx->update_vert_buffer(m_gfx_vertex_buffers[i], 0, size, m_vertex_buffers[i]);
+            // gfx_ctx->update_vert_buffer(m_gfx_vertex_buffers[i], 0, size, m_vertex_buffers[i]);
         }
 
         m_gfx_index_buffers.resize(m_index_buffers.size());
@@ -111,7 +111,7 @@ namespace wmoge {
             const int   size       = static_cast<int>(m_index_buffers[i]->size());
             const Strid name       = SID(get_name().str() + "_" + StringUtils::from_int(i));
             m_gfx_index_buffers[i] = gfx_driver->make_index_buffer(size, mem_usage, name);
-            gfx_ctx->update_index_buffer(m_gfx_index_buffers[i], 0, size, m_index_buffers[i]);
+            // gfx_ctx->update_index_buffer(m_gfx_index_buffers[i], 0, size, m_index_buffers[i]);
         }
     }
 

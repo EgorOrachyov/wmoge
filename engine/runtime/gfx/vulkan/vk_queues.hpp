@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
+#include "core/flat_map.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 
@@ -42,27 +43,33 @@ namespace wmoge {
         static const uint32_t INVALID_QUEUE_INDEX = 0xffffffff;
         VKQueues(VkPhysicalDevice device, VkSurfaceKHR surface);
 
-        bool is_complete() const;
-        void init_queues(VkDevice device);
+        bool     is_complete() const;
+        void     init_queues(VkDevice device);
+        VkQueue  get_queue(GfxQueueType queue_type);
+        uint32_t get_family_index(GfxQueueType queue_type);
 
-        const buffered_vector<uint32_t>& unique_families() const { return m_families; }
-        uint32_t                         gfx_queue_family() const { return m_gfx_queue_family; }
-        uint32_t                         tsf_queue_family() const { return m_tsf_queue_family; }
-        uint32_t                         prs_queue_family() const { return m_prs_queue_family; }
-        VkQueue                          gfx_queue() const { return m_gfx_queue; }
-        VkQueue                          tsf_queue() const { return m_tsf_queue; }
-        VkQueue                          prs_queue() const { return m_prs_queue; }
-        VkSharingMode                    mode() const { return m_mode; }
+        [[nodiscard]] const buffered_vector<uint32_t>& unique_families() const { return m_families; }
+        [[nodiscard]] uint32_t                         gfx_queue_family() const { return m_gfx_queue_family; }
+        [[nodiscard]] uint32_t                         cmp_queue_family() const { return m_cmp_queue_family; }
+        [[nodiscard]] uint32_t                         tsf_queue_family() const { return m_tsf_queue_family; }
+        [[nodiscard]] uint32_t                         prs_queue_family() const { return m_prs_queue_family; }
+        [[nodiscard]] VkQueue                          gfx_queue() const { return m_gfx_queue; }
+        [[nodiscard]] VkQueue                          cmp_queue() const { return m_cmp_queue; }
+        [[nodiscard]] VkQueue                          tsf_queue() const { return m_tsf_queue; }
+        [[nodiscard]] VkQueue                          prs_queue() const { return m_prs_queue; }
+        [[nodiscard]] VkSharingMode                    mode() const { return m_mode; }
 
     private:
         buffered_vector<uint32_t>                m_families;
         buffered_vector<VkQueueFamilyProperties> m_props;
 
         VkQueue m_gfx_queue = VK_NULL_HANDLE;
+        VkQueue m_cmp_queue = VK_NULL_HANDLE;
         VkQueue m_tsf_queue = VK_NULL_HANDLE;
         VkQueue m_prs_queue = VK_NULL_HANDLE;
 
         uint32_t m_gfx_queue_family = INVALID_QUEUE_INDEX;
+        uint32_t m_cmp_queue_family = INVALID_QUEUE_INDEX;
         uint32_t m_tsf_queue_family = INVALID_QUEUE_INDEX;
         uint32_t m_prs_queue_family = INVALID_QUEUE_INDEX;
 

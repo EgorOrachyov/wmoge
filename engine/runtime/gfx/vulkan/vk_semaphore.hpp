@@ -25,12 +25,41 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "gfx_ctx.hpp"
+#pragma once
+
+#include "core/buffered_vector.hpp"
+#include "core/simple_id.hpp"
+#include "gfx/vulkan/vk_defs.hpp"
+
+#include <mutex>
+#include <vector>
 
 namespace wmoge {
 
-    Vec3i GfxCtx::group_size(int x, int y, int local_size) {
-        return Vec3i(int(Math::div_up(x, local_size)), int(Math::div_up(y, local_size)), 1);
-    }
+    /**
+     * @class VKSemaphorePool
+     * @brief Vulkan semaphores pool with reuse
+    */
+    class VKSemaphorePool {
+    public:
+        VKSemaphorePool(class VKDriver& driver);
+        ~VKSemaphorePool();
+
+        void clear();
+        void update(std::size_t frame_id);
+
+        VkSemaphore allocate();
+
+    private:
+        std::vector<VkSemaphore> m_used[GfxLimits::FRAMES_IN_FLIGHT];
+        std::vector<VkSemaphore> m_free;
+
+        std::size_t m_index    = 0 % GfxLimits::FRAMES_IN_FLIGHT;
+        std::size_t m_frame_id = 0;
+
+        int m_next_id = 0;
+
+        class VKDriver& m_driver;
+    };
 
 }// namespace wmoge

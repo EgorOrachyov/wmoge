@@ -145,7 +145,7 @@ public:
         ShaderParamBlock block(*shader, 0, SID("canvas"));
         block.set_var(p_clip_proj_view, Math3d::perspective(1.0f, 1.0f, 0.1f, 100000.f));
         block.set_var(p_inverse_gamma, 1.0f / 4.0f);
-        block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx());
+        // block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx());
 
         Engine* engine = Engine::instance();
 

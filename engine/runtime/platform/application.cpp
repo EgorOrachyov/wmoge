@@ -163,11 +163,7 @@ namespace wmoge {
         });
 
         ioc->bind_f<GfxDriver, GfxDriver>([ioc]() {
-            return std::shared_ptr<GfxDriver>(ioc->resolve_v<VKDriver>()->driver_wrapper(), [](auto p) {});
-        });
-
-        ioc->bind_f<GfxCtx, GfxCtx>([ioc]() {
-            return std::shared_ptr<GfxCtx>(ioc->resolve_v<VKDriver>()->ctx_immediate_wrapper(), [](auto p) {});
+            return std::shared_ptr<GfxDriver>(ioc->resolve_v<VKDriver>(), [](auto p) {});
         });
 
         ioc->bind_f<RttiTypeStorage, RttiTypeStorage>([]() {

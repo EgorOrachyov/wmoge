@@ -75,7 +75,6 @@ namespace wmoge {
         class WindowManager*    window_manager();
         class Input*            input();
         class GfxDriver*        gfx_driver();
-        class GfxCtx*           gfx_ctx();
         class ShaderManager*    shader_manager();
         class ShaderLibrary*    shader_library();
         class PsoCache*         pso_cache();
@@ -98,6 +97,7 @@ namespace wmoge {
 
     private:
         std::atomic_bool m_close_requested{false};
+        std::size_t      m_frame_id = 0;
 
         class Application*      m_application        = nullptr;
         class RttiTypeStorage*  m_type_storage       = nullptr;
@@ -117,7 +117,6 @@ namespace wmoge {
         class WindowManager*    m_window_manager     = nullptr;
         class Input*            m_input              = nullptr;
         class GfxDriver*        m_gfx_driver         = nullptr;
-        class GfxCtx*           m_gfx_ctx            = nullptr;
         class ShaderManager*    m_shader_manager     = nullptr;
         class ShaderLibrary*    m_shader_library     = nullptr;
         class PsoCache*         m_pso_cache          = nullptr;

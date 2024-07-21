@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
 
@@ -73,7 +73,6 @@ namespace wmoge {
 
     private:
         GfxDriver* m_gfx_driver;
-        GfxCtx*    m_gfx_ctx;
 
         Ref<GfxTexture> m_default_textures[int(DefaultTexture::Total)];
         Ref<GfxSampler> m_default_samplers[int(DefaultSampler::Total)];

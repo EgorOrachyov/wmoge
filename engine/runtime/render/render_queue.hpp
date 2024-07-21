@@ -32,7 +32,7 @@
 #include "core/pool_vector.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
@@ -141,7 +141,7 @@ namespace wmoge {
         void push(const SortableRenderCmd& cmd);
         void clear();
         void sort();
-        int  execute(GfxCtx* gfx_ctx) const;
+        int  execute(GfxCmdList& cmd_list) const;
 
         [[nodiscard]] std::vector<SortableRenderCmd>& get_queue();
         [[nodiscard]] const SortableRenderCmd&        get_cmd(std::size_t index) const;

@@ -131,7 +131,6 @@ namespace wmoge {
         WG_LOG_INFO("init window " << window_info.id);
 
         m_gfx_driver = ioc->resolve_v<GfxDriver>();
-        m_gfx_ctx    = ioc->resolve_v<GfxCtx>();
 
         m_shader_manager = ioc->resolve_v<ShaderManager>();
         m_shader_manager->load_compilers();
@@ -171,6 +170,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_SYSTEM("Engine::iteration");
 
         m_time->tick();
+        m_frame_id = m_time->get_iteration();
 
         auto windows = m_window_manager->windows();
 
@@ -178,11 +178,7 @@ namespace wmoge {
             layer->on_start_frame();
         });
 
-        m_gfx_driver->begin_frame();
-
-        for (auto& w : windows) {
-            m_gfx_driver->prepare_window(w);
-        }
+        m_gfx_driver->begin_frame(m_frame_id, windows);
 
         if (m_event_manager) {
             m_event_manager->flush();
@@ -200,17 +196,13 @@ namespace wmoge {
             layer->on_debug_draw();
         });
 
-        m_gfx_driver->end_frame();
-
         m_layer_stack->each_down([](LayerStack::LayerPtr& layer) {
             layer->on_end_frame();
         });
 
         m_window_manager->poll_events();
 
-        for (auto& w : windows) {
-            m_gfx_driver->swap_buffers(w);
-        }
+        m_gfx_driver->end_frame(true);
 
         return WG_OK;
     }
@@ -253,7 +245,6 @@ namespace wmoge {
     WindowManager*    Engine::window_manager() { return m_window_manager; }
     Input*            Engine::input() { return m_input; }
     GfxDriver*        Engine::gfx_driver() { return m_gfx_driver; }
-    GfxCtx*           Engine::gfx_ctx() { return m_gfx_ctx; }
     ShaderManager*    Engine::shader_manager() { return m_shader_manager; }
     ShaderLibrary*    Engine::shader_library() { return m_shader_library; }
     PsoCache*         Engine::pso_cache() { return m_pso_cache; }

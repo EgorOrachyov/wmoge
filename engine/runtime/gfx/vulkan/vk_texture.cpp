@@ -37,23 +37,25 @@ namespace wmoge {
     VKTexture::~VKTexture() {
         WG_AUTO_PROFILE_VULKAN("VKTexture::~VKTexture");
 
-        for (auto view : m_rt_views)
+        for (auto view : m_rt_views) {
             vkDestroyImageView(m_driver.device(), view, nullptr);
-        if (m_view)
+        }
+        if (m_view) {
             vkDestroyImageView(m_driver.device(), m_view, nullptr);
-        if (m_image && m_allocation)
+        }
+        if (m_image && m_allocation) {
             m_driver.mem_manager()->deallocate(m_image, m_allocation);
+        }
     }
-    void VKTexture::create(VkCommandBuffer cmd, const GfxTextureDesc& desc, const Strid& name) {
+    void VKTexture::create(const GfxTextureDesc& desc, const Strid& name) {
         m_desc = desc;
         m_name = name;
 
         init_image();
         init_view();
         init_rt_views();
-        init_layout(cmd);
     }
-    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, VkImage image, VkFormat format, const Strid& name) {
+    void VKTexture::create_2d(int width, int height, VkImage image, VkFormat format, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         m_desc.tex_type     = GfxTex::Tex2d;
@@ -84,9 +86,8 @@ namespace wmoge {
         }
 
         init_view();
-        init_layout(cmd);
     }
-    void VKTexture::create_2d(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
+    void VKTexture::create_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d");
 
         GfxTextureDesc desc;
@@ -101,9 +102,9 @@ namespace wmoge {
         desc.usages       = usages;
         desc.mem_usage    = mem_usage;
 
-        create(cmd, desc, name);
+        create(desc, name);
     }
-    void VKTexture::create_2d_array(VkCommandBuffer cmd, int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
+    void VKTexture::create_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_2d_array");
 
         GfxTextureDesc desc;
@@ -117,9 +118,9 @@ namespace wmoge {
         desc.usages       = usages;
         desc.mem_usage    = mem_usage;
 
-        create(cmd, desc, name);
+        create(desc, name);
     }
-    void VKTexture::create_cube(VkCommandBuffer cmd, int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
+    void VKTexture::create_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::create_cube");
 
         GfxTextureDesc desc;
@@ -133,7 +134,7 @@ namespace wmoge {
         desc.usages       = usages;
         desc.mem_usage    = mem_usage;
 
-        create(cmd, desc, name);
+        create(desc, name);
     }
     void VKTexture::update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, const Ref<Data>& data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d");
@@ -405,7 +406,6 @@ namespace wmoge {
     void VKTexture::init_layout(VkCommandBuffer cmd) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::init_layout");
 
-        assert(m_driver.on_gfx_thread());
         assert(cmd != VK_NULL_HANDLE);
 
         transition_layout(cmd, m_primary_layout);

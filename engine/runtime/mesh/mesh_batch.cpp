@@ -55,7 +55,6 @@ namespace wmoge {
         Engine* engine = Engine::instance();
 
         m_driver = engine->gfx_driver();
-        m_ctx    = engine->gfx_ctx();
 
         // Register pass processors here
         m_processors[int(MeshPassType::GBuffer)] = std::make_unique<MeshPassProcessorGBuffer>();

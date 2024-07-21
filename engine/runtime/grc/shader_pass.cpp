@@ -28,7 +28,7 @@
 #include "shader_pass.hpp"
 
 #include "core/log.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/pso_cache.hpp"
 #include "grc/shader.hpp"
@@ -130,15 +130,14 @@ namespace wmoge {
         m_pipeline_state.bs = bs;
     }
 
-    Status ShaderPass::configure(GfxCtx* context) {
-        assert(context);
+    Status ShaderPass::configure(GfxCmdList& cmd_list) {
         assert(m_technique);
         assert(m_pass);
 
         if (m_shader->is_graphics()) {
-            WG_CHECKED(configure_graphics(context));
+            WG_CHECKED(configure_graphics(cmd_list));
         } else if (m_shader->is_compute()) {
-            WG_CHECKED(configure_compute(context));
+            WG_CHECKED(configure_compute(cmd_list));
         } else {
             WG_LOG_ERROR("unsupported domain of shader " << m_shader->get_name());
             return StatusCode::InvalidState;
@@ -151,13 +150,13 @@ namespace wmoge {
             if (!m_params[i]) {
                 return StatusCode::InvalidState;
             }
-            WG_CHECKED(m_params[i]->validate(driver, context));
+            WG_CHECKED(m_params[i]->validate(driver, &cmd_list));
         }
 
         return WG_OK;
     }
 
-    Status ShaderPass::configure_graphics(GfxCtx* context) {
+    Status ShaderPass::configure_graphics(GfxCmdList& cmd_list) {
         auto platform = m_shader->get_active_platform();
         auto program  = m_shader->get_or_create_program(platform, m_permutation);
 
@@ -175,7 +174,7 @@ namespace wmoge {
         }
 
         GfxRenderPassRef rp;
-        context->extract_render_pass(rp);
+        cmd_list.peek_render_pass(rp);
 
         GfxPsoStateGraphics state;
         state.pass        = rp;
@@ -191,11 +190,11 @@ namespace wmoge {
             return StatusCode::NoValue;
         }
 
-        context->bind_pso(pso_ref.cast<GfxPsoGraphics>());
+        cmd_list.bind_pso(pso_ref.cast<GfxPsoGraphics>());
         return WG_OK;
     }
 
-    Status ShaderPass::configure_compute(GfxCtx* context) {
+    Status ShaderPass::configure_compute(GfxCmdList& cmd_list) {
         auto platform = m_shader->get_active_platform();
         auto program  = m_shader->get_or_create_program(platform, m_permutation);
 
@@ -214,7 +213,7 @@ namespace wmoge {
             return StatusCode::NoValue;
         }
 
-        context->bind_pso(pso_ref.cast<GfxPsoCompute>());
+        cmd_list.bind_pso(pso_ref.cast<GfxPsoCompute>());
         return WG_OK;
     }
 

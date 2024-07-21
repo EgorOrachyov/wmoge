@@ -30,7 +30,7 @@
 #include "asset/asset_ref.hpp"
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_ctx.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "grc/texture.hpp"

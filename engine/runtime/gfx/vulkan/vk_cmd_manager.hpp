@@ -27,41 +27,69 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/buffered_vector.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 
-#include <array>
+#include <mutex>
 #include <vector>
 
 namespace wmoge {
 
     /**
      * @class VKCmdManager
-     * @brief Manages creation and recycling of vulkan cmd buffers
+     * @brief Manages allocation and submit of command buffers for execution on GPU
      */
     class VKCmdManager {
     public:
         explicit VKCmdManager(class VKDriver& driver);
         ~VKCmdManager();
 
-        void update();
+        void update(std::size_t frame_id);
 
-        VkCommandBuffer begin_buffer();
-        VkCommandBuffer end_buffer();
-        VkCommandBuffer current_buffer() const;
+        VkCommandBuffer allocate(GfxQueueType queue_type);
+        void            submit(GfxQueueType queue_type, VkCommandBuffer buffer);
+        void            submit(GfxQueueType queue_type, VkCommandBuffer buffer, array_view<VkSemaphore> wait, array_view<VkSemaphore> signal, VkFence fence);
+        void            clear();
+        void            flush(array_view<VkSemaphore> wait, array_view<VkSemaphore> signal);
 
     private:
-        struct Allocation {
+        // Single buffer allocation
+        struct CmdBuffer {
             VkCommandPool   pool   = VK_NULL_HANDLE;
             VkCommandBuffer buffer = VK_NULL_HANDLE;
         };
 
-        std::array<buffered_vector<Allocation>, GfxLimits::FRAMES_IN_FLIGHT> m_used_allocations{};
-        buffered_vector<Allocation>                                          m_free_allocations{};
+        // Pool of command buffer allocations for a specific queue
+        struct CmdBufferPool {
+            std::vector<CmdBuffer> used[GfxLimits::FRAMES_IN_FLIGHT];
+            std::vector<CmdBuffer> free;
+            GfxQueueType           queue_type;
+            uint32_t               queue_family_index;
+        };
 
-        Allocation  m_allocation{};
-        std::size_t m_index   = 0 % GfxLimits::FRAMES_IN_FLIGHT;
-        int         m_next_id = 0;
+        // Submit info to submit a batch of command buffers to a single queue
+        struct CmdBufferSubmitInfo {
+            buffered_vector<VkSemaphore>     wait;
+            buffered_vector<VkSemaphore>     signal;
+            buffered_vector<VkCommandBuffer> buffers;
+            VkFence                          fence = VK_NULL_HANDLE;
+        };
+
+        // Queue to submit commnad buffers to a single gpu queue
+        struct CmdBufferQueue {
+            std::vector<CmdBufferSubmitInfo> submits;
+            GfxQueueType                     queue_type;
+            VkQueue                          queue = VK_NULL_HANDLE;
+        };
+
+        buffered_vector<CmdBufferPool>  m_pools;
+        buffered_vector<CmdBufferQueue> m_queues;
+
+        std::size_t m_index    = 0 % GfxLimits::FRAMES_IN_FLIGHT;
+        std::size_t m_frame_id = 0;
+
+        std::size_t m_next_dbg_id = 0;
 
         class VKDriver& m_driver;
     };

@@ -163,7 +163,6 @@ namespace wmoge {
 
         Engine*    engine     = Engine::instance();
         GfxDriver* gfx_driver = engine->gfx_driver();
-        GfxCtx*    gfx_ctx    = engine->gfx_ctx();
 
         switch (m_tex_type) {
             case GfxTex::Tex2d:
@@ -198,13 +197,13 @@ namespace wmoge {
 
                 switch (m_tex_type) {
                     case GfxTex::Tex2d:
-                        gfx_ctx->update_texture_2d(m_texture, mip, rect, data);
+                        //     gfx_ctx->update_texture_2d(m_texture, mip, rect, data);
                         continue;
                     case GfxTex::Tex2dArray:
-                        gfx_ctx->update_texture_2d_array(m_texture, mip, array_slice, rect, data);
+                        //     gfx_ctx->update_texture_2d_array(m_texture, mip, array_slice, rect, data);
                         continue;
                     case GfxTex::TexCube:
-                        gfx_ctx->update_texture_cube(m_texture, mip, array_slice, rect, data);
+                        //     gfx_ctx->update_texture_cube(m_texture, mip, array_slice, rect, data);
                         continue;
                     default:
                         assert(false);

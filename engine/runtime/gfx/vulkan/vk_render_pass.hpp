@@ -27,29 +27,14 @@
 
 #pragma once
 
-#include "core/buffered_vector.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_resource.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
-#include "gfx/vulkan/vk_window.hpp"
-
-#include <array>
+#include "math/vec.hpp"
 
 namespace wmoge {
-
-    /**
-     * @class VKTargetInfo
-     * @brief Info to bind texture as a render target
-    */
-    struct VKTargetInfo {
-        Ref<VKTexture> texture;
-        int            slice = -1;
-        int            mip   = -1;
-    };
-
-    static_assert(sizeof(VKTargetInfo) == 16, "VKTargetInfo must fit 16 exactly");
 
     /**
      * @class VKRenderPass
@@ -57,109 +42,42 @@ namespace wmoge {
     */
     class VKRenderPass : public VKResource<GfxRenderPass> {
     public:
-        VKRenderPass(const GfxRenderPassDesc& pass_desc, const Strid& name, class VKDriver& driver);
+        VKRenderPass(const GfxRenderPassDesc& desc, const Strid& name, class VKDriver& driver);
         ~VKRenderPass() override;
 
-        [[nodiscard]] const GfxRenderPassDesc& pass_desc() const override { return m_pass_desc; }
-        [[nodiscard]] VkRenderPass             render_pass() const { return m_render_pass; }
-        [[nodiscard]] int                      color_targets_count() const { return m_color_targets_count; }
-        [[nodiscard]] bool                     has_depth_stencil() const { return m_has_depth_stencil; }
+        const GfxRenderPassDesc& desc() const override { return m_desc; }
+
+        [[nodiscard]] VkRenderPass render_pass() const { return m_render_pass; }
+        [[nodiscard]] int          color_targets_count() const { return m_color_targets_count; }
+        [[nodiscard]] bool         has_depth_stencil() const { return m_has_depth_stencil; }
+        [[nodiscard]] Size2i       get_size() const { return m_size; }
 
     private:
-        GfxRenderPassDesc m_pass_desc{};
-        VkRenderPass      m_render_pass         = VK_NULL_HANDLE;
+        GfxRenderPassDesc m_desc{};
+        VkRenderPass      m_render_pass = VK_NULL_HANDLE;
+        Size2i            m_size{0, 0};
         bool              m_has_depth_stencil   = false;
         int               m_color_targets_count = 0;
     };
 
     /**
-     * @class VKFrameBufferDesc
-     * @brief Frame buffer desc for creation and caching
+     * @class VKFrameBuffer
+     * @brief Vulkan frame buffer object implementation
     */
-    struct VKFrameBufferDesc {
-        VKFrameBufferDesc() = default;
-        bool        operator==(const VKFrameBufferDesc& other) const;
-        std::size_t hash() const;
-
-        std::array<VKTargetInfo, GfxLimits::MAX_COLOR_TARGETS> color_targets{};
-        VKTargetInfo                                           depth_stencil_target{};
-        Ref<VKRenderPass>                                      render_pass;
-    };
-
-    static_assert(sizeof(VKFrameBufferDesc) == (sizeof(VKTargetInfo) * 9 + sizeof(void*)), "VKFrameBufferDesc must fit exactly");
-
-    /**
-     * @class VKFramebufferObject
-     * @brief Raii wrapper for VkFramebuffer object
-    */
-    class VKFramebufferObject : public VKResource<GfxResource> {
+    class VKFrameBuffer : public VKResource<GfxFrameBuffer> {
     public:
-        VKFramebufferObject(const VKFrameBufferDesc& desc, const Strid& name, class VKDriver& driver);
-        ~VKFramebufferObject() override;
+        VKFrameBuffer(const GfxFrameBufferDesc& desc, const Strid& name, class VKDriver& driver);
+        ~VKFrameBuffer() override;
 
-        Size2i        size() const { return m_size; }
-        VkFramebuffer framebuffer() const { return m_framebuffer; }
+        const GfxFrameBufferDesc& desc() const override { return m_desc; }
 
-    private:
-        Size2i            m_size;
-        VKFrameBufferDesc m_desc;
-        VkFramebuffer     m_framebuffer = VK_NULL_HANDLE;
-    };
-
-    /**
-     * @class VKRenderPassBinder
-     * @brief Binds color targets to prepare render pass and frame buffer
-    */
-    class VKRenderPassBinder {
-    public:
-        explicit VKRenderPassBinder(class VKDriver& driver);
-        ~VKRenderPassBinder() = default;
-
-        void bind_target(const Ref<VKWindow>& window);
-        void bind_color_target(const Ref<VKTexture>& texture, int target, int mip, int slice);
-        void bind_depth_target(const Ref<VKTexture>& texture, int mip, int slice);
-        void clear_color(int target);
-        void clear_depth();
-        void clear_stencil();
-
-        void start(const Strid& name);
-        void validate(VkCommandBuffer cmd);
-        void finish(VkCommandBuffer cmd);
-
-        [[nodiscard]] const Ref<VKRenderPass>&        get_or_create_render_pass();
-        [[nodiscard]] const Ref<VKRenderPass>&        render_pass() const { return m_current_render_pass; }
-        [[nodiscard]] const Ref<VKFramebufferObject>& framebuffer() const { return m_current_framebuffer; }
-        [[nodiscard]] int                             width() const { return m_current_size[0]; }
-        [[nodiscard]] int                             height() const { return m_current_size[1]; }
+        [[nodiscard]] Size2i        size() const { return m_size; }
+        [[nodiscard]] VkFramebuffer framebuffer() const { return m_framebuffer; }
 
     private:
-        void prepare_render_pass();
-        void prepare_framebuffer();
-
-    private:
-        std::array<VKTargetInfo, GfxLimits::MAX_COLOR_TARGETS> m_color_targets{};
-        VKTargetInfo                                           m_depth_stencil_target{};
-        Ref<VKWindow>                                          m_window;
-
-        GfxRenderPassDesc        m_current_pass_desc{};
-        VKFrameBufferDesc        m_current_fb_desc{};
-        Ref<VKRenderPass>        m_current_render_pass{};
-        Ref<VKFramebufferObject> m_current_framebuffer{};
-        Size2i                   m_current_size{};
-        Strid                    m_current_name{};
-
-        class VKDriver& m_driver;
+        Size2i             m_size;
+        GfxFrameBufferDesc m_desc;
+        VkFramebuffer      m_framebuffer = VK_NULL_HANDLE;
     };
 
 }// namespace wmoge
-
-namespace std {
-
-    template<>
-    struct hash<wmoge::VKFrameBufferDesc> {
-        std::size_t operator()(const wmoge::VKFrameBufferDesc& desc) const {
-            return desc.hash();
-        }
-    };
-
-}// namespace std

@@ -48,7 +48,7 @@ namespace wmoge {
         m_fullscreen_tria[1].uv  = Vec2f(0, 2);
         m_fullscreen_tria[2].pos = Vec2f(3, -1);
         m_fullscreen_tria[2].uv  = Vec2f(2, 0);
-        m_fullscreen_tria.flush(Engine::instance()->gfx_ctx());
+        //  m_fullscreen_tria.flush();
     }
 
     void RenderEngine::set_time(float time) {
@@ -81,101 +81,101 @@ namespace wmoge {
         WG_AUTO_PROFILE_RENDER("RenderEngine::prepare_frame_data");
 
         GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
-        GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
+        // GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
 
-        if (!m_frame_data) {
-            m_frame_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUFrameData)), GfxMemUsage::GpuLocal, SID("frame_data"));
-        }
+        // if (!m_frame_data) {
+        //     m_frame_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUFrameData)), GfxMemUsage::GpuLocal, SID("frame_data"));
+        // }
 
-        GPUFrameData& frame_data = *((GPUFrameData*) gfx_ctx->map_uniform_buffer(m_frame_data));
-        {
-            frame_data.time      = m_time;
-            frame_data.timeDelta = m_delta_time;
-            frame_data._fd_pad0  = 0.0f;
-            frame_data._fd_pad1  = 0.0f;
-        }
-        gfx_ctx->unmap_uniform_buffer(m_frame_data);
+        // GPUFrameData& frame_data = *((GPUFrameData*) gfx_ctx->map_uniform_buffer(m_frame_data));
+        // {
+        //     frame_data.time      = m_time;
+        //     frame_data.timeDelta = m_delta_time;
+        //     frame_data._fd_pad0  = 0.0f;
+        //     frame_data._fd_pad1  = 0.0f;
+        // }
+        // gfx_ctx->unmap_uniform_buffer(m_frame_data);
     }
 
     void RenderEngine::allocate_veiws() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::allocate_veiws");
 
         GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
-        GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
-        Mat4x4f    gfx_clip   = gfx_driver->clip_matrix();
+        // GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
+        // Mat4x4f    gfx_clip   = gfx_driver->clip_matrix();
 
-        for (int view_idx = 0; view_idx < int(m_cameras.get_size()); view_idx++) {
-            RenderView& view = m_views[view_idx];
-            view.index       = view_idx;
+        // for (int view_idx = 0; view_idx < int(m_cameras.get_size()); view_idx++) {
+        //     RenderView& view = m_views[view_idx];
+        //     view.index       = view_idx;
 
-            const CameraData& camera = m_cameras.data_at(view_idx);
+        //     const CameraData& camera = m_cameras.data_at(view_idx);
 
-            if (!view.view_data) {
-                view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUViewData)), GfxMemUsage::GpuLocal, SID("view_data_" + StringUtils::from_int(view_idx)));
-            }
+        //     if (!view.view_data) {
+        //         view.view_data = gfx_driver->make_uniform_buffer(int(sizeof(GPUViewData)), GfxMemUsage::GpuLocal, SID("view_data_" + StringUtils::from_int(view_idx)));
+        //     }
 
-            GPUViewData& view_data = *((GPUViewData*) gfx_ctx->map_uniform_buffer(view.view_data));
-            {
-                view_data.Clip             = gfx_clip.transpose();
-                view_data.Proj             = camera.proj.transpose();
-                view_data.View             = camera.view.transpose();
-                view_data.ProjView         = camera.proj_view.transpose();
-                view_data.ClipProjView     = (gfx_clip * camera.proj_view).transpose();
-                view_data.ProjPrev         = camera.proj_prev.transpose();
-                view_data.ViewPrev         = camera.view_prev.transpose();
-                view_data.ProjViewPrev     = camera.proj_view_prev.transpose();
-                view_data.ClipProjViewPrev = (gfx_clip * camera.proj_view_prev).transpose();
-                view_data.Movement         = Vec4f(camera.movement, 0.0f);
-                view_data.Position         = Vec4f(camera.position, 0.0f);
-                view_data.Direction        = Vec4f(camera.direction, 0.0f);
-                view_data.Up               = Vec4f(camera.up, 0.0f);
-                view_data.PositionPrev     = Vec4f(camera.position_prev, 0.0f);
-                view_data.DirectionPrev    = Vec4f(camera.direction_prev, 0.0f);
-                view_data.UpPrev           = Vec4f(camera.up_prev, 0.0f);
-                view_data.Viewport         = camera.viewport;
-                view_data.CamIdx           = view_idx;
-                view_data._vd_pad0         = 0;
-                view_data._vd_pad1         = 0;
-                view_data._vd_pad2         = 0;
-            }
-            gfx_ctx->unmap_uniform_buffer(view.view_data);
+        //     GPUViewData& view_data = *((GPUViewData*) gfx_ctx->map_uniform_buffer(view.view_data));
+        //     {
+        //         view_data.Clip             = gfx_clip.transpose();
+        //         view_data.Proj             = camera.proj.transpose();
+        //         view_data.View             = camera.view.transpose();
+        //         view_data.ProjView         = camera.proj_view.transpose();
+        //         view_data.ClipProjView     = (gfx_clip * camera.proj_view).transpose();
+        //         view_data.ProjPrev         = camera.proj_prev.transpose();
+        //         view_data.ViewPrev         = camera.view_prev.transpose();
+        //         view_data.ProjViewPrev     = camera.proj_view_prev.transpose();
+        //         view_data.ClipProjViewPrev = (gfx_clip * camera.proj_view_prev).transpose();
+        //         view_data.Movement         = Vec4f(camera.movement, 0.0f);
+        //         view_data.Position         = Vec4f(camera.position, 0.0f);
+        //         view_data.Direction        = Vec4f(camera.direction, 0.0f);
+        //         view_data.Up               = Vec4f(camera.up, 0.0f);
+        //         view_data.PositionPrev     = Vec4f(camera.position_prev, 0.0f);
+        //         view_data.DirectionPrev    = Vec4f(camera.direction_prev, 0.0f);
+        //         view_data.UpPrev           = Vec4f(camera.up_prev, 0.0f);
+        //         view_data.Viewport         = camera.viewport;
+        //         view_data.CamIdx           = view_idx;
+        //         view_data._vd_pad0         = 0;
+        //         view_data._vd_pad1         = 0;
+        //         view_data._vd_pad2         = 0;
+        //     }
+        //     gfx_ctx->unmap_uniform_buffer(view.view_data);
 
-            GfxDescSetResources view_resources;
-            {
-                {
-                    auto& r               = view_resources.emplace_back();
-                    r.first.type          = GfxBindingType::UniformBuffer;
-                    r.first.binding       = ShaderMaterial::FRAMEDATA_SLOT;
-                    r.first.array_element = 0;
-                    r.second.resource     = m_frame_data.as<GfxResource>();
-                    r.second.offset       = 0;
-                    r.second.range        = m_frame_data->size();
-                }
-                {
-                    auto& r               = view_resources.emplace_back();
-                    r.first.type          = GfxBindingType::UniformBuffer;
-                    r.first.binding       = ShaderMaterial::VIEWDATA_SLOT;
-                    r.first.array_element = 0;
-                    r.second.resource     = view.view_data.as<GfxResource>();
-                    r.second.offset       = 0;
-                    r.second.range        = view.view_data->size();
-                }
-                {
-                    auto& r               = view_resources.emplace_back();
-                    r.first.type          = GfxBindingType::StorageBuffer;
-                    r.first.binding       = ShaderMaterial::RENDEROBJECTSDATA_SLOT;
-                    r.first.array_element = 0;
-                    r.second.resource     = m_scene->get_objects_gpu_data().get_buffer().as<GfxResource>();
-                    r.second.offset       = 0;
-                    r.second.range        = m_scene->get_objects_gpu_data().get_buffer()->size();
-                }
-            }
-            // view.view_set = gfx_driver->make_desc_set(view_resources, SID("view_set_" + StringUtils::from_int(view_idx)));
+        //     GfxDescSetResources view_resources;
+        //     {
+        //         {
+        //             auto& r               = view_resources.emplace_back();
+        //             r.first.type          = GfxBindingType::UniformBuffer;
+        //             r.first.binding       = ShaderMaterial::FRAMEDATA_SLOT;
+        //             r.first.array_element = 0;
+        //             r.second.resource     = m_frame_data.as<GfxResource>();
+        //             r.second.offset       = 0;
+        //             r.second.range        = m_frame_data->size();
+        //         }
+        //         {
+        //             auto& r               = view_resources.emplace_back();
+        //             r.first.type          = GfxBindingType::UniformBuffer;
+        //             r.first.binding       = ShaderMaterial::VIEWDATA_SLOT;
+        //             r.first.array_element = 0;
+        //             r.second.resource     = view.view_data.as<GfxResource>();
+        //             r.second.offset       = 0;
+        //             r.second.range        = view.view_data->size();
+        //         }
+        //         {
+        //             auto& r               = view_resources.emplace_back();
+        //             r.first.type          = GfxBindingType::StorageBuffer;
+        //             r.first.binding       = ShaderMaterial::RENDEROBJECTSDATA_SLOT;
+        //             r.first.array_element = 0;
+        //             r.second.resource     = m_scene->get_objects_gpu_data().get_buffer().as<GfxResource>();
+        //             r.second.offset       = 0;
+        //             r.second.range        = m_scene->get_objects_gpu_data().get_buffer()->size();
+        //         }
+        //     }
+        //     // view.view_set = gfx_driver->make_desc_set(view_resources, SID("view_set_" + StringUtils::from_int(view_idx)));
 
-            for (RenderQueue& queue : view.queues) {
-                queue.clear();
-            }
-        }
+        //     for (RenderQueue& queue : view.queues) {
+        //         queue.clear();
+        //     }
+        // }
     }
 
     void RenderEngine::compile_batches() {
@@ -242,7 +242,7 @@ namespace wmoge {
     void RenderEngine::flush_buffers() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::flush_buffers");
 
-        m_scene->flush_buffers(Engine::instance()->gfx_ctx());
+        // m_scene->flush_buffers(Engine::instance()->gfx_ctx());
     }
 
     void RenderEngine::render_canvas(Canvas& canvas, const Vec4f& area) {

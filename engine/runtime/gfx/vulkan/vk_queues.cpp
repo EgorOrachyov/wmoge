@@ -69,8 +69,12 @@ namespace wmoge {
 
         // Compute set of unique families
         m_families.push_back(m_gfx_queue_family);
-        if (m_tsf_queue_family != m_gfx_queue_family) m_families.push_back(m_tsf_queue_family);
-        if (m_prs_queue_family != m_gfx_queue_family && m_prs_queue_family != m_tsf_queue_family) m_families.push_back(m_prs_queue_family);
+        if (m_tsf_queue_family != m_gfx_queue_family) {
+            m_families.push_back(m_tsf_queue_family);
+        }
+        if (m_prs_queue_family != m_gfx_queue_family && m_prs_queue_family != m_tsf_queue_family) {
+            m_families.push_back(m_prs_queue_family);
+        }
 
         // Sharing mode
         m_mode = m_families.size() > 1 ? VK_SHARING_MODE_CONCURRENT : VK_SHARING_MODE_EXCLUSIVE;
@@ -82,6 +86,36 @@ namespace wmoge {
         vkGetDeviceQueue(device, m_gfx_queue_family, 0, &m_gfx_queue);
         vkGetDeviceQueue(device, m_tsf_queue_family, 0, &m_tsf_queue);
         vkGetDeviceQueue(device, m_prs_queue_family, 0, &m_prs_queue);
+    }
+
+    VkQueue VKQueues::get_queue(GfxQueueType queue_type) {
+        switch (queue_type) {
+            case GfxQueueType::Graphics:
+                return gfx_queue();
+            case GfxQueueType::Compute:
+                return cmp_queue();
+            case GfxQueueType::Copy:
+                return tsf_queue();
+            default:
+                break;
+        }
+
+        return VK_NULL_HANDLE;
+    }
+
+    uint32_t VKQueues::get_family_index(GfxQueueType queue_type) {
+        switch (queue_type) {
+            case GfxQueueType::Graphics:
+                return gfx_queue_family();
+            case GfxQueueType::Compute:
+                return cmp_queue_family();
+            case GfxQueueType::Copy:
+                return tsf_queue_family();
+            default:
+                break;
+        }
+
+        return 0;
     }
 
 }// namespace wmoge

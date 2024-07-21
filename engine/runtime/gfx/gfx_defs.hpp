@@ -108,26 +108,12 @@ namespace wmoge {
         static constexpr int NUM_PLATFORMS = int(GfxShaderPlatform::Max);
     };
 
-    /** @brief Type of gfx context behaviour */
-    enum class GfxCtxType : int {
-        Immediate,
-        Deferred,
-        Async
-    };
-
-    /** @brief Status of the shader */
-    enum class GfxShaderStatus : int {
-        Compiling,
-        Compiled,
-        Failed
-    };
-
-    /** @brief Status of the gfx pipeline */
-    enum class GfxPipelineStatus : int {
-        Default,
-        Creating,
-        Created,
-        Failed
+    /** @brief Type of gfx queues for submission */
+    enum class GfxQueueType : int {
+        Graphics = 0,
+        Compute,
+        Copy,
+        None
     };
 
     /** @brief Type of elements in index buffer */
@@ -169,9 +155,10 @@ namespace wmoge {
 
     /** @brief Texture manual barrier type */
     enum class GfxTexBarrierType : int {
-        RenderTarget,
-        Sampling,
-        Storage
+        RenderTarget,// For drawing into texture
+        Sampling,    // For sampling from shader in read-only mode
+        Storage,     // For read-write in compute shader
+        Presentation // For presentation to the screen
     };
 
     /** @brief Texture type */
@@ -594,6 +581,12 @@ namespace wmoge {
         float max_anisotropy                 = 0.0f;
         bool  support_anisotropy             = false;
         int   uniform_block_offset_alignment = -1;
+    };
+
+    struct GfxUtils {
+        static Vec3i group_size(int x, int y, int local_size) {
+            return Vec3i(int(Math::div_up(x, local_size)), int(Math::div_up(y, local_size)), 1);
+        }
     };
 
 }// namespace wmoge
