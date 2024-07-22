@@ -29,6 +29,7 @@
 
 #include "event/event_manager.hpp"
 #include "event/event_window.hpp"
+#include "gfx/vulkan/vk_cmd_list.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 #include "math/math_utils.hpp"
@@ -65,12 +66,12 @@ namespace wmoge {
         vkDestroySurfaceKHR(m_driver.instance(), m_surface, nullptr);
     }
 
-    void VKWindow::init() {
+    void VKWindow::init(VKCmdList* cmd) {
         WG_AUTO_PROFILE_VULKAN("VKWindow::init");
 
         create_image_semaphores();
         select_properties();
-        create_swapchain();
+        create_swapchain(cmd);
     }
 
     void VKWindow::get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const {
@@ -139,7 +140,7 @@ namespace wmoge {
         m_vsync       = VK_PRESENT_MODE_FIFO_KHR;
     }
 
-    void VKWindow::create_swapchain() {
+    void VKWindow::create_swapchain(VKCmdList* cmd) {
         WG_AUTO_PROFILE_VULKAN("VKWindow::create_swapchain");
 
         WG_VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_driver.phys_device(), m_surface, &m_capabilities))
@@ -202,12 +203,14 @@ namespace wmoge {
         for (uint32_t i = 0; i < color_image_count; i++) {
             m_color_targets[i] = make_ref<VKTexture>(m_driver);
             m_color_targets[i]->create_2d(width(), height(), color_images[i], m_surface_format.format, m_window->id());
+            cmd->barrier(m_color_targets[i].get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::Presentation);
         }
 
         GfxTexUsages depth_stencil_usages;
         depth_stencil_usages.set(GfxTexUsageFlag::DepthStencilTarget);
         m_depth_stencil_target = make_ref<VKTexture>(m_driver);
         m_depth_stencil_target->create_2d(width(), height(), 1, GfxFormat::DEPTH24_STENCIL8, depth_stencil_usages, GfxMemUsage::GpuLocal, GfxTexSwizz::None, m_window->id());
+        cmd->barrier(m_depth_stencil_target.get(), GfxTexBarrierType::Undefined, GfxTexBarrierType::Presentation);
 
         m_requested_extent = m_extent;
         m_version += 1;
@@ -225,13 +228,13 @@ namespace wmoge {
         }
     }
 
-    void VKWindow::recreate_swapchain() {
+    void VKWindow::recreate_swapchain(VKCmdList* cmd) {
         WG_AUTO_PROFILE_VULKAN("VKWindow::recreate_swapchain");
 
         // ensure that window resources are no more used
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
         // recreate (release called internally)
-        create_swapchain();
+        create_swapchain(cmd);
     }
 
     void VKWindow::check_requested_size() {
@@ -239,14 +242,14 @@ namespace wmoge {
         m_requested_extent.height = m_window->fbo_height();
     }
 
-    void VKWindow::acquire_next() {
+    void VKWindow::acquire_next(VKCmdList* cmd) {
         WG_AUTO_PROFILE_VULKAN("VKWindow::acquire_next");
 
         check_requested_size();
 
         if (m_requested_extent.width != m_extent.width ||
             m_requested_extent.height != m_extent.height) {
-            recreate_swapchain();
+            recreate_swapchain(cmd);
         }
 
         m_semaphore_index = (m_semaphore_index + 1) % GfxLimits::FRAMES_IN_FLIGHT;
@@ -259,7 +262,7 @@ namespace wmoge {
             if (vk_result == VK_SUCCESS) {
                 break;
             } else if (vk_result == VK_ERROR_OUT_OF_DATE_KHR || vk_result == VK_SUBOPTIMAL_KHR) {
-                recreate_swapchain();
+                recreate_swapchain(cmd);
                 break;
             } else {
                 WG_LOG_ERROR("failed to acquired next image");
@@ -272,7 +275,7 @@ namespace wmoge {
         m_factory = init_info.factory;
     }
 
-    Ref<VKWindow> VKWindowManager::get_or_create(const Ref<Window>& window) {
+    Ref<VKWindow> VKWindowManager::get_or_create(VKCmdList* cmd, const Ref<Window>& window) {
         WG_AUTO_PROFILE_VULKAN("VKWindowManager::get_or_create");
 
         auto query = m_windows.find(window->id());
@@ -284,7 +287,7 @@ namespace wmoge {
         WG_VK_CHECK(m_factory(m_driver.instance(), window, surface));
 
         auto vk_window = make_ref<VKWindow>(window, surface, m_driver);
-        vk_window->init();
+        vk_window->init(cmd);
 
         m_windows[window->id()] = vk_window;
         return vk_window;

@@ -106,6 +106,8 @@ namespace wmoge {
         static constexpr int NUM_TYPES = int(GfxType::Max);
         /** Max num of shader platfroms */
         static constexpr int NUM_PLATFORMS = int(GfxShaderPlatform::Max);
+        /** Barriers standard batch size */
+        static constexpr int NUM_INLINE_BARRIERS = 64;
     };
 
     /** @brief Type of gfx queues for submission */
@@ -155,10 +157,13 @@ namespace wmoge {
 
     /** @brief Texture manual barrier type */
     enum class GfxTexBarrierType : int {
-        RenderTarget,// For drawing into texture
-        Sampling,    // For sampling from shader in read-only mode
-        Storage,     // For read-write in compute shader
-        Presentation // For presentation to the screen
+        RenderTarget,   // For drawing into texture
+        Sampling,       // For sampling from shader in read-only mode
+        Storage,        // For read-write in compute shader
+        CopySource,     // For copy, as source of data
+        CopyDestination,// For copy, as destination
+        Presentation,   // For presentation to the screen
+        Undefined,      // For initial transition
     };
 
     /** @brief Texture type */

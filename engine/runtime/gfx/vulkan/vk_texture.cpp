@@ -71,7 +71,6 @@ namespace wmoge {
         m_name           = name;
         m_usage_flags    = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
         m_primary_layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
-        m_current_layout = VK_IMAGE_LAYOUT_UNDEFINED;
 
         switch (format) {
             case VK_FORMAT_R8G8B8A8_SRGB:
@@ -136,31 +135,32 @@ namespace wmoge {
 
         create(desc, name);
     }
-    void VKTexture::update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, const Ref<Data>& data) {
+    void VKTexture::update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d");
 
         update(cmd, mip, 0, region, data);
     }
-    void VKTexture::update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data) {
+    void VKTexture::update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_2d_array");
 
         update(cmd, mip, slice, region, data);
     }
-    void VKTexture::update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, const Ref<Data>& data) {
+    void VKTexture::update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update_cube");
 
         update(cmd, mip, face, region, data);
     }
-    void VKTexture::transition_layout(VkCommandBuffer cmd, GfxTexBarrierType barrier_type) {
-        VkImageLayout destination = VK_IMAGE_LAYOUT_UNDEFINED;
+
+    VkImageLayout VKTexture::get_layout(GfxTexBarrierType barrier_type) const {
+        VkImageLayout layout = VK_IMAGE_LAYOUT_UNDEFINED;
 
         if (barrier_type == GfxTexBarrierType::Storage) {
             assert(m_desc.usages.get(GfxTexUsageFlag::Storage));
-            destination = VK_IMAGE_LAYOUT_GENERAL;
+            layout = VK_IMAGE_LAYOUT_GENERAL;
         }
         if (barrier_type == GfxTexBarrierType::Sampling) {
             assert(m_desc.usages.get(GfxTexUsageFlag::Sampling));
-            destination = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            layout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
         }
         if (barrier_type == GfxTexBarrierType::RenderTarget) {
             assert(m_desc.usages.get(GfxTexUsageFlag::ColorTarget) ||
@@ -168,119 +168,31 @@ namespace wmoge {
                    m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget));
 
             if (m_desc.usages.get(GfxTexUsageFlag::ColorTarget)) {
-                destination = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+                layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
             }
             if (m_desc.usages.get(GfxTexUsageFlag::DepthTarget)) {
-                destination = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
+                layout = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL;
             }
             if (m_desc.usages.get(GfxTexUsageFlag::DepthStencilTarget)) {
-                destination = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+                layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
             }
         }
-
-        transition_layout(cmd, destination);
-    }
-    void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination) {
-        VkImageSubresourceRange subresource{};
-        subresource.aspectMask     = VKDefs::get_aspect_flags(m_desc.format);
-        subresource.baseMipLevel   = 0;
-        subresource.levelCount     = m_desc.mips_count;
-        subresource.baseArrayLayer = 0;
-        subresource.layerCount     = m_desc.array_slices;
-        transition_layout(cmd, destination, subresource);
-    }
-    void VKTexture::transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range) {
-        WG_AUTO_PROFILE_VULKAN("VKTexture::transition_layout");
-
-        if (destination == m_current_layout)
-            return;
-
-        VkImageMemoryBarrier barrier{};
-        barrier.sType               = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-        barrier.oldLayout           = m_current_layout;
-        barrier.newLayout           = destination;
-        barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-        barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-        barrier.image               = m_image;
-        barrier.subresourceRange    = range;
-
-        VkPipelineStageFlags src_stage_flags;
-        VkPipelineStageFlags dst_stage_flags;
-
-        auto get_dst_layout_settings = [](VkImageLayout layout, VkAccessFlags& access, VkPipelineStageFlags& stage) {
-            switch (layout) {
-                case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
-                    access = VK_ACCESS_TRANSFER_WRITE_BIT;
-                    stage  = VK_PIPELINE_STAGE_TRANSFER_BIT;
-                    break;
-                case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
-                    access = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-                    stage  = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-                    break;
-                case VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL:
-                case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:
-                    access = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-                    stage  = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
-                    break;
-                case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
-                    access = VK_ACCESS_SHADER_READ_BIT;
-                    stage  = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-                    break;
-                case VK_IMAGE_LAYOUT_GENERAL:
-                    access = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
-                    stage  = VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
-                case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
-                    access = 0;
-                    stage  = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
-                    break;
-                default:
-                    WG_LOG_ERROR("unsupported dst image layout");
-                    return;
-            }
-        };
-
-        if (m_current_layout == VK_IMAGE_LAYOUT_UNDEFINED) {
-            barrier.srcAccessMask = 0;
-            src_stage_flags       = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_TRANSFER_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
-            barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_GENERAL) {
-            barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
-            src_stage_flags       = VK_PIPELINE_STAGE_VERTEX_SHADER_BIT | VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT | VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else if (m_current_layout == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
-            barrier.srcAccessMask = 0;
-            src_stage_flags       = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
-            get_dst_layout_settings(destination, barrier.dstAccessMask, dst_stage_flags);
-        } else {
-            WG_LOG_ERROR("unsupported src image layout");
-            return;
+        if (barrier_type == GfxTexBarrierType::CopySource) {
+            layout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+        }
+        if (barrier_type == GfxTexBarrierType::CopyDestination) {
+            layout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+        }
+        if (barrier_type == GfxTexBarrierType::Presentation) {
+            layout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+        }
+        if (barrier_type == GfxTexBarrierType::Undefined) {
+            layout = VK_IMAGE_LAYOUT_UNDEFINED;
         }
 
-        m_current_layout = destination;
-
-        vkCmdPipelineBarrier(cmd, src_stage_flags, dst_stage_flags, 0,
-                             0, nullptr, 0, nullptr, 1, &barrier);
+        return layout;
     }
+
     void VKTexture::init_image() {
         WG_AUTO_PROFILE_VULKAN("VKTexture::init_image");
 
@@ -403,18 +315,10 @@ namespace wmoge {
             }
         }
     }
-    void VKTexture::init_layout(VkCommandBuffer cmd) {
-        WG_AUTO_PROFILE_VULKAN("VKTexture::init_layout");
 
-        assert(cmd != VK_NULL_HANDLE);
-
-        transition_layout(cmd, m_primary_layout);
-    }
-
-    void VKTexture::update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data) {
+    void VKTexture::update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKTexture::update");
 
-        assert(data);
         assert(mip < m_desc.mips_count);
         assert(slice < m_desc.array_slices);
 
@@ -423,9 +327,9 @@ namespace wmoge {
         VkBuffer      staging_buffer;
         VmaAllocation staging_allocation;
 
-        mem_man->staging_allocate(data->size(), staging_buffer, staging_allocation);
+        mem_man->staging_allocate(data.size(), staging_buffer, staging_allocation);
         void* staging_ptr = mem_man->staging_map(staging_allocation);
-        std::memcpy(staging_ptr, data->buffer(), data->size());
+        std::memcpy(staging_ptr, data.data(), data.size());
         mem_man->staging_unmap(staging_allocation);
 
         VkImageSubresourceRange subresource{};
@@ -446,8 +350,6 @@ namespace wmoge {
         copy_region.imageOffset                     = {region.x(), region.y(), 0};
         copy_region.imageExtent                     = {static_cast<uint32_t>(region.z()), static_cast<uint32_t>(region.w()), 1};
 
-        transition_layout(cmd, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, subresource);
         vkCmdCopyBufferToImage(cmd, staging_buffer, m_image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &copy_region);
-        transition_layout(cmd, m_primary_layout, subresource);
     }
 }// namespace wmoge

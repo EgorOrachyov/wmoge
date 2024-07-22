@@ -54,13 +54,13 @@ namespace wmoge {
     public:
         ~GfxCmdList() override = default;
 
-        virtual void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data)                = 0;
-        virtual void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data)              = 0;
-        virtual void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data)          = 0;
-        virtual void update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data)          = 0;
-        virtual void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data)                  = 0;
-        virtual void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) = 0;
-        virtual void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data)      = 0;
+        virtual void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)                 = 0;
+        virtual void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)               = 0;
+        virtual void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)           = 0;
+        virtual void update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)           = 0;
+        virtual void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data)                   = 0;
+        virtual void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, array_view<const std::uint8_t> dataa) = 0;
+        virtual void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, array_view<const std::uint8_t> data)       = 0;
 
         virtual void* map_vert_buffer(const Ref<GfxVertBuffer>& buffer)       = 0;
         virtual void* map_index_buffer(const Ref<GfxIndexBuffer>& buffer)     = 0;
@@ -72,8 +72,14 @@ namespace wmoge {
         virtual void unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) = 0;
         virtual void unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) = 0;
 
-        virtual void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) = 0;
-        virtual void barrier_buffer(const Ref<GfxStorageBuffer>& buffer)                           = 0;
+        virtual void barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType src, GfxTexBarrierType dst) = 0;
+        virtual void barrier_buffer(const Ref<GfxVertBuffer>& buffer)                                            = 0;
+        virtual void barrier_buffer(const Ref<GfxIndexBuffer>& buffer)                                           = 0;
+        virtual void barrier_buffer(const Ref<GfxUniformBuffer>& buffer)                                         = 0;
+        virtual void barrier_buffer(const Ref<GfxStorageBuffer>& buffer)                                         = 0;
+
+        virtual void barrier_images(array_view<GfxTexture*> textures, GfxTexBarrierType src, GfxTexBarrierType dst) = 0;
+        virtual void barrier_buffers(array_view<GfxBuffer*> buffers)                                                = 0;
 
         virtual void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc)                                    = 0;
         virtual void peek_render_pass(GfxRenderPassRef& rp)                                                        = 0;

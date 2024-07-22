@@ -337,7 +337,9 @@ namespace wmoge {
                     assert(buffer);
                     assert(buffer->size() == src->size());
 
-                    cmd_list->update_uniform_buffer(buffer, v.offset, v.range, src);
+                    // todo: barriers, batch update of const buffers
+                    cmd_list->update_uniform_buffer(buffer, v.offset, v.range, {src->buffer(), src->size()});
+                    cmd_list->barrier_buffer(buffer);
                 }
             }
         }

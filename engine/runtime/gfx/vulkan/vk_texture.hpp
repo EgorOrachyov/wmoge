@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/data.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -49,33 +50,28 @@ namespace wmoge {
         void create_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name);
         void create_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name);
 
-        void update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, const Ref<Data>& data);
-        void update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data);
-        void update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, const Ref<Data>& data);
+        void update_2d(VkCommandBuffer cmd, int mip, const Rect2i& region, array_view<const std::uint8_t> data);
+        void update_2d_array(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, array_view<const std::uint8_t> data);
+        void update_cube(VkCommandBuffer cmd, int mip, int face, const Rect2i& region, array_view<const std::uint8_t> data);
 
-        void transition_layout(VkCommandBuffer cmd, GfxTexBarrierType barrier_type);
-        void transition_layout(VkCommandBuffer cmd, VkImageLayout destination);
-        void transition_layout(VkCommandBuffer cmd, VkImageLayout destination, const VkImageSubresourceRange& range);
+        VkImageLayout get_layout(GfxTexBarrierType barrier_type) const;
 
         VkImage       image() const { return m_image; }
         VkImageView   view() const { return m_view; }
         VkImageView   rt_view(int slice, int mip) const { return m_rt_views[slice * m_desc.mips_count + mip]; }
         VkImageLayout primary_layout() const { return m_primary_layout; }
-        VkImageLayout current_layout() const { return m_current_layout; }
         bool          has_rt_views() const { return !m_rt_views.empty(); }
 
     private:
         void init_image();
         void init_view();
         void init_rt_views();
-        void init_layout(VkCommandBuffer cmd);
-        void update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, const Ref<Data>& data);
+        void update(VkCommandBuffer cmd, int mip, int slice, const Rect2i& region, array_view<const std::uint8_t> data);
 
     private:
         VkImage                  m_image          = VK_NULL_HANDLE;
         VkImageView              m_view           = VK_NULL_HANDLE;
         VkImageLayout            m_primary_layout = VK_IMAGE_LAYOUT_UNDEFINED;
-        VkImageLayout            m_current_layout = VK_IMAGE_LAYOUT_UNDEFINED;
         VkImageUsageFlags        m_usage_flags    = 0;
         VmaAllocation            m_allocation     = VK_NULL_HANDLE;
         std::vector<VkImageView> m_rt_views;

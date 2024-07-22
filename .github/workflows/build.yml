@@ -9,7 +9,7 @@ on:
     paths:
       - '.github/**'
       - 'deps/**'
-      - 'engine/code/**'
+      - 'engine/runtime/**'
       - 'engine/plugins/**'
       - 'games/**'
       - 'template/**'

@@ -42,9 +42,11 @@ namespace wmoge {
 
     VKCmdList::~VKCmdList() {
         // nothing to do: command buffer returned on submit to pool
+        assert(m_barriers_buffer.empty());
+        assert(m_barriers_image.empty());
     }
 
-    void VKCmdList::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+    void VKCmdList::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_vert_buffer");
 
         assert(buffer);
@@ -52,7 +54,7 @@ namespace wmoge {
 
         dynamic_cast<VKVertBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
-    void VKCmdList::update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+    void VKCmdList::update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_index_buffer");
 
         assert(buffer);
@@ -60,7 +62,7 @@ namespace wmoge {
 
         dynamic_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
-    void VKCmdList::update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+    void VKCmdList::update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_uniform_buffer");
 
         assert(buffer);
@@ -68,7 +70,7 @@ namespace wmoge {
 
         dynamic_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
-    void VKCmdList::update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, const Ref<Data>& data) {
+    void VKCmdList::update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_storage_buffer");
 
         assert(buffer);
@@ -76,7 +78,7 @@ namespace wmoge {
 
         dynamic_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
-    void VKCmdList::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, const Ref<Data>& data) {
+    void VKCmdList::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_texture_2d");
 
         assert(texture);
@@ -84,7 +86,7 @@ namespace wmoge {
 
         dynamic_cast<VKTexture*>(texture.get())->update_2d(m_cmd_buffer, mip, region, data);
     }
-    void VKCmdList::update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, const Ref<Data>& data) {
+    void VKCmdList::update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_texture_2d_array");
 
         assert(texture);
@@ -92,7 +94,7 @@ namespace wmoge {
 
         dynamic_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd_buffer, mip, slice, region, data);
     }
-    void VKCmdList::update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, const Ref<Data>& data) {
+    void VKCmdList::update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, array_view<const std::uint8_t> data) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::update_texture_cube");
 
         assert(texture);
@@ -139,7 +141,8 @@ namespace wmoge {
         assert(buffer);
         assert(!m_in_render_pass);
 
-        dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(m_cmd_buffer);
+        dynamic_cast<VKVertBuffer*>(buffer.get())->unmap(this);
+        flush_barriers();
     }
     void VKCmdList::unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_index_buffer");
@@ -147,7 +150,8 @@ namespace wmoge {
         assert(buffer);
         assert(!m_in_render_pass);
 
-        dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(m_cmd_buffer);
+        dynamic_cast<VKIndexBuffer*>(buffer.get())->unmap(this);
+        flush_barriers();
     }
     void VKCmdList::unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_uniform_buffer");
@@ -155,7 +159,8 @@ namespace wmoge {
         assert(buffer);
         assert(!m_in_render_pass);
 
-        dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(m_cmd_buffer);
+        dynamic_cast<VKUniformBuffer*>(buffer.get())->unmap(this);
+        flush_barriers();
     }
     void VKCmdList::unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_storage_buffer");
@@ -163,18 +168,57 @@ namespace wmoge {
         assert(buffer);
         assert(!m_in_render_pass);
 
-        dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(m_cmd_buffer);
+        dynamic_cast<VKStorageBuffer*>(buffer.get())->unmap(this);
+        flush_barriers();
     }
 
-    void VKCmdList::barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType barrier_type) {
+    void VKCmdList::barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType src, GfxTexBarrierType dst) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_image");
 
-        dynamic_cast<VKTexture*>(texture.get())->transition_layout(m_cmd_buffer, barrier_type);
+        barrier(dynamic_cast<VKTexture*>(texture.get()), src, dst);
+        flush_barriers();
+    }
+    void VKCmdList::barrier_buffer(const Ref<GfxVertBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+
+        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
+        flush_barriers();
+    }
+    void VKCmdList::barrier_buffer(const Ref<GfxIndexBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+
+        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
+        flush_barriers();
+    }
+    void VKCmdList::barrier_buffer(const Ref<GfxUniformBuffer>& buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+
+        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
+        flush_barriers();
     }
     void VKCmdList::barrier_buffer(const Ref<GfxStorageBuffer>& buffer) {
         WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
 
-        dynamic_cast<VKStorageBuffer*>(buffer.get())->barrier(m_cmd_buffer);
+        barrier(dynamic_cast<VKBuffer*>(buffer.get()));
+        flush_barriers();
+    }
+
+    void VKCmdList::barrier_images(array_view<GfxTexture*> textures, GfxTexBarrierType src, GfxTexBarrierType dst) {
+        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_images");
+
+        for (GfxTexture* texture : textures) {
+            barrier(dynamic_cast<VKTexture*>(texture), src, dst);
+        }
+        flush_barriers();
+    }
+
+    void VKCmdList::barrier_buffers(array_view<GfxBuffer*> buffers) {
+        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffers");
+
+        for (GfxBuffer* buffer : buffers) {
+            barrier(dynamic_cast<VKBuffer*>(buffer));
+        }
+        flush_barriers();
     }
 
     void VKCmdList::begin_render_pass(const GfxRenderPassBeginInfo& pass_desc) {
@@ -384,6 +428,140 @@ namespace wmoge {
         assert(!m_in_render_pass);
 
         WG_VK_END_LABEL(m_cmd_buffer);
+    }
+
+    void VKCmdList::barrier(VKBuffer* buffer) {
+        barrier(buffer, 0, buffer->size());
+    }
+
+    void VKCmdList::barrier(VKBuffer* buffer, VkDeviceSize offset, VkDeviceSize size) {
+        assert(buffer);
+
+        const VkAccessFlags flags =
+                VK_ACCESS_INDEX_READ_BIT |
+                VK_ACCESS_VERTEX_ATTRIBUTE_READ_BIT |
+                VK_ACCESS_UNIFORM_READ_BIT |
+                VK_ACCESS_SHADER_READ_BIT |
+                VK_ACCESS_SHADER_WRITE_BIT |
+                VK_ACCESS_TRANSFER_READ_BIT |
+                VK_ACCESS_TRANSFER_WRITE_BIT;
+
+        VkBufferMemoryBarrier& barrier = m_barriers_buffer.emplace_back();
+        barrier.sType                  = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+        barrier.srcQueueFamilyIndex    = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex    = VK_QUEUE_FAMILY_IGNORED;
+        barrier.srcAccessMask          = flags;
+        barrier.dstAccessMask          = flags;
+        barrier.buffer                 = buffer->buffer();
+        barrier.offset                 = offset;
+        barrier.size                   = size;
+    }
+
+    void VKCmdList::barrier(VKTexture* texture, GfxTexBarrierType src, GfxTexBarrierType dst) {
+        VkImageLayout layout_src = texture->get_layout(src);
+        VkImageLayout layout_dst = texture->get_layout(dst);
+
+        barrier(texture, layout_src, layout_dst);
+    }
+
+    void VKCmdList::barrier(VKTexture* texture, VkImageLayout src, VkImageLayout dst) {
+        VkImageSubresourceRange subresource{};
+        subresource.aspectMask     = VKDefs::get_aspect_flags(texture->desc().format);
+        subresource.baseMipLevel   = 0;
+        subresource.levelCount     = texture->desc().mips_count;
+        subresource.baseArrayLayer = 0;
+        subresource.layerCount     = texture->desc().array_slices;
+
+        barrier(texture, src, dst, subresource);
+    }
+
+    void VKCmdList::barrier(VKTexture* texture, VkImageLayout src, VkImageLayout dst, const VkImageSubresourceRange& range) {
+        assert(texture);
+
+        VkImageMemoryBarrier& barrier = m_barriers_image.emplace_back();
+        barrier.sType                 = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+        barrier.oldLayout             = src;
+        barrier.newLayout             = dst;
+        barrier.srcQueueFamilyIndex   = VK_QUEUE_FAMILY_IGNORED;
+        barrier.dstQueueFamilyIndex   = VK_QUEUE_FAMILY_IGNORED;
+        barrier.image                 = texture->image();
+        barrier.subresourceRange      = range;
+
+        auto get_dst_layout_settings = [](VkImageLayout layout, VkAccessFlags& access) {
+            switch (layout) {
+                case VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL:
+                    access = VK_ACCESS_TRANSFER_READ_BIT;
+                    break;
+                case VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL:
+                    access = VK_ACCESS_TRANSFER_WRITE_BIT;
+                    break;
+                case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
+                    access = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+                    break;
+                case VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL:
+                case VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL:
+                    access = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+                    break;
+                case VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL:
+                    access = VK_ACCESS_SHADER_READ_BIT;
+                    break;
+                case VK_IMAGE_LAYOUT_GENERAL:
+                    access = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
+                case VK_IMAGE_LAYOUT_PRESENT_SRC_KHR:
+                    access = 0;
+                    break;
+                default:
+                    WG_LOG_ERROR("unsupported dst image layout");
+                    return;
+            }
+        };
+
+        if (src == VK_IMAGE_LAYOUT_UNDEFINED) {
+            barrier.srcAccessMask = 0;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
+            barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) {
+            barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL) {
+            barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) {
+            barrier.srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
+            barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_GENERAL) {
+            barrier.srcAccessMask = VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else if (src == VK_IMAGE_LAYOUT_PRESENT_SRC_KHR) {
+            barrier.srcAccessMask = 0;
+            get_dst_layout_settings(dst, barrier.dstAccessMask);
+        } else {
+            WG_LOG_ERROR("unsupported src image layout");
+            return;
+        }
+    }
+
+    void VKCmdList::flush_barriers() {
+        WG_AUTO_PROFILE_VULKAN("VKCmdList::flush_barriers");
+
+        if (m_barriers_buffer.empty() && m_barriers_image.empty()) {
+            return;
+        }
+
+        vkCmdPipelineBarrier(m_cmd_buffer,
+                             VK_PIPELINE_STAGE_ALL_COMMANDS_BIT,
+                             VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0,
+                             0, nullptr,
+                             static_cast<uint32_t>(m_barriers_buffer.size()), m_barriers_buffer.data(),
+                             static_cast<uint32_t>(m_barriers_image.size()), m_barriers_image.data());
+
+        m_barriers_buffer.clear();
+        m_barriers_image.clear();
     }
 
     void VKCmdList::reset_state() {

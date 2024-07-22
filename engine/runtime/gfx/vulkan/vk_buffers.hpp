@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/data.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
@@ -40,11 +41,13 @@ namespace wmoge {
      */
     class VKBuffer {
     public:
+        virtual ~VKBuffer() = default;
+
         void                    init(VkDeviceSize size, VkBufferUsageFlags flags, GfxMemUsage usage);
         void                    release();
         void*                   map();
-        virtual void            unmap(VkCommandBuffer cmd);
-        virtual void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem);
+        void                    unmap(class VKCmdList* cmd);
+        void                    update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, array_view<const std::uint8_t> data);
         virtual class VKDriver& driver() = 0;
 
         VkDeviceSize  size() const { return m_size; }
@@ -52,8 +55,6 @@ namespace wmoge {
         VmaAllocation allocation() const { return m_allocation; }
 
     protected:
-        void barrier(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, VkAccessFlags dst_access, VkPipelineStageFlags dst_pipeline_stage);
-
         VkDeviceSize  m_size               = 0;
         VkBuffer      m_buffer             = VK_NULL_HANDLE;
         VmaAllocation m_allocation         = VK_NULL_HANDLE;
@@ -71,8 +72,6 @@ namespace wmoge {
         ~VKVertBuffer() override;
 
         void            create(int size, GfxMemUsage usage, const Strid& name);
-        void            unmap(VkCommandBuffer cmd) override;
-        void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         class VKDriver& driver() override { return m_driver; }
     };
 
@@ -86,8 +85,6 @@ namespace wmoge {
         ~VKIndexBuffer() override;
 
         void            create(int size, GfxMemUsage usage, const Strid& name);
-        void            unmap(VkCommandBuffer cmd) override;
-        void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         class VKDriver& driver() override { return m_driver; }
     };
 
@@ -101,8 +98,6 @@ namespace wmoge {
         ~VKUniformBuffer() override;
 
         void            create(int size, GfxMemUsage usage, const Strid& name);
-        void            unmap(VkCommandBuffer cmd) override;
-        void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
         class VKDriver& driver() override { return m_driver; }
     };
 
@@ -116,9 +111,6 @@ namespace wmoge {
         ~VKStorageBuffer() override;
 
         void            create(int size, GfxMemUsage usage, const Strid& name);
-        void            unmap(VkCommandBuffer cmd) override;
-        void            update(VkCommandBuffer cmd, VkDeviceSize offset, VkDeviceSize size, const Ref<Data>& mem) override;
-        void            barrier(VkCommandBuffer cmd);
         class VKDriver& driver() override { return m_driver; }
     };
 

@@ -58,9 +58,8 @@ namespace wmoge {
         VKWindow(Ref<Window> window, VkSurfaceKHR surface, class VKDriver& driver);
         ~VKWindow() override;
 
-        void init();
-
-        void acquire_next();
+        void init(class VKCmdList* cmd);
+        void acquire_next(class VKCmdList* cmd);
         void get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
 
         [[nodiscard]] const buffered_vector<Ref<VKTexture>>& color() const { return m_color_targets; }
@@ -78,9 +77,9 @@ namespace wmoge {
     private:
         void create_image_semaphores();
         void select_properties();
-        void create_swapchain();
+        void create_swapchain(class VKCmdList* cmd);
         void release_swapchain();
-        void recreate_swapchain();
+        void recreate_swapchain(class VKCmdList* cmd);
         void check_requested_size();
 
     private:
@@ -115,7 +114,8 @@ namespace wmoge {
     class VKWindowManager {
     public:
         VKWindowManager(const VKInitInfo& init_info, class VKDriver& driver);
-        Ref<VKWindow> get_or_create(const Ref<Window>& window);
+
+        [[nodiscard]] Ref<VKWindow> get_or_create(class VKCmdList* cmd, const Ref<Window>& window);
 
     private:
         flat_map<Strid, Ref<VKWindow>>                                  m_windows;

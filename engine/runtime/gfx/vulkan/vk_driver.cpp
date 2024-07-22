@@ -404,16 +404,18 @@ namespace wmoge {
         m_mem_manager->update(m_frame_id);
         m_semaphore_pool->update(m_frame_id);
 
-        VkCommandBuffer cmd_buffer = m_cmd_manager->allocate(GfxQueueType::Graphics);
+        Ref<VKCmdList> cmd = acquire_cmd_list(GfxQueueType::Graphics).cast<VKCmdList>();
 
         for (auto& window : windows) {
-            auto vk_window = m_window_manager->get_or_create(window);
-            vk_window->acquire_next();
-            vk_window->color()[vk_window->current()]->transition_layout(cmd_buffer, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
+            auto vk_window = m_window_manager->get_or_create(cmd.get(), window);
+            vk_window->acquire_next(cmd.get());
+            cmd->barrier(vk_window->color()[vk_window->current()].get(), GfxTexBarrierType::Presentation, GfxTexBarrierType::RenderTarget);
             m_to_present.push_back(vk_window);
         }
 
-        m_cmd_manager->submit(GfxQueueType::Graphics, cmd_buffer);
+        cmd->flush_barriers();
+
+        m_cmd_manager->submit(GfxQueueType::Graphics, cmd->get_handle());
     }
 
     GfxCmdListRef VKDriver::acquire_cmd_list(GfxQueueType queue_type) {
@@ -434,21 +436,23 @@ namespace wmoge {
     void VKDriver::end_frame(bool swap_buffers) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");
 
-        VkCommandBuffer cmd_buffer = m_cmd_manager->allocate(GfxQueueType::Graphics);
+        Ref<VKCmdList> cmd = acquire_cmd_list(GfxQueueType::Graphics).cast<VKCmdList>();
 
         buffered_vector<VkSemaphore> queue_wait;
         buffered_vector<VkSemaphore> queue_signal;
 
         for (auto& window : m_to_present) {
-            window->color()[window->current()]->transition_layout(cmd_buffer, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
+            cmd->barrier(window->color()[window->current()].get(), GfxTexBarrierType::RenderTarget, GfxTexBarrierType::Presentation);
             queue_wait.push_back(window->acquire_semaphore());
             queue_signal.push_back(window->present_semaphore());
         }
 
+        cmd->flush_barriers();
+
         WG_VK_CHECK(vkWaitForFences(m_device, 1, &m_sync_fence, VK_TRUE, std::numeric_limits<uint64_t>::max()));
         WG_VK_CHECK(vkResetFences(m_device, 1, &m_sync_fence));
 
-        m_cmd_manager->submit(GfxQueueType::Graphics, cmd_buffer, {}, {}, m_sync_fence);
+        m_cmd_manager->submit(GfxQueueType::Graphics, cmd->get_handle(), {}, {}, m_sync_fence);
         m_cmd_manager->flush(queue_wait, queue_signal);
 
         if (swap_buffers) {
