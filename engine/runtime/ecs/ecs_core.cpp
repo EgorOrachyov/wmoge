@@ -60,30 +60,4 @@ namespace wmoge {
         return stream.str();
     }
 
-    std::string EcsQuery::to_string() const {
-        EcsRegistry* registry = IocContainer::iresolve_v<EcsRegistry>();
-
-        if (!read.any() && !write.any()) {
-            return "'empty'";
-        }
-
-        std::stringstream stream;
-
-        const auto affected       = read | write;
-        const int  total_affected = int(affected.count());
-
-        stream << "<";
-        stream << "count=" << total_affected << ":";
-
-        for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
-            if (affected.test(i)) {
-                const Strid& name = registry->get_component_info(i).name;
-                stream << (write.test(i) ? "rw-" : "r-") << name << ",";
-            }
-        }
-
-        stream << ">";
-        return stream.str();
-    }
-
 }// namespace wmoge

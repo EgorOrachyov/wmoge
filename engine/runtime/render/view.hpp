@@ -34,7 +34,6 @@
 #include "math/vec.hpp"
 #include "platform/window.hpp"
 #include "render/camera.hpp"
-#include "scene/scene_entity.hpp"
 
 #include <optional>
 
@@ -62,14 +61,12 @@ namespace wmoge {
         [[nodiscard]] const ViewParams&            get_params() const { return m_params; }
         [[nodiscard]] const Camera&                get_camera() const { return m_camera; }
         [[nodiscard]] const std::optional<Camera>& get_camera_prev() const { return m_camera_prev; }
-        [[nodiscard]] const std::optional<Entity>& get_owner() const { return m_owner; }
         [[nodiscard]] const Strid&                 get_name() const { return m_name; }
 
     private:
         ViewParams            m_params;
         Camera                m_camera;
         std::optional<Camera> m_camera_prev;
-        std::optional<Entity> m_owner;
         Strid                 m_name;
         Ref<Window>           m_window;
         Rect2i                m_presentation_area  = Rect2i(0, 0, 1280, 720);

@@ -31,11 +31,13 @@
 #include "core/callback_queue.hpp"
 #include "core/flat_map.hpp"
 #include "core/synchronization.hpp"
+#include "core/task_manager.hpp"
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_core.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "ecs/ecs_memory.hpp"
-#include "ecs/ecs_system.hpp"
+#include "ecs/ecs_query.hpp"
+#include "ecs/ecs_registry.hpp"
 
 #include <cassert>
 #include <deque>
@@ -103,20 +105,20 @@ namespace wmoge {
         /** @brief Return queue to schedule async commands to execute on next sync */
         [[nodiscard]] CallbackQueue* queue();
 
-        /** @brief Ids of matching arch for given query */
-        std::vector<int> filter_arch_idx(const EcsQuery& query);
-
         /** @brief Possibly add new arch to the world allocating space */
         void register_arch(EcsArch arch);
 
-        /** @brief Registers system within a world */
-        void register_system(const std::shared_ptr<EcsSystem>& system);
+        /** @brief Reqister query executed on destruction of some entities */
+        void on_destroy(const EcsQuery& query, const EcsQueuryFunction& func);
 
-        /** @brief Schedules system to be executed */
-        Async schedule_system(const std::shared_ptr<EcsSystem>& system, Async depends_on = Async{});
+        /** @brief Exec function for each entity matching query */
+        void execute(const EcsQuery& query, const EcsQueuryFunction& func);
 
-        /** @brief Exec function for each entity matching query*/
-        void each(const EcsQuery& query, const std::function<void(EcsEntity)>& func);
+        /** @brief Exec function for each entity matching query in async job */
+        Async execute_async(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func);
+
+        /** @brief Exec function for each entity matching query in async parallel job */
+        Async execute_parallel(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func);
 
         /** @brief Clear world destroying all entities */
         void clear();
@@ -124,34 +126,20 @@ namespace wmoge {
         /** @brief Sync world, flushing all scheduled operations on it */
         void sync();
 
-        /** @brief Sets world specific attribute to access external context of the world */
-        template<typename T>
-        void set_attribute(int slot, T& attribute);
-
-        /** @brief Get world specific attribute to access external context of the world */
-        template<typename T>
-        T& get_attribute(int slot = 0);
-
     private:
-        std::vector<EcsEntityInfo> m_entity_info;       // entity info, accessed by entity idx
-        std::deque<EcsEntity>      m_entity_pool;       // pool with free entities handles
-        int                        m_entity_counter = 0;// total count of created entities
+        std::vector<EcsEntityInfo>                          m_entity_info;       // entity info, accessed by entity idx
+        std::deque<EcsEntity>                               m_entity_pool;       // pool with free entities handles
+        int                                                 m_entity_counter = 0;// total count of created entities
+        flat_map<EcsArch, int>                              m_arch_to_idx;       // arch to unique index
+        std::vector<std::unique_ptr<EcsArchStorage>>        m_arch_storage;      // storage per arch, indexed by arch idx
+        std::vector<EcsArch>                                m_arch_by_idx;       // arch mask, indexed by arch idx
+        std::vector<std::pair<EcsQuery, EcsQueuryFunction>> m_on_destroy;        // queries executed on destroy of some entities
 
-        flat_map<Strid, int>       m_system_to_idx;  // map unique system name to idx
-        std::vector<EcsSystemInfo> m_systems;        // registered systems info
-        std::vector<int>           m_systems_destroy;// on entity destroy
+        CallbackQueue m_queue;       // queue for async world operations, flushed on sync
+        EcsRegistry*  m_ecs_registry;// registry of the ecs world
+        TaskManager*  m_task_manager;// default task manager for query execution
 
-        flat_map<EcsArch, int>                       m_arch_to_idx; // arch to unique index
-        std::vector<std::unique_ptr<EcsArchStorage>> m_arch_storage;// storage per arch, indexed by arch idx
-        std::vector<EcsArch>                         m_arch_by_idx; // arch mask, indexed by arch idx
-
-        buffered_vector<void*> m_attributes;// custom attributes to access context within world
-
-        CallbackQueue      m_queue;       // queue for async world operations, flushed on sync
-        class TaskManager* m_task_manager;// manager for parallel system update
-        class EcsRegistry* m_ecs_registry;// registry of the ecs world
-
-        SpinMutex m_mutex;
+        mutable SpinMutex m_mutex;
     };
 
     template<class Component>
@@ -196,18 +184,6 @@ namespace wmoge {
 
         const EcsEntityInfo& entity_info = m_entity_info[entity.idx];
         return m_arch_by_idx[entity_info.arch].template has_component<Component>();
-    }
-
-    template<typename T>
-    inline void EcsWorld::set_attribute(int slot, T& attribute) {
-        if (slot >= m_attributes.size()) m_attributes.resize(slot + 1);
-        m_attributes[slot] = &attribute;
-    }
-
-    template<typename T>
-    inline T& EcsWorld::get_attribute(int slot) {
-        assert(slot < m_attributes.size());
-        return *(static_cast<T*>(m_attributes[slot]));
     }
 
 }// namespace wmoge

@@ -79,7 +79,6 @@
 
 #include "event/register_classes_event.hpp"
 #include "pfx/register_classes_pfx.hpp"
-#include "scene/register_classes_scene.hpp"
 
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
@@ -218,7 +217,6 @@ namespace wmoge {
         Class::register_types();
         register_classes_event();
         register_classes_pfx();
-        register_classes_scene();
     }
 
     static void bind_rtti(IocContainer* ioc) {

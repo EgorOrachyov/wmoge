@@ -84,8 +84,9 @@ namespace wmoge {
         [[nodiscard]] void*      get_component(int entity_idx, int component_idx) const;
         [[nodiscard]] EcsEntity  get_entity(int entity_idx) const;
 
-        [[nodiscard]] int get_size() const { return m_size; }
-        [[nodiscard]] int get_capacity() const { return m_capacity; }
+        [[nodiscard]] int            get_size() const { return m_size; }
+        [[nodiscard]] int            get_capacity() const { return m_capacity; }
+        [[nodiscard]] const EcsArch& get_arch() const { return m_arch; }
 
     private:
         std::array<EcsPool, EcsLimits::MAX_COMPONENTS + 1>             m_pool{};

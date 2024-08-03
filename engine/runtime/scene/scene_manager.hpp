@@ -78,11 +78,6 @@ namespace wmoge {
         class EcsRegistry*  m_ecs_registry  = nullptr;
         class RenderEngine* m_render_engine = nullptr;
 
-        std::shared_ptr<class EcsSysUpdateHier>      m_sys_update_hier;
-        std::shared_ptr<class EcsSysUpdateCameras>   m_sys_update_cameras;
-        std::shared_ptr<class EcsSysUpdateAabb>      m_sys_update_aabb;
-        std::shared_ptr<class EcsSysReleaseCullItem> m_sys_release_cull_item;
-
         struct SyncContext {
             Async complete_heir;
             Async complete_cameras;

@@ -30,7 +30,6 @@
 #include "asset/asset.hpp"
 #include "core/async.hpp"
 #include "io/yaml.hpp"
-#include "scene/scene_node.hpp"
 
 #include <optional>
 
@@ -47,11 +46,6 @@ namespace wmoge {
     class ScenePrefab : public Asset {
     public:
         WG_RTTI_CLASS(ScenePrefab, Asset);
-
-        [[nodiscard]] const SceneNodesData& get_data() const { return m_data; }
-
-    private:
-        SceneNodesData m_data;
     };
 
     WG_RTTI_CLASS_BEGIN(ScenePrefab) {

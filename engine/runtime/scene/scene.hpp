@@ -78,13 +78,11 @@ namespace wmoge {
         Scene(Strid name = Strid());
         ~Scene() override = default;
 
-        class Entity create_entity();
-        void         destroy_entity(class Entity entity);
-        Status       build(const SceneData& data);
-        void         advance(float delta_time);
-        void         clear();
-        void         set_state(SceneState state);
-        void         finalize();
+        Status build(const SceneData& data);
+        void   advance(float delta_time);
+        void   clear();
+        void   set_state(SceneState state);
+        void   finalize();
 
         [[nodiscard]] const Strid&    get_name();
         [[nodiscard]] EcsWorld*       get_ecs_world();

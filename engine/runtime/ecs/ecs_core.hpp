@@ -98,51 +98,6 @@ namespace wmoge {
         return stream;
     }
 
-    /**
-     * @class EcsQuery
-     * @brief Describes read-write dependencies of an system query for processing
-     */
-    struct EcsQuery {
-        std::bitset<EcsLimits::MAX_COMPONENTS> read;
-        std::bitset<EcsLimits::MAX_COMPONENTS> write;
-
-        EcsQuery() = default;
-
-        template<typename Component>
-        EcsQuery& set_read() {
-            read.set(Component::IDX);
-            return *this;
-        }
-
-        template<typename Component>
-        EcsQuery& set_write() {
-            read.set(Component::IDX);
-            write.set(Component::IDX);
-            return *this;
-        }
-
-        template<typename Component>
-        [[nodiscard]] bool has_read() const {
-            return read.test(Component::IDX);
-        }
-
-        template<typename Component>
-        [[nodiscard]] bool has_write() const {
-            return write.test(Component::IDX);
-        }
-
-        [[nodiscard]] std::bitset<EcsLimits::MAX_COMPONENTS> affected() const {
-            return read | write;
-        }
-
-        [[nodiscard]] std::string to_string() const;
-    };
-
-    inline std::ostream& operator<<(std::ostream& stream, const EcsQuery& query) {
-        stream << query.to_string();
-        return stream;
-    }
-
 }// namespace wmoge
 
 namespace std {

@@ -29,14 +29,12 @@
 
 #include "scene/scene_packed.hpp"
 #include "scene/scene_prefab.hpp"
-#include "scene/scene_tree_packed.hpp"
 
 namespace wmoge {
 
     void rtti_scene() {
         rtti_type<ScenePrefab>();
         rtti_type<ScenePacked>();
-        rtti_type<SceneTreePacked>();
     }
 
 }// namespace wmoge

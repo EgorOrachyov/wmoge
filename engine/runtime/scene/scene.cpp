@@ -30,7 +30,6 @@
 #include "profiler/profiler.hpp"
 #include "render/deferred_pipeline.hpp"
 #include "scene/scene_components.hpp"
-#include "scene/scene_entity.hpp"
 
 #include <cassert>
 
@@ -43,16 +42,6 @@ namespace wmoge {
         m_ecs_world       = std::make_unique<EcsWorld>();
         m_culling_manager = std::make_unique<CullingManager>();
         m_render_scene    = std::make_unique<RenderScene>();
-
-        m_ecs_world->set_attribute(0, *this);
-    }
-
-    Entity Scene::create_entity() {
-        return Entity(get_ecs_world()->allocate_entity(), this);
-    }
-    void Scene::destroy_entity(Entity entity) {
-        assert(this == entity.get_scene());
-        get_ecs_world()->destroy_entity(entity.get_ecs_id());
     }
 
     Status Scene::build(const SceneData& data) {

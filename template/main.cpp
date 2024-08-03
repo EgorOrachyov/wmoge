@@ -101,11 +101,7 @@ public:
 
         mesh = Engine::instance()->asset_manager()->load(SID("asset://mesh/suzanne")).cast<Mesh>();
 
-        auto scene_tree_packed = Engine::instance()->asset_manager()->load(SID("asset://trees/test_scene")).cast<SceneTreePacked>();
-        scene_tree             = scene_tree_packed->instantiate();
-        scene                  = scene_tree->get_scene();
-
-        Engine::instance()->scene_manager()->change(scene);
+        // Engine::instance()->scene_manager()->change(scene);
 
         class ApplicationLayer : public Layer {
         public:
@@ -220,7 +216,6 @@ public:
         shader.reset();
         mesh.reset();
         scene.reset();
-        scene_tree.reset();
 
         GameApplication::on_shutdown();
         WG_LOG_INFO("shutdown");
@@ -228,10 +223,9 @@ public:
         return StatusCode::Ok;
     }
 
-    Ref<Scene>     scene;
-    Ref<SceneTree> scene_tree;
-    WeakRef<Mesh>  mesh;
-    Ref<Shader>    shader;
+    Ref<Scene>    scene;
+    WeakRef<Mesh> mesh;
+    Ref<Shader>   shader;
 };
 
 int main(int argc, const char* const* argv) {

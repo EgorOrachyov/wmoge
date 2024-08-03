@@ -29,9 +29,7 @@
 
 #include "core/log.hpp"
 #include "core/task.hpp"
-#include "core/task_manager.hpp"
 #include "core/task_parallel_for.hpp"
-#include "ecs/ecs_registry.hpp"
 #include "math/math_utils.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
@@ -39,12 +37,8 @@
 namespace wmoge {
 
     EcsWorld::EcsWorld() {
-        m_task_manager = IocContainer::iresolve_v<TaskManager>();
         m_ecs_registry = IocContainer::iresolve_v<EcsRegistry>();
-
-        for (const EcsSystemPtr& system : m_ecs_registry->get_systems()) {
-            register_system(system);
-        }
+        m_task_manager = IocContainer::iresolve_v<TaskManager>();
     }
 
     EcsWorld::~EcsWorld() {
@@ -142,20 +136,20 @@ namespace wmoge {
         assert(entity.is_valid());
         assert(entity.idx < m_entity_info.size());
 
-        bool need_swap = false;
-
         EcsEntityInfo&  entity_info    = m_entity_info[entity.idx];
         EcsArch         entity_arch    = m_arch_by_idx[entity_info.arch];
         EcsArchStorage* entity_storage = m_arch_storage[entity_info.arch].get();
 
-        for (int idx : m_systems_destroy) {
-            const EcsSystemInfo& system_info = m_systems[idx];
-            const EcsArch        requried    = system_info.query.affected();
-            if ((requried & entity_arch) == requried) {
-                system_info.system->process_batch(*this, *entity_storage, entity_info.storage, 1);
+        for (auto& iter : m_on_destroy) {
+            const EcsQuery&          query = iter.first;
+            const EcsQueuryFunction& func  = iter.second;
+            if (query.match(entity_arch)) {
+                EcsQueryContext context(*entity_storage, query, entity_info.storage, 1);
+                func(context);
             }
         }
 
+        bool need_swap = false;
         entity_storage->destroy_entity(entity_info.storage, need_swap);
 
         if (need_swap) {
@@ -186,119 +180,79 @@ namespace wmoge {
         return &m_queue;
     }
 
-    std::vector<int> EcsWorld::filter_arch_idx(const EcsQuery& query) {
-        std::vector<int> filtered_arch;
-        const auto       filter = query.affected();
-
-        for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
-            if ((filter & m_arch_by_idx[arch_idx]) == filter) {
-                filtered_arch.push_back(arch_idx);
-            }
-        }
-
-        return filtered_arch;
-    }
-
     void EcsWorld::register_arch(EcsArch arch) {
         if (m_arch_to_idx.find(arch) == m_arch_to_idx.end()) {
             const int arch_idx  = int(m_arch_storage.size());
             m_arch_to_idx[arch] = arch_idx;
             m_arch_by_idx.emplace_back(arch);
             m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch);
-
-            for (EcsSystemInfo& system_info : m_systems) {
-                auto filter = system_info.query.affected();
-
-                if ((filter & arch) == filter) {
-                    system_info.filtered_arch.push_back(arch_idx);
-                }
-            }
         }
     }
 
-    void EcsWorld::register_system(const std::shared_ptr<EcsSystem>& system) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::register_system");
-
-        assert(system);
-        assert(m_system_to_idx.find(system->get_name()) == m_system_to_idx.end());
-
-        auto system_idx                     = int(m_systems.size());
-        m_system_to_idx[system->get_name()] = system_idx;
-
-        EcsSystemInfo& system_info = m_systems.emplace_back();
-        system_info.query          = system->get_query();
-        system_info.system         = system;
-        system_info.type           = system->get_type();
-        system_info.exec_mode      = system->get_exec_mode();
-        system_info.filtered_arch  = filter_arch_idx(system->get_query());
-
-        if (system_info.type == EcsSystemType::Destroy) {
-            m_systems_destroy.push_back(system_idx);
-        }
+    void EcsWorld::on_destroy(const EcsQuery& query, const EcsQueuryFunction& func) {
+        m_on_destroy.emplace_back(query, func);
     }
 
-    Async EcsWorld::schedule_system(const std::shared_ptr<EcsSystem>& system, Async depends_on) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::schedule_system");
-
-        assert(system);
-        assert(m_system_to_idx.find(system->get_name()) != m_system_to_idx.end());
-
-        EcsSystemInfo& system_info = m_systems[m_system_to_idx[system->get_name()]];
-
-        switch (system_info.exec_mode) {
-            case EcsSystemExecMode::SingleThread: {
-                Task task(system_info.system->get_name(), [&](TaskContext&) {
-                    for (const int arch_idx : system_info.filtered_arch) {
-                        EcsArchStorage& storage      = *m_arch_storage[arch_idx];
-                        const int       size         = storage.get_size();
-                        const int       start_entity = 0;
-                        const int       count        = size;
-
-                        system_info.system->process_batch(*this, storage, start_entity, count);
-                    }
-
-                    return 0;
-                });
-
-                return task.schedule(depends_on).as_async();
-            }
-
-            case EcsSystemExecMode::WorkerThreads: {
-                TaskParallelFor task(system->get_name(), [&](TaskContext&, int batch_id, int batch_count) {
-                    for (const int arch_idx : system_info.filtered_arch) {
-                        EcsArchStorage& storage          = *m_arch_storage[arch_idx];
-                        const int       size             = storage.get_size();
-                        const auto [start_entity, count] = Math::batch_start_count(size, batch_id, batch_count);
-
-                        system_info.system->process_batch(*this, storage, start_entity, count);
-                    }
-                    return 0;
-                });
-
-                return task.schedule(m_task_manager->get_num_workers(), 1, depends_on).as_async();
-            }
-
-            default:
-                WG_LOG_ERROR("unknown system exec mode");
-                return Async{};
-        }
-    }
-
-    void EcsWorld::each(const EcsQuery& query, const std::function<void(EcsEntity)>& func) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::each");
-
-        const auto filter = query.affected();
+    void EcsWorld::execute(const EcsQuery& query, const EcsQueuryFunction& func) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::execute");
 
         for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
-            if ((filter & m_arch_by_idx[arch_idx]) == filter) {
-                EcsArchStorage& storage      = *m_arch_storage[arch_idx];
-                const int       storage_size = storage.get_size();
-
-                for (int i = 0; i < storage_size; i++) {
-                    func(storage.get_entity(i));
-                }
+            if (!query.match(m_arch_by_idx[arch_idx])) {
+                continue;
             }
+
+            EcsArchStorage& storage = *m_arch_storage[arch_idx];
+            const int       start   = 0;
+            const int       conut   = storage.get_size();
+
+            EcsQueryContext context(storage, query, start, conut);
+            func(context);
         }
+    }
+
+    Async EcsWorld::execute_async(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::execute_async");
+
+        Task task(query.name, [query, func, this](TaskContext&) {
+            for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
+                if (!query.match(m_arch_by_idx[arch_idx])) {
+                    continue;
+                }
+
+                EcsArchStorage& storage = *m_arch_storage[arch_idx];
+                const int       start   = 0;
+                const int       conut   = storage.get_size();
+
+                EcsQueryContext context(storage, query, start, conut);
+                func(context);
+            }
+
+            return 0;
+        });
+
+        return task.schedule(depends_on).as_async();
+    }
+
+    Async EcsWorld::execute_parallel(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
+        WG_AUTO_PROFILE_ECS("EcsWorld::execute_parallel");
+
+        TaskParallelFor task(query.name, [query, func, this](TaskContext&, int batch_id, int batch_count) {
+            for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
+                if (!query.match(m_arch_by_idx[arch_idx])) {
+                    continue;
+                }
+
+                EcsArchStorage& storage   = *m_arch_storage[arch_idx];
+                const auto [start, count] = Math::batch_start_count(storage.get_size(), batch_id, batch_count);
+
+                EcsQueryContext context(storage, query, start, count);
+                func(context);
+            }
+
+            return 0;
+        });
+
+        return task.schedule(m_task_manager->get_num_workers(), 1, depends_on).as_async();
     }
 
     void EcsWorld::clear() {
