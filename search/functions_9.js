@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['set_5fattribs_194',['set_attribs',['../classwmoge_1_1AssimpMeshImporter.html#a908dfc55697133290f666a9a042a7335',1,'wmoge::AssimpMeshImporter']]],
-  ['shaderassetloader_195',['ShaderAssetLoader',['../classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586',1,'wmoge::ShaderAssetLoader']]]
+  ['set_5fattribs_195',['set_attribs',['../classwmoge_1_1AssimpMeshImporter.html#a908dfc55697133290f666a9a042a7335',1,'wmoge::AssimpMeshImporter']]],
+  ['shaderassetloader_196',['ShaderAssetLoader',['../classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586',1,'wmoge::ShaderAssetLoader']]]
 ];
