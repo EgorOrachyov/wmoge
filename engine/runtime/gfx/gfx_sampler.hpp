@@ -84,6 +84,8 @@ namespace wmoge {
         virtual const GfxSamplerDesc& desc() const = 0;
     };
 
+    using GfxSamplerRef = Ref<GfxSampler>;
+
 }// namespace wmoge
 
 namespace std {

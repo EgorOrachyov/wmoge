@@ -32,11 +32,17 @@
 #include "grc/texture.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <freetype/freetype.h>
 
 namespace wmoge {
+
+    FreetypeFont::FreetypeFont() {
+        m_gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
+        m_file_system     = IocContainer::iresolve_v<FileSystem>();
+        m_texture_manager = IocContainer::iresolve_v<TextureManager>();
+    }
 
     Status FreetypeFont::load(const Ref<Font>& font, const std::string& path, int height, int glyphs_in_row) {
         WG_AUTO_PROFILE_ASSET("FreetypeFont::load");
@@ -45,7 +51,7 @@ namespace wmoge {
         static const int GLYPHS_BITMAP_OFFSET = 2;
 
         std::vector<std::uint8_t> ttf_data;
-        if (!Engine::instance()->file_system()->read_file(path, ttf_data)) {
+        if (!m_file_system->read_file(path, ttf_data)) {
             WG_LOG_ERROR("failed to load font data from asset pak " << path);
             return StatusCode::FailedRead;
         }
@@ -153,15 +159,21 @@ namespace wmoge {
         sampler_desc.brd_clr        = GfxSampBrdClr::Black;
         sampler_desc.mag_flt        = GfxSampFlt::Linear;
         sampler_desc.min_flt        = GfxSampFlt::LinearMipmapLinear;
-        sampler_desc.max_anisotropy = Engine::instance()->gfx_driver()->device_caps().max_anisotropy;
+        sampler_desc.max_anisotropy = m_gfx_driver->device_caps().max_anisotropy;
         sampler_desc.u              = GfxSampAddress::ClampToBorder;
         sampler_desc.v              = GfxSampAddress::ClampToBorder;
 
         TexCompressionParams compression_params{};
         compression_params.format = TexCompressionFormat::BC4;
 
-        font_desc.texture = make_ref<Texture2d>(GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
-        font_desc.texture->set_name(SID(font->get_name().str() + "_texture"));
+        TextureFlags flags;
+        flags.set(TextureFlag::Pooled);
+        flags.set(TextureFlag::FromDisk);
+        flags.set(TextureFlag::Font);
+        flags.set(TextureFlag::Compressed);
+
+        font_desc.texture = m_texture_manager->create_2d(flags, GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
+        font_desc.texture->set_name(SID(font->get_name().str() + "_bitmap"));
         font_desc.texture->set_sampler_from_desc(sampler_desc);
         font_desc.texture->set_compression(compression_params);
         font_desc.texture->set_source_images({bitmap});
@@ -174,10 +186,7 @@ namespace wmoge {
             WG_LOG_ERROR("failed to compress font texture " << font->get_name());
             return StatusCode::Error;
         }
-        if (!font_desc.texture->generate_gfx_resource()) {
-            WG_LOG_ERROR("failed to create gfx font texture " << font->get_name());
-            return StatusCode::Error;
-        }
+        m_texture_manager->init(font_desc.texture.get());
 
         return font->init(font_desc);
     }

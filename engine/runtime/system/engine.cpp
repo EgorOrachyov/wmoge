@@ -116,7 +116,6 @@ namespace wmoge {
         m_input          = ioc->resolve_v<GlfwInput>();
 
         m_asset_manager = ioc->resolve_v<AssetManager>();
-        m_asset_manager->load_loaders();
 
         WindowInfo window_info;
         window_info.width    = m_config->get_int_or_default(SID("window.width"), 1280);
@@ -135,6 +134,8 @@ namespace wmoge {
         m_shader_manager = ioc->resolve_v<ShaderManager>();
         m_shader_manager->load_compilers();
 
+        m_asset_manager->load_loaders();
+
         m_shader_library   = ioc->resolve_v<ShaderLibrary>();
         m_pso_cache        = ioc->resolve_v<PsoCache>();
         m_texture_manager  = ioc->resolve_v<TextureManager>();
@@ -146,6 +147,7 @@ namespace wmoge {
         m_canvas_debug     = ioc->resolve_v<Canvas>();
         m_view_manager     = ioc->resolve_v<ViewManager>();
 
+        m_aux_draw_manager->init();
         m_console->init();
         m_layer_stack->attach(std::make_shared<DebugLayer>());
 
@@ -186,6 +188,10 @@ namespace wmoge {
 
         if (m_scene_manager) {
             m_scene_manager->update();
+        }
+
+        if (m_texture_manager) {
+            m_texture_manager->update();
         }
 
         m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {

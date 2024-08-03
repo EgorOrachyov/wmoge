@@ -192,10 +192,11 @@ namespace wmoge {
     }
 
     static void unbind_globals(IocContainer* ioc) {
+        ioc->unbind<AuxDrawManager>();
+        ioc->unbind<Canvas>();
         ioc->unbind<ViewManager>();
         ioc->unbind<ActionManager>();
         ioc->unbind<SceneManager>();
-        ioc->unbind<AssetManager>();
         ioc->unbind<PsoCache>();
         ioc->unbind<ShaderManager>();
         ioc->unbind<ShaderLibrary>();
@@ -203,12 +204,11 @@ namespace wmoge {
         ioc->unbind<GlslShaderCompiler>();
         ioc->unbind<TextureManager>();
         ioc->unbind<RenderEngine>();
-        ioc->unbind<AuxDrawManager>();
-        ioc->unbind<Canvas>();
         ioc->unbind<TaskManager>();
         ioc->unbind<VKDriver>();
         ioc->unbind<GlfwInput>();
         ioc->unbind<GlfwWindowManager>();
+        ioc->unbind<AssetManager>();
         ioc->unbind<EventManager>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
@@ -308,15 +308,15 @@ namespace wmoge {
         signal_after_init.emit();
 
         signal_before_loop.emit();
+        {
+            while (!should_close()) {
+                WG_AUTO_PROFILE_PLATFORM("Application::iteration");
 
-        while (!should_close()) {
-            WG_AUTO_PROFILE_PLATFORM("Application::iteration");
-
-            if (!on_loop()) {
-                return 1;
+                if (!on_loop()) {
+                    return 1;
+                }
             }
         }
-
         signal_after_loop.emit();
 
         signal_before_shutdown.emit();

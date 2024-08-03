@@ -32,9 +32,11 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/image.hpp"
 #include "grc/texture.hpp"
+#include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
 #include "profiler/profiler.hpp"
 #include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -63,13 +65,21 @@ namespace wmoge {
             return StatusCode::FailedResize;
         }
 
-        Ref<Texture2d> texture = make_ref<Texture2d>(
-                import_data->format,
-                source_image->get_width(),
-                source_image->get_height());
+        auto texture_manager = IocContainer::iresolve_v<TextureManager>();
+
+        TextureFlags flags;
+        flags.set(TextureFlag::Pooled);
+        flags.set(TextureFlag::FromDisk);
+        flags.set(TextureFlag::Compressed, import_data->compression.format != TexCompressionFormat::Unknown);
+
+        Ref<Texture2d> texture =
+                texture_manager->create_2d(flags,
+                                           import_data->format,
+                                           source_image->get_width(),
+                                           source_image->get_height());
 
         if (!texture) {
-            WG_LOG_ERROR("Failed to instantiate texture " << name);
+            WG_LOG_ERROR("failed to instantiate texture " << name);
             return StatusCode::FailedInstantiate;
         }
 
@@ -93,10 +103,7 @@ namespace wmoge {
                 return StatusCode::Error;
             }
         }
-        if (!texture->generate_gfx_resource()) {
-            WG_LOG_ERROR("failed create gfx asset for " << name);
-            return StatusCode::Error;
-        }
+        texture_manager->init(texture.get());
 
         return WG_OK;
     }
@@ -144,13 +151,21 @@ namespace wmoge {
             }
         }
 
-        Ref<TextureCube> texture = make_ref<TextureCube>(
-                import_data->format,
-                source_images.front()->get_width(),
-                source_images.front()->get_height());
+        auto texture_manager = IocContainer::iresolve_v<TextureManager>();
+
+        TextureFlags flags;
+        flags.set(TextureFlag::Pooled);
+        flags.set(TextureFlag::FromDisk);
+        flags.set(TextureFlag::Compressed, import_data->compression.format != TexCompressionFormat::Unknown);
+
+        Ref<TextureCube> texture =
+                texture_manager->create_cube(flags,
+                                             import_data->format,
+                                             source_images.front()->get_width(),
+                                             source_images.front()->get_height());
 
         if (!texture) {
-            WG_LOG_ERROR("Failed to instantiate texture " << name);
+            WG_LOG_ERROR("failed to instantiate texture " << name);
             return StatusCode::Error;
         }
 
@@ -174,10 +189,7 @@ namespace wmoge {
                 return StatusCode::Error;
             }
         }
-        if (!texture->generate_gfx_resource()) {
-            WG_LOG_ERROR("failed create gfx asset for " << name);
-            return StatusCode::Error;
-        }
+        texture_manager->init(texture.get());
 
         return WG_OK;
     }

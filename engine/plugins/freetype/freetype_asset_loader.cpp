@@ -27,7 +27,6 @@
 
 #include "freetype_asset_loader.hpp"
 
-#include "freetype_font.hpp"
 #include "freetype_import_data.hpp"
 #include "grc/font.hpp"
 #include "profiler/profiler.hpp"
@@ -57,7 +56,8 @@ namespace wmoge {
         asset->set_name(name);
         asset->set_import_data(meta.import_data);
 
-        return FreetypeFont::load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
+        FreetypeFont loader;
+        return loader.load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
     }
 
 }// namespace wmoge

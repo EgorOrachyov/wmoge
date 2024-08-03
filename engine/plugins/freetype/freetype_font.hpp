@@ -29,7 +29,10 @@
 
 #include "core/status.hpp"
 #include "core/string_utils.hpp"
+#include "gfx/gfx_driver.hpp"
 #include "grc/font.hpp"
+#include "grc/texture_manager.hpp"
+#include "platform/file_system.hpp"
 
 namespace wmoge {
 
@@ -39,6 +42,8 @@ namespace wmoge {
     */
     class FreetypeFont {
     public:
+        FreetypeFont();
+
         /**
          * @brief Loads font from a .ttf file from file system using specified height in pixels
          *
@@ -51,7 +56,12 @@ namespace wmoge {
          *
          * @return True if font loaded
          */
-        static Status load(const Ref<Font>& font, const std::string& path, int height = 40, int glyphs_in_row = 16);
+        Status load(const Ref<Font>& font, const std::string& path, int height = 40, int glyphs_in_row = 16);
+
+    private:
+        GfxDriver*      m_gfx_driver;
+        FileSystem*     m_file_system;
+        TextureManager* m_texture_manager;
     };
 
 }// namespace wmoge

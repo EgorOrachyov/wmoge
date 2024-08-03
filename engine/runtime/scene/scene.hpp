@@ -73,7 +73,7 @@ namespace wmoge {
      * @see SceneNode
      * @see SceneTree
      */
-    class Scene final : public WeakRefCnt<RefCnt> {
+    class Scene final : public WeakRefCnt<Scene, RefCnt> {
     public:
         Scene(Strid name = Strid());
         ~Scene() override = default;

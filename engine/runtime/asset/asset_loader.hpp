@@ -50,7 +50,26 @@ namespace wmoge {
 
     WG_RTTI_CLASS_BEGIN(AssetLoader) {
         WG_RTTI_META_DATA(RttiUiHint("Interface for an asset loader to implement custom loading"));
-        //  WG_RTTI_METHOD(load, {"name", "meta", "asset"}, {RttiUiHint("Instantiates and loads a particular asset type from meta info")});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class AssetUnloader
+     * @brief Class responsible for unloading assets(s) of a specific type
+     */
+    class AssetUnloader : public RttiObject {
+    public:
+        WG_RTTI_CLASS(AssetUnloader, RttiObject);
+
+        AssetUnloader()          = default;
+        virtual ~AssetUnloader() = default;
+
+        virtual Status     unload(Asset* asset) { return StatusCode::NotImplemented; }
+        virtual RttiClass* get_asset_type() { return nullptr; }
+    };
+
+    WG_RTTI_CLASS_BEGIN(AssetUnloader) {
+        WG_RTTI_META_DATA(RttiUiHint("Interface for an asset unloader to implement custom unloading"));
     }
     WG_RTTI_END;
 

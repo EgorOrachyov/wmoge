@@ -44,6 +44,20 @@ namespace wmoge {
         m_file_system   = IocContainer::iresolve_v<FileSystem>();
         m_type_storage  = IocContainer::iresolve_v<RttiTypeStorage>();
         m_event_manager = IocContainer::iresolve_v<EventManager>();
+
+        m_callback = std::make_shared<typename Asset::ReleaseCallback>([this](Asset* asset) {
+            std::lock_guard guard(m_mutex);
+
+            auto* rtti     = asset->get_class();
+            auto  unloader = find_unloader(rtti);
+            auto& id       = asset->get_id();
+
+            if (unloader) {
+                (*unloader)->unload(asset);
+            }
+
+            m_assets.erase(id);
+        });
     }
 
     AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name, AssetCallback callback) {
@@ -113,6 +127,7 @@ namespace wmoge {
                 m_event_manager->dispatch(event);
 
                 std::lock_guard guard(m_mutex);
+                asset->set_release_callback(m_callback);
                 m_assets[name] = WeakRef<Asset>(asset);
                 async_op->set_result(std::move(asset));
                 return 0;
@@ -180,6 +195,11 @@ namespace wmoge {
         m_loaders[loader->get_class_name()] = std::move(loader);
     }
 
+    void AssetManager::add_unloader(Ref<AssetUnloader> unloader) {
+        std::lock_guard guard(m_mutex);
+        m_unloaders[unloader->get_asset_type()] = std::move(unloader);
+    }
+
     void AssetManager::add_pak(std::shared_ptr<AssetPak> pak) {
         std::lock_guard guard(m_mutex);
         m_paks.push_back(std::move(pak));
@@ -189,6 +209,12 @@ namespace wmoge {
         std::lock_guard guard(m_mutex);
         auto            query = m_loaders.find(loader);
         return query != m_loaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
+    }
+
+    std::optional<AssetUnloader*> AssetManager::find_unloader(RttiClass* rtti) {
+        std::lock_guard guard(m_mutex);
+        auto            query = m_unloaders.find(rtti);
+        return query != m_unloaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
     }
 
     std::optional<AssetMeta> AssetManager::find_meta(const AssetId& asset) {
@@ -215,20 +241,6 @@ namespace wmoge {
         return std::nullopt;
     }
 
-    void AssetManager::gc() {
-        WG_AUTO_PROFILE_ASSET("AssetManager::gc");
-
-        std::lock_guard guard(m_mutex);
-        int             evicted = 0;
-        for (auto iter = m_assets.begin(); iter != m_assets.end(); ++iter) {
-            if (iter->second.acquire()->refs_count() == 1) {
-                iter = m_assets.erase(iter);
-                evicted += 1;
-            }
-        }
-        WG_LOG_INFO("gc " << evicted << " unreferenced assets");
-    }
-
     void AssetManager::clear() {
         WG_AUTO_PROFILE_ASSET("AssetManager::clear");
 
@@ -247,6 +259,16 @@ namespace wmoge {
             assert(loader);
             assert(loader->can_instantiate());
             add_loader(loader->instantiate().cast<AssetLoader>());
+        }
+
+        std::vector<RttiClass*> unloaders = m_type_storage->find_classes([](const Ref<RttiClass>& type) {
+            return type->is_subtype_of(AssetUnloader::get_class_static()) && type->can_instantiate();
+        });
+
+        for (auto& unloader : unloaders) {
+            assert(unloader);
+            assert(unloader->can_instantiate());
+            add_unloader(unloader->instantiate().cast<AssetUnloader>());
         }
 
         add_pak(std::make_shared<AssetPakFileSystem>());

@@ -46,4 +46,28 @@ namespace wmoge {
         return *this == other;
     }
 
+    GfxTextureDesc GfxTextureDesc::make_2d(GfxFormat format, int width, int height, GfxTexSwizz swizz) {
+        GfxTextureDesc desc;
+        desc.format       = format;
+        desc.width        = width;
+        desc.height       = height;
+        desc.swizz        = swizz;
+        desc.depth        = 1;
+        desc.array_slices = 1;
+        desc.tex_type     = GfxTex::Tex2d;
+        return desc;
+    }
+
+    GfxTextureDesc GfxTextureDesc::make_cube(GfxFormat format, int width, int height, GfxTexSwizz swizz) {
+        GfxTextureDesc desc;
+        desc.format       = format;
+        desc.width        = width;
+        desc.height       = height;
+        desc.swizz        = swizz;
+        desc.depth        = 1;
+        desc.array_slices = 6;
+        desc.tex_type     = GfxTex::TexCube;
+        return desc;
+    }
+
 }// namespace wmoge

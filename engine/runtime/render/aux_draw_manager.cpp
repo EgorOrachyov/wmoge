@@ -456,8 +456,11 @@ namespace wmoge {
         }
     };
 
-    AuxDrawManager::AuxDrawManager() {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::AuxDrawManager");
+    AuxDrawManager::AuxDrawManager()  = default;
+    AuxDrawManager::~AuxDrawManager() = default;
+
+    void AuxDrawManager::init() {
+        WG_AUTO_PROFILE_RENDER("AuxDrawManager::init");
 
         Config*       config        = IocContainer::iresolve_v<Config>();
         AssetManager* asset_manager = IocContainer::iresolve_v<AssetManager>();
@@ -473,8 +476,6 @@ namespace wmoge {
         m_tria_wired.set_name(SID("aux_tria_wired"));
         m_text.set_name(SID("aux_text"));
     }
-
-    AuxDrawManager::~AuxDrawManager() = default;
 
     void AuxDrawManager::draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, float lifetime) {
         std::lock_guard guard(m_mutex);

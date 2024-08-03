@@ -30,6 +30,8 @@
 #include "core/ref.hpp"
 #include "core/synchronization.hpp"
 
+#include <functional>
+#include <memory>
 #include <optional>
 #include <type_traits>
 
@@ -62,24 +64,33 @@ namespace wmoge {
      * @class WeakRefCnt
      * @brief Base class for any shared object which wants weak referencing support
      * 
+     * @tparam Type of class to be declared weak referencable
      * @tparam BaseRefCntClass Base class which provides shared ref cnt mechanism
     */
-    template<typename BaseRefCntClass>
+    template<typename DeclClass, typename BaseRefCntClass>
     class WeakRefCnt : public BaseRefCntClass {
     public:
+        using ReleaseCallback    = std::function<void(DeclClass*)>;
+        using ReleaseCallbackRef = std::shared_ptr<ReleaseCallback>;
+
         ~WeakRefCnt() override = default;
 
+        void                                    set_release_callback(ReleaseCallbackRef callback) { m_callback_ref = std::move(callback); }
         [[nodiscard]] const Ref<WeakRefAccess>& get_weak_access() const { return m_weak_access; }
 
     protected:
         void reach_zero() override {
             if (m_weak_access->try_release_object()) {
+                if (m_callback_ref) {
+                    (*m_callback_ref)(dynamic_cast<DeclClass*>(this));
+                }
                 BaseRefCntClass::destroy();
             }
         }
 
     private:
         Ref<WeakRefAccess> m_weak_access = make_ref<WeakRefAccess>(this);
+        ReleaseCallbackRef m_callback_ref;
     };
 
     template<typename T>
@@ -96,7 +107,7 @@ namespace wmoge {
     public:
         WeakRef() = default;
 
-        WeakRef(std::nullptr_t){};
+        WeakRef(std::nullptr_t) {}
 
         explicit WeakRef(T* object) {
             m_ptr = std::move(weak_ref_access(object));

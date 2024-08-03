@@ -27,29 +27,52 @@
 
 #pragma once
 
-#include "asset/asset_loader.hpp"
-#include "freetype_font.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "gfx/gfx_texture.hpp"
+
+#include <mutex>
+#include <utility>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class FreetypeAssetLoader
-     * @brief Loader for ttf fonts through freetype2 library
+     * @class TexturePool
+     * @brief Pool of preallocated gfx textures (for mem management)
      */
-    class FreetypeAssetLoader final : public AssetLoader {
+    class TexturePool {
     public:
-        WG_RTTI_CLASS(FreetypeAssetLoader, AssetLoader);
+        TexturePool(GfxDriver& driver);
+        ~TexturePool();
 
-        FreetypeAssetLoader()           = default;
-        ~FreetypeAssetLoader() override = default;
+        GfxTextureRef allocate(const GfxTextureDesc& desc, const Strid& name = Strid());
+        void          release(const GfxTextureRef& handle);
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+    private:
+        // Single item allocated from pool
+        struct PoolItem {
+            GfxTextureRef texture;
+        };
+
+        // Pool configured for a specific type of textures
+        struct PoolList {
+            std::vector<PoolItem> items;
+            std::vector<bool>     items_used;
+            std::size_t           n_items      = 0;
+            std::size_t           n_items_used = 0;
+        };
+
+        PoolList* get_or_create_pool(const GfxTextureDesc& desc);
+        PoolList* get_pool(const GfxTextureDesc& desc);
+
+    private:
+        using PoolKeyVal = std::pair<GfxTextureDesc, PoolList>;
+        using PoolMap    = std::vector<PoolKeyVal>;
+
+        PoolMap    m_pools;
+        std::mutex m_mutex;
+
+        GfxDriver& m_driver;
     };
-
-    WG_RTTI_CLASS_BEGIN(FreetypeAssetLoader) {
-        WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
-    }
-    WG_RTTI_END;
 
 }// namespace wmoge

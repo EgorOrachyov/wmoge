@@ -126,30 +126,20 @@ namespace wmoge {
         /** @brief Add specific format asset loader */
         void add_loader(Ref<AssetLoader> loader);
 
+        /** @brief Add specific format asset loader */
+        void add_unloader(Ref<AssetUnloader> unloader);
+
         /** @brief Add additional pak for assets loading */
         void add_pak(std::shared_ptr<AssetPak> pak);
 
         /** @brief Find asset loader by loader name */
         std::optional<AssetLoader*> find_loader(const Strid& loader);
 
+        /** @brief Find asset unloader by asset type */
+        std::optional<AssetUnloader*> find_unloader(RttiClass* rtti);
+
         /** @brief Find asset meta by asset name */
         std::optional<AssetMeta> find_meta(const AssetId& asset);
-
-        /**
-         * @brief Clear from a cache only unused asset
-         *
-         * This is a costly operation, which traverses all cached
-         * assets in a asset system and evicts those entries,
-         * which are not used by the engine at this time.
-         *
-         * @note This operation allows to free some used memory and assets
-         *       at cost of traversal plus potential loading of asset,
-         *       if they requested in future.
-         *
-         * @note Call this operation with regular intervals in couple of frames
-         *       or on scene changes or large streaming chunks updates.
-         */
-        void gc();
 
         /**
          * @brief Evicts all loaded assets from a cache
@@ -180,10 +170,12 @@ namespace wmoge {
         };
 
     private:
-        buffered_vector<std::shared_ptr<AssetPak>> m_paks;
-        flat_map<AssetId, WeakRef<Asset>>          m_assets;
-        flat_map<AssetId, LoadState>               m_loading;
-        flat_map<Strid, Ref<AssetLoader>>          m_loaders;
+        buffered_vector<std::shared_ptr<AssetPak>>   m_paks;
+        flat_map<AssetId, WeakRef<Asset>>            m_assets;
+        flat_map<AssetId, LoadState>                 m_loading;
+        flat_map<Strid, Ref<AssetLoader>>            m_loaders;
+        flat_map<RttiClass*, Ref<AssetUnloader>>     m_unloaders;
+        std::shared_ptr<std::function<void(Asset*)>> m_callback;
 
         class FileSystem*      m_file_system   = nullptr;
         class RttiTypeStorage* m_type_storage  = nullptr;

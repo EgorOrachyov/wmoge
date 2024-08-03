@@ -92,7 +92,7 @@ namespace wmoge {
      * @class Asset
      * @brief Base class for any engine asset
     */
-    class Asset : public WeakRefCnt<RttiObject> {
+    class Asset : public WeakRefCnt<Asset, RttiObject> {
     public:
         WG_RTTI_CLASS(Asset, RttiObject);
 

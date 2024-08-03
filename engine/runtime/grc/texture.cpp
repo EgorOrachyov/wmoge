@@ -33,20 +33,27 @@
 #include "gfx/gfx_driver.hpp"
 #include "io/yaml.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    Texture::Texture(GfxFormat format, int width, int height, int depth, int array_slices, GfxTexSwizz swizz) {
-        m_format       = format;
-        m_width        = width;
-        m_height       = height;
-        m_depth        = depth;
-        m_array_slices = array_slices;
-        m_mips         = 1;
-        m_swizz        = swizz;
+    Texture::~Texture() {
+        if (m_callback) {
+            (*m_callback)(this);
+        }
+    }
+
+    Texture::Texture(TextureFlags flags, GfxTextureDesc desc) {
+        m_flags        = flags;
+        m_format       = desc.format;
+        m_width        = desc.width;
+        m_height       = desc.height;
+        m_depth        = desc.depth;
+        m_array_slices = desc.array_slices;
+        m_mips         = desc.mips_count;
+        m_swizz        = desc.swizz;
     }
 
     void Texture::set_source_images(std::vector<Ref<Image>> images) {
@@ -56,10 +63,16 @@ namespace wmoge {
         m_sampler = sampler;
     }
     void Texture::set_sampler_from_desc(const GfxSamplerDesc& desc) {
-        set_sampler(Engine::instance()->gfx_driver()->make_sampler(desc, SID(desc.to_string())));
+        IocContainer::iresolve_v<GfxDriver>()->make_sampler(desc, SID(desc.to_string()));
     }
     void Texture::set_compression(const TexCompressionParams& params) {
         m_compression = params;
+    }
+    void Texture::set_flags(const TextureFlags& flags) {
+        m_flags = flags;
+    }
+    void Texture::set_texture_callback(CallbackRef callback) {
+        m_callback = callback;
     }
 
     Status Texture::generate_mips() {
@@ -89,13 +102,17 @@ namespace wmoge {
     Status Texture::generate_compressed_data() {
         WG_AUTO_PROFILE_ASSET("Texture::generate_compressed_data");
 
+        if (!m_flags.get(TextureFlag::Compressed)) {
+            WG_LOG_INFO("no compression flag on texutre " << get_name());
+            return StatusCode::InvalidState;
+        }
         if (m_compression.format == TexCompressionFormat::Unknown) {
             WG_LOG_INFO("no compression setup for texture " << get_name());
-            return WG_OK;
+            return StatusCode::InvalidState;
         }
         if (m_images.empty()) {
             WG_LOG_INFO("no source to compress " << get_name());
-            return WG_OK;
+            return StatusCode::InvalidState;
         }
 
         std::vector<GfxImageData> source_data;
@@ -145,43 +162,35 @@ namespace wmoge {
 
         return WG_OK;
     }
-    Status Texture::generate_gfx_resource() {
-        WG_AUTO_PROFILE_ASSET("Texture::generate_gfx_resource");
 
-        if (!m_sampler) {
-            GfxSamplerDesc sampler_desc{};
-            set_sampler_from_desc(sampler_desc);
-        }
+    Status Texture::create_gfx_resource(TexturePool& pool) {
+        WG_AUTO_PROFILE_ASSET("Texture::create_gfx_resource");
+        assert(m_flags.get(TextureFlag::Pooled));
 
-        GfxFormat format     = m_format;
-        bool      compressed = false;
+        const GfxTextureDesc desc = get_desc();
+        m_texture                 = pool.allocate(desc, get_name());
 
-        if (!m_compressed.empty() && m_compression.format != TexCompressionFormat::Unknown) {
-            format     = m_format_compressed;
-            compressed = true;
-        }
+        return WG_OK;
+    }
 
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_driver = engine->gfx_driver();
+    Status Texture::delete_gfx_resource(TexturePool& pool) {
+        WG_AUTO_PROFILE_ASSET("Texture::delete_gfx_resource");
+        assert(m_flags.get(TextureFlag::Pooled));
 
-        switch (m_tex_type) {
-            case GfxTex::Tex2d:
-                m_texture = gfx_driver->make_texture_2d(m_width, m_height, m_mips, format, m_usages, m_mem_usage, m_swizz, get_name());
-                break;
-            case GfxTex::Tex2dArray:
-                m_texture = gfx_driver->make_texture_2d_array(m_width, m_height, m_mips, m_array_slices, format, m_usages, m_mem_usage, get_name());
-                break;
-            case GfxTex::TexCube:
-                m_texture = gfx_driver->make_texture_cube(m_width, m_height, m_mips, format, m_usages, m_mem_usage, get_name());
-                break;
-            default:
-                WG_LOG_ERROR("unknown texture gfx type " << get_name());
-                return StatusCode::InvalidParameter;
-        }
+        pool.release(m_texture);
+        m_texture.reset();
 
+        return Status();
+    }
+
+    Status Texture::upload_gfx_data(GfxCmdListRef& cmd) {
         assert(m_depth == 1);
         assert(m_array_slices >= 1);
         assert(m_mips >= 1);
+
+        const bool is_compressed = m_flags.get(TextureFlag::Compressed);
+        assert(!is_compressed || m_format_compressed != GfxFormat::Unknown);
+        assert(is_compressed || m_format_compressed == GfxFormat::Unknown);
 
         for (int array_slice = 0; array_slice < m_array_slices; array_slice++) {
             for (int mip = 0; mip < m_mips; mip++) {
@@ -190,20 +199,22 @@ namespace wmoge {
                 Ref<Data> data = m_images[index]->get_pixel_data();
                 Rect2i    rect = {0, 0, m_images[index]->get_width(), m_images[index]->get_height()};
 
-                if (compressed) {
+                if (is_compressed) {
                     data = m_compressed[index].data;
                     rect = {0, 0, m_compressed[index].width, m_compressed[index].height};
                 }
 
+                array_view<const std::uint8_t> buffer(data->buffer(), data->size());
+
                 switch (m_tex_type) {
                     case GfxTex::Tex2d:
-                        //     gfx_ctx->update_texture_2d(m_texture, mip, rect, data);
+                        cmd->update_texture_2d(m_texture, mip, rect, buffer);
                         continue;
                     case GfxTex::Tex2dArray:
-                        //     gfx_ctx->update_texture_2d_array(m_texture, mip, array_slice, rect, data);
+                        cmd->update_texture_2d_array(m_texture, mip, array_slice, rect, buffer);
                         continue;
                     case GfxTex::TexCube:
-                        //     gfx_ctx->update_texture_cube(m_texture, mip, array_slice, rect, data);
+                        cmd->update_texture_cube(m_texture, mip, array_slice, rect, buffer);
                         continue;
                     default:
                         assert(false);
@@ -214,12 +225,25 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Texture2d::Texture2d(GfxFormat format, int width, int height, GfxTexSwizz swizz) : Texture(format, width, height, 1, 1, swizz) {
-        m_tex_type = GfxTex::Tex2d;
+    GfxTextureDesc Texture::get_desc() const {
+        GfxTextureDesc desc;
+        desc.width        = m_width;
+        desc.height       = m_height;
+        desc.depth        = m_depth;
+        desc.array_slices = m_array_slices;
+        desc.mips_count   = m_mips;
+        desc.mem_usage    = m_mem_usage;
+        desc.usages       = m_usages;
+        desc.swizz        = m_swizz;
+        desc.format       = m_format_compressed != GfxFormat::Unknown ? m_format_compressed : m_format;
+        desc.tex_type     = m_tex_type;
+        return desc;
     }
 
-    TextureCube::TextureCube(GfxFormat format, int width, int height) : Texture(format, width, height, 1, 6) {
-        m_tex_type = GfxTex::TexCube;
+    Texture2d::Texture2d(TextureFlags flags, GfxTextureDesc desc) : Texture(flags, desc) {
+    }
+
+    TextureCube::TextureCube(TextureFlags flags, GfxTextureDesc desc) : Texture(flags, desc) {
     }
 
 }// namespace wmoge

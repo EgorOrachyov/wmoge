@@ -28,15 +28,31 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "core/mask.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "grc/image.hpp"
 #include "grc/texture_compression.hpp"
+#include "grc/texture_pool.hpp"
 #include "grc/texture_resize.hpp"
 #include "io/serialization.hpp"
 
 namespace wmoge {
+
+    /** @brief Flag assigned to texture asset */
+    enum class TextureFlag {
+        Managed = 0,// Texture managed withing texture manager
+        Pooled,     // Texture gpu memory allocated from pool
+        Streamed,   // Texture can be streamed in-out from disk
+        Compressed, // Texture uses gpu compression to reduce footprint
+        FromDisk,   // Texture loaded from disc as an asset
+        Font,       // Texture created as a font glyph atlas
+    };
+
+    /** @brief Flags assigned to texture asset */
+    using TextureFlags = Mask<TextureFlag>;
 
     /**
      * @class Texture
@@ -46,32 +62,32 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(Texture, Asset);
 
-        Texture()           = default;
-        ~Texture() override = default;
+        using Callback    = std::function<void(Texture*)>;
+        using CallbackRef = std::shared_ptr<Callback>;
+
+        Texture() = default;
+        ~Texture() override;
 
         /**
-         * @brief Create new texture of desired format and size
-         *
-         * @param format Base (with no compression) texture format
-         * @param width Width of the texture in pixels
-         * @param height Height of the texture in pixels
-         * @param depth Depth of the texture in pixels (in most cases 1)
-         * @param array_slices Number of slices for array or cube texture (in most cases 1)
-         * @param swizz Texture channels swizzling
+         * @brief Creates texture object from flags and gfx desc
+         * 
+         * @brief flags Texture object usage flags
+         * @brief desc Gfx texture desc
          */
-        Texture(GfxFormat format, int width, int height, int depth = 1, int array_slices = 1, GfxTexSwizz swizz = GfxTexSwizz::None);
+        Texture(TextureFlags flags, GfxTextureDesc desc);
 
-        virtual void set_source_images(std::vector<Ref<Image>> images);
-        virtual void set_sampler(const Ref<GfxSampler>& sampler);
-        virtual void set_sampler_from_desc(const GfxSamplerDesc& desc);
-        virtual void set_compression(const TexCompressionParams& params);
+        void set_source_images(std::vector<Ref<Image>> images);
+        void set_sampler(const Ref<GfxSampler>& sampler);
+        void set_sampler_from_desc(const GfxSamplerDesc& desc);
+        void set_compression(const TexCompressionParams& params);
+        void set_flags(const TextureFlags& flags);
+        void set_texture_callback(CallbackRef callback);
 
-        /** @brief Generate mip-chain for the image using source 0-mip faces data */
-        virtual Status generate_mips();
-        /** @brief Generate compressed texture data based on compression settings */
-        virtual Status generate_compressed_data();
-        /** @brief Create default gfx texture asset and sampler */
-        virtual Status generate_gfx_resource();
+        Status generate_mips();
+        Status generate_compressed_data();
+        Status create_gfx_resource(TexturePool& pool);
+        Status delete_gfx_resource(TexturePool& pool);
+        Status upload_gfx_data(GfxCmdListRef& cmd);
 
         [[nodiscard]] const std::vector<Ref<Image>>&   get_images() const { return m_images; }
         [[nodiscard]] const std::vector<GfxImageData>& get_compressed() const { return m_compressed; }
@@ -90,6 +106,8 @@ namespace wmoge {
         [[nodiscard]] GfxTexUsages                     get_usages() const { return m_usages; }
         [[nodiscard]] bool                             get_srgb() const { return m_srgb; }
         [[nodiscard]] const TexCompressionParams&      get_compression() const { return m_compression; }
+        [[nodiscard]] const TextureFlags&              get_flgas() const { return m_flags; }
+        [[nodiscard]] GfxTextureDesc                   get_desc() const;
 
     protected:
         std::vector<Ref<Image>>   m_images;
@@ -109,6 +127,8 @@ namespace wmoge {
         GfxTexUsages              m_usages            = {GfxTexUsageFlag::Sampling};
         bool                      m_srgb              = false;
         TexCompressionParams      m_compression{};
+        TextureFlags              m_flags;
+        CallbackRef               m_callback;
     };
 
     WG_RTTI_CLASS_BEGIN(Texture) {
@@ -128,7 +148,7 @@ namespace wmoge {
         Texture2d()           = default;
         ~Texture2d() override = default;
 
-        Texture2d(GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
+        Texture2d(TextureFlags flags, GfxTextureDesc desc);
     };
 
     WG_RTTI_CLASS_BEGIN(Texture2d) {
@@ -148,7 +168,7 @@ namespace wmoge {
         TextureCube()           = default;
         ~TextureCube() override = default;
 
-        TextureCube(GfxFormat format, int width, int height);
+        TextureCube(TextureFlags flags, GfxTextureDesc desc);
     };
 
     WG_RTTI_CLASS_BEGIN(TextureCube) {

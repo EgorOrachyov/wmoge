@@ -49,6 +49,9 @@ namespace wmoge {
         GfxFormat    format       = GfxFormat::RGBA8;
         GfxMemUsage  mem_usage    = GfxMemUsage::GpuLocal;
         GfxTexUsages usages;
+
+        static GfxTextureDesc make_2d(GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
+        static GfxTextureDesc make_cube(GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
     };
 
     /**

@@ -62,6 +62,8 @@ namespace wmoge {
         AuxDrawManager();
         ~AuxDrawManager();
 
+        void init();
+
         void draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, float lifetime = LIFETIME_ONE_FRAME);
         void draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);
         void draw_sphere(const Vec3f& pos, float radius, const Color4f& color, bool solid = true, float lifetime = LIFETIME_ONE_FRAME);

@@ -27,15 +27,19 @@
 
 #pragma once
 
+#include "core/flat_set.hpp"
 #include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
+#include "grc/texture.hpp"
+#include "grc/texture_pool.hpp"
+
+#include <mutex>
+#include <vector>
 
 namespace wmoge {
 
-    /**
-     * @brief Built-in default textures
-    */
+    /** @brief Built-in default textures */
     enum class DefaultTexture {
         White = 0,
         Black,
@@ -46,9 +50,7 @@ namespace wmoge {
         Total
     };
 
-    /**
-     * @brief Built-in default samplers
-    */
+    /** @brief Built-in default samplers */
     enum class DefaultSampler {
         Default = 0,
         Linear,
@@ -56,26 +58,57 @@ namespace wmoge {
         Total
     };
 
+    /** @brief Managed texture state */
+    enum class TextureState {
+        PendingInit = 0,
+        Inited
+    };
+
     /**
      * @class TextureManager
-     * @brief Render core manager for gfx texture assets
+     * @brief Manager for memory, gfx and streaming of texture assets
     */
     class TextureManager {
     public:
         TextureManager();
+        ~TextureManager() = default;
+
+        void update();
+
+        Ref<Texture2d>   create_2d(TextureFlags flags, GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
+        Ref<TextureCube> create_cube(TextureFlags flags, GfxFormat format, int width, int height);
+        void             add(const Ref<Texture>& texture);
+        void             remove(Texture* texture);
+        void             init(Texture* texture);
+        bool             has(Texture* texture) const;
 
         [[nodiscard]] const Ref<GfxTexture>& get_texture(DefaultTexture texture);
         [[nodiscard]] const Ref<GfxSampler>& get_sampler(DefaultSampler sampler);
 
     private:
-        void init_default_textures();
         void init_default_samplers();
+        void init_default_textures();
+        void upload_default_textures();
+        void init_textures();
 
     private:
-        GfxDriver* m_gfx_driver;
+        struct Entry {
+            WeakRef<Texture>   weak_ref;
+            Mask<TextureState> state;
+        };
+
+        flat_map<Texture*, Entry> m_textures;
+
+        std::shared_ptr<std::function<void(Texture*)>> m_callback;
+        std::unique_ptr<TexturePool>                   m_pool;
+        bool                                           m_need_upload_default = true;
 
         Ref<GfxTexture> m_default_textures[int(DefaultTexture::Total)];
         Ref<GfxSampler> m_default_samplers[int(DefaultSampler::Total)];
+
+        GfxDriver* m_gfx_driver;
+
+        mutable std::mutex m_mutex;
     };
 
 }// namespace wmoge

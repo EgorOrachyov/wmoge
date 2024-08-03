@@ -77,7 +77,7 @@ namespace wmoge {
     public:
         Ref() = default;
 
-        Ref(std::nullptr_t){};
+        Ref(std::nullptr_t) {}
 
         explicit Ref(T* object) {
             m_ptr = ref(object);
