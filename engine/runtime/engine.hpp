@@ -221,11 +221,9 @@
 #include "scripting/script_system.hpp"
 
 #include "system/config.hpp"
+#include "system/console.hpp"
 #include "system/engine.hpp"
 #include "system/hook.hpp"
 #include "system/ioc_container.hpp"
-#include "system/layer.hpp"
 #include "system/plugin.hpp"
 #include "system/plugin_manager.hpp"
-
-#include "debug/console.hpp"

@@ -61,7 +61,6 @@ namespace wmoge {
         class RttiTypeStorage* type_storage();
         class ClassDB*         class_db();
         class Time*            time();
-        class LayerStack*      layer_stack();
         class HookList*        hook_list();
         class CmdLine*         cmd_line();
         class DllManager*      dll_manager();
@@ -100,7 +99,6 @@ namespace wmoge {
         class RttiTypeStorage* m_type_storage     = nullptr;
         class ClassDB*         m_class_db         = nullptr;
         class Time*            m_time             = nullptr;
-        class LayerStack*      m_layer_stack      = nullptr;
         class HookList*        m_hook_list        = nullptr;
         class CmdLine*         m_cmd_line         = nullptr;
         class DllManager*      m_dll_manager      = nullptr;

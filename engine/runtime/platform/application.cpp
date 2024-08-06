@@ -34,8 +34,6 @@
 #include "core/cmd_line.hpp"
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
-#include "debug/console.hpp"
-#include "debug/debug_layer.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
@@ -68,10 +66,10 @@
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
 #include "system/config.hpp"
+#include "system/console.hpp"
 #include "system/engine.hpp"
 #include "system/hook.hpp"
 #include "system/ioc_container.hpp"
-#include "system/layer.hpp"
 #include "system/plugin_manager.hpp"
 
 #include "asset/_rtti.hpp"
@@ -95,7 +93,6 @@ namespace wmoge {
         ioc->bind<DllManager>();
         ioc->bind<PluginManager>();
         ioc->bind<Time>();
-        ioc->bind<LayerStack>();
         ioc->bind<Config>();
         ioc->bind<FileSystem>();
         ioc->bind<Console>();

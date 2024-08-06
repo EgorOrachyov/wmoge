@@ -34,8 +34,6 @@
 #include "core/cmd_line.hpp"
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
-#include "debug/console.hpp"
-#include "debug/debug_layer.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "grc/pso_cache.hpp"
@@ -65,10 +63,10 @@
 #include "scripting/lua/lua_script_system.hpp"
 #include "scripting/script_system.hpp"
 #include "system/config.hpp"
+#include "system/console.hpp"
 #include "system/engine.hpp"
 #include "system/hook.hpp"
 #include "system/ioc_container.hpp"
-#include "system/layer.hpp"
 #include "system/plugin_manager.hpp"
 
 #include <cassert>
@@ -85,7 +83,6 @@ namespace wmoge {
         m_class_db       = ClassDB::instance();
         m_type_storage   = ioc->resolve_v<RttiTypeStorage>();
         m_time           = ioc->resolve_v<Time>();
-        m_layer_stack    = ioc->resolve_v<LayerStack>();
         m_cmd_line       = ioc->resolve_v<CmdLine>();
         m_hook_list      = ioc->resolve_v<HookList>();
         m_file_system    = ioc->resolve_v<FileSystem>();
@@ -142,7 +139,6 @@ namespace wmoge {
 
         m_aux_draw_manager->init();
         m_console->init();
-        m_layer_stack->attach(std::make_shared<DebugLayer>());
 
         if (m_config->get_bool_or_default(SID("window.exit"), true)) {
             WG_LOG_INFO("configure exit on primary window close");
@@ -161,10 +157,6 @@ namespace wmoge {
 
         auto windows = m_window_manager->get_windows();
 
-        m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {
-            layer->on_start_frame();
-        });
-
         m_gfx_driver->begin_frame(m_frame_id, windows);
 
         if (m_scene_manager) {
@@ -174,18 +166,6 @@ namespace wmoge {
         if (m_texture_manager) {
             m_texture_manager->update();
         }
-
-        m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {
-            layer->on_iter();
-        });
-
-        m_layer_stack->each_up([](LayerStack::LayerPtr& layer) {
-            layer->on_debug_draw();
-        });
-
-        m_layer_stack->each_down([](LayerStack::LayerPtr& layer) {
-            layer->on_end_frame();
-        });
 
         m_window_manager->poll_events();
 
@@ -198,7 +178,6 @@ namespace wmoge {
         WG_AUTO_PROFILE_SYSTEM("Engine::shutdown");
 
         m_plugin_manager->shutdown();
-        m_layer_stack->clear();
         m_task_manager->shutdown();
         m_console->shutdown();
         m_scene_manager->clear();
@@ -217,7 +196,6 @@ namespace wmoge {
     RttiTypeStorage* Engine::type_storage() { return m_type_storage; }
     ClassDB*         Engine::class_db() { return m_class_db; }
     Time*            Engine::time() { return m_time; }
-    LayerStack*      Engine::layer_stack() { return m_layer_stack; }
     HookList*        Engine::hook_list() { return m_hook_list; }
     CmdLine*         Engine::cmd_line() { return m_cmd_line; }
     DllManager*      Engine::dll_manager() { return m_dll_manager; }

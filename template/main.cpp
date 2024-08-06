@@ -98,19 +98,6 @@ public:
 
         // Engine::instance()->scene_manager()->change(scene);
 
-        class ApplicationLayer : public Layer {
-        public:
-            ApplicationLayer(TemplateApplication* game) : game(game) {}
-
-            void on_iter() override {
-                game->debug_draw();
-            }
-
-            TemplateApplication* game;
-        };
-
-        Engine::instance()->layer_stack()->attach(std::make_shared<ApplicationLayer>(this));
-
         ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80);
         rdc
                 .add_field(SID("Transform0"), ShaderTypes::VEC4)

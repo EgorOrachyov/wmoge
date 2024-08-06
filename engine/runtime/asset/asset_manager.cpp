@@ -46,7 +46,7 @@ namespace wmoge {
             std::lock_guard guard(m_mutex);
 
             auto& id   = asset->get_id();
-            auto& rtti = asset->get_class_name();
+            auto  rtti = asset->get_class_name();
 
             auto unloader = find_unloader(rtti);
             if (unloader) {

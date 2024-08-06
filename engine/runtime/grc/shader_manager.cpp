@@ -29,7 +29,6 @@
 
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
-#include "debug/console.hpp"
 #include "grc/shader_builder.hpp"
 #include "grc/shader_library.hpp"
 #include "io/enum.hpp"
@@ -38,6 +37,7 @@
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
 #include "system/config.hpp"
+#include "system/console.hpp"
 #include "system/ioc_container.hpp"
 
 #include <cassert>

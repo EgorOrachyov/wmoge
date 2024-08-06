@@ -27,9 +27,9 @@
 
 #include "log.hpp"
 
-#include "debug/console.hpp"
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
+#include "system/console.hpp"
 #include "system/ioc_container.hpp"
 
 #include <magic_enum.hpp>
@@ -115,7 +115,7 @@ namespace wmoge {
                  << entry.message << "\n";
     }
 
-    LogListenerConsole::LogListenerConsole(class Console* console, LogLevel level)
+    LogListenerConsole::LogListenerConsole(Console* console, LogLevel level)
         : m_console(console), m_level(level) {
     }
     void LogListenerConsole::on_message(const LogEntry& entry) {
