@@ -44,7 +44,7 @@ namespace wmoge {
         WG_AUTO_PROFILE_DEBUG("DebugLayer::on_start_frame");
 
         auto engine           = Engine::instance();
-        auto window           = engine->window_manager()->primary_window();
+        auto window           = engine->window_manager()->get_primary_window();
         auto canvas_debug     = engine->canvas_debug();
         auto aux_draw_manager = engine->aux_draw_manager();
     }
@@ -56,7 +56,7 @@ namespace wmoge {
         auto canvas_debug     = engine->canvas_debug();
         auto aux_draw_manager = engine->aux_draw_manager();
         auto console          = engine->console();
-        auto window           = engine->window_manager()->primary_window();
+        auto window           = engine->window_manager()->get_primary_window();
 
         console->update();
         console->render();

@@ -27,10 +27,66 @@
 
 #pragma once
 
+#include "math/vec.hpp"
 #include "platform/input_defs.hpp"
 #include "platform/input_devices.hpp"
 
+#include <vector>
+
 namespace wmoge {
+
+    /**
+     * @class InputEventMouse
+     * @brief Mouse input
+     */
+    struct InputEventMouse {
+        Ref<Mouse>       mouse;
+        Point2f          position;
+        Size2f           delta;
+        InputModifiers   modifiers;
+        InputAction      action;
+        InputMouseButton button;
+    };
+
+    /**
+     * @class InputEventKeyboard
+     * @brief Keyboard input
+     */
+    struct InputEventKeyboard {
+        Ref<Keyboard>    keyboard;
+        InputModifiers   modifiers;
+        InputAction      action;
+        InputKeyboardKey key;
+        std::string      text;
+    };
+
+    /**
+     * @class InputEventJoystick
+     * @brief Joystick input
+     */
+    struct InputEventJoystick {
+        Ref<Joystick> joystick;
+        InputAction   action;
+        int           button;
+    };
+
+    /**
+     * @class InputEventGamepad
+     * @brief Gamepad mapped input
+     */
+    struct InputEventGamepad {
+        Ref<Joystick> joystick;
+        InputAction   action;
+        int           button;
+    };
+
+    /**
+     * @class InputEventDrop
+     * @brief Drop input for desktop
+     */
+    struct InputEventDrop {
+        std::vector<std::string> paths;
+    };
 
     /**
      * @class Input
@@ -38,10 +94,15 @@ namespace wmoge {
      */
     class Input {
     public:
-        virtual ~Input()                       = default;
-        virtual Ref<Mouse>    mouse()          = 0;
-        virtual Ref<Keyboard> keyboard()       = 0;
-        virtual Ref<Joystick> joystick(int id) = 0;
+        virtual ~Input()                                                     = default;
+        virtual Ref<Mouse>                             get_mouse()           = 0;
+        virtual Ref<Keyboard>                          get_keyboard()        = 0;
+        virtual Ref<Joystick>                          get_joystick(int id)  = 0;
+        virtual const std::vector<InputEventMouse>&    get_events_mouse()    = 0;
+        virtual const std::vector<InputEventKeyboard>& get_events_keyboard() = 0;
+        virtual const std::vector<InputEventJoystick>& get_events_joystick() = 0;
+        virtual const std::vector<InputEventGamepad>&  get_events_gamepad()  = 0;
+        virtual const std::vector<InputEventDrop>&     get_events_drop()     = 0;
     };
 
 }// namespace wmoge

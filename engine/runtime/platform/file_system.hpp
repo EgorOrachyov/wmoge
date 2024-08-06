@@ -38,12 +38,31 @@
 #include <deque>
 #include <filesystem>
 #include <fstream>
+#include <functional>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
 
 namespace wmoge {
+
+    /** @brief Type of file system file actions */
+    enum class FileSystemAction {
+        Unknown,
+        Added,
+        Modified,
+        Removed
+    };
+
+    /**
+     * @class EventFileSystem
+     * @brief Action event dispatch from raw input and active mapping
+     */
+    struct FileSystemEvent {
+        FileSystemAction action;
+        std::string      path;
+        std::string      entry;
+    };
 
     /**
      * @class FileSystem
@@ -91,7 +110,7 @@ namespace wmoge {
         Status                open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode);
         Status                save_file(const std::string& path, const std::string& data);
         Status                save_file(const std::string& path, const std::vector<std::uint8_t>& data);
-        void                  watch(const std::string& path);
+        void                  watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback);
         void                  add_rule(const ResolutionRule& rule, bool front = false);
         void                  add_mounting(const MountPoint& point, bool front = false);
         void                  root(const std::filesystem::path& path);

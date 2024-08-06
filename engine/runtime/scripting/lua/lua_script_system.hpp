@@ -31,7 +31,6 @@
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
 #include "core/string_id.hpp"
-#include "event/event.hpp"
 #include "scripting/lua/lua_defs.hpp"
 #include "scripting/script_system.hpp"
 #include <core/buffered_vector.hpp>

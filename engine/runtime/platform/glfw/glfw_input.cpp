@@ -28,45 +28,52 @@
 #include "glfw_input.hpp"
 
 #include "core/string_utf.hpp"
-#include "event/event_input.hpp"
-#include "event/event_manager.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 #include <algorithm>
 
 namespace wmoge {
 
+    static GlfwInput* g_glfw_input = nullptr;
+
     GlfwInput::GlfwInput(class GlfwWindowManager& manager) : m_manager(manager) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::GlfwInput");
 
-        m_mouse    = make_ref<GlfwMouse>();
-        m_keyboard = make_ref<GlfwKeyboard>();
+        g_glfw_input = this;
+        m_mouse      = make_ref<GlfwMouse>();
+        m_keyboard   = make_ref<GlfwKeyboard>();
 
         check_connected_joysticks();
     }
 
-    Ref<Mouse> GlfwInput::mouse() {
-        std::lock_guard guard(m_manager.mutex());
-
+    Ref<Mouse> GlfwInput::get_mouse() {
         return m_mouse;
     }
-    Ref<Keyboard> GlfwInput::keyboard() {
-        std::lock_guard guard(m_manager.mutex());
-
+    Ref<Keyboard> GlfwInput::get_keyboard() {
         return m_keyboard;
     }
-    Ref<Joystick> GlfwInput::joystick(int id) {
-        std::lock_guard guard(m_manager.mutex());
-
+    Ref<Joystick> GlfwInput::get_joystick(int id) {
         return id < m_joysticks.size() ? m_joysticks[id] : nullptr;
+    }
+    const std::vector<InputEventMouse>& GlfwInput::get_events_mouse() {
+        return m_events_mouse;
+    }
+    const std::vector<InputEventKeyboard>& GlfwInput::get_events_keyboard() {
+        return m_events_keyboard;
+    }
+    const std::vector<InputEventJoystick>& GlfwInput::get_events_joystick() {
+        return m_events_joystick;
+    }
+    const std::vector<InputEventGamepad>& GlfwInput::get_events_gamepad() {
+        return m_events_gamepad;
+    }
+    const std::vector<InputEventDrop>& GlfwInput::get_events_drop() {
+        return m_events_drop;
     }
 
     void GlfwInput::subscribe_window(GLFWwindow* window) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::subscribe_window");
-
-        std::lock_guard guard(m_manager.mutex());
 
         glfwSetDropCallback(window, drop_callback);
         glfwSetCursorPosCallback(window, mouse_position_callback);
@@ -79,46 +86,14 @@ namespace wmoge {
     void GlfwInput::update() {
         WG_AUTO_PROFILE_GLFW("GlfwInput::update");
 
-        std::lock_guard guard(m_manager.mutex());
-
         for (auto& joystick : m_joysticks) {
             if (joystick->state() == InputDeviceState::Connected) {
                 joystick->update();
             }
         }
-
-        // Handle press and held case
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-
-        const auto& keys = m_keyboard->keys_states();
-        for (int i = 0; i < static_cast<int>(keys.size()); ++i) {
-            if (keys[i] == InputAction::Press || keys[i] == InputAction::Repeat) {
-                auto event      = make_ref<EventKeyboard>();
-                event->keyboard = m_keyboard;
-                event->key      = static_cast<InputKeyboardKey>(i);
-                event->action   = InputAction::PressHeld;
-                event_manager->dispatch(event);
-            }
-        }
-
-        const auto& buttons = m_mouse->button_states();
-        for (int i = 0; i < static_cast<int>(buttons.size()); ++i) {
-            if (buttons[i] == InputAction::Press || buttons[i] == InputAction::Repeat) {
-                auto event      = make_ref<EventMouse>();
-                event->mouse    = m_mouse;
-                event->button   = static_cast<InputMouseButton>(i);
-                event->position = m_mouse->position();
-                event->delta    = m_mouse->delta();
-                event->action   = InputAction::PressHeld;
-                event_manager->dispatch(event);
-            }
-        }
     }
 
     void GlfwInput::check_connected_joysticks() {
-        std::lock_guard guard(m_manager.mutex());
-
         for (int jid = 0; jid < GLFW_JOYSTICK_LAST; jid++) {
             if (glfwJoystickPresent(jid)) {
                 m_joysticks.push_back(make_ref<GlfwJoystick>(jid));
@@ -126,14 +101,20 @@ namespace wmoge {
         }
     }
 
-    Ref<GlfwJoystick> GlfwInput::get_joystick(int jid) {
-        std::lock_guard guard(m_manager.mutex());
-
+    Ref<GlfwJoystick> GlfwInput::get_joystick_by_hnd(int jid) {
         auto query = std::find_if(m_joysticks.begin(), m_joysticks.end(), [=](Ref<GlfwJoystick>& joystick) {
             return joystick->hnd() == jid;
         });
 
         return query == m_joysticks.end() ? Ref<GlfwJoystick>() : *query;
+    }
+
+    void GlfwInput::clear_events() {
+        m_events_mouse.clear();
+        m_events_keyboard.clear();
+        m_events_joystick.clear();
+        m_events_gamepad.clear();
+        m_events_drop.clear();
     }
 
     void GlfwInput::drop_callback(GLFWwindow*, int count, const char** paths) {
@@ -147,39 +128,30 @@ namespace wmoge {
                 paths_vector.emplace_back(paths[i]);
             }
 
-            auto engine        = Engine::instance();
-            auto event_manager = engine->event_manager();
-            auto event         = make_ref<EventDrop>();
-            event->paths       = std::move(paths_vector);
-            event_manager->dispatch(event);
+            InputEventDrop& event = g_glfw_input->m_events_drop.emplace_back();
+            event.paths           = std::move(paths_vector);
         }
     }
 
     void GlfwInput::mouse_position_callback(GLFWwindow*, double x, double y) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::mouse_position_callback");
 
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-        auto input         = dynamic_cast<GlfwInput*>(engine->input());
-        auto mouse         = input->m_mouse;
+        auto mouse = g_glfw_input->m_mouse;
 
         Point2f position(static_cast<float>(x), static_cast<float>(y));
         mouse->update_position(position);
-        auto event      = make_ref<EventMouse>();
-        event->mouse    = mouse;
-        event->action   = InputAction::Move;
-        event->position = mouse->position();
-        event->delta    = mouse->delta();
-        event_manager->dispatch(event);
+
+        InputEventMouse& event = g_glfw_input->m_events_mouse.emplace_back();
+        event.mouse            = mouse;
+        event.action           = InputAction::Move;
+        event.position         = mouse->position();
+        event.delta            = mouse->delta();
     }
 
     void GlfwInput::mouse_buttons_callback(GLFWwindow*, int button, int action, int mods) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::mouse_buttons_callback");
 
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-        auto input         = dynamic_cast<GlfwInput*>(engine->input());
-        auto mouse         = input->m_mouse;
+        auto mouse = g_glfw_input->m_mouse;
 
         auto mask         = GlfwInputDefs::mods_mask(mods);
         auto mouse_button = GlfwInputDefs::mouse_button(button);
@@ -187,22 +159,19 @@ namespace wmoge {
 
         if (mouse_button != InputMouseButton::Unknown && mouse_action != InputAction::Unknown) {
             mouse->update_button(mouse_button, mouse_action);
-            auto event       = make_ref<EventMouse>();
-            event->mouse     = mouse;
-            event->action    = mouse_action;
-            event->button    = mouse_button;
-            event->modifiers = mask;
-            event_manager->dispatch(event);
+
+            InputEventMouse& event = g_glfw_input->m_events_mouse.emplace_back();
+            event.mouse            = mouse;
+            event.action           = mouse_action;
+            event.button           = mouse_button;
+            event.modifiers        = mask;
         }
     }
 
     void GlfwInput::keyboard_keys_callback(GLFWwindow*, int key, int scancode, int action, int mods) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::keyboard_keys_callback");
 
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-        auto input         = dynamic_cast<GlfwInput*>(engine->input());
-        auto keyboard      = input->m_keyboard;
+        auto keyboard = g_glfw_input->m_keyboard;
 
         auto mask            = GlfwInputDefs::mods_mask(mods);
         auto keyboard_key    = GlfwInputDefs::keyboard_key(key);
@@ -210,42 +179,34 @@ namespace wmoge {
 
         if (keyboard_key != InputKeyboardKey::Unknown && keyboard_action != InputAction::Unknown) {
             keyboard->update_key(keyboard_key, keyboard_action);
-            auto event       = make_ref<EventKeyboard>();
-            event->keyboard  = keyboard;
-            event->action    = keyboard_action;
-            event->key       = keyboard_key;
-            event->modifiers = mask;
-            event_manager->dispatch(event);
+
+            InputEventKeyboard& event = g_glfw_input->m_events_keyboard.emplace_back();
+            event.keyboard            = keyboard;
+            event.action              = keyboard_action;
+            event.key                 = keyboard_key;
+            event.modifiers           = mask;
         }
     }
 
     void GlfwInput::keyboard_text_callback(GLFWwindow*, unsigned int code_point) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::keyboard_text_callback");
 
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-        auto input         = dynamic_cast<GlfwInput*>(engine->input());
-        auto keyboard      = input->m_keyboard;
+        auto keyboard = g_glfw_input->m_keyboard;
 
         char text[8];
         int  length = 0;
         StringUtf::utf32_to_utf8_chr(code_point, text, length);
 
-        auto event      = make_ref<EventKeyboard>();
-        event->keyboard = keyboard;
-        event->action   = InputAction::Text;
-        event->text     = std::string(text, length);
-        event_manager->dispatch(event);
+        InputEventKeyboard& event = g_glfw_input->m_events_keyboard.emplace_back();
+        event.keyboard            = keyboard;
+        event.action              = InputAction::Text;
+        event.text                = std::string(text, length);
     }
 
     void GlfwInput::joystick_callback(int jid, int state) {
         WG_AUTO_PROFILE_GLFW("GlfwInput::joystick_callback");
 
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-        auto input         = dynamic_cast<GlfwInput*>(engine->input());
-
-        auto joystick    = input->get_joystick(jid);
+        auto joystick    = g_glfw_input->get_joystick_by_hnd(jid);
         auto deviceState = state == GLFW_CONNECTED ? InputDeviceState::Connected : InputDeviceState::Disconnected;
 
         // If found (previously was connected, update state)
@@ -256,14 +217,13 @@ namespace wmoge {
         // If connected and not found, add new one
         if (!joystick && deviceState == InputDeviceState::Connected) {
             joystick = make_ref<GlfwJoystick>(jid);
-            input->m_joysticks.push_back(joystick);
+            g_glfw_input->m_joysticks.push_back(joystick);
         }
 
         if (joystick) {
-            auto event      = make_ref<EventJoystick>();
-            event->joystick = joystick;
-            event->action   = InputAction::State;
-            event_manager->dispatch(event);
+            InputEventJoystick& event = g_glfw_input->m_events_joystick.emplace_back();
+            event.joystick            = joystick;
+            event.action              = InputAction::State;
         }
     }
 

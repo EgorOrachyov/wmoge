@@ -55,8 +55,6 @@ namespace wmoge {
         Release = 2,
         /** Button or key is repeated (character stick) */
         Repeat = 3,
-        /** Button or key is pressed and held */
-        PressHeld = 4,
         /** Mouse (touch axis) moved */
         Move = 5,
         /** Keyboard unicode text input */

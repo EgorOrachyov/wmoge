@@ -30,11 +30,6 @@
 #include "asset/asset_manager.hpp"
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
-#include "event/event.hpp"
-#include "event/event_action.hpp"
-#include "event/event_input.hpp"
-#include "event/event_manager.hpp"
-#include "gameplay/action_manager.hpp"
 #include "math/math_utils.hpp"
 #include "platform/time.hpp"
 #include "platform/window.hpp"
@@ -42,7 +37,6 @@
 #include "profiler/profiler.hpp"
 #include "render/canvas.hpp"
 #include "system/config.hpp"
-#include "system/engine.hpp"
 #include "system/ioc_container.hpp"
 
 #include <algorithm>
@@ -146,93 +140,12 @@ namespace wmoge {
     void Console::init() {
         register_commands();
         load_settings();
-
-        auto* event_manager  = Engine::instance()->event_manager();
-        auto* action_manager = Engine::instance()->action_manager();
-
-        m_actions_listener = event_manager->subscribe<EventAction>([this, action_manager](const EventAction& event) {
-            // Opening closing
-            {
-                std::lock_guard guard(m_mutex);
-
-                if (event.name == SID("cn_trigger")) {
-                    if (m_state == ConsoleState::Closed || m_state == ConsoleState::Closing) {
-                        m_current_speed = m_speed_open;
-                        m_state         = ConsoleState::Opening;
-
-                        action_manager->activate_all_except(SID("console"), false);
-
-                        return true;
-                    }
-                    if (m_state == ConsoleState::Open || m_state == ConsoleState::Opening) {
-                        m_current_speed = -m_speed_open;
-                        m_state         = ConsoleState::Closing;
-
-                        action_manager->activate_all(true);
-
-                        return true;
-                    }
-                }
-            }
-
-            std::string line_to_process;
-
-            // Control
-            {
-                std::lock_guard guard(m_mutex);
-
-                if (m_state == ConsoleState::Open) {
-                    if (event.name == SID("cn_delete") && !m_line.empty()) {
-                        m_line.pop_back();
-                        m_cursor_offset = m_console_font->get_string_size(m_line, m_text_size).x();
-                        return true;
-                    } else if (event.name == SID("cn_submit") && !m_line.empty()) {
-                        m_cursor_offset   = 0;
-                        m_scroll_messages = 0;
-                        std::swap(line_to_process, m_line);
-                    } else if (event.name == SID("cn_scroll_up")) {
-                        m_scroll_messages = Math::max(0, Math::min(m_scroll_messages + 1, static_cast<int>(m_messages.size()) - m_max_to_display));
-                        return true;
-                    } else if (event.name == SID("cn_scroll_down")) {
-                        m_scroll_messages = Math::max(m_scroll_messages - 1, 0);
-                        return true;
-                    }
-                }
-            }
-
-            if (!line_to_process.empty()) {
-                process(line_to_process);
-                return true;
-            }
-
-            return false;
-        });
-
-        m_keyboard_listener = event_manager->subscribe<EventKeyboard>([this](const EventKeyboard& event) {
-            // Input
-            {
-                std::lock_guard guard(m_mutex);
-
-                if (m_state == ConsoleState::Open) {
-                    if (event.action == InputAction::Text && !event.text.empty()) {
-                        m_line += event.text;
-                        m_cursor_offset = m_console_font->get_string_size(m_line, m_text_size).x();
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        });
     }
+
     void Console::shutdown() {
-        auto* event_manager = Engine::instance()->event_manager();
-
-        event_manager->unsubscribe(m_actions_listener);
-        event_manager->unsubscribe(m_keyboard_listener);
-
         m_console_font.reset();
     }
+
     void Console::update() {
         WG_AUTO_PROFILE_DEBUG("Console::update");
 

@@ -86,22 +86,6 @@
 #include "ecs/ecs_registry.hpp"
 #include "ecs/ecs_world.hpp"
 
-#include "event/event.hpp"
-#include "event/event_action.hpp"
-#include "event/event_asset.hpp"
-#include "event/event_filesystem.hpp"
-#include "event/event_input.hpp"
-#include "event/event_listener.hpp"
-#include "event/event_manager.hpp"
-#include "event/event_scene.hpp"
-#include "event/event_script.hpp"
-#include "event/event_token.hpp"
-#include "event/event_window.hpp"
-
-#include "gameplay/action_manager.hpp"
-#include "gameplay/action_map.hpp"
-#include "gameplay/game_token_manager.hpp"
-
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_defs.hpp"

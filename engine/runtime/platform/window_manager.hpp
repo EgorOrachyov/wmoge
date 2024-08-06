@@ -30,7 +30,31 @@
 #include "core/buffered_vector.hpp"
 #include "platform/window.hpp"
 
+#include <vector>
+
 namespace wmoge {
+
+    /** @brief Type of window changes */
+    enum class WindowNotification {
+        Minimized,
+        Maximized,
+        Restored,
+        Resized,
+        FocusReceived,
+        FocusLost,
+        FramebufferResized,
+        ContentScale,
+        CloseRequested
+    };
+
+    /**
+     * @class WindowEvent
+     * @brief Platform window event
+     */
+    struct WindowEvent {
+        Ref<Window>        window;
+        WindowNotification notification;
+    };
 
     /**
      * @class WindowManager
@@ -38,12 +62,13 @@ namespace wmoge {
      */
     class WindowManager {
     public:
-        virtual ~WindowManager()                                                   = default;
-        virtual void                         poll_events()                         = 0;
-        virtual buffered_vector<Ref<Window>> windows()                             = 0;
-        virtual Ref<Window>                  primary_window()                      = 0;
-        virtual Ref<Window>                  create(const WindowInfo& window_info) = 0;
-        virtual Ref<Window>                  get(const Strid& window_id)           = 0;
+        virtual ~WindowManager()                                                             = default;
+        virtual void                            poll_events()                                = 0;
+        virtual buffered_vector<Ref<Window>>    get_windows()                                = 0;
+        virtual Ref<Window>                     get_primary_window()                         = 0;
+        virtual Ref<Window>                     create_window(const WindowInfo& window_info) = 0;
+        virtual Ref<Window>                     get_window(const Strid& window_id)           = 0;
+        virtual const std::vector<WindowEvent>& get_window_events()                          = 0;
     };
 
 }// namespace wmoge

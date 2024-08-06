@@ -74,88 +74,17 @@ namespace wmoge {
         AssetManager();
         ~AssetManager() = default;
 
-        /**
-         * @brief Async load of engine asset using provided asset name
-         *
-         * Allows to load game asset by its name. Assets are stored inside game
-         * asset pak file. Asset manager automatically resolves asset path by its name.
-         *
-         * @note Each asset must have a asset meta info file (in .xml) format. This meta info
-         *       file allows to get asset reflection data, required to load asset at runtime.
-         *
-         * @note If asset already loaded and cached in the engine,
-         *       the reference to loaded instance is returned.
-         *
-         * @note If asset is already queued to be loaded, reference to loaded asset is returned.
-         *
-         * @note Pass callback function to be notified when asset loading is finished.
-         *       If asset already cached, this function will be called immediately before function return.
-         *
-         * @param name Unique name of the asset to load
-         * @param callback Callback to call on main thread when asset is loaded.
-         *
-         * @return Asset reference
-         */
-        AsyncResult<Ref<Asset>> load_async(const AssetId& name, AssetCallback callback = AssetCallback());
-
-        /**
-         * @brief Sync load of the engine asset using provided asset name
-         *
-         * Allows to load game asset by its name. Assets are stored inside game
-         * asset pak file. Asset manager automatically resolves asset path by its name.
-         *
-         * @note Each asset must have a asset meta info file (in .xml) format. This meta info
-         *       file allows to get asset reflection data, required to load asset at runtime.
-         *
-         * @note If asset already loaded and cached in the engine,
-         *       the reference to loaded instance is returned.
-         *
-         * @note Sync asset loading is a simple and straightforward approach to work with
-         *       assets. But blocks current thread and takes extra processing time in case of
-         *       sync load of a large amount of assets. Consider using `load_async` method.
-         *
-         * @param name Unique name of the asset to load
-         *
-         * @return Asset reference
-         */
-        Ref<Asset> load(const AssetId& name);
-
-        /** @brief Find a asset by name if it is already cached */
-        Ref<Asset> find(const AssetId& name);
-
-        /** @brief Add specific format asset loader */
-        void add_loader(Ref<AssetLoader> loader);
-
-        /** @brief Add specific format asset loader */
-        void add_unloader(Ref<AssetUnloader> unloader);
-
-        /** @brief Add additional pak for assets loading */
-        void add_pak(std::shared_ptr<AssetPak> pak);
-
-        /** @brief Find asset loader by loader name */
-        std::optional<AssetLoader*> find_loader(const Strid& loader);
-
-        /** @brief Find asset unloader by asset type */
-        std::optional<AssetUnloader*> find_unloader(RttiClass* rtti);
-
-        /** @brief Find asset meta by asset name */
-        std::optional<AssetMeta> find_meta(const AssetId& asset);
-
-        /**
-         * @brief Evicts all loaded assets from a cache
-         *
-         * Clear entirely cache of loaded assets. Any new asset loading
-         * operation will require asset loading from a disk.
-         *
-         * @note Clearing cache does not free memory of currently used assets
-         *       in the engine due to strong memory references.
-         */
-        void clear();
-
-        /**
-         * @brief Loads loaders into manager from global rtti info
-        */
-        void load_loaders();
+        AsyncResult<Ref<Asset>>       load_async(const AssetId& name, AssetCallback callback = AssetCallback());
+        Ref<Asset>                    load(const AssetId& name);
+        Ref<Asset>                    find(const AssetId& name);
+        void                          add_loader(Ref<AssetLoader> loader);
+        void                          add_unloader(Ref<AssetUnloader> unloader);
+        void                          add_pak(std::shared_ptr<AssetPak> pak);
+        std::optional<AssetLoader*>   find_loader(const Strid& loader_rtti);
+        std::optional<AssetUnloader*> find_unloader(const Strid& asset_rtti);
+        std::optional<AssetMeta>      find_meta(const AssetId& asset);
+        void                          clear();
+        void                          load_loaders();
 
     private:
         /**
@@ -174,12 +103,11 @@ namespace wmoge {
         flat_map<AssetId, WeakRef<Asset>>            m_assets;
         flat_map<AssetId, LoadState>                 m_loading;
         flat_map<Strid, Ref<AssetLoader>>            m_loaders;
-        flat_map<RttiClass*, Ref<AssetUnloader>>     m_unloaders;
+        flat_map<Strid, Ref<AssetUnloader>>          m_unloaders;
         std::shared_ptr<std::function<void(Asset*)>> m_callback;
 
-        class FileSystem*      m_file_system   = nullptr;
-        class RttiTypeStorage* m_type_storage  = nullptr;
-        class EventManager*    m_event_manager = nullptr;
+        class FileSystem*      m_file_system  = nullptr;
+        class RttiTypeStorage* m_type_storage = nullptr;
 
         mutable std::recursive_mutex m_mutex;
     };

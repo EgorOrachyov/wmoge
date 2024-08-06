@@ -72,7 +72,7 @@ namespace wmoge {
     static int lua_WindowManager_primary_window(lua_State* state) {
         auto* window_manager = Engine::instance()->window_manager();
 
-        luabridge::LuaRef(state, LuaWindow{window_manager->primary_window()}).push();
+        luabridge::LuaRef(state, LuaWindow{window_manager->get_primary_window()}).push();
         return 1;
     }
 

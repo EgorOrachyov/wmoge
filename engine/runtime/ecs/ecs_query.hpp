@@ -55,6 +55,7 @@ namespace wmoge {
     struct EcsQuery {
         using Bitset = std::bitset<EcsLimits::MAX_COMPONENTS>;
 
+        Bitset referenced;
         Bitset read_only;
         Bitset read_write;
         Bitset required;
@@ -66,9 +67,12 @@ namespace wmoge {
 
         template<typename Component>
         EcsQuery& add(EcsComponentPresence presence = EcsComponentPresence::Required, EcsComponentAccess access = EcsComponentAccess::ReadOnly) {
+            assert(!referenced.test(Component::IDX));
+            referenced.set(Component::IDX);
+
             if (presence == EcsComponentPresence::Exclude) {
                 exclude.set(Component::IDX);
-                return;
+                return *this;
             }
             if (presence == EcsComponentPresence::Required) {
                 required.set(Component::IDX);

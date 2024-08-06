@@ -35,7 +35,6 @@
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
 #include "core/weak_ref.hpp"
-#include "event/event.hpp"
 #include "rtti/traits.hpp"
 
 #include <cstddef>

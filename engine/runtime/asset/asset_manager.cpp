@@ -29,8 +29,6 @@
 
 #include "asset/asset_pak_fs.hpp"
 #include "core/timer.hpp"
-#include "event/event_asset.hpp"
-#include "event/event_manager.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
@@ -41,22 +39,24 @@
 namespace wmoge {
 
     AssetManager::AssetManager() {
-        m_file_system   = IocContainer::iresolve_v<FileSystem>();
-        m_type_storage  = IocContainer::iresolve_v<RttiTypeStorage>();
-        m_event_manager = IocContainer::iresolve_v<EventManager>();
+        m_file_system  = IocContainer::iresolve_v<FileSystem>();
+        m_type_storage = IocContainer::iresolve_v<RttiTypeStorage>();
 
         m_callback = std::make_shared<typename Asset::ReleaseCallback>([this](Asset* asset) {
             std::lock_guard guard(m_mutex);
 
-            auto* rtti     = asset->get_class();
-            auto  unloader = find_unloader(rtti);
-            auto& id       = asset->get_id();
+            auto& id   = asset->get_id();
+            auto& rtti = asset->get_class_name();
 
+            auto unloader = find_unloader(rtti);
             if (unloader) {
                 (*unloader)->unload(asset);
             }
 
-            m_assets.erase(id);
+            auto entry = m_assets.find(id);
+            if (entry != m_assets.end()) {
+                m_assets.erase(entry);
+            }
         });
     }
 
@@ -120,12 +120,6 @@ namespace wmoge {
                     asset->set_name(name);
                 }
 
-                auto event          = make_event<EventAsset>();
-                event->asset_id     = name;
-                event->asset_ref    = asset;
-                event->notification = AssetNotification::Loaded;
-                m_event_manager->dispatch(event);
-
                 std::lock_guard guard(m_mutex);
                 asset->set_release_callback(m_callback);
                 m_assets[name] = WeakRef<Asset>(asset);
@@ -143,11 +137,6 @@ namespace wmoge {
             std::lock_guard guard(m_mutex);
 
             if (status == AsyncStatus::Failed) {
-                auto event          = make_event<EventAsset>();
-                event->asset_id     = name;
-                event->notification = AssetNotification::FailedLoad;
-                m_event_manager->dispatch(event);
-
                 async_op->set_failed();
                 WG_LOG_ERROR("failed load asset " << name);
             }
@@ -197,7 +186,7 @@ namespace wmoge {
 
     void AssetManager::add_unloader(Ref<AssetUnloader> unloader) {
         std::lock_guard guard(m_mutex);
-        m_unloaders[unloader->get_asset_type()] = std::move(unloader);
+        m_unloaders[unloader->get_asset_type()->get_name()] = std::move(unloader);
     }
 
     void AssetManager::add_pak(std::shared_ptr<AssetPak> pak) {
@@ -205,15 +194,15 @@ namespace wmoge {
         m_paks.push_back(std::move(pak));
     }
 
-    std::optional<AssetLoader*> AssetManager::find_loader(const Strid& loader) {
+    std::optional<AssetLoader*> AssetManager::find_loader(const Strid& loader_rtti) {
         std::lock_guard guard(m_mutex);
-        auto            query = m_loaders.find(loader);
+        auto            query = m_loaders.find(loader_rtti);
         return query != m_loaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
     }
 
-    std::optional<AssetUnloader*> AssetManager::find_unloader(RttiClass* rtti) {
+    std::optional<AssetUnloader*> AssetManager::find_unloader(const Strid& asset_rtti) {
         std::lock_guard guard(m_mutex);
-        auto            query = m_unloaders.find(rtti);
+        auto            query = m_unloaders.find(asset_rtti);
         return query != m_unloaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
     }
 

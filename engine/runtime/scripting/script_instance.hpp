@@ -32,9 +32,6 @@
 #include "core/object.hpp"
 #include "core/ref.hpp"
 #include "core/var.hpp"
-#include "event/event_action.hpp"
-#include "event/event_input.hpp"
-#include "event/event_token.hpp"
 
 namespace wmoge {
 
@@ -49,12 +46,6 @@ namespace wmoge {
         OnTransformUpdated,
         OnUpdate,
         OnSignal,
-        OnInputMouse,
-        OnInputKeyboard,
-        OnInputJoystick,
-        OnInputDrop,
-        OnAction,
-        OnToken,
         Total
     };
 
@@ -82,12 +73,6 @@ namespace wmoge {
         virtual void on_transform_updated() {}
         virtual void on_update(float delta_time) {}
         virtual void on_signal(const Strid& signal) {}
-        virtual void on_input_mouse(const Ref<EventMouse>& event) {}
-        virtual void on_input_keyboard(const Ref<EventKeyboard>& event) {}
-        virtual void on_input_joystick(const Ref<EventJoystick>& event) {}
-        virtual void on_input_drop(const Ref<EventDrop>& event) {}
-        virtual void on_action(const Ref<EventAction>& action) {}
-        virtual void on_token(const Ref<EventToken>& token) {}
 
         virtual int set(const Strid& property, const Var& value) { return -2; }
         virtual int get(const Strid& property, Var& value) { return -2; }

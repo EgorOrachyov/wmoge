@@ -30,7 +30,6 @@
 #include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
-#include "event/event_listener.hpp"
 #include "grc/font.hpp"
 #include "math/color.hpp"
 
@@ -176,9 +175,6 @@ namespace wmoge {
         std::vector<std::string>    m_history;
         std::vector<std::string>    m_to_process;
         std::recursive_mutex        m_mutex;
-
-        EventListenerHnd m_actions_listener;
-        EventListenerHnd m_keyboard_listener;
 
         Ref<Font> m_console_font;
         Color4f   m_color_back       = Color::from_hex4(0x000000ee);

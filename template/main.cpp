@@ -94,11 +94,6 @@ public:
 
         GameApplication::on_init();
 
-        Engine::instance()->action_manager()->load("actions/actionmap_console.yml");
-        Engine::instance()->action_manager()->load("actions/actionmap_camera_debug.yml");
-        Engine::instance()->action_manager()->activate(SID("console"));
-        Engine::instance()->action_manager()->activate(SID("camera_debug"));
-
         mesh = Engine::instance()->asset_manager()->load(SID("asset://mesh/suzanne")).cast<Mesh>();
 
         // Engine::instance()->scene_manager()->change(scene);

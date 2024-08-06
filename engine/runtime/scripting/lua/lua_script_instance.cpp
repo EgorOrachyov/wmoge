@@ -29,7 +29,6 @@
 
 #include "profiler/profiler.hpp"
 #include "scripting/lua/lua_script.hpp"
-#include "scripting/lua_bindings/lua_bindings_event.hpp"
 
 namespace wmoge {
 
@@ -95,30 +94,6 @@ namespace wmoge {
     void LuaScriptInstance::on_signal(const Strid& signal) {
         WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_signal");
         WG_SAFE_CALL(ScriptFunction::OnSignal, "on_signal", m_script_object, luabridge::LuaRef(m_state, signal));
-    }
-    void LuaScriptInstance::on_input_mouse(const Ref<EventMouse>& event) {
-        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_mouse");
-        WG_SAFE_CALL(ScriptFunction::OnInputMouse, "on_input_mouse", m_script_object, luabridge::LuaRef(m_state, LuaEventMouse{Ref<RefCnt>(event.get())}));
-    }
-    void LuaScriptInstance::on_input_keyboard(const Ref<EventKeyboard>& event) {
-        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_keyboard");
-        WG_SAFE_CALL(ScriptFunction::OnInputKeyboard, "on_input_keyboard", m_script_object, luabridge::LuaRef(m_state, LuaEventKeyboard{Ref<RefCnt>(event.get())}));
-    }
-    void LuaScriptInstance::on_input_joystick(const Ref<EventJoystick>& event) {
-        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_joystick");
-        WG_SAFE_CALL(ScriptFunction::OnInputJoystick, "on_input_joystick", m_script_object, luabridge::LuaRef(m_state, LuaEventJoystick{Ref<RefCnt>(event.get())}));
-    }
-    void LuaScriptInstance::on_input_drop(const Ref<EventDrop>& event) {
-        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_input_drop");
-        WG_SAFE_CALL(ScriptFunction::OnInputDrop, "on_input_drop", m_script_object, luabridge::LuaRef(m_state, LuaEventDrop{Ref<RefCnt>(event.get())}));
-    }
-    void LuaScriptInstance::on_action(const Ref<EventAction>& action) {
-        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_action");
-        WG_SAFE_CALL(ScriptFunction::OnAction, "on_action", m_script_object, luabridge::LuaRef(m_state, LuaEventAction{Ref<RefCnt>(action.get())}));
-    }
-    void LuaScriptInstance::on_token(const Ref<EventToken>& token) {
-        WG_AUTO_PROFILE_LUA("LuaScriptInstance::on_token");
-        WG_SAFE_CALL(ScriptFunction::OnToken, "on_token", m_script_object, luabridge::LuaRef(m_state, LuaEventToken{Ref<RefCnt>(token.get())}));
     }
     int LuaScriptInstance::set(const Strid& property, const Var& value) {
         return ScriptInstance::set(property, value);

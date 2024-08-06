@@ -61,8 +61,6 @@ namespace wmoge {
     GlfwWindow::~GlfwWindow() {
         WG_AUTO_PROFILE_GLFW("GlfwWindow::~GlfwWindow");
 
-        std::lock_guard guard(m_manager.mutex());
-
         if (m_hnd) {
             close();
         }
@@ -70,8 +68,6 @@ namespace wmoge {
 
     void GlfwWindow::close() {
         WG_AUTO_PROFILE_GLFW("GlfwWindow::close");
-
-        std::lock_guard guard(m_manager.mutex());
 
         if (!m_hnd) {
             WG_LOG_WARNING("window id=" << id() << " closed");
@@ -82,24 +78,18 @@ namespace wmoge {
     }
 
     int GlfwWindow::width() const {
-        std::lock_guard guard(m_manager.mutex());
-
         int w;
         glfwGetWindowSize(m_hnd, &w, nullptr);
         return w;
     }
 
     int GlfwWindow::height() const {
-        std::lock_guard guard(m_manager.mutex());
-
         int h;
         glfwGetWindowSize(m_hnd, nullptr, &h);
         return h;
     }
 
     Size2i GlfwWindow::size() const {
-        std::lock_guard guard(m_manager.mutex());
-
         int w, h;
         glfwGetWindowSize(m_hnd, &w, &h);
 
@@ -107,24 +97,18 @@ namespace wmoge {
     }
 
     int GlfwWindow::fbo_width() const {
-        std::lock_guard guard(m_manager.mutex());
-
         int w;
         glfwGetFramebufferSize(m_hnd, &w, nullptr);
         return w;
     }
 
     int GlfwWindow::fbo_height() const {
-        std::lock_guard guard(m_manager.mutex());
-
         int h;
         glfwGetFramebufferSize(m_hnd, nullptr, &h);
         return h;
     }
 
     Size2i GlfwWindow::fbo_size() const {
-        std::lock_guard guard(m_manager.mutex());
-
         int w, h;
         glfwGetFramebufferSize(m_hnd, &w, &h);
 
@@ -132,24 +116,18 @@ namespace wmoge {
     }
 
     float GlfwWindow::scale_x() const {
-        std::lock_guard guard(m_manager.mutex());
-
         float scale;
         glfwGetWindowContentScale(m_hnd, &scale, nullptr);
         return scale;
     }
 
     float GlfwWindow::scale_y() const {
-        std::lock_guard guard(m_manager.mutex());
-
         float scale;
         glfwGetWindowContentScale(m_hnd, nullptr, &scale);
         return scale;
     }
 
     bool GlfwWindow::in_focus() const {
-        std::lock_guard guard(m_manager.mutex());
-
         return glfwGetWindowAttrib(m_hnd, GLFW_FOCUSED);
     }
 

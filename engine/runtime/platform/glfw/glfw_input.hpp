@@ -49,17 +49,19 @@ namespace wmoge {
         explicit GlfwInput(class GlfwWindowManager& manager);
         ~GlfwInput() override = default;
 
-        Ref<Mouse>    mouse() override;
-        Ref<Keyboard> keyboard() override;
-        Ref<Joystick> joystick(int id) override;
-
-    private:
-        friend class GlfwWindowManager;
-
-        void              subscribe_window(GLFWwindow* window);
-        void              update();
-        void              check_connected_joysticks();
-        Ref<GlfwJoystick> get_joystick(int jid);
+        Ref<Mouse>                             get_mouse() override;
+        Ref<Keyboard>                          get_keyboard() override;
+        Ref<Joystick>                          get_joystick(int id) override;
+        const std::vector<InputEventMouse>&    get_events_mouse() override;
+        const std::vector<InputEventKeyboard>& get_events_keyboard() override;
+        const std::vector<InputEventJoystick>& get_events_joystick() override;
+        const std::vector<InputEventGamepad>&  get_events_gamepad() override;
+        const std::vector<InputEventDrop>&     get_events_drop() override;
+        void                                   subscribe_window(GLFWwindow* window);
+        void                                   update();
+        void                                   check_connected_joysticks();
+        void                                   clear_events();
+        Ref<GlfwJoystick>                      get_joystick_by_hnd(int jid);
 
     private:
         // Glfw specific
@@ -74,7 +76,13 @@ namespace wmoge {
         buffered_vector<Ref<GlfwJoystick>> m_joysticks;
         Ref<GlfwMouse>                     m_mouse;
         Ref<GlfwKeyboard>                  m_keyboard;
-        class GlfwWindowManager&           m_manager;
+        std::vector<InputEventMouse>       m_events_mouse;
+        std::vector<InputEventKeyboard>    m_events_keyboard;
+        std::vector<InputEventJoystick>    m_events_joystick;
+        std::vector<InputEventGamepad>     m_events_gamepad;
+        std::vector<InputEventDrop>        m_events_drop;
+
+        class GlfwWindowManager& m_manager;
     };
 
 }// namespace wmoge

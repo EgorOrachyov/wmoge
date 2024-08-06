@@ -27,8 +27,6 @@
 
 #include "vk_window.hpp"
 
-#include "event/event_manager.hpp"
-#include "event/event_window.hpp"
 #include "gfx/vulkan/vk_cmd_list.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_texture.hpp"

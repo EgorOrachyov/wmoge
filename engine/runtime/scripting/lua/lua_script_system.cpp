@@ -29,7 +29,6 @@
 
 #include "core/log.hpp"
 #include "profiler/profiler.hpp"
-#include "scripting/lua/lua_event_script.hpp"
 #include "scripting/lua/lua_script.hpp"
 #include "scripting/lua_bindings/lua_bindings.hpp"
 #include "scripting/lua_bindings/lua_bindings_core.hpp"
@@ -41,8 +40,6 @@ namespace wmoge {
 
     LuaScriptSystem::LuaScriptSystem() {
         WG_AUTO_PROFILE_LUA("LuaScriptSystem::LuaScriptSystem");
-
-        LuaEventScript::register_class();
 
         m_global_state = luaL_newstate();
         m_language     = SID("lua");
@@ -59,9 +56,7 @@ namespace wmoge {
         LuaBindings::bind_math(ns, m_object_to_lua);
         LuaBindings::bind_core(ns, m_object_to_lua);
         LuaBindings::bind_platform(ns, m_object_to_lua);
-        LuaBindings::bind_event(ns, m_object_to_lua);
         LuaBindings::bind_asset(ns, m_object_to_lua);
-        LuaBindings::bind_gameplay(ns, m_object_to_lua);
         LuaBindings::bind_scene(ns, m_object_to_lua);
         ns = ns.endNamespace();
 

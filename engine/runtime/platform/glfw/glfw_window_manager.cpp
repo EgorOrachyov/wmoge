@@ -28,20 +28,21 @@
 #include "glfw_window_manager.hpp"
 
 #include "core/log.hpp"
-#include "event/event_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 #include <cassert>
 #include <cstdlib>
 
 namespace wmoge {
 
+    static GlfwWindowManager* g_glwl_manager = nullptr;
+
     GlfwWindowManager::GlfwWindowManager(bool vsync, bool client_api) {
         WG_AUTO_PROFILE_GLFW("GlfwWindowManager::GlfwWindowManager");
 
-        m_vsync      = vsync;
-        m_client_api = client_api;
+        g_glwl_manager = this;
+        m_vsync        = vsync;
+        m_client_api   = client_api;
 
         glfwSetErrorCallback(error_callback);
 
@@ -90,15 +91,15 @@ namespace wmoge {
     void GlfwWindowManager::poll_events() {
         WG_AUTO_PROFILE_GLFW("GlfwWindowManager::poll_events");
 
-        std::lock_guard guard(m_mutex);
+        clear_events();
+        m_input->clear_events();
 
         glfwPollEvents();
+
         m_input->update();
     }
 
-    buffered_vector<Ref<Window>> GlfwWindowManager::windows() {
-        std::lock_guard guard(m_mutex);
-
+    buffered_vector<Ref<Window>> GlfwWindowManager::get_windows() {
         buffered_vector<Ref<Window>> windows_list;
         for (auto& window : m_windows) {
             windows_list.push_back(window.second.as<Window>());
@@ -107,18 +108,14 @@ namespace wmoge {
         return std::move(windows_list);
     }
 
-    Ref<Window> GlfwWindowManager::primary_window() {
-        std::lock_guard guard(m_mutex);
-
+    Ref<Window> GlfwWindowManager::get_primary_window() {
         return m_primary;
     }
 
-    Ref<Window> GlfwWindowManager::create(const WindowInfo& window_info) {
+    Ref<Window> GlfwWindowManager::create_window(const WindowInfo& window_info) {
         WG_AUTO_PROFILE_GLFW("GlfwWindowManager::create");
 
-        std::lock_guard guard(m_mutex);
-
-        if (get(window_info.id)) {
+        if (get_window(window_info.id)) {
             WG_LOG_ERROR("an attempt to recreate window with the same id=" << window_info.id);
             return nullptr;
         }
@@ -164,43 +161,41 @@ namespace wmoge {
         return window;
     }
 
-    Ref<Window> GlfwWindowManager::get(const Strid& window_id) {
-        std::lock_guard guard(m_mutex);
-
+    Ref<Window> GlfwWindowManager::get_window(const Strid& window_id) {
         auto query = m_windows.find(window_id);
         return query != m_windows.end() ? query->second : nullptr;
     }
 
-    std::shared_ptr<GlfwInput> GlfwWindowManager::input() {
-        std::lock_guard guard(m_mutex);
-
-        return m_input;
+    const std::vector<WindowEvent>& GlfwWindowManager::get_window_events() {
+        return m_events;
     }
 
-    std::recursive_mutex& GlfwWindowManager::mutex() {
-        return m_mutex;
+    void GlfwWindowManager::clear_events() {
+        m_events.clear();
+    }
+
+    std::shared_ptr<GlfwInput> GlfwWindowManager::input() {
+        return m_input;
     }
 
     std::vector<std::string> GlfwWindowManager::extensions() {
         WG_AUTO_PROFILE_GLFW("GlfwWindowManager::extensions");
 
-        std::lock_guard guard(m_mutex);
+        const char** glfw_ext;
+        uint32_t     glfw_ext_count;
+        glfw_ext = glfwGetRequiredInstanceExtensions(&glfw_ext_count);
 
         std::vector<std::string> ext;
-        const char**             glfw_ext;
-        uint32_t                 glfw_ext_count;
-        glfw_ext = glfwGetRequiredInstanceExtensions(&glfw_ext_count);
-        for (uint32_t i = 0; i < glfw_ext_count; i++)
+        for (uint32_t i = 0; i < glfw_ext_count; i++) {
             ext.push_back(glfw_ext[i]);
+        }
+
         return ext;
     }
 
     std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> GlfwWindowManager::factory() {
         auto func = [this](VkInstance instance, Ref<Window> window, VkSurfaceKHR& surface_khr) {
             WG_AUTO_PROFILE_GLFW("GlfwWindowManager::glfwCreateWindowSurface");
-
-            std::lock_guard guard(m_mutex);
-
             assert(instance);
             assert(window);
             auto glfw_window = dynamic_cast<GlfwWindow*>(window.get());
@@ -210,8 +205,6 @@ namespace wmoge {
     }
 
     Ref<GlfwWindow> GlfwWindowManager::get(GLFWwindow* hnd) {
-        std::lock_guard guard(m_mutex);
-
         auto query = m_windows_by_hnd.find(hnd);
         return query != m_windows_by_hnd.end() ? query->second : nullptr;
     }
@@ -249,21 +242,12 @@ namespace wmoge {
     }
 
     void GlfwWindowManager::dispatch(GLFWwindow* hnd, WindowNotification notification) {
-        auto engine        = Engine::instance();
-        auto event_manager = engine->event_manager();
-
-        auto window_manager = dynamic_cast<GlfwWindowManager*>(engine->window_manager());
-        assert(window_manager);
-
-        std::lock_guard guard(window_manager->mutex());
-
-        auto window = window_manager->get(hnd);
+        auto window = g_glwl_manager->get(hnd);
         assert(window);
 
-        auto event          = make_event<EventWindow>();
-        event->window       = window;
-        event->notification = notification;
-        event_manager->dispatch(event);
+        WindowEvent& event = g_glwl_manager->m_events.emplace_back();
+        event.window       = window;
+        event.notification = notification;
     }
 
 }// namespace wmoge

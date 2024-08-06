@@ -37,9 +37,6 @@
 #include "debug/console.hpp"
 #include "debug/debug_layer.hpp"
 #include "ecs/ecs_registry.hpp"
-#include "event/event_manager.hpp"
-#include "gameplay/action_manager.hpp"
-#include "gameplay/game_token_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 #include "grc/pso_cache.hpp"
@@ -77,12 +74,8 @@
 #include "system/layer.hpp"
 #include "system/plugin_manager.hpp"
 
-#include "event/register_classes_event.hpp"
-#include "pfx/register_classes_pfx.hpp"
-
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
-#include "event/_rtti.hpp"
 #include "glsl/_rtti.hpp"
 #include "grc/_rtti.hpp"
 #include "material/_rtti.hpp"
@@ -106,7 +99,6 @@ namespace wmoge {
         ioc->bind<Config>();
         ioc->bind<FileSystem>();
         ioc->bind<Console>();
-        ioc->bind<EventManager>();
         ioc->bind<CallbackQueue>();
         ioc->bind<GlslShaderCompiler>();
         ioc->bind<ShaderLibrary>();
@@ -118,8 +110,6 @@ namespace wmoge {
         ioc->bind<EcsRegistry>();
         ioc->bind<AuxDrawManager>();
         ioc->bind<SceneManager>();
-        ioc->bind<ActionManager>();
-        ioc->bind<GameTokenManager>();
         ioc->bind<Canvas>();
         ioc->bind<ViewManager>();
 
@@ -149,7 +139,7 @@ namespace wmoge {
 
         ioc->bind_f<VKDriver, VKDriver>([ioc]() {
             GlfwWindowManager* window_manager = ioc->resolve_v<GlfwWindowManager>();
-            Ref<Window>        window         = window_manager->primary_window();
+            Ref<Window>        window         = window_manager->get_primary_window();
 
             VKInitInfo init_info;
             init_info.window       = window;
@@ -194,7 +184,6 @@ namespace wmoge {
         ioc->unbind<AuxDrawManager>();
         ioc->unbind<Canvas>();
         ioc->unbind<ViewManager>();
-        ioc->unbind<ActionManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<PsoCache>();
         ioc->unbind<ShaderManager>();
@@ -208,15 +197,8 @@ namespace wmoge {
         ioc->unbind<GlfwInput>();
         ioc->unbind<GlfwWindowManager>();
         ioc->unbind<AssetManager>();
-        ioc->unbind<EventManager>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
-    }
-
-    static void register_classes() {
-        Class::register_types();
-        register_classes_event();
-        register_classes_pfx();
     }
 
     static void bind_rtti(IocContainer* ioc) {
@@ -239,7 +221,6 @@ namespace wmoge {
         IocContainer* ioc = IocContainer::instance();
 
         bind_globals(ioc);
-        register_classes();
         bind_rtti(ioc);
 
         Log* log = ioc->resolve<Log>().value();

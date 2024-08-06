@@ -53,12 +53,6 @@ namespace wmoge {
         void on_transform_updated() override;
         void on_update(float delta_time) override;
         void on_signal(const Strid& signal) override;
-        void on_input_mouse(const Ref<EventMouse>& event) override;
-        void on_input_keyboard(const Ref<EventKeyboard>& event) override;
-        void on_input_joystick(const Ref<EventJoystick>& event) override;
-        void on_input_drop(const Ref<EventDrop>& event) override;
-        void on_action(const Ref<EventAction>& action) override;
-        void on_token(const Ref<EventToken>& token) override;
 
         int set(const Strid& property, const Var& value) override;
         int get(const Strid& property, Var& value) override;

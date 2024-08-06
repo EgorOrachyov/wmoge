@@ -34,14 +34,12 @@
 #include <GLFW/glfw3.h>
 
 #include "core/flat_map.hpp"
-#include "event/event_window.hpp"
 #include "platform/glfw/glfw_input.hpp"
 #include "platform/glfw/glfw_window.hpp"
 #include "platform/window_manager.hpp"
 
 #include <functional>
 #include <memory>
-#include <mutex>
 #include <vector>
 
 namespace wmoge {
@@ -55,15 +53,14 @@ namespace wmoge {
         explicit GlfwWindowManager(bool vsync, bool client_api);
         ~GlfwWindowManager() override;
 
-        void                         poll_events() override;
-        buffered_vector<Ref<Window>> windows() override;
-        Ref<Window>                  primary_window() override;
-        Ref<Window>                  create(const WindowInfo& window_info) override;
-        Ref<Window>                  get(const Strid& window_id) override;
-
-        std::shared_ptr<GlfwInput> input();
-        std::recursive_mutex&      mutex();
-
+        void                                                            poll_events() override;
+        buffered_vector<Ref<Window>>                                    get_windows() override;
+        Ref<Window>                                                     get_primary_window() override;
+        Ref<Window>                                                     create_window(const WindowInfo& window_info) override;
+        Ref<Window>                                                     get_window(const Strid& window_id) override;
+        const std::vector<WindowEvent>&                                 get_window_events() override;
+        void                                                            clear_events();
+        std::shared_ptr<GlfwInput>                                      input();
         Ref<GlfwWindow>                                                 get(GLFWwindow* hnd);
         std::vector<std::string>                                        extensions();
         std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> factory();
@@ -83,12 +80,11 @@ namespace wmoge {
     private:
         flat_map<Strid, Ref<GlfwWindow>>       m_windows;
         flat_map<GLFWwindow*, Ref<GlfwWindow>> m_windows_by_hnd;
+        std::vector<WindowEvent>               m_events;
         std::shared_ptr<GlfwInput>             m_input;
         Ref<GlfwWindow>                        m_primary;
         bool                                   m_vsync;
         bool                                   m_client_api;
-
-        mutable std::recursive_mutex m_mutex;
     };
 
 }// namespace wmoge

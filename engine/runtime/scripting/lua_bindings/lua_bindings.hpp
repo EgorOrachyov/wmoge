@@ -44,9 +44,7 @@ namespace wmoge {
         static void bind_math(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
         static void bind_core(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
         static void bind_platform(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
-        static void bind_event(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
         static void bind_asset(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
-        static void bind_gameplay(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
         static void bind_scene(luabridge::Namespace& ns, flat_map<const Class*, LuaConvCppToLua>& mapping);
 
         template<typename Enum>
