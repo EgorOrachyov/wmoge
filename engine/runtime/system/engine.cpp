@@ -54,8 +54,6 @@
 #include "platform/time.hpp"
 #include "platform/window_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "render/aux_draw_manager.hpp"
-#include "render/canvas.hpp"
 #include "render/render_engine.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
@@ -109,13 +107,13 @@ namespace wmoge {
         m_input          = ioc->resolve_v<GlfwInput>();
 
         WindowInfo window_info;
-        window_info.width    = m_config->get_int_or_default(SID("window.width"), 1280);
-        window_info.height   = m_config->get_int_or_default(SID("window.height"), 720);
-        window_info.title    = m_config->get_string_or_default(SID("window.title"), "wmoge");
+        window_info.width    = m_config->get_int_or_default(SID("engine.window.width"), 1280);
+        window_info.height   = m_config->get_int_or_default(SID("engine.window.height"), 720);
+        window_info.title    = m_config->get_string_or_default(SID("engine.window.title"), "wmoge");
         window_info.icons[0] = make_ref<Image>();
-        window_info.icons[0]->load(m_config->get_string_or_default(SID("window.icon_default")), 4);
+        window_info.icons[0]->load(m_config->get_string_or_default(SID("engine.window.icon_default")), 4);
         window_info.icons[1] = make_ref<Image>();
-        window_info.icons[1]->load(m_config->get_string_or_default(SID("window.icon_small")), 4);
+        window_info.icons[1]->load(m_config->get_string_or_default(SID("engine.window.icon_small")), 4);
 
         auto window = m_window_manager->create_window(window_info);
         WG_LOG_INFO("init window " << window_info.id);
@@ -127,22 +125,17 @@ namespace wmoge {
 
         m_asset_manager->load_loaders();
 
-        m_shader_library   = ioc->resolve_v<ShaderLibrary>();
-        m_pso_cache        = ioc->resolve_v<PsoCache>();
-        m_texture_manager  = ioc->resolve_v<TextureManager>();
-        m_render_engine    = ioc->resolve_v<RenderEngine>();
-        m_ecs_registry     = ioc->resolve_v<EcsRegistry>();
-        m_aux_draw_manager = ioc->resolve_v<AuxDrawManager>();
-        m_scene_manager    = ioc->resolve_v<SceneManager>();
-        m_canvas_debug     = ioc->resolve_v<Canvas>();
-        m_view_manager     = ioc->resolve_v<ViewManager>();
+        m_shader_library  = ioc->resolve_v<ShaderLibrary>();
+        m_pso_cache       = ioc->resolve_v<PsoCache>();
+        m_texture_manager = ioc->resolve_v<TextureManager>();
+        m_render_engine   = ioc->resolve_v<RenderEngine>();
+        m_ecs_registry    = ioc->resolve_v<EcsRegistry>();
+        m_scene_manager   = ioc->resolve_v<SceneManager>();
+        m_view_manager    = ioc->resolve_v<ViewManager>();
 
-        m_aux_draw_manager->init();
         m_console->init();
 
-        if (m_config->get_bool_or_default(SID("window.exit"), true)) {
-            WG_LOG_INFO("configure exit on primary window close");
-        }
+        m_config->get_bool(SID("engine.window.exit"), m_exit_on_close);
 
         m_plugin_manager->init();
 
@@ -156,6 +149,14 @@ namespace wmoge {
         m_frame_id = m_time->get_iteration();
 
         auto windows = m_window_manager->get_windows();
+
+        for (const WindowEvent& event : m_window_manager->get_window_events()) {
+            if (m_exit_on_close &&
+                event.window == m_window_manager->get_primary_window() &&
+                event.notification == WindowNotification::CloseRequested) {
+                request_close();
+            }
+        }
 
         m_gfx_driver->begin_frame(m_frame_id, windows);
 
@@ -212,11 +213,9 @@ namespace wmoge {
     ShaderLibrary*   Engine::shader_library() { return m_shader_library; }
     PsoCache*        Engine::pso_cache() { return m_pso_cache; }
     TextureManager*  Engine::texture_manager() { return m_texture_manager; }
-    AuxDrawManager*  Engine::aux_draw_manager() { return m_aux_draw_manager; }
     SceneManager*    Engine::scene_manager() { return m_scene_manager; }
     Profiler*        Engine::profiler() { return m_profiler; }
     Console*         Engine::console() { return m_console; }
-    Canvas*          Engine::canvas_debug() { return m_canvas_debug; }
     ScriptSystem*    Engine::script_system() { return m_script_system; }
     AudioEngine*     Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*    Engine::render_engine() { return m_render_engine; }

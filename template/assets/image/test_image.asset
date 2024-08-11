@@ -7,5 +7,5 @@ deps: [ ]
 description: "test image file for tutorial"
 import_data:
   rtti: ImageImportData
-  source_files: [{file: "asset://image/test_image.png"}] 
+  source_files: [{file: "assets/image/test_image.png"}] 
   channels: 4

@@ -35,7 +35,6 @@
 #include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 #include "system/ioc_container.hpp"
 
 namespace wmoge {

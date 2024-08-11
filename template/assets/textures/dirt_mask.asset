@@ -7,7 +7,7 @@ deps: [ ]
 description: ""
 import_data:
   rtti: Texture2dImportData
-  source_files: [{file: "asset://textures/dirt_mask.png"}]
+  source_files: [{file: "assets/textures/dirt_mask.png"}]
   channels: 4
   format: RGBA8
   mipmaps: true

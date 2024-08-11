@@ -150,7 +150,7 @@ namespace wmoge {
 
         m_active_platform = IocContainer::iresolve_v<GfxDriver>()->get_shader_platform();
 
-        m_library_path   = "cache://";
+        m_library_path   = "cache/";
         m_library_prefix = "shader_library";
         m_library_suffix = "slf";
         m_load_cache     = true;

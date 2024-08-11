@@ -32,15 +32,14 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/texture_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
     CanvasSharedData::CanvasSharedData() {
-        Engine*    engine = Engine::instance();
-        GfxDriver* driver = engine->gfx_driver();
+        // Engine*    engine = Engine::instance();
+        // GfxDriver* driver = engine->gfx_driver();
         // ShaderManager* shader_manager = engine->shader_manager();
 
         GfxVertAttribs attribs_vert = {GfxVertAttrib::Pos2f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
@@ -67,9 +66,10 @@ namespace wmoge {
     void CanvasSharedData::compile() {
         WG_AUTO_PROFILE_RENDER("CanvasSharedData::compile");
 
-        Engine*         engine      = Engine::instance();
-        GfxDriver*      gfx_drvier  = engine->gfx_driver();
-        TextureManager* tex_manager = engine->texture_manager();
+        GfxDriver*      gfx_drvier  = nullptr;//= engine->gfx_driver();
+        TextureManager* tex_manager = nullptr;//= engine->texture_manager();
+
+        return;
 
         // Expecting to fit all textures in single set (mathces most use cases)
         const int textures_count         = int(tex_buffer.size());
@@ -124,9 +124,9 @@ namespace wmoge {
         m_prx_buffer.set_name(SID("canvas_primitives"));
         m_gpu_cmd_buffer.set_name(SID("canvas_cmds"));
 
-        Engine*    engine = Engine::instance();
-        GfxDriver* driver = engine->gfx_driver();
+        GfxDriver* driver = nullptr;//= engine->gfx_driver();
         // ShaderManager* shader_manager = engine->shader_manager();
+        return;
 
         m_params = driver->make_uniform_buffer(int(sizeof(ShaderCanvas::Params)), GfxMemUsage::GpuLocal, SID("canvas_params"));
 
@@ -401,8 +401,7 @@ namespace wmoge {
     void Canvas::compile(bool compile_shared_data) {
         WG_AUTO_PROFILE_RENDER("Canvas::compile");
 
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_drvier = engine->gfx_driver();
+        GfxDriver* gfx_drvier = nullptr;// engine->gfx_driver();
 
         m_gpu_cmd_buffer.resize(m_cmd_buffer.size());
 
@@ -461,8 +460,8 @@ namespace wmoge {
             return;
         }
 
-        Engine*    engine     = Engine::instance();
-        GfxDriver* gfx_drvier = engine->gfx_driver();
+        // Engine*    engine     = Engine::instance();
+        GfxDriver* gfx_drvier = nullptr;//= engine->gfx_driver();
 
         // ShaderCanvas::Params& params = *((ShaderCanvas::Params*) gfx_ctx->map_uniform_buffer(m_params));
         // {

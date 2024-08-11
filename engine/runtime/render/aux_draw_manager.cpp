@@ -592,8 +592,8 @@ namespace wmoge {
             return;
         }
 
-        auto engine     = Engine::instance();
-        auto gfx_driver = engine->gfx_driver();
+        // auto engine     = Engine::instance();
+        // auto gfx_driver = engine->gfx_driver();
         // auto gfx_ctx    = engine->gfx_ctx();
 
         // HgfxPassBase pass_lines;

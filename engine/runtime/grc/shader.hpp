@@ -28,19 +28,18 @@
 #pragma once
 
 #include "asset/asset.hpp"
-#include "core/async.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/synchronization.hpp"
 #include "gfx/gfx_desc_set.hpp"
-#include "grc/shader_cache.hpp"
 #include "grc/shader_compiler.hpp"
-#include "grc/shader_file.hpp"
 #include "grc/shader_reflection.hpp"
-#include "platform/file_system.hpp"
 #include "rtti/traits.hpp"
+
+#include <functional>
+#include <memory>
 
 namespace wmoge {
 
@@ -60,60 +59,43 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(Shader, Asset);
 
+        using Callback    = std::function<void(Shader*)>;
+        using CallbackRef = std::shared_ptr<Callback>;
+
         Shader() = default;
         ~Shader() override;
 
-        virtual Status init(ShaderReflection& reflection);
+        Shader(ShaderReflection&& reflection);
+
         virtual Status fill_layout_desc(GfxDescSetLayoutDesc& desc, std::int16_t space) const;
-        virtual Status fill_layouts(GfxDescSetLayouts& layouts) const;
-        virtual Status fill_compiler_env(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, ShaderCompilerEnv& compiler_env);
-        virtual Status fill_compiler_input(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, ShaderCompilerInput& compiler_input);
+        virtual Status fill_compiler_env(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, ShaderCompiler* compiler, ShaderCompilerEnv& compiler_env);
+        virtual Status fill_compiler_input(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, ShaderCompiler* compiler, ShaderCompilerInput& compiler_input);
         virtual Status fill_program_name(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, std::string& name);
         virtual Status fill_option_info(std::int16_t technique_idx, std::int16_t permutation_bit, Strid& option, Strid& variant);
-        virtual Status fill_declarations(GfxShaderLang lang, std::string& out_declarations);
-        virtual Status fill_vertex_input(GfxShaderLang lang, const ShaderPermutation& permutation, std::string& out_input);
-        virtual Status reanalyse_includes();
-        virtual Status load(const ShaderFile& file);
+        virtual Status fill_declarations(GfxShaderLang lang, ShaderCompiler* compiler, std::string& out_declarations);
+        virtual Status fill_vertex_input(GfxShaderLang lang, ShaderCompiler* compiler, const ShaderPermutation& permutation, std::string& out_input);
 
-        Ref<GfxShaderProgram>           get_or_create_program(GfxShaderPlatform platform, const ShaderPermutation& permutation);
-        Ref<GfxShaderProgram>           find_program(GfxShaderPlatform platform, const ShaderPermutation& permutation);
-        Async                           precache_program(GfxShaderPlatform platform, const ShaderPermutation& permutation);
-        Async                           compile_program(GfxShaderPlatform platform, const ShaderPermutation& permutation, Ref<ShaderCompilerRequest>& request, Async depends_on = Async());
-        Status                          load_cache(GfxShaderPlatform platform, bool allow_missing = true);
-        Status                          save_cache(GfxShaderPlatform platform);
-        std::optional<ShaderStatus>     find_program_status(GfxShaderPlatform platform, const ShaderPermutation& permutation);
         std::optional<std::int16_t>     find_technique(Strid name);
         std::optional<std::int16_t>     find_pass(std::int16_t technique, Strid name);
         std::optional<ShaderParamInfo*> find_param(ShaderParamId id);
         ShaderParamId                   find_param_id(Strid name);
+        void                            set_shader_callback(CallbackRef callback);
 
-        [[nodiscard]] bool                       has_dependency(const Strid& dependency) const;
-        [[nodiscard]] bool                       has_space(ShaderSpaceType space_type) const;
-        [[nodiscard]] bool                       has_option(std::int16_t technique, Strid name, Strid variant) const;
-        [[nodiscard]] bool                       has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;
-        [[nodiscard]] bool                       is_material() const;
-        [[nodiscard]] bool                       is_graphics() const;
-        [[nodiscard]] bool                       is_compute() const;
-        [[nodiscard]] const std::int16_t         get_num_spaces() const;
-        [[nodiscard]] const std::int16_t         get_num_techniques() const;
-        [[nodiscard]] const std::int16_t         get_num_passes(std::int16_t technique_idx) const;
-        [[nodiscard]] const ShaderReflection&    get_reflection() const { return m_reflection; }
-        [[nodiscard]] const Strid&               get_shader_name() const { return m_reflection.shader_name; }
-        [[nodiscard]] const GfxDescSetLayoutRef& get_layout(std::int16_t space) const { return m_layouts[space]; }
-        [[nodiscard]] const GfxPsoLayoutRef&     get_pso_layout() const { return m_pso_layout; }
-        [[nodiscard]] GfxShaderPlatform          get_active_platform() { return m_active_platform; }
+        [[nodiscard]] bool                    has_space(ShaderSpaceType space_type) const;
+        [[nodiscard]] bool                    has_option(std::int16_t technique, Strid name, Strid variant) const;
+        [[nodiscard]] bool                    has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const;
+        [[nodiscard]] bool                    is_material() const;
+        [[nodiscard]] bool                    is_graphics() const;
+        [[nodiscard]] bool                    is_compute() const;
+        [[nodiscard]] const std::int16_t      get_num_spaces() const;
+        [[nodiscard]] const std::int16_t      get_num_techniques() const;
+        [[nodiscard]] const std::int16_t      get_num_passes(std::int16_t technique_idx) const;
+        [[nodiscard]] const ShaderReflection& get_reflection() const { return m_reflection; }
+        [[nodiscard]] const Strid&            get_shader_name() const { return m_reflection.shader_name; }
 
     protected:
-        ShaderReflection                     m_reflection;
-        ShaderCache                          m_cache;
-        ShaderCompilerEnv                    m_env;
-        GfxDescSetLayouts                    m_layouts;
-        GfxPsoLayoutRef                      m_pso_layout;
-        GfxShaderPlatform                    m_active_platform;
-        flat_map<GfxShaderLang, std::string> m_cached_declarations;
-        std::string                          m_cache_path;
-
-        mutable RwMutexReadPrefer m_mutex;
+        ShaderReflection m_reflection;
+        CallbackRef      m_callback;
     };
 
     WG_RTTI_CLASS_BEGIN(Shader) {

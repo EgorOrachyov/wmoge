@@ -57,8 +57,6 @@
 #include "platform/time.hpp"
 #include "platform/window_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "render/aux_draw_manager.hpp"
-#include "render/canvas.hpp"
 #include "render/render_engine.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
@@ -105,9 +103,7 @@ namespace wmoge {
         ioc->bind<RenderEngine>();
         ioc->bind<AssetManager>();
         ioc->bind<EcsRegistry>();
-        ioc->bind<AuxDrawManager>();
         ioc->bind<SceneManager>();
-        ioc->bind<Canvas>();
         ioc->bind<ViewManager>();
 
         ioc->bind_f<TaskManager, TaskManager>([ioc]() {
@@ -178,8 +174,6 @@ namespace wmoge {
     }
 
     static void unbind_globals(IocContainer* ioc) {
-        ioc->unbind<AuxDrawManager>();
-        ioc->unbind<Canvas>();
         ioc->unbind<ViewManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<PsoCache>();

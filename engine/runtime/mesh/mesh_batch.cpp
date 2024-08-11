@@ -34,12 +34,11 @@
 #include "profiler/profiler.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
     MeshBatchCollector::MeshBatchCollector() {
-        m_gfx_driver = Engine::instance()->gfx_driver();
+        // m_gfx_driver = Engine::instance()->gfx_driver();
     }
 
     void MeshBatchCollector::add_batch(const MeshBatch& b) {
@@ -52,9 +51,9 @@ namespace wmoge {
     }
 
     MeshBatchCompiler::MeshBatchCompiler() {
-        Engine* engine = Engine::instance();
+        // Engine* engine = Engine::instance();
 
-        m_driver = engine->gfx_driver();
+        // m_driver = engine->gfx_driver();
 
         // Register pass processors here
         m_processors[int(MeshPassType::GBuffer)] = std::make_unique<MeshPassProcessorGBuffer>();

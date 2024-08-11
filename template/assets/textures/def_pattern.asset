@@ -7,7 +7,7 @@ deps: [ ]
 description: "default red texture"
 import_data:
   rtti: Texture2dImportData
-  source_files: [{file: "asset://textures/def_pattern.png"}] 
+  source_files: [{file: "assets/textures/def_pattern.png"}] 
   channels: 4
   format: RGBA8
   mipmaps: true

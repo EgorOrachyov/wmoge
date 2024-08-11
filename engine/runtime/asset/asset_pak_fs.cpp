@@ -28,6 +28,7 @@
 #include "asset_pak_fs.hpp"
 
 #include "asset/asset_manager.hpp"
+#include "core/string_utils.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
@@ -46,7 +47,12 @@ namespace wmoge {
     Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
         WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
 
-        const std::string meta_file_path = name.str() + AssetMetaFile::FILE_EXTENSION;
+        std::string meta_file_path = name.str();
+        if (StringUtils::is_starts_with(meta_file_path, "asset://")) {
+            meta_file_path = StringUtils::find_replace_first(meta_file_path, "asset://", "assets/");
+        }
+
+        meta_file_path += AssetMetaFile::FILE_EXTENSION;
 
         AssetMetaFile asset_file;
 

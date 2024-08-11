@@ -7,4 +7,4 @@ description: "test shader"
 deps: [ ]
 import_data:
   rtti: AssetImportData
-  source_files: [{file: "asset://shaders/test_shader.shader"}]
+  source_files: [{file: "assets/shaders/test_shader.shader"}]

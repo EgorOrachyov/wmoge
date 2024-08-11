@@ -29,7 +29,7 @@
 
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
+#include "system/ioc_container.hpp"
 
 #include <AudioFile.h>
 
@@ -42,7 +42,7 @@ namespace wmoge {
 
         std::vector<std::uint8_t> file_data;
 
-        if (!Engine::instance()->file_system()->read_file(file_path, file_data)) {
+        if (!IocContainer::iresolve_v<FileSystem>()->read_file(file_path, file_data)) {
             WG_LOG_ERROR("field to read wav file " << file_path);
             return StatusCode::FailedRead;
         }

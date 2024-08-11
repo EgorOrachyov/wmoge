@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/string_id.hpp"
+#include "grc/shader_compiler.hpp"
 #include "grc/shader_reflection.hpp"
 
 #include <sstream>
@@ -39,30 +40,31 @@ namespace wmoge {
      * @class GlslBuilder
      * @brief Builder to construct glsl code file
     */
-    class GlslBuilder {
+    class GlslBuilder : public ShaderCodeBuilder {
     public:
-        GlslBuilder() = default;
+        GlslBuilder()           = default;
+        ~GlslBuilder() override = default;
 
-        void set_version(int version, bool core_profile);
-        void set_module(GfxShaderModule module);
-        void add_define(Strid define);
-        void add_define(Strid define, const std::string& value);
-        void add_vertex_input(int location, const std::string& type, const std::string& name);
-        void add_sampler2d_binding(int space, int slot, Strid name);
-        void add_sampler2dArray_binding(int space, int slot, Strid name);
-        void add_samplerCube_binding(int space, int slot, Strid name);
-        void add_image_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers);
-        void begin_storage_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers);
-        void end_storage_binding();
-        void begin_uniform_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers);
-        void end_uniform_binding();
-        void begin_struct(Strid name);
-        void end_struct();
-        void add_field(Strid type_name, Strid field_name);
-        void add_field(Strid type_name, Strid field_name, std::optional<int> num_elements);
-        void add_source(const std::string& source);
+        void set_version(int version, bool core_profile) override;
+        void set_module(GfxShaderModule module) override;
+        void add_define(Strid define) override;
+        void add_define(Strid define, const std::string& value) override;
+        void add_vertex_input(int location, const std::string& type, const std::string& name) override;
+        void add_sampler2d_binding(int space, int slot, Strid name) override;
+        void add_sampler2dArray_binding(int space, int slot, Strid name) override;
+        void add_samplerCube_binding(int space, int slot, Strid name) override;
+        void add_image_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers) override;
+        void begin_storage_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers) override;
+        void end_storage_binding() override;
+        void begin_uniform_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers) override;
+        void end_uniform_binding() override;
+        void begin_struct(Strid name) override;
+        void end_struct() override;
+        void add_field(Strid type_name, Strid field_name) override;
+        void add_field(Strid type_name, Strid field_name, std::optional<int> num_elements) override;
+        void add_source(const std::string& source) override;
 
-        [[nodiscard]] std::string emit() const;
+        [[nodiscard]] std::string emit() const override;
 
     private:
         GfxShaderModule   m_module;

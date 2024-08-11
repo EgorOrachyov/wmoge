@@ -33,6 +33,8 @@
 #include "core/string_utils.hpp"
 #include "platform/file.hpp"
 
+#include <filesystem>
+
 namespace wmoge {
 
     /**
@@ -43,9 +45,12 @@ namespace wmoge {
     public:
         ~MountVolume() override = default;
 
-        virtual bool   exists(const std::string& path) { return false; }
-        virtual Status open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) { return StatusCode::NotImplemented; }
-        virtual Status mounted() { return WG_OK; }
+        virtual std::string resolve_physical(const std::string& path) { return ""; }
+        virtual bool        exists(const std::string& path) { return false; }
+        virtual bool        exists_physical(const std::string& path) { return false; }
+        virtual Status      open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) { return StatusCode::NotImplemented; }
+        virtual Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) { return StatusCode::NotImplemented; }
+        virtual Status      mounted() { return WG_OK; }
     };
 
 }// namespace wmoge

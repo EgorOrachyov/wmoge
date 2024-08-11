@@ -115,7 +115,7 @@ public:
                 .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
                 .finish();
 
-        shader = Engine::instance()->asset_manager()->load(SID("engine://shaders/canvas")).cast<Shader>();
+        shader = Engine::instance()->asset_manager()->load(SID("engine/shaders/canvas")).cast<Shader>();
 
         ShaderParamId p_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
         ShaderParamId p_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
@@ -134,8 +134,8 @@ public:
     void debug_draw() {
         WG_AUTO_PROFILE(app, "TemplateApplication::debug_draw");
 
-        Engine*         engine           = Engine::instance();
-        AuxDrawManager* aux_draw_manager = engine->aux_draw_manager();
+        Engine*        engine         = Engine::instance();
+        ShaderManager* shader_manager = engine->shader_manager();
 
         ShaderPermutation permutation;
         permutation.technique_idx = 0;
@@ -145,51 +145,37 @@ public:
         permutation.options.set(0);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.options.reset();
         permutation.options.set(1);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        shader->get_or_create_program(GfxShaderPlatform::VulkanWindows, permutation);
+        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         static float angle       = 0.0f;
         static int   frame_count = 0;
 
         angle += 0.001f;
         frame_count += 1;
-
-        if (Random::next_float() < engine->time()->get_delta_time()) {
-            Vec3f   pos      = {Random::next_float(-15, 15), Random::next_float(-5, 5), Random::next_float(10, 20)};
-            Color4f color    = {Random::next_float(0.2f, 1), Random::next_float(0.2f, 1), Random::next_float(0.2f, 1), 1};
-            Quatf   rot      = {Random::next_float(-5, 5), Random::next_float(-5, 5), Random::next_float(-5, 5)};
-            bool    solid    = Random::next_float() < 0.5f;
-            float   lifetime = Random::next_float(5, 10);
-
-            aux_draw_manager->draw_box(pos, {1, 1, 1}, color, rot, solid, lifetime);
-            aux_draw_manager->draw_line(pos, pos + Vec3f(0, 1.8f, 0), Color::WHITE4f, lifetime);
-            aux_draw_manager->draw_text_3d("box", pos + Vec3f(0, 2, 0), 10.0f, Color::RED4f, lifetime);
-        }
-
-        aux_draw_manager->draw_text_2d("wmoge engine v0.0", {10, 10}, 15.0f, Color::YELLOW4f);
     }
 
     Status on_shutdown() override {

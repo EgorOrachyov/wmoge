@@ -30,6 +30,7 @@
 #include "core/log.hpp"
 #include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "grc/shader_manager.hpp"
 #include "grc/shader_param.hpp"
 
 #include <array>
@@ -311,7 +312,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ShaderParamBlock::validate(GfxDriver* driver, GfxCmdList* cmd_list) {
+    Status ShaderParamBlock::validate(ShaderManager* shader_manager, GfxDriver* driver, GfxCmdList* cmd_list) {
         if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
@@ -367,7 +368,7 @@ namespace wmoge {
                 }
             }
 
-            m_gfx_set = driver->make_desc_set(m_gfx_resources, m_shader->get_layout(m_space), m_name);
+            m_gfx_set = driver->make_desc_set(m_gfx_resources, shader_manager->get_shader_layout(m_shader, m_space), m_name);
         }
 
         m_dirty_buffers = 0;

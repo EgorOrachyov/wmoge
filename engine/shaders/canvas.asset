@@ -6,4 +6,4 @@ rtti: Shader
 deps: [ ]
 import_data:
   rtti: AssetImportData
-  source_files: [{file: "engine://shaders/canvas.shader"}]
+  source_files: [{file: "engine/shaders/canvas.shader"}]

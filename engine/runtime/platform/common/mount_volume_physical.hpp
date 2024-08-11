@@ -46,10 +46,13 @@ namespace wmoge {
         MountVolumePhysical(std::filesystem::path path, std::string mapping);
         ~MountVolumePhysical() override = default;
 
-        void   change_path(std::filesystem::path path);
-        bool   exists(const std::string& path) override;
-        Status open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) override;
-        Status mounted() override;
+        void        change_path(std::filesystem::path path);
+        std::string resolve_physical(const std::string& path) override;
+        bool        exists(const std::string& path) override;
+        bool        exists_physical(const std::string& path) override;
+        Status      open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) override;
+        Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) override;
+        Status      mounted() override;
 
     private:
         std::filesystem::path m_path;

@@ -8,12 +8,12 @@ description: "example skybox"
 import_data:
   rtti: TextureCubeImportData
   source_files:
-    - { file: "asset://textures/skybox_right.jpg", file_tag: right }
-    - { file: "asset://textures/skybox_left.jpg", file_tag: left }
-    - { file: "asset://textures/skybox_top.jpg", file_tag: top }
-    - { file: "asset://textures/skybox_bottom.jpg", file_tag: bottom }
-    - { file: "asset://textures/skybox_front.jpg", file_tag: front }
-    - { file: "asset://textures/skybox_back.jpg", file_tag: back }
+    - { file: "assets/textures/skybox_right.jpg", file_tag: right }
+    - { file: "assets/textures/skybox_left.jpg", file_tag: left }
+    - { file: "assets/textures/skybox_top.jpg", file_tag: top }
+    - { file: "assets/textures/skybox_bottom.jpg", file_tag: bottom }
+    - { file: "assets/textures/skybox_front.jpg", file_tag: front }
+    - { file: "assets/textures/skybox_back.jpg", file_tag: back }
   channels: 4
   format: RGBA8
   mipmaps: true

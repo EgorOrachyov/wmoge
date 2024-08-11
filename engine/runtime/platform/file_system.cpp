@@ -43,21 +43,6 @@
 
 namespace wmoge {
 
-    const std::string FileSystem::PREFIX_ENGINE = "engine://";
-    const std::string FileSystem::PREFIX_ASSET  = "asset://";
-    const std::string FileSystem::PREFIX_LOCAL  = "local://";
-    const std::string FileSystem::PREFIX_CACHE  = "cache://";
-    const std::string FileSystem::PREFIX_DEBUG  = "debug://";
-    const std::string FileSystem::PREFIX_LOG    = "logs://";
-
-    static const std::string REMAP_ROOT   = "../";
-    static const std::string REMAP_ENGINE = "engine/";
-    static const std::string REMAP_ASSET  = "assets/";
-    static const std::string REMAP_LOCAL  = ".wgengine/";
-    static const std::string REMAP_DEBUG  = "local://debug/";
-    static const std::string REMAP_CACHE  = "local://cache/";
-    static const std::string REMAP_LOG    = "local://logs/";
-
     /**
      * @class FileSystemWatcher
      * @brief Wrapper for filewatch specifics
@@ -84,63 +69,42 @@ namespace wmoge {
 
     FileSystem::~FileSystem() = default;
 
-    std::string FileSystem::resolve(const std::string& path) {
-        std::string current_resolve = path;
-        bool        resolved        = false;
-
-        while (!resolved) {
-            bool applied_rule = false;
-
-            for (const auto& rule : m_resolution_rules) {
-                if (current_resolve.find(rule.first) == 0) {
-                    current_resolve = rule.second + current_resolve.substr(rule.first.length());
-                    applied_rule    = true;
-                    break;
-                }
-            }
-
-            resolved = !applied_rule;
-        }
-
-        return current_resolve;
-    }
-    std::filesystem::path FileSystem::resolve_physical(const std::string& path) {
-        const std::string resolved_path = resolve(path);
-
-        if (!resolved_path.empty()) {
-            return m_root_path / resolved_path;
-        }
-
-        return {};
-    }
-    bool FileSystem::exists(const std::string& path) {
-        std::string resolved = resolve(path);
-
-        if (resolved.empty()) {
-            return false;
-        }
-
+    std::string FileSystem::resolve_physical(const std::string& path) {
         for (const MountPoint& mount_point : m_mount_points) {
             const auto& prefix  = mount_point.first;
             const auto& adapter = mount_point.second;
 
-            if (resolved.find(prefix) == 0) {
-                if (adapter->exists(resolved)) {
-                    return true;
-                }
+            if (path.find(prefix) == 0) {
+                return adapter->resolve_physical(path);
+            }
+        }
+
+        return "";
+    }
+
+    bool FileSystem::exists(const std::string& path) {
+        for (const MountPoint& mount_point : m_mount_points) {
+            const auto& prefix  = mount_point.first;
+            const auto& adapter = mount_point.second;
+
+            if (path.find(prefix) == 0) {
+                return adapter->exists(path);
             }
         }
 
         return false;
     }
     bool FileSystem::exists_physical(const std::string& path) {
-        std::filesystem::path resolved = resolve_physical(path);
+        for (const MountPoint& mount_point : m_mount_points) {
+            const auto& prefix  = mount_point.first;
+            const auto& adapter = mount_point.second;
 
-        if (resolved.empty()) {
-            return false;
+            if (path.find(prefix) == 0) {
+                return adapter->exists_physical(path);
+            }
         }
 
-        return std::filesystem::exists(resolved);
+        return false;
     }
     Status FileSystem::read_file(const std::string& path, std::string& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
@@ -212,39 +176,36 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status FileSystem::open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file_physical");
-
-        std::filesystem::path resolved = resolve_physical(path);
-        std::fstream          file;
-
-        if (mode & std::ios::out) {
-            std::filesystem::create_directories(resolved.parent_path());
-        }
-
-        file.open(resolved, mode);
-
-        if (!file.is_open()) {
-            return StatusCode::FailedOpenFile;
-        }
-
-        fstream = std::move(file);
-        return WG_OK;
-    }
-
     Status FileSystem::open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file");
-
-        const std::string resolved_path = resolve(path);
 
         for (const MountPoint& mount_point : m_mount_points) {
             const auto& prefix  = mount_point.first;
             const auto& adapter = mount_point.second;
 
-            if (resolved_path.find(prefix) == 0) {
-                if (adapter->exists(resolved_path) || mode.get(FileOpenMode::Out)) {
-                    return adapter->open_file(resolved_path, file, mode);
+            if (path.find(prefix) == 0) {
+                if (adapter->exists(path) || mode.get(FileOpenMode::Out)) {
+                    return adapter->open_file(path, file, mode);
                 }
+                return StatusCode::FailedOpenFile;
+            }
+        }
+
+        return StatusCode::FailedOpenFile;
+    }
+
+    Status FileSystem::open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file_physical");
+
+        for (const MountPoint& mount_point : m_mount_points) {
+            const auto& prefix  = mount_point.first;
+            const auto& adapter = mount_point.second;
+
+            if (path.find(prefix) == 0) {
+                if (adapter->exists(path) || (mode & std::ios_base::out)) {
+                    return adapter->open_file_physical(path, fstream, mode);
+                }
+                return StatusCode::FailedOpenFile;
             }
         }
 
@@ -294,7 +255,7 @@ namespace wmoge {
             return;
         }
 
-        m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path.string(), [path, func = std::move(callback)](const std::string& dropped, const filewatch::Event change_type) {
+        m_watchers.emplace_back(std::make_unique<FileSystemWatcher>(resolved_path, [path, func = std::move(callback)](const std::string& dropped, const filewatch::Event change_type) {
             FileSystemEvent event;
             event.path   = path;
             event.entry  = dropped;
@@ -319,20 +280,6 @@ namespace wmoge {
         }));
     }
 
-    void FileSystem::add_rule(const ResolutionRule& rule, bool front) {
-        auto iter = std::find_if(m_resolution_rules.begin(), m_resolution_rules.end(), [&](const ResolutionRule& r) {
-            return r.first == rule.first;
-        });
-        if (iter != m_resolution_rules.end()) {
-            m_resolution_rules.erase(iter);
-        }
-        if (front) {
-            m_resolution_rules.push_front(rule);
-        } else {
-            m_resolution_rules.push_back(rule);
-        }
-    }
-
     void FileSystem::add_mounting(const MountPoint& point, bool front) {
         if (front) {
             m_mount_points.push_front(point);
@@ -344,19 +291,6 @@ namespace wmoge {
     void FileSystem::root(const std::filesystem::path& path) {
         m_root_path = path;
         m_root_volume.cast<MountVolumePhysical>()->change_path(m_root_path);
-    }
-
-    void FileSystem::setup_mappings() {
-        Config* config = IocContainer::iresolve_v<Config>();
-
-        m_resolution_rules.clear();
-
-        add_rule({PREFIX_ENGINE, config->get_string_or_default(SID("file_system.engine_path"), REMAP_ENGINE)});
-        add_rule({PREFIX_ASSET, config->get_string_or_default(SID("file_system.asset_path"), REMAP_ASSET)});
-        add_rule({PREFIX_LOCAL, config->get_string_or_default(SID("file_system.local_path"), REMAP_LOCAL)});
-        add_rule({PREFIX_CACHE, config->get_string_or_default(SID("file_system.cache_path"), REMAP_CACHE)});
-        add_rule({PREFIX_DEBUG, config->get_string_or_default(SID("file_system.debug_path"), REMAP_DEBUG)});
-        add_rule({PREFIX_LOG, config->get_string_or_default(SID("file_system.logs_path"), REMAP_LOG)});
     }
 
     const std::filesystem::path& FileSystem::executable_path() const {

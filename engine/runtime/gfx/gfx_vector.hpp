@@ -32,7 +32,6 @@
 #include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils.hpp"
-#include "system/engine.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -155,16 +154,16 @@ namespace wmoge {
             const Strid buffer_name = SID(m_name.str() + " cap=" + StringUtils::from_int(int(new_capacity)));
 
             if constexpr (std::is_same_v<Storage, GfxVertBuffer>) {
-                m_buffer = Engine::instance()->gfx_driver()->make_vert_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
+                // m_buffer = Engine::instance()->gfx_driver()->make_vert_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
             }
             if constexpr (std::is_same_v<Storage, GfxIndexBuffer>) {
-                m_buffer = Engine::instance()->gfx_driver()->make_index_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
+                // m_buffer = Engine::instance()->gfx_driver()->make_index_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
             }
             if constexpr (std::is_same_v<Storage, GfxStorageBuffer>) {
-                m_buffer = Engine::instance()->gfx_driver()->make_storage_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
+                // m_buffer = Engine::instance()->gfx_driver()->make_storage_buffer(new_size, GfxMemUsage::GpuLocal, buffer_name);
             }
 
-            assert(m_buffer);
+            // assert(m_buffer);
         }
     }
 

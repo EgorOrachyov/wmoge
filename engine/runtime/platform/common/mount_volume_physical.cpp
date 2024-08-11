@@ -40,7 +40,27 @@ namespace wmoge {
         m_path = std::move(path);
     }
 
+    std::string MountVolumePhysical::resolve_physical(const std::string& path) {
+        auto prefix = path.find(m_mapping);
+        if (prefix != 0) {
+            return false;
+        }
+
+        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        return remapped.string();
+    }
+
     bool MountVolumePhysical::exists(const std::string& path) {
+        auto prefix = path.find(m_mapping);
+        if (prefix != 0) {
+            return false;
+        }
+
+        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        return std::filesystem::exists(remapped);
+    }
+
+    bool MountVolumePhysical::exists_physical(const std::string& path) {
         auto prefix = path.find(m_mapping);
         if (prefix != 0) {
             return false;
@@ -67,6 +87,27 @@ namespace wmoge {
         }
 
         file = file_physical.as<File>();
+        return WG_OK;
+    }
+
+    Status MountVolumePhysical::open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
+        auto prefix = path.find(m_mapping);
+        if (prefix != 0) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+
+        if (mode & std::ios_base::out) {
+            std::filesystem::create_directories(remapped.parent_path());
+        }
+
+        fstream.open(remapped, mode);
+
+        if (!fstream.is_open()) {
+            return StatusCode::FailedOpenFile;
+        }
+
         return WG_OK;
     }
 

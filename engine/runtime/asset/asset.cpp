@@ -28,7 +28,6 @@
 #include "asset.hpp"
 
 #include "core/class.hpp"
-#include "system/engine.hpp"
 
 #include <algorithm>
 #include <cassert>

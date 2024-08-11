@@ -51,20 +51,30 @@ namespace wmoge {
         void on_add_cmd_line_options(CmdLine& cmd_line) override {
             cmd_line.add_string("game_config", "path to game config folder", "config/");
             cmd_line.add_string("engine_config", "path to engine config folder", "engine/config/");
-            cmd_line.add_string("engine_remap", "remap for engine directory (for debug mostly)", "");
+            cmd_line.add_string("engine_remap", "remap for engine directory (for debug mostly)", "engine/");
         }
 
         Status on_process(CmdLine& cmd_line) override {
             Config*     config = IocContainer::iresolve_v<Config>();
             FileSystem* fs     = IocContainer::iresolve_v<FileSystem>();
 
-            const std::string engine_remap = cmd_line.get_string("engine_remap");
-            if (!engine_remap.empty()) {
-                const std::filesystem::path engine_path = fs->root_path() / engine_remap;
-                const bool                  front       = true;
-                Ref<MountVolumePhysical>    volume      = make_ref<MountVolumePhysical>(std::move(engine_path), "engine/");
-                fs->add_mounting({"engine/", std::move(volume)}, front);
-            }
+            const bool                  mount_front = true;
+            const std::filesystem::path root_path   = fs->root_path();
+
+            Ref<MountVolumePhysical> volume_engine = make_ref<MountVolumePhysical>(root_path / cmd_line.get_string("engine_remap"), "engine/");
+            fs->add_mounting({"engine/", std::move(volume_engine)}, mount_front);
+
+            Ref<MountVolumePhysical> volume_local = make_ref<MountVolumePhysical>(root_path / ".wgengine", "local/");
+            fs->add_mounting({"local/", std::move(volume_local)}, mount_front);
+
+            Ref<MountVolumePhysical> volume_logs = make_ref<MountVolumePhysical>(root_path / ".wgengine/logs", "logs/");
+            fs->add_mounting({"logs/", std::move(volume_logs)}, mount_front);
+
+            Ref<MountVolumePhysical> volume_debug = make_ref<MountVolumePhysical>(root_path / ".wgengine/debug", "debug/");
+            fs->add_mounting({"debug/", std::move(volume_debug)}, mount_front);
+
+            Ref<MountVolumePhysical> volume_cache = make_ref<MountVolumePhysical>(root_path / ".wgengine/cache", "cache/");
+            fs->add_mounting({"cache/", std::move(volume_cache)}, mount_front);
 
             const std::string game_config   = cmd_line.get_string("game_config");
             const std::string engine_config = cmd_line.get_string("engine_config");
@@ -88,8 +98,6 @@ namespace wmoge {
             if (!config->load(game_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load game cvars.cfg file, check your configure file of path" << std::endl;
             }
-
-            fs->setup_mappings();
 
             return WG_OK;
         }

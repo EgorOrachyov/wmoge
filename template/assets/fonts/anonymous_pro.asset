@@ -7,6 +7,6 @@ deps: [ ]
 description: "console font"
 import_data:
   rtti: FreetypeImportData
-  source_files: [{file: "asset://fonts/anonymous_pro.ttf"}]
+  source_files: [{file: "assets/fonts/anonymous_pro.ttf"}]
   height: 32
   glyphs_in_row: 16

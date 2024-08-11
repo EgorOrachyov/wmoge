@@ -28,7 +28,10 @@
 #include "shader_asset_loader.hpp"
 
 #include "grc/shader.hpp"
+#include "grc/shader_file.hpp"
+#include "grc/shader_manager.hpp"
 #include "profiler/profiler.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -51,23 +54,25 @@ namespace wmoge {
             return StatusCode::InvalidData;
         }
 
-        Ref<Shader> shader = meta.rtti->instantiate().cast<Shader>();
-        if (!shader) {
-            WG_LOG_ERROR("failed to instantiate shader " << name);
-            return StatusCode::FailedInstantiate;
-        }
-
         ShaderFile shader_file;
         if (!yaml_read_file(path_on_disk, shader_file)) {
             WG_LOG_ERROR("failed to read parse shader file " << path_on_disk);
             return StatusCode::FailedParse;
         }
 
+        auto* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+
+        ShaderReflection shader_reflection;
+        WG_CHECKED(shader_manager->load_shader_reflection(shader_file, shader_reflection));
+
+        Ref<Shader> shader = make_ref<Shader>(std::move(shader_reflection));
+        shader_manager->add_shader(shader);
+
         asset = shader;
         asset->set_name(name);
         asset->set_import_data(meta.import_data);
 
-        return shader->load(shader_file);
+        return WG_OK;
     }
 
 }// namespace wmoge

@@ -35,8 +35,10 @@
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "grc/shader_reflection.hpp"
 #include "rtti/traits.hpp"
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -126,6 +128,36 @@ namespace wmoge {
     };
 
     /**
+     * @class ShaderCodeBuilder
+     * @brief Builder to construct shader code file
+    */
+    class ShaderCodeBuilder {
+    public:
+        virtual ~ShaderCodeBuilder() = default;
+
+        virtual void set_version(int version, bool core_profile)                                         = 0;
+        virtual void set_module(GfxShaderModule module)                                                  = 0;
+        virtual void add_define(Strid define)                                                            = 0;
+        virtual void add_define(Strid define, const std::string& value)                                  = 0;
+        virtual void add_vertex_input(int location, const std::string& type, const std::string& name)    = 0;
+        virtual void add_sampler2d_binding(int space, int slot, Strid name)                              = 0;
+        virtual void add_sampler2dArray_binding(int space, int slot, Strid name)                         = 0;
+        virtual void add_samplerCube_binding(int space, int slot, Strid name)                            = 0;
+        virtual void add_image_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers)     = 0;
+        virtual void begin_storage_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers) = 0;
+        virtual void end_storage_binding()                                                               = 0;
+        virtual void begin_uniform_binding(int space, int slot, Strid name, ShaderQualifiers qualifiers) = 0;
+        virtual void end_uniform_binding()                                                               = 0;
+        virtual void begin_struct(Strid name)                                                            = 0;
+        virtual void end_struct()                                                                        = 0;
+        virtual void add_field(Strid type_name, Strid field_name)                                        = 0;
+        virtual void add_field(Strid type_name, Strid field_name, std::optional<int> num_elements)       = 0;
+        virtual void add_source(const std::string& source)                                               = 0;
+
+        virtual [[nodiscard]] std::string emit() const = 0;
+    };
+
+    /**
      * @class ShaderCompiler
      * @brief Interface to a shader compiler
     */
@@ -146,14 +178,13 @@ namespace wmoge {
         */
         virtual Async compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on = Async()) { return Async(); }
 
-        /**
-         * @brief Returns shader platform of this compiler instance
-        */
+        /** @brief Constructs code builder for this compiler */
+        virtual std::shared_ptr<ShaderCodeBuilder> make_builder() { return nullptr; }
+
+        /** @brief Returns shader platform of this compiler instance */
         virtual GfxShaderPlatform get_platform() { return GfxShaderPlatform::None; }
 
-        /**
-         * @brief Returns shader lang of this compiler instance
-        */
+        /** @brief Returns shader lang of this compiler instance */
         virtual GfxShaderLang get_lang() { return GfxShaderLang::None; }
     };
 

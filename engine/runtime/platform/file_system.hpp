@@ -70,58 +70,44 @@ namespace wmoge {
      *
      * File system abstracts the way how engine files are stored on a target machine.
      * It uses '/' as a universal delimiter and directory separator.
-     * It provides a domain prefix in a form of `<PREFIX>://<PATH>` to specify paths.
-     * Standards prefixes are `engine://`, `asset://` and `cache://`.
+     * It provides a domain prefix in a form of `<PREFIX>/<PATH>` to specify paths.
+     * Standards prefixes are `engine/`, `asset/` and `cache/`.
      * This prefixes must be used for all paths to access engine files.
      *
      * Prefixes description:
-     *  - `engine://` prefix to a file relative to the engine files directory
-     *  - `local://`  prefix to a file relative to the local (project) files directory
-     *  - `asset://`  prefix relative to project assets directory
-     *  - `cache://`  prefix relative to project cache directory for cached files
-     *  - `logs://`   prefix relative to project logs directory
+     *  - `engine/` prefix to a file relative to the engine files directory
+     *  - `local/`  prefix to a file relative to the local (project) files directory
+     *  - `asset/`  prefix relative to project assets directory
+     *  - `cache/`  prefix relative to project cache directory for cached files
+     *  - `logs/`   prefix relative to project logs directory
      */
     class FileSystem {
     public:
-        static const std::string PREFIX_ENGINE;
-        static const std::string PREFIX_ASSET;
-        static const std::string PREFIX_LOCAL;
-        static const std::string PREFIX_CACHE;
-        static const std::string PREFIX_DEBUG;
-        static const std::string PREFIX_LOG;
-
-        /** @brief Rule used to remap path to other in-engine path */
-        using ResolutionRule = std::pair<std::string, std::string>;
-
         /** @brief Mount point allowing to virtualize file system files structure */
         using MountPoint = std::pair<std::string, Ref<MountVolume>>;
 
         FileSystem();
         ~FileSystem();
 
-        std::string           resolve(const std::string& path);
-        std::filesystem::path resolve_physical(const std::string& path);
-        bool                  exists(const std::string& path);
-        bool                  exists_physical(const std::string& path);
-        Status                read_file(const std::string& path, std::string& data);
-        Status                read_file(const std::string& path, Ref<Data>& data);
-        Status                read_file(const std::string& path, std::vector<std::uint8_t>& data);
-        Status                open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
-        Status                open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode);
-        Status                save_file(const std::string& path, const std::string& data);
-        Status                save_file(const std::string& path, const std::vector<std::uint8_t>& data);
-        void                  watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback);
-        void                  add_rule(const ResolutionRule& rule, bool front = false);
-        void                  add_mounting(const MountPoint& point, bool front = false);
-        void                  root(const std::filesystem::path& path);
-        void                  setup_mappings();
+        std::string resolve_physical(const std::string& path);
+        bool        exists(const std::string& path);
+        bool        exists_physical(const std::string& path);
+        Status      read_file(const std::string& path, std::string& data);
+        Status      read_file(const std::string& path, Ref<Data>& data);
+        Status      read_file(const std::string& path, std::vector<std::uint8_t>& data);
+        Status      open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode);
+        Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
+        Status      save_file(const std::string& path, const std::string& data);
+        Status      save_file(const std::string& path, const std::vector<std::uint8_t>& data);
+        void        watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback);
+        void        add_mounting(const MountPoint& point, bool front = false);
+        void        root(const std::filesystem::path& path);
 
         [[nodiscard]] const std::filesystem::path& executable_path() const;
         [[nodiscard]] const std::filesystem::path& root_path() const;
 
     private:
-        std::deque<ResolutionRule> m_resolution_rules;// applied first, ordered by priority
-        std::deque<MountPoint>     m_mount_points;    // serached after resouliton second, ordered by priority
+        std::deque<MountPoint> m_mount_points;// serached after resouliton second, ordered by priority
 
         std::filesystem::path m_executable_path;// absolute exe path
         std::filesystem::path m_root_path;      // path to root directory of engine files (virtual)

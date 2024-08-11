@@ -31,7 +31,6 @@
 #include "asset/asset_manager.hpp"
 #include "io/archive.hpp"
 #include "io/yaml.hpp"
-#include "system/engine.hpp"
 
 #include <cassert>
 #include <optional>

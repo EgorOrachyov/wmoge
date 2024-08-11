@@ -27,8 +27,6 @@
 
 #include "mesh_pass.hpp"
 
-#include "system/engine.hpp"
-
 #include <cassert>
 
 namespace wmoge {
@@ -69,9 +67,9 @@ namespace wmoge {
     }
 
     MeshPassProcessor::MeshPassProcessor() {
-        Engine* engine = Engine::instance();
+        // Engine* engine = Engine::instance();
         // m_shader_manager = engine->shader_manager();
-        m_gfx_driver = engine->gfx_driver();
+        // m_gfx_driver = engine->gfx_driver();
     }
 
 }// namespace wmoge

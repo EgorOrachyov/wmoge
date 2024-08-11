@@ -29,7 +29,6 @@
 
 #include "platform/file_system.hpp"
 #include "scripting/script_system.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 

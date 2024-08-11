@@ -96,7 +96,7 @@ namespace wmoge {
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
         WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
-        m_pipeline_cache_path = config->get_string_or_default(SID("gfx.vulkan.pipeline_cache"), "cache://pipelines_vk.cache");
+        m_pipeline_cache_path = config->get_string_or_default(SID("gfx.vulkan.pipeline_cache"), "cache/pipelines_vk.cache");
 
         // load vulkan functions from volk
         init_functions();

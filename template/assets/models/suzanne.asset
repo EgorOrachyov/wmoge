@@ -9,4 +9,4 @@ deps:
   - "asset://mesh/suzanne"
 import_data:
   rtti: AssetImportData
-  source_files: [{file: "asset://models/suzanne.model"}]
+  source_files: [{file: "assets/models/suzanne.model"}]

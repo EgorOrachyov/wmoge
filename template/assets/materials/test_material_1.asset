@@ -7,4 +7,4 @@ description: "test material"
 deps: [ ]
 import_data:
   rtti: AssetImportData
-  source_files: [{file: "asset://materials/test_material_1.material"}]
+  source_files: [{file: "assets/materials/test_material_1.material"}]

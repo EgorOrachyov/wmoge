@@ -31,6 +31,7 @@
 #include "core/data.hpp"
 #include "core/string_id.hpp"
 #include "gfx/gfx_defs.hpp"
+#include "glsl/glsl_builder.hpp"
 #include "grc/shader_compiler.hpp"
 
 #include <vector>
@@ -65,9 +66,10 @@ namespace wmoge {
 
         GlslShaderCompilerAdapter(GfxShaderPlatform platform);
 
-        Async             compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) override;
-        GfxShaderPlatform get_platform() override;
-        GfxShaderLang     get_lang() override;
+        Async                              compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) override;
+        std::shared_ptr<ShaderCodeBuilder> make_builder() override;
+        GfxShaderPlatform                  get_platform() override;
+        GfxShaderLang                      get_lang() override;
 
     private:
         class GlslShaderCompiler* m_glsl_compiler = nullptr;

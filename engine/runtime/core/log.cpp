@@ -98,7 +98,7 @@ namespace wmoge {
         std::time_t       time = engine_time->get_time();
         std::stringstream log_file_name;
 
-        log_file_name << "logs://log_"
+        log_file_name << "logs/log_"
                       << m_name << " "
                       << engine_time->get_time_formatted("%Y-%m-%d %H-%M-%S", time)
                       << ".log";

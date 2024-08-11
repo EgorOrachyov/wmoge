@@ -31,7 +31,6 @@
 #include "core/timer.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 

@@ -29,7 +29,6 @@
 
 #include "pfx/pfx_effect.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 

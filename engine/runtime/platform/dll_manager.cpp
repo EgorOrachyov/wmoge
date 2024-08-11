@@ -60,7 +60,7 @@ namespace wmoge {
         DllLibrary dll_library{};
         dll_library.name        = library;
         dll_library.name_native = dynalo::to_native_name(library.str());
-        dll_library.path        = fs->resolve_physical(path) / dll_library.name_native;
+        dll_library.path        = std::filesystem::path(fs->resolve_physical(path)) / dll_library.name_native;
 
         try {
             dll_library.handle = dynalo::open(dll_library.path.string());

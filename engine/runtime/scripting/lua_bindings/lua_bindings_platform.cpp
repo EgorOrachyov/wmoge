@@ -35,7 +35,7 @@ namespace wmoge {
 
         auto* file_system = Engine::instance()->file_system();
 
-        luabridge::LuaRef(state, file_system->resolve(path.cast<std::string>())).push();
+        // luabridge::LuaRef(state, file_system->resolve(path.cast<std::string>())).push();
         return 1;
     }
 

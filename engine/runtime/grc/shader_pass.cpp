@@ -32,6 +32,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/pso_cache.hpp"
 #include "grc/shader.hpp"
+#include "grc/shader_manager.hpp"
 #include "system/ioc_container.hpp"
 
 #include <cassert>
@@ -143,22 +144,25 @@ namespace wmoge {
             return StatusCode::InvalidState;
         }
 
-        GfxDriver* driver = IocContainer::iresolve_v<GfxDriver>();
+        ShaderManager* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+        GfxDriver*     driver         = IocContainer::iresolve_v<GfxDriver>();
 
         const std::int16_t num_spaces = m_shader->get_num_spaces();
         for (std::int16_t i = 0; i < num_spaces; i++) {
             if (!m_params[i]) {
                 return StatusCode::InvalidState;
             }
-            WG_CHECKED(m_params[i]->validate(driver, &cmd_list));
+            WG_CHECKED(m_params[i]->validate(shader_manager, driver, &cmd_list));
         }
 
         return WG_OK;
     }
 
     Status ShaderPass::configure_graphics(GfxCmdList& cmd_list) {
-        auto platform = m_shader->get_active_platform();
-        auto program  = m_shader->get_or_create_program(platform, m_permutation);
+        ShaderManager* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+
+        auto platform = shader_manager->get_active_platform();
+        auto program  = shader_manager->get_or_create_program(m_shader, platform, m_permutation);
 
         if (!program) {
             return StatusCode::NoValue;
@@ -179,7 +183,7 @@ namespace wmoge {
         GfxPsoStateGraphics state;
         state.pass        = rp;
         state.program     = program;
-        state.layout      = m_shader->get_pso_layout();
+        state.layout      = shader_manager->get_shader_pso_layout(m_shader);
         state.vert_format = pso_cache->get_or_create_vert_format(ve, ve.to_name());
         state.prim_type   = m_prim_type;
         m_pipeline_state.fill(state);
@@ -195,8 +199,10 @@ namespace wmoge {
     }
 
     Status ShaderPass::configure_compute(GfxCmdList& cmd_list) {
-        auto platform = m_shader->get_active_platform();
-        auto program  = m_shader->get_or_create_program(platform, m_permutation);
+        ShaderManager* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+
+        auto platform = shader_manager->get_active_platform();
+        auto program  = shader_manager->get_or_create_program(m_shader, platform, m_permutation);
 
         if (!program) {
             return StatusCode::NoValue;
@@ -204,7 +210,7 @@ namespace wmoge {
 
         GfxPsoStateCompute state;
         state.program = program;
-        state.layout  = m_shader->get_pso_layout();
+        state.layout  = shader_manager->get_shader_pso_layout(m_shader);
 
         PsoCache* pso_cache = IocContainer::iresolve_v<PsoCache>();
         GfxPsoRef pso_ref   = pso_cache->get_or_create_pso(state, program->name());

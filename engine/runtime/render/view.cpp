@@ -28,7 +28,6 @@
 #include "view.hpp"
 
 #include "platform/window_manager.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 

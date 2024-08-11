@@ -32,7 +32,6 @@
 #include "core/task_parallel_for.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 #include <cassert>
 
@@ -80,7 +79,7 @@ namespace wmoge {
     void RenderEngine::prepare_frame_data() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::prepare_frame_data");
 
-        GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
+        // GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
         // GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
 
         // if (!m_frame_data) {
@@ -100,7 +99,7 @@ namespace wmoge {
     void RenderEngine::allocate_veiws() {
         WG_AUTO_PROFILE_RENDER("RenderEngine::allocate_veiws");
 
-        GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
+        // GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
         // GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
         // Mat4x4f    gfx_clip   = gfx_driver->clip_matrix();
 

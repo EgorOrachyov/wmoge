@@ -29,7 +29,6 @@
 
 #include "platform/window_manager.hpp"
 #include "profiler/profiler.hpp"
-#include "system/engine.hpp"
 
 namespace wmoge {
 
@@ -49,7 +48,7 @@ namespace wmoge {
         }
 
         const int view_count = int(m_views.size());
-        Engine*   engine     = Engine::instance();
+        // Engine*   engine     = Engine::instance();
 
         for (int i = view_count - 1; i >= 0; i--) {
             WG_AUTO_PROFILE_RENDER("Render view=" + StringUtils::from_int(i));

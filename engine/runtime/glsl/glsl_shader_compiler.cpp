@@ -85,7 +85,7 @@ namespace wmoge {
 
             if (input.options.dump_on_failure) {
                 std::stringstream file_content;
-                std::string       file_name = "debug://" + StringUtils::to_sha256(code).to_string() + ".txt";
+                std::string       file_name = "debug/" + StringUtils::to_sha256(code).to_string() + ".txt";
 
                 file_content << code << "\n";
                 file_content << "\n\n";
@@ -381,6 +381,10 @@ namespace wmoge {
         });
         task.set_task_manager(*m_task_manager);
         return task.schedule(depends_on).as_async();
+    }
+
+    std::shared_ptr<ShaderCodeBuilder> GlslShaderCompilerAdapter::make_builder() {
+        return std::make_shared<GlslBuilder>();
     }
 
     GfxShaderPlatform GlslShaderCompilerAdapter::get_platform() {

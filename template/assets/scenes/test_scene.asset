@@ -7,4 +7,4 @@ description: "test scene tree"
 deps: [ ]
 import_data:
   rtti: AssetImportData
-  source_files: [{file: "asset://trees/test_scene.scene"}]
+  source_files: [{file: "assets/trees/test_scene.scene"}]

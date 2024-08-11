@@ -67,19 +67,19 @@ namespace wmoge {
                 WG_LOG_INFO("attach cpu performance profiler");
 
                 application->signal_before_init.bind([this]() {
-                    WG_PROFILE_CAPTURE_START(m_capture_startup, startup, "debug://profile_startup.json");
+                    WG_PROFILE_CAPTURE_START(m_capture_startup, startup, "debug/profile_startup.json");
                 });
                 application->signal_after_init.bind([this]() {
                     WG_PROFILE_CAPTURE_END(m_capture_startup);
                 });
                 application->signal_before_loop.bind([this]() {
-                    WG_PROFILE_CAPTURE_START(m_capture_runtime, runtime, "debug://profile_runtime.json");
+                    WG_PROFILE_CAPTURE_START(m_capture_runtime, runtime, "debug/profile_runtime.json");
                 });
                 application->signal_after_loop.bind([this]() {
                     WG_PROFILE_CAPTURE_END(m_capture_runtime);
                 });
                 application->signal_before_shutdown.bind([this]() {
-                    WG_PROFILE_CAPTURE_START(m_capture_shutdown, shutdown, "debug://profile_shutdown.json");
+                    WG_PROFILE_CAPTURE_START(m_capture_shutdown, shutdown, "debug/profile_shutdown.json");
                 });
                 application->signal_after_shutdown.bind([this]() {
                     WG_PROFILE_CAPTURE_END(m_capture_shutdown);

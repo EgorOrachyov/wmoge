@@ -32,5 +32,5 @@ techniques:
           bs:
             blending: true
 sources:
-  - { module: Vertex, file: "engine://shaders/canvas_vert.glsl" }
-  - { module: Fragment, file: "engine://shaders/canvas_frag.glsl" } 
+  - { module: Vertex, file: "engine/shaders/canvas_vert.glsl" }
+  - { module: Fragment, file: "engine/shaders/canvas_frag.glsl" } 

@@ -7,6 +7,6 @@ deps: [ ]
 description: "debug font for aux drawing"
 import_data:
   rtti: FreetypeImportData
-  source_files: [{file: "asset://fonts/consolas.ttf"}]
+  source_files: [{file: "assets/fonts/consolas.ttf"}]
   height: 32
   glyphs_in_row: 16

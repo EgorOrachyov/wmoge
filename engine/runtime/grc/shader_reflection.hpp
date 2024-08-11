@@ -181,15 +181,6 @@ namespace wmoge {
     };
 
     /**
-     * @class ShaderInclude
-     * @brief Information about single include file of a shader module
-    */
-    struct ShaderInclude {
-        Strid           file;
-        GfxShaderModule module;
-    };
-
-    /**
      * @class ShaderSourceFile
      * @brief Single shader module required for compilation (shader stage)
     */
@@ -415,7 +406,7 @@ namespace wmoge {
         ShaderBindingType binding_type;     // binding type where param is
         std::int16_t      space      = -1;  // binding space
         std::int16_t      binding    = -1;  // binding index in space
-        std::int16_t      offset     = -1;  // byte offset of scala data in a buffer
+        std::int16_t      offset     = -1;  // byte offset of scalar data in a buffer
         std::int16_t      buffer     = -1;  // buffer index in space
         std::int16_t      elem_idx   = -1;  // element index of array element
         std::int16_t      elem_count = 1;   // count of elements (array size)
@@ -491,12 +482,10 @@ namespace wmoge {
         std::vector<ShaderBufferInfo>    buffers;       // buffer info for scalar params packing
         flat_map<Strid, Ref<ShaderType>> declarations;  // shader defined struct types
         std::vector<ShaderConstant>      constants;     // shader defined constanst
-        std::vector<ShaderInclude>       includes;      // shader includes per module
         std::vector<ShaderSpace>         spaces;        // binding spaces for descriptor sets creation
         std::vector<ShaderSourceFile>    sources;       // source code modules
         std::vector<ShaderTechniqueInfo> techniques;    // shader techniques info
         flat_map<Strid, std::int16_t>    techniques_map;// mapping techniques name to its id
-        flat_set<Strid>                  dependencies;  // shader files dependencies for hot-reload
         flat_set<GfxShaderLang>          languages;     // shader languages, which it provides
     };
 

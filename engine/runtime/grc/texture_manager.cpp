@@ -40,9 +40,7 @@ namespace wmoge {
 
         m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
         m_pool       = std::make_unique<TexturePool>(*m_gfx_driver);
-        m_callback   = std::make_shared<std::function<void(Texture*)>>([this](Texture* texture) {
-            remove(texture);
-        });
+        m_callback   = std::make_shared<std::function<void(Texture*)>>([this](Texture* texture) { remove(texture); });
 
         init_default_textures();
         init_default_samplers();

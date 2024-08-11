@@ -79,7 +79,7 @@ namespace wmoge {
 
         Status init(Shader& shader, std::int16_t space_idx, const Strid& name);
         Status restore_defaults();
-        Status validate(class GfxDriver* driver, class GfxCmdList* cmd_list);
+        Status validate(class ShaderManager* shader_manager, class GfxDriver* driver, class GfxCmdList* cmd_list);
 
         Status set_var(ShaderParamId param_id, int v);
         Status set_var(ShaderParamId param_id, float v);
