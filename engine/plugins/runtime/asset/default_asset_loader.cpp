@@ -63,7 +63,6 @@ namespace wmoge {
         };
 
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         IoContext context;
 

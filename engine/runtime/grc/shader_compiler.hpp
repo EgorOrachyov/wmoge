@@ -34,6 +34,7 @@
 #include "core/flat_set.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
+#include "core/task_manager.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "grc/shader_reflection.hpp"
 #include "rtti/traits.hpp"
@@ -154,7 +155,7 @@ namespace wmoge {
         virtual void add_field(Strid type_name, Strid field_name, std::optional<int> num_elements)       = 0;
         virtual void add_source(const std::string& source)                                               = 0;
 
-        virtual [[nodiscard]] std::string emit() const = 0;
+        virtual std::string emit() const = 0;
     };
 
     /**
@@ -193,5 +194,15 @@ namespace wmoge {
         WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
+
+    /**
+     * @class ShaderCompilerTaskManager
+     * @brief Task manager to schedule shader compilation jobs
+    */
+    class ShaderCompilerTaskManager : public TaskManager {
+    public:
+        ShaderCompilerTaskManager(int num_workers) : TaskManager(num_workers, "shader-compiler") {}
+        ~ShaderCompilerTaskManager() = default;
+    };
 
 }// namespace wmoge

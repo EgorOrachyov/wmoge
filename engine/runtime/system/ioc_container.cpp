@@ -29,6 +29,8 @@
 
 namespace wmoge {
 
+    IocContainer* IocContainer::g_ioc_container = nullptr;
+
     void IocContainer::clear() {
         std::lock_guard guard(m_mutex);
 
@@ -71,9 +73,12 @@ namespace wmoge {
         return std::nullopt;
     }
 
+    void IocContainer::provide(IocContainer* ioc) {
+        g_ioc_container = ioc;
+    }
+
     IocContainer* IocContainer::instance() {
-        static IocContainer instance;
-        return &instance;
+        return g_ioc_container;
     }
 
 }// namespace wmoge

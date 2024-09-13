@@ -77,6 +77,7 @@ namespace wmoge {
         class ShaderLibrary*   shader_library();
         class PsoCache*        pso_cache();
         class TextureManager*  texture_manager();
+        class MeshManager*     mesh_manager();
         class SceneManager*    scene_manager();
         class Profiler*        profiler();
         class Console*         console();
@@ -113,6 +114,7 @@ namespace wmoge {
         class ShaderLibrary*   m_shader_library  = nullptr;
         class PsoCache*        m_pso_cache       = nullptr;
         class TextureManager*  m_texture_manager = nullptr;
+        class MeshManager*     m_mesh_manager    = nullptr;
         class SceneManager*    m_scene_manager   = nullptr;
         class Profiler*        m_profiler        = nullptr;
         class Console*         m_console         = nullptr;

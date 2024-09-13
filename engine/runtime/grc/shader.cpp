@@ -28,19 +28,9 @@
 #include "shader.hpp"
 
 #include "core/log.hpp"
-#include "core/string_utils.hpp"
-#include "core/task.hpp"
-#include "grc/pso_cache.hpp"
 #include "grc/shader_builder.hpp"
-#include "grc/shader_cache.hpp"
-#include "grc/shader_compiler_task_manager.hpp"
-#include "grc/shader_library.hpp"
-#include "grc/shader_manager.hpp"
-#include "grc/texture_manager.hpp"
-#include "io/enum.hpp"
-#include "platform/file_system.hpp"
+#include "grc/shader_compiler.hpp"
 #include "profiler/profiler.hpp"
-#include "system/config.hpp"
 
 #include <cassert>
 #include <functional>

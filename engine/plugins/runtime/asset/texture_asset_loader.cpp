@@ -64,6 +64,7 @@ namespace wmoge {
             return StatusCode::FailedResize;
         }
 
+        auto gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
         auto texture_manager = IocContainer::iresolve_v<TextureManager>();
 
         TextureFlags flags;
@@ -84,10 +85,9 @@ namespace wmoge {
 
         asset = texture;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         texture->set_source_images({source_image});
-        texture->set_sampler_from_desc(import_data->sampling);
+        texture->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
         texture->set_compression(import_data->compression);
 
         if (import_data->mipmaps) {
@@ -150,6 +150,7 @@ namespace wmoge {
             }
         }
 
+        auto gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
         auto texture_manager = IocContainer::iresolve_v<TextureManager>();
 
         TextureFlags flags;
@@ -170,10 +171,9 @@ namespace wmoge {
 
         asset = texture;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         texture->set_source_images(source_images);
-        texture->set_sampler_from_desc(import_data->sampling);
+        texture->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
         texture->set_compression(import_data->compression);
 
         if (import_data->mipmaps) {

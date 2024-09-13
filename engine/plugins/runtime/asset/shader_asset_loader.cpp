@@ -70,7 +70,6 @@ namespace wmoge {
 
         asset = shader;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         return WG_OK;
     }

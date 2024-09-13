@@ -54,7 +54,6 @@ namespace wmoge {
 
         asset = audio;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         return audio->load(import_data->source_files[0].file);
     }

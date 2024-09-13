@@ -73,13 +73,4 @@ namespace wmoge {
         bool   should_close() override;
     };
 
-    /**
-     * @class ToolApplication
-     * @brief Base class for application to run command-line based tool
-    */
-    class ToolApplication : public Application {
-    public:
-        ~ToolApplication() override = default;
-    };
-
 }// namespace wmoge

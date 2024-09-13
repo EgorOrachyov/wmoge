@@ -99,11 +99,14 @@ namespace wmoge {
         template<typename S>
         static S* iresolve_v();
 
+        static void          provide(IocContainer* ioc);
         static IocContainer* instance();
 
     private:
         std::unordered_map<std::type_index, IocEntry> m_entries;
         std::recursive_mutex                          m_mutex;
+
+        static IocContainer* g_ioc_container;
     };
 
     template<typename S, typename T, typename Factory>

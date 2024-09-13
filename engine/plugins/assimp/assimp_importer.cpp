@@ -128,6 +128,7 @@ namespace wmoge {
         const GfxVertAttribs attribs = m_attribs;
 
         Ref<ArrayMesh> array_mesh = make_ref<ArrayMesh>();
+        array_mesh->set_name(SID(get_file_name() + "." + name.str()));
         array_mesh->set_aabb(aabb);
 
         for (unsigned int vert_id = 0; vert_id < num_vertices; vert_id++) {
@@ -179,10 +180,6 @@ namespace wmoge {
         }
 
         m_builder.add_chunk(name, array_mesh);
-
-        if (parent) {
-            m_builder.add_child(parent.value(), get_next_mesh_id());
-        }
 
         return WG_OK;
     }

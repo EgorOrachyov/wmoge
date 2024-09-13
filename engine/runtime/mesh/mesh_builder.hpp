@@ -46,19 +46,15 @@ namespace wmoge {
     public:
         void set_mesh(Ref<Mesh> mesh);
         void add_chunk(const Strid& name, const Ref<ArrayMesh>& data);
-        void add_child(int parent_idx, int child_idx);
 
         Status build();
 
         [[nodiscard]] const Ref<Mesh>& get_mesh() const { return m_mesh; }
 
     private:
-        std::vector<Ref<ArrayMesh>>       m_chunks;
-        std::vector<Strid>                m_chunks_names;
-        std::vector<int>                  m_chunks_parents;
-        std::vector<buffered_vector<int>> m_chunks_children;
-
-        Ref<Mesh> m_mesh;
+        std::vector<Ref<ArrayMesh>> m_chunks;
+        std::vector<Strid>          m_chunks_names;
+        Ref<Mesh>                   m_mesh;
     };
 
 }// namespace wmoge

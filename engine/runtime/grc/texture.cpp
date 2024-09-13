@@ -62,9 +62,6 @@ namespace wmoge {
     void Texture::set_sampler(const Ref<GfxSampler>& sampler) {
         m_sampler = sampler;
     }
-    void Texture::set_sampler_from_desc(const GfxSamplerDesc& desc) {
-        IocContainer::iresolve_v<GfxDriver>()->make_sampler(desc, SID(desc.to_string()));
-    }
     void Texture::set_compression(const TexCompressionParams& params) {
         m_compression = params;
     }

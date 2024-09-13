@@ -45,19 +45,4 @@ namespace wmoge {
         return d;
     }
 
-    WG_IO_BEGIN(GfxVertStream)
-    WG_IO_FIELD(attribs)
-    WG_IO_FIELD(buffer)
-    WG_IO_FIELD(offset)
-    WG_IO_FIELD(size)
-    WG_IO_FIELD(stride)
-    WG_IO_END(GfxVertStream)
-
-    WG_IO_BEGIN(GfxIndexStream)
-    WG_IO_FIELD(index_type)
-    WG_IO_FIELD(buffer)
-    WG_IO_FIELD(offset)
-    WG_IO_FIELD(size)
-    WG_IO_END(GfxIndexStream)
-
 }// namespace wmoge

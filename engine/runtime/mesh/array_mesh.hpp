@@ -31,24 +31,66 @@
 #include "core/data.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_defs.hpp"
-#include "io/serialization.hpp"
 #include "math/aabb.hpp"
 #include "math/vec.hpp"
+#include "rtti/traits.hpp"
 
 #include <string>
 #include <vector>
 
 namespace wmoge {
 
-    /** 
-     * @brief Represetns indexed mesh triangle primitive
-    */
+    /** @brief Represetns indexed mesh triangle primitive */
     using MeshFace = Vec3u;
 
-    /** 
-     * @brief Represetns indexed mesh line primitive
-    */
+    /** @brief Represetns indexed mesh line primitive */
     using MeshLine = Vec2u;
+
+    /**
+     * @class MeshVertStream
+     * @brief Provides setup for a stream of vertex attributes packed into vertex buffer
+    */
+    struct MeshVertStream {
+        WG_RTTI_STRUCT(MeshVertStream);
+
+        GfxVertAttribs attribs;
+        int            buffer = -1;
+        int            offset = 0;
+        int            size   = 0;
+        int            stride = 0;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(MeshVertStream) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(attribs, {});
+        WG_RTTI_FIELD(buffer, {});
+        WG_RTTI_FIELD(offset, {});
+        WG_RTTI_FIELD(size, {});
+        WG_RTTI_FIELD(stride, {});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class MeshIndexStream
+     * @brief Provides setup with index data packed into index buffer
+    */
+    struct MeshIndexStream {
+        WG_RTTI_STRUCT(MeshIndexStream);
+
+        GfxIndexType index_type = GfxIndexType::None;
+        int          buffer     = -1;
+        int          offset     = 0;
+        int          size       = 0;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(MeshIndexStream) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(index_type, {});
+        WG_RTTI_FIELD(buffer, {});
+        WG_RTTI_FIELD(offset, {});
+        WG_RTTI_FIELD(size, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class MeshVertex
@@ -71,6 +113,8 @@ namespace wmoge {
      * @brief Arrays of mesh attributes for io
     */
     struct ArrayMeshData {
+        WG_RTTI_STRUCT(ArrayMeshData);
+
         std::vector<MeshFace> faces;
         std::vector<MeshLine> lines;
         std::vector<Vec3f>    pos3;
@@ -79,13 +123,34 @@ namespace wmoge {
         std::vector<Vec3f>    tang;
         std::vector<Vec4i>    bone_ids;
         std::vector<Vec4f>    bone_weights;
-        std::vector<Vec4f>    col[4];
-        std::vector<Vec2f>    uv[4];
+        std::vector<Vec4f>    col0, col1, col2, col3;
+        std::vector<Vec2f>    uv0, uv1, uv2, uv3;
         Aabbf                 aabb;
         GfxVertAttribs        attribs;
-
-        WG_IO_DECLARE(ArrayMeshData);
     };
+
+    WG_RTTI_STRUCT_BEGIN(ArrayMeshData) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(faces, {});
+        WG_RTTI_FIELD(lines, {});
+        WG_RTTI_FIELD(pos3, {});
+        WG_RTTI_FIELD(pos2, {});
+        WG_RTTI_FIELD(norm, {});
+        WG_RTTI_FIELD(tang, {});
+        WG_RTTI_FIELD(bone_ids, {});
+        WG_RTTI_FIELD(bone_weights, {});
+        WG_RTTI_FIELD(col0, {});
+        WG_RTTI_FIELD(col1, {});
+        WG_RTTI_FIELD(col2, {});
+        WG_RTTI_FIELD(col3, {});
+        WG_RTTI_FIELD(uv0, {});
+        WG_RTTI_FIELD(uv1, {});
+        WG_RTTI_FIELD(uv2, {});
+        WG_RTTI_FIELD(uv3, {});
+        WG_RTTI_FIELD(aabb, {});
+        WG_RTTI_FIELD(attribs, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class ArrayMesh
@@ -103,8 +168,8 @@ namespace wmoge {
         void set_data(ArrayMeshData&& data) { m_data = std::move(data); }
         void add_vertex(const MeshVertex& vertex);
         void add_face(const MeshFace& face);
-        void pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, buffered_vector<GfxVertStream>& streams) const;
-        void pack_faces(Ref<Data>& buffer, GfxIndexStream& stream) const;
+        void pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, buffered_vector<MeshVertStream>& streams) const;
+        void pack_faces(Ref<Data>& buffer, MeshIndexStream& stream) const;
 
         [[nodiscard]] const ArrayMeshData& get_data() const { return m_data; }
         [[nodiscard]] const int            get_num_faces() const { return int(m_data.faces.size()); }
@@ -117,6 +182,7 @@ namespace wmoge {
     WG_RTTI_CLASS_BEGIN(ArrayMesh) {
         WG_RTTI_META_DATA(RttiUiHint(""));
         WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_data, {});
     }
     WG_RTTI_END;
 

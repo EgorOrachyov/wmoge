@@ -39,6 +39,7 @@
 #include "io/archive.hpp"
 #include "io/enum.hpp"
 #include "io/yaml.hpp"
+#include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "math/quat.hpp"
 #include "math/vec.hpp"
@@ -424,6 +425,7 @@ namespace wmoge {
     WG_RTTI_FUNDAMENTAL_DECL(DateTime, "datetime");
     WG_RTTI_FUNDAMENTAL_DECL(Status, "status");
     WG_RTTI_FUNDAMENTAL_DECL(Ref<Data>, "data");
+    WG_RTTI_FUNDAMENTAL_DECL(Aabbf, "aabbf");
 
     template<typename T, int N>
     struct RttiTypeOf<Mask<T, N>> {

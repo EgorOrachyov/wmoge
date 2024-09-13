@@ -40,18 +40,10 @@ namespace wmoge {
 
         m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
         m_pool       = std::make_unique<TexturePool>(*m_gfx_driver);
-        m_callback   = std::make_shared<std::function<void(Texture*)>>([this](Texture* texture) { remove(texture); });
+        m_callback   = std::make_shared<Texture::Callback>([this](Texture* texture) { remove(texture); });
 
         init_default_textures();
         init_default_samplers();
-    }
-
-    void TextureManager::update() {
-        WG_AUTO_PROFILE_GRC("TextureManager::update");
-
-        std::lock_guard guard(m_mutex);
-        init_default_textures();
-        init_textures();
     }
 
     Ref<Texture2d> TextureManager::create_2d(TextureFlags flags, GfxFormat format, int width, int height, GfxTexSwizz swizz) {
@@ -105,6 +97,14 @@ namespace wmoge {
     bool TextureManager::has(Texture* texture) const {
         std::lock_guard guard(m_mutex);
         return m_textures.find(texture) != m_textures.end();
+    }
+
+    void TextureManager::update() {
+        WG_AUTO_PROFILE_GRC("TextureManager::update");
+
+        std::lock_guard guard(m_mutex);
+        upload_default_textures();
+        init_textures();
     }
 
     const Ref<GfxTexture>& TextureManager::get_texture(DefaultTexture texture) {
@@ -183,6 +183,8 @@ namespace wmoge {
     }
 
     void TextureManager::init_textures() {
+        WG_AUTO_PROFILE_GRC("TextureManager::init_textures");
+
         std::vector<Texture*> for_upload;
         for (auto& iter : m_textures) {
             auto  texture = iter.first;

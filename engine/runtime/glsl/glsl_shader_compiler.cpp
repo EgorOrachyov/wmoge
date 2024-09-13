@@ -32,7 +32,6 @@
 #include "core/timer.hpp"
 #include "glsl/glsl_builder.hpp"
 #include "glsl/glsl_include_processor.hpp"
-#include "grc/shader_compiler_task_manager.hpp"
 #include "io/archive.hpp"
 #include "io/enum.hpp"
 #include "profiler/profiler.hpp"

@@ -156,6 +156,7 @@
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_builder.hpp"
+#include "mesh/mesh_manager.hpp"
 #include "mesh/mesh_pass.hpp"
 
 #include "pfx/pfx_component.hpp"
@@ -201,7 +202,6 @@
 #include "render/graphics_pipeline.hpp"
 #include "render/light.hpp"
 #include "render/model.hpp"
-#include "render/model_instance.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_queue.hpp"
 #include "render/render_scene.hpp"

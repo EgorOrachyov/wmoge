@@ -46,6 +46,7 @@
 #include "hooks/hook_root_remap.hpp"
 #include "hooks/hook_uuid_gen.hpp"
 #include "io/enum.hpp"
+#include "mesh/mesh_manager.hpp"
 #include "platform/application.hpp"
 #include "platform/dll_manager.hpp"
 #include "platform/file_system.hpp"
@@ -128,6 +129,7 @@ namespace wmoge {
         m_shader_library  = ioc->resolve_v<ShaderLibrary>();
         m_pso_cache       = ioc->resolve_v<PsoCache>();
         m_texture_manager = ioc->resolve_v<TextureManager>();
+        m_mesh_manager    = ioc->resolve_v<MeshManager>();
         m_render_engine   = ioc->resolve_v<RenderEngine>();
         m_ecs_registry    = ioc->resolve_v<EcsRegistry>();
         m_scene_manager   = ioc->resolve_v<SceneManager>();
@@ -160,12 +162,12 @@ namespace wmoge {
 
         m_gfx_driver->begin_frame(m_frame_id, windows);
 
-        if (m_scene_manager) {
-            m_scene_manager->update();
-        }
-
         if (m_texture_manager) {
             m_texture_manager->update();
+        }
+
+        if (m_scene_manager) {
+            m_scene_manager->update();
         }
 
         m_window_manager->poll_events();
@@ -213,6 +215,7 @@ namespace wmoge {
     ShaderLibrary*   Engine::shader_library() { return m_shader_library; }
     PsoCache*        Engine::pso_cache() { return m_pso_cache; }
     TextureManager*  Engine::texture_manager() { return m_texture_manager; }
+    MeshManager*     Engine::mesh_manager() { return m_mesh_manager; }
     SceneManager*    Engine::scene_manager() { return m_scene_manager; }
     Profiler*        Engine::profiler() { return m_profiler; }
     Console*         Engine::console() { return m_console; }

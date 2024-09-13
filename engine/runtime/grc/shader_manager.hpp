@@ -48,6 +48,10 @@ namespace wmoge {
     /**
      * @class ShaderManager
      * @brief Global shaders manager
+     * 
+     * Manages shaders data loading, runtime data creation, shader compilation and caching.
+     * Allows to save and load shaders permutation cache from disk.
+     * Supports hot-reload for shaders developent in a debug mode.
     */
     class ShaderManager {
     public:
@@ -108,7 +112,7 @@ namespace wmoge {
         bool                                                      m_hot_reload_on_trigger;
         float                                                     m_hot_reload_interval_sec;
         GfxShaderPlatform                                         m_active_platform;
-        std::shared_ptr<std::function<void(Shader*)>>             m_callback;
+        Shader::CallbackRef                                       m_callback;
 
         class TaskManager*    m_task_manager    = nullptr;
         class FileSystem*     m_file_system     = nullptr;

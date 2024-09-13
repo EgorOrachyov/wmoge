@@ -27,18 +27,57 @@
 
 #pragma once
 
-#include "core/task_manager.hpp"
+#include "core/flat_map.hpp"
+#include "core/synchronization.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "mesh/mesh.hpp"
+
+#include <functional>
+#include <memory>
+#include <mutex>
 
 namespace wmoge {
 
+    /** @brief Managed mesh state */
+    enum class MeshState {
+        PendingUpload,
+        Inited
+    };
+
     /**
-     * @class ShaderCompilerTaskManager
-     * @brief Task manager to schedule shader compilation jobs
-    */
-    class ShaderCompilerTaskManager : public TaskManager {
+     * @class MeshManager
+     * @brief Manager for gpu meshes for rendering
+     * 
+     * Manages gpu meshes allocation, data upload and update.
+     */
+    class MeshManager {
     public:
-        ShaderCompilerTaskManager(int num_workers) : TaskManager(num_workers, "shader-compiler") {}
-        ~ShaderCompilerTaskManager() = default;
+        MeshManager();
+
+        Ref<Mesh> create_mesh(MeshFlags flags);
+        void      add_mesh(const Ref<Mesh>& mesh);
+        void      remove_mesh(Mesh* mesh);
+        void      init_mesh(Mesh* mesh);
+        bool      has_mesh(Mesh* mesh);
+        void      upload_meshes();
+
+    private:
+        void create_gfx_resource(Mesh* mesh);
+        void delete_gfx_resource(Mesh* mesh);
+        void upload_gfx_data(Mesh* mesh, GfxCmdListRef& cmd_list);
+
+    private:
+        struct Entry {
+            WeakRef<Mesh>   weak_ref;
+            Mask<MeshState> state;
+        };
+
+        flat_map<Mesh*, Entry> m_meshes;
+        Mesh::CallbackRef      m_callback;
+
+        GfxDriver* m_gfx_driver;
+
+        mutable std::mutex m_mutex;
     };
 
 }// namespace wmoge

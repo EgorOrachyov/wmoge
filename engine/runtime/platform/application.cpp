@@ -38,7 +38,7 @@
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 #include "grc/pso_cache.hpp"
-#include "grc/shader_compiler_task_manager.hpp"
+#include "grc/shader_compiler.hpp"
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
@@ -49,6 +49,7 @@
 #include "hooks/hook_root_remap.hpp"
 #include "hooks/hook_uuid_gen.hpp"
 #include "io/enum.hpp"
+#include "mesh/mesh_manager.hpp"
 #include "platform/application.hpp"
 #include "platform/dll_manager.hpp"
 #include "platform/file_system.hpp"
@@ -100,6 +101,7 @@ namespace wmoge {
         ioc->bind<ShaderManager>();
         ioc->bind<PsoCache>();
         ioc->bind<TextureManager>();
+        ioc->bind<MeshManager>();
         ioc->bind<RenderEngine>();
         ioc->bind<AssetManager>();
         ioc->bind<EcsRegistry>();
@@ -182,6 +184,7 @@ namespace wmoge {
         ioc->unbind<ShaderCompilerTaskManager>();
         ioc->unbind<GlslShaderCompiler>();
         ioc->unbind<TextureManager>();
+        ioc->unbind<MeshManager>();
         ioc->unbind<RenderEngine>();
         ioc->unbind<TaskManager>();
         ioc->unbind<VKDriver>();
@@ -209,23 +212,24 @@ namespace wmoge {
     }
 
     int Application::run(int argc, const char* const* argv) {
-        IocContainer* ioc = IocContainer::instance();
+        IocContainer ioc;
+        IocContainer::provide(&ioc);
 
-        bind_globals(ioc);
-        bind_rtti(ioc);
+        bind_globals(&ioc);
+        bind_rtti(&ioc);
 
-        Log* log = ioc->resolve<Log>().value();
+        Log* log = ioc.resolve<Log>().value();
 
-        ioc->bind_i<Application>(std::shared_ptr<Application>(this, [](auto p) {}));
+        ioc.bind_i<Application>(std::shared_ptr<Application>(this, [](auto p) {}));
 
         on_register();
 
-        CmdLine* cmd_line = ioc->resolve<CmdLine>().value();
+        CmdLine* cmd_line = ioc.resolve<CmdLine>().value();
         cmd_line->add_bool("h,help", "display help message", "false");
 
         signal_hook.emit();
 
-        HookList* hook_list = ioc->resolve<HookList>().value();
+        HookList* hook_list = ioc.resolve<HookList>().value();
         hook_list->each([&](HookList::HookPtr& hook) {
             hook->on_add_cmd_line_options(*cmd_line);
             return false;
@@ -297,11 +301,9 @@ namespace wmoge {
                 return 1;
             }
 
-            unbind_globals(ioc);
+            unbind_globals(&ioc);
         }
         signal_after_shutdown.emit();
-
-        ioc->clear();
 
         return 0;
     }

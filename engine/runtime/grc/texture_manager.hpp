@@ -61,6 +61,7 @@ namespace wmoge {
     /** @brief Managed texture state */
     enum class TextureState {
         PendingInit = 0,
+        PendingUpload,
         Inited
     };
 
@@ -71,9 +72,6 @@ namespace wmoge {
     class TextureManager {
     public:
         TextureManager();
-        ~TextureManager() = default;
-
-        void update();
 
         Ref<Texture2d>   create_2d(TextureFlags flags, GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
         Ref<TextureCube> create_cube(TextureFlags flags, GfxFormat format, int width, int height);
@@ -81,6 +79,7 @@ namespace wmoge {
         void             remove(Texture* texture);
         void             init(Texture* texture);
         bool             has(Texture* texture) const;
+        void             update();
 
         [[nodiscard]] const Ref<GfxTexture>& get_texture(DefaultTexture texture);
         [[nodiscard]] const Ref<GfxSampler>& get_sampler(DefaultSampler sampler);
@@ -97,11 +96,10 @@ namespace wmoge {
             Mask<TextureState> state;
         };
 
-        flat_map<Texture*, Entry> m_textures;
-
-        std::shared_ptr<std::function<void(Texture*)>> m_callback;
-        std::unique_ptr<TexturePool>                   m_pool;
-        bool                                           m_need_upload_default = true;
+        flat_map<Texture*, Entry>    m_textures;
+        Texture::CallbackRef         m_callback;
+        std::unique_ptr<TexturePool> m_pool;
+        bool                         m_need_upload_default = true;
 
         Ref<GfxTexture> m_default_textures[int(DefaultTexture::Total)];
         Ref<GfxSampler> m_default_samplers[int(DefaultSampler::Total)];

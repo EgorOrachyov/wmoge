@@ -64,7 +64,6 @@ namespace wmoge {
         m_ecs_registry->register_component<EcsComponentTag>();
         m_ecs_registry->register_component<EcsComponentCamera>();
         m_ecs_registry->register_component<EcsComponentLight>();
-        m_ecs_registry->register_component<EcsComponentModel>();
         m_ecs_registry->register_component<EcsComponentCullingItem>();
     }
 
@@ -86,7 +85,6 @@ namespace wmoge {
         scene_change();
 
         if (!m_running) {
-            WG_LOG_ERROR("no active scene to run, please create one");
             return;
         }
 

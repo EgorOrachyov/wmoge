@@ -33,6 +33,7 @@
 #include "math/math_utils3d.hpp"
 #include "mesh/mesh.hpp"
 #include "mesh/mesh_builder.hpp"
+#include "mesh/mesh_manager.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
@@ -77,11 +78,15 @@ namespace wmoge {
             return StatusCode::Error;
         }
 
-        Ref<Mesh> mesh = make_ref<Mesh>();
+        MeshManager* mesh_manager = IocContainer::iresolve_v<MeshManager>();
+
+        MeshFlags flags;
+        flags.set(MeshFlag::FromDisk);
+
+        Ref<Mesh> mesh = mesh_manager->create_mesh(flags);
 
         asset = mesh;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         MeshBuilder& builder = importer.get_builder();
         builder.set_mesh(mesh);
@@ -89,6 +94,8 @@ namespace wmoge {
             WG_LOG_ERROR("failed to build mesh " << file_name);
             return StatusCode::Error;
         }
+
+        mesh_manager->init_mesh(mesh.get());
 
         return WG_OK;
     }

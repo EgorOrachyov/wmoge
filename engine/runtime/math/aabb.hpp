@@ -111,6 +111,15 @@ namespace wmoge {
     using Aabbf = TAabb<float>;
 
     template<typename T>
+    inline std::ostream& operator<<(std::ostream& ostream, const TAabb<T>& vec) {
+        ostream << "(";
+        ostream << "min=" << vec.min() << ", ";
+        ostream << "max=" << vec.max();
+        ostream << ")";
+        return ostream;
+    }
+
+    template<typename T>
     Status yaml_read(IoContext& context, YamlConstNodeRef node, TAabb<T>& aabb) {
         WG_YAML_READ_AS(context, node, "pos", aabb.pos);
         WG_YAML_READ_AS(context, node, "size_half", aabb.size_half);

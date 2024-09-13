@@ -27,7 +27,6 @@
 
 #pragma once
 
-#include "asset/asset_import_data.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/class.hpp"
 #include "core/flat_set.hpp"
@@ -95,21 +94,18 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(Asset, RttiObject);
 
-        void                        set_name(Strid name) { m_id = AssetId(name); }
-        void                        set_id(AssetId id) { m_id = id; }
-        void                        set_uuid(UUID uuid) { m_uuid = uuid; }
-        void                        set_import_data(Ref<AssetImportData> import_data) { m_import_data = std::move(import_data); }
-        const Strid&                get_name() { return m_id.sid(); }
-        const AssetId&              get_id() { return m_id; }
-        const UUID&                 get_uuid() { return m_uuid; }
-        const Ref<AssetImportData>& get_import_data() const { return m_import_data; }
+        void           set_name(Strid name) { m_id = AssetId(name); }
+        void           set_id(AssetId id) { m_id = id; }
+        void           set_uuid(UUID uuid) { m_uuid = uuid; }
+        const Strid&   get_name() { return m_id.sid(); }
+        const AssetId& get_id() { return m_id; }
+        const UUID&    get_uuid() { return m_uuid; }
 
         virtual void collect_deps(class AssetDependencies& deps) {}
 
     private:
-        AssetId              m_id;
-        UUID                 m_uuid;
-        Ref<AssetImportData> m_import_data;
+        AssetId m_id;
+        UUID    m_uuid;
     };
 
     WG_RTTI_CLASS_BEGIN(Asset) {
@@ -117,7 +113,6 @@ namespace wmoge {
         WG_RTTI_FACTORY();
         WG_RTTI_FIELD(m_id, {RttiNoSaveLoad});
         WG_RTTI_FIELD(m_uuid, {RttiNoSaveLoad});
-        WG_RTTI_FIELD(m_import_data, {RttiNoSaveLoad});
     }
     WG_RTTI_END;
 

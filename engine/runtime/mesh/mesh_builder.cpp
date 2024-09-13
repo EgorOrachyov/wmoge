@@ -45,13 +45,6 @@ namespace wmoge {
 
         m_chunks.push_back(data);
         m_chunks_names.push_back(name);
-        m_chunks_parents.push_back(-1);
-        m_chunks_children.emplace_back();
-    }
-
-    void MeshBuilder::add_child(int parent_idx, int child_idx) {
-        m_chunks_children[parent_idx].push_back(child_idx);
-        m_chunks_parents[child_idx] = parent_idx;
     }
 
     Status MeshBuilder::build() {
@@ -71,17 +64,19 @@ namespace wmoge {
 
         const int n_chunks = int(m_chunks.size());
 
+        Aabbf aabb;
+
         for (int i = 0; i < n_chunks; i++) {
-            Ref<Data>                      vert_data;
-            buffered_vector<GfxVertStream> vert_streams;
+            Ref<Data>                       vert_data;
+            buffered_vector<MeshVertStream> vert_streams;
             m_chunks[i]->pack_attribs(stream_masks, vert_data, vert_streams);
 
             for (auto& vert_stream : vert_streams) {
                 vert_stream.buffer = curr_vert_buffer;
             }
 
-            Ref<Data>      index_data;
-            GfxIndexStream index_stream;
+            Ref<Data>       index_data;
+            MeshIndexStream index_stream;
             m_chunks[i]->pack_faces(index_data, index_stream);
 
             index_stream.buffer = curr_index_buffer;
@@ -96,9 +91,10 @@ namespace wmoge {
             chunk.vert_stream_count  = int(vert_streams.size());
             chunk.prim_type          = GfxPrimType::Triangles;
             chunk.elem_count         = m_chunks[i]->get_num_faces() * 3;
-            chunk.parent             = m_chunks_parents[i];
-            chunk.children           = m_chunks_children[i];
-            m_mesh->add_chunk(chunk);
+
+            aabb = aabb.join(chunk.aabb);
+
+            m_mesh->add_chunk(chunk, m_chunks[i]);
 
             m_mesh->add_vertex_buffer(vert_data);
             m_mesh->add_index_buffer(index_data);
@@ -114,8 +110,7 @@ namespace wmoge {
             curr_index_buffer += 1;
         }
 
-        m_mesh->update_aabb();
-        m_mesh->update_gfx_buffers();
+        m_mesh->set_aabb(aabb);
 
         return WG_OK;
     }

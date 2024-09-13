@@ -33,7 +33,7 @@
 #include "grc/pso_cache.hpp"
 #include "grc/shader_builder.hpp"
 #include "grc/shader_cache.hpp"
-#include "grc/shader_compiler_task_manager.hpp"
+#include "grc/shader_compiler.hpp"
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
@@ -74,7 +74,7 @@ namespace wmoge {
         m_hot_reload_on_change    = true;
         m_hot_reload_on_trigger   = true;
         m_hot_reload_interval_sec = 5.0f;
-        m_callback                = std::make_shared<std::function<void(Shader*)>>([this](Shader* shader) { remove_shader(shader); });
+        m_callback                = std::make_shared<Shader::Callback>([this](Shader* shader) { remove_shader(shader); });
 
         auto builtin_types = ShaderTypes::builtin();
         for (auto& type : builtin_types) {

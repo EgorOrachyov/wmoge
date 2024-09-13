@@ -87,18 +87,12 @@ namespace wmoge {
         void                          load_loaders();
 
     private:
-        /**
-         * @class LoadState
-         * @brief Tracks loading state of a single asset
-         */
-        class LoadState {
-        public:
+        struct LoadState {
             buffered_vector<Async> deps;
             AsyncOp<Ref<Asset>>    async_op;
             TaskHnd                task_hnd;
         };
 
-    private:
         buffered_vector<std::shared_ptr<AssetPak>>   m_paks;
         flat_map<AssetId, WeakRef<Asset>>            m_assets;
         flat_map<AssetId, LoadState>                 m_loading;

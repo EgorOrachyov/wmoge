@@ -33,34 +33,13 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(MeshChunk)
-    WG_IO_FIELD(name);
-    WG_IO_FIELD(aabb);
-    WG_IO_FIELD(attribs);
-    WG_IO_FIELD(prim_type);
-    WG_IO_FIELD(elem_count);
-    WG_IO_FIELD(vert_stream_offset);
-    WG_IO_FIELD(vert_stream_count);
-    WG_IO_FIELD(index_stream);
-    WG_IO_FIELD(parent);
-    WG_IO_FIELD(children);
-    WG_IO_END(MeshChunk)
+    Mesh::Mesh(MeshFlags flags) {
+        m_flags = flags;
+    }
 
-    WG_IO_BEGIN(MeshFile)
-    WG_IO_FIELD(chunks);
-    WG_IO_FIELD(vertex_buffers);
-    WG_IO_FIELD(index_buffers);
-    WG_IO_FIELD(vert_streams);
-    WG_IO_FIELD(index_streams);
-    WG_IO_FIELD(roots);
-    WG_IO_FIELD(aabb);
-    WG_IO_END(MeshFile)
-
-    void Mesh::add_chunk(const MeshChunk& mesh_chunk) {
-        if (mesh_chunk.parent == -1) {
-            m_roots.push_back(int(m_chunks.size()));
-        }
+    void Mesh::add_chunk(const MeshChunk& mesh_chunk, const Ref<ArrayMesh>& mesh) {
         m_chunks.push_back(mesh_chunk);
+        m_array_meshes.push_back(mesh);
     }
     void Mesh::add_vertex_buffer(Ref<Data> buffer) {
         m_vertex_buffers.push_back(std::move(buffer));
@@ -68,59 +47,32 @@ namespace wmoge {
     void Mesh::add_index_buffer(Ref<Data> buffer) {
         m_index_buffers.push_back(std::move(buffer));
     }
-    void Mesh::add_vert_stream(const GfxVertStream& stream) {
+    void Mesh::add_vert_stream(const MeshVertStream& stream) {
         m_vert_streams.push_back(stream);
     }
-    void Mesh::add_intex_stream(const GfxIndexStream& stream) {
+    void Mesh::add_intex_stream(const MeshIndexStream& stream) {
         m_index_streams.push_back(stream);
     }
-
-    void Mesh::update_aabb() {
-        Aabbf aabb;
-
-        if (!m_chunks.empty()) {
-            aabb = m_chunks.front().aabb;
-            for (int i = 1; i < m_chunks.size(); ++i) {
-                aabb = aabb.join(m_chunks[i].aabb);
-            }
-        }
-
+    void Mesh::set_aabb(const Aabbf& aabb) {
         m_aabb = aabb;
     }
-
-    void Mesh::update_gfx_buffers() {
-        // auto* engine     = Engine::instance();
-        // auto* gfx_driver = engine->gfx_driver();
-        // auto* gfx_ctx    = engine->gfx_ctx();
-
-        GfxMemUsage mem_usage = GfxMemUsage::GpuLocal;
-
-        m_gfx_vertex_buffers.resize(m_vertex_buffers.size());
-
-        for (int i = 0; i < m_vertex_buffers.size(); ++i) {
-            const int   size = static_cast<int>(m_vertex_buffers[i]->size());
-            const Strid name = SID(get_name().str() + "_" + StringUtils::from_int(i));
-            // m_gfx_vertex_buffers[i] = gfx_driver->make_vert_buffer(size, mem_usage, name);
-            // gfx_ctx->update_vert_buffer(m_gfx_vertex_buffers[i], 0, size, m_vertex_buffers[i]);
-        }
-
-        m_gfx_index_buffers.resize(m_index_buffers.size());
-
-        for (int i = 0; i < m_index_buffers.size(); ++i) {
-            const int   size = static_cast<int>(m_index_buffers[i]->size());
-            const Strid name = SID(get_name().str() + "_" + StringUtils::from_int(i));
-            // m_gfx_index_buffers[i] = gfx_driver->make_index_buffer(size, mem_usage, name);
-            // gfx_ctx->update_index_buffer(m_gfx_index_buffers[i], 0, size, m_index_buffers[i]);
-        }
+    void Mesh::set_mesh_callback(CallbackRef callback) {
+        m_callback = std::move(callback);
+    }
+    void Mesh::set_gfx_vertex_buffers(std::vector<Ref<GfxVertBuffer>> gfx_vertex_buffers) {
+        m_gfx_vertex_buffers = std::move(gfx_vertex_buffers);
+    }
+    void Mesh::set_gfx_index_buffers(std::vector<Ref<GfxIndexBuffer>> gfx_index_buffers) {
+        m_gfx_index_buffers = std::move(gfx_index_buffers);
     }
 
     GfxVertBuffersSetup Mesh::get_vert_buffers_setup(int chunk_id) const {
         GfxVertBuffersSetup setup;
         const MeshChunk&    chunk = get_chunk(chunk_id);
         for (int i = 0; i < chunk.vert_stream_count; i++) {
-            const GfxVertStream& stream = m_vert_streams[chunk.vert_stream_offset + i];
-            setup.buffers[i]            = m_gfx_vertex_buffers[stream.buffer].get();
-            setup.offsets[i]            = stream.offset;
+            const MeshVertStream& stream = m_vert_streams[chunk.vert_stream_offset + i];
+            setup.buffers[i]             = m_gfx_vertex_buffers[stream.buffer].get();
+            setup.offsets[i]             = stream.offset;
         }
         return setup;
     }
@@ -128,16 +80,19 @@ namespace wmoge {
         GfxIndexBufferSetup setup;
         const MeshChunk&    chunk = get_chunk(chunk_id);
         if (chunk.index_stream != -1) {
-            const GfxIndexStream& stream = m_index_streams[chunk.index_stream];
-            setup.buffer                 = m_gfx_index_buffers[stream.buffer].get();
-            setup.offset                 = stream.offset;
-            setup.index_type             = stream.index_type;
+            const MeshIndexStream& stream = m_index_streams[chunk.index_stream];
+            setup.buffer                  = m_gfx_index_buffers[stream.buffer].get();
+            setup.offset                  = stream.offset;
+            setup.index_type              = stream.index_type;
         }
         return setup;
     }
 
     array_view<const MeshChunk> Mesh::get_chunks() const {
         return m_chunks;
+    }
+    array_view<const Ref<ArrayMesh>> Mesh::get_array_meshes() const {
+        return m_array_meshes;
     }
     const MeshChunk& Mesh::get_chunk(int i) const {
         assert(i < m_chunks.size());
@@ -151,19 +106,22 @@ namespace wmoge {
         assert(i < m_gfx_vertex_buffers.size());
         return m_gfx_index_buffers[i];
     }
-    const GfxVertStream& Mesh::get_vert_streams(int i) const {
+    const MeshVertStream& Mesh::get_vert_streams(int i) const {
         assert(i < m_gfx_vertex_buffers.size());
         return m_vert_streams[i];
     }
-    const GfxIndexStream& Mesh::get_index_streams(int i) const {
+    const MeshIndexStream& Mesh::get_index_streams(int i) const {
         assert(i < m_gfx_vertex_buffers.size());
         return m_index_streams[i];
     }
-    array_view<const int> Mesh::get_roots() const {
-        return m_roots;
-    }
-    Aabbf Mesh::get_aabb() const {
+    const Aabbf& Mesh::get_aabb() const {
         return m_aabb;
+    }
+    const MeshFlags& Mesh::get_flags() const {
+        return m_flags;
+    }
+    GfxMemUsage Mesh::get_mem_usage() const {
+        return m_mem_usage;
     }
 
 }// namespace wmoge

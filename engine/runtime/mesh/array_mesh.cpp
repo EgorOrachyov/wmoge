@@ -34,27 +34,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(ArrayMeshData)
-    WG_IO_FIELD(faces)
-    WG_IO_FIELD(lines)
-    WG_IO_FIELD(pos3)
-    WG_IO_FIELD(pos2)
-    WG_IO_FIELD(norm)
-    WG_IO_FIELD(tang)
-    WG_IO_FIELD(bone_ids)
-    WG_IO_FIELD(bone_weights)
-    WG_IO_FIELD_AS(col[0], "col0")
-    WG_IO_FIELD_AS(col[1], "col1")
-    WG_IO_FIELD_AS(col[2], "col2")
-    WG_IO_FIELD_AS(col[3], "col3")
-    WG_IO_FIELD_AS(uv[0], "uv0")
-    WG_IO_FIELD_AS(uv[1], "uv1")
-    WG_IO_FIELD_AS(uv[2], "uv2")
-    WG_IO_FIELD_AS(uv[3], "uv3")
-    WG_IO_FIELD(aabb)
-    WG_IO_FIELD(attribs)
-    WG_IO_END(ArrayMeshData)
-
     void ArrayMesh::add_vertex(const MeshVertex& v) {
         assert((m_data.attribs & v.attribs).bits == m_data.attribs.bits);
 
@@ -79,28 +58,28 @@ namespace wmoge {
             m_data.bone_weights.push_back(v.bone_weights);
         }
         if (attribs.get(GfxVertAttrib::Col04f)) {
-            m_data.col[0].push_back(v.col[0]);
+            m_data.col0.push_back(v.col[0]);
         }
         if (attribs.get(GfxVertAttrib::Col14f)) {
-            m_data.col[1].push_back(v.col[1]);
+            m_data.col1.push_back(v.col[1]);
         }
         if (attribs.get(GfxVertAttrib::Col24f)) {
-            m_data.col[2].push_back(v.col[2]);
+            m_data.col2.push_back(v.col[2]);
         }
         if (attribs.get(GfxVertAttrib::Col34f)) {
-            m_data.col[3].push_back(v.col[3]);
+            m_data.col3.push_back(v.col[3]);
         }
         if (attribs.get(GfxVertAttrib::Uv02f)) {
-            m_data.uv[0].push_back(v.uv[0]);
+            m_data.uv0.push_back(v.uv[0]);
         }
         if (attribs.get(GfxVertAttrib::Uv12f)) {
-            m_data.uv[1].push_back(v.uv[1]);
+            m_data.uv1.push_back(v.uv[1]);
         }
         if (attribs.get(GfxVertAttrib::Uv22f)) {
-            m_data.uv[2].push_back(v.uv[2]);
+            m_data.uv2.push_back(v.uv[2]);
         }
         if (attribs.get(GfxVertAttrib::Uv32f)) {
-            m_data.uv[3].push_back(v.uv[3]);
+            m_data.uv3.push_back(v.uv[3]);
         }
     }
 
@@ -108,7 +87,7 @@ namespace wmoge {
         m_data.faces.push_back(face);
     }
 
-    void ArrayMesh::pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, buffered_vector<GfxVertStream>& streams) const {
+    void ArrayMesh::pack_attribs(const GfxVertAttribsStreams& layout, Ref<Data>& buffer, buffered_vector<MeshVertStream>& streams) const {
         const void* attribs_data[] = {
                 m_data.pos3.data(),
                 m_data.pos2.data(),
@@ -116,14 +95,14 @@ namespace wmoge {
                 m_data.tang.data(),
                 m_data.bone_ids.data(),
                 m_data.bone_weights.data(),
-                m_data.col[0].data(),
-                m_data.col[1].data(),
-                m_data.col[2].data(),
-                m_data.col[3].data(),
-                m_data.uv[0].data(),
-                m_data.uv[1].data(),
-                m_data.uv[2].data(),
-                m_data.uv[3].data()};
+                m_data.col0.data(),
+                m_data.col1.data(),
+                m_data.col2.data(),
+                m_data.col3.data(),
+                m_data.uv0.data(),
+                m_data.uv1.data(),
+                m_data.uv2.data(),
+                m_data.uv3.data()};
 
         const std::size_t attribs_size[] = {
                 m_data.pos3.size(),
@@ -132,14 +111,14 @@ namespace wmoge {
                 m_data.tang.size(),
                 m_data.bone_ids.size(),
                 m_data.bone_weights.size(),
-                m_data.col[0].size(),
-                m_data.col[1].size(),
-                m_data.col[2].size(),
-                m_data.col[3].size(),
-                m_data.uv[0].size(),
-                m_data.uv[1].size(),
-                m_data.uv[2].size(),
-                m_data.uv[3].size()};
+                m_data.col0.size(),
+                m_data.col1.size(),
+                m_data.col2.size(),
+                m_data.col3.size(),
+                m_data.uv0.size(),
+                m_data.uv1.size(),
+                m_data.uv2.size(),
+                m_data.uv3.size()};
 
         int vert_streams       = 0;
         int vert_buffer_offset = 0;
@@ -153,7 +132,7 @@ namespace wmoge {
 
         for (int i = 0; i < layout.size(); i++) {
             if ((m_data.attribs & layout[i]).bits.any()) {
-                GfxVertStream stream;
+                MeshVertStream stream;
                 stream.attribs = m_data.attribs & layout[i];
                 stream.offset  = vert_buffer_offset;
                 stream.stride  = 0;
@@ -186,7 +165,7 @@ namespace wmoge {
         }
     }
 
-    void ArrayMesh::pack_faces(Ref<Data>& buffer, GfxIndexStream& stream) const {
+    void ArrayMesh::pack_faces(Ref<Data>& buffer, MeshIndexStream& stream) const {
         buffer = make_ref<Data>(get_num_faces() * sizeof(MeshFace));
         std::memcpy(buffer->buffer(), m_data.faces.data(), get_num_faces() * sizeof(MeshFace));
 

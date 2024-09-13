@@ -29,54 +29,90 @@
 
 #include "asset/asset.hpp"
 #include "core/array_view.hpp"
-#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
 #include "core/mask.hpp"
 #include "gfx/gfx_buffers.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_defs.hpp"
-#include "io/serialization.hpp"
 #include "math/aabb.hpp"
 #include "math/vec.hpp"
+#include "mesh/array_mesh.hpp"
+#include "rtti/traits.hpp"
 
+#include <functional>
+#include <memory>
 #include <unordered_map>
 #include <vector>
 
 namespace wmoge {
+
+    /** @brief Flag assigned to mesh asset */
+    enum class MeshFlag {
+        Managed = 0,
+        Streamed,
+        FromDisk
+    };
+
+    /** @brief Flags assigned to mesh asset */
+    using MeshFlags = Mask<MeshFlag>;
 
     /**
      * @class MeshChunk
      * @brief Represents single mesh chunk in a mesh which can be rendered individually with material
      */
     struct MeshChunk {
-        Strid                name;
-        Aabbf                aabb;
-        GfxVertAttribs       attribs;
-        GfxPrimType          prim_type          = GfxPrimType::Triangles;
-        int                  elem_count         = 0;
-        int                  vert_stream_offset = -1;
-        int                  vert_stream_count  = 0;
-        int                  index_stream       = -1;
-        int                  parent             = -1;
-        buffered_vector<int> children;
+        WG_RTTI_STRUCT(MeshChunk);
 
-        WG_IO_DECLARE(MeshChunk);
+        Strid          name;
+        Aabbf          aabb;
+        GfxVertAttribs attribs;
+        GfxPrimType    prim_type          = GfxPrimType::Triangles;
+        int            elem_count         = 0;
+        int            vert_stream_offset = -1;
+        int            vert_stream_count  = 0;
+        int            index_stream       = -1;
     };
+
+    WG_RTTI_STRUCT_BEGIN(MeshChunk) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(aabb, {});
+        WG_RTTI_FIELD(attribs, {});
+        WG_RTTI_FIELD(prim_type, {});
+        WG_RTTI_FIELD(elem_count, {});
+        WG_RTTI_FIELD(vert_stream_offset, {});
+        WG_RTTI_FIELD(vert_stream_count, {});
+        WG_RTTI_FIELD(index_stream, {});
+    }
+    WG_RTTI_END;
 
     /** 
-     * @class MeshFile
+     * @class MeshData
      * @brief Struct used to serialize mesh asset data
      */
-    struct MeshFile {
-        buffered_vector<MeshChunk>      chunks;
-        buffered_vector<Ref<Data>>      vertex_buffers;
-        buffered_vector<Ref<Data>>      index_buffers;
-        buffered_vector<GfxVertStream>  vert_streams;
-        buffered_vector<GfxIndexStream> index_streams;
-        buffered_vector<int>            roots;
-        Aabbf                           aabb;
+    struct MeshData {
+        WG_RTTI_STRUCT(MeshData);
 
-        WG_IO_DECLARE(MeshFile);
+        std::vector<MeshChunk>       chunks;
+        std::vector<Ref<ArrayMesh>>  array_meshes;
+        std::vector<Ref<Data>>       vertex_buffers;
+        std::vector<Ref<Data>>       index_buffers;
+        std::vector<MeshVertStream>  vert_streams;
+        std::vector<MeshIndexStream> index_streams;
+        Aabbf                        aabb;
     };
+
+    WG_RTTI_STRUCT_BEGIN(MeshData) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(chunks, {});
+        WG_RTTI_FIELD(array_meshes, {});
+        WG_RTTI_FIELD(vertex_buffers, {});
+        WG_RTTI_FIELD(index_buffers, {});
+        WG_RTTI_FIELD(vert_streams, {});
+        WG_RTTI_FIELD(index_streams, {});
+        WG_RTTI_FIELD(aabb, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class Mesh
@@ -86,40 +122,50 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(Mesh, Asset);
 
+        using Callback    = std::function<void(Mesh*)>;
+        using CallbackRef = std::shared_ptr<Callback>;
+
         Mesh()           = default;
         ~Mesh() override = default;
 
-        void add_chunk(const MeshChunk& mesh_chunk);
+        Mesh(MeshFlags flags);
+
+        void add_chunk(const MeshChunk& mesh_chunk, const Ref<ArrayMesh>& mesh);
         void add_vertex_buffer(Ref<Data> buffer);
         void add_index_buffer(Ref<Data> buffer);
-        void add_vert_stream(const GfxVertStream& stream);
-        void add_intex_stream(const GfxIndexStream& stream);
+        void add_vert_stream(const MeshVertStream& stream);
+        void add_intex_stream(const MeshIndexStream& stream);
+        void set_aabb(const Aabbf& aabb);
+        void set_mesh_callback(CallbackRef callback);
+        void set_gfx_vertex_buffers(std::vector<Ref<GfxVertBuffer>> gfx_vertex_buffers);
+        void set_gfx_index_buffers(std::vector<Ref<GfxIndexBuffer>> gfx_index_buffers);
 
-        void update_aabb();
-        void update_gfx_buffers();
-
-        [[nodiscard]] GfxVertBuffersSetup get_vert_buffers_setup(int chunk_id) const;
-        [[nodiscard]] GfxIndexBufferSetup get_index_buffer_setup(int chunk_id) const;
-
-        [[nodiscard]] array_view<const MeshChunk> get_chunks() const;
-        [[nodiscard]] const MeshChunk&            get_chunk(int i) const;
-        [[nodiscard]] const Ref<GfxVertBuffer>&   get_gfx_vertex_buffers(int i) const;
-        [[nodiscard]] const Ref<GfxIndexBuffer>&  get_gfx_index_buffers(int i) const;
-        [[nodiscard]] const GfxVertStream&        get_vert_streams(int i) const;
-        [[nodiscard]] const GfxIndexStream&       get_index_streams(int i) const;
-        [[nodiscard]] array_view<const int>       get_roots() const;
-        [[nodiscard]] Aabbf                       get_aabb() const;
+        [[nodiscard]] GfxVertBuffersSetup              get_vert_buffers_setup(int chunk_id) const;
+        [[nodiscard]] GfxIndexBufferSetup              get_index_buffer_setup(int chunk_id) const;
+        [[nodiscard]] array_view<const MeshChunk>      get_chunks() const;
+        [[nodiscard]] array_view<const Ref<ArrayMesh>> get_array_meshes() const;
+        [[nodiscard]] const MeshChunk&                 get_chunk(int i) const;
+        [[nodiscard]] const Ref<GfxVertBuffer>&        get_gfx_vertex_buffers(int i) const;
+        [[nodiscard]] const Ref<GfxIndexBuffer>&       get_gfx_index_buffers(int i) const;
+        [[nodiscard]] const MeshVertStream&            get_vert_streams(int i) const;
+        [[nodiscard]] const MeshIndexStream&           get_index_streams(int i) const;
+        [[nodiscard]] const Aabbf&                     get_aabb() const;
+        [[nodiscard]] const MeshFlags&                 get_flags() const;
+        [[nodiscard]] GfxMemUsage                      get_mem_usage() const;
 
     private:
-        buffered_vector<MeshChunk>           m_chunks;
-        buffered_vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
-        buffered_vector<Ref<Data>>           m_vertex_buffers;
-        buffered_vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;
-        buffered_vector<Ref<Data>>           m_index_buffers;
-        buffered_vector<GfxVertStream>       m_vert_streams;
-        buffered_vector<GfxIndexStream>      m_index_streams;
-        buffered_vector<int>                 m_roots;
-        Aabbf                                m_aabb;
+        std::vector<MeshChunk>           m_chunks;
+        std::vector<Ref<ArrayMesh>>      m_array_meshes;
+        std::vector<Ref<GfxVertBuffer>>  m_gfx_vertex_buffers;
+        std::vector<Ref<Data>>           m_vertex_buffers;
+        std::vector<Ref<GfxIndexBuffer>> m_gfx_index_buffers;
+        std::vector<Ref<Data>>           m_index_buffers;
+        std::vector<MeshVertStream>      m_vert_streams;
+        std::vector<MeshIndexStream>     m_index_streams;
+        Aabbf                            m_aabb;
+        MeshFlags                        m_flags;
+        GfxMemUsage                      m_mem_usage = GfxMemUsage::GpuLocal;
+        CallbackRef                      m_callback;
     };
 
     WG_RTTI_CLASS_BEGIN(Mesh) {

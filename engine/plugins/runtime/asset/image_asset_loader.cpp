@@ -50,7 +50,6 @@ namespace wmoge {
 
         asset = image;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         return image->load(import_data->source_files[0].file, import_data->channels);
     }

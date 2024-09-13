@@ -69,7 +69,7 @@ namespace wmoge {
     Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetRef<T>& ref) {
         AssetId id;
         WG_YAML_READ(context, node, id);
-        Ref<T> ptr = context.get_asset_manager()->load(id).cast<T>();
+        Ref<T> ptr = context.get_asset_manager()->find(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
         }

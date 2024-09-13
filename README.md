@@ -8,7 +8,7 @@
 ![language](https://img.shields.io/badge/language-C++17-_)
 ![license](https://img.shields.io/badge/license-MIT-_)
 
-**"Write my own game engine (wmoge)"** is a modern high-performance 2d and 3d graphics game engine with Vulkan and
+**"Write my own game engine (wmoge)"** is a modern high-performance 3d graphics game engine with Vulkan and
 OpenGL backends. The idea of the project is to implement a self-sufficient, small, but featured engine and a number of
 2d and 3d games using it. Primary focus is the core architecture of the engine, reliability, clean and performant code.
 Currently, the work is focused on a minor refactoring, new runtime scene representation, building a high-level rendering
@@ -21,9 +21,6 @@ project for educational purposes only.
 * **Contributing
   guide:** [github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md](https://github.com/EgorOrachyov/wmoge/blob/main/CONTRIBUTING.md)
 * **Source code:** [github.com/EgorOrachyov/wmoge](https://github.com/EgorOrachyov/wmoge)
-
-![gif](https://github.com/EgorOrachyov/wmoge/raw/main/docs/media/background.gif?raw=true&sanitize=true)
-> Work in progress, new features coming soon! This 2d demo is an old build!
 
 ## About the engine
 
@@ -38,7 +35,9 @@ project for educational purposes only.
 * ⚙ Command line and hook system to build custom tools.
 * ⚙ Simple stack-based config system.
 * ⚙ Dependency injection and IoC container system for global managers.
-* 🎥 Abstract graphics (gfx) device interface for GPU driver communication.
+* 🎥 Higl-level render dendency graph (RDG) for scheduling GPU rendering and compute work.
+* 🎥 Modern graphics (gfx) device interface for GPU driver communication.
+* 🎥 Explicit command list and resource bariers management in gfx api.
 * 🎥 Vulkan-based gfx device backend.
 * 🎥 (future) OpenGL-based gfx device backend.
 * 🎥 (future) DX12-based gfx device backend.
@@ -57,7 +56,6 @@ project for educational purposes only.
 * 🅰️ Custom math library with 2d and 3d-space primitives.
 * 🅰️ (future) SIMD utilities for fast vectorized math.
 * 🧱 Ecs-based scene model with fast, parallel and memory-friendly update.
-* 🧱 Tree-based object model for editor (offline) scene description.
 * 🎧 (in progress) OpenAL audio renderer for playing game sounds.
 * 📜 (in progress) Modern Lua scripting backend for game logic programming.
 * 🐞 Built-in CPU performance and tasking profiling with support to google trace exporting.

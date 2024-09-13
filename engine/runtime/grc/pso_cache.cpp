@@ -29,7 +29,7 @@
 
 #include "core/task.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "grc/shader_compiler_task_manager.hpp"
+#include "grc/shader_compiler.hpp"
 #include "grc/shader_library.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"

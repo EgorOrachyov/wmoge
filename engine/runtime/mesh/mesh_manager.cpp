@@ -25,32 +25,74 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "mesh_manager.hpp"
 
-#include "asset/asset_ref.hpp"
-#include "core/array_view.hpp"
-#include "mesh/mesh_batch.hpp"
-#include "mesh/mesh_pass.hpp"
-#include "render/camera.hpp"
-#include "render/model.hpp"
-#include "render/render_engine.hpp"
+#include "gfx/gfx_driver.hpp"
+#include "profiler/profiler.hpp"
+#include "system/ioc_container.hpp"
+
+#include <cassert>
 
 namespace wmoge {
 
-    /**
-     * @class ModelInstance
-     * @brief An instance of renderable model with cached state for optimized rendering 
-    */
-    class ModelInstance {
-    public:
-        ModelInstance() = default;
-        ModelInstance(Ref<Model> model);
+    MeshManager::MeshManager() {
+        m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
+        m_callback   = std::make_shared<Mesh::Callback>([this](Mesh* mesh) { remove_mesh(mesh); });
+    }
 
-        void init(Ref<Model> model);
-        void render(const RenderParams& params, const RenderPassInfo& render_pass) const;
+    Ref<Mesh> MeshManager::create_mesh(MeshFlags flags) {
+        flags.set(MeshFlag::Managed);
 
-    private:
-        Ref<Model> m_model;
-    };
+        Ref<Mesh> mesh = make_ref<Mesh>(flags);
+        add_mesh(mesh);
+        return mesh;
+    }
+
+    void MeshManager::add_mesh(const Ref<Mesh>& mesh) {
+        assert(mesh);
+        assert(!has_mesh(mesh.get()));
+
+        std::lock_guard guard(m_mutex);
+        mesh->set_mesh_callback(m_callback);
+        m_meshes[mesh.get()].weak_ref = mesh;
+    }
+
+    void MeshManager::remove_mesh(Mesh* mesh) {
+        assert(mesh);
+        assert(has_mesh(mesh));
+
+        std::lock_guard guard(m_mutex);
+
+        auto entry = m_meshes.find(mesh);
+        if (entry->second.state.get(MeshState::Inited)) {
+            delete_gfx_resource(mesh);
+        }
+        m_meshes.erase(entry);
+    }
+
+    void MeshManager::init_mesh(Mesh* mesh) {
+        assert(mesh);
+        assert(has_mesh(mesh));
+
+        create_gfx_resource(mesh);
+
+        std::lock_guard guard(m_mutex);
+        m_meshes[mesh].state.set(MeshState::Inited);
+        m_meshes[mesh].state.set(MeshState::PendingUpload);
+    }
+
+    bool MeshManager::has_mesh(Mesh* mesh) {
+        std::lock_guard guard(m_mutex);
+        return m_meshes.find(mesh) != m_meshes.end();
+    }
+
+    void MeshManager::create_gfx_resource(Mesh* mesh) {
+    }
+
+    void MeshManager::delete_gfx_resource(Mesh* mesh) {
+    }
+
+    void MeshManager::upload_gfx_data(Mesh* mesh, GfxCmdListRef& cmd_list) {
+    }
 
 }// namespace wmoge

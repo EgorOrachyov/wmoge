@@ -78,7 +78,6 @@ namespace wmoge {
 
         void set_source_images(std::vector<Ref<Image>> images);
         void set_sampler(const Ref<GfxSampler>& sampler);
-        void set_sampler_from_desc(const GfxSamplerDesc& desc);
         void set_compression(const TexCompressionParams& params);
         void set_flags(const TextureFlags& flags);
         void set_texture_callback(CallbackRef callback);

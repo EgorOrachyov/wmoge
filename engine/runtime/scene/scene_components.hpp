@@ -39,7 +39,6 @@
 #include "render/camera.hpp"
 #include "render/culling.hpp"
 #include "render/light.hpp"
-#include "render/model_instance.hpp"
 
 #include <memory>
 #include <optional>
@@ -176,16 +175,6 @@ namespace wmoge {
         WG_ECS_COMPONENT(EcsComponentLight);
 
         Light light;
-    };
-
-    /**
-     * @class EcsComponentModel
-     * @brief A renderable model
-     */
-    struct EcsComponentModel : EcsComponent<EcsComponentModel> {
-        WG_ECS_COMPONENT(EcsComponentModel);
-
-        ModelInstance instance;
     };
 
     /**

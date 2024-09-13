@@ -174,7 +174,7 @@ namespace wmoge {
 
         font_desc.texture = m_texture_manager->create_2d(flags, GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
         font_desc.texture->set_name(SID(font->get_name().str() + "_bitmap"));
-        font_desc.texture->set_sampler_from_desc(sampler_desc);
+        font_desc.texture->set_sampler(m_gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_string())));
         font_desc.texture->set_compression(compression_params);
         font_desc.texture->set_source_images({bitmap});
 

@@ -54,7 +54,6 @@ namespace wmoge {
 
         asset = font;
         asset->set_name(name);
-        asset->set_import_data(meta.import_data);
 
         FreetypeFont loader;
         return loader.load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
