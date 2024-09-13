@@ -106,11 +106,11 @@ namespace wmoge {
     Status yaml_write(IoContext& context, YamlNodeRef node, const Sha256& sha) {
         return yaml_write(context, node, sha.to_string());
     }
-    Status archive_read(IoContext& context, Archive& archive, Sha256& sha) {
-        return archive.nread(sizeof(sha), &sha);
+    Status stream_read(IoContext& context, IoStream& stream, Sha256& sha) {
+        return stream.nread(sizeof(sha), &sha);
     }
-    Status archive_write(IoContext& context, Archive& archive, const Sha256& sha) {
-        return archive.nwrite(sizeof(sha), &sha);
+    Status stream_write(IoContext& context, IoStream& stream, const Sha256& sha) {
+        return stream.nwrite(sizeof(sha), &sha);
     }
 
     static constexpr std::array<uint32_t, 64> K = {

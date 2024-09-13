@@ -45,8 +45,8 @@ namespace wmoge {
         virtual Status          clone(Ref<RttiObject>& object) const;
         virtual Status          read_from_yaml(IoContext& context, YamlConstNodeRef node);
         virtual Status          write_to_yaml(IoContext& context, YamlNodeRef node) const;
-        virtual Status          read_from_archive(IoContext& context, Archive& archive);
-        virtual Status          write_to_archive(IoContext& context, Archive& archive) const;
+        virtual Status          read_from_stream(IoContext& context, IoStream& stream);
+        virtual Status          write_to_stream(IoContext& context, IoStream& stream) const;
         virtual Ref<RttiObject> duplicate() const;
         virtual Strid           get_class_name() const;
         virtual Strid           get_parent_class_name() const;
@@ -59,8 +59,8 @@ namespace wmoge {
         static RttiClass* get_parent_class_static();
         static Status     yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<RttiObject>& object);
         static Status     yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<RttiObject>& object);
-        static Status     archive_read_object(IoContext& context, Archive& archive, Ref<RttiObject>& object);
-        static Status     archive_write_object(IoContext& context, Archive& archive, const Ref<RttiObject>& object);
+        static Status     archive_read_object(IoContext& context, IoStream& stream, Ref<RttiObject>& object);
+        static Status     archive_write_object(IoContext& context, IoStream& stream, const Ref<RttiObject>& object);
     };
 
     template<typename T, typename std::enable_if<std::is_convertible_v<T*, RttiObject*>>::type>
@@ -114,17 +114,17 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_read(IoContext& context, Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status stream_read(IoContext& context, IoStream& stream, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object;
-        WG_CHECKED(RttiObject::archive_read_object(context, archive, object));
+        WG_CHECKED(RttiObject::archive_read_object(context, stream, object));
         ref = object.template cast<T>();
         return WG_OK;
     }
 
     template<typename T>
-    Status archive_write(IoContext& context, Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status stream_write(IoContext& context, IoStream& stream, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object = ref.template as<RttiObject>();
-        WG_CHECKED(RttiObject::archive_write_object(context, archive, object));
+        WG_CHECKED(RttiObject::archive_write_object(context, stream, object));
         return WG_OK;
     }
 

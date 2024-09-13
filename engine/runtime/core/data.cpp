@@ -73,16 +73,16 @@ namespace wmoge {
         return builder.get();
     }
 
-    Status archive_write(IoContext& context, Archive& archive, const Ref<Data>& data) {
+    Status stream_write(IoContext& context, IoStream& stream, const Ref<Data>& data) {
         assert(data);
-        WG_ARCHIVE_WRITE(context, archive, data->m_size);
-        return archive.nwrite(static_cast<int>(data->m_size), data->m_buffer);
+        WG_ARCHIVE_WRITE(context, stream, data->m_size);
+        return stream.nwrite(static_cast<int>(data->m_size), data->m_buffer);
     }
-    Status archive_read(IoContext& context, Archive& archive, Ref<Data>& data) {
+    Status stream_read(IoContext& context, IoStream& stream, Ref<Data>& data) {
         std::size_t size;
-        WG_ARCHIVE_READ(context, archive, size);
+        WG_ARCHIVE_READ(context, stream, size);
         data = make_ref<Data>(size);
-        return archive.nread(static_cast<int>(size), data->buffer());
+        return stream.nread(static_cast<int>(size), data->buffer());
     }
 
     Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<Data>& data) {

@@ -3,7 +3,7 @@
 #include "core/date_time.hpp"
 #include "core/log.hpp"
 #include "grc/shader_library.hpp"
-#include "io/archive_file.hpp"
+#include "io/stream_file.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/traits.hpp"
 #include "system/config.hpp"
@@ -116,10 +116,10 @@ namespace wmoge {
     Status ShaderCache::load_cache(const std::string& file_path, GfxShaderPlatform platform, bool allow_missing) {
         WG_AUTO_PROFILE_GRC("ShaderCache::load_cache");
 
-        ArchiveFile archive;
-        IoContext   context;
+        IoStreamFile stream;
+        IoContext    context;
 
-        if (!archive.open(file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
+        if (!stream.open(file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
             if (allow_missing) {
                 return WG_OK;
             }
@@ -130,7 +130,7 @@ namespace wmoge {
 
         FileShaderProgramCache cache;
 
-        WG_ARCHIVE_READ(context, archive, cache);
+        WG_ARCHIVE_READ(context, stream, cache);
 
         if (cache.platform != platform) {
             WG_LOG_ERROR("mismatched platfrom in file " << file_path);
@@ -170,15 +170,15 @@ namespace wmoge {
             }
         }
 
-        ArchiveFile archive;
-        IoContext   context;
+        IoStreamFile stream;
+        IoContext    context;
 
-        if (!archive.open(file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
+        if (!stream.open(file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
             WG_LOG_ERROR("failed to open shader cache " << file_path << " for platform " << Enum::to_str(platform));
             return StatusCode::FailedOpenFile;
         }
 
-        WG_ARCHIVE_WRITE(context, archive, cache);
+        WG_ARCHIVE_WRITE(context, stream, cache);
 
         WG_LOG_INFO("save " << file_path << " at=" << cache.timestamp << " entries=" << cache.programs.size());
 

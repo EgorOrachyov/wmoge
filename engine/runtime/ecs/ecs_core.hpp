@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <bitset>
@@ -85,11 +85,11 @@ namespace wmoge {
         friend Status yaml_write(IoContext& context, YamlNodeRef node, const EcsArch& arch) {
             return yaml_write(context, node, *((const EcsArch::Bitset*) &arch));
         }
-        friend Status archive_read(IoContext& context, Archive& archive, EcsArch& arch) {
-            return archive_read(context, archive, *((EcsArch::Bitset*) &arch));
+        friend Status stream_read(IoContext& context, IoStream& stream, EcsArch& arch) {
+            return stream_read(context, stream, *((EcsArch::Bitset*) &arch));
         }
-        friend Status archive_write(IoContext& context, Archive& archive, const EcsArch& arch) {
-            return archive_write(context, archive, *((const EcsArch::Bitset*) &arch));
+        friend Status stream_write(IoContext& context, IoStream& stream, const EcsArch& arch) {
+            return stream_write(context, stream, *((const EcsArch::Bitset*) &arch));
         }
     };
 

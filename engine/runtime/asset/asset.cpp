@@ -43,12 +43,12 @@ namespace wmoge {
         WG_YAML_WRITE(context, node, id.m_name);
         return WG_OK;
     }
-    Status archive_read(IoContext& context, Archive& archive, AssetId& id) {
-        WG_ARCHIVE_READ(context, archive, id.m_name);
+    Status stream_read(IoContext& context, IoStream& stream, AssetId& id) {
+        WG_ARCHIVE_READ(context, stream, id.m_name);
         return WG_OK;
     }
-    Status archive_write(IoContext& context, Archive& archive, const AssetId& id) {
-        WG_ARCHIVE_WRITE(context, archive, id.m_name);
+    Status stream_write(IoContext& context, IoStream& stream, const AssetId& id) {
+        WG_ARCHIVE_WRITE(context, stream, id.m_name);
         return WG_OK;
     }
 

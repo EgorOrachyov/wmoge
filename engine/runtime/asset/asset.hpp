@@ -70,8 +70,8 @@ namespace wmoge {
 
         friend Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetId& id);
         friend Status yaml_write(IoContext& context, YamlNodeRef node, const AssetId& id);
-        friend Status archive_read(IoContext& context, Archive& archive, AssetId& id);
-        friend Status archive_write(IoContext& context, Archive& archive, const AssetId& id);
+        friend Status stream_read(IoContext& context, IoStream& stream, AssetId& id);
+        friend Status stream_write(IoContext& context, IoStream& stream, const AssetId& id);
 
     private:
         Strid m_name;

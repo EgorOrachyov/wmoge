@@ -36,8 +36,8 @@
 #include "core/sha256.hpp"
 #include "core/status.hpp"
 #include "core/uuid.hpp"
-#include "io/archive.hpp"
 #include "io/enum.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
@@ -108,11 +108,11 @@ namespace wmoge {
         Status write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const override {
             return yaml_write(context, node, *((const T*) src));
         }
-        Status read_from_archive(void* dst, Archive& archive, IoContext& context) const override {
-            return archive_read(context, archive, *((T*) dst));
+        Status read_from_stream(void* dst, IoStream& stream, IoContext& context) const override {
+            return stream_read(context, stream, *((T*) dst));
         }
-        Status write_to_archive(const void* src, Archive& archive, IoContext& context) const override {
-            return archive_write(context, archive, *((T*) src));
+        Status write_to_stream(const void* src, IoStream& stream, IoContext& context) const override {
+            return stream_write(context, stream, *((T*) src));
         }
     };
 
@@ -812,11 +812,11 @@ public:                                                                         
     friend Status yaml_write(IoContext& context, YamlNodeRef node, const struct_type& value) {                     \
         return get_class_static()->write_to_yaml(&value, node, context);                                           \
     }                                                                                                              \
-    friend Status archive_read(IoContext& context, Archive& archive, struct_type& value) {                         \
-        return get_class_static()->read_from_archive(&value, archive, context);                                    \
+    friend Status stream_read(IoContext& context, IoStream& stream, struct_type& value) {                          \
+        return get_class_static()->read_from_stream(&value, stream, context);                                      \
     }                                                                                                              \
-    friend Status archive_write(IoContext& context, Archive& archive, const struct_type& value) {                  \
-        return get_class_static()->write_to_archive(&value, archive, context);                                     \
+    friend Status stream_write(IoContext& context, IoStream& stream, const struct_type& value) {                   \
+        return get_class_static()->write_to_stream(&value, stream, context);                                       \
     }                                                                                                              \
     friend struct RttiTypeOf<struct_type>;
 

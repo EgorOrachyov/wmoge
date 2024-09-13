@@ -79,8 +79,8 @@ namespace wmoge {
 
         friend Status yaml_read(IoContext& context, YamlConstNodeRef node, DateTime& value);
         friend Status yaml_write(IoContext& context, YamlNodeRef node, const DateTime& value);
-        friend Status archive_read(IoContext& context, Archive& archive, DateTime& value);
-        friend Status archive_write(IoContext& context, Archive& archive, const DateTime& value);
+        friend Status stream_read(IoContext& context, IoStream& stream, DateTime& value);
+        friend Status stream_write(IoContext& context, IoStream& stream, const DateTime& value);
 
     private:
         TimePoint m_value{};

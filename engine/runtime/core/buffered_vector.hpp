@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <svector.hpp>
@@ -46,22 +46,22 @@ namespace wmoge {
     using buffered_vector = ankerl::svector<T, MinCapacity>;
 
     template<typename T, std::size_t MinCapacity>
-    Status archive_write(IoContext& context, Archive& archive, const buffered_vector<T, MinCapacity>& vector) {
-        WG_ARCHIVE_WRITE(context, archive, vector.size());
+    Status stream_write(IoContext& context, IoStream& stream, const buffered_vector<T, MinCapacity>& vector) {
+        WG_ARCHIVE_WRITE(context, stream, vector.size());
         for (const auto& entry : vector) {
-            WG_ARCHIVE_WRITE(context, archive, entry);
+            WG_ARCHIVE_WRITE(context, stream, entry);
         }
         return WG_OK;
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status archive_read(IoContext& context, Archive& archive, buffered_vector<T, MinCapacity>& vector) {
+    Status stream_read(IoContext& context, IoStream& stream, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         std::size_t size;
-        WG_ARCHIVE_READ(context, archive, size);
+        WG_ARCHIVE_READ(context, stream, size);
         vector.resize(size);
         for (int i = 0; i < size; i++) {
-            WG_ARCHIVE_READ(context, archive, vector[i]);
+            WG_ARCHIVE_READ(context, stream, vector[i]);
         }
         return WG_OK;
     }

@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 #include "math_utils.hpp"
 
@@ -679,13 +679,13 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status archive_read(IoContext& context, Archive& archive, TVecN<T, N>& v) {
-        return archive.nread(sizeof(TVecN<T, N>), &v);
+    Status stream_read(IoContext& context, IoStream& stream, TVecN<T, N>& v) {
+        return stream.nread(sizeof(TVecN<T, N>), &v);
     }
 
     template<typename T, int N>
-    Status archive_write(IoContext& context, Archive& archive, const TVecN<T, N>& v) {
-        return archive.nwrite(sizeof(TVecN<T, N>), &v);
+    Status stream_write(IoContext& context, IoStream& stream, const TVecN<T, N>& v) {
+        return stream.nwrite(sizeof(TVecN<T, N>), &v);
     }
 
 }// namespace wmoge

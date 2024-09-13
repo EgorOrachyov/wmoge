@@ -32,8 +32,8 @@
 #include "core/timer.hpp"
 #include "glsl/glsl_builder.hpp"
 #include "glsl/glsl_include_processor.hpp"
-#include "io/archive.hpp"
 #include "io/enum.hpp"
+#include "io/stream.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 

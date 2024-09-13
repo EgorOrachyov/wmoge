@@ -153,8 +153,8 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status RttiStruct::read_from_archive(void* dst, Archive& archive, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_archive");
+    Status RttiStruct::read_from_stream(void* dst, IoStream& stream, IoContext& context) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_stream");
         assert(dst);
 
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
@@ -162,13 +162,13 @@ namespace wmoge {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
             }
-            WG_CHECKED(field.get_type()->read_from_archive(self + field.get_byte_offset(), archive, context));
+            WG_CHECKED(field.get_type()->read_from_stream(self + field.get_byte_offset(), stream, context));
         }
         return WG_OK;
     }
 
-    Status RttiStruct::write_to_archive(const void* src, Archive& archive, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_archive");
+    Status RttiStruct::write_to_stream(const void* src, IoStream& stream, IoContext& context) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_stream");
 
         assert(src);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
@@ -176,7 +176,7 @@ namespace wmoge {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
             }
-            WG_CHECKED(field.get_type()->write_to_archive(self + field.get_byte_offset(), archive, context));
+            WG_CHECKED(field.get_type()->write_to_stream(self + field.get_byte_offset(), stream, context));
         }
         return WG_OK;
     }

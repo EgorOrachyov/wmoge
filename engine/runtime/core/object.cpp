@@ -152,16 +152,16 @@ namespace wmoge {
         return object->write_to_yaml(node);
     }
 
-    Status archive_read_object(IoContext& context, Archive& archive, Ref<Object>& object) {
+    Status archive_read_object(IoContext& context, IoStream& stream, Ref<Object>& object) {
         assert(!object);
 
         Strid class_name;
-        WG_ARCHIVE_READ(context, archive, class_name);
+        WG_ARCHIVE_READ(context, stream, class_name);
 
         auto* cls = Class::class_ptr(class_name);
 
         if (!cls) {
-            WG_LOG_ERROR("no such class to read from archive " << class_name);
+            WG_LOG_ERROR("no such class to read from stream " << class_name);
             return StatusCode::NoClass;
         }
 
@@ -172,12 +172,12 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        return object->read_from_archive(archive);
+        return object->read_from_stream(stream);
     }
-    Status archive_write_object(IoContext& context, Archive& archive, const Ref<Object>& object) {
+    Status archive_write_object(IoContext& context, IoStream& stream, const Ref<Object>& object) {
         assert(object);
-        WG_ARCHIVE_WRITE(context, archive, object->class_name());
-        return object->write_to_archive(archive);
+        WG_ARCHIVE_WRITE(context, stream, object->class_name());
+        return object->write_to_stream(stream);
     }
 
 }// namespace wmoge

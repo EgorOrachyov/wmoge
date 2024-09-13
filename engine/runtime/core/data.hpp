@@ -31,7 +31,7 @@
 #include "core/ref.hpp"
 #include "core/sha256.hpp"
 #include "core/string_utils.hpp"
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 #include "math/math_utils.hpp"
 
@@ -73,8 +73,8 @@ namespace wmoge {
         [[nodiscard]] Crc32         to_crc32() const;
         [[nodiscard]] Sha256        to_sha256() const;
 
-        friend Status archive_write(IoContext& context, Archive& archive, const Ref<Data>& data);
-        friend Status archive_read(IoContext& context, Archive& archive, Ref<Data>& data);
+        friend Status stream_write(IoContext& context, IoStream& stream, const Ref<Data>& data);
+        friend Status stream_read(IoContext& context, IoStream& stream, Ref<Data>& data);
 
         friend Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<Data>& data);
         friend Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<Data>& data);

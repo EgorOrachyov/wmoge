@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <array>
@@ -66,8 +66,8 @@ namespace wmoge {
 
     Status yaml_read(IoContext& context, YamlConstNodeRef node, Sha256& sha);
     Status yaml_write(IoContext& context, YamlNodeRef node, const Sha256& sha);
-    Status archive_read(IoContext& context, Archive& archive, Sha256& sha);
-    Status archive_write(IoContext& context, Archive& archive, const Sha256& sha);
+    Status stream_read(IoContext& context, IoStream& stream, Sha256& sha);
+    Status stream_write(IoContext& context, IoStream& stream, const Sha256& sha);
 
     inline std::ostream& operator<<(std::ostream& stream, const Sha256& sha) {
         stream << sha.to_string();

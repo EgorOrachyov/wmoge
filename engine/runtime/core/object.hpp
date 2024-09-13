@@ -31,7 +31,7 @@
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <cassert>
@@ -71,8 +71,8 @@ namespace wmoge {
         virtual Status copy_to(Object& other) const { return WG_OK; }
         virtual Status read_from_yaml(const YamlConstNodeRef& node) { return StatusCode::NotImplemented; }
         virtual Status write_to_yaml(YamlNodeRef node) const { return StatusCode::NotImplemented; }
-        virtual Status read_from_archive(Archive& archive) { return StatusCode::NotImplemented; }
-        virtual Status write_to_archive(Archive& archive) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_stream(IoStream& stream) { return StatusCode::NotImplemented; }
+        virtual Status write_to_stream(IoStream& stream) const { return StatusCode::NotImplemented; }
         virtual Status clone(Ref<Object>& object) const;
 
         virtual Ref<Object> duplicate() const;
@@ -88,8 +88,8 @@ namespace wmoge {
         friend Status yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<Object>& object);
         friend Status yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<Object>& object);
 
-        friend Status archive_read_object(IoContext& context, Archive& archive, Ref<Object>& object);
-        friend Status archive_write_object(IoContext& context, Archive& archive, const Ref<Object>& object);
+        friend Status archive_read_object(IoContext& context, IoStream& stream, Ref<Object>& object);
+        friend Status archive_write_object(IoContext& context, IoStream& stream, const Ref<Object>& object);
     };
 
     template<typename T>
@@ -145,18 +145,18 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_read(IoContext& context, Archive& archive, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status stream_read(IoContext& context, IoStream& stream, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object;
-        auto        status = archive_read_object(context, archive, object);
+        auto        status = archive_read_object(context, stream, object);
         if (!status) return status;
         ref = object.template cast<T>();
         return WG_OK;
     }
 
     template<typename T>
-    Status archive_write(IoContext& context, Archive& archive, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
+    Status stream_write(IoContext& context, IoStream& stream, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
         Ref<Object> object = ref.template as<Object>();
-        auto        status = archive_write_object(context, archive, object);
+        auto        status = archive_write_object(context, stream, object);
         if (!status) return status;
         return WG_OK;
     }

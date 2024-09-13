@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 
 #include <robin_hood.hpp>
 #include <unordered_set>

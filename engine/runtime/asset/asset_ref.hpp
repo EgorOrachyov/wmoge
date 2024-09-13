@@ -29,7 +29,7 @@
 
 #include "asset/asset.hpp"
 #include "asset/asset_manager.hpp"
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <cassert>
@@ -88,9 +88,9 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_read(IoContext& context, Archive& archive, AssetRef<T>& ref) {
+    Status stream_read(IoContext& context, IoStream& stream, AssetRef<T>& ref) {
         AssetId id;
-        WG_ARCHIVE_READ(context, archive, id);
+        WG_ARCHIVE_READ(context, stream, id);
         Ref<T> ptr = context.get_asset_manager()->load(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
@@ -100,12 +100,12 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_write(IoContext& context, Archive& archive, const AssetRef<T>& ref) {
+    Status stream_write(IoContext& context, IoStream& stream, const AssetRef<T>& ref) {
         assert(ref);
         if (!ref) {
             return StatusCode::NoAsset;
         }
-        WG_ARCHIVE_WRITE(context, archive, ref->get_id());
+        WG_ARCHIVE_WRITE(context, stream, ref->get_id());
         return WG_OK;
     }
 
@@ -125,17 +125,17 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status archive_read(IoContext& context, Archive& archive, AssetRefWeak<T>& ref) {
+    Status stream_read(IoContext& context, IoStream& stream, AssetRefWeak<T>& ref) {
         AssetId id;
-        WG_ARCHIVE_READ(context, archive, id);
+        WG_ARCHIVE_READ(context, stream, id);
         ref = AssetRefWeak<T>(id);
         return WG_OK;
     }
 
     template<typename T>
-    Status archive_write(IoContext& context, Archive& archive, const AssetRefWeak<T>& ref) {
+    Status stream_write(IoContext& context, IoStream& stream, const AssetRefWeak<T>& ref) {
         AssetId id = ref;
-        WG_ARCHIVE_WRITE(context, archive, id);
+        WG_ARCHIVE_WRITE(context, stream, id);
         return WG_OK;
     }
 

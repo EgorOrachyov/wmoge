@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <cinttypes>
@@ -67,8 +67,8 @@ namespace wmoge {
         friend Status yaml_read(IoContext& context, YamlConstNodeRef node, UUID& id);
         friend Status yaml_write(IoContext& context, YamlNodeRef node, const UUID& id);
 
-        friend Status archive_read(IoContext& context, Archive& archive, UUID& id);
-        friend Status archive_write(IoContext& context, Archive& archive, const UUID& id);
+        friend Status stream_read(IoContext& context, IoStream& stream, UUID& id);
+        friend Status stream_write(IoContext& context, IoStream& stream, const UUID& id);
 
     private:
         std::uint64_t m_value = 0;

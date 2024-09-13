@@ -85,16 +85,16 @@ namespace wmoge {
 
             return WG_OK;
         }
-        friend Status archive_read(IoContext& context, Archive& archive, Transform2d& transform) {
-            WG_ARCHIVE_READ(context, archive, transform.m_rotation);
-            WG_ARCHIVE_READ(context, archive, transform.m_translation);
-            WG_ARCHIVE_READ(context, archive, transform.m_scale);
+        friend Status stream_read(IoContext& context, IoStream& stream, Transform2d& transform) {
+            WG_ARCHIVE_READ(context, stream, transform.m_rotation);
+            WG_ARCHIVE_READ(context, stream, transform.m_translation);
+            WG_ARCHIVE_READ(context, stream, transform.m_scale);
             return WG_OK;
         }
-        friend Status archive_write(IoContext& context, Archive& archive, const Transform2d& transform) {
-            WG_ARCHIVE_WRITE(context, archive, transform.m_rotation);
-            WG_ARCHIVE_WRITE(context, archive, transform.m_translation);
-            WG_ARCHIVE_WRITE(context, archive, transform.m_scale);
+        friend Status stream_write(IoContext& context, IoStream& stream, const Transform2d& transform) {
+            WG_ARCHIVE_WRITE(context, stream, transform.m_rotation);
+            WG_ARCHIVE_WRITE(context, stream, transform.m_translation);
+            WG_ARCHIVE_WRITE(context, stream, transform.m_scale);
             return WG_OK;
         }
 
@@ -167,16 +167,16 @@ namespace wmoge {
 
             return WG_OK;
         }
-        friend Status archive_read(IoContext& context, Archive& archive, Transform3d& transform) {
-            WG_ARCHIVE_READ(context, archive, transform.m_rotation);
-            WG_ARCHIVE_READ(context, archive, transform.m_translation);
-            WG_ARCHIVE_READ(context, archive, transform.m_scale);
+        friend Status stream_read(IoContext& context, IoStream& stream, Transform3d& transform) {
+            WG_ARCHIVE_READ(context, stream, transform.m_rotation);
+            WG_ARCHIVE_READ(context, stream, transform.m_translation);
+            WG_ARCHIVE_READ(context, stream, transform.m_scale);
             return WG_OK;
         }
-        friend Status archive_write(IoContext& context, Archive& archive, const Transform3d& transform) {
-            WG_ARCHIVE_WRITE(context, archive, transform.m_rotation);
-            WG_ARCHIVE_WRITE(context, archive, transform.m_translation);
-            WG_ARCHIVE_WRITE(context, archive, transform.m_scale);
+        friend Status stream_write(IoContext& context, IoStream& stream, const Transform3d& transform) {
+            WG_ARCHIVE_WRITE(context, stream, transform.m_rotation);
+            WG_ARCHIVE_WRITE(context, stream, transform.m_translation);
+            WG_ARCHIVE_WRITE(context, stream, transform.m_scale);
             return WG_OK;
         }
 
@@ -251,16 +251,16 @@ namespace wmoge {
 
             return WG_OK;
         }
-        friend Status archive_read(IoContext& context, Archive& archive, TransformEdt& transform) {
-            WG_ARCHIVE_READ(context, archive, transform.m_rotation);
-            WG_ARCHIVE_READ(context, archive, transform.m_translation);
-            WG_ARCHIVE_READ(context, archive, transform.m_scale);
+        friend Status stream_read(IoContext& context, IoStream& stream, TransformEdt& transform) {
+            WG_ARCHIVE_READ(context, stream, transform.m_rotation);
+            WG_ARCHIVE_READ(context, stream, transform.m_translation);
+            WG_ARCHIVE_READ(context, stream, transform.m_scale);
             return WG_OK;
         }
-        friend Status archive_write(IoContext& context, Archive& archive, const TransformEdt& transform) {
-            WG_ARCHIVE_WRITE(context, archive, transform.m_rotation);
-            WG_ARCHIVE_WRITE(context, archive, transform.m_translation);
-            WG_ARCHIVE_WRITE(context, archive, transform.m_scale);
+        friend Status stream_write(IoContext& context, IoStream& stream, const TransformEdt& transform) {
+            WG_ARCHIVE_WRITE(context, stream, transform.m_rotation);
+            WG_ARCHIVE_WRITE(context, stream, transform.m_translation);
+            WG_ARCHIVE_WRITE(context, stream, transform.m_scale);
             return WG_OK;
         }
 

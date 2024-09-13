@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
@@ -133,15 +133,15 @@ namespace wmoge {
         return WG_OK;
     }
     template<typename T>
-    Status archive_read(IoContext& context, Archive& archive, TAabb<T>& aabb) {
-        WG_ARCHIVE_READ(context, archive, aabb.pos);
-        WG_ARCHIVE_READ(context, archive, aabb.size_half);
+    Status stream_read(IoContext& context, IoStream& stream, TAabb<T>& aabb) {
+        WG_ARCHIVE_READ(context, stream, aabb.pos);
+        WG_ARCHIVE_READ(context, stream, aabb.size_half);
         return WG_OK;
     }
     template<typename T>
-    Status archive_write(IoContext& context, Archive& archive, const TAabb<T>& aabb) {
-        WG_ARCHIVE_WRITE(context, archive, aabb.pos);
-        WG_ARCHIVE_WRITE(context, archive, aabb.size_half);
+    Status stream_write(IoContext& context, IoStream& stream, const TAabb<T>& aabb) {
+        WG_ARCHIVE_WRITE(context, stream, aabb.pos);
+        WG_ARCHIVE_WRITE(context, stream, aabb.size_half);
         return WG_OK;
     }
 

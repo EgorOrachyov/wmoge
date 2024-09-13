@@ -57,11 +57,11 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status archive_read(IoContext& context, Archive& archive, UUID& id) {
-        return archive.nread(sizeof(id.m_value), &id.m_value);
+    Status stream_read(IoContext& context, IoStream& stream, UUID& id) {
+        return stream.nread(sizeof(id.m_value), &id.m_value);
     }
-    Status archive_write(IoContext& context, Archive& archive, const UUID& id) {
-        return archive.nwrite(sizeof(id.m_value), &id.m_value);
+    Status stream_write(IoContext& context, IoStream& stream, const UUID& id) {
+        return stream.nwrite(sizeof(id.m_value), &id.m_value);
     }
 
 }// namespace wmoge

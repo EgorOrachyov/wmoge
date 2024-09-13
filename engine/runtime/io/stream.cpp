@@ -25,50 +25,50 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "archive.hpp"
+#include "stream.hpp"
 
 namespace wmoge {
 
-    Status archive_read(IoContext& context, Archive& archive, bool& value) {
+    Status stream_read(IoContext& context, IoStream& stream, bool& value) {
         char v;
-        WG_ARCHIVE_READ(context, archive, v);
+        WG_ARCHIVE_READ(context, stream, v);
         value = v != 0;
         return WG_OK;
     }
-    Status archive_write(IoContext& context, Archive& archive, const bool& value) {
+    Status stream_write(IoContext& context, IoStream& stream, const bool& value) {
         char v = value ? 1 : 0;
-        WG_ARCHIVE_WRITE(context, archive, v);
+        WG_ARCHIVE_WRITE(context, stream, v);
         return WG_OK;
     }
 
-    Status archive_read(IoContext& context, Archive& archive, Strid& value) {
+    Status stream_read(IoContext& context, IoStream& stream, Strid& value) {
         std::string str;
-        WG_ARCHIVE_READ(context, archive, str);
+        WG_ARCHIVE_READ(context, stream, str);
         value = Strid(str);
         return WG_OK;
     }
-    Status archive_write(IoContext& context, Archive& archive, const Strid& value) {
-        WG_ARCHIVE_WRITE(context, archive, value.str());
+    Status stream_write(IoContext& context, IoStream& stream, const Strid& value) {
+        WG_ARCHIVE_WRITE(context, stream, value.str());
         return WG_OK;
     }
 
-    Status archive_read(IoContext& context, Archive& archive, std::string& value) {
+    Status stream_read(IoContext& context, IoStream& stream, std::string& value) {
         std::size_t len;
-        WG_ARCHIVE_READ(context, archive, len);
+        WG_ARCHIVE_READ(context, stream, len);
         value.resize(len);
-        return archive.nread(int(value.length() * sizeof(char)), value.data());
+        return stream.nread(int(value.length() * sizeof(char)), value.data());
     }
-    Status archive_write(IoContext& context, Archive& archive, const std::string& value) {
+    Status stream_write(IoContext& context, IoStream& stream, const std::string& value) {
         std::size_t len = value.length();
-        WG_ARCHIVE_WRITE(context, archive, len);
-        return archive.nwrite(int(value.length() * sizeof(char)), value.data());
+        WG_ARCHIVE_WRITE(context, stream, len);
+        return stream.nwrite(int(value.length() * sizeof(char)), value.data());
     }
 
-    Status archive_read(IoContext& context, Archive& archive, Status& value) {
-        return archive_read(context, archive, value.code());
+    Status stream_read(IoContext& context, IoStream& stream, Status& value) {
+        return stream_read(context, stream, value.code());
     }
-    Status archive_write(IoContext& context, Archive& archive, const Status& value) {
-        return archive_write(context, archive, value.code());
+    Status stream_write(IoContext& context, IoStream& stream, const Status& value) {
+        return stream_write(context, stream, value.code());
     }
 
 }// namespace wmoge

@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <robin_hood.hpp>
@@ -46,24 +46,24 @@ namespace wmoge {
     using flat_map = robin_hood::unordered_flat_map<K, V>;
 
     template<typename K, typename V>
-    Status archive_write(IoContext& context, Archive& archive, const flat_map<K, V>& map) {
-        WG_ARCHIVE_WRITE(context, archive, map.size());
+    Status stream_write(IoContext& context, IoStream& stream, const flat_map<K, V>& map) {
+        WG_ARCHIVE_WRITE(context, stream, map.size());
         for (const auto& entry : map) {
-            WG_ARCHIVE_WRITE(context, archive, entry.first);
-            WG_ARCHIVE_WRITE(context, archive, entry.second);
+            WG_ARCHIVE_WRITE(context, stream, entry.first);
+            WG_ARCHIVE_WRITE(context, stream, entry.second);
         }
         return WG_OK;
     }
 
     template<typename K, typename V>
-    Status archive_read(IoContext& context, Archive& archive, flat_map<K, V>& map) {
+    Status stream_read(IoContext& context, IoStream& stream, flat_map<K, V>& map) {
         assert(map.empty());
         std::size_t size;
-        WG_ARCHIVE_READ(context, archive, size);
+        WG_ARCHIVE_READ(context, stream, size);
         for (int i = 0; i < size; i++) {
             robin_hood::pair<K, V> entry;
-            WG_ARCHIVE_READ(context, archive, entry.first);
-            WG_ARCHIVE_READ(context, archive, entry.second);
+            WG_ARCHIVE_READ(context, stream, entry.first);
+            WG_ARCHIVE_READ(context, stream, entry.second);
             map.insert(std::move(entry));
         }
         return WG_OK;

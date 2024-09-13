@@ -32,7 +32,7 @@
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 #include "rtti/meta_data.hpp"
 
@@ -63,8 +63,8 @@ namespace wmoge {
         virtual Status destruct(void* dst) const { return StatusCode::NotImplemented; }
         virtual Status read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const { return StatusCode::NotImplemented; }
-        virtual Status read_from_archive(void* dst, Archive& archive, IoContext& context) const { return StatusCode::NotImplemented; }
-        virtual Status write_to_archive(const void* src, Archive& archive, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_stream(void* dst, IoStream& stream, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status write_to_stream(const void* src, IoStream& stream, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status to_string(const void* src, std::stringstream& s) const { return StatusCode::NotImplemented; }
         virtual Status add_element(void* src) const { return StatusCode::NotImplemented; }
         virtual Status remove_element(void* src, int index) const { return StatusCode::NotImplemented; }

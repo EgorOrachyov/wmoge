@@ -27,7 +27,7 @@
 
 #pragma once
 
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "platform/file.hpp"
 
 #include <fstream>
@@ -36,13 +36,13 @@
 namespace wmoge {
 
     /**
-     * @class ArchiveFile
-     * @brief An archive to read/write data to a file with compression
+     * @class IoStreamFile
+     * @brief An stream to read/write data to a file with compression
      */
-    class ArchiveFile final : public Archive {
+    class IoStreamFile final : public IoStream {
     public:
-        ArchiveFile();
-        ~ArchiveFile() override;
+        IoStreamFile();
+        ~IoStreamFile() override;
 
         Status set(Ref<File> file, FileOpenModeFlags flags);
         Status open(const std::string& file_path, FileOpenModeFlags flags);

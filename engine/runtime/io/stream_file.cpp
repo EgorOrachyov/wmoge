@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "archive_file.hpp"
+#include "stream_file.hpp"
 
 #include "io/compression.hpp"
 #include "platform/file_system.hpp"
@@ -37,16 +37,16 @@
 
 namespace wmoge {
 
-    ArchiveFile::ArchiveFile() {
+    IoStreamFile::IoStreamFile() {
         m_can_read  = false;
         m_can_write = false;
     }
 
-    ArchiveFile::~ArchiveFile() {
+    IoStreamFile::~IoStreamFile() {
         assert(m_compression_region == 0);
     }
 
-    Status ArchiveFile::set(Ref<File> file, FileOpenModeFlags flags) {
+    Status IoStreamFile::set(Ref<File> file, FileOpenModeFlags flags) {
         assert(file);
 
         m_file = std::move(file);
@@ -59,7 +59,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::open(const std::string& file_path, FileOpenModeFlags flags) {
+    Status IoStreamFile::open(const std::string& file_path, FileOpenModeFlags flags) {
         Ref<File>   file;
         FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
 
@@ -68,7 +68,7 @@ namespace wmoge {
         return set(std::move(file), flags);
     }
 
-    Status ArchiveFile::nwrite(std::size_t num_bytes, const void* bytes) {
+    Status IoStreamFile::nwrite(std::size_t num_bytes, const void* bytes) {
         assert(m_file);
         assert(m_can_write);
 
@@ -81,7 +81,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::nread(std::size_t num_bytes, void* bytes) {
+    Status IoStreamFile::nread(std::size_t num_bytes, void* bytes) {
         assert(m_file);
         assert(m_can_read);
 
@@ -94,7 +94,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::begin_compressed() {
+    Status IoStreamFile::begin_compressed() {
         assert(m_compression_region >= 0);
 
         if (m_compression_region == 0) {
@@ -107,7 +107,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::end_compressed() {
+    Status IoStreamFile::end_compressed() {
         assert(m_compression_region > 0);
 
         m_compression_region -= 1;
@@ -121,7 +121,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::append_raw(std::size_t num_bytes, const void* bytes) {
+    Status IoStreamFile::append_raw(std::size_t num_bytes, const void* bytes) {
         if (m_buffer_raw.size() < m_offset + num_bytes) {
             m_buffer_raw.resize(m_offset + num_bytes);
         }
@@ -132,11 +132,11 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::append_file(std::size_t num_bytes, const void* bytes) {
+    Status IoStreamFile::append_file(std::size_t num_bytes, const void* bytes) {
         return m_file->nwrite(bytes, num_bytes);
     }
 
-    Status ArchiveFile::fetch_raw(std::size_t num_bytes, void* bytes) {
+    Status IoStreamFile::fetch_raw(std::size_t num_bytes, void* bytes) {
         assert(m_buffer_size >= m_offset + num_bytes);
 
         std::memcpy(bytes, m_buffer_raw.data() + m_offset, num_bytes);
@@ -145,12 +145,12 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::fecth_file(std::size_t num_bytes, void* bytes) {
+    Status IoStreamFile::fecth_file(std::size_t num_bytes, void* bytes) {
         return m_file->nread(bytes, num_bytes);
     }
 
-    Status ArchiveFile::flush_compressed() {
-        WG_AUTO_PROFILE_IO("ArchiveFile::flush_compressed");
+    Status IoStreamFile::flush_compressed() {
+        WG_AUTO_PROFILE_IO("IoStreamFile::flush_compressed");
 
         IoContext dummy;
 
@@ -177,8 +177,8 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ArchiveFile::fetch_decompressed() {
-        WG_AUTO_PROFILE_IO("ArchiveFile::fetch_decompressed");
+    Status IoStreamFile::fetch_decompressed() {
+        WG_AUTO_PROFILE_IO("IoStreamFile::fetch_decompressed");
 
         IoContext dummy;
 
@@ -208,7 +208,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    bool ArchiveFile::is_compressed() {
+    bool IoStreamFile::is_compressed() {
         return m_compression_region > 0;
     }
 

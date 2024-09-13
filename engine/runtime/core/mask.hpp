@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
-#include "io/archive.hpp"
+#include "io/stream.hpp"
 #include "io/yaml.hpp"
 
 #include <bitset>
@@ -131,13 +131,13 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    Status archive_read(IoContext& context, Archive& archive, Mask<T, size>& mask) {
-        return archive.nread(sizeof(Mask<T, size>), &mask);
+    Status stream_read(IoContext& context, IoStream& stream, Mask<T, size>& mask) {
+        return stream.nread(sizeof(Mask<T, size>), &mask);
     }
 
     template<typename T, int size>
-    Status archive_write(IoContext& context, Archive& archive, const Mask<T, size>& mask) {
-        return archive.nwrite(sizeof(Mask<T, size>), &mask);
+    Status stream_write(IoContext& context, IoStream& stream, const Mask<T, size>& mask) {
+        return stream.nwrite(sizeof(Mask<T, size>), &mask);
     }
 
 }// namespace wmoge

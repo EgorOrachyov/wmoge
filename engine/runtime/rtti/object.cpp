@@ -48,11 +48,11 @@ namespace wmoge {
     Status RttiObject::write_to_yaml(IoContext& context, YamlNodeRef node) const {
         return get_class()->write_to_yaml(this, node, context);
     }
-    Status RttiObject::read_from_archive(IoContext& context, Archive& archive) {
-        return get_class()->read_from_archive(this, archive, context);
+    Status RttiObject::read_from_stream(IoContext& context, IoStream& stream) {
+        return get_class()->read_from_stream(this, stream, context);
     }
-    Status RttiObject::write_to_archive(IoContext& context, Archive& archive) const {
-        return get_class()->write_to_archive(this, archive, context);
+    Status RttiObject::write_to_stream(IoContext& context, IoStream& stream) const {
+        return get_class()->write_to_stream(this, stream, context);
     }
     Ref<RttiObject> RttiObject::duplicate() const {
         Ref<RttiObject> object;
@@ -120,22 +120,22 @@ namespace wmoge {
         WG_YAML_WRITE_AS(context, node, "rtti", object->get_class_name());
         return object->write_to_yaml(context, node);
     }
-    Status RttiObject::archive_read_object(IoContext& context, Archive& archive, Ref<RttiObject>& object) {
+    Status RttiObject::archive_read_object(IoContext& context, IoStream& stream, Ref<RttiObject>& object) {
         assert(!object);
 
         bool has_value;
-        WG_ARCHIVE_READ(context, archive, has_value);
+        WG_ARCHIVE_READ(context, stream, has_value);
 
         if (!has_value) {
             return WG_OK;
         }
 
         Strid rtti_name;
-        WG_ARCHIVE_READ(context, archive, rtti_name);
+        WG_ARCHIVE_READ(context, stream, rtti_name);
 
         RttiClass* rtti_class = context.get_type_storage()->find_class(rtti_name);
         if (!rtti_class) {
-            WG_LOG_ERROR("no such class to read from archive " << rtti_name);
+            WG_LOG_ERROR("no such class to read from stream " << rtti_name);
             return StatusCode::NoClass;
         }
 
@@ -145,16 +145,16 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        return object->read_from_archive(context, archive);
+        return object->read_from_stream(context, stream);
     }
-    Status RttiObject::archive_write_object(IoContext& context, Archive& archive, const Ref<RttiObject>& object) {
+    Status RttiObject::archive_write_object(IoContext& context, IoStream& stream, const Ref<RttiObject>& object) {
         const bool has_value = object;
-        WG_ARCHIVE_WRITE(context, archive, has_value);
+        WG_ARCHIVE_WRITE(context, stream, has_value);
         if (!has_value) {
             return WG_OK;
         }
-        WG_ARCHIVE_WRITE(context, archive, object->get_class_name());
-        return object->write_to_archive(context, archive);
+        WG_ARCHIVE_WRITE(context, stream, object->get_class_name());
+        return object->write_to_stream(context, stream);
     }
 
 }// namespace wmoge

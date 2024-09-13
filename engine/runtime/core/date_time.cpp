@@ -127,11 +127,11 @@ namespace wmoge {
         WG_YAML_WRITE(context, node, s);
         return WG_OK;
     }
-    Status archive_read(IoContext& context, Archive& archive, DateTime& value) {
-        return archive.nread(sizeof(value.m_value), &value.m_value);
+    Status stream_read(IoContext& context, IoStream& stream, DateTime& value) {
+        return stream.nread(sizeof(value.m_value), &value.m_value);
     }
-    Status archive_write(IoContext& context, Archive& archive, const DateTime& value) {
-        return archive.nwrite(sizeof(value.m_value), &value.m_value);
+    Status stream_write(IoContext& context, IoStream& stream, const DateTime& value) {
+        return stream.nwrite(sizeof(value.m_value), &value.m_value);
     }
 
 }// namespace wmoge

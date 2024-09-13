@@ -124,14 +124,14 @@
 #include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
 
-#include "io/archive.hpp"
-#include "io/archive_file.hpp"
 #include "io/base64.hpp"
 #include "io/compression.hpp"
 #include "io/context.hpp"
 #include "io/enum.hpp"
 #include "io/ini.hpp"
 #include "io/serialization.hpp"
+#include "io/stream.hpp"
+#include "io/stream_file.hpp"
 #include "io/yaml.hpp"
 
 #include "material/material.hpp"
