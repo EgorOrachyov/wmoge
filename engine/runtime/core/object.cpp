@@ -123,11 +123,11 @@ namespace wmoge {
         return name;
     }
 
-    Status yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<Object>& object) {
+    Status tree_read_object(IoContext& context, IoPropertyTree& tree, Ref<Object>& object) {
         assert(!object);
 
         Strid class_name;
-        WG_YAML_READ_AS(context, node, "rtti", class_name);
+        WG_TREE_READ_AS(context, tree, "rtti", class_name);
 
         auto* cls = Class::class_ptr(class_name);
 
@@ -143,13 +143,13 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        return object->read_from_yaml(node);
+        return object->read_from_tree(tree);
     }
-    Status yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<Object>& object) {
+    Status tree_write_object(IoContext& context, IoPropertyTree& tree, const Ref<Object>& object) {
         assert(object);
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(context, node, "rtti", object->class_name());
-        return object->write_to_yaml(node);
+        WG_TREE_MAP(tree);
+        WG_TREE_WRITE_AS(context, tree, "rtti", object->class_name());
+        return object->write_to_tree(tree);
     }
 
     Status archive_read_object(IoContext& context, IoStream& stream, Ref<Object>& object) {

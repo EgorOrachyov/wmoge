@@ -34,7 +34,6 @@
 #include "gfx/gfx_driver.hpp"
 #include "gfx/gfx_texture.hpp"
 #include "grc/texture.hpp"
-#include "io/serialization.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 #include "render/camera.hpp"
@@ -50,17 +49,14 @@ namespace wmoge {
      * @brief Bloom effect settings
     */
     struct BloomSettings {
-        bool  enable              = true;
-        float intensity           = 1.0f;
-        float threshold           = 1.0f;
-        float knee                = 0.5f;
-        float radius              = 4.0f;
-        float uspample_weight     = 0.4f;
-        float dirt_mask_intensity = 3.0f;
-
+        bool                               enable              = true;
+        float                              intensity           = 1.0f;
+        float                              threshold           = 1.0f;
+        float                              knee                = 0.5f;
+        float                              radius              = 4.0f;
+        float                              uspample_weight     = 0.4f;
+        float                              dirt_mask_intensity = 3.0f;
         std::optional<AssetRef<Texture2d>> dirt_mask;
-
-        WG_IO_DECLARE(BloomSettings);
     };
 
     /**
@@ -68,7 +64,6 @@ namespace wmoge {
      * @brief Automatic exposition or eye adaptation settings
     */
     struct AutoExposureSettings {
-
         /** @brief Mode to select algo */
         enum class Mode {
             Adaptive = 0,
@@ -82,8 +77,6 @@ namespace wmoge {
         float speed_up              = 4.0f;
         float speed_down            = 0.5f;
         float exposure_compensation = 1.0f;
-
-        WG_IO_DECLARE(AutoExposureSettings);
     };
 
     /**
@@ -91,7 +84,6 @@ namespace wmoge {
      * @brief Final HDR image tonemapping settings for composition
     */
     struct TonemapSettings {
-
         /** @brief Mode to select algo */
         enum class Mode {
             Exponential      = 0,
@@ -104,8 +96,6 @@ namespace wmoge {
         Mode  mode        = Mode::Exponential;
         float exposure    = 1.0f;
         float white_point = 1.0f;
-
-        WG_IO_DECLARE(TonemapSettings);
     };
 
     /**
@@ -116,8 +106,6 @@ namespace wmoge {
         BloomSettings        bloom;
         AutoExposureSettings auto_exposure;
         TonemapSettings      tonemap;
-
-        WG_IO_DECLARE(GraphicsPipelineSettings);
     };
 
     /**

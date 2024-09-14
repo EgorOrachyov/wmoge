@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 
 #include <svector.hpp>
 #include <vector>
@@ -46,15 +46,6 @@ namespace wmoge {
     using buffered_vector = ankerl::svector<T, MinCapacity>;
 
     template<typename T, std::size_t MinCapacity>
-    Status stream_write(IoContext& context, IoStream& stream, const buffered_vector<T, MinCapacity>& vector) {
-        WG_ARCHIVE_WRITE(context, stream, vector.size());
-        for (const auto& entry : vector) {
-            WG_ARCHIVE_WRITE(context, stream, entry);
-        }
-        return WG_OK;
-    }
-
-    template<typename T, std::size_t MinCapacity>
     Status stream_read(IoContext& context, IoStream& stream, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         std::size_t size;
@@ -67,26 +58,38 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const buffered_vector<T, MinCapacity>& vector) {
-        WG_YAML_SEQ(node);
-        for (const T& value : vector) {
-            YamlNodeRef child = node.append_child();
-            WG_YAML_WRITE(context, child, value);
+    Status stream_write(IoContext& context, IoStream& stream, const buffered_vector<T, MinCapacity>& vector) {
+        WG_ARCHIVE_WRITE(context, stream, vector.size());
+        for (const auto& entry : vector) {
+            WG_ARCHIVE_WRITE(context, stream, entry);
         }
         return WG_OK;
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, buffered_vector<T, MinCapacity>& vector) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
-        vector.resize(node.num_children());
+        vector.resize(tree.node_num_children());
         std::size_t element_id = 0;
-        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            WG_YAML_READ(context, child, vector[element_id]);
+        tree.node_find_first_child();
+        for (; tree.node_is_valid(); tree.node_next_sibling()) {
+            WG_TREE_READ(context, tree, vector[element_id]);
             element_id += 1;
         }
         return WG_OK;
     }
+
+    template<typename T, std::size_t MinCapacity>
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const buffered_vector<T, MinCapacity>& vector) {
+        WG_TREE_SEQ(tree, vector.size());
+        for (const T& value : vector) {
+            WG_CHECKED(tree.node_append_child());
+            WG_TREE_WRITE(context, tree, value);
+            tree.node_pop();
+        }
+        return WG_OK;
+    }
+
 #endif
 
 }// namespace wmoge

@@ -31,8 +31,8 @@
 #include "core/ref.hpp"
 #include "core/sha256.hpp"
 #include "core/string_utils.hpp"
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 #include "math/math_utils.hpp"
 
 #include <cstddef>
@@ -76,8 +76,8 @@ namespace wmoge {
         friend Status stream_write(IoContext& context, IoStream& stream, const Ref<Data>& data);
         friend Status stream_read(IoContext& context, IoStream& stream, Ref<Data>& data);
 
-        friend Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<Data>& data);
-        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<Data>& data);
+        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const Ref<Data>& data);
+        friend Status tree_read(IoContext& context, IoPropertyTree& tree, Ref<Data>& data);
 
     private:
         std::size_t   m_size   = 0;

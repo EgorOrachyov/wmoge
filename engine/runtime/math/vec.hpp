@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 #include "math_utils.hpp"
 
 #include <cassert>
@@ -653,9 +653,9 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, TVecN<T, N>& v) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, TVecN<T, N>& v) {
         std::string str;
-        WG_YAML_READ(context, node, str);
+        WG_TREE_READ(context, tree, str);
 
         std::stringstream stream(str);
 
@@ -667,7 +667,7 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const TVecN<T, N>& v) {
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const TVecN<T, N>& v) {
         std::stringstream stream;
 
         for (int i = 0; i < N; i++) {
@@ -675,7 +675,7 @@ namespace wmoge {
             if (i + 1 < N) stream << " ";
         }
 
-        return yaml_write(context, node, stream.str());
+        return tree_write(context, tree, stream.str());
     }
 
     template<typename T, int N>

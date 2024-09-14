@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/ref.hpp"
-#include "io/yaml.hpp"
+#include "io/property_tree.hpp"
 
 #include <unordered_map>
 #include <vector>
@@ -98,30 +98,5 @@ namespace wmoge {
     };
 
     static_assert(sizeof(TypedMap<int, int, std::hash<int>>) <= sizeof(void*), "Typed map must fit size of native pointer");
-
-    template<typename K, typename V, typename H>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, TypedMap<K, V, H>& map) {
-        map.reserve(node.num_children());
-
-        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            std::pair<K, V> entry;
-            WG_YAML_READ(context, child, entry);
-            map.insert(std::move(entry));
-        }
-
-        return WG_OK;
-    }
-
-    template<typename K, typename V, typename H>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const TypedMap<K, V, H>& map) {
-        WG_YAML_SEQ(node);
-
-        for (const auto& entry : map) {
-            YamlNodeRef entry_child = node.append_child();
-            WG_YAML_WRITE(context, entry_child, entry);
-        }
-
-        return WG_OK;
-    }
 
 }// namespace wmoge

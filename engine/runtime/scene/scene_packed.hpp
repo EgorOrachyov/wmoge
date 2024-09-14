@@ -29,7 +29,7 @@
 
 #include "asset/asset.hpp"
 #include "core/async.hpp"
-#include "io/yaml.hpp"
+#include "io/property_tree.hpp"
 #include "scene/scene.hpp"
 
 #include <optional>

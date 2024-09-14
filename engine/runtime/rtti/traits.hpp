@@ -37,8 +37,8 @@
 #include "core/status.hpp"
 #include "core/uuid.hpp"
 #include "io/enum.hpp"
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "math/quat.hpp"
@@ -102,11 +102,11 @@ namespace wmoge {
             ((T*) dst)->~T();
             return WG_OK;
         }
-        Status read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const override {
-            return yaml_read(context, node, *((T*) dst));
+        Status read_from_tree(void* dst, IoPropertyTree& tree, IoContext& context) const override {
+            return tree_read(context, tree, *((T*) dst));
         }
-        Status write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const override {
-            return yaml_write(context, node, *((const T*) src));
+        Status write_to_tree(const void* src, IoPropertyTree& tree, IoContext& context) const override {
+            return tree_write(context, tree, *((const T*) src));
         }
         Status read_from_stream(void* dst, IoStream& stream, IoContext& context) const override {
             return stream_read(context, stream, *((T*) dst));
@@ -806,11 +806,11 @@ public:                                                                         
     rtti_type* get_parent_class() const modifier {                                                                 \
         return get_parent_class_static();                                                                          \
     }                                                                                                              \
-    friend Status yaml_read(IoContext& context, YamlConstNodeRef node, struct_type& value) {                       \
-        return get_class_static()->read_from_yaml(&value, node, context);                                          \
+    friend Status tree_read(IoContext& context, IoPropertyTree& tree, struct_type& value) {                        \
+        return get_class_static()->read_from_tree(&value, tree, context);                                          \
     }                                                                                                              \
-    friend Status yaml_write(IoContext& context, YamlNodeRef node, const struct_type& value) {                     \
-        return get_class_static()->write_to_yaml(&value, node, context);                                           \
+    friend Status tree_write(IoContext& context, IoPropertyTree& tree, const struct_type& value) {                 \
+        return get_class_static()->write_to_tree(&value, tree, context);                                           \
     }                                                                                                              \
     friend Status stream_read(IoContext& context, IoStream& stream, struct_type& value) {                          \
         return get_class_static()->read_from_stream(&value, stream, context);                                      \

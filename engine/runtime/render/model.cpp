@@ -31,32 +31,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(ModelObj)
-    WG_IO_FIELD(material)
-    WG_IO_FIELD(mesh_idx)
-    WG_IO_FIELD(chunk_idx)
-    WG_IO_FIELD_OPT(flags)
-    WG_IO_FIELD_OPT(name)
-    WG_IO_END(ModelObj)
-
-    WG_IO_BEGIN(ModelLod)
-    WG_IO_FIELD_OPT(ranges)
-    WG_IO_END(ModelLod)
-
-    WG_IO_BEGIN(ModelLodSettings)
-    WG_IO_FIELD_OPT(area)
-    WG_IO_FIELD(minimum_lod)
-    WG_IO_FIELD(num_of_lods)
-    WG_IO_END(ModelLodSettings)
-
-    WG_IO_BEGIN(ModelFile)
-    WG_IO_FIELD(objs)
-    WG_IO_FIELD(meshes)
-    WG_IO_FIELD_OPT(lod)
-    WG_IO_FIELD_OPT(lod_settings)
-    WG_IO_FIELD_OPT(aabb)
-    WG_IO_END(ModelFile)
-
     void Model::update_aabb() {
         m_aabb = Aabbf();
 

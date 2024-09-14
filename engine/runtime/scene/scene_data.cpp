@@ -31,28 +31,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(SceneDataSpatial)
-    WG_IO_END(SceneDataSpatial)
-
-    WG_IO_BEGIN(SceneDataCamera)
-    WG_IO_FIELD_OPT(name)
-    WG_IO_FIELD_OPT(color)
-    WG_IO_FIELD_OPT(fov)
-    WG_IO_FIELD_OPT(near)
-    WG_IO_FIELD_OPT(far)
-    WG_IO_FIELD_OPT(projection)
-    WG_IO_END(SceneDataCamera)
-
-    WG_IO_BEGIN(SceneData)
-    WG_IO_PROFILE()
-    WG_IO_FIELD(name)
-    WG_IO_FIELD(entities)
-    WG_IO_FIELD(names)
-    WG_IO_FIELD(hier)
-    WG_IO_FIELD(cameras)
-    WG_IO_FIELD(pipeline)
-    WG_IO_END(SceneData)
-
     void SceneDataCamera::fill(EcsComponentCamera& component) const {
         Camera& camera = component.camera;
         camera.set_fov(fov);

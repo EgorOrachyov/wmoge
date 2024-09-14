@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 
 #include <robin_hood.hpp>
 #include <unordered_map>
@@ -70,23 +70,25 @@ namespace wmoge {
     }
 
     template<typename K, typename V>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, flat_map<K, V>& map) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, flat_map<K, V>& map) {
         assert(map.empty());
-        map.reserve(node.num_children());
-        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
+        map.reserve(tree.node_num_children());
+        tree.node_find_first_child();
+        for (; tree.node_is_valid(); tree.node_next_sibling()) {
             robin_hood::pair<K, V> entry;
-            WG_YAML_READ(context, child, entry);
+            WG_TREE_READ(context, tree, entry);
             map.insert(std::move(entry));
         }
         return WG_OK;
     }
 
     template<typename K, typename V>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const flat_map<K, V>& map) {
-        WG_YAML_SEQ(node);
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const flat_map<K, V>& map) {
+        WG_TREE_SEQ(tree, map.size());
         for (const auto& entry : map) {
-            YamlNodeRef entry_child = node.append_child();
-            WG_YAML_WRITE(context, entry_child, entry);
+            WG_CHECKED(tree.node_append_child());
+            WG_TREE_WRITE(context, tree, entry);
+            tree.node_pop();
         }
         return WG_OK;
     }

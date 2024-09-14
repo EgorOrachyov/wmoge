@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
-#include "io/yaml.hpp"
+#include "io/property_tree.hpp"
 
 #include <array>
 #include <cinttypes>
@@ -201,27 +201,6 @@ namespace wmoge {
         std::size_t item_idx = m_size % NODE_CAPACITY;
         m_size += 1;
         return m_nodes[node_idx]->items[item_idx].mem;
-    }
-
-    template<typename T, std::size_t NodeCapacity>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, pool_vector<T, NodeCapacity>& vec) {
-        vec.reserve(node.num_children());
-        for (auto child = node.first_child(); child.valid(); child = child.next_sibling()) {
-            T element;
-            WG_YAML_READ(context, child, element);
-            vec.push_back(std::move(element));
-        }
-        return WG_OK;
-    }
-
-    template<typename T, std::size_t NodeCapacity>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const pool_vector<T, NodeCapacity>& vec) {
-        WG_YAML_SEQ(node);
-        for (const T& value : vec) {
-            YamlNodeRef child = node.append_child();
-            WG_YAML_WRITE(context, child, value);
-        }
-        return WG_OK;
     }
 
 }// namespace wmoge

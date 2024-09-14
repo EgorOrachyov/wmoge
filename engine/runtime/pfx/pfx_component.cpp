@@ -34,40 +34,6 @@
 
 namespace wmoge {
 
-    bool PfxComponent::load_from_options(const YamlConstNodeRef& node) {
-        node["amount"] >> m_amount;
-        node["active"] >> m_active;
-
-        if (node.has_child("name")) {
-            //            m_name = Yaml::read_sid(node["name"]);
-        }
-
-        for (auto it = node["features"].first_child(); it.valid(); it = it.next_sibling()) {
-            Strid  feature_name;//  = Yaml::read_sid(it["feature"]);
-            Class* feature_class = Class::class_ptr(feature_name);
-
-            if (!feature_class) {
-                WG_LOG_ERROR("no registered class for feature " << feature_name);
-                return false;
-            }
-
-            Ref<PfxFeature> feature = feature_class->instantiate().cast<PfxFeature>();
-
-            if (!feature) {
-                WG_LOG_ERROR("failed to instantiate feature from cls " << feature_class->name());
-                return false;
-            }
-
-            if (!feature->load_from_options(it)) {
-                WG_LOG_ERROR("failed to load feature " << feature_name);
-                return false;
-            }
-
-            add_feature(std::move(feature));
-        }
-
-        return true;
-    }
     void PfxComponent::add_feature(Ref<PfxFeature> feature) {
         assert(feature);
         m_features.push_back(feature);

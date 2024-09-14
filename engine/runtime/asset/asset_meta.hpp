@@ -72,8 +72,6 @@ namespace wmoge {
      * @brief Meta information of a particular asset
      */
     struct AssetMeta {
-        WG_RTTI_STRUCT(AssetMeta);
-
         UUID                   uuid   = UUID();
         class RttiClass*       rtti   = nullptr;
         class AssetPak*        pak    = nullptr;
@@ -81,13 +79,5 @@ namespace wmoge {
         buffered_vector<Strid> deps;
         Ref<AssetImportData>   import_data;
     };
-
-    WG_RTTI_STRUCT_BEGIN(AssetMeta) {
-        WG_RTTI_META_DATA();
-        WG_RTTI_FIELD(uuid, {RttiOptional});
-        WG_RTTI_FIELD(deps, {RttiOptional});
-        WG_RTTI_FIELD(import_data, {RttiOptional});
-    }
-    WG_RTTI_END;
 
 }// namespace wmoge

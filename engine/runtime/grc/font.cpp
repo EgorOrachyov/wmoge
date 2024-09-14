@@ -37,12 +37,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(FontImportOptions)
-    WG_IO_FIELD(source_file)
-    WG_IO_FIELD(height)
-    WG_IO_FIELD(glyphs_in_row)
-    WG_IO_END(FontImportOptions)
-
     Status Font::init(const FontDesc& desc) {
         m_glyphs        = desc.glyphs;
         m_texture       = desc.texture;

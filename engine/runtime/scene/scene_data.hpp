@@ -57,8 +57,6 @@ namespace wmoge {
     struct SceneDataSpatial {
         Transform3d        transform;
         std::optional<int> parent;
-
-        WG_IO_DECLARE(SceneDataSpatial);
     };
 
     /**
@@ -74,8 +72,6 @@ namespace wmoge {
         CameraProjection projection = CameraProjection::Perspective;
 
         void fill(EcsComponentCamera& component) const;
-
-        WG_IO_DECLARE(SceneDataCamera);
     };
 
     /** @brief Index used to reference entities in this struct */
@@ -96,8 +92,6 @@ namespace wmoge {
         SceneEntityVector<SceneDataSpatial> hier;
         SceneEntityVector<SceneDataCamera>  cameras;
         GraphicsPipelineSettings            pipeline;
-
-        WG_IO_DECLARE(SceneData);
     };
 
 }// namespace wmoge

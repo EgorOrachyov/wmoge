@@ -33,43 +33,6 @@
 
 namespace wmoge {
 
-    WG_IO_BEGIN(BloomSettings)
-    WG_IO_PROFILE()
-    WG_IO_FIELD_OPT(enable)
-    WG_IO_FIELD_OPT(intensity)
-    WG_IO_FIELD_OPT(threshold)
-    WG_IO_FIELD_OPT(knee)
-    WG_IO_FIELD_OPT(radius)
-    WG_IO_FIELD_OPT(uspample_weight)
-    WG_IO_FIELD_OPT(dirt_mask_intensity)
-    WG_IO_FIELD_OPT(dirt_mask)
-    WG_IO_END(BloomSettings)
-
-    WG_IO_BEGIN(AutoExposureSettings)
-    WG_IO_PROFILE()
-    WG_IO_FIELD_OPT(enable)
-    WG_IO_FIELD_OPT(mode)
-    WG_IO_FIELD_OPT(histogram_log_min)
-    WG_IO_FIELD_OPT(histogram_log_max)
-    WG_IO_FIELD_OPT(speed_up)
-    WG_IO_FIELD_OPT(speed_down)
-    WG_IO_FIELD_OPT(exposure_compensation)
-    WG_IO_END(AutoExposureSettings)
-
-    WG_IO_BEGIN(TonemapSettings)
-    WG_IO_PROFILE()
-    WG_IO_FIELD_OPT(mode)
-    WG_IO_FIELD_OPT(exposure)
-    WG_IO_FIELD_OPT(white_point)
-    WG_IO_END(TonemapSettings)
-
-    WG_IO_BEGIN(GraphicsPipelineSettings)
-    WG_IO_PROFILE()
-    WG_IO_FIELD_OPT(bloom)
-    WG_IO_FIELD_OPT(auto_exposure)
-    WG_IO_FIELD_OPT(tonemap)
-    WG_IO_END(GraphicsPipelineSettings)
-
     void GraphicsPipeline::set_scene(RenderScene* scene) {
         m_scene = scene;
     }

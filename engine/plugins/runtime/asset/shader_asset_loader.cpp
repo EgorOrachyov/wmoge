@@ -30,6 +30,7 @@
 #include "grc/shader.hpp"
 #include "grc/shader_file.hpp"
 #include "grc/shader_manager.hpp"
+#include "io/yaml.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
@@ -55,10 +56,11 @@ namespace wmoge {
         }
 
         ShaderFile shader_file;
-        if (!yaml_read_file(path_on_disk, shader_file)) {
-            WG_LOG_ERROR("failed to read parse shader file " << path_on_disk);
-            return StatusCode::FailedParse;
-        }
+
+        IoContext  context;
+        IoYamlTree tree;
+        WG_CHECKED(tree.parse_file(path_on_disk));
+        WG_TREE_READ(context, tree, shader_file);
 
         auto* shader_manager = IocContainer::iresolve_v<ShaderManager>();
 

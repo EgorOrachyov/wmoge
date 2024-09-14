@@ -32,7 +32,7 @@
 #include "core/object.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
-#include "io/yaml.hpp"
+#include "io/property_tree.hpp"
 #include "pfx/pfx_storage.hpp"
 
 namespace wmoge {
@@ -57,8 +57,6 @@ namespace wmoge {
         virtual Ref<PfxFeature> create() const { return {}; };
         virtual Strid           get_feature_name() const { return Strid(); };
         virtual Strid           get_feature_family() const { return Strid(); };
-
-        virtual bool load_from_options(const YamlConstNodeRef& node) { return true; };
 
         virtual void on_added(PfxAttributes& attributes) {}
         virtual void on_spawn(class PfxComponentRuntime& runtime, const struct PfxSpawnParams& params) {}

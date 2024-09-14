@@ -116,15 +116,15 @@ namespace wmoge {
         return t;
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, DateTime& value) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, DateTime& value) {
         std::string s;
-        WG_YAML_READ(context, node, s);
+        WG_TREE_READ(context, tree, s);
         value = DateTime(s);
         return WG_OK;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const DateTime& value) {
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const DateTime& value) {
         const std::string s = value.to_string();
-        WG_YAML_WRITE(context, node, s);
+        WG_TREE_WRITE(context, tree, s);
         return WG_OK;
     }
     Status stream_read(IoContext& context, IoStream& stream, DateTime& value) {

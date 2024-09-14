@@ -104,8 +104,8 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status RttiStruct::read_from_yaml(void* dst, YamlConstNodeRef node, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_yaml");
+    Status RttiStruct::read_from_tree(void* dst, IoPropertyTree& tree, IoContext& context) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_tree");
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
         for (const RttiField& field : get_fields()) {
@@ -113,42 +113,43 @@ namespace wmoge {
                 continue;
             }
 
-            const std::string&  field_name = field.get_name().str();
-            const ryml::csubstr field_name_str(field_name.data(), field_name.length());
+            const std::string& field_name = field.get_name().str();
 
             if (field.get_meta_data().is_optional()) {
-                if (node.has_child(field_name_str)) {
-                    WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str], context));
+                if (tree.node_has_child(field_name)) {
+                    WG_CHECKED(tree.node_find_child(field_name));
+                    WG_CHECKED(field.get_type()->read_from_tree(self + field.get_byte_offset(), tree, context));
+                    tree.node_pop();
                 }
             } else {
-                if (!node.has_child(field_name_str)) {
+                if (!tree.node_find_child(field_name)) {
                     WG_LOG_ERROR("failed to read yaml " << field_name);
                     return StatusCode::FailedRead;
                 }
-                WG_CHECKED(field.get_type()->read_from_yaml(self + field.get_byte_offset(), node[field_name_str], context));
+                WG_CHECKED(field.get_type()->read_from_tree(self + field.get_byte_offset(), tree, context));
+                tree.node_pop();
             }
         }
         return WG_OK;
     }
 
-    Status RttiStruct::write_to_yaml(const void* src, YamlNodeRef node, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_yaml");
+    Status RttiStruct::write_to_tree(const void* src, IoPropertyTree& tree, IoContext& context) const {
+        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_tree");
 
         assert(src);
-        WG_YAML_MAP(node);
+        WG_TREE_MAP(tree);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
         for (const RttiField& field : get_fields()) {
             if (field.get_meta_data().is_no_save_load()) {
                 continue;
             }
 
-            const std::string&  field_name = field.get_name().str();
-            const ryml::csubstr field_name_str(field_name.data(), field_name.length());
+            const std::string& field_name = field.get_name().str();
 
-            YamlNodeRef child = node.append_child();
-            child << ryml::key(field_name_str);
-
-            WG_CHECKED(field.get_type()->write_to_yaml(self + field.get_byte_offset(), child, context));
+            WG_CHECKED(tree.node_append_child());
+            WG_CHECKED(tree.node_write_key(field_name));
+            WG_CHECKED(field.get_type()->write_to_tree(self + field.get_byte_offset(), tree, context));
+            tree.node_pop();
         }
         return WG_OK;
     }

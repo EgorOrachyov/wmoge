@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
 
@@ -439,16 +439,16 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, TQuat<T>& quat) {
-        WG_YAML_READ_AS(context, node, "scalar", quat.scalar);
-        WG_YAML_READ_AS(context, node, "vec", quat.vec);
+    Status tree_read(IoContext& context, IoPropertyTree& tree, TQuat<T>& quat) {
+        WG_TREE_READ_AS(context, tree, "scalar", quat.scalar);
+        WG_TREE_READ_AS(context, tree, "vec", quat.vec);
         return WG_OK;
     }
     template<typename T>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const TQuat<T>& quat) {
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(context, node, "scalar", quat.scalar);
-        WG_YAML_WRITE_AS(context, node, "vec", quat.vec);
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const TQuat<T>& quat) {
+        WG_TREE_MAP(tree);
+        WG_TREE_WRITE_AS(context, tree, "scalar", quat.scalar);
+        WG_TREE_WRITE_AS(context, tree, "vec", quat.vec);
         return WG_OK;
     }
     template<typename T>

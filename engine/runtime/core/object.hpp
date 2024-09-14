@@ -31,8 +31,8 @@
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 
 #include <cassert>
 #include <list>
@@ -69,8 +69,8 @@ namespace wmoge {
         virtual Status call(const Strid& method, int argc, const Var* argv, Var& ret);
         virtual Status signal(const Strid& signal) { return WG_OK; }
         virtual Status copy_to(Object& other) const { return WG_OK; }
-        virtual Status read_from_yaml(const YamlConstNodeRef& node) { return StatusCode::NotImplemented; }
-        virtual Status write_to_yaml(YamlNodeRef node) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_tree(IoPropertyTree& tree) { return StatusCode::NotImplemented; }
+        virtual Status write_to_tree(IoPropertyTree& tree) const { return StatusCode::NotImplemented; }
         virtual Status read_from_stream(IoStream& stream) { return StatusCode::NotImplemented; }
         virtual Status write_to_stream(IoStream& stream) const { return StatusCode::NotImplemented; }
         virtual Status clone(Ref<Object>& object) const;
@@ -85,8 +85,8 @@ namespace wmoge {
         static const Strid&       class_name_static();
         static const Strid&       super_class_name_static();
 
-        friend Status yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<Object>& object);
-        friend Status yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<Object>& object);
+        friend Status tree_read_object(IoContext& context, IoPropertyTree& tree, Ref<Object>& object);
+        friend Status tree_write_object(IoContext& context, IoPropertyTree& tree, const Ref<Object>& object);
 
         friend Status archive_read_object(IoContext& context, IoStream& stream, Ref<Object>& object);
         friend Status archive_write_object(IoContext& context, IoStream& stream, const Ref<Object>& object);
@@ -125,40 +125,6 @@ namespace wmoge {
         }
 
         return std::move(result);
-    }
-
-    template<typename T>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
-        Ref<Object> object;
-        auto        status = yaml_read_object(context, node, object);
-        if (!status) return status;
-        ref = object.template cast<T>();
-        return WG_OK;
-    }
-
-    template<typename T>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
-        Ref<Object> object = ref.template as<Object>();
-        auto        status = yaml_write_object(context, node, object);
-        if (!status) return status;
-        return WG_OK;
-    }
-
-    template<typename T>
-    Status stream_read(IoContext& context, IoStream& stream, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
-        Ref<Object> object;
-        auto        status = archive_read_object(context, stream, object);
-        if (!status) return status;
-        ref = object.template cast<T>();
-        return WG_OK;
-    }
-
-    template<typename T>
-    Status stream_write(IoContext& context, IoStream& stream, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, Object*>>* = 0) {
-        Ref<Object> object = ref.template as<Object>();
-        auto        status = archive_write_object(context, stream, object);
-        if (!status) return status;
-        return WG_OK;
     }
 
 #define WG_OBJECT(name, super)                                                                        \

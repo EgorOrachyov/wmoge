@@ -42,18 +42,6 @@
 namespace wmoge {
 
     /**
-     * @class FontImportOptions
-     * @brief Options to import a font asset
-     */
-    struct FontImportOptions {
-        std::string source_file;
-        int         height        = 32;
-        int         glyphs_in_row = 16;
-
-        WG_IO_DECLARE(FontImportOptions);
-    };
-
-    /**
      * @brief Alignment of text for layout
      */
     enum class FontTextAlignment {

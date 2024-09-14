@@ -29,8 +29,8 @@
 
 #include "asset/asset.hpp"
 #include "asset/asset_manager.hpp"
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 
 #include <cassert>
 #include <optional>
@@ -66,9 +66,9 @@ namespace wmoge {
     };
 
     template<typename T>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetRef<T>& ref) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, AssetRef<T>& ref) {
         AssetId id;
-        WG_YAML_READ(context, node, id);
+        WG_TREE_READ(context, tree, id);
         Ref<T> ptr = context.get_asset_manager()->find(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
@@ -78,12 +78,12 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const AssetRef<T>& ref) {
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetRef<T>& ref) {
         assert(ref);
         if (!ref) {
             return StatusCode::NoAsset;
         }
-        WG_YAML_WRITE(context, node, ref->get_id());
+        WG_TREE_WRITE(context, tree, ref->get_id());
         return WG_OK;
     }
 
@@ -110,17 +110,17 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetRefWeak<T>& ref) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, AssetRefWeak<T>& ref) {
         AssetId id;
-        WG_YAML_READ(context, node, id);
+        WG_TREE_READ(context, tree, id);
         ref = AssetRefWeak<T>(id);
         return WG_OK;
     }
 
     template<typename T>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const AssetRefWeak<T>& ref) {
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetRefWeak<T>& ref) {
         AssetId id = ref;
-        WG_YAML_WRITE(context, node, id);
+        WG_TREE_WRITE(context, tree, id);
         return WG_OK;
     }
 

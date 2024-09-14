@@ -68,8 +68,8 @@ namespace wmoge {
         [[nodiscard]] bool               is_empty() const { return m_name.empty(); }
         [[nodiscard]] std::size_t        hash() const { return m_name.hash(); }
 
-        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetId& id);
-        friend Status yaml_write(IoContext& context, YamlNodeRef node, const AssetId& id);
+        friend Status tree_read(IoContext& context, IoPropertyTree& tree, AssetId& id);
+        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetId& id);
         friend Status stream_read(IoContext& context, IoStream& stream, AssetId& id);
         friend Status stream_write(IoContext& context, IoStream& stream, const AssetId& id);
 

@@ -28,7 +28,7 @@
 #include "gfx_sampler.hpp"
 
 #include "core/crc32.hpp"
-#include "io/yaml.hpp"
+#include "io/property_tree.hpp"
 
 #include <cstring>
 #include <sstream>

@@ -29,6 +29,7 @@
 
 #include "asset/asset_manager.hpp"
 #include "core/string_utils.hpp"
+#include "io/property_tree.hpp"
 #include "io/yaml.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
@@ -56,10 +57,10 @@ namespace wmoge {
 
         AssetMetaFile asset_file;
 
-        if (!yaml_read_file(meta_file_path, asset_file)) {
-            WG_LOG_ERROR("failed to parse .asset file " << meta_file_path);
-            return StatusCode::FailedRead;
-        }
+        IoContext  context;
+        IoYamlTree tree;
+        WG_CHECKED(tree.parse_file(meta_file_path));
+        WG_TREE_READ(context, tree, asset_file);
 
         auto loader = IocContainer::iresolve_v<AssetManager>()->find_loader(asset_file.loader);
         auto rtti   = IocContainer::iresolve_v<RttiTypeStorage>()->find_class(asset_file.rtti);

@@ -71,17 +71,17 @@ namespace wmoge {
                    Math2d::translate(-m_translation);
         }
 
-        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, Transform2d& transform) {
-            WG_YAML_READ_AS_OPT(context, node, "rotation", transform.m_rotation);
-            WG_YAML_READ_AS_OPT(context, node, "translation", transform.m_translation);
-            WG_YAML_READ_AS_OPT(context, node, "scale", transform.m_scale);
+        friend Status tree_read(IoContext& context, IoPropertyTree& tree, Transform2d& transform) {
+            WG_TREE_READ_AS_OPT(context, tree, "rotation", transform.m_rotation);
+            WG_TREE_READ_AS_OPT(context, tree, "translation", transform.m_translation);
+            WG_TREE_READ_AS_OPT(context, tree, "scale", transform.m_scale);
             return WG_OK;
         }
-        friend Status yaml_write(IoContext& context, YamlNodeRef node, const Transform2d& transform) {
-            WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(context, node, "rotation", transform.m_rotation);
-            WG_YAML_WRITE_AS(context, node, "translation", transform.m_translation);
-            WG_YAML_WRITE_AS(context, node, "scale", transform.m_scale);
+        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const Transform2d& transform) {
+            WG_TREE_MAP(tree);
+            WG_TREE_WRITE_AS(context, tree, "rotation", transform.m_rotation);
+            WG_TREE_WRITE_AS(context, tree, "translation", transform.m_translation);
+            WG_TREE_WRITE_AS(context, tree, "scale", transform.m_scale);
 
             return WG_OK;
         }
@@ -153,17 +153,17 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, Transform3d& transform) {
-            WG_YAML_READ_AS_OPT(context, node, "rotation", transform.m_rotation);
-            WG_YAML_READ_AS_OPT(context, node, "translation", transform.m_translation);
-            WG_YAML_READ_AS_OPT(context, node, "scale", transform.m_scale);
+        friend Status tree_read(IoContext& context, IoPropertyTree& tree, Transform3d& transform) {
+            WG_TREE_READ_AS_OPT(context, tree, "rotation", transform.m_rotation);
+            WG_TREE_READ_AS_OPT(context, tree, "translation", transform.m_translation);
+            WG_TREE_READ_AS_OPT(context, tree, "scale", transform.m_scale);
             return WG_OK;
         }
-        friend Status yaml_write(IoContext& context, YamlNodeRef node, const Transform3d& transform) {
-            WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(context, node, "rotation", transform.m_rotation);
-            WG_YAML_WRITE_AS(context, node, "translation", transform.m_translation);
-            WG_YAML_WRITE_AS(context, node, "scale", transform.m_scale);
+        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const Transform3d& transform) {
+            WG_TREE_MAP(tree);
+            WG_TREE_WRITE_AS(context, tree, "rotation", transform.m_rotation);
+            WG_TREE_WRITE_AS(context, tree, "translation", transform.m_translation);
+            WG_TREE_WRITE_AS(context, tree, "scale", transform.m_scale);
 
             return WG_OK;
         }
@@ -224,12 +224,12 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, TransformEdt& transform) {
+        friend Status tree_read(IoContext& context, IoPropertyTree& tree, TransformEdt& transform) {
             Vec3f rotation_deg;
 
-            WG_YAML_READ_AS_OPT(context, node, "rotation", rotation_deg);
-            WG_YAML_READ_AS_OPT(context, node, "translation", transform.m_translation);
-            WG_YAML_READ_AS_OPT(context, node, "scale", transform.m_scale);
+            WG_TREE_READ_AS_OPT(context, tree, "rotation", rotation_deg);
+            WG_TREE_READ_AS_OPT(context, tree, "translation", transform.m_translation);
+            WG_TREE_READ_AS_OPT(context, tree, "scale", transform.m_scale);
 
             transform.m_rotation.values[0] = Math::deg_to_rad(rotation_deg[0]);
             transform.m_rotation.values[1] = Math::deg_to_rad(rotation_deg[1]);
@@ -237,17 +237,17 @@ namespace wmoge {
 
             return WG_OK;
         }
-        friend Status yaml_write(IoContext& context, YamlNodeRef node, const TransformEdt& transform) {
+        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const TransformEdt& transform) {
             Vec3f rotation_deg;
 
             rotation_deg[0] = Math::rad_to_deg(transform.m_rotation.values[0]);
             rotation_deg[1] = Math::rad_to_deg(transform.m_rotation.values[1]);
             rotation_deg[2] = Math::rad_to_deg(transform.m_rotation.values[2]);
 
-            WG_YAML_MAP(node);
-            WG_YAML_WRITE_AS(context, node, "rotation", rotation_deg);
-            WG_YAML_WRITE_AS(context, node, "translation", transform.m_translation);
-            WG_YAML_WRITE_AS(context, node, "scale", transform.m_scale);
+            WG_TREE_MAP(tree);
+            WG_TREE_WRITE_AS(context, tree, "rotation", rotation_deg);
+            WG_TREE_WRITE_AS(context, tree, "translation", transform.m_translation);
+            WG_TREE_WRITE_AS(context, tree, "scale", transform.m_scale);
 
             return WG_OK;
         }

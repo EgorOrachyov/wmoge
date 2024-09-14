@@ -59,8 +59,6 @@ namespace wmoge {
         std::int16_t       chunk_idx = 0;
         ModelObjFlags      flags;
         Strid              name;
-
-        WG_IO_DECLARE(ModelObj);
     };
 
     /**
@@ -69,8 +67,6 @@ namespace wmoge {
      */
     struct ModelLod {
         buffered_vector<Size2i> ranges;
-
-        WG_IO_DECLARE(ModelLod);
     };
 
     /**
@@ -81,8 +77,6 @@ namespace wmoge {
         buffered_vector<float> area;
         std::optional<int>     minimum_lod;
         std::optional<int>     num_of_lods;
-
-        WG_IO_DECLARE(ModelLodSettings);
     };
 
     /**
@@ -95,8 +89,6 @@ namespace wmoge {
         ModelLod                        lod;
         ModelLodSettings                lod_settings;
         Aabbf                           aabb;
-
-        WG_IO_DECLARE(ModelFile);
     };
 
     /**

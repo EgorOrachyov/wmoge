@@ -56,7 +56,6 @@ namespace wmoge {
     public:
         ~PfxComponent() override = default;
 
-        bool load_from_options(const YamlConstNodeRef& node);
         void add_feature(Ref<PfxFeature> feature);
         void set_amount(int amount);
         void set_active(bool active);

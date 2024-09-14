@@ -28,8 +28,8 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 
 #include <bitset>
 #include <initializer_list>
@@ -107,9 +107,9 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, Mask<T, size>& mask) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, Mask<T, size>& mask) {
         buffered_vector<T, size> flags;
-        WG_YAML_READ(context, node, flags);
+        WG_TREE_READ(context, tree, flags);
 
         for (auto flag : flags) {
             mask.set(flag);
@@ -119,14 +119,14 @@ namespace wmoge {
     }
 
     template<typename T, int size>
-    Status yaml_write(IoContext& context, YamlNodeRef node, const Mask<T, size>& mask) {
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const Mask<T, size>& mask) {
         buffered_vector<T, size> flags;
 
         mask.for_each([&](int, T flag) {
             flags.push_back(flag);
         });
 
-        WG_YAML_WRITE(context, node, flags);
+        WG_TREE_WRITE(context, tree, flags);
         return WG_OK;
     }
 

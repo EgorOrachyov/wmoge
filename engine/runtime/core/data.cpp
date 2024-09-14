@@ -85,21 +85,21 @@ namespace wmoge {
         return stream.nread(static_cast<int>(size), data->buffer());
     }
 
-    Status yaml_write(IoContext& context, YamlNodeRef node, const Ref<Data>& data) {
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const Ref<Data>& data) {
         if (!data) {
-            node << "";
+            tree.node_write_value("");
             return WG_OK;
         }
 
         std::string encoded;
         if (Base64::encode(data, encoded)) {
-            return yaml_write(context, node, encoded);
+            return tree_write(context, tree, encoded);
         }
         return StatusCode::FailedWrite;
     }
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, Ref<Data>& data) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, Ref<Data>& data) {
         std::string encoded;
-        if (yaml_read(context, node, encoded)) {
+        if (tree_read(context, tree, encoded)) {
             return Base64::decode(encoded, data);
         }
         return StatusCode::FailedRead;

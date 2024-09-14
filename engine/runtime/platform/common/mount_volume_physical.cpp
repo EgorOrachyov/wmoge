@@ -43,7 +43,7 @@ namespace wmoge {
     std::string MountVolumePhysical::resolve_physical(const std::string& path) {
         auto prefix = path.find(m_mapping);
         if (prefix != 0) {
-            return false;
+            return "";
         }
 
         const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());

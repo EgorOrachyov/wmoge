@@ -27,6 +27,7 @@
 
 #include "default_asset_loader.hpp"
 
+#include "io/yaml.hpp"
 #include "profiler/profiler.hpp"
 
 namespace wmoge {
@@ -56,17 +57,13 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        auto asset_tree = yaml_parse_file(path_on_disk);
-        if (asset_tree.empty()) {
-            WG_LOG_ERROR("failed to read parse file " << path_on_disk);
-            return StatusCode::FailedParse;
-        };
+        IoContext  context;
+        IoYamlTree asset_tree;
+        WG_CHECKED(asset_tree.parse_file(path_on_disk));
 
         asset->set_name(name);
 
-        IoContext context;
-
-        if (!asset->read_from_yaml(context, asset_tree.crootref())) {
+        if (!asset->read_from_tree(context, asset_tree)) {
             WG_LOG_ERROR("failed to load asset from file " << path_on_disk);
             return StatusCode::FailedRead;
         }

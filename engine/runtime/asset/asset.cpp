@@ -35,12 +35,12 @@
 
 namespace wmoge {
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, AssetId& id) {
-        WG_YAML_READ(context, node, id.m_name);
+    Status tree_read(IoContext& context, IoPropertyTree& tree, AssetId& id) {
+        WG_TREE_READ(context, tree, id.m_name);
         return WG_OK;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const AssetId& id) {
-        WG_YAML_WRITE(context, node, id.m_name);
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetId& id) {
+        WG_TREE_WRITE(context, tree, id.m_name);
         return WG_OK;
     }
     Status stream_read(IoContext& context, IoStream& stream, AssetId& id) {

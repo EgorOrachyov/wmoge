@@ -27,8 +27,8 @@
 
 #pragma once
 
+#include "io/property_tree.hpp"
 #include "io/stream.hpp"
-#include "io/yaml.hpp"
 
 #include <bitset>
 #include <cinttypes>
@@ -79,11 +79,11 @@ namespace wmoge {
 
         [[nodiscard]] std::string to_string() const;
 
-        friend Status yaml_read(IoContext& context, YamlConstNodeRef node, EcsArch& arch) {
-            return yaml_read(context, node, *((EcsArch::Bitset*) &arch));
+        friend Status tree_read(IoContext& context, IoPropertyTree& tree, EcsArch& arch) {
+            return tree_read(context, tree, *((EcsArch::Bitset*) &arch));
         }
-        friend Status yaml_write(IoContext& context, YamlNodeRef node, const EcsArch& arch) {
-            return yaml_write(context, node, *((const EcsArch::Bitset*) &arch));
+        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const EcsArch& arch) {
+            return tree_write(context, tree, *((const EcsArch::Bitset*) &arch));
         }
         friend Status stream_read(IoContext& context, IoStream& stream, EcsArch& arch) {
             return stream_read(context, stream, *((EcsArch::Bitset*) &arch));

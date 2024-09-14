@@ -28,6 +28,7 @@
 #include "yaml.hpp"
 
 #include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
 #include <cassert>
@@ -36,103 +37,171 @@
 
 namespace wmoge {
 
-    YamlTree yaml_parse(const std::vector<std::uint8_t>& data) {
+    Status IoYamlTree::create_tree() {
+        assert(m_stack.empty());
+        m_tree      = Tree();
+        m_can_read  = false;
+        m_can_write = true;
+        m_stack.push_back(m_tree.rootref());
+        return WG_OK;
+    }
+
+    Status IoYamlTree::parse_data(const array_view<std::uint8_t>& data) {
+        WG_AUTO_PROFILE_IO("IoYamlTree::parse_data");
+        assert(m_stack.empty());
         auto str_view = ryml::csubstr(reinterpret_cast<const char*>(data.data()), data.size());
-        return std::move(ryml::parse_in_arena(str_view));
-    }
-
-    YamlTree yaml_parse_file(const std::string& file_path) {
-        std::vector<std::uint8_t> file;
-
-        if (!IocContainer::iresolve_v<FileSystem>()->read_file(file_path, file)) {
-            WG_LOG_ERROR("failed to read content of file " << file_path);
-            return {};
+        m_tree        = std::move(ryml::parse_in_arena(str_view));
+        if (m_tree.empty()) {
+            return StatusCode::FailedParse;
         }
-
-        return yaml_parse(file);
-    }
-
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, bool& value) {
-        node >> value;
-        return WG_OK;
-    }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const bool& value) {
-        node << value;
+        m_can_read  = true;
+        m_can_write = false;
+        m_stack.push_back(m_tree.rootref());
         return WG_OK;
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, int& value) {
-        node >> value;
-        return WG_OK;
-    }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const int& value) {
-        node << value;
-        return WG_OK;
+    Status IoYamlTree::parse_file(const std::string& path) {
+        FileSystem*               file_system = IocContainer::iresolve_v<FileSystem>();
+        std::vector<std::uint8_t> data;
+        WG_CHECKED(file_system->read_file(path, data));
+        return parse_data(data);
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, unsigned int& value) {
-        node >> value;
-        return WG_OK;
-    }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const unsigned int& value) {
-        node << value;
-        return WG_OK;
-    }
+#define TOP    m_stack.back()
+#define STR(s) ryml::csubstr(s.data(), s.length())
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, float& value) {
-        node >> value;
-        return WG_OK;
+    bool IoYamlTree::node_is_empty() {
+        return TOP.empty();
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const float& value) {
-        node << value;
-        return WG_OK;
+    bool IoYamlTree::node_has_child(const std::string_view& name) {
+        return TOP.has_child(STR(name));
     }
-
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, Strid& value) {
-        std::string string;
-        node >> string;
-        value = SID(string);
-        return WG_OK;
-    }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const Strid& value) {
-        node << value.str();
-        return WG_OK;
-    }
-
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::string& value) {
-        if (node.has_val()) {
-            node >> value;
+    Status IoYamlTree::node_find_child(const std::string_view& name) {
+        assert(can_read());
+        if (TOP.has_child(STR(name))) {
+            m_stack.push_back(TOP[STR(name)]);
+            return WG_OK;
         }
+        return StatusCode::Error;
+    }
+    Status IoYamlTree::node_append_child() {
+        assert(can_write());
+        m_stack.push_back(TOP.append_child());
         return WG_OK;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const std::string& value) {
-        node << value;
+    void IoYamlTree::node_find_first_child() {
+        TOP = TOP.first_child();
+    }
+    bool IoYamlTree::node_is_valid() {
+        return TOP.valid();
+    }
+    void IoYamlTree::node_next_sibling() {
+        TOP = TOP.next_sibling();
+    }
+    void IoYamlTree::node_pop() {
+        assert(m_stack.size() > 1);
+        m_stack.pop_back();
+    }
+    std::size_t IoYamlTree::node_num_children() {
+        return TOP.num_children();
+    }
+
+    Status IoYamlTree::node_write_key(const std::string_view& key) {
+        assert(can_write());
+        auto key_str = STR(key);
+        TOP << ryml::key(key_str);
         return WG_OK;
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::int16_t& value) {
-        node >> value;
+    Status IoYamlTree::node_write_value(const bool& value) {
+        assert(can_write());
+        TOP << value;
         return WG_OK;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const std::int16_t& value) {
-        node << value;
+    Status IoYamlTree::node_write_value(const int& value) {
+        assert(can_write());
+        TOP << value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_write_value(const unsigned int& value) {
+        assert(can_write());
+        TOP << value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_write_value(const float& value) {
+        assert(can_write());
+        TOP << value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_write_value(const std::string& value) {
+        assert(can_write());
+        TOP << value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_write_value(const Strid& value) {
+        assert(can_write());
+        TOP << value.str();
+        return WG_OK;
+    }
+    Status IoYamlTree::node_write_value(const std::int16_t& value) {
+        assert(can_write());
+        TOP << value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_write_value(const std::size_t& value) {
+        assert(can_write());
+        TOP << value;
         return WG_OK;
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, std::size_t& value) {
-        node >> value;
+    Status IoYamlTree::node_read_value(bool& value) {
+        assert(can_read());
+        TOP >> value;
         return WG_OK;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const std::size_t& value) {
-        node << value;
+    Status IoYamlTree::node_read_value(int& value) {
+        assert(can_read());
+        TOP >> value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_read_value(unsigned int& value) {
+        assert(can_read());
+        TOP >> value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_read_value(float& value) {
+        assert(can_read());
+        TOP >> value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_read_value(std::string& value) {
+        assert(can_read());
+        TOP >> value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_read_value(Strid& value) {
+        assert(can_read());
+        std::string content;
+        TOP >> content;
+        value = Strid(content);
+        return WG_OK;
+    }
+    Status IoYamlTree::node_read_value(std::int16_t& value) {
+        assert(can_read());
+        TOP >> value;
+        return WG_OK;
+    }
+    Status IoYamlTree::node_read_value(std::size_t& value) {
+        assert(can_read());
+        TOP >> value;
         return WG_OK;
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, Status& value) {
-        return yaml_read(context, node, value.code());
+    void IoYamlTree::node_as_map() {
+        TOP |= ryml::MAP;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const Status& value) {
-        return yaml_write(context, node, value.code());
+    void IoYamlTree::node_as_list(std::size_t) {
+        TOP |= ryml::SEQ;
     }
 
 }// namespace wmoge

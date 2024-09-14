@@ -46,14 +46,14 @@ namespace wmoge {
         return {Random::next_uint64()};
     }
 
-    Status yaml_read(IoContext& context, YamlConstNodeRef node, UUID& id) {
+    Status tree_read(IoContext& context, IoPropertyTree& tree, UUID& id) {
         std::string value;
-        node >> value;
+        WG_TREE_READ(context, tree, value);
         id = UUID(value);
         return WG_OK;
     }
-    Status yaml_write(IoContext& context, YamlNodeRef node, const UUID& id) {
-        node << StringUtils::from_uint64(id.m_value);
+    Status tree_write(IoContext& context, IoPropertyTree& tree, const UUID& id) {
+        WG_TREE_WRITE(context, tree, StringUtils::from_uint64(id.m_value));
         return WG_OK;
     }
 

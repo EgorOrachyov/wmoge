@@ -42,11 +42,11 @@ namespace wmoge {
         object                = rtti_class->instantiate();
         return rtti_class->copy(object.get(), this);
     }
-    Status RttiObject::read_from_yaml(IoContext& context, YamlConstNodeRef node) {
-        return get_class()->read_from_yaml(this, node, context);
+    Status RttiObject::read_from_tree(IoContext& context, IoPropertyTree& tree) {
+        return get_class()->read_from_tree(this, tree, context);
     }
-    Status RttiObject::write_to_yaml(IoContext& context, YamlNodeRef node) const {
-        return get_class()->write_to_yaml(this, node, context);
+    Status RttiObject::write_to_tree(IoContext& context, IoPropertyTree& tree) const {
+        return get_class()->write_to_tree(this, tree, context);
     }
     Status RttiObject::read_from_stream(IoContext& context, IoStream& stream) {
         return get_class()->read_from_stream(this, stream, context);
@@ -88,15 +88,15 @@ namespace wmoge {
         static RttiClass* g_class = nullptr;
         return g_class;
     }
-    Status RttiObject::yaml_read_object(IoContext& context, YamlConstNodeRef node, Ref<RttiObject>& object) {
+    Status RttiObject::tree_read_object(IoContext& context, IoPropertyTree& tree, Ref<RttiObject>& object) {
         assert(!object);
 
-        if (node.empty()) {
+        if (tree.node_is_empty()) {
             return WG_OK;
         }
 
         Strid rtti_name;
-        WG_YAML_READ_AS(context, node, "rtti", rtti_name);
+        WG_TREE_READ_AS(context, tree, "rtti", rtti_name);
 
         RttiClass* rtti_class = context.get_type_storage()->find_class(rtti_name);
         if (!rtti_class) {
@@ -110,15 +110,15 @@ namespace wmoge {
             return StatusCode::FailedInstantiate;
         }
 
-        return object->read_from_yaml(context, node);
+        return object->read_from_tree(context, tree);
     }
-    Status RttiObject::yaml_write_object(IoContext& context, YamlNodeRef node, const Ref<RttiObject>& object) {
+    Status RttiObject::tree_write_object(IoContext& context, IoPropertyTree& tree, const Ref<RttiObject>& object) {
         if (!object) {
             return WG_OK;
         }
-        WG_YAML_MAP(node);
-        WG_YAML_WRITE_AS(context, node, "rtti", object->get_class_name());
-        return object->write_to_yaml(context, node);
+        WG_TREE_MAP(tree);
+        WG_TREE_WRITE_AS(context, tree, "rtti", object->get_class_name());
+        return object->write_to_tree(context, tree);
     }
     Status RttiObject::archive_read_object(IoContext& context, IoStream& stream, Ref<RttiObject>& object) {
         assert(!object);
