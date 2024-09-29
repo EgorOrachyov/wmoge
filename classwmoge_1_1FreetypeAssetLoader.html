@@ -83,7 +83,7 @@ Inheritance diagram for wmoge::FreetypeAssetLoader:</div>
 <div class="center"><img src="classwmoge_1_1FreetypeAssetLoader__inherit__graph.png" border="0" usemap="#awmoge_1_1FreetypeAssetLoader_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1FreetypeAssetLoader_inherit__map" id="awmoge_1_1FreetypeAssetLoader_inherit__map">
 <area shape="rect" title="Loader for ttf fonts through freetype2 library." alt="" coords="5,80,200,107"/>
-<area shape="rect" title=" " alt="" coords="55,5,151,32"/>
+<area shape="rect" title=" " alt="" coords="13,5,192,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -92,7 +92,7 @@ Collaboration diagram for wmoge::FreetypeAssetLoader:</div>
 <div class="center"><img src="classwmoge_1_1FreetypeAssetLoader__coll__graph.png" border="0" usemap="#awmoge_1_1FreetypeAssetLoader_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1FreetypeAssetLoader_coll__map" id="awmoge_1_1FreetypeAssetLoader_coll__map">
 <area shape="rect" title="Loader for ttf fonts through freetype2 library." alt="" coords="5,80,200,107"/>
-<area shape="rect" title=" " alt="" coords="55,5,151,32"/>
+<area shape="rect" title=" " alt="" coords="13,5,192,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -104,8 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7d92e1fbb914cca7aa455f3ddfc797bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16101a7db67b476a1f0d1d870692b164"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeAssetLoader.html#a16101a7db67b476a1f0d1d870692b164">~FreetypeAssetLoader</a> () override=default</td></tr>
 <tr class="separator:a16101a7db67b476a1f0d1d870692b164"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aace042dc86131e17ce86879ce8a4e752"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeAssetLoader.html#aace042dc86131e17ce86879ce8a4e752">load</a> (const Strid &amp;name, const AssetMeta &amp;meta, Ref&lt; Asset &gt; &amp;asset) override</td></tr>
-<tr class="separator:aace042dc86131e17ce86879ce8a4e752"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21508baeec32a17482ec3691a914fdd0"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeAssetLoader.html#a21508baeec32a17482ec3691a914fdd0">load_typed</a> (AssetLoadContext &amp;context, const AssetId &amp;asset_id, const AssetLoadResult &amp;result, Ref&lt; Font &gt; &amp;asset) override</td></tr>
+<tr class="separator:a21508baeec32a17482ec3691a914fdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loader for ttf fonts through freetype2 library. </p>
@@ -161,8 +161,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aace042dc86131e17ce86879ce8a4e752"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aace042dc86131e17ce86879ce8a4e752">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a21508baeec32a17482ec3691a914fdd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21508baeec32a17482ec3691a914fdd0">&#9670;&nbsp;</a></span>load_typed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,21 +171,27 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Status wmoge::FreetypeAssetLoader::load </td>
+          <td class="memname">Status wmoge::FreetypeAssetLoader::load_typed </td>
           <td>(</td>
-          <td class="paramtype">const Strid &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype">AssetLoadContext &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const AssetMeta &amp;&#160;</td>
-          <td class="paramname"><em>meta</em>, </td>
+          <td class="paramtype">const AssetId &amp;&#160;</td>
+          <td class="paramname"><em>asset_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Ref&lt; Asset &gt; &amp;&#160;</td>
+          <td class="paramtype">const AssetLoadResult &amp;&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ref&lt; Font &gt; &amp;&#160;</td>
           <td class="paramname"><em>asset</em>&#160;</td>
         </tr>
         <tr>

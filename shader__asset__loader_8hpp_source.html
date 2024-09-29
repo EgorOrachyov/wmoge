@@ -98,38 +98,36 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;asset/asset.hpp&quot;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;asset/asset_loader.hpp&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &quot;asset/asset_meta.hpp&quot;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;asset/asset_pak.hpp&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &quot;asset/asset_loader_adapter.hpp&quot;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &quot;grc/shader.hpp&quot;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacewmoge.html">wmoge</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html">   41</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ShaderAssetLoader.html">ShaderAssetLoader</a> final : <span class="keyword">public</span> AssetLoader {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html#af8a3b484458fc3fe242388d797232d65">   43</a></span>&#160;        <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#af8a3b484458fc3fe242388d797232d65">WG_RTTI_CLASS</a>(<a class="code" href="classwmoge_1_1ShaderAssetLoader.html">ShaderAssetLoader</a>, AssetLoader);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586">   45</a></span>&#160;        <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586">ShaderAssetLoader</a>()           = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html#abbafc34dee480d3c3516fbd968e3cf2a">   46</a></span>&#160;        <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#abbafc34dee480d3c3516fbd968e3cf2a">~ShaderAssetLoader</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        Status <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#a217f444edf3d5f986d862462023f9311">load</a>(<span class="keyword">const</span> Strid&amp; name, <span class="keyword">const</span> AssetMeta&amp; meta, Ref&lt;Asset&gt;&amp; asset) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    };</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a30653441f492a316ec30603e4a44dcac">   51</a></span>&#160;    <a class="code" href="namespacewmoge.html#a4c8845eaf9390a9232b778f4c38c5e12">WG_RTTI_CLASS_BEGIN</a>(<a class="code" href="classwmoge_1_1ShaderAssetLoader.html">ShaderAssetLoader</a>) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        WG_RTTI_META_DATA();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        WG_RTTI_FACTORY();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="namespacewmoge.html#ab701759ff549fde6467d7f27eab09662">WG_RTTI_END</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}<span class="comment">// namespace wmoge</span></div>
-<div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html">wmoge::ShaderAssetLoader</a></div><div class="ttdef"><b>Definition:</b> shader_asset_loader.hpp:41</div></div>
-<div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html_a217f444edf3d5f986d862462023f9311"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html#a217f444edf3d5f986d862462023f9311">wmoge::ShaderAssetLoader::load</a></div><div class="ttdeci">Status load(const Strid &amp;name, const AssetMeta &amp;meta, Ref&lt; Asset &gt; &amp;asset) override</div><div class="ttdef"><b>Definition:</b> shader_asset_loader.cpp:39</div></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html">   39</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classwmoge_1_1ShaderAssetLoader.html">ShaderAssetLoader</a> final : <span class="keyword">public</span> AssetLoaderTyped&lt;Shader&gt; {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html#af8a3b484458fc3fe242388d797232d65">   41</a></span>&#160;        <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#af8a3b484458fc3fe242388d797232d65">WG_RTTI_CLASS</a>(<a class="code" href="classwmoge_1_1ShaderAssetLoader.html">ShaderAssetLoader</a>, AssetLoader);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586">   43</a></span>&#160;        <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586">ShaderAssetLoader</a>()           = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classwmoge_1_1ShaderAssetLoader.html#abbafc34dee480d3c3516fbd968e3cf2a">   44</a></span>&#160;        <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#abbafc34dee480d3c3516fbd968e3cf2a">~ShaderAssetLoader</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        Status <a class="code" href="classwmoge_1_1ShaderAssetLoader.html#a363bb3b48b52efc8c2f1d32c232a99ae">load_typed</a>(AssetLoadContext&amp; context, <span class="keyword">const</span> AssetId&amp; asset_id, <span class="keyword">const</span> AssetLoadResult&amp; result, Ref&lt;Shader&gt;&amp; asset) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    };</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespacewmoge.html#a30653441f492a316ec30603e4a44dcac">   49</a></span>&#160;    <a class="code" href="namespacewmoge.html#a4c8845eaf9390a9232b778f4c38c5e12">WG_RTTI_CLASS_BEGIN</a>(<a class="code" href="classwmoge_1_1ShaderAssetLoader.html">ShaderAssetLoader</a>) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        WG_RTTI_META_DATA();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        WG_RTTI_FACTORY();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="namespacewmoge.html#ab701759ff549fde6467d7f27eab09662">WG_RTTI_END</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html">wmoge::ShaderAssetLoader</a></div><div class="ttdef"><b>Definition:</b> shader_asset_loader.hpp:39</div></div>
+<div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html_a363bb3b48b52efc8c2f1d32c232a99ae"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html#a363bb3b48b52efc8c2f1d32c232a99ae">wmoge::ShaderAssetLoader::load_typed</a></div><div class="ttdeci">Status load_typed(AssetLoadContext &amp;context, const AssetId &amp;asset_id, const AssetLoadResult &amp;result, Ref&lt; Shader &gt; &amp;asset) override</div><div class="ttdef"><b>Definition:</b> shader_asset_loader.cpp:39</div></div>
 <div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html_abbafc34dee480d3c3516fbd968e3cf2a"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html#abbafc34dee480d3c3516fbd968e3cf2a">wmoge::ShaderAssetLoader::~ShaderAssetLoader</a></div><div class="ttdeci">~ShaderAssetLoader() override=default</div></div>
 <div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html_af639e0d6d32e587a31e7fc32a57fa586"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html#af639e0d6d32e587a31e7fc32a57fa586">wmoge::ShaderAssetLoader::ShaderAssetLoader</a></div><div class="ttdeci">ShaderAssetLoader()=default</div></div>
 <div class="ttc" id="aclasswmoge_1_1ShaderAssetLoader_html_af8a3b484458fc3fe242388d797232d65"><div class="ttname"><a href="classwmoge_1_1ShaderAssetLoader.html#af8a3b484458fc3fe242388d797232d65">wmoge::ShaderAssetLoader::WG_RTTI_CLASS</a></div><div class="ttdeci">WG_RTTI_CLASS(ShaderAssetLoader, AssetLoader)</div></div>
 <div class="ttc" id="anamespacewmoge_html"><div class="ttname"><a href="namespacewmoge.html">wmoge</a></div><div class="ttdef"><b>Definition:</b> _rtti.cpp:33</div></div>
-<div class="ttc" id="anamespacewmoge_html_a4c8845eaf9390a9232b778f4c38c5e12"><div class="ttname"><a href="namespacewmoge.html#a4c8845eaf9390a9232b778f4c38c5e12">wmoge::WG_RTTI_CLASS_BEGIN</a></div><div class="ttdeci">WG_RTTI_CLASS_BEGIN(AssimpMeshAssetLoader)</div><div class="ttdef"><b>Definition:</b> assimp_asset_loader.hpp:58</div></div>
-<div class="ttc" id="anamespacewmoge_html_ab701759ff549fde6467d7f27eab09662"><div class="ttname"><a href="namespacewmoge.html#ab701759ff549fde6467d7f27eab09662">wmoge::WG_RTTI_END</a></div><div class="ttdeci">WG_RTTI_END</div><div class="ttdef"><b>Definition:</b> assimp_asset_loader.hpp:62</div></div>
+<div class="ttc" id="anamespacewmoge_html_a4c8845eaf9390a9232b778f4c38c5e12"><div class="ttname"><a href="namespacewmoge.html#a4c8845eaf9390a9232b778f4c38c5e12">wmoge::WG_RTTI_CLASS_BEGIN</a></div><div class="ttdeci">WG_RTTI_CLASS_BEGIN(AssimpMeshAssetLoader)</div><div class="ttdef"><b>Definition:</b> assimp_asset_loader.hpp:56</div></div>
+<div class="ttc" id="anamespacewmoge_html_ab701759ff549fde6467d7f27eab09662"><div class="ttname"><a href="namespacewmoge.html#ab701759ff549fde6467d7f27eab09662">wmoge::WG_RTTI_END</a></div><div class="ttdeci">WG_RTTI_END</div><div class="ttdef"><b>Definition:</b> assimp_asset_loader.hpp:60</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

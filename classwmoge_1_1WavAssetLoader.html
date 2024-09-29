@@ -82,8 +82,8 @@ Inheritance diagram for wmoge::WavAssetLoader:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1WavAssetLoader__inherit__graph.png" border="0" usemap="#awmoge_1_1WavAssetLoader_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1WavAssetLoader_inherit__map" id="awmoge_1_1WavAssetLoader_inherit__map">
-<area shape="rect" title="Loader for wav audio sources using audio file library." alt="" coords="5,80,176,107"/>
-<area shape="rect" title=" " alt="" coords="43,5,139,32"/>
+<area shape="rect" title="Loader for wav audio sources using audio file library." alt="" coords="29,95,199,121"/>
+<area shape="rect" title=" " alt="" coords="5,5,223,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,8 +91,8 @@ Collaboration diagram for wmoge::WavAssetLoader:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1WavAssetLoader__coll__graph.png" border="0" usemap="#awmoge_1_1WavAssetLoader_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1WavAssetLoader_coll__map" id="awmoge_1_1WavAssetLoader_coll__map">
-<area shape="rect" title="Loader for wav audio sources using audio file library." alt="" coords="5,80,176,107"/>
-<area shape="rect" title=" " alt="" coords="43,5,139,32"/>
+<area shape="rect" title="Loader for wav audio sources using audio file library." alt="" coords="29,95,199,121"/>
+<area shape="rect" title=" " alt="" coords="5,5,223,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -104,8 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4eee9081d418c477b5099f30855df9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03fc7e59097667df13bc4e9d5d46f21c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WavAssetLoader.html#a03fc7e59097667df13bc4e9d5d46f21c">~WavAssetLoader</a> () override=default</td></tr>
 <tr class="separator:a03fc7e59097667df13bc4e9d5d46f21c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9557a9cefab63de2c5c1abd21a25e06"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WavAssetLoader.html#aa9557a9cefab63de2c5c1abd21a25e06">load</a> (const Strid &amp;name, const AssetMeta &amp;meta, Ref&lt; Asset &gt; &amp;asset) override</td></tr>
-<tr class="separator:aa9557a9cefab63de2c5c1abd21a25e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d524eaf69a17d90cf9bfebff520a730"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1WavAssetLoader.html#a7d524eaf69a17d90cf9bfebff520a730">load_typed</a> (AssetLoadContext &amp;context, const AssetId &amp;asset_id, const AssetLoadResult &amp;result, Ref&lt; AudioStreamWav &gt; &amp;asset) override</td></tr>
+<tr class="separator:a7d524eaf69a17d90cf9bfebff520a730"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loader for wav audio sources using audio file library. </p>
@@ -161,8 +161,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa9557a9cefab63de2c5c1abd21a25e06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9557a9cefab63de2c5c1abd21a25e06">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a7d524eaf69a17d90cf9bfebff520a730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d524eaf69a17d90cf9bfebff520a730">&#9670;&nbsp;</a></span>load_typed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,21 +171,27 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Status wmoge::WavAssetLoader::load </td>
+          <td class="memname">Status wmoge::WavAssetLoader::load_typed </td>
           <td>(</td>
-          <td class="paramtype">const Strid &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype">AssetLoadContext &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const AssetMeta &amp;&#160;</td>
-          <td class="paramname"><em>meta</em>, </td>
+          <td class="paramtype">const AssetId &amp;&#160;</td>
+          <td class="paramname"><em>asset_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Ref&lt; Asset &gt; &amp;&#160;</td>
+          <td class="paramtype">const AssetLoadResult &amp;&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Ref&lt; AudioStreamWav &gt; &amp;&#160;</td>
           <td class="paramname"><em>asset</em>&#160;</td>
         </tr>
         <tr>

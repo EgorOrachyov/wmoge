@@ -1,4 +1,4 @@
 <map id="wmoge::WavAssetLoader" name="wmoge::WavAssetLoader">
-<area shape="rect" id="node1" title="Loader for wav audio sources using audio file library." alt="" coords="5,80,176,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="43,5,139,32"/>
+<area shape="rect" id="node1" title="Loader for wav audio sources using audio file library." alt="" coords="29,95,199,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,223,47"/>
 </map>

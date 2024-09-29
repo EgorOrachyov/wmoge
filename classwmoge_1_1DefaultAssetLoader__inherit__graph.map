@@ -1,4 +1,4 @@
 <map id="wmoge::DefaultAssetLoader" name="wmoge::DefaultAssetLoader">
-<area shape="rect" id="node1" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="5,80,191,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="50,5,146,32"/>
+<area shape="rect" id="node1" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="6,80,191,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,192,32"/>
 </map>

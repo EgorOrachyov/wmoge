@@ -1,8 +1,8 @@
 <map id="engine/plugins/runtime/asset/texture_asset_loader.hpp" name="engine/plugins/runtime/asset/texture_asset_loader.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="291,5,497,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,161,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="185,95,301,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="325,95,463,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="487,95,618,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="642,95,749,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="267,5,473,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,137,136"/>
+<area shape="rect" id="node3" title=" " alt="" coords="161,102,277,129"/>
+<area shape="rect" id="node4" title=" " alt="" coords="301,102,439,129"/>
+<area shape="rect" id="node5" title=" " alt="" coords="463,102,594,129"/>
+<area shape="rect" id="node6" title=" " alt="" coords="618,102,725,129"/>
 </map>

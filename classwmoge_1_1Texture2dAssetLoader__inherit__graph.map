@@ -1,4 +1,4 @@
 <map id="wmoge::Texture2dAssetLoader" name="wmoge::Texture2dAssetLoader">
-<area shape="rect" id="node1" title="Loader for 2d textures through stb image library." alt="" coords="5,80,207,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="58,5,154,32"/>
+<area shape="rect" id="node1" title="Loader for 2d textures through stb image library." alt="" coords="10,80,211,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,216,32"/>
 </map>

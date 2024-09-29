@@ -1,9 +1,9 @@
 <map id="engine/plugins/runtime/asset/image_asset_loader.cpp" name="engine/plugins/runtime/asset/image_asset_loader.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="219,5,421,47"/>
-<area shape="rect" id="node2" href="$image__asset__loader_8hpp.html" title=" " alt="" coords="5,95,168,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="193,95,295,121"/>
-<area shape="rect" id="node5" href="$image__import__data_8hpp.html" title=" " alt="" coords="319,95,475,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="499,95,626,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="9,177,165,203"/>
-<area shape="rect" id="node6" title=" " alt="" coords="331,169,464,211"/>
+<area shape="rect" id="node1" title=" " alt="" coords="274,5,477,47"/>
+<area shape="rect" id="node2" href="$image__asset__loader_8hpp.html" title=" " alt="" coords="110,95,273,121"/>
+<area shape="rect" id="node5" href="$image__import__data_8hpp.html" title=" " alt="" coords="297,95,453,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="477,95,604,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,137,211"/>
+<area shape="rect" id="node4" title=" " alt="" coords="161,177,264,203"/>
+<area shape="rect" id="node6" title=" " alt="" coords="309,169,442,211"/>
 </map>

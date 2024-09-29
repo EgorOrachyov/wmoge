@@ -82,8 +82,8 @@ Inheritance diagram for wmoge::DefaultAssetLoader:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1DefaultAssetLoader__inherit__graph.png" border="0" usemap="#awmoge_1_1DefaultAssetLoader_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1DefaultAssetLoader_inherit__map" id="awmoge_1_1DefaultAssetLoader_inherit__map">
-<area shape="rect" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="5,80,191,107"/>
-<area shape="rect" title=" " alt="" coords="50,5,146,32"/>
+<area shape="rect" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="6,80,191,107"/>
+<area shape="rect" title=" " alt="" coords="5,5,192,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,8 +91,8 @@ Collaboration diagram for wmoge::DefaultAssetLoader:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1DefaultAssetLoader__coll__graph.png" border="0" usemap="#awmoge_1_1DefaultAssetLoader_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1DefaultAssetLoader_coll__map" id="awmoge_1_1DefaultAssetLoader_coll__map">
-<area shape="rect" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="5,80,191,107"/>
-<area shape="rect" title=" " alt="" coords="50,5,146,32"/>
+<area shape="rect" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="6,80,191,107"/>
+<area shape="rect" title=" " alt="" coords="5,5,192,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -104,8 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6edbbc629417a803cc03b0b2c578c07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15f8268f88486b8156bffded9d3129bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1DefaultAssetLoader.html#a15f8268f88486b8156bffded9d3129bf">~DefaultAssetLoader</a> () override=default</td></tr>
 <tr class="separator:a15f8268f88486b8156bffded9d3129bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f50bde1e4314281da1e753706489c85"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1DefaultAssetLoader.html#a5f50bde1e4314281da1e753706489c85">load</a> (const Strid &amp;name, const AssetMeta &amp;meta, Ref&lt; Asset &gt; &amp;asset) override</td></tr>
-<tr class="separator:a5f50bde1e4314281da1e753706489c85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad8d39c266ceeaf2bc4afba63379349c"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1DefaultAssetLoader.html#aad8d39c266ceeaf2bc4afba63379349c">load_typed</a> (AssetLoadContext &amp;context, const AssetId &amp;asset_id, const AssetLoadResult &amp;result, Ref&lt; Asset &gt; &amp;asset) override</td></tr>
+<tr class="separator:aad8d39c266ceeaf2bc4afba63379349c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Loader for default single-file assets stored in yaml format. </p>
@@ -162,8 +162,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5f50bde1e4314281da1e753706489c85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f50bde1e4314281da1e753706489c85">&#9670;&nbsp;</a></span>load()</h2>
+<a id="aad8d39c266ceeaf2bc4afba63379349c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad8d39c266ceeaf2bc4afba63379349c">&#9670;&nbsp;</a></span>load_typed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,16 +172,22 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Status wmoge::DefaultAssetLoader::load </td>
+          <td class="memname">Status wmoge::DefaultAssetLoader::load_typed </td>
           <td>(</td>
-          <td class="paramtype">const Strid &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype">AssetLoadContext &amp;&#160;</td>
+          <td class="paramname"><em>context</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const AssetMeta &amp;&#160;</td>
-          <td class="paramname"><em>meta</em>, </td>
+          <td class="paramtype">const AssetId &amp;&#160;</td>
+          <td class="paramname"><em>asset_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const AssetLoadResult &amp;&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
