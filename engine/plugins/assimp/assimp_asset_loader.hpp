@@ -27,12 +27,10 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
-#include "asset/asset_pak.hpp"
+#include "asset/asset_loader_adapter.hpp"
 #include "math/mat.hpp"
 #include "math/vec.hpp"
+#include "mesh/mesh.hpp"
 
 #include <assimp/mesh.h>
 #include <assimp/scene.h>
@@ -45,14 +43,14 @@ namespace wmoge {
      * @class AssimpMeshAssetLoader
      * @brief Loader for a mesh data based on assimp library
      */
-    class AssimpMeshAssetLoader final : public AssetLoader {
+    class AssimpMeshAssetLoader final : public AssetLoaderTyped<Mesh> {
     public:
         WG_RTTI_CLASS(AssimpMeshAssetLoader, AssetLoader);
 
         AssimpMeshAssetLoader()           = default;
         ~AssimpMeshAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Mesh>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(AssimpMeshAssetLoader) {

@@ -96,14 +96,14 @@ namespace wmoge {
         return hash_value;
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Sha256& sha) {
+    Status tree_read(IoContext& context, IoTree& tree, Sha256& sha) {
         std::string s;
         WG_CHECKED(tree_read(context, tree, s));
         sha = Sha256(s);
         return WG_OK;
     }
 
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Sha256& sha) {
+    Status tree_write(IoContext& context, IoTree& tree, const Sha256& sha) {
         return tree_write(context, tree, sha.to_string());
     }
     Status stream_read(IoContext& context, IoStream& stream, Sha256& sha) {

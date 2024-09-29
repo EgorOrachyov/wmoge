@@ -44,7 +44,7 @@ namespace wmoge {
         WG_RTTI_STRUCT(AssetSourceFile);
 
         std::string file;
-        std::string file_tag;
+        Strid       file_tag;
         Sha256      file_hash;
         DateTime    timestamp;
     };

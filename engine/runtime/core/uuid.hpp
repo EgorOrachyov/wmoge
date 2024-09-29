@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <cinttypes>
 #include <cstddef>
@@ -64,8 +64,8 @@ namespace wmoge {
 
         static UUID generate();
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, UUID& id);
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const UUID& id);
+        friend Status tree_read(IoContext& context, IoTree& tree, UUID& id);
+        friend Status tree_write(IoContext& context, IoTree& tree, const UUID& id);
 
         friend Status stream_read(IoContext& context, IoStream& stream, UUID& id);
         friend Status stream_write(IoContext& context, IoStream& stream, const UUID& id);

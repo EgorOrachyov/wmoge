@@ -1,10 +1,10 @@
 objs:
-  - material: "asset://materials/test_material_1"
+  - material: "assets/materials/test_material_1"
     mesh_idx: 0
     chunk_idx: 0
     name: "root"
 meshes:
-  - "asset://mesh/suzanne"
+  - "assets/mesh/suzanne"
 lod:
  ranges:
    - 0 1  

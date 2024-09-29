@@ -25,38 +25,26 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "asset/asset.hpp"
-#include "asset/asset_meta.hpp"
-#include "core/data.hpp"
-#include "core/status.hpp"
-#include "core/string_id.hpp"
-#include "io/property_tree.hpp"
-
-#include <filesystem>
-#include <optional>
-#include <string>
-#include <vector>
+#include "asset_loader.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class AssetPak
-     * @brief Interface for the package of the assets on disc
-     *
-     * AssetPak abstracts access to the assets on disk. It provides ability
-     * to load a particular asset meta file from a asset name, and allows
-     * to read a raw data using path.
-     *
-     * Internally asset pack can be represented as a wrapper for a file system
-     * asset directory, or it can manage a compressed pak of assets on a disk.
-     */
-    class AssetPak {
-    public:
-        virtual ~AssetPak()                                                = default;
-        virtual std::string get_name() const                               = 0;
-        virtual Status      get_meta(const AssetId& name, AssetMeta& meta) = 0;
-    };
+    void AssetLoadRequest::add_data_file(const Strid& name) {
+        data_files[name] = name.str();
+    }
+
+    std::string AssetLoadRequest::get_data_file(Strid tag) const {
+        auto query = data_files.find(tag);
+        return query != data_files.end() ? query->second : std::string();
+    }
+
+    void AssetLoadResult::add_data_file(Strid tag, array_view<const std::uint8_t> data) {
+        data_files[tag] = data;
+    }
+
+    array_view<const std::uint8_t> AssetLoadResult::get_data_file(Strid tag) const {
+        auto query = data_files.find(tag);
+        return query != data_files.end() ? query->second : array_view<const std::uint8_t>();
+    }
 
 }// namespace wmoge

@@ -63,6 +63,7 @@ namespace wmoge {
         using TimePoint = Clock::time_point;
 
         DateTime() = default;
+        DateTime(TimePoint tp);
         DateTime(const DateTimeTm& tm);
         DateTime(const std::string& source);
 
@@ -77,8 +78,8 @@ namespace wmoge {
 
         static DateTime now();
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, DateTime& value);
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const DateTime& value);
+        friend Status tree_read(IoContext& context, IoTree& tree, DateTime& value);
+        friend Status tree_write(IoContext& context, IoTree& tree, const DateTime& value);
         friend Status stream_read(IoContext& context, IoStream& stream, DateTime& value);
         friend Status stream_write(IoContext& context, IoStream& stream, const DateTime& value);
 

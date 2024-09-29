@@ -46,37 +46,67 @@ namespace wmoge {
             return "";
         }
 
-        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        const std::filesystem::path remapped = remap_path(path);
         return remapped.string();
     }
 
     bool MountVolumePhysical::exists(const std::string& path) {
-        auto prefix = path.find(m_mapping);
-        if (prefix != 0) {
+        if (!check_prefix(path)) {
             return false;
         }
 
-        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        const std::filesystem::path remapped = remap_path(path);
         return std::filesystem::exists(remapped);
     }
 
     bool MountVolumePhysical::exists_physical(const std::string& path) {
-        auto prefix = path.find(m_mapping);
-        if (prefix != 0) {
+        if (!check_prefix(path)) {
             return false;
         }
 
-        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        const std::filesystem::path remapped = remap_path(path);
         return std::filesystem::exists(remapped);
     }
 
-    Status MountVolumePhysical::open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) {
-        auto prefix = path.find(m_mapping);
-        if (prefix != 0) {
+    Status MountVolumePhysical::get_file_size(const std::string& path, std::size_t& size) {
+        if (!check_prefix(path)) {
             return StatusCode::FailedOpenFile;
         }
 
-        const std::filesystem::path remapped      = m_path / path.substr(m_mapping.length());
+        const std::filesystem::path remapped = remap_path(path);
+        if (!std::filesystem::exists(remapped)) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        size = static_cast<std::size_t>(std::filesystem::file_size(remapped));
+        return WG_OK;
+    }
+
+    Status MountVolumePhysical::get_file_timespamp(const std::string& path, DateTime& timespamp) {
+        if (!check_prefix(path)) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        const std::filesystem::path remapped = remap_path(path);
+        if (!std::filesystem::exists(remapped)) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        using DateTimeClock = DateTime::Clock;
+        using FileClock     = std::filesystem::file_time_type::clock;
+
+        auto last_write_time = std::filesystem::last_write_time(remapped);
+        auto time_point      = std::chrono::time_point_cast<DateTimeClock::duration>(last_write_time - FileClock::now() + DateTimeClock::now());
+        timespamp            = DateTime(time_point);
+        return WG_OK;
+    }
+
+    Status MountVolumePhysical::open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) {
+        if (!check_prefix(path)) {
+            return StatusCode::FailedOpenFile;
+        }
+
+        const std::filesystem::path remapped      = remap_path(path);
         Ref<FilePhysical>           file_physical = make_ref<FilePhysical>();
 
         if (mode.get(FileOpenMode::Out)) {
@@ -91,12 +121,11 @@ namespace wmoge {
     }
 
     Status MountVolumePhysical::open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
-        auto prefix = path.find(m_mapping);
-        if (prefix != 0) {
+        if (!check_prefix(path)) {
             return StatusCode::FailedOpenFile;
         }
 
-        const std::filesystem::path remapped = m_path / path.substr(m_mapping.length());
+        const std::filesystem::path remapped = remap_path(path);
 
         if (mode & std::ios_base::out) {
             std::filesystem::create_directories(remapped.parent_path());
@@ -113,6 +142,15 @@ namespace wmoge {
 
     Status MountVolumePhysical::mounted() {
         return WG_OK;
+    }
+
+    bool MountVolumePhysical::check_prefix(const std::string& path) {
+        auto prefix = path.find(m_mapping);
+        return prefix == 0;
+    }
+
+    std::filesystem::path MountVolumePhysical::remap_path(const std::string& path) {
+        return std::move(m_path / path.substr(m_mapping.length()));
     }
 
 }// namespace wmoge

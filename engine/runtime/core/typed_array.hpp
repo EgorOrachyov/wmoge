@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/ref.hpp"
-#include "io/property_tree.hpp"
+#include "io/tree.hpp"
 
 #include <vector>
 

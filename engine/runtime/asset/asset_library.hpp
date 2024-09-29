@@ -25,34 +25,35 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "context.hpp"
+#pragma once
 
-#include "asset/asset_manager.hpp"
-#include "rtti/type_storage.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
+#include "asset/asset.hpp"
+#include "asset/asset_meta.hpp"
+#include "core/async.hpp"
+#include "core/data.hpp"
+#include "core/status.hpp"
+#include "core/string_id.hpp"
+#include "io/tree.hpp"
+
+#include <filesystem>
+#include <optional>
+#include <string>
+#include <vector>
 
 namespace wmoge {
 
-    AssetManager* wmoge::IoContext::get_asset_manager() {
-        if (!m_asset_manager) {
-            m_asset_manager = get_ioc_container()->resolve_v<AssetManager>();
-        }
-        return m_asset_manager;
-    }
+    /**
+     * @class AssetLibrary
+     * @brief Interface for a library of assets meta information
+     */
+    class AssetLibrary {
+    public:
+        virtual ~AssetLibrary() = default;
 
-    RttiTypeStorage* IoContext::get_type_storage() {
-        if (!m_type_storage) {
-            m_type_storage = get_ioc_container()->resolve_v<RttiTypeStorage>();
-        }
-        return m_type_storage;
-    }
-
-    IocContainer* IoContext::get_ioc_container() {
-        if (!m_ioc_container) {
-            m_ioc_container = IocContainer::instance();
-        }
-        return m_ioc_container;
-    }
+        virtual std::string get_name() const                                             = 0;
+        virtual Status      find_asset_meta(const AssetId& name, AssetMeta& meta)        = 0;
+        virtual Status      find_asset_data_meta(const Strid& name, AssetDataMeta& meta) = 0;
+        virtual Async       read_data(const Strid& name, array_view<std::uint8_t> data)  = 0;
+    };
 
 }// namespace wmoge

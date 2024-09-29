@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <array>
 #include <cinttypes>
@@ -64,8 +64,8 @@ namespace wmoge {
 
     static_assert(std::is_trivially_destructible_v<Sha256>, "Sha256 must be trivial as ptr or int");
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Sha256& sha);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Sha256& sha);
+    Status tree_read(IoContext& context, IoTree& tree, Sha256& sha);
+    Status tree_write(IoContext& context, IoTree& tree, const Sha256& sha);
     Status stream_read(IoContext& context, IoStream& stream, Sha256& sha);
     Status stream_write(IoContext& context, IoStream& stream, const Sha256& sha);
 

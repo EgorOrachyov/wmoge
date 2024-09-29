@@ -297,6 +297,12 @@ namespace wmoge {
             assert(m_state);
             return Async(m_state.template as<AsyncStateBase>());
         }
+
+        static AsyncResult failed() {
+            auto async_op = make_async_op<T>();
+            async_op->set_failed();
+            return AsyncResult(async_op);
+        }
     };
 
 }// namespace wmoge

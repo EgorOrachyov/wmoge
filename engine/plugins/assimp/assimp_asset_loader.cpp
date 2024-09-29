@@ -44,16 +44,16 @@
 
 namespace wmoge {
 
-    Status AssimpMeshAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load");
+    Status AssimpMeshAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Mesh>& asset) {
+        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load_typed");
 
-        Ref<AssimpMeshImportData> import_data = meta.import_data.cast<AssimpMeshImportData>();
+        Ref<AssimpMeshImportData> import_data = context.asset_meta.import_data.cast<AssimpMeshImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data for " << name);
+            WG_LOG_ERROR("no import data for " << asset_id);
             return StatusCode::InvalidData;
         }
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
@@ -83,19 +83,17 @@ namespace wmoge {
         MeshFlags flags;
         flags.set(MeshFlag::FromDisk);
 
-        Ref<Mesh> mesh = mesh_manager->create_mesh(flags);
-
-        asset = mesh;
-        asset->set_name(name);
+        asset = mesh_manager->create_mesh(flags);
+        asset->set_id(asset_id);
 
         MeshBuilder& builder = importer.get_builder();
-        builder.set_mesh(mesh);
+        builder.set_mesh(asset);
         if (!builder.build()) {
             WG_LOG_ERROR("failed to build mesh " << file_name);
             return StatusCode::Error;
         }
 
-        mesh_manager->init_mesh(mesh.get());
+        mesh_manager->init_mesh(asset.get());
 
         return WG_OK;
     }

@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <svector.hpp>
 #include <vector>
@@ -67,7 +67,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, buffered_vector<T, MinCapacity>& vector) {
+    Status tree_read(IoContext& context, IoTree& tree, buffered_vector<T, MinCapacity>& vector) {
         assert(vector.empty());
         vector.resize(tree.node_num_children());
         std::size_t element_id = 0;
@@ -80,7 +80,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t MinCapacity>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const buffered_vector<T, MinCapacity>& vector) {
+    Status tree_write(IoContext& context, IoTree& tree, const buffered_vector<T, MinCapacity>& vector) {
         WG_TREE_SEQ(tree, vector.size());
         for (const T& value : vector) {
             WG_CHECKED(tree.node_append_child());

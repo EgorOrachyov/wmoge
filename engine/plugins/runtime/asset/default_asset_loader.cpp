@@ -1,3 +1,4 @@
+#include "default_asset_loader.hpp"
 /**********************************************************************************/
 /* Wmoge game engine                                                              */
 /* Available at github https://github.com/EgorOrachyov/wmoge                      */
@@ -27,43 +28,51 @@
 
 #include "default_asset_loader.hpp"
 
-#include "io/yaml.hpp"
+#include "io/tree_yaml.hpp"
 #include "profiler/profiler.hpp"
+#include "rtti/type_storage.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    Status DefaultAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("DefaultAssetLoader::load");
+    Status DefaultAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) {
+        WG_AUTO_PROFILE_ASSET("DefaultAssetLoader::load_typed");
 
-        Ref<AssetImportData> import_data = meta.import_data.cast<AssetImportData>();
+        Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data to load " << name);
+            WG_LOG_ERROR("no import data to load " << asset_id);
             return StatusCode::InvalidData;
         }
+
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
         std::string path_on_disk = import_data->source_files[0].file;
         if (path_on_disk.empty()) {
-            WG_LOG_ERROR("no path on disk to load asset file " << name);
+            WG_LOG_ERROR("no path on disk to load asset file " << asset_id);
             return StatusCode::InvalidData;
         }
 
-        asset = meta.rtti->instantiate().cast<Asset>();
+        RttiClass* rtti = IocContainer::iresolve_v<RttiTypeStorage>()->find_class(context.asset_meta.rtti);
+        if (!rtti) {
+            WG_LOG_ERROR("no rtti type for " << asset_id);
+            return StatusCode::InvalidData;
+        }
+
+        asset = rtti->instantiate().cast<Asset>();
         if (!asset) {
-            WG_LOG_ERROR("failed to instantiate asset " << name);
+            WG_LOG_ERROR("failed to instantiate asset " << asset_id);
             return StatusCode::FailedInstantiate;
         }
 
-        IoContext  context;
+        asset->set_id(asset_id);
+
         IoYamlTree asset_tree;
         WG_CHECKED(asset_tree.parse_file(path_on_disk));
 
-        asset->set_name(name);
-
-        if (!asset->read_from_tree(context, asset_tree)) {
+        if (!asset->read_from_tree(context.io_context, asset_tree)) {
             WG_LOG_ERROR("failed to load asset from file " << path_on_disk);
             return StatusCode::FailedRead;
         }

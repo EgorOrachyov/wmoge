@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/log.hpp"
+#include "core/mask.hpp"
 #include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
@@ -259,6 +260,16 @@ namespace wmoge {
             WG_ARCHIVE_WRITE(context, stream, opt.value());
         }
         return WG_OK;
+    }
+
+    template<typename T, int size>
+    Status stream_read(IoContext& context, IoStream& stream, Mask<T, size>& mask) {
+        return stream.nread(sizeof(Mask<T, size>), &mask);
+    }
+
+    template<typename T, int size>
+    Status stream_write(IoContext& context, IoStream& stream, const Mask<T, size>& mask) {
+        return stream.nwrite(sizeof(Mask<T, size>), &mask);
     }
 
 }// namespace wmoge

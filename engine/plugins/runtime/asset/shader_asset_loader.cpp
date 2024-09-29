@@ -30,48 +30,44 @@
 #include "grc/shader.hpp"
 #include "grc/shader_file.hpp"
 #include "grc/shader_manager.hpp"
-#include "io/yaml.hpp"
+#include "io/tree_yaml.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    Status ShaderAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("ShaderAssetLoader::load");
+    Status ShaderAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Shader>& asset) {
+        WG_AUTO_PROFILE_ASSET("ShaderAssetLoader::load_typed");
 
-        Ref<AssetImportData> import_data = meta.import_data.cast<AssetImportData>();
+        Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data to load " << name);
+            WG_LOG_ERROR("no import data to load " << asset_id);
             return StatusCode::InvalidData;
         }
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
         std::string path_on_disk = import_data->source_files[0].file;
         if (path_on_disk.empty()) {
-            WG_LOG_ERROR("no path on disk to load asset file " << name);
+            WG_LOG_ERROR("no path on disk to load asset file " << asset_id);
             return StatusCode::InvalidData;
         }
 
         ShaderFile shader_file;
-
-        IoContext  context;
         IoYamlTree tree;
         WG_CHECKED(tree.parse_file(path_on_disk));
-        WG_TREE_READ(context, tree, shader_file);
+        WG_TREE_READ(context.io_context, tree, shader_file);
 
         auto* shader_manager = IocContainer::iresolve_v<ShaderManager>();
 
         ShaderReflection shader_reflection;
         WG_CHECKED(shader_manager->load_shader_reflection(shader_file, shader_reflection));
 
-        Ref<Shader> shader = make_ref<Shader>(std::move(shader_reflection));
-        shader_manager->add_shader(shader);
-
-        asset = shader;
-        asset->set_name(name);
+        asset = make_ref<Shader>(std::move(shader_reflection));
+        asset->set_id(asset_id);
+        shader_manager->add_shader(asset);
 
         return WG_OK;
     }

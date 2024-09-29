@@ -35,11 +35,11 @@
 
 namespace wmoge {
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, AssetId& id) {
+    Status tree_read(IoContext& context, IoTree& tree, AssetId& id) {
         WG_TREE_READ(context, tree, id.m_name);
         return WG_OK;
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetId& id) {
+    Status tree_write(IoContext& context, IoTree& tree, const AssetId& id) {
         WG_TREE_WRITE(context, tree, id.m_name);
         return WG_OK;
     }
@@ -57,44 +57,6 @@ namespace wmoge {
     }
     AssetId::AssetId(const Strid& id) {
         m_name = id;
-    }
-
-    void AssetDependencies::set_mode(CollectionMode mode, std::optional<int> num_levels) {
-        assert(m_cur_depth == 0);
-
-        if (mode == CollectionMode::OneLevel) {
-            m_max_depth = 1;
-        }
-        if (mode == CollectionMode::MultipleLevels) {
-            m_max_depth = num_levels.value_or(1);
-        }
-        if (mode == CollectionMode::FullDepth) {
-            m_max_depth = std::numeric_limits<int>::max();
-        }
-
-        m_mode = mode;
-    }
-
-    void AssetDependencies::add(const Ref<Asset>& asset) {
-        if (m_cur_depth >= m_max_depth) {
-            return;
-        }
-        if (!asset) {
-            return;
-        }
-
-        m_cur_depth += 1;
-
-        m_assets.emplace(asset);
-        asset->collect_deps(*this);
-
-        m_cur_depth -= 1;
-    }
-
-    buffered_vector<Ref<Asset>> AssetDependencies::to_vector() const {
-        buffered_vector<Ref<Asset>> vec(m_assets.size());
-        std::copy(m_assets.begin(), m_assets.end(), vec.begin());
-        return vec;
     }
 
 }// namespace wmoge

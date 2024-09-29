@@ -25,7 +25,7 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "yaml.hpp"
+#include "tree_yaml.hpp"
 
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
@@ -61,9 +61,12 @@ namespace wmoge {
     }
 
     Status IoYamlTree::parse_file(const std::string& path) {
-        FileSystem*               file_system = IocContainer::iresolve_v<FileSystem>();
+        return parse_file(IocContainer::iresolve_v<FileSystem>(), path);
+    }
+
+    Status IoYamlTree::parse_file(FileSystem* fs, const std::string& path) {
         std::vector<std::uint8_t> data;
-        WG_CHECKED(file_system->read_file(path, data));
+        WG_CHECKED(fs->read_file(path, data));
         return parse_data(data);
     }
 

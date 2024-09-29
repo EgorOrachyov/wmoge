@@ -71,13 +71,13 @@ namespace wmoge {
                    Math2d::translate(-m_translation);
         }
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, Transform2d& transform) {
+        friend Status tree_read(IoContext& context, IoTree& tree, Transform2d& transform) {
             WG_TREE_READ_AS_OPT(context, tree, "rotation", transform.m_rotation);
             WG_TREE_READ_AS_OPT(context, tree, "translation", transform.m_translation);
             WG_TREE_READ_AS_OPT(context, tree, "scale", transform.m_scale);
             return WG_OK;
         }
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const Transform2d& transform) {
+        friend Status tree_write(IoContext& context, IoTree& tree, const Transform2d& transform) {
             WG_TREE_MAP(tree);
             WG_TREE_WRITE_AS(context, tree, "rotation", transform.m_rotation);
             WG_TREE_WRITE_AS(context, tree, "translation", transform.m_translation);
@@ -153,13 +153,13 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, Transform3d& transform) {
+        friend Status tree_read(IoContext& context, IoTree& tree, Transform3d& transform) {
             WG_TREE_READ_AS_OPT(context, tree, "rotation", transform.m_rotation);
             WG_TREE_READ_AS_OPT(context, tree, "translation", transform.m_translation);
             WG_TREE_READ_AS_OPT(context, tree, "scale", transform.m_scale);
             return WG_OK;
         }
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const Transform3d& transform) {
+        friend Status tree_write(IoContext& context, IoTree& tree, const Transform3d& transform) {
             WG_TREE_MAP(tree);
             WG_TREE_WRITE_AS(context, tree, "rotation", transform.m_rotation);
             WG_TREE_WRITE_AS(context, tree, "translation", transform.m_translation);
@@ -224,7 +224,7 @@ namespace wmoge {
         [[nodiscard]] const Vec3f& get_translation() const { return m_translation; }
         [[nodiscard]] const Vec3f& get_scale() const { return m_scale; }
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, TransformEdt& transform) {
+        friend Status tree_read(IoContext& context, IoTree& tree, TransformEdt& transform) {
             Vec3f rotation_deg;
 
             WG_TREE_READ_AS_OPT(context, tree, "rotation", rotation_deg);
@@ -237,7 +237,7 @@ namespace wmoge {
 
             return WG_OK;
         }
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const TransformEdt& transform) {
+        friend Status tree_write(IoContext& context, IoTree& tree, const TransformEdt& transform) {
             Vec3f rotation_deg;
 
             rotation_deg[0] = Math::rad_to_deg(transform.m_rotation.values[0]);

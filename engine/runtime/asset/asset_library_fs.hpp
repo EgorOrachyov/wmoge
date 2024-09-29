@@ -27,42 +27,29 @@
 
 #pragma once
 
-#include "platform/mount_volume.hpp"
-
-#include <filesystem>
-#include <fstream>
-#include <memory>
-#include <string>
-#include <utility>
+#include "asset/asset_library.hpp"
 
 namespace wmoge {
 
     /**
-     * @class MountVolumePhysical
-     * @brief Wrapper for a physical folder location
-    */
-    class MountVolumePhysical : public MountVolume {
+     * @class AssetLibraryFileSystem
+     * @brief Assets pak based on the filesystem asset directory access
+     */
+    class AssetLibraryFileSystem final : public AssetLibrary {
     public:
-        MountVolumePhysical(std::filesystem::path path, std::string mapping);
-        ~MountVolumePhysical() override = default;
+        AssetLibraryFileSystem(std::string directory, class IocContainer* ioc);
+        ~AssetLibraryFileSystem() override = default;
 
-        void        change_path(std::filesystem::path path);
-        std::string resolve_physical(const std::string& path) override;
-        bool        exists(const std::string& path) override;
-        bool        exists_physical(const std::string& path) override;
-        Status      get_file_size(const std::string& path, std::size_t& size) override;
-        Status      get_file_timespamp(const std::string& path, DateTime& timespamp) override;
-        Status      open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) override;
-        Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) override;
-        Status      mounted() override;
+        std::string get_name() const override;
+        Status      find_asset_meta(const AssetId& name, AssetMeta& meta) override;
+        Status      find_asset_data_meta(const Strid& name, AssetDataMeta& meta) override;
+        Async       read_data(const Strid& name, array_view<std::uint8_t> data) override;
 
     private:
-        bool                  check_prefix(const std::string& path);
-        std::filesystem::path remap_path(const std::string& path);
-
-    private:
-        std::filesystem::path m_path;
-        std::string           m_mapping;
+        class FileSystem*      m_file_system;
+        class RttiTypeStorage* m_rtti_storage;
+        std::string            m_directory;
+        std::string            m_asset_ext = ".asset";
     };
 
 }// namespace wmoge

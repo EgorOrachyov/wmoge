@@ -28,7 +28,9 @@
 #pragma once
 
 #include "core/data.hpp"
+#include "core/date_time.hpp"
 #include "core/ref.hpp"
+#include "core/sha256.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utf.hpp"
@@ -92,6 +94,8 @@ namespace wmoge {
         std::string resolve_physical(const std::string& path);
         bool        exists(const std::string& path);
         bool        exists_physical(const std::string& path);
+        Status      get_file_size(const std::string& path, std::size_t& size);
+        Status      get_file_timespamp(const std::string& path, DateTime& timespamp);
         Status      read_file(const std::string& path, std::string& data);
         Status      read_file(const std::string& path, Ref<Data>& data);
         Status      read_file(const std::string& path, std::vector<std::uint8_t>& data);
@@ -99,6 +103,7 @@ namespace wmoge {
         Status      open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode);
         Status      save_file(const std::string& path, const std::string& data);
         Status      save_file(const std::string& path, const std::vector<std::uint8_t>& data);
+        Status      hash_file(const std::string& path, Sha256& file_hash);
         void        watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback);
         void        add_mounting(const MountPoint& point, bool front = false);
         void        root(const std::filesystem::path& path);

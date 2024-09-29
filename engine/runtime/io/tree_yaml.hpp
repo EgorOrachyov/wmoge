@@ -32,7 +32,7 @@
 #include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
-#include "io/property_tree.hpp"
+#include "io/tree.hpp"
 
 #include <ryml.hpp>
 #include <ryml_std.hpp>
@@ -45,7 +45,7 @@ namespace wmoge {
      * @class IoYamlTree
      * @brief Yaml tree implementation for serialization and de-serialization
      */
-    class IoYamlTree : public IoPropertyTree {
+    class IoYamlTree : public IoTree {
     public:
         IoYamlTree()  = default;
         ~IoYamlTree() = default;
@@ -53,6 +53,7 @@ namespace wmoge {
         Status create_tree();
         Status parse_data(const array_view<std::uint8_t>& data);
         Status parse_file(const std::string& path);
+        Status parse_file(class FileSystem* fs, const std::string& path);
 
         bool        node_is_empty() override;
         bool        node_has_child(const std::string_view& name) override;

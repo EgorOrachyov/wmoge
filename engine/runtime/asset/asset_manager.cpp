@@ -27,7 +27,7 @@
 
 #include "asset_manager.hpp"
 
-#include "asset/asset_pak_fs.hpp"
+#include "asset/asset_library_fs.hpp"
 #include "core/timer.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
@@ -38,29 +38,21 @@
 
 namespace wmoge {
 
-    AssetManager::AssetManager() {
-        m_file_system  = IocContainer::iresolve_v<FileSystem>();
-        m_type_storage = IocContainer::iresolve_v<RttiTypeStorage>();
+    AssetManager::AssetManager(IocContainer* ioc) {
+        m_file_system  = ioc->resolve_value<FileSystem>();
+        m_type_storage = ioc->resolve_value<RttiTypeStorage>();
 
         m_callback = std::make_shared<typename Asset::ReleaseCallback>([this](Asset* asset) {
             std::lock_guard guard(m_mutex);
 
-            auto& id   = asset->get_id();
-            auto  rtti = asset->get_class_name();
-
-            auto unloader = find_unloader(rtti);
-            if (unloader) {
-                (*unloader)->unload(asset);
-            }
-
-            auto entry = m_assets.find(id);
+            auto entry = m_assets.find(asset->get_id());
             if (entry != m_assets.end()) {
                 m_assets.erase(entry);
             }
         });
     }
 
-    AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name, AssetCallback callback) {
+    AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name) {
         WG_AUTO_PROFILE_ASSET("AssetManager::load_async");
 
         std::lock_guard guard(m_mutex);
@@ -71,7 +63,6 @@ namespace wmoge {
             std::optional<Ref<Asset>> res_opt(res);
             auto                      async_op = make_async_op<Ref<Asset>>();
             async_op->set_result(std::move(res));
-            async_op->add_on_completion(std::move(callback));
             return AsyncResult<Ref<Asset>>(async_op);
         }
 
@@ -79,26 +70,29 @@ namespace wmoge {
         auto loading = m_loading.find(name);
         if (loading != m_loading.end()) {
             auto& async_op = loading->second.async_op;
-            async_op->add_on_completion(std::move(callback));
             return AsyncResult<Ref<Asset>>(async_op);
         }
 
         // try to find meta info, to load from pak
         std::optional<AssetMeta> asset_meta = find_meta(name);
-
         if (!asset_meta.has_value()) {
             // failed to load, return dummy async in error state
             auto async_op = make_async_op<Ref<Asset>>();
             async_op->set_failed();
-            async_op->add_on_completion(std::move(callback));
 
             WG_LOG_ERROR("failed to find meta info for " << name);
-            return AsyncResult<Ref<Asset>>(async_op);
+            return AsyncResult<Ref<Asset>>::failed();
+        }
+
+        // try find loader
+        std::optional<AssetLoader*> loader = find_loader(asset_meta->loader);
+        if (!loader) {
+            WG_LOG_ERROR("failed to find loader for " << name);
+            return AsyncResult<Ref<Asset>>::failed();
         }
 
         // get dependencies which still loading or already loaded
         buffered_vector<Async> deps;
-
         for (const Strid& dep : asset_meta.value().deps) {
             deps.push_back(load_async(dep).as_async());
         }
@@ -107,17 +101,22 @@ namespace wmoge {
         AsyncOp<Ref<Asset>> async_op = make_async_op<Ref<Asset>>();
 
         // create task to load
-        Task task(name, [=, meta = std::move(asset_meta.value())](TaskContext&) {
+        Task task(name, [=, meta = std::move(asset_meta.value()), loader = loader.value()](TaskContext&) {
             Timer timer;
             timer.start();
 
-            Ref<Asset> asset;
-            if (meta.loader->load(name, meta, asset)) {
+            Ref<Asset>       asset;
+            AssetLoadContext context;
+            AssetLoadResult  result;
+
+            context.asset_meta = std::move(meta);
+
+            if (loader->load(context, name, result, asset)) {
                 timer.stop();
                 WG_LOG_INFO("load asset " << name << ", time: " << timer.get_elapsed_sec() << " sec");
 
                 if (asset->get_name().empty()) {
-                    asset->set_name(name);
+                    asset->set_id(name);
                 }
 
                 std::lock_guard guard(m_mutex);
@@ -149,7 +148,6 @@ namespace wmoge {
         state.task_hnd = std::move(task_hnd);
         state.async_op = std::move(async_op);
 
-        state.async_op->add_on_completion(std::move(callback));
         return AsyncResult<Ref<Asset>>(state.async_op);
     }
 
@@ -184,14 +182,9 @@ namespace wmoge {
         m_loaders[loader->get_class_name()] = std::move(loader);
     }
 
-    void AssetManager::add_unloader(Ref<AssetUnloader> unloader) {
+    void AssetManager::add_library(std::shared_ptr<AssetLibrary> library) {
         std::lock_guard guard(m_mutex);
-        m_unloaders[unloader->get_asset_type()->get_name()] = std::move(unloader);
-    }
-
-    void AssetManager::add_pak(std::shared_ptr<AssetPak> pak) {
-        std::lock_guard guard(m_mutex);
-        m_paks.push_back(std::move(pak));
+        m_libraries.push_back(std::move(library));
     }
 
     std::optional<AssetLoader*> AssetManager::find_loader(const Strid& loader_rtti) {
@@ -200,30 +193,13 @@ namespace wmoge {
         return query != m_loaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
     }
 
-    std::optional<AssetUnloader*> AssetManager::find_unloader(const Strid& asset_rtti) {
-        std::lock_guard guard(m_mutex);
-        auto            query = m_unloaders.find(asset_rtti);
-        return query != m_unloaders.end() ? std::make_optional(query->second.get()) : std::nullopt;
-    }
-
     std::optional<AssetMeta> AssetManager::find_meta(const AssetId& asset) {
         std::lock_guard guard(m_mutex);
 
         AssetMeta asset_meta;
-        for (auto& pak : m_paks) {
-            if (pak->get_meta(asset, asset_meta)) {
-                if (asset_meta.rtti && asset_meta.loader && asset_meta.pak) {
-                    return std::make_optional(std::move(asset_meta));
-                }
-                if (!asset_meta.rtti) {
-                    WG_LOG_ERROR("no class found in runtime for " << asset << " in " << pak->get_name());
-                }
-                if (!asset_meta.loader) {
-                    WG_LOG_ERROR("no loader found in runtime for " << asset << " in " << pak->get_name());
-                }
-                if (!asset_meta.pak) {
-                    WG_LOG_ERROR("no pak found in runtime for " << asset << " in " << pak->get_name());
-                }
+        for (auto& library : m_libraries) {
+            if (library->find_asset_meta(asset, asset_meta)) {
+                return std::make_optional(std::move(asset_meta));
             }
         }
 
@@ -249,18 +225,6 @@ namespace wmoge {
             assert(loader->can_instantiate());
             add_loader(loader->instantiate().cast<AssetLoader>());
         }
-
-        std::vector<RttiClass*> unloaders = m_type_storage->find_classes([](const Ref<RttiClass>& type) {
-            return type->is_subtype_of(AssetUnloader::get_class_static()) && type->can_instantiate();
-        });
-
-        for (auto& unloader : unloaders) {
-            assert(unloader);
-            assert(unloader->can_instantiate());
-            add_unloader(unloader->instantiate().cast<AssetUnloader>());
-        }
-
-        add_pak(std::make_shared<AssetPakFileSystem>());
     }
 
 }// namespace wmoge

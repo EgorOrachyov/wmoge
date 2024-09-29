@@ -27,8 +27,7 @@
 
 #pragma once
 
-#include "asset/asset_loader.hpp"
-
+#include "asset/asset_loader_adapter.hpp"
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_texture.hpp"
@@ -40,14 +39,14 @@ namespace wmoge {
      * @class Texture2dAssetLoader
      * @brief Loader for 2d textures through stb image library
      */
-    class Texture2dAssetLoader final : public AssetLoader {
+    class Texture2dAssetLoader final : public AssetLoaderTyped<Texture2d> {
     public:
         WG_RTTI_CLASS(Texture2dAssetLoader, AssetLoader);
 
         Texture2dAssetLoader()           = default;
         ~Texture2dAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Texture2d>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(Texture2dAssetLoader) {
@@ -60,14 +59,14 @@ namespace wmoge {
      * @class TextureCubeAssetLoader
      * @brief Loader for cube-map textures through stb image library
      */
-    class TextureCubeAssetLoader final : public AssetLoader {
+    class TextureCubeAssetLoader final : public AssetLoaderTyped<TextureCube> {
     public:
         WG_RTTI_CLASS(TextureCubeAssetLoader, AssetLoader);
 
         TextureCubeAssetLoader()           = default;
         ~TextureCubeAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<TextureCube>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(TextureCubeAssetLoader) {

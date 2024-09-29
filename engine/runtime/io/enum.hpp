@@ -28,7 +28,11 @@
 #ifndef WMOGE_ENUM_HPP
 #define WMOGE_ENUM_HPP
 
+#include "core/string_id.hpp"
+
 #include <magic_enum.hpp>
+
+#include <string>
 
 namespace wmoge {
 

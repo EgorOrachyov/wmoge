@@ -25,54 +25,72 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "gfx_sampler.hpp"
+#include "asset_library_fs.hpp"
 
-#include "core/crc32.hpp"
+#include "asset/asset_manager.hpp"
+#include "core/string_utils.hpp"
 #include "io/tree.hpp"
-
-#include <cstring>
-#include <sstream>
+#include "io/tree_yaml.hpp"
+#include "platform/file_system.hpp"
+#include "profiler/profiler.hpp"
+#include "rtti/type_storage.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    GfxSamplerDesc::GfxSamplerDesc() {
-        std::memset(this, 0, sizeof(GfxSamplerDesc));
-        min_lod        = 0;
-        max_lod        = 32.0f;
-        max_anisotropy = 0.0f;
-        min_flt        = GfxSampFlt::Nearest;
-        mag_flt        = GfxSampFlt::Nearest;
-        u              = GfxSampAddress::Repeat;
-        v              = GfxSampAddress::Repeat;
-        w              = GfxSampAddress::Repeat;
-        brd_clr        = GfxSampBrdClr::Black;
+    AssetLibraryFileSystem::AssetLibraryFileSystem(std::string directory, IocContainer* ioc) {
+        m_file_system  = ioc->resolve_value<FileSystem>();
+        m_rtti_storage = ioc->resolve_value<RttiTypeStorage>();
+        m_directory    = std::move(directory);
     }
-    bool GfxSamplerDesc::operator==(const GfxSamplerDesc& other) const {
-        return std::memcmp(this, &other, sizeof(GfxSamplerDesc)) == 0;
+
+    std::string AssetLibraryFileSystem::get_name() const {
+        return "AssetLibraryFileSystem";
     }
-    std::size_t GfxSamplerDesc::hash() const {
-        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxSamplerDesc)));
+
+    Status AssetLibraryFileSystem::find_asset_meta(const AssetId& name, AssetMeta& meta) {
+        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::find_asset_meta");
+
+        const std::string path = m_directory + name.str() + m_asset_ext;
+
+        IoContext context;
+        context.add(m_file_system);
+        context.add(m_rtti_storage);
+
+        IoYamlTree tree;
+        WG_CHECKED(tree.parse_file(m_file_system, name.str() + m_asset_ext));
+        WG_TREE_READ(context, tree, meta);
+
+        return WG_OK;
     }
-    GfxSamplerDesc GfxSamplerDesc::make(GfxSampFlt flt, float aniso, GfxSampAddress address) {
-        GfxSamplerDesc d;
-        d.min_flt        = flt;
-        d.mag_flt        = flt;
-        d.max_anisotropy = aniso;
-        d.u              = address;
-        d.v              = address;
-        d.w              = address;
-        return d;
+    Status AssetLibraryFileSystem::find_asset_data_meta(const Strid& name, AssetDataMeta& meta) {
+        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::find_asset_data_meta");
+
+        const std::string path = m_directory + name.str();
+
+        WG_CHECKED(m_file_system->get_file_size(path, meta.size));
+        meta.size_compressed = 0;
+        meta.hash            = Sha256();
+        meta.compression     = AssetCompressionMode::None;
+
+        return WG_OK;
     }
-    GfxSamplerDesc GfxSamplerDesc::make(GfxSampFlt flt, float aniso, GfxSampBrdClr brd_clr) {
-        GfxSamplerDesc d;
-        d.min_flt        = flt;
-        d.mag_flt        = flt;
-        d.max_anisotropy = aniso;
-        d.u              = GfxSampAddress::ClampToBorder;
-        d.v              = GfxSampAddress::ClampToBorder;
-        d.w              = GfxSampAddress::ClampToBorder;
-        d.brd_clr        = brd_clr;
-        return d;
+    Async AssetLibraryFileSystem::read_data(const Strid& name, array_view<std::uint8_t> data) {
+        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::read_data");
+
+        const std::string path = m_directory + name.str();
+        FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
+        Ref<File>         file;
+
+        if (!m_file_system->open_file(path, file, mode)) {
+            return Async::failed();
+        }
+
+        if (!file->nread(data.data(), data.size())) {
+            return Async::failed();
+        }
+
+        return Async::completed();
     }
 
 }// namespace wmoge

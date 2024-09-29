@@ -31,7 +31,7 @@
 #include "core/data.hpp"
 #include "core/string_utils.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "io/property_tree.hpp"
+#include "io/tree.hpp"
 #include "profiler/profiler.hpp"
 #include "system/ioc_container.hpp"
 

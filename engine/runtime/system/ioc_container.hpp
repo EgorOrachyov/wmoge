@@ -78,11 +78,14 @@ namespace wmoge {
         void                     erase(std::type_index entry_type);
         std::optional<IocEntry*> get(std::type_index entry_type);
 
-        template<typename S, typename T, typename Factory>
-        void bind_f(Factory&& factory);
+        template<typename S, typename Factory>
+        void bind_by_factory(Factory&& factory);
 
-        template<typename S, typename T>
-        void bind_i(std::shared_ptr<T> instance);
+        template<typename S>
+        void bind_by_instance(std::shared_ptr<S> instance);
+
+        template<typename S>
+        void bind_by_ioc();
 
         template<typename S>
         void bind();
@@ -94,7 +97,7 @@ namespace wmoge {
         std::optional<S*> resolve();
 
         template<typename S>
-        S* resolve_v();
+        S* resolve_value();
 
         template<typename S>
         static S* iresolve_v();
@@ -109,13 +112,13 @@ namespace wmoge {
         static IocContainer* g_ioc_container;
     };
 
-    template<typename S, typename T, typename Factory>
-    inline void IocContainer::bind_f(Factory&& factory) {
+    template<typename S, typename Factory>
+    inline void IocContainer::bind_by_factory(Factory&& factory) {
         std::lock_guard guard(m_mutex);
 
         IocEntry entry;
         entry.source_type   = typeid(S);
-        entry.provided_type = typeid(T);
+        entry.provided_type = typeid(S);
         entry.factory       = [f = std::move(factory)](std::any& out) -> Status {
             out = std::move(f());
             return WG_OK;
@@ -124,12 +127,21 @@ namespace wmoge {
         add(std::move(entry));
     }
 
-    template<typename S, typename T>
-    inline void IocContainer::bind_i(std::shared_ptr<T> instance) {
+    template<typename S>
+    inline void IocContainer::bind_by_instance(std::shared_ptr<S> instance) {
         std::lock_guard guard(m_mutex);
 
-        bind_f<S, T>([i = std::move(instance)]() {
+        bind_by_factory<S>([i = std::move(instance)]() {
             return i;
+        });
+    }
+
+    template<typename S>
+    inline void IocContainer::bind_by_ioc() {
+        std::lock_guard guard(m_mutex);
+
+        bind_by_factory<S>([this]() {
+            return std::make_shared<S>(this);
         });
     }
 
@@ -137,7 +149,7 @@ namespace wmoge {
     inline void IocContainer::bind() {
         std::lock_guard guard(m_mutex);
 
-        bind_f<S, S>([]() {
+        bind_by_factory<S>([]() {
             return std::make_shared<S>();
         });
     }
@@ -194,13 +206,13 @@ namespace wmoge {
     }
 
     template<typename S>
-    inline S* IocContainer::resolve_v() {
+    inline S* IocContainer::resolve_value() {
         return resolve<S>().value();
     }
 
     template<typename S>
     inline S* IocContainer::iresolve_v() {
-        return instance()->resolve_v<S>();
+        return instance()->resolve_value<S>();
     }
 
 }// namespace wmoge

@@ -27,7 +27,8 @@
 
 #pragma once
 
-#include "asset/asset_loader.hpp"
+#include "asset/asset_loader_adapter.hpp"
+#include "grc/image.hpp"
 
 namespace wmoge {
 
@@ -35,14 +36,14 @@ namespace wmoge {
      * @class ImageAssetLoader
      * @brief Loader for images through stb image library
      */
-    class ImageAssetLoader final : public AssetLoader {
+    class ImageAssetLoader final : public AssetLoaderTyped<Image> {
     public:
         WG_RTTI_CLASS(ImageAssetLoader, AssetLoader);
 
         ImageAssetLoader()           = default;
         ~ImageAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Image>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(ImageAssetLoader) {

@@ -123,7 +123,7 @@ namespace wmoge {
         return name;
     }
 
-    Status tree_read_object(IoContext& context, IoPropertyTree& tree, Ref<Object>& object) {
+    Status tree_read_object(IoContext& context, IoTree& tree, Ref<Object>& object) {
         assert(!object);
 
         Strid class_name;
@@ -145,7 +145,7 @@ namespace wmoge {
 
         return object->read_from_tree(tree);
     }
-    Status tree_write_object(IoContext& context, IoPropertyTree& tree, const Ref<Object>& object) {
+    Status tree_write_object(IoContext& context, IoTree& tree, const Ref<Object>& object) {
         assert(object);
         WG_TREE_MAP(tree);
         WG_TREE_WRITE_AS(context, tree, "rtti", object->class_name());

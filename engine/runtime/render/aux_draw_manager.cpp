@@ -465,7 +465,7 @@ namespace wmoge {
         Config*       config        = IocContainer::iresolve_v<Config>();
         AssetManager* asset_manager = IocContainer::iresolve_v<AssetManager>();
 
-        std::string font_name = config->get_string_or_default(SID("render.aux.font"), "asset://fonts/consolas");
+        std::string font_name = config->get_string_or_default(SID("render.aux.font"), "assets/fonts/consolas");
         m_font                = asset_manager->load(SID(font_name)).cast<Font>();
 
         m_screen_size.values[0] = config->get_float_or_default(SID("render.aux.screen_width"), 1280.0f);

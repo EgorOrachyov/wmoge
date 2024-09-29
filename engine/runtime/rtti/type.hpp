@@ -32,8 +32,8 @@
 #include "core/status.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 #include "rtti/meta_data.hpp"
 
 #include <cinttypes>
@@ -61,8 +61,8 @@ namespace wmoge {
         virtual Status consturct(void* dst) const { return StatusCode::NotImplemented; }
         virtual Status copy(void* dst, const void* src) const { return StatusCode::NotImplemented; }
         virtual Status destruct(void* dst) const { return StatusCode::NotImplemented; }
-        virtual Status read_from_tree(void* dst, IoPropertyTree& tree, IoContext& context) const { return StatusCode::NotImplemented; }
-        virtual Status write_to_tree(const void* src, IoPropertyTree& tree, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status read_from_tree(void* dst, IoTree& tree, IoContext& context) const { return StatusCode::NotImplemented; }
+        virtual Status write_to_tree(const void* src, IoTree& tree, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status read_from_stream(void* dst, IoStream& stream, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status write_to_stream(const void* src, IoStream& stream, IoContext& context) const { return StatusCode::NotImplemented; }
         virtual Status to_string(const void* src, std::stringstream& s) const { return StatusCode::NotImplemented; }

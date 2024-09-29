@@ -28,11 +28,45 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "asset/asset_library.hpp"
 #include "asset/asset_meta.hpp"
-#include "asset/asset_pak.hpp"
+#include "core/array_view.hpp"
+#include "core/flat_map.hpp"
+#include "io/context.hpp"
 #include "rtti/traits.hpp"
 
 namespace wmoge {
+
+    /**
+     * @class AssetLoadRequest
+     * @brief Request files to load for an asset load
+     */
+    struct AssetLoadRequest {
+        flat_map<Strid, std::string> data_files;
+
+        void        add_data_file(const Strid& name);
+        std::string get_data_file(Strid tag) const;
+    };
+
+    /**
+     * @class AssetLoadResult
+     * @brief Loaded files requested by an asset loader 
+     */
+    struct AssetLoadResult {
+        flat_map<Strid, array_view<const std::uint8_t>> data_files;
+
+        void                           add_data_file(Strid tag, array_view<const std::uint8_t> data);
+        array_view<const std::uint8_t> get_data_file(Strid tag) const;
+    };
+
+    /**
+     * @class AssetLoadContext
+     * @brief Context passed to the loader
+     */
+    struct AssetLoadContext {
+        IoContext io_context;
+        AssetMeta asset_meta;
+    };
 
     /**
      * @class AssetLoader
@@ -45,31 +79,13 @@ namespace wmoge {
         AssetLoader()          = default;
         virtual ~AssetLoader() = default;
 
-        virtual Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) { return StatusCode::NotImplemented; }
+        virtual Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) { return StatusCode::NotImplemented; };
+        virtual Status load(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) { return StatusCode::NotImplemented; }
+        virtual Status unload(Asset* asset) { return StatusCode::Ok; }
     };
 
     WG_RTTI_CLASS_BEGIN(AssetLoader) {
         WG_RTTI_META_DATA(RttiUiHint("Interface for an asset loader to implement custom loading"));
-    }
-    WG_RTTI_END;
-
-    /**
-     * @class AssetUnloader
-     * @brief Class responsible for unloading assets(s) of a specific type
-     */
-    class AssetUnloader : public RttiObject {
-    public:
-        WG_RTTI_CLASS(AssetUnloader, RttiObject);
-
-        AssetUnloader()          = default;
-        virtual ~AssetUnloader() = default;
-
-        virtual Status     unload(Asset* asset) { return StatusCode::NotImplemented; }
-        virtual RttiClass* get_asset_type() { return nullptr; }
-    };
-
-    WG_RTTI_CLASS_BEGIN(AssetUnloader) {
-        WG_RTTI_META_DATA(RttiUiHint("Interface for an asset unloader to implement custom unloading"));
     }
     WG_RTTI_END;
 

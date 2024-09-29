@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <robin_hood.hpp>
 #include <unordered_map>
@@ -70,7 +70,7 @@ namespace wmoge {
     }
 
     template<typename K, typename V>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, flat_map<K, V>& map) {
+    Status tree_read(IoContext& context, IoTree& tree, flat_map<K, V>& map) {
         assert(map.empty());
         map.reserve(tree.node_num_children());
         tree.node_find_first_child();
@@ -83,7 +83,7 @@ namespace wmoge {
     }
 
     template<typename K, typename V>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const flat_map<K, V>& map) {
+    Status tree_write(IoContext& context, IoTree& tree, const flat_map<K, V>& map) {
         WG_TREE_SEQ(tree, map.size());
         for (const auto& entry : map) {
             WG_CHECKED(tree.node_append_child());

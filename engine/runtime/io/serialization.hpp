@@ -30,8 +30,8 @@
 #include "core/log.hpp"
 #include "core/mask.hpp"
 #include "core/status.hpp"
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <type_traits>
 
@@ -46,17 +46,17 @@ namespace wmoge {
     struct IoTagRead;
     struct IoTagWrite;
 
-#define WG_IO_DECLARE(cls)                                                                \
-    friend Status tree_read(IoContext& context, IoPropertyTree& tree, cls& value);        \
-    friend Status tree_write(IoContext& context, IoPropertyTree& tree, const cls& value); \
-    friend Status stream_read(IoContext& context, IoStream& stream, cls& value);          \
+#define WG_IO_DECLARE(cls)                                                        \
+    friend Status tree_read(IoContext& context, IoTree& tree, cls& value);        \
+    friend Status tree_write(IoContext& context, IoTree& tree, const cls& value); \
+    friend Status stream_read(IoContext& context, IoStream& stream, cls& value);  \
     friend Status stream_write(IoContext& context, IoStream& stream, const cls& value);
 
 #define WG_IO_IMPLEMENT(nmsp, trg, cls)                                                                     \
-    Status tree_read(IoContext& context, IoPropertyTree& tree, trg& value) {                                \
+    Status tree_read(IoContext& context, IoTree& tree, trg& value) {                                        \
         return nmsp##__##cls##Serializer<const YamlConstNodeRef&, trg&, IoTagRead>()(context, tree, value); \
     }                                                                                                       \
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const trg& value) {                         \
+    Status tree_write(IoContext& context, IoTree& tree, const trg& value) {                                 \
         return nmsp##__##cls##Serializer<YamlNodeRef, const trg&, IoTagWrite>()(context, tree, value);      \
     }                                                                                                       \
     Status stream_read(IoContext& context, IoStream& stream, trg& value) {                                  \

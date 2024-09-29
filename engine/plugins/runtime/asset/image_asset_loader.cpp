@@ -27,31 +27,29 @@
 
 #include "image_asset_loader.hpp"
 
-#include "grc/image.hpp"
 #include "image_import_data.hpp"
 #include "profiler/profiler.hpp"
 
 namespace wmoge {
 
-    Status ImageAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load");
+    Status ImageAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Image>& asset) {
+        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load_typed");
 
-        Ref<ImageImportData> import_data = meta.import_data.cast<ImageImportData>();
+        Ref<ImageImportData> import_data = context.asset_meta.import_data.cast<ImageImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data to load image " << name);
+            WG_LOG_ERROR("no import data to load image " << asset_id);
             return StatusCode::InvalidData;
         }
+
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
-        Ref<Image> image = make_ref<Image>();
+        asset = make_ref<Image>();
+        asset->set_id(asset_id);
 
-        asset = image;
-        asset->set_name(name);
-
-        return image->load(import_data->source_files[0].file, import_data->channels);
+        return asset->load(import_data->source_files[0].file, import_data->channels);
     }
 
 }// namespace wmoge

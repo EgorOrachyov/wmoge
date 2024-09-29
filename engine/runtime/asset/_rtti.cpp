@@ -36,9 +36,9 @@ namespace wmoge {
 
     void rtti_asset() {
         rtti_type<AssetImportData>();
-        rtti_type<AssetMetaFile>();
+        rtti_type<AssetMeta>();
+        rtti_type<AssetDataMeta>();
         rtti_type<AssetLoader>();
-        rtti_type<AssetUnloader>();
         rtti_type<Asset>();
     }
 

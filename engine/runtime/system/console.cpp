@@ -317,7 +317,7 @@ namespace wmoge {
         auto asset_manager = IocContainer::iresolve_v<AssetManager>();
 
         // m_canvas       = Engine::instance()->canvas_debug();
-        m_console_font = asset_manager->load(SID(config->get_string_or_default(SID("debug.console.font"), "asset://fonts/anonymous_pro"))).cast<Font>();
+        m_console_font = asset_manager->load(SID(config->get_string_or_default(SID("debug.console.font"), "assets/fonts/anonymous_pro"))).cast<Font>();
         m_margin_line  = m_margin + m_console_font->get_string_size("> ", m_text_size).x();
 
         config->get_color4f(SID("debug.console.color_back"), m_color_back);

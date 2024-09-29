@@ -28,9 +28,9 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "asset/asset_library.hpp"
 #include "asset/asset_loader.hpp"
 #include "asset/asset_meta.hpp"
-#include "asset/asset_pak.hpp"
 #include "core/async.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
@@ -44,17 +44,9 @@
 #include <memory>
 #include <mutex>
 #include <unordered_map>
+#include <vector>
 
 namespace wmoge {
-
-    /**
-     * @brief Callback function called when asset loading request is finished
-     *
-     * Use this callback function in async asset loading request.
-     * As argument function accepts asset being loaded.
-     * Function called when either asset successfully loaded or failed to load.
-     */
-    using AssetCallback = AsyncCallback<Ref<Asset>>;
 
     /**
      * @class AssetManager
@@ -71,20 +63,18 @@ namespace wmoge {
      */
     class AssetManager {
     public:
-        AssetManager();
+        AssetManager(class IocContainer* ioc);
         ~AssetManager() = default;
 
-        AsyncResult<Ref<Asset>>       load_async(const AssetId& name, AssetCallback callback = AssetCallback());
-        Ref<Asset>                    load(const AssetId& name);
-        Ref<Asset>                    find(const AssetId& name);
-        void                          add_loader(Ref<AssetLoader> loader);
-        void                          add_unloader(Ref<AssetUnloader> unloader);
-        void                          add_pak(std::shared_ptr<AssetPak> pak);
-        std::optional<AssetLoader*>   find_loader(const Strid& loader_rtti);
-        std::optional<AssetUnloader*> find_unloader(const Strid& asset_rtti);
-        std::optional<AssetMeta>      find_meta(const AssetId& asset);
-        void                          clear();
-        void                          load_loaders();
+        AsyncResult<Ref<Asset>>     load_async(const AssetId& name);
+        Ref<Asset>                  load(const AssetId& name);
+        Ref<Asset>                  find(const AssetId& name);
+        void                        add_loader(Ref<AssetLoader> loader);
+        void                        add_library(std::shared_ptr<AssetLibrary> library);
+        std::optional<AssetLoader*> find_loader(const Strid& loader_rtti);
+        std::optional<AssetMeta>    find_meta(const AssetId& asset);
+        void                        clear();
+        void                        load_loaders();
 
     private:
         struct LoadState {
@@ -93,11 +83,10 @@ namespace wmoge {
             TaskHnd                task_hnd;
         };
 
-        buffered_vector<std::shared_ptr<AssetPak>>   m_paks;
+        std::vector<std::shared_ptr<AssetLibrary>>   m_libraries;
         flat_map<AssetId, WeakRef<Asset>>            m_assets;
         flat_map<AssetId, LoadState>                 m_loading;
         flat_map<Strid, Ref<AssetLoader>>            m_loaders;
-        flat_map<Strid, Ref<AssetUnloader>>          m_unloaders;
         std::shared_ptr<std::function<void(Asset*)>> m_callback;
 
         class FileSystem*      m_file_system  = nullptr;

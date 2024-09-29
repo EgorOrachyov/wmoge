@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 #include "math_utils.hpp"
 
 #include <cassert>
@@ -653,7 +653,7 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, TVecN<T, N>& v) {
+    Status tree_read(IoContext& context, IoTree& tree, TVecN<T, N>& v) {
         std::string str;
         WG_TREE_READ(context, tree, str);
 
@@ -667,7 +667,7 @@ namespace wmoge {
     }
 
     template<typename T, int N>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const TVecN<T, N>& v) {
+    Status tree_write(IoContext& context, IoTree& tree, const TVecN<T, N>& v) {
         std::stringstream stream;
 
         for (int i = 0; i < N; i++) {

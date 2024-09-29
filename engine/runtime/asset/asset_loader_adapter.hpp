@@ -25,54 +25,41 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "asset_pak_fs.hpp"
+#pragma once
 
-#include "asset/asset_manager.hpp"
-#include "core/string_utils.hpp"
-#include "io/property_tree.hpp"
-#include "io/yaml.hpp"
-#include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
+#include "asset/asset_loader.hpp"
 
 namespace wmoge {
 
-    AssetPakFileSystem::AssetPakFileSystem() {
-        m_file_system = IocContainer::iresolve_v<FileSystem>();
-    }
+    /**
+     * @class AssetLoaderTyped
+     * @brief Adapter to implement asset loaders of a particular asset type
+     */
+    template<typename T>
+    class AssetLoaderTyped : public AssetLoader {
+    public:
+        static_assert(std::is_base_of_v<Asset, T>, "T must be an Asset type");
 
-    std::string AssetPakFileSystem::get_name() const {
-        return "pak_fs";
-    }
+        virtual Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<T>& asset) { return StatusCode::NotImplemented; }
+        virtual Status unload_typed(T* asset) { return StatusCode::Ok; }
 
-    Status AssetPakFileSystem::get_meta(const AssetId& name, AssetMeta& meta) {
-        WG_AUTO_PROFILE_ASSET("AssetPakFileSystem::meta");
-
-        std::string meta_file_path = name.str();
-        if (StringUtils::is_starts_with(meta_file_path, "asset://")) {
-            meta_file_path = StringUtils::find_replace_first(meta_file_path, "asset://", "assets/");
+        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override {
+            for (const Strid& name : context.asset_meta.data) {
+                request.add_data_file(name);
+            }
+            return WG_OK;
         }
 
-        meta_file_path += AssetMetaFile::FILE_EXTENSION;
+        Status load(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) override final {
+            Ref<T> asset_typed;
+            WG_CHECKED(load_typed(context, asset_id, result, asset_typed));
+            asset = asset_typed.template as<Asset>();
+            return WG_OK;
+        }
 
-        AssetMetaFile asset_file;
-
-        IoContext  context;
-        IoYamlTree tree;
-        WG_CHECKED(tree.parse_file(meta_file_path));
-        WG_TREE_READ(context, tree, asset_file);
-
-        auto loader = IocContainer::iresolve_v<AssetManager>()->find_loader(asset_file.loader);
-        auto rtti   = IocContainer::iresolve_v<RttiTypeStorage>()->find_class(asset_file.rtti);
-
-        meta.uuid        = asset_file.uuid;
-        meta.rtti        = rtti;
-        meta.pak         = this;
-        meta.loader      = loader.value_or(nullptr);
-        meta.deps        = std::move(asset_file.deps);
-        meta.import_data = std::move(asset_file.import_data);
-
-        return WG_OK;
-    }
+        Status unload(Asset* asset) override final {
+            return unload_typed(dynamic_cast<T*>(asset));
+        }
+    };
 
 }// namespace wmoge

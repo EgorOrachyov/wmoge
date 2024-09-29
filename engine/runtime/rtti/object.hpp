@@ -43,8 +43,8 @@ namespace wmoge {
 
         virtual std::string     to_string() const;
         virtual Status          clone(Ref<RttiObject>& object) const;
-        virtual Status          read_from_tree(IoContext& context, IoPropertyTree& tree);
-        virtual Status          write_to_tree(IoContext& context, IoPropertyTree& tree) const;
+        virtual Status          read_from_tree(IoContext& context, IoTree& tree);
+        virtual Status          write_to_tree(IoContext& context, IoTree& tree) const;
         virtual Status          read_from_stream(IoContext& context, IoStream& stream);
         virtual Status          write_to_stream(IoContext& context, IoStream& stream) const;
         virtual Ref<RttiObject> duplicate() const;
@@ -57,8 +57,8 @@ namespace wmoge {
         static Strid      get_parent_class_name_static();
         static RttiClass* get_class_static();
         static RttiClass* get_parent_class_static();
-        static Status     tree_read_object(IoContext& context, IoPropertyTree& tree, Ref<RttiObject>& object);
-        static Status     tree_write_object(IoContext& context, IoPropertyTree& tree, const Ref<RttiObject>& object);
+        static Status     tree_read_object(IoContext& context, IoTree& tree, Ref<RttiObject>& object);
+        static Status     tree_write_object(IoContext& context, IoTree& tree, const Ref<RttiObject>& object);
         static Status     archive_read_object(IoContext& context, IoStream& stream, Ref<RttiObject>& object);
         static Status     archive_write_object(IoContext& context, IoStream& stream, const Ref<RttiObject>& object);
     };
@@ -99,7 +99,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status tree_read(IoContext& context, IoTree& tree, Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object;
         WG_CHECKED(RttiObject::tree_read_object(context, tree, object));
         ref = object.template cast<T>();
@@ -107,7 +107,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
+    Status tree_write(IoContext& context, IoTree& tree, const Ref<T>& ref, typename std::enable_if_t<std::is_convertible_v<T*, RttiObject*>>* = 0) {
         Ref<RttiObject> object = ref.template as<RttiObject>();
         WG_CHECKED(RttiObject::tree_write_object(context, tree, object));
         return WG_OK;

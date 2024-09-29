@@ -94,7 +94,7 @@ public:
 
         GameApplication::on_init();
 
-        mesh = Engine::instance()->asset_manager()->load(SID("asset://mesh/suzanne")).cast<Mesh>();
+        mesh = Engine::instance()->asset_manager()->load(SID("assets/mesh/suzanne")).cast<Mesh>();
 
         // Engine::instance()->scene_manager()->change(scene);
 

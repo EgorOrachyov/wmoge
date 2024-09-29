@@ -27,10 +27,7 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
-#include "asset/asset_pak.hpp"
+#include "asset/asset_loader_adapter.hpp"
 
 namespace wmoge {
 
@@ -38,14 +35,14 @@ namespace wmoge {
      * @class DefaultAssetLoader
      * @brief Loader for default single-file assets stored in yaml format
      */
-    class DefaultAssetLoader final : public AssetLoader {
+    class DefaultAssetLoader final : public AssetLoaderTyped<Asset> {
     public:
         WG_RTTI_CLASS(DefaultAssetLoader, AssetLoader);
 
         DefaultAssetLoader()           = default;
         ~DefaultAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(DefaultAssetLoader) {

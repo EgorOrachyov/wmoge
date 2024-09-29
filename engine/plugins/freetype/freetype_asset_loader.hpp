@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "asset/asset_loader.hpp"
-#include "freetype_font.hpp"
+#include "asset/asset_loader_adapter.hpp"
+#include "grc/font.hpp"
 
 namespace wmoge {
 
@@ -36,14 +36,14 @@ namespace wmoge {
      * @class FreetypeAssetLoader
      * @brief Loader for ttf fonts through freetype2 library
      */
-    class FreetypeAssetLoader final : public AssetLoader {
+    class FreetypeAssetLoader final : public AssetLoaderTyped<Font> {
     public:
         WG_RTTI_CLASS(FreetypeAssetLoader, AssetLoader);
 
         FreetypeAssetLoader()           = default;
         ~FreetypeAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Font>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(FreetypeAssetLoader) {

@@ -49,6 +49,7 @@ namespace wmoge {
         FailedLoadLibrary,// Failed to open dynamic library
         FailedLoadSymbol, // Failed to open dynamic symbol
         FailedOpenFile,   // Failed to open file or stream for read/write operations
+        FailedFindFile,   // Failed to find file or stream
         FailedParse,      // Failed to parse structured file
         FailedRead,       // Failed to perform reading of some data
         FailedWrite,      // Failed to write some data

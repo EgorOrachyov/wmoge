@@ -25,70 +25,70 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "property_tree.hpp"
+#include "tree.hpp"
 
 namespace wmoge {
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, bool& value) {
+    Status tree_read(IoContext& context, IoTree& tree, bool& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const bool& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const bool& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, int& value) {
+    Status tree_read(IoContext& context, IoTree& tree, int& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const int& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const int& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, unsigned int& value) {
+    Status tree_read(IoContext& context, IoTree& tree, unsigned int& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const unsigned int& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const unsigned int& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, float& value) {
+    Status tree_read(IoContext& context, IoTree& tree, float& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const float& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const float& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Strid& value) {
+    Status tree_read(IoContext& context, IoTree& tree, Strid& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Strid& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const Strid& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::string& value) {
+    Status tree_read(IoContext& context, IoTree& tree, std::string& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::string& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::string& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::int16_t& value) {
+    Status tree_read(IoContext& context, IoTree& tree, std::int16_t& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::int16_t& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::int16_t& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::size_t& value) {
+    Status tree_read(IoContext& context, IoTree& tree, std::size_t& value) {
         return tree.node_read_value(value);
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::size_t& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::size_t& value) {
         return tree.node_write_value(value);
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Status& value) {
+    Status tree_read(IoContext& context, IoTree& tree, Status& value) {
         return tree_read(context, tree, value.code());
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Status& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const Status& value) {
         return tree_write(context, tree, value.code());
     }
 

@@ -27,6 +27,8 @@
 
 #pragma once
 
+#include "core/any_storage.hpp"
+
 namespace wmoge {
 
     /**
@@ -37,14 +39,17 @@ namespace wmoge {
     public:
         IoContext() = default;
 
-        [[nodiscard]] class AssetManager*    get_asset_manager();
-        [[nodiscard]] class RttiTypeStorage* get_type_storage();
-        [[nodiscard]] class IocContainer*    get_ioc_container();
+        template<typename T>
+        void add(T element) { m_storage.add<T>(std::move(element)); }
+
+        template<typename T>
+        T get() { return m_storage.get<T>(); }
+
+        template<typename T>
+        bool has() const { return m_storage.has<T>(); }
 
     private:
-        class AssetManager*    m_asset_manager = nullptr;
-        class RttiTypeStorage* m_type_storage  = nullptr;
-        class IocContainer*    m_ioc_container = nullptr;
+        AnyStorage m_storage;
     };
 
 }// namespace wmoge

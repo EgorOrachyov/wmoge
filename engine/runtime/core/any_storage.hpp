@@ -27,25 +27,37 @@
 
 #pragma once
 
-#include "asset/asset_pak.hpp"
+#include <any>
+#include <cassert>
+#include <functional>
+#include <typeindex>
+#include <typeinfo>
+#include <unordered_map>
 
 namespace wmoge {
 
     /**
-     * @class AssetPakFileSystem
-     * @brief Assets pak based on the filesystem asset directory access
+     * @class AnyStorage
+     * @brief Storage of elements any type tagged by the type
      */
-    class AssetPakFileSystem final : public AssetPak {
+    class AnyStorage {
     public:
-        AssetPakFileSystem();
-        ~AssetPakFileSystem() override = default;
+        AnyStorage() = default;
 
-        std::string get_name() const override;
-        Status      get_meta(const AssetId& name, AssetMeta& meta) override;
+        template<typename T>
+        void add(T element) noexcept { m_map[typeid(T)] = std::move(element); }
+
+        template<typename T>
+        bool has() const noexcept { return m_map.find(typeid(T)) != m_map.end(); }
+
+        template<typename T>
+        T get() noexcept {
+            assert(has<T>());
+            return std::any_cast<T>(m_map[typeid(T)]);
+        }
 
     private:
-        class FileSystem*   m_file_system;
-        class AssetManager* m_asset_manager;
+        std::unordered_map<std::type_index, std::any> m_map;
     };
 
 }// namespace wmoge

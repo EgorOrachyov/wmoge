@@ -5,8 +5,8 @@ loader: DefaultAssetLoader
 rtti: Model
 description: "test model"
 deps:
-  - "asset://materials/test_material_1"
-  - "asset://mesh/suzanne"
+  - "assets/materials/test_material_1"
+  - "assets/mesh/suzanne"
 import_data:
   rtti: AssetImportData
   source_files: [{file: "assets/models/suzanne.model"}]

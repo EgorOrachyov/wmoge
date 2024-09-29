@@ -37,6 +37,7 @@
 #include <algorithm>
 #include <filesystem>
 #include <functional>
+#include <type_traits>
 
 #include <FileWatch.hpp>
 #include <whereami.h>
@@ -69,43 +70,50 @@ namespace wmoge {
 
     FileSystem::~FileSystem() = default;
 
-    std::string FileSystem::resolve_physical(const std::string& path) {
-        for (const MountPoint& mount_point : m_mount_points) {
+    template<typename Result, typename Functor>
+    static Result filter_mounts_and_apply(const std::deque<FileSystem::MountPoint> mount_points, const std::string& path, Result default_value, Functor functor) {
+        for (const FileSystem::MountPoint& mount_point : mount_points) {
             const auto& prefix  = mount_point.first;
             const auto& adapter = mount_point.second;
 
             if (path.find(prefix) == 0) {
-                return adapter->resolve_physical(path);
+                return functor(adapter.get());
             }
         }
 
-        return "";
+        return default_value;
+    }
+
+    std::string FileSystem::resolve_physical(const std::string& path) {
+        return filter_mounts_and_apply<std::string>(m_mount_points, path, "", [&](MountVolume* adapter) {
+            return adapter->resolve_physical(path);
+        });
     }
 
     bool FileSystem::exists(const std::string& path) {
-        for (const MountPoint& mount_point : m_mount_points) {
-            const auto& prefix  = mount_point.first;
-            const auto& adapter = mount_point.second;
-
-            if (path.find(prefix) == 0) {
-                return adapter->exists(path);
-            }
-        }
-
-        return false;
+        return filter_mounts_and_apply<bool>(m_mount_points, path, false, [&](MountVolume* adapter) {
+            return adapter->exists(path);
+        });
     }
+
     bool FileSystem::exists_physical(const std::string& path) {
-        for (const MountPoint& mount_point : m_mount_points) {
-            const auto& prefix  = mount_point.first;
-            const auto& adapter = mount_point.second;
-
-            if (path.find(prefix) == 0) {
-                return adapter->exists_physical(path);
-            }
-        }
-
-        return false;
+        return filter_mounts_and_apply<bool>(m_mount_points, path, false, [&](MountVolume* adapter) {
+            return adapter->exists_physical(path);
+        });
     }
+
+    Status FileSystem::get_file_size(const std::string& path, std::size_t& size) {
+        return filter_mounts_and_apply<Status>(m_mount_points, path, StatusCode::FailedFindFile, [&](MountVolume* adapter) {
+            return adapter->get_file_size(path, size);
+        });
+    }
+
+    Status FileSystem::get_file_timespamp(const std::string& path, DateTime& timespamp) {
+        return filter_mounts_and_apply<Status>(m_mount_points, path, StatusCode::FailedFindFile, [&](MountVolume* adapter) {
+            return adapter->get_file_timespamp(path, timespamp);
+        });
+    }
+
     Status FileSystem::read_file(const std::string& path, std::string& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
@@ -129,6 +137,7 @@ namespace wmoge {
 
         return WG_OK;
     }
+
     Status FileSystem::read_file(const std::string& path, Ref<Data>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
@@ -152,6 +161,7 @@ namespace wmoge {
 
         return WG_OK;
     }
+
     Status FileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
 
@@ -228,6 +238,7 @@ namespace wmoge {
 
         return WG_OK;
     }
+
     Status FileSystem::save_file(const std::string& path, const std::vector<std::uint8_t>& data) {
         WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
 
@@ -241,6 +252,18 @@ namespace wmoge {
         if (!file->nwrite(data.data(), data.size())) {
             return StatusCode::FailedWrite;
         }
+
+        return WG_OK;
+    }
+
+    Status FileSystem::hash_file(const std::string& path, Sha256& file_hash) {
+        WG_AUTO_PROFILE_PLATFORM("FileSystem::hash_file");
+
+        std::vector<std::uint8_t> file_data;
+        WG_CHECKED(read_file(path, file_data));
+
+        Sha256Builder sha_builder;
+        file_hash = sha_builder.hash(file_data.data(), file_data.size()).get();
 
         return WG_OK;
     }
@@ -296,6 +319,7 @@ namespace wmoge {
     const std::filesystem::path& FileSystem::executable_path() const {
         return m_executable_path;
     }
+
     const std::filesystem::path& FileSystem::root_path() const {
         return m_root_path;
     }

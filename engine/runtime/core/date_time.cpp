@@ -32,6 +32,9 @@
 
 namespace wmoge {
 
+    DateTime::DateTime(TimePoint tp) : m_value(tp) {
+    }
+
     DateTime::DateTime(const DateTimeTm& tm) {
         std::tm s_tm;
         s_tm.tm_year = tm.year;
@@ -116,13 +119,13 @@ namespace wmoge {
         return t;
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, DateTime& value) {
+    Status tree_read(IoContext& context, IoTree& tree, DateTime& value) {
         std::string s;
         WG_TREE_READ(context, tree, s);
         value = DateTime(s);
         return WG_OK;
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const DateTime& value) {
+    Status tree_write(IoContext& context, IoTree& tree, const DateTime& value) {
         const std::string s = value.to_string();
         WG_TREE_WRITE(context, tree, s);
         return WG_OK;

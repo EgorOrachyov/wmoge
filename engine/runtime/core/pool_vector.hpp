@@ -28,7 +28,7 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
-#include "io/property_tree.hpp"
+#include "io/tree.hpp"
 
 #include <array>
 #include <cinttypes>

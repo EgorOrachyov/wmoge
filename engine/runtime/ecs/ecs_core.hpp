@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <bitset>
 #include <cinttypes>
@@ -79,10 +79,10 @@ namespace wmoge {
 
         [[nodiscard]] std::string to_string() const;
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, EcsArch& arch) {
+        friend Status tree_read(IoContext& context, IoTree& tree, EcsArch& arch) {
             return tree_read(context, tree, *((EcsArch::Bitset*) &arch));
         }
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const EcsArch& arch) {
+        friend Status tree_write(IoContext& context, IoTree& tree, const EcsArch& arch) {
             return tree_write(context, tree, *((const EcsArch::Bitset*) &arch));
         }
         friend Status stream_read(IoContext& context, IoStream& stream, EcsArch& arch) {

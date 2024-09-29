@@ -85,7 +85,7 @@ namespace wmoge {
         return stream.nread(static_cast<int>(size), data->buffer());
     }
 
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Ref<Data>& data) {
+    Status tree_write(IoContext& context, IoTree& tree, const Ref<Data>& data) {
         if (!data) {
             tree.node_write_value("");
             return WG_OK;
@@ -97,7 +97,7 @@ namespace wmoge {
         }
         return StatusCode::FailedWrite;
     }
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Ref<Data>& data) {
+    Status tree_read(IoContext& context, IoTree& tree, Ref<Data>& data) {
         std::string encoded;
         if (tree_read(context, tree, encoded)) {
             return Base64::decode(encoded, data);

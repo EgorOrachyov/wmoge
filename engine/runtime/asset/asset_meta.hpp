@@ -30,54 +30,75 @@
 #include "asset/asset.hpp"
 #include "asset/asset_import_data.hpp"
 #include "core/buffered_vector.hpp"
+#include "core/date_time.hpp"
+#include "core/sha256.hpp"
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
 #include "rtti/traits.hpp"
 
+#include <cinttypes>
 #include <optional>
 #include <vector>
 
 namespace wmoge {
 
-    /**
-     * @class AssetMetaFile
-     * @brief Structure for AssetMeta info stored as `.asset` file in file system
-     */
-    struct AssetMetaFile {
-        WG_RTTI_STRUCT(AssetMetaFile);
-
-        static constexpr char FILE_EXTENSION[] = ".asset";
-
-        UUID                   uuid;
-        Strid                  rtti;
-        Strid                  loader;
-        buffered_vector<Strid> deps;
-        std::string            description;
-        Ref<AssetImportData>   import_data;
+    /** @brief Asset data compression on dics */
+    enum class AssetCompressionMode {
+        None = 0,
+        LZ4,
+        Zip
     };
 
-    WG_RTTI_STRUCT_BEGIN(AssetMetaFile) {
+    /**
+     * @class AssetDataDesc
+     * @brief Describes asset associated data stored in asset system
+     */
+    struct AssetDataMeta {
+        WG_RTTI_STRUCT(AssetDataMeta);
+
+        UUID                 uuid;
+        Sha256               hash;
+        std::size_t          size            = 0;
+        std::size_t          size_compressed = 0;
+        AssetCompressionMode compression     = AssetCompressionMode::None;
+    };
+
+    WG_RTTI_STRUCT_BEGIN(AssetDataMeta) {
         WG_RTTI_META_DATA();
         WG_RTTI_FIELD(uuid, {RttiOptional});
-        WG_RTTI_FIELD(rtti, {});
-        WG_RTTI_FIELD(loader, {});
-        WG_RTTI_FIELD(deps, {RttiOptional});
-        WG_RTTI_FIELD(description, {RttiOptional});
-        WG_RTTI_FIELD(import_data, {RttiOptional});
+        WG_RTTI_FIELD(hash, {RttiOptional});
+        WG_RTTI_FIELD(size, {RttiOptional});
+        WG_RTTI_FIELD(size_compressed, {RttiOptional});
+        WG_RTTI_FIELD(compression, {RttiOptional});
     }
     WG_RTTI_END;
 
     /**
      * @class AssetMeta
-     * @brief Meta information of a particular asset
+     * @brief Describes asset information stored in asset system
      */
     struct AssetMeta {
-        UUID                   uuid   = UUID();
-        class RttiClass*       rtti   = nullptr;
-        class AssetPak*        pak    = nullptr;
-        class AssetLoader*     loader = nullptr;
-        buffered_vector<Strid> deps;
-        Ref<AssetImportData>   import_data;
+        WG_RTTI_STRUCT(AssetMeta);
+
+        UUID                 uuid;
+        Strid                rtti;
+        Strid                loader;
+        std::vector<Strid>   deps;
+        std::vector<Strid>   data;
+        std::string          description;
+        Ref<AssetImportData> import_data;
     };
+
+    WG_RTTI_STRUCT_BEGIN(AssetMeta) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(uuid, {RttiOptional});
+        WG_RTTI_FIELD(rtti, {});
+        WG_RTTI_FIELD(loader, {});
+        WG_RTTI_FIELD(deps, {RttiOptional});
+        WG_RTTI_FIELD(data, {RttiOptional});
+        WG_RTTI_FIELD(description, {RttiOptional});
+        WG_RTTI_FIELD(import_data, {RttiOptional});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

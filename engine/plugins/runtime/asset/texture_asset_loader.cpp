@@ -39,16 +39,16 @@
 
 namespace wmoge {
 
-    Status Texture2dAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("Texture2dAssetLoader::load");
+    Status Texture2dAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Texture2d>& asset) {
+        WG_AUTO_PROFILE_ASSET("Texture2dAssetLoader::load_typed");
 
-        Ref<Texture2dImportData> import_data = meta.import_data.cast<Texture2dImportData>();
+        Ref<Texture2dImportData> import_data = context.asset_meta.import_data.cast<Texture2dImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data for " << name);
+            WG_LOG_ERROR("no import data for " << asset_id);
             return StatusCode::InvalidData;
         }
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
@@ -72,51 +72,48 @@ namespace wmoge {
         flags.set(TextureFlag::FromDisk);
         flags.set(TextureFlag::Compressed, import_data->compression.format != TexCompressionFormat::Unknown);
 
-        Ref<Texture2d> texture =
-                texture_manager->create_2d(flags,
+        asset = texture_manager->create_2d(flags,
                                            import_data->format,
                                            source_image->get_width(),
                                            source_image->get_height());
 
-        if (!texture) {
-            WG_LOG_ERROR("failed to instantiate texture " << name);
+        if (!asset) {
+            WG_LOG_ERROR("failed to instantiate texture " << asset_id);
             return StatusCode::FailedInstantiate;
         }
 
-        asset = texture;
-        asset->set_name(name);
-
-        texture->set_source_images({source_image});
-        texture->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
-        texture->set_compression(import_data->compression);
+        asset->set_id(asset_id);
+        asset->set_source_images({source_image});
+        asset->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
+        asset->set_compression(import_data->compression);
 
         if (import_data->mipmaps) {
-            if (!texture->generate_mips()) {
-                WG_LOG_ERROR("failed to gen mip chain for " << name);
+            if (!asset->generate_mips()) {
+                WG_LOG_ERROR("failed to gen mip chain for " << asset_id);
                 return StatusCode::Error;
             }
         }
         if (import_data->compression.format != TexCompressionFormat::Unknown) {
-            if (!texture->generate_compressed_data()) {
-                WG_LOG_ERROR("failed to compress data for " << name);
+            if (!asset->generate_compressed_data()) {
+                WG_LOG_ERROR("failed to compress data for " << asset_id);
                 return StatusCode::Error;
             }
         }
-        texture_manager->init(texture.get());
+        texture_manager->init(asset.get());
 
         return WG_OK;
     }
 
-    Status TextureCubeAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("TextureCubeAssetLoader::load");
+    Status TextureCubeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<TextureCube>& asset) {
+        WG_AUTO_PROFILE_ASSET("TextureCubeAssetLoader::load_typed");
 
-        Ref<TextureCubeImportData> import_data = meta.import_data.cast<TextureCubeImportData>();
+        Ref<TextureCubeImportData> import_data = context.asset_meta.import_data.cast<TextureCubeImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data for " << name);
+            WG_LOG_ERROR("no import data for " << asset_id);
             return StatusCode::InvalidData;
         }
         if (import_data->source_files_size() < 6) {
-            WG_LOG_ERROR("not enough source files " << name);
+            WG_LOG_ERROR("not enough source files " << asset_id);
             return StatusCode::InvalidData;
         }
 
@@ -128,7 +125,7 @@ namespace wmoge {
                 WG_LOG_ERROR("failed to load source image " << path);
                 return false;
             }
-            image->set_name(SID(path));
+            image->set_id(SID(path));
             return true;
         };
 
@@ -158,37 +155,34 @@ namespace wmoge {
         flags.set(TextureFlag::FromDisk);
         flags.set(TextureFlag::Compressed, import_data->compression.format != TexCompressionFormat::Unknown);
 
-        Ref<TextureCube> texture =
-                texture_manager->create_cube(flags,
+        asset = texture_manager->create_cube(flags,
                                              import_data->format,
                                              source_images.front()->get_width(),
                                              source_images.front()->get_height());
 
-        if (!texture) {
-            WG_LOG_ERROR("failed to instantiate texture " << name);
+        if (!asset) {
+            WG_LOG_ERROR("failed to instantiate texture " << asset_id);
             return StatusCode::Error;
         }
 
-        asset = texture;
-        asset->set_name(name);
-
-        texture->set_source_images(source_images);
-        texture->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
-        texture->set_compression(import_data->compression);
+        asset->set_id(asset_id);
+        asset->set_source_images(source_images);
+        asset->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
+        asset->set_compression(import_data->compression);
 
         if (import_data->mipmaps) {
-            if (!texture->generate_mips()) {
-                WG_LOG_ERROR("failed to gen mip chain for " << name);
+            if (!asset->generate_mips()) {
+                WG_LOG_ERROR("failed to gen mip chain for " << asset_id);
                 return StatusCode::Error;
             }
         }
         if (import_data->compression.format != TexCompressionFormat::Unknown) {
-            if (!texture->generate_compressed_data()) {
-                WG_LOG_ERROR("failed to compress data for " << name);
+            if (!asset->generate_compressed_data()) {
+                WG_LOG_ERROR("failed to compress data for " << asset_id);
                 return StatusCode::Error;
             }
         }
-        texture_manager->init(texture.get());
+        texture_manager->init(asset.get());
 
         return WG_OK;
     }

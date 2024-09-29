@@ -27,9 +27,7 @@
 
 #pragma once
 
-#include "core/buffered_vector.hpp"
-#include "io/property_tree.hpp"
-#include "io/stream.hpp"
+#include "io/enum.hpp"
 
 #include <bitset>
 #include <initializer_list>
@@ -104,40 +102,6 @@ namespace wmoge {
     Stream& operator<<(Stream& stream, const Mask<T, size>& mask) {
         stream << mask.bits;
         return stream;
-    }
-
-    template<typename T, int size>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Mask<T, size>& mask) {
-        buffered_vector<T, size> flags;
-        WG_TREE_READ(context, tree, flags);
-
-        for (auto flag : flags) {
-            mask.set(flag);
-        }
-
-        return WG_OK;
-    }
-
-    template<typename T, int size>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Mask<T, size>& mask) {
-        buffered_vector<T, size> flags;
-
-        mask.for_each([&](int, T flag) {
-            flags.push_back(flag);
-        });
-
-        WG_TREE_WRITE(context, tree, flags);
-        return WG_OK;
-    }
-
-    template<typename T, int size>
-    Status stream_read(IoContext& context, IoStream& stream, Mask<T, size>& mask) {
-        return stream.nread(sizeof(Mask<T, size>), &mask);
-    }
-
-    template<typename T, int size>
-    Status stream_write(IoContext& context, IoStream& stream, const Mask<T, size>& mask) {
-        return stream.nwrite(sizeof(Mask<T, size>), &mask);
     }
 
 }// namespace wmoge

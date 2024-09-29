@@ -28,34 +28,28 @@
 #include "wav_asset_loader.hpp"
 
 #include "asset/wav_import_data.hpp"
-#include "audio/audio_stream_wav.hpp"
 #include "profiler/profiler.hpp"
 
 namespace wmoge {
 
-    Status WavAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("WavAssetLoader::load");
+    Status WavAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<AudioStreamWav>& asset) {
+        WG_AUTO_PROFILE_ASSET("WavAssetLoader::load_typed");
 
-        Ref<WavImportData> import_data = meta.import_data.cast<WavImportData>();
+        Ref<WavImportData> import_data = context.asset_meta.import_data.cast<WavImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no import data for " << name);
+            WG_LOG_ERROR("no import data for " << asset_id);
             return StatusCode::InvalidData;
         }
+
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
-        Ref<AudioStreamWav> audio = meta.rtti->instantiate().cast<AudioStreamWav>();
-        if (!audio) {
-            WG_LOG_ERROR("failed to instantiate audio " << name);
-            return StatusCode::FailedInstantiate;
-        }
+        asset = make_ref<AudioStreamWav>();
+        asset->set_id(asset_id);
 
-        asset = audio;
-        asset->set_name(name);
-
-        return audio->load(import_data->source_files[0].file);
+        return asset->load(import_data->source_files[0].file);
     }
 
 }// namespace wmoge

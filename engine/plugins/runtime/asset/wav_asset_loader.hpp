@@ -27,7 +27,8 @@
 
 #pragma once
 
-#include "asset/asset_loader.hpp"
+#include "asset/asset_loader_adapter.hpp"
+#include "audio/audio_stream_wav.hpp"
 
 namespace wmoge {
 
@@ -35,14 +36,14 @@ namespace wmoge {
      * @class WavAssetLoader
      * @brief Loader for wav audio sources using audio file library
      */
-    class WavAssetLoader final : public AssetLoader {
+    class WavAssetLoader final : public AssetLoaderTyped<AudioStreamWav> {
     public:
         WG_RTTI_CLASS(WavAssetLoader, AssetLoader);
 
         WavAssetLoader()           = default;
         ~WavAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<AudioStreamWav>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(WavAssetLoader) {

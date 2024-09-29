@@ -46,13 +46,13 @@ namespace wmoge {
         return {Random::next_uint64()};
     }
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, UUID& id) {
+    Status tree_read(IoContext& context, IoTree& tree, UUID& id) {
         std::string value;
         WG_TREE_READ(context, tree, value);
         id = UUID(value);
         return WG_OK;
     }
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const UUID& id) {
+    Status tree_write(IoContext& context, IoTree& tree, const UUID& id) {
         WG_TREE_WRITE(context, tree, StringUtils::from_uint64(id.m_value));
         return WG_OK;
     }

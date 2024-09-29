@@ -103,37 +103,37 @@ namespace wmoge {
         ioc->bind<TextureManager>();
         ioc->bind<MeshManager>();
         ioc->bind<RenderEngine>();
-        ioc->bind<AssetManager>();
+        ioc->bind_by_ioc<AssetManager>();
         ioc->bind<EcsRegistry>();
         ioc->bind<SceneManager>();
         ioc->bind<ViewManager>();
 
-        ioc->bind_f<TaskManager, TaskManager>([ioc]() {
-            Config*   config      = ioc->resolve_v<Config>();
+        ioc->bind_by_factory<TaskManager>([ioc]() {
+            Config*   config      = ioc->resolve_value<Config>();
             const int num_workers = config->get_int_or_default(SID("task_manager.workers"), 4);
             return std::make_shared<TaskManager>(num_workers);
         });
 
-        ioc->bind_f<ShaderCompilerTaskManager, ShaderCompilerTaskManager>([ioc]() {
-            Config*   config      = ioc->resolve_v<Config>();
+        ioc->bind_by_factory<ShaderCompilerTaskManager>([ioc]() {
+            Config*   config      = ioc->resolve_value<Config>();
             const int num_workers = config->get_int_or_default(SID("grc.shader.compiler.workers"), 4);
             return std::make_shared<ShaderCompilerTaskManager>(num_workers);
         });
 
-        ioc->bind_f<GlfwWindowManager, GlfwWindowManager>([ioc]() {
-            Config*    config     = ioc->resolve_v<Config>();
+        ioc->bind_by_factory<GlfwWindowManager>([ioc]() {
+            Config*    config     = ioc->resolve_value<Config>();
             const bool vsync      = config->get_bool_or_default(SID("gfx.vsync"), true);
             const bool client_api = false;
             return std::make_shared<GlfwWindowManager>(vsync, client_api);
         });
 
-        ioc->bind_f<GlfwInput, GlfwInput>([ioc]() {
-            GlfwWindowManager* window_manager = ioc->resolve_v<GlfwWindowManager>();
+        ioc->bind_by_factory<GlfwInput>([ioc]() {
+            GlfwWindowManager* window_manager = ioc->resolve_value<GlfwWindowManager>();
             return window_manager->input();
         });
 
-        ioc->bind_f<VKDriver, VKDriver>([ioc]() {
-            GlfwWindowManager* window_manager = ioc->resolve_v<GlfwWindowManager>();
+        ioc->bind_by_factory<VKDriver>([ioc]() {
+            GlfwWindowManager* window_manager = ioc->resolve_value<GlfwWindowManager>();
             Ref<Window>        window         = window_manager->get_primary_window();
 
             VKInitInfo init_info;
@@ -146,29 +146,29 @@ namespace wmoge {
             return std::make_shared<VKDriver>(std::move(init_info));
         });
 
-        ioc->bind_f<GfxDriver, GfxDriver>([ioc]() {
-            return std::shared_ptr<GfxDriver>(ioc->resolve_v<VKDriver>(), [](auto p) {});
+        ioc->bind_by_factory<GfxDriver>([ioc]() {
+            return std::shared_ptr<GfxDriver>(ioc->resolve_value<VKDriver>(), [](auto p) {});
         });
 
-        ioc->bind_f<RttiTypeStorage, RttiTypeStorage>([]() {
+        ioc->bind_by_factory<RttiTypeStorage>([]() {
             auto type_storage = std::make_shared<RttiTypeStorage>();
             RttiTypeStorage::provide(type_storage.get());
             return type_storage;
         });
 
-        ioc->bind_f<Profiler, Profiler>([]() {
+        ioc->bind_by_factory<Profiler>([]() {
             auto profiler = std::make_shared<Profiler>();
             Profiler::provide(profiler.get());
             return profiler;
         });
 
-        ioc->bind_f<Log, Log>([]() {
+        ioc->bind_by_factory<Log>([]() {
             auto log = std::make_shared<Log>();
             Log::provide(log.get());
             return log;
         });
 
-        ioc->bind_f<Engine, Engine>([]() {
+        ioc->bind_by_factory<Engine>([]() {
             auto engine = std::make_shared<Engine>();
             Engine::provide(engine.get());
             return engine;
@@ -196,7 +196,7 @@ namespace wmoge {
     }
 
     static void bind_rtti(IocContainer* ioc) {
-        ioc->resolve_v<RttiTypeStorage>();
+        ioc->resolve_value<RttiTypeStorage>();
         rtti_rtti();
         rtti_asset();
         rtti_audio();
@@ -220,7 +220,7 @@ namespace wmoge {
 
         Log* log = ioc.resolve<Log>().value();
 
-        ioc.bind_i<Application>(std::shared_ptr<Application>(this, [](auto p) {}));
+        ioc.bind_by_instance<Application>(std::shared_ptr<Application>(this, [](auto p) {}));
 
         on_register();
 

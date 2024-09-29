@@ -32,7 +32,7 @@
 #include "core/object.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
-#include "io/property_tree.hpp"
+#include "io/tree.hpp"
 #include "pfx/pfx_storage.hpp"
 
 namespace wmoge {

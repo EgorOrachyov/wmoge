@@ -29,8 +29,8 @@
 
 #include "asset/asset.hpp"
 #include "asset/asset_manager.hpp"
-#include "io/property_tree.hpp"
 #include "io/stream.hpp"
+#include "io/tree.hpp"
 
 #include <cassert>
 #include <optional>
@@ -66,10 +66,10 @@ namespace wmoge {
     };
 
     template<typename T>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, AssetRef<T>& ref) {
+    Status tree_read(IoContext& context, IoTree& tree, AssetRef<T>& ref) {
         AssetId id;
         WG_TREE_READ(context, tree, id);
-        Ref<T> ptr = context.get_asset_manager()->find(id).cast<T>();
+        Ref<T> ptr = context.get<AssetManager*>()->find(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
         }
@@ -78,7 +78,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetRef<T>& ref) {
+    Status tree_write(IoContext& context, IoTree& tree, const AssetRef<T>& ref) {
         assert(ref);
         if (!ref) {
             return StatusCode::NoAsset;
@@ -91,7 +91,7 @@ namespace wmoge {
     Status stream_read(IoContext& context, IoStream& stream, AssetRef<T>& ref) {
         AssetId id;
         WG_ARCHIVE_READ(context, stream, id);
-        Ref<T> ptr = context.get_asset_manager()->load(id).cast<T>();
+        Ref<T> ptr = context.get<AssetManager*>()->load(id).cast<T>();
         if (!ptr) {
             return StatusCode::NoAsset;
         }
@@ -110,7 +110,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, AssetRefWeak<T>& ref) {
+    Status tree_read(IoContext& context, IoTree& tree, AssetRefWeak<T>& ref) {
         AssetId id;
         WG_TREE_READ(context, tree, id);
         ref = AssetRefWeak<T>(id);
@@ -118,7 +118,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetRefWeak<T>& ref) {
+    Status tree_write(IoContext& context, IoTree& tree, const AssetRefWeak<T>& ref) {
         AssetId id = ref;
         WG_TREE_WRITE(context, tree, id);
         return WG_OK;

@@ -28,6 +28,7 @@
 #pragma once
 
 #include "core/log.hpp"
+#include "core/mask.hpp"
 #include "core/ref.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
@@ -50,13 +51,25 @@
 
 namespace wmoge {
 
+    /** @brief Io tree flags to control tree serialization */
+    enum class IoTreeFlag {
+        FormatText = 0,
+        FormatBinary,
+        FormatDirect,
+        FormatVariant,
+        UserFriendly
+    };
+
+    /** @brief Io tree flags mask */
+    using IoTreeFlags = Mask<IoTreeFlag>;
+
     /**
-     * @class IoPropertyTree
+     * @class IoTree
      * @brief Structured property serialization and de-serialization tree
      */
-    class IoPropertyTree {
+    class IoTree {
     public:
-        virtual ~IoPropertyTree() = default;
+        virtual ~IoTree() = default;
 
         virtual bool        node_is_empty()                               = 0;
         virtual bool        node_has_child(const std::string_view& name)  = 0;
@@ -91,42 +104,44 @@ namespace wmoge {
         virtual void node_as_map()                    = 0;
         virtual void node_as_list(std::size_t length) = 0;
 
-        [[nodiscard]] bool         can_read() const { return m_can_read; }
-        [[nodiscard]] bool         can_write() const { return m_can_write; }
-        [[nodiscard]] const Strid& get_name() const { return m_name; }
+        [[nodiscard]] bool               can_read() const { return m_can_read; }
+        [[nodiscard]] bool               can_write() const { return m_can_write; }
+        [[nodiscard]] const Strid&       get_name() const { return m_name; }
+        [[nodiscard]] const IoTreeFlags& get_flags() const { return m_flags; }
 
     protected:
-        Strid m_name;
-        bool  m_can_read  = false;
-        bool  m_can_write = false;
+        Strid       m_name;
+        IoTreeFlags m_flags;
+        bool        m_can_read  = false;
+        bool        m_can_write = false;
     };
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, bool& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const bool& value);
+    Status tree_read(IoContext& context, IoTree& tree, bool& value);
+    Status tree_write(IoContext& context, IoTree& tree, const bool& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, int& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const int& value);
+    Status tree_read(IoContext& context, IoTree& tree, int& value);
+    Status tree_write(IoContext& context, IoTree& tree, const int& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, unsigned int& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const unsigned int& value);
+    Status tree_read(IoContext& context, IoTree& tree, unsigned int& value);
+    Status tree_write(IoContext& context, IoTree& tree, const unsigned int& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, float& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const float& value);
+    Status tree_read(IoContext& context, IoTree& tree, float& value);
+    Status tree_write(IoContext& context, IoTree& tree, const float& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Strid& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Strid& value);
+    Status tree_read(IoContext& context, IoTree& tree, Strid& value);
+    Status tree_write(IoContext& context, IoTree& tree, const Strid& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::string& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::string& value);
+    Status tree_read(IoContext& context, IoTree& tree, std::string& value);
+    Status tree_write(IoContext& context, IoTree& tree, const std::string& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::int16_t& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::int16_t& value);
+    Status tree_read(IoContext& context, IoTree& tree, std::int16_t& value);
+    Status tree_write(IoContext& context, IoTree& tree, const std::int16_t& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::size_t& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::size_t& value);
+    Status tree_read(IoContext& context, IoTree& tree, std::size_t& value);
+    Status tree_write(IoContext& context, IoTree& tree, const std::size_t& value);
 
-    Status tree_read(IoContext& context, IoPropertyTree& tree, Status& value);
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const Status& value);
+    Status tree_read(IoContext& context, IoTree& tree, Status& value);
+    Status tree_write(IoContext& context, IoTree& tree, const Status& value);
 
 #define WG_TREE_READ(context, tree, what)                            \
     do {                                                             \
@@ -200,13 +215,13 @@ namespace wmoge {
 #define WG_TREE_SEQ(tree, length) tree.node_as_list(length)
 
     template<typename K, typename V>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::pair<K, V>& pair) {
+    Status tree_read(IoContext& context, IoTree& tree, std::pair<K, V>& pair) {
         WG_TREE_READ_AS(context, tree, "key", pair.first);
         WG_TREE_READ_AS(context, tree, "value", pair.second);
         return WG_OK;
     }
     template<typename K, typename V>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::pair<K, V>& pair) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::pair<K, V>& pair) {
         WG_TREE_MAP(tree);
         WG_TREE_WRITE_AS(context, tree, "key", pair.first);
         WG_TREE_WRITE_AS(context, tree, "value", pair.second);
@@ -214,13 +229,13 @@ namespace wmoge {
     }
 
     template<typename K, typename V>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, robin_hood::pair<K, V>& pair) {
+    Status tree_read(IoContext& context, IoTree& tree, robin_hood::pair<K, V>& pair) {
         WG_TREE_READ_AS(context, tree, "key", pair.first);
         WG_TREE_READ_AS(context, tree, "value", pair.second);
         return WG_OK;
     }
     template<typename K, typename V>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const robin_hood::pair<K, V>& pair) {
+    Status tree_write(IoContext& context, IoTree& tree, const robin_hood::pair<K, V>& pair) {
         WG_TREE_MAP(tree);
         WG_TREE_WRITE_AS(context, tree, "key", pair.first);
         WG_TREE_WRITE_AS(context, tree, "value", pair.second);
@@ -228,7 +243,7 @@ namespace wmoge {
     }
 
     template<typename T, std::size_t S>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::array<T, S>& array) {
+    Status tree_read(IoContext& context, IoTree& tree, std::array<T, S>& array) {
         std::size_t element_id = 0;
         assert(tree.node_num_children() <= S);
         tree.node_find_first_child();
@@ -239,7 +254,7 @@ namespace wmoge {
         return WG_OK;
     }
     template<typename T, std::size_t S>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::array<T, S>& array) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::array<T, S>& array) {
         WG_TREE_SEQ(tree, S);
         for (std::size_t i = 0; i < S; i++) {
             WG_CHECKED(tree.node_append_child());
@@ -250,7 +265,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::vector<T>& vector) {
+    Status tree_read(IoContext& context, IoTree& tree, std::vector<T>& vector) {
         assert(vector.empty());
         vector.resize(tree.node_num_children());
         std::size_t element_id = 0;
@@ -262,7 +277,7 @@ namespace wmoge {
         return WG_OK;
     }
     template<typename T>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::vector<T>& vector) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::vector<T>& vector) {
         WG_TREE_SEQ(tree, vector.size());
         for (const T& value : vector) {
             WG_CHECKED(tree.node_append_child());
@@ -273,7 +288,7 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::unordered_set<T>& set) {
+    Status tree_read(IoContext& context, IoTree& tree, std::unordered_set<T>& set) {
         assert(set.empty());
         set.reserve(tree.node_num_children());
         tree.node_find_first_child();
@@ -285,7 +300,7 @@ namespace wmoge {
         return WG_OK;
     }
     template<typename T>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::unordered_set<T>& set) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::unordered_set<T>& set) {
         WG_TREE_SEQ(tree, set.size());
         for (const T& entry : set) {
             WG_CHECKED(tree.node_append_child());
@@ -296,7 +311,7 @@ namespace wmoge {
     }
 
     template<typename K, typename V>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::unordered_map<K, V>& map) {
+    Status tree_read(IoContext& context, IoTree& tree, std::unordered_map<K, V>& map) {
         assert(map.empty());
         map.reserve(tree.node_num_children());
         tree.node_find_first_child();
@@ -308,7 +323,7 @@ namespace wmoge {
         return WG_OK;
     }
     template<typename K, typename V>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::unordered_map<K, V>& map) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::unordered_map<K, V>& map) {
         WG_TREE_SEQ(tree, map.size());
         for (const auto& entry : map) {
             WG_CHECKED(tree.node_append_child());
@@ -319,7 +334,7 @@ namespace wmoge {
     }
 
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, T& enum_value) {
+    Status tree_read(IoContext& context, IoTree& tree, T& enum_value) {
         std::string s;
         WG_TREE_READ(context, tree, s);
         auto parsed = magic_enum::enum_cast<T>(s);
@@ -330,13 +345,13 @@ namespace wmoge {
         return WG_OK;
     }
     template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const T& enum_value) {
+    Status tree_write(IoContext& context, IoTree& tree, const T& enum_value) {
         WG_TREE_WRITE(context, tree, std::string(magic_enum::enum_name(enum_value)));
         return WG_OK;
     }
 
     template<typename T>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::optional<T>& wrapper) {
+    Status tree_read(IoContext& context, IoTree& tree, std::optional<T>& wrapper) {
         if (!tree.node_is_empty()) {
             wrapper.emplace();
             WG_TREE_READ(context, tree, wrapper.value());
@@ -344,7 +359,7 @@ namespace wmoge {
         return WG_OK;
     }
     template<typename T>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::optional<T>& wrapper) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::optional<T>& wrapper) {
         if (wrapper.has_value()) {
             WG_TREE_WRITE(context, tree, wrapper.value());
         }
@@ -352,7 +367,7 @@ namespace wmoge {
     }
 
     template<std::size_t N>
-    Status tree_read(IoContext& context, IoPropertyTree& tree, std::bitset<N>& bitset) {
+    Status tree_read(IoContext& context, IoTree& tree, std::bitset<N>& bitset) {
         std::array<bool, N> values;
         WG_TREE_READ(context, tree, values);
         for (std::size_t i = 0; i < N; i++) {
@@ -363,7 +378,7 @@ namespace wmoge {
         return WG_OK;
     }
     template<std::size_t N>
-    Status tree_write(IoContext& context, IoPropertyTree& tree, const std::bitset<N>& bitset) {
+    Status tree_write(IoContext& context, IoTree& tree, const std::bitset<N>& bitset) {
         std::array<bool, N> values;
         values.fill(false);
         for (std::size_t i = 0; i < N; i++) {
@@ -372,6 +387,30 @@ namespace wmoge {
             }
         }
         WG_TREE_WRITE(context, tree, values);
+        return WG_OK;
+    }
+
+    template<typename T, int size>
+    Status tree_read(IoContext& context, IoTree& tree, Mask<T, size>& mask) {
+        std::vector<T> flags;
+        WG_TREE_READ(context, tree, flags);
+
+        for (auto flag : flags) {
+            mask.set(flag);
+        }
+
+        return WG_OK;
+    }
+
+    template<typename T, int size>
+    Status tree_write(IoContext& context, IoTree& tree, const Mask<T, size>& mask) {
+        std::vector<T> flags;
+
+        mask.for_each([&](int, T flag) {
+            flags.push_back(flag);
+        });
+
+        WG_TREE_WRITE(context, tree, flags);
         return WG_OK;
     }
 

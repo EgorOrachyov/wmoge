@@ -104,7 +104,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status RttiStruct::read_from_tree(void* dst, IoPropertyTree& tree, IoContext& context) const {
+    Status RttiStruct::read_from_tree(void* dst, IoTree& tree, IoContext& context) const {
         WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_tree");
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
@@ -133,7 +133,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status RttiStruct::write_to_tree(const void* src, IoPropertyTree& tree, IoContext& context) const {
+    Status RttiStruct::write_to_tree(const void* src, IoTree& tree, IoContext& context) const {
         WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_tree");
 
         assert(src);

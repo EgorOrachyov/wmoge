@@ -118,7 +118,7 @@ namespace wmoge {
         int bitmap_size   = bitmap_width * bitmap_height;
 
         Ref<Image> bitmap = make_ref<Image>();
-        bitmap->set_name(SID(font->get_name().str() + "_bitmap"));
+        bitmap->set_id(SID(font->get_name().str() + "_bitmap"));
         bitmap->create(bitmap_width, bitmap_height, 1, 1);
         auto* dst_ptr     = bitmap->get_pixel_data()->buffer();
         auto* src_ptr     = glyphs_rendered.data();
@@ -173,7 +173,7 @@ namespace wmoge {
         flags.set(TextureFlag::Compressed);
 
         font_desc.texture = m_texture_manager->create_2d(flags, GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
-        font_desc.texture->set_name(SID(font->get_name().str() + "_bitmap"));
+        font_desc.texture->set_id(SID(font->get_name().str() + "_bitmap"));
         font_desc.texture->set_sampler(m_gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_string())));
         font_desc.texture->set_compression(compression_params);
         font_desc.texture->set_source_images({bitmap});

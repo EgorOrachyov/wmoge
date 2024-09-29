@@ -68,8 +68,8 @@ namespace wmoge {
         [[nodiscard]] bool               is_empty() const { return m_name.empty(); }
         [[nodiscard]] std::size_t        hash() const { return m_name.hash(); }
 
-        friend Status tree_read(IoContext& context, IoPropertyTree& tree, AssetId& id);
-        friend Status tree_write(IoContext& context, IoPropertyTree& tree, const AssetId& id);
+        friend Status tree_read(IoContext& context, IoTree& tree, AssetId& id);
+        friend Status tree_write(IoContext& context, IoTree& tree, const AssetId& id);
         friend Status stream_read(IoContext& context, IoStream& stream, AssetId& id);
         friend Status stream_write(IoContext& context, IoStream& stream, const AssetId& id);
 
@@ -94,14 +94,11 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(Asset, RttiObject);
 
-        void           set_name(Strid name) { m_id = AssetId(name); }
         void           set_id(AssetId id) { m_id = id; }
         void           set_uuid(UUID uuid) { m_uuid = uuid; }
         const Strid&   get_name() { return m_id.sid(); }
         const AssetId& get_id() { return m_id; }
         const UUID&    get_uuid() { return m_uuid; }
-
-        virtual void collect_deps(class AssetDependencies& deps) {}
 
     private:
         AssetId m_id;
@@ -115,35 +112,6 @@ namespace wmoge {
         WG_RTTI_FIELD(m_uuid, {RttiNoSaveLoad});
     }
     WG_RTTI_END;
-
-    /**
-     * @class AssetDependencies
-     * @brief Class to collect dependencies of a particular asset (primary editor only feature)
-    */
-    class AssetDependencies {
-    public:
-        AssetDependencies()  = default;
-        ~AssetDependencies() = default;
-
-        /** @brief Mode how to collect deps */
-        enum class CollectionMode {
-            OneLevel,
-            MultipleLevels,
-            FullDepth
-        };
-
-        void set_mode(CollectionMode mode, std::optional<int> num_levels);
-        void add(const Ref<Asset>& asset);
-
-        [[nodiscard]] CollectionMode              get_mode() const { return m_mode; }
-        [[nodiscard]] buffered_vector<Ref<Asset>> to_vector() const;
-
-    private:
-        flat_set<Ref<class Asset>> m_assets;
-        int                        m_max_depth = 1;
-        int                        m_cur_depth = 0;
-        CollectionMode             m_mode      = CollectionMode::OneLevel;
-    };
 
 }// namespace wmoge
 

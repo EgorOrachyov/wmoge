@@ -27,6 +27,7 @@
 
 #include "engine.hpp"
 
+#include "asset/asset_library_fs.hpp"
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "core/callback_queue.hpp"
@@ -80,16 +81,16 @@ namespace wmoge {
         IocContainer* ioc = IocContainer::instance();
 
         m_class_db       = ClassDB::instance();
-        m_type_storage   = ioc->resolve_v<RttiTypeStorage>();
-        m_time           = ioc->resolve_v<Time>();
-        m_cmd_line       = ioc->resolve_v<CmdLine>();
-        m_hook_list      = ioc->resolve_v<HookList>();
-        m_file_system    = ioc->resolve_v<FileSystem>();
-        m_config         = ioc->resolve_v<Config>();
-        m_console        = ioc->resolve_v<Console>();
-        m_profiler       = ioc->resolve_v<Profiler>();
-        m_dll_manager    = ioc->resolve_v<DllManager>();
-        m_plugin_manager = ioc->resolve_v<PluginManager>();
+        m_type_storage   = ioc->resolve_value<RttiTypeStorage>();
+        m_time           = ioc->resolve_value<Time>();
+        m_cmd_line       = ioc->resolve_value<CmdLine>();
+        m_hook_list      = ioc->resolve_value<HookList>();
+        m_file_system    = ioc->resolve_value<FileSystem>();
+        m_config         = ioc->resolve_value<Config>();
+        m_console        = ioc->resolve_value<Console>();
+        m_profiler       = ioc->resolve_value<Profiler>();
+        m_dll_manager    = ioc->resolve_value<DllManager>();
+        m_plugin_manager = ioc->resolve_value<PluginManager>();
 
         m_plugin_manager->setup();
 
@@ -101,11 +102,11 @@ namespace wmoge {
 
         IocContainer* ioc = IocContainer::instance();
 
-        m_task_manager  = ioc->resolve_v<TaskManager>();
-        m_asset_manager = ioc->resolve_v<AssetManager>();
+        m_task_manager  = ioc->resolve_value<TaskManager>();
+        m_asset_manager = ioc->resolve_value<AssetManager>();
 
-        m_window_manager = ioc->resolve_v<GlfwWindowManager>();
-        m_input          = ioc->resolve_v<GlfwInput>();
+        m_window_manager = ioc->resolve_value<GlfwWindowManager>();
+        m_input          = ioc->resolve_value<GlfwInput>();
 
         WindowInfo window_info;
         window_info.width    = m_config->get_int_or_default(SID("engine.window.width"), 1280);
@@ -119,21 +120,22 @@ namespace wmoge {
         auto window = m_window_manager->create_window(window_info);
         WG_LOG_INFO("init window " << window_info.id);
 
-        m_gfx_driver = ioc->resolve_v<GfxDriver>();
+        m_gfx_driver = ioc->resolve_value<GfxDriver>();
 
-        m_shader_manager = ioc->resolve_v<ShaderManager>();
+        m_shader_manager = ioc->resolve_value<ShaderManager>();
         m_shader_manager->load_compilers();
 
         m_asset_manager->load_loaders();
+        m_asset_manager->add_library(std::make_shared<AssetLibraryFileSystem>("./", ioc));
 
-        m_shader_library  = ioc->resolve_v<ShaderLibrary>();
-        m_pso_cache       = ioc->resolve_v<PsoCache>();
-        m_texture_manager = ioc->resolve_v<TextureManager>();
-        m_mesh_manager    = ioc->resolve_v<MeshManager>();
-        m_render_engine   = ioc->resolve_v<RenderEngine>();
-        m_ecs_registry    = ioc->resolve_v<EcsRegistry>();
-        m_scene_manager   = ioc->resolve_v<SceneManager>();
-        m_view_manager    = ioc->resolve_v<ViewManager>();
+        m_shader_library  = ioc->resolve_value<ShaderLibrary>();
+        m_pso_cache       = ioc->resolve_value<PsoCache>();
+        m_texture_manager = ioc->resolve_value<TextureManager>();
+        m_mesh_manager    = ioc->resolve_value<MeshManager>();
+        m_render_engine   = ioc->resolve_value<RenderEngine>();
+        m_ecs_registry    = ioc->resolve_value<EcsRegistry>();
+        m_scene_manager   = ioc->resolve_value<SceneManager>();
+        m_view_manager    = ioc->resolve_value<ViewManager>();
 
         m_console->init();
 

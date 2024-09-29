@@ -27,36 +27,30 @@
 
 #include "freetype_asset_loader.hpp"
 
+#include "freetype_font.hpp"
 #include "freetype_import_data.hpp"
-#include "grc/font.hpp"
 #include "profiler/profiler.hpp"
 
 namespace wmoge {
 
-    Status FreetypeAssetLoader::load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load");
+    Status FreetypeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Font>& asset) {
+        WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load_typed");
 
-        Ref<FreetypeImportData> import_data = meta.import_data.cast<FreetypeImportData>();
+        Ref<FreetypeImportData> import_data = context.asset_meta.import_data.cast<FreetypeImportData>();
         if (!import_data) {
-            WG_LOG_ERROR("no valid import data for " << name);
+            WG_LOG_ERROR("no valid import data for " << asset_id);
             return StatusCode::InvalidData;
         }
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << name);
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
 
-        Ref<Font> font = meta.rtti->instantiate().cast<Font>();
-        if (!font) {
-            WG_LOG_ERROR("failed to instantiate font " << name);
-            return StatusCode::FailedInstantiate;
-        }
-
-        asset = font;
-        asset->set_name(name);
+        asset = make_ref<Font>();
+        asset->set_id(asset_id);
 
         FreetypeFont loader;
-        return loader.load(font, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
+        return loader.load(asset, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
     }
 
 }// namespace wmoge

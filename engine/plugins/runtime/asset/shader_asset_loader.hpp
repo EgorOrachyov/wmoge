@@ -27,10 +27,8 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
-#include "asset/asset_loader.hpp"
-#include "asset/asset_meta.hpp"
-#include "asset/asset_pak.hpp"
+#include "asset/asset_loader_adapter.hpp"
+#include "grc/shader.hpp"
 
 namespace wmoge {
 
@@ -38,14 +36,14 @@ namespace wmoge {
      * @class DefaultAssetLoader
      * @brief Loader for shader files from a specific shader syntax files
      */
-    class ShaderAssetLoader final : public AssetLoader {
+    class ShaderAssetLoader final : public AssetLoaderTyped<Shader> {
     public:
         WG_RTTI_CLASS(ShaderAssetLoader, AssetLoader);
 
         ShaderAssetLoader()           = default;
         ~ShaderAssetLoader() override = default;
 
-        Status load(const Strid& name, const AssetMeta& meta, Ref<Asset>& asset) override;
+        Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Shader>& asset) override;
     };
 
     WG_RTTI_CLASS_BEGIN(ShaderAssetLoader) {
