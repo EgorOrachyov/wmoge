@@ -29,7 +29,6 @@
 
 #include "core/crc32.hpp"
 #include "grc/shader_manager.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -109,49 +108,49 @@ namespace wmoge {
                 IMAGE2D};
     }
 
-    ShaderStructRegister::ShaderStructRegister(Strid name, std::size_t size) {
-        m_manager                = IocContainer::iresolve_v<ShaderManager>();
-        m_struct_type            = make_ref<ShaderType>();
+    ShaderStructRegister::ShaderStructRegister(Strid name, std::size_t size, ShaderManager* shader_manager) {
+        m_manager                = shader_manager;
+        m_struct_type            = make_ref<ShaderTypeStruct>();
         m_struct_type->name      = name;
         m_struct_type->byte_size = std::int16_t(size);
         m_struct_type->type      = ShaderBaseType::Struct;
     }
 
     ShaderStructRegister& ShaderStructRegister::add_field(Strid name, Strid struct_type) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = m_manager->find_global_type(struct_type).value();
-        field.offset             = field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = m_manager->find_global_type(struct_type).value();
+        field.offset           = field.type->byte_size;
         return *this;
     }
 
     ShaderStructRegister& ShaderStructRegister::add_field(Strid name, Ref<ShaderType> type, Var value) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = type;
-        field.default_value      = value;
-        field.offset             = field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = type;
+        field.default_value    = value;
+        field.offset           = field.type->byte_size;
         return *this;
     }
 
     ShaderStructRegister& ShaderStructRegister::add_field_array(Strid name, Strid struct_type, int n_elements) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = m_manager->find_global_type(struct_type).value();
-        field.is_array           = true;
-        field.elem_count         = n_elements;
-        field.offset             = n_elements * field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = m_manager->find_global_type(struct_type).value();
+        field.is_array         = true;
+        field.elem_count       = n_elements;
+        field.offset           = n_elements * field.type->byte_size;
         return *this;
     }
 
     ShaderStructRegister& ShaderStructRegister::add_field_array(Strid name, Ref<ShaderType> type, int n_elements, Var value) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = type;
-        field.default_value      = value;
-        field.is_array           = true;
-        field.elem_count         = n_elements;
-        field.offset             = n_elements * field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = type;
+        field.default_value    = value;
+        field.is_array         = true;
+        field.elem_count       = n_elements;
+        field.offset           = n_elements * field.type->byte_size;
         return *this;
     }
 

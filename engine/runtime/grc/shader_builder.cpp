@@ -35,45 +35,45 @@
 
 namespace wmoge {
 
-    ShaderBuilder::StructBuilder::StructBuilder(ShaderBuilder& owner, Ref<ShaderType> struct_type)
+    ShaderBuilder::StructBuilder::StructBuilder(ShaderBuilder& owner, Ref<ShaderTypeStruct> struct_type)
         : m_owner(owner), m_struct_type(struct_type) {
     }
 
     ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field(Strid name, Strid struct_type) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = m_owner.m_reflection.declarations[struct_type];
-        field.offset             = field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = m_owner.m_reflection.declarations[struct_type];
+        field.offset           = field.type->byte_size;
         return *this;
     }
 
     ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field(Strid name, Ref<ShaderType> type, Var value) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = type;
-        field.default_value      = value;
-        field.offset             = field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = type;
+        field.default_value    = value;
+        field.offset           = field.type->byte_size;
         return *this;
     }
 
     ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field_array(Strid name, Strid struct_type, int n_elements) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = m_owner.m_reflection.declarations[struct_type];
-        field.is_array           = true;
-        field.elem_count         = n_elements;
-        field.offset             = n_elements * field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = m_owner.m_reflection.declarations[struct_type];
+        field.is_array         = true;
+        field.elem_count       = n_elements;
+        field.offset           = n_elements * field.type->byte_size;
         return *this;
     }
 
     ShaderBuilder::StructBuilder& ShaderBuilder::StructBuilder::add_field_array(Strid name, Ref<ShaderType> type, int n_elements, Var value) {
-        ShaderType::Field& field = m_struct_type->fields.emplace_back();
-        field.name               = name;
-        field.type               = type;
-        field.default_value      = value;
-        field.is_array           = true;
-        field.elem_count         = n_elements;
-        field.offset             = n_elements * field.type->byte_size;
+        ShaderTypeField& field = m_struct_type->fields.emplace_back();
+        field.name             = name;
+        field.type             = type;
+        field.default_value    = value;
+        field.is_array         = true;
+        field.elem_count       = n_elements;
+        field.offset           = n_elements * field.type->byte_size;
         return *this;
     }
 
@@ -268,14 +268,14 @@ namespace wmoge {
         return *this;
     }
 
-    ShaderBuilder& ShaderBuilder::add_struct(const Ref<ShaderType>& struct_type) {
+    ShaderBuilder& ShaderBuilder::add_struct(const Ref<ShaderTypeStruct>& struct_type) {
         assert(struct_type);
         assert(struct_type->type == ShaderBaseType::Struct);
         m_reflection.declarations[struct_type->name] = struct_type;
 
         for (const auto& field : struct_type->fields) {
             if (field.type->type == ShaderBaseType::Struct) {
-                add_struct(field.type);
+                add_struct(field.type.cast<ShaderTypeStruct>());
             }
         }
 
@@ -283,11 +283,11 @@ namespace wmoge {
     }
 
     ShaderBuilder::StructBuilder ShaderBuilder::add_struct(Strid name, int byte_size) {
-        Ref<ShaderType> struct_type     = make_ref<ShaderType>();
-        struct_type->name               = name;
-        struct_type->type               = ShaderBaseType::Struct;
-        struct_type->byte_size          = byte_size;
-        m_reflection.declarations[name] = struct_type;
+        Ref<ShaderTypeStruct> struct_type = make_ref<ShaderTypeStruct>();
+        struct_type->name                 = name;
+        struct_type->type                 = ShaderBaseType::Struct;
+        struct_type->byte_size            = byte_size;
+        m_reflection.declarations[name]   = struct_type;
         return StructBuilder(*this, struct_type);
     }
 
@@ -347,7 +347,8 @@ namespace wmoge {
 
                         std::int16_t offset = 0;
 
-                        for (const auto& field : binding.type->fields) {
+                        auto s = binding.type.cast<ShaderTypeStruct>();
+                        for (const auto& field : s->fields) {
                             if (field.is_array && field.elem_count == 0) {
                                 WG_LOG_ERROR("no size array not allowed in "
                                              << " name=" << binding.name

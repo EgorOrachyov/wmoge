@@ -98,7 +98,7 @@ public:
 
         // Engine::instance()->scene_manager()->change(scene);
 
-        ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80);
+        ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80, Engine::instance()->shader_manager());
         rdc
                 .add_field(SID("Transform0"), ShaderTypes::VEC4)
                 .add_field(SID("Transform1"), ShaderTypes::VEC4)
@@ -110,7 +110,7 @@ public:
                 .add_field(SID("Padding2"), ShaderTypes::INT)
                 .finish();
 
-        ShaderStructRegister rdcs(SID("CanvasDrawCmdsBuffer"), 0);
+        ShaderStructRegister rdcs(SID("CanvasDrawCmdsBuffer"), 0, Engine::instance()->shader_manager());
         rdcs
                 .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
                 .finish();

@@ -33,11 +33,13 @@
 #include "grc/shader.hpp"
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_file.hpp"
+#include "grc/shader_reflection.hpp"
 #include "grc/texture.hpp"
 
 namespace wmoge {
 
     void rtti_grc() {
+        rtti_type<ShaderReflection>();
         rtti_type<ShaderFileOption>();
         rtti_type<ShaderFileParam>();
         rtti_type<ShaderFileParamBlock>();

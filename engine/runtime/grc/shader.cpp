@@ -184,11 +184,11 @@ namespace wmoge {
 
         assert(lang == GfxShaderLang::GlslVk450);
 
-        auto                                                    builder = compiler->make_builder();
-        std::function<void(const Ref<ShaderType>& struct_type)> visitor;
-        flat_set<Ref<ShaderType>>                               visited;
+        auto                                                          builder = compiler->make_builder();
+        std::function<void(const Ref<ShaderTypeStruct>& struct_type)> visitor;
+        flat_set<Ref<ShaderTypeStruct>>                               visited;
 
-        auto emit_struct = [&](const Ref<ShaderType>& struct_type) {
+        auto emit_struct = [&](const Ref<ShaderTypeStruct>& struct_type) {
             for (const auto& field : struct_type->fields) {
                 if (field.is_array && field.elem_count == 0) {
                     builder->add_field(field.type->name, field.name, std::nullopt);
@@ -202,7 +202,9 @@ namespace wmoge {
             }
         };
 
-        visitor = [&](const Ref<ShaderType>& struct_type) {
+        visitor = [&](const Ref<ShaderTypeStruct>& struct_type) {
+            assert(struct_type);
+
             if (visited.find(struct_type) != visited.end()) {
                 return;
             }
@@ -211,7 +213,7 @@ namespace wmoge {
 
             for (const auto& filed : struct_type->fields) {
                 if (filed.type->type == ShaderBaseType::Struct) {
-                    visitor(filed.type);
+                    visitor(filed.type.cast<ShaderTypeStruct>());
                 }
             }
 
@@ -230,14 +232,16 @@ namespace wmoge {
                 switch (binding.binding) {
                     case ShaderBindingType::InlineUniformBuffer:
                     case ShaderBindingType::UniformBuffer:
-                    case ShaderBindingType::StorageBuffer:
-                        for (const auto& filed : binding.type->fields) {
+                    case ShaderBindingType::StorageBuffer: {
+                        auto s = binding.type.cast<ShaderTypeStruct>();
+                        assert(s);
+                        for (const auto& filed : s->fields) {
                             if (filed.type->type == ShaderBaseType::Struct) {
-                                visitor(filed.type);
+                                visitor(filed.type.cast<ShaderTypeStruct>());
                             }
                         }
                         break;
-
+                    }
                     default:
                         break;
                 }
@@ -254,7 +258,7 @@ namespace wmoge {
                     case ShaderBindingType::InlineUniformBuffer:
                     case ShaderBindingType::UniformBuffer:
                         builder->begin_uniform_binding(space_idx, binding_idx, binding.name, binding.qualifiers);
-                        emit_struct(binding.type);
+                        emit_struct(binding.type.cast<ShaderTypeStruct>());
                         builder->end_uniform_binding();
                         break;
 
@@ -276,7 +280,7 @@ namespace wmoge {
 
                     case ShaderBindingType::StorageBuffer:
                         builder->begin_storage_binding(space_idx, binding_idx, binding.name, binding.qualifiers);
-                        emit_struct(binding.type);
+                        emit_struct(binding.type.cast<ShaderTypeStruct>());
                         builder->end_storage_binding();
                         break;
 

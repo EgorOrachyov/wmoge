@@ -119,7 +119,7 @@ namespace wmoge {
 
                 auto type = qtype.value();
                 if (type->type == ShaderBaseType::Struct) {
-                    builder.add_struct(type);
+                    builder.add_struct(type.cast<ShaderTypeStruct>());
                 }
 
                 if (type->is_primitive) {

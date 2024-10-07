@@ -46,7 +46,7 @@ namespace wmoge {
 
         class StructBuilder {
         public:
-            StructBuilder(ShaderBuilder& owner, Ref<ShaderType> struct_type);
+            StructBuilder(ShaderBuilder& owner, Ref<ShaderTypeStruct> struct_type);
 
             StructBuilder& add_field(Strid name, Strid struct_type);
             StructBuilder& add_field(Strid name, Ref<ShaderType> type, Var value = Var());
@@ -55,8 +55,8 @@ namespace wmoge {
             ShaderBuilder& end_struct();
 
         private:
-            ShaderBuilder&  m_owner;
-            Ref<ShaderType> m_struct_type;
+            ShaderBuilder&        m_owner;
+            Ref<ShaderTypeStruct> m_struct_type;
 
             friend class ShaderBuilder;
         };
@@ -126,7 +126,7 @@ namespace wmoge {
         ShaderBuilder&   add_ui_info(const std::string& name, const std::string& hint);
         ShaderBuilder&   add_source(Strid file, GfxShaderModule module, GfxShaderLang lang);
         ShaderBuilder&   add_constant(Strid name, Var value);
-        ShaderBuilder&   add_struct(const Ref<ShaderType>& struct_type);
+        ShaderBuilder&   add_struct(const Ref<ShaderTypeStruct>& struct_type);
         StructBuilder    add_struct(Strid name, int byte_size);
         SpaceBuilder     add_space(Strid name, ShaderSpaceType type);
         TechniqueBuilder add_technique(Strid name);

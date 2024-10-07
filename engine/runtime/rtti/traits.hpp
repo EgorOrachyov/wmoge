@@ -511,6 +511,18 @@ namespace wmoge {
         }
     };
 
+    template<typename K>
+    struct RttiTypeOf<robin_hood::unordered_flat_set<K>> {
+        using SetT = robin_hood::unordered_flat_set<K>;
+
+        static Strid name() {
+            return SID(std::string("fset<") + rtti_type<K>()->get_str() + ">");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeBaseSetT<SetT, K>>(name());
+        }
+    };
+
     template<typename K, typename V>
     struct RttiTypeOf<std::unordered_map<K, V>> {
         using MapT = std::unordered_map<K, V>;
