@@ -51,23 +51,23 @@ namespace wmoge {
         m_pixel_size = pixel_size;
         m_pixel_data = make_ref<Data>(width * height * pixel_size);
     }
-    Status Image::load(const std::string& path, int channels) {
+    Status Image::load(FileSystem* fs, const std::string& path, int channels) {
         WG_AUTO_PROFILE_ASSET("Image::load");
 
-        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
-
         std::vector<std::uint8_t> pixel_data;
-        if (!file_system->read_file(path, pixel_data)) {
-            WG_LOG_ERROR("failed to load image file from fs " << path);
-            return StatusCode::Error;
-        }
+        WG_CHECKED(fs->read_file(path, pixel_data));
+
+        return load(pixel_data, channels);
+    }
+    Status Image::load(array_view<const std::uint8_t> pixel_data, int channels) {
+        WG_AUTO_PROFILE_ASSET("Image::load");
 
         int w, h, n;
         channels = Math::clamp(channels, 0, 4);
 
         stbi_uc* data = stbi_load_from_memory(reinterpret_cast<const stbi_uc*>(pixel_data.data()), static_cast<int>(pixel_data.size()), &w, &h, &n, channels);
         if (!data) {
-            WG_LOG_ERROR("failed to read image data " << path);
+            WG_LOG_ERROR("failed to read image data");
             return StatusCode::FailedRead;
         }
 

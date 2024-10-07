@@ -40,6 +40,8 @@ namespace wmoge {
     public:
         static_assert(std::is_base_of_v<Asset, T>, "T must be an Asset type");
 
+        static inline const Strid FILE_TAG = SID("file");
+
         virtual Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<T>& asset) { return StatusCode::NotImplemented; }
         virtual Status unload_typed(T* asset) { return StatusCode::Ok; }
 

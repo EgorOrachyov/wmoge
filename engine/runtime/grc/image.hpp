@@ -28,6 +28,7 @@
 #pragma once
 
 #include "asset/asset.hpp"
+#include "core/array_view.hpp"
 #include "core/data.hpp"
 #include "io/serialization.hpp"
 #include "math/vec.hpp"
@@ -64,14 +65,25 @@ namespace wmoge {
         void create(int width, int height, int channels = 4, int pixel_size = 4);
 
         /**
-         * @brief Loads image from a file system
+         * @brief Loads image from a file
          *
-         * @param filepath Path to the image in a file system
+         * @param fs File system to read file
+         * @param path Path to image pixel data
          * @param channels Desired number of channels to load (1 to 4)
          *
          * @return True if image successfully loaded
          */
-        Status load(const std::string& path, int channels = 0);
+        Status load(class FileSystem* fs, const std::string& path, int channels = 0);
+
+        /**
+         * @brief Loads image from a data
+         *
+         * @param pixel_data Image pixel data loaded from file
+         * @param channels Desired number of channels to load (1 to 4)
+         *
+         * @return True if image successfully loaded
+         */
+        Status load(array_view<const std::uint8_t> pixel_data, int channels = 0);
 
         /**
          * @brief Save image to file in file system using specified filepath

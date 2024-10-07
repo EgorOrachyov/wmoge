@@ -30,12 +30,16 @@
 namespace wmoge {
 
     void AssetLoadRequest::add_data_file(const Strid& name) {
-        data_files[name] = name.str();
+        data_files[name] = name;
     }
 
-    std::string AssetLoadRequest::get_data_file(Strid tag) const {
+    void AssetLoadRequest::add_data_file(const Strid& name, const std::string& path) {
+        data_files[name] = SID(path);
+    }
+
+    Strid AssetLoadRequest::get_data_file(Strid tag) const {
         auto query = data_files.find(tag);
-        return query != data_files.end() ? query->second : std::string();
+        return query != data_files.end() ? query->second : Strid();
     }
 
     void AssetLoadResult::add_data_file(Strid tag, array_view<const std::uint8_t> data) {

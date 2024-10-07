@@ -46,6 +46,7 @@ namespace wmoge {
         Texture2dAssetLoader()           = default;
         ~Texture2dAssetLoader() override = default;
 
+        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
         Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Texture2d>& asset) override;
     };
 
@@ -66,6 +67,7 @@ namespace wmoge {
         TextureCubeAssetLoader()           = default;
         ~TextureCubeAssetLoader() override = default;
 
+        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
         Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<TextureCube>& asset) override;
     };
 

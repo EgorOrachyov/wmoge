@@ -42,6 +42,7 @@ namespace wmoge {
         DefaultAssetLoader()           = default;
         ~DefaultAssetLoader() override = default;
 
+        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
         Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) override;
     };
 

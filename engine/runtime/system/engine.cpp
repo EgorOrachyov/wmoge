@@ -113,9 +113,9 @@ namespace wmoge {
         window_info.height   = m_config->get_int_or_default(SID("engine.window.height"), 720);
         window_info.title    = m_config->get_string_or_default(SID("engine.window.title"), "wmoge");
         window_info.icons[0] = make_ref<Image>();
-        window_info.icons[0]->load(m_config->get_string_or_default(SID("engine.window.icon_default")), 4);
+        window_info.icons[0]->load(m_file_system, m_config->get_string_or_default(SID("engine.window.icon_default")), 4);
         window_info.icons[1] = make_ref<Image>();
-        window_info.icons[1]->load(m_config->get_string_or_default(SID("engine.window.icon_small")), 4);
+        window_info.icons[1]->load(m_file_system, m_config->get_string_or_default(SID("engine.window.icon_small")), 4);
 
         auto window = m_window_manager->create_window(window_info);
         WG_LOG_INFO("init window " << window_info.id);
@@ -126,7 +126,7 @@ namespace wmoge {
         m_shader_manager->load_compilers();
 
         m_asset_manager->load_loaders();
-        m_asset_manager->add_library(std::make_shared<AssetLibraryFileSystem>("./", ioc));
+        m_asset_manager->add_library(std::make_shared<AssetLibraryFileSystem>("", ioc));
 
         m_shader_library  = ioc->resolve_value<ShaderLibrary>();
         m_pso_cache       = ioc->resolve_value<PsoCache>();

@@ -324,11 +324,11 @@ namespace wmoge {
         if (id.is_invalid()) {
             return std::nullopt;
         }
-        if (id.index >= m_reflection.params_info.size()) {
+        if (id.value >= m_reflection.params_info.size()) {
             return std::nullopt;
         }
 
-        return &m_reflection.params_info[id.index];
+        return &m_reflection.params_info[id.value];
     }
 
     ShaderParamId Shader::find_param_id(Strid name) {

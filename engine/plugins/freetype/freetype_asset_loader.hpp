@@ -43,6 +43,7 @@ namespace wmoge {
         FreetypeAssetLoader()           = default;
         ~FreetypeAssetLoader() override = default;
 
+        Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) override;
         Status load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Font>& asset) override;
     };
 

@@ -33,24 +33,31 @@
 
 namespace wmoge {
 
-    Status FreetypeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Font>& asset) {
-        WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load_typed");
-
+    Status FreetypeAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<FreetypeImportData> import_data = context.asset_meta.import_data.cast<FreetypeImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no valid import data for " << asset_id);
             return StatusCode::InvalidData;
         }
         if (!import_data->has_soruce_files()) {
-            WG_LOG_ERROR("no source file " << asset_id);
+            WG_LOG_ERROR("no source files for " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
+
+    Status FreetypeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Font>& asset) {
+        WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load_typed");
+
+        Ref<FreetypeImportData> import_data = context.asset_meta.import_data.cast<FreetypeImportData>();
+        assert(import_data);
 
         asset = make_ref<Font>();
         asset->set_id(asset_id);
 
         FreetypeFont loader;
-        return loader.load(asset, import_data->source_files[0].file, import_data->height, import_data->glyphs_in_row);
+        return loader.load(asset, result.get_data_file(FILE_TAG), import_data->height, import_data->glyphs_in_row);
     }
 
 }// namespace wmoge

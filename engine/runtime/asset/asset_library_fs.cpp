@@ -39,26 +39,32 @@
 namespace wmoge {
 
     AssetLibraryFileSystem::AssetLibraryFileSystem(std::string directory, IocContainer* ioc) {
+        m_directory    = std::move(directory);
         m_file_system  = ioc->resolve_value<FileSystem>();
         m_rtti_storage = ioc->resolve_value<RttiTypeStorage>();
-        m_directory    = std::move(directory);
     }
 
     std::string AssetLibraryFileSystem::get_name() const {
         return "AssetLibraryFileSystem";
     }
 
+    static std::string make_asset_meta_path(const std::string& directory, const AssetId& name, const std::string& ext) {
+        return directory + name.str() + ext;
+    }
+
+    bool AssetLibraryFileSystem::has_asset(const AssetId& name) {
+        return m_file_system->exists(make_asset_meta_path(m_directory, name, m_asset_ext));
+    }
+
     Status AssetLibraryFileSystem::find_asset_meta(const AssetId& name, AssetMeta& meta) {
         WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::find_asset_meta");
-
-        const std::string path = m_directory + name.str() + m_asset_ext;
 
         IoContext context;
         context.add(m_file_system);
         context.add(m_rtti_storage);
 
         IoYamlTree tree;
-        WG_CHECKED(tree.parse_file(m_file_system, name.str() + m_asset_ext));
+        WG_CHECKED(tree.parse_file(m_file_system, make_asset_meta_path(m_directory, name, m_asset_ext)));
         WG_TREE_READ(context, tree, meta);
 
         return WG_OK;

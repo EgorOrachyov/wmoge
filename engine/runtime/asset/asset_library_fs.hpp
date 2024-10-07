@@ -41,6 +41,7 @@ namespace wmoge {
         ~AssetLibraryFileSystem() override = default;
 
         std::string get_name() const override;
+        bool        has_asset(const AssetId& name) override;
         Status      find_asset_meta(const AssetId& name, AssetMeta& meta) override;
         Status      find_asset_data_meta(const Strid& name, AssetDataMeta& meta) override;
         Async       read_data(const Strid& name, array_view<std::uint8_t> data) override;

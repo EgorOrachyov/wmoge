@@ -44,17 +44,11 @@ namespace wmoge {
         m_texture_manager = IocContainer::iresolve_v<TextureManager>();
     }
 
-    Status FreetypeFont::load(const Ref<Font>& font, const std::string& path, int height, int glyphs_in_row) {
+    Status FreetypeFont::load(const Ref<Font>& font, array_view<const std::uint8_t> ttf_data, int height, int glyphs_in_row) {
         WG_AUTO_PROFILE_ASSET("FreetypeFont::load");
 
         static const int GLYPHS_SIZE_SHIFT    = 6;
         static const int GLYPHS_BITMAP_OFFSET = 2;
-
-        std::vector<std::uint8_t> ttf_data;
-        if (!m_file_system->read_file(path, ttf_data)) {
-            WG_LOG_ERROR("failed to load font data from asset pak " << path);
-            return StatusCode::FailedRead;
-        }
 
         FT_Library ft_library;
         if (FT_Init_FreeType(&ft_library)) {
@@ -64,7 +58,7 @@ namespace wmoge {
 
         FT_Face ft_face;
         if (FT_New_Memory_Face(ft_library, ttf_data.data(), static_cast<FT_Long>(ttf_data.size()), 0, &ft_face)) {
-            WG_LOG_ERROR("failed to parse font data for " << path);
+            WG_LOG_ERROR("failed to parse font data for " << font->get_name());
             FT_Done_FreeType(ft_library);
             return StatusCode::FailedParse;
         }

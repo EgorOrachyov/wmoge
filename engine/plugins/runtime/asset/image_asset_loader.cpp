@@ -32,24 +32,30 @@
 
 namespace wmoge {
 
-    Status ImageAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Image>& asset) {
-        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load_typed");
-
+    Status ImageAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<ImageImportData> import_data = context.asset_meta.import_data.cast<ImageImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data to load image " << asset_id);
             return StatusCode::InvalidData;
         }
-
         if (!import_data->has_soruce_files()) {
             WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
+
+    Status ImageAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Image>& asset) {
+        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load_typed");
+
+        Ref<ImageImportData> import_data = context.asset_meta.import_data.cast<ImageImportData>();
+        assert(import_data);
 
         asset = make_ref<Image>();
         asset->set_id(asset_id);
 
-        return asset->load(import_data->source_files[0].file, import_data->channels);
+        return asset->load(result.get_data_file(FILE_TAG), import_data->channels);
     }
 
 }// namespace wmoge

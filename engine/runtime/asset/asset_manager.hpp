@@ -66,15 +66,16 @@ namespace wmoge {
         AssetManager(class IocContainer* ioc);
         ~AssetManager() = default;
 
-        AsyncResult<Ref<Asset>>     load_async(const AssetId& name);
-        Ref<Asset>                  load(const AssetId& name);
-        Ref<Asset>                  find(const AssetId& name);
-        void                        add_loader(Ref<AssetLoader> loader);
-        void                        add_library(std::shared_ptr<AssetLibrary> library);
-        std::optional<AssetLoader*> find_loader(const Strid& loader_rtti);
-        std::optional<AssetMeta>    find_meta(const AssetId& asset);
-        void                        clear();
-        void                        load_loaders();
+        AsyncResult<Ref<Asset>>      load_async(const AssetId& name);
+        Ref<Asset>                   load(const AssetId& name);
+        Ref<Asset>                   find(const AssetId& name);
+        void                         add_loader(Ref<AssetLoader> loader);
+        void                         add_library(std::shared_ptr<AssetLibrary> library);
+        std::optional<AssetLoader*>  find_loader(const Strid& loader_rtti);
+        std::optional<AssetMeta>     resolve_asset_meta(const AssetId& asset);
+        std::optional<AssetLibrary*> resolve_asset(const AssetId& asset);
+        void                         clear();
+        void                         load_loaders();
 
     private:
         struct LoadState {
@@ -89,8 +90,9 @@ namespace wmoge {
         flat_map<Strid, Ref<AssetLoader>>            m_loaders;
         std::shared_ptr<std::function<void(Asset*)>> m_callback;
 
-        class FileSystem*      m_file_system  = nullptr;
-        class RttiTypeStorage* m_type_storage = nullptr;
+        class FileSystem*      m_file_system   = nullptr;
+        class RttiTypeStorage* m_type_storage  = nullptr;
+        class IocContainer*    m_ioc_container = nullptr;
 
         mutable std::recursive_mutex m_mutex;
     };

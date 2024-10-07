@@ -29,6 +29,7 @@
 
 #include "asset/asset.hpp"
 #include "audio/audio_stream.hpp"
+#include "core/array_view.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/data.hpp"
 
@@ -48,11 +49,11 @@ namespace wmoge {
         /**
          * @brief Loads an audio from a wav file using audio file library
          *
-         * @param file_path Path to audio file in wav format in asset directory
+         * @param file_data Audio file data in wav format
          *
          * @return True if loaded
          */
-        Status load(const std::string& file_path);
+        Status load(array_view<const std::uint8_t> file_data);
 
         Ref<Data> get_channel_data(int channel) override;
 

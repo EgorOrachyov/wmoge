@@ -51,6 +51,7 @@ namespace wmoge {
         virtual ~AssetLibrary() = default;
 
         virtual std::string get_name() const                                             = 0;
+        virtual bool        has_asset(const AssetId& name)                               = 0;
         virtual Status      find_asset_meta(const AssetId& name, AssetMeta& meta)        = 0;
         virtual Status      find_asset_data_meta(const Strid& name, AssetDataMeta& meta) = 0;
         virtual Async       read_data(const Strid& name, array_view<std::uint8_t> data)  = 0;

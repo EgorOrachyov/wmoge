@@ -32,6 +32,7 @@
 #include "core/flat_set.hpp"
 #include "core/mask.hpp"
 #include "core/ref.hpp"
+#include "core/simple_id.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 #include "gfx/gfx_defs.hpp"
@@ -102,24 +103,27 @@ namespace wmoge {
      * @class ShaderType
      * @brief Recursive complex type for declaring of anything in a shader what has a type
     */
-    struct ShaderType : public RefCnt {
+    struct ShaderType : public RttiObject {
+        WG_RTTI_CLASS(ShaderType, RttiObject);
+
         struct Field {
-            Strid           name;              // field name
-            Ref<ShaderType> type;              // base element type (elem type of array)
-            std::int16_t    offset     = -1;   // offset in a struct from this to next field
-            std::int16_t    elem_count = 0;    // count of elem in array (0 if array is unbound)
-            bool            is_array   = false;// is array field
-            Var             default_value;     // optional default value to set
+            Strid                  name;              // field name
+            Ref<struct ShaderType> type;              // base element type (elem type of array)
+            std::int16_t           offset     = -1;   // offset in a struct from this to next field
+            std::int16_t           elem_count = 0;    // count of elem in array (0 if array is unbound)
+            bool                   is_array   = false;// is array field
+            Var                    default_value;     // optional default value to set
         };
 
-        Strid                  name;                            // type name
-        ShaderBaseType         type      = ShaderBaseType::None;// type of its base
-        std::int16_t           n_row     = -1;                  // num of rows for vector like types
-        std::int16_t           n_col     = -1;                  // num of columns for matrix like types
-        std::int16_t           n_elem    = -1;                  // num of elements in vec/mat type
-        std::int16_t           byte_size = 0;                   // raw byte size
-        buffered_vector<Field> fields;                          // fields of a struct type
-        bool                   is_primitive = false;            // is a primitive type, raw value in a memory
+        Strid              name;                            // type name
+        ShaderBaseType     type      = ShaderBaseType::None;// type of its base
+        std::int16_t       n_row     = -1;                  // num of rows for vector like types
+        std::int16_t       n_col     = -1;                  // num of columns for matrix like types
+        std::int16_t       n_elem    = -1;                  // num of elements in vec/mat type
+        std::int16_t       byte_size = 0;                   // raw byte size
+        std::vector<Field> fields;                          // fields of a struct type
+        bool               is_primitive = false;            // is a primitive type, raw value in a memory
+        bool               is_builtin   = false;            // is type pre-defined in the engine (no save/load)
     };
 
     /**
@@ -175,6 +179,8 @@ namespace wmoge {
      * @brief Declared pass constants inlined as defines into source code
     */
     struct ShaderConstant {
+        WG_RTTI_STRUCT(ShaderConstant);
+
         Strid       name;
         Var         value;
         std::string str;
@@ -185,6 +191,8 @@ namespace wmoge {
      * @brief Single shader module required for compilation (shader stage)
     */
     struct ShaderSourceFile {
+        WG_RTTI_STRUCT(ShaderSourceFile);
+
         Strid           file;
         GfxShaderModule module;
         GfxShaderLang   lang = GfxShaderLang::GlslVk450;
@@ -211,6 +219,8 @@ namespace wmoge {
      * @brief An interface exposed bindable param
     */
     struct ShaderBinding {
+        WG_RTTI_STRUCT(ShaderBinding);
+
         Strid             name;
         Ref<ShaderType>   type;
         ShaderBindingType binding = ShaderBindingType::None;
@@ -234,9 +244,11 @@ namespace wmoge {
      * @brief Contains interface assets for a single descriptor set 
     */
     struct ShaderSpace {
-        Strid                          name;
-        ShaderSpaceType                type = ShaderSpaceType::Default;
-        buffered_vector<ShaderBinding> bindings;
+        WG_RTTI_STRUCT(ShaderSpace);
+
+        Strid                      name;
+        ShaderSpaceType            type = ShaderSpaceType::Default;
+        std::vector<ShaderBinding> bindings;
     };
 
     /**
@@ -244,6 +256,8 @@ namespace wmoge {
      * @brief An user controlled option which affects shader permutation
     */
     struct ShaderOption {
+        WG_RTTI_STRUCT(ShaderOption);
+
         Strid                         name;
         Strid                         base_variant;
         flat_map<Strid, std::int16_t> variants;
@@ -256,6 +270,8 @@ namespace wmoge {
      * @brief Map of options for a technique or pass
     */
     struct ShaderOptions {
+        WG_RTTI_STRUCT(ShaderOptions);
+
         static constexpr std::int16_t MAX_OPTIONS = 64;
         using Mask                                = std::bitset<MAX_OPTIONS>;
 
@@ -356,6 +372,8 @@ namespace wmoge {
      * @brief Defines single pass of shader, a functional subset
     */
     struct ShaderPassInfo {
+        WG_RTTI_STRUCT(ShaderPassInfo);
+
         Strid                name;
         PipelineState        state;
         ShaderOptions        options;
@@ -369,6 +387,8 @@ namespace wmoge {
      * @brief Defines single technique as collection of passes for drawing
     */
     struct ShaderTechniqueInfo {
+        WG_RTTI_STRUCT(ShaderTechniqueInfo);
+
         Strid                           name;
         ShaderOptions                   options;
         buffered_vector<ShaderPassInfo> passes;
@@ -381,26 +401,17 @@ namespace wmoge {
     };
 
     /**
-     * @class ShaderParamId
      * @brief Handle to a shader param
     */
-    struct ShaderParamId {
-        ShaderParamId() = default;
-        ShaderParamId(std::int16_t index) : index(index) {}
-
-        operator std::int16_t() const { return index; }
-
-        [[nodiscard]] bool is_valid() const { return index != -1; }
-        [[nodiscard]] bool is_invalid() const { return index == -1; }
-
-        std::int16_t index = -1;
-    };
+    using ShaderParamId = SimpleId<std::int16_t>;
 
     /**
      * @class ShaderParamInfo
      * @brief Info about an param which can be set from shader or material
     */
     struct ShaderParamInfo {
+        WG_RTTI_STRUCT(ShaderParamInfo);
+
         Strid             name;             // fully qualified param name
         Ref<ShaderType>   type;             // param base type (in case of array - element type)
         ShaderBindingType binding_type;     // binding type where param is
@@ -426,6 +437,8 @@ namespace wmoge {
      * @brief Buffer info for auto packing of scalar params
     */
     struct ShaderBufferInfo {
+        WG_RTTI_STRUCT(ShaderBufferInfo);
+
         Ref<Data>    defaults;
         std::int16_t space   = -1;
         std::int16_t binding = -1;
@@ -472,6 +485,8 @@ namespace wmoge {
      * @brief Full reflection information of a single shader class
     */
     struct ShaderReflection {
+        WG_RTTI_STRUCT(ShaderReflection);
+
         Strid                            shader_name;   // shader script global unique name
         Strid                            shader_extends;// shader script which we extend in this one
         ShaderDomain                     domain;        // shader domain

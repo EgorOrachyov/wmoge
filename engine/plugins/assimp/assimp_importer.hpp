@@ -47,7 +47,7 @@ namespace wmoge {
     public:
         AssimpImporter() = default;
 
-        Status read(std::string file_name, array_view<std::uint8_t> data, const AssimpProcess& flags);
+        Status read(std::string file_name, array_view<const std::uint8_t> data, const AssimpProcess& flags);
         Status process();
 
         [[nodiscard]] const AssimpProcess& get_flags() const { return m_flags; }

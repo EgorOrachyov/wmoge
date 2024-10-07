@@ -39,9 +39,7 @@
 
 namespace wmoge {
 
-    Status Texture2dAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Texture2d>& asset) {
-        WG_AUTO_PROFILE_ASSET("Texture2dAssetLoader::load_typed");
-
+    Status Texture2dAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<Texture2dImportData> import_data = context.asset_meta.import_data.cast<Texture2dImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data for " << asset_id);
@@ -51,10 +49,19 @@ namespace wmoge {
             WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
+
+    Status Texture2dAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Texture2d>& asset) {
+        WG_AUTO_PROFILE_ASSET("Texture2dAssetLoader::load_typed");
+
+        Ref<Texture2dImportData> import_data = context.asset_meta.import_data.cast<Texture2dImportData>();
+        assert(import_data);
 
         Ref<Image> source_image = make_ref<Image>();
 
-        if (!source_image->load(import_data->source_files[0].file, import_data->channels)) {
+        if (!source_image->load(result.get_data_file(FILE_TAG), import_data->channels)) {
             WG_LOG_ERROR("failed to load source image " << import_data->source_files[0].file);
             return StatusCode::FailedRead;
         }
@@ -104,39 +111,57 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status TextureCubeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<TextureCube>& asset) {
-        WG_AUTO_PROFILE_ASSET("TextureCubeAssetLoader::load_typed");
+    static const Strid TAG_IMG_RIGHT  = SID("right");
+    static const Strid TAG_IMG_LEFT   = SID("left");
+    static const Strid TAG_IMG_TOP    = SID("top");
+    static const Strid TAG_IMG_BOTTOM = SID("bottom");
+    static const Strid TAG_IMG_FRONT  = SID("front");
+    static const Strid TAG_IMG_BACK   = SID("back");
 
+    Status TextureCubeAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<TextureCubeImportData> import_data = context.asset_meta.import_data.cast<TextureCubeImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data for " << asset_id);
             return StatusCode::InvalidData;
         }
-        if (import_data->source_files_size() < 6) {
-            WG_LOG_ERROR("not enough source files " << asset_id);
+        if (!import_data->has_soruce_files()) {
+            WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        // right, left, top, bottom, front, back
+        request.add_data_file(TAG_IMG_RIGHT, import_data->source_files[0].file);
+        request.add_data_file(TAG_IMG_LEFT, import_data->source_files[1].file);
+        request.add_data_file(TAG_IMG_TOP, import_data->source_files[2].file);
+        request.add_data_file(TAG_IMG_BOTTOM, import_data->source_files[3].file);
+        request.add_data_file(TAG_IMG_FRONT, import_data->source_files[4].file);
+        request.add_data_file(TAG_IMG_BACK, import_data->source_files[5].file);
+        return WG_OK;
+    }
+
+    Status TextureCubeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<TextureCube>& asset) {
+        WG_AUTO_PROFILE_ASSET("TextureCubeAssetLoader::load_typed");
+
+        Ref<TextureCubeImportData> import_data = context.asset_meta.import_data.cast<TextureCubeImportData>();
+        assert(import_data);
 
         std::vector<Ref<Image>> source_images;
 
-        auto load_source = [&](const std::string& path) {
+        auto load_source = [&](const Strid& tag) {
             auto image = source_images.emplace_back(make_ref<Image>());
-            if (!image->load(path, import_data->channels)) {
-                WG_LOG_ERROR("failed to load source image " << path);
+            if (!image->load(result.get_data_file(tag), import_data->channels)) {
+                WG_LOG_ERROR("failed to load source image " << asset_id << " tag " << tag);
                 return false;
             }
-            image->set_id(SID(path));
+            image->set_id(SID(asset_id.str() + "_" + tag.str()));
             return true;
         };
 
-        // right, left, top, bottom, front, back
-
-        if (!load_source(import_data->source_files[0].file) ||
-            !load_source(import_data->source_files[1].file) ||
-            !load_source(import_data->source_files[2].file) ||
-            !load_source(import_data->source_files[3].file) ||
-            !load_source(import_data->source_files[4].file) ||
-            !load_source(import_data->source_files[5].file)) {
+        if (!load_source(TAG_IMG_RIGHT) ||
+            !load_source(TAG_IMG_LEFT) ||
+            !load_source(TAG_IMG_TOP) ||
+            !load_source(TAG_IMG_BOTTOM) ||
+            !load_source(TAG_IMG_FRONT) ||
+            !load_source(TAG_IMG_BACK)) {
             return StatusCode::FailedRead;
         }
 

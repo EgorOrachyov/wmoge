@@ -36,9 +36,7 @@
 
 namespace wmoge {
 
-    Status ShaderAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Shader>& asset) {
-        WG_AUTO_PROFILE_ASSET("ShaderAssetLoader::load_typed");
-
+    Status ShaderAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data to load " << asset_id);
@@ -48,16 +46,19 @@ namespace wmoge {
             WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
 
-        std::string path_on_disk = import_data->source_files[0].file;
-        if (path_on_disk.empty()) {
-            WG_LOG_ERROR("no path on disk to load asset file " << asset_id);
-            return StatusCode::InvalidData;
-        }
+    Status ShaderAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Shader>& asset) {
+        WG_AUTO_PROFILE_ASSET("ShaderAssetLoader::load_typed");
+
+        Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
+        assert(import_data);
 
         ShaderFile shader_file;
         IoYamlTree tree;
-        WG_CHECKED(tree.parse_file(path_on_disk));
+        WG_CHECKED(tree.parse_data(result.get_data_file(FILE_TAG)));
         WG_TREE_READ(context.io_context, tree, shader_file);
 
         auto* shader_manager = IocContainer::iresolve_v<ShaderManager>();

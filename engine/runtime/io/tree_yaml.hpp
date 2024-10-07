@@ -51,7 +51,7 @@ namespace wmoge {
         ~IoYamlTree() = default;
 
         Status create_tree();
-        Status parse_data(const array_view<std::uint8_t>& data);
+        Status parse_data(const array_view<const std::uint8_t>& data);
         Status parse_file(const std::string& path);
         Status parse_file(class FileSystem* fs, const std::string& path);
 

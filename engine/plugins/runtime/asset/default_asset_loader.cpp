@@ -35,25 +35,25 @@
 
 namespace wmoge {
 
-    Status DefaultAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("DefaultAssetLoader::load_typed");
-
+    Status DefaultAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data to load " << asset_id);
             return StatusCode::InvalidData;
         }
-
         if (!import_data->has_soruce_files()) {
             WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
 
-        std::string path_on_disk = import_data->source_files[0].file;
-        if (path_on_disk.empty()) {
-            WG_LOG_ERROR("no path on disk to load asset file " << asset_id);
-            return StatusCode::InvalidData;
-        }
+    Status DefaultAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) {
+        WG_AUTO_PROFILE_ASSET("DefaultAssetLoader::load_typed");
+
+        Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
+        assert(import_data);
 
         RttiClass* rtti = IocContainer::iresolve_v<RttiTypeStorage>()->find_class(context.asset_meta.rtti);
         if (!rtti) {
@@ -70,10 +70,10 @@ namespace wmoge {
         asset->set_id(asset_id);
 
         IoYamlTree asset_tree;
-        WG_CHECKED(asset_tree.parse_file(path_on_disk));
+        WG_CHECKED(asset_tree.parse_data(result.get_data_file(FILE_TAG)));
 
         if (!asset->read_from_tree(context.io_context, asset_tree)) {
-            WG_LOG_ERROR("failed to load asset from file " << path_on_disk);
+            WG_LOG_ERROR("failed to load asset from file " << asset_id);
             return StatusCode::FailedRead;
         }
 

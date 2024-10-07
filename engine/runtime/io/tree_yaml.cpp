@@ -46,7 +46,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status IoYamlTree::parse_data(const array_view<std::uint8_t>& data) {
+    Status IoYamlTree::parse_data(const array_view<const std::uint8_t>& data) {
         WG_AUTO_PROFILE_IO("IoYamlTree::parse_data");
         assert(m_stack.empty());
         auto str_view = ryml::csubstr(reinterpret_cast<const char*>(data.data()), data.size());

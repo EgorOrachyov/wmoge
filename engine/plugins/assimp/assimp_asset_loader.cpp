@@ -44,9 +44,7 @@
 
 namespace wmoge {
 
-    Status AssimpMeshAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Mesh>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load_typed");
-
+    Status AssimpMeshAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<AssimpMeshImportData> import_data = context.asset_meta.import_data.cast<AssimpMeshImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data for " << asset_id);
@@ -56,25 +54,25 @@ namespace wmoge {
             WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
 
-        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
-        std::string file_name   = import_data->source_files[0].file;
+    Status AssimpMeshAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Mesh>& asset) {
+        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load_typed");
 
-        std::vector<std::uint8_t> file_data;
-        if (!file_system->read_file(file_name, file_data)) {
-            WG_LOG_ERROR("failed to load file " << file_name);
-            return StatusCode::FailedRead;
-        }
+        Ref<AssimpMeshImportData> import_data = context.asset_meta.import_data.cast<AssimpMeshImportData>();
+        assert(import_data);
 
         AssimpMeshImporter importer;
-        if (!importer.read(file_name, file_data, import_data->process)) {
-            WG_LOG_ERROR("failed to import file " << file_name);
+        if (!importer.read(asset_id.str(), result.get_data_file(FILE_TAG), import_data->process)) {
+            WG_LOG_ERROR("failed to import mesh " << asset_id);
             return StatusCode::Error;
         }
 
         importer.set_attribs(import_data->attributes);
         if (!importer.process()) {
-            WG_LOG_ERROR("failed to process file " << file_name);
+            WG_LOG_ERROR("failed to process mesh " << asset_id);
             return StatusCode::Error;
         }
 
@@ -89,7 +87,7 @@ namespace wmoge {
         MeshBuilder& builder = importer.get_builder();
         builder.set_mesh(asset);
         if (!builder.build()) {
-            WG_LOG_ERROR("failed to build mesh " << file_name);
+            WG_LOG_ERROR("failed to build mesh " << asset_id);
             return StatusCode::Error;
         }
 

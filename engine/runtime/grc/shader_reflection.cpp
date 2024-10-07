@@ -39,6 +39,7 @@ namespace wmoge {
         t->type           = base_type;
         t->byte_size      = ShaderBaseTypeSizes[int(base_type)];
         t->is_primitive   = is_primitive;
+        t->is_builtin     = true;
         return t;
     }
     static Ref<ShaderType> make(ShaderBaseType base_type, Strid name, int n_rows) {
@@ -50,6 +51,7 @@ namespace wmoge {
         t->n_elem         = n_rows * 1;
         t->byte_size      = ShaderBaseTypeSizes[int(base_type)] * t->n_elem;
         t->is_primitive   = true;
+        t->is_builtin     = true;
         return t;
     }
     static Ref<ShaderType> make(ShaderBaseType base_type, Strid name, int n_rows, int n_cols) {
@@ -61,6 +63,7 @@ namespace wmoge {
         t->n_elem         = n_rows * n_cols;
         t->byte_size      = ShaderBaseTypeSizes[int(base_type)] * t->n_elem;
         t->is_primitive   = true;
+        t->is_builtin     = true;
         return t;
     }
 

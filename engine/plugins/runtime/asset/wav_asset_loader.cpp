@@ -32,24 +32,30 @@
 
 namespace wmoge {
 
-    Status WavAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<AudioStreamWav>& asset) {
-        WG_AUTO_PROFILE_ASSET("WavAssetLoader::load_typed");
-
+    Status WavAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<WavImportData> import_data = context.asset_meta.import_data.cast<WavImportData>();
         if (!import_data) {
             WG_LOG_ERROR("no import data for " << asset_id);
             return StatusCode::InvalidData;
         }
-
         if (!import_data->has_soruce_files()) {
             WG_LOG_ERROR("no source file " << asset_id);
             return StatusCode::InvalidData;
         }
+        request.add_data_file(FILE_TAG, import_data->source_files[0].file);
+        return WG_OK;
+    }
+
+    Status WavAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<AudioStreamWav>& asset) {
+        WG_AUTO_PROFILE_ASSET("WavAssetLoader::load_typed");
+
+        Ref<WavImportData> import_data = context.asset_meta.import_data.cast<WavImportData>();
+        assert(import_data);
 
         asset = make_ref<AudioStreamWav>();
         asset->set_id(asset_id);
 
-        return asset->load(import_data->source_files[0].file);
+        return asset->load(result.get_data_file(FILE_TAG));
     }
 
 }// namespace wmoge

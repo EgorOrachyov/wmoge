@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/array_view.hpp"
 #include "core/status.hpp"
 #include "core/string_utils.hpp"
 #include "gfx/gfx_driver.hpp"
@@ -50,13 +51,13 @@ namespace wmoge {
          * @note Uses FreeType2 library for .ttf file loading
          *
          * @param font Font to load into
-         * @param filepath Path to the font .ttf file in a file system
+         * @param ttf_data Content of the font .ttf file in a file system
          * @param height Font height in pixels
          * @param glyphs_in_row Num of glyphs in a row of a bitmap
          *
          * @return True if font loaded
          */
-        Status load(const Ref<Font>& font, const std::string& path, int height = 40, int glyphs_in_row = 16);
+        Status load(const Ref<Font>& font, array_view<const std::uint8_t> ttf_data, int height = 40, int glyphs_in_row = 16);
 
     private:
         GfxDriver*      m_gfx_driver;

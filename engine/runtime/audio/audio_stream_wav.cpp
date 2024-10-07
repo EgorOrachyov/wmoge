@@ -27,9 +27,7 @@
 
 #include "audio_stream_wav.hpp"
 
-#include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <AudioFile.h>
 
@@ -37,25 +35,21 @@
 
 namespace wmoge {
 
-    Status AudioStreamWav::load(const std::string& file_path) {
+    Status AudioStreamWav::load(array_view<const std::uint8_t> file_data) {
         WG_AUTO_PROFILE_ASSET("AudioStreamWav::load");
 
-        std::vector<std::uint8_t> file_data;
-
-        if (!IocContainer::iresolve_v<FileSystem>()->read_file(file_path, file_data)) {
-            WG_LOG_ERROR("field to read wav file " << file_path);
-            return StatusCode::FailedRead;
-        }
+        std::vector<std::uint8_t> data;
+        data.resize(file_data.size());
+        std::memcpy(data.data(), file_data.data(), file_data.size());
 
         AudioFile<float> file;
 
-        if (!file.loadFromMemory(file_data)) {
-            WG_LOG_ERROR("failed to load from memory wav file " << file_path);
+        if (!file.loadFromMemory(data)) {
+            WG_LOG_ERROR("failed to load from memory wav file " << get_name());
             return StatusCode::Error;
         }
-
         if (file.getNumChannels() <= 0) {
-            WG_LOG_ERROR("no channels in loaded wav file " << file_path);
+            WG_LOG_ERROR("no channels in loaded wav file " << get_name());
             return StatusCode::InvalidData;
         }
 

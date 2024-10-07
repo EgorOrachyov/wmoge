@@ -42,10 +42,11 @@ namespace wmoge {
      * @brief Request files to load for an asset load
      */
     struct AssetLoadRequest {
-        flat_map<Strid, std::string> data_files;
+        flat_map<Strid, Strid> data_files;
 
-        void        add_data_file(const Strid& name);
-        std::string get_data_file(Strid tag) const;
+        void  add_data_file(const Strid& name);
+        void  add_data_file(const Strid& name, const std::string& path);
+        Strid get_data_file(Strid tag) const;
     };
 
     /**
@@ -64,8 +65,9 @@ namespace wmoge {
      * @brief Context passed to the loader
      */
     struct AssetLoadContext {
-        IoContext io_context;
-        AssetMeta asset_meta;
+        IoContext     io_context;
+        AssetMeta     asset_meta;
+        AssetLibrary* asset_library = nullptr;
     };
 
     /**
