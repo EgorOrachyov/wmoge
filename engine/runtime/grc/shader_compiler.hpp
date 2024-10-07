@@ -196,13 +196,13 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
-     * @class ShaderCompilerTaskManager
+     * @class ShaderTaskManager
      * @brief Task manager to schedule shader compilation jobs
     */
-    class ShaderCompilerTaskManager : public TaskManager {
+    class ShaderTaskManager : public TaskManager {
     public:
-        ShaderCompilerTaskManager(int num_workers) : TaskManager(num_workers, "shader-compiler") {}
-        ~ShaderCompilerTaskManager() = default;
+        ShaderTaskManager(int num_workers) : TaskManager(num_workers, "shader-system") {}
+        ~ShaderTaskManager() = default;
     };
 
 }// namespace wmoge

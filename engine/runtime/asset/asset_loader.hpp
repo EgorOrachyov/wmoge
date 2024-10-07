@@ -65,9 +65,8 @@ namespace wmoge {
      * @brief Context passed to the loader
      */
     struct AssetLoadContext {
-        IoContext     io_context;
-        AssetMeta     asset_meta;
-        AssetLibrary* asset_library = nullptr;
+        IoContext io_context;
+        AssetMeta asset_meta;
     };
 
     /**

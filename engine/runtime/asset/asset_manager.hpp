@@ -78,15 +78,20 @@ namespace wmoge {
         void                         load_loaders();
 
     private:
-        struct LoadState {
+        struct LoadState : public RefCnt {
             buffered_vector<Async> deps;
             AsyncOp<Ref<Asset>>    async_op;
-            TaskHnd                task_hnd;
+            AssetLoadContext       context;
+            AssetLoadRequest       request;
+            AssetLoadResult        result;
+            AssetLibrary*          library = nullptr;
+            AssetLoader*           loader  = nullptr;
+            std::vector<Ref<Data>> data_buffers;
         };
 
         std::vector<std::shared_ptr<AssetLibrary>>   m_libraries;
         flat_map<AssetId, WeakRef<Asset>>            m_assets;
-        flat_map<AssetId, LoadState>                 m_loading;
+        flat_map<AssetId, Ref<LoadState>>            m_loading;
         flat_map<Strid, Ref<AssetLoader>>            m_loaders;
         std::shared_ptr<std::function<void(Asset*)>> m_callback;
 

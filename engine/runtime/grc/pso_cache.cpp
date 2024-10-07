@@ -44,7 +44,7 @@ namespace wmoge {
 
     PsoCache::PsoCache() {
         m_shader_library = IocContainer::iresolve_v<ShaderLibrary>();
-        m_task_manager   = IocContainer::iresolve_v<ShaderCompilerTaskManager>();
+        m_task_manager   = IocContainer::iresolve_v<ShaderTaskManager>();
         m_gfx_driver     = IocContainer::iresolve_v<GfxDriver>();
     }
 

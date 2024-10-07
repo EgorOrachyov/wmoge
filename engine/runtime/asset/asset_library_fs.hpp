@@ -47,10 +47,11 @@ namespace wmoge {
         Async       read_data(const Strid& name, array_view<std::uint8_t> data) override;
 
     private:
-        class FileSystem*      m_file_system;
-        class RttiTypeStorage* m_rtti_storage;
-        std::string            m_directory;
-        std::string            m_asset_ext = ".asset";
+        class FileSystem*        m_file_system;
+        class IoAsyncFileSystem* m_async_file_system;
+        class RttiTypeStorage*   m_rtti_storage;
+        std::string              m_directory;
+        std::string              m_asset_ext = ".asset";
     };
 
 }// namespace wmoge

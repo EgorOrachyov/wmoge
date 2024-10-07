@@ -29,6 +29,7 @@
 
 #include "asset/asset_manager.hpp"
 #include "core/string_utils.hpp"
+#include "io/async_file_system.hpp"
 #include "io/tree.hpp"
 #include "io/tree_yaml.hpp"
 #include "platform/file_system.hpp"
@@ -39,9 +40,10 @@
 namespace wmoge {
 
     AssetLibraryFileSystem::AssetLibraryFileSystem(std::string directory, IocContainer* ioc) {
-        m_directory    = std::move(directory);
-        m_file_system  = ioc->resolve_value<FileSystem>();
-        m_rtti_storage = ioc->resolve_value<RttiTypeStorage>();
+        m_directory         = std::move(directory);
+        m_file_system       = ioc->resolve_value<FileSystem>();
+        m_async_file_system = ioc->resolve_value<IoAsyncFileSystem>();
+        m_rtti_storage      = ioc->resolve_value<RttiTypeStorage>();
     }
 
     std::string AssetLibraryFileSystem::get_name() const {
@@ -53,6 +55,7 @@ namespace wmoge {
     }
 
     bool AssetLibraryFileSystem::has_asset(const AssetId& name) {
+        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::has_asset");
         return m_file_system->exists(make_asset_meta_path(m_directory, name, m_asset_ext));
     }
 
@@ -69,34 +72,25 @@ namespace wmoge {
 
         return WG_OK;
     }
+
+    static std::string make_asset_data_path(const std::string& directory, const AssetId& name) {
+        return directory + name.str();
+    }
+
     Status AssetLibraryFileSystem::find_asset_data_meta(const Strid& name, AssetDataMeta& meta) {
         WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::find_asset_data_meta");
 
-        const std::string path = m_directory + name.str();
-
-        WG_CHECKED(m_file_system->get_file_size(path, meta.size));
+        WG_CHECKED(m_file_system->get_file_size(make_asset_data_path(m_directory, name), meta.size));
         meta.size_compressed = 0;
         meta.hash            = Sha256();
         meta.compression     = AssetCompressionMode::None;
 
         return WG_OK;
     }
+
     Async AssetLibraryFileSystem::read_data(const Strid& name, array_view<std::uint8_t> data) {
         WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::read_data");
-
-        const std::string path = m_directory + name.str();
-        FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
-        Ref<File>         file;
-
-        if (!m_file_system->open_file(path, file, mode)) {
-            return Async::failed();
-        }
-
-        if (!file->nread(data.data(), data.size())) {
-            return Async::failed();
-        }
-
-        return Async::completed();
+        return m_async_file_system->read_file(make_asset_data_path(m_directory, name), data).as_async();
     }
 
 }// namespace wmoge

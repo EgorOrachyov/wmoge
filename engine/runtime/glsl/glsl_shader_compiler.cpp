@@ -368,7 +368,7 @@ namespace wmoge {
     GlslShaderCompilerAdapter::GlslShaderCompilerAdapter(GfxShaderPlatform platform) {
         m_platform      = platform;
         m_glsl_compiler = IocContainer::iresolve_v<GlslShaderCompiler>();
-        m_task_manager  = IocContainer::iresolve_v<ShaderCompilerTaskManager>();
+        m_task_manager  = IocContainer::iresolve_v<ShaderTaskManager>();
     }
 
     Async GlslShaderCompilerAdapter::compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) {

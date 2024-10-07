@@ -56,7 +56,7 @@ namespace wmoge {
     ShaderManager::ShaderManager() {
         WG_AUTO_PROFILE_GRC("ShaderManager::ShaderManager");
 
-        m_task_manager    = IocContainer::iresolve_v<ShaderCompilerTaskManager>();
+        m_task_manager    = IocContainer::iresolve_v<ShaderTaskManager>();
         m_file_system     = IocContainer::iresolve_v<FileSystem>();
         m_gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
         m_texture_manager = IocContainer::iresolve_v<TextureManager>();

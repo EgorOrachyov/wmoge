@@ -25,58 +25,47 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
+#include "async_file_system.hpp"
 
-#include "svector.hpp"
-
-#include <cassert>
-#include <cstddef>
-#include <vector>
+#include "core/task.hpp"
+#include "profiler/profiler.hpp"
+#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class array_view
-     * @brief View to elements of array
-     *
-     * @tparam T Type of elements
-     */
-    template<typename T>
-    class array_view {
-    public:
-        array_view() = default;
-        array_view(T* data, std::size_t size) : m_data(data), m_size(size) {}
-        array_view(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
-        template<typename M>
-        array_view(const std::vector<M>& vector) : m_data(vector.data()), m_size(vector.size()) {}
-        template<std::size_t MinCapacity>
-        array_view(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
-        template<typename M, std::size_t MinCapacity>
-        array_view(const ankerl::svector<M, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+    IoAsyncFileSystem::IoAsyncFileSystem(class IocContainer* ioc, int num_workers) : m_task_manager(num_workers, "async-io") {
+        m_file_system = ioc->resolve_value<FileSystem>();
+    }
 
-        T& operator[](const std::size_t i) {
-            assert(i < size());
-            assert(m_data);
-            return m_data[i];
-        }
-        const T& operator[](const std::size_t i) const {
-            assert(i < size());
-            assert(m_data);
-            return m_data[i];
-        }
+    AsyncResult<IoAsyncFileSystem::BufferView> IoAsyncFileSystem::read_file(const std::string& filepath, BufferView buffer_view) {
+        WG_AUTO_PROFILE_IO("IoAsyncFileSystem::read_file");
 
-        [[nodiscard]] std::size_t size() const { return m_size; }
-        [[nodiscard]] T*          data() const { return m_data; }
-        [[nodiscard]] bool        empty() const { return !m_size; }
+        AsyncOp<BufferView> async_result = make_async_op<BufferView>();
 
-        const T* begin() const { return m_data; }
-        const T* end() const { return m_data + m_size; }
-        T*       begin() { return m_data; }
-        T*       end() { return m_data + m_size; }
+        Task task(SID(filepath), [=](TaskContext&) -> int {
+            FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
+            Ref<File>         file;
+            if (!m_file_system->open_file(filepath, file, mode)) {
+                WG_LOG_ERROR("failed open file " << filepath);
+                return 1;
+            }
+            if (!file->nread(buffer_view.data(), buffer_view.size())) {
+                WG_LOG_ERROR("failed read file " << filepath);
+                return 1;
+            }
+            return 0;
+        });
 
-    private:
-        T*          m_data = nullptr;
-        std::size_t m_size = 0;
-    };
+        task.set_task_manager(m_task_manager);
+        task.schedule().add_on_completion([=](AsyncStatus status, std::optional<int>&) {
+            if (status == AsyncStatus::Ok) {
+                async_result->set_result(BufferView(buffer_view));
+                return;
+            }
+            async_result->set_failed();
+        });
+
+        return AsyncResult<BufferView>(async_result);
+    }
 
 }// namespace wmoge

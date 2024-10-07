@@ -48,6 +48,7 @@
 #include "hooks/hook_profiler.hpp"
 #include "hooks/hook_root_remap.hpp"
 #include "hooks/hook_uuid_gen.hpp"
+#include "io/async_file_system.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/application.hpp"
@@ -108,16 +109,22 @@ namespace wmoge {
         ioc->bind<SceneManager>();
         ioc->bind<ViewManager>();
 
+        ioc->bind_by_factory<IoAsyncFileSystem>([ioc]() {
+            Config*   config      = ioc->resolve_value<Config>();
+            const int num_workers = config->get_int_or_default(SID("io.num_workers"), 4);
+            return std::make_shared<IoAsyncFileSystem>(ioc, num_workers);
+        });
+
         ioc->bind_by_factory<TaskManager>([ioc]() {
             Config*   config      = ioc->resolve_value<Config>();
             const int num_workers = config->get_int_or_default(SID("task_manager.workers"), 4);
             return std::make_shared<TaskManager>(num_workers);
         });
 
-        ioc->bind_by_factory<ShaderCompilerTaskManager>([ioc]() {
+        ioc->bind_by_factory<ShaderTaskManager>([ioc]() {
             Config*   config      = ioc->resolve_value<Config>();
             const int num_workers = config->get_int_or_default(SID("grc.shader.compiler.workers"), 4);
-            return std::make_shared<ShaderCompilerTaskManager>(num_workers);
+            return std::make_shared<ShaderTaskManager>(num_workers);
         });
 
         ioc->bind_by_factory<GlfwWindowManager>([ioc]() {
@@ -181,7 +188,7 @@ namespace wmoge {
         ioc->unbind<PsoCache>();
         ioc->unbind<ShaderManager>();
         ioc->unbind<ShaderLibrary>();
-        ioc->unbind<ShaderCompilerTaskManager>();
+        ioc->unbind<ShaderTaskManager>();
         ioc->unbind<GlslShaderCompiler>();
         ioc->unbind<TextureManager>();
         ioc->unbind<MeshManager>();
@@ -191,6 +198,7 @@ namespace wmoge {
         ioc->unbind<GlfwInput>();
         ioc->unbind<GlfwWindowManager>();
         ioc->unbind<AssetManager>();
+        ioc->unbind<IoAsyncFileSystem>();
         ioc->unbind<PluginManager>();
         ioc->unbind<DllManager>();
     }

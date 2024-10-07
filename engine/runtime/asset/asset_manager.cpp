@@ -58,7 +58,6 @@ namespace wmoge {
 
         std::lock_guard guard(m_mutex);
 
-        // already loaded and cached
         Ref<Asset> res = find(name);
         if (res) {
             std::optional<Ref<Asset>> res_opt(res);
@@ -67,122 +66,113 @@ namespace wmoge {
             return AsyncResult<Ref<Asset>>(async_op);
         }
 
-        // not yet cached, but is loading
         auto loading = m_loading.find(name);
         if (loading != m_loading.end()) {
-            auto& async_op = loading->second.async_op;
+            auto& async_op = loading->second->async_op;
             return AsyncResult<Ref<Asset>>(async_op);
         }
 
-        // try to find asset library
         std::optional<AssetLibrary*> asset_library = resolve_asset(name);
         if (!asset_library) {
             WG_LOG_ERROR("failed to resolve asset library for " << name);
             return AsyncResult<Ref<Asset>>::failed();
         }
 
-        // try to find resolve meta info
         AssetMeta asset_meta;
         if (!asset_library.value()->find_asset_meta(name, asset_meta)) {
             WG_LOG_ERROR("failed to find meta info for " << name);
             return AsyncResult<Ref<Asset>>::failed();
         }
 
-        // try find loader
         std::optional<AssetLoader*> loader = find_loader(asset_meta.loader);
         if (!loader) {
             WG_LOG_ERROR("failed to find loader for " << name);
             return AsyncResult<Ref<Asset>>::failed();
         }
 
-        // get dependencies which still loading or already loaded
         buffered_vector<Async> deps;
         for (const Strid& dep : asset_meta.deps) {
             deps.push_back(load_async(dep).as_async());
         }
 
-        // create loading state to track result
-        AsyncOp<Ref<Asset>> async_op = make_async_op<Ref<Asset>>();
+        Ref<LoadState> load_state      = make_ref<LoadState>();
+        load_state->deps               = std::move(deps);
+        load_state->async_op           = make_async_op<Ref<Asset>>();
+        load_state->library            = asset_library.value();
+        load_state->loader             = loader.value();
+        load_state->context.asset_meta = std::move(asset_meta);
+        load_state->context.io_context.add<IocContainer*>(m_ioc_container);
 
-        // create task to load
-        Task task(name, [=, meta = std::move(asset_meta), library = asset_library.value(), loader = loader.value()](TaskContext&) {
-            Timer timer;
-            timer.start();
-
-            Ref<Asset>             asset;
-            AssetLoadContext       context;
-            AssetLoadRequest       request;
-            AssetLoadResult        result;
-            std::vector<Ref<Data>> data_buffers;
-
-            context.io_context.add<IocContainer*>(m_ioc_container);
-            context.asset_meta = std::move(meta);
-
-            if (!loader->fill_request(context, name, request)) {
-                WG_LOG_ERROR("failed fill_request for " << name);
+        Task task_fill_requests(name, [=](TaskContext&) -> int {
+            if (!load_state->loader->fill_request(load_state->context, name, load_state->request)) {
+                WG_LOG_ERROR("failed to fill request for " << name);
                 return 1;
             }
 
-            data_buffers.reserve(request.data_files.size());
-            for (const auto& tag_path : request.data_files) {
-                AssetDataMeta data_meta;
+            buffered_vector<Async> file_data_requests;
 
-                if (!library->find_asset_data_meta(tag_path.second, data_meta)) {
+            file_data_requests.reserve(load_state->request.data_files.size());
+            load_state->data_buffers.reserve(load_state->request.data_files.size());
+
+            for (const auto& tag_path : load_state->request.data_files) {
+                AssetDataMeta data_meta;
+                if (!load_state->library->find_asset_data_meta(tag_path.second, data_meta)) {
                     WG_LOG_ERROR("failed to find meta for " << tag_path.second);
                     return 1;
                 }
 
-                Ref<Data>& buffer = data_buffers.emplace_back();
+                Ref<Data>& buffer = load_state->data_buffers.emplace_back();
                 buffer            = make_ref<Data>(data_meta.size);
 
-                auto async_result = library->read_data(tag_path.second, {buffer->buffer(), buffer->size()});
-                async_result.wait_completed();
+                auto async_result = load_state->library->read_data(tag_path.second, {buffer->buffer(), buffer->size()});
+                file_data_requests.push_back(async_result);
 
-                if (async_result.is_failed()) {
-                    WG_LOG_ERROR("failed to read " << tag_path.second);
+                load_state->result.add_data_file(tag_path.first, {buffer->buffer(), buffer->size()});
+            }
+
+            Task task_load(name, [=](TaskContext&) -> int {
+                Timer timer;
+                timer.start();
+
+                Ref<Asset> asset;
+                if (!load_state->loader->load(load_state->context, name, load_state->result, asset)) {
+                    WG_LOG_ERROR("failed load for " << name);
                     return 1;
                 }
 
-                result.add_data_file(tag_path.first, {buffer->buffer(), buffer->size()});
-            }
+                timer.stop();
+                WG_LOG_INFO("load asset " << name << ", time: " << timer.get_elapsed_sec() << " sec");
 
-            if (!loader->load(context, name, result, asset)) {
-                WG_LOG_ERROR("failed load for " << name);
-                return 1;
-            }
-
-            timer.stop();
-            WG_LOG_INFO("load asset " << name << ", time: " << timer.get_elapsed_sec() << " sec");
-
-            if (asset->get_name().empty()) {
+                std::lock_guard guard(m_mutex);
                 asset->set_id(name);
-            }
+                asset->set_release_callback(m_callback);
+                m_assets[name] = WeakRef<Asset>(asset);
+                load_state->async_op->set_result(std::move(asset));
 
-            std::lock_guard guard(m_mutex);
-            asset->set_release_callback(m_callback);
-            m_assets[name] = WeakRef<Asset>(asset);
-            async_op->set_result(std::move(asset));
+                return 0;
+            });
+
+            task_load.schedule(Async::join(array_view(file_data_requests))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
+                if (status == AsyncStatus::Failed) {
+                    load_state->async_op->set_failed();
+                }
+                std::lock_guard guard(m_mutex);
+                m_loading.erase(name);
+            });
+
             return 0;
         });
 
-        // schedule to run only if all deps are loaded
-        auto task_hnd = task.schedule(Async::join(array_view(deps)));
-
-        // add erase of loading state here, since it is possible, that task can be aborted
-        task_hnd.add_on_completion([this, name, async_op](AsyncStatus status, std::optional<int>&) {
-            std::lock_guard guard(m_mutex);
+        task_fill_requests.schedule(Async::join(array_view(deps))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
             if (status == AsyncStatus::Failed) {
-                async_op->set_failed();
+                load_state->async_op->set_failed();
             }
+            std::lock_guard guard(m_mutex);
             m_loading.erase(name);
         });
 
-        auto& state    = m_loading[name];
-        state.deps     = std::move(deps);
-        state.task_hnd = std::move(task_hnd);
-        state.async_op = std::move(async_op);
-
-        return AsyncResult<Ref<Asset>>(state.async_op);
+        m_loading[name] = load_state;
+        return AsyncResult<Ref<Asset>>(load_state->async_op);
     }
 
     Ref<Asset> AssetManager::load(const AssetId& name) {

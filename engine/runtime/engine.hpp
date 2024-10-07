@@ -124,6 +124,7 @@
 #include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
 
+#include "io/async_file_system.hpp"
 #include "io/base64.hpp"
 #include "io/compression.hpp"
 #include "io/context.hpp"

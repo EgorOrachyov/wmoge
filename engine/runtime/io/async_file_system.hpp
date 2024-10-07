@@ -27,56 +27,32 @@
 
 #pragma once
 
-#include "svector.hpp"
-
-#include <cassert>
-#include <cstddef>
-#include <vector>
+#include "core/array_view.hpp"
+#include "core/async.hpp"
+#include "core/callback_queue.hpp"
+#include "core/task_manager.hpp"
+#include "platform/file_system.hpp"
 
 namespace wmoge {
 
     /**
-     * @class array_view
-     * @brief View to elements of array
-     *
-     * @tparam T Type of elements
+     * @class IoAsyncFileSystem
+     * @brief Manages async file operations
      */
-    template<typename T>
-    class array_view {
+    class IoAsyncFileSystem {
     public:
-        array_view() = default;
-        array_view(T* data, std::size_t size) : m_data(data), m_size(size) {}
-        array_view(std::vector<T>& vector) : m_data(vector.data()), m_size(vector.size()) {}
-        template<typename M>
-        array_view(const std::vector<M>& vector) : m_data(vector.data()), m_size(vector.size()) {}
-        template<std::size_t MinCapacity>
-        array_view(ankerl::svector<T, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
-        template<typename M, std::size_t MinCapacity>
-        array_view(const ankerl::svector<M, MinCapacity>& vector) : m_data(vector.data()), m_size(vector.size()) {}
+        IoAsyncFileSystem(class IocContainer* ioc, int num_workers = 4);
+        ~IoAsyncFileSystem() = default;
 
-        T& operator[](const std::size_t i) {
-            assert(i < size());
-            assert(m_data);
-            return m_data[i];
-        }
-        const T& operator[](const std::size_t i) const {
-            assert(i < size());
-            assert(m_data);
-            return m_data[i];
-        }
+        using BufferView = array_view<std::uint8_t>;
 
-        [[nodiscard]] std::size_t size() const { return m_size; }
-        [[nodiscard]] T*          data() const { return m_data; }
-        [[nodiscard]] bool        empty() const { return !m_size; }
-
-        const T* begin() const { return m_data; }
-        const T* end() const { return m_data + m_size; }
-        T*       begin() { return m_data; }
-        T*       end() { return m_data + m_size; }
+        AsyncResult<BufferView> read_file(const std::string& filepath, BufferView buffer_view);
 
     private:
-        T*          m_data = nullptr;
-        std::size_t m_size = 0;
+        TaskManager             m_task_manager;
+        FileSystem*             m_file_system;
+        std::mutex              m_mutex;
+        std::condition_variable m_cv;
     };
 
 }// namespace wmoge
