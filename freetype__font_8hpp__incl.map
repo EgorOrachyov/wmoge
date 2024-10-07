@@ -1,9 +1,10 @@
 <map id="engine/plugins/freetype/freetype_font.hpp" name="engine/plugins/freetype/freetype_font.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="353,5,507,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,116,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="141,95,279,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="303,95,426,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="450,95,541,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="565,95,729,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="754,95,917,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="449,5,603,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,143,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="167,95,277,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="302,95,441,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="465,95,587,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="611,95,702,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="727,95,891,121"/>
+<area shape="rect" id="node8" title=" " alt="" coords="915,95,1078,121"/>
 </map>

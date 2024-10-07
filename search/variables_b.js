@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['sampling_246',['sampling',['../classwmoge_1_1TextureImportData.html#acd36c953c5821233fe0c11811bb652a4',1,'wmoge::TextureImportData']]],
-  ['sort_5fby_5fptype_247',['sort_by_ptype',['../structwmoge_1_1AssimpProcess.html#ae43102bf178395d7e1d27d6d37d98ead',1,'wmoge::AssimpProcess']]],
-  ['srgb_248',['srgb',['../classwmoge_1_1TextureImportData.html#ac071a0b7e3712c70e6f29fc0f20f5479',1,'wmoge::TextureImportData']]]
+  ['sampling_248',['sampling',['../classwmoge_1_1TextureImportData.html#acd36c953c5821233fe0c11811bb652a4',1,'wmoge::TextureImportData']]],
+  ['sort_5fby_5fptype_249',['sort_by_ptype',['../structwmoge_1_1AssimpProcess.html#ae43102bf178395d7e1d27d6d37d98ead',1,'wmoge::AssimpProcess']]],
+  ['srgb_250',['srgb',['../classwmoge_1_1TextureImportData.html#ac071a0b7e3712c70e6f29fc0f20f5479',1,'wmoge::TextureImportData']]]
 ];

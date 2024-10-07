@@ -82,9 +82,9 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a23839d28f58edb2d03e0e597bad584c9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeFont.html#a23839d28f58edb2d03e0e597bad584c9">FreetypeFont</a> ()</td></tr>
 <tr class="separator:a23839d28f58edb2d03e0e597bad584c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af53a7e85472d934dd4bf269cc166c3dc"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeFont.html#af53a7e85472d934dd4bf269cc166c3dc">load</a> (const Ref&lt; Font &gt; &amp;font, const std::string &amp;path, int height=40, int glyphs_in_row=16)</td></tr>
-<tr class="memdesc:af53a7e85472d934dd4bf269cc166c3dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads font from a .ttf file from file system using specified height in pixels.  <a href="classwmoge_1_1FreetypeFont.html#af53a7e85472d934dd4bf269cc166c3dc">More...</a><br /></td></tr>
-<tr class="separator:af53a7e85472d934dd4bf269cc166c3dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19216d29834550900d02ff466a5228e2"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1FreetypeFont.html#a19216d29834550900d02ff466a5228e2">load</a> (const Ref&lt; Font &gt; &amp;font, array_view&lt; const std::uint8_t &gt; ttf_data, int height=40, int glyphs_in_row=16)</td></tr>
+<tr class="memdesc:a19216d29834550900d02ff466a5228e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads font from a .ttf file from file system using specified height in pixels.  <a href="classwmoge_1_1FreetypeFont.html#a19216d29834550900d02ff466a5228e2">More...</a><br /></td></tr>
+<tr class="separator:a19216d29834550900d02ff466a5228e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides utilies to work with .ttf font via freetype library. </p>
@@ -107,8 +107,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af53a7e85472d934dd4bf269cc166c3dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af53a7e85472d934dd4bf269cc166c3dc">&#9670;&nbsp;</a></span>load()</h2>
+<a id="a19216d29834550900d02ff466a5228e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19216d29834550900d02ff466a5228e2">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,8 +122,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
+          <td class="paramtype">array_view&lt; const std::uint8_t &gt;&#160;</td>
+          <td class="paramname"><em>ttf_data</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -150,7 +150,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">font</td><td>Font to load into </td></tr>
-    <tr><td class="paramname">filepath</td><td>Path to the font .ttf file in a file system </td></tr>
+    <tr><td class="paramname">ttf_data</td><td>Content of the font .ttf file in a file system </td></tr>
     <tr><td class="paramname">height</td><td>Font height in pixels </td></tr>
     <tr><td class="paramname">glyphs_in_row</td><td>Num of glyphs in a row of a bitmap</td></tr>
   </table>
