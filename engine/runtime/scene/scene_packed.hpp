@@ -58,9 +58,6 @@ namespace wmoge {
         ScenePacked()           = default;
         ~ScenePacked() override = default;
 
-        AsyncResult<Ref<Scene>> instantiate_async();
-        Ref<Scene>              instantiate();
-
     private:
         SceneData m_data;
     };

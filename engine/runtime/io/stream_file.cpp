@@ -30,7 +30,6 @@
 #include "io/compression.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -59,12 +58,9 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status IoStreamFile::open(const std::string& file_path, FileOpenModeFlags flags) {
-        Ref<File>   file;
-        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
-
+    Status IoStreamFile::open(FileSystem* file_system, const std::string& file_path, FileOpenModeFlags flags) {
+        Ref<File> file;
         WG_CHECKED(file_system->open_file(file_path, file, flags));
-
         return set(std::move(file), flags);
     }
 

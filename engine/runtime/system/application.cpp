@@ -32,6 +32,7 @@
 #include "core/callback_queue.hpp"
 #include "core/class.hpp"
 #include "core/cmd_line.hpp"
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
 #include "ecs/ecs_registry.hpp"
@@ -42,16 +43,9 @@
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
-#include "hooks/hook_config.hpp"
-#include "hooks/hook_engine.hpp"
-#include "hooks/hook_logs.hpp"
-#include "hooks/hook_profiler.hpp"
-#include "hooks/hook_root_remap.hpp"
-#include "hooks/hook_uuid_gen.hpp"
 #include "io/async_file_system.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
-#include "platform/application.hpp"
 #include "platform/dll_manager.hpp"
 #include "platform/file_system.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
@@ -63,13 +57,9 @@
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
-#include "scripting/lua/lua_script_system.hpp"
-#include "scripting/script_system.hpp"
 #include "system/config.hpp"
 #include "system/console.hpp"
 #include "system/engine.hpp"
-#include "system/hook.hpp"
-#include "system/ioc_container.hpp"
 #include "system/plugin_manager.hpp"
 
 #include "asset/_rtti.hpp"
@@ -82,31 +72,31 @@
 #include "render/_rtti.hpp"
 #include "rtti/_rtti.hpp"
 #include "scene/_rtti.hpp"
-#include "scripting/_rtti.hpp"
 #include "system/_rtti.hpp"
 
 namespace wmoge {
 
     static void bind_globals(IocContainer* ioc) {
-        ioc->bind<HookList>();
-        ioc->bind<CmdLine>();
-        ioc->bind<DllManager>();
+        ioc->bind_by_pointer<Log>(Log::instance());
+        ioc->bind_by_pointer<Profiler>(Profiler::instance());
+        ioc->bind_by_pointer<RttiTypeStorage>(RttiTypeStorage::instance());
+        ioc->bind_by_ioc<DllManager>();
         ioc->bind<PluginManager>();
         ioc->bind<Time>();
-        ioc->bind<Config>();
+        ioc->bind_by_ioc<Config>();
         ioc->bind<FileSystem>();
         ioc->bind<Console>();
         ioc->bind<CallbackQueue>();
-        ioc->bind<GlslShaderCompiler>();
-        ioc->bind<ShaderLibrary>();
-        ioc->bind<ShaderManager>();
-        ioc->bind<PsoCache>();
-        ioc->bind<TextureManager>();
-        ioc->bind<MeshManager>();
+        ioc->bind_by_ioc<GlslShaderCompiler>();
+        ioc->bind_by_ioc<ShaderLibrary>();
+        ioc->bind_by_ioc<ShaderManager>();
+        ioc->bind_by_ioc<PsoCache>();
+        ioc->bind_by_ioc<TextureManager>();
+        ioc->bind_by_ioc<MeshManager>();
         ioc->bind<RenderEngine>();
         ioc->bind_by_ioc<AssetManager>();
         ioc->bind<EcsRegistry>();
-        ioc->bind<SceneManager>();
+        ioc->bind_by_ioc<SceneManager>();
         ioc->bind<ViewManager>();
 
         ioc->bind_by_factory<IoAsyncFileSystem>([ioc]() {
@@ -150,36 +140,14 @@ namespace wmoge {
             init_info.required_ext = window_manager->extensions();
             init_info.factory      = window_manager->factory();
 
-            return std::make_shared<VKDriver>(std::move(init_info));
+            return std::make_shared<VKDriver>(ioc, init_info);
         });
 
         ioc->bind_by_factory<GfxDriver>([ioc]() {
             return std::shared_ptr<GfxDriver>(ioc->resolve_value<VKDriver>(), [](auto p) {});
         });
 
-        ioc->bind_by_factory<RttiTypeStorage>([]() {
-            auto type_storage = std::make_shared<RttiTypeStorage>();
-            RttiTypeStorage::provide(type_storage.get());
-            return type_storage;
-        });
-
-        ioc->bind_by_factory<Profiler>([]() {
-            auto profiler = std::make_shared<Profiler>();
-            Profiler::provide(profiler.get());
-            return profiler;
-        });
-
-        ioc->bind_by_factory<Log>([]() {
-            auto log = std::make_shared<Log>();
-            Log::provide(log.get());
-            return log;
-        });
-
-        ioc->bind_by_factory<Engine>([]() {
-            auto engine = std::make_shared<Engine>();
-            Engine::provide(engine.get());
-            return engine;
-        });
+        ioc->bind_by_ioc<Engine>();
     }
 
     static void unbind_globals(IocContainer* ioc) {
@@ -215,71 +183,55 @@ namespace wmoge {
         rtti_pfx();
         rtti_render();
         rtti_scene();
-        rtti_scripting();
         rtti_system();
     }
 
-    int Application::run(int argc, const char* const* argv) {
-        IocContainer ioc;
-        IocContainer::provide(&ioc);
+    Application::Application(ApplicationConfig& config) : m_config(config) {
+    }
 
-        bind_globals(&ioc);
-        bind_rtti(&ioc);
+    int Application::run() {
+        IocContainer* ioc = m_config.ioc;
 
-        Log* log = ioc.resolve<Log>().value();
+        bind_globals(ioc);
+        bind_rtti(ioc);
 
-        ioc.bind_by_instance<Application>(std::shared_ptr<Application>(this, [](auto p) {}));
+        ioc->bind_by_pointer<Application>(this);
 
         on_register();
 
-        CmdLine* cmd_line = ioc.resolve<CmdLine>().value();
-        cmd_line->add_bool("h,help", "display help message", "false");
+        CmdLineOptions*  cmd_line_options = m_config.cmd_line.options;
+        CmdLineHookList* cmd_line_hooks   = m_config.cmd_line.hooks;
 
-        signal_hook.emit();
+        cmd_line_options->add_bool("h,help", "display help message", "false");
 
-        HookList* hook_list = ioc.resolve<HookList>().value();
-        hook_list->each([&](HookList::HookPtr& hook) {
-            hook->on_add_cmd_line_options(*cmd_line);
-            return false;
-        });
-
-        if (!cmd_line->parse(argc, argv)) {
+        auto cmd_parse_result = cmd_line_options->parse(m_config.cmd_line.args);
+        if (!cmd_parse_result) {
             return 1;
         }
-        if (cmd_line->get_bool("help")) {
-            std::cout << cmd_line->get_help();
+
+        if (cmd_parse_result->get_bool("help")) {
+            std::cout << cmd_line_options->get_help();
             return 0;
         }
 
-        std::optional<int> ret_code;
+        const Status status = cmd_line_hooks->process(*cmd_parse_result);
 
-        hook_list->each([&](HookList::HookPtr& hook) {
-            const Status     status = hook->on_process(*cmd_line);
-            const StatusCode code   = status.code();
-
-            if (code == StatusCode::ExitCode0) {
-                ret_code = 0;
-                std::cout << "exit code 0" << std::endl;
-                return true;
-            }
-            if (code == StatusCode::ExitCode1) {
-                ret_code = 1;
-                std::cerr << "exit code 1 after " << hook->get_name() << std::endl;
-                return true;
-            }
-            if (code != StatusCode::Ok) {
-                std::cerr << "error " << status << " after " << hook->get_name() << std::endl;
-                return true;
-            }
-
-            return false;
-        });
-
-        if (ret_code.has_value()) {
-            return ret_code.value();
+        if (status.code() == StatusCode::ExitCode0) {
+            std::cout << "exit code 0" << std::endl;
+            return true;
+        }
+        if (status.code() == StatusCode::ExitCode1) {
+            std::cerr << "exit code 1" << std::endl;
+            return 1;
+        }
+        if (status.code() != StatusCode::Ok) {
+            std::cerr << "error " << status << std::endl;
+            return 2;
         }
 
-        signal_before_init.emit();
+        ApplicationSignals& signals = m_config.signals;
+
+        signals.before_init.emit();
         {
             WG_AUTO_PROFILE_PLATFORM("Application::initialize");
 
@@ -287,9 +239,9 @@ namespace wmoge {
                 return 1;
             }
         }
-        signal_after_init.emit();
+        signals.after_init.emit();
 
-        signal_before_loop.emit();
+        signals.before_loop.emit();
         {
             while (!should_close()) {
                 WG_AUTO_PROFILE_PLATFORM("Application::iteration");
@@ -299,9 +251,9 @@ namespace wmoge {
                 }
             }
         }
-        signal_after_loop.emit();
+        signals.after_loop.emit();
 
-        signal_before_shutdown.emit();
+        signals.before_shutdown.emit();
         {
             WG_AUTO_PROFILE_PLATFORM("Application::shutdown");
 
@@ -309,41 +261,11 @@ namespace wmoge {
                 return 1;
             }
 
-            unbind_globals(&ioc);
+            unbind_globals(ioc);
         }
-        signal_after_shutdown.emit();
+        signals.after_shutdown.emit();
 
         return 0;
-    }
-
-    Status GameApplication::on_register() {
-        signal_hook.bind([]() {
-            HookList* hook_list = IocContainer::iresolve_v<HookList>();
-
-            hook_list->attach(std::make_shared<HookUuidGen>());
-            hook_list->attach(std::make_shared<HookRootRemap>());
-            hook_list->attach(std::make_shared<HookEngine>());
-            hook_list->attach(std::make_shared<HookLogs>());
-            hook_list->attach(std::make_shared<HookProfiler>());
-        });
-
-        return IocContainer::iresolve_v<Engine>()->setup(this);
-    }
-
-    Status GameApplication::on_init() {
-        return Engine::instance()->init();
-    }
-
-    Status GameApplication::on_loop() {
-        return Engine::instance()->iteration();
-    }
-
-    Status GameApplication::on_shutdown() {
-        return Engine::instance()->shutdown();
-    }
-
-    bool GameApplication::should_close() {
-        return Engine::instance()->close_requested();
     }
 
 }// namespace wmoge

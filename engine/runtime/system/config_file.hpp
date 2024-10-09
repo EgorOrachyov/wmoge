@@ -53,12 +53,18 @@ namespace wmoge {
 
         /**
          * @brief Loads config file from a engine directory
-         *
+         * @param file_system File system access
          * @param path Relative path to the file to load
-         *
          * @return True if successfully loaded and parsed
          */
-        Status load(const std::string& path);
+        Status load_from_file(class FileSystem* file_system, const std::string& path);
+
+        /**
+         * @brief Loads config file from string with content
+         * @param content Confing content
+         * @return True if successfully loaded and parsed
+         */
+        Status load_from_content(const std::string& content);
 
         /**
          * @brief Stack other config on top of this
@@ -67,16 +73,6 @@ namespace wmoge {
          * @param mode Mode to handle intersecting entries
          */
         Status stack(const ConfigFile& other, ConfigStackMode mode = ConfigStackMode::Overwrite);
-
-        /**
-         * @brief Loads config by path and stacks into this
-         *
-         * @param path Path to config to load and stack
-         * @param mode Stacking mode
-         *
-         * @return True if loaded and stacked
-         */
-        Status load_and_stack(const std::string& path, ConfigStackMode mode = ConfigStackMode::Overwrite);
 
         /** @brief Clears config file */
         void clear();
@@ -111,8 +107,7 @@ namespace wmoge {
     WG_RTTI_CLASS_BEGIN(ConfigFile) {
         WG_RTTI_META_DATA();
         WG_RTTI_FACTORY();
-        WG_RTTI_METHOD(load, {"path"}, {});
-        WG_RTTI_METHOD(load_and_stack, {"path", "mode"}, {});
+        WG_RTTI_METHOD(load_from_content, {"content"}, {});
         WG_RTTI_METHOD(clear, {}, {});
         WG_RTTI_METHOD(is_empty, {}, {});
         WG_RTTI_METHOD(set_bool, {"key", "value", "overwrite"}, {});

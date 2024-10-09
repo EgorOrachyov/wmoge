@@ -25,14 +25,50 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
-
-#include "scripting/script.hpp"
+#include "ioc_container.hpp"
 
 namespace wmoge {
 
-    void rtti_scripting() {
-        rtti_type<Script>();
+    void IocContainer::clear() {
+        std::lock_guard guard(m_mutex);
+
+        m_entries.clear();
+    }
+
+    void IocContainer::add(IocEntry&& entry) {
+        std::lock_guard guard(m_mutex);
+
+        auto query = m_entries.find(entry.source_type.value());
+
+        if (query != m_entries.end()) {
+            WG_LOG_ERROR("attempt to re-bind type " << entry.source_type.value().name()
+                                                    << " with " << entry.provided_type.value().name());
+            return;
+        }
+
+        WG_LOG_INFO("bind '" << entry.source_type.value().name() << "'");
+        m_entries[entry.source_type.value()] = std::move(entry);
+    }
+
+    void IocContainer::erase(std::type_index entry_type) {
+        std::lock_guard guard(m_mutex);
+
+        auto iter = m_entries.find(entry_type);
+        if (iter != m_entries.end()) {
+            m_entries.erase(iter);
+        }
+    }
+
+    std::optional<IocEntry*> IocContainer::get(std::type_index entry_type) {
+        std::lock_guard guard(m_mutex);
+
+        auto query = m_entries.find(entry_type);
+
+        if (query != m_entries.end()) {
+            return std::optional(&(query->second));
+        }
+
+        return std::nullopt;
     }
 
 }// namespace wmoge

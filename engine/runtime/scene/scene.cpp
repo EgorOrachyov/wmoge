@@ -35,11 +35,11 @@
 
 namespace wmoge {
 
-    Scene::Scene(Strid name) {
+    Scene::Scene(const SceneCreateInfo& info) {
         WG_AUTO_PROFILE_SCENE("Scene::Scene");
 
-        m_name            = name;
-        m_ecs_world       = std::make_unique<EcsWorld>();
+        m_name            = info.name;
+        m_ecs_world       = std::make_unique<EcsWorld>(info.ecs_registry, info.task_manager);
         m_culling_manager = std::make_unique<CullingManager>();
         m_render_scene    = std::make_unique<RenderScene>();
     }

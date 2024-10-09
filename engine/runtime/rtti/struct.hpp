@@ -31,6 +31,7 @@
 #include "core/flat_set.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
+#include "io/context.hpp"
 #include "rtti/meta_data.hpp"
 #include "rtti/type.hpp"
 

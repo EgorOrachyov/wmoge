@@ -192,7 +192,7 @@ namespace wmoge {
             return 0;
         });
 
-        task_compile.schedule(int(batches.size()), m_batch_size).wait_completed();
+        task_compile.schedule(m_task_manager, int(batches.size()), m_batch_size).wait_completed();
     }
 
     void RenderEngine::group_queues() {
@@ -221,7 +221,7 @@ namespace wmoge {
             return 0;
         });
 
-        task_sort.schedule(int(m_queues.size()), 1).wait_completed();
+        task_sort.schedule(m_task_manager, int(m_queues.size()), 1).wait_completed();
     }
 
     void RenderEngine::merge_cmds() {
@@ -235,7 +235,7 @@ namespace wmoge {
             return 0;
         });
 
-        task_merge.schedule(int(m_queues.size()), 1).wait_completed();
+        task_merge.schedule(m_task_manager, int(m_queues.size()), 1).wait_completed();
     }
 
     void RenderEngine::flush_buffers() {

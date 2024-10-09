@@ -28,45 +28,105 @@
 #include "cmd_line.hpp"
 
 #include <iostream>
+#include <sstream>
 
 namespace wmoge {
 
-    CmdLine::CmdLine() : m_options("wmoge", "wmoge engine runtime and tools") {
+    std::string CmdLineUtil::to_string(int argc, const char* const* argv) {
+        std::stringstream s;
+        for (int i = 0; i < argc; i++) {
+            s << argv[i] << " ";
+        }
+        return s.str();
     }
 
-    void CmdLine::add_int(const std::string& name, const std::string& desc, const std::string& value) {
+    std::vector<std::string> CmdLineUtil::to_vector(int argc, const char* const* argv) {
+        std::vector<std::string> v;
+        v.reserve(argc);
+        for (int i = 0; i < argc; i++) {
+            v.emplace_back(argv[i]);
+        }
+        return std::move(v);
+    }
+
+    CmdLineOptions::CmdLineOptions(const std::string& name, const std::string& desc)
+        : m_options(name, desc) {
+    }
+
+    void CmdLineOptions::add_int(const std::string& name, const std::string& desc, const std::string& value) {
         m_options.add_option("", cxxopts::Option(name, desc, cxxopts::value<int>()->default_value(value)));
     }
-    void CmdLine::add_bool(const std::string& name, const std::string& desc, const std::string& value) {
+
+    void CmdLineOptions::add_bool(const std::string& name, const std::string& desc, const std::string& value) {
         m_options.add_option("", cxxopts::Option(name, desc, cxxopts::value<bool>()->default_value(value)));
     }
-    void CmdLine::add_string(const std::string& name, const std::string& desc, const std::string& value) {
+
+    void CmdLineOptions::add_string(const std::string& name, const std::string& desc, const std::string& value) {
         m_options.add_option("", cxxopts::Option(name, desc, cxxopts::value<std::string>()->default_value(value)));
     }
 
-    bool CmdLine::parse(int argc, const char* const* argv) {
+    std::optional<CmdLineParseResult> CmdLineOptions::parse(const std::vector<std::string>& args) {
+        const int                argc = static_cast<int>(args.size());
+        std::vector<const char*> argv;
+
+        argv.reserve(argc);
+        for (auto& arg : args) {
+            argv.push_back(arg.c_str());
+        }
+
         try {
-            m_parsed = m_options.parse(argc, argv);
-            return true;
+            return CmdLineParseResult(m_options.parse(argc, argv.data()));
         } catch (const std::exception& e) {
             std::cerr << "failed to parse options due to: " << e.what();
         }
 
-        return false;
+        return std::nullopt;
     }
 
-    int CmdLine::get_int(const std::string& name) {
+    std::string CmdLineOptions::get_help() const {
+        return m_options.help();
+    }
+
+    CmdLineParseResult::CmdLineParseResult(cxxopts::ParseResult parsed)
+        : m_parsed(std::move(parsed)) {
+    }
+
+    int CmdLineParseResult::get_int(const std::string& name) {
         return m_parsed[name].as<int>();
     }
-    bool CmdLine::get_bool(const std::string& name) {
+
+    bool CmdLineParseResult::get_bool(const std::string& name) {
         return m_parsed[name].as<bool>();
     }
-    std::string CmdLine::get_string(const std::string& name) {
+
+    std::string CmdLineParseResult::get_string(const std::string& name) {
         return m_parsed[name].as<std::string>();
     }
 
-    std::string CmdLine::get_help() const {
-        return m_options.help();
+    void CmdLineHookList::add(CmdLineHook hook) {
+        m_storage.emplace_back(std::move(hook));
+    }
+
+    void CmdLineHookList::clear() {
+        m_storage.clear();
+    }
+
+    Status CmdLineHookList::process(CmdLineParseResult& cmd_line) {
+        for (auto& hook : m_storage) {
+            const Status     status = hook(cmd_line);
+            const StatusCode code   = status.code();
+
+            if (code == StatusCode::ExitCode0) {
+                return StatusCode::ExitCode0;
+            }
+            if (code == StatusCode::ExitCode1) {
+                return StatusCode::ExitCode1;
+            }
+            if (code != StatusCode::Ok) {
+                return status;
+            }
+        }
+        return WG_OK;
     }
 
 }// namespace wmoge

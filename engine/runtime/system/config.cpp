@@ -27,10 +27,19 @@
 
 #include "config.hpp"
 
+#include "core/ioc_container.hpp"
+#include "platform/file_system.hpp"
+
 namespace wmoge {
+    Config::Config(IocContainer* ioc) {
+        m_file_system = ioc->resolve_value<FileSystem>();
+    }
 
     Status Config::load(const std::string& path, ConfigStackMode mode) {
-        return m_file->load_and_stack(path, mode);
+        ConfigFile config;
+        WG_CHECKED(config.load_from_file(m_file_system, path));
+        WG_CHECKED(m_file->stack(config, mode));
+        return WG_OK;
     }
 
     Status Config::set_bool(const Strid& key, const bool& value, bool overwrite) {

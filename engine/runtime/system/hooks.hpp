@@ -25,60 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "ioc_container.hpp"
+#pragma once
+
+#include "core/cmd_line.hpp"
+#include "core/ioc_container.hpp"
 
 namespace wmoge {
 
-    IocContainer* IocContainer::g_ioc_container = nullptr;
-
-    void IocContainer::clear() {
-        std::lock_guard guard(m_mutex);
-
-        m_entries.clear();
-    }
-
-    void IocContainer::add(IocEntry&& entry) {
-        std::lock_guard guard(m_mutex);
-
-        auto query = m_entries.find(entry.source_type.value());
-
-        if (query != m_entries.end()) {
-            WG_LOG_ERROR("attempt to re-bind type " << entry.source_type.value().name()
-                                                    << " with " << entry.provided_type.value().name());
-            return;
-        }
-
-        WG_LOG_INFO("bind '" << entry.source_type.value().name() << "'");
-        m_entries[entry.source_type.value()] = std::move(entry);
-    }
-
-    void IocContainer::erase(std::type_index entry_type) {
-        std::lock_guard guard(m_mutex);
-
-        auto iter = m_entries.find(entry_type);
-        if (iter != m_entries.end()) {
-            m_entries.erase(iter);
-        }
-    }
-
-    std::optional<IocEntry*> IocContainer::get(std::type_index entry_type) {
-        std::lock_guard guard(m_mutex);
-
-        auto query = m_entries.find(entry_type);
-
-        if (query != m_entries.end()) {
-            return std::optional(&(query->second));
-        }
-
-        return std::nullopt;
-    }
-
-    void IocContainer::provide(IocContainer* ioc) {
-        g_ioc_container = ioc;
-    }
-
-    IocContainer* IocContainer::instance() {
-        return g_ioc_container;
-    }
+    /**
+     * @class EngineCmdLineHooks
+     * @brief Provides common comand line hooks
+     */
+    class EngineCmdLineHooks {
+    public:
+        static void hook_uuid_gen(CmdLineOptions& options, CmdLineHookList& list);
+        static void hook_root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        static void hook_root_engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        static void hook_root_logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        static void hook_root_profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, struct ApplicationSignals* app_signals);
+    };
 
 }// namespace wmoge

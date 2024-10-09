@@ -96,7 +96,6 @@ namespace wmoge {
     class LogListenerStdout final : public LogListener {
     public:
         LogListenerStdout(std::string name, LogLevel level);
-        ~LogListenerStdout() override = default;
         void on_message(const LogEntry& entry) override;
 
     private:
@@ -110,9 +109,11 @@ namespace wmoge {
      */
     class LogListenerStream final : public LogListener {
     public:
-        LogListenerStream(std::string name, LogLevel level);
-        ~LogListenerStream() override = default;
+        LogListenerStream(std::fstream stream, std::string name, LogLevel level);
         void on_message(const LogEntry& entry) override;
+
+        static std::fstream open_file(class FileSystem* file_system, const std::string& filename);
+        static std::string  make_file_name(class Time* time, const std::string& logname);
 
     private:
         std::fstream m_stream;
@@ -127,7 +128,6 @@ namespace wmoge {
     class LogListenerConsole : public LogListener {
     public:
         LogListenerConsole(class Console* console, LogLevel level);
-        ~LogListenerConsole() override = default;
         void on_message(const LogEntry& entry) override;
 
     private:

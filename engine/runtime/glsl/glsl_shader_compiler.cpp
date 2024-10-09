@@ -27,6 +27,7 @@
 
 #include "glsl_shader_compiler.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/string_utils.hpp"
 #include "core/task.hpp"
 #include "core/timer.hpp"
@@ -35,7 +36,6 @@
 #include "io/enum.hpp"
 #include "io/stream.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <SPIRV/GlslangToSpv.h>
 #include <StandAlone/ResourceLimits.h>
@@ -45,12 +45,11 @@
 
 namespace wmoge {
 
-    GlslShaderCompiler::GlslShaderCompiler() {
+    GlslShaderCompiler::GlslShaderCompiler(IocContainer* ioc) {
         if (!glslang::InitializeProcess()) {
             WG_LOG_ERROR("failed to init glslang");
         }
-
-        m_file_system = IocContainer::iresolve_v<FileSystem>();
+        m_file_system = ioc->resolve_value<FileSystem>();
     }
 
     GlslShaderCompiler::~GlslShaderCompiler() {
@@ -365,10 +364,10 @@ namespace wmoge {
         return ok;
     }
 
-    GlslShaderCompilerAdapter::GlslShaderCompilerAdapter(GfxShaderPlatform platform) {
+    GlslShaderCompilerAdapter::GlslShaderCompilerAdapter(IocContainer* ioc, GfxShaderPlatform platform) {
         m_platform      = platform;
-        m_glsl_compiler = IocContainer::iresolve_v<GlslShaderCompiler>();
-        m_task_manager  = IocContainer::iresolve_v<ShaderTaskManager>();
+        m_glsl_compiler = ioc->resolve_value<GlslShaderCompiler>();
+        m_task_manager  = ioc->resolve_value<ShaderTaskManager>();
     }
 
     Async GlslShaderCompilerAdapter::compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) {
@@ -378,8 +377,7 @@ namespace wmoge {
             }
             return 0;
         });
-        task.set_task_manager(*m_task_manager);
-        return task.schedule(depends_on).as_async();
+        return task.schedule(m_task_manager, depends_on).as_async();
     }
 
     std::shared_ptr<ShaderCodeBuilder> GlslShaderCompilerAdapter::make_builder() {

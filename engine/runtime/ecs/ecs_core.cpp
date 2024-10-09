@@ -28,19 +28,16 @@
 #include "ecs_core.hpp"
 
 #include "ecs/ecs_registry.hpp"
-#include "system/ioc_container.hpp"
 
 #include <sstream>
 #include <string>
 
 namespace wmoge {
 
-    std::string EcsArch::to_string() const {
+    std::string EcsArch::to_string(EcsRegistry* ecs_registry) const {
         if (!any()) {
             return "'empty'";
         }
-
-        EcsRegistry* registry = IocContainer::iresolve_v<EcsRegistry>();
 
         std::stringstream stream;
 
@@ -51,7 +48,7 @@ namespace wmoge {
 
         for (int i = 0; i < EcsLimits::MAX_COMPONENTS; i++) {
             if (test(i)) {
-                const Strid& name = registry->get_component_info(i).name;
+                const Strid& name = ecs_registry->get_component_info(i).name;
                 stream << name << ",";
             }
         }

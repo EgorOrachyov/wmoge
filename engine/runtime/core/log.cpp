@@ -30,7 +30,6 @@
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
 #include "system/console.hpp"
-#include "system/ioc_container.hpp"
 
 #include <magic_enum.hpp>
 
@@ -45,28 +44,32 @@
 
 namespace wmoge {
 
-    Log  g_null_log;
-    Log* Log::g_log = &g_null_log;
+    Log  g_log_default;
+    Log* Log::g_log = &g_log_default;
 
     void Log::listen(const std::shared_ptr<LogListener>& listener) {
         assert(listener);
         std::lock_guard guard(m_mutex);
         m_listeners.push_back(listener);
     }
+
     void Log::remove(const std::shared_ptr<LogListener>& listener) {
         assert(listener);
         std::lock_guard guard(m_mutex);
         m_listeners.erase(std::find(m_listeners.begin(), m_listeners.end(), listener));
     }
+
     void Log::log(LogLevel level, std::string message, std::string file, std::string function, std::size_t line) {
         std::lock_guard guard(m_mutex);
         LogEntry        entry{std::move(message), std::move(file), std::move(function), line, level};
         for (auto& listener : m_listeners)
             listener->on_message(entry);
     }
+
     Log* Log::instance() {
         return g_log;
     }
+
     void Log::provide(Log* log) {
         g_log = log;
     }
@@ -74,6 +77,7 @@ namespace wmoge {
     LogListenerStdout::LogListenerStdout(std::string name, LogLevel level)
         : m_name(std::move(name)), m_level(level) {
     }
+
     void LogListenerStdout::on_message(const LogEntry& entry) {
         if (entry.level == LogLevel::Never || entry.level < m_level)
             return;
@@ -90,21 +94,10 @@ namespace wmoge {
             std::cout << output.str();
     }
 
-    LogListenerStream::LogListenerStream(std::string name, wmoge::LogLevel level)
-        : m_name(std::move(name)), m_level(level) {
-        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
-        Time*       engine_time = IocContainer::iresolve_v<Time>();
-
-        std::time_t       time = engine_time->get_time();
-        std::stringstream log_file_name;
-
-        log_file_name << "logs/log_"
-                      << m_name << " "
-                      << engine_time->get_time_formatted("%Y-%m-%d %H-%M-%S", time)
-                      << ".log";
-
-        file_system->open_file_physical(log_file_name.str(), m_stream, std::ios::out);
+    LogListenerStream::LogListenerStream(std::fstream stream, std::string name, wmoge::LogLevel level)
+        : m_stream(std::move(stream)), m_name(std::move(name)), m_level(level) {
     }
+
     void LogListenerStream::on_message(const wmoge::LogEntry& entry) {
         if (entry.level == LogLevel::Never || entry.level < m_level)
             return;
@@ -115,9 +108,25 @@ namespace wmoge {
                  << entry.message << "\n";
     }
 
+    std::fstream LogListenerStream::open_file(FileSystem* file_system, const std::string& filename) {
+        std::fstream stream;
+        file_system->open_file_physical(filename, stream, std::ios::out);
+        return std::move(stream);
+    }
+
+    std::string LogListenerStream::make_file_name(Time* time, const std::string& logname) {
+        std::stringstream log_file_name;
+        log_file_name << "logs/log_"
+                      << logname << " "
+                      << time->get_time_formatted("%Y-%m-%d %H-%M-%S", time->get_time())
+                      << ".log";
+        return log_file_name.str();
+    }
+
     LogListenerConsole::LogListenerConsole(Console* console, LogLevel level)
         : m_console(console), m_level(level) {
     }
+
     void LogListenerConsole::on_message(const LogEntry& entry) {
         if (entry.level == LogLevel::Never || entry.level < m_level)
             return;

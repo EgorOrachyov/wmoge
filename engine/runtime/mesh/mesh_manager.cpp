@@ -27,16 +27,16 @@
 
 #include "mesh_manager.hpp"
 
+#include "core/ioc_container.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    MeshManager::MeshManager() {
-        m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
+    MeshManager::MeshManager(IocContainer* ioc) {
+        m_gfx_driver = ioc->resolve_value<GfxDriver>();
         m_callback   = std::make_shared<Mesh::Callback>([this](Mesh* mesh) { remove_mesh(mesh); });
     }
 

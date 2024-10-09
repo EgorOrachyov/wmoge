@@ -4,10 +4,9 @@
 #include "core/log.hpp"
 #include "grc/shader_library.hpp"
 #include "io/stream_file.hpp"
+#include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/traits.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <sstream>
@@ -97,12 +96,8 @@ namespace wmoge {
     }
 
     std::string ShaderCache::make_cache_file_name(const std::string& folder, const std::string& name, GfxShaderPlatform platform) {
-        std::string cache_prefix = "shader_cache";
-        std::string cache_suffix = "scf";
-
-        Config* config = IocContainer::iresolve_v<Config>();
-        config->get_string(SID("grc.shader.cache.prefix"), cache_prefix);
-        config->get_string(SID("grc.shader.cache.suffix"), cache_suffix);
+        const std::string cache_prefix = "shader_cache";
+        const std::string cache_suffix = "scf";
 
         std::stringstream stream;
         stream << folder;
@@ -113,13 +108,13 @@ namespace wmoge {
         return stream.str();
     }
 
-    Status ShaderCache::load_cache(const std::string& file_path, GfxShaderPlatform platform, bool allow_missing) {
+    Status ShaderCache::load_cache(FileSystem* file_system, const std::string& file_path, GfxShaderPlatform platform, bool allow_missing) {
         WG_AUTO_PROFILE_GRC("ShaderCache::load_cache");
 
         IoStreamFile stream;
         IoContext    context;
 
-        if (!stream.open(file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
+        if (!stream.open(file_system, file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
             if (allow_missing) {
                 return WG_OK;
             }
@@ -150,7 +145,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ShaderCache::save_cache(const std::string& file_path, GfxShaderPlatform platform) {
+    Status ShaderCache::save_cache(FileSystem* file_system, const std::string& file_path, GfxShaderPlatform platform) {
         WG_AUTO_PROFILE_GRC("ShaderCache::save_cache");
 
         std::vector<ShaderProgram> programs;
@@ -173,7 +168,7 @@ namespace wmoge {
         IoStreamFile stream;
         IoContext    context;
 
-        if (!stream.open(file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
+        if (!stream.open(file_system, file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
             WG_LOG_ERROR("failed to open shader cache " << file_path << " for platform " << Enum::to_str(platform));
             return StatusCode::FailedOpenFile;
         }

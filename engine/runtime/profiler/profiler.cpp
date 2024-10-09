@@ -27,10 +27,10 @@
 
 #include "profiler.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -65,6 +65,7 @@ namespace wmoge {
         : m_mark(mark), m_desc(std::move(desc)) {
         m_timer.start();
     }
+
     ProfilerTimeEvent::~ProfilerTimeEvent() {
         m_timer.stop();
 
@@ -82,33 +83,66 @@ namespace wmoge {
     void ProfilerCapture::set_name(Strid name) {
         m_name = name;
     }
+
     void ProfilerCapture::set_file(std::string file) {
         m_file = std::move(file);
     }
+
     void ProfilerCapture::add_entry(ProfilerEntry&& entry) {
         m_entries.push_back(std::move(entry));
     }
-    void ProfilerCapture::save_to_json() {
-        using namespace std::chrono;
 
-        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
-        Profiler*   profiler    = IocContainer::iresolve_v<Profiler>();
-        Time*       time        = IocContainer::iresolve_v<Time>();
+    Profiler  g_profiler_default;
+    Profiler* Profiler::g_profiler = &g_profiler_default;
+
+    void Profiler::configure(IocContainer* ioc) {
+        m_file_system = ioc->resolve_value<FileSystem>();
+        m_time        = ioc->resolve_value<Time>();
+
+        add_tid(std::this_thread::get_id(), SID("main-thread"));
+    }
+
+    void Profiler::set_enabled(bool value) {
+        std::lock_guard guard(m_mutex);
+
+        m_is_enabled.store(value);
+        m_is_collecting.store(value && m_capture);
+        WG_LOG_INFO("time profiler status is " << value);
+    }
+
+    void Profiler::start_capture(std::shared_ptr<ProfilerCapture> capture) {
+        std::lock_guard guard(m_mutex);
+
+        m_capture = std::move(capture);
+        if (is_enabled()) {
+            m_is_collecting.store(true);
+        }
+    }
+
+    void Profiler::end_capture() {
+        std::lock_guard guard(m_mutex);
+
+        m_is_collecting.store(false);
+        m_capture.reset();
+    }
+
+    void Profiler::save_capture_to_json(std::shared_ptr<ProfilerCapture> capture) {
+        using namespace std::chrono;
 
         std::fstream file_stream;
 
-        if (!file_system->open_file_physical(m_file, file_stream, std::ios_base::out | std::ios::binary)) {
-            WG_LOG_ERROR("failed to open capture file " << m_file);
+        if (!m_file_system->open_file_physical(capture->get_file(), file_stream, std::ios_base::out | std::ios::binary)) {
+            WG_LOG_ERROR("failed to open capture file " << capture->get_file());
             return;
         }
 
-        auto start     = time->get_start();
-        auto tid_names = profiler->get_tid_names();
+        auto start     = m_time->get_start();
+        auto tid_names = get_tid_names();
 
         file_stream << R"({"otherData":{}, "traceEvents":[)";
 
         bool first = true;
-        for (const auto& entry : m_entries) {
+        for (const auto& entry : capture->get_entries()) {
             auto entry_start = duration_cast<microseconds>(entry.start - start).count();
             auto entry_dur   = duration_cast<microseconds>(entry.stop - entry.start).count();
 
@@ -137,49 +171,27 @@ namespace wmoge {
         file_stream << "]}";
         file_stream.close();
 
-        WG_LOG_INFO("saved capture to " << m_file);
+        WG_LOG_INFO("saved capture to " << capture->get_file());
     }
 
-    Profiler* Profiler::g_profiler = nullptr;
-
-    Profiler::Profiler() {
-        add_tid(std::this_thread::get_id(), SID("main-thread"));
-    }
-    void Profiler::set_enabled(bool value) {
-        std::lock_guard guard(m_mutex);
-
-        m_is_enabled.store(value);
-        m_is_collecting.store(value && m_capture);
-        WG_LOG_INFO("time profiler status is " << value);
-    }
-    void Profiler::start_capture(std::shared_ptr<ProfilerCapture> capture) {
-        std::lock_guard guard(m_mutex);
-
-        m_capture = std::move(capture);
-        if (is_enabled()) {
-            m_is_collecting.store(true);
-        }
-    }
-    void Profiler::end_capture() {
-        std::lock_guard guard(m_mutex);
-
-        m_is_collecting.store(false);
-        m_capture.reset();
-    }
     void Profiler::add_entry(ProfilerEntry&& entry) {
         std::lock_guard guard(m_mutex);
         if (m_capture) m_capture->add_entry(std::move(entry));
     }
+
     void Profiler::add_tid(std::thread::id id, Strid name) {
         std::lock_guard guard(m_mutex);
         m_tid_names[id] = std::move(name);
     }
+
     bool Profiler::is_enabled() {
         return m_is_enabled;
     }
+
     bool Profiler::is_collecting() {
         return m_is_collecting.load();
     }
+
     std::unordered_map<std::thread::id, Strid> Profiler::get_tid_names() const {
         return m_tid_names;
     }

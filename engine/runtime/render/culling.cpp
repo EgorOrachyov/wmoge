@@ -96,7 +96,7 @@ namespace wmoge {
         return m_result[item.id];
     }
 
-    void CullingManager::cull(const CameraList& cameras) {
+    void CullingManager::cull(TaskManager* task_manager, const CameraList& cameras) {
         WG_AUTO_PROFILE_RENDER("CullingManager::cull");
 
         const int total_items = int(m_items.size());
@@ -123,7 +123,7 @@ namespace wmoge {
                 return 0;
             });
 
-            task_cull_camera.schedule(total_items, m_task_batch).wait_completed();
+            task_cull_camera.schedule(task_manager, total_items, m_task_batch).wait_completed();
         }
     }
 

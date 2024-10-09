@@ -77,7 +77,7 @@ namespace wmoge {
             }
         }
 
-        [[nodiscard]] std::string to_string() const;
+        [[nodiscard]] std::string to_string(class EcsRegistry* ecs_registry) const;
 
         friend Status tree_read(IoContext& context, IoTree& tree, EcsArch& arch) {
             return tree_read(context, tree, *((EcsArch::Bitset*) &arch));
@@ -92,11 +92,6 @@ namespace wmoge {
             return stream_write(context, stream, *((const EcsArch::Bitset*) &arch));
         }
     };
-
-    inline std::ostream& operator<<(std::ostream& stream, const EcsArch& arch) {
-        stream << arch.to_string();
-        return stream;
-    }
 
 }// namespace wmoge
 

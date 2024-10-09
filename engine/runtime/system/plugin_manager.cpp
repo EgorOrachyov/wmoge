@@ -27,8 +27,8 @@
 
 #include "plugin_manager.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 

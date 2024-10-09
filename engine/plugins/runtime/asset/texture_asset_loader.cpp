@@ -28,6 +28,7 @@
 #include "texture_asset_loader.hpp"
 
 #include "asset/texture_import_data.hpp"
+#include "core/ioc_container.hpp"
 #include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/image.hpp"
@@ -35,7 +36,6 @@
 #include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -71,8 +71,9 @@ namespace wmoge {
             return StatusCode::FailedResize;
         }
 
-        auto gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
-        auto texture_manager = IocContainer::iresolve_v<TextureManager>();
+        auto ioc             = context.ioc;
+        auto gfx_driver      = ioc->resolve_value<GfxDriver>();
+        auto texture_manager = ioc->resolve_value<TextureManager>();
 
         TextureFlags flags;
         flags.set(TextureFlag::Pooled);
@@ -172,8 +173,9 @@ namespace wmoge {
             }
         }
 
-        auto gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
-        auto texture_manager = IocContainer::iresolve_v<TextureManager>();
+        auto ioc             = context.ioc;
+        auto gfx_driver      = ioc->resolve_value<GfxDriver>();
+        auto texture_manager = ioc->resolve_value<TextureManager>();
 
         TextureFlags flags;
         flags.set(TextureFlag::Pooled);

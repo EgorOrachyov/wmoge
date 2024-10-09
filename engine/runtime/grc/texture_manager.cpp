@@ -28,17 +28,17 @@
 #include "texture_manager.hpp"
 
 #include "core/array_view.hpp"
+#include "core/ioc_container.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    TextureManager::TextureManager() {
+    TextureManager::TextureManager(IocContainer* ioc) {
         WG_AUTO_PROFILE_GRC("TextureManager::TextureManager");
 
-        m_gfx_driver = IocContainer::iresolve_v<GfxDriver>();
+        m_gfx_driver = ioc->resolve_value<GfxDriver>();
         m_pool       = std::make_unique<TexturePool>(*m_gfx_driver);
         m_callback   = std::make_shared<Texture::Callback>([this](Texture* texture) { remove(texture); });
 

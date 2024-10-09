@@ -27,9 +27,9 @@
 
 #include "image.hpp"
 
+#include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <stb_image.hpp>
 #include <stb_image_resize.hpp>

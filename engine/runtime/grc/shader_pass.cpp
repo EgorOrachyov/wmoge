@@ -33,7 +33,6 @@
 #include "grc/pso_cache.hpp"
 #include "grc/shader.hpp"
 #include "grc/shader_manager.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 
@@ -144,8 +143,8 @@ namespace wmoge {
             return StatusCode::InvalidState;
         }
 
-        ShaderManager* shader_manager = IocContainer::iresolve_v<ShaderManager>();
-        GfxDriver*     driver         = IocContainer::iresolve_v<GfxDriver>();
+        ShaderManager* shader_manager = nullptr;
+        GfxDriver*     driver         = nullptr;
 
         const std::int16_t num_spaces = m_shader->get_num_spaces();
         for (std::int16_t i = 0; i < num_spaces; i++) {
@@ -159,7 +158,7 @@ namespace wmoge {
     }
 
     Status ShaderPass::configure_graphics(GfxCmdList& cmd_list) {
-        ShaderManager* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+        ShaderManager* shader_manager = nullptr;
 
         auto platform = shader_manager->get_active_platform();
         auto program  = shader_manager->get_or_create_program(m_shader, platform, m_permutation);
@@ -168,7 +167,7 @@ namespace wmoge {
             return StatusCode::NoValue;
         }
 
-        PsoCache* pso_cache = IocContainer::iresolve_v<PsoCache>();
+        PsoCache* pso_cache = nullptr;
 
         GfxVertElements ve;
         for (int i = 0; i < GfxLimits::MAX_VERT_STREAMS; i++) {
@@ -199,7 +198,7 @@ namespace wmoge {
     }
 
     Status ShaderPass::configure_compute(GfxCmdList& cmd_list) {
-        ShaderManager* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+        ShaderManager* shader_manager = nullptr;
 
         auto platform = shader_manager->get_active_platform();
         auto program  = shader_manager->get_or_create_program(m_shader, platform, m_permutation);
@@ -212,7 +211,7 @@ namespace wmoge {
         state.program = program;
         state.layout  = shader_manager->get_shader_pso_layout(m_shader);
 
-        PsoCache* pso_cache = IocContainer::iresolve_v<PsoCache>();
+        PsoCache* pso_cache = nullptr;
         GfxPsoRef pso_ref   = pso_cache->get_or_create_pso(state, program->name());
 
         if (!pso_ref) {

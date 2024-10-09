@@ -100,7 +100,7 @@ namespace wmoge {
         void              update_item_bbox(const CullingItem& item, const Aabbf& aabbf);
         CullingItemResult get_item_result(const CullingItem& item);
 
-        void cull(const CameraList& cameras);
+        void cull(class TaskManager* task_manager, const CameraList& cameras);
 
     private:
         std::vector<CullingItemData>   m_items;

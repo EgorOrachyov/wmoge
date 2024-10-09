@@ -31,6 +31,7 @@
 #include "core/buffered_vector.hpp"
 #include "core/status.hpp"
 #include "core/string_id.hpp"
+#include "core/task_manager.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_vector.hpp"
@@ -166,7 +167,8 @@ namespace wmoge {
         GfxVector<GfxVF_Pos2Uv2, GfxVertBuffer> m_fullscreen_tria;
         Ref<GfxUniformBuffer>                   m_frame_data;
 
-        RenderScene* m_scene = nullptr;
+        RenderScene* m_scene        = nullptr;
+        TaskManager* m_task_manager = nullptr;
         CameraList   m_cameras;
 
         RenderSettings m_settings;

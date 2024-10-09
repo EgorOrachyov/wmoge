@@ -27,29 +27,28 @@
 
 #include "core/task.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/task_runtime.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     Task::Task(Strid name, TaskRunnable runnable)
         : m_runnable(std::move(runnable)),
-          m_task_manager(IocContainer::iresolve_v<TaskManager>()),
           m_name(name) {
     }
 
-    TaskHnd Task::schedule() {
-        return schedule(Async{});
+    TaskHnd Task::schedule(TaskManager* task_manager) {
+        return schedule(task_manager, Async{});
     }
 
-    TaskHnd Task::schedule(Async depends_on) {
+    TaskHnd Task::schedule(TaskManager* task_manager, Async depends_on) {
         WG_AUTO_PROFILE_CORE("Task::schedule");
 
         assert(m_runnable);
-        assert(m_task_manager);
+        assert(task_manager);
 
-        auto runtime = make_ref<TaskRuntime>(m_name, m_runnable, m_task_manager);
+        auto runtime = make_ref<TaskRuntime>(m_name, m_runnable, task_manager);
 
         if (depends_on.is_not_null()) {
             depends_on.add_dependency(runtime.as<AsyncStateBase>());

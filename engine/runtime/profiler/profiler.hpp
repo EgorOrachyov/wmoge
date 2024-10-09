@@ -99,9 +99,9 @@ namespace wmoge {
         void set_name(Strid name);
         void set_file(std::string file);
         void add_entry(ProfilerEntry&& entry);
-        void save_to_json();
 
         [[nodiscard]] const Strid&                      get_name() const { return m_name; }
+        [[nodiscard]] const std::string&                get_file() const { return m_file; }
         [[nodiscard]] const std::vector<ProfilerEntry>& get_entries() const { return m_entries; }
 
     private:
@@ -116,11 +116,13 @@ namespace wmoge {
      */
     class Profiler {
     public:
-        Profiler();
+        Profiler() = default;
 
+        void configure(class IocContainer* ioc);
         void set_enabled(bool value);
         void start_capture(std::shared_ptr<ProfilerCapture> capture);
         void end_capture();
+        void save_capture_to_json(std::shared_ptr<ProfilerCapture> capture);
         void add_entry(ProfilerEntry&& entry);
         void add_tid(std::thread::id id, Strid name);
 
@@ -136,7 +138,11 @@ namespace wmoge {
         std::atomic_bool                           m_is_collecting{false};
         std::shared_ptr<ProfilerCapture>           m_capture;
         std::unordered_map<std::thread::id, Strid> m_tid_names;
-        SpinMutex                                  m_mutex;
+
+        class FileSystem* m_file_system;
+        class Time*       m_time;
+
+        mutable SpinMutex m_mutex;
 
         static Profiler* g_profiler;
     };
@@ -191,7 +197,7 @@ namespace wmoge {
     capture->set_file(file_path);                             \
     Profiler::instance()->start_capture(capture);
 
-#define WG_PROFILE_CAPTURE_END(capture)  \
-    Profiler::instance()->end_capture(); \
-    capture->save_to_json();             \
+#define WG_PROFILE_CAPTURE_END(capture)                  \
+    Profiler::instance()->end_capture();                 \
+    Profiler::instance()->save_capture_to_json(capture); \
     capture.reset();

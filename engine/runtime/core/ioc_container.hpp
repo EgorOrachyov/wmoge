@@ -69,9 +69,7 @@ namespace wmoge {
     */
     class IocContainer {
     public:
-        IocContainer()                        = default;
-        IocContainer(const IocContainer&)     = delete;
-        IocContainer(IocContainer&&) noexcept = delete;
+        IocContainer() = default;
 
         void                     clear();
         void                     add(IocEntry&& entry);
@@ -83,6 +81,9 @@ namespace wmoge {
 
         template<typename S>
         void bind_by_instance(std::shared_ptr<S> instance);
+
+        template<typename S>
+        void bind_by_pointer(S* instance);
 
         template<typename S>
         void bind_by_ioc();
@@ -99,17 +100,9 @@ namespace wmoge {
         template<typename S>
         S* resolve_value();
 
-        template<typename S>
-        static S* iresolve_v();
-
-        static void          provide(IocContainer* ioc);
-        static IocContainer* instance();
-
     private:
         std::unordered_map<std::type_index, IocEntry> m_entries;
         std::recursive_mutex                          m_mutex;
-
-        static IocContainer* g_ioc_container;
     };
 
     template<typename S, typename Factory>
@@ -134,6 +127,11 @@ namespace wmoge {
         bind_by_factory<S>([i = std::move(instance)]() {
             return i;
         });
+    }
+
+    template<typename S>
+    inline void IocContainer::bind_by_pointer(S* instance) {
+        bind_by_instance(std::shared_ptr<S>(instance, [](auto p) {}));
     }
 
     template<typename S>
@@ -208,11 +206,6 @@ namespace wmoge {
     template<typename S>
     inline S* IocContainer::resolve_value() {
         return resolve<S>().value();
-    }
-
-    template<typename S>
-    inline S* IocContainer::iresolve_v() {
-        return instance()->resolve_value<S>();
     }
 
 }// namespace wmoge

@@ -27,6 +27,7 @@
 
 #include "shader_manager.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
 #include "core/task.hpp"
@@ -43,7 +44,6 @@
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
 #include "system/console.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <functional>
@@ -53,16 +53,16 @@
 
 namespace wmoge {
 
-    ShaderManager::ShaderManager() {
+    ShaderManager::ShaderManager(IocContainer* ioc) {
         WG_AUTO_PROFILE_GRC("ShaderManager::ShaderManager");
 
-        m_task_manager    = IocContainer::iresolve_v<ShaderTaskManager>();
-        m_file_system     = IocContainer::iresolve_v<FileSystem>();
-        m_gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
-        m_texture_manager = IocContainer::iresolve_v<TextureManager>();
-        m_shader_library  = IocContainer::iresolve_v<ShaderLibrary>();
-        m_pso_cache       = IocContainer::iresolve_v<PsoCache>();
-        m_console         = IocContainer::iresolve_v<Console>();
+        m_task_manager    = ioc->resolve_value<ShaderTaskManager>();
+        m_file_system     = ioc->resolve_value<FileSystem>();
+        m_gfx_driver      = ioc->resolve_value<GfxDriver>();
+        m_texture_manager = ioc->resolve_value<TextureManager>();
+        m_shader_library  = ioc->resolve_value<ShaderLibrary>();
+        m_pso_cache       = ioc->resolve_value<PsoCache>();
+        m_console         = ioc->resolve_value<Console>();
 
         m_shaders_folder          = "engine/shaders";
         m_shaders_cache_path      = "cache/";
@@ -396,8 +396,7 @@ namespace wmoge {
                 return 0;
             });
 
-            cache_task.set_task_manager(*m_task_manager);
-            auto cache_task_hnd = cache_task.schedule(compilation_task);
+            auto cache_task_hnd = cache_task.schedule(m_task_manager, compilation_task);
 
             cache_task_hnd.add_on_completion([platform, permutation, weak_shader_entry = WeakRef<Entry>(&shader_entry)](AsyncStatus status, std::optional<int>&) {
                 Ref<Entry> shader_entry = weak_shader_entry.acquire();
@@ -489,7 +488,7 @@ namespace wmoge {
         std::unique_lock lock(entry.mutex);
 
         const std::string path = entry.cache.make_cache_file_name(m_shaders_cache_path, shader->get_shader_name().str(), platform);
-        return entry.cache.load_cache(path, platform, allow_missing);
+        return entry.cache.load_cache(m_file_system, path, platform, allow_missing);
     }
 
     Status ShaderManager::save_cache(Shader* shader, GfxShaderPlatform platform) {
@@ -499,7 +498,7 @@ namespace wmoge {
         std::unique_lock lock(entry.mutex);
 
         const std::string path = entry.cache.make_cache_file_name(m_shaders_cache_path, shader->get_shader_name().str(), platform);
-        return entry.cache.save_cache(path, platform);
+        return entry.cache.save_cache(m_file_system, path, platform);
     }
 
     std::optional<Ref<ShaderType>> ShaderManager::find_global_type(Strid name) {
@@ -507,8 +506,12 @@ namespace wmoge {
         if (q != m_global_types.end()) {
             return q->second;
         }
-
         return std::optional<Ref<ShaderType>>();
+    }
+
+    bool ShaderManager::is_global_type(Strid name) {
+        auto q = m_global_types.find(name);
+        return q != m_global_types.end();
     }
 
     ShaderCompiler* ShaderManager::find_compiler(GfxShaderPlatform platform) {
@@ -516,25 +519,15 @@ namespace wmoge {
         return m_compilers[int(platform)].get();
     }
 
-    void ShaderManager::add_global_type(const Ref<ShaderType>& type) {
-        m_global_types[type->name] = type;
+    void ShaderManager::add_compiler(Ref<ShaderCompiler> compiler) {
+        assert(compiler);
+        assert(int(compiler->get_platform()) < GfxLimits::NUM_PLATFORMS);
+        assert(!m_compilers[int(compiler->get_platform())]);
+        m_compilers[int(compiler->get_platform())] = std::move(compiler);
     }
 
-    void ShaderManager::load_compilers() {
-        WG_AUTO_PROFILE_GRC("ShaderManager::load_compilers");
-
-        RttiTypeStorage* type_storage = IocContainer::iresolve_v<RttiTypeStorage>();
-
-        auto compilers = type_storage->find_classes([](const Ref<RttiClass>& rtti) {
-            return rtti->is_subtype_of(ShaderCompiler::get_class_static()) && rtti->can_instantiate();
-        });
-
-        for (const auto& compiler_class : compilers) {
-            Ref<ShaderCompiler> compiler = compiler_class->instantiate().cast<ShaderCompiler>();
-            assert(compiler);
-            assert(int(compiler->get_platform()) < int(GfxShaderPlatform::Max));
-            m_compilers[int(compiler->get_platform())] = compiler;
-        }
+    void ShaderManager::add_global_type(const Ref<ShaderType>& type) {
+        m_global_types[type->name] = type;
     }
 
     ShaderManager::Entry* ShaderManager::get_entry(Shader* shader) {

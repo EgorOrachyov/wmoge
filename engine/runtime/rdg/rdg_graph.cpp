@@ -30,14 +30,13 @@
 
 #include "core/log.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    RDGGraph::RDGGraph() {
-        m_pool = IocContainer::iresolve_v<RDGPool>();
+    RDGGraph::RDGGraph(RDGPool* pool) {
+        m_pool = pool;
     }
 
     RDGPass& RDGGraph::add_pass(Strid name, RDGPassFlags flags) {

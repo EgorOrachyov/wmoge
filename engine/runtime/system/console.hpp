@@ -147,14 +147,14 @@ namespace wmoge {
         /** @brief Process console input as a string */
         void process(const std::string& input);
 
-        void init();
+        void init(class AssetManager* asset_manager);
         void shutdown();
         void update();
         void render();
 
     private:
         void register_commands();
-        void load_settings();
+        void load_settings(class AssetManager* asset_manager);
         void add_message_internal(const std::string& message, const Color4f& color, bool merge_lines = false);
 
         enum class ConsoleState {

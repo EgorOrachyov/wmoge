@@ -36,8 +36,6 @@
 #include "platform/window_manager.hpp"
 #include "profiler/profiler.hpp"
 #include "render/canvas.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -137,9 +135,9 @@ namespace wmoge {
         }
     }
 
-    void Console::init() {
+    void Console::init(AssetManager* asset_manager) {
         register_commands();
-        load_settings();
+        load_settings(asset_manager);
     }
 
     void Console::shutdown() {
@@ -310,35 +308,14 @@ namespace wmoge {
             return 0;
         });
     }
-    void Console::load_settings() {
+    void Console::load_settings(AssetManager* asset_manager) {
         WG_AUTO_PROFILE_DEBUG("Console::load_settings");
 
-        auto config        = IocContainer::iresolve_v<Config>();
-        auto asset_manager = IocContainer::iresolve_v<AssetManager>();
+        const std::string font_name = "assets/fonts/anonymous_pro";
 
         // m_canvas       = Engine::instance()->canvas_debug();
-        m_console_font = asset_manager->load(SID(config->get_string_or_default(SID("debug.console.font"), "assets/fonts/anonymous_pro"))).cast<Font>();
+        m_console_font = asset_manager->load(AssetId(font_name)).cast<Font>();
         m_margin_line  = m_margin + m_console_font->get_string_size("> ", m_text_size).x();
-
-        config->get_color4f(SID("debug.console.color_back"), m_color_back);
-        config->get_color4f(SID("debug.console.color_line"), m_color_line);
-        config->get_color4f(SID("debug.console.color_text"), m_color_text);
-        config->get_color4f(SID("debug.console.color_input"), m_color_input);
-        config->get_color4f(SID("debug.console.color_warning"), m_color_warning);
-        config->get_color4f(SID("debug.console.color_error"), m_color_error);
-        config->get_color4f(SID("debug.console.color_suggestion"), m_color_suggestion);
-        config->get_color4f(SID("debug.console.color_cursor"), m_color_cursor);
-        config->get_float(SID("debug.console.speed_open"), m_speed_open);
-        config->get_float(SID("debug.console.speed_blink"), m_speed_blink);
-        config->get_float(SID("debug.console.blink_threshold"), m_blink_threshold);
-        config->get_float(SID("debug.console.size"), m_size);
-        config->get_float(SID("debug.console.text_size"), m_text_size);
-        config->get_float(SID("debug.console.line_size"), m_line_size);
-        config->get_float(SID("debug.console.cursor_width"), m_cursor_width);
-        config->get_float(SID("debug.console.cursor_height"), m_cursor_height);
-        config->get_float(SID("debug.console.text_line"), m_text_line);
-        config->get_float(SID("debug.console.margin"), m_margin);
-        config->get_float(SID("debug.console.margin_line"), m_margin_line);
     }
     void Console::add_message_internal(const std::string& message, const Color4f& color, bool merge_lines) {
         std::lock_guard lock(m_mutex);

@@ -70,10 +70,12 @@ namespace wmoge {
          * @brief Kick off task for execution
          *
          * The task will be scheduled for background execution in selected task manager.
-         *
+         * 
+         * @param task_manager Taask manager to run task
+         *  
          * @return Async task hnd to track task execution
          */
-        TaskHnd schedule();
+        TaskHnd schedule(TaskManager* task_manager);
 
         /**
          * @brief Kick off task for execution
@@ -81,16 +83,14 @@ namespace wmoge {
          * Schedule task to be executed only after and only of dependencies completed.
          * The task will be scheduled for background execution in selected task manager.
          *
+         * @param task_manager Taask manager to run task
          * @param depends_on Dependencies that must complete before this task actual execution.
          *                   As soon as dependencies completed, this task is executed. Use this
          *                   to construct task graphs for computations.
          *
          * @return Async task hnd to track task execution
          */
-        TaskHnd schedule(Async depends_on);
-
-        /** @brief Set manager where should execute this task */
-        void set_task_manager(TaskManager& manager) { m_task_manager = &manager; }
+        TaskHnd schedule(TaskManager* task_manager, Async depends_on);
 
         /** @brief Function called as a job of task; may be empty */
         [[nodiscard]] TaskRunnable& runnable() { return m_runnable; }
@@ -98,12 +98,8 @@ namespace wmoge {
         /** @brief Optional task label for debugging */
         [[nodiscard]] const Strid& name() const { return m_name; }
 
-        /** @brief Task manager to execute this task; null if used default engine manager */
-        [[nodiscard]] TaskManager* task_manager() const { return m_task_manager; }
-
     private:
         TaskRunnable m_runnable;
-        TaskManager* m_task_manager = nullptr;
         Strid        m_name;
     };
 

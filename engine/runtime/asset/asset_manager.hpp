@@ -98,6 +98,7 @@ namespace wmoge {
         class FileSystem*      m_file_system   = nullptr;
         class RttiTypeStorage* m_type_storage  = nullptr;
         class IocContainer*    m_ioc_container = nullptr;
+        class TaskManager*     m_task_manager  = nullptr;
 
         mutable std::recursive_mutex m_mutex;
     };

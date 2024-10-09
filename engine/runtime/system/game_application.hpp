@@ -25,81 +25,36 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_LUA_BINDINGS_CORE_HPP
-#define WMOGE_LUA_BINDINGS_CORE_HPP
+#pragma once
 
-#include "scripting/lua_bindings/lua_bindings.hpp"
-
-#include "core/cmd_line.hpp"
-#include "core/data.hpp"
-#include "core/log.hpp"
-#include "core/object.hpp"
-#include "core/random.hpp"
-#include "core/ref.hpp"
-#include "system/engine.hpp"
-
-#include <magic_enum.hpp>
+#include "system/application.hpp"
 
 namespace wmoge {
 
-    struct LuaRefCnt {
-        bool is_null() const {
-            return !ptr.operator bool();
-        }
-        unsigned int ref() {
-            return ptr->ref();
-        }
-        unsigned int unref() {
-            return ptr->unref();
-        }
-        unsigned int refs_count() const {
-            return ptr->refs_count();
-        }
-
-        void set(Ref<RefCnt> new_ptr) {
-            ptr = std::move(new_ptr);
-        }
-        Ref<RefCnt> get() const {
-            return ptr;
-        };
-
-        template<typename T>
-        T* cast() const {
-            return dynamic_cast<T*>(ptr.get());
-        };
-
-        template<typename T>
-        T* cast_unsafe() const {
-            return reinterpret_cast<T*>(ptr.get());
-        };
-
-        Ref<RefCnt> ptr;
+    /**
+     * @class GameApplication
+     * @brief Game app config
+    */
+    struct GameApplicationConfig : ApplicationConfig {
+        std::string game_info;
     };
 
-    struct LuaData : public LuaRefCnt {
-        std::size_t size() const {
-            return cast_unsafe<Data>()->size();
-        }
-        std::size_t size_as_kib() const {
-            return cast_unsafe<Data>()->size_as_kib();
-        }
-        std::string to_string() const {
-            return cast_unsafe<Data>()->to_string();
-        }
-    };
+    /**
+     * @class GameApplication
+     * @brief Base class for application to run stand-alone game
+    */
+    class GameApplication : public Application {
+    public:
+        GameApplication(GameApplicationConfig& config);
 
-    struct LuaObject : public LuaRefCnt {
-        std::string to_string() const {
-            return cast_unsafe<Object>()->to_string();
-        }
-        const Strid& class_name() const {
-            return cast_unsafe<Object>()->class_name();
-        }
-        void signal(const Strid& signal) {
-            cast_unsafe<Object>()->signal(signal);
-        }
+        Status on_register() override;
+        Status on_init() override;
+        Status on_loop() override;
+        Status on_shutdown() override;
+        bool   should_close() override;
+
+    protected:
+        class Engine* m_engine = nullptr;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_LUA_BINDINGS_CORE_HPP

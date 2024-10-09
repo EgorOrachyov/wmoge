@@ -27,27 +27,26 @@
 
 #include "task_parallel_for.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/task_runtime.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     TaskParallelFor::TaskParallelFor(Strid name, TaskRunnableFor runnable)
         : m_runnable(std::move(runnable)),
-          m_task_manager(IocContainer::iresolve_v<TaskManager>()),
           m_name(name) {
     }
 
-    TaskHnd TaskParallelFor::schedule(int num_elements, int batch_size) {
-        return schedule(num_elements, batch_size, Async{});
+    TaskHnd TaskParallelFor::schedule(TaskManager* task_manager, int num_elements, int batch_size) {
+        return schedule(task_manager, num_elements, batch_size, Async{});
     }
 
-    TaskHnd TaskParallelFor::schedule(int num_elements, int batch_size, Async depends_on) {
+    TaskHnd TaskParallelFor::schedule(TaskManager* task_manager, int num_elements, int batch_size, Async depends_on) {
         WG_AUTO_PROFILE_CORE("TaskParallelFor::schedule");
 
         assert(m_runnable);
-        assert(m_task_manager);
+        assert(task_manager);
         assert(batch_size > 0);
 
         if (num_elements <= 0) {
@@ -56,7 +55,7 @@ namespace wmoge {
             return TaskHnd(state);
         }
 
-        auto parallel_for_runtime = make_ref<TaskRuntimeParallelFor>(m_name, m_runnable, m_task_manager, num_elements, batch_size);
+        auto parallel_for_runtime = make_ref<TaskRuntimeParallelFor>(m_name, m_runnable, task_manager, num_elements, batch_size);
 
         if (depends_on.is_not_null()) {
             depends_on.add_dependency(parallel_for_runtime);

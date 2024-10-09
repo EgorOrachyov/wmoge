@@ -53,6 +53,16 @@ namespace wmoge {
     };
 
     /**
+     * @class SceneCreateInfo 
+     * @brief Info for scene construction
+     */
+    struct SceneCreateInfo {
+        Strid              name;
+        class EcsRegistry* ecs_registry;
+        class TaskManager* task_manager;
+    };
+
+    /**
      * @class Scene
      * @brief Scene objects container representing running game state
      * 
@@ -75,8 +85,7 @@ namespace wmoge {
      */
     class Scene final : public RefCnt {
     public:
-        Scene(Strid name = Strid());
-        ~Scene() override = default;
+        Scene(const SceneCreateInfo& info);
 
         Status build(const SceneData& data);
         void   advance(float delta_time);

@@ -27,6 +27,9 @@
 
 #include <engine.hpp>
 
+#include "io/stream_file.hpp"
+#include "io/tree_yaml.hpp"
+
 #include "assimp_plugin.hpp"
 #include "freetype_plugin.hpp"
 #include "runtime_plugin.hpp"
@@ -75,10 +78,11 @@ using namespace wmoge;
 
 class TemplateApplication : public GameApplication {
 public:
-    ~TemplateApplication() override = default;
+    TemplateApplication(GameApplicationConfig& config) : GameApplication(config) {
+    }
 
     Status on_register() override {
-        PluginManager* plugin_manager = IocContainer::iresolve_v<PluginManager>();
+        PluginManager* plugin_manager = m_config.ioc->resolve_value<PluginManager>();
         plugin_manager->add<RuntimePlugin>();
         plugin_manager->add<AssimpPlugin>();
         plugin_manager->add<FreetypePlugin>();
@@ -94,11 +98,11 @@ public:
 
         GameApplication::on_init();
 
-        mesh = Engine::instance()->asset_manager()->load(SID("assets/mesh/suzanne")).cast<Mesh>();
+        mesh = m_engine->asset_manager()->load(SID("assets/mesh/suzanne")).cast<Mesh>();
 
         // Engine::instance()->scene_manager()->change(scene);
 
-        ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80, Engine::instance()->shader_manager());
+        ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80, m_engine->shader_manager());
         rdc
                 .add_field(SID("Transform0"), ShaderTypes::VEC4)
                 .add_field(SID("Transform1"), ShaderTypes::VEC4)
@@ -110,12 +114,12 @@ public:
                 .add_field(SID("Padding2"), ShaderTypes::INT)
                 .finish();
 
-        ShaderStructRegister rdcs(SID("CanvasDrawCmdsBuffer"), 0, Engine::instance()->shader_manager());
+        ShaderStructRegister rdcs(SID("CanvasDrawCmdsBuffer"), 0, m_engine->shader_manager());
         rdcs
                 .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
                 .finish();
 
-        shader = Engine::instance()->asset_manager()->load(SID("engine/shaders/canvas")).cast<Shader>();
+        shader = m_engine->asset_manager()->load(SID("engine/shaders/canvas")).cast<Shader>();
 
         ShaderParamId p_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
         ShaderParamId p_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
@@ -125,7 +129,20 @@ public:
         block.set_var(p_inverse_gamma, 1.0f / 4.0f);
         // block.validate(Engine::instance()->gfx_driver(), Engine::instance()->gfx_ctx());
 
-        Engine* engine = Engine::instance();
+        Engine* engine = m_engine;
+
+        // IoContext context;
+        // context.add<ShaderManager*>(Engine::instance()->shader_manager());
+        // IoYamlTree   tree;
+        // IoStreamFile stream;
+        // std::string  content;
+
+        // WG_CHECKED(tree.create_tree());
+        // WG_TREE_WRITE(context, tree, shader->get_reflection());
+        // WG_CHECKED(tree.save_tree(content));
+        // WG_CHECKED(Engine::instance()->file_system()->save_file("canvas.reflection.yaml", content));
+        // WG_CHECKED(stream.open("canvas.reflection.bin", {FileOpenMode::Out, FileOpenMode::Binary}));
+        // WG_ARCHIVE_WRITE(context, stream, shader->get_reflection());
 
         WG_LOG_INFO("init");
         return StatusCode::Ok;
@@ -134,7 +151,7 @@ public:
     void debug_draw() {
         WG_AUTO_PROFILE(app, "TemplateApplication::debug_draw");
 
-        Engine*        engine         = Engine::instance();
+        Engine*        engine         = m_engine;
         ShaderManager* shader_manager = engine->shader_manager();
 
         ShaderPermutation permutation;
@@ -197,6 +214,24 @@ public:
 };
 
 int main(int argc, const char* const* argv) {
-    TemplateApplication app;
-    return app.run(argc, argv);
+    IocContainer    ioc_containter;
+    CmdLineOptions  options("template-app", "wmoge engine template app for testing");
+    CmdLineHookList hooks;
+
+    GameApplicationConfig app_config;
+    app_config.name             = "test app";
+    app_config.ioc              = &ioc_containter;
+    app_config.cmd_line.options = &options;
+    app_config.cmd_line.hooks   = &hooks;
+    app_config.cmd_line.line    = CmdLineUtil::to_string(argc, argv);
+    app_config.cmd_line.args    = CmdLineUtil::to_vector(argc, argv);
+
+    EngineCmdLineHooks::hook_uuid_gen(options, hooks);
+    EngineCmdLineHooks::hook_root_remap(options, hooks, &ioc_containter);
+    EngineCmdLineHooks::hook_root_engine(options, hooks, &ioc_containter);
+    EngineCmdLineHooks::hook_root_logs(options, hooks, &ioc_containter);
+    EngineCmdLineHooks::hook_root_profiler(options, hooks, &ioc_containter, &app_config.signals);
+
+    TemplateApplication app(app_config);
+    return app.run();
 }

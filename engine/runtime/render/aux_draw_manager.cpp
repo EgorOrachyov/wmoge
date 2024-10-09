@@ -33,8 +33,6 @@
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils3d.hpp"
 #include "profiler/profiler.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -456,20 +454,12 @@ namespace wmoge {
         }
     };
 
-    AuxDrawManager::AuxDrawManager()  = default;
-    AuxDrawManager::~AuxDrawManager() = default;
+    AuxDrawManager::AuxDrawManager() {
+        std::string font_name   = "assets/fonts/consolas";
+        m_screen_size.values[0] = 1280.0f;
+        m_screen_size.values[1] = 720.0f;
 
-    void AuxDrawManager::init() {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::init");
-
-        Config*       config        = IocContainer::iresolve_v<Config>();
-        AssetManager* asset_manager = IocContainer::iresolve_v<AssetManager>();
-
-        std::string font_name = config->get_string_or_default(SID("render.aux.font"), "assets/fonts/consolas");
-        m_font                = asset_manager->load(SID(font_name)).cast<Font>();
-
-        m_screen_size.values[0] = config->get_float_or_default(SID("render.aux.screen_width"), 1280.0f);
-        m_screen_size.values[1] = config->get_float_or_default(SID("render.aux.screen_height"), 720.0f);
+        // m_font = asset_manager->load(SID(font_name)).cast<Font>();
 
         m_lines.set_name(SID("aux_lines"));
         m_tria_solid.set_name(SID("aux_tria_solid"));

@@ -60,7 +60,7 @@ namespace wmoge {
      */
     class VKDriver final : public GfxDriver {
     public:
-        explicit VKDriver(const VKInitInfo& info);
+        explicit VKDriver(class IocContainer* ioc, const VKInitInfo& info);
         ~VKDriver() override;
 
         void shutdown() override;

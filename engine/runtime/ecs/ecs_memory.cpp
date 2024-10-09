@@ -27,9 +27,9 @@
 
 #include "ecs_memory.hpp"
 
+#include "core/ioc_container.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -53,18 +53,16 @@ namespace wmoge {
         return ((std::uint8_t*) m_chunks[idx / m_chunk_size]) + m_element_size * (idx % m_chunk_size);
     }
 
-    EcsArchStorage::EcsArchStorage(EcsArch arch) : m_arch(arch) {
+    EcsArchStorage::EcsArchStorage(EcsRegistry* ecs_registry, EcsArch arch) : m_arch(arch) {
         WG_AUTO_PROFILE_ECS("EcsArchStorage::EcsArchStorage");
 
-        EcsRegistry* registry = IocContainer::iresolve_v<EcsRegistry>();
-
-        m_chunk_size  = registry->get_chunk_size();
-        m_pool.back() = EcsPool(sizeof(EcsEntity), m_chunk_size, &registry->get_entity_pool());
+        m_chunk_size  = ecs_registry->get_chunk_size();
+        m_pool.back() = EcsPool(sizeof(EcsEntity), m_chunk_size, &ecs_registry->get_entity_pool());
 
         m_components_info.fill(nullptr);
         m_arch.for_each_component([&](int idx) {
-            m_components_info[idx] = &registry->get_component_info(idx);
-            m_pool[idx]            = EcsPool(m_components_info[idx]->size, m_chunk_size, &registry->get_component_pool(idx));
+            m_components_info[idx] = &ecs_registry->get_component_info(idx);
+            m_pool[idx]            = EcsPool(m_components_info[idx]->size, m_chunk_size, &ecs_registry->get_component_pool(idx));
         });
     }
 

@@ -70,7 +70,7 @@ namespace wmoge {
      */
     class EcsArchStorage {
     public:
-        explicit EcsArchStorage(EcsArch arch);
+        explicit EcsArchStorage(class EcsRegistry* ecs_registry, EcsArch arch);
         EcsArchStorage(const EcsArchStorage&) = delete;
         EcsArchStorage(EcsArchStorage&&)      = delete;
         ~EcsArchStorage();

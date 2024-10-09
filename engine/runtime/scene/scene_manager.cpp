@@ -28,6 +28,7 @@
 #include "scene_manager.hpp"
 
 #include "core/async.hpp"
+#include "core/ioc_container.hpp"
 #include "core/task_parallel_for.hpp"
 #include "ecs/ecs_registry.hpp"
 #include "gfx/gfx_cmd_list.hpp"
@@ -38,18 +39,18 @@
 #include "profiler/profiler.hpp"
 #include "render/render_engine.hpp"
 #include "scene/scene_components.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <utility>
 
 namespace wmoge {
 
-    SceneManager::SceneManager() {
+    SceneManager::SceneManager(IocContainer* ioc) {
         WG_LOG_INFO("init scene manager");
 
-        m_render_engine = IocContainer::iresolve_v<RenderEngine>();
-        m_ecs_registry  = IocContainer::iresolve_v<EcsRegistry>();
+        m_render_engine = ioc->resolve_value<RenderEngine>();
+        m_task_manager  = ioc->resolve_value<TaskManager>();
+        m_ecs_registry  = ioc->resolve_value<EcsRegistry>();
 
         m_ecs_registry->register_component<EcsComponentChildren>();
         m_ecs_registry->register_component<EcsComponentParent>();
@@ -107,7 +108,11 @@ namespace wmoge {
     Ref<Scene> SceneManager::make_scene(const Strid& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::make_scene");
 
-        return m_scenes.emplace_back(make_ref<Scene>(name));
+        SceneCreateInfo info;
+        info.name         = name;
+        info.ecs_registry = m_ecs_registry;
+        info.task_manager = m_task_manager;
+        return m_scenes.emplace_back(make_ref<Scene>(info));
     }
     std::optional<Ref<Scene>> SceneManager::find_by_name(const Strid& name) {
         WG_AUTO_PROFILE_SCENE("SceneManager::find_by_name");

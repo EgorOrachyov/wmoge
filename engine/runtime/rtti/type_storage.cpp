@@ -31,7 +31,8 @@
 
 namespace wmoge {
 
-    RttiTypeStorage* RttiTypeStorage::g_storage = nullptr;
+    RttiTypeStorage  g_storage_default;
+    RttiTypeStorage* RttiTypeStorage::g_storage = &g_storage_default;
 
     std::optional<RttiType*> RttiTypeStorage::find_type(const Strid& name) {
         std::lock_guard guard(m_mutex);

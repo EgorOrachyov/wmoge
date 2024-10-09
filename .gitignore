@@ -2,9 +2,6 @@
 /.idea
 /.vscode
 
-# vs code setup
-!.vscode/launch.json
-
 # python cache files
 /**/__pycache__
 

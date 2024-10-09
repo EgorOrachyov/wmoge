@@ -28,11 +28,11 @@
 #include "asset_manager.hpp"
 
 #include "asset/asset_library_fs.hpp"
+#include "core/ioc_container.hpp"
 #include "core/timer.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
-#include "system/ioc_container.hpp"
 
 #include <chrono>
 
@@ -42,6 +42,7 @@ namespace wmoge {
         m_ioc_container = ioc;
         m_file_system   = ioc->resolve_value<FileSystem>();
         m_type_storage  = ioc->resolve_value<RttiTypeStorage>();
+        m_task_manager  = ioc->resolve_value<TaskManager>();
 
         m_callback = std::make_shared<typename Asset::ReleaseCallback>([this](Asset* asset) {
             std::lock_guard guard(m_mutex);
@@ -100,8 +101,8 @@ namespace wmoge {
         load_state->async_op           = make_async_op<Ref<Asset>>();
         load_state->library            = asset_library.value();
         load_state->loader             = loader.value();
+        load_state->context.ioc        = m_ioc_container;
         load_state->context.asset_meta = std::move(asset_meta);
-        load_state->context.io_context.add<IocContainer*>(m_ioc_container);
 
         Task task_fill_requests(name, [=](TaskContext&) -> int {
             if (!load_state->loader->fill_request(load_state->context, name, load_state->request)) {
@@ -109,7 +110,7 @@ namespace wmoge {
                 return 1;
             }
 
-            buffered_vector<Async> file_data_requests;
+            buffered_vector<Async, 16> file_data_requests;
 
             file_data_requests.reserve(load_state->request.data_files.size());
             load_state->data_buffers.reserve(load_state->request.data_files.size());
@@ -152,7 +153,7 @@ namespace wmoge {
                 return 0;
             });
 
-            task_load.schedule(Async::join(array_view(file_data_requests))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
+            task_load.schedule(m_task_manager, Async::join(array_view(file_data_requests))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
                 if (status == AsyncStatus::Failed) {
                     load_state->async_op->set_failed();
                 }
@@ -163,7 +164,7 @@ namespace wmoge {
             return 0;
         });
 
-        task_fill_requests.schedule(Async::join(array_view(deps))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
+        task_fill_requests.schedule(m_task_manager, Async::join(array_view(deps))).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
             if (status == AsyncStatus::Failed) {
                 load_state->async_op->set_failed();
             }

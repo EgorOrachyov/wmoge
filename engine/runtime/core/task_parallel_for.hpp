@@ -73,20 +73,22 @@ namespace wmoge {
          * @brief Kick off task for execution
          *
          * The task will be scheduled for background execution in selected task manager.
-         *
+         * 
+         * @param task_manager Taask manager to run task
          * @param num_elements Total number of elements to process
          * @param batch_size Size of a batch, elements to be processed by a single job
          *
          * @return Async task hnd to track task execution
          */
-        TaskHnd schedule(int num_elements, int batch_size);
+        TaskHnd schedule(TaskManager* task_manager, int num_elements, int batch_size);
 
         /**
          * @brief Kick off task for execution
          *
          * Schedule parallel-for task to be executed only after and only of dependencies completed.
          * The jobs of the task will be scheduled for background execution in selected task manager.
-         *
+         * 
+         * @param task_manager Taask manager to run task
          * @param num_elements Total number of elements to process
          * @param batch_size Size of a batch, elements to be processed by a single job
          * @param depends_on Dependencies that must complete before this task actual execution.
@@ -95,10 +97,7 @@ namespace wmoge {
          *
          * @return Async task hnd to track task execution
          */
-        TaskHnd schedule(int num_elements, int batch_size, Async depends_on);
-
-        /** @brief Set manager where should execute this task */
-        void set_task_manager(TaskManager& manager) { m_task_manager = &manager; }
+        TaskHnd schedule(TaskManager* task_manager, int num_elements, int batch_size, Async depends_on);
 
         /** @brief Function called as a job of task; may be empty */
         [[nodiscard]] TaskRunnableFor& runnable() { return m_runnable; }
@@ -106,12 +105,8 @@ namespace wmoge {
         /** @brief Optional task label for debugging */
         [[nodiscard]] const Strid& name() const { return m_name; }
 
-        /** @brief Task manager to execute this task; null if used default engine manager */
-        [[nodiscard]] TaskManager* task_manager() const { return m_task_manager; }
-
     private:
         TaskRunnableFor m_runnable;
-        TaskManager*    m_task_manager = nullptr;
         Strid           m_name;
     };
 

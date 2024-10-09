@@ -45,7 +45,7 @@ namespace wmoge {
         ~IoStreamFile() override;
 
         Status set(Ref<File> file, FileOpenModeFlags flags);
-        Status open(const std::string& file_path, FileOpenModeFlags flags);
+        Status open(class FileSystem* file_system, const std::string& file_path, FileOpenModeFlags flags);
         Status nwrite(std::size_t num_bytes, const void* bytes) override;
         Status nread(std::size_t num_bytes, void* bytes) override;
         Status begin_compressed() override;

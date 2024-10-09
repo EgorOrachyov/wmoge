@@ -62,7 +62,7 @@ namespace wmoge {
      */
     class EcsWorld {
     public:
-        EcsWorld();
+        EcsWorld(class EcsRegistry* ecs_registry, class TaskManager* task_manager);
         ~EcsWorld();
 
         /** @brief Allocates new entity for later creation */

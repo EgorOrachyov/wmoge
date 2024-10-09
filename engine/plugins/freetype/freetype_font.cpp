@@ -27,21 +27,21 @@
 
 #include "freetype_font.hpp"
 
+#include "core/ioc_container.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/image.hpp"
 #include "grc/texture.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <freetype/freetype.h>
 
 namespace wmoge {
 
-    FreetypeFont::FreetypeFont() {
-        m_gfx_driver      = IocContainer::iresolve_v<GfxDriver>();
-        m_file_system     = IocContainer::iresolve_v<FileSystem>();
-        m_texture_manager = IocContainer::iresolve_v<TextureManager>();
+    FreetypeFont::FreetypeFont(IocContainer* ioc) {
+        m_gfx_driver      = ioc->resolve_value<GfxDriver>();
+        m_file_system     = ioc->resolve_value<FileSystem>();
+        m_texture_manager = ioc->resolve_value<TextureManager>();
     }
 
     Status FreetypeFont::load(const Ref<Font>& font, array_view<const std::uint8_t> ttf_data, int height, int glyphs_in_row) {

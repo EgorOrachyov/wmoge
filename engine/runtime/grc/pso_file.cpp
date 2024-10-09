@@ -27,28 +27,6 @@
 
 #include "pso_file.hpp"
 
-#include "io/stream_file.hpp"
-
 namespace wmoge {
-
-    Status PsoFile::read(const std::string& path, FilePsoData& pso_data) {
-        IoStreamFile stream;
-        WG_CHECKED(stream.open(path, {FileOpenMode::In, FileOpenMode::Binary}));
-
-        IoContext context;
-        WG_ARCHIVE_READ(context, stream, pso_data);
-
-        return WG_OK;
-    }
-
-    Status PsoFile::write(const std::string& path, const FilePsoData& pso_data) {
-        IoStreamFile stream;
-        WG_CHECKED(stream.open(path, {FileOpenMode::Out, FileOpenMode::Binary}));
-
-        IoContext context;
-        WG_ARCHIVE_WRITE(context, stream, pso_data);
-
-        return WG_OK;
-    }
 
 }// namespace wmoge

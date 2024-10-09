@@ -49,9 +49,6 @@ namespace wmoge {
     class EcsRegistry {
     public:
         EcsRegistry();
-        EcsRegistry(const EcsRegistry&) = delete;
-        EcsRegistry(EcsRegistry&&)      = delete;
-        ~EcsRegistry()                  = default;
 
         [[nodiscard]] int                     get_component_idx(const Strid& name);
         [[nodiscard]] const EcsComponentInfo& get_component_info(const Strid& name);

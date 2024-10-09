@@ -27,33 +27,84 @@
 
 #pragma once
 
+#include "core/status.hpp"
+
 #include <cxxopts.hpp>
+
+#include <functional>
+#include <memory>
+#include <optional>
+#include <string>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class CmdLine
-     * @brief Container for parsed command-line options
+     * @class CmdLineUtil
+     * @brief Util for command-line
      */
-    class CmdLine {
+    class CmdLineUtil {
     public:
-        CmdLine();
+        static std::string              to_string(int argc, const char* const* argv);
+        static std::vector<std::string> to_vector(int argc, const char* const* argv);
+    };
+
+    /**
+     * @class CmdLineParseResult
+     * @brief Container for command-line parse result
+     */
+    class CmdLineParseResult {
+    public:
+        CmdLineParseResult(cxxopts::ParseResult parsed);
+
+        [[nodiscard]] int         get_int(const std::string& name);
+        [[nodiscard]] bool        get_bool(const std::string& name);
+        [[nodiscard]] std::string get_string(const std::string& name);
+
+    private:
+        cxxopts::ParseResult m_parsed;
+    };
+
+    using CmdLineArgs = std::vector<std::string>;
+
+    /**
+     * @class CmdLineOptions
+     * @brief Container for command-line options
+     */
+    class CmdLineOptions {
+    public:
+        CmdLineOptions(const std::string& name, const std::string& desc);
 
         void add_int(const std::string& name, const std::string& desc, const std::string& value = "");
         void add_bool(const std::string& name, const std::string& desc, const std::string& value = "");
         void add_string(const std::string& name, const std::string& desc, const std::string& value = "");
 
-        bool parse(int argc, const char* const* argv);
-
-        int         get_int(const std::string& name);
-        bool        get_bool(const std::string& name);
-        std::string get_string(const std::string& name);
-
-        std::string get_help() const;
+        [[nodiscard]] std::optional<CmdLineParseResult> parse(const std::vector<std::string>& args);
+        [[nodiscard]] std::string                       get_help() const;
 
     private:
-        cxxopts::Options     m_options;
-        cxxopts::ParseResult m_parsed;
+        cxxopts::Options m_options;
+    };
+
+    /** 
+     * @brief Cmd line hook
+     */
+    using CmdLineHook = std::function<Status(CmdLineParseResult& cmd_line)>;
+
+    /** 
+     * @class CmdLineHookList
+     * @brief Storage for cmd line hooks
+     */
+    class CmdLineHookList {
+    public:
+        CmdLineHookList() = default;
+
+        void   add(CmdLineHook hook);
+        void   clear();
+        Status process(CmdLineParseResult& cmd_line);
+
+    private:
+        std::vector<CmdLineHook> m_storage;
     };
 
 }// namespace wmoge

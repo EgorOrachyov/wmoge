@@ -29,14 +29,13 @@
 #include "shader_library.hpp"
 
 #include "core/date_time.hpp"
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "io/stream_file.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/traits.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -84,8 +83,8 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
-    ShaderModuleMap::ShaderModuleMap() {
-        m_driver = IocContainer::iresolve_v<GfxDriver>();
+    ShaderModuleMap::ShaderModuleMap(GfxDriver* driver) {
+        m_driver = driver;
     }
 
     Ref<GfxShader> ShaderModuleMap::get_or_create_shader(GfxShaderModule module_type, const Sha256& bytecode_hash) {
@@ -144,35 +143,23 @@ namespace wmoge {
         }
     }
 
-    ShaderLibrary::ShaderLibrary() {
+    ShaderLibrary::ShaderLibrary(IocContainer* ioc) {
         rtti_type<FileShaderModule>();
         rtti_type<FileShaderLibrary>();
 
-        m_active_platform = IocContainer::iresolve_v<GfxDriver>()->get_shader_platform();
+        GfxDriver* driver = ioc->resolve_value<GfxDriver>();
+        m_active_platform = driver->get_shader_platform();
+
+        for (int i = 0; i < GfxLimits::NUM_PLATFORMS; i++) {
+            m_libraries.emplace_back(driver);
+        }
 
         m_library_path   = "cache/";
         m_library_prefix = "shader_library";
         m_library_suffix = "slf";
-        m_load_cache     = true;
-        m_save_cache     = true;
-
-        Config* config = IocContainer::iresolve_v<Config>();
-        config->get_string(SID("grc.shader.library.path"), m_library_path);
-        config->get_string(SID("grc.shader.library.prefix"), m_library_prefix);
-        config->get_string(SID("grc.shader.library.suffix"), m_library_suffix);
-        config->get_bool(SID("grc.shader.library.load_cache"), m_load_cache);
-        config->get_bool(SID("grc.shader.library.save_cache"), m_save_cache);
-
-        if (m_load_cache) {
-            load_cache(m_library_path, m_active_platform);
-        }
     }
 
-    ShaderLibrary::~ShaderLibrary() {
-        if (m_save_cache) {
-            save_cache(m_library_path, m_active_platform);
-        }
-    }
+    ShaderLibrary::~ShaderLibrary() = default;
 
     Ref<GfxShader> ShaderLibrary::get_or_create_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash) {
         WG_AUTO_PROFILE_GRC("ShaderLibrary::get_or_create_shader");
@@ -225,14 +212,14 @@ namespace wmoge {
         return file_name.str();
     }
 
-    Status ShaderLibrary::load_cache(const std::string& folder, const GfxShaderPlatform platform) {
+    Status ShaderLibrary::load_cache(FileSystem* file_system, const std::string& folder, const GfxShaderPlatform platform) {
         WG_AUTO_PROFILE_GRC("ShaderLibrary::load_cache");
 
         const std::string file_path = make_cache_file_name(folder, platform);
         IoStreamFile      stream;
         IoContext         context;
 
-        if (!stream.open(file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
+        if (!stream.open(file_system, file_path, {FileOpenMode::In, FileOpenMode::Binary})) {
             WG_LOG_ERROR("failed to open shader library " << file_path << " for platform " << Enum::to_str(platform));
             return StatusCode::FailedOpenFile;
         }
@@ -267,7 +254,7 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ShaderLibrary::save_cache(const std::string& folder, const GfxShaderPlatform platform) {
+    Status ShaderLibrary::save_cache(FileSystem* file_system, const std::string& folder, const GfxShaderPlatform platform) {
         WG_AUTO_PROFILE_GRC("ShaderLibrary::save_cache");
 
         std::vector<ShaderModule> modules;
@@ -293,7 +280,7 @@ namespace wmoge {
         IoStreamFile      stream;
         IoContext         context;
 
-        if (!stream.open(file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
+        if (!stream.open(file_system, file_path, {FileOpenMode::Out, FileOpenMode::Binary})) {
             WG_LOG_ERROR("failed to open shader library " << file_path << " for platform " << Enum::to_str(platform));
             return StatusCode::FailedOpenFile;
         }

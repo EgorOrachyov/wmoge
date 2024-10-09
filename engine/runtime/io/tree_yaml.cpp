@@ -27,9 +27,9 @@
 
 #include "tree_yaml.hpp"
 
+#include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <sstream>
@@ -46,6 +46,16 @@ namespace wmoge {
         return WG_OK;
     }
 
+    Status IoYamlTree::save_tree(std::string& data) {
+        ryml::emitrs_yaml(m_tree, 0, &data);
+        return WG_OK;
+    }
+
+    Status IoYamlTree::save_tree_json(std::string& data) {
+        ryml::emitrs_json(m_tree, 0, &data);
+        return WG_OK;
+    }
+
     Status IoYamlTree::parse_data(const array_view<const std::uint8_t>& data) {
         WG_AUTO_PROFILE_IO("IoYamlTree::parse_data");
         assert(m_stack.empty());
@@ -58,10 +68,6 @@ namespace wmoge {
         m_can_write = false;
         m_stack.push_back(m_tree.rootref());
         return WG_OK;
-    }
-
-    Status IoYamlTree::parse_file(const std::string& path) {
-        return parse_file(IocContainer::iresolve_v<FileSystem>(), path);
     }
 
     Status IoYamlTree::parse_file(FileSystem* fs, const std::string& path) {

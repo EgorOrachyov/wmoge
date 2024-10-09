@@ -27,6 +27,7 @@
 
 #include "vk_driver.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/string_utils.hpp"
 #include "core/task.hpp"
 #include "core/task_parallel_for.hpp"
@@ -39,8 +40,6 @@
 #include "gfx/vulkan/vk_texture.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <fstream>
@@ -53,13 +52,11 @@ namespace wmoge {
         return names_p;
     };
 
-    VKDriver::VKDriver(const VKInitInfo& info) {
+    VKDriver::VKDriver(IocContainer* ioc, const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
-        Config* config = IocContainer::iresolve_v<Config>();
-
-        m_file_system  = IocContainer::iresolve_v<FileSystem>();
-        m_task_manager = IocContainer::iresolve_v<TaskManager>();
+        m_file_system  = ioc->resolve_value<FileSystem>();
+        m_task_manager = ioc->resolve_value<TaskManager>();
 
         m_driver_name = SID("vulkan");
         m_clip_matrix = Mat4x4f(1.0f, 0.0f, 0.0f, 0.0f,
@@ -82,7 +79,7 @@ namespace wmoge {
 #endif
 
 #ifndef WMOGE_RELEASE
-        m_use_validation = config->get_bool_or_default(SID("gfx.vulkan.validation_layer"), true);
+        m_use_validation = true;
 #endif
 
         if (m_use_validation) {
@@ -96,7 +93,7 @@ namespace wmoge {
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
         WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 
-        m_pipeline_cache_path = config->get_string_or_default(SID("gfx.vulkan.pipeline_cache"), "cache/pipelines_vk.cache");
+        m_pipeline_cache_path = "cache/pipelines_vk.cache";
 
         // load vulkan functions from volk
         init_functions();
@@ -132,10 +129,6 @@ namespace wmoge {
 
         // init manager for desc sets allocation
         VKDescPoolConfig pool_config{};
-        config->get_int(SID("gfx.vulkan.desc_pool_max_images"), pool_config.max_images);
-        config->get_int(SID("gfx.vulkan.desc_pool_max_ub"), pool_config.max_ub);
-        config->get_int(SID("gfx.vulkan.desc_pool_max_sb"), pool_config.max_sb);
-        config->get_int(SID("gfx.vulkan.desc_pool_max_sets"), pool_config.max_sets);
         m_desc_manager = std::make_unique<VKDescManager>(pool_config, *this);
 
         // init pipeline cache
@@ -357,7 +350,7 @@ namespace wmoge {
             return 0;
         });
 
-        return task.schedule(int(request->desc.size()), 1).as_async();
+        return task.schedule(m_task_manager, int(request->desc.size()), 1).as_async();
     }
     Async VKDriver::make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_psos_graphics");
@@ -372,7 +365,7 @@ namespace wmoge {
             return 0;
         });
 
-        return task.schedule(int(request->states.size()), 1).as_async();
+        return task.schedule(m_task_manager, int(request->states.size()), 1).as_async();
     }
     Async VKDriver::make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::make_psos_compute");
@@ -387,9 +380,7 @@ namespace wmoge {
             return 0;
         });
 
-        task.set_task_manager(*m_task_manager);
-
-        return task.schedule(int(request->states.size()), 1).as_async();
+        return task.schedule(m_task_manager, int(request->states.size()), 1).as_async();
     }
 
     void VKDriver::begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) {

@@ -55,7 +55,7 @@ namespace wmoge {
     */
     class ShaderManager {
     public:
-        ShaderManager();
+        ShaderManager(class IocContainer* ioc);
 
         Status                         load_shader_reflection(const ShaderFile& file, ShaderReflection& reflection);
         void                           add_shader(const Ref<Shader>& shader);
@@ -71,9 +71,10 @@ namespace wmoge {
         Status                         load_cache(Shader* shader, GfxShaderPlatform platform, bool allow_missing = true);
         Status                         save_cache(Shader* shader, GfxShaderPlatform platform);
         std::optional<Ref<ShaderType>> find_global_type(Strid name);
+        bool                           is_global_type(Strid name);
         ShaderCompiler*                find_compiler(GfxShaderPlatform platform);
+        void                           add_compiler(Ref<ShaderCompiler> compiler);
         void                           add_global_type(const Ref<ShaderType>& type);
-        void                           load_compilers();
 
         [[nodiscard]] const std::string&           get_shaders_folder() const { return m_shaders_folder; }
         [[nodiscard]] const ShaderCompilerOptions& get_compiler_options() const { return m_compiler_options; }

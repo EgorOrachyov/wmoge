@@ -43,7 +43,7 @@ namespace wmoge {
     */
     class RDGGraph {
     public:
-        RDGGraph();
+        RDGGraph(RDGPool* pool);
 
         RDGPass& add_pass(Strid name, RDGPassFlags flags = {});
         RDGPass& add_compute_pass(Strid name, RDGPassFlags flags = {});

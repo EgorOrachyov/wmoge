@@ -43,7 +43,7 @@ namespace wmoge {
     */
     class FreetypeFont {
     public:
-        FreetypeFont();
+        FreetypeFont(class IocContainer* ioc);
 
         /**
          * @brief Loads font from a .ttf file from file system using specified height in pixels

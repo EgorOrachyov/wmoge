@@ -40,7 +40,7 @@ namespace wmoge {
     */
     class RDGPool {
     public:
-        RDGPool();
+        RDGPool(class GfxDriver* driver);
 
         void update();
 
@@ -62,8 +62,8 @@ namespace wmoge {
         std::vector<PoolUniformBuffer> m_uniform_buffer_pool;
         std::vector<PoolStorageBuffer> m_storage_buffer_pool;
 
-        class GfxDriver* m_driver = nullptr;
-        int              m_frames_before_gc;
+        class GfxDriver* m_driver           = nullptr;
+        int              m_frames_before_gc = 6;
     };
 
 }// namespace wmoge

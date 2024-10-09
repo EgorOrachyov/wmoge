@@ -27,9 +27,9 @@
 
 #include "async_file_system.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/task.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -56,8 +56,7 @@ namespace wmoge {
             return 0;
         });
 
-        task.set_task_manager(m_task_manager);
-        task.schedule().add_on_completion([=](AsyncStatus status, std::optional<int>&) {
+        task.schedule(&m_task_manager).add_on_completion([=](AsyncStatus status, std::optional<int>&) {
             if (status == AsyncStatus::Ok) {
                 async_result->set_result(BufferView(buffer_view));
                 return;

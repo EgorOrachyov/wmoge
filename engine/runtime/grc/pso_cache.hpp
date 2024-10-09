@@ -93,7 +93,7 @@ namespace wmoge {
     */
     class PsoCache {
     public:
-        PsoCache();
+        PsoCache(class IocContainer* ioc);
 
         Ref<GfxVertFormat>    get_or_create_vert_format(const GfxVertElements& elements, const Strid& name = Strid());
         Ref<GfxDescSetLayout> get_or_create_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid());

@@ -27,17 +27,9 @@
 
 #include "ecs_registry.hpp"
 
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
-
 namespace wmoge {
 
     EcsRegistry::EcsRegistry() {
-        Config* config = IocContainer::iresolve_v<Config>();
-
-        config->get_int(SID("ecs.chunk_size"), m_chunk_size);
-        config->get_int(SID("ecs.expand_size"), m_expand_size);
-
         m_entity_pool = std::make_unique<MemPool>(m_chunk_size * sizeof(EcsEntity), m_expand_size);
     }
 

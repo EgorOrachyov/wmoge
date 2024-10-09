@@ -32,22 +32,25 @@
 #include "io/ini.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <fstream>
 
 namespace wmoge {
 
-    Status ConfigFile::load(const std::string& path) {
-        WG_AUTO_PROFILE_ASSET("ConfigFile::load");
+    Status ConfigFile::load_from_file(FileSystem* file_system, const std::string& path) {
+        WG_AUTO_PROFILE_ASSET("ConfigFile::load_from_file");
 
         std::string content;
-        FileSystem* file_system = IocContainer::iresolve_v<FileSystem>();
-
         if (!file_system->read_file(path, content)) {
             WG_LOG_ERROR("failed to read config file from " << path);
             return StatusCode::FailedRead;
         }
+
+        return load_from_content(content);
+    }
+
+    Status ConfigFile::load_from_content(const std::string& content) {
+        WG_AUTO_PROFILE_ASSET("ConfigFile::load_from_content");
 
         IniFile file;
         WG_CHECKED(file.parse(content));
@@ -76,17 +79,6 @@ namespace wmoge {
             }
         }
 
-        return WG_OK;
-    }
-
-    Status ConfigFile::load_and_stack(const std::string& path, ConfigStackMode mode) {
-        ConfigFile config_file;
-
-        if (!config_file.load(path)) {
-            return StatusCode::FailedRead;
-        }
-
-        stack(config_file, mode);
         return WG_OK;
     }
 

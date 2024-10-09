@@ -27,6 +27,7 @@
 
 #pragma once
 
+#include "core/buffered_vector.hpp"
 #include "core/data.hpp"
 #include "core/flat_map.hpp"
 #include "core/sha256.hpp"
@@ -64,7 +65,7 @@ namespace wmoge {
      */
     class ShaderModuleMap {
     public:
-        ShaderModuleMap();
+        ShaderModuleMap(GfxDriver* driver);
 
         Ref<GfxShader>                get_or_create_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
         std::optional<Ref<GfxShader>> find_shader(GfxShaderModule module_type, const Sha256& bytecode_hash);
@@ -91,7 +92,7 @@ namespace wmoge {
     */
     class ShaderLibrary {
     public:
-        ShaderLibrary();
+        ShaderLibrary(class IocContainer* ioc);
         ~ShaderLibrary();
 
         Ref<GfxShader>                get_or_create_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash);
@@ -99,17 +100,15 @@ namespace wmoge {
         void                          fit_module(GfxShaderPlatform platform, ShaderModule& module);
         void                          dump_modules(GfxShaderPlatform platform, std::vector<ShaderModule>& out_modules);
         std::string                   make_cache_file_name(const std::string& folder, const GfxShaderPlatform platform);
-        Status                        load_cache(const std::string& folder, const GfxShaderPlatform platform);
-        Status                        save_cache(const std::string& folder, const GfxShaderPlatform platform);
+        Status                        load_cache(class FileSystem* file_system, const std::string& folder, const GfxShaderPlatform platform);
+        Status                        save_cache(class FileSystem* file_system, const std::string& folder, const GfxShaderPlatform platform);
 
     private:
-        std::array<ShaderModuleMap, GfxLimits::NUM_PLATFORMS> m_libraries;
+        buffered_vector<ShaderModuleMap, GfxLimits::NUM_PLATFORMS> m_libraries;
 
         std::string       m_library_path;
         std::string       m_library_prefix;
         std::string       m_library_suffix;
-        bool              m_load_cache;
-        bool              m_save_cache;
         GfxShaderPlatform m_active_platform;
 
         mutable RwMutexReadPrefer m_mutex;

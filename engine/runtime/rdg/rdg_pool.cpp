@@ -28,18 +28,13 @@
 #include "rdg_pool.hpp"
 
 #include "gfx/gfx_driver.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 #include <algorithm>
 
 namespace wmoge {
 
-    RDGPool::RDGPool() {
-        Config* config = IocContainer::iresolve_v<Config>();
-
-        m_driver           = IocContainer::iresolve_v<GfxDriver>();
-        m_frames_before_gc = config->get_int_or_default(SID("rdg.pool.frames_before_gc"), 6);
+    RDGPool::RDGPool(GfxDriver* driver) {
+        m_driver = driver;
     }
 
     void RDGPool::update() {

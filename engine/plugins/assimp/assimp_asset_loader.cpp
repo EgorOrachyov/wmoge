@@ -30,13 +30,13 @@
 #include "assimp_import_data.hpp"
 #include "assimp_importer.hpp"
 #include "core/data.hpp"
+#include "core/ioc_container.hpp"
 #include "math/math_utils3d.hpp"
 #include "mesh/mesh.hpp"
 #include "mesh/mesh_builder.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -76,7 +76,7 @@ namespace wmoge {
             return StatusCode::Error;
         }
 
-        MeshManager* mesh_manager = IocContainer::iresolve_v<MeshManager>();
+        MeshManager* mesh_manager = context.ioc->resolve_value<MeshManager>();
 
         MeshFlags flags;
         flags.set(MeshFlag::FromDisk);

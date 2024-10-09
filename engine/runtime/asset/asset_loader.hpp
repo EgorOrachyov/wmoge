@@ -32,6 +32,7 @@
 #include "asset/asset_meta.hpp"
 #include "core/array_view.hpp"
 #include "core/flat_map.hpp"
+#include "core/ioc_container.hpp"
 #include "io/context.hpp"
 #include "rtti/traits.hpp"
 
@@ -65,8 +66,9 @@ namespace wmoge {
      * @brief Context passed to the loader
      */
     struct AssetLoadContext {
-        IoContext io_context;
-        AssetMeta asset_meta;
+        IocContainer* ioc;
+        IoContext     io_context;
+        AssetMeta     asset_meta;
     };
 
     /**

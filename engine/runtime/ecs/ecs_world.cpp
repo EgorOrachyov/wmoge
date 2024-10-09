@@ -32,13 +32,12 @@
 #include "core/task_parallel_for.hpp"
 #include "math/math_utils.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
-    EcsWorld::EcsWorld() {
-        m_ecs_registry = IocContainer::iresolve_v<EcsRegistry>();
-        m_task_manager = IocContainer::iresolve_v<TaskManager>();
+    EcsWorld::EcsWorld(EcsRegistry* ecs_registry, TaskManager* task_manager) {
+        m_ecs_registry = ecs_registry;
+        m_task_manager = task_manager;
     }
 
     EcsWorld::~EcsWorld() {
@@ -185,7 +184,7 @@ namespace wmoge {
             const int arch_idx  = int(m_arch_storage.size());
             m_arch_to_idx[arch] = arch_idx;
             m_arch_by_idx.emplace_back(arch);
-            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(arch);
+            m_arch_storage.emplace_back() = std::make_unique<EcsArchStorage>(m_ecs_registry, arch);
         }
     }
 
@@ -230,7 +229,7 @@ namespace wmoge {
             return 0;
         });
 
-        return task.schedule(depends_on).as_async();
+        return task.schedule(m_task_manager, depends_on).as_async();
     }
 
     Async EcsWorld::execute_parallel(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
@@ -252,7 +251,7 @@ namespace wmoge {
             return 0;
         });
 
-        return task.schedule(m_task_manager->get_num_workers(), 1, depends_on).as_async();
+        return task.schedule(m_task_manager, m_task_manager->get_num_workers(), 1, depends_on).as_async();
     }
 
     void EcsWorld::clear() {

@@ -42,7 +42,7 @@ namespace wmoge {
     */
     class DllManager {
     public:
-        DllManager();
+        DllManager(class IocContainer* ioc);
         ~DllManager();
 
         Status load(const Strid& library, const std::string& path);
@@ -51,6 +51,7 @@ namespace wmoge {
 
     private:
         buffered_vector<std::unique_ptr<struct DllLibrary>> m_libraries;
+        class FileSystem*                                   m_file_system;
     };
 
 }// namespace wmoge

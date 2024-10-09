@@ -27,12 +27,12 @@
 
 #include "shader_asset_loader.hpp"
 
+#include "core/ioc_container.hpp"
 #include "grc/shader.hpp"
 #include "grc/shader_file.hpp"
 #include "grc/shader_manager.hpp"
 #include "io/tree_yaml.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -61,7 +61,7 @@ namespace wmoge {
         WG_CHECKED(tree.parse_data(result.get_data_file(FILE_TAG)));
         WG_TREE_READ(context.io_context, tree, shader_file);
 
-        auto* shader_manager = IocContainer::iresolve_v<ShaderManager>();
+        auto* shader_manager = context.ioc->resolve_value<ShaderManager>();
 
         ShaderReflection shader_reflection;
         WG_CHECKED(shader_manager->load_shader_reflection(shader_file, shader_reflection));

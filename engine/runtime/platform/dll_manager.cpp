@@ -28,8 +28,8 @@
 
 #include "dll_manager.hpp"
 
+#include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
-#include "system/ioc_container.hpp"
 
 #include <dynalo/dynalo.hpp>
 
@@ -42,7 +42,9 @@ namespace wmoge {
         dynalo::native::handle handle{};
     };
 
-    DllManager::DllManager() = default;
+    DllManager::DllManager(IocContainer* ioc) {
+        m_file_system = ioc->resolve_value<FileSystem>();
+    }
 
     DllManager::~DllManager() {
         for (auto& lib : m_libraries) {
@@ -55,12 +57,10 @@ namespace wmoge {
             return StatusCode::InvalidState;
         }
 
-        FileSystem* fs = IocContainer::iresolve_v<FileSystem>();
-
         DllLibrary dll_library{};
         dll_library.name        = library;
         dll_library.name_native = dynalo::to_native_name(library.str());
-        dll_library.path        = std::filesystem::path(fs->resolve_physical(path)) / dll_library.name_native;
+        dll_library.path        = std::filesystem::path(m_file_system->resolve_physical(path)) / dll_library.name_native;
 
         try {
             dll_library.handle = dynalo::open(dll_library.path.string());

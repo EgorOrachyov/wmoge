@@ -44,7 +44,7 @@ namespace wmoge {
     */
     class GlslShaderCompiler {
     public:
-        GlslShaderCompiler();
+        GlslShaderCompiler(class IocContainer* ioc);
         ~GlslShaderCompiler();
 
         Status compile(ShaderCompilerRequest& request);
@@ -61,10 +61,8 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(GlslShaderCompilerAdapter, ShaderCompiler);
 
-        GlslShaderCompilerAdapter()  = default;
-        ~GlslShaderCompilerAdapter() = default;
-
-        GlslShaderCompilerAdapter(GfxShaderPlatform platform);
+        GlslShaderCompilerAdapter(class IocContainer* ioc, GfxShaderPlatform platform);
+        GlslShaderCompilerAdapter() = default;
 
         Async                              compile(const Ref<ShaderCompilerRequest>& request, const Async& depends_on) override;
         std::shared_ptr<ShaderCodeBuilder> make_builder() override;
@@ -89,13 +87,12 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(GlslShaderCompilerVulkanLinux, GlslShaderCompilerAdapter);
 
-        GlslShaderCompilerVulkanLinux() : GlslShaderCompilerAdapter(GfxShaderPlatform::VulkanLinux) {}
-        ~GlslShaderCompilerVulkanLinux() override = default;
+        GlslShaderCompilerVulkanLinux(class IocContainer* ioc) : GlslShaderCompilerAdapter(ioc, GfxShaderPlatform::VulkanLinux) {}
+        GlslShaderCompilerVulkanLinux() = default;
     };
 
     WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanLinux) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
 
@@ -107,13 +104,12 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(GlslShaderCompilerVulkanWindows, GlslShaderCompilerAdapter);
 
-        GlslShaderCompilerVulkanWindows() : GlslShaderCompilerAdapter(GfxShaderPlatform::VulkanWindows) {}
-        ~GlslShaderCompilerVulkanWindows() override = default;
+        GlslShaderCompilerVulkanWindows(class IocContainer* ioc) : GlslShaderCompilerAdapter(ioc, GfxShaderPlatform::VulkanWindows) {}
+        GlslShaderCompilerVulkanWindows() = default;
     };
 
     WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanWindows) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
 
@@ -125,13 +121,12 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(GlslShaderCompilerVulkanMacOS, GlslShaderCompilerAdapter);
 
-        GlslShaderCompilerVulkanMacOS() : GlslShaderCompilerAdapter(GfxShaderPlatform::VulkanMacOS) {}
-        ~GlslShaderCompilerVulkanMacOS() override = default;
+        GlslShaderCompilerVulkanMacOS(class IocContainer* ioc) : GlslShaderCompilerAdapter(ioc, GfxShaderPlatform::VulkanMacOS) {}
+        GlslShaderCompilerVulkanMacOS() = default;
     };
 
     WG_RTTI_CLASS_BEGIN(GlslShaderCompilerVulkanMacOS) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
     }
     WG_RTTI_END;
 

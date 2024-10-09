@@ -69,10 +69,11 @@ namespace wmoge {
 
     template<typename T>
     inline RttiType* rtti_type() {
-        static RttiType* g_type = RttiTypeStorage::instance()->find_type(SID(RttiTypeOf<T>::name())).value_or(nullptr);
+        const Strid      rtti_name = SID(RttiTypeOf<T>::name());
+        static RttiType* g_type    = RttiTypeStorage::instance()->find_type(rtti_name).value_or(nullptr);
 
         if (!g_type) {
-            g_type = RttiTypeStorage::instance()->find_type(SID(RttiTypeOf<T>::name())).value_or(nullptr);
+            g_type = RttiTypeStorage::instance()->find_type(rtti_name).value_or(nullptr);
 
             if (!g_type) {
                 Ref<RttiType> type = RttiTypeOf<T>::make();

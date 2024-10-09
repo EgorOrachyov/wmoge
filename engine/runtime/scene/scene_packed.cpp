@@ -33,41 +33,7 @@
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "scene/scene.hpp"
-#include "scene/scene_manager.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
-
-    AsyncResult<Ref<Scene>> ScenePacked::instantiate_async() {
-        WG_AUTO_PROFILE_ASSET("ScenePacked::instantiate_async");
-
-        AsyncOp<Ref<Scene>> scene_async = make_async_op<Ref<Scene>>();
-
-        Task scene_task(get_name(), [self = Ref<ScenePacked>(this), scene_async](TaskContext&) {
-            Ref<Scene> scene = IocContainer::iresolve_v<SceneManager>()->make_scene(self->get_name());
-
-            Timer timer;
-            timer.start();
-
-            timer.stop();
-            WG_LOG_INFO("instantiate scene " << self->get_name() << ", time: " << timer.get_elapsed_sec() << " sec");
-
-            scene_async->set_result(std::move(scene));
-
-            return 0;
-        });
-
-        scene_task.schedule();
-
-        return AsyncResult<Ref<Scene>>(scene_async);
-    }
-
-    Ref<Scene> ScenePacked::instantiate() {
-        WG_AUTO_PROFILE_ASSET("ScenePacked::instantiate");
-
-        auto async = instantiate_async();
-        async.wait_completed();
-        return async.is_failed() ? Ref<Scene>{} : async.result();
-    }
 
 }// namespace wmoge

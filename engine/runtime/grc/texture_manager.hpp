@@ -71,7 +71,7 @@ namespace wmoge {
     */
     class TextureManager {
     public:
-        TextureManager();
+        TextureManager(class IocContainer* ioc);
 
         Ref<Texture2d>   create_2d(TextureFlags flags, GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
         Ref<TextureCube> create_cube(TextureFlags flags, GfxFormat format, int width, int height);

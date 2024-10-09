@@ -27,6 +27,7 @@
 
 #include "freetype_asset_loader.hpp"
 
+#include "core/ioc_container.hpp"
 #include "freetype_font.hpp"
 #include "freetype_import_data.hpp"
 #include "profiler/profiler.hpp"
@@ -56,7 +57,7 @@ namespace wmoge {
         asset = make_ref<Font>();
         asset->set_id(asset_id);
 
-        FreetypeFont loader;
+        FreetypeFont loader(context.ioc);
         return loader.load(asset, result.get_data_file(FILE_TAG), import_data->height, import_data->glyphs_in_row);
     }
 

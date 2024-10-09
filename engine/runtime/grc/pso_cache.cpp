@@ -27,12 +27,12 @@
 
 #include "pso_cache.hpp"
 
+#include "core/ioc_container.hpp"
 #include "core/task.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_library.hpp"
 #include "profiler/profiler.hpp"
-#include "system/ioc_container.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -42,10 +42,10 @@
 
 namespace wmoge {
 
-    PsoCache::PsoCache() {
-        m_shader_library = IocContainer::iresolve_v<ShaderLibrary>();
-        m_task_manager   = IocContainer::iresolve_v<ShaderTaskManager>();
-        m_gfx_driver     = IocContainer::iresolve_v<GfxDriver>();
+    PsoCache::PsoCache(IocContainer* ioc) {
+        m_shader_library = ioc->resolve_value<ShaderLibrary>();
+        m_task_manager   = ioc->resolve_value<ShaderTaskManager>();
+        m_gfx_driver     = ioc->resolve_value<GfxDriver>();
     }
 
     Ref<GfxVertFormat> PsoCache::get_or_create_vert_format(const GfxVertElements& elements, const Strid& name) {
@@ -239,9 +239,7 @@ namespace wmoge {
             return 0;
         });
 
-        task.set_task_manager(*m_task_manager);
-
-        return task.schedule(depends_on).as_async();
+        return task.schedule(m_task_manager, depends_on).as_async();
     }
     Async PsoCache::precache_psos(const array_view<GfxPsoStateCompute>& states, const array_view<Strid>& names, Async depends_on) {
         WG_AUTO_PROFILE_GRC("PsoCache::precache_psos");
@@ -289,9 +287,7 @@ namespace wmoge {
             return 0;
         });
 
-        task.set_task_manager(*m_task_manager);
-
-        return task.schedule(depends_on).as_async();
+        return task.schedule(m_task_manager, depends_on).as_async();
     }
 
     PsoKey PsoCache::get_next_key() {

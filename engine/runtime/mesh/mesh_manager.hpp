@@ -52,7 +52,7 @@ namespace wmoge {
      */
     class MeshManager {
     public:
-        MeshManager();
+        MeshManager(class IocContainer* ioc);
 
         Ref<Mesh> create_mesh(MeshFlags flags);
         void      add_mesh(const Ref<Mesh>& mesh);

@@ -28,6 +28,7 @@
 #include "asset_library_fs.hpp"
 
 #include "asset/asset_manager.hpp"
+#include "core/ioc_container.hpp"
 #include "core/string_utils.hpp"
 #include "io/async_file_system.hpp"
 #include "io/tree.hpp"
@@ -35,7 +36,6 @@
 #include "platform/file_system.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 

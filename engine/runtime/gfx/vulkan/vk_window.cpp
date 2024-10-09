@@ -32,17 +32,12 @@
 #include "gfx/vulkan/vk_texture.hpp"
 #include "math/math_utils.hpp"
 #include "profiler/profiler.hpp"
-#include "system/config.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
     VKWindow::VKWindow(Ref<Window> window, VkSurfaceKHR surface, class VKDriver& driver) : m_driver(driver) {
         m_window  = window;
         m_surface = surface;
-
-        Config* config = IocContainer::iresolve_v<Config>();
-        config->get_bool(SID("window.vsync"), m_use_vsync);
     }
 
     VKWindow::~VKWindow() {

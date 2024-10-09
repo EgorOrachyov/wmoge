@@ -37,6 +37,7 @@
 #include <ryml.hpp>
 #include <ryml_std.hpp>
 
+#include <string>
 #include <vector>
 
 namespace wmoge {
@@ -51,8 +52,9 @@ namespace wmoge {
         ~IoYamlTree() = default;
 
         Status create_tree();
+        Status save_tree(std::string& data);
+        Status save_tree_json(std::string& data);
         Status parse_data(const array_view<const std::uint8_t>& data);
-        Status parse_file(const std::string& path);
         Status parse_file(class FileSystem* fs, const std::string& path);
 
         bool        node_is_empty() override;

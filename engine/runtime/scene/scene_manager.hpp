@@ -44,7 +44,7 @@ namespace wmoge {
      */
     class SceneManager final {
     public:
-        SceneManager();
+        SceneManager(class IocContainer* ioc);
 
         void                      clear();
         void                      update();
@@ -76,6 +76,7 @@ namespace wmoge {
         Ref<Scene> m_default;// default scene to always show something
 
         class EcsRegistry*  m_ecs_registry  = nullptr;
+        class TaskManager*  m_task_manager  = nullptr;
         class RenderEngine* m_render_engine = nullptr;
 
         struct SyncContext {

@@ -41,7 +41,7 @@ namespace wmoge {
     */
     class Config {
     public:
-        Config() = default;
+        Config(class IocContainer* ioc);
 
         Status load(const std::string& path, ConfigStackMode mode = ConfigStackMode::Overwrite);
 
@@ -63,7 +63,8 @@ namespace wmoge {
         [[nodiscard]] Color4f     get_color4f_or_default(const Strid& key, Color4f def_value = {}) const;
 
     private:
-        Ref<ConfigFile> m_file = make_ref<ConfigFile>();
+        Ref<ConfigFile>   m_file        = make_ref<ConfigFile>();
+        class FileSystem* m_file_system = nullptr;
     };
 
 }// namespace wmoge

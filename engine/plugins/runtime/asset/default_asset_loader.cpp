@@ -28,10 +28,10 @@
 
 #include "default_asset_loader.hpp"
 
+#include "core/ioc_container.hpp"
 #include "io/tree_yaml.hpp"
 #include "profiler/profiler.hpp"
 #include "rtti/type_storage.hpp"
-#include "system/ioc_container.hpp"
 
 namespace wmoge {
 
@@ -55,7 +55,7 @@ namespace wmoge {
         Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         assert(import_data);
 
-        RttiClass* rtti = IocContainer::iresolve_v<RttiTypeStorage>()->find_class(context.asset_meta.rtti);
+        RttiClass* rtti = context.ioc->resolve_value<RttiTypeStorage>()->find_class(context.asset_meta.rtti);
         if (!rtti) {
             WG_LOG_ERROR("no rtti type for " << asset_id);
             return StatusCode::InvalidData;

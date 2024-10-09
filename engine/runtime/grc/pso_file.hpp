@@ -191,14 +191,4 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
-    /**
-     * @class PsoFile
-     * @brief Util to access serialized pso file data
-    */
-    class PsoFile {
-    public:
-        static Status read(const std::string& path, FilePsoData& pso_data);
-        static Status write(const std::string& path, const FilePsoData& pso_data);
-    };
-
 }// namespace wmoge

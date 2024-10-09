@@ -25,60 +25,73 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_SCRIPT_INSTANCE_HPP
-#define WMOGE_SCRIPT_INSTANCE_HPP
+#pragma once
 
-#include "core/mask.hpp"
-#include "core/object.hpp"
-#include "core/ref.hpp"
-#include "core/var.hpp"
+#include "core/cmd_line.hpp"
+#include "core/ioc_container.hpp"
+#include "core/signal.hpp"
+#include "core/status.hpp"
+
+#include <string>
+#include <vector>
 
 namespace wmoge {
 
     /**
-     * @class ScriptFunction
-     * @brief On-event function exposed by script
+     * @class ApplicationCmdLine
+     * @brief App command line processing params
      */
-    enum class ScriptFunction {
-        OnCreate,
-        OnSceneEnter,
-        OnSceneExit,
-        OnTransformUpdated,
-        OnUpdate,
-        OnSignal,
-        Total
+    struct ApplicationCmdLine {
+        CmdLineOptions*          options;
+        CmdLineHookList*         hooks;
+        std::string              line;
+        std::vector<std::string> args;
     };
 
     /**
-     * @class ScriptFunctionsMask
-     * @brief Mask with script defined functions
+     * @class ApplicationSignals
+     * @brief App signals to intercept some events
      */
-    using ScriptFunctionsMask = Mask<ScriptFunction>;
+    struct ApplicationSignals {
+        Signal<> before_init;
+        Signal<> after_init;
+        Signal<> before_loop;
+        Signal<> after_loop;
+        Signal<> before_shutdown;
+        Signal<> after_shutdown;
+    };
 
     /**
-     * @class ScriptInstance
-     * @brief An instance of the script which can control an object logic
+     * @class ApplicationConfig
+     * @brief Desc containing info to setup application
      */
-    class ScriptInstance : public RefCnt {
+    struct ApplicationConfig {
+        std::string        name;
+        IocContainer*      ioc;
+        ApplicationSignals signals;
+        ApplicationCmdLine cmd_line;
+    };
+
+    /**
+     * @class Application
+     * @brief Base class for any application which is an entry point to run
+     */
+    class Application {
     public:
-        ~ScriptInstance() override = default;
+        Application(ApplicationConfig& config);
+        virtual ~Application() = default;
 
-        virtual ScriptFunctionsMask get_mask() { return ScriptFunctionsMask(); };
-        virtual class Script*       get_script() { return nullptr; };
-        virtual class Object*       get_owner() { return nullptr; };
+        virtual Status on_register() { return WG_OK; }
+        virtual Status on_init() { return WG_OK; }
+        virtual Status on_loop() { return WG_OK; }
+        virtual Status on_shutdown() { return WG_OK; }
+        virtual bool   should_close() { return true; }
+        virtual void   requiest_close() {}
 
-        virtual void on_create() {}
-        virtual void on_scene_enter() {}
-        virtual void on_scene_exit() {}
-        virtual void on_transform_updated() {}
-        virtual void on_update(float delta_time) {}
-        virtual void on_signal(const Strid& signal) {}
+        [[nodiscard]] int run();
 
-        virtual int set(const Strid& property, const Var& value) { return -2; }
-        virtual int get(const Strid& property, Var& value) { return -2; }
-        virtual int call(const Strid& method, int argc, const Var* argv, Var& ret) { return -2; }
+    protected:
+        ApplicationConfig& m_config;
     };
 
 }// namespace wmoge
-
-#endif//WMOGE_SCRIPT_INSTANCE_HPP
