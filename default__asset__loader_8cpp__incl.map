@@ -1,9 +1,9 @@
 <map id="engine/plugins/runtime/asset/default_asset_loader.cpp" name="engine/plugins/runtime/asset/default_asset_loader.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="296,5,503,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="328,5,535,47"/>
 <area shape="rect" id="node2" href="$default__asset__loader_8hpp.html" title=" " alt="" coords="5,95,172,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="196,95,312,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="336,95,463,121"/>
-<area shape="rect" id="node6" title=" " alt="" coords="487,95,626,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="651,95,820,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="197,95,349,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="373,95,489,121"/>
+<area shape="rect" id="node6" title=" " alt="" coords="513,95,640,121"/>
+<area shape="rect" id="node7" title=" " alt="" coords="665,95,803,121"/>
 <area shape="rect" id="node3" title=" " alt="" coords="23,169,155,211"/>
 </map>

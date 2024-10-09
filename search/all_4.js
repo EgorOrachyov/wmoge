@@ -11,7 +11,7 @@ var searchData=
   ['freetype_5fplugin_2ecpp_29',['freetype_plugin.cpp',['../freetype__plugin_8cpp.html',1,'']]],
   ['freetype_5fplugin_2ehpp_30',['freetype_plugin.hpp',['../freetype__plugin_8hpp.html',1,'']]],
   ['freetypeassetloader_31',['FreetypeAssetLoader',['../classwmoge_1_1FreetypeAssetLoader.html#a7d92e1fbb914cca7aa455f3ddfc797bb',1,'wmoge::FreetypeAssetLoader::FreetypeAssetLoader()'],['../classwmoge_1_1FreetypeAssetLoader.html',1,'wmoge::FreetypeAssetLoader']]],
-  ['freetypefont_32',['FreetypeFont',['../classwmoge_1_1FreetypeFont.html#a23839d28f58edb2d03e0e597bad584c9',1,'wmoge::FreetypeFont::FreetypeFont()'],['../classwmoge_1_1FreetypeFont.html',1,'wmoge::FreetypeFont']]],
+  ['freetypefont_32',['FreetypeFont',['../classwmoge_1_1FreetypeFont.html#ac14723bea62934abb54dab77f97a7077',1,'wmoge::FreetypeFont::FreetypeFont()'],['../classwmoge_1_1FreetypeFont.html',1,'wmoge::FreetypeFont']]],
   ['freetypeimportdata_33',['FreetypeImportData',['../classwmoge_1_1FreetypeImportData.html#a80b5995f132f53c0d30fc82cc9d653b5',1,'wmoge::FreetypeImportData::FreetypeImportData()'],['../classwmoge_1_1FreetypeImportData.html',1,'wmoge::FreetypeImportData']]],
   ['freetypeplugin_34',['FreetypePlugin',['../classwmoge_1_1FreetypePlugin.html#a49a73cc5e1a0ab03a44a04443e2790b1',1,'wmoge::FreetypePlugin::FreetypePlugin()'],['../classwmoge_1_1FreetypePlugin.html',1,'wmoge::FreetypePlugin']]]
 ];
