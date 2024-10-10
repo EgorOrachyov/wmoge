@@ -5,7 +5,7 @@
 #include "grc/shader_library.hpp"
 #include "io/stream_file.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "rtti/traits.hpp"
 
 #include <cassert>
@@ -89,7 +89,7 @@ namespace wmoge {
     }
 
     void ShaderCache::dump_programs(GfxShaderPlatform platform, std::vector<ShaderProgram>& out_programs) {
-        WG_AUTO_PROFILE_GRC("ShaderCache::dump_programs");
+        WG_PROFILE_CPU_GRC("ShaderCache::dump_programs");
 
         assert(int(platform) < GfxLimits::NUM_PLATFORMS);
         m_maps[int(platform)].dump_programs(out_programs);
@@ -109,7 +109,7 @@ namespace wmoge {
     }
 
     Status ShaderCache::load_cache(FileSystem* file_system, const std::string& file_path, GfxShaderPlatform platform, bool allow_missing) {
-        WG_AUTO_PROFILE_GRC("ShaderCache::load_cache");
+        WG_PROFILE_CPU_GRC("ShaderCache::load_cache");
 
         IoStreamFile stream;
         IoContext    context;
@@ -146,7 +146,7 @@ namespace wmoge {
     }
 
     Status ShaderCache::save_cache(FileSystem* file_system, const std::string& file_path, GfxShaderPlatform platform) {
-        WG_AUTO_PROFILE_GRC("ShaderCache::save_cache");
+        WG_PROFILE_CPU_GRC("ShaderCache::save_cache");
 
         std::vector<ShaderProgram> programs;
         dump_programs(platform, programs);

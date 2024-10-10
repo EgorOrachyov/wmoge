@@ -108,7 +108,7 @@ namespace wmoge {
     if constexpr (std::is_same_v<Stream, IoStream&> && std::is_same_v<Tag, IoTagWrite>) { \
         profile_mark_name = profile_mark_archive_write;                                   \
     }                                                                                     \
-    WG_AUTO_PROFILE_IO(profile_mark_name);
+    WG_PROFILE_CPU_IO(profile_mark_name);
 
 #define WG_IO_FIELD_EXT(field, name, flags)                                               \
     if constexpr (std::is_same_v<Stream, const YamlConstNodeRef&>) {                      \

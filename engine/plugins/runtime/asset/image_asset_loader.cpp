@@ -28,7 +28,7 @@
 #include "image_asset_loader.hpp"
 
 #include "image_import_data.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -47,7 +47,7 @@ namespace wmoge {
     }
 
     Status ImageAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Image>& asset) {
-        WG_AUTO_PROFILE_ASSET("ImageAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("ImageAssetLoader::load_typed");
 
         Ref<ImageImportData> import_data = context.asset_meta.import_data.cast<ImageImportData>();
         assert(import_data);

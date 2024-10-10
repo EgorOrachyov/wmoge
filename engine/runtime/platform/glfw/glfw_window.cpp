@@ -29,12 +29,12 @@
 
 #include "core/log.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
     GlfwWindow::GlfwWindow(const WindowInfo& window_info, class GlfwWindowManager& manager) : m_manager(manager) {
-        WG_AUTO_PROFILE_GLFW("GlfwWindow::GlfwWindow");
+        WG_PROFILE_CPU_GLFW("GlfwWindow::GlfwWindow");
 
         m_id  = window_info.id;
         m_hnd = glfwCreateWindow(window_info.width, window_info.height, window_info.title.c_str(), nullptr, nullptr);
@@ -59,7 +59,7 @@ namespace wmoge {
     }
 
     GlfwWindow::~GlfwWindow() {
-        WG_AUTO_PROFILE_GLFW("GlfwWindow::~GlfwWindow");
+        WG_PROFILE_CPU_GLFW("GlfwWindow::~GlfwWindow");
 
         if (m_hnd) {
             close();
@@ -67,7 +67,7 @@ namespace wmoge {
     }
 
     void GlfwWindow::close() {
-        WG_AUTO_PROFILE_GLFW("GlfwWindow::close");
+        WG_PROFILE_CPU_GLFW("GlfwWindow::close");
 
         if (!m_hnd) {
             WG_LOG_WARNING("window id=" << id() << " closed");

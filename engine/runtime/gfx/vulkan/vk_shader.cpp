@@ -28,7 +28,7 @@
 #include "vk_shader.hpp"
 
 #include "gfx/vulkan/vk_driver.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -37,7 +37,7 @@ namespace wmoge {
     }
 
     VKShader::~VKShader() {
-        WG_AUTO_PROFILE_VULKAN("VKShader::~VKShader");
+        WG_PROFILE_CPU_VULKAN("VKShader::~VKShader");
 
         if (m_module) {
             vkDestroyShaderModule(m_driver.device(), m_module, nullptr);
@@ -45,7 +45,7 @@ namespace wmoge {
     }
 
     void VKShader::create(GfxShaderDesc desc) {
-        WG_AUTO_PROFILE_VULKAN("VKShader::create");
+        WG_PROFILE_CPU_VULKAN("VKShader::create");
 
         m_desc = std::move(desc);
 
@@ -63,7 +63,7 @@ namespace wmoge {
     }
 
     void VKShaderProgram::create(GfxShaderProgramDesc desc) {
-        WG_AUTO_PROFILE_VULKAN("VKShaderProgram::create");
+        WG_PROFILE_CPU_VULKAN("VKShaderProgram::create");
 
         m_desc = std::move(desc);
     }

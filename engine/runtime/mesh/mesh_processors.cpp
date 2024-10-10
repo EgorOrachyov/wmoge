@@ -30,7 +30,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "material/material.hpp"
 #include "mesh/mesh_batch.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -38,7 +38,7 @@ namespace wmoge {
         return true;
     }
     Status MeshPassProcessorGBuffer::compile(const MeshBatch& batch, Ref<GfxPsoGraphics>& out_pipeline) {
-        WG_AUTO_PROFILE_MESH("MeshPassProcessorGBuffer::compile");
+        WG_PROFILE_CPU_MESH("MeshPassProcessorGBuffer::compile");
 
         // Material*           material       = batch.material;
         // Shader*             shader         = material->get_shader().get();

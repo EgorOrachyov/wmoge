@@ -34,7 +34,7 @@
 #include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "render/canvas.hpp"
 
 #include <algorithm>
@@ -145,7 +145,7 @@ namespace wmoge {
     }
 
     void Console::update() {
-        WG_AUTO_PROFILE_DEBUG("Console::update");
+        WG_PROFILE_CPU_DEBUG("Console::update");
 
         std::lock_guard lock(m_mutex);
 
@@ -169,7 +169,7 @@ namespace wmoge {
         }
     }
     void Console::render() {
-        WG_AUTO_PROFILE_DEBUG("Console::render");
+        WG_PROFILE_CPU_DEBUG("Console::render");
 
         std::lock_guard lock(m_mutex);
 
@@ -309,7 +309,7 @@ namespace wmoge {
         });
     }
     void Console::load_settings(AssetManager* asset_manager) {
-        WG_AUTO_PROFILE_DEBUG("Console::load_settings");
+        WG_PROFILE_CPU_DEBUG("Console::load_settings");
 
         const std::string font_name = "assets/fonts/anonymous_pro";
 

@@ -30,7 +30,7 @@
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_query.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -48,7 +48,7 @@ namespace wmoge {
     }
 
     void VKCmdList::update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_vert_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_vert_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -56,7 +56,7 @@ namespace wmoge {
         dynamic_cast<VKVertBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
     void VKCmdList::update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_index_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_index_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -64,7 +64,7 @@ namespace wmoge {
         dynamic_cast<VKIndexBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
     void VKCmdList::update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_uniform_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_uniform_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -72,7 +72,7 @@ namespace wmoge {
         dynamic_cast<VKUniformBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
     void VKCmdList::update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_storage_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_storage_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -80,7 +80,7 @@ namespace wmoge {
         dynamic_cast<VKStorageBuffer*>(buffer.get())->update(m_cmd_buffer, offset, range, data);
     }
     void VKCmdList::update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_texture_2d");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_texture_2d");
 
         assert(texture);
         assert(!m_in_render_pass);
@@ -88,7 +88,7 @@ namespace wmoge {
         dynamic_cast<VKTexture*>(texture.get())->update_2d(m_cmd_buffer, mip, region, data);
     }
     void VKCmdList::update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_texture_2d_array");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_texture_2d_array");
 
         assert(texture);
         assert(!m_in_render_pass);
@@ -96,7 +96,7 @@ namespace wmoge {
         dynamic_cast<VKTexture*>(texture.get())->update_2d_array(m_cmd_buffer, mip, slice, region, data);
     }
     void VKCmdList::update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, array_view<const std::uint8_t> data) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::update_texture_cube");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::update_texture_cube");
 
         assert(texture);
         assert(!m_in_render_pass);
@@ -105,7 +105,7 @@ namespace wmoge {
     }
 
     void* VKCmdList::map_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::map_vert_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::map_vert_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -113,7 +113,7 @@ namespace wmoge {
         return (dynamic_cast<VKVertBuffer*>(buffer.get()))->map();
     }
     void* VKCmdList::map_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::map_index_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::map_index_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -121,7 +121,7 @@ namespace wmoge {
         return (dynamic_cast<VKIndexBuffer*>(buffer.get()))->map();
     }
     void* VKCmdList::map_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::map_uniform_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::map_uniform_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -129,7 +129,7 @@ namespace wmoge {
         return (dynamic_cast<VKUniformBuffer*>(buffer.get()))->map();
     }
     void* VKCmdList::map_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::map_storage_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::map_storage_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -137,7 +137,7 @@ namespace wmoge {
         return (dynamic_cast<VKStorageBuffer*>(buffer.get()))->map();
     }
     void VKCmdList::unmap_vert_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_vert_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_vert_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -146,7 +146,7 @@ namespace wmoge {
         flush_barriers();
     }
     void VKCmdList::unmap_index_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_index_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_index_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -155,7 +155,7 @@ namespace wmoge {
         flush_barriers();
     }
     void VKCmdList::unmap_uniform_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_uniform_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_uniform_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -164,7 +164,7 @@ namespace wmoge {
         flush_barriers();
     }
     void VKCmdList::unmap_storage_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::unmap_storage_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::unmap_storage_buffer");
 
         assert(buffer);
         assert(!m_in_render_pass);
@@ -174,38 +174,38 @@ namespace wmoge {
     }
 
     void VKCmdList::barrier_image(const Ref<GfxTexture>& texture, GfxTexBarrierType src, GfxTexBarrierType dst) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_image");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_image");
 
         barrier(dynamic_cast<VKTexture*>(texture.get()), src, dst);
         flush_barriers();
     }
     void VKCmdList::barrier_buffer(const Ref<GfxVertBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
 
         barrier(dynamic_cast<VKBuffer*>(buffer.get()));
         flush_barriers();
     }
     void VKCmdList::barrier_buffer(const Ref<GfxIndexBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
 
         barrier(dynamic_cast<VKBuffer*>(buffer.get()));
         flush_barriers();
     }
     void VKCmdList::barrier_buffer(const Ref<GfxUniformBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
 
         barrier(dynamic_cast<VKBuffer*>(buffer.get()));
         flush_barriers();
     }
     void VKCmdList::barrier_buffer(const Ref<GfxStorageBuffer>& buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffer");
 
         barrier(dynamic_cast<VKBuffer*>(buffer.get()));
         flush_barriers();
     }
 
     void VKCmdList::barrier_images(array_view<GfxTexture*> textures, GfxTexBarrierType src, GfxTexBarrierType dst) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_images");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_images");
 
         for (GfxTexture* texture : textures) {
             barrier(dynamic_cast<VKTexture*>(texture), src, dst);
@@ -214,7 +214,7 @@ namespace wmoge {
     }
 
     void VKCmdList::barrier_buffers(array_view<GfxBuffer*> buffers) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::barrier_buffers");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::barrier_buffers");
 
         for (GfxBuffer* buffer : buffers) {
             barrier(dynamic_cast<VKBuffer*>(buffer));
@@ -223,7 +223,7 @@ namespace wmoge {
     }
 
     void VKCmdList::begin_render_pass(const GfxRenderPassBeginInfo& pass_desc) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::begin_render_pass");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::begin_render_pass");
 
         assert(!m_in_render_pass);
 
@@ -268,14 +268,14 @@ namespace wmoge {
         vkCmdBeginRenderPass(m_cmd_buffer, &render_pass_info, VK_SUBPASS_CONTENTS_INLINE);
     }
     void VKCmdList::peek_render_pass(GfxRenderPassRef& rp) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::peek_render_pass");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::peek_render_pass");
 
         assert(m_in_render_pass);
 
         rp = m_current_pass;
     }
     void VKCmdList::viewport(const Rect2i& viewport) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::viewport");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::viewport");
 
         assert(m_in_render_pass);
 
@@ -298,7 +298,7 @@ namespace wmoge {
         vkCmdSetScissor(m_cmd_buffer, 0, 1, &vk_scissor);
     }
     void VKCmdList::bind_pso(const Ref<GfxPsoGraphics>& pipeline) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::bind_pso");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::bind_pso");
 
         assert(m_in_render_pass);
         assert(pipeline);
@@ -311,7 +311,7 @@ namespace wmoge {
         m_pipeline_bound_graphics = true;
     }
     void VKCmdList::bind_pso(const Ref<GfxPsoCompute>& pipeline) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::bind_pso");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::bind_pso");
 
         assert(!m_in_render_pass);
         assert(pipeline);
@@ -324,7 +324,7 @@ namespace wmoge {
         m_pipeline_bound_compute = true;
     }
     void VKCmdList::bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::bind_vert_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::bind_vert_buffer");
 
         assert(m_pipeline_bound_graphics);
         assert(buffer);
@@ -338,7 +338,7 @@ namespace wmoge {
         vkCmdBindVertexBuffers(m_cmd_buffer, index, 1, &vk_vert_buffer, &vk_vert_buffer_offset);
     }
     void VKCmdList::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::bind_index_buffer");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::bind_index_buffer");
 
         assert(m_pipeline_bound_graphics);
         assert(buffer);
@@ -347,7 +347,7 @@ namespace wmoge {
         vkCmdBindIndexBuffer(m_cmd_buffer, m_current_index_buffer->buffer(), offset, VKDefs::get_index_type(index_type));
     }
     void VKCmdList::bind_desc_set(const Ref<GfxDescSet>& set, int index) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::bind_desc_set");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::bind_desc_set");
 
         assert(m_pipeline_bound_graphics || m_pipeline_bound_compute);
         assert(set);
@@ -365,7 +365,7 @@ namespace wmoge {
         vkCmdBindDescriptorSets(m_cmd_buffer, bind_point, m_current_pso_layout->layout(), index, 1, &m_desc_sets[index], 0, nullptr);
     }
     void VKCmdList::bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::bind_desc_sets");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::bind_desc_sets");
 
         assert(m_pipeline_bound_graphics || m_pipeline_bound_compute);
         assert(!sets.empty());
@@ -389,28 +389,28 @@ namespace wmoge {
         vkCmdBindDescriptorSets(m_cmd_buffer, bind_point, m_current_pso_layout->layout(), offset, count, &m_desc_sets[offset], 0, nullptr);
     }
     void VKCmdList::draw(int vertex_count, int base_vertex, int instance_count) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::draw");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::draw");
 
         assert(m_pipeline_bound_graphics);
 
         vkCmdDraw(m_cmd_buffer, vertex_count, instance_count, base_vertex, 0);
     }
     void VKCmdList::draw_indexed(int index_count, int base_vertex, int instance_count) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::draw_indexed");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::draw_indexed");
 
         assert(m_pipeline_bound_graphics);
 
         vkCmdDrawIndexed(m_cmd_buffer, index_count, instance_count, 0, base_vertex, 0);
     }
     void VKCmdList::dispatch(Vec3i group_count) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::dispatch");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::dispatch");
 
         assert(m_pipeline_bound_compute);
 
         vkCmdDispatch(m_cmd_buffer, std::uint32_t(group_count.x()), std::uint32_t(group_count.y()), std::uint32_t(group_count.z()));
     }
     void VKCmdList::end_render_pass() {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::end_render_pass");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::end_render_pass");
 
         assert(m_in_render_pass);
 
@@ -562,7 +562,7 @@ namespace wmoge {
     }
 
     void VKCmdList::flush_barriers() {
-        WG_AUTO_PROFILE_VULKAN("VKCmdList::flush_barriers");
+        WG_PROFILE_CPU_VULKAN("VKCmdList::flush_barriers");
 
         if (m_barriers_buffer.empty() && m_barriers_image.empty()) {
             return;

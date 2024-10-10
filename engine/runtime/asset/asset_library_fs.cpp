@@ -34,7 +34,7 @@
 #include "io/tree.hpp"
 #include "io/tree_yaml.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "rtti/type_storage.hpp"
 
 namespace wmoge {
@@ -55,12 +55,12 @@ namespace wmoge {
     }
 
     bool AssetLibraryFileSystem::has_asset(const AssetId& name) {
-        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::has_asset");
+        WG_PROFILE_CPU_ASSET("AssetLibraryFileSystem::has_asset");
         return m_file_system->exists(make_asset_meta_path(m_directory, name, m_asset_ext));
     }
 
     Status AssetLibraryFileSystem::find_asset_meta(const AssetId& name, AssetMeta& meta) {
-        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::find_asset_meta");
+        WG_PROFILE_CPU_ASSET("AssetLibraryFileSystem::find_asset_meta");
 
         IoContext context;
         context.add(m_file_system);
@@ -78,7 +78,7 @@ namespace wmoge {
     }
 
     Status AssetLibraryFileSystem::find_asset_data_meta(const Strid& name, AssetDataMeta& meta) {
-        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::find_asset_data_meta");
+        WG_PROFILE_CPU_ASSET("AssetLibraryFileSystem::find_asset_data_meta");
 
         WG_CHECKED(m_file_system->get_file_size(make_asset_data_path(m_directory, name), meta.size));
         meta.size_compressed = 0;
@@ -89,7 +89,7 @@ namespace wmoge {
     }
 
     Async AssetLibraryFileSystem::read_data(const Strid& name, array_view<std::uint8_t> data) {
-        WG_AUTO_PROFILE_ASSET("AssetLibraryFileSystem::read_data");
+        WG_PROFILE_CPU_ASSET("AssetLibraryFileSystem::read_data");
         return m_async_file_system->read_file(make_asset_data_path(m_directory, name), data).as_async();
     }
 

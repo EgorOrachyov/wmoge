@@ -29,7 +29,7 @@
 
 #include "core/ioc_container.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 

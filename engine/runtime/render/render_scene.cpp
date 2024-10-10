@@ -28,7 +28,7 @@
 #include "render_scene.hpp"
 
 #include "gfx/gfx_cmd_list.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -40,7 +40,7 @@ namespace wmoge {
     }
 
     // void RenderScene::flush_buffers(GfxCmdList* gfx_ctx) {
-    //     WG_AUTO_PROFILE_RENDER("RenderScene::flush_buffers");
+    //     WG_PROFILE_CPU_RENDER("RenderScene::flush_buffers");
 
     //     m_objects_gpu_data.flush(gfx_ctx);
     //     m_objects_ids.flush(gfx_ctx);

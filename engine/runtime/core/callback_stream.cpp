@@ -27,7 +27,7 @@
 
 #include "callback_stream.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -57,7 +57,7 @@ namespace wmoge {
     }
 
     void CallbackStream::wait() {
-        WG_AUTO_PROFILE_CORE("CmdStream::wait");
+        WG_PROFILE_CPU_CORE("CmdStream::wait");
 
         std::atomic_bool marker{false};
 
@@ -69,7 +69,7 @@ namespace wmoge {
     }
 
     void CallbackStream::push_close() {
-        WG_AUTO_PROFILE_CORE("CmdStream::push_close");
+        WG_PROFILE_CPU_CORE("CmdStream::push_close");
         m_is_closed.store(true);
     }
 

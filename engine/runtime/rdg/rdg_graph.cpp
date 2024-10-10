@@ -29,7 +29,7 @@
 #include "rdg_graph.hpp"
 
 #include "core/log.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 

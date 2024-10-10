@@ -31,14 +31,14 @@
 #include "core/string_utils.hpp"
 #include "io/ini.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <fstream>
 
 namespace wmoge {
 
     Status ConfigFile::load_from_file(FileSystem* file_system, const std::string& path) {
-        WG_AUTO_PROFILE_ASSET("ConfigFile::load_from_file");
+        WG_PROFILE_CPU_ASSET("ConfigFile::load_from_file");
 
         std::string content;
         if (!file_system->read_file(path, content)) {
@@ -50,7 +50,7 @@ namespace wmoge {
     }
 
     Status ConfigFile::load_from_content(const std::string& content) {
-        WG_AUTO_PROFILE_ASSET("ConfigFile::load_from_content");
+        WG_PROFILE_CPU_ASSET("ConfigFile::load_from_content");
 
         IniFile file;
         WG_CHECKED(file.parse(content));
@@ -68,7 +68,7 @@ namespace wmoge {
     }
 
     Status ConfigFile::stack(const ConfigFile& other, ConfigStackMode mode) {
-        WG_AUTO_PROFILE_ASSET("ConfigFile::stack");
+        WG_PROFILE_CPU_ASSET("ConfigFile::stack");
 
         for (const auto& other_entry : other.m_entries) {
             const Strid& key = other_entry.first;

@@ -30,7 +30,7 @@
 #include "core/ioc_container.hpp"
 #include "freetype_font.hpp"
 #include "freetype_import_data.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -49,7 +49,7 @@ namespace wmoge {
     }
 
     Status FreetypeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Font>& asset) {
-        WG_AUTO_PROFILE_ASSET("FreetypeAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("FreetypeAssetLoader::load_typed");
 
         Ref<FreetypeImportData> import_data = context.asset_meta.import_data.cast<FreetypeImportData>();
         assert(import_data);

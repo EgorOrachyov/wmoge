@@ -31,7 +31,7 @@
 #include "gfx/gfx_cmd_list.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "grc/texture_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -64,7 +64,7 @@ namespace wmoge {
     }
 
     void CanvasSharedData::compile() {
-        WG_AUTO_PROFILE_RENDER("CanvasSharedData::compile");
+        WG_PROFILE_CPU_RENDER("CanvasSharedData::compile");
 
         GfxDriver*      gfx_drvier  = nullptr;//= engine->gfx_driver();
         TextureManager* tex_manager = nullptr;//= engine->texture_manager();
@@ -399,7 +399,7 @@ namespace wmoge {
     }
 
     void Canvas::compile(bool compile_shared_data) {
-        WG_AUTO_PROFILE_RENDER("Canvas::compile");
+        WG_PROFILE_CPU_RENDER("Canvas::compile");
 
         GfxDriver* gfx_drvier = nullptr;// engine->gfx_driver();
 
@@ -454,7 +454,7 @@ namespace wmoge {
     }
 
     void Canvas::render(const Ref<Window>& window, const Rect2i& viewport, const Vec4f& area, float gamma) {
-        WG_AUTO_PROFILE_RENDER("Canvas::render");
+        WG_PROFILE_CPU_RENDER("Canvas::render");
 
         if (m_cmd_buffer.empty() || (m_cmd_buffer.size() == 1 && m_cmd_buffer[0].elements == 0)) {
             return;

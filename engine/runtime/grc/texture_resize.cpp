@@ -28,12 +28,12 @@
 #include "texture_resize.hpp"
 
 #include "math/math_utils.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
     Status TexResize::resize(const TexResizeParams& params, Image& image) {
-        WG_AUTO_PROFILE_RENDER("TexResize::resize");
+        WG_PROFILE_CPU_RENDER("TexResize::resize");
 
         TexSizePreset preset = params.preset;
 

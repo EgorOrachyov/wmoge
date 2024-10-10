@@ -29,14 +29,15 @@
 
 #include "core/array_view.hpp"
 #include "core/ioc_container.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
     TextureManager::TextureManager(IocContainer* ioc) {
-        WG_AUTO_PROFILE_GRC("TextureManager::TextureManager");
+        WG_PROFILE_CPU_GRC("TextureManager::TextureManager");
 
         m_gfx_driver = ioc->resolve_value<GfxDriver>();
         m_pool       = std::make_unique<TexturePool>(*m_gfx_driver);
@@ -100,7 +101,7 @@ namespace wmoge {
     }
 
     void TextureManager::update() {
-        WG_AUTO_PROFILE_GRC("TextureManager::update");
+        WG_PROFILE_CPU_GRC("TextureManager::update");
 
         std::lock_guard guard(m_mutex);
         upload_default_textures();
@@ -118,7 +119,7 @@ namespace wmoge {
     }
 
     void TextureManager::init_default_samplers() {
-        WG_AUTO_PROFILE_GRC("TextureManager::init_default_samplers");
+        WG_PROFILE_CPU_GRC("TextureManager::init_default_samplers");
 
         const GfxSamplerDesc samp_descs[int(DefaultSampler::Total)] = {
                 GfxSamplerDesc(),
@@ -138,7 +139,7 @@ namespace wmoge {
     }
 
     void TextureManager::init_default_textures() {
-        WG_AUTO_PROFILE_GRC("TextureManager::init_default_textures");
+        WG_PROFILE_CPU_GRC("TextureManager::init_default_textures");
 
         const char* tex_names[int(DefaultTexture::Total)] = {
                 "white",
@@ -155,7 +156,7 @@ namespace wmoge {
     }
 
     void TextureManager::upload_default_textures() {
-        WG_AUTO_PROFILE_GRC("TextureManager::upload_default_textures");
+        WG_PROFILE_CPU_GRC("TextureManager::upload_default_textures");
 
         if (!m_need_upload_default) {
             return;
@@ -183,7 +184,7 @@ namespace wmoge {
     }
 
     void TextureManager::init_textures() {
-        WG_AUTO_PROFILE_GRC("TextureManager::init_textures");
+        WG_PROFILE_CPU_GRC("TextureManager::init_textures");
 
         std::vector<Texture*> for_upload;
         for (auto& iter : m_textures) {
@@ -212,12 +213,16 @@ namespace wmoge {
         }
 
         auto cmd = m_gfx_driver->acquire_cmd_list(GfxQueueType::Graphics);
+        WG_PROFILE_GPU_BEGIN(cmd.get());
+
         cmd->barrier_images(for_barrier, GfxTexBarrierType::Undefined, GfxTexBarrierType::CopyDestination);
         for (Texture* texture : for_upload) {
             texture->upload_gfx_data(cmd);
         }
         cmd->barrier_images(for_barrier, GfxTexBarrierType::CopyDestination, GfxTexBarrierType::Sampling);
+
         m_gfx_driver->submit_cmd_list(cmd);
+        WG_PROFILE_GPU_END(cmd.get());
 
         WG_LOG_INFO("uploaded " << for_upload.size() << " textures to gpu");
     }

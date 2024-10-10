@@ -29,7 +29,7 @@
 
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_queues.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -58,7 +58,7 @@ namespace wmoge {
     }
 
     void VKCmdManager::update(std::size_t frame_id) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdManager::update");
+        WG_PROFILE_CPU_VULKAN("VKCmdManager::update");
 
         m_frame_id = frame_id;
         m_index    = m_frame_id % GfxLimits::FRAMES_IN_FLIGHT;
@@ -119,7 +119,7 @@ namespace wmoge {
     }
 
     void VKCmdManager::submit(GfxQueueType queue_type, VkCommandBuffer buffer, array_view<VkSemaphore> wait, array_view<VkSemaphore> signal, VkFence fence) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdManager::submit");
+        WG_PROFILE_CPU_VULKAN("VKCmdManager::submit");
 
         assert(buffer);
 
@@ -180,7 +180,7 @@ namespace wmoge {
     }
 
     void VKCmdManager::flush(array_view<VkSemaphore> wait, array_view<VkSemaphore> signal) {
-        WG_AUTO_PROFILE_VULKAN("VKCmdManager::flush");
+        WG_PROFILE_CPU_VULKAN("VKCmdManager::flush");
 
         buffered_vector<VkPipelineStageFlags> wait_flags;
 

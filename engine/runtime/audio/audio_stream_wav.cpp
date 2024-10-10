@@ -27,7 +27,7 @@
 
 #include "audio_stream_wav.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <AudioFile.h>
 
@@ -36,7 +36,7 @@
 namespace wmoge {
 
     Status AudioStreamWav::load(array_view<const std::uint8_t> file_data) {
-        WG_AUTO_PROFILE_ASSET("AudioStreamWav::load");
+        WG_PROFILE_CPU_ASSET("AudioStreamWav::load");
 
         std::vector<std::uint8_t> data;
         data.resize(file_data.size());

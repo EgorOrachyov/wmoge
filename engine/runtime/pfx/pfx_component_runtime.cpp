@@ -30,7 +30,7 @@
 #include "core/log.hpp"
 #include "gfx/gfx_vert_format.hpp"
 #include "pfx/pfx_emitter.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -50,7 +50,7 @@ namespace wmoge {
     }
 
     void PfxComponentRuntime::emit(const PfxSpawnParams& params) {
-        WG_AUTO_PROFILE_PFX("PfxComponentRuntime::emit");
+        WG_PROFILE_CPU_PFX("PfxComponentRuntime::emit");
 
         const auto& attributes = m_storage->get_attributes();
 
@@ -109,7 +109,7 @@ namespace wmoge {
         m_is_active      = m_active_amount > 0;
     }
     void PfxComponentRuntime::update(float dt) {
-        WG_AUTO_PROFILE_PFX("PfxComponentRuntime::update");
+        WG_PROFILE_CPU_PFX("PfxComponentRuntime::update");
 
         for (int i = 0; i < m_component->get_features_count(); i++) {
             m_component->get_feature(i)->on_update(*this, dt);

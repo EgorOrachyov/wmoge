@@ -29,7 +29,7 @@
 
 #include "core/string_utils.hpp"
 #include "core/task_parallel_for.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <mutex>
@@ -97,7 +97,7 @@ namespace wmoge {
     }
 
     void CullingManager::cull(TaskManager* task_manager, const CameraList& cameras) {
-        WG_AUTO_PROFILE_RENDER("CullingManager::cull");
+        WG_PROFILE_CPU_RENDER("CullingManager::cull");
 
         const int total_items = int(m_items.size());
         const int n_cameras   = int(cameras.get_size());

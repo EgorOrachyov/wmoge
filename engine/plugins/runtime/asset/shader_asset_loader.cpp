@@ -32,7 +32,7 @@
 #include "grc/shader_file.hpp"
 #include "grc/shader_manager.hpp"
 #include "io/tree_yaml.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -51,7 +51,7 @@ namespace wmoge {
     }
 
     Status ShaderAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Shader>& asset) {
-        WG_AUTO_PROFILE_ASSET("ShaderAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("ShaderAssetLoader::load_typed");
 
         Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         assert(import_data);

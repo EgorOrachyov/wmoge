@@ -177,7 +177,8 @@
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 
 #include "rdg/rdg_graph.hpp"
 #include "rdg/rdg_pass.hpp"

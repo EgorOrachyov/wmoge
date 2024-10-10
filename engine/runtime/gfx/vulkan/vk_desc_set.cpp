@@ -29,7 +29,7 @@
 
 #include "gfx/vulkan/vk_desc_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -98,7 +98,7 @@ namespace wmoge {
         }
     }
     void VKDescSet::update(const GfxDescSetResources& resources) {
-        WG_AUTO_PROFILE_VULKAN("VKDescSet::update");
+        WG_PROFILE_CPU_VULKAN("VKDescSet::update");
 
         std::array<VkWriteDescriptorSet, GfxLimits::MAX_DESC_SET_SIZE>   write_infos{};
         std::array<VkDescriptorImageInfo, GfxLimits::MAX_DESC_SET_SIZE>  image_infos{};

@@ -28,7 +28,7 @@
 #include "array_mesh.hpp"
 
 #include "io/enum.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cstring>
 

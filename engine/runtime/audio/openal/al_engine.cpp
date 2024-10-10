@@ -27,12 +27,12 @@
 
 #include "al_engine.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
     ALAudioEngine::ALAudioEngine() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::ALAudioEngine");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::ALAudioEngine");
 
         init_device();
         init_context();
@@ -53,10 +53,10 @@ namespace wmoge {
     }
 
     void ALAudioEngine::update() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::update");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::update");
     }
     void ALAudioEngine::shutdown() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::shutdown");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::shutdown");
 
         if (m_device) {
             m_bus.clear();
@@ -73,7 +73,7 @@ namespace wmoge {
     }
 
     Ref<AudioPlayback> ALAudioEngine::make_playback(Ref<AudioStream> stream, const Strid& bus, const Strid& name) {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_playback");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::make_playback");
 
         std::lock_guard guard(m_mutex);
 
@@ -93,7 +93,7 @@ namespace wmoge {
         return make_ref<ALAudioPlayback>(std::move(stream), bus, name, *this);
     }
     Ref<AudioBus> ALAudioEngine::make_bus(const Strid& name) {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::make_bus");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::make_bus");
 
         std::lock_guard guard(m_mutex);
 
@@ -137,7 +137,7 @@ namespace wmoge {
     }
 
     bool ALAudioEngine::init_device() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_device");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::init_device");
 
         m_device = alcOpenDevice(nullptr);
         if (!m_device) {
@@ -150,7 +150,7 @@ namespace wmoge {
         return true;
     }
     bool ALAudioEngine::init_context() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_context");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::init_context");
 
         WG_ALC_CHECK(m_context = alcCreateContext(m_device, nullptr));
         if (!m_context) {
@@ -169,7 +169,7 @@ namespace wmoge {
         return true;
     }
     bool ALAudioEngine::init_caps() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioEngine::init_caps");
+        WG_PROFILE_CPU_OPENAL("ALAudioEngine::init_caps");
 
         auto str_or_null = [](const ALCchar* str) { return str ? str : "<none>"; };
 

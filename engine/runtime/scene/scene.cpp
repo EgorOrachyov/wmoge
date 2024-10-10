@@ -27,7 +27,7 @@
 
 #include "scene.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "render/deferred_pipeline.hpp"
 #include "scene/scene_components.hpp"
 
@@ -36,7 +36,7 @@
 namespace wmoge {
 
     Scene::Scene(const SceneCreateInfo& info) {
-        WG_AUTO_PROFILE_SCENE("Scene::Scene");
+        WG_PROFILE_CPU_SCENE("Scene::Scene");
 
         m_name            = info.name;
         m_ecs_world       = std::make_unique<EcsWorld>(info.ecs_registry, info.task_manager);
@@ -45,7 +45,7 @@ namespace wmoge {
     }
 
     Status Scene::build(const SceneData& data) {
-        WG_AUTO_PROFILE_SCENE("Scene::build");
+        WG_PROFILE_CPU_SCENE("Scene::build");
 
         return WG_OK;
     }
@@ -62,7 +62,7 @@ namespace wmoge {
         m_state = state;
     }
     void Scene::finalize() {
-        WG_AUTO_PROFILE_SCENE("Scene::finalize");
+        WG_PROFILE_CPU_SCENE("Scene::finalize");
 
         m_ecs_world.reset();
         m_culling_manager.reset();

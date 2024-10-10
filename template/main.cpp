@@ -94,11 +94,13 @@ public:
     }
 
     Status on_init() override {
-        WG_AUTO_PROFILE(app, "TemplateApplication::on_init");
+        WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::on_init");
 
         GameApplication::on_init();
 
-        mesh = m_engine->asset_manager()->load(SID("assets/mesh/suzanne")).cast<Mesh>();
+        mesh    = m_engine->asset_manager()->load(SID("assets/mesh/suzanne")).cast<Mesh>();
+        tex2d   = m_engine->asset_manager()->load(SID("assets/textures/dirt_mask")).cast<Texture2d>();
+        texCube = m_engine->asset_manager()->load(SID("assets/textures/skybox")).cast<TextureCube>();
 
         // Engine::instance()->scene_manager()->change(scene);
 
@@ -149,7 +151,7 @@ public:
     }
 
     void debug_draw() {
-        WG_AUTO_PROFILE(app, "TemplateApplication::debug_draw");
+        WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::debug_draw");
 
         Engine*        engine         = m_engine;
         ShaderManager* shader_manager = engine->shader_manager();
@@ -196,8 +198,10 @@ public:
     }
 
     Status on_shutdown() override {
-        WG_AUTO_PROFILE(app, "TemplateApplication::on_shutdown");
+        WG_PROFILE_CPU_SCOPE(app, "TemplateApplication::on_shutdown");
 
+        tex2d.reset();
+        texCube.reset();
         shader.reset();
         mesh.reset();
         scene.reset();
@@ -208,9 +212,11 @@ public:
         return StatusCode::Ok;
     }
 
-    Ref<Scene>    scene;
-    WeakRef<Mesh> mesh;
-    Ref<Shader>   shader;
+    Ref<Scene>       scene;
+    Ref<Texture2d>   tex2d;
+    Ref<TextureCube> texCube;
+    WeakRef<Mesh>    mesh;
+    Ref<Shader>      shader;
 };
 
 int main(int argc, const char* const* argv) {

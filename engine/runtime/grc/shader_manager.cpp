@@ -41,7 +41,7 @@
 #include "io/enum.hpp"
 #include "math/math_utils.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "rtti/type_storage.hpp"
 #include "system/console.hpp"
 
@@ -54,7 +54,7 @@
 namespace wmoge {
 
     ShaderManager::ShaderManager(IocContainer* ioc) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::ShaderManager");
+        WG_PROFILE_CPU_GRC("ShaderManager::ShaderManager");
 
         m_task_manager    = ioc->resolve_value<ShaderTaskManager>();
         m_file_system     = ioc->resolve_value<FileSystem>();
@@ -86,7 +86,7 @@ namespace wmoge {
     }
 
     Status ShaderManager::load_shader_reflection(const ShaderFile& file, ShaderReflection& reflection) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::load_shader");
+        WG_PROFILE_CPU_GRC("ShaderManager::load_shader");
 
         ShaderBuilder builder;
 
@@ -312,7 +312,7 @@ namespace wmoge {
     }
 
     Ref<GfxShaderProgram> ShaderManager::get_or_create_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::get_or_create_program");
+        WG_PROFILE_CPU_GRC("ShaderManager::get_or_create_program");
 
         Ref<GfxShaderProgram> fast_lookup = find_program(shader, platform, permutation);
         if (fast_lookup) {
@@ -365,7 +365,7 @@ namespace wmoge {
             }
 
             Task cache_task(request->input.name, [shader_library = m_shader_library, permutation, platform, request, weak_shader_entry = WeakRef<Entry>(&shader_entry)](TaskContext&) {
-                WG_AUTO_PROFILE_GRC("Shader::cache_compiled_program");
+                WG_PROFILE_CPU_GRC("Shader::cache_compiled_program");
 
                 Ref<Entry> shader_entry = weak_shader_entry.acquire();
                 if (!shader_entry) {
@@ -448,13 +448,13 @@ namespace wmoge {
     }
 
     Async ShaderManager::precache_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::precache_program");
+        WG_PROFILE_CPU_GRC("ShaderManager::precache_program");
 
         return Async();
     }
 
     Async ShaderManager::compile_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation, Ref<ShaderCompilerRequest>& request, Async depends_on) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::compile_program");
+        WG_PROFILE_CPU_GRC("ShaderManager::compile_program");
 
         Async result = Async::failed();
 
@@ -482,7 +482,7 @@ namespace wmoge {
     }
 
     Status ShaderManager::load_cache(Shader* shader, GfxShaderPlatform platform, bool allow_missing) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::load_cache");
+        WG_PROFILE_CPU_GRC("ShaderManager::load_cache");
 
         auto&            entry = get_entry_ref(shader);
         std::unique_lock lock(entry.mutex);
@@ -492,7 +492,7 @@ namespace wmoge {
     }
 
     Status ShaderManager::save_cache(Shader* shader, GfxShaderPlatform platform) {
-        WG_AUTO_PROFILE_GRC("ShaderManager::save_cache");
+        WG_PROFILE_CPU_GRC("ShaderManager::save_cache");
 
         auto&            entry = get_entry_ref(shader);
         std::unique_lock lock(entry.mutex);

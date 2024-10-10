@@ -52,7 +52,8 @@
 #include "platform/input.hpp"
 #include "platform/time.hpp"
 #include "platform/window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_capture.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "render/render_engine.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
@@ -78,7 +79,7 @@ namespace wmoge {
 
     static void bind_globals(IocContainer* ioc) {
         ioc->bind_by_pointer<Log>(Log::instance());
-        ioc->bind_by_pointer<Profiler>(Profiler::instance());
+        ioc->bind_by_ioc<ProfilerCapture>();
         ioc->bind_by_pointer<RttiTypeStorage>(RttiTypeStorage::instance());
         ioc->bind_by_ioc<DllManager>();
         ioc->bind<PluginManager>();
@@ -234,7 +235,7 @@ namespace wmoge {
 
         signals.before_init.emit();
         {
-            WG_AUTO_PROFILE_PLATFORM("Application::initialize");
+            WG_PROFILE_CPU_PLATFORM("Application::initialize");
 
             if (!on_init()) {
                 return 1;
@@ -245,7 +246,7 @@ namespace wmoge {
         signals.before_loop.emit();
         {
             while (!should_close()) {
-                WG_AUTO_PROFILE_PLATFORM("Application::iteration");
+                WG_PROFILE_CPU_PLATFORM("Application::iteration");
 
                 if (!on_loop()) {
                     return 1;
@@ -256,7 +257,7 @@ namespace wmoge {
 
         signals.before_shutdown.emit();
         {
-            WG_AUTO_PROFILE_PLATFORM("Application::shutdown");
+            WG_PROFILE_CPU_PLATFORM("Application::shutdown");
 
             if (!on_shutdown()) {
                 return 1;

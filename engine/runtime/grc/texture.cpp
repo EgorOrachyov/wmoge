@@ -33,7 +33,8 @@
 #include "core/string_utils.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "io/tree.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 
 #include <cassert>
 
@@ -73,7 +74,7 @@ namespace wmoge {
     }
 
     Status Texture::generate_mips() {
-        WG_AUTO_PROFILE_ASSET("Texture::generate_mips");
+        WG_PROFILE_CPU_ASSET("Texture::generate_mips");
 
         std::vector<Ref<Image>> mips;
 
@@ -97,7 +98,7 @@ namespace wmoge {
         return WG_OK;
     }
     Status Texture::generate_compressed_data() {
-        WG_AUTO_PROFILE_ASSET("Texture::generate_compressed_data");
+        WG_PROFILE_CPU_ASSET("Texture::generate_compressed_data");
 
         if (!m_flags.get(TextureFlag::Compressed)) {
             WG_LOG_INFO("no compression flag on texutre " << get_name());
@@ -161,7 +162,7 @@ namespace wmoge {
     }
 
     Status Texture::create_gfx_resource(TexturePool& pool) {
-        WG_AUTO_PROFILE_ASSET("Texture::create_gfx_resource");
+        WG_PROFILE_CPU_ASSET("Texture::create_gfx_resource");
         assert(m_flags.get(TextureFlag::Pooled));
 
         const GfxTextureDesc desc = get_desc();
@@ -171,7 +172,7 @@ namespace wmoge {
     }
 
     Status Texture::delete_gfx_resource(TexturePool& pool) {
-        WG_AUTO_PROFILE_ASSET("Texture::delete_gfx_resource");
+        WG_PROFILE_CPU_ASSET("Texture::delete_gfx_resource");
         assert(m_flags.get(TextureFlag::Pooled));
 
         pool.release(m_texture);
@@ -181,6 +182,8 @@ namespace wmoge {
     }
 
     Status Texture::upload_gfx_data(GfxCmdListRef& cmd) {
+        WG_PROFILE_GPU_SCOPE(cmd.get(), "Texture::upload_gfx_data");
+
         assert(m_depth == 1);
         assert(m_array_slices >= 1);
         assert(m_mips >= 1);
@@ -190,7 +193,11 @@ namespace wmoge {
         assert(is_compressed || m_format_compressed == GfxFormat::Unknown);
 
         for (int array_slice = 0; array_slice < m_array_slices; array_slice++) {
+            WG_PROFILE_GPU_SCOPE(cmd.get(), "upload_slice");
+
             for (int mip = 0; mip < m_mips; mip++) {
+                WG_PROFILE_GPU_SCOPE(cmd.get(), "upload_mip");
+
                 const int index = array_slice * m_mips + mip;
 
                 Ref<Data> data = m_images[index]->get_pixel_data();

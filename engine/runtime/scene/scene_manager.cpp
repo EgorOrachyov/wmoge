@@ -36,7 +36,7 @@
 #include "platform/time.hpp"
 #include "platform/window.hpp"
 #include "platform/window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "render/render_engine.hpp"
 #include "scene/scene_components.hpp"
 
@@ -69,7 +69,7 @@ namespace wmoge {
     }
 
     void SceneManager::clear() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::clear");
+        WG_PROFILE_CPU_SCENE("SceneManager::clear");
 
         for (auto& scene : m_scenes) {
             scene->finalize();
@@ -80,7 +80,7 @@ namespace wmoge {
         m_running.reset();
     }
     void SceneManager::update() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::update");
+        WG_PROFILE_CPU_SCENE("SceneManager::update");
 
         // Process change before start of update
         scene_change();
@@ -106,7 +106,7 @@ namespace wmoge {
         return m_running;
     }
     Ref<Scene> SceneManager::make_scene(const Strid& name) {
-        WG_AUTO_PROFILE_SCENE("SceneManager::make_scene");
+        WG_PROFILE_CPU_SCENE("SceneManager::make_scene");
 
         SceneCreateInfo info;
         info.name         = name;
@@ -115,7 +115,7 @@ namespace wmoge {
         return m_scenes.emplace_back(make_ref<Scene>(info));
     }
     std::optional<Ref<Scene>> SceneManager::find_by_name(const Strid& name) {
-        WG_AUTO_PROFILE_SCENE("SceneManager::find_by_name");
+        WG_PROFILE_CPU_SCENE("SceneManager::find_by_name");
 
         for (Ref<Scene>& scene : m_scenes) {
             if (scene->get_name() == name) {
@@ -127,23 +127,23 @@ namespace wmoge {
     }
 
     void SceneManager::update_scene_hier() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_hier");
+        WG_PROFILE_CPU_SCENE("SceneManager::update_scene_hier");
     }
 
     void SceneManager::update_scene_cameras() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_cameras");
+        WG_PROFILE_CPU_SCENE("SceneManager::update_scene_cameras");
     }
 
     void SceneManager::update_scene_visibility() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::update_scene_visibility");
+        WG_PROFILE_CPU_SCENE("SceneManager::update_scene_visibility");
     }
 
     void SceneManager::render_scene() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::render_scene");
+        WG_PROFILE_CPU_SCENE("SceneManager::render_scene");
     }
 
     void SceneManager::scene_change() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_change");
+        WG_PROFILE_CPU_SCENE("SceneManager::scene_change");
 
         if (m_next) {
             if (m_running) {
@@ -165,13 +165,13 @@ namespace wmoge {
     }
 
     void SceneManager::scene_start() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_start");
+        WG_PROFILE_CPU_SCENE("SceneManager::scene_start");
 
         m_running->set_state(SceneState::Playing);
     }
 
     void SceneManager::scene_play() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_play");
+        WG_PROFILE_CPU_SCENE("SceneManager::scene_play");
 
         // m_running->advance(... instance()->time()->get_delta_time_game());
 
@@ -188,25 +188,25 @@ namespace wmoge {
     }
 
     void SceneManager::scene_pause() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_pause");
+        WG_PROFILE_CPU_SCENE("SceneManager::scene_pause");
 
         m_running->set_state(SceneState::Paused);
     }
 
     void SceneManager::scene_resume() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_resume");
+        WG_PROFILE_CPU_SCENE("SceneManager::scene_resume");
 
         m_running->set_state(SceneState::Playing);
     }
 
     void SceneManager::scene_finish() {
-        WG_AUTO_PROFILE_SCENE("SceneManager::scene_finish");
+        WG_PROFILE_CPU_SCENE("SceneManager::scene_finish");
 
         m_running->set_state(SceneState::Finished);
     }
 
     void SceneManager::SyncContext::await_all() {
-        WG_AUTO_PROFILE_SCENE("SyncContext::await_all");
+        WG_PROFILE_CPU_SCENE("SyncContext::await_all");
 
         if (complete_heir.is_not_null()) complete_heir.wait_completed();
         if (complete_cameras.is_not_null()) complete_cameras.wait_completed();

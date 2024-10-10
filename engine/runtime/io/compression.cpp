@@ -27,14 +27,14 @@
 
 #include "compression.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <lz4.hpp>
 
 namespace wmoge {
 
     Status Compression::estimate_lz4(const void* in, int size, int& max_compressed_size) {
-        WG_AUTO_PROFILE_IO("Compression::estimate_lz4");
+        WG_PROFILE_CPU_IO("Compression::estimate_lz4");
 
         max_compressed_size = LZ4_compressBound(size);
 
@@ -42,7 +42,7 @@ namespace wmoge {
     }
 
     Status Compression::compress_lz4(const void* in, int size, int max_compressed_size, int& compressed_size, std::uint8_t* out) {
-        WG_AUTO_PROFILE_IO("Compression::compress_lz4");
+        WG_PROFILE_CPU_IO("Compression::compress_lz4");
 
         compressed_size = LZ4_compress_default(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), size, max_compressed_size);
         if (compressed_size > 0) {
@@ -53,7 +53,7 @@ namespace wmoge {
     }
 
     Status Compression::decompress_lz4(const void* in, int compressed_size, int decompressed_size, std::uint8_t* out) {
-        WG_AUTO_PROFILE_IO("Compression::decompress_lz4");
+        WG_PROFILE_CPU_IO("Compression::decompress_lz4");
 
         const int decompressed_bytes = LZ4_decompress_safe(reinterpret_cast<const char*>(in), reinterpret_cast<char*>(out), compressed_size, decompressed_size);
         if (decompressed_bytes == decompressed_size) {

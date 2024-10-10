@@ -31,7 +31,7 @@
 #include "core/log.hpp"
 #include "core/task_parallel_for.hpp"
 #include "gfx/gfx_driver.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -63,7 +63,7 @@ namespace wmoge {
     }
 
     void RenderEngine::begin_rendering() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::begin_rendering");
+        WG_PROFILE_CPU_RENDER("RenderEngine::begin_rendering");
 
         m_batch_collector.clear();
         m_batch_compiler.clear();
@@ -73,11 +73,11 @@ namespace wmoge {
     }
 
     void RenderEngine::end_rendering() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::end_rendering");
+        WG_PROFILE_CPU_RENDER("RenderEngine::end_rendering");
     }
 
     void RenderEngine::prepare_frame_data() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::prepare_frame_data");
+        WG_PROFILE_CPU_RENDER("RenderEngine::prepare_frame_data");
 
         // GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
         // GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
@@ -97,7 +97,7 @@ namespace wmoge {
     }
 
     void RenderEngine::allocate_veiws() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::allocate_veiws");
+        WG_PROFILE_CPU_RENDER("RenderEngine::allocate_veiws");
 
         // GfxDriver* gfx_driver = Engine::instance()->gfx_driver();
         // GfxCtx*    gfx_ctx    = Engine::instance()->gfx_ctx();
@@ -178,7 +178,7 @@ namespace wmoge {
     }
 
     void RenderEngine::compile_batches() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::compile_batches");
+        WG_PROFILE_CPU_RENDER("RenderEngine::compile_batches");
 
         const array_view<const MeshBatch> batches = m_batch_collector.get_batches();
 
@@ -196,7 +196,7 @@ namespace wmoge {
     }
 
     void RenderEngine::group_queues() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::group_queues");
+        WG_PROFILE_CPU_RENDER("RenderEngine::group_queues");
 
         std::size_t total_sorted_cmds = 0;
 
@@ -214,7 +214,7 @@ namespace wmoge {
     }
 
     void RenderEngine::sort_queues() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::sort_queues");
+        WG_PROFILE_CPU_RENDER("RenderEngine::sort_queues");
 
         TaskParallelFor task_sort(SID("sort_queues"), [&](TaskContext&, int id, int) {
             m_queues[id]->sort();
@@ -225,7 +225,7 @@ namespace wmoge {
     }
 
     void RenderEngine::merge_cmds() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::merge_cmds");
+        WG_PROFILE_CPU_RENDER("RenderEngine::merge_cmds");
 
         m_cmd_merger.set_scene(m_scene);
         m_cmd_merger.set_cmd_allocator(m_cmd_allocator);
@@ -239,13 +239,13 @@ namespace wmoge {
     }
 
     void RenderEngine::flush_buffers() {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::flush_buffers");
+        WG_PROFILE_CPU_RENDER("RenderEngine::flush_buffers");
 
         // m_scene->flush_buffers(Engine::instance()->gfx_ctx());
     }
 
     void RenderEngine::render_canvas(Canvas& canvas, const Vec4f& area) {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::render_canvas");
+        WG_PROFILE_CPU_RENDER("RenderEngine::render_canvas");
 
         if (m_cameras.is_empty()) {
             return;
@@ -256,7 +256,7 @@ namespace wmoge {
     }
 
     void RenderEngine::render_aux_geom(AuxDrawManager& aux_draw_manager) {
-        WG_AUTO_PROFILE_RENDER("RenderEngine::render_aux_geom");
+        WG_PROFILE_CPU_RENDER("RenderEngine::render_aux_geom");
 
         if (m_cameras.is_empty()) {
             return;

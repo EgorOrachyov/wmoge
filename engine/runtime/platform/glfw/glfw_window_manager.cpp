@@ -28,7 +28,7 @@
 #include "glfw_window_manager.hpp"
 
 #include "core/log.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <cstdlib>
@@ -38,7 +38,7 @@ namespace wmoge {
     static GlfwWindowManager* g_glwl_manager = nullptr;
 
     GlfwWindowManager::GlfwWindowManager(bool vsync, bool client_api) {
-        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::GlfwWindowManager");
+        WG_PROFILE_CPU_GLFW("GlfwWindowManager::GlfwWindowManager");
 
         g_glwl_manager = this;
         m_vsync        = vsync;
@@ -78,7 +78,7 @@ namespace wmoge {
     }
 
     GlfwWindowManager::~GlfwWindowManager() {
-        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::~GlfwWindowManager");
+        WG_PROFILE_CPU_GLFW("GlfwWindowManager::~GlfwWindowManager");
 
         m_primary.reset();
         m_windows_by_hnd.clear();
@@ -89,7 +89,7 @@ namespace wmoge {
     }
 
     void GlfwWindowManager::poll_events() {
-        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::poll_events");
+        WG_PROFILE_CPU_GLFW("GlfwWindowManager::poll_events");
 
         clear_events();
         m_input->clear_events();
@@ -113,7 +113,7 @@ namespace wmoge {
     }
 
     Ref<Window> GlfwWindowManager::create_window(const WindowInfo& window_info) {
-        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::create");
+        WG_PROFILE_CPU_GLFW("GlfwWindowManager::create");
 
         if (get_window(window_info.id)) {
             WG_LOG_ERROR("an attempt to recreate window with the same id=" << window_info.id);
@@ -179,7 +179,7 @@ namespace wmoge {
     }
 
     std::vector<std::string> GlfwWindowManager::extensions() {
-        WG_AUTO_PROFILE_GLFW("GlfwWindowManager::extensions");
+        WG_PROFILE_CPU_GLFW("GlfwWindowManager::extensions");
 
         const char** glfw_ext;
         uint32_t     glfw_ext_count;
@@ -195,7 +195,7 @@ namespace wmoge {
 
     std::function<VkResult(VkInstance, Ref<Window>, VkSurfaceKHR&)> GlfwWindowManager::factory() {
         auto func = [this](VkInstance instance, Ref<Window> window, VkSurfaceKHR& surface_khr) {
-            WG_AUTO_PROFILE_GLFW("GlfwWindowManager::glfwCreateWindowSurface");
+            WG_PROFILE_CPU_GLFW("GlfwWindowManager::glfwCreateWindowSurface");
             assert(instance);
             assert(window);
             auto glfw_window = dynamic_cast<GlfwWindow*>(window.get());

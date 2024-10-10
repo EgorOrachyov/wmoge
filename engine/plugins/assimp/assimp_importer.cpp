@@ -30,7 +30,7 @@
 #include "core/data.hpp"
 #include "core/log.hpp"
 #include "math/math_utils3d.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -39,7 +39,7 @@
 namespace wmoge {
 
     Status AssimpImporter::read(std::string file_name, array_view<const std::uint8_t> data, const AssimpProcess& flags) {
-        WG_AUTO_PROFILE_ASSET("AssimpImporter::read");
+        WG_PROFILE_CPU_ASSET("AssimpImporter::read");
 
         if (flags.triangulate) m_options |= aiProcess_Triangulate;
         if (flags.tangent_space) m_options |= aiProcess_CalcTangentSpace;
@@ -75,7 +75,7 @@ namespace wmoge {
     }
 
     Status AssimpImporter::process_node(aiNode* node, const Mat4x4f& parent_transform, const Mat4x4f& inv_parent_transform, std::optional<int> parent) {
-        WG_AUTO_PROFILE_ASSET("AssimpImporter::process_node");
+        WG_PROFILE_CPU_ASSET("AssimpImporter::process_node");
 
         Mat4x4f local_transform;
         Mat4x4f inv_local_transform;
@@ -115,7 +115,7 @@ namespace wmoge {
     }
 
     Status AssimpMeshImporter::process_mesh(aiMesh* mesh, const Mat4x4f& transform, const Mat4x4f& inv_transform, std::optional<int> parent) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshImporter::process_mesh");
+        WG_PROFILE_CPU_ASSET("AssimpMeshImporter::process_mesh");
 
         const Vec3f aabb_min     = Vec3f(mesh->mAABB.mMin.x, mesh->mAABB.mMin.y, mesh->mAABB.mMin.z);
         const Vec3f aabb_max     = Vec3f(mesh->mAABB.mMax.x, mesh->mAABB.mMax.y, mesh->mAABB.mMax.z);

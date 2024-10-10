@@ -29,7 +29,7 @@
 
 #include "io/compression.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -146,7 +146,7 @@ namespace wmoge {
     }
 
     Status IoStreamFile::flush_compressed() {
-        WG_AUTO_PROFILE_IO("IoStreamFile::flush_compressed");
+        WG_PROFILE_CPU_IO("IoStreamFile::flush_compressed");
 
         IoContext dummy;
 
@@ -174,7 +174,7 @@ namespace wmoge {
     }
 
     Status IoStreamFile::fetch_decompressed() {
-        WG_AUTO_PROFILE_IO("IoStreamFile::fetch_decompressed");
+        WG_PROFILE_CPU_IO("IoStreamFile::fetch_decompressed");
 
         IoContext dummy;
 

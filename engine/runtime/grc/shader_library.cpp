@@ -34,7 +34,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "io/stream_file.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "rtti/traits.hpp"
 
 #include <algorithm>
@@ -162,7 +162,7 @@ namespace wmoge {
     ShaderLibrary::~ShaderLibrary() = default;
 
     Ref<GfxShader> ShaderLibrary::get_or_create_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash) {
-        WG_AUTO_PROFILE_GRC("ShaderLibrary::get_or_create_shader");
+        WG_PROFILE_CPU_GRC("ShaderLibrary::get_or_create_shader");
 
         auto query = find_shader(platform, module_type, bytecode_hash);
         if (query) {
@@ -177,7 +177,7 @@ namespace wmoge {
     }
 
     std::optional<Ref<GfxShader>> ShaderLibrary::find_shader(GfxShaderPlatform platform, GfxShaderModule module_type, const Sha256& bytecode_hash) {
-        WG_AUTO_PROFILE_GRC("ShaderLibrary::find_shader");
+        WG_PROFILE_CPU_GRC("ShaderLibrary::find_shader");
 
         std::shared_lock lock(m_mutex);
 
@@ -186,7 +186,7 @@ namespace wmoge {
     }
 
     void ShaderLibrary::fit_module(GfxShaderPlatform platform, ShaderModule& module) {
-        WG_AUTO_PROFILE_GRC("ShaderLibrary::fit_module");
+        WG_PROFILE_CPU_GRC("ShaderLibrary::fit_module");
 
         std::unique_lock lock(m_mutex);
 
@@ -195,7 +195,7 @@ namespace wmoge {
     }
 
     void ShaderLibrary::dump_modules(GfxShaderPlatform platform, std::vector<ShaderModule>& out_modules) {
-        WG_AUTO_PROFILE_GRC("ShaderLibrary::dump_modules");
+        WG_PROFILE_CPU_GRC("ShaderLibrary::dump_modules");
 
         std::shared_lock lock(m_mutex);
 
@@ -213,7 +213,7 @@ namespace wmoge {
     }
 
     Status ShaderLibrary::load_cache(FileSystem* file_system, const std::string& folder, const GfxShaderPlatform platform) {
-        WG_AUTO_PROFILE_GRC("ShaderLibrary::load_cache");
+        WG_PROFILE_CPU_GRC("ShaderLibrary::load_cache");
 
         const std::string file_path = make_cache_file_name(folder, platform);
         IoStreamFile      stream;
@@ -255,7 +255,7 @@ namespace wmoge {
     }
 
     Status ShaderLibrary::save_cache(FileSystem* file_system, const std::string& folder, const GfxShaderPlatform platform) {
-        WG_AUTO_PROFILE_GRC("ShaderLibrary::save_cache");
+        WG_PROFILE_CPU_GRC("ShaderLibrary::save_cache");
 
         std::vector<ShaderModule> modules;
         dump_modules(platform, modules);

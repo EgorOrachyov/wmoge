@@ -31,7 +31,7 @@
 #include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "platform/common/mount_volume_physical.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "system/config.hpp"
 
 #include <algorithm>
@@ -115,7 +115,7 @@ namespace wmoge {
     }
 
     Status FileSystem::read_file(const std::string& path, std::string& data) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::read_file");
 
         FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
         Ref<File>         file;
@@ -139,7 +139,7 @@ namespace wmoge {
     }
 
     Status FileSystem::read_file(const std::string& path, Ref<Data>& data) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::read_file");
 
         FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
         Ref<File>         file;
@@ -163,7 +163,7 @@ namespace wmoge {
     }
 
     Status FileSystem::read_file(const std::string& path, std::vector<std::uint8_t>& data) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::read_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::read_file");
 
         FileOpenModeFlags mode = {FileOpenMode::In, FileOpenMode::Binary};
         Ref<File>         file;
@@ -187,7 +187,7 @@ namespace wmoge {
     }
 
     Status FileSystem::open_file(const std::string& path, Ref<File>& file, const FileOpenModeFlags& mode) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::open_file");
 
         for (const MountPoint& mount_point : m_mount_points) {
             const auto& prefix  = mount_point.first;
@@ -205,7 +205,7 @@ namespace wmoge {
     }
 
     Status FileSystem::open_file_physical(const std::string& path, std::fstream& fstream, std::ios_base::openmode mode) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::open_file_physical");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::open_file_physical");
 
         for (const MountPoint& mount_point : m_mount_points) {
             const auto& prefix  = mount_point.first;
@@ -223,7 +223,7 @@ namespace wmoge {
     }
 
     Status FileSystem::save_file(const std::string& path, const std::string& data) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::save_file");
 
         FileOpenModeFlags mode = {FileOpenMode::Out, FileOpenMode::Binary};
         Ref<File>         file;
@@ -240,7 +240,7 @@ namespace wmoge {
     }
 
     Status FileSystem::save_file(const std::string& path, const std::vector<std::uint8_t>& data) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::save_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::save_file");
 
         FileOpenModeFlags mode = {FileOpenMode::Out, FileOpenMode::Binary};
         Ref<File>         file;
@@ -257,7 +257,7 @@ namespace wmoge {
     }
 
     Status FileSystem::hash_file(const std::string& path, Sha256& file_hash) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::hash_file");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::hash_file");
 
         std::vector<std::uint8_t> file_data;
         WG_CHECKED(read_file(path, file_data));
@@ -269,7 +269,7 @@ namespace wmoge {
     }
 
     void FileSystem::watch(const std::string& path, std::function<void(const FileSystemEvent&)> callback) {
-        WG_AUTO_PROFILE_PLATFORM("FileSystem::watch");
+        WG_PROFILE_CPU_PLATFORM("FileSystem::watch");
 
         auto resolved_path = resolve_physical(path);
 

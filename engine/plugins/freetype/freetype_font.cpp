@@ -32,7 +32,7 @@
 #include "grc/image.hpp"
 #include "grc/texture.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <freetype/freetype.h>
 
@@ -45,7 +45,7 @@ namespace wmoge {
     }
 
     Status FreetypeFont::load(const Ref<Font>& font, array_view<const std::uint8_t> ttf_data, int height, int glyphs_in_row) {
-        WG_AUTO_PROFILE_ASSET("FreetypeFont::load");
+        WG_PROFILE_CPU_ASSET("FreetypeFont::load");
 
         static const int GLYPHS_SIZE_SHIFT    = 6;
         static const int GLYPHS_BITMAP_OFFSET = 2;

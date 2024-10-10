@@ -28,12 +28,12 @@
 #include "deferred_pipeline.hpp"
 
 #include "platform/window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
     DeferredPipeline::DeferredPipeline() {
-        WG_AUTO_PROFILE_RENDER("DeferredPipeline::DeferredPipeline");
+        WG_PROFILE_CPU_RENDER("DeferredPipeline::DeferredPipeline");
 
         for (GraphicsPipelineStage* stage : m_stages) {
             stage->set_pipeline(this);
@@ -41,7 +41,7 @@ namespace wmoge {
     }
 
     void DeferredPipeline::exectute() {
-        WG_AUTO_PROFILE_RENDER("DeferredPipeline::exectute");
+        WG_PROFILE_CPU_RENDER("DeferredPipeline::exectute");
 
         if (m_views.empty()) {
             return;
@@ -51,7 +51,7 @@ namespace wmoge {
         // Engine*   engine     = Engine::instance();
 
         for (int i = view_count - 1; i >= 0; i--) {
-            WG_AUTO_PROFILE_RENDER("Render view=" + StringUtils::from_int(i));
+            WG_PROFILE_CPU_RENDER("Render view=" + StringUtils::from_int(i));
 
             const int         view_idx = i;
             const CameraData& camera   = m_cameras->data_at(view_idx);

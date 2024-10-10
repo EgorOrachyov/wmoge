@@ -27,7 +27,7 @@
 
 #include "pfx_scene.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
@@ -46,7 +46,7 @@ namespace wmoge {
         m_emitters.erase(emitter);
     }
     void PfxScene::update(float dt) {
-        WG_AUTO_PROFILE_PFX("PfxScene::update");
+        WG_PROFILE_CPU_PFX("PfxScene::update");
 
         for (auto& emitter : m_emitters) {
             emitter->advance_time(dt);

@@ -29,7 +29,7 @@
 
 #include "core/ioc_container.hpp"
 #include "core/task_runtime.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -43,7 +43,7 @@ namespace wmoge {
     }
 
     TaskHnd Task::schedule(TaskManager* task_manager, Async depends_on) {
-        WG_AUTO_PROFILE_CORE("Task::schedule");
+        WG_PROFILE_CPU_CORE("Task::schedule");
 
         assert(m_runnable);
         assert(task_manager);

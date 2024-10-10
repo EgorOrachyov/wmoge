@@ -28,12 +28,12 @@
 #include "core/async.hpp"
 
 #include "async.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
     Async Async::join(array_view<Async> dependencies) {
-        WG_AUTO_PROFILE_CORE("Async::join");
+        WG_PROFILE_CPU_CORE("Async::join");
 
         if (dependencies.empty()) {
             auto state = make_ref<AsyncState<int>>();
@@ -48,7 +48,7 @@ namespace wmoge {
             }
 
             void notify(AsyncStatus status, AsyncStateBase* invoker) override {
-                WG_AUTO_PROFILE_CORE("AsyncStateJoin::notify");
+                WG_PROFILE_CPU_CORE("AsyncStateJoin::notify");
 
                 assert(m_deps_to_wait > 0);
 

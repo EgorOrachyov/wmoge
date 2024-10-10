@@ -31,24 +31,30 @@
 
 namespace wmoge {
 
-    PFN_vkCreateDebugUtilsMessengerEXT  VKDebug::vkCreateDebugUtilsMessengerEXT  = nullptr;
-    PFN_vkDestroyDebugUtilsMessengerEXT VKDebug::vkDestroyDebugUtilsMessengerEXT = nullptr;
-    PFN_vkSetDebugUtilsObjectNameEXT    VKDebug::vkSetDebugUtilsObjectNameEXT    = nullptr;
-    PFN_vkCmdBeginDebugUtilsLabelEXT    VKDebug::vkCmdBeginDebugUtilsLabelEXT    = nullptr;
-    PFN_vkCmdEndDebugUtilsLabelEXT      VKDebug::vkCmdEndDebugUtilsLabelEXT      = nullptr;
+    PFN_vkCreateDebugUtilsMessengerEXT                 VKDebug::vkCreateDebugUtilsMessengerEXT                 = nullptr;
+    PFN_vkDestroyDebugUtilsMessengerEXT                VKDebug::vkDestroyDebugUtilsMessengerEXT                = nullptr;
+    PFN_vkSetDebugUtilsObjectNameEXT                   VKDebug::vkSetDebugUtilsObjectNameEXT                   = nullptr;
+    PFN_vkCmdBeginDebugUtilsLabelEXT                   VKDebug::vkCmdBeginDebugUtilsLabelEXT                   = nullptr;
+    PFN_vkCmdEndDebugUtilsLabelEXT                     VKDebug::vkCmdEndDebugUtilsLabelEXT                     = nullptr;
+    PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT VKDebug::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT = nullptr;
+    PFN_vkGetCalibratedTimestampsEXT                   VKDebug::vkGetCalibratedTimestampsEXT                   = nullptr;
 
     void VKDebug::load_inst_functions(VkInstance instance) {
-        vkCreateDebugUtilsMessengerEXT  = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
-        vkDestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
-        vkSetDebugUtilsObjectNameEXT    = (PFN_vkSetDebugUtilsObjectNameEXT) vkGetInstanceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT");
-        vkCmdBeginDebugUtilsLabelEXT    = (PFN_vkCmdBeginDebugUtilsLabelEXT) vkGetInstanceProcAddr(instance, "vkCmdBeginDebugUtilsLabelEXT");
-        vkCmdEndDebugUtilsLabelEXT      = (PFN_vkCmdEndDebugUtilsLabelEXT) vkGetInstanceProcAddr(instance, "vkCmdEndDebugUtilsLabelEXT");
+        vkCreateDebugUtilsMessengerEXT                 = (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkCreateDebugUtilsMessengerEXT");
+        vkDestroyDebugUtilsMessengerEXT                = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(instance, "vkDestroyDebugUtilsMessengerEXT");
+        vkSetDebugUtilsObjectNameEXT                   = (PFN_vkSetDebugUtilsObjectNameEXT) vkGetInstanceProcAddr(instance, "vkSetDebugUtilsObjectNameEXT");
+        vkCmdBeginDebugUtilsLabelEXT                   = (PFN_vkCmdBeginDebugUtilsLabelEXT) vkGetInstanceProcAddr(instance, "vkCmdBeginDebugUtilsLabelEXT");
+        vkCmdEndDebugUtilsLabelEXT                     = (PFN_vkCmdEndDebugUtilsLabelEXT) vkGetInstanceProcAddr(instance, "vkCmdEndDebugUtilsLabelEXT");
+        vkGetPhysicalDeviceCalibrateableTimeDomainsEXT = (PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT) vkGetInstanceProcAddr(instance, "vkGetPhysicalDeviceCalibrateableTimeDomainsEXT");
+        vkGetCalibratedTimestampsEXT                   = (PFN_vkGetCalibratedTimestampsEXT) vkGetInstanceProcAddr(instance, "vkGetCalibratedTimestampsEXT");
 
         assert(vkCreateDebugUtilsMessengerEXT);
         assert(vkDestroyDebugUtilsMessengerEXT);
         assert(vkSetDebugUtilsObjectNameEXT);
         assert(vkCmdBeginDebugUtilsLabelEXT);
         assert(vkCmdEndDebugUtilsLabelEXT);
+        assert(vkGetPhysicalDeviceCalibrateableTimeDomainsEXT);
+        assert(vkGetCalibratedTimestampsEXT);
     }
     void VKDebug::add_debug_name(VkDevice device, void* object, VkObjectType object_type, const char* name) {
         if (vkSetDebugUtilsObjectNameEXT) {

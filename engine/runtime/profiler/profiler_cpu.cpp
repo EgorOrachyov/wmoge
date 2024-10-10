@@ -25,31 +25,70 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "callback_queue.hpp"
-
-#include "profiler/profiler_cpu.hpp"
+#include "profiler_cpu.hpp"
 
 namespace wmoge {
 
-    void CallbackQueue::flush() {
-        WG_PROFILE_CPU_CORE("CallbackQueue::flush");
+    struct ProfilerCpuStackEvent {
+        ProfilerCpuMark*                       mark;
+        std::string                            data;
+        std::chrono::steady_clock ::time_point start;
+    };
 
-        std::vector<std::function<void()>> to_flush;
-        {
-            std::lock_guard guard(m_mutex);
-            std::swap(to_flush, m_queue);
-        }
+    thread_local std::vector<ProfilerCpuStackEvent> g_thread_event_stack;
 
-        for (auto& callback : to_flush) {
-            callback();
-        }
+    ProfilerCpu::ProfilerCpu() {
+        add_thread("main", std::this_thread::get_id());
     }
 
-    void CallbackQueue::clear() {
-        WG_PROFILE_CPU_CORE("CallbackQueue::clear");
+    void ProfilerCpu::calibrate(std::chrono::steady_clock::time_point time) {
+        m_cpu_time = time;
+    }
 
+    void ProfilerCpu::begin_event(ProfilerCpuMark* mark, const std::string& data) {
+        ProfilerCpuStackEvent& event = g_thread_event_stack.emplace_back();
+        event.mark                   = mark;
+        event.data                   = data;
+        event.start                  = std::chrono::steady_clock::now();
+    }
+
+    void ProfilerCpu::end_event() {
+        thread_local int thread_id = get_thread_id(std::this_thread::get_id());
+
+        ProfilerCpuStackEvent& event = g_thread_event_stack.back();
+        ProfilerCpuEvent       out_event;
+        out_event.mark        = event.mark;
+        out_event.data        = std::move(event.data);
+        out_event.thread_id   = thread_id;
+        out_event.duration_us = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - event.start).count();
+        out_event.start_us    = std::chrono::duration_cast<std::chrono::microseconds>(event.start - m_cpu_time).count();
+
+        on_event.emit(out_event);
+
+        g_thread_event_stack.pop_back();
+    }
+
+    void ProfilerCpu::add_thread(const std::string& name, std::thread::id id) {
         std::lock_guard guard(m_mutex);
-        m_queue.clear();
+        m_thread_map[id] = int(m_thread_id.size());
+        m_thread_id.push_back(name);
+    }
+
+    void ProfilerCpu::get_thread_names(std::vector<std::string>& names) {
+        std::lock_guard guard(m_mutex);
+        names = m_thread_id;
+    }
+
+    int ProfilerCpu::get_thread_id(std::thread::id id) {
+        std::lock_guard guard(m_mutex);
+        return m_thread_map[id];
+    }
+
+    ProfilerCpu  g_profiler_cpu_default;
+    ProfilerCpu* ProfilerCpu::g_profiler_cpu = &g_profiler_cpu_default;
+
+    ProfilerCpu* ProfilerCpu::instance() {
+        return g_profiler_cpu;
     }
 
 }// namespace wmoge

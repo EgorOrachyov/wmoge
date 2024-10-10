@@ -18,7 +18,6 @@ import_data:
   format: RGBA8
   mipmaps: true
   srgb: true
-  compression: false
   sampling:
     min_lod: 0.0
     max_lod: 32.0

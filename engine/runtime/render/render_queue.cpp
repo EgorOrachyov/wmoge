@@ -27,7 +27,7 @@
 
 #include "render_queue.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -55,12 +55,12 @@ namespace wmoge {
     }
 
     void RenderQueue::sort() {
-        WG_AUTO_PROFILE_RENDER("RenderQueue::sort");
+        WG_PROFILE_CPU_RENDER("RenderQueue::sort");
         std::sort(m_queue.begin(), m_queue.end());
     }
 
     int RenderQueue::execute(GfxCmdList& cmd_list) const {
-        WG_AUTO_PROFILE_RENDER("RenderQueue::execute");
+        WG_PROFILE_CPU_RENDER("RenderQueue::execute");
 
         int num_executed = 0;
         int num_total    = int(m_queue.size());

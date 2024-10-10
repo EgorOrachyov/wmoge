@@ -32,7 +32,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/shader_compiler.hpp"
 #include "grc/shader_library.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -192,7 +192,7 @@ namespace wmoge {
     }
 
     Async PsoCache::precache_psos(const array_view<GfxPsoStateGraphics>& states, const array_view<Strid>& names, Async depends_on) {
-        WG_AUTO_PROFILE_GRC("PsoCache::precache_psos");
+        WG_PROFILE_CPU_GRC("PsoCache::precache_psos");
 
         assert(states.size() == names.size());
 
@@ -242,7 +242,7 @@ namespace wmoge {
         return task.schedule(m_task_manager, depends_on).as_async();
     }
     Async PsoCache::precache_psos(const array_view<GfxPsoStateCompute>& states, const array_view<Strid>& names, Async depends_on) {
-        WG_AUTO_PROFILE_GRC("PsoCache::precache_psos");
+        WG_PROFILE_CPU_GRC("PsoCache::precache_psos");
 
         assert(states.size() == names.size());
 

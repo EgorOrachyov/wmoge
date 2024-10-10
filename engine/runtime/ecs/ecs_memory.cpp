@@ -29,7 +29,7 @@
 
 #include "core/ioc_container.hpp"
 #include "ecs/ecs_registry.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -46,7 +46,7 @@ namespace wmoge {
         }
     }
     void EcsPool::acquire_chunk() {
-        WG_AUTO_PROFILE_ECS("EcsPool::acquire_chunk");
+        WG_PROFILE_CPU_ECS("EcsPool::acquire_chunk");
         m_chunks.push_back(m_pool->allocate());
     }
     void* EcsPool::get_element_raw(int idx) const {
@@ -54,7 +54,7 @@ namespace wmoge {
     }
 
     EcsArchStorage::EcsArchStorage(EcsRegistry* ecs_registry, EcsArch arch) : m_arch(arch) {
-        WG_AUTO_PROFILE_ECS("EcsArchStorage::EcsArchStorage");
+        WG_PROFILE_CPU_ECS("EcsArchStorage::EcsArchStorage");
 
         m_chunk_size  = ecs_registry->get_chunk_size();
         m_pool.back() = EcsPool(sizeof(EcsEntity), m_chunk_size, &ecs_registry->get_entity_pool());
@@ -67,12 +67,12 @@ namespace wmoge {
     }
 
     EcsArchStorage::~EcsArchStorage() {
-        WG_AUTO_PROFILE_ECS("EcsArchStorage::~EcsArchStorage");
+        WG_PROFILE_CPU_ECS("EcsArchStorage::~EcsArchStorage");
         clear();
     }
 
     void EcsArchStorage::make_entity(const EcsEntity& entity, std::uint32_t& out_entity_idx) {
-        WG_AUTO_PROFILE_ECS("EcsArchStorage::make_entity");
+        WG_PROFILE_CPU_ECS("EcsArchStorage::make_entity");
 
         assert(entity.is_valid());
 
@@ -97,7 +97,7 @@ namespace wmoge {
         m_size += 1;
     }
     void EcsArchStorage::destroy_entity(const std::uint32_t& in_entity_idx, bool& was_swapped) {
-        WG_AUTO_PROFILE_ECS("EcsArchStorage::destroy_entity");
+        WG_PROFILE_CPU_ECS("EcsArchStorage::destroy_entity");
 
         assert(int(in_entity_idx) < m_size);
         assert(m_size > 0);
@@ -130,7 +130,7 @@ namespace wmoge {
     }
 
     void EcsArchStorage::clear() {
-        WG_AUTO_PROFILE_ECS("EcsArchStorage::clear");
+        WG_PROFILE_CPU_ECS("EcsArchStorage::clear");
 
         for (int entity_idx = 0; entity_idx < m_size; entity_idx++) {
             *m_pool.back().get_element<EcsEntity>(entity_idx) = EcsEntity();

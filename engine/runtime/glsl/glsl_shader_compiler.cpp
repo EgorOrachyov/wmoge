@@ -35,7 +35,7 @@
 #include "glsl/glsl_include_processor.hpp"
 #include "io/enum.hpp"
 #include "io/stream.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <SPIRV/GlslangToSpv.h>
 #include <StandAlone/ResourceLimits.h>
@@ -57,7 +57,7 @@ namespace wmoge {
     }
 
     Status GlslShaderCompiler::compile(ShaderCompilerRequest& request) {
-        WG_AUTO_PROFILE_VULKAN("GlslShaderCompiler::compile");
+        WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::compile");
 
         Timer timer;
         timer.start();
@@ -79,7 +79,7 @@ namespace wmoge {
         const auto messages     = static_cast<EShMessages>(EShMsgDefault | EShMsgCascadingErrors);
 
         auto dump_file = [&](const std::string& code) {
-            WG_AUTO_PROFILE_VULKAN("GlslShaderCompiler::dump_file");
+            WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::dump_file");
 
             if (input.options.dump_on_failure) {
                 std::stringstream file_content;
@@ -96,7 +96,7 @@ namespace wmoge {
         };
 
         auto compile_single_shader = [&](EShLanguage language, glslang::TShader& shader, const ShaderCompilerInputFile& file, Sha256& source_hash) {
-            WG_AUTO_PROFILE_VULKAN("GlslShaderCompiler::compile_shader");
+            WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::compile_shader");
 
             GlslIncludeProcessor include_processor(input.env, *fs, collect_code);
 
@@ -302,7 +302,7 @@ namespace wmoge {
         }
 
         {
-            WG_AUTO_PROFILE_VULKAN("GlslShaderCompiler::link_program");
+            WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::link_program");
 
             if (!program.link(messages)) {
                 WG_LOG_ERROR("failed to link program: " << program.getInfoLog());
@@ -315,7 +315,7 @@ namespace wmoge {
         std::size_t                            spirv_size = 0;
 
         auto extract_spirv = [&](EShLanguage langugage, std::vector<uint32_t>& spirv, Ref<Data>& spirv_data, Sha256& spirv_hash) {
-            WG_AUTO_PROFILE_VULKAN("GlslShaderCompiler::extract_spirv");
+            WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::extract_spirv");
 
             glslang::SpvOptions spv_options;
 

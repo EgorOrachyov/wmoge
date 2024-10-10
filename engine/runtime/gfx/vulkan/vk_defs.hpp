@@ -114,11 +114,13 @@ namespace wmoge {
         static void begin_label(VkCommandBuffer buffer, const Strid& name, const Vec3f& color = Vec3f(1, 1, 1));
         static void end_label(VkCommandBuffer buffer);
 
-        static PFN_vkCreateDebugUtilsMessengerEXT  vkCreateDebugUtilsMessengerEXT;
-        static PFN_vkDestroyDebugUtilsMessengerEXT vkDestroyDebugUtilsMessengerEXT;
-        static PFN_vkSetDebugUtilsObjectNameEXT    vkSetDebugUtilsObjectNameEXT;
-        static PFN_vkCmdBeginDebugUtilsLabelEXT    vkCmdBeginDebugUtilsLabelEXT;
-        static PFN_vkCmdEndDebugUtilsLabelEXT      vkCmdEndDebugUtilsLabelEXT;
+        static PFN_vkCreateDebugUtilsMessengerEXT                 vkCreateDebugUtilsMessengerEXT;
+        static PFN_vkDestroyDebugUtilsMessengerEXT                vkDestroyDebugUtilsMessengerEXT;
+        static PFN_vkSetDebugUtilsObjectNameEXT                   vkSetDebugUtilsObjectNameEXT;
+        static PFN_vkCmdBeginDebugUtilsLabelEXT                   vkCmdBeginDebugUtilsLabelEXT;
+        static PFN_vkCmdEndDebugUtilsLabelEXT                     vkCmdEndDebugUtilsLabelEXT;
+        static PFN_vkGetPhysicalDeviceCalibrateableTimeDomainsEXT vkGetPhysicalDeviceCalibrateableTimeDomainsEXT;
+        static PFN_vkGetCalibratedTimestampsEXT                   vkGetCalibratedTimestampsEXT;
     };
 
     class VKDefs {

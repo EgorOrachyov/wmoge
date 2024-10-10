@@ -31,7 +31,7 @@
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 #include "math/math_utils.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -41,7 +41,7 @@ namespace wmoge {
     }
 
     VKWindow::~VKWindow() {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::~VKWindow");
+        WG_PROFILE_CPU_VULKAN("VKWindow::~VKWindow");
 
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
 
@@ -60,7 +60,7 @@ namespace wmoge {
     }
 
     void VKWindow::init(VKCmdList* cmd) {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::init");
+        WG_PROFILE_CPU_VULKAN("VKWindow::init");
 
         create_image_semaphores();
         select_properties();
@@ -68,7 +68,7 @@ namespace wmoge {
     }
 
     void VKWindow::get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::get_support_info");
+        WG_PROFILE_CPU_VULKAN("VKWindow::get_support_info");
 
         WG_VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, m_surface, &info.capabilities));
 
@@ -88,7 +88,7 @@ namespace wmoge {
     }
 
     void VKWindow::create_image_semaphores() {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::create_image_semaphores");
+        WG_PROFILE_CPU_VULKAN("VKWindow::create_image_semaphores");
 
         VkSemaphoreCreateInfo semaphore_info{};
         semaphore_info.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -103,7 +103,7 @@ namespace wmoge {
     }
 
     void VKWindow::select_properties() {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::select_properties");
+        WG_PROFILE_CPU_VULKAN("VKWindow::select_properties");
 
         VKSwapChainSupportInfo support_info{};
         get_support_info(m_driver.phys_device(), m_driver.queues()->prs_queue_family(), support_info);
@@ -134,7 +134,7 @@ namespace wmoge {
     }
 
     void VKWindow::create_swapchain(VKCmdList* cmd) {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::create_swapchain");
+        WG_PROFILE_CPU_VULKAN("VKWindow::create_swapchain");
 
         WG_VK_CHECK(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_driver.phys_device(), m_surface, &m_capabilities))
 
@@ -210,7 +210,7 @@ namespace wmoge {
     }
 
     void VKWindow::release_swapchain() {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::release_swapchain");
+        WG_PROFILE_CPU_VULKAN("VKWindow::release_swapchain");
 
         if (m_swapchain) {
             m_color_targets.clear();
@@ -222,7 +222,7 @@ namespace wmoge {
     }
 
     void VKWindow::recreate_swapchain(VKCmdList* cmd) {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::recreate_swapchain");
+        WG_PROFILE_CPU_VULKAN("VKWindow::recreate_swapchain");
 
         // ensure that window resources are no more used
         WG_VK_CHECK(vkDeviceWaitIdle(m_driver.device()));
@@ -236,7 +236,7 @@ namespace wmoge {
     }
 
     void VKWindow::acquire_next(VKCmdList* cmd) {
-        WG_AUTO_PROFILE_VULKAN("VKWindow::acquire_next");
+        WG_PROFILE_CPU_VULKAN("VKWindow::acquire_next");
 
         check_requested_size();
 
@@ -269,7 +269,7 @@ namespace wmoge {
     }
 
     Ref<VKWindow> VKWindowManager::get_or_create(VKCmdList* cmd, const Ref<Window>& window) {
-        WG_AUTO_PROFILE_VULKAN("VKWindowManager::get_or_create");
+        WG_PROFILE_CPU_VULKAN("VKWindowManager::get_or_create");
 
         auto query = m_windows.find(window->id());
         if (query != m_windows.end()) {

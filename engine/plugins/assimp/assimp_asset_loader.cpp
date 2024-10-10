@@ -36,7 +36,7 @@
 #include "mesh/mesh_builder.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <cstring>
@@ -59,7 +59,7 @@ namespace wmoge {
     }
 
     Status AssimpMeshAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Mesh>& asset) {
-        WG_AUTO_PROFILE_ASSET("AssimpMeshAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("AssimpMeshAssetLoader::load_typed");
 
         Ref<AssimpMeshImportData> import_data = context.asset_meta.import_data.cast<AssimpMeshImportData>();
         assert(import_data);

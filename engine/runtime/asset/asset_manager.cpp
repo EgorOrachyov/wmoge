@@ -31,7 +31,7 @@
 #include "core/ioc_container.hpp"
 #include "core/timer.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "rtti/type_storage.hpp"
 
 #include <chrono>
@@ -55,7 +55,7 @@ namespace wmoge {
     }
 
     AsyncResult<Ref<Asset>> AssetManager::load_async(const AssetId& name) {
-        WG_AUTO_PROFILE_ASSET("AssetManager::load_async");
+        WG_PROFILE_CPU_ASSET("AssetManager::load_async");
 
         std::lock_guard guard(m_mutex);
 
@@ -177,7 +177,7 @@ namespace wmoge {
     }
 
     Ref<Asset> AssetManager::load(const AssetId& name) {
-        WG_AUTO_PROFILE_ASSET("AssetManager::load");
+        WG_PROFILE_CPU_ASSET("AssetManager::load");
 
         Ref<Asset> fast_look_up = find(name);
         if (fast_look_up) {
@@ -190,7 +190,7 @@ namespace wmoge {
     }
 
     Ref<Asset> AssetManager::find(const AssetId& name) {
-        WG_AUTO_PROFILE_ASSET("AssetManager::find");
+        WG_PROFILE_CPU_ASSET("AssetManager::find");
 
         std::lock_guard guard(m_mutex);
 
@@ -237,14 +237,14 @@ namespace wmoge {
     }
 
     void AssetManager::clear() {
-        WG_AUTO_PROFILE_ASSET("AssetManager::clear");
+        WG_PROFILE_CPU_ASSET("AssetManager::clear");
 
         std::lock_guard guard(m_mutex);
         m_assets.clear();
     }
 
     void AssetManager::load_loaders() {
-        WG_AUTO_PROFILE_ASSET("AssetManager::load_loaders");
+        WG_PROFILE_CPU_ASSET("AssetManager::load_loaders");
 
         std::vector<RttiClass*> loaders = m_type_storage->find_classes([](const Ref<RttiClass>& type) {
             return type->is_subtype_of(AssetLoader::get_class_static()) && type->can_instantiate();

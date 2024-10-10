@@ -29,7 +29,7 @@
 
 #include "core/string_utf.hpp"
 #include "platform/glfw/glfw_window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <algorithm>
 
@@ -38,7 +38,7 @@ namespace wmoge {
     static GlfwInput* g_glfw_input = nullptr;
 
     GlfwInput::GlfwInput(class GlfwWindowManager& manager) : m_manager(manager) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::GlfwInput");
+        WG_PROFILE_CPU_GLFW("GlfwInput::GlfwInput");
 
         g_glfw_input = this;
         m_mouse      = make_ref<GlfwMouse>();
@@ -73,7 +73,7 @@ namespace wmoge {
     }
 
     void GlfwInput::subscribe_window(GLFWwindow* window) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::subscribe_window");
+        WG_PROFILE_CPU_GLFW("GlfwInput::subscribe_window");
 
         glfwSetDropCallback(window, drop_callback);
         glfwSetCursorPosCallback(window, mouse_position_callback);
@@ -84,7 +84,7 @@ namespace wmoge {
     }
 
     void GlfwInput::update() {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::update");
+        WG_PROFILE_CPU_GLFW("GlfwInput::update");
 
         for (auto& joystick : m_joysticks) {
             if (joystick->state() == InputDeviceState::Connected) {
@@ -118,7 +118,7 @@ namespace wmoge {
     }
 
     void GlfwInput::drop_callback(GLFWwindow*, int count, const char** paths) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::drop_callback");
+        WG_PROFILE_CPU_GLFW("GlfwInput::drop_callback");
 
         if (count > 0) {
             std::vector<std::string> paths_vector;
@@ -134,7 +134,7 @@ namespace wmoge {
     }
 
     void GlfwInput::mouse_position_callback(GLFWwindow*, double x, double y) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::mouse_position_callback");
+        WG_PROFILE_CPU_GLFW("GlfwInput::mouse_position_callback");
 
         auto mouse = g_glfw_input->m_mouse;
 
@@ -149,7 +149,7 @@ namespace wmoge {
     }
 
     void GlfwInput::mouse_buttons_callback(GLFWwindow*, int button, int action, int mods) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::mouse_buttons_callback");
+        WG_PROFILE_CPU_GLFW("GlfwInput::mouse_buttons_callback");
 
         auto mouse = g_glfw_input->m_mouse;
 
@@ -169,7 +169,7 @@ namespace wmoge {
     }
 
     void GlfwInput::keyboard_keys_callback(GLFWwindow*, int key, int scancode, int action, int mods) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::keyboard_keys_callback");
+        WG_PROFILE_CPU_GLFW("GlfwInput::keyboard_keys_callback");
 
         auto keyboard = g_glfw_input->m_keyboard;
 
@@ -189,7 +189,7 @@ namespace wmoge {
     }
 
     void GlfwInput::keyboard_text_callback(GLFWwindow*, unsigned int code_point) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::keyboard_text_callback");
+        WG_PROFILE_CPU_GLFW("GlfwInput::keyboard_text_callback");
 
         auto keyboard = g_glfw_input->m_keyboard;
 
@@ -204,7 +204,7 @@ namespace wmoge {
     }
 
     void GlfwInput::joystick_callback(int jid, int state) {
-        WG_AUTO_PROFILE_GLFW("GlfwInput::joystick_callback");
+        WG_PROFILE_CPU_GLFW("GlfwInput::joystick_callback");
 
         auto joystick    = g_glfw_input->get_joystick_by_hnd(jid);
         auto deviceState = state == GLFW_CONNECTED ? InputDeviceState::Connected : InputDeviceState::Disconnected;

@@ -29,7 +29,7 @@
 
 #include "core/log.hpp"
 #include "core/task_runtime.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -37,8 +37,6 @@ namespace wmoge {
         assert(workers_count > 0);
 
         m_worker_prefix = std::move(worker_prefix);
-
-        Profiler* profiler = Profiler::instance();
 
         for (int i = 0; i < workers_count; i++) {
             std::thread worker([this, i]() {
@@ -55,7 +53,7 @@ namespace wmoge {
                 }
             });
 
-            profiler->add_tid(worker.get_id(), SID(m_worker_prefix + "-" + std::to_string(i)));
+            ProfilerCpu::instance()->add_thread(m_worker_prefix + "-" + std::to_string(i), worker.get_id());
             m_workers.push_back(std::move(worker));
         }
     }
@@ -65,7 +63,7 @@ namespace wmoge {
     }
 
     void TaskManager::submit(Ref<class TaskRuntime> task) {
-        WG_AUTO_PROFILE_CORE("TaskManager::submit");
+        WG_PROFILE_CPU_CORE("TaskManager::submit");
 
         assert(task);
 
@@ -80,7 +78,7 @@ namespace wmoge {
     }
 
     void TaskManager::shutdown() {
-        WG_AUTO_PROFILE_CORE("TaskManager::shutdown");
+        WG_PROFILE_CPU_CORE("TaskManager::shutdown");
 
         WG_LOG_INFO("shutdown manager=" << m_worker_prefix << " and join already started tasks");
 

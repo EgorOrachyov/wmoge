@@ -25,31 +25,36 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "callback_queue.hpp"
+#pragma once
 
+#include "core/synchronization.hpp"
 #include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 
 namespace wmoge {
 
-    void CallbackQueue::flush() {
-        WG_PROFILE_CPU_CORE("CallbackQueue::flush");
+    class ProfilerCapture {
+    public:
+        ProfilerCapture(class IocContainer* ioc);
 
-        std::vector<std::function<void()>> to_flush;
-        {
-            std::lock_guard guard(m_mutex);
-            std::swap(to_flush, m_queue);
-        }
+        void enable(bool enable);
+        void begin_capture(const Strid& session_name, const std::string& filepath);
+        void end_capture();
+        void save_capture();
+        bool is_collecting() const;
 
-        for (auto& callback : to_flush) {
-            callback();
-        }
-    }
+    private:
+        std::atomic_bool              m_is_enabled{false};
+        std::atomic_bool              m_is_collecting{false};
+        std::vector<ProfilerCpuEvent> m_events_cpu;
+        std::vector<ProfilerGpuEvent> m_events_gpu;
+        Strid                         m_session_name;
+        std::string                   m_session_path;
 
-    void CallbackQueue::clear() {
-        WG_PROFILE_CPU_CORE("CallbackQueue::clear");
+        class FileSystem* m_file_system;
+        class Time*       m_time;
 
-        std::lock_guard guard(m_mutex);
-        m_queue.clear();
-    }
+        SpinMutex m_mutex;
+    };
 
 }// namespace wmoge

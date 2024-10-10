@@ -35,7 +35,7 @@
 #include "grc/texture.hpp"
 #include "grc/texture_manager.hpp"
 #include "grc/texture_resize.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -54,7 +54,7 @@ namespace wmoge {
     }
 
     Status Texture2dAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Texture2d>& asset) {
-        WG_AUTO_PROFILE_ASSET("Texture2dAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("Texture2dAssetLoader::load_typed");
 
         Ref<Texture2dImportData> import_data = context.asset_meta.import_data.cast<Texture2dImportData>();
         assert(import_data);
@@ -140,7 +140,7 @@ namespace wmoge {
     }
 
     Status TextureCubeAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<TextureCube>& asset) {
-        WG_AUTO_PROFILE_ASSET("TextureCubeAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("TextureCubeAssetLoader::load_typed");
 
         Ref<TextureCubeImportData> import_data = context.asset_meta.import_data.cast<TextureCubeImportData>();
         assert(import_data);

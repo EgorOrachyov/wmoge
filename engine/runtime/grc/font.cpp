@@ -30,7 +30,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/image.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <sstream>
 #include <string>

@@ -27,7 +27,7 @@
 
 #include "struct.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <cinttypes>
@@ -105,7 +105,7 @@ namespace wmoge {
     }
 
     Status RttiStruct::read_from_tree(void* dst, IoTree& tree, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_tree");
+        WG_PROFILE_CPU_RTTI("RttiStruct::read_from_tree");
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
         for (const RttiField& field : get_fields()) {
@@ -134,7 +134,7 @@ namespace wmoge {
     }
 
     Status RttiStruct::write_to_tree(const void* src, IoTree& tree, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_tree");
+        WG_PROFILE_CPU_RTTI("RttiStruct::write_to_tree");
 
         assert(src);
         WG_TREE_MAP(tree);
@@ -155,7 +155,7 @@ namespace wmoge {
     }
 
     Status RttiStruct::read_from_stream(void* dst, IoStream& stream, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::read_from_stream");
+        WG_PROFILE_CPU_RTTI("RttiStruct::read_from_stream");
         assert(dst);
 
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
@@ -169,7 +169,7 @@ namespace wmoge {
     }
 
     Status RttiStruct::write_to_stream(const void* src, IoStream& stream, IoContext& context) const {
-        WG_AUTO_PROFILE_RTTI("RttiStruct::write_to_stream");
+        WG_PROFILE_CPU_RTTI("RttiStruct::write_to_stream");
 
         assert(src);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);

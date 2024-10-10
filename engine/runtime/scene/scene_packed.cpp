@@ -31,7 +31,7 @@
 #include "core/task.hpp"
 #include "core/timer.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "scene/scene.hpp"
 
 namespace wmoge {

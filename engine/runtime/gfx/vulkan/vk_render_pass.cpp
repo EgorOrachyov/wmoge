@@ -30,7 +30,7 @@
 #include "core/crc32.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -110,7 +110,7 @@ namespace wmoge {
         m_has_depth_stencil   = has_depth_stencil;
     }
     VKRenderPass::~VKRenderPass() {
-        WG_AUTO_PROFILE_VULKAN("VKRenderPass::~VKRenderPass");
+        WG_PROFILE_CPU_VULKAN("VKRenderPass::~VKRenderPass");
 
         if (m_render_pass) {
             vkDestroyRenderPass(m_driver.device(), m_render_pass, nullptr);
@@ -156,7 +156,7 @@ namespace wmoge {
         WG_VK_NAME(m_driver.device(), m_framebuffer, VK_OBJECT_TYPE_FRAMEBUFFER, m_name.str());
     }
     VKFrameBuffer::~VKFrameBuffer() {
-        WG_AUTO_PROFILE_VULKAN("VKFrameBuffer::~VKFrameBuffer");
+        WG_PROFILE_CPU_VULKAN("VKFrameBuffer::~VKFrameBuffer");
 
         if (m_framebuffer) {
             vkDestroyFramebuffer(m_driver.device(), m_framebuffer, nullptr);

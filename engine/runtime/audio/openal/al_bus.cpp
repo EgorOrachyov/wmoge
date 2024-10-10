@@ -28,7 +28,7 @@
 #include "al_bus.hpp"
 
 #include "audio/openal/al_engine.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -60,7 +60,7 @@ namespace wmoge {
         m_playbacks.erase(playback);
     }
     void ALAudioBus::make_active() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioBus::make_active");
+        WG_PROFILE_CPU_OPENAL("ALAudioBus::make_active");
 
         std::lock_guard guard(m_engine.get_mutex());
 
@@ -72,7 +72,7 @@ namespace wmoge {
         }
     }
     void ALAudioBus::make_inactive() {
-        WG_AUTO_PROFILE_OPENAL("ALAudioBus::make_inactive");
+        WG_PROFILE_CPU_OPENAL("ALAudioBus::make_inactive");
 
         std::lock_guard guard(m_engine.get_mutex());
 
@@ -98,7 +98,7 @@ namespace wmoge {
         }
     }
     void ALAudioBus::get_playbacks(std::vector<Ref<AudioPlayback>>& playbacks) {
-        WG_AUTO_PROFILE_OPENAL("ALAudioBus::get_playbacks");
+        WG_PROFILE_CPU_OPENAL("ALAudioBus::get_playbacks");
 
         std::lock_guard guard(m_engine.get_mutex());
 

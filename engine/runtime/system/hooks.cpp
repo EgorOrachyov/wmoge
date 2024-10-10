@@ -33,7 +33,7 @@
 #include "platform/common/mount_volume_physical.hpp"
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_capture.hpp"
 #include "system/application.hpp"
 #include "system/config.hpp"
 #include "system/console.hpp"
@@ -175,45 +175,43 @@ namespace wmoge {
     void EngineCmdLineHooks::hook_root_profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, ApplicationSignals* app_signals) {
         options.add_bool("profiler", "enable cpu profiler hook", "false");
 
-        struct Captures {
-            std::shared_ptr<ProfilerCapture> startup;
-            std::shared_ptr<ProfilerCapture> runtime;
-            std::shared_ptr<ProfilerCapture> shutdown;
-        };
-
-        list.add([ioc, app_signals, captures = std::make_shared<Captures>()](CmdLineParseResult& result) {
-            Config*   config   = ioc->resolve_value<Config>();
-            Profiler* profiler = ioc->resolve_value<Profiler>();
+        list.add([ioc, app_signals](CmdLineParseResult& result) {
+            Config*          config   = ioc->resolve_value<Config>();
+            Time*            time     = ioc->resolve_value<Time>();
+            ProfilerCapture* profiler = ioc->resolve_value<ProfilerCapture>();
 
             bool enable_profiler = false;
 
             enable_profiler = enable_profiler || result.get_bool("profiler");
             enable_profiler = enable_profiler || config->get_bool_or_default(SID("profiler.enable"), false);
 
-            profiler->set_enabled(enable_profiler);
+            profiler->enable(enable_profiler);
 
             if (enable_profiler) {
                 WG_LOG_INFO("attach cpu performance profiler");
 
-                profiler->configure(ioc);
+                ProfilerCpu::instance()->calibrate(time->get_start());
 
                 app_signals->before_init.bind([=]() {
-                    WG_PROFILE_CAPTURE_START(captures->startup, startup, "debug/profile_startup.json");
+                    profiler->begin_capture(SID("startup"), "debug/profile_startup.json");
                 });
                 app_signals->after_init.bind([=]() {
-                    WG_PROFILE_CAPTURE_END(captures->startup);
+                    profiler->end_capture();
+                    profiler->save_capture();
                 });
                 app_signals->before_loop.bind([=]() {
-                    WG_PROFILE_CAPTURE_START(captures->runtime, runtime, "debug/profile_runtime.json");
+                    profiler->begin_capture(SID("runtime"), "debug/profile_runtime.json");
                 });
                 app_signals->after_loop.bind([=]() {
-                    WG_PROFILE_CAPTURE_END(captures->runtime);
+                    profiler->end_capture();
+                    profiler->save_capture();
                 });
                 app_signals->before_shutdown.bind([=]() {
-                    WG_PROFILE_CAPTURE_START(captures->shutdown, shutdown, "debug/profile_shutdown.json");
+                    profiler->begin_capture(SID("shutdown"), "debug/profile_shutdown.json");
                 });
                 app_signals->after_shutdown.bind([=]() {
-                    WG_PROFILE_CAPTURE_END(captures->shutdown);
+                    profiler->end_capture();
+                    profiler->save_capture();
                 });
             }
 

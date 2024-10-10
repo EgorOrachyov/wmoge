@@ -29,7 +29,7 @@
 
 #include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <stb_image.hpp>
 #include <stb_image_resize.hpp>
@@ -38,7 +38,7 @@
 namespace wmoge {
 
     void Image::create(int width, int height, int channels, int pixel_size) {
-        WG_AUTO_PROFILE_ASSET("Image::create");
+        WG_PROFILE_CPU_ASSET("Image::create");
 
         if (!width || !height || !pixel_size || !channels) {
             WG_LOG_ERROR("an attempt to make empty image");
@@ -52,7 +52,7 @@ namespace wmoge {
         m_pixel_data = make_ref<Data>(width * height * pixel_size);
     }
     Status Image::load(FileSystem* fs, const std::string& path, int channels) {
-        WG_AUTO_PROFILE_ASSET("Image::load");
+        WG_PROFILE_CPU_ASSET("Image::load");
 
         std::vector<std::uint8_t> pixel_data;
         WG_CHECKED(fs->read_file(path, pixel_data));
@@ -60,7 +60,7 @@ namespace wmoge {
         return load(pixel_data, channels);
     }
     Status Image::load(array_view<const std::uint8_t> pixel_data, int channels) {
-        WG_AUTO_PROFILE_ASSET("Image::load");
+        WG_PROFILE_CPU_ASSET("Image::load");
 
         int w, h, n;
         channels = Math::clamp(channels, 0, 4);
@@ -82,7 +82,7 @@ namespace wmoge {
         return WG_OK;
     }
     Status Image::save(std::filesystem::path filepath) {
-        WG_AUTO_PROFILE_ASSET("Image::save");
+        WG_PROFILE_CPU_ASSET("Image::save");
 
         if (!m_width || !m_height) {
             WG_LOG_ERROR("cannot save empty image");
@@ -93,7 +93,7 @@ namespace wmoge {
         return stbi_write_png(filepath_str.c_str(), m_width, m_height, m_channels, m_pixel_data->buffer(), m_width * m_pixel_size) ? StatusCode::Ok : StatusCode::Error;
     }
     Status Image::resize(int new_width, int new_height) {
-        WG_AUTO_PROFILE_ASSET("Image::resize");
+        WG_PROFILE_CPU_ASSET("Image::resize");
 
         if (!new_width || !new_height) {
             WG_LOG_ERROR("cannot resize image " << get_name() << " to " << new_width << "x" << new_height);
@@ -119,7 +119,7 @@ namespace wmoge {
     }
 
     Status Image::generate_mip_chain(std::vector<Ref<Image>>& mips) {
-        WG_AUTO_PROFILE_ASSET("Image::generate_mip_chain");
+        WG_PROFILE_CPU_ASSET("Image::generate_mip_chain");
 
         assert(mips.empty());
 

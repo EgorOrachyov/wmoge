@@ -29,7 +29,7 @@
 
 #include "core/ioc_container.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <sstream>
@@ -57,7 +57,7 @@ namespace wmoge {
     }
 
     Status IoYamlTree::parse_data(const array_view<const std::uint8_t>& data) {
-        WG_AUTO_PROFILE_IO("IoYamlTree::parse_data");
+        WG_PROFILE_CPU_IO("IoYamlTree::parse_data");
         assert(m_stack.empty());
         auto str_view = ryml::csubstr(reinterpret_cast<const char*>(data.data()), data.size());
         m_tree        = std::move(ryml::parse_in_arena(str_view));

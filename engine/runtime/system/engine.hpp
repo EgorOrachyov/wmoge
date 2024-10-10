@@ -76,7 +76,6 @@ namespace wmoge {
         class TextureManager* texture_manager();
         class MeshManager*    mesh_manager();
         class SceneManager*   scene_manager();
-        class Profiler*       profiler();
         class Console*        console();
         class AudioEngine*    audio_engine();
         class RenderEngine*   render_engine();
@@ -106,13 +105,13 @@ namespace wmoge {
         class TextureManager* m_texture_manager = nullptr;
         class MeshManager*    m_mesh_manager    = nullptr;
         class SceneManager*   m_scene_manager   = nullptr;
-        class Profiler*       m_profiler        = nullptr;
         class Console*        m_console         = nullptr;
         class AudioEngine*    m_audio_engine    = nullptr;
         class RenderEngine*   m_render_engine   = nullptr;
         class ViewManager*    m_view_manager    = nullptr;
         class EcsRegistry*    m_ecs_registry    = nullptr;
         class IocContainer*   m_ioc_container   = nullptr;
+        class ProfilerGpu*    m_profiler_gpu    = nullptr;
 
         bool m_exit_on_close = true;
     };

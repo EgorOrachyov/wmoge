@@ -30,7 +30,7 @@
 #include "core/task.hpp"
 #include "core/timer.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -70,7 +70,7 @@ namespace wmoge {
     }
 
     Status VKPsoGraphics::compile(const GfxPsoStateGraphics& state) {
-        WG_AUTO_PROFILE_VULKAN("VKPsoGraphics::compile");
+        WG_PROFILE_CPU_VULKAN("VKPsoGraphics::compile");
 
         Timer timer;
         timer.start();
@@ -232,7 +232,7 @@ namespace wmoge {
         return WG_OK;
     }
     void VKPsoGraphics::release() {
-        WG_AUTO_PROFILE_VULKAN("VKPsoGraphics::release");
+        WG_PROFILE_CPU_VULKAN("VKPsoGraphics::release");
 
         if (m_pipeline) {
             vkDestroyPipeline(m_driver.device(), m_pipeline, nullptr);
@@ -247,7 +247,7 @@ namespace wmoge {
         release();
     }
     Status VKPsoCompute::compile(const GfxPsoStateCompute& state) {
-        WG_AUTO_PROFILE_VULKAN("VKPsoCompute::compile");
+        WG_PROFILE_CPU_VULKAN("VKPsoCompute::compile");
 
         Timer timer;
         timer.start();
@@ -285,7 +285,7 @@ namespace wmoge {
         return WG_OK;
     }
     void VKPsoCompute::release() {
-        WG_AUTO_PROFILE_VULKAN("VKPsoCompute::release");
+        WG_PROFILE_CPU_VULKAN("VKPsoCompute::release");
 
         if (m_pipeline) {
             vkDestroyPipeline(m_driver.device(), m_pipeline, nullptr);

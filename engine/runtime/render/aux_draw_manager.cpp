@@ -32,7 +32,7 @@
 #include "core/log.hpp"
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils3d.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -112,7 +112,7 @@ namespace wmoge {
             return int(lines.size());
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawLines::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawLines::fill");
 
             auto* vertices = (GfxVF_Pos3Col4*) buffer;
 
@@ -148,7 +148,7 @@ namespace wmoge {
             return int(triangles.size());
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawTriangles::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawTriangles::fill");
 
             auto* vertices = (GfxVF_Pos3Col4*) buffer;
 
@@ -176,7 +176,7 @@ namespace wmoge {
             return MAX_SPLIT_STEP_SPHERE * MAX_SPLIT_STEP_SPHERE;
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawSphere::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawSphere::fill");
 
             auto* vertices = (GfxVF_Pos3Col4*) buffer;
 
@@ -236,7 +236,7 @@ namespace wmoge {
             return MAX_SPLIT_STEP_CYLINDER * 4;
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawCylinder::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawCylinder::fill");
 
             auto* vertices = (GfxVF_Pos3Col4*) buffer;
 
@@ -295,7 +295,7 @@ namespace wmoge {
             return MAX_SPLIT_STEP_CONE * 2;
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawCone::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawCone::fill");
 
             auto* vertices = (GfxVF_Pos3Col4*) buffer;
 
@@ -348,7 +348,7 @@ namespace wmoge {
             return 2 * 6;
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawBox::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawBox::fill");
 
             auto* vertices = (GfxVF_Pos3Col4*) buffer;
 
@@ -408,7 +408,7 @@ namespace wmoge {
             return int(text.length());
         }
         [[nodiscard]] void* fill(void* buffer, const FillParams& params) const override {
-            WG_AUTO_PROFILE_RENDER("AuxDrawText::fill");
+            WG_PROFILE_CPU_RENDER("AuxDrawText::fill");
 
             auto* vertices = (GfxVF_Pos3Col4Uv2*) buffer;
 
@@ -576,7 +576,7 @@ namespace wmoge {
     }
 
     void AuxDrawManager::render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::render");
+        WG_PROFILE_CPU_RENDER("AuxDrawManager::render");
 
         if (is_empty()) {
             return;
@@ -696,7 +696,7 @@ namespace wmoge {
         //});
     }
     void AuxDrawManager::flush(float delta_time) {
-        WG_AUTO_PROFILE_RENDER("AuxDrawManager::flush");
+        WG_PROFILE_CPU_RENDER("AuxDrawManager::flush");
 
         std::lock_guard guard(m_mutex);
 

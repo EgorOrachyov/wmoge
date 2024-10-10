@@ -27,7 +27,7 @@
 
 #include "pfx_effect.hpp"
 
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 

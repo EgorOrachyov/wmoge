@@ -30,7 +30,7 @@
 #include "core/log.hpp"
 #include "grc/shader_builder.hpp"
 #include "grc/shader_compiler.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <functional>
@@ -50,7 +50,7 @@ namespace wmoge {
     }
 
     Status Shader::fill_layout_desc(GfxDescSetLayoutDesc& desc, std::int16_t space) const {
-        WG_AUTO_PROFILE_GRC("Shader::fill_layout_desc");
+        WG_PROFILE_CPU_GRC("Shader::fill_layout_desc");
 
         assert(0 <= space && space < m_reflection.spaces.size());
 
@@ -93,7 +93,7 @@ namespace wmoge {
     }
 
     Status Shader::fill_compiler_env(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, ShaderCompiler* compiler, ShaderCompilerEnv& compiler_env) {
-        WG_AUTO_PROFILE_GRC("Shader::fill_compiler_env");
+        WG_PROFILE_CPU_GRC("Shader::fill_compiler_env");
 
         compiler_env.set_define(SID(GfxShaderPlatformGlslDefines[int(platform)]));
         compiler_env.set_define(SID("TECHNIQUE_IDX"), permutation.technique_idx);
@@ -118,7 +118,7 @@ namespace wmoge {
     }
 
     Status Shader::fill_compiler_input(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, ShaderCompiler* compiler, ShaderCompilerInput& compiler_input) {
-        WG_AUTO_PROFILE_GRC("Shader::fill_compiler_input");
+        WG_PROFILE_CPU_GRC("Shader::fill_compiler_input");
 
         std::string program_name;
         if (!fill_program_name(lang, platform, permutation, program_name)) {
@@ -148,7 +148,7 @@ namespace wmoge {
     }
 
     Status Shader::fill_program_name(GfxShaderLang lang, GfxShaderPlatform platform, const ShaderPermutation& permutation, std::string& name) {
-        WG_AUTO_PROFILE_GRC("Shader::fill_program_name");
+        WG_PROFILE_CPU_GRC("Shader::fill_program_name");
 
         std::stringstream stream;
 
@@ -180,7 +180,7 @@ namespace wmoge {
     }
 
     Status Shader::fill_declarations(GfxShaderLang lang, ShaderCompiler* compiler, std::string& out_declarations) {
-        WG_AUTO_PROFILE_GRC("Shader::fill_declarations");
+        WG_PROFILE_CPU_GRC("Shader::fill_declarations");
 
         assert(lang == GfxShaderLang::GlslVk450);
 
@@ -296,7 +296,7 @@ namespace wmoge {
     }
 
     Status Shader::fill_vertex_input(GfxShaderLang lang, ShaderCompiler* compiler, const ShaderPermutation& permutation, std::string& out_input) {
-        WG_AUTO_PROFILE_GRC("Shader::fill_vertex_input");
+        WG_PROFILE_CPU_GRC("Shader::fill_vertex_input");
 
         assert(lang == GfxShaderLang::GlslVk450);
 

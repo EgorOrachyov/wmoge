@@ -30,7 +30,7 @@
 #include "core/class.hpp"
 #include "core/data.hpp"
 #include "core/log.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cstring>
 
@@ -48,7 +48,7 @@ namespace wmoge {
     }
 
     Status MeshBuilder::build() {
-        WG_AUTO_PROFILE_MESH("MeshBuilder::build");
+        WG_PROFILE_CPU_MESH("MeshBuilder::build");
 
         assert(m_mesh);
 

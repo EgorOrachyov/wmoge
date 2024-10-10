@@ -30,7 +30,7 @@
 
 #include "core/ioc_container.hpp"
 #include "io/tree_yaml.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "rtti/type_storage.hpp"
 
 namespace wmoge {
@@ -50,7 +50,7 @@ namespace wmoge {
     }
 
     Status DefaultAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) {
-        WG_AUTO_PROFILE_ASSET("DefaultAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("DefaultAssetLoader::load_typed");
 
         Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         assert(import_data);

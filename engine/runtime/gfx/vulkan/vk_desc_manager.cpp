@@ -28,7 +28,7 @@
 #include "vk_desc_manager.hpp"
 
 #include "gfx/vulkan/vk_driver.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 

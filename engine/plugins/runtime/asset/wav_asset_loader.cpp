@@ -28,7 +28,7 @@
 #include "wav_asset_loader.hpp"
 
 #include "asset/wav_import_data.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -47,7 +47,7 @@ namespace wmoge {
     }
 
     Status WavAssetLoader::load_typed(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<AudioStreamWav>& asset) {
-        WG_AUTO_PROFILE_ASSET("WavAssetLoader::load_typed");
+        WG_PROFILE_CPU_ASSET("WavAssetLoader::load_typed");
 
         Ref<WavImportData> import_data = context.asset_meta.import_data.cast<WavImportData>();
         assert(import_data);

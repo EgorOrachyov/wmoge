@@ -31,7 +31,7 @@
 #include "core/task.hpp"
 #include "core/task_parallel_for.hpp"
 #include "math/math_utils.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -45,7 +45,7 @@ namespace wmoge {
     }
 
     EcsEntity EcsWorld::allocate_entity() {
-        WG_AUTO_PROFILE_ECS("EcsWorld::allocate_entity");
+        WG_PROFILE_CPU_ECS("EcsWorld::allocate_entity");
 
         std::lock_guard guard(m_mutex);
 
@@ -62,7 +62,7 @@ namespace wmoge {
     }
 
     void EcsWorld::make_entity(const EcsEntity& entity, const EcsArch& arch) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::make_entity");
+        WG_PROFILE_CPU_ECS("EcsWorld::make_entity");
 
         assert(entity.is_valid());
 
@@ -82,7 +82,7 @@ namespace wmoge {
     }
 
     void EcsWorld::swap_entity(const EcsEntity& left, const EcsEntity& right) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::swap_entity");
+        WG_PROFILE_CPU_ECS("EcsWorld::swap_entity");
 
         assert(left.is_valid());
         assert(left.idx < m_entity_info.size());
@@ -105,7 +105,7 @@ namespace wmoge {
     }
 
     void EcsWorld::rearch_entity(const EcsEntity& entity, const EcsArch& new_arch) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::rearch_entity");
+        WG_PROFILE_CPU_ECS("EcsWorld::rearch_entity");
 
         assert(new_arch.any());
         assert(entity.is_valid());
@@ -130,7 +130,7 @@ namespace wmoge {
     }
 
     void EcsWorld::destroy_entity(const EcsEntity& entity) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::destroy_entity");
+        WG_PROFILE_CPU_ECS("EcsWorld::destroy_entity");
 
         assert(entity.is_valid());
         assert(entity.idx < m_entity_info.size());
@@ -193,7 +193,7 @@ namespace wmoge {
     }
 
     void EcsWorld::execute(const EcsQuery& query, const EcsQueuryFunction& func) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::execute");
+        WG_PROFILE_CPU_ECS("EcsWorld::execute");
 
         for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
             if (!query.match(m_arch_by_idx[arch_idx])) {
@@ -210,7 +210,7 @@ namespace wmoge {
     }
 
     Async EcsWorld::execute_async(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::execute_async");
+        WG_PROFILE_CPU_ECS("EcsWorld::execute_async");
 
         Task task(query.name, [query, func, this](TaskContext&) {
             for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
@@ -233,7 +233,7 @@ namespace wmoge {
     }
 
     Async EcsWorld::execute_parallel(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
-        WG_AUTO_PROFILE_ECS("EcsWorld::execute_parallel");
+        WG_PROFILE_CPU_ECS("EcsWorld::execute_parallel");
 
         TaskParallelFor task(query.name, [query, func, this](TaskContext&, int batch_id, int batch_count) {
             for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
@@ -255,7 +255,7 @@ namespace wmoge {
     }
 
     void EcsWorld::clear() {
-        WG_AUTO_PROFILE_ECS("EcsWorld::clear");
+        WG_PROFILE_CPU_ECS("EcsWorld::clear");
 
         m_queue.clear();
 
@@ -279,7 +279,7 @@ namespace wmoge {
     }
 
     void EcsWorld::sync() {
-        WG_AUTO_PROFILE_ECS("EcsWorld::sync");
+        WG_PROFILE_CPU_ECS("EcsWorld::sync");
 
         m_queue.flush();
     }

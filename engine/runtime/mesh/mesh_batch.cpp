@@ -31,7 +31,7 @@
 #include "material/material.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_processors.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 #include "render/render_engine.hpp"
 #include "render/render_scene.hpp"
 

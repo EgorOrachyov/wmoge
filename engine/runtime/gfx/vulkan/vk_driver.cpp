@@ -40,7 +40,7 @@
 #include "gfx/vulkan/vk_shader.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 #include "platform/file_system.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 #include <fstream>
@@ -54,7 +54,7 @@ namespace wmoge {
     };
 
     VKDriver::VKDriver(const VKInitInfo& info) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
+        WG_PROFILE_CPU_VULKAN("VKDriver::VKDriver");
 
         IocContainer* ioc = info.ioc;
         m_file_system     = ioc->resolve_value<FileSystem>();
@@ -92,11 +92,16 @@ namespace wmoge {
             WG_LOG_INFO("request " << VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
         }
 
+        if (m_use_timestamps) {
+            m_required_device_extensions.emplace_back(VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME);
+            WG_LOG_INFO("request " << VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME);
+
+            m_required_device_extensions.emplace_back(VK_EXT_CALIBRATED_TIMESTAMPS_EXTENSION_NAME);
+            WG_LOG_INFO("request " << VK_EXT_CALIBRATED_TIMESTAMPS_EXTENSION_NAME);
+        }
+
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
         WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
-
-        m_required_device_extensions.emplace_back(VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME);
-        WG_LOG_INFO("request " << VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME);
 
         m_pipeline_cache_path = "cache/pipelines_vk.cache";
 
@@ -145,7 +150,7 @@ namespace wmoge {
         WG_LOG_INFO("init vulkan gfx driver");
     }
     VKDriver::~VKDriver() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::~VKDriver");
+        WG_PROFILE_CPU_VULKAN("VKDriver::~VKDriver");
 
         shutdown();
 
@@ -153,7 +158,7 @@ namespace wmoge {
     }
 
     void VKDriver::shutdown() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::shutdown");
+        WG_PROFILE_CPU_VULKAN("VKDriver::shutdown");
 
         auto flush_release = [&]() {
             for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
@@ -204,53 +209,53 @@ namespace wmoge {
     }
 
     Ref<GfxQueryPool> VKDriver::make_query_pool(const GfxQueryPoolDesc& desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_query_pool");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_query_pool");
 
         return make_ref<VKQueryPool>(desc, name, *this);
     }
 
     Ref<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_format");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_vert_format");
 
         return make_ref<VKVertFormat>(elements, name);
     }
     Ref<GfxVertBuffer> VKDriver::make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_vert_buffer");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_vert_buffer");
 
         auto buffer = make_ref<VKVertBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     Ref<GfxIndexBuffer> VKDriver::make_index_buffer(int size, GfxMemUsage usage, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_index_buffer");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_index_buffer");
 
         auto buffer = make_ref<VKIndexBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     Ref<GfxUniformBuffer> VKDriver::make_uniform_buffer(int size, GfxMemUsage usage, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_uniform_buffer");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_uniform_buffer");
 
         auto buffer = make_ref<VKUniformBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     Ref<GfxStorageBuffer> VKDriver::make_storage_buffer(int size, GfxMemUsage usage, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_storage_buffer");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_storage_buffer");
 
         auto buffer = make_ref<VKStorageBuffer>(*this);
         buffer->create(size, usage, name);
         return buffer;
     }
     Ref<GfxShader> VKDriver::make_shader(GfxShaderDesc desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_shader");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_shader");
 
         auto shader = make_ref<VKShader>(name, *this);
         shader->create(std::move(desc));
         return shader;
     }
     Ref<GfxShaderProgram> VKDriver::make_program(GfxShaderProgramDesc desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_program");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_program");
 
         auto program = make_ref<VKShaderProgram>(name, *this);
         program->create(std::move(desc));
@@ -258,7 +263,7 @@ namespace wmoge {
     }
 
     Ref<GfxTexture> VKDriver::make_texture(const GfxTextureDesc& desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_texture");
 
         auto texture = make_ref<VKTexture>(*this);
         texture->create(desc, name);
@@ -266,28 +271,28 @@ namespace wmoge {
     }
 
     Ref<GfxTexture> VKDriver::make_texture_2d(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, GfxTexSwizz swizz, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_texture_2d");
 
         auto texture = make_ref<VKTexture>(*this);
         texture->create_2d(width, height, mips, format, usages, mem_usage, swizz, name);
         return texture;
     }
     Ref<GfxTexture> VKDriver::make_texture_2d_array(int width, int height, int mips, int slices, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_2d_array");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_texture_2d_array");
 
         auto texture = make_ref<VKTexture>(*this);
         texture->create_2d_array(width, height, mips, slices, format, usages, mem_usage, name);
         return texture;
     }
     Ref<GfxTexture> VKDriver::make_texture_cube(int width, int height, int mips, GfxFormat format, GfxTexUsages usages, GfxMemUsage mem_usage, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_texture_cube");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_texture_cube");
 
         auto texture = make_ref<VKTexture>(*this);
         texture->create_cube(width, height, mips, format, usages, mem_usage, name);
         return texture;
     }
     Ref<GfxSampler> VKDriver::make_sampler(const GfxSamplerDesc& desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_sampler");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_sampler");
 
         auto& sampler = m_samplers[desc];
         if (!sampler) {
@@ -300,24 +305,24 @@ namespace wmoge {
         return sampler;
     }
     Ref<GfxPsoLayout> VKDriver::make_pso_layout(const GfxDescSetLayouts& layouts, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_layout");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_pso_layout");
 
         return make_ref<VKPsoLayout>(layouts, name, *this);
     }
     Ref<GfxPsoGraphics> VKDriver::make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_graphics");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_pso_graphics");
 
         Ref<VKPsoGraphics> pipeline = make_ref<VKPsoGraphics>(name, *this);
         return pipeline->compile(state) ? pipeline : Ref<VKPsoGraphics>();
     }
     Ref<GfxPsoCompute> VKDriver::make_pso_compute(const GfxPsoStateCompute& state, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_pso_compute");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_pso_compute");
 
         Ref<VKPsoCompute> pipeline = make_ref<VKPsoCompute>(name, *this);
         return pipeline->compile(state) ? pipeline : Ref<VKPsoCompute>();
     }
     Ref<GfxRenderPass> VKDriver::make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_render_pass");
 
         auto& render_pass = m_render_passes[pass_desc];
         if (!render_pass) {
@@ -328,29 +333,29 @@ namespace wmoge {
         return render_pass;
     }
     Ref<GfxRenderPass> VKDriver::make_render_pass(const Ref<Window>& window, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_render_pass");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_render_pass");
 
         return Ref<GfxRenderPass>();
     }
     Ref<GfxFrameBuffer> VKDriver::make_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_frame_buffer");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_frame_buffer");
 
         return make_ref<VKFrameBuffer>(desc, name, *this);
     }
     Ref<GfxDescSetLayout> VKDriver::make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_layout");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_desc_layout");
 
         return make_ref<VKDescSetLayout>(desc, name, *this);
     }
     Ref<GfxDescSet> VKDriver::make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_desc_set");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_desc_set");
 
         assert(layout);
 
         return make_ref<VKDescSet>(resources, layout.cast<VKDescSetLayout>(), name, *this);
     }
     Async VKDriver::make_shaders(const Ref<GfxAsyncShaderRequest>& request) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_shaders");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_shaders");
 
         request->shaders.resize(request->desc.size());
 
@@ -364,7 +369,7 @@ namespace wmoge {
         return task.schedule(m_task_manager, int(request->desc.size()), 1).as_async();
     }
     Async VKDriver::make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_psos_graphics");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_psos_graphics");
 
         request->pso.resize(request->states.size());
 
@@ -379,7 +384,7 @@ namespace wmoge {
         return task.schedule(m_task_manager, int(request->states.size()), 1).as_async();
     }
     Async VKDriver::make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::make_psos_compute");
+        WG_PROFILE_CPU_VULKAN("VKDriver::make_psos_compute");
 
         request->pso.resize(request->states.size());
 
@@ -395,7 +400,7 @@ namespace wmoge {
     }
 
     void VKDriver::begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::begin_frame");
+        WG_PROFILE_CPU_VULKAN("VKDriver::begin_frame");
 
         m_frame_id = frame_id;
         m_index    = m_frame_id % GfxLimits::FRAMES_IN_FLIGHT;
@@ -421,13 +426,13 @@ namespace wmoge {
     }
 
     GfxCmdListRef VKDriver::acquire_cmd_list(GfxQueueType queue_type) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::acquire_cmd_list");
+        WG_PROFILE_CPU_VULKAN("VKDriver::acquire_cmd_list");
 
         return make_ref<VKCmdList>(m_cmd_manager->allocate(queue_type), queue_type, *this);
     }
 
     void VKDriver::submit_cmd_list(const GfxCmdListRef& cmd_list) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::submit_cmd_list");
+        WG_PROFILE_CPU_VULKAN("VKDriver::submit_cmd_list");
 
         assert(cmd_list);
 
@@ -435,21 +440,48 @@ namespace wmoge {
         m_cmd_manager->submit(vk_cmd_list->get_queue_type(), vk_cmd_list->get_handle());
     }
 
-    void VKDriver::query_results(const GfxQueryPoolRef& query_pool, int count, array_view<std::uint64_t> buffer) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::query_results");
+    void VKDriver::query_results(const GfxQueryPoolRef& query_pool, array_view<std::uint64_t> buffer) {
+        WG_PROFILE_CPU_VULKAN("VKDriver::query_results");
 
         assert(query_pool);
-        assert(count > 0);
-        assert(count * sizeof(std::uint64_t) == buffer.size());
+        assert(buffer.size() > 0);
 
         WG_VK_CHECK(vkGetQueryPoolResults(m_device, query_pool.cast<VKQueryPool>()->handle(),
-                                          0, static_cast<std::uint32_t>(count),
-                                          buffer.size(), buffer.data(),
+                                          0, static_cast<std::uint32_t>(buffer.size()),
+                                          buffer.size() * sizeof(std::uint64_t), buffer.data(),
                                           sizeof(std::uint64_t), VK_QUERY_RESULT_64_BIT | VK_QUERY_RESULT_WAIT_BIT));
     }
 
+    void VKDriver::query_callibration(std::uint64_t& gpu_time, std::uint64_t& gpu_freq) {
+        WG_PROFILE_CPU_VULKAN("VKDriver::query_callibration");
+
+        gpu_time = 0;
+        gpu_freq = 0;
+
+        if (!m_use_timestamps) {
+            return;
+        }
+        if (!VKDebug::vkGetPhysicalDeviceCalibrateableTimeDomainsEXT) {
+            return;
+        }
+        if (!VKDebug::vkGetCalibratedTimestampsEXT) {
+            return;
+        }
+
+        VkCalibratedTimestampInfoEXT timestamp_info;
+        timestamp_info.sType      = VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT;
+        timestamp_info.pNext      = nullptr;
+        timestamp_info.timeDomain = VK_TIME_DOMAIN_DEVICE_EXT;
+
+        uint64_t timestamp = 0, max_deviation = 0;
+        VKDebug::vkGetCalibratedTimestampsEXT(m_device, 1, &timestamp_info, &timestamp, &max_deviation);
+
+        gpu_time = timestamp;
+        gpu_freq = static_cast<std::uint64_t>(m_device_caps.timestamp_period);
+    }
+
     void VKDriver::end_frame(bool swap_buffers) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");
+        WG_PROFILE_CPU_VULKAN("VKDriver::end_frame");
 
         Ref<VKCmdList> cmd = acquire_cmd_list(GfxQueueType::Graphics).cast<VKCmdList>();
 
@@ -495,7 +527,7 @@ namespace wmoge {
     }
 
     void VKDriver::init_functions() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_functions");
+        WG_PROFILE_CPU_VULKAN("VKDriver::init_functions");
 
         auto res = volkInitialize();
 
@@ -505,7 +537,7 @@ namespace wmoge {
         }
     }
     void VKDriver::init_instance() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_instance");
+        WG_PROFILE_CPU_VULKAN("VKDriver::init_instance");
 
         auto extensions = pack_strings(m_required_extensions);
         auto layers     = pack_strings(m_required_layers);
@@ -549,7 +581,7 @@ namespace wmoge {
         }
     }
     void VKDriver::init_physical_device_and_queues(VKWindow& window) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_physical_device_and_queues");
+        WG_PROFILE_CPU_VULKAN("VKDriver::init_physical_device_and_queues");
 
         uint32_t device_count;
         WG_VK_CHECK(vkEnumeratePhysicalDevices(m_instance, &device_count, nullptr));
@@ -675,7 +707,7 @@ namespace wmoge {
 #endif
     }
     void VKDriver::init_device() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_device");
+        WG_PROFILE_CPU_VULKAN("VKDriver::init_device");
 
         VkPhysicalDeviceFeatures features;
         vkGetPhysicalDeviceFeatures(m_phys_device, &features);
@@ -729,7 +761,7 @@ namespace wmoge {
         WG_VK_CHECK(vkCreateDevice(m_phys_device, &device_create_info, nullptr, &m_device));
     }
     void VKDriver::init_pipeline_cache() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_pipeline_cache");
+        WG_PROFILE_CPU_VULKAN("VKDriver::init_pipeline_cache");
 
         std::vector<uint8_t> cache_data;
         if (!m_file_system->read_file(m_pipeline_cache_path, cache_data)) {
@@ -748,7 +780,7 @@ namespace wmoge {
         WG_VK_NAME(m_device, m_pipeline_cache, VK_OBJECT_TYPE_PIPELINE_CACHE, m_pipeline_cache_path);
     }
     void VKDriver::release_pipeline_cache() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::release_pipeline_cache");
+        WG_PROFILE_CPU_VULKAN("VKDriver::release_pipeline_cache");
 
         if (m_pipeline_cache) {
             size_t cache_size = 0;
@@ -764,7 +796,7 @@ namespace wmoge {
         }
     }
     void VKDriver::init_sync_fences() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::init_sync_fences");
+        WG_PROFILE_CPU_VULKAN("VKDriver::init_sync_fences");
 
         VkFenceCreateInfo fence_info{};
         fence_info.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
@@ -774,7 +806,7 @@ namespace wmoge {
         WG_VK_NAME(m_device, m_sync_fence, VK_OBJECT_TYPE_FENCE, "sync_fence");
     }
     void VKDriver::release_sync_fences() {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::release_sync_fences");
+        WG_PROFILE_CPU_VULKAN("VKDriver::release_sync_fences");
 
         if (m_sync_fence) {
             vkDestroyFence(m_device, m_sync_fence, nullptr);
@@ -782,7 +814,7 @@ namespace wmoge {
     }
 
     bool VKDriver::supports(const std::string& extension) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::supports");
+        WG_PROFILE_CPU_VULKAN("VKDriver::supports");
 
         for (auto& ext : m_device_extensions) {
             if (extension == ext.extensionName) {
@@ -794,7 +826,7 @@ namespace wmoge {
     }
 
     void VKDriver::release_resources(uint64_t index) {
-        WG_AUTO_PROFILE_VULKAN("VKDriver::release_resources");
+        WG_PROFILE_CPU_VULKAN("VKDriver::release_resources");
 
         m_deferred_release[index].flush();
     }

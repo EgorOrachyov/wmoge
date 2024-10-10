@@ -28,7 +28,7 @@
 #include "pfx_emitter.hpp"
 
 #include "pfx/pfx_effect.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -57,7 +57,7 @@ namespace wmoge {
         m_time += delta_time;
     }
     void PfxEmitter::update() {
-        WG_AUTO_PROFILE_PFX("PfxEmitter::update");
+        WG_PROFILE_CPU_PFX("PfxEmitter::update");
 
         buffered_vector<PfxSpawnParams> emit_queue;
         {

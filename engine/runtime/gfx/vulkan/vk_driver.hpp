@@ -93,7 +93,8 @@ namespace wmoge {
         void          begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) override;
         GfxCmdListRef acquire_cmd_list(GfxQueueType queue_type) override;
         void          submit_cmd_list(const GfxCmdListRef& cmd_list) override;
-        void          query_results(const GfxQueryPoolRef& query_pool, int count, array_view<std::uint64_t> buffer) override;
+        void          query_results(const GfxQueryPoolRef& query_pool, array_view<std::uint64_t> buffer) override;
+        void          query_callibration(std::uint64_t& gpu_time, std::uint64_t& gpu_freq) override;
         void          end_frame(bool swap_buffers) override;
 
         const GfxDeviceCaps& device_caps() const override { return m_device_caps; }
@@ -174,6 +175,7 @@ namespace wmoge {
         std::vector<std::string> m_required_extensions;
         std::vector<std::string> m_required_device_extensions;
         bool                     m_use_validation = false;
+        bool                     m_use_timestamps = true;
 
         FileSystem*  m_file_system  = nullptr;
         TaskManager* m_task_manager = nullptr;

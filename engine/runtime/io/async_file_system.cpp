@@ -29,7 +29,7 @@
 
 #include "core/ioc_container.hpp"
 #include "core/task.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -38,7 +38,7 @@ namespace wmoge {
     }
 
     AsyncResult<IoAsyncFileSystem::BufferView> IoAsyncFileSystem::read_file(const std::string& filepath, BufferView buffer_view) {
-        WG_AUTO_PROFILE_IO("IoAsyncFileSystem::read_file");
+        WG_PROFILE_CPU_IO("IoAsyncFileSystem::read_file");
 
         AsyncOp<BufferView> async_result = make_async_op<BufferView>();
 

@@ -28,7 +28,7 @@
 #include "al_playback.hpp"
 
 #include "audio/openal/al_engine.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cstring>
 
@@ -37,7 +37,7 @@ namespace wmoge {
     ALAudioPlayback::ALAudioPlayback(Ref<AudioStream> stream, Strid bus, const Strid& name, class ALAudioEngine& engine)
         : m_engine(engine) {
 
-        WG_AUTO_PROFILE_OPENAL("ALAudioPlayback::ALAudioPlayback");
+        WG_PROFILE_CPU_OPENAL("ALAudioPlayback::ALAudioPlayback");
 
         assert(stream);
         assert(!bus.empty());

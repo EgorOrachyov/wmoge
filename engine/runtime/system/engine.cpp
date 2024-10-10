@@ -51,7 +51,8 @@
 #include "platform/input.hpp"
 #include "platform/time.hpp"
 #include "platform/window_manager.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 #include "render/render_engine.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
@@ -78,7 +79,6 @@ namespace wmoge {
         m_file_system    = m_ioc_container->resolve_value<FileSystem>();
         m_config         = m_ioc_container->resolve_value<Config>();
         m_console        = m_ioc_container->resolve_value<Console>();
-        m_profiler       = m_ioc_container->resolve_value<Profiler>();
         m_dll_manager    = m_ioc_container->resolve_value<DllManager>();
         m_plugin_manager = m_ioc_container->resolve_value<PluginManager>();
 
@@ -88,7 +88,7 @@ namespace wmoge {
     }
 
     Status Engine::init() {
-        WG_AUTO_PROFILE_SYSTEM("Engine::init");
+        WG_PROFILE_CPU_SYSTEM("Engine::init");
 
         m_task_manager  = m_ioc_container->resolve_value<TaskManager>();
         m_asset_manager = m_ioc_container->resolve_value<AssetManager>();
@@ -109,6 +109,11 @@ namespace wmoge {
         WG_LOG_INFO("init window " << window_info.id);
 
         m_gfx_driver = m_ioc_container->resolve_value<GfxDriver>();
+
+        m_profiler_gpu = ProfilerGpu::instance();
+        m_profiler_gpu->setup(m_gfx_driver);
+        m_profiler_gpu->enable(true);
+        m_profiler_gpu->calibrate(m_time->get_start());
 
         m_shader_manager = m_ioc_container->resolve_value<ShaderManager>();
         m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanMacOS>(m_ioc_container));
@@ -137,7 +142,7 @@ namespace wmoge {
     }
 
     Status Engine::iteration() {
-        WG_AUTO_PROFILE_SYSTEM("Engine::iteration");
+        WG_PROFILE_CPU_SYSTEM("Engine::iteration");
 
         m_time->tick();
         m_frame_id = m_time->get_iteration();
@@ -162,6 +167,8 @@ namespace wmoge {
             m_scene_manager->update();
         }
 
+        m_profiler_gpu->resolve();
+
         m_window_manager->poll_events();
 
         m_gfx_driver->end_frame(true);
@@ -170,7 +177,7 @@ namespace wmoge {
     }
 
     Status Engine::shutdown() {
-        WG_AUTO_PROFILE_SYSTEM("Engine::shutdown");
+        WG_PROFILE_CPU_SYSTEM("Engine::shutdown");
 
         m_plugin_manager->shutdown();
         m_task_manager->shutdown();
@@ -206,7 +213,6 @@ namespace wmoge {
     TextureManager* Engine::texture_manager() { return m_texture_manager; }
     MeshManager*    Engine::mesh_manager() { return m_mesh_manager; }
     SceneManager*   Engine::scene_manager() { return m_scene_manager; }
-    Profiler*       Engine::profiler() { return m_profiler; }
     Console*        Engine::console() { return m_console; }
     AudioEngine*    Engine::audio_engine() { return m_audio_engine; }
     RenderEngine*   Engine::render_engine() { return m_render_engine; }

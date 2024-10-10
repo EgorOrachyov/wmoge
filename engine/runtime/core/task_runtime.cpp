@@ -30,7 +30,7 @@
 #include "core/log.hpp"
 #include "core/string_utils.hpp"
 #include "math/math_utils.hpp"
-#include "profiler/profiler.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
@@ -57,17 +57,17 @@ namespace wmoge {
     }
 
     void TaskRuntime::wait_completed() {
-        WG_AUTO_PROFILE_TASK("TaskRuntime::wait_completed", m_name.str());
+        WG_PROFILE_CPU_TASK("TaskRuntime::wait_completed", m_name.str());
         AsyncState::wait_completed();
     }
 
     void TaskRuntime::submit() {
-        WG_AUTO_PROFILE_TASK("TaskRuntime::submit", m_name.str());
+        WG_PROFILE_CPU_TASK("TaskRuntime::submit", m_name.str());
         m_task_manager->submit(Ref<TaskRuntime>(this));
     }
 
     void TaskRuntime::execute(TaskContext& context) {
-        WG_AUTO_PROFILE_TASK("TaskRuntime::execute", m_name.str());
+        WG_PROFILE_CPU_TASK("TaskRuntime::execute", m_name.str());
 
         auto ret = m_runnable(context);
 
@@ -109,12 +109,12 @@ namespace wmoge {
     }
 
     void TaskRuntimeParallelFor::wait_completed() {
-        WG_AUTO_PROFILE_TASK("TaskRuntimeParallelFor::wait_completed", m_name.str());
+        WG_PROFILE_CPU_TASK("TaskRuntimeParallelFor::wait_completed", m_name.str());
         AsyncState::wait_completed();
     }
 
     void TaskRuntimeParallelFor::submit() {
-        WG_AUTO_PROFILE_TASK("TaskRuntimeParallelFor::submit", m_name.str());
+        WG_PROFILE_CPU_TASK("TaskRuntimeParallelFor::submit", m_name.str());
 
         Ref<TaskRuntimeParallelFor> shared_state(this);
 
