@@ -35,6 +35,7 @@
 #include "gfx/vulkan/vk_cmd_list.hpp"
 #include "gfx/vulkan/vk_desc_set.hpp"
 #include "gfx/vulkan/vk_pipeline.hpp"
+#include "gfx/vulkan/vk_query.hpp"
 #include "gfx/vulkan/vk_sampler.hpp"
 #include "gfx/vulkan/vk_shader.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
@@ -52,11 +53,12 @@ namespace wmoge {
         return names_p;
     };
 
-    VKDriver::VKDriver(IocContainer* ioc, const VKInitInfo& info) {
+    VKDriver::VKDriver(const VKInitInfo& info) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::VKDriver");
 
-        m_file_system  = ioc->resolve_value<FileSystem>();
-        m_task_manager = ioc->resolve_value<TaskManager>();
+        IocContainer* ioc = info.ioc;
+        m_file_system     = ioc->resolve_value<FileSystem>();
+        m_task_manager    = ioc->resolve_value<TaskManager>();
 
         m_driver_name = SID("vulkan");
         m_clip_matrix = Mat4x4f(1.0f, 0.0f, 0.0f, 0.0f,
@@ -92,6 +94,9 @@ namespace wmoge {
 
         m_required_device_extensions.emplace_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
         WG_LOG_INFO("request " << VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+
+        m_required_device_extensions.emplace_back(VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME);
+        WG_LOG_INFO("request " << VK_EXT_HOST_QUERY_RESET_EXTENSION_NAME);
 
         m_pipeline_cache_path = "cache/pipelines_vk.cache";
 
@@ -196,6 +201,12 @@ namespace wmoge {
             m_phys_device = VK_NULL_HANDLE;
             m_instance    = VK_NULL_HANDLE;
         }
+    }
+
+    Ref<GfxQueryPool> VKDriver::make_query_pool(const GfxQueryPoolDesc& desc, const Strid& name) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::make_query_pool");
+
+        return make_ref<VKQueryPool>(desc, name, *this);
     }
 
     Ref<GfxVertFormat> VKDriver::make_vert_format(const GfxVertElements& elements, const Strid& name) {
@@ -424,6 +435,19 @@ namespace wmoge {
         m_cmd_manager->submit(vk_cmd_list->get_queue_type(), vk_cmd_list->get_handle());
     }
 
+    void VKDriver::query_results(const GfxQueryPoolRef& query_pool, int count, array_view<std::uint64_t> buffer) {
+        WG_AUTO_PROFILE_VULKAN("VKDriver::query_results");
+
+        assert(query_pool);
+        assert(count > 0);
+        assert(count * sizeof(std::uint64_t) == buffer.size());
+
+        WG_VK_CHECK(vkGetQueryPoolResults(m_device, query_pool.cast<VKQueryPool>()->handle(),
+                                          0, static_cast<std::uint32_t>(count),
+                                          buffer.size(), buffer.data(),
+                                          sizeof(std::uint64_t), VK_QUERY_RESULT_64_BIT | VK_QUERY_RESULT_WAIT_BIT));
+    }
+
     void VKDriver::end_frame(bool swap_buffers) {
         WG_AUTO_PROFILE_VULKAN("VKDriver::end_frame");
 
@@ -641,6 +665,8 @@ namespace wmoge {
         m_device_caps.max_anisotropy                 = limits.maxSamplerAnisotropy;
         m_device_caps.support_anisotropy             = device_features.samplerAnisotropy;
         m_device_caps.uniform_block_offset_alignment = static_cast<int>(limits.minUniformBufferOffsetAlignment);
+        m_device_caps.timestamp_period               = device_properties.limits.timestampPeriod;
+        m_device_caps.timestamp_support              = device_properties.limits.timestampPeriod > 0.0f && device_properties.limits.timestampComputeAndGraphics;
 
 #ifdef WG_DEBUG
         VkPhysicalDeviceProperties device_props;

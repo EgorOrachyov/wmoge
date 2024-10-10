@@ -87,6 +87,7 @@ namespace wmoge {
      * @brief Info used to init vk driver
      */
     struct VKInitInfo {
+        class IocContainer*                                             ioc;
         Ref<Window>                                                     window;
         std::string                                                     app_name;
         std::string                                                     engine_name;
@@ -123,6 +124,19 @@ namespace wmoge {
     class VKDefs {
     public:
         static void schedule_delete(class VKDriver& driver, class GfxResource* resource);
+
+        static VkPipelineStageFlagBits get_query_flag(GfxQueryFlag flag) {
+            switch (flag) {
+                case GfxQueryFlag::PipelineTop:
+                    return VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+
+                case GfxQueryFlag::PipelineBottom:
+                    return VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
+
+                default:
+                    return VK_PIPELINE_STAGE_FLAG_BITS_MAX_ENUM;
+            }
+        }
 
         static VkShaderStageFlagBits get_shader_module_type(GfxShaderModule module) {
             switch (module) {

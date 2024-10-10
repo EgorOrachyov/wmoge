@@ -34,6 +34,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_query.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
@@ -94,6 +95,9 @@ namespace wmoge {
         virtual void draw_indexed(int index_count, int base_vertex, int instance_count)                            = 0;
         virtual void dispatch(Vec3i group_count)                                                                   = 0;
         virtual void end_render_pass()                                                                             = 0;
+
+        virtual void reset_pool(const Ref<GfxQueryPool>& query_pool, int count)                             = 0;
+        virtual void write_timestamp(const Ref<GfxQueryPool>& query_pool, int query_idx, GfxQueryFlag flag) = 0;
 
         virtual void begin_label(const Strid& label) = 0;
         virtual void end_label()                     = 0;

@@ -60,11 +60,12 @@ namespace wmoge {
      */
     class VKDriver final : public GfxDriver {
     public:
-        explicit VKDriver(class IocContainer* ioc, const VKInitInfo& info);
+        explicit VKDriver(const VKInitInfo& info);
         ~VKDriver() override;
 
         void shutdown() override;
 
+        Ref<GfxQueryPool>     make_query_pool(const GfxQueryPoolDesc& desc, const Strid& name) override;
         Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const Strid& name) override;
         Ref<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const Strid& name) override;
         Ref<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const Strid& name) override;
@@ -89,10 +90,11 @@ namespace wmoge {
         Async                 make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request) override;
         Async                 make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request) override;
 
-        virtual void          begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) override;
-        virtual GfxCmdListRef acquire_cmd_list(GfxQueueType queue_type) override;
-        virtual void          submit_cmd_list(const GfxCmdListRef& cmd_list) override;
-        virtual void          end_frame(bool swap_buffers) override;
+        void          begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) override;
+        GfxCmdListRef acquire_cmd_list(GfxQueueType queue_type) override;
+        void          submit_cmd_list(const GfxCmdListRef& cmd_list) override;
+        void          query_results(const GfxQueryPoolRef& query_pool, int count, array_view<std::uint64_t> buffer) override;
+        void          end_frame(bool swap_buffers) override;
 
         const GfxDeviceCaps& device_caps() const override { return m_device_caps; }
         const Strid&         driver_name() const override { return m_driver_name; }

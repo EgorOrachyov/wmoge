@@ -134,13 +134,14 @@ namespace wmoge {
             Ref<Window>        window         = window_manager->get_primary_window();
 
             VKInitInfo init_info;
+            init_info.ioc          = ioc;
             init_info.window       = window;
             init_info.app_name     = window->title();
             init_info.engine_name  = "wmoge";
             init_info.required_ext = window_manager->extensions();
             init_info.factory      = window_manager->factory();
 
-            return std::make_shared<VKDriver>(ioc, init_info);
+            return std::make_shared<VKDriver>(init_info);
         });
 
         ioc->bind_by_factory<GfxDriver>([ioc]() {

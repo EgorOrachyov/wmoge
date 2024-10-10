@@ -36,6 +36,7 @@
 #include "gfx/gfx_defs.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
+#include "gfx/gfx_query.hpp"
 #include "gfx/gfx_render_pass.hpp"
 #include "gfx/gfx_resource.hpp"
 #include "gfx/gfx_sampler.hpp"
@@ -64,6 +65,7 @@ namespace wmoge {
 
         virtual void shutdown() = 0;
 
+        virtual Ref<GfxQueryPool>     make_query_pool(const GfxQueryPoolDesc& desc, const Strid& name = Strid())                                                                                     = 0;
         virtual Ref<GfxVertFormat>    make_vert_format(const GfxVertElements& elements, const Strid& name = Strid())                                                                                 = 0;
         virtual Ref<GfxVertBuffer>    make_vert_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                     = 0;
         virtual Ref<GfxIndexBuffer>   make_index_buffer(int size, GfxMemUsage usage, const Strid& name = Strid())                                                                                    = 0;
@@ -87,10 +89,11 @@ namespace wmoge {
         virtual Async                 make_psos_graphics(const Ref<GfxAsyncPsoRequestGraphics>& request)                                                                                             = 0;
         virtual Async                 make_psos_compute(const Ref<GfxAsyncPsoRequestCompute>& request)                                                                                               = 0;
 
-        virtual void          begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows) = 0;
-        virtual GfxCmdListRef acquire_cmd_list(GfxQueueType queue_type = GfxQueueType::Graphics)        = 0;
-        virtual void          submit_cmd_list(const GfxCmdListRef& cmd_list)                            = 0;
-        virtual void          end_frame(bool swap_buffers = true)                                       = 0;
+        virtual void          begin_frame(std::size_t frame_id, const array_view<Ref<Window>>& windows)                     = 0;
+        virtual GfxCmdListRef acquire_cmd_list(GfxQueueType queue_type = GfxQueueType::Graphics)                            = 0;
+        virtual void          submit_cmd_list(const GfxCmdListRef& cmd_list)                                                = 0;
+        virtual void          query_results(const GfxQueryPoolRef& query_pool, int count, array_view<std::uint64_t> buffer) = 0;
+        virtual void          end_frame(bool swap_buffers = true)                                                           = 0;
 
         [[nodiscard]] virtual const GfxDeviceCaps& device_caps() const         = 0;
         [[nodiscard]] virtual const Strid&         driver_name() const         = 0;

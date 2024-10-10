@@ -29,6 +29,7 @@
 
 #include "gfx/vulkan/vk_defs.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
+#include "gfx/vulkan/vk_query.hpp"
 #include "profiler/profiler.hpp"
 
 #include <cassert>
@@ -416,6 +417,20 @@ namespace wmoge {
         vkCmdEndRenderPass(m_cmd_buffer);
 
         reset_state();
+    }
+
+    void VKCmdList::reset_pool(const Ref<GfxQueryPool>& query_pool, int count) {
+        assert(query_pool);
+        assert(count > 0);
+
+        vkCmdResetQueryPool(m_cmd_buffer, query_pool.cast<VKQueryPool>()->handle(), 0, static_cast<std::uint32_t>(count));
+    }
+
+    void VKCmdList::write_timestamp(const Ref<GfxQueryPool>& query_pool, int query_idx, GfxQueryFlag flag) {
+        assert(query_pool);
+        assert(query_idx < query_pool->get_desc().size);
+
+        vkCmdWriteTimestamp(m_cmd_buffer, VKDefs::get_query_flag(flag), query_pool.cast<VKQueryPool>()->handle(), static_cast<std::uint32_t>(query_idx));
     }
 
     void VKCmdList::begin_label(const Strid& label) {

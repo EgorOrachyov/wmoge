@@ -99,6 +99,9 @@ namespace wmoge {
         void dispatch(Vec3i group_count) override;
         void end_render_pass() override;
 
+        void reset_pool(const Ref<GfxQueryPool>& query_pool, int count) override;
+        void write_timestamp(const Ref<GfxQueryPool>& query_pool, int query_idx, GfxQueryFlag flag) override;
+
         void begin_label(const Strid& label) override;
         void end_label() override;
 

@@ -84,6 +84,17 @@ namespace wmoge {
             "metal_macos",
             "max"};
 
+    /** @brief Gfx query pool type */
+    enum class GfxQueryPoolType {
+        Timestamp
+    };
+
+    /** @brief Gfx query flag */
+    enum class GfxQueryFlag {
+        PipelineTop,
+        PipelineBottom,
+    };
+
     /** @brief Gfx common device limits */
     struct GfxLimits {
         /** Vertex shader max input elements */
@@ -586,6 +597,8 @@ namespace wmoge {
         float max_anisotropy                 = 0.0f;
         bool  support_anisotropy             = false;
         int   uniform_block_offset_alignment = -1;
+        float timestamp_period               = 0.0;
+        bool  timestamp_support              = false;
     };
 
     struct GfxUtils {
