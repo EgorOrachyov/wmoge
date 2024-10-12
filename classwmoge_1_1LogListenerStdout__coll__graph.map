@@ -1,0 +1,4 @@
+<map id="wmoge::LogListenerStdout" name="wmoge::LogListenerStdout">
+<area shape="rect" id="node1" title="Log listener which dumps messages to out console." alt="" coords="5,80,183,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1LogListener.html" title="Listener interface which can be attached to a log." alt="" coords="25,5,163,32"/>
+</map>

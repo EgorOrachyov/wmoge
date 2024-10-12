@@ -1,0 +1,6 @@
+<map id="wmoge::AuxDrawText" name="wmoge::AuxDrawText">
+<area shape="rect" id="node1" title="Stores infor to draw 2d or 3d text." alt="" coords="209,95,356,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1AuxDrawPrimitive.html" title="Base class for an aux primitive to store and draw." alt="" coords="5,5,179,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="203,5,362,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="387,5,557,32"/>
+</map>

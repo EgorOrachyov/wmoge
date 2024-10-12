@@ -1,0 +1,7 @@
+<map id="wmoge::VKPsoLayout" name="wmoge::VKPsoLayout">
+<area shape="rect" id="node1" title="Vulkan pipeline layout implementation." alt="" coords="6,319,157,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="6,229,157,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxPsoLayout.html" title="Layout of pipeline for resources binding." alt="" coords="5,155,157,181"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="9,80,154,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="26,5,137,32"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="wmoge::Application" name="wmoge::Application">
+<area shape="rect" id="node1" title="Base class for any application which is an entry point to run." alt="" coords="233,347,368,373"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ApplicationConfig.html" title="Desc containing info to setup application." alt="" coords="215,257,386,284"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1ApplicationSignals.html" title="App signals to intercept some events." alt="" coords="5,168,183,195"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="13,5,175,32"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ApplicationCmdLine.html" title="App command line processing params." alt="" coords="207,168,394,195"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1CmdLineHookList.html" title="Storage for cmd line hooks." alt="" coords="207,5,381,32"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1CmdLineOptions.html" title="Container for command&#45;line options." alt="" coords="405,5,572,32"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1IocContainer.html" title="Inversion of control container for simpler dependency injection of global engine managers." alt="" coords="419,168,561,195"/>
+</map>

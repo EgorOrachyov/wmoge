@@ -1,0 +1,5 @@
+<map id="wmoge::FileMemReader" name="wmoge::FileMemReader">
+<area shape="rect" id="node1" title="File interface implementation for reading from memory buffer." alt="" coords="5,155,167,181"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1File.html" title="Interface for platform or virtual file type." alt="" coords="41,80,131,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="31,5,141,32"/>
+</map>

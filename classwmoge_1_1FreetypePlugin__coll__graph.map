@@ -1,4 +1,6 @@
 <map id="wmoge::FreetypePlugin" name="wmoge::FreetypePlugin">
-<area shape="rect" id="node1" title="Plugin which brings freetype fonts support." alt="" coords="5,80,161,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="54,5,113,32"/>
+<area shape="rect" id="node1" title="Plugin which brings freetype fonts support." alt="" coords="40,171,196,197"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Plugin.html" title="Base class for any engine plug&#45;in." alt="" coords="65,95,171,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="132,5,229,32"/>
 </map>

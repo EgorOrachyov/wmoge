@@ -1,0 +1,6 @@
+<map id="wmoge::SceneCreateInfo" name="wmoge::SceneCreateInfo">
+<area shape="rect" id="node1" title="Info for scene construction." alt="" coords="165,95,331,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TaskManager.html" title="Manager for engine async task execution." alt="" coords="5,5,155,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EcsRegistry.html" title="Manages global ecs state and static info." alt="" coords="179,5,317,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="342,5,439,32"/>
+</map>

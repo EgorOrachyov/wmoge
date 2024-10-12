@@ -1,0 +1,4 @@
+<map id="wmoge::Application" name="wmoge::Application">
+<area shape="rect" id="node1" title="Base class for any application which is an entry point to run." alt="" coords="23,5,157,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GameApplication.html" title="Game app config." alt="" coords="5,80,175,107"/>
+</map>

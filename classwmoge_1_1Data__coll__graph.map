@@ -1,0 +1,4 @@
+<map id="wmoge::Data" name="wmoge::Data">
+<area shape="rect" id="node1" title="Safe, automatic and reference&#45;counted raw binary data buffer." alt="" coords="12,80,109,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
+</map>

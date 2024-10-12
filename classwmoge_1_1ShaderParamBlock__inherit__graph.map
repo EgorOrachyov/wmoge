@@ -1,0 +1,4 @@
+<map id="wmoge::ShaderParamBlock" name="wmoge::ShaderParamBlock">
+<area shape="rect" id="node1" title="Holds params set which can be bound to a shader for drawing." alt="" coords="5,80,188,107"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="41,5,152,32"/>
+</map>

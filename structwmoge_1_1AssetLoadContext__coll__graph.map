@@ -1,0 +1,9 @@
+<map id="wmoge::AssetLoadContext" name="wmoge::AssetLoadContext">
+<area shape="rect" id="node1" title="Context passed to the loader." alt="" coords="133,213,310,240"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1IoContext.html" title="Context passed to io save load functions." alt="" coords="5,124,131,151"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1AssetMeta.html" title="Describes asset information stored in asset system." alt="" coords="155,124,288,151"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="19,13,122,39"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="147,5,296,47"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="321,13,418,39"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1IocContainer.html" title="Inversion of control container for simpler dependency injection of global engine managers." alt="" coords="313,124,455,151"/>
+</map>

@@ -73,7 +73,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Plugin which brings assimp support to the engine.  
+<p><a class="el" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug-in.">Plugin</a> which brings assimp support to the engine.  
  <a href="classwmoge_1_1AssimpPlugin.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="assimp__plugin_8hpp_source.html">assimp_plugin.hpp</a>&gt;</code></p>
@@ -83,7 +83,7 @@ Inheritance diagram for wmoge::AssimpPlugin:</div>
 <div class="center"><img src="classwmoge_1_1AssimpPlugin__inherit__graph.png" border="0" usemap="#awmoge_1_1AssimpPlugin_inherit__map" alt="Inheritance graph"/></div>
 <map name="awmoge_1_1AssimpPlugin_inherit__map" id="awmoge_1_1AssimpPlugin_inherit__map">
 <area shape="rect" title="Plugin which brings assimp support to the engine." alt="" coords="5,80,156,107"/>
-<area shape="rect" title=" " alt="" coords="51,5,110,32"/>
+<area shape="rect" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug&#45;in." alt="" coords="27,5,134,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -91,8 +91,10 @@ Collaboration diagram for wmoge::AssimpPlugin:</div>
 <div class="dyncontent">
 <div class="center"><img src="classwmoge_1_1AssimpPlugin__coll__graph.png" border="0" usemap="#awmoge_1_1AssimpPlugin_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1AssimpPlugin_coll__map" id="awmoge_1_1AssimpPlugin_coll__map">
-<area shape="rect" title="Plugin which brings assimp support to the engine." alt="" coords="5,80,156,107"/>
-<area shape="rect" title=" " alt="" coords="51,5,110,32"/>
+<area shape="rect" title="Plugin which brings assimp support to the engine." alt="" coords="43,171,193,197"/>
+<area shape="rect" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug&#45;in." alt="" coords="65,95,171,121"/>
+<area shape="rect" href="classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="5,5,108,32"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="132,5,229,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -102,11 +104,38 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad4c1435ab90947f97dd4b7c6eef8f326"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1de446d798d1af84e9cf811223daa02b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpPlugin.html#a1de446d798d1af84e9cf811223daa02b">~AssimpPlugin</a> () override=default</td></tr>
 <tr class="separator:a1de446d798d1af84e9cf811223daa02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8b5f13ef5711b0e86f8c3e943fbc99b"><td class="memItemLeft" align="right" valign="top">Status&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpPlugin.html#aa8b5f13ef5711b0e86f8c3e943fbc99b">on_register</a> () override</td></tr>
+<tr class="memitem:aa8b5f13ef5711b0e86f8c3e943fbc99b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AssimpPlugin.html#aa8b5f13ef5711b0e86f8c3e943fbc99b">on_register</a> () override</td></tr>
 <tr class="separator:aa8b5f13ef5711b0e86f8c3e943fbc99b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classwmoge_1_1Plugin"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmoge_1_1Plugin')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmoge_1_1Plugin.html">wmoge::Plugin</a></td></tr>
+<tr class="memitem:a092d8295d4387c980742e231e53cc0cf inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a092d8295d4387c980742e231e53cc0cf">~Plugin</a> ()=default</td></tr>
+<tr class="separator:a092d8295d4387c980742e231e53cc0cf inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9453d9977a5bdcd7089ac92ae1b40f26 inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a9453d9977a5bdcd7089ac92ae1b40f26">on_init</a> ()</td></tr>
+<tr class="separator:a9453d9977a5bdcd7089ac92ae1b40f26 inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94b2a72b0991fc68c0333b48649a9920 inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a94b2a72b0991fc68c0333b48649a9920">on_shutdown</a> ()</td></tr>
+<tr class="separator:a94b2a72b0991fc68c0333b48649a9920 inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b5835bceaff4ec6c12ebc8c93d72e7e inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1UUID.html">UUID</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a6b5835bceaff4ec6c12ebc8c93d72e7e">get_uuid</a> ()</td></tr>
+<tr class="separator:a6b5835bceaff4ec6c12ebc8c93d72e7e inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0c459d0ec43eb87ac28fd665f940767 inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#ae0c459d0ec43eb87ac28fd665f940767">get_name</a> ()</td></tr>
+<tr class="separator:ae0c459d0ec43eb87ac28fd665f940767 inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a600fad8405d7996085689b0b57b2ea0f inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a600fad8405d7996085689b0b57b2ea0f">get_description</a> ()</td></tr>
+<tr class="separator:a600fad8405d7996085689b0b57b2ea0f inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af965c903f22c78717c4c1781790a142d inherit pub_methods_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#af965c903f22c78717c4c1781790a142d">get_requirements</a> ()</td></tr>
+<tr class="separator:af965c903f22c78717c4c1781790a142d inherit pub_methods_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classwmoge_1_1Plugin"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classwmoge_1_1Plugin')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classwmoge_1_1Plugin.html">wmoge::Plugin</a></td></tr>
+<tr class="memitem:ade5c68a661cdc0efb2dc05e101d5b524 inherit pro_attribs_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1UUID.html">UUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#ade5c68a661cdc0efb2dc05e101d5b524">m_uuid</a></td></tr>
+<tr class="separator:ade5c68a661cdc0efb2dc05e101d5b524 inherit pro_attribs_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9bbbb805c7705f8c864f834be487c03 inherit pro_attribs_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#aa9bbbb805c7705f8c864f834be487c03">m_name</a></td></tr>
+<tr class="separator:aa9bbbb805c7705f8c864f834be487c03 inherit pro_attribs_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e44130d10e8bdfb815fb90c7f0adfbe inherit pro_attribs_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a3e44130d10e8bdfb815fb90c7f0adfbe">m_description</a></td></tr>
+<tr class="separator:a3e44130d10e8bdfb815fb90c7f0adfbe inherit pro_attribs_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6549baa28d6b1bfcc9122dd1f3bc491e inherit pro_attribs_classwmoge_1_1Plugin"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Plugin.html#a6549baa28d6b1bfcc9122dd1f3bc491e">m_requirements</a></td></tr>
+<tr class="separator:a6549baa28d6b1bfcc9122dd1f3bc491e inherit pro_attribs_classwmoge_1_1Plugin"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Plugin which brings assimp support to the engine. </p>
+<div class="textblock"><p><a class="el" href="classwmoge_1_1Plugin.html" title="Base class for any engine plug-in.">Plugin</a> which brings assimp support to the engine. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad4c1435ab90947f97dd4b7c6eef8f326"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4c1435ab90947f97dd4b7c6eef8f326">&#9670;&nbsp;</a></span>AssimpPlugin()</h2>
@@ -161,7 +190,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Status wmoge::AssimpPlugin::on_register </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::AssimpPlugin::on_register </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -169,10 +198,12 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmoge_1_1Plugin.html#a20c31793e2799dd1f72471fdda985aea">wmoge::Plugin</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,5 @@
+<map id="wmoge::FileMemWriter" name="wmoge::FileMemWriter">
+<area shape="rect" id="node1" title="File interface implementation for writing into dynamic memory buffer." alt="" coords="5,155,160,181"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1File.html" title="Interface for platform or virtual file type." alt="" coords="37,80,128,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="27,5,138,32"/>
+</map>

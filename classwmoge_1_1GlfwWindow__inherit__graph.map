@@ -1,0 +1,5 @@
+<map id="wmoge::GlfwWindow" name="wmoge::GlfwWindow">
+<area shape="rect" id="node1" title="Glfw&#45;based implementation of OS&#45;window object." alt="" coords="5,155,148,181"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Window.html" title="Interface for OS&#45;specific window for displaying graphics." alt="" coords="19,80,135,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="21,5,132,32"/>
+</map>

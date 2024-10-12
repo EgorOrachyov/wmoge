@@ -1,0 +1,6 @@
+<map id="wmoge::AssetMeta" name="wmoge::AssetMeta">
+<area shape="rect" id="node1" title="Describes asset information stored in asset system." alt="" coords="141,124,274,151"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="5,13,108,39"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="133,5,282,47"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="307,13,404,39"/>
+</map>

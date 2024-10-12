@@ -1,0 +1,4 @@
+<map id="wmoge::Input" name="wmoge::Input">
+<area shape="rect" id="node1" title="Interface for OS&#45;specific input layer to get user input." alt="" coords="19,5,118,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1GlfwInput.html" title="Glfw&#45;based implementation of hardware input." alt="" coords="5,80,132,107"/>
+</map>

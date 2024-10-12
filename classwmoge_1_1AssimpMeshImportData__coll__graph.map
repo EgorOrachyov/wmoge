@@ -1,5 +1,8 @@
 <map id="wmoge::AssimpMeshImportData" name="wmoge::AssimpMeshImportData">
-<area shape="rect" id="node1" title="Options to import mesh asset from external asset format." alt="" coords="43,95,253,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1AssimpProcess.html" title="Controls post&#45;process of imported data." alt="" coords="149,5,312,32"/>
+<area shape="rect" id="node1" title="Options to import mesh asset from external asset format." alt="" coords="173,247,384,273"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="5,157,173,184"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="25,81,153,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="34,5,145,32"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1AssimpProcess.html" title="Controls post&#45;process of imported data." alt="" coords="197,157,360,184"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="385,157,583,184"/>
 </map>

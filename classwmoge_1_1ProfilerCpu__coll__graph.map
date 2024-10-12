@@ -1,0 +1,4 @@
+<map id="wmoge::ProfilerCpu" name="wmoge::ProfilerCpu">
+<area shape="rect" id="node1" title="Collects cpu time events for application from different threads." alt="" coords="35,109,168,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Signal.html" title=" " alt="" coords="5,5,197,47"/>
+</map>

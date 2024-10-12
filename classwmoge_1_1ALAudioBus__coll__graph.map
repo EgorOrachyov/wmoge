@@ -1,0 +1,6 @@
+<map id="wmoge::ALAudioBus" name="wmoge::ALAudioBus">
+<area shape="rect" id="node1" title="OpenAL implementation for audio bus." alt="" coords="53,171,196,197"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AudioBus.html" title="An abstract sound bus used to control and modify played audio." alt="" coords="61,95,188,121"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,5,116,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,5,237,32"/>
+</map>

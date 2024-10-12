@@ -1,0 +1,6 @@
+<map id="wmoge::AuxDrawSphere" name="wmoge::AuxDrawSphere">
+<area shape="rect" id="node1" title="Stores info to draw a sphere." alt="" coords="201,95,364,121"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1AuxDrawPrimitive.html" title="Base class for an aux primitive to store and draw." alt="" coords="5,5,179,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="203,5,362,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="387,5,557,32"/>
+</map>

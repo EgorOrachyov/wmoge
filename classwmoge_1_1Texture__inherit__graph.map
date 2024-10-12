@@ -1,0 +1,9 @@
+<map id="wmoge::Texture" name="wmoge::Texture">
+<area shape="rect" id="node1" title="Base&#45;class for any engine gpu texture asset which can be used for rendering." alt="" coords="91,319,204,345"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Texture2d.html" title="2d gpu texture asset" alt="" coords="5,393,132,420"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1TextureCube.html" title="Cube&#45;map gpu texture asset." alt="" coords="156,393,299,420"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="95,244,199,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="72,155,223,196"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="83,80,211,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="92,5,203,32"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="wmoge::VKResource&lt; BaseClass &gt;" name="wmoge::VKResource&lt; BaseClass &gt;">
+<area shape="rect" id="node1" title="Auxiliary class which provided logic for vk resource with deferred delition." alt="" coords="15,171,166,212"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,81,91,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1VKDriver.html" title="Vulkan gfx driver implementation." alt="" coords="115,81,237,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="114,5,238,32"/>
+</map>

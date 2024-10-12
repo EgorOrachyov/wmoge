@@ -1,0 +1,5 @@
+<map id="wmoge::AssetDataMeta" name="wmoge::AssetDataMeta">
+<area shape="rect" id="node1" title=" " alt="" coords="43,95,203,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1UUID.html" title="Unique 8&#45;byte long identifier for in&#45;game objects and assets." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="133,5,247,32"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="wmoge::ShaderTypeStruct" name="wmoge::ShaderTypeStruct">
+<area shape="rect" id="node1" title="Recursive complex shader struct type." alt="" coords="50,247,225,273"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderType.html" title="Recursive complex type for declaring of anything in a shader what has a type." alt="" coords="68,171,207,197"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="5,81,133,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="14,5,125,32"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="158,81,255,108"/>
+</map>

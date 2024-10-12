@@ -1,0 +1,6 @@
+<map id="wmoge::FilePsoStateCompute" name="wmoge::FilePsoStateCompute">
+<area shape="rect" id="node1" title="Serializable compute pso desc." alt="" coords="59,184,256,211"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1FilePsoShader.html" title="Serialized shader info." alt="" coords="5,95,160,121"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="25,5,140,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="185,95,282,121"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="wmoge::AsyncState&lt; T &gt;" name="wmoge::AsyncState&lt; T &gt;">
+<area shape="rect" id="node1" title="An async operation shared data state." alt="" coords="97,171,264,197"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1AsyncStateBase.html" title="Base class for any object which want to listen to async result." alt="" coords="5,81,172,108"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,5,144,32"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1SpinMutexTtas.html" title="TTAS spinlock, non&#45;recursive." alt="" coords="197,81,354,108"/>
+<area shape="rect" id="node5" title=" " alt="" coords="199,5,352,32"/>
+</map>

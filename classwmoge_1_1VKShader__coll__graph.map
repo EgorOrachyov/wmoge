@@ -1,0 +1,11 @@
+<map id="wmoge::VKShader" name="wmoge::VKShader">
+<area shape="rect" id="node1" title="Vulkan implementation of gfx shader." alt="" coords="204,365,333,392"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKResource.html" title=" " alt="" coords="193,275,344,316"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1GfxShader.html" title="Compiled single gpu program module." alt="" coords="203,199,334,225"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1GfxResource.html" title="Base class for any gfx resource object." alt="" coords="108,109,253,136"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,13,116,39"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="140,13,237,39"/>
+<area shape="rect" id="node7" href="$structwmoge_1_1GfxShaderDesc.html" title="Struct with params to create a gfx shader." alt="" coords="277,109,439,136"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="277,5,426,47"/>
+<area shape="rect" id="node9" href="$structwmoge_1_1Sha256.html" title="SHA 256 bit hash." alt="" coords="450,13,565,39"/>
+</map>

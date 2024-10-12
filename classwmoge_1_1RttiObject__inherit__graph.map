@@ -1,0 +1,51 @@
+<map id="wmoge::RttiObject" name="wmoge::RttiObject">
+<area shape="rect" id="node1" title="Base class for any engine object which has class information and full rtti support." alt="" coords="164,1035,292,1061"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="349,425,499,466"/>
+<area shape="rect" id="node18" href="$classwmoge_1_1AssetImportData.html" title="Data and options for importing an asset." alt="" coords="340,639,508,665"/>
+<area shape="rect" id="node26" href="$classwmoge_1_1AssetLoader.html" title="Class responsible for loading or asset(s) in a specific format." alt="" coords="352,1035,496,1061"/>
+<area shape="rect" id="node44" href="$classwmoge_1_1ShaderCompiler.html" title="Interface to a shader compiler." alt="" coords="343,1153,505,1180"/>
+<area shape="rect" id="node48" href="$structwmoge_1_1ShaderType.html" title="Recursive complex type for declaring of anything in a shader what has a type." alt="" coords="355,1339,493,1365"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,1035,116,1061"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="609,335,713,361"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1ArrayMesh.html" title="Editable indexed mesh data which can be converted to a render mesh." alt="" coords="859,5,991,32"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1AudioStream.html" title="Base class for audio files which can be loaded and played." alt="" coords="852,56,997,83"/>
+<area shape="rect" id="node7" href="$classwmoge_1_1ConfigFile.html" title="Ini&#45;file based simple config file." alt="" coords="861,107,988,133"/>
+<area shape="rect" id="node8" href="$classwmoge_1_1Font.html" title="Font asset for rendering texts from true type fonts." alt="" coords="877,157,973,184"/>
+<area shape="rect" id="node9" href="$classwmoge_1_1Image.html" title="Hardware&#45;independent image representation." alt="" coords="871,208,978,235"/>
+<area shape="rect" id="node10" href="$classwmoge_1_1Material.html" title=" " alt="" coords="867,259,983,285"/>
+<area shape="rect" id="node11" href="$classwmoge_1_1Mesh.html" title="Vertex and index data structured as chunks which can be rendered." alt="" coords="873,309,976,336"/>
+<area shape="rect" id="node12" href="$classwmoge_1_1Model.html" title="Asset which stores a complete textured mesh model with level of details and other settings." alt="" coords="872,360,977,387"/>
+<area shape="rect" id="node13" href="$classwmoge_1_1PfxEffect.html" title="Complete pfx effect which can be instantiated for emitting." alt="" coords="863,411,986,437"/>
+<area shape="rect" id="node14" href="$classwmoge_1_1ScenePacked.html" title="Represents packed scene asset which can be used to load scenes." alt="" coords="849,461,1000,488"/>
+<area shape="rect" id="node15" href="$classwmoge_1_1ScenePrefab.html" title="A prefab asset which can be instantiated into a set of objects." alt="" coords="852,512,997,539"/>
+<area shape="rect" id="node16" href="$classwmoge_1_1Shader.html" title="An interface to the shader class." alt="" coords="869,563,980,589"/>
+<area shape="rect" id="node17" href="$classwmoge_1_1Texture.html" title="Base&#45;class for any engine gpu texture asset which can be used for rendering." alt="" coords="868,613,981,640"/>
+<area shape="rect" id="node19" href="$classwmoge_1_1AssimpMeshImportData.html" title="Options to import mesh asset from external asset format." alt="" coords="556,512,767,539"/>
+<area shape="rect" id="node20" href="$classwmoge_1_1FreetypeImportData.html" title="Data to import freetype font." alt="" coords="569,563,753,589"/>
+<area shape="rect" id="node21" href="$classwmoge_1_1ImageImportData.html" title="Options to import an image from an external format, such as png, jpeg, bmp, etc." alt="" coords="576,613,747,640"/>
+<area shape="rect" id="node22" href="$classwmoge_1_1TextureImportData.html" title="Base class for import data to import textures for GPU rendering." alt="" coords="573,664,750,691"/>
+<area shape="rect" id="node25" href="$classwmoge_1_1WavImportData.html" title="Options to import an audio file from .wav files format." alt="" coords="581,715,741,741"/>
+<area shape="rect" id="node23" href="$classwmoge_1_1Texture2dImportData.html" title="Options to import 2d&#45;texture from a source file." alt="" coords="829,664,1020,691"/>
+<area shape="rect" id="node24" href="$classwmoge_1_1TextureCubeImportData.html" title="Options to import a cube&#45;map texture from source files." alt="" coords="821,715,1028,741"/>
+<area shape="rect" id="node27" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,766,751,807"/>
+<area shape="rect" id="node29" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,831,751,873"/>
+<area shape="rect" id="node31" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,897,751,938"/>
+<area shape="rect" id="node33" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,962,751,1003"/>
+<area shape="rect" id="node35" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,1027,751,1069"/>
+<area shape="rect" id="node37" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,1093,751,1134"/>
+<area shape="rect" id="node39" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,1158,751,1199"/>
+<area shape="rect" id="node41" href="$classwmoge_1_1AssetLoaderTyped.html" title=" " alt="" coords="572,1223,751,1265"/>
+<area shape="rect" id="node43" href="$classwmoge_1_1AssetLoaderTyped.html" title="Adapter to implement asset loaders of a particular asset type." alt="" coords="557,1289,766,1316"/>
+<area shape="rect" id="node28" href="$classwmoge_1_1WavAssetLoader.html" title="Loader for wav audio sources using audio file library." alt="" coords="839,773,1010,800"/>
+<area shape="rect" id="node30" href="$classwmoge_1_1ShaderAssetLoader.html" title=" " alt="" coords="832,839,1017,865"/>
+<area shape="rect" id="node32" href="$classwmoge_1_1TextureCubeAssetLoader.html" title="Loader for cube&#45;map textures through stb image library." alt="" coords="816,904,1033,931"/>
+<area shape="rect" id="node34" href="$classwmoge_1_1ImageAssetLoader.html" title="Loader for images through stb image library." alt="" coords="835,969,1015,996"/>
+<area shape="rect" id="node36" href="$classwmoge_1_1DefaultAssetLoader.html" title="Loader for default single&#45;file assets stored in yaml format." alt="" coords="832,1035,1017,1061"/>
+<area shape="rect" id="node38" href="$classwmoge_1_1FreetypeAssetLoader.html" title="Loader for ttf fonts through freetype2 library." alt="" coords="827,1100,1022,1127"/>
+<area shape="rect" id="node40" href="$classwmoge_1_1AssimpMeshAssetLoader.html" title="Loader for a mesh data based on assimp library." alt="" coords="815,1165,1035,1192"/>
+<area shape="rect" id="node42" href="$classwmoge_1_1Texture2dAssetLoader.html" title="Loader for 2d textures through stb image library." alt="" coords="824,1231,1025,1257"/>
+<area shape="rect" id="node45" href="$classwmoge_1_1GlslShaderCompilerAdapter.html" title="Interface implementation for ShaderCompiler." alt="" coords="569,1341,754,1382"/>
+<area shape="rect" id="node46" href="$classwmoge_1_1GlslShaderCompilerVulkanLinux.html" title="Adapter for glsl compiler for GfxShaderPlatform::VulkanLinux." alt="" coords="832,1311,1017,1353"/>
+<area shape="rect" id="node47" href="$classwmoge_1_1GlslShaderCompilerVulkanMacOS.html" title="Adapter for glsl compiler for GfxShaderPlatform::VulkanMacOS." alt="" coords="832,1377,1017,1418"/>
+<area shape="rect" id="node49" href="$classwmoge_1_1ShaderTypeStruct.html" title="Recursive complex shader struct type." alt="" coords="574,1407,749,1433"/>
+</map>

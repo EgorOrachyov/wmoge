@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['texture2dassetloader_201',['Texture2dAssetLoader',['../classwmoge_1_1Texture2dAssetLoader.html#a4128cd6a607baa47396189b53838fd30',1,'wmoge::Texture2dAssetLoader']]],
-  ['texture2dimportdata_202',['Texture2dImportData',['../classwmoge_1_1Texture2dImportData.html#a7d51b440ec569fa4b99c0909b9f97044',1,'wmoge::Texture2dImportData']]],
-  ['texturecubeassetloader_203',['TextureCubeAssetLoader',['../classwmoge_1_1TextureCubeAssetLoader.html#a9f52a804cb099198a62c5aeaa52e4b3c',1,'wmoge::TextureCubeAssetLoader']]],
-  ['texturecubeimportdata_204',['TextureCubeImportData',['../classwmoge_1_1TextureCubeImportData.html#a1e7ac36263f6fc49725aa303d2bafe79',1,'wmoge::TextureCubeImportData']]],
-  ['textureimportdata_205',['TextureImportData',['../classwmoge_1_1TextureImportData.html#ae3a71537873feb4eaccbaa66be25e9fd',1,'wmoge::TextureImportData']]]
+  ['keyboard_5fkey_6511',['keyboard_key',['../classwmoge_1_1GlfwInputDefs.html#aa352a873d2de22a5004c395221d7b940',1,'wmoge::GlfwInputDefs']]],
+  ['keys_5fstates_6512',['keys_states',['../classwmoge_1_1Keyboard.html#af97653b6f9a5be7ed0d71e2798cbbfad',1,'wmoge::Keyboard']]]
 ];
