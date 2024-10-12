@@ -31,7 +31,11 @@
 #include "core/flat_map.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
-#include "system/config_file.hpp"
+#include "io/config_file.hpp"
+#include "io/enum.hpp"
+
+#include <string>
+#include <type_traits>
 
 namespace wmoge {
 
@@ -67,4 +71,25 @@ namespace wmoge {
         class FileSystem* m_file_system = nullptr;
     };
 
+    inline Status config_read(Config* config, const std::string& key, bool& value) { return config->get_bool(SID(key), value); }
+    inline Status config_read(Config* config, const std::string& key, int& value) { return config->get_int(SID(key), value); }
+    inline Status config_read(Config* config, const std::string& key, float& value) { return config->get_float(SID(key), value); }
+    inline Status config_read(Config* config, const std::string& key, std::string& value) { return config->get_string(SID(key), value); }
+    inline Status config_read(Config* config, const std::string& key, Color4f& value) { return config->get_color4f(SID(key), value); }
+
+    template<class T, class = typename std::enable_if<std::is_enum<T>::value>::type>
+    inline Status config_read(Config* config, const std::string& key, T& value) {
+        if (std::string str_value; config->get_string(SID(key), str_value)) {
+            auto parsed = magic_enum::enum_cast<T>(str_value);
+            if (!parsed.has_value()) {
+                return StatusCode::FailedRead;
+            }
+            value = parsed.value();
+        }
+        return WG_OK;
+    }
+
 }// namespace wmoge
+
+#define WG_CFG_READ(cfg, section, owner, variable) \
+    config_read(cfg, section + "." + #variable, owner.variable)

@@ -217,8 +217,8 @@
 #include "scene/scene_packed.hpp"
 #include "scene/scene_prefab.hpp"
 
+#include "io/config.hpp"
 #include "system/application.hpp"
-#include "system/config.hpp"
 #include "system/console.hpp"
 #include "system/engine.hpp"
 #include "system/game_application.hpp"

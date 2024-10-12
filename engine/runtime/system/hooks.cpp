@@ -29,21 +29,22 @@
 
 #include "core/log.hpp"
 #include "core/uuid.hpp"
+#include "io/config.hpp"
 #include "io/enum.hpp"
 #include "platform/common/mount_volume_physical.hpp"
 #include "platform/file_system.hpp"
 #include "platform/time.hpp"
 #include "profiler/profiler_capture.hpp"
 #include "system/application.hpp"
-#include "system/config.hpp"
 #include "system/console.hpp"
+#include "system/engine_config.hpp"
 
 namespace wmoge {
 
     void EngineCmdLineHooks::uuid_gen(CmdLineOptions& options, CmdLineHookList& list) {
         options.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
 
-        list.add([](CmdLineParseResult& result) {
+        list.add([](CmdLineParseResult& result) -> Status {
             const int uuid_count = result.get_int("gen_uuids");
 
             if (uuid_count > 0) {
@@ -80,8 +81,9 @@ namespace wmoge {
         options.add_string("engine_remap", "remap for engine directory (for debug mostly)", "engine/");
 
         list.add([ioc](CmdLineParseResult& result) {
-            Config*     config      = ioc->resolve_value<Config>();
-            FileSystem* file_system = ioc->resolve_value<FileSystem>();
+            Config*       config        = ioc->resolve_value<Config>();
+            EngineConfig* engine_config = ioc->resolve_value<EngineConfig>();
+            FileSystem*   file_system   = ioc->resolve_value<FileSystem>();
 
             const bool                  mount_front = true;
             const std::filesystem::path root_path   = file_system->root_path();
@@ -101,28 +103,30 @@ namespace wmoge {
             Ref<MountVolumePhysical> volume_cache = make_ref<MountVolumePhysical>(root_path / ".wgengine/cache", "cache/");
             file_system->add_mounting({"cache/", std::move(volume_cache)}, mount_front);
 
-            const std::string game_config   = result.get_string("game_config");
-            const std::string engine_config = result.get_string("engine_config");
+            const std::string path_game_config   = result.get_string("game_config");
+            const std::string path_engine_config = result.get_string("engine_config");
 
-            if (!config->load(engine_config + "/engine.cfg", ConfigStackMode::Overwrite)) {
+            if (!config->load(path_engine_config + "/engine.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load engine engine.cfg file, check your configuration file or path" << std::endl;
             }
-            if (!config->load(engine_config + "/game.cfg", ConfigStackMode::Overwrite)) {
+            if (!config->load(path_engine_config + "/game.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load engine game.cfg file, check your configure file of path" << std::endl;
             }
-            if (!config->load(engine_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
+            if (!config->load(path_engine_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load engine cvars.cfg file, check your configure file of path" << std::endl;
             }
 
-            if (!config->load(game_config + "/engine.cfg", ConfigStackMode::Overwrite)) {
+            if (!config->load(path_game_config + "/engine.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load game engine.cfg file, check your configuration file or path" << std::endl;
             }
-            if (!config->load(game_config + "/game.cfg", ConfigStackMode::Overwrite)) {
+            if (!config->load(path_game_config + "/game.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load game game.cfg file, check your configure file of path" << std::endl;
             }
-            if (!config->load(game_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
+            if (!config->load(path_game_config + "/cvars.cfg", ConfigStackMode::Overwrite)) {
                 std::cerr << "failed to load game cvars.cfg file, check your configure file of path" << std::endl;
             }
+
+            WG_CHECKED(config_read(config, "engine", *engine_config));
 
             return WG_OK;
         });
@@ -132,23 +136,23 @@ namespace wmoge {
         options.add_bool("disable_logs", "disable all logs entirely (overrides config)", "false");
 
         list.add([ioc](CmdLineParseResult& result) {
-            Config*     config      = ioc->resolve_value<Config>();
-            FileSystem* file_system = ioc->resolve_value<FileSystem>();
-            Console*    console     = ioc->resolve_value<Console>();
-            Time*       time        = ioc->resolve_value<Time>();
+            EngineConfig* config      = ioc->resolve_value<EngineConfig>();
+            FileSystem*   file_system = ioc->resolve_value<FileSystem>();
+            Console*      console     = ioc->resolve_value<Console>();
+            Time*         time        = ioc->resolve_value<Time>();
 
             const bool no_logs = result.get_bool("disable_logs");
             if (no_logs) {
                 return WG_OK;
             }
 
-            const bool log_to_out     = config->get_bool_or_default(SID("engine.log_to_out"), true);
-            const bool log_to_file    = config->get_bool_or_default(SID("engine.log_to_file"), true);
-            const bool log_to_console = config->get_bool_or_default(SID("engine.log_to_console"), true);
+            const bool log_to_out     = config->log.to_out;
+            const bool log_to_file    = config->log.to_file;
+            const bool log_to_console = config->log.to_console;
 
-            const auto log_to_out_level     = Enum::parse<LogLevel>(config->get_string_or_default(SID("engine.log_to_out_level"), "Info"));
-            const auto log_to_file_level    = Enum::parse<LogLevel>(config->get_string_or_default(SID("engine.log_to_file_level"), "Info"));
-            const auto log_to_console_level = Enum::parse<LogLevel>(config->get_string_or_default(SID("engine.log_to_console_level"), "Info"));
+            const auto log_to_out_level     = config->log.to_out_level;
+            const auto log_to_file_level    = config->log.to_file_level;
+            const auto log_to_console_level = config->log.to_console_level;
 
             if (log_to_file) {
                 auto log_name            = "file";
@@ -176,14 +180,14 @@ namespace wmoge {
         options.add_bool("profiler", "enable cpu profiler hook", "false");
 
         list.add([ioc, app_signals](CmdLineParseResult& result) {
-            Config*          config   = ioc->resolve_value<Config>();
+            EngineConfig*    config   = ioc->resolve_value<EngineConfig>();
             Time*            time     = ioc->resolve_value<Time>();
             ProfilerCapture* profiler = ioc->resolve_value<ProfilerCapture>();
 
             bool enable_profiler = false;
 
             enable_profiler = enable_profiler || result.get_bool("profiler");
-            enable_profiler = enable_profiler || config->get_bool_or_default(SID("profiler.enable"), false);
+            enable_profiler = enable_profiler || config->profiler.enable;
 
             profiler->enable(enable_profiler);
 

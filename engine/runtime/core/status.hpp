@@ -128,6 +128,6 @@ namespace wmoge {
         }                                   \
     }
 
-#define WG_OK StatusCode::Ok
+#define WG_OK Status(StatusCode::Ok)
 
 }// namespace wmoge

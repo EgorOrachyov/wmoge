@@ -27,12 +27,9 @@
 
 #include "_rtti.hpp"
 
-#include "system/config.hpp"
-
 namespace wmoge {
 
     void rtti_system() {
-        rtti_type<ConfigFile>();
     }
 
 }// namespace wmoge

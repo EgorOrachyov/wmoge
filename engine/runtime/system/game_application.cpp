@@ -44,6 +44,7 @@
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
 #include "io/async_file_system.hpp"
+#include "io/config.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/dll_manager.hpp"
@@ -58,9 +59,9 @@
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
-#include "system/config.hpp"
 #include "system/console.hpp"
 #include "system/engine.hpp"
+#include "system/engine_config.hpp"
 #include "system/plugin_manager.hpp"
 
 #include "asset/_rtti.hpp"
@@ -99,28 +100,25 @@ namespace wmoge {
         ioc->bind<EcsRegistry>();
         ioc->bind_by_ioc<SceneManager>();
         ioc->bind<ViewManager>();
+        ioc->bind<EngineConfig>();
 
         ioc->bind_by_factory<IoAsyncFileSystem>([ioc]() {
-            Config*   config      = ioc->resolve_value<Config>();
-            const int num_workers = config->get_int_or_default(SID("io.num_workers"), 4);
+            const int num_workers = 4;
             return std::make_shared<IoAsyncFileSystem>(ioc, num_workers);
         });
 
         ioc->bind_by_factory<TaskManager>([ioc]() {
-            Config*   config      = ioc->resolve_value<Config>();
-            const int num_workers = config->get_int_or_default(SID("task_manager.workers"), 4);
+            const int num_workers = 4;
             return std::make_shared<TaskManager>(num_workers);
         });
 
         ioc->bind_by_factory<ShaderTaskManager>([ioc]() {
-            Config*   config      = ioc->resolve_value<Config>();
-            const int num_workers = config->get_int_or_default(SID("grc.shader.compiler.workers"), 4);
+            const int num_workers = 4;
             return std::make_shared<ShaderTaskManager>(num_workers);
         });
 
         ioc->bind_by_factory<GlfwWindowManager>([ioc]() {
-            Config*    config     = ioc->resolve_value<Config>();
-            const bool vsync      = config->get_bool_or_default(SID("gfx.vsync"), true);
+            const bool vsync      = true;
             const bool client_api = false;
             return std::make_shared<GlfwWindowManager>(vsync, client_api);
         });

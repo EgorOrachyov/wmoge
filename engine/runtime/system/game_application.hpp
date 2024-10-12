@@ -33,7 +33,7 @@
 namespace wmoge {
 
     /**
-     * @class GameApplication
+     * @class GameApplicationConfig
      * @brief Game app config
     */
     struct GameApplicationConfig : ApplicationConfig {

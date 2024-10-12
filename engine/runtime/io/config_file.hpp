@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "asset/asset.hpp"
 #include "core/flat_map.hpp"
+#include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "core/var.hpp"
 #include "math/color.hpp"
@@ -47,9 +47,9 @@ namespace wmoge {
      * @class ConfigFile
      * @brief Ini-file based simple config file
      */
-    class ConfigFile final : public Asset {
+    class ConfigFile final : public RefCnt {
     public:
-        WG_RTTI_CLASS(ConfigFile, Asset);
+        ConfigFile() = default;
 
         /**
          * @brief Loads config file from a engine directory
@@ -103,23 +103,5 @@ namespace wmoge {
     private:
         flat_map<Strid, Var> m_entries;
     };
-
-    WG_RTTI_CLASS_BEGIN(ConfigFile) {
-        WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
-        WG_RTTI_METHOD(load_from_content, {"content"}, {});
-        WG_RTTI_METHOD(clear, {}, {});
-        WG_RTTI_METHOD(is_empty, {}, {});
-        WG_RTTI_METHOD(set_bool, {"key", "value", "overwrite"}, {});
-        WG_RTTI_METHOD(set_int, {"key", "value", "overwrite"}, {});
-        WG_RTTI_METHOD(set_float, {"key", "value", "overwrite"}, {});
-        WG_RTTI_METHOD(set_string, {"key", "value", "overwrite"}, {});
-        WG_RTTI_METHOD(get_bool, {"key", "value"}, {});
-        WG_RTTI_METHOD(get_int, {"key", "value"}, {});
-        WG_RTTI_METHOD(get_float, {"key", "value"}, {});
-        WG_RTTI_METHOD(get_string, {"key", "value"}, {});
-        WG_RTTI_METHOD(get_color4f, {"key", "value"}, {});
-    }
-    WG_RTTI_END;
 
 }// namespace wmoge

@@ -95,7 +95,7 @@ namespace wmoge {
             }
         };
 
-        auto compile_single_shader = [&](EShLanguage language, glslang::TShader& shader, const ShaderCompilerInputFile& file, Sha256& source_hash) {
+        auto compile_single_shader = [&](EShLanguage language, glslang::TShader& shader, const ShaderCompilerInputFile& file, Sha256& source_hash) -> Status {
             WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::compile_shader");
 
             GlslIncludeProcessor include_processor(input.env, *fs, collect_code);
@@ -314,7 +314,7 @@ namespace wmoge {
         buffered_vector<std::vector<uint32_t>> spirvs;
         std::size_t                            spirv_size = 0;
 
-        auto extract_spirv = [&](EShLanguage langugage, std::vector<uint32_t>& spirv, Ref<Data>& spirv_data, Sha256& spirv_hash) {
+        auto extract_spirv = [&](EShLanguage langugage, std::vector<uint32_t>& spirv, Ref<Data>& spirv_data, Sha256& spirv_hash) -> Status {
             WG_PROFILE_CPU_VULKAN("GlslShaderCompiler::extract_spirv");
 
             glslang::SpvOptions spv_options;

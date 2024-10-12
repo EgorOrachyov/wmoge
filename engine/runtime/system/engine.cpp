@@ -43,6 +43,7 @@
 #include "grc/shader_library.hpp"
 #include "grc/shader_manager.hpp"
 #include "grc/texture_manager.hpp"
+#include "io/config.hpp"
 #include "io/enum.hpp"
 #include "mesh/mesh_manager.hpp"
 #include "platform/dll_manager.hpp"
@@ -58,9 +59,9 @@
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
 #include "system/application.hpp"
-#include "system/config.hpp"
 #include "system/console.hpp"
 #include "system/engine.hpp"
+#include "system/engine_config.hpp"
 #include "system/plugin_manager.hpp"
 
 #include <cassert>
@@ -81,6 +82,7 @@ namespace wmoge {
         m_console        = m_ioc_container->resolve_value<Console>();
         m_dll_manager    = m_ioc_container->resolve_value<DllManager>();
         m_plugin_manager = m_ioc_container->resolve_value<PluginManager>();
+        m_engine_config  = m_ioc_container->resolve_value<EngineConfig>();
 
         m_plugin_manager->setup();
 
@@ -216,5 +218,6 @@ namespace wmoge {
     RenderEngine*   Engine::render_engine() { return m_render_engine; }
     ViewManager*    Engine::view_manager() { return m_view_manager; }
     EcsRegistry*    Engine::ecs_registry() { return m_ecs_registry; }
+    EngineConfig*   Engine::engine_config() { return m_engine_config; }
 
 }// namespace wmoge

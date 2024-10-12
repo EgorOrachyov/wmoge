@@ -32,7 +32,6 @@
 #include "core/log.hpp"
 #include "platform/common/mount_volume_physical.hpp"
 #include "profiler/profiler_cpu.hpp"
-#include "system/config.hpp"
 
 #include <algorithm>
 #include <filesystem>
