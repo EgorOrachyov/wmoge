@@ -28,6 +28,7 @@
 #pragma once
 
 #include "system/application.hpp"
+#include "system/plugin.hpp"
 
 namespace wmoge {
 
@@ -36,7 +37,8 @@ namespace wmoge {
      * @brief Game app config
     */
     struct GameApplicationConfig : ApplicationConfig {
-        std::string game_info;
+        std::string            game_info;
+        std::vector<PluginPtr> plugins;
     };
 
     /**
@@ -49,12 +51,13 @@ namespace wmoge {
 
         Status on_register() override;
         Status on_init() override;
-        Status on_loop() override;
+        Status on_iteration() override;
         Status on_shutdown() override;
         bool   should_close() override;
 
     protected:
-        class Engine* m_engine = nullptr;
+        GameApplicationConfig& m_game_confing;
+        class Engine*          m_engine = nullptr;
     };
 
 }// namespace wmoge

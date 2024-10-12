@@ -80,6 +80,10 @@ namespace wmoge {
     void TaskManager::shutdown() {
         WG_PROFILE_CPU_CORE("TaskManager::shutdown");
 
+        if (m_finished.load()) {
+            return;
+        }
+
         WG_LOG_INFO("shutdown manager=" << m_worker_prefix << " and join already started tasks");
 
         m_finished.store(true);

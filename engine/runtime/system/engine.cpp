@@ -149,23 +149,20 @@ namespace wmoge {
 
         auto windows = m_window_manager->get_windows();
 
-        for (const WindowEvent& event : m_window_manager->get_window_events()) {
-            if (m_exit_on_close &&
-                event.window == m_window_manager->get_primary_window() &&
-                event.notification == WindowNotification::CloseRequested) {
-                request_close();
+        if (m_exit_on_close) {
+            for (const WindowEvent& event : m_window_manager->get_window_events()) {
+                if (event.window == m_window_manager->get_primary_window() &&
+                    event.notification == WindowNotification::CloseRequested) {
+                    request_close();
+                }
             }
         }
 
         m_gfx_driver->begin_frame(m_frame_id, windows);
 
-        if (m_texture_manager) {
-            m_texture_manager->update();
-        }
+        m_texture_manager->update();
 
-        if (m_scene_manager) {
-            m_scene_manager->update();
-        }
+        m_scene_manager->update();
 
         m_profiler_gpu->resolve();
 
@@ -183,6 +180,7 @@ namespace wmoge {
         m_task_manager->shutdown();
         m_console->shutdown();
         m_scene_manager->clear();
+        m_profiler_gpu->clear();
 
         return WG_OK;
     }

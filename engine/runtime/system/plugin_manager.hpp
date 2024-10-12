@@ -51,12 +51,13 @@ namespace wmoge {
 
         template<typename T>
         void add();
-        void add(std::shared_ptr<Plugin> plugin);
+        void add(PluginPtr plugin);
+        void add(const std::vector<PluginPtr>& plugins);
 
     private:
-        std::vector<std::shared_ptr<Plugin>> m_plugins;
-        flat_map<Strid, int>                 m_plugins_id;
-        flat_set<Strid>                      m_plugins_loaded;
+        std::vector<PluginPtr> m_plugins;
+        flat_map<Strid, int>   m_plugins_id;
+        flat_set<Strid>        m_plugins_loaded;
     };
 
     template<typename T>

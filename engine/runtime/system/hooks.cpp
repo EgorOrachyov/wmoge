@@ -40,7 +40,7 @@
 
 namespace wmoge {
 
-    void EngineCmdLineHooks::hook_uuid_gen(CmdLineOptions& options, CmdLineHookList& list) {
+    void EngineCmdLineHooks::uuid_gen(CmdLineOptions& options, CmdLineHookList& list) {
         options.add_int("gen_uuids", "gen desired count of uuids' values and outputs them", "0");
 
         list.add([](CmdLineParseResult& result) {
@@ -57,7 +57,7 @@ namespace wmoge {
         });
     }
 
-    void EngineCmdLineHooks::hook_root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
+    void EngineCmdLineHooks::root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
         options.add_string("root_remap", "remap path to game root folder", "");
 
         list.add([ioc](CmdLineParseResult& result) {
@@ -74,7 +74,7 @@ namespace wmoge {
         });
     }
 
-    void EngineCmdLineHooks::hook_root_engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
+    void EngineCmdLineHooks::engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
         options.add_string("game_config", "path to game config folder", "config/");
         options.add_string("engine_config", "path to engine config folder", "engine/config/");
         options.add_string("engine_remap", "remap for engine directory (for debug mostly)", "engine/");
@@ -128,7 +128,7 @@ namespace wmoge {
         });
     }
 
-    void EngineCmdLineHooks::hook_root_logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
+    void EngineCmdLineHooks::logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc) {
         options.add_bool("disable_logs", "disable all logs entirely (overrides config)", "false");
 
         list.add([ioc](CmdLineParseResult& result) {
@@ -172,7 +172,7 @@ namespace wmoge {
         });
     }
 
-    void EngineCmdLineHooks::hook_root_profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, ApplicationSignals* app_signals) {
+    void EngineCmdLineHooks::profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, ApplicationSignals* app_signals) {
         options.add_bool("profiler", "enable cpu profiler hook", "false");
 
         list.add([ioc, app_signals](CmdLineParseResult& result) {

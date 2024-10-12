@@ -32,6 +32,7 @@
 #include "core/string_utils.hpp"
 #include "core/uuid.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace wmoge {
@@ -59,5 +60,7 @@ namespace wmoge {
         std::string        m_description;
         std::vector<Strid> m_requirements;
     };
+
+    using PluginPtr = std::shared_ptr<Plugin>;
 
 }// namespace wmoge

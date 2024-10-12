@@ -42,6 +42,7 @@
 
 namespace wmoge {
 
+    /** @brief Cpu profiling mark */
     struct ProfilerCpuMark {
         std::string name;
         Strid       category;
@@ -50,6 +51,7 @@ namespace wmoge {
         std::size_t line;
     };
 
+    /** @brief Cpu profiling time event */
     struct ProfilerCpuEvent {
         ProfilerCpuMark* mark = nullptr;
         std::string      data;
@@ -58,6 +60,10 @@ namespace wmoge {
         int              thread_id   = -1;
     };
 
+    /**
+     * @class ProfilerCpu
+     * @brief Collects cpu time events for application from different threads
+     */
     class ProfilerCpu {
     public:
         Signal<const ProfilerCpuEvent&> on_event;
@@ -82,6 +88,7 @@ namespace wmoge {
         static ProfilerCpu* g_profiler_cpu;
     };
 
+    /** @brief Cpu profiling scope for single event */
     struct ProfilerCpuScope {
         ProfilerCpuScope(ProfilerCpuMark& mark, const std::string& data) { ProfilerCpu::instance()->begin_event(&mark, data); }
         ~ProfilerCpuScope() { ProfilerCpu::instance()->end_event(); }
@@ -126,3 +133,4 @@ namespace wmoge {
 #define WG_PROFILE_CPU_OPENAL(label)         WG_PROFILE_CPU_SCOPE(openal, label)
 #define WG_PROFILE_CPU_SYSTEM(label)         WG_PROFILE_CPU_SCOPE(system, label)
 #define WG_PROFILE_CPU_PLUGIN(label)         WG_PROFILE_CPU_SCOPE(plugin, label)
+#define WG_PROFILE_CPU_GPU(label)            WG_PROFILE_CPU_SCOPE(gpu, label)

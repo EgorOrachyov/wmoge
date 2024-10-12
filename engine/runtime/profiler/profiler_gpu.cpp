@@ -28,15 +28,16 @@
 #include "profiler_gpu.hpp"
 
 #include "gfx/gfx_driver.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
     ProfilerGpu::ProfilerGpu() {
-        m_queue_names.push_back("gfx-graphichs");
-        m_queue_names.push_back("gfx-compute");
-        m_queue_names.push_back("gfx-copy");
+        m_queue_names.push_back("queue-graphichs");
+        m_queue_names.push_back("queue-compute");
+        m_queue_names.push_back("queue-copy");
     }
 
     void ProfilerGpu::setup(GfxDriver* driver) {
@@ -48,13 +49,17 @@ namespace wmoge {
     }
 
     void ProfilerGpu::calibrate(std::chrono::steady_clock::time_point time) {
+        WG_PROFILE_CPU_GPU("ProfilerGpu::calibrate");
         std::chrono::steady_clock::time_point cpu_now = std::chrono::steady_clock::now();
         m_driver->query_callibration(m_gpu_time, m_gpu_freq_ns);
         m_cpu_time = std::chrono::duration_cast<std::chrono::microseconds>(cpu_now - time).count();
     }
 
-    void ProfilerGpu::prepare_cmd_list(GfxCmdList* cmd_list) {
+    void ProfilerGpu::prepare_cmd_list(const GfxCmdListRef& cmd_list) {
+        WG_PROFILE_CPU_GPU("ProfilerGpu::prepare_cmd_list");
         if (!m_is_enabled) { return; }
+
+        assert(cmd_list);
 
         if (m_query_pools.empty()) {
             GfxQueryPoolDesc desc;
@@ -66,19 +71,22 @@ namespace wmoge {
         GfxQueryPoolRef pool = m_query_pools.back();
         m_query_pools.pop_back();
 
-        CmdListData& data = m_cmd_lists[cmd_list];
+        CmdListData& data = m_cmd_lists[cmd_list.get()];
         data.queue_type   = cmd_list->get_queue_type();
         data.query_pool   = pool;
 
         cmd_list->reset_pool(data.query_pool, m_events_limit);
     }
 
-    void ProfilerGpu::finish_cmd_list(GfxCmdList* cmd_list) {
+    void ProfilerGpu::finish_cmd_list(const GfxCmdListRef& cmd_list) {
+        WG_PROFILE_CPU_GPU("ProfilerGpu::finish_cmd_list");
         if (!m_is_enabled) { return; }
 
+        assert(cmd_list);
+
         std::size_t idx = m_driver->frame_number() % GfxLimits::FRAMES_IN_FLIGHT;
-        m_cmd_to_resolve[idx].emplace_back(std::move(m_cmd_lists[cmd_list]));
-        m_cmd_lists.erase(cmd_list);
+        m_cmd_to_resolve[idx].emplace_back(std::move(m_cmd_lists[cmd_list.get()]));
+        m_cmd_lists.erase(cmd_list.get());
     }
 
     void ProfilerGpu::begin_event(ProfilerGpuMark* mark, const std::string& data, GfxCmdList* cmd_list) {
@@ -110,12 +118,14 @@ namespace wmoge {
     }
 
     void ProfilerGpu::resolve() {
+        WG_PROFILE_CPU_GPU("ProfilerGpu::resolve");
+
         auto convert_timestamp = [&](std::uint64_t t) {
             assert(t >= m_gpu_time);
             return m_cpu_time + ((t - m_gpu_time) * m_gpu_freq_ns) / 1000;
         };
 
-        std::size_t idx = (m_driver->frame_number() + 1) % GfxLimits::FRAMES_IN_FLIGHT;
+        const std::size_t idx = (m_driver->frame_number() + 1) % GfxLimits::FRAMES_IN_FLIGHT;
 
         for (CmdListData& data : m_cmd_to_resolve[idx]) {
             std::vector<std::uint64_t> timestamps(data.next_query_idx);
@@ -131,6 +141,8 @@ namespace wmoge {
 
                 on_event.emit(out_event);
             }
+
+            m_query_pools.emplace_back(std::move(data.query_pool));
         }
 
         m_cmd_to_resolve[idx].clear();
@@ -138,6 +150,14 @@ namespace wmoge {
 
     void ProfilerGpu::get_queue_names(std::vector<std::string>& names) {
         names = m_queue_names;
+    }
+
+    void ProfilerGpu::clear() {
+        m_query_pools.clear();
+
+        for (int i = 0; i < GfxLimits::FRAMES_IN_FLIGHT; i++) {
+            m_cmd_to_resolve[i].clear();
+        }
     }
 
     ProfilerGpu  g_profiler_gpu_default;

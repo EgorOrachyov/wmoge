@@ -161,6 +161,7 @@ namespace wmoge {
         if (!m_need_upload_default) {
             return;
         }
+        m_need_upload_default = false;
 
         const std::array<std::uint8_t, 4> tex_colors[int(DefaultTexture::Total)] = {
                 {0xff, 0xff, 0xff, 0xff},
@@ -172,15 +173,18 @@ namespace wmoge {
         };
 
         auto cmd = m_gfx_driver->acquire_cmd_list(GfxQueueType::Graphics);
+        WG_PROFILE_GPU_BEGIN(cmd);
+        {
+            WG_PROFILE_GPU_SCOPE(cmd, "TextureManager::upload_default_textures");
 
-        for (int i = 0; i < int(DefaultTexture::Total); i++) {
-            cmd->barrier_image(m_default_textures[i], GfxTexBarrierType::Undefined, GfxTexBarrierType::CopyDestination);
-            cmd->update_texture_2d(m_default_textures[i], 0, Rect2i(0, 0, 1, 1), array_view<const std::uint8_t>(tex_colors[i].data(), sizeof(std::uint8_t[4])));
-            cmd->barrier_image(m_default_textures[i], GfxTexBarrierType::CopyDestination, GfxTexBarrierType::Sampling);
+            for (int i = 0; i < int(DefaultTexture::Total); i++) {
+                cmd->barrier_image(m_default_textures[i], GfxTexBarrierType::Undefined, GfxTexBarrierType::CopyDestination);
+                cmd->update_texture_2d(m_default_textures[i], 0, Rect2i(0, 0, 1, 1), array_view<const std::uint8_t>(tex_colors[i].data(), sizeof(std::uint8_t[4])));
+                cmd->barrier_image(m_default_textures[i], GfxTexBarrierType::CopyDestination, GfxTexBarrierType::Sampling);
+            }
         }
-
+        WG_PROFILE_GPU_END(cmd);
         m_gfx_driver->submit_cmd_list(cmd);
-        m_need_upload_default = false;
     }
 
     void TextureManager::init_textures() {
@@ -213,16 +217,18 @@ namespace wmoge {
         }
 
         auto cmd = m_gfx_driver->acquire_cmd_list(GfxQueueType::Graphics);
-        WG_PROFILE_GPU_BEGIN(cmd.get());
+        WG_PROFILE_GPU_BEGIN(cmd);
+        {
+            WG_PROFILE_GPU_SCOPE(cmd, "TextureManager::init_textures");
 
-        cmd->barrier_images(for_barrier, GfxTexBarrierType::Undefined, GfxTexBarrierType::CopyDestination);
-        for (Texture* texture : for_upload) {
-            texture->upload_gfx_data(cmd);
+            cmd->barrier_images(for_barrier, GfxTexBarrierType::Undefined, GfxTexBarrierType::CopyDestination);
+            for (Texture* texture : for_upload) {
+                texture->upload_gfx_data(cmd);
+            }
+            cmd->barrier_images(for_barrier, GfxTexBarrierType::CopyDestination, GfxTexBarrierType::Sampling);
         }
-        cmd->barrier_images(for_barrier, GfxTexBarrierType::CopyDestination, GfxTexBarrierType::Sampling);
-
+        WG_PROFILE_GPU_END(cmd);
         m_gfx_driver->submit_cmd_list(cmd);
-        WG_PROFILE_GPU_END(cmd.get());
 
         WG_LOG_INFO("uploaded " << for_upload.size() << " textures to gpu");
     }

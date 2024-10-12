@@ -66,10 +66,10 @@ namespace wmoge {
      * @brief Desc containing info to setup application
      */
     struct ApplicationConfig {
-        std::string        name;
-        IocContainer*      ioc;
-        ApplicationSignals signals;
-        ApplicationCmdLine cmd_line;
+        std::string         name;
+        IocContainer*       ioc;
+        ApplicationSignals* signals;
+        ApplicationCmdLine* cmd_line;
     };
 
     /**
@@ -83,7 +83,7 @@ namespace wmoge {
 
         virtual Status on_register() { return WG_OK; }
         virtual Status on_init() { return WG_OK; }
-        virtual Status on_loop() { return WG_OK; }
+        virtual Status on_iteration() { return WG_OK; }
         virtual Status on_shutdown() { return WG_OK; }
         virtual bool   should_close() { return true; }
         virtual void   requiest_close() {}

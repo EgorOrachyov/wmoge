@@ -33,6 +33,10 @@
 
 namespace wmoge {
 
+    /**
+     * @class ProfilerCapture
+     * @brief Allows to caprute cpu and gpu time profiling events and dump to a file
+     */
     class ProfilerCapture {
     public:
         ProfilerCapture(class IocContainer* ioc);

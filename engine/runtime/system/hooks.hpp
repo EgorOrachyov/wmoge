@@ -38,11 +38,11 @@ namespace wmoge {
      */
     class EngineCmdLineHooks {
     public:
-        static void hook_uuid_gen(CmdLineOptions& options, CmdLineHookList& list);
-        static void hook_root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-        static void hook_root_engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-        static void hook_root_logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
-        static void hook_root_profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, struct ApplicationSignals* app_signals);
+        static void uuid_gen(CmdLineOptions& options, CmdLineHookList& list);
+        static void root_remap(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        static void engine(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        static void logs(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc);
+        static void profiler(CmdLineOptions& options, CmdLineHookList& list, IocContainer* ioc, struct ApplicationSignals* app_signals);
     };
 
 }// namespace wmoge

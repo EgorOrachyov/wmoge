@@ -38,8 +38,6 @@ namespace wmoge {
     }
 
     AsyncResult<IoAsyncFileSystem::BufferView> IoAsyncFileSystem::read_file(const std::string& filepath, BufferView buffer_view) {
-        WG_PROFILE_CPU_IO("IoAsyncFileSystem::read_file");
-
         AsyncOp<BufferView> async_result = make_async_op<BufferView>();
 
         Task task(SID(filepath), [=](TaskContext&) -> int {
@@ -49,6 +47,7 @@ namespace wmoge {
                 WG_LOG_ERROR("failed open file " << filepath);
                 return 1;
             }
+            WG_PROFILE_CPU_SCOPE_WITH_DESC(io, "IoAsyncFileSystem::read_file", filepath);
             if (!file->nread(buffer_view.data(), buffer_view.size())) {
                 WG_LOG_ERROR("failed read file " << filepath);
                 return 1;

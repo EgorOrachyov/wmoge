@@ -67,6 +67,7 @@ namespace wmoge {
         m_session_name = session_name;
         m_session_path = filepath;
         m_events_cpu.clear();
+        m_events_gpu.clear();
 
         m_is_collecting.store(true);
     }

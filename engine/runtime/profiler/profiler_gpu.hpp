@@ -44,6 +44,7 @@
 
 namespace wmoge {
 
+    /** @brief Gpu profiling mark */
     struct ProfilerGpuMark {
         std::string name;
         Strid       category;
@@ -52,6 +53,7 @@ namespace wmoge {
         std::size_t line;
     };
 
+    /** @brief Gpu time event */
     struct ProfilerGpuEvent {
         ProfilerGpuMark* mark = nullptr;
         std::string      data;
@@ -60,6 +62,10 @@ namespace wmoge {
         int              queue_id    = -1;
     };
 
+    /**
+     * @class ProfilerGpu
+     * @brief Collects gpu profiling time events from gfx command lists
+     */
     class ProfilerGpu {
     public:
         Signal<const ProfilerGpuEvent&> on_event;
@@ -69,12 +75,13 @@ namespace wmoge {
         void setup(class GfxDriver* driver);
         void enable(bool enable);
         void calibrate(std::chrono::steady_clock::time_point time);
-        void prepare_cmd_list(GfxCmdList* cmd_list);
-        void finish_cmd_list(GfxCmdList* cmd_list);
+        void prepare_cmd_list(const GfxCmdListRef& cmd_list);
+        void finish_cmd_list(const GfxCmdListRef& cmd_list);
         void begin_event(ProfilerGpuMark* mark, const std::string& data, GfxCmdList* cmd_list);
         void end_event(GfxCmdList* cmd_list);
         void resolve();
         void get_queue_names(std::vector<std::string>& names);
+        void clear();
 
         static ProfilerGpu* instance();
 
@@ -110,8 +117,10 @@ namespace wmoge {
         static ProfilerGpu* g_profiler_gpu;
     };
 
+    /** @brief Gpu profiling scope for single event */
     struct ProfilerGpuScope {
         ProfilerGpuScope(ProfilerGpuMark& mark, const std::string& data, GfxCmdList* cmd_list) : cmd_list(cmd_list) { ProfilerGpu::instance()->begin_event(&mark, data, cmd_list); }
+        ProfilerGpuScope(ProfilerGpuMark& mark, const std::string& data, const GfxCmdListRef& cmd_list) : ProfilerGpuScope(mark, data, cmd_list.get()) {}
         ~ProfilerGpuScope() { ProfilerGpu::instance()->end_event(cmd_list); }
 
         GfxCmdList* cmd_list;
@@ -135,4 +144,4 @@ namespace wmoge {
     ProfilerGpuScope __wg_auto_scope_gpu(__wg_auto_mark_gpu, desc, cmd_list)
 
 #define WG_PROFILE_GPU_SCOPE(cmd_list, name) \
-    WG_PROFILE_GPU_SCOPE_WITH_DESC(cmd_list, gfx, name, "")
+    WG_PROFILE_GPU_SCOPE_WITH_DESC(cmd_list, gpudevice, name, "")

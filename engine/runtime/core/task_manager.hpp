@@ -31,6 +31,7 @@
 #include "core/string_id.hpp"
 #include "core/synchronization.hpp"
 
+#include <atomic>
 #include <condition_variable>
 #include <deque>
 #include <functional>

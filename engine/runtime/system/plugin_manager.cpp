@@ -63,9 +63,15 @@ namespace wmoge {
         WG_LOG_INFO("shutdown plugins");
     }
 
-    void PluginManager::add(std::shared_ptr<Plugin> plugin) {
+    void PluginManager::add(PluginPtr plugin) {
         m_plugins_id[plugin->get_name()] = int(m_plugins.size());
         m_plugins.push_back(std::move(plugin));
+    }
+
+    void PluginManager::add(const std::vector<PluginPtr>& plugins) {
+        for (auto& plugin : plugins) {
+            add(plugin);
+        }
     }
 
 }// namespace wmoge

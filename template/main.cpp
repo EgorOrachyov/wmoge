@@ -82,11 +82,6 @@ public:
     }
 
     Status on_register() override {
-        PluginManager* plugin_manager = m_config.ioc->resolve_value<PluginManager>();
-        plugin_manager->add<RuntimePlugin>();
-        plugin_manager->add<AssimpPlugin>();
-        plugin_manager->add<FreetypePlugin>();
-
         GameApplication::on_register();
 
         WG_LOG_INFO("register");
@@ -224,19 +219,26 @@ int main(int argc, const char* const* argv) {
     CmdLineOptions  options("template-app", "wmoge engine template app for testing");
     CmdLineHookList hooks;
 
-    GameApplicationConfig app_config;
-    app_config.name             = "test app";
-    app_config.ioc              = &ioc_containter;
-    app_config.cmd_line.options = &options;
-    app_config.cmd_line.hooks   = &hooks;
-    app_config.cmd_line.line    = CmdLineUtil::to_string(argc, argv);
-    app_config.cmd_line.args    = CmdLineUtil::to_vector(argc, argv);
+    ApplicationSignals app_signlas;
 
-    EngineCmdLineHooks::hook_uuid_gen(options, hooks);
-    EngineCmdLineHooks::hook_root_remap(options, hooks, &ioc_containter);
-    EngineCmdLineHooks::hook_root_engine(options, hooks, &ioc_containter);
-    EngineCmdLineHooks::hook_root_logs(options, hooks, &ioc_containter);
-    EngineCmdLineHooks::hook_root_profiler(options, hooks, &ioc_containter, &app_config.signals);
+    EngineCmdLineHooks::uuid_gen(options, hooks);
+    EngineCmdLineHooks::root_remap(options, hooks, &ioc_containter);
+    EngineCmdLineHooks::engine(options, hooks, &ioc_containter);
+    EngineCmdLineHooks::logs(options, hooks, &ioc_containter);
+    EngineCmdLineHooks::profiler(options, hooks, &ioc_containter, &app_signlas);
+
+    ApplicationCmdLine cmd_line;
+    cmd_line.options = &options;
+    cmd_line.hooks   = &hooks;
+    cmd_line.line    = CmdLineUtil::to_string(argc, argv);
+    cmd_line.args    = CmdLineUtil::to_vector(argc, argv);
+
+    GameApplicationConfig app_config;
+    app_config.name     = "test app";
+    app_config.ioc      = &ioc_containter;
+    app_config.signals  = &app_signlas;
+    app_config.cmd_line = &cmd_line;
+    app_config.plugins  = {std::make_shared<RuntimePlugin>(), std::make_shared<AssimpPlugin>(), std::make_shared<FreetypePlugin>()};
 
     TemplateApplication app(app_config);
     return app.run();
