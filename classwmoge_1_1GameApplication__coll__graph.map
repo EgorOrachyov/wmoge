@@ -1,8 +1,8 @@
 <map id="wmoge::GameApplication" name="wmoge::GameApplication">
-<area shape="rect" id="node1" title="Game app config." alt="" coords="315,436,484,463"/>
+<area shape="rect" id="node1" title="Base class for application to run stand&#45;alone game." alt="" coords="315,436,484,463"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1Application.html" title="Base class for any application which is an entry point to run." alt="" coords="137,347,272,373"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1ApplicationConfig.html" title="Desc containing info to setup application." alt="" coords="215,257,386,284"/>
-<area shape="rect" id="node11" href="$structwmoge_1_1GameApplicationConfig.html" title=" " alt="" coords="297,347,502,373"/>
+<area shape="rect" id="node11" href="$structwmoge_1_1GameApplicationConfig.html" title="Game app config." alt="" coords="297,347,502,373"/>
 <area shape="rect" id="node4" href="$structwmoge_1_1ApplicationSignals.html" title="App signals to intercept some events." alt="" coords="5,168,183,195"/>
 <area shape="rect" id="node5" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="13,5,175,32"/>
 <area shape="rect" id="node6" href="$structwmoge_1_1ApplicationCmdLine.html" title="App command line processing params." alt="" coords="207,168,394,195"/>

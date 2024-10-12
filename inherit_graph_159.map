@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structwmoge_1_1GfxLocation.html" title="How to bind resource to gfx pipeline." alt="" coords="5,5,145,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="5,5,129,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1VKDriver.html" title="Vulkan gfx driver implementation." alt="" coords="177,5,300,32"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="wmoge::GameApplicationConfig" name="wmoge::GameApplicationConfig">
-<area shape="rect" id="node1" title=" " alt="" coords="198,333,403,360"/>
+<area shape="rect" id="node1" title="Game app config." alt="" coords="198,333,403,360"/>
 <area shape="rect" id="node2" href="$structwmoge_1_1ApplicationConfig.html" title="Desc containing info to setup application." alt="" coords="215,257,386,284"/>
 <area shape="rect" id="node3" href="$structwmoge_1_1ApplicationSignals.html" title="App signals to intercept some events." alt="" coords="5,168,183,195"/>
 <area shape="rect" id="node4" href="$classwmoge_1_1Signal.html" title="Allows to immediately notify listeners when something occurse on singnal holder side." alt="" coords="13,5,175,32"/>
