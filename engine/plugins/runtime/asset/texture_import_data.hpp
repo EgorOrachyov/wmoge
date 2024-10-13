@@ -46,6 +46,7 @@ namespace wmoge {
         TexCompressionParams compression{};
         TexResizeParams      resizing{};
         GfxFormat            format   = GfxFormat::RGBA8;
+        GfxTexSwizz          swizz    = GfxTexSwizz::None;
         int                  channels = 4;
         bool                 mipmaps  = true;
         bool                 srgb     = true;
@@ -58,6 +59,7 @@ namespace wmoge {
         WG_RTTI_FIELD(compression, {RttiOptional});
         WG_RTTI_FIELD(resizing, {RttiOptional});
         WG_RTTI_FIELD(format, {RttiOptional});
+        WG_RTTI_FIELD(swizz, {RttiOptional});
         WG_RTTI_FIELD(channels, {RttiOptional});
         WG_RTTI_FIELD(mipmaps, {RttiOptional});
         WG_RTTI_FIELD(srgb, {RttiOptional});

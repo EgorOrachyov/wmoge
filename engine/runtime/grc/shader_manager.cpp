@@ -192,7 +192,7 @@ namespace wmoge {
                 if (type == ShaderTypes::SAMPLER2D) {
                     auto texture = Enum::parse<DefaultTexture>((std::string) param.value);
                     auto sampler = DefaultSampler::Default;
-                    space_builder.add_texture_2d(param.name, m_texture_manager->get_texture(texture), m_texture_manager->get_sampler(sampler));
+                    space_builder.add_texture_2d(param.name, m_texture_manager->get_texture_gfx(texture), m_texture_manager->get_sampler(sampler));
                     continue;
                 }
                 if (type == ShaderTypes::SAMPLER2D_ARRAY) {

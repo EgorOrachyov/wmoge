@@ -58,13 +58,6 @@ namespace wmoge {
         Total
     };
 
-    /** @brief Managed texture state */
-    enum class TextureState {
-        PendingInit = 0,
-        PendingUpload,
-        Inited
-    };
-
     /**
      * @class TextureManager
      * @brief Manager for memory, gfx and streaming of texture assets
@@ -73,27 +66,36 @@ namespace wmoge {
     public:
         TextureManager(class IocContainer* ioc);
 
-        Ref<Texture2d>   create_2d(TextureFlags flags, GfxFormat format, int width, int height, GfxTexSwizz swizz = GfxTexSwizz::None);
-        Ref<TextureCube> create_cube(TextureFlags flags, GfxFormat format, int width, int height);
-        void             add(const Ref<Texture>& texture);
-        void             remove(Texture* texture);
-        void             init(Texture* texture);
-        bool             has(Texture* texture) const;
-        void             update();
+        Ref<Texture2d>   create_texture_2d(TextureDesc& desc);
+        Ref<Texture2d>   create_texture_2d(TextureFlags flags, GfxFormat format, int width, int height, int mips, GfxTexSwizz swizz = GfxTexSwizz::None);
+        Ref<TextureCube> create_texture_cube(TextureDesc& desc);
+        void             add_texture(const Ref<Texture>& texture);
+        void             remove_texture(Texture* texture);
+        void             queue_texture_upload(Texture* texture);
+        bool             has_texture(Texture* texture) const;
+        void             flust_textures_upload();
+        Status           generate_mips(const std::vector<Ref<Image>>& images, std::vector<Ref<Image>>& mips);
+        Status           generate_compressed_data(const std::vector<Ref<Image>>& images, GfxFormat format, const TexCompressionParams& params, std::vector<GfxImageData>& compressed, GfxFormat& format_compressed, TexCompressionStats& stats);
 
-        [[nodiscard]] const Ref<GfxTexture>& get_texture(DefaultTexture texture);
+        [[nodiscard]] const Ref<Texture>&    get_texture(DefaultTexture texture);
+        [[nodiscard]] const Ref<GfxTexture>& get_texture_gfx(DefaultTexture texture);
         [[nodiscard]] const Ref<GfxSampler>& get_sampler(DefaultSampler sampler);
 
     private:
         void init_default_samplers();
         void init_default_textures();
-        void upload_default_textures();
-        void init_textures();
+        void init_texture(Texture* texture);
+        void delete_texture(Texture* texture);
+        void upload_texture(Texture* texture, const GfxCmdListRef& cmd);
 
     private:
+        enum class State {
+            PendingUpload = 0,
+        };
+
         struct Entry {
-            WeakRef<Texture>   weak_ref;
-            Mask<TextureState> state;
+            WeakRef<Texture> weak_ref;
+            Mask<State>      state;
         };
 
         flat_map<Texture*, Entry>    m_textures;
@@ -101,7 +103,7 @@ namespace wmoge {
         std::unique_ptr<TexturePool> m_pool;
         bool                         m_need_upload_default = true;
 
-        Ref<GfxTexture> m_default_textures[int(DefaultTexture::Total)];
+        Ref<Texture>    m_default_textures[int(DefaultTexture::Total)];
         Ref<GfxSampler> m_default_samplers[int(DefaultSampler::Total)];
 
         GfxDriver* m_gfx_driver;

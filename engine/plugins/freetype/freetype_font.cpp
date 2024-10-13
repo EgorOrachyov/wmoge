@@ -166,21 +166,41 @@ namespace wmoge {
         flags.set(TextureFlag::Font);
         flags.set(TextureFlag::Compressed);
 
-        font_desc.texture = m_texture_manager->create_2d(flags, GfxFormat::R8, bitmap_width, bitmap_height, GfxTexSwizz::RRRRtoRGBA);
-        font_desc.texture->set_id(SID(font->get_name().str() + "_bitmap"));
-        font_desc.texture->set_sampler(m_gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_string())));
-        font_desc.texture->set_compression(compression_params);
-        font_desc.texture->set_source_images({bitmap});
+        TextureDesc desc;
+        desc.tex_type      = GfxTex::Tex2d;
+        desc.flags         = flags;
+        desc.width         = bitmap_width;
+        desc.height        = bitmap_height;
+        desc.mips          = Image::max_mips_count(bitmap_width, bitmap_height, 1);
+        desc.format_source = GfxFormat::R8;
+        desc.swizz         = GfxTexSwizz::RRRRtoRGBA;
+        desc.sampler       = m_gfx_driver->make_sampler(sampler_desc, SID(sampler_desc.to_string()));
 
-        if (!font_desc.texture->generate_mips()) {
+        if (!m_texture_manager->generate_mips({bitmap}, desc.images)) {
             WG_LOG_ERROR("failed to gen font mips " << font->get_name());
             return StatusCode::Error;
         }
-        if (!font_desc.texture->generate_compressed_data()) {
+
+        TexCompressionStats stats;
+
+        if (!m_texture_manager->generate_compressed_data(desc.images, GfxFormat::R8, compression_params, desc.compressed, desc.format, stats)) {
             WG_LOG_ERROR("failed to compress font texture " << font->get_name());
             return StatusCode::Error;
         }
-        m_texture_manager->init(font_desc.texture.get());
+
+#ifdef WG_DEBUG
+        WG_LOG_INFO("compressed bitmap"
+                    << " name=" << font->get_name()
+                    << " dim=" << Vec2i(bitmap_width, bitmap_height)
+                    << " fmt=" << magic_enum::enum_name(desc.format)
+                    << " from=" << StringUtils::from_mem_size(stats.source_size)
+                    << " to=" << StringUtils::from_mem_size(stats.result_size)
+                    << " ratio=" << stats.ratio << "%");
+#endif
+
+        font_desc.texture = m_texture_manager->create_texture_2d(desc);
+        font_desc.texture->set_id(SID(font->get_name().str() + "_bitmap"));
+        m_texture_manager->queue_texture_upload(font_desc.texture.get());
 
         return font->init(font_desc);
     }

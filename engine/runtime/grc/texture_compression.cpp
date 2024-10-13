@@ -27,6 +27,8 @@
 
 #include "texture_compression.hpp"
 
+#include "profiler/profiler_cpu.hpp"
+
 #include <compressonator.h>
 
 namespace wmoge {
@@ -280,7 +282,9 @@ namespace wmoge {
         }
     }
 
-    Status TexCompression::compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed) {
+    Status TexCompression::compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed, TexCompressionStats& stats) {
+        stats = TexCompressionStats();
+
         if (params.format == TexCompressionFormat::Unknown) {
             return StatusCode::InvalidParameter;
         }
@@ -292,6 +296,10 @@ namespace wmoge {
         compressed.reserve(source.size());
 
         for (const auto& entry : source) {
+            WG_PROFILE_CPU_GRC("TexCompression::compress_entry");
+
+            stats.source_size += entry.data->size();
+
             CMP_Texture cmp_source_texture{};
             cmp_source_texture.dwSize     = sizeof(cmp_source_texture);
             cmp_source_texture.dwWidth    = entry.width;
@@ -342,6 +350,12 @@ namespace wmoge {
             compressed_image.format = get_gfx_format(params.format);
 
             compressed.push_back(compressed_image);
+
+            stats.result_size += compressed_image.data->size();
+        }
+
+        if (stats.source_size > 0) {
+            stats.ratio = float(stats.result_size) / float(stats.source_size) * 100.0f;
         }
 
         return WG_OK;

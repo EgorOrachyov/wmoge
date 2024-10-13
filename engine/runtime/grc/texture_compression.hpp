@@ -171,6 +171,16 @@ namespace wmoge {
     WG_RTTI_END;
 
     /**
+     * @class TexCompressionStats
+     * @brief Stats returned after compression
+     */
+    struct TexCompressionStats {
+        std::size_t source_size = 0;
+        std::size_t result_size = 0;
+        float       ratio       = 0.0f;
+    };
+
+    /**
      * @class TexCompression
      * @brief Provides methods for texture data compression
      */
@@ -182,10 +192,11 @@ namespace wmoge {
          * @param params Structure holding parameters for compression
          * @param source Vector with source data to compress
          * @param compressed Vector with a compressed daa
+         * @param stats Stats
          *
          * @return Ok on success
          */
-        static Status compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed);
+        static Status compress(const TexCompressionParams& params, std::vector<GfxImageData>& source, std::vector<GfxImageData>& compressed, TexCompressionStats& stats);
     };
 
 }// namespace wmoge

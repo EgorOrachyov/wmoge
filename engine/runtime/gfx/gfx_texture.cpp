@@ -46,7 +46,7 @@ namespace wmoge {
         return *this == other;
     }
 
-    GfxTextureDesc GfxTextureDesc::make_2d(GfxFormat format, int width, int height, GfxTexSwizz swizz) {
+    GfxTextureDesc GfxTextureDesc::make_2d(GfxFormat format, int width, int height, int mips, GfxTexSwizz swizz) {
         GfxTextureDesc desc;
         desc.format       = format;
         desc.width        = width;
@@ -58,7 +58,11 @@ namespace wmoge {
         return desc;
     }
 
-    GfxTextureDesc GfxTextureDesc::make_cube(GfxFormat format, int width, int height, GfxTexSwizz swizz) {
+    GfxTextureDesc GfxTextureDesc::make_2d(GfxFormat format, int width, int height, GfxTexSwizz swizz) {
+        return make_2d(format, width, height, 1, swizz);
+    }
+
+    GfxTextureDesc GfxTextureDesc::make_cube(GfxFormat format, int width, int height, int mips, GfxTexSwizz swizz) {
         GfxTextureDesc desc;
         desc.format       = format;
         desc.width        = width;
@@ -68,6 +72,10 @@ namespace wmoge {
         desc.array_slices = 6;
         desc.tex_type     = GfxTex::TexCube;
         return desc;
+    }
+
+    GfxTextureDesc GfxTextureDesc::make_cube(GfxFormat format, int width, int height, GfxTexSwizz swizz) {
+        return make_cube(format, width, height, 1, swizz);
     }
 
 }// namespace wmoge

@@ -93,9 +93,17 @@ public:
 
         GameApplication::on_init();
 
-        mesh    = m_engine->asset_manager()->load(SID("assets/mesh/suzanne")).cast<Mesh>();
-        tex2d   = m_engine->asset_manager()->load(SID("assets/textures/dirt_mask")).cast<Texture2d>();
-        texCube = m_engine->asset_manager()->load(SID("assets/textures/skybox")).cast<TextureCube>();
+        auto async_mesh    = m_engine->asset_manager()->load_async(SID("assets/mesh/suzanne"));
+        auto async_tex2d   = m_engine->asset_manager()->load_async(SID("assets/textures/dirt_mask"));
+        auto async_texCube = m_engine->asset_manager()->load_async(SID("assets/textures/skybox"));
+
+        async_mesh.wait_completed();
+        async_tex2d.wait_completed();
+        async_texCube.wait_completed();
+
+        mesh    = async_mesh.result().cast<Mesh>();
+        tex2d   = async_tex2d.result().cast<Texture2d>();
+        texCube = async_texCube.result().cast<TextureCube>();
 
         // Engine::instance()->scene_manager()->change(scene);
 

@@ -39,6 +39,19 @@
 
 namespace wmoge {
 
+    static void log_texture_compression_result(const Strid& name, const TextureDesc& desc, const TexCompressionStats& stats) {
+#ifdef WG_DEBUG
+        WG_LOG_INFO("compressed texture "
+                    << name
+                    << " dim=" << Vec3i(desc.width, desc.height, desc.depth)
+                    << " array=" << desc.array_slices
+                    << " fmt=" << magic_enum::enum_name(desc.format)
+                    << " from=" << StringUtils::from_mem_size(stats.source_size)
+                    << " to=" << StringUtils::from_mem_size(stats.result_size)
+                    << " ratio=" << stats.ratio << "%");
+#endif
+    }
+
     Status Texture2dAssetLoader::fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) {
         Ref<Texture2dImportData> import_data = context.asset_meta.import_data.cast<Texture2dImportData>();
         if (!import_data) {
@@ -80,34 +93,46 @@ namespace wmoge {
         flags.set(TextureFlag::FromDisk);
         flags.set(TextureFlag::Compressed, import_data->compression.format != TexCompressionFormat::Unknown);
 
-        asset = texture_manager->create_2d(flags,
-                                           import_data->format,
-                                           source_image->get_width(),
-                                           source_image->get_height());
+        const int num_mips = import_data->mipmaps ? Image::max_mips_count(source_image->get_width(), source_image->get_height(), 1) : 1;
 
+        TextureDesc desc;
+        desc.tex_type      = GfxTex::Tex2d;
+        desc.flags         = flags;
+        desc.width         = source_image->get_width();
+        desc.height        = source_image->get_height();
+        desc.mips          = num_mips;
+        desc.format_source = import_data->format;
+        desc.format        = import_data->format;
+        desc.swizz         = import_data->swizz;
+        desc.sampler       = gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string()));
+        desc.images        = {source_image};
+
+        if (import_data->mipmaps) {
+            std::vector<Ref<Image>> mips;
+            if (!texture_manager->generate_mips(desc.images, mips)) {
+                WG_LOG_ERROR("failed to gen mip chain for " << asset_id);
+                return StatusCode::Error;
+            }
+            std::swap(desc.images, mips);
+        }
+
+        if (import_data->compression.format != TexCompressionFormat::Unknown) {
+            TexCompressionStats stats;
+            if (!texture_manager->generate_compressed_data(desc.images, import_data->format, import_data->compression, desc.compressed, desc.format, stats)) {
+                WG_LOG_ERROR("failed to compress data for " << asset_id);
+                return StatusCode::Error;
+            }
+            log_texture_compression_result(asset_id.sid(), desc, stats);
+        }
+
+        asset = texture_manager->create_texture_2d(desc);
         if (!asset) {
             WG_LOG_ERROR("failed to instantiate texture " << asset_id);
             return StatusCode::FailedInstantiate;
         }
 
         asset->set_id(asset_id);
-        asset->set_source_images({source_image});
-        asset->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
-        asset->set_compression(import_data->compression);
-
-        if (import_data->mipmaps) {
-            if (!asset->generate_mips()) {
-                WG_LOG_ERROR("failed to gen mip chain for " << asset_id);
-                return StatusCode::Error;
-            }
-        }
-        if (import_data->compression.format != TexCompressionFormat::Unknown) {
-            if (!asset->generate_compressed_data()) {
-                WG_LOG_ERROR("failed to compress data for " << asset_id);
-                return StatusCode::Error;
-            }
-        }
-        texture_manager->init(asset.get());
+        texture_manager->queue_texture_upload(asset.get());
 
         return WG_OK;
     }
@@ -182,34 +207,47 @@ namespace wmoge {
         flags.set(TextureFlag::FromDisk);
         flags.set(TextureFlag::Compressed, import_data->compression.format != TexCompressionFormat::Unknown);
 
-        asset = texture_manager->create_cube(flags,
-                                             import_data->format,
-                                             source_images.front()->get_width(),
-                                             source_images.front()->get_height());
+        const int num_mips = import_data->mipmaps ? Image::max_mips_count(source_images[0]->get_width(), source_images[0]->get_height(), 1) : 1;
 
-        if (!asset) {
-            WG_LOG_ERROR("failed to instantiate texture " << asset_id);
-            return StatusCode::Error;
-        }
-
-        asset->set_id(asset_id);
-        asset->set_source_images(source_images);
-        asset->set_sampler(gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string())));
-        asset->set_compression(import_data->compression);
+        TextureDesc desc;
+        desc.tex_type      = GfxTex::TexCube;
+        desc.flags         = flags;
+        desc.width         = source_images[0]->get_width();
+        desc.height        = source_images[0]->get_height();
+        desc.array_slices  = 6;
+        desc.mips          = num_mips;
+        desc.format_source = import_data->format;
+        desc.format        = import_data->format;
+        desc.swizz         = import_data->swizz;
+        desc.sampler       = gfx_driver->make_sampler(import_data->sampling, SID(import_data->sampling.to_string()));
+        desc.images        = std::move(source_images);
 
         if (import_data->mipmaps) {
-            if (!asset->generate_mips()) {
+            std::vector<Ref<Image>> mips;
+            if (!texture_manager->generate_mips(desc.images, mips)) {
                 WG_LOG_ERROR("failed to gen mip chain for " << asset_id);
                 return StatusCode::Error;
             }
+            std::swap(desc.images, mips);
         }
+
         if (import_data->compression.format != TexCompressionFormat::Unknown) {
-            if (!asset->generate_compressed_data()) {
+            TexCompressionStats stats;
+            if (!texture_manager->generate_compressed_data(desc.images, import_data->format, import_data->compression, desc.compressed, desc.format, stats)) {
                 WG_LOG_ERROR("failed to compress data for " << asset_id);
                 return StatusCode::Error;
             }
+            log_texture_compression_result(asset_id.sid(), desc, stats);
         }
-        texture_manager->init(asset.get());
+
+        asset = texture_manager->create_texture_cube(desc);
+        if (!asset) {
+            WG_LOG_ERROR("failed to instantiate texture " << asset_id);
+            return StatusCode::FailedInstantiate;
+        }
+
+        asset->set_id(asset_id);
+        texture_manager->queue_texture_upload(asset.get());
 
         return WG_OK;
     }

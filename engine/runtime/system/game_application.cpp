@@ -80,27 +80,28 @@ namespace wmoge {
 
     static void bind_globals(IocContainer* ioc) {
         ioc->bind_by_pointer<Log>(Log::instance());
-        ioc->bind_by_ioc<ProfilerCapture>();
         ioc->bind_by_pointer<RttiTypeStorage>(RttiTypeStorage::instance());
-        ioc->bind_by_ioc<DllManager>();
         ioc->bind<PluginManager>();
         ioc->bind<Time>();
-        ioc->bind_by_ioc<Config>();
         ioc->bind<FileSystem>();
         ioc->bind<Console>();
         ioc->bind<CallbackQueue>();
+        ioc->bind<RenderEngine>();
+        ioc->bind<EcsRegistry>();
+        ioc->bind<ViewManager>();
+        ioc->bind<EngineConfig>();
+        ioc->bind_by_ioc<DllManager>();
+        ioc->bind_by_ioc<ProfilerCapture>();
+        ioc->bind_by_ioc<Config>();
         ioc->bind_by_ioc<GlslShaderCompiler>();
         ioc->bind_by_ioc<ShaderLibrary>();
         ioc->bind_by_ioc<ShaderManager>();
         ioc->bind_by_ioc<PsoCache>();
         ioc->bind_by_ioc<TextureManager>();
         ioc->bind_by_ioc<MeshManager>();
-        ioc->bind<RenderEngine>();
         ioc->bind_by_ioc<AssetManager>();
-        ioc->bind<EcsRegistry>();
         ioc->bind_by_ioc<SceneManager>();
-        ioc->bind<ViewManager>();
-        ioc->bind<EngineConfig>();
+        ioc->bind_by_ioc<Engine>();
 
         ioc->bind_by_factory<IoAsyncFileSystem>([ioc]() {
             const int num_workers = 4;
@@ -146,8 +147,6 @@ namespace wmoge {
         ioc->bind_by_factory<GfxDriver>([ioc]() {
             return std::shared_ptr<GfxDriver>(ioc->resolve_value<VKDriver>(), [](auto p) {});
         });
-
-        ioc->bind_by_ioc<Engine>();
     }
 
     static Status unbind_globals(IocContainer* ioc) {

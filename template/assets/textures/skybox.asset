@@ -28,3 +28,13 @@ import_data:
     v: ClampToEdge
     w: ClampToEdge
     brd_clr: Black
+  compression:
+    # format: BC7
+    use_channel_weighting: false
+    weight_red: 0.3
+    weight_green: 0.4
+    weight_blue: 0.3
+    use_adaptive_weighting: false
+    use_alpha: false
+    alpha_threshold: 128
+    fquality: 0.05

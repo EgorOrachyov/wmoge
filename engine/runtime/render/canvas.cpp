@@ -97,7 +97,7 @@ namespace wmoge {
                     value.resource               = texture->get_texture().as<GfxResource>();
                     value.sampler                = texture->get_sampler();
                 } else {
-                    value.resource = tex_manager->get_texture(DefaultTexture::White).as<GfxResource>();
+                    value.resource = tex_manager->get_texture_gfx(DefaultTexture::White).as<GfxResource>();
                     value.sampler  = tex_manager->get_sampler(DefaultSampler::Default);
                 }
             }

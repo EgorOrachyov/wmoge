@@ -23,6 +23,7 @@ import_data:
     w: Repeat
     brd_clr: Black
   compression:
+    # format: BC7
     use_channel_weighting: false
     weight_red: 0.3
     weight_green: 0.4
@@ -31,4 +32,3 @@ import_data:
     use_alpha: false
     alpha_threshold: 128
     fquality: 0.05
-    num_threads: 4
