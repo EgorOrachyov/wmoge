@@ -1,18 +1,18 @@
 <map id="engine/runtime/core/signal.hpp" name="engine/runtime/core/signal.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="7692,5,7828,47"/>
-<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="7823,191,7996,218"/>
+<area shape="rect" id="node1" title=" " alt="" coords="7720,5,7856,47"/>
+<area shape="rect" id="node2" href="$engine_8hpp.html" title=" " alt="" coords="7851,191,8024,218"/>
 <area shape="rect" id="node3" href="$profiler__cpu_8hpp.html" title=" " alt="" coords="3999,95,4148,136"/>
-<area shape="rect" id="node49" href="$profiler__gpu_8hpp.html" title=" " alt="" coords="7629,95,7779,136"/>
-<area shape="rect" id="node50" href="$application_8hpp.html" title=" " alt="" coords="7854,95,8007,136"/>
-<area shape="rect" id="node4" href="$asset__library__fs_8cpp.html" title=" " alt="" coords="5966,184,6109,225"/>
-<area shape="rect" id="node5" href="$asset__manager_8cpp.html" title=" " alt="" coords="6133,184,6275,225"/>
-<area shape="rect" id="node6" href="$audio__stream__wav_8cpp.html" title=" " alt="" coords="6299,184,6458,225"/>
-<area shape="rect" id="node7" href="$al__bus_8cpp.html" title=" " alt="" coords="6482,184,6625,225"/>
-<area shape="rect" id="node8" href="$al__engine_8cpp.html" title=" " alt="" coords="6649,184,6796,225"/>
-<area shape="rect" id="node9" href="$al__playback_8cpp.html" title=" " alt="" coords="6820,184,6980,225"/>
-<area shape="rect" id="node10" href="$async_8cpp.html" title=" " alt="" coords="7004,184,7140,225"/>
-<area shape="rect" id="node11" href="$callback__queue_8cpp.html" title=" " alt="" coords="7165,184,7305,225"/>
-<area shape="rect" id="node12" href="$callback__stream_8cpp.html" title=" " alt="" coords="7329,184,7474,225"/>
+<area shape="rect" id="node49" href="$profiler__gpu_8hpp.html" title=" " alt="" coords="7657,95,7807,136"/>
+<area shape="rect" id="node50" href="$application_8hpp.html" title=" " alt="" coords="7882,95,8035,136"/>
+<area shape="rect" id="node4" href="$asset__library__fs_8cpp.html" title=" " alt="" coords="5994,184,6137,225"/>
+<area shape="rect" id="node5" href="$asset__manager_8cpp.html" title=" " alt="" coords="6161,184,6303,225"/>
+<area shape="rect" id="node6" href="$audio__stream__wav_8cpp.html" title=" " alt="" coords="6327,184,6486,225"/>
+<area shape="rect" id="node7" href="$al__bus_8cpp.html" title=" " alt="" coords="6510,184,6653,225"/>
+<area shape="rect" id="node8" href="$al__engine_8cpp.html" title=" " alt="" coords="6677,184,6824,225"/>
+<area shape="rect" id="node9" href="$al__playback_8cpp.html" title=" " alt="" coords="6848,184,7008,225"/>
+<area shape="rect" id="node10" href="$async_8cpp.html" title=" " alt="" coords="7032,184,7168,225"/>
+<area shape="rect" id="node11" href="$callback__queue_8cpp.html" title=" " alt="" coords="7193,184,7333,225"/>
+<area shape="rect" id="node12" href="$callback__stream_8cpp.html" title=" " alt="" coords="7357,184,7502,225"/>
 <area shape="rect" id="node13" href="$task_8cpp.html" title=" " alt="" coords="5,184,141,225"/>
 <area shape="rect" id="node14" href="$task__manager_8cpp.html" title=" " alt="" coords="165,184,301,225"/>
 <area shape="rect" id="node15" href="$task__parallel__for_8cpp.html" title=" " alt="" coords="326,184,471,225"/>
@@ -37,16 +37,16 @@
 <area shape="rect" id="node34" href="$shader__cache_8cpp.html" title=" " alt="" coords="3691,184,3821,225"/>
 <area shape="rect" id="node35" href="$shader__library_8cpp.html" title=" " alt="" coords="3845,184,3976,225"/>
 <area shape="rect" id="node36" href="$shader__manager_8cpp.html" title=" " alt="" coords="4000,184,4147,225"/>
-<area shape="rect" id="node37" href="$texture_8cpp.html" title=" " alt="" coords="7498,184,7627,225"/>
-<area shape="rect" id="node38" href="$texture__manager_8cpp.html" title=" " alt="" coords="7652,184,7799,225"/>
-<area shape="rect" id="node39" href="$texture__resize_8cpp.html" title=" " alt="" coords="4171,184,4301,225"/>
-<area shape="rect" id="node40" href="$async__file__system_8cpp.html" title=" " alt="" coords="4326,184,4485,225"/>
-<area shape="rect" id="node41" href="$compression_8cpp.html" title=" " alt="" coords="4509,191,4731,218"/>
-<area shape="rect" id="node42" href="$config__file_8cpp.html" title=" " alt="" coords="4755,184,4914,225"/>
-<area shape="rect" id="node43" href="$stream__file_8cpp.html" title=" " alt="" coords="4939,184,5104,225"/>
-<area shape="rect" id="node44" href="$tree__yaml_8cpp.html" title=" " alt="" coords="5128,184,5275,225"/>
-<area shape="rect" id="node45" href="$array__mesh_8cpp.html" title=" " alt="" coords="5299,184,5442,225"/>
-<area shape="rect" id="node46" href="$mesh_8cpp.html" title=" " alt="" coords="5466,184,5609,225"/>
-<area shape="rect" id="node47" href="$mesh__batch_8cpp.html" title=" " alt="" coords="5633,184,5775,225"/>
-<area shape="rect" id="node48" href="$mesh__builder_8cpp.html" title=" " alt="" coords="5799,184,5942,225"/>
+<area shape="rect" id="node37" href="$texture_8cpp.html" title=" " alt="" coords="7526,184,7655,225"/>
+<area shape="rect" id="node38" href="$texture__compression_8cpp.html" title=" " alt="" coords="4171,184,4341,225"/>
+<area shape="rect" id="node39" href="$texture__manager_8cpp.html" title=" " alt="" coords="7680,184,7827,225"/>
+<area shape="rect" id="node40" href="$texture__resize_8cpp.html" title=" " alt="" coords="4365,184,4496,225"/>
+<area shape="rect" id="node41" href="$async__file__system_8cpp.html" title=" " alt="" coords="4521,184,4679,225"/>
+<area shape="rect" id="node42" href="$compression_8cpp.html" title=" " alt="" coords="4703,191,4926,218"/>
+<area shape="rect" id="node43" href="$config__file_8cpp.html" title=" " alt="" coords="4950,184,5109,225"/>
+<area shape="rect" id="node44" href="$stream__file_8cpp.html" title=" " alt="" coords="5133,184,5299,225"/>
+<area shape="rect" id="node45" href="$tree__yaml_8cpp.html" title=" " alt="" coords="5323,184,5469,225"/>
+<area shape="rect" id="node46" href="$array__mesh_8cpp.html" title=" " alt="" coords="5494,184,5637,225"/>
+<area shape="rect" id="node47" href="$mesh_8cpp.html" title=" " alt="" coords="5661,184,5803,225"/>
+<area shape="rect" id="node48" href="$mesh__batch_8cpp.html" title=" " alt="" coords="5827,184,5970,225"/>
 </map>

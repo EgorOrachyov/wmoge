@@ -1,0 +1,8 @@
+<map id="wmoge::TextureDesc" name="wmoge::TextureDesc">
+<area shape="rect" id="node1" title="Texture asset desc for construction." alt="" coords="343,137,485,163"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="37,5,186,47"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="15,71,207,112"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1Mask.html" title=" " alt="" coords="15,137,207,163"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1TexCompressionParams.html" title="Set of parameters to compress texture data." alt="" coords="5,187,217,214"/>
+<area shape="rect" id="node6" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="37,239,186,280"/>
+</map>

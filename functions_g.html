@@ -117,7 +117,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1UUID.html#abe6b1e49104fdeef6698829aa569e6d5">wmoge::UUID</a>
 </li>
 <li>generate_compressed_data()
-: <a class="el" href="classwmoge_1_1Texture.html#afb87e9dad99e2befb47bb0c0c093b099">wmoge::Texture</a>
+: <a class="el" href="classwmoge_1_1TextureManager.html#a527cc105b0866d2093ca98f14dcfb2ba">wmoge::TextureManager</a>
 </li>
 <li>generate_degug_info
 : <a class="el" href="structwmoge_1_1ShaderCompilerOptions.html#a567cf774a3f3d3bbb68886b168562186">wmoge::ShaderCompilerOptions</a>
@@ -126,7 +126,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Image.html#a48398132c7cbefbef9d721fc0da97148">wmoge::Image</a>
 </li>
 <li>generate_mips()
-: <a class="el" href="classwmoge_1_1Texture.html#abfa0538f12f03c5b62e37ed7bf447eb7">wmoge::Texture</a>
+: <a class="el" href="classwmoge_1_1TextureManager.html#a93a0b55298d57ea98494759aef64edf8">wmoge::TextureManager</a>
 </li>
 <li>get()
 : <a class="el" href="classwmoge_1_1AnyStorage.html#a20d6fcd243a0482818f625ca9f90368a">wmoge::AnyStorage</a>
@@ -559,9 +559,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1Mesh.html#af6af77449177573d31e74ff2f3986dfc">wmoge::Mesh</a>
 , <a class="el" href="classwmoge_1_1RDGPass.html#a02504c64e1a3023f162c691fab85312d">wmoge::RDGPass</a>
 , <a class="el" href="classwmoge_1_1RDGResource.html#a65a215ac0bdfdcb24023c743581282c0">wmoge::RDGResource</a>
-</li>
-<li>get_flgas()
-: <a class="el" href="classwmoge_1_1Texture.html#a6feccdf2db890f8cabb0510231f5e9f2">wmoge::Texture</a>
+, <a class="el" href="classwmoge_1_1Texture.html#a6e5a924f6f2d5b832a7412227156b2b0">wmoge::Texture</a>
 </li>
 <li>get_float()
 : <a class="el" href="classwmoge_1_1Config.html#aa72870fdc98f46c722a4fc7912c257bc">wmoge::Config</a>
@@ -575,8 +573,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Texture.html#a963ced687895b3b5b9523ec54a290c81">wmoge::Texture</a>
 , <a class="el" href="classwmoge_1_1VKDefs.html#a7b9cc7856bcf117944d874325ae1adfe">wmoge::VKDefs</a>
 </li>
-<li>get_format_compressed()
-: <a class="el" href="classwmoge_1_1Texture.html#aa78c2a8bc821d0495afa5f6423a197b8">wmoge::Texture</a>
+<li>get_format_source()
+: <a class="el" href="classwmoge_1_1Texture.html#a47536fd4a20277c35d2594c4fb0d4377">wmoge::Texture</a>
 </li>
 <li>get_fov()
 : <a class="el" href="classwmoge_1_1Camera.html#a3a434a024f9e9c682a03ecb770646c75">wmoge::Camera</a>
@@ -616,7 +614,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Mesh.html#a7fe9d9215775bc5b9584f896a4a4b094">wmoge::Mesh</a>
 </li>
 <li>get_gfx_resources()
-: <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a1fa5e4834c835f42718c7f71ba5c261c">wmoge::ShaderParamBlock</a>
+: <a class="el" href="classwmoge_1_1ShaderParamBlock.html#ac9f9bb2698bc3e123a5c82dbf060ba34">wmoge::ShaderParamBlock</a>
 </li>
 <li>get_gfx_set()
 : <a class="el" href="classwmoge_1_1ShaderParamBlock.html#a463946336a4c515fe6107cdf639c788a">wmoge::ShaderParamBlock</a>
@@ -1039,7 +1037,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1PfxEmitter.html#a86cb9f5994f87eb327da5caa4a3a6a34">wmoge::PfxEmitter</a>
 </li>
 <li>get_sections()
-: <a class="el" href="classwmoge_1_1IniFile.html#a02ed882305c5d718ef0aabf28523d900">wmoge::IniFile</a>
+: <a class="el" href="classwmoge_1_1IniFile.html#a6af4990a971e57db6263445fc5db4e99">wmoge::IniFile</a>
 </li>
 <li>get_settings()
 : <a class="el" href="classwmoge_1_1GraphicsPipeline.html#ab3d787706cc523016fc16ead5ab338ab">wmoge::GraphicsPipeline</a>
@@ -1171,7 +1169,10 @@ $(function() {
 <li>get_texture()
 : <a class="el" href="classwmoge_1_1Font.html#a3b4069135203b3cbbfefde9866e82b67">wmoge::Font</a>
 , <a class="el" href="classwmoge_1_1Texture.html#ad281a8732028925299e72480bac46d12">wmoge::Texture</a>
-, <a class="el" href="classwmoge_1_1TextureManager.html#abe2a7db59640dc2ea1f5954a2edc1e09">wmoge::TextureManager</a>
+, <a class="el" href="classwmoge_1_1TextureManager.html#a8915de7267b499dc018804f6a18f5b1d">wmoge::TextureManager</a>
+</li>
+<li>get_texture_gfx()
+: <a class="el" href="classwmoge_1_1TextureManager.html#ac62647398775982fbe214f1b7a33b4af">wmoge::TextureManager</a>
 </li>
 <li>get_thread_id()
 : <a class="el" href="classwmoge_1_1ProfilerCpu.html#abbe4046c2002c938a0e680288f216377">wmoge::ProfilerCpu</a>

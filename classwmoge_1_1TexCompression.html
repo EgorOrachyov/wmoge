@@ -80,15 +80,15 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a591cb9fe154871a18e0301f3e1ad16be"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TexCompression.html#a591cb9fe154871a18e0301f3e1ad16be">compress</a> (const <a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> &amp;params, std::vector&lt; <a class="el" href="structwmoge_1_1GfxImageData.html">GfxImageData</a> &gt; &amp;source, std::vector&lt; <a class="el" href="structwmoge_1_1GfxImageData.html">GfxImageData</a> &gt; &amp;compressed)</td></tr>
-<tr class="memdesc:a591cb9fe154871a18e0301f3e1ad16be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compress a list of image data using provided setup.  <a href="classwmoge_1_1TexCompression.html#a591cb9fe154871a18e0301f3e1ad16be">More...</a><br /></td></tr>
-<tr class="separator:a591cb9fe154871a18e0301f3e1ad16be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03a51f2797988aa348d9109aa2df6994"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1TexCompression.html#a03a51f2797988aa348d9109aa2df6994">compress</a> (const <a class="el" href="structwmoge_1_1TexCompressionParams.html">TexCompressionParams</a> &amp;params, std::vector&lt; <a class="el" href="structwmoge_1_1GfxImageData.html">GfxImageData</a> &gt; &amp;source, std::vector&lt; <a class="el" href="structwmoge_1_1GfxImageData.html">GfxImageData</a> &gt; &amp;compressed, <a class="el" href="structwmoge_1_1TexCompressionStats.html">TexCompressionStats</a> &amp;stats)</td></tr>
+<tr class="memdesc:a03a51f2797988aa348d9109aa2df6994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compress a list of image data using provided setup.  <a href="classwmoge_1_1TexCompression.html#a03a51f2797988aa348d9109aa2df6994">More...</a><br /></td></tr>
+<tr class="separator:a03a51f2797988aa348d9109aa2df6994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides methods for texture data compression. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a591cb9fe154871a18e0301f3e1ad16be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a591cb9fe154871a18e0301f3e1ad16be">&#9670;&nbsp;</a></span>compress()</h2>
+<a id="a03a51f2797988aa348d9109aa2df6994"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03a51f2797988aa348d9109aa2df6994">&#9670;&nbsp;</a></span>compress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,7 +112,13 @@ Static Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structwmoge_1_1GfxImageData.html">GfxImageData</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>compressed</em>&#160;</td>
+          <td class="paramname"><em>compressed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1TexCompressionStats.html">TexCompressionStats</a> &amp;&#160;</td>
+          <td class="paramname"><em>stats</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -132,7 +138,8 @@ Static Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">params</td><td>Structure holding parameters for compression </td></tr>
     <tr><td class="paramname">source</td><td>Vector with source data to compress </td></tr>
-    <tr><td class="paramname">compressed</td><td>Vector with a compressed daa</td></tr>
+    <tr><td class="paramname">compressed</td><td>Vector with a compressed daa </td></tr>
+    <tr><td class="paramname">stats</td><td>Stats</td></tr>
   </table>
   </dd>
 </dl>
