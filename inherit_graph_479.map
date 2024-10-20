@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classwmoge_1_1Task.html" title="Some job to be executed in task manager." alt="" coords="5,5,104,32"/>
+<area shape="rect" id="node1" href="$classwmoge_1_1TaskManager.html" title="Manager for engine async task execution." alt="" coords="5,5,155,32"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1ShaderTaskManager.html" title="Task manager to schedule shader compilation jobs." alt="" coords="203,5,393,32"/>
 </map>

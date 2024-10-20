@@ -14,7 +14,7 @@ var searchData=
   ['children_7580',['children',['../structwmoge_1_1EcsComponentChildren.html#a77eaab9fbc35b56046b5f76958450007',1,'wmoge::EcsComponentChildren']]],
   ['chunk_5fidx_7581',['chunk_idx',['../structwmoge_1_1ModelObj.html#af97b62223a79f5cada10fb54b63ec69f',1,'wmoge::ModelObj']]],
   ['chunk_5fsize_7582',['chunk_size',['../structwmoge_1_1EngineConfig_1_1Ecs.html#ac9d34fe0f871dfa9000ae0e5615686a2',1,'wmoge::EngineConfig::Ecs']]],
-  ['chunks_7583',['chunks',['../structwmoge_1_1MeshData.html#a0824161aff7543dcb25120a07cb3badf',1,'wmoge::MeshData']]],
+  ['chunks_7583',['chunks',['../structwmoge_1_1MeshDesc.html#a4e719cbaf8e0e3d3c1fa87aad407c6ca',1,'wmoge::MeshDesc']]],
   ['clear_7584',['clear',['../structwmoge_1_1RDGPassColorTarget.html#ae29efa68c58ce1e974a0bfa8730b9f31',1,'wmoge::RDGPassColorTarget']]],
   ['clear_5fcolor_7585',['clear_color',['../structwmoge_1_1GfxRenderPassBeginInfo.html#a4a70537c845c176cfc2d2c7647f6fc3e',1,'wmoge::GfxRenderPassBeginInfo']]],
   ['clear_5fdepth_7586',['clear_depth',['../structwmoge_1_1RDGPassDepthTarget.html#a5618c9acf469fc696aab9646bf77fa5c',1,'wmoge::RDGPassDepthTarget::clear_depth()'],['../structwmoge_1_1GfxRenderPassBeginInfo.html#a24f5d6e670a9c667afbfb49cb389c430',1,'wmoge::GfxRenderPassBeginInfo::clear_depth()']]],

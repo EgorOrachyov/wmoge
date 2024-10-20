@@ -155,7 +155,7 @@ $(function() {
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">enum class</span> State {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <a class="code" href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5ac57212632c13062f753cfcf1783fbffc">PendingUpload</a> = 0,</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            PendingUpload = 0,</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        };</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">struct </span>Entry {</div>
@@ -167,16 +167,15 @@ $(function() {
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="classwmoge_1_1Texture.html#ab47c65e0fa778a54e3a5f8a3c0048688">Texture::CallbackRef</a>         m_callback;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        std::unique_ptr&lt;TexturePool&gt; m_pool;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">bool</span>                         m_need_upload_default = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Texture&gt;</a>    m_default_textures[int(<a class="code" href="namespacewmoge.html#aff93c57829acd42a3c74602b395116bca96b0141273eabab320119c467cdcaf17">DefaultTexture::Total</a>)];</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GfxSampler&gt;</a> m_default_samplers[int(<a class="code" href="namespacewmoge.html#a34a113ab414c098093d0da12bfd6322ba96b0141273eabab320119c467cdcaf17">DefaultSampler::Total</a>)];</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <a class="code" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>* m_gfx_driver;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">mutable</span> std::mutex m_mutex;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    };</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}<span class="comment">// namespace wmoge</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;Texture&gt;</a>                 m_default_textures[int(<a class="code" href="namespacewmoge.html#aff93c57829acd42a3c74602b395116bca96b0141273eabab320119c467cdcaf17">DefaultTexture::Total</a>)];</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="classwmoge_1_1Ref.html">Ref&lt;GfxSampler&gt;</a>              m_default_samplers[int(<a class="code" href="namespacewmoge.html#a34a113ab414c098093d0da12bfd6322ba96b0141273eabab320119c467cdcaf17">DefaultSampler::Total</a>)];</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>* m_gfx_driver;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">mutable</span> std::mutex m_mutex;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    };</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}<span class="comment">// namespace wmoge</span></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriver_html"><div class="ttname"><a href="classwmoge_1_1GfxDriver.html">wmoge::GfxDriver</a></div><div class="ttdoc">Gfx driver interface.</div><div class="ttdef"><b>Definition:</b> gfx_driver.hpp:62</div></div>
 <div class="ttc" id="aclasswmoge_1_1IocContainer_html"><div class="ttname"><a href="classwmoge_1_1IocContainer.html">wmoge::IocContainer</a></div><div class="ttdoc">Inversion of control container for simpler dependency injection of global engine managers.</div><div class="ttdef"><b>Definition:</b> ioc_container.hpp:70</div></div>
 <div class="ttc" id="aclasswmoge_1_1Ref_html"><div class="ttname"><a href="classwmoge_1_1Ref.html">wmoge::Ref</a></div><div class="ttdoc">Smart shared reference-counted pointer to T class.</div><div class="ttdef"><b>Definition:</b> ref.hpp:76</div></div>
@@ -208,7 +207,6 @@ $(function() {
 <div class="ttc" id="anamespacewmoge_html_a34a113ab414c098093d0da12bfd6322ba60494f02d440f316319dd0fad40ad007"><div class="ttname"><a href="namespacewmoge.html#a34a113ab414c098093d0da12bfd6322ba60494f02d440f316319dd0fad40ad007">wmoge::DefaultSampler::Nearest</a></div><div class="ttdeci">@ Nearest</div></div>
 <div class="ttc" id="anamespacewmoge_html_a34a113ab414c098093d0da12bfd6322ba7a1920d61156abc05a60135aefe8bc67"><div class="ttname"><a href="namespacewmoge.html#a34a113ab414c098093d0da12bfd6322ba7a1920d61156abc05a60135aefe8bc67">wmoge::DefaultSampler::Default</a></div><div class="ttdeci">@ Default</div></div>
 <div class="ttc" id="anamespacewmoge_html_a34a113ab414c098093d0da12bfd6322ba96b0141273eabab320119c467cdcaf17"><div class="ttname"><a href="namespacewmoge.html#a34a113ab414c098093d0da12bfd6322ba96b0141273eabab320119c467cdcaf17">wmoge::DefaultSampler::Total</a></div><div class="ttdeci">@ Total</div></div>
-<div class="ttc" id="anamespacewmoge_html_a650e43420103fa27fd94723d187b8ae5ac57212632c13062f753cfcf1783fbffc"><div class="ttname"><a href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5ac57212632c13062f753cfcf1783fbffc">wmoge::MeshState::PendingUpload</a></div><div class="ttdeci">@ PendingUpload</div></div>
 <div class="ttc" id="anamespacewmoge_html_aa988dc48fe4b0141aa56bb926a81c484"><div class="ttname"><a href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">wmoge::flat_map</a></div><div class="ttdeci">robin_hood::unordered_flat_map&lt; K, V &gt; flat_map</div><div class="ttdoc">wrapper for fast robin_hood unordered map</div><div class="ttdef"><b>Definition:</b> flat_map.hpp:46</div></div>
 <div class="ttc" id="anamespacewmoge_html_acffa0badd5624791d87d79f12b29a5a2"><div class="ttname"><a href="namespacewmoge.html#acffa0badd5624791d87d79f12b29a5a2">wmoge::GfxFormat</a></div><div class="ttdeci">GfxFormat</div><div class="ttdoc">Formats used to specify internal storage format.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:222</div></div>
 <div class="ttc" id="anamespacewmoge_html_ad14b72c71b7b44f44cd12281a1102062"><div class="ttname"><a href="namespacewmoge.html#ad14b72c71b7b44f44cd12281a1102062">wmoge::GfxTexSwizz</a></div><div class="ttdeci">GfxTexSwizz</div><div class="ttdoc">Tex view channels swizzling.</div><div class="ttdef"><b>Definition:</b> gfx_defs.hpp:216</div></div>

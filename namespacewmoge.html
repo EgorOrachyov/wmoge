@@ -1024,8 +1024,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents single mesh chunk in a mesh which can be rendered individually with material.  <a href="structwmoge_1_1MeshChunk.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshData.html">MeshData</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct used to serialize mesh asset data.  <a href="structwmoge_1_1MeshData.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1MeshDesc.html">MeshDesc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct used to serialize mesh asset data.  <a href="structwmoge_1_1MeshDesc.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1Mesh.html">Mesh</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vertex and index data structured as chunks which can be rendered.  <a href="classwmoge_1_1Mesh.html#details">More...</a><br /></td></tr>
@@ -2101,6 +2101,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:afa9c77373a703158a05edad6a590085b"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of engine errors.  <a href="namespacewmoge.html#afa9c77373a703158a05edad6a590085b">More...</a><br /></td></tr>
 <tr class="separator:afa9c77373a703158a05edad6a590085b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10664765971dc483f99dd2f706eb8c70"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70">StridPool</a> { <a class="el" href="namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70ab8e7b465df7c5979dc731d06e84ce2cf">Release</a> = 0
+, <a class="el" href="namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70aa603905470e2a5b8c13e96b579ef0dba">Debug</a>
+, <a class="el" href="namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70a6a061313d22e51e0f25b7cd4dc065233">Max</a>
+ }</td></tr>
+<tr class="memdesc:a10664765971dc483f99dd2f706eb8c70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pool to allocate strid, separated for profiling purposes.  <a href="namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70">More...</a><br /></td></tr>
+<tr class="separator:a10664765971dc483f99dd2f706eb8c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e4f17edabc6b45b13dd9de865c677c7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a6e4f17edabc6b45b13dd9de865c677c7">VarType</a> : int { <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#a6e4f17edabc6b45b13dd9de865c677c7a4da8b7eb2c3f2007cf8238334401ef51">Nil</a> = 0
 , <a class="el" href="namespacewmoge.html#a6e4f17edabc6b45b13dd9de865c677c7a1686a6c336b71b36d77354cea19a8b52">Int</a> = 1
@@ -2736,11 +2742,6 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aed2d3340eb16ca2859b026ce2c63a368"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag assigned to mesh asset.  <a href="namespacewmoge.html#aed2d3340eb16ca2859b026ce2c63a368">More...</a><br /></td></tr>
 <tr class="separator:aed2d3340eb16ca2859b026ce2c63a368"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650e43420103fa27fd94723d187b8ae5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5">MeshState</a> { <a class="el" href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5ac57212632c13062f753cfcf1783fbffc">PendingUpload</a>
-, <a class="el" href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5a2fb96d26473a6324fcb6cc751ce962bd">Inited</a>
- }</td></tr>
-<tr class="memdesc:a650e43420103fa27fd94723d187b8ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Managed mesh state.  <a href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5">More...</a><br /></td></tr>
-<tr class="separator:a650e43420103fa27fd94723d187b8ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5906ac40d169284533e2c51be72af3dc"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dc">MeshPassType</a> { <br />
 &#160;&#160;<a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dcaa9ded1e5ce5d75814730bb4caaf49419">Background</a> = 0
 , <a class="el" href="namespacewmoge.html#a5906ac40d169284533e2c51be72af3dca3f39588bb19e28051d9aedfbb170025c">Shadow</a>
@@ -3626,8 +3627,8 @@ Functions</h2></td></tr>
 <tr class="separator:a034180e19132852a5818d6c934afc5ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec5bc7dfad9f2b2e0088e9d98503c646"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aec5bc7dfad9f2b2e0088e9d98503c646">WG_RTTI_STRUCT_BEGIN</a> (<a class="el" href="structwmoge_1_1MeshChunk.html">MeshChunk</a>)</td></tr>
 <tr class="separator:aec5bc7dfad9f2b2e0088e9d98503c646"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a594c606e504c5323885819422c5673fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a594c606e504c5323885819422c5673fd">WG_RTTI_STRUCT_BEGIN</a> (<a class="el" href="structwmoge_1_1MeshData.html">MeshData</a>)</td></tr>
-<tr class="separator:a594c606e504c5323885819422c5673fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaec5771dfb933d3630008b21ab90e72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#abaec5771dfb933d3630008b21ab90e72">WG_RTTI_STRUCT_BEGIN</a> (<a class="el" href="structwmoge_1_1MeshDesc.html">MeshDesc</a>)</td></tr>
+<tr class="separator:abaec5771dfb933d3630008b21ab90e72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa384e50a5908d26e18d73c47e74092ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa384e50a5908d26e18d73c47e74092ce">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1Mesh.html">Mesh</a>)</td></tr>
 <tr class="separator:aa384e50a5908d26e18d73c47e74092ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1969d288195550a14339ce8d3348d62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae1969d288195550a14339ce8d3348d62">rtti_pfx</a> ()</td></tr>
@@ -7591,34 +7592,6 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a650e43420103fa27fd94723d187b8ae5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a650e43420103fa27fd94723d187b8ae5">&#9670;&nbsp;</a></span>MeshState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="namespacewmoge.html#a650e43420103fa27fd94723d187b8ae5">wmoge::MeshState</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Managed mesh state. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a650e43420103fa27fd94723d187b8ae5ac57212632c13062f753cfcf1783fbffc"></a>PendingUpload&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a650e43420103fa27fd94723d187b8ae5a2fb96d26473a6324fcb6cc751ce962bd"></a>Inited&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
 <a id="aff99d32791b80073094dc8fab6eae3db"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff99d32791b80073094dc8fab6eae3db">&#9670;&nbsp;</a></span>ModelObjFlag</h2>
 
@@ -8130,6 +8103,35 @@ template&lt;typename T &gt; </div>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba50dbed8ba86edcf1d6f581e01c11d934"></a>NoAsset&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085baaf7cfe08e573835c4fffeed05dcd1b79"></a>ExitCode0&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="afa9c77373a703158a05edad6a590085ba4c40906f8854a89f3a01d34b8b3d10de"></a>ExitCode1&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a10664765971dc483f99dd2f706eb8c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10664765971dc483f99dd2f706eb8c70">&#9670;&nbsp;</a></span>StridPool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70">wmoge::StridPool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pool to allocate strid, separated for profiling purposes. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a10664765971dc483f99dd2f706eb8c70ab8e7b465df7c5979dc731d06e84ce2cf"></a>Release&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a10664765971dc483f99dd2f706eb8c70aa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a10664765971dc483f99dd2f706eb8c70a6a061313d22e51e0f25b7cd4dc065233"></a>Max&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -15430,8 +15432,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a594c606e504c5323885819422c5673fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a594c606e504c5323885819422c5673fd">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[23/49]</span></h2>
+<a id="abaec5771dfb933d3630008b21ab90e72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaec5771dfb933d3630008b21ab90e72">&#9670;&nbsp;</a></span>WG_RTTI_STRUCT_BEGIN() <span class="overload">[23/49]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -15439,7 +15441,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">wmoge::WG_RTTI_STRUCT_BEGIN </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1MeshData.html">MeshData</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1MeshDesc.html">MeshDesc</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>

@@ -2,7 +2,7 @@ var searchData=
 [
   ['d_8596',['D',['../namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886af623e75af30e62bbd73d6df5b50bb7b5',1,'wmoge']]],
   ['dead_8597',['Dead',['../namespacewmoge.html#a803562e837408826afd7977c1a255b91a183b62c7f067711f9c5a54913c054617',1,'wmoge']]],
-  ['debug_8598',['Debug',['../namespacewmoge.html#a36813b822597e5521201e3b4a36dd1a2aa603905470e2a5b8c13e96b579ef0dba',1,'wmoge']]],
+  ['debug_8598',['Debug',['../namespacewmoge.html#a10664765971dc483f99dd2f706eb8c70aa603905470e2a5b8c13e96b579ef0dba',1,'wmoge::Debug()'],['../namespacewmoge.html#a36813b822597e5521201e3b4a36dd1a2aa603905470e2a5b8c13e96b579ef0dba',1,'wmoge::Debug()']]],
   ['decrement_8599',['Decrement',['../namespacewmoge.html#a30deb0099fdae742b3c4515b1e033144a6182913ea7b5c02fe2773ea87177d4f9',1,'wmoge']]],
   ['default_8600',['Default',['../namespacewmoge.html#a8a43106d4090389eaabb87d5a71b961ea7a1920d61156abc05a60135aefe8bc67',1,'wmoge::Default()'],['../namespacewmoge.html#a34a113ab414c098093d0da12bfd6322ba7a1920d61156abc05a60135aefe8bc67',1,'wmoge::Default()'],['../namespacewmoge.html#a44ba7100989617c6bfe5552ea848de38a7a1920d61156abc05a60135aefe8bc67',1,'wmoge::Default()']]],
   ['delete_8601',['Delete',['../namespacewmoge.html#a80dc64ab4e6ab5588636e0ea70632886af2a6c498fb90ee345d997f888fce3b18',1,'wmoge']]],

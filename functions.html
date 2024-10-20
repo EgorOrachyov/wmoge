@@ -70,7 +70,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1EcsComponentAabbLocal.html#a0916a34b3ba5c383fd9a114ab5eae587">wmoge::EcsComponentAabbLocal</a>
 , <a class="el" href="structwmoge_1_1EcsComponentAabbWorld.html#a42ca7273361896fcaca99e4303790721">wmoge::EcsComponentAabbWorld</a>
 , <a class="el" href="structwmoge_1_1MeshChunk.html#ab9bf3bea99f7a470e2d4e03a4e158878">wmoge::MeshChunk</a>
-, <a class="el" href="structwmoge_1_1MeshData.html#a81f87455fa68312a8590d326e5033d72">wmoge::MeshData</a>
+, <a class="el" href="structwmoge_1_1MeshDesc.html#a2b80da371405e60bae41adb2cec54c3d">wmoge::MeshDesc</a>
 , <a class="el" href="structwmoge_1_1ModelFile.html#a8296429c2ded910b3b3712a65a15dd41">wmoge::ModelFile</a>
 </li>
 <li>abs()
@@ -132,8 +132,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1CameraList.html#ae1cda9f520bbbdabb3e9a2487cfafc7f">wmoge::CameraList</a>
 </li>
 <li>add_chunk()
-: <a class="el" href="classwmoge_1_1Mesh.html#a8ea21bb0663883e184012cd1a927c63c">wmoge::Mesh</a>
-, <a class="el" href="classwmoge_1_1MeshBuilder.html#afba838b5b36051f18ef56d344e589324">wmoge::MeshBuilder</a>
+: <a class="el" href="classwmoge_1_1MeshBuilder.html#afba838b5b36051f18ef56d344e589324">wmoge::MeshBuilder</a>
 </li>
 <li>add_compiler()
 : <a class="el" href="classwmoge_1_1ShaderManager.html#a0facaaa989a6e62e004266021944e582">wmoge::ShaderManager</a>
@@ -187,7 +186,7 @@ $(function() {
 </li>
 <li>add_field()
 : <a class="el" href="classwmoge_1_1Class.html#af218a5a15887e43f7adaeb432c4b4025">wmoge::Class</a>
-, <a class="el" href="classwmoge_1_1GlslBuilder.html#a393d6423ea06648aaf4f072a41fe6ecd">wmoge::GlslBuilder</a>
+, <a class="el" href="classwmoge_1_1GlslBuilder.html#a0d6d9b15e06dd344d37004d80b4dfdd9">wmoge::GlslBuilder</a>
 , <a class="el" href="classwmoge_1_1RttiClassT.html#a10ff5af43db05116e25803980edff7f0">wmoge::RttiClassT&lt; ClassT &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiStruct.html#a2fad0bf8d7b545244abb1e07018955e3">wmoge::RttiStruct</a>
 , <a class="el" href="classwmoge_1_1RttiStructT.html#a5cc52f54d552866543ee118d3144fe58">wmoge::RttiStructT&lt; StructT &gt;</a>
@@ -215,9 +214,6 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GlslBuilder.html#aa616a731d550eac43a9ff96bca9543a7">wmoge::GlslBuilder</a>
 , <a class="el" href="classwmoge_1_1ShaderCodeBuilder.html#a6cbb2f006f3112e528eb504a87d894ea">wmoge::ShaderCodeBuilder</a>
 </li>
-<li>add_index_buffer()
-: <a class="el" href="classwmoge_1_1Mesh.html#a81a18c3a824a85c34dbd2e6d0088854c">wmoge::Mesh</a>
-</li>
 <li>add_info()
 : <a class="el" href="classwmoge_1_1Console.html#a93630d8fafbfee275e78f2a9d5ec3032">wmoge::Console</a>
 </li>
@@ -226,9 +222,6 @@ $(function() {
 </li>
 <li>add_int()
 : <a class="el" href="classwmoge_1_1CmdLineOptions.html#a92e3b612239315f0c4c491e4b6165e78">wmoge::CmdLineOptions</a>
-</li>
-<li>add_intex_stream()
-: <a class="el" href="classwmoge_1_1Mesh.html#abb54e34bb0582882611a2bfdacfcf0a8">wmoge::Mesh</a>
 </li>
 <li>add_library()
 : <a class="el" href="classwmoge_1_1AssetManager.html#a0696516d12e1c580ee582162ccf68897">wmoge::AssetManager</a>
@@ -373,14 +366,8 @@ $(function() {
 <li>add_vert_attribs()
 : <a class="el" href="classwmoge_1_1GfxVertElements.html#a159385958bd3be9659e98f601143c996">wmoge::GfxVertElements</a>
 </li>
-<li>add_vert_stream()
-: <a class="el" href="classwmoge_1_1Mesh.html#a7a1b9eabe063de089b5679509dfe98c4">wmoge::Mesh</a>
-</li>
 <li>add_vertex()
 : <a class="el" href="classwmoge_1_1ArrayMesh.html#a81101157bc728e1c3f0465815c5e5e17">wmoge::ArrayMesh</a>
-</li>
-<li>add_vertex_buffer()
-: <a class="el" href="classwmoge_1_1Mesh.html#ae53de05e9a272b9556e2629610962b7a">wmoge::Mesh</a>
 </li>
 <li>add_vertex_input()
 : <a class="el" href="classwmoge_1_1GlslBuilder.html#ab4a54f4b4c46eb04212ea635320eddd5">wmoge::GlslBuilder</a>
@@ -431,7 +418,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TexturePool.html#af7de9c06e5a72300b6f42f49256f359b">wmoge::TexturePool</a>
 , <a class="el" href="classwmoge_1_1VKCmdManager.html#af1747f9d71e8df475002d45d7f347532">wmoge::VKCmdManager</a>
 , <a class="el" href="classwmoge_1_1VKDescManager.html#a4f29f837570f0be021ce365e74973531">wmoge::VKDescManager</a>
-, <a class="el" href="classwmoge_1_1VKMemManager.html#adc3001c0a8f9c83654b7e9098f5f1faa">wmoge::VKMemManager</a>
+, <a class="el" href="classwmoge_1_1VKMemManager.html#ab21aae16cce5b55545b7b872c1a08dd4">wmoge::VKMemManager</a>
 , <a class="el" href="classwmoge_1_1VKSemaphorePool.html#a883b6830de2c971799c2cfa460fb0d39">wmoge::VKSemaphorePool</a>
 </li>
 <li>allocate_entity()
@@ -502,7 +489,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1GfxDescBindPoint.html#a6b112317a230cd0f93b1fade2f3b769f">wmoge::GfxDescBindPoint</a>
 </li>
 <li>array_meshes
-: <a class="el" href="structwmoge_1_1MeshData.html#aae09a0d209127701e5ce98bd414f7dd7">wmoge::MeshData</a>
+: <a class="el" href="structwmoge_1_1MeshDesc.html#a5daec320648e25c40cf213def193b5ec">wmoge::MeshDesc</a>
 </li>
 <li>array_slices()
 : <a class="el" href="classwmoge_1_1GfxTexture.html#ab42eb6ff57a0966ff5ab9a5844075187">wmoge::GfxTexture</a>
@@ -510,7 +497,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1TextureDesc.html#ad47a2367dd745d91f4305aa37baa74ca">wmoge::TextureDesc</a>
 </li>
 <li>array_view()
-: <a class="el" href="classwmoge_1_1array__view.html#a2adf6b65f34a6199e1003b0f2b7598eb">wmoge::array_view&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1array__view.html#ac7f34bba683d20e5137fd2257c441823">wmoge::array_view&lt; T &gt;</a>
 </li>
 <li>ArrayMesh()
 : <a class="el" href="classwmoge_1_1ArrayMesh.html#ab82136596e2ef9fbf4bc3bb26459ebc0">wmoge::ArrayMesh</a>
