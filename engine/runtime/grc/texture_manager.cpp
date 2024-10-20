@@ -277,9 +277,9 @@ namespace wmoge {
         const GfxTextureDesc desc      = texture->get_desc();
 
         if (is_pooled) {
-            texture->set_texture(m_pool->allocate(desc, texture->get_name()));
+            texture->set_texture(m_pool->allocate(desc, SIDDBG(texture->get_name().str())));
         } else {
-            texture->set_texture(m_gfx_driver->make_texture(desc, texture->get_name()));
+            texture->set_texture(m_gfx_driver->make_texture(desc, SIDDBG(texture->get_name().str())));
         }
 
         texture->set_texture_callback(m_callback);
@@ -298,6 +298,7 @@ namespace wmoge {
     }
 
     void TextureManager::upload_texture(Texture* texture, const GfxCmdListRef& cmd) {
+        WG_PROFILE_CPU_GRC("TextureManager::upload_texture");
         WG_PROFILE_GPU_SCOPE(cmd, "TextureManager::upload_texture");
 
         assert(texture);

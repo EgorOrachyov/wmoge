@@ -87,11 +87,11 @@ namespace wmoge {
     WG_RTTI_END;
 
     /** 
-     * @class MeshData
+     * @class MeshDesc
      * @brief Struct used to serialize mesh asset data
      */
-    struct MeshData {
-        WG_RTTI_STRUCT(MeshData);
+    struct MeshDesc {
+        WG_RTTI_STRUCT(MeshDesc);
 
         std::vector<MeshChunk>       chunks;
         std::vector<Ref<ArrayMesh>>  array_meshes;
@@ -100,9 +100,10 @@ namespace wmoge {
         std::vector<MeshVertStream>  vert_streams;
         std::vector<MeshIndexStream> index_streams;
         Aabbf                        aabb;
+        MeshFlags                    flags;
     };
 
-    WG_RTTI_STRUCT_BEGIN(MeshData) {
+    WG_RTTI_STRUCT_BEGIN(MeshDesc) {
         WG_RTTI_META_DATA();
         WG_RTTI_FIELD(chunks, {});
         WG_RTTI_FIELD(array_meshes, {});
@@ -111,6 +112,7 @@ namespace wmoge {
         WG_RTTI_FIELD(vert_streams, {});
         WG_RTTI_FIELD(index_streams, {});
         WG_RTTI_FIELD(aabb, {});
+        WG_RTTI_FIELD(flags, {});
     }
     WG_RTTI_END;
 
@@ -125,33 +127,32 @@ namespace wmoge {
         using Callback    = std::function<void(Mesh*)>;
         using CallbackRef = std::shared_ptr<Callback>;
 
-        Mesh()           = default;
-        ~Mesh() override = default;
+        Mesh() = default;
+        ~Mesh() override;
 
-        Mesh(MeshFlags flags);
+        Mesh(MeshDesc& mesh_desc);
 
-        void add_chunk(const MeshChunk& mesh_chunk, const Ref<ArrayMesh>& mesh);
-        void add_vertex_buffer(Ref<Data> buffer);
-        void add_index_buffer(Ref<Data> buffer);
-        void add_vert_stream(const MeshVertStream& stream);
-        void add_intex_stream(const MeshIndexStream& stream);
-        void set_aabb(const Aabbf& aabb);
         void set_mesh_callback(CallbackRef callback);
         void set_gfx_vertex_buffers(std::vector<Ref<GfxVertBuffer>> gfx_vertex_buffers);
         void set_gfx_index_buffers(std::vector<Ref<GfxIndexBuffer>> gfx_index_buffers);
+        void release_gfx_buffers();
 
-        [[nodiscard]] GfxVertBuffersSetup              get_vert_buffers_setup(int chunk_id) const;
-        [[nodiscard]] GfxIndexBufferSetup              get_index_buffer_setup(int chunk_id) const;
-        [[nodiscard]] array_view<const MeshChunk>      get_chunks() const;
-        [[nodiscard]] array_view<const Ref<ArrayMesh>> get_array_meshes() const;
-        [[nodiscard]] const MeshChunk&                 get_chunk(int i) const;
-        [[nodiscard]] const Ref<GfxVertBuffer>&        get_gfx_vertex_buffers(int i) const;
-        [[nodiscard]] const Ref<GfxIndexBuffer>&       get_gfx_index_buffers(int i) const;
-        [[nodiscard]] const MeshVertStream&            get_vert_streams(int i) const;
-        [[nodiscard]] const MeshIndexStream&           get_index_streams(int i) const;
-        [[nodiscard]] const Aabbf&                     get_aabb() const;
-        [[nodiscard]] const MeshFlags&                 get_flags() const;
-        [[nodiscard]] GfxMemUsage                      get_mem_usage() const;
+        [[nodiscard]] GfxVertBuffersSetup                   get_vert_buffers_setup(int chunk_id) const;
+        [[nodiscard]] GfxIndexBufferSetup                   get_index_buffer_setup(int chunk_id) const;
+        [[nodiscard]] array_view<const MeshChunk>           get_chunks() const;
+        [[nodiscard]] array_view<const Ref<ArrayMesh>>      get_array_meshes() const;
+        [[nodiscard]] array_view<const Ref<Data>>           get_vertex_buffers() const;
+        [[nodiscard]] array_view<const Ref<Data>>           get_index_buffers() const;
+        [[nodiscard]] array_view<const Ref<GfxVertBuffer>>  get_gfx_vertex_buffers() const;
+        [[nodiscard]] array_view<const Ref<GfxIndexBuffer>> get_gfx_index_buffers() const;
+        [[nodiscard]] const MeshChunk&                      get_chunk(int i) const;
+        [[nodiscard]] const Ref<GfxVertBuffer>&             get_gfx_vertex_buffer(int i) const;
+        [[nodiscard]] const Ref<GfxIndexBuffer>&            get_gfx_index_buffer(int i) const;
+        [[nodiscard]] const MeshVertStream&                 get_vert_stream(int i) const;
+        [[nodiscard]] const MeshIndexStream&                get_index_stream(int i) const;
+        [[nodiscard]] const Aabbf&                          get_aabb() const;
+        [[nodiscard]] const MeshFlags&                      get_flags() const;
+        [[nodiscard]] GfxMemUsage                           get_mem_usage() const;
 
     private:
         std::vector<MeshChunk>           m_chunks;

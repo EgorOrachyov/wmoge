@@ -36,10 +36,6 @@
 
 namespace wmoge {
 
-    void MeshBuilder::set_mesh(Ref<Mesh> mesh) {
-        m_mesh = std::move(mesh);
-    }
-
     void MeshBuilder::add_chunk(const Strid& name, const Ref<ArrayMesh>& data) {
         assert(data);
 
@@ -49,8 +45,6 @@ namespace wmoge {
 
     Status MeshBuilder::build() {
         WG_PROFILE_CPU_MESH("MeshBuilder::build");
-
-        assert(m_mesh);
 
         const GfxVertAttribs        attribs_stream1 = {GfxVertAttrib::Pos3f, GfxVertAttrib::Pos2f, GfxVertAttrib::Norm3f, GfxVertAttrib::Tang3f};
         const GfxVertAttribs        attribs_stream2 = {GfxVertAttrib::BoneIds4i, GfxVertAttrib::BoneWeights4f};
@@ -80,7 +74,6 @@ namespace wmoge {
             m_chunks[i]->pack_faces(index_data, index_stream);
 
             index_stream.buffer = curr_index_buffer;
-            m_mesh->add_intex_stream(index_stream);
 
             MeshChunk chunk;
             chunk.name               = m_chunks_names[i];
@@ -94,14 +87,15 @@ namespace wmoge {
 
             aabb = aabb.join(chunk.aabb);
 
-            m_mesh->add_chunk(chunk, m_chunks[i]);
-
-            m_mesh->add_vertex_buffer(vert_data);
-            m_mesh->add_index_buffer(index_data);
+            m_mesh.chunks.push_back(chunk);
+            m_mesh.array_meshes.push_back(m_chunks[i]);
+            m_mesh.vertex_buffers.push_back(vert_data);
+            m_mesh.index_buffers.push_back(index_data);
 
             for (auto& vert_stream : vert_streams) {
-                m_mesh->add_vert_stream(vert_stream);
+                m_mesh.vert_streams.push_back(vert_stream);
             }
+            m_mesh.index_streams.push_back(index_stream);
 
             curr_index_stream += 1;
             curr_vert_stream += int(vert_streams.size());
@@ -110,7 +104,7 @@ namespace wmoge {
             curr_index_buffer += 1;
         }
 
-        m_mesh->set_aabb(aabb);
+        m_mesh.aabb = aabb;
 
         return WG_OK;
     }

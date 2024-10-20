@@ -185,11 +185,14 @@ namespace wmoge {
         buffered_vector<VkPipelineStageFlags> wait_flags;
 
         for (CmdBufferQueue& queue : m_queues) {
+            WG_PROFILE_CPU_VULKAN("submit_queue");
             std::size_t num_commands = queue.submits.size();
 
             const bool is_graphics_queue = queue.queue_type == GfxQueueType::Graphics;
 
             for (std::size_t i = 0; i < num_commands; i++) {
+                WG_PROFILE_CPU_VULKAN("submit_cmd_buffer");
+
                 CmdBufferSubmitInfo& submit = queue.submits[i];
 
                 if (is_graphics_queue) {

@@ -163,6 +163,7 @@ namespace wmoge {
         m_gfx_driver->begin_frame(m_frame_id, windows);
 
         m_texture_manager->flust_textures_upload();
+        m_mesh_manager->flush_meshes_upload();
 
         m_scene_manager->update();
 

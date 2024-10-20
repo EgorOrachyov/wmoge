@@ -35,6 +35,13 @@
 
 namespace wmoge {
 
+    /** @brief Pool to allocate strid, separated for profiling purposes */
+    enum class StridPool {
+        Release = 0,
+        Debug,
+        Max
+    };
+
     /**
      * @class Strid
      * @brief Interned globally-stored string based ids for fast lookups
@@ -44,6 +51,7 @@ namespace wmoge {
         Strid();
         Strid(const char* string);
         Strid(const std::string& string);
+        Strid(const std::string& string, StridPool pool);
 
         bool operator==(const Strid& other) const;
         bool operator!=(const Strid& other) const;
@@ -67,6 +75,8 @@ namespace wmoge {
     }
 
 #define SID(id) ::wmoge::Strid(id)
+
+#define SIDDBG(id) ::wmoge::Strid(id, ::wmoge::StridPool::Debug)
 
 }// namespace wmoge
 

@@ -43,7 +43,7 @@ namespace wmoge {
     class StringStorage {
     public:
         void                  get_or_create(const std::string& key, const std::string*& str);
-        static StringStorage& instance();
+        static StringStorage& instance(StridPool pool);
 
     private:
         struct Entry {
@@ -69,9 +69,9 @@ namespace wmoge {
         str = &entry->str;
     }
 
-    StringStorage& StringStorage::instance() {
-        static StringStorage g_storage;
-        return g_storage;
+    StringStorage& StringStorage::instance(StridPool pool) {
+        static StringStorage g_storage[static_cast<int>(StridPool::Max)];
+        return g_storage[static_cast<int>(pool)];
     }
 
     Strid::Strid() {
@@ -79,12 +79,15 @@ namespace wmoge {
         m_string = &g_empty;
     }
 
-    Strid::Strid(const char* string) : Strid(std::string(string)) {
+    Strid::Strid(const char* string) : Strid(std::string(string), StridPool::Release) {
     }
-    Strid::Strid(const std::string& string) : Strid() {
+    Strid::Strid(const std::string& string) : Strid(string, StridPool::Release) {
+    }
+
+    Strid::Strid(const std::string& string, StridPool pool) {
         if (string.empty())
             return;
-        StringStorage::instance().get_or_create(string, m_string);
+        StringStorage::instance(pool).get_or_create(string, m_string);
     }
 
     bool Strid::operator==(const Strid& other) const {

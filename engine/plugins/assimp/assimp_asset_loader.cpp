@@ -76,22 +76,21 @@ namespace wmoge {
             return StatusCode::Error;
         }
 
-        MeshManager* mesh_manager = context.ioc->resolve_value<MeshManager>();
-
-        MeshFlags flags;
-        flags.set(MeshFlag::FromDisk);
-
-        asset = mesh_manager->create_mesh(flags);
-        asset->set_id(asset_id);
-
         MeshBuilder& builder = importer.get_builder();
-        builder.set_mesh(asset);
         if (!builder.build()) {
             WG_LOG_ERROR("failed to build mesh " << asset_id);
             return StatusCode::Error;
         }
 
-        mesh_manager->init_mesh(asset.get());
+        MeshDesc& desc = builder.get_mesh();
+        desc.flags.set(MeshFlag::FromDisk);
+
+        MeshManager* mesh_manager = context.ioc->resolve_value<MeshManager>();
+
+        asset = mesh_manager->create_mesh(desc);
+        asset->set_id(asset_id);
+
+        mesh_manager->queue_mesh_upload(asset.get());
 
         return WG_OK;
     }

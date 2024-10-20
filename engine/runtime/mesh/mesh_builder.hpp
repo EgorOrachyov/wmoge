@@ -44,17 +44,16 @@ namespace wmoge {
      */
     class MeshBuilder {
     public:
-        void set_mesh(Ref<Mesh> mesh);
         void add_chunk(const Strid& name, const Ref<ArrayMesh>& data);
 
         Status build();
 
-        [[nodiscard]] const Ref<Mesh>& get_mesh() const { return m_mesh; }
+        [[nodiscard]] MeshDesc& get_mesh() { return m_mesh; }
 
     private:
         std::vector<Ref<ArrayMesh>> m_chunks;
         std::vector<Strid>          m_chunks_names;
-        Ref<Mesh>                   m_mesh;
+        MeshDesc                    m_mesh;
     };
 
 }// namespace wmoge

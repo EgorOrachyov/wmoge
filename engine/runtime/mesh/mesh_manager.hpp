@@ -38,12 +38,6 @@
 
 namespace wmoge {
 
-    /** @brief Managed mesh state */
-    enum class MeshState {
-        PendingUpload,
-        Inited
-    };
-
     /**
      * @class MeshManager
      * @brief Manager for gpu meshes for rendering
@@ -54,22 +48,26 @@ namespace wmoge {
     public:
         MeshManager(class IocContainer* ioc);
 
-        Ref<Mesh> create_mesh(MeshFlags flags);
+        Ref<Mesh> create_mesh(MeshDesc& desc);
         void      add_mesh(const Ref<Mesh>& mesh);
         void      remove_mesh(Mesh* mesh);
-        void      init_mesh(Mesh* mesh);
+        void      queue_mesh_upload(Mesh* mesh);
         bool      has_mesh(Mesh* mesh);
-        void      upload_meshes();
+        void      flush_meshes_upload();
 
     private:
-        void create_gfx_resource(Mesh* mesh);
-        void delete_gfx_resource(Mesh* mesh);
-        void upload_gfx_data(Mesh* mesh, GfxCmdListRef& cmd_list);
+        void init_mesh(Mesh* mesh);
+        void delete_mesh(Mesh* mesh);
+        void upload_mesh(Mesh* mesh, const GfxCmdListRef& cmd);
 
     private:
+        enum class State {
+            PendingUpload = 0
+        };
+
         struct Entry {
-            WeakRef<Mesh>   weak_ref;
-            Mask<MeshState> state;
+            WeakRef<Mesh> weak_ref;
+            Mask<State>   state;
         };
 
         flat_map<Mesh*, Entry> m_meshes;

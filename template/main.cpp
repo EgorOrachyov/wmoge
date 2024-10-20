@@ -218,7 +218,7 @@ public:
     Ref<Scene>       scene;
     Ref<Texture2d>   tex2d;
     Ref<TextureCube> texCube;
-    WeakRef<Mesh>    mesh;
+    Ref<Mesh>        mesh;
     Ref<Shader>      shader;
 };
 

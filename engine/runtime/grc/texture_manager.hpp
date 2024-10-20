@@ -102,9 +102,8 @@ namespace wmoge {
         Texture::CallbackRef         m_callback;
         std::unique_ptr<TexturePool> m_pool;
         bool                         m_need_upload_default = true;
-
-        Ref<Texture>    m_default_textures[int(DefaultTexture::Total)];
-        Ref<GfxSampler> m_default_samplers[int(DefaultSampler::Total)];
+        Ref<Texture>                 m_default_textures[int(DefaultTexture::Total)];
+        Ref<GfxSampler>              m_default_samplers[int(DefaultSampler::Total)];
 
         GfxDriver* m_gfx_driver;
 
