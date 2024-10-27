@@ -174,6 +174,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1AssetId.html#a5200fc62e66de16dde9da29285a662fe">wmoge::AssetId</a>
 , <a class="el" href="structwmoge_1_1CullingItem.html#af990f5885eca3b1d10a4bff4eed542dc">wmoge::CullingItem</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a9efb20fbdc75784e04fd76e98fcdd47d">wmoge::Ref&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiSubclass.html#a9f39ea2d4d80c1ec0ac2783a78b0a04f">wmoge::RttiSubclass&lt; BaseType &gt;</a>
 , <a class="el" href="structwmoge_1_1SimpleId.html#a8d1e0376de6798cf208659ef269ad5d7">wmoge::SimpleId&lt; ValueType &gt;</a>
 , <a class="el" href="classwmoge_1_1Status.html#a2a6e0c389d94421b42e7d7a99a6b4944">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1UUID.html#aa34d042ee4c732c59cdcfe3dbaaedb4f">wmoge::UUID</a>
@@ -201,6 +202,9 @@ $(function() {
 </li>
 <li>operator Ref&lt; Object &gt;()
 : <a class="el" href="classwmoge_1_1Var.html#a533a9066e3ceed15da192cd23b33f4b2">wmoge::Var</a>
+</li>
+<li>operator RttiSubclass&lt; OtherType &gt;()
+: <a class="el" href="classwmoge_1_1RttiSubclass.html#a84554ce3b2ad19f3833d2572c84c3869">wmoge::RttiSubclass&lt; BaseType &gt;</a>
 </li>
 <li>operator std::size_t()
 : <a class="el" href="structwmoge_1_1SimpleId.html#a7fe5ca57a51d5cacfb8baee4b916d086">wmoge::SimpleId&lt; ValueType &gt;</a>
@@ -282,6 +286,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1pool__vector_1_1Iterator.html#a1c392b75498d6cf4465190ff86985db4">wmoge::pool_vector&lt; T, NodeCapacity &gt;::Iterator&lt; IterType &gt;</a>
 , <a class="el" href="classwmoge_1_1Range_1_1Iterator.html#a1b7d5cd700546d6d6527d8dd33abb46c">wmoge::Range::Iterator</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a03d4f94383af5b9076de1c5b23f0e262">wmoge::Ref&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiSubclass.html#a7fd4a520ad7deb0ebe422f0c3a745d68">wmoge::RttiSubclass&lt; BaseType &gt;</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a3839c94b869439b8be24b96463dd9be1">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#abb21e08a1b8961b11ee70e41aec8f6ac">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a92706d316e5ef0221eac3b33f7e429ae">wmoge::TVecN&lt; T, N &gt;</a>
@@ -315,10 +320,11 @@ $(function() {
 </li>
 <li>operator-&gt;()
 : <a class="el" href="classwmoge_1_1Ref.html#acb375cdb51727b5795624bae4445156d">wmoge::Ref&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1RttiSubclass.html#ac73483a92782590143d1bcc3f436d51c">wmoge::RttiSubclass&lt; BaseType &gt;</a>
 </li>
 <li>operator/()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a54696ff924d4981df49df8ddfec768eb">wmoge::TMatMxN&lt; T, M, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#a47b7e3b12c96c21105a55c5cc958fe65">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#a489e589d8e395c9023512aa2c4ceb26e">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator/=()
 : <a class="el" href="classwmoge_1_1TMatMxN.html#a6487950e71577d2c396d74b54a76a5e3">wmoge::TMatMxN&lt; T, M, N &gt;</a>
@@ -338,12 +344,12 @@ $(function() {
 </li>
 <li>operator=()
 : <a class="el" href="classwmoge_1_1Ref.html#a62a8b163eed86a33ebba33a3dc65a228">wmoge::Ref&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1Status.html#a74abce48f750809f19e824182b29525f">wmoge::Status</a>
+, <a class="el" href="classwmoge_1_1Status.html#a41076246da279ac4d886e96c0b2fb1e3">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a5a219631d3af9809f8642824fdf7774c">wmoge::TMatMxN&lt; T, M, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TQuat.html#a41b0f3ec20658ff3a078af60ee4f861b">wmoge::TQuat&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#a122158f51a738be3cfb7b6adf86113d0">wmoge::TVecN&lt; T, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TypedArray.html#a5513b90997003e2a6c98074f7bd6ea69">wmoge::TypedArray&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1TypedMap.html#a15370f0ebdc2d280301aaa660f1be466">wmoge::TypedMap&lt; K, V, H &gt;</a>
+, <a class="el" href="classwmoge_1_1TQuat.html#a0d6da9c39be477bc57a1f1656ceeb9a9">wmoge::TQuat&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#af7b1c22bd13913d27805e575604c8717">wmoge::TVecN&lt; T, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TypedArray.html#a18d2cdf597d8133901cb1f67840c5fd5">wmoge::TypedArray&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TypedMap.html#a30a089ccba91cf95dee3a4d66fc78c77">wmoge::TypedMap&lt; K, V, H &gt;</a>
 , <a class="el" href="classwmoge_1_1Var.html#a385b0a3a2e73707a21780a4b3574894d">wmoge::Var</a>
 , <a class="el" href="classwmoge_1_1WeakRef.html#ac53a45605f062c0442c7225073150f49">wmoge::WeakRef&lt; T &gt;</a>
 </li>
@@ -387,12 +393,12 @@ $(function() {
 </li>
 <li>operator[]()
 : <a class="el" href="classwmoge_1_1array__view.html#aa0dc6050a4e73be5b888b2dc9a9d8e5e">wmoge::array_view&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1GfxVector.html#a5956a652d50f3b174dae12546007715f">wmoge::GfxVector&lt; T, Storage &gt;</a>
+, <a class="el" href="classwmoge_1_1GfxVector.html#a9ce6bae4e894fe53b66f40d833855b59">wmoge::GfxVector&lt; T, Storage &gt;</a>
 , <a class="el" href="classwmoge_1_1PfxView.html#ae72e78c4bede0e0bfafaad080602685c">wmoge::PfxView&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1pool__vector.html#a9e964b77a4ab166370b5b58110a0e0ec">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
+, <a class="el" href="classwmoge_1_1pool__vector.html#a20a7b0e09a2978487645666ee803205d">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a47c075833ef84c3a77cf9a739f95f781">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a12a0b41d7d2cf2a30382e4452e1f7ffd">wmoge::TVecN&lt; T, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TypedArray.html#a594c83a3efd5bfdbbf67d4923d9911e4">wmoge::TypedArray&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TypedArray.html#a22aa1cfef5c9fd8c77795314731a6bea">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a80e260af0483a07e2fdb77039bd88ed7">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
 <li>operator|()

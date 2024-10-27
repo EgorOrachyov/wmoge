@@ -82,12 +82,15 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a887968fda9135e9679fbfdfc22d653c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#a887968fda9135e9679fbfdfc22d653c2">EcsQueryContext</a> (<a class="el" href="classwmoge_1_1EcsArchStorage.html">EcsArchStorage</a> &amp;storage, <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> query, int start, int count)</td></tr>
 <tr class="separator:a887968fda9135e9679fbfdfc22d653c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38a3bafd0ea7c592b44250102f5f4f6a"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
-<tr class="memitem:a38a3bafd0ea7c592b44250102f5f4f6a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#a38a3bafd0ea7c592b44250102f5f4f6a">has</a> ()</td></tr>
-<tr class="separator:a38a3bafd0ea7c592b44250102f5f4f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaeffe545e7e8f0e5072171dc1c6b2e1f"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
-<tr class="memitem:aaeffe545e7e8f0e5072171dc1c6b2e1f"><td class="memTemplItemLeft" align="right" valign="top">Component &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#aaeffe545e7e8f0e5072171dc1c6b2e1f">get_component</a> (int entity_idx)</td></tr>
-<tr class="separator:aaeffe545e7e8f0e5072171dc1c6b2e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6662d94652f9f8249a6baeb16b65e93"><td class="memTemplParams" colspan="2">template&lt;typename Functor &gt; </td></tr>
+<tr class="memitem:ae6662d94652f9f8249a6baeb16b65e93"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#ae6662d94652f9f8249a6baeb16b65e93">for_each</a> (Functor f)</td></tr>
+<tr class="separator:ae6662d94652f9f8249a6baeb16b65e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d3793dc40491e0d955b6e52e51f0b7"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
+<tr class="memitem:a05d3793dc40491e0d955b6e52e51f0b7"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#a05d3793dc40491e0d955b6e52e51f0b7">has_component</a> () const</td></tr>
+<tr class="separator:a05d3793dc40491e0d955b6e52e51f0b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a938c6c0bf0172e021833149307ff954f"><td class="memTemplParams" colspan="2">template&lt;typename Component &gt; </td></tr>
+<tr class="memitem:a938c6c0bf0172e021833149307ff954f"><td class="memTemplItemLeft" align="right" valign="top">Component &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#a938c6c0bf0172e021833149307ff954f">get_component</a> (int entity_idx)</td></tr>
+<tr class="separator:a938c6c0bf0172e021833149307ff954f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf247f8fbffcd2af75b732ab80e92579"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#abf247f8fbffcd2af75b732ab80e92579">get_entity</a> (int entity_idx)</td></tr>
 <tr class="separator:abf247f8fbffcd2af75b732ab80e92579"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf359c805b3428d3194d36f27c7e2d9b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#abf359c805b3428d3194d36f27c7e2d9b">get_start_idx</a> () const</td></tr>
@@ -147,8 +150,36 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaeffe545e7e8f0e5072171dc1c6b2e1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaeffe545e7e8f0e5072171dc1c6b2e1f">&#9670;&nbsp;</a></span>get_component()</h2>
+<a id="ae6662d94652f9f8249a6baeb16b65e93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6662d94652f9f8249a6baeb16b65e93">&#9670;&nbsp;</a></span>for_each()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Functor &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::EcsQueryContext::for_each </td>
+          <td>(</td>
+          <td class="paramtype">Functor&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a938c6c0bf0172e021833149307ff954f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a938c6c0bf0172e021833149307ff954f">&#9670;&nbsp;</a></span>get_component()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -159,7 +190,7 @@ template&lt;typename Component &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Component&amp; wmoge::EcsQueryContext::get_component </td>
+          <td class="memname">Component &amp; wmoge::EcsQueryContext::get_component </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>entity_idx</em></td><td>)</td>
@@ -251,8 +282,8 @@ template&lt;typename Component &gt; </div>
 
 </div>
 </div>
-<a id="a38a3bafd0ea7c592b44250102f5f4f6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38a3bafd0ea7c592b44250102f5f4f6a">&#9670;&nbsp;</a></span>has()</h2>
+<a id="a05d3793dc40491e0d955b6e52e51f0b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05d3793dc40491e0d955b6e52e51f0b7">&#9670;&nbsp;</a></span>has_component()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -263,10 +294,7 @@ template&lt;typename Component &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool wmoge::EcsQueryContext::has </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">bool wmoge::EcsQueryContext::has_component</td>
         </tr>
       </table>
   </td>

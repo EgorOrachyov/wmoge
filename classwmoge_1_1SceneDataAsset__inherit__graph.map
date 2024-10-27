@@ -1,0 +1,7 @@
+<map id="wmoge::SceneDataAsset" name="wmoge::SceneDataAsset">
+<area shape="rect" id="node1" title="Represents scene data as asset which can be saved and loaded from disc." alt="" coords="5,319,173,345"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Asset.html" title="Base class for any engine asset." alt="" coords="37,244,141,271"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1WeakRefCnt.html" title=" " alt="" coords="14,155,165,196"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RttiObject.html" title="Base class for any engine object which has class information and full rtti support." alt="" coords="25,80,153,107"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="34,5,145,32"/>
+</map>

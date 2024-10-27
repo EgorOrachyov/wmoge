@@ -67,8 +67,6 @@ $(function() {
 <li>aabb
 : <a class="el" href="structwmoge_1_1ArrayMeshData.html#ae7cdb4f5bd913cf87512ab40e6d76738">wmoge::ArrayMeshData</a>
 , <a class="el" href="structwmoge_1_1CullingItemData.html#a7eff8c0233a051718505af9787a41721">wmoge::CullingItemData</a>
-, <a class="el" href="structwmoge_1_1EcsComponentAabbLocal.html#a0916a34b3ba5c383fd9a114ab5eae587">wmoge::EcsComponentAabbLocal</a>
-, <a class="el" href="structwmoge_1_1EcsComponentAabbWorld.html#a42ca7273361896fcaca99e4303790721">wmoge::EcsComponentAabbWorld</a>
 , <a class="el" href="structwmoge_1_1MeshChunk.html#ab9bf3bea99f7a470e2d4e03a4e158878">wmoge::MeshChunk</a>
 , <a class="el" href="structwmoge_1_1MeshDesc.html#a2b80da371405e60bae41adb2cec54c3d">wmoge::MeshDesc</a>
 , <a class="el" href="structwmoge_1_1ModelFile.html#a8296429c2ded910b3b3712a65a15dd41">wmoge::ModelFile</a>
@@ -121,6 +119,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1IoContext.html#a1d4ee0b7f3a729c2ed4206acee115a37">wmoge::IoContext</a>
 , <a class="el" href="classwmoge_1_1PluginManager.html#ade01c6ec0e9bcac19ab9fbe6ef650e07">wmoge::PluginManager</a>
 , <a class="el" href="classwmoge_1_1RttiTypeStorage.html#a08cd631494c125abce31615b9d3dbbce">wmoge::RttiTypeStorage</a>
+, <a class="el" href="classwmoge_1_1Scene.html#abc8b3fea5902bb4f24684449824fc619">wmoge::Scene</a>
 </li>
 <li>add_batch()
 : <a class="el" href="classwmoge_1_1MeshBatchCollector.html#a455f3280de02490be5197607a923dd18">wmoge::MeshBatchCollector</a>
@@ -154,7 +153,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKDebug.html#a39b449f58cbf7ba68433a9134e2bf134">wmoge::VKDebug</a>
 </li>
 <li>add_define()
-: <a class="el" href="classwmoge_1_1GlslBuilder.html#ada832e7be1f4617dc451d9d184d76178">wmoge::GlslBuilder</a>
+: <a class="el" href="classwmoge_1_1GlslBuilder.html#a9a8cd544a1991b6d22ae407ab5913f18">wmoge::GlslBuilder</a>
 , <a class="el" href="classwmoge_1_1ShaderCodeBuilder.html#afb88fedcf78512b330662f5bd1031a1d">wmoge::ShaderCodeBuilder</a>
 </li>
 <li>add_dependency()
@@ -172,6 +171,10 @@ $(function() {
 <li>add_emitter()
 : <a class="el" href="classwmoge_1_1PfxScene.html#a5e1323cc8d365e739dcecefc8d5074b9">wmoge::PfxScene</a>
 </li>
+<li>add_entity()
+: <a class="el" href="classwmoge_1_1SceneUuidManager.html#ae2e8fd9c7389c966097f45bc355439f9">wmoge::SceneUuidManager</a>
+, <a class="el" href="classwmoge_1_1SceneUuidMap.html#a120717b121e3353b598f5aec6fbbb940">wmoge::SceneUuidMap</a>
+</li>
 <li>add_error()
 : <a class="el" href="classwmoge_1_1Console.html#ab7657b02939251c46ebff05c861af15b">wmoge::Console</a>
 </li>
@@ -186,13 +189,13 @@ $(function() {
 </li>
 <li>add_field()
 : <a class="el" href="classwmoge_1_1Class.html#af218a5a15887e43f7adaeb432c4b4025">wmoge::Class</a>
-, <a class="el" href="classwmoge_1_1GlslBuilder.html#a0d6d9b15e06dd344d37004d80b4dfdd9">wmoge::GlslBuilder</a>
+, <a class="el" href="classwmoge_1_1GlslBuilder.html#a393d6423ea06648aaf4f072a41fe6ecd">wmoge::GlslBuilder</a>
 , <a class="el" href="classwmoge_1_1RttiClassT.html#a10ff5af43db05116e25803980edff7f0">wmoge::RttiClassT&lt; ClassT &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiStruct.html#a2fad0bf8d7b545244abb1e07018955e3">wmoge::RttiStruct</a>
 , <a class="el" href="classwmoge_1_1RttiStructT.html#a5cc52f54d552866543ee118d3144fe58">wmoge::RttiStructT&lt; StructT &gt;</a>
 , <a class="el" href="classwmoge_1_1ShaderBuilder_1_1StructBuilder.html#ab3ec73158f598dee99e17a32cb4b6505">wmoge::ShaderBuilder::StructBuilder</a>
-, <a class="el" href="classwmoge_1_1ShaderCodeBuilder.html#a514b826dbd26cfb0e85d374a72564069">wmoge::ShaderCodeBuilder</a>
-, <a class="el" href="classwmoge_1_1ShaderStructRegister.html#adfa7067335a3afd519a66d36fc194466">wmoge::ShaderStructRegister</a>
+, <a class="el" href="classwmoge_1_1ShaderCodeBuilder.html#aca5e656f786f9260d7de98707cfe79aa">wmoge::ShaderCodeBuilder</a>
+, <a class="el" href="classwmoge_1_1ShaderStructRegister.html#a1a4bbdf172a08b1d0187c275d16be36a">wmoge::ShaderStructRegister</a>
 </li>
 <li>add_field_array()
 : <a class="el" href="classwmoge_1_1ShaderBuilder_1_1StructBuilder.html#af2399c7427abb1050706a067885f41d4">wmoge::ShaderBuilder::StructBuilder</a>
@@ -319,7 +322,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1CmdLineOptions.html#a6795e925f3dab67c54d2e4923c99ab62">wmoge::CmdLineOptions</a>
 </li>
 <li>add_struct()
-: <a class="el" href="classwmoge_1_1ShaderBuilder.html#a3a116ec35b200f5a8d1e3e6b217e46ec">wmoge::ShaderBuilder</a>
+: <a class="el" href="classwmoge_1_1ShaderBuilder.html#afd084f55095b521c1ed34935d6dfc3c4">wmoge::ShaderBuilder</a>
 </li>
 <li>add_suggestion()
 : <a class="el" href="classwmoge_1_1Console.html#a2d75225d237d088d5a6d2db4d9d6803c">wmoge::Console</a>
@@ -348,6 +351,9 @@ $(function() {
 </li>
 <li>add_thread()
 : <a class="el" href="classwmoge_1_1ProfilerCpu.html#afef210754eb25db1da7a3019d44c0eae">wmoge::ProfilerCpu</a>
+</li>
+<li>add_trait()
+: <a class="el" href="classwmoge_1_1SceneManager.html#a9442fe04ebf46a4078660152c45dc4d4">wmoge::SceneManager</a>
 </li>
 <li>add_triangle()
 : <a class="el" href="classwmoge_1_1Canvas.html#a93a62280f472fc738cc79da303e1583e">wmoge::Canvas</a>
@@ -497,7 +503,7 @@ $(function() {
 , <a class="el" href="structwmoge_1_1TextureDesc.html#ad47a2367dd745d91f4305aa37baa74ca">wmoge::TextureDesc</a>
 </li>
 <li>array_view()
-: <a class="el" href="classwmoge_1_1array__view.html#ac7f34bba683d20e5137fd2257c441823">wmoge::array_view&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1array__view.html#a2adf6b65f34a6199e1003b0f2b7598eb">wmoge::array_view&lt; T &gt;</a>
 </li>
 <li>ArrayMesh()
 : <a class="el" href="classwmoge_1_1ArrayMesh.html#ab82136596e2ef9fbf4bc3bb26459ebc0">wmoge::ArrayMesh</a>
@@ -542,17 +548,11 @@ $(function() {
 <li>AssetLibraryFileSystem()
 : <a class="el" href="classwmoge_1_1AssetLibraryFileSystem.html#ae7e57c18a6785ba7a6f1c81725529ff0">wmoge::AssetLibraryFileSystem</a>
 </li>
-<li>AssetLoader()
-: <a class="el" href="classwmoge_1_1AssetLoader.html#a4b2b537119d18e9d070ea77fd0e4c53f">wmoge::AssetLoader</a>
-</li>
 <li>AssetManager()
 : <a class="el" href="classwmoge_1_1AssetManager.html#a198f3868fbc143c93979fd520e9f259e">wmoge::AssetManager</a>
 </li>
 <li>AssetRef()
 : <a class="el" href="classwmoge_1_1AssetRef.html#af52582a8470aa610c438628a2a4a87f1">wmoge::AssetRef&lt; T &gt;</a>
-</li>
-<li>AssetRefWeak()
-: <a class="el" href="classwmoge_1_1AssetRefWeak.html#ae9a8248748b9b0482df2da1c14144da2">wmoge::AssetRefWeak&lt; T &gt;</a>
 </li>
 <li>AssimpImporter()
 : <a class="el" href="classwmoge_1_1AssimpImporter.html#ab40ab37df832180586b5f86526db0ad1">wmoge::AssimpImporter</a>

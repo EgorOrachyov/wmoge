@@ -1,5 +1,0 @@
-<map id="wmoge::EcsComponentCullingItem" name="wmoge::EcsComponentCullingItem">
-<area shape="rect" id="node1" title="Item for culling (shared for geometry, lights, etc.)" alt="" coords="87,109,310,136"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,203,47"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1CullingItem.html" title="Id of the item to reference in visibility system." alt="" coords="227,13,362,39"/>
-</map>

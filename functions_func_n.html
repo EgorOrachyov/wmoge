@@ -71,6 +71,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1InputDevice.html#a7d3f6a005d977e468bdc546e65b16352">wmoge::InputDevice</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01Aabbf_01_4.html#a103db1e2c7c180cb1f75a39716a08c0e">wmoge::RttiTypeOf&lt; Aabbf &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01ankerl_1_1svector_3_01E_00_01S_01_4_01_4.html#a823458836f042dda9deb81eb9f97446a">wmoge::RttiTypeOf&lt; ankerl::svector&lt; E, S &gt; &gt;</a>
+, <a class="el" href="structwmoge_1_1RttiTypeOf_3_01AssetRef_3_01T_01_4_00_01typename_01std_1_1enable__if_3_01std_1_1i7a31acd3cdb8c3508df668b61ebc6a13.html#a3003491ce59a15f799e15e444b22dc11">wmoge::RttiTypeOf&lt; AssetRef&lt; T &gt;, typename std::enable_if&lt; std::is_base_of_v&lt; Asset, T &gt; &gt;::type &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01bool_01_4.html#a0db7e78ceedb5929787349d3f225c0fb">wmoge::RttiTypeOf&lt; bool &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01DateTime_01_4.html#a976cd6db78c114be926132672d571b9b">wmoge::RttiTypeOf&lt; DateTime &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01E_00_01typename_01std_1_1enable__if_3_01std_1_1is__enum_3_01E_01_4_1_1value_01_4_1_1type_01_4.html#a04c67f2cd90f9db3fcbe0bc6e7c5ee5f">wmoge::RttiTypeOf&lt; E, typename std::enable_if&lt; std::is_enum&lt; E &gt;::value &gt;::type &gt;</a>
@@ -95,6 +96,9 @@ $(function() {
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01std_1_1vector_3_01E_01_4_01_4.html#a181eaef66c079c263fdfe248b30cc1c5">wmoge::RttiTypeOf&lt; std::vector&lt; E &gt; &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01Strid_01_4.html#a10a892c366c8593538f7f1143c9df490">wmoge::RttiTypeOf&lt; Strid &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01TQuat_3_01T_01_4_01_4.html#a4aa94ba8ef6b22ed15fc23a761fa00c9">wmoge::RttiTypeOf&lt; TQuat&lt; T &gt; &gt;</a>
+, <a class="el" href="structwmoge_1_1RttiTypeOf_3_01Transform2d_01_4.html#a22ad8a2fdbd088013790f4da63bd0bf9">wmoge::RttiTypeOf&lt; Transform2d &gt;</a>
+, <a class="el" href="structwmoge_1_1RttiTypeOf_3_01Transform3d_01_4.html#a4289b5e9e54a8f453f9a7db5f514131b">wmoge::RttiTypeOf&lt; Transform3d &gt;</a>
+, <a class="el" href="structwmoge_1_1RttiTypeOf_3_01TransformEdt_01_4.html#afe86c638fd5025e85947e9e86d260153">wmoge::RttiTypeOf&lt; TransformEdt &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01TVecN_3_01T_00_01N_01_4_01_4.html#abd0cd11669635f7ccf0c654993c3170a">wmoge::RttiTypeOf&lt; TVecN&lt; T, N &gt; &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01unsigned_01int_01_4.html#a31647c76d6a5764c76c9daa3b9cce48a">wmoge::RttiTypeOf&lt; unsigned int &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01UUID_01_4.html#a2022dd8969c3c7168e485b5e99e4980d">wmoge::RttiTypeOf&lt; UUID &gt;</a>
@@ -106,12 +110,6 @@ $(function() {
 </li>
 <li>native_size()
 : <a class="el" href="classwmoge_1_1ClassField.html#a23b63a49bccbab78ec1e31a6f4ed3483">wmoge::ClassField</a>
-</li>
-<li>need_render()
-: <a class="el" href="classwmoge_1_1Scene.html#a2c2396ca5a6d360549b54aba9efd778e">wmoge::Scene</a>
-</li>
-<li>need_simulate()
-: <a class="el" href="classwmoge_1_1Scene.html#ad791f68eb2b525d63b76771d2d4e347a">wmoge::Scene</a>
 </li>
 <li>needs_allocation()
 : <a class="el" href="classwmoge_1_1RDGResource.html#a24a650db7cfe48dbf3cfbdb815caa146">wmoge::RDGResource</a>
@@ -167,8 +165,8 @@ $(function() {
 , <a class="el" href="classwmoge_1_1IoYamlTree.html#a4c3379a25ccc2c24685305aa04c558df">wmoge::IoYamlTree</a>
 </li>
 <li>node_read_value()
-: <a class="el" href="classwmoge_1_1IoTree.html#a1616270e07678c20272575677f66fc2f">wmoge::IoTree</a>
-, <a class="el" href="classwmoge_1_1IoYamlTree.html#ad10cca19e15d5d0af8ec6699b11de2ee">wmoge::IoYamlTree</a>
+: <a class="el" href="classwmoge_1_1IoTree.html#a9b65d868f8737c7334c980c1f4c1907a">wmoge::IoTree</a>
+, <a class="el" href="classwmoge_1_1IoYamlTree.html#a6397b17760aa2e8c29965fff4192e992">wmoge::IoYamlTree</a>
 </li>
 <li>node_write_key()
 : <a class="el" href="classwmoge_1_1IoTree.html#ad1a95317a7bc928b0ddbae0bdad8053f">wmoge::IoTree</a>

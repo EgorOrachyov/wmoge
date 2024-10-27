@@ -50,6 +50,7 @@ var menudata={children:[
 {text:"w",url:"namespacemembers_w.html#index_w"}]},
 {text:"Functions",url:"namespacemembers_func.html",children:[
 {text:"a",url:"namespacemembers_func.html#index_a"},
+{text:"b",url:"namespacemembers_func_b.html#index_b"},
 {text:"c",url:"namespacemembers_func_c.html#index_c"},
 {text:"g",url:"namespacemembers_func_g.html#index_g"},
 {text:"m",url:"namespacemembers_func_m.html#index_m"},

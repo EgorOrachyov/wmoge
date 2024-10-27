@@ -1,5 +1,0 @@
-<map id="wmoge::EcsComponentAabbLocal" name="wmoge::EcsComponentAabbLocal">
-<area shape="rect" id="node1" title="Aabb volume of object in the local space." alt="" coords="91,109,311,136"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1EcsComponent.html" title=" " alt="" coords="5,5,200,47"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1TAabb.html" title=" " alt="" coords="224,13,379,39"/>
-</map>

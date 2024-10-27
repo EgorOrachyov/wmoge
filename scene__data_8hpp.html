@@ -68,26 +68,15 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">scene_data.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="asset__ref_8hpp_source.html">asset/asset_ref.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="buffered__vector_8hpp_source.html">core/buffered_vector.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="core_2class_8hpp_source.html">core/class.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ecs__core_8hpp_source.html">ecs/ecs_core.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ecs__world_8hpp_source.html">ecs/ecs_world.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="serialization_8hpp_source.html">io/serialization.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="color_8hpp_source.html">math/color.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="transform_8hpp_source.html">math/transform.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="window_8hpp_source.html">platform/window.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="culling_8hpp_source.html">render/culling.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="graphics__pipeline_8hpp_source.html">render/graphics_pipeline.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="model_8hpp_source.html">render/model.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="render__scene_8hpp_source.html">render/render_scene.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="scene__components_8hpp_source.html">scene/scene_components.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="asset_8hpp_source.html">asset/asset.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="string__id_8hpp_source.html">core/string_id.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="traits_8hpp_source.html">rtti/traits.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="scene__feature_8hpp_source.html">scene/scene_feature.hpp</a>&quot;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
@@ -97,56 +86,56 @@ Include dependency graph for scene_data.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="scene__data_8hpp__incl.png" border="0" usemap="#aengine_2runtime_2scene_2scene__data_8hpp" alt=""/></div>
 <map name="aengine_2runtime_2scene_2scene__data_8hpp" id="aengine_2runtime_2scene_2scene__data_8hpp">
-<area shape="rect" title=" " alt="" coords="2355,5,2501,47"/>
-<area shape="rect" href="asset__ref_8hpp.html" title=" " alt="" coords="3239,169,3375,196"/>
-<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="2121,393,2285,420"/>
-<area shape="rect" title=" " alt="" coords="3781,617,3849,644"/>
-<area shape="rect" title=" " alt="" coords="2465,692,2519,719"/>
-<area shape="rect" title=" " alt="" coords="2759,617,2817,644"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="1559,543,1649,569"/>
-<area shape="rect" title=" " alt="" coords="1103,617,1155,644"/>
-<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="3575,393,3681,420"/>
-<area shape="rect" href="ecs__core_8hpp.html" title=" " alt="" coords="1221,393,1345,420"/>
-<area shape="rect" href="ecs__world_8hpp.html" title=" " alt="" coords="921,95,1052,121"/>
-<area shape="rect" href="serialization_8hpp.html" title=" " alt="" coords="2492,393,2620,420"/>
-<area shape="rect" href="color_8hpp.html" title=" " alt="" coords="2077,319,2184,345"/>
-<area shape="rect" href="transform_8hpp.html" title=" " alt="" coords="2361,319,2495,345"/>
-<area shape="rect" href="window_8hpp.html" title=" " alt="" coords="1624,468,1765,495"/>
-<area shape="rect" href="culling_8hpp.html" title=" " alt="" coords="1825,543,1948,569"/>
-<area shape="rect" href="graphics__pipeline_8hpp.html" title=" " alt="" coords="4012,95,4199,121"/>
-<area shape="rect" href="render__scene_8hpp.html" title=" " alt="" coords="3979,169,4143,196"/>
-<area shape="rect" href="model_8hpp.html" title=" " alt="" coords="2898,95,3019,121"/>
-<area shape="rect" href="scene__components_8hpp.html" title=" " alt="" coords="2173,244,2371,271"/>
-<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="3712,319,3827,345"/>
-<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="2517,468,2617,495"/>
-<area shape="rect" title=" " alt="" coords="1717,617,1782,644"/>
-<area shape="rect" title=" " alt="" coords="2779,692,2861,719"/>
-<area shape="rect" title=" " alt="" coords="3089,543,3156,569"/>
-<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="2411,468,2493,495"/>
-<area shape="rect" href="asset__manager_8hpp.html" title=" " alt="" coords="3280,244,3451,271"/>
-<area shape="rect" title=" " alt="" coords="1330,692,1409,719"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2225,617,2349,644"/>
-<area shape="rect" title=" " alt="" coords="2252,692,2321,719"/>
-<area shape="rect" title=" " alt="" coords="2145,468,2234,495"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="2922,543,3014,569"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="2407,543,2518,569"/>
-<area shape="rect" title=" " alt="" coords="2226,543,2281,569"/>
-<area shape="rect" title=" " alt="" coords="2644,543,2719,569"/>
-<area shape="rect" title=" " alt="" coords="3181,543,3291,569"/>
-<area shape="rect" title=" " alt="" coords="2793,543,2897,569"/>
-<area shape="rect" title=" " alt="" coords="1631,617,1692,644"/>
-<area shape="rect" href="var_8hpp.html" title=" " alt="" coords="3807,468,3900,495"/>
-<area shape="rect" href="async_8hpp.html" title=" " alt="" coords="1741,319,1851,345"/>
-<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="2695,393,2819,420"/>
-<area shape="rect" href="synchronization_8hpp.html" title=" " alt="" coords="486,543,650,569"/>
-<area shape="rect" title=" " alt="" coords="1099,468,1195,495"/>
-<area shape="rect" title=" " alt="" coords="971,468,1024,495"/>
-<area shape="rect" href="callback__queue_8hpp.html" title=" " alt="" coords="195,468,360,495"/>
-<area shape="rect" href="task__manager_8hpp.html" title=" " alt="" coords="536,468,693,495"/>
-<area shape="rect" href="ecs__component_8hpp.html" title=" " alt="" coords="1488,319,1651,345"/>
-<area shape="rect" href="ecs__entity_8hpp.html" title=" " alt="" coords="819,319,949,345"/>
-<area shape="rect" href="ecs__memory_8hpp.html" title=" " alt="" coords="1025,244,1170,271"/>
-<area shape="rect" href="ecs__query_8hpp.html" title=" " alt="" coords="921,169,1052,196"/>
+<area shape="rect" title=" " alt="" coords="2645,5,2792,47"/>
+<area shape="rect" href="asset_8hpp.html" title=" " alt="" coords="3225,95,3340,121"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="2342,841,2466,868"/>
+<area shape="rect" title=" " alt="" coords="1965,916,2019,943"/>
+<area shape="rect" title=" " alt="" coords="1856,767,1915,793"/>
+<area shape="rect" title=" " alt="" coords="3446,692,3498,719"/>
+<area shape="rect" title=" " alt="" coords="902,692,970,719"/>
+<area shape="rect" href="traits_8hpp.html" title=" " alt="" coords="2367,169,2462,196"/>
+<area shape="rect" href="scene__feature_8hpp.html" title=" " alt="" coords="3958,95,4125,121"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="3427,543,3591,569"/>
+<area shape="rect" title=" " alt="" coords="4367,916,4433,943"/>
+<area shape="rect" title=" " alt="" coords="2043,916,2122,943"/>
+<area shape="rect" title=" " alt="" coords="4061,916,4131,943"/>
+<area shape="rect" title=" " alt="" coords="3417,916,3500,943"/>
+<area shape="rect" title=" " alt="" coords="995,692,1061,719"/>
+<area shape="rect" href="core_2class_8hpp.html" title=" " alt="" coords="651,617,757,644"/>
+<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="2477,468,2595,495"/>
+<area shape="rect" href="core_2object_8hpp.html" title=" " alt="" coords="3615,543,3726,569"/>
+<area shape="rect" href="uuid_8hpp.html" title=" " alt="" coords="3953,543,4052,569"/>
+<area shape="rect" href="weak__ref_8hpp.html" title=" " alt="" coords="347,617,475,644"/>
+<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="2657,617,2757,644"/>
+<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="2871,617,2953,644"/>
+<area shape="rect" title=" " alt="" coords="3738,617,3827,644"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="2629,692,2736,719"/>
+<area shape="rect" title=" " alt="" coords="3113,767,3167,793"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="2193,692,2303,719"/>
+<area shape="rect" title=" " alt="" coords="2379,692,2453,719"/>
+<area shape="rect" title=" " alt="" coords="1803,692,1914,719"/>
+<area shape="rect" title=" " alt="" coords="2861,692,2965,719"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="2301,767,2393,793"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="3201,468,3301,495"/>
+<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="2400,543,2517,569"/>
+<area shape="rect" href="date__time_8hpp.html" title=" " alt="" coords="3699,841,3831,868"/>
+<area shape="rect" href="flat__map_8hpp.html" title=" " alt="" coords="1745,543,1869,569"/>
+<area shape="rect" href="aabb_8hpp.html" title=" " alt="" coords="2968,393,3075,420"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="2669,468,2771,495"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="3049,543,3149,569"/>
+<area shape="rect" href="quat_8hpp.html" title=" " alt="" coords="2756,393,2860,420"/>
+<area shape="rect" href="transform_8hpp.html" title=" " alt="" coords="2627,319,2762,345"/>
+<area shape="rect" href="builtin_8hpp.html" title=" " alt="" coords="2215,319,2313,345"/>
+<area shape="rect" href="type_8hpp.html" title=" " alt="" coords="2049,468,2138,495"/>
+<area shape="rect" href="rtti_2class_8hpp.html" title=" " alt="" coords="1573,319,1669,345"/>
+<area shape="rect" href="struct_8hpp.html" title=" " alt="" coords="1437,393,1536,420"/>
+<area shape="rect" href="rtti_2enum_8hpp.html" title=" " alt="" coords="2201,393,2298,420"/>
+<area shape="rect" href="rtti_2object_8hpp.html" title=" " alt="" coords="1737,244,1837,271"/>
+<area shape="rect" href="type__storage_8hpp.html" title=" " alt="" coords="1571,244,1709,271"/>
+<area shape="rect" title=" " alt="" coords="1890,319,1947,345"/>
+<area shape="rect" title=" " alt="" coords="2225,244,2276,271"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="4351,543,4489,569"/>
+<area shape="rect" href="ecs__entity_8hpp.html" title=" " alt="" coords="4207,617,4337,644"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -154,18 +143,20 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="scene__data_8hpp__dep__incl.png" border="0" usemap="#aengine_2runtime_2scene_2scene__data_8hppdep" alt=""/></div>
 <map name="aengine_2runtime_2scene_2scene__data_8hppdep" id="aengine_2runtime_2scene_2scene__data_8hppdep">
-<area shape="rect" title=" " alt="" coords="429,5,576,47"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="365,281,539,307"/>
-<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="293,95,440,136"/>
-<area shape="rect" href="scene__data_8cpp.html" title=" " alt="" coords="540,95,687,136"/>
-<area shape="rect" href="scene_8cpp.html" title=" " alt="" coords="97,184,244,225"/>
-<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="567,184,713,225"/>
-<area shape="rect" href="scene__packed_8cpp.html" title=" " alt="" coords="5,273,152,315"/>
-<area shape="rect" href="scene__packed_8hpp.html" title=" " alt="" coords="268,184,415,225"/>
-<area shape="rect" href="scene__manager_8cpp.html" title=" " alt="" coords="741,273,888,315"/>
-<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="913,273,1066,315"/>
-<area shape="rect" href="game__application_8cpp.html" title=" " alt="" coords="563,273,717,315"/>
-<area shape="rect" href="runtime_2scene_2__rtti_8cpp.html" title=" " alt="" coords="195,273,341,315"/>
+<area shape="rect" title=" " alt="" coords="329,5,475,47"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="315,281,489,307"/>
+<area shape="rect" href="runtime_2scene_2__rtti_8cpp.html" title=" " alt="" coords="158,95,305,136"/>
+<area shape="rect" href="scene_8hpp.html" title=" " alt="" coords="329,95,475,136"/>
+<area shape="rect" href="scene__manager_8hpp.html" title=" " alt="" coords="607,184,754,225"/>
+<area shape="rect" href="scene__data_8cpp.html" title=" " alt="" coords="550,95,697,136"/>
+<area shape="rect" href="debug_2features_8cpp.html" title=" " alt="" coords="440,184,583,225"/>
+<area shape="rect" href="transform_2features_8cpp.html" title=" " alt="" coords="37,184,193,225"/>
+<area shape="rect" href="scene_8cpp.html" title=" " alt="" coords="218,184,365,225"/>
+<area shape="rect" href="game__manager_8hpp.html" title=" " alt="" coords="587,273,729,315"/>
+<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="472,363,625,404"/>
+<area shape="rect" href="game__application_8cpp.html" title=" " alt="" coords="839,363,992,404"/>
+<area shape="rect" href="scene__manager_8cpp.html" title=" " alt="" coords="754,273,901,315"/>
+<area shape="rect" href="game__manager_8cpp.html" title=" " alt="" coords="649,363,792,404"/>
 </map>
 </div>
 </div>
@@ -173,14 +164,14 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneDataSpatial.html">wmoge::SceneDataSpatial</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializable struct with transform data for a scene entity.  <a href="structwmoge_1_1SceneDataSpatial.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneDataCamera.html">wmoge::SceneDataCamera</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializable struct with camera data for a scene entity.  <a href="structwmoge_1_1SceneDataCamera.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1EntityDesc.html">wmoge::EntityDesc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct describing scene entity.  <a href="structwmoge_1_1EntityDesc.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1SceneData.html">wmoge::SceneData</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializable struct with a scene data for a runtime scene.  <a href="structwmoge_1_1SceneData.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sctuct storing scene raw data.  <a href="structwmoge_1_1SceneData.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1SceneDataAsset.html">wmoge::SceneDataAsset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents scene data as asset which can be saved and loaded from disc.  <a href="classwmoge_1_1SceneDataAsset.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -188,15 +179,14 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmoge"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html">wmoge</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a2bc322a40ecddf976fb7efecedcc2211"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2bc322a40ecddf976fb7efecedcc2211">wmoge::SceneEntityIndex</a> = int</td></tr>
-<tr class="memdesc:a2bc322a40ecddf976fb7efecedcc2211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index used to reference entities in this struct.  <a href="namespacewmoge.html#a2bc322a40ecddf976fb7efecedcc2211">More...</a><br /></td></tr>
-<tr class="separator:a2bc322a40ecddf976fb7efecedcc2211"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5da847c53bfe47d125cd317874bd5321"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a5da847c53bfe47d125cd317874bd5321"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5da847c53bfe47d125cd317874bd5321">wmoge::SceneEntityVector</a> = std::vector&lt; std::pair&lt; SceneEntityIndex, T &gt; &gt;</td></tr>
-<tr class="memdesc:a5da847c53bfe47d125cd317874bd5321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector with data mapped to entity by index.  <a href="namespacewmoge.html#a5da847c53bfe47d125cd317874bd5321">More...</a><br /></td></tr>
-<tr class="separator:a5da847c53bfe47d125cd317874bd5321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a64516f5342af1763ce599ff26926fa5c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a64516f5342af1763ce599ff26926fa5c">wmoge::WG_RTTI_STRUCT_BEGIN</a> (EntityDesc)</td></tr>
+<tr class="separator:a64516f5342af1763ce599ff26926fa5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdc15617f0d3d4ac394860c658e3e56a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#afdc15617f0d3d4ac394860c658e3e56a">wmoge::WG_RTTI_STRUCT_BEGIN</a> (SceneData)</td></tr>
+<tr class="separator:afdc15617f0d3d4ac394860c658e3e56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa74e26378f15a2b5ae6c3b9096eedc4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa74e26378f15a2b5ae6c3b9096eedc4f">wmoge::WG_RTTI_CLASS_BEGIN</a> (SceneDataAsset)</td></tr>
+<tr class="separator:aa74e26378f15a2b5ae6c3b9096eedc4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
