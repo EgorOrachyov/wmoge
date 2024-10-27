@@ -37,11 +37,11 @@ namespace wmoge {
 
     /**
      * @class ScenePrefab
-     * @brief A prefab asset which can be instantiated into a set of objects
+     * @brief A prefab asset which can be instantiated into a set of entities
      *
-     * Prefab stores a sub-tree of scene nodes, which can be instantiated and added
+     * Prefab stores a sub-tree of scene entities, which can be instantiated and added
      * to a scene tree at once. Prefab allows to make a complex object composed from
-     * nodes and use it to instantiate multiple times and keep all instances in sync.
+     * multiple entities and use it to instantiate multiple times.
      */
     class ScenePrefab : public Asset {
     public:

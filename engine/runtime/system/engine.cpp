@@ -37,6 +37,7 @@
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
 #include "ecs/ecs_registry.hpp"
+#include "game/game_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 #include "grc/pso_cache.hpp"
@@ -117,11 +118,6 @@ namespace wmoge {
         m_profiler_gpu->enable(true);
         m_profiler_gpu->calibrate(m_time->get_start());
 
-        m_shader_manager = m_ioc_container->resolve_value<ShaderManager>();
-        m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanMacOS>(m_ioc_container));
-        m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanLinux>(m_ioc_container));
-        m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanWindows>(m_ioc_container));
-
         m_asset_manager->load_loaders();
         m_asset_manager->add_library(std::make_shared<AssetLibraryFileSystem>("", m_ioc_container));
 
@@ -133,6 +129,12 @@ namespace wmoge {
         m_ecs_registry    = m_ioc_container->resolve_value<EcsRegistry>();
         m_scene_manager   = m_ioc_container->resolve_value<SceneManager>();
         m_view_manager    = m_ioc_container->resolve_value<ViewManager>();
+        m_game_manager    = m_ioc_container->resolve_value<GameManager>();
+
+        m_shader_manager = m_ioc_container->resolve_value<ShaderManager>();
+        m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanMacOS>(m_ioc_container));
+        m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanLinux>(m_ioc_container));
+        m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanWindows>(m_ioc_container));
 
         m_console->init(m_asset_manager);
 
@@ -219,6 +221,7 @@ namespace wmoge {
     RenderEngine*   Engine::render_engine() { return m_render_engine; }
     ViewManager*    Engine::view_manager() { return m_view_manager; }
     EcsRegistry*    Engine::ecs_registry() { return m_ecs_registry; }
+    GameManager*    Engine::game_manager() { return m_game_manager; }
     EngineConfig*   Engine::engine_config() { return m_engine_config; }
 
 }// namespace wmoge

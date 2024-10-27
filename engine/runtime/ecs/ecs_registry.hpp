@@ -59,7 +59,7 @@ namespace wmoge {
         [[nodiscard]] int                     get_expand_size() const { return m_expand_size; }
 
         template<typename Component>
-        void register_component();
+        void register_component(const std::string& name);
 
     private:
         static const int MAX_CMP = EcsLimits::MAX_COMPONENTS;
@@ -75,7 +75,7 @@ namespace wmoge {
     };
 
     template<typename Component>
-    void EcsRegistry::register_component() {
+    void EcsRegistry::register_component(const std::string& name) {
         const int component_idx = m_component_types++;
         assert(component_idx < EcsLimits::MAX_COMPONENTS);
 
@@ -84,7 +84,7 @@ namespace wmoge {
         assert(component_info.idx == -1);
         assert(component_info.size == -1);
 
-        Component::bind(component_idx, SID(Component::NAME_CSTR));
+        Component::bind(component_idx, SIDDBG(name));
 
         component_info.name = Component::NAME;
         component_info.idx  = Component::IDX;

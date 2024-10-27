@@ -51,20 +51,6 @@ namespace wmoge {
         AssetRef(Ref<T> ptr) : Ref<T>(std::move(ptr)) {}
     };
 
-    /**
-     * @class AssetRefWeak
-     * @brief Aux box to store asset ref and serialize/deserialize it automatically to and from files
-     */
-    template<typename T>
-    class AssetRefWeak : public AssetId {
-    public:
-        static_assert(std::is_base_of_v<Asset, T>, "Must be an asset");
-
-        AssetRefWeak() = default;
-        AssetRefWeak(const AssetId& id) : AssetId(id) {}
-        AssetRefWeak(const AssetRef<T>& ref) : AssetId(ref ? ref->get_id() : AssetId()) {}
-    };
-
     template<typename T>
     Status tree_read(IoContext& context, IoTree& tree, AssetRef<T>& ref) {
         AssetId id;
@@ -110,33 +96,13 @@ namespace wmoge {
     }
 
     template<typename T>
-    Status tree_read(IoContext& context, IoTree& tree, AssetRefWeak<T>& ref) {
-        AssetId id;
-        WG_TREE_READ(context, tree, id);
-        ref = AssetRefWeak<T>(id);
-        return WG_OK;
-    }
-
-    template<typename T>
-    Status tree_write(IoContext& context, IoTree& tree, const AssetRefWeak<T>& ref) {
-        AssetId id = ref;
-        WG_TREE_WRITE(context, tree, id);
-        return WG_OK;
-    }
-
-    template<typename T>
-    Status stream_read(IoContext& context, IoStream& stream, AssetRefWeak<T>& ref) {
-        AssetId id;
-        WG_ARCHIVE_READ(context, stream, id);
-        ref = AssetRefWeak<T>(id);
-        return WG_OK;
-    }
-
-    template<typename T>
-    Status stream_write(IoContext& context, IoStream& stream, const AssetRefWeak<T>& ref) {
-        AssetId id = ref;
-        WG_ARCHIVE_WRITE(context, stream, id);
-        return WG_OK;
-    }
+    struct RttiTypeOf<AssetRef<T>, typename std::enable_if<std::is_base_of_v<Asset, T>>::type> {
+        static Strid name() {
+            return SID(std::string("asset<") + rtti_type<T>()->get_str() + ">");
+        }
+        static Ref<RttiType> make() {
+            return make_ref<RttiTypeRefT<T>>(name());
+        }
+    };
 
 }// namespace wmoge

@@ -25,47 +25,25 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#pragma once
-
-#include "asset/asset.hpp"
-#include "core/async.hpp"
-#include "io/tree.hpp"
-#include "scene/scene.hpp"
-
-#include <optional>
+#include "scene_uuid.hpp"
 
 namespace wmoge {
 
-    /**
-     * @class ScenePacked
-     * @brief Represents packed scene asset which can be used to load scenes
-     *
-     * Packed scene stores serialized scene description. Supported formats are:
-     * text format based on yaml document, easy to write, read and parse. Scene
-     * representation loaded and saved in a pack. This serialized representation
-     * used to instantiate scene.
-     *
-     * Scene can be instantiated synchronously or asynchronously by async.
-     * For instantiation pack constructs and async task graph, so actual scene
-     * creating starts when deps are ready. Everything is done in task manager.
-     *
-     * @see Scene
-     */
-    class ScenePacked final : public Asset {
-    public:
-        WG_RTTI_CLASS(ScenePacked, Asset);
-
-        ScenePacked()           = default;
-        ~ScenePacked() override = default;
-
-    private:
-        SceneData m_data;
-    };
-
-    WG_RTTI_CLASS_BEGIN(ScenePacked) {
-        WG_RTTI_META_DATA(RttiUiHint(""));
-        WG_RTTI_FACTORY();
+    void SceneUuidMap::add_entity(UUID id, EcsEntity entity) {
+        m_map[id] = entity;
     }
-    WG_RTTI_END;
+
+    std::optional<EcsEntity> SceneUuidMap::find_entity(UUID id) {
+        auto iter = m_map.find(id);
+        return iter != m_map.end() ? std::optional<EcsEntity>(iter->second) : std::optional<EcsEntity>();
+    }
+
+    void SceneUuidManager::add_entity(UUID id, EcsEntity entity) {
+        m_map.add_entity(id, entity);
+    }
+
+    std::optional<EcsEntity> SceneUuidManager::find_entity(UUID id) {
+        return m_map.find_entity(id);
+    }
 
 }// namespace wmoge

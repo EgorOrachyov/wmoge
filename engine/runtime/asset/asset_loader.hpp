@@ -79,9 +79,6 @@ namespace wmoge {
     public:
         WG_RTTI_CLASS(AssetLoader, RttiObject);
 
-        AssetLoader()          = default;
-        virtual ~AssetLoader() = default;
-
         virtual Status fill_request(AssetLoadContext& context, const AssetId& asset_id, AssetLoadRequest& request) { return StatusCode::NotImplemented; };
         virtual Status load(AssetLoadContext& context, const AssetId& asset_id, const AssetLoadResult& result, Ref<Asset>& asset) { return StatusCode::NotImplemented; }
         virtual Status unload(Asset* asset) { return StatusCode::Ok; }

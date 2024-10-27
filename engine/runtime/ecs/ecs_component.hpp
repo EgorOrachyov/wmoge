@@ -77,7 +77,4 @@ namespace wmoge {
         std::function<void(void*, void*)> swap;
     };
 
-#define WG_ECS_COMPONENT(ecs_component_class) \
-    static constexpr char NAME_CSTR[] = #ecs_component_class;
-
 }// namespace wmoge

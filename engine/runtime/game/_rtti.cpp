@@ -27,17 +27,16 @@
 
 #include "_rtti.hpp"
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "game/debug/features.hpp"
+#include "game/transform/features.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
+    void rtti_game() {
+        rtti_type<GmDebugMeshFeature>();
+        rtti_type<GmDebugLabelFeature>();
+        rtti_type<GmDebugPrimitiveFeature>();
+        rtti_type<GmTransformFeature>();
     }
 
 }// namespace wmoge

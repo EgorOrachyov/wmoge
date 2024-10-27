@@ -25,19 +25,22 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "ecs/ecs_registry.hpp"
+#include "scene/scene_manager.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
-    }
+    class GameManager {
+    public:
+        GameManager(EcsRegistry* ecs_registry, SceneManager* scene_manager);
+
+    private:
+        EcsRegistry*  m_ecs_registry  = nullptr;
+        SceneManager* m_scene_manager = nullptr;
+    };
+
+    void bind_by_ioc_game_manager(class IocContainer* ioc);
 
 }// namespace wmoge

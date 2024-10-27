@@ -81,6 +81,7 @@ namespace wmoge {
         class RenderEngine*   render_engine();
         class ViewManager*    view_manager();
         class EcsRegistry*    ecs_registry();
+        class GameManager*    game_manager();
         class EngineConfig*   engine_config();
 
     private:
@@ -113,6 +114,7 @@ namespace wmoge {
         class EcsRegistry*    m_ecs_registry    = nullptr;
         class IocContainer*   m_ioc_container   = nullptr;
         class ProfilerGpu*    m_profiler_gpu    = nullptr;
+        class GameManager*    m_game_manager    = nullptr;
         class EngineConfig*   m_engine_config   = nullptr;
 
         bool m_exit_on_close = true;

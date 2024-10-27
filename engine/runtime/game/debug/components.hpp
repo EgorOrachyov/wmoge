@@ -25,19 +25,46 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "ecs/ecs_component.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "material/material.hpp"
+#include "math/mat.hpp"
+#include "math/transform.hpp"
+#include "math/vec.hpp"
+#include "mesh/mesh.hpp"
+
+#include <string>
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
-    }
+    enum class GmDebugPrimitiveType {
+        Sphere,
+        Cylinder,
+        Cone,
+        Box
+    };
+
+    struct GmDebugDistMinMaxComponent : public EcsComponent<GmDebugDistMinMaxComponent> {
+        int dist_min;
+        int dist_max;
+    };
+
+    struct GmDebugMeshComponent : public EcsComponent<GmDebugMeshComponent> {
+        Ref<Mesh>     mesh;
+        Ref<Material> material;
+    };
+
+    struct GmDebugLabelComponent : public EcsComponent<GmDebugLabelComponent> {
+        std::string text;
+        Color4f     color;
+        float       size;
+    };
+
+    struct GmDebugPrimitiveComponent : public EcsComponent<GmDebugPrimitiveComponent> {
+        GmDebugPrimitiveType type;
+        Color4f              color;
+    };
 
 }// namespace wmoge

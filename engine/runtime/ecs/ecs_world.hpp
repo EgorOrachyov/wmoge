@@ -62,7 +62,7 @@ namespace wmoge {
      */
     class EcsWorld {
     public:
-        EcsWorld(class EcsRegistry* ecs_registry, class TaskManager* task_manager);
+        EcsWorld(class EcsRegistry* ecs_registry);
         ~EcsWorld();
 
         /** @brief Allocates new entity for later creation */
@@ -115,10 +115,10 @@ namespace wmoge {
         void execute(const EcsQuery& query, const EcsQueuryFunction& func);
 
         /** @brief Exec function for each entity matching query in async job */
-        Async execute_async(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func);
+        Async execute_async(TaskManager* task_manager, Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func);
 
         /** @brief Exec function for each entity matching query in async parallel job */
-        Async execute_parallel(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func);
+        Async execute_parallel(TaskManager* task_manager, Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func);
 
         /** @brief Clear world destroying all entities */
         void clear();
@@ -129,15 +129,14 @@ namespace wmoge {
     private:
         std::vector<EcsEntityInfo>                          m_entity_info;       // entity info, accessed by entity idx
         std::deque<EcsEntity>                               m_entity_pool;       // pool with free entities handles
-        int                                                 m_entity_counter = 0;// total count of created entities
         flat_map<EcsArch, int>                              m_arch_to_idx;       // arch to unique index
         std::vector<std::unique_ptr<EcsArchStorage>>        m_arch_storage;      // storage per arch, indexed by arch idx
         std::vector<EcsArch>                                m_arch_by_idx;       // arch mask, indexed by arch idx
         std::vector<std::pair<EcsQuery, EcsQueuryFunction>> m_on_destroy;        // queries executed on destroy of some entities
+        int                                                 m_entity_counter = 0;// total count of created entities
 
         CallbackQueue m_queue;       // queue for async world operations, flushed on sync
         EcsRegistry*  m_ecs_registry;// registry of the ecs world
-        TaskManager*  m_task_manager;// default task manager for query execution
 
         mutable SpinMutex m_mutex;
     };

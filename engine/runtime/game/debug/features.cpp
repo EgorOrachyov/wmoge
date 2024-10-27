@@ -25,4 +25,37 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_components.hpp"
+#include "features.hpp"
+
+#include "ecs/ecs_world.hpp"
+#include "game/debug/components.hpp"
+#include "scene/scene.hpp"
+#include "scene/scene_uuid.hpp"
+
+namespace wmoge {
+
+    Status GmDebugMeshFeatureTrait::setup_entity_typed(EcsArch& arch, const GmDebugMeshFeature& feature, EntitySetupContext& context) {
+        return Status();
+    }
+
+    Status GmDebugMeshFeatureTrait::build_entity_typed(EcsEntity entity, const GmDebugMeshFeature& feature, EntityBuildContext& context) {
+        return Status();
+    }
+
+    Status GmDebugLabelFeatureTrait::setup_entity_typed(EcsArch& arch, const GmDebugLabelFeature& feature, EntitySetupContext& context) {
+        return Status();
+    }
+
+    Status GmDebugLabelFeatureTrait::build_entity_typed(EcsEntity entity, const GmDebugLabelFeature& feature, EntityBuildContext& context) {
+        return Status();
+    }
+
+    Status GmDebugPrimitiveFeatureTrait::setup_entity_typed(EcsArch& arch, const GmDebugPrimitiveFeature& feature, EntitySetupContext& context) {
+        return Status();
+    }
+
+    Status GmDebugPrimitiveFeatureTrait::build_entity_typed(EcsEntity entity, const GmDebugPrimitiveFeature& feature, EntityBuildContext& context) {
+        return Status();
+    }
+
+}// namespace wmoge

@@ -25,19 +25,53 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#include "game_manager.hpp"
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "core/ioc_container.hpp"
+
+#include "game/debug/components.hpp"
+#include "game/render/components.hpp"
+#include "game/transform/components.hpp"
+
+#include "game/debug/features.hpp"
+#include "game/transform/features.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
+    GameManager::GameManager(EcsRegistry* ecs_registry, SceneManager* scene_manager) {
+        m_ecs_registry  = ecs_registry;
+        m_scene_manager = scene_manager;
+
+        m_ecs_registry->register_component<GmParentComponent>("parent");
+        m_ecs_registry->register_component<GmChildrenComponent>("children");
+        m_ecs_registry->register_component<GmTransformComponent>("transform");
+        m_ecs_registry->register_component<GmTransformFrameComponent>("transform_frame");
+        m_ecs_registry->register_component<GmMatLocalComponent>("local");
+        m_ecs_registry->register_component<GmMatLocalToWorldComponent>("local_to_world");
+        m_ecs_registry->register_component<GmMatLocalToWorldPrevComponent>("local_to_world_prev");
+        m_ecs_registry->register_component<GmMatWorldToLocalComponent>("world_to_local");
+
+        m_ecs_registry->register_component<GmCameraComponent>("camera");
+        m_ecs_registry->register_component<GmLightComponent>("light");
+        m_ecs_registry->register_component<GmMeshComponent>("mesh");
+
+        m_ecs_registry->register_component<GmDebugDistMinMaxComponent>("debug_dist_min_max");
+        m_ecs_registry->register_component<GmDebugMeshComponent>("debug_shape");
+        m_ecs_registry->register_component<GmDebugLabelComponent>("debug_label");
+        m_ecs_registry->register_component<GmDebugPrimitiveComponent>("debug_primitive");
+
+        m_scene_manager->add_trait(make_ref<GmTransformFeatureTrait>());
+        m_scene_manager->add_trait(make_ref<GmDebugMeshFeatureTrait>());
+        m_scene_manager->add_trait(make_ref<GmDebugLabelFeatureTrait>());
+        m_scene_manager->add_trait(make_ref<GmDebugPrimitiveFeatureTrait>());
+    }
+
+    void bind_by_ioc_game_manager(class IocContainer* ioc) {
+        ioc->bind_by_factory<GameManager>([ioc]() {
+            return std::make_shared<GameManager>(
+                    ioc->resolve_value<EcsRegistry>(),
+                    ioc->resolve_value<SceneManager>());
+        });
     }
 
 }// namespace wmoge

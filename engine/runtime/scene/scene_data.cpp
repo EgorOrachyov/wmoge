@@ -27,17 +27,6 @@
 
 #include "scene_data.hpp"
 
-#include "profiler/profiler_cpu.hpp"
-
 namespace wmoge {
-
-    void SceneDataCamera::fill(EcsComponentCamera& component) const {
-        Camera& camera = component.camera;
-        camera.set_fov(fov);
-        camera.set_near_far(near, far);
-        camera.set_color(color);
-        camera.set_proj(projection);
-        camera.set_name(name);
-    }
 
 }// namespace wmoge

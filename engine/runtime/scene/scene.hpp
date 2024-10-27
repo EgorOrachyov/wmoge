@@ -27,14 +27,11 @@
 
 #pragma once
 
+#include "core/any_storage.hpp"
 #include "core/class.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "core/weak_ref.hpp"
-#include "ecs/ecs_world.hpp"
-#include "render/culling.hpp"
-#include "render/graphics_pipeline.hpp"
-#include "render/render_scene.hpp"
 #include "scene/scene_data.hpp"
 
 #include <memory>
@@ -57,9 +54,7 @@ namespace wmoge {
      * @brief Info for scene construction
      */
     struct SceneCreateInfo {
-        Strid              name;
-        class EcsRegistry* ecs_registry;
-        class TaskManager* task_manager;
+        Strid name;
     };
 
     /**
@@ -72,51 +67,55 @@ namespace wmoge {
      * in a ECS world in an optimized fashion, what gives fast processing and low overhed.
      * 
      * Scene data is optimized for runtime simulation, fast deserialization, not for the editing.
-     * Editing of the scene done by a separate stucture, named SceneTree. Tree manages hierarchy of
-     * nodes with extra editor information (not shared with final game). It follows SOLID principels,
+     * Editing of the scene done by a separate stucture, managed outside. Editing metadata stored
+     * only for editor scenes, don not affecting final runtime performace. It follows SOLID principels,
      * gives flexibility and performance in the final game (where Godot, UE, CryEngine, Unity use
      * mix or editor and scene logic, what causes pure CPU performance of scene processing).
      * 
      * Update of this scene state, sinmulation, scene rendering is done externally.
      * Scene data is travered by a scene manager, and required operations performed there.
-     * 
-     * @see SceneNode
-     * @see SceneTree
      */
     class Scene final : public RefCnt {
     public:
-        Scene(const SceneCreateInfo& info);
+        Scene(SceneCreateInfo& info);
 
-        Status build(const SceneData& data);
-        void   advance(float delta_time);
-        void   clear();
-        void   set_state(SceneState state);
-        void   finalize();
+        void advance(float delta_time);
+        void set_state(SceneState state);
+        void finalize();
 
-        [[nodiscard]] const Strid&    get_name();
-        [[nodiscard]] EcsWorld*       get_ecs_world();
-        [[nodiscard]] CullingManager* get_culling_manager();
-        [[nodiscard]] RenderScene*    get_render_scene();
-        [[nodiscard]] float           get_time() const { return m_time; }
-        [[nodiscard]] float           get_delta_time() const { return m_delta_time; }
-        [[nodiscard]] bool            need_simulate() const { return m_need_simulate; }
-        [[nodiscard]] bool            need_render() const { return m_need_render; }
-        [[nodiscard]] int             get_frame_id() const { return m_frame_id; }
-        [[nodiscard]] SceneState      get_state() const { return m_state; }
+        template<typename T>
+        T* get();
+
+        template<typename T>
+        void add(std::shared_ptr<T> attribute);
+
+        [[nodiscard]] const Strid& get_name();
+        [[nodiscard]] float        get_time() const { return m_time; }
+        [[nodiscard]] float        get_delta_time() const { return m_delta_time; }
+        [[nodiscard]] int          get_frame_id() const { return m_frame_id; }
+        [[nodiscard]] SceneState   get_state() const { return m_state; }
 
     private:
-        std::unique_ptr<EcsWorld>       m_ecs_world;
-        std::unique_ptr<CullingManager> m_culling_manager;
-        std::unique_ptr<RenderScene>    m_render_scene;
-
-        Strid m_name;
-        float m_time          = 0.0f;
-        float m_delta_time    = 0.0f;
-        bool  m_need_simulate = true;
-        bool  m_need_render   = true;
-        int   m_frame_id      = -1;
-
+        AnyStorage m_attributes;
         SceneState m_state = SceneState::Default;
+        Strid      m_name;
+        float      m_time       = 0.0f;
+        float      m_delta_time = 0.0f;
+        int        m_frame_id   = -1;
     };
+
+    template<typename T>
+    inline T* Scene::get() {
+        return m_attributes.get<T*>();
+    }
+
+    template<typename T>
+    inline void Scene::add(std::shared_ptr<T> attribute) {
+        T* attribute_ptr = attribute.get();
+        m_attributes.add<std::shared_ptr<T>>(std::move(attribute));
+        m_attributes.add<T*>(attribute_ptr);
+    }
+
+    using SceneRef = Ref<Scene>;
 
 }// namespace wmoge

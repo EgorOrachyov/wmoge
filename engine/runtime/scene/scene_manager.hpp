@@ -28,12 +28,15 @@
 #pragma once
 
 #include "core/async.hpp"
+#include "core/flat_map.hpp"
+#include "core/task_manager.hpp"
 #include "scene/scene.hpp"
+#include "scene/scene_data.hpp"
+#include "scene/scene_feature.hpp"
 
 #include <deque>
 #include <memory>
 #include <optional>
-#include <stack>
 #include <vector>
 
 namespace wmoge {
@@ -44,20 +47,19 @@ namespace wmoge {
      */
     class SceneManager final {
     public:
-        SceneManager(class IocContainer* ioc);
+        SceneManager() = default;
 
-        void                      clear();
-        void                      update();
-        void                      change(Ref<Scene> scene);
-        Ref<Scene>                get_running_scene();
-        Ref<Scene>                make_scene(const Strid& name);
-        std::optional<Ref<Scene>> find_by_name(const Strid& name);
+        void clear();
+        void update();
 
-    private:
-        void update_scene_hier();
-        void update_scene_cameras();
-        void update_scene_visibility();
-        void render_scene();
+        void                               change_scene(SceneRef scene);
+        SceneRef                           get_running_scene();
+        std::optional<SceneRef>            find_scene_by_name(const Strid& name);
+        SceneRef                           make_scene(const Strid& name);
+        Status                             build_scene(const SceneRef& scene, const SceneData& data);
+        Async                              build_scene_async(TaskManager* task_manager, const SceneRef& scene, const Ref<SceneDataAsset>& data);
+        void                               add_trait(const Ref<EntityFeatureTrait>& trait);
+        std::optional<EntityFeatureTrait*> find_trait(const Strid& rtti);
 
     private:
         void scene_change();
@@ -68,27 +70,14 @@ namespace wmoge {
         void scene_finish();
 
     private:
-        std::vector<Ref<Scene>> m_scenes;  // allocated scenes in the engine
-        std::deque<Ref<Scene>>  m_to_clear;// scheduled to be cleared
-
-        Ref<Scene> m_running;// active scene
-        Ref<Scene> m_next;   // next scene to set
-        Ref<Scene> m_default;// default scene to always show something
-
-        class EcsRegistry*  m_ecs_registry  = nullptr;
-        class TaskManager*  m_task_manager  = nullptr;
-        class RenderEngine* m_render_engine = nullptr;
-
-        struct SyncContext {
-            Async complete_heir;
-            Async complete_cameras;
-            Async complete_visibility;
-            Async complete_render;
-
-            void await_all();
-        };
-
-        SyncContext m_sync;// Allows to sync different parts of scene update
+        std::vector<SceneRef>                    m_scenes;  // allocated scenes in the engine
+        std::deque<SceneRef>                     m_to_clear;// scheduled to be cleared
+        SceneRef                                 m_running; // active scene
+        SceneRef                                 m_next;    // next scene to set
+        SceneRef                                 m_default; // default scene to always show something
+        flat_map<Strid, Ref<EntityFeatureTrait>> m_traits;
     };
+
+    void bind_by_ioc_scene_manager(class IocContainer* ioc);
 
 }// namespace wmoge

@@ -25,93 +25,73 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "core/string_id.hpp"
-#include "core/flat_map.hpp"
-#include "core/synchronization.hpp"
+#pragma once
 
-#include "string_id.hpp"
-#include <cassert>
-#include <memory>
-#include <mutex>
+#include "core/array_view.hpp"
+#include "core/uuid.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "rtti/traits.hpp"
 
 namespace wmoge {
 
     /**
-     * @class StringStorage
-     * @brief Global storage to hold unique string ids data
+     * @class EntityFeature
+     * @brief Describes single aspect/feature of a particular ecs entity
      */
-    class StringStorage {
+    class EntityFeature : public RttiObject {
     public:
-        void                  get_or_create(const std::string& key, const std::string*& str);
-        static StringStorage& instance(StridPool pool);
+        WG_RTTI_CLASS(EntityFeature, RttiObject)
 
-    private:
-        struct Entry {
-            std::string str;
-        };
-
-    private:
-        flat_map<std::string, std::unique_ptr<Entry>> m_entries;
-        mutable SpinMutex                             m_mutex;
+        EntityFeature() = default;
     };
 
-    void StringStorage::get_or_create(const std::string& key, const std::string*& str) {
-        assert(!key.empty());
-
-        std::lock_guard guard(m_mutex);
-        auto&           entry = m_entries[key];
-
-        if (entry == nullptr) {
-            entry      = std::make_unique<Entry>();
-            entry->str = key;
-        }
-
-        str = &entry->str;
+    WG_RTTI_CLASS_BEGIN(EntityFeature) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
     }
+    WG_RTTI_END;
 
-    StringStorage& StringStorage::instance(StridPool pool) {
-        static StringStorage g_storage[static_cast<int>(StridPool::Max)];
-        return g_storage[static_cast<int>(pool)];
-    }
+    /**
+     * @class EntityFeatureVector
+     * @brief Optimized storage for features of a group of entities
+     */
+    class EntityFeatureVector : public RttiObject {
+    public:
+        WG_RTTI_CLASS(EntityFeatureVector, RttiObject)
 
-    Strid::Strid() {
-        static std::string g_empty;
-        m_string = &g_empty;
-    }
+        EntityFeatureVector() = default;
+    };
 
-    Strid::Strid(const char* string) : Strid(std::string(string), StridPool::Release) {
+    WG_RTTI_CLASS_BEGIN(EntityFeatureVector) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
     }
-    Strid::Strid(const std::string& string) : Strid(string, StridPool::Release) {
-    }
+    WG_RTTI_END;
 
-    Strid::Strid(const std::string& string, StridPool pool) : Strid() {
-        if (string.empty())
-            return;
-        StringStorage::instance(pool).get_or_create(string, m_string);
-    }
+    /** @brief Context passed to trait on entity setup */
+    struct EntitySetupContext {
+        class EcsWorld* world = nullptr;
+        class Scene*    scene = nullptr;
+    };
 
-    bool Strid::operator==(const Strid& other) const {
-        return m_string == other.m_string;
-    }
+    /** @brief Context passed to trait on entity creation */
+    struct EntityBuildContext {
+        class EcsWorld*     world = nullptr;
+        class Scene*        scene = nullptr;
+        class SceneUuidMap* uuid  = nullptr;
+    };
 
-    bool Strid::operator!=(const Strid& other) const {
-        return m_string != other.m_string;
-    }
-
-    bool Strid::operator<(const Strid& other) const {
-        return *m_string < *other.m_string;
-    }
-
-    std::size_t Strid::id() const {
-        return reinterpret_cast<std::size_t>(m_string);
-    }
-
-    std::size_t Strid::hash() const {
-        return std::hash<std::size_t>()(id());
-    }
-
-    const std::string& Strid::str() const {
-        return *m_string;
-    }
+    /**
+     * @class EntityFeatureTrait
+     * @brief Entity trait responsible for handling partical features on the entity
+     */
+    class EntityFeatureTrait : public RefCnt {
+    public:
+        virtual RttiSubclass<EntityFeature> get_feature_type() { return {}; }
+        virtual Status                      fill_requirements(std::vector<RttiSubclass<EntityFeature>>& required_features) { return StatusCode::NotImplemented; }
+        virtual Status                      setup_entity(EcsArch& arch, const EntityFeature& feature, EntitySetupContext& context) { return StatusCode::NotImplemented; }
+        virtual Status                      build_entity(EcsEntity entity, const EntityFeature& feature, EntityBuildContext& context) { return StatusCode::NotImplemented; }
+        virtual Status                      build_entities(array_view<EcsEntity> entities, const EntityFeatureVector& features, EntityBuildContext& context) { return StatusCode::NotImplemented; }
+    };
 
 }// namespace wmoge

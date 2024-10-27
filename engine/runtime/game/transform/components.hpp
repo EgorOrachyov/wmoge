@@ -25,15 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "scene_packed.hpp"
+#pragma once
 
-#include "core/log.hpp"
-#include "core/task.hpp"
-#include "core/timer.hpp"
-#include "platform/file_system.hpp"
-#include "profiler/profiler_cpu.hpp"
-#include "scene/scene.hpp"
+#include "ecs/ecs_component.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "math/mat.hpp"
+#include "math/transform.hpp"
+#include "math/vec.hpp"
+
+#include <vector>
 
 namespace wmoge {
+
+    struct GmParentComponent : public EcsComponent<GmParentComponent> {
+        EcsEntity id;
+    };
+
+    struct GmChildrenComponent : public EcsComponent<GmChildrenComponent> {
+        std::vector<EcsEntity> ids;
+    };
+
+    struct GmTransformComponent : public EcsComponent<GmTransformComponent> {
+        Transform3d t;
+    };
+
+    struct GmTransformFrameComponent : public EcsComponent<GmTransformFrameComponent> {
+        int frame = -1;
+    };
+
+    struct GmMatLocalToWorldComponent : public EcsComponent<GmMatLocalToWorldComponent> {
+        Mat3x4f m;
+    };
+
+    struct GmMatLocalToWorldPrevComponent : public EcsComponent<GmMatLocalToWorldPrevComponent> {
+        Mat3x4f m;
+    };
+
+    struct GmMatWorldToLocalComponent : public EcsComponent<GmMatWorldToLocalComponent> {
+        Mat3x4f m;
+    };
+
+    struct GmMatLocalComponent : public EcsComponent<GmMatLocalComponent> {
+        Mat3x4f m;
+    };
 
 }// namespace wmoge

@@ -104,6 +104,15 @@ namespace wmoge {
         float m_rotation;
     };
 
+    inline std::ostream& operator<<(std::ostream& ostream, const Transform2d& t) {
+        ostream << "(";
+        ostream << "t=" << t.get_translation() << ", ";
+        ostream << "r=" << t.get_rotation() << ", ";
+        ostream << "s=" << t.get_scale();
+        ostream << ")";
+        return ostream;
+    }
+
     /**
      * @class Transform3d
      * @brief Utility to manage 3d space transformations
@@ -185,6 +194,15 @@ namespace wmoge {
         Vec3f m_translation;
         Vec3f m_scale;
     };
+
+    inline std::ostream& operator<<(std::ostream& ostream, const Transform3d& t) {
+        ostream << "(";
+        ostream << "t=" << t.get_translation() << ", ";
+        ostream << "r=" << t.get_rotation() << ", ";
+        ostream << "s=" << t.get_scale();
+        ostream << ")";
+        return ostream;
+    }
 
     /**
      * @class TransformEdt
@@ -269,5 +287,14 @@ namespace wmoge {
         Vec3f m_translation;
         Vec3f m_scale;
     };
+
+    inline std::ostream& operator<<(std::ostream& ostream, const TransformEdt& t) {
+        ostream << "(";
+        ostream << "t=" << t.get_translation() << ", ";
+        ostream << "r=" << t.get_rotation() << ", ";
+        ostream << "s=" << t.get_scale();
+        ostream << ")";
+        return ostream;
+    }
 
 }// namespace wmoge

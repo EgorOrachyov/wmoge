@@ -25,19 +25,33 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
 #include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
-    }
+    template<typename T>
+    class EntitySimpleFeatureTrait : public EntityFeatureTrait {
+    public:
+        virtual Status setup_entity_typed(EcsArch& arch, const T& feature, EntitySetupContext& context) { return StatusCode::NotImplemented; }
+        virtual Status build_entity_typed(EcsEntity entity, const T& feature, EntityBuildContext& context) { return StatusCode::NotImplemented; }
+
+        RttiSubclass<EntityFeature> get_feature_type() override {
+            return T::get_class_static();
+        }
+
+        Status fill_requirements(std::vector<RttiSubclass<EntityFeature>>& required_features) override {
+            return WG_OK;
+        }
+
+        Status setup_entity(EcsArch& arch, const EntityFeature& feature, EntitySetupContext& context) override {
+            return setup_entity_typed(arch, dynamic_cast<const T&>(feature), context);
+        }
+
+        Status build_entity(EcsEntity entity, const EntityFeature& feature, EntityBuildContext& context) override {
+            return build_entity_typed(entity, dynamic_cast<const T&>(feature), context);
+        }
+    };
 
 }// namespace wmoge

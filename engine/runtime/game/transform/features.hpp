@@ -25,19 +25,45 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "core/uuid.hpp"
+#include "math/transform.hpp"
+#include "scene/scene_feature_adapter.hpp"
+
+#include <optional>
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
+    enum class GmTransformType {
+        MovableHierarchical,
+        Movable,
+        NonMovable
+    };
+
+    class GmTransformFeature : public EntityFeature {
+        WG_RTTI_CLASS(GmTransformFeature, EntityFeature)
+
+        TransformEdt        transform;
+        GmTransformType     type = GmTransformType::NonMovable;
+        std::optional<UUID> parent;
+        std::vector<UUID>   children;
+    };
+
+    WG_RTTI_CLASS_BEGIN(GmTransformFeature) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(transform, {RttiOptional});
+        WG_RTTI_FIELD(type, {RttiOptional});
+        WG_RTTI_FIELD(parent, {RttiOptional});
+        WG_RTTI_FIELD(children, {RttiOptional});
     }
+    WG_RTTI_END;
+
+    class GmTransformFeatureTrait : public EntitySimpleFeatureTrait<GmTransformFeature> {
+    public:
+        Status setup_entity_typed(EcsArch& arch, const GmTransformFeature& feature, EntitySetupContext& context) override;
+        Status build_entity_typed(EcsEntity entity, const GmTransformFeature& feature, EntityBuildContext& context) override;
+    };
 
 }// namespace wmoge

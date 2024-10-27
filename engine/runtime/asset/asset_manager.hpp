@@ -64,7 +64,6 @@ namespace wmoge {
     class AssetManager {
     public:
         AssetManager(class IocContainer* ioc);
-        ~AssetManager() = default;
 
         AsyncResult<Ref<Asset>>      load_async(const AssetId& name);
         Ref<Asset>                   load(const AssetId& name);

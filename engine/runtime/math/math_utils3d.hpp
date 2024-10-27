@@ -27,14 +27,79 @@
 
 #pragma once
 
-#include "mat.hpp"
-#include "math_utils.hpp"
-#include "vec.hpp"
+#include "math/mat.hpp"
+#include "math/math_utils.hpp"
+#include "math/quat.hpp"
+#include "math/vec.hpp"
 
 namespace wmoge {
 
     class Math3d {
     public:
+        static Mat4x4f to_m4x4f(const Mat3x3f& m) {
+            Mat4x4f mat;
+
+            mat[0][0] = m[0][0];
+            mat[0][1] = m[0][1];
+            mat[0][2] = m[0][2];
+
+            mat[1][0] = m[1][0];
+            mat[1][1] = m[1][1];
+            mat[1][2] = m[1][2];
+
+            mat[2][0] = m[2][0];
+            mat[2][1] = m[2][1];
+            mat[2][2] = m[2][2];
+
+            mat[3][3] = 1.0f;
+
+            return mat;
+        }
+
+        static Mat4x4f to_m4x4f(const Mat3x4f& m) {
+            Mat4x4f mat;
+
+            mat[0][0] = m[0][0];
+            mat[0][1] = m[0][1];
+            mat[0][2] = m[0][2];
+            mat[0][3] = m[0][3];
+
+            mat[1][0] = m[1][0];
+            mat[1][1] = m[1][1];
+            mat[1][2] = m[1][2];
+            mat[1][3] = m[1][3];
+
+            mat[2][0] = m[2][0];
+            mat[2][1] = m[2][1];
+            mat[2][2] = m[2][2];
+            mat[2][3] = m[2][3];
+
+            mat[3][3] = 1.0f;
+
+            return mat;
+        }
+
+        static Mat3x4f to_m3x4f(const Mat4x4f& m) {
+            Mat3x4f mat;
+
+            mat[0][0] = m[0][0];
+            mat[0][1] = m[0][1];
+            mat[0][2] = m[0][2];
+            mat[0][3] = m[0][3];
+
+            mat[1][0] = m[1][0];
+            mat[1][1] = m[1][1];
+            mat[1][2] = m[1][2];
+            mat[1][3] = m[1][3];
+
+            mat[2][0] = m[2][0];
+            mat[2][1] = m[2][1];
+            mat[2][2] = m[2][2];
+            mat[2][3] = m[2][3];
+
+            return mat;
+        }
+
         static Mat4x4f identity() {
             Mat4x4f mat;
             mat[0][0] = 1.0f;
@@ -127,8 +192,40 @@ namespace wmoge {
             return Vec3f(mat * Vec4f(vec, 1.0f));
         }
 
+        static Vec3f transform(const Mat3x4f& mat, const Vec3f& vec) {
+            return mat * Vec4f(vec, 1.0f);
+        }
+
         static Vec3f transform_w0(const Mat4x4f& mat, const Vec3f& vec) {
             return Vec3f(mat * Vec4f(vec, 0.0f));
+        }
+
+        static Vec3f extract_translation(const Mat3x4f& mat) {
+            return Vec3f(mat[0][3], mat[1][3], mat[2][3]);
+        }
+
+        static Vec3f extract_scale(const Mat3x4f& mat) {
+            return Vec3f(Vec3f(mat.col(0)).length(),
+                         Vec3f(mat.col(1)).length(),
+                         Vec3f(mat.col(2)).length());
+        }
+
+        static void decompose(const Mat3x4f& mat, Vec3f& pos, Vec3f& scale, Quatf& quat) {
+            pos   = extract_translation(mat);
+            scale = extract_scale(mat);
+
+            Mat3x3f rot;
+            rot[0][0] = mat[0][0] / scale.x();
+            rot[1][0] = mat[1][0] / scale.x();
+            rot[2][0] = mat[2][0] / scale.x();
+            rot[0][1] = mat[0][1] / scale.y();
+            rot[1][1] = mat[1][1] / scale.y();
+            rot[2][1] = mat[2][1] / scale.y();
+            rot[0][2] = mat[0][2] / scale.z();
+            rot[1][2] = mat[1][2] / scale.z();
+            rot[2][2] = mat[2][2] / scale.z();
+
+            quat = Quatf(to_m4x4f(rot));
         }
 
         /**

@@ -25,19 +25,24 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "ecs/ecs_component.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "math/mat.hpp"
+#include "math/transform.hpp"
+#include "math/vec.hpp"
+#include "render/camera.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
-    }
+    struct GmCameraComponent : public EcsComponent<GmCameraComponent> {
+    };
+
+    struct GmLightComponent : public EcsComponent<GmLightComponent> {
+    };
+
+    struct GmMeshComponent : public EcsComponent<GmMeshComponent> {
+    };
 
 }// namespace wmoge

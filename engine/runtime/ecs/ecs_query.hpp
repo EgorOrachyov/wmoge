@@ -121,12 +121,16 @@ namespace wmoge {
               m_range_count(count) {
         }
 
-        template<typename Component>
-        bool has() { return m_arch.has_component<Component>(); }
+        template<typename Functor>
+        void for_each(Functor f);
 
         template<typename Component>
-        Component& get_component(int entity_idx) { return *m_storage.get_component<Component>(entity_idx); }
-        EcsEntity  get_entity(int entity_idx) { return m_storage.get_entity(entity_idx); }
+        [[nodiscard]] bool has_component() const;
+
+        template<typename Component>
+        [[nodiscard]] Component& get_component(int entity_idx);
+
+        [[nodiscard]] EcsEntity get_entity(int entity_idx);
 
         [[nodiscard]] int get_start_idx() const { return m_range_start; }
         [[nodiscard]] int get_count() const { return m_range_count; }
@@ -141,5 +145,26 @@ namespace wmoge {
 
     /** @brief Function used to execute ecs query */
     using EcsQueuryFunction = std::function<void(EcsQueryContext& context)>;
+
+    template<typename Functor>
+    inline void EcsQueryContext::for_each(Functor f) {
+        for (int i = m_range_start; i < m_range_start + m_range_count; i++) {
+            f(i);
+        }
+    }
+
+    template<typename Component>
+    inline bool EcsQueryContext::has_component() const {
+        return m_arch.has_component<Component>();
+    }
+
+    template<typename Component>
+    inline Component& EcsQueryContext::get_component(int entity_idx) {
+        return *m_storage.get_component<Component>(entity_idx);
+    }
+
+    inline EcsEntity wmoge::EcsQueryContext::get_entity(int entity_idx) {
+        return m_storage.get_entity(entity_idx);
+    }
 
 }// namespace wmoge

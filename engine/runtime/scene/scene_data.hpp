@@ -27,21 +27,10 @@
 
 #pragma once
 
-#include "asset/asset_ref.hpp"
-#include "core/buffered_vector.hpp"
-#include "core/class.hpp"
-#include "core/ref.hpp"
-#include "ecs/ecs_core.hpp"
-#include "ecs/ecs_world.hpp"
-#include "io/serialization.hpp"
-#include "math/color.hpp"
-#include "math/transform.hpp"
-#include "platform/window.hpp"
-#include "render/culling.hpp"
-#include "render/graphics_pipeline.hpp"
-#include "render/model.hpp"
-#include "render/render_scene.hpp"
-#include "scene/scene_components.hpp"
+#include "asset/asset.hpp"
+#include "core/string_id.hpp"
+#include "rtti/traits.hpp"
+#include "scene/scene_feature.hpp"
 
 #include <memory>
 #include <string>
@@ -51,47 +40,59 @@
 namespace wmoge {
 
     /**
-     * @class SceneDataSpatial
-     * @brief Serializable struct with transform data for a scene entity
+     * @class EntityDesc
+     * @brief Struct describing scene entity
      */
-    struct SceneDataSpatial {
-        Transform3d        transform;
-        std::optional<int> parent;
+    struct EntityDesc {
+        WG_RTTI_STRUCT(EntityDesc)
+
+        UUID                            uuid;
+        std::string                     name;
+        std::vector<Ref<EntityFeature>> features;
     };
 
-    /**
-     * @class SceneDataCamera
-     * @brief Serializable struct with camera data for a scene entity
-     */
-    struct SceneDataCamera {
-        Strid            name;
-        Color4f          color      = Color::BLACK4f;
-        float            fov        = 45.0f;
-        float            near       = 0.1f;
-        float            far        = 10000.0f;
-        CameraProjection projection = CameraProjection::Perspective;
-
-        void fill(EcsComponentCamera& component) const;
-    };
-
-    /** @brief Index used to reference entities in this struct */
-    using SceneEntityIndex = int;
-
-    /** @brief Vector with data mapped to entity by index */
-    template<typename T>
-    using SceneEntityVector = std::vector<std::pair<SceneEntityIndex, T>>;
+    WG_RTTI_STRUCT_BEGIN(EntityDesc) {
+        WG_RTTI_FIELD(uuid, {});
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(features, {});
+    }
+    WG_RTTI_END;
 
     /**
      * @class SceneData
-     * @brief Serializable struct with a scene data for a runtime scene
+     * @brief Sctuct storing scene raw data
      */
-    struct SceneData final {
-        Strid                               name;
-        std::vector<EcsArch>                entities;
-        SceneEntityVector<std::string>      names;
-        SceneEntityVector<SceneDataSpatial> hier;
-        SceneEntityVector<SceneDataCamera>  cameras;
-        GraphicsPipelineSettings            pipeline;
+    struct SceneData {
+        WG_RTTI_STRUCT(SceneData)
+
+        Strid                   name;
+        std::vector<EntityDesc> entities;
     };
+
+    WG_RTTI_STRUCT_BEGIN(SceneData) {
+        WG_RTTI_FIELD(name, {});
+        WG_RTTI_FIELD(entities, {});
+    }
+    WG_RTTI_END;
+
+    /**
+     * @class SceneDataAsset
+     * @brief Represents scene data as asset which can be saved and loaded from disc
+     */
+    class SceneDataAsset : public Asset {
+    public:
+        WG_RTTI_CLASS(SceneDataAsset, Asset)
+
+        [[nodiscard]] const SceneData& get_data() const { return m_data; }
+
+    private:
+        SceneData m_data;
+    };
+
+    WG_RTTI_CLASS_BEGIN(SceneDataAsset) {
+        WG_RTTI_FACTORY();
+        WG_RTTI_FIELD(m_data, {});
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge

@@ -99,9 +99,11 @@
         "typeindex": "cpp",
         "**/*.asset": "yaml",
         "**/*.shader": "yaml",
+        "**/*.scene": "yaml",
         "*.moc": "cpp",
         "coroutine": "cpp",
-        "resumable": "cpp"
+        "resumable": "cpp",
+        "*.rh": "cpp"
     },
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"

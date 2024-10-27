@@ -45,7 +45,7 @@ namespace wmoge {
         AnyStorage() = default;
 
         template<typename T>
-        void add(T element) noexcept { m_map[typeid(T)] = std::move(element); }
+        void add(T element) noexcept { m_map.emplace(typeid(T), std::move(element)); }
 
         template<typename T>
         bool has() const noexcept { return m_map.find(typeid(T)) != m_map.end(); }

@@ -35,9 +35,8 @@
 
 namespace wmoge {
 
-    EcsWorld::EcsWorld(EcsRegistry* ecs_registry, TaskManager* task_manager) {
+    EcsWorld::EcsWorld(EcsRegistry* ecs_registry) {
         m_ecs_registry = ecs_registry;
-        m_task_manager = task_manager;
     }
 
     EcsWorld::~EcsWorld() {
@@ -209,7 +208,7 @@ namespace wmoge {
         }
     }
 
-    Async EcsWorld::execute_async(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
+    Async EcsWorld::execute_async(TaskManager* task_manager, Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute_async");
 
         Task task(query.name, [query, func, this](TaskContext&) {
@@ -229,10 +228,10 @@ namespace wmoge {
             return 0;
         });
 
-        return task.schedule(m_task_manager, depends_on).as_async();
+        return task.schedule(task_manager, depends_on).as_async();
     }
 
-    Async EcsWorld::execute_parallel(Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
+    Async EcsWorld::execute_parallel(TaskManager* task_manager, Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute_parallel");
 
         TaskParallelFor task(query.name, [query, func, this](TaskContext&, int batch_id, int batch_count) {
@@ -251,7 +250,7 @@ namespace wmoge {
             return 0;
         });
 
-        return task.schedule(m_task_manager, m_task_manager->get_num_workers(), 1, depends_on).as_async();
+        return task.schedule(task_manager, task_manager->get_num_workers(), 1, depends_on).as_async();
     }
 
     void EcsWorld::clear() {

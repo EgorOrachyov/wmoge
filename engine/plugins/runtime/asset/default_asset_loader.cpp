@@ -28,6 +28,7 @@
 
 #include "default_asset_loader.hpp"
 
+#include "asset/asset_manager.hpp"
 #include "core/ioc_container.hpp"
 #include "io/tree_yaml.hpp"
 #include "profiler/profiler_cpu.hpp"
@@ -55,7 +56,13 @@ namespace wmoge {
         Ref<AssetImportData> import_data = context.asset_meta.import_data.cast<AssetImportData>();
         assert(import_data);
 
-        RttiClass* rtti = context.ioc->resolve_value<RttiTypeStorage>()->find_class(context.asset_meta.rtti);
+        RttiTypeStorage* type_storage = context.ioc->resolve_value<RttiTypeStorage>();
+        if (!type_storage) {
+            WG_LOG_ERROR("no rtti storage for " << asset_id);
+            return StatusCode::InvalidState;
+        }
+
+        RttiClass* rtti = type_storage->find_class(context.asset_meta.rtti);
         if (!rtti) {
             WG_LOG_ERROR("no rtti type for " << asset_id);
             return StatusCode::InvalidData;
@@ -71,6 +78,9 @@ namespace wmoge {
 
         IoYamlTree asset_tree;
         WG_CHECKED(asset_tree.parse_data(result.get_data_file(FILE_TAG)));
+
+        context.io_context.add<RttiTypeStorage*>(type_storage);
+        context.io_context.add<AssetManager*>(context.ioc->resolve_value<AssetManager>());
 
         if (!asset->read_from_tree(context.io_context, asset_tree)) {
             WG_LOG_ERROR("failed to load asset from file " << asset_id);

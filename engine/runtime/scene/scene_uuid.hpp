@@ -25,19 +25,34 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "core/flat_map.hpp"
+#include "core/uuid.hpp"
+#include "ecs/ecs_entity.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
-    }
+    class SceneUuidMap {
+    public:
+        SceneUuidMap() = default;
+
+        void                     add_entity(UUID id, EcsEntity entity);
+        std::optional<EcsEntity> find_entity(UUID id);
+
+    private:
+        flat_map<UUID, EcsEntity> m_map;
+    };
+
+    class SceneUuidManager {
+    public:
+        SceneUuidManager() = default;
+
+        void                     add_entity(UUID id, EcsEntity entity);
+        std::optional<EcsEntity> find_entity(UUID id);
+
+    private:
+        SceneUuidMap m_map;
+    };
 
 }// namespace wmoge

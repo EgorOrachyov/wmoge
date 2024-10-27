@@ -25,19 +25,33 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "_rtti.hpp"
+#pragma once
 
-#include "scene/scene_data.hpp"
-#include "scene/scene_feature.hpp"
-#include "scene/scene_prefab.hpp"
+#include "ecs/ecs_query.hpp"
+#include "game/debug/components.hpp"
+#include "game/transform/components.hpp"
+#include "render/aux_draw_manager.hpp"
 
 namespace wmoge {
 
-    void rtti_scene() {
-        rtti_type<EntityFeature>();
-        rtti_type<EntityDesc>();
-        rtti_type<SceneData>();
-        rtti_type<SceneDataAsset>();
-    }
+    struct GmDebugLabelQuery : EcsQuery {
+        GmDebugLabelQuery() {
+            add<GmDebugLabelComponent>();
+            add<GmDebugDistMinMaxComponent>(EcsComponentPresence::Optional);
+            add<GmMatLocalToWorldComponent>();
+        }
+    };
+
+    struct GmDebugPrimitiveQuery : EcsQuery {
+        GmDebugPrimitiveQuery() {
+            add<GmDebugPrimitiveComponent>();
+            add<GmDebugDistMinMaxComponent>(EcsComponentPresence::Optional);
+            add<GmMatLocalToWorldComponent>();
+        }
+    };
+
+    void gm_draw_debug_label_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQueryContext& query);
+
+    void gm_draw_debug_primitive_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQueryContext& query);
 
 }// namespace wmoge

@@ -27,46 +27,18 @@
 
 #include "scene_manager.hpp"
 
-#include "core/async.hpp"
 #include "core/ioc_container.hpp"
-#include "core/task_parallel_for.hpp"
-#include "ecs/ecs_registry.hpp"
-#include "gfx/gfx_cmd_list.hpp"
-#include "gfx/gfx_driver.hpp"
-#include "platform/time.hpp"
-#include "platform/window.hpp"
-#include "platform/window_manager.hpp"
+#include "core/task.hpp"
+#include "ecs/ecs_core.hpp"
+#include "ecs/ecs_entity.hpp"
+#include "ecs/ecs_world.hpp"
 #include "profiler/profiler_cpu.hpp"
-#include "render/render_engine.hpp"
-#include "scene/scene_components.hpp"
+#include "scene/scene_uuid.hpp"
 
 #include <cassert>
 #include <utility>
 
 namespace wmoge {
-
-    SceneManager::SceneManager(IocContainer* ioc) {
-        WG_LOG_INFO("init scene manager");
-
-        m_render_engine = ioc->resolve_value<RenderEngine>();
-        m_task_manager  = ioc->resolve_value<TaskManager>();
-        m_ecs_registry  = ioc->resolve_value<EcsRegistry>();
-
-        m_ecs_registry->register_component<EcsComponentChildren>();
-        m_ecs_registry->register_component<EcsComponentParent>();
-        m_ecs_registry->register_component<EcsComponentTransform>();
-        m_ecs_registry->register_component<EcsComponentTransformUpd>();
-        m_ecs_registry->register_component<EcsComponentLocalToWorld>();
-        m_ecs_registry->register_component<EcsComponentWorldToLocal>();
-        m_ecs_registry->register_component<EcsComponentLocalToParent>();
-        m_ecs_registry->register_component<EcsComponentAabbLocal>();
-        m_ecs_registry->register_component<EcsComponentAabbWorld>();
-        m_ecs_registry->register_component<EcsComponentName>();
-        m_ecs_registry->register_component<EcsComponentTag>();
-        m_ecs_registry->register_component<EcsComponentCamera>();
-        m_ecs_registry->register_component<EcsComponentLight>();
-        m_ecs_registry->register_component<EcsComponentCullingItem>();
-    }
 
     void SceneManager::clear() {
         WG_PROFILE_CPU_SCENE("SceneManager::clear");
@@ -97,27 +69,20 @@ namespace wmoge {
         // Play scene
         scene_play();
     }
-    void SceneManager::change(Ref<Scene> scene) {
-        assert(scene);
 
+    void SceneManager::change_scene(SceneRef scene) {
+        assert(scene);
         m_next = std::move(scene);
     }
-    Ref<Scene> SceneManager::get_running_scene() {
+
+    SceneRef SceneManager::get_running_scene() {
         return m_running;
     }
-    Ref<Scene> SceneManager::make_scene(const Strid& name) {
-        WG_PROFILE_CPU_SCENE("SceneManager::make_scene");
 
-        SceneCreateInfo info;
-        info.name         = name;
-        info.ecs_registry = m_ecs_registry;
-        info.task_manager = m_task_manager;
-        return m_scenes.emplace_back(make_ref<Scene>(info));
-    }
-    std::optional<Ref<Scene>> SceneManager::find_by_name(const Strid& name) {
-        WG_PROFILE_CPU_SCENE("SceneManager::find_by_name");
+    std::optional<SceneRef> SceneManager::find_scene_by_name(const Strid& name) {
+        WG_PROFILE_CPU_SCENE("SceneManager::find_scene_by_name");
 
-        for (Ref<Scene>& scene : m_scenes) {
+        for (SceneRef& scene : m_scenes) {
             if (scene->get_name() == name) {
                 return scene;
             }
@@ -126,20 +91,107 @@ namespace wmoge {
         return std::nullopt;
     }
 
-    void SceneManager::update_scene_hier() {
-        WG_PROFILE_CPU_SCENE("SceneManager::update_scene_hier");
+    SceneRef SceneManager::make_scene(const Strid& name) {
+        WG_PROFILE_CPU_SCENE("SceneManager::make_scene");
+
+        SceneCreateInfo info;
+        info.name = name;
+        return m_scenes.emplace_back(make_ref<Scene>(info));
     }
 
-    void SceneManager::update_scene_cameras() {
-        WG_PROFILE_CPU_SCENE("SceneManager::update_scene_cameras");
+    Status SceneManager::build_scene(const SceneRef& scene, const SceneData& data) {
+        WG_PROFILE_CPU_SCENE("SceneManager::build_scene");
+
+        EcsWorld* world = scene->get<EcsWorld>();
+
+        SceneUuidMap           uuid_map;
+        std::vector<EcsEntity> entities;
+        std::vector<EcsArch>   archs;
+
+        EntitySetupContext setup_context;
+        setup_context.scene = scene.get();
+        setup_context.world = world;
+
+        EntityBuildContext build_context;
+        build_context.scene = scene.get();
+        build_context.world = world;
+        build_context.uuid  = &uuid_map;
+
+        archs.reserve(data.entities.size());
+        for (const EntityDesc& entity_desc : data.entities) {
+            EcsArch entity_arch;
+
+            for (const Ref<EntityFeature>& feature : entity_desc.features) {
+                EntityFeatureTrait* trait = find_trait(feature->get_class_name()).value_or(nullptr);
+                if (!trait) {
+                    WG_LOG_ERROR("no such trait type for entity " << entity_desc.name << " feature " << feature->get_class_name());
+                    return StatusCode::InvalidData;
+                }
+
+                EcsArch arch;
+                if (!trait->setup_entity(arch, *feature, setup_context)) {
+                    WG_LOG_ERROR("failed setup entity " << entity_desc.name << " feature " << feature->get_class_name());
+                    return StatusCode::Error;
+                }
+
+                if ((arch & entity_arch).any()) {
+                    WG_LOG_ERROR("feature arch collision for entity " << entity_desc.name << " feature " << feature->get_class_name());
+                    return StatusCode::InvalidData;
+                }
+
+                entity_arch |= arch;
+            }
+
+            archs.push_back(entity_arch);
+        }
+
+        entities.reserve(archs.size());
+        for (std::size_t i = 0; i < archs.size(); i++) {
+            const EcsEntity entity = world->allocate_entity();
+
+            entities.push_back(entity);
+            world->make_entity(entity, archs[i]);
+            uuid_map.add_entity(data.entities[i].uuid, entity);
+        }
+
+        for (std::size_t i = 0; i < entities.size(); i++) {
+            const EcsEntity   entity      = entities[i];
+            const EntityDesc& entity_desc = data.entities[i];
+
+            for (const Ref<EntityFeature>& feature : entity_desc.features) {
+                EntityFeatureTrait* trait = find_trait(feature->get_class_name()).value_or(nullptr);
+                assert(trait);
+
+                if (!trait->build_entity(entity, *feature, build_context)) {
+                    WG_LOG_ERROR("failed build entity " << entity_desc.name << " feature " << feature->get_class_name());
+                    return StatusCode::Error;
+                }
+            }
+        }
+
+        return WG_OK;
     }
 
-    void SceneManager::update_scene_visibility() {
-        WG_PROFILE_CPU_SCENE("SceneManager::update_scene_visibility");
+    Async SceneManager::build_scene_async(TaskManager* task_manager, const SceneRef& scene, const Ref<SceneDataAsset>& data) {
+        WG_PROFILE_CPU_SCENE("SceneManager::build_scene_async");
+
+        Task task(scene->get_name(), [scene, data, this](TaskContext&) {
+            if (!build_scene(scene, data->get_data())) {
+                return 1;
+            }
+            return 0;
+        });
+
+        return task.schedule(task_manager).as_async();
     }
 
-    void SceneManager::render_scene() {
-        WG_PROFILE_CPU_SCENE("SceneManager::render_scene");
+    void SceneManager::add_trait(const Ref<EntityFeatureTrait>& trait) {
+        m_traits[trait->get_feature_type()->get_name()] = trait;
+    }
+
+    std::optional<EntityFeatureTrait*> SceneManager::find_trait(const Strid& rtti) {
+        auto iter = m_traits.find(rtti);
+        return iter != m_traits.end() ? iter->second.get() : std::optional<EntityFeatureTrait*>();
     }
 
     void SceneManager::scene_change() {
@@ -173,17 +225,6 @@ namespace wmoge {
     void SceneManager::scene_play() {
         WG_PROFILE_CPU_SCENE("SceneManager::scene_play");
 
-        // m_running->advance(... instance()->time()->get_delta_time_game());
-
-        m_sync = SyncContext();
-
-        update_scene_hier();
-        update_scene_cameras();
-        update_scene_visibility();
-        render_scene();
-
-        m_sync.await_all();
-
         assert(m_running->get_state() == SceneState::Playing);
     }
 
@@ -205,13 +246,8 @@ namespace wmoge {
         m_running->set_state(SceneState::Finished);
     }
 
-    void SceneManager::SyncContext::await_all() {
-        WG_PROFILE_CPU_SCENE("SyncContext::await_all");
-
-        if (complete_heir.is_not_null()) complete_heir.wait_completed();
-        if (complete_cameras.is_not_null()) complete_cameras.wait_completed();
-        if (complete_visibility.is_not_null()) complete_visibility.wait_completed();
-        if (complete_render.is_not_null()) complete_render.wait_completed();
+    void bind_by_ioc_scene_manager(class IocContainer* ioc) {
+        ioc->bind<SceneManager>();
     }
 
 }// namespace wmoge

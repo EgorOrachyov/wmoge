@@ -93,19 +93,24 @@ public:
 
         GameApplication::on_init();
 
-        auto async_mesh    = m_engine->asset_manager()->load_async(SID("assets/mesh/suzanne"));
-        auto async_tex2d   = m_engine->asset_manager()->load_async(SID("assets/textures/dirt_mask"));
-        auto async_texCube = m_engine->asset_manager()->load_async(SID("assets/textures/skybox"));
+        auto async_mesh  = m_engine->asset_manager()->load_async(SID("assets/mesh/suzanne"));
+        auto async_tex2d = m_engine->asset_manager()->load_async(SID("assets/textures/dirt_mask"));
+        // auto async_texCube = m_engine->asset_manager()->load_async(SID("assets/textures/skybox"));
 
         async_mesh.wait_completed();
         async_tex2d.wait_completed();
-        async_texCube.wait_completed();
+        // async_texCube.wait_completed();
 
-        mesh    = async_mesh.result().cast<Mesh>();
-        tex2d   = async_tex2d.result().cast<Texture2d>();
-        texCube = async_texCube.result().cast<TextureCube>();
+        mesh  = async_mesh.result().cast<Mesh>();
+        tex2d = async_tex2d.result().cast<Texture2d>();
+        // texCube = async_texCube.result().cast<TextureCube>();
 
-        // Engine::instance()->scene_manager()->change(scene);
+        auto scene_data = m_engine->asset_manager()->load(SID("assets/scenes/test_scene")).cast<SceneDataAsset>();
+
+        auto s = m_engine->scene_manager()->make_scene(SID("test_scene"));
+        s->add(std::make_shared<EcsWorld>(m_engine->ecs_registry()));
+
+        // m_engine->scene_manager()->build_scene(s, scene_data->get_data());
 
         ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80, m_engine->shader_manager());
         rdc

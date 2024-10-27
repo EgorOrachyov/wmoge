@@ -42,6 +42,7 @@
 #include "math/aabb.hpp"
 #include "math/mat.hpp"
 #include "math/quat.hpp"
+#include "math/transform.hpp"
 #include "math/vec.hpp"
 #include "rtti/builtin.hpp"
 #include "rtti/class.hpp"
@@ -427,6 +428,9 @@ namespace wmoge {
     WG_RTTI_FUNDAMENTAL_DECL(Status, "status");
     WG_RTTI_FUNDAMENTAL_DECL(Ref<Data>, "data");
     WG_RTTI_FUNDAMENTAL_DECL(Aabbf, "aabbf");
+    WG_RTTI_FUNDAMENTAL_DECL(Transform2d, "transform2d");
+    WG_RTTI_FUNDAMENTAL_DECL(Transform3d, "transform3d");
+    WG_RTTI_FUNDAMENTAL_DECL(TransformEdt, "transformEdt");
 
     template<typename T, int N>
     struct RttiTypeOf<Mask<T, N>> {

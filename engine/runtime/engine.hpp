@@ -211,10 +211,9 @@
 #include "render/view_manager.hpp"
 
 #include "scene/scene.hpp"
-#include "scene/scene_components.hpp"
 #include "scene/scene_data.hpp"
+#include "scene/scene_feature.hpp"
 #include "scene/scene_manager.hpp"
-#include "scene/scene_packed.hpp"
 #include "scene/scene_prefab.hpp"
 
 #include "io/config.hpp"

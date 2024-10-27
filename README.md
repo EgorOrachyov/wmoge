@@ -58,9 +58,11 @@ project for educational purposes only.
 * 🧱 Ecs-based scene model with fast, parallel and memory-friendly update.
 * 🎧 (in progress) OpenAL audio renderer for playing game sounds.
 * 📜 (in progress) Modern Lua scripting backend for game logic programming.
-* 🐞 Built-in CPU performance and tasking profiling with support to google trace exporting.
+* 🐞 Built-in CPU performance and tasking profiling with support for custom labels and metadata.
+* 🐞 Built-in GPU performance profiler for separate GPU queues / command lists.
+* 🐞 CPU & GPU trace collection with support to google trace exporting.
+* 🐞 Debug GPU labels objects and events for RenderDoc captures.
 * 🐞 In-game dev console with support for console commands and console variables.
-* 🐞 Debug labels objects and events for RenderDoc captures.
 
 ### Platforms
 
@@ -106,7 +108,8 @@ project for educational purposes only.
 * [Master Class: In-Depth Guide to Working with Particle Effects in CRYENGINE](https://www.youtube.com/watch?v=npPlJ0npfVQ)
 * [Master Class: How to assign Game Inputs through Actionmapping in CRYENGINE](https://www.youtube.com/watch?v=uTmHUIypR-4)
 * [Master Class: Comprehensive Guide to Working with Audio in CRYENGINE](https://www.youtube.com/watch?v=oG1trk1PLMM)
-* [CRYENGINE Tutorial - Art Asset Pipeline: PBR Texture Mapping](https://www.youtube.com/watch?v=hGFP_4TYL2o)
+* [Master Class: Art Asset Pipeline, PBR Texture Mapping in CRYENGINE](https://www.youtube.com/watch?v=hGFP_4TYL2o)
+* [ECS Scripting of Alan Wake 2](https://gdcvault.com/play/1034295/ECS-in-Practice-The-Case)
 * [HypeHype Mobile Rendering Architecture](https://advances.realtimerendering.com/s2023/index.html)
 * [Creating a Tools Pipeline for Horizon: Zero Dawn](https://www.youtube.com/watch?v=KRJkBxKv1VM)
 * [The Future of Scene Description on 'God of War'](https://www.gdcvault.com/play/1026345/The-Future-of-Scene-Description)

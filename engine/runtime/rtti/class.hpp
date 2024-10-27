@@ -40,6 +40,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <vector>
 
 namespace wmoge {
@@ -110,6 +111,46 @@ namespace wmoge {
         flat_map<Strid, int>               m_signals_map;
         std::vector<RttiSignal>            m_signals;
         RttiClass*                         m_parent_class = nullptr;
+    };
+
+    template<typename BaseType>
+    class RttiSubclass {
+    public:
+        RttiSubclass()                        = default;
+        RttiSubclass(const RttiSubclass&)     = default;
+        RttiSubclass(RttiSubclass&&) noexcept = default;
+
+        RttiSubclass(RttiClass* rtti) {
+            if (rtti) {
+                assert(rtti->is_subtype_of(BaseType::get_class_static()));
+                m_rtti = rtti;
+            }
+        }
+
+        template<typename OtherType>
+        operator RttiSubclass<OtherType>() const {
+            static_assert(std::is_base_of_v<OtherType, BaseType>);
+            return RttiSubclass<OtherType>(m_rtti);
+        }
+
+        template<typename OtherType>
+        RttiSubclass<OtherType> cast() const {
+            if (rtti && rtti->is_subtype_of(OtherType::get_class_static())) {
+                return RttiSubclass<OtherType>(m_rtti);
+            }
+            return RttiSubclass<OtherType>();
+        }
+
+        RttiClass& operator*() const { return *m_rtti; }
+        RttiClass* operator->() const { return m_rtti; }
+
+        operator bool() const { return m_rtti; }
+
+        [[nodiscard]] bool is_empty() const { return !m_rtti; }
+        [[nodiscard]] bool is_not_empty() const { return m_rtti; }
+
+    private:
+        RttiClass* m_rtti = nullptr;
     };
 
 }// namespace wmoge

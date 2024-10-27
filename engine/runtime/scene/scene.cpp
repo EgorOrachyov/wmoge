@@ -27,27 +27,10 @@
 
 #include "scene.hpp"
 
-#include "profiler/profiler_cpu.hpp"
-#include "render/deferred_pipeline.hpp"
-#include "scene/scene_components.hpp"
-
-#include <cassert>
-
 namespace wmoge {
 
-    Scene::Scene(const SceneCreateInfo& info) {
-        WG_PROFILE_CPU_SCENE("Scene::Scene");
-
-        m_name            = info.name;
-        m_ecs_world       = std::make_unique<EcsWorld>(info.ecs_registry, info.task_manager);
-        m_culling_manager = std::make_unique<CullingManager>();
-        m_render_scene    = std::make_unique<RenderScene>();
-    }
-
-    Status Scene::build(const SceneData& data) {
-        WG_PROFILE_CPU_SCENE("Scene::build");
-
-        return WG_OK;
+    Scene::Scene(SceneCreateInfo& info) {
+        m_name = info.name;
     }
 
     void Scene::advance(float delta_time) {
@@ -55,30 +38,16 @@ namespace wmoge {
         m_time += m_delta_time;
         m_frame_id += 1;
     }
-    void Scene::clear() {
-        m_ecs_world->clear();
-    }
+
     void Scene::set_state(SceneState state) {
         m_state = state;
     }
-    void Scene::finalize() {
-        WG_PROFILE_CPU_SCENE("Scene::finalize");
 
-        m_ecs_world.reset();
-        m_culling_manager.reset();
-        m_render_scene.reset();
+    void Scene::finalize() {
     }
+
     const Strid& Scene::get_name() {
         return m_name;
-    }
-    EcsWorld* Scene::get_ecs_world() {
-        return m_ecs_world.get();
-    }
-    CullingManager* Scene::get_culling_manager() {
-        return m_culling_manager.get();
-    }
-    RenderScene* Scene::get_render_scene() {
-        return m_render_scene.get();
     }
 
 }// namespace wmoge

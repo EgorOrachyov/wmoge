@@ -36,6 +36,7 @@
 #include "core/log.hpp"
 #include "core/task_manager.hpp"
 #include "ecs/ecs_registry.hpp"
+#include "game/game_manager.hpp"
 #include "gfx/vulkan/vk_driver.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
 #include "grc/pso_cache.hpp"
@@ -66,6 +67,7 @@
 
 #include "asset/_rtti.hpp"
 #include "audio/_rtti.hpp"
+#include "game/_rtti.hpp"
 #include "glsl/_rtti.hpp"
 #include "grc/_rtti.hpp"
 #include "material/_rtti.hpp"
@@ -100,7 +102,8 @@ namespace wmoge {
         ioc->bind_by_ioc<TextureManager>();
         ioc->bind_by_ioc<MeshManager>();
         ioc->bind_by_ioc<AssetManager>();
-        ioc->bind_by_ioc<SceneManager>();
+        bind_by_ioc_scene_manager(ioc);
+        bind_by_ioc_game_manager(ioc);
         ioc->bind_by_ioc<Engine>();
 
         ioc->bind_by_factory<IoAsyncFileSystem>([ioc]() {
@@ -150,6 +153,7 @@ namespace wmoge {
     }
 
     static Status unbind_globals(IocContainer* ioc) {
+        ioc->unbind<GameManager>();
         ioc->unbind<ViewManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<PsoCache>();
@@ -183,6 +187,7 @@ namespace wmoge {
         rtti_pfx();
         rtti_render();
         rtti_scene();
+        rtti_game();
         rtti_system();
     }
 
