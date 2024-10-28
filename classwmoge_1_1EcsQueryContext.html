@@ -77,11 +77,20 @@ $(function() {
  <a href="classwmoge_1_1EcsQueryContext.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ecs__query_8hpp_source.html">ecs_query.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for wmoge::EcsQueryContext:</div>
+<div class="dyncontent">
+<div class="center"><img src="classwmoge_1_1EcsQueryContext__inherit__graph.png" border="0" usemap="#awmoge_1_1EcsQueryContext_inherit__map" alt="Inheritance graph"/></div>
+<map name="awmoge_1_1EcsQueryContext_inherit__map" id="awmoge_1_1EcsQueryContext_inherit__map">
+<area shape="rect" title="Context passed to execute function when query is executed." alt="" coords="30,5,201,32"/>
+<area shape="rect" href="classwmoge_1_1EcsQuery.html" title=" " alt="" coords="5,80,225,107"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a887968fda9135e9679fbfdfc22d653c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#a887968fda9135e9679fbfdfc22d653c2">EcsQueryContext</a> (<a class="el" href="classwmoge_1_1EcsArchStorage.html">EcsArchStorage</a> &amp;storage, <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> query, int start, int count)</td></tr>
-<tr class="separator:a887968fda9135e9679fbfdfc22d653c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d569af66ad99bfca7d1223a45d1c3c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#a9d569af66ad99bfca7d1223a45d1c3c6">EcsQueryContext</a> (<a class="el" href="classwmoge_1_1EcsArchStorage.html">EcsArchStorage</a> &amp;storage, <a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a> query, int start, int count)</td></tr>
+<tr class="separator:a9d569af66ad99bfca7d1223a45d1c3c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6662d94652f9f8249a6baeb16b65e93"><td class="memTemplParams" colspan="2">template&lt;typename Functor &gt; </td></tr>
 <tr class="memitem:ae6662d94652f9f8249a6baeb16b65e93"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#ae6662d94652f9f8249a6baeb16b65e93">for_each</a> (Functor f)</td></tr>
 <tr class="separator:ae6662d94652f9f8249a6baeb16b65e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,6 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a938c6c0bf0172e021833149307ff954f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf247f8fbffcd2af75b732ab80e92579"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#abf247f8fbffcd2af75b732ab80e92579">get_entity</a> (int entity_idx)</td></tr>
 <tr class="separator:abf247f8fbffcd2af75b732ab80e92579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed49649b23d656b6faf319c46f871fc1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#aed49649b23d656b6faf319c46f871fc1">get_query</a> () const</td></tr>
+<tr class="separator:aed49649b23d656b6faf319c46f871fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf359c805b3428d3194d36f27c7e2d9b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#abf359c805b3428d3194d36f27c7e2d9b">get_start_idx</a> () const</td></tr>
 <tr class="separator:abf359c805b3428d3194d36f27c7e2d9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae079831ac566bfdd73e22ffe8a347947"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html#ae079831ac566bfdd73e22ffe8a347947">get_count</a> () const</td></tr>
@@ -101,8 +112,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Context passed to execute function when query is executed. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a887968fda9135e9679fbfdfc22d653c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a887968fda9135e9679fbfdfc22d653c2">&#9670;&nbsp;</a></span>EcsQueryContext()</h2>
+<a id="a9d569af66ad99bfca7d1223a45d1c3c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d569af66ad99bfca7d1223a45d1c3c6">&#9670;&nbsp;</a></span>EcsQueryContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -119,7 +130,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a>&#160;</td>
           <td class="paramname"><em>query</em>, </td>
         </tr>
         <tr>
@@ -246,6 +257,31 @@ template&lt;typename Component &gt; </div>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>entity_idx</em></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed49649b23d656b6faf319c46f871fc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed49649b23d656b6faf319c46f871fc1">&#9670;&nbsp;</a></span>get_query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a>&amp; wmoge::EcsQueryContext::get_query </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>

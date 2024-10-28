@@ -1,0 +1,5 @@
+<map id="wmoge::EcsAccess" name="wmoge::EcsAccess">
+<area shape="rect" id="node1" title="Configures query to iterate over specific type of entities." alt="" coords="158,5,294,32"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GmDebugLabelAccess.html" title=" " alt="" coords="5,80,209,107"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GmDebugPrimitiveAccess.html" title=" " alt="" coords="233,80,456,107"/>
+</map>

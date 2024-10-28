@@ -370,11 +370,13 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsArchStorage.html">EcsArchStorage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages entities of a specific single archetype.  <a href="classwmoge_1_1EcsArchStorage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures query to iterate over specific type of entities.  <a href="structwmoge_1_1EcsQuery.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures query to iterate over specific type of entities.  <a href="structwmoge_1_1EcsAccess.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Context passed to execute function when query is executed.  <a href="classwmoge_1_1EcsQueryContext.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1EcsRegistry.html">EcsRegistry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages global ecs state and static info.  <a href="classwmoge_1_1EcsRegistry.html#details">More...</a><br /></td></tr>
@@ -402,9 +404,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GmDebugPrimitiveFeatureTrait.html">GmDebugPrimitiveFeatureTrait</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GmDebugLabelQuery.html">GmDebugLabelQuery</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GmDebugLabelAccess.html">GmDebugLabelAccess</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GmDebugPrimitiveQuery.html">GmDebugPrimitiveQuery</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1GmDebugPrimitiveAccess.html">GmDebugPrimitiveAccess</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GameManager.html">GameManager</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -3284,8 +3286,8 @@ Functions</h2></td></tr>
 <tr class="separator:a5d9d6c43bef731aa654bc8172105a352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ac36e36faecb0ae333255a314e6d26e"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1ac36e36faecb0ae333255a314e6d26e">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;entity)</td></tr>
 <tr class="separator:a1ac36e36faecb0ae333255a314e6d26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c33ad516a9154196d9ffbe28b62af8d"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5c33ad516a9154196d9ffbe28b62af8d">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> &amp;query)</td></tr>
-<tr class="separator:a5c33ad516a9154196d9ffbe28b62af8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff5cab7a55471ff24afb061f0c762ac8"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aff5cab7a55471ff24afb061f0c762ac8">operator&lt;&lt;</a> (std::ostream &amp;stream, const <a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a> &amp;query)</td></tr>
+<tr class="separator:aff5cab7a55471ff24afb061f0c762ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ba657dea981324b639e2054f12d296f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9ba657dea981324b639e2054f12d296f">rtti_game</a> ()</td></tr>
 <tr class="separator:a9ba657dea981324b639e2054f12d296f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a944e7e97876f8cfd5e6154ab3094482a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a944e7e97876f8cfd5e6154ab3094482a">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1GmDebugMeshFeature.html">GmDebugMeshFeature</a>)</td></tr>
@@ -3294,12 +3296,14 @@ Functions</h2></td></tr>
 <tr class="separator:ac3830a2c9caa561286ac256548dc9cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad79fc4bc6ee382e935fac48e9a6f130b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ad79fc4bc6ee382e935fac48e9a6f130b">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1GmDebugPrimitiveFeature.html">GmDebugPrimitiveFeature</a>)</td></tr>
 <tr class="separator:ad79fc4bc6ee382e935fac48e9a6f130b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7fc9e18abab2d7365e140d0c64b86ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae7fc9e18abab2d7365e140d0c64b86ed">gm_draw_debug_label_system</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> *draw_manager, <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> cam_pos, <a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a> &amp;query)</td></tr>
-<tr class="separator:ae7fc9e18abab2d7365e140d0c64b86ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b9aa67ccbacc0c13a52c9cced39db61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a9b9aa67ccbacc0c13a52c9cced39db61">gm_draw_debug_primitive_system</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> *draw_manager, <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> cam_pos, bool solid, <a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a> &amp;query)</td></tr>
-<tr class="separator:a9b9aa67ccbacc0c13a52c9cced39db61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40b4d856ba10a5465932afff75f2181a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a40b4d856ba10a5465932afff75f2181a">gm_draw_debug_primitive_system</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> *draw_manager, <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> cam_pos, <a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a> &amp;query)</td></tr>
-<tr class="separator:a40b4d856ba10a5465932afff75f2181a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dc777aec4f810d342dce05c27ab1aed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a1dc777aec4f810d342dce05c27ab1aed">gm_draw_debug_label_system</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> *draw_manager, <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> cam_pos, <a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a>&lt; <a class="el" href="structwmoge_1_1GmDebugLabelAccess.html">GmDebugLabelAccess</a> &gt; &amp;query)</td></tr>
+<tr class="memdesc:a1dc777aec4f810d342dce05c27ab1aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders entities with debug label in 3d space.  <a href="namespacewmoge.html#a1dc777aec4f810d342dce05c27ab1aed">More...</a><br /></td></tr>
+<tr class="separator:a1dc777aec4f810d342dce05c27ab1aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad95f23524a2e14e7550ead0736fd107"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aad95f23524a2e14e7550ead0736fd107">gm_draw_debug_primitive_system</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> *draw_manager, <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> cam_pos, bool solid, <a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a>&lt; <a class="el" href="structwmoge_1_1GmDebugPrimitiveAccess.html">GmDebugPrimitiveAccess</a> &gt; &amp;query)</td></tr>
+<tr class="separator:aad95f23524a2e14e7550ead0736fd107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7523e6a5081416d8297ae4efa9e0ad83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a7523e6a5081416d8297ae4efa9e0ad83">gm_draw_debug_primitive_system</a> (<a class="el" href="classwmoge_1_1AuxDrawManager.html">AuxDrawManager</a> *draw_manager, <a class="el" href="namespacewmoge.html#a108c0a2427fee7637b1edc62eec2d81a">Vec3f</a> cam_pos, <a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a>&lt; <a class="el" href="structwmoge_1_1GmDebugPrimitiveAccess.html">GmDebugPrimitiveAccess</a> &gt; &amp;query)</td></tr>
+<tr class="memdesc:a7523e6a5081416d8297ae4efa9e0ad83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders entities with debug primitive shape in 3d space.  <a href="namespacewmoge.html#a7523e6a5081416d8297ae4efa9e0ad83">More...</a><br /></td></tr>
+<tr class="separator:a7523e6a5081416d8297ae4efa9e0ad83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa63fb7ea269fdf2226d6346e6fb43be1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa63fb7ea269fdf2226d6346e6fb43be1">bind_by_ioc_game_manager</a> (class <a class="el" href="classwmoge_1_1IocContainer.html">IocContainer</a> *ioc)</td></tr>
 <tr class="separator:aa63fb7ea269fdf2226d6346e6fb43be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2574a6d612ef2ba1a36c6e9a0ee17f45"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a2574a6d612ef2ba1a36c6e9a0ee17f45">WG_RTTI_CLASS_BEGIN</a> (<a class="el" href="classwmoge_1_1GmTransformFeature.html">GmTransformFeature</a>)</td></tr>
@@ -8986,8 +8990,8 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
 
 </div>
 </div>
-<a id="ae7fc9e18abab2d7365e140d0c64b86ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7fc9e18abab2d7365e140d0c64b86ed">&#9670;&nbsp;</a></span>gm_draw_debug_label_system()</h2>
+<a id="a1dc777aec4f810d342dce05c27ab1aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dc777aec4f810d342dce05c27ab1aed">&#9670;&nbsp;</a></span>gm_draw_debug_label_system()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9007,7 +9011,7 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a>&lt; <a class="el" href="structwmoge_1_1GmDebugLabelAccess.html">GmDebugLabelAccess</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>query</em>&#160;</td>
         </tr>
         <tr>
@@ -9018,10 +9022,20 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
       </table>
 </div><div class="memdoc">
 
+<p>Renders entities with debug label in 3d space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">draw_manager</td><td>Aux draw manager for debug rendering </td></tr>
+    <tr><td class="paramname">cam_pos</td><td>Main camera pos for culling </td></tr>
+    <tr><td class="paramname">query</td><td>Ecs entities to draw </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
-<a id="a9b9aa67ccbacc0c13a52c9cced39db61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b9aa67ccbacc0c13a52c9cced39db61">&#9670;&nbsp;</a></span>gm_draw_debug_primitive_system() <span class="overload">[1/2]</span></h2>
+<a id="aad95f23524a2e14e7550ead0736fd107"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad95f23524a2e14e7550ead0736fd107">&#9670;&nbsp;</a></span>gm_draw_debug_primitive_system() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9047,7 +9061,7 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a>&lt; <a class="el" href="structwmoge_1_1GmDebugPrimitiveAccess.html">GmDebugPrimitiveAccess</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>query</em>&#160;</td>
         </tr>
         <tr>
@@ -9060,8 +9074,8 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
 
 </div>
 </div>
-<a id="a40b4d856ba10a5465932afff75f2181a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40b4d856ba10a5465932afff75f2181a">&#9670;&nbsp;</a></span>gm_draw_debug_primitive_system() <span class="overload">[2/2]</span></h2>
+<a id="a7523e6a5081416d8297ae4efa9e0ad83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7523e6a5081416d8297ae4efa9e0ad83">&#9670;&nbsp;</a></span>gm_draw_debug_primitive_system() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9081,7 +9095,7 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsQueryContext.html">EcsQueryContext</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1EcsQuery.html">EcsQuery</a>&lt; <a class="el" href="structwmoge_1_1GmDebugPrimitiveAccess.html">GmDebugPrimitiveAccess</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>query</em>&#160;</td>
         </tr>
         <tr>
@@ -9091,6 +9105,16 @@ template&lt;typename T , typename std::enable_if&lt; std::is_convertible_v&lt; T
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Renders entities with debug primitive shape in 3d space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">draw_manager</td><td>Aux draw manager for debug rendering </td></tr>
+    <tr><td class="paramname">cam_pos</td><td>Main camera pos for culling </td></tr>
+    <tr><td class="paramname">query</td><td>Ecs entities to draw </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -9436,8 +9460,44 @@ template&lt;typename T , int N&gt; </div>
 
 </div>
 </div>
+<a id="aff5cab7a55471ff24afb061f0c762ac8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff5cab7a55471ff24afb061f0c762ac8">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[9/17]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; wmoge::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsAccess.html">EcsAccess</a> &amp;&#160;</td>
+          <td class="paramname"><em>query</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1ac36e36faecb0ae333255a314e6d26e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ac36e36faecb0ae333255a314e6d26e">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[9/17]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ac36e36faecb0ae333255a314e6d26e">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[10/17]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9456,42 +9516,6 @@ template&lt;typename T , int N&gt; </div>
           <td></td>
           <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsEntity.html">EcsEntity</a> &amp;&#160;</td>
           <td class="paramname"><em>entity</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5c33ad516a9154196d9ffbe28b62af8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c33ad516a9154196d9ffbe28b62af8d">&#9670;&nbsp;</a></span>operator&lt;&lt;() <span class="overload">[10/17]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; wmoge::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structwmoge_1_1EcsQuery.html">EcsQuery</a> &amp;&#160;</td>
-          <td class="paramname"><em>query</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
