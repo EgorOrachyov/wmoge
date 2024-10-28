@@ -39,7 +39,7 @@ namespace wmoge {
         return bounds.dist_min <= dist && dist <= bounds.dist_max;
     }
 
-    void gm_draw_debug_label_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQueryContext& query) {
+    void gm_draw_debug_label_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQuery<GmDebugLabelAccess>& query) {
         query.for_each([&](int entity_idx) {
             auto& label   = query.get_component<GmDebugLabelComponent>(entity_idx);
             auto& mat_l2w = query.get_component<GmMatLocalToWorldComponent>(entity_idx);
@@ -54,7 +54,7 @@ namespace wmoge {
         });
     }
 
-    void gm_draw_debug_primitive_system(AuxDrawManager* draw_manager, Vec3f cam_pos, bool solid, EcsQueryContext& query) {
+    void gm_draw_debug_primitive_system(AuxDrawManager* draw_manager, Vec3f cam_pos, bool solid, EcsQuery<GmDebugPrimitiveAccess>& query) {
         query.for_each([&](int entity_idx) {
             auto& prim    = query.get_component<GmDebugPrimitiveComponent>(entity_idx);
             auto& mat_l2w = query.get_component<GmMatLocalToWorldComponent>(entity_idx);

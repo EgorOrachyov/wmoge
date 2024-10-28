@@ -139,7 +139,7 @@ namespace wmoge {
         EcsArchStorage* entity_storage = m_arch_storage[entity_info.arch].get();
 
         for (auto& iter : m_on_destroy) {
-            const EcsQuery&          query = iter.first;
+            const EcsAccess&         query = iter.first;
             const EcsQueuryFunction& func  = iter.second;
             if (query.match(entity_arch)) {
                 EcsQueryContext context(*entity_storage, query, entity_info.storage, 1);
@@ -187,15 +187,15 @@ namespace wmoge {
         }
     }
 
-    void EcsWorld::on_destroy(const EcsQuery& query, const EcsQueuryFunction& func) {
-        m_on_destroy.emplace_back(query, func);
+    void EcsWorld::on_destroy(const EcsAccess& access, const EcsQueuryFunction& func) {
+        m_on_destroy.emplace_back(access, func);
     }
 
-    void EcsWorld::execute(const EcsQuery& query, const EcsQueuryFunction& func) {
+    void EcsWorld::execute(const EcsAccess& access, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute");
 
         for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
-            if (!query.match(m_arch_by_idx[arch_idx])) {
+            if (!access.match(m_arch_by_idx[arch_idx])) {
                 continue;
             }
 
@@ -203,17 +203,17 @@ namespace wmoge {
             const int       start   = 0;
             const int       conut   = storage.get_size();
 
-            EcsQueryContext context(storage, query, start, conut);
+            EcsQueryContext context(storage, access, start, conut);
             func(context);
         }
     }
 
-    Async EcsWorld::execute_async(TaskManager* task_manager, Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
+    Async EcsWorld::execute_async(TaskManager* task_manager, Async depends_on, const EcsAccess& access, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute_async");
 
-        Task task(query.name, [query, func, this](TaskContext&) {
+        Task task(access.name, [access, func, this](TaskContext&) {
             for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
-                if (!query.match(m_arch_by_idx[arch_idx])) {
+                if (!access.match(m_arch_by_idx[arch_idx])) {
                     continue;
                 }
 
@@ -221,7 +221,7 @@ namespace wmoge {
                 const int       start   = 0;
                 const int       conut   = storage.get_size();
 
-                EcsQueryContext context(storage, query, start, conut);
+                EcsQueryContext context(storage, access, start, conut);
                 func(context);
             }
 
@@ -231,19 +231,19 @@ namespace wmoge {
         return task.schedule(task_manager, depends_on).as_async();
     }
 
-    Async EcsWorld::execute_parallel(TaskManager* task_manager, Async depends_on, const EcsQuery& query, const EcsQueuryFunction& func) {
+    Async EcsWorld::execute_parallel(TaskManager* task_manager, Async depends_on, const EcsAccess& access, const EcsQueuryFunction& func) {
         WG_PROFILE_CPU_ECS("EcsWorld::execute_parallel");
 
-        TaskParallelFor task(query.name, [query, func, this](TaskContext&, int batch_id, int batch_count) {
+        TaskParallelFor task(access.name, [access, func, this](TaskContext&, int batch_id, int batch_count) {
             for (int arch_idx = 0; arch_idx < m_arch_storage.size(); arch_idx++) {
-                if (!query.match(m_arch_by_idx[arch_idx])) {
+                if (!access.match(m_arch_by_idx[arch_idx])) {
                     continue;
                 }
 
                 EcsArchStorage& storage   = *m_arch_storage[arch_idx];
                 const auto [start, count] = Math::batch_start_count(storage.get_size(), batch_id, batch_count);
 
-                EcsQueryContext context(storage, query, start, count);
+                EcsQueryContext context(storage, access, start, count);
                 func(context);
             }
 

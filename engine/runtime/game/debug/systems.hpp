@@ -34,24 +34,38 @@
 
 namespace wmoge {
 
-    struct GmDebugLabelQuery : EcsQuery {
-        GmDebugLabelQuery() {
+    struct GmDebugLabelAccess : EcsAccess {
+        GmDebugLabelAccess() {
             add<GmDebugLabelComponent>();
             add<GmDebugDistMinMaxComponent>(EcsComponentPresence::Optional);
             add<GmMatLocalToWorldComponent>();
         }
     };
 
-    struct GmDebugPrimitiveQuery : EcsQuery {
-        GmDebugPrimitiveQuery() {
+    struct GmDebugPrimitiveAccess : EcsAccess {
+        GmDebugPrimitiveAccess() {
             add<GmDebugPrimitiveComponent>();
             add<GmDebugDistMinMaxComponent>(EcsComponentPresence::Optional);
             add<GmMatLocalToWorldComponent>();
         }
     };
 
-    void gm_draw_debug_label_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQueryContext& query);
+    /**
+     * @brief Renders entities with debug label in 3d space
+     * 
+     * @param draw_manager Aux draw manager for debug rendering
+     * @param cam_pos Main camera pos for culling
+     * @param query Ecs entities to draw
+     */
+    void gm_draw_debug_label_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQuery<GmDebugLabelAccess>& query);
 
-    void gm_draw_debug_primitive_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQueryContext& query);
+    /**
+     * @brief Renders entities with debug primitive shape in 3d space
+     * 
+     * @param draw_manager Aux draw manager for debug rendering
+     * @param cam_pos Main camera pos for culling
+     * @param query Ecs entities to draw
+     */
+    void gm_draw_debug_primitive_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQuery<GmDebugPrimitiveAccess>& query);
 
 }// namespace wmoge

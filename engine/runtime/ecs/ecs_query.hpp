@@ -49,10 +49,10 @@ namespace wmoge {
     };
 
     /**
-     * @class EcsQuery
+     * @class EcsAccess
      * @brief Configures query to iterate over specific type of entities
      */
-    struct EcsQuery {
+    struct EcsAccess {
         using Bitset = std::bitset<EcsLimits::MAX_COMPONENTS>;
 
         Bitset referenced;
@@ -63,10 +63,10 @@ namespace wmoge {
         Bitset exclude;
         Strid  name;
 
-        EcsQuery() = default;
+        EcsAccess() = default;
 
         template<typename Component>
-        EcsQuery& add(EcsComponentPresence presence = EcsComponentPresence::Required, EcsComponentAccess access = EcsComponentAccess::ReadOnly) {
+        EcsAccess& add(EcsComponentPresence presence = EcsComponentPresence::Required, EcsComponentAccess access = EcsComponentAccess::ReadOnly) {
             assert(!referenced.test(Component::IDX));
             referenced.set(Component::IDX);
 
@@ -102,7 +102,7 @@ namespace wmoge {
         [[nodiscard]] std::string to_string() const { return ""; }
     };
 
-    inline std::ostream& operator<<(std::ostream& stream, const EcsQuery& query) {
+    inline std::ostream& operator<<(std::ostream& stream, const EcsAccess& query) {
         stream << query.to_string();
         return stream;
     }
@@ -113,7 +113,7 @@ namespace wmoge {
      */
     class EcsQueryContext {
     public:
-        EcsQueryContext(EcsArchStorage& storage, EcsQuery query, int start, int count)
+        EcsQueryContext(EcsArchStorage& storage, EcsAccess query, int start, int count)
             : m_storage(storage),
               m_arch(storage.get_arch()),
               m_query(query),
@@ -132,12 +132,13 @@ namespace wmoge {
 
         [[nodiscard]] EcsEntity get_entity(int entity_idx);
 
-        [[nodiscard]] int get_start_idx() const { return m_range_start; }
-        [[nodiscard]] int get_count() const { return m_range_count; }
+        [[nodiscard]] const EcsAccess& get_query() const { return m_query; }
+        [[nodiscard]] int              get_start_idx() const { return m_range_start; }
+        [[nodiscard]] int              get_count() const { return m_range_count; }
 
     private:
         EcsArchStorage& m_storage;
-        EcsQuery        m_query;
+        EcsAccess       m_query;
         EcsArch         m_arch;
         int             m_range_start = -1;
         int             m_range_count = 0;
@@ -166,5 +167,27 @@ namespace wmoge {
     inline EcsEntity wmoge::EcsQueryContext::get_entity(int entity_idx) {
         return m_storage.get_entity(entity_idx);
     }
+
+    template<typename AccessType>
+    class EcsQuery : public EcsQueryContext {
+    public:
+        EcsQuery(EcsQueryContext& context)
+            : EcsQueryContext(context) {
+
+            assert(validate_access());
+        }
+
+        [[nodiscard]] bool validate_access() const {
+            const EcsAccess& access = get_query();
+
+            if ((access_type.required & access.required) != access.required) {
+                return false;
+            }
+
+            return true;
+        }
+
+        const AccessType access_type;
+    };
 
 }// namespace wmoge

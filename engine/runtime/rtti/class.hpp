@@ -134,11 +134,13 @@ namespace wmoge {
         }
 
         template<typename OtherType>
+        bool is_subtype_of() {
+            return m_rtti && m_rtti->is_subtype_of(OtherType::get_class_static());
+        }
+
+        template<typename OtherType>
         RttiSubclass<OtherType> cast() const {
-            if (rtti && rtti->is_subtype_of(OtherType::get_class_static())) {
-                return RttiSubclass<OtherType>(m_rtti);
-            }
-            return RttiSubclass<OtherType>();
+            return is_subtype_of<OtherType>() ? RttiSubclass<OtherType>(m_rtti) : RttiSubclass<OtherType>();
         }
 
         RttiClass& operator*() const { return *m_rtti; }
