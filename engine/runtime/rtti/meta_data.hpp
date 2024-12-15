@@ -45,9 +45,12 @@ namespace wmoge {
         NoCopy,        // Property must not be copied on duplication
         NoScriptExport,// Property must not be exported to scrip binding
         Optional,      // Property optional to load from textual data
+        Inline,        // Property must not be saved and loaded iline
         UiName,        // Ui friendly name
         UiHint,        // Ui hint for the user
-        UiCategory     // Ui category for the search
+        UiCategory,    // Ui category for the search
+        UiInline,      // Ui inline content of field into parent in view
+        UiHidden       // Ui view is hidden from user
     };
 
     /**
@@ -75,6 +78,7 @@ namespace wmoge {
         [[nodiscard]] bool is_no_copy() const;
         [[nodiscard]] bool is_no_script_exprot() const;
         [[nodiscard]] bool is_optional() const;
+        [[nodiscard]] bool is_inline() const;
         [[nodiscard]] bool has_attribute(RttiMetaAttribute attribute);
 
         [[nodiscard]] const flat_map<RttiMetaAttribute, Var>& get_properties() const { return m_properties; }
@@ -88,8 +92,11 @@ namespace wmoge {
 #define RttiNoCopy          RttiMetaProperty(RttiMetaAttribute::NoCopy)
 #define RttiNoScriptExport  RttiMetaProperty(RttiMetaAttribute::NoScriptExport)
 #define RttiOptional        RttiMetaProperty(RttiMetaAttribute::Optional)
+#define RttiInline          RttiMetaProperty(RttiMetaAttribute::Inline)
 #define RttiUiName(str)     RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))
 #define RttiUiHint(str)     RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))
 #define RttiUiCategory(str) RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))
+#define RttiUiInline        RttiMetaProperty(RttiMetaAttribute::UiInline)
+#define RttiUiHidden        RttiMetaProperty(RttiMetaAttribute::UiHidden)
 
 }// namespace wmoge

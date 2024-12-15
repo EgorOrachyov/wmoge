@@ -36,6 +36,8 @@ namespace wmoge {
     public:
         GameManager(EcsRegistry* ecs_registry, SceneManager* scene_manager);
 
+        SceneRef make_scene(const Strid& name);
+
     private:
         EcsRegistry*  m_ecs_registry  = nullptr;
         SceneManager* m_scene_manager = nullptr;

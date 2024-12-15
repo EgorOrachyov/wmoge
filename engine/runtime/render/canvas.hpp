@@ -34,7 +34,7 @@
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
 #include "gfx/gfx_pipeline.hpp"
-#include "gfx/gfx_vector.hpp"
+#include "gpu/gpu_buffer.hpp"
 #include "grc/font.hpp"
 #include "grc/texture.hpp"
 #include "math/color.hpp"
@@ -43,8 +43,7 @@
 #include "math/math_utils2d.hpp"
 #include "math/transform.hpp"
 #include "math/vec.hpp"
-
-#include "../../shaders/tmp/generated/auto_canvas_reflection.hpp"
+#include "render/interop.hpp"
 
 #include <cinttypes>
 #include <memory>
@@ -98,7 +97,7 @@ namespace wmoge {
      * @brief Shared data for canvas primitives rendering
     */
     struct CanvasSharedData {
-        static constexpr int MAX_CANVAS_IMAGES = int(ShaderCanvas::MAX_CANVAS_IMAGES);
+        static constexpr int MAX_CANVAS_IMAGES = ShaderCanvas::MAX_IMAGES;
 
         CanvasSharedData();
         CanvasSharedData(const CanvasSharedData&) = delete;
@@ -116,11 +115,6 @@ namespace wmoge {
     };
 
     /**
-     * @brief Canvas struct to pack draw cmd data for gpu
-     */
-    using GPUCanvasDrawCmd = ShaderCanvas::DrawCmdData;
-
-    /**
      * @class Canvas
      * @brief Low-level primitives for 2d drawing using lines, polygones, text and images
      */
@@ -128,7 +122,7 @@ namespace wmoge {
     public:
         static constexpr int INLINE_STACK_SIZE   = 16;
         static constexpr int NUM_SEGMENTS_PER_PI = 32;
-        static constexpr int MAX_CANVAS_IMAGES   = int(ShaderCanvas::MAX_CANVAS_IMAGES);
+        static constexpr int MAX_CANVAS_IMAGES   = ShaderCanvas::MAX_IMAGES;
 
         Canvas();
         Canvas(std::shared_ptr<CanvasSharedData> shared);
@@ -175,21 +169,21 @@ namespace wmoge {
         bool need_rounding(float rounding, CanvasFlags flags);
 
     private:
-        std::vector<CanvasDrawCmd>               m_cmd_buffer;//< Cmds to draw, map to 1 draw call to Gfx driver
-        GfxVector<CanvasVert, GfxVertBuffer>     m_vtx_buffer;//< Gpu vertex data for drawing
-        GfxVector<std::uint32_t, GfxIndexBuffer> m_idx_buffer;//< Gpu index data for drawing
-        GfxVector<int, GfxVertBuffer>            m_prx_buffer;//< Gpu per-instance cmd id buffer to fetch cmd data for drawing
+        std::vector<CanvasDrawCmd>    m_cmd_buffer;//< Cmds to draw, map to 1 draw call to Gfx driver
+        GpuVertBuffer<CanvasVert>     m_vtx_buffer;//< Gpu vertex data for drawing
+        GpuIndexBuffer<std::uint32_t> m_idx_buffer;//< Gpu index data for drawing
+        GpuVertBuffer<int>            m_prx_buffer;//< Gpu per-instance cmd id buffer to fetch cmd data for drawing
 
         int m_vxt_current = 0;//< Current vertex to write
         int m_idx_current = 0;//< Current index to write
 
-        std::vector<Vec2f>                            m_path;           //< Internal tmp buffer to draw path
-        std::shared_ptr<CanvasSharedData>             m_shared;         //< Shared state among all canvas classes for cmds rendering
-        buffered_vector<Vec4f, INLINE_STACK_SIZE>     m_clip_rect_stack;//< Context stack
-        buffered_vector<Mat3x3f, INLINE_STACK_SIZE>   m_transform_stack;//< Context stack
-        GfxVector<GPUCanvasDrawCmd, GfxStorageBuffer> m_gpu_cmd_buffer; //< Packed cmd data for gpu
-        Ref<GfxUniformBuffer>                         m_params;         //< Cached ubo to fill with const params
-        Ref<GfxDescSet>                               m_params_set;     //< Cached ubo to fill with const params and draw cmds buffer
+        std::vector<Vec2f>                          m_path;           //< Internal tmp buffer to draw path
+        std::shared_ptr<CanvasSharedData>           m_shared;         //< Shared state among all canvas classes for cmds rendering
+        buffered_vector<Vec4f, INLINE_STACK_SIZE>   m_clip_rect_stack;//< Context stack
+        buffered_vector<Mat3x3f, INLINE_STACK_SIZE> m_transform_stack;//< Context stack
+        GpuStorageBuffer<GpuCanvasDrawCmdData>      m_gpu_cmd_buffer; //< Packed cmd data for gpu
+        Ref<GfxUniformBuffer>                       m_params;         //< Cached ubo to fill with const params
+        Ref<GfxDescSet>                             m_params_set;     //< Cached ubo to fill with const params and draw cmds buffer
     };
 
 }// namespace wmoge

@@ -25,70 +25,85 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "rdg_pool.hpp"
+#pragma once
 
-#include "gfx/gfx_driver.hpp"
+#include "core/string_id.hpp"
+#include "grc/shader_reflection.hpp"
 
-#include <algorithm>
+#include <vector>
 
 namespace wmoge {
 
-    RdgPool::RdgPool(GfxDriver* driver) {
-        m_driver = driver;
+    class ShaderManager;
+
+#define BEGIN_REFLECT(name)                    \
+    static Status reflect(ShaderManager* sm) { \
+        ShaderStructRegister r(Strid(#name), sizeof(name), sm)
+
+#define BEGIN_REFLECT_STRUCTURED_BUFFER(name)  \
+    static Status reflect(ShaderManager* sm) { \
+        ShaderStructRegister r(Strid(#name), 0, sm)
+
+#define END_REFLECT    \
+    return r.finish(); \
     }
 
-    void RdgPool::update() {
-        std::size_t frame_number = m_driver->frame_number();
+#define FIELD(type, name) \
+    r.add_field(Strid(#name), Strid(#type))
 
-        for (auto it = m_texture_pool.begin(); it != m_texture_pool.end();) {
-            if (it->last_frame_used + m_frames_before_gc < frame_number) {
-                it = m_texture_pool.erase(it);
-            } else {
-                ++it;
-            }
-        }
+#define STRUCT(type, name) \
+    r.add_field(Strid(#name), Strid(#type))
 
-        for (auto it = m_storage_buffer_pool.begin(); it != m_storage_buffer_pool.end();) {
-            if (it->last_frame_used + m_frames_before_gc < frame_number) {
-                it = m_storage_buffer_pool.erase(it);
-            } else {
-                ++it;
-            }
-        }
-    }
+#define FIELD_ARRAY(type, name, n) \
+    r.add_field_array(Strid(#name), Strid(#type), n)
 
-    GfxTextureRef RdgPool::allocate_texture(const GfxTextureDesc& desc) {
-        auto query = std::find_if(m_texture_pool.begin(), m_texture_pool.end(), [&](const PoolTexture& t) {
-            return t.resource->refs_count() == 1 && t.resource->desc().is_compatible(desc);
-        });
+#define STRUCT_ARRAY(type, name, n) \
+    r.add_field_array(Strid(#name), Strid(#type), n)
 
-        if (query != m_texture_pool.end()) {
-            query->last_frame_used = m_driver->frame_number();
-            return query->resource;
-        }
+#define STRUCT_ARRAY_UNBOUND(type, name) \
+    r.add_field_array(Strid(#name), Strid(#type))
 
-        PoolTexture& t    = m_texture_pool.emplace_back();
-        t.resource        = m_driver->make_texture(desc, SID("pool-texture"));
-        t.last_frame_used = m_driver->frame_number();
+    struct ShaderCanvas {
+        static constexpr int MAX_IMAGES = 4;
+    };
 
-        return t.resource;
-    }
+    struct GpuCanvasDrawCmdData {
+        Vec4f Transform0;
+        Vec4f Transform1;
+        Vec4f Transform2;
+        Vec4f ClipRect;
+        int   TextureIdx;
+        int   pad0;
+        int   pad1;
+        int   pad2;
 
-    GfxStorageBufferRef RdgPool::allocate_storage_buffer(const GfxBufferDesc& desc) {
-        auto query = std::find_if(m_storage_buffer_pool.begin(), m_storage_buffer_pool.end(), [&](const PoolStorageBuffer& b) {
-            return b.resource->refs_count() == 1 && b.resource->desc().is_compatible(desc);
-        });
+        BEGIN_REFLECT(GpuCanvasDrawCmdData);
+        FIELD(vec4, Transform0);
+        FIELD(vec4, Transform1);
+        FIELD(vec4, Transform2);
+        FIELD(vec4, ClipRect);
+        FIELD(int, TextureIdx);
+        FIELD(int, pad0);
+        FIELD(int, pad1);
+        FIELD(int, pad2);
+        END_REFLECT
+    };
 
-        if (query != m_storage_buffer_pool.end()) {
-            query->last_frame_used = m_driver->frame_number();
-            return query->resource;
-        }
+    struct GpuCanvasDrawCmdsBuffer {
+        std::vector<GpuCanvasDrawCmdData> DrawCmds;
 
-        PoolStorageBuffer& t = m_storage_buffer_pool.emplace_back();
-        t.resource           = m_driver->make_storage_buffer(desc.size, desc.usage, SID("pool-buffer"));
-        t.last_frame_used    = m_driver->frame_number();
+        BEGIN_REFLECT_STRUCTURED_BUFFER(GpuCanvasDrawCmdsBuffer);
+        STRUCT_ARRAY_UNBOUND(GpuCanvasDrawCmdData, DrawCmds);
+        END_REFLECT
+    };
 
-        return t.resource;
-    }
+    Status reflect_shader_types(ShaderManager* sm);
+
+#undef BEGIN_REFLECT
+#undef END_REFLCET
+#undef ADD_FIELD
+#undef ADD_FIELD_ARRAY
+#undef ADD_STRUCT
+#undef ADD_STRUCT_ARRAY
 
 }// namespace wmoge

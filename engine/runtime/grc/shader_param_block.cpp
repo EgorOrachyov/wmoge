@@ -312,68 +312,73 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status ShaderParamBlock::validate(ShaderManager* shader_manager, GfxDriver* driver, GfxCmdList* cmd_list) {
+    Status ShaderParamBlock::validate_buffers(GfxDriver* driver, GfxCmdList* cmd_list, buffered_vector<GfxBuffer*>& barrier_buffers) {
         if (!m_shader) {
             WG_LOG_ERROR("param block not configured");
             return StatusCode::InvalidState;
         }
-        if (!m_dirty_buffers && !m_dirty_set) {
+        if (!m_dirty_buffers) {
             return WG_OK;
         }
 
         const ShaderSpace& space = m_shader->get_reflection().spaces[m_space];
 
-        if (m_dirty_buffers) {
-            for (const auto& buffer : m_shader->get_reflection().buffers) {
-                if (buffer.space == m_space) {
-                    const Ref<Data>&  src = m_buffers[buffer.idx];
-                    GfxDescBindValue& v   = m_gfx_resources[buffer.binding].second;
-
-                    if (!v.resource) {
-                        v.resource = driver->make_uniform_buffer(buffer.size, GfxMemUsage::GpuLocal, space.bindings[buffer.binding].name);
-                        dirty_set();
-                    }
-
-                    Ref<GfxUniformBuffer> buffer = v.resource.cast<GfxUniformBuffer>();
-                    assert(buffer);
-                    assert(buffer->size() == src->size());
-
-                    // todo: barriers, batch update of const buffers
-                    cmd_list->update_uniform_buffer(buffer, v.offset, v.range, {src->buffer(), src->size()});
-                    cmd_list->barrier_buffer(buffer);
-                }
-            }
-        }
-
-        if (m_dirty_set) {
-            for (std::int16_t i = 0; i < std::int16_t(m_gfx_resources.size()); i++) {
-                const GfxDescBindPoint& p = m_gfx_resources[i].first;
-                const GfxDescBindValue& v = m_gfx_resources[i].second;
+        for (const auto& buffer : m_shader->get_reflection().buffers) {
+            if (buffer.space == m_space) {
+                const Ref<Data>&  src = m_buffers[buffer.idx];
+                GfxDescBindValue& v   = m_gfx_resources[buffer.binding].second;
 
                 if (!v.resource) {
-                    WG_LOG_ERROR("missing res setup of "
-                                 << m_name
-                                 << " space=" << m_space
-                                 << " binding=" << i
-                                 << " shader=" << m_shader->get_shader_name());
-                    return StatusCode::InvalidState;
+                    v.resource = driver->make_uniform_buffer(buffer.size, GfxMemUsage::GpuLocal, space.bindings[buffer.binding].name);
+                    dirty_set();
                 }
-                if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
-                    WG_LOG_ERROR("missing sampler setup of "
-                                 << m_name
-                                 << " space=" << m_space
-                                 << " binding=" << i
-                                 << " shader=" << m_shader->get_shader_name());
-                    return StatusCode::InvalidState;
-                }
-            }
 
-            m_gfx_set = driver->make_desc_set(m_gfx_resources, shader_manager->get_shader_layout(m_shader, m_space), m_name);
+                Ref<GfxUniformBuffer> buffer = v.resource.cast<GfxUniformBuffer>();
+                assert(buffer);
+                assert(buffer->size() == src->size());
+
+                cmd_list->update_uniform_buffer(buffer, v.offset, v.range, {src->buffer(), src->size()});
+                barrier_buffers.push_back(buffer);
+            }
         }
 
         m_dirty_buffers = 0;
-        m_dirty_set     = 0;
+        return WG_OK;
+    }
 
+    Status ShaderParamBlock::validate_set(GfxDriver* driver, const GfxDescSetLayoutRef& layout) {
+        if (!m_shader) {
+            WG_LOG_ERROR("param block not configured");
+            return StatusCode::InvalidState;
+        }
+        if (!m_dirty_set) {
+            return WG_OK;
+        }
+
+        for (std::int16_t i = 0; i < std::int16_t(m_gfx_resources.size()); i++) {
+            const GfxDescBindPoint& p = m_gfx_resources[i].first;
+            const GfxDescBindValue& v = m_gfx_resources[i].second;
+
+            if (!v.resource) {
+                WG_LOG_ERROR("missing res setup of "
+                             << m_name
+                             << " space=" << m_space
+                             << " binding=" << i
+                             << " shader=" << m_shader->get_shader_name());
+                return StatusCode::InvalidState;
+            }
+            if (p.type == GfxBindingType::SampledTexture && !v.sampler) {
+                WG_LOG_ERROR("missing sampler setup of "
+                             << m_name
+                             << " space=" << m_space
+                             << " binding=" << i
+                             << " shader=" << m_shader->get_shader_name());
+                return StatusCode::InvalidState;
+            }
+        }
+
+        m_gfx_set   = driver->make_desc_set(m_gfx_resources, layout, m_name);
+        m_dirty_set = 0;
         return WG_OK;
     }
 

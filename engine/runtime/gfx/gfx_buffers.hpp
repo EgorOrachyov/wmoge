@@ -74,6 +74,8 @@ namespace wmoge {
         ~GfxVertBuffer() override = default;
     };
 
+    using GfxVertBufferRef = Ref<GfxVertBuffer>;
+
     /**
      * @class GfxIndexBuffer
      * @brief Gfx index buffer
@@ -82,6 +84,8 @@ namespace wmoge {
     public:
         ~GfxIndexBuffer() override = default;
     };
+
+    using GfxIndexBufferRef = Ref<GfxIndexBuffer>;
 
     /**
      * @class GfxUniformBuffer

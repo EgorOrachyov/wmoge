@@ -28,6 +28,7 @@
 #include "game_manager.hpp"
 
 #include "core/ioc_container.hpp"
+#include "ecs/ecs_world.hpp"
 
 #include "game/debug/components.hpp"
 #include "game/render/components.hpp"
@@ -54,16 +55,24 @@ namespace wmoge {
         m_ecs_registry->register_component<GmCameraComponent>("camera");
         m_ecs_registry->register_component<GmLightComponent>("light");
         m_ecs_registry->register_component<GmMeshComponent>("mesh");
+        m_ecs_registry->register_component<GmModelComponent>("model");
 
-        m_ecs_registry->register_component<GmDebugDistMinMaxComponent>("debug_dist_min_max");
         m_ecs_registry->register_component<GmDebugMeshComponent>("debug_shape");
         m_ecs_registry->register_component<GmDebugLabelComponent>("debug_label");
         m_ecs_registry->register_component<GmDebugPrimitiveComponent>("debug_primitive");
 
-        m_scene_manager->add_trait(make_ref<GmTransformFeatureTrait>());
-        m_scene_manager->add_trait(make_ref<GmDebugMeshFeatureTrait>());
-        m_scene_manager->add_trait(make_ref<GmDebugLabelFeatureTrait>());
-        m_scene_manager->add_trait(make_ref<GmDebugPrimitiveFeatureTrait>());
+        m_scene_manager->add_trait(make_ref<WG_NAME_ENTITY_FEATURE_TRAIT(GmTransform)>());
+        m_scene_manager->add_trait(make_ref<WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugMesh)>());
+        m_scene_manager->add_trait(make_ref<WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugLabel)>());
+        m_scene_manager->add_trait(make_ref<WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugPrimitive)>());
+    }
+
+    SceneRef GameManager::make_scene(const Strid& name) {
+        SceneRef scene = m_scene_manager->make_scene(name);
+
+        scene->add(std::make_shared<EcsWorld>(m_ecs_registry));
+
+        return scene;
     }
 
     void bind_by_ioc_game_manager(class IocContainer* ioc) {

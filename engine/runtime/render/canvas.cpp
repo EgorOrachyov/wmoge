@@ -128,7 +128,7 @@ namespace wmoge {
         // ShaderManager* shader_manager = engine->shader_manager();
         return;
 
-        m_params = driver->make_uniform_buffer(int(sizeof(ShaderCanvas::Params)), GfxMemUsage::GpuLocal, SID("canvas_params"));
+        // m_params = driver->make_uniform_buffer(int(sizeof(ShaderCanvas::Params)), GfxMemUsage::GpuLocal, SID("canvas_params"));
 
         clear();
     }
@@ -406,8 +406,8 @@ namespace wmoge {
         m_gpu_cmd_buffer.resize(m_cmd_buffer.size());
 
         for (int i = 0; i < int(m_cmd_buffer.size()); i++) {
-            const CanvasDrawCmd& src_cmd = m_cmd_buffer[i];
-            GPUCanvasDrawCmd&    dst_cmd = m_gpu_cmd_buffer[i];
+            const CanvasDrawCmd&  src_cmd = m_cmd_buffer[i];
+            GpuCanvasDrawCmdData& dst_cmd = m_gpu_cmd_buffer[i];
 
             const Mat3x3f& t = src_cmd.transform;
 
@@ -426,20 +426,20 @@ namespace wmoge {
         GfxDescSetResources resources;
         {
             {
-                auto& asset    = resources.emplace_back();
-                auto& point    = asset.first;
-                point.type     = GfxBindingType::UniformBuffer;
-                point.binding  = ShaderCanvas::PARAMS_SLOT;
+                auto& asset = resources.emplace_back();
+                auto& point = asset.first;
+                point.type  = GfxBindingType::UniformBuffer;
+                // point.binding  = ShaderCanvas::PARAMS_SLOT;
                 auto& value    = asset.second;
                 value.resource = m_params.as<GfxResource>();
                 value.offset   = 0;
                 value.range    = m_params->size();
             }
             {
-                auto& asset    = resources.emplace_back();
-                auto& point    = asset.first;
-                point.type     = GfxBindingType::StorageBuffer;
-                point.binding  = ShaderCanvas::DRAWCMDSDATA_SLOT;
+                auto& asset = resources.emplace_back();
+                auto& point = asset.first;
+                point.type  = GfxBindingType::StorageBuffer;
+                //  point.binding  = ShaderCanvas::DRAWCMDSDATA_SLOT;
                 auto& value    = asset.second;
                 value.resource = m_gpu_cmd_buffer.get_buffer().as<GfxResource>();
                 value.offset   = 0;
@@ -546,8 +546,8 @@ namespace wmoge {
         assert(num_vtx >= 0);
         assert(num_idx >= 0);
 
-        m_vtx_buffer.resize(m_vtx_buffer.get_size() + num_vtx);
-        m_idx_buffer.resize(m_idx_buffer.get_size() + num_idx);
+        m_vtx_buffer.resize(m_vtx_buffer.size() + num_vtx);
+        m_idx_buffer.resize(m_idx_buffer.size() + num_idx);
     }
     void Canvas::write_vtx(const Vec2f& pos, const Vec2f& uv, const Vec4f& color) {
         CanvasVert vert;

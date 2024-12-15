@@ -55,10 +55,10 @@ namespace wmoge {
     public:
         ~GfxCmdList() override = default;
 
-        virtual void update_vert_buffer(const Ref<GfxVertBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)                 = 0;
-        virtual void update_index_buffer(const Ref<GfxIndexBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)               = 0;
-        virtual void update_uniform_buffer(const Ref<GfxUniformBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)           = 0;
-        virtual void update_storage_buffer(const Ref<GfxStorageBuffer>& buffer, int offset, int range, array_view<const std::uint8_t> data)           = 0;
+        virtual void update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                            = 0;
+        virtual void update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                          = 0;
+        virtual void update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                      = 0;
+        virtual void update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data)                      = 0;
         virtual void update_texture_2d(const Ref<GfxTexture>& texture, int mip, Rect2i region, array_view<const std::uint8_t> data)                   = 0;
         virtual void update_texture_2d_array(const Ref<GfxTexture>& texture, int mip, int slice, Rect2i region, array_view<const std::uint8_t> dataa) = 0;
         virtual void update_texture_cube(const Ref<GfxTexture>& texture, int mip, int face, Rect2i region, array_view<const std::uint8_t> data)       = 0;
@@ -87,7 +87,7 @@ namespace wmoge {
         virtual void viewport(const Rect2i& viewport)                                                              = 0;
         virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                                 = 0;
         virtual void bind_pso(const Ref<GfxPsoCompute>& pipeline)                                                  = 0;
-        virtual void bind_vert_buffer(const Ref<GfxVertBuffer>& buffer, int index, int offset = 0)                 = 0;
+        virtual void bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0)                            = 0;
         virtual void bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0) = 0;
         virtual void bind_desc_set(const Ref<GfxDescSet>& set, int index)                                          = 0;
         virtual void bind_desc_sets(const array_view<GfxDescSet*>& sets, int offset = 0)                           = 0;

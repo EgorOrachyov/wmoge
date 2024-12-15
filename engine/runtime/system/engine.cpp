@@ -167,8 +167,6 @@ namespace wmoge {
         m_texture_manager->flust_textures_upload();
         m_mesh_manager->flush_meshes_upload();
 
-        m_scene_manager->update();
-
         m_profiler_gpu->resolve();
 
         m_window_manager->poll_events();

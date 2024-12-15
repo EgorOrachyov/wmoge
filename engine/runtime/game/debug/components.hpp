@@ -46,25 +46,28 @@ namespace wmoge {
         Box
     };
 
-    struct GmDebugDistMinMaxComponent : public EcsComponent<GmDebugDistMinMaxComponent> {
-        int dist_min;
-        int dist_max;
-    };
-
     struct GmDebugMeshComponent : public EcsComponent<GmDebugMeshComponent> {
-        Ref<Mesh>     mesh;
-        Ref<Material> material;
+        Ref<Mesh> mesh;
+        Color4f   color;
+        int       dist_min;
+        int       dist_max;
+        bool      solid = true;
     };
 
     struct GmDebugLabelComponent : public EcsComponent<GmDebugLabelComponent> {
         std::string text;
         Color4f     color;
         float       size;
+        int         dist_min;
+        int         dist_max;
     };
 
     struct GmDebugPrimitiveComponent : public EcsComponent<GmDebugPrimitiveComponent> {
         GmDebugPrimitiveType type;
         Color4f              color;
+        int                  dist_min;
+        int                  dist_max;
+        bool                 solid = true;
     };
 
 }// namespace wmoge

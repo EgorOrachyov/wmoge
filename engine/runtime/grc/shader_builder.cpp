@@ -165,9 +165,9 @@ namespace wmoge {
         m_pass.options.options_map[name] = m_next_option_idx++;
 
         for (int i = 0; i < int(variants.size()); i++) {
-            option.variants[variants[i]] = m_technique.m_next_variant_idx++;
-            m_technique.m_technique.options_remap.emplace_back(name);
-            m_technique.m_technique.variants_remap.emplace_back(variants[i]);
+            option.variants[variants[i]] = m_next_variant_idx++;
+            m_pass.options_remap.emplace_back(name);
+            m_pass.variants_remap.emplace_back(variants[i]);
         }
 
         return *this;
@@ -195,22 +195,6 @@ namespace wmoge {
 
     ShaderBuilder::TechniqueBuilder::TechniqueBuilder(ShaderBuilder& owner, ShaderTechniqueInfo& technique)
         : m_owner(owner), m_technique(technique) {
-    }
-
-    ShaderBuilder::TechniqueBuilder& ShaderBuilder::TechniqueBuilder::add_option(Strid name, const buffered_vector<Strid>& variants) {
-        ShaderOption& option = m_technique.options.options.emplace_back();
-        option.name          = name;
-        option.base_variant  = variants.front();
-
-        m_technique.options.options_map[name] = m_next_option_idx++;
-
-        for (int i = 0; i < int(variants.size()); i++) {
-            option.variants[variants[i]] = m_next_variant_idx++;
-            m_technique.options_remap.emplace_back(name);
-            m_technique.variants_remap.emplace_back(variants[i]);
-        }
-
-        return *this;
     }
 
     ShaderBuilder::TechniqueBuilder& ShaderBuilder::TechniqueBuilder::add_tag(Strid name, Var value) {

@@ -30,6 +30,7 @@
 #include "ecs/ecs_component.hpp"
 #include "ecs/ecs_entity.hpp"
 #include "math/mat.hpp"
+#include "math/math_utils3d.hpp"
 #include "math/transform.hpp"
 #include "math/vec.hpp"
 
@@ -50,23 +51,24 @@ namespace wmoge {
     };
 
     struct GmTransformFrameComponent : public EcsComponent<GmTransformFrameComponent> {
-        int frame = -1;
+        int  frame    = -1;
+        bool is_dirty = true;
     };
 
     struct GmMatLocalToWorldComponent : public EcsComponent<GmMatLocalToWorldComponent> {
-        Mat3x4f m;
+        Mat3x4f m = Math3d::identity_m3x4f();
     };
 
     struct GmMatLocalToWorldPrevComponent : public EcsComponent<GmMatLocalToWorldPrevComponent> {
-        Mat3x4f m;
+        Mat3x4f m = Math3d::identity_m3x4f();
     };
 
     struct GmMatWorldToLocalComponent : public EcsComponent<GmMatWorldToLocalComponent> {
-        Mat3x4f m;
+        Mat3x4f m = Math3d::identity_m3x4f();
     };
 
     struct GmMatLocalComponent : public EcsComponent<GmMatLocalComponent> {
-        Mat3x4f m;
+        Mat3x4f m = Math3d::identity_m3x4f();
     };
 
 }// namespace wmoge

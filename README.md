@@ -27,11 +27,11 @@ project for educational purposes only.
 ### Features
 
 * 🖥️ Platform-agnostic, with support for common operating systems such as Windows, Linux and macOS.
-* 🔨 Moder C++17 based engine with clear architecture.
+* 🔨 Modern C++17 based engine with clear architecture.
 * 🔨 Full runtime reflection system (RTTI) with class, method and property information.
 * 🏎️ Task manager and task graph support for concurrent execution.
 * 🏎️ Custom async (future & promise) implementation with join, notify and continuation.
-* 🏎️ Extendet set of containers, with buffered vector, flat maps, sets, etc.
+* 🏎️ Extended set of containers, with buffered vector, flat maps, sets, etc.
 * ⚙ Command line and hook system to build custom tools.
 * ⚙ Simple stack-based config system.
 * ⚙ Dependency injection and IoC container system for global managers.

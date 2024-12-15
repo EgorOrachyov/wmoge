@@ -151,11 +151,14 @@ namespace wmoge {
     /** @brief Gfx genera buffer access */
     enum class GfxAccess {
         None,
+        Uniform,
         BufferRead,
         BufferWrite,
         ImageStore,
         TexureSample,
-        RenderTarget
+        RenderTarget,
+        CopySource,
+        CopyDestination
     };
 
     /** @brief Texture sub region */

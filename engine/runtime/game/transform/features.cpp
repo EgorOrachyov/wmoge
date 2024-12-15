@@ -34,64 +34,65 @@
 
 namespace wmoge {
 
-    Status GmTransformFeatureTrait::setup_entity_typed(EcsArch& arch, const GmTransformFeature& feature, EntitySetupContext& context) {
-        if (feature.type == GmTransformType::MovableHierarchical) {
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmTransform)::setup_entity_typed(EcsArch& arch, const GmTransform& desc, EntitySetupContext& context) {
+        if (desc.type == GmTransformType::MovableHierarchical) {
             arch.set_component<GmParentComponent>();
             arch.set_component<GmChildrenComponent>();
             arch.set_component<GmMatLocalComponent>();
             arch.set_component<GmMatLocalToWorldComponent>();
+            arch.set_component<GmMatLocalToWorldPrevComponent>();
             arch.set_component<GmTransformComponent>();
             arch.set_component<GmTransformFrameComponent>();
         }
-        if (feature.type == GmTransformType::Movable) {
-            arch.set_component<GmMatLocalComponent>();
+        if (desc.type == GmTransformType::Movable) {
             arch.set_component<GmMatLocalToWorldComponent>();
+            arch.set_component<GmMatLocalToWorldPrevComponent>();
             arch.set_component<GmTransformComponent>();
             arch.set_component<GmTransformFrameComponent>();
         }
-        if (feature.type == GmTransformType::NonMovable) {
+        if (desc.type == GmTransformType::NonMovable) {
             arch.set_component<GmMatLocalToWorldComponent>();
         }
 
         return WG_OK;
     }
 
-    Status GmTransformFeatureTrait::build_entity_typed(EcsEntity entity, const GmTransformFeature& feature, EntityBuildContext& context) {
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmTransform)::build_entity_typed(EcsEntity entity, const GmTransform& desc, EntityBuildContext& context) {
         EcsWorld*     world = context.world;
         SceneUuidMap* uuid  = context.uuid;
 
-        if (feature.type == GmTransformType::MovableHierarchical) {
+        if (desc.type == GmTransformType::MovableHierarchical) {
             auto& children = world->get_component_rw<GmChildrenComponent>(entity);
             auto& mat_l    = world->get_component_rw<GmMatLocalComponent>(entity);
             auto& trsf     = world->get_component_rw<GmTransformComponent>(entity);
 
-            trsf.t  = feature.transform.to_transform3d();
+            trsf.t  = desc.transform.to_transform3d();
             mat_l.m = Math3d ::to_m3x4f(trsf.t.to_mat4x4());
 
-            if (feature.parent) {
+            if (desc.parent) {
                 auto& parent = world->get_component_rw<GmParentComponent>(entity);
-                parent.id    = uuid->find_entity(*feature.parent).value_or(EcsEntity());
+                parent.id    = uuid->find_entity(*desc.parent).value_or(EcsEntity());
             }
-            if (!feature.children.empty()) {
+            if (!desc.children.empty()) {
                 auto& children = world->get_component_rw<GmChildrenComponent>(entity);
-                children.ids.reserve(feature.children.size());
-                for (const UUID id : feature.children) {
+                children.ids.reserve(desc.children.size());
+                for (const UUID id : desc.children) {
                     if (auto entity = uuid->find_entity(id)) {
                         children.ids.push_back(*entity);
                     }
                 }
             }
         }
-        if (feature.type == GmTransformType::Movable) {
-            auto& mat_l = world->get_component_rw<GmMatLocalComponent>(entity);
-            auto& trsf  = world->get_component_rw<GmTransformComponent>(entity);
-
-            trsf.t  = feature.transform.to_transform3d();
-            mat_l.m = Math3d ::to_m3x4f(trsf.t.to_mat4x4());
-        }
-        if (feature.type == GmTransformType::NonMovable) {
+        if (desc.type == GmTransformType::Movable) {
             auto& mat_l2w = world->get_component_rw<GmMatLocalToWorldComponent>(entity);
-            mat_l2w.m     = Math3d ::to_m3x4f(feature.transform.to_mat4x4());
+            auto& trsf    = world->get_component_rw<GmTransformComponent>(entity);
+
+            trsf.t    = desc.transform.to_transform3d();
+            mat_l2w.m = Math3d ::to_m3x4f(trsf.t.to_mat4x4());
+        }
+        if (desc.type == GmTransformType::NonMovable) {
+            auto& mat_l2w = world->get_component_rw<GmMatLocalToWorldComponent>(entity);
+            mat_l2w.m     = Math3d ::to_m3x4f(desc.transform.to_mat4x4());
         }
 
         return WG_OK;

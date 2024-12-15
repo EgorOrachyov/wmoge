@@ -41,8 +41,8 @@ namespace wmoge {
         NonMovable
     };
 
-    class GmTransformFeature : public EntityFeature {
-        WG_RTTI_CLASS(GmTransformFeature, EntityFeature)
+    struct GmTransform {
+        WG_RTTI_STRUCT(GmTransform)
 
         TransformEdt        transform;
         GmTransformType     type = GmTransformType::NonMovable;
@@ -50,9 +50,8 @@ namespace wmoge {
         std::vector<UUID>   children;
     };
 
-    WG_RTTI_CLASS_BEGIN(GmTransformFeature) {
+    WG_RTTI_STRUCT_BEGIN(GmTransform) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
         WG_RTTI_FIELD(transform, {RttiOptional});
         WG_RTTI_FIELD(type, {RttiOptional});
         WG_RTTI_FIELD(parent, {RttiOptional});
@@ -60,10 +59,12 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
-    class GmTransformFeatureTrait : public EntitySimpleFeatureTrait<GmTransformFeature> {
+    WG_DECL_ENTITY_FEATURE_AND_VECTOR(GmTransform);
+
+    class WG_DECL_ENTITY_FEATURE_TRAIT(GmTransform) {
     public:
-        Status setup_entity_typed(EcsArch& arch, const GmTransformFeature& feature, EntitySetupContext& context) override;
-        Status build_entity_typed(EcsEntity entity, const GmTransformFeature& feature, EntityBuildContext& context) override;
+        Status setup_entity_typed(EcsArch& arch, const GmTransform& desc, EntitySetupContext& context) override;
+        Status build_entity_typed(EcsEntity entity, const GmTransform& desc, EntityBuildContext& context) override;
     };
 
 }// namespace wmoge

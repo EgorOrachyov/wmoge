@@ -48,6 +48,9 @@ namespace wmoge {
     bool RttiMetaData::is_optional() const {
         return m_attributes.get(RttiMetaAttribute::Optional);
     }
+    bool RttiMetaData::is_inline() const {
+        return m_attributes.get(RttiMetaAttribute::Inline);
+    }
     bool RttiMetaData::has_attribute(RttiMetaAttribute attribute) {
         return m_attributes.get(attribute);
     }

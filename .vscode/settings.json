@@ -97,6 +97,7 @@
         "cassert": "cpp",
         "debug": "cpp",
         "typeindex": "cpp",
+        "**/*.glsl": "hlsl",
         "**/*.asset": "yaml",
         "**/*.shader": "yaml",
         "**/*.scene": "yaml",

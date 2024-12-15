@@ -25,70 +25,21 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#include "rdg_pool.hpp"
+#pragma once
 
-#include "gfx/gfx_driver.hpp"
-
-#include <algorithm>
+#include "rdg/rdg_graph.hpp"
 
 namespace wmoge {
 
-    RdgPool::RdgPool(GfxDriver* driver) {
-        m_driver = driver;
-    }
-
-    void RdgPool::update() {
-        std::size_t frame_number = m_driver->frame_number();
-
-        for (auto it = m_texture_pool.begin(); it != m_texture_pool.end();) {
-            if (it->last_frame_used + m_frames_before_gc < frame_number) {
-                it = m_texture_pool.erase(it);
-            } else {
-                ++it;
-            }
-        }
-
-        for (auto it = m_storage_buffer_pool.begin(); it != m_storage_buffer_pool.end();) {
-            if (it->last_frame_used + m_frames_before_gc < frame_number) {
-                it = m_storage_buffer_pool.erase(it);
-            } else {
-                ++it;
-            }
-        }
-    }
-
-    GfxTextureRef RdgPool::allocate_texture(const GfxTextureDesc& desc) {
-        auto query = std::find_if(m_texture_pool.begin(), m_texture_pool.end(), [&](const PoolTexture& t) {
-            return t.resource->refs_count() == 1 && t.resource->desc().is_compatible(desc);
-        });
-
-        if (query != m_texture_pool.end()) {
-            query->last_frame_used = m_driver->frame_number();
-            return query->resource;
-        }
-
-        PoolTexture& t    = m_texture_pool.emplace_back();
-        t.resource        = m_driver->make_texture(desc, SID("pool-texture"));
-        t.last_frame_used = m_driver->frame_number();
-
-        return t.resource;
-    }
-
-    GfxStorageBufferRef RdgPool::allocate_storage_buffer(const GfxBufferDesc& desc) {
-        auto query = std::find_if(m_storage_buffer_pool.begin(), m_storage_buffer_pool.end(), [&](const PoolStorageBuffer& b) {
-            return b.resource->refs_count() == 1 && b.resource->desc().is_compatible(desc);
-        });
-
-        if (query != m_storage_buffer_pool.end()) {
-            query->last_frame_used = m_driver->frame_number();
-            return query->resource;
-        }
-
-        PoolStorageBuffer& t = m_storage_buffer_pool.emplace_back();
-        t.resource           = m_driver->make_storage_buffer(desc.size, desc.usage, SID("pool-buffer"));
-        t.last_frame_used    = m_driver->frame_number();
-
-        return t.resource;
-    }
+    /**
+     * @class RdgUtils
+     * @brief Utilities to work with rdg graph with common methods
+     */
+    class RdgUtils {
+    public:
+        static void update_buffer(RdgGraph& graph, const Strid& name, RdgVertBuffer* buffer, int offset, array_view<const std::uint8_t> data);
+        static void update_buffer(RdgGraph& graph, const Strid& name, RdgIndexBuffer* buffer, int offset, array_view<const std::uint8_t> data);
+        static void update_buffer(RdgGraph& graph, const Strid& name, RdgStorageBuffer* buffer, int offset, array_view<const std::uint8_t> data);
+    };
 
 }// namespace wmoge

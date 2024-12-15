@@ -33,361 +33,733 @@
 #include "gfx/gfx_driver.hpp"
 #include "math/math_utils3d.hpp"
 #include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
+#include "rdg/rdg_utils.hpp"
 
 #include <algorithm>
 #include <utility>
 
 namespace wmoge {
 
-#define WG_PUSH_TRIANGLE_P3C4(p0, p1, p2, color) \
-    vertices->pos = p0;                          \
-    vertices->col = color;                       \
-    vertices++;                                  \
-    vertices->pos = p1;                          \
-    vertices->col = color;                       \
-    vertices++;                                  \
-    vertices->pos = p2;                          \
-    vertices->col = color;                       \
-    vertices++;
+    void AuxDrawDevice::draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color) {
+        add_line(from, to, color);
+        add_elem();
+    }
 
-#define WG_PUSH_TRIANGLE_P3C4UV2(p0, p1, p2, t0, t1, t2, color) \
-    vertices->pos = Vec3f(p0, 0.0f);                            \
-    vertices->uv  = t0;                                         \
-    vertices->col = color;                                      \
-    vertices++;                                                 \
-    vertices->pos = Vec3f(p1, 0.0f);                            \
-    vertices->uv  = t1;                                         \
-    vertices->col = color;                                      \
-    vertices++;                                                 \
-    vertices->pos = Vec3f(p2, 0.0f);                            \
-    vertices->uv  = t2;                                         \
-    vertices->col = color;                                      \
-    vertices++;
+    void AuxDrawDevice::draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color) {
+        add_triangle(p0, p1, p2, color);
+        add_elem();
+    }
 
-    static const int MAX_SPLIT_STEP_SPHERE   = 6;
-    static const int MAX_SPLIT_STEP_CONE     = 8;
-    static const int MAX_SPLIT_STEP_CYLINDER = 8;
+    void AuxDrawDevice::draw_triangle_solid(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color) {
+        add_triangle_solid(p0, p1, p2, color);
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_mesh(array_view<const Vec3f> points, const Color4f& color) {
+        const int num_triangles = static_cast<int>(points.size() / 3);
+        for (int i = 0; i < num_triangles; i++) {
+            const int t = i * 3;
+            add_triangle(points[t + 0], points[t + 1], points[t + 2], color);
+        }
+        add_elem();
+    }
+
+    void AuxDrawDevice::draw_mesh_solid(array_view<const Vec3f> points, const Color4f& color) {
+        const int num_triangles = static_cast<int>(points.size() / 3);
+        for (int i = 0; i < num_triangles; i++) {
+            const int t = i * 3;
+            add_triangle_solid(points[t + 0], points[t + 1], points[t + 2], color);
+        }
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_mesh_faces(array_view<const Vec3f> pos, array_view<const Vec3u> faces, const Mat3x4f& mat, const Color4f& color) {
+        for (const auto& face : faces) {
+            Vec3f p0, p1, p2;
+
+            p0 = Math3d::transform(mat, pos[face[0]]);
+            p1 = Math3d::transform(mat, pos[face[1]]);
+            p2 = Math3d::transform(mat, pos[face[2]]);
+
+            add_triangle(p0, p1, p2, color);
+        }
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_mesh_faces_solid(array_view<const Vec3f> pos, array_view<const Vec3u> faces, const Mat3x4f& mat, const Color4f& color) {
+        for (const auto& face : faces) {
+            Vec3f p0, p1, p2;
+
+            p0 = Math3d::transform(mat, pos[face[0]]);
+            p1 = Math3d::transform(mat, pos[face[1]]);
+            p2 = Math3d::transform(mat, pos[face[2]]);
+
+            add_triangle_solid(p0, p1, p2, color);
+        }
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_sphere(const Vec3f& pos, float radius, const Color4f& color) {
+        static const int steps_v = MAX_SPLIT_STEP_SPHERE;
+        static const int steps_h = MAX_SPLIT_STEP_SPHERE;
+        static const int total_v = steps_v + 1;
+        static const int total_h = steps_h + 1;
+        static const int nv      = total_v * total_h;
+        static const int nt      = total_v * total_h;
+
+        auto da_v = Math::PIf / float(steps_v);
+        auto da_h = 2.0f * Math::PIf / float(steps_h);
+
+        Vec3f points[nv];
+        int   vertex_id = 0;
+
+        for (int i = 0; i < total_v; ++i) {
+            auto a_v = da_v * float(i) - Math::HALF_PIf;
+            for (int j = 0; j < total_h; ++j) {
+                auto a_h = da_h * float(j);
+
+                auto r_xz = radius * Math::cos(a_v);
+                auto x    = r_xz * Math::cos(a_h);
+                auto z    = r_xz * Math::sin(a_h);
+                auto y    = radius * Math::sin(a_v);
+
+                points[vertex_id++] = pos + Vec3f(x, y, z);
+            }
+        }
+
+        for (int i = 0; i < steps_v; ++i) {
+            for (int j = 0; j < steps_h; ++j) {
+                add_line(points[i * total_h + j + 1], points[i * total_h + j + 0], color);
+                add_line(points[i * total_h + j + 0], points[i * total_h + j + total_h], color);
+                add_line(points[i * total_h + j + total_h], points[i * total_h + j + total_h + 1], color);
+                add_line(points[i * total_h + j + total_h + 1], points[i * total_h + j + 1], color);
+            }
+        }
+
+        add_elem();
+    }
+
+    void AuxDrawDevice::draw_sphere_solid(const Vec3f& pos, float radius, const Color4f& color) {
+        static const int steps_v = MAX_SPLIT_STEP_SPHERE;
+        static const int steps_h = MAX_SPLIT_STEP_SPHERE;
+        static const int total_v = steps_v + 1;
+        static const int total_h = steps_h + 1;
+        static const int nv      = total_v * total_h;
+        static const int nt      = total_v * total_h;
+
+        auto da_v = Math::PIf / float(steps_v);
+        auto da_h = 2.0f * Math::PIf / float(steps_h);
+
+        Vec3f points[nv];
+        int   vertex_id = 0;
+
+        for (int i = 0; i < total_v; ++i) {
+            auto a_v = da_v * float(i) - Math::HALF_PIf;
+            for (int j = 0; j < total_h; ++j) {
+                auto a_h = da_h * float(j);
+
+                auto r_xz = radius * Math::cos(a_v);
+                auto x    = r_xz * Math::cos(a_h);
+                auto z    = r_xz * Math::sin(a_h);
+                auto y    = radius * Math::sin(a_v);
+
+                points[vertex_id++] = pos + Vec3f(x, y, z);
+            }
+        }
+
+        for (int i = 0; i < steps_v; ++i) {
+            for (int j = 0; j < steps_h; ++j) {
+                add_triangle_solid(points[i * total_h + j + 1], points[i * total_h + j + 0], points[i * total_h + j + total_h], color);
+                add_triangle_solid(points[i * total_h + j + total_h], points[i * total_h + j + total_h + 1], points[i * total_h + j + 1], color);
+            }
+        }
+
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_cylinder(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot) {
+        static const int nv            = MAX_SPLIT_STEP_CYLINDER * 2 + 2;
+        static const int v_center_down = MAX_SPLIT_STEP_CYLINDER * 2 + 0;
+        static const int v_center_top  = MAX_SPLIT_STEP_CYLINDER * 2 + 1;
+
+        Vec3f points[nv];
+
+        float dangle = Math::PIf / float(MAX_SPLIT_STEP_CYLINDER / 2.0f);
+        float angle  = 0.0f;
+        for (int i = 0; i < MAX_SPLIT_STEP_CYLINDER; ++i) {
+            float rx = radius * Math::cos(angle);
+            float rz = radius * Math::sin(angle);
+
+            points[i]                           = pos + rot.rotate(Vec3f(rx, -height * 0.5f, rz));
+            points[i + MAX_SPLIT_STEP_CYLINDER] = pos + rot.rotate(Vec3f(rx, height * 0.5f, rz));
+
+            angle += dangle;
+        }
+
+        points[v_center_down] = pos + rot.rotate(Vec3f(0.0f, -height * 0.5f, 0.0f));
+        points[v_center_top]  = pos + rot.rotate(Vec3f(0.0f, height * 0.5f, 0.0f));
+
+        for (int i = 0; i < MAX_SPLIT_STEP_CYLINDER; ++i) {
+            int v_dr = (i + 0) % MAX_SPLIT_STEP_CYLINDER;
+            int v_dl = (i + 1) % MAX_SPLIT_STEP_CYLINDER;
+            int v_tr = MAX_SPLIT_STEP_CYLINDER + (i + 0) % MAX_SPLIT_STEP_CYLINDER;
+            int v_tl = MAX_SPLIT_STEP_CYLINDER + (i + 1) % MAX_SPLIT_STEP_CYLINDER;
+
+            add_triangle(points[v_dr], points[v_dl], points[v_center_down], color);
+            add_line(points[v_dl], points[v_dr], color);
+            add_line(points[v_dr], points[v_tr], color);
+            add_line(points[v_tr], points[v_tl], color);
+            add_line(points[v_tl], points[v_dl], color);
+            add_triangle(points[v_tl], points[v_tr], points[v_center_top], color);
+        }
+
+        add_elem();
+    }
+
+    void AuxDrawDevice::draw_cylinder_solid(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot) {
+        static const int nv            = MAX_SPLIT_STEP_CYLINDER * 2 + 2;
+        static const int v_center_down = MAX_SPLIT_STEP_CYLINDER * 2 + 0;
+        static const int v_center_top  = MAX_SPLIT_STEP_CYLINDER * 2 + 1;
+
+        Vec3f points[nv];
+
+        float dangle = Math::PIf / float(MAX_SPLIT_STEP_CYLINDER / 2.0f);
+        float angle  = 0.0f;
+        for (int i = 0; i < MAX_SPLIT_STEP_CYLINDER; ++i) {
+            float rx = radius * Math::cos(angle);
+            float rz = radius * Math::sin(angle);
+
+            points[i]                           = pos + rot.rotate(Vec3f(rx, -height * 0.5f, rz));
+            points[i + MAX_SPLIT_STEP_CYLINDER] = pos + rot.rotate(Vec3f(rx, height * 0.5f, rz));
+
+            angle += dangle;
+        }
+
+        points[v_center_down] = pos + rot.rotate(Vec3f(0.0f, -height * 0.5f, 0.0f));
+        points[v_center_top]  = pos + rot.rotate(Vec3f(0.0f, height * 0.5f, 0.0f));
+
+        for (int i = 0; i < MAX_SPLIT_STEP_CYLINDER; ++i) {
+            int v_dr = (i + 0) % MAX_SPLIT_STEP_CYLINDER;
+            int v_dl = (i + 1) % MAX_SPLIT_STEP_CYLINDER;
+            int v_tr = MAX_SPLIT_STEP_CYLINDER + (i + 0) % MAX_SPLIT_STEP_CYLINDER;
+            int v_tl = MAX_SPLIT_STEP_CYLINDER + (i + 1) % MAX_SPLIT_STEP_CYLINDER;
+
+            add_triangle_solid(points[v_dr], points[v_dl], points[v_center_down], color);
+            add_triangle_solid(points[v_dl], points[v_dr], points[v_tr], color);
+            add_triangle_solid(points[v_tr], points[v_tl], points[v_dl], color);
+            add_triangle_solid(points[v_tl], points[v_tr], points[v_center_top], color);
+        }
+
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_cone(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot) {
+        static const int nv       = MAX_SPLIT_STEP_CONE + 2;
+        static const int v_center = MAX_SPLIT_STEP_CONE + 0;
+        static const int v_top    = MAX_SPLIT_STEP_CONE + 1;
+
+        Vec3f points[nv];
+
+        float dangle = Math::PIf / float(MAX_SPLIT_STEP_CONE / 2.0f);
+        float angle  = 0.0f;
+        for (int i = 0; i < MAX_SPLIT_STEP_CONE; ++i) {
+            float rx = radius * Math::cos(angle);
+            float rz = radius * Math::sin(angle);
+
+            points[i] = pos + rot.rotate(Vec3f(rx, -height * 0.5f, rz));
+
+            angle += dangle;
+        }
+
+        points[v_center] = pos + rot.rotate(Vec3f(0.0f, -height * 0.5f, 0.0f));
+        points[v_top]    = pos + rot.rotate(Vec3f(0.0f, height * 0.5f, 0.0f));
+
+        for (int i = 0; i < MAX_SPLIT_STEP_CONE; ++i) {
+            int v_dr = (i + 0) % MAX_SPLIT_STEP_CONE;
+            int v_dl = (i + 1) % MAX_SPLIT_STEP_CONE;
+
+            add_triangle(points[v_dr], points[v_dl], points[v_center], color);
+            add_triangle(points[v_dl], points[v_dr], points[v_top], color);
+        }
+
+        add_elem();
+    }
+
+    void AuxDrawDevice::draw_cone_solid(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot) {
+        static const int nv       = MAX_SPLIT_STEP_CONE + 2;
+        static const int v_center = MAX_SPLIT_STEP_CONE + 0;
+        static const int v_top    = MAX_SPLIT_STEP_CONE + 1;
+
+        Vec3f points[nv];
+
+        float dangle = Math::PIf / float(MAX_SPLIT_STEP_CONE / 2.0f);
+        float angle  = 0.0f;
+        for (int i = 0; i < MAX_SPLIT_STEP_CONE; ++i) {
+            float rx = radius * Math::cos(angle);
+            float rz = radius * Math::sin(angle);
+
+            points[i] = pos + rot.rotate(Vec3f(rx, -height * 0.5f, rz));
+
+            angle += dangle;
+        }
+
+        points[v_center] = pos + rot.rotate(Vec3f(0.0f, -height * 0.5f, 0.0f));
+        points[v_top]    = pos + rot.rotate(Vec3f(0.0f, height * 0.5f, 0.0f));
+
+        for (int i = 0; i < MAX_SPLIT_STEP_CONE; ++i) {
+            int v_dr = (i + 0) % MAX_SPLIT_STEP_CONE;
+            int v_dl = (i + 1) % MAX_SPLIT_STEP_CONE;
+
+            add_triangle_solid(points[v_dr], points[v_dl], points[v_center], color);
+            add_triangle_solid(points[v_dl], points[v_dr], points[v_top], color);
+        }
+
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_box(const Vec3f& pos, const Vec3f& size, const Color4f& color, const Quatf& rot) {
+        const int nv = 8;
+
+        Vec3f points[nv];
+
+        float hx = size[0] * 0.5f;
+        float hy = size[1] * 0.5f;
+        float hz = size[2] * 0.5f;
+
+        points[0] = pos + rot.rotate(Vec3f(-hx, hy, hz));
+        points[1] = pos + rot.rotate(Vec3f(-hx, -hy, hz));
+        points[2] = pos + rot.rotate(Vec3f(hx, -hy, hz));
+        points[3] = pos + rot.rotate(Vec3f(hx, hy, hz));
+        points[4] = pos + rot.rotate(Vec3f(-hx, hy, -hz));
+        points[5] = pos + rot.rotate(Vec3f(-hx, -hy, -hz));
+        points[6] = pos + rot.rotate(Vec3f(hx, -hy, -hz));
+        points[7] = pos + rot.rotate(Vec3f(hx, hy, -hz));
+
+        add_square(points[0], points[1], points[2], points[3], color);
+
+        add_square(points[3], points[2], points[6], points[7], color);
+
+        add_square(points[7], points[6], points[5], points[4], color);
+
+        add_square(points[4], points[5], points[1], points[0], color);
+
+        add_square(points[4], points[0], points[3], points[7], color);
+
+        add_square(points[1], points[5], points[6], points[2], color);
+
+        add_elem();
+    }
+
+    void AuxDrawDevice::draw_box_solid(const Vec3f& pos, const Vec3f& size, const Color4f& color, const Quatf& rot) {
+        const int nv = 8;
+
+        Vec3f points[nv];
+
+        float hx = size[0] * 0.5f;
+        float hy = size[1] * 0.5f;
+        float hz = size[2] * 0.5f;
+
+        points[0] = pos + rot.rotate(Vec3f(-hx, hy, hz));
+        points[1] = pos + rot.rotate(Vec3f(-hx, -hy, hz));
+        points[2] = pos + rot.rotate(Vec3f(hx, -hy, hz));
+        points[3] = pos + rot.rotate(Vec3f(hx, hy, hz));
+        points[4] = pos + rot.rotate(Vec3f(-hx, hy, -hz));
+        points[5] = pos + rot.rotate(Vec3f(-hx, -hy, -hz));
+        points[6] = pos + rot.rotate(Vec3f(hx, -hy, -hz));
+        points[7] = pos + rot.rotate(Vec3f(hx, hy, -hz));
+
+        add_triangle_solid(points[0], points[1], points[2], color);
+        add_triangle_solid(points[2], points[3], points[0], color);
+
+        add_triangle_solid(points[3], points[2], points[7], color);
+        add_triangle_solid(points[7], points[2], points[6], color);
+
+        add_triangle_solid(points[7], points[6], points[5], color);
+        add_triangle_solid(points[5], points[4], points[7], color);
+
+        add_triangle_solid(points[4], points[5], points[0], color);
+        add_triangle_solid(points[0], points[5], points[1], color);
+
+        add_triangle_solid(points[4], points[0], points[7], color);
+        add_triangle_solid(points[7], points[0], points[3], color);
+
+        add_triangle_solid(points[1], points[5], points[2], color);
+        add_triangle_solid(points[2], points[5], points[6], color);
+
+        add_elem_solid();
+    }
+
+    void AuxDrawDevice::draw_text(const std::string& text, const Vec3f& pos, float size, const Color4f& color, bool project) {
+        const int   n          = int(text.size());
+        const auto  screen_pos = project ? Math3d::project_to_screen(m_mat_vp, m_screen_size, pos) : Vec2f(pos);
+        const float scale      = size > 0 ? size / float(m_font->get_height()) : 1.0f;
+        const auto& glyphs     = m_font->get_glyphs();
+        const auto  null_glyph = glyphs.find(0)->second;
+
+        float advance_x = 0.0f;
+
+        for (int i = 0; i < n; ++i) {
+            auto c     = text[i];
+            auto query = glyphs.find(int(c));
+
+            FontGlyph font_glyph = null_glyph;
+            if (query != glyphs.end()) font_glyph = query->second;
+
+            float left   = advance_x + scale * float(font_glyph.bearing.x());
+            float top    = scale * float(font_glyph.bearing.y());
+            float right  = left + scale * float(font_glyph.size.x());
+            float bottom = top - scale * float(font_glyph.size.y());
+
+            Vec3f glyph_p[4];
+            Vec2f glyph_t[4];
+
+            glyph_p[0] = Vec3f(screen_pos + Vec2f(left, top), 0.0f);
+            glyph_t[0] = font_glyph.bitmap_uv0;
+
+            glyph_p[1] = Vec3f(screen_pos + Vec2f(left, bottom), 0.0f);
+            glyph_t[1] = Vec2f(font_glyph.bitmap_uv0.x(), font_glyph.bitmap_uv1.y());
+
+            glyph_p[2] = Vec3f(screen_pos + Vec2f(right, bottom), 0.0f);
+            glyph_t[2] = font_glyph.bitmap_uv1;
+
+            glyph_p[3] = Vec3f(screen_pos + Vec2f(right, top), 0.0f);
+            glyph_t[3] = Vec2f(font_glyph.bitmap_uv1.x(), font_glyph.bitmap_uv0.y());
+
+            add_triangle_solid(glyph_p[0], glyph_p[1], glyph_p[2], glyph_t[0], glyph_t[1], glyph_t[2], color);
+            add_triangle_solid(glyph_p[2], glyph_p[3], glyph_p[0], glyph_t[2], glyph_t[3], glyph_t[0], color);
+
+            advance_x += scale * float(font_glyph.advance.x());
+        }
+
+        add_elem_font();
+    }
+
+    void AuxDrawDevice::draw_text_3d(const std::string& text, const Vec3f& pos, float size, const Color4f& color) {
+        draw_text(text, pos, size, color, false);
+    }
+
+    void AuxDrawDevice::draw_text_2d(const std::string& text, const Vec2f& pos, float size, const Color4f& color) {
+        draw_text(text, Vec3f(pos, 0.0f), size, color, true);
+    }
+
+    void AuxDrawDevice::set_font(Ref<Font> font) {
+        m_font = std::move(font);
+    }
+
+    void AuxDrawDevice::set_mat_vp(const Mat4x4f& mat) {
+        m_mat_vp = mat;
+    }
+
+    void AuxDrawDevice::set_screen_size(const Vec2f& size) {
+        m_screen_size = size;
+    }
+
+    void AuxDrawDevice::render(RdgGraph& graph, RdgTexture* target, const Rect2i& viewport, float gamma, ShaderTable* shader_table, TextureManager* texture_manager) {
+        WG_PROFILE_CPU_RENDER("AuxDrawDevice::render");
+        WG_PROFILE_RDG_SCOPE(graph, "AuxDrawDevice::render");
+
+        Shader* shader = shader_table->aux_draw();
+
+        static const Strid pass_solid = SID("solid");
+        static const Strid pass_wire  = SID("wire");
+
+        static const Strid out_mode        = SID("OUT_MODE");
+        static const Strid out_mode_srgb   = SID("SRGB");
+        static const Strid out_mode_linear = SID("LINEAR");
+
+        static const ShaderParamId param_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
+        static const ShaderParamId param_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
+        static const ShaderParamId param_image_texture  = shader->find_param_id(SID("ImageTexture"));
+
+        buffered_vector<Ref<Texture>> textures;
+        textures.emplace_back(texture_manager->get_texture(DefaultTexture::White));
+        textures.emplace_back(m_font->get_texture());
+
+        buffered_vector<Ref<ShaderParamBlock>> params_blocks;
+        for (const Ref<Texture>& texture : textures) {
+            auto param_block = graph.make_param_block(shader, 0, "aux_draw_params");
+            param_block->set_var(param_clip_proj_view, graph.get_driver()->clip_matrix() * m_mat_vp);
+            param_block->set_var(param_inverse_gamma, 1.0f / (gamma > 0.0f ? gamma : 2.2f));
+            param_block->set_var(param_image_texture, texture->get_texture());
+        }
+
+        auto upload_data = [&](AuxData& aux_data) -> RdgVertBuffer* {
+            if (aux_data.vtx_offset == 0) {
+                return nullptr;
+            }
+            aux_data.verts.reserve(graph.get_driver());
+            RdgVertBuffer* buffer = graph.import_vert_buffer(aux_data.verts_buffer);
+            RdgUtils::update_buffer(graph, SIDDBG("copy_verts"), buffer, 0, {reinterpret_cast<const std::uint8_t*>(aux_data.verts.data()), aux_data.vtx_offset * sizeof(AuxDrawVert)});
+            return buffer;
+        };
+
+        auto draw_elements = [&](AuxData& aux_data, RdgVertBuffer* buffer, const Strid& pass_name) {
+            if (aux_data.vtx_offset == 0) {
+                return;
+            }
+
+            assert(buffer);
+
+            graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()))
+                    .color_target(target)
+                    .reading(buffer)
+                    .bind([viewport, params_blocks, elems = aux_data.elems, buffer, shader, pass_name](RdgPassContext& context) {
+                        const GfxVertAttribs    attribs       = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
+                        const ShaderPermutation permutation   = *shader->permutation(SID("default"), pass_name, {ShaderOptionVariant(out_mode, out_mode_linear)}, attribs);
+                        const GfxVertElements   vert_elements = GfxVertElements::make(attribs);
+
+                        WG_CHECKED(context.viewport(viewport));
+                        WG_CHECKED(context.bind_vert_buffer(buffer->get_buffer(), 0, 0));
+                        WG_CHECKED(context.bind_pso_graphics(shader, permutation, vert_elements));
+
+                        std::optional<int> prev_texture;
+
+                        for (const AuxDrawElem& elem : elems) {
+                            if (!prev_texture || *prev_texture != elem.texture_idx) {
+                                prev_texture = elem.texture_idx;
+                                WG_CHECKED(context.bind_param_block(params_blocks[elem.texture_idx], 0));
+                            }
+                            WG_CHECKED(context.draw(elem.vtx_count, elem.vtx_offset, 1));
+                        }
+
+                        return WG_OK;
+                    });
+        };
+
+        RdgVertBuffer* buffer_triangles = upload_data(m_solid);
+        RdgVertBuffer* buffer_lines     = upload_data(m_wire);
+
+        draw_elements(m_solid, buffer_triangles, pass_solid);
+        draw_elements(m_wire, buffer_lines, pass_wire);
+    }
+
+    void AuxDrawDevice::clear() {
+        WG_PROFILE_CPU_RENDER("AuxDrawDevice::clear");
+
+        auto clear_data = [](AuxData& data) {
+            data.elems.clear();
+            data.vtx_offset = 0;
+        };
+
+        clear_data(m_solid);
+        clear_data(m_wire);
+    }
+
+    void AuxDrawDevice::add_triangle_solid(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec4f& col) {
+        add_vert(p0, col);
+        add_vert(p1, col);
+        add_vert(p2, col);
+    }
+
+    void AuxDrawDevice::add_triangle_solid(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec2f& uv0, const Vec2f& uv1, const Vec2f& uv2, const Vec4f& col) {
+        add_vert(p0, uv0, col);
+        add_vert(p1, uv1, col);
+        add_vert(p2, uv2, col);
+    }
+
+    void AuxDrawDevice::add_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec4f& col) {
+        add_vert(p0, col);
+        add_vert(p1, col);
+        add_vert(p1, col);
+        add_vert(p2, col);
+        add_vert(p2, col);
+        add_vert(p0, col);
+    }
+
+    void AuxDrawDevice::add_line(const Vec3f& p0, const Vec3f& p1, const Vec4f& col) {
+        add_vert(p0, col);
+        add_vert(p1, col);
+    }
+
+    void AuxDrawDevice::add_square(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Vec3f& p3, const Vec4f& col) {
+        add_line(p0, p1, col);
+        add_line(p1, p2, col);
+        add_line(p2, p3, col);
+        add_line(p3, p0, col);
+    }
+
+    void AuxDrawDevice::add_vert(const Vec3f& pos, const Vec4f& col) {
+        AuxDrawVert vert;
+        vert.pos = pos;
+        vert.col = col;
+        add_vert(vert);
+    }
+
+    void AuxDrawDevice::add_vert(const Vec3f& pos, const Vec2f& uv, const Vec4f& col) {
+        AuxDrawVert vert;
+        vert.pos = pos;
+        vert.col = col;
+        vert.uv  = uv;
+        add_vert(vert);
+    }
+
+    void AuxDrawDevice::add_vert(const AuxDrawVert& vert) {
+        m_verts.push_back(vert);
+    }
+
+    void AuxDrawDevice::add_elem() {
+        add_elem(false, 0);
+    }
+
+    void AuxDrawDevice::add_elem_solid() {
+        add_elem(true, 0);
+    }
+
+    void AuxDrawDevice::add_elem_font() {
+        add_elem(true, 1);
+    }
+
+    void AuxDrawDevice::add_elem(bool solid, int texture_idx) {
+        AuxData&  data      = solid ? m_solid : m_wire;
+        const int offset    = data.vtx_offset;
+        const int num_verts = static_cast<int>(m_verts.size());
+
+        if (data.verts.size() < data.vtx_offset) {
+            data.verts.resize(data.vtx_offset);
+        }
+
+        for (int i = 0; i < num_verts; i++) {
+            data.verts[i + offset] = m_verts[i];
+        }
+
+        m_verts.clear();
+        data.vtx_offset += num_verts;
+
+        AuxDrawElem& elem = data.elems.emplace_back();
+        elem.vtx_count    = num_verts;
+        elem.vtx_offset   = offset;
+        elem.texture_idx  = texture_idx;
+    }
 
     /** @brief Pipeline type to draw primitive */
     enum class AuxDrawPrimitiveType {
-        Line           = 0,
-        TrianglesSolid = 1,
-        TrianglesWired = 2,
-        Text           = 3
+        Solid = 0,
+        Wire  = 1
     };
 
     /** @brief Base class for an aux primitive to store and draw */
     struct AuxDrawPrimitive {
-        virtual ~AuxDrawPrimitive() = default;
+        virtual ~AuxDrawPrimitive()              = default;
+        virtual void draw(AuxDrawDevice& device) = 0;
 
-        struct FillParams {
-            Mat4x4f mat_view_proj;
-            Font*   font;
-            Vec2f   screen_size;
-        };
+        [[nodiscard]] bool is_solid() const { return type == AuxDrawPrimitiveType::Solid; }
+        [[nodiscard]] bool is_wire() const { return type == AuxDrawPrimitiveType::Wire; }
 
-        [[nodiscard]] virtual AuxDrawPrimitiveType get_type() const                            = 0;
-        [[nodiscard]] virtual int                  get_num_elements() const                    = 0;
-        [[nodiscard]] virtual void*                fill(void* buffer, const FillParams&) const = 0;
-
-        float lifetime = 0.0f;
+        Color4f              color;
+        float                lifetime = 0.0f;
+        AuxDrawPrimitiveType type;
     };
 
-    /** @brief Stores info to draw set of lines */
-    struct AuxDrawLines final : public AuxDrawPrimitive {
-        struct Line {
-            Vec3f   from;
-            Vec3f   to;
-            Color4f color;
-        };
+    /** @brief Stores info to draw line */
+    struct AuxDrawLine final : public AuxDrawPrimitive {
+        Vec3f from;
+        Vec3f to;
 
-        buffered_vector<Line, 1> lines;
-
-        ~AuxDrawLines() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return AuxDrawPrimitiveType::Line;
+        void draw(AuxDrawDevice& device) override {
+            device.draw_line(from, to, color);
         }
-        [[nodiscard]] int get_num_elements() const override {
-            return int(lines.size());
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawLines::fill");
+    };
 
-            auto* vertices = (GfxVF_Pos3Col4*) buffer;
+    /** @brief Stores info to draw trianlge */
+    struct AuxDrawTriangle final : public AuxDrawPrimitive {
+        Vec3f pos[3];
 
-            for (const auto& line : lines) {
-                vertices->pos = line.from;
-                vertices->col = line.color;
-                vertices++;
-                vertices->pos = line.to;
-                vertices->col = line.color;
-                vertices++;
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_triangle_solid(pos[0], pos[1], pos[2], color);
+            } else {
+                device.draw_triangle(pos[0], pos[1], pos[2], color);
             }
-
-            return vertices;
         }
     };
 
     /** @brief Stores info to draw set of triangles */
-    struct AuxDrawTriangles final : public AuxDrawPrimitive {
-        struct Triangle {
-            Vec3f   pos[3];
-            Color4f color;
-        };
+    struct AuxDrawMesh final : public AuxDrawPrimitive {
+        std::vector<Vec3f> points;
 
-        buffered_vector<Triangle, 1> triangles;
-        AuxDrawPrimitiveType         type = AuxDrawPrimitiveType::TrianglesSolid;
-
-        ~AuxDrawTriangles() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return type;
-        }
-        [[nodiscard]] int get_num_elements() const override {
-            return int(triangles.size());
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawTriangles::fill");
-
-            auto* vertices = (GfxVF_Pos3Col4*) buffer;
-
-            for (const auto& triangle : triangles) {
-                WG_PUSH_TRIANGLE_P3C4(triangle.pos[0], triangle.pos[1], triangle.pos[2], triangle.color);
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_mesh_solid(points, color);
+            } else {
+                device.draw_mesh(points, color);
             }
+        }
+    };
 
-            return vertices;
+    /** @brief Stores info to draw set of triangles */
+    struct AuxDrawMeshFaces final : public AuxDrawPrimitive {
+        std::vector<Vec3f> pos;
+        std::vector<Vec3u> faces;
+        Mat3x4f            mat;
+
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_mesh_faces_solid(pos, faces, mat, color);
+            } else {
+                device.draw_mesh_faces(pos, faces, mat, color);
+            }
         }
     };
 
     /** @brief Stores info to draw a sphere */
     struct AuxDrawSphere final : public AuxDrawPrimitive {
-        Vec3f                pos;
-        Color4f              color;
-        float                radius;
-        AuxDrawPrimitiveType type = AuxDrawPrimitiveType::TrianglesSolid;
+        Vec3f pos;
+        float radius;
 
-        ~AuxDrawSphere() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return type;
-        }
-        [[nodiscard]] int get_num_elements() const override {
-            return MAX_SPLIT_STEP_SPHERE * MAX_SPLIT_STEP_SPHERE;
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawSphere::fill");
-
-            auto* vertices = (GfxVF_Pos3Col4*) buffer;
-
-            static const int steps_v = MAX_SPLIT_STEP_SPHERE;
-            static const int steps_h = MAX_SPLIT_STEP_SPHERE;
-            static const int total_v = steps_v + 1;
-            static const int total_h = steps_h + 1;
-            static const int nv      = total_v * total_h;
-            static const int nt      = total_v * total_h;
-
-            auto da_v = Math::PIf / float(steps_v);
-            auto da_h = 2.0f * Math::PIf / float(steps_h);
-
-            Vec3f points[nv];
-            int   vertex_id = 0;
-
-            for (int i = 0; i < total_v; ++i) {
-                auto a_v = da_v * float(i) - Math::HALF_PIf;
-                for (int j = 0; j < total_h; ++j) {
-                    auto a_h = da_h * float(j);
-
-                    auto r_xz = radius * Math::cos(a_v);
-                    auto x    = r_xz * Math::cos(a_h);
-                    auto z    = r_xz * Math::sin(a_h);
-                    auto y    = radius * Math::sin(a_v);
-
-                    points[vertex_id++] = pos + Vec3f(x, y, z);
-                }
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_sphere_solid(pos, radius, color);
+            } else {
+                device.draw_sphere(pos, radius, color);
             }
-
-            for (int i = 0; i < steps_v; ++i) {
-                for (int j = 0; j < steps_h; ++j) {
-                    WG_PUSH_TRIANGLE_P3C4(points[i * total_h + j + 1], points[i * total_h + j + 0], points[i * total_h + j + total_h], color);
-                    WG_PUSH_TRIANGLE_P3C4(points[i * total_h + j + total_h], points[i * total_h + j + total_h + 1], points[i * total_h + j + 1], color);
-                }
-            }
-
-            return vertices;
         }
     };
 
     /** @brief Stores info to draw a cylinder */
     struct AuxDrawCylinder final : public AuxDrawPrimitive {
-        Vec3f                pos;
-        Color4f              color;
-        Quatf                rot;
-        float                radius;
-        float                height;
-        AuxDrawPrimitiveType type = AuxDrawPrimitiveType::TrianglesSolid;
+        Vec3f pos;
+        Quatf rot;
+        float radius;
+        float height;
 
-        ~AuxDrawCylinder() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return type;
-        }
-        [[nodiscard]] int get_num_elements() const override {
-            return MAX_SPLIT_STEP_CYLINDER * 4;
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawCylinder::fill");
-
-            auto* vertices = (GfxVF_Pos3Col4*) buffer;
-
-            static const int nv            = MAX_SPLIT_STEP_CYLINDER * 2 + 2;
-            static const int v_center_down = MAX_SPLIT_STEP_CYLINDER * 2 + 0;
-            static const int v_center_top  = MAX_SPLIT_STEP_CYLINDER * 2 + 1;
-
-            Vec3f points[nv];
-
-            float dangle = Math::PIf / float(MAX_SPLIT_STEP_CYLINDER / 2.0f);
-            float angle  = 0.0f;
-            for (int i = 0; i < MAX_SPLIT_STEP_CYLINDER; ++i) {
-                float rx = radius * Math::cos(angle);
-                float rz = radius * Math::sin(angle);
-
-                points[i]                           = pos + rot.rotate(Vec3f(rx, -height * 0.5f, rz));
-                points[i + MAX_SPLIT_STEP_CYLINDER] = pos + rot.rotate(Vec3f(rx, height * 0.5f, rz));
-
-                angle += dangle;
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_cylinder_solid(pos, radius, height, color, rot);
+            } else {
+                device.draw_cylinder(pos, radius, height, color, rot);
             }
-
-            points[v_center_down] = pos + rot.rotate(Vec3f(0.0f, -height * 0.5f, 0.0f));
-            points[v_center_top]  = pos + rot.rotate(Vec3f(0.0f, height * 0.5f, 0.0f));
-
-            for (int i = 0; i < MAX_SPLIT_STEP_CYLINDER; ++i) {
-                int v_dr = (i + 0) % MAX_SPLIT_STEP_CYLINDER;
-                int v_dl = (i + 1) % MAX_SPLIT_STEP_CYLINDER;
-                int v_tr = MAX_SPLIT_STEP_CYLINDER + (i + 0) % MAX_SPLIT_STEP_CYLINDER;
-                int v_tl = MAX_SPLIT_STEP_CYLINDER + (i + 1) % MAX_SPLIT_STEP_CYLINDER;
-
-                WG_PUSH_TRIANGLE_P3C4(points[v_dr], points[v_dl], points[v_center_down], color);
-                WG_PUSH_TRIANGLE_P3C4(points[v_dl], points[v_dr], points[v_tr], color);
-                WG_PUSH_TRIANGLE_P3C4(points[v_tr], points[v_tl], points[v_dl], color);
-                WG_PUSH_TRIANGLE_P3C4(points[v_tl], points[v_tr], points[v_center_top], color);
-            }
-
-            return vertices;
         }
     };
 
     /** @brief Stores info to draw a cone */
     struct AuxDrawCone final : public AuxDrawPrimitive {
-        Vec3f                pos;
-        Color4f              color;
-        Quatf                rot;
-        float                radius;
-        float                height;
-        AuxDrawPrimitiveType type = AuxDrawPrimitiveType::TrianglesSolid;
+        Vec3f pos;
+        Quatf rot;
+        float radius;
+        float height;
 
-        ~AuxDrawCone() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return type;
-        }
-        [[nodiscard]] int get_num_elements() const override {
-            return MAX_SPLIT_STEP_CONE * 2;
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawCone::fill");
-
-            auto* vertices = (GfxVF_Pos3Col4*) buffer;
-
-            static const int nv       = MAX_SPLIT_STEP_CONE + 2;
-            static const int v_center = MAX_SPLIT_STEP_CONE + 0;
-            static const int v_top    = MAX_SPLIT_STEP_CONE + 1;
-
-            Vec3f points[nv];
-
-            float dangle = Math::PIf / float(MAX_SPLIT_STEP_CONE / 2.0f);
-            float angle  = 0.0f;
-            for (int i = 0; i < MAX_SPLIT_STEP_CONE; ++i) {
-                float rx = radius * Math::cos(angle);
-                float rz = radius * Math::sin(angle);
-
-                points[i] = pos + rot.rotate(Vec3f(rx, -height * 0.5f, rz));
-
-                angle += dangle;
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_cone_solid(pos, radius, height, color, rot);
+            } else {
+                device.draw_cone(pos, radius, height, color, rot);
             }
-
-            points[v_center] = pos + rot.rotate(Vec3f(0.0f, -height * 0.5f, 0.0f));
-            points[v_top]    = pos + rot.rotate(Vec3f(0.0f, height * 0.5f, 0.0f));
-
-            for (int i = 0; i < MAX_SPLIT_STEP_CONE; ++i) {
-                int v_dr = (i + 0) % MAX_SPLIT_STEP_CONE;
-                int v_dl = (i + 1) % MAX_SPLIT_STEP_CONE;
-
-                WG_PUSH_TRIANGLE_P3C4(points[v_dr], points[v_dl], points[v_center], color);
-                WG_PUSH_TRIANGLE_P3C4(points[v_dl], points[v_dr], points[v_top], color);
-            }
-
-            return vertices;
         }
     };
 
     /** @brief Stores info to draw an oriented box */
     struct AuxDrawBox final : public AuxDrawPrimitive {
-        Vec3f                pos;
-        Vec3f                size;
-        Color4f              color;
-        Quatf                rot;
-        AuxDrawPrimitiveType type = AuxDrawPrimitiveType::TrianglesSolid;
+        Vec3f pos;
+        Vec3f size;
+        Quatf rot;
 
-        ~AuxDrawBox() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return type;
-        }
-        [[nodiscard]] int get_num_elements() const override {
-            return 2 * 6;
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams&) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawBox::fill");
-
-            auto* vertices = (GfxVF_Pos3Col4*) buffer;
-
-            const int nv = 8;
-
-            Vec3f points[nv];
-
-            float hx = size[0] * 0.5f;
-            float hy = size[1] * 0.5f;
-            float hz = size[2] * 0.5f;
-
-            points[0] = pos + rot.rotate(Vec3f(-hx, hy, hz));
-            points[1] = pos + rot.rotate(Vec3f(-hx, -hy, hz));
-            points[2] = pos + rot.rotate(Vec3f(hx, -hy, hz));
-            points[3] = pos + rot.rotate(Vec3f(hx, hy, hz));
-            points[4] = pos + rot.rotate(Vec3f(-hx, hy, -hz));
-            points[5] = pos + rot.rotate(Vec3f(-hx, -hy, -hz));
-            points[6] = pos + rot.rotate(Vec3f(hx, -hy, -hz));
-            points[7] = pos + rot.rotate(Vec3f(hx, hy, -hz));
-
-            WG_PUSH_TRIANGLE_P3C4(points[0], points[1], points[2], color);
-            WG_PUSH_TRIANGLE_P3C4(points[2], points[3], points[0], color);
-
-            WG_PUSH_TRIANGLE_P3C4(points[3], points[2], points[7], color);
-            WG_PUSH_TRIANGLE_P3C4(points[7], points[2], points[6], color);
-
-            WG_PUSH_TRIANGLE_P3C4(points[7], points[6], points[5], color);
-            WG_PUSH_TRIANGLE_P3C4(points[5], points[4], points[7], color);
-
-            WG_PUSH_TRIANGLE_P3C4(points[4], points[5], points[0], color);
-            WG_PUSH_TRIANGLE_P3C4(points[0], points[5], points[1], color);
-
-            WG_PUSH_TRIANGLE_P3C4(points[4], points[0], points[7], color);
-            WG_PUSH_TRIANGLE_P3C4(points[7], points[0], points[3], color);
-
-            WG_PUSH_TRIANGLE_P3C4(points[1], points[5], points[2], color);
-            WG_PUSH_TRIANGLE_P3C4(points[2], points[5], points[6], color);
-
-            return vertices;
+        void draw(AuxDrawDevice& device) override {
+            if (is_solid()) {
+                device.draw_box_solid(pos, size, color, rot);
+            } else {
+                device.draw_box(pos, size, color, rot);
+            }
         }
     };
 
@@ -395,315 +767,182 @@ namespace wmoge {
     struct AuxDrawText final : public AuxDrawPrimitive {
         std::string text;
         Vec3f       pos;
-        Color4f     color;
         float       size;
         bool        project = false;
 
-        ~AuxDrawText() override = default;
-
-        [[nodiscard]] AuxDrawPrimitiveType get_type() const override {
-            return AuxDrawPrimitiveType::Text;
-        }
-        [[nodiscard]] int get_num_elements() const override {
-            return int(text.length());
-        }
-        [[nodiscard]] void* fill(void* buffer, const FillParams& params) const override {
-            WG_PROFILE_CPU_RENDER("AuxDrawText::fill");
-
-            auto* vertices = (GfxVF_Pos3Col4Uv2*) buffer;
-
-            const int   n          = int(text.size());
-            const auto  screen_pos = project ? Math3d::project_to_screen(params.mat_view_proj, params.screen_size, pos) : Vec2f(pos);
-            const float scale      = size > 0 ? size / float(params.font->get_height()) : 1.0f;
-            const auto& glyphs     = params.font->get_glyphs();
-            const auto  null_glyph = glyphs.find(0)->second;
-
-            float advance_x = 0.0f;
-
-            for (int i = 0; i < n; ++i) {
-                auto c     = text[i];
-                auto query = glyphs.find(int(c));
-
-                FontGlyph font_glyph = null_glyph;
-                if (query != glyphs.end()) font_glyph = query->second;
-
-                float left   = advance_x + scale * float(font_glyph.bearing.x());
-                float top    = scale * float(font_glyph.bearing.y());
-                float right  = left + scale * float(font_glyph.size.x());
-                float bottom = top - scale * float(font_glyph.size.y());
-
-                Vec2f glyph_p[4];
-                Vec2f glyph_t[4];
-
-                glyph_p[0] = screen_pos + Vec2f(left, top);
-                glyph_t[0] = font_glyph.bitmap_uv0;
-                glyph_p[1] = screen_pos + Vec2f(left, bottom);
-                glyph_t[1] = Vec2f(font_glyph.bitmap_uv0.x(), font_glyph.bitmap_uv1.y());
-                glyph_p[2] = screen_pos + Vec2f(right, bottom);
-                glyph_t[2] = font_glyph.bitmap_uv1;
-                glyph_p[3] = screen_pos + Vec2f(right, top);
-                glyph_t[3] = Vec2f(font_glyph.bitmap_uv1.x(), font_glyph.bitmap_uv0.y());
-
-                WG_PUSH_TRIANGLE_P3C4UV2(glyph_p[0], glyph_p[1], glyph_p[2], glyph_t[0], glyph_t[1], glyph_t[2], color);
-                WG_PUSH_TRIANGLE_P3C4UV2(glyph_p[2], glyph_p[3], glyph_p[0], glyph_t[2], glyph_t[3], glyph_t[0], color);
-
-                advance_x += scale * float(font_glyph.advance.x());
-            }
-
-            return vertices;
+        void draw(AuxDrawDevice& device) override {
+            device.draw_text(text, pos, size, color, project);
         }
     };
 
-    AuxDrawManager::AuxDrawManager() {
-        std::string font_name   = "assets/fonts/consolas";
-        m_screen_size.values[0] = 1280.0f;
-        m_screen_size.values[1] = 720.0f;
+    void AuxDrawManager::draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, std::optional<float> lifetime) {
+        auto line      = std::make_unique<AuxDrawLine>();
+        line->from     = from;
+        line->to       = to;
+        line->color    = color;
+        line->lifetime = lifetime.value_or(0.0f);
 
-        // m_font = asset_manager->load(SID(font_name)).cast<Font>();
-
-        m_lines.set_name(SID("aux_lines"));
-        m_tria_solid.set_name(SID("aux_tria_solid"));
-        m_tria_wired.set_name(SID("aux_tria_wired"));
-        m_text.set_name(SID("aux_text"));
+        std::lock_guard guard(m_mutex);
+        m_added.push_back(std::move(line));
     }
 
-    void AuxDrawManager::draw_line(const Vec3f& from, const Vec3f& to, const Color4f& color, float lifetime) {
+    void AuxDrawManager::draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color, bool solid, std::optional<float> lifetime) {
+        auto triangle      = std::make_unique<AuxDrawTriangle>();
+        triangle->pos[0]   = p0;
+        triangle->pos[1]   = p1;
+        triangle->pos[2]   = p2;
+        triangle->color    = color;
+        triangle->lifetime = lifetime.value_or(0.0f);
+        triangle->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
+
         std::lock_guard guard(m_mutex);
-
-        auto lines = std::make_unique<AuxDrawLines>();
-        lines->lines.push_back({from, to, color});
-        lines->lifetime = lifetime;
-
-        m_added.push_back(std::move(lines));
+        m_added.push_back(std::move(triangle));
     }
-    void AuxDrawManager::draw_triangle(const Vec3f& p0, const Vec3f& p1, const Vec3f& p2, const Color4f& color, bool solid, float lifetime) {
+
+    void AuxDrawManager::draw_mesh(array_view<const Vec3f> points, const Color4f& color, bool solid, std::optional<float> lifetime) {
+        auto mesh      = std::make_unique<AuxDrawMesh>();
+        mesh->color    = color;
+        mesh->lifetime = lifetime.value_or(0.0f);
+        mesh->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
+        mesh->points.resize(points.size());
+        std::copy(points.begin(), points.end(), mesh->points.begin());
+
         std::lock_guard guard(m_mutex);
-
-        auto triangles = std::make_unique<AuxDrawTriangles>();
-        triangles->triangles.push_back(AuxDrawTriangles::Triangle{{p0, p1, p2}, color});
-        triangles->type = solid ? AuxDrawPrimitiveType::TrianglesSolid : AuxDrawPrimitiveType::TrianglesWired;
-
-        m_added.push_back(std::move(triangles));
+        m_added.push_back(std::move(mesh));
     }
-    void AuxDrawManager::draw_sphere(const Vec3f& pos, float radius, const Color4f& color, bool solid, float lifetime) {
-        std::lock_guard guard(m_mutex);
 
+    void AuxDrawManager::draw_mesh_faces(array_view<const Vec3f> pos, array_view<const Vec3u> faces, const Mat3x4f& mat, const Color4f& color, bool solid, std::optional<float> lifetime) {
+        auto mesh      = std::make_unique<AuxDrawMeshFaces>();
+        mesh->color    = color;
+        mesh->lifetime = lifetime.value_or(0.0f);
+        mesh->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
+        mesh->mat      = mat;
+        mesh->pos.resize(pos.size());
+        mesh->faces.resize(faces.size());
+        std::copy(pos.begin(), pos.end(), mesh->pos.begin());
+        std::copy(faces.begin(), faces.end(), mesh->faces.begin());
+
+        std::lock_guard guard(m_mutex);
+        m_added.push_back(std::move(mesh));
+    }
+
+    void AuxDrawManager::draw_sphere(const Vec3f& pos, float radius, const Color4f& color, bool solid, std::optional<float> lifetime) {
         auto sphere      = std::make_unique<AuxDrawSphere>();
         sphere->pos      = pos;
         sphere->radius   = radius;
         sphere->color    = color;
-        sphere->lifetime = lifetime;
-        sphere->type     = solid ? AuxDrawPrimitiveType::TrianglesSolid : AuxDrawPrimitiveType::TrianglesWired;
+        sphere->lifetime = lifetime.value_or(0.0f);
+        sphere->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
 
+        std::lock_guard guard(m_mutex);
         m_added.push_back(std::move(sphere));
     }
-    void AuxDrawManager::draw_cylinder(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid, float lifetime) {
-        std::lock_guard guard(m_mutex);
 
+    void AuxDrawManager::draw_cylinder(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid, std::optional<float> lifetime) {
         auto cylinder      = std::make_unique<AuxDrawCylinder>();
         cylinder->pos      = pos;
         cylinder->radius   = radius;
         cylinder->height   = height;
         cylinder->color    = color;
         cylinder->rot      = rot;
-        cylinder->lifetime = lifetime;
-        cylinder->type     = solid ? AuxDrawPrimitiveType::TrianglesSolid : AuxDrawPrimitiveType::TrianglesWired;
+        cylinder->lifetime = lifetime.value_or(0.0f);
+        cylinder->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
 
+        std::lock_guard guard(m_mutex);
         m_added.push_back(std::move(cylinder));
     }
-    void AuxDrawManager::draw_cone(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid, float lifetime) {
-        std::lock_guard guard(m_mutex);
 
+    void AuxDrawManager::draw_cone(const Vec3f& pos, float radius, float height, const Color4f& color, const Quatf& rot, bool solid, std::optional<float> lifetime) {
         auto cone      = std::make_unique<AuxDrawCone>();
         cone->pos      = pos;
         cone->radius   = radius;
         cone->height   = height;
         cone->color    = color;
         cone->rot      = rot;
-        cone->lifetime = lifetime;
-        cone->type     = solid ? AuxDrawPrimitiveType::TrianglesSolid : AuxDrawPrimitiveType::TrianglesWired;
+        cone->lifetime = lifetime.value_or(0.0f);
+        cone->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
 
+        std::lock_guard guard(m_mutex);
         m_added.push_back(std::move(cone));
     }
-    void AuxDrawManager::draw_box(const Vec3f& pos, const Vec3f& size, const Color4f& color, const Quatf& rot, bool solid, float lifetime) {
-        std::lock_guard guard(m_mutex);
 
+    void AuxDrawManager::draw_box(const Vec3f& pos, const Vec3f& size, const Color4f& color, const Quatf& rot, bool solid, std::optional<float> lifetime) {
         auto box      = std::make_unique<AuxDrawBox>();
         box->pos      = pos;
         box->size     = size;
         box->color    = color;
         box->rot      = rot;
-        box->lifetime = lifetime;
-        box->type     = solid ? AuxDrawPrimitiveType::TrianglesSolid : AuxDrawPrimitiveType::TrianglesWired;
-
-        m_added.push_back(std::move(box));
-    }
-    void AuxDrawManager::draw_text_3d(std::string text, const Vec3f& pos, float size, const Color4f& color, float lifetime) {
-        if (text.empty()) {
-            WG_LOG_WARNING("passed empty string to draw");
-            return;
-        }
+        box->lifetime = lifetime.value_or(0.0f);
+        box->type     = solid ? AuxDrawPrimitiveType::Solid : AuxDrawPrimitiveType::Wire;
 
         std::lock_guard guard(m_mutex);
+        m_added.push_back(std::move(box));
+    }
+
+    void AuxDrawManager::draw_text_3d(std::string text, const Vec3f& pos, float size, const Color4f& color, std::optional<float> lifetime) {
+        if (text.empty()) {
+            return;
+        }
 
         auto primitive      = std::make_unique<AuxDrawText>();
         primitive->text     = std::move(text);
         primitive->pos      = pos;
         primitive->size     = size;
         primitive->color    = color;
-        primitive->lifetime = lifetime;
+        primitive->lifetime = lifetime.value_or(0.0f);
         primitive->project  = true;
 
+        std::lock_guard guard(m_mutex);
         m_added.push_back(std::move(primitive));
     }
-    void AuxDrawManager::draw_text_2d(std::string text, const Vec2f& pos, float size, const Color4f& color, float lifetime) {
+
+    void AuxDrawManager::draw_text_2d(std::string text, const Vec2f& pos, float size, const Color4f& color, std::optional<float> lifetime) {
         if (text.empty()) {
-            WG_LOG_WARNING("passed empty string to draw");
             return;
         }
-
-        std::lock_guard guard(m_mutex);
 
         auto primitive      = std::make_unique<AuxDrawText>();
         primitive->text     = std::move(text);
         primitive->pos      = Vec3f(pos, 0);
         primitive->size     = size;
         primitive->color    = color;
-        primitive->lifetime = lifetime;
+        primitive->lifetime = lifetime.value_or(0.0f);
         primitive->project  = false;
 
+        std::lock_guard guard(m_mutex);
         m_added.push_back(std::move(primitive));
     }
 
-    void AuxDrawManager::render(const Ref<Window>& window, const Rect2i& viewport, const Mat4x4f& mat_proj_view) {
+    void AuxDrawManager::render(RdgGraph& graph, RdgTexture* target, const Rect2i& viewport, float gamma, const Mat4x4f& proj_view, ShaderTable* shader_table, TextureManager* texture_manager) {
         WG_PROFILE_CPU_RENDER("AuxDrawManager::render");
+        WG_PROFILE_RDG_SCOPE(graph, "AuxDrawManager::render");
 
-        if (is_empty()) {
-            return;
+        assert(m_font);
+        assert(target);
+        assert(shader_table);
+        assert(texture_manager);
+
+        std::lock_guard guard(m_mutex);
+
+        m_device.set_font(m_font);
+        m_device.set_mat_vp(proj_view);
+        m_device.set_screen_size(m_screen_size);
+
+        for (const auto& primitiver_ptr : m_storage) {
+            primitiver_ptr->draw(m_device);
         }
 
-        // auto engine     = Engine::instance();
-        // auto gfx_driver = engine->gfx_driver();
-        // auto gfx_ctx    = engine->gfx_ctx();
-
-        // HgfxPassBase pass_lines;
-        // pass_lines.name          = SID("aux_draw_lines");
-        // pass_lines.out_srgb      = true;
-        // pass_lines.mat_proj_view = mat_proj_view;
-        // pass_lines.prim_type     = GfxPrimType::Lines;
-        // pass_lines.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        // pass_lines.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        // pass_lines.compile(gfx_ctx);
-
-        // HgfxPassBase pass_triangles_solid;
-        // pass_triangles_solid.name          = SID("aux_draw_triangles_solid");
-        // pass_triangles_solid.out_srgb      = true;
-        // pass_triangles_solid.mat_proj_view = mat_proj_view;
-        // pass_triangles_solid.prim_type     = GfxPrimType::Triangles;
-        // pass_triangles_solid.poly_mode     = GfxPolyMode::Fill;
-        // pass_triangles_solid.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        // pass_triangles_solid.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        // pass_triangles_solid.compile(gfx_ctx);
-
-        // HgfxPassBase pass_triangles_wire;
-        // pass_triangles_wire.name          = SID("aux_draw_triangles_wire");
-        // pass_triangles_wire.out_srgb      = true;
-        // pass_triangles_wire.mat_proj_view = mat_proj_view;
-        // pass_triangles_wire.prim_type     = GfxPrimType::Triangles;
-        // pass_triangles_wire.poly_mode     = GfxPolyMode::Line;
-        // pass_triangles_wire.attribs_full  = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        // pass_triangles_wire.attribs_req   = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f};
-        // pass_triangles_wire.compile(gfx_ctx);
-
-        // HgfxPassText pass_text;
-        // pass_text.name         = SID("aux_draw_text");
-        // pass_text.out_srgb     = true;
-        // pass_text.screen_size  = m_screen_size;
-        // pass_text.font_texture = m_font->get_bitmap();
-        // pass_text.font_sampler = m_font->get_sampler();
-        // pass_text.compile(gfx_ctx);
-
-        const int num_types                           = 4;
-        int       num_elements[num_types]             = {0, 0, 0, 0};
-        int       num_vertices[num_types]             = {0, 0, 0, 0};
-        int       num_vertices_pre_element[num_types] = {2, 3, 3, 6};
-
-        // count total number of elements for each type of primitive
-        for (const auto& primitive : m_storage) {
-            const int primitive_type_index      = int(primitive->get_type());
-            const int num_elements_in_primitive = primitive->get_num_elements();
-            num_elements[primitive_type_index] += num_elements_in_primitive;
-            assert(num_elements_in_primitive > 0);
-        }
-
-        // count vertices
-        for (int i = 0; i < num_types; i++) {
-            num_vertices[i] = num_elements[i] * num_vertices_pre_element[i];
-        }
-
-        // reserve space in vert buffers
-        m_lines.resize(num_vertices[int(AuxDrawPrimitiveType::Line)]);
-        m_tria_solid.resize(num_vertices[int(AuxDrawPrimitiveType::TrianglesSolid)]);
-        m_tria_wired.resize(num_vertices[int(AuxDrawPrimitiveType::TrianglesWired)]);
-        m_text.resize(num_vertices[int(AuxDrawPrimitiveType::Text)]);
-
-        void* allocation_per_type[num_types] = {
-                m_lines.get_mem(),
-                m_tria_solid.get_mem(),
-                m_tria_wired.get_mem(),
-                m_text.get_mem()};
-
-        const Ref<GfxVertBuffer>* vert_buffers[num_types] = {
-                &m_lines.get_buffer(),
-                &m_tria_solid.get_buffer(),
-                &m_tria_wired.get_buffer(),
-                &m_text.get_buffer()};
-
-        AuxDrawPrimitive::FillParams params;
-        params.mat_view_proj = mat_proj_view;
-        params.screen_size   = m_screen_size;
-        params.font          = m_font.get();
-
-        // fill vertex data for all elements
-        for (const auto& primitive : m_storage) {
-            const int primitive_type_index = int(primitive->get_type());
-            auto&     allocation           = allocation_per_type[primitive_type_index];
-            allocation                     = primitive->fill(allocation, params);
-        }
-
-        // flush data
-        // m_lines.flush(gfx_ctx);
-        // m_tria_solid.flush(gfx_ctx);
-        // m_tria_wired.flush(gfx_ctx);
-        // m_text.flush(gfx_ctx);
-
-        // HgfxPass* passes[num_types] = {&pass_lines, &pass_triangles_solid, &pass_triangles_wire, &pass_text};
-
-        //gfx_ctx->execute([&]() {
-        //    gfx_ctx->begin_render_pass({}, SID("AuxDrawManager::render"));
-        //    gfx_ctx->bind_target(window);
-        //    gfx_ctx->viewport(viewport);
-
-        //    for (int i = 0; i < num_types; i++) {
-        //        // if it has primitives and configured pass - do draw
-        //        if (num_elements[i] > 0 && passes[i] && passes[i]->configure(thread_ctx)) {
-        //            thread_ctx->bind_vert_buffer(*vert_buffers[i], 0, 0);
-        //            thread_ctx->draw(num_vertices[i], 0, 1);
-        //        }
-        //    }
-
-        //    gfx_ctx->end_render_pass();
-        //});
+        m_device.render(graph, target, viewport, gamma, shader_table, texture_manager);
+        m_device.clear();
     }
+
     void AuxDrawManager::flush(float delta_time) {
         WG_PROFILE_CPU_RENDER("AuxDrawManager::flush");
 
         std::lock_guard guard(m_mutex);
 
         for (auto& element : m_storage) {
-            if (element->lifetime != LIFETIME_INFINITY && element->lifetime != LIFETIME_ONE_FRAME) {
-                element->lifetime -= delta_time;
-            }
+            element->lifetime -= delta_time;
         }
 
         while (!m_storage.empty() && m_storage.front()->lifetime <= 0.0f) {
@@ -721,15 +960,12 @@ namespace wmoge {
         m_added.clear();
     }
 
-    bool AuxDrawManager::is_empty() const {
-        std::lock_guard guard(m_mutex);
-
-        return m_storage.empty();
+    void AuxDrawManager::set_font(Ref<Font> font) {
+        m_font = font;
     }
-    int AuxDrawManager::get_size() const {
-        std::lock_guard guard(m_mutex);
 
-        return int(m_storage.size());
+    void AuxDrawManager::set_screen_size(const Vec2f& size) {
+        m_screen_size = size;
     }
 
 }// namespace wmoge

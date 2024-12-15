@@ -34,21 +34,35 @@
 
 namespace wmoge {
 
+    struct GmDebugMeshAccess : EcsAccess {
+        GmDebugMeshAccess() {
+            require<GmDebugMeshComponent>();
+            require<GmMatLocalToWorldComponent>();
+        }
+    };
+
     struct GmDebugLabelAccess : EcsAccess {
         GmDebugLabelAccess() {
-            add<GmDebugLabelComponent>();
-            add<GmDebugDistMinMaxComponent>(EcsComponentPresence::Optional);
-            add<GmMatLocalToWorldComponent>();
+            require<GmDebugLabelComponent>();
+            require<GmMatLocalToWorldComponent>();
         }
     };
 
     struct GmDebugPrimitiveAccess : EcsAccess {
         GmDebugPrimitiveAccess() {
-            add<GmDebugPrimitiveComponent>();
-            add<GmDebugDistMinMaxComponent>(EcsComponentPresence::Optional);
-            add<GmMatLocalToWorldComponent>();
+            require<GmDebugPrimitiveComponent>();
+            require<GmMatLocalToWorldComponent>();
         }
     };
+
+    /**
+     * @brief Renders entities with debug mesh in 3d space
+     * 
+     * @param draw_manager Aux draw manager for debug rendering
+     * @param cam_pos Main camera pos for culling
+     * @param query Ecs entities to draw
+     */
+    void gm_draw_debug_mesh_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQuery<GmDebugMeshAccess>& query);
 
     /**
      * @brief Renders entities with debug label in 3d space

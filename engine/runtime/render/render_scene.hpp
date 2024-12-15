@@ -29,7 +29,7 @@
 
 #include "core/array_view.hpp"
 #include "gfx/gfx_buffers.hpp"
-#include "gfx/gfx_vector.hpp"
+#include "gpu/gpu_buffer.hpp"
 #include "mesh/mesh_bucket.hpp"
 #include "mesh/mesh_pass.hpp"
 #include "render/render_defs.hpp"
@@ -57,10 +57,10 @@ namespace wmoge {
     using GPURenderObjectData = ShaderMaterial::RenderObjectData;
 
     /** @brief Gpu vector to store render object persistent gpu data */
-    using GPURenderObjectDataVector = GfxVector<GPURenderObjectData, GfxStorageBuffer>;
+    using GPURenderObjectDataVector = GpuStorageBuffer<GPURenderObjectData>;
 
     /** @brief Gpu vector for per-frame id placement for instancing and data fetch on gpu */
-    using GPURenderObjectIdVector = GfxVector<int, GfxVertBuffer>;
+    using GPURenderObjectIdVector = GpuVertBuffer<int>;
 
     /**
      * @class RenderScene

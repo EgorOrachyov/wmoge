@@ -33,10 +33,15 @@
 namespace wmoge {
 
     void rtti_game() {
-        rtti_type<GmDebugMeshFeature>();
-        rtti_type<GmDebugLabelFeature>();
-        rtti_type<GmDebugPrimitiveFeature>();
-        rtti_type<GmTransformFeature>();
+        rtti_type<WG_NAME_ENTITY_FEATURE(GmDebugMesh)>();
+        rtti_type<WG_NAME_ENTITY_FEATURE(GmDebugLabel)>();
+        rtti_type<WG_NAME_ENTITY_FEATURE(GmDebugPrimitive)>();
+        rtti_type<WG_NAME_ENTITY_FEATURE(GmTransform)>();
+
+        rtti_type<WG_NAME_ENTITY_FEATURE_VECTOR(GmDebugMesh)>();
+        rtti_type<WG_NAME_ENTITY_FEATURE_VECTOR(GmDebugLabel)>();
+        rtti_type<WG_NAME_ENTITY_FEATURE_VECTOR(GmDebugPrimitive)>();
+        rtti_type<WG_NAME_ENTITY_FEATURE_VECTOR(GmTransform)>();
     }
 
 }// namespace wmoge

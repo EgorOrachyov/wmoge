@@ -34,8 +34,8 @@
 #include "core/task_manager.hpp"
 #include "gfx/gfx_buffers.hpp"
 #include "gfx/gfx_desc_set.hpp"
-#include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
+#include "gpu/gpu_buffer.hpp"
 #include "math/color.hpp"
 #include "mesh/mesh_batch.hpp"
 #include "mesh/mesh_pass.hpp"
@@ -124,7 +124,7 @@ namespace wmoge {
     */
     class RenderEngine {
     public:
-        RenderEngine();
+        RenderEngine(class IocContainer* ioc);
 
         void set_time(float time);
         void set_delta_time(float delta_time);
@@ -164,8 +164,8 @@ namespace wmoge {
         MeshRenderCmdMerger m_cmd_merger;
         RenderCmdAllocator  m_cmd_allocator;
 
-        GfxVector<GfxVF_Pos2Uv2, GfxVertBuffer> m_fullscreen_tria;
-        Ref<GfxUniformBuffer>                   m_frame_data;
+        GpuVertBuffer<GfxVF_Pos2Uv2> m_fullscreen_tria;
+        Ref<GfxUniformBuffer>        m_frame_data;
 
         RenderScene* m_scene        = nullptr;
         TaskManager* m_task_manager = nullptr;

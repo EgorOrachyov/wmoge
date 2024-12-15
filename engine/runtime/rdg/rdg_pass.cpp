@@ -28,25 +28,28 @@
 
 #include "rdg_pass.hpp"
 
+#include "gfx/gfx_driver.hpp"
+#include "grc/shader_manager.hpp"
+
 #include <cassert>
 
 namespace wmoge {
 
-    RDGPass::RDGPass(RDGGraph& graph, Strid name, RDGPassId id, RDGPassFlags flags) : m_graph(graph) {
+    RdgPass::RdgPass(RdgGraph& graph, Strid name, RdgPassId id, RdgPassFlags flags) : m_graph(graph) {
         m_name  = name;
         m_id    = id;
         m_flags = flags;
     }
 
-    RDGPass& RDGPass::color_target(RDGTexture* target) {
-        RDGPassColorTarget& t = m_color_targets.emplace_back();
+    RdgPass& RdgPass::color_target(RdgTexture* target) {
+        RdgPassColorTarget& t = m_color_targets.emplace_back();
         t.resource            = target;
         t.op                  = GfxRtOp::LoadStore;
         return reference(target, GfxAccess::RenderTarget);
     }
 
-    RDGPass& RDGPass::color_target(RDGTexture* target, const Color4f& clear_color) {
-        RDGPassColorTarget& t = m_color_targets.emplace_back();
+    RdgPass& RdgPass::color_target(RdgTexture* target, const Color4f& clear_color) {
+        RdgPassColorTarget& t = m_color_targets.emplace_back();
         t.resource            = target;
         t.op                  = GfxRtOp::ClearStore;
         t.color               = clear_color;
@@ -54,16 +57,16 @@ namespace wmoge {
         return reference(target, GfxAccess::RenderTarget);
     }
 
-    RDGPass& RDGPass::depth_target(RDGTexture* target) {
+    RdgPass& RdgPass::depth_target(RdgTexture* target) {
         assert(m_depth_targets.empty());
-        RDGPassDepthTarget& t = m_depth_targets.emplace_back();
+        RdgPassDepthTarget& t = m_depth_targets.emplace_back();
         t.resource            = target;
         t.op                  = GfxRtOp::LoadStore;
         return reference(target, GfxAccess::RenderTarget);
     }
 
-    RDGPass& RDGPass::depth_target(RDGTexture* target, float clear_depth, int clear_stencil) {
-        RDGPassDepthTarget& t = m_depth_targets.emplace_back();
+    RdgPass& RdgPass::depth_target(RdgTexture* target, float clear_depth, int clear_stencil) {
+        RdgPassDepthTarget& t = m_depth_targets.emplace_back();
         t.resource            = target;
         t.op                  = GfxRtOp::ClearStore;
         t.depth               = clear_depth;
@@ -73,31 +76,131 @@ namespace wmoge {
         return reference(target, GfxAccess::RenderTarget);
     }
 
-    RDGPass& RDGPass::reference(RDGResource* resource, GfxAccess access) {
+    RdgPass& RdgPass::reference(RdgResource* resource, GfxAccess access) {
         assert(resource);
         assert(!has_resource(resource));
-        RDGPassResource& r = m_resources.emplace_back();
+
+        RdgPassResource& r = m_resources.emplace_back();
         r.resource         = resource;
         r.access           = access;
         m_referenced.insert(resource);
+
         return *this;
     }
 
-    RDGPass& RDGPass::reading(RDGBuffer* resource) {
+    RdgPass& RdgPass::uniform(RdgBuffer* resource) {
+        return reference(resource, GfxAccess::Uniform);
+    }
+
+    RdgPass& RdgPass::reading(RdgBuffer* resource) {
         return reference(resource, GfxAccess::BufferRead);
     }
 
-    RDGPass& RDGPass::writing(RDGBuffer* resource) {
+    RdgPass& RdgPass::writing(RdgBuffer* resource) {
         return reference(resource, GfxAccess::BufferWrite);
     }
 
-    RDGPass& RDGPass::bind(RDGPassCallback callback) {
+    RdgPass& RdgPass::copy_source(RdgBuffer* resource) {
+        return reference(resource, GfxAccess::CopySource);
+    }
+
+    RdgPass& RdgPass::copy_destination(RdgBuffer* resource) {
+        return reference(resource, GfxAccess::CopyDestination);
+    }
+
+    RdgPass& RdgPass::sampling(RdgTexture* resource) {
+        return reference(resource, GfxAccess::TexureSample);
+    }
+
+    RdgPass& RdgPass::storage(RdgTexture* resource) {
+        return reference(resource, GfxAccess::ImageStore);
+    }
+
+    RdgPass& RdgPass::bind(RdgPassCallback callback) {
         m_callback = std::move(callback);
         return *this;
     }
 
-    bool RDGPass::has_resource(RDGResource* r) const {
+    GfxRenderPassDesc RdgPass::make_render_pass_desc() const {
+        GfxRenderPassDesc desc;
+
+        for (int i = 0; i < m_color_targets.size(); i++) {
+            desc.color_target_fmts[i] = m_color_targets[i].resource->get_desc().format;
+            desc.color_target_ops[i]  = m_color_targets[i].op;
+        }
+
+        for (int i = 0; i < m_depth_targets.size(); i++) {
+            desc.depth_stencil_fmt = m_depth_targets[i].resource->get_desc().format;
+            desc.depth_op          = m_depth_targets[i].op;
+            desc.stencil_op        = m_depth_targets[i].op;
+        }
+
+        return desc;
+    }
+
+    bool RdgPass::has_resource(RdgResource* r) const {
         return m_referenced.find(r) != m_referenced.end();
+    }
+
+    Status RdgPassContext::validate_param_block(ShaderParamBlock* param_block) {
+        shader_manager->validate_param_blocks({&param_block, 1}, cmd_list);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::bind_param_block(ShaderParamBlock* param_block, int index) {
+        WG_CHECKED(validate_param_block(param_block));
+        cmd_list->bind_desc_set(param_block->get_gfx_set(), index);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::bind_pso_graphics(Shader* shader, const ShaderPermutation& permutation, const GfxVertElements& vert_elements) {
+        GfxRenderPassRef render_pass;
+        cmd_list->peek_render_pass(render_pass);
+        GfxPsoGraphicsRef pso = shader_manager->get_or_create_pso_graphics(shader, permutation, render_pass, vert_elements);
+        if (!pso) {
+            return StatusCode::NoValue;
+        }
+        cmd_list->bind_pso(pso);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::bind_pso_compute(Shader* shader, const ShaderPermutation& permutation) {
+        GfxPsoComputeRef pso = shader_manager->get_or_create_pso_compute(shader, permutation);
+        if (!pso) {
+            return StatusCode::NoValue;
+        }
+        cmd_list->bind_pso(pso);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::viewport(const Rect2i& viewport) {
+        cmd_list->viewport(viewport);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset) {
+        cmd_list->bind_vert_buffer(buffer, index, offset);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
+        cmd_list->bind_index_buffer(buffer, index_type, offset);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::draw(int vertex_count, int base_vertex, int instance_count) {
+        cmd_list->draw(vertex_count, base_vertex, instance_count);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::draw_indexed(int index_count, int base_vertex, int instance_count) {
+        cmd_list->draw_indexed(index_count, base_vertex, instance_count);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::dispatch(Vec3i group_count) {
+        cmd_list->dispatch(group_count);
+        return WG_OK;
     }
 
 }// namespace wmoge

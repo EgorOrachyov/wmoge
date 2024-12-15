@@ -49,34 +49,6 @@ namespace wmoge {
 
         m_scenes.clear();
         m_to_clear.clear();
-        m_running.reset();
-    }
-    void SceneManager::update() {
-        WG_PROFILE_CPU_SCENE("SceneManager::update");
-
-        // Process change before start of update
-        scene_change();
-
-        if (!m_running) {
-            return;
-        }
-
-        if (m_running->get_state() != SceneState::Playing) {
-            WG_LOG_ERROR("active scene must be in a playing state");
-            return;
-        }
-
-        // Play scene
-        scene_play();
-    }
-
-    void SceneManager::change_scene(SceneRef scene) {
-        assert(scene);
-        m_next = std::move(scene);
-    }
-
-    SceneRef SceneManager::get_running_scene() {
-        return m_running;
     }
 
     std::optional<SceneRef> SceneManager::find_scene_by_name(const Strid& name) {
@@ -134,7 +106,7 @@ namespace wmoge {
                     return StatusCode::Error;
                 }
 
-                if ((arch & entity_arch).any()) {
+                if ((arch & entity_arch).any() && false) {
                     WG_LOG_ERROR("feature arch collision for entity " << entity_desc.name << " feature " << feature->get_class_name());
                     return StatusCode::InvalidData;
                 }
@@ -192,58 +164,6 @@ namespace wmoge {
     std::optional<EntityFeatureTrait*> SceneManager::find_trait(const Strid& rtti) {
         auto iter = m_traits.find(rtti);
         return iter != m_traits.end() ? iter->second.get() : std::optional<EntityFeatureTrait*>();
-    }
-
-    void SceneManager::scene_change() {
-        WG_PROFILE_CPU_SCENE("SceneManager::scene_change");
-
-        if (m_next) {
-            if (m_running) {
-                assert(m_running->get_state() == SceneState::Playing);
-                scene_pause();
-            }
-
-            m_running = std::move(m_next);
-
-            if (m_running->get_state() == SceneState::Default) {
-                scene_start();
-            }
-            if (m_running->get_state() == SceneState::Paused) {
-                scene_resume();
-            }
-
-            m_next.reset();
-        }
-    }
-
-    void SceneManager::scene_start() {
-        WG_PROFILE_CPU_SCENE("SceneManager::scene_start");
-
-        m_running->set_state(SceneState::Playing);
-    }
-
-    void SceneManager::scene_play() {
-        WG_PROFILE_CPU_SCENE("SceneManager::scene_play");
-
-        assert(m_running->get_state() == SceneState::Playing);
-    }
-
-    void SceneManager::scene_pause() {
-        WG_PROFILE_CPU_SCENE("SceneManager::scene_pause");
-
-        m_running->set_state(SceneState::Paused);
-    }
-
-    void SceneManager::scene_resume() {
-        WG_PROFILE_CPU_SCENE("SceneManager::scene_resume");
-
-        m_running->set_state(SceneState::Playing);
-    }
-
-    void SceneManager::scene_finish() {
-        WG_PROFILE_CPU_SCENE("SceneManager::scene_finish");
-
-        m_running->set_state(SceneState::Finished);
     }
 
     void bind_by_ioc_scene_manager(class IocContainer* ioc) {

@@ -109,6 +109,14 @@ namespace wmoge {
             return mat;
         }
 
+        static Mat3x4f identity_m3x4f() {
+            Mat3x4f mat;
+            mat[0][0] = 1.0f;
+            mat[1][1] = 1.0f;
+            mat[2][2] = 1.0f;
+            return mat;
+        }
+
         static Mat4x4f scale(const Vec3f& scale) {
             Mat4x4f mat = identity();
             mat[0][0]   = scale[0];

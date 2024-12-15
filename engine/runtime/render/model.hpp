@@ -34,7 +34,6 @@
 #include "material/material.hpp"
 #include "math/aabb.hpp"
 #include "mesh/mesh.hpp"
-#include "render/model.hpp"
 
 #include <cinttypes>
 #include <optional>
@@ -43,7 +42,6 @@ namespace wmoge {
 
     /** @brief Model obj flag */
     enum class ModelObjFlag {
-
     };
 
     /** @brief Flags to configure model obj */
@@ -54,11 +52,11 @@ namespace wmoge {
      * @brief Serializable struct to hold single renderable model obj
      */
     struct ModelObj {
-        AssetRef<Material> material;
-        std::int16_t       mesh_idx  = 0;
-        std::int16_t       chunk_idx = 0;
-        ModelObjFlags      flags;
-        Strid              name;
+        std::int16_t  mesh_idx     = 0;
+        std::int16_t  material_idx = 0;
+        std::int16_t  chunk_idx    = 0;
+        ModelObjFlags flags;
+        Strid         name;
     };
 
     /**
@@ -66,7 +64,7 @@ namespace wmoge {
      * @brief Serializable struct to hold single lod params
      */
     struct ModelLod {
-        buffered_vector<Size2i> ranges;
+        std::vector<Size2i> ranges;
     };
 
     /**
@@ -74,22 +72,30 @@ namespace wmoge {
      * @brief Serializable struct to hold model lods settings
      */
     struct ModelLodSettings {
-        buffered_vector<float> area;
-        std::optional<int>     minimum_lod;
-        std::optional<int>     num_of_lods;
+        std::vector<float> area;
+        std::optional<int> minimum_lod;
+        std::optional<int> num_of_lods;
     };
 
     /**
-     * @class ModelFile
+     * @class ModelDesc
      * @brief Serializable struct to hold model info
      */
-    struct ModelFile {
-        buffered_vector<ModelObj>       objs;
-        buffered_vector<AssetRef<Mesh>> meshes;
+    struct ModelDesc {
+        WG_RTTI_STRUCT(ModelDesc)
+
+        std::vector<ModelObj>           objs;
+        std::vector<AssetRef<Mesh>>     meshes;
+        std::vector<AssetRef<Material>> materials;
         ModelLod                        lod;
         ModelLodSettings                lod_settings;
         Aabbf                           aabb;
     };
+
+    WG_RTTI_STRUCT_BEGIN(ModelDesc) {
+        WG_RTTI_META_DATA(RttiUiHint(""));
+    }
+    WG_RTTI_END;
 
     /**
      * @class Model

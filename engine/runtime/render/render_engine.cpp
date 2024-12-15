@@ -28,17 +28,22 @@
 #include "render_engine.hpp"
 
 #include "../../shaders/tmp/generated/auto_material_reflection.hpp"
+#include "core/ioc_container.hpp"
 #include "core/log.hpp"
 #include "core/task_parallel_for.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "grc/shader_manager.hpp"
 #include "profiler/profiler_cpu.hpp"
+#include "render/interop.hpp"
 
 #include <cassert>
 
 namespace wmoge {
 
-    RenderEngine::RenderEngine() {
+    RenderEngine::RenderEngine(IocContainer* ioc) {
         WG_LOG_INFO("init render engine");
+
+        reflect_shader_types(ioc->resolve_value<ShaderManager>());
 
         m_fullscreen_tria.resize(3);
         m_fullscreen_tria[0].pos = Vec2f(-1, -1);

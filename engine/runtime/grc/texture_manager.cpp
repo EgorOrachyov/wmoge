@@ -73,6 +73,7 @@ namespace wmoge {
         desc.swizz         = swizz;
         desc.format        = format;
         desc.format_source = format;
+        desc.sampler       = get_sampler(DefaultSampler::Default);
         return create_texture_2d(desc);
     }
 

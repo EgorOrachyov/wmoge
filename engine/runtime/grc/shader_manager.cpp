@@ -42,6 +42,7 @@
 #include "math/math_utils.hpp"
 #include "platform/file_system.hpp"
 #include "profiler/profiler_cpu.hpp"
+#include "profiler/profiler_gpu.hpp"
 #include "rtti/type_storage.hpp"
 #include "system/console.hpp"
 
@@ -220,10 +221,6 @@ namespace wmoge {
 
             technique_builder.add_ui_info(techique.ui_name.empty() ? techique.name.str() : techique.ui_name, techique.ui_hint);
 
-            for (const auto& option : techique.options) {
-                technique_builder.add_option(option.name, option.variants);
-            }
-
             for (const auto& tag : techique.tags) {
                 technique_builder.add_tag(tag.first, tag.second);
             }
@@ -233,6 +230,9 @@ namespace wmoge {
 
                 pass_builder.add_ui_info(pass.ui_name.empty() ? pass.name.str() : pass.ui_name, pass.ui_hint);
 
+                for (const auto& option : techique.options) {
+                    pass_builder.add_option(option.name, option.variants);
+                }
                 for (const auto& option : pass.options) {
                     pass_builder.add_option(option.name, option.variants);
                 }
@@ -311,8 +311,8 @@ namespace wmoge {
         return entry.pso_layout;
     }
 
-    Ref<GfxShaderProgram> ShaderManager::get_or_create_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation) {
-        WG_PROFILE_CPU_GRC("ShaderManager::get_or_create_program");
+    std::optional<Ref<GfxShaderProgram>> ShaderManager::try_get_or_create_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation, bool wait_compiled) {
+        WG_PROFILE_CPU_GRC("ShaderManager::try_get_or_create_program");
 
         Ref<GfxShaderProgram> fast_lookup = find_program(shader, platform, permutation);
         if (fast_lookup) {
@@ -325,9 +325,12 @@ namespace wmoge {
         ShaderProgram& entry = shader_entry.cache.get_or_add_entry(platform, permutation);
 
         if (entry.status == ShaderStatus::InCompilation) {
-            return entry.program;
+            return std::nullopt;
         }
         if (entry.status == ShaderStatus::Failed) {
+            return std::nullopt;
+        }
+        if (entry.status == ShaderStatus::Compiled) {
             return entry.program;
         }
         if (entry.status == ShaderStatus::InBytecode) {
@@ -350,6 +353,7 @@ namespace wmoge {
             if (!is_compilation_enabled()) {
                 entry.status = ShaderStatus::Failed;
                 WG_LOG_INFO("failed to create " << entry.name << ", compilation disabled");
+                return std::nullopt;
             }
 
             entry.status = ShaderStatus::None;
@@ -361,7 +365,7 @@ namespace wmoge {
             Async compilation_task = compile_program(shader, platform, permutation, request);
             if (compilation_task.is_completed() && compilation_task.is_failed()) {
                 entry.status = ShaderStatus::Failed;
-                return entry.program;
+                return std::nullopt;
             }
 
             Task cache_task(request->input.name, [shader_library = m_shader_library, permutation, platform, request, weak_shader_entry = WeakRef<Entry>(&shader_entry)](TaskContext&) {
@@ -420,7 +424,33 @@ namespace wmoge {
             entry.compilation_task = cache_task_hnd.as_async();
         }
 
-        return entry.program;
+        return std::nullopt;
+    }
+
+    Ref<GfxShaderProgram> ShaderManager::get_or_create_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation) {
+        WG_PROFILE_CPU_GRC("ShaderManager::get_or_create_program");
+
+        std::optional<Ref<GfxShaderProgram>> fast_lookup = try_get_or_create_program(shader, platform, permutation);
+        if (fast_lookup) {
+            return *fast_lookup;
+        }
+
+        Async compilation_task;
+
+        auto& entry = get_entry_ref(shader);
+        {
+            std::shared_lock lock(entry.mutex);
+            auto             query = entry.cache.find_program(platform, permutation);
+            assert(query);
+
+            compilation_task = (*query)->compilation_task;
+        }
+
+        if (compilation_task.is_not_null()) {
+            compilation_task.wait_completed();
+        }
+
+        return try_get_or_create_program(shader, platform, permutation).value_or(nullptr);
     }
 
     Ref<GfxShaderProgram> ShaderManager::find_program(Shader* shader, GfxShaderPlatform platform, const ShaderPermutation& permutation) {
@@ -528,6 +558,49 @@ namespace wmoge {
 
     void ShaderManager::add_global_type(const Ref<ShaderType>& type) {
         m_global_types[type->name] = type;
+    }
+
+    void ShaderManager::validate_param_blocks(array_view<ShaderParamBlock*> param_blocks, const GfxCmdListRef& cmd_list) {
+        WG_PROFILE_CPU_GRC("ShaderManager::validate_param_blocks");
+        WG_PROFILE_GPU_SCOPE(cmd_list, "ShaderManager::validate_param_blocks");
+
+        if (param_blocks.empty()) {
+            return;
+        }
+
+        buffered_vector<GfxBuffer*> buffers_for_barrier;
+
+        for (ShaderParamBlock* block : param_blocks) {
+            block->validate_buffers(m_gfx_driver, cmd_list, buffers_for_barrier);
+            block->validate_set(m_gfx_driver, get_shader_layout(block->get_shader(), block->get_space()));
+        }
+
+        cmd_list->barrier_buffers(buffers_for_barrier);
+    }
+
+    GfxPsoGraphicsRef ShaderManager::get_or_create_pso_graphics(Shader* shader, const ShaderPermutation& permutation, const GfxRenderPassRef& render_pass, const GfxVertElements& vert_elements) {
+        auto program = get_or_create_program(shader, get_active_platform(), permutation);
+        if (!program) {
+            return GfxPsoGraphicsRef();
+        }
+        GfxPsoStateGraphics state;
+        state.pass        = render_pass;
+        state.program     = program;
+        state.layout      = get_shader_pso_layout(shader);
+        state.vert_format = m_pso_cache->get_or_create_vert_format(vert_elements, vert_elements.to_name());
+        shader->get_reflection().techniques[permutation.technique_idx].passes[permutation.pass_idx].state.fill(state);
+        return m_pso_cache->get_or_create_pso(state, program->name());
+    }
+
+    GfxPsoComputeRef ShaderManager::get_or_create_pso_compute(Shader* shader, const ShaderPermutation& permutation) {
+        auto program = get_or_create_program(shader, get_active_platform(), permutation);
+        if (!program) {
+            return GfxPsoComputeRef();
+        }
+        GfxPsoStateCompute state;
+        state.program = program;
+        state.layout  = get_shader_pso_layout(shader);
+        return m_pso_cache->get_or_create_pso(state, program->name());
     }
 
     ShaderManager::Entry* ShaderManager::get_entry(Shader* shader) {

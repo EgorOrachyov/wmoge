@@ -52,9 +52,6 @@ namespace wmoge {
     const Status s = m_block->get_var(m_param_id, v);  \
     return s
 
-    ShaderParam::ShaderParam(ShaderInstance& shader, ShaderParamId param_id) {
-    }
-
     ShaderParam::ShaderParam(ShaderParamBlock& block, ShaderParamId param_id) {
         m_block    = &block;
         m_param_id = param_id;

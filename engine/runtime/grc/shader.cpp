@@ -106,7 +106,7 @@ namespace wmoge {
         for (std::int16_t i = 0; i < ShaderOptions::MAX_OPTIONS; i++) {
             if (permutation.options[i]) {
                 Strid option, variant;
-                WG_CHECKED(fill_option_info(permutation.technique_idx, i, option, variant));
+                WG_CHECKED(fill_option_info(permutation.technique_idx, permutation.pass_idx, i, option, variant));
                 compiler_env.set_define(SID(option.str() + "_" + variant.str()));
             }
         }
@@ -162,7 +162,7 @@ namespace wmoge {
         for (std::int16_t i = 0; i < ShaderOptions::MAX_OPTIONS; i++) {
             if (permutation.options[i]) {
                 Strid option, variant;
-                WG_CHECKED(fill_option_info(permutation.technique_idx, i, option, variant));
+                WG_CHECKED(fill_option_info(permutation.technique_idx, permutation.pass_idx, i, option, variant));
                 stream << option << "=" << variant << " ";
             }
         }
@@ -172,10 +172,10 @@ namespace wmoge {
         return WG_OK;
     }
 
-    Status Shader::fill_option_info(std::int16_t technique_idx, std::int16_t permutation_bit, Strid& option, Strid& variant) {
-        ShaderTechniqueInfo& technique = m_reflection.techniques[technique_idx];
-        option                         = technique.options_remap[permutation_bit];
-        variant                        = technique.variants_remap[permutation_bit];
+    Status Shader::fill_option_info(std::int16_t technique_idx, std::int16_t pass_idx, std::int16_t permutation_bit, Strid& option, Strid& variant) {
+        ShaderPassInfo& pass = m_reflection.techniques[technique_idx].passes[pass_idx];
+        option               = pass.options_remap[permutation_bit];
+        variant              = pass.variants_remap[permutation_bit];
         return WG_OK;
     }
 
@@ -324,6 +324,29 @@ namespace wmoge {
         return r != m_reflection.techniques[technique].passes_map.end() ? std::optional<std::int16_t>(r->second) : std::nullopt;
     }
 
+    std::optional<std::int16_t> Shader::find_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) {
+        if (m_reflection.techniques.size() <= technique) {
+            return false;
+        }
+        if (m_reflection.techniques[technique].passes.size() <= pass) {
+            return false;
+        }
+
+        const ShaderOptions& options = m_reflection.techniques[technique].passes[pass].options;
+
+        auto option_query = options.options_map.find(name);
+        if (option_query == options.options_map.end()) {
+            return std::nullopt;
+        }
+
+        auto variant_query = options.options[option_query->second].variants.find(variant);
+        if (variant_query == options.options[option_query->second].variants.end()) {
+            return std::nullopt;
+        }
+
+        return variant_query->second;
+    }
+
     std::optional<ShaderParamInfo*> Shader::find_param(ShaderParamId id) {
         if (id.is_invalid()) {
             return std::nullopt;
@@ -349,6 +372,46 @@ namespace wmoge {
         m_callback = std::move(callback);
     }
 
+    std::optional<ShaderPermutation> Shader::permutation(Strid technique, Strid pass, buffered_vector<ShaderOptionVariant> options, GfxVertAttribs attribs) {
+        auto t = find_technique(technique);
+        if (!t) {
+            return std::nullopt;
+        }
+        auto p = find_pass(*t, pass);
+        if (!p) {
+            return std::nullopt;
+        }
+
+        ShaderPermutation res;
+        res.technique_idx = *t;
+        res.pass_idx      = *p;
+        res.vert_attribs  = attribs;
+
+        const ShaderOptions& shader_options = m_reflection.techniques[*t].passes[*p].options;
+
+        for (const auto& option : shader_options.options) {
+            res.options.set(option.variants.find(option.base_variant)->second);
+        }
+
+        for (const auto& user_option : options) {
+            auto option_idx = shader_options.options_map.find(user_option.first);
+            if (option_idx == shader_options.options_map.end()) {
+                continue;
+            }
+
+            const auto& option = shader_options.options[option_idx->second];
+
+            auto variant_idx = option.variants.find(user_option.second);
+            if (variant_idx == option.variants.end()) {
+                continue;
+            }
+
+            res.options.set(variant_idx->second);
+        }
+
+        return res;
+    }
+
     bool Shader::has_space(ShaderSpaceType space_type) const {
         for (const ShaderSpace& space : m_reflection.spaces) {
             if (space.type == space_type) {
@@ -356,22 +419,6 @@ namespace wmoge {
             }
         }
         return false;
-    }
-
-    bool Shader::has_option(std::int16_t technique, Strid name, Strid variant) const {
-        if (m_reflection.techniques.size() <= technique) {
-            return false;
-        }
-
-        const ShaderOptions& options = m_reflection.techniques[technique].options;
-
-        auto option_query = options.options_map.find(name);
-        if (option_query == options.options_map.end()) {
-            return false;
-        }
-
-        auto variant_query = options.options[option_query->second].variants.find(variant);
-        return variant_query != options.options[option_query->second].variants.end();
     }
 
     bool Shader::has_option(std::int16_t technique, std::int16_t pass, Strid name, Strid variant) const {

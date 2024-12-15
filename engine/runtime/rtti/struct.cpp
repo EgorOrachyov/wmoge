@@ -109,13 +109,17 @@ namespace wmoge {
         assert(dst);
         std::uint8_t* self = reinterpret_cast<std::uint8_t*>(dst);
         for (const RttiField& field : get_fields()) {
-            if (field.get_meta_data().is_no_save_load()) {
+            const RttiMetaData& meta_data = field.get_meta_data();
+
+            if (meta_data.is_no_save_load()) {
                 continue;
             }
 
             const std::string& field_name = field.get_name().str();
 
-            if (field.get_meta_data().is_optional()) {
+            if (meta_data.is_inline()) {
+                WG_CHECKED(field.get_type()->read_from_tree(self + field.get_byte_offset(), tree, context));
+            } else if (meta_data.is_optional()) {
                 if (tree.node_has_child(field_name)) {
                     WG_CHECKED(tree.node_find_child(field_name));
                     WG_CHECKED(field.get_type()->read_from_tree(self + field.get_byte_offset(), tree, context));
@@ -140,16 +144,22 @@ namespace wmoge {
         WG_TREE_MAP(tree);
         const std::uint8_t* self = reinterpret_cast<const std::uint8_t*>(src);
         for (const RttiField& field : get_fields()) {
-            if (field.get_meta_data().is_no_save_load()) {
+            const RttiMetaData& meta_data = field.get_meta_data();
+
+            if (meta_data.is_no_save_load()) {
                 continue;
             }
 
             const std::string& field_name = field.get_name().str();
 
-            WG_CHECKED(tree.node_append_child());
-            WG_CHECKED(tree.node_write_key(field_name));
-            WG_CHECKED(field.get_type()->write_to_tree(self + field.get_byte_offset(), tree, context));
-            tree.node_pop();
+            if (meta_data.is_inline()) {
+                WG_CHECKED(field.get_type()->write_to_tree(self + field.get_byte_offset(), tree, context));
+            } else {
+                WG_CHECKED(tree.node_append_child());
+                WG_CHECKED(tree.node_write_key(field_name));
+                WG_CHECKED(field.get_type()->write_to_tree(self + field.get_byte_offset(), tree, context));
+                tree.node_pop();
+            }
         }
         return WG_OK;
     }

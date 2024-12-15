@@ -153,10 +153,10 @@ namespace wmoge {
         int       idx_write  = 0;
 
         std::vector<SortableRenderCmd>& cmds                  = queue.get_queue();
-        GfxVector<int, GfxVertBuffer>&  primitives_ids        = m_scene->get_objects_ids();
+        GpuVertBuffer<int>&             primitives_ids        = m_scene->get_objects_ids();
         GfxVertBuffer*                  primitives_ids_buffer = primitives_ids.get_buffer().get();
 
-        const std::size_t primitives_ids_capacity = primitives_ids.get_size();
+        const std::size_t primitives_ids_capacity = primitives_ids.size();
 
         while (idx_read < queue_size) {
             SortableRenderCmd curr_cmd = cmds[idx_read];

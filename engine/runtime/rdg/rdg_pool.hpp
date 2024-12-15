@@ -35,12 +35,12 @@
 namespace wmoge {
 
     /**
-     * @class RDGPool
+     * @class RdgPool
      * @brief Pool used to allocate temporary resources for rdg graph execution and reuse them between frames
     */
-    class RDGPool {
+    class RdgPool {
     public:
-        RDGPool(class GfxDriver* driver);
+        RdgPool(class GfxDriver* driver);
 
         void update();
 

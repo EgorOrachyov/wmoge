@@ -369,6 +369,8 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
+    using ShaderOptionVariant = std::pair<Strid, Strid>;
+
     /**
      * @brief Pipeline raster state overrides
     */
@@ -442,6 +444,7 @@ namespace wmoge {
     struct PipelineState {
         WG_RTTI_STRUCT(PipelineState);
 
+        GfxPrimType       prim_type = GfxPrimType::Triangles;
         RasterState       rs;// = default
         DepthStencilState ds;// = default
         BlendState        bs;// = default;
@@ -451,6 +454,7 @@ namespace wmoge {
 
     WG_RTTI_STRUCT_BEGIN(PipelineState) {
         WG_RTTI_META_DATA();
+        WG_RTTI_FIELD(prim_type, {RttiOptional});
         WG_RTTI_FIELD(rs, {RttiOptional});
         WG_RTTI_FIELD(ds, {RttiOptional});
         WG_RTTI_FIELD(bs, {RttiOptional});
@@ -470,6 +474,8 @@ namespace wmoge {
         flat_map<Strid, Var> tags;
         std::string          ui_name;
         std::string          ui_hint;
+        std::vector<Strid>   options_remap;
+        std::vector<Strid>   variants_remap;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderPassInfo) {
@@ -479,6 +485,8 @@ namespace wmoge {
         // WG_RTTI_FIELD(tags, {});
         WG_RTTI_FIELD(ui_name, {});
         WG_RTTI_FIELD(ui_hint, {});
+        WG_RTTI_FIELD(options_remap, {});
+        WG_RTTI_FIELD(variants_remap, {});
     }
     WG_RTTI_END;
 
@@ -490,26 +498,20 @@ namespace wmoge {
         WG_RTTI_STRUCT(ShaderTechniqueInfo);
 
         Strid                           name;
-        ShaderOptions                   options;
         buffered_vector<ShaderPassInfo> passes;
         flat_map<Strid, std::int16_t>   passes_map;
         flat_map<Strid, Var>            tags;
         std::string                     ui_name;
         std::string                     ui_hint;
-        std::vector<Strid>              options_remap;
-        std::vector<Strid>              variants_remap;
     };
 
     WG_RTTI_STRUCT_BEGIN(ShaderTechniqueInfo) {
         WG_RTTI_FIELD(name, {});
-        WG_RTTI_FIELD(options, {});
         WG_RTTI_FIELD(passes, {});
         WG_RTTI_FIELD(passes_map, {});
         // WG_RTTI_FIELD(tags, {});
         WG_RTTI_FIELD(ui_name, {});
         WG_RTTI_FIELD(ui_hint, {});
-        WG_RTTI_FIELD(options_remap, {});
-        WG_RTTI_FIELD(variants_remap, {});
     }
     WG_RTTI_END;
 
@@ -534,7 +536,7 @@ namespace wmoge {
         std::int16_t      buffer     = -1;  // buffer index in space
         std::int16_t      elem_idx   = -1;  // element index of array element
         std::int16_t      elem_count = 1;   // count of elements (array size)
-        std::int16_t      byte_size  = 1;   // count of elements (array size)
+        std::int16_t      byte_size  = -1;  // size in bytes (not for all type of params actual)
         std::string       ui_name;          // optional ui name
         std::string       ui_hint;          // optional ui hint
         Var               ui_range_min;     // optional min range for scalar value

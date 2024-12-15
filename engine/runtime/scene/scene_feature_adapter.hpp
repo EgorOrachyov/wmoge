@@ -29,16 +29,31 @@
 
 #include "scene/scene_feature.hpp"
 
+#include <utility>
+#include <vector>
+
 namespace wmoge {
 
     template<typename T>
+    class EntitySimpleFeature : public EntityFeature {
+    public:
+        T elem;
+    };
+
+    template<typename T>
+    class EntitySimpleFeatureVector : public EntityFeatureVector {
+    public:
+        std::vector<std::pair<int, T>> elems;
+    };
+
+    template<typename T, typename FeatureType, typename VectorType>
     class EntitySimpleFeatureTrait : public EntityFeatureTrait {
     public:
-        virtual Status setup_entity_typed(EcsArch& arch, const T& feature, EntitySetupContext& context) { return StatusCode::NotImplemented; }
-        virtual Status build_entity_typed(EcsEntity entity, const T& feature, EntityBuildContext& context) { return StatusCode::NotImplemented; }
+        virtual Status setup_entity_typed(EcsArch& arch, const T& desc, EntitySetupContext& context) { return StatusCode::NotImplemented; }
+        virtual Status build_entity_typed(EcsEntity entity, const T& desc, EntityBuildContext& context) { return StatusCode::NotImplemented; }
 
         RttiSubclass<EntityFeature> get_feature_type() override {
-            return T::get_class_static();
+            return FeatureType::get_class_static();
         }
 
         Status fill_requirements(std::vector<RttiSubclass<EntityFeature>>& required_features) override {
@@ -46,12 +61,56 @@ namespace wmoge {
         }
 
         Status setup_entity(EcsArch& arch, const EntityFeature& feature, EntitySetupContext& context) override {
-            return setup_entity_typed(arch, dynamic_cast<const T&>(feature), context);
+            return setup_entity_typed(arch, dynamic_cast<const FeatureType&>(feature).elem, context);
         }
 
         Status build_entity(EcsEntity entity, const EntityFeature& feature, EntityBuildContext& context) override {
-            return build_entity_typed(entity, dynamic_cast<const T&>(feature), context);
+            return build_entity_typed(entity, dynamic_cast<const FeatureType&>(feature).elem, context);
+        }
+
+        Status build_entities(array_view<EcsEntity> entities, const EntityFeatureVector& features, EntityBuildContext& context) override {
+            const auto& elems = dynamic_cast<const VectorType&>(features).elems;
+            for (const std::pair<int, T>& entry : elems) {
+                WG_CHECKED(build_entity_typed(entities[entry.first], entry.second, context));
+            }
+            return WG_OK;
         }
     };
+
+#define WG_NAME_ENTITY_FEATURE(type) \
+    type##Feature
+
+#define WG_DECL_ENTITY_FEATURE(type)                         \
+    class type##Feature : public EntitySimpleFeature<type> { \
+        WG_RTTI_CLASS(type##Feature, EntityFeature)          \
+    };                                                       \
+    WG_RTTI_CLASS_BEGIN(type##Feature) {                     \
+        WG_RTTI_FACTORY();                                   \
+        WG_RTTI_FIELD(elem, {RttiInline, RttiUiInline});     \
+    }                                                        \
+    WG_RTTI_END;
+
+#define WG_NAME_ENTITY_FEATURE_VECTOR(type) \
+    type##FeatureVector
+
+#define WG_DECL_ENTITY_FEATURE_VECTOR(type)                              \
+    class type##FeatureVector : public EntitySimpleFeatureVector<type> { \
+        WG_RTTI_CLASS(type##FeatureVector, EntityFeatureVector)          \
+    };                                                                   \
+    WG_RTTI_CLASS_BEGIN(type##FeatureVector) {                           \
+        WG_RTTI_FACTORY();                                               \
+        WG_RTTI_FIELD(elems, {RttiInline, RttiUiInline});                \
+    }                                                                    \
+    WG_RTTI_END;
+
+#define WG_DECL_ENTITY_FEATURE_AND_VECTOR(type) \
+    WG_DECL_ENTITY_FEATURE(type)                \
+    WG_DECL_ENTITY_FEATURE_VECTOR(type)
+
+#define WG_NAME_ENTITY_FEATURE_TRAIT(type) \
+    type##FeatureTrait
+
+#define WG_DECL_ENTITY_FEATURE_TRAIT(type) \
+    type##FeatureTrait : public EntitySimpleFeatureTrait<type, type##Feature, type##FeatureVector>
 
 }// namespace wmoge

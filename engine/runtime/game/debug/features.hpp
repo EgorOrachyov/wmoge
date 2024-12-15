@@ -39,27 +39,26 @@
 
 namespace wmoge {
 
-    class GmDebugMeshFeature : public EntityFeature {
-        WG_RTTI_CLASS(GmDebugMeshFeature, EntityFeature)
+    struct GmDebugMesh {
+        WG_RTTI_STRUCT(GmDebugMesh)
 
-        AssetRef<Mesh>     mesh;
-        AssetRef<Material> material;
-        int                dist_min = 0;
-        int                dist_max = 1000;
+        AssetRef<Mesh> mesh;
+        Color4f        color;
+        int            dist_min = 0;
+        int            dist_max = 1000;
     };
 
-    WG_RTTI_CLASS_BEGIN(GmDebugMeshFeature) {
+    WG_RTTI_STRUCT_BEGIN(GmDebugMesh) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
         WG_RTTI_FIELD(mesh, {RttiOptional});
-        WG_RTTI_FIELD(material, {RttiOptional});
+        WG_RTTI_FIELD(color, {RttiOptional});
         WG_RTTI_FIELD(dist_min, {RttiOptional});
         WG_RTTI_FIELD(dist_max, {RttiOptional});
     }
     WG_RTTI_END;
 
-    class GmDebugLabelFeature : public EntityFeature {
-        WG_RTTI_CLASS(GmDebugLabelFeature, EntityFeature)
+    class GmDebugLabel {
+        WG_RTTI_STRUCT(GmDebugLabel)
 
         std::string text;
         Color4f     color    = Color::WHITE4f;
@@ -68,9 +67,8 @@ namespace wmoge {
         int         dist_max = 1000;
     };
 
-    WG_RTTI_CLASS_BEGIN(GmDebugLabelFeature) {
+    WG_RTTI_STRUCT_BEGIN(GmDebugLabel) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
         WG_RTTI_FIELD(text, {RttiOptional});
         WG_RTTI_FIELD(color, {RttiOptional});
         WG_RTTI_FIELD(size, {RttiOptional});
@@ -79,8 +77,8 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
-    class GmDebugPrimitiveFeature : public EntityFeature {
-        WG_RTTI_CLASS(GmDebugPrimitiveFeature, EntityFeature)
+    class GmDebugPrimitive {
+        WG_RTTI_STRUCT(GmDebugPrimitive)
 
         GmDebugPrimitiveType type     = GmDebugPrimitiveType::Sphere;
         Color4f              color    = Color::WHITE4f;
@@ -88,9 +86,8 @@ namespace wmoge {
         int                  dist_max = 1000;
     };
 
-    WG_RTTI_CLASS_BEGIN(GmDebugPrimitiveFeature) {
+    WG_RTTI_STRUCT_BEGIN(GmDebugPrimitive) {
         WG_RTTI_META_DATA();
-        WG_RTTI_FACTORY();
         WG_RTTI_FIELD(type, {RttiOptional});
         WG_RTTI_FIELD(color, {RttiOptional});
         WG_RTTI_FIELD(dist_min, {RttiOptional});
@@ -98,22 +95,26 @@ namespace wmoge {
     }
     WG_RTTI_END;
 
-    class GmDebugMeshFeatureTrait : public EntitySimpleFeatureTrait<GmDebugMeshFeature> {
+    WG_DECL_ENTITY_FEATURE_AND_VECTOR(GmDebugMesh);
+    WG_DECL_ENTITY_FEATURE_AND_VECTOR(GmDebugLabel);
+    WG_DECL_ENTITY_FEATURE_AND_VECTOR(GmDebugPrimitive);
+
+    class WG_DECL_ENTITY_FEATURE_TRAIT(GmDebugMesh) {
     public:
-        Status setup_entity_typed(EcsArch& arch, const GmDebugMeshFeature& feature, EntitySetupContext& context) override;
-        Status build_entity_typed(EcsEntity entity, const GmDebugMeshFeature& feature, EntityBuildContext& context) override;
+        Status setup_entity_typed(EcsArch& arch, const GmDebugMesh& desc, EntitySetupContext& context) override;
+        Status build_entity_typed(EcsEntity entity, const GmDebugMesh& desc, EntityBuildContext& context) override;
     };
 
-    class GmDebugLabelFeatureTrait : public EntitySimpleFeatureTrait<GmDebugLabelFeature> {
+    class WG_DECL_ENTITY_FEATURE_TRAIT(GmDebugLabel) {
     public:
-        Status setup_entity_typed(EcsArch& arch, const GmDebugLabelFeature& feature, EntitySetupContext& context) override;
-        Status build_entity_typed(EcsEntity entity, const GmDebugLabelFeature& feature, EntityBuildContext& context) override;
+        Status setup_entity_typed(EcsArch& arch, const GmDebugLabel& desc, EntitySetupContext& context) override;
+        Status build_entity_typed(EcsEntity entity, const GmDebugLabel& desc, EntityBuildContext& context) override;
     };
 
-    class GmDebugPrimitiveFeatureTrait : public EntitySimpleFeatureTrait<GmDebugPrimitiveFeature> {
+    class WG_DECL_ENTITY_FEATURE_TRAIT(GmDebugPrimitive) {
     public:
-        Status setup_entity_typed(EcsArch& arch, const GmDebugPrimitiveFeature& feature, EntitySetupContext& context) override;
-        Status build_entity_typed(EcsEntity entity, const GmDebugPrimitiveFeature& feature, EntityBuildContext& context) override;
+        Status setup_entity_typed(EcsArch& arch, const GmDebugPrimitive& desc, EntitySetupContext& context) override;
+        Status build_entity_typed(EcsEntity entity, const GmDebugPrimitive& desc, EntityBuildContext& context) override;
     };
 
 }// namespace wmoge

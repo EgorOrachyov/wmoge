@@ -64,7 +64,7 @@ namespace wmoge {
     public:
         /**
          * Construct empty block with no setup.
-         * Configure it using `reset` method.
+         * Configure it using `init` method.
         */
         ShaderParamBlock() = default;
 
@@ -79,7 +79,9 @@ namespace wmoge {
 
         Status init(Shader& shader, std::int16_t space_idx, const Strid& name);
         Status restore_defaults();
-        Status validate(class ShaderManager* shader_manager, class GfxDriver* driver, class GfxCmdList* cmd_list);
+
+        Status validate_buffers(class GfxDriver* driver, class GfxCmdList* cmd_list, buffered_vector<GfxBuffer*>& barrier_buffers);
+        Status validate_set(class GfxDriver* driver, const GfxDescSetLayoutRef& layout);
 
         Status set_var(ShaderParamId param_id, int v);
         Status set_var(ShaderParamId param_id, float v);

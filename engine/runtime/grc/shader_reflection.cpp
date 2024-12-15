@@ -176,6 +176,7 @@ namespace wmoge {
     }
 
     void PipelineState::fill(GfxPsoStateGraphics& state) const {
+        state.prim_type            = prim_type;
         state.rs.poly_mode         = rs.poly_mode;
         state.rs.cull_mode         = rs.cull_mode;
         state.rs.front_face        = rs.front_face;

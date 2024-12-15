@@ -29,14 +29,34 @@
 
 namespace wmoge {
 
-    static bool gm_debug_cull_item(const Vec3f& cam_pos, const Vec3f& pos, int entity_idx, EcsQueryContext& query) {
-        if (!query.has_component<GmDebugDistMinMaxComponent>()) {
-            return true;
-        }
+    template<typename ComponentType>
+    bool gm_debug_cull_item(const Vec3f& cam_pos, const Vec3f& pos, int entity_idx, EcsQueryContext& query) {
         const float dist   = Vec3f::distance(cam_pos, pos);
-        auto&       bounds = query.get_component<GmDebugDistMinMaxComponent>(entity_idx);
+        auto&       bounds = query.get_component<ComponentType>(entity_idx);
 
         return bounds.dist_min <= dist && dist <= bounds.dist_max;
+    }
+
+    void gm_draw_debug_mesh_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQuery<GmDebugMeshAccess>& query) {
+        query.for_each([&](int entity_idx) {
+            auto& mesh    = query.get_component<GmDebugMeshComponent>(entity_idx);
+            auto& mat_l2w = query.get_component<GmMatLocalToWorldComponent>(entity_idx);
+
+            const Vec3f pos = Math3d::extract_translation(mat_l2w.m);
+
+            if (!gm_debug_cull_item<GmDebugMeshComponent>(cam_pos, pos, entity_idx, query)) {
+                return;
+            }
+
+            array_view<const Ref<ArrayMesh>> array_meshes = mesh.mesh->get_array_meshes();
+            for (const Ref<ArrayMesh>& chunk : array_meshes) {
+                const ArrayMeshData& data = chunk->get_data();
+                if (data.pos3.empty() || data.faces.empty()) {
+                    continue;
+                }
+                draw_manager->draw_mesh_faces(data.pos3, data.faces, mat_l2w.m, mesh.color, mesh.solid);
+            }
+        });
     }
 
     void gm_draw_debug_label_system(AuxDrawManager* draw_manager, Vec3f cam_pos, EcsQuery<GmDebugLabelAccess>& query) {
@@ -46,7 +66,7 @@ namespace wmoge {
 
             const Vec3f pos = Math3d::extract_translation(mat_l2w.m);
 
-            if (!gm_debug_cull_item(cam_pos, pos, entity_idx, query)) {
+            if (!gm_debug_cull_item<GmDebugLabelComponent>(cam_pos, pos, entity_idx, query)) {
                 return;
             }
 
@@ -64,7 +84,7 @@ namespace wmoge {
             Quatf rot;
             Math3d::decompose(mat_l2w.m, pos, scale, rot);
 
-            if (gm_debug_cull_item(cam_pos, pos, entity_idx, query)) {
+            if (gm_debug_cull_item<GmDebugPrimitiveComponent>(cam_pos, pos, entity_idx, query)) {
                 return;
             }
 

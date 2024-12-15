@@ -33,16 +33,23 @@
 #include "math/transform.hpp"
 #include "math/vec.hpp"
 #include "render/camera.hpp"
+#include "render/light.hpp"
+#include "render/model.hpp"
 
 namespace wmoge {
 
     struct GmCameraComponent : public EcsComponent<GmCameraComponent> {
+        Camera camera;
     };
 
     struct GmLightComponent : public EcsComponent<GmLightComponent> {
+        Light light;
     };
 
     struct GmMeshComponent : public EcsComponent<GmMeshComponent> {
+    };
+
+    struct GmModelComponent : public EcsComponent<GmModelComponent> {
     };
 
 }// namespace wmoge

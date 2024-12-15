@@ -107,27 +107,8 @@ public:
 
         auto scene_data = m_engine->asset_manager()->load(SID("assets/scenes/test_scene")).cast<SceneDataAsset>();
 
-        auto s = m_engine->scene_manager()->make_scene(SID("test_scene"));
-        s->add(std::make_shared<EcsWorld>(m_engine->ecs_registry()));
-
-        // m_engine->scene_manager()->build_scene(s, scene_data->get_data());
-
-        ShaderStructRegister rdc(SID("CanvasDrawCmd"), 80, m_engine->shader_manager());
-        rdc
-                .add_field(SID("Transform0"), ShaderTypes::VEC4)
-                .add_field(SID("Transform1"), ShaderTypes::VEC4)
-                .add_field(SID("Transform2"), ShaderTypes::VEC4)
-                .add_field(SID("ClipRect"), ShaderTypes::VEC4)
-                .add_field(SID("TextureIdx"), ShaderTypes::INT)
-                .add_field(SID("Padding0"), ShaderTypes::INT)
-                .add_field(SID("Padding1"), ShaderTypes::INT)
-                .add_field(SID("Padding2"), ShaderTypes::INT)
-                .finish();
-
-        ShaderStructRegister rdcs(SID("CanvasDrawCmdsBuffer"), 0, m_engine->shader_manager());
-        rdcs
-                .add_field_array(SID("DrawCmds"), SID("CanvasDrawCmd"))
-                .finish();
+        auto s = m_engine->game_manager()->make_scene(SID("test_scene"));
+        m_engine->scene_manager()->build_scene(s, scene_data->get_data());
 
         shader = m_engine->asset_manager()->load(SID("engine/shaders/canvas")).cast<Shader>();
 
@@ -172,31 +153,31 @@ public:
         permutation.options.set(0);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p1                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p2                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p3                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p4                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.options.reset();
         permutation.options.set(1);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p5                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos2f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p6                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Uv12f, GfxVertAttrib::Col04f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p7                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         permutation.vert_attribs = {GfxVertAttrib::Pos3f, GfxVertAttrib::Uv02f, GfxVertAttrib::Col04f, GfxVertAttrib::Col14f};
-        shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
+        auto p8                  = shader_manager->get_or_create_program(shader.get(), GfxShaderPlatform::VulkanWindows, permutation);
 
         static float angle       = 0.0f;
         static int   frame_count = 0;

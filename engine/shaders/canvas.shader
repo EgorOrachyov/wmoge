@@ -1,14 +1,15 @@
 name: canvas
 domain: Graphics
-extends: ""
-ui_name: ""
 ui_hint: "shader to draw 2d primitives onto painting canvas"
+sources:
+  - { module: Vertex, file: "engine/shaders/canvas_vert.glsl" }
+  - { module: Fragment, file: "engine/shaders/canvas_frag.glsl" } 
 param_blocks:
   - name: default
     params:
       - { name: ClipProjView, type: mat4, ui_name: "", ui_hint: "" }
       - { name: InverseGamma, type: float, ui_name: "", ui_hint: "" }
-      - { name: CanvasDrawCmdsBuffer, type: CanvasDrawCmdsBuffer, binding: StorageBuffer, ui_name: "", ui_hint: "" }
+      - { name: GpuCanvasDrawCmdsBuffer, type: GpuCanvasDrawCmdsBuffer, binding: StorageBuffer, ui_name: "", ui_hint: "" }
   - name: images-batch
     params:
       - { name: Image0, type: sampler2D, value: White, ui_name: "", ui_hint: ""}
@@ -31,6 +32,3 @@ techniques:
             depth_write: false
           bs:
             blending: true
-sources:
-  - { module: Vertex, file: "engine/shaders/canvas_vert.glsl" }
-  - { module: Fragment, file: "engine/shaders/canvas_frag.glsl" } 

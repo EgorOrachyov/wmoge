@@ -101,7 +101,13 @@ namespace wmoge {
         }
         s << "}";
 
-        return SID(s.str());
+        return SIDDBG(s.str());
+    }
+
+    GfxVertElements GfxVertElements::make(GfxVertAttribs attribs) {
+        GfxVertElements elements;
+        elements.add_vert_attribs(attribs, 0);
+        return elements;
     }
 
 }// namespace wmoge

@@ -49,11 +49,7 @@ namespace wmoge {
     public:
         SceneManager() = default;
 
-        void clear();
-        void update();
-
-        void                               change_scene(SceneRef scene);
-        SceneRef                           get_running_scene();
+        void                               clear();
         std::optional<SceneRef>            find_scene_by_name(const Strid& name);
         SceneRef                           make_scene(const Strid& name);
         Status                             build_scene(const SceneRef& scene, const SceneData& data);
@@ -62,19 +58,8 @@ namespace wmoge {
         std::optional<EntityFeatureTrait*> find_trait(const Strid& rtti);
 
     private:
-        void scene_change();
-        void scene_start();
-        void scene_play();
-        void scene_pause();
-        void scene_resume();
-        void scene_finish();
-
-    private:
         std::vector<SceneRef>                    m_scenes;  // allocated scenes in the engine
         std::deque<SceneRef>                     m_to_clear;// scheduled to be cleared
-        SceneRef                                 m_running; // active scene
-        SceneRef                                 m_next;    // next scene to set
-        SceneRef                                 m_default; // default scene to always show something
         flat_map<Strid, Ref<EntityFeatureTrait>> m_traits;
     };
 

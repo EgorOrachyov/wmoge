@@ -34,28 +34,47 @@
 
 namespace wmoge {
 
-    Status GmDebugMeshFeatureTrait::setup_entity_typed(EcsArch& arch, const GmDebugMeshFeature& feature, EntitySetupContext& context) {
-        return Status();
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugMesh)::setup_entity_typed(EcsArch& arch, const GmDebugMesh& desc, EntitySetupContext& context) {
+        arch.set_component<GmDebugMeshComponent>();
+        return WG_OK;
     }
 
-    Status GmDebugMeshFeatureTrait::build_entity_typed(EcsEntity entity, const GmDebugMeshFeature& feature, EntityBuildContext& context) {
-        return Status();
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugMesh)::build_entity_typed(EcsEntity entity, const GmDebugMesh& desc, EntityBuildContext& context) {
+        auto& mesh    = context.world->get_component_rw<GmDebugMeshComponent>(entity);
+        mesh.mesh     = desc.mesh;
+        mesh.dist_min = desc.dist_min;
+        mesh.dist_max = desc.dist_max;
+        mesh.color    = desc.color;
+        return WG_OK;
     }
 
-    Status GmDebugLabelFeatureTrait::setup_entity_typed(EcsArch& arch, const GmDebugLabelFeature& feature, EntitySetupContext& context) {
-        return Status();
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugLabel)::setup_entity_typed(EcsArch& arch, const GmDebugLabel& desc, EntitySetupContext& context) {
+        arch.set_component<GmDebugLabelComponent>();
+        return WG_OK;
     }
 
-    Status GmDebugLabelFeatureTrait::build_entity_typed(EcsEntity entity, const GmDebugLabelFeature& feature, EntityBuildContext& context) {
-        return Status();
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugLabel)::build_entity_typed(EcsEntity entity, const GmDebugLabel& desc, EntityBuildContext& context) {
+        auto& label    = context.world->get_component_rw<GmDebugLabelComponent>(entity);
+        label.dist_min = desc.dist_min;
+        label.dist_max = desc.dist_max;
+        label.text     = desc.text;
+        label.color    = desc.color;
+        label.size     = desc.size;
+        return WG_OK;
     }
 
-    Status GmDebugPrimitiveFeatureTrait::setup_entity_typed(EcsArch& arch, const GmDebugPrimitiveFeature& feature, EntitySetupContext& context) {
-        return Status();
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugPrimitive)::setup_entity_typed(EcsArch& arch, const GmDebugPrimitive& desc, EntitySetupContext& context) {
+        arch.set_component<GmDebugPrimitiveComponent>();
+        return WG_OK;
     }
 
-    Status GmDebugPrimitiveFeatureTrait::build_entity_typed(EcsEntity entity, const GmDebugPrimitiveFeature& feature, EntityBuildContext& context) {
-        return Status();
+    Status WG_NAME_ENTITY_FEATURE_TRAIT(GmDebugPrimitive)::build_entity_typed(EcsEntity entity, const GmDebugPrimitive& desc, EntityBuildContext& context) {
+        auto& prim    = context.world->get_component_rw<GmDebugPrimitiveComponent>(entity);
+        prim.dist_min = desc.dist_min;
+        prim.dist_max = desc.dist_max;
+        prim.type     = desc.type;
+        prim.color    = desc.color;
+        return WG_OK;
     }
 
 }// namespace wmoge

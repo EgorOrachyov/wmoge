@@ -32,6 +32,7 @@
 #include "core/mask.hpp"
 #include "core/simple_id.hpp"
 #include "core/status.hpp"
+#include "gfx/gfx_cmd_list.hpp"
 #include "rdg/rdg_resources.hpp"
 
 #include <functional>
@@ -39,33 +40,24 @@
 namespace wmoge {
 
     /** @brief Rdg pass usage flag */
-    enum class RDGPassFlag {
+    enum class RdgPassFlag {
         ComputePass,
         GraphicsPass,
         MaterialPass,
         CopyPass
     };
 
-    /** @brief Rdg pass flags */
-    using RDGPassFlags = Mask<RDGPassFlag>;
-
-    /** @brief Rdg pass id within graph */
-    using RDGPassId = SimpleId<std::uint32_t>;
-
-    /** @brief Rdg pass callback called on pass execution */
-    using RDGPassCallback = std::function<Status()>;
-
     /** @brief Rdg pass color target info */
-    struct RDGPassColorTarget {
-        RDGTexture* resource = nullptr;
+    struct RdgPassColorTarget {
+        RdgTexture* resource = nullptr;
         Color4f     color    = Color4f();
         bool        clear    = false;
         GfxRtOp     op       = GfxRtOp::LoadStore;
     };
 
     /** @brief Rdg pass depth stencil target info */
-    struct RDGPassDepthTarget {
-        RDGTexture* resource      = nullptr;
+    struct RdgPassDepthTarget {
+        RdgTexture* resource      = nullptr;
         float       depth         = 1.0f;
         int         stencil       = 0;
         bool        clear_depth   = false;
@@ -74,47 +66,87 @@ namespace wmoge {
     };
 
     /** @brief Rdg pass referenced resource for manual usage */
-    struct RDGPassResource {
-        RDGResource* resource = nullptr;
+    struct RdgPassResource {
+        RdgResource* resource = nullptr;
         GfxAccess    access   = GfxAccess::None;
     };
 
+    class RdgPassContext {
+    public:
+        RdgPassContext() = default;
+
+        Status validate_param_block(ShaderParamBlock* param_block);
+
+        Status bind_param_block(ShaderParamBlock* param_block, int index);
+        Status bind_pso_graphics(Shader* shader, const ShaderPermutation& permutation, const GfxVertElements& vert_elements);
+        Status bind_pso_compute(Shader* shader, const ShaderPermutation& permutation);
+
+        Status viewport(const Rect2i& viewport);
+        Status bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0);
+        Status bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0);
+        Status draw(int vertex_count, int base_vertex, int instance_count);
+        Status draw_indexed(int index_count, int base_vertex, int instance_count);
+        Status dispatch(Vec3i group_count);
+
+    public:
+        GfxCmdListRef        cmd_list;
+        class GfxDriver*     driver         = nullptr;
+        class ShaderManager* shader_manager = nullptr;
+        class RdgGraph*      graph          = nullptr;
+    };
+
+    /** @brief Rdg pass flags */
+    using RdgPassFlags = Mask<RdgPassFlag>;
+
+    /** @brief Rdg pass id within graph */
+    using RdgPassId = SimpleId<std::uint32_t>;
+
+    /** @brief Rdg pass callback called on pass execution */
+    using RdgPassCallback = std::function<Status(RdgPassContext& context)>;
+
     /**
-     * @class RDGPass
+     * @class RdgPass
      * @brief Represents single pass in a rgd graph for execution
     */
-    class RDGPass {
+    class RdgPass {
     public:
-        RDGPass(class RDGGraph& graph, Strid name, RDGPassId id, RDGPassFlags flags);
+        RdgPass(class RdgGraph& graph, Strid name, RdgPassId id, RdgPassFlags flags);
 
-        RDGPass& color_target(RDGTexture* target);
-        RDGPass& color_target(RDGTexture* target, const Color4f& clear_color);
-        RDGPass& depth_target(RDGTexture* target);
-        RDGPass& depth_target(RDGTexture* target, float clear_depth, int clear_stencil);
-        RDGPass& reference(RDGResource* resource, GfxAccess access);
-        RDGPass& reading(RDGBuffer* resource);
-        RDGPass& writing(RDGBuffer* resource);
-        RDGPass& bind(RDGPassCallback callback);
+        RdgPass& color_target(RdgTexture* target);
+        RdgPass& color_target(RdgTexture* target, const Color4f& clear_color);
+        RdgPass& depth_target(RdgTexture* target);
+        RdgPass& depth_target(RdgTexture* target, float clear_depth, int clear_stencil);
+        RdgPass& reference(RdgResource* resource, GfxAccess access);
+        RdgPass& uniform(RdgBuffer* resource);
+        RdgPass& reading(RdgBuffer* resource);
+        RdgPass& writing(RdgBuffer* resource);
+        RdgPass& copy_source(RdgBuffer* resource);
+        RdgPass& copy_destination(RdgBuffer* resource);
+        RdgPass& sampling(RdgTexture* resource);
+        RdgPass& storage(RdgTexture* resource);
+        RdgPass& bind(RdgPassCallback callback);
 
-        [[nodiscard]] bool                has_resource(RDGResource* r) const;
-        [[nodiscard]] const RDGPassFlags& get_flags() const { return m_flags; }
-        [[nodiscard]] const RDGPassId&    get_id() const { return m_id; }
+        GfxRenderPassDesc make_render_pass_desc() const;
+
+        [[nodiscard]] bool                has_resource(RdgResource* r) const;
+        [[nodiscard]] const RdgPassFlags& get_flags() const { return m_flags; }
+        [[nodiscard]] const RdgPassId&    get_id() const { return m_id; }
         [[nodiscard]] const Strid&        get_name() const { return m_name; }
 
     private:
-        friend RDGGraph;
+        friend RdgGraph;
 
-        buffered_vector<RDGPassColorTarget, 6> m_color_targets;
-        buffered_vector<RDGPassDepthTarget, 1> m_depth_targets;
-        buffered_vector<RDGPassResource, 16>   m_resources;
-        flat_set<RDGResource*>                 m_referenced;
+        buffered_vector<RdgPassColorTarget, 6> m_color_targets;
+        buffered_vector<RdgPassDepthTarget, 1> m_depth_targets;
+        buffered_vector<RdgPassResource, 16>   m_resources;
+        flat_set<RdgResource*>                 m_referenced;
 
-        RDGPassCallback m_callback;
-        RDGPassFlags    m_flags;
-        RDGPassId       m_id;
+        RdgPassCallback m_callback;
+        RdgPassFlags    m_flags;
+        RdgPassId       m_id;
         Strid           m_name;
 
-        class RDGGraph& m_graph;
+        class RdgGraph& m_graph;
     };
 
 }// namespace wmoge

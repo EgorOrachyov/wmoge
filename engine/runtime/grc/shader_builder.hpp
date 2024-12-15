@@ -95,7 +95,8 @@ namespace wmoge {
             ShaderBuilder&    m_owner;
             ShaderPassInfo&   m_pass;
             TechniqueBuilder& m_technique;
-            std::int16_t      m_next_option_idx = 0;
+            std::int16_t      m_next_option_idx  = 0;
+            std::int16_t      m_next_variant_idx = 0;
 
             friend class ShaderBuilder;
         };
@@ -104,7 +105,6 @@ namespace wmoge {
         public:
             TechniqueBuilder(ShaderBuilder& owner, ShaderTechniqueInfo& technique);
 
-            TechniqueBuilder& add_option(Strid name, const buffered_vector<Strid>& variants);
             TechniqueBuilder& add_tag(Strid name, Var value);
             TechniqueBuilder& add_ui_info(const std::string& name, const std::string& hint);
             PassBuilder       add_pass(Strid name);
@@ -113,9 +113,7 @@ namespace wmoge {
         private:
             ShaderBuilder&       m_owner;
             ShaderTechniqueInfo& m_technique;
-            std::int16_t         m_next_pass_idx    = 0;
-            std::int16_t         m_next_option_idx  = 0;
-            std::int16_t         m_next_variant_idx = 0;
+            std::int16_t         m_next_pass_idx = 0;
 
             friend class PassBuilder;
             friend class ShaderBuilder;

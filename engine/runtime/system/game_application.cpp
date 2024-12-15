@@ -88,7 +88,6 @@ namespace wmoge {
         ioc->bind<FileSystem>();
         ioc->bind<Console>();
         ioc->bind<CallbackQueue>();
-        ioc->bind<RenderEngine>();
         ioc->bind<EcsRegistry>();
         ioc->bind<ViewManager>();
         ioc->bind<EngineConfig>();
@@ -102,6 +101,7 @@ namespace wmoge {
         ioc->bind_by_ioc<TextureManager>();
         ioc->bind_by_ioc<MeshManager>();
         ioc->bind_by_ioc<AssetManager>();
+        ioc->bind_by_ioc<RenderEngine>();
         bind_by_ioc_scene_manager(ioc);
         bind_by_ioc_game_manager(ioc);
         ioc->bind_by_ioc<Engine>();

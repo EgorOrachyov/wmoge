@@ -98,12 +98,13 @@
 #include "gfx/gfx_sampler.hpp"
 #include "gfx/gfx_shader.hpp"
 #include "gfx/gfx_texture.hpp"
-#include "gfx/gfx_vector.hpp"
 #include "gfx/gfx_vert_format.hpp"
 
 #include "glsl/glsl_builder.hpp"
 #include "glsl/glsl_include_processor.hpp"
 #include "glsl/glsl_shader_compiler.hpp"
+
+#include "gpu/gpu_buffer.hpp"
 
 #include "grc/font.hpp"
 #include "grc/image.hpp"
@@ -118,7 +119,6 @@
 #include "grc/shader_manager.hpp"
 #include "grc/shader_param.hpp"
 #include "grc/shader_param_block.hpp"
-#include "grc/shader_pass.hpp"
 #include "grc/shader_reflection.hpp"
 #include "grc/texture.hpp"
 #include "grc/texture_compression.hpp"
@@ -128,6 +128,7 @@
 #include "io/async_file_system.hpp"
 #include "io/base64.hpp"
 #include "io/compression.hpp"
+#include "io/config.hpp"
 #include "io/context.hpp"
 #include "io/enum.hpp"
 #include "io/ini.hpp"
@@ -216,7 +217,6 @@
 #include "scene/scene_manager.hpp"
 #include "scene/scene_prefab.hpp"
 
-#include "io/config.hpp"
 #include "system/application.hpp"
 #include "system/console.hpp"
 #include "system/engine.hpp"
@@ -224,3 +224,5 @@
 #include "system/hooks.hpp"
 #include "system/plugin.hpp"
 #include "system/plugin_manager.hpp"
+
+#include "game/game_manager.hpp"

@@ -29,30 +29,30 @@
 
 namespace wmoge {
 
-    RDGResource::RDGResource(RDGResourceId id, RDGResourceFlags flags, Strid name) {
+    RdgResource::RdgResource(RdgResourceId id, RdgResourceFlags flags, Strid name) {
         m_id    = id;
         m_flags = flags;
         m_name  = name;
     }
 
-    RDGTexture::RDGTexture(const GfxTextureDesc& desc, RDGResourceId id, Strid name)
-        : RDGResource(id, RDGResourceFlags{RDGResourceFlag::Pooled}, name) {
+    RdgTexture::RdgTexture(const GfxTextureDesc& desc, RdgResourceId id, Strid name)
+        : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Pooled}, name) {
         m_desc = desc;
     }
 
-    RDGTexture::RDGTexture(const GfxTextureRef& texture, RDGResourceId id)
-        : RDGResource(id, RDGResourceFlags{RDGResourceFlag::Imported}, texture->name()) {
+    RdgTexture::RdgTexture(const GfxTextureRef& texture, RdgResourceId id)
+        : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Imported}, texture->name()) {
         m_desc = texture->desc();
         set_gfx(texture);
     }
 
-    RDGBuffer::RDGBuffer(const GfxBufferDesc& desc, RDGResourceId id, Strid name)
-        : RDGResource(id, RDGResourceFlags{RDGResourceFlag::Pooled}, name) {
+    RdgBuffer::RdgBuffer(const GfxBufferDesc& desc, RdgResourceId id, Strid name)
+        : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Pooled}, name) {
         m_desc = desc;
     }
 
-    RDGBuffer::RDGBuffer(const GfxBufferRef& buffer, RDGResourceId id)
-        : RDGResource(id, RDGResourceFlags{RDGResourceFlag::Imported}, buffer->name()) {
+    RdgBuffer::RdgBuffer(const GfxBufferRef& buffer, RdgResourceId id)
+        : RdgResource(id, RdgResourceFlags{RdgResourceFlag::Imported}, buffer->name()) {
         m_desc = buffer->desc();
         set_gfx(buffer);
     }

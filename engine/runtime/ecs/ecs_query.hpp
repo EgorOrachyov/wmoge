@@ -58,9 +58,9 @@ namespace wmoge {
         Bitset referenced;
         Bitset read_only;
         Bitset read_write;
-        Bitset required;
-        Bitset optional;
-        Bitset exclude;
+        Bitset requireds;
+        Bitset optionals;
+        Bitset excludes;
         Strid  name;
 
         EcsAccess() = default;
@@ -71,14 +71,14 @@ namespace wmoge {
             referenced.set(Component::IDX);
 
             if (presence == EcsComponentPresence::Exclude) {
-                exclude.set(Component::IDX);
+                excludes.set(Component::IDX);
                 return *this;
             }
             if (presence == EcsComponentPresence::Required) {
-                required.set(Component::IDX);
+                requireds.set(Component::IDX);
             }
             if (presence == EcsComponentPresence::Optional) {
-                optional.set(Component::IDX);
+                optionals.set(Component::IDX);
             }
             if (access == EcsComponentAccess::ReadOnly) {
                 read_only.set(Component::IDX);
@@ -89,11 +89,26 @@ namespace wmoge {
             return *this;
         }
 
+        template<typename Component>
+        EcsAccess& exclude() {
+            return add<Component>(EcsComponentPresence::Exclude);
+        }
+
+        template<typename Component>
+        EcsAccess& require(EcsComponentAccess access = EcsComponentAccess::ReadOnly) {
+            return add<Component>(EcsComponentPresence::Required, access);
+        }
+
+        template<typename Component>
+        EcsAccess& optional(EcsComponentAccess access = EcsComponentAccess::ReadOnly) {
+            return add<Component>(EcsComponentPresence::Optional, access);
+        }
+
         bool match(const EcsArch& arch) const {
-            if ((required & arch) != required) {
+            if ((requireds & arch) != requireds) {
                 return false;
             }
-            if ((exclude & arch).any()) {
+            if ((excludes & arch).any()) {
                 return false;
             }
             return true;
@@ -113,8 +128,9 @@ namespace wmoge {
      */
     class EcsQueryContext {
     public:
-        EcsQueryContext(EcsArchStorage& storage, EcsAccess query, int start, int count)
-            : m_storage(storage),
+        EcsQueryContext(class EcsWorld& world, EcsArchStorage& storage, EcsAccess query, int start, int count)
+            : m_world(world),
+              m_storage(storage),
               m_arch(storage.get_arch()),
               m_query(query),
               m_range_start(start),
@@ -132,11 +148,13 @@ namespace wmoge {
 
         [[nodiscard]] EcsEntity get_entity(int entity_idx);
 
+        [[nodiscard]] class EcsWorld&  get_world() const { return m_world; }
         [[nodiscard]] const EcsAccess& get_query() const { return m_query; }
         [[nodiscard]] int              get_start_idx() const { return m_range_start; }
         [[nodiscard]] int              get_count() const { return m_range_count; }
 
     private:
+        class EcsWorld& m_world;
         EcsArchStorage& m_storage;
         EcsAccess       m_query;
         EcsArch         m_arch;

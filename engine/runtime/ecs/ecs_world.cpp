@@ -142,7 +142,7 @@ namespace wmoge {
             const EcsAccess&         query = iter.first;
             const EcsQueuryFunction& func  = iter.second;
             if (query.match(entity_arch)) {
-                EcsQueryContext context(*entity_storage, query, entity_info.storage, 1);
+                EcsQueryContext context(*this, *entity_storage, query, entity_info.storage, 1);
                 func(context);
             }
         }
@@ -203,7 +203,7 @@ namespace wmoge {
             const int       start   = 0;
             const int       conut   = storage.get_size();
 
-            EcsQueryContext context(storage, access, start, conut);
+            EcsQueryContext context(*this, storage, access, start, conut);
             func(context);
         }
     }
@@ -221,7 +221,7 @@ namespace wmoge {
                 const int       start   = 0;
                 const int       conut   = storage.get_size();
 
-                EcsQueryContext context(storage, access, start, conut);
+                EcsQueryContext context(*this, storage, access, start, conut);
                 func(context);
             }
 
@@ -243,7 +243,7 @@ namespace wmoge {
                 EcsArchStorage& storage   = *m_arch_storage[arch_idx];
                 const auto [start, count] = Math::batch_start_count(storage.get_size(), batch_id, batch_count);
 
-                EcsQueryContext context(storage, access, start, count);
+                EcsQueryContext context(*this, storage, access, start, count);
                 func(context);
             }
 
