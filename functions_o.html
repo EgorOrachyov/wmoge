@@ -65,7 +65,7 @@ $(function() {
 
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>objs
-: <a class="el" href="structwmoge_1_1ModelFile.html#a6d42ed836dc96e1c81de1fd210e9fa78">wmoge::ModelFile</a>
+: <a class="el" href="structwmoge_1_1ModelDesc.html#a29027865b193aeda129b03ee5274f688">wmoge::ModelDesc</a>
 </li>
 <li>offset
 : <a class="el" href="structwmoge_1_1GfxBufferSetup.html#a84dd23dfec7909df31620a6e24dd0a52">wmoge::GfxBufferSetup&lt; Buffer &gt;</a>
@@ -131,8 +131,8 @@ $(function() {
 : <a class="el" href="classwmoge_1_1PfxFeature.html#a5d8365466e498bca24f0c107175e4414">wmoge::PfxFeature</a>
 </li>
 <li>op
-: <a class="el" href="structwmoge_1_1RDGPassColorTarget.html#aa43e00d3bd2f2c9228d3965d99ed0a27">wmoge::RDGPassColorTarget</a>
-, <a class="el" href="structwmoge_1_1RDGPassDepthTarget.html#ab64bf08456896dc750cdb1977fdb4dea">wmoge::RDGPassDepthTarget</a>
+: <a class="el" href="structwmoge_1_1RdgPassColorTarget.html#a3cbb79bae215e46e0c790c75d74ba785">wmoge::RdgPassColorTarget</a>
+, <a class="el" href="structwmoge_1_1RdgPassDepthTarget.html#aaf8f7f236f867b171363924b74728c77">wmoge::RdgPassDepthTarget</a>
 </li>
 <li>open()
 : <a class="el" href="classwmoge_1_1FilePhysical.html#aee6b51470bbf9f99bf223ef359463988">wmoge::FilePhysical</a>
@@ -217,6 +217,9 @@ $(function() {
 <li>operator String()
 : <a class="el" href="classwmoge_1_1Var.html#a3bc7b62ab088a14f19fb5856495451b1">wmoge::Var</a>
 </li>
+<li>operator T*()
+: <a class="el" href="classwmoge_1_1Ref.html#adb1a35e1435d8413a39c6651441286f3">wmoge::Ref&lt; T &gt;</a>
+</li>
 <li>operator ValueType()
 : <a class="el" href="structwmoge_1_1SimpleId.html#a7145fff6c4a0577abf2fe8dea919e69c">wmoge::SimpleId&lt; ValueType &gt;</a>
 </li>
@@ -287,7 +290,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1Range_1_1Iterator.html#a1b7d5cd700546d6d6527d8dd33abb46c">wmoge::Range::Iterator</a>
 , <a class="el" href="classwmoge_1_1Ref.html#a03d4f94383af5b9076de1c5b23f0e262">wmoge::Ref&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1RttiSubclass.html#a7fd4a520ad7deb0ebe422f0c3a745d68">wmoge::RttiSubclass&lt; BaseType &gt;</a>
-, <a class="el" href="classwmoge_1_1TMatMxN.html#a3839c94b869439b8be24b96463dd9be1">wmoge::TMatMxN&lt; T, M, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TMatMxN.html#a39036ee04c1a5894fbdbb41c70b06ae8">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#abb21e08a1b8961b11ee70e41aec8f6ac">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#a92706d316e5ef0221eac3b33f7e429ae">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
@@ -343,14 +346,15 @@ $(function() {
 : <a class="el" href="classwmoge_1_1TVecN.html#a1329e98fc5cfeefaefe630a3147b0db4">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>operator=()
-: <a class="el" href="classwmoge_1_1Ref.html#a62a8b163eed86a33ebba33a3dc65a228">wmoge::Ref&lt; T &gt;</a>
+: <a class="el" href="classwmoge_1_1GpuBuffer.html#a94ab6b80c4a81200d136d7c2ca31a332">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
+, <a class="el" href="classwmoge_1_1Ref.html#a62a8b163eed86a33ebba33a3dc65a228">wmoge::Ref&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1Status.html#a41076246da279ac4d886e96c0b2fb1e3">wmoge::Status</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a5a219631d3af9809f8642824fdf7774c">wmoge::TMatMxN&lt; T, M, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TQuat.html#a0d6da9c39be477bc57a1f1656ceeb9a9">wmoge::TQuat&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#af7b1c22bd13913d27805e575604c8717">wmoge::TVecN&lt; T, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedArray.html#a18d2cdf597d8133901cb1f67840c5fd5">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a30a089ccba91cf95dee3a4d66fc78c77">wmoge::TypedMap&lt; K, V, H &gt;</a>
-, <a class="el" href="classwmoge_1_1Var.html#a385b0a3a2e73707a21780a4b3574894d">wmoge::Var</a>
+, <a class="el" href="classwmoge_1_1Var.html#af9d444c7c97df04bbf0095de35bea3b6">wmoge::Var</a>
 , <a class="el" href="classwmoge_1_1WeakRef.html#ac53a45605f062c0442c7225073150f49">wmoge::WeakRef&lt; T &gt;</a>
 </li>
 <li>operator==()
@@ -393,7 +397,7 @@ $(function() {
 </li>
 <li>operator[]()
 : <a class="el" href="classwmoge_1_1array__view.html#aa0dc6050a4e73be5b888b2dc9a9d8e5e">wmoge::array_view&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1GfxVector.html#a9ce6bae4e894fe53b66f40d833855b59">wmoge::GfxVector&lt; T, Storage &gt;</a>
+, <a class="el" href="classwmoge_1_1GpuBuffer.html#a1aba62cd55a57b903a816e800bb39bd2">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
 , <a class="el" href="classwmoge_1_1PfxView.html#ae72e78c4bede0e0bfafaad080602685c">wmoge::PfxView&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1pool__vector.html#a20a7b0e09a2978487645666ee803205d">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1TMatMxN.html#a47c075833ef84c3a77cf9a739f95f781">wmoge::TMatMxN&lt; T, M, N &gt;</a>
@@ -410,8 +414,11 @@ $(function() {
 <li>optimize_size
 : <a class="el" href="structwmoge_1_1ShaderCompilerOptions.html#a8905f1d09bacec7a13eebb60a612d12f">wmoge::ShaderCompilerOptions</a>
 </li>
-<li>optional
-: <a class="el" href="structwmoge_1_1EcsAccess.html#a6c49b89a99298471d4abe29138b94de0">wmoge::EcsAccess</a>
+<li>optional()
+: <a class="el" href="structwmoge_1_1EcsAccess.html#a5a4a07fb993f07ce40822b3f818565d1">wmoge::EcsAccess</a>
+</li>
+<li>optionals
+: <a class="el" href="structwmoge_1_1EcsAccess.html#abe92661a4932a4ab273073fc0541317f">wmoge::EcsAccess</a>
 </li>
 <li>OptionalT
 : <a class="el" href="classwmoge_1_1RttiTypeOptionalT.html#a0cadbc13b1f284f4749f436921478255">wmoge::RttiTypeOptionalT&lt; T &gt;</a>
@@ -424,13 +431,12 @@ $(function() {
 , <a class="el" href="structwmoge_1_1ShaderOptions.html#aa993aa0e2b56b94bb904724676d88376">wmoge::ShaderOptions</a>
 , <a class="el" href="structwmoge_1_1ShaderPassInfo.html#adcf1b3d9d336345aa609c0ac98315e97">wmoge::ShaderPassInfo</a>
 , <a class="el" href="structwmoge_1_1ShaderPermutation.html#a4c828f9554dc7933778fc9da8ca2f8e9">wmoge::ShaderPermutation</a>
-, <a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#ac2afc1797cab9483b433af08211dd922">wmoge::ShaderTechniqueInfo</a>
 </li>
 <li>options_map
 : <a class="el" href="structwmoge_1_1ShaderOptions.html#a893021cdf2b909bc47f242fba2b73c4e">wmoge::ShaderOptions</a>
 </li>
 <li>options_remap
-: <a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#ae7c84f03e6fc32e9df1d64faeca7c1a8">wmoge::ShaderTechniqueInfo</a>
+: <a class="el" href="structwmoge_1_1ShaderPassInfo.html#a09508a9a48067717c012edc8c67136c8">wmoge::ShaderPassInfo</a>
 </li>
 <li>orthographic()
 : <a class="el" href="classwmoge_1_1Math3d.html#adcb96ab363301922bb4e3f648d64fb84">wmoge::Math3d</a>

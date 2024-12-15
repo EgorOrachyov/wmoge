@@ -73,6 +73,7 @@ $(function() {
 </li>
 <li>camera
 : <a class="el" href="structwmoge_1_1CameraData.html#a028b251a392ca09d1693969835b6d71c">wmoge::CameraData</a>
+, <a class="el" href="structwmoge_1_1GmCameraComponent.html#a76c9044e2cc1029cccfe413769f6390b">wmoge::GmCameraComponent</a>
 </li>
 <li>camera_dists
 : <a class="el" href="structwmoge_1_1RenderParams.html#aef4e2b13ce34ddbba82805d60c7cea0e">wmoge::RenderParams</a>
@@ -95,10 +96,14 @@ $(function() {
 <li>category
 : <a class="el" href="structwmoge_1_1ProfilerCpuMark.html#a108f516b8c6b989f9eb602223ae15cea">wmoge::ProfilerCpuMark</a>
 , <a class="el" href="structwmoge_1_1ProfilerGpuMark.html#a705e95e1f88e30c68add9ca22ba9a7f2">wmoge::ProfilerGpuMark</a>
+, <a class="el" href="structwmoge_1_1RdgProfileMark.html#a952e0aaa92def394b44b22ba4a22ffe2">wmoge::RdgProfileMark</a>
 </li>
 <li>channels
 : <a class="el" href="classwmoge_1_1ImageImportData.html#aad7602d16328ac4f6c3038ec464533fb">wmoge::ImageImportData</a>
 , <a class="el" href="classwmoge_1_1TextureImportData.html#a5bb29fa0ba5eedbf7cfc3f8fb5767c44">wmoge::TextureImportData</a>
+</li>
+<li>children
+: <a class="el" href="structwmoge_1_1GmTransform.html#a9ef2531a59586988c34c573f1b5df6f4">wmoge::GmTransform</a>
 </li>
 <li>chunk_idx
 : <a class="el" href="structwmoge_1_1ModelObj.html#af97b62223a79f5cada10fb54b63ec69f">wmoge::ModelObj</a>
@@ -110,21 +115,24 @@ $(function() {
 : <a class="el" href="structwmoge_1_1MeshDesc.html#a4e719cbaf8e0e3d3c1fa87aad407c6ca">wmoge::MeshDesc</a>
 </li>
 <li>clear
-: <a class="el" href="structwmoge_1_1RDGPassColorTarget.html#ae29efa68c58ce1e974a0bfa8730b9f31">wmoge::RDGPassColorTarget</a>
+: <a class="el" href="structwmoge_1_1RdgPassColorTarget.html#a52c4d56b124e8da76d83fbdfbd3a24ea">wmoge::RdgPassColorTarget</a>
 </li>
 <li>clear_color
 : <a class="el" href="structwmoge_1_1GfxRenderPassBeginInfo.html#a4a70537c845c176cfc2d2c7647f6fc3e">wmoge::GfxRenderPassBeginInfo</a>
 </li>
 <li>clear_depth
 : <a class="el" href="structwmoge_1_1GfxRenderPassBeginInfo.html#a24f5d6e670a9c667afbfb49cb389c430">wmoge::GfxRenderPassBeginInfo</a>
-, <a class="el" href="structwmoge_1_1RDGPassDepthTarget.html#a5618c9acf469fc696aab9646bf77fa5c">wmoge::RDGPassDepthTarget</a>
+, <a class="el" href="structwmoge_1_1RdgPassDepthTarget.html#aa03128741a8290b9d33b76f6a36936bf">wmoge::RdgPassDepthTarget</a>
 </li>
 <li>clear_stencil
 : <a class="el" href="structwmoge_1_1GfxRenderPassBeginInfo.html#ab521541330c1ddba19129ee74c7a37e9">wmoge::GfxRenderPassBeginInfo</a>
-, <a class="el" href="structwmoge_1_1RDGPassDepthTarget.html#a586b2c491ffcc9a28952f2cd326d79b8">wmoge::RDGPassDepthTarget</a>
+, <a class="el" href="structwmoge_1_1RdgPassDepthTarget.html#a336f28d548de4347f55b5203ea4fcf8d">wmoge::RdgPassDepthTarget</a>
 </li>
 <li>clip_rect
 : <a class="el" href="structwmoge_1_1CanvasDrawCmd.html#aa8f2e8828d2a988f9200769f4fa9781f">wmoge::CanvasDrawCmd</a>
+</li>
+<li>ClipRect
+: <a class="el" href="structwmoge_1_1GpuCanvasDrawCmdData.html#a624270adc8e37318ff497b625ef9f806">wmoge::GpuCanvasDrawCmdData</a>
 </li>
 <li>cmd
 : <a class="el" href="structwmoge_1_1MeshBucketKey.html#a8587fa8e4fd5cb77735381be8d02a1ed">wmoge::MeshBucketKey</a>
@@ -139,6 +147,7 @@ $(function() {
 </li>
 <li>cmd_list
 : <a class="el" href="structwmoge_1_1ProfilerGpuScope.html#a76214e8915d2a7ac036a2baab324c1a1">wmoge::ProfilerGpuScope</a>
+, <a class="el" href="classwmoge_1_1RdgPassContext.html#ae5a0a25c8cf5a3ffb312b410cb949781">wmoge::RdgPassContext</a>
 </li>
 <li>code_point
 : <a class="el" href="structwmoge_1_1FontGlyph.html#a88850017de3726d06de6723a3b596af5">wmoge::FontGlyph</a>
@@ -167,18 +176,14 @@ $(function() {
 : <a class="el" href="structwmoge_1_1RenderPassInfo.html#aece026739381626ff3b9d0a5881a5173">wmoge::RenderPassInfo</a>
 </li>
 <li>color
-: <a class="el" href="structwmoge_1_1AuxDrawBox.html#a31cf837d9ab838f07f4aac2d976ed086">wmoge::AuxDrawBox</a>
-, <a class="el" href="structwmoge_1_1AuxDrawCone.html#ae88b11c4280a421e59f1c6881e251f2c">wmoge::AuxDrawCone</a>
-, <a class="el" href="structwmoge_1_1AuxDrawCylinder.html#a3807718df7e6df814786941119db473e">wmoge::AuxDrawCylinder</a>
-, <a class="el" href="structwmoge_1_1AuxDrawLines_1_1Line.html#a437cb3a933b9656f5165a4931342dda4">wmoge::AuxDrawLines::Line</a>
-, <a class="el" href="structwmoge_1_1AuxDrawSphere.html#a63fb357743938508433ab1e3450ed013">wmoge::AuxDrawSphere</a>
-, <a class="el" href="structwmoge_1_1AuxDrawText.html#af6dcf09f8086d284924fc5408444009e">wmoge::AuxDrawText</a>
-, <a class="el" href="structwmoge_1_1AuxDrawTriangles_1_1Triangle.html#a88c7744511971b54cd6fe600dd1d7bdd">wmoge::AuxDrawTriangles::Triangle</a>
+: <a class="el" href="structwmoge_1_1AuxDrawPrimitive.html#aa36a4e1ce460737c6a2b86b3e0297800">wmoge::AuxDrawPrimitive</a>
 , <a class="el" href="structwmoge_1_1CanvasVert.html#aa646442edb799eb76d3a2c04ca2b3fb3">wmoge::CanvasVert</a>
 , <a class="el" href="structwmoge_1_1GmDebugLabelComponent.html#ae4a685b8953fdaadc6c123dbae7d2c69">wmoge::GmDebugLabelComponent</a>
+, <a class="el" href="structwmoge_1_1GmDebugMesh.html#a3cbe9a70968a05feb5c914b1afbc873a">wmoge::GmDebugMesh</a>
+, <a class="el" href="structwmoge_1_1GmDebugMeshComponent.html#a0b2e426bc2e539439ef38a014e70fd22">wmoge::GmDebugMeshComponent</a>
 , <a class="el" href="structwmoge_1_1GmDebugPrimitiveComponent.html#a4d744026d282616ae79f29ce6eee035a">wmoge::GmDebugPrimitiveComponent</a>
 , <a class="el" href="structwmoge_1_1PfxSpawnParams.html#a5060c80b5b42cc921c3862d34c61b7db">wmoge::PfxSpawnParams</a>
-, <a class="el" href="structwmoge_1_1RDGPassColorTarget.html#ad0998d55badadb374d0d509687efa264">wmoge::RDGPassColorTarget</a>
+, <a class="el" href="structwmoge_1_1RdgPassColorTarget.html#a1e0f2ceb5fdc893b7144c9dc64d0bd13">wmoge::RdgPassColorTarget</a>
 </li>
 <li>color_hdr
 : <a class="el" href="structwmoge_1_1GraphicsPipelineAssets.html#aaaca9247d0289b1155ee4b2b5ccd757f">wmoge::GraphicsPipelineAssets</a>

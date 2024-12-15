@@ -138,11 +138,11 @@ $(function() {
 <code>#include &quot;<a class="el" href="gfx__sampler_8hpp_source.html">gfx/gfx_sampler.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="gfx__shader_8hpp_source.html">gfx/gfx_shader.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="gfx__texture_8hpp_source.html">gfx/gfx_texture.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="gfx__vector_8hpp_source.html">gfx/gfx_vector.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="gfx__vert__format_8hpp_source.html">gfx/gfx_vert_format.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="glsl__builder_8hpp_source.html">glsl/glsl_builder.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="glsl__include__processor_8hpp_source.html">glsl/glsl_include_processor.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="glsl__shader__compiler_8hpp_source.html">glsl/glsl_shader_compiler.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gpu__buffer_8hpp_source.html">gpu/gpu_buffer.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="font_8hpp_source.html">grc/font.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="image_8hpp_source.html">grc/image.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pso__cache_8hpp_source.html">grc/pso_cache.hpp</a>&quot;</code><br />
@@ -156,7 +156,6 @@ $(function() {
 <code>#include &quot;<a class="el" href="shader__manager_8hpp_source.html">grc/shader_manager.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="shader__param_8hpp_source.html">grc/shader_param.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="shader__param__block_8hpp_source.html">grc/shader_param_block.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="shader__pass_8hpp_source.html">grc/shader_pass.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="shader__reflection_8hpp_source.html">grc/shader_reflection.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="texture_8hpp_source.html">grc/texture.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="texture__compression_8hpp_source.html">grc/texture_compression.hpp</a>&quot;</code><br />
@@ -165,6 +164,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="async__file__system_8hpp_source.html">io/async_file_system.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="base64_8hpp_source.html">io/base64.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="compression_8hpp_source.html">io/compression.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config_8hpp_source.html">io/config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="context_8hpp_source.html">io/context.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="io_2enum_8hpp_source.html">io/enum.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ini_8hpp_source.html">io/ini.hpp</a>&quot;</code><br />
@@ -241,7 +241,6 @@ $(function() {
 <code>#include &quot;<a class="el" href="scene__feature_8hpp_source.html">scene/scene_feature.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="scene__manager_8hpp_source.html">scene/scene_manager.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="scene__prefab_8hpp_source.html">scene/scene_prefab.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">io/config.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="application_8hpp_source.html">system/application.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="console_8hpp_source.html">system/console.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="system_2engine_8hpp_source.html">system/engine.hpp</a>&quot;</code><br />
@@ -249,6 +248,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="hooks_8hpp_source.html">system/hooks.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="plugin_8hpp_source.html">system/plugin.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="plugin__manager_8hpp_source.html">system/plugin_manager.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="game__manager_8hpp_source.html">game/game_manager.hpp</a>&quot;</code><br />
 </div>
 <p><a href="engine_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -256,6 +256,8 @@ $(function() {
 Macros</h2></td></tr>
 <tr class="memitem:a665ba425193f4cbd3a10303c43a7aca2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#a665ba425193f4cbd3a10303c43a7aca2">WG_PROFILE_GPU_SCOPE</a>(cmd_list,  name)&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#aab4777b849f61400610e2428a151d672">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(cmd_list, gpudevice, name, &quot;&quot;)</td></tr>
 <tr class="separator:a665ba425193f4cbd3a10303c43a7aca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4f68b14273122379d262d3e9b839593"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#ab4f68b14273122379d262d3e9b839593">WG_PROFILE_RDG_SCOPE</a>(graph,  name)&#160;&#160;&#160;    <a class="el" href="rdg__graph_8hpp.html#ac908d0c15aa93ac12b0efade7d1bba6c">WG_PROFILE_RDG_SCOPE_WITH_DESC</a>(graph, gpurdg, name, &quot;&quot;)</td></tr>
+<tr class="separator:ab4f68b14273122379d262d3e9b839593"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a665ba425193f4cbd3a10303c43a7aca2"></a>
@@ -280,6 +282,34 @@ Macros</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td>&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#aab4777b849f61400610e2428a151d672">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(cmd_list, gpudevice, name, &quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab4f68b14273122379d262d3e9b839593"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4f68b14273122379d262d3e9b839593">&#9670;&nbsp;</a></span>WG_PROFILE_RDG_SCOPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_PROFILE_RDG_SCOPE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">graph, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;    <a class="el" href="rdg__graph_8hpp.html#ac908d0c15aa93ac12b0efade7d1bba6c">WG_PROFILE_RDG_SCOPE_WITH_DESC</a>(graph, gpurdg, name, &quot;&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

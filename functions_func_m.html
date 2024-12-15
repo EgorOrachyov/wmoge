@@ -69,6 +69,10 @@ $(function() {
 </li>
 <li>make()
 : <a class="el" href="structwmoge_1_1GfxSamplerDesc.html#ab5b30f9b3c79cf2a80eb345d537aa842">wmoge::GfxSamplerDesc</a>
+, <a class="el" href="classwmoge_1_1GfxVertElements.html#a66194f2dd2f209f8c8dfbd93600790d1">wmoge::GfxVertElements</a>
+, <a class="el" href="structwmoge_1_1GpuMemIndex.html#a29b8372839354ea66b17b80a2ed73b2b">wmoge::GpuMemIndex</a>
+, <a class="el" href="structwmoge_1_1GpuMemStorage.html#a32ddf22023ff1ca88e3f04d95bb6c22d">wmoge::GpuMemStorage</a>
+, <a class="el" href="structwmoge_1_1GpuMemVert.html#a70402a32bcb28be37aba01ba1cfd16d2">wmoge::GpuMemVert</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01Aabbf_01_4.html#a1081d2e4c1d3185ae74b6432e011a1e6">wmoge::RttiTypeOf&lt; Aabbf &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01ankerl_1_1svector_3_01E_00_01S_01_4_01_4.html#aecbd57b9c6abba157ec5276cfacb5500">wmoge::RttiTypeOf&lt; ankerl::svector&lt; E, S &gt; &gt;</a>
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01AssetRef_3_01T_01_4_00_01typename_01std_1_1enable__if_3_01std_1_1i7a31acd3cdb8c3508df668b61ebc6a13.html#afb4ba4eabe453f515c0b2a8db93a2450">wmoge::RttiTypeOf&lt; AssetRef&lt; T &gt;, typename std::enable_if&lt; std::is_base_of_v&lt; Asset, T &gt; &gt;::type &gt;</a>
@@ -152,6 +156,9 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxDriver.html#a3f7181c5311bab039c465cc00e6bf5d0">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#a84f354a16e2b0830c211debcca974b81">wmoge::VKDriver</a>
 </li>
+<li>make_param_block()
+: <a class="el" href="classwmoge_1_1RdgGraph.html#a93d5a809571a9a520b17a0b4fabdf7ff">wmoge::RdgGraph</a>
+</li>
 <li>make_playback()
 : <a class="el" href="classwmoge_1_1ALAudioEngine.html#a0cae657cb1543efe87510dc33f61b2c4">wmoge::ALAudioEngine</a>
 , <a class="el" href="classwmoge_1_1AudioEngine.html#a05e59172748141b6e4bb832ce755ba9c">wmoge::AudioEngine</a>
@@ -191,12 +198,16 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxDriver.html#af35bf7a55a713a6d373a6ab61128ac63">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#acb660496fe48438e8edd8c10a848095e">wmoge::VKDriver</a>
 </li>
+<li>make_render_pass_desc()
+: <a class="el" href="classwmoge_1_1RdgPass.html#a0ffa2e3fa185008919d8934c592b682d">wmoge::RdgPass</a>
+</li>
 <li>make_sampler()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#ae6e85e0fe71653a26a57808ca1baf193">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#adca695782e1708cda73b9e1431262751">wmoge::VKDriver</a>
 </li>
 <li>make_scene()
-: <a class="el" href="classwmoge_1_1SceneManager.html#aa9f6733e6fb29832320092f8a89b3b5c">wmoge::SceneManager</a>
+: <a class="el" href="classwmoge_1_1GameManager.html#a67739037050ff89503cbf71c62a8b5b2">wmoge::GameManager</a>
+, <a class="el" href="classwmoge_1_1SceneManager.html#aa9f6733e6fb29832320092f8a89b3b5c">wmoge::SceneManager</a>
 </li>
 <li>make_shader()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#a3786ff4cdc9796f3545d10e2accd67d3">wmoge::GfxDriver</a>
@@ -230,6 +241,9 @@ $(function() {
 : <a class="el" href="classwmoge_1_1GfxDriver.html#aa1b4854eb55ed9e406dc93134f542b43">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#a9d4d6da75a9966d551fffb82c59ee587">wmoge::VKDriver</a>
 </li>
+<li>make_upload_data()
+: <a class="el" href="classwmoge_1_1RdgGraph.html#a3fde0dbfc3f903cc0537c7d7be6a10c7">wmoge::RdgGraph</a>
+</li>
 <li>make_vert_buffer()
 : <a class="el" href="classwmoge_1_1GfxDriver.html#aa4b36ac2fc817c8153c7f1e8fb1f7c4c">wmoge::GfxDriver</a>
 , <a class="el" href="classwmoge_1_1VKDriver.html#a0e86942eaf13aac32bd37c4b3e5fdc31">wmoge::VKDriver</a>
@@ -259,7 +273,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1VKCmdList.html#a649f93a5cd31da76b20ba8eec0c2a062">wmoge::VKCmdList</a>
 </li>
 <li>Mask()
-: <a class="el" href="structwmoge_1_1Mask.html#ab791a57bd650fca9c51bac08db98beb0">wmoge::Mask&lt; T, size &gt;</a>
+: <a class="el" href="structwmoge_1_1Mask.html#aecdfd38a1713067f87d0c6c22a6288e7">wmoge::Mask&lt; T, size &gt;</a>
 </li>
 <li>match()
 : <a class="el" href="structwmoge_1_1EcsAccess.html#af45a759f4b1437cb0a00a98e3b406265">wmoge::EcsAccess</a>
@@ -268,7 +282,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Material.html#a31fb88623a50aad21eb5a325387b1470">wmoge::Material</a>
 </li>
 <li>max()
-: <a class="el" href="classwmoge_1_1Math.html#aa44434f39b592f75a893db22358773c3">wmoge::Math</a>
+: <a class="el" href="classwmoge_1_1Math.html#aed14962c4a279c82e54d89bdafede808">wmoge::Math</a>
 , <a class="el" href="classwmoge_1_1TAabb.html#ab2137f48f46089de2a18299f21a5c6bf">wmoge::TAabb&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TVecN.html#aa7ce4170066b6733df0e6a687eff717d">wmoge::TVecN&lt; T, N &gt;</a>
 </li>

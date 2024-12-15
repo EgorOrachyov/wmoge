@@ -5,7 +5,7 @@
 <area shape="rect" id="node17" title=" " alt="" coords="3346,856,3411,883"/>
 <area shape="rect" id="node24" title=" " alt="" coords="781,408,838,435"/>
 <area shape="rect" id="node32" href="$crc32_8hpp.html" title=" " alt="" coords="2737,781,2844,808"/>
-<area shape="rect" id="node43" href="$render__scene_8hpp.html" title=" " alt="" coords="2774,95,2938,121"/>
+<area shape="rect" id="node43" href="$render__scene_8hpp.html" title=" " alt="" coords="2775,95,2939,121"/>
 <area shape="rect" id="node50" title=" " alt="" coords="3589,95,3691,121"/>
 <area shape="rect" id="node3" href="$flat__map_8hpp.html" title=" " alt="" coords="837,707,961,733"/>
 <area shape="rect" id="node6" title=" " alt="" coords="1224,931,1283,957"/>
@@ -43,10 +43,10 @@
 <area shape="rect" id="node34" href="$math__utils_8hpp.html" title=" " alt="" coords="2969,781,3108,808"/>
 <area shape="rect" id="node38" href="$array__view_8hpp.html" title=" " alt="" coords="2981,557,3118,584"/>
 <area shape="rect" id="node41" href="$gfx__vert__format_8hpp.html" title=" " alt="" coords="2055,483,2212,509"/>
-<area shape="rect" id="node44" href="$gfx__vector_8hpp.html" title=" " alt="" coords="2634,177,2761,203"/>
+<area shape="rect" id="node44" href="$gpu__buffer_8hpp.html" title=" " alt="" coords="2632,177,2763,203"/>
 <area shape="rect" id="node47" href="$mesh__pass_8hpp.html" title=" " alt="" coords="1801,333,1951,360"/>
-<area shape="rect" id="node48" href="$render__defs_8hpp.html" title=" " alt="" coords="2836,177,2991,203"/>
-<area shape="rect" id="node49" title=" " alt="" coords="3015,169,3201,211"/>
+<area shape="rect" id="node48" href="$render__defs_8hpp.html" title=" " alt="" coords="2837,177,2992,203"/>
+<area shape="rect" id="node49" title=" " alt="" coords="3016,169,3203,211"/>
 <area shape="rect" id="node45" href="$gfx__driver_8hpp.html" title=" " alt="" coords="2695,259,2817,285"/>
 <area shape="rect" id="node46" title=" " alt="" coords="2609,259,2671,285"/>
 </map>

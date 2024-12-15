@@ -1,5 +1,5 @@
-<map id="wmoge::EntitySimpleFeatureTrait&lt; T &gt;" name="wmoge::EntitySimpleFeatureTrait&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,192,196"/>
+<map id="wmoge::EntitySimpleFeatureTrait&lt; T, FeatureType, VectorType &gt;" name="wmoge::EntitySimpleFeatureTrait&lt; T, FeatureType, VectorType &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,192,211"/>
 <area shape="rect" id="node2" href="$classwmoge_1_1EntityFeatureTrait.html" title="Entity trait responsible for handling partical features on the entity." alt="" coords="13,80,185,107"/>
 <area shape="rect" id="node3" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="43,5,154,32"/>
 </map>

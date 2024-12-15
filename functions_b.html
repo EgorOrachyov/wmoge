@@ -118,7 +118,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1PfxRange.html#aa00b685e401ec187a216d51965e5ddf6">wmoge::PfxRange</a>
 , <a class="el" href="classwmoge_1_1pool__vector.html#abf2ccf2075693b4f5a3ef4714418bee9">wmoge::pool_vector&lt; T, NodeCapacity &gt;</a>
 , <a class="el" href="classwmoge_1_1Range.html#afee358b6bdb5a9337fad8a8b93f4cc86">wmoge::Range</a>
-, <a class="el" href="classwmoge_1_1TypedArray.html#a890625f2a66146a38caf5a8768d7b64a">wmoge::TypedArray&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1TypedArray.html#af0b882847dd38a942abb19e8bd8fcc09">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a2cedd69a2e12e9c0bdbdc686593a6a92">wmoge::TypedMap&lt; K, V, H &gt;</a>
 </li>
 <li>begin_capture()
@@ -169,7 +169,7 @@ $(function() {
 <li>bind()
 : <a class="el" href="structwmoge_1_1EcsComponent.html#aee79367b9864cc966552bfeb9a34eb6f">wmoge::EcsComponent&lt; Component &gt;</a>
 , <a class="el" href="classwmoge_1_1IocContainer.html#ab7710255d5c696fd617fe05272d8c101">wmoge::IocContainer</a>
-, <a class="el" href="classwmoge_1_1RDGPass.html#ab46b70ab28dd4fa857480985f1700081">wmoge::RDGPass</a>
+, <a class="el" href="classwmoge_1_1RdgPass.html#a720f6eb699933fec1c0543e870ebf5ba">wmoge::RdgPass</a>
 , <a class="el" href="classwmoge_1_1RttiFunctionSignal.html#ad82c6429e6910a80277b7dc937b90040">wmoge::RttiFunctionSignal</a>
 , <a class="el" href="classwmoge_1_1Signal.html#a44fbfbea8d01f4e82b8e8443351bf2d0">wmoge::Signal&lt; TArgs &gt;</a>
 </li>
@@ -195,15 +195,26 @@ $(function() {
 </li>
 <li>bind_index_buffer()
 : <a class="el" href="classwmoge_1_1GfxCmdList.html#aef16c4c6ccd9dc61e9d29686de61e727">wmoge::GfxCmdList</a>
+, <a class="el" href="classwmoge_1_1RdgPassContext.html#a291d090540b4cec6fd355fa021ffaa70">wmoge::RdgPassContext</a>
 , <a class="el" href="classwmoge_1_1VKCmdList.html#aa0d06c5ee38b0c50ec39525ae5a89800">wmoge::VKCmdList</a>
+</li>
+<li>bind_param_block()
+: <a class="el" href="classwmoge_1_1RdgPassContext.html#a81994e52ef0c36600e52d3c0cfd2efb6">wmoge::RdgPassContext</a>
 </li>
 <li>bind_pso()
 : <a class="el" href="classwmoge_1_1GfxCmdList.html#a04a545a47028516899e5f315a68277a3">wmoge::GfxCmdList</a>
 , <a class="el" href="classwmoge_1_1VKCmdList.html#a528b874528d4868fce96d4107c73507a">wmoge::VKCmdList</a>
 </li>
+<li>bind_pso_compute()
+: <a class="el" href="classwmoge_1_1RdgPassContext.html#a5b214ae104abc99beff4c9c9123a802d">wmoge::RdgPassContext</a>
+</li>
+<li>bind_pso_graphics()
+: <a class="el" href="classwmoge_1_1RdgPassContext.html#a8aa71bdb57059ea731e7edb325ee73f8">wmoge::RdgPassContext</a>
+</li>
 <li>bind_vert_buffer()
-: <a class="el" href="classwmoge_1_1GfxCmdList.html#a34fbf3be2f5cb2e0b60d77843f41202e">wmoge::GfxCmdList</a>
-, <a class="el" href="classwmoge_1_1VKCmdList.html#a015e1d30238ac205fe28b8141a81cfcf">wmoge::VKCmdList</a>
+: <a class="el" href="classwmoge_1_1GfxCmdList.html#a93ce98ec502b6b3a4eeb62d163412a97">wmoge::GfxCmdList</a>
+, <a class="el" href="classwmoge_1_1RdgPassContext.html#a4042ae7865c362e2c07d731f2b9e8cae">wmoge::RdgPassContext</a>
+, <a class="el" href="classwmoge_1_1VKCmdList.html#ae3b97c420f57b865d0cddaa88391cc46">wmoge::VKCmdList</a>
 </li>
 <li>binding
 : <a class="el" href="structwmoge_1_1GfxDescBindPoint.html#a83e4a56d5345dba2e538dc5986490656">wmoge::GfxDescBindPoint</a>
@@ -290,10 +301,16 @@ $(function() {
 , <a class="el" href="structwmoge_1_1GfxBufferSetup.html#abe4e287297ee4fbbe3d33822e149b2a3">wmoge::GfxBufferSetup&lt; Buffer &gt;</a>
 , <a class="el" href="structwmoge_1_1GfxIndexBufferSetup.html#aa1cce383d7d8d19bfed37802cf94a62e">wmoge::GfxIndexBufferSetup</a>
 , <a class="el" href="structwmoge_1_1GfxVertElement.html#a231dc2b831aba9348966f002b16fe485">wmoge::GfxVertElement</a>
+, <a class="el" href="structwmoge_1_1GpuMemIndex.html#af9a8771ac6fd3e03c5ee0c1366f8e2a4">wmoge::GpuMemIndex</a>
+, <a class="el" href="structwmoge_1_1GpuMemStorage.html#a0eb31069bd53244e3872178135a47853">wmoge::GpuMemStorage</a>
+, <a class="el" href="structwmoge_1_1GpuMemVert.html#a150c520787c56d67a01b3c6d7729737d">wmoge::GpuMemVert</a>
 , <a class="el" href="structwmoge_1_1MeshIndexStream.html#a35670d8387628c7e7748267806103a28">wmoge::MeshIndexStream</a>
 , <a class="el" href="structwmoge_1_1MeshVertStream.html#a5bcacf74da8d74c1575f8f442b23063f">wmoge::MeshVertStream</a>
 , <a class="el" href="structwmoge_1_1ShaderParamInfo.html#a9418f9376475c6563dbf0e0ab091c62d">wmoge::ShaderParamInfo</a>
 , <a class="el" href="classwmoge_1_1VKBuffer.html#a67e6a37ef3014db1827afdea93f6d43c">wmoge::VKBuffer</a>
+</li>
+<li>buffer_capacity()
+: <a class="el" href="classwmoge_1_1GpuBuffer.html#a391f9061695b65a68e0eb3d50aaabc81">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
 </li>
 <li>buffer_type
 : <a class="el" href="classwmoge_1_1TypedArray.html#ad6ad81b71a4e8d30e678c0f68db18a40">wmoge::TypedArray&lt; T &gt;</a>
@@ -310,6 +327,12 @@ $(function() {
 <li>buffers_count()
 : <a class="el" href="classwmoge_1_1VKVertFormat.html#aa3550d557f0ad9646298551d052b08da">wmoge::VKVertFormat</a>
 </li>
+<li>BufferType
+: <a class="el" href="classwmoge_1_1GpuBuffer.html#acf9418a49fb30770a2f94012565d4c15">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
+, <a class="el" href="structwmoge_1_1GpuMemIndex.html#a6f4be354d454e8e7f081c22cc4e83645">wmoge::GpuMemIndex</a>
+, <a class="el" href="structwmoge_1_1GpuMemStorage.html#aabce329bd333e6962c61b463578eb502">wmoge::GpuMemStorage</a>
+, <a class="el" href="structwmoge_1_1GpuMemVert.html#af9fa281a3da523102e5acee9d0240384">wmoge::GpuMemVert</a>
+</li>
 <li>BufferView
 : <a class="el" href="classwmoge_1_1IoAsyncFileSystem.html#aa250854c50aff0c869909c3950ad1215">wmoge::IoAsyncFileSystem</a>
 </li>
@@ -318,17 +341,14 @@ $(function() {
 </li>
 <li>build_entities()
 : <a class="el" href="classwmoge_1_1EntityFeatureTrait.html#a7b3a19a56803bca9ea7cdb06bdd86aa1">wmoge::EntityFeatureTrait</a>
+, <a class="el" href="classwmoge_1_1EntitySimpleFeatureTrait.html#a2a996e39fee0b008b8f128d5c3820f87">wmoge::EntitySimpleFeatureTrait&lt; T, FeatureType, VectorType &gt;</a>
 </li>
 <li>build_entity()
 : <a class="el" href="classwmoge_1_1EntityFeatureTrait.html#aa55fac695e9465b1210ddc7970fb0658">wmoge::EntityFeatureTrait</a>
-, <a class="el" href="classwmoge_1_1EntitySimpleFeatureTrait.html#af4bac27daccbd2dc08cf28a2b5ec92d4">wmoge::EntitySimpleFeatureTrait&lt; T &gt;</a>
+, <a class="el" href="classwmoge_1_1EntitySimpleFeatureTrait.html#ab61b2a9a2f681de8b50284e3cbad92ff">wmoge::EntitySimpleFeatureTrait&lt; T, FeatureType, VectorType &gt;</a>
 </li>
 <li>build_entity_typed()
-: <a class="el" href="classwmoge_1_1EntitySimpleFeatureTrait.html#a6bca3d79fd3f1f2d0336b7b43d24017e">wmoge::EntitySimpleFeatureTrait&lt; T &gt;</a>
-, <a class="el" href="classwmoge_1_1GmDebugLabelFeatureTrait.html#abaee5a7cc8211b987c1e8658279ce23a">wmoge::GmDebugLabelFeatureTrait</a>
-, <a class="el" href="classwmoge_1_1GmDebugMeshFeatureTrait.html#a5736eada355af88c5dbf358a15c2d906">wmoge::GmDebugMeshFeatureTrait</a>
-, <a class="el" href="classwmoge_1_1GmDebugPrimitiveFeatureTrait.html#a0bdc755407949558291a190835698d72">wmoge::GmDebugPrimitiveFeatureTrait</a>
-, <a class="el" href="classwmoge_1_1GmTransformFeatureTrait.html#a8d59687362dd3c9dc5f4c56b30b64756">wmoge::GmTransformFeatureTrait</a>
+: <a class="el" href="classwmoge_1_1EntitySimpleFeatureTrait.html#a38051392ba9f101b906c1627b50b5ddf">wmoge::EntitySimpleFeatureTrait&lt; T, FeatureType, VectorType &gt;</a>
 </li>
 <li>build_scene()
 : <a class="el" href="classwmoge_1_1SceneManager.html#a46cd91d2381c4c71b58e96565443dce9">wmoge::SceneManager</a>

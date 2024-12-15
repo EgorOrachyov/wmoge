@@ -1,5 +1,8 @@
 <map id="wmoge::EcsAccess" name="wmoge::EcsAccess">
-<area shape="rect" id="node1" title="Configures query to iterate over specific type of entities." alt="" coords="158,5,294,32"/>
-<area shape="rect" id="node2" href="$structwmoge_1_1GmDebugLabelAccess.html" title=" " alt="" coords="5,80,209,107"/>
-<area shape="rect" id="node3" href="$structwmoge_1_1GmDebugPrimitiveAccess.html" title=" " alt="" coords="233,80,456,107"/>
+<area shape="rect" id="node1" title="Configures query to iterate over specific type of entities." alt="" coords="5,107,141,133"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1GmDebugLabelAccess.html" title=" " alt="" coords="199,5,403,32"/>
+<area shape="rect" id="node3" href="$structwmoge_1_1GmDebugMeshAccess.html" title=" " alt="" coords="199,56,403,83"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1GmDebugPrimitiveAccess.html" title=" " alt="" coords="189,107,412,133"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1GmTransfromFlatAccess.html" title=" " alt="" coords="193,157,409,184"/>
+<area shape="rect" id="node6" href="$structwmoge_1_1GmTransfromHierAccess.html" title=" " alt="" coords="191,208,410,235"/>
 </map>

@@ -83,9 +83,8 @@ Collaboration diagram for wmoge::ShaderTechniqueInfo:</div>
 <div class="dyncontent">
 <div class="center"><img src="structwmoge_1_1ShaderTechniqueInfo__coll__graph.png" border="0" usemap="#awmoge_1_1ShaderTechniqueInfo_coll__map" alt="Collaboration graph"/></div>
 <map name="awmoge_1_1ShaderTechniqueInfo_coll__map" id="awmoge_1_1ShaderTechniqueInfo_coll__map">
-<area shape="rect" title="Defines single technique as collection of passes for drawing." alt="" coords="32,95,225,121"/>
-<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
-<area shape="rect" href="structwmoge_1_1ShaderOptions.html" title="Map of options for a technique or pass." alt="" coords="127,5,283,32"/>
+<area shape="rect" title="Defines single technique as collection of passes for drawing." alt="" coords="5,95,199,121"/>
+<area shape="rect" href="classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="53,5,151,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -98,8 +97,6 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a0048da3c284ec810e08d197ed26fd1b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Strid.html">Strid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#a0048da3c284ec810e08d197ed26fd1b7">name</a></td></tr>
 <tr class="separator:a0048da3c284ec810e08d197ed26fd1b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2afc1797cab9483b433af08211dd922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmoge_1_1ShaderOptions.html">ShaderOptions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#ac2afc1797cab9483b433af08211dd922">options</a></td></tr>
-<tr class="separator:ac2afc1797cab9483b433af08211dd922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79d1108e2a4fed46954b4a3af1fb54b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="structwmoge_1_1ShaderPassInfo.html">ShaderPassInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#a79d1108e2a4fed46954b4a3af1fb54b1">passes</a></td></tr>
 <tr class="separator:a79d1108e2a4fed46954b4a3af1fb54b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dc4f3f1d30c5651cf242e9e9b1ddd52"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#aa988dc48fe4b0141aa56bb926a81c484">flat_map</a>&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a>, std::int16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#a4dc4f3f1d30c5651cf242e9e9b1ddd52">passes_map</a></td></tr>
@@ -110,10 +107,6 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a96e339c2bb32d5545db03ac78404d273"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dc94917b78211d4d0dd89645361dedb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#a1dc94917b78211d4d0dd89645361dedb">ui_hint</a></td></tr>
 <tr class="separator:a1dc94917b78211d4d0dd89645361dedb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7c84f03e6fc32e9df1d64faeca7c1a8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#ae7c84f03e6fc32e9df1d64faeca7c1a8">options_remap</a></td></tr>
-<tr class="separator:ae7c84f03e6fc32e9df1d64faeca7c1a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbc1b3f9cc4cbeb7b8d354d067978ae1"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmoge_1_1Strid.html">Strid</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1ShaderTechniqueInfo.html#abbc1b3f9cc4cbeb7b8d354d067978ae1">variants_remap</a></td></tr>
-<tr class="separator:abbc1b3f9cc4cbeb7b8d354d067978ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines single technique as collection of passes for drawing. </p>
@@ -145,34 +138,6 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Strid.html">Strid</a> wmoge::ShaderTechniqueInfo::name</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac2afc1797cab9483b433af08211dd922"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2afc1797cab9483b433af08211dd922">&#9670;&nbsp;</a></span>options</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structwmoge_1_1ShaderOptions.html">ShaderOptions</a> wmoge::ShaderTechniqueInfo::options</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae7c84f03e6fc32e9df1d64faeca7c1a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7c84f03e6fc32e9df1d64faeca7c1a8">&#9670;&nbsp;</a></span>options_remap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classwmoge_1_1Strid.html">Strid</a>&gt; wmoge::ShaderTechniqueInfo::options_remap</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -243,20 +208,6 @@ Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">std::string wmoge::ShaderTechniqueInfo::ui_name</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abbc1b3f9cc4cbeb7b8d354d067978ae1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbc1b3f9cc4cbeb7b8d354d067978ae1">&#9670;&nbsp;</a></span>variants_remap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="classwmoge_1_1Strid.html">Strid</a>&gt; wmoge::ShaderTechniqueInfo::variants_remap</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -1,13 +1,5 @@
 <map id="wmoge::EntityFeatureTrait" name="wmoge::EntityFeatureTrait">
-<area shape="rect" id="node1" title="Entity trait responsible for handling partical features on the entity." alt="" coords="164,143,336,170"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="384,5,607,47"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="393,71,597,112"/>
-<area shape="rect" id="node7" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="393,136,597,177"/>
-<area shape="rect" id="node9" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="398,201,593,243"/>
-<area shape="rect" id="node11" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="402,267,589,308"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="5,143,116,170"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1GmDebugPrimitiveFeatureTrait.html" title=" " alt="" coords="655,5,877,47"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1GmDebugLabelFeatureTrait.html" title=" " alt="" coords="664,71,868,112"/>
-<area shape="rect" id="node8" href="$classwmoge_1_1GmDebugMeshFeatureTrait.html" title=" " alt="" coords="664,136,868,177"/>
-<area shape="rect" id="node10" href="$classwmoge_1_1GmTransformFeatureTrait.html" title=" " alt="" coords="669,201,863,243"/>
+<area shape="rect" id="node1" title="Entity trait responsible for handling partical features on the entity." alt="" coords="13,80,185,107"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="5,155,192,211"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="43,5,154,32"/>
 </map>

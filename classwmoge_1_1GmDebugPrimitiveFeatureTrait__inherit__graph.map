@@ -1,6 +1,0 @@
-<map id="wmoge::GmDebugPrimitiveFeatureTrait" name="wmoge::GmDebugPrimitiveFeatureTrait">
-<area shape="rect" id="node1" title=" " alt="" coords="5,244,228,285"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1EntitySimpleFeatureTrait.html" title=" " alt="" coords="5,155,228,196"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1EntityFeatureTrait.html" title="Entity trait responsible for handling partical features on the entity." alt="" coords="31,80,203,107"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="61,5,172,32"/>
-</map>

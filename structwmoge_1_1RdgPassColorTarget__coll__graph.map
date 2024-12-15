@@ -1,0 +1,7 @@
+<map id="wmoge::RdgPassColorTarget" name="wmoge::RdgPassColorTarget">
+<area shape="rect" id="node1" title="Rdg pass color target info." alt="" coords="20,247,211,273"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1TVecN.html" title=" " alt="" coords="5,157,164,184"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RdgTexture.html" title="Rdg texture resource." alt="" coords="189,157,325,184"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RdgResource.html" title="Rdg resource base class." alt="" coords="183,81,331,108"/>
+<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="201,5,312,32"/>
+</map>

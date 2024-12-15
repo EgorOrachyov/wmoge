@@ -422,6 +422,9 @@ $(function() {
 , <a class="el" href="structwmoge_1_1ProfilerCpuStackEvent.html#ad7b4cbf3b474dae01ed309ab75e31681">wmoge::ProfilerCpuStackEvent</a>
 , <a class="el" href="structwmoge_1_1ProfilerGpuEvent.html#af2db9027f4667d0cc8ad515cc4082a1f">wmoge::ProfilerGpuEvent</a>
 </li>
+<li>mat
+: <a class="el" href="structwmoge_1_1AuxDrawMeshFaces.html#af0146cd311f93f8b81e99fd9e00e55f1">wmoge::AuxDrawMeshFaces</a>
+</li>
 <li>MAT2
 : <a class="el" href="structwmoge_1_1ShaderTypes.html#aa9381bfb322b6383b3fdc584715a9b9d">wmoge::ShaderTypes</a>
 </li>
@@ -431,13 +434,14 @@ $(function() {
 <li>MAT4
 : <a class="el" href="structwmoge_1_1ShaderTypes.html#a29706747da3d96a8cd07eadfe14ea15f">wmoge::ShaderTypes</a>
 </li>
-<li>mat_view_proj
-: <a class="el" href="structwmoge_1_1AuxDrawPrimitive_1_1FillParams.html#a6c7a3577ed6d3e1b2e619a8c1f681a7a">wmoge::AuxDrawPrimitive::FillParams</a>
-</li>
 <li>material
-: <a class="el" href="structwmoge_1_1GmDebugMeshComponent.html#a330e4ae8aec14537a9929d1acab9b990">wmoge::GmDebugMeshComponent</a>
-, <a class="el" href="structwmoge_1_1MeshBatch.html#afe2a4150c3abec39f254edaac603411e">wmoge::MeshBatch</a>
-, <a class="el" href="structwmoge_1_1ModelObj.html#acc8edbb99dfa6fcdbbd48bc761505dc1">wmoge::ModelObj</a>
+: <a class="el" href="structwmoge_1_1MeshBatch.html#afe2a4150c3abec39f254edaac603411e">wmoge::MeshBatch</a>
+</li>
+<li>material_idx
+: <a class="el" href="structwmoge_1_1ModelObj.html#a5fd7db8fba72843561a163c87cc70250">wmoge::ModelObj</a>
+</li>
+<li>materials
+: <a class="el" href="structwmoge_1_1ModelDesc.html#acdefebf8f56e81e3375e3ff9d8f7dabb">wmoge::ModelDesc</a>
 </li>
 <li>max_anisotropy
 : <a class="el" href="structwmoge_1_1GfxDeviceCaps.html#a8eead0e1399cb15cd726397d14c6a8ca">wmoge::GfxDeviceCaps</a>
@@ -494,6 +498,9 @@ $(function() {
 </li>
 <li>max_height
 : <a class="el" href="structwmoge_1_1FontDesc.html#ade4f6c3bb8c4facd5a5dedb14812df7f">wmoge::FontDesc</a>
+</li>
+<li>MAX_IMAGES
+: <a class="el" href="structwmoge_1_1ShaderCanvas.html#a9d354398f0c47ef0bdf08a1bb01174f2">wmoge::ShaderCanvas</a>
 </li>
 <li>max_images
 : <a class="el" href="structwmoge_1_1VKDescPoolConfig.html#a007286f6343b0acb3d165708ff141ec5">wmoge::VKDescPoolConfig</a>
@@ -560,10 +567,19 @@ $(function() {
 </li>
 <li>mem_usage
 : <a class="el" href="structwmoge_1_1GfxTextureDesc.html#a14121a2b737ff1b5be9e1c8c5f906270">wmoge::GfxTextureDesc</a>
-, <a class="el" href="structwmoge_1_1TextureDesc.html#a9f26c434558e4b9b3ac63d88acbcccae">wmoge::TextureDesc</a>
+</li>
+<li>MEM_USAGE
+: <a class="el" href="classwmoge_1_1GpuBuffer.html#aa3ff2be340206c544f00b99998c3326f">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
+, <a class="el" href="structwmoge_1_1GpuPolicyHostIndex.html#ada5cdb0944509bdfee8e76beb7a1ef0d">wmoge::GpuPolicyHostIndex&lt; T &gt;</a>
+, <a class="el" href="structwmoge_1_1GpuPolicyHostStorage.html#a65b3d573d79cf666d882cac6c824ebef">wmoge::GpuPolicyHostStorage&lt; T &gt;</a>
+, <a class="el" href="structwmoge_1_1GpuPolicyHostVert.html#af0f2efa6d32743e76f6c269d334f91ee">wmoge::GpuPolicyHostVert&lt; T &gt;</a>
+</li>
+<li>mem_usage
+: <a class="el" href="structwmoge_1_1TextureDesc.html#a9f26c434558e4b9b3ac63d88acbcccae">wmoge::TextureDesc</a>
 </li>
 <li>mesh
-: <a class="el" href="structwmoge_1_1GmDebugMeshComponent.html#afa136cc7c9b76a00889204099e253129">wmoge::GmDebugMeshComponent</a>
+: <a class="el" href="structwmoge_1_1GmDebugMesh.html#a1a1b56f8f6db2bf00531934c551e2b1c">wmoge::GmDebugMesh</a>
+, <a class="el" href="structwmoge_1_1GmDebugMeshComponent.html#afa136cc7c9b76a00889204099e253129">wmoge::GmDebugMeshComponent</a>
 </li>
 <li>mesh_idx
 : <a class="el" href="structwmoge_1_1ModelObj.html#afbce6cd43dc06c1f4db1c17e60512ef5">wmoge::ModelObj</a>
@@ -572,7 +588,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1MeshBatch.html#ae6c28408eeeb4da38b0426d79d1abd27">wmoge::MeshBatch</a>
 </li>
 <li>meshes
-: <a class="el" href="structwmoge_1_1ModelFile.html#ace4357c000834917313a68bb18fbe99d">wmoge::ModelFile</a>
+: <a class="el" href="structwmoge_1_1ModelDesc.html#a9806bc6a9a7cc33688d586497eeaeec3">wmoge::ModelDesc</a>
 </li>
 <li>message
 : <a class="el" href="structwmoge_1_1LogEntry.html#a267bdae4e20f17b7f4e3a91ebd7e9f33">wmoge::LogEntry</a>

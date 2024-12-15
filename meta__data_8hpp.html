@@ -218,12 +218,18 @@ Macros</h2></td></tr>
 <tr class="separator:a5843edc1d99ff362b4465b709cf40713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f953c3cf36eafa73eb361d954431268"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a4f953c3cf36eafa73eb361d954431268">RttiOptional</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Optional)</td></tr>
 <tr class="separator:a4f953c3cf36eafa73eb361d954431268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd495d26ebfb9847b56cf7455104b44"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a5dd495d26ebfb9847b56cf7455104b44">RttiInline</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Inline)</td></tr>
+<tr class="separator:a5dd495d26ebfb9847b56cf7455104b44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a120c21b49c4e6bcd26baf142ac8b9a89"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a120c21b49c4e6bcd26baf142ac8b9a89">RttiUiName</a>(str)&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))</td></tr>
 <tr class="separator:a120c21b49c4e6bcd26baf142ac8b9a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3167e1c27d51d33e48dc6d85fbdb4832"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a3167e1c27d51d33e48dc6d85fbdb4832">RttiUiHint</a>(str)&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))</td></tr>
 <tr class="separator:a3167e1c27d51d33e48dc6d85fbdb4832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e890d27c01ca979f099c8c93afa37b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a0e890d27c01ca979f099c8c93afa37b1">RttiUiCategory</a>(str)&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, Strid(str))</td></tr>
 <tr class="separator:a0e890d27c01ca979f099c8c93afa37b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d2b39f5904275555d6ebe9e14f9f9a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#a8d2b39f5904275555d6ebe9e14f9f9a7">RttiUiInline</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiInline)</td></tr>
+<tr class="separator:a8d2b39f5904275555d6ebe9e14f9f9a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6afce0983a555917a89ce051d2b440"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="meta__data_8hpp.html#acb6afce0983a555917a89ce051d2b440">RttiUiHidden</a>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiHidden)</td></tr>
+<tr class="separator:acb6afce0983a555917a89ce051d2b440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -233,15 +239,33 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564af78c3a0e5ac40f445fc4a52c14d8f3c3">wmoge::NoScriptExport</a>
 , <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564aebb061953c0454b2c8ee7b0ac615ebcd">wmoge::Optional</a>
 , <br />
-&#160;&#160;<a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a834e4e8a7bddeb8a06c4e55161e232ad">wmoge::UiName</a>
+&#160;&#160;<a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a0125cf5f3ca38b312ca5d3b511c45a13">wmoge::Inline</a>
+, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a834e4e8a7bddeb8a06c4e55161e232ad">wmoge::UiName</a>
 , <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564ada12a91406db3d639469aa9cceb52c38">wmoge::UiHint</a>
 , <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a0d6ac7b0534cdd34e24224715be50d18">wmoge::UiCategory</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a34af7b607e10332e3f8a18a9fe7c028d">wmoge::UiInline</a>
+, <a class="el" href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564a8d6b44d86ec761940cb530cad2a96951">wmoge::UiHidden</a>
 <br />
  }</td></tr>
 <tr class="memdesc:a5dfd16e53aee8ebcddfe0cbd143ef564"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of available meta attributes.  <a href="namespacewmoge.html#a5dfd16e53aee8ebcddfe0cbd143ef564">More...</a><br /></td></tr>
 <tr class="separator:a5dfd16e53aee8ebcddfe0cbd143ef564"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a5dd495d26ebfb9847b56cf7455104b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dd495d26ebfb9847b56cf7455104b44">&#9670;&nbsp;</a></span>RttiInline</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RttiInline&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::Inline)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a2877836135cc18baebd0f77cf19319ca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2877836135cc18baebd0f77cf19319ca">&#9670;&nbsp;</a></span>RttiNoCopy</h2>
 
@@ -316,6 +340,20 @@ Enumerations</h2></td></tr>
 
 </div>
 </div>
+<a id="acb6afce0983a555917a89ce051d2b440"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6afce0983a555917a89ce051d2b440">&#9670;&nbsp;</a></span>RttiUiHidden</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RttiUiHidden&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiHidden)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3167e1c27d51d33e48dc6d85fbdb4832"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3167e1c27d51d33e48dc6d85fbdb4832">&#9670;&nbsp;</a></span>RttiUiHint</h2>
 
@@ -328,6 +366,20 @@ Enumerations</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">str</td><td>)</td>
           <td>&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiName, std::string(str))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d2b39f5904275555d6ebe9e14f9f9a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d2b39f5904275555d6ebe9e14f9f9a7">&#9670;&nbsp;</a></span>RttiUiInline</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RttiUiInline&#160;&#160;&#160;RttiMetaProperty(RttiMetaAttribute::UiInline)</td>
         </tr>
       </table>
 </div><div class="memdoc">

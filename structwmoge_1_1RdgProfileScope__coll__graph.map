@@ -1,0 +1,4 @@
+<map id="wmoge::RdgProfileScope" name="wmoge::RdgProfileScope">
+<area shape="rect" id="node1" title="Rdg scope for graph profiling." alt="" coords="5,95,172,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RdgGraph.html" title="Complete graph of passes for execution on gpu." alt="" coords="25,5,153,32"/>
+</map>

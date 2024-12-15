@@ -107,8 +107,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a32de34cd414719728e8bd47e431bb88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45989a5a58a1a739b2b24704efc665cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a45989a5a58a1a739b2b24704efc665cb">restore_defaults</a> ()</td></tr>
 <tr class="separator:a45989a5a58a1a739b2b24704efc665cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa285ac3e2e946a77e16259f7bf512525"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#aa285ac3e2e946a77e16259f7bf512525">validate</a> (class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *shader_manager, class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *driver, class <a class="el" href="classwmoge_1_1GfxCmdList.html">GfxCmdList</a> *cmd_list)</td></tr>
-<tr class="separator:aa285ac3e2e946a77e16259f7bf512525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c02620223a77bb11edccc8bc30b967"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a68c02620223a77bb11edccc8bc30b967">validate_buffers</a> (class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *driver, class <a class="el" href="classwmoge_1_1GfxCmdList.html">GfxCmdList</a> *cmd_list, <a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="classwmoge_1_1GfxBuffer.html">GfxBuffer</a> * &gt; &amp;barrier_buffers)</td></tr>
+<tr class="separator:a68c02620223a77bb11edccc8bc30b967"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc73c856680a104c17b18479fba5db2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a4cc73c856680a104c17b18479fba5db2">validate_set</a> (class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *driver, const <a class="el" href="namespacewmoge.html#a1d019d677923c619e3bc849b0e7df804">GfxDescSetLayoutRef</a> &amp;layout)</td></tr>
+<tr class="separator:a4cc73c856680a104c17b18479fba5db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae32b825d8bdd481a2ab57696ec6dc0ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#ae32b825d8bdd481a2ab57696ec6dc0ef">set_var</a> (<a class="el" href="namespacewmoge.html#ad4abf95435e430205c4654793ebb051a">ShaderParamId</a> param_id, int v)</td></tr>
 <tr class="separator:ae32b825d8bdd481a2ab57696ec6dc0ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3748687fe3744568e4c7ca9bb1f9caaa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderParamBlock.html#a3748687fe3744568e4c7ca9bb1f9caaa">set_var</a> (<a class="el" href="namespacewmoge.html#ad4abf95435e430205c4654793ebb051a">ShaderParamId</a> param_id, float v)</td></tr>
@@ -223,7 +225,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct empty block with no setup. Configure it using <code>reset</code> method. </p>
+<p>Construct empty block with no setup. Configure it using <code>init</code> method. </p>
 
 </div>
 </div>
@@ -1225,21 +1227,15 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aa285ac3e2e946a77e16259f7bf512525"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa285ac3e2e946a77e16259f7bf512525">&#9670;&nbsp;</a></span>validate()</h2>
+<a id="a68c02620223a77bb11edccc8bc30b967"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68c02620223a77bb11edccc8bc30b967">&#9670;&nbsp;</a></span>validate_buffers()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ShaderParamBlock::validate </td>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ShaderParamBlock::validate_buffers </td>
           <td>(</td>
-          <td class="paramtype">class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *&#160;</td>
-          <td class="paramname"><em>shader_manager</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td>
           <td class="paramname"><em>driver</em>, </td>
         </tr>
@@ -1247,7 +1243,41 @@ Additional Inherited Members</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">class <a class="el" href="classwmoge_1_1GfxCmdList.html">GfxCmdList</a> *&#160;</td>
-          <td class="paramname"><em>cmd_list</em>&#160;</td>
+          <td class="paramname"><em>cmd_list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#aab92eeabc73bd97853a14acc053ba596">buffered_vector</a>&lt; <a class="el" href="classwmoge_1_1GfxBuffer.html">GfxBuffer</a> * &gt; &amp;&#160;</td>
+          <td class="paramname"><em>barrier_buffers</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4cc73c856680a104c17b18479fba5db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc73c856680a104c17b18479fba5db2">&#9670;&nbsp;</a></span>validate_set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::ShaderParamBlock::validate_set </td>
+          <td>(</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td>
+          <td class="paramname"><em>driver</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a1d019d677923c619e3bc849b0e7df804">GfxDescSetLayoutRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

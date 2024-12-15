@@ -71,8 +71,9 @@ $(function() {
 : <a class="el" href="classwmoge_1_1Data.html#a59f245702aa0edc060019d80c3d3edd1">wmoge::Data</a>
 </li>
 <li>data()
-: <a class="el" href="classwmoge_1_1TMatMxN.html#ac05dd3a3f77305042ef8c02515604111">wmoge::TMatMxN&lt; T, M, N &gt;</a>
-, <a class="el" href="classwmoge_1_1TVecN.html#adf5b588fa6bd9241d97b1a67d533c983">wmoge::TVecN&lt; T, N &gt;</a>
+: <a class="el" href="classwmoge_1_1GpuBuffer.html#a69d3c2921c0b941157ca123683b26e4e">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
+, <a class="el" href="classwmoge_1_1TMatMxN.html#ac05dd3a3f77305042ef8c02515604111">wmoge::TMatMxN&lt; T, M, N &gt;</a>
+, <a class="el" href="classwmoge_1_1TVecN.html#af56dca80d62c749037c63b98be4e489f">wmoge::TVecN&lt; T, N &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedArray.html#ac44e18326c68c2fc3fd0f335c90809a8">wmoge::TypedArray&lt; T &gt;</a>
 </li>
 <li>data_at()
@@ -85,7 +86,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKMemManager.html#acf2a0895619b9cdf6801384daa77ca6d">wmoge::VKMemManager</a>
 </li>
 <li>decode()
-: <a class="el" href="classwmoge_1_1Base64.html#a11ce2607893e5543bc9fcdd82354558e">wmoge::Base64</a>
+: <a class="el" href="classwmoge_1_1Base64.html#a6bc2bbba802ca92a563bf1922d415865">wmoge::Base64</a>
 </li>
 <li>decompose()
 : <a class="el" href="classwmoge_1_1Math3d.html#afe069ed72b29263aaff78820f795f717">wmoge::Math3d</a>
@@ -115,7 +116,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKWindow.html#acdb01c272a31c3ff45bbb34019da0078">wmoge::VKWindow</a>
 </li>
 <li>depth_target()
-: <a class="el" href="classwmoge_1_1RDGPass.html#aa7822556fbb045ff41decb995637228a">wmoge::RDGPass</a>
+: <a class="el" href="classwmoge_1_1RdgPass.html#a8b5b79cc0e4a72f8aba0d9f271613545">wmoge::RdgPass</a>
 </li>
 <li>desc()
 : <a class="el" href="classwmoge_1_1GfxBuffer.html#a84db81b4a6bf3bca070d6120a8e9f359">wmoge::GfxBuffer</a>
@@ -166,6 +167,7 @@ $(function() {
 </li>
 <li>dispatch()
 : <a class="el" href="classwmoge_1_1GfxCmdList.html#a22fe835e573edb5afc4c9acae601ce5f">wmoge::GfxCmdList</a>
+, <a class="el" href="classwmoge_1_1RdgPassContext.html#afd6c00ba1c115653692e06874bc127c4">wmoge::RdgPassContext</a>
 , <a class="el" href="classwmoge_1_1VKCmdList.html#a10e255335e7db966e2c8d72d89601a8a">wmoge::VKCmdList</a>
 </li>
 <li>distance()
@@ -191,36 +193,88 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TVecN.html#abdfb299b0eafd78cf9ede0edb3228477">wmoge::TVecN&lt; T, N &gt;</a>
 </li>
 <li>draw()
-: <a class="el" href="classwmoge_1_1GfxCmdList.html#afceb1ac1a21e61a98c8fd4ed154f5a50">wmoge::GfxCmdList</a>
+: <a class="el" href="structwmoge_1_1AuxDrawBox.html#a6d8bcb30ef49fb5832c05071db793045">wmoge::AuxDrawBox</a>
+, <a class="el" href="structwmoge_1_1AuxDrawCone.html#a1023aad61960b97a1bd98cc0cdc6ce4e">wmoge::AuxDrawCone</a>
+, <a class="el" href="structwmoge_1_1AuxDrawCylinder.html#a8506ec4a76ba52f9137c237c5cea3d07">wmoge::AuxDrawCylinder</a>
+, <a class="el" href="structwmoge_1_1AuxDrawLine.html#a774b20d8650d4cd3253610178b14a206">wmoge::AuxDrawLine</a>
+, <a class="el" href="structwmoge_1_1AuxDrawMesh.html#a3250ea7d6e4e78e74a8138a4dab3b9ef">wmoge::AuxDrawMesh</a>
+, <a class="el" href="structwmoge_1_1AuxDrawMeshFaces.html#ab3e717d8bf54b0275d096e30fabb3387">wmoge::AuxDrawMeshFaces</a>
+, <a class="el" href="structwmoge_1_1AuxDrawPrimitive.html#a9a0c774758bc186fb8552713d2ab6539">wmoge::AuxDrawPrimitive</a>
+, <a class="el" href="structwmoge_1_1AuxDrawSphere.html#aabc067439b6ed1c65c8a15bd67de90af">wmoge::AuxDrawSphere</a>
+, <a class="el" href="structwmoge_1_1AuxDrawText.html#a8dff09f4fcf32ecbcfbd73e780b9ae22">wmoge::AuxDrawText</a>
+, <a class="el" href="structwmoge_1_1AuxDrawTriangle.html#a5480b4ea29992bbf3a0c301c1f1d1c58">wmoge::AuxDrawTriangle</a>
+, <a class="el" href="classwmoge_1_1GfxCmdList.html#afceb1ac1a21e61a98c8fd4ed154f5a50">wmoge::GfxCmdList</a>
+, <a class="el" href="classwmoge_1_1RdgPassContext.html#a5afb060f96a6966ed6fafbfb88a1de2c">wmoge::RdgPassContext</a>
 , <a class="el" href="classwmoge_1_1VKCmdList.html#a2e09458de73024388a20bb4bc780f040">wmoge::VKCmdList</a>
 </li>
 <li>draw_box()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#afa6acb1e04c9c9ff65265d56fe205ee3">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a50a560f9457bd9efb07749bfd07ef0d8">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#abf4186f8766003fd9b7d56c757f4d075">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_box_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a8ed47509fce1bfd51ae73188020c932c">wmoge::AuxDrawDevice</a>
 </li>
 <li>draw_cone()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#a033b52df185194673c94dc01f7e4fe8e">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#ae2b1166a2a335ea54941d48a75f8bfb4">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a16b1fc74a3bb4830ec3c88368309a066">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_cone_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#afa1b40b14507ed59a3ed1642a26e6334">wmoge::AuxDrawDevice</a>
 </li>
 <li>draw_cylinder()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#a1a8476d151e031625ca43a84de937cb5">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#af812002fceb6b668230c5e7569548a5a">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a391876d27f0332703a59d9e4b3b97fff">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_cylinder_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#ab00b82c4e62d21719859e8ad3bbe0ca0">wmoge::AuxDrawDevice</a>
 </li>
 <li>draw_indexed()
 : <a class="el" href="classwmoge_1_1GfxCmdList.html#aef70d509237fbc48b18d16c5e19f4248">wmoge::GfxCmdList</a>
+, <a class="el" href="classwmoge_1_1RdgPassContext.html#af32cedea21a64505e4510b61a4c92759">wmoge::RdgPassContext</a>
 , <a class="el" href="classwmoge_1_1VKCmdList.html#ad812c7135b64dfb08bc129794247470b">wmoge::VKCmdList</a>
 </li>
 <li>draw_line()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#a02c38c3fd8570d850f0f24cdb1e27331">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#aebcb9b322dd59a2fe5a68ec26ea42562">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#ae3fcf8a3dd14013d8156226cbab27740">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_mesh()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a093b071910ccb8ea7c694c393cbea9ea">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a89996a5d36aa7e3b7168a884218146fd">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_mesh_faces()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a0ea09e7911d07020e6f1f33589591a37">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a7a80f07261013d9dad12175913be95a6">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_mesh_faces_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#abe6ab7d9a76379ab4dc8270b0c8a7ff7">wmoge::AuxDrawDevice</a>
+</li>
+<li>draw_mesh_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#add8275753c5bb4b561ab3fcf8b899860">wmoge::AuxDrawDevice</a>
 </li>
 <li>draw_sphere()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#a54d07bb71aaea64847edc59613ca31d6">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a21a4eeac8ed83852111e50ef4cd4c14a">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a8ab87c027e48b04006352b63cf7dc0d4">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_sphere_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#ae0a73e58778c8b3624079b50821ea460">wmoge::AuxDrawDevice</a>
+</li>
+<li>draw_text()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a0ee13cee5bfb0b25cb60952fbd3d610f">wmoge::AuxDrawDevice</a>
 </li>
 <li>draw_text_2d()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#aa852cee215a15e3d1b56a8b475accf0c">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a9a70c5082557e1a16800e48807e1140f">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a4d4680a38bfadc9bc4e9dca9356a7416">wmoge::AuxDrawManager</a>
 </li>
 <li>draw_text_3d()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#a23ea6e89aee2020386416acdb46ecfe8">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a81e7f334950657edbc012e19294236a9">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a6ff7def07f12f0db7be1cbda3064ae46">wmoge::AuxDrawManager</a>
 </li>
 <li>draw_triangle()
-: <a class="el" href="classwmoge_1_1AuxDrawManager.html#a3a4ad3bb87428a27773dfc71a3bc5db5">wmoge::AuxDrawManager</a>
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a76af62b948e2109afdb6c45296611e98">wmoge::AuxDrawDevice</a>
+, <a class="el" href="classwmoge_1_1AuxDrawManager.html#a4877955818dada4585e6695fd5ed69c0">wmoge::AuxDrawManager</a>
+</li>
+<li>draw_triangle_solid()
+: <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a8027be9b4e8a7889518b67d143d70240">wmoge::AuxDrawDevice</a>
 </li>
 <li>driver()
 : <a class="el" href="classwmoge_1_1VKBuffer.html#aec1ec12047764f53b35b34cf381e0678">wmoge::VKBuffer</a>

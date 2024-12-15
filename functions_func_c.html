@@ -75,7 +75,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1RttiFunctionT.html#adb5d1e9645a1d822fd14b9d9405e4928">wmoge::RttiFunctionT&lt; TClass, TSignature, TRet, TArgs &gt;</a>
 </li>
 <li>CallbackQueue()
-: <a class="el" href="classwmoge_1_1CallbackQueue.html#a959e735a02130777f55e9d785cd3e0eb">wmoge::CallbackQueue</a>
+: <a class="el" href="classwmoge_1_1CallbackQueue.html#ad8223cdd85249467661beddc140d3947">wmoge::CallbackQueue</a>
 </li>
 <li>CallbackStream()
 : <a class="el" href="classwmoge_1_1CallbackStream.html#a75a9719aa0a434c26ecd5d50078b8fff">wmoge::CallbackStream</a>
@@ -109,6 +109,9 @@ $(function() {
 <li>Canvas()
 : <a class="el" href="classwmoge_1_1Canvas.html#a2b66767478c25e47877b3edea6870f58">wmoge::Canvas</a>
 </li>
+<li>canvas()
+: <a class="el" href="classwmoge_1_1ShaderTable.html#a5dc566fa39b58aad0cd2842b4da9e456">wmoge::ShaderTable</a>
+</li>
 <li>CanvasSharedData()
 : <a class="el" href="structwmoge_1_1CanvasSharedData.html#ab4fe066f9a3f90610619628551f4dc53">wmoge::CanvasSharedData</a>
 </li>
@@ -130,9 +133,6 @@ $(function() {
 </li>
 <li>change_path()
 : <a class="el" href="classwmoge_1_1MountVolumePhysical.html#a5fdcaeb1553da67621f6cd00a6100a8c">wmoge::MountVolumePhysical</a>
-</li>
-<li>change_scene()
-: <a class="el" href="classwmoge_1_1SceneManager.html#a489b636b87764c5a73d039c249bd3e20">wmoge::SceneManager</a>
 </li>
 <li>check()
 : <a class="el" href="classwmoge_1_1TPlane.html#ae29eb9cb94db306f7694b7a9558ea982">wmoge::TPlane&lt; T &gt;</a>
@@ -182,6 +182,7 @@ $(function() {
 </li>
 <li>clear()
 : <a class="el" href="classwmoge_1_1AssetManager.html#adbbeb7e88d7917ac5b37e27ea7ae3139">wmoge::AssetManager</a>
+, <a class="el" href="classwmoge_1_1AuxDrawDevice.html#a9f3f2941f9d11de48660077334b25994">wmoge::AuxDrawDevice</a>
 , <a class="el" href="classwmoge_1_1CallbackQueue.html#a62f8930115f69882c51393f72b5d731c">wmoge::CallbackQueue</a>
 , <a class="el" href="classwmoge_1_1CameraList.html#a61be793cabd59d3086d5fce424491385">wmoge::CameraList</a>
 , <a class="el" href="classwmoge_1_1Canvas.html#ac285cb16632e7310bc1a432830ec717f">wmoge::Canvas</a>
@@ -190,7 +191,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1ConfigFile.html#a0d5172998506cd70dc6ce705ac95ec55">wmoge::ConfigFile</a>
 , <a class="el" href="classwmoge_1_1EcsArchStorage.html#a659c74ff2da425db1de6d11bcdc52e51">wmoge::EcsArchStorage</a>
 , <a class="el" href="classwmoge_1_1EcsWorld.html#ac61564df905284ca2906cb9c53f5599f">wmoge::EcsWorld</a>
-, <a class="el" href="classwmoge_1_1GfxVector.html#ad6bca28dc9f3e02f4072da8ec6638281">wmoge::GfxVector&lt; T, Storage &gt;</a>
+, <a class="el" href="classwmoge_1_1GpuBuffer.html#ab2fa21e3e18d8e3144e192480edb813e">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
 , <a class="el" href="classwmoge_1_1IocContainer.html#ad557bfb187efdfe6658227675505f5a9">wmoge::IocContainer</a>
 , <a class="el" href="classwmoge_1_1MeshBatchCollector.html#a939a0e84b4db812f13be5de6e456220c">wmoge::MeshBatchCollector</a>
 , <a class="el" href="classwmoge_1_1MeshBatchCompiler.html#aaa7b41b1fe76d94a3ac15e844c59bc79">wmoge::MeshBatchCompiler</a>
@@ -253,7 +254,7 @@ $(function() {
 : <a class="el" href="classwmoge_1_1VKWindow.html#a44ce455ab6bb19fbcd612170a34f9bcf">wmoge::VKWindow</a>
 </li>
 <li>color_target()
-: <a class="el" href="classwmoge_1_1RDGPass.html#a8214987158176dcd631ddcb64ad43991">wmoge::RDGPass</a>
+: <a class="el" href="classwmoge_1_1RdgPass.html#a12046fb66b4266d7285121bbfa75fd33">wmoge::RdgPass</a>
 </li>
 <li>color_targets_count()
 : <a class="el" href="classwmoge_1_1VKRenderPass.html#a271617aaca7061f927cdd2b5d9d243e8">wmoge::VKRenderPass</a>
@@ -265,7 +266,7 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GlslShaderCompilerAdapter.html#a6ec3067f0e3ee30632ecca5bfbbda61c">wmoge::GlslShaderCompilerAdapter</a>
 , <a class="el" href="classwmoge_1_1MeshPassProcessor.html#afb7b64084f243b405884a8cc744ebdfe">wmoge::MeshPassProcessor</a>
 , <a class="el" href="classwmoge_1_1MeshPassProcessorGBuffer.html#a6e6be910995087c7e1c32e6f5df115f0">wmoge::MeshPassProcessorGBuffer</a>
-, <a class="el" href="classwmoge_1_1RDGGraph.html#abd29d0d4eeb3b4997f53c24d717a99db">wmoge::RDGGraph</a>
+, <a class="el" href="classwmoge_1_1RdgGraph.html#a77b248b7f3bd3f6b83264287747e7d83">wmoge::RdgGraph</a>
 , <a class="el" href="classwmoge_1_1ShaderCompiler.html#aeb68aedfb57181a2b220d06021e2242f">wmoge::ShaderCompiler</a>
 , <a class="el" href="classwmoge_1_1VKPsoCompute.html#a5bfeb6c4f101bb8f02259c9e143f7284">wmoge::VKPsoCompute</a>
 , <a class="el" href="classwmoge_1_1VKPsoGraphics.html#acf8887ba56206afa09b06c03e7cdbf8e">wmoge::VKPsoGraphics</a>
@@ -296,9 +297,6 @@ $(function() {
 </li>
 <li>ConfigFile()
 : <a class="el" href="classwmoge_1_1ConfigFile.html#a87fd6221b42da0aaafdeddc7cf9e1d82">wmoge::ConfigFile</a>
-</li>
-<li>configure()
-: <a class="el" href="classwmoge_1_1ShaderPass.html#ab830a3556b3dfd5eb1b580b97e05be84">wmoge::ShaderPass</a>
 </li>
 <li>conjugate()
 : <a class="el" href="classwmoge_1_1TQuat.html#a860b43bde5a73b802064a4676d251c9b">wmoge::TQuat&lt; T &gt;</a>
@@ -331,6 +329,12 @@ $(function() {
 , <a class="el" href="classwmoge_1_1TypedArray.html#a3b1dbdd9ba2c341501dd81578e26ca9f">wmoge::TypedArray&lt; T &gt;</a>
 , <a class="el" href="classwmoge_1_1TypedMap.html#a2f050467d59343cceaa517e4ba74dc01">wmoge::TypedMap&lt; K, V, H &gt;</a>
 , <a class="el" href="classwmoge_1_1VKDescSet.html#af11166a43f66f236aa4882eaef4a65f7">wmoge::VKDescSet</a>
+</li>
+<li>copy_destination()
+: <a class="el" href="classwmoge_1_1RdgPass.html#a7c2c1f9dd8bc300240f2ff26167ae464">wmoge::RdgPass</a>
+</li>
+<li>copy_source()
+: <a class="el" href="classwmoge_1_1RdgPass.html#ab1b93152c8a141395879310f8b8eea10">wmoge::RdgPass</a>
 </li>
 <li>copy_to()
 : <a class="el" href="classwmoge_1_1Object.html#a4f5046efc308880c57c27ed7ef725138">wmoge::Object</a>
@@ -366,10 +370,10 @@ $(function() {
 : <a class="el" href="classwmoge_1_1MeshManager.html#a6703752f931c4cbae0b71e2a697beddd">wmoge::MeshManager</a>
 </li>
 <li>create_storage_buffer()
-: <a class="el" href="classwmoge_1_1RDGGraph.html#a0dd2938d907de0fef2de689ea2913b58">wmoge::RDGGraph</a>
+: <a class="el" href="classwmoge_1_1RdgGraph.html#a05315bcf84342778c5f2b243c794cfd3">wmoge::RdgGraph</a>
 </li>
 <li>create_texture()
-: <a class="el" href="classwmoge_1_1RDGGraph.html#a6749152fb6161d6876b862876d42a6c5">wmoge::RDGGraph</a>
+: <a class="el" href="classwmoge_1_1RdgGraph.html#aa65c930ee7d864acec934ddc482a8b7c">wmoge::RdgGraph</a>
 </li>
 <li>create_texture_2d()
 : <a class="el" href="classwmoge_1_1TextureManager.html#acdf961c3a337dc13f77a092c9247616f">wmoge::TextureManager</a>

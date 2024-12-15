@@ -1,0 +1,6 @@
+<map id="wmoge::RdgPassDepthTarget" name="wmoge::RdgPassDepthTarget">
+<area shape="rect" id="node1" title="Rdg pass depth stencil target info." alt="" coords="5,247,200,273"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1RdgTexture.html" title="Rdg texture resource." alt="" coords="35,157,171,184"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1RdgResource.html" title="Rdg resource base class." alt="" coords="29,81,177,108"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="47,5,158,32"/>
+</map>

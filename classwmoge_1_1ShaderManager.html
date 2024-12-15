@@ -95,6 +95,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afdc0586c51374f4497086c0054ed97e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6be5d265e2de46a47790cbc00cf09d10"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a8ce690a9ecb4ef863ec99995dc1bfce2">GfxPsoLayoutRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a6be5d265e2de46a47790cbc00cf09d10">get_shader_pso_layout</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader)</td></tr>
 <tr class="separator:a6be5d265e2de46a47790cbc00cf09d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac650ef159733164c857554f7024fbf89"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ac650ef159733164c857554f7024fbf89">try_get_or_create_program</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, <a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a> platform, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation, bool wait_compiled=false)</td></tr>
+<tr class="separator:ac650ef159733164c857554f7024fbf89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9d1125dd93de70c59a13bf7d9c759f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ad9d1125dd93de70c59a13bf7d9c759f6">get_or_create_program</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, <a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a> platform, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation)</td></tr>
 <tr class="separator:ad9d1125dd93de70c59a13bf7d9c759f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b3e3399a6e7471d2e4babcef67ed11e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a4b3e3399a6e7471d2e4babcef67ed11e">find_program</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, <a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a> platform, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation)</td></tr>
@@ -119,6 +121,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0facaaa989a6e62e004266021944e582"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c4a20269164e1db92603c9b9752043f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a3c4a20269164e1db92603c9b9752043f">add_global_type</a> (const <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="structwmoge_1_1ShaderType.html">ShaderType</a> &gt; &amp;type)</td></tr>
 <tr class="separator:a3c4a20269164e1db92603c9b9752043f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f0d8ddeaa6bdaea786b04586c52e09b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a2f0d8ddeaa6bdaea786b04586c52e09b">validate_param_blocks</a> (<a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a> * &gt; param_blocks, const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;cmd_list)</td></tr>
+<tr class="separator:a2f0d8ddeaa6bdaea786b04586c52e09b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e29866179f85ca8c8bf009bbe74df73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#ad92f0123dec158ae1629b9b70539818a">GfxPsoGraphicsRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a4e29866179f85ca8c8bf009bbe74df73">get_or_create_pso_graphics</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation, const <a class="el" href="namespacewmoge.html#a891a46770e09126c9797712d98b580e0">GfxRenderPassRef</a> &amp;render_pass, const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;vert_elements)</td></tr>
+<tr class="separator:a4e29866179f85ca8c8bf009bbe74df73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97f99c95c039ca09689ed7d74e176748"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#ad08aa006f48ebe618ae5ac1739c9eb32">GfxPsoComputeRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a97f99c95c039ca09689ed7d74e176748">get_or_create_pso_compute</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation)</td></tr>
+<tr class="separator:a97f99c95c039ca09689ed7d74e176748"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7a2c02fe6fbf9758e2e2860abf3e148"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#ad7a2c02fe6fbf9758e2e2860abf3e148">get_shaders_folder</a> () const</td></tr>
 <tr class="separator:ad7a2c02fe6fbf9758e2e2860abf3e148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86eca555af918fb0e259c8776c37f8fe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structwmoge_1_1ShaderCompilerOptions.html">ShaderCompilerOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1ShaderManager.html#a86eca555af918fb0e259c8776c37f8fe">get_compiler_options</a> () const</td></tr>
@@ -468,6 +476,74 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a97f99c95c039ca09689ed7d74e176748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97f99c95c039ca09689ed7d74e176748">&#9670;&nbsp;</a></span>get_or_create_pso_compute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#ad08aa006f48ebe618ae5ac1739c9eb32">GfxPsoComputeRef</a> wmoge::ShaderManager::get_or_create_pso_compute </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Shader.html">Shader</a> *&#160;</td>
+          <td class="paramname"><em>shader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;&#160;</td>
+          <td class="paramname"><em>permutation</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e29866179f85ca8c8bf009bbe74df73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e29866179f85ca8c8bf009bbe74df73">&#9670;&nbsp;</a></span>get_or_create_pso_graphics()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespacewmoge.html#ad92f0123dec158ae1629b9b70539818a">GfxPsoGraphicsRef</a> wmoge::ShaderManager::get_or_create_pso_graphics </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Shader.html">Shader</a> *&#160;</td>
+          <td class="paramname"><em>shader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;&#160;</td>
+          <td class="paramname"><em>permutation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a891a46770e09126c9797712d98b580e0">GfxRenderPassRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>render_pass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;&#160;</td>
+          <td class="paramname"><em>vert_elements</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afdc0586c51374f4497086c0054ed97e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afdc0586c51374f4497086c0054ed97e9">&#9670;&nbsp;</a></span>get_shader_layout()</h2>
 
@@ -756,6 +832,74 @@ Public Member Functions</h2></td></tr>
           <td></td>
           <td class="paramtype"><a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a>&#160;</td>
           <td class="paramname"><em>platform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac650ef159733164c857554f7024fbf89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac650ef159733164c857554f7024fbf89">&#9670;&nbsp;</a></span>try_get_or_create_program()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1GfxShaderProgram.html">GfxShaderProgram</a> &gt; &gt; wmoge::ShaderManager::try_get_or_create_program </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1Shader.html">Shader</a> *&#160;</td>
+          <td class="paramname"><em>shader</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#ad84de9ecc083505fac880aa90dc6c483">GfxShaderPlatform</a>&#160;</td>
+          <td class="paramname"><em>platform</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;&#160;</td>
+          <td class="paramname"><em>permutation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>wait_compiled</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f0d8ddeaa6bdaea786b04586c52e09b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f0d8ddeaa6bdaea786b04586c52e09b">&#9670;&nbsp;</a></span>validate_param_blocks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmoge::ShaderManager::validate_param_blocks </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; <a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a> * &gt;&#160;</td>
+          <td class="paramname"><em>param_blocks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>cmd_list</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

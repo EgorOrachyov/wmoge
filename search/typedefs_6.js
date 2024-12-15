@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['inputmodifiers_8465',['InputModifiers',['../namespacewmoge.html#a6fbbdaf7158eee8430c7b41a447bc9eb',1,'wmoge']]],
-  ['ioflags_8466',['IoFlags',['../namespacewmoge.html#a45f8e91c835c2e50ce019159fe3bb434',1,'wmoge']]],
-  ['iotreeflags_8467',['IoTreeFlags',['../namespacewmoge.html#a5cb5fbf4334a9609fa86c4d8a583e36e',1,'wmoge']]],
-  ['iterator_8468',['iterator',['../classwmoge_1_1pool__vector.html#a76eaf6871e6616a54fd3e922223afbd8',1,'wmoge::pool_vector::iterator()'],['../classwmoge_1_1TypedArray.html#a1ffdb0f12ed5789eaacac59aeb93c984',1,'wmoge::TypedArray::iterator()'],['../classwmoge_1_1TypedMap.html#a27eb7193d7aee502293565aca78db958',1,'wmoge::TypedMap::iterator()']]]
+  ['hostdata_8668',['HostData',['../structwmoge_1_1GpuPolicyHostVert.html#a71ae3a2e094b26204f3f3ac586e13837',1,'wmoge::GpuPolicyHostVert::HostData()'],['../structwmoge_1_1GpuPolicyHostIndex.html#a6a98153a5382f3414d89fe7cc11e4547',1,'wmoge::GpuPolicyHostIndex::HostData()'],['../structwmoge_1_1GpuPolicyHostStorage.html#abd1381fb71799c21a88e824f303ab39c',1,'wmoge::GpuPolicyHostStorage::HostData()'],['../classwmoge_1_1GpuBuffer.html#a1bfdbf03c07c536e60de9b7f989bddbf',1,'wmoge::GpuBuffer::HostData()']]]
 ];

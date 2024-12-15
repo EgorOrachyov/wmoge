@@ -79,6 +79,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="mask_8hpp_source.html">core/mask.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="simple__id_8hpp_source.html">core/simple_id.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="status_8hpp_source.html">core/status.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="gfx__cmd__list_8hpp_source.html">gfx/gfx_cmd_list.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="rdg__resources_8hpp_source.html">rdg/rdg_resources.hpp</a>&quot;</code><br />
 <code>#include &lt;functional&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -86,56 +87,56 @@ Include dependency graph for rdg_pass.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="rdg__pass_8hpp__incl.png" border="0" usemap="#aengine_2runtime_2rdg_2rdg__pass_8hpp" alt=""/></div>
 <map name="aengine_2runtime_2rdg_2rdg__pass_8hpp" id="aengine_2runtime_2rdg_2rdg__pass_8hpp">
-<area shape="rect" title=" " alt="" coords="411,5,541,47"/>
-<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="325,543,489,569"/>
-<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="429,692,536,719"/>
-<area shape="rect" title=" " alt="" coords="2425,916,2503,943"/>
-<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="1662,692,1773,719"/>
-<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="684,543,801,569"/>
-<area shape="rect" href="simple__id_8hpp.html" title=" " alt="" coords="2503,169,2633,196"/>
-<area shape="rect" href="rdg__resources_8hpp.html" title=" " alt="" coords="2043,95,2194,121"/>
-<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="1294,617,1394,644"/>
-<area shape="rect" title=" " alt="" coords="496,767,555,793"/>
-<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="1168,617,1251,644"/>
-<area shape="rect" title=" " alt="" coords="298,617,387,644"/>
-<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1163,692,1255,719"/>
-<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1915,841,2039,868"/>
-<area shape="rect" title=" " alt="" coords="579,767,634,793"/>
-<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2385,692,2476,719"/>
-<area shape="rect" href="context_8hpp.html" title=" " alt="" coords="1433,692,1535,719"/>
-<area shape="rect" title=" " alt="" coords="1195,841,1306,868"/>
-<area shape="rect" title=" " alt="" coords="2000,692,2051,719"/>
-<area shape="rect" title=" " alt="" coords="2075,692,2149,719"/>
-<area shape="rect" title=" " alt="" coords="971,692,1037,719"/>
-<area shape="rect" title=" " alt="" coords="691,692,795,719"/>
-<area shape="rect" title=" " alt="" coords="1742,916,1807,943"/>
-<area shape="rect" title=" " alt="" coords="971,767,1037,793"/>
-<area shape="rect" title=" " alt="" coords="1517,767,1585,793"/>
-<area shape="rect" title=" " alt="" coords="1062,767,1119,793"/>
-<area shape="rect" title=" " alt="" coords="659,767,728,793"/>
-<area shape="rect" title=" " alt="" coords="773,916,827,943"/>
-<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="803,767,895,793"/>
-<area shape="rect" title=" " alt="" coords="376,767,472,793"/>
-<area shape="rect" title=" " alt="" coords="444,841,564,868"/>
-<area shape="rect" title=" " alt="" coords="2212,916,2281,943"/>
-<area shape="rect" title=" " alt="" coords="1936,916,2019,943"/>
-<area shape="rect" title=" " alt="" coords="2497,767,2559,793"/>
-<area shape="rect" title=" " alt="" coords="1387,841,1453,868"/>
-<area shape="rect" title=" " alt="" coords="2421,767,2473,793"/>
-<area shape="rect" href="any__storage_8hpp.html" title=" " alt="" coords="1347,767,1493,793"/>
-<area shape="rect" title=" " alt="" coords="245,692,355,719"/>
-<area shape="rect" title=" " alt="" coords="611,692,666,719"/>
-<area shape="rect" title=" " alt="" coords="2553,244,2607,271"/>
-<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="1872,169,2003,196"/>
-<area shape="rect" href="gfx__texture_8hpp.html" title=" " alt="" coords="2053,169,2184,196"/>
-<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1667,393,1767,420"/>
-<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="2048,244,2189,271"/>
-<area shape="rect" href="crc32_8hpp.html" title=" " alt="" coords="1536,543,1643,569"/>
-<area shape="rect" href="sha256_8hpp.html" title=" " alt="" coords="1717,543,1835,569"/>
-<area shape="rect" href="string__utils_8hpp.html" title=" " alt="" coords="1168,468,1307,495"/>
-<area shape="rect" href="math__utils_8hpp.html" title=" " alt="" coords="2011,468,2149,495"/>
-<area shape="rect" title=" " alt="" coords="1381,468,1461,495"/>
-<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="2074,319,2190,345"/>
+<area shape="rect" title=" " alt="" coords="2793,5,2922,47"/>
+<area shape="rect" href="buffered__vector_8hpp.html" title=" " alt="" coords="2434,468,2598,495"/>
+<area shape="rect" href="mask_8hpp.html" title=" " alt="" coords="2625,767,2732,793"/>
+<area shape="rect" title=" " alt="" coords="1767,991,1846,1017"/>
+<area shape="rect" href="status_8hpp.html" title=" " alt="" coords="2909,767,3019,793"/>
+<area shape="rect" href="flat__set_8hpp.html" title=" " alt="" coords="2636,617,2753,644"/>
+<area shape="rect" href="simple__id_8hpp.html" title=" " alt="" coords="479,468,609,495"/>
+<area shape="rect" href="gfx__cmd__list_8hpp.html" title=" " alt="" coords="998,169,1138,196"/>
+<area shape="rect" href="rdg__resources_8hpp.html" title=" " alt="" coords="2371,95,2522,121"/>
+<area shape="rect" href="stream_8hpp.html" title=" " alt="" coords="2114,692,2214,719"/>
+<area shape="rect" title=" " alt="" coords="1979,841,2037,868"/>
+<area shape="rect" href="tree_8hpp.html" title=" " alt="" coords="2585,692,2668,719"/>
+<area shape="rect" title=" " alt="" coords="1637,543,1726,569"/>
+<area shape="rect" href="log_8hpp.html" title=" " alt="" coords="1845,767,1937,793"/>
+<area shape="rect" href="string__id_8hpp.html" title=" " alt="" coords="1745,916,1869,943"/>
+<area shape="rect" title=" " alt="" coords="2399,841,2454,868"/>
+<area shape="rect" href="ref_8hpp.html" title=" " alt="" coords="2012,767,2103,793"/>
+<area shape="rect" href="context_8hpp.html" title=" " alt="" coords="2178,767,2281,793"/>
+<area shape="rect" title=" " alt="" coords="1127,767,1177,793"/>
+<area shape="rect" title=" " alt="" coords="1543,767,1617,793"/>
+<area shape="rect" title=" " alt="" coords="2305,767,2372,793"/>
+<area shape="rect" title=" " alt="" coords="2497,767,2601,793"/>
+<area shape="rect" title=" " alt="" coords="979,991,1045,1017"/>
+<area shape="rect" title=" " alt="" coords="1303,841,1372,868"/>
+<area shape="rect" title=" " alt="" coords="1930,991,1985,1017"/>
+<area shape="rect" href="io_2enum_8hpp.html" title=" " alt="" coords="2631,841,2723,868"/>
+<area shape="rect" title=" " alt="" coords="1623,841,1719,868"/>
+<area shape="rect" title=" " alt="" coords="1401,991,1471,1017"/>
+<area shape="rect" title=" " alt="" coords="2948,991,3031,1017"/>
+<area shape="rect" title=" " alt="" coords="3095,767,3204,793"/>
+<area shape="rect" title=" " alt="" coords="593,543,647,569"/>
+<area shape="rect" href="array__view_8hpp.html" title=" " alt="" coords="63,468,201,495"/>
+<area shape="rect" href="callback__queue_8hpp.html" title=" " alt="" coords="1303,767,1468,793"/>
+<area shape="rect" href="data_8hpp.html" title=" " alt="" coords="1903,617,2003,644"/>
+<area shape="rect" href="gfx__buffers_8hpp.html" title=" " alt="" coords="1924,319,2055,345"/>
+<area shape="rect" href="gfx__resource_8hpp.html" title=" " alt="" coords="1295,468,1436,495"/>
+<area shape="rect" href="gfx__defs_8hpp.html" title=" " alt="" coords="1310,543,1426,569"/>
+<area shape="rect" href="vec_8hpp.html" title=" " alt="" coords="753,617,853,644"/>
+<area shape="rect" href="gfx__desc__set_8hpp.html" title=" " alt="" coords="1756,319,1900,345"/>
+<area shape="rect" href="gfx__sampler_8hpp.html" title=" " alt="" coords="1613,393,1750,420"/>
+<area shape="rect" href="gfx__pipeline_8hpp.html" title=" " alt="" coords="949,244,1083,271"/>
+<area shape="rect" href="gfx__render__pass_8hpp.html" title=" " alt="" coords="711,319,873,345"/>
+<area shape="rect" href="gfx__texture_8hpp.html" title=" " alt="" coords="1159,393,1289,420"/>
+<area shape="rect" href="window_8hpp.html" title=" " alt="" coords="377,543,519,569"/>
+<area shape="rect" href="gfx__shader_8hpp.html" title=" " alt="" coords="468,393,599,420"/>
+<area shape="rect" href="gfx__vert__format_8hpp.html" title=" " alt="" coords="775,393,932,420"/>
+<area shape="rect" href="gfx__query_8hpp.html" title=" " alt="" coords="1364,393,1487,420"/>
+<area shape="rect" href="mat_8hpp.html" title=" " alt="" coords="671,543,772,569"/>
+<area shape="rect" href="shader_8hpp.html" title=" " alt="" coords="2647,244,2753,271"/>
+<area shape="rect" href="shader__param__block_8hpp.html" title=" " alt="" coords="2161,169,2349,196"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -143,11 +144,22 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="rdg__pass_8hpp__dep__incl.png" border="0" usemap="#aengine_2runtime_2rdg_2rdg__pass_8hppdep" alt=""/></div>
 <map name="aengine_2runtime_2rdg_2rdg__pass_8hppdep" id="aengine_2runtime_2rdg_2rdg__pass_8hppdep">
-<area shape="rect" title=" " alt="" coords="130,5,259,47"/>
-<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="5,191,179,218"/>
-<area shape="rect" href="rdg__graph_8hpp.html" title=" " alt="" coords="130,95,259,136"/>
-<area shape="rect" href="rdg__pass_8cpp.html" title=" " alt="" coords="283,95,413,136"/>
-<area shape="rect" href="rdg__graph_8cpp.html" title=" " alt="" coords="203,184,333,225"/>
+<area shape="rect" title=" " alt="" coords="887,5,1016,47"/>
+<area shape="rect" href="engine_8hpp.html" title=" " alt="" coords="865,370,1038,397"/>
+<area shape="rect" href="rdg__graph_8hpp.html" title=" " alt="" coords="675,95,804,136"/>
+<area shape="rect" href="rdg__pass_8cpp.html" title=" " alt="" coords="989,95,1119,136"/>
+<area shape="rect" href="rdg__graph_8cpp.html" title=" " alt="" coords="504,184,633,225"/>
+<area shape="rect" href="rdg__utils_8hpp.html" title=" " alt="" coords="328,184,457,225"/>
+<area shape="rect" href="aux__draw__manager_8hpp.html" title=" " alt="" coords="658,184,821,225"/>
+<area shape="rect" href="rdg__utils_8cpp.html" title=" " alt="" coords="157,273,287,315"/>
+<area shape="rect" href="aux__draw__manager_8cpp.html" title=" " alt="" coords="311,273,474,315"/>
+<area shape="rect" href="debug_2systems_8hpp.html" title=" " alt="" coords="499,273,641,315"/>
+<area shape="rect" href="render__engine_8hpp.html" title=" " alt="" coords="666,273,813,315"/>
+<area shape="rect" href="debug_2systems_8cpp.html" title=" " alt="" coords="5,363,148,404"/>
+<area shape="rect" href="mesh__batch_8cpp.html" title=" " alt="" coords="527,363,669,404"/>
+<area shape="rect" href="render__engine_8cpp.html" title=" " alt="" coords="694,363,841,404"/>
+<area shape="rect" href="engine_8cpp.html" title=" " alt="" coords="172,363,325,404"/>
+<area shape="rect" href="game__application_8cpp.html" title=" " alt="" coords="349,363,503,404"/>
 </map>
 </div>
 </div>
@@ -155,17 +167,19 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RDGPassColorTarget.html">wmoge::RDGPassColorTarget</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass color target info.  <a href="structwmoge_1_1RDGPassColorTarget.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RdgPassColorTarget.html">wmoge::RdgPassColorTarget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass color target info.  <a href="structwmoge_1_1RdgPassColorTarget.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RDGPassDepthTarget.html">wmoge::RDGPassDepthTarget</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass depth stencil target info.  <a href="structwmoge_1_1RDGPassDepthTarget.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RdgPassDepthTarget.html">wmoge::RdgPassDepthTarget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass depth stencil target info.  <a href="structwmoge_1_1RdgPassDepthTarget.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RDGPassResource.html">wmoge::RDGPassResource</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass referenced resource for manual usage.  <a href="structwmoge_1_1RDGPassResource.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmoge_1_1RdgPassResource.html">wmoge::RdgPassResource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass referenced resource for manual usage.  <a href="structwmoge_1_1RdgPassResource.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RDGPass.html">wmoge::RDGPass</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents single pass in a rgd graph for execution.  <a href="classwmoge_1_1RDGPass.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html">wmoge::RdgPassContext</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPass.html">wmoge::RdgPass</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents single pass in a rgd graph for execution.  <a href="classwmoge_1_1RdgPass.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -175,25 +189,25 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aa9c1cfd299611218c8b568a9dfe03817"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#aa9c1cfd299611218c8b568a9dfe03817">wmoge::RDGPassFlags</a> = Mask&lt; RDGPassFlag &gt;</td></tr>
-<tr class="memdesc:aa9c1cfd299611218c8b568a9dfe03817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass flags.  <a href="namespacewmoge.html#aa9c1cfd299611218c8b568a9dfe03817">More...</a><br /></td></tr>
-<tr class="separator:aa9c1cfd299611218c8b568a9dfe03817"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3c4137323e138d1162c42c84e88ffd6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae3c4137323e138d1162c42c84e88ffd6">wmoge::RDGPassId</a> = SimpleId&lt; std::uint32_t &gt;</td></tr>
-<tr class="memdesc:ae3c4137323e138d1162c42c84e88ffd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass id within graph.  <a href="namespacewmoge.html#ae3c4137323e138d1162c42c84e88ffd6">More...</a><br /></td></tr>
-<tr class="separator:ae3c4137323e138d1162c42c84e88ffd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26e0a27c61970bfb0305522421d35ecd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a26e0a27c61970bfb0305522421d35ecd">wmoge::RDGPassCallback</a> = std::function&lt; Status()&gt;</td></tr>
-<tr class="memdesc:a26e0a27c61970bfb0305522421d35ecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass callback called on pass execution.  <a href="namespacewmoge.html#a26e0a27c61970bfb0305522421d35ecd">More...</a><br /></td></tr>
-<tr class="separator:a26e0a27c61970bfb0305522421d35ecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a820a1105396f4d1c89fc8a51d72c80dd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a820a1105396f4d1c89fc8a51d72c80dd">wmoge::RdgPassFlags</a> = Mask&lt; RdgPassFlag &gt;</td></tr>
+<tr class="memdesc:a820a1105396f4d1c89fc8a51d72c80dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass flags.  <a href="namespacewmoge.html#a820a1105396f4d1c89fc8a51d72c80dd">More...</a><br /></td></tr>
+<tr class="separator:a820a1105396f4d1c89fc8a51d72c80dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5ef86422ce346902f9d5c53a7d24cb7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ae5ef86422ce346902f9d5c53a7d24cb7">wmoge::RdgPassId</a> = SimpleId&lt; std::uint32_t &gt;</td></tr>
+<tr class="memdesc:ae5ef86422ce346902f9d5c53a7d24cb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass id within graph.  <a href="namespacewmoge.html#ae5ef86422ce346902f9d5c53a7d24cb7">More...</a><br /></td></tr>
+<tr class="separator:ae5ef86422ce346902f9d5c53a7d24cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5109f70c9accb4c7d6d1d74f4201e153"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a5109f70c9accb4c7d6d1d74f4201e153">wmoge::RdgPassCallback</a> = std::function&lt; Status(RdgPassContext &amp;context)&gt;</td></tr>
+<tr class="memdesc:a5109f70c9accb4c7d6d1d74f4201e153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass callback called on pass execution.  <a href="namespacewmoge.html#a5109f70c9accb4c7d6d1d74f4201e153">More...</a><br /></td></tr>
+<tr class="separator:a5109f70c9accb4c7d6d1d74f4201e153"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a56a2684647f4f6861d80803b22431155"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#a56a2684647f4f6861d80803b22431155">wmoge::RDGPassFlag</a> { <a class="el" href="namespacewmoge.html#a56a2684647f4f6861d80803b22431155aacf8c863449f196e2fb7e6077de3b46b">wmoge::ComputePass</a>
-, <a class="el" href="namespacewmoge.html#a56a2684647f4f6861d80803b22431155a483ee7e50d1c9becaa44b666f31b80e4">wmoge::GraphicsPass</a>
-, <a class="el" href="namespacewmoge.html#a56a2684647f4f6861d80803b22431155a7ba8d62547502dc33f4e73fa237aa336">wmoge::MaterialPass</a>
-, <a class="el" href="namespacewmoge.html#a56a2684647f4f6861d80803b22431155a1b43b81d7719a08076f138cca4b6b2e9">wmoge::CopyPass</a>
+<tr class="memitem:ac06045e1f4e8b3d4f5baa3549d105c7d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmoge.html#ac06045e1f4e8b3d4f5baa3549d105c7d">wmoge::RdgPassFlag</a> { <a class="el" href="namespacewmoge.html#ac06045e1f4e8b3d4f5baa3549d105c7daacf8c863449f196e2fb7e6077de3b46b">wmoge::ComputePass</a>
+, <a class="el" href="namespacewmoge.html#ac06045e1f4e8b3d4f5baa3549d105c7da483ee7e50d1c9becaa44b666f31b80e4">wmoge::GraphicsPass</a>
+, <a class="el" href="namespacewmoge.html#ac06045e1f4e8b3d4f5baa3549d105c7da7ba8d62547502dc33f4e73fa237aa336">wmoge::MaterialPass</a>
+, <a class="el" href="namespacewmoge.html#ac06045e1f4e8b3d4f5baa3549d105c7da1b43b81d7719a08076f138cca4b6b2e9">wmoge::CopyPass</a>
  }</td></tr>
-<tr class="memdesc:a56a2684647f4f6861d80803b22431155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass usage flag.  <a href="namespacewmoge.html#a56a2684647f4f6861d80803b22431155">More...</a><br /></td></tr>
-<tr class="separator:a56a2684647f4f6861d80803b22431155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ac06045e1f4e8b3d4f5baa3549d105c7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rdg pass usage flag.  <a href="namespacewmoge.html#ac06045e1f4e8b3d4f5baa3549d105c7d">More...</a><br /></td></tr>
+<tr class="separator:ac06045e1f4e8b3d4f5baa3549d105c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

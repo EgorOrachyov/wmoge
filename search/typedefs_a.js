@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['optionalt_8487',['OptionalT',['../classwmoge_1_1RttiTypeOptionalT.html#a0cadbc13b1f284f4749f436921478255',1,'wmoge::RttiTypeOptionalT']]]
+  ['nodeptr_8690',['NodePtr',['../classwmoge_1_1pool__vector.html#a90782bf50944d5e21243c2a01c62cb76',1,'wmoge::pool_vector']]],
+  ['ns_8691',['ns',['../classwmoge_1_1Time.html#a6571482df1cad87c4ae8e17e8a57fea7',1,'wmoge::Time']]]
 ];
