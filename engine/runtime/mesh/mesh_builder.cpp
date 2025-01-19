@@ -27,7 +27,6 @@
 
 #include "mesh_builder.hpp"
 
-#include "core/class.hpp"
 #include "core/data.hpp"
 #include "core/log.hpp"
 #include "profiler/profiler_cpu.hpp"

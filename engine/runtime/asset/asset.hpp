@@ -28,9 +28,7 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
-#include "core/class.hpp"
 #include "core/flat_set.hpp"
-#include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/uuid.hpp"
 #include "core/weak_ref.hpp"

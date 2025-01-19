@@ -29,8 +29,4 @@
 
 namespace wmoge {
 
-    void PfxFeature::register_class() {
-        auto* cls = Class::register_class<PfxFeature>();
-    }
-
 }// namespace wmoge

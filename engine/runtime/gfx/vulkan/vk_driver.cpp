@@ -332,11 +332,6 @@ namespace wmoge {
 
         return render_pass;
     }
-    Ref<GfxRenderPass> VKDriver::make_render_pass(const Ref<Window>& window, const Strid& name) {
-        WG_PROFILE_CPU_VULKAN("VKDriver::make_render_pass");
-
-        return Ref<GfxRenderPass>();
-    }
     Ref<GfxFrameBuffer> VKDriver::make_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name) {
         WG_PROFILE_CPU_VULKAN("VKDriver::make_frame_buffer");
 
@@ -524,6 +519,21 @@ namespace wmoge {
         }
 
         m_to_present.clear();
+    }
+
+    GfxWindowProps VKDriver::get_window_props(const Ref<Window>& window) const {
+        WG_PROFILE_CPU_VULKAN("VKDriver::get_window_props");
+
+        Ref<VKWindow> vk_window = m_window_manager->get(window);
+        if (!vk_window || vk_window->color().empty()) {
+            return GfxWindowProps{};
+        }
+
+        GfxWindowProps props;
+        props.color_format         = vk_window->color().front()->format();
+        props.depth_stencil_format = vk_window->depth_stencil()->format();
+
+        return props;
     }
 
     void VKDriver::init_functions() {

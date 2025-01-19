@@ -139,9 +139,12 @@ namespace wmoge {
         std::string(name), SID(#system), SID(__FUNCTION__), SID(__FILE__), std::size_t { __LINE__ } \
     }
 
-#define WG_PROFILE_GPU_SCOPE_WITH_DESC(cmd_list, system, name, desc) \
-    WG_PROFILE_GPU_MARK(__wg_auto_mark_gpu, system, name);           \
+#define WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC(name, cmd_list, system, desc) \
+    WG_PROFILE_GPU_MARK(__wg_auto_mark_gpu, system, name);                  \
     ProfilerGpuScope __wg_auto_scope_gpu(__wg_auto_mark_gpu, desc, cmd_list)
 
-#define WG_PROFILE_GPU_SCOPE(cmd_list, name) \
-    WG_PROFILE_GPU_SCOPE_WITH_DESC(cmd_list, gpudevice, name, "")
+#define WG_PROFILE_GPU_SCOPE(name, cmd_list) \
+    WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC(name, cmd_list, gpudevice, "")
+
+#define WG_PROFILE_GPU_SCOPE_WITH_DESC(name, cmd_list, desc) \
+    WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC(name, cmd_list, gpudevice, desc)

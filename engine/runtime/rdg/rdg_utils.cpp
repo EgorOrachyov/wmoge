@@ -37,7 +37,7 @@ namespace wmoge {
         graph.add_copy_pass(name, {})
                 .copy_destination(buffer)
                 .bind([=](RdgPassContext& context) {
-                    context.cmd_list->update_vert_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
+                    context.update_vert_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
                     return WG_OK;
                 });
     }
@@ -47,7 +47,7 @@ namespace wmoge {
         graph.add_copy_pass(name, {})
                 .copy_destination(buffer)
                 .bind([=](RdgPassContext& context) {
-                    context.cmd_list->update_index_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
+                    context.update_index_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
                     return WG_OK;
                 });
     }
@@ -57,7 +57,7 @@ namespace wmoge {
         graph.add_copy_pass(name, {})
                 .copy_destination(buffer)
                 .bind([=](RdgPassContext& context) {
-                    context.cmd_list->update_storage_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
+                    context.update_storage_buffer(buffer->get_buffer(), offset, static_cast<int>(data.size()), {data_capture->buffer(), data_capture->size()});
                     return WG_OK;
                 });
     }

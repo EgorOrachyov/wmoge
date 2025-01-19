@@ -86,6 +86,7 @@ namespace wmoge {
         void barrier_buffers(array_view<GfxBuffer*> buffers) override;
 
         void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc) override;
+        void begin_render_pass(const GfxRenderPassWindowBeginInfo& pass_desc) override;
         void peek_render_pass(GfxRenderPassRef& rp) override;
         void viewport(const Rect2i& viewport) override;
         void bind_pso(const Ref<GfxPsoGraphics>& pipeline) override;

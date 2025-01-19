@@ -48,4 +48,17 @@ namespace wmoge {
         return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxRenderPassDesc)));
     }
 
+    GfxFrameBufferDesc::GfxFrameBufferDesc() {
+        std::memset(this, 0, sizeof(GfxFrameBufferDesc));
+        std::fill(color_targets.begin(), color_targets.end(), GfxTargetInfo{});
+        depth_stencil_target = GfxTargetInfo{};
+        render_pass          = nullptr;
+    }
+    bool GfxFrameBufferDesc::operator==(const GfxFrameBufferDesc& other) const {
+        return std::memcmp(this, &other, sizeof(GfxFrameBufferDesc)) == 0;
+    }
+    std::size_t GfxFrameBufferDesc::hash() const {
+        return static_cast<std::size_t>(Crc32Util::hash(this, sizeof(GfxFrameBufferDesc)));
+    }
+
 }// namespace wmoge

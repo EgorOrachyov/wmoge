@@ -35,17 +35,27 @@
 #include "rdg/rdg_pool.hpp"
 #include "rdg/rdg_resources.hpp"
 
+#include <memory>
 #include <vector>
 
 namespace wmoge {
 
     /** @brief Rdg mark for graph profiling */
     struct RdgProfileMark {
+        RdgProfileMark(std::string name,
+                       Strid       category,
+                       Strid       function,
+                       Strid       file,
+                       std::size_t line);
+
         std::string name;
         Strid       category;
         Strid       function;
         Strid       file;
         std::size_t line;
+
+        std::unique_ptr<struct ProfilerCpuMark> mark_cpu;
+        std::unique_ptr<struct ProfilerGpuMark> mark_gpu;
     };
 
     /** @brief Rdg scope for graph profiling */
@@ -54,6 +64,14 @@ namespace wmoge {
         ~RdgProfileScope();
 
         class RdgGraph& graph;
+    };
+
+    /** @brief Rdg graph compilation options */
+    struct RdgCompileOptions {
+    };
+
+    /** @brief Rdg graph execution options */
+    struct RdgExecuteOptions {
     };
 
     /**
@@ -78,6 +96,8 @@ namespace wmoge {
         RdgStorageBuffer* find_storage_buffer(const GfxStorageBufferRef& buffer);
         RdgVertBuffer*    import_vert_buffer(const GfxVertBufferRef& buffer);
         RdgVertBuffer*    find_vert_buffer(const GfxVertBufferRef& buffer);
+        RdgIndexBuffer*   import_index_buffer(const GfxIndexBufferRef& buffer);
+        RdgIndexBuffer*   find_index_buffer(const GfxIndexBufferRef& buffer);
 
         Ref<Data>             make_upload_data(array_view<const std::uint8_t> buffer);
         Ref<ShaderParamBlock> make_param_block(Shader* shader, std::int16_t space_idx, const Strid& name);
@@ -85,23 +105,31 @@ namespace wmoge {
         void push_event(RdgProfileMark* mark, const std::string& data);
         void pop_event();
 
-        Status compile();
-        Status execute();
+        Status compile(const RdgCompileOptions& options);
+        Status execute(const RdgExecuteOptions& options);
 
         [[nodiscard]] GfxDriver*     get_driver() const { return m_driver; }
         [[nodiscard]] ShaderManager* get_shader_manager() const { return m_shader_manager; }
 
     private:
+        Status        execute_pass(RdgPassId pass_id, RdgPassContext& context);
         void          add_resource(const RdgResourceRef& resource);
         RdgPassId     next_pass_id();
         RdgResourceId next_res_id();
 
-    private:
-        struct Event {
+        struct RdgEvent {
             RdgProfileMark* mark;
             std::string     data;
         };
 
+        using RdgEventId = int;
+
+        struct RdgPassData {
+            std::vector<RdgEventId> events_to_begin;
+            int                     events_to_end = 0;
+        };
+
+    private:
         flat_map<GfxResource*, RdgResource*> m_resources_imported;
         pool_vector<RdgResourceRef>          m_resources;
         pool_vector<RdgPass>                 m_passes;
@@ -110,7 +138,9 @@ namespace wmoge {
         RdgPool*                             m_pool           = nullptr;
         GfxDriver*                           m_driver         = nullptr;
         ShaderManager*                       m_shader_manager = nullptr;
-        std::vector<Event>                   m_events;
+        std::vector<RdgEvent>                m_events;
+        std::vector<RdgEventId>              m_events_stack;
+        std::vector<RdgPassData>             m_passes_data;
     };
 
 }// namespace wmoge
@@ -120,9 +150,9 @@ namespace wmoge {
         std::string(name), SID(#system), SID(__FUNCTION__), SID(__FILE__), std::size_t { __LINE__ } \
     }
 
-#define WG_PROFILE_RDG_SCOPE_WITH_DESC(graph, system, name, desc) \
+#define WG_PROFILE_RDG_SCOPE_WITH_DESC(name, graph, system, desc) \
     WG_PROFILE_RDG_MARK(__wg_auto_mark_rdg, system, name);        \
     RdgProfileScope __wg_auto_scope_gpu(__wg_auto_mark_rdg, desc, graph)
 
-#define WG_PROFILE_RDG_SCOPE(graph, name) \
-    WG_PROFILE_RDG_SCOPE_WITH_DESC(graph, gpurdg, name, "")
+#define WG_PROFILE_RDG_SCOPE(name, graph) \
+    WG_PROFILE_RDG_SCOPE_WITH_DESC(name, graph, gpurdg, "")

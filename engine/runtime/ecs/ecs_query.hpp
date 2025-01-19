@@ -198,7 +198,7 @@ namespace wmoge {
         [[nodiscard]] bool validate_access() const {
             const EcsAccess& access = get_query();
 
-            if ((access_type.required & access.required) != access.required) {
+            if ((access_type.requireds & access.requireds) != access.requireds) {
                 return false;
             }
 

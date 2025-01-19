@@ -31,20 +31,42 @@ import argparse
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--build-dir", default="build", help="folder name to locate build files")
-    parser.add_argument("--build-type", default="Release", help="type of build: `Debug`, `Release` or `RelWithDebInfo`")
+    parser.add_argument(
+        "--build-dir", default="build", help="folder name to locate build files"
+    )
+    parser.add_argument(
+        "--build-type",
+        default="Release",
+        help="type of build: `Debug`, `Release` or `RelWithDebInfo`",
+    )
     parser.add_argument("--target", default="all", help="which target to build")
     parser.add_argument("--nt", default="4", help="number of os threads for build")
     parser.add_argument("--arch", help="target architecture on MacOS `x64` or `arm64`")
     parser.add_argument("--verbose", help="allow verbose compiler output")
     args = parser.parse_args()
 
-    build_config_args = ["cmake", ".", "-B", args.build_dir, "-G", "Ninja", f"-DCMAKE_BUILD_TYPE={args.build_type}"]
+    build_config_args = [
+        "cmake",
+        ".",
+        "-B",
+        args.build_dir,
+        "-G",
+        "Ninja",
+        f"-DCMAKE_BUILD_TYPE={args.build_type}",
+    ]
 
     if args.arch:
         build_config_args += [f"-DCMAKE_OSX_ARCHITECTURES={args.arch}"]
 
-    build_run_args = ["cmake", "--build", args.build_dir, "--target", args.target, "-j", args.nt]
+    build_run_args = [
+        "cmake",
+        "--build",
+        args.build_dir,
+        "--target",
+        args.target,
+        "-j",
+        args.nt,
+    ]
 
     if args.verbose:
         build_run_args += ["--verbose"]
@@ -55,5 +77,5 @@ def main():
     print(f"\nsuccessfully build target `{args.target}`")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

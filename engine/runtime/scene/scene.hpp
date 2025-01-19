@@ -28,7 +28,6 @@
 #pragma once
 
 #include "core/any_storage.hpp"
-#include "core/class.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "core/weak_ref.hpp"

@@ -83,6 +83,7 @@ namespace wmoge {
         virtual void barrier_buffers(array_view<GfxBuffer*> buffers)                                                = 0;
 
         virtual void begin_render_pass(const GfxRenderPassBeginInfo& pass_desc)                                    = 0;
+        virtual void begin_render_pass(const GfxRenderPassWindowBeginInfo& pass_desc)                              = 0;
         virtual void peek_render_pass(GfxRenderPassRef& rp)                                                        = 0;
         virtual void viewport(const Rect2i& viewport)                                                              = 0;
         virtual void bind_pso(const Ref<GfxPsoGraphics>& pipeline)                                                 = 0;

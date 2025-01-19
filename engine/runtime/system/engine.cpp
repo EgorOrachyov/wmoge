@@ -31,7 +31,6 @@
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "core/callback_queue.hpp"
-#include "core/class.hpp"
 #include "core/cmd_line.hpp"
 #include "core/ioc_container.hpp"
 #include "core/log.hpp"
@@ -56,6 +55,7 @@
 #include "profiler/profiler_cpu.hpp"
 #include "profiler/profiler_gpu.hpp"
 #include "render/render_engine.hpp"
+#include "render/shader_table.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
@@ -74,8 +74,6 @@ namespace wmoge {
     }
 
     Status Engine::setup() {
-        m_class_db = ClassDB::instance();
-
         m_application    = m_ioc_container->resolve_value<Application>();
         m_time           = m_ioc_container->resolve_value<Time>();
         m_file_system    = m_ioc_container->resolve_value<FileSystem>();
@@ -135,6 +133,10 @@ namespace wmoge {
         m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanMacOS>(m_ioc_container));
         m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanLinux>(m_ioc_container));
         m_shader_manager->add_compiler(make_ref<GlslShaderCompilerVulkanWindows>(m_ioc_container));
+
+        m_shader_table = m_ioc_container->resolve_value<ShaderTable>();
+        WG_CHECKED(m_shader_table->reflect_types(m_shader_manager));
+        WG_CHECKED(m_shader_table->load_shaders(m_asset_manager));
 
         m_console->init(m_asset_manager);
 
@@ -196,7 +198,6 @@ namespace wmoge {
     }
 
     Application*    Engine::application() { return m_application; }
-    ClassDB*        Engine::class_db() { return m_class_db; }
     Time*           Engine::time() { return m_time; }
     DllManager*     Engine::dll_manager() { return m_dll_manager; }
     PluginManager*  Engine::plugin_manager() { return m_plugin_manager; }
@@ -208,6 +209,7 @@ namespace wmoge {
     WindowManager*  Engine::window_manager() { return m_window_manager; }
     Input*          Engine::input() { return m_input; }
     GfxDriver*      Engine::gfx_driver() { return m_gfx_driver; }
+    ShaderTable*    Engine::shader_table() { return m_shader_table; }
     ShaderManager*  Engine::shader_manager() { return m_shader_manager; }
     ShaderLibrary*  Engine::shader_library() { return m_shader_library; }
     PsoCache*       Engine::pso_cache() { return m_pso_cache; }

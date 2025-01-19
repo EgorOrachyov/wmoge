@@ -31,10 +31,12 @@
 #include "core/buffered_vector.hpp"
 #include "core/log.hpp"
 #include "gfx/gfx_driver.hpp"
+#include "gpu/gpu_utils.hpp"
 #include "math/math_utils3d.hpp"
 #include "profiler/profiler_cpu.hpp"
 #include "profiler/profiler_gpu.hpp"
 #include "rdg/rdg_utils.hpp"
+#include "render/shader_table.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -455,22 +457,11 @@ namespace wmoge {
         m_screen_size = size;
     }
 
-    void AuxDrawDevice::render(RdgGraph& graph, RdgTexture* target, const Rect2i& viewport, float gamma, ShaderTable* shader_table, TextureManager* texture_manager) {
+    void AuxDrawDevice::render(RdgGraph& graph, RdgTexture* color, RdgTexture* depth, const Rect2i& viewport, float gamma, ShaderTable* shader_table, TextureManager* texture_manager) {
         WG_PROFILE_CPU_RENDER("AuxDrawDevice::render");
-        WG_PROFILE_RDG_SCOPE(graph, "AuxDrawDevice::render");
+        WG_PROFILE_RDG_SCOPE("AuxDrawDevice::render", graph);
 
-        Shader* shader = shader_table->aux_draw();
-
-        static const Strid pass_solid = SID("solid");
-        static const Strid pass_wire  = SID("wire");
-
-        static const Strid out_mode        = SID("OUT_MODE");
-        static const Strid out_mode_srgb   = SID("SRGB");
-        static const Strid out_mode_linear = SID("LINEAR");
-
-        static const ShaderParamId param_clip_proj_view = shader->find_param_id(SID("ClipProjView"));
-        static const ShaderParamId param_inverse_gamma  = shader->find_param_id(SID("InverseGamma"));
-        static const ShaderParamId param_image_texture  = shader->find_param_id(SID("ImageTexture"));
+        const ShaderAuxDraw* aux_draw = shader_table->aux_draw();
 
         buffered_vector<Ref<Texture>> textures;
         textures.emplace_back(texture_manager->get_texture(DefaultTexture::White));
@@ -478,10 +469,10 @@ namespace wmoge {
 
         buffered_vector<Ref<ShaderParamBlock>> params_blocks;
         for (const Ref<Texture>& texture : textures) {
-            auto param_block = graph.make_param_block(shader, 0, "aux_draw_params");
-            param_block->set_var(param_clip_proj_view, graph.get_driver()->clip_matrix() * m_mat_vp);
-            param_block->set_var(param_inverse_gamma, 1.0f / (gamma > 0.0f ? gamma : 2.2f));
-            param_block->set_var(param_image_texture, texture->get_texture());
+            auto param_block = graph.make_param_block(aux_draw->shader, 0, "aux_draw_params");
+            param_block->set_var(aux_draw->pb_default.clipprojview, graph.get_driver()->clip_matrix() * m_mat_vp);
+            param_block->set_var(aux_draw->pb_default.inversegamma, 1.0f / (gamma > 0.0f ? gamma : 2.2f));
+            param_block->set_var(aux_draw->pb_default.imagetexture, texture->get_texture());
         }
 
         auto upload_data = [&](AuxData& aux_data) -> RdgVertBuffer* {
@@ -489,8 +480,8 @@ namespace wmoge {
                 return nullptr;
             }
             aux_data.verts.reserve(graph.get_driver());
-            RdgVertBuffer* buffer = graph.import_vert_buffer(aux_data.verts_buffer);
-            RdgUtils::update_buffer(graph, SIDDBG("copy_verts"), buffer, 0, {reinterpret_cast<const std::uint8_t*>(aux_data.verts.data()), aux_data.vtx_offset * sizeof(AuxDrawVert)});
+            RdgVertBuffer* buffer = GpuUtils::import_vert_buffer(graph, aux_data.verts);
+            GpuUtils::update_buffer(graph, aux_data.verts, buffer);
             return buffer;
         };
 
@@ -502,23 +493,24 @@ namespace wmoge {
             assert(buffer);
 
             graph.add_graphics_pass(SIDDBG("draw_batch_" + pass_name.str()))
-                    .color_target(target)
+                    .color_target(color)
+                    .depth_target(depth)
                     .reading(buffer)
-                    .bind([viewport, params_blocks, elems = aux_data.elems, buffer, shader, pass_name](RdgPassContext& context) {
+                    .bind([viewport, params_blocks, elems = aux_data.elems, buffer, aux_draw, pass_name](RdgPassContext& context) {
                         const GfxVertAttribs    attribs       = {GfxVertAttrib::Pos3f, GfxVertAttrib::Col04f, GfxVertAttrib::Uv02f};
-                        const ShaderPermutation permutation   = *shader->permutation(SID("default"), pass_name, {ShaderOptionVariant(out_mode, out_mode_linear)}, attribs);
+                        const ShaderPermutation permutation   = *aux_draw->shader->permutation(aux_draw->tq_default.name, pass_name, {aux_draw->tq_default.options.out_mode_linear}, attribs);
                         const GfxVertElements   vert_elements = GfxVertElements::make(attribs);
 
                         WG_CHECKED(context.viewport(viewport));
                         WG_CHECKED(context.bind_vert_buffer(buffer->get_buffer(), 0, 0));
-                        WG_CHECKED(context.bind_pso_graphics(shader, permutation, vert_elements));
+                        WG_CHECKED(context.bind_pso_graphics(aux_draw->shader, permutation, vert_elements));
 
                         std::optional<int> prev_texture;
 
                         for (const AuxDrawElem& elem : elems) {
                             if (!prev_texture || *prev_texture != elem.texture_idx) {
                                 prev_texture = elem.texture_idx;
-                                WG_CHECKED(context.bind_param_block(params_blocks[elem.texture_idx], 0));
+                                WG_CHECKED(context.bind_param_block(params_blocks[elem.texture_idx]));
                             }
                             WG_CHECKED(context.draw(elem.vtx_count, elem.vtx_offset, 1));
                         }
@@ -530,8 +522,8 @@ namespace wmoge {
         RdgVertBuffer* buffer_triangles = upload_data(m_solid);
         RdgVertBuffer* buffer_lines     = upload_data(m_wire);
 
-        draw_elements(m_solid, buffer_triangles, pass_solid);
-        draw_elements(m_wire, buffer_lines, pass_wire);
+        draw_elements(m_solid, buffer_triangles, aux_draw->tq_default.ps_solid);
+        draw_elements(m_wire, buffer_lines, aux_draw->tq_default.ps_wire);
     }
 
     void AuxDrawDevice::clear() {
@@ -913,12 +905,13 @@ namespace wmoge {
         m_added.push_back(std::move(primitive));
     }
 
-    void AuxDrawManager::render(RdgGraph& graph, RdgTexture* target, const Rect2i& viewport, float gamma, const Mat4x4f& proj_view, ShaderTable* shader_table, TextureManager* texture_manager) {
+    void AuxDrawManager::render(RdgGraph& graph, RdgTexture* color, RdgTexture* depth, const Rect2i& viewport, float gamma, const Mat4x4f& proj_view, ShaderTable* shader_table, TextureManager* texture_manager) {
         WG_PROFILE_CPU_RENDER("AuxDrawManager::render");
-        WG_PROFILE_RDG_SCOPE(graph, "AuxDrawManager::render");
+        WG_PROFILE_RDG_SCOPE("AuxDrawManager::render", graph);
 
         assert(m_font);
-        assert(target);
+        assert(color);
+        assert(depth);
         assert(shader_table);
         assert(texture_manager);
 
@@ -932,7 +925,7 @@ namespace wmoge {
             primitiver_ptr->draw(m_device);
         }
 
-        m_device.render(graph, target, viewport, gamma, shader_table, texture_manager);
+        m_device.render(graph, color, depth, viewport, gamma, shader_table, texture_manager);
         m_device.clear();
     }
 

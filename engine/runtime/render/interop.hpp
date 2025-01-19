@@ -1,72 +1,62 @@
-/**********************************************************************************/
-/* Wmoge game engine                                                              */
-/* Available at github https://github.com/EgorOrachyov/wmoge                      */
-/**********************************************************************************/
-/* MIT License                                                                    */
-/*                                                                                */
-/* Copyright (c) 2023 Egor Orachyov                                               */
-/*                                                                                */
-/* Permission is hereby granted, free of charge, to any person obtaining a copy   */
-/* of this software and associated documentation files (the "Software"), to deal  */
-/* in the Software without restriction, including without limitation the rights   */
-/* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell      */
-/* copies of the Software, and to permit persons to whom the Software is          */
-/* furnished to do so, subject to the following conditions:                       */
-/*                                                                                */
-/* The above copyright notice and this permission notice shall be included in all */
-/* copies or substantial portions of the Software.                                */
-/*                                                                                */
-/* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR     */
-/* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,       */
-/* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE    */
-/* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER         */
-/* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  */
-/* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  */
-/* SOFTWARE.                                                                      */
-/**********************************************************************************/
+// auto generated file
 
 #pragma once
 
-#include "core/string_id.hpp"
-#include "grc/shader_reflection.hpp"
-
-#include <vector>
+#include "grc/shader.hpp"
 
 namespace wmoge {
 
-    class ShaderManager;
+    /// @brief Auto-generated reflection for 'aux_draw' shader
+    struct ShaderAuxDraw {
+        struct ParamBlockDefault {
+            const Strid name = SID("default");
 
-#define BEGIN_REFLECT(name)                    \
-    static Status reflect(ShaderManager* sm) { \
-        ShaderStructRegister r(Strid(#name), sizeof(name), sm)
+            const Strid   clipprojview_name = SID("ClipProjView");
+            ShaderParamId clipprojview;
 
-#define BEGIN_REFLECT_STRUCTURED_BUFFER(name)  \
-    static Status reflect(ShaderManager* sm) { \
-        ShaderStructRegister r(Strid(#name), 0, sm)
+            const Strid   inversegamma_name = SID("InverseGamma");
+            ShaderParamId inversegamma;
 
-#define END_REFLECT    \
-    return r.finish(); \
-    }
+            const Strid   imagetexture_name = SID("ImageTexture");
+            ShaderParamId imagetexture;
 
-#define FIELD(type, name) \
-    r.add_field(Strid(#name), Strid(#type))
+            void load_from(const Ref<Shader>& s);
+        } pb_default;
 
-#define STRUCT(type, name) \
-    r.add_field(Strid(#name), Strid(#type))
+        struct TechniqueDefault {
+            const Strid name = SID("default");
 
-#define FIELD_ARRAY(type, name, n) \
-    r.add_field_array(Strid(#name), Strid(#type), n)
+            struct Options {
+                const Strid               out_mode        = SID("OUT_MODE");
+                const ShaderOptionVariant out_mode_srgb   = {SID("OUT_MODE"), SID("SRGB")};
+                const ShaderOptionVariant out_mode_linear = {SID("OUT_MODE"), SID("LINEAR")};
 
-#define STRUCT_ARRAY(type, name, n) \
-    r.add_field_array(Strid(#name), Strid(#type), n)
+            } options;
 
-#define STRUCT_ARRAY_UNBOUND(type, name) \
-    r.add_field_array(Strid(#name), Strid(#type))
+            struct PassSolid {
+                const Strid name = SID("solid");
 
-    struct ShaderCanvas {
-        static constexpr int MAX_IMAGES = 4;
+                operator Strid() const { return name; }
+
+            } ps_solid;
+
+            struct PassWire {
+                const Strid name = SID("wire");
+
+                operator Strid() const { return name; }
+
+            } ps_wire;
+
+            operator Strid() const { return name; }
+
+        } tq_default;
+
+        Ref<Shader> shader;
+
+        Status load_from(Ref<Shader> s);
     };
 
+    /// @brief Auto-generated reflection for struct 'GpuCanvasDrawCmdData'
     struct GpuCanvasDrawCmdData {
         Vec4f Transform0;
         Vec4f Transform1;
@@ -77,33 +67,81 @@ namespace wmoge {
         int   pad1;
         int   pad2;
 
-        BEGIN_REFLECT(GpuCanvasDrawCmdData);
-        FIELD(vec4, Transform0);
-        FIELD(vec4, Transform1);
-        FIELD(vec4, Transform2);
-        FIELD(vec4, ClipRect);
-        FIELD(int, TextureIdx);
-        FIELD(int, pad0);
-        FIELD(int, pad1);
-        FIELD(int, pad2);
-        END_REFLECT
+        static Status reflect(class ShaderManager* sm);
     };
 
+    /// @brief Auto-generated reflection for struct 'GpuCanvasDrawCmdsBuffer'
     struct GpuCanvasDrawCmdsBuffer {
-        std::vector<GpuCanvasDrawCmdData> DrawCmds;
+        // GpuCanvasDrawCmdData DrawCmds[];
 
-        BEGIN_REFLECT_STRUCTURED_BUFFER(GpuCanvasDrawCmdsBuffer);
-        STRUCT_ARRAY_UNBOUND(GpuCanvasDrawCmdData, DrawCmds);
-        END_REFLECT
+        static Status reflect(class ShaderManager* sm);
     };
 
-    Status reflect_shader_types(ShaderManager* sm);
+    /// @brief Auto-generated reflection for 'canvas' shader
+    struct ShaderCanvas {
+        struct Constants {
+            static constexpr int MAX_IMAGES = 4;
+        };
 
-#undef BEGIN_REFLECT
-#undef END_REFLCET
-#undef ADD_FIELD
-#undef ADD_FIELD_ARRAY
-#undef ADD_STRUCT
-#undef ADD_STRUCT_ARRAY
+        struct ParamBlockDefault {
+            const Strid name = SID("default");
+
+            const Strid   clipprojview_name = SID("ClipProjView");
+            ShaderParamId clipprojview;
+
+            const Strid   inversegamma_name = SID("InverseGamma");
+            ShaderParamId inversegamma;
+
+            const Strid   gpucanvasdrawcmdsbuffer_name = SID("GpuCanvasDrawCmdsBuffer");
+            ShaderParamId gpucanvasdrawcmdsbuffer;
+
+            void load_from(const Ref<Shader>& s);
+        } pb_default;
+
+        struct ParamBlockImagesBatch {
+            const Strid name = SID("images_batch");
+
+            const Strid   image0_name = SID("Image0");
+            ShaderParamId image0;
+
+            const Strid   image1_name = SID("Image1");
+            ShaderParamId image1;
+
+            const Strid   image2_name = SID("Image2");
+            ShaderParamId image2;
+
+            const Strid   image3_name = SID("Image3");
+            ShaderParamId image3;
+
+            void load_from(const Ref<Shader>& s);
+        } pb_images_batch;
+
+        struct TechniqueDefault {
+            const Strid name = SID("default");
+
+            struct Options {
+                const Strid               out_mode        = SID("OUT_MODE");
+                const ShaderOptionVariant out_mode_srgb   = {SID("OUT_MODE"), SID("SRGB")};
+                const ShaderOptionVariant out_mode_linear = {SID("OUT_MODE"), SID("LINEAR")};
+
+            } options;
+
+            struct PassDefault {
+                const Strid name = SID("default");
+
+                operator Strid() const { return name; }
+
+            } ps_default;
+
+            operator Strid() const { return name; }
+
+        } tq_default;
+
+        Ref<Shader> shader;
+
+        Status load_from(Ref<Shader> s);
+    };
+
+    Status reflect_shader_types(class ShaderManager* sm);
 
 }// namespace wmoge

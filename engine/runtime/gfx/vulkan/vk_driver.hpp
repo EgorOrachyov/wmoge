@@ -82,8 +82,7 @@ namespace wmoge {
         Ref<GfxPsoGraphics>   make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name) override;
         Ref<GfxPsoCompute>    make_pso_compute(const GfxPsoStateCompute& state, const Strid& name) override;
         Ref<GfxRenderPass>    make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name) override;
-        Ref<GfxRenderPass>    make_render_pass(const Ref<Window>& window, const Strid& name) override;
-        Ref<GfxFrameBuffer>   make_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name);
+        Ref<GfxFrameBuffer>   make_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name) override;
         Ref<GfxDescSetLayout> make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name) override;
         Ref<GfxDescSet>       make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name) override;
         Async                 make_shaders(const Ref<GfxAsyncShaderRequest>& request) override;
@@ -105,7 +104,7 @@ namespace wmoge {
         GfxShaderLang        shader_lang() const override { return GfxShaderLang::GlslVk450; }
         GfxType              get_gfx_type() const override { return GfxType::Vulkan; }
         GfxShaderPlatform    get_shader_platform() const override { return m_shader_patform; }
-        const GfxCmdListRef& get_default_list() const override { return m_default_list; }
+        GfxWindowProps       get_window_props(const Ref<Window>& window) const override;
 
     public:
         VkInstance       instance() { return m_instance; }
@@ -162,7 +161,6 @@ namespace wmoge {
         flat_map<GfxSamplerDesc, Ref<VKSampler>>       m_samplers;
         flat_map<GfxRenderPassDesc, Ref<VKRenderPass>> m_render_passes;
 
-        GfxCmdListRef     m_default_list;
         GfxDeviceCaps     m_device_caps;
         Strid             m_driver_name = SID("unknown");
         Mat4x4f           m_clip_matrix;

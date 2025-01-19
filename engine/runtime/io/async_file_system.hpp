@@ -49,10 +49,8 @@ namespace wmoge {
         AsyncResult<BufferView> read_file(const std::string& filepath, BufferView buffer_view);
 
     private:
-        TaskManager             m_task_manager;
-        FileSystem*             m_file_system;
-        std::mutex              m_mutex;
-        std::condition_variable m_cv;
+        TaskManager m_task_manager;
+        FileSystem* m_file_system;
     };
 
 }// namespace wmoge

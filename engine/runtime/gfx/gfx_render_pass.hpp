@@ -81,7 +81,7 @@ namespace wmoge {
      * @brief Frame buffer desc for creation and caching
     */
     struct GfxFrameBufferDesc {
-        GfxFrameBufferDesc() = default;
+        GfxFrameBufferDesc();
         bool        operator==(const GfxFrameBufferDesc& other) const;
         std::size_t hash() const;
 
@@ -108,6 +108,18 @@ namespace wmoge {
     */
     struct GfxRenderPassBeginInfo {
         GfxFrameBufferRef                                 frame_buffer;
+        std::array<Color4f, GfxLimits::MAX_COLOR_TARGETS> clear_color{};
+        float                                             clear_depth   = 1.0f;
+        int                                               clear_stencil = 0;
+        Strid                                             name;
+    };
+
+    /**
+     * @class GfxRenderPassBeginInfo
+     * @brief Info to start render pass in window
+    */
+    struct GfxRenderPassWindowBeginInfo {
+        GfxRenderPassRef                                  render_pass;
         Ref<Window>                                       window;
         std::array<Color4f, GfxLimits::MAX_COLOR_TARGETS> clear_color{};
         float                                             clear_depth   = 1.0f;

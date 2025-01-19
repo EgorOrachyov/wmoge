@@ -28,7 +28,6 @@
 #include "var.hpp"
 
 #include "core/crc32.hpp"
-#include "core/object.hpp"
 
 #include <algorithm>
 #include <utility>
@@ -66,10 +65,6 @@ namespace wmoge {
     Var::Var(Map value) {
         m_type = VarType::Map;
         new (m_data.m_mem) Map(std::move(value));
-    }
-    Var::Var(const Ref<Object>& value) {
-        m_type          = VarType::Object;
-        m_data.m_object = ref(value.get());
     }
     Var::Var(std::size_t value) : Var(static_cast<long long>(value)) {
     }
@@ -122,9 +117,6 @@ namespace wmoge {
             case VarType::Map:
                 new (m_data.m_mem) Map(var.as<Map>());
                 break;
-            case VarType::Object:
-                m_data.m_object = ref(var.m_data.m_object);
-                break;
             case VarType::ArrayByte:
                 new (m_data.m_mem) ArrayByte(var.as<ArrayByte>());
                 break;
@@ -169,9 +161,6 @@ namespace wmoge {
                 break;
             case VarType::Map:
                 new (m_data.m_mem) Map(std::move(var.as<Map>()));
-                break;
-            case VarType::Object:
-                m_data.m_object = ref(var.m_data.m_object);
                 break;
             case VarType::ArrayByte:
                 new (m_data.m_mem) ArrayByte(std::move(var.as<ArrayByte>()));
@@ -246,8 +235,6 @@ namespace wmoge {
                 const auto& mp2 = var.as<Map>();
                 return (mp1.size() == mp2.size()) && std::equal(mp1.begin(), mp1.end(), mp2.begin());
             }
-            case VarType::Object:
-                return m_data.m_object == var.m_data.m_object;
             default:
                 return false;
         }
@@ -279,8 +266,6 @@ namespace wmoge {
                 const auto& mp2 = var.as<Map>();
                 return (mp1.size() != mp2.size()) || !std::equal(mp1.begin(), mp1.end(), mp2.begin());
             }
-            case VarType::Object:
-                return m_data.m_object != var.m_data.m_object;
             default:
                 return true;
         }
@@ -342,8 +327,6 @@ namespace wmoge {
                 }
                 return false;
             }
-            case VarType::Object:
-                return m_data.m_object < var.m_data.m_object;
             default:
                 return false;
         }
@@ -357,8 +340,6 @@ namespace wmoge {
                 return m_data.m_int;
             case VarType::Float:
                 return m_data.m_float;
-            case VarType::Object:
-                return m_data.m_object;
             default:
                 return false;
         }
@@ -434,11 +415,6 @@ namespace wmoge {
             return as<Map>();
         return Map();
     }
-    Var::operator Ref<Object>() const {
-        if (type() == VarType::Object)
-            return Ref<Object>(m_data.m_object);
-        return Ref<Object>();
-    }
     Var::operator ArrayByte() const {
         if (type() == VarType::ArrayByte)
             return as<ArrayByte>();
@@ -484,9 +460,6 @@ namespace wmoge {
                     break;
                 case VarType::Map:
                     as<Map>().~Map();
-                    break;
-                case VarType::Object:
-                    unref(m_data.m_object);
                     break;
                 case VarType::ArrayByte:
                     as<ArrayByte>().~ArrayByte();
@@ -559,9 +532,6 @@ namespace wmoge {
                     stream << ", ";
                 }
                 stream << '}';
-                break;
-            case VarType::Object:
-                stream << m_data.m_object->to_string();
                 break;
             case VarType::ArrayByte:
                 stream << '[';
@@ -639,9 +609,6 @@ namespace wmoge {
                     kv.first.build_hash(accum);
                     kv.second.build_hash(accum);
                 }
-            case VarType::Object:
-                accum ^= m_data.m_object->hash();
-                break;
             case VarType::ArrayByte:
                 accum ^= Crc32Util::hash(as<ArrayByte>().data(), as<ArrayByte>().size());
                 break;

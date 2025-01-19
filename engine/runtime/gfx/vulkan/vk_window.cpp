@@ -87,6 +87,18 @@ namespace wmoge {
         info.support_presentation = support;
     }
 
+    Ref<GfxFrameBuffer> VKWindow::get_or_create_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name) {
+        WG_PROFILE_CPU_VULKAN("VKWindow::get_or_create_frame_buffer");
+
+        auto& fb = m_frame_buffers[desc];
+
+        if (!fb) {
+            fb = m_driver.make_frame_buffer(desc, name);
+        }
+
+        return fb;
+    }
+
     void VKWindow::create_image_semaphores() {
         WG_PROFILE_CPU_VULKAN("VKWindow::create_image_semaphores");
 
@@ -215,6 +227,7 @@ namespace wmoge {
         if (m_swapchain) {
             m_color_targets.clear();
             m_depth_stencil_target.reset();
+            m_frame_buffers.clear();
 
             vkDestroySwapchainKHR(m_driver.device(), m_swapchain, nullptr);
             m_swapchain = nullptr;
@@ -284,6 +297,15 @@ namespace wmoge {
 
         m_windows[window->id()] = vk_window;
         return vk_window;
+    }
+
+    Ref<VKWindow> VKWindowManager::get(const Ref<Window>& window) {
+        auto query = m_windows.find(window->id());
+        if (query != m_windows.end()) {
+            return query->second;
+        }
+
+        return nullptr;
     }
 
 }// namespace wmoge

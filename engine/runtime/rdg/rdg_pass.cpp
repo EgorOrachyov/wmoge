@@ -142,64 +142,88 @@ namespace wmoge {
         return m_referenced.find(r) != m_referenced.end();
     }
 
-    Status RdgPassContext::validate_param_block(ShaderParamBlock* param_block) {
-        shader_manager->validate_param_blocks({&param_block, 1}, cmd_list);
+    RdgPassContext::RdgPassContext(GfxCmdListRef cmd_list, GfxDriver* driver, ShaderManager* shader_manager, RdgGraph* graph)
+        : m_cmd_list(std::move(cmd_list)), m_driver(driver), m_shader_manager(shader_manager), m_graph(graph) {
+    }
+
+    Status RdgPassContext::update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
+        m_cmd_list->update_vert_buffer(buffer, offset, range, data);
         return WG_OK;
     }
 
-    Status RdgPassContext::bind_param_block(ShaderParamBlock* param_block, int index) {
+    Status RdgPassContext::update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
+        m_cmd_list->update_index_buffer(buffer, offset, range, data);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
+        m_cmd_list->update_uniform_buffer(buffer, offset, range, data);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data) {
+        m_cmd_list->update_storage_buffer(buffer, offset, range, data);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::validate_param_block(ShaderParamBlock* param_block) {
+        m_shader_manager->validate_param_blocks({&param_block, 1}, m_cmd_list);
+        return WG_OK;
+    }
+
+    Status RdgPassContext::bind_param_block(ShaderParamBlock* param_block) {
         WG_CHECKED(validate_param_block(param_block));
-        cmd_list->bind_desc_set(param_block->get_gfx_set(), index);
+        m_cmd_list->bind_desc_set(param_block->get_gfx_set(), param_block->get_space());
         return WG_OK;
     }
 
     Status RdgPassContext::bind_pso_graphics(Shader* shader, const ShaderPermutation& permutation, const GfxVertElements& vert_elements) {
         GfxRenderPassRef render_pass;
-        cmd_list->peek_render_pass(render_pass);
-        GfxPsoGraphicsRef pso = shader_manager->get_or_create_pso_graphics(shader, permutation, render_pass, vert_elements);
+        m_cmd_list->peek_render_pass(render_pass);
+        GfxPsoGraphicsRef pso = m_shader_manager->get_or_create_pso_graphics(shader, permutation, render_pass, vert_elements);
         if (!pso) {
             return StatusCode::NoValue;
         }
-        cmd_list->bind_pso(pso);
+        m_cmd_list->bind_pso(pso);
         return WG_OK;
     }
 
     Status RdgPassContext::bind_pso_compute(Shader* shader, const ShaderPermutation& permutation) {
-        GfxPsoComputeRef pso = shader_manager->get_or_create_pso_compute(shader, permutation);
+        GfxPsoComputeRef pso = m_shader_manager->get_or_create_pso_compute(shader, permutation);
         if (!pso) {
             return StatusCode::NoValue;
         }
-        cmd_list->bind_pso(pso);
+        m_cmd_list->bind_pso(pso);
         return WG_OK;
     }
 
     Status RdgPassContext::viewport(const Rect2i& viewport) {
-        cmd_list->viewport(viewport);
+        m_cmd_list->viewport(viewport);
         return WG_OK;
     }
 
     Status RdgPassContext::bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset) {
-        cmd_list->bind_vert_buffer(buffer, index, offset);
+        m_cmd_list->bind_vert_buffer(buffer, index, offset);
         return WG_OK;
     }
 
     Status RdgPassContext::bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset) {
-        cmd_list->bind_index_buffer(buffer, index_type, offset);
+        m_cmd_list->bind_index_buffer(buffer, index_type, offset);
         return WG_OK;
     }
 
     Status RdgPassContext::draw(int vertex_count, int base_vertex, int instance_count) {
-        cmd_list->draw(vertex_count, base_vertex, instance_count);
+        m_cmd_list->draw(vertex_count, base_vertex, instance_count);
         return WG_OK;
     }
 
     Status RdgPassContext::draw_indexed(int index_count, int base_vertex, int instance_count) {
-        cmd_list->draw_indexed(index_count, base_vertex, instance_count);
+        m_cmd_list->draw_indexed(index_count, base_vertex, instance_count);
         return WG_OK;
     }
 
     Status RdgPassContext::dispatch(Vec3i group_count) {
-        cmd_list->dispatch(group_count);
+        m_cmd_list->dispatch(group_count);
         return WG_OK;
     }
 

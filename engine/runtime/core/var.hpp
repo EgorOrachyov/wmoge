@@ -56,7 +56,6 @@ namespace wmoge {
         Strid       = 4,
         Array       = 5,
         Map         = 6,
-        Object      = 7,
         ArrayInt    = 8,
         ArrayFloat  = 9,
         ArrayByte   = 10,
@@ -74,7 +73,6 @@ namespace wmoge {
     };
 
     class Var;
-    class Object;
     using String      = std::string;
     using Array       = TypedArray<Var>;            // wrap to avoid unnecessary copy
     using ArrayInt    = TypedArray<int>;            // wrap to avoid unnecessary copy
@@ -99,7 +97,6 @@ namespace wmoge {
         Var(Strid value);
         Var(Array value);
         Var(Map value);
-        Var(const Ref<Object>& value);
         Var(std::size_t value);
         Var(std::vector<Var> value);
         Var(std::unordered_map<Var, Var, VarHash> value);
@@ -134,7 +131,6 @@ namespace wmoge {
         operator Strid() const;
         operator Array() const;
         operator Map() const;
-        operator Ref<Object>() const;
         operator ArrayByte() const;
         operator ArrayInt() const;
         operator ArrayFloat() const;
@@ -169,7 +165,6 @@ namespace wmoge {
         union {
             long long    m_int;
             double       m_float;
-            Object*      m_object;
             std::uint8_t m_mem[MEM_SIZE] = {0};
         } m_data;
     };

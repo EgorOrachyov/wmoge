@@ -27,7 +27,6 @@
 
 #include "pfx_component.hpp"
 
-#include "core/class.hpp"
 #include "core/log.hpp"
 
 #include <cassert>

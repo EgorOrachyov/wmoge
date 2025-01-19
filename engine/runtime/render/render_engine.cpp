@@ -43,8 +43,6 @@ namespace wmoge {
     RenderEngine::RenderEngine(IocContainer* ioc) {
         WG_LOG_INFO("init render engine");
 
-        reflect_shader_types(ioc->resolve_value<ShaderManager>());
-
         m_fullscreen_tria.resize(3);
         m_fullscreen_tria[0].pos = Vec2f(-1, -1);
         m_fullscreen_tria[0].uv  = Vec2f(0, 0);

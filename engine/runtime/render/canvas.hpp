@@ -97,7 +97,7 @@ namespace wmoge {
      * @brief Shared data for canvas primitives rendering
     */
     struct CanvasSharedData {
-        static constexpr int MAX_CANVAS_IMAGES = ShaderCanvas::MAX_IMAGES;
+        static constexpr int MAX_CANVAS_IMAGES = ShaderCanvas::Constants::MAX_IMAGES;
 
         CanvasSharedData();
         CanvasSharedData(const CanvasSharedData&) = delete;
@@ -122,7 +122,7 @@ namespace wmoge {
     public:
         static constexpr int INLINE_STACK_SIZE   = 16;
         static constexpr int NUM_SEGMENTS_PER_PI = 32;
-        static constexpr int MAX_CANVAS_IMAGES   = ShaderCanvas::MAX_IMAGES;
+        static constexpr int MAX_CANVAS_IMAGES   = ShaderCanvas::Constants::MAX_IMAGES;
 
         Canvas();
         Canvas(std::shared_ptr<CanvasSharedData> shared);

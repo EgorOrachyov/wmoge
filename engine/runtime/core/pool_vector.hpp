@@ -71,6 +71,12 @@ namespace wmoge {
         void clear();
         void reserve(std::size_t size);
 
+        T&       front();
+        const T& front() const;
+
+        T&       back();
+        const T& back() const;
+
         T&       operator[](std::size_t i);
         const T& operator[](std::size_t i) const;
 
@@ -179,17 +185,41 @@ namespace wmoge {
     }
 
     template<typename T, int NodeCapacity>
+    inline T& pool_vector<T, NodeCapacity>::front() {
+        assert(!is_empty());
+        return (*this)[0];
+    }
+
+    template<typename T, int NodeCapacity>
+    inline const T& pool_vector<T, NodeCapacity>::front() const {
+        assert(!is_empty());
+        return (*this)[0];
+    }
+
+    template<typename T, int NodeCapacity>
+    inline T& pool_vector<T, NodeCapacity>::back() {
+        assert(!is_empty());
+        return (*this)[size() - 1];
+    }
+
+    template<typename T, int NodeCapacity>
+    inline const T& pool_vector<T, NodeCapacity>::back() const {
+        assert(!is_empty());
+        return (*this)[size() - 1];
+    }
+
+    template<typename T, int NodeCapacity>
     inline T& pool_vector<T, NodeCapacity>::operator[](std::size_t i) {
         std::size_t node_idx = m_size / NODE_CAPACITY;
         std::size_t item_idx = m_size % NODE_CAPACITY;
-        return m_nodes[node_idx]->items[item_idx].mem;
+        return *(reinterpret_cast<T*>(m_nodes[node_idx]->items[item_idx].mem));
     }
 
     template<typename T, int NodeCapacity>
     inline const T& pool_vector<T, NodeCapacity>::operator[](std::size_t i) const {
         std::size_t node_idx = m_size / NODE_CAPACITY;
         std::size_t item_idx = m_size % NODE_CAPACITY;
-        return m_nodes[node_idx]->items[item_idx].mem;
+        return *(reinterpret_cast<const T*>(m_nodes[node_idx]->items[item_idx].mem));
     }
 
     template<typename T, int NodeCapacity>

@@ -28,12 +28,11 @@
 #ifndef WMOGE_PFX_FEATURE_HPP
 #define WMOGE_PFX_FEATURE_HPP
 
-#include "core/class.hpp"
-#include "core/object.hpp"
 #include "core/ref.hpp"
 #include "core/string_id.hpp"
 #include "io/tree.hpp"
 #include "pfx/pfx_storage.hpp"
+#include "rtti/traits.hpp"
 
 namespace wmoge {
 
@@ -50,9 +49,9 @@ namespace wmoge {
      *
      * Combine different features with different settings to get new particles effects.
      */
-    class PfxFeature : public Object {
+    class PfxFeature : public RttiObject {
     public:
-        WG_OBJECT(PfxFeature, Object)
+        WG_RTTI_CLASS(PfxFeature, RttiObject);
 
         virtual Ref<PfxFeature> create() const { return {}; };
         virtual Strid           get_feature_name() const { return Strid(); };
@@ -64,6 +63,12 @@ namespace wmoge {
         virtual void on_provided_render(class PfxComponentRuntime& runtime, std::unique_ptr<class PfxRenderer>& renderer) {}
         virtual void on_prepare_render(class PfxComponentRuntime& runtime) {}
     };
+
+    WG_RTTI_CLASS_BEGIN(PfxFeature) {
+        WG_RTTI_META_DATA();
+        WG_RTTI_FACTORY();
+    }
+    WG_RTTI_END;
 
 }// namespace wmoge
 

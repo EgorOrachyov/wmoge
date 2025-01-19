@@ -30,7 +30,6 @@
 #include "asset/asset_manager.hpp"
 #include "audio/openal/al_engine.hpp"
 #include "core/callback_queue.hpp"
-#include "core/class.hpp"
 #include "core/cmd_line.hpp"
 #include "core/ioc_container.hpp"
 #include "core/log.hpp"
@@ -57,6 +56,7 @@
 #include "profiler/profiler_capture.hpp"
 #include "profiler/profiler_cpu.hpp"
 #include "render/render_engine.hpp"
+#include "render/shader_table.hpp"
 #include "render/view_manager.hpp"
 #include "rtti/type_storage.hpp"
 #include "scene/scene_manager.hpp"
@@ -90,6 +90,7 @@ namespace wmoge {
         ioc->bind<CallbackQueue>();
         ioc->bind<EcsRegistry>();
         ioc->bind<ViewManager>();
+        ioc->bind<ShaderTable>();
         ioc->bind<EngineConfig>();
         ioc->bind_by_ioc<DllManager>();
         ioc->bind_by_ioc<ProfilerCapture>();
@@ -157,6 +158,7 @@ namespace wmoge {
         ioc->unbind<ViewManager>();
         ioc->unbind<SceneManager>();
         ioc->unbind<PsoCache>();
+        ioc->unbind<ShaderTable>();
         ioc->unbind<ShaderManager>();
         ioc->unbind<ShaderLibrary>();
         ioc->unbind<ShaderTaskManager>();

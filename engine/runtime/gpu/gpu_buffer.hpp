@@ -159,6 +159,7 @@ namespace wmoge {
         [[nodiscard]] std::size_t            size() const { return m_data.elements.size(); }
         [[nodiscard]] bool                   empty() const { return m_data.elements.empty(); }
         [[nodiscard]] const T*               data() const { return m_data.elements.data(); }
+        [[nodiscard]] const Strid&           name() const { return m_name; }
         [[nodiscard]] std::size_t            buffer_capacity() const;
 
     private:

@@ -161,7 +161,7 @@ namespace wmoge {
         }
 
         operator bool() const {
-            return m_ptr != nullptr;
+            return m_ptr;
         }
 
         template<typename G, typename std::enable_if_t<std::is_convertible_v<T*, G*>> = true>

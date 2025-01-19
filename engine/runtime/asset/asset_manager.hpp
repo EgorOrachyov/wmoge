@@ -34,7 +34,6 @@
 #include "core/async.hpp"
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
-#include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/task.hpp"
 #include "rtti/traits.hpp"

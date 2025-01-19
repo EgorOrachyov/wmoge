@@ -28,11 +28,13 @@
 #include "_rtti.hpp"
 
 #include "pfx/pfx_effect.hpp"
+#include "pfx/pfx_feature.hpp"
 
 namespace wmoge {
 
     void rtti_pfx() {
         rtti_type<PfxEffect>();
+        rtti_type<PfxFeature>();
     }
 
 }// namespace wmoge

@@ -30,6 +30,7 @@
 #include "core/buffered_vector.hpp"
 #include "core/flat_map.hpp"
 #include "gfx/vulkan/vk_defs.hpp"
+#include "gfx/vulkan/vk_render_pass.hpp"
 #include "gfx/vulkan/vk_texture.hpp"
 
 #include <array>
@@ -58,9 +59,10 @@ namespace wmoge {
         VKWindow(Ref<Window> window, VkSurfaceKHR surface, class VKDriver& driver);
         ~VKWindow() override;
 
-        void init(class VKCmdList* cmd);
-        void acquire_next(class VKCmdList* cmd);
-        void get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
+        void                init(class VKCmdList* cmd);
+        void                acquire_next(class VKCmdList* cmd);
+        void                get_support_info(VkPhysicalDevice device, uint32_t prs_family, VKSwapChainSupportInfo& info) const;
+        Ref<GfxFrameBuffer> get_or_create_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name);
 
         [[nodiscard]] const buffered_vector<Ref<VKTexture>>& color() const { return m_color_targets; }
         [[nodiscard]] const Ref<VKTexture>&                  depth_stencil() const { return m_depth_stencil_target; }
@@ -99,6 +101,8 @@ namespace wmoge {
         std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_acquire_semaphore{};
         std::array<VkSemaphore, GfxLimits::FRAMES_IN_FLIGHT> m_present_semaphore{};
 
+        flat_map<GfxFrameBufferDesc, Ref<GfxFrameBuffer>> m_frame_buffers;
+
         uint32_t m_current         = 0;
         int      m_version         = -1;
         int      m_semaphore_index = 0;
@@ -116,6 +120,7 @@ namespace wmoge {
         VKWindowManager(const VKInitInfo& init_info, class VKDriver& driver);
 
         [[nodiscard]] Ref<VKWindow> get_or_create(class VKCmdList* cmd, const Ref<Window>& window);
+        [[nodiscard]] Ref<VKWindow> get(const Ref<Window>& window);
 
     private:
         flat_map<Strid, Ref<VKWindow>>                                  m_windows;

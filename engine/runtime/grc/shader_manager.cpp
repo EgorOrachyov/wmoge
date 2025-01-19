@@ -562,7 +562,7 @@ namespace wmoge {
 
     void ShaderManager::validate_param_blocks(array_view<ShaderParamBlock*> param_blocks, const GfxCmdListRef& cmd_list) {
         WG_PROFILE_CPU_GRC("ShaderManager::validate_param_blocks");
-        WG_PROFILE_GPU_SCOPE(cmd_list, "ShaderManager::validate_param_blocks");
+        WG_PROFILE_GPU_SCOPE("ShaderManager::validate_param_blocks", cmd_list);
 
         if (param_blocks.empty()) {
             return;

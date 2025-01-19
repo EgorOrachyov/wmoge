@@ -82,7 +82,7 @@ namespace wmoge {
         virtual Ref<GfxPsoGraphics>   make_pso_graphics(const GfxPsoStateGraphics& state, const Strid& name = Strid())                                                                               = 0;
         virtual Ref<GfxPsoCompute>    make_pso_compute(const GfxPsoStateCompute& state, const Strid& name = Strid())                                                                                 = 0;
         virtual Ref<GfxRenderPass>    make_render_pass(const GfxRenderPassDesc& pass_desc, const Strid& name = Strid())                                                                              = 0;
-        virtual Ref<GfxRenderPass>    make_render_pass(const Ref<Window>& window, const Strid& name = Strid())                                                                                       = 0;
+        virtual Ref<GfxFrameBuffer>   make_frame_buffer(const GfxFrameBufferDesc& desc, const Strid& name = Strid())                                                                                 = 0;
         virtual Ref<GfxDescSetLayout> make_desc_layout(const GfxDescSetLayoutDesc& desc, const Strid& name = Strid())                                                                                = 0;
         virtual Ref<GfxDescSet>       make_desc_set(const GfxDescSetResources& resources, const Ref<GfxDescSetLayout>& layout, const Strid& name = Strid())                                          = 0;
         virtual Async                 make_shaders(const Ref<GfxAsyncShaderRequest>& request)                                                                                                        = 0;
@@ -96,15 +96,15 @@ namespace wmoge {
         virtual void          query_callibration(std::uint64_t& gpu_time, std::uint64_t& gpu_freq)               = 0;
         virtual void          end_frame(bool swap_buffers = true)                                                = 0;
 
-        [[nodiscard]] virtual const GfxDeviceCaps& device_caps() const         = 0;
-        [[nodiscard]] virtual const Strid&         driver_name() const         = 0;
-        [[nodiscard]] virtual const std::string&   pipeline_cache_path() const = 0;
-        [[nodiscard]] virtual const Mat4x4f&       clip_matrix() const         = 0;
-        [[nodiscard]] virtual std::size_t          frame_number() const        = 0;
-        [[nodiscard]] virtual GfxShaderLang        shader_lang() const         = 0;
-        [[nodiscard]] virtual GfxType              get_gfx_type() const        = 0;
-        [[nodiscard]] virtual GfxShaderPlatform    get_shader_platform() const = 0;
-        [[nodiscard]] virtual const GfxCmdListRef& get_default_list() const    = 0;
+        [[nodiscard]] virtual const GfxDeviceCaps& device_caps() const                               = 0;
+        [[nodiscard]] virtual const Strid&         driver_name() const                               = 0;
+        [[nodiscard]] virtual const std::string&   pipeline_cache_path() const                       = 0;
+        [[nodiscard]] virtual const Mat4x4f&       clip_matrix() const                               = 0;
+        [[nodiscard]] virtual std::size_t          frame_number() const                              = 0;
+        [[nodiscard]] virtual GfxShaderLang        shader_lang() const                               = 0;
+        [[nodiscard]] virtual GfxType              get_gfx_type() const                              = 0;
+        [[nodiscard]] virtual GfxShaderPlatform    get_shader_platform() const                       = 0;
+        [[nodiscard]] virtual GfxWindowProps       get_window_props(const Ref<Window>& window) const = 0;
     };
 
 }// namespace wmoge

@@ -28,7 +28,6 @@
 #pragma once
 
 #include "core/buffered_vector.hpp"
-#include "core/object.hpp"
 #include "core/string_id.hpp"
 #include "core/string_utils.hpp"
 #include "ecs/ecs_core.hpp"

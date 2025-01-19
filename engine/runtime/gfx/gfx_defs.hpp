@@ -604,6 +604,13 @@ namespace wmoge {
         bool  timestamp_support              = false;
     };
 
+    /** @brief Gfx window properties in driver */
+    struct GfxWindowProps {
+        GfxFormat color_format         = GfxFormat::Unknown;
+        GfxFormat depth_stencil_format = GfxFormat::Unknown;
+    };
+
+    /** @brief Gfx utils */
     struct GfxUtils {
         static Vec3i group_size(int x, int y, int local_size) {
             return Vec3i(int(Math::div_up(x, local_size)), int(Math::div_up(y, local_size)), 1);

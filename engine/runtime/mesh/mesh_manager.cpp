@@ -122,7 +122,7 @@ namespace wmoge {
         auto cmd = m_gfx_driver->acquire_cmd_list(GfxQueueType::Graphics);
         WG_PROFILE_GPU_BEGIN(cmd);
         {
-            WG_PROFILE_GPU_SCOPE(cmd, "MeshManager::flust_meshes_upload");
+            WG_PROFILE_GPU_SCOPE("MeshManager::flust_meshes_upload", cmd);
 
             cmd->barrier_buffers(for_barrier);
             for (Mesh* mesh : for_upload) {
@@ -167,12 +167,12 @@ namespace wmoge {
 
     void MeshManager::upload_mesh(Mesh* mesh, const GfxCmdListRef& cmd) {
         WG_PROFILE_CPU_MESH("MeshManager::upload_mesh");
-        WG_PROFILE_GPU_SCOPE(cmd, "TextureManager::upload_texture");
+        WG_PROFILE_GPU_SCOPE("MeshManager::upload_mesh", cmd);
 
         array_view<const Ref<Data>>          vb     = mesh->get_vertex_buffers();
         array_view<const Ref<GfxVertBuffer>> gfx_vb = mesh->get_gfx_vertex_buffers();
         {
-            WG_PROFILE_GPU_SCOPE(cmd.get(), "upload_vert_buffers");
+            WG_PROFILE_GPU_SCOPE("upload_vert_buffers", cmd.get());
 
             for (std::size_t i = 0; i < vb.size(); i++) {
                 cmd->update_vert_buffer(gfx_vb[i], 0, static_cast<int>(vb[i]->size()), {vb[i]->buffer(), vb[i]->size()});
@@ -182,7 +182,7 @@ namespace wmoge {
         array_view<const Ref<Data>>           ib     = mesh->get_index_buffers();
         array_view<const Ref<GfxIndexBuffer>> gfx_ib = mesh->get_gfx_index_buffers();
         {
-            WG_PROFILE_GPU_SCOPE(cmd.get(), "upload_index_buffers");
+            WG_PROFILE_GPU_SCOPE("upload_index_buffers", cmd.get());
 
             for (std::size_t i = 0; i < ib.size(); i++) {
                 cmd->update_index_buffer(gfx_ib[i], 0, static_cast<int>(ib[i]->size()), {ib[i]->buffer(), ib[i]->size()});

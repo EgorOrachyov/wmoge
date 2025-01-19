@@ -38,7 +38,7 @@
 #include "math/vec.hpp"
 #include "platform/window.hpp"
 #include "rdg/rdg_graph.hpp"
-#include "render/shader_table.hpp"
+#include "render/interop.hpp"
 
 #include <deque>
 #include <memory>
@@ -82,7 +82,7 @@ namespace wmoge {
         void set_mat_vp(const Mat4x4f& mat);
         void set_screen_size(const Vec2f& size);
 
-        void render(RdgGraph& graph, RdgTexture* target, const Rect2i& viewport, float gamma, ShaderTable* shader_table, TextureManager* texture_manager);
+        void render(RdgGraph& graph, RdgTexture* color, RdgTexture* depth, const Rect2i& viewport, float gamma, class ShaderTable* shader_table, class TextureManager* texture_manager);
         void clear();
 
     private:
@@ -101,7 +101,6 @@ namespace wmoge {
         struct AuxData {
             std::vector<AuxDrawElem>   elems;
             GpuVertBuffer<AuxDrawVert> verts;
-            Ref<GfxVertBuffer>         verts_buffer;
             int                        vtx_offset = 0;
         };
 
@@ -156,7 +155,7 @@ namespace wmoge {
         void draw_text_3d(std::string text, const Vec3f& pos, float size, const Color4f& color, std::optional<float> lifetime = std::nullopt);
         void draw_text_2d(std::string text, const Vec2f& pos, float size, const Color4f& color, std::optional<float> lifetime = std::nullopt);
 
-        void render(RdgGraph& graph, RdgTexture* target, const Rect2i& viewport, float gamma, const Mat4x4f& proj_view, ShaderTable* shader_table, TextureManager* texture_manager);
+        void render(RdgGraph& graph, RdgTexture* color, RdgTexture* depth, const Rect2i& viewport, float gamma, const Mat4x4f& proj_view, class ShaderTable* shader_table, class TextureManager* texture_manager);
         void flush(float delta_time);
 
         void set_font(Ref<Font> font);

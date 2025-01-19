@@ -25,13 +25,48 @@
 /* SOFTWARE.                                                                      */
 /**********************************************************************************/
 
-#ifndef WMOGE_REGISTER_CLASSES_PFX_HPP
-#define WMOGE_REGISTER_CLASSES_PFX_HPP
+#include "shader_table.hpp"
+
+#include "asset/asset_manager.hpp"
+#include "grc/shader_manager.hpp"
+#include "profiler/profiler_cpu.hpp"
 
 namespace wmoge {
 
-    void register_classes_pfx();
+    Status ShaderTable::reflect_types(ShaderManager* shader_manager) {
+        WG_PROFILE_CPU_RENDER("ShaderTable::reflect_types");
 
-}
+        return reflect_shader_types(shader_manager);
+    }
 
-#endif//WMOGE_REGISTER_CLASSES_PFX_HPP
+#define LOAD_SHADER(shader_name)                                  \
+    {                                                             \
+        Ref<Shader> shader;                                       \
+        WG_CHECKED(load_shader(#shader_name, shader));            \
+        WG_CHECKED(m_##shader_name.load_from(std::move(shader))); \
+    }
+
+    Status ShaderTable::load_shaders(AssetManager* asset_manager) {
+        WG_PROFILE_CPU_RENDER("ShaderTable::load_shaders");
+
+        auto load_shader = [&](const std::string& name, Ref<Shader>& shader) -> Status {
+            const AssetId shader_id("engine/shaders/" + name);
+            shader = asset_manager->load(shader_id).cast<Shader>();
+
+            if (!shader) {
+                WG_LOG_ERROR("failed load shader " << shader_id);
+                return StatusCode::NoAsset;
+            }
+
+            return WG_OK;
+        };
+
+        LOAD_SHADER(aux_draw);
+        LOAD_SHADER(canvas);
+
+        return WG_OK;
+    }
+
+#undef LOAD_SHADER
+
+}// namespace wmoge

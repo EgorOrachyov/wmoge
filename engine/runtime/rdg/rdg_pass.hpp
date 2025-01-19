@@ -71,16 +71,27 @@ namespace wmoge {
         GfxAccess    access   = GfxAccess::None;
     };
 
+    /**
+     * @class RdgPassContext
+     * @brief Rdg graph execution context passed into pass custom user code
+     */
     class RdgPassContext {
     public:
-        RdgPassContext() = default;
+        RdgPassContext(GfxCmdListRef        cmd_list,
+                       class GfxDriver*     driver,
+                       class ShaderManager* shader_manager,
+                       class RdgGraph*      graph);
+
+        Status update_vert_buffer(GfxVertBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
+        Status update_index_buffer(GfxIndexBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
+        Status update_uniform_buffer(GfxUniformBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
+        Status update_storage_buffer(GfxStorageBuffer* buffer, int offset, int range, array_view<const std::uint8_t> data);
 
         Status validate_param_block(ShaderParamBlock* param_block);
 
-        Status bind_param_block(ShaderParamBlock* param_block, int index);
+        Status bind_param_block(ShaderParamBlock* param_block);
         Status bind_pso_graphics(Shader* shader, const ShaderPermutation& permutation, const GfxVertElements& vert_elements);
         Status bind_pso_compute(Shader* shader, const ShaderPermutation& permutation);
-
         Status viewport(const Rect2i& viewport);
         Status bind_vert_buffer(GfxVertBuffer* buffer, int index, int offset = 0);
         Status bind_index_buffer(const Ref<GfxIndexBuffer>& buffer, GfxIndexType index_type, int offset = 0);
@@ -88,11 +99,16 @@ namespace wmoge {
         Status draw_indexed(int index_count, int base_vertex, int instance_count);
         Status dispatch(Vec3i group_count);
 
-    public:
-        GfxCmdListRef        cmd_list;
-        class GfxDriver*     driver         = nullptr;
-        class ShaderManager* shader_manager = nullptr;
-        class RdgGraph*      graph          = nullptr;
+        [[nodiscard]] const GfxCmdListRef& get_cmd_list() const { return m_cmd_list; }
+        [[nodiscard]] class GfxDriver*     get_driver() const { return m_driver; }
+        [[nodiscard]] class ShaderManager* get_shader_manager() const { return m_shader_manager; }
+        [[nodiscard]] class RdgGraph*      get_graph() const { return m_graph; }
+
+    private:
+        GfxCmdListRef        m_cmd_list;
+        class GfxDriver*     m_driver         = nullptr;
+        class ShaderManager* m_shader_manager = nullptr;
+        class RdgGraph*      m_graph          = nullptr;
     };
 
     /** @brief Rdg pass flags */
@@ -128,10 +144,11 @@ namespace wmoge {
 
         GfxRenderPassDesc make_render_pass_desc() const;
 
-        [[nodiscard]] bool                has_resource(RdgResource* r) const;
-        [[nodiscard]] const RdgPassFlags& get_flags() const { return m_flags; }
-        [[nodiscard]] const RdgPassId&    get_id() const { return m_id; }
-        [[nodiscard]] const Strid&        get_name() const { return m_name; }
+        [[nodiscard]] bool                   has_resource(RdgResource* r) const;
+        [[nodiscard]] const RdgPassFlags&    get_flags() const { return m_flags; }
+        [[nodiscard]] const RdgPassId&       get_id() const { return m_id; }
+        [[nodiscard]] const Strid&           get_name() const { return m_name; }
+        [[nodiscard]] const RdgPassCallback& get_callback() const { return m_callback; }
 
     private:
         friend RdgGraph;

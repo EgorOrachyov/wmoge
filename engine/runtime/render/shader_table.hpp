@@ -27,22 +27,33 @@
 
 #pragma once
 
-#include "grc/shader.hpp"
+#include "render/interop.hpp"
 
 namespace wmoge {
 
     /**
      * @class ShaderTable
      * @brief Table with common render system shaders
+     * 
+     * Shader table provides access to built-in engine shaders, 
+     * declared in engine shaders folder. This shader table shaders
+     * are a type-safe compile-time wrapper for engine shaders. 
+     * It can be used to reduce boilerplate in case of writing
+     * engine related rendering code.
      */
     class ShaderTable {
     public:
-        [[nodiscard]] Shader* aux_draw() const { return m_aux_draw; }
-        [[nodiscard]] Shader* canvas() const { return m_canvas; }
+        ShaderTable() = default;
+
+        Status reflect_types(class ShaderManager* asset_manager);
+        Status load_shaders(class AssetManager* asset_manager);
+
+        [[nodiscard]] const ShaderAuxDraw* aux_draw() const { return &m_aux_draw; }
+        [[nodiscard]] const ShaderCanvas*  canvas() const { return &m_canvas; }
 
     private:
-        Shader* m_aux_draw = nullptr;
-        Shader* m_canvas   = nullptr;
+        ShaderAuxDraw m_aux_draw;
+        ShaderCanvas  m_canvas;
     };
 
 }// namespace wmoge

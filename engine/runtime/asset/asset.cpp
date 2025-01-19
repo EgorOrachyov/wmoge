@@ -27,8 +27,6 @@
 
 #include "asset.hpp"
 
-#include "core/class.hpp"
-
 #include <algorithm>
 #include <cassert>
 #include <limits>

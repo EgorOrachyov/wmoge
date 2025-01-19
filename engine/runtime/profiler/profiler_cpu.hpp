@@ -114,6 +114,7 @@ namespace wmoge {
 #define WG_PROFILE_CPU_GLFW(label)           WG_PROFILE_CPU_SCOPE(glfw, label)
 #define WG_PROFILE_CPU_GFX(label)            WG_PROFILE_CPU_SCOPE(gfx, label)
 #define WG_PROFILE_CPU_GRC(label)            WG_PROFILE_CPU_SCOPE(grc, label)
+#define WG_PROFILE_CPU_RDG(label)            WG_PROFILE_CPU_SCOPE(rdg, label)
 #define WG_PROFILE_CPU_HGFX(label)           WG_PROFILE_CPU_SCOPE(hgfx, label)
 #define WG_PROFILE_CPU_VULKAN(label)         WG_PROFILE_CPU_SCOPE(vulkan, label)
 #define WG_PROFILE_CPU_IO(label)             WG_PROFILE_CPU_SCOPE(io, label)

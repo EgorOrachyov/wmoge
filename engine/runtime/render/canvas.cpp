@@ -32,6 +32,7 @@
 #include "gfx/gfx_driver.hpp"
 #include "grc/texture_manager.hpp"
 #include "profiler/profiler_cpu.hpp"
+#include "render/shader_table.hpp"
 
 #include <cassert>
 

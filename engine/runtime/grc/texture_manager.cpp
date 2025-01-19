@@ -153,7 +153,7 @@ namespace wmoge {
         auto cmd = m_gfx_driver->acquire_cmd_list(GfxQueueType::Graphics);
         WG_PROFILE_GPU_BEGIN(cmd);
         {
-            WG_PROFILE_GPU_SCOPE(cmd, "TextureManager::flust_textures_upload");
+            WG_PROFILE_GPU_SCOPE("TextureManager::flust_textures_upload", cmd);
 
             cmd->barrier_images(for_barrier, GfxTexBarrierType::Undefined, GfxTexBarrierType::CopyDestination);
             for (Texture* texture : for_upload) {
@@ -300,7 +300,7 @@ namespace wmoge {
 
     void TextureManager::upload_texture(Texture* texture, const GfxCmdListRef& cmd) {
         WG_PROFILE_CPU_GRC("TextureManager::upload_texture");
-        WG_PROFILE_GPU_SCOPE(cmd, "TextureManager::upload_texture");
+        WG_PROFILE_GPU_SCOPE("TextureManager::upload_texture", cmd);
 
         assert(texture);
 
@@ -315,10 +315,10 @@ namespace wmoge {
         assert(texture->get_mips() >= 1);
 
         for (int array_slice = 0; array_slice < texture->get_array_slices(); array_slice++) {
-            WG_PROFILE_GPU_SCOPE(cmd.get(), "upload_slice");
+            WG_PROFILE_GPU_SCOPE("upload_slice", cmd.get());
 
             for (int mip = 0; mip < texture->get_mips(); mip++) {
-                WG_PROFILE_GPU_SCOPE(cmd.get(), "upload_mip");
+                WG_PROFILE_GPU_SCOPE("upload_mip", cmd.get());
 
                 const int index = array_slice * texture->get_mips() + mip;
 
