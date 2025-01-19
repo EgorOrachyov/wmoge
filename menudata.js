@@ -49,8 +49,7 @@ var menudata={children:[
 {text:"v",url:"namespacemembers_v.html#index_v"},
 {text:"w",url:"namespacemembers_w.html#index_w"}]},
 {text:"Functions",url:"namespacemembers_func.html",children:[
-{text:"a",url:"namespacemembers_func.html#index_a"},
-{text:"b",url:"namespacemembers_func_b.html#index_b"},
+{text:"b",url:"namespacemembers_func.html#index_b"},
 {text:"c",url:"namespacemembers_func_c.html#index_c"},
 {text:"g",url:"namespacemembers_func_g.html#index_g"},
 {text:"m",url:"namespacemembers_func_m.html#index_m"},
@@ -200,7 +199,6 @@ var menudata={children:[
 {text:"v",url:"functions_type.html#index_v"}]},
 {text:"Enumerations",url:"functions_enum.html"},
 {text:"Related Functions",url:"functions_rela.html",children:[
-{text:"a",url:"functions_rela.html#index_a"},
 {text:"c",url:"functions_rela.html#index_c"},
 {text:"g",url:"functions_rela.html#index_g"},
 {text:"p",url:"functions_rela.html#index_p"},
@@ -212,11 +210,9 @@ var menudata={children:[
 {text:"All",url:"globals.html",children:[
 {text:"_",url:"globals.html#index__5F"},
 {text:"a",url:"globals.html#index_a"},
-{text:"b",url:"globals.html#index_b"},
 {text:"d",url:"globals.html#index_d"},
-{text:"e",url:"globals.html#index_e"},
-{text:"f",url:"globals.html#index_f"},
 {text:"g",url:"globals.html#index_g"},
+{text:"l",url:"globals.html#index_l"},
 {text:"o",url:"globals.html#index_o"},
 {text:"p",url:"globals.html#index_p"},
 {text:"r",url:"globals.html#index_r"},
@@ -227,11 +223,9 @@ var menudata={children:[
 {text:"Macros",url:"globals_defs.html",children:[
 {text:"_",url:"globals_defs.html#index__5F"},
 {text:"a",url:"globals_defs.html#index_a"},
-{text:"b",url:"globals_defs.html#index_b"},
 {text:"d",url:"globals_defs.html#index_d"},
-{text:"e",url:"globals_defs.html#index_e"},
-{text:"f",url:"globals_defs.html#index_f"},
 {text:"g",url:"globals_defs.html#index_g"},
+{text:"l",url:"globals_defs.html#index_l"},
 {text:"o",url:"globals_defs.html#index_o"},
 {text:"p",url:"globals_defs.html#index_p"},
 {text:"r",url:"globals_defs.html#index_r"},

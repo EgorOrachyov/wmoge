@@ -203,12 +203,15 @@ $(function() {
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">        std::string(name), SID(#system), SID(__FUNCTION__), SID(__FILE__), std::size_t { __LINE__ } \</span></div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">    }</span></div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="profiler__gpu_8hpp.html#aab4777b849f61400610e2428a151d672">  142</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_GPU_SCOPE_WITH_DESC(cmd_list, system, name, desc) \</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">    WG_PROFILE_GPU_MARK(__wg_auto_mark_gpu, system, name);           \</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">  142</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC(name, cmd_list, system, desc) \</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="preprocessor">    WG_PROFILE_GPU_MARK(__wg_auto_mark_gpu, system, name);                  \</span></div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">    ProfilerGpuScope __wg_auto_scope_gpu(__wg_auto_mark_gpu, desc, cmd_list)</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="engine_8hpp.html#a665ba425193f4cbd3a10303c43a7aca2">  146</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_GPU_SCOPE(cmd_list, name) \</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">    WG_PROFILE_GPU_SCOPE_WITH_DESC(cmd_list, gpudevice, name, &quot;&quot;</span>)</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="profiler__gpu_8hpp.html#aa1bb1295b3dca179c9af57a98cffed86">  146</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_GPU_SCOPE(name, cmd_list) \</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="preprocessor">    WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC(name, cmd_list, gpudevice, &quot;&quot;</span>)</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="engine_8hpp.html#a6fca38db4671d787b5491e1612f9a39e">  149</a></span>&#160;<span class="preprocessor">#define WG_PROFILE_GPU_SCOPE_WITH_DESC(name, cmd_list, desc) \</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">    WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC(name, cmd_list, gpudevice, desc)</span></div>
 <div class="ttc" id="aclasswmoge_1_1GfxCmdList_html"><div class="ttname"><a href="classwmoge_1_1GfxCmdList.html">wmoge::GfxCmdList</a></div><div class="ttdoc">List to record gfx commands for execution on device.</div><div class="ttdef"><b>Definition:</b> gfx_cmd_list.hpp:54</div></div>
 <div class="ttc" id="aclasswmoge_1_1GfxDriver_html"><div class="ttname"><a href="classwmoge_1_1GfxDriver.html">wmoge::GfxDriver</a></div><div class="ttdoc">Gfx driver interface.</div><div class="ttdef"><b>Definition:</b> gfx_driver.hpp:62</div></div>
 <div class="ttc" id="aclasswmoge_1_1ProfilerGpu_html"><div class="ttname"><a href="classwmoge_1_1ProfilerGpu.html">wmoge::ProfilerGpu</a></div><div class="ttdoc">Collects gpu profiling time events from gfx command lists.</div><div class="ttdef"><b>Definition:</b> profiler_gpu.hpp:69</div></div>

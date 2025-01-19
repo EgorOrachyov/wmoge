@@ -1,6 +1,5 @@
 <map id="wmoge::GfxRenderPassBeginInfo" name="wmoge::GfxRenderPassBeginInfo">
-<area shape="rect" id="node1" title="Info to start render pass." alt="" coords="94,109,310,136"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,13,103,39"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="127,5,277,47"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="301,13,503,39"/>
+<area shape="rect" id="node1" title="Info to start render pass." alt="" coords="33,95,249,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="127,5,330,32"/>
 </map>

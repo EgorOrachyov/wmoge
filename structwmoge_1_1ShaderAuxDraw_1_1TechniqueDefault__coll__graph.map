@@ -1,0 +1,7 @@
+<map id="wmoge::ShaderAuxDraw::TechniqueDefault" name="wmoge::ShaderAuxDraw::TechniqueDefault">
+<area shape="rect" id="node1" title=" " alt="" coords="507,75,669,117"/>
+<area shape="rect" id="node2" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassSolid.html" title=" " alt="" coords="212,43,407,85"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="5,79,103,105"/>
+<area shape="rect" id="node4" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassWire.html" title=" " alt="" coords="214,109,405,150"/>
+<area shape="rect" id="node5" href="$structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1Options.html" title=" " alt="" coords="219,174,399,215"/>
+</map>

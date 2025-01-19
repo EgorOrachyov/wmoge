@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['field_9358',['FIELD',['../interop_8hpp.html#a7c2f9bcd0781fa8d8f64586127519b38',1,'interop.hpp']]],
-  ['field_5farray_9359',['FIELD_ARRAY',['../interop_8hpp.html#ac530f3a64ab7fdb5c73591f89a359202',1,'interop.hpp']]]
+  ['offset_5fof_9357',['OFFSET_OF',['../traits_8hpp.html#ac264a67ed110a7ca0dd5be4a5e893c1c',1,'traits.hpp']]]
 ];

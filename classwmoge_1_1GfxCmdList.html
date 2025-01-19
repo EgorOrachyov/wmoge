@@ -151,6 +151,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a97412d5945eb496d2c7ec7c104d2a5fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10d9b9e7766b5e0a018075fafa26ce0c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCmdList.html#a10d9b9e7766b5e0a018075fafa26ce0c">begin_render_pass</a> (const <a class="el" href="structwmoge_1_1GfxRenderPassBeginInfo.html">GfxRenderPassBeginInfo</a> &amp;pass_desc)=0</td></tr>
 <tr class="separator:a10d9b9e7766b5e0a018075fafa26ce0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c9652ba4b3eb8aeab58c6463f670840"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCmdList.html#a1c9652ba4b3eb8aeab58c6463f670840">begin_render_pass</a> (const <a class="el" href="structwmoge_1_1GfxRenderPassWindowBeginInfo.html">GfxRenderPassWindowBeginInfo</a> &amp;pass_desc)=0</td></tr>
+<tr class="separator:a1c9652ba4b3eb8aeab58c6463f670840"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af45ceb5c10fe23f853df13223528ab5d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCmdList.html#af45ceb5c10fe23f853df13223528ab5d">peek_render_pass</a> (<a class="el" href="namespacewmoge.html#a891a46770e09126c9797712d98b580e0">GfxRenderPassRef</a> &amp;rp)=0</td></tr>
 <tr class="separator:af45ceb5c10fe23f853df13223528ab5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e77d202c8fb12b74396fe0b298cd471"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1GfxCmdList.html#a3e77d202c8fb12b74396fe0b298cd471">viewport</a> (const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> &amp;viewport)=0</td></tr>
@@ -497,7 +499,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <a id="a10d9b9e7766b5e0a018075fafa26ce0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10d9b9e7766b5e0a018075fafa26ce0c">&#9670;&nbsp;</a></span>begin_render_pass()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a10d9b9e7766b5e0a018075fafa26ce0c">&#9670;&nbsp;</a></span>begin_render_pass() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,6 +523,34 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implemented in <a class="el" href="classwmoge_1_1VKCmdList.html#a7ae298cc7aa23f3dafe946be9f106d7f">wmoge::VKCmdList</a>.</p>
+
+</div>
+</div>
+<a id="a1c9652ba4b3eb8aeab58c6463f670840"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c9652ba4b3eb8aeab58c6463f670840">&#9670;&nbsp;</a></span>begin_render_pass() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void wmoge::GfxCmdList::begin_render_pass </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structwmoge_1_1GfxRenderPassWindowBeginInfo.html">GfxRenderPassWindowBeginInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>pass_desc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classwmoge_1_1VKCmdList.html#ad874a743cdc53e65114336117fbd081f">wmoge::VKCmdList</a>.</p>
 
 </div>
 </div>

@@ -1,6 +1,4 @@
 <map id="wmoge::RttiMetaProperty" name="wmoge::RttiMetaProperty">
-<area shape="rect" id="node1" title="Holds meta attribute with value." alt="" coords="5,260,172,287"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="43,171,134,197"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="35,81,143,108"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="33,5,144,32"/>
+<area shape="rect" id="node1" title="Holds meta attribute with value." alt="" coords="5,95,172,121"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="43,5,134,32"/>
 </map>

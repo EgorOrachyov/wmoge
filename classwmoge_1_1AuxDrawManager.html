@@ -102,8 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6ff7def07f12f0db7be1cbda3064ae46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d4680a38bfadc9bc4e9dca9356a7416"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html#a4d4680a38bfadc9bc4e9dca9356a7416">draw_text_2d</a> (std::string text, const <a class="el" href="namespacewmoge.html#a5fdd89d8c7e29caea1bc65ed9cce362e">Vec2f</a> &amp;pos, float size, const <a class="el" href="namespacewmoge.html#a9b40ad659b284af204946d16f8b41010">Color4f</a> &amp;color, std::optional&lt; float &gt; lifetime=std::nullopt)</td></tr>
 <tr class="separator:a4d4680a38bfadc9bc4e9dca9356a7416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ebf8c5f56ab4291476acb71f6ccdad9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html#a6ebf8c5f56ab4291476acb71f6ccdad9">render</a> (<a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> &amp;graph, <a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *target, const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> &amp;viewport, float gamma, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;proj_view, <a class="el" href="classwmoge_1_1ShaderTable.html">ShaderTable</a> *shader_table, <a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *texture_manager)</td></tr>
-<tr class="separator:a6ebf8c5f56ab4291476acb71f6ccdad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e165398a442ec0dae599bc01f4ccdd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html#a1e165398a442ec0dae599bc01f4ccdd6">render</a> (<a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> &amp;graph, <a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *color, <a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *depth, const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> &amp;viewport, float gamma, const <a class="el" href="namespacewmoge.html#a2a223595ce9cdc8e1c7e26923c558f0f">Mat4x4f</a> &amp;proj_view, class <a class="el" href="classwmoge_1_1ShaderTable.html">ShaderTable</a> *shader_table, class <a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *texture_manager)</td></tr>
+<tr class="separator:a1e165398a442ec0dae599bc01f4ccdd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5b5d65af282ddfe148ca541adcb78bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html#ae5b5d65af282ddfe148ca541adcb78bf">flush</a> (float delta_time)</td></tr>
 <tr class="separator:ae5b5d65af282ddfe148ca541adcb78bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3208af57bb6f71e046ce4d146b134848"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1AuxDrawManager.html#a3208af57bb6f71e046ce4d146b134848">set_font</a> (<a class="el" href="classwmoge_1_1Ref.html">Ref</a>&lt; <a class="el" href="classwmoge_1_1Font.html">Font</a> &gt; font)</td></tr>
@@ -650,8 +650,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6ebf8c5f56ab4291476acb71f6ccdad9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ebf8c5f56ab4291476acb71f6ccdad9">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a1e165398a442ec0dae599bc01f4ccdd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e165398a442ec0dae599bc01f4ccdd6">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -666,7 +666,13 @@ Public Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1RdgTexture.html">RdgTexture</a> *&#160;</td>
+          <td class="paramname"><em>depth</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -689,13 +695,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1ShaderTable.html">ShaderTable</a> *&#160;</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1ShaderTable.html">ShaderTable</a> *&#160;</td>
           <td class="paramname"><em>shader_table</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *&#160;</td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1TextureManager.html">TextureManager</a> *&#160;</td>
           <td class="paramname"><em>texture_manager</em>&#160;</td>
         </tr>
         <tr>

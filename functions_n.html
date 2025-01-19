@@ -75,8 +75,6 @@ $(function() {
 </li>
 <li>name
 : <a class="el" href="structwmoge_1_1ApplicationConfig.html#a820221049b5be203ff522771de29196a">wmoge::ApplicationConfig</a>
-, <a class="el" href="classwmoge_1_1Class.html#a200ca81566ef83bc5376b6023262252f">wmoge::Class</a>
-, <a class="el" href="classwmoge_1_1ClassMember.html#a1c8abdfd5f0e55ecbc2f81e94f96d9ca">wmoge::ClassMember</a>
 , <a class="el" href="structwmoge_1_1DllLibrary.html#a27f8153510beae6c9e47a9ddc0d64bf9">wmoge::DllLibrary</a>
 , <a class="el" href="structwmoge_1_1EcsAccess.html#a41c28883950975993c2f22832964e713">wmoge::EcsAccess</a>
 </li>
@@ -94,7 +92,9 @@ $(function() {
 , <a class="el" href="structwmoge_1_1FileShaderProgram.html#a56fe452b030167445e57c803f051ca4b">wmoge::FileShaderProgram</a>
 , <a class="el" href="structwmoge_1_1GfxDescBinging.html#a8a7cb1e24b1cad927161af854137bb31">wmoge::GfxDescBinging</a>
 , <a class="el" href="structwmoge_1_1GfxRenderPassBeginInfo.html#a985eb9284ad8f4bb7f157c5f5ddb086a">wmoge::GfxRenderPassBeginInfo</a>
+, <a class="el" href="structwmoge_1_1GfxRenderPassWindowBeginInfo.html#a12d17c542b2bc441cbaad9680ecdb617">wmoge::GfxRenderPassWindowBeginInfo</a>
 , <a class="el" href="classwmoge_1_1GfxResource.html#a7c0059d535a2cfdecc60afecb7ab8a1d">wmoge::GfxResource</a>
+, <a class="el" href="classwmoge_1_1GpuBuffer.html#af635b756c091096d3212f87269b35ded">wmoge::GpuBuffer&lt; T, Policy &gt;</a>
 , <a class="el" href="structwmoge_1_1IniSection.html#a3fbc1eef55e2293b80e0e5b26108dceb">wmoge::IniSection</a>
 , <a class="el" href="classwmoge_1_1InputDevice.html#a7d3f6a005d977e468bdc546e65b16352">wmoge::InputDevice</a>
 , <a class="el" href="structwmoge_1_1MeshBatch.html#a0322614e33b95382cec1562630341a02">wmoge::MeshBatch</a>
@@ -139,7 +139,15 @@ $(function() {
 , <a class="el" href="structwmoge_1_1RttiTypeOf_3_01UUID_01_4.html#a2022dd8969c3c7168e485b5e99e4980d">wmoge::RttiTypeOf&lt; UUID &gt;</a>
 , <a class="el" href="structwmoge_1_1SceneCreateInfo.html#add8610b37649095601e2f330b11d575a">wmoge::SceneCreateInfo</a>
 , <a class="el" href="structwmoge_1_1SceneData.html#a07d26dc9ff8de9f03e75d79bd5ddad29">wmoge::SceneData</a>
+, <a class="el" href="structwmoge_1_1ShaderAuxDraw_1_1ParamBlockDefault.html#a0168ed25ac56ebdc25b1c68daa64f07e">wmoge::ShaderAuxDraw::ParamBlockDefault</a>
+, <a class="el" href="structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault.html#a47d6f0aabcf386caf32315df997814d3">wmoge::ShaderAuxDraw::TechniqueDefault</a>
+, <a class="el" href="structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassSolid.html#a534139f138bf630ee5bdd1b386a9ee27">wmoge::ShaderAuxDraw::TechniqueDefault::PassSolid</a>
+, <a class="el" href="structwmoge_1_1ShaderAuxDraw_1_1TechniqueDefault_1_1PassWire.html#a773c7d810ba5b1b44f75175615f28fb7">wmoge::ShaderAuxDraw::TechniqueDefault::PassWire</a>
 , <a class="el" href="structwmoge_1_1ShaderBinding.html#a9378f65c05eac1d2123e26c450710f8f">wmoge::ShaderBinding</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas_1_1ParamBlockDefault.html#a0853551f904e76dea5ecc050a6673bc7">wmoge::ShaderCanvas::ParamBlockDefault</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas_1_1ParamBlockImagesBatch.html#af3ae521d1bfb1a69a68006ab959ee85b">wmoge::ShaderCanvas::ParamBlockImagesBatch</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas_1_1TechniqueDefault.html#a950cb471b3b6951b20de1a7200ab96bb">wmoge::ShaderCanvas::TechniqueDefault</a>
+, <a class="el" href="structwmoge_1_1ShaderCanvas_1_1TechniqueDefault_1_1PassDefault.html#a02d32930536cd92ba97ec0ac8f0ed91d">wmoge::ShaderCanvas::TechniqueDefault::PassDefault</a>
 , <a class="el" href="structwmoge_1_1ShaderCompilerInput.html#a762b0929692773c6f7547126625637f9">wmoge::ShaderCompilerInput</a>
 , <a class="el" href="structwmoge_1_1ShaderCompilerInputFile.html#a4b40a36c5d8677605f4b4e5e2545f73d">wmoge::ShaderCompilerInputFile</a>
 , <a class="el" href="structwmoge_1_1ShaderConstant.html#a50aff6318d1775bafe9bc8ac1d440a0d">wmoge::ShaderConstant</a>
@@ -169,12 +177,6 @@ $(function() {
 , <a class="el" href="classwmoge_1_1GfxAsyncPsoRequestGraphics.html#a3133a3d63a7080dc106037e00eb8b04b">wmoge::GfxAsyncPsoRequestGraphics</a>
 , <a class="el" href="classwmoge_1_1GfxAsyncShaderRequest.html#abb4e497c245b3d62955c1a84bc6d85a5">wmoge::GfxAsyncShaderRequest</a>
 </li>
-<li>native_offset()
-: <a class="el" href="classwmoge_1_1ClassField.html#a29f1299d6325abc8e7fac94350beb2ed">wmoge::ClassField</a>
-</li>
-<li>native_size()
-: <a class="el" href="classwmoge_1_1ClassField.html#a23b63a49bccbab78ec1e31a6f4ed3483">wmoge::ClassField</a>
-</li>
 <li>needs_allocation()
 : <a class="el" href="classwmoge_1_1RdgResource.html#ad7b6a8026b7fd1a082d9b333d628d883">wmoge::RdgResource</a>
 </li>
@@ -185,7 +187,7 @@ $(function() {
 : <a class="el" href="structwmoge_1_1LodValue.html#a9df3f5d280ffc416b28032e6ad3ec079">wmoge::LodValue</a>
 </li>
 <li>next_uint64()
-: <a class="el" href="classwmoge_1_1Random.html#a7ff6fe9e1129ff83f80d7328ec04b16f">wmoge::Random</a>
+: <a class="el" href="classwmoge_1_1Random.html#a62170dbc260c4190ed083ff0ea6ab91e">wmoge::Random</a>
 </li>
 <li>node_append_child()
 : <a class="el" href="classwmoge_1_1IoTree.html#a68223bc7ac5f807f2ba310f6a983f872">wmoge::IoTree</a>
@@ -235,15 +237,15 @@ $(function() {
 , <a class="el" href="classwmoge_1_1IoYamlTree.html#a4c3379a25ccc2c24685305aa04c558df">wmoge::IoYamlTree</a>
 </li>
 <li>node_read_value()
-: <a class="el" href="classwmoge_1_1IoTree.html#ae082dbd759af2081408ca7397ded4254">wmoge::IoTree</a>
-, <a class="el" href="classwmoge_1_1IoYamlTree.html#ad10cca19e15d5d0af8ec6699b11de2ee">wmoge::IoYamlTree</a>
+: <a class="el" href="classwmoge_1_1IoTree.html#af6351776a31fb33b9ae52ae409a0f9b6">wmoge::IoTree</a>
+, <a class="el" href="classwmoge_1_1IoYamlTree.html#ab5cac359d850984114d83fc7b211c067">wmoge::IoYamlTree</a>
 </li>
 <li>node_write_key()
 : <a class="el" href="classwmoge_1_1IoTree.html#ad1a95317a7bc928b0ddbae0bdad8053f">wmoge::IoTree</a>
 , <a class="el" href="classwmoge_1_1IoYamlTree.html#a8e9d6ce1cf85703550e51b61a1b86295">wmoge::IoYamlTree</a>
 </li>
 <li>node_write_value()
-: <a class="el" href="classwmoge_1_1IoTree.html#a5dce151793d139cd2dcaa0aa1c5f3ed2">wmoge::IoTree</a>
+: <a class="el" href="classwmoge_1_1IoTree.html#ae8b2f9d1ad2c0eb8fe1a466219cfb84d">wmoge::IoTree</a>
 , <a class="el" href="classwmoge_1_1IoYamlTree.html#a12b1fa89c23ceadbe6fdda178c583d91">wmoge::IoYamlTree</a>
 </li>
 <li>NodePtr

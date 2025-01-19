@@ -67,35 +67,33 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classwmoge_1_1RdgPassContext-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">wmoge::RdgPassContext Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>Rdg graph execution context passed into pass custom user code.  
+ <a href="classwmoge_1_1RdgPassContext.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="rdg__pass_8hpp_source.html">rdg_pass.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for wmoge::RdgPassContext:</div>
-<div class="dyncontent">
-<div class="center"><img src="classwmoge_1_1RdgPassContext__coll__graph.png" border="0" usemap="#awmoge_1_1RdgPassContext_coll__map" alt="Collaboration graph"/></div>
-<map name="awmoge_1_1RdgPassContext_coll__map" id="awmoge_1_1RdgPassContext_coll__map">
-<area shape="rect" title=" " alt="" coords="293,95,459,121"/>
-<area shape="rect" href="classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,187,32"/>
-<area shape="rect" href="classwmoge_1_1ShaderManager.html" title="Global shaders manager." alt="" coords="211,5,373,32"/>
-<area shape="rect" href="classwmoge_1_1RdgGraph.html" title="Complete graph of passes for execution on gpu." alt="" coords="397,5,525,32"/>
-<area shape="rect" href="classwmoge_1_1GfxDriver.html" title="Gfx driver interface." alt="" coords="550,5,674,32"/>
-</map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6a2e435faa1eeefc009bd0fc708940c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a6a2e435faa1eeefc009bd0fc708940c6">RdgPassContext</a> ()=default</td></tr>
-<tr class="separator:a6a2e435faa1eeefc009bd0fc708940c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eb09a441b786d7c49d6616379231088"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a7eb09a441b786d7c49d6616379231088">RdgPassContext</a> (<a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> cmd_list, class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *driver, class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *shader_manager, class <a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> *graph)</td></tr>
+<tr class="separator:a7eb09a441b786d7c49d6616379231088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7caf963b9a1967d28572c412601e2a17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a7caf963b9a1967d28572c412601e2a17">update_vert_buffer</a> (<a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> *buffer, int offset, int range, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt; data)</td></tr>
+<tr class="separator:a7caf963b9a1967d28572c412601e2a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5d1201a3222a5a47d7e9c8831be8ddd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#ac5d1201a3222a5a47d7e9c8831be8ddd">update_index_buffer</a> (<a class="el" href="classwmoge_1_1GfxIndexBuffer.html">GfxIndexBuffer</a> *buffer, int offset, int range, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt; data)</td></tr>
+<tr class="separator:ac5d1201a3222a5a47d7e9c8831be8ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59cc68318699f5c34dcc4a92a37fbead"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a59cc68318699f5c34dcc4a92a37fbead">update_uniform_buffer</a> (<a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> *buffer, int offset, int range, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt; data)</td></tr>
+<tr class="separator:a59cc68318699f5c34dcc4a92a37fbead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a782c74eb28a06e4b881de9dc2d305999"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a782c74eb28a06e4b881de9dc2d305999">update_storage_buffer</a> (<a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> *buffer, int offset, int range, <a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt; data)</td></tr>
+<tr class="separator:a782c74eb28a06e4b881de9dc2d305999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1237779f549e4bc3a1fff348683949d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#ae1237779f549e4bc3a1fff348683949d">validate_param_block</a> (<a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a> *param_block)</td></tr>
 <tr class="separator:ae1237779f549e4bc3a1fff348683949d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81994e52ef0c36600e52d3c0cfd2efb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a81994e52ef0c36600e52d3c0cfd2efb6">bind_param_block</a> (<a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a> *param_block, int index)</td></tr>
-<tr class="separator:a81994e52ef0c36600e52d3c0cfd2efb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983b071a3090ef272363646d4d2e3075"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a983b071a3090ef272363646d4d2e3075">bind_param_block</a> (<a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a> *param_block)</td></tr>
+<tr class="separator:a983b071a3090ef272363646d4d2e3075"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8aa71bdb57059ea731e7edb325ee73f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a8aa71bdb57059ea731e7edb325ee73f8">bind_pso_graphics</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation, const <a class="el" href="classwmoge_1_1GfxVertElements.html">GfxVertElements</a> &amp;vert_elements)</td></tr>
 <tr class="separator:a8aa71bdb57059ea731e7edb325ee73f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b214ae104abc99beff4c9c9123a802d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a5b214ae104abc99beff4c9c9123a802d">bind_pso_compute</a> (<a class="el" href="classwmoge_1_1Shader.html">Shader</a> *shader, const <a class="el" href="structwmoge_1_1ShaderPermutation.html">ShaderPermutation</a> &amp;permutation)</td></tr>
@@ -112,40 +110,54 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af32cedea21a64505e4510b61a4c92759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd6c00ba1c115653692e06874bc127c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmoge_1_1Status.html">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#afd6c00ba1c115653692e06874bc127c4">dispatch</a> (<a class="el" href="namespacewmoge.html#a0a1126b11fc13a8fd50a1456c5cf8c54">Vec3i</a> group_count)</td></tr>
 <tr class="separator:afd6c00ba1c115653692e06874bc127c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ae5a0a25c8cf5a3ffb312b410cb949781"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#ae5a0a25c8cf5a3ffb312b410cb949781">cmd_list</a></td></tr>
-<tr class="separator:ae5a0a25c8cf5a3ffb312b410cb949781"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51387bb7d466e3146ec3d60c6049865f"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a51387bb7d466e3146ec3d60c6049865f">driver</a> = nullptr</td></tr>
-<tr class="separator:a51387bb7d466e3146ec3d60c6049865f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae57b195d1344bb69d7a1a2536a595984"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#ae57b195d1344bb69d7a1a2536a595984">shader_manager</a> = nullptr</td></tr>
-<tr class="separator:ae57b195d1344bb69d7a1a2536a595984"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef2bff6099f969d7fe19f4054ea532da"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#aef2bff6099f969d7fe19f4054ea532da">graph</a> = nullptr</td></tr>
-<tr class="separator:aef2bff6099f969d7fe19f4054ea532da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a355afb0a84cddb670e626435245af8f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a355afb0a84cddb670e626435245af8f2">get_cmd_list</a> () const</td></tr>
+<tr class="separator:a355afb0a84cddb670e626435245af8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16e10d1318473a8832588a88869f8d65"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a16e10d1318473a8832588a88869f8d65">get_driver</a> () const</td></tr>
+<tr class="separator:a16e10d1318473a8832588a88869f8d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e8c3b4dbf72fe9272f170011717b23e"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a1e8c3b4dbf72fe9272f170011717b23e">get_shader_manager</a> () const</td></tr>
+<tr class="separator:a1e8c3b4dbf72fe9272f170011717b23e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ddb22ab7d452da7d0f5d779c8a6cd97"><td class="memItemLeft" align="right" valign="top">class <a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmoge_1_1RdgPassContext.html#a2ddb22ab7d452da7d0f5d779c8a6cd97">get_graph</a> () const</td></tr>
+<tr class="separator:a2ddb22ab7d452da7d0f5d779c8a6cd97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6a2e435faa1eeefc009bd0fc708940c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a2e435faa1eeefc009bd0fc708940c6">&#9670;&nbsp;</a></span>RdgPassContext()</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Rdg graph execution context passed into pass custom user code. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7eb09a441b786d7c49d6616379231088"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb09a441b786d7c49d6616379231088">&#9670;&nbsp;</a></span>RdgPassContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">wmoge::RdgPassContext::RdgPassContext </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a>&#160;</td>
+          <td class="paramname"><em>cmd_list</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a> *&#160;</td>
+          <td class="paramname"><em>driver</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a> *&#160;</td>
+          <td class="paramname"><em>shader_manager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">class <a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a> *&#160;</td>
+          <td class="paramname"><em>graph</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
@@ -185,8 +197,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a81994e52ef0c36600e52d3c0cfd2efb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81994e52ef0c36600e52d3c0cfd2efb6">&#9670;&nbsp;</a></span>bind_param_block()</h2>
+<a id="a983b071a3090ef272363646d4d2e3075"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a983b071a3090ef272363646d4d2e3075">&#9670;&nbsp;</a></span>bind_param_block()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,18 +207,8 @@ Public Attributes</h2></td></tr>
           <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgPassContext::bind_param_block </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classwmoge_1_1ShaderParamBlock.html">ShaderParamBlock</a> *&#160;</td>
-          <td class="paramname"><em>param_block</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>param_block</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>index</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -395,6 +397,266 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a355afb0a84cddb670e626435245af8f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a355afb0a84cddb670e626435245af8f2">&#9670;&nbsp;</a></span>get_cmd_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a>&amp; wmoge::RdgPassContext::get_cmd_list </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16e10d1318473a8832588a88869f8d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16e10d1318473a8832588a88869f8d65">&#9670;&nbsp;</a></span>get_driver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>* wmoge::RdgPassContext::get_driver </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ddb22ab7d452da7d0f5d779c8a6cd97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ddb22ab7d452da7d0f5d779c8a6cd97">&#9670;&nbsp;</a></span>get_graph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a>* wmoge::RdgPassContext::get_graph </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1e8c3b4dbf72fe9272f170011717b23e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e8c3b4dbf72fe9272f170011717b23e">&#9670;&nbsp;</a></span>get_shader_manager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a>* wmoge::RdgPassContext::get_shader_manager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac5d1201a3222a5a47d7e9c8831be8ddd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5d1201a3222a5a47d7e9c8831be8ddd">&#9670;&nbsp;</a></span>update_index_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgPassContext::update_index_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1GfxIndexBuffer.html">GfxIndexBuffer</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a782c74eb28a06e4b881de9dc2d305999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a782c74eb28a06e4b881de9dc2d305999">&#9670;&nbsp;</a></span>update_storage_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgPassContext::update_storage_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1GfxStorageBuffer.html">GfxStorageBuffer</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59cc68318699f5c34dcc4a92a37fbead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59cc68318699f5c34dcc4a92a37fbead">&#9670;&nbsp;</a></span>update_uniform_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgPassContext::update_uniform_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1GfxUniformBuffer.html">GfxUniformBuffer</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7caf963b9a1967d28572c412601e2a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7caf963b9a1967d28572c412601e2a17">&#9670;&nbsp;</a></span>update_vert_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmoge_1_1Status.html">Status</a> wmoge::RdgPassContext::update_vert_buffer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1GfxVertBuffer.html">GfxVertBuffer</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>offset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>range</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classwmoge_1_1array__view.html">array_view</a>&lt; const std::uint8_t &gt;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ae1237779f549e4bc3a1fff348683949d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae1237779f549e4bc3a1fff348683949d">&#9670;&nbsp;</a></span>validate_param_block()</h2>
 
@@ -425,63 +687,6 @@ Public Attributes</h2></td></tr>
           <td class="paramtype">const <a class="el" href="namespacewmoge.html#aa1c5d11e891c9caf1e3b9fdb1f8d4fc6">Rect2i</a> &amp;&#160;</td>
           <td class="paramname"><em>viewport</em></td><td>)</td>
           <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae5a0a25c8cf5a3ffb312b410cb949781"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5a0a25c8cf5a3ffb312b410cb949781">&#9670;&nbsp;</a></span>cmd_list</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmoge.html#a17d1699dc1f5eddf6b35009dcba94ba0">GfxCmdListRef</a> wmoge::RdgPassContext::cmd_list</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a51387bb7d466e3146ec3d60c6049865f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51387bb7d466e3146ec3d60c6049865f">&#9670;&nbsp;</a></span>driver</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">class <a class="el" href="classwmoge_1_1GfxDriver.html">GfxDriver</a>* wmoge::RdgPassContext::driver = nullptr</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aef2bff6099f969d7fe19f4054ea532da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef2bff6099f969d7fe19f4054ea532da">&#9670;&nbsp;</a></span>graph</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">class <a class="el" href="classwmoge_1_1RdgGraph.html">RdgGraph</a>* wmoge::RdgPassContext::graph = nullptr</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae57b195d1344bb69d7a1a2536a595984"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae57b195d1344bb69d7a1a2536a595984">&#9670;&nbsp;</a></span>shader_manager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">class <a class="el" href="classwmoge_1_1ShaderManager.html">ShaderManager</a>* wmoge::RdgPassContext::shader_manager = nullptr</td>
         </tr>
       </table>
 </div><div class="memdoc">

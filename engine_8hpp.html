@@ -88,7 +88,6 @@ $(function() {
 <code>#include &quot;<a class="el" href="async_8hpp_source.html">core/async.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="buffered__vector_8hpp_source.html">core/buffered_vector.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="callback__stream_8hpp_source.html">core/callback_stream.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="core_2class_8hpp_source.html">core/class.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cmd__line_8hpp_source.html">core/cmd_line.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="crc32_8hpp_source.html">core/crc32.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="data_8hpp_source.html">core/data.hpp</a>&quot;</code><br />
@@ -98,7 +97,6 @@ $(function() {
 <code>#include &quot;<a class="el" href="ioc__container_8hpp_source.html">core/ioc_container.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="log_8hpp_source.html">core/log.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mask_8hpp_source.html">core/mask.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="core_2object_8hpp_source.html">core/object.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pool__vector_8hpp_source.html">core/pool_vector.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="random_8hpp_source.html">core/random.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ref_8hpp_source.html">core/ref.hpp</a>&quot;</code><br />
@@ -214,11 +212,11 @@ $(function() {
 <code>#include &quot;<a class="el" href="rdg__pool_8hpp_source.html">rdg/rdg_pool.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="rdg__resources_8hpp_source.html">rdg/rdg_resources.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="builtin_8hpp_source.html">rtti/builtin.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="rtti_2class_8hpp_source.html">rtti/class.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="class_8hpp_source.html">rtti/class.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="rtti_2enum_8hpp_source.html">rtti/enum.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="function_8hpp_source.html">rtti/function.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="meta__data_8hpp_source.html">rtti/meta_data.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="rtti_2object_8hpp_source.html">rtti/object.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="object_8hpp_source.html">rtti/object.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="struct_8hpp_source.html">rtti/struct.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="traits_8hpp_source.html">rtti/traits.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="type_8hpp_source.html">rtti/type.hpp</a>&quot;</code><br />
@@ -254,21 +252,27 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a665ba425193f4cbd3a10303c43a7aca2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#a665ba425193f4cbd3a10303c43a7aca2">WG_PROFILE_GPU_SCOPE</a>(cmd_list,  name)&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#aab4777b849f61400610e2428a151d672">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(cmd_list, gpudevice, name, &quot;&quot;)</td></tr>
-<tr class="separator:a665ba425193f4cbd3a10303c43a7aca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f68b14273122379d262d3e9b839593"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#ab4f68b14273122379d262d3e9b839593">WG_PROFILE_RDG_SCOPE</a>(graph,  name)&#160;&#160;&#160;    <a class="el" href="rdg__graph_8hpp.html#ac908d0c15aa93ac12b0efade7d1bba6c">WG_PROFILE_RDG_SCOPE_WITH_DESC</a>(graph, gpurdg, name, &quot;&quot;)</td></tr>
-<tr class="separator:ab4f68b14273122379d262d3e9b839593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fca38db4671d787b5491e1612f9a39e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#a6fca38db4671d787b5491e1612f9a39e">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(name,  cmd_list,  desc)&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</a>(name, cmd_list, gpudevice, desc)</td></tr>
+<tr class="separator:a6fca38db4671d787b5491e1612f9a39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3843d4056582f452c819b405ca9ea79d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="engine_8hpp.html#a3843d4056582f452c819b405ca9ea79d">WG_PROFILE_RDG_SCOPE</a>(name,  graph)&#160;&#160;&#160;    <a class="el" href="rdg__graph_8hpp.html#afb1a3730348afd122f94a59b034105cb">WG_PROFILE_RDG_SCOPE_WITH_DESC</a>(name, graph, gpurdg, &quot;&quot;)</td></tr>
+<tr class="separator:a3843d4056582f452c819b405ca9ea79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a665ba425193f4cbd3a10303c43a7aca2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a665ba425193f4cbd3a10303c43a7aca2">&#9670;&nbsp;</a></span>WG_PROFILE_GPU_SCOPE</h2>
+<a id="a6fca38db4671d787b5491e1612f9a39e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fca38db4671d787b5491e1612f9a39e">&#9670;&nbsp;</a></span>WG_PROFILE_GPU_SCOPE_WITH_DESC</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define WG_PROFILE_GPU_SCOPE</td>
+          <td class="memname">#define WG_PROFILE_GPU_SCOPE_WITH_DESC</td>
           <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">cmd_list, </td>
         </tr>
@@ -276,20 +280,20 @@ Macros</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name&#160;</td>
+          <td class="paramname">desc&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#aab4777b849f61400610e2428a151d672">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(cmd_list, gpudevice, name, &quot;&quot;)</td>
+          <td></td><td>&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</a>(name, cmd_list, gpudevice, desc)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="ab4f68b14273122379d262d3e9b839593"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4f68b14273122379d262d3e9b839593">&#9670;&nbsp;</a></span>WG_PROFILE_RDG_SCOPE</h2>
+<a id="a3843d4056582f452c819b405ca9ea79d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3843d4056582f452c819b405ca9ea79d">&#9670;&nbsp;</a></span>WG_PROFILE_RDG_SCOPE</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,18 +302,18 @@ Macros</h2></td></tr>
           <td class="memname">#define WG_PROFILE_RDG_SCOPE</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">graph, </td>
+          <td class="paramname">name, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">name&#160;</td>
+          <td class="paramname">graph&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;    <a class="el" href="rdg__graph_8hpp.html#ac908d0c15aa93ac12b0efade7d1bba6c">WG_PROFILE_RDG_SCOPE_WITH_DESC</a>(graph, gpurdg, name, &quot;&quot;)</td>
+          <td></td><td>&#160;&#160;&#160;    <a class="el" href="rdg__graph_8hpp.html#afb1a3730348afd122f94a59b034105cb">WG_PROFILE_RDG_SCOPE_WITH_DESC</a>(name, graph, gpurdg, &quot;&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">

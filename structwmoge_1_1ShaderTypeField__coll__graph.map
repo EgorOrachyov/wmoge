@@ -1,8 +1,6 @@
 <map id="wmoge::ShaderTypeField" name="wmoge::ShaderTypeField">
-<area shape="rect" id="node1" title="Recursive complex shader struct filed." alt="" coords="141,275,307,301"/>
-<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,171,155,212"/>
-<area shape="rect" id="node3" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="179,178,269,205"/>
-<area shape="rect" id="node4" href="$classwmoge_1_1Object.html" title="Base class for any scene tree object or asset with reflection support." alt="" coords="170,81,278,108"/>
-<area shape="rect" id="node5" href="$classwmoge_1_1RefCnt.html" title="Base class for any atomic reference counted class." alt="" coords="169,5,279,32"/>
-<area shape="rect" id="node6" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="294,178,391,205"/>
+<area shape="rect" id="node1" title="Recursive complex shader struct filed." alt="" coords="141,109,307,136"/>
+<area shape="rect" id="node2" href="$classwmoge_1_1Ref.html" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node3" href="$classwmoge_1_1Var.html" title="Universal resalable variant value with support for common engine types and containers." alt="" coords="179,13,269,39"/>
+<area shape="rect" id="node4" href="$classwmoge_1_1Strid.html" title="Interned globally&#45;stored string based ids for fast lookups." alt="" coords="294,13,391,39"/>
 </map>

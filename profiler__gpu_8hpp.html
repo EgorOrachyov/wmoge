@@ -195,8 +195,10 @@ Macros</h2></td></tr>
 <tr class="separator:ad5eec66689209f456be3e75471637607"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb686a0d50af7e73d0e15421045493ab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profiler__gpu_8hpp.html#adb686a0d50af7e73d0e15421045493ab">WG_PROFILE_GPU_MARK</a>(var,  system,  name)</td></tr>
 <tr class="separator:adb686a0d50af7e73d0e15421045493ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab4777b849f61400610e2428a151d672"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profiler__gpu_8hpp.html#aab4777b849f61400610e2428a151d672">WG_PROFILE_GPU_SCOPE_WITH_DESC</a>(cmd_list,  system,  name,  desc)</td></tr>
-<tr class="separator:aab4777b849f61400610e2428a151d672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0302c13942e5aab8517ef18bd1b505ca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</a>(name,  cmd_list,  system,  desc)</td></tr>
+<tr class="separator:a0302c13942e5aab8517ef18bd1b505ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1bb1295b3dca179c9af57a98cffed86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="profiler__gpu_8hpp.html#aa1bb1295b3dca179c9af57a98cffed86">WG_PROFILE_GPU_SCOPE</a>(name,  cmd_list)&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</a>(name, cmd_list, gpudevice, &quot;&quot;)</td></tr>
+<tr class="separator:aa1bb1295b3dca179c9af57a98cffed86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ab9a3830a8ecf952b568cb2b0e9492222"></a>
@@ -273,15 +275,49 @@ Macros</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="aab4777b849f61400610e2428a151d672"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab4777b849f61400610e2428a151d672">&#9670;&nbsp;</a></span>WG_PROFILE_GPU_SCOPE_WITH_DESC</h2>
+<a id="aa1bb1295b3dca179c9af57a98cffed86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1bb1295b3dca179c9af57a98cffed86">&#9670;&nbsp;</a></span>WG_PROFILE_GPU_SCOPE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define WG_PROFILE_GPU_SCOPE_WITH_DESC</td>
+          <td class="memname">#define WG_PROFILE_GPU_SCOPE</td>
           <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmd_list&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;    <a class="el" href="profiler__gpu_8hpp.html#a0302c13942e5aab8517ef18bd1b505ca">WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</a>(name, cmd_list, gpudevice, &quot;&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0302c13942e5aab8517ef18bd1b505ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0302c13942e5aab8517ef18bd1b505ca">&#9670;&nbsp;</a></span>WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WG_PROFILE_GPU_SCOPE_SYSTEM_WITH_DESC</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">cmd_list, </td>
         </tr>
@@ -290,12 +326,6 @@ Macros</h2></td></tr>
           <td></td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">system, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">name, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -310,7 +340,7 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="profiler__gpu_8hpp.html#adb686a0d50af7e73d0e15421045493ab">WG_PROFILE_GPU_MARK</a>(__wg_auto_mark_gpu, system, name);           \</div>
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="profiler__gpu_8hpp.html#adb686a0d50af7e73d0e15421045493ab">WG_PROFILE_GPU_MARK</a>(__wg_auto_mark_gpu, system, name);                  \</div>
 <div class="line">    ProfilerGpuScope __wg_auto_scope_gpu(__wg_auto_mark_gpu, desc, cmd_list)</div>
 <div class="ttc" id="aprofiler__gpu_8hpp_html_adb686a0d50af7e73d0e15421045493ab"><div class="ttname"><a href="profiler__gpu_8hpp.html#adb686a0d50af7e73d0e15421045493ab">WG_PROFILE_GPU_MARK</a></div><div class="ttdeci">#define WG_PROFILE_GPU_MARK(var, system, name)</div><div class="ttdef"><b>Definition:</b> profiler_gpu.hpp:137</div></div>
 </div><!-- fragment -->
